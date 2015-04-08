@@ -1,2 +1,5 @@
+oldsrc/
+oldsrc/*
+src/
 src/*
 vagrant/.vagrant/
