@@ -22,10 +22,16 @@ fi
 docker login --email="antonio.hernandez@panamedia.net" --username="panamedia" --password="2Fsz8EGmy6LhKCR5"
 
 ####
+## BUILDING DEVEL-DBMASTER CONTAINER
+####
+sudo docker run --name devel-dbmaster -e MYSQL_ROOT_PASSWORD=tpl9 -e MYSQL_DATABASE=euromillions -d percona
+
+####
 ## BUILDING DEVEL-WEB CONTAINER
 ####
 cd /docker/devel-web
 sudo docker build -t="panamedia/devel-web" .
 sudo docker stop devel-web
 sudo docker rm devel-web
-sudo docker run -v /src:/var/www/ -d -p 8080:80 --name devel-web panamedia/devel-web
+sudo docker run -v /src:/var/www/ -d -p 8080:80 --name devel-web --link devel-dbmaster:mysql panamedia/devel-web
+
