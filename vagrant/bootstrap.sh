@@ -8,6 +8,7 @@ sudo apt-add-repository -y ppa:ondrej/php5-5.6
 sudo apt-get clean
 sudo apt-get update -q
 sudo apt-get install -y php5-cli php5-xdebug
+sudo cp /vagrant/20-xdebug.ini /etc/php5/cli/conf.d
 
 ####
 ## CHECKING DOCKER INSTALLATION

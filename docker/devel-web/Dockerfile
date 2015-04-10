@@ -23,6 +23,7 @@ RUN git checkout 2.0.0
 RUN cd ext;\
     ./install
 RUN echo 'extension=phalcon.so' > /etc/php5/apache2/conf.d/30-phalcon.ini
+RUN echo 'short_open_tag=On' > /etc/php5/apache2/conf.d/40-shortag.ini
 
 #Habilitando mod_rewrite
 RUN a2enmod rewrite
@@ -36,6 +37,7 @@ ENV APACHE_LOG_DIR /var/log/apache2
 ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_RUN_DIR /var/run/apache2
 ENV APACHE_PID_FILE /var/run/apache2/apache2.pid
+ENV APPLICATION_ENV development
 
 RUN mkdir -p $APACHE_RUN_DIR $APACHE_LOCK_DIR $APACHE_LOG_DIR
 

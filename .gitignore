@@ -1,3 +1,5 @@
 src/
 src/*
 vagrant/.vagrant/
+.idea
+.idea/*
