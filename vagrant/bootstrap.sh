@@ -30,8 +30,8 @@ cd /docker/devel-dbmaster
 sudo docker build -t="panamedia/devel-dbmaster" .
 sudo docker stop devel-dbmaster
 sudo docker rm devel-dbmaster
-sudo docker run --name devel-dbmaster -e MYSQL_ROOT_PASSWORD=tpl9 -e MYSQL_DATABASE=euromillions -d panamedia/devel-dbmaster
-sudo docker exec -d devel-dbmaster /init_database.sh
+sudo docker run --name devel-dbmaster -p 3306:3306 -e MYSQL_ROOT_PASSWORD=tpl9 -e MYSQL_DATABASE=euromillions -d panamedia/devel-dbmaster
+sudo docker exec -d devel-dbmaster /dbinit/init_database.sh
 
 ####
 ## BUILDING DEVEL-WEB CONTAINER
