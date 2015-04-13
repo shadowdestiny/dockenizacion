@@ -12,3 +12,9 @@ Once you have them installed, on a terminal...
 2. Enter the your-folder: `cd your-folder`
 3. Execute command: `chmod 755 install-dev-environment.sh`
 4. Execute command: `./install-dev-environment.sh`
+
+
+## Restarting the virtual development environment
+After restarting the workstation, or when you want to refresh the environment after pulling changes from github:
+1. Execute command  `chmod 755 restart-dev-environment.sh`
+2. Execute command: `./restart-dev-environment.sh`
