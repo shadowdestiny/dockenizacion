@@ -13,6 +13,16 @@ if [ ! -f /etc/php5/cli/conf.d/20-xdebug.ini ]; then
 fi
 
 ####
+## INSTALLING COMPOSER
+####
+if [ ! -f /usr/local/bin/composer ]; then
+    curl -sS https://getcomposer.org/installer | php
+    sudo mv composer.phar /usr/local/bin/composer
+fi
+cd /src
+composer install
+
+####
 ## CHECKING DOCKER INSTALLATION
 ####
 dockerv=$(docker -v 2>&1)

@@ -3,3 +3,4 @@ src/*
 vagrant/.vagrant/
 .idea
 .idea/*
+vendor/*
