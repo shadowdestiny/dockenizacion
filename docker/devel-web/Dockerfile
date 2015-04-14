@@ -23,7 +23,9 @@ RUN git checkout 2.0.0
 RUN cd ext;\
     ./install
 RUN echo 'extension=phalcon.so' > /etc/php5/apache2/conf.d/30-phalcon.ini
+RUN echo 'extension=phalcon.so' > /etc/php5/cli/conf.d/30-phalcon.ini
 RUN echo 'short_open_tag=On' > /etc/php5/apache2/conf.d/40-shortag.ini
+
 
 #Habilitando mod_rewrite
 RUN a2enmod rewrite

@@ -8,7 +8,7 @@ if [ ! -f /etc/php5/cli/conf.d/20-xdebug.ini ]; then
     sudo apt-add-repository -y ppa:ondrej/php5-5.6
     sudo apt-get clean
     sudo apt-get update -q
-    sudo apt-get install -y php5-cli php5-xdebug
+    sudo apt-get install -y php5-cli php5-dev php5-xdebug
     sudo cp /vagrant/20-xdebug.ini /etc/php5/cli/conf.d
 fi
 
@@ -18,9 +18,26 @@ fi
 if [ ! -f /usr/local/bin/composer ]; then
     curl -sS https://getcomposer.org/installer | php
     sudo mv composer.phar /usr/local/bin/composer
+    cd /src
+    composer install
+else
+    cd /src
+    composer update
 fi
-cd /src
-composer install
+
+####
+## INSTALLING PHALCON
+####
+if [ ! -f /etc/php5/cli/conf.d/30-phalcon.ini ]; then
+    mkdir -p /tmp/phalcon
+    cd /tmp/phalcon
+    git clone http://github.com/phalcon/cphalcon
+    cd /tmp/phalcon/cphalcon
+    git checkout 2.0.0
+    cd ext
+    ./install
+    sudo cp /vagrant/30-phalcon.ini /etc/php5/cli/conf.d
+fi
 
 ####
 ## CHECKING DOCKER INSTALLATION
