@@ -13,6 +13,14 @@ if [ ! -f /etc/php5/cli/conf.d/20-xdebug.ini ]; then
 fi
 
 ####
+## INSTALLING MYSQL CLIENT
+## So the integration tests can run properly
+####
+if [ ! -f /usr/bin/mysql ]; then
+    sudo apt-get install -y mysql-client-5.6
+fi
+
+####
 ## INSTALLING COMPOSER
 ####
 if [ ! -f /usr/local/bin/composer ]; then
