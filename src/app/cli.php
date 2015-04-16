@@ -15,7 +15,8 @@ try {
 
     $bootstrap = new \app\config\bootstrap\Bootstrap(new CliBootstrapStrategy(
         $argv,
-        $config_path. 'cliconfig.ini'
+        $config_path,
+        'cliconfig.ini'
     ));
     $bootstrap->execute();
 } catch (\Phalcon\Exception $e) {

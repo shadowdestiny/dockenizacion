@@ -6,6 +6,7 @@ class DoctrineTask extends Task
 {
     public function getEntityManagerAction()
     {
-        return $this->getDI()->get('entityManager');
+        global $entityManager;
+        $entityManager = $this->getDI()->get('entityManager');
     }
 }
