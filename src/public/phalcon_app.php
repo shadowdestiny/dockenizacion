@@ -15,7 +15,7 @@ try {
     $loader->register();
 
     $bootstrap = new Bootstrap(new \app\config\bootstrap\WebBootstrapStrategy(
-        $app_path, , $app_path . 'assets/', $tests_path, $config_path . 'config.ini'
+        $app_path, $config_path, $app_path . 'assets/', $tests_path, 'config.ini'
     ));
     $bootstrap->execute();
 } catch (\Phalcon\Exception $e) {
