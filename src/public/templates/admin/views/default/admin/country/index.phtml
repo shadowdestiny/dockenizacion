@@ -1,0 +1,58 @@
+<div class="pagename" id="countries">
+<style>
+	.glyphicon-ok {color:#1BCE00;}
+	.glyphicon-remove {color:#ff0000;}
+</style>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="page-header">
+				<h1 id="overview"><?=$this->translate('country_management')?></h1>
+			</div>
+
+				<div id="articlelist">
+					<table class="table table-striped sorted_table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th><?=$this->translate('name')?></th>
+								<th><?=$this->translate('allow_registration')?></th>
+								<th><?=$this->translate('allow_payout')?></th>
+								<th><?=$this->translate('iban_mandatory')?></th>
+								<th><?=$this->translate('iban')?></th>
+							</tr>
+						</thead>
+						<? foreach($this->countries as $country) { ?>
+							<tr id="cid<?=$country['country_id']?>">
+								<td><?=$country['short_code']?></td>
+								<td><?=$country['name']?></td>
+								<td class="active_registration <?=($country['active_registration']) ? 'published' : '' ?>">
+									<a class="popup" href="#" data-href="<?=$this->url(Array('action' => 'edit','country_id' => $country['country_id'],'pk' => 'status','name' => 'active_registration'))?>" title="<?=$this->translate('publish_unpublish')?>">
+										<i class="glyphicon glyphicon-ok"></i>
+										<i class="glyphicon glyphicon-remove"></i>
+									</a>
+								</td>
+								<td class="active_payout <?=($country['active_payout']) ? 'published' : '' ?>">
+									<a class="popup" href="#" data-href="<?=$this->url(Array('action' => 'edit','country_id' => $country['country_id'],'pk' => 'status','name' => 'active_payout'))?>" title="<?=$this->translate('publish_unpublish')?>">
+										<i class="glyphicon glyphicon-ok"></i>
+										<i class="glyphicon glyphicon-remove"></i>
+									</a>
+								</td>
+								<td class="iban_mandatory <?=($country['iban_mandatory']) ? 'published' : '' ?>">
+									<a class="popup" href="#" data-href="<?=$this->url(Array('action' => 'edit','country_id' => $country['country_id'],'pk' => 'status','name' => 'iban_mandatory'))?>">
+										<i class="glyphicon glyphicon-ok"></i>
+										<i class="glyphicon glyphicon-remove"></i>
+									</a>
+								</td>
+								<td>
+									<a href="#" class="editable" data-name="iban_example" data-pk="remote" data-type="text"  data-url="<?= $this->url(Array('action' => 'edit', 'country_id' => $country['country_id'])) ?>">
+										<?=$country['iban_example']?>
+									</a>
+								</td>
+							</tr>
+						<? } ?>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

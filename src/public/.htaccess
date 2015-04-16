@@ -1,0 +1,17 @@
+
+RewriteEngine On
+
+Options -Indexes
+
+AddDefaultCharset UTF-8
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-s
+RewriteCond %{QUERY_STRING} !(^|&)zfb=
+RewriteRule ^(.*)$ phalcon_app.php?_url=/$1 [QSA,L]
+
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+RewriteRule ^.*$ index.php [NC,L]

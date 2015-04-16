@@ -1,0 +1,16 @@
+<?=$this->translate('mail_hello_username',Array( 0 => $this->first_name));?><br/>
+
+<?=$this->translate('mail_registration_text_1')?><br/><br/>
+
+<?=$this->translate('mail_registration_text_2')?><br/><br/>
+
+<a href="<?=$this->Email()->url()?><?=$this->url(Array("user_code"=>$this->user_code),"User_Activation") ?>"><?=$this->translate('mail_registration_activate_button')?></a>
+<br/><br/>
+<?=$this->translate('mail_registration_text_3')?>:<br/><br/>
+
+
+<?=$this->translate('mail_username')?>: <?=$this->username ?><br/>
+<?=$this->translate('mail_password')?>: <?=$this->password ?>
+<br/><br/>
+<?=$this->translate('mail_regards')?>,<br/>
+<?=$this->translate('mail_sender')?>

@@ -1,0 +1,23 @@
+<div class="pagename" id="billing">
+	<div class="container">
+		<div class="box">
+			<div class="inner">
+				<h4>DEMO. This is the Payment page.</h4>
+				<p>Payed successfull.</p>
+				<br /><br />
+				
+				<form id="step3" action="" method="post">
+					<input type="hidden" name="act" value="simulate_done">
+					<input type="hidden" name="cart_id" value="<?=$this->cart_id ?>">
+					<input type="hidden" name="biller" value="<?=$this->biller ?>">
+					<input type="hidden" name="amount" value="<?=$this->total_price ?>">
+					<input type="hidden" name="billing_type" value="<?=$this->billing_type ?>">
+					<button type="submit" class="btn eur-primary" value="Ok, goto next step">
+					OK, goto next step
+				
+				</form>
+				
+			</div>
+		</div>
+	</div>
+</div>

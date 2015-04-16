@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="./phpunit_bootstrap.php"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         verbose="true"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         syntaxCheck="true">
+    <testsuite name="unit">
+        <directory>./unit/</directory>
+    </testsuite>
+    <testsuite name="integration">
+        <directory>./integration/</directory>
+    </testsuite>
+    <listeners>
+        <listener class="tests\base\TestListener" file="./base/TestListener.php"></listener>
+    </listeners>
+</phpunit>

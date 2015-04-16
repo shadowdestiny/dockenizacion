@@ -1,0 +1,26 @@
+<div class="systemMessage">
+	<div class="icon">
+		<i class="glyphicon glyphicon-warning-sign color">&nbsp;</i>
+	</div>
+	<div class="modal-box">
+		<div class="msgText">
+			<?=$this->text?>
+			<br >
+			<br >
+		</div>
+	</div>
+	<div class="modal-controls">
+		<a class="popup pull-left btn btn-default" title="<?=$this->translate('abort_and_delete_tickets')?>" data-href="/de/billing/cart/oldtickets" data-type="delete">
+			<?=$this->translate('abort_and_delete_tickets')?>
+		</a>
+		<a class="popup pull-right btn btn-primary" title="<?=$this->translate('continue_and_change_date')?>" data-href="/de/billing/cart/oldtickets" data-type="update">
+			<?=$this->translate('continue_and_change_date')?>
+		</a>
+		<span class="clear"></span>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#Overlay .close').hide();
+});
+</script>

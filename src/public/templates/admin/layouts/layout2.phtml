@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="shortcut icon" href="<?=$this->baseUrl() ?>/favicon.png">
+	<link rel="shortcut icon" href="<?=$this->baseUrl() ?>/templates/default/images/favicon.ico" type="image/x-icon" />
+	<title>Euromillions Admin</title>
+	<!-- Bootstrap core CSS -->
+	<link href="<?=$this->baseUrl() ?>/templates/admin/assets/bootstrap/css/bootstrap.css" rel="stylesheet">
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	  <script src="<?=$this->baseUrl() ?>/templates/admin/assets/bootstrap/js/html5shiv.js"></script>
+	  <script src="<?=$this->baseUrl() ?>/templates/admin/assets/bootstrap/js/respond.min.js"></script>
+	<![endif]-->
+
+	<link href="<?=$this->baseUrl() ?>/templates/admin/css/style.css" rel="stylesheet">
+	<link href="<?=$this->baseUrl() ?>/templates/admin/css/flags.css" rel="stylesheet">
+
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="<?=$this->baseUrl() ?>/templates/admin/assets/bootstrap/js/jquery.js"></script>
+	<script src="<?=$this->baseUrl() ?>/templates/admin/assets/bootstrap/js/bootstrap.min.js"></script>
+
+	<link href="<?=$this->baseUrl() ?>/templates/admin/assets/datepicker/css/datepicker.css" rel="stylesheet" />
+	<script src="<?=$this->baseUrl() ?>/templates/admin/assets/datepicker/js/bootstrap-datepicker.js"></script>
+
+	<link href="<?=$this->baseUrl() ?>/templates/admin/assets/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
+	<script src="<?=$this->baseUrl() ?>/templates/admin/assets/daterangepicker/moment.min.js"></script>
+	<script src="<?=$this->baseUrl() ?>/templates/admin/assets/daterangepicker/daterangepicker.js"></script>
+
+	<script src="<?=$this->baseUrl() ?>/templates/admin/assets/bootstrap.file-input.js"></script>
+	<link href="<?=$this->baseUrl() ?>/templates/admin/assets/jquery-editable/css/jquery-editable.css" rel="stylesheet" />
+	<script src="<?=$this->baseUrl() ?>/templates/admin/assets/jquery-editable/js/jquery-editable-poshytip.js"></script>
+	<script src="<?=$this->baseUrl() ?>/templates/admin/js/common.js"></script>
+	</head>
+
+  <body>
+
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<? if (hasAccess("default_admin_index") && 1 == 2){ ?>
+					<a class="navbar-brand" href="<?=$this->url(Array('module' => 'default','controller' => 'admin', 'action' => 'index'),null,true )?>">EuroMillions</a>
+				<? } ?>
+
+			</div>
+			<form act="" id="logout" method="post" style="display:none;"><input type="hidden" name="act" value="logout"></form>
+			<ul class="nav navbar-nav pull-right hidden-xs">
+				<li><a href="/"><i class="glyphicon glyphicon-credit-card"></i></a></li>
+				<li><a href="#" onclick="$('#logout').submit();"><i class="glyphicon glyphicon-off"></i></a></li>
+			</ul>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<? if (hasAccess("default_admin_index")){ ?>
+					<li class="active"><a href="<?=$this->url(Array('module' => 'default','controller' => 'admin', 'action' => 'index'),null,true )?>"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
+					<? } ?>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?=$this->translate('contents')?> <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<? if (hasAccess("article_admin_index")){ ?>
+							<li class="dropdown-submenu">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?=$this->translate('article')?></a>
+								<ul class="dropdown-menu">
+									<? if (hasAccess("article_admin_index")){ ?>
+									<li><a href="<?=$this->url(Array('module' => 'article','controller' => 'admin', 'action' => 'index'),null,true )?>"><i class="glyphicon glyphicon-align-justify"></i> Manage / Edit</a></li>
+									<? } ?>
+									<? if (hasAccess("article_admin_add")){ ?>
+									<li><a href="<?=$this->url(Array('module' => 'article','controller' => 'admin', 'action' => 'add'),null,true)?>"><i class="glyphicon glyphicon-plus"></i> <?=$this->translate('add')?></a></li>
+									<? } ?>
+								</ul>
+							</li>
+							<? } ?>
+
+							<? if (hasAccess("news_admin_index")){ ?>
+							<li class="dropdown-submenu">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?=$this->translate('news')?> </a>
+								<ul class="dropdown-menu">
+									<? if (hasAccess("news_admin_index")){ ?>
+									<li><a href="<?=$this->url(Array('module' => 'news','controller' => 'admin', 'action' => 'index'),null,true )?>"><i class="glyphicon glyphicon-align-justify"></i> Manage / Edit</a></li>
+									<? } ?>
+									<? if (hasAccess("news_admin_add")){ ?>
+									<li><a href="<?=$this->url(Array('module' => 'news','controller' => 'admin', 'action' => 'add'),null,true)?>"><i class="glyphicon glyphicon-plus"></i> <?=$this->translate('add')?></a></li>
+									<? } ?>
+								</ul>
+							</li>
+							<? } ?>
+
+							<? if (hasAccess("faq_admin_index")){ ?>
+							<li class="dropdown-submenu">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?=$this->translate('faq')?> </a>
+								<ul class="dropdown-menu">
+									<? if (hasAccess("faq_admin_index")){ ?>
+									<li><a href="<?=$this->url(Array('module' => 'faq','controller' => 'admin', 'action' => 'index'),null,true )?>"><i class="glyphicon glyphicon-align-justify"></i> Manage / Edit</a></li>
+									<? } ?>
+									<? if (hasAccess("faq_admin_add")){ ?>
+									<li><a href="<?=$this->url(Array('module' => 'faq','controller' => 'admin', 'action' => 'add'),null,true)?>"><i class="glyphicon glyphicon-plus"></i> <?=$this->translate('add')?></a></li>
+									<? } ?>
+								</ul>
+							</li>
+							<? } ?>
+
+						</ul>
+					</li>
+
+					<? if (hasAccess("stats_admin_index")){ ?>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?=$this->translate('statistics')?> <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<? if (hasAccess("stats_admin_index")){ ?>
+							<li><a href="<?=$this->url(Array('module' => 'default','controller' => 'adminstats', 'action' => 'index'),null,true )?>"><i class="glyphicon glyphicon-align-justify"></i> Overview</a></li>
+							<? } ?>
+						</ul>
+					</li>
+					<? } ?>
+					<? if (hasAccess("translation_admin_index")){ ?>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?=$this->translate('translations')?> <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<? if (hasAccess("translation_admin_index")){ ?>
+							<li><a href="<?=$this->url(Array('module' => 'translation','controller' => 'admin', 'action' => 'index'),null,true)?>"><i class="glyphicon glyphicon-align-justify"></i> Manage / Edit</a></li>
+							<? } ?>
+							<? if (hasAccess("translation_admin_add")){ ?>
+							<li><a href="<?=$this->url(Array('module' => 'translation','controller' => 'admin', 'action' => 'add'),null,true)?>"><i class="glyphicon glyphicon-plus"></i> <?=$this->translate('add')?></a></li>
+							<? } ?>
+						</ul>
+					</li>
+					<? } ?>
+					<? if (hasAccess("lottery_admin_index") && 1 == 2){ ?>
+					<li><a href="<?=$this->url(Array('module' => 'lottery','controller' => 'admin', 'action' => 'index'),null,true)?>"><?=$this->translate('lottery')?></a></li>
+					<? } ?>
+					<? if (hasAccess("user_admin_index")){ ?>
+					<li><a href="<?=$this->url(Array('module' => 'user','controller' => 'admin', 'action' => 'index'),null,true )?>"><?=$this->translate('user')?></a></li>
+					<? } ?>
+					<? if (hasAccess("default_admin_help")){ ?>
+					<li><a href="<?=$this->url(Array('module' => 'default','controller' => 'admin', 'action' => 'help'),null,true )?>"  data-toggle="modal" data-target="#Modalbox"><?=$this->translate('help')?></a></li>
+					<? } ?>
+					<li class="visible-xs"><a href="#" onclick="$('#logout').submit();"><i class="glyphicon glyphicon-off"></i> <?=$this->translate('logout')?></a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div>
+
+	<div class="container">
+		<?=$this->layout()->content; ?>
+	</div>
+
+		<!-- Modal -->
+
+		<div class="modal fade" tabindex="-1"  id="Modalbox" role="dialog" aria-hidden="true">
+			<div class="modal-dialog">
+
+			</div><!-- /.modal-dialog -->
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('body').on('hidden.bs.modal', '.modal', function () {
+				    $(this).removeData('bs.modal');
+					 $('.modal-content').html('');
+				});
+			});
+		</script>
+  </body>
+</html>

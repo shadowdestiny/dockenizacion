@@ -1,0 +1,33 @@
+﻿li.plain
+{
+    position: relative;
+}
+div.language-change-wrapper
+{
+    position: absolute;
+    top: 0px;
+    background-color: #F0F0F0;
+    width: 129px;
+    margin-top: 24px;
+    opacity: 0.8;
+    right: 11px;
+    box-shadow: 2px 5px 15px #505050;
+}
+div.language-change-wrapper a.language-menu
+{
+    width: 100%;
+    font-family: Arial;
+    font-size: 0.75em;
+    margin: 0px;
+    height: 19px;
+    line-height: 21px;
+    text-indent: 6px;
+    border-bottom: 1px solid #E0E0E0;
+    padding: 2px;
+    color: #202020;
+    background-color: #f0f0f0;
+}
+div.language-change-wrapper a.language-menu:hover
+{
+    background-color: #e5e5e5;
+}

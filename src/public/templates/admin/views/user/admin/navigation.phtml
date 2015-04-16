@@ -1,0 +1,11 @@
+<div class="row">
+	<div class="container">
+		<ul class="nav nav-tabs" role="tablist">
+			<li <? if($this->active == 'details'){ ?>class="active"<? } ?>><a href="<?=$this->url(Array('action' => 'details','user_id' => $this->user_id))?>">Details</a></li>
+			<li <? if($this->active == 'edit'){ ?>class="active"<? } ?>><a href="<?=$this->url(Array('action' => 'edit','user_id' => $this->user_id))?>">Edit Data</a></li>
+			<li <? if($this->active == 'transactions'){ ?>class="active"<? } ?>><a href="<?=$this->url(Array('action' => 'transactions','user_id' => $this->user_id))?>">Transactions</a></li>
+			<li <? if($this->active == 'tickets'){ ?>class="active"<? } ?>><a href="<?=$this->url(Array('action' => 'tickets','user_id' => $this->user_id))?>">Tickets</a></li>
+		</ul>
+	</div>
+</div>
+<br />

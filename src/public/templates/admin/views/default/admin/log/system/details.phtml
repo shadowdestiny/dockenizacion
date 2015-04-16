@@ -1,0 +1,31 @@
+<? if($this->popup){ ?>
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h4 class="modal-title"><?=$this->translate('details')?></h4>
+</div>
+<div class="modal-body">
+<? }  else { ?>
+	<div class="page-header">
+		<h1><?=$this->translate('details')?></h1>
+	</div>
+<? } ?>
+	<? if($this->error == true) { ?>
+		<div class="alert alert-danger">
+			<strong><?=$this->translate('error')?></strong> <?=$this->translate('notice_error_happens_during_operation')?>
+		</div>
+	<? } else { ?>
+		<table class="table table-striped">
+			<? foreach($this->items  as $key => $item){ ?>
+			<tr>
+				<th><?=$key?></th>
+				<td><?=$item;?></td>
+			</tr>
+			<? } ?>
+		</table>
+	<? } ?>
+</div>
+<? if($this->popup){ ?>
+<div class="modal-footer">
+	<a type="button" class="btn btn-primary" data-dismiss="modal"><?=$this->translate('ok')?></a>
+</div>
+<? } ?>

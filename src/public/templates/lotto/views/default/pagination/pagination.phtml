@@ -1,0 +1,75 @@
+<? if ($this->pageCount > 1){ ?>
+<div id="paginator">
+	<ul class="pagination">
+		<? $this->headLink(array(
+			   'rel'  => 'canonical',
+			   'href' => $this->url(array('page' => $this->current))
+		)); ?>
+
+		<? if ($this->current > 1) {
+			$this->headLink(array(
+			   'rel'  => 'prev',
+			   'href' => $this->url(array('page' => $this->previous))
+			));
+		 } ?>
+		<? if ($this->current < $this->last) {
+			$this->headLink(array(
+			   'rel'  => 'next',
+			   'href' => $this->url(array('page' => $this->next))
+			));
+		 } ?>
+
+	<!-- Vorheriger Seitenlink -->
+	<? if(isset($this->first)) { ?>
+		<li>
+			<a href="<?=$this->url(array('page' => 1)); ?>" title="<?=$this->translate('first')?>">&laquo;</a>
+		</li>
+	<? } ?>
+
+	<? if (isset($this->previous)){ ?>
+		<li>
+			<a href="<?php echo $this->url(array('page' => $this->previous)); ?>" title="<?=$this->translate('back')?>">
+				&lsaquo;
+			</a>
+		</li>
+	<? } else { ?>
+	  <? //a class="disabled">&lt; <?=trans('back')? ></a>&nbsp; ?>
+	<? } ?>
+
+	<!-- Anzahl an Seitenlinks -->
+	<? foreach ($this->pagesInRange as $page){ ?>
+	  <? if ($page != $this->current){ ?>
+		<li>
+			<a href="<?=$this->url(array('page' => $page)); ?>" >
+				<?=$page;?>
+			</a>
+	  <? } else { ?>
+		<li class="active">
+			<a href="<?=$this->url(array('page' => $page)); ?>" >
+				<?=$page;?>
+			</a>
+		</li>
+	  <? } ?>
+	<? } ?>
+
+	<!-- Nächster Seitenlink -->
+	<? if (isset($this->next)) { ?>
+	<li>
+		<a href="<?=$this->url(array('page' => $this->next)); ?>" title="<?=$this->translate('next')?>">
+			&rsaquo;
+		</a>
+	</li>
+	<? } else { ?>
+	  <? //<a class="disabled"><?=trans('next')? > &gt;</a> ?>
+	<? } ?>
+	<? if( isset($this->last) && $this->last>0) { ?>
+		<li>
+			<a href="<?php echo $this->url(array('page' => $this->last)); ?>" title="<?=$this->translate('last')?>">
+				&raquo;
+			</a>
+		</li>
+	<? } ?>
+
+	</ul>
+</div>
+<? } ?>

@@ -1,0 +1,23 @@
+<div class="page-header">
+	<h1><?=$this->translate('acl_edit_role')?> - <?=$this->role?></h1>
+</div>
+<? if($this->resources) { ?>
+<form action="" method="post">
+	<? foreach($this->resources as $resource => $data){ ?>
+	<div class="list-group col-lg-6 col-md-6 col-sm-6">
+		<a href="#" class="list-group-item <?=($resource == 'frontend') ? 'list-group-item-success' : 'list-group-item-danger'; ?>">
+			<strong><?=$this->translate('acp_' . $resource)?></strong>
+		</a>
+		<? foreach($data as $resource) { ?>
+			<a class="list-group-item <?=(isset($this->roleRes[$resource['resource_id']])) ? 'list-group-item-selected':''; ?>" style="cursor:pointer;">
+				<label style="display:block cursor:pointer;">
+				<input type="checkbox" name="res_id[<?=$resource['resource_id'] ?>]" value="1" <?=(isset($this->roleRes[$resource['resource_id']])) ? 'checked="checked"':''; ?> />
+					<?=$this->translate('acl_' . $resource['name'])?> <small>[<?=$resource['name'] ?>]</small>
+				</label>
+			</a>
+		<? } ?>
+	</div>
+	<? } ?>
+	<input type="submit" name="submit" class="pull-right btn btn-primary" value="<?=$this->translate('save')?>" />
+</form>
+<? } ?>

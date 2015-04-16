@@ -1,0 +1,163 @@
+<? if(!$this->ajaxload) { ?>
+	<? $this->headTitle($this->translate('seo_results_title'))?>
+	<? $this->headMeta()->prependName('keywords', $this->translate('seo_results_keywords')); ?>
+	<? $this->headMeta()->prependName('description', $this->translate('seo_results_description')); ?>
+	<script type="text/javascript">
+		var archive_url = '<?=$this->url(Array(),'Lottery_Index',true)?>';
+		var currentPage = <?=$this->currentPage?>;
+		var currentAction = 'results';
+		var pageCount = <?=$this->pageCount?>;
+	</script>
+	<div class="pagename" id="results">
+		<div class="container" id="boxbox">
+
+			 <? if($this->type == 'index' || $this->list){
+					$lastResult= $this->Lottery_Euromillions()->getResult($this->list[0]);
+					unset($this->list[0]);
+			?>
+			<!-- LASTDRAW -->
+			<div class="box box50 drawbox" id="lastdraw">
+				<? if(isset($draw['winner'])){ ?>
+					<div class="rollover"></div>
+				<? } ?>
+			<? if ($this->type == 'index' && $this->currentPage == 1 ) { ?>
+				<h4><?=$this->translate('latest_result');?></h4>
+			<? } ?>
+				<p class="date"><?=$this->date($lastResult['draw_date'],'long');?></p>
+				<div class="inner">
+					<div class="jackpot">
+						<? if($lastResult['jackpot']){ echo $lastResult['jackpot']; } ?>
+					</div>
+					<div class="draw">
+						<i class="drawnumber icon-drawnumber-<?=$lastResult['standard_1']?>"></i>
+						<i class="drawnumber icon-drawnumber-<?=$lastResult['standard_2']?>"></i>
+						<i class="drawnumber icon-drawnumber-<?=$lastResult['standard_3']?>"></i>
+						<i class="drawnumber icon-drawnumber-<?=$lastResult['standard_4']?>"></i>
+						<i class="drawnumber icon-drawnumber-<?=$lastResult['standard_5']?>"></i>
+						<i class="drawstar selected icon-playstar-<?=$lastResult['luckystar_1']?>"></i>
+						<i class="drawstar selected icon-playstar-<?=$lastResult['luckystar_2']?>"></i>
+					</div>
+					<table class="table table-hover table-striped">
+						<thead>
+							<tr>
+								<th><?=$this->translate('match')?></th>
+								<th><?=$this->translate('prize')?></th>
+								<th><?=$this->translate('winners')?></th>
+							</tr>
+						</thead>
+						<tbody>
+							<? $results = $this->Lottery_Euromillions()->getWinner($lastResult['draw_id']); ?>
+							<? if (!empty($results)){
+							foreach($results as $key =>  $winner){  ?>
+									<tr>
+										<td align="left"><?=$winner['numbers'] ?>+<?=$winner['luckystars'] ?></td>
+										<td><?=$winner['prize']?></td>
+										<td style="text-align:right;"><?=$winner['winners'];?></td>
+									</tr>
+								<? }
+						 } else { ?>
+								<tr>
+									<td colspan="3"><?=$this->translate('no_results_aviable');?></td>
+								</tr>
+							<? } ?>
+						</tbody>
+					</table>
+				</div>
+				<a class="expand toggle" data-target="lastdraw" title="<?=$this->translate('view_prize_breakdown')?>"><span><?=$this->translate('view_prize_breakdown')?></span></a>
+			</div>
+			 <? } ?>
+			<!-- SEARCH -->
+			<div class="box box50" id="search" style="height:147px;">
+				<div class="inner">
+					<h4><?=$this->translate('previous_draws');?></h4>
+					<form action="" onsubmit="return false;">
+						<div class="formfield">
+							<select name="year" id="year" class="selectmenu">
+								<? $start = 2004; ?>
+								<? for($i = $this->current_year; $i >= $start; ) { ?>
+									<option value="<?=$i?>" <?=($this->year == $i) ? 'selected="selected"' : ''?>><?=$i?></option>
+								<? $i--; } ?>
+							</select>
+						</div>
+						<div class="formfield">
+							<select name="month" id="month"  class="selectmenu">
+								<option value="01" <?=($this->month == 1) ? 'selected="selected"' : ''?>><?=$this->translate('month_1')?></option>
+								<option value="02" <?=($this->month == 2) ? 'selected="selected"' : ''?>><?=$this->translate('month_2')?></option>
+								<option value="03" <?=($this->month == 3) ? 'selected="selected"' : ''?>><?=$this->translate('month_3')?></option>
+								<option value="04" <?=($this->month == 4) ? 'selected="selected"' : ''?>><?=$this->translate('month_4')?></option>
+								<option value="05" <?=($this->month == 5) ? 'selected="selected"' : ''?>><?=$this->translate('month_5')?></option>
+								<option value="06" <?=($this->month == 6) ? 'selected="selected"' : ''?>><?=$this->translate('month_6')?></option>
+								<option value="07" <?=($this->month == 7) ? 'selected="selected"' : ''?>><?=$this->translate('month_7')?></option>
+								<option value="08" <?=($this->month == 8) ? 'selected="selected"' : ''?>><?=$this->translate('month_8')?></option>
+								<option value="09" <?=($this->month == 9) ? 'selected="selected"' : ''?>><?=$this->translate('month_9')?></option>
+								<option value="10" <?=($this->month == 10) ? 'selected="selected"' : ''?>><?=$this->translate('month_10')?></option>
+								<option value="11" <?=($this->month == 11) ? 'selected="selected"' : ''?>><?=$this->translate('month_11')?></option>
+								<option value="12" <?=($this->month == 12) ? 'selected="selected"' : ''?>><?=$this->translate('month_12')?></option>
+							</select>
+						</div>
+						<span class="clear"></span>
+						<a class="btn eur-primary btn-sm pull-right"><?=$this->translate('lottery_index_index_submit')?></a>
+					</form>
+				</div>
+			</div>
+			<? } //end if not ajax ?>
+			<? if($this->list) { ?>
+
+				<? foreach($this->list as $item){
+					$draw= $this->Lottery_Euromillions()->getResult($item) ?>
+					<div class="box box50 closed drawbox <? if($this->ajaxload) { ?>masnews<? } ?>" id="draw<?=$draw['draw_id']?>">
+						<? if($draw['winner'] == 0){ ?>
+							<div class="rollover"></div>
+						<? } ?>
+						<p class="date"><?=$this->date($draw['draw_date'],'long');?></p>
+						<div class="inner">
+							<div class="jackpot">
+								<? if($draw['jackpot']){ echo $draw['jackpot']; } ?>
+							</div>
+							<div class="draw">
+								<i class="drawnumber icon-drawnumber-<?=$draw['standard_1']?>"></i>
+								<i class="drawnumber icon-drawnumber-<?=$draw['standard_2']?>"></i>
+								<i class="drawnumber icon-drawnumber-<?=$draw['standard_3']?>"></i>
+								<i class="drawnumber icon-drawnumber-<?=$draw['standard_4']?>"></i>
+								<i class="drawnumber icon-drawnumber-<?=$draw['standard_5']?>"></i>
+								<i class="drawstar selected icon-playstar-<?=$draw['luckystar_1']?>"></i>
+								<i class="drawstar selected icon-playstar-<?=$draw['luckystar_2']?>"></i>
+							</div>
+							<table class="table table-hover table-striped">
+								<thead>
+									<tr>
+										<th><?=$this->translate('match')?></th>
+										<th><?=$this->translate('prize')?></th>
+										<th><?=$this->translate('winners')?></th>
+									</tr>
+								</thead>
+								<tbody>
+									<? $results = $this->Lottery_Euromillions()->getWinner($draw['draw_id']); ?>
+									<? if (!empty($results)){
+									foreach($results as $key =>  $winner){  ?>
+											<tr>
+												<td align="left"><?=$winner['numbers'] ?>+<?=$winner['luckystars'] ?></td>
+												<td><?=$winner['prize']?></td>
+												<td style="text-align:right;"><?=$winner['winners']?></td>
+											</tr>
+										<? }
+								 } else { ?>
+										<tr>
+											<td colspan="3"><?=$this->translate('no_results_aviable');?></td>
+										</tr>
+									<? } ?>
+								</tbody>
+							</table>
+						</div>
+						<a class="expand toggle" data-target="draw<?=$draw['draw_id']?>" href="<?=$draw['detail_link']?>" onclick="return false;" title="<?=$this->translate('view_prize_breakdown')?>"><span><?=$this->translate('view_prize_breakdown')?></span></a>
+					</div>
+					<? } ?>
+
+
+				<? } ?>
+	<? if(!$this->ajaxload) { ?>
+			</div>
+			<? if($this->type == 'index'){ ?><?=$this->paginator ?><? } ?>
+	 </div>
+	<script src="<?=$this->baseUrl() ?>/templates/lotto/js/masonry.pkgd.min.js"></script>
+	<? } ?>

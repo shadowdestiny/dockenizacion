@@ -1,0 +1,72 @@
+<div class="pagination">
+	<? $this->headLink(array(
+		   'rel'  => 'canonical',
+		   'href' => $this->url(array('page' => $this->current))
+	)); ?>
+
+	<? if ($this->current > 1) {
+		$this->headLink(array(
+		   'rel'  => 'prev',
+		   'href' => $this->url(array('page' => $this->previous))
+		));
+	 } ?>
+	<? if ($this->current < $this->last) {
+		$this->headLink(array(
+		   'rel'  => 'next',
+		   'href' => $this->url(array('page' => $this->next))
+		));
+	 } ?>
+
+
+
+<?php if ($this->pageCount): ?>
+<!--p>
+<? /* $this->translate('page_number_of_number',array('%number1%' => $this->current, '%number2%' => $this->last)) */?>
+</p-->
+<div class="pages">
+<!-- Vorheriger Seitenlink -->
+<? if(isset($this->first) ) { ?>
+  <a href="<?php echo $this->url(array('page' => 1)); ?>" title=" <?=$this->translate('first')?>">
+	&lt; &lt;
+  </a>
+<? } ?>
+
+<?php if (isset($this->previous)): ?>
+  <a href="<?php echo $this->url(array('page' => $this->previous)); ?>" title="<?=$this->translate('back')?>">
+  &lt;
+  </a>
+<?php else: ?>
+  <? //a class="disabled">&lt; <?=trans('back')? ></a>&nbsp; ?>
+<?php endif; ?>
+
+<!-- Anzahl an Seitenlinks -->
+<?php foreach ($this->pagesInRange as $page): ?>
+  <?php if ($page != $this->current): ?>
+
+
+    <a href="<?=$this->url(array('page' => $page)); ?>" >
+      <?php echo $page; ?>
+    </a>
+  <?php else: ?>
+		<span class="active">
+    		<?php echo $page; ?>
+	 	</span>
+  <?php endif; ?>
+<?php endforeach; ?>
+
+<!-- Nächster Seitenlink -->
+<?php if (isset($this->next)): ?>
+  <a href="<?php echo $this->url(array('page' => $this->next)); ?>" title="<?=$this->translate('next')?>">
+    &gt;
+  </a>
+<?php else: ?>
+  <? //<a class="disabled"><?=trans('next')? > &gt;</a> ?>
+<?php endif; ?>
+<? if( isset($this->last) && $this->last>0) { ?>
+  <a href="<?php echo $this->url(array('page' => $this->last)); ?>" title="<?=$this->translate('last')?>">
+	 &gt; &gt;
+  </a>
+<?php } ?>
+</div>
+<?php endif; ?>
+</div>

@@ -1,0 +1,51 @@
+<div class="pagename" id="statsoverview">
+	<div class="page-header">
+		<h1><?=$this->translate('draws_for_lottery',array($this->lottery))?></h1>
+	</div>
+	<?=$this->partial('default/adminstats/navigation.phtml', array('active' => 'transactioncosts')); ?>
+
+
+
+		<table class="table table-striped table-bordered">
+			<tr>
+				<th><?=$this->translate('date')?></th>
+				<th class="info">EMS</td>
+				<th class="info">Secure Trading</td>
+				<th class="info">Total Card</td>
+				<th class="success">Sofort</td>
+				<th class="success">Paysafe</td>
+				<th class="warning">Total</td>
+			</tr>
+			<tr>
+				<td>13.01.1988</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Total</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr class="warning">
+				<td>Total Transaction Loss</td>
+				<td class="info"></td>
+				<td class="info"></td>
+				<td class="info"></td>
+				<td class="success"></td>
+				<td class="success"></td>
+				<td class="warning"></td>
+			</tr>
+		</table>
+
+
+
+		<?=$this->paginator ?>
+</div>

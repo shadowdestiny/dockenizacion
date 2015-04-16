@@ -1,0 +1,26 @@
+<script>
+$(document).ready(function(){
+	$('a.submit').click(function(){
+
+		response = AjaxSubmit("<?=$this->url(Array())?>", {'a':'y', 'translation_id': '<?=$this->translation_id?>'});
+		if (response.success){
+			$("#key<?=$this->translation_id?>").fadeOut("slow", function(){
+				$("#key<?=$this->translation_id?>").remove();
+			});
+			$('#Modalbox').modal('hide');
+		}
+	});
+});
+</script>
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h4 class="modal-title"><?=$this->translate('please_confirm')?></h4>
+</div>
+<div class="modal-body">
+<p><?=$this->translate('notice_delete_translation_key')?></p>
+<p><?=$this->key?></p>
+</div>
+<div class="modal-footer">
+	<a type="button" class="btn btn-default" data-dismiss="modal"><?=$this->translate('abort')?></a>
+	<a type="button" class="submit btn btn-primary"><?=$this->translate('yes')?></a>
+</div>

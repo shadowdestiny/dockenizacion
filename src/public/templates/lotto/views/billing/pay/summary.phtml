@@ -1,0 +1,55 @@
+<div class="pagename" id="billing">
+	<div class="container">
+		<div class="box">
+			<div class="inner">
+				<h4><?=$this->translate('meta_headline_billing_pay_summary')?></h4>
+				<form id="step3" action="" method="post">
+					<input type="hidden" name="act" value="submit_summary">
+					<input type="hidden" name="cart_id" value="<?=$this->cart_id ?>">
+					<input type="hidden" name="biller" value="<?=$this->biller ?>">
+					<input type="hidden" name="amount" value="<?=$this->total_price ?>">
+					<div class="informationblock">
+						<strong class="color"><?=$this->translate('billing_adress')?></strong>
+						<?=$this->userData['first_name']?> <?=$this->userData['last_name']?><br /><br />
+
+						<?=$this->userData['street']?><br />
+
+						<?=$this->userData['zip']?> <?=$this->userData['city']?><br />
+						<?=$this->userData['country']?><br />
+						<a href="<?=$this->url(Array(), 'User_Change_Address',true);?>" class="change"><?=$this->translate('change')?></a>
+						<p class="note"><?=$this->translate('notice_no_post_to_adress')?></p>
+
+					</div>
+					<div class="informationblock">
+						<strong class="color"><?=$this->translate('payment_method')?></strong>
+						<?=$this->biller ?><br />
+						<a href="<?=$this->url(Array(), 'Billing_Pay',true);?>" class="change"><?=$this->translate('change')?></a>
+					</div>
+					<div class="informationblock">
+						<strong class="color"><?=$this->translate('order_summary')?></strong>
+						<? foreach($this->items['items'] as $group => $posts) {
+							foreach($posts as $post_id => $post) { ?>
+							<span class="sum"><?=$post['product'];?>  - <?=$this->Currency()->get($post['price_total']);?></span>
+							<? } ?>
+						<? } ?>
+						<? if($this->total_price < 10 && $this->biller != 'account'){ ?>
+						<span class="fee"><?=$this->translate('transaction_fee')?> - <?=$this->Currency()->get($this->transaction_fee);?></span>
+						<? } ?>
+						<span class="total color"><?=$this->translate('total_price')?>: <span class="pull-right"> <?=$this->Currency()->get($this->total_price);?></span></span>
+					</div>
+					<br class="clear" />
+					<div class="submit" style="text-align:center;">
+						<? if ($this->biller == 'mycc1') { ?>
+							<p><?=$this->translate('cc_will_be_charged_now')?></p>
+						<? } elseif ($this->biller == 'account') { ?>
+							<p><?=$this->translate('balance_will_be_charged_now')?></p>
+						<? } ?>
+						<button type="submit" class="btn eur-primary">
+							<?=$this->translate('billing_buy_now_button')?>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

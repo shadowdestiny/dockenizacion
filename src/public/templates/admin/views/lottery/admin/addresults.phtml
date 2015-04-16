@@ -1,0 +1,55 @@
+<script>
+$(document).ready(function(){
+	$('.numbers.main a').click(function(){
+		active = $('.numbers.main').find('.btn-success').length;
+
+		if ($(this).hasClass('btn-success')){
+			$(this).removeClass('btn-success');
+			$(this).children('input').remove();
+		} else if (active < 5){
+			$(this).addClass('btn-success');
+			number = $(this).html();
+			input = '<input type="hidden" name="number[]" value="' + number + '">';
+			$(this).append(input);
+		} else {
+
+		}
+	});
+	$('.numbers.stars a').click(function(){
+		active = $('.numbers.stars').find('.btn-warning').length;
+
+		if ($(this).hasClass('btn-warning')){
+			$(this).removeClass('btn-warning');
+		} else if (active < 2){
+			$(this).addClass('btn-warning');
+		} else {
+
+		}
+	});
+
+});
+</script>
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h4 class="modal-title"><?=$this->translate('choose_winning_numbers')?></h4>
+</div>
+<div class="modal-body">
+<h5><?=$this->translate('main_numbers')?></h5>
+<form id="win">
+<div class="numbers main">
+	<? for ($i = 1; $i <= 50; $i++) { ?>
+	<a class="btn btn-sm btn-default" style="width: 36px;margin-bottom:  4px;"><?=$i?></a>
+	<? } ?>
+</div>
+<h5><?=$this->translate('star_numbers')?></h5>
+<div class="numbers stars">
+	<? for ($i = 1; $i <= 11; $i++) { ?>
+	<a class="btn btn-default btn-sm" style="width: 36px;margin-bottom:  4px;"><?=$i?></a>
+	<? } ?>
+</div>
+</form>
+</div>
+<div class="modal-footer">
+	<a type="button" class="btn btn-default" data-dismiss="modal"><?=$this->translate('abort')?></a>
+	<a type="button" class="submit btn btn-primary"><?=$this->translate('save')?></a>
+</div>

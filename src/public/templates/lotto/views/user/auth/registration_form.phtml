@@ -1,0 +1,33 @@
+<?php
+$params = $this->element->getDecorator('ViewScript')->getOptions();
+$formId = $params[0]['formId'];
+$formClass = (isset($params[0]['formClass'])) ? $params[0]['formClass'] : '';
+
+$this->element->birth_year->removeDecorator("innerwrapper")->removeDecorator("outerwrapper")->setAttribs((array('class' => 'bdayselect')))->removeDecorator('Errors');
+$this->element->birth_day->removeDecorator("innerwrapper")->removeDecorator("outerwrapper")->setAttribs((array('class' => 'bdayselect')))->removeDecorator('Errors');
+$this->element->birth_month->removeDecorator("innerwrapper")->removeDecorator("outerwrapper")->setAttribs((array('class' => 'bdayselect')))->removeDecorator('Errors');
+?>
+<br >
+<form id="<?=$formId ?>" class="<?=$formClass ?>" method="<?=$this->element->getMethod() ?>" action="<?=$this->element->getAction() ?>" enctype="<?=$this->element->getEnctype() ?>">
+	<?=$this->element->formpost;?>
+    <?=$this->element->popup;?>
+	<?=$this->element->gender;?>
+	<?=$this->element->country;?>
+	<?=$this->element->firstname;?>
+
+	<div class="form-group">
+		<label class="control-label required" for="gender"><?=$this->translate('birthday') . ' *';?> </label> ( 18<span style="font-family: 'Arial';">+</span></i>)
+		<div class="controls">
+			<?=$this->element->birth_day;?>
+			<?=$this->element->birth_month;?>
+			<?=$this->element->birth_year; ?>
+			<span class="clear"></span>
+		</div>
+	</div>
+
+	<?=$this->element->email;?>
+	<?=$this->element->email_equal;?>
+	<?=$this->element->password;?>
+	<?=$this->element->newsletter;?>
+    <?=$this->element->save;?>
+</form>

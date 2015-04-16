@@ -1,0 +1,319 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <?=$this->headTitle() ?>
+	<?=$this->headMeta() ?>
+	<?=$this->headLink() ?>
+
+	<meta name="google-site-verification" content="kB3yDp8MuSphVhX98xHyhjCItsg_C-HYVxiV7rGYjxw" />
+	<link rel="shortcut icon" href="<?=$this->baseUrl() ?>/templates/default/images/favicon.ico" type="image/x-icon" />
+	<link type="text/css" rel="stylesheet" href="<?=$this->baseUrl() ?>/templates/default/css/Web_CSS.css" />
+
+	<script type="text/javascript" src="<?=$this->baseUrl() ?>/templates/default/js/libraries/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src="<?=$this->baseUrl() ?>/templates/default/js/libraries/jquery-ui-1.8.16.custom.min.js"></script>
+	<script type="text/javascript" src="<?=$this->baseUrl() ?>/templates/default/js/plugins/Simple-Inheritance.js"></script>
+	<script type="text/javascript" src="<?=$this->baseUrl() ?>/templates/default/js/plugins/jQuery.CountDownTimer.js"></script>
+	<script type="text/javascript" src="<?=$this->baseUrl() ?>/templates/default/js/core/Main.js"></script>
+</head>
+<body>
+
+<?
+
+$auth = (Zend_Auth::getInstance()->hasIdentity()? true:false);
+$lang = Settings::get("S_lang");
+$currency = Settings::get("S_currency");
+?>
+
+<form action="" name="switchlang" method="POST">
+<input type="hidden" name="act" value="switchlang" />
+<select  name="lang">
+	<option value="de"<?=($lang=="de"? " selected":"") ?>>Deutsch</option>
+	<option value="en"<?=($lang=="en"? " selected":"") ?>>Englisch</option>
+	<option value="es"<?=($lang=="es"? " selected":"") ?>>Spanisch</option>
+</select>
+
+<select  name="currency">
+	<option value="EUR"<?=($currency=="EUR"? " selected":"") ?>>Euro €</option>
+	<option value="GBP"<?=($currency=="GBP"? " selected":"") ?>>British Pound Sterling</option>
+	<option value="USD"<?=($currency=="USD"? " selected":"") ?>>US Dollar</option>
+</select>
+<input type="submit" value="Wechseln" />
+</form>
+
+<? if($auth) { ?>
+<form action="" name="logout" method="POST">
+<input type="hidden" name="act" value="logout" />
+<input type="submit" value="Logout" />
+</form>
+<? } else { ?>
+<form action="" name="login" method="POST">
+<input type="hidden" name="act" value="login" />
+<input type="text" name="username" />
+<input type="password" name="password" />
+<input type="submit" value="login" />
+
+</form>
+<? } ?>
+
+
+<? if(Zend_Auth::getInstance()->hasIdentity() && hasAccess("default_admin_index") ){ ?>
+<div id="adminbar">
+	<div class="inner">
+		<a href="<?=$this->url(Array('module' => 'default','controller' => 'admin', 'action' => 'index'))?>"><?=$this->translate('goto_adminarea')?></a>
+	</div>
+</div>
+<style>
+	body {padding-top: 30px;}
+	#adminbar {position: fixed; top: 0;width: 100%;background-color:#222222;height: 30px;color:#fff;text-align:right;z-index:10000;}
+	#adminbar .inner {margin: 5px;}
+</style>
+<? } ?>
+    <div class="wrapper">
+        <section class="header">
+        <a href="{{base_url}}/<?= Zend_Registry::get('lang')?>/">
+    	    <div class="logo"></div>
+        </a>
+
+	<div class="login">
+        <div style="float:left">
+	        <a href="http://play.euromillions.com/<?= Zend_Registry::get('lang')?>/login/"><?=$this->translate('login')?></a> &nbsp;|&nbsp;  <a href="http://play.euromillions.com/<?= Zend_Registry::get('lang')?>/register/"><?=$this->translate('signup')?></a>
+        </div>
+        <div style="float:left;width:40px">&nbsp;</div>
+        <div class="user"></div>
+
+        <div style="float:left">
+				<div>
+					<?=$this->LanguageSwitch()->getLinks();?>
+				</div>
+        </div>
+    </div>
+
+	</section>
+	<section class="nav">
+		<ul>
+			<li class="navFirst">
+			    <a href="{{base_url}}/<?= Zend_Registry::get('lang')?>/" title="Euromillions"><?=$this->translate('home')?></a>
+			</li>
+			<li>
+			    <a href="http://play.euromillions.com/<?= Zend_Registry::get('lang')?>/" title="<?=$this->translate('buy-your-tickets')?>"><?=$this->translate('buy-your-tickets')?></a>
+			</li>
+			<li>
+			    <a href="{{article_url::information_about_the_euromillions_lottery}}" title="<?=$this->translate('about-us')?>"><?=$this->translate('about-us')?></a>
+			</li>
+			<li>
+			    <a href="<?=$this->url(Array(),'Lottery_Index',true)?>" title="<?=$this->translate('euromillions-results')?>"><?=$this->translate('euromillions-results')?></a>
+			</li>
+			<li>
+			    <a href="<?=$this->url(Array("module"=>"news","controller"=>"index","action"=>"index","page"=>1),"News_Index",true);?>" title="<?=$this->translate('euromillions-news')?>"><?=$this->translate('euromillions-news')?></a>
+			</li>
+			<li>
+				<a href="http://play.euromillions.com/<?= Zend_Registry::get('lang')?>/terms-and-conditions" title="<?=$this->translate('help-support')?>"><?=$this->translate('help-support')?></a>
+			</li>
+			<li class="navLast">
+			    <a href="http://play.euromillions.com/<?= Zend_Registry::get('lang')?>/contact" rel="nofollow" title="<?=$this->translate('contact')?>"><?=$this->translate('contact')?></a>
+			</li>
+		</ul>
+	</section>
+
+	<section class="content">
+		<?if ($this->home) {
+			echo $this->layout()->content;
+		} else { ?>
+			<article>
+					<?=$this->layout()->content;?>
+			</article>
+			<aside>
+				<div class="smallContainer nextJackpot">
+				    <img src="<?=$this->baseUrl() ?>/templates/default/images/stars_bg.png" alt="">
+				    <h3><?=$this->translate('next-jackpot-estimated')?></h3>
+					<p class="jackpotValueRed"><?=$this->Lottery_Euromillions()->getJackpot() ?></p>
+				    <p><?=$this->translate('ticket-price-235')?></p>
+				        <a href="http://play.euromillions.com/<?=$this->displayLanguage?>/" class=" button orange"><?=$this->translate('buy-ticket')?></a>
+				        <p class="small">
+				        <?=$this->translate('time-remaining')?>: <em id="days" class="days">1</em> <?=$this->translate('days')?>
+							</p>
+				    <div class="counter">
+				        <div class="group">
+				            <div class="counterCell" id="hourH">0</div>
+				            <div class="counterCell" id="hourL">4</div>
+				        </div>
+				        <div class="timeseperator">
+				            :
+				        </div>
+				        <div class="group">
+				            <div class="counterCell" id="minH">2</div>
+				            <div class="counterCell" id="minL">4</div>
+				        </div>
+				        <div class="timeseperator">
+				            :
+				        </div>
+				        <div class="group">
+				            <div class="counterCell" id="secH">4</div>
+				            <div class="counterCell" id="secL">6</div>
+				        </div>
+				    </div>
+				    <span class="label"><?=$this->translate('hours')?></span> <span class="label"><?=$this->translate('minutes')?></span>
+				    <span class="label"><?=$this->translate('seconds')?></span>
+				</div>
+
+				<script type="text/javascript">
+				    setInterval("UpdateTimer()", 1000);
+
+				    // year, month, day, hours, minutes, seconds, milliseconds
+				    var startJackpots = [new Date(0, 0, 2, 19, 0, 0, 0), new Date(0, 0, 5, 19, 0, 0, 0)];
+				    var endJackpots = [new Date(0, 0, 2, 21, 0, 0, 0), new Date(0, 0, 5, 21, 0, 0, 0)];
+
+				    function UpdateTimer() {
+				        var tmpUtc = new Date();
+				        var check = new Date(0, 0, tmpUtc.getUTCDay(), tmpUtc.getUTCHours() + 1, tmpUtc.getUTCMinutes(), tmpUtc.getUTCSeconds(), 0);
+
+				        var timestamp = CheckTimeStamps(check);
+				        if (timestamp != false) {
+				            timestamp -= check.getTime();
+				            var display = TimeStampToDate(Math.floor(timestamp));
+
+				            $('#jackpot').html("€ 124.000.000");
+
+				            $('#days').html(display[0]);
+
+				            $('#hourH').html(padLeft(display[1], 2, "0").substr(0, 1));
+				            $('#hourL').html(padLeft(display[1], 2, "0").substr(1, 1));
+
+				            $('#minH').html(padLeft(display[2], 2, "0").substr(0, 1));
+				            $('#minL').html(padLeft(display[2], 2, "0").substr(1, 1));
+
+				            $('#secH').html(padLeft(display[3], 2, "0").substr(0, 1));
+				            $('#secL').html(padLeft(display[3], 2, "0").substr(1, 1));
+
+
+				        }
+				        else {
+
+				            $('#jackpot').html('In progress');
+
+				            $('#days').html("N/A");
+
+				            $('#hourH').html("-");
+				            $('#hourL').html("-");
+
+				            $('#minH').html("-");
+				            $('#minL').html("-");
+
+				            $('#secH').html("-");
+				            $('#secL').html("-");
+				        }
+				    }
+
+				    function padLeft(num, totalChars, padWith) {
+				        num = num + "";
+				        padWith = (padWith) ? padWith : "0";
+				        if (num.length < totalChars) {
+				            while (num.length < totalChars) {
+				                num = padWith + num;
+				            }
+				        } else { }
+
+				        if (num.length > totalChars) { //if padWith was a multiple character string and num was overpadded
+				            num = num.substring((num.length - totalChars), totalChars);
+				        } else { }
+
+				        return num;
+				    }
+
+
+				    //between 17 - 21 inprogress
+				    function CheckTimeStamps(current) {
+				        for (var i in startJackpots) {
+				            if (current < startJackpots[i])
+				                return startJackpots[i];
+
+				            if (current > startJackpots[i] && current < endJackpots[i])
+				                return false;
+				        }
+
+				        var date = new Date(0, 0, 1, 14, 0, 0, 0);
+				        date.setTime(startJackpots[0].getTime() + 1000 * 60 * 60 * 24 * 7);
+
+				        return date;
+				    }
+
+				    //
+				    function TimeStampToDate(timestamp) {
+				        return new Array(parseInt((timestamp / (24 * 60 * 60 * 1000))),
+				                        parseInt((timestamp / (60 * 60 * 1000)) % 24),
+				                        parseInt((timestamp / (60 * 1000)) % 60),
+				                        parseInt((timestamp / (1000)) % 60));
+				    }
+
+				    //
+				    $(document).ready(function () {
+				        UpdateTimer();
+				    });
+
+				</script>
+
+				<div class="medArticle thin">
+					<a href="https://twitter.com/intent/tweet?related=_lotteries&amp;text=Re-tweet%20and%20Follow%20@_lotteries%20to%20win%205%20Euromillions%20Tickets%20for%20Friday%20on%20http://euromillions.com&amp;data-related=%22_lotteries:Euromillions%22&amp;hashtags=Euromillions" target="_blank">
+						<img src="<?=$this->baseUrl() ?>/templates/default/images/teaser/follow-us-sidebar_<?= Zend_Registry::get('lang')?>.jpg" alt="Follow Euromillions on Twitter" border="0">
+					</a>
+				</div>
+				<?=$this->Teaser()->News('sidebar',5) ?>
+
+			</aside>
+		<? } ?>
+
+	</section>
+        <section class="footer">
+            <div class="footer_wrapper_1">
+
+					<p class="links_floated_footer">
+						<a href="http://play.euromillions.com/<?= Zend_Registry::get('lang')?>/faq/" rel="nofollow" title="<?=$this->translate('faq')?>"><?=$this->translate('faq')?></a>&nbsp;|
+						<a href="http://play.euromillions.com/<?= Zend_Registry::get('lang')?>/terms-and-conditions" title="<?=$this->translate('terms-and-conditions')?>"><?=$this->translate('terms-and-conditions')?></a>&nbsp;|
+						<a href="{{article_url::responsible_gaming}}" title="<?=$this->translate('responsible-gaming')?>"><?=$this->translate('responsible-gaming')?></a>&nbsp;|
+						<a href="http://euromillions.com" title="euromillions.com"><?=$this->translate('home-1')?></a>&nbsp;|
+						<a href="http://play.euromillions.com/<?= Zend_Registry::get('lang')?>/contact" rel="nofollow" title="<?=$this->translate('contact')?>" ><?=$this->translate('contact')?></a>&nbsp;|
+						Find us on
+						<a target="_blank" href="https://www.facebook.com/pages/Euromillionscom/204411286236724" ><img src="<?=$this->baseUrl() ?>/templates/default/images/facebook_icon_blue.png" title="Euromillions Facebook page"/></a>
+						<a target="_blank" href="https://twitter.com/_lotteries"><img src="<?=$this->baseUrl() ?>/templates/default/images/twitter_icon_blue.png" title="Euromillions on Twitter"/></a>
+						<a target="_blank" href="https://plus.google.com/114510953222070943366" rel="publisher"><img src="<?=$this->baseUrl() ?>/templates/default/images/googleplus_icon_green.png" title="Follow Euromillions on Google+"/></a>
+						<a href="mailto:support@euromillions.com"><img src="<?=$this->baseUrl() ?>/templates/default/images/email_icon.png" title="Email"/></a>
+                </p>
+
+				<p class="links_floated_disclaimer">
+					<?=$this->translate('terms-conditions')?>
+				</p>
+
+
+            </div>
+            <div class="footer_wrapper_2">
+                <p class="links_floated_disclaimer"><img alt="Euromillions.com accepts: VISA, MasterCard and VISA Electron. Our payment is secured by: Thawte 256-bit SSL."
+                src="<?=$this->baseUrl() ?>/templates/default/images/payment_icons.png" title="secure payment"/><br /><img src="<?=$this->baseUrl() ?>/templates/default/images/gambleaware.png" />&nbsp;<img src="<?=$this->baseUrl() ?>/templates/default/images/18plus.png" /></p>
+            </div>
+</section>
+    </div>
+	 <script type="text/javascript">
+		setTimeout(function(){var a=document.createElement("script");
+		var b=document.getElementsByTagName("script")[0];
+		a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0017/2008.js?"+Math.floor(new Date().getTime()/3600000);
+		a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+	</script>
+</body>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22374239-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "af489e90-95a2-4cec-a484-765b87013b82"});</script>
+</html>

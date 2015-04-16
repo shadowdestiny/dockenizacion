@@ -1,0 +1,25 @@
+<div class="pagename" id="changemail">
+<? if(!$this->popup) { ?>
+	<div class="container">
+		<div class="box">
+<? } ?>
+
+	<h1><?=$this->translate('seo_headline_user_auth_changemail')?></h1>
+	<p><?=$this->translate('user_auth_changemail_description')?></p>
+	<?=$this->form;?>
+
+<script>
+	$(document).ready(function(){
+		$('#changemail').submit(function(){
+			data = formCollect($(this));
+			$.extend(data, {'href':'<?=$this->url(array(),'User_ChangeMail')?>'});
+			Popup(data);
+			return false;
+		});
+	});
+</script>
+<? if(!$this->popup) { ?>
+		</div>
+	</div>
+<? } ?>
+</div>

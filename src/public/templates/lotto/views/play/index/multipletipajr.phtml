@@ -1,0 +1,25 @@
+<h4><?=$this->translate('play_index_index_multiple_tip_headline')?></h4>
+<p><?=$this->translate('play_index_index_multiple_tip_description')?></p>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th></th>
+			<? foreach ($this->arrPrices[5] as $key => $value) {?>
+			<th style="text-align:center;"><div class="drawstar" style="margin: auto;float:none;font-size:9.2pt;padding-top:6px;">
+				<i class="drawstar selected icon-star-<?=$key?>x"></i></div></th>
+			<? } ?>
+		</tr>
+	</thead>
+	<tbody>
+		<? foreach ($this->arrPrices as $star => $numbers) {?>
+		<tr>
+			<!--th><div class="drawnumber"><?=$star?></div></th-->
+			<th><?=$this->translate('muliple_tipp_number_label',array($star) )?></th>
+			<? foreach ($numbers as $number => $price) {?>
+				<td><a class="btn btn-default btn-xs" data-dismiss="modal" style="display:block;"onclick="randomSingleLine('playline<?=$this->line?>',<?=$star?>,<?=$number?> );"><?=$this->Currency()->get($price);?></a></td>
+			<? } ?>
+		</tr>
+		<? } ?>
+	</tbody>
+</table>

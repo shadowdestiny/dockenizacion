@@ -1,0 +1,32 @@
+<?=$this->render('mail_header.phtml') ?>
+
+	<!-- Picture -->
+	<tr>
+		<td>
+			<img alt="<?=$this->Email()->sitename()?>" src="<?=$this->Email()->imagePath()?>/header/billing_problem.png" style="width: 100%;" />
+			<br /><br /><br />
+		</td>
+	</tr>
+
+	<!-- Hello -->
+<tr valign="top">
+	<td style="border-top: 4px solid #02B3B6;">
+		<p style="margin:0;padding:22px 0 15px 0;">
+			<b><font style="font-size:20px;color:#02B3B6;"><?=$this->translate('mail_hello_username',Array( 0 => $this->first_name));?></font></b>
+		</p>
+	</td>
+</tr>
+<!-- Body -->
+<tr valign="top">
+	<td>
+		<p style="padding:0 0 22px 0;">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+	</td>
+</tr>
+
+
+<!-- FOOTER 1 & COPYRIGHT -->
+<?=$this->render('mail_footer.phtml') ?>
+
+<!-- Hello
+
+

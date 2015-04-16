@@ -1,0 +1,124 @@
+<? if(!$this->popup) { ?>
+	<div class="container pagename" id="transactions">
+		<div class="box">
+<? } ?>
+
+<form>
+	<div class="balanceinfo">
+		<dl class="amount">
+			<dt><?=$this->translate('balance')?>:</dt>
+			<dd><?=$this->Currency()->get($this->userData['budget']);?></dd>
+			<dt><?=$this->translate('your_winnings')?>:</dt>
+			<dd><?=$this->Currency()->get($this->userData['win']);?></dd>
+		</dl>
+		<div class="pull-right">
+			<a href="<?= $this->url(Array(), 'Billing_Payout', true) ?>" class="btn btn-default pull-right">
+				<?= $this->translate('user_account_index_payout') ?>
+			</a>
+		<? if ($this->userData['verified_email'] == '0') { ?>
+			<a class="popup btn btn-default pull-right" data-href="<?= $this->url(Array(), 'User_VerifyMail', true) ?>">
+			<? } else { ?>
+				<a class="btn btn-default pull-right" href="<?= $this->url(Array(), "Billing_Pay") ?>">
+			<? } ?>
+			<?= $this->translate('user_account_index_payin') ?>
+			</a>
+		</div>
+
+		<span class="clear"></span>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+			<th>#</th>
+			<th><?= $this->translate('date') ?></th>
+			<th><?= $this->translate('type') ?></th>
+			<th class="hidden-s-device"><?= $this->translate('description') ?></th>
+			<th><?= $this->translate('amount') ?></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="even">
+			<td>1</td>
+			<td>11.04.2013</td>
+			<td>order</td>
+			<td class="hidden-s-device">You ordered ticket: #12312, #123123, #123123</span></td>
+			<td class="amount">- 20 €</td>
+			</tr>
+
+			<tr class="visible-s-device even">
+			<td></td>
+			<td colspan="3">You ordered ticket: #12312, #123123, #123123</td>
+			</tr>
+			<tr class="odd">
+			<td>1</td>
+			<td>11.04.2013</td>
+			<td>chargeback</td>
+			<td class="hidden-s-device"><span class="hidden-s -device">You ordered ticket: #12312, #123123, #123123</td>
+			<td class="amount">- 20 €</td>
+			</tr>
+			<tr class="visible-s-device odd">
+				<td></td>
+				<td colspan="3">You ordered ticket: #12312, #123123, #123123</td>
+			</tr>
+			<tr class="even">
+				<td>1</td>
+				<td>11.04.2013</td>
+				<td>winnng</td>
+				<td class="hidden-s-device">Winning from Ticket: #12312</td>
+				<td class="amount">+ 20 €</td>
+			</tr>
+			<tr class="visible-s-device even">
+				<td></td>
+				<td colspan="3">Winning from Ticket: #12312</td>
+			</tr>
+			<tr class="odd">
+				<td>3</td>
+				<td>11.04.2013</td>
+				<td>coupon</td>
+				<td class="hidden-s-device">5 € Easter Voucher</td>
+				<td class="amount">+ 5 €</td>
+			</tr>
+			<tr class="visible-s-device odd">
+				<td></td>
+				<td colspan="3">5 € Easter Voucher</td>
+			</tr>
+			<tr class="even">
+				<td>1</td>
+				<td>11.04.2013</td>
+				<td>payout</td>
+				<td class="hidden-s-device">Payout to your bank account</td>
+				<td class="amount">- 20 €</td>
+			</tr>
+			<tr class="visible-s-device even">
+				<td></td>
+				<td colspan="3">Payout to your bank account</td>
+			</tr>
+			<tr class="odd">
+				<td>3</td>
+				<td>11.04.2013</td>
+				<td>credit</td>
+				<td class="hidden-s-device">Promotion: Pay in 100€ get 5€ for free</td>
+				<td class="amount">+ 5 €</td>
+			</tr>
+			<tr class="visible-s-device odd">
+				<td></td>
+				<td colspan="3">Promotion: Pay in 100€ get 5€ for free</td>
+			</tr>
+			<tr class="even">
+				<td>2</td>
+				<td>11.04.2013</td>
+				<td>payin</td>
+				<td class="hidden-s-device">Pay in from your bank account</td>
+				<td class="amount">+ 100 €</td>
+			</tr>
+			<tr class="visible-s-device even">
+				<td></td>
+				<td colspan="3">Pay in from your bank account</td>
+			</tr>
+		</tbody>
+	</table>
+</form>
+<? if(!$this->popup) { ?>
+	</div>
+</div>
+<? } ?>

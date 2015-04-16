@@ -1,0 +1,77 @@
+<? if(!$this->popup) { ?>
+<div class="container">
+	<div class="box">
+<? } ?>
+		<div class="inner">
+		<h2><?=$this->translate('billing_payout_ibaninfo_mandatory_headline')?></h2>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th valign="top">
+						<?=$this->translate('country')?>
+					</th>
+					<th valign="top">
+						<?=$this->translate('iban_length')?>
+					</th>
+					<th valign="top"  style="text-align:right;">
+						<?=$this->translate('iban_example')?><br/>
+						<small>(For illustration purpose only)</small>
+					</th>
+				</tr>
+			</thead>
+		<? foreach($this->ibancountries as $cid => $arrCountry){
+			if($arrCountry['iban_mandatory']){ ?>
+			<tr>
+				<td><?=$this->translate('country_'.strtolower($cid))?></td>
+				<td><?=strlen($arrCountry['iban_example'])?></td>
+				<td style="text-align:right;"><?=$arrCountry['iban_example']?></td>
+			</tr>
+			<? }
+			} ?>
+		</table>
+		<? if($this->popup && $this->translation_prefix != 'billing_payout_ibancountry') { ?>
+			<p style="text-align:center;">
+				<a class="btn btn-primary toggleAccount">
+					<?=$this->translate('back')?>
+				</a>
+			</p>
+		<? } ?>
+		<br />
+		<h2><?=$this->translate('billing_payout_ibaninfo_recommended_headline')?></h2>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th valign="top">
+							<?=$this->translate('country')?>
+						</th>
+						<th valign="top">
+							<?=$this->translate('iban_length')?>
+						</th>
+						<th valign="top"  style="text-align:right;">
+							<?=$this->translate('iban_example')?><br/>
+							<small>(For illustration purpose only)</small>
+						</th>
+					</tr>
+				</thead>
+			<? foreach($this->ibancountries as $cid => $arrCountry){
+				if($arrCountry['iban_mandatory'] == 0 && $arrCountry['iban_example'] != ''){ ?>
+				<tr>
+					<td><?=$this->translate('country_'.strtolower($cid))?></td>
+					<td><?=strlen($arrCountry['iban_example'])?></td>
+					<td style="text-align:right;"><?=$arrCountry['iban_example']?></td>
+				</tr>
+				<? }
+				} ?>
+			</table>
+			<? if($this->popup && $this->translation_prefix != 'billing_payout_ibancountry') { ?>
+				<p style="text-align:center;">
+					<a class="btn btn-primary toggleAccount">
+						<?=$this->translate('back')?>
+					</a>
+				</p>
+			<? } ?>
+		</div>
+<? if(!$this->popup) { ?>
+	</div>
+</div>
+<? } ?>

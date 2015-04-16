@@ -1,0 +1,57 @@
+<div class="pagename" id="currencies">
+<style>
+	.glyphicon-ok {color:#1BCE00;}
+	.glyphicon-remove {color:#ff0000;}
+</style>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="page-header">
+				<h1 id="overview"><?=$this->translate('currency_management')?></h1>
+			</div>
+
+				<div id="articlelist">
+					<table class="table table-striped sorted_table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th><?=$this->translate('active')?></th>
+								<th><?=$this->translate('currency')?></th>
+								<th><?=$this->translate('default_locale')?></th>
+								<th><?=$this->translate('format_pattern')?></th>
+								<th><?=$this->translate('rate')?> / €</th>
+								<th><?=$this->translate('last_update')?></th>
+							</tr>
+						</thead>
+						<? foreach($this->currencies as $currency) { ?>
+							<tr data-id="<?=$currency['id']?>">
+								<td><?=$currency['id']?></td>
+								<td class="pubstate active <?=($currency['active']) ? 'published' : '' ?>">
+									<a class="popup" href="#" data-href="<?=$this->url(Array('action' => 'edit'))?>" data-id="<?=$currency['id']?>" data-pk="status" data-name="active" title="<?=$this->translate('publish_unpublish')?>">
+										<i class="glyphicon glyphicon-ok"></i>
+										<i class="glyphicon glyphicon-remove"></i>
+									</a>
+								</td>
+								<td><?=$currency['currency']?></td>
+								<td><?=$currency['default_locale']?></td>
+								<td>
+									<? if(isAdmin("superadmin")){?>
+									<a href="#" class="editable" data-name="format_pattern" data-pk="remote" data-type="text"  data-url="<?= $this->url(Array('action' => 'edit', 'id' => $currency['id'])) ?>">
+										<?=$currency['format_pattern']?>
+									</a>
+									<? } else { ?>
+									<?=$currency['format_pattern']; } ?>
+								</td>
+								<td>
+									<a href="#" class="editable" data-name="rate" data-pk="remote" data-type="text"  data-url="<?= $this->url(Array('action' => 'edit', 'id' => $currency['id'])) ?>">
+										<?=$currency['rate']?>
+									</a>
+								</td>
+								<td class="last_update"><?=$currency['last_update']?></td>
+							</tr>
+						<? } ?>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

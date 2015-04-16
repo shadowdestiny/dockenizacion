@@ -1,0 +1,247 @@
+<? $this->headTitle($this->translate('seo_play_title'))?>
+<? $this->headMeta()->prependName('keywords', $this->translate('seo_play_keywords')); ?>
+<? $this->headMeta()->prependName('description', $this->translate('seo_play_description')); ?>
+
+<?	$l = Zend_Registry::get('Zend_Currency');
+	$l = $l->getLocale();
+	$arrRates = Zend_Registry::get("Currency_Rates_Locale");
+	$rate = $arrRates[$l];
+	?>
+<script>
+	settings.arrPrices = <?=json_encode($this->Play_Tickets()->getMultiplePriceList());?>;
+	settings.currencyRegion = '<?=str_replace(array('_'),array('-'), $l); ?>';
+	settings.changeRate = <?=$rate; ?>;
+	settings.maxLineCount = '6';
+	var overlaySomeEmpty =  <?=json_encode(array('html' => $this->Notification('play_index_index_finalize_line', true)));?>;
+	var overlayAllEmpty =  <?=json_encode(array('html' => $this->Notification('play_index_index_empty_lines', true)));?>;
+</script>
+<div class="pagename" id="play">
+	<div class="container">
+		<form action="" method="post">
+			<input type="hidden" name="act" value="play" />
+			<div class="box row1">
+				<div class="group1">
+					<div class="formfield title">
+						<label class="color">
+							<?=$this->translate('play_index_index_draw_label')?>
+						</label>
+					</div>
+					<div class="formfield">
+						<? $tue_selected = ''; $fri_selected = '';
+						if ($this->draw_day == '2'){
+							$tue_selected = 'checked="checked"';
+						} else {
+							$fri_selected = 'checked="checked"';
+						}?>
+						<label tabindex="3" class="checkbox" for="tuesday">
+							<input type="checkbox" class="day" id="tuesday" value="1" name="tuesday" <?=$tue_selected?> onchange="playdayselect('tuesday');"> <?=$this->translate('tuesday')?>
+						</label>
+					</div>
+					<div class="formfield last">
+						<label tabindex="3" class="checkbox" for="friday">
+							<input type="checkbox" class="day" id="friday" value="1" name="friday" <?=$fri_selected?> onchange="playdayselect('friday');"> <?=$this->translate('friday')?>
+						</label>
+					</div>
+				</div>
+				<div class="group2">
+					<div class="formfield title">
+						<label>
+							<?=$this->translate('play_index_index_firstdraw_label')?>
+						</label>
+					</div>
+					<div class="formfield last">
+						<select name="nextdraw" class="selectmenu" onchange="playdurationselect($(this));">
+							<? foreach($this->nextDrawDates as $key => $value){?>
+								<option value="<?=$key?>" class="day<?=$value?>" <?=($this->draw_day != $value)? 'style="display:none;"' :''; ?> ><?=$this->Date($key)?></option>
+							<? } ?>
+						</select>
+					</div>
+				</div>
+				<div class="group3">
+					<div class="formfield">
+						<select name="weeks" onchange="playdurationselect($(this));" class="selectmenu">
+							<option value="1"><?=$this->translate('play_index_index_duration_label')?></option>
+							<option value="2"><?=$this->translate('number_weeks',Array(0 => 2))?></option>
+							<option value="5"><?=$this->translate('number_weeks',Array(0 => 5))?></option>
+							<option value="10"><?=$this->translate('number_weeks',Array(0 => 10))?></option>
+							<option value="20"><?=$this->translate('number_weeks',Array(0 => 20))?></option>
+						</select>
+					</div>
+					<div class="formfield last">
+						<label tabindex="3" class="checkbox" for="recurring">
+							<input type="checkbox" id="recurring" value="1" name="recurring" onchange="playaboselect();"> <?=$this->translate('recurring')?>
+						</label>
+					</div>
+				</div>
+				<span class="clear"></span>
+			</div>
+
+			<div class="addcartbox">
+				<div class="price"><?=$this->translate('total_price')?>: <span class="amount color"><?=$this->Currency()->get('0,00');?></span></div>
+				<input type="submit" value="<?=$this->translate('buy_button')?>" class="btn eur-primary" id="addcard" />
+			</div>
+
+			<span class="clear"></span>
+			<div class="box row2 hidden-s-device">
+				<div class="formfield addlines">
+					<a onclick="addLines();">
+						<i class="icon-chkstyle icon-plus"></i> <span><?=$this->translate('add_new_line')?></span>
+					</a>
+				</div>
+				<div class="formfield">
+					<a class="randomizeAll">
+						<i class="icon-chkstyle icon-crossover"></i> <span><?=$this->translate('randomize_all')?></span>
+					</a>
+				</div>
+				<div class="formfield">
+					<a class="clearAll">
+						<i class="icon-chkstyle icon-cross"></i> <span><?=$this->translate('clear_all')?></span>
+					</a>
+				</div>
+				<div class="formfield">
+					<a href="#" class="popup quickhelp" data-act="asd" data-href="<?=$this->url(Array(),'Play_Quickhelp',true)?>">
+						<i class="icon-chkstyle icon-help color"></i> <span><?=$this->translate('quick_help')?></span>
+					</a>
+				</div>
+
+				<span class="clear"></span>
+			</div>
+			<div class="box linebox" id="ROW1" data-id="1">
+				<a style="position: absolute; right: 10px; top: 50%;" class="next visible-s-device"><i class="glyphicon glyphicon-chevron-right"></i></a>
+				<a style="position: absolute; left: 10px; top: 50%;" class="prev visible-s-device disabled"><i class="glyphicon glyphicon-chevron-left"></i></a>
+				<div class="dropdown visible-s-device" style="position: absolute; left: 90px; top: 8px;">
+					<a data-toggle="dropdown" href="#"><i class="icon-chkstyle random"></i></a>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						<li>
+							<a class="randomizeAll">
+								<i class="icon-chkstyle icon-crossover color" style="font-size:14px;"></i> <span><?=$this->translate('randomize_all')?></span>
+							</a>
+						</li>
+						<li>
+							<a class="clearAll">
+								<i class="icon-chkstyle icon-cross color"  style="font-size:14px;"></i> <span><?=$this->translate('clear_all')?></span>
+							</a>
+						</li>
+						<li>
+							<a class="quickhelp">
+								<i class="icon-chkstyle icon-help color" style="font-size:14px;"></i> <span><?=$this->translate('quick_help')?></span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="inner">
+				   <div class="line" id="playline1">
+						<input type="hidden" class="num" name="numbers[1]" value="" />
+						<input type="hidden" class="sta"  name="stars[1]" value="" />
+						<div class="options">
+							<a href="#" data-act="multipletipoverlay" data-href="<?=$this->url(Array(),'Play_Multipletipajr',true)?>" data-line="1" class="popup hidden-s-device">
+								<i class="icon-chkstyle icon-multiple"></i>
+							</a>
+							<a class="randomLine">
+								<i class="icon-chkstyle icon-crossover"></i>
+							</a>
+							<a class="resetLine">
+								<i class="icon-chkstyle icon-cross"></i>
+							</a>
+							<a class="options visible-s-device" data-toggle="dropdown">
+								<i class="icon-chkstyle icon-options"></i>
+							</a>
+
+						</div>
+						<div class="numbers">
+							<? for($i = 1; $i <= 50; $i++) { ?>
+								<? if (($i ==  35) || ($i ==  39) || ($i ==  43) || ($i ==  47)){?>
+									<br />
+								<? } ?>
+									<i class="playnumber icon-playnumber-<?=$i?>" data-number="<?=$i?>"></i>
+							<? } ?>
+						</div>
+						<div class="stars">
+							<? for($i = 1; $i <= 11; $i++) { ?>
+								<? if (($i ==  35) || ($i ==  39) || ($i ==  43) || ($i ==  47)){?>
+									<br />
+								<? } ?>
+									<i class="playstar icon-playstar-<?=$i?>" data-number="<?=$i?>"></i>
+							<? } ?>
+
+						</div>
+						<span class="clear"></span>
+					</div>
+					<div class="line" id="playline2">
+						<input type="hidden" class="num" name="numbers[2]" value="" />
+						<input type="hidden" class="sta"  name="stars[2]" value="" />
+						<div class="options">
+							<a href="#" data-act="multipletipoverlay" data-href="<?=$this->url(Array(),'Play_Multipletipajr',true)?>" data-line="2" class="popup hidden-s-device">
+								<i class="icon-chkstyle icon-multiple"></i>
+							</a>
+							<a class="randomLine">
+								<i class="icon-chkstyle icon-crossover"></i>
+							</a>
+							<a class="resetLine">
+								<i class="icon-chkstyle icon-cross"></i>
+							</a>
+							<a class="options visible-s-device" data-toggle="dropdown">
+								<i class="icon-chkstyle icon-options"></i>
+							</a>
+						</div>
+						<div class="numbers">
+							<? for($i = 1; $i <= 50; $i++) { ?>
+								<? if (($i ==  35) || ($i ==  39) || ($i ==  43) || ($i ==  47)){?>
+									<br />
+								<? } ?>
+									<i class="playnumber icon-playnumber-<?=$i?>" data-number="<?=$i?>"></i>
+							<? } ?>
+						</div>
+						<div class="stars">
+							<? for($i = 1; $i <= 11; $i++) { ?>
+								<? if (($i ==  35) || ($i ==  39) || ($i ==  43) || ($i ==  47)){?>
+									<br />
+								<? } ?>
+									<i class="playstar icon-playstar-<?=$i?>" data-number="<?=$i?>"></i>
+							<? } ?>
+
+						</div>
+						<span class="clear"></span>
+					</div>
+					<div class="line" id="playline3">
+						<input type="hidden" class="num" name="numbers[3]" value="" />
+						<input type="hidden" class="sta"  name="stars[3]" value="" />
+						<div class="options">
+							<a href="#" data-act="multipletipoverlay" data-href="<?=$this->url(Array(),'Play_Multipletipajr',true)?>" data-line="3" class="popup hidden-s-device">
+								<i class="icon-chkstyle icon-multiple"></i>
+							</a>
+							<a class="randomLine">
+								<i class="icon-chkstyle icon-crossover"></i>
+							</a>
+							<a class="resetLine">
+								<i class="icon-chkstyle icon-cross"></i>
+							</a>
+							<a class="options visible-s-device" data-toggle="dropdown">
+								<i class="icon-chkstyle icon-options"></i>
+							</a>
+						</div>
+						<div class="numbers">
+							<? for($i = 1; $i <= 50; $i++) { ?>
+								<? if (($i ==  35) || ($i ==  39) || ($i ==  43) || ($i ==  47)){?>
+									<br />
+								<? } ?>
+									<i class="playnumber icon-playnumber-<?=$i?>" data-number="<?=$i?>"></i>
+							<? } ?>
+						</div>
+						<div class="stars">
+							<? for($i = 1; $i <= 11; $i++) { ?>
+								<? if (($i ==  35) || ($i ==  39) || ($i ==  43) || ($i ==  47)){?>
+									<br />
+								<? } ?>
+									<i class="playstar icon-playstar-<?=$i?>" data-number="<?=$i?>"></i>
+							<? } ?>
+
+						</div>
+						<span class="clear"></span>
+					</div>
+				</div>
+				<span class="clear"></span>
+			</div>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,57 @@
+<? if(!$this->popup) { ?>
+	<div class="container">
+		<div class="box">
+<? } ?>
+<script>
+$(document).ready(function(){
+	$('.radio-buttons a').click(function(){
+		$('.radio-buttons a').removeClass(' btn-primary');
+		$(this).addClass(' btn-primary');
+		$('#jackpot-amount').val($(this).data('amount'));
+		if (!$('#jackpot-reminder').is(':checked')){
+			$('#jackpot-reminder').click();
+		}
+	});
+});
+</script>
+<?=$this->info?>
+<form action="<?=$this->url(Array(), 'User_Account_Settings', true)?>" method="post">
+	<input type="hidden" name="newsletter" value="0" />
+	<input type="hidden" name="formpost" value="1" />
+
+	<div class="form-group">
+		<label class="checkbox" for="newsletter">
+			<input type="checkbox" id="newsletter" name="newsletter" value="1" <?=($this->newsletter == 1) ? 'checked="checked" ' : ''; ?> /> <?= $this->translate('label_receive_newsletter') ?>
+		</label>
+	</div>
+	<div class="form-group">
+		<label class="checkbox" for="jackpot-reminder">
+			<input type="checkbox" id="jackpot-reminder" name="jackpot_reminder" value="1" <?=($this->jackpot_amount > 0) ? 'checked="checked" ' : ''; ?> /> <?= $this->translate('label_receive_jackpot_reminder') ?>
+		</label>
+	</div>
+	<div class="form-group radio-buttons" style="padding: 0 0 0 24px">
+		<? foreach($this->amountList as $amount){ ?>
+			<a class="btn btn-xs<?=($this->jackpot_amount == $amount) ? ' btn-primary' : ''; ?>" style="margin: 0 10px 0 0" data-amount="<?=$amount?>"><?=$this->Currency()->get($amount);?></a>
+		<? } ?>
+		<input type="hidden" name="jackpot" id="jackpot-amount" value="<?=$this->jackpot_amount ?>" />
+	</div>
+	<span class="clear"></span>
+	<div class="form-group" style="padding: 0 0 0 24px"><br/>
+		<?= $this->translate('user_account_index_changepassword_label') ?>: <a class="popup" data-href="<?= $this->Url(Array(), "User_Changepassword") ?>" href="<?= $this->Url(Array(), "User_Changepassword") ?>" data-popup="true"><?= $this->translate('user_account_index_changepassword_button_label') ?></a>
+	</div>
+	<br />
+	<div style="text-align:center;" class="submit">
+
+		<button type="submit" class="btn btn-primary">
+			<?= $this->translate('save') ?>
+		</button>
+		<button class="btn btn-default toggle" data-target="settings">
+			<?= $this->translate('close') ?>
+		</button>
+	</div>
+</form>
+
+<? if(!$this->popup) { ?>
+		</div>
+	</div>
+<? } ?>

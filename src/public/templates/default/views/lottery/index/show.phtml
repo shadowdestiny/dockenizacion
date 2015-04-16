@@ -1,0 +1,59 @@
+<? $this->headTitle($this->translate('seo-results-title'))?>
+<? $this->headMeta()->prependName('keywords', $this->translate('seo-results-keywords')); ?>
+<? $this->headMeta()->prependName('description', $this->translate('seo-results-description')); ?>
+
+<article>
+	<section class="contentContainer" id="clickMe">
+		<div>
+			<h1><?=$this->translate('euromillions-draw')?> <?=$this->draw_id?></h1>
+			<br>
+			<? $result=$this->Lottery_Euromillions()->getResult($this->draw_id) ?>
+			<h2 class="date"><?=$this->translate('results-for-date')?> <?=$result['draw_date']?></h2>
+			<div class="colB">
+				<p><?=$this->translate('jackpot-size')?></p>
+				<p class="jackpotValueRed"><? if($result['jackpot']){ echo $result['jackpot']; } ?></p>
+			</div>
+			<div class="colC">
+
+				<p><?=$this->translate('winning-euromillions-numbers')?></p>
+					<span class="greenball"><?=$result['standard_1']?></span>
+					<span class="greenball"><?=$result['standard_2']?></span>
+					<span class="greenball"><?=$result['standard_3']?></span>
+					<span class="greenball"><?=$result['standard_4']?></span>
+					<span class="greenball"><?=$result['standard_5']?></span>
+					<span class="redball"><?=$result['luckystar_1']?></span>
+					<span class="redball"><?=$result['luckystar_2']?></span>
+		      </p>
+			</div>
+
+			<div id="breakDown"  style="width:100%;">
+				<div id="priceandwinners">
+				    <table class="zebraTable">
+					    <thead>
+						    <tr class="tableHead">
+								<td><?=$this->translate('match')?></td>
+								<td><?=$this->translate('prize')?></td>
+								<td><?=$this->translate('winners')?></td>
+						    </tr>
+					    </thead>
+					    <tbody>
+							<? $winners = $this->Lottery_Euromillions()->getWinner($this->draw_id); ?>
+							<? if (!empty($winners)){ ?>
+								<? foreach($winners as $key =>  $winner){  ?>
+										<tr>
+											<td align="left"><?=$winner['numbers'] ?>+<?=$winner['luckystars'] ?></td>
+											<td><?=$winner['prize']?></td>
+											<td><?=$winner['winners']?></td>
+										</tr>
+								 <? } ?>
+							<? } else { ?>
+							<tr>
+								<td colspan="4"><?=$this->translate('no_results_aviable');?></td>
+							</tr><? } ?>
+					    </tbody>
+				    </table>
+				</div>
+			</div>
+		</div>
+	</section>
+</article>

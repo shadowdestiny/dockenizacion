@@ -1,0 +1,42 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h4 class="modal-title"><?=$this->translate('activate_draw')?> #<?=$this->draw_id?></h4>
+</div>
+<div class="modal-body">
+<? if($this->error) { ?>
+	<div class="alert alert-danger">
+		<strong><?=$this->translate('error')?></strong> <?=$this->translate('notice_error_happens_during_operation')?>
+	</div>
+<? } else { ?>
+
+	<form action="<?=$this->url(Array('module' => 'lottery','controller' => 'admin_euromillions_results', 'action' => 'activatedraw','lastdrawid' => $this->draw_id),null,true)?>" method="post" id="activatedraw" class="form-horizontal" style="padding: 0 20px 20px 20px">
+		<input type="hidden" name="drawid" value="<?=$this->draw_id;?>" />
+		<br />
+		<div class="form-group">
+			<label><?=$this->translate('date')?></label>
+			<input type="text" name="next_draw_date" class="form-control datepicker" value="<?=$this->nextDrawDate ?>" />
+			<script>
+				$('.modal-dialog .datepicker').datepicker({format:'yyyy-mm-dd'});
+			</script>
+			<style>
+				.datepicker.dropdown-menu {z-index:5000;}
+			</style>
+		</div>
+		<div class="form-group">
+			<label>Next draw</label>
+			<input type="text" name="next_draw_id" class="form-control" value="<?=$this->nextDrawId ?>" />
+		</div>
+		<div class="form-group">
+			<label>next Jackpot size (#<?=$this->draw_id+1?>)</label>
+			<input type="number" name="jackpot" class="form-control" required="required" /> Euro
+		</div>
+		<span class="clear"></span>
+		<button type="submit" class="submit btn btn-primary pull-right"><?=$this->translate('ok')?></button>
+	</form>
+<? } ?>
+</div>
+<? if($this->error) { ?>
+<div class="modal-footer">
+	<a type="button" class="submit btn btn-primary"><?=$this->translate('ok')?></a>
+</div>
+<? } ?>

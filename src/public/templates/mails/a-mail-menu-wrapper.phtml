@@ -1,0 +1,13 @@
+<style>
+	body {padding-top: 50px;}
+#top {position:fixed;left: 0;top:0;right:0;height:30px;background-color: #ccc;}
+</style>
+<div id="top">
+	<form id="templatechange" name="templatechange" method="post">
+		<select name="templ" onchange="document.templatechange.submit();">
+			<? foreach($this->templates as $template){ ?>
+			<option <? if($this->selected == $template){ ?>selected="selected"<? } ?> value="<?=$template?>"><?=$template?></option>
+			<? } ?>
+		</select>
+	</form>
+</div>

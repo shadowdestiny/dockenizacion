@@ -1,0 +1,114 @@
+<? $this->headTitle($this->translate('seo_cart_title'))?>
+<? $this->headMeta()->prependName('keywords', $this->translate('seo-cart-keywords')); ?>
+<? $this->headMeta()->prependName('description', $this->translate('seo-cart-description')); ?>
+
+<? $this->headScript()->captureStart();
+	if(!isLoggedin() && !$this->removed){ ?>
+		popCode = <?=Zend_Json::encode(array('html' => $this->render('/user/auth/login_register_switch.phtml')))?>;
+	<? }
+	if($this->hasOldItems){ ?>
+			settings.initOV = <?=Zend_Json::encode(array('html' => $this->partial('/billing/cart/oldtickets.phtml',array('type' => 'confirm','text' => $this->translate('notice_ticket_sale_closed_buy_next') ))))?>;
+	<? }
+ $this->headScript()->captureEnd() ?>
+<? if(!$this->removed){ ?>
+<div class="pagename" id="cart">
+	<div class="container">
+		<div class="box">
+<? } ?>
+			<div class="inner">
+				<h4><i class="icon-cart"></i> <?=$this->translate('meta_headline_billing_cart_index')?></h4>
+					<? if (!empty($this->data) && $this->data['total_posts'] > 0){ ?>
+					<table class="table">
+						<thead>
+							<tr>
+								<th style="width:20px;">&nbsp;</th>
+								<th class="color"><?=$this->translate('product')?></th>
+								<th class="color"><?=$this->translate('details')?></th>
+								<th class="color"><?=$this->translate('next_draw_date')?></th>
+								<th class="color"><?=$this->translate('price')?></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<? $count = "odd";
+
+									foreach($this->data['items'] as $group => $posts) {
+										foreach($posts as $post_id => $post) {
+											$count = ($count == "even") ? "odd" : "even"; ?>
+										<tr id="cartItem<?=$post_id;?>" data-pid="<?=$post_id;?>" class="cartitemtoggle <?=$count?>" style="cursor:pointer;">
+											<td><i class="icon-zoom-in"></i><i class="icon-zoom-out" style="display:none;"></i></td>
+											<td><?=$this->translate($group . '_ticket_name');?></td>
+											<td>
+												<?=$this->translate('draws')?>: <?=$post['count_draws_total'];?><br />
+												<?=$this->translate('lines')?>: <?=$post['count_lines_total'];?>
+											</td>
+											<td><?=($post['start_date'] != '') ? $this->Date($post['start_date']) : ''; ?></td>
+											<td><?=$this->Currency()->get($post['price_total']);?></td>
+											<td style="width:40px;"><a href="#" class="removeCartItem" data-id="<?=$post_id;?>"><i class="glyphicon glyphicon-trash"></i></a></td>
+										</tr>
+										<tr class="cartItem<?=$post_id;?> <?=$count?>" style="display:none;">
+											<td colspan="6">
+												<? foreach($post['tickets'] as $ticket){ ?>
+												<div class="draw">
+													<i class="product-type-icon <?=($ticket['ticket_type'] == 'multi')? 'multi':'single' ?>"></i>
+													<? foreach($ticket['numbers'] as $number){ ?>
+														<i class="drawnumber icon-drawnumber-<?=$number?>"></i>
+													<? } ?>
+													<? foreach($ticket['stars'] as $star){ ?>
+														<i class="drawstar selected icon-playstar-<?=$star?>"></i>
+													<? } ?>
+												</div>
+												<? } ?>
+											</td>
+										</tr>
+									<? } ?>
+									<? } ?>
+
+						</tbody>
+						<tfoot>
+							<tr>
+								<th></th>
+								<th class="color"><?=$this->translate('total_price')?></th>
+								<th colspan="2"></th>
+								<th class="total"><?=$this->Currency()->get($this->data['total_price']);?></th>
+								<th></th>
+							</tr>
+						</tfoot>
+					</table>
+					<div class="submit">
+						<a href="<?=$this->url(Array(),"Play_Index") ?>" class="btn btn-default pull-left">
+							<?=$this->translate('billing_cart_index_playmore')?>
+						</a>
+						<? if($this->data['total_price'] > 0){ ?>
+							<? if(isLoggedin()){ ?>
+								<?if($this->userData['verified_email'] == '0'){ ?>
+									<a class="popup btn eur-primary pull-right" data-href="<?=$this->url(Array(),'User_VerifyMail',true)?>">
+								<? } else { ?>
+									<a class="btn eur-primary pull-right" href="<?=$this->url(Array(),"Billing_Pay") ?>">
+								<? } ?>
+							<? } else { ?>
+								<a onclick="showPopup(popCode.html);" class="btn eur-primary pull-right">
+							<? } ?>
+								<?=$this->translate('billing_cart_index_checkout')?>
+							</a>
+						<? } ?>
+						<span class="clear"></span>
+					</div>
+				<? } else { ?>
+				<div class="cartempty" style="text-align: center;padding: 30px 0;">
+					<strong class="emptycart" style="display:block;font-size:24px;text-transform:uppercase;color:#ccc;margin: 0 0 40px 0;">your shopping cart is empty</strong>
+					<a href="<?=$this->url(Array(),"Play_Index") ?>" class="btn btn-primary">
+						<?=$this->translate('play_now')?>
+					</a>
+					<span class="clear"></span>
+				</div>
+
+
+				<? } ?>
+<? if(!$this->removed){ ?>
+			</div>
+
+		</div>
+	</div>
+</div>
+<? } ?>

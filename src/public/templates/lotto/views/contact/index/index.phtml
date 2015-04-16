@@ -1,0 +1,27 @@
+<? if(!$this->popup) { ?>
+<? $this->headTitle($this->translate('seo_contact_title'))?>
+<? $this->headMeta()->prependName('keywords', $this->translate('seo_contact_keywords')); ?>
+<? $this->headMeta()->prependName('description', $this->translate('seo_contact_description')); ?>
+<div class="container">
+	<div class="box">
+<? } ?>
+		<div style="max-width: 400px;margin:auto;">
+			<h1><?=$this->translate('seo_headline_meta_contact_index_index')?></h1>
+			<br />
+			<?=$this->form;?>
+		</div>
+<? if(!$this->popup) { ?>
+	</div>
+</div>
+<? } else { ?>
+	<script>
+		$(document).ready(function(){
+			$('#contact_popup').submit(function(){
+				data = formCollect($(this));
+				$.extend(data, {'act':'contact','href':$(this).attr('action')});
+				Popup(data);
+				return false;
+			});
+		});
+	</script>
+<? } ?>

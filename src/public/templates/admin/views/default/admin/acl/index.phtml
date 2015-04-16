@@ -1,0 +1,35 @@
+<div class="pagename" id="countries">
+<style>
+	.glyphicon-ok {color:#1BCE00;}
+	.glyphicon-remove {color:#ff0000;}
+</style>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="page-header">
+				<h1 id="overview"><?=$this->translate('acl_settings')?></h1>
+			</div>
+
+				<div id="articlelist">
+					<table class="table table-striped sorted_table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th><?=$this->translate('name')?></th>
+								<th><?=$this->translate('options')?></th>
+							</tr>
+						</thead>
+						<? foreach($this->roles as $role) { ?>
+						<tr>
+							<td><?=$role['role_id'] ?></td>
+							<td><?=$role['name'] ?></td>
+							<td>
+								<a href="<?=$this->url( Array("module"=>"default","controller"=>"admin_acl","action"=>"edit","role_id"=>$role['role_id'],"lang"=>Settings::get("S_lang")),null,true ) ?>"><?=$this->translate('edit')?></a>
+							</td>
+						</tr>
+						<? } ?>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

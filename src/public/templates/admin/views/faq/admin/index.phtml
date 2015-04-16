@@ -1,0 +1,103 @@
+<script type="text/javascript" src="<?=$this->baseUrl() ?>/templates/admin/assets/jquery-sortable/jquery-sortable.js"></script>
+<script>
+	$(document).ready(function(){
+		// Sortable rows
+		$sorttable = $('.sorted_table').sortable({
+			containerSelector: 'table',
+			itemPath: '> tbody',
+			itemSelector: 'tr',
+			placeholder: '<tr class="placeholder"/>',
+			onDrop: function ($item, container, _super, event) {
+
+				$item.removeClass("dragged").removeAttr("style");
+				$("body").removeClass("dragging");
+
+
+				var data = new Array();
+				var categorys = $('.sorted_table tbody');
+
+				var objItems= {};var objCategory= {};var params = {};
+
+				$.each(categorys, function(d, item) {
+					cat = $(this).data('cat');
+					var faq = $(this).find('tr');
+					var pos = 1;
+					$.each(faq, function(i, item) {
+						id = $(this).data('id');
+						if(id){
+							objItems[id] = pos;
+							pos++;
+						}
+					});
+					objCategory[cat] = objItems;
+					objItems = {};
+				});
+
+				params['sort'] = 1;
+				params['data'] = objCategory;
+				AjaxSubmit('/en/faq/admin/position',params);
+			  }
+		});
+	});
+</script>
+<style>
+	body.dragging, body.dragging *, table tbody tr {
+	  cursor: move !important;
+	}
+
+	.dragged {
+	  position: absolute;
+	  opacity: 0.5;
+	  z-index: 2000;
+	}
+
+</style>
+
+<div class="pagename" id="faq">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="page-header">
+				<h1 id="overview"><?=$this->translate('faq_management')?></h1>
+			</div>
+				<div id="articlelist">
+					<table class="table table-striped sorted_table">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th><?=$this->translate('active')?></th>
+								<th><?=$this->translate('languages')?></th>
+								<th><?=$this->translate('question')?></th>
+								<th><?=$this->translate('options')?></th>
+							</tr>
+						</thead>
+						<? foreach($this->list as $category => $arrCategory) { ;?>
+						<thead><tr><th colspan="5"><?=$this->translate('category')?>: <?=$category?></th></tr></thead>
+						<tbody class="faq_cat" data-cat="<?=$category?>">
+							<? foreach($arrCategory as $key => $item) { ;?>
+							<tr id="faq<?=$key?>" data-id="<?=$key?>">
+								<td><?=$key?></td>
+								<td><?=$this->translate(($item['published']) ? 'yes' : 'no'); ?></td>
+								<td>
+									<? foreach($item['details'] as $lang => $details) { ?>
+										<i class="flag flag-<?=$lang?> tip" title="<?=$this->translate('language_' . $lang )?>" style="margin-left:2px;"/></i>
+									<? } ?>
+								</td>
+								<td><?=(!empty($item['title'])) ? $item['title']: $this->translate('no_translation') ?></td>
+								<td>
+									<a title="" href="<?=$this->url(Array('action' => 'edit','faq_id' => $item['faq_id']))?>">
+										<i class="glyphicon glyphicon-pencil"></i>
+									</a>
+									<a href="#" data-href="<?=$this->url(Array('action' => 'del','faq_id' => $key))?>" class="popup" title="<?=$this->translate('delete')?>"><i class="glyphicon glyphicon-trash"></i></a>
+								</td>
+							</tr>
+							<? } ?>
+						</tbody>
+						<? } ?>
+
+					</table>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

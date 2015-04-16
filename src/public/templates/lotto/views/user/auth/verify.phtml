@@ -1,0 +1,23 @@
+<? if(!$this->popup) { ?>
+<div class="pagename" id="verify">
+	<div class="container">
+		<div class="box">
+<? } ?>
+			<h1><?=$this->translate('seo_headline_user_auth_verify')?></h1>
+			<p><?=$this->translate('user_auth_verify_description')?></p>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<strong><?=$this->userData['username']?></strong>
+				</div>
+			 </div>
+			<p style="text-align:center;">
+				<a data-href="<?=$this->url(Array(),'User_VerifyMail',true)?>" data-act="verfifactionmail" class="popup btn btn-primary"><i><?=$this->translate('send_verification_email')?></i></a>
+			</p>
+			<p style="text-align:center;">
+				<a data-href="<?=$this->url(Array(),'User_ChangeMail',true)?>" data-act="verifymail" class="popup" data-send="verfifactionmail"><i><?=$this->translate('change_email_label')?></i></a>
+			</p>
+<? if(!$this->popup) { ?>
+		</div>
+	</div>
+</div>
+<? } ?>

@@ -1,0 +1,60 @@
+<? $this->headTitle($this->translate('seo_home_title'))?>
+<? $this->headMeta()->prependName('keywords', $this->translate('seo_home_keywords')); ?>
+<? $this->headMeta()->prependName('description', $this->translate('seo_home_description')); ?>
+
+<div class="pagename" id="home">
+	<style>
+		body { padding-top: 0px;}
+	</style>
+	<div class="container" style="height: 0px;">
+		<div class="dotmenu">
+			<ul class="nav">
+				<li><a href="#page1" class="dot-icon">&nbsp;</a></li>
+				<li><a href="#page2" class="dot-icon">&nbsp;</a></li>
+				<li><a href="#page3" class="dot-icon">&nbsp;</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="page1" class="page">
+		<div class="container">
+			<h1 style="color:#3c3c3b;"><?=$this->translate('meta_headline_default_index_index')?></h1>
+			<img src="<?=$this->baseUrl() ?>/templates/lotto/img/images/home.jpg">
+			<div class="homebutton">
+				<a href="<?=$this->url(Array("module"=>"play","controller"=>"index","action"=>"index"));?>" class="btn eur-primary"><?=$this->translate('play_now_button')?></a>
+			</div>
+			<div class="hometext">
+				<p style="font-weight:400;"><?=$this->translate('default_index_index_description_1')?></p>
+			</div>
+			<span class="clear"></span>
+		</div>
+
+	</div>
+	<div id="page2" class="page">
+		<div class="container">
+			<h1><?=$this->translate('meta_headline_default_index_index_2')?></h1>
+			<ul>
+				<li class="price"><?=$this->translate('default_index_index_reason_1')?></li>
+				<li class="account"><?=$this->translate('default_index_index_reason_2')?></li>
+				<li class="piggy"><?=$this->translate('default_index_index_reason_3')?></li>
+				<li class="ticket"><?=$this->translate('default_index_index_reason_4')?></li>
+				<li class="syndicates"><?=$this->translate('default_index_index_reason_5')?></li>
+				<li class="support"><?=$this->translate('default_index_index_reason_6')?></li>
+			</ul>
+			<div class="homebutton">
+				<a href="<?=$this->url(Array("module"=>"play","controller"=>"index","action"=>"index"));?>" class="btn eur-primary"><?=$this->translate('play_now_button')?></a>
+			</div>
+		</div>
+		<span class="clear"></span>
+	</div>
+
+	<div id="page3" class="page">
+		<div class="container">
+			<h1><?=$this->translate('meta_headline_default_index_index_3')?></h1>
+			<p><?=$this->translate('default_index_index_description_3')?></p>
+			<h1><?=$this->translate('meta_headline_default_index_index_4')?></h1>
+			<p><?=$this->translate('default_index_index_description_4')?></p>
+		</div>
+		<br class="clear" />
+	</div>
+</div>

@@ -1,0 +1,108 @@
+<? $this->Statistic()->setData($this->statsdata);?>
+<div class="pagename" id="statsoverview">
+	<div class="page-header">
+		<h1><?=$this->translate('statistics')?></h1>
+	</div>
+	<?=$this->partial('default/adminstats/navigation.phtml', array('active' => 'overview')); ?>
+
+
+	<form class="form-inline" role="form">
+		<input type="hidden" name="customer_id" value="<?=$this->filter['customer_id'] ?>" />
+		<div class="form-group pull-right">
+			<button class="btn btn-primary btn-sm" type="submit"><i class="glyphicon glyphicon-repeat"></i></button>
+		</div>
+		<div id="reportrange" class="pull-right">
+			<input type="hidden" name="start" id="start" value="<?=$this->filter['start'] ?>"/>
+			<input type="hidden" name="end" id="end"  value="<?=$this->filter['end'] ?>"/>
+			<i class="glyphicon glyphicon-calendar"></i>
+			<?
+				//<!--span><?=date("F j, Y", strtotime('-30 day')); ? > - <?php echo date("F j, Y"); ? ></span> <b class="caret"></b-->
+			?>
+			<span><?=$this->Date($this->filter['start'])?> - <?=$this->Date($this->filter['end'])?></span> <b class="caret"></b>
+
+		</div>
+		<span class="clear"></span>
+	</form>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">Users</div>
+				<div class="panel-body">
+					<div class="row">
+						<table class="table table-striped">
+							<tr>
+								<th>Active</th>
+								<td>10</td>
+							</tr>
+							<tr>
+								<th>New</th>
+								<td>2</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">Ticket Sales</div>
+				<div class="panel-body">
+					<div class="row">
+						<table class="table table-striped">
+							<tr>
+								<th>Single</th>
+								<td>10</td>
+								<td>23.50 €</td>
+							</tr>
+							<tr>
+								<th>Multiple</th>
+								<td>2</td>
+								<td>230.50 €</td>
+							</tr>
+							<tr>
+								<th>Tickets per sale</th>
+								<td>2</td>
+								<td>23.50 €</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">Registrations</div>
+				<div class="panel-body">
+					<table class="table table-striped">
+						<tr>
+							<th>Show</th>
+							<td><?
+								$showReg = $this->Statistic()->getTotal(array('show_registration','show_registration_popup'));
+								echo $showReg;
+								?>
+							</td>
+						</tr>
+						<tr>
+							<th>Registered</th>
+							<td>
+								<?
+								$completeReg = $this->Statistic()->getTotal(array('registration_complete','registration_complete_popup'));
+								echo $completeReg;
+								?>
+							</td>
+						</tr>
+						<tr>
+							<th>CVR</th>
+							<td><?=round(($completeReg / $showReg),2);?></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<h2>Pageviews</h2>
+	<?=$this->Statistic()->getTable($this->display_type, array('show_home','show_play_em_page','show_em_results','show_cart' ));?>
+	<h2>Registration</h2>
+	<?=$this->Statistic()->getTable($this->display_type, array('show_registration','show_registration_popup','registration_submit','registration_error','registration_complete','registration_complete_popup','user_activation' ));?>
+</div>

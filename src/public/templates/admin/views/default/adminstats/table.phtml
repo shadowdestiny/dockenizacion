@@ -1,0 +1,47 @@
+<? if(!empty($this->data)){?>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Tracking Point</th>
+				<? foreach($this->data['data'] as $date => $item){ ?>
+				<th>
+					<?	switch ($this->datetype){
+							case 'hourly':
+								echo $date;
+								break;
+							case 'monthly':
+								echo $this->Date($date);
+								break;
+							case 'daily':
+							default:
+								echo $this->Date($date,'daymonth');
+								break;
+						}
+					?>
+				</th>
+				<? } ?>
+				<th>
+					<?=$this->translate('total')?>
+				</th>
+				<th>
+					<?=$this->translate('average')?>
+				</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<? foreach($this->keys as $key){ ?>
+				<tr>
+					<td><?=$key?></td>
+					<? foreach($this->data['data'] as $date => $arrValues){ ?>
+						<td>
+							<?=$this->data['data'][$date][$key]?>
+						</td>
+					<? } ?>
+						<td><?=$this->data['total'][$key]?></td>
+						<td><?=$this->data['avg'][$key]?></td>
+				</tr>
+			<? } ?>
+		</tbody>
+	</table>
+<? } ?>

@@ -1,0 +1,24 @@
+<? $this->headTitle($this->translate('seo-news-title'))?>
+<? $this->headMeta()->prependName('keywords', $this->translate('seo-news-keywords')); ?>
+<? $this->headMeta()->prependName('description', $this->translate('seo-news-description')); ?>
+<div id="newslist" class="contentContainer100">
+<h1><?=$this->translate('seo-news-title')?></h1>
+<? if(!empty($this->list)){ ?>
+	<? foreach($this->list as $news) { ?>
+	<div class="newsitem" style="min-height:60px;">
+	<? if($news['image'] != '') { ?>
+		<img src="<?=$news['image']?>" style="width: 50px;max-height:50px;float:left;padding:0;margin: 10px 0 0 0;" />
+	<? } else { ?>
+		<img alt="<?=$this->translate('seo-news-title')?>" src="<?=$this->baseUrl() ?>/templates/default/images/news/blue-star.png"  style="width: 50px;float:left;padding:0;margin: 10px 0 0 0;max-height:50px;" />
+	<? } ?>
+	<div style="padding: 0 0 0 60px;">
+		<a href="<?=$news['detail_link']?>"><?=$news['page_title']?></a><small class="right"><?=$this->Date($news['published_on'])?></small>
+		<p><?=$news['meta_description']?></p>
+	</div>
+	</div>
+	<? } ?>
+	<?=$this->paginator ?>
+<? } else { ?>
+	<p><?=$this->translate('no_news_aviable')?></p>
+<? } ?>
+</div>

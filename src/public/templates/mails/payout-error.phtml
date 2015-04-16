@@ -1,0 +1,37 @@
+<?=$this->render('mail_header.phtml') ?>
+
+	<!-- Picture -->
+	<tr>
+		<td>
+			<img alt="<?=$this->Email()->sitename()?>" src="<?=$this->Email()->imagePath()?>/header/withdraw-error.png" style="width: 100%;" />
+			<br /><br /><br />
+		</td>
+	</tr>
+
+	<!-- Hello -->
+	<tr valign="top">
+		<td style="border-top: 4px solid #02B3B6;">
+			<p style="margin:0;padding:22px 0 15px 0;">
+				<b><font style="font-size:20px;color:#02B3B6;"><?=$this->translate('mail_hello_username',Array( 0 => $this->first_name));?></font></b>
+			</p>
+		</td>
+	</tr>
+
+
+	<!-- Body -->
+	<tr valign="top">
+		<td>
+			<p style="padding:0 0 10px 0;"><?=$this->translate('mail_payout_error_text_1')?></p>
+			<p><?=$this->translate('mail_payout_error_text_2')?></p>
+			<ul>
+				<li><?=$this->translate('mail_payout_error_reason_1')?></li>
+				<li><?=$this->translate('mail_payout_error_reason_2')?></li>
+			</ul>
+			<br /><br />
+			<a href="<?=$this->Email()->url()?><?=$this->url(Array(),'User_Account_Index',true)?>" title="My account" style="padding: 10px 20px; background-color:#d34833; color:#ffffff; border-radius: 5px; text-decoration: none; margin-left: 1px; margin-right: 1px;">My account</a><br /><br /><br />
+
+		</td>
+	</tr>
+
+<!-- FOOTER 1 & COPYRIGHT -->
+<?=$this->render('mail_footer.phtml') ?>

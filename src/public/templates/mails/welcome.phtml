@@ -1,0 +1,30 @@
+<?=$this->render('mail_header.phtml') ?>
+
+	<!-- Picture -->
+	<tr>
+		<td>
+			<img alt="<?=$this->Email()->sitename()?>" src="<?=$this->Email()->imagePath()?>/header/welcome.png" style="width: 100%;" />
+			<br /><br /><br />
+		</td>
+	</tr>
+
+	<!-- Hello -->
+	<tr valign="top">
+		<td style="border-top: 4px solid #02B3B6;">
+			<p style="margin:0;padding:22px 0 15px 0;">
+				<b><font style="font-size:20px;color:#02B3B6;"><?=$this->translate('mail_hello_username',Array( 0 => $this->first_name));?></font></b>
+			</p>
+		</td>
+	</tr>
+
+	<!-- Body -->
+	<tr valign="top">
+		<td>
+			<p style="padding:0 0 22px 0;"><?=$this->translate('mail_welcome_text_1')?></p>
+			<p style="padding:0 0 22px 0;"><?=$this->translate('mail_welcome_link')?>: <a href="<?=$this->Email()->url()?><?=$this->url(Array("user_code"=>$this->user_code),"User_Activation") ?>" style="color:#02B3B6;"><?=$this->translate('mail_registration_activate_button')?></a><br /><br /></p>
+
+		</td>
+	</tr>
+
+<!-- FOOTER 1 & COPYRIGHT -->
+<?=$this->render('mail_footer.phtml') ?>

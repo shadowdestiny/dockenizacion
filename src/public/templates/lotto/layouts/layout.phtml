@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<?=$this->headTitle() ?>
+		<?=$this->headMeta() ?>
+		<?=$this->headLink() ?>
+		<meta name="google-site-verification" content="kB3yDp8MuSphVhX98xHyhjCItsg_C-HYVxiV7rGYjxw" />
+		<link rel="shortcut icon" href="<?=$this->baseUrl() ?>/templates/lotto/img/logo/favicon.ico" type="image/x-icon" />
+
+		<meta name="viewport" content="width=device-width, initial-scale= 1, user-scalable = no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<!-- Le styles -->
+		<link href="<?=$this->baseUrl() ?>/templates/lotto/assets/bootstrap/css/bootstrap.css" rel="stylesheet">
+		<!--link href="<?=$this->baseUrl() ?>/templates/lotto/fonts/Oswald/stylesheet.css" rel='stylesheet' type='text/css'-->
+		<link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+		<link href="<?=$this->baseUrl() ?>/templates/lotto/fonts/euromillons/style.css" rel="stylesheet">
+		<link href="<?=$this->baseUrl() ?>/templates/lotto/css/style.css" rel="stylesheet">
+		<script src="<?=$this->baseUrl() ?>/templates/lotto/assets/bootstrap/js/jquery.js"></script>
+		<script src="<?=$this->baseUrl() ?>/templates/global/js/mo.updatechecker.js"></script>
+		<script type="text/javascript">
+			settings = {};
+		</script>
+		<?=$this->headScript() ?>
+	</head>
+  <body>
+	<!-- Fixed navbar -->
+	<div role="navigation" class="navbar navbar-default navbar-fixed-top">
+
+		<?=$this->render('default/navigation/topmenu.phtml') ?>
+
+		<div id="slideOut">
+			<div class="wrapper">
+				<div id="timer" class="pull-left <?=($this->Lottery_Euromillions()->getTimeLeftNextDraw() < 31)? 'final' : ''; ?>">
+					<div class="pe"><?=$this->translate('slideout_timer_text')?></div>
+					<div class="days group">
+						<div id="days" class="cell">&nbsp;</div>
+						<div class="tlabel"><?=$this->translate('days')?></div>
+					</div>
+					<div class="hours group">
+						<div id="hourH" class="cell w50">&nbsp;</div>
+						<div id="hourL" class="cell w50">&nbsp;</div>
+						<div class="tlabel"><?=$this->translate('hours')?></div>
+					</div>
+					<div class="minutes group">
+						<div id="minH" class="cell w50">&nbsp;</div>
+						<div id="minL" class="cell w50">&nbsp;</div>
+						<div class="tlabel"><?=$this->translate('minutes')?></div>
+					</div>
+					<div class="seconds group">
+						<div id="secH" class="cell w50">&nbsp;</div>
+						<div id="secL" class="cell w50">&nbsp;</div>
+						<div class="tlabel"><?=$this->translate('seconds')?></div>
+					</div>
+				</div>
+				<div class="the-right">
+					<div class="pe"><?=$this->translate('slideout_play_text')?></div>
+					<a href="<?=$this->url(Array(),'Play_Index',true)?>" class="btn eur-primary">
+						<?=$this->translate('play_now_button')?>
+					</a>
+				</div>
+				<div class="jackpot">
+					<div class="pe"><?=$this->translate('slideout_jackpot_text')?></div>
+					<div class="stro"><?=$this->Lottery_Euromillions()->getJackpot() ?></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?if(isset($this->userData['verified_email']) && $this->userData['verified_email'] == '0'){ ?>
+		<div class="container">
+			<?=$this->Notification('notice_email_not_verified') ?>
+		</div>
+	<? } ?>
+	<?=$this->layout()->content;?>
+
+
+
+	<div id="footer">
+		<div class="container">
+			<ul class="navigation">
+				<li class="w20">
+					<strong><a href="<?=$this->url(Array(),'Play_Index',true)?>"><?=$this->translate('seo_menu_play_index_index')?></a></strong>
+				</li>
+				<li class="w20">
+					<strong><a href="<?=$this->url(Array(),'Lottery_Index',true)?>"><?=$this->translate('seo_menu_lottery_index_index')?></a></strong>
+				</li>
+				<? if(hasAccess('article')){?>
+				<li class="w30">
+					<strong><?=$this->translate('seo_menu_information_index_index')?></strong>
+					<ul>
+						<li><a href="{{article_url::discover_your_odds_of_winning_the_euromillions}}" title="<?=$this->translate('main_page_story_1_title')?>"><?=$this->translate('main_page_story_1_title')?></a></li>
+						<li><a href="{{article_url::euromillions_rules}}" title="<?=$this->translate('main_page_story_2_title')?>"><?=$this->translate('main_page_story_2_title')?></a></li>
+						<li><a href="{{article_url::euromillions_history}}" title="<?=$this->translate('main_page_story_3_title')?>"><?=$this->translate('main_page_story_3_title')?></a></li>
+						<li><a href="{{article_url::euromillions_prize_structure}}" title="<?=$this->translate('main_page_story_4_title')?>"><?=$this->translate('main_page_story_4_title')?></a></li>
+					</ul>
+				</li>
+				<? } ?>
+				<li class="w30">
+					<strong><?=$this->translate('seo_menu_about_index_index')?></strong>
+					<ul>
+						<li><a role="menuitem" href="<?=$this->url(Array("module"=>"news","controller"=>"index","action"=>"index","page"=>1),"News_Index",true);?>"><?=$this->translate('euromillions_news')?></a></li>
+						<li><a href="<?=$this->url(Array(),"Faq_Index",true);?>" role="menuitem"><?=$this->translate('seo_menu_faq_index_index')?></a></li>
+						<li><a href="<?=$this->url(Array(),'Contact_Index_Index',true)?>"  onclick="return false;" data-act="contact" data-href="<?=$this->url(Array(),'Contact_Index_Index',true)?>" class="popup"><?=$this->translate('seo_menu_contact_index_index')?></a></li>
+						<li><a href="{{article_url::terms_and_conditions}}"><?=$this->translate('terms_and_conditions')?></a></li>
+						<li><a href="{{article_url::legal_notice}}"><?=$this->translate('legal_info')?></a></li>
+					</ul>
+				</li>
+			</ul>
+			<span class="clear"></span>
+			<div class="wrapper">
+				<div class="logos">
+					<div class="gambleaware">
+						<img src="<?=$this->baseUrl() ?>/templates/lotto/img/logo/gambleaware.png" />
+					</div>
+					<div class="geotrust">
+						<img src="<?=$this->baseUrl() ?>/templates/lotto/img/logo/GeoTrust_Logo.png" />
+					</div>
+				</div>
+				<div class="socialbox">
+					<div class="link">
+						<a href="https://www.facebook.com/pages/Euromillionscom/204411286236724" target="_blank">
+							<i class="social-small icon-facebook"></i>
+						</a>
+					</div>
+					<div class="link">
+						<a href="https://twitter.com/_lotteries" target="_blank">
+							<i class="social-small icon-twitter"></i>
+						</a>
+					</div>
+					<div class="link">
+						<a href="https://plus.google.com/+Euromillionscom/posts" target="_blank">
+							<i class="social-small icon-gplus"></i>
+						</a>
+					</div>
+					<div class="link">
+						<a href="http://www.reddit.com/domain/euromillions.com" target="_blank">
+							<i class="social-small icon-reddit"></i>
+						</a>
+					</div>
+					<div class="link">
+						<a href="http://www.stumbleupon.com/stumbler/EuromillionsNews" target="_blank">
+							<i class="social-small icon-stumbleupon"></i>
+						</a>
+					</div>
+					<span class="clear"></span>
+				</div>
+				<span class="clear"></span>
+				<div class="billers">
+					<img src="<?=$this->baseUrl() ?>/templates/lotto/img/logo/billers.png" />
+				</div>
+			</div>
+
+			<div class="copyright">
+				<p><?=$this->translate('terms_and_conditions_content')?></p>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="Overlay" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<strong></strong>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="glyphicon glyphicon-remove"></i></button>
+					<span class="pull-right"></span>
+				</div>
+				<div class="modal-body">
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<? if (isLoggedin()){ ?>
+		<form act="" id="logout" method="post" style="display:none;"><input type="hidden" name="act" value="logout"></form>
+	<? } ?>
+
+	<? if (hasAccess('acp')){ ?>
+		<div style="width: 100%;height:30px;background: #222;position:fixed;bottom:0;color:#999999;">
+			<div class="inner" style="margin: 8px;">
+				<? if(isAdmin()){ ?>
+					<a href="<?=$this->baseUrl() ?>/de/default/admin" class="btn eur-secondary btn-xs">ACP</a>
+				<? } ?>
+				<div class="pull-right">Translation Key Prefix:<?=$this->translation_prefix;?></div>
+			</div>
+		</div>
+	<? } ?>
+
+	<script src="<?=$this->baseUrl() ?>/templates/lotto/assets/bootstrap/js/bootstrap.js"></script>
+	<script src="<?=$this->baseUrl() ?>/templates/global/js/jquery.formatCurrency-1.4.0.pack.js"></script>
+	<script src="<?=$this->baseUrl() ?>/templates/global/js/jquery.formatCurrency.em.js"></script>
+	<script src="<?=$this->baseUrl() ?>/templates/lotto/js/mo.select.js"></script>
+	<script src="<?=$this->baseUrl() ?>/templates/lotto/js/functions.js"></script>
+	<script src="<?=$this->baseUrl() ?>/templates/global/js/jquery.touchwipe.min.js"></script>
+	<script src="<?=$this->baseUrl() ?>/templates/lotto/js/common.js"></script>
+	<script type="text/javascript">
+		settings.pagename = document.getElementsByClassName('pagename')[0].id;
+		setInterval("UpdateTimer()", 1000);
+		// year, month, day, hours, minutes, seconds, milliseconds
+		var startJackpots = [new Date(0, 0, 2, 19, 0, 0, 0), new Date(0, 0, 5, 19, 0, 0, 0)];
+		var endJackpots = [new Date(0, 0, 2, 21, 0, 0, 0), new Date(0, 0, 5, 21, 0, 0, 0)];
+		var startTime = <?=time()?>;
+		function UpdateTimer() {
+			startTime = startTime + 1;
+			var tmpUtc = new Date();
+			var check = new Date(0, 0, tmpUtc.getUTCDay(), tmpUtc.getUTCHours() + 1, tmpUtc.getUTCMinutes(), tmpUtc.getUTCSeconds(), 0);
+			var timestamp = CheckTimeStamps(check);
+
+			if (timestamp != false) {
+				timestamp -= check.getTime();
+
+				var display = TimeStampToDate(Math.floor(timestamp));
+
+				$('#days').html(display[0]);
+
+				$('#hourH').html(padLeft(display[1], 2, "0").substr(0, 1));
+				$('#hourL').html(padLeft(display[1], 2, "0").substr(1, 1));
+
+				$('#minH').html(padLeft(display[2], 2, "0").substr(0, 1));
+				$('#minL').html(padLeft(display[2], 2, "0").substr(1, 1));
+
+				$('#secH').html(padLeft(display[3], 2, "0").substr(0, 1));
+				$('#secL').html(padLeft(display[3], 2, "0").substr(1, 1));
+
+
+			}
+			else {
+
+				$('#jackpot').html('In progress');
+
+				$('#days').html("N/A");
+
+				$('#hourH').html("-");
+				$('#hourL').html("-");
+
+				$('#minH').html("-");
+				$('#minL').html("-");
+
+				$('#secH').html("-");
+				$('#secL').html("-");
+			}
+		}
+
+		function padLeft(num, totalChars, padWith) {
+			num = num + "";
+			padWith = (padWith) ? padWith : "0";
+			if (num.length < totalChars) {
+				while (num.length < totalChars) {
+					num = padWith + num;
+				}
+			} else { }
+
+			if (num.length > totalChars) { //if padWith was a multiple character string and num was overpadded
+				num = num.substring((num.length - totalChars), totalChars);
+			} else { }
+
+			return num;
+		}
+
+
+		//between 17 - 21 inprogress
+		function CheckTimeStamps(current) {
+			for (var i in startJackpots) {
+				if (current < startJackpots[i])
+					return startJackpots[i];
+
+				if (current > startJackpots[i] && current < endJackpots[i])
+					return false;
+			}
+
+			var date = new Date(0, 0, 1, 14, 0, 0, 0);
+			date.setTime(startJackpots[0].getTime() + 1000 * 60 * 60 * 24 * 7);
+
+			return date;
+		}
+		lang = "<?=Settings::get("S_lang");?>";
+
+		//
+		function TimeStampToDate(timestamp) {
+			return new Array(parseInt((timestamp / (24 * 60 * 60 * 1000))),
+							parseInt((timestamp / (60 * 60 * 1000)) % 24),
+							parseInt((timestamp / (60 * 1000)) % 60),
+							parseInt((timestamp / (1000)) % 60));
+		}
+
+		//Ajax Updater
+		$(document).ready(function () {
+			UpdateTimer();
+			$('body').moUpdatechecker({data_url: '<?=$this->url(Array(),'AJR',false )?>',
+				name:'updaterequest', type:'data',onReturn: function(){	getRequestReturn(this);	} });
+		});
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+<? if($this->payout){ ?>
+<div class="row">
+	<div class="col-lg-12">
+		<h1 id="overview"><?=$this->translate('payout_details_for_transaction',array($this->payout['payout_id']))?></h1>
+	</div>
+</div>
+<hr >
+<? $user = $this->User_Userdata($this->payout['user_id'])->getUserData(); ?>
+<div class="row">
+	<div class="col-md-8 col-lg-8 col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">Payout Details</div>
+			<div class="panel-body">
+				<div class="row">
+					<table class="table table-striped">
+						<tbody>
+							<tr>
+								<th><?=$this->translate('added')?> / <?=$this->translate('payout_date')?></th>
+								<td><?=$this->Date($this->payout['add_date']);?> /<? if($this->payout['state'] != 'new'){ ?> <?=$this->Date($this->payout['payout_date']);?> <? } ?></td>
+							</tr>
+							<tr>
+								<th><?=$this->translate('status')?></th>
+								<td><?=$this->payout['state']?></td>
+							</tr>
+							<tr>
+								<th><?=$this->translate('Username')?></th>
+								<td><?=$user['username'];?></td>
+							</tr>
+							<tr>
+								<th><?=$this->translate('name')?></th>
+								<td><?=$user['first_name'];?> <?=$user['last_name'];?></td>
+							</tr>
+							<tr>
+								<th><?=$this->translate('budget')?> / <?=$this->translate('winnings')?></th>
+								<td><?=$this->Currency()->get($user['budget']);?> / <?=$this->Currency()->get($user['win']);?>  </td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<? if ($this->payout['payout_account_type']){ ?>
+	<div class="col-md-4 col-lg-4 col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">Bank Details</div>
+			<div class="panel-body">
+				<div class="row">
+					<table class="table table-striped">
+						<tbody>
+							<tr>
+								<th><?=$this->translate('country')?></th>
+								<td><?=$this->bankAccount['country'] ?></td>
+							</tr>
+							<tr>
+								<th><?=$this->translate('bank_name')?></th>
+								<td><?=$this->bankAccount['bank_name'] ?></td>
+							</tr>
+							<? if($this->bankAccount['iban']){ ?>
+							<tr>
+								<th><?=$this->translate('iban')?></th>
+								<td><?=$this->bankAccount['iban'] ?></td>
+							</tr>
+							<? } else { ?>
+							<tr>
+								<th><?=$this->translate('account_number')?></th>
+								<td><?=$this->bankAccount['account_number'] ?></td>
+							</tr>
+							<? } ?>
+							<tr>
+								<th>BIC</th>
+								<td><?=$this->bankAccount['bic'] ?></td>
+							</tr>
+							<tr>
+								<th><?=$this->translate('amount')?></th>
+								<td><?=$this->Currency()->get($this->payout['amount']);?></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<? } ?>
+	<span class="clear"></span>
+	<? if($this->payout['state'] == 'new'){?>
+	<form method="post">
+		<button name="status" value="payout" class="btn btn-success pull-right"><i class="glyphicon glyphicon glyphicon-ok"></i> Payout successfull</button>
+		<button name="status" value="error" class="btn btn-danger pull-right" style="margin: 0 20px 0 0;"><i class="glyphicon glyphicon-remove"></i> Payout Error </button>
+		<a href="<?=$this->url(Array('action' => 'index','type' => 'new','page' => 1))?>" name="status" value="waiting" class="btn btn-info pull-left"><i class="glyphicon glyphicon-chevron-left"></i> <?=$this->translate('back')?></a>
+	</form>
+	<? } ?>
+</div>
+<? } else { ?>
+error
+<a href="<?=$this->url(Array('action' => 'index','type' => 'new','page' => 1))?>" name="status" value="waiting" class="btn btn-info pull-left"><i class="glyphicon glyphicon-chevron-left"></i> <?=$this->translate('back')?></a>
+<? } ?>

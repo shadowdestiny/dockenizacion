@@ -1,0 +1,135 @@
+<script>
+	$(document).ready(function(){
+		$('.nav.nav-tabs a').click(function (e) {
+			e.preventDefault();
+			$(this).tab('show');
+			<? if($this->popup){ ?>
+			msnry.layout();
+			<? } ?>
+		});
+	});
+</script>
+
+<? if(!$this->popup){ ?>
+<div class="container pagename" id="tickets">
+	<div class="box">
+		<h4><?=$this->translate('user_account_ticket_index_headline')?></h4>
+<? } ?>
+<!-- Active Tickets -->
+	    <ul class="nav nav-tabs" role="tablist">
+		<li class="active pull-left" >
+		    <a href="#activetickets" role="tab" data-toggle="tab"><?= $this->translate('active_tickets') ?></a>
+		</li>
+		<li class="pull-left">
+		    <a href="#previoustickets" role="tab" data-toggle="tab"><?= $this->translate('my_previous_tickets') ?></a>
+		</li>
+	    </ul>
+	    <div class="tab-content">
+			<div id="activetickets" class="tab-pane active">
+				<table class="table-responsive table-striped">
+				<tr>
+					<td class="lottery">
+						<i class="icon-product-type-em-single color"></i>
+					</td>
+					<td class="status">
+						<span>
+							<i class="icon-date"></i> 13.07.2014
+						</span>
+						<span>
+							<i class="icon-draws"></i> <?= $this->translate('draws') ?>: 3
+						</span>
+						<span>
+							<i class="icon-drawcross"></i> <?= $this->translate('lines') ?>: 3
+						</span>
+					</td>
+					<td class="options">
+						<a href="<?=$this->url(Array(), 'User_Account_Ticket_Details', true)?> ">
+							<i class="glyphicon glyphicon-info-sign"></i>
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td class="lottery">
+						<i class="icon-product-type-em-single color"></i>
+					</td>
+					<td class="status">
+						<span>
+							<i class="icon-date"></i> 13.07.2014
+						</span>
+						<span>
+							<i class="icon-draws"></i> <?= $this->translate('draws') ?>: 3
+						</span>
+						<span>
+							<i class="icon-drawcross"></i> <?= $this->translate('lines') ?>: 3
+						</span>
+					</td>
+					<td class="options">
+						<a href="<?=$this->url(Array(), 'User_Account_Ticket_Details', true)?> ">
+							<i class="glyphicon glyphicon-info-sign"></i>
+						</a>
+					</td>
+				</tr>
+
+				</table>
+
+				<!-- <p>
+				<?= $this->translate('no_active_tickets_description') ?>
+						</p>
+						<br />
+						<p style="text-align:center">
+							<a class="btn eur-primary" href="/de/play"><?= $this->translate('play_now_button') ?></a>
+						</p>-->
+			</div>
+			<div id="previoustickets" class="tab-pane">
+				<table class="table table-striped">
+				<tr>
+					<td class="lottery">
+						<i class="icon-product-type-em-single color"></i>
+					</td>
+					<td class="status">
+						<span>
+							<i class="icon-date"></i> 13.07.2014
+						</span>
+						<span>
+							<i class="icon-draws"></i> <?= $this->translate('draws') ?>: 3
+						</span>
+						<span>
+							<i class="icon-drawcross"></i> <?= $this->translate('lines') ?>: 3
+						</span>
+					</td>
+					<td class="options">
+						<a href="<?=$this->url(Array(), 'User_Account_Ticket_Details', true)?> ">
+							<i class="glyphicon glyphicon-info-sign"></i>
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td class="lottery">
+						<i class="icon-product-type-em-single color"></i>
+					</td>
+					<td class="status">
+						<span>
+							<i class="icon-date"></i> 13.07.2014
+						</span>
+						<span>
+							<i class="icon-draws"></i> <?= $this->translate('draws') ?>: 3
+						</span>
+						<span>
+							<i class="icon-drawcross"></i> <?= $this->translate('lines') ?>: 3
+						</span>
+					</td>
+					<td class="options">
+						<a href="<?=$this->url(Array(), 'User_Account_Ticket_Details', true)?> ">
+							<i class="glyphicon glyphicon-info-sign"></i>
+						</a>
+					</td>
+				</tr>
+
+				</table>
+			</div>
+
+	    </div>
+<? if(!$this->popup){ ?>
+	</div>
+</div>
+<? } ?>
