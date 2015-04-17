@@ -5,6 +5,7 @@
     "phalcon/devtools": "dev-master"
   },
   "require": {
-    "doctrine/orm": "2.5.*"
+    "doctrine/orm": "2.5.*",
+    "symfony/yaml": "*"
   }
 }

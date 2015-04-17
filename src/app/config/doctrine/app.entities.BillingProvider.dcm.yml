@@ -1,0 +1,11 @@
+app\entities\BillingProvider:
+  type: entity
+  table: billing_providers
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
