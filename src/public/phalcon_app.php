@@ -6,6 +6,7 @@ use app\config\bootstrap\Bootstrap;
 
 $public_path = __DIR__;
 $app_path = $public_path . '/../app/';
+define('APP_PATH', $app_path);
 $config_path = $app_path. 'config/';
 $tests_path = $public_path . '/../tests/';
 require_once '../vendor/autoload.php';
@@ -20,5 +21,5 @@ try {
     $bootstrap->execute();
 } catch (\Phalcon\Exception $e) {
     echo "PhalconException: ", $e->getMessage(), " at file ", $e->getFile(), " line ", $e->getLine();
-    echo "<br><pre>", $e->getTraceAsString(), "</pre>";
+    echo "<br><pre>", var_dump($e->getTrace()), "</pre>";
 }

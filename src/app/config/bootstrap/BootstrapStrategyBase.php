@@ -26,7 +26,7 @@ abstract class BootstrapStrategyBase
     public function dependencyInjector()
     {
         $di = new Di();
-        $di->set('config', $this->config);
+        $di->set('config', $this->config, true);
         $di->set('entityManager', $this->configDoctrine(), true);
         return $di;
     }

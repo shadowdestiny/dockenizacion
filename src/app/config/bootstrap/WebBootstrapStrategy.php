@@ -57,14 +57,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     protected function configView()
     {
-
+        $compiled_path = $this->assetsPath . 'compiled_templates/';
         $view = new Phalcon\Mvc\View();
         $view->setViewsDir($this->appPath . 'views/');
         $view->registerEngines(array(
-            ".volt" => function ($view, $di) {
+            ".volt" => function ($view, $di) use ($compiled_path) {
                 $volt = new Phalcon\Mvc\View\Engine\Volt($view, $di);
                 $volt->setOptions(array(
-                    "compiledPath"      => $this->assetsPath.'compiled_templates/',
+                    "compiledPath"      => $compiled_path,
                     "compiledExtension" => ".compiled",
                     "compileAlways"     => true, //EMDEPLOY en producción debería ser false y stat
                 ));
@@ -72,6 +72,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 $compiler->addFilter('undertospace', function ($resolvedArgs, $exprArgs) {
                     return 'str_replace("_", " ",' . $resolvedArgs . ')';
                 });
+                var_dump($volt->getOptions());
                 return $volt;
             }
         ));
