@@ -5,6 +5,7 @@
 	</head>
 	<body>
         <h1>Main layout</h1>
+        {{ var }}
 		{{ content() }}
 	</body>
 </html>
