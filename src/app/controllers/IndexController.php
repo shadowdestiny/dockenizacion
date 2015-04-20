@@ -20,7 +20,7 @@ class IndexController extends ControllerBase
         } else {
             $uri .= '?zfb=1';
         }
-        $this->response->redirect($uri);
+        $this->response->redirect($uri, true, 307);
     }
 
     public function testAction()
