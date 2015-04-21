@@ -6,6 +6,8 @@ php:
 before_script:
   - mkdir -p shippable/codecoverage
   - mkdir -p shippable/testresults
+  - DIRECTORY="${PWD##*/}/cphalcon"
+  - if [ ! -d "$DIRECTORY" ]; then git clone --depth=1 git://github.com/phalcon/cphalcon.git && cd cphalcon/build && ./install && cd ../.. && echo 'extension="phalcon.so"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
 
 script:
  - phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage --configuration src/tests/phpunit.xml
