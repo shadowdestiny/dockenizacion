@@ -1,0 +1,16 @@
+build_image: shippableimages/ubuntu1404_php
+
+language: php
+
+php:
+  - 5.6
+
+before_script:
+  - mkdir -p shippable/codecoverage
+  - mkdir -p shippable/testresults
+
+script:
+ - phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage --configuration /src/tests/phpunit.xml
+
+notifications:
+  email: false
