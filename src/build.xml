@@ -4,8 +4,20 @@
     <property name="toolsdir" value="vendor/bin/"/>
 
     <target name="build"
-            depends="vendors,phpunit"
+            depends="prepare,vendors,phpunit"
             description=""/>
+
+    <target name="prepare"
+            unless="prepare.done"
+            depends="clean"
+            description="Prepare for build">
+        <mkdir dir="build/api"/>
+        <mkdir dir="build/coverage"/>
+        <mkdir dir="build/logs"/>
+        <mkdir dir="build/pdepend"/>
+        <mkdir dir="build/phpdox"/>
+        <property name="prepare.done" value="true"/>
+    </target>
 
     <target name="clean"
             unless="clean.done"
