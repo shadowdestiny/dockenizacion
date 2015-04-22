@@ -4,3 +4,7 @@ general:
 machine:
   php:
     version: 5.6.5
+
+test:
+  override:
+    - phpunit --configuration tests/phpunit.xml
