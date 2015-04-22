@@ -1,3 +1,5 @@
 vagrant/.vagrant/
 .idea
 .idea/*
+jenkins_config/*
+!jenkins_config/README.md
