@@ -31,8 +31,7 @@
     </target>
 
     <target name="vendors" depends="clean" description="Add Dev Vendors">
-        <exec executable="php">
-            <arg value='composer' />
+        <exec executable="composer">
             <arg value='update' />
             <arg value='--dev' />
             <arg value='--prefer-dist' />
