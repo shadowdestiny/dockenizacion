@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Euromillions" default="build">
+    <!-- By default, we assume all tools to be on the $PATH -->
+    <!--<property name="toolsdir" value=""/>-->
+
+    <!-- Uncomment the following when the tools are in ${basedir}/vendor/bin -->
+    <!-- <property name="toolsdir" value="${basedir}/vendor/bin/"/> -->
+    <property name="toolsdir" value="${basedir}/bin/"/>
+
+    <target name="build"
+            depends="vendors,phpunit"
+            description=""/>
+
+    <target name="clean"
+            unless="clean.done"
+            description="Cleanup build artifacts">
+        <delete dir="${basedir}/build/api"/>
+        <delete dir="${basedir}/build/coverage"/>
+        <delete dir="${basedir}/build/logs"/>
+        <delete dir="${basedir}/build/pdepend"/>
+        <delete dir="${basedir}/build/phpdox"/>
+        <delete file="${basedir}/bin/composer"/>
+        <delete file="${basedir}/data/test.db"/>
+        <property name="clean.done" value="true"/>
+    </target>
+
+    <target name="vendors" depends="clean" description="Add Dev Vendors">
+        <exec executable="php" failonerror="true">
+            <arg value='${basedir}/bin/composer' />
+            <arg value='update' />
+            <arg value='--dev' />
+            <arg value='--prefer-dist' />
+        </exec>
+    </target>
+
+    <target name="phpunit"
+            depends="vendors"
+            description="Run unit tests with PHPUnit">
+        <exec executable="${toolsdir}phpunit" failonerror="true">
+            <arg value="--configuration"/>
+            <arg path="${basedir}/build/phpunit.xml"/>
+        </exec>
+    </target>
+</project>
