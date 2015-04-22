@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Euromillions" default="build">
-    <!-- By default, we assume all tools to be on the $PATH -->
-    <!--<property name="toolsdir" value=""/>-->
 
-    <!-- Uncomment the following when the tools are in ${basedir}/vendor/bin -->
-    <!-- <property name="toolsdir" value="${basedir}/vendor/bin/"/> -->
-    <property name="toolsdir" value="${basedir}/bin/"/>
+    <property name="toolsdir" value="${basedir}/vendor/bin/"/>
 
     <target name="build"
             depends="vendors,phpunit"
@@ -25,7 +21,7 @@
     </target>
 
     <target name="vendors" depends="clean" description="Add Dev Vendors">
-        <exec executable="php" failonerror="true">
+        <exec executable="php">
             <arg value='${basedir}/bin/composer' />
             <arg value='update' />
             <arg value='--dev' />
@@ -36,9 +32,9 @@
     <target name="phpunit"
             depends="vendors"
             description="Run unit tests with PHPUnit">
-        <exec executable="${toolsdir}phpunit" failonerror="true">
+        <exec executable="${toolsdir}phpunit">
             <arg value="--configuration"/>
-            <arg path="${basedir}/build/phpunit.xml"/>
+            <arg path="${basedir}/tests/phpunit.xml"/>
         </exec>
     </target>
 </project>
