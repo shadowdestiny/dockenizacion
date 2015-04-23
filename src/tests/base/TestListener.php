@@ -11,7 +11,7 @@ class TestListener extends \PHPUnit_Framework_BaseTestListener
     public function startTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
         //EMTD refactorizar a un patrón strategy
-        if (getenv(['TEST_ENV']) == 'shippable') {
+        if (getenv('TEST_ENV') == 'shippable') {
             $env = 'shippable';
             $config_file = 'shippableconfig.ini';
         } else {
