@@ -2,6 +2,7 @@
 namespace app\config\bootstrap;
 
 use Phalcon;
+use Phalcon\Di;
 
 abstract class LoaderBase
 {

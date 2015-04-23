@@ -9,7 +9,7 @@ if [ ! -f /etc/php5/cli/conf.d/20-xdebug.ini ]; then
     sudo apt-add-repository -y ppa:ondrej/php5-5.6
     sudo apt-get clean
     sudo apt-get update -q
-    sudo apt-get install -y php5-cli php5-dev php5-xdebug php5-mysql php5-phalcon
+    sudo apt-get install -y php5-cli php5-dev php5-xdebug php5-mysql
     sudo cp /vagrant/20-xdebug.ini /etc/php5/cli/conf.d
 fi
 
@@ -27,10 +27,10 @@ fi
 if [ ! -f /usr/local/bin/composer ]; then
     curl -sS https://getcomposer.org/installer | php
     sudo mv composer.phar /usr/local/bin/composer
-    cd /src
+    cd /var/www
     composer install
 else
-    cd /src
+    cd /var/www
     composer update
 fi
 
@@ -80,7 +80,7 @@ cd /docker/devel-web
 sudo docker build -t="panamedia/devel-web" .
 sudo docker stop devel-web
 sudo docker rm devel-web
-sudo docker run -v /src:/var/www/ -d -p 8080:80 --name devel-web --link devel-dbmaster:mysql panamedia/devel-web
+sudo docker run -v /var/www:/var/www/ -d -p 8080:80 --name devel-web --link devel-dbmaster:mysql panamedia/devel-web
 
 ####
 ## BUILDING JENKINS
