@@ -5,7 +5,6 @@ MAINTAINER Antonio Hernández "antonio.hernandez@panamedia.net"
 
 #Configurando repositorios y actualizando distribución
 RUN apt-get install -y software-properties-common;\
-    apt-add-repository -y ppa:phalcon/stable;\
     apt-add-repository -y ppa:ondrej/php5-5.6;\
     apt-get clean;\
     apt-get update -q;\

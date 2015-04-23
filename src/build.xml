@@ -32,7 +32,7 @@
 
     <target name="vendors" depends="clean" description="Add Dev Vendors">
         <exec executable="composer">
-            <arg value='update' />
+            <arg value='install' />
             <arg value='--dev' />
             <arg value='--prefer-dist' />
         </exec>
