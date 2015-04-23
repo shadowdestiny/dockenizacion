@@ -20,6 +20,7 @@ class TestListener extends \PHPUnit_Framework_BaseTestListener
         }
 
         if ($suite->getName() == "integration") {
+            var_dump($_ENV);
             $config = DI::getDefault()->get('config');
             $command = "mysql -h {$config->database->host} -u {$config->database->username} -p{$config->database->password} -e 'CREATE DATABASE IF NOT EXISTS {$config->database->dbname};' 2>/dev/null";
             exec($command);
