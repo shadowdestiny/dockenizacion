@@ -11,7 +11,6 @@ before_install:
 
 before_script:
   - mysql -e 'create database if not exists euromillions_test;'
-  - mysql -e 'GRANT ALL ON euromillions_test.* TO "root"@"127.0.0.1" IDENTIFIED BY "tpl9";'
   - mkdir -p shippable/codecoverage
   - mkdir -p shippable/testresults
   - DIRECTORY="${PWD##*/}/cphalcon"
