@@ -10,9 +10,4 @@ class ExampleUnitTest extends UnitTestBase
     {
         $this->assertEquals(true ,1);
     }
-
-    public function test_failing()
-    {
-        $this->fail('example failing test');
-    }
 }
