@@ -5,11 +5,13 @@ php:
 
 env:
   - secure: CHiPakQ4GGugHwOXftmgB/FhJSQww0mH9ch0rWGBiF4D+c5fTJDUcJ90O8KOXLJA0NcAwd5LII74YJVRfg5de4+02LXZi9Mg7Aj2Zhmm/eN7TXGDNBBep+fpVabQYRZ3u39ZZ50mygWNsx0Vk64dOABnTCHVWMETMnMJcUnovwHeQWXTkbi1XZlFQ+6q/3cpv1OzDJDopQi34oGADstWVWTkS+jS9xtZvWNS/PXjBb0wKJXQcB7dzJ5bpcaEzQ/AFw21ydKHfeYFl5YLb7mIhJ/G8VOr3XsQMQcO60ZWUnbea0bkuo0tS+sQtD0xFZp8j7TldAzJ6mCP8/pm1m9rSA==
-
+  - TEST_ENV=shippable
 before_install:
 - composer config -g github-oauth.github.com $MY_GITHUB_TOKEN
 
 before_script:
+  - mysql -e 'create database if not exists euromillions_test;'
+  - mysql -e 'GRANT ALL ON euromillions_test.* TO "root"@"127.0.0.1" IDENTIFIED BY "tpl9";'
   - mkdir -p shippable/codecoverage
   - mkdir -p shippable/testresults
   - DIRECTORY="${PWD##*/}/cphalcon"
@@ -18,8 +20,6 @@ before_script:
   - cd src
   - composer install --prefer-source --no-interaction
   - cd ..
-  - mysql -e 'create database if not exists euromillions_test;'
-  - mysql -e 'GRANT ALL ON euromillions_test.* TO "root"@"127.0.0.1" IDENTIFIED BY "tpl9";'
 
 script:
  - phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage --configuration src/tests/phpunit.xml
