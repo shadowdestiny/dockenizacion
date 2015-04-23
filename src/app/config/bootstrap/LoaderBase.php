@@ -36,6 +36,8 @@ abstract class LoaderBase
             'app\services'         => $this->appPath . 'services',
             'app\interfaces'       => $this->appPath . 'interfaces',
             'app\entities'         => $this->appPath . 'entities',
+            'app\exceptions'       => $this->appPath . 'exceptions',
+            'app\components'       => $this->appPath . 'components',
             'tests\unit'           => $this->testsPath . "unit", //EMTD Esto podría separarse entre el WebLoader y un TestLoader
             'tests\integration'    => $this->testsPath . "integration",
             'tests\base'           => $this->testsPath . "base",
