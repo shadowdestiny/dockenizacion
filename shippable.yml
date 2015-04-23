@@ -18,7 +18,8 @@ before_script:
   - cd src
   - composer install --prefer-source --no-interaction
   - cd ..
-  - mysql -e 'create database if not exists euromillions_test;GRANT ALL ON euromillions_test.* TO "root"@"127.0.0.1" IDENTIFIED BY "tpl9";'
+  - mysql -e 'create database if not exists euromillions_test;'
+  - mysql -e 'GRANT ALL ON euromillions_test.* TO "root"@"127.0.0.1" IDENTIFIED BY "tpl9";'
 
 script:
  - phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage --configuration src/tests/phpunit.xml
