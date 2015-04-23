@@ -722,12 +722,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/phalcon-devtools.git",
-                "reference": "103c8989236f4df5206e7d37508216c46799394a"
+                "reference": "a7e20addd01c9bc1121cbb68531cd55523320af3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/phalcon-devtools/zipball/103c8989236f4df5206e7d37508216c46799394a",
-                "reference": "103c8989236f4df5206e7d37508216c46799394a",
+                "url": "https://api.github.com/repos/phalcon/phalcon-devtools/zipball/a7e20addd01c9bc1121cbb68531cd55523320af3",
+                "reference": "a7e20addd01c9bc1121cbb68531cd55523320af3",
                 "shasum": ""
             },
             "require": {
@@ -758,7 +758,7 @@
                 "framework",
                 "phalcon"
             ],
-            "time": "2015-02-26 21:47:33"
+            "time": "2015-04-16 18:51:39"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
