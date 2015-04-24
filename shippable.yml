@@ -26,7 +26,4 @@ before_script:
 script:
  - phpunit --log-junit shippable/testresults/junit.xml --configuration src/tests/phpunit.xml
 
-notifications:
-  email: false
-
 cache: true
