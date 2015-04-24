@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+sudo sh -c "echo 'export EM_ENV=vagrant' >> /etc/profile"
+
 ####
 ## INSTALLING PHP5-CLI
 ## Installing php5-cli on the vagrant machine for PhpStorm configurations

@@ -1,6 +1,7 @@
 <?php
 namespace app\config\bootstrap;
 
+use app\components\EnvironmentDetector;
 use app\interfaces\IBootstrapStrategy;
 use Phalcon\Cli\Console as ConsoleApp;
 use Phalcon\Cli\Dispatcher;
@@ -13,10 +14,12 @@ class CliBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     protected $commandLineArguments;
     protected $config;
 
-    public function __construct($commandLineArguments, $configPath, $configFile)
+    const CONFIG_FILENAME = 'cliconfig.ini';
+
+    public function __construct($commandLineArguments, $globalConfigPath, $configPath, $configFile)
     {
         $this->commandLineArguments = $commandLineArguments;
-        parent::__construct($configPath, $configFile);
+        parent::__construct($globalConfigPath, $configPath, $configFile);
     }
 
     public function execute(Di $di)
@@ -57,5 +60,10 @@ class CliBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $dispatcher = new Dispatcher();
         $dispatcher->setDefaultNamespace('app\tasks');
         return $dispatcher;
+    }
+
+    protected function getConfigFileName(EnvironmentDetector $em)
+    {
+        return self::CONFIG_FILENAME;
     }
 }

@@ -1,8 +1,10 @@
 <?php
 namespace app\config\bootstrap;
 
+use app\components\EnvironmentDetector;
 use app\interfaces\IBootstrapStrategy;
 use Phalcon;
+use Phalcon\Config\Adapter\Ini;
 use Phalcon\Di;
 
 class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapStrategy
@@ -13,13 +15,16 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     protected $testsPath;
 
-    public function __construct($appPath, $configPath, $assetsPath, $testsPath, $configFile)
+    const CONFIG_FILENAME = 'config.ini';
+
+    public function __construct($appPath, $globalConfigPath, $configPath, $assetsPath, $testsPath)
     {
 
         $this->appPath = $appPath;
         $this->assetsPath = $assetsPath;
         $this->testsPath = $testsPath;
-        parent::__construct($configPath, $configFile);
+        parent::__construct($globalConfigPath, $configPath);
+
     }
 
     public function make()
@@ -39,8 +44,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $di->set('router', $this->configRouter(), true);
         $di->set('response',$this->configResponse(), true);
         $di->set('cookies', $this->configCookies(), true);
-        $di->set('db', $this->configDb($this->config->database), true);
-        $di->set('db_slave', $this->configDb($this->config->slave_database), true);
+        $di->set('db', $this->configDb($di->get('config')->database), true);
+        $di->set('db_slave', $this->configDb($di->get('config')->slave_database), true);
         $di->set('session', $this->configSession(), true);
         $di->set('tag', $this->configTag(), true);
         $di->set('escaper', $this->configEscaper(), true);
@@ -174,4 +179,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         return new Phalcon\Security();
     }
 
+    protected function getConfigFileName(EnvironmentDetector $em)
+    {
+        return self::CONFIG_FILENAME;
+    }
 }

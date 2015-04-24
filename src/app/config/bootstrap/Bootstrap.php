@@ -20,8 +20,8 @@ class Bootstrap
 
     public function execute()
     {
-        $this->strategy->setErrorReportingLevel();
         $di = $this->strategy->dependencyInjector();
+        error_reporting($di->get('globalConfig')->php->error_reporting_level);
         $this->strategy->execute($di);
     }
 }

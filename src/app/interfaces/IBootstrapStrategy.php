@@ -12,8 +12,6 @@ use Phalcon\Di;
 
 interface IBootstrapStrategy
 {
-    public function setErrorReportingLevel();
-
     /**
      * @return \Phalcon\Di
      */

@@ -5,6 +5,7 @@ use app\config\bootstrap\CliLoader;
 use app\config\bootstrap\CliBootstrapStrategy;
 
 $app_path = __DIR__.'/';
+$global_config_path = $app_path.'../global_config/';
 $tests_path = $app_path.'../tests/';
 $config_path = $app_path . 'config/';
 require_once $app_path.'../vendor/autoload.php';
@@ -14,9 +15,7 @@ try {
     $loader->register();
 
     $bootstrap = new \app\config\bootstrap\Bootstrap(new CliBootstrapStrategy(
-        $argv,
-        $config_path,
-        'cliconfig.ini'
+        $argv, $global_config_path , $config_path, 'cliconfig.ini'
     ));
     $bootstrap->execute();
 } catch (\Phalcon\Exception $e) {

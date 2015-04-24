@@ -10,37 +10,79 @@ class EnvironmentDetectorUnitTest extends UnitTestBase
 
     const EXPECTED_EXCEPTION = '\app\exceptions\EnvironmentNotSetException';
 
-    public function test_getEnvironment_calledWithEnvironmentNotSet_throw()
+    /** @var  EnvironmentDetector */
+    protected $sut;
+
+    public function setUp()
     {
-        $this->setExpectedException(self::EXPECTED_EXCEPTION, 'Environment variable not set');
-        $this->exerciseGetEnvironment();
+        $this->sut = new EnvironmentDetector(self::VAR_NAME);
+        parent::setUp();
     }
 
-    public function test_getEnvironment_calledWithEnvironmentSet_returnSameValue()
+    public function tearDown()
+    {
+        putenv(self::VAR_NAME);
+        parent::tearDown();
+    }
+
+    public function test_get_calledWithEnvironmentNotSet_throw()
+    {
+        $this->setExpectedException(self::EXPECTED_EXCEPTION, 'Environment variable not set');
+        $this->sut->get();
+    }
+
+    public function test_get_calledWithEnvironmentSet_returnSameValue()
     {
         $var_name = self::VAR_NAME;
         $expected = 'azofaifa';
-        putenv("$var_name=$expected");
+        $this->setEnvironment($expected);
 
-        $actual = $this->exerciseGetEnvironment();
+        $actual = $this->sut->get();
 
         $this->assertEquals($expected, $actual);
     }
 
-    public function test_getEnvironment_calledWithEnvironmentEmpty_throw()
+    public function test_get_calledWithEnvironmentEmpty_throw()
     {
-        putenv(self::VAR_NAME.'=');
+        $this->setEnvironment('');
         $this->setExpectedException(self::EXPECTED_EXCEPTION, 'Environment variable is empty');
-        $this->exerciseGetEnvironment();
+        $this->sut->get();
+    }
+
+
+    public function test_setDefault_calledWithEnvironmentNotSet_pubEnv()
+    {
+        $expected = EnvironmentDetector::DEFAULT_ENV;
+        $this->sut->setDefault();
+        $actual = getenv(self::VAR_NAME);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function test_setDefault_calledWithEnvironmentSet_throw()
+    {
+        $this->setEnvironment('iesljsg');
+        $this->setExpectedException(self::EXPECTED_EXCEPTION, 'Trying to set an environment where one is yet set');
+        $this->sut->setDefault();
+    }
+
+
+    public function test_isEnvSet_calledWhenNotSet_returnFalse()
+    {
+        $actual = $this->sut->isEnvSet();
+        $this->assertFalse($actual);
+    }
+    public function test_isEnvSet_calledWhenSet_returnTrue()
+    {
+        $this->setEnvironment('sdklfjs');
+        $actual = $this->sut->isEnvSet();
+        $this->assertTrue($actual);
     }
 
     /**
-     * @return string
+     * @param $env
      */
-    protected function exerciseGetEnvironment()
+    protected function setEnvironment($env)
     {
-        $sut = new EnvironmentDetector(self::VAR_NAME);
-        $actual = $sut->getEnvironment();
-        return $actual;
+        putenv(self::VAR_NAME . '=' . $env);
     }
 }

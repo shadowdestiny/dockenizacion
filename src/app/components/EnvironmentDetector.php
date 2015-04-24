@@ -7,19 +7,38 @@ use app\exceptions\EnvironmentNotSetException;
 class EnvironmentDetector
 {
     protected $var_name;
+
+    const DEFAULT_ENV = 'vagrant';
+
     public function __construct($varName)
     {
         $this->var_name = $varName;
     }
 
-    public function getEnvironment()
+    public function get()
     {
         $result = getenv($this->var_name);
         if ($result) {
             return $result;
         } else {
-            $message = ($result === false) ?  'Environment variable not set' : 'Environment variable is empty';
+            $message = ($result === false) ? 'Environment variable not set' : 'Environment variable is empty';
             throw new EnvironmentNotSetException($message);
         }
     }
+
+    public function setDefault()
+    {
+        if ($this->isEnvSet()) {
+            throw new EnvironmentNotSetException('Trying to set an environment where one is yet set');
+        } else {
+            putenv($this->var_name . '=' . self::DEFAULT_ENV);
+        }
+    }
+
+    public function isEnvSet()
+    {
+        return !empty(getenv($this->var_name));
+    }
+
+    //EMTD sanity check: compare the domain accessing with the environment to see if everything seems fine
 }
