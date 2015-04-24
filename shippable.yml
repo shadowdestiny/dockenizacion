@@ -13,7 +13,7 @@ before_install:
 
 before_script:
   - mysql -e 'create database if not exists euromillions_test;'
-  - mysql euromillions_test < docker/debel-dbmaster/init_structure.sql
+  - mysql euromillions_test < docker/devel-dbmaster/init_structure.sql
   - mkdir -p shippable/codecoverage
   - mkdir -p shippable/testresults
   - DIRECTORY="${PWD##*/}/cphalcon"
