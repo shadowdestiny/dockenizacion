@@ -24,7 +24,7 @@ before_script:
   - cd ..
 
 script:
- - phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage --configuration src/tests/phpunit.xml
+ - phpunit --log-junit shippable/testresults/junit.xml --configuration src/tests/phpunit.xml
 
 notifications:
   email: false
