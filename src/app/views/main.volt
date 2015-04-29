@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>{{ title }}</title>
+        <!--META-->
+        <!-- javascript analytics pre -->
+        <!-- favicon -->
+        <!-- javascript generic -->
+        <!-- css generic -->
         {% block template_scripts %}{% endblock %}
+        {% block template_css %}{% endblock %}
 	</head>
 	<body>
-        <h1>Main layout</h1>
-        {{ var }}
+    <!-- header (include) -->
         {% block body %}{% endblock %}
-	</body>
+    <!-- footer (include) -->
+    </body>
+    <!-- javascript analytics post -->
+    <!-- javascript post body -->
+
 </html>

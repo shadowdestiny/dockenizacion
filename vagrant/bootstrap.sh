@@ -83,18 +83,3 @@ sudo docker build -t="panamedia/devel-web" .
 sudo docker stop devel-web
 sudo docker rm devel-web
 sudo docker run -v /var/www:/var/www/ -d -p 8080:80 --name devel-web --link devel-dbmaster:mysql panamedia/devel-web
-
-####
-## BUILDING JENKINS
-####
-if [ "$1" = true ] ; then
-    cd /docker/jenkins
-    sudo docker build -t="panamedia/jenkins" .
-    sudo docker stop jenkins
-    sudo docker rm jenkins
-    sudo docker run -d --name jenkins -p 8888:8080 -v /jenkins:/var/lib/jenkins -e 'TIME_ZONE=Europe/Madrid' panamedia/jenkins
-else
-    echo "$1";
-    echo "NOT BUILDING JENKINS";
-fi
-
