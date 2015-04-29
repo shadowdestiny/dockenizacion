@@ -1,3 +1,5 @@
+{% block body %}
+
 <h3>test view</h3>
 variable 1 (string) <strong>{{ variable1 }}</strong><br>
 variable 2 (number) <strong>{{ variable2 }}</strong><br>
@@ -22,3 +24,4 @@ variable 4 (array showing keys)
 variable 5 (object)
 <strong>{{ variable5.property1 }} - {{ variable5.property2 }}</strong>
 
+{% endblock %}

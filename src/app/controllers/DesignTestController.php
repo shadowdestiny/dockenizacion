@@ -3,7 +3,6 @@ namespace app\controllers;
 
 use antonienko\PhpTempPrev\FrameworkStrategies\PhalconStrategy;
 use antonienko\PhpTempPrev\Previewer;
-use Phalcon\Config\Adapter\Ini;
 
 class DesignTestController extends ControllerBase
 {

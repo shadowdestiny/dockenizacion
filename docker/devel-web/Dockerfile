@@ -24,6 +24,7 @@ RUN cd ext;\
 RUN echo 'extension=phalcon.so' > /etc/php5/apache2/conf.d/30-phalcon.ini
 RUN echo 'extension=phalcon.so' > /etc/php5/cli/conf.d/30-phalcon.ini
 RUN echo 'short_open_tag=On' > /etc/php5/apache2/conf.d/40-shortag.ini
+RUN echo 'display_errors=On' > /etc/php5/apache2/conf.d/50-display_errors.ini
 
 
 #Habilitando mod_rewrite
