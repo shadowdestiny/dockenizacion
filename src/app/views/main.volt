@@ -2,10 +2,11 @@
 <html>
 	<head>
 		<title>{{ title }}</title>
+        {% block template_scripts %}{% endblock %}
 	</head>
 	<body>
         <h1>Main layout</h1>
         {{ var }}
-		{{ content() }}
+        {% block body %}{% endblock %}
 	</body>
 </html>
