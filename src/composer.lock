@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f493eedbda61d0bf1f18dcdf1df77581",
+    "hash": "f83d9843e8f4bd21e307650134ee3e81",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -717,17 +717,61 @@
     ],
     "packages-dev": [
         {
+            "name": "antonienko/php-template-previewer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/antonienko/php-template-previewer.git",
+                "reference": "87a9a31dee3416fc995dd519d1f28a1b73fa1e91"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/antonienko/php-template-previewer/zipball/87a9a31dee3416fc995dd519d1f28a1b73fa1e91",
+                "reference": "87a9a31dee3416fc995dd519d1f28a1b73fa1e91",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phalcon/devtools": "dev-master",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "antonienko\\PhpTempPrev": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Antonio Manuel Hernández Sánchez"
+                }
+            ],
+            "description": "For designers testing their framework views without the working backend code.",
+            "keywords": [
+                "framework",
+                "preview",
+                "template"
+            ],
+            "time": "2015-04-30 09:19:16"
+        },
+        {
             "name": "phalcon/devtools",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/phalcon-devtools.git",
-                "reference": "a7e20addd01c9bc1121cbb68531cd55523320af3"
+                "reference": "86e3acd65bcc8ec0b9ae7e363ecf499a4f788a53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/phalcon-devtools/zipball/a7e20addd01c9bc1121cbb68531cd55523320af3",
-                "reference": "a7e20addd01c9bc1121cbb68531cd55523320af3",
+                "url": "https://api.github.com/repos/phalcon/phalcon-devtools/zipball/86e3acd65bcc8ec0b9ae7e363ecf499a4f788a53",
+                "reference": "86e3acd65bcc8ec0b9ae7e363ecf499a4f788a53",
                 "shasum": ""
             },
             "require": {
@@ -758,7 +802,7 @@
                 "framework",
                 "phalcon"
             ],
-            "time": "2015-04-16 18:51:39"
+            "time": "2015-04-29 22:01:41"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -811,16 +855,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.4.0",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "8724cd239f8ef4c046f55a3b18b4d91cc7f3e4c5"
+                "reference": "3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/8724cd239f8ef4c046f55a3b18b4d91cc7f3e4c5",
-                "reference": "8724cd239f8ef4c046f55a3b18b4d91cc7f3e4c5",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373",
+                "reference": "3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373",
                 "shasum": ""
             },
             "require": {
@@ -867,7 +911,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2015-03-27 19:31:25"
+            "time": "2015-04-27 22:15:08"
         },
         {
             "name": "phpunit/dbunit",
@@ -1176,16 +1220,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.6.4",
+            "version": "4.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "163232991e652e6efed2f8470326fffa61e848e2"
+                "reference": "3afe303d873a4d64c62ef84de491b97b006fbdac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/163232991e652e6efed2f8470326fffa61e848e2",
-                "reference": "163232991e652e6efed2f8470326fffa61e848e2",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3afe303d873a4d64c62ef84de491b97b006fbdac",
+                "reference": "3afe303d873a4d64c62ef84de491b97b006fbdac",
                 "shasum": ""
             },
             "require": {
@@ -1244,7 +1288,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-04-11 05:23:21"
+            "time": "2015-04-29 15:18:52"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1676,7 +1720,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "phalcon/devtools": 20
+        "phalcon/devtools": 20,
+        "antonienko/php-template-previewer": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

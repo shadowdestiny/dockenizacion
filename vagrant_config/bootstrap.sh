@@ -33,7 +33,7 @@ if [ ! -f /usr/local/bin/composer ]; then
     composer install
 else
     cd /var/www
-    composer update
+    composer update --no-interaction
 fi
 
 ####
@@ -62,13 +62,19 @@ fi
 docker login --email="antonio.hernandez@panamedia.net" --username="panamedia" --password="2Fsz8EGmy6LhKCR5"
 
 ####
+## INSTALLING DOCKER-COMPOSE
+####
+sudo sh -c "curl -L https://github.com/docker/compose/releases/download/1.2.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose"
+sudo chmod +x /usr/local/bin/docker-compose
+
+####
 ## BUILDING DEVEL-DBMASTER CONTAINER
 ####
 if [ ! -d "/home/vagrant/mysqldata" ]; then
   mkdir /home/vagrant/mysqldata
 fi
 
-cd /docker/devel-dbmaster
+cd /vagrant/docker/devel-dbmaster
 sudo docker build -t="panamedia/devel-dbmaster" .
 sudo docker stop devel-dbmaster
 sudo docker rm devel-dbmaster
@@ -78,7 +84,7 @@ sudo docker exec -d devel-dbmaster /dbinit/init_database.sh
 ####
 ## BUILDING DEVEL-WEB CONTAINER
 ####
-cd /docker/devel-web
+cd /vagrant/docker/devel-web
 sudo docker build -t="panamedia/devel-web" .
 sudo docker stop devel-web
 sudo docker rm devel-web

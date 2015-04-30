@@ -1,0 +1,14 @@
+devel-dbmaster:
+  build: devel-dbmaster
+  command: /dbinit/init_database.sh
+  ports:
+    - "3306:3306"
+  volumes:
+    - /home/vagrant/mysqldata:/var/lib/mysql/
+  environment:
+    MYSQL_ROOT_PASSWORD: tpl9
+    MYSQL_DATABASE: euromillions
+
+devel-web:
+
+
