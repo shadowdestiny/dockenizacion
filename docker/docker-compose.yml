@@ -22,3 +22,4 @@ compass:
   command: watch
   volumes:
     - /var/www:/src
+

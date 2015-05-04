@@ -54,12 +54,11 @@ fi
 ## CHECKING DOCKER INSTALLATION
 ####
 dockerv=$(docker -v 2>&1)
-if [[ $dockerv != "Docker version 1.5.0"* ]]
+if [[ $dockerv != "Docker version 1.6.0"* ]]
 then
   echo "DOCKER NOT FOUND, INSTALLING...";
   wget -qO- https://get.docker.com/ | sh
 fi
-docker login --email="antonio.hernandez@panamedia.net" --username="panamedia" --password="2Fsz8EGmy6LhKCR5"
 
 ####
 ## INSTALLING DOCKER-COMPOSE

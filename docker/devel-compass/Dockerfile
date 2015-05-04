@@ -1,15 +1,3 @@
-FROM ubuntu:14.04
+FROM antonienko/compass-watch
+
 MAINTAINER Antonio Manuel Hernández Sánchez
-
-RUN apt-get update && apt-get install -y \
-    ruby-dev \
-    make
-
-RUN gem install listen
-RUN gem install compass
-
-VOLUME /src
-
-WORKDIR /src
-
-ENTRYPOINT [ "compass" ]
