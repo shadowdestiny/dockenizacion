@@ -12,7 +12,7 @@ if [ ! -f /etc/php5/cli/conf.d/20-xdebug.ini ]; then
     sudo apt-get clean
     sudo apt-get update -q
     sudo apt-get install -y php5-cli php5-dev php5-xdebug php5-mysql
-    sudo cp /vagrant/20-xdebug.ini /etc/php5/cli/conf.d
+    sudo cp /vagrant/vagrant_config/20-xdebug.ini /etc/php5/cli/conf.d
 fi
 
 ####
@@ -47,7 +47,7 @@ if [ ! -f /etc/php5/cli/conf.d/30-phalcon.ini ]; then
     git checkout 2.0.0
     cd ext
     ./install
-    sudo cp /vagrant/30-phalcon.ini /etc/php5/cli/conf.d
+    sudo cp /vagrant/vagrant_config/30-phalcon.ini /etc/php5/cli/conf.d
 fi
 
 ####
@@ -67,25 +67,22 @@ docker login --email="antonio.hernandez@panamedia.net" --username="panamedia" --
 sudo sh -c "curl -L https://github.com/docker/compose/releases/download/1.2.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose"
 sudo chmod +x /usr/local/bin/docker-compose
 
-####
-## BUILDING DEVEL-DBMASTER CONTAINER
-####
 if [ ! -d "/home/vagrant/mysqldata" ]; then
   mkdir /home/vagrant/mysqldata
 fi
 
-cd /vagrant/docker/devel-dbmaster
-sudo docker build -t="panamedia/devel-dbmaster" .
-sudo docker stop devel-dbmaster
-sudo docker rm devel-dbmaster
-sudo docker run -v /home/vagrant/mysqldata:/var/lib/mysql/ --name devel-dbmaster -p 3306:3306 -e MYSQL_ROOT_PASSWORD=tpl9 -e MYSQL_DATABASE=euromillions -d panamedia/devel-dbmaster
-sudo docker exec -d devel-dbmaster /dbinit/init_database.sh
+#cd /vagrant/docker/devel-dbmaster
+#sudo docker build -t="panamedia/devel-dbmaster" .
+#sudo docker stop devel-dbmaster
+#sudo docker rm devel-dbmaster
+#sudo docker run -v /home/vagrant/mysqldata:/var/lib/mysql/ --name devel-dbmaster -p 3306:3306 -e MYSQL_ROOT_PASSWORD=tpl9 -e MYSQL_DATABASE=euromillions -d panamedia/devel-dbmaster
+#sudo docker exec -d devel-dbmaster /dbinit/init_database.sh
 
 ####
 ## BUILDING DEVEL-WEB CONTAINER
 ####
-cd /vagrant/docker/devel-web
-sudo docker build -t="panamedia/devel-web" .
-sudo docker stop devel-web
-sudo docker rm devel-web
-sudo docker run -v /var/www:/var/www/ -d -p 8080:80 --name devel-web --link devel-dbmaster:mysql panamedia/devel-web
+#cd /vagrant/docker/devel-web
+#sudo docker build -t="panamedia/devel-web" .
+#sudo docker stop devel-web
+#sudo docker rm devel-web
+#sudo docker run -v /var/www:/var/www/ -d -p 8080:80 --name devel-web --link devel-dbmaster:mysql panamedia/devel-web

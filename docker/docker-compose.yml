@@ -1,5 +1,5 @@
-devel-dbmaster:
-  build: devel-dbmaster
+develdbmaster:
+  build: ./devel-dbmaster
   command: /dbinit/init_database.sh
   ports:
     - "3306:3306"
@@ -9,6 +9,17 @@ devel-dbmaster:
     MYSQL_ROOT_PASSWORD: tpl9
     MYSQL_DATABASE: euromillions
 
-devel-web:
+develweb:
+  build: ./devel-web
+  ports:
+    - "8080:80"
+  volumes:
+    - /var/www:/var/www/
+  links:
+    - develdbmaster:mysql
 
-
+compass:
+  build: ./devel-compass
+  command: watch
+  volumes:
+    - /var/www:/src
