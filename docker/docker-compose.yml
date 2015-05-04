@@ -1,6 +1,5 @@
 develdbmaster:
   build: ./devel-dbmaster
-  command: /dbinit/init_database.sh
   ports:
     - "3306:3306"
   volumes:
