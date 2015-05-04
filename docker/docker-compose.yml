@@ -19,7 +19,7 @@ develweb:
 
 compass:
   build: ./devel-compass
-  command: watch
+  command: watch /src/compass
   volumes:
     - /var/www:/src
 
