@@ -59,6 +59,7 @@ then
   echo "DOCKER NOT FOUND, INSTALLING...";
   wget -qO- https://get.docker.com/ | sh
 fi
+docker login --email="antonio.hernandez@panamedia.net" --username="antonienko" --password="wHTqwSg7wVyV47d3"
 
 ####
 ## INSTALLING DOCKER-COMPOSE
