@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 sudo sh -c "echo 'export EM_ENV=vagrant' >> /etc/profile"
+sudo locale-gen UTF-8
 
 ####
 ## INSTALLING PHP5-CLI

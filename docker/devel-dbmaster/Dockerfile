@@ -5,5 +5,3 @@ MAINTAINER Antonio Hernández "antonio.hernandez@panamedia.net"
 
 COPY dbinit /dbinit
 RUN chmod 755 /dbinit/init_database.sh
-ENTRYPOINT ["/dbinit/init_database.sh"]
-
