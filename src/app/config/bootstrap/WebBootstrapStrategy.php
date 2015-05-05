@@ -134,6 +134,15 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             "controller" => "index",
             "action" => "fallBackToZend"
         ));
+        $router->add("/", array(
+            'controller' => 'index',
+            'action'     => 'index'
+        ));
+        $router->setDefaults(array(
+            'controller' => 'index',
+            'action'     => 'index'
+        ));
+        $router->removeExtraSlashes(true);
         return $router;
     }
 

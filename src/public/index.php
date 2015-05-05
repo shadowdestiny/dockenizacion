@@ -1,32 +1,26 @@
-<?
-ini_set('error_reporting',  E_ALL & ~E_NOTICE & ~E_DEPRECATED);
-ini_set('display_errors', true);
-ini_set('include_path', get_include_path() . PATH_SEPARATOR . '/usr/share/php/libzend-framework-php');
-//require_once("t.php");
-//exit;
+<?php
+error_reporting(E_ALL);
 
-// Define path to application directory
-defined('APPLICATION_PATH')
-    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/application'));
+use app\config\bootstrap\WebLoader;
+use app\config\bootstrap\Bootstrap;
 
-// Define application environment
-defined('APPLICATION_ENV')
-    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
+$public_path = __DIR__;
+$app_path = $public_path . '/../app/';
+$global_config_path = $app_path . '../global_config/';
+define('APP_PATH', $app_path);
+$config_path = $app_path . 'config/';
+$tests_path = $public_path . '/../tests/';
+require_once '../vendor/autoload.php';
+require_once($config_path . 'bootstrap/WebLoader.php');
+try {
+    $loader = new WebLoader($app_path, $tests_path);
+    $loader->register();
 
-// Ensure library/ is on include_path
-set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(APPLICATION_PATH . '/library'),
-    get_include_path(),
-)));
-
-/** Zend_Application */
-require_once 'Zend/Application.php';
-
-// Create application, bootstrap, and run
-$application = new Zend_Application(
-    APPLICATION_ENV,
-    APPLICATION_PATH . '/configs/application.ini'
-);
-
-$application->bootstrap()
-            ->run();
+    $bootstrap = new Bootstrap(new \app\config\bootstrap\WebBootstrapStrategy(
+        $app_path, $global_config_path, $config_path, $app_path . 'assets/', $tests_path, 'config.ini'
+    ));
+    $bootstrap->execute();
+} catch (\Phalcon\Exception $e) {
+    echo "PhalconException: ", $e->getMessage(), " at file ", $e->getFile(), " line ", $e->getLine();
+    echo "<br><pre>", var_dump($e->getTrace()), "</pre>";
+}
