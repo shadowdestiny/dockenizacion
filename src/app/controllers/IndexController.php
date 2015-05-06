@@ -7,9 +7,6 @@ class IndexController extends ControllerBase
 {
     public function indexAction()
     {
-        $this->noRender();
-        echo 'hola';
-
     }
 
     public function fallBackToZendAction()

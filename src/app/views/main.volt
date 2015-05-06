@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-        <!--META-->
+        {% include "_elements/meta.volt" %}
         <!-- javascript analytics pre -->
         <!-- favicon -->
         <!-- javascript generic -->
@@ -10,11 +10,8 @@
         {% block template_css %}{% endblock %}
 	</head>
 	<body>
-    <!-- header (include) -->
+        {% include "_elements/header.volt" %}
         {% block body %}{% endblock %}
-    <!-- footer (include) -->
+        {% include "_elements/footer.volt" %}
     </body>
-    <!-- javascript analytics post -->
-    <!-- javascript post body -->
-
 </html>

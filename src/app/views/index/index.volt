@@ -1,3 +1,4 @@
-<h1>Congratulations!</h1>
-
-<p>You're now flying with Phalcon. Great things are about to happen!</p>
+{% extends "main.volt" %}
+{% block body %}
+This is the body of the homepage
+{% endblock %}
