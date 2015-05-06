@@ -32,15 +32,12 @@ if [ ! -f /usr/local/bin/composer ]; then
     sudo mv composer.phar /usr/local/bin/composer
     cd /var/www
     composer install
-else
-    cd /var/www
-    composer update --no-interaction
 fi
 
 ####
 ## INSTALLING PHALCON
 ####
-if [ ! -f /etc/php5/cli/conf.d/30-phalcon.ini ]; then
+if [ ! -f /etc/php5/cli/conf.d/30-phalcon.ini ] || [ ! -f /usr/lib/php5/20131226/phalcon.so ]; then
     mkdir -p /tmp/phalcon
     cd /tmp/phalcon
     git clone http://github.com/phalcon/cphalcon
@@ -49,6 +46,14 @@ if [ ! -f /etc/php5/cli/conf.d/30-phalcon.ini ]; then
     cd ext
     ./install
     sudo cp /vagrant/vagrant_config/30-phalcon.ini /etc/php5/cli/conf.d
+fi
+
+####
+## PHALCON DEVTOOLS
+####
+if [ ! -f /usr/local/bin/phalcon ]; then
+    sudo ln -s /var/www/vendor/phalcon/devtools/phalcon.php /usr/local/bin/phalcon
+    sudo chmod ugo+x /usr/local/bin/phalcon
 fi
 
 ####
@@ -71,19 +76,3 @@ sudo chmod +x /usr/local/bin/docker-compose
 if [ ! -d "/home/vagrant/mysqldata" ]; then
   mkdir /home/vagrant/mysqldata
 fi
-
-#cd /vagrant/docker/devel-dbmaster
-#sudo docker build -t="panamedia/devel-dbmaster" .
-#sudo docker stop devel-dbmaster
-#sudo docker rm devel-dbmaster
-#sudo docker run -v /home/vagrant/mysqldata:/var/lib/mysql/ --name devel-dbmaster -p 3306:3306 -e MYSQL_ROOT_PASSWORD=tpl9 -e MYSQL_DATABASE=euromillions -d panamedia/devel-dbmaster
-#sudo docker exec -d devel-dbmaster /dbinit/init_database.sh
-
-####
-## BUILDING DEVEL-WEB CONTAINER
-####
-#cd /vagrant/docker/devel-web
-#sudo docker build -t="panamedia/devel-web" .
-#sudo docker stop devel-web
-#sudo docker rm devel-web
-#sudo docker run -v /var/www:/var/www/ -d -p 8080:80 --name devel-web --link devel-dbmaster:mysql panamedia/devel-web

@@ -14,7 +14,7 @@ class CliBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     protected $commandLineArguments;
     protected $config;
 
-    const CONFIG_FILENAME = 'cliconfig.ini';
+    const CONFIG_FILENAME = 'cli_config.ini';
 
     public function __construct($commandLineArguments, $globalConfigPath, $configPath, $configFile)
     {
@@ -64,6 +64,6 @@ class CliBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     protected function getConfigFileName(EnvironmentDetector $em)
     {
-        return self::CONFIG_FILENAME;
+        return $em->get().'_'.self::CONFIG_FILENAME;
     }
 }
