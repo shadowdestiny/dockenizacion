@@ -1,0 +1,13 @@
+app\entities\Translation:
+  type: entity
+  table: translations
+  id:
+    translation_id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    key:
+      type: string
+    used:
+      type: boolean

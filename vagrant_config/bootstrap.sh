@@ -57,6 +57,14 @@ if [ ! -f /usr/local/bin/phalcon ]; then
 fi
 
 ####
+## DOCTRINE COMMAND LINE
+####
+if [ ! -f /usr/local/bin/doctrine ]; then
+    sudo ln -s /var/www/vendor/bin/doctrine /usr/local/bin/doctrine
+    sudo chmod ugo+x /usr/local/bin/doctrine
+fi
+
+####
 ## CHECKING DOCKER INSTALLATION
 ####
 dockerv=$(docker -v 2>&1)

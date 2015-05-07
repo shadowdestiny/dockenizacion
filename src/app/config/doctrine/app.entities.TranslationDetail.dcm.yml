@@ -1,0 +1,13 @@
+app\entities\TranslationDetail:
+  type: entity
+  table: translation_details
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    value:
+      type: string
+  manyToOne:
+    translation:

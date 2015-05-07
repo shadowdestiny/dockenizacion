@@ -1,11 +1,11 @@
-app\entities\BillingProvider:
+app\entities\Language:
   type: entity
-  table: billing_providers
+  table: languages
   id:
     id:
       type: integer
       generator:
         strategy: AUTO
   fields:
-    name:
+    ccode:
       type: string
