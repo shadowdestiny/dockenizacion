@@ -9,5 +9,15 @@ app\entities\TranslationDetail:
   fields:
     value:
       type: string
+    lang:
+      type: string
+      length: 6
   manyToOne:
     translation:
+      targetEntity: Translation
+      inversedBy: translatedTo
+      joinColumn:
+        referencedColumnName: translation_id
+    language:
+      targetEntity: Language
+      inversedBy: usedIn

@@ -7,6 +7,7 @@ class TranslationDetail
     protected $value;
     protected $translation;
     protected $language;
+    protected $lang;
 
     public function getTranslation()
     {
@@ -41,5 +42,15 @@ class TranslationDetail
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getLang()
+    {
+        return $this->lang;
+    }
+
+    public function setLang($lang)
+    {
+        $this->lang = $lang;
     }
 }

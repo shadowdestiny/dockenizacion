@@ -1,11 +1,19 @@
 <?php
 namespace app\entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class Translation
 {
     protected $translation_id;
     protected $key;
     protected $used;
+    protected $translatedTo;
+
+    public function __construct()
+    {
+        $this->translatedTo = new ArrayCollection();
+    }
 
     public function getId()
     {

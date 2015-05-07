@@ -9,3 +9,7 @@ app\entities\Language:
   fields:
     ccode:
       type: string
+  oneToMany:
+    usedIn:
+      targetEntity: TranslationDetail
+      mappedBy: language
