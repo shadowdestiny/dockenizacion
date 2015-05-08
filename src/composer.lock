@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f83d9843e8f4bd21e307650134ee3e81",
+    "hash": "81b73e3a878eba9a607471277a7c654d",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -766,16 +766,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/phalcon-devtools.git",
-                "reference": "86e3acd65bcc8ec0b9ae7e363ecf499a4f788a53"
+                "reference": "6ca9d1a4444db9ca8b50909bfa24a8f6c5e172b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/phalcon-devtools/zipball/86e3acd65bcc8ec0b9ae7e363ecf499a4f788a53",
-                "reference": "86e3acd65bcc8ec0b9ae7e363ecf499a4f788a53",
+                "url": "https://api.github.com/repos/phalcon/phalcon-devtools/zipball/6ca9d1a4444db9ca8b50909bfa24a8f6c5e172b5",
+                "reference": "6ca9d1a4444db9ca8b50909bfa24a8f6c5e172b5",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.6"
+                "php": ">=5.3.9"
             },
             "bin": [
                 "phalcon.php"
@@ -802,7 +802,7 @@
                 "framework",
                 "phalcon"
             ],
-            "time": "2015-04-29 22:01:41"
+            "time": "2015-05-03 10:39:12"
         },
         {
             "name": "phpdocumentor/reflection-docblock",

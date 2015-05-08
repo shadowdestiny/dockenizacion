@@ -1,0 +1,202 @@
+/* RESET - http://meyerweb.com/eric/tools/css/reset/ */
+html, body, applet, object, iframe, svg, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, figure,
+header, footer, figure, details, hgroup, section, article, nav, aside, picture{
+  margin:0; padding:0; border:0; outline:0; font-size:100%; font-weight:inherit; font-style:inherit;
+  font-family:inherit; text-decoration:inherit; background:transparent; vertical-align:baseline;
+}
+header, footer, figure, details, hgroup, section, article, nav, aside, picture{display:block;}
+img, object, audio, video, svg{width:100%;}
+
+/*** BASIC STYLE ***/
+
+a{text-decoration:underline; color:#6368bd;}
+a:visited{color:#A846B5;}
+a:hover, a:focus{text-decoration:none; color:#00c; border:0;}
+a:active{color:#c03; border:0;}
+
+body{text-align:center; line-height:1;}
+table{border-collapse:collapse; border-spacing:0;}
+strong{font-weight:bold;}
+nav ul, .main-foot ul{list-style:none;}
+nav a, .main-foot ul a{text-decoration:none;}
+em{font-style:italic;}
+blockquote, q{quotes:none;}
+blockquote:before, blockquote:after,q:before, q:after{content:''; content:none;}
+
+.no-li{list-style-type:none;}
+.no-li li{margin-bottom:1em;}
+.left{float:left;}
+img.left{margin:0 10px 15px 0;}
+.right{float:right;} 
+img.right{margin:0 0 15px 10px;}
+.inline li{display:inline-block;}
+
+
+/* CLEARFIX */
+.cl:before, .cl:after, .wrapper:before, .wrapper:after{content:" "; display:table;}
+.cl:after, .wrapper:after{clear:both;}
+.cl{*zoom:1;} /* IE6/7 */
+
+/* ANIMATION */
+.anim{
+-webkit-transition:opacity 1s ease-in-out;
+   -moz-transition:opacity 1s ease-in-out;
+     -o-transition:opacity 1s ease-in-out;
+    transition:opacity 1s ease-in-out;
+}
+
+/* TYPOGRAPHY */
+body{font-family:helvetica, arial, verdana, sans-serif; line-height:1.25em;}
+p{margin-bottom:1em;}
+.h1, .h2, .h3, .h4{margin-bottom:1em; font-weight:bold; line-height:100%;}
+.h1{font-size:2.25em;}  /* 16x2.25=36 */
+.h2{font-size:1.5em;}   /* 16x1.5=24 */
+.h3{font-size:1.125em;} /* 16x1.125=18 */
+.h4{font-size:0.875em;} /* 16x0.875=14 */
+
+/* COLORS */
+.purple{color:#ae5279;}
+.yellow{color:#efc048;}
+
+/* PAGE LAYOUT */
+.wrapper{width:1200px; margin:auto;}
+.logo{float:left; display:table;}
+.logo .pic{display:table-cell; height:72px; vertical-align:middle;}
+.logo img{vertical-align:middle;}
+
+.top-nav{min-height:28px; background:#ae5279;}
+.top-nav a{display:block; color:#fff; padding:0 15px; line-height:28px;}
+.top-nav li{float:right; border-right:1px solid #fff; font-size:75%;}
+.top-nav li:first-child{border:0;}
+.top-nav a:hover, .top-nav a:focus{background:#fff; color:#ae5279;}
+.top-nav .ico{font-size:60%; margin-left:5px;}
+
+.head{border-bottom:5px solid #efc048; background:#fff;}
+.main-nav{float:right;}
+.main-nav li{float:left; border-right:1px solid #efc048;}
+.main-nav li:last-child{margin:0;}
+.main-nav .ico-cart{color:#000;}
+.main-nav a{display:block; padding:15px 20px; min-height:42px;}
+.main-nav > span{display:block;}
+.main-nav .lnk{font-size:75%;}
+.main-nav .txt{position:relative; top:-2px; font-size:85%; font-weight:bold; color:#000;}
+.main-nav .active{border-right:1px solid transparent;}
+.main-nav .active{
+  background-color:#efc048;   /* fallback */
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#CC9816), to(#efc048));   /* Safari 4-5, Chrome 1-9 */
+  background: -webkit-linear-gradient(top, #CC9816, #efc048);   /* Safari 5.1, Chrome 10+ */
+  background: -moz-linear-gradient(top, #CC9816, #efc048);   /* Firefox 3.6+ */
+  background: -ms-linear-gradient(top, #CC9816, #efc048);   /* IE 10 */
+  background: -o-linear-gradient(top, #CC9816, #efc048);   /* Opera 11.10+ */
+  background: linear-gradient(top, #CC9816, #efc048); 
+}
+.main-nav .active a, .main-nav .active .txt, .main-nav a:hover, .main-nav a:hover .txt
+{color:#fff!important; text-shadow:0 1px 0 rgba(0, 0, 0, 0.4);}
+
+.main-nav a:hover{
+  background-color:#ae5279;   /* fallback */
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#8b355b), to(#ae5279));   /* Safari 4-5, Chrome 1-9 */
+  background: -webkit-linear-gradient(top, #8b355b, #ae5279);   /* Safari 5.1, Chrome 10+ */
+  background: -moz-linear-gradient(top, #8b355b, #ae5279);   /* Firefox 3.6+ */
+  background: -ms-linear-gradient(top, #8b355b, #ae5279);   /* IE 10 */
+  background: -o-linear-gradient(top, #8b355b, #ae5279);   /* Opera 11.10+ */
+  background: linear-gradient(top, #8b355b, #ae5279); 
+}
+.main-nav a:hover .ico-cart, .main-nav .active .ico-cart{color:#fff;}
+
+
+.main-nav li:hover{border-right:1px solid transparent;} /* erase yellow border */
+.main-nav .active a:hover{background:transparent;} /* disable hover on active menu */
+
+#content{background:#eee; text-align:left;}
+
+.main-foot{border-top:5px solid #efc048; background:#fff; text-align:left;}
+.main-foot .cols{margin:20px 0;}
+.main-foot .info{color:#888; font-size:70%; line-height:150%;}
+.main-foot .partner{text-align:right;}
+
+.box-links .col20per{padding:0 10px;}
+.box-links li{margin-bottom:.5em; font-size:85%;}
+.box-links li:last-child{margin:0;}
+.box-links strong{display:inline-block; margin-bottom:.5em; font-size:95%;}
+
+.small-logo{float:left; width:200px;}
+
+.logo-social{border-bottom:1px solid #ccc; padding-bottom:10px;}
+.logo-social li{display:inline-block; margin-left:25px;}
+
+.social{float:right;}
+.social a{display:block; text-align:center; font-size:115%; width:34px; height:34px;}
+.social .ico{color:#fff; line-height:34px;}
+.social .txt{position:absolute; left:-9999px; top:-9999px;} /* Hide Text but keep it SEO friendly */
+
+.fb, .gp, .tw{border-radius:17px;}
+.fb{background:#436fb5;}
+.fb .ico{position:relative; top:-2px; left:-2px;}
+.gp{background:#ff4544;}
+.gp .ico{position:relative; top:1px; left:1px;}
+.tw{background:#59c8ec;}
+
+.partner .card{width:50px; height:32px; border-radius:3px; border:1px solid #666; margin-left:10px;}
+
+/* SPRITES */
+.sprite{display:block; width:75px; height:75px; background: url(../img/sprite.png) no-repeat 0 0;} /* Basic sprite size of @1x is 75x75px */
+.visa{background-position:-75px 0;} 
+.visa-electron{background-position:-150px 0;} 
+
+/*
+Maybe use this?
+http://timkadlec.com/2012/04/media-query-asset-downloading-results/
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (min--moz-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min-device-pixel-ratio: 1.5) {
+
+*/
+/*
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) {
+*/
+@media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx){
+  /* Basic sprite size of @1x is 150x150px */
+  .sprite{
+    /* Reference the @2x Sprite */
+    background-image: url(../img/sprite@2x.png);
+    /* Translate the @2x sprite's dimensions back to 1x */
+    background-size:225px 75px; /* Half of the size of the sprite @2x */
+  }
+}
+
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width: 1200px){
+    body{border:10px solid #0ff;}
+    .wrapper{width:992px;}
+}
+ 
+/* Medium Devices, Desktops */
+@media only screen and (max-width: 992px){
+    body{border:10px solid #ff0;}
+    .wrapper{width:768px;}
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width: 768px){
+    body{border:10px solid #0f0;}
+    .wrapper{width:100%;}
+    .main-foot .small-logo{width:150px;}
+    .main-foot .social{border:1px solid #f00; clear:both; float:none;}
+}
+ 
+/* Extra Small Devices, Phones */
+@media only screen and (max-width: 480px){
+    body{border:10px solid #00f;}
+}
+ 
+/* Custom, iPhone Retina */
+@media only screen and (max-width: 320px){
+    body{border:10px solid #f00;}
+}
