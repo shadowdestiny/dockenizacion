@@ -4,3 +4,5 @@ app/assets/*
 vendor/*
 !app/assets/compiled_templates
 app/assets/compiled_templates/*
+.phalcon/*
+.sass-cache
