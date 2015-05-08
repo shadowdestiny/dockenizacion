@@ -1,0 +1,22 @@
+/* line 4, ../../compass/sass/example.scss */
+body {
+  font: 100% Helvetica, sans-serif;
+  color: #333;
+}
+
+/* line 10, ../../compass/sass/example.scss */
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* line 16, ../../compass/sass/example.scss */
+nav li {
+  display: inline-block;
+}
+/* line 18, ../../compass/sass/example.scss */
+nav a {
+  display: block;
+  padding: 6px 12px;
+  text-decoration: none;
+}
