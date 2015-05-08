@@ -1,5 +1,6 @@
 <?php
 namespace app\controllers;
+use app\services\LanguageService;
 use Phalcon\Di;
 use stdClass;
 
@@ -7,6 +8,9 @@ class IndexController extends ControllerBase
 {
     public function indexAction()
     {
+        $language_service = new LanguageService($this->entityManager);
+        $this->noRender();
+        var_dump($language_service->availableLanguages());
     }
 
     public function fallBackToZendAction()

@@ -1,5 +1,6 @@
 app\entities\Language:
   type: entity
+  repositoryClass: app\repositories\LanguageRepository
   table: languages
   id:
     id:
@@ -11,5 +12,5 @@ app\entities\Language:
       type: string
   oneToMany:
     usedIn:
-      targetEntity: TranslationDetail
+      targetEntity: \app\entities\TranslationDetail
       mappedBy: language

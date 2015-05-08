@@ -14,10 +14,10 @@ app\entities\TranslationDetail:
       length: 6
   manyToOne:
     translation:
-      targetEntity: Translation
+      targetEntity: app\entities\Translation
       inversedBy: translatedTo
       joinColumn:
         referencedColumnName: translation_id
     language:
-      targetEntity: Language
+      targetEntity: app\entities\Language
       inversedBy: usedIn

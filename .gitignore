@@ -3,3 +3,4 @@
 .idea/*
 jenkins_config/*
 !jenkins_config/README.md
+.phalcon/*
