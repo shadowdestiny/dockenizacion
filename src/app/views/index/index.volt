@@ -20,6 +20,10 @@
 			{% endfor %}
 		</ul>
 #}
+
+{# SVG embed
+<embed type="image/svg+xml" src="mySVG.svg" />
+#}
 	</div>
 </main>
 

@@ -19,7 +19,7 @@ develweb:
 
 compass:
   image: antonienko/compass-watch
-  command: watch /src/compass
+  command: watch --poll /src/compass
   volumes:
     - /var/www:/src
 
