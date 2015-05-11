@@ -3,6 +3,16 @@ sudo sh -c "echo 'export EM_ENV=vagrant' >> /etc/profile"
 sudo locale-gen UTF-8
 
 ####
+## INSTALLING ANSIBLE
+####
+if [ ! -f /usr/bin/ansible ]; then
+    sudo apt-get install -y software-properties-common
+    sudo apt-add-repository -y ppa:ansible/ansible
+    sudo apt-get update -q
+    sudo apt-get install -y ansible
+fi
+
+####
 ## INSTALLING PHP5-CLI
 ## Installing php5-cli on the vagrant machine for PhpStorm configurations
 ####

@@ -2,6 +2,7 @@
 namespace app\controllers;
 use Doctrine\ORM\EntityManager;
 use Phalcon\Mvc\Controller;
+use Phalcon\Mvc\View;
 
 /**
  * Class ControllerBase
@@ -12,6 +13,6 @@ class ControllerBase extends Controller
 {
     protected function noRender()
     {
-        $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_NO_RENDER);
+        $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
     }
 }
