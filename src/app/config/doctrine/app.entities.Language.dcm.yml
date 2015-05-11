@@ -1,0 +1,16 @@
+app\entities\Language:
+  type: entity
+  repositoryClass: app\repositories\LanguageRepository
+  table: languages
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    ccode:
+      type: string
+  oneToMany:
+    usedIn:
+      targetEntity: \app\entities\TranslationDetail
+      mappedBy: language

@@ -1,5 +1,9 @@
 .vagrant
 .idea
-.idea/*
-jenkins_config/*
-!jenkins_config/README.md
+phpinfo.php
+src/app/assets/*
+src/vendor/*
+!src/app/assets/compiled_templates
+src/app/assets/compiled_templates/*
+src/.phalcon/*
+src/.sass-cache

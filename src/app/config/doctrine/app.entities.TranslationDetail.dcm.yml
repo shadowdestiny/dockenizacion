@@ -1,0 +1,23 @@
+app\entities\TranslationDetail:
+  type: entity
+  table: translation_details
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    value:
+      type: string
+    lang:
+      type: string
+      length: 6
+  manyToOne:
+    translation:
+      targetEntity: app\entities\Translation
+      inversedBy: translatedTo
+      joinColumn:
+        referencedColumnName: translation_id
+    language:
+      targetEntity: app\entities\Language
+      inversedBy: usedIn
