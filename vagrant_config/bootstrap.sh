@@ -3,6 +3,11 @@ sudo sh -c "echo 'export EM_ENV=vagrant' >> /etc/profile"
 sudo locale-gen UTF-8
 
 ####
+## PRIVILEGES TO THE DEV-SCRIPTS
+####
+chmod 755 /vagrant/dev-scripts/*
+
+####
 ## INSTALLING ANSIBLE
 ####
 if [ ! -f /usr/bin/ansible ]; then

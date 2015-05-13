@@ -12,4 +12,4 @@ while read -r line; do
     fi
 done <<< $(eval "git diff --name-only HEAD@{1} HEAD")
 
-touch "environment_$EM_ENV"
+vagrant ssh -c "touch execute_migrations"
