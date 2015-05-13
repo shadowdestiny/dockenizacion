@@ -114,8 +114,8 @@ class SessionsMigration_100 extends Migration
             ),
             'options' => array(
                 'TABLE_TYPE' => 'BASE TABLE',
-                'AUTO_INCREMENT' => '4810',
-                'ENGINE' => 'MyISAM',
+                'AUTO_INCREMENT' => '1',
+                'ENGINE' => 'InnoDB',
                 'TABLE_COLLATION' => 'utf8_unicode_ci'
             )
         )

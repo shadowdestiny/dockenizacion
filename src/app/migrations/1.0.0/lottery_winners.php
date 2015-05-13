@@ -86,7 +86,7 @@ class LotteryWinnersMigration_100 extends Migration
             'options' => array(
                 'TABLE_TYPE' => 'BASE TABLE',
                 'AUTO_INCREMENT' => '10426',
-                'ENGINE' => 'MyISAM',
+                'ENGINE' => 'InnoDB',
                 'TABLE_COLLATION' => 'utf8_unicode_ci'
             )
         )

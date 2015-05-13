@@ -111,8 +111,8 @@ class FaqsMigration_100 extends Migration
             ),
             'options' => array(
                 'TABLE_TYPE' => 'BASE TABLE',
-                'AUTO_INCREMENT' => '31',
-                'ENGINE' => 'MyISAM',
+                'AUTO_INCREMENT' => '20',
+                'ENGINE' => 'InnoDB',
                 'TABLE_COLLATION' => 'utf8_unicode_ci'
             )
         )

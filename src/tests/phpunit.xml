@@ -10,12 +10,14 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="true">
-    <testsuite name="unit">
-        <directory>./unit/</directory>
-    </testsuite>
-    <testsuite name="integration">
-        <directory>./integration/</directory>
-    </testsuite>
+    <testsuites>
+        <testsuite name="unit">
+            <directory>./unit/</directory>
+        </testsuite>
+        <testsuite name="integration">
+            <directory>./integration/</directory>
+        </testsuite>
+    </testsuites>
     <listeners>
         <listener class="tests\base\TestListener" file="./base/TestListener.php"></listener>
     </listeners>

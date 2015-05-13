@@ -291,7 +291,7 @@ class LcTicketsMigration_100 extends Migration
             'options' => array(
                 'TABLE_TYPE' => 'BASE TABLE',
                 'AUTO_INCREMENT' => '1',
-                'ENGINE' => 'MyISAM',
+                'ENGINE' => 'InnoDB',
                 'TABLE_COLLATION' => 'utf8_unicode_ci'
             )
         )

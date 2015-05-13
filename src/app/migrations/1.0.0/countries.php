@@ -93,7 +93,7 @@ class CountriesMigration_100 extends Migration
             'options' => array(
                 'TABLE_TYPE' => 'BASE TABLE',
                 'AUTO_INCREMENT' => '251',
-                'ENGINE' => 'MyISAM',
+                'ENGINE' => 'InnoDB',
                 'TABLE_COLLATION' => 'utf8_unicode_ci'
             )
         )

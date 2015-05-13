@@ -18,10 +18,9 @@ class TranslationDetailsMigration_100 extends Migration
                     'id',
                     array(
                         'type' => Column::TYPE_INTEGER,
-                        'unsigned' => true,
                         'notNull' => true,
                         'autoIncrement' => true,
-                        'size' => 10,
+                        'size' => 11,
                         'first' => true
                     )
                 ),
@@ -29,9 +28,7 @@ class TranslationDetailsMigration_100 extends Migration
                     'translation_id',
                     array(
                         'type' => Column::TYPE_INTEGER,
-                        'unsigned' => true,
-                        'notNull' => true,
-                        'size' => 10,
+                        'size' => 11,
                         'after' => 'id'
                     )
                 ),
@@ -47,23 +44,44 @@ class TranslationDetailsMigration_100 extends Migration
                 new Column(
                     'value',
                     array(
-                        'type' => Column::TYPE_TEXT,
+                        'type' => Column::TYPE_VARCHAR,
                         'notNull' => true,
-                        'size' => 1,
+                        'size' => 255,
                         'after' => 'lang'
+                    )
+                ),
+                new Column(
+                    'language_id',
+                    array(
+                        'type' => Column::TYPE_INTEGER,
+                        'size' => 11,
+                        'after' => 'value'
                     )
                 )
             ),
             'indexes' => array(
                 new Index('PRIMARY', array('id')),
-                new Index('translation_id', array('translation_id', 'lang')),
-                new Index('translation_id_2', array('translation_id')),
-                new Index('value', array('value'))
+                new Index('IDX_D32AF2789CAA2B25', array('translation_id')),
+                new Index('IDX_D32AF27882F1BAF4', array('language_id'))
+            ),
+            'references' => array(
+                new Reference('FK_D32AF27882F1BAF4', array(
+                    'referencedSchema' => 'euromillions',
+                    'referencedTable' => 'languages',
+                    'columns' => array('language_id'),
+                    'referencedColumns' => array('id')
+                )),
+                new Reference('FK_D32AF2789CAA2B25', array(
+                    'referencedSchema' => 'euromillions',
+                    'referencedTable' => 'translations',
+                    'columns' => array('translation_id'),
+                    'referencedColumns' => array('translation_id')
+                ))
             ),
             'options' => array(
                 'TABLE_TYPE' => 'BASE TABLE',
                 'AUTO_INCREMENT' => '2483',
-                'ENGINE' => 'MyISAM',
+                'ENGINE' => 'InnoDB',
                 'TABLE_COLLATION' => 'utf8_unicode_ci'
             )
         )

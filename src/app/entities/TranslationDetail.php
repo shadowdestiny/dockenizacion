@@ -6,8 +6,8 @@ class TranslationDetail
     protected $id;
     protected $value;
     protected $translation;
-    protected $language;
     protected $lang;
+    protected $language;
 
     public function getTranslation()
     {
@@ -17,16 +17,6 @@ class TranslationDetail
     public function setTranslation($translation)
     {
         $this->translation = $translation;
-    }
-
-    public function getLanguage()
-    {
-        return $this->language;
-    }
-
-    public function setLanguage($language)
-    {
-        $this->language = $language;
     }
 
     public function getValue()
@@ -53,4 +43,15 @@ class TranslationDetail
     {
         $this->lang = $lang;
     }
+
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+    }
+
 }

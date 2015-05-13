@@ -22,16 +22,6 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
         DI::setDefault($di);
     }
 
-    protected function configDb($options)
-    {
-        if (!$this->isUnitTest) {
-            return parent::configDb($options);
-        } else {
-            return null;
-        }
-
-    }
-
     protected function configDoctrine(Ini $appConfig)
     {
         if (!$this->isUnitTest) {

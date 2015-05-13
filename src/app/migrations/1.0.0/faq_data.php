@@ -87,8 +87,8 @@ class FaqDataMigration_100 extends Migration
             ),
             'options' => array(
                 'TABLE_TYPE' => 'BASE TABLE',
-                'AUTO_INCREMENT' => '28',
-                'ENGINE' => 'MyISAM',
+                'AUTO_INCREMENT' => '21',
+                'ENGINE' => 'InnoDB',
                 'TABLE_COLLATION' => 'utf8_unicode_ci'
             )
         )

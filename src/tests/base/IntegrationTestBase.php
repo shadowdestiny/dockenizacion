@@ -99,4 +99,6 @@ abstract class IntegrationTestBase extends \PHPUnit_Extensions_Database_TestCase
         }
         return $class;
     }
+
+
 }

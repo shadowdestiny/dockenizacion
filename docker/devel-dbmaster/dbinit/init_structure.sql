@@ -26,9 +26,9 @@ CREATE TABLE IF NOT EXISTS `acl_resource_roles` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `acl_resource_users`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `acl_resource_users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -41,9 +41,9 @@ CREATE TABLE IF NOT EXISTS `acl_resource_users` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `acl_resources`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `acl_resources` (
   `resource_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -59,9 +59,9 @@ CREATE TABLE IF NOT EXISTS `acl_resources` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `acl_roles`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `acl_roles` (
   `role_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -72,9 +72,9 @@ CREATE TABLE IF NOT EXISTS `acl_roles` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `article_details`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `article_details` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -109,9 +109,9 @@ CREATE TABLE IF NOT EXISTS `article_details` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `articles`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `articles` (
   `article_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -130,9 +130,9 @@ CREATE TABLE IF NOT EXISTS `articles` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `cart_data`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `cart_data` (
   `cart_data_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -153,9 +153,9 @@ CREATE TABLE IF NOT EXISTS `cart_data` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `cart_data_lc`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `cart_data_lc` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -177,9 +177,9 @@ CREATE TABLE IF NOT EXISTS `cart_data_lc` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `carts`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `carts` (
   `cart_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -199,9 +199,9 @@ CREATE TABLE IF NOT EXISTS `carts` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `countries`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `countries` (
   `country_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -220,9 +220,9 @@ CREATE TABLE IF NOT EXISTS `countries` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `currencies`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `currencies` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -239,9 +239,9 @@ CREATE TABLE IF NOT EXISTS `currencies` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `customers`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `customers` (
   `customer_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -255,9 +255,9 @@ CREATE TABLE IF NOT EXISTS `customers` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `em_tickets`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `em_tickets` (
   `em_ticket_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -290,9 +290,9 @@ CREATE TABLE IF NOT EXISTS `em_tickets` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `faq_data`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `faq_data` (
   `faq_data_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -307,9 +307,9 @@ CREATE TABLE IF NOT EXISTS `faq_data` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `faqs`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `faqs` (
   `faq_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -339,13 +339,14 @@ CREATE TABLE IF NOT EXISTS `languages` (
   `ccode` varchar(6) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ccode` (`ccode`),
+  INDEX (ccode)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `lc_log`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `lc_log` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -373,9 +374,9 @@ CREATE TABLE IF NOT EXISTS `lc_log` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `lc_tickets`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `lc_tickets` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -430,9 +431,9 @@ CREATE TABLE IF NOT EXISTS `lc_tickets` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `log_system`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `log_system` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -453,9 +454,9 @@ CREATE TABLE IF NOT EXISTS `log_system` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `lottery_draws`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `lottery_draws` (
   `draw_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -471,9 +472,9 @@ CREATE TABLE IF NOT EXISTS `lottery_draws` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `lottery_results`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `lottery_results` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -488,9 +489,9 @@ CREATE TABLE IF NOT EXISTS `lottery_results` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `lottery_winners`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `lottery_winners` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -507,9 +508,9 @@ CREATE TABLE IF NOT EXISTS `lottery_winners` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `mail_queue`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `mail_queue` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -528,9 +529,9 @@ CREATE TABLE IF NOT EXISTS `mail_queue` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `news`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `news` (
   `news_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -549,9 +550,9 @@ CREATE TABLE IF NOT EXISTS `news` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `news_details`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `news_details` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -585,9 +586,9 @@ CREATE TABLE IF NOT EXISTS `news_details` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `order_data`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `order_data` (
   `order_data_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -604,9 +605,9 @@ CREATE TABLE IF NOT EXISTS `order_data` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `order_data_lc`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `order_data_lc` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -629,9 +630,9 @@ CREATE TABLE IF NOT EXISTS `order_data_lc` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `orders`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `orders` (
   `order_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -646,9 +647,9 @@ CREATE TABLE IF NOT EXISTS `orders` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `products`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `products` (
   `product_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -664,9 +665,9 @@ CREATE TABLE IF NOT EXISTS `products` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `sessions`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `sessions` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -685,9 +686,9 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `stats_data`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `stats_data` (
   `year` mediumint(8) unsigned NOT NULL,
@@ -702,9 +703,9 @@ CREATE TABLE IF NOT EXISTS `stats_data` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `stats_tickets_lc`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `stats_tickets_lc` (
   `draw_id` int(10) unsigned NOT NULL,
@@ -723,9 +724,9 @@ CREATE TABLE IF NOT EXISTS `stats_tickets_lc` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `stats_types`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `stats_types` (
   `stats_type_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -736,9 +737,9 @@ CREATE TABLE IF NOT EXISTS `stats_types` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `stats_user_online`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `stats_user_online` (
   `year` mediumint(4) unsigned NOT NULL,
@@ -753,9 +754,9 @@ CREATE TABLE IF NOT EXISTS `stats_user_online` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `ticket_types`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `ticket_types` (
   `ticket_type_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -771,9 +772,9 @@ CREATE TABLE IF NOT EXISTS `ticket_types` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `transactions`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `transactions` (
   `transaction_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -796,26 +797,24 @@ CREATE TABLE IF NOT EXISTS `transactions` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `translation_details`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `translation_details` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `translation_id` int(10) unsigned NOT NULL,
   `lang` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
   `value` text COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `translation_id` (`translation_id`,`lang`),
-  KEY `translation_id_2` (`translation_id`),
-  FULLTEXT KEY `value` (`value`)
+  `language_id` INT unsigned NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `translations`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `translations` (
   `translation_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -828,9 +827,9 @@ CREATE TABLE IF NOT EXISTS `translations` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `user_details`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `user_details` (
   `user_id` int(10) unsigned NOT NULL,
@@ -855,9 +854,9 @@ CREATE TABLE IF NOT EXISTS `user_details` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `user_payout_bank_accounts`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `user_payout_bank_accounts` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -879,9 +878,9 @@ CREATE TABLE IF NOT EXISTS `user_payout_bank_accounts` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `user_payouts`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `user_payouts` (
   `payout_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -906,9 +905,9 @@ CREATE TABLE IF NOT EXISTS `user_payouts` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `user_registration_details`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `user_registration_details` (
   `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -930,9 +929,9 @@ CREATE TABLE IF NOT EXISTS `user_registration_details` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `users`
--- 
+--
 
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,

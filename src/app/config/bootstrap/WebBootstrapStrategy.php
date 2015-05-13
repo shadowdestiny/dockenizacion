@@ -44,8 +44,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $di->set('router', $this->configRouter(), true);
         $di->set('response',$this->configResponse(), true);
         $di->set('cookies', $this->configCookies(), true);
-        $di->set('db', $this->configDb($di->get('config')->database), true);
-        $di->set('db_slave', $this->configDb($di->get('config')->slave_database), true);
         $di->set('session', $this->configSession(), true);
         $di->set('tag', $this->configTag(), true);
         $di->set('escaper', $this->configEscaper(), true);
@@ -154,16 +152,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     protected function configCookies()
     {
         return new Phalcon\Http\Response\Cookies();
-    }
-
-    protected function configDb($options)
-    {
-        return new Phalcon\Db\Adapter\Pdo\Mysql([
-            'host' => $options->host,
-            'username' => $options->username,
-            'password' => $options->password,
-            'dbname' => $options->dbname,
-        ]);
     }
 
     protected function configSession()

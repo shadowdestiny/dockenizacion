@@ -18,10 +18,9 @@ class TranslationsMigration_100 extends Migration
                     'translation_id',
                     array(
                         'type' => Column::TYPE_INTEGER,
-                        'unsigned' => true,
                         'notNull' => true,
                         'autoIncrement' => true,
-                        'size' => 10,
+                        'size' => 11,
                         'first' => true
                     )
                 ),
@@ -30,7 +29,7 @@ class TranslationsMigration_100 extends Migration
                     array(
                         'type' => Column::TYPE_VARCHAR,
                         'notNull' => true,
-                        'size' => 254,
+                        'size' => 255,
                         'after' => 'translation_id'
                     )
                 ),
@@ -38,22 +37,19 @@ class TranslationsMigration_100 extends Migration
                     'used',
                     array(
                         'type' => Column::TYPE_INTEGER,
-                        'unsigned' => true,
                         'notNull' => true,
-                        'size' => 3,
+                        'size' => 1,
                         'after' => 'key'
                     )
                 )
             ),
             'indexes' => array(
-                new Index('PRIMARY', array('translation_id')),
-                new Index('key', array('key')),
-                new Index('used', array('used'))
+                new Index('PRIMARY', array('translation_id'))
             ),
             'options' => array(
                 'TABLE_TYPE' => 'BASE TABLE',
                 'AUTO_INCREMENT' => '688',
-                'ENGINE' => 'MyISAM',
+                'ENGINE' => 'InnoDB',
                 'TABLE_COLLATION' => 'utf8_unicode_ci'
             )
         )
