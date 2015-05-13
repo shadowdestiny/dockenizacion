@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `acl_resource_roles` (
   `resource_id` int(10) unsigned NOT NULL,
   `value` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=913 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=913 ;
+) ENGINE=INNODB AUTO_INCREMENT=913 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=913 ;
 
 -- --------------------------------------------------------
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `acl_resource_users` (
   `value` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`,`resource_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=INNODB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `acl_resources` (
   UNIQUE KEY `name` (`name`),
   KEY `category` (`category`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=40 ;
+) ENGINE=INNODB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=40 ;
 
 -- --------------------------------------------------------
 
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `acl_roles` (
   `name` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`role_id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=INNODB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `article_details` (
   UNIQUE KEY `alias` (`article_id`,`lang`),
   KEY `lang` (`lang`),
   KEY `alias_2` (`alias`)
-) ENGINE=MyISAM AUTO_INCREMENT=130 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=130 ;
+) ENGINE=INNODB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=130 ;
 
 -- --------------------------------------------------------
 
@@ -126,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `key` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`article_id`),
   UNIQUE KEY `key` (`key`)
-) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=55 ;
+) ENGINE=INNODB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=55 ;
 
 -- --------------------------------------------------------
 
@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `cart_data` (
   KEY `add_date` (`add_date`),
   KEY `draw_date` (`start_draw_date`),
   KEY `cart_id_2` (`cart_id`,`lottery`,`post_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
+) ENGINE=INNODB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `cart_data_lc` (
   `price` decimal(10,2) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `draw_date` (`draw_date`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=19 ;
+) ENGINE=INNODB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=19 ;
 
 -- --------------------------------------------------------
 
@@ -195,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `carts` (
   KEY `guest_id` (`guest_id`),
   KEY `last_update` (`last_update`),
   KEY `customer_id` (`customer_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=21 ;
+) ENGINE=INNODB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=21 ;
 
 -- --------------------------------------------------------
 
@@ -216,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `countries` (
   UNIQUE KEY `name` (`name`),
   KEY `active_registration` (`active_registration`),
   KEY `active_payout` (`active_payout`)
-) ENGINE=MyISAM AUTO_INCREMENT=251 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=251 ;
+) ENGINE=INNODB AUTO_INCREMENT=251 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=251 ;
 
 -- --------------------------------------------------------
 
@@ -235,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `currencies` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `currency` (`currency`),
   KEY `active` (`active`)
-) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=35 ;
+) ENGINE=INNODB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=35 ;
 
 -- --------------------------------------------------------
 
@@ -251,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `mail_from_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `mail_from` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`customer_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=INNODB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -286,7 +286,7 @@ CREATE TABLE IF NOT EXISTS `em_tickets` (
   KEY `end_draw_id` (`end_draw_id`),
   KEY `end_date` (`end_date`),
   KEY `order_id` (`order_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+) ENGINE=INNODB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -303,7 +303,7 @@ CREATE TABLE IF NOT EXISTS `faq_data` (
   `change_date` datetime NOT NULL,
   `changed_by` int(10) unsigned NOT NULL,
   PRIMARY KEY (`faq_data_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
+) ENGINE=INNODB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
 
 -- --------------------------------------------------------
 
@@ -326,7 +326,7 @@ CREATE TABLE IF NOT EXISTS `faqs` (
   KEY `active` (`active`),
   KEY `pos` (`pos`),
   KEY `category` (`category`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=31 ;
+) ENGINE=INNODB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=31 ;
 
 -- --------------------------------------------------------
 
@@ -356,7 +356,7 @@ CREATE TABLE IF NOT EXISTS `lc_log` (
   `stars` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `method` (`method`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=INNODB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -413,7 +413,7 @@ CREATE TABLE IF NOT EXISTS `lc_tickets` (
   KEY `star5` (`star5`),
   KEY `state` (`state`),
   KEY `won` (`won`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -436,7 +436,7 @@ CREATE TABLE IF NOT EXISTS `log_system` (
   `ip` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=35367 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=35367 ;
+) ENGINE=INNODB AUTO_INCREMENT=35367 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=35367 ;
 
 -- --------------------------------------------------------
 
@@ -454,7 +454,7 @@ CREATE TABLE IF NOT EXISTS `lottery_draws` (
   PRIMARY KEY (`draw_id`),
   KEY `draw_date` (`draw_date`),
   KEY `published` (`published`)
-) ENGINE=MyISAM AUTO_INCREMENT=789 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=789 ;
+) ENGINE=INNODB AUTO_INCREMENT=789 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=789 ;
 
 -- --------------------------------------------------------
 
@@ -471,7 +471,7 @@ CREATE TABLE IF NOT EXISTS `lottery_results` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `draw_id` (`draw_id`,`type`,`pos`),
   KEY `number` (`number`)
-) ENGINE=MyISAM AUTO_INCREMENT=5662 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5662 ;
+) ENGINE=INNODB AUTO_INCREMENT=5662 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5662 ;
 
 -- --------------------------------------------------------
 
@@ -490,7 +490,7 @@ CREATE TABLE IF NOT EXISTS `lottery_winners` (
   UNIQUE KEY `draw_id` (`draw_id`,`numbers`,`luckystars`),
   KEY `draw_id_2` (`draw_id`),
   KEY `winners` (`winners`)
-) ENGINE=MyISAM AUTO_INCREMENT=10426 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10426 ;
+) ENGINE=INNODB AUTO_INCREMENT=10426 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10426 ;
 
 -- --------------------------------------------------------
 
@@ -511,7 +511,7 @@ CREATE TABLE IF NOT EXISTS `mail_queue` (
   `last_try` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `priority` (`priority`)
-) ENGINE=MyISAM AUTO_INCREMENT=215682 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=215682 ;
+) ENGINE=INNODB AUTO_INCREMENT=215682 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=215682 ;
 
 -- --------------------------------------------------------
 
@@ -532,7 +532,7 @@ CREATE TABLE IF NOT EXISTS `news` (
   `key` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`news_id`),
   UNIQUE KEY `key` (`key`)
-) ENGINE=MyISAM AUTO_INCREMENT=218 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=218 ;
+) ENGINE=INNODB AUTO_INCREMENT=218 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=218 ;
 
 -- --------------------------------------------------------
 
@@ -568,7 +568,7 @@ CREATE TABLE IF NOT EXISTS `news_details` (
   UNIQUE KEY `alias` (`news_id`,`lang`),
   KEY `lang` (`lang`),
   KEY `alias_2` (`alias`)
-) ENGINE=MyISAM AUTO_INCREMENT=243 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=243 ;
+) ENGINE=INNODB AUTO_INCREMENT=243 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=243 ;
 
 -- --------------------------------------------------------
 
@@ -587,7 +587,7 @@ CREATE TABLE IF NOT EXISTS `order_data` (
   `price` decimal(10,2) NOT NULL,
   `state` enum('new','done','in_progress','error') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'new',
   PRIMARY KEY (`order_data_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+) ENGINE=INNODB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
 
 -- --------------------------------------------------------
 
@@ -612,7 +612,7 @@ CREATE TABLE IF NOT EXISTS `order_data_lc` (
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`),
   KEY `state` (`state`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+) ENGINE=INNODB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -629,7 +629,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `total_price` decimal(10,2) NOT NULL,
   `transaction_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`order_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+) ENGINE=INNODB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
 
 -- --------------------------------------------------------
 
@@ -647,7 +647,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`product_id`),
   KEY `active` (`active`),
   KEY `type_id` (`product_type_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=25 ;
+) ENGINE=INNODB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=25 ;
 
 -- --------------------------------------------------------
 
@@ -668,7 +668,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   `host` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `session_id` (`session_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4810 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4810 ;
+) ENGINE=INNODB AUTO_INCREMENT=4810 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4810 ;
 
 -- --------------------------------------------------------
 
@@ -685,7 +685,7 @@ CREATE TABLE IF NOT EXISTS `stats_data` (
   `customer_id` mediumint(8) unsigned NOT NULL,
   `value` int(10) unsigned NOT NULL,
   PRIMARY KEY (`year`,`month`,`day`,`hour`,`stats_type_id`,`customer_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -706,7 +706,7 @@ CREATE TABLE IF NOT EXISTS `stats_tickets_lc` (
   `won` int(10) unsigned NOT NULL,
   `won_total_amount` decimal(10,2) NOT NULL,
   PRIMARY KEY (`draw_id`,`customer_id`,`product_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -719,7 +719,7 @@ CREATE TABLE IF NOT EXISTS `stats_types` (
   `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`stats_type_id`),
   UNIQUE KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=39 ;
+) ENGINE=INNODB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=39 ;
 
 -- --------------------------------------------------------
 
@@ -736,7 +736,7 @@ CREATE TABLE IF NOT EXISTS `stats_user_online` (
   `gender_f` int(10) unsigned NOT NULL,
   `gender_n` int(10) unsigned NOT NULL,
   PRIMARY KEY (`year`,`month`,`day`,`country`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -754,7 +754,7 @@ CREATE TABLE IF NOT EXISTS `ticket_types` (
   PRIMARY KEY (`ticket_type_id`),
   UNIQUE KEY `numbers` (`numbers`,`stars`),
   KEY `active` (`active`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Ticket types and there details' AUTO_INCREMENT=25 ;
+) ENGINE=INNODB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Ticket types and there details' AUTO_INCREMENT=25 ;
 
 -- --------------------------------------------------------
 
@@ -779,7 +779,7 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   KEY `transaction_date` (`transaction_date`),
   KEY `customer_id` (`customer_id`),
   KEY `order_id` (`order_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=36 ;
+) ENGINE=INNODB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=36 ;
 
 -- --------------------------------------------------------
 
@@ -796,7 +796,7 @@ CREATE TABLE IF NOT EXISTS `translation_details` (
   UNIQUE KEY `translation_id` (`translation_id`,`lang`),
   KEY `translation_id_2` (`translation_id`),
   FULLTEXT KEY `value` (`value`)
-) ENGINE=MyISAM AUTO_INCREMENT=2483 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2483 ;
+) ENGINE=INNODB AUTO_INCREMENT=2483 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2483 ;
 
 -- --------------------------------------------------------
 
@@ -811,7 +811,7 @@ CREATE TABLE IF NOT EXISTS `translations` (
   PRIMARY KEY (`translation_id`),
   UNIQUE KEY `key` (`key`),
   KEY `used` (`used`)
-) ENGINE=MyISAM AUTO_INCREMENT=688 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=688 ;
+) ENGINE=INNODB AUTO_INCREMENT=688 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=688 ;
 
 -- --------------------------------------------------------
 
@@ -838,7 +838,7 @@ CREATE TABLE IF NOT EXISTS `user_details` (
   KEY `gender` (`gender`),
   KEY `tam` (`terms`),
   KEY `newsletter` (`newsletter`,`jackpot`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -862,7 +862,7 @@ CREATE TABLE IF NOT EXISTS `user_payout_bank_accounts` (
   KEY `name` (`bank_name`),
   KEY `state` (`state`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
+) ENGINE=INNODB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
 
 -- --------------------------------------------------------
 
@@ -889,7 +889,7 @@ CREATE TABLE IF NOT EXISTS `user_payouts` (
   KEY `transaction_id` (`transaction_id`),
   KEY `add_date` (`add_date`),
   KEY `payout_date` (`payout_date`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=21 ;
+) ENGINE=INNODB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=21 ;
 
 -- --------------------------------------------------------
 
@@ -913,7 +913,7 @@ CREATE TABLE IF NOT EXISTS `user_registration_details` (
   PRIMARY KEY (`user_id`),
   KEY `registration_date` (`registration_date`),
   KEY `registration_type` (`registration_type`)
-) ENGINE=MyISAM AUTO_INCREMENT=113743 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=113743 ;
+) ENGINE=INNODB AUTO_INCREMENT=113743 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=113743 ;
 
 -- --------------------------------------------------------
 
@@ -954,4 +954,4 @@ CREATE TABLE IF NOT EXISTS `users` (
   KEY `bugdet` (`budget`),
   KEY `password` (`password`),
   KEY `tmp_password` (`tmp_password`)
-) ENGINE=MyISAM AUTO_INCREMENT=113743 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=113743 ;
+) ENGINE=INNODB AUTO_INCREMENT=113743 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=113743 ;
