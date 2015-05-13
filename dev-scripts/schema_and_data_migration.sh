@@ -3,4 +3,4 @@ cd /var/www
 phalcon migration run
 vendor/bin/phinx migrate
 now=$(date)
-touch "migration_executed_$now"
+echo "$now: Schema and data migration executed" >> /vagrant/dev-logs/migration.log
