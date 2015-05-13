@@ -1,6 +1,6 @@
 <?php
 namespace app\tasks;
-use app\entities\BillingProvider;
+use app\entities\Language;
 use Doctrine\ORM\EntityManager;
 use Phalcon\CLI\Task;
 
@@ -22,7 +22,7 @@ class DoctrineTask extends Task
 
     public function InsertTestAction($params)
     {
-        $billing_provider = new BillingProvider();
+        $billing_provider = new Language();
         $billing_provider->setName($params[0]);
 
         /** @var $em EntityManager */

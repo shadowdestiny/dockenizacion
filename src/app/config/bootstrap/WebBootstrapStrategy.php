@@ -15,7 +15,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     protected $testsPath;
 
-    const CONFIG_FILENAME = 'config.ini';
+    const CONFIG_FILENAME = 'web_config.ini';
 
     public function __construct($appPath, $globalConfigPath, $configPath, $assetsPath, $testsPath)
     {

@@ -2,7 +2,7 @@
 cp githooks/* .git/hooks
 #
 while read -r line; do
-    if [[ $line == "vagrant/"* ]]
+    if [[ $line == "vagrant_config/"* ]] || [[ $line == "Vagrantfile" ]]
     then
         ./restart-dev-environment.sh
     fi
@@ -11,3 +11,5 @@ while read -r line; do
         ./restart-dev-environment.sh
     fi
 done <<< $(eval "git diff --name-only HEAD@{1} HEAD")
+
+vagrant ssh -c "/vagrant/dev-scripts/schema_and_data_migration.sh"
