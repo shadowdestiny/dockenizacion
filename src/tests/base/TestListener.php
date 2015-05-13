@@ -24,6 +24,7 @@ class TestListener extends \PHPUnit_Framework_BaseTestListener
                 exec($command);
                 $command = "mysqldump -h {$config->database->host} -u {$config->database->username} -p{$config->database->password} -d {$config->database->original_db_name} 2>/dev/null | mysql -h {$config->database->host} -u {$config->database->username} -p{$config->database->password} -D{$config->database->dbname} 2>/dev/null";
                 exec($command);
+                //EMTD maybe we should execute schema migrations here.
             }
         } else {
             $bootstrap = new Bootstrap(new TestWebBootstrapStrategy(true, APP_PATH, APP_PATH.'../global_config/', APP_PATH . 'config/', APP_PATH . 'assets/', TESTS_PATH . '/../'));
