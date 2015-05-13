@@ -1,0 +1,44 @@
+
+/*** VARIABLES ***/
+
+/* COLORS */
+$purple: #ae5279;
+$yellow: #efc048;
+$black:  #333;
+
+
+/* TYPOGRAPHY */
+$basic-font: helvetica, arial, verdana, sans-serif;
+$basic-size: 0.875em;
+
+
+/* STROKE OUTLINE */
+/* NOTE: IE9 doesn't support text-shadow */ 
+%stroke1{
+	text-shadow:
+	-3px -2px 0 #fff, 3px -2px 0 #fff, -3px 2px 0 #fff, 3px 2px 0 #fff,
+	-2px -3px 0 #fff, 2px -3px 0 #fff, -2px 3px 0 #fff, 2px 3px 0 #fff,
+	 0   -3px 0 #fff, 0    3px 0 #fff, -3px 0   0 #fff, 3px 0   0 #fff;
+}
+
+%stroke2{
+	text-shadow:
+	-4px -3px 0 #fff, 4px -3px 0 #fff, -4px 3px 0 #fff, 4px 3px 0 #fff,
+	-3px -4px 0 #fff, 3px -4px 0 #fff, -3px 4px 0 #fff, 3px 4px 0 #fff,
+	 0   -6px 0 #fff, 0    6px 0 #fff, -6px 0   0 #fff, 6px 0   0 #fff;
+}
+
+/* NOTE: I am keeping this code in the case that I need cutom color strokes
+
+@mixin stroke($color) {
+	text-shadow:
+	-3px -2px 0 $color, 3px -2px 0 $color, -3px 2px 0 $color, 3px 2px 0 $color,
+	-2px -3px 0 $color, 2px -3px 0 $color, -2px 3px 0 $color, 2px 3px 0 $color,
+	-2px -2px 0 $color, 2px -2px 0 $color, -2px 2px 0 $color, 2px 2px 0 $color,
+	 0   -3px 0 $color, 0    3px 0 $color, -3px 0   0 $color, 3px 0   0 $color;
+
+}
+*/
+
+
+/* BUTTONS */

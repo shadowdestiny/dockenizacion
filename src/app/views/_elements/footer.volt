@@ -82,9 +82,11 @@
 				</div>
 				<div class="col8 partner">
 					<ul class="no-li inline">
-						<li><i class="sprite card mastercard"></i></li>
-						<li><i class="sprite card visa"></i></li>
-						<li><i class="sprite card visa-electron"></i></li>
+						<li><a href="https://www.mastercard.com/eur/" class="sprite card mastercard"><span class="txt">Mastercard</span></a></li>
+						<li><a href="https://www.visaeurope.com/" class="sprite card visa"><span class="txt">Visa</span></a></li>
+						<li><a href="https://www.visaeurope.com/" class="sprite card visa-electron"><span class="txt">Visa Electron</span></a></li>
+						<li><a href="http://www.gambleaware.co.uk/" class="sprite gambleaddict"><span class="txt">Gamble Addict</span></a></li>
+						<li><a href="https://www.geotrust.com/" class="sprite geotrust"><span class="txt">GeoTrust</span></a></li>
 					</ul>
 				</div>
 			</div>
