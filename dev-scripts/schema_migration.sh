@@ -8,7 +8,7 @@ if [ "$environment" == "dev" ]; then
     phalcon migration run
 elif [ "$environment" == "shippable" ]; then
     echo "migrating..."
-    cd src/pjh
+    cd src/
     vendor/bin/phalcon.php migration run
 fi
 if [ "$environment" == "shippable" ]; then
