@@ -31,5 +31,10 @@ return array(
             'key' => 'read_more',
             'used' => 1,
         ),
+        array(
+            'translation_id'   => 7,
+            'key' => 'number_wins',
+            'used' => 1,
+        ),
     )
 );

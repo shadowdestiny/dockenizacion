@@ -3,6 +3,7 @@ namespace app\config\bootstrap;
 
 use app\components\EnvironmentDetector;
 use app\interfaces\IBootstrapStrategy;
+use app\services\LanguageService;
 use Phalcon;
 use Phalcon\Config\Adapter\Ini;
 use Phalcon\Di;
@@ -48,6 +49,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $di->set('tag', $this->configTag(), true);
         $di->set('escaper', $this->configEscaper(), true);
         $di->set('security', $this->configSecurity(), true);
+        $di->set('language', $this->configLanguage($di), true);
         return $di;
     }
 
@@ -56,6 +58,24 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         (new Phalcon\Debug())->listen();
         $application = new Phalcon\Mvc\Application($di);
         echo $application->handle()->getContent();
+    }
+
+    protected function configLanguage(Di $di)
+    {
+        /** @var \Phalcon\Session\AdapterInterface $session */
+        $session = $di->get('session');
+        /** @var \Phalcon\Http\Request $request */
+        $request = $di->get('request');
+        if ($session->has("language")) {
+            $language = $session->get("language");
+        } else {
+            $language = $request->getBestLanguage();
+            $has_hyphen = strpos($language, '-');
+            if ($has_hyphen !== false) {
+                $language = substr($language, 0, $has_hyphen);
+            }
+        }
+        return new LanguageService($language, $di->get('entityManager'));
     }
 
     protected function configView()

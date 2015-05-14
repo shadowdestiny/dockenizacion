@@ -1,7 +1,9 @@
 <?php
 namespace app\entities;
 
-class TranslationDetail
+use app\interfaces\IEntity;
+
+class TranslationDetail implements IEntity
 {
     protected $id;
     protected $value;

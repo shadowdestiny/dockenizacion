@@ -1,9 +1,10 @@
 <?php
 namespace app\entities;
 
+use app\interfaces\IEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class Translation
+class Translation implements IEntity
 {
     protected $translation_id;
     protected $key;

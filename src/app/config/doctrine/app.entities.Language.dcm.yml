@@ -11,6 +11,9 @@ app\entities\Language:
     ccode:
       type: string
       length: 6
+    active:
+      type: boolean
+      default: 0
   oneToMany:
     usedIn:
       targetEntity: \app\entities\TranslationDetail
