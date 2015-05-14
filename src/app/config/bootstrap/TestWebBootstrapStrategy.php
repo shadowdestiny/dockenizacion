@@ -27,7 +27,8 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
         if (!$this->isUnitTest) {
             return parent::configDoctrine($appConfig);
         } else {
-            return null;
+            $mock_generator = new \PHPUnit_Framework_MockObject_Generator();
+            return $mock_generator->getMock('\Doctrine\ORM\EntityManager',[],[],'',false);
         }
     }
 
