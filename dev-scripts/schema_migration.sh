@@ -7,10 +7,11 @@ if [ environment = "dev" ]; then
     echo "$now: Schema migration executed" >> /vagrant/dev-logs/migration.log
     phalcon migration run
 elif [ environment = "shippable" ]; then
-    cd src/
     echo "migrating..."
+    cd src/
     vendor/bin/phalcon.php migration run
 fi
 if [ environment = "shippable" ]; then
     cd ..
 fi
+echo "finish migration"
