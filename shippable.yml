@@ -14,7 +14,6 @@ before_install:
 before_script:
   - mysql -e 'create database if not exists euromillions_test;'
   - mysql euromillions_test < docker/devel-dbmaster/dbinit/init_structure.sql
-  - mysql -e 'GRANT ALL ON euromillions_test.* TO "root"@"localhost" IDENTIFIED BY "tpl9";'
   - mkdir -p shippable/codecoverage
   - mkdir -p shippable/testresults
   - if [ ! -d "cphalcon" ]; then git clone --depth=1 git://github.com/phalcon/cphalcon.git && cd cphalcon/build && ./install && cd ../.. && echo 'extension="phalcon.so"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
@@ -22,6 +21,7 @@ before_script:
   - cd src
   - composer install --prefer-source --no-interaction
   - cd ..
+  - cp -f src/app/config/shippable_test_config.ini src/app/config/config.ini
   - dev-scripts/schema_migration.sh shippable
 
 script:
