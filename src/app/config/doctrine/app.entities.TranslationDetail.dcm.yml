@@ -1,6 +1,7 @@
 app\entities\TranslationDetail:
   type: entity
   table: translation_details
+  repositoryClass: \app\repositories\TranslationDetailRepository
   id:
     id:
       type: integer
@@ -17,6 +18,7 @@ app\entities\TranslationDetail:
       targetEntity: app\entities\Translation
       inversedBy: translatedTo
       joinColumn:
+        name: translation_id
         referencedColumnName: translation_id
     language:
       targetEntity: app\entities\Language

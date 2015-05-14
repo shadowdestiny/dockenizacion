@@ -13,6 +13,5 @@ app\entities\Translation:
       type: boolean
   oneToMany:
     translatedTo:
-      targetEntity: TranslationDetail
+      targetEntity: app\entities\TranslationDetail
       mappedBy: translation
-      fetch: EXTRA_LAZY

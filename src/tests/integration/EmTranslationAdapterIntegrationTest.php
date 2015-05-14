@@ -10,9 +10,9 @@ class EmTranslationAdapterIntegrationTest extends IntegrationTestBase
     protected function getFixtures()
     {
         return [
+            'languages',
             'translations',
             'translation_details',
-            'languages',
         ];
     }
 
