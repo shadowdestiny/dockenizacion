@@ -54,26 +54,32 @@
 				<ul>
 					<li class="active">
 						<a href="javascript:void(0);">
-							<span class="link">Win top prizes</span>
-							<br class="br"><span class="txt">Play Games</span>
+							<span class="link">{{ language.translate("Win top prizes") }}</span>
+							<br class="br"><span class="txt">{{ language.translate("Play Games") }}
+							</span>
 						</a>
 					</li>
 					<li>
 						<a href="javascript:void(0);">
-							<span class="link">Winning</span> 
-							<br class="br"><span class="txt">Numbers</span>
+							<span class="link">{{ language.translate("Winning") }}
+							</span>
+							<br class="br"><span class="txt">{{ language.translate("Numbers") }}
+							</span>
 						</a>
 					</li>
 					<li>
 						<a href="javascript:void(0);">
-							<span class="link">Hello, Sign in</span>
-							<br class="br"><span class="txt"><span class="ico ico-user"></span> Your Account</span>
+							<span class="link">{{ language.translate("Hello, Sign in") }}
+							</span>
+							<br class="br"><span class="txt"><span class="ico ico-user"></span>{{ language.translate(" Your Account") }}
+							</span>
 						</a>
 					</li>
 					<li>
 						<a href="javascript:void(0);">
 							<span class="ico ico-cart"></span>
-							<br class="br"><span class="txt">Cart</span>
+							<br class="br"><span class="txt">{{ language.translate("Cart") }}
+							</span>
 						</a>
 					</li>
 				</ul>

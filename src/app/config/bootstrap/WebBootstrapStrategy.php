@@ -3,6 +3,7 @@ namespace app\config\bootstrap;
 
 use app\components\EnvironmentDetector;
 use app\interfaces\IBootstrapStrategy;
+use app\services\LanguageService;
 use Phalcon;
 use Phalcon\Config\Adapter\Ini;
 use Phalcon\Di;
@@ -44,12 +45,11 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $di->set('router', $this->configRouter(), true);
         $di->set('response',$this->configResponse(), true);
         $di->set('cookies', $this->configCookies(), true);
-        $di->set('db', $this->configDb($di->get('config')->database), true);
-        $di->set('db_slave', $this->configDb($di->get('config')->slave_database), true);
         $di->set('session', $this->configSession(), true);
         $di->set('tag', $this->configTag(), true);
         $di->set('escaper', $this->configEscaper(), true);
         $di->set('security', $this->configSecurity(), true);
+        $di->set('language', $this->configLanguage($di), true);
         return $di;
     }
 
@@ -58,6 +58,24 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         (new Phalcon\Debug())->listen();
         $application = new Phalcon\Mvc\Application($di);
         echo $application->handle()->getContent();
+    }
+
+    protected function configLanguage(Di $di)
+    {
+        /** @var \Phalcon\Session\AdapterInterface $session */
+        $session = $di->get('session');
+        /** @var \Phalcon\Http\Request $request */
+        $request = $di->get('request');
+        if ($session->has("language")) {
+            $language = $session->get("language");
+        } else {
+            $language = $request->getBestLanguage();
+            $has_hyphen = strpos($language, '-');
+            if ($has_hyphen !== false) {
+                $language = substr($language, 0, $has_hyphen);
+            }
+        }
+        return new LanguageService($language, $di->get('entityManager'));
     }
 
     protected function configView()
@@ -154,16 +172,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     protected function configCookies()
     {
         return new Phalcon\Http\Response\Cookies();
-    }
-
-    protected function configDb($options)
-    {
-        return new Phalcon\Db\Adapter\Pdo\Mysql([
-            'host' => $options->host,
-            'username' => $options->username,
-            'password' => $options->password,
-            'dbname' => $options->dbname,
-        ]);
     }
 
     protected function configSession()

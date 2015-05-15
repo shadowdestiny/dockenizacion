@@ -22,22 +22,13 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
         DI::setDefault($di);
     }
 
-    protected function configDb($options)
-    {
-        if (!$this->isUnitTest) {
-            return parent::configDb($options);
-        } else {
-            return null;
-        }
-
-    }
-
     protected function configDoctrine(Ini $appConfig)
     {
         if (!$this->isUnitTest) {
             return parent::configDoctrine($appConfig);
         } else {
-            return null;
+            $mock_generator = new \PHPUnit_Framework_MockObject_Generator();
+            return $mock_generator->getMock('\Doctrine\ORM\EntityManager',[],[],'',false);
         }
     }
 

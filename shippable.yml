@@ -21,6 +21,8 @@ before_script:
   - cd src
   - composer install --prefer-source --no-interaction
   - cd ..
+  - cp -f src/app/config/shippable_test_config.ini src/app/config/config.ini
+  - dev-scripts/schema_migration.sh shippable
 
 script:
  - phpunit --log-junit shippable/testresults/junit.xml --coverage-html shippable/codecoverage --configuration src/tests/phpunit.xml

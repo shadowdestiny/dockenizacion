@@ -9,4 +9,9 @@ class LanguageRepository extends EntityRepository
     {
         return $this->findAll();
     }
+
+    public function getActiveLanguages()
+    {
+        return $this->findBy(['active' => true]);
+    }
 }

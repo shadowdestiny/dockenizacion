@@ -21,15 +21,5 @@ class IndexController extends ControllerBase
         }
         $this->response->redirect($uri, true, 307);
     }
-
-    public function testAction()
-    {
-        $this->noRender();
-        $object = new stdClass();
-        $object->property1 = 983;
-        $object->property2="skldfsj";
-        var_dump(json_encode($object));
-    }
-
 }
 

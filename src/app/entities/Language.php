@@ -1,17 +1,29 @@
 <?php
 namespace app\entities;
 
+use app\interfaces\IEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class Language
+class Language implements IEntity
 {
     protected $id;
     protected $ccode;
     protected $usedIn;
+    protected $active;
 
     public function __construct()
     {
         $this->usedIn = new ArrayCollection();
+    }
+
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    public function setActive($active)
+    {
+        $this->active = $active;
     }
 
     public function getId()
