@@ -5,17 +5,17 @@ use Phalcon\Db\Index;
 use Phalcon\Db\Reference;
 use Phalcon\Mvc\Model\Migration;
 
-class LanguagesMigration_101 extends Migration
+class TranslationsMigration_101 extends Migration
 {
 
     public function up()
     {
         $this->morphTable(
-            'languages',
+            'translations',
             array(
             'columns' => array(
                 new Column(
-                    'id',
+                    'translation_id',
                     array(
                         'type' => Column::TYPE_INTEGER,
                         'notNull' => true,
@@ -25,30 +25,30 @@ class LanguagesMigration_101 extends Migration
                     )
                 ),
                 new Column(
-                    'ccode',
+                    'key',
                     array(
                         'type' => Column::TYPE_VARCHAR,
                         'notNull' => true,
-                        'size' => 6,
-                        'after' => 'id'
+                        'size' => 255,
+                        'after' => 'translation_id'
                     )
                 ),
                 new Column(
-                    'active',
+                    'used',
                     array(
                         'type' => Column::TYPE_INTEGER,
                         'notNull' => true,
                         'size' => 1,
-                        'after' => 'ccode'
+                        'after' => 'key'
                     )
                 )
             ),
             'indexes' => array(
-                new Index('PRIMARY', array('id'))
+                new Index('PRIMARY', array('translation_id'))
             ),
             'options' => array(
                 'TABLE_TYPE' => 'BASE TABLE',
-                'AUTO_INCREMENT' => '7',
+                'AUTO_INCREMENT' => '',
                 'ENGINE' => 'InnoDB',
                 'TABLE_COLLATION' => 'utf8_unicode_ci'
             )

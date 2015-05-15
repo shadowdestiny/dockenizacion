@@ -5,7 +5,7 @@ use Phalcon\Db\Index;
 use Phalcon\Db\Reference;
 use Phalcon\Mvc\Model\Migration;
 
-class TranslationDetailsMigration_100 extends Migration
+class TranslationDetailsMigration_102 extends Migration
 {
 
     public function up()
@@ -80,7 +80,7 @@ class TranslationDetailsMigration_100 extends Migration
             ),
             'options' => array(
                 'TABLE_TYPE' => 'BASE TABLE',
-                'AUTO_INCREMENT' => '2483',
+                'AUTO_INCREMENT' => '',
                 'ENGINE' => 'InnoDB',
                 'TABLE_COLLATION' => 'utf8_unicode_ci'
             )

@@ -32,6 +32,15 @@ class LanguagesMigration_100 extends Migration
                         'size' => 6,
                         'after' => 'id'
                     )
+                ),
+                new Column(
+                    'active',
+                    array(
+                        'type' => Column::TYPE_INTEGER,
+                        'notNull' => true,
+                        'size' => 1,
+                        'after' => 'ccode'
+                    )
                 )
             ),
             'indexes' => array(
@@ -39,7 +48,7 @@ class LanguagesMigration_100 extends Migration
             ),
             'options' => array(
                 'TABLE_TYPE' => 'BASE TABLE',
-                'AUTO_INCREMENT' => '7',
+                'AUTO_INCREMENT' => '',
                 'ENGINE' => 'InnoDB',
                 'TABLE_COLLATION' => 'utf8_unicode_ci'
             )
