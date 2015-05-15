@@ -1,1 +1,249 @@
-.box-estimated .h2{text-shadow:-3px -2px 0 #fff, 3px -2px 0 #fff, -3px 2px 0 #fff, 3px 2px 0 #fff, -2px -3px 0 #fff, 2px -3px 0 #fff, -2px 3px 0 #fff, 2px 3px 0 #fff, 0   -3px 0 #fff, 0    3px 0 #fff, -3px 0   0 #fff, 3px 0   0 #fff}.box-value.yellow{text-shadow:-4px -3px 0 #fff, 4px -3px 0 #fff, -4px 3px 0 #fff, 4px 3px 0 #fff, -3px -4px 0 #fff, 3px -4px 0 #fff, -3px 4px 0 #fff, 3px 4px 0 #fff, 0   -6px 0 #fff, 0    6px 0 #fff, -6px 0   0 #fff, 6px 0   0 #fff}.box-left{background:#fff;border:1px solid #efc048;border-right:0;border-radius:10px 0 0 10px}.box-right{background:#ccc;border-radius:0 10px 10px 0}.box-estimated{background:url(/img/home/bg-euro.jpg) no-repeat;padding:20px 0 15px 20px;border-radius:10px 0 0 0}.box-estimated .vector{position:absolute;top:-20px;right:-5px;width:35%}.box-estimated .content{width:65%}.box-estimated .h2{margin-bottom:15px}.box-value.yellow{margin-bottom:15px}.box-value{display:block}.box-value span{display:inline-block;line-height:100%}.box-value .currency{font-size:1.875em;vertical-align:middle;margin-right:5px}.box-value .value{font-size:3.375em;font-weight:bold;vertical-align:middle}.box-how ul{padding:20px 20px 0;text-align:center}.box-how li{width:28%;float:left;margin-right:8%;position:relative}.box-how li:after{content:"\e605";position:absolute;top:60px;right:-20%;z-index:1;display:block;color:#bbb;font-family:'icomoon'}.box-how li:last-child{margin:0}.box-how li:last-child:after{display:none}.box-how .vector{width:90%;margin:0 auto 10px;display:block}.box-how .box-txt h2{margin-bottom:5px}.box-how .vec2{margin:-6px auto 16px}.bg-yellow{background:#efc048;color:#fff;padding:10px 20px}.bg-yellow>h1{margin:0}.try .ico{margin:5px 0 0 10px;font-size:70%}@media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3 / 2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx){.box-estimated{background:url(/img/home/bg-euro@2x.jpg) no-repeat}}
+/*** VARIABLES ***
+
+NO ALLLOWED: Class, ID or Keyframes
+ALLOWED: Variable and Extension
+
+*/
+/* COLORS */
+/* LINKS COLORS */
+/* TYPOGRAPHY */
+/* 16x3.375 = 54px */
+/* 16x1.875 = 30px */
+/* 16x1.375=22 */
+/* 16x1.125=18 */
+/* 16x0.9375=15 */
+/* 16x1.125=14 */
+/* STROKE OUTLINE */
+/* NOTE: IE9 doesn't support text-shadow */
+.box-estimated .h2 {
+  text-shadow: -3px -2px 0 #fff, 3px -2px 0 #fff, -3px 2px 0 #fff, 3px 2px 0 #fff, -2px -3px 0 #fff, 2px -3px 0 #fff, -2px 3px 0 #fff, 2px 3px 0 #fff, 0   -3px 0 #fff, 0    3px 0 #fff, -3px 0   0 #fff, 3px 0   0 #fff;
+}
+
+.box-value.yellow {
+  text-shadow: -4px -3px 0 #fff, 4px -3px 0 #fff, -4px 3px 0 #fff, 4px 3px 0 #fff, -3px -4px 0 #fff, 3px -4px 0 #fff, -3px 4px 0 #fff, 3px 4px 0 #fff, 0   -6px 0 #fff, 0    6px 0 #fff, -6px 0   0 #fff, 6px 0   0 #fff;
+}
+
+.box-result .lnk .ico {
+  font-size: 65%;
+  margin-left: 8px;
+}
+
+/* BUTTONS */
+/* ANIMATION */
+.box-estimated:hover .try, .box-result:hover .lnk {
+  -webkit-animation-name: pulseRight;
+  animation-name: pulseRight;
+}
+
+.box-left {
+  background: #fff;
+  border: 1px solid #efc048;
+  border-right: 0;
+  border-radius: 10px 0 0 10px;
+}
+
+.box-right {
+  background: #ccc;
+  border-radius: 0 10px 10px 0;
+}
+
+.box-estimated {
+  background: url(/img/home/bg-euro.jpg) no-repeat;
+  padding: 20px 0 13px 20px;
+  border-radius: 10px 0 0 0;
+  background-size: cover;
+}
+
+.box-estimated .vector {
+  position: absolute;
+  top: -20px;
+  right: -5px;
+  width: 35%;
+}
+
+.box-estimated .content {
+  width: 65%;
+}
+
+.box-estimated .h2 {
+  margin-bottom: 15px;
+}
+
+.box-value.yellow {
+  margin-bottom: 15px;
+}
+
+.box-value {
+  display: block;
+}
+
+.box-value span {
+  display: inline-block;
+  line-height: 100%;
+}
+
+.box-value .currency {
+  font-size: 1.875em;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+/*16x1.875 = 30px*/
+.box-value .value {
+  font-size: 3.375em;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+/*16x3.375 = 54px*/
+.box-how {
+  border-bottom: 1px solid #efc048;
+  padding-bottom: 25px;
+}
+
+.box-how ul {
+  padding: 20px 20px 0;
+  text-align: center;
+}
+
+.box-how li {
+  width: 28%;
+  float: left;
+  margin-right: 8%;
+  position: relative;
+}
+
+.box-how li:after {
+  content: "\e605";
+  position: absolute;
+  top: 60px;
+  right: -20%;
+  z-index: 1;
+  display: block;
+  color: #bbb;
+  font-family: 'icomoon';
+}
+
+.box-how li:last-child {
+  margin-right: 0;
+}
+
+.box-how li:last-child:after {
+  display: none;
+}
+
+.box-how p {
+  margin-bottom: 0;
+}
+
+.box-how .vector {
+  width: 90%;
+  margin: 0 auto 10px;
+  display: block;
+}
+
+.box-how .box-txt h2 {
+  margin-bottom: 5px;
+}
+
+.box-how .vec2 {
+  margin: -6px auto 16px;
+}
+
+.bg-yellow {
+  background: #efc048;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+.bg-yellow > h1 {
+  margin: 0;
+}
+
+.try .ico {
+  margin: 5px 0 0 10px;
+}
+
+.box-result h1 {
+  margin-bottom: .5em;
+}
+
+.box-result .cols {
+  margin: 0;
+}
+
+.box-result .content {
+  padding: 20px;
+}
+
+.box-result .woman {
+  background: url(../img/home/bg-result.jpg) no-repeat center center;
+}
+
+.box-result .lnk {
+  text-decoration: none;
+  display: block;
+  font-size: 0.875em;
+}
+
+.box-result .lnk:hover .txt {
+  text-decoration: underline;
+  color: #474ea0;
+}
+
+/* MAYBE ALL ICO should have this basic size????*/
+.box-result .numbers {
+  font-weight: bold;
+}
+
+/*Retina only */
+@media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3 / 2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx) {
+  .box-estimated {
+    background-image: url(/img/home/bg-euro@2x.jpg);
+    background-size: 600px 171px;
+  }
+
+  .box-result .woman {
+    background-image: url(../img/home/bg-result@2x.jpg);
+    background-size: 168px 189px;
+  }
+}
+/* Large Devices, Wide Screens */
+@media only screen and (max-width: 1200px) {
+  .box-estimated .vector {
+    top: 10px;
+  }
+}
+/* Medium Devices, Desktops */
+@media only screen and (max-width: 992px) {
+  .box-result .content {
+    width: 100%;
+    margin: 0;
+  }
+
+  .box-result .woman, .box-estimated .vector {
+    display: none;
+  }
+}
+/* Small Devices, Tablets */
+@media only screen and (max-width: 768px) {
+  .box-value .currency {
+    font-size: 1.375em;
+  }
+
+  .box-value .value {
+    font-size: 1.875em;
+  }
+}
+/* Extra Small Devices, Phones */
+/* Custom, iPhone Retina */
+@media only screen and (max-width: 320px) {
+  .box-how li {
+    width: 100%;
+    margin: 0 0 30px;
+  }
+
+  .box-how li::after {
+    display: none;
+  }
+}

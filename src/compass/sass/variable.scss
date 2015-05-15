@@ -1,16 +1,32 @@
+@import "compass/css3";
 
-/*** VARIABLES ***/
+/*** VARIABLES ***
+
+NO ALLLOWED: Class, ID or Keyframes
+ALLOWED: Variable and Extension
+
+*/
 
 /* COLORS */
-$purple: #ae5279;
-$yellow: #efc048;
-$black:  #333;
+$purple:#ae5279;
+$yellow:#efc048;
+$black:#333;
 
+/* LINKS COLORS */
+$link:#6368bd;
+$visited:#A846B5;
+$hover:#474ea0;
+$active:#c03;
 
 /* TYPOGRAPHY */
 $basic-font: helvetica, arial, verdana, sans-serif;
-$basic-size: 0.875em;
 
+$h0:3.375em;			/* 16x3.375 = 54px */
+$h1:1.875em;			/* 16x1.875 = 30px */
+$h2:1.375em;			/* 16x1.375=22 */
+$h3:1.125em;			/* 16x1.125=18 */
+$h4:0.9375em;	        /* 16x0.9375=15 */
+$basic-size: 0.875em;	/* 16x1.125=14 */
 
 /* STROKE OUTLINE */
 /* NOTE: IE9 doesn't support text-shadow */ 
@@ -28,17 +44,10 @@ $basic-size: 0.875em;
 	 0   -6px 0 #fff, 0    6px 0 #fff, -6px 0   0 #fff, 6px 0   0 #fff;
 }
 
-/* NOTE: I am keeping this code in the case that I need cutom color strokes
-
-@mixin stroke($color) {
-	text-shadow:
-	-3px -2px 0 $color, 3px -2px 0 $color, -3px 2px 0 $color, 3px 2px 0 $color,
-	-2px -3px 0 $color, 2px -3px 0 $color, -2px 3px 0 $color, 2px 3px 0 $color,
-	-2px -2px 0 $color, 2px -2px 0 $color, -2px 2px 0 $color, 2px 2px 0 $color,
-	 0   -3px 0 $color, 0    3px 0 $color, -3px 0   0 $color, 3px 0   0 $color;
-
-}
-*/
-
+%ico-size{font-size:65%; margin-left:8px;}
 
 /* BUTTONS */
+
+/* ANIMATION */
+%anim{@include transition(all .5s ease-in-out);}
+%pulseRight{-webkit-animation-name:pulseRight; animation-name:pulseRight;}

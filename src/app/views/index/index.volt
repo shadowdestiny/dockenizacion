@@ -2,21 +2,20 @@
 {% block template_css %}<link rel="stylesheet" href="/css/home.css">{% endblock %}
 
 {% block body %}
-
 <main id="content">
 	<div class="wrapper">
 		<div class="cols">
 			<div class="col6 box-left">
-				<div class="box-estimated">
+				<a href="javascript:void(0);" class="box-estimated no-lnk">
 					<div class="content">
 						<h1 class="h2">Estimated Euromillions Jackpot</h1>
 						<div class="box-value yellow">
 							<span class="currency">&euro;</span> <span class="value">51.000.000</span>
 						</div>
-						<a href="javascript:void(0);" class="btn white try">Try your luck <i class="ico ico-arrow-right3"></i></a>
+						<span class="btn white try animate infi">Try your luck <i class="ico ico-arrow-right3"></i></span>
 					</div>
 					<img class="vector" src="/img/sprite.svg#emblem">
-				</div>
+				</a>
 				<div class="box-how">
 					<div class="bg-yellow">
 						<h1 class="h3">How to play</h1>
@@ -49,12 +48,25 @@
 						<a href="javascript:void(0);" class="btn big blue">Start to Play Now <i class="ico ico-arrow-right"></i></a>
 					</div>
 				</div>
-				<div class="box-result">
-						<h1 class="h2">Euromillions Results</h1>
-						<p>Lorem ipsum winning numbers</p>
-						* insert numbers *
-						<a href="javascript:void(0);" class="go-numbers">Try your luck <i class="ico"></i></a>
-				</div> 
+				<a href="javascript:void(0);" class="box-result no-lnk">
+					<div class="cols">
+						<div class="col8 content">
+							<h1 class="h2">Euromillions Results</h1>
+							<p>Lorem ipsum winning numbers</p>
+							<ul class="no-li inline numbers small">
+								<li>9</li>
+								<li>25</li>
+								<li>27</li>
+								<li>38</li>
+								<li>43</li>
+								<li class="star">66</li>
+								<li class="star">68</li>
+							</ul>
+							<span class="lnk animate infi"><span class="txt">Latest winning numbers</span> <i class="ico ico-arrow-right3"></i></span>
+						</div>
+						<div class="col4 woman">&nbsp;</div>
+					</div>
+				</a> 
 			</div>
 			<div class="col6 box-right">
 
