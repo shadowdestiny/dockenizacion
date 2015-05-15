@@ -61,8 +61,6 @@ class TranslationDetailsMigration_102 extends Migration
             ),
             'indexes' => array(
                 new Index('PRIMARY', array('id')),
-                new Index('IDX_D32AF2789CAA2B25', array('translation_id')),
-                new Index('IDX_D32AF27882F1BAF4', array('language_id'))
             ),
             'references' => array(
                 new Reference('FK_D32AF27882F1BAF4', array(
