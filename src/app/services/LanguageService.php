@@ -11,10 +11,10 @@ class LanguageService
     protected $language;
     protected $translationAdapter;
 
-    public function __construct($language, EntityManager $entityManager, LanguageRepository $langRepository = null, EmTranslationAdapter $translationAdapter = null)
+    public function __construct($language, EntityManager $entityManager, EmTranslationAdapter $translationAdapter = null)
     {
         $this->language = $language;
-        $this->languageRepository = $langRepository ? $langRepository : $entityManager->getRepository('app\entities\Language');
+        $this->languageRepository = $entityManager->getRepository('app\entities\Language');
         $this->translationAdapter = $translationAdapter? $translationAdapter: new EmTranslationAdapter($this->language, $entityManager);
     }
 
@@ -25,6 +25,6 @@ class LanguageService
 
     public function translate($key, array $placeholders = null)
     {
-        $this->translationAdapter->_($key, $placeholders);
+        return $this->translationAdapter->_($key, $placeholders);
     }
 }

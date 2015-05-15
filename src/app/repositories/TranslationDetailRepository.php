@@ -7,12 +7,15 @@ class TranslationDetailRepository extends EntityRepository
 {
     public function getTranslation($language, $key)
     {
-        $query = $this->getEntityManager()
+        $result = $this->getEntityManager()
             ->createQuery('SELECT td.value FROM '.$this->getEntityName().' td JOIN td.translation t WHERE td.lang = :lang AND t.key = :key')
             ->setMaxResults(1)
-            ->setParameters(['lang' => $language, 'key'=>$key]);
-        $result = $query
+            ->setParameters(['lang' => $language, 'key'=>$key])
             ->getResult();
-        return $result[0]['value'];
+        if ($result) {
+            return $result[0]['value'];
+        } else {
+            return $key;
+        }
     }
 }

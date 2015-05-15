@@ -1,12 +1,11 @@
 <?php
 namespace tests\integration;
 
-use Phalcon\Di;
-use tests\base\IntegrationTestBase;
+use tests\base\RepositoryIntegrationTestBase;
 
-class LanguageRepositoryIntegrationTest extends IntegrationTestBase
+class LanguageRepositoryIntegrationTest extends RepositoryIntegrationTestBase
 {
-    /** @var \app\repositories\LanguageRepository */
+    /** @var  \app\repositories\LanguageRepository */
     protected $sut;
 
     protected function getFixtures()
@@ -18,10 +17,7 @@ class LanguageRepositoryIntegrationTest extends IntegrationTestBase
 
     public function setUp()
     {
-        parent::setUp();
-        /** @var \Doctrine\ORM\EntityManager $entity_manager */
-        $entity_manager = Di::getDefault()->get('entityManager');
-        $this->sut = $entity_manager->getRepository('app\entities\Language');
+        parent::setUp('Language');
     }
 
     public function test_getActiveLanguages_called_returnProperResults()

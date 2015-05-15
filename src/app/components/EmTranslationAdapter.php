@@ -24,11 +24,13 @@ class EmTranslationAdapter extends Adapter
      * @param array $placeholders
      * @return    string
      */
-    public function query($index, $placeholders = [])
+    public function query($index, $placeholders = null)
     {
         $translation = $this->repository->getTranslation($this->language, $index);
-        foreach($placeholders as $key => $value) {
-            $translation = str_replace('%' . $key . '%', $value, $translation);
+        if($placeholders) {
+            foreach($placeholders as $key => $value) {
+                $translation = str_replace('%' . $key . '%', $value, $translation);
+            }
         }
         return $translation;
     }
