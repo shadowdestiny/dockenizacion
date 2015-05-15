@@ -20,9 +20,9 @@
 						<div class="box-lang cl">
 							<span class="txt">Language</span>
 							<select>
-								<option value="0">English</option>
-								<option value="1">language 2</option>
-								<option value="2">language 3</option>
+                                {% for lang in languages %}
+								    <option value="{{ lang.id }}">{{ language.translate(lang.ccode) }}</option>
+                                {% endfor %}
 							</select>
 						</div>
 						<a href="javascript:void(0);" class="btn red"><span class="text">Save</span></a>
