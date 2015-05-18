@@ -2,11 +2,11 @@
 namespace app\services;
 
 use app\components\EmTranslationAdapter;
-use app\repositories\LanguageRepository;
 use Doctrine\ORM\EntityManager;
 
 class LanguageService
 {
+    /** @var \app\repositories\LanguageRepository  */
     protected $languageRepository;
     protected $language;
     protected $translationAdapter;
@@ -21,6 +21,11 @@ class LanguageService
     public function availableLanguages()
     {
         return $this->languageRepository->getAvailableLanguages();
+    }
+
+    public function activeLanguages()
+    {
+        return $this->languageRepository->getActiveLanguages();
     }
 
     public function translate($key, array $placeholders = null)

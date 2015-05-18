@@ -4,7 +4,7 @@ namespace app\entities;
 use app\interfaces\IEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class Language implements IEntity
+class Language extends EntityBase implements IEntity
 {
     protected $id;
     protected $ccode;
