@@ -71,14 +71,23 @@
 			<div class="col6 box-right">
 
 				<div class="box-play">
-					<p class="h2">For only 2,35 &euro;</p>
+					<a href="javascript:void(0);" class="outbound">
+						<div class="content">
+							<p class="h2">for only 2,35 &euro;</p>
 
-					<a href="javascript:void(0);" class="btn big purple">PLAY NOW <i class="ico ico-arrow-right"></i></a>
+							<div class="box-ball">
+								<div class="btn big purple">
+									PLAY NOW <i class="ico ico-arrow-right"></i>
+									<span class="ball"></span>
+								</div>
+							</div>
 
-					<ul class="no-li">
-						<li><span class="txt">Best price</span></li>
-						<li><span class="txt">Risk free</span></li>
-					</ul>
+							<ul class="no-li awards">
+								<li class="best-price"><span class="txt">Best price</span></li>
+								<li class="risk-free"><span class="txt">Risk free</span></li>
+							</ul>
+						</div>
+					</a>
 				</div>
 
 				<div class="box-prize">
@@ -88,6 +97,9 @@
 					</div>
 
 					<a href="javascript:void(0);" class="btn blue">I feel lucky <i class="ico ico-arrow-right"></i></a>
+
+					<a href="javascript:void(0);" class="btn">test <i class="ico ico-arrow-right"></i></a>
+
 
 					<a href="javascript:void(0);" class="btn red">Pick your numbers <i class="ico ico-arrow-right"></i></a>
 

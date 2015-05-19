@@ -43,7 +43,7 @@ ALLOWED: Variable and Extension
 }
 
 .box-right {
-  background: #ccc;
+  background: url(../img/home/bg-coloured.jpg) no-repeat;
   border-radius: 0 10px 10px 0;
 }
 
@@ -196,6 +196,101 @@ ALLOWED: Variable and Extension
   font-weight: bold;
 }
 
+.outbound {
+  display: block;
+  position: relative;
+  width: 445px;
+  height: 445px;
+  margin: auto;
+  border: 15px solid #fff;
+  border-radius: 100%;
+  background: url(../img/home/win-millions.png) no-repeat;
+  box-shadow: 0px 5px 20px 5px rgba(0, 0, 0, 0.4);
+  text-decoration: none;
+}
+
+.box-play {
+  position: relative;
+  top: -75px;
+  text-align: center;
+}
+
+.box-play .content {
+  margin-top: 125px;
+  color: #fff;
+}
+
+.box-play h1 {
+  font-size: 140%;
+}
+
+.box-play .ico {
+  position: relative;
+  top: -2px;
+}
+
+.box-play .awards li, .box-play .ball {
+  background: url(../img/sprite.png) no-repeat;
+}
+
+.box-play .awards {
+  margin-top: 25px;
+}
+
+.box-play .awards li {
+  display: inline-block;
+  width: 67px;
+  height: 67px;
+}
+
+.box-play .awards li:first-child {
+  margin-right: 25px;
+}
+
+.box-play .awards .best-price {
+  background-position: 0 -150px;
+}
+
+.box-play .awards .risk-free {
+  background-position: -75px -150px;
+}
+
+.box-play .txt {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+}
+
+.box-play .box-ball {
+  position: relative;
+  margin-top: 120px;
+}
+
+.box-play .btn {
+  position: relative;
+  left: -18px;
+  font-size: 160%;
+}
+
+.box-play .ball {
+  position: absolute;
+  display: block;
+  top: -25px;
+  right: -85px;
+  display: block;
+  width: 101px;
+  height: 99px;
+  background-position: -150px -110px;
+  transition: transform .5s ease;
+}
+
+.box-ball .btn:hover .ball {
+  -moz-transform: rotate(25deg);
+  -ms-transform: rotate(25deg);
+  -webkit-transform: rotate(25deg);
+  transform: rotate(25deg);
+}
+
 /*Retina only */
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3 / 2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx) {
   .box-estimated {
@@ -206,6 +301,20 @@ ALLOWED: Variable and Extension
   .box-result .woman {
     background-image: url(../img/home/bg-result@2x.jpg);
     background-size: 168px 189px;
+  }
+
+  .outbound {
+    background-image: url(../img/home/win-millions@2x.png);
+    background-size: 445px 445px;
+  }
+
+  .box-play .awards li, .box-play .ball {
+    background-image: url(../img/sprite@2x.png);
+    background-size: 270px 220px;
+  }
+
+  .box-right {
+    background-image: url(../img/home/bg-coloured@2x.jpg);
   }
 }
 /* Large Devices, Wide Screens */
