@@ -69,7 +69,7 @@ if [ ! -f /etc/php5/cli/conf.d/30-phalcon.ini ] || [ ! -f /usr/lib/php5/20131226
     cd /tmp/phalcon
     git clone http://github.com/phalcon/cphalcon
     cd /tmp/phalcon/cphalcon/build
-    ./install
+    sudo ./install
     sudo cp /vagrant/vagrant_config/30-phalcon.ini /etc/php5/cli/conf.d
 fi
 

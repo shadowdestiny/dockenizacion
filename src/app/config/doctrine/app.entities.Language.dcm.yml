@@ -11,6 +11,7 @@ app\entities\Language:
     ccode:
       type: string
       length: 6
+      unique: true
     active:
       type: boolean
       default: 0

@@ -11,13 +11,14 @@ class TranslationMigrationBase  extends AbstractMigration
             $language_values[] = "('$language')";
             foreach ($data as $key => $value) {
                 $translation_values[] = "('$key')";
-                $translation_details_insert[] = "
+                $str = "
                     INSERT INTO translation_details
                       (`translation_id`, `lang`, `value`, `language_id`)
                       SELECT t.translation_id, '$language', '$value', l.id
                         FROM translations t, languages l
                         WHERE t.`key` = '$key' AND l.ccode = '$language'
                 ";
+                $translation_details_insert[] = $str;
             }
         }
         $language_values = implode(',', $language_values);
