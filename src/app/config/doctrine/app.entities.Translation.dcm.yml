@@ -9,6 +9,7 @@ app\entities\Translation:
   fields:
     key:
       type: string
+      unique: true
     used:
       type: boolean
   oneToMany:

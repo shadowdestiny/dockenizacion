@@ -11,7 +11,7 @@ class TranslatedStrings extends \app\migrations_data\TranslationMigrationBase
             'nl'             => 'Dutch',
             'sw'             => 'Swahili',
             'Win top prizes' => 'Win top prizes',
-            'Play Games'     => 'Juega',
+            'Play Games'     => 'Play Games',
             'Winning'        => 'Winning',
             'Numbers'        => 'Numbers',
             'Hello, Sign in' => 'Hello, Sign in',
