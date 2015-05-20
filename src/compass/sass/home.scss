@@ -48,14 +48,14 @@
 
 
 .outbound{
-	display:block; position:relative; width:445px; height:445px; margin:auto; 
-	border:15px solid #fff; border-radius:100%; background:url(../img/home/win-millions.png) no-repeat;
-	box-shadow:0px 5px 20px 5px rgba(0,0,0,0.4); text-decoration:none;
+	display:block; position:relative; width:475px; height:475px; margin:auto; text-decoration:none; 
+	border:15px solid #fff; border-radius:100%; box-shadow:0px 5px 20px 5px rgba(0,0,0,0.4); 
+	background:url(../img/home/win-millions.png) no-repeat center center; 
 }
-.box-play{position:relative; top:-75px; text-align:center;}
-.box-play .content{margin-top:125px; color:#fff;}
+.box-play{position:relative; top:-115px; text-align:center;}
 .box-play h1{font-size:140%;}
-.box-play .ico{position:relative; top:-2px;}
+.box-play .content{margin-top:125px; color:#fff;}
+.box-play .ico{position:relative; top:-1px;}
 .box-play .awards li, .box-play .ball{background:url(../img/sprite.png) no-repeat;}
 .box-play .awards{margin-top:25px;}
 .box-play .awards li{display:inline-block; width:67px; height:67px;}
@@ -64,9 +64,23 @@
 .box-play .awards .risk-free{background-position:-75px -150px;}
 .box-play .txt{position:absolute; left:-9999px; top:-9999px;}
 .box-play .box-ball{position:relative; margin-top:120px;}
-.box-play .btn{position:relative; left:-18px; font-size:160%;}
-.box-play .ball{position:absolute; display:block; top:-25px; right:-85px; display:block; width:101px; height:99px; background-position:-150px -110px; transition:transform .5s ease;}
+.box-play .btn{position:relative; left:-25px; font-size:160%;}
+.box-play .ball{position:absolute; display:block; top:-25px; right:-90px; display:block; width:101px; height:99px; background-position:-150px -110px; transition:transform .5s ease;}
 .box-ball .btn:hover .ball{@include transform(rotate(25deg));}
+
+.box-prize{position:relative; overflow:hidden; width:85%; background:#fff; margin:-65px auto 0; border-radius:10px;}
+.box-prize h1{margin-bottom:.3em;}
+.box-prize .cols{margin-bottom:0;}
+.box-prize .content{margin:10px;}
+.box-prize .content .content{margin-right:0;}
+.box-prize .bg{background:url(/img/pattern/01.png) repeat; overflow:hidden; color:#fff;} 
+.box-prize .bg2{@include background-image(linear-gradient(to right top, $purple, $purple-dark))}; /* I had to insert a second BG div because mixing @include doesn't work well with multiple background */
+.box-prize .value, .box-prize .currency{font-size:$h1; margin-bottom:5px;}
+.box-prize .only{display:block; margin-bottom:1em; font-size:$basic-size;}
+.box-prize .notes{font-weight:bold; margin-top:10px; font-size:$basic-size; color:$grey;}
+.box-prize .notes .ico{position:relative; top:1px;}
+.box-prize .btn{margin-bottom:10px;}
+.box-prize .vector{width:75%; margin:auto;}
 
 
 /*Retina only */
@@ -85,14 +99,15 @@
  
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 992px){
+.outbound{display:none;} /* Temporaly disabled - NEED TO UPDATE IMAGE */
 .box-result .content{width:100%; margin:0;}
 .box-result .woman, .box-estimated .vector{display:none;}
 }
 
 /* Small Devices, Tablets */
 @media only screen and (max-width: 768px){
-.box-value .currency{font-size:$h2;}
-.box-value .value{font-size:$h1;}
+.box-estimated .currency{font-size:$h2;}
+.box-estimated .value{font-size:$h1;}
 }
  
 /* Extra Small Devices, Phones */

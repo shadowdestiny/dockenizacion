@@ -13,13 +13,17 @@ header, footer, figure, details, hgroup, section, article, nav, aside, picture, 
 header, footer, figure, details, hgroup, section, article, nav, aside, picture, main{display:block;}
 img, object, audio, video, svg, select{width:100%;}
 
+/* BOX SIZING FIX */
+*{@include box-sizing(border-box);}
+
+
 /*** BASIC STYLE ***/
 .no-lnk, .no-lnk:hover{display:block; color:$black; text-decoration:none;} /* It need to be before the LINK declaration */
-a, .lnk{text-decoration:underline; color:$link;}
+a, .lnk{text-decoration:underline; color:$link; border:none;}
 .lnk > .ico, .no-lnk .btn, .no-lnk .btn .ico{color:$link;}
 a:visited, .lnk:visited{color:$visited;}
-a:hover, a:focus, .lnk:hover, .lnk:focused{text-decoration:none; color:$hover; border:0;}
-a:active, .lnk:active{color:$active; border:0;}
+a:hover, a:focus, .lnk:hover, .lnk:focused{text-decoration:none; color:$hover;}
+a:active, .lnk:active{color:$active;}
 
 body{color:$black; text-align:center; line-height:1.25em;}
 p{margin-bottom:1em;}
@@ -42,9 +46,9 @@ img.right{margin:0 0 15px 10px;}
 .center{margin:auto; text-align:center;}
 
 /* CLEARFIX */
-.cl:before, .cl:after, .wrapper:before, .wrapper:after{content:" "; display:table;}
-.cl:after, .wrapper:after{clear:both;}
-.cl{*zoom:1;} /* IE6/7 */
+.cl:before, .cl:after, .wrapper:before, .wrapper:after, .btn:before, .btn:after{content:" "; display:table;}
+.cl:after, .wrapper:after, .btn:after{clear:both;}
+.cl, .wrapper, .btn{*zoom:1;} /* IE6/7 */
 
 /* BUTTONS */
 .btn{
@@ -54,33 +58,34 @@ img.right{margin:0 0 15px 10px;}
   @include background-image(linear-gradient(#cccccc, #777777));
 
 }
-.btn:hover{text-shadow:0 0 0 transparent; background:#fff; color:#777;}
-.btn:active{color:#333!important; box-shadow:inset 0 5px 5px #888; border:1px solid #333!important;}
+.btn.expand{width:100%;}
+.btn.expand .ico{float:right; line-height:20px;}
+.btn:hover, .btn:focus{text-shadow:0 0 0 transparent; background:#fff; color:#777;}
+.btn:active{color:#333!important; box-shadow:0 5px 5px #eee inset!important; border:1px solid #333!important; background:#fff!important; text-shadow:0 0 0 transparent;}
 .btn.big{padding:15px 20px; font-size:$h3;}
-.btn.big:active{box-shadow:0 0 0 1px #eee inset, 0 5px 20px #888 inset;}
+.btn.big:active{box-shadow:0 0 0 1px #eee inset, 0 5px 20px #888 inset!important;}
 .btn .ico{@extend %ico-size;}
 
 .btn.white{color:$hover; background:#fff; font-weight:normal; border:1px solid #fff; text-shadow:0 0 0 transparent;}
-.btn.white:hover{border:1px solid #ccc;}
+.btn.white:hover, .btn.white:focus{border:1px solid #ccc;}
 .btn.white:active{border:1px solid #666; box-shadow:inset 0 0 0 0 transparent;}
-
 .btn.blue{
   background:$btn-blue; border:1px solid $btn-blue-dark;
   @include background-image(linear-gradient(#1685cb, #005a92));
 }
-.btn.blue:hover{color:$btn-blue; background:#fff; border:1px solid $btn-blue;}
+.btn.blue:hover, .btn.blue:focus{color:$btn-blue; background:#fff; border:1px solid $btn-blue;}
 
 .btn.red{
   background:$btn-red; border:1px solid $btn-red-dark;
   @include background-image(linear-gradient(#ff3030, #b42222));
 }
-.btn.red:hover{color:$btn-red; background:#fff; border:1px solid $btn-red;}
+.btn.red:hover, .btn.red:focus{color:$btn-red; background:#fff; border:1px solid $btn-red;}
 
 .btn.purple{
   background:$btn-purple; border:1px solid $btn-purple-dark;
   @include background-image(linear-gradient(#ae5279, #823054));
 }
-.btn.purple:hover{color:$btn-purple; background:#fff; border:1px solid $btn-purple;}
+.btn.purple:hover, .btn.purple:focus{color:$btn-purple; background:#fff; border:1px solid $btn-purple;}
 
 
 /* ANIMATION */
@@ -116,7 +121,7 @@ body{font-family:$basic-font;}
 #content{font-family:"Open Sans", $basic-font; overflow:hidden;}
 
 /* COLORS */
-.yellow{color:$yellow;}
+.yellow{color:$yellowTxt;}
 /* 
 .purple{color:$purple;}  // Maybe I will not use those?!?! 
 */
@@ -183,27 +188,18 @@ body{font-family:$basic-font;}
 .main-nav .active{border-right:1px solid transparent;}
 .main-nav .active{
   background-color:$yellow;   /* fallback */
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#CC9816), to($yellow));   /* Safari 4-5, Chrome 1-9 */
-  background: -webkit-linear-gradient(top, #CC9816, $yellow);   /* Safari 5.1, Chrome 10+ */
-  background: -moz-linear-gradient(top, #CC9816, $yellow);   /* Firefox 3.6+ */
-  background: -ms-linear-gradient(top, #CC9816, $yellow);   /* IE 10 */
-  background: -o-linear-gradient(top, #CC9816, $yellow);   /* Opera 11.10+ */
-  background: linear-gradient(top, #CC9816, $yellow); 
+  @include background-image(linear-gradient(#CC9816, $yellow));
 }
 .main-nav .active a, .main-nav .active .txt, .main-nav a:hover, .main-nav a:hover .txt
 {color:#fff!important;}
 
 .main-nav a:hover{
-  background-color:#ae5279;   /* fallback */
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#8b355b), to(#ae5279));   /* Safari 4-5, Chrome 1-9 */
-  background: -webkit-linear-gradient(top, #8b355b, #ae5279);   /* Safari 5.1, Chrome 10+ */
-  background: -moz-linear-gradient(top, #8b355b, #ae5279);   /* Firefox 3.6+ */
-  background: -ms-linear-gradient(top, #8b355b, #ae5279);   /* IE 10 */
-  background: -o-linear-gradient(top, #8b355b, #ae5279);   /* Opera 11.10+ */
-  background: linear-gradient(top, #8b355b, #ae5279); 
+  background-color:$purple;   /* fallback */
+  @include background-image(linear-gradient(#8b355b, $purple));
 }
 .main-nav a:hover .ico-cart, .main-nav .active .ico-cart{color:#fff;}
-
+.main-nav a{transition:background 0.3s ease, color 0.25s ease;}
+.main-nav .txt{transition:color 0.2s ease;}
 
 .main-nav li:hover{border-right:1px solid transparent;} /* erase yellow border */
 .main-nav .active a:hover{background:transparent;} /* disable hover on active menu */
@@ -259,6 +255,7 @@ body{font-family:$basic-font;}
 }
 
 .media{width:0px; height:0;} // It help me debug with Jquery which media query it is applied
+.mobile{display:none;}
 
 /* Large Devices, Wide Screens */
 @media only screen and (max-width: 1200px){
@@ -273,11 +270,15 @@ body{font-family:$basic-font;}
   body{border:10px solid #ff0;} /* YELLOW */
   .media{width:2px}
   .wrapper{width:768px;}
+  .logo .pic{height:62px;}
+  .main-nav a{padding:10px 12px;}
 }
 
 /* Small Devices, Tablets */
 @media only screen and (max-width: 768px){
   body{border:10px solid #0f0;} /* GREEN */
+  .desktop{display:none;}
+  .mobile{display:block;}
   .media{width:3px}
    #content{font-size:90%;}
   .wrapper{width:100%;}
