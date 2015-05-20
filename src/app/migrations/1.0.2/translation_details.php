@@ -61,6 +61,8 @@ class TranslationDetailsMigration_102 extends Migration
             ),
             'indexes' => array(
                 new Index('PRIMARY', array('id')),
+                new Index('IDX_D32AF2789CAA2B25', array('translation_id')),
+                new Index('IDX_D32AF27882F1BAF4', array('language_id'))
             ),
             'references' => array(
                 new Reference('FK_D32AF27882F1BAF4', array(
@@ -78,7 +80,7 @@ class TranslationDetailsMigration_102 extends Migration
             ),
             'options' => array(
                 'TABLE_TYPE' => 'BASE TABLE',
-                'AUTO_INCREMENT' => '',
+                'AUTO_INCREMENT' => '2509',
                 'ENGINE' => 'InnoDB',
                 'TABLE_COLLATION' => 'utf8_unicode_ci'
             )

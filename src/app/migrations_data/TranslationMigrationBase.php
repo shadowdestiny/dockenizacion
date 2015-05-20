@@ -3,7 +3,7 @@ namespace app\migrations_data;
 
 use Phinx\Migration\AbstractMigration;
 
-class TranslationMigrationBase  extends AbstractMigration
+class TranslationMigrationBase extends AbstractMigration
 {
     protected function insertTranslationTree()
     {
@@ -11,13 +11,11 @@ class TranslationMigrationBase  extends AbstractMigration
             $language_values[] = "('$language')";
             foreach ($data as $key => $value) {
                 $translation_values[] = "('$key')";
-                $str = "
-                    INSERT INTO translation_details
-                      (`translation_id`, `lang`, `value`, `language_id`)
-                      SELECT t.translation_id, '$language', '$value', l.id
-                        FROM translations t, languages l
-                        WHERE t.`key` = '$key' AND l.ccode = '$language'
-                ";
+                $str = "INSERT INTO translation_details"
+                    . " (`translation_id`, `lang`, `value`, `language_id`)"
+                    . " SELECT t.translation_id, '$language', '$value', l.id"
+                    . " FROM translations t, languages l"
+                    . " WHERE t.`key` = '$key' AND l.ccode = '$language'";
                 $translation_details_insert[] = $str;
             }
         }
@@ -25,10 +23,13 @@ class TranslationMigrationBase  extends AbstractMigration
         $translation_values = implode(',', $translation_values);
 
         $sql = "INSERT IGNORE INTO languages (`ccode`) VALUES $language_values";
+        var_dump($sql);
         $this->execute($sql);
         $sql = "INSERT IGNORE INTO translations (`key`) VALUES $translation_values";
+        var_dump($sql);
         $this->execute($sql);
         $insert = implode(';', $translation_details_insert);
+        var_dump($insert);
         $this->execute($insert);
     }
 

@@ -5,7 +5,7 @@ app\entities\Translation:
     translation_id:
       type: integer
       generator:
-        strategy: AUTO
+        strategy: IDENTITY
   fields:
     key:
       type: string

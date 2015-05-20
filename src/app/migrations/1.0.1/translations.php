@@ -44,11 +44,12 @@ class TranslationsMigration_101 extends Migration
                 )
             ),
             'indexes' => array(
-                new Index('PRIMARY', array('translation_id'))
+                new Index('PRIMARY', array('translation_id')),
+                new Index('UNIQ_C6B7DA878A90ABA9', array('key'))
             ),
             'options' => array(
                 'TABLE_TYPE' => 'BASE TABLE',
-                'AUTO_INCREMENT' => '',
+                'AUTO_INCREMENT' => '714',
                 'ENGINE' => 'InnoDB',
                 'TABLE_COLLATION' => 'utf8_unicode_ci'
             )
