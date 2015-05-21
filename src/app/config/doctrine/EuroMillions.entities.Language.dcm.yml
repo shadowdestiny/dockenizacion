@@ -16,7 +16,8 @@ EuroMillions\entities\Language:
       unique: true
     active:
       type: boolean
-      default: 0
+      options:
+        default: 0
   oneToMany:
     usedIn:
       targetEntity: \EuroMillions\entities\TranslationDetail

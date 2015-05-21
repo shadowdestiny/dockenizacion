@@ -23,13 +23,10 @@ class TranslationMigrationBase extends AbstractMigration
         $translation_values = implode(',', $translation_values);
 
         $sql = "INSERT IGNORE INTO languages (`ccode`) VALUES $language_values";
-        var_dump($sql);
         $this->execute($sql);
         $sql = "INSERT IGNORE INTO translations (`key`) VALUES $translation_values";
-        var_dump($sql);
         $this->execute($sql);
         $insert = implode(';', $translation_details_insert);
-        var_dump($insert);
         $this->execute($insert);
     }
 
