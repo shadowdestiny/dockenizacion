@@ -9,17 +9,20 @@ ALLOWED: Variable and Extension
 
 /* COLORS */
 $purple:#ae5279;
+$purple-dark:darken($purple, 35%);
 $yellow:#efc048;
+$yellowTxt:#ffc923;
 $black:#333;
+$grey:#777;
 
 $btn-blue:#1479b9;
-$btn-blue-dark: darken($btn-blue, 7%);
+$btn-blue-dark: darken($btn-blue, 20%);
 
 $btn-purple:#ae5279;
-$btn-purple-dark: darken($btn-purple, 7%);
+$btn-purple-dark: darken($btn-purple, 20%);
 
 $btn-red:#bf4e0b;
-$btn-red-dark: darken($btn-red, 7%);
+$btn-red-dark: darken($btn-red, 20%);
 
 
 /* LINKS COLORS */
@@ -54,7 +57,7 @@ $basic-size: 0.875em;	/* 16x1.125=14 */
 	 0   -6px 0 #fff, 0    6px 0 #fff, -6px 0   0 #fff, 6px 0   0 #fff;
 }
 
-%ico-size{font-size:65%; margin-left:8px;}
+%ico-size{font-size:75%; margin-left:8px;}
 
 /* BUTTONS */
 

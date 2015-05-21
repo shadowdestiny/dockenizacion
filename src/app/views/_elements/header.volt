@@ -1,7 +1,7 @@
 {# EMTD To insert *burger* for  mobile version #}
 
 <header>
-	<nav class="top-nav">
+	<nav class="top-nav desktop">
 		<div class="wrapper">
 			<ul class="ul-top-nav">
 				<li class="inter">
@@ -50,7 +50,7 @@
 					<img srcset="/img/logo/euromillions.png">
 				</picture>
 			</a>
-			<nav class="main-nav">
+			<nav class="main-nav desktop">
 				<ul>
 					<li class="active">
 						<a href="javascript:void(0);">
@@ -86,4 +86,18 @@
 			</nav>
 		</div>
 	</div>
+
+	<nav class="nav mobile">
+		<ul>
+			<li><a href="javascript:void(0);">{{ language.translate("Play Games") }}</a></li>
+			<li><a href="javascript:void(0);">{{ language.translate("Results") }}</a></li> {# Content name change from desktop #}
+			<li><a href="javascript:void(0);">{{ language.translate(" Your Account") }}</a></li>
+			<li><a href="javascript:void(0);">{{ language.translate("Cart") }}</a></li>
+			<li><a href="javascript:void(0);">Euro / English</li>
+			<li><a href="javascript:void(0);">Help *sublinks*</a></li>
+		</ul>
+
+		{% include "_elements/nav.volt" %}
+	</nav>
+
 </header>

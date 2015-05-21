@@ -91,24 +91,39 @@
 				</div>
 
 				<div class="box-prize">
-					<h1 class="h2">1st Prize</h1>
-					<div class="box-value">
-						<span class="currency">&euro;</span> <span class="value">51.000.000</span>
-					</div>
+					<div class="content">
+						<div class="bg2">
+							<div class="bg">
+								<div class="content">
+									<div class="cols">
+										<div class="col6">
+											<h1 class="h2">1st Prize</h1>
+											<div class="box-value">
+												<span class="currency yellow">&euro;</span> <span class="value yellow">51.000.000</span>
+												<span class="only">only 2,35 &euro;</span>
+											</div>
 
-					<a href="javascript:void(0);" class="btn blue">I feel lucky <i class="ico ico-arrow-right"></i></a>
+											<div class="box-btn">
+												<a href="javascript:void(0);" class="btn blue expand">I feel lucky <i class="ico ico-arrow-right"></i></a>
 
-					<a href="javascript:void(0);" class="btn">test <i class="ico ico-arrow-right"></i></a>
-
-
-					<a href="javascript:void(0);" class="btn red">Pick your numbers <i class="ico ico-arrow-right"></i></a>
-
-					<div class="notes cl">
-						<div class="right">
-							Luck is not as random as you think
+												<a href="javascript:void(0);" class="btn red expand">Pick your numbers <i class="ico ico-arrow-right"></i></a>
+											</div>
+										</div>
+										<div class="col6 center">
+											<img class="vector" src="/img/sprite.svg#lotto-game">
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
-						<i class="ico ico-hourglass"></i> *time*
 
+						<div class="notes cl">
+							<div class="right">
+								Luck is not as random as you think
+							</div>
+							<i class="ico ico-hourglass"></i> <span class="time">3 DAYS 09:50</span> {# EMTD be careful to add singolar/plural: DAY / DAYS and if it is a matter of hours put content text as "04:09:34" format}
+
+						</div>
 					</div>
 				</div>
 
@@ -123,9 +138,6 @@
 		</ul>
 #}
 
-{# SVG embed
-<embed type="image/svg+xml" src="mySVG.svg" />
-#}
 	</div>
 </main>
 
