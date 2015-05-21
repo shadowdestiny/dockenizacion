@@ -5,11 +5,11 @@ if [ "$environment" == "dev" ]; then
     cd /var/www
     now=$(date)
     echo "$now: Schema migration executed" >> /vagrant/dev-logs/migration.log
-    phalcon migration run
+    vendor/bin/phinx migrate --configuration="phinx_schema.yml" -e dev
 elif [ "$environment" == "shippable" ]; then
     echo "migrating..."
     cd src/
-    vendor/bin/phalcon.php migration run
+    vendor/bin/phinx migrate --configuration="phinx_schema.yml" -e shippable
 fi
 if [ "$environment" == "shippable" ]; then
     cd ..
