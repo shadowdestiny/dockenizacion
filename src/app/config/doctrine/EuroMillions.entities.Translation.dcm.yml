@@ -1,9 +1,11 @@
-app\entities\Translation:
+EuroMillions\entities\Translation:
   type: entity
   table: translations
   id:
     translation_id:
       type: integer
+      options:
+        unsigned: true
       generator:
         strategy: IDENTITY
   fields:
@@ -14,5 +16,5 @@ app\entities\Translation:
       type: boolean
   oneToMany:
     translatedTo:
-      targetEntity: app\entities\TranslationDetail
+      targetEntity: EuroMillions\entities\TranslationDetail
       mappedBy: translation

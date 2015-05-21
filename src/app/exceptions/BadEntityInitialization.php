@@ -1,4 +1,4 @@
 <?php
-namespace app\exceptions;
+namespace EuroMillions\exceptions;
 
 class BadEntityInitialization extends \DomainException{}

@@ -1,8 +1,8 @@
 <?php
 error_reporting(E_ALL);
 
-use app\config\bootstrap\WebLoader;
-use app\config\bootstrap\Bootstrap;
+use EuroMillions\config\bootstrap\WebLoader;
+use EuroMillions\config\bootstrap\Bootstrap;
 
 $public_path = __DIR__;
 $app_path = $public_path . '/../app/';
@@ -16,7 +16,7 @@ try {
     $loader = new WebLoader($app_path, $tests_path);
     $loader->register();
 
-    $bootstrap = new Bootstrap(new \app\config\bootstrap\WebBootstrapStrategy(
+    $bootstrap = new Bootstrap(new \EuroMillions\config\bootstrap\WebBootstrapStrategy(
         $app_path, $global_config_path, $config_path, $app_path . 'assets/', $tests_path, 'config.ini'
     ));
     $bootstrap->execute();

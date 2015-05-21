@@ -1,5 +1,5 @@
 <?php
-namespace app\migrations_data;
+namespace EuroMillions\migrations_data;
 
 use Phinx\Migration\AbstractMigration;
 

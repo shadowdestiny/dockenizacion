@@ -1,6 +1,6 @@
 <?php
 include_once('TranslationMigrationBase.php');
-class TranslatedStrings extends \app\migrations_data\TranslationMigrationBase
+class TranslatedStrings extends \EuroMillions\migrations_data\TranslationMigrationBase
 {
     public $translation_tree = [
         'en' => [

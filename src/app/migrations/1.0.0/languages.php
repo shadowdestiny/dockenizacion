@@ -18,9 +18,10 @@ class LanguagesMigration_100 extends Migration
                     'id',
                     array(
                         'type' => Column::TYPE_INTEGER,
+                        'unsigned' => true,
                         'notNull' => true,
                         'autoIncrement' => true,
-                        'size' => 11,
+                        'size' => 10,
                         'first' => true
                     )
                 ),

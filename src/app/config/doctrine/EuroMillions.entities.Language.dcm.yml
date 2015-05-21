@@ -1,10 +1,12 @@
-app\entities\Language:
+EuroMillions\entities\Language:
   type: entity
-  repositoryClass: app\repositories\LanguageRepository
+  repositoryClass: EuroMillions\repositories\LanguageRepository
   table: languages
   id:
     id:
       type: integer
+      options:
+        unsigned: true
       generator:
         strategy: IDENTITY
   fields:
@@ -17,5 +19,5 @@ app\entities\Language:
       default: 0
   oneToMany:
     usedIn:
-      targetEntity: \app\entities\TranslationDetail
+      targetEntity: \EuroMillions\entities\TranslationDetail
       mappedBy: language

@@ -1,8 +1,8 @@
 <?php
 error_reporting(E_ALL);
 
-use app\config\bootstrap\CliLoader;
-use app\config\bootstrap\CliBootstrapStrategy;
+use EuroMillions\config\bootstrap\CliLoader;
+use EuroMillions\config\bootstrap\CliBootstrapStrategy;
 
 $app_path = __DIR__.'/';
 $global_config_path = $app_path.'../global_config/';
@@ -14,7 +14,7 @@ try {
     $loader = new CliLoader($app_path, $tests_path);
     $loader->register();
 
-    $bootstrap = new \app\config\bootstrap\Bootstrap(new CliBootstrapStrategy(
+    $bootstrap = new \EuroMillions\config\bootstrap\Bootstrap(new CliBootstrapStrategy(
         $argv, $global_config_path , $config_path, 'cliconfig.ini'
     ));
     $bootstrap->execute();

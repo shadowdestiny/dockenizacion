@@ -18,9 +18,10 @@ class TranslationsMigration_101 extends Migration
                     'translation_id',
                     array(
                         'type' => Column::TYPE_INTEGER,
+                        'unsigned' => true,
                         'notNull' => true,
                         'autoIncrement' => true,
-                        'size' => 11,
+                        'size' => 10,
                         'first' => true
                     )
                 ),

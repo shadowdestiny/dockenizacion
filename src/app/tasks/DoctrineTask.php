@@ -1,6 +1,6 @@
 <?php
-namespace app\tasks;
-use app\entities\Language;
+namespace EuroMillions\tasks;
+use EuroMillions\entities\Language;
 use Doctrine\ORM\EntityManager;
 use Phalcon\CLI\Task;
 
@@ -35,7 +35,7 @@ class DoctrineTask extends Task
 
     public function ListTestAction()
     {
-        $billing_provider_repository = $this->entityManager->getRepository('\app\entities\BillingProvider');
+        $billing_provider_repository = $this->entityManager->getRepository('\EuroMillions\entities\BillingProvider');
         $billing_providers = $billing_provider_repository->findAll();
         foreach ($billing_providers as $bp) {
             echo sprintf("-%s\n", $bp->getName());

@@ -1,5 +1,5 @@
 <?php
-namespace app\config\bootstrap;
+namespace EuroMillions\config\bootstrap;
 
 use Phalcon;
 use Phalcon\Di;
@@ -31,15 +31,15 @@ abstract class LoaderBase
     private function getDefaultNamespaces()
     {
         return [
-            'app\config'           => $this->appPath . 'config',
-            'app\config\bootstrap' => $this->appPath . 'config/bootstrap',
-            'app\services'         => $this->appPath . 'services',
-            'app\interfaces'       => $this->appPath . 'interfaces',
-            'app\entities'         => $this->appPath . 'entities',
-            'app\repositories'     => $this->appPath . 'repositories',
-            'app\exceptions'       => $this->appPath . 'exceptions',
-            'app\components'       => $this->appPath . 'components',
-            'app\migrations_data'  => $this->appPath . 'migrations_data',
+            'EuroMillions\config'           => $this->appPath . 'config',
+            'EuroMillions\config\bootstrap' => $this->appPath . 'config/bootstrap',
+            'EuroMillions\services'         => $this->appPath . 'services',
+            'EuroMillions\interfaces'       => $this->appPath . 'interfaces',
+            'EuroMillions\entities'         => $this->appPath . 'entities',
+            'EuroMillions\repositories'     => $this->appPath . 'repositories',
+            'EuroMillions\exceptions'       => $this->appPath . 'exceptions',
+            'EuroMillions\components'       => $this->appPath . 'components',
+            'EuroMillions\migrations_data'  => $this->appPath . 'migrations_data',
             'tests\unit'           => $this->testsPath . "unit", //EMTD Esto podría separarse entre el WebLoader y un TestLoader
             'tests\integration'    => $this->testsPath . "integration",
             'tests\base'           => $this->testsPath . "base",

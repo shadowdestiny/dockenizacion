@@ -1,7 +1,7 @@
 <?php
-namespace app\components;
+namespace EuroMillions\components;
 
-use app\repositories\TranslationDetailRepository;
+use EuroMillions\repositories\TranslationDetailRepository;
 use Doctrine\ORM\EntityManager;
 use Phalcon\Translate\Adapter;
 
@@ -14,7 +14,7 @@ class EmTranslationAdapter extends Adapter
     public function __construct($language, EntityManager $entityManager = null)
     {
         $this->setLanguage($language);
-        $this->repository = $entityManager->getRepository('app\entities\TranslationDetail');
+        $this->repository = $entityManager->getRepository('EuroMillions\entities\TranslationDetail');
     }
 
     /**

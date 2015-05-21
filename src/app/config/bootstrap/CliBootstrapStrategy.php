@@ -1,8 +1,8 @@
 <?php
-namespace app\config\bootstrap;
+namespace EuroMillions\config\bootstrap;
 
-use app\components\EnvironmentDetector;
-use app\interfaces\IBootstrapStrategy;
+use EuroMillions\components\EnvironmentDetector;
+use EuroMillions\interfaces\IBootstrapStrategy;
 use Phalcon\Cli\Console as ConsoleApp;
 use Phalcon\Cli\Dispatcher;
 use Phalcon\Cli\Router;
@@ -58,7 +58,7 @@ class CliBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     protected function configDispatcher()
     {
         $dispatcher = new Dispatcher();
-        $dispatcher->setDefaultNamespace('app\tasks');
+        $dispatcher->setDefaultNamespace('EuroMillions\tasks');
         return $dispatcher;
     }
 
