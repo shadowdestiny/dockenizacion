@@ -1,10 +1,8 @@
 @import "compass/css3";
 
 /*** VARIABLES ***
-
 NO ALLLOWED: Class, ID or Keyframes
 ALLOWED: Variable and Extension
-
 */
 
 /* COLORS */
@@ -14,6 +12,7 @@ $yellow:#efc048;
 $yellowTxt:#ffc923;
 $black:#333;
 $grey:#777;
+$light-grey:#aaa;
 
 $btn-blue:#1479b9;
 $btn-blue-dark: darken($btn-blue, 20%);

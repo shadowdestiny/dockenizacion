@@ -1,5 +1,7 @@
 @import "variable";
 
+.box-play .txt{position:absolute; left:-9999px; top:-9999px;}
+
 .box-left{background:#fff; border:1px solid $yellow; border-right:0; border-radius:10px 0 0 10px;}
 .box-right{background:url(../img/home/bg-coloured.jpg) no-repeat; border-radius:0 10px 10px 0}
 
@@ -50,10 +52,14 @@
 .outbound{
 	display:block; position:relative; width:475px; height:475px; margin:auto; text-decoration:none; 
 	border:15px solid #fff; border-radius:100%; box-shadow:0px 5px 20px 5px rgba(0,0,0,0.4); 
-	background:url(../img/home/win-millions.png) no-repeat center center; 
+	background:url(../img/home/bg-win-millions.png) no-repeat center center;  overflow:hidden;
+	transition:top .3s, border .3s; top:0;
 }
+.outbound:hover, .outbound:focus{top:10px; border-width:18px;}
 .box-play{position:relative; top:-115px; text-align:center;}
 .box-play h1{font-size:140%;}
+.win-millions{margin-top:-46px; text-align:center;}
+.win-millions .pic{margin:auto; width:417px;}
 .box-play .content{margin-top:125px; color:#fff;}
 .box-play .ico{position:relative; top:-1px;}
 .box-play .awards li, .box-play .ball{background:url(../img/sprite.png) no-repeat;}
@@ -62,13 +68,20 @@
 .box-play .awards li:first-child{margin-right:25px;}
 .box-play .awards .best-price{background-position:0 -150px;}
 .box-play .awards .risk-free{background-position:-75px -150px;}
-.box-play .txt{position:absolute; left:-9999px; top:-9999px;}
-.box-play .box-ball{position:relative; margin-top:120px;}
+.box-play .box-ball{position:relative; margin-top:25px;}
 .box-play .btn{position:relative; left:-25px; font-size:160%;}
 .box-play .ball{position:absolute; display:block; top:-25px; right:-90px; display:block; width:101px; height:99px; background-position:-150px -110px; transition:transform .5s ease;}
 .box-ball .btn:hover .ball{@include transform(rotate(25deg));}
 
-.box-prize{position:relative; overflow:hidden; width:85%; background:#fff; margin:-65px auto 0; border-radius:10px;}
+.box-prize{
+	position:relative; width:85%; background:#fff; margin:-65px auto 0; border-radius:10px; 
+	border:1px solid transparent; /*This border fix a rendering incongruence */
+}
+.box-prize:before{
+  content:""; position:absolute; z-index:-1;  bottom:0; width:100%; height:100%; border-radius:10px;
+  box-shadow:0 5px 5px 0 rgba(0,0,0,0.4); 
+}
+
 .box-prize h1{margin-bottom:.3em;}
 .box-prize .cols{margin-bottom:0;}
 .box-prize .content{margin:10px;}
@@ -76,7 +89,7 @@
 .box-prize .bg{background:url(/img/pattern/01.png) repeat; overflow:hidden; color:#fff;} 
 .box-prize .bg2{@include background-image(linear-gradient(to right top, $purple, $purple-dark))}; /* I had to insert a second BG div because mixing @include doesn't work well with multiple background */
 .box-prize .value, .box-prize .currency{font-size:$h1; margin-bottom:5px;}
-.box-prize .only{display:block; margin-bottom:1em; font-size:$basic-size;}
+.box-prize .only{display:block; margin-bottom:1em; font-size:$basic-size; text-shadow:0 1px 3px rgba(0, 0, 0, 0.6);}
 .box-prize .notes{font-weight:bold; margin-top:10px; font-size:$basic-size; color:$grey;}
 .box-prize .notes .ico{position:relative; top:1px;}
 .box-prize .btn{margin-bottom:10px;}
@@ -87,7 +100,7 @@
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx){
 	.box-estimated{background-image:url(/img/home/bg-euro@2x.jpg); background-size:600px 171px;}
 	.box-result .woman{background-image:url(../img/home/bg-result@2x.jpg); background-size:168px 189px;}
-	.outbound{background-image:url(../img/home/win-millions@2x.png); background-size:445px 445px;}
+	.outbound{background-image:url(../img/home/bg-win-millions@2x.png); background-size:445px 445px;}
 	.box-play .awards li, .box-play .ball{background-image:url(../img/sprite@2x.png); background-size:270px 220px;}
 	.box-right{background-image:url(../img/home/bg-coloured@2x.jpg);}
 }
@@ -95,28 +108,66 @@
 /* Large Devices, Wide Screens */
 @media only screen and (max-width: 1200px){
 .box-estimated .vector{top:10px;}
+.outbound{width:430px; height:430px; border:15px solid #fff;}
+.outbound:hover, .outbound:focus{border-width:13px;}
+.win-millions .pic{width:350px;}
+.box-play{top:-90px;}
+.box-play .content{margin-top:95px;}
 }
  
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 992px){
-.outbound{display:none;} /* Temporaly disabled - NEED TO UPDATE IMAGE */
 .box-result .content{width:100%; margin:0;}
-.box-result .woman, .box-estimated .vector{display:none;}
+.box-result .woman, .box-estimated .vector, .box-play .awards, .box-prize .box-vector, .box-how .sub-txt
+{display:none;}
+.outbound{width:330px; height:330px; border:10px solid #fff;}
+.outbound:hover, .outbound:focus{border-width:13px;}
+.win-millions{margin-top:-35px;}
+.win-millions .pic{width:280px;}
+.box-play .content{margin-top:85px;}
+.box-play .box-ball{margin-top:10px;}
+.box-play .ball{display:none;}
+.box-play .btn{left:0; font-size:$h2;}
+.box-prize{margin:-35px auto 0;}
+.box-prize .col6{width:100%; margin:0;}
+.box-prize .notes{font-size:90%;}
+.box-prize .content .content{margin:10px;}
+.box-estimated .content{width:100%;}
+.notes .right, .notes .left{float:none;}
+.notes .left{margin-bottom:5px;}
 }
 
 /* Small Devices, Tablets */
 @media only screen and (max-width: 768px){
 .box-estimated .currency{font-size:$h2;}
 .box-estimated .value{font-size:$h1;}
+.box-estimated{border-radius:0;}
+#content .box-left, #content .box-right{margin:0; border-radius:0;}
+#content .box-left{border-width:10px;}
+#content .box-right{background-size:cover; overflow:hidden;}
+.box-how .sub-txt, .box-prize .box-vector{display:block;}
+.box-play{top:0; margin-top:20px;}
+.box-prize{margin:20px auto; width:90%;}
+.outbound:hover, .outbound:focus{top:0;}
+.box-prize .col6{width:50%; float:left;}
+.main-foot .col20per:nth-child(odd){clear:both;}
+.logo-social .wrapper{text-align:center;}
+.main-foot .small-logo{display:block; margin:10px auto 0; float:none;}
 }
  
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px){
+.box-how .sub-txt, .box-how li:after, .box-prize .box-vector{display:none;}
+.outbound{width:290px; height:290px; border-width:5px;}
+.outbound:hover, .outbound:focus{border-width:5px;}
+.box-play .btn{font-size:$h4;}
+.box-prize .col6{width:100%; float:none;}
 }
  
 /* Custom, iPhone Retina */
 @media only screen and (max-width: 320px){
-.box-how li{width:100%; margin:0 0 30px;}
-.box-how li::after{display:none;}
+/*.box-how li{width:100%; margin:0 0 30px; text-align:center;}*/
+/*.box-how .vector{width:60%;}*/
+.box-play, .box-how li::after{display:none;}
 }
 

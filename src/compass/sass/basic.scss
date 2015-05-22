@@ -35,6 +35,7 @@ em{font-style:italic;}
 blockquote, q{quotes:none;}
 blockquote:before, blockquote:after,q:before, q:after{content:''; content:none;}
 select{padding:5px; border:1px solid #bbb;}
+button{cursor:pointer;}
 
 .no-li{list-style-type:none;}
 .no-li li{margin-bottom:1em;}
@@ -61,7 +62,7 @@ img.right{margin:0 0 15px 10px;}
 .btn.expand{width:100%;}
 .btn.expand .ico{float:right; line-height:20px;}
 .btn:hover, .btn:focus{text-shadow:0 0 0 transparent; background:#fff; color:#777;}
-.btn:active{color:#333!important; box-shadow:0 5px 5px #eee inset!important; border:1px solid #333!important; background:#fff!important; text-shadow:0 0 0 transparent;}
+.btn:active{color:$black!important; box-shadow:0 5px 5px #eee inset!important; border:1px solid $black!important; background:#fff!important; text-shadow:0 0 0 transparent;}
 .btn.big{padding:15px 20px; font-size:$h3;}
 .btn.big:active{box-shadow:0 0 0 1px #eee inset, 0 5px 20px #888 inset!important;}
 .btn .ico{@extend %ico-size;}
@@ -86,6 +87,27 @@ img.right{margin:0 0 15px 10px;}
   @include background-image(linear-gradient(#ae5279, #823054));
 }
 .btn.purple:hover, .btn.purple:focus{color:$btn-purple; background:#fff; border:1px solid $btn-purple;}
+
+/* MENU HAMBURGER */
+
+.menu-ham{
+  position:absolute; top:10px; right:10px; border:0; border:1px solid $light-grey;
+  border-radius:3px; padding:0; outline:none; width:42px; height:40px;
+  transition:all .4s ease; background:#fff; margin:1px 5px 0 0;
+}
+.menu-ham .bar{margin:-2px 0 0 4px;}
+.menu-ham .bar, .menu-ham .bar:before, .menu-ham .bar:after{
+  content:''; position:absolute; cursor:pointer; border-radius:1px; height:5px; width:100%; 
+  display:block; transition:all 500ms ease-in-out; background:$purple; width:32px;
+}
+.menu-ham .bar:before{top:-10px;}
+.menu-ham .bar:after{bottom:-10px;}
+.menu-ham.expanded{transform:rotate(90deg); border:1px solid #fff; background-color:transparent}
+.menu-ham.expanded:hover{border:1px solid $light-grey;}
+.menu-ham.expanded span{background-color:transparent;}
+.menu-ham.expanded span:before, #nav-toggle.active span:after{top:0;}
+.menu-ham.expanded span:before{transform:rotate(45deg);}
+.menu-ham.expanded span:after{transform:rotate(-45deg); bottom:0;}
 
 
 /* ANIMATION */
@@ -122,6 +144,7 @@ body{font-family:$basic-font;}
 
 /* COLORS */
 .yellow{color:$yellowTxt;}
+.grey{color:$light-grey;}
 /* 
 .purple{color:$purple;}  // Maybe I will not use those?!?! 
 */
@@ -148,10 +171,10 @@ body{font-family:$basic-font;}
 
 
 /* PAGE LAYOUT */
-.wrapper{width:1200px; margin:auto;}
-.logo{float:left; display:table;}
-.logo .pic{display:table-cell; height:72px; vertical-align:middle;}
-.logo img{vertical-align:middle;}
+.wrapper{max-width:1200px; margin:auto;}
+.logo{float:left; margin-top:10px;}
+.logo .pic{height:100%;}
+.small-logo{float:left; width:200px;}
 
 .top-nav{min-height:28px; background:#ae5279; z-index:1;}
 .ul-top-nav .link{font-size:75%;}
@@ -175,13 +198,12 @@ body{font-family:$basic-font;}
 .sub-inter .txt{width:100px; display:inline-block; line-height:28px;}
 .sub-inter .btn{margin-top:10px;}
 
-
 .head{border-bottom:5px solid $yellow; background:#fff;}
 .main-nav{float:right;}
 .main-nav li{float:left; border-right:1px solid $yellow;}
 .main-nav li:last-child{margin:0;}
 .main-nav .ico-cart{color:#000;}
-.main-nav a{display:block; padding:15px 20px; min-height:42px;}
+.main-nav a{display:block; padding:15px 20px; min-height:72px;}
 .main-nav > span{display:block;}
 .main-nav .link{font-size:75%; text-decoration:none!important;}
 .main-nav .txt{position:relative; top:-2px; font-size:85%; font-weight:bold; color:#000;}
@@ -198,8 +220,8 @@ body{font-family:$basic-font;}
   @include background-image(linear-gradient(#8b355b, $purple));
 }
 .main-nav a:hover .ico-cart, .main-nav .active .ico-cart{color:#fff;}
-.main-nav a{transition:background 0.3s ease, color 0.25s ease;}
-.main-nav .txt{transition:color 0.2s ease;}
+.main-nav a{transition:background 0.2s ease, color 0.15s ease;}
+.main-nav .txt, .main-nav .ico-cart{transition:color 0.1s ease;}
 
 .main-nav li:hover{border-right:1px solid transparent;} /* erase yellow border */
 .main-nav .active a:hover{background:transparent;} /* disable hover on active menu */
@@ -215,8 +237,6 @@ body{font-family:$basic-font;}
 .box-links li{margin-bottom:.5em; font-size:85%;}
 .box-links li:last-child{margin:0;}
 .box-links strong{display:inline-block; margin-bottom:.5em; font-size:95%;}
-
-.small-logo{float:left; width:200px;}
 
 .logo-social{border-bottom:1px solid #ccc; padding-bottom:10px;}
 .logo-social li{display:inline-block; margin-left:25px;}
@@ -242,7 +262,8 @@ body{font-family:$basic-font;}
 .gambleaddict{background-position:-0px -40px; width:172px; height:22px;} 
 .geotrust{background-position:-150px 0; width:114px; height:26px;} 
 
-.social .txt, .partner .txt{position:absolute; left:-9999px; top:-9999px;} /* Hide Text but keep it SEO friendly */
+/* Hide Text but keep it SEO friendly */
+.social .txt, .partner .txt{position:absolute; left:-9999px; top:-9999px;} 
 
 /* RETINA ONLY */
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx){
@@ -254,51 +275,83 @@ body{font-family:$basic-font;}
   }
 }
 
+/* MEDIA QUERY DESKTOP STATUS SETTINGS */
 .media{width:0px; height:0;} // It help me debug with Jquery which media query it is applied
 .mobile{display:none;}
+.nav.mobile ul{display:none;}
 
 /* Large Devices, Wide Screens */
 @media only screen and (max-width: 1200px){
-  body{border:10px solid #0ff;} /* BLUE WATER */
-  .media{width:1px}
-  .wrapper{width:992px;}
-
+/*body{border:10px solid #0ff;} /* BLUE WATER */
+.media{width:1px}
+.wrapper{max-width:992px;}
 }
  
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 992px){
-  body{border:10px solid #ff0;} /* YELLOW */
-  .media{width:2px}
-  .wrapper{width:768px;}
-  .logo .pic{height:62px;}
-  .main-nav a{padding:10px 12px;}
+/*body{border:10px solid #ff0;} /* YELLOW */
+.media{width:2px}
+.wrapper{max-width:768px;}
+.logo{margin-top:8px; width:250px;}
+.main-nav a{padding:10px 12px; min-height:62px;}
 }
 
 /* Small Devices, Tablets */
 @media only screen and (max-width: 768px){
-  body{border:10px solid #0f0;} /* GREEN */
-  .desktop{display:none;}
-  .mobile{display:block;}
-  .media{width:3px}
-   #content{font-size:90%;}
-  .wrapper{width:100%;}
-  .main-foot .small-logo{width:150px;}
-  .main-foot .social{border:1px solid #f00; clear:both; float:none;} /* EMTD  to fix weird alignment */
-  .btn.big{font-size:$h4;}
+/*body{border:10px solid #0f0;} /* GREEN */
+.desktop, .mhide, .nav.mobile .br{display:none;}
+.mobile{display:block;}
+#content{padding:0;}
+.head{padding:5px 15px; border:0;}
+.media{width:3px}
+.wrapper{max-width:100%;}
+.main-foot{border:0;}
+.main-foot .small-logo{width:150px;}
+.main-foot .social{clear:both; float:none; margin-bottom:20px;}
+.main-foot .info .cols{margin-bottom:0;}
+.main-foot .col20per{width:50%; float:left; margin-bottom:1.5em;}
+.box-links a{display:inline-block; padding:3px 0; margin-bottom:3px;}
+.box-links a:hover{text-decoration:underline;}
+.box-links li{margin-bottom:0;}
+.logo-social li{margin-left:40px;}
+.logo-social li:first-child{margin-left:0;}
+.btn.big{font-size:$h4;}
+.logo{margin-top:6px; width:205px;}
+.nav.mobile{border-bottom:1px solid $purple;}
+.nav.mobile ul{border-top:1px solid $purple;}
+.nav.mobile a{
+  display:block; color:$purple; padding:10px; font-weight:bold;
+  @include background-image(linear-gradient(#fff, #eee)); border-bottom:1px solid $light-grey;
 }
- 
+.nav.mobile a:hover, .nav.mobile a:focus{
+  color:$purple-dark; @include background-image(linear-gradient(#fff, #ccc)); border-color:$grey;
+}
+.nav.mobile a:active{box-shadow:0 5px 10px #aaa inset; background:#fff;}
+.nav.mobile li:last-child a{border-bottom:0;}
+.info .wrapper{text-align:center;}
+.info .social{margin-bottom:10px;}
+.info .txt, .info .partner{margin:0 auto 2em; float:none;}
+.main-foot .partner{text-align:center;}
+.main-foot ul{margin:auto;}
+.main-foot .fix-margin{margin-left:0;}
+}
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px){
-  body{border:10px solid #00f;} /* BLUE*/
-  .media{width:4px}
-  .box-links a{display:block; padding:2px 0;}
-  .box-links ul{border-top:1px solid #ccc;}
-  .box-links li{border-bottom:1px solid #ccc;}
-  .box-links li:last-child{border:0;}
+/*body{border:10px solid #00f;} /* BLUE*/
+.media{width:4px}
+.box-links .col20per{width:100%; float:none; text-align:center;}
+.box-links a{display:block; width:100%; border-bottom:1px solid #ddd; padding:7px 0; margin-bottom:0;}
+.box-links li:first-child a{border-top:1px solid #ddd;}
+.box-estimated .h2{line-height:1.3em}
+/*  .box-links ul{border-top:1px solid #ccc;}
+.box-links li{border-bottom:1px solid #ccc;}
+.box-links li:last-child{border:0;}
+*/
 }
  
 /* Custom, iPhone Retina */
 @media only screen and (max-width: 320px){
-  body{border:10px solid #f00;} /* RED */
-  .media{width:5px}
+/*body{border:10px solid #f00;} /* RED */
+.media{width:5px}
+.box-how .grey{display:none;}
 }
