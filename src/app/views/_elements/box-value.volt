@@ -1,4 +1,4 @@
-{#<div class="box-value {{ extraClass.boxvalueClass }}">
+<div class="box-value {{ extraClass.boxvalueClass }}">
 	{% if currency_symbol_first %}
 		<span class="currency first {{ extraClass.currencyClass }}">&euro;</span> 
 	{% endif %}
@@ -8,4 +8,4 @@
 	{% if not currency_symbol_first %}
 		<span class="currency last {{ extraClass.currencyClass }}">&euro;</span> 
 	{% endif %}
-</div>#}
+</div>
