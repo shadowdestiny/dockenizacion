@@ -9,7 +9,11 @@
 				<a href="javascript:void(0);" class="box-estimated no-lnk">
 					<div class="content">
 						<h1 class="h2">{{ language.translate("Estimated Euromillions Jackpot") }}</h1>
+
+{#
 						{% set extraClass = {'boxValue': '','currencyClass': '','valueClass': ''} %}
+
+#}
 						{% include "_elements/box-value.volt" %}
 						<span class="btn white try animate infi">{{ language.translate("Try your luck") }} <i class="ico ico-arrow-right3"></i></span>
 					</div>
@@ -105,16 +109,17 @@
 									<div class="cols">
 										<div class="col6">
 											<h1 class="h2">{{ language.translate('1st Prize') }}</h1>
-
+{#
 											{% set extraClass = {'boxValue': '','currencyClass': '','valueClass': ''} %}
 											{{ dump(extraClass) }}
 											{% include "_elements/box-value.volt" with extraClass %}
-{#
+
+#}
 											<div class="box-value">
 												<span class="currency yellow">&euro;</span> <span class="value yellow">51.000.000</span>
 												<span class="only">only 2,35 &euro;</span>
 											</div>
-#}
+
 											<div class="box-btn">
 												<a href="javascript:void(0);" class="btn blue expand">{{ language.translate('I feel lucky') }} <i class="ico ico-arrow-right"></i></a>
 
