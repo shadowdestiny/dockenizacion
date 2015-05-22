@@ -220,7 +220,7 @@ img.right {
 
 .btn:active {
   color: #333 !important;
-  box-shadow: 0 5px 5px #eee inset !important;
+  box-shadow: 0 5px 5px #ccc inset !important;
   border: 1px solid #333 !important;
   background: #fff !important;
   text-shadow: 0 0 0 transparent;
@@ -671,6 +671,11 @@ body {
   font-size: 85%;
   font-weight: bold;
   color: #000;
+}
+
+.main-nav.desktop .li-cart .txt {
+  margin-bottom: -1px;
+  display: inline-block;
 }
 
 .main-nav .active {
