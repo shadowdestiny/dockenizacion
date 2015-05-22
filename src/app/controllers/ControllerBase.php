@@ -1,14 +1,14 @@
 <?php
-namespace app\controllers;
-use app\entities\Language;
-use app\services\LanguageService;
+namespace EuroMillions\controllers;
+use EuroMillions\entities\Language;
+use EuroMillions\services\LanguageService;
 use Doctrine\ORM\EntityManager;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\View;
 
 /**
  * Class ControllerBase
- * @package app\controllers
+ * @package EuroMillions\controllers
  * @property EntityManager $entityManager
  * @property LanguageService $language
  */

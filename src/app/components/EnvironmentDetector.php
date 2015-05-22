@@ -1,8 +1,8 @@
 <?php
-namespace app\components;
+namespace EuroMillions\components;
 
 
-use app\exceptions\EnvironmentNotSetException;
+use EuroMillions\exceptions\EnvironmentNotSetException;
 
 class EnvironmentDetector
 {

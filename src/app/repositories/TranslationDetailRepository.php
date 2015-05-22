@@ -1,5 +1,5 @@
 <?php
-namespace app\repositories;
+namespace EuroMillions\repositories;
 
 use Doctrine\ORM\EntityRepository;
 

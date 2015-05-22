@@ -1,5 +1,5 @@
 <?php
-namespace app\config\bootstrap;
+namespace EuroMillions\config\bootstrap;
 
 require_once 'LoaderBase.php';
 class CliLoader extends LoaderBase
@@ -7,7 +7,7 @@ class CliLoader extends LoaderBase
     protected function getSpecificNamespaces()
     {
         return [
-            'app\tasks' => $this->appPath . 'tasks',
+            'EuroMillions\tasks' => $this->appPath . 'tasks',
         ];
     }
 }

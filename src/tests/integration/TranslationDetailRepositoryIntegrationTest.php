@@ -5,7 +5,7 @@ use tests\base\RepositoryIntegrationTestBase;
 
 class TranslationDetailRepositoryIntegrationTest extends RepositoryIntegrationTestBase
 {
-    /** @var \app\repositories\TranslationDetailRepository */
+    /** @var \EuroMillions\repositories\TranslationDetailRepository */
     protected $sut;
 
     protected function getFixtures()

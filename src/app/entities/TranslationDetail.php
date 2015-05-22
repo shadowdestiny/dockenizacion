@@ -1,7 +1,7 @@
 <?php
-namespace app\entities;
+namespace EuroMillions\entities;
 
-use app\interfaces\IEntity;
+use EuroMillions\interfaces\IEntity;
 
 class TranslationDetail implements IEntity
 {

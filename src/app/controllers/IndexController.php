@@ -1,6 +1,6 @@
 <?php
-namespace app\controllers;
-use app\services\LanguageService;
+namespace EuroMillions\controllers;
+use EuroMillions\services\LanguageService;
 use Phalcon\Di;
 use stdClass;
 

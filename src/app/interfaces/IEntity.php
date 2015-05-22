@@ -1,5 +1,5 @@
 <?php
-namespace app\interfaces;
+namespace EuroMillions\interfaces;
 
 interface IEntity 
 {

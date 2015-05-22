@@ -1,8 +1,8 @@
 <?php
 namespace tests\unit;
 
-use app\controllers\ControllerBase;
-use app\entities\Language;
+use EuroMillions\controllers\ControllerBase;
+use EuroMillions\entities\Language;
 use Phalcon\Di;
 use tests\base\UnitTestBase;
 
@@ -22,7 +22,7 @@ class ControllerBaseUnitTest extends UnitTestBase
 
         $active_languages = [$lang1, $lang2, $lang3];
 
-        $language_service_double = $this->getMockBuilder('\app\services\LanguageService')->disableOriginalConstructor()->getMock();
+        $language_service_double = $this->getMockBuilder('\EuroMillions\services\LanguageService')->disableOriginalConstructor()->getMock();
         $language_service_double->expects($this->any())
             ->method('activeLanguages')
             ->will($this->returnValue($active_languages));

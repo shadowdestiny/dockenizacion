@@ -6,9 +6,9 @@
  * Time: 12:41
  */
 
-namespace app\config\bootstrap;
+namespace EuroMillions\config\bootstrap;
 
-use app\interfaces\IBootstrapStrategy;
+use EuroMillions\interfaces\IBootstrapStrategy;
 use Phalcon;
 
 class Bootstrap

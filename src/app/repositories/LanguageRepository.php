@@ -1,12 +1,12 @@
 <?php
-namespace app\repositories;
+namespace EuroMillions\repositories;
 
 use Doctrine\ORM\EntityRepository;
 
 class LanguageRepository extends EntityRepository
 {
     /**
-     * @return array[\app\entities\Language]
+     * @return array[\EuroMillions\entities\Language]
      */
     public function getAvailableLanguages()
     {
@@ -14,7 +14,7 @@ class LanguageRepository extends EntityRepository
     }
 
     /**
-     * @return array[\app\entities\Language]
+     * @return array[\EuroMillions\entities\Language]
      */
     public function getActiveLanguages()
     {

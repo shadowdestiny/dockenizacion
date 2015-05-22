@@ -52,9 +52,7 @@ CREATE TABLE IF NOT EXISTS `acl_resources` (
   `category` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `default_value` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`resource_id`),
-  UNIQUE KEY `name` (`name`),
-  KEY `category` (`category`),
-  KEY `type` (`type`)
+  UNIQUE KEY `name` (`name`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -102,9 +100,7 @@ CREATE TABLE IF NOT EXISTS `article_details` (
   `count_view` int(10) unsigned NOT NULL,
   `last_view` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `alias` (`article_id`,`lang`),
-  KEY `lang` (`lang`),
-  KEY `alias_2` (`alias`)
+  UNIQUE KEY `alias` (`article_id`,`lang`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -142,13 +138,7 @@ CREATE TABLE IF NOT EXISTS `cart_data` (
   `add_date` datetime NOT NULL,
   `start_draw_date` datetime NOT NULL,
   `price_total` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`cart_data_id`),
-  KEY `cart_id` (`cart_id`),
-  KEY `lottery` (`lottery`),
-  KEY `post_id` (`post_id`),
-  KEY `add_date` (`add_date`),
-  KEY `draw_date` (`start_draw_date`),
-  KEY `cart_id_2` (`cart_id`,`lottery`,`post_id`)
+  PRIMARY KEY (`cart_data_id`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -171,8 +161,7 @@ CREATE TABLE IF NOT EXISTS `cart_data_lc` (
   `numbers` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `stars` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `price` decimal(10,2) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `draw_date` (`draw_date`)
+  PRIMARY KEY (`id`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -190,11 +179,7 @@ CREATE TABLE IF NOT EXISTS `carts` (
   `creation_date` datetime NOT NULL,
   `last_update` datetime NOT NULL,
   `total_price` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`cart_id`),
-  KEY `user_id` (`user_id`,`guest_id`),
-  KEY `guest_id` (`guest_id`),
-  KEY `last_update` (`last_update`),
-  KEY `customer_id` (`customer_id`)
+  PRIMARY KEY (`cart_id`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -213,9 +198,7 @@ CREATE TABLE IF NOT EXISTS `countries` (
   `iban_example` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`country_id`),
   UNIQUE KEY `short_code` (`short_code`),
-  UNIQUE KEY `name` (`name`),
-  KEY `active_registration` (`active_registration`),
-  KEY `active_payout` (`active_payout`)
+  UNIQUE KEY `name` (`name`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -233,8 +216,7 @@ CREATE TABLE IF NOT EXISTS `currencies` (
   `rate` decimal(12,6) NOT NULL,
   `last_update` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `currency` (`currency`),
-  KEY `active` (`active`)
+  UNIQUE KEY `currency` (`currency`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -278,14 +260,7 @@ CREATE TABLE IF NOT EXISTS `em_tickets` (
   `end_draw_id` int(10) unsigned NOT NULL,
   `end_date` datetime NOT NULL,
   `status` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'new',
-  PRIMARY KEY (`em_ticket_id`),
-  KEY `type` (`type`),
-  KEY `customer_id` (`customer_id`),
-  KEY `user_id` (`user_id`),
-  KEY `start_draw_id` (`start_draw_id`),
-  KEY `end_draw_id` (`end_draw_id`),
-  KEY `end_date` (`end_date`),
-  KEY `order_id` (`order_id`)
+  PRIMARY KEY (`em_ticket_id`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -322,10 +297,7 @@ CREATE TABLE IF NOT EXISTS `faqs` (
   `change_date` datetime NOT NULL,
   `changed_by` int(10) unsigned NOT NULL,
   PRIMARY KEY (`faq_id`),
-  UNIQUE KEY `name` (`name`),
-  KEY `active` (`active`),
-  KEY `pos` (`pos`),
-  KEY `category` (`category`)
+  UNIQUE KEY `name` (`name`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -338,8 +310,7 @@ CREATE TABLE IF NOT EXISTS `languages` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ccode` varchar(6) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `ccode` (`ccode`),
-  INDEX (ccode)
+  UNIQUE KEY `ccode` (`ccode`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -368,8 +339,7 @@ CREATE TABLE IF NOT EXISTS `lc_log` (
   `draw_date` datetime NOT NULL,
   `numbers` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `stars` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `method` (`method`)
+  PRIMARY KEY (`id`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -404,29 +374,7 @@ CREATE TABLE IF NOT EXISTS `lc_tickets` (
   `state` varchar(16) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'new',
   `won` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `prize` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `em_ticket_id` (`em_ticket_id`),
-  KEY `lc_ticket_id` (`lc_ticket_id`),
-  KEY `user_id` (`user_id`),
-  KEY `creation_date` (`creation_date`),
-  KEY `draw_date` (`draw_date`),
-  KEY `number1` (`number1`),
-  KEY `number2` (`number2`),
-  KEY `number3` (`number3`),
-  KEY `number4` (`number4`),
-  KEY `number5` (`number5`),
-  KEY `number6` (`number6`),
-  KEY `number7` (`number7`),
-  KEY `number8` (`number8`),
-  KEY `number9` (`number9`),
-  KEY `number10` (`number10`),
-  KEY `star1` (`star1`),
-  KEY `star2` (`star2`),
-  KEY `star3` (`star3`),
-  KEY `star4` (`star4`),
-  KEY `star5` (`star5`),
-  KEY `state` (`state`),
-  KEY `won` (`won`)
+  PRIMARY KEY (`id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -448,8 +396,7 @@ CREATE TABLE IF NOT EXISTS `log_system` (
   `get_vars` text COLLATE utf8_unicode_ci NOT NULL,
   `post_vars` text COLLATE utf8_unicode_ci NOT NULL,
   `ip` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -465,9 +412,7 @@ CREATE TABLE IF NOT EXISTS `lottery_draws` (
   `message` text COLLATE utf8_unicode_ci NOT NULL,
   `big_winner` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `published` tinyint(3) unsigned NOT NULL DEFAULT '1',
-  PRIMARY KEY (`draw_id`),
-  KEY `draw_date` (`draw_date`),
-  KEY `published` (`published`)
+  PRIMARY KEY (`draw_id`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -483,8 +428,7 @@ CREATE TABLE IF NOT EXISTS `lottery_results` (
   `pos` tinyint(3) unsigned NOT NULL,
   `number` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `draw_id` (`draw_id`,`type`,`pos`),
-  KEY `number` (`number`)
+  UNIQUE KEY `draw_id` (`draw_id`,`type`,`pos`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -501,9 +445,7 @@ CREATE TABLE IF NOT EXISTS `lottery_winners` (
   `prize` decimal(20,2) unsigned NOT NULL,
   `winners` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `draw_id` (`draw_id`,`numbers`,`luckystars`),
-  KEY `draw_id_2` (`draw_id`),
-  KEY `winners` (`winners`)
+  UNIQUE KEY `draw_id` (`draw_id`,`numbers`,`luckystars`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -523,8 +465,7 @@ CREATE TABLE IF NOT EXISTS `mail_queue` (
   `added_on` datetime NOT NULL,
   `count_error` int(10) unsigned NOT NULL,
   `last_try` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `priority` (`priority`)
+  PRIMARY KEY (`id`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -579,9 +520,7 @@ CREATE TABLE IF NOT EXISTS `news_details` (
   `count_view` int(10) unsigned NOT NULL,
   `last_view` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `alias` (`news_id`,`lang`),
-  KEY `lang` (`lang`),
-  KEY `alias_2` (`alias`)
+  UNIQUE KEY `alias` (`news_id`,`lang`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -623,9 +562,7 @@ CREATE TABLE IF NOT EXISTS `order_data_lc` (
   `numbers` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `stars` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `state` enum('new','done','in_progress','error','prepared_to)buy') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'new',
-  PRIMARY KEY (`id`),
-  KEY `order_id` (`order_id`),
-  KEY `state` (`state`)
+  PRIMARY KEY (`id`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -658,9 +595,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `product_type_id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `price` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`product_id`),
-  KEY `active` (`active`),
-  KEY `type_id` (`product_type_id`)
+  PRIMARY KEY (`product_id`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -766,8 +701,7 @@ CREATE TABLE IF NOT EXISTS `ticket_types` (
   `stars` tinyint(3) unsigned NOT NULL,
   `price` decimal(10,2) unsigned NOT NULL,
   PRIMARY KEY (`ticket_type_id`),
-  UNIQUE KEY `numbers` (`numbers`,`stars`),
-  KEY `active` (`active`)
+  UNIQUE KEY `numbers` (`numbers`,`stars`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Ticket types and there details'  ;
 
 -- --------------------------------------------------------
@@ -788,11 +722,7 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   `amount` decimal(10,2) NOT NULL DEFAULT '0.00',
   `biller` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `biller_transaction_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`transaction_id`),
-  KEY `user_id` (`user_id`),
-  KEY `transaction_date` (`transaction_date`),
-  KEY `customer_id` (`customer_id`),
-  KEY `order_id` (`order_id`)
+  PRIMARY KEY (`transaction_id`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -821,8 +751,7 @@ CREATE TABLE IF NOT EXISTS `translations` (
   `key` varchar(254) COLLATE utf8_unicode_ci NOT NULL,
   `used` tinyint(3) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`translation_id`),
-  UNIQUE KEY `key` (`key`),
-  KEY `used` (`used`)
+  UNIQUE KEY `key` (`key`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -845,11 +774,7 @@ CREATE TABLE IF NOT EXISTS `user_details` (
   `terms` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `newsletter` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `jackpot` bigint(20) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`user_id`),
-  KEY `country` (`country`),
-  KEY `gender` (`gender`),
-  KEY `tam` (`terms`),
-  KEY `newsletter` (`newsletter`,`jackpot`)
+  PRIMARY KEY (`user_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -868,12 +793,7 @@ CREATE TABLE IF NOT EXISTS `user_payout_bank_accounts` (
   `bic` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `iban` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `account_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `bic` (`bic`),
-  KEY `iban` (`iban`),
-  KEY `name` (`bank_name`),
-  KEY `state` (`state`),
-  KEY `user_id` (`user_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -894,13 +814,7 @@ CREATE TABLE IF NOT EXISTS `user_payouts` (
   `payout_date` datetime NOT NULL,
   `payout_by` int(10) unsigned NOT NULL,
   `comment` text COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`payout_id`),
-  KEY `user_id` (`user_id`),
-  KEY `state` (`state`),
-  KEY `amount` (`amount`),
-  KEY `transaction_id` (`transaction_id`),
-  KEY `add_date` (`add_date`),
-  KEY `payout_date` (`payout_date`)
+  PRIMARY KEY (`payout_id`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -922,9 +836,7 @@ CREATE TABLE IF NOT EXISTS `user_registration_details` (
   `currency` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `locale` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `registration_type` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`user_id`),
-  KEY `registration_date` (`registration_date`),
-  KEY `registration_type` (`registration_type`)
+  PRIMARY KEY (`user_id`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------
@@ -953,17 +865,5 @@ CREATE TABLE IF NOT EXISTS `users` (
   `win` decimal(16,2) NOT NULL DEFAULT '0.00',
   `tmp_password` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`user_id`),
-  UNIQUE KEY `username_2` (`username`),
-  KEY `active` (`active`),
-  KEY `role` (`role`),
-  KEY `user_code` (`user_code`),
-  KEY `locale` (`locale`),
-  KEY `lang` (`lang`),
-  KEY `country` (`country`),
-  KEY `currency` (`currency`),
-  KEY `customer_id` (`customer_id`),
-  KEY `verified_email` (`verified_email`),
-  KEY `bugdet` (`budget`),
-  KEY `password` (`password`),
-  KEY `tmp_password` (`tmp_password`)
+  UNIQUE KEY `username_2` (`username`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;

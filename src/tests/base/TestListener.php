@@ -1,11 +1,11 @@
 <?php
 namespace tests\base;
 
-use app\config\bootstrap\Bootstrap;
-use app\config\bootstrap\TestWebBootstrapStrategy;
+use EuroMillions\config\bootstrap\Bootstrap;
+use EuroMillions\config\bootstrap\TestWebBootstrapStrategy;
 use Phalcon\DI;
 use PHPUnit_Framework_TestSuite;
-use app\components\EnvironmentDetector;
+use EuroMillions\components\EnvironmentDetector;
 
 class TestListener extends \PHPUnit_Framework_BaseTestListener
 {

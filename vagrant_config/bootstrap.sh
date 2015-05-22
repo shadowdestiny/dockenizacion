@@ -96,19 +96,24 @@ fi
 ####
 e "Checking docker installation"
 dockerv=$(docker -v 2>&1)
-if [[ $dockerv != "Docker version 1.6.0"* ]]
+if [[ $dockerv != "Docker version"* ]]
 then
   e "Intalling docker";
   wget -qO- https://get.docker.com/ | sh
 fi
-docker login --email="antonio.hernandez@panamedia.net" --username="antonienko" --password="wHTqwSg7wVyV47d3"
+sudo docker login --email="antonio.hernandez@panamedia.net" --username="antonienko" --password="wHTqwSg7wVyV47d3"
 
 ####
 ## INSTALLING DOCKER-COMPOSE
 ####
-e "Installing docker compose"
-sudo sh -c "curl -L https://github.com/docker/compose/releases/download/1.2.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose"
-sudo chmod +x /usr/local/bin/docker-compose
+e "Checking docker compose installation"
+dockercomposev=$(docker-compose --version 2>&1)
+if [[ $dockercomposev != "docker-compose"* ]]
+then
+    e "Installing docker compose"
+    sudo sh -c "curl -L https://github.com/docker/compose/releases/download/1.2.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose"
+    sudo chmod +x /usr/local/bin/docker-compose
+fi
 
 e "Checking mysql data directory"
 if [ ! -d "/home/vagrant/mysqldata" ]; then

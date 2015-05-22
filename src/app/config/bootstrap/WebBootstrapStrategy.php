@@ -1,9 +1,9 @@
 <?php
-namespace app\config\bootstrap;
+namespace EuroMillions\config\bootstrap;
 
-use app\components\EnvironmentDetector;
-use app\interfaces\IBootstrapStrategy;
-use app\services\LanguageService;
+use EuroMillions\components\EnvironmentDetector;
+use EuroMillions\interfaces\IBootstrapStrategy;
+use EuroMillions\services\LanguageService;
 use Phalcon;
 use Phalcon\Config\Adapter\Ini;
 use Phalcon\Di;
@@ -140,7 +140,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
         $dispatcher = new Phalcon\Mvc\Dispatcher();
         $dispatcher->setEventsManager($eventsManager);
-        $dispatcher->setDefaultNamespace('app\controllers');
+        $dispatcher->setDefaultNamespace('EuroMillions\controllers');
 
         return $dispatcher;
     }

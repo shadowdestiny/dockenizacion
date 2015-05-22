@@ -1,5 +1,5 @@
 <?php
-namespace app\controllers;
+namespace EuroMillions\controllers;
 
 use antonienko\PhpTempPrev\FileStrategies\JsonFileStrategy;
 use antonienko\PhpTempPrev\FrameworkStrategies\PhalconStrategy;

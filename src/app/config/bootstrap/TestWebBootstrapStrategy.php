@@ -1,7 +1,7 @@
 <?php
-namespace app\config\bootstrap;
+namespace EuroMillions\config\bootstrap;
 
-use app\components\EnvironmentDetector;
+use EuroMillions\components\EnvironmentDetector;
 use Phalcon;
 use Phalcon\Config\Adapter\Ini;
 use Phalcon\Di;

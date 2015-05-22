@@ -1,7 +1,7 @@
 <?php
-namespace app\config\bootstrap;
+namespace EuroMillions\config\bootstrap;
 
-use app\components\EnvironmentDetector;
+use EuroMillions\components\EnvironmentDetector;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Phalcon\Config\Adapter\Ini;

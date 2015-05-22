@@ -1,7 +1,7 @@
 <?php
-namespace app\entities;
+namespace EuroMillions\entities;
 
-use app\exceptions\BadEntityInitialization;
+use EuroMillions\exceptions\BadEntityInitialization;
 
 class EntityBase
 {

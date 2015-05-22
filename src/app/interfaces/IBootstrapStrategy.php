@@ -6,7 +6,7 @@
  * Time: 12:56
  */
 
-namespace app\interfaces;
+namespace EuroMillions\interfaces;
 
 use Phalcon\Di;
 

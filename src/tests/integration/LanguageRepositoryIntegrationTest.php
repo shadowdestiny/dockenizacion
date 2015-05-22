@@ -5,7 +5,7 @@ use tests\base\RepositoryIntegrationTestBase;
 
 class LanguageRepositoryIntegrationTest extends RepositoryIntegrationTestBase
 {
-    /** @var  \app\repositories\LanguageRepository */
+    /** @var  \EuroMillions\repositories\LanguageRepository */
     protected $sut;
 
     protected function getFixtures()
@@ -30,7 +30,7 @@ class LanguageRepositoryIntegrationTest extends RepositoryIntegrationTestBase
     protected function getIdsFromArrayOfObjects(array $objects)
     {
         $result = array();
-        /** @var \app\interfaces\IEntity $object */
+        /** @var \EuroMillions\interfaces\IEntity $object */
         foreach ($objects as $object) {
             $result[] = $object->getId();
         }

@@ -1,5 +1,5 @@
 <?php
-namespace app\config\bootstrap;
+namespace EuroMillions\config\bootstrap;
 use Phalcon;
 require_once 'LoaderBase.php';
 class WebLoader extends LoaderBase
@@ -7,7 +7,7 @@ class WebLoader extends LoaderBase
     protected function getSpecificNamespaces()
     {
         return [
-            'app\controllers'   => $this->appPath . 'controllers',
+            'EuroMillions\controllers'   => $this->appPath . 'controllers',
         ];
     }
 }

@@ -1,7 +1,7 @@
 <?php
 namespace tests\integration;
 
-use app\components\EmTranslationAdapter;
+use EuroMillions\components\EmTranslationAdapter;
 use Phalcon\Di;
 use tests\base\IntegrationTestBase;
 

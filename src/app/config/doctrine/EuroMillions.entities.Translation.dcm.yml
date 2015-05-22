@@ -1,18 +1,22 @@
-app\entities\Translation:
+EuroMillions\entities\Translation:
   type: entity
   table: translations
   id:
     translation_id:
       type: integer
+      options:
+        unsigned: true
       generator:
-        strategy: AUTO
+        strategy: IDENTITY
   fields:
     key:
       type: string
       unique: true
     used:
       type: boolean
+      options:
+        default: 0
   oneToMany:
     translatedTo:
-      targetEntity: app\entities\TranslationDetail
+      targetEntity: EuroMillions\entities\TranslationDetail
       mappedBy: translation

@@ -1,12 +1,12 @@
 <?php
-namespace app\services;
+namespace EuroMillions\services;
 
-use app\components\EmTranslationAdapter;
+use EuroMillions\components\EmTranslationAdapter;
 use Doctrine\ORM\EntityManager;
 
 class LanguageService
 {
-    /** @var \app\repositories\LanguageRepository  */
+    /** @var \EuroMillions\repositories\LanguageRepository  */
     protected $languageRepository;
     protected $language;
     protected $translationAdapter;
@@ -14,7 +14,7 @@ class LanguageService
     public function __construct($language, EntityManager $entityManager, EmTranslationAdapter $translationAdapter = null)
     {
         $this->language = $language;
-        $this->languageRepository = $entityManager->getRepository('app\entities\Language');
+        $this->languageRepository = $entityManager->getRepository('EuroMillions\entities\Language');
         $this->translationAdapter = $translationAdapter? $translationAdapter: new EmTranslationAdapter($this->language, $entityManager);
     }
 
