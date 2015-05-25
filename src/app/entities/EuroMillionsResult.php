@@ -7,7 +7,7 @@ class EuroMillionsResult
 
     protected $regularNumbers;
     protected $luckyNumbers;
-    public function load($strategy)
+    public function load(IEuroMillionsResultStrategy $strategy)
     {
         list($this->categories, $this->regularNumbers, $this->luckyNumbers) = $strategy->load();
     }
