@@ -8,6 +8,7 @@
   "require": {
     "doctrine/orm": "2.5.*",
     "symfony/yaml": "*",
-    "robmorgan/phinx": "*"
+    "robmorgan/phinx": "*",
+    "phalcon/incubator": "dev-master"
   }
 }
