@@ -9,11 +9,11 @@
 				<a href="javascript:void(0);" class="box-estimated no-lnk">
 					<div class="content">
 						<h1 class="h2">{{ language.translate("Estimated Euromillions Jackpot") }}</h1>
-						{% set extraClass='{"boxvalueClass": "","currencyClass":"","valueClass":""}'|json_decode %}
-						{% include "_elements/box-value" with ['extraClass': extraClass] %}
+						{% set extraClass='{"boxvalueClass": "yellow","currencyClass":"","valueClass":""}'|json_decode %}
+						{% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
 						<span class="btn white try animate infi">{{ language.translate("Try your luck") }} <i class="ico ico-arrow-right3"></i></span>
 					</div>
-					<img class="vector" src="/img/sprite.svg#emblem" alt="{{ language.translate('Emblem of victory') }}">
+					<img width="100" height="100" class="vector" src="/img/sprite.svg#emblem" alt="{{ language.translate('Emblem of victory') }}">
 				</a>
 				<div class="box-how">
 					<div class="bg-yellow">
@@ -73,7 +73,7 @@
 					<a href="javascript:void(0);" class="outbound">
 						<div class="content">
 
-							<p class="h2">for only 2,35 &euro;</p>
+							<p class="h2">{{ language.translate('for only %priceValue%',['priceValue':2,35]) }} &euro;</p>
 							<div class="win-millions">
 								<picture class="pic" alt="{{ language.translate('Win Millions') }}">
 									<!--[if IE 9]><video style="display: none;"><![endif]-->
@@ -105,8 +105,8 @@
 									<div class="cols">
 										<div class="col6">
 											<h1 class="h2">{{ language.translate('1st Prize') }}</h1>
-                                            {% set extraClass='{"boxvalueClass": "","currencyClass":"","valueClass":""}'|json_decode %}
-                                            {% include "_elements/box-value" with ['extraClass': extraClass] %}
+                                            {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
+                                            {% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
 											<div class="box-btn">
 												<a href="javascript:void(0);" class="btn blue expand">{{ language.translate('I feel lucky') }} <i class="ico ico-arrow-right"></i></a>
 

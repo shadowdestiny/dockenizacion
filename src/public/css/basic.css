@@ -220,7 +220,7 @@ img.right {
 
 .btn:active {
   color: #333 !important;
-  box-shadow: 0 5px 5px #eee inset !important;
+  box-shadow: 0 5px 5px #ccc inset !important;
   border: 1px solid #333 !important;
   background: #fff !important;
   text-shadow: 0 0 0 transparent;
@@ -416,7 +416,7 @@ img.right {
 }
 /* TYPOGRAPHY */
 body {
-  font-family: helvetica, arial, verdana, sans-serif;
+  font-family: "Open Sans", helvetica, arial, verdana, sans-serif;
 }
 
 .h1, .h2, .h3, .h4 {
@@ -446,7 +446,7 @@ body {
 }
 
 #content {
-  font-family: "Open Sans", helvetica, arial, verdana, sans-serif;
+  font-family: "Open Sans", "Open Sans", helvetica, arial, verdana, sans-serif;
   overflow: hidden;
 }
 
@@ -645,13 +645,15 @@ body {
 }
 
 .main-nav .ico-cart {
-  color: #000;
+  display: inline-block;
+  color: #333;
+  margin-top: 4px;
 }
 
 .main-nav a {
   display: block;
   padding: 15px 20px;
-  min-height: 72px;
+  /*min-height:73px*/
 }
 
 .main-nav > span {
@@ -669,6 +671,11 @@ body {
   font-size: 85%;
   font-weight: bold;
   color: #000;
+}
+
+.main-nav.desktop .li-cart .txt {
+  margin-bottom: -1px;
+  display: inline-block;
 }
 
 .main-nav .active {
@@ -754,7 +761,7 @@ body {
 }
 
 .box-links li {
-  margin-bottom: .5em;
+  margin-bottom: .8em;
   font-size: 85%;
 }
 
@@ -957,6 +964,7 @@ body {
 
   .main-foot {
     border: 0;
+    margin: 0 20px;
   }
 
   .main-foot .small-logo {
@@ -1088,6 +1096,7 @@ body {
     width: 100%;
     float: none;
     text-align: center;
+    padding: 0;
   }
 
   .box-links a {

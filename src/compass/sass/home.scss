@@ -89,6 +89,7 @@
 .box-prize .bg{background:url(/img/pattern/01.png) repeat; overflow:hidden; color:#fff;} 
 .box-prize .bg2{@include background-image(linear-gradient(to right top, $purple, $purple-dark))}; /* I had to insert a second BG div because mixing @include doesn't work well with multiple background */
 .box-prize .value, .box-prize .currency{font-size:$h1; margin-bottom:5px;}
+.box-prize .box-value{margin:0 0 1em;}
 .box-prize .only{display:block; margin-bottom:1em; font-size:$basic-size; text-shadow:0 1px 3px rgba(0, 0, 0, 0.6);}
 .box-prize .notes{font-weight:bold; margin-top:10px; font-size:$basic-size; color:$grey;}
 .box-prize .notes .ico{position:relative; top:1px;}

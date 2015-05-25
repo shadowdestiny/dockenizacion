@@ -37,7 +37,7 @@ function arrowBox(id, myCase){
 	var widthIco = 8;
 	switch(myCase){
 		case 1: // International arrow menu stop to be on the edge
-			obj.css({"margin-left": widthSib-width/2-padSib/2-widthIco/2-160});
+			obj.css({"margin-left": widthSib-width/2-padSib/2-widthIco/2-161}); //EMTD I don't like that 161px, I want seme formula more dynamic to adjust the pointer, because on mobile doesn't center properly.
 			break; 
 		default:
 			obj.css({"margin-left": widthSib-width/2-padSib/2-widthIco/2});

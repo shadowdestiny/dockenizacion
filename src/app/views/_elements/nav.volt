@@ -20,7 +20,7 @@
 		<br class="br"><span class="txt"><span class="ico ico-user"></span>{{ language.translate(" Your Account") }}</span>
 	</a>
 </li>
-<li>
+<li class="li-cart">
 	<a href="javascript:void(0);">
 		<span class="ico ico-cart"></span>
 		<br class="br"><span class="txt">{{ language.translate("Cart") }}</span>

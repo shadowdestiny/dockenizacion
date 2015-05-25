@@ -365,6 +365,10 @@ ALLOWED: Variable and Extension
   margin-bottom: 5px;
 }
 
+.box-prize .box-value {
+  margin: 0 0 1em;
+}
+
 .box-prize .only {
   display: block;
   margin-bottom: 1em;
