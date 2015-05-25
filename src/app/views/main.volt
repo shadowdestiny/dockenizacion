@@ -24,6 +24,7 @@
         <link rel="stylesheet" href="/css/basic.css">
         <link rel="stylesheet" href="/css/column.css">
         <link rel="stylesheet" href='/css/icomoon.css'> {# Vectorial Icons loaded as fonts #}
+        {% block template_css %}{% endblock %}      {# Inject unique css #}
 
         {# FONTS  #}
         <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700'>
@@ -34,7 +35,6 @@
 #}
 
         {% block template_scripts %}{% endblock %}  {# Inject unique js #}
-        {% block template_css %}{% endblock %}      {# Inject unique css #}
 	</head>
 	<body>
         {% include "_elements/header.volt" %}

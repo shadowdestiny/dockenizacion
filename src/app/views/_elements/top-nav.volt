@@ -28,6 +28,6 @@
 		<li><a href="javascript:void(0);">{{ language.translate('How to Play') }}</a></li>
 		<li><a href="javascript:void(0);">{{ language.translate('Frequently Asked Questions') }}</a></li>
 		<li><a href="javascript:void(0);">{{ language.translate('Player Protection') }}</a></li>
-		<li><a href="javascript:void(0);"{{ language.translate('Contact us') }}></a></li>
+		<li><a href="javascript:void(0);">{{ language.translate('Contact us') }}></a></li>
 	</ul>
 </li>

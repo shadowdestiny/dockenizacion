@@ -51,6 +51,14 @@ ALLOWED: Variable and Extension
   border-radius: 0 10px 10px 0;
 }
 
+.box-right {
+  min-height: 717px;
+}
+
+.box-left {
+  min-height: 715px;
+}
+
 .box-estimated {
   background: url(/img/home/bg-euro.jpg) no-repeat;
   padding: 20px 0 13px 20px;
@@ -397,6 +405,11 @@ ALLOWED: Variable and Extension
   margin: auto;
 }
 
+/* ONLY SAFARI */
+/*.box-how ul{padding-top:11px;}*/
+@media screen and (min-width: 0\0) {
+  /* IE9+ hack, safary 4 onlu and android > 2.2 */
+}
 /*Retina only */
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3 / 2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx) {
   .box-estimated {
@@ -449,6 +462,10 @@ ALLOWED: Variable and Extension
 
   .box-play .content {
     margin-top: 95px;
+  }
+
+  .box-right, .box-left {
+    min-height: 712px;
   }
 }
 /* Medium Devices, Desktops */
@@ -524,6 +541,14 @@ ALLOWED: Variable and Extension
 
   .notes .left {
     margin-bottom: 5px;
+  }
+
+  .box-right {
+    min-height: 621px;
+  }
+
+  .box-left {
+    min-height: 619px;
   }
 }
 /* Small Devices, Tablets */
@@ -615,12 +640,24 @@ ALLOWED: Variable and Extension
     width: 100%;
     float: none;
   }
+
+  .box-left, .box-right {
+    min-height: auto;
+  }
 }
 /* Custom, iPhone Retina */
 @media only screen and (max-width: 320px) {
-  /*.box-how li{width:100%; margin:0 0 30px; text-align:center;}*/
-  /*.box-how .vector{width:60%;}*/
-  .box-play, .box-how li::after {
+  .box-how li {
+    width: 100%;
+    margin: 0 0 30px;
+    text-align: center;
+  }
+
+  .box-how .vector {
+    width: 60%;
+  }
+
+  .box-play, .box-how li:after {
     display: none;
   }
 }

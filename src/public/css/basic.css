@@ -220,7 +220,7 @@ img.right {
 
 .btn:active {
   color: #333 !important;
-  box-shadow: 0 5px 5px #ccc inset !important;
+  box-shadow: 0 5px 5px #bbb inset !important;
   border: 1px solid #333 !important;
   background: #fff !important;
   text-shadow: 0 0 0 transparent;
