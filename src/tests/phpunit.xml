@@ -17,6 +17,13 @@
         <testsuite name="integration">
             <directory>./integration/</directory>
         </testsuite>
+        <testsuite name="unit+integration">
+            <directory>./unit/</directory>
+            <directory>./integration/</directory>
+        </testsuite>
+        <testsuite name="functional">
+            <directory>./functional/</directory>
+        </testsuite>
     </testsuites>
     <listeners>
         <listener class="tests\base\TestListener" file="./base/TestListener.php"></listener>

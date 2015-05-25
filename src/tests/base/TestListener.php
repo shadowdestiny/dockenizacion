@@ -18,7 +18,6 @@ class TestListener extends \PHPUnit_Framework_BaseTestListener
             /** @var EnvironmentDetector $ed */
             $environment = $di->get('environmentDetector')->get();
 
-
             if ($environment == 'vagrant' ) {
                 $command = "mysql -h {$config->database->host} -u {$config->database->username} -p{$config->database->password} -e 'CREATE DATABASE IF NOT EXISTS {$config->database->dbname};' 2>/dev/null";
                 exec($command);

@@ -33,6 +33,9 @@ if [ ! -f /etc/php5/cli/conf.d/20-xdebug.ini ]; then
     sudo apt-get install -y php5-cli php5-dev php5-xdebug php5-mysql
     sudo cp /vagrant/vagrant_config/20-xdebug.ini /etc/php5/cli/conf.d
 fi
+if [ ! -f /etc/php5/mods-available/curl.ini ]; then
+    apt-get install -y php5-curl
+fi
 
 e "Installing git"
 sudo apt-get install -y git

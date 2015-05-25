@@ -25,6 +25,6 @@ before_script:
   - dev-scripts/schema_migration.sh shippable
 
 script:
- - phpunit --log-junit shippable/testresults/junit.xml --coverage-html shippable/codecoverage --configuration src/tests/phpunit.xml
+ - phpunit --log-junit shippable/testresults/junit.xml --coverage-html shippable/codecoverage --configuration src/tests/phpunit.xml --testsuite=unit+integration
 
 cache: true
