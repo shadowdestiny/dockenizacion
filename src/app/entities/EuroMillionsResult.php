@@ -26,4 +26,6 @@ class EuroMillionsResult
     {
         return $this->luckyNumbers;
     }
+
+    //EMTD acabar la entidad estilo doctrine
 }
