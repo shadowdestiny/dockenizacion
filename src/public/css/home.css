@@ -51,14 +51,6 @@ ALLOWED: Variable and Extension
   border-radius: 0 10px 10px 0;
 }
 
-.box-right {
-  min-height: 717px;
-}
-
-.box-left {
-  min-height: 715px;
-}
-
 .box-estimated {
   background: url(/img/home/bg-euro.jpg) no-repeat;
   padding: 20px 0 13px 20px;
@@ -71,10 +63,11 @@ ALLOWED: Variable and Extension
   top: -20px;
   right: -5px;
   width: 35%;
+  height: 215px;
 }
 
 .box-estimated .content {
-  width: 65%;
+  width: 68%;
 }
 
 .box-estimated .h2 {
@@ -152,16 +145,14 @@ ALLOWED: Variable and Extension
   width: 90%;
   margin: 0 auto 10px;
   display: block;
+  height: 120px;
 }
 
 .box-how .box-txt h2 {
   margin-bottom: 5px;
 }
 
-.box-how .vec2 {
-  margin: -6px auto 16px;
-}
-
+/*.box-how .vec2{margin:-6px auto 16px;}*/
 .bg-yellow {
   background: #efc048;
   color: #fff;
@@ -405,11 +396,6 @@ ALLOWED: Variable and Extension
   margin: auto;
 }
 
-/* ONLY SAFARI */
-/*.box-how ul{padding-top:11px;}*/
-@media screen and (min-width: 0\0) {
-  /* IE9+ hack, safary 4 onlu and android > 2.2 */
-}
 /*Retina only */
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3 / 2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx) {
   .box-estimated {
@@ -439,7 +425,9 @@ ALLOWED: Variable and Extension
 /* Large Devices, Wide Screens */
 @media only screen and (max-width: 1200px) {
   .box-estimated .vector {
-    top: 10px;
+    top: 25px;
+    height: 150px;
+    right: -8px;
   }
 
   .outbound {
@@ -463,10 +451,6 @@ ALLOWED: Variable and Extension
   .box-play .content {
     margin-top: 95px;
   }
-
-  .box-right, .box-left {
-    min-height: 712px;
-  }
 }
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 992px) {
@@ -475,10 +459,18 @@ ALLOWED: Variable and Extension
     margin: 0;
   }
 
-  .box-result .woman, .box-estimated .vector, .box-play .awards, .box-prize .box-vector, .box-how .sub-txt {
+  .box-result .woman, .box-estimated .vector, .box-play .awards, .box-how .sub-txt {
     display: none;
   }
 
+  .box-prize .box-vector {
+    position: absolute;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+  }
+
+  /* Vector disappear if I don't use this hiding technique */
   .outbound {
     width: 330px;
     height: 330px;
@@ -531,6 +523,14 @@ ALLOWED: Variable and Extension
     margin: 10px;
   }
 
+  .box-how .vector {
+    height: 100px;
+  }
+
+  .box-estimated h1 {
+    line-height: 115%;
+  }
+
   .box-estimated .content {
     width: 100%;
   }
@@ -542,17 +542,17 @@ ALLOWED: Variable and Extension
   .notes .left {
     margin-bottom: 5px;
   }
-
-  .box-right {
-    min-height: 621px;
-  }
-
-  .box-left {
-    min-height: 619px;
-  }
 }
 /* Small Devices, Tablets */
 @media only screen and (max-width: 768px) {
+  .box-prize .box-vector {
+    position: relative;
+    height: auto;
+    width: auto;
+    overflow: visible;
+  }
+
+  /* Make vector back visible */
   .box-estimated .currency {
     font-size: 1.375em;
   }
@@ -618,7 +618,7 @@ ALLOWED: Variable and Extension
 }
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {
-  .box-how .sub-txt, .box-how li:after, .box-prize .box-vector {
+  .box-how li:after, .box-prize .box-vector {
     display: none;
   }
 
@@ -640,21 +640,22 @@ ALLOWED: Variable and Extension
     width: 100%;
     float: none;
   }
-
-  .box-left, .box-right {
-    min-height: auto;
-  }
 }
 /* Custom, iPhone Retina */
 @media only screen and (max-width: 320px) {
   .box-how li {
     width: 100%;
-    margin: 0 0 30px;
+    margin: 0 0 10px;
     text-align: center;
   }
 
   .box-how .vector {
     width: 60%;
+    display: none;
+  }
+
+  .box-how li:first-child .vector {
+    display: block !important;
   }
 
   .box-play, .box-how li:after {
