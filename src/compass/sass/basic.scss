@@ -140,7 +140,7 @@ body{font-family:$basic-font;}
 .h3{font-size:$h3;}
 .h4{font-size:$h4;}
 .h5, p, .btn.big{font-size:$basic-size;}
-#content{font-family:"Open Sans", $basic-font; overflow:hidden;}
+#content{font-family:$basic-font;}
 
 /* COLORS */
 .yellow{color:$yellowTxt;}
@@ -227,7 +227,7 @@ body{font-family:$basic-font;}
 .main-nav li:hover{border-right:1px solid transparent;} /* erase yellow border */
 .main-nav .active a:hover{background:transparent;} /* disable hover on active menu */
 
-#content{background:#eee; text-align:left; padding-top:25px;}
+#content{background:url(/img/bg.jpg) no-repeat 50% 0; background-size:cover;  overflow:hidden; text-align:left; padding-top:25px;}
 
 .main-foot{border-top:5px solid $yellow; background:#fff; text-align:left;}
 .main-foot .cols{margin:20px 0;}
@@ -281,7 +281,7 @@ body{font-family:$basic-font;}
 .mobile{display:none;}
 .nav.mobile ul{display:none;}
 
-/* Large Devices, Wide Screens */
+
 @media only screen and (max-width: 1200px){
 /*body{border:10px solid #0ff;} /* BLUE WATER */
 .media{width:1px}

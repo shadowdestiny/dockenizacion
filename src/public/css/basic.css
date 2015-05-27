@@ -450,8 +450,7 @@ body {
 }
 
 #content {
-  font-family: "Open Sans", "Open Sans", helvetica, arial, verdana, sans-serif;
-  overflow: hidden;
+  font-family: "Open Sans", helvetica, arial, verdana, sans-serif;
 }
 
 /* COLORS */
@@ -736,7 +735,9 @@ body {
 
 /* disable hover on active menu */
 #content {
-  background: #eee;
+  background: url(/img/bg.jpg) no-repeat 50% 0;
+  background-size: cover;
+  overflow: hidden;
   text-align: left;
   padding-top: 25px;
 }
@@ -907,7 +908,6 @@ body {
   display: none;
 }
 
-/* Large Devices, Wide Screens */
 @media only screen and (max-width: 1200px) {
   /*body{border:10px solid #0ff;} /* BLUE WATER */
   .media {
