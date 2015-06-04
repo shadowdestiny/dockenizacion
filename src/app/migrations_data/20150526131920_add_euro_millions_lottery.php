@@ -22,8 +22,8 @@ class AddEuroMillionsLottery extends AbstractMigration
      */
     public function up()
     {
-//        $sql = "INSERT INTO lotteries (`name`) VALUES ('EuroMillions')";
-//        $this->execute($sql);
+        $sql = "INSERT INTO lotteries (`name`) VALUES ('EuroMillions')";
+        $this->execute($sql);
     }
 
     /**
