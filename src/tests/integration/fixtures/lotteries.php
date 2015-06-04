@@ -6,7 +6,7 @@ return [
             'name' => 'Euromillions',
             'active' => 1,
             'frequency' => 'w0100100',
-            'jackpot_api' => 'LoteriasyapuestasDotEsApi',
+            'jackpot_api' => 'LoteriasyapuestasDotEs',
             'draw_time' => '20:00:00'
         ],
         [
@@ -15,7 +15,7 @@ return [
             'active' => 1,
             'frequency' => 'w0001010',
             'draw_time' => '20:00:00',
-            'jackpot_api' => 'LoteriasyapuestasDotEsApi',
+            'jackpot_api' => 'LoteriasyapuestasDotEs',
         ],
   ]
 ];

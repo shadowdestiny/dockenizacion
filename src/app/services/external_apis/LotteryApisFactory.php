@@ -12,7 +12,7 @@ class LotteryApisFactory
      */
     public function jackpotApi(Lottery $lottery)
     {
-        $object_name = '\EuroMillions\services\external_apis\\'.$lottery->getJackpotApi();
+        $object_name = '\EuroMillions\services\external_apis\\'.$lottery->getJackpotApi().'Api';
         return new $object_name();
     }
 }
