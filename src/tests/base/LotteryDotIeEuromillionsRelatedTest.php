@@ -1,8 +1,9 @@
 <?php
 namespace tests\base;
 
-trait EuromillionsDotIeRelatedTest {
-    protected $apiResult =  <<<'EOD'
+trait LotteryDotIeEuromillionsRelatedTest
+{
+    protected $apiResult = <<<'EOD'
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfDrawResult xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.lottery.ie/resultsservice">
   <DrawResult>
@@ -140,4 +141,39 @@ trait EuromillionsDotIeRelatedTest {
   </DrawResult>
 </ArrayOfDrawResult>
 EOD;
+
+    protected $expectedCategories = [
+        "5+2" => ["winners" => 0,
+                  "prize"   => 21489110],
+        "5+1" => ["winners" => 4,
+                  "prize"   => 243342],
+        "5"   => ["winners" => 6,
+                  "prize"   => 54076],
+        "4+2" => ["winners" => 22,
+                  "prize"   => 7374],
+        "4+1" => ["winners" => 472,
+                  "prize"   => 301],
+        "4"   => ["winners" => 966,
+                  "prize"   => 147],
+        "3+2" => ["winners" => 1091,
+                  "prize"   => 93],
+        "2+2" => ["winners" => 17459,
+                  "prize"   => 27],
+        "3+1" => ["winners" => 22122,
+                  "prize"   => 20],
+        "3"   => ["winners" => 47390,
+                  "prize"   => 16],
+        "1+2" => ["winners" => 99729,
+                  "prize"   => 13],
+        "2+1" => ["winners" => 366744,
+                  "prize"   => 10],
+        "2"   => ["winners" => 798965,
+                  "prize"   => 5],
+    ];
+    protected $expectedRegularNumbers = [
+        26, 30, 31, 35, 37
+    ];
+    protected $expectedLuckyNumbers = [
+        8, 11
+    ];
 }

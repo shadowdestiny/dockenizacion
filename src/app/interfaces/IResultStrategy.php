@@ -1,7 +1,7 @@
 <?php
 namespace EuroMillions\interfaces;
 
-interface IEuroMillionsResultStrategy 
+interface IResultStrategy
 {
     /**
      * @param string $result;

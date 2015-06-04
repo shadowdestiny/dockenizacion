@@ -1,5 +1,5 @@
 <?php
-namespace tests\integration\fixtures;
+namespace tests\integration;
 
 use EuroMillions\repositories\LotteryDrawRepository;
 use tests\base\RepositoryIntegrationTestBase;
@@ -26,7 +26,7 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
      * method getLastJackpot
      * when called
      * should returnLastJackpotOfSelectedLottery
-     * @dataProvider getLotteryAndExpectedJackpot
+     * @dataProvider getLotteryAndExpectedLastJackpot
      */
     public function test_getLastJackpot_called_returnLastJackpotOfSelectedLottery($date, $lotteryName, $expectedJackpot)
     {
@@ -34,12 +34,33 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
         $this->assertEquals($expectedJackpot, $actual);
     }
 
-    public function getLotteryAndExpectedJackpot()
+    public function getLotteryAndExpectedLastJackpot()
     {
         return [
             ['2015-05-22', 'EuroMillions', 193948458252],
             ['2015-05-23', 'EuroMillions', 4150340],
             ['2015-05-24', 'La Primitiva', 2934],
+        ];
+    }
+
+    /**
+     * method getNextJackpot
+     * when called
+     * should returnNextJackpotOfSelectedLottery
+     * @dataProvider getLotteryAndExpectedNextJackpot
+     */
+    public function test_getNextJackpot_called_returnNextJackpotOfSelectedLottery($date, $lotteryName, $expectedJackpot)
+    {
+        $actual = $this->sut->getNextJackpot($lotteryName, $date);
+        $this->assertEquals($expectedJackpot, $actual);
+    }
+
+    public function getLotteryAndExpectedNextJackpot()
+    {
+        [
+            ['2015-05-22', 'EuroMillions', 4150340],
+            ['2015-05-22', 'La Primitiva', 2934],
+            ['2015-05-19', 'EuroMillions', 4150340]
         ];
     }
 }
