@@ -3,15 +3,21 @@ namespace EuroMillions\entities;
 
 use EuroMillions\interfaces\IEntity;
 
-class LotteryDraw implements IEntity
+class LotteryDraw extends EntityBase implements IEntity
 {
     protected $draw_id;
     protected $draw_date;
     protected $jackpot;
     protected $message;
     protected $big_winner;
+
     protected $published;
     protected $lottery;
+    protected $result;
+    public function getResult()
+    {
+        return $this->result;
+    }
 
     public function getLottery()
     {
@@ -21,6 +27,11 @@ class LotteryDraw implements IEntity
     public function setLottery($lottery)
     {
         $this->lottery = $lottery;
+    }
+
+    public function setDrawId($draw_id)
+    {
+        $this->draw_id = $draw_id;
     }
 
     public function getId()

@@ -1,10 +1,4 @@
 <?php
-
-
 namespace EuroMillions\exceptions;
 
-
-class ValidDateRangeException 
-{
-
-}
+class ValidDateRangeException extends \OutOfBoundsException {}

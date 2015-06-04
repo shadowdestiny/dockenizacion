@@ -1,23 +1,23 @@
 <?php
 namespace EuroMillions\services\external_apis;
 
-use EuroMillions\interfaces\IEuroMillionsResultStrategy;
+use EuroMillions\interfaces\IResultStrategy;
 
-class LotteryDotIeEuroMillionsResultsStrategy implements IEuroMillionsResultStrategy
+class LotteryDotIeEuroMillionsResultsStrategy implements IResultStrategy
 {
     public function load($xmlString)
     {
         $result = [];
         $xml = new \SimpleXMLElement($xmlString);
         foreach ($xml->DrawResult->Structure->Tier as $category) {
-            $result[0][(string)$category->Match]['winners'] = (int)$category->Winners;
-            $result[0][(string)$category->Match]['prize'] = (int)$category->Prize;
+            $result['categories'][(string)$category->Match]['winners'] = (int)$category->Winners;
+            $result['categories'][(string)$category->Match]['prize'] = (int)$category->Prize;
         }
         foreach ($xml->DrawResult->Numbers->DrawNumber as $number) {
             if ($number->Type == "Standard") {
-                $result[1][] = (int)$number->Number;
+                $result['regular_numbers'][] = (int)$number->Number;
             } else {
-                $result[2][] = (int)$number->Number;
+                $result['lucky_numbers'][] = (int)$number->Number;
             }
         }
         return $result;

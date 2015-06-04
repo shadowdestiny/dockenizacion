@@ -57,7 +57,7 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
 
     public function getLotteryAndExpectedNextJackpot()
     {
-        [
+        return [
             ['2015-05-22', 'EuroMillions', 4150340],
             ['2015-05-22', 'La Primitiva', 2934],
             ['2015-05-19', 'EuroMillions', 4150340]

@@ -1,34 +1,39 @@
 <?php
 namespace tests\functional;
 
-use EuroMillions\services\external_apis\LotteryDotIeApi;
-use tests\base\LotteryDotIeEuromillionsRelatedTest;
-use tests\base\UnitTestBase;
+use Doctrine\ORM\EntityManager;
+use EuroMillions\entities\Lottery;
+use EuroMillions\services\external_apis\LoteriasyapuestasDotEsApi;
+use Phalcon\Di;
+use tests\base\IntegrationTestBase;
 
-class LotteryDotIeApiFunctionalTest extends UnitTestBase
+class LoteriasyapuestasDotEsApiFunctionalTest extends IntegrationTestBase
 {
-    use LotteryDotIeEuromillionsRelatedTest;
-
     /**
-     * method getResultForDate
+     * method getJackpotForDate
      * when called
-     * should returnProperResult
+     * should returnsAcceptableJackpot
      */
-    public function test_getResultForDate_called_returnProperResult()
+    public function test_getJackpotForDate_called_returnsAcceptableJackpot()
     {
-        $this->markTestSkipped();
-        $expected_xml = new \SimpleXMLElement($this->apiResult);
-        $sut = new LotteryDotIeApi();
-        $actual = $sut->getResultForDate("2015-05-19");
-        $actual_xml = @new \SimpleXMLElement($actual);
-        $this->assertEquals($expected_xml->DrawResult->DrawNumber, $actual_xml->DrawResult->DrawNumber);
-        $this->assertEquals($expected_xml->DrawResult->Structure, $actual_xml->DrawResult->Structure);
-        $this->assertEquals($expected_xml->DrawResult->Numbers, $actual_xml->DrawResult->Numbers);
+        /** @var EntityManager $entity_manager */
+        $entity_manager = DI::getDefault()->get('entityManager');
+        $lottery_repository = $entity_manager->getRepository('\EuroMillions\entities\Lottery');
+        /** @var Lottery $lottery */
+        $lottery = $lottery_repository->findOneBy(['name'=>'EuroMillions']);
+        $sut = new LoteriasyapuestasDotEsApi();
+        $actual = $sut->getJackpotForDate($lottery->getName(), $lottery->getNextDrawDate()->format("Y-m-d"));
+        $this->assertGreaterThanOrEqual(15000000, $actual);
     }
 
-    public function test_getJackpot__()
+    /**
+     * Child classes must implement this method. Return empty array if no fixtures are needed
+     * @return array
+     */
+    protected function getFixtures()
     {
-        $sut = new LotteryDotIeApi();
-        var_dump($sut->getJackpot());
+        return [
+            'lotteries',
+        ];
     }
 }

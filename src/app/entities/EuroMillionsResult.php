@@ -1,15 +1,26 @@
 <?php
 namespace EuroMillions\entities;
 
-class EuroMillionsResult 
+class EuroMillionsResult extends LotteryResult
 {
     protected $categories;
 
-    protected $regularNumbers;
-    protected $luckyNumbers;
-    public function load(IEuroMillionsResultStrategy $strategy)
+    protected $regular_numbers;
+    protected $lucky_numbers;
+
+    public function setCategories($categories)
     {
-        list($this->categories, $this->regularNumbers, $this->luckyNumbers) = $strategy->load();
+        $this->categories = $categories;
+    }
+
+    public function setRegularNumbers($regular_numbers)
+    {
+        $this->regular_numbers = $regular_numbers;
+    }
+
+    public function setLuckyNumbers($lucky_numbers)
+    {
+        $this->lucky_numbers = $lucky_numbers;
     }
 
     public function getCategories()
@@ -19,13 +30,12 @@ class EuroMillionsResult
 
     public function getRegularNumbers()
     {
-        return $this->regularNumbers;
+        return $this->regular_numbers;
     }
 
     public function getLuckyNumbers()
     {
-        return $this->luckyNumbers;
+        return $this->lucky_numbers;
     }
 
-    //EMTD acabar la entidad estilo doctrine
 }

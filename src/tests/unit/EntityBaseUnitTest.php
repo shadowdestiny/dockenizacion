@@ -3,6 +3,7 @@ namespace tests\unit;
 
 use EuroMillions\entities\EntityBase;
 use EuroMillions\entities\Language;
+use EuroMillions\entities\Lottery;
 use tests\base\UnitTestBase;
 
 class EntityBaseUnitTest extends UnitTestBase
@@ -39,5 +40,24 @@ class EntityBaseUnitTest extends UnitTestBase
         $expected->id = null;
         $actual = $this->sut->toValueObject();
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * method initialize
+     * when calledWithFieldThatHasUnderscore
+     * should setProperties
+     */
+    public function test_initialize_calledWithFieldThatHasUnderscore_setProperties()
+    {
+        $sut = new Lottery();
+        $sut->initialize([
+                'id' => 1,
+                'name' => 'EuroMillions',
+                'active' => 1,
+                'frequency' => 'frequency',
+                'draw_time' => 'time'
+            ]
+        );
+        $this->assertEquals('time', $sut->getDrawTime());
     }
 }

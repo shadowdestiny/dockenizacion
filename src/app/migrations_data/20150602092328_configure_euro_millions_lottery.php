@@ -22,7 +22,7 @@ class ConfigureEuroMillionsLottery extends AbstractMigration
      */
     public function up()
     {
-    
+        $this->execute("UPDATE lotteries SET frequency = 'w0100100', draw_time='20:00:00' WHERE name='EuroMillions'");
     }
 
     /**

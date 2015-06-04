@@ -1,6 +1,12 @@
-EuroMillions\entities\Lottery:
+EuroMillions\entities\LotteryResult:
   type: entity
-  table: lotteries
+  table: lottery_results
+  inheritanceType: SINGLE_TABLE
+  discriminatorColumn:
+    name: lottery
+    type: string
+  discriminatorMap:
+    EuroMillions: EuroMillionsResult
   id:
     id:
       type: integer
@@ -8,21 +14,10 @@ EuroMillions\entities\Lottery:
         unsigned: true
       generator:
         strategy: IDENTITY
-  fields:
-    name:
-      type: string
-      unique: true
-    active:
-      type: boolean
-      options:
-        default: 0
-    api:
-      type: string
-    frequency:
-      type: string
-    draw_time:
-      type: string
-  oneToMany:
-    draws:
+  oneToOne:
+     draw:
       targetEntity: \EuroMillions\entities\LotteryDraw
-      mappedBy: lottery
+      mappedBy: result
+      joinColumn:
+        name: draw_id
+        referencedColumnName: draw_id

@@ -22,7 +22,7 @@ class AddApiToEuroMillions extends AbstractMigration
      */
     public function up()
     {
-        $this->execute("UPDATE lotteries SET api = 'LotteryDotIe' WHERE name='EuroMillions'");
+        $this->execute("UPDATE lotteries SET jackpot_api = 'LoteriasyapuestasDotEs' WHERE name='EuroMillions'");
     }
 
     /**

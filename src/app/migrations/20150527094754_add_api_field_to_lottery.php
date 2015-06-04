@@ -22,7 +22,7 @@ class AddApiFieldToLottery extends AbstractMigration
      */
     public function up()
     {
-        $this->execute("ALTER TABLE lotteries ADD api VARCHAR(255) NOT NULL;");
+        $this->execute("ALTER TABLE lotteries ADD jackpot_api VARCHAR(255) NOT NULL;");
     }
 
     /**

@@ -1,10 +1,20 @@
 <?php
-
-
 namespace EuroMillions\entities;
 
+use EuroMillions\interfaces\IEntity;
 
-class LotteryResult 
+abstract class LotteryResult extends EntityBase implements IEntity
 {
+    protected $id;
+    protected $draw;
 
+    public function getDraw()
+    {
+        return $this->draw;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
 }
