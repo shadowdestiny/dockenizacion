@@ -71,19 +71,19 @@ img.right{margin:0 0 15px 10px;}
 .btn.white:hover, .btn.white:focus{border:1px solid #ccc;}
 .btn.white:active{border:1px solid #666; box-shadow:inset 0 0 0 0 transparent;}
 .btn.blue{
-  background:$btn-blue; border:1px solid $btn-blue-dark;
+  background:$btn-blue; border:1px solid $btn-blue-dark; color:#fff; /* Color Value it is inserted because of Internet Explorer */
   @include background-image(linear-gradient(#1685cb, #005a92));
 }
 .btn.blue:hover, .btn.blue:focus{color:$btn-blue; background:#fff; border:1px solid $btn-blue;}
 
 .btn.red{
-  background:$btn-red; border:1px solid $btn-red-dark;
+  background:$btn-red; border:1px solid $btn-red-dark; color:#fff;
   @include background-image(linear-gradient(#ff3030, #b42222));
 }
 .btn.red:hover, .btn.red:focus{color:$btn-red; background:#fff; border:1px solid $btn-red;}
 
 .btn.purple{
-  background:$btn-purple; border:1px solid $btn-purple-dark;
+  background:$btn-purple; border:1px solid $btn-purple-dark; color:#fff;
   @include background-image(linear-gradient(#ae5279, #823054));
 }
 .btn.purple:hover, .btn.purple:focus{color:$btn-purple; background:#fff; border:1px solid $btn-purple;}
@@ -140,7 +140,7 @@ body{font-family:$basic-font;}
 .h3{font-size:$h3;}
 .h4{font-size:$h4;}
 .h5, p, .btn.big{font-size:$basic-size;}
-#content{font-family:"Open Sans", $basic-font; overflow:hidden;}
+#content{font-family:$basic-font;}
 
 /* COLORS */
 .yellow{color:$yellowTxt;}
@@ -199,7 +199,7 @@ body{font-family:$basic-font;}
 .sub-inter .btn{margin-top:10px;}
 
 .head{border-bottom:5px solid $yellow; background:#fff;}
-.main-nav{float:right;}
+.main-nav{float:right; margin-bottom:-1px;}
 .main-nav li{float:left; border-right:1px solid $yellow;}
 .main-nav li:last-child{margin:0;}
 .main-nav .ico-cart{display:inline-block; color:$black; margin-top:4px;}
@@ -227,7 +227,7 @@ body{font-family:$basic-font;}
 .main-nav li:hover{border-right:1px solid transparent;} /* erase yellow border */
 .main-nav .active a:hover{background:transparent;} /* disable hover on active menu */
 
-#content{background:#eee; text-align:left; padding-top:25px;}
+#content{background:url(/img/bg.jpg) no-repeat 50% 0; background-size:cover;  overflow:hidden; text-align:left; padding-top:25px;}
 
 .main-foot{border-top:5px solid $yellow; background:#fff; text-align:left;}
 .main-foot .cols{margin:20px 0;}
@@ -281,7 +281,7 @@ body{font-family:$basic-font;}
 .mobile{display:none;}
 .nav.mobile ul{display:none;}
 
-/* Large Devices, Wide Screens */
+
 @media only screen and (max-width: 1200px){
 /*body{border:10px solid #0ff;} /* BLUE WATER */
 .media{width:1px}
@@ -290,7 +290,7 @@ body{font-family:$basic-font;}
  
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 992px){
-/*body{border:10px solid #ff0;} /* YELLOW */
+/* body{border:10px solid #ff0;} /* YELLOW */
 .media{width:2px}
 .wrapper{max-width:768px;}
 .logo{margin-top:8px; width:250px;}

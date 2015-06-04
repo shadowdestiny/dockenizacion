@@ -2,9 +2,14 @@
 {% block template_css %}<link rel="stylesheet" href="/css/home.css">{% endblock %}
 
 {% block body %}
+
+{# Caching SVG #}
+{% include "_elements/svg.volt" %}
+
+
 <main id="content">
 	<div class="wrapper">
-		<div class="cols no-eq">
+		<div class="cols">
 			<div class="col6 box-left">
 				<a href="javascript:void(0);" class="box-estimated no-lnk">
 					<div class="content">
@@ -13,7 +18,7 @@
 						{% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
 						<span class="btn white try animate infi">{{ language.translate("Try your luck") }} <i class="ico ico-arrow-right3"></i></span>
 					</div>
-					<embed class="vector" src="/img/sprite.svg#emblem" type="image/svg+xml">
+					<svg class="vector"><use xlink:href="#emblem"></use></svg>
 				</a>
 				<div class="box-how">
 					<div class="bg-yellow">
@@ -21,7 +26,7 @@
 					</div>
 					<ul class="no-li cl">
 						<li>
-							<embed alt="{{ language.translate('Lottery ticker') }}" class="vector vec1" src="/img/sprite.svg#lottery-ticket" type="image/svg+xml">
+							<svg class="vector"><use xlink:href="#lottery-ticket"></use></svg>
 
 							<div class="box-txt">
 								<h2 class="h3"><span class="grey">1.</span> {{ language.translate("play")|upper }}</h2>
@@ -29,7 +34,7 @@
 							</div>
 						</li>
 						<li>
-							<embed alt="{{ language.translate('Lotto numbers coming out from the monitor of a computer') }}" class="vector vec2" src="/img/sprite.svg#monitor-number" type="image/svg+xml">
+							<svg class="vector"><use xlink:href="#monitor-number"></use></svg>
 						
 							<div class="box-txt">
 								<h2 class="h3"><span class="grey">2.</span> {{ language.translate("pick")|upper }}</h2>
@@ -37,7 +42,7 @@
 							</div>
 						</li>
 						<li>
-							<embed alt="{{ language.translate('Winner cup') }}" class="vector vec3" src="/img/sprite.svg#winner-cup" type="image/svg+xml">
+							<svg class="vector"><use xlink:href="#winner-cup"></use></svg>
 
 							<div class="box-txt">
 								<h2 class="h3"><span class="grey">3.</span> {{ language.translate("win")|upper }}</h2>
@@ -105,7 +110,7 @@
 						<div class="bg2">
 							<div class="bg">
 								<div class="content">
-									<div class="cols no-eq">
+									<div class="cols">
 										<div class="col6">
 											<h1 class="h2">{{ language.translate('1st Prize') }}</h1>
                                             {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
@@ -117,7 +122,7 @@
 											</div>
 										</div>
 										<div class="col6 center box-vector">
-											<embed class="vector" src="/img/sprite.svg#lotto-game" type="image/svg+xml">
+											<svg class="vector"><use xlink:href="#lotto-game"></use></svg>
 										</div>
 									</div>
 								</div>
