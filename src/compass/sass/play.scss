@@ -79,8 +79,8 @@ $gap2:5px; 	/* Gap between numbers */
 .add-cart{position:relative; font-weight:bold; text-shadow:0 0 0 transparent; border:1px solid $grey; background:$grey-light; color:#fff; padding:10px 15px; margin-top:10px; cursor:default;}
 .active.add-cart{cursor:pointer; color:#fff; @include background-image(linear-gradient($green-light, $green)); border-color:$grey;}
 .active.add-cart .separator{border-color:$grey;}
+.active.add-cart:hover, .active.add-cart:hover .separator, .active.add-cart:focus, .active.add-cart:focus .separator{border-color:$black;}
 .active.add-cart:active .separator{border-color:$black;}
-.active.add-cart:hover, .active.add-cart:hover .separator, .active.add-cart:focus, .active.add-cart:focus .separator{border-color:#fff;}
 .gap{margin:0 15px;}
 .separator{position:absolute; top:0; border-right:1px solid $grey; display:inline-block; width:1px; height:40px;}
 

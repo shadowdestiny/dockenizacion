@@ -313,12 +313,12 @@ ALLOWED: Variable and Extension
   border-color: #777;
 }
 
-.active.add-cart:active .separator {
+.active.add-cart:hover, .active.add-cart:hover .separator, .active.add-cart:focus, .active.add-cart:focus .separator {
   border-color: #333;
 }
 
-.active.add-cart:hover, .active.add-cart:hover .separator, .active.add-cart:focus, .active.add-cart:focus .separator {
-  border-color: #fff;
+.active.add-cart:active .separator {
+  border-color: #333;
 }
 
 .gap {
