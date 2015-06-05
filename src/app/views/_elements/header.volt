@@ -1,5 +1,8 @@
 {# EMTD To insert *burger* for  mobile version #}
 
+{# Caching SVG #}
+{% include "_elements/svg.volt" %}
+
 <header>
 	<nav class="top-nav desktop">
 		<div class="wrapper">

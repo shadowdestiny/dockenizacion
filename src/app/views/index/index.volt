@@ -3,10 +3,6 @@
 
 {% block body %}
 
-{# Caching SVG #}
-{% include "_elements/svg.volt" %}
-
-
 <main id="content">
 	<div class="wrapper">
 		<div class="cols">
@@ -143,14 +139,6 @@
 
 			</div>
 		</div>
-
-{# Example Variables
-		<ul>
-			{% for text in texts %}
-			<li>{{ text }}</li>
-			{% endfor %}
-		</ul>
-#}
 
 	</div>
 </main>

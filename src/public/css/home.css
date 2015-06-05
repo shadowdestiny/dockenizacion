@@ -109,6 +109,7 @@ ALLOWED: Variable and Extension
 .box-how ul {
   padding: 20px 20px 0;
   text-align: center;
+  margin-bottom: 1em;
 }
 
 .box-how li {
@@ -197,6 +198,24 @@ ALLOWED: Variable and Extension
 /* MAYBE ALL ICO should have this basic size????*/
 .box-result .numbers {
   font-weight: bold;
+  margin-bottom: 1em;
+  font-family: "Signika", helvetica, arial, sans-serif;
+}
+
+.box-result .numbers.small li {
+  text-align: center;
+  width: 36px;
+  height: 35px;
+  line-height: 32px;
+  background: url(../img/sprite.png) no-repeat -190px -70px;
+  text-shadow: 1px rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.05em;
+  font-size: 0.9375em;
+}
+
+.box-result .numbers.small .star {
+  background: url(../img/sprite.png) no-repeat -150px -70px;
+  text-indent: -.05em;
 }
 
 .outbound {

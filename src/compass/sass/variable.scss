@@ -9,19 +9,27 @@ ALLOWED: Variable and Extension
 $purple:#ae5279;
 $purple-dark:darken($purple, 35%);
 $yellow:#efc048;
+$yellow-dark:darken($yellow, 10%);
 $yellowTxt:#ffc923;
 $black:#333;
 $grey:#777;
-$light-grey:#aaa;
+$grey-dark:darken($grey, 20%);
+$grey-light:#aaa;
+$grey-lighter:#ddd;
+$blue:#372c72;
+$blue-dark:darken($blue, 25%);
+$green:#007800;
+$green-light:lighten($green, 10%);
+$red:#cc2222;
 
 $btn-blue:#1479b9;
-$btn-blue-dark: darken($btn-blue, 20%);
+$btn-blue-dark:darken($btn-blue, 20%);
 
 $btn-purple:#ae5279;
-$btn-purple-dark: darken($btn-purple, 20%);
+$btn-purple-dark:darken($btn-purple, 20%);
 
 $btn-red:#bf4e0b;
-$btn-red-dark: darken($btn-red, 20%);
+$btn-red-dark:darken($btn-red, 20%);
 
 
 /* LINKS COLORS */
@@ -31,7 +39,8 @@ $hover:#474ea0;
 $active:#c03;
 
 /* TYPOGRAPHY */
-$basic-font: "Open Sans", helvetica, arial, verdana, sans-serif;
+$basic-font:"Open Sans", helvetica, arial, verdana, sans-serif;
+$signika:'Signika', helvetica, arial, sans-serif;
 
 $h0:3.375em;			/* 16x3.375 = 54px */
 $h1:1.875em;			/* 16x1.875 = 30px */
