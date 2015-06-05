@@ -1,0 +1,27 @@
+<?php
+namespace tests\unit;
+
+use EuroMillions\entities\Lottery;
+use EuroMillions\services\external_apis\LotteryApisFactory;
+use tests\base\UnitTestBase;
+
+class LotteryApisFactoryUnitTest extends UnitTestBase
+{
+    /**
+     * method jackpotApi
+     * when called
+     * should returnProperJackpotApi
+     */
+    public function test_jackpotApi_called_returnProperJackpotApi()
+    {
+        $api_in_db = 'LoteriasyapuestasDotEs';
+        $expected_jackpot_api = $api_in_db.'Api';
+        $lottery = new Lottery();
+        $lottery->initialize([
+            'jackpot_api' => $api_in_db
+        ]);
+        $sut = new LotteryApisFactory();
+        $api = $sut->jackpotApi($lottery);
+        $this->assertInstanceOf('\Euromillions\services\external_apis\\' . $expected_jackpot_api, $api);
+    }
+}

@@ -36,5 +36,4 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
     {
         return $em->get().'_test_config.ini';
     }
-
 }

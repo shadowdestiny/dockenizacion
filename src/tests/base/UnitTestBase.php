@@ -19,6 +19,7 @@ abstract class UnitTestBase extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
         $this->helper = new TestBaseHelper();
+        $this->stubDiService('entityManager', $this->getMockBuilder('\Doctrine\ORM\EntityManager')->disableOriginalConstructor()->getMock());
     }
     protected function restoreDI()
     {

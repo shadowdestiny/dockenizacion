@@ -16,7 +16,6 @@ docker-compose up -d
 e "Sleeping"
 sleep 30
 if [ inidatabase==true ]; then
-    rm /var/www/.phalcon/migration-version
     e "Initializing database"
     mysql -h 127.0.0.1 -u root -ptpl9 euromillions < /vagrant/docker/devel-dbmaster/dbinit/init_structure.sql
     cat /vagrant/docker/devel-dbmaster/dbinit/data/devel/*.sql | mysql -h 127.0.0.1 -u root -ptpl9 euromillions --default-character-set=utf8

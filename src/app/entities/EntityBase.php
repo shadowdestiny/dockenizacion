@@ -5,19 +5,18 @@ use EuroMillions\exceptions\BadEntityInitialization;
 
 class EntityBase
 {
-    public function initialize($attributes = null)
+    public function initialize($attributes)
     {
-        if ($attributes) {
-            foreach ($attributes as $key => $value) {
-                if ($key == 'id') {
-                    $this->$key = $value;
+        foreach ($attributes as $key => $value) {
+            if ($key == 'id') {
+                $this->$key = $value;
+            } else {
+                $field_name = implode('', array_map('ucfirst', explode('_', $key)));
+                $setter = 'set' . $field_name;
+                if (method_exists($this, $setter)) {
+                    $this->$setter($value);
                 } else {
-                    $setter = 'set' . ucfirst($key);
-                    if (method_exists($this, $setter)) {
-                        $this->$setter($value);
-                    } else {
-                        throw new BadEntityInitialization("Bad property name: \"$key\"");
-                    }
+                    throw new BadEntityInitialization("Bad property name: \"$key\"");
                 }
             }
         }
