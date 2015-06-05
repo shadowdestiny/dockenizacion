@@ -30,10 +30,6 @@
         <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700'>
         <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Signika:400,700'>
 
-{# Not sure that I need DROID font, I am commenting for the moment, might need it later
-        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700'>
-#}
-
         {% block template_scripts %}{% endblock %}  {# Inject unique js #}
 	</head>
 	<body>

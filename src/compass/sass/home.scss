@@ -19,7 +19,7 @@
 .box-value .value{font-size:$h0; font-weight:bold; vertical-align:middle;} 		/*16x3.375 = 54px*/
 
 .box-how{border-bottom:1px solid $yellow; padding-bottom:25px;}
-.box-how ul{padding:20px 20px 0; text-align:center;}
+.box-how ul{padding:20px 20px 0; text-align:center; margin-bottom:1em;}
 .box-how li{width:28%; float:left; margin-right:8%; position:relative;}
 .box-how li:after{
 	content:"\e605"; position:absolute; top:60px; right:-20%; z-index:1; display:block; color:#bbb;
@@ -45,7 +45,14 @@
 .box-result .lnk{text-decoration:none; display:block; font-size:$basic-size;}
 .box-result .lnk:hover .txt{text-decoration:underline; color:$hover;}
 .box-result .lnk .ico{@extend %ico-size;} /* MAYBE ALL ICO should have this basic size????*/
-.box-result .numbers{font-weight:bold;}
+.box-result .numbers{font-weight:bold; margin-bottom:1em; font-family:$signika;}
+.box-result .numbers.small li{
+  text-align:center; width:36px; height:35px; line-height:32px;
+  background:url(../img/sprite.png) no-repeat -190px -70px;
+  text-shadow:1px rgba(255, 255, 255, 0.5);
+  letter-spacing:0.05em; font-size:$h4;
+}
+.box-result .numbers.small .star{background:url(../img/sprite.png) no-repeat -150px -70px; text-indent:-.05em;}
 
 .outbound{
 	display:block; position:relative; width:475px; height:475px; margin:auto; text-decoration:none; 

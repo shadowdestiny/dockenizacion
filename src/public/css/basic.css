@@ -139,7 +139,7 @@ button {
 }
 
 .no-li li {
-  margin-bottom: 1em;
+  margin-bottom: 0;
 }
 
 .left {
@@ -203,6 +203,16 @@ img.right {
   background-image: linear-gradient(#cccccc, #777777);
 }
 
+.combo .btn:first-child {
+  border-radius: 5px 0 0 5px;
+  border-right: 1px solid #eee !important;
+}
+
+.combo .btn:last-child {
+  border-radius: 0 5px 5px 0;
+  border-left: 1px solid #777;
+}
+
 .btn.expand {
   width: 100%;
 }
@@ -243,11 +253,11 @@ img.right {
   text-shadow: 0 0 0 transparent;
 }
 
-.btn.white:hover, .btn.white:focus {
+.btn.white:hover, .btn.white:focus, .gwy:hover, .gwy:focus, .gwp:hover, .gwp:focus {
   border: 1px solid #ccc;
 }
 
-.btn.white:active {
+.btn.white:active, .gwy:active, .gwp:active, .gwg:active, .bwb:active, .rwr:active {
   border: 1px solid #666;
   box-shadow: inset 0 0 0 0 transparent;
 }
@@ -305,6 +315,82 @@ img.right {
   color: #ae5279;
   background: #fff;
   border: 1px solid #ae5279;
+}
+
+/* GWY: Grey (border) White (background) Yellow (font)*/
+.gwy, .gwr, .gwp, .gwg, .bwb, .rwr {
+  font-weight: bold;
+  background: #fff;
+  text-shadow: 0 0 0 transparent;
+}
+
+.gwy {
+  border: 1px solid #ddd;
+  color: #ebb019;
+}
+
+.gwy:hover, .gwy:focus {
+  border: 1px solid #ae5279;
+  color: #ae5279;
+}
+
+/* GWR: Grey (border) White (background) Red (font)*/
+.gwr {
+  border: 1px solid #ddd;
+  color: #cc2222;
+}
+
+.gwr:hover, .gwr:focus {
+  border: 1px solid #cc2222;
+  color: #fff;
+  background: #cc2222;
+}
+
+/* GWP: Grey (border) White (background) Purple (font)*/
+.gwp {
+  border: 1px solid #ddd;
+  color: #ae5279;
+}
+
+.gwp:hover, .gwp:focus {
+  border: 1px solid #333;
+  color: #372c72;
+}
+
+/* GWG: Green (border) White (background) Green (font)*/
+.gwg {
+  border: 1px solid #007800;
+  background: #fff;
+  color: #007800;
+}
+
+.gwg:hover, .gwg:focus {
+  background: #007800;
+  color: #fff;
+}
+
+/* BWB: Blue (border) White (background) Blue (font)*/
+.bwb {
+  border: 1px solid #372c72;
+  background: #fff;
+  color: #372c72;
+}
+
+.bwb:hover, .bwb:focus {
+  background: #372c72;
+  color: #fff;
+}
+
+/* RWR: Red (border) White (background) Red (font)*/
+.rwr {
+  border: 1px solid #cc2222;
+  background: #fff;
+  color: #cc2222;
+}
+
+.rwr:hover, .rwr:focus {
+  background: #cc2222;
+  color: #fff;
 }
 
 /* MENU HAMBURGER */
@@ -460,31 +546,6 @@ body {
 
 .grey {
   color: #aaa;
-}
-
-/* 
-.purple{color:$purple;}  // Maybe I will not use those?!?! 
-*/
-/* BALL NUMBERS */
-.numbers li {
-  font-family: 'Signika', sans-serif;
-  color: #333;
-}
-
-.numbers.small li {
-  text-align: center;
-  width: 36px;
-  height: 35px;
-  line-height: 32px;
-  background: url(../img/sprite.png) no-repeat -190px -70px;
-  text-shadow: 1px rgba(255, 255, 255, 0.5);
-  letter-spacing: 0.05em;
-  font-size: 0.9375em;
-}
-
-.numbers.small .star {
-  background: url(../img/sprite.png) no-repeat -150px -70px;
-  text-indent: -.05em;
 }
 
 /* ARROW BOX */

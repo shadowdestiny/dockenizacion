@@ -1,0 +1,356 @@
+/*** VARIABLES ***
+NO ALLLOWED: Class, ID or Keyframes
+ALLOWED: Variable and Extension
+*/
+/* COLORS */
+/* LINKS COLORS */
+/* TYPOGRAPHY */
+/* 16x3.375 = 54px */
+/* 16x1.875 = 30px */
+/* 16x1.375=22 */
+/* 16x1.125=18 */
+/* 16x0.9375=15 */
+/* 16x1.125=14 */
+/* STROKE OUTLINE */
+/* NOTE: IE9 doesn't support text-shadow */
+/* BUTTONS */
+/* ANIMATION */
+.bg-top {
+  padding: 20px;
+  background: #000736;
+  border-radius: 5px 5px 0 0;
+  background: #000736 url(../img/play/europe.jpg) no-repeat right center;
+}
+
+.bg-top .cols {
+  margin: 0;
+}
+
+.bg-top .h3, .bg-top .h1 {
+  margin: 0;
+  color: #fff;
+}
+
+.bg-top .h3 {
+  position: relative;
+  top: -5px;
+}
+
+.bg-top .circle {
+  position: absolute;
+  width: 156px;
+  height: 156px;
+  border-radius: 50%;
+  margin: auto;
+  color: #fff;
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwYzEwMCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwNzMwMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #00c100), color-stop(100%, #007300));
+  background-image: -moz-linear-gradient(#00c100, #007300);
+  background-image: -webkit-linear-gradient(#00c100, #007300);
+  background-image: linear-gradient(#00c100, #007300);
+  border: 4px solid #fff;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  margin: -65px 0 0 112px;
+  text-decoration: none;
+}
+
+.bg-top .ico {
+  margin-top: 25px;
+  display: block;
+  font-size: 54px;
+}
+
+.bg-top .txt {
+  font-weight: bold;
+  margin-top: 5px;
+  display: block;
+}
+
+.box-lines {
+  padding: 20px;
+  margin: 0;
+}
+
+.box-action {
+  float: right;
+  margin-right: 20px;
+}
+
+.box-action li {
+  margin: 20px 0 20px 10px;
+  float: left;
+}
+
+.box-action .btn {
+  font-weight: normal;
+}
+
+.box-bottom {
+  padding: 20px;
+  border-top: 1px solid #efc048;
+  margin: 0;
+  background: #fff;
+}
+
+.box-bottom .ico-shuffle {
+  font-size: 125%;
+}
+
+.box-bottom label {
+  font-size: 0.875em;
+  display: block;
+  font-weight: bold;
+  margin-bottom: .2em;
+}
+
+.gameplay {
+  overflow: hidden;
+  border: 1px solid #efc048;
+  border-radius: 0 0 5px 5px;
+  margin-bottom: 2em;
+  background: #fff url(../img/play/pattern.png) no-repeat center center;
+}
+
+/* Gap between lines  */
+/* Gap between numbers */
+.box-lines > .col2, .box-bottom > .col2 {
+  border-right: 12px solid transparent;
+}
+
+.gameplay .wrap, .box-bottom {
+  margin-right: -12px;
+}
+
+.gameplay .h3.blue {
+  color: #372c72;
+  margin-bottom: 1.25em;
+}
+
+.line {
+  border: 2px solid #efc048;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.line:hover {
+  border-color: #ae5279;
+  transition: border .2s ease;
+}
+
+.line .ico-shuffle {
+  font-size: 160%;
+  top: -1px;
+}
+
+.line .ico-m {
+  font-size: 130%;
+  top: 1px;
+}
+
+.line .gwy {
+  transition-duration: 0;
+}
+
+.line .combo {
+  position: relative;
+  margin: -18px auto 0;
+  width: 110px;
+}
+
+.line .combo .btn {
+  min-height: 32px;
+  line-height: 0;
+}
+
+.line .combo .ico {
+  margin: 0;
+  position: relative;
+  display: block;
+}
+
+.line .combo .gwy.active {
+  border: 1px solid #efc048 !important;
+  color: #fff;
+  background: #efc048;
+}
+
+.line .combo .gwy:first-child {
+  border-right: 1px solid transparent !important;
+}
+.line .combo .gwy:first-child:hover, .line .combo .gwy:first-child:focus {
+  border-right: 1px solid #ae5279 !important;
+}
+
+.line .combo .gwy:last-child {
+  border-left: 1px solid #ddd !important;
+}
+.line .combo .gwy:last-child:hover, .line .combo .gwy:last-child:focus {
+  border-left: 1px solid #ae5279 !important;
+}
+
+.line .numbers {
+  padding: 10px 8px 0;
+  margin-right: -5px;
+}
+
+.line .numbers li, .line .stars li {
+  border-right: 5px solid transparent;
+  font-family: "Signika", helvetica, arial, sans-serif;
+}
+
+.line .numbers .cols {
+  margin: 0 0 5px;
+}
+
+.line .ol:last-child {
+  margin-bottom: 0;
+}
+
+.line .gwp {
+  padding: 2px 0;
+  width: 100%;
+  background: transparent;
+}
+
+.line .gwp.active {
+  background: #0b0816;
+  border: 1px solid #0b0816;
+  color: #fff;
+}
+
+.line .stars {
+  position: relative;
+  margin: 10px 2px 0 7px;
+}
+.line .stars a {
+  text-decoration: none;
+}
+.line .stars a:hover, .line .stars a:focus, .line .stars a .txt:hover, .line .stars a .txt:focus {
+  color: #372c72;
+}
+.line .stars .cols {
+  margin: 0;
+}
+.line .stars .txt {
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 100%;
+  font-family: "Open Sans", helvetica, arial, verdana, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  color: #ae5279;
+  font-family: "Signika", helvetica, arial, sans-serif;
+}
+.line .stars .ico {
+  color: #efc048;
+  font-size: 220%;
+  transition: color 0.15s ease;
+}
+.line .stars .active.ico:before {
+  content: "\e60b";
+}
+.line .stars .active.ico:hover, .line .stars .active.ico:focus {
+  color: #efc048;
+}
+.line .stars .active.ico .txt, .line .stars .active.ico .txt:hover, .line .stars .active.ico .txt:focus {
+  color: #fff;
+}
+
+.line .extra-pad {
+  padding: 0 22px;
+}
+
+.line .ico-checkmark {
+  position: absolute;
+  top: 155px;
+  left: 0;
+  width: 100%;
+  font-size: 600%;
+  color: #007800;
+  opacity: .4;
+}
+
+.clear {
+  display: none;
+}
+
+.number-on .clear {
+  display: block;
+  position: relative;
+  display: block;
+  width: 90px;
+  bottom: -16px;
+  margin: -12px auto 0;
+}
+
+.add-cart {
+  position: relative;
+  font-weight: bold;
+  text-shadow: 0 0 0 transparent;
+  border: 1px solid #777;
+  background: #aaa;
+  color: #fff;
+  padding: 10px 15px;
+  margin-top: 10px;
+  cursor: default;
+}
+
+.active.add-cart {
+  cursor: pointer;
+  color: #fff;
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwYWIwMCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwNzgwMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #00ab00), color-stop(100%, #007800));
+  background-image: -moz-linear-gradient(#00ab00, #007800);
+  background-image: -webkit-linear-gradient(#00ab00, #007800);
+  background-image: linear-gradient(#00ab00, #007800);
+  border-color: #777;
+}
+
+.active.add-cart .separator {
+  border-color: #777;
+}
+
+.active.add-cart:hover, .active.add-cart:hover .separator, .active.add-cart:focus, .active.add-cart:focus .separator {
+  border-color: #333;
+}
+
+.active.add-cart:active .separator {
+  border-color: #333;
+}
+
+.gap {
+  margin: 0 15px;
+}
+
+.separator {
+  position: absolute;
+  top: 0;
+  border-right: 1px solid #777;
+  display: inline-block;
+  width: 1px;
+  height: 40px;
+}
+
+/*Retina only */
+@media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3 / 2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx) {
+  /*	
+  	.box-estimated{background-image:url(/img/home/bg-euro@2x.jpg); background-size:600px 171px;}
+  	.box-result .woman{background-image:url(../img/home/bg-result@2x.jpg); background-size:168px 189px;}
+  	.outbound{background-image:url(../img/home/bg-win-millions@2x.png); background-size:445px 445px;}
+  	.box-play .awards li, .box-play .ball{background-image:url(../img/sprite@2x.png); background-size:270px 220px;}
+  	.box-right{background-image:url(../img/home/bg-coloured@2x.jpg);}
+  */
+}
+/* Large Devices, Wide Screens */
+/* Medium Devices, Desktops */
+@media only screen and (max-width: 992px) {
+  .gameplay {
+    background-size: cover;
+  }
+}
+/* Small Devices, Tablets */
+/* Extra Small Devices, Phones */
+/* Custom, iPhone Retina */

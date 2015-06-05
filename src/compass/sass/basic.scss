@@ -38,7 +38,7 @@ select{padding:5px; border:1px solid #bbb;}
 button{cursor:pointer;}
 
 .no-li{list-style-type:none;}
-.no-li li{margin-bottom:1em;}
+.no-li li{margin-bottom:0;}
 .left{float:left;}
 img.left{margin:0 10px 15px 0;}
 .right{float:right;} 
@@ -57,8 +57,9 @@ img.right{margin:0 0 15px 10px;}
   font-size:$basic-size; border-radius:5px; font-weight:bold; border:1px solid #777; color:#fff;
   background:#aaa; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);
   @include background-image(linear-gradient(#cccccc, #777777));
-
 }
+.combo .btn:first-child{border-radius:5px 0 0 5px; border-right:1px solid #eee!important;}
+.combo .btn:last-child{border-radius:0 5px 5px 0; border-left:1px solid $grey;}
 .btn.expand{width:100%;}
 .btn.expand .ico{float:right; line-height:20px;}
 .btn:hover, .btn:focus{text-shadow:0 0 0 transparent; background:#fff; color:#777;}
@@ -68,8 +69,10 @@ img.right{margin:0 0 15px 10px;}
 .btn .ico{@extend %ico-size;}
 
 .btn.white{color:$hover; background:#fff; font-weight:normal; border:1px solid #fff; text-shadow:0 0 0 transparent;}
-.btn.white:hover, .btn.white:focus{border:1px solid #ccc;}
-.btn.white:active{border:1px solid #666; box-shadow:inset 0 0 0 0 transparent;}
+.btn.white:hover, .btn.white:focus, .gwy:hover, .gwy:focus, .gwp:hover, .gwp:focus
+{border:1px solid #ccc;}
+.btn.white:active, .gwy:active, .gwp:active, .gwg:active, .bwb:active, .rwr:active
+{border:1px solid #666; box-shadow:inset 0 0 0 0 transparent;}
 .btn.blue{
   background:$btn-blue; border:1px solid $btn-blue-dark; color:#fff; /* Color Value it is inserted because of Internet Explorer */
   @include background-image(linear-gradient(#1685cb, #005a92));
@@ -88,10 +91,35 @@ img.right{margin:0 0 15px 10px;}
 }
 .btn.purple:hover, .btn.purple:focus{color:$btn-purple; background:#fff; border:1px solid $btn-purple;}
 
-/* MENU HAMBURGER */
+/* GWY: Grey (border) White (background) Yellow (font)*/
 
+.gwy, .gwr, .gwp, .gwg, .bwb, .rwr{font-weight:bold; background:#fff; text-shadow:0 0 0 transparent;}
+.gwy{border:1px solid $grey-lighter; color:$yellow-dark;}
+.gwy:hover, .gwy:focus{border:1px solid $purple; color:$purple;}
+
+/* GWR: Grey (border) White (background) Red (font)*/
+.gwr{border:1px solid $grey-lighter; color:$red;}
+.gwr:hover, .gwr:focus{border:1px solid $red; color:#fff; background:$red;}
+
+/* GWP: Grey (border) White (background) Purple (font)*/
+.gwp{border:1px solid $grey-lighter; color:$purple;}
+.gwp:hover, .gwp:focus{border:1px solid $black; color:$blue;}
+
+/* GWG: Green (border) White (background) Green (font)*/
+.gwg{border:1px solid $green; background:#fff; color:$green;}
+.gwg:hover, .gwg:focus{background:$green; color:#fff;}
+
+/* BWB: Blue (border) White (background) Blue (font)*/
+.bwb{border:1px solid $blue; background:#fff; color:$blue;}
+.bwb:hover, .bwb:focus{background:$blue; color:#fff;}
+
+/* RWR: Red (border) White (background) Red (font)*/
+.rwr{border:1px solid $red; background:#fff; color:$red;}
+.rwr:hover, .rwr:focus{background:$red; color:#fff;}
+
+/* MENU HAMBURGER */
 .menu-ham{
-  position:absolute; top:10px; right:10px; border:0; border:1px solid $light-grey;
+  position:absolute; top:10px; right:10px; border:0; border:1px solid $grey-light;
   border-radius:3px; padding:0; outline:none; width:42px; height:40px;
   transition:all .4s ease; background:#fff; margin:1px 5px 0 0;
 }
@@ -103,7 +131,7 @@ img.right{margin:0 0 15px 10px;}
 .menu-ham .bar:before{top:-10px;}
 .menu-ham .bar:after{bottom:-10px;}
 .menu-ham.expanded{transform:rotate(90deg); border:1px solid #fff; background-color:transparent}
-.menu-ham.expanded:hover{border:1px solid $light-grey;}
+.menu-ham.expanded:hover{border:1px solid $grey-light;}
 .menu-ham.expanded span{background-color:transparent;}
 .menu-ham.expanded span:before, #nav-toggle.active span:after{top:0;}
 .menu-ham.expanded span:before{transform:rotate(45deg);}
@@ -144,20 +172,8 @@ body{font-family:$basic-font;}
 
 /* COLORS */
 .yellow{color:$yellowTxt;}
-.grey{color:$light-grey;}
-/* 
-.purple{color:$purple;}  // Maybe I will not use those?!?! 
-*/
+.grey{color:$grey-light;}
 
-/* BALL NUMBERS */
-.numbers li{font-family: 'Signika', sans-serif; color:$black;}
-.numbers.small li{
-  text-align:center; width:36px; height:35px; line-height:32px;
-  background:url(../img/sprite.png) no-repeat -190px -70px;
-  text-shadow:1px rgba(255, 255, 255, 0.5);
-  letter-spacing:0.05em; font-size:$h4;
-}
-.numbers.small .star{background:url(../img/sprite.png) no-repeat -150px -70px; text-indent:-.05em;}
 
 /* ARROW BOX */
 .arrow-box, .arrow-box2{position:relative; border:1px solid #bbb; background:#fff;}
@@ -322,7 +338,7 @@ body{font-family:$basic-font;}
 .nav.mobile ul{border-top:1px solid $purple;}
 .nav.mobile a{
   display:block; color:$purple; padding:10px; font-weight:bold;
-  @include background-image(linear-gradient(#fff, #eee)); border-bottom:1px solid $light-grey;
+  @include background-image(linear-gradient(#fff, #eee)); border-bottom:1px solid $grey-light;
 }
 .nav.mobile a:hover, .nav.mobile a:focus{
   color:$purple-dark; @include background-image(linear-gradient(#fff, #ccc)); border-color:$grey;
