@@ -9,7 +9,7 @@ develdbmaster:
     MYSQL_DATABASE: euromillions
 
 develweb:
-  image: antonienko/phalcon2-apache2
+  build: ./devel-web
   ports:
     - "8080:80"
   volumes:
