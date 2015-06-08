@@ -16,10 +16,10 @@ class CliBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     const CONFIG_FILENAME = 'cli_config.ini';
 
-    public function __construct($commandLineArguments, $globalConfigPath, $configPath, $configFile)
+    public function __construct($commandLineArguments, $globalConfigPath, $configPath)
     {
         $this->commandLineArguments = $commandLineArguments;
-        parent::__construct($globalConfigPath, $configPath, $configFile);
+        parent::__construct($globalConfigPath, $configPath);
     }
 
     public function execute(Di $di)

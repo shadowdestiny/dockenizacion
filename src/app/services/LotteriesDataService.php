@@ -54,4 +54,9 @@ class LotteriesDataService extends PhalconService
         $this->entityManager->persist($draw);
         $this->entityManager->flush();
     }
+
+    public function getNextJackpot()
+    {
+        return $this->lotteryDrawRepository->getNextJackpot('EuroMillions');
+    }
 }
