@@ -127,7 +127,7 @@
 
 						<div class="notes cl">
 							<div class="left">
-								<i class="ico ico-hourglass"></i> <span class="time">3 DAYS 09:50</span> 
+								<i class="ico ico-hourglass"></i> <span class="time">{{ days_till_next_draw }} {{ language.translate('DAYS') }} {{ hours_till_next_draw }}:{{ minutes_till_next_draw }}</span>
 								{# EMTD be careful to add singolar/plural: DAY / DAYS and if it is a matter of hours put content text as "04:09:34" format#}
 							</div>
 							<div class="right">

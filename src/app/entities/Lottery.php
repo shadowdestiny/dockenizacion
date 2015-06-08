@@ -76,13 +76,13 @@ class Lottery extends EntityBase implements IEntity
     }
 
     /**
-     * @param string $now
+     * @param \DateTime $now
      * @return \DateTime
      */
-    public function getNextDrawDate($now = null)
+    public function getNextDrawDate(\DateTime $now = null)
     {
         if (!$now) {
-            $now = date('Y-m-d H:i:s');
+            $now = new \DateTime();
         }
         $strategy = substr($this->frequency, 0, 1);
         $function = 'getNextDrawFrom';
@@ -103,7 +103,7 @@ class Lottery extends EntityBase implements IEntity
                 var_dump($this->frequency);
                 //throw?
         }
-        return $this->$function(substr($this->frequency, 1),  new \DateTime($now));
+        return $this->$function(substr($this->frequency, 1),  $now);
     }
 
     protected function getNextDrawFromDaily($configParams, $date)

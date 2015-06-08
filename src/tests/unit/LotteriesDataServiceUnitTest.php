@@ -51,10 +51,10 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
         $lottery_name = 'EuroMillions';
         $lottery_draw_in_db = new LotteryDraw();
         $lottery_draw_in_db->initialize([
-            'draw_id' => 3484,
-            'draw_date' => '2015-06-02',
-            'jackpot' => null,
-            'message' => '',
+            'draw_id'    => 3484,
+            'draw_date'  => '2015-06-02',
+            'jackpot'    => null,
+            'message'    => '',
             'big_winner' => ''
         ]);
         $jackpot = 15000001;
@@ -69,7 +69,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
             ->with($draw_to_persist);
 
         $sut = $this->getSut();
-        $sut->updateNextDrawJackpot($lottery_name, $today);
+        $sut->updateNextDrawJackpot($lottery_name, new \DateTime($today));
     }
 
     /**
@@ -100,7 +100,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
             ->method('persist')
             ->with($draw_to_persist);
         $sut = $this->getSut();
-        $sut->updateNextDrawJackpot($lottery_name, $today);
+        $sut->updateNextDrawJackpot($lottery_name, new \DateTime($today));
     }
 
     //EMTEST qué ocurre cuando la api no tiene todavía el jackpot
@@ -187,4 +187,34 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
         return new LotteriesDataService($this->entityManagerDouble, $this->apiFactoryDouble);
     }
 
+    /**
+     * method getTimeToNextDraw
+     * when called
+     * should returnProperResult
+     * @dataProvider getTimesAndExpectedDiffs
+     */
+    public function test_getTimeToNextDraw_called_returnProperResult($now, $expectedDiffDays, $expectedDiffHours, $expectedDiffMinutes)
+    {
+        $lottery_name = 'EuroMillions';
+        $this->prepareLotteryEntity($lottery_name);
+        $sut = $this->getSut();
+        /** @var \DateInterval $actual_diff */
+        $actual_diff = $sut->getTimeToNextDraw($lottery_name, new \DateTime($now));
+        $this->assertEquals(
+            [$expectedDiffDays, $expectedDiffHours, $expectedDiffMinutes],
+            [$actual_diff->d, $actual_diff->h, $actual_diff->i]
+        );
+    }
+
+    public function getTimesAndExpectedDiffs()
+    {
+        return [
+            ['2015-06-08 05:01:14', 1, 14, 58],
+            ['2015-06-08 11:01:14', 1, 8, 58],
+            ['2015-06-09 11:01:14', 0, 8, 58],
+            ['2015-06-09 19:02:13', 0, 0, 57],
+            ['2015-06-09 20:00:00', 3, 0, 0],
+            ['2015-06-09 20:01:01', 2, 23, 58]
+        ];
+    }
 }

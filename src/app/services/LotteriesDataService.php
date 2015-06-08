@@ -26,10 +26,10 @@ class LotteriesDataService extends PhalconService
         $this->apisFactory = $apisFactory ? $apisFactory : new LotteryApisFactory();
     }
 
-    public function updateNextDrawJackpot($lotteryName, $now = null, Curl $curlWrapper = null)
+    public function updateNextDrawJackpot($lotteryName, \DateTime $now = null, Curl $curlWrapper = null)
     {
         if (!$now) {
-            $now = date("Y-m-d H:i:s");
+            $now = new \DateTime();
         }
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
@@ -55,8 +55,19 @@ class LotteriesDataService extends PhalconService
         $this->entityManager->flush();
     }
 
-    public function getNextJackpot()
+    public function getNextJackpot($lotteryName)
     {
-        return $this->lotteryDrawRepository->getNextJackpot('EuroMillions');
+        return $this->lotteryDrawRepository->getNextJackpot($lotteryName);
+    }
+
+    public function getTimeToNextDraw($lotteryName, $now = null)
+    {
+        if (!$now) {
+            $now = new \DateTime();
+        }
+        /** @var Lottery $lottery */
+        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        $next_draw_date = $lottery->getNextDrawDate($now);
+        return $now->diff($next_draw_date);
     }
 }

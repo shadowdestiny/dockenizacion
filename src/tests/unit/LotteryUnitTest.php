@@ -23,7 +23,7 @@ class LotteryUnitTest extends UnitTestBase
             'frequency' => $frequency,
             'draw_time' => $draw_time
         ]);
-        $actual = $sut->getNextDrawDate($now);
+        $actual = $sut->getNextDrawDate(new \DateTime($now));
         $expected = new \DateTime($expectedDrawDate);
         $this->assertEquals($expected, $actual);
     }

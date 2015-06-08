@@ -31,7 +31,7 @@ class LotteriesDataServiceIntegrationTest extends IntegrationTestBase
         $curlWrapper_stub = $this->getCurlWrapperWithRssResponse();
 
         $sut = new LotteriesDataService();
-        $sut->updateNextDrawJackpot($lottery_name, '2015-06-04', $curlWrapper_stub);
+        $sut->updateNextDrawJackpot($lottery_name, new \DateTime('2015-06-04'), $curlWrapper_stub);
 
         $expected = new LotteryDraw();
         $expected->initialize([
