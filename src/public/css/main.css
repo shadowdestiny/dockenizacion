@@ -980,6 +980,7 @@ body {
   max-width: 1200px;
   margin: auto;
   position: relative;
+  min-width: 235px;
 }
 
 .logo {
@@ -1216,7 +1217,7 @@ body {
 }
 
 .box-links .col20per {
-  padding: 0 10px;
+  padding-right: 15px;
 }
 
 .box-links li {
@@ -1391,6 +1392,10 @@ body {
     padding: 10px 12px;
     min-height: 62px;
   }
+
+  .box-links .col20per {
+    padding: 0 10px;
+  }
 }
 /* Small Devices, Tablets */
 @media only screen and (max-width: 768px) {
@@ -1422,7 +1427,6 @@ body {
 
   .main-foot {
     border: 0;
-    margin: 0 20px;
     text-align: center;
   }
 
@@ -1447,10 +1451,15 @@ body {
     width: 50%;
     float: left;
     margin-bottom: 1.5em;
+    padding: 0;
   }
 
   .main-foot .box-links {
     margin-top: 0;
+  }
+
+  .box-links {
+    padding: 0 20px;
   }
 
   .box-links a {
@@ -1459,7 +1468,7 @@ body {
     margin-bottom: 3px;
   }
 
-  .box-links a:hover {
+  .box-links a:hover, .box-links a:focus {
     text-decoration: underline;
   }
 

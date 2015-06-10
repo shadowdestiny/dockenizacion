@@ -185,7 +185,7 @@ body{font-family:$basic-font;}
 
 
 /* PAGE LAYOUT */
-.wrapper{max-width:1200px; margin:auto; position:relative;}
+.wrapper{max-width:1200px; margin:auto; position:relative; min-width:235px;}
 .logo{float:left; margin-top:10px;}
 .logo .pic{height:100%;}
 .small-logo{float:left; width:200px;}
@@ -248,7 +248,7 @@ body{font-family:$basic-font;}
 .main-foot .info{color:#888; font-size:70%; line-height:150%;}
 .main-foot .partner{text-align:right;}
 
-.box-links .col20per{padding:0 10px;}
+.box-links .col20per{padding-right:15px;}
 .box-links li{margin-bottom:.8em; font-size:85%;}
 .box-links li:last-child{margin:0;}
 .box-links strong{display:inline-block; margin-bottom:.5em; font-size:95%;}
@@ -309,6 +309,7 @@ body{font-family:$basic-font;}
 .wrapper{max-width:768px;}
 .logo{margin-top:8px; width:250px;}
 .main-nav a{padding:10px 12px; min-height:62px;}
+.box-links .col20per{padding:0 10px;}
 }
 
 /* Small Devices, Tablets */
@@ -320,14 +321,15 @@ body{font-family:$basic-font;}
 .head{padding:5px 15px; border:0;}
 .media{width:3px}
 .wrapper{max-width:100%;}
-.main-foot{border:0; margin:0 20px; text-align:center;}
+.main-foot{border:0; text-align:center;}
 .main-foot .small-logo{width:150px; margin:10px auto 0; float:none; display:block;}
 .main-foot .social{clear:both; float:none; margin-bottom:20px;}
 .main-foot .info .cols{margin-bottom:0;}
-.main-foot .col20per{width:50%; float:left; margin-bottom:1.5em;}
+.main-foot .col20per{width:50%; float:left; margin-bottom:1.5em; padding:0;}
 .main-foot .box-links{margin-top:0;}
+.box-links{padding:0 20px;}
 .box-links a{display:inline-block; padding:3px 0; margin-bottom:3px;}
-.box-links a:hover{text-decoration:underline;}
+.box-links a:hover, .box-links a:focus{text-decoration:underline;}
 .box-links li{margin-bottom:0;}
 .logo-social li{margin-left:40px;}
 .logo-social li:first-child{margin-left:0;}
@@ -340,7 +342,7 @@ body{font-family:$basic-font;}
   @include background-image(linear-gradient(#fff, #eee)); border-bottom:1px solid $grey-light;
 }
 .nav.mobile a:hover, .nav.mobile a:focus{
-  color:$purple-dark; @include background-image(linear-gradient(#fff, #ccc)); border-color:$grey;
+  color:$purple-darker; @include background-image(linear-gradient(#fff, #ccc)); border-color:$grey;
 }
 .nav.mobile a:active{box-shadow:0 5px 10px #aaa inset; background:#fff;}
 .nav.mobile li:last-child a{border-bottom:0;}

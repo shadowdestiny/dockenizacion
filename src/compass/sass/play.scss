@@ -86,11 +86,11 @@ $gap2:5px; 	/* Gap between numbers */
 .number-on .clear{display:block; position:relative; display:block; width:90px; bottom:-16px; margin:-12px auto 0;}
 
 .add-cart{position:relative; font-weight:bold; text-shadow:0 0 0 transparent; border:1px solid $grey; background:$grey-light; color:#fff; padding:10px 15px; margin-top:10px; cursor:default;}
-.active.add-cart{transition:background .2s,border .2s, color .2s; cursor:pointer; color:$grey; background:$yellow; border-color:#fff;}
-.active.add-cart .separator{border-color:$grey-light;}
-.active.add-cart:hover, .active.add-cart:hover .separator, .active.add-cart:focus, .active.add-cart:focus .separator{border-color:$black; background:$yellow-dark; color:#fff;}
+.active.add-cart{transition:background .2s,border .2s, color .2s; cursor:pointer; color:#fff; background:$purple; border-color:$purple-dark; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);}
+.active.add-cart .separator{border-color:$purple-dark; transition:border .2s}
+.active.add-cart:hover, .active.add-cart:hover .separator, .active.add-cart:focus, .active.add-cart:focus .separator{background:$purple-dark; color:#fff; border-color:$black;}
 .active.add-cart:active .separator{border-color:$black;}
-.gap{margin:0 15px;}
+.gap{padding:0 15px;}
 .separator{position:absolute; top:0; border-right:1px solid $grey; display:inline-block; width:1px; height:40px;}
 
 
@@ -129,7 +129,7 @@ $gap2:5px; 	/* Gap between numbers */
 .num5, .num6{display:none!important;}
 .num1,.num2,.num3,.num4, .box-bottom .col2, .box-bottom .col6{width:25%;}
 .add-cart{margin-top:16px;}
-.gap{margin:0 9px;}
+.gap{padding:0 9px;}
 .line .stars .ico{font-size:180%;}
 .line .stars .txt{top:9px;}
 .bg-top .circle{margin-left:-15px;}
@@ -143,24 +143,25 @@ $gap2:5px; 	/* Gap between numbers */
 	.cols{margin-bottom:0; display:block;}
 	.col1, .col2, .col3, .col4, .col5, .col6, .col7, .col8, .col9, .col10, .col11, .col12, .col20per{display:block; float:none; position:relative; width:100%; border:0!important; margin:0 0 2em; padding-bottom:0;}
 }
-.bg-top .circle{border-radius:5px; width:auto; height:auto; margin:-8px 0 0 -46%; padding:8px; text-align: left; width:96%;}
+.bg-top .circle{top:0; left:0; border-radius:5px; width:auto; height:auto; margin:-8px 0 0 8px; padding:8px; text-align: left; width:96%;}
 .bg-top .ico{font-size:36px; margin:0 0 0 5px; float:right;}
 .bg-top .col4{text-align:center;}
 .bg-top .txt{margin:0;}
-.gameplay{border-right:0; border-left:0;}
+.gameplay{border-right:0; border-left:0; border-radius:0;}
 .bg-top, .bg-top:before{border-radius:0;}
 .gameplay > .cl{text-align:center;}
 .box-action{float:none; margin:15px 20px 0;}
 .box-action li{margin:0 10px 15px 0;}
 .box-bottom .col2{margin:0 0 10px;}
 .box-bottom .col6{margin:0; text-align:center;}
-.gap{margin:0 15px;}
+.gap{padding:0 15px;}
 .add-cart{margin:10px auto 0; float:none;}
+.box-bottom{background:$yellow-lighter; border-radius:0;}
 }
 
 
 @media all and (min-width:581px){
-.bg-top{background:#000736 url(../img/play/europe.jpg) no-repeat right center; background-size:cover;}
+.bg-top{background:#000736 url(../img/play/europe.jpg) no-repeat right center;}
 }
 
 
@@ -177,7 +178,7 @@ $gap2:5px; 	/* Gap between numbers */
 .bg-top{background:#1C365B; @include background-image(linear-gradient(#010101, #1C365B));}
 .bg-top:before{display:none;}
 .bg-top .txt{font-size:$basic-size;}
-.bg-top .circle{margin:-15px 0 0 -100px; width:200px;}
+.bg-top .circle{margin:-15px auto 0; width:200px; right:0;}
 .bg-top .circle, .bg-top .circle:hover, .bg-top .circle:focus, .bg-top .circle:active{border-width:2px!important};
 .bg-top .cols{margin-bottom:0; display:block;}
 .bg-top .col4, .bg-top .col8{display:block; float:none; position:relative; width:100%; border:0!important; margin:0 0 2em; padding-bottom:0;}
@@ -197,7 +198,7 @@ $gap2:5px; 	/* Gap between numbers */
 .bg-top .br:after{white-space:pre; content:"\A";} /*Insert a break*/
 .bg-top .h1{font-size:$h2;}
 .bg-top .h3{font-size:$basic-size; line-height:125%;}
-.bg-top .circle{margin:-15px 0 0 -75px; width:150px; border-width:2px}
+.bg-top .circle{width:150px; border-width:2px}
 .box-action{text-align:center; margin-bottom:10px;}
 .box-action li{float:none; margin:0 auto 10px;}
 }
@@ -215,6 +216,7 @@ $gap2:5px; 	/* Gap between numbers */
 .line .numbers{padding:10px 10px 0; margin-right:-10px;}
 .line .numbers li, .line .stars li{border-width:6px;}
 .line .extra-pad{padding:0 30px;}
+.box-value{display:inline-block; margin-top:5px;}
 .play{
 	.cols:not(.not){margin-bottom:0; display:block;}
 	.col1:not(.not), .col2:not(.not), .col3:not(.not), .col4:not(.not), .col5:not(.not), .col6:not(.not), .col7:not(.not), .col8:not(.not), .col9:not(.not), .col10:not(.not), .col11:not(.not), .col12:not(.not), .col20per:not(.not)

@@ -325,19 +325,21 @@ ALLOWED: Variable and Extension
 .active.add-cart {
   transition: background .2s,border .2s, color .2s;
   cursor: pointer;
-  color: #777;
-  background: #efc048;
-  border-color: #fff;
+  color: #fff;
+  background: #ae5279;
+  border-color: #7a3955;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .active.add-cart .separator {
-  border-color: #aaa;
+  border-color: #7a3955;
+  transition: border .2s;
 }
 
 .active.add-cart:hover, .active.add-cart:hover .separator, .active.add-cart:focus, .active.add-cart:focus .separator {
-  border-color: #333;
-  background: #ebb019;
+  background: #7a3955;
   color: #fff;
+  border-color: #333;
 }
 
 .active.add-cart:active .separator {
@@ -345,7 +347,7 @@ ALLOWED: Variable and Extension
 }
 
 .gap {
-  margin: 0 15px;
+  padding: 0 15px;
 }
 
 .separator {
@@ -435,7 +437,7 @@ ALLOWED: Variable and Extension
   }
 
   .gap {
-    margin: 0 9px;
+    padding: 0 9px;
   }
 
   .line .stars .ico {
@@ -475,10 +477,12 @@ ALLOWED: Variable and Extension
   }
 
   .bg-top .circle {
+    top: 0;
+    left: 0;
     border-radius: 5px;
     width: auto;
     height: auto;
-    margin: -8px 0 0 -46%;
+    margin: -8px 0 0 8px;
     padding: 8px;
     text-align: left;
     width: 96%;
@@ -501,6 +505,7 @@ ALLOWED: Variable and Extension
   .gameplay {
     border-right: 0;
     border-left: 0;
+    border-radius: 0;
   }
 
   .bg-top, .bg-top:before {
@@ -530,18 +535,22 @@ ALLOWED: Variable and Extension
   }
 
   .gap {
-    margin: 0 15px;
+    padding: 0 15px;
   }
 
   .add-cart {
     margin: 10px auto 0;
     float: none;
   }
+
+  .box-bottom {
+    background: #fffeec;
+    border-radius: 0;
+  }
 }
 @media all and (min-width: 581px) {
   .bg-top {
     background: #000736 url(../img/play/europe.jpg) no-repeat right center;
-    background-size: cover;
   }
 }
 @media only screen and (max-width: 580px) {
@@ -601,8 +610,9 @@ ALLOWED: Variable and Extension
   }
 
   .bg-top .circle {
-    margin: -15px 0 0 -100px;
+    margin: -15px auto 0;
     width: 200px;
+    right: 0;
   }
 
   .bg-top .circle, .bg-top .circle:hover, .bg-top .circle:focus, .bg-top .circle:active {
@@ -664,7 +674,6 @@ ALLOWED: Variable and Extension
   }
 
   .bg-top .circle {
-    margin: -15px 0 0 -75px;
     width: 150px;
     border-width: 2px;
   }
@@ -720,6 +729,11 @@ ALLOWED: Variable and Extension
 
   .line .extra-pad {
     padding: 0 30px;
+  }
+
+  .box-value {
+    display: inline-block;
+    margin-top: 5px;
   }
 
   .play .cols:not(.not) {

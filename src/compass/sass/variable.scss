@@ -7,7 +7,9 @@ ALLOWED: Variable and Extension
 
 /* COLORS */
 $purple:#ae5279;
-$purple-dark:darken($purple, 35%);
+$purple-dark:darken($purple, 15%);
+$purple-darker:darken($purple, 35%);
+$yellow-lighter:#fffeec;
 $yellow:#efc048;
 $yellow-dark:darken($yellow, 10%);
 $yellow-darker:darken($yellow, 30%);
