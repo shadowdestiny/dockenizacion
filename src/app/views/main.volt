@@ -21,18 +21,15 @@
         <script src="/js/main.js" async></script>
 
         {# CSS Compress this css in a single file #}
-        <link rel="stylesheet" href="/css/basic.css">
-        <link rel="stylesheet" href="/css/column.css">
-        <link rel="stylesheet" href='/css/icomoon.css'> {# Vectorial Icons loaded as fonts #}
+        <link rel="stylesheet" href="/css/main.css">
         {% block template_css %}{% endblock %}      {# Inject unique css #}
 
         {# FONTS  #}
         <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700'>
-        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Signika:400,700'>
 
         {% block template_scripts %}{% endblock %}  {# Inject unique js #}
 	</head>
-	<body>
+	<body class="{% block bodyClass %}{% endblock %}">
         {% include "_elements/header.volt" %}
         {% block body %}{% endblock %}
         {% include "_elements/footer.volt" %}

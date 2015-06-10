@@ -58,15 +58,13 @@ img.right{margin:0 0 15px 10px;}
   background:#aaa; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);
   @include background-image(linear-gradient(#cccccc, #777777));
 }
-.combo .btn:first-child{border-radius:5px 0 0 5px; border-right:1px solid #eee!important;}
-.combo .btn:last-child{border-radius:0 5px 5px 0; border-left:1px solid $grey;}
 .btn.expand{width:100%;}
 .btn.expand .ico{float:right; line-height:20px;}
 .btn:hover, .btn:focus{text-shadow:0 0 0 transparent; background:#fff; color:#777;}
 .btn:active{color:$black!important; box-shadow:0 5px 5px #bbb inset!important; border:1px solid $black!important; background:#fff!important; text-shadow:0 0 0 transparent;}
 .btn.big{padding:15px 20px; font-size:$h3;}
 .btn.big:active{box-shadow:0 0 0 1px #eee inset, 0 5px 20px #888 inset!important;}
-.btn .ico{@extend %ico-size;}
+.btn .ico{font-size:75%; margin-left:8px;}
 
 .btn.white{color:$hover; background:#fff; font-weight:normal; border:1px solid #fff; text-shadow:0 0 0 transparent;}
 .btn.white:hover, .btn.white:focus, .gwy:hover, .gwy:focus, .gwp:hover, .gwp:focus
@@ -187,7 +185,7 @@ body{font-family:$basic-font;}
 
 
 /* PAGE LAYOUT */
-.wrapper{max-width:1200px; margin:auto;}
+.wrapper{max-width:1200px; margin:auto; position:relative;}
 .logo{float:left; margin-top:10px;}
 .logo .pic{height:100%;}
 .small-logo{float:left; width:200px;}
@@ -293,20 +291,20 @@ body{font-family:$basic-font;}
 }
 
 /* MEDIA QUERY DESKTOP STATUS SETTINGS */
-.media{width:0px; height:0;} // It help me debug with Jquery which media query it is applied
+.media{width:0; height:0;} // It help me debug with Jquery which media query it is applied
 .mobile{display:none;}
 .nav.mobile ul{display:none;}
 
 
-@media only screen and (max-width: 1200px){
+@media only screen and (max-width:1200px){
 /*body{border:10px solid #0ff;} /* BLUE WATER */
 .media{width:1px}
 .wrapper{max-width:992px;}
 }
  
 /* Medium Devices, Desktops */
-@media only screen and (max-width: 992px){
-/* body{border:10px solid #ff0;} /* YELLOW */
+@media only screen and (max-width:992px){
+ /*body{border:10px solid #ff0;} /* YELLOW */
 .media{width:2px}
 .wrapper{max-width:768px;}
 .logo{margin-top:8px; width:250px;}
@@ -314,7 +312,7 @@ body{font-family:$basic-font;}
 }
 
 /* Small Devices, Tablets */
-@media only screen and (max-width: 768px){
+@media only screen and (max-width:768px){
 /*body{border:10px solid #0f0;} /* GREEN */
 .desktop, .mhide, .nav.mobile .br{display:none;}
 .mobile{display:block;}
@@ -322,11 +320,12 @@ body{font-family:$basic-font;}
 .head{padding:5px 15px; border:0;}
 .media{width:3px}
 .wrapper{max-width:100%;}
-.main-foot{border:0; margin:0 20px;}
-.main-foot .small-logo{width:150px;}
+.main-foot{border:0; margin:0 20px; text-align:center;}
+.main-foot .small-logo{width:150px; margin:10px auto 0; float:none; display:block;}
 .main-foot .social{clear:both; float:none; margin-bottom:20px;}
 .main-foot .info .cols{margin-bottom:0;}
 .main-foot .col20per{width:50%; float:left; margin-bottom:1.5em;}
+.main-foot .box-links{margin-top:0;}
 .box-links a{display:inline-block; padding:3px 0; margin-bottom:3px;}
 .box-links a:hover{text-decoration:underline;}
 .box-links li{margin-bottom:0;}
@@ -348,23 +347,28 @@ body{font-family:$basic-font;}
 .info .wrapper{text-align:center;}
 .info .social{margin-bottom:10px;}
 .info .txt, .info .partner{margin:0 auto 2em; float:none;}
-.main-foot .partner{text-align:center;}
-.main-foot ul{margin:auto;}
-.main-foot .fix-margin{margin-left:0;}
-}
-/* Extra Small Devices, Phones */
-@media only screen and (max-width: 480px){
-/*body{border:10px solid #00f;} /* BLUE*/
-.media{width:4px}
+.main-foot .col20per:nth-child(odd){clear:both;}
+.logo-social .wrapper{text-align:center;}
+.main-foot .small-logo{display:block; margin:10px auto 0; float:none;}
+.fix-margin{margin:0 auto 15px;}
+.partner ul{text-align:center;}
+.partner li{margin-bottom:15px;}
+.partner li:first-child{margin-left:0;}
 .box-links .col20per{width:100%; float:none; text-align:center; padding:0;}
 .box-links a{display:block; width:100%; border-bottom:1px solid #ddd; padding:7px 0; margin-bottom:0;}
 .box-links li:first-child a{border-top:1px solid #ddd;}
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width:480px){
+/*body{border:2px solid #00f;} /* BLUE*/
+.media{width:4px}
 .box-estimated .h2{line-height:1.3em}
 }
  
 /* Custom, iPhone Retina */
-@media only screen and (max-width: 320px){
-/*body{border:10px solid #f00;} /* RED */
+@media only screen and (max-width:320px){
+/*body{border:2px solid #f00;} /* RED */
 .media{width:5px}
 .box-how .grey{display:none;}
 }

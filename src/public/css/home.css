@@ -21,11 +21,6 @@ ALLOWED: Variable and Extension
   text-shadow: -4px -3px 0 #fff, 4px -3px 0 #fff, -4px 3px 0 #fff, 4px 3px 0 #fff, -3px -4px 0 #fff, 3px -4px 0 #fff, -3px 4px 0 #fff, 3px 4px 0 #fff, 0   -6px 0 #fff, 0    6px 0 #fff, -6px 0   0 #fff, 6px 0   0 #fff;
 }
 
-.box-result .lnk .ico {
-  font-size: 75%;
-  margin-left: 8px;
-}
-
 /* BUTTONS */
 /* ANIMATION */
 .box-estimated:hover .try, .box-result:hover .lnk {
@@ -33,6 +28,7 @@ ALLOWED: Variable and Extension
   animation-name: pulseRight;
 }
 
+/* COLUMNS */
 .box-play .txt {
   position: absolute;
   left: -9999px;
@@ -195,11 +191,14 @@ ALLOWED: Variable and Extension
   color: #474ea0;
 }
 
-/* MAYBE ALL ICO should have this basic size????*/
+.box-result .lnk .ico {
+  font-size: 75%;
+  margin-left: 8px;
+}
+
 .box-result .numbers {
   font-weight: bold;
   margin-bottom: 1em;
-  font-family: "Signika", helvetica, arial, sans-serif;
 }
 
 .box-result .numbers.small li {
@@ -619,20 +618,6 @@ ALLOWED: Variable and Extension
   .box-prize .col6 {
     width: 50%;
     float: left;
-  }
-
-  .main-foot .col20per:nth-child(odd) {
-    clear: both;
-  }
-
-  .logo-social .wrapper {
-    text-align: center;
-  }
-
-  .main-foot .small-logo {
-    display: block;
-    margin: 10px auto 0;
-    float: none;
   }
 }
 /* Extra Small Devices, Phones */

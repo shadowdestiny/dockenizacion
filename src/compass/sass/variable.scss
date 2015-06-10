@@ -10,6 +10,7 @@ $purple:#ae5279;
 $purple-dark:darken($purple, 35%);
 $yellow:#efc048;
 $yellow-dark:darken($yellow, 10%);
+$yellow-darker:darken($yellow, 30%);
 $yellowTxt:#ffc923;
 $black:#333;
 $grey:#777;
@@ -40,7 +41,6 @@ $active:#c03;
 
 /* TYPOGRAPHY */
 $basic-font:"Open Sans", helvetica, arial, verdana, sans-serif;
-$signika:'Signika', helvetica, arial, sans-serif;
 
 $h0:3.375em;			/* 16x3.375 = 54px */
 $h1:1.875em;			/* 16x1.875 = 30px */
@@ -65,10 +65,15 @@ $basic-size: 0.875em;	/* 16x1.125=14 */
 	 0   -6px 0 #fff, 0    6px 0 #fff, -6px 0   0 #fff, 6px 0   0 #fff;
 }
 
-%ico-size{font-size:75%; margin-left:8px;}
-
 /* BUTTONS */
 
 /* ANIMATION */
 %anim{@include transition(all .5s ease-in-out);}
 %pulseRight{-webkit-animation-name:pulseRight; animation-name:pulseRight;}
+
+/* COLUMNS */
+%cols{position:relative; margin-bottom:2em; display:table; width:100%;}
+%columns{
+	display:table-cell; float:none; vertical-align:top; position:relative;
+	@include box-sizing(content-box);
+}

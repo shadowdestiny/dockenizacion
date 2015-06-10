@@ -1,3 +1,386 @@
+/* COLUMN FLUID GRID */
+/* Clearfix added to columns */
+.cols:before, .cols:after {
+  content: " ";
+  display: table;
+}
+
+.cols:after {
+  clear: both;
+}
+
+.cols {
+  *zoom: 1;
+}
+
+/* IE6/7 */
+/* Based on 12 col structure */
+/* Columns with NO equal height*/
+.no-eq.cols {
+  overflow: visible;
+  display: block;
+}
+
+.no-eq > .col1, .no-eq > .col2, .no-eq > .col3, .no-eq > .col4, .no-eq > .col5, .no-eq > .col6,
+.no-eq > .col7, .no-eq > .col8, .no-eq > .col9, .no-eq > .col10, .no-eq > .col11, .no-eq > .col12,
+.no-eq > .col20per {
+  display: block;
+  float: left;
+}
+
+/* COLUMNS based on 12 cols structure WITHOUT margin */
+.col1 {
+  width: 8.33333333333333%;
+}
+
+.col2 {
+  width: 16.66666666666667%;
+}
+
+.col3 {
+  width: 25%;
+}
+
+.col4 {
+  width: 33.33333333333333%;
+}
+
+.col5 {
+  width: 41.66666666666667%;
+}
+
+.col6 {
+  width: 50%;
+}
+
+.col7 {
+  width: 58.33333333333333%;
+}
+
+.col8 {
+  width: 66.66666666666667%;
+}
+
+.col9 {
+  width: 75%;
+}
+
+.col10 {
+  width: 83.33333333333333%;
+}
+
+.col11 {
+  width: 91.66666666666667%;
+}
+
+.col12 {
+  width: 100%;
+  margin: 0;
+}
+
+.col20per {
+  width: 20%;
+}
+
+/* PADDING - modify value to your favourite settings 
+.pad  .col1, .pad  .col2, .pad  .col3, .pad  .col4, .pad  .col5, .pad  .col6, 
+.pad  .col7, .pad  .col8, .pad  .col9, .pad  .col10, .pad  .col11, .pad  .col12,
+.pad .col20per
+{padding:15px 20px;}
+*/
+/*** ADD OR EDIT YOUR BREAKPOINTS BEHAVIOUR WITH COLUMNS ***/
+/* Medium Devices and Desktop */
+@media screen and (max-width: 768px) {
+  body:not(.play) .cols {
+    margin-bottom: 0;
+    display: block;
+  }
+  body:not(.play) .col1, body:not(.play) .col2, body:not(.play) .col3, body:not(.play) .col4, body:not(.play) .col5, body:not(.play) .col6, body:not(.play) .col7, body:not(.play) .col8, body:not(.play) .col9, body:not(.play) .col10, body:not(.play) .col11, body:not(.play) .col12, body:not(.play) .col20per {
+    display: block;
+    float: none;
+    position: relative;
+    width: 100%;
+    border: 0 !important;
+    margin: 0 0 2em;
+    padding-bottom: 0;
+  }
+}
+@font-face {
+  font-family: 'icomoon';
+  src: url("fonts/icomoon.eot?-icrspm");
+  src: url("fonts/icomoon.eot?#iefix-icrspm") format("embedded-opentype"), url("fonts/icomoon.woff?-icrspm") format("woff"), url("fonts/icomoon.ttf?-icrspm") format("truetype"), url("fonts/icomoon.svg?-icrspm#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="ico-"], [class*=" ico-"] {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ico-star:before {
+  content: "\e60b";
+}
+
+.ico-star-out:before {
+  content: "\e60a";
+}
+
+.ico-m:before {
+  content: "\e609";
+}
+
+.ico-multimedia:before {
+  content: "\e608";
+}
+
+.ico-pull-down:before {
+  content: "\e607";
+}
+
+.ico-lotto-ticket:before {
+  content: "\e603";
+}
+
+.ico-cart:before {
+  content: "\e604";
+}
+
+.ico-hourglass:before {
+  content: "\e600";
+}
+
+.ico-arrow-right:before {
+  content: "\e601";
+}
+
+.ico-triangle-down:before {
+  content: "\e602";
+}
+
+.ico-triangle-up:before {
+  content: "\e606";
+}
+
+.ico-arrow-right3:before {
+  content: "\e605";
+}
+
+.ico-home:before {
+  content: "\e900";
+}
+
+.ico-pencil:before {
+  content: "\e905";
+}
+
+.ico-play:before {
+  content: "\e912";
+}
+
+.ico-bullhorn:before {
+  content: "\e91a";
+}
+
+.ico-coin-dollar:before {
+  content: "\e93b";
+}
+
+.ico-coin-euro:before {
+  content: "\e93c";
+}
+
+.ico-coin-pound:before {
+  content: "\e93d";
+}
+
+.ico-coin-yen:before {
+  content: "\e93e";
+}
+
+.ico-clock:before {
+  content: "\e94e";
+}
+
+.ico-display:before {
+  content: "\e956";
+}
+
+.ico-mobile2:before {
+  content: "\e959";
+}
+
+.ico-tablet:before {
+  content: "\e95a";
+}
+
+.ico-bubble:before {
+  content: "\e96b";
+}
+
+.ico-bubble2:before {
+  content: "\e96e";
+}
+
+.ico-user:before {
+  content: "\e971";
+}
+
+.ico-quotes-left:before {
+  content: "\e977";
+}
+
+.ico-quotes-right:before {
+  content: "\e978";
+}
+
+.ico-spinner:before {
+  content: "\e97a";
+}
+
+.ico-search:before {
+  content: "\e986";
+}
+
+.ico-key:before {
+  content: "\e98d";
+}
+
+.ico-cog:before {
+  content: "\e994";
+}
+
+.ico-bin:before {
+  content: "\e9ac";
+}
+
+.ico-menu:before {
+  content: "\e9bd";
+}
+
+.ico-earth:before {
+  content: "\e9ca";
+}
+
+.ico-flag:before {
+  content: "\e9cc";
+}
+
+.ico-eye:before {
+  content: "\e9ce";
+}
+
+.ico-eye-blocked:before {
+  content: "\e9d1";
+}
+
+.ico-star-empty:before {
+  content: "\e9d7";
+}
+
+.ico-star-full:before {
+  content: "\e9d9";
+}
+
+.ico-heart:before {
+  content: "\e9da";
+}
+
+.ico-smile:before {
+  content: "\e9e1";
+}
+
+.ico-sad:before {
+  content: "\e9e5";
+}
+
+.ico-info:before {
+  content: "\ea0c";
+}
+
+.ico-cancel-circle:before {
+  content: "\ea0d";
+}
+
+.ico-cross:before {
+  content: "\ea0f";
+}
+
+.ico-checkmark:before {
+  content: "\ea10";
+}
+
+.ico-exit:before {
+  content: "\ea14";
+}
+
+.ico-shuffle:before {
+  content: "\ea30";
+}
+
+.ico-arrow-up2:before {
+  content: "\ea3a";
+}
+
+.ico-arrow-right2:before {
+  content: "\ea3c";
+}
+
+.ico-arrow-down2:before {
+  content: "\ea3e";
+}
+
+.ico-arrow-left2:before {
+  content: "\ea40";
+}
+
+.ico-circle-up:before {
+  content: "\ea41";
+}
+
+.ico-circle-right:before {
+  content: "\ea42";
+}
+
+.ico-circle-down:before {
+  content: "\ea43";
+}
+
+.ico-circle-left:before {
+  content: "\ea44";
+}
+
+.ico-google-plus:before {
+  content: "\ea88";
+}
+
+.ico-facebook:before {
+  content: "\ea8c";
+}
+
+.ico-twitter:before {
+  content: "\ea91";
+}
+
+.ico-wordpress:before {
+  content: "\eab6";
+}
+
+.ico-plus:before {
+  content: "\ea0a";
+}
+
+.ico-minus:before {
+  content: "\ea0b";
+}
+
 /*** VARIABLES ***
 NO ALLLOWED: Class, ID or Keyframes
 ALLOWED: Variable and Extension
@@ -16,6 +399,23 @@ ALLOWED: Variable and Extension
 /* BUTTONS */
 /* ANIMATION */
 /* COLUMNS */
+.cols {
+  position: relative;
+  margin-bottom: 2em;
+  display: table;
+  width: 100%;
+}
+
+.col1, .col2, .col3, .col4, .col5, .col6, .col7, .col8, .col9, .col10, .col11, .col12, .col20per {
+  display: table-cell;
+  float: none;
+  vertical-align: top;
+  position: relative;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
 /* RESET - http://meyerweb.com/eric/tools/css/reset/ */
 html, body, applet, object, iframe, svg, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp,
