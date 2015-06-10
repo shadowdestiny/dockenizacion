@@ -14,6 +14,7 @@ class LotteryDraw extends EntityBase implements IEntity
     protected $published;
     protected $lottery;
     protected $result;
+    
     public function getResult()
     {
         return $this->result;
@@ -73,6 +74,11 @@ class LotteryDraw extends EntityBase implements IEntity
     public function getBigWinner()
     {
         return $this->big_winner;
+    }
+
+    public function setResult($result)
+    {
+        $this->result = $result;
     }
 
     public function setBigWinner($big_winner)

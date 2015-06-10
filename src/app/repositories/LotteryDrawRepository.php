@@ -22,19 +22,20 @@ class LotteryDrawRepository extends EntityRepository
         return $result[0]['jackpot'];
     }
 
-    public function getNextJackpot($lotteryName, $date = null)
+    public function getNextJackpot($lotteryName, \DateTime $date = null)
     {
         if(!$date) {
-            $date = date("Y-m-d");
+            $date = new \DateTime();
         }
         $result = $this->getEntityManager()
             ->createQuery(
                 'SELECT ld.jackpot'
                 .' FROM '.$this->getEntityName().' ld JOIN ld.lottery l'
-                .' WHERE l.name = :lottery_name AND ld.draw_date >= :date'
-                .' ORDER BY ld.draw_date DESC')
+                .' WHERE l.name = :lottery_name AND ld.draw_date > :date'
+                .'  OR (ld.draw_date = :date AND l.draw_time > :time)'
+                .' ORDER BY ld.draw_date ASC')
             ->setMaxResults(1)
-            ->setParameters(['lottery_name' => $lotteryName, 'date' => $date])
+            ->setParameters(['lottery_name' => $lotteryName, 'date' => $date->format("Y-m-d"), 'time' => $date->format("H:i:s")])
             ->getResult();
         return $result[0]['jackpot'];
     }

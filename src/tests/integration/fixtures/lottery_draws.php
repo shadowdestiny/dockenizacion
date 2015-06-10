@@ -46,5 +46,14 @@ return [
             'published' => 0,
             'lottery_id' => 2,
         ],
+        [
+            'draw_id'   => 6,
+            'draw_date' => '2015-06-05',
+            'jackpot' => 100000000,
+            'message' => '',
+            'big_winner' => 0,
+            'published' => 0,
+            'lottery_id' => 1,
+        ],
     ]
 ];

@@ -3,15 +3,8 @@ namespace EuroMillions\entities;
 
 class EuroMillionsResult extends LotteryResult
 {
-    protected $categories;
-
     protected $regular_numbers;
     protected $lucky_numbers;
-
-    public function setCategories($categories)
-    {
-        $this->categories = $categories;
-    }
 
     public function setRegularNumbers($regular_numbers)
     {
@@ -23,11 +16,6 @@ class EuroMillionsResult extends LotteryResult
         $this->lucky_numbers = $lucky_numbers;
     }
 
-    public function getCategories()
-    {
-        return $this->categories;
-    }
-
     public function getRegularNumbers()
     {
         return $this->regular_numbers;
@@ -37,5 +25,4 @@ class EuroMillionsResult extends LotteryResult
     {
         return $this->lucky_numbers;
     }
-
 }

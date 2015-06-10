@@ -20,8 +20,10 @@ EuroMillions\entities\Lottery:
       type: string
     jackpot_api:
       type: string
-      options:
-        nullable: true
+      nullable: true
+    result_api:
+      type: string
+      nullable: true
     draw_time:
       type: string
   oneToMany:
