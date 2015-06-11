@@ -16,6 +16,8 @@ develweb:
     - /var/www:/var/www/
   links:
     - develdbmaster:mysql
+  environment:
+    EM_ENV: docker
 
 compass:
   image: antonienko/compass-watch

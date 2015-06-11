@@ -3,7 +3,7 @@
 		<span class="currency first{% if extraClass.currencyClass %} {{ extraClass.currencyClass }}{% endif %}">&euro;</span> 
 	{% endif %}
 	
-	<span class="value{% if extraClass.valueClass %} {{ extraClass.valueClass }}{% endif %}">51.000.000</span>
+	<span class="value{% if extraClass.valueClass %} {{ extraClass.valueClass }}{% endif %}">{{ jackpot_value | number_format(0, ',', '.')}}</span>
 	
 	{% if not currency_symbol_first %}
 		<span class="currency last{% if extraClass.currencyClass %} {{ extraClass.currencyClass }}{% endif %}">&euro;</span> 

@@ -24,4 +24,22 @@ class LotteryApisFactoryUnitTest extends UnitTestBase
         $api = $sut->jackpotApi($lottery);
         $this->assertInstanceOf('\Euromillions\services\external_apis\\' . $expected_jackpot_api, $api);
     }
+
+    /**
+     * method resultApi
+     * when called
+     * should returnProperResultApi
+     */
+    public function test_resultApi_called_returnProperResultApi()
+    {
+        $api_in_db = 'LoteriasyapuestasDotEs';
+        $expected_result_api = $api_in_db.'Api';
+        $lottery = new Lottery();
+        $lottery->initialize([
+            'result_api' => $api_in_db
+        ]);
+        $sut = new LotteryApisFactory();
+        $api = $sut->resultApi($lottery);
+        $this->assertInstanceOf('\Euromillions\services\external_apis\\' . $expected_result_api, $api);
+    }
 }

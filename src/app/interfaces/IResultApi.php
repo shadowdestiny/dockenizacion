@@ -3,5 +3,5 @@ namespace EuroMillions\interfaces;
 
 interface IResultApi 
 {
-    public function getResultForDate($date);
+    public function getResultForDate($lotteryName, $date);
 }

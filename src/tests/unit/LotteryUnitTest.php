@@ -15,17 +15,7 @@ class LotteryUnitTest extends UnitTestBase
      */
     public function test_getNextDrawDate_called_returnProperResult($frequency, $draw_time, $now, $expectedDrawDate)
     {
-        $sut = new Lottery();
-        $sut->initialize([
-            'id' => 1,
-            'name' => 'EuroMillions',
-            'active' => 1,
-            'frequency' => $frequency,
-            'draw_time' => $draw_time
-        ]);
-        $actual = $sut->getNextDrawDate($now);
-        $expected = new \DateTime($expectedDrawDate);
-        $this->assertEquals($expected, $actual);
+        $this->exerciseGetDrawDate($frequency, $draw_time, $now, $expectedDrawDate, 'getNextDrawDate');
     }
 
     public function getConfigurationAndExpectedResult()
@@ -46,5 +36,60 @@ class LotteryUnitTest extends UnitTestBase
             ['d', '09:15:00', '2015-02-01 10:01:01', '2015-02-02 09:15:00'], //daily, before hour
             ['d', '09:15:00', '2015-02-01 01:01:01', '2015-02-01 09:15:00'], //daily, after hour
         ];
+    }
+
+    /**
+     * method getLastDrawDate
+     * when called
+     * should returnProperResult
+     * @dataProvider getConfigurationAndExpectedResultForLast
+     */
+    public function test_getLastDrawDate_called_returnProperResult($frequency, $draw_time, $now, $expectedDrawDate)
+    {
+        $this->exerciseGetDrawDate($frequency, $draw_time, $now, $expectedDrawDate, 'getLastDrawDate');
+
+    }
+
+    public function getConfigurationAndExpectedResultForLast()
+    {
+        return [
+            ['y1225', '10:00:00', '2015-03-02 15:00:01', '2014-12-25 10:00:00'],
+            ['y1225', '10:00:00', '2015-12-25 15:00:01', '2015-12-25 10:00:00'],
+            ['y1225', '10:00:00', '2015-12-25 09:59:01', '2014-12-25 10:00:00'],
+            ['m29', '09:15:00', '2016-03-01 01:01:01', '2016-02-29 09:15:00'],
+            ['m29', '09:15:00', '2015-03-01 01:01:01', '2015-01-29 09:15:00'],
+            ['w1000000', '09:15:00', '2015-02-01 01:01:01', '2015-01-26 09:15:00'],
+            ['w0100000', '09:15:00', '2015-02-01 01:01:01', '2015-01-27 09:15:00'],
+            ['w1111100', '09:15:00', '2015-02-01 01:01:01', '2015-01-30 09:15:00'],
+            ['w0000011', '09:15:00', '2015-02-01 01:01:01', '2015-01-31 09:15:00'],
+            ['w0100100', '09:15:00', '2015-02-01 01:01:01', '2015-01-30 09:15:00'],
+            ['w0001010', '09:15:00', '2015-02-01 01:01:01', '2015-01-31 09:15:00'],
+            ['w0010001', '09:15:00', '2015-02-01 10:01:01', '2015-02-01 09:15:00'],
+            ['d', '09:15:00', '2015-02-01 10:01:01', '2015-02-01 09:15:00'],
+            ['d', '09:15:00', '2015-02-01 01:01:01', '2015-01-31 09:15:00'],
+        ];
+
+    }
+
+    /**
+     * @param $frequency
+     * @param $draw_time
+     * @param $now
+     * @param $expectedDrawDate
+     * @param $method
+     */
+    private function exerciseGetDrawDate($frequency, $draw_time, $now, $expectedDrawDate, $method)
+    {
+        $sut = new Lottery();
+        $sut->initialize([
+            'id'        => 1,
+            'name'      => 'EuroMillions',
+            'active'    => 1,
+            'frequency' => $frequency,
+            'draw_time' => $draw_time
+        ]);
+        $actual = $sut->$method(new \DateTime($now));
+        $expected = new \DateTime($expectedDrawDate);
+        $this->assertEquals($expected, $actual);
     }
 }

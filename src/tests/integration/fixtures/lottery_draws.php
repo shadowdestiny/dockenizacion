@@ -9,6 +9,7 @@ return [
             'big_winner' => 0,
             'published' => 0,
             'lottery_id' => 1,
+            'result_id' => null,
         ],
         [
             'draw_id'   => 2,
@@ -18,6 +19,7 @@ return [
             'big_winner' => 0,
             'published' => 0,
             'lottery_id' => 1,
+            'result_id' => null,
         ],
         [
             'draw_id'   => 3,
@@ -27,6 +29,7 @@ return [
             'big_winner' => 0,
             'published' => 0,
             'lottery_id' => 1,
+            'result_id' => null,
         ],
         [
             'draw_id'   => 4,
@@ -36,6 +39,7 @@ return [
             'big_winner' => 0,
             'published' => 0,
             'lottery_id' => 1,
+            'result_id' => null,
         ],
         [
             'draw_id'   => 5,
@@ -45,6 +49,17 @@ return [
             'big_winner' => 0,
             'published' => 0,
             'lottery_id' => 2,
+            'result_id' => null,
+        ],
+        [
+            'draw_id'   => 6,
+            'draw_date' => '2015-06-05',
+            'jackpot' => 100000000,
+            'message' => '',
+            'big_winner' => 0,
+            'published' => 0,
+            'lottery_id' => 1,
+            'result_id' => 1,
         ],
     ]
 ];

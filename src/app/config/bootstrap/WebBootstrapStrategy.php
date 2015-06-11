@@ -95,6 +95,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 $compiler->addFilter('undertospace', function ($resolvedArgs, $exprArgs) {
                     return 'str_replace("_", " ",' . $resolvedArgs . ')';
                 });
+                $compiler->addFilter('number_format', 'number_format');
                 var_dump($volt->getOptions());
                 return $volt;
             }

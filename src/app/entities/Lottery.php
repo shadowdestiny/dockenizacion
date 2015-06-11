@@ -14,6 +14,12 @@ class Lottery extends EntityBase implements IEntity
     protected $frequency; //d, w0100100, m24, y1225
     protected $draw_time; //utc
     protected $jackpot_api;
+    protected $result_api;
+
+    public function __construct()
+    {
+        $this->draws = new ArrayCollection();
+    }
 
     public function getJackpotApi()
     {
@@ -25,9 +31,14 @@ class Lottery extends EntityBase implements IEntity
         $this->jackpot_api = $jackpot_api;
     }
 
-    public function __construct()
+    public function getResultApi()
     {
-        $this->draws = new ArrayCollection();
+        return $this->jackpot_api;
+    }
+
+    public function setResultApi($jackpot_api)
+    {
+        $this->jackpot_api = $jackpot_api;
     }
 
     public function getActive()
@@ -75,35 +86,27 @@ class Lottery extends EntityBase implements IEntity
         $this->draw_time = $draw_time;
     }
 
+    public function getLastDrawDate(\DateTime $now = null)
+    {
+        return $this->getDrawDate($now, 'Last');
+    }
+
     /**
-     * @param string $now
+     * @param \DateTime $now
      * @return \DateTime
      */
-    public function getNextDrawDate($now = null)
+    public function getNextDrawDate(\DateTime $now = null)
     {
-        if (!$now) {
-            $now = date('Y-m-d H:i:s');
+        return $this->getDrawDate($now, 'Next');
+    }
+
+    protected function getLastDrawFromDaily($configParams, \DateTime $date)
+    {
+        if ($date->format("H:i:s") <= $this->draw_time) {
+            return new \DateTime($date->sub(new \DateInterval('P1D'))->format("Y-m-d {$this->draw_time}"));
+        } else {
+            return new \DateTime($date->format("Y-m-d {$this->draw_time}"));
         }
-        $strategy = substr($this->frequency, 0, 1);
-        $function = 'getNextDrawFrom';
-        switch ($strategy) {
-            case 'y':
-                $function .= 'Yearly';
-                break;
-            case 'm':
-                $function .= 'Monthly';
-                break;
-            case 'w':
-                $function .= 'Weekly';
-                break;
-            case 'd':
-                $function .= 'Daily';
-                break;
-            default:
-                var_dump($this->frequency);
-                //throw?
-        }
-        return $this->$function(substr($this->frequency, 1),  new \DateTime($now));
     }
 
     protected function getNextDrawFromDaily($configParams, $date)
@@ -115,19 +118,37 @@ class Lottery extends EntityBase implements IEntity
         }
     }
 
-    protected function getNextDrawFromWeekly($configParams, $date)
+    protected function getLastDrawFromWeekly($configParams, $date)
     {
-        $weekday_index = (int)$date->format('N')-1;
+        $weekday_index = (int)$date->format('N') - 1;
         $result_date = new \DateTime($date->format("Y-m-d {$this->draw_time}"));
         $hour = $date->format("H:i:s");
         $one_day = new \DateInterval('P1D');
         $days_to_check = 7;
         while ($days_to_check) {
-            if (1 == (int)$configParams[$weekday_index]  && ($days_to_check < 7 || $hour < $this->draw_time)) {
+            if (1 == (int)$configParams[$weekday_index] && ($days_to_check < 7 || $hour > $this->draw_time)) {
+                return $result_date;
+            } else {
+                $result_date = $result_date->sub($one_day);
+                $weekday_index = ($weekday_index - 1) % 7;
+            }
+            $days_to_check--;
+        }
+    }
+
+    protected function getNextDrawFromWeekly($configParams, $date)
+    {
+        $weekday_index = (int)$date->format('N') - 1;
+        $result_date = new \DateTime($date->format("Y-m-d {$this->draw_time}"));
+        $hour = $date->format("H:i:s");
+        $one_day = new \DateInterval('P1D');
+        $days_to_check = 7;
+        while ($days_to_check) {
+            if (1 == (int)$configParams[$weekday_index] && ($days_to_check < 7 || $hour < $this->draw_time)) {
                 return $result_date;
             } else {
                 $result_date = $result_date->add($one_day);
-                $weekday_index = ($weekday_index + 1 ) % 7;
+                $weekday_index = ($weekday_index + 1) % 7;
             }
             $days_to_check--;
         }
@@ -143,7 +164,7 @@ class Lottery extends EntityBase implements IEntity
         if ($day_of_month < (int)$configParams || ($day_of_month == (int)$configParams) && $hour < $this->draw_time) {
             if ($month != 2
                 || ($month == 2 &&
-                    ($configParams <=28) ||
+                    ($configParams <= 28) ||
                     ($configParams == 29 && $leap_year)
                 )
             ) {
@@ -157,12 +178,35 @@ class Lottery extends EntityBase implements IEntity
         }
     }
 
+    protected function getLastDrawFromMonthly($configParams, $date)
+    {
+        $day_of_month = (int)$date->format('d');
+        $hour = $date->format("H:i:s");
+        $leap_year = $date->format('L');
+        $month = $date->format("m");
+        if ($day_of_month > (int)$configParams || ($day_of_month == (int)$configParams) && $hour > $this->draw_time) {
+           return new \DateTime($date->format("Y-m-{$configParams} {$this->draw_time}"));
+        } else {
+            if ($month != 3
+                || ($month == 3 &&
+                ($configParams <= 28) ||
+                ($configParams == 29 && $leap_year)
+                )
+            ) {
+                $previous_month = $date->sub(new \DateInterval('P1M'));
+                return new \DateTime($previous_month->format("Y-m-{$configParams} {$this->draw_time}"));
+            } else {
+                return new \DateTime($date->format("Y-01-{$configParams} {$this->draw_time}"));
+            }
+        }
+    }
+
     protected function getNextDrawFromYearly($configParams, $date)
     {
         $month_day = $date->format('md');
         $hour = $date->format('H:i:s');
         $draw_month = substr($configParams, 0, 2);
-        $draw_day = substr($configParams, 2,2);
+        $draw_day = substr($configParams, 2, 2);
         if (
             ($month_day == $configParams && $hour < $this->draw_time) ||
             ($month_day < $configParams)
@@ -171,6 +215,54 @@ class Lottery extends EntityBase implements IEntity
         } else {
             return new \DateTime($date->add(new \DateInterval('P1Y'))->format("Y-{$draw_month}-{$draw_day} {$this->draw_time}"));
         }
+    }
+
+    protected function getLastDrawFromYearly($configParams, $date)
+    {
+        $month_day = $date->format('md');
+        $hour = $date->format('H:i:s');
+        $draw_month = substr($configParams, 0, 2);
+        $draw_day = substr($configParams, 2, 2);
+        if (
+            ($month_day == $configParams && $hour > $this->draw_time) ||
+            ($month_day > $configParams)
+        ) {
+            return new \DateTime($date->format("Y-{$draw_month}-{$draw_day} {$this->draw_time}"));
+        } else {
+            return new \DateTime($date->sub(new \DateInterval('P1Y'))->format("Y-{$draw_month}-{$draw_day} {$this->draw_time}"));
+        }
+    }
+
+    /**
+     * @param \DateTime $now
+     * @param $next_or_last
+     * @return mixed
+     */
+    private function getDrawDate(\DateTime $now, $next_or_last)
+    {
+        $function = 'get' . $next_or_last . 'DrawFrom';
+        if (!$now) {
+            $now = new \DateTime();
+        }
+        $strategy = substr($this->frequency, 0, 1);
+        switch ($strategy) {
+            case 'y':
+                $function .= 'Yearly';
+                break;
+            case 'm':
+                $function .= 'Monthly';
+                break;
+            case 'w':
+                $function .= 'Weekly';
+                break;
+            case 'd':
+                $function .= 'Daily';
+                break;
+            default:
+                var_dump($this->frequency);
+            //throw?
+        }
+        return $this->$function(substr($this->frequency, 1), $now);
     }
 
 }

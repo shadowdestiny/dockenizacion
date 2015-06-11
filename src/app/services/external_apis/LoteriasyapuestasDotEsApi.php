@@ -8,19 +8,21 @@ use Phalcon\Http\Client\Provider\Curl;
 
 class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
 {
+    protected $curlWrapper;
+
+    public function __construct(Curl $curlWrapper = null)
+    {
+        $this->curlWrapper = $curlWrapper ? $curlWrapper : new Curl();
+    }
+
     /**
      * @param string $lotteryName
      * @param string $date
-     * @param Curl $curlWrapper
      * @return int
      */
-    public function getJackpotForDate($lotteryName, $date, Curl $curlWrapper = null)
+    public function getJackpotForDate($lotteryName, $date)
     {
-        if (!$curlWrapper) {
-            $curlWrapper = new Curl();
-        }
-        //EMTD refactorizar para que depende de la lotería que se pase
-        $response = $curlWrapper->get('http://www.loteriasyapuestas.es/es/euromillones/botes/.formatoRSS');
+        $response = $this->curlWrapper->get('http://www.loteriasyapuestas.es/es/euromillones/botes/.formatoRSS');
         $xml = new \SimpleXMLElement($response->body);
         foreach ($xml->channel->item as $item) {
             preg_match('/próximo [a-z]+ ([0123][0-9]) de ([a-z]+) de ([0-9]{4}) pone/', $item->description, $matches);
@@ -36,9 +38,35 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
         throw new ValidDateRangeException('The date requested ('.$date.') is not valid for the LoteriasyapuestasDotEsApi');
     }
 
-    public function getResultForDate($date)
+    /**
+     * @param string $lotteryName
+     * @param string $date
+     * @return array
+     */
+    public function getResultForDate($lotteryName, $date)
     {
-
+        $response = $this->curlWrapper->get('http://www.loteriasyapuestas.es/es/euromillones/resultados/.formatoRSS');
+        $xml = new \SimpleXMLElement($response->body);
+        foreach ($xml->channel->item as $item) {
+            if(preg_match('/Euromillones: resultados del [a-z]+ ([0123][0-9]) de ([a-z]+) de ([0-9]{4})/', $item->title ,$matches)) {
+                $day = $matches[1];
+                $month = $this->translateMonth($matches[2]);
+                $year = $matches[3];
+                $item_date = "$year-$month-$day";
+                if ($item_date == $date) {
+                    preg_match('/<b>([0-9]{2}) - ([0-9]{2}) - ([0-9]{2}) - ([0-9]{2}) - ([0-9]{2})<\/b> .* <b>([0-9]{2}) - ([0-9]{2})<\/b>/', $item->description, $result_matches);
+                    $result = [];
+                    for($i=1; $i<=5; $i++) {
+                        $result['regular_numbers'][] = $result_matches[$i];
+                    }
+                    for ($i=6; $i<=7; $i++) {
+                        $result['lucky_numbers'][] = $result_matches[$i];
+                    }
+                    return $result;
+                }
+            }
+        }
+        throw new ValidDateRangeException('The date requested ('.$date.') is not valid for the LoteriasyapuestasDotEsApi');
     }
 
     private function translateMonth($string)

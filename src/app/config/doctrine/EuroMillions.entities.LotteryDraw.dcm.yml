@@ -30,4 +30,6 @@ EuroMillions\entities\LotteryDraw:
   oneToOne:
     result:
       targetEntity: \EuroMillions\entities\LotteryResult
-      inversedBy: draw
+      joinColumn:
+        name: result_id
+        referencedColumnName: id

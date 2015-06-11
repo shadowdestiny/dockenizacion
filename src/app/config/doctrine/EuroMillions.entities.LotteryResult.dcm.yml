@@ -14,10 +14,3 @@ EuroMillions\entities\LotteryResult:
         unsigned: true
       generator:
         strategy: IDENTITY
-  oneToOne:
-     draw:
-      targetEntity: \EuroMillions\entities\LotteryDraw
-      mappedBy: result
-      joinColumn:
-        name: draw_id
-        referencedColumnName: draw_id
