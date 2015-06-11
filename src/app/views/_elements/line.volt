@@ -1,5 +1,5 @@
 <h1 class="h3 blue center">{{ language.translate("Line") }} 1</h1>
-<div class="line center number-on">
+<div class="line center">
 		<i class="ico ico-checkmark"></i>
 
 	<div class="combo cols not">

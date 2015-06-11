@@ -93,7 +93,7 @@ ALLOWED: Variable and Extension
 
 .box-action li {
   margin: 20px 0 20px 10px;
-  float: left;
+  display: inline-block;
 }
 
 .box-action .btn {
@@ -304,16 +304,16 @@ ALLOWED: Variable and Extension
 }
 
 .btn.clear {
-  display: none;
-}
-
-.number-on .clear {
-  display: block;
+  visibility: hidden;
   position: relative;
-  display: block;
   width: 90px;
   bottom: -16px;
   margin: -12px auto 0;
+  display: block;
+}
+
+.number-on .clear {
+  visibility: visible;
 }
 
 .add-cart, .add-cart:hover, .add-cart:focus {
@@ -365,16 +365,10 @@ ALLOWED: Variable and Extension
   height: 40px;
 }
 
-/*Retina only */
-@media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3 / 2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx) {
-  /*	
-  	.box-estimated{background-image:url(/img/home/bg-euro@2x.jpg); background-size:600px 171px;}
-  	.box-result .woman{background-image:url(../img/home/bg-result@2x.jpg); background-size:168px 189px;}
-  	.outbound{background-image:url(../img/home/bg-win-millions@2x.png); background-size:445px 445px;}
-  	.box-play .awards li, .box-play .ball{background-image:url(../img/sprite@2x.png); background-size:270px 220px;}
-  	.box-right{background-image:url(../img/home/bg-coloured@2x.jpg);}
-  */
+.clear-all {
+  display: none;
 }
+
 /* Large Devices, Wide Screens */
 @media only screen and (max-width: 1200px) {
   .gameplay {

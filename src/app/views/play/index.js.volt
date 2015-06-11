@@ -11,12 +11,19 @@ function checkMark(arrayCount){
 	}
 
 	if(numberCount[arrayCount] > 0 || starCount[arrayCount] > 0){
-		console.log("in")
-		$(".add-cart").addClass("active");
+		$(".num"+arrayCount+" .line").addClass("number-on");
+		$(".clear-all").css("display","block");
 	}else{
-		console.log("out")
 		$(".add-cart").removeClass("active");
+		$(".num"+arrayCount+" .line").removeClass("number-on");
 	}
+
+	if(numberCount[arrayCount] == 0 && starCount[arrayCount] == 0){
+		$(".clear-all").hide();
+	}else{
+		$(".add-cart").addClass("active");
+	}
+
 //	console.log(arrayCount+" totalCount= "+totalCount[arrayCount]+" // numberCount= "+numberCount[arrayCount]+" // starCount= "+starCount[arrayCount]);
 }
 
