@@ -60,7 +60,7 @@ $gap2:5px; 	/* Gap between numbers */
 .line .numbers li, .line .stars li{border-right:$gap2 solid transparent;}
 .line .numbers .cols{margin:0 0 $gap2;}
 .line .ol:last-child{margin-bottom:0;}
-.line .gwp{padding:2px 0; width:100%; background:transparent;}
+.line .gwp{padding:2px 0; width:100%; background:transparent; transition:none;}
 .line .gwp.active{background:$blue-dark; border:1px solid $blue-dark; color:#fff;}
 .line .stars{
 	position:relative; margin:10px 2px 0 7px;
@@ -81,16 +81,17 @@ $gap2:5px; 	/* Gap between numbers */
 	}
 }
 .line .extra-pad{padding:0 22px;}
-.line .ico-checkmark{position:absolute; top:155px; left:0; width:100%; font-size:600%; color:$green; opacity:.4;}
-.clear{display:none;}
+.line .ico-checkmark{display:none; position:absolute; top:155px; left:0; width:100%; font-size:600%; color:$green; opacity:.4;}
+.line.active{display:block;}
+.btn.clear{display:none;}
 .number-on .clear{display:block; position:relative; display:block; width:90px; bottom:-16px; margin:-12px auto 0;}
 
-.add-cart{position:relative; font-weight:bold; text-shadow:0 0 0 transparent; border:1px solid $grey; background:$grey-light; color:#fff; padding:10px 15px; margin-top:10px; cursor:default;}
+.add-cart, .add-cart:hover, .add-cart:focus{position:relative; font-weight:bold; text-shadow:0 0 0 transparent; border:1px solid $grey; background:$grey-light; color:#fff; padding:10px; margin-top:10px; cursor:default;}
 .active.add-cart{transition:background .2s,border .2s, color .2s; cursor:pointer; color:#fff; background:$purple; border-color:$purple-dark; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);}
 .active.add-cart .separator{border-color:$purple-dark; transition:border .2s}
 .active.add-cart:hover, .active.add-cart:hover .separator, .active.add-cart:focus, .active.add-cart:focus .separator{background:$purple-dark; color:#fff; border-color:$black;}
 .active.add-cart:active .separator{border-color:$black;}
-.gap{padding:0 15px;}
+.gap{padding:0 10px;}
 .separator{position:absolute; top:0; border-right:1px solid $grey; display:inline-block; width:1px; height:40px;}
 
 
@@ -154,7 +155,7 @@ $gap2:5px; 	/* Gap between numbers */
 .box-action li{margin:0 10px 15px 0;}
 .box-bottom .col2{margin:0 0 10px;}
 .box-bottom .col6{margin:0; text-align:center;}
-.gap{padding:0 15px;}
+.gap{padding:0 10px;}
 .add-cart{margin:10px auto 0; float:none;}
 .box-bottom{background:$yellow-lighter; border-radius:0;}
 }

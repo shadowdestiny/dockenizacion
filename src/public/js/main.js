@@ -24,7 +24,7 @@ function checkSize(){
 		});
 	}
 
-	console.log("varSize= "+varSize)
+//	console.log("varSize= "+varSize)
 	return varSize;
 }
 
@@ -36,11 +36,12 @@ function arrowBox(id, myCase){
 	var padSib = sibling.outerWidth() - sibling.width();
 	var widthIco = 8;
 	switch(myCase){
+		//EMTD I don't like that 161px, or 16px manually wroted. I want seme formula more dynamic to adjust the pointer, because on mobile doesn't center properly.
 		case 1: // International arrow menu stop to be on the edge
-			obj.css({"margin-left": widthSib-width/2-padSib/2-widthIco/2-161}); //EMTD I don't like that 161px, I want seme formula more dynamic to adjust the pointer, because on mobile doesn't center properly.
+			obj.css({"margin-left": widthSib-width/2-padSib/2-widthIco/2-161}); 
 			break; 
 		default:
-			obj.css({"margin-left": widthSib-width/2-padSib/2-widthIco/2});
+			obj.css({"margin-left": widthSib-width/2-padSib/2-widthIco/2-16});
 	}
 }
 

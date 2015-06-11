@@ -237,6 +237,7 @@ ALLOWED: Variable and Extension
   padding: 2px 0;
   width: 100%;
   background: transparent;
+  transition: none;
 }
 
 .line .gwp.active {
@@ -288,6 +289,7 @@ ALLOWED: Variable and Extension
 }
 
 .line .ico-checkmark {
+  display: none;
   position: absolute;
   top: 155px;
   left: 0;
@@ -297,7 +299,11 @@ ALLOWED: Variable and Extension
   opacity: .4;
 }
 
-.clear {
+.line.active {
+  display: block;
+}
+
+.btn.clear {
   display: none;
 }
 
@@ -310,14 +316,14 @@ ALLOWED: Variable and Extension
   margin: -12px auto 0;
 }
 
-.add-cart {
+.add-cart, .add-cart:hover, .add-cart:focus {
   position: relative;
   font-weight: bold;
   text-shadow: 0 0 0 transparent;
   border: 1px solid #777;
   background: #aaa;
   color: #fff;
-  padding: 10px 15px;
+  padding: 10px;
   margin-top: 10px;
   cursor: default;
 }
@@ -347,7 +353,7 @@ ALLOWED: Variable and Extension
 }
 
 .gap {
-  padding: 0 15px;
+  padding: 0 10px;
 }
 
 .separator {
@@ -535,7 +541,7 @@ ALLOWED: Variable and Extension
   }
 
   .gap {
-    padding: 0 15px;
+    padding: 0 10px;
   }
 
   .add-cart {
