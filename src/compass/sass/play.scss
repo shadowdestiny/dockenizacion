@@ -1,16 +1,20 @@
 @import "variable";
 
-.bg-top{
-	padding:20px; background:#000736; border-radius:5px 5px 0 0; 
-	background:#000736 url(../img/play/europe.jpg) no-repeat right center;
-}
+.bg-top{padding:20px; background:#000736; border-radius:5px 5px 0 0;}
 .bg-top .cols{margin:0;}
 .bg-top .h3, .bg-top .h1{margin:0; color:#fff;}
 .bg-top .h3{position:relative; top:-5px;}
 .bg-top .circle{
-	position:absolute; width:156px; height:156px; border-radius:50%; margin:auto; color:#fff;
+	transition:background-color 0.3s,color 0.3s,border 0.3s; position:absolute;
+	width:156px; height:156px; border-radius:50%; margin:auto; color:#fff;
 	@include background-image(linear-gradient(#00c100, #007300)); border:4px solid #fff;
-	box-shadow:0 0 10px 0 rgba(0,0,0,0.3); margin:-65px 0 0 112px; text-decoration:none;
+	box-shadow:0 0 10px 0 rgba(0,0,0,0.3); margin:-65px 0 0 120px; text-decoration:none;
+	text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);
+	&:hover, &:focus{text-shadow:0 0 0 transparent; background:#fff; color:#777;}
+	&:active{
+		color:$black!important; box-shadow:0 5px 5px #bbb inset!important; 
+		border:4px solid $black!important; background:#fff!important; text-shadow:0 0 0 transparent;
+	}
 }
 .bg-top .ico{margin-top:25px; display:block; font-size:54px;}
 .bg-top .txt{font-weight:bold; margin-top:5px; display:block;}
@@ -18,37 +22,42 @@
 .box-action{float:right; margin-right:20px;}
 .box-action li{margin:20px 0 20px 10px; float:left;}
 .box-action .btn{font-weight:normal;}
-.box-bottom{padding:20px; border-top:1px solid $yellow; margin:0; background:#fff;}
+.box-bottom{padding:20px; border-top:1px solid $yellow; background:#fff; border-radius:0 0 5px 5px;}
+.box-bottom .cols{margin-bottom:0;}
 .box-bottom .ico-shuffle{font-size:125%;}
 .box-bottom label{font-size:$basic-size; display:block; font-weight:bold; margin-bottom:.2em;}
-.gameplay{
-	overflow:hidden; border:1px solid $yellow; border-radius:0 0 5px 5px; margin-bottom:2em; 
-	background:#fff url(../img/play/pattern.png) no-repeat center center;
-}
+.gameplay{overflow:hidden; border:1px solid $yellow; border-radius:0 0 5px 5px; margin-bottom:2em;}
 $gap1:12px; /* Gap between lines  */
 $gap2:5px; 	/* Gap between numbers */
-.box-lines > .col2, .box-bottom > .col2{border-right:$gap1 solid transparent;} 
-.gameplay .wrap, .box-bottom{margin-right:-$gap1;}
+.box-lines > .col2, .box-bottom .col2, .box-bottom .col6{border-right:$gap1 solid transparent;} 
+.gameplay .wrap, .box-bottom > .wrap{margin-right:-$gap1;}
 .gameplay .h3.blue{color:$blue; margin-bottom:1.25em;}
 .line{border:2px solid $yellow; border-radius:5px; background:#fff;}
 .line:hover{border-color:$purple; transition:border .2s ease;}
 .line .ico-shuffle{font-size:160%; top:-1px;}
-.line .ico-m{font-size:130%; top:1px;}
-.line .gwy{transition-duration:0;}
-.line .combo{position:relative; margin:-18px auto 0; width:110px;}
-.line .combo .btn{min-height:32px; line-height:0;}
-.line .combo .ico{margin:0; position:relative; display:block;}
-.line .combo .gwy.active{border:1px solid $yellow!important; color:#fff; background:$yellow;}
-.line .combo .gwy:first-child{
-  border-right:1px solid transparent!important;
-  &:hover, &:focus{border-right:1px solid $purple!important;}
+.line .ico-m{font-size:130%; top:2px;}
+.combo{position:relative; margin:-18px auto 0; width:110px;}
+.combo .btn{display:block; min-height:35px; line-height:0;}
+.combo .ico{margin:0; position:relative; display:block;}
+.combo .col6:first-child .btn{border-radius:5px 0 0 5px; border-right:1px solid #eee;}
+.combo .col6:last-child .btn{border-radius:0 5px 5px 0; border-left:1px solid $grey;}
+
+.combo .col6:first-child .gwy{
+  border-right:1px solid transparent;
+  &:hover, &:focus{border-right:1px solid $purple;}
 }
-.line .combo .gwy:last-child{
-  border-left:1px solid $grey-lighter!important;
-  &:hover, &:focus{border-left:1px solid $purple!important;}
+
+.combo .col6:last-child .gwy{
+  border-left:1px solid $grey-lighter;
+  &:hover, &:focus{border-left:1px solid $purple;}
 }
+.combo .gwy.active{
+	border:1px solid $yellow!important; color:#fff; background:$yellow;
+	&:hover, &:focus{border:1px solid $yellow-darker!important;}
+}
+
 .line .numbers{padding:10px 8px 0; margin-right:-$gap2;}
-.line .numbers li, .line .stars li{border-right:$gap2 solid transparent; font-family:$signika;}
+.line .numbers li, .line .stars li{border-right:$gap2 solid transparent;}
 .line .numbers .cols{margin:0 0 $gap2;}
 .line .ol:last-child{margin-bottom:0;}
 .line .gwp{padding:2px 0; width:100%; background:transparent;}
@@ -62,7 +71,7 @@ $gap2:5px; 	/* Gap between numbers */
 	.cols{margin:0;}
 	.txt{
 		position:absolute; left:0; top:12px; width:100%; font-family:$basic-font; 
-		font-weight:bold; font-size:14px; color:$purple; font-family:$signika;
+		font-weight:bold; font-size:14px; color:$purple;
 	}
 	.ico{color:$yellow; font-size:220%; transition:color 0.15s ease;}
 	.active.ico{
@@ -77,11 +86,11 @@ $gap2:5px; 	/* Gap between numbers */
 .number-on .clear{display:block; position:relative; display:block; width:90px; bottom:-16px; margin:-12px auto 0;}
 
 .add-cart{position:relative; font-weight:bold; text-shadow:0 0 0 transparent; border:1px solid $grey; background:$grey-light; color:#fff; padding:10px 15px; margin-top:10px; cursor:default;}
-.active.add-cart{cursor:pointer; color:#fff; @include background-image(linear-gradient($green-light, $green)); border-color:$grey;}
-.active.add-cart .separator{border-color:$grey;}
-.active.add-cart:hover, .active.add-cart:hover .separator, .active.add-cart:focus, .active.add-cart:focus .separator{border-color:$black;}
+.active.add-cart{transition:background .2s,border .2s, color .2s; cursor:pointer; color:#fff; background:$purple; border-color:$purple-dark; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);}
+.active.add-cart .separator{border-color:$purple-dark; transition:border .2s}
+.active.add-cart:hover, .active.add-cart:hover .separator, .active.add-cart:focus, .active.add-cart:focus .separator{background:$purple-dark; color:#fff; border-color:$black;}
 .active.add-cart:active .separator{border-color:$black;}
-.gap{margin:0 15px;}
+.gap{padding:0 15px;}
 .separator{position:absolute; top:0; border-right:1px solid $grey; display:inline-block; width:1px; height:40px;}
 
 
@@ -96,23 +105,120 @@ $gap2:5px; 	/* Gap between numbers */
 */
 }
 
+
 /* Large Devices, Wide Screens */
-@media only screen and (max-width: 1200px){
+@media only screen and (max-width:1200px){
+.gameplay{overflow:visible;}
+/*.test{display:block;}*/
+/*.stars a{position:absolute;}*/ /* STARS IS THE PROBLEM FOR RESPONSIVE DESIGN */
+.num6{display:none;}
+.num1,.num2,.num3,.num4,.num5, .box-bottom .col2{width:20%;}
+.box-bottom .col6{width:40%;}
+.line .stars .ico{font-size:200%;}
+.line .stars .txt{top:10px;}
+.line .numbers .btn, .line .stars .txt{font-size:13px;}
+.bg-top:before{content:""; background:rgba(0, 0, 0, 0.4); width:100%; height:88px; position:absolute; top:0; left:0; border-radius:5px 5px 0 0;}
+.bg-top .circle{margin-left:50px;}
 }
+
+/* I NEED TO MAKE DISAPPEAR IN A CLEVER WAY ONE COLUMN AT TIME */
  
 /* Medium Devices, Desktops */
-@media only screen and (max-width: 992px){
+@media only screen and (max-width:992px){
 .gameplay{background-size:cover;}
+.num5, .num6{display:none!important;}
+.num1,.num2,.num3,.num4, .box-bottom .col2, .box-bottom .col6{width:25%;}
+.add-cart{margin-top:16px;}
+.gap{padding:0 9px;}
+.line .stars .ico{font-size:180%;}
+.line .stars .txt{top:9px;}
+.bg-top .circle{margin-left:-15px;}
 }
 
 /* Small Devices, Tablets */
-@media only screen and (max-width: 768px){
+@media only screen and (max-width:768px){
+.num4, .num5, .num6{display:none!important;}
+.num1,.num2,.num3{width:33.33%;}
+.main-foot, .box-bottom{
+	.cols{margin-bottom:0; display:block;}
+	.col1, .col2, .col3, .col4, .col5, .col6, .col7, .col8, .col9, .col10, .col11, .col12, .col20per{display:block; float:none; position:relative; width:100%; border:0!important; margin:0 0 2em; padding-bottom:0;}
 }
+.bg-top .circle{top:0; left:0; border-radius:5px; width:auto; height:auto; margin:-8px 0 0 8px; padding:8px; text-align: left; width:96%;}
+.bg-top .ico{font-size:36px; margin:0 0 0 5px; float:right;}
+.bg-top .col4{text-align:center;}
+.bg-top .txt{margin:0;}
+.gameplay{border-right:0; border-left:0; border-radius:0;}
+.bg-top, .bg-top:before{border-radius:0;}
+.gameplay > .cl{text-align:center;}
+.box-action{float:none; margin:15px 20px 0;}
+.box-action li{margin:0 10px 15px 0;}
+.box-bottom .col2{margin:0 0 10px;}
+.box-bottom .col6{margin:0; text-align:center;}
+.gap{padding:0 15px;}
+.add-cart{margin:10px auto 0; float:none;}
+.box-bottom{background:$yellow-lighter; border-radius:0;}
+}
+
+
+@media all and (min-width:581px){
+.bg-top{background:#000736 url(../img/play/europe.jpg) no-repeat right center;}
+}
+
+
+@media only screen and (max-width:580px){ /*breakpoint only in PLAY page*/
+.box-lines{padding:20px 10px;}
+.box-lines > .col2, .box-bottom > .col2{border-width:5px;}
+.gameplay{padding-top:20px;}
+.gameplay .wrap{margin-right:-6px;}
+.line .numbers .btn, .line .stars .txt{font-size:12px;}
+.line .stars .ico{font-size:160%;}
+.line .stars .txt{top:8px;}
+.line .numbers{padding:10px 4px 0;}
+.line .numbers li, .line .stars li{border-width:3px;}
+.bg-top{background:#1C365B; @include background-image(linear-gradient(#010101, #1C365B));}
+.bg-top:before{display:none;}
+.bg-top .txt{font-size:$basic-size;}
+.bg-top .circle{margin:-15px auto 0; width:200px; right:0;}
+.bg-top .circle, .bg-top .circle:hover, .bg-top .circle:focus, .bg-top .circle:active{border-width:2px!important};
+.bg-top .cols{margin-bottom:0; display:block;}
+.bg-top .col4, .bg-top .col8{display:block; float:none; position:relative; width:100%; border:0!important; margin:0 0 2em; padding-bottom:0;}
+.bg-top .h3, .bg-top .h1{text-align:center; display:block;}
+}
+
  
-/* Extra Small Devices, Phones */
-@media only screen and (max-width: 480px){
+@media only screen and (min-width:481px){
+.gameplay{background:#fff url(../img/play/pattern.png) no-repeat center center;}
 }
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width:480px){
+.num3, .num4, .num5, .num6{display:none!important;}
+.num1, .num2{width:50%;}
+.box-lines{padding:20px 5px 10px;}
+.bg-top .br:after{white-space:pre; content:"\A";} /*Insert a break*/
+.bg-top .h1{font-size:$h2;}
+.bg-top .h3{font-size:$basic-size; line-height:125%;}
+.bg-top .circle{width:150px; border-width:2px}
+.box-action{text-align:center; margin-bottom:10px;}
+.box-action li{float:none; margin:0 auto 10px;}
+}
+
  
 /* Custom, iPhone Retina */
-@media only screen and (max-width: 320px){
-}
+@media only screen and (max-width:320px){
+.num2, .num3, .num4, .num5, .num6{display:none!important;}
+.gameplay .wrap{margin-right:0;}
+.box-lines{padding:20px;}
+.box-lines > .col2, .box-bottom .col2{border-width:10px;}
+.line .numbers .btn, .line .stars .txt{font-size:14px;}
+.line .stars .ico{font-size:220%;}
+.line .stars .txt{top:12px;}
+.line .numbers{padding:10px 10px 0; margin-right:-10px;}
+.line .numbers li, .line .stars li{border-width:6px;}
+.line .extra-pad{padding:0 30px;}
+.box-value{display:inline-block; margin-top:5px;}
+.play{
+	.cols:not(.not){margin-bottom:0; display:block;}
+	.col1:not(.not), .col2:not(.not), .col3:not(.not), .col4:not(.not), .col5:not(.not), .col6:not(.not), .col7:not(.not), .col8:not(.not), .col9:not(.not), .col10:not(.not), .col11:not(.not), .col12:not(.not), .col20per:not(.not)
+	{display:block; float:none; position:relative; width:100%; border:0!important; padding-bottom:0;}
+}}

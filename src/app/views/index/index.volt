@@ -1,8 +1,8 @@
 {% extends "main.volt" %}
 {% block template_css %}<link rel="stylesheet" href="/css/home.css">{% endblock %}
+{% block bodyClass %}home{% endblock %}
 
 {% block body %}
-
 <main id="content">
 	<div class="wrapper">
 		<div class="cols">

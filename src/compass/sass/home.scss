@@ -44,8 +44,8 @@
 .box-result .woman{background:url(../img/home/bg-result.jpg) no-repeat center center;}
 .box-result .lnk{text-decoration:none; display:block; font-size:$basic-size;}
 .box-result .lnk:hover .txt{text-decoration:underline; color:$hover;}
-.box-result .lnk .ico{@extend %ico-size;} /* MAYBE ALL ICO should have this basic size????*/
-.box-result .numbers{font-weight:bold; margin-bottom:1em; font-family:$signika;}
+.box-result .lnk .ico{font-size:75%; margin-left:8px;}
+.box-result .numbers{font-weight:bold; margin-bottom:1em;}
 .box-result .numbers.small li{
   text-align:center; width:36px; height:35px; line-height:32px;
   background:url(../img/sprite.png) no-repeat -190px -70px;
@@ -92,7 +92,7 @@
 .box-prize .content{margin:10px;}
 .box-prize .content .content{margin-right:0;}
 .box-prize .bg{background:url(/img/pattern/01.png) repeat; overflow:hidden; color:#fff;} 
-.box-prize .bg2{@include background-image(linear-gradient(to right top, $purple, $purple-dark))}; /* I had to insert a second BG div because mixing @include doesn't work well with multiple background */
+.box-prize .bg2{@include background-image(linear-gradient(to right top, $purple, $purple-darker));} /* I had to insert a second BG div because mixing @include doesn't work well with multiple background */
 .box-prize .value, .box-prize .currency{font-size:$h1; margin-bottom:5px;}
 .box-prize .box-value{margin:0 0 1em;}
 .box-prize .only{display:block; margin-bottom:1em; font-size:$basic-size; text-shadow:0 1px 3px rgba(0, 0, 0, 0.6);}
@@ -160,11 +160,9 @@
 .box-prize{margin:20px auto; width:90%;}
 .outbound:hover, .outbound:focus{top:0;}
 .box-prize .col6{width:50%; float:left;}
-.main-foot .col20per:nth-child(odd){clear:both;}
-.logo-social .wrapper{text-align:center;}
-.main-foot .small-logo{display:block; margin:10px auto 0; float:none;}
 }
- 
+
+
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px){
 .box-how li:after, .box-prize .box-vector{display:none;}
