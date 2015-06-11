@@ -85,6 +85,17 @@ class LotteriesDataService extends PhalconService
         return $this->lotteryDrawRepository->getNextJackpot($lotteryName);
     }
 
+    public function getLastResult($lotteryName)
+    {
+        /** @var Lottery $lottery */
+        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        /** @var EuroMillionsResult $lottery_result */
+        $lottery_result = $this->lotteryDrawRepository->getLastResult($lottery);
+        $result['regular_numbers'] = explode(',',$lottery_result->getRegularNumbers());
+        $result['lucky_numbers'] = explode(',',$lottery_result->getLuckyNumbers());
+        return $result;
+    }
+
     public function getTimeToNextDraw($lotteryName, $now = null)
     {
         if (!$now) {

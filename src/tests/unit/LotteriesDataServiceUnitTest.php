@@ -1,6 +1,7 @@
 <?php
 namespace tests\unit;
 
+use EuroMillions\entities\EuroMillionsResult;
 use EuroMillions\entities\Lottery;
 use EuroMillions\entities\LotteryDraw;
 use EuroMillions\entities\LotteryResult;
@@ -158,6 +159,32 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
             [$expectedDiffDays, $expectedDiffHours, $expectedDiffMinutes],
             [$actual_diff->d, $actual_diff->h, $actual_diff->i]
         );
+    }
+
+    /**
+     * method getLastResult
+     * when called
+     * should returnArrayWithContentsOfRepositoryREsult
+     */
+    public function test_getLastResult_called_returnArrayWithContentsOfRepositoryREsult()
+    {
+        $this->lotteryRepositoryDouble->expects($this->any())
+            ->method('findOneBy')
+            ->will($this->returnValue(new Lottery()));
+        $expected = [
+            'regular_numbers' => ['01','02','03','04','05'],
+            'lucky_numbers' => ['07','08'],
+        ];
+        $draw_result = (new EuroMillionsResult())->initialize([
+            'regular_numbers' => '01,02,03,04,05',
+            'lucky_numbers' => '07,08'
+        ]);
+        $this->lotteryDrawRepositoryDouble->expects($this->any())
+            ->method('getLastResult')
+            ->will($this->returnValue($draw_result));
+        $sut = $this->getSut();
+        $actual = $sut->getLastResult('EuroMillions');
+        $this->assertEquals($expected, $actual);
     }
 
     public function getTimesAndExpectedDiffs()

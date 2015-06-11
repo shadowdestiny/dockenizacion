@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use EuroMillions\interfaces\IEntity;
 
 class LotteryDraw extends EntityBase implements IEntity
@@ -14,10 +15,15 @@ class LotteryDraw extends EntityBase implements IEntity
     protected $published;
     protected $lottery;
     protected $result;
-    
+
     public function getResult()
     {
         return $this->result;
+    }
+
+    public function setResult($result)
+    {
+        $this->result = $result;
     }
 
     public function getLottery()
@@ -74,11 +80,6 @@ class LotteryDraw extends EntityBase implements IEntity
     public function getBigWinner()
     {
         return $this->big_winner;
-    }
-
-    public function setResult($result)
-    {
-        $this->result = $result;
     }
 
     public function setBigWinner($big_winner)

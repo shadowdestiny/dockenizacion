@@ -57,13 +57,12 @@
 							<h1 class="h2">{{ language.translate('Euromillions Results') }}</h1>
 							<p>Lorem ipsum winning numbers</p>
 							<ul class="no-li inline numbers small">
-								<li>9</li>
-								<li>25</li>
-								<li>27</li>
-								<li>38</li>
-								<li>43</li>
-								<li class="star">66</li>
-								<li class="star">68</li>
+                                {% for regular_number in euromillions_results["regular_numbers"] %}
+								    <li>{{ regular_number }}</li>
+                                {% endfor %}
+                                {% for lucky_number in euromillions_results["lucky_numbers"] %}
+								    <li class="star">{{ lucky_number }}</li>
+                                {% endfor %}
 							</ul>
 							<span class="lnk animate infi"><span class="txt">{{ language.translate('Latest winning numbers') }}</span> <i class="ico ico-arrow-right3"></i></span>
 						</div>

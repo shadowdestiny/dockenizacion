@@ -5,6 +5,10 @@ use EuroMillions\exceptions\BadEntityInitialization;
 
 class EntityBase
 {
+    /**
+     * @param array $attributes
+     * @return $this
+     */
     public function initialize($attributes)
     {
         foreach ($attributes as $key => $value) {
@@ -20,6 +24,7 @@ class EntityBase
                 }
             }
         }
+        return $this;
     }
 
     public function toValueObject()

@@ -15,8 +15,8 @@ class LotteriesDataServiceIntegrationTest extends IntegrationTestBase
     {
         return [
             'lotteries',
-            'lottery_draws',
             'lottery_results',
+            'lottery_draws',
         ];
     }
 

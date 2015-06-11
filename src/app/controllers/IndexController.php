@@ -10,9 +10,9 @@ class IndexController extends ControllerBase
     public function indexAction()
     {
         $lds = new LotteriesDataService();
-        $jackpot = $lds->getNextJackpot('EuroMillions');
         $time_till_next_draw = $lds->getTimeToNextDraw('EuroMillions');
-        $this->view->setVar('jackpot_value', $jackpot);
+        $this->view->setVar('euromillions_results', $lds->getLastResult('EuroMillions'));
+        $this->view->setVar('jackpot_value', $lds->getNextJackpot('EuroMillions'));
         $this->view->setVar('currency_symbol_first', true); //EMTD
         $this->view->setVar('days_till_next_draw', $time_till_next_draw->d);
         $this->view->setVar('hours_till_next_draw', $time_till_next_draw->h);

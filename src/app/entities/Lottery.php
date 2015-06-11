@@ -16,6 +16,11 @@ class Lottery extends EntityBase implements IEntity
     protected $jackpot_api;
     protected $result_api;
 
+    public function __construct()
+    {
+        $this->draws = new ArrayCollection();
+    }
+
     public function getJackpotApi()
     {
         return $this->jackpot_api;
@@ -34,11 +39,6 @@ class Lottery extends EntityBase implements IEntity
     public function setResultApi($jackpot_api)
     {
         $this->jackpot_api = $jackpot_api;
-    }
-
-    public function __construct()
-    {
-        $this->draws = new ArrayCollection();
     }
 
     public function getActive()
