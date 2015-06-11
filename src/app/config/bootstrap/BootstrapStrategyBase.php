@@ -38,6 +38,7 @@ abstract class BootstrapStrategyBase
     {
         $is_dev_mode = true; //EMDEPLOY hay que pasarlo por configuración. Quizá con el nuevo detector de environment
         $config = Setup::createYAMLMetadataConfiguration(array($this->configPath . 'doctrine'), $is_dev_mode);
+        $config->setQueryCacheImpl(new \Doctrine\Common\Cache\ApcCache());
         $conn = [
             'host'     => $appConfig->database->host,
             'driver'   => 'pdo_mysql',
