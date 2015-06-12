@@ -2,7 +2,8 @@
   "_comment": "EMTD - Find if we neeed a better title for PLAY area ",
   "scalars" : {
     "title" : "Euromillions Tickets, Results &amp; News - Euromillions.com",
-    "currency_symbol_first" : true
+    "currency_symbol_first" : true,
+    "jackpot_value" : 100000000
   },
 	"arrays" : {
   		"texts" : [ "ciao", "mia7865o", "bau"]
