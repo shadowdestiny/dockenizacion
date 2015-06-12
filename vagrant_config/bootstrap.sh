@@ -30,7 +30,7 @@ if [ ! -f /etc/php5/cli/conf.d/20-xdebug.ini ]; then
     sudo apt-add-repository -y ppa:ondrej/php5-5.6
     sudo apt-get clean
     sudo apt-get update -q
-    sudo apt-get install -y php5-cli php5-dev php5-xdebug php5-mysql
+    sudo apt-get install -y php5-cli php5-dev php5-xdebug php5-mysql php-apc
     sudo cp /vagrant/vagrant_config/20-xdebug.ini /etc/php5/cli/conf.d
 fi
 if [ ! -f /etc/php5/mods-available/curl.ini ]; then

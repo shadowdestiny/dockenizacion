@@ -200,6 +200,22 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method getLastDrawDate
+     * when called
+     * should returnLotteryLastDrawDate
+     */
+    public function test_getLastDrawDate_called_returnLotteryLastDrawDate()
+    {
+        $lottery_name = 'EuroMillions';
+        $this->prepareLotteryEntity($lottery_name);
+
+        $sut = $this->getSut();
+        $actual = $sut->getLastDrawDate($lottery_name, new \DateTime("2015-06-12 19:00:00"));
+        $expected = new \DateTime("2015-06-09 20:00:00");
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
      * @param $lottery_name
      * @return Lottery
      */

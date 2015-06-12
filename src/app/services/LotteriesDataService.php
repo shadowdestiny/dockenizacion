@@ -80,6 +80,14 @@ class LotteriesDataService extends PhalconService
 
     }
 
+    public function getLastDrawDate($lotteryName, $today = null)
+    {
+        if (!$today) {
+            $today = new \DateTime();
+        }
+        return $this->lotteryRepository->findOneby(['name' => $lotteryName])->getLastDrawDate($today);
+    }
+
     public function getNextJackpot($lotteryName)
     {
         return $this->lotteryDrawRepository->getNextJackpot($lotteryName);

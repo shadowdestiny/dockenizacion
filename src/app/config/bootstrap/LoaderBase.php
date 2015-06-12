@@ -40,6 +40,7 @@ abstract class LoaderBase
             'EuroMillions\repositories'     => $this->appPath . 'repositories',
             'EuroMillions\exceptions'       => $this->appPath . 'exceptions',
             'EuroMillions\components'       => $this->appPath . 'components',
+            'EuroMillions\tasks'       => $this->appPath . 'tasks',
             'EuroMillions\migrations_data'  => $this->appPath . 'migrations_data',
             'Phalcon' => $this->appPath . 'vendor/phalcon/incubator/Library/Phalcon',
             'tests\unit'           => $this->testsPath . "unit", //EMTD Esto podría separarse entre el WebLoader y un TestLoader
