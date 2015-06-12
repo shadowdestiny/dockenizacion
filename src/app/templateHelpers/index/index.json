@@ -10,6 +10,6 @@
   },
 	"arrays" : {
   		"texts" : [ "ciao", "mia7865o", "bau"],
-        "euromillions_results" : {"regular_numbers":["02","03","06","07","03"], "lucky_numbers":["02","03"]}}
+        "euromillions_results" : {"regular_numbers":["02","03","06","07","03"], "lucky_numbers":["02","03"]}
 	}
 }
