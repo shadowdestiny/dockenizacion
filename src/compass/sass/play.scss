@@ -22,9 +22,10 @@
 .box-action{float:right; margin-right:20px;}
 .box-action li{margin:20px 0 20px 10px; display:inline-block}
 .box-action .btn{font-weight:normal;}
+.box-action .ico-shuffle{font-size:125%; position:relative; top:2px;}
+.box-action li.fix-margin{display:none;}
 .box-bottom{padding:20px; border-top:1px solid $yellow; background:#fff; border-radius:0 0 5px 5px;}
 .box-bottom .cols{margin-bottom:0;}
-.box-bottom .ico-shuffle{font-size:125%;}
 .box-bottom label{font-size:$basic-size; display:block; font-weight:bold; margin-bottom:.2em;}
 .gameplay{overflow:hidden; border:1px solid $yellow; border-radius:0 0 5px 5px; margin-bottom:2em;}
 $gap1:12px; /* Gap between lines  */
@@ -39,18 +40,30 @@ $gap2:5px; 	/* Gap between numbers */
 .combo{position:relative; margin:-18px auto 0; width:110px;}
 .combo .btn{display:block; min-height:35px; line-height:0;}
 .combo .ico{margin:0; position:relative; display:block;}
-.combo .col6:first-child .btn{border-radius:5px 0 0 5px; border-right:1px solid #eee;}
+.combo .col6 .gwy{
+	border-radius:5px;
+	&:hover, &:focus{border:1px solid $purple;}
+	.ico{margin-left:2px!important;}
+}
+
+/*** DO NOT DELETE ***/
+/*   
+.combo .col6:first-child .btn{
+	border-radius:5px 0 0 5px; border-right:1px solid #eee;
+} 
+
 .combo .col6:last-child .btn{border-radius:0 5px 5px 0; border-left:1px solid $grey;}
 
 .combo .col6:first-child .gwy{
   border-right:1px solid transparent;
-  &:hover, &:focus{border-right:1px solid $purple;}
+  &:hover, &:focus{border-right:1px solid $purple;} 
 }
 
 .combo .col6:last-child .gwy{
   border-left:1px solid $grey-lighter;
   &:hover, &:focus{border-left:1px solid $purple;}
 }
+*/ 
 .combo .gwy.active{
 	border:1px solid $yellow!important; color:#fff; background:$yellow;
 	&:hover, &:focus{border:1px solid $yellow-darker!important;}
@@ -93,7 +106,6 @@ $gap2:5px; 	/* Gap between numbers */
 .active.add-cart:active .separator{border-color:$black;}
 .gap{padding:0 10px;}
 .separator{position:absolute; top:0; border-right:1px solid $grey; display:inline-block; width:1px; height:40px;}
-.clear-all{display:none;}
 
 
 /* Large Devices, Wide Screens */
@@ -141,7 +153,7 @@ $gap2:5px; 	/* Gap between numbers */
 .bg-top, .bg-top:before{border-radius:0;}
 .gameplay > .cl{text-align:center;}
 .box-action{float:none; margin:15px 20px 0;}
-.box-action li{margin:0 10px 15px 0;;}
+.box-action li{margin:0 10px 15px 0;}
 .box-bottom .col2{margin:0 0 10px;}
 .box-bottom .col6{margin:0; text-align:center;}
 .gap{padding:0 10px;}
