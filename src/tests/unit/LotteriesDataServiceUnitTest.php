@@ -130,9 +130,10 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
             ->method('resultApi')
             ->will($this->returnValue($api_mock));
 
+        $lotteryDraw_stub = $this->getMockBuilder('\EuroMillions\entities\LotteryDraw')->getMock();
         $this->lotteryDrawRepositoryDouble->expects($this->any())
             ->method('findOneBy')
-            ->will($this->returnValue(new LotteryDraw()));
+            ->will($this->returnValue($lotteryDraw_stub));
 
         $api_mock->expects($this->once())
             ->method('getResultForDate')

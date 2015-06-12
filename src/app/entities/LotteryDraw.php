@@ -2,6 +2,7 @@
 namespace EuroMillions\entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use EuroMillions\exceptions\MissingRelationException;
 use EuroMillions\interfaces\IEntity;
 
 class LotteryDraw extends EntityBase implements IEntity
@@ -13,7 +14,9 @@ class LotteryDraw extends EntityBase implements IEntity
     protected $big_winner;
 
     protected $published;
+    /** @var  Lottery */
     protected $lottery;
+    /** @var  LotteryResult */
     protected $result;
 
     public function getResult()
@@ -95,5 +98,15 @@ class LotteryDraw extends EntityBase implements IEntity
     public function setPublished($published)
     {
         $this->published = $published;
+    }
+
+    public function createResult(array $resultData)
+    {
+        if (!is_a($this->lottery, '\EuroMillions\entities\Lottery')) {
+            throw new MissingRelationException('Cannot set a result without loading the lottery dependency (lottery name needed)');
+        }
+        $result_entity_name = '\EuroMillions\entities\\'.$this->lottery->getName().'Result';
+        $this->result = new $result_entity_name();
+        $this->result->initialize($resultData);
     }
 }

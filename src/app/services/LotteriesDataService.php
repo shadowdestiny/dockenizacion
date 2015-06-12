@@ -69,13 +69,10 @@ class LotteriesDataService extends PhalconService
         $last_draw_date = $lottery->getLastDrawDate($now);
         $result = $result_api->getResultForDate($lotteryName, $last_draw_date->format('Y-m-d'));
         $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' =>$last_draw_date]);
-        $lottery_result = new EuroMillionsResult();
-        $lottery_result->initialize([
+        $draw->createResult([
             'regular_numbers' => implode(',',$result['regular_numbers']),
             'lucky_numbers' => implode(',',$result['lucky_numbers']),
         ]);
-        $this->entityManager->persist($lottery_result);
-        $draw->setResult($lottery_result);
         $this->entityManager->flush();
 
     }

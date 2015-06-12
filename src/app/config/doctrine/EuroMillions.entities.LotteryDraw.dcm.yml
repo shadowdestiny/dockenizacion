@@ -30,6 +30,7 @@ EuroMillions\entities\LotteryDraw:
   oneToOne:
     result:
       targetEntity: \EuroMillions\entities\LotteryResult
+      cascade: ["persist"]
       joinColumn:
         name: result_id
         referencedColumnName: id

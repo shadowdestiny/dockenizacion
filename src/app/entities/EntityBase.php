@@ -1,7 +1,7 @@
 <?php
 namespace EuroMillions\entities;
 
-use EuroMillions\exceptions\BadEntityInitialization;
+use EuroMillions\exceptions\BadEntityInitializationException;
 
 class EntityBase
 {
@@ -20,7 +20,7 @@ class EntityBase
                 if (method_exists($this, $setter)) {
                     $this->$setter($value);
                 } else {
-                    throw new BadEntityInitialization("Bad property name: \"$key\"");
+                    throw new BadEntityInitializationException("Bad property name: \"$key\"");
                 }
             }
         }
