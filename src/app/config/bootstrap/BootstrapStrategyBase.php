@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\config\bootstrap;
 
+use Doctrine\Common\Cache\RedisCache;
 use EuroMillions\components\EnvironmentDetector;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
@@ -38,6 +39,15 @@ abstract class BootstrapStrategyBase
     {
         $is_dev_mode = true; //EMDEPLOY hay que pasarlo por configuración. Quizá con el nuevo detector de environment
         $config = Setup::createYAMLMetadataConfiguration(array($this->configPath . 'doctrine'), $is_dev_mode);
+        $config->setQueryCacheImpl(new \Doctrine\Common\Cache\ApcCache());
+        $config->setMetadataCacheImpl(new \Doctrine\Common\Cache\ApcCache());
+
+        $redis = new \Redis();
+        $redis->connect('redis');
+        $redis_cache = new RedisCache();
+        $redis_cache->setRedis($redis);
+        $config->setResultCacheImpl($redis_cache);
+
         $conn = [
             'host'     => $appConfig->database->host,
             'driver'   => 'pdo_mysql',
