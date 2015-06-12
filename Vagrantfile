@@ -1,7 +1,6 @@
 Vagrant.configure(2) do |config|
     config.vm.provider "virtualbox" do |v|
-        v.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
-        v.memory = 2048
+        v.memory = 4096
     end
     config.vm.box = "ubuntu/trusty64"
     config.vm.provision "shell", path: "vagrant_config/bootstrap.sh", privileged: false
