@@ -12,16 +12,16 @@ function checkMark(arrayCount){
 
 	if(numberCount[arrayCount] > 0 || starCount[arrayCount] > 0){
 		$(".num"+arrayCount+" .line").addClass("number-on");
-		$(".clear-all").css("display","block");
+		$(".add-cart").addClass("active");
 	}else{
 		$(".add-cart").removeClass("active");
 		$(".num"+arrayCount+" .line").removeClass("number-on");
 	}
 
 	if(numberCount[arrayCount] == 0 && starCount[arrayCount] == 0){
-		$(".clear-all").hide();
+		$(".fix-margin").hide();
 	}else{
-		$(".add-cart").addClass("active");
+		$(".fix-margin").css("display","inline-block");
 	}
 
 //	console.log(arrayCount+" totalCount= "+totalCount[arrayCount]+" // numberCount= "+numberCount[arrayCount]+" // starCount= "+starCount[arrayCount]);
@@ -162,6 +162,7 @@ function clearNumAll(button){
 }
 
 $(function(){
+	//$(".random-all").css("margin-right","-15px"); // Fix initial positioning of a button
 	playLine('.numbers .btn', "number");
 	playLine('.stars .ico-star-out', "star");
 	randomNum(".random");

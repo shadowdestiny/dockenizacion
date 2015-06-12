@@ -3,7 +3,10 @@
 		<i class="ico ico-checkmark"></i>
 
 	<div class="combo cols not">
-		<div class="col6 not random"><a class="btn gwy multiplay" href="javascript:void(0);"><i class="ico ico-shuffle"></i></a></div><div class="col6 not"><a class="btn gwy" href="javascript:void(0);"><i class="ico ico-m"></i></a></div>
+		<div class="col6 not random"><a class="btn gwy multiplay" href="javascript:void(0);"><i class="ico ico-shuffle"></i></a></div>
+{# To add later
+		<div class="col6 not"><a class="btn gwy" href="javascript:void(0);"><i class="ico ico-m"></i></a></div>
+#}
 	</div>
 	<div class="values">
 		<div class="numbers">
