@@ -469,6 +469,14 @@ ALLOWED: Variable and Extension
   .box-play .content {
     margin-top: 95px;
   }
+
+  .box-estimated .value.maxChar {
+    font-size: 3.175em;
+  }
+
+  .box-prize .value.maxChar {
+    font-size: 1.675em;
+  }
 }
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 992px) {
@@ -478,7 +486,7 @@ ALLOWED: Variable and Extension
   }
 
   .box-result .woman, .box-estimated .vector, .box-play .awards, .box-how .sub-txt {
-    display: none;
+    display: none !important;
   }
 
   .box-prize .box-vector {
@@ -583,6 +591,10 @@ ALLOWED: Variable and Extension
     border-radius: 0;
   }
 
+  #content .wrapper {
+    margin-bottom: 2em;
+  }
+
   #content .box-left, #content .box-right {
     margin: 0;
     border-radius: 0;
@@ -623,7 +635,7 @@ ALLOWED: Variable and Extension
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {
   .box-how li:after, .box-prize .box-vector {
-    display: none;
+    display: none !important;
   }
 
   .outbound {
@@ -643,6 +655,7 @@ ALLOWED: Variable and Extension
   .box-prize .col6 {
     width: 100%;
     float: none;
+    margin-bottom: 0 !important;
   }
 }
 /* Custom, iPhone Retina */
