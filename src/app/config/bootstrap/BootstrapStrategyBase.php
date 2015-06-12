@@ -42,11 +42,11 @@ abstract class BootstrapStrategyBase
         $config->setQueryCacheImpl(new \Doctrine\Common\Cache\ApcCache());
         $config->setMetadataCacheImpl(new \Doctrine\Common\Cache\ApcCache());
 
-        $redis = new \Redis();
-        $redis->connect('redis');
-        $redis_cache = new RedisCache();
-        $redis_cache->setRedis($redis);
-        $config->setResultCacheImpl($redis_cache);
+//        $redis = new \Redis();
+//        $redis->connect('redis');
+//        $redis_cache = new RedisCache();
+//        $redis_cache->setRedis($redis);
+//        $config->setResultCacheImpl($redis_cache);
 
         $conn = [
             'host'     => $appConfig->database->host,
