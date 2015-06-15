@@ -12,6 +12,7 @@ before_install:
 - composer config -g github-oauth.github.com $MY_GITHUB_TOKEN
 
 before_script:
+  - pecl channel-update pecl.php.net
   - pecl install apc
   - mysql -e 'create database if not exists euromillions_test;'
   - mysql euromillions_test < docker/devel-dbmaster/dbinit/init_structure.sql
