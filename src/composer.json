@@ -1,6 +1,6 @@
 {
   "require-dev": {
-    "phpunit/phpunit": "4.6.*",
+    "phpunit/phpunit": "4.7.*",
     "phpunit/dbunit": "1.3.*",
     "phalcon/devtools": "dev-master",
     "antonienko/php-template-previewer": "dev-master"
@@ -9,6 +9,7 @@
     "doctrine/orm": "2.5.*",
     "symfony/yaml": "*",
     "robmorgan/phinx": "*",
-    "phalcon/incubator": "dev-master"
+    "phalcon/incubator": "dev-master",
+    "antonienko/positive-modulus" : "1.*"
   }
 }

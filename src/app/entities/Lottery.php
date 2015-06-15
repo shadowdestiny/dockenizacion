@@ -2,6 +2,7 @@
 
 namespace EuroMillions\entities;
 
+use antonienko\PositiveModulus\PositiveModulus;
 use Doctrine\Common\Collections\ArrayCollection;
 use EuroMillions\interfaces\IEntity;
 
@@ -130,7 +131,7 @@ class Lottery extends EntityBase implements IEntity
                 return $result_date;
             } else {
                 $result_date = $result_date->sub($one_day);
-                $weekday_index = ($weekday_index - 1) % 7;
+                $weekday_index = PositiveModulus::calc($weekday_index - 1, 7);
             }
             $days_to_check--;
         }
