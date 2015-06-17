@@ -70,6 +70,8 @@ class EuroMillionsDraw extends EntityBase implements IEntity
 
     public function createResult(array $regularNumbers, array $luckyNumbers)
     {
+        $regular_numbers = [];
+        $lucky_numbers = [];
         foreach ($regularNumbers as $number) {
             $regular_numbers[] = new EuroMillionsRegularNumber($number);
         }

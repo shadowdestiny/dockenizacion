@@ -96,6 +96,8 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
                 return '11';
             case 'diciembre':
                 return '12';
+            default:
+                return ''; //throw instead?
         }
     }
 }

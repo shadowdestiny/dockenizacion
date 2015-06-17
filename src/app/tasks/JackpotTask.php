@@ -1,6 +1,5 @@
 <?php
 namespace EuroMillions\tasks;
-use EuroMillions\entities\Language;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\services\LotteriesDataService;
 use Phalcon\CLI\Task;

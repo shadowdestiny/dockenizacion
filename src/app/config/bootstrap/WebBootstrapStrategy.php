@@ -5,8 +5,8 @@ use EuroMillions\components\EnvironmentDetector;
 use EuroMillions\interfaces\IBootstrapStrategy;
 use EuroMillions\services\LanguageService;
 use Phalcon;
-use Phalcon\Config\Adapter\Ini;
 use Phalcon\Di;
+use Phalcon\Events\Event;
 
 class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapStrategy
 {
@@ -30,7 +30,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     public function make()
     {
-        $this->generalConfig();
+//        $this->generalConfig();
         $di = $this->dependencyInjector();
         $this->execute($di);
     }
@@ -92,9 +92,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                     "compileAlways"     => true, //EMDEPLOY en producción debería ser false y stat
                 ));
                 $compiler = $volt->getCompiler();
-                $compiler->addFilter('undertospace', function ($resolvedArgs, $exprArgs) {
-                    return 'str_replace("_", " ",' . $resolvedArgs . ')';
-                });
                 $compiler->addFilter('number_format', 'number_format');
                 var_dump($volt->getOptions());
                 return $volt;
@@ -116,7 +113,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     protected function configDispatcher()
     {
         $eventsManager = new Phalcon\Events\Manager();
-        $eventsManager->attach("dispatch", function($event, $dispatcher, $exception) {
+        $eventsManager->attach("dispatch", function(Event $event, Phalcon\Mvc\Dispatcher $dispatcher, Phalcon\Mvc\Dispatcher\Exception $exception) {
 
             //The controller exists but the action not
             if ($event->getType() == 'beforeNotFoundAction') {
@@ -137,6 +134,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                         return false;
                 }
             }
+            return true;
         });
 
         $dispatcher = new Phalcon\Mvc\Dispatcher();
