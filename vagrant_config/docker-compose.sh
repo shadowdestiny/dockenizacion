@@ -19,6 +19,7 @@ if [ inidatabase==true ]; then
     e "Initializing database"
     mysql -h 127.0.0.1 -u root -ptpl9 euromillions < /vagrant/docker/devel-dbmaster/dbinit/init_structure.sql
     cat /vagrant/docker/devel-dbmaster/dbinit/data/devel/*.sql | mysql -h 127.0.0.1 -u root -ptpl9 euromillions --default-character-set=utf8
+    mysql -h 127.0.0.1 -u root -ptpl9 -e 'CREATE DATABASE IF NOT EXISTS euromillions_test'
 fi
 e "Executing migrations"
 . /vagrant/dev-scripts/schema_and_data_migration.sh dev
