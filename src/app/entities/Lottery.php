@@ -11,16 +11,10 @@ class Lottery extends EntityBase implements IEntity
     protected $id;
     protected $name;
     protected $active;
-    protected $draws;
     protected $frequency; //d, w0100100, m24, y1225
     protected $draw_time; //utc
     protected $jackpot_api;
     protected $result_api;
-
-    public function __construct()
-    {
-        $this->draws = new ArrayCollection();
-    }
 
     public function getJackpotApi()
     {

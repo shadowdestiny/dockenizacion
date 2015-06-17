@@ -2,11 +2,11 @@
 namespace EuroMillions\services;
 
 use Doctrine\ORM\EntityManager;
-use EuroMillions\entities\EuroMillionsResult;
 use EuroMillions\entities\Lottery;
-use EuroMillions\entities\LotteryDraw;
+use EuroMillions\entities\EuroMillionsDraw;
 use EuroMillions\repositories\LotteryDrawRepository;
 use EuroMillions\services\external_apis\LotteryApisFactory;
+use EuroMillions\vo\EuroMillionsResult;
 use Phalcon\Http\Client\Provider\Curl;
 
 class LotteriesDataService extends PhalconService
@@ -14,7 +14,6 @@ class LotteriesDataService extends PhalconService
     /** @var  LotteryDrawRepository */
     protected $lotteryDrawRepository;
     protected $lotteryRepository;
-    protected $lotteryResultRepository;
     protected $apisFactory;
     /** @var EntityManager|\PHPUnit_Framework_MockObject_MockObject */
     protected $entityManager;
@@ -23,9 +22,8 @@ class LotteriesDataService extends PhalconService
     {
         parent::__construct();
         $this->entityManager = $entityManager ? $entityManager : $this->di->get('entityManager');
-        $this->lotteryDrawRepository = $this->entityManager->getRepository('EuroMillions\entities\LotteryDraw');
+        $this->lotteryDrawRepository = $this->entityManager->getRepository('EuroMillions\entities\EuroMillionsDraw');
         $this->lotteryRepository = $this->entityManager->getRepository('EuroMillions\entities\Lottery');
-        $this->lotteryResultRepository = $this->entityManager->getRepository('EuroMillions\entities\LotteryResult');
         $this->apisFactory = $apisFactory ? $apisFactory : new LotteryApisFactory();
     }
 
@@ -39,16 +37,13 @@ class LotteriesDataService extends PhalconService
         $next_draw_date = $lottery->getNextDrawDate($now);
         $jackpot_api = $this->apisFactory->jackpotApi($lottery, $curlWrapper);
         $jackpot = $jackpot_api->getJackpotForDate($lotteryName, $next_draw_date->format("Y-m-d"));
-        /** @var LotteryDraw $draw */
+        /** @var EuroMillionsDraw $draw */
         $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $next_draw_date]);
         if (!$draw) {
-            $draw = new LotteryDraw();
+            $draw = new EuroMillionsDraw();
             $draw->initialize([
                 'draw_date'  => $next_draw_date,
                 'jackpot'    => $jackpot,
-                'message'    => '',
-                'big_winner' => 0,
-                'published'  => 0,
                 'lottery'    => $lottery
             ]);
         } else {
@@ -69,10 +64,7 @@ class LotteriesDataService extends PhalconService
         $last_draw_date = $lottery->getLastDrawDate($now);
         $result = $result_api->getResultForDate($lotteryName, $last_draw_date->format('Y-m-d'));
         $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' =>$last_draw_date]);
-        $draw->createResult([
-            'regular_numbers' => implode(',',$result['regular_numbers']),
-            'lucky_numbers' => implode(',',$result['lucky_numbers']),
-        ]);
+        $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
         $this->entityManager->flush();
 
     }

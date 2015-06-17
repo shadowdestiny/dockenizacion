@@ -26,7 +26,3 @@ EuroMillions\entities\Lottery:
       nullable: true
     draw_time:
       type: string
-  oneToMany:
-    draws:
-      targetEntity: \EuroMillions\entities\LotteryDraw
-      mappedBy: lottery

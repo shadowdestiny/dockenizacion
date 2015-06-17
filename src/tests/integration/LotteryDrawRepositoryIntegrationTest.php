@@ -1,9 +1,9 @@
 <?php
 namespace tests\integration;
 
-use EuroMillions\entities\EuroMillionsResult;
 use EuroMillions\entities\Lottery;
 use EuroMillions\repositories\LotteryDrawRepository;
+use EuroMillions\vo\EuroMillionsResult;
 use tests\base\RepositoryIntegrationTestBase;
 
 class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
@@ -15,14 +15,13 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
     {
         return [
             'lotteries',
-            'lottery_results',
-            'lottery_draws',
+            'euromillions_draws',
         ];
     }
 
     public function setUp()
     {
-        parent::setUp('LotteryDraw');
+        parent::setUp('EuroMillionsDraw');
     }
 
     /**
@@ -42,7 +41,6 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
         return [
             ['2015-05-22', 'EuroMillions', 193948458252],
             ['2015-05-23', 'EuroMillions', 4150340],
-            ['2015-05-24', 'La Primitiva', 2934],
         ];
     }
 
@@ -62,7 +60,6 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
     {
         return [
             ['2015-05-22 22:00:00', 'EuroMillions', 100000000],
-            ['2015-05-22 23:00:00', 'La Primitiva', 2934],
             ['2015-05-19 22:00:00', 'EuroMillions', 4150340]
         ];
     }
@@ -81,33 +78,7 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
             'draw_time' => '20:00:00',
         ]);
         $actual = $this->sut->getLastResult($lottery, new \DateTime('2015-06-06'));
-        $this->assertEquals('05,09,17,32,34', $actual->getRegularNumbers(), 'Regular numbers don\'t match');
-        $this->assertEquals('06,08', $actual->getLuckyNumbers(), 'Lucky numbers don\'t match');
-    }
-
-    /**
-     * method getLastResult
-     * when called
-     * should returnProperObjectType
-     * @dataProvider getLotteryNamesAndEntity
-     */
-    public function test_getLastResult_called_returnProperEntity($lotteryName, $entityName)
-    {
-        $lottery = (new Lottery())->initialize([
-            'name' => $lotteryName,
-            'frequency' => 'w0100100',
-            'draw_time' => '20:00:00',
-        ]);
-
-        $actual = $this->sut->getLastResult($lottery, new \DateTime('2015-06-06'));
-        $this->assertInstanceOf('\EuroMillions\entities\\'.$entityName, $actual);
-
-    }
-
-    public function getLotteryNamesAndEntity()
-    {
-        return [
-            ['EuroMillions', 'EuroMillionsResult'],
-        ];
+        $this->assertEquals('5,9,17,32,34', $actual->getRegularNumbers(), 'Regular numbers don\'t match');
+        $this->assertEquals('6,8', $actual->getLuckyNumbers(), 'Lucky numbers don\'t match');
     }
 }

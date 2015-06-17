@@ -2,6 +2,7 @@
 namespace EuroMillions\repositories;
 
 use Doctrine\ORM\EntityRepository;
+use EuroMillions\entities\EuroMillionsDraw;
 use EuroMillions\entities\Lottery;
 
 class LotteryDrawRepository extends EntityRepository
@@ -47,7 +48,7 @@ class LotteryDrawRepository extends EntityRepository
             $date = new \DateTime();
         }
         $draw_date = $lottery->getLastDrawDate($date);
-
+        /** @var EuroMillionsDraw[] $result */
         $result = $this->getEntityManager()
             ->createQuery(
                 'SELECT ld'
