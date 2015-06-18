@@ -1,6 +1,5 @@
 <?php
 namespace EuroMillions\controllers;
-use EuroMillions\services\LotteriesDataService;
 use Phalcon\Di;
 
 class IndexController extends ControllerBase

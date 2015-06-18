@@ -18,9 +18,9 @@ class ControllerBase extends Controller
     /** @var LotteriesDataService */
     protected $lotteriesDataService;
 
-    public function initialize()
+    public function initialize(LotteriesDataService $lotteriesDataService = null)
     {
-        $this->lotteriesDataService = new LotteriesDataService();
+        $this->lotteriesDataService = $lotteriesDataService ? $lotteriesDataService : new LotteriesDataService();
     }
 
     protected function noRender()

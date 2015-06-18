@@ -3,12 +3,13 @@ namespace tests\unit;
 
 use EuroMillions\controllers\ControllerBase;
 use EuroMillions\entities\Language;
+use EuroMillions\services\LotteriesDataService;
 use Phalcon\Di;
 use tests\base\UnitTestBase;
 
 class ControllerBaseUnitTest extends UnitTestBase
 {
-    public function test_beforeExecuteRoute_called_setActiveLanguagesInView()
+    public function test_afterExecuteRoute_called_setActiveLanguagesInView()
     {
         $lang1 = new Language();
         $lang2 = new Language();
@@ -34,8 +35,11 @@ class ControllerBaseUnitTest extends UnitTestBase
         $expected3 = $this->getStandardObject($attributes3);
 
         $sut = new ControllerBase();
+        /** @var LotteriesDataService|\PHPUnit_Framework_MockObject_MockObject $lotteriesDataService_stub */
+        $lotteriesDataService_stub = $this->getMockBuilder('\EuroMillions\services\LotteriesDataService')->getMock();
+        $sut->initialize($lotteriesDataService_stub);
         $this->checkViewParam(['languages' => [$expected1, $expected2, $expected3]]);
-        $sut->beforeExecuteRoute();
+        $sut->afterExecuteRoute();
     }
 
     protected function getStandardObject($attributes)
