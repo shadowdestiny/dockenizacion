@@ -113,7 +113,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     protected function configDispatcher()
     {
         $eventsManager = new Phalcon\Events\Manager();
-        $eventsManager->attach("dispatch", function(Event $event, Phalcon\Mvc\Dispatcher $dispatcher, Phalcon\Mvc\Dispatcher\Exception $exception) {
+        $eventsManager->attach("dispatch", function(Event $event, Phalcon\Mvc\Dispatcher $dispatcher, Phalcon\Mvc\Dispatcher\Exception $exception=null) {
 
             //The controller exists but the action not
             if ($event->getType() == 'beforeNotFoundAction') {
