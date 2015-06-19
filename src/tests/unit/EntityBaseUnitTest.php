@@ -26,7 +26,7 @@ class EntityBaseUnitTest extends UnitTestBase
     public function test_initialize_calledWithWrongPropertyName_throw()
     {
         $bad_name = 'badproperty';
-        $this->setExpectedException('\EuroMillions\exceptions\BadEntityInitialization', 'Bad property name: "' . $bad_name . '"');
+        $this->setExpectedException('\EuroMillions\exceptions\BadEntityInitializationException', 'Bad property name: "' . $bad_name . '"');
 
         $this->sut->initialize(['ccode' => 'es', $bad_name => 'anyway']);
     }

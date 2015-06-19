@@ -1,7 +1,7 @@
-EuroMillions\entities\LotteryDraw:
+EuroMillions\entities\EuroMillionsDraw:
   type: entity
   repositoryClass: \EuroMillions\repositories\LotteryDrawRepository
-  table: lottery_draws
+  table: euromillions_draws
   id:
     draw_id:
       type: integer
@@ -15,21 +15,10 @@ EuroMillions\entities\LotteryDraw:
       unique: true
     jackpot:
       type: bigint
-    message:
-      type: text
-    big_winner:
-      type: boolean
-      default: false
-    published:
-      type: boolean
-      default: false
   manyToOne:
     lottery:
       targetEntity: \EuroMillions\entities\Lottery
       inversedBy: draws
-  oneToOne:
+  embedded:
     result:
-      targetEntity: \EuroMillions\entities\LotteryResult
-      joinColumn:
-        name: result_id
-        referencedColumnName: id
+      class: \EuroMillions\vo\EuroMillionsResult

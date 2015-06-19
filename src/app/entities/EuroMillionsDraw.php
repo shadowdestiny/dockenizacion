@@ -1,19 +1,21 @@
 <?php
 namespace EuroMillions\entities;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use EuroMillions\interfaces\IEntity;
+use EuroMillions\vo\EuroMillionsLuckyNumber;
+use EuroMillions\vo\EuroMillionsRegularNumber;
+use EuroMillions\vo\EuroMillionsResult;
 
-class LotteryDraw extends EntityBase implements IEntity
+class EuroMillionsDraw extends EntityBase implements IEntity
 {
     protected $draw_id;
     protected $draw_date;
     protected $jackpot;
-    protected $message;
-    protected $big_winner;
 
     protected $published;
+    /** @var  Lottery */
     protected $lottery;
+    /** @var  EuroMillionsResult */
     protected $result;
 
     public function getResult()
@@ -44,7 +46,6 @@ class LotteryDraw extends EntityBase implements IEntity
     public function getId()
     {
         return $this->draw_id;
-
     }
 
     public function getDrawDate()
@@ -67,33 +68,16 @@ class LotteryDraw extends EntityBase implements IEntity
         $this->jackpot = $jackpot;
     }
 
-    public function getMessage()
+    public function createResult(array $regularNumbers, array $luckyNumbers)
     {
-        return $this->message;
-    }
-
-    public function setMessage($message)
-    {
-        $this->message = $message;
-    }
-
-    public function getBigWinner()
-    {
-        return $this->big_winner;
-    }
-
-    public function setBigWinner($big_winner)
-    {
-        $this->big_winner = $big_winner;
-    }
-
-    public function getPublished()
-    {
-        return $this->published;
-    }
-
-    public function setPublished($published)
-    {
-        $this->published = $published;
+        $regular_numbers = [];
+        $lucky_numbers = [];
+        foreach ($regularNumbers as $number) {
+            $regular_numbers[] = new EuroMillionsRegularNumber($number);
+        }
+        foreach ($luckyNumbers as $number) {
+            $lucky_numbers[] = new EuroMillionsLuckyNumber($number);
+        }
+        $this->result = new EuroMillionsResult($regular_numbers, $lucky_numbers);
     }
 }

@@ -9,13 +9,5 @@ return [
             'jackpot_api' => 'LoteriasyapuestasDotEs',
             'draw_time' => '20:00:00'
         ],
-        [
-            'id'   => 2,
-            'name' => 'La Primitiva',
-            'active' => 1,
-            'frequency' => 'w0001010',
-            'draw_time' => '20:00:00',
-            'jackpot_api' => 'LoteriasyapuestasDotEs',
-        ],
   ]
 ];

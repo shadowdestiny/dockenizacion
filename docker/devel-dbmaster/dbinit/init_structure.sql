@@ -728,6 +728,20 @@ CREATE TABLE IF NOT EXISTS `transactions` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `translations`
+--
+
+CREATE TABLE IF NOT EXISTS `translations` (
+  `translation_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `key` varchar(254) COLLATE utf8_unicode_ci NOT NULL,
+  `used` tinyint(3) unsigned NOT NULL DEFAULT '1',
+  PRIMARY KEY (`translation_id`),
+  UNIQUE KEY `key` (`key`)
+) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
+
+
+-- --------------------------------------------------------
+--
 -- Table structure for table `translation_details`
 --
 
@@ -738,20 +752,6 @@ CREATE TABLE IF NOT EXISTS `translation_details` (
   `value` text COLLATE utf8_unicode_ci NOT NULL,
   `language_id` INT unsigned NULL,
   PRIMARY KEY (`id`)
-) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `translations`
---
-
-CREATE TABLE IF NOT EXISTS `translations` (
-  `translation_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `key` varchar(254) COLLATE utf8_unicode_ci NOT NULL,
-  `used` tinyint(3) unsigned NOT NULL DEFAULT '1',
-  PRIMARY KEY (`translation_id`),
-  UNIQUE KEY `key` (`key`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 -- --------------------------------------------------------

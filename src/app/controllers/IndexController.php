@@ -1,19 +1,13 @@
 <?php
 namespace EuroMillions\controllers;
-use EuroMillions\services\LanguageService;
-use EuroMillions\services\LotteriesDataService;
 use Phalcon\Di;
-use stdClass;
 
 class IndexController extends ControllerBase
 {
     public function indexAction()
     {
-        $lds = new LotteriesDataService();
-        $time_till_next_draw = $lds->getTimeToNextDraw('EuroMillions');
-        $this->view->setVar('euromillions_results', $lds->getLastResult('EuroMillions'));
-        $this->view->setVar('jackpot_value', $lds->getNextJackpot('EuroMillions'));
-        $this->view->setVar('currency_symbol_first', true); //EMTD
+        $time_till_next_draw = $this->lotteriesDataService->getTimeToNextDraw('EuroMillions');
+        $this->view->setVar('euromillions_results', $this->lotteriesDataService->getLastResult('EuroMillions'));
         $this->view->setVar('days_till_next_draw', $time_till_next_draw->d);
         $this->view->setVar('hours_till_next_draw', $time_till_next_draw->h);
         $this->view->setVar('minutes_till_next_draw', $time_till_next_draw->i);

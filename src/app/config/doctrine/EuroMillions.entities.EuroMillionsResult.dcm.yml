@@ -1,8 +1,0 @@
-EuroMillions\entities\EuroMillionsResult:
-  type: entity
-  fields:
-    regular_numbers:
-      type: string
-    lucky_numbers:
-      type: string
-

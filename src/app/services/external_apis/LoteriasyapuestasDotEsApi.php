@@ -57,10 +57,10 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
                     preg_match('/<b>([0-9]{2}) - ([0-9]{2}) - ([0-9]{2}) - ([0-9]{2}) - ([0-9]{2})<\/b> .* <b>([0-9]{2}) - ([0-9]{2})<\/b>/', $item->description, $result_matches);
                     $result = [];
                     for($i=1; $i<=5; $i++) {
-                        $result['regular_numbers'][] = $result_matches[$i];
+                        $result['regular_numbers'][] = intval($result_matches[$i], 10);
                     }
                     for ($i=6; $i<=7; $i++) {
-                        $result['lucky_numbers'][] = $result_matches[$i];
+                        $result['lucky_numbers'][] = intval($result_matches[$i],10);
                     }
                     return $result;
                 }
@@ -96,6 +96,8 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
                 return '11';
             case 'diciembre':
                 return '12';
+            default:
+                return ''; //throw instead?
         }
     }
 }

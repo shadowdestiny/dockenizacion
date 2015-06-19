@@ -1,22 +1,24 @@
 <?php
 namespace tests\integration;
 
-use EuroMillions\entities\EuroMillionsResult;
-use EuroMillions\entities\LotteryDraw;
+use EuroMillions\entities\EuroMillionsDraw;
 use EuroMillions\services\LotteriesDataService;
+use EuroMillions\vo\EuroMillionsResult;
+use Phalcon\Di;
+use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\IntegrationTestBase;
 use tests\base\LoteriasyapuestasDotEsRelatedTest;
 
 class LotteriesDataServiceIntegrationTest extends IntegrationTestBase
 {
     use LoteriasyapuestasDotEsRelatedTest;
+    use EuroMillionsResultRelatedTest;
 
     protected function getFixtures()
     {
         return [
             'lotteries',
-            'lottery_results',
-            'lottery_draws',
+            'euromillions_draws',
         ];
     }
 
@@ -35,14 +37,14 @@ class LotteriesDataServiceIntegrationTest extends IntegrationTestBase
         $sut = new LotteriesDataService();
         $sut->updateNextDrawJackpot($lottery_name, new \DateTime('2015-06-04'), $curlWrapper_stub);
 
-        $expected = new LotteryDraw();
+        $expected = new EuroMillionsDraw();
         $expected->initialize([
             'draw_date' => $draw_date,
             'jackpot' => 100000000,
         ]);
         $conn = $this->getPDO();
-        $draw = $conn->query("SELECT ld.* FROM lottery_draws ld INNER JOIN lotteries l ON l.id = ld.lottery_id WHERE l.name='$lottery_name' AND ld.draw_date = '$draw_date'");
-        $result = $draw->fetchObject('\EuroMillions\entities\LotteryDraw');
+        $draw = $conn->query("SELECT ld.* FROM euromillions_draws ld INNER JOIN lotteries l ON l.id = ld.lottery_id WHERE l.name='$lottery_name' AND ld.draw_date = '$draw_date'");
+        $result = $draw->fetchObject(self::ENTITIES_NS.'EuroMillionsDraw');
         $this->assertEquals($expected->getJackpot(), $result->getJackpot(), "Jackpot doesn't match");
         $this->assertEquals($expected->getDrawDate(), $result->getDrawDate(), "Draw date doesn't match");
         $this->assertEquals(1, $result->lottery_id, "Lottery id doesn't match");
@@ -65,31 +67,18 @@ class LotteriesDataServiceIntegrationTest extends IntegrationTestBase
         $sut = new LotteriesDataService();
         $sut->updateLastDrawResult($lottery_name, new \DateTime($now), $curlWrapper_stub);
 
-        $expected = new EuroMillionsResult();
-        $expected->initialize([
-            'regular_numbers' => '02,07,08,45,48',
-            'lucky_numbers' => '01,09',
-        ]);
+        $expected = new EuroMillionsResult($this->getRegularNumbers([2,7,8,45,48]),$this->getLuckyNumbers([1,9]));
 
-        $conn = $this->getPDO();
-        $result = $conn->query(
-            "SELECT lr.*".
-            " FROM lottery_results lr INNER JOIN lottery_draws ld ON ld.result_id = lr.id".
-            " INNER JOIN lotteries l ON ld.lottery_id = l.id".
-            " WHERE lr.lottery = '$lottery_name' AND l.name = '$lottery_name'"
-        );
-        $lottery_result = $result->fetchObject('\EuroMillions\entities\EuroMillionsResult');
+        $lottery_repo = $this->entityManager->getRepository(self::ENTITIES_NS.'Lottery');
+        $lottery = $lottery_repo->findOneBy(['name'=> $lottery_name]);
 
-        $this->assertEquals($expected->getRegularNumbers(), $lottery_result->getRegularNumbers(), "Regular numbers don't match");
-        $this->assertEquals($expected->getLuckyNumbers(), $lottery_result->getLuckyNumbers(), "Regular numbers don't match");
-        $this->assertEquals('EuroMillions', $lottery_result->lottery, "Lottery name not properly set");
+        $draw_repo = $this->entityManager->getRepository(self::ENTITIES_NS.'EuroMillionsDraw');
+        /** @var EuroMillionsDraw $euromillions_draw */
+        $euromillions_draw = $draw_repo->findOneBy(['lottery' => $lottery->getId(), 'draw_date'=> new \DateTime($date)]);
+        $actual_result = $euromillions_draw->getResult();
 
-        $result = $conn->query(
-            "SELECT ld.*".
-            " FROM lottery_draws ld WHERE ld.draw_date = '$date'"
-        );
-        $draw = $result->fetchObject('\EuroMillions\entities\LotteryDraw');
-        $this->assertEquals($lottery_result->getId(), $draw->result_id);
+        $this->assertEquals($expected->getRegularNumbers(), $actual_result->getRegularNumbers(), "Regular numbers don't match");
+        $this->assertEquals($expected->getLuckyNumbers(), $actual_result->getLuckyNumbers(), "Regular numbers don't match");
     }
 
 }

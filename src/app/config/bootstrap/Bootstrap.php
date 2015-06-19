@@ -13,15 +13,16 @@ use Phalcon;
 
 class Bootstrap
 {
+    protected $di;
     public function __construct(IBootstrapStrategy $strategy)
     {
         $this->strategy = $strategy;
+        $this->di = $this->strategy->dependencyInjector();
     }
 
     public function execute()
     {
-        $di = $this->strategy->dependencyInjector();
-        error_reporting($di->get('globalConfig')->php->error_reporting_level);
-        $this->strategy->execute($di);
+        error_reporting($this->di->get('globalConfig')->php->error_reporting_level);
+        $this->strategy->execute($this->di);
     }
 }

@@ -37,8 +37,7 @@ class EnvironmentDetector
 
     public function isEnvSet()
     {
-        return !empty(getenv($this->var_name));
+        $env = getenv($this->var_name);
+        return !empty($env);
     }
-
-    //EMTD sanity check: compare the domain accessing with the environment to see if everything seems fine
 }

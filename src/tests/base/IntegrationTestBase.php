@@ -8,16 +8,21 @@
 
 namespace tests\base;
 
+use Doctrine\ORM\EntityManager;
 use Phalcon\DI;
 use PHPUnit_Extensions_Database_DataSet_ArrayDataSet;
 use PHPUnit_Extensions_Database_DB_IDatabaseConnection;
 
 abstract class IntegrationTestBase extends \PHPUnit_Extensions_Database_TestCase
 {
+    const ENTITIES_NS = '\EuroMillions\entities\\';
+
     protected $connection;
     protected $pdo;
     /** @var  TestBaseHelper */
     protected $helper;
+    /** @var  EntityManager */
+    protected $entityManager;
     /**
      * Returns the test database connection.
      *
@@ -60,6 +65,7 @@ abstract class IntegrationTestBase extends \PHPUnit_Extensions_Database_TestCase
         $conn->query("set foreign_key_checks=0");
         parent::setUp();
         $conn->query("set foreign_key_checks=1");
+        $this->entityManager = Di::getDefault()->get('entityManager');
     }
     protected function tearDown()
     {
