@@ -55,7 +55,7 @@
 					<div class="cols">
 						<div class="col8 content">
 							<h1 class="h2">{{ language.translate('Euromillions Results') }}</h1>
-							<p>Lorem ipsum winning numbers</p>
+							<p>{{ language.translate('Draw on') }} Tuesday, June 16, 2015</p>
 							<ul class="no-li inline numbers small">
                                 {% for regular_number in euromillions_results["regular_numbers"] %}
 								    <li>{{ regular_number }}</li>
@@ -64,7 +64,7 @@
 								    <li class="star">{{ lucky_number }}</li>
                                 {% endfor %}
 							</ul>
-							<span class="lnk animate infi"><span class="txt">{{ language.translate('Latest winning numbers') }}</span> <i class="ico ico-arrow-right3"></i></span>
+							<span class="lnk animate infi"><span class="txt">{{ language.translate('Results &amp; Prizes') }}</span> <i class="ico ico-arrow-right3"></i></span>
 						</div>
 						<div class="col4 woman">&nbsp;</div>
 					</div>
