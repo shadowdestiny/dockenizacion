@@ -10,6 +10,7 @@
     "symfony/yaml": "*",
     "robmorgan/phinx": "*",
     "phalcon/incubator": "dev-master",
-    "antonienko/positive-modulus" : "1.*"
+    "antonienko/positive-modulus" : "1.*",
+    "mathiasverraes/money" : "1.2.1"
   }
 }

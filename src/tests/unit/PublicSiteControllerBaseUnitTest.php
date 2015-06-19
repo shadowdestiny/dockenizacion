@@ -1,13 +1,15 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\controllers\ControllerBase;
+use EuroMillions\controllers\PublicSiteControllerBase;
 use EuroMillions\entities\Language;
 use EuroMillions\services\LotteriesDataService;
+use Money\Currency;
+use Money\Money;
 use Phalcon\Di;
 use tests\base\UnitTestBase;
 
-class ControllerBaseUnitTest extends UnitTestBase
+class PublicSiteControllerBaseUnitTest extends UnitTestBase
 {
     public function test_afterExecuteRoute_called_setActiveLanguagesInView()
     {
@@ -34,9 +36,12 @@ class ControllerBaseUnitTest extends UnitTestBase
         $expected2 = $this->getStandardObject($attributes2);
         $expected3 = $this->getStandardObject($attributes3);
 
-        $sut = new ControllerBase();
+        $sut = new PublicSiteControllerBase();
         /** @var LotteriesDataService|\PHPUnit_Framework_MockObject_MockObject $lotteriesDataService_stub */
         $lotteriesDataService_stub = $this->getMockBuilder('\EuroMillions\services\LotteriesDataService')->getMock();
+        $lotteriesDataService_stub->expects($this->any())
+            ->method('getNextJackpot')
+            ->will($this->returnValue(new Money(100, new Currency('EUR'))));
         $sut->initialize($lotteriesDataService_stub);
         $this->checkViewParam(['languages' => [$expected1, $expected2, $expected3]]);
         $sut->afterExecuteRoute();

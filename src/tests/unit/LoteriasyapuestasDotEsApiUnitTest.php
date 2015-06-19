@@ -2,7 +2,8 @@
 namespace tests\unit;
 
 use EuroMillions\services\external_apis\LoteriasyapuestasDotEsApi;
-use Phalcon\Http\Client\Provider\Curl;
+use Money\Currency;
+use Money\Money;
 use tests\base\LoteriasyapuestasDotEsRelatedTest;
 use tests\base\UnitTestBase;
 
@@ -27,21 +28,23 @@ class LoteriasyapuestasDotEsApiUnitTest extends UnitTestBase
      * when calledWithAvailableDate
      * should returnProperValue
      * @dataProvider getDatesAndJackpots
+     * @param string $date
+     * @param int $expectedJackpot
      */
     public function test_getJackpotForDate_calledWithAvailableDate_returnProperValue($date, $expectedJackpot)
     {
         $actual = $this->exerciseGetJackpot($date);
-        $this->assertEquals($expectedJackpot, $actual);
+        $this->assertEquals(new Money($expectedJackpot, new Currency('EUR')), $actual);
     }
 
     public function getDatesAndJackpots()
     {
         return [
-            ['2015-06-05', 100000000],
-            ['2015-06-02', 21000000],
-            ['2015-05-29', 15000000],
-            ['2015-05-26', 37000000],
-            ['2015-05-22', 31000000],
+            ['2015-06-05', 10000000000],
+            ['2015-06-02', 2100000000],
+            ['2015-05-29', 1500000000],
+            ['2015-05-26', 3700000000],
+            ['2015-05-22', 3100000000],
         ];
     }
 

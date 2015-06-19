@@ -7,6 +7,7 @@ use EuroMillions\entities\EuroMillionsDraw;
 use EuroMillions\repositories\LotteryDrawRepository;
 use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\vo\EuroMillionsResult;
+use Money\Money;
 use Phalcon\Http\Client\Provider\Curl;
 
 class LotteriesDataService extends PhalconService
@@ -77,6 +78,10 @@ class LotteriesDataService extends PhalconService
         return $this->lotteryRepository->findOneby(['name' => $lotteryName])->getLastDrawDate($today);
     }
 
+    /**
+     * @param $lotteryName
+     * @return Money
+     */
     public function getNextJackpot($lotteryName)
     {
         return $this->lotteryDrawRepository->getNextJackpot($lotteryName);

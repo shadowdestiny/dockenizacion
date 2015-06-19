@@ -6,6 +6,8 @@ use EuroMillions\entities\EuroMillionsDraw;
 use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\services\LotteriesDataService;
 use EuroMillions\vo\EuroMillionsResult;
+use Money\Currency;
+use Money\Money;
 use Phalcon\Di;
 use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\UnitTestBase;
@@ -59,12 +61,12 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
             'draw_date'  => '2015-06-02',
             'jackpot'    => null,
         ]);
-        $jackpot = 15000001;
+        $jackpot = 150000000;
 
         $this->prepareUpdateNextDrawJackpot($lottery_name, $lottery_draw_in_db, $jackpot);
 
         $draw_to_persist = clone($lottery_draw_in_db);
-        $draw_to_persist->setJackpot($jackpot);
+        $draw_to_persist->setJackpot(new Money($jackpot, new Currency("EUR")));
 
         $this->entityManagerDouble->expects($this->once())
             ->method('persist')
@@ -84,14 +86,14 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
         $today = '2015-06-02 10:00:00';
         $lottery_name = 'EuroMillions';
         $lottery_draw_in_db = null;
-        $jackpot = 15000000;
+        $jackpot = 1500000000;
 
         $lottery = $this->prepareUpdateNextDrawJackpot($lottery_name, $lottery_draw_in_db, $jackpot);
 
         $draw_to_persist = new EuroMillionsDraw();
         $draw_to_persist->initialize([
             'draw_date'  => new \DateTime('2015-06-02 20:00:00'),
-            'jackpot'    => $jackpot,
+            'jackpot'    => new Money($jackpot, new Currency('EUR')),
             'lottery'    => $lottery
         ]);
 
@@ -241,19 +243,6 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     }
 
     /**
-     * @param LotteryResult $lottery_result_in_db
-     */
-    protected function setLotteryResultRepositoryResult($lottery_result_in_db)
-    {
-        $this->lotteryResultRepositoryDouble = $this->getMockBuilder(
-            '\EuroMillions\repositories\LotteryResultRepository'
-        )->disableOriginalConstructor()->getMock();
-        $this->lotteryResultRepositoryDouble->expects($this->any())
-            ->method('findOneBy')
-            ->will($this->returnValue($lottery_result_in_db));
-    }
-
-    /**
      * @param $lottery_name
      * @param $jackpot
      */
@@ -265,7 +254,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
         $api_stub->expects($this->any())
             ->method('getJackpotForDate')
             ->with($lottery_name, '2015-06-02')
-            ->will($this->returnValue($jackpot));
+            ->will($this->returnValue(new Money($jackpot, new Currency('EUR'))));
         $this->apiFactoryDouble->expects($this->any())
             ->method('jackpotApi')
             ->will($this->returnValue($api_stub));

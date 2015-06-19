@@ -4,6 +4,8 @@ namespace EuroMillions\services\external_apis;
 use EuroMillions\exceptions\ValidDateRangeException;
 use EuroMillions\interfaces\IJackpotApi;
 use EuroMillions\interfaces\IResultApi;
+use Money\Currency;
+use Money\Money;
 use Phalcon\Http\Client\Provider\Curl;
 
 class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
@@ -18,7 +20,7 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
     /**
      * @param string $lotteryName
      * @param string $date
-     * @return int
+     * @return Money
      */
     public function getJackpotForDate($lotteryName, $date)
     {
@@ -32,7 +34,7 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
             $item_date = "$year-$month-$day";
             if ($item_date == $date) {
                 preg_match('/([0-9\.]+)€/', $item->title, $jackpot_matches);
-                return (int)str_replace('.', '', $jackpot_matches[1]);
+                return new Money(str_replace('.', '', $jackpot_matches[1])*100, new Currency('EUR'));
             }
         }
         throw new ValidDateRangeException('The date requested ('.$date.') is not valid for the LoteriasyapuestasDotEsApi');

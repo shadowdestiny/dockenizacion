@@ -4,6 +4,8 @@ namespace tests\integration;
 use EuroMillions\entities\Lottery;
 use EuroMillions\repositories\LotteryDrawRepository;
 use EuroMillions\vo\EuroMillionsResult;
+use Money\Currency;
+use Money\Money;
 use tests\base\RepositoryIntegrationTestBase;
 
 class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
@@ -33,14 +35,14 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
     public function test_getLastJackpot_called_returnLastJackpotOfSelectedLottery($date, $lotteryName, $expectedJackpot)
     {
         $actual = $this->sut->getLastJackpot($lotteryName, $date);
-        $this->assertEquals($expectedJackpot, $actual);
+        $this->assertEquals(new Money($expectedJackpot, new Currency('EUR')), $actual);
     }
 
     public function getLotteryAndExpectedLastJackpot()
     {
         return [
-            ['2015-05-22', 'EuroMillions', 193948458252],
-            ['2015-05-23', 'EuroMillions', 4150340],
+            ['2015-05-22', 'EuroMillions', 19394845825200],
+            ['2015-05-23', 'EuroMillions', 415034000],
         ];
     }
 
@@ -53,14 +55,14 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
     public function test_getNextJackpot_called_returnNextJackpotOfSelectedLottery($date, $lotteryName, $expectedJackpot)
     {
         $actual = $this->sut->getNextJackpot($lotteryName, new \DateTime($date));
-        $this->assertEquals($expectedJackpot, $actual);
+        $this->assertEquals(new Money($expectedJackpot, new Currency('EUR')), $actual);
     }
 
     public function getLotteryAndExpectedNextJackpot()
     {
         return [
-            ['2015-05-22 22:00:00', 'EuroMillions', 100000000],
-            ['2015-05-19 22:00:00', 'EuroMillions', 4150340]
+            ['2015-05-22 22:00:00', 'EuroMillions', 10000000000],
+            ['2015-05-19 22:00:00', 'EuroMillions', 415034000]
         ];
     }
 

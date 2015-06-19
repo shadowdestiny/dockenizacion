@@ -2,7 +2,7 @@
 namespace EuroMillions\controllers;
 use Phalcon\Di;
 
-class IndexController extends ControllerBase
+class IndexController extends PublicSiteControllerBase
 {
     public function indexAction()
     {

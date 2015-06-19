@@ -12,16 +12,17 @@ class LotteryDrawRepository extends EntityRepository
         if(!$date) {
             $date = date("Y-m-d");
         }
+        /** @var EuroMillionsDraw[] $result */
         $result = $this->getEntityManager()
             ->createQuery(
-                'SELECT ld.jackpot'
+                'SELECT ld'
                 .' FROM '.$this->getEntityName().' ld JOIN ld.lottery l'
                 .' WHERE l.name = :lottery_name AND ld.draw_date < :date'
                 .' ORDER BY ld.draw_date DESC')
             ->setMaxResults(1)
             ->setParameters(['lottery_name' => $lotteryName, 'date' => $date])
             ->getResult();
-        return $result[0]['jackpot'];
+        return $result[0]->getJackpot();
     }
 
     public function getNextJackpot($lotteryName, \DateTime $date = null)
@@ -29,9 +30,10 @@ class LotteryDrawRepository extends EntityRepository
         if(!$date) {
             $date = new \DateTime();
         }
+        /** @var EuroMillionsDraw[] $result */
         $result = $this->getEntityManager()
             ->createQuery(
-                'SELECT ld.jackpot'
+                'SELECT ld'
                 .' FROM '.$this->getEntityName().' ld JOIN ld.lottery l'
                 .' WHERE l.name = :lottery_name AND ld.draw_date > :date'
                 .'  OR (ld.draw_date = :date AND l.draw_time > :time)'
@@ -39,7 +41,7 @@ class LotteryDrawRepository extends EntityRepository
             ->setMaxResults(1)
             ->setParameters(['lottery_name' => $lotteryName, 'date' => $date->format("Y-m-d"), 'time' => $date->format("H:i:s")])
             ->getResult();
-        return $result[0]['jackpot'];
+        return $result[0]->getJackpot();
     }
 
     public function getLastResult(Lottery $lottery, \DateTime $date = null)

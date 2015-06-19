@@ -5,7 +5,7 @@ use antonienko\PhpTempPrev\FileStrategies\JsonFileStrategy;
 use antonienko\PhpTempPrev\FrameworkStrategies\PhalconStrategy;
 use antonienko\PhpTempPrev\Previewer;
 
-class DesignTestController extends ControllerBase
+class DesignTestController extends PublicSiteControllerBase
 {
     public function viewAction($controller, $view)
     {

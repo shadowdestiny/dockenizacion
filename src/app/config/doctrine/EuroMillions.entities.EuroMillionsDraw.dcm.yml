@@ -13,8 +13,6 @@ EuroMillions\entities\EuroMillionsDraw:
     draw_date:
       type: date
       unique: true
-    jackpot:
-      type: bigint
   manyToOne:
     lottery:
       targetEntity: \EuroMillions\entities\Lottery
@@ -22,3 +20,5 @@ EuroMillions\entities\EuroMillionsDraw:
   embedded:
     result:
       class: \EuroMillions\vo\EuroMillionsResult
+    jackpot:
+      class: \Money\Money
