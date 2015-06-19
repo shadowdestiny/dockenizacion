@@ -1091,6 +1091,7 @@ body {
 .main-nav {
   float: right;
   margin-bottom: -1px;
+  border-left: 1px solid #efc048;
 }
 
 .main-nav li {
