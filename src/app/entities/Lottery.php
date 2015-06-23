@@ -233,7 +233,7 @@ class Lottery extends EntityBase implements IEntity
      * @param $next_or_last
      * @return mixed
      */
-    private function getDrawDate(\DateTime $now, $next_or_last)
+    private function getDrawDate(\DateTime $now = null, $next_or_last)
     {
         $function = 'get' . $next_or_last . 'DrawFrom';
         if (!$now) {

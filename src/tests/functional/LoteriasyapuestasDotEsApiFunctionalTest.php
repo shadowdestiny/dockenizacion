@@ -23,7 +23,7 @@ class LoteriasyapuestasDotEsApiFunctionalTest extends IntegrationTestBase
         $lottery = $lottery_repository->findOneBy(['name'=>'EuroMillions']);
         $sut = new LoteriasyapuestasDotEsApi();
         $actual = $sut->getJackpotForDate($lottery->getName(), $lottery->getNextDrawDate()->format("Y-m-d"));
-        $this->assertGreaterThanOrEqual(15000000, $actual);
+        $this->assertGreaterThanOrEqual(1500000000, $actual->getAmount());
     }
 
     /**
