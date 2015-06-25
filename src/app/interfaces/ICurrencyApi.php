@@ -2,5 +2,10 @@
 namespace EuroMillions\interfaces;
 interface ICurrencyApi
 {
-    public function getRates(array $currencies);
+    /**
+     * @param string $currencyFromCode
+     * @param string $currencyToCode
+     * @return \Money\CurrencyPair
+     */
+    public function getRate($currencyFromCode, $currencyToCode);
 }
