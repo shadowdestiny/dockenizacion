@@ -11,6 +11,9 @@ env:
 before_install:
 - composer config -g github-oauth.github.com $MY_GITHUB_TOKEN
 
+services:
+    - redis
+
 before_script:
   - pecl channel-update pecl.php.net
   - pecl install channel://pecl.php.net/apcu-4.0.7
