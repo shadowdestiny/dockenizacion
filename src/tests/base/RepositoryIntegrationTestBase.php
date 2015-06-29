@@ -3,7 +3,7 @@ namespace tests\base;
 
 use Phalcon\Di;
 
-abstract class RepositoryIntegrationTestBase extends IntegrationTestBase
+abstract class RepositoryIntegrationTestBase extends DatabaseIntegrationTestBase
 {
     protected $sut;
 

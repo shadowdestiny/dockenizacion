@@ -8,10 +8,10 @@ develdbmaster:
     MYSQL_ROOT_PASSWORD: tpl9
     MYSQL_DATABASE: euromillions
 
-#develredis:
-#  image: redis
-#  ports:
-#    - "6379:6379"
+develredis:
+  image: redis
+  ports:
+    - "6379:6379"
 
 develweb:
   build: ./devel-web
@@ -21,7 +21,7 @@ develweb:
     - /var/www:/var/www/
   links:
     - develdbmaster:mysql
-#    - develredis:redis
+    - develredis:redis
   environment:
     EM_ENV: docker
 

@@ -13,7 +13,7 @@ use Phalcon\DI;
 use PHPUnit_Extensions_Database_DataSet_ArrayDataSet;
 use PHPUnit_Extensions_Database_DB_IDatabaseConnection;
 
-abstract class IntegrationTestBase extends \PHPUnit_Extensions_Database_TestCase
+abstract class DatabaseIntegrationTestBase extends \PHPUnit_Extensions_Database_TestCase
 {
     const ENTITIES_NS = '\EuroMillions\entities\\';
 

@@ -5,9 +5,9 @@ use Doctrine\ORM\EntityManager;
 use EuroMillions\entities\Lottery;
 use EuroMillions\services\external_apis\LoteriasyapuestasDotEsApi;
 use Phalcon\Di;
-use tests\base\IntegrationTestBase;
+use tests\base\DatabaseIntegrationTestBase;
 
-class LoteriasyapuestasDotEsApiFunctionalTest extends IntegrationTestBase
+class LoteriasyapuestasDotEsApiFunctionalTest extends DatabaseIntegrationTestBase
 {
     /**
      * method getJackpotForDate

@@ -8,10 +8,10 @@ use Money\Currency;
 use Money\Money;
 use Phalcon\Di;
 use tests\base\EuroMillionsResultRelatedTest;
-use tests\base\IntegrationTestBase;
+use tests\base\DatabaseIntegrationTestBase;
 use tests\base\LoteriasyapuestasDotEsRelatedTest;
 
-class LotteriesDataServiceIntegrationTest extends IntegrationTestBase
+class LotteriesDataServiceIntegrationTest extends DatabaseIntegrationTestBase
 {
     use LoteriasyapuestasDotEsRelatedTest;
     use EuroMillionsResultRelatedTest;

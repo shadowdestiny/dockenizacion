@@ -3,9 +3,9 @@ namespace tests\integration;
 
 use EuroMillions\components\EmTranslationAdapter;
 use Phalcon\Di;
-use tests\base\IntegrationTestBase;
+use tests\base\DatabaseIntegrationTestBase;
 
-class EmTranslationAdapterIntegrationTest extends IntegrationTestBase
+class EmTranslationAdapterIntegrationTest extends DatabaseIntegrationTestBase
 {
     /** @var  EmTranslationAdapter */
     protected $sut;

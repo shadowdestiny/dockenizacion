@@ -1,13 +1,17 @@
 <?php
 namespace EuroMillions\config\bootstrap;
 
+use Doctrine\Common\Cache\RedisCache;
 use EuroMillions\components\EnvironmentDetector;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\Common\Cache\ApcCache;
+use Phalcon\Cache\Frontend\Data;
 use Phalcon\Config;
 use Phalcon\Config\Adapter\Ini;
 use Phalcon\Di;
+use Redis;
+use Phalcon\Cache\Backend\Redis as PhalconRedis;
 
 abstract class BootstrapStrategyBase
 {
@@ -33,7 +37,14 @@ abstract class BootstrapStrategyBase
         $di->set('environmentDetector', $environment_detector);
         $di->set('config', $config, true);
         $di->set('entityManager', $this->configDoctrine($config), true);
+        $di->set('redisCache', $this->configRedis($config), true);
         return $di;
+    }
+
+    protected function configRedis(Ini $appConfig)
+    {
+        $frontend = new Data(['lifetime'=> 900]);
+        return new PhalconRedis($frontend, ['host'=>$appConfig['redis']['host'], 'prefix'=>$appConfig['redis']['prefix']]);
     }
 
     protected function configDoctrine(Ini $appConfig)
@@ -43,11 +54,12 @@ abstract class BootstrapStrategyBase
         $config->setQueryCacheImpl(new ApcCache());
         $config->setMetadataCacheImpl(new ApcCache());
 
-//        $redis = new \Redis();
-//        $redis->connect('redis');
-//        $redis_cache = new RedisCache();
-//        $redis_cache->setRedis($redis);
-//        $config->setResultCacheImpl($redis_cache);
+        $redis = new Redis();
+        $redis->connect($appConfig['redis']['host']);
+        $redis_cache = new RedisCache();
+        $redis_cache->setRedis($redis);
+        $redis_cache->setNamespace('doctrine_'.$appConfig['redis']['prefix']);
+        $config->setResultCacheImpl($redis_cache);
         $conn = [
             'host'     => $appConfig['database']['host'],
             'driver'   => 'pdo_mysql',

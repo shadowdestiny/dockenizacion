@@ -8,7 +8,7 @@ use Phalcon\Loader;
 use Phinx\Db\Adapter\MysqlAdapter;
 use Phinx\Migration\AbstractMigration;
 
-abstract class TranslationMigrationIntegrationTestBase extends IntegrationTestBase
+abstract class TranslationMigrationIntegrationTestBase extends DatabaseIntegrationTestBase
 {
     protected function getFixtures()
     {
