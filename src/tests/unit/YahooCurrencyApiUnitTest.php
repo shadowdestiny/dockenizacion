@@ -40,8 +40,7 @@ class YahooCurrencyApiUnitTest extends UnitTestBase
 
         $this->curlWrapper_double->get(self::URL_FETCH_USD_COP_GBP)->willReturn($this->getResponse())->shouldBeCalledTimes(1);
 
-        $sut = $this->getSut();
-        $sut->getRate('EUR', 'USD');
+        $this->exerciseGetRate('EUR', 'USD');
     }
 
     /**
@@ -59,8 +58,7 @@ class YahooCurrencyApiUnitTest extends UnitTestBase
 
         $this->curlWrapper_double->get(self::URL_FETCH_USD_COP_GBP)->willReturn($this->getResponse())->shouldBeCalledTimes(1);
 
-        $sut = $this->getSut();
-        $sut->getRate('EUR', 'GBP');
+        $this->exerciseGetRate('EUR', 'GBP');
     }
 
     /**
@@ -81,8 +79,7 @@ class YahooCurrencyApiUnitTest extends UnitTestBase
         $this->currencyApiCache_double->setConversionRate(new CurrencyPair(new Currency('EUR'), new Currency('USD'), 1.1373))->shouldBeCalled();
         $this->currencyApiCache_double->setConversionRate($this->eurGbpCurrencyPair)->shouldBeCalled();
 
-        $sut = $this->getSut();
-        $sut->getRate('EUR', 'GBP');
+        $this->exerciseGetRate('EUR', 'GBP');
     }
 
     /**
@@ -98,8 +95,7 @@ class YahooCurrencyApiUnitTest extends UnitTestBase
         $this->currencyApiCache_double->setConversionRate(Argument::any())->willReturn(null);
 
         $this->currencyApiCache_double->addConversionRateToFetch('EUR','GBP')->shouldBeCalled();
-        $sut = $this->getSut();
-        $sut->getRate('EUR', 'GBP');
+        $this->exerciseGetRate('EUR', 'GBP');
     }
 
     /**
@@ -115,8 +111,7 @@ class YahooCurrencyApiUnitTest extends UnitTestBase
         $this->currencyApiCache_double->setConversionRate(Argument::any())->willReturn(null);
 
         $this->currencyApiCache_double->addConversionRateToFetch(Argument::any())->shouldNotBeCalled();
-        $sut = $this->getSut();
-        $sut->getRate('EUR', 'GBP');
+        $this->exerciseGetRate('EUR', 'GBP');
     }
 
     /**
@@ -128,8 +123,7 @@ class YahooCurrencyApiUnitTest extends UnitTestBase
     {
         $expected = new CurrencyPair(new Currency('EUR'), new Currency('GBP'), 1.3845);
         $this->setCacheContentForConversionRate('EUR', 'GBP', $expected);
-        $sut = $this->getSut();
-        $actual = $sut->getRate('EUR', 'GBP');
+        $actual = $this->exerciseGetRate('EUR', 'GBP');
         $this->assertEquals($expected, $actual);
     }
 
@@ -146,8 +140,7 @@ class YahooCurrencyApiUnitTest extends UnitTestBase
         $this->curlWrapper_double->get(Argument::any())->willReturn($this->getResponse());
         $this->currencyApiCache_double->setConversionRate(Argument::type('\Money\CurrencyPair'))->shouldBeCalledTimes(2);
         $this->currencyApiCache_double->setConversionRate($expected)->shouldBeCalled();
-        $sut = $this->getSut();
-        $actual = $sut->getRate('EUR', 'GBP');
+        $actual = $this->exerciseGetRate('EUR', 'GBP');
         $this->assertEquals($expected, $actual);
     }
 
@@ -164,8 +157,7 @@ class YahooCurrencyApiUnitTest extends UnitTestBase
         $this->currencyApiCache_double->addConversionRateToFetch(Argument::any(), Argument::any())->willReturn(null);
         $this->currencyApiCache_double->setConversionRate(Argument::any())->willReturn(null);
         $this->curlWrapper_double->get($url)->shouldBeCalledTimes(1)->willReturn($this->getResponse());
-        $sut = $this->getSut();
-        $sut->getRate('EUR', 'USD');
+        $this->exerciseGetRate('EUR', 'USD');
     }
 
     public function getCurrenciesAndUrls()
@@ -212,5 +204,16 @@ class YahooCurrencyApiUnitTest extends UnitTestBase
     {
         $sut = new YahooCurrencyApi($this->currencyApiCache_double->reveal(), $this->curlWrapper_double->reveal());
         return $sut;
+    }
+
+    /**
+     * @param $currency_from
+     * @param $currency_to
+     * @return CurrencyPair
+     */
+    private function exerciseGetRate($currency_from, $currency_to)
+    {
+        $sut = $this->getSut();
+        return $sut->getRate(new Currency($currency_from), new Currency($currency_to));
     }
 }

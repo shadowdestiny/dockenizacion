@@ -19,17 +19,15 @@ class YahooCurrencyApi implements ICurrencyApi
     }
 
     /**
-     * @param string $currencyFromCode
-     * @param string $currencyToCode
+     * @param Currency $currencyFrom
+     * @param Currency $currencyTo
      * @return CurrencyPair
      */
-    public function getRate($currencyFromCode, $currencyToCode)
+    public function getRate(Currency $currencyFrom, Currency $currencyTo)
     {
-        $currency_from = new Currency($currencyFromCode);
-        $currency_to = new Currency($currencyToCode);
-        $currency_pair = $this->cache->getConversionRateFor($currency_from, $currency_to);
+        $currency_pair = $this->cache->getConversionRateFor($currencyFrom, $currencyTo);
         if (!$currency_pair) {
-            $currency_pair = $this->refreshRates($currencyFromCode, $currencyToCode);
+            $currency_pair = $this->refreshRates($currencyFrom->getName(), $currencyTo->getName());
         }
         return $currency_pair;
     }

@@ -1,11 +1,13 @@
 <?php
 namespace EuroMillions\interfaces;
+use Money\Currency;
+
 interface ICurrencyApi
 {
     /**
-     * @param string $currencyFromCode
-     * @param string $currencyToCode
+     * @param Currency $currencyFrom
+     * @param Currency $currencyTo
      * @return \Money\CurrencyPair
      */
-    public function getRate($currencyFromCode, $currencyToCode);
+    public function getRate(Currency $currencyFrom, Currency $currencyTo);
 }
