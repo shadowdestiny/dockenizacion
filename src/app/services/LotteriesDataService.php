@@ -10,22 +10,20 @@ use EuroMillions\vo\EuroMillionsResult;
 use Money\Money;
 use Phalcon\Http\Client\Provider\Curl;
 
-class LotteriesDataService extends PhalconService
+class LotteriesDataService
 {
     /** @var  LotteryDrawRepository */
     protected $lotteryDrawRepository;
     protected $lotteryRepository;
     protected $apisFactory;
-    /** @var EntityManager|\PHPUnit_Framework_MockObject_MockObject */
     protected $entityManager;
 
     public function __construct(EntityManager $entityManager, LotteryApisFactory $apisFactory)
     {
-        parent::__construct();
-        $this->entityManager = $entityManager ? $entityManager : $this->di->get('entityManager');
+        $this->entityManager = $entityManager;
         $this->lotteryDrawRepository = $this->entityManager->getRepository('EuroMillions\entities\EuroMillionsDraw');
         $this->lotteryRepository = $this->entityManager->getRepository('EuroMillions\entities\Lottery');
-        $this->apisFactory = $apisFactory ? $apisFactory : new LotteryApisFactory();
+        $this->apisFactory = $apisFactory;
     }
 
     public function updateNextDrawJackpot($lotteryName, \DateTime $now = null, Curl $curlWrapper = null)

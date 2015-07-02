@@ -44,7 +44,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $di->set('url', $this->configUrl(), true);
         $di->set('dispatcher', $this->configDispatcher(), true);
         $di->set('router', $this->configRouter(), true);
-        $di->set('response',$this->configResponse(), true);
+        $di->set('response', $this->configResponse(), true);
         $di->set('cookies', $this->configCookies(), true);
         $di->set('session', $this->configSession(), true);
         $di->set('tag', $this->configTag(), true);
@@ -76,8 +76,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 $language = substr($language, 0, $has_hyphen);
             }
         }
-        $em = $di->get('entityManager');
-        return new LanguageService($language, $em->getRepository('EuroMillions\entities\Language'), new EmTranslationAdapter($language, $em->getRepository('EuroMillions\entities\TranslationDetail')));
+        $factory = $di->get('domainServiceFactory');
+        return $factory->getLanguageService($language);
     }
 
     protected function configView()
@@ -115,13 +115,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     protected function configDispatcher()
     {
         $eventsManager = new Phalcon\Events\Manager();
-        $eventsManager->attach("dispatch", function(Event $event, Phalcon\Mvc\Dispatcher $dispatcher, \Exception $exception=null) {
+        $eventsManager->attach("dispatch", function (Event $event, Phalcon\Mvc\Dispatcher $dispatcher, \Exception $exception = null) {
 
             //The controller exists but the action not
             if ($event->getType() == 'beforeNotFoundAction') {
                 $dispatcher->forward(array(
                     'controller' => 'index',
-                    'action' => 'fallBackToZend'
+                    'action'     => 'fallBackToZend'
                 ));
                 return false;
             }
@@ -131,7 +131,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                     case Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
                         $dispatcher->forward(array(
                             'controller' => 'index',
-                            'action' => 'fallBackToZend'
+                            'action'     => 'fallBackToZend'
                         ));
                         return false;
                 }
@@ -151,7 +151,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $router = new Phalcon\Mvc\Router();
         $router->notFound(array(
             "controller" => "index",
-            "action" => "fallBackToZend"
+            "action"     => "fallBackToZend"
         ));
         $router->add("/", array(
             'controller' => 'index',

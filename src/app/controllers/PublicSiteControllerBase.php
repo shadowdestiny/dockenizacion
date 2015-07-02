@@ -21,7 +21,8 @@ class PublicSiteControllerBase extends ControllerBase
 
     public function initialize(LotteriesDataService $lotteriesDataService = null)
     {
-        $this->lotteriesDataService = $lotteriesDataService ? $lotteriesDataService : new LotteriesDataService(Di::getDefault()->get('entityManager'), new LotteryApisFactory());;
+        parent::initialize();
+        $this->lotteriesDataService = $lotteriesDataService ? $lotteriesDataService : $this->domainServiceFactory->getLotteriesDataService();
     }
 
     public function afterExecuteRoute()

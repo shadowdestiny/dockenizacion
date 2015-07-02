@@ -36,6 +36,7 @@ class JackpotTaskUnitTest extends UnitTestBase
             ->with($lottery_name, new \DateTime('2015-06-09 19:59:00'));
 
         $sut = new JackpotTask();
-        $sut->updatePreviousAction($today, $lotteriesDataService_double);
+        $sut->initialize($lotteriesDataService_double);
+        $sut->updatePreviousAction($today);
     }
 }

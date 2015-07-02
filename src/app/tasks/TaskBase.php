@@ -1,11 +1,10 @@
 <?php
-namespace EuroMillions\controllers;
+namespace EuroMillions\tasks;
 
 use EuroMillions\services\DomainServiceFactory;
-use Phalcon\Mvc\Controller;
-use Phalcon\Mvc\View;
+use Phalcon\Cli\Task;
 
-class ControllerBase extends Controller
+class TaskBase extends Task
 {
     /** @var  DomainServiceFactory */
     protected $domainServiceFactory;
@@ -13,10 +12,5 @@ class ControllerBase extends Controller
     public function initialize()
     {
         $this->domainServiceFactory = $this->di->get('domainServiceFactory');
-    }
-
-    protected function noRender()
-    {
-        $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
     }
 }

@@ -6,14 +6,11 @@ use EuroMillions\services\LotteriesDataService;
 use Phalcon\CLI\Task;
 use Phalcon\Di;
 
-class ResultTask extends Task
+class ResultTask extends TaskBase
 {
-    /** @var  EntityManager */
-    protected $entityManager;
-
     public function updateAction()
     {
-        $service = new LotteriesDataService(Di::getDefault()->get('entityManager'), new LotteryApisFactory());
+        $service = $this->domainServiceFactory->getLotteriesDataService();
         $service->updateLastDrawResult('EuroMillions');
     }
 }

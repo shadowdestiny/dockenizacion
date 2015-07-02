@@ -6,27 +6,28 @@ use EuroMillions\services\LotteriesDataService;
 use Phalcon\CLI\Task;
 use Phalcon\Di;
 
-class JackpotTask extends Task
+class JackpotTask extends TaskBase
 {
-    /** @var  EntityManager */
-    protected $entityManager;
+    protected $lotteriesDataService;
+
+    public function initialize(LotteriesDataService $lotteriesDataService = null)
+    {
+        parent::initialize();
+        $this->lotteriesDataService = $lotteriesDataService ? $lotteriesDataService : $this->domainServiceFactory->getLotteriesDataService();
+    }
 
     public function updateAction()
     {
-        $service = new LotteriesDataService(Di::getDefault()->get('entityManager'), new LotteryApisFactory());
-        $service->updateNextDrawJackpot('EuroMillions');
+        $this->lotteriesDataService->updateNextDrawJackpot('EuroMillions');
     }
 
-    public function updatePreviousAction(\DateTime $today = null, $lotteriesDataService = null)
+    public function updatePreviousAction(\DateTime $today = null)
     {
         if (!$today) {
             $today = new \DateTime();
         }
-        if (!$lotteriesDataService) {
-            $lotteriesDataService = new LotteriesDataService(Di::getDefault()->get('entityManager'), new LotteryApisFactory());
-        }
         /** @var \DateTime $date */
-        $date = $lotteriesDataService->getLastDrawDate('EuroMillions', $today);
-        $lotteriesDataService->updateNextDrawJackpot('EuroMillions', $date->sub(new \DateInterval('PT1M')));
+        $date = $this->lotteriesDataService->getLastDrawDate('EuroMillions', $today);
+        $this->lotteriesDataService->updateNextDrawJackpot('EuroMillions', $date->sub(new \DateInterval('PT1M')));
     }
 }

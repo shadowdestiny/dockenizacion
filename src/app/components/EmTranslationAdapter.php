@@ -11,7 +11,7 @@ class EmTranslationAdapter extends Adapter
     /** @var TranslationDetailRepository  */
     protected $repository;
 
-    public function __construct($language, TranslationDetailRepository $repository = null)
+    public function __construct($language, TranslationDetailRepository $repository)
     {
         $this->setLanguage($language);
         $this->repository = $repository;

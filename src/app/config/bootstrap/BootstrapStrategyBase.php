@@ -6,6 +6,7 @@ use EuroMillions\components\EnvironmentDetector;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\Common\Cache\ApcCache;
+use EuroMillions\services\DomainServiceFactory;
 use Phalcon\Cache\Frontend\Data;
 use Phalcon\Config;
 use Phalcon\Config\Adapter\Ini;
@@ -33,12 +34,18 @@ abstract class BootstrapStrategyBase
             $environment_detector->setDefault();
         }
         $config = $this->configConfig($environment_detector);
+        $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
         $di->set('globalConfig', $global_config, true);
         $di->set('environmentDetector', $environment_detector);
         $di->set('config', $config, true);
         $di->set('entityManager', $this->configDoctrine($config), true);
         $di->set('redisCache', $this->configRedis($config), true);
         return $di;
+    }
+
+    protected function configDomainServiceFactory(Di $di)
+    {
+        return new DomainServiceFactory($di);
     }
 
     protected function configRedis(Ini $appConfig)
