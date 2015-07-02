@@ -5,6 +5,7 @@ use EuroMillions\components\EnvironmentDetector;
 use Phalcon;
 use Phalcon\Config\Adapter\Ini;
 use Phalcon\Di;
+use tests\base\UnitTestBase;
 
 class TestWebBootstrapStrategy extends WebBootstrapStrategy
 {
@@ -27,8 +28,8 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
         if (!$this->isUnitTest) {
             return parent::configDoctrine($appConfig);
         } else {
-            $mock_generator = new \PHPUnit_Framework_MockObject_Generator();
-            return $mock_generator->getMock('\Doctrine\ORM\EntityManager',[],[],'',false);
+            $utbase = new UnitTestBase();
+            return $utbase->getEntityManagerStub()->reveal();
         }
     }
 

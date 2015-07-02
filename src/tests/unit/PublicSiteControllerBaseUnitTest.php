@@ -38,7 +38,7 @@ class PublicSiteControllerBaseUnitTest extends UnitTestBase
 
         $sut = new PublicSiteControllerBase();
         /** @var LotteriesDataService|\PHPUnit_Framework_MockObject_MockObject $lotteriesDataService_stub */
-        $lotteriesDataService_stub = $this->getMockBuilder('\EuroMillions\services\LotteriesDataService')->getMock();
+        $lotteriesDataService_stub = $this->getMockBuilder('\EuroMillions\services\LotteriesDataService')->disableOriginalConstructor()->getMock();
         $lotteriesDataService_stub->expects($this->any())
             ->method('getNextJackpot')
             ->will($this->returnValue(new Money(100, new Currency('EUR'))));

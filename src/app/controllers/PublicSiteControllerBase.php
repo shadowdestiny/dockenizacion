@@ -1,9 +1,11 @@
 <?php
 namespace EuroMillions\controllers;
 use EuroMillions\entities\Language;
+use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\services\LanguageService;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\services\LotteriesDataService;
+use Phalcon\Di;
 use Phalcon\Mvc\View;
 
 /**
@@ -19,7 +21,7 @@ class PublicSiteControllerBase extends ControllerBase
 
     public function initialize(LotteriesDataService $lotteriesDataService = null)
     {
-        $this->lotteriesDataService = $lotteriesDataService ? $lotteriesDataService : new LotteriesDataService();
+        $this->lotteriesDataService = $lotteriesDataService ? $lotteriesDataService : new LotteriesDataService(Di::getDefault()->get('entityManager'), new LotteryApisFactory());;
     }
 
     public function afterExecuteRoute()

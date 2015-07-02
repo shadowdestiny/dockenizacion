@@ -2,6 +2,7 @@
 namespace tests\integration;
 
 use EuroMillions\entities\EuroMillionsDraw;
+use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\services\LotteriesDataService;
 use EuroMillions\vo\EuroMillionsResult;
 use Money\Currency;
@@ -36,7 +37,7 @@ class LotteriesDataServiceIntegrationTest extends DatabaseIntegrationTestBase
 
         $curlWrapper_stub = $this->getCurlWrapperWithJackpotRssResponse();
 
-        $sut = new LotteriesDataService();
+        $sut = new LotteriesDataService($this->entityManager, new LotteryApisFactory());
         $sut->updateNextDrawJackpot($lottery_name, new \DateTime('2015-06-04'), $curlWrapper_stub);
 
         $expected = new EuroMillionsDraw();
@@ -63,7 +64,7 @@ class LotteriesDataServiceIntegrationTest extends DatabaseIntegrationTestBase
 
         $curlWrapper_stub = $this->getCurlWrapperWithResultRssResponse();
 
-        $sut = new LotteriesDataService();
+        $sut = new LotteriesDataService($this->entityManager, new LotteryApisFactory());
         $sut->updateLastDrawResult($lottery_name, new \DateTime($now), $curlWrapper_stub);
 
         $expected = new EuroMillionsResult($this->getRegularNumbers([2,7,8,45,48]),$this->getLuckyNumbers([1,9]));

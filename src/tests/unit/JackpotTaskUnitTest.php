@@ -6,6 +6,15 @@ use tests\base\UnitTestBase;
 
 class JackpotTaskUnitTest extends UnitTestBase
 {
+
+    protected function getEntityManagerStubExtraMappings()
+    {
+        return [
+            'EuroMillions\entities\EuroMillionsDraw' => self::DEFAULT_ENTITY_REPOSITORY,
+            'EuroMillions\entities\Lottery' => self::REPOSITORIES_NAMESPACE.'LotteryRepository',
+        ];
+    }
+
     /**
      * method updatePreviousAction
      * when called
@@ -16,7 +25,7 @@ class JackpotTaskUnitTest extends UnitTestBase
         $today = new \DateTime('2015-06-12 10:37:08');
         $lottery_name = 'EuroMillions';
 
-        $lotteriesDataService_double = $this->getMockBuilder('\EuroMillions\services\LotteriesDataService')->getMock();
+        $lotteriesDataService_double = $this->getMockBuilder('\EuroMillions\services\LotteriesDataService')->disableOriginalConstructor()->getMock();
         $lotteriesDataService_double->expects($this->any())
             ->method('getLastDrawDate')
             ->with($lottery_name, $today)

@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\config\bootstrap;
 
+use EuroMillions\components\EmTranslationAdapter;
 use EuroMillions\components\EnvironmentDetector;
 use EuroMillions\interfaces\IBootstrapStrategy;
 use EuroMillions\services\LanguageService;
@@ -75,7 +76,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 $language = substr($language, 0, $has_hyphen);
             }
         }
-        return new LanguageService($language, $di->get('entityManager'));
+        $em = $di->get('entityManager');
+        return new LanguageService($language, $em->getRepository('EuroMillions\entities\Language'), new EmTranslationAdapter($language, $em->getRepository('EuroMillions\entities\TranslationDetail')));
     }
 
     protected function configView()

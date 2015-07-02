@@ -24,7 +24,7 @@ class EmTranslationAdapterIntegrationTest extends DatabaseIntegrationTestBase
         parent::setUp();
         $di = Di::getDefault();
         $entityManager = $di->get('entityManager');
-        $this->sut = new EmTranslationAdapter('en', $entityManager);
+        $this->sut = new EmTranslationAdapter('en', $entityManager->getRepository('\EuroMillions\entities\TranslationDetail'));
     }
 
     /**

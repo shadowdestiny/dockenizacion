@@ -21,7 +21,6 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     protected $lotteryDrawRepositoryDouble;
     /** @var  \PHPUnit_Framework_MockObject_MockObject */
     protected $lotteryRepositoryDouble;
-    /** @var  EntityManager|\PHPUnit_Framework_MockObject_MockObject */
     protected $entityManagerDouble;
     /** @var  LotteryApisFactory|\PHPUnit_Framework_MockObject_MockObject */
     protected $apiFactoryDouble;
@@ -42,8 +41,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
                 '\Doctrine\Common\Persistence\ObjectRepository'
             )->disableOriginalConstructor()->getMock();
 
-        $entity_manager = Di::getDefault()->get('entityManager');
-        $this->entityManagerDouble = $entity_manager;
+        $this->entityManagerDouble = parent::getEntityManagerStub();
     }
 
     /**
@@ -68,9 +66,8 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
         $draw_to_persist = clone($lottery_draw_in_db);
         $draw_to_persist->setJackpot(new Money($jackpot, new Currency("EUR")));
 
-        $this->entityManagerDouble->expects($this->once())
-            ->method('persist')
-            ->with($draw_to_persist);
+        $this->entityManagerDouble->flush()->willReturn();
+        $this->entityManagerDouble->persist($draw_to_persist)->shouldBeCalledTimes(1);
 
         $sut = $this->getSut();
         $sut->updateNextDrawJackpot($lottery_name, new \DateTime($today));
@@ -97,9 +94,8 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
             'lottery'    => $lottery
         ]);
 
-        $this->entityManagerDouble->expects($this->once())
-            ->method('persist')
-            ->with($draw_to_persist);
+        $this->entityManagerDouble->flush()->willReturn();
+        $this->entityManagerDouble->persist($draw_to_persist)->shouldBeCalledTimes(1);
         $sut = $this->getSut();
         $sut->updateNextDrawJackpot($lottery_name, new \DateTime($today));
     }
@@ -132,6 +128,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
             ->method('getResultForDate')
             ->with($lottery_name, '2015-06-09')
             ->will($this->returnValue(['regular_numbers'=>[], 'lucky_numbers'=>[]]));
+        $this->entityManagerDouble->flush()->willReturn();
         $sut = $this->getSut();
         $sut->updateLastDrawResult($lottery_name, new \DateTime('2015-06-10'));
     }
@@ -279,13 +276,8 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
      */
     protected function getSut()
     {
-        $repository_value_map = [
-            ['EuroMillions\entities\EuroMillionsDraw', $this->lotteryDrawRepositoryDouble],
-            ['EuroMillions\entities\Lottery', $this->lotteryRepositoryDouble],
-        ];
-        $this->entityManagerDouble->expects($this->any())
-            ->method('getRepository')
-            ->will($this->returnValueMap($repository_value_map));
-        return new LotteriesDataService($this->entityManagerDouble, $this->apiFactoryDouble);
+        $this->entityManagerDouble->getRepository('EuroMillions\entities\EuroMillionsDraw')->willReturn($this->lotteryDrawRepositoryDouble);
+        $this->entityManagerDouble->getRepository('EuroMillions\entities\Lottery')->willReturn($this->lotteryRepositoryDouble);
+        return new LotteriesDataService($this->entityManagerDouble->reveal(), $this->apiFactoryDouble);
     }
 }

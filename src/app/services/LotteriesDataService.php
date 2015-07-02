@@ -19,7 +19,7 @@ class LotteriesDataService extends PhalconService
     /** @var EntityManager|\PHPUnit_Framework_MockObject_MockObject */
     protected $entityManager;
 
-    public function __construct(EntityManager $entityManager = null, LotteryApisFactory $apisFactory = null)
+    public function __construct(EntityManager $entityManager, LotteryApisFactory $apisFactory)
     {
         parent::__construct();
         $this->entityManager = $entityManager ? $entityManager : $this->di->get('entityManager');

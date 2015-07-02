@@ -1,12 +1,16 @@
 <?php
 namespace tests\base;
+
 use Phalcon\DI;
 
-abstract class UnitTestBase extends \PHPUnit_Framework_TestCase
+class UnitTestBase extends \PHPUnit_Framework_TestCase
 {
+    const DEFAULT_ENTITY_REPOSITORY = '\Doctrine\ORM\EntityRepository';
+    const REPOSITORIES_NAMESPACE = '\EuroMillions\repositories\\';
     protected $original_di = null;
     /** @var  TestBaseHelper */
     protected $helper;
+
     protected function stubDIService($serviceName, $stubObject)
     {
         $di = DI::getDefault();
@@ -15,18 +19,21 @@ abstract class UnitTestBase extends \PHPUnit_Framework_TestCase
         }
         $di->set($serviceName, $stubObject);
     }
+
     protected function setUp()
     {
         parent::setUp();
         $this->helper = new TestBaseHelper();
-        $this->stubDiService('entityManager', $this->getMockBuilder('\Doctrine\ORM\EntityManager')->disableOriginalConstructor()->getMock());
-        $this->stubDiService('redisCache', $this->getMockBuilder('\Phalcon\Cache\Backend\Redis')->disableOriginalConstructor()->getMock());
+        $this->stubDiService('entityManager', $this->getEntityManagerStub()->reveal());
+        $this->stubDiService('redisCache', $this->prophesize('\Phalcon\Cache\Backend\Redis')->reveal());
     }
+
     protected function restoreDI()
     {
         DI::reset();
         DI::setDefault($this->original_di);
     }
+
     protected function tearDown()
     {
         parent::tearDown();
@@ -34,6 +41,7 @@ abstract class UnitTestBase extends \PHPUnit_Framework_TestCase
             $this->restoreDI();
         }
     }
+
     /**
      * @param $view
      */
@@ -45,6 +53,7 @@ abstract class UnitTestBase extends \PHPUnit_Framework_TestCase
             ->with($view);
         $this->stubDIService('view', $view_mock);
     }
+
     protected function checkViewParam($values)
     {
         $view_mock = $this->getMockBuilder('\Phalcon\Mvc\View')->getMock();
@@ -61,5 +70,33 @@ abstract class UnitTestBase extends \PHPUnit_Framework_TestCase
                 return $result;
             }));
         $this->stubDIService('view', $view_mock);
+    }
+
+    public function getEntityManagerStub()
+    {
+        $entityManager_stub = $this->prophesize('\Doctrine\ORM\EntityManager');
+        $mappings = $this->getEntityManagerStubMappings();
+        foreach ($mappings as $entity_name => $repository_name) {
+            $entityManager_stub
+                ->getRepository($entity_name)
+                ->willReturn(
+                    $this->prophesize($repository_name)->reveal()
+                );
+        }
+        return $entityManager_stub;
+    }
+
+    private function getEntityManagerStubMappings()
+    {
+        return array_merge(
+            [
+                'EuroMillions\entities\Language'          => '\EuroMillions\repositories\LanguageRepository',
+                'EuroMillions\entities\TranslationDetail' => '\EuroMillions\repositories\TranslationDetailRepository',
+            ], $this->getEntityManagerStubExtraMappings());
+    }
+
+    protected function getEntityManagerStubExtraMappings()
+    {
+        return [];
     }
 }

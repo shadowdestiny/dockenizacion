@@ -1,8 +1,10 @@
 <?php
 namespace EuroMillions\tasks;
 use Doctrine\ORM\EntityManager;
+use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\services\LotteriesDataService;
 use Phalcon\CLI\Task;
+use Phalcon\Di;
 
 class JackpotTask extends Task
 {
@@ -11,7 +13,7 @@ class JackpotTask extends Task
 
     public function updateAction()
     {
-        $service = new LotteriesDataService();
+        $service = new LotteriesDataService(Di::getDefault()->get('entityManager'), new LotteryApisFactory());
         $service->updateNextDrawJackpot('EuroMillions');
     }
 
@@ -21,7 +23,7 @@ class JackpotTask extends Task
             $today = new \DateTime();
         }
         if (!$lotteriesDataService) {
-            $lotteriesDataService = new LotteriesDataService();
+            $lotteriesDataService = new LotteriesDataService(Di::getDefault()->get('entityManager'), new LotteryApisFactory());
         }
         /** @var \DateTime $date */
         $date = $lotteriesDataService->getLastDrawDate('EuroMillions', $today);

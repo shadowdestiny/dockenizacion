@@ -3,6 +3,7 @@ namespace EuroMillions\services;
 
 use EuroMillions\components\EmTranslationAdapter;
 use Doctrine\ORM\EntityManager;
+use EuroMillions\repositories\LanguageRepository;
 
 class LanguageService
 {
@@ -11,11 +12,11 @@ class LanguageService
     protected $language;
     protected $translationAdapter;
 
-    public function __construct($language, EntityManager $entityManager, EmTranslationAdapter $translationAdapter = null)
+    public function __construct($language, LanguageRepository $languageRepository, EmTranslationAdapter $translationAdapter)
     {
         $this->language = $language;
-        $this->languageRepository = $entityManager->getRepository('EuroMillions\entities\Language');
-        $this->translationAdapter = $translationAdapter? $translationAdapter: new EmTranslationAdapter($this->language, $entityManager);
+        $this->languageRepository = $languageRepository;
+        $this->translationAdapter = $translationAdapter;
     }
 
     public function availableLanguages()
@@ -31,5 +32,10 @@ class LanguageService
     public function translate($key, array $placeholders = null)
     {
         return $this->translationAdapter->_($key, $placeholders);
+    }
+
+    public function setLanguage($language)
+    {
+
     }
 }

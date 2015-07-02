@@ -1,10 +1,16 @@
-#Developer web machine v0.0.1
+#Developer web machine v0.0.4
 FROM antonienko/phalcon2-apache2
 
 MAINTAINER Antonio Hernández "antonio.hernandez@panamedia.net"
 
 ADD crontab.txt /tmp/crontab.txt
 RUN crontab /tmp/crontab.txt
+
+RUN echo "INSTALLING LOCALES"
+
+RUN locale-gen es_ES.UTF-8
+RUN locale-gen en_US.UTF-8
+RUN locale-gen en_GB.UTF-8
 
 RUN apt-get install -y wget
 RUN wget -O - https://download.newrelic.com/548C16BF.gpg | apt-key add -
