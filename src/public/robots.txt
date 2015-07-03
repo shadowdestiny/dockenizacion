@@ -1,11 +1,2 @@
-User-agent: * 
-Disallow: /xmas 
-Disallow: /fr
-Disallow: /se
-Disallow: /Result
-Disallow: /Backoffice
-Disallow: /Flash
-Disallow: /lottery-news
-Disallow: /lottery-information
 
 

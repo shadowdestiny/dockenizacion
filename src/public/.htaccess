@@ -9,7 +9,4 @@ RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^.*$ - [NC,L]
 
-RewriteCond %{QUERY_STRING} !(^|&)zfb=
 RewriteRule ^(.*)$ index.php?_url=/$1 [QSA,L]
-
-RewriteRule ^.*$ zend_app.php [NC,L]
