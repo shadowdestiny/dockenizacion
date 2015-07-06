@@ -8,7 +8,7 @@ use EuroMillions\vo\EuroMillionsResult;
 
 class EuroMillionsDraw extends EntityBase implements IEntity
 {
-    protected $draw_id;
+    protected $id;
     protected $draw_date;
     protected $jackpot;
 
@@ -38,14 +38,9 @@ class EuroMillionsDraw extends EntityBase implements IEntity
         $this->lottery = $lottery;
     }
 
-    public function setDrawId($draw_id)
-    {
-        $this->draw_id = $draw_id;
-    }
-
     public function getId()
     {
-        return $this->draw_id;
+        return $this->id;
     }
 
     public function getDrawDate()

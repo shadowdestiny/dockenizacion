@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class Translation implements IEntity
 {
-    protected $translation_id;
+    protected $id;
     protected $key;
     protected $used;
     protected $translatedTo;
@@ -18,7 +18,7 @@ class Translation implements IEntity
 
     public function getId()
     {
-        return $this->translation_id;
+        return $this->id;
     }
 
     public function getKey()

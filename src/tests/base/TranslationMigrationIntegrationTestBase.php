@@ -68,7 +68,7 @@ abstract class TranslationMigrationIntegrationTestBase extends DatabaseIntegrati
      */
     protected function checkTranslationIsInDb($conn, $key)
     {
-        $translation_result = $conn->query("SELECT `translation_id` FROM translations WHERE `key`='$key'");
+        $translation_result = $conn->query("SELECT `id` FROM translations WHERE `key`='$key'");
         $translation_id = $translation_result->fetchColumn(0);
         $this->assertNotEmpty($translation_id, "Traslation for key $key doesn't exist in the database");
         $this->assertGreaterThan(0, $translation_id, "Translation id should be an integer greater than 0");
@@ -107,7 +107,7 @@ abstract class TranslationMigrationIntegrationTestBase extends DatabaseIntegrati
      */
     protected function checkNoRepetitionsInTranslation($conn)
     {
-        $translation_repetitions = $conn->query("SELECT translation_id FROM translations GROUP BY `key` HAVING COUNT(`key`) > 1 ");
+        $translation_repetitions = $conn->query("SELECT id FROM translations GROUP BY `key` HAVING COUNT(`key`) > 1 ");
         $translation_repetitions_result = $translation_repetitions->fetch();
         $this->assertEmpty($translation_repetitions_result);
     }

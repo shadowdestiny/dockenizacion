@@ -13,7 +13,7 @@ class TranslationMigrationBase extends AbstractMigration
                 $translation_values[] = "('$key')";
                 $str = "INSERT INTO translation_details"
                     . " (`translation_id`, `lang`, `value`, `language_id`)"
-                    . " SELECT t.translation_id, '$language', '$value', l.id"
+                    . " SELECT t.id, '$language', '$value', l.id"
                     . " FROM translations t, languages l"
                     . " WHERE t.`key` = '$key' AND l.ccode = '$language'";
                 $translation_details_insert[] = $str;

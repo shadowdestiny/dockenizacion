@@ -55,7 +55,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
         $lottery_name = 'EuroMillions';
         $lottery_draw_in_db = new EuroMillionsDraw();
         $lottery_draw_in_db->initialize([
-            'draw_id'    => 3484,
+            'id'    => 3484,
             'draw_date'  => '2015-06-02',
             'jackpot'    => null,
         ]);

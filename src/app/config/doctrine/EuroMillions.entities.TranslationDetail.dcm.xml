@@ -14,9 +14,7 @@
         </id>
         <field name="value" type="string"/>
         <field name="lang" type="string" length="6"/>
-        <many-to-one target-entity="EuroMillions\entities\Translation" field="translation" inversed-by="translatedTo">
-            <join-column name="translation_id" referenced-column-name="translation_id"/>
-        </many-to-one>
+        <many-to-one target-entity="EuroMillions\entities\Translation" field="translation" inversed-by="translatedTo" />
         <many-to-one target-entity="EuroMillions\entities\Language" field="language" inversed-by="usedIn"/>
     </entity>
 </doctrine-mapping>

@@ -4,9 +4,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
     https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
     <entity name="EuroMillions\entities\EuroMillionsDraw" table="euromillions_draws"
             repository-class="EuroMillions\repositories\LotteryDrawRepository">
-        <id name="draw_id" type="integer">
+        <id name="id" type="integer">
             <generator strategy="IDENTITY"/>
             <options>
                 <option name="unsigned">true</option>
@@ -17,4 +18,5 @@
         <embedded name="jackpot" class="Money\Money"/>
         <many-to-one target-entity="EuroMillions\entities\Lottery" field="lottery" inversed-by="draws"/>
     </entity>
+
 </doctrine-mapping>
