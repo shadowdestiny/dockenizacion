@@ -57,7 +57,7 @@ abstract class BootstrapStrategyBase
     protected function configDoctrine(Ini $appConfig)
     {
         $is_dev_mode = true; //EMDEPLOY hay que pasarlo por configuración. Quizá con el nuevo detector de environment
-        $config = Setup::createYAMLMetadataConfiguration(array($this->configPath . 'doctrine'), $is_dev_mode);
+        $config = Setup::createXMLMetadataConfiguration(array($this->configPath . 'doctrine'), $is_dev_mode);
         $config->setQueryCacheImpl(new ApcCache());
         $config->setMetadataCacheImpl(new ApcCache());
 

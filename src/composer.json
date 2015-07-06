@@ -11,6 +11,7 @@
     "robmorgan/phinx": "*",
     "phalcon/incubator": "dev-master",
     "antonienko/positive-modulus" : "1.*",
-    "mathiasverraes/money" : "1.2.1"
+    "mathiasverraes/money" : "1.2.1",
+    "ramsey/uuid": "^2.8"
   }
 }
