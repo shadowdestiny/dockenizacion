@@ -6,14 +6,15 @@ use Phalcon\DI;
 class UnitTestBase extends \PHPUnit_Framework_TestCase
 {
     const DEFAULT_ENTITY_REPOSITORY = '\Doctrine\ORM\EntityRepository';
-    const REPOSITORIES_NAMESPACE = '\EuroMillions\repositories\\';
+    const REPOSITORIES_NAMESPACE = 'EuroMillions\repositories\\';
+    const ENTITIES_NAMESPACE = 'EuroMillions\entities\\';
     protected $original_di = null;
     /** @var  TestBaseHelper */
     protected $helper;
 
     protected function stubDIService($serviceName, $stubObject)
     {
-        $di = DI::getDefault();
+        $di = $this->getDi();
         if (!$this->original_di) {
             $this->original_di = clone($di);
         }
@@ -40,6 +41,11 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
         if ($this->original_di) {
             $this->restoreDI();
         }
+    }
+
+    protected function getDi()
+    {
+        return Di::getDefault();
     }
 
     /**
@@ -76,11 +82,11 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
     {
         $entityManager_stub = $this->prophesize('\Doctrine\ORM\EntityManager');
         $mappings = $this->getEntityManagerStubMappings();
-        foreach ($mappings as $entity_name => $repository_name) {
+        foreach ($mappings as $entity_name => $repository_double) {
             $entityManager_stub
                 ->getRepository($entity_name)
                 ->willReturn(
-                    $this->prophesize($repository_name)->reveal()
+                    $repository_double
                 );
         }
         return $entityManager_stub;
@@ -90,8 +96,8 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
     {
         return array_merge(
             [
-                'EuroMillions\entities\Language'          => '\EuroMillions\repositories\LanguageRepository',
-                'EuroMillions\entities\TranslationDetail' => '\EuroMillions\repositories\TranslationDetailRepository',
+                self::ENTITIES_NAMESPACE.'Language'          => $this->prophesize(self::REPOSITORIES_NAMESPACE.'LanguageRepository'),
+                self::ENTITIES_NAMESPACE.'TranslationDetail' => $this->prophesize(self::REPOSITORIES_NAMESPACE.'TranslationDetailRepository'),
             ], $this->getEntityManagerStubExtraMappings());
     }
 
@@ -99,4 +105,19 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
     {
         return [];
     }
+
+    protected function getEntityManagerDouble()
+    {
+        $entityManager_double = $this->getDi()->get('entityManager')->getProphecy();
+        return $entityManager_double;
+    }
+
+    /**
+     * @param $entityManager_stub
+     */
+    protected function stubEntityManager($entityManager_stub)
+    {
+        $this->stubDiService('entityManager', $entityManager_stub->reveal());
+    }
+
 }

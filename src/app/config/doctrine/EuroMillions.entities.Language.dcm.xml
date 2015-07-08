@@ -4,6 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
     https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
     <entity name="EuroMillions\entities\Language" table="languages"
             repository-class="EuroMillions\repositories\LanguageRepository">
         <id name="id" type="integer">
@@ -20,4 +21,5 @@
         </field>
         <one-to-many target-entity="EuroMillions\entities\TranslationDetail" mapped-by="language" field="usedIn"/>
     </entity>
+
 </doctrine-mapping>

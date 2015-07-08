@@ -2,14 +2,33 @@
 namespace EuroMillions\entities;
 
 use EuroMillions\interfaces\IEntity;
+use EuroMillions\vo\Email;
+use EuroMillions\vo\Password;
+use EuroMillions\vo\RememberToken;
+use EuroMillions\vo\Username;
+use Rhumsaa\Uuid\Uuid;
 
 class User extends EntityBase implements IEntity
 {
-    private $id;
-    private $username;
-    private $password;
-    private $email;
+    /** @var  Uuid */
+    protected $id;
+    /** @var  Username */
+    protected $username;
+    /** @var  Password */
+    protected $password;
+    /** @var  Email */
+    protected $email;
+    /** @var  RememberToken */
+    protected $rememberToken;
 
+    public function setId(Uuid $id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return Uuid
+     */
     public function getId()
     {
         return $this->id;
@@ -20,17 +39,20 @@ class User extends EntityBase implements IEntity
         return $this->username;
     }
 
-    public function setUsername($username)
+    public function setUsername(Username $username)
     {
         $this->username = $username;
     }
 
+    /**
+     * @return Password
+     */
     public function getPassword()
     {
         return $this->password;
     }
 
-    public function setPassword($password)
+    public function setPassword(Password $password)
     {
         $this->password = $password;
     }
@@ -43,6 +65,16 @@ class User extends EntityBase implements IEntity
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+
+    public function setRememberToken($agentIdentificationString)
+    {
+        $this->rememberToken = new RememberToken($this->username->username(), $this->password->password(), $agentIdentificationString);
+    }
+
+    public function getRememberToken()
+    {
+        return $this->rememberToken;
     }
 
 

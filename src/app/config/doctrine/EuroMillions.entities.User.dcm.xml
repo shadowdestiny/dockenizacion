@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="EuroMillions\entities\User" table="users" repository-class="EuroMillions\repositories\UserRepository">
+        <id name="id">
+            <generator strategy="UUID" />
+        </id>
+        <embedded name="username" class="EuroMillions\vo\Username" use-column-prefix="false" />
+        <embedded name="password" class="EuroMillions\vo\Password" use-column-prefix="false" />
+        <embedded name="email" class="EuroMillions\vo\Email" use-column-prefix="false" />
+        <embedded name="rememberToken" class="EuroMillions\vo\RememberToken" use-column-prefix="false" />
+    </entity>
+
+</doctrine-mapping>

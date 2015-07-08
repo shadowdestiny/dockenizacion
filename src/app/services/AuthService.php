@@ -1,8 +1,42 @@
 <?php
-//namespace EuroMillions\services;
-//
-//class AuthService
-//{
+namespace EuroMillions\services;
+
+use Doctrine\ORM\EntityManager;
+use EuroMillions\interfaces\ICookieManager;
+use EuroMillions\interfaces\IPasswordHasher;
+use EuroMillions\repositories\UserRepository;
+
+class AuthService
+{
+    const REMEMBER_ME_EXPIRATION = 691200; //(86400 * 8) = 8 days
+
+    /** @var EntityManager */
+    private $entityManager;
+    /** @var UserRepository */
+    private $userRepository;
+    private $passwordHasher;
+    private $cookieManager;
+
+    public function __construct(EntityManager $entityManager, IPasswordHasher $hasher, ICookieManager $cookieManager)
+    {
+        $this->entityManager = $entityManager;
+        $this->userRepository = $entityManager->getRepository('EuroMillions\entities\User');
+        $this->passwordHasher = $hasher;
+        $this->cookieManager = $cookieManager;
+    }
+
+    public function check($credentials, $agentIdentificationString)
+    {
+        $user = $this->userRepository->getByUsername($credentials['username']);
+        $password_match = $this->passwordHasher->checkPassword($credentials['password'], $user->getPassword()->password());
+        if ($password_match && $credentials['remember']) {
+            $user->setRememberToken($agentIdentificationString);
+            $this->cookieManager->set('RMU', $user->getId()->id(), self::REMEMBER_ME_EXPIRATION);
+            $this->cookieManager->set('RMT', $user->getRememberToken()->token(), self::REMEMBER_ME_EXPIRATION);
+            $this->entityManager->flush();
+        }
+        return $password_match;
+    }
 //    const REMEMBER_ME_EXPIRATION = 691200; //(86400 * 8) = 8 days
 //    const SESSION_VAR_NAME = 'auth-identity';
 //    /** @var  \Phalcon\Security */
@@ -178,4 +212,4 @@
 //        return $token;
 //    }
 //}
-//}
+}

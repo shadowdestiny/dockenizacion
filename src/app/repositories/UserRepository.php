@@ -17,4 +17,21 @@ class UserRepository extends EntityRepository
     {
         $this->getEntityManager()->persist($anUser);
     }
+
+    /**
+     * @param string $username
+     * @return User
+     */
+    public function getByUsername($username)
+    {
+        $entity_name = $this->getEntityName();
+        $result = $this->getEntityManager()
+            ->createQuery(
+                "SELECT u FROM {$entity_name} u WHERE u.username.username = :username"
+            )
+            ->setMaxResults(1)
+            ->setParameters(['username' => $username])
+            ->getResult();
+        return $result[0];
+    }
 }

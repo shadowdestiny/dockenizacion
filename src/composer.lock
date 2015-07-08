@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "60bfe40fcb2f9363f2836ec17edc1336",
+    "hash": "50d5b8c3af7af56f0365dbc3f4a2887e",
     "packages": [
         {
             "name": "antonienko/positive-modulus",
@@ -647,6 +647,50 @@
                 "orm"
             ],
             "time": "2015-04-02 20:40:18"
+        },
+        {
+            "name": "hautelook/phpass",
+            "version": "0.3.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hautelook/phpass.git",
+                "reference": "f0217d804225822f9bdb0d392839029b0fcb0914"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hautelook/phpass/zipball/f0217d804225822f9bdb0d392839029b0fcb0914",
+                "reference": "f0217d804225822f9bdb0d392839029b0fcb0914",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Hautelook": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Public Domain"
+            ],
+            "authors": [
+                {
+                    "name": "Solar Designer",
+                    "email": "solar@openwall.com",
+                    "homepage": "http://openwall.com/phpass/"
+                }
+            ],
+            "description": "Portable PHP password hashing framework",
+            "homepage": "http://github.com/hautelook/phpass/",
+            "keywords": [
+                "blowfish",
+                "crypt",
+                "password",
+                "security"
+            ],
+            "time": "2012-08-31 00:00:00"
         },
         {
             "name": "mathiasverraes/money",
