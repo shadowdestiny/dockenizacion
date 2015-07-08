@@ -86,7 +86,7 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
                 . ' FROM \EuroMillions\entities\User u'
                 . ' WHERE u.username.username = :username AND u.password.password = :password AND u.email.email = :email')
             ->setMaxResults(1)
-            ->setParameters(['username' => $username, 'password' => $hashed_pass->getPassword(), 'email' => $email])
+            ->setParameters(['username' => $username, 'password' => $hashed_pass->password(), 'email' => $email])
             ->getResult()[0];
         return array($user, $actual);
     }
