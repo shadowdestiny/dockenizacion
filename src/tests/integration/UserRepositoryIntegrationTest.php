@@ -56,7 +56,7 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $hasher = new PhpassWrapper();
         /** @var User $actual */
         list($user, $actual) = $this->exerciseAdd($username, $password, $hasher, $email);
-        $this->assertTrue($hasher->checkPassword($password, $actual->getPassword()->getPassword()));
+        $this->assertTrue($hasher->checkPassword($password, $actual->getPassword()->password()));
     }
 
     /**
