@@ -13,6 +13,7 @@
         <embedded name="password" class="EuroMillions\vo\Password" use-column-prefix="false" />
         <embedded name="email" class="EuroMillions\vo\Email" use-column-prefix="false" />
         <embedded name="rememberToken" class="EuroMillions\vo\RememberToken" use-column-prefix="false" />
+        <embedded name="balance" class="Money\Money" use-column-prefix="true" />
     </entity>
 
 </doctrine-mapping>

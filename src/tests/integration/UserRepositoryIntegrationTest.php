@@ -8,6 +8,8 @@ use EuroMillions\repositories\UserRepository;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\Username;
+use Money\Currency;
+use Money\Money;
 use tests\base\DatabaseIntegrationTestBase;
 
 class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
@@ -75,6 +77,7 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
             'username' => new Username($username),
             'password' => new Password($password, $hasher),
             'email'    => new Email($email),
+            'balance' => new Money(3000, new Currency('EUR')),
         ]);
         /** @var Password $hashed_pass */
         $hashed_pass = $user->getPassword();
