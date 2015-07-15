@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'icomoon';
-  src: url("fonts/icomoon.eot?-icrspm");
-  src: url("fonts/icomoon.eot?#iefix-icrspm") format("embedded-opentype"), url("fonts/icomoon.woff?-icrspm") format("woff"), url("fonts/icomoon.ttf?-icrspm") format("truetype"), url("fonts/icomoon.svg?-icrspm#icomoon") format("svg");
+  src: url("fonts/icomoon.eot?-xg5wnp");
+  src: url("fonts/icomoon.eot?#iefix-xg5wnp") format("embedded-opentype"), url("fonts/icomoon.woff?-xg5wnp") format("woff"), url("fonts/icomoon.ttf?-xg5wnp") format("truetype"), url("fonts/icomoon.svg?-xg5wnp#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -272,4 +272,8 @@
 
 .ico-minus:before {
   content: "\ea0b";
+}
+
+.ico-warning:before {
+  content: "\ea07";
 }

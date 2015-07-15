@@ -1,8 +1,8 @@
 <li class="inter">
-	<a class="link" href="javascript:void(0);">Euro / English <span class="ico ico-pull-down mhide"></span></a>
+	<a class="link" href="javascript:void(0);">{{ language.translate('English') }}</span></a>
 	
 	<div class="sub-inter arrow-box2">
-		<h1 class="h3">{{ language.translate('Select Regional Settings') }} </h1>
+		<h1 class="h3">{{ language.translate('Select Regional Settings') }}</h1>
 		<div class="box-currency cl">
 			<span class="txt">{{ language.translate('Currency') }}</span> 
 			<select>
@@ -22,12 +22,9 @@
 		<a href="javascript:void(0);" class="btn red"><span class="text">{{ language.translate('save')|upper }}</span></a>
 	</div>
 </li>
-<li class="help">
-	<a class="link" href="javascript:void(0);">{{ language.translate('Help') }} <span class="ico ico-pull-down mhide"></span></a>
-	<ul class="sub-help arrow-box">
-		<li><a href="javascript:void(0);">{{ language.translate('How to Play') }}</a></li>
-		<li><a href="javascript:void(0);">{{ language.translate('Frequently Asked Questions') }}</a></li>
-		<li><a href="javascript:void(0);">{{ language.translate('Player Protection') }}</a></li>
-		<li><a href="javascript:void(0);">{{ language.translate('Contact us') }}</a></li>
-	</ul>
+<li class="hidden balance">
+	<a class="link" href="javascript:void(0);">{{ language.translate('Balance') }}: 50 &euro;</a>
+</li>
+<li class="cart">
+	<a class="link" href="javascript:void(0);"><span class="ico ico-cart"></span> {{ language.translate('Cart') }}</a>
 </li>

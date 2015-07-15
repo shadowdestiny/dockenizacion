@@ -2,6 +2,9 @@
 {% block template_css %}<link rel="stylesheet" href="/css/home.css">{% endblock %}
 {% block bodyClass %}home{% endblock %}
 
+{% block header %}{% include "_elements/header.volt" %}{% endblock %}
+{% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
+
 {% block body %}
 <main id="content">
 	<div class="wrapper">

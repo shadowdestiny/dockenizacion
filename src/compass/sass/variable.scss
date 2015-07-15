@@ -23,17 +23,19 @@ $blue:#372c72;
 $blue-dark:darken($blue, 25%);
 $green:#007800;
 $green-light:lighten($green, 10%);
+$green-dark:darken($green, 25%);
+$bg-green:#e0ffe4;
 $red:#cc2222;
+$bg-red:#ffe0e0;
 
 $btn-blue:#1479b9;
 $btn-blue-dark:darken($btn-blue, 20%);
-
 $btn-purple:#ae5279;
 $btn-purple-dark:darken($btn-purple, 20%);
-
 $btn-red:#bf4e0b;
 $btn-red-dark:darken($btn-red, 20%);
-
+$btn-green:#34922d;
+$btn-green-dark:darken($btn-green, 13%);
 
 /* LINKS COLORS */
 $link:#6368bd;
@@ -50,6 +52,7 @@ $h2:1.375em;			/* 16x1.375=22 */
 $h3:1.125em;			/* 16x1.125=18 */
 $h4:0.9375em;	        /* 16x0.9375=15 */
 $basic-size: 0.875em;	/* 16x1.125=14 */
+$small:0.75em;			/* 16x0.75=12 */
 
 /* STROKE OUTLINE */
 /* NOTE: IE9 doesn't support text-shadow */ 
