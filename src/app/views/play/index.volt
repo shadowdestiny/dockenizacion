@@ -5,6 +5,9 @@
 {% endblock %}
 {% block bodyClass %}play{% endblock %}
 
+{% block header %}{% include "_elements/header.volt" %}{% endblock %}
+{% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
+
 {% block body %}
 <main id="content">
 	<div class="wrapper">

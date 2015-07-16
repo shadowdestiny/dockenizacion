@@ -4,6 +4,8 @@ var elements = [ // id, target, action, event
 	[".help", ".sub-help", ".sub-help a"],
 	[".inter", ".sub-inter", ".sub-inter .btn"]
 ];
+var mobile = 0;
+var navUrl = [];
 
 function checkSize(){
 	if($(".media").width() == "1"){ 		// max-width: 1200px
@@ -19,9 +21,28 @@ function checkSize(){
 	}
 
 	if(varSize >= 3){
+		// MOBILE
+
 		elements.forEach(function (element){
 			$(element[1]).hide();
 		});
+
+		if(mobile == 0){ // store the original url
+			navUrl[0] = $(".your-account").attr("href");
+			navUrl[1] = $(".inter .link").attr("href");
+		}
+
+		// add sliding capability
+		$(".your-account").attr({"data-transition":"slide", "href":"#nav-account"});
+		$(".inter .link").attr({"data-transition":"slide", "href":"#language"});
+		mobile = 1; // You have a mobile size website
+	}else{
+		// desktop
+		if(mobile == 1){ // You came from a screen sized mobile interface
+			$(".your-account").attr({"data-transition":"slide", "href":navUrl[0]});
+			$(".inter .link").attr({"data-transition":"slide", "href":navUrl[1]});
+		}
+		mobile = 0;
 	}
 
 //	console.log("varSize= "+varSize)
@@ -70,7 +91,6 @@ $(function(){
 	checkSize();
 	$(window).resize(checkSize);
 
-	arrowBox(".sub-help");
 	arrowBox(".sub-inter", 1);
 
 	$('.menu-ham').click(function(){

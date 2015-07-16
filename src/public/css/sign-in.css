@@ -1,0 +1,147 @@
+/*** VARIABLES ***
+NO ALLLOWED: Class, ID or Keyframes
+ALLOWED: Variable and Extension
+*/
+/* COLORS */
+/* LINKS COLORS */
+/* TYPOGRAPHY */
+/* 16x3.375 = 54px */
+/* 16x1.875 = 30px */
+/* 16x1.375=22 */
+/* 16x1.125=18 */
+/* 16x0.9375=15 */
+/* 16x1.125=14 */
+/* 16x0.75=12 */
+/* STROKE OUTLINE */
+/* NOTE: IE9 doesn't support text-shadow */
+/* BUTTONS */
+/* ANIMATION */
+/* COLUMNS */
+.box-sign {
+  width: 400px;
+  margin: 0 auto 8em;
+}
+.box-sign .wrap {
+  background: #fff;
+  border: 2px solid #efc048;
+  border-radius: 5px;
+}
+.box-sign .wrap a {
+  text-decoration: none;
+}
+.box-sign .h1 {
+  margin-bottom: .5em;
+}
+.box-sign .h3 {
+  display: inline-block;
+  margin: 0;
+}
+.box-sign .btn p {
+  margin-bottom: .5em;
+}
+.box-sign .cols > a {
+  padding: 15px 10px;
+  display: table-cell;
+  font-size: inherit;
+  font-weight: inherit;
+  text-align: center;
+}
+.box-sign .cols > a:first-child {
+  border-radius: 5px 0 0 5px;
+  border-right: 0 !important;
+}
+.box-sign .cols > a:last-child {
+  border-radius: 0 5px 5px 0;
+}
+.box-sign .active {
+  cursor: default;
+}
+.box-sign .tabs-menu {
+  margin-bottom: 1em;
+}
+.box-sign .small {
+  margin: 1em;
+  text-align: center;
+  font-size: 0.75em;
+  color: #777;
+  line-height: 1.375em;
+}
+
+.padding {
+  margin: 15px;
+}
+
+.padding h1 {
+  text-align: center;
+  color: #ebb019;
+}
+
+.side-txt {
+  margin: 90px 20px 0;
+}
+
+.side-txt.first {
+  text-align: right;
+}
+
+.sign .btn.big, .sign .input, .sign .select {
+  width: 100%;
+  margin-bottom: .8em;
+  font-size: 0.9375em;
+}
+.sign .ico-facebook {
+  top: 2px;
+}
+.sign .ico-google-plus {
+  top: 6px;
+}
+.sign .or {
+  font-weight: bold;
+  color: #777;
+  background: #fff;
+  padding: 0 8px;
+}
+.sign .bg-or {
+  position: absolute;
+  top: -12px;
+  margin-left: -14px;
+}
+.sign .separator {
+  position: relative;
+}
+.sign .hr {
+  margin: 1em 0 1.5em;
+}
+.sign .label {
+  text-align: left !important;
+}
+.sign .label .txt {
+  margin-left: 3px;
+}
+.sign .tab-content .cols {
+  margin: 0 0 1em;
+}
+.sign .forgot-psw {
+  text-align: right;
+}
+.sign .btn.submit {
+  width: 75%;
+  float: right;
+  margin-bottom: 0;
+}
+.sign .submit .ico {
+  position: relative;
+  margin-left: 5px;
+  top: 1px;
+}
+
+.sign-in .main-foot .txt {
+  text-align: right;
+}
+
+.connect .ico {
+  font-size: 24px;
+  margin-right: 8px;
+  line-height: 0;
+  position: relative;
+}
