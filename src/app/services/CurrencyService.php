@@ -1,18 +1,20 @@
 <?php
 namespace EuroMillions\services;
 
+use antonienko\MoneyFormatter\MoneyFormatter;
 use EuroMillions\interfaces\ICurrencyApi;
-use EuroMillions\services\external_apis\NullCurrencyApiCache;
-use EuroMillions\services\external_apis\RedisCurrencyApiCache;
-use EuroMillions\services\external_apis\YahooCurrencyApi;
 use Money\Currency;
 use Money\Money;
 
 class CurrencyService
 {
-    public function __construct(ICurrencyApi $currencyApi)
+    private $currencyApi;
+    private $languageService;
+
+    public function __construct(ICurrencyApi $currencyApi, LanguageService $languageService)
     {
         $this->currencyApi = $currencyApi;
+        $this->languageService = $languageService;
     }
 
     public function convert(Money $from,Currency $to)
@@ -20,4 +22,11 @@ class CurrencyService
         $currency_pair = $this->currencyApi->getRate($from->getCurrency(), $to);
         return $currency_pair->convert($from, $to);
     }
+
+    public function toString(Money $money)
+    {
+        $money_formatter = new MoneyFormatter();
+        return $money_formatter->toStringByLocale($this->languageService->getLocale(), $money);
+    }
+
 }

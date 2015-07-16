@@ -3,7 +3,11 @@ namespace EuroMillions\config\bootstrap;
 
 use EuroMillions\components\EmTranslationAdapter;
 use EuroMillions\components\EnvironmentDetector;
+use EuroMillions\components\PhalconRequestWrapper;
+use EuroMillions\components\PhalconSessionWrapper;
 use EuroMillions\interfaces\IBootstrapStrategy;
+use EuroMillions\services\DomainServiceFactory;
+use EuroMillions\services\language_strategies\WebLanguageStrategy;
 use EuroMillions\services\LanguageService;
 use Phalcon;
 use Phalcon\Di;
@@ -63,21 +67,10 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     protected function configLanguage(Di $di)
     {
-        /** @var \Phalcon\Session\AdapterInterface $session */
-        $session = $di->get('session');
-        /** @var \Phalcon\Http\Request $request */
-        $request = $di->get('request');
-        if ($session->has("language")) {
-            $language = $session->get("language");
-        } else {
-            $language = $request->getBestLanguage();
-            $has_hyphen = strpos($language, '-');
-            if ($has_hyphen !== false) {
-                $language = substr($language, 0, $has_hyphen);
-            }
-        }
-        $factory = $di->get('domainServiceFactory');
-        return $factory->getLanguageService($language);
+        /** @var DomainServiceFactory $dsf */
+        $dsf = $di->get('domainServiceFactory');
+        $language_strategy = new WebLanguageStrategy($di->get('session'), $di->get('request'));
+        return $dsf->getLanguageService($language_strategy);
     }
 
     protected function configView()
@@ -104,7 +97,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     protected function configRequest()
     {
-        return new Phalcon\Http\Request();
+        return new PhalconRequestWrapper();
     }
 
     protected function configUrl()
@@ -177,7 +170,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     protected function configSession()
     {
-        $session = new Phalcon\Session\Adapter\Files();
+        $session = new PhalconSessionWrapper();
         $session->start();
         return $session;
     }

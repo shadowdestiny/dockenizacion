@@ -7,8 +7,8 @@ return [
             'password' => '$2a$08$faBV.38OiCvVoJ7lIzj5.euwlPw2UCdKEuOMj2W1i90ljN/I2L9fG', //passworD01
             'email' => 'algarrobo@currojimenez.com',
             'token' => 'skldjskl',
-            'balance_amount' => 3000,
-            'balance_currency_name' => 'Euro'
+            'balance_amount' => 300005,
+            'balance_currency_name' => 'EUR'
         ],
   ]
 ];

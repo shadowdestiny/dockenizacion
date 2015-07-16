@@ -1,13 +1,17 @@
 <?php
 namespace tests\base;
 
+use EuroMillions\entities\Language;
 use Phalcon\DI;
 
 class UnitTestBase extends \PHPUnit_Framework_TestCase
 {
+    use PhalconDiRelatedTest;
+
     const DEFAULT_ENTITY_REPOSITORY = '\Doctrine\ORM\EntityRepository';
     const REPOSITORIES_NAMESPACE = 'EuroMillions\repositories\\';
     const ENTITIES_NAMESPACE = 'EuroMillions\entities\\';
+
     protected $original_di = null;
     /** @var  TestBaseHelper */
     protected $helper;
@@ -41,11 +45,6 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
         if ($this->original_di) {
             $this->restoreDI();
         }
-    }
-
-    protected function getDi()
-    {
-        return Di::getDefault();
     }
 
     /**
@@ -118,6 +117,22 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
     protected function stubEntityManager($entityManager_stub)
     {
         $this->stubDiService('entityManager', $entityManager_stub->reveal());
+    }
+
+    /**
+     * @return \Prophecy\Prophecy\ObjectProphecy
+     */
+    protected function getLanguageRepositoryStubWithDefaultLanguage()
+    {
+        $languageRepository_stub = $this->prophesize(self::REPOSITORIES_NAMESPACE . 'LanguageRepository');
+        $language = new Language();
+        $language->initialize([
+            'ccode'         => 'en',
+            'defaultLocale' => 'en_US',
+            'active'        => true
+        ]);
+        $languageRepository_stub->getActiveLanguage('en')->willReturn($language);
+        return $languageRepository_stub;
     }
 
 }

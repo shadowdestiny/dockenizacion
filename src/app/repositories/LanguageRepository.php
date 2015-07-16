@@ -20,4 +20,9 @@ class LanguageRepository extends EntityRepository
     {
         return $this->findBy(['active' => true]);
     }
+
+    public function getActiveLanguage($ccode)
+    {
+        return $this->findOneBy(['ccode' => $ccode, 'active'=> true]);
+    }
 }

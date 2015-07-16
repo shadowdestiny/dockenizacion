@@ -8,13 +8,8 @@ class Language extends EntityBase implements IEntity
 {
     protected $id;
     protected $ccode;
-    protected $usedIn;
     protected $active;
-
-    public function __construct()
-    {
-        $this->usedIn = new ArrayCollection();
-    }
+    protected $defaultLocale;
 
     public function getActive()
     {
@@ -40,4 +35,15 @@ class Language extends EntityBase implements IEntity
     {
         $this->ccode = $ccode;
     }
+
+    public function getDefaultLocale()
+    {
+        return $this->defaultLocale;
+    }
+
+    public function setDefaultLocale($defaultLocale)
+    {
+        $this->defaultLocale = $defaultLocale;
+    }
+
 }
