@@ -1789,6 +1789,10 @@ img.right {
   border: 1px solid #777;
 }
 
+.input:hover {
+  border: 1px solid #000;
+}
+
 .input:focus {
   transition: background-color 0.3s,color 0.3s,border 0.3s, box-shadow 0.2s;
   box-shadow: 0 4px 4px #bbb inset !important;
@@ -1803,6 +1807,10 @@ img.right {
 .checkbox {
   margin: 0 !important;
   padding: 0;
+}
+
+.label {
+  cursor: pointer;
 }
 
 /* INFO BOX */
@@ -1820,9 +1828,9 @@ img.right {
 }
 
 .box .txt {
-  float: left;
-  width: 310px;
+  display: block;
   font-size: 0.9375em;
+  margin-left: 34px;
 }
 
 .box.error {
@@ -2479,14 +2487,6 @@ body {
 }
 
 /* disable hover on active menu */
-#content {
-  background: url(/img/bg.jpg) no-repeat 50% 0;
-  background-size: cover;
-  overflow: hidden;
-  text-align: left;
-  padding-top: 25px;
-}
-
 .main-foot {
   border-top: 5px solid #efc048;
   background: #fff;
@@ -2684,9 +2684,22 @@ body {
     padding: 0 10px;
   }
 }
+@media only screen and (min-width: 769px) {
+  #content {
+    background: url(/img/bg.jpg) no-repeat 50% 0;
+    background-size: cover;
+    overflow: hidden;
+    text-align: left;
+    padding-top: 25px;
+  }
+}
 /* Small Devices, Tablets */
 @media only screen and (max-width: 768px) {
   /*body{border:10px solid #0f0;} /* GREEN */
+  #content {
+    background-image: none;
+  }
+
   .desktop, .nav.mobile .br {
     display: none;
   }

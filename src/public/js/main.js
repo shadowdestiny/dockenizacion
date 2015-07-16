@@ -90,7 +90,6 @@ function activateSub(id, target, action, event){
 $(function(){
 	checkSize();
 	$(window).resize(checkSize);
-
 	arrowBox(".sub-inter", 1);
 
 	$('.menu-ham').click(function(){

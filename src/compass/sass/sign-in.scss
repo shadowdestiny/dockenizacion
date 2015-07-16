@@ -1,9 +1,10 @@
 @import "variable";
 
 .box-sign{
-	width:400px; margin:0 auto 8em;
+	width:400px; margin:0 auto 8em; position:relative;
 	.wrap{background:#fff; border:2px solid $yellow; border-radius:5px;}
-	.wrap a{text-decoration:none;}
+	.wrap a:link{text-decoration:none;}
+	.wrap a:hover{color:$blue; transition:color .3s;}
 	.h1{margin-bottom:.5em;}
 	.h3{display:inline-block; margin:0;}
 	.btn p{margin-bottom:.5em;}
@@ -13,18 +14,21 @@
 	.active{cursor:default;}
 	.tabs-menu{margin-bottom:1em;}
 	.small{margin:1em; text-align:center; font-size:$small; color:$grey; line-height:$h2;}
+	.label{float:left;}
 }
 .padding{margin:15px;}
 .padding h1{text-align:center; color:$yellow-dark;}
-.side-txt{margin:90px 20px 0;}
-.side-txt.first{text-align:right;}
+
+.connect{
+	.ico{float:left; font-size:24px; position:relative;}
+	.ico-facebook{left:-6px; top:-2px;}
+	.ico-google-plus{top:1px;}
+}
 
 .sign{
 	.btn.big, .input, .select{width:100%; margin-bottom:.8em; font-size:$h4;}
-	.ico-facebook{top:2px;}
-	.ico-google-plus{top:6px;}
 	.or{font-weight:bold; color:$grey; background:#fff; padding:0 8px;}
-	.bg-or{position:absolute; top:-12px; margin-left:-14px;}
+	.bg-or{position:absolute; top:-12px; left:0; width:100%;}
 	.separator{position:relative;}
 	.hr{margin:1em 0 1.5em;}
 	.label{text-align:left!important;}
@@ -34,6 +38,41 @@
 	.btn.submit{width:75%; float:right; margin-bottom:0;}
 	.submit .ico{position:relative; margin-left:5px; top:1px;}
 }
-
 .sign-in .main-foot .txt{text-align:right;}
-.connect .ico{font-size:24px; margin-right:8px; line-height:0; position:relative;}
+
+.my-left, .my-right{position:absolute; margin-top:100px; width:100%; }
+.my-left{left:-100%; padding-right:15px; text-align:right;}
+.my-right{right:-100%; padding-left:15px;}
+.my-left h1{margin-bottom:.5em;}
+
+@media only screen and (max-width:1200px){
+.my-left, .my-right{width:72%; margin-top:90px;}
+.my-left{left:-72%;}
+.my-right{right:-72%;}
+}
+ 
+/* Medium Devices, Desktops */
+@media only screen and (max-width:992px){
+.my-left, .my-right{display:none;}
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width:768px){
+	.head{border-bottom:1px solid $purple;}
+	.box-sign{width:100%; margin-bottom:0;}
+	.box-sign .col6{width:50%!important; border-radius:0!important; display:block!important; margin:0!important; float:left!important; border:0!important; padding:15px 0!important;}
+	.box-sign .wrap{border-radius:0; border-width:4px; border-left:0; border-right:0;}
+	.sign .col6{padding:0!important;}
+	.sign-in .main-foot .txt{text-align:center;}
+	.info .cols{margin-top:0;}
+	#content, .main-foot, body{background:$yellow-lighter}
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width:480px){
+	.sign .btn.submit{width:100%;}
+}
+ 
+/* Custom, iPhone Retina */
+@media only screen and (max-width:320px){
+}
