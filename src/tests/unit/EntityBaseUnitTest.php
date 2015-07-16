@@ -33,11 +33,12 @@ class EntityBaseUnitTest extends UnitTestBase
 
     public function test_toValueObject_called_transformEntityToValueObject()
     {
-        $this->sut->initialize(['ccode' => 'en', 'active' => 1]);
+        $this->sut->initialize(['ccode' => 'en', 'active' => 1, 'defaultLocale' => 'en_US']);
         $expected = new \stdClass();
         $expected->ccode = 'en';
         $expected->active = 1;
         $expected->id = null;
+        $expected->defaultLocale = 'en_US';
         $actual = $this->sut->toValueObject();
         $this->assertEquals($expected, $actual);
     }

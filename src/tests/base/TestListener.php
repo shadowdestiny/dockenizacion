@@ -12,8 +12,8 @@ class TestListener extends \PHPUnit_Framework_BaseTestListener
     public function startTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
         if (
-            strpos($suite->getName(),"integration") !== false ||
-            strpos($suite->getName(),"functional") !== false
+            strpos($suite->getName(),"tests\\integration") !== false ||
+            strpos($suite->getName(),"tests\\functional") !== false
         ) {
             $bootstrap = new Bootstrap(new TestWebBootstrapStrategy(false, APP_PATH, APP_PATH . '../global_config/', APP_PATH . 'config/', APP_PATH . 'assets/', TESTS_PATH . '/../'));
             $di = DI::getDefault();

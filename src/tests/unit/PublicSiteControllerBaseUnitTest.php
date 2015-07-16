@@ -16,9 +16,9 @@ class PublicSiteControllerBaseUnitTest extends UnitTestBase
         $lang1 = new Language();
         $lang2 = new Language();
         $lang3 = new Language();
-        $attributes1 = ['id' => 1, 'ccode' => 'en', 'active'=>1];
-        $attributes2 = ['id' => 2, 'ccode' => 'es', 'active'=>1];
-        $attributes3 = ['id' => 3, 'ccode' => 'fr', 'active'=>1];
+        $attributes1 = ['id' => 1, 'ccode' => 'en', 'active'=>1, 'defaultLocale'=>'en_US'];
+        $attributes2 = ['id' => 2, 'ccode' => 'es', 'active'=>1, 'defaultLocale'=>'es_ES'];
+        $attributes3 = ['id' => 3, 'ccode' => 'fr', 'active'=>1, 'defaultLocale'=>'fr_FR'];
         $lang1->initialize($attributes1);
         $lang2->initialize($attributes2);
         $lang3->initialize($attributes3);
@@ -30,8 +30,6 @@ class PublicSiteControllerBaseUnitTest extends UnitTestBase
             ->method('activeLanguages')
             ->will($this->returnValue($active_languages));
 
-        $this->stubDIService('language', $language_service_double);
-
         $expected1 = $this->getStandardObject($attributes1);
         $expected2 = $this->getStandardObject($attributes2);
         $expected3 = $this->getStandardObject($attributes3);
@@ -42,7 +40,7 @@ class PublicSiteControllerBaseUnitTest extends UnitTestBase
         $lotteriesDataService_stub->expects($this->any())
             ->method('getNextJackpot')
             ->will($this->returnValue(new Money(100, new Currency('EUR'))));
-        $sut->initialize($lotteriesDataService_stub);
+        $sut->initialize($lotteriesDataService_stub, $language_service_double);
         $this->checkViewParam(['languages' => [$expected1, $expected2, $expected3]]);
         $sut->afterExecuteRoute();
     }

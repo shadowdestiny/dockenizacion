@@ -26,6 +26,16 @@
         </testsuite>
     </testsuites>
     <listeners>
-        <listener class="tests\base\TestListener" file="./base/TestListener.php"></listener>
+        <listener class="tests\base\TestListener" file="./base/TestListener.php" />
     </listeners>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">../app</directory>
+            <exclude>
+                <file>../app/cli.php</file>
+                <directory>../app/migrations</directory>
+                <directory>../app/migrations_data</directory>
+            </exclude>
+        </whitelist>
+    </filter>
 </phpunit>

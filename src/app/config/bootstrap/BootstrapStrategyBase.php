@@ -34,12 +34,13 @@ abstract class BootstrapStrategyBase
             $environment_detector->setDefault();
         }
         $config = $this->configConfig($environment_detector);
-        $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
+        $di->set('configPath', function() {return $this->configPath;}, true);
         $di->set('globalConfig', $global_config, true);
         $di->set('environmentDetector', $environment_detector);
         $di->set('config', $config, true);
         $di->set('entityManager', $this->configDoctrine($config), true);
         $di->set('redisCache', $this->configRedis($config), true);
+        $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
         return $di;
     }
 

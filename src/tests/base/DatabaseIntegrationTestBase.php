@@ -15,6 +15,8 @@ use PHPUnit_Extensions_Database_DB_IDatabaseConnection;
 
 abstract class DatabaseIntegrationTestBase extends \PHPUnit_Extensions_Database_TestCase
 {
+    use PhalconDiRelatedTest;
+
     const ENTITIES_NS = '\EuroMillions\entities\\';
 
     protected $connection;

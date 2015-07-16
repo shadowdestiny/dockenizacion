@@ -2,6 +2,7 @@
 namespace tests\unit;
 
 use EuroMillions\services\CurrencyService;
+use EuroMillions\services\DomainServiceFactory;
 use Money\Currency;
 use Money\CurrencyPair;
 use Money\Money;
@@ -9,6 +10,16 @@ use tests\base\UnitTestBase;
 
 class CurrencyServiceUnitTest extends UnitTestBase
 {
+    private $factory;
+    private $yahooCurrencyApi_double;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->factory = new DomainServiceFactory($this->getDi());
+        $this->yahooCurrencyApi_double = $this->prophesize('\EuroMillions\services\external_apis\YahooCurrencyApi');
+    }
+
     /**
      * method convert
      * when calledWithProperCurrencies
@@ -16,10 +27,9 @@ class CurrencyServiceUnitTest extends UnitTestBase
      */
     public function test_convert_calledWithProperCurrencies_returnProperMoneyObject()
     {
-        $yahooCurrencyApi_stub = $this->prophesize('\EuroMillions\services\external_apis\YahooCurrencyApi');
-        $yahooCurrencyApi_stub->getRate('EUR', 'USD')->willReturn(new CurrencyPair(new Currency('EUR'), new Currency('USD'), 1.25));
+        $this->yahooCurrencyApi_double->getRate('EUR', 'USD')->willReturn(new CurrencyPair(new Currency('EUR'), new Currency('USD'), 1.25));
 
-        $sut = new CurrencyService($yahooCurrencyApi_stub->reveal());
+        $sut = $this->factory->getCurrencyService($this->yahooCurrencyApi_double->reveal(), $this->prophesize('EuroMillions\services\LanguageService')->reveal());
         $actual = $sut->convert(new Money(1000, new Currency('EUR')), new Currency('USD'));
         $this->assertEquals(new Money(1250, new Currency('USD')), $actual);
     }

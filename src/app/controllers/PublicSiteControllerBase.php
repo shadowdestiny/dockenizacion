@@ -18,11 +18,13 @@ class PublicSiteControllerBase extends ControllerBase
 {
     /** @var LotteriesDataService */
     protected $lotteriesDataService;
+    protected $languageService;
 
-    public function initialize(LotteriesDataService $lotteriesDataService = null)
+    public function initialize(LotteriesDataService $lotteriesDataService = null, LanguageService $languageService = null)
     {
         parent::initialize();
         $this->lotteriesDataService = $lotteriesDataService ? $lotteriesDataService : $this->domainServiceFactory->getLotteriesDataService();
+        $this->languageService = $languageService ? $languageService : $this->language; //from DI
     }
 
     public function afterExecuteRoute()
@@ -33,7 +35,7 @@ class PublicSiteControllerBase extends ControllerBase
 
     private function setActiveLanguages()
     {
-        $languages = $this->language->activeLanguages();
+        $languages = $this->languageService->activeLanguages();
         $view_params = [];
         /** @var Language $language */
         foreach ($languages as $language) {

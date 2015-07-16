@@ -33,6 +33,15 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
         }
     }
 
+    protected function configLanguage(Di $di)
+    {
+        if (!$this->isUnitTest) {
+            return parent::configLanguage($di);
+        } else {
+            return 'en';
+        }
+    }
+
     protected function getConfigFileName(EnvironmentDetector $em)
     {
         return $em->get().'_test_config.ini';
