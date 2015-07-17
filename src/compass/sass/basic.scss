@@ -64,15 +64,17 @@ img.right{margin:0 0 15px 10px;}
 
 /* FORM ELEMENTS */
 .input, .select{font-family:$basic-font; padding:8px; background:$yellow-lighter; border:1px solid $grey;}
+.input:hover{border:1px solid #000;}
 .input:focus{transition:background-color 0.3s,color 0.3s,border 0.3s, box-shadow 0.2s; box-shadow:0 4px 4px #bbb inset!important; border:1px solid $black!important; background:#fff;}
 .input.error, .select.error{border:2px solid $red;}
 .checkbox{margin:0!important; padding:0;}
+.label{cursor:pointer;}
 
 
 /* INFO BOX */
 .box{text-align:left; padding:10px; border-radius:5px; font-weight:bold; margin-bottom:1em;}
 .box .ico{width:34px; float:left;}
-.box .txt{float:left; width:310px; font-size:$h4;}
+.box .txt{display:block; font-size:$h4; margin-left:34px;}
 .box.error{border:1px solid $red; background:$bg-red; color:$red;}
 .box.error .ico-warning{font-size:21px;}
 .box.success{border:1px solid $green-dark; background:$bg-green; color:$green-dark;}
@@ -284,8 +286,6 @@ body{font-family:$basic-font;}
 .main-nav li:hover{border-right:1px solid transparent;} /* erase yellow border */
 .main-nav .active a:hover{background:transparent;} /* disable hover on active menu */
 
-#content{background:url(/img/bg.jpg) no-repeat 50% 0; background-size:cover;  overflow:hidden; text-align:left; padding-top:25px;}
-
 .main-foot{border-top:5px solid $yellow; background:#fff; text-align:left;}
 .main-foot .cols{margin:20px 0;}
 .main-foot .info{color:#888; font-size:70%; line-height:150%;}
@@ -333,6 +333,7 @@ body{font-family:$basic-font;}
   }
 }
 
+
 /* MEDIA QUERY DESKTOP STATUS SETTINGS */
 .media{width:0; height:0;} // It help me debug with Jquery which media query it is applied
 .mobile, .nav.mobile ul{display:none;}
@@ -353,9 +354,14 @@ body{font-family:$basic-font;}
 .box-links .col20per{padding:0 10px;}
 }
 
+@media only screen and (min-width:769px){
+#content{background:url(/img/bg.jpg) no-repeat 50% 0; background-size:cover; overflow:hidden; text-align:left; padding-top:25px;}
+}
+
 /* Small Devices, Tablets */
 @media only screen and (max-width:768px){
 /*body{border:10px solid #0f0;} /* GREEN */
+#content{background-image:none;}
 .desktop, .nav.mobile .br{display:none;}
 .mobile{display:block;}
 #content{padding:0;}
