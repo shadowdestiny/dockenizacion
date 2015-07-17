@@ -1,14 +1,12 @@
 <?php
 namespace EuroMillions\config\bootstrap;
 
-use EuroMillions\components\EmTranslationAdapter;
 use EuroMillions\components\EnvironmentDetector;
 use EuroMillions\components\PhalconRequestWrapper;
 use EuroMillions\components\PhalconSessionWrapper;
 use EuroMillions\interfaces\IBootstrapStrategy;
 use EuroMillions\services\DomainServiceFactory;
-use EuroMillions\services\language_strategies\WebLanguageStrategy;
-use EuroMillions\services\LanguageService;
+use EuroMillions\services\preferences_strategies\WebLanguageStrategy;
 use Phalcon;
 use Phalcon\Di;
 use Phalcon\Events\Event;
@@ -35,7 +33,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     public function make()
     {
-//        $this->generalConfig();
         $di = $this->dependencyInjector();
         $this->execute($di);
     }
