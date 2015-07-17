@@ -21,6 +21,7 @@
 		<br class="br">
 		<span class="txt"><span class="ico ico-user"></span>{{ language.translate(" Your Account") }}</span>
 	</a>
+	{# EDTD To remove SUBNAV when not connected as account #}
 	<ul class="subnav hidden">
    	 	<li><a href="javascript:void(0);">{{ language.translate("My Account") }} <span class="ico ico-arrow-right"></a></a></li>
         <li><a href="javascript:void(0);">{{ language.translate("My Games") }} <span class="ico ico-arrow-right"></a></li>
