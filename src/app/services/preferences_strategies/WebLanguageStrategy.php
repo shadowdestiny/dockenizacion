@@ -1,5 +1,5 @@
 <?php
-namespace EuroMillions\services\language_strategies;
+namespace EuroMillions\services\preferences_strategies;
 
 use EuroMillions\interfaces\ILanguageStrategy;
 use EuroMillions\interfaces\IRequest;
