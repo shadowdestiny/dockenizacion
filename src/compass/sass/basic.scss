@@ -157,7 +157,6 @@ img.right{margin:0 0 15px 10px;}
 .gwy.active, .ywy.active, .gwy.active:active, .ywy.active:active
 {background:$yellow!important; color:#fff!important; border:1px solid $yellow-darker!important; box-shadow:none!important;}
 
-
 /* MENU HAMBURGER */
 .menu-ham{
   position:absolute; top:10px; right:10px; border:0; border:1px solid $grey-light;
@@ -259,10 +258,10 @@ body{font-family:$basic-font;}
 
 .head{border-bottom:5px solid $yellow; background:#fff;}
 .main-nav{float:right; margin-bottom:-1px; border-left:1px solid $yellow;}
-.main-nav li{float:left; border-right:1px solid $yellow;}
+.main-nav li{float:left; border-right:1px solid $yellow; position:relative;}
 .main-nav li:last-child{margin:0;}
 .main-nav .ico-cart{display:inline-block; color:$black; margin-top:4px;}
-.main-nav a{display:block; padding:15px 20px; /*min-height:73px*/;}
+.main-nav a{display:block; padding:15px 20px; transition:background 0.2s ease, color 0.15s ease;}
 .main-nav > span{display:block;}
 .main-nav .link{font-size:75%; text-decoration:none!important;}
 .main-nav .txt{position:relative; top:-2px; font-size:85%; font-weight:bold; color:#000;}
@@ -272,19 +271,23 @@ body{font-family:$basic-font;}
   background-color:$yellow;   /* fallback */
   @include background-image(linear-gradient(#CC9816, $yellow));
 }
-.main-nav .active a, .main-nav .active .txt, .main-nav a:hover, .main-nav a:hover .txt
-{color:#fff!important;}
-
-.main-nav a:hover{
+.main-nav a:hover, .li-your-account:hover > a{
   background-color:$purple;   /* fallback */
   @include background-image(linear-gradient(#8b355b, $purple));
 }
-.main-nav a:hover .ico-cart, .main-nav .active .ico-cart{color:#fff;}
-.main-nav a{transition:background 0.2s ease, color 0.15s ease;}
+.li-your-account:hover > a, .li-your-account:hover .txt, .main-nav a:hover .ico-cart, .main-nav .active .ico-cart, .main-nav .active a, .main-nav .active .txt, .main-nav a:hover, .main-nav a:hover .txt
+{color:#fff;}
 .main-nav .txt, .main-nav .ico-cart{transition:color 0.1s ease;}
-
 .main-nav li:hover{border-right:1px solid transparent;} /* erase yellow border */
 .main-nav .active a:hover{background:transparent;} /* disable hover on active menu */
+.main-nav .subnav{
+  position:absolute; z-index:1; background:#fff; width:101%; border:1px solid $yellow; border-top:0;
+  margin:-1px 0 0 -1px; border-radius:0 0 5px 5px;
+  li{float:none; border:0; border-bottom:1px solid $yellow; text-align:left;}
+  a{padding:10px 7px; border:0; font-size:$basic-size!important;}
+  a:hover .ico{color:#fff;}
+  .ico{float:right; margin:3px -2px 0 0; color:$yellow-dark;}
+}
 
 .main-foot{border-top:5px solid $yellow; background:#fff; text-align:left;}
 .main-foot .cols{margin:20px 0;}
@@ -351,6 +354,7 @@ body{font-family:$basic-font;}
 .wrapper{max-width:768px;}
 .logo{margin-top:8px; width:250px;}
 .main-nav a{padding:10px 12px; min-height:62px;}
+.main-nav .subnav a{min-height:inherit;} 
 .box-links .col20per{padding:0 10px;}
 }
 
