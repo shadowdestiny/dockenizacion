@@ -168,6 +168,48 @@ ALLOWED: Variable and Extension
   margin-bottom: .5em;
 }
 
+.box-basic {
+  border: 1px solid #efc048;
+  background: #fff;
+  border-radius: 5px;
+  padding: 15px 20px;
+  width: 400px;
+  margin: 0 auto 8em;
+  position: relative;
+}
+.box-basic h1 {
+  color: #ebb019;
+}
+.box-basic .email {
+  width: 100%;
+}
+.box-basic .submit {
+  margin-top: 1em;
+}
+
+.forgot-psw .label, .generate-psw .label {
+  margin-bottom: 1em;
+}
+
+.generate-psw .box-basic .my-left, .generate-psw .box-basic .my-right {
+  margin-top: 2px;
+}
+.generate-psw .box-basic .my-right {
+  font-size: 0.875em;
+}
+.generate-psw .box-basic .txt {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 3px;
+  font-size: 0.875em;
+}
+.generate-psw .box-basic .input {
+  width: 100%;
+}
+.generate-psw .box-basic .ul {
+  margin-left: 1em;
+}
+
 @media only screen and (max-width: 1200px) {
   .my-left, .my-right {
     width: 72%;
@@ -194,7 +236,7 @@ ALLOWED: Variable and Extension
     border-bottom: 1px solid #ae5279;
   }
 
-  .box-sign {
+  .box-sign, .box-basic {
     width: 100%;
     margin-bottom: 0;
   }
@@ -216,6 +258,12 @@ ALLOWED: Variable and Extension
     border-right: 0;
   }
 
+  .box-basic {
+    border: 0;
+    border-bottom: 1px solid #efc048;
+    margin-bottom: 1em;
+  }
+
   .sign .col6 {
     padding: 0 !important;
   }
@@ -231,11 +279,25 @@ ALLOWED: Variable and Extension
   #content, .main-foot, body {
     background: #fffeec;
   }
+
+  .generate-psw .box-basic .input {
+    width: 75%;
+  }
+  .generate-psw .box-basic .submit {
+    margin-right: 12.5%;
+  }
 }
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {
   .sign .btn.submit {
     width: 100%;
+  }
+
+  .generate-psw .box-basic .input {
+    width: 100%;
+  }
+  .generate-psw .box-basic .submit {
+    margin-right: 0;
   }
 }
 /* Custom, iPhone Retina */

@@ -60,15 +60,15 @@ $(function(){
 			</div>
 
 			<div class="my-left hidden">
-				<h1 class="h3">Why do I need to sign up?</h1>
-				<p>By creating an account, we can guarantee a faster process to play your favourite numbers and quicker response time to cash in, if you win the lottery.</p>
+				<h1 class="h3">{{ language.translate("Why do I need to sign up?") }}</h1>
+				<p>{{ language.translate("By creating an account, we can guarantee a faster process to play your favourite numbers and quicker response time to cash in, if you win the lottery.") }}</p>
 			</div>
 
 			<div class="my-right hidden">
-				<h1 class="h3">We respect your privacy</h1>
+				<h1 class="h3">{{ language.translate("We respect your privacy") }}</h1>
 				<p>
-					We will never post anything without your permission.
-					<br>We ask you to connect for a faster sign in process.
+					{{ language.translate("We will never post anything without your permission.
+					<br>We ask you to connect for a faster sign in process.") }}
 				</p>
 			</div>
 
@@ -126,6 +126,11 @@ $(function(){
 							</div>
 
 							<form novalidate>
+
+					            <div class="box error">
+					                Error info lorem ipsum
+					            </div>
+
 								<input class="input" type="email" placeholder="Email">
 								<input class="input" type="password" placeholder="Password">
 								<div class="cols">
