@@ -2,19 +2,18 @@
 
 .box-sign{
 	width:400px; margin:0 auto 8em; position:relative;
-	.wrap{background:#fff; border:2px solid $yellow; border-radius:5px;}
+	.wrap{background:#fff; padding:5px 0; border:1px solid $yellow; border-radius:0 5px 5px 5px;}
 	.wrap a:link{text-decoration:none;}
 	.wrap a:hover{color:$blue; transition:color .3s;}
 	.h1{margin-bottom:.5em;}
 	.h3{display:inline-block; margin:0;}
-	.btn p{margin-bottom:.5em;}
-	.cols > a{padding:15px 10px; display:table-cell; font-size:inherit; font-weight:inherit; text-align:center;}
-	.cols > a:first-child{border-radius:5px 0 0 5px; border-right:0!important;}
-	.cols > a:last-child{border-radius:0 5px 5px 0;}
-	.active{cursor:default;}
-	.tabs-menu{margin-bottom:1em;}
+	.tab{
+		border-radius:5px 5px 0 0; float:left; padding:13px 26px; text-align:center; border-bottom:0;
+		p{margin-bottom:.5em;}
+	}
 	.small{margin:1em; text-align:center; font-size:$small; color:$grey; line-height:$h2;}
 	.label{float:left;}
+	.tabs-menu{position:relative; margin-bottom:-1px;}
 }
 .padding{margin:15px;}
 .padding h1{text-align:center; color:$yellow-dark;}
@@ -32,32 +31,25 @@
 	.separator{position:relative;}
 	.hr{margin:1em 0 1.5em;}
 	.label{text-align:left!important;}
-	.label .txt{margin-left:3px;}
+	.label .txt{display:inline-block; margin-left:3px;}
 	.tab-content .cols{margin:0 0 1em;}
 	.forgot-psw{text-align:right;}
 	.btn.submit{width:75%; float:right; margin-bottom:0;}
 	.submit .ico{position:relative; margin-left:5px; top:1px;}
 }
-.sign-in .main-foot .txt{text-align:right;}
 
 .my-left, .my-right{position:absolute; margin-top:100px; width:100%;}
 .my-left{left:-100%; padding-right:15px; text-align:right;}
 .my-right{right:-100%; padding-left:15px;}
 .my-left h1{margin-bottom:.5em;}
 
-.box-basic{
-	border:1px solid $yellow; background:#fff; border-radius:5px; padding:15px 20px;
-	width:400px; margin:0 auto 8em; position:relative;
-	h1{color:$yellow-dark;}
-	.email{width:100%;}
-	.submit{margin-top:1em;}
-}
+.box-basic.email{width:100%;}
 
+.forgot-psw .input{width:100%;}
 .forgot-psw .label, .generate-psw .label{margin-bottom:1em;}
 .generate-psw .box-basic{
 	.my-left, .my-right{margin-top:2px;}
 	.my-right{font-size:$basic-size;}
-	.txt{display:block; font-weight:bold; margin-bottom:3px; font-size:$basic-size;}
 	.input{width:100%;}
 	.ul{margin-left:1em;}
 }
@@ -93,6 +85,7 @@
 /* Extra Small Devices, Phones */
 @media only screen and (max-width:480px){
 	.sign .btn.submit{width:100%;}
+	.sign .submit .ico{margin-left:0; top:1px;}
 	.generate-psw .box-basic{
 		.input{width:100%;}
 		.submit{margin-right:0;}

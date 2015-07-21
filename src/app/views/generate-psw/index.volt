@@ -1,6 +1,6 @@
 {% extends "main.volt" %}
 {% block template_css %}<link rel="stylesheet" href="/css/sign-in.css">{% endblock %}
-{% block bodyClass %}generate-psw{% endblock %}
+{% block bodyClass %}generate-psw minimal{% endblock %}
 
 {% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
 {% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}
@@ -28,26 +28,8 @@
                 </ul>
             </div>
 
-            <form novalidate>
-                <div class="box error">
-                    Error info lorem ipsum
-                </div>
-
-                <label for="new-password" class="label">
-                    <span class="txt">{{ language.translate("New password") }}</span>
-                    <input id="new-password" class="input" type="email">
-                </label>
-
-                <label for="confirm-password" class="label">
-                    <span class="txt">{{ language.translate("Confirm password") }}</span>
-                    <input id="confirm-password" class="input" type="email">
-                </label>
-
-                <div class="cl">
-                    <a href="javascript:void(0);" class="btn blue submit right">{{ language.translate("Request new password") }}</a>
-                </div>
-            </form>
-        </div>
+            {% include "_elements/generate-psw.volt" %}
+     </div>
 
 
     </div>

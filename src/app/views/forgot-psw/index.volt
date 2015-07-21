@@ -1,6 +1,6 @@
 {% extends "main.volt" %}
 {% block template_css %}<link rel="stylesheet" href="/css/sign-in.css">{% endblock %}
-{% block bodyClass %}forgot-psw{% endblock %}
+{% block bodyClass %}forgot-psw minimal{% endblock %}
 
 {% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
 {% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}
@@ -11,7 +11,8 @@
         <div class="box-basic">
             <h1 class="h2">{{ language.translate("Password recovery") }}</h1>
 
-            <p>{{ language.translate("Enter the email address associated with your Euromillions.com account, then click the button.<br> We'll email your a link to a page where you can easily create a new password.") }}</p>
+            <p>{{ language.translate("Enter the email address associated with your Euromillions.com account, then click the button.") }}</p>
+            <p>{{ language.translate("We'll email your a link to a page where you can easily create a new password.") }}</p>
 
             <form novalidate>
 
@@ -20,7 +21,8 @@
                 </div>
 
                 <label for="email" class="label">
-                    <input id="email" class="input email" placeholder="{{ language.translate("Email address") }}" type="email">
+                    <span class="txt">{{ language.translate("Email address") }}</span>
+                    <input id="email" class="input email" type="email">
                 </label>
 
                 <p>
@@ -35,7 +37,7 @@
 
 #}
                 <div class="cl">
-                    <a href="javascript:void(0);" class="btn blue submit right">{{ language.translate("Request new password") }}</a>
+                    <a href="javascript:void(0);" class="btn blue submit right">{{ language.translate("Save Password") }}</a>
                 </div>
             </form>
 		</div>

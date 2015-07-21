@@ -37,6 +37,7 @@ blockquote:before, blockquote:after,q:before, q:after{content:''; content:none;}
 select{padding:5px; border:1px solid #bbb;}
 button{cursor:pointer;}
 hr{border:0; background:$grey-light; height:1px; margin-bottom:1em;}
+label .txt{font-size:$basic-size; font-weight:bold; display:block; margin-bottom:3px;}
 
 .no-li{list-style-type:none;}
 .no-li li{margin-bottom:0;}
@@ -58,10 +59,6 @@ img.right{margin:0 0 15px 10px;}
 .cl:after, .wrapper:after, .btn:after, .box:after{clear:both;}
 .cl, .wrapper, .btn, .box{*zoom:1;} /* IE6/7 */
 
-/* TABS */
-.tab-content{display:none; position:relative;}
-.tab-content.active{display:block;}
-
 /* FORM ELEMENTS */
 .input, .select{font-family:$basic-font; padding:8px; background:$yellow-lighter; border:1px solid $grey;}
 .input:hover{border:1px solid #000;}
@@ -69,7 +66,6 @@ img.right{margin:0 0 15px 10px;}
 .input.error, .select.error{border:2px solid $red;}
 .checkbox{margin:0!important; padding:0;}
 .label{cursor:pointer;}
-
 
 /* INFO BOX */
 .box{text-align:left; padding:10px; border-radius:5px; font-weight:bold; margin-bottom:1em;}
@@ -79,11 +75,16 @@ img.right{margin:0 0 15px 10px;}
 .box.error .ico-warning{font-size:21px;}
 .box.success{border:1px solid $green-dark; background:$bg-green; color:$green-dark;}
 
+.box-basic{
+  border:1px solid $yellow; background:#fff; border-radius:5px; padding:15px 20px;
+  width:400px; margin:0 auto 8em; position:relative;
+  h1{color:$yellow-dark;}
+  .submit{margin-top:1em;}
+}
 
 /* BUTTONS */
 .btn{
-  transition:background-color 0.3s,color 0.3s,border 0.3s, box-shadow 0.1s; display:inline-block; padding:5px 12px; text-decoration:none; 
-  font-size:$basic-size; border-radius:5px; font-weight:bold; border:1px solid #777; color:#fff;
+  transition:background-color 0.3s,color 0.3s,border 0.3s, box-shadow 0.1s; display:inline-block; padding:5px 12px; text-decoration:none; font-size:$basic-size; border-radius:5px; font-weight:bold; border:1px solid #777; color:#fff;
   background:#aaa; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);
   @include background-image(linear-gradient(#cccccc, #777777));
 }
@@ -95,7 +96,13 @@ img.right{margin:0 0 15px 10px;}
 .btn.big:active{box-shadow:0 0 0 1px #eee inset, 0 5px 20px #888 inset!important;}
 /*.btn .ico{font-size:75%; margin-left:8px;}*/
 
-.btn.white{color:$hover; background:#fff; font-weight:normal; border:1px solid #fff; text-shadow:0 0 0 transparent;}
+.btn.grey, .tab, .tab:visited{color:#fff;}
+.btn.grey:hover, .btn.grey:focus, .tab:hover{
+  background:$yellow; border:1px solid $grey; color:#fff;
+  @include background-image(linear-gradient(#999999, #555555));
+}
+
+.btn.white, .tab.active, .tab.active:visited{color:$hover; background:#fff; font-weight:normal; border:1px solid #fff; text-shadow:0 0 0 transparent;}
 .btn.white:hover, .btn.white:focus, .gwy:hover, .gwy:focus, .gwp:hover, .gwp:focus
 {border:1px solid #ccc;}
 .btn.white:active, .gwy:active, .gwp:active, .gwg:active, .bwb:active, .rwr:active, .ywy:active
@@ -156,6 +163,20 @@ img.right{margin:0 0 15px 10px;}
 
 .gwy.active, .ywy.active, .gwy.active:active, .ywy.active:active
 {background:$yellow!important; color:#fff!important; border:1px solid $yellow-darker!important; box-shadow:none!important;}
+
+/* TABS */
+.tab{
+  transition:background-color 0.3s,color 0.3s,border 0.3s, box-shadow 0.1s; border:1px solid $grey;
+  display:inline-block; padding:5px 12px; text-decoration:none; font-size:$basic-size; background:#aaa; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);
+  @include background-image(linear-gradient(#cccccc, #777777));
+}
+.tab.active, .tab.active:visited{cursor:default;}
+.tab:hover, .tab:focus{background:$yellow;}
+.tab.active, .tab.active:visited, .tab.active:hover{background:#fff; border:1px solid $yellow-dark; color:$yellow-dark;}
+.tab.active, .tab:focus, .tab:active{border-bottom:0!important;}
+.tab-content{display:none; position:relative;}
+.tab-content.active{display:block;}
+
 
 /* MENU HAMBURGER */
 .menu-ham{
@@ -315,6 +336,9 @@ body{font-family:$basic-font;}
 
 .partner li{vertical-align:middle; margin-left:15px;}
 .partner .card{width:40px; height:25px; border-radius:3px;}
+
+.minimal .main-foot .txt{text-align:right;}
+
 
 /* SPRITES */
 .sprite{display:block; width:75px; height:75px; background: url(../img/sprite.png) no-repeat 0 0;} /* Basic sprite size of @1x is 270x220px */

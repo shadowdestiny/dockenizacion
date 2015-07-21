@@ -1,10 +1,10 @@
 <li class="inter">
-	<a class="link" href="javascript:void(0);">{{ language.translate('English') }}</span></a>
+	<a class="link" href="javascript:void(0);">{{ currency_symbol }}</span></a>
 	
 	<div class="sub-inter arrow-box2">
 		<h1 class="h3">{{ language.translate('Select Regional Settings') }}</h1>
 		<div class="box-currency cl">
-			<span class="txt">{{ language.translate('Currency') }}</span> 
+			<span class="txt" title="{{ language.translate('Current currency selected') }}">{{ language.translate('Currency') }}</span> 
 			<select>
 				<option value="0">&euro; &nbsp;Euro</option>
 				<option value="1">currency 2</option>
@@ -21,6 +21,7 @@
 		</div>
 		<a href="javascript:void(0);" class="btn red"><span class="text">{{ language.translate('save')|upper }}</span></a>
 	</div>
+
 </li>
 <li class="hidden balance">
 	<a class="link" href="javascript:void(0);">{{ language.translate('Balance') }}: 50 &euro;</a>
