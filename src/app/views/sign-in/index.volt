@@ -88,7 +88,8 @@ $(function(){
 							<form novalidate>
 
 					            <div class="box error">
-					                Error info lorem ipsum
+					            	<span class="ico-warning ico"></span>
+					            	<span class="txt">Lorem info lorem ipsum</span>
 					            </div>
 
 								<input class="input" type="email" placeholder="Email">

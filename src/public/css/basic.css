@@ -138,13 +138,6 @@ hr {
   margin-bottom: 1em;
 }
 
-label .txt {
-  font-size: 0.875em;
-  font-weight: bold;
-  display: block;
-  margin-bottom: 3px;
-}
-
 .no-li {
   list-style-type: none;
 }
@@ -213,18 +206,18 @@ img.right {
 
 /* IE6/7 */
 /* FORM ELEMENTS */
-.input, .select {
+.input, .select, .textarea {
   font-family: "Open Sans", helvetica, arial, verdana, sans-serif;
   padding: 8px;
   background: #fffeec;
   border: 1px solid #777;
 }
 
-.input:hover {
+.input:hover, .textarea:hover, .select:hover {
   border: 1px solid #000;
 }
 
-.input:focus {
+.input:focus, .textarea:focus {
   transition: background-color 0.3s,color 0.3s,border 0.3s, box-shadow 0.2s;
   box-shadow: 0 4px 4px #bbb inset !important;
   border: 1px solid #333 !important;
@@ -242,6 +235,13 @@ img.right {
 
 .label {
   cursor: pointer;
+}
+
+.label .txt {
+  font-size: 0.875em;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 3px;
 }
 
 /* INFO BOX */
@@ -268,6 +268,7 @@ img.right {
   border: 1px solid #cc2222;
   background: #ffe0e0;
   color: #cc2222;
+  font-size: 0.9375em;
 }
 
 .box.error .ico-warning {
@@ -1127,6 +1128,10 @@ body {
   text-align: right;
 }
 
+.contact .input, .contact .textarea {
+  width: 100%;
+}
+
 /* SPRITES */
 .sprite {
   display: block;
@@ -1430,6 +1435,14 @@ body {
 
   .box-links li:first-child a {
     border-top: 1px solid #ddd;
+  }
+
+  .box-basic {
+    width: 100%;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    margin-bottom: 1em;
   }
 }
 /* Extra Small Devices, Phones */

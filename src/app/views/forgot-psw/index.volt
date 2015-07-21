@@ -17,7 +17,8 @@
             <form novalidate>
 
                 <div class="box error">
-                    Error info lorem ipsum
+                    <span class="ico-warning ico"></span>
+                    <span class="txt">Error info lorem ipsum</span>
                 </div>
 
                 <label for="email" class="label">
