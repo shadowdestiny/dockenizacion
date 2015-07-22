@@ -123,6 +123,11 @@ if [ ! -d "/home/vagrant/mysqldata" ]; then
   mkdir /home/vagrant/mysqldata
 fi
 
+e "Removing docker instances"
+cd /vagrant/docker
+sudo docker-compose kill
+sudo docker-compose rm --force
+
 ####
 ## INSTALLING LOCALES
 ####

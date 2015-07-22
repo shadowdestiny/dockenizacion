@@ -13,16 +13,11 @@ class IndexController extends PublicSiteControllerBase
         $this->view->setVar('minutes_till_next_draw', $time_till_next_draw->i);
     }
 
-    public function fallBackToZendAction()
+    public function notfoundAction($exception = null)
     {
         $this->noRender();
-        $uri = Di::getDefault()->get('request')->getURI();
-        if (strpos($uri, '?') !== false) {
-            $uri .= '&zfb=1';
-        } else {
-            $uri .= '?zfb=1';
-        }
-        $this->response->redirect($uri, true, 307);
+        echo "ERROR 404";
+        var_dump($exception);
     }
 }
 

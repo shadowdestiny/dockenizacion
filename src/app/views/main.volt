@@ -6,8 +6,8 @@
     {#  JS 
         for old browsers (use SHIV or Modernizr)
     #}
-
         {% include "_elements/js-lib.volt" %} {# JS libraries #}
+
 
         {# CSS Compress this css in a single file #}
         <link rel="stylesheet" href="/css/main.css">

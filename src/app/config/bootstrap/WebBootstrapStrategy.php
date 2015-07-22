@@ -85,7 +85,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 ));
                 $compiler = $volt->getCompiler();
                 $compiler->addFilter('number_format', 'number_format');
-                var_dump($volt->getOptions());
                 return $volt;
             }
         ));
@@ -111,7 +110,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             if ($event->getType() == 'beforeNotFoundAction') {
                 $dispatcher->forward(array(
                     'controller' => 'index',
-                    'action'     => 'fallBackToZend'
+                    'action'     => 'notfound'
                 ));
                 return false;
             }
@@ -121,7 +120,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                     case Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
                         $dispatcher->forward(array(
                             'controller' => 'index',
-                            'action'     => 'fallBackToZend'
+                            'action'     => 'notfound',
+                            'params'    => array($exception)
                         ));
                         return false;
                 }
@@ -141,11 +141,17 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $router = new Phalcon\Mvc\Router();
         $router->notFound(array(
             "controller" => "index",
-            "action"     => "fallBackToZend"
+            "action"     => "notfound"
         ));
         $router->add("/", array(
             'controller' => 'index',
             'action'     => 'index'
+        ));
+        $router->add('/ajax/:controller/:action/:params', array(
+            'namespace' => 'EuroMillions\controllers\ajax',
+            'controller' => 1,
+            'action' => 2,
+            'params' => 3,
         ));
         $router->setDefaults(array(
             'controller' => 'index',

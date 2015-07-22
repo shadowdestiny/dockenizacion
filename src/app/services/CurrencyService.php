@@ -29,4 +29,20 @@ class CurrencyService
         return $money_formatter->toStringByLocale($this->languageService->getLocale(), $money);
     }
 
+    public function getSymbol(Money $money)
+    {
+        $money_formatter = new MoneyFormatter();
+        return $money_formatter->getSymbol($this->languageService->getLocale(), $money);
+    }
+
+    public function getActiveCurrenciesCodeAndNames()
+    {
+        //EMTD
+        return [
+            'EUR' => 'Euro',
+            'USD' => 'US Dollar',
+            'COP' => 'Colombian Peso'
+        ];
+    }
+
 }
