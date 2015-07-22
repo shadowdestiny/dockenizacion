@@ -1,5 +1,5 @@
 <li class="inter">
-	<a class="link" href="javascript:void(0);">{{ language.translate('English') }}</span></a>
+	<a class="link" href="javascript:void(0);">{{ currency_symbol }}</span></a>
 	
 	<div class="sub-inter arrow-box2">
 		<h1 class="h3">{{ language.translate('Select Regional Settings') }}</h1>
@@ -23,6 +23,7 @@
 		#}
 		<a href="#" onclick="globalFunctions.setCurrency($('#currency_selection').val())" class="btn red"><span class="text">{{ language.translate('save')|upper }}</span></a>
 	</div>
+
 </li>
 <li class="hidden balance">
 	<a class="link" href="javascript:void(0);">{{ language.translate('Balance') }}: 50 &euro;</a>

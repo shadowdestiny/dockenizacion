@@ -40,6 +40,7 @@
 
         </div>
 
+        {# EDTD To remove SUBNAV when not connected as account #}
         <div data-role="page" id="nav-account">
             <ul class="no-li" data-role="listview">
                 <li><a href="#main-page" data-transition="slide" data-direction="reverse">My Account</a></li>

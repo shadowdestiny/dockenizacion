@@ -58,32 +58,34 @@ img.right{margin:0 0 15px 10px;}
 .cl:after, .wrapper:after, .btn:after, .box:after{clear:both;}
 .cl, .wrapper, .btn, .box{*zoom:1;} /* IE6/7 */
 
-/* TABS */
-.tab-content{display:none; position:relative;}
-.tab-content.active{display:block;}
-
 /* FORM ELEMENTS */
-.input, .select{font-family:$basic-font; padding:8px; background:$yellow-lighter; border:1px solid $grey;}
-.input:hover{border:1px solid #000;}
-.input:focus{transition:background-color 0.3s,color 0.3s,border 0.3s, box-shadow 0.2s; box-shadow:0 4px 4px #bbb inset!important; border:1px solid $black!important; background:#fff;}
+.input, .select, .textarea{font-family:$basic-font; padding:8px; background:$yellow-lighter; border:1px solid $grey;}
+.input:hover, .textarea:hover, .select:hover{border:1px solid #000;}
+.input:focus, .textarea:focus{transition:background-color 0.3s,color 0.3s,border 0.3s, box-shadow 0.2s; box-shadow:0 4px 4px #bbb inset!important; border:1px solid $black!important; background:#fff;}
 .input.error, .select.error{border:2px solid $red;}
 .checkbox{margin:0!important; padding:0;}
 .label{cursor:pointer;}
+.label .txt{font-size:$basic-size; font-weight:bold; display:block; margin-bottom:3px;}
 
 
 /* INFO BOX */
 .box{text-align:left; padding:10px; border-radius:5px; font-weight:bold; margin-bottom:1em;}
 .box .ico{width:34px; float:left;}
 .box .txt{display:block; font-size:$h4; margin-left:34px;}
-.box.error{border:1px solid $red; background:$bg-red; color:$red;}
+.box.error{border:1px solid $red; background:$bg-red; color:$red; font-size:$h4;}
 .box.error .ico-warning{font-size:21px;}
 .box.success{border:1px solid $green-dark; background:$bg-green; color:$green-dark;}
 
+.box-basic{
+  border:1px solid $yellow; background:#fff; border-radius:5px; padding:15px 20px;
+  width:400px; margin:0 auto 8em; position:relative;
+  h1{color:$yellow-dark;}
+  .submit{margin-top:1em;}
+}
 
 /* BUTTONS */
 .btn{
-  transition:background-color 0.3s,color 0.3s,border 0.3s, box-shadow 0.1s; display:inline-block; padding:5px 12px; text-decoration:none; 
-  font-size:$basic-size; border-radius:5px; font-weight:bold; border:1px solid #777; color:#fff;
+  transition:background-color 0.3s,color 0.3s,border 0.3s, box-shadow 0.1s; display:inline-block; padding:5px 12px; text-decoration:none; font-size:$basic-size; border-radius:5px; font-weight:bold; border:1px solid #777; color:#fff;
   background:#aaa; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);
   @include background-image(linear-gradient(#cccccc, #777777));
 }
@@ -95,7 +97,13 @@ img.right{margin:0 0 15px 10px;}
 .btn.big:active{box-shadow:0 0 0 1px #eee inset, 0 5px 20px #888 inset!important;}
 /*.btn .ico{font-size:75%; margin-left:8px;}*/
 
-.btn.white{color:$hover; background:#fff; font-weight:normal; border:1px solid #fff; text-shadow:0 0 0 transparent;}
+.btn.grey, .tab, .tab:visited{color:#fff;}
+.btn.grey:hover, .btn.grey:focus, .tab:hover{
+  background:$yellow; border:1px solid $grey; color:#fff;
+  @include background-image(linear-gradient(#999999, #555555));
+}
+
+.btn.white, .tab.active, .tab.active:visited{color:$hover; background:#fff; font-weight:normal; border:1px solid #fff; text-shadow:0 0 0 transparent;}
 .btn.white:hover, .btn.white:focus, .gwy:hover, .gwy:focus, .gwp:hover, .gwp:focus
 {border:1px solid #ccc;}
 .btn.white:active, .gwy:active, .gwp:active, .gwg:active, .bwb:active, .rwr:active, .ywy:active
@@ -157,6 +165,19 @@ img.right{margin:0 0 15px 10px;}
 .gwy.active, .ywy.active, .gwy.active:active, .ywy.active:active
 {background:$yellow!important; color:#fff!important; border:1px solid $yellow-darker!important; box-shadow:none!important;}
 
+/* TABS */
+.tab{
+  transition:background-color 0.3s,color 0.3s,border 0.3s, box-shadow 0.1s; border:1px solid $grey;
+  display:inline-block; padding:5px 12px; text-decoration:none; font-size:$basic-size; background:#aaa; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);
+  @include background-image(linear-gradient(#cccccc, #777777));
+}
+.tab.active, .tab.active:visited{cursor:default;}
+.tab:hover, .tab:focus{background:$yellow;}
+.tab.active, .tab.active:visited, .tab.active:hover{background:#fff; border:1px solid $yellow-dark; color:$yellow-dark;}
+.tab.active, .tab:focus, .tab:active{border-bottom:0!important;}
+.tab-content{display:none; position:relative;}
+.tab-content.active{display:block;}
+
 
 /* MENU HAMBURGER */
 .menu-ham{
@@ -177,7 +198,6 @@ img.right{margin:0 0 15px 10px;}
 .menu-ham.expanded span:before, #nav-toggle.active span:after{top:0;}
 .menu-ham.expanded span:before{transform:rotate(45deg);}
 .menu-ham.expanded span:after{transform:rotate(-45deg); bottom:0;}
-
 
 /* ANIMATION */
 /* Pulse Link/Btn Right */
@@ -214,7 +234,6 @@ body{font-family:$basic-font;}
 /* COLORS */
 .yellow{color:$yellowTxt;}
 .grey{color:$grey-light;}
-
 
 /* ARROW BOX */
 .arrow-box, .arrow-box2{
@@ -259,10 +278,10 @@ body{font-family:$basic-font;}
 
 .head{border-bottom:5px solid $yellow; background:#fff;}
 .main-nav{float:right; margin-bottom:-1px; border-left:1px solid $yellow;}
-.main-nav li{float:left; border-right:1px solid $yellow;}
+.main-nav li{float:left; border-right:1px solid $yellow; position:relative;}
 .main-nav li:last-child{margin:0;}
 .main-nav .ico-cart{display:inline-block; color:$black; margin-top:4px;}
-.main-nav a{display:block; padding:15px 20px; /*min-height:73px*/;}
+.main-nav a{display:block; padding:15px 20px; transition:background 0.2s ease, color 0.15s ease;}
 .main-nav > span{display:block;}
 .main-nav .link{font-size:75%; text-decoration:none!important;}
 .main-nav .txt{position:relative; top:-2px; font-size:85%; font-weight:bold; color:#000;}
@@ -272,19 +291,23 @@ body{font-family:$basic-font;}
   background-color:$yellow;   /* fallback */
   @include background-image(linear-gradient(#CC9816, $yellow));
 }
-.main-nav .active a, .main-nav .active .txt, .main-nav a:hover, .main-nav a:hover .txt
-{color:#fff!important;}
-
-.main-nav a:hover{
+.main-nav a:hover, .li-your-account:hover > a{
   background-color:$purple;   /* fallback */
   @include background-image(linear-gradient(#8b355b, $purple));
 }
-.main-nav a:hover .ico-cart, .main-nav .active .ico-cart{color:#fff;}
-.main-nav a{transition:background 0.2s ease, color 0.15s ease;}
+.li-your-account:hover > a, .li-your-account:hover .txt, .main-nav a:hover .ico-cart, .main-nav .active .ico-cart, .main-nav .active a, .main-nav .active .txt, .main-nav a:hover, .main-nav a:hover .txt
+{color:#fff;}
 .main-nav .txt, .main-nav .ico-cart{transition:color 0.1s ease;}
-
 .main-nav li:hover{border-right:1px solid transparent;} /* erase yellow border */
 .main-nav .active a:hover{background:transparent;} /* disable hover on active menu */
+.main-nav .subnav{
+  position:absolute; z-index:1; background:#fff; width:101%; border:1px solid $yellow; border-top:0;
+  margin:-1px 0 0 -1px; border-radius:0 0 5px 5px;
+  li{float:none; border:0; border-bottom:1px solid $yellow; text-align:left;}
+  a{padding:10px 7px; border:0; font-size:$basic-size!important;}
+  a:hover .ico{color:#fff;}
+  .ico{float:right; margin:3px -2px 0 0; color:$yellow-dark;}
+}
 
 .main-foot{border-top:5px solid $yellow; background:#fff; text-align:left;}
 .main-foot .cols{margin:20px 0;}
@@ -312,6 +335,12 @@ body{font-family:$basic-font;}
 
 .partner li{vertical-align:middle; margin-left:15px;}
 .partner .card{width:40px; height:25px; border-radius:3px;}
+
+.minimal .main-foot .txt{text-align:right;}
+
+.contact{
+  .input, .textarea{width:100%;}
+}
 
 /* SPRITES */
 .sprite{display:block; width:75px; height:75px; background: url(../img/sprite.png) no-repeat 0 0;} /* Basic sprite size of @1x is 270x220px */
@@ -351,6 +380,7 @@ body{font-family:$basic-font;}
 .wrapper{max-width:768px;}
 .logo{margin-top:8px; width:250px;}
 .main-nav a{padding:10px 12px; min-height:62px;}
+.main-nav .subnav a{min-height:inherit;} 
 .box-links .col20per{padding:0 10px;}
 }
 
@@ -410,6 +440,8 @@ body{font-family:$basic-font;}
 .box-links .col20per{width:100%; float:none; text-align:center; padding:0;}
 .box-links a{display:block; width:100%; border-bottom:1px solid #ddd; padding:7px 0; margin-bottom:0;}
 .box-links li:first-child a{border-top:1px solid #ddd;}
+
+.box-basic{width:100%; border-radius:0; border-left:0; border-right:0; margin-bottom:1em;}
 }
 
 /* Extra Small Devices, Phones */
