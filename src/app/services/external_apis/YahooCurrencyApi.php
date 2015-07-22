@@ -56,7 +56,8 @@ class YahooCurrencyApi implements ICurrencyApi
         $response = $this->curl->get($url);
         $rates = json_decode($response->body);
         $result = null;
-        foreach ($rates->query->results->rate as $rate) {
+        $results_to_iterate = is_array($rates->query->results->rate) ? $rates->query->results->rate : $rates->query->results;
+        foreach ($results_to_iterate as $rate) {
             $from = substr($rate->id, 0, 3);
             $to = substr($rate->id, 3, 3);
             $currency_pair = new CurrencyPair(new Currency($from), new Currency($to), $rate->Rate);

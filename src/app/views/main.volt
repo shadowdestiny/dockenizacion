@@ -15,6 +15,7 @@
         <script src="/js/vendor/jquery-ui.min.js"></script>
         <script src="/js/vendor/jquery.mobile.custom.min.js"></script>
         <script src="/js/main.js" async></script>
+        <script src="/js/global.js" async></script>
 
         {# CSS Compress this css in a single file #}
         <link rel="stylesheet" href="/css/main.css">

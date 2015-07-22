@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "16c03bce55494778f6ec1336c23bbdbb",
+    "hash": "93a257487acf0c469bae3abc79cbe3e8",
     "packages": [
         {
             "name": "alcohol/iso4217",
@@ -61,16 +61,16 @@
         },
         {
             "name": "antonienko/money-formatter",
-            "version": "dev-master",
+            "version": "v1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antonienko/MoneyFormatter.git",
-                "reference": "2faef0596220792e692cec2ad13666893b51e471"
+                "reference": "a0ebc1277acd3ef145cc2b29fcf9628d25fd8568"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antonienko/MoneyFormatter/zipball/2faef0596220792e692cec2ad13666893b51e471",
-                "reference": "2faef0596220792e692cec2ad13666893b51e471",
+                "url": "https://api.github.com/repos/antonienko/MoneyFormatter/zipball/a0ebc1277acd3ef145cc2b29fcf9628d25fd8568",
+                "reference": "a0ebc1277acd3ef145cc2b29fcf9628d25fd8568",
                 "shasum": ""
             },
             "require": {
@@ -104,7 +104,7 @@
                 "formatter",
                 "money"
             ],
-            "time": "2015-07-14 16:05:17"
+            "time": "2015-07-21 14:00:59"
         },
         {
             "name": "antonienko/positive-modulus",
@@ -1286,16 +1286,16 @@
     "packages-dev": [
         {
             "name": "antonienko/php-template-previewer",
-            "version": "dev-master",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antonienko/php-template-previewer.git",
-                "reference": "7752e25d676f2226af4b4b5e7ae4d51b9f4ff330"
+                "reference": "87a9a31dee3416fc995dd519d1f28a1b73fa1e91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antonienko/php-template-previewer/zipball/7752e25d676f2226af4b4b5e7ae4d51b9f4ff330",
-                "reference": "7752e25d676f2226af4b4b5e7ae4d51b9f4ff330",
+                "url": "https://api.github.com/repos/antonienko/php-template-previewer/zipball/87a9a31dee3416fc995dd519d1f28a1b73fa1e91",
+                "reference": "87a9a31dee3416fc995dd519d1f28a1b73fa1e91",
                 "shasum": ""
             },
             "require": {
@@ -1321,13 +1321,12 @@
                 }
             ],
             "description": "For designers testing their framework views without the working backend code.",
-            "homepage": "http://www.antoniohs.com/2015/04/29/php-template-previewer-improving-the-workflow-between-web-designers-and-coders/",
             "keywords": [
                 "framework",
                 "preview",
                 "template"
             ],
-            "time": "2015-07-14 07:22:30"
+            "time": "2015-04-30 09:19:16"
         },
         {
             "name": "phalcon/devtools",
@@ -2287,9 +2286,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "phalcon/incubator": 20,
-        "antonienko/money-formatter": 20,
-        "phalcon/devtools": 20,
-        "antonienko/php-template-previewer": 20
+        "phalcon/devtools": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
