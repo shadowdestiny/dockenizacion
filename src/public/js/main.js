@@ -22,24 +22,29 @@ function checkSize(){
 
 	if(varSize >= 3){
 		// MOBILE
+		$(".li-currency").unbind('mouseenter mouseleave');
+
 		elements.forEach(function (element){
 			$(element[1]).hide();
 		});
 
 		if(mobile == 0){ // store the original url
 			navUrl[0] = $(".your-account").attr("href");
-			navUrl[1] = $(".inter .link").attr("href");
+			navUrl[1] = $(".li-currency .link").attr("href");
 		}
 
 		// add sliding capability
 		$(".your-account").attr({"data-transition":"slide", "href":"#nav-account"});
-		$(".inter .link").attr({"data-transition":"slide", "href":"#language"});
+		$(".li-currency .link").attr({"data-transition":"slide", "href":"#language"});
 		mobile = 1; // You have a mobile size website
 	}else{
-		// desktop
+		// DESKTOP
+		menu(".li-currency", ".div-currency");
+
+
 		if(mobile == 1){ // You came from a screen sized mobile interface
 			$(".your-account").attr({"data-transition":"slide", "href":navUrl[0]});
-			$(".inter .link").attr({"data-transition":"slide", "href":navUrl[1]});
+			$(".li-currency .link").attr({"data-transition":"slide", "href":navUrl[1]});
 		}
 
 	    $(".main-nav .li-your-account").hover(function(event){
@@ -53,23 +58,6 @@ function checkSize(){
 
 //	console.log("varSize= "+varSize)
 	return varSize;
-}
-
-function arrowBox(id, myCase){
-	var obj = $(id);
-	var width = obj.outerWidth();
-	var sibling = obj.siblings(".link");
-	var widthSib = sibling.outerWidth();
-	var padSib = sibling.outerWidth() - sibling.width();
-	var widthIco = 8;
-	switch(myCase){
-		//EMTD I don't like that 161px, or 16px manually wroted. I want seme formula more dynamic to adjust the pointer, because on mobile doesn't center properly.
-		case 1: // International arrow menu stop to be on the edge
-			obj.css({"margin-left": widthSib-width/2-padSib/2-widthIco/2-161}); 
-			break; 
-		default:
-			obj.css({"margin-left": widthSib-width/2-padSib/2-widthIco/2-16});
-	}
 }
 
 function activateSub(id, target, action, event){
@@ -92,11 +80,18 @@ function activateSub(id, target, action, event){
 	event.stopPropagation();
 }
 
+function menu(id, target){
+	$(id).hover(function(event){
+		$(target).show();
+	}, function(){
+		$(target).hide();
+	});
+}
+
 
 $(function(){
 	checkSize();
 	$(window).resize(checkSize);
-	arrowBox(".sub-inter", 1);
 
 	$('.menu-ham').click(function(){
 		$(this).toggleClass('expanded').siblings('ul').slideToggle().toggleClass('open');
@@ -106,7 +101,7 @@ $(function(){
 	$(document).click(function(event){
 		if(varSize < 3){
 			elements.forEach(function (element){
-				activateSub(element[0], element[1], element[2], event);
+			//	activateSub(element[0], element[1], element[2], event);
 			}); 
 		}
 	});

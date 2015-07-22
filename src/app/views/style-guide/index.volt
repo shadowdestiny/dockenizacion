@@ -92,7 +92,7 @@
                                     <h1 class="h5">Title 14px</h1>
                                     <h1 class="h6">Title 12px</h1>
                                     <p>$basic-font 14px</p>
-                                    <p class="small">$small 12px</p>
+                                    <p class="small-txt">$small 12px</p>
                                 </div>
                                 <div class="col6">
                                     <pre class="brush: html">
@@ -104,7 +104,7 @@
                                         <h1 class="h5">Title 14px</h1>
                                         <h1 class="h6">Title 12px</h1>
                                         <p>$basic-font 14px</p>
-                                        <p class="small">$small 12px</p>
+                                        <p class="small-txt">$small 12px</p>
                                     </pre>
                                 </div>
                             </div>
