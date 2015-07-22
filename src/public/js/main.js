@@ -41,16 +41,12 @@ function checkSize(){
 			$(".your-account").attr({"data-transition":"slide", "href":navUrl[0]});
 			$(".inter .link").attr({"data-transition":"slide", "href":navUrl[1]});
 		}
-console.log("in")
+
 	    $(".main-nav .li-your-account").hover(function(event){
-	    	console.log("test")
 	    	$(".main-nav .subnav").show();
 	    }, function(){
 			$(".main-nav .subnav").hide();
-	    	console.log("out")
 	    });
-
-//			$(".signup, .connect").unbind('mouseenter mouseleave');
 
 		mobile = 0;
 	}

@@ -1704,6 +1704,14 @@ hr {
   margin-bottom: 1em;
 }
 
+ul.list {
+  margin: 0 0 1em 2em;
+}
+
+.list li {
+  margin-bottom: .5em;
+}
+
 .no-li {
   list-style-type: none;
 }
@@ -1842,9 +1850,9 @@ img.right {
 }
 
 .box.success {
-  border: 1px solid black;
+  border: 1px solid #004500;
   background: #e0ffe4;
-  color: black;
+  color: #004500;
 }
 
 .box-basic {
@@ -2078,13 +2086,13 @@ img.right {
 
 /* BWB: Blue (border) White (background) Blue (font)*/
 .bwb, .bwb:visited {
-  border: 1px solid #0b0816;
+  border: 1px solid #1c173b;
   background: #fff;
-  color: #0b0816;
+  color: #1c173b;
 }
 
 .bwb:hover, .bwb:focus {
-  background: #0b0816;
+  background: #1c173b;
   color: #fff;
 }
 
@@ -2279,10 +2287,15 @@ body {
   font-family: "Open Sans", helvetica, arial, verdana, sans-serif;
 }
 
-.h1, .h2, .h3, .h4 {
+.h0, .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: 1em;
   font-weight: bold;
-  line-height: 100%;
+  line-height: normal;
+}
+
+.h0 {
+  font-size: 3.375em;
+  margin-bottom: 0;
 }
 
 .h1 {
@@ -2301,8 +2314,12 @@ body {
   font-size: 0.9375em;
 }
 
-.h5, p, .btn.big {
+.h5, p, .btn.big, ul.list {
   font-size: 0.875em;
+}
+
+.h6, .small {
+  font-size: 0.75em;
 }
 
 #content {
@@ -2311,7 +2328,7 @@ body {
 
 /* COLORS */
 .yellow {
-  color: #ffc923;
+  color: #ebb019;
 }
 
 .grey {

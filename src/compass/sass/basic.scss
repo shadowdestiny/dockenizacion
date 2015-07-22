@@ -38,6 +38,8 @@ select{padding:5px; border:1px solid #bbb;}
 button{cursor:pointer;}
 hr{border:0; background:$grey-light; height:1px; margin-bottom:1em;}
 
+ul.list {margin:0 0 1em 2em;}
+.list li{margin-bottom:.5em;}
 .no-li{list-style-type:none;}
 .no-li li{margin-bottom:0;}
 .left{float:left;}
@@ -223,16 +225,18 @@ $var2-pulseRight:20px,0;
 
 /* TYPOGRAPHY */
 body{font-family:$basic-font;}
-.h1, .h2, .h3, .h4{margin-bottom:1em; font-weight:bold; line-height:100%;}
+.h0, .h1, .h2, .h3, .h4, .h5, .h6{margin-bottom:1em; font-weight:bold; line-height:normal;}
+.h0{font-size:$h0; margin-bottom:0;}
 .h1{font-size:$h1;}
 .h2{font-size:$h2;}
 .h3{font-size:$h3;}
 .h4{font-size:$h4;}
-.h5, p, .btn.big{font-size:$basic-size;}
+.h5, p, .btn.big, ul.list{font-size:$basic-size;}
+.h6, .small{font-size:$small;}
 #content{font-family:$basic-font;}
 
 /* COLORS */
-.yellow{color:$yellowTxt;}
+.yellow{color:$yellow-dark;}
 .grey{color:$grey-light;}
 
 /* ARROW BOX */
