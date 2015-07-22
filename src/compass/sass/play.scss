@@ -35,7 +35,7 @@ $gap2:5px; 	/* Gap between numbers */
 .gameplay .h3.blue{color:$blue; margin-bottom:1.25em;}
 .line{border:2px solid $yellow; border-radius:5px; background:#fff;}
 .line:hover{border-color:$purple; transition:border .2s ease;}
-.line .ico-shuffle{font-size:160%; top:-1px;}
+.line .ico-shuffle{font-size:160%;}
 .line .ico-m{font-size:130%; top:2px;}
 .combo{position:relative; margin:-18px auto 0; width:110px;}
 .combo .btn{display:block; min-height:35px; line-height:0;}
@@ -46,7 +46,7 @@ $gap2:5px; 	/* Gap between numbers */
 	.ico{margin-left:2px!important;}
 }
 
-/*** DO NOT DELETE ***/
+/*** DO NOT DELETE COMBO BUTTON STYLE ***/
 /*   
 .combo .col6:first-child .btn{
 	border-radius:5px 0 0 5px; border-right:1px solid #eee;
@@ -97,7 +97,10 @@ $gap2:5px; 	/* Gap between numbers */
 .line .ico-checkmark{display:none; position:absolute; top:155px; left:0; width:100%; font-size:600%; color:$green; opacity:.4;}
 .line.active{display:block;}
 .btn.clear{visibility:hidden; position:relative; width:90px; bottom:-16px; margin:-12px auto 0; display:block;}
-.number-on .clear{visibility:visible; }
+
+.btn.clear .ico, .clear-all .ico{position:relative; margin-left:2px; top:1px;}
+.random-all .ico{position:relative; margin-left:2px;}
+.number-on .clear{visibility:visible;}
 
 .add-cart, .add-cart:hover, .add-cart:focus{position:relative; font-weight:bold; text-shadow:0 0 0 transparent; border:1px solid $grey; background:$grey-light; color:#fff; padding:10px; margin-top:10px; cursor:default;}
 .active.add-cart{transition:background .2s,border .2s, color .2s; cursor:pointer; color:#fff; background:$purple; border-color:$purple-dark; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);}

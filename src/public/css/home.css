@@ -166,7 +166,7 @@ ALLOWED: Variable and Extension
 }
 
 .box-result h1 {
-  margin-bottom: .5em;
+  margin-bottom: 0;
 }
 
 .box-result .cols {

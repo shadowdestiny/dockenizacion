@@ -1,11 +1,11 @@
-<li class="active">
+<li class="li-play">
 	<a href="javascript:void(0);">
 		<span class="link desktop">{{ language.translate("Win top prizes") }}</span>
 		<br class="br">
 		<span class="txt">{{ language.translate("Play Games") }}</span>
 	</a>
 </li>
-<li>
+<li class="li-numbers">
 	<a href="javascript:void(0);">
 		<span class="link desktop">{{ language.translate("Winning") }}</span>
 		<br class="br">
@@ -31,7 +31,7 @@
 	</ul>
 
 </li>
-<li class="li-cart">
+<li class="li-help">
 	<a href="javascript:void(0);">
 		<span class="link desktop">{{ language.translate("How to play") }}</span>
 		<br class="br">

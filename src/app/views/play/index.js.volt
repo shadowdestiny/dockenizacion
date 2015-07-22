@@ -169,4 +169,6 @@ $(function(){
 	clearNum(".clear");
 	randomAll(".random-all");
 	clearNumAll(".clear-all");
+
+	$(".li-play").addClass("active");
 });

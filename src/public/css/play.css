@@ -164,7 +164,6 @@ ALLOWED: Variable and Extension
 
 .line .ico-shuffle {
   font-size: 160%;
-  top: -1px;
 }
 
 .line .ico-m {
@@ -200,7 +199,7 @@ ALLOWED: Variable and Extension
   margin-left: 2px !important;
 }
 
-/*** DO NOT DELETE ***/
+/*** DO NOT DELETE COMBO BUTTON STYLE ***/
 /*   
 .combo .col6:first-child .btn{
 	border-radius:5px 0 0 5px; border-right:1px solid #eee;
@@ -252,8 +251,8 @@ ALLOWED: Variable and Extension
 }
 
 .line .gwp.active {
-  background: #0b0816;
-  border: 1px solid #0b0816;
+  background: #1c173b;
+  border: 1px solid #1c173b;
   color: #fff;
 }
 
@@ -321,6 +320,17 @@ ALLOWED: Variable and Extension
   bottom: -16px;
   margin: -12px auto 0;
   display: block;
+}
+
+.btn.clear .ico, .clear-all .ico {
+  position: relative;
+  margin-left: 2px;
+  top: 1px;
+}
+
+.random-all .ico {
+  position: relative;
+  margin-left: 2px;
 }
 
 .number-on .clear {
