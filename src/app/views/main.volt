@@ -35,17 +35,20 @@
         {# EDTD To remove SUBNAV when not connected as account #}
         <div data-role="page" id="nav-account">
             <ul class="no-li" data-role="listview">
-                <li><a href="#main-page" data-transition="slide" data-direction="reverse">My Account</a></li>
-                <li><a href="#main-page" data-transition="slide" data-direction="reverse">My Games</a></li>
-                <li><a href="#main-page" data-transition="slide" data-direction="reverse">My Wallet</a></li>
-                <li><a href="#main-page" data-transition="slide" data-direction="reverse">Messages</a></li>
-                <li><a href="#main-page" data-transition="slide" data-direction="reverse">Sign out</a></li>
+                <li><a href="#main-page" data-transition="slide" data-direction="reverse">{{ language.translate("My Account") }}</a></li>
+                <li><a href="#main-page" data-transition="slide" data-direction="reverse">{{ language.translate("My Games") }}</a></li>
+                <li><a href="#main-page" data-transition="slide" data-direction="reverse">{{ language.translate("My Wallet") }}</a></li>
+                <li><a href="#main-page" data-transition="slide" data-direction="reverse">{{ language.translate("Messages") }}</a></li>
+                <li><a href="#main-page" data-transition="slide" data-direction="reverse">{{ language.translate("Sign out") }}</a></li>
             </ul>
         </div> 
 
         <div data-role="page" id="language">
-            Here language info
-            <a href="#main-page" data-transition="slide" data-direction="reverse">go back</a>
+            <ul class="no-li" data-role="listview">
+                {% for code, name in currencies %}
+                    <li><a href="#main-page" onclick="globalFunctions.setCurrency('{{ code }}')" data-transition="slide" data-direction="reverse">{{ name }}</a></li>
+                {% endfor %}
+            </ul>
         </div>
 
     </body>
