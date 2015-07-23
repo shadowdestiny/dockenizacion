@@ -20,7 +20,7 @@ class CurrencyService
     public function convert(Money $from,Currency $to)
     {
         $currency_pair = $this->currencyApi->getRate($from->getCurrency(), $to);
-        return $currency_pair->convert($from, $to);
+        return $currency_pair->convert($from);
     }
 
     public function toString(Money $money)

@@ -2,6 +2,7 @@
 namespace EuroMillions\config\bootstrap;
 
 use EuroMillions\components\EnvironmentDetector;
+use EuroMillions\components\PhalconCookiesWrapper;
 use EuroMillions\components\PhalconRequestWrapper;
 use EuroMillions\components\PhalconSessionWrapper;
 use EuroMillions\interfaces\IBootstrapStrategy;
@@ -168,7 +169,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     protected function configCookies()
     {
-        return new Phalcon\Http\Response\Cookies();
+        return new PhalconCookiesWrapper();
     }
 
     protected function configSession()

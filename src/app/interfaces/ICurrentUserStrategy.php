@@ -1,12 +1,10 @@
 <?php
 namespace EuroMillions\interfaces;
 
-use EuroMillions\entities\User;
-
 interface ICurrentUserStrategy
 {
     /**
-     * @return User
+     * @return IUser
      */
     public function getUser();
 }

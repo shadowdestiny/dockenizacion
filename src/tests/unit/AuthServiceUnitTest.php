@@ -9,7 +9,6 @@ use EuroMillions\vo\RememberToken;
 use EuroMillions\vo\UserId;
 use EuroMillions\vo\Username;
 use Prophecy\Argument;
-use Rhumsaa\Uuid\Uuid;
 use tests\base\UnitTestBase;
 
 class AuthServiceUnitTest extends UnitTestBase
@@ -33,7 +32,7 @@ class AuthServiceUnitTest extends UnitTestBase
     {
         $this->userRepository_double = $this->prophesize('EuroMillions\repositories\UserRepository');
         parent::setUp();
-        $this->userId = UserId::create(strtoupper(Uuid::uuid4()));
+        $this->userId = UserId::create();
     }
 
     /**

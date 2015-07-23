@@ -1,8 +1,6 @@
 <?php
 namespace EuroMillions\controllers\ajax;
 
-use EuroMillions\components\PhalconSessionWrapper;
-use EuroMillions\services\preferences_strategies\WebCurrencyStrategy;
 use Money\Currency;
 
 class UserSettingsController extends AjaxControllerBase

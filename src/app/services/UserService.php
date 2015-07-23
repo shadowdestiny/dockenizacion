@@ -1,7 +1,7 @@
 <?php
 namespace EuroMillions\services;
 use EuroMillions\entities\User;
-use EuroMillions\interfaces\ICurrencyStrategy;
+use EuroMillions\interfaces\IStorageStrategy;
 use EuroMillions\repositories\UserRepository;
 use EuroMillions\vo\UserId;
 use Money\Currency;
@@ -18,15 +18,15 @@ class UserService
      */
     private $currencyService;
     /**
-     * @var ICurrencyStrategy
+     * @var IStorageStrategy
      */
-    private $currencyStrategy;
+    private $storageStrategy;
 
-    public function __construct(UserRepository $userRepository, CurrencyService $currencyService, ICurrencyStrategy $strategy)
+    public function __construct(UserRepository $userRepository, CurrencyService $currencyService, IStorageStrategy $strategy)
     {
         $this->userRepository = $userRepository;
         $this->currencyService = $currencyService;
-        $this->currencyStrategy = $strategy;
+        $this->storageStrategy = $strategy;
     }
 
     public function getBalance(UserId $userId)
@@ -38,7 +38,7 @@ class UserService
 
     public function setCurrency(Currency $currency)
     {
-        $this->currencyStrategy->set($currency);
+        $this->storageStrategy->setCurrency($currency);
     }
 
     /**
@@ -47,7 +47,7 @@ class UserService
      */
     public function getJackpotInMyCurrency(Money $jackpot)
     {
-        return $this->currencyService->convert($jackpot, $this->currencyStrategy->get());
+        return $this->currencyService->convert($jackpot, $this->storageStrategy->getCurrency());
     }
 
     public function getBalanceFromCurrentUser()
@@ -55,4 +55,14 @@ class UserService
         //EMTD after user is registered and logged in
     }
 
+    public function getCurrentUser()
+    {
+        return $this->storageStrategy->getCurrentUser();
+    }
+
+    public function isLogged()
+    {
+        $user = $this->getCurrentUser();
+        return get_class($user) == 'EuroMillions\entities\User';
+    }
 }

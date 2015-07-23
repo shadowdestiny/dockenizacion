@@ -24,6 +24,8 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
      * when called
      * should returnProperBalance
      * @dataProvider getUserIdsAndExpectedBalances
+     * @param $uuid
+     * @param $expected
      */
     public function test_getBalance_called_returnProperBalance($uuid, $expected)
     {
