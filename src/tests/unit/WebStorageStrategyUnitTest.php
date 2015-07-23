@@ -105,6 +105,35 @@ class WebStorageStrategyUnitTest extends UnitTestBase
     }
 
     /**
+     * method getCurrentUser
+     * when calledWithoutUserInSessionNorCookie
+     * should setUserInSessionAndUserIdInCookie
+     */
+    public function test_getCurrentUser_calledWithoutUserInSessionNorCookie_setUserInSessionAndUserIdInCookie()
+    {
+        $this->session_double->get(WebStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
+        $this->cookieManager_double->get(WebStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
+        $this->session_double->set(WebStorageStrategy::CURRENT_USER_VAR, Argument::type('EuroMillions\entities\GuestUser'))->shouldBeCalled();
+        $this->cookieManager_double->set(WebStorageStrategy::CURRENT_USER_VAR, Argument::type('EuroMillions\vo\UserId'), WebStorageStrategy::GUEST_USER_EXPIRATION)->shouldBeCalled();
+        $this->exerciseGetCurrentUser();
+    }
+
+    /**
+     * method getCurrentUser
+     * when calledWithoutUserInSessionButUserIdInCookie
+     * should setUserInSession
+     */
+    public function test_getCurrentUser_calledWithoutUserInSessionButUserIdInCookie_setUserInSession()
+    {
+        $user_id = UserId::create();
+        $this->session_double->get(WebStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
+        $this->cookieManager_double->get(WebStorageStrategy::CURRENT_USER_VAR)->willReturn($user_id);
+        $expected = new GuestUser();
+        $expected->setId($user_id);
+        $this->session_double->set(WebStorageStrategy::CURRENT_USER_VAR, $expected);
+    }
+
+    /**
      * method setCurrentUser
      * when calledWithProperUser
      * should setUserInSession

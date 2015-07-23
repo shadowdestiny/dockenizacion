@@ -53,6 +53,7 @@ class WebStorageStrategy implements IStorageStrategy
             }
             $user = new GuestUser();
             $user->setId($user_id);
+            $this->setCurrentUser($user);
         }
         return $user;
     }
