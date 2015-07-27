@@ -1,5 +1,7 @@
 <?php
 namespace EuroMillions\services;
+use Alcohol\ISO4217;
+use antonienko\MoneyFormatter\MoneyFormatter;
 use EuroMillions\entities\User;
 use EuroMillions\interfaces\IStorageStrategy;
 use EuroMillions\repositories\UserRepository;
@@ -64,5 +66,19 @@ class UserService
     {
         $user = $this->getCurrentUser();
         return get_class($user) == 'EuroMillions\entities\User';
+    }
+
+    public function getMyCurrencyNameAndSymbol()
+    {
+        $currency = $this->storageStrategy->getCurrency();
+        $iso4217 = new ISO4217();
+        $currency_data = $iso4217->getByAlpha3($currency->getName());
+        $mf = new MoneyFormatter();
+        $symbol = $mf->getSymbolFromCurrency('en_US', $currency);
+        if (!$symbol)
+        {
+            $symbol = $currency->getName();
+        }
+        return ['symbol' => $symbol, 'name' => $currency_data['name']];
     }
 }

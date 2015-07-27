@@ -84,6 +84,8 @@ class WebStorageStrategyUnitTest extends UnitTestBase
         $expected_id = UserId::create();
         $this->session_double->get(WebStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
         $this->cookieManager_double->get(WebStorageStrategy::CURRENT_USER_VAR)->willReturn($expected_id);
+        $this->session_double->set(Argument::any(), Argument::any())->willReturn(null);
+        $this->cookieManager_double->set(Argument::any(),Argument::any(),Argument::any())->willReturn(null);
         $expected = new GuestUser();
         $expected->setId($expected_id);
         $actual = $this->exerciseGetCurrentUser();
@@ -99,6 +101,8 @@ class WebStorageStrategyUnitTest extends UnitTestBase
     {
         $this->session_double->get(WebStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
         $this->cookieManager_double->get(WebStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
+        $this->session_double->set(Argument::any(), Argument::any())->willReturn(null);
+        $this->cookieManager_double->set(Argument::any(),Argument::any(),Argument::any())->willReturn(null);
         $actual = $this->exerciseGetCurrentUser();
         $this->assertInstanceOf('EuroMillions\entities\GuestUser', $actual);
 

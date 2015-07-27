@@ -1,9 +1,13 @@
 <?php
 namespace tests\unit;
+
 use EuroMillions\entities\GuestUser;
 use EuroMillions\entities\User;
 use EuroMillions\interfaces\IUser;
+use Money\Currency;
+use Prophecy\Argument;
 use tests\base\UnitTestBase;
+
 class UserServiceUnitTest extends UnitTestBase
 {
     private $userRepository_double;
@@ -13,7 +17,7 @@ class UserServiceUnitTest extends UnitTestBase
     public function setUp()
     {
         parent::setUp();
-        $this->userRepository_double = $this->prophesize(self::REPOSITORIES_NAMESPACE.'UserRepository');
+        $this->userRepository_double = $this->prophesize(self::REPOSITORIES_NAMESPACE . 'UserRepository');
         $this->currencyService_double = $this->prophesize('EuroMillions\services\CurrencyService');
         $this->storageStrategy_double = $this->prophesize('EuroMillions\interfaces\IStorageStrategy');
     }
@@ -54,6 +58,43 @@ class UserServiceUnitTest extends UnitTestBase
             [new GuestUser(), false],
             [new User(), true],
         ];
+    }
+
+    /**
+     * method getMyCurrencyNameAndSymbol
+     * when currencyIsSetInStorage
+     * should returnProperValueAndSymbol
+     * @dataProvider getCurrenciesAndSymbols
+     */
+    public function test_getMyCurrencyNameAndSymbol_currencyIsSetInStorage_returnProperValueAndSymbol($code, $name, $symbol)
+    {
+        $this->storageStrategy_double->getCurrency()->willReturn(new Currency($code));
+        $sut = $this->getSut();
+        $actual = $sut->getMyCurrencyNameAndSymbol();
+        $this->assertEquals(['symbol' => $symbol, 'name' => $name], $actual);
+    }
+
+    public function getCurrenciesAndSymbols()
+    {
+        return [
+            ['EUR', 'Euro', '€'],
+            ['USD', 'US Dollar', '$'],
+            ['COP', 'Colombian Peso', 'COP'],
+            ['OMR', 'Omani Rial', 'OMR'],
+        ];
+    }
+
+    /**
+     * method getMyCurrencyNameAndSymbol
+     * when currencyIsNotSet
+     * should returnEuro
+     */
+    public function test_getMyCurrencyNameAndSymbol_currencyIsNotSet_returnEuro()
+    {
+        $this->storageStrategy_double->getCurrency(Argument::any())->willReturn(null);
+        $sut = $this->getSut();
+        $actual = $sut->getMyCurrencyNameAndSymbol();
+        $this->assertEquals(['symbol' => '€', 'name' => 'Euro'], $actual);
     }
 
 

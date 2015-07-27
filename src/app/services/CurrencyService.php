@@ -39,9 +39,9 @@ class CurrencyService
     {
         //EMTD
         return [
-            'EUR' => 'Euro',
-            'USD' => 'US Dollar',
-            'COP' => 'Colombian Peso'
+            ['symbol' => '€', 'code' => 'EUR', 'name' => 'Euro'],
+            ['symbol' => '$', 'code' => 'USD', 'name' => 'US Dollar'],
+            ['symbol' => 'COP', 'code' => 'COP', 'name' => 'Colombian Peso'],
         ];
     }
 

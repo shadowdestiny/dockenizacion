@@ -1,10 +1,10 @@
 <li class="li-currency">
-	<a class="link" href="javascript:void(0);">{{ currency_symbol }} Euro</a>
+	<a class="link" href="javascript:void(0);">{{ user_currency['symbol'] }} {{ user_currency['name'] }}</a>
 
 	<div class="div-currency">
 		<ul class="no-li">
-            {% for code, name in currencies %}
-				<li><a href="javascript:globalFunctions.setCurrency('{{ code }}');">{{ name }}</a></li>
+            {% for currency in currencies %}
+				<li><a href="javascript:globalFunctions.setCurrency('{{ currency['code'] }}');">{{ currency['symbol'] }} {{ currency['name'] }}</a></li>
             {% endfor %}
         </ul>
 	</div>
