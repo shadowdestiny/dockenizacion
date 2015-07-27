@@ -294,15 +294,19 @@ img.right {
   background: #fff;
   border-radius: 5px;
   padding: 15px 20px;
-  width: 400px;
-  margin: 0 auto 8em;
+  margin: 0 auto;
   position: relative;
 }
-.box-basic h1 {
+.box-basic > h1 {
   color: #ebb019;
 }
 .box-basic .submit {
   margin-top: 1em;
+}
+
+.box-basic.small {
+  width: 400px;
+  margin: 0 auto 8em;
 }
 
 /* BUTTONS */
@@ -358,7 +362,6 @@ img.right {
   box-shadow: 0 0 0 1px #eee inset, 0 5px 20px #888 inset !important;
 }
 
-/*.btn .ico{font-size:75%; margin-left:8px;}*/
 .btn.grey, .tab, .tab:visited {
   color: #fff;
 }
@@ -766,7 +769,11 @@ body {
 }
 
 .grey {
-  color: #aaa;
+  color: #777;
+}
+
+.purple {
+  color: #ae5279;
 }
 
 /* ARROW BOX */

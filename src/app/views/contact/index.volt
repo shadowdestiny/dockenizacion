@@ -7,7 +7,7 @@
 {% block body %}
 <main id="content">
     <div class="wrapper">
-        <div class="box-basic">
+        <div class="box-basic small">
             <h1 class="h2">{{ language.translate("Contact us") }}</h1>
 
             <p>{{ language.translate("What can we help you with?") }}</p>
@@ -46,7 +46,7 @@
                 </label>
 
                 <div class="cl">
-                    <a href="javascript:void(0);" class="btn blue submit right">{{ language.translate("Send message") }}</a>
+                    <a href="javascript:void(0);" class="btn blue big submit right">{{ language.translate("Send message") }}</a>
                 </div>
             </form>
         </div>
