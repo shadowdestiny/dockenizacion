@@ -148,6 +148,10 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'controller' => 'index',
             'action'     => 'index'
         ));
+        $router->add("/sign-in", array(
+            'controller' => 'userAccess',
+            'action'     => 'signIn'
+        ));
         $router->add('/ajax/:controller/:action/:params', array(
             'namespace' => 'EuroMillions\controllers\ajax',
             'controller' => 1,

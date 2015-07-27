@@ -1,5 +1,6 @@
 <?php
 namespace EuroMillions\controllers;
+
 use EuroMillions\entities\Language;
 use EuroMillions\services\CurrencyService;
 use EuroMillions\services\LanguageService;
@@ -40,6 +41,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->setActiveLanguages();
         $this->setActiveCurrencies();
         $this->setTopNavValues();
+        $this->setNavValues();
         $this->setCommonTemplateVariables();
     }
 
@@ -47,6 +49,11 @@ class PublicSiteControllerBase extends ControllerBase
     {
         $user_currency = $this->userService->getMyCurrencyNameAndSymbol();
         $this->view->setVar('user_currency', $user_currency);
+    }
+
+    private function setNavValues()
+    {
+        $this->view->setVar('user_logged', $this->userService->isLogged());
     }
 
     private function setActiveCurrencies()

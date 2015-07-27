@@ -8,6 +8,7 @@ use EuroMillions\interfaces\ISession;
 use EuroMillions\interfaces\IUser;
 use EuroMillions\vo\UserId;
 use Money\Currency;
+use Phalcon\Http\Cookie;
 
 class WebStorageStrategy implements IStorageStrategy
 {
@@ -46,8 +47,10 @@ class WebStorageStrategy implements IStorageStrategy
     {
         $user = $this->session->get(self::CURRENT_USER_VAR);
         if(!$user) {
+            /** @var Cookie $cookie */
+            $cookie = $this->cookieManager->get(self::CURRENT_USER_VAR);
             /** @var UserId $user_id */
-            $user_id = $this->cookieManager->get(self::CURRENT_USER_VAR);
+            $user_id = $cookie->getValue();
             if (!$user_id) {
                 $user_id = UserId::create();
             }
