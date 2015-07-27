@@ -4,15 +4,14 @@ namespace EuroMillions\services;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\components\EmTranslationAdapter;
 use EuroMillions\interfaces\ICurrencyApi;
-use EuroMillions\interfaces\ICurrencyStrategy;
+use EuroMillions\interfaces\IStorageStrategy;
 use EuroMillions\interfaces\ILanguageStrategy;
 use EuroMillions\repositories\LanguageRepository;
 use EuroMillions\repositories\UserRepository;
 use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\services\external_apis\RedisCurrencyApiCache;
 use EuroMillions\services\external_apis\YahooCurrencyApi;
-use EuroMillions\services\preferences_strategies\WebCurrencyStrategy;
-use Phalcon\Config\Adapter\Ini;
+use EuroMillions\services\preferences_strategies\WebStorageStrategy;
 use Phalcon\Di;
 
 class DomainServiceFactory
@@ -53,14 +52,14 @@ class DomainServiceFactory
     /**
      * @param UserRepository|null $userRepository
      * @param CurrencyService|null $currencyService
-     * @param ICurrencyStrategy $currencyStrategy
+     * @param IStorageStrategy $currencyStrategy
      * @return UserService
      */
-    public function getUserService(UserRepository $userRepository = null, CurrencyService $currencyService = null, ICurrencyStrategy $currencyStrategy = null)
+    public function getUserService(UserRepository $userRepository = null, CurrencyService $currencyService = null, IStorageStrategy $currencyStrategy = null)
     {
         if (!$userRepository) $userRepository = $this->getRepository('User');
         if (!$currencyService) $currencyService = $this->getCurrencyService();
-        if (!$currencyStrategy) $currencyStrategy = new WebCurrencyStrategy($this->di->get('session'));
+        if (!$currencyStrategy) $currencyStrategy = new WebStorageStrategy($this->di->get('session'), $this->di->get('cookies'));
         return new UserService($userRepository, $currencyService, $currencyStrategy);
     }
 

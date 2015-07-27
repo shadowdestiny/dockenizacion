@@ -1,8 +1,8 @@
 <?php
 namespace EuroMillions\controllers;
+
 use EuroMillions\entities\Language;
 use EuroMillions\services\CurrencyService;
-use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\services\LanguageService;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\services\LotteriesDataService;
@@ -24,6 +24,8 @@ class PublicSiteControllerBase extends ControllerBase
     protected $languageService;
     /** @var  CurrencyService */
     protected $currencyService;
+    /** @var  UserService */
+    protected $userService;
 
     public function initialize(LotteriesDataService $lotteriesDataService = null, LanguageService $languageService = null, CurrencyService $currencyService = null, UserService $userService = null)
     {
@@ -38,7 +40,20 @@ class PublicSiteControllerBase extends ControllerBase
     {
         $this->setActiveLanguages();
         $this->setActiveCurrencies();
+        $this->setTopNavValues();
+        $this->setNavValues();
         $this->setCommonTemplateVariables();
+    }
+
+    private function setTopNavValues()
+    {
+        $user_currency = $this->userService->getMyCurrencyNameAndSymbol();
+        $this->view->setVar('user_currency', $user_currency);
+    }
+
+    private function setNavValues()
+    {
+        $this->view->setVar('user_logged', $this->userService->isLogged());
     }
 
     private function setActiveCurrencies()
@@ -61,8 +76,5 @@ class PublicSiteControllerBase extends ControllerBase
     private function setCommonTemplateVariables()
     {
         $this->view->setVar('currency_symbol_first', true);
-        $jackpot = $this->userService->getJackpotInMyCurrency($this->lotteriesDataService->getNextJackpot('EuroMillions'));
-        $this->view->setVar('jackpot_value', $jackpot->getAmount()/100);
-        $this->view->setVar('currency_symbol', $this->currencyService->getSymbol($jackpot));
     }
 }

@@ -2,14 +2,16 @@
 namespace EuroMillions\entities;
 
 use EuroMillions\interfaces\IEntity;
+use EuroMillions\interfaces\IUser;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\RememberToken;
+use EuroMillions\vo\UserId;
 use EuroMillions\vo\Username;
 use Money\Money;
 use Rhumsaa\Uuid\Uuid;
 
-class User extends EntityBase implements IEntity
+class User extends EntityBase implements IEntity,IUser
 {
     /** @var  Uuid */
     protected $id;
@@ -24,7 +26,7 @@ class User extends EntityBase implements IEntity
     /** @var  Money */
     protected $balance;
 
-    public function setId(Uuid $id)
+    public function setId(UserId $id)
     {
         $this->id = $id;
     }

@@ -20,7 +20,7 @@ class CurrencyService
     public function convert(Money $from,Currency $to)
     {
         $currency_pair = $this->currencyApi->getRate($from->getCurrency(), $to);
-        return $currency_pair->convert($from, $to);
+        return $currency_pair->convert($from);
     }
 
     public function toString(Money $money)
@@ -39,9 +39,9 @@ class CurrencyService
     {
         //EMTD
         return [
-            'EUR' => 'Euro',
-            'USD' => 'US Dollar',
-            'COP' => 'Colombian Peso'
+            ['symbol' => '€', 'code' => 'EUR', 'name' => 'Euro'],
+            ['symbol' => '$', 'code' => 'USD', 'name' => 'US Dollar'],
+            ['symbol' => 'COP', 'code' => 'COP', 'name' => 'Colombian Peso'],
         ];
     }
 

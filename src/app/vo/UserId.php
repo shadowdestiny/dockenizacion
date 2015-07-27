@@ -1,7 +1,9 @@
 <?php
 namespace EuroMillions\vo;
 
-class UserId 
+use Rhumsaa\Uuid\Uuid;
+
+class UserId
 {
     private $id;
 
@@ -14,7 +16,7 @@ class UserId
         return $this->id;
     }
 
-    public static function create($anId) {
-        return new static($anId);
+    public static function create() {
+        return new static(strtoupper(Uuid::uuid4()));
     }
 }

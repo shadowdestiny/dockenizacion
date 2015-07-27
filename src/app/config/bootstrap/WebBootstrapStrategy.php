@@ -2,6 +2,7 @@
 namespace EuroMillions\config\bootstrap;
 
 use EuroMillions\components\EnvironmentDetector;
+use EuroMillions\components\PhalconCookiesWrapper;
 use EuroMillions\components\PhalconRequestWrapper;
 use EuroMillions\components\PhalconSessionWrapper;
 use EuroMillions\interfaces\IBootstrapStrategy;
@@ -147,6 +148,10 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'controller' => 'index',
             'action'     => 'index'
         ));
+        $router->add("/sign-in", array(
+            'controller' => 'userAccess',
+            'action'     => 'signIn'
+        ));
         $router->add('/ajax/:controller/:action/:params', array(
             'namespace' => 'EuroMillions\controllers\ajax',
             'controller' => 1,
@@ -168,7 +173,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     protected function configCookies()
     {
-        return new Phalcon\Http\Response\Cookies();
+        return new PhalconCookiesWrapper();
     }
 
     protected function configSession()
