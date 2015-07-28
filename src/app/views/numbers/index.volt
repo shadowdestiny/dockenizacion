@@ -1,5 +1,10 @@
 {% extends "main.volt" %}
-{% block template_css %}<link rel="stylesheet" href="/css/numbers.css">{% endblock %}
+{% block template_css %}
+	<link rel="stylesheet" href="/css/numbers.css">
+	<!--[if IE 9]>
+	<style>.laurel{display:none;}</style>
+	<![endif]-->
+{% endblock %}
 {% block bodyClass %}numbers{% endblock %}
 {% block template_scripts %}
 <script>
@@ -179,12 +184,14 @@ $(function(){
 				</div>
 				<div class="cols bottom">
 					<div class="col8">
-						<select class="select right">
-							<option>07 August 2015 - Draw 116</option>
-							<option>04 August 2015 - Draw 115</option>
-							<option>01 August 2015 - Draw 114</option>
-						</select>
-						<span class="txt right">Previous results</span>
+						<div class="prev-results">
+							<span class="txt">Previous results</span>
+							<select class="select">
+								<option>07 August 2015 - Draw 116</option>
+								<option>04 August 2015 - Draw 115</option>
+								<option>01 August 2015 - Draw 114</option>
+							</select>
+						</div>
 					</div>
 					<div class="col4">{# nothing here #}</div>
 				</div>

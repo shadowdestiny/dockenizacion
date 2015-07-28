@@ -51,7 +51,7 @@
     .box-value{
         display:block; font-weight:bold; margin-bottom:28px;
         .yellow{color:$yellow-light;}
-        .value{font-size:$h0;}
+        .value{font-size:50px;}
         .currency{position:relative; font-size:$h1; margin-right:7px; top:-7px;}
     }
     .next-draw{position:relative; top:-8px; margin-right:15px; font-size:13px; line-height:15px; font-weight:bold; display:inline-block;}
@@ -95,15 +95,16 @@
     .pad{padding:5px 10px 1px;}
 }
 .laurel{position:absolute; display:block; width:50px; top:-50px;}
-.laurel.first{left:-21px; transform:rotateY(-180deg);}
+.laurel.first{left:-21px; transform:rotateY(-180deg); }
 .laurel.last{right:-21px;}
 
 
-body.numbers{
-    .bottom{
-        .txt{font-weight:bold; font:$basic-font; margin-right:10px; line-height:30px;}
-    }
+.prev-results{
+    float:right;
+    .txt{font-weight:bold; font:$basic-font; margin-right:10px; line-height:30px;}
     .select{width:auto; background:#fff; padding:4px 8px;}
+}
+body.numbers{
     .crown{position:absolute; top:-89px; left:-16px; width:75px; transform:rotate(-20deg);}
 }
 /* JQUERY MOBILE TABLE STYLE*/
@@ -117,7 +118,6 @@ body.numbers{
 }
 
 @media only screen and (max-width:1200px){
-/*body.numbers{border:10px solid #0ff;} /* BLUE WATER */
     .box-estimated{
         h1{margin-bottom:5px;}
         .btn{float:none; margin:auto; clear:both; margin-top:10px;}
@@ -134,9 +134,7 @@ body.numbers{
  
 /* Medium Devices, Desktops */
 @media only screen and (max-width:992px){
-/*body.numbers{border:10px solid #ff0;} /* YELLOW */
     .box-estimated{
-
         .currency{top:-4px; font-size:$basic-size;}
         .next-draw{
           display:block; margin:0 0 10px; top:0;
@@ -144,6 +142,10 @@ body.numbers{
           .br{display:none;}
         }
         .countdown{margin:0 auto 10px;}
+        .box-value{
+            margin-bottom:20px;
+            .currency, .value{font-size:$h2;}
+        }
     }
     .box-results .grey{position:absolute; left:13px; margin-top:-13px;}
     .td-star-numbers{min-width:71px;}
@@ -153,7 +155,6 @@ body.numbers{
 
 /* Small Devices, Tablets */
 @media only screen and (max-width:768px){
-/*body.numbers{border:2px solid #0f0;} /* GREEN */
     .wrapper > .box-basic{background:$yellow-lighter;}
     .box-history{
         .box-basic{border:1px solid $yellow; border-radius:5px;}
@@ -162,7 +163,7 @@ body.numbers{
     .box-estimated{display:none;}
     .box-results{min-height:auto;}
     .table tr:nth-child(even) td, .table2 tr:nth-child(odd) td{background-color:#fff;}
-    body.numbers .bottom{margin-bottom:1em;}
+    body.numbers .bottom{position:relative; margin:-15px 0 1em;}
 }
 
 @media screen and (min-width:480px){
@@ -172,21 +173,21 @@ body.numbers{
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width:480px){
-body.numbers{border:2px solid #00f;} /* BLUE*/
+    .ui-responsive td{width:100%; float:left; clear:left;}
+    .ui-responsive th{display:none;}
     .box-results{
         .purple{display:block;}
         .content{padding-bottom:20px;}
         .grey{margin-top:-8px;}
+        .star .txt{display:none;}
     }
-    .ui-responsive td{width:100%; float:left; clear:left;}
-    .ui-responsive th{display:none;}
-    .box-results .star .txt{display:none;}
     .table th, .table td, .table2 th, .table2 td{border-bottom:0; padding:4px 8px}
     .table{border-top:1px solid $yellow;}
     .box-history .pad, .table .td-payout, .table2 .td-star-numbers{border-bottom:1px solid $yellow;}
     .box-history .h2{display:inline-block; padding-bottom:4px;}
     .box-history .box-basic, .box-current-winners{background:$yellow;}
-    h1.purple{font-size:$h3; color:#fff;}
+    h1.purple{font-size:$h3; color:#fff; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);}
+
 }
  
 /* Custom, iPhone Retina */

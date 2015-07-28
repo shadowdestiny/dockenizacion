@@ -170,7 +170,7 @@ ALLOWED: Variable and Extension
   color: #ffcf58;
 }
 .box-estimated .box-value .value {
-  font-size: 3.375em;
+  font-size: 50px;
 }
 .box-estimated .box-value .currency {
   position: relative;
@@ -318,17 +318,21 @@ ALLOWED: Variable and Extension
   right: -21px;
 }
 
-body.numbers .bottom .txt {
+.prev-results {
+  float: right;
+}
+.prev-results .txt {
   font-weight: bold;
   font: "Open Sans", helvetica, arial, verdana, sans-serif;
   margin-right: 10px;
   line-height: 30px;
 }
-body.numbers .select {
+.prev-results .select {
   width: auto;
   background: #fff;
   padding: 4px 8px;
 }
+
 body.numbers .crown {
   position: absolute;
   top: -89px;
@@ -367,7 +371,6 @@ body.numbers .crown {
   }
 }
 @media only screen and (max-width: 1200px) {
-  /*body.numbers{border:10px solid #0ff;} /* BLUE WATER */
   .box-estimated h1 {
     margin-bottom: 5px;
   }
@@ -401,7 +404,6 @@ body.numbers .crown {
 }
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 992px) {
-  /*body.numbers{border:10px solid #ff0;} /* YELLOW */
   .box-estimated .currency {
     top: -4px;
     font-size: 0.875em;
@@ -419,6 +421,12 @@ body.numbers .crown {
   }
   .box-estimated .countdown {
     margin: 0 auto 10px;
+  }
+  .box-estimated .box-value {
+    margin-bottom: 20px;
+  }
+  .box-estimated .box-value .currency, .box-estimated .box-value .value {
+    font-size: 1.375em;
   }
 
   .box-results .grey {
@@ -439,7 +447,6 @@ body.numbers .crown {
 }
 /* Small Devices, Tablets */
 @media only screen and (max-width: 768px) {
-  /*body.numbers{border:2px solid #0f0;} /* GREEN */
   .wrapper > .box-basic {
     background: #fffeec;
   }
@@ -466,7 +473,8 @@ body.numbers .crown {
   }
 
   body.numbers .bottom {
-    margin-bottom: 1em;
+    position: relative;
+    margin: -15px 0 1em;
   }
 }
 @media screen and (min-width: 480px) {
@@ -481,21 +489,6 @@ body.numbers .crown {
 }
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {
-  body.numbers {
-    border: 2px solid #00f;
-  }
-
-  /* BLUE*/
-  .box-results .purple {
-    display: block;
-  }
-  .box-results .content {
-    padding-bottom: 20px;
-  }
-  .box-results .grey {
-    margin-top: -8px;
-  }
-
   .ui-responsive td {
     width: 100%;
     float: left;
@@ -506,6 +499,15 @@ body.numbers .crown {
     display: none;
   }
 
+  .box-results .purple {
+    display: block;
+  }
+  .box-results .content {
+    padding-bottom: 20px;
+  }
+  .box-results .grey {
+    margin-top: -8px;
+  }
   .box-results .star .txt {
     display: none;
   }
@@ -535,6 +537,7 @@ body.numbers .crown {
   h1.purple {
     font-size: 1.125em;
     color: #fff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   }
 }
 /* Custom, iPhone Retina */
