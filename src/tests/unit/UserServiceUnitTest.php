@@ -97,6 +97,20 @@ class UserServiceUnitTest extends UnitTestBase
         $this->assertEquals(['symbol' => '€', 'name' => 'Euro'], $actual);
     }
 
+    /**
+     * method getCurrency
+     * when calledWithoutCurrencyOnStorage
+     * should returnEuro
+     */
+    public function test_getCurrency_calledWithoutCurrencyOnStorage_returnEuro()
+    {
+        $this->storageStrategy_double->getCurrency(Argument::any())->willReturn(null);
+        $expected = new Currency('EUR');
+        $sut = $this->getSut();
+        $actual = $sut->getCurrency();
+        $this->assertEquals($expected, $actual);
+    }
+
 
     /**
      * @return \EuroMillions\services\UserService

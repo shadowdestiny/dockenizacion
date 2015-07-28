@@ -43,6 +43,15 @@ class UserService
         $this->storageStrategy->setCurrency($currency);
     }
 
+    public function getCurrency()
+    {
+        $currency = $this->storageStrategy->getCurrency();
+        if (!$currency) {
+            $currency = new Currency('EUR');
+        }
+        return $currency;
+    }
+
     /**
      * @param Money $jackpot
      * @return Money
@@ -70,7 +79,7 @@ class UserService
 
     public function getMyCurrencyNameAndSymbol()
     {
-        $currency = $this->storageStrategy->getCurrency();
+        $currency = $this->getCurrency();
         $iso4217 = new ISO4217();
         $currency_data = $iso4217->getByAlpha3($currency->getName());
         $mf = new MoneyFormatter();

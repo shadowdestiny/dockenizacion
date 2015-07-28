@@ -6,6 +6,7 @@ use EuroMillions\entities\User;
 use EuroMillions\services\preferences_strategies\WebStorageStrategy;
 use EuroMillions\vo\UserId;
 use Money\Currency;
+use Phalcon\Http\Cookie;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
 
@@ -82,8 +83,10 @@ class WebStorageStrategyUnitTest extends UnitTestBase
     public function test_getCurrentUser_calledWithUserNotInSessionButUserIdInCookies_returnUserFromCookies()
     {
         $expected_id = UserId::create();
+        $cookie = new Cookie(WebStorageStrategy::CURRENT_USER_VAR);
+        $cookie->setValue($expected_id);
         $this->session_double->get(WebStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
-        $this->cookieManager_double->get(WebStorageStrategy::CURRENT_USER_VAR)->willReturn($expected_id);
+        $this->cookieManager_double->get(WebStorageStrategy::CURRENT_USER_VAR)->willReturn($cookie);
         $this->session_double->set(Argument::any(), Argument::any())->willReturn(null);
         $this->cookieManager_double->set(Argument::any(),Argument::any(),Argument::any())->willReturn(null);
         $expected = new GuestUser();
