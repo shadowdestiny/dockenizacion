@@ -10,6 +10,7 @@ use EuroMillions\services\DomainServiceFactory;
 use Phalcon\Cache\Frontend\Data;
 use Phalcon\Config;
 use Phalcon\Config\Adapter\Ini;
+use Phalcon\Crypt;
 use Phalcon\Di;
 use Redis;
 use Phalcon\Cache\Backend\Redis as PhalconRedis;
@@ -34,6 +35,7 @@ abstract class BootstrapStrategyBase
             $environment_detector->setDefault();
         }
         $config = $this->configConfig($environment_detector);
+        $di->set('crypt', $this->configCrypt(), true);
         $di->set('configPath', function() {return $this->configPath;}, true);
         $di->set('globalConfig', $global_config, true);
         $di->set('environmentDetector', $environment_detector);
@@ -42,6 +44,13 @@ abstract class BootstrapStrategyBase
         $di->set('redisCache', $this->configRedis($config), true);
         $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
         return $di;
+    }
+
+    protected function configCrypt()
+    {
+        $crypt = new Crypt();
+        $crypt->setKey('8p2904fj@¢#al/4289'); // Use your own key!
+        return $crypt;
     }
 
     protected function configDomainServiceFactory(Di $di)
