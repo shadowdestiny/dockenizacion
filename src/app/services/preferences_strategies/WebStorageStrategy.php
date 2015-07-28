@@ -49,8 +49,12 @@ class WebStorageStrategy implements IStorageStrategy
         if(!$user) {
             /** @var Cookie $cookie */
             $cookie = $this->cookieManager->get(self::CURRENT_USER_VAR);
+            if (!$cookie) {
+                $user_id = null;
+            } else {
+                $user_id = $cookie->getValue();
+            }
             /** @var UserId $user_id */
-            $user_id = $cookie->getValue();
             if (!$user_id) {
                 $user_id = UserId::create();
             }
