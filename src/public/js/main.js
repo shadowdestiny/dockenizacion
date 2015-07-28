@@ -1,9 +1,5 @@
 /* Initialise variables */
 var varSize = 0
-var elements = [ // id, target, action, event
-	[".help", ".sub-help", ".sub-help a"],
-	[".inter", ".sub-inter", ".sub-inter .btn"]
-];
 var mobile = 0;
 var navUrl = [];
 
@@ -23,10 +19,6 @@ function checkSize(){
 	if(varSize >= 3){
 		// MOBILE
 		$(".li-currency").unbind('mouseenter mouseleave');
-
-		elements.forEach(function (element){
-			$(element[1]).hide();
-		});
 
 		if(mobile == 0){ // store the original url
 			navUrl[0] = $(".your-account").attr("href");
@@ -60,25 +52,6 @@ function checkSize(){
 	return varSize;
 }
 
-function activateSub(id, target, action, event){
-	var obj = $(id);
-	var myTar = $(target);
-	var myAction = $(action);
-
-	if($(event.target).closest(myAction).length > 0){	// Save buttons or links
-		// Insert here the save action
-		myTar.toggle();
-		}else if($(event.target).closest(myTar).length > 0){// Pull down area
-		//do nothing
-	}else if($(event.target).closest(obj).length > 0){ 	// Menu link
-		myTar.toggle();
-	}else{												// Clicking everywhere else
-		if(myTar.is(":visible")){ 
-			myTar.hide();
-		}
-	}
-	event.stopPropagation();
-}
 
 function menu(id, target){
 	$(id).hover(function(event){
@@ -96,14 +69,4 @@ $(function(){
 	$('.menu-ham').click(function(){
 		$(this).toggleClass('expanded').siblings('ul').slideToggle().toggleClass('open');
 	});
-
-
-	$(document).click(function(event){
-		if(varSize < 3){
-			elements.forEach(function (element){
-			//	activateSub(element[0], element[1], element[2], event);
-			}); 
-		}
-	});
-
 });
