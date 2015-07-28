@@ -27,7 +27,7 @@ $(function(){
 					<div class="col8">
 						<div class="box-results">
 							<div class="content cl">
-								<h2 class="h2"><span class="purple">Last Draw</span> Friday, 03 Jul 2015</h3>
+								<h2 class="h2"><span class="purple">Last Draw</span> Friday, 03 Jul 2015</h2>
 
 								<ul class="no-li inline numbers">
 								    <li>
@@ -90,7 +90,7 @@ $(function(){
 		                                    	<span class="txt">minutes</span>
 		                                    </div>
 		                                </div>
-                                    	<span href="javascript:void(0);" class="btn red big right">PLAY NOW</span>
+                                    	<span class="btn red big right">PLAY NOW</span>
 	                                </div>
 								</a>
 							</div>
