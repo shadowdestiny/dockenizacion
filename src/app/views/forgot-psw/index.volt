@@ -8,7 +8,7 @@
 {% block body %}
 <main id="content">
 	<div class="wrapper">
-        <div class="box-basic">
+        <div class="box-basic small">
             <h1 class="h2">{{ language.translate("Password recovery") }}</h1>
 
             <p>{{ language.translate("Enter the email address associated with your Euromillions.com account, then click the button.") }}</p>
@@ -38,7 +38,7 @@
 
 #}
                 <div class="cl">
-                    <a href="javascript:void(0);" class="btn blue submit right">{{ language.translate("Save Password") }}</a>
+                    <a href="javascript:void(0);" class="btn blue big submit right">{{ language.translate("Save Password") }}</a>
                 </div>
             </form>
 		</div>

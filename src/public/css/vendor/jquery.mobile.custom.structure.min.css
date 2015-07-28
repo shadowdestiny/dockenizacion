@@ -1,3 +1,4 @@
+/* MODIFIED VERSION */
 /*! jQuery Mobile v1.4.5 | Copyright 2010, 2014 jQuery Foundation, Inc. | jquery.org/license */
 /* * jQuery Mobile v1.4.5 * http://jquerymobile.com * * Copyright 2010,2014 jQuery Foundation,Inc. and other contributors * Released under the MIT license. * http://jquery.org/license * */
 .ui-mobile, .ui-mobile body {
@@ -1068,95 +1069,8 @@ button.ui-btn-icon-notext, .ui-controlgroup-horizontal .ui-controlgroup-controls
     display: none;
   }
 }
-@media screen and (min-width: 20em) {
-  .ui-table-columntoggle.ui-responsive th.ui-table-priority-1, .ui-table-columntoggle.ui-responsive td.ui-table-priority-1 {
-    display: table-cell;
-  }
-}
-@media screen and (min-width: 30em) {
-  .ui-table-columntoggle.ui-responsive th.ui-table-priority-2, .ui-table-columntoggle.ui-responsive td.ui-table-priority-2 {
-    display: table-cell;
-  }
-}
-@media screen and (min-width: 40em) {
-  .ui-table-columntoggle.ui-responsive th.ui-table-priority-3, .ui-table-columntoggle.ui-responsive td.ui-table-priority-3 {
-    display: table-cell;
-  }
-}
-@media screen and (min-width: 50em) {
-  .ui-table-columntoggle.ui-responsive th.ui-table-priority-4, .ui-table-columntoggle.ui-responsive td.ui-table-priority-4 {
-    display: table-cell;
-  }
-}
-@media screen and (min-width: 60em) {
-  .ui-table-columntoggle.ui-responsive th.ui-table-priority-5, .ui-table-columntoggle.ui-responsive td.ui-table-priority-5 {
-    display: table-cell;
-  }
-}
-@media screen and (min-width: 70em) {
-  .ui-table-columntoggle.ui-responsive th.ui-table-priority-6, .ui-table-columntoggle.ui-responsive td.ui-table-priority-6 {
-    display: table-cell;
-  }
-}
-.ui-table-columntoggle th.ui-table-cell-hidden, .ui-table-columntoggle td.ui-table-cell-hidden, .ui-table-columntoggle.ui-responsive th.ui-table-cell-hidden, .ui-table-columntoggle.ui-responsive td.ui-table-cell-hidden {
-  display: none;
-}
+/* 
+ALL THIS IS ABOUT TABLE BEHAVIOUR AND IS CRAP
+Copied the important part in numbers.scss
 
-.ui-table-columntoggle th.ui-table-cell-visible, .ui-table-columntoggle td.ui-table-cell-visible, .ui-table-columntoggle.ui-responsive th.ui-table-cell-visible, .ui-table-columntoggle.ui-responsive td.ui-table-cell-visible {
-  display: table-cell;
-}
-
-.ui-table-reflow td .ui-table-cell-label, .ui-table-reflow th .ui-table-cell-label {
-  display: none;
-}
-
-@media only all {
-  .ui-table-reflow thead td, .ui-table-reflow thead th {
-    display: none;
-  }
-
-  .ui-table-reflow td, .ui-table-reflow th {
-    text-align: left;
-    display: block;
-  }
-
-  .ui-table-reflow tbody th {
-    margin-top: 3em;
-  }
-
-  .ui-table-reflow td .ui-table-cell-label, .ui-table-reflow th .ui-table-cell-label {
-    padding: .4em;
-    min-width: 30%;
-    display: inline-block;
-    margin: -.4em 1em -.4em -.4em;
-  }
-
-  .ui-table-reflow th .ui-table-cell-label-top, .ui-table-reflow td .ui-table-cell-label-top {
-    display: block;
-    padding: .4em 0;
-    margin: .4em 0;
-    text-transform: uppercase;
-    font-size: .9em;
-    font-weight: normal;
-  }
-}
-@media (min-width: 35em) {
-  .ui-table-reflow.ui-responsive td, .ui-table-reflow.ui-responsive th, .ui-table-reflow.ui-responsive tbody th, .ui-table-reflow.ui-responsive tbody td, .ui-table-reflow.ui-responsive thead td, .ui-table-reflow.ui-responsive thead th {
-    display: table-cell;
-    margin: 0;
-  }
-
-  .ui-table-reflow.ui-responsive td .ui-table-cell-label, .ui-table-reflow.ui-responsive th .ui-table-cell-label {
-    display: none;
-  }
-}
-@media (max-width: 35em) {
-  .ui-table-reflow.ui-responsive td, .ui-table-reflow.ui-responsive th {
-    width: 100%;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    float: left;
-    clear: left;
-  }
-}
+@media screen and (min-width:20em){.ui-table-columntoggle.ui-responsive th.ui-table-priority-1,.ui-table-columntoggle.ui-responsive td.ui-table-priority-1{display:table-cell;}}@media screen and (min-width:30em){.ui-table-columntoggle.ui-responsive th.ui-table-priority-2,.ui-table-columntoggle.ui-responsive td.ui-table-priority-2{display:table-cell;}}@media screen and (min-width:40em){.ui-table-columntoggle.ui-responsive th.ui-table-priority-3,.ui-table-columntoggle.ui-responsive td.ui-table-priority-3{display:table-cell;}}@media screen and (min-width:50em){.ui-table-columntoggle.ui-responsive th.ui-table-priority-4,.ui-table-columntoggle.ui-responsive td.ui-table-priority-4{display:table-cell;}}@media screen and (min-width:60em){.ui-table-columntoggle.ui-responsive th.ui-table-priority-5,.ui-table-columntoggle.ui-responsive td.ui-table-priority-5{display:table-cell;}}@media screen and (min-width:70em){.ui-table-columntoggle.ui-responsive th.ui-table-priority-6,.ui-table-columntoggle.ui-responsive td.ui-table-priority-6{display:table-cell;}}.ui-table-columntoggle th.ui-table-cell-hidden,.ui-table-columntoggle td.ui-table-cell-hidden,.ui-table-columntoggle.ui-responsive th.ui-table-cell-hidden,.ui-table-columntoggle.ui-responsive td.ui-table-cell-hidden{display:none;}.ui-table-columntoggle th.ui-table-cell-visible,.ui-table-columntoggle td.ui-table-cell-visible,.ui-table-columntoggle.ui-responsive th.ui-table-cell-visible,.ui-table-columntoggle.ui-responsive td.ui-table-cell-visible{display:table-cell;}.ui-table-reflow td .ui-table-cell-label,.ui-table-reflow th .ui-table-cell-label{display:none;}@media only all{.ui-table-reflow thead td,.ui-table-reflow thead th{display:none;}.ui-table-reflow td,.ui-table-reflow th{text-align:left;display:block;}.ui-table-reflow tbody th{margin-top:3em;}.ui-table-reflow td .ui-table-cell-label,.ui-table-reflow th .ui-table-cell-label{padding:.4em;min-width:30%;display:inline-block;margin:-.4em 1em -.4em -.4em;}.ui-table-reflow th .ui-table-cell-label-top,.ui-table-reflow td .ui-table-cell-label-top{display:block;padding:.4em 0;margin:.4em 0;text-transform:uppercase;font-size:.9em;font-weight:normal;}}@media ( min-width:35em ){.ui-table-reflow.ui-responsive td,.ui-table-reflow.ui-responsive th,.ui-table-reflow.ui-responsive tbody th,.ui-table-reflow.ui-responsive tbody td,.ui-table-reflow.ui-responsive thead td,.ui-table-reflow.ui-responsive thead th{display:table-cell;margin:0;}.ui-table-reflow.ui-responsive td .ui-table-cell-label,.ui-table-reflow.ui-responsive th .ui-table-cell-label{display:none;}}@media ( max-width:35em ){.ui-table-reflow.ui-responsive td,.ui-table-reflow.ui-responsive th{width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;float:left;clear:left;}}*/

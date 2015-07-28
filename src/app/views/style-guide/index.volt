@@ -159,6 +159,10 @@
                             <p>Those colors are usued for a variety of things, mainly for backgrounds, gradient backgrounds, border colored lines and colored text</p>
 
                             <div class="cl">
+                                <div class="bg-color grey-lighter2 blk">
+                                    $grey-lighter
+                                    <br>#ddd
+                                </div>
                                 <div class="bg-color grey-lighter blk">
                                     $grey-lighter
                                     <br>#ddd
@@ -185,6 +189,12 @@
                                     $yellow-lighter
                                     <br>#fffeec
                                 </div>
+
+                                <div class="bg-color yellow-light blk">
+                                    $yellow 
+                                    <br>#ffcf58
+                                </div>
+
                                 <div class="bg-color yellow">
                                     $yellow 
                                     <br>#efc048

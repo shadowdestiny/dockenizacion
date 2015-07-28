@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3f32baa1fb9f52e43b951d9ac9610ecb",
+    "hash": "43d6043f3841b60de3810320ac81cef2",
     "packages": [
         {
             "name": "alcohol/iso4217",
@@ -853,21 +853,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/incubator.git",
-                "reference": "8e8c3830b73a84ba28a8b551f687f0975869e312"
+                "reference": "43bf209772e02d41753fb8882280e49f2da07eb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/incubator/zipball/8e8c3830b73a84ba28a8b551f687f0975869e312",
-                "reference": "8e8c3830b73a84ba28a8b551f687f0975869e312",
+                "url": "https://api.github.com/repos/phalcon/incubator/zipball/43bf209772e02d41753fb8882280e49f2da07eb5",
+                "reference": "43bf209772e02d41753fb8882280e49f2da07eb5",
                 "shasum": ""
             },
             "require": {
-                "ext-phalcon": "~2.0",
+                "ext-phalcon": ">=2.0.4",
                 "php": ">=5.3.21",
-                "swiftmailer/swiftmailer": ">=5.2"
+                "swiftmailer/swiftmailer": "~5.2"
             },
             "require-dev": {
-                "codeception/codeception": "*",
+                "codeception/codeception": "2.0.14",
                 "mockery/mockery": "*",
                 "php-mock/php-mock": "<0.6",
                 "phpunit/phpunit": "4.6.*",
@@ -881,7 +881,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -896,7 +896,7 @@
                 "incubator",
                 "phalcon"
             ],
-            "time": "2015-06-10 13:47:44"
+            "time": "2015-07-27 10:39:48"
         },
         {
             "name": "ramsey/uuid",
@@ -1336,17 +1336,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/phalcon-devtools.git",
-                "reference": "a53851790798ae9ba6b4f4f2e815db642ba64b57"
+                "reference": "6f456e4fbec0a69dbc17d4cdd5fb1082451e7f8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/phalcon-devtools/zipball/a53851790798ae9ba6b4f4f2e815db642ba64b57",
-                "reference": "a53851790798ae9ba6b4f4f2e815db642ba64b57",
+                "url": "https://api.github.com/repos/phalcon/phalcon-devtools/zipball/6f456e4fbec0a69dbc17d4cdd5fb1082451e7f8d",
+                "reference": "6f456e4fbec0a69dbc17d4cdd5fb1082451e7f8d",
                 "shasum": ""
             },
             "require": {
                 "ext-phalcon": "~2.0",
                 "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "box": ">=2.5.2"
             },
             "bin": [
                 "phalcon.php"
@@ -1359,7 +1362,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -1373,9 +1376,10 @@
                 "Devtools",
                 "framework",
                 "phalcon",
+                "phar",
                 "webtools"
             ],
-            "time": "2015-06-03 12:30:17"
+            "time": "2015-07-27 10:45:10"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
