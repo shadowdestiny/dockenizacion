@@ -40,7 +40,10 @@ class AuthService
 
     public function check($credentials, $agentIdentificationString)
     {
-        $user = $this->userRepository->getByUsername($credentials['username']);
+        $user = $this->userRepository->getByEmail($credentials['email']);
+        if(!$user) {
+            return false;
+        }
         $password_match = $this->passwordHasher->checkPassword($credentials['password'], $user->getPassword()->password());
         if ($password_match && $credentials['remember']) {
             $user->setRememberToken($agentIdentificationString);
@@ -63,6 +66,11 @@ class AuthService
             $this->storageStrategy->removeRemember();
             return false;
         }
+    }
+
+    public function hasRememberMe()
+    {
+        return $this->storageStrategy->hasRemember();
     }
 
 

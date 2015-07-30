@@ -10,13 +10,13 @@ use EuroMillions\vo\Email;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\RememberToken;
 use EuroMillions\vo\UserId;
-use EuroMillions\vo\Username;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
 
 class AuthServiceUnitTest extends UnitTestBase
 {
     const HASH = 'azofaifahash';
+    const EMAIL = 'hola@azofaifa.com';
     /** @var UserId */
     private $userId;
     const USERNAME = 'azofaifa';
@@ -82,7 +82,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $user_mock = $this->prepareUserMock();
         $user_mock->setRememberToken(self::USER_AGENT)->shouldNotBeCalled();
 
-        $this->userRepository_double->getByUsername(self::USERNAME)->willReturn($user_mock);
+        $this->userRepository_double->getByEmail(self::EMAIL)->willReturn($user_mock);
         $this->storageStrategy_double->storeRemember(Argument::any())->shouldNotBeCalled();
         $this->exerciseCheck($credentials);
     }
@@ -99,7 +99,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $user_mock = $this->prepareUserMock();
         $user_mock->setRememberToken(self::USER_AGENT)->shouldBeCalled();
 
-        $this->userRepository_double->getByUsername(self::USERNAME)->willReturn($user_mock);
+        $this->userRepository_double->getByEmail(self::EMAIL)->willReturn($user_mock);
 
         $this->expectFlushInEntityManager();
 
@@ -120,7 +120,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $user_mock = $this->prepareUserMock();
         $user_mock->setRememberToken(self::USER_AGENT)->shouldNotBeCalled();
 
-        $this->userRepository_double->getByUsername(self::USERNAME)->willReturn($user_mock);
+        $this->userRepository_double->getByEmail(self::EMAIL)->willReturn($user_mock);
 
         $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush()->shouldNotBeCalled();
@@ -129,6 +129,18 @@ class AuthServiceUnitTest extends UnitTestBase
         $this->storageStrategy_double->storeRemember(Argument::any())->shouldNotBeCalled();
 
         $this->exerciseCheck($credentials);
+    }
+
+    /**
+     * method check
+     * when calledWithWrongEmail
+     * should returnFalse
+     */
+    public function test_check_calledWithWrongEmail_returnFalse()
+    {
+        $this->userRepository_double->getByEmail(Argument::any())->willReturn(null);
+        $actual = $this->exerciseCheck(['email'=>'email@email.com']);
+        $this->assertFalse($actual);
     }
 
     /**
@@ -143,18 +155,17 @@ class AuthServiceUnitTest extends UnitTestBase
         $user = new User();
         $user->initialize([
             'id'       => $this->userId,
-            'username' => new Username(self::USERNAME),
             'password' => new Password(self::PASS, $this->hasher_double->reveal()),
-            'email'    => new Email('hola@azofaifa.com')
+            'email'    => new Email(self::EMAIL)
         ]);
 
-        $this->userRepository_double->getByUsername(self::USERNAME)->willReturn($user);
+        $this->userRepository_double->getByEmail(self::EMAIL)->willReturn($user);
         return $credentials;
     }
 
     /**
      * @param $credentials
-     * @return mixed
+     * @return boolean
      */
     private function exerciseCheck($credentials)
     {
@@ -170,7 +181,7 @@ class AuthServiceUnitTest extends UnitTestBase
      */
     private function prepareHasherAndCredentials($remember, $passwordIsGood)
     {
-        $credentials = ['username' => self::USERNAME, 'password' => self::PASS, 'remember' => $remember];
+        $credentials = ['email' => self::EMAIL, 'password' => self::PASS, 'remember' => $remember];
 
         $this->hasher_double->hashPassword(self::PASS)->willReturn(self::HASH);
         $this->hasher_double->checkPassword(self::PASS, self::HASH)->willReturn($passwordIsGood);
@@ -297,7 +308,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $user = new User();
         $user->initialize([
             'id'       => $user_id_obj,
-            'username' => new Username('azofaifo'),
+            'email' => new Email('azofaifo@algarrobo.com'),
             'password' => new Password('azofaifoPass01', new NullPasswordHasher())
         ]);
         return $user;
@@ -361,7 +372,7 @@ class AuthServiceUnitTest extends UnitTestBase
     }
 
     /**
-     * @param $user
+     * @param User $user
      * @param $user_agent
      * @param $user_id_obj
      * @param $user_id
@@ -369,7 +380,7 @@ class AuthServiceUnitTest extends UnitTestBase
      */
     private function exerciseRememberMeWithTokenValidating($user, $user_agent, $user_id_obj, $user_id)
     {
-        $remember = new RememberToken($user->getUsername()->username(), $user->getPassword()->password(), $user_agent);
+        $remember = new RememberToken($user->getEmail()->email(), $user->getPassword()->password(), $user_agent);
 
         $this->prepareStorageAndRepository($user_id_obj, $user, $user_id, $remember->token());
 

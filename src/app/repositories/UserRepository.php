@@ -21,19 +21,19 @@ class UserRepository extends EntityRepository
     }
 
     /**
-     * @param string $username
+     * @param string $email
      * @return User
      */
-    public function getByUsername($username)
+    public function getByEmail($email)
     {
         $entity_name = $this->getEntityName();
         $result = $this->getEntityManager()
             ->createQuery(
-                "SELECT u FROM {$entity_name} u WHERE u.username.username = :username"
+                "SELECT u FROM {$entity_name} u WHERE u.email.email = :email"
             )
             ->setMaxResults(1)
-            ->setParameters(['username' => $username])
+            ->setParameters(['email' => $email])
             ->getResult();
-        return $result[0];
+        return $result ? $result[0] : null;
     }
 }

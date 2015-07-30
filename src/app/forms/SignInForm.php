@@ -8,6 +8,7 @@ use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\Identical;
 use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\Email as EmailValidator;
 
 
 class SignInForm extends Form
@@ -22,6 +23,9 @@ class SignInForm extends Form
             new PresenceOf(array(
                 'message' => 'The email is required'
             )),
+            new EmailValidator([
+                'message' => 'Not a valid email'
+            ]),
         ));
         $this->add($username);
         // Password
@@ -40,7 +44,7 @@ class SignInForm extends Form
         $csrf = new Hidden('csrf');
         $csrf->addValidator(new Identical(array(
             'value'   => $this->security->getSessionToken(),
-            'message' => 'CSRF validation failed'
+            'message' => 'Cross scripting protection. Reload the page.'
         )));
         $this->add($csrf);
 

@@ -93,13 +93,15 @@
 
                                 {{ form() }}
 
+                                {% if errors %}
                                 <div class="box error">
                                     <span class="ico-warning ico"></span>
-                                    <span class="txt">Lorem info lorem ipsum</span>
+                                    <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
                                 </div>
+                                {% endif %}
                                 {{ form.render('email', {'class':'input'}) }}
                                 {{ form.render('password', {'class':'input'}) }}
-                                {{ form.render('csrf', ['value': security.getToken()]) }}
+                                {{ form.render('csrf', ['value': security.getSessionToken()]) }}
                                 <div class="cols">
                                     <div class="col6">
                                         <label class="label" for="remember">
@@ -112,7 +114,7 @@
                                     </div>
                                 </div>
                                 <div class="cl">
-                                    <input id="go" type="submit" class="hidden" />
+                                    <input id="go" type="submit" class="hidden2" />{# hidden submit doesn't work with enter key#}
                                     <label for="go" class="submit btn big blue">Log in to a secure server <span class="ico ico-arrow-right"></span></label>
                                 </div>
                                 </form>

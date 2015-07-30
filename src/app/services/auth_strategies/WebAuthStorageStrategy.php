@@ -84,4 +84,9 @@ class WebAuthStorageStrategy implements IAuthStorageStrategy
         $this->cookieManager->delete(self::REMEMBER_USERID_VAR);
         $this->cookieManager->delete(self::REMEMBER_TOKEN_VAR);
     }
+
+    public function hasRemember()
+    {
+        $this->cookieManager->has(self::REMEMBER_USERID_VAR);
+    }
 }

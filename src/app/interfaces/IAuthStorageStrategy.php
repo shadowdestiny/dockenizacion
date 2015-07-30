@@ -15,5 +15,6 @@ interface IAuthStorageStrategy
     public function getRememberUserId();
     public function getRememberToken();
     public function removeRemember();
+    public function hasRemember();
 
 }
