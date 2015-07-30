@@ -3,7 +3,7 @@ namespace EuroMillions\services;
 use Alcohol\ISO4217;
 use antonienko\MoneyFormatter\MoneyFormatter;
 use EuroMillions\entities\User;
-use EuroMillions\interfaces\IStorageStrategy;
+use EuroMillions\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\repositories\UserRepository;
 use EuroMillions\vo\UserId;
 use Money\Currency;
@@ -20,11 +20,11 @@ class UserService
      */
     private $currencyService;
     /**
-     * @var IStorageStrategy
+     * @var IUsersPreferencesStorageStrategy
      */
     private $storageStrategy;
 
-    public function __construct(UserRepository $userRepository, CurrencyService $currencyService, IStorageStrategy $strategy)
+    public function __construct(UserRepository $userRepository, CurrencyService $currencyService, IUsersPreferencesStorageStrategy $strategy)
     {
         $this->userRepository = $userRepository;
         $this->currencyService = $currencyService;
@@ -64,17 +64,6 @@ class UserService
     public function getBalanceFromCurrentUser()
     {
         //EMTD after user is registered and logged in
-    }
-
-    public function getCurrentUser()
-    {
-        return $this->storageStrategy->getCurrentUser();
-    }
-
-    public function isLogged()
-    {
-        $user = $this->getCurrentUser();
-        return get_class($user) == 'EuroMillions\entities\User';
     }
 
     public function getMyCurrencyNameAndSymbol()

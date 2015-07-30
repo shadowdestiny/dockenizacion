@@ -2,27 +2,40 @@
 namespace EuroMillions\services;
 
 use Doctrine\ORM\EntityManager;
-use EuroMillions\interfaces\ICookieManager;
+use EuroMillions\entities\User;
+use EuroMillions\interfaces\IAuthStorageStrategy;
 use EuroMillions\interfaces\IPasswordHasher;
 use EuroMillions\repositories\UserRepository;
+use EuroMillions\vo\UserId;
 
 class AuthService
 {
-    const REMEMBER_ME_EXPIRATION = 691200; //(86400 * 8) = 8 days
 
     /** @var EntityManager */
     private $entityManager;
     /** @var UserRepository */
     private $userRepository;
     private $passwordHasher;
-    private $cookieManager;
+    /** @var IAuthStorageStrategy */
+    private $storageStrategy;
 
-    public function __construct(EntityManager $entityManager, IPasswordHasher $hasher, ICookieManager $cookieManager)
+    public function __construct(EntityManager $entityManager, IPasswordHasher $hasher, IAuthStorageStrategy $storageStrategy)
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $entityManager->getRepository('EuroMillions\entities\User');
         $this->passwordHasher = $hasher;
-        $this->cookieManager = $cookieManager;
+        $this->storageStrategy = $storageStrategy;
+    }
+
+    public function getCurrentUser()
+    {
+        return $this->storageStrategy->getCurrentUser();
+    }
+
+    public function isLogged()
+    {
+        $user = $this->getCurrentUser();
+        return get_class($user) == 'EuroMillions\entities\User';
     }
 
     public function check($credentials, $agentIdentificationString)
@@ -31,79 +44,28 @@ class AuthService
         $password_match = $this->passwordHasher->checkPassword($credentials['password'], $user->getPassword()->password());
         if ($password_match && $credentials['remember']) {
             $user->setRememberToken($agentIdentificationString);
-            $this->cookieManager->set('RMU', $user->getId()->id(), self::REMEMBER_ME_EXPIRATION);
-            $this->cookieManager->set('RMT', $user->getRememberToken()->token(), self::REMEMBER_ME_EXPIRATION);
+            $this->storageStrategy->storeRemember($user);
             $this->entityManager->flush();
         }
         return $password_match;
     }
-//    const REMEMBER_ME_EXPIRATION = 691200; //(86400 * 8) = 8 days
-//    const SESSION_VAR_NAME = 'auth-identity';
-//    /** @var  \Phalcon\Security */
-//    protected $security;
-//    /** @var  \Phalcon\Session\Adapter */
-//    protected $session;
-//    /** @var  \Phalcon\Http\Request */
-//    protected $request;
-//    /** @var  \Phalcon\Http\Response\Cookies */
-//    protected $cookies;
-//    /** @var  \Phalcon\Http\Response */
-//    protected $response;
-//    public function __construct()
-//    {
-//        $di = DI::getDefault();
-//        /** @var DaoFactory $dao_factory */
-//        $dao_factory = $di->get('daoFactory');
-//        $this->usersQueryDAO = $dao_factory->getUsersQuery();
-//        $this->rememberTokensCommandDAO = $dao_factory->getRememberTokensCommand();
-//        $this->rememberTokensQueryDAO = $dao_factory->getRememberTokensQuery();
-//        $this->security = $di->get('security');
-//        $this->session = $di->get('session');
-//        $this->request = $di->get('request');
-//        $this->cookies = $di->get('cookies');
-//        $this->response = $di->get('response');
-//    }
-//    /**
-//     * Checks the user credentials
-//     * @param $credentials
-//     * @return bool
-//     */
-//    public function check($credentials)
-//    {
-//        $user = $this->usersQueryDAO->getByUsername($credentials['username']);
-//        if (!$user) {
-//            return false;
-//        }
-//        if (!$this->security->checkHash($credentials['password'], $user->password)) {
-//            return false;
-//        }
-//        if (isset($credentials['remember'])) {
-//            $this->createRememberEnviroment($user);
-//        }
-//        $this->session->set(self::SESSION_VAR_NAME, array(
-//            'id'   => $user->id,
-//            'name' => $user->username,
-//        ));
-//        return true;
-//    }
-//    /**
-//     * Creates the remember me environment settings the related cookies and generating tokens
-//     * @param User $user
-//     */
-//    public function createRememberEnviroment(User $user)
-//    {
-//        $user_agent = $this->request->getUserAgent();
-//        $token = $this->getToken($user, $user_agent);
-//        $remember = new RememberToken();
-//        $remember->user_id = $user->id;
-//        $remember->token = $token;
-//        $remember->user_agent = $user_agent;
-//        if ($this->rememberTokensCommandDAO->save($remember)) {
-//            $expire = time() + self::REMEMBER_ME_EXPIRATION;
-//            $this->cookies->set('RMU', $user->id, $expire);
-//            $this->cookies->set('RMT', $token, $expire);
-//        }
-//    }
+
+    public function loginWithRememberMe()
+    {
+        $user_id = new UserId($this->storageStrategy->getRememberUserId());
+        /** @var User $user */
+        $user = $this->userRepository->find($user_id);
+        $token = $this->storageStrategy->getRememberToken();
+        if ($user && $token == $user->getRememberToken()->token()) {
+            $this->storageStrategy->setCurrentUser($user);
+            return true;
+        } else {
+            $this->storageStrategy->removeRemember();
+            return false;
+        }
+    }
+
+
 //    /**
 //     * Check if the session has a remember me cookie
 //     *
@@ -113,36 +75,7 @@ class AuthService
 //    {
 //        return $this->cookies->has('RMU');
 //    }
-//    /**
-//     * Logs on using the information in the coookies
-//     */
-//    public function loginWithRememberMe($today = null)
-//    {
-//        $now = $today ? strtotime($today) : time();
-//        $user_id = $this->cookies->get('RMU')->getValue();
-//        $cookieToken = $this->cookies->get('RMT')->getValue();
-//        $user = $this->usersQueryDAO->getById($user_id);
-//        if ($user) {
-//            $user_agent = $this->request->getUserAgent();
-//            $token = $this->getToken($user, $user_agent);
-//            if ($cookieToken == $token) {
-//                $remember = $this->rememberTokensQueryDAO->getByIdAndToken($user->id, $token);
-//                if ($remember) {
-//                    // Check if the cookie has not expired
-//                    if (($now - self::REMEMBER_ME_EXPIRATION) < $remember->created) {
-//                        $this->session->set(self::SESSION_VAR_NAME, array(
-//                            'id'   => $user->id,
-//                            'name' => $user->username,
-//                        ));
-//                        return true;
-//                    }
-//                }
-//            }
-//        }
-//        $this->cookies->get('RMU')->delete();
-//        $this->cookies->get('RMT')->delete();
-//        return false;
-//    }
+
 //    /**
 //     * Returns the current identity
 //     *

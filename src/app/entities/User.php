@@ -32,7 +32,7 @@ class User extends EntityBase implements IEntity,IUser
     }
 
     /**
-     * @return Uuid
+     * @return UserId
      */
     public function getId()
     {

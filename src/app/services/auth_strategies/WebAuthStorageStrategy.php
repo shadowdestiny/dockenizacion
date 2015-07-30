@@ -1,43 +1,30 @@
 <?php
-namespace EuroMillions\services\preferences_strategies;
+namespace EuroMillions\services\auth_strategies;
 
 use EuroMillions\entities\GuestUser;
+use EuroMillions\entities\User;
+use EuroMillions\interfaces\IAuthStorageStrategy;
 use EuroMillions\interfaces\ICookieManager;
-use EuroMillions\interfaces\IStorageStrategy;
 use EuroMillions\interfaces\ISession;
 use EuroMillions\interfaces\IUser;
 use EuroMillions\vo\UserId;
-use Money\Currency;
 use Phalcon\Http\Cookie;
 
-class WebStorageStrategy implements IStorageStrategy
+class WebAuthStorageStrategy implements IAuthStorageStrategy
 {
+    const CURRENT_USER_VAR = 'EM_current_user';
+    const GUEST_USER_EXPIRATION = 2592000; //(86400 * 30) = 30 days
+    const REMEMBER_ME_EXPIRATION = 691200; //(86400 * 8) = 8 days
+    const REMEMBER_USERID_VAR = 'EM_RMU';
+    const REMEMBER_TOKEN_VAR = 'EM_RMT';
+
     private $session;
     private $cookieManager;
-
-    const CURRENCY_VAR = 'EM_currency';
-    const CURRENT_USER_VAR = 'EM_current_user';
-
-    const GUEST_USER_EXPIRATION = 2592000; //(86400 * 30) = 30 days
 
     public function __construct(ISession $session, ICookieManager $cookieManager)
     {
         $this->session = $session;
         $this->cookieManager = $cookieManager;
-    }
-
-    public function getCurrency()
-    {
-        if ($this->session->has(self::CURRENCY_VAR)) {
-            return new Currency($this->session->get(self::CURRENCY_VAR));
-        } else {
-            return new Currency('EUR');
-        }
-    }
-
-    public function setCurrency(Currency $currency)
-    {
-        $this->session->set(self::CURRENCY_VAR, $currency->getName());
     }
 
     /**
@@ -71,5 +58,30 @@ class WebStorageStrategy implements IStorageStrategy
         if (get_class($user) == 'EuroMillions\entities\GuestUser') {
             $this->cookieManager->set(self::CURRENT_USER_VAR, $user->getId(), self::GUEST_USER_EXPIRATION);
         }
+    }
+
+    /**
+     * @param $user
+     */
+    public function storeRemember(User $user)
+    {
+        $this->cookieManager->set(self::REMEMBER_USERID_VAR, $user->getId()->id(), self::REMEMBER_ME_EXPIRATION);
+        $this->cookieManager->set(self::REMEMBER_TOKEN_VAR, $user->getRememberToken()->token(), self::REMEMBER_ME_EXPIRATION);
+    }
+
+    public function getRememberUserId()
+    {
+        return $this->cookieManager->get(self::REMEMBER_USERID_VAR);
+    }
+
+    public function getRememberToken()
+    {
+        return $this->cookieManager->get(self::REMEMBER_TOKEN_VAR);
+    }
+
+    public function removeRemember()
+    {
+        $this->cookieManager->delete(self::REMEMBER_USERID_VAR);
+        $this->cookieManager->delete(self::REMEMBER_TOKEN_VAR);
     }
 }

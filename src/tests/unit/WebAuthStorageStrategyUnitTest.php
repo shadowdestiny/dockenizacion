@@ -3,14 +3,13 @@ namespace tests\unit;
 
 use EuroMillions\entities\GuestUser;
 use EuroMillions\entities\User;
-use EuroMillions\services\preferences_strategies\WebStorageStrategy;
+use EuroMillions\services\auth_strategies\WebAuthStorageStrategy;
 use EuroMillions\vo\UserId;
-use Money\Currency;
 use Phalcon\Http\Cookie;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
 
-class WebStorageStrategyUnitTest extends UnitTestBase
+class WebAuthStorageStrategyUnitTest extends UnitTestBase
 {
     private $session_double;
     private $cookieManager_double;
@@ -22,47 +21,6 @@ class WebStorageStrategyUnitTest extends UnitTestBase
     }
 
     /**
-     * method getCurrency
-     * when calledWithValueNotInSession
-     * should returnDefaultValueEuro
-     */
-    public function test_getCurrency_calledWithValueNotInSession_returnDefaultValueEuro()
-    {
-        $this->session_double->has(WebStorageStrategy::CURRENCY_VAR)->willReturn(false);
-        $sut = $this->getSut();
-        $actual = $sut->getCurrency();
-        $expected = new Currency('EUR');
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
-     * method getCurrency
-     * when calledWithValueInSession
-     * should returnValueFromSession
-     */
-    public function test_getCurrency_calledWithValueInSession_returnValueFromSession()
-    {
-        $this->session_double->has(WebStorageStrategy::CURRENCY_VAR)->willReturn(true);
-        $this->session_double->get(WebStorageStrategy::CURRENCY_VAR)->willReturn('USD');
-        $sut = $this->getSut();
-        $actual = $sut->getCurrency();
-        $expected = new Currency('USD');
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
-     * method setCurrency
-     * when calledWithCurrency
-     * should setCurrencyNameInSession
-     */
-    public function test_setCurrency_calledWithCurrency_setCurrencyNameInSession()
-    {
-        $this->session_double->set(WebStorageStrategy::CURRENCY_VAR, 'EUR')->shouldBeCalled();
-        $sut = $this->getSut();
-        $sut->setCurrency(new Currency('EUR'));
-    }
-
-    /**
      * method getCurrentUser
      * when calledWithUserInSession
      * should returnUserInSession
@@ -70,7 +28,7 @@ class WebStorageStrategyUnitTest extends UnitTestBase
     public function test_getCurrentUser_calledWithUserInSession_returnUserInSession()
     {
         $expected = new GuestUser();
-        $this->session_double->get(WebStorageStrategy::CURRENT_USER_VAR)->willReturn($expected);
+        $this->session_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn($expected);
         $actual = $this->exerciseGetCurrentUser();
         $this->assertEquals($expected, $actual);
     }
@@ -83,10 +41,10 @@ class WebStorageStrategyUnitTest extends UnitTestBase
     public function test_getCurrentUser_calledWithUserNotInSessionButUserIdInCookies_returnUserFromCookies()
     {
         $expected_id = UserId::create();
-        $cookie = new Cookie(WebStorageStrategy::CURRENT_USER_VAR);
+        $cookie = new Cookie(WebAuthStorageStrategy::CURRENT_USER_VAR);
         $cookie->setValue($expected_id);
-        $this->session_double->get(WebStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
-        $this->cookieManager_double->get(WebStorageStrategy::CURRENT_USER_VAR)->willReturn($cookie);
+        $this->session_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
+        $this->cookieManager_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn($cookie);
         $this->session_double->set(Argument::any(), Argument::any())->willReturn(null);
         $this->cookieManager_double->set(Argument::any(),Argument::any(),Argument::any())->willReturn(null);
         $expected = new GuestUser();
@@ -102,8 +60,8 @@ class WebStorageStrategyUnitTest extends UnitTestBase
      */
     public function test_getCurrentUser_calledWithoutUserInSessionNorCookie_returnNewGuestUser()
     {
-        $this->session_double->get(WebStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
-        $this->cookieManager_double->get(WebStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
+        $this->session_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
+        $this->cookieManager_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
         $this->session_double->set(Argument::any(), Argument::any())->willReturn(null);
         $this->cookieManager_double->set(Argument::any(),Argument::any(),Argument::any())->willReturn(null);
         $actual = $this->exerciseGetCurrentUser();
@@ -118,10 +76,10 @@ class WebStorageStrategyUnitTest extends UnitTestBase
      */
     public function test_getCurrentUser_calledWithoutUserInSessionNorCookie_setUserInSessionAndUserIdInCookie()
     {
-        $this->session_double->get(WebStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
-        $this->cookieManager_double->get(WebStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
-        $this->session_double->set(WebStorageStrategy::CURRENT_USER_VAR, Argument::type('EuroMillions\entities\GuestUser'))->shouldBeCalled();
-        $this->cookieManager_double->set(WebStorageStrategy::CURRENT_USER_VAR, Argument::type('EuroMillions\vo\UserId'), WebStorageStrategy::GUEST_USER_EXPIRATION)->shouldBeCalled();
+        $this->session_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
+        $this->cookieManager_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
+        $this->session_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, Argument::type('EuroMillions\entities\GuestUser'))->shouldBeCalled();
+        $this->cookieManager_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, Argument::type('EuroMillions\vo\UserId'), WebAuthStorageStrategy::GUEST_USER_EXPIRATION)->shouldBeCalled();
         $this->exerciseGetCurrentUser();
     }
 
@@ -133,11 +91,11 @@ class WebStorageStrategyUnitTest extends UnitTestBase
     public function test_getCurrentUser_calledWithoutUserInSessionButUserIdInCookie_setUserInSession()
     {
         $user_id = UserId::create();
-        $this->session_double->get(WebStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
-        $this->cookieManager_double->get(WebStorageStrategy::CURRENT_USER_VAR)->willReturn($user_id);
+        $this->session_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
+        $this->cookieManager_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn($user_id);
         $expected = new GuestUser();
         $expected->setId($user_id);
-        $this->session_double->set(WebStorageStrategy::CURRENT_USER_VAR, $expected);
+        $this->session_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, $expected);
     }
 
     /**
@@ -148,7 +106,7 @@ class WebStorageStrategyUnitTest extends UnitTestBase
     public function test_setCurrentUser_calledWithProperUser_setUserInSession()
     {
         $expected = new GuestUser();
-        $this->session_double->set(WebStorageStrategy::CURRENT_USER_VAR, $expected)->shouldBeCalled();
+        $this->session_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, $expected)->shouldBeCalled();
         $this->exerciseSetCurrentUser($expected);
     }
 
@@ -162,7 +120,7 @@ class WebStorageStrategyUnitTest extends UnitTestBase
         $user_id = UserId::create();
         $expected = new GuestUser();
         $expected->setId($user_id);
-        $this->cookieManager_double->set(WebStorageStrategy::CURRENT_USER_VAR, $user_id, WebStorageStrategy::GUEST_USER_EXPIRATION)->shouldBeCalled();
+        $this->cookieManager_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, $user_id, WebAuthStorageStrategy::GUEST_USER_EXPIRATION)->shouldBeCalled();
         $this->exerciseSetCurrentUser($expected);
     }
 
@@ -179,11 +137,11 @@ class WebStorageStrategyUnitTest extends UnitTestBase
     }
 
     /**
-     * @return WebStorageStrategy
+     * @return WebAuthStorageStrategy
      */
     protected function getSut()
     {
-        $sut = new WebStorageStrategy($this->session_double->reveal(), $this->cookieManager_double->reveal());
+        $sut = new WebAuthStorageStrategy($this->session_double->reveal(), $this->cookieManager_double->reveal());
         return $sut;
     }
 
