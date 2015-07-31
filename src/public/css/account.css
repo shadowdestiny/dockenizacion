@@ -17,65 +17,140 @@ ALLOWED: Variable and Extension
 /* BUTTONS */
 /* ANIMATION */
 /* COLUMNS */
-.nav {
+#content .nav {
   float: left;
   width: 270px;
   margin: 0;
   padding: 0;
 }
-.nav a {
+#content .nav a {
   display: block;
   text-decoration: none;
   padding: 10px 15px;
   border-bottom: 1px solid #efc048;
 }
-.nav a:hover, .nav a:focus {
+#content .nav a:hover, #content .nav a:focus {
   background: #efc048;
   color: #fff;
 }
-.nav a:hover .ico, .nav a:focus .ico {
+#content .nav a:hover .ico, #content .nav a:focus .ico {
   color: #fff;
 }
-.nav li:last-child a {
+#content .nav li:last-child a {
   border-bottom: 0;
 }
-.nav .ico {
+#content .nav .ico {
   float: right;
   color: #efc048;
   font-size: 14px;
   margin-top: 3px;
   display: block;
 }
-.nav .active {
+#content .nav .active {
   font-weight: bold;
   background: #efc048;
   color: #fff;
+  cursor: default;
 }
-.nav .active .ico {
+#content .nav .active .ico {
   color: #fff;
 }
-
-.content {
+#content .content {
   margin: 0 0 2em 290px;
 }
-.content .title {
+#content .content hr {
+  margin: 0 -20px;
+}
+#content .content .title {
   margin-bottom: 0.5em;
 }
-.content .input {
+#content .content .input {
   width: 100%;
   margin-bottom: 1em;
 }
-.content .label {
+#content .content .label {
   font-weight: bold;
   font-size: 0.875em;
   margin-bottom: 3px;
 }
-.content .asterisk {
+#content .content .asterisk {
   color: #cc2222;
 }
-.content .wrap {
+#content .content .wrap {
   margin-right: -20px;
 }
-.content .cols > div {
+#content .content .cols > div {
   border-right: 20px solid transparent;
+}
+#content .content .cols {
+  margin-bottom: 20px;
+}
+
+.connect {
+  margin: 20px 0;
+}
+.connect .title, .connect .revoke {
+  float: left;
+}
+.connect .title {
+  margin-right: 20px;
+}
+.connect .revoke {
+  position: relative;
+  top: -3px;
+}
+
+@media only screen and (max-width: 992px) {
+  #content .nav {
+    width: 220px;
+  }
+  #content .content {
+    margin-left: 240px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  #content .nav {
+    display: none;
+  }
+  #content .content {
+    margin: 0 0 1em;
+    border-width: 0 0 1px 0;
+  }
+  #content .content .wrap {
+    margin: 0;
+  }
+  #content .content .title {
+    float: none;
+    margin: 0 auto;
+  }
+  #content .content .revoke {
+    float: none;
+    margin: 10px auto;
+  }
+  #content .content .cols {
+    margin: 0;
+  }
+  #content .cols > div {
+    margin-bottom: 10px;
+  }
+
+  .change-psw {
+    float: left;
+  }
+
+  .gap {
+    padding-bottom: 20px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .change-psw {
+    margin: 0 auto 20px;
+    float: none;
+    width: 100%;
+  }
+
+  .submit {
+    margin: 0 auto;
+    float: none;
+  }
 }
