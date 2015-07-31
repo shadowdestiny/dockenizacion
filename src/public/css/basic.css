@@ -138,6 +138,10 @@ hr {
   margin-bottom: 1em;
 }
 
+hr.yellow {
+  background: #efc048;
+}
+
 ul.list {
   margin: 0 0 1em 2em;
 }
@@ -185,7 +189,10 @@ img.right {
 
 /* Class to hide things */
 .hidden2 {
-  visibility: hidden;
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  line-height: 0;
 }
 
 /* RESET UI */
@@ -245,6 +252,10 @@ img.right {
   padding: 0;
 }
 
+label.submit {
+  cursor: pointer;
+}
+
 .label {
   cursor: pointer;
 }
@@ -300,12 +311,10 @@ img.right {
   padding: 15px 20px;
   margin: 0 auto;
   position: relative;
+  /*  .submit{margin-top:1em;}*/
 }
 .box-basic > h1 {
   color: #ebb019;
-}
-.box-basic .submit {
-  margin-top: 1em;
 }
 
 .box-basic.small {

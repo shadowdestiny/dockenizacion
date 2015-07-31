@@ -64,11 +64,11 @@
 				</ul>
 			</div>
 			<a href="javascript:void(0);" class="small-logo" title="Go to Homepage">
-				<picture class="pic" alt="EuroMillions.com">
+				<picture class="pic">
 					<!--[if IE 9]><video style="display: none;"><![endif]-->
-					<source media="(max-width: 768px)" srcset="/img/logo/euromillions-sm.png" >
+					<source media="(max-width: 768px)" srcset="/img/logo/euromillions-sm.png">
 					<!--[if IE 9]></video><![endif]-->
-					<img srcset="/img/logo/euromillions.png">
+					<img src="/img/logo/euromillions.png" alt="{{ language.translate('EuroMillions.com') }}">
 				</picture>
 			</a>
 		</div>

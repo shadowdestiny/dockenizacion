@@ -16,9 +16,9 @@
 			<a href="javascript:void(0);" class="logo" title="Go to Homepage">
 				<picture class="pic">
 					<!--[if IE 9]><video style="display: none;"><![endif]-->
-					<source media="(max-width: 768px)" srcset="/img/logo/euromillions-sm.png" alt="{{ language.translate('EuroMillions.com') }}">
+					<source media="(max-width: 768px)" srcset="/img/logo/euromillions-sm.png">
 					<!--[if IE 9]></video><![endif]-->
-					<img srcset="/img/logo/euromillions.png" alt="{{ language.translate('EuroMillions.com') }}">
+					<img src="/img/logo/euromillions.png" alt="{{ language.translate('EuroMillions.com') }}">
 				</picture>
 			</a>
 			<nav class="main-nav desktop">

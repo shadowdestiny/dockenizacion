@@ -37,6 +37,7 @@ blockquote:before, blockquote:after,q:before, q:after{content:''; content:none;}
 select{padding:5px; border:1px solid #bbb;}
 button{cursor:pointer;}
 hr{border:0; background:$grey-light; height:1px; margin-bottom:1em;}
+hr.yellow{background:$yellow;}
 
 ul.list {margin:0 0 1em 2em;}
 .list li{margin-bottom:.5em;}
@@ -49,7 +50,7 @@ img.right{margin:0 0 15px 10px;}
 .inline li{display:inline-block;}
 .center{margin:auto; text-align:center;}
 .hidden{display:none;} /* Class to hide things */
-.hidden2{visibility:hidden}
+.hidden2{position:absolute; left:-9999px; top:-9999px; line-height:0;}
 
 /* RESET UI */
 #main-page > .ui-content{padding:0;}
@@ -67,6 +68,7 @@ img.right{margin:0 0 15px 10px;}
 .input:focus, .textarea:focus{transition:background-color 0.3s,color 0.3s,border 0.3s, box-shadow 0.2s; box-shadow:0 4px 4px #bbb inset!important; border:1px solid $black!important; background:#fff;}
 .input.error, .select.error{border:2px solid $red;}
 .checkbox{margin:0!important; padding:0;}
+label.submit{cursor:pointer;}
 .label{cursor:pointer;}
 .label .txt{font-size:$basic-size; font-weight:bold; display:block; margin-bottom:3px;}
 
@@ -83,7 +85,7 @@ img.right{margin:0 0 15px 10px;}
   border:1px solid $yellow; background:#fff; border-radius:5px; padding:15px 20px;
   margin:0 auto; position:relative;
   > h1{color:$yellow-dark;}
-  .submit{margin-top:1em;}
+/*  .submit{margin-top:1em;}*/
 }
 .box-basic.small{width:400px; margin:0 auto 8em;}
 
