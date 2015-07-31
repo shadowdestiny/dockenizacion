@@ -2,6 +2,7 @@
 namespace EuroMillions\controllers;
 
 use EuroMillions\entities\Language;
+use EuroMillions\services\AuthService;
 use EuroMillions\services\CurrencyService;
 use EuroMillions\services\LanguageService;
 use Doctrine\ORM\EntityManager;
@@ -26,14 +27,17 @@ class PublicSiteControllerBase extends ControllerBase
     protected $currencyService;
     /** @var  UserService */
     protected $userService;
+    /** @var  AuthService */
+    protected $authService;
 
-    public function initialize(LotteriesDataService $lotteriesDataService = null, LanguageService $languageService = null, CurrencyService $currencyService = null, UserService $userService = null)
+    public function initialize(LotteriesDataService $lotteriesDataService = null, LanguageService $languageService = null, CurrencyService $currencyService = null, UserService $userService = null, AuthService $authService= null)
     {
         parent::initialize();
         $this->lotteriesDataService = $lotteriesDataService ? $lotteriesDataService : $this->domainServiceFactory->getLotteriesDataService();
         $this->languageService = $languageService ? $languageService : $this->language; //from DI
         $this->currencyService = $currencyService ? $currencyService : $this->domainServiceFactory->getCurrencyService();
         $this->userService = $userService ? $userService : $this->domainServiceFactory->getUserService();
+        $this->authService = $authService ? $authService : $this->domainServiceFactory->getAuthService();
     }
 
     public function afterExecuteRoute()
@@ -53,7 +57,7 @@ class PublicSiteControllerBase extends ControllerBase
 
     private function setNavValues()
     {
-        $this->view->setVar('user_logged', $this->userService->isLogged());
+        $this->view->setVar('user_logged', $this->authService->isLogged());
     }
 
     private function setActiveCurrencies()

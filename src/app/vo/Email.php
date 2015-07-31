@@ -27,4 +27,8 @@ class Email extends ValueObject
         return $filtered_email;
     }
 
+    public function email()
+    {
+        return $this->email;
+    }
 }

@@ -9,7 +9,6 @@
         <id name="id">
             <generator strategy="UUID" />
         </id>
-        <embedded name="username" class="EuroMillions\vo\Username" use-column-prefix="false" />
         <embedded name="password" class="EuroMillions\vo\Password" use-column-prefix="false" />
         <embedded name="email" class="EuroMillions\vo\Email" use-column-prefix="false" />
         <embedded name="rememberToken" class="EuroMillions\vo\RememberToken" use-column-prefix="false" />

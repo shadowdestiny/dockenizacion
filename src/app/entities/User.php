@@ -7,7 +7,6 @@ use EuroMillions\vo\Email;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\RememberToken;
 use EuroMillions\vo\UserId;
-use EuroMillions\vo\Username;
 use Money\Money;
 use Rhumsaa\Uuid\Uuid;
 
@@ -15,8 +14,6 @@ class User extends EntityBase implements IEntity,IUser
 {
     /** @var  Uuid */
     protected $id;
-    /** @var  Username */
-    protected $username;
     /** @var  Password */
     protected $password;
     /** @var  Email */
@@ -32,21 +29,11 @@ class User extends EntityBase implements IEntity,IUser
     }
 
     /**
-     * @return Uuid
+     * @return UserId
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    public function setUsername(Username $username)
-    {
-        $this->username = $username;
     }
 
     /**
@@ -74,7 +61,7 @@ class User extends EntityBase implements IEntity,IUser
 
     public function setRememberToken($agentIdentificationString)
     {
-        $this->rememberToken = new RememberToken($this->username->username(), $this->password->password(), $agentIdentificationString);
+        $this->rememberToken = new RememberToken($this->email->email(), $this->password->password(), $agentIdentificationString);
     }
 
     public function getRememberToken()

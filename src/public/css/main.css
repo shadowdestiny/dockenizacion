@@ -1664,6 +1664,10 @@ img.right {
 }
 
 /* Class to hide things */
+.hidden2 {
+  visibility: hidden;
+}
+
 /* RESET UI */
 #main-page > .ui-content {
   padding: 0;

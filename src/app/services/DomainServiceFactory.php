@@ -3,15 +3,19 @@ namespace EuroMillions\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\components\EmTranslationAdapter;
+use EuroMillions\components\PhpassWrapper;
+use EuroMillions\interfaces\IAuthStorageStrategy;
 use EuroMillions\interfaces\ICurrencyApi;
-use EuroMillions\interfaces\IStorageStrategy;
+use EuroMillions\interfaces\IPasswordHasher;
+use EuroMillions\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\interfaces\ILanguageStrategy;
 use EuroMillions\repositories\LanguageRepository;
 use EuroMillions\repositories\UserRepository;
+use EuroMillions\services\auth_strategies\WebAuthStorageStrategy;
 use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\services\external_apis\RedisCurrencyApiCache;
 use EuroMillions\services\external_apis\YahooCurrencyApi;
-use EuroMillions\services\preferences_strategies\WebStorageStrategy;
+use EuroMillions\services\preferences_strategies\WebUserPreferencesStorageStrategy;
 use Phalcon\Di;
 
 class DomainServiceFactory
@@ -52,15 +56,27 @@ class DomainServiceFactory
     /**
      * @param UserRepository|null $userRepository
      * @param CurrencyService|null $currencyService
-     * @param IStorageStrategy $currencyStrategy
+     * @param IUsersPreferencesStorageStrategy $preferencesStrategy
      * @return UserService
      */
-    public function getUserService(UserRepository $userRepository = null, CurrencyService $currencyService = null, IStorageStrategy $currencyStrategy = null)
+    public function getUserService(UserRepository $userRepository = null, CurrencyService $currencyService = null, IUsersPreferencesStorageStrategy $preferencesStrategy = null)
     {
         if (!$userRepository) $userRepository = $this->getRepository('User');
         if (!$currencyService) $currencyService = $this->getCurrencyService();
-        if (!$currencyStrategy) $currencyStrategy = new WebStorageStrategy($this->di->get('session'), $this->di->get('cookies'));
-        return new UserService($userRepository, $currencyService, $currencyStrategy);
+        if (!$preferencesStrategy) $preferencesStrategy = new WebUserPreferencesStorageStrategy($this->di->get('session'), $this->di->get('cookies'));
+        return new UserService($userRepository, $currencyService, $preferencesStrategy);
+    }
+
+    /**
+     * @param IPasswordHasher $passwordHasher
+     * @param IAuthStorageStrategy $storageStrategy
+     * @return AuthService
+     */
+    public function getAuthService(IPasswordHasher $passwordHasher = null, IAuthStorageStrategy $storageStrategy = null)
+    {
+        if(!$storageStrategy) $storageStrategy = new WebAuthStorageStrategy($this->di->get('session'), $this->di->get('cookies'));
+        if(!$passwordHasher) $passwordHasher = new PhpassWrapper();
+        return new AuthService($this->entityManager, $passwordHasher, $storageStrategy);
     }
 
     private function getRepository($entity)
