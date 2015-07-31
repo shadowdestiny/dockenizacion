@@ -1,25 +1,35 @@
 <?php
 namespace EuroMillions\forms;
 
-use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Email;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Password;
+use Phalcon\Forms\Element\Select;
+use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\Identical;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email as EmailValidator;
 
 
-class SignInForm extends Form
+class SignUpForm extends Form
 {
     public function initialize()
     {
-        // Email
-        $username = new Email('email', array(
+        $name = new Text('name', [
+            'placeholder' => 'Name'
+        ]);
+        $this->add($name);
+
+        $surname = new Text('surname', [
+            'placeholder' => 'Surname'
+        ]);
+        $this->add($surname);
+
+        $email = new Email('email', array(
             'placeholder' => 'Email'
         ));
-        $username->addValidators(array(
+        $email->addValidators(array(
             new PresenceOf(array(
                 'message' => 'The email is required'
             )),
@@ -27,8 +37,8 @@ class SignInForm extends Form
                 'message' => 'Not a valid email'
             ]),
         ));
-        $this->add($username);
-        // Password
+        $this->add($email);
+
         $password = new Password('password', array(
             'placeholder' => 'Password'
         ));
@@ -36,11 +46,21 @@ class SignInForm extends Form
             'message' => 'The password is required'
         )));
         $this->add($password);
-        // Remember
-        $remember = new Check('remember', array(
-            'value' => 'yes'
+        $password_confirm = new Password('confirm_password', array(
+            'placeholder' => 'Confirm Password'
         ));
-        $this->add($remember);
+        $password_confirm->addValidator(new PresenceOf(array(
+            'message' => 'The password confirmation is required'
+        )));
+        $this->add($password_confirm);
+        // Remember
+
+        $country = new Select('country', [
+            'placeholder' => 'Select your country of residence',
+            'options' => ['Spain', 'France']
+        ]);
+        $this->add($country);
+
         $csrf = new Hidden('csrf');
         $csrf->addValidator(new Identical(array(
             'value'   => $this->security->getSessionToken(),

@@ -59,7 +59,6 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     }
 
     /**
-     * @param $username
      * @param $password
      * @param $hasher
      * @param $email

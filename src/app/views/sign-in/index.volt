@@ -49,10 +49,10 @@
         <div class="wrapper">
             <div class="box-sign" data-role="tabs">
                 <div class="cl tabs-menu" data-role="navbar">
-                    <a href="#one" class="login tab active">
+                    <a href="#one" class="login tab{% if which_form == 'in' %} active{% endif %}">
                         <span class="h2">{{ language.translate("Log in") }}</span>
                     </a>
-                    <a href="#two" class="signup tab">
+                    <a href="#two" class="signup tab{% if which_form == 'up' %} active{% endif %}">
                         <span class="h2">{{ language.translate("Sign up") }}</span>
                     </a>
                 </div>
@@ -76,7 +76,7 @@
                     <div class="padding">
                         <div class="sign center">
 
-                            <div id="one" class="tab-content active">
+                            <div id="one" class="tab-content{% if which_form == 'in' %} active{% endif %}">
                                 <div class="connect">
                                     <a href="#" class="btn blue big"><span
                                                 class="ico ico-facebook"></span> {{ language.translate("Log in with Facebook") }}
@@ -93,19 +93,20 @@
 
                                 {{ form() }}
 
-                                {% if errors %}
+                                {% if  which_form == 'in' and errors %}
                                 <div class="box error">
                                     <span class="ico-warning ico"></span>
                                     <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
                                 </div>
                                 {% endif %}
-                                {{ form.render('email', {'class':'input'}) }}
-                                {{ form.render('password', {'class':'input'}) }}
-                                {{ form.render('csrf', ['value': security.getSessionToken()]) }}
+                                {{ signinform.render('email', {'class':'input'~in_form_errors['email']}) }}
+                                {{ signinform.render('password', {'class':'input'~in_form_errors['password']}) }}
+                                {{ signinform.render('csrf', ['value': security.getSessionToken()]) }}
+                                {{ signinform.render('which_form', ['value': 'in']) }}
                                 <div class="cols">
                                     <div class="col6">
                                         <label class="label" for="remember">
-                                            {{ form.render('remember', {'class':'checkbox', 'data-role':'none'}) }}
+                                            {{ signinform.render('remember', {'class':'checkbox', 'data-role':'none'}) }}
                                             <span class="txt">{{ language.translate("Stay signed in") }}</span>
                                         </label>
                                     </div>
@@ -117,14 +118,14 @@
                                     <input id="go" type="submit" class="hidden2" />{# hidden submit doesn't work with enter key#}
                                     <label for="go" class="submit btn big blue">Log in to a secure server <span class="ico ico-arrow-right"></span></label>
                                 </div>
-                                </form>
+                                {{ endform() }}
                             </div>
 
-                            <div id="two" class="tab-content">
+                            <div id="two" class="tab-content{% if which_form == 'up' %} active{% endif %}">
                                 <div class="connect">
                                     <a href="#" class="btn blue big"><span
-                                                class="ico ico-facebook"></span> {{ language.translate("Connect with Faceboo") }}
-                                        k</a>
+                                                class="ico ico-facebook"></span> {{ language.translate("Connect with Facebook") }}
+                                        </a>
                                     <a href="#" class="btn red big"><span
                                                 class="ico ico-google-plus"></span> {{ language.translate("Connect with Google") }}
                                     </a>
@@ -135,30 +136,28 @@
                                     <span class="bg-or"><span class="or">or</span></span>
                                 </div>
 
-                                <form novalidate>
-                                    <div class="box error">
+                                {{ form() }}
+
+                                {% if  which_form == 'up' and errors %}
+
+                                <div class="box error">
                                         <span class="ico-warning ico"></span>
-                                        <span class="txt">Lorem ipsum error aliqua docet lorem ipsum aliqua aliqua docet lorem ipsum aliqua</span>
+                                        <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
                                     </div>
-
-                                    <input class="input error" type="text" placeholder="Name">
-                                    <input class="input" type="text" placeholder="Surname">
-                                    <input class="input" type="email" placeholder="Email">
-                                    <input class="input" type="password" placeholder="Password">
-
-                                    <select class="select">
-                                        <option>{{ language.translate("Select your country of residence") }}</option>
-                                        <option>Spain</option>
-                                        <option>Italy</option>
-                                        <option>France</option>
-                                    </select>
+                                {% endif %}
+                                    {{ signupform.render('name', {'class':'input'~up_form_errors['name']}) }}
+                                    {{ signupform.render('surname', {'class':'input'~up_form_errors['surname']}) }}
+                                    {{ signupform.render('email', {'class':'input'~up_form_errors['email']}) }}
+                                    {{ signupform.render('password', {'class':'input'~up_form_errors['password']}) }}
+                                    {{ signupform.render('confirm_password', {'class':'input'~up_form_errors['confirm_password']}) }}
+                                    {{ signupform.render('country', {'class':'select'~up_form_errors['country']}) }}
 
                                     <div class="cl">
                                         <a href="javascript:void(0);"
                                            class="submit btn big blue">{{ language.translate("Connect to a secure server") }}
                                             <span class="ico ico-arrow-right"></span></a>
                                     </div>
-                                </form>
+                                {{ endform() }}
                             </div>
 
                         </div>
