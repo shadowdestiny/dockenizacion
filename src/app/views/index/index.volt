@@ -81,11 +81,11 @@
 
 							<p class="h2">{{ language.translate('for only %priceValue% &euro;',['priceValue':2,35]) }}</p>
 							<div class="win-millions">
-								<picture class="pic" alt="{{ language.translate('Win Millions') }}">
+								<picture class="pic">
 									<!--[if IE 9]><video style="display: none;"><![endif]-->
 									<source media="(max-width: 768px)" srcset="/img/home/win-millions-sm.png">
 									<!--[if IE 9]></video><![endif]-->
-									<img srcset="/img/home/win-millions.png, /img/home/win-millions@2x.png 1.5x">
+									<img srcset="/img/home/win-millions.png, /img/home/win-millions@2x.png 1.5x" alt="{{ language.translate('Win Millions') }}">
 								</picture>
 							</div>
 							<div class="box-ball">

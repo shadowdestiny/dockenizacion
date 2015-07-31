@@ -1,0 +1,81 @@
+/*** VARIABLES ***
+NO ALLLOWED: Class, ID or Keyframes
+ALLOWED: Variable and Extension
+*/
+/* COLORS */
+/* LINKS COLORS */
+/* TYPOGRAPHY */
+/* 16x3.375 = 54px */
+/* 16x1.875 = 30px */
+/* 16x1.375=22 */
+/* 16x1.125=18 */
+/* 16x0.9375=15 */
+/* 16x1.125=14 */
+/* 16x0.75=12 */
+/* STROKE OUTLINE */
+/* NOTE: IE9 doesn't support text-shadow */
+/* BUTTONS */
+/* ANIMATION */
+/* COLUMNS */
+.nav {
+  float: left;
+  width: 270px;
+  margin: 0;
+  padding: 0;
+}
+.nav a {
+  display: block;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-bottom: 1px solid #efc048;
+}
+.nav a:hover, .nav a:focus {
+  background: #efc048;
+  color: #fff;
+}
+.nav a:hover .ico, .nav a:focus .ico {
+  color: #fff;
+}
+.nav li:last-child a {
+  border-bottom: 0;
+}
+.nav .ico {
+  float: right;
+  color: #efc048;
+  font-size: 14px;
+  margin-top: 3px;
+  display: block;
+}
+.nav .active {
+  font-weight: bold;
+  background: #efc048;
+  color: #fff;
+}
+.nav .active .ico {
+  color: #fff;
+}
+
+.content {
+  margin: 0 0 2em 290px;
+}
+.content .title {
+  margin-bottom: 0.5em;
+}
+.content .input {
+  width: 100%;
+  margin-bottom: 1em;
+}
+.content .label {
+  font-weight: bold;
+  font-size: 0.875em;
+  margin-bottom: 3px;
+}
+.content .asterisk {
+  color: #cc2222;
+}
+.content .wrap {
+  margin-right: -20px;
+}
+.content .cols > div {
+  border-right: 20px solid transparent;
+}

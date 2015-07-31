@@ -1,0 +1,26 @@
+@import "variable";
+
+.nav{
+    float:left; width:270px; margin:0; padding:0;
+    a{display:block;  text-decoration:none; padding:10px 15px; border-bottom:1px solid $yellow;}
+    a:hover, a:focus{
+        background:$yellow; color:#fff;
+        .ico{color:#fff;}
+    }
+    li:last-child a{border-bottom:0;}
+    .ico{float:right; color:$yellow; font-size:14px; margin-top:3px; display:block;}
+    .active{
+        font-weight:bold; background:$yellow; color:#fff;
+        .ico{color:#fff;}
+    }
+}
+
+.content{
+    margin:0 0 2em 290px;
+    .title{margin-bottom:0.5em;}
+    .input{width:100%; margin-bottom:1em;}
+    .label{font-weight:bold; font-size:$basic-size; margin-bottom:3px;}
+    .asterisk{color:$red;}
+    .wrap{margin-right:-20px;}
+    .cols > div{border-right:20px solid transparent}
+}
