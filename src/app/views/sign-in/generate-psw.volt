@@ -8,7 +8,7 @@
 {% block body %}
 <main id="content">
     <div class="wrapper">
-        <div class="box-basic">
+        <div class="box-basic small">
             <h1 class="h2">{{ language.translate("Create new password") }}</h1>
 
             <div class="my-left">
@@ -27,10 +27,8 @@
                     </li> 
                 </ul>
             </div>
-
             {% include "_elements/generate-psw.volt" %}
      </div>
-
 
     </div>
 </main>

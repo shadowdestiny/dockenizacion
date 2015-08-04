@@ -456,10 +456,11 @@ body{font-family:$basic-font;}
 }
 .nav.mobile li:last-child a{border-bottom:0;}
 
-
-.info .wrapper{text-align:center;}
-.info .social{margin-bottom:10px;}
-.info .txt, .info .partner{margin:0 auto 2em; float:none;}
+.info{
+  .wrapper{text-align:center;} 
+  .social{margin-bottom:10px;}
+  .txt, .partner{margin:0 auto 2em; float:none;}
+}
 .main-foot .col20per:nth-child(odd){clear:both;}
 .logo-social .wrapper{text-align:center;}
 .main-foot .small-logo{display:block; margin:10px auto 0; float:none;}
@@ -470,12 +471,12 @@ body{font-family:$basic-font;}
 .box-links .col20per{width:100%; float:none; text-align:center; padding:0;}
 .box-links a{display:block; width:100%; border-bottom:1px solid #ddd; padding:7px 0; margin-bottom:0;}
 .box-links li:first-child a{border-top:1px solid #ddd;}
-
-.box-basic{width:100%; border-radius:0; border-left:0; border-right:0; margin-bottom:1em;}
+.box-basic, .box-basic.small{width:100%; border-radius:0; border-left:0; border-right:0; margin-bottom:1em!important;}
 .paging{
   li, .next, .prev{margin:0;}
 }
-}
+.minimal .main-foot .txt{text-align:center;}
+} /* End Media query */
 
 @media screen and (min-width:480px){
     .ui-responsive td, .ui-responsive th{display:table-cell; margin:0;}

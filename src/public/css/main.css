@@ -2959,11 +2959,9 @@ body {
   .info .wrapper {
     text-align: center;
   }
-
   .info .social {
     margin-bottom: 10px;
   }
-
   .info .txt, .info .partner {
     margin: 0 auto 2em;
     float: none;
@@ -3018,18 +3016,23 @@ body {
     border-top: 1px solid #ddd;
   }
 
-  .box-basic {
+  .box-basic, .box-basic.small {
     width: 100%;
     border-radius: 0;
     border-left: 0;
     border-right: 0;
-    margin-bottom: 1em;
+    margin-bottom: 1em !important;
   }
 
   .paging li, .paging .next, .paging .prev {
     margin: 0;
   }
+
+  .minimal .main-foot .txt {
+    text-align: center;
+  }
 }
+/* End Media query */
 @media screen and (min-width: 480px) {
   .ui-responsive td, .ui-responsive th {
     display: table-cell;
