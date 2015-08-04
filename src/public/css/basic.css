@@ -284,7 +284,7 @@ label.submit {
 .box .txt {
   display: block;
   font-size: 0.9375em;
-  margin-left: 34px;
+  margin: 0 0 0 34px !important;
 }
 
 .box.error {
@@ -302,6 +302,18 @@ label.submit {
   border: 1px solid #004500;
   background: #e0ffe4;
   color: #004500;
+}
+
+.box.info {
+  border: 1px solid #efc048;
+  border-radius: 5px;
+  font-weight: normal;
+}
+.box.info a:hover, .box.info a:focus {
+  text-decoration: none;
+}
+.box.info .ico {
+  font-size: 22px;
 }
 
 .box-basic {
@@ -820,6 +832,60 @@ body {
 
 .arrow-box2:after, .arrow-box2:before {
   left: 295px !important;
+}
+
+/* PAGING */
+.paging {
+  font-size: 0.875em;
+  margin: 1em auto;
+  text-align: center;
+}
+.paging li {
+  display: inline;
+  margin: 0 3px;
+}
+.paging a {
+  text-decoration: none;
+  padding: 2px 6px;
+}
+.paging a:hover, .paging a:focus {
+  background: #efc048;
+  color: #fff;
+}
+.paging .active a {
+  font-weight: bold;
+  color: #000;
+  cursor: default;
+  background: #ddd;
+}
+.paging .disable a {
+  color: #777;
+  cursor: default;
+  background: transparent;
+}
+.paging .prev {
+  margin-right: 25px;
+}
+.paging .next {
+  margin-left: 25px;
+}
+
+/* JQUERY MOBILE TABLE */
+.ui-table-reflow td, .ui-table-reflow th {
+  text-align: left;
+  display: block;
+}
+
+.ui-table-reflow .ui-table-cell-label {
+  min-width: 30%;
+  display: inline-block;
+}
+
+.ui-table-reflow .ui-table-cell-label-top {
+  display: block;
+  text-transform: uppercase;
+  font-size: .9em;
+  font-weight: normal;
 }
 
 /* PAGE LAYOUT */
@@ -1479,6 +1545,20 @@ body {
     border-right: 0;
     margin-bottom: 1em;
   }
+
+  .paging li, .paging .next, .paging .prev {
+    margin: 0;
+  }
+}
+@media screen and (min-width: 480px) {
+  .ui-responsive td, .ui-responsive th {
+    display: table-cell;
+    margin: 0;
+  }
+
+  .ui-responsive .ui-table-cell-label {
+    display: none;
+  }
 }
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {
@@ -1489,6 +1569,18 @@ body {
 
   .box-estimated .h2 {
     line-height: 1.3em;
+  }
+
+  .ui-responsive thead {
+    display: none;
+  }
+
+  .paging {
+    margin-top: 2em;
+  }
+  .paging li {
+    margin-bottom: 10px;
+    display: inline-block;
   }
 }
 /* Custom, iPhone Retina */

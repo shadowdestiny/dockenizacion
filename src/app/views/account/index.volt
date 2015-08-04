@@ -4,19 +4,18 @@
 {% endblock %}
 {% block bodyClass %}account{% endblock %}
 
-{% block header %}{% include "_elements/header.volt" %}{% endblock %}
+{% block header %}
+    {% set activeNav='{"myClass": "account"}'|json_decode %}
+    {% include "_elements/header.volt" %}
+{% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
 <main id="content">
     <div class="wrapper">
         <div class="nav box-basic">
-            <ul class="no-li">
-                <li><a class="active" href="javascript:void(0)">{{ language.translate("My Account") }} <i class="ico ico-arrow-right"></i></a></li>
-                <li><a href="javascript:void(0)">{{ language.translate("My Games") }} <i class="ico ico-arrow-right"></i></a></li>
-                <li><a href="javascript:void(0)">{{ language.translate("My Transactions") }} <i class="ico ico-arrow-right"></i></a></li>
-                <li><a href="javascript:void(0)">{{ language.translate("Messages") }} <i class="ico ico-arrow-right"></i></a></li>
-            </ul>
+           {% set activeSubnav='{"myClass": "account"}'|json_decode %}
+           {% include "account/nav.volt" %}
         </div>
         <div class="box-basic content">
             <h1 class="h1 title">{{ language.translate("My Account") }}</h1>

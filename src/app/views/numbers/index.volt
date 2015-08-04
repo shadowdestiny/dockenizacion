@@ -6,15 +6,11 @@
 	<![endif]-->
 {% endblock %}
 {% block bodyClass %}numbers{% endblock %}
-{% block template_scripts %}
-<script>
-$(function(){
-	$(".li-numbers").addClass("active");
-});
-</script>
-{% endblock %}
 
-{% block header %}{% include "_elements/header.volt" %}{% endblock %}
+{% block header %}
+    {% set activeNav='{"myClass": "numbers"}'|json_decode %}
+	{% include "_elements/header.volt" %}
+{% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}

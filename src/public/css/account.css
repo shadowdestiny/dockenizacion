@@ -14,11 +14,15 @@ ALLOWED: Variable and Extension
 /* 16x0.75=12 */
 /* STROKE OUTLINE */
 /* NOTE: IE9 doesn't support text-shadow */
+.my-games .box-value.yellow {
+  text-shadow: -4px -3px 0 #fff, 4px -3px 0 #fff, -4px 3px 0 #fff, 4px 3px 0 #fff, -3px -4px 0 #fff, 3px -4px 0 #fff, -3px 4px 0 #fff, 3px 4px 0 #fff, 0   -6px 0 #fff, 0    6px 0 #fff, -6px 0   0 #fff, 6px 0   0 #fff;
+}
+
 /* BUTTONS */
 /* ANIMATION */
 /* COLUMNS */
 #content .nav {
-  float: left;
+  position: absolute;
   width: 270px;
   margin: 0;
   padding: 0;
@@ -51,6 +55,7 @@ ALLOWED: Variable and Extension
   background: #efc048;
   color: #fff;
   cursor: default;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 #content .nav .active .ico {
   color: #fff;
@@ -100,6 +105,117 @@ ALLOWED: Variable and Extension
   top: -3px;
 }
 
+.my-games {
+  /*16x1.875 = 30px*/
+  /*16x3.375 = 54px*/
+}
+.my-games .table {
+  width: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid #ae5279;
+  border-collapse: separate;
+  font-size: 0.875em;
+}
+.my-games .table th, .my-games .table td {
+  padding: 7px 12px;
+}
+.my-games .table th {
+  background: #ae5279;
+  color: #fff;
+  font-weight: bold;
+  border-right: 1px solid #fff;
+}
+.my-games .table td {
+  border: 1px solid #ae5279;
+  border-width: 0 1px 1px 0;
+  vertical-align: top;
+}
+.my-games .table th:last-child, .my-games .table td:last-child {
+  border-right: 0;
+}
+.my-games .table tr:last-child td {
+  border-bottom: 0;
+}
+.my-games .table td.action {
+  text-align: center;
+}
+.my-games .table .numbers .star {
+  font-weight: bold;
+  color: #ebb019;
+}
+.my-games .table .ico {
+  font-size: 12px;
+}
+.my-games .table .id {
+  min-width: 52px;
+}
+.my-games .table .special {
+  background: #efc048 url(../img/special-bg.png) no-repeat center center;
+  background-size: cover;
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+.my-games .table .special .star {
+  color: #ae5279;
+  text-shadow: none !important;
+}
+.my-games .myCol {
+  display: inline-block;
+}
+.my-games .no-data {
+  display: block;
+  background: url(../img/no-game.jpg) no-repeat center center;
+  background-size: cover;
+  color: #fff;
+  min-height: 274px;
+  border-radius: 5px;
+  text-decoration: none;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+.my-games .no-data .h1 {
+  line-height: 120%;
+}
+.my-games .no-data .txt {
+  padding: 15px 20px;
+}
+.my-games .no-data .jackpot-txt {
+  margin: 20px 0 3px;
+  font-weight: bold;
+  display: block;
+}
+.my-games .no-data .btn {
+  margin-top: 10px;
+}
+.my-games .no-data:hover .btn, .my-games .no-data:focus .btn {
+  color: #1479b9;
+  background: #fff;
+  border: 1px solid #1479b9;
+  text-shadow: none !important;
+}
+.my-games .box-value.yellow {
+  margin-bottom: 15px;
+}
+.my-games .box-value {
+  display: block;
+}
+.my-games .box-value span {
+  display: inline-block;
+  line-height: 100%;
+}
+.my-games .box-value .currency {
+  font-size: 1.875em;
+  vertical-align: middle;
+  margin-right: 5px;
+  font-weight: bold;
+}
+.my-games .box-value .value {
+  font-size: 3.375em;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
 @media only screen and (max-width: 992px) {
   #content .nav {
     width: 220px;
@@ -121,7 +237,7 @@ ALLOWED: Variable and Extension
   }
   #content .content .title {
     float: none;
-    margin: 0 auto;
+    margin: 0 auto .5em;
   }
   #content .content .revoke {
     float: none;
@@ -132,6 +248,15 @@ ALLOWED: Variable and Extension
   }
   #content .cols > div {
     margin-bottom: 10px;
+  }
+
+  .my-games .no-data .currency, .my-games .no-data .value {
+    font-size: 1.875em;
+  }
+  .my-games .no-data .h1 {
+    margin: 10px auto 0;
+    font-size: 1.875em;
+    display: inline-block;
   }
 
   .change-psw {
@@ -152,5 +277,39 @@ ALLOWED: Variable and Extension
   .submit {
     margin: 0 auto;
     float: none;
+  }
+
+  .ui-responsive td {
+    width: 100%;
+    float: left;
+    clear: left;
+    border-right: 0 !important;
+  }
+
+  .ui-responsive th {
+    display: none;
+  }
+
+  .my-games .table td {
+    border-bottom: 0 solid transparent;
+  }
+  .my-games .table td:last-child {
+    border-bottom: 1px solid #ae5279;
+  }
+  .my-games .table .action {
+    text-align: left !important;
+  }
+  .my-games .table .ico {
+    display: none;
+  }
+  .my-games .myCol {
+    width: 65%;
+    vertical-align: text-top;
+  }
+  .my-games .no-data {
+    min-height: inherit;
+  }
+  .my-games .no-data .h1 {
+    font-size: 1.375em;
   }
 }

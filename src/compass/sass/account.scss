@@ -2,7 +2,7 @@
 
 #content{
     .nav{
-        float:left; width:270px; margin:0; padding:0;
+        position:absolute; width:270px; margin:0; padding:0;
         a{display:block; text-decoration:none; padding:10px 15px; border-bottom:1px solid $yellow;}
         a:hover, a:focus{
             background:$yellow; color:#fff;
@@ -11,7 +11,7 @@
         li:last-child a{border-bottom:0;}
         .ico{float:right; color:$yellow; font-size:14px; margin-top:3px; display:block;}
         .active{
-            font-weight:bold; background:$yellow; color:#fff; cursor:default;
+            font-weight:bold; background:$yellow; color:#fff; cursor:default; text-shadow:0 1px 3px rgba(0, 0, 0, 0.2);
             .ico{color:#fff;}
         }
     }
@@ -36,11 +36,47 @@
     .revoke{position:relative; top:-3px;}
 }
 
-@media only screen and (max-width:992px){
-#content{
-    .nav{width:220px;}
-    .content{margin-left:240px;}
+.my-games{
+    .table{
+        width:100%; border-radius:5px; overflow:hidden; border:1px solid $purple; border-collapse:separate; font-size:$basic-size;
+        th, td{padding:7px 12px;}
+        th{background:$purple; color:#fff; font-weight:bold; border-right:1px solid #fff;}
+        td{border:1px solid $purple; border-width:0 1px 1px 0; vertical-align:top;}
+        th:last-child, td:last-child{border-right:0;}
+        tr:last-child td{border-bottom:0;}
+        td.action{text-align:center;}
+        .numbers .star{font-weight:bold; color:$yellow-dark}
+        .ico{font-size:12px;}
+        .id{min-width:52px;}
+        .special{
+            background:$yellow url(../img/special-bg.png) no-repeat center center; background-size:cover; color:#fff; font-weight:bold; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);
+            .star{color:$purple; text-shadow:none!important;}
+        }
+    }
+    .myCol{display:inline-block;}
+    .no-data{
+        display:block; background:url(../img/no-game.jpg) no-repeat center center; background-size:cover; color:#fff; min-height:274px; border-radius:5px; text-decoration:none; text-shadow:0 1px 3px rgba(0, 0, 0, 0.8);
+        .h1{line-height:120%;}
+        .txt{padding:15px 20px;}
+        .jackpot-txt{margin:20px 0 3px; font-weight:bold; display:block;}
+        .btn{margin-top:10px;}
+        &:hover, &:focus{
+            .btn{color:$btn-blue; background:#fff; border:1px solid $btn-blue; text-shadow:none!important;}
+        }
+    }
+    .box-value.yellow{@extend %stroke2; margin-bottom:15px;}
+    .box-value{display:block;}
+    .box-value span{display:inline-block; line-height:100%;}
+    .box-value .currency{font-size:$h1; vertical-align:middle; margin-right:5px; font-weight:bold;} /*16x1.875 = 30px*/
+    .box-value .value{font-size:$h0; font-weight:bold; vertical-align:middle;} /*16x3.375 = 54px*/
+
 }
+
+@media only screen and (max-width:992px){
+    #content{
+        .nav{width:220px;}
+        .content{margin-left:240px;}
+    }
 }
 
 @media only screen and (max-width:768px){
@@ -49,11 +85,15 @@
     .content{
         margin:0 0 1em; border-width:0 0 1px 0;
         .wrap{margin:0;}
-        .title{float:none; margin:0 auto;}
+        .title{float:none; margin:0 auto .5em;}
         .revoke{float:none; margin:10px auto;}
     }
     .content .cols{margin:0;}
     .cols > div{margin-bottom:10px;}
+}
+.my-games .no-data{
+    .currency, .value{font-size:$h1;}
+    .h1{margin:10px auto 0; font-size:$h1; display:inline-block;}
 }
 .change-psw{float:left;}
 .gap{padding-bottom:20px;}
@@ -63,4 +103,20 @@
 @media only screen and (max-width:480px){
 .change-psw{margin:0 auto 20px; float:none; width:100%;}
 .submit{margin:0 auto; float:none;}
+.ui-responsive td{width:100%; float:left; clear:left; border-right:0!important;}
+.ui-responsive th{display:none;}
+.my-games{
+    .table{
+        td{border-bottom:0 solid transparent;}
+        td:last-child{border-bottom:1px solid $purple;}
+        .action{text-align:left!important;}
+        .ico{display:none;}
+    }
+    .myCol{width:65%; vertical-align:text-top;}
+    .no-data{
+        min-height:inherit;
+        .h1{font-size:$h2;}
+    }
 }
+}
+
