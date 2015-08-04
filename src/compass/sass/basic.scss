@@ -69,9 +69,8 @@ img.right{margin:0 0 15px 10px;}
 .input.error, .select.error{border:2px solid $red;}
 .checkbox{margin:0!important; padding:0;}
 label.submit{cursor:pointer;}
-.label{cursor:pointer;}
-.label .txt{font-size:$basic-size; font-weight:bold; display:block; margin-bottom:3px;}
-
+.label{cursor:pointer; font-size:$basic-size; font-weight:bold; display:block; margin-bottom:3px;}
+.label + .input, .label + .select{margin-bottom:1em;}
 
 /* INFO BOX */
 .box{text-align:left; padding:10px; border-radius:5px; font-weight:bold; margin-bottom:1em;}
@@ -81,7 +80,7 @@ label.submit{cursor:pointer;}
 .box.error .ico-warning{font-size:21px;}
 .box.success{border:1px solid $green-dark; background:$bg-green; color:$green-dark;}
 .box.info{
-  border:1px solid $yellow; border-radius:5px; font-weight:normal;
+  border:1px solid $yellow; border-radius:5px; font-weight:normal; font-style:italic; font-size:basic-size;
   a:hover, a:focus{text-decoration:none;}
   .ico{font-size:22px;}
 }
@@ -90,7 +89,7 @@ label.submit{cursor:pointer;}
   border:1px solid $yellow; background:#fff; border-radius:5px; padding:15px 20px;
   margin:0 auto; position:relative;
   > h1{color:$yellow-dark;}
-/*  .submit{margin-top:1em;}*/
+
 }
 .box-basic.small{width:400px; margin:0 auto 8em;}
 

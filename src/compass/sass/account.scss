@@ -20,7 +20,7 @@
         margin:0 0 2em 290px;
         hr{margin:0 -20px;}
         .title{margin-bottom:0.5em;}
-        .input{width:100%; margin-bottom:1em;}
+        .input{width:100%;}
         .label{font-weight:bold; font-size:$basic-size; margin-bottom:3px;}
         .asterisk{color:$red;}
         .wrap{margin-right:-20px;}
@@ -29,6 +29,7 @@
     }
 }
 
+.account .change .info.box{margin-top:22px;}
 .connect{
     margin:20px 0;
     .title, .revoke{float:left;}
@@ -97,7 +98,7 @@
 }
 .change-psw{float:left;}
 .gap{padding-bottom:20px;}
-
+.account .change .info.box{margin-top:0;}
 }
 
 @media only screen and (max-width:480px){

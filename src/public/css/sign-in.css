@@ -165,10 +165,6 @@ ALLOWED: Variable and Extension
   width: 100%;
 }
 
-.forgot-psw .label, .generate-psw .label {
-  margin-bottom: 1em;
-}
-
 .generate-psw .box-basic .my-left, .generate-psw .box-basic .my-right {
   margin-top: 2px;
 }

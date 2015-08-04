@@ -258,13 +258,14 @@ label.submit {
 
 .label {
   cursor: pointer;
-}
-
-.label .txt {
   font-size: 0.875em;
   font-weight: bold;
   display: block;
   margin-bottom: 3px;
+}
+
+.label + .input, .label + .select {
+  margin-bottom: 1em;
 }
 
 /* INFO BOX */
@@ -308,6 +309,8 @@ label.submit {
   border: 1px solid #efc048;
   border-radius: 5px;
   font-weight: normal;
+  font-style: italic;
+  font-size: basic-size;
 }
 .box.info a:hover, .box.info a:focus {
   text-decoration: none;
@@ -323,7 +326,6 @@ label.submit {
   padding: 15px 20px;
   margin: 0 auto;
   position: relative;
-  /*  .submit{margin-top:1em;}*/
 }
 .box-basic > h1 {
   color: #ebb019;

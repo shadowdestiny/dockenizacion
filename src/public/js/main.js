@@ -61,6 +61,12 @@ function menu(id, target){
 	});
 }
 
+function btnShowHide(button, show, hide){
+	$(button).click(function(){
+		$(show).show();
+		$(hide).hide();
+	});
+}
 
 $(function(){
 	checkSize();
