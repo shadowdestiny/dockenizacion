@@ -21,13 +21,11 @@
 <main id="content">
     <div class="wrapper">
         <div class="nav box-basic">
-           {% set activeSubnav='{"myClass": "transactions"}'|json_decode %}
+           {% set activeSubnav='{"myClass": "wallet"}'|json_decode %}
            {% include "account/nav.volt" %}
         </div>
         <div class="box-basic content">
-            <h1 class="h1 title">{{ language.translate("My Transactions") }}</h1>
-
-    
+            <h1 class="h1 title">{{ language.translate("My Wallet") }}</h1>
         </div>
     </div>
 </main>
