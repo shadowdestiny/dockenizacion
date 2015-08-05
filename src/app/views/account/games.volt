@@ -15,9 +15,6 @@
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
-
-{% set activeNav='{"myClass": "account"}'|json_decode %}
-
 <main id="content">
     <div class="wrapper">
         <div class="nav box-basic">

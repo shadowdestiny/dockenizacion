@@ -24,7 +24,7 @@
                 <div class="box info">
                     <span class="ico ico-info"></span>
                     <span class="txt">
-                        Use a long password made up of numbers, letters and symbols. The longer your password is, the harder it is to guess. So make your password long to help keep your information safe.
+                        {{ language.translate("Use a long password made up of numbers, letters and symbols. The longer your password is, the harder it is to guess. So make your password long to help keep your information safe.") }}
                     </span>
                 </div> 
             </div>

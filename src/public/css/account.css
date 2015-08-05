@@ -219,12 +219,75 @@ ALLOWED: Variable and Extension
   vertical-align: middle;
 }
 
+.wallet hr {
+  position: relative;
+  margin: 1.5em -20px !important;
+}
+.wallet .box-wallet .value {
+  position: relative;
+  top: 4px;
+  float: left;
+  font-weight: bold;
+}
+.wallet .box-wallet .input {
+  width: 180px !important;
+  border-radius: 3px;
+  padding: 5px 8px 6px 25px;
+}
+.wallet .congrats {
+  font-weight: bold;
+  font-style: normal;
+  display: block;
+}
+.wallet .info .txt {
+  margin: 0 15px 0 0 !important;
+  float: left;
+  width: 597px;
+}
+.wallet .info .btn {
+  font-style: normal;
+  min-width: 200px;
+  text-align: center;
+}
+.wallet .btn {
+  min-width: 210px;
+  text-align: center;
+}
+.wallet .symbol {
+  position: relative;
+  top: 1px;
+  right: -23px;
+  font-weight: bold;
+  color: #ebb019;
+}
+
+@media only screen and (max-width: 1200px) {
+  .wallet .info .txt {
+    width: 384px;
+  }
+}
 @media only screen and (max-width: 992px) {
   #content .nav {
     width: 220px;
   }
   #content .content {
     margin-left: 240px;
+  }
+
+  .wallet .box-wallet > div {
+    float: none !important;
+  }
+  .wallet .box-wallet .value {
+    margin-bottom: 10px;
+  }
+  .wallet .box-wallet .symbol {
+    margin-left: -13px;
+  }
+  .wallet .info .txt {
+    margin: 0 0 0.5em !important;
+  }
+  .wallet .info .btn {
+    margin-left: 34px;
   }
 }
 @media only screen and (max-width: 768px) {
@@ -273,6 +336,15 @@ ALLOWED: Variable and Extension
   .account .change .info.box {
     margin-top: 0;
   }
+
+  .wallet .info .txt {
+    float: none;
+    width: auto;
+    margin: 0 0 0.5em 34px !important;
+  }
+  .wallet .box-wallet .input {
+    margin-bottom: .5em;
+  }
 }
 @media only screen and (max-width: 480px) {
   .change-psw {
@@ -318,5 +390,9 @@ ALLOWED: Variable and Extension
   }
   .my-games .no-data .h1 {
     font-size: 1.375em;
+  }
+
+  .wallet .btn {
+    min-width: auto !important;
   }
 }

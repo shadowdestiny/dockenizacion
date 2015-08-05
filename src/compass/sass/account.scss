@@ -70,13 +70,43 @@
     .box-value span{display:inline-block; line-height:100%;}
     .box-value .currency{font-size:$h1; vertical-align:middle; margin-right:5px; font-weight:bold;} /*16x1.875 = 30px*/
     .box-value .value{font-size:$h0; font-weight:bold; vertical-align:middle;} /*16x3.375 = 54px*/
+}
 
+.wallet{
+    hr{position:relative; margin:1.5em -20px!important;}
+    .box-wallet{
+        .value{position:relative; top:4px; float:left; font-weight:bold;}
+        .input{width:180px!important; border-radius:3px; padding:5px 8px 6px 25px;} 
+    }
+    .congrats{font-weight:bold; font-style:normal; display:block;}
+    .info{
+        .txt{margin:0 15px 0 0!important; float:left; width:597px;}
+        .btn{font-style:normal; min-width:200px; text-align:center;}
+    }
+    .btn{min-width:210px; text-align:center;}
+    .symbol{position:relative; top:1px; right:-23px; font-weight:bold; color:$yellow-dark;}
+}
+
+@media only screen and (max-width:1200px){
+.wallet .info .txt{width:384px;}
 }
 
 @media only screen and (max-width:992px){
     #content{
         .nav{width:220px;}
         .content{margin-left:240px;}
+    }
+
+    .wallet{
+        .box-wallet{
+            > div{float:none!important;}
+            .value{margin-bottom:10px;}
+            .symbol{margin-left:-13px;}
+        }
+        .info{
+            .txt{margin:0 0 .5em!important;}
+            .btn{margin-left:34px;}
+        }
     }
 }
 
@@ -99,6 +129,12 @@
 .change-psw{float:left;}
 .gap{padding-bottom:20px;}
 .account .change .info.box{margin-top:0;}
+.wallet{
+    .info .txt{float:none; width:auto; margin:0 0 .5em 34px!important;}
+    .box-wallet{
+        .input{margin-bottom:.5em;}
+    }
+}
 }
 
 @media only screen and (max-width:480px){
@@ -119,5 +155,6 @@
         .h1{font-size:$h2;}
     }
 }
+.wallet .btn{min-width:auto!important;}
 }
 
