@@ -6,7 +6,12 @@ use EuroMillions\entities\User;
 use EuroMillions\interfaces\IAuthStorageStrategy;
 use EuroMillions\interfaces\IPasswordHasher;
 use EuroMillions\repositories\UserRepository;
+use EuroMillions\vo\Email;
+use EuroMillions\vo\Password;
+use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
+use Money\Currency;
+use Money\Money;
 
 class AuthService
 {
@@ -71,6 +76,29 @@ class AuthService
     public function hasRememberMe()
     {
         return $this->storageStrategy->hasRemember();
+    }
+
+    public function register(array $credentials)
+    {
+        if ($this->userRepository->getByEmail($credentials['email'])) {
+            return new ServiceActionResult(false, 'Email already registered');
+        }
+        if ($credentials['password'] !== $credentials['confirm_password']) {
+            return new ServiceActionResult(false, 'Passwords don\'t match');
+        }
+        $user = new User();
+        $user->initialize([
+            'name' => $credentials['name'],
+            'surname' => $credentials['surname'],
+            'email' => new Email($credentials['email']),
+            'password' => new Password($credentials['password'], $this->passwordHasher),
+            'country' => $credentials['country'],
+            'balance' => new Money(0, new Currency('EUR')),
+        ]);
+        $this->userRepository->add($user);
+        $this->entityManager->flush();
+        $this->storageStrategy->setCurrentUser($user);
+        return new ServiceActionResult(true);
     }
 
 

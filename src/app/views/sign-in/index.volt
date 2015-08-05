@@ -91,7 +91,7 @@
                                     <span class="bg-or"><span class="or">{{ language.translate("or") }}</span></span>
                                 </div>
 
-                                {{ form() }}
+                                {{ form('userAccess/signIn') }}
 
                                 {% if  which_form == 'in' and errors %}
                                 <div class="box error">
@@ -99,10 +99,9 @@
                                     <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
                                 </div>
                                 {% endif %}
-                                {{ signinform.render('email', {'class':'input'~in_form_errors['email']}) }}
-                                {{ signinform.render('password', {'class':'input'~in_form_errors['password']}) }}
+                                {{ signinform.render('email', {'class':'input'~form_errors['email']}) }}
+                                {{ signinform.render('password', {'class':'input'~form_errors['password']}) }}
                                 {{ signinform.render('csrf', ['value': security.getSessionToken()]) }}
-                                {{ signinform.render('which_form', ['value': 'in']) }}
                                 <div class="cols">
                                     <div class="col6">
                                         <label class="label" for="remember">
@@ -115,7 +114,7 @@
                                     </div>
                                 </div>
                                 <div class="cl">
-                                    <input id="go" type="submit" class="hidden2" />{# hidden submit doesn't work with enter key#}
+                                    <input id="go" type="submit" class="hidden2" />
                                     <label for="go" class="submit btn big blue">Log in to a secure server <span class="ico ico-arrow-right"></span></label>
                                 </div>
                                 {{ endform() }}
@@ -136,7 +135,7 @@
                                     <span class="bg-or"><span class="or">or</span></span>
                                 </div>
 
-                                {{ form() }}
+                                {{ form('userAccess/signUp') }}
 
                                 {% if  which_form == 'up' and errors %}
 
@@ -145,17 +144,16 @@
                                         <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
                                     </div>
                                 {% endif %}
-                                    {{ signupform.render('name', {'class':'input'~up_form_errors['name']}) }}
-                                    {{ signupform.render('surname', {'class':'input'~up_form_errors['surname']}) }}
-                                    {{ signupform.render('email', {'class':'input'~up_form_errors['email']}) }}
-                                    {{ signupform.render('password', {'class':'input'~up_form_errors['password']}) }}
-                                    {{ signupform.render('confirm_password', {'class':'input'~up_form_errors['confirm_password']}) }}
-                                    {{ signupform.render('country', {'class':'select'~up_form_errors['country']}) }}
+                                    {{ signupform.render('name', {'class':'input'~form_errors['name']}) }}
+                                    {{ signupform.render('surname', {'class':'input'~form_errors['surname']}) }}
+                                    {{ signupform.render('email', {'class':'input'~form_errors['email']}) }}
+                                    {{ signupform.render('password', {'class':'input'~form_errors['password']}) }}
+                                    {{ signupform.render('confirm_password', {'class':'input'~form_errors['confirm_password']}) }}
+                                    {{ signupform.render('country', {'class':'select'~form_errors['country']}) }}
 
-                                    <div class="cl">
-                                        <a href="javascript:void(0);"
-                                           class="submit btn big blue">{{ language.translate("Connect to a secure server") }}
-                                            <span class="ico ico-arrow-right"></span></a>
+                                <div class="cl">
+                                        <input id="goSignUp" type="submit" class="hidden2" />
+                                        <label for="goSignUp" class="submit btn big blue">Connect to a secure server <span class="ico ico-arrow-right"></span></label>
                                     </div>
                                 {{ endform() }}
                             </div>

@@ -9,7 +9,10 @@ use EuroMillions\services\AuthService;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\RememberToken;
+use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
+use Money\Currency;
+use Money\Money;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
 
@@ -291,6 +294,51 @@ class AuthServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method register
+     * when calledWithExistingEmail
+     * should returnProperErrorMessage
+     */
+    public function test_register_calledWithExistingEmail_returnProperErrorMessage()
+    {
+        $existing_mail = 'antonio.hernandez@panamedia.net';
+        $this->userRepository_double->getByEmail($existing_mail)->willReturn(new User());
+        $credentials = $this->getRegisterCredentials($existing_mail);
+        $expected = new ServiceActionResult(false, 'Email already registered');
+        $sut = $this->getSut();
+        $actual = $sut->register($credentials);
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * method register
+     * when calledWithProperCredentials
+     * should storeNewUserAndLoginAndReturnOk
+     */
+    public function test_register_calledWithProperCredentials_storeNewUserAndLoginAndReturnOk()
+    {
+        $this->expectFlushInEntityManager();
+        $credentials = $this->getRegisterCredentials();
+        $user = new User();
+        $user->initialize(
+            [
+                'name' => $credentials['name'],
+                'surname' => $credentials['surname'],
+                'email' => new Email($credentials['email']),
+                'password' => new Password($credentials['password'], $this->hasher_double->reveal()),
+                'country' => $credentials['country'],
+                'balance' => new Money(0, new Currency('EUR')),
+            ]
+        );
+        $this->userRepository_double->getByEmail($credentials['email'])->willReturn(null);
+        $this->userRepository_double->add($user)->shouldBeCalled();
+        $this->storageStrategy_double->setCurrentUser($user)->shouldBeCalled();
+        $sut = $this->getSut();
+        $actual = $sut->register($credentials);
+        $expected = new ServiceActionResult(true);
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
      * @return AuthService
      */
     private function getSut()
@@ -386,5 +434,23 @@ class AuthServiceUnitTest extends UnitTestBase
 
         $actual = $this->exerciseLoginWithRememberMe();
         return $actual;
+    }
+
+    /**
+     * @param $email
+     * @param $confirm_password
+     * @return array
+     */
+    private function getRegisterCredentials($email = 'nonexisting@email.com', $confirm_password = 'passWord01')
+    {
+        $credentials = [
+            'name'             => 'Antonio',
+            'surname'          => 'Hernández',
+            'email'            => $email,
+            'password'         => 'passWord01',
+            'confirm_password' => $confirm_password,
+            'country'          => 'Spain',
+        ];
+        return $credentials;
     }
 }

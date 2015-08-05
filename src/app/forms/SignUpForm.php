@@ -7,6 +7,7 @@ use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Form;
+use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Validation\Validator\Identical;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email as EmailValidator;
@@ -14,7 +15,7 @@ use Phalcon\Validation\Validator\Email as EmailValidator;
 
 class SignUpForm extends Form
 {
-    public function initialize()
+    public function initialize($entity, $options)
     {
         $name = new Text('name', [
             'placeholder' => 'Name'
@@ -45,6 +46,12 @@ class SignUpForm extends Form
         $password->addValidator(new PresenceOf(array(
             'message' => 'The password is required'
         )));
+        $password->addValidator(new Confirmation(
+            [
+                'with' => 'confirm_password',
+                'message' => 'Passwords don\'t match'
+            ]
+        ));
         $this->add($password);
         $password_confirm = new Password('confirm_password', array(
             'placeholder' => 'Confirm Password'
@@ -57,7 +64,7 @@ class SignUpForm extends Form
 
         $country = new Select('country', [
             'placeholder' => 'Select your country of residence',
-            'options' => ['Spain', 'France']
+            'options' => $options['countries']
         ]);
         $this->add($country);
 
@@ -67,7 +74,5 @@ class SignUpForm extends Form
             'message' => 'Cross scripting protection. Reload the page.'
         )));
         $this->add($csrf);
-        $which = new Hidden('which_form');
-        $this->add($which);
     }
 }

@@ -14,6 +14,8 @@ class User extends EntityBase implements IEntity,IUser
 {
     /** @var  Uuid */
     protected $id;
+    protected $name;
+    protected $surname;
     /** @var  Password */
     protected $password;
     /** @var  Email */
@@ -22,6 +24,56 @@ class User extends EntityBase implements IEntity,IUser
     protected $rememberToken;
     /** @var  Money */
     protected $balance;
+
+    protected $country;
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    /**
+     * @param mixed $surname
+     */
+    public function setSurname($surname)
+    {
+        $this->surname = $surname;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param mixed $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
 
     public function setId(UserId $id)
     {

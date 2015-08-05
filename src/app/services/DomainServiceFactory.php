@@ -79,6 +79,14 @@ class DomainServiceFactory
         return new AuthService($this->entityManager, $passwordHasher, $storageStrategy);
     }
 
+    /**
+     * @return GeoService
+     */
+    public function getGeoService()
+    {
+        return new GeoService();
+    }
+
     private function getRepository($entity)
     {
         return $this->entityManager->getRepository(self::ENTITIES_NS.$entity);

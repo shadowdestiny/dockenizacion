@@ -28,6 +28,7 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         parent::setUp();
         $this->sut = $this->entityManager->getRepository('\EuroMillions\entities\User');
     }
+
     /**
      * method add
      * when calledWithValidUser
@@ -70,9 +71,12 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $user = new User();
         $user->initialize([
             'id'       => $this->sut->nextIdentity(),
+            'name'     => 'nombre',
+            'surname'  => 'apellido',
+            'country'  => 'pais',
             'password' => new Password($password, $hasher),
             'email'    => new Email($email),
-            'balance' => new Money(3000, new Currency('EUR')),
+            'balance'  => new Money(3000, new Currency('EUR')),
         ]);
         /** @var Password $hashed_pass */
         $hashed_pass = $user->getPassword();

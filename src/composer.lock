@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "43d6043f3841b60de3810320ac81cef2",
+    "hash": "dac55233b2e0c6d00c6cbdf2fc3a44b4",
     "packages": [
         {
             "name": "alcohol/iso4217",
-            "version": "2.0.2",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alcohol/iso4217.git",
-                "reference": "3372b79f0f032596202cb15f38a88d1e4507b125"
+                "reference": "70db7b7fbb8737a52a2f9fef59c21b0033b46577"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alcohol/iso4217/zipball/3372b79f0f032596202cb15f38a88d1e4507b125",
-                "reference": "3372b79f0f032596202cb15f38a88d1e4507b125",
+                "url": "https://api.github.com/repos/alcohol/iso4217/zipball/70db7b7fbb8737a52a2f9fef59c21b0033b46577",
+                "reference": "70db7b7fbb8737a52a2f9fef59c21b0033b46577",
                 "shasum": ""
             },
             "require": {
@@ -57,7 +57,49 @@
                 "iso",
                 "library"
             ],
-            "time": "2015-06-03 07:10:01"
+            "time": "2015-07-31 06:58:04"
+        },
+        {
+            "name": "antonienko/mledoze-countries-phpwrapper",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/antonienko/MledozeCountriesPhpWrapper.git",
+                "reference": "ddadf8c80f5da04a4a20fc71ede953297c22b60e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/antonienko/MledozeCountriesPhpWrapper/zipball/ddadf8c80f5da04a4a20fc71ede953297c22b60e",
+                "reference": "ddadf8c80f5da04a4a20fc71ede953297c22b60e",
+                "shasum": ""
+            },
+            "require": {
+                "mledoze/countries": "~1.7",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "antonienko\\MledozeCountriesPhpWrapper": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Antonio Manuel Hernández Sánchez"
+                }
+            ],
+            "description": "Php Wrapper for the json data from mledoze/countries library",
+            "keywords": [
+                "countries"
+            ],
+            "time": "2015-08-03 15:06:48"
         },
         {
             "name": "antonienko/money-formatter",
@@ -848,6 +890,52 @@
             "time": "2014-10-07 12:54:10"
         },
         {
+            "name": "mledoze/countries",
+            "version": "1.7.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mledoze/countries.git",
+                "reference": "16f6a6801344b369d4d9e414f254f99f6e23905c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/mledoze/countries/archive/master.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "php": ">=5.4",
+                "symfony/console": "~2.7",
+                "symfony/yaml": "~2.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MLD\\": "src/MLD"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Open Database License"
+            ],
+            "authors": [
+                {
+                    "name": "Mohammed Le Doze"
+                }
+            ],
+            "description": "World countries in JSON, CSV, XML and Yaml",
+            "homepage": "https://mledoze.github.io/countries/",
+            "keywords": [
+                "countries",
+                "csv",
+                "json",
+                "world",
+                "xml",
+                "yaml"
+            ],
+            "time": "2015-06-20 12:28:33"
+        },
+        {
             "name": "phalcon/incubator",
             "version": "dev-master",
             "source": {
@@ -1081,7 +1169,7 @@
         },
         {
             "name": "symfony/config",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Config.git",
@@ -1131,16 +1219,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "8cf484449130cabfd98dcb4694ca9945802a21ed"
+                "reference": "d6cf02fe73634c96677e428f840704bfbcaec29e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/8cf484449130cabfd98dcb4694ca9945802a21ed",
-                "reference": "8cf484449130cabfd98dcb4694ca9945802a21ed",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/d6cf02fe73634c96677e428f840704bfbcaec29e",
+                "reference": "d6cf02fe73634c96677e428f840704bfbcaec29e",
                 "shasum": ""
             },
             "require": {
@@ -1184,11 +1272,11 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-09 16:07:40"
+            "time": "2015-07-28 15:18:12"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
@@ -1237,16 +1325,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "4bfbe0ed3909bfddd75b70c094391ec1f142f860"
+                "reference": "71340e996171474a53f3d29111d046be4ad8a0ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/4bfbe0ed3909bfddd75b70c094391ec1f142f860",
-                "reference": "4bfbe0ed3909bfddd75b70c094391ec1f142f860",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/71340e996171474a53f3d29111d046be4ad8a0ff",
+                "reference": "71340e996171474a53f3d29111d046be4ad8a0ff",
                 "shasum": ""
             },
             "require": {
@@ -1282,7 +1370,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-01 11:25:50"
+            "time": "2015-07-28 14:07:07"
         }
     ],
     "packages-dev": [
@@ -1551,16 +1639,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.1.9",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "5bd48b86cd282da411bb80baac1398ce3fefac41"
+                "reference": "6526d9bdb56e2af1e8950114d42391044d18cfa7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/5bd48b86cd282da411bb80baac1398ce3fefac41",
-                "reference": "5bd48b86cd282da411bb80baac1398ce3fefac41",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/6526d9bdb56e2af1e8950114d42391044d18cfa7",
+                "reference": "6526d9bdb56e2af1e8950114d42391044d18cfa7",
                 "shasum": ""
             },
             "require": {
@@ -1568,7 +1656,7 @@
                 "phpunit/php-file-iterator": "~1.3",
                 "phpunit/php-text-template": "~1.2",
                 "phpunit/php-token-stream": "~1.3",
-                "sebastian/environment": "~1.0",
+                "sebastian/environment": "~1.3.1",
                 "sebastian/version": "~1.0"
             },
             "require-dev": {
@@ -1583,7 +1671,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1.x-dev"
+                    "dev-master": "2.2.x-dev"
                 }
             },
             "autoload": {
@@ -1609,7 +1697,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-07-26 12:54:47"
+            "time": "2015-08-02 04:45:08"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -2035,16 +2123,16 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "1.3.0",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "4fe0a44cddd8cc19583a024bdc7374eb2fef0b87"
+                "reference": "6324c907ce7a52478eeeaede764f48733ef5ae44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/4fe0a44cddd8cc19583a024bdc7374eb2fef0b87",
-                "reference": "4fe0a44cddd8cc19583a024bdc7374eb2fef0b87",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/6324c907ce7a52478eeeaede764f48733ef5ae44",
+                "reference": "6324c907ce7a52478eeeaede764f48733ef5ae44",
                 "shasum": ""
             },
             "require": {
@@ -2081,7 +2169,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2015-07-26 06:42:57"
+            "time": "2015-08-03 06:14:51"
         },
         {
             "name": "sebastian/exporter",
@@ -2293,6 +2381,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "phalcon/incubator": 20,
+        "antonienko/mledoze-countries-phpwrapper": 20,
         "phalcon/devtools": 20
     },
     "prefer-stable": false,
