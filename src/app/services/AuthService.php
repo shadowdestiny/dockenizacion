@@ -83,9 +83,6 @@ class AuthService
         if ($this->userRepository->getByEmail($credentials['email'])) {
             return new ServiceActionResult(false, 'Email already registered');
         }
-        if ($credentials['password'] !== $credentials['confirm_password']) {
-            return new ServiceActionResult(false, 'Passwords don\'t match');
-        }
         $user = new User();
         $user->initialize([
             'name' => $credentials['name'],

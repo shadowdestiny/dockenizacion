@@ -3,22 +3,34 @@ namespace EuroMillions\controllers;
 
 use EuroMillions\forms\SignInForm;
 use EuroMillions\forms\SignUpForm;
+use EuroMillions\services\AuthService;
+use EuroMillions\services\GeoService;
 use Phalcon\Validation\Message;
 
 class UserAccessController extends ControllerBase
 {
+    /** @var  AuthService */
+    private $authService;
+    /** @var  GeoService */
+    private $geoService;
+
+    public function initialize(AuthService $authService = null, GeoService $geoService = null)
+    {
+        $this->authService = $authService ? $authService : $this->domainServiceFactory->getAuthService();
+        $this->geoService = $geoService ? $geoService : $this->domainServiceFactory->getGeoService();
+    }
+
     public function signInAction($paramsFromPreviousAction = null)
     {
         $errors = null;
-        $auth_service = $this->domainServiceFactory->getAuthService();
         $sign_in_form = new SignInForm();
         $form_errors = $this->getErrorsArray();
 
         $sign_up_form = $this->getSignUpForm();
 
         if (!$this->request->isPost()) {
-            if ($auth_service->hasRememberMe()) {
-                return $auth_service->loginWithRememberMe();
+            if ($this->authService->hasRememberMe()) {
+                return $this->authService->loginWithRememberMe();
             }
         } else {
             if ($sign_in_form->isValid($this->request->getPost()) == false) {
@@ -32,7 +44,7 @@ class UserAccessController extends ControllerBase
                     $form_errors[$field] = ' error';
                 }
             } else {
-                if (!$auth_service->check([
+                if (!$this->authService->check([
                     'email'    => $this->request->getPost('email'),
                     'password' => $this->request->getPost('password'),
                     'remember' => $this->request->getPost('remember'),
@@ -58,7 +70,6 @@ class UserAccessController extends ControllerBase
     public function signUpAction($paramsFromPreviousAction = null)
     {
         $errors = null;
-        $auth_service = $this->domainServiceFactory->getAuthService();
         $sign_in_form = new SignInForm();
         $form_errors = $this->getErrorsArray();
         $sign_up_form = $this->getSignUpForm();
@@ -74,7 +85,7 @@ class UserAccessController extends ControllerBase
                     $form_errors[$field] = ' error';
                 }
             } else {
-                $register_result = $auth_service->register([
+                $register_result = $this->authService->register([
                     'name'             => $this->request->getPost('name'),
                     'surname'          => $this->request->getPost('surname'),
                     'email'            => $this->request->getPost('email'),
@@ -118,8 +129,7 @@ class UserAccessController extends ControllerBase
      */
     private function getSignUpForm()
     {
-        $gs = $this->domainServiceFactory->getGeoService();
-        $countries = $gs->countryList();
+        $countries = $this->geoService->countryList();
         $sign_up_form = new SignUpForm(null, ['countries' => $countries]);
         return $sign_up_form;
     }

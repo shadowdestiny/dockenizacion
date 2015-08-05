@@ -3,6 +3,7 @@ namespace tests\base;
 
 use EuroMillions\entities\Language;
 use Phalcon\DI;
+use Prophecy\Argument;
 
 class UnitTestBase extends \PHPUnit_Framework_TestCase
 {
@@ -73,6 +74,17 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
                     }
                 }
                 return $result;
+            }));
+        $this->stubDIService('view', $view_mock);
+    }
+
+    protected function checkViewVarsContain($key, $value)
+    {
+        $view_mock = $this->getMockBuilder('\Phalcon\Mvc\View')->getMock();
+        $view_mock->expects($this->once())
+            ->method('setVars')
+            ->with($this->callback(function ($subject) use ($key, $value) {
+                return (array_key_exists($key, $subject) && $subject[$key] == $value);
             }));
         $this->stubDIService('view', $view_mock);
     }
