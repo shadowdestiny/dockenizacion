@@ -21,8 +21,9 @@ class UserAccessControllerControllerBaseUnitTest extends UnitTestBase
      * method signUpAction
      * when calledWithInvalidPassword
      * should renderProperError
+     * @dataProvider getWrongPasswords
      */
-    public function test_signUpAction_calledWithInvalidPassword_renderProperError()
+    public function test_signUpAction_calledWithInvalidPassword_renderProperError($password)
     {
         $request_stub = $this->prophesize('Phalcon\HTTP\RequestInterface');
         $request_stub->isPost()->willReturn(true);
@@ -31,8 +32,8 @@ class UserAccessControllerControllerBaseUnitTest extends UnitTestBase
                 'name' => 'correct name',
                 'surname' => 'correct surname',
                 'email' => 'correct@email.com',
-                'password' => 'wrong password',
-                'confirm_password' => 'wrong password',
+                'password' => $password,
+                'confirm_password' => $password,
                 'country' => 'correct country',
             ]
         );
@@ -41,6 +42,16 @@ class UserAccessControllerControllerBaseUnitTest extends UnitTestBase
         $this->checkViewVarsContain('errors', ['The password should have numbers, lowercase and uppercase characters']);
         $sut = $this->getSut();
         $sut->signUpAction();
+    }
+
+    public function getWrongPasswords()
+    {
+        return [
+            ['wrong password'],
+            ['wrong01'],
+            ['WRONG01'],
+            ['W R 01']
+        ];
     }
 
     /**

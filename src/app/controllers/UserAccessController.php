@@ -16,6 +16,7 @@ class UserAccessController extends ControllerBase
 
     public function initialize(AuthService $authService = null, GeoService $geoService = null)
     {
+        parent::initialize();
         $this->authService = $authService ? $authService : $this->domainServiceFactory->getAuthService();
         $this->geoService = $geoService ? $geoService : $this->domainServiceFactory->getGeoService();
     }

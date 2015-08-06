@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\forms;
 
+use EuroMillions\components\PasswordValidator;
 use Phalcon\Forms\Element\Email;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Password;
@@ -11,9 +12,6 @@ use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Validation\Validator\Identical;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email as EmailValidator;
-use Phalcon\Validation\Validator\Regex;
-use EuroMillions\vo\Password as PasswordVo;
-
 
 class SignUpForm extends Form
 {
@@ -54,8 +52,7 @@ class SignUpForm extends Form
                 'message' => 'Passwords don\'t match'
             ]
         ));
-        $password->addValidator(new Regex([
-            'pattern' => PasswordVo::FORMAT,
+        $password->addValidator(new PasswordValidator([
             'message' => 'The password should have numbers, lowercase and uppercase characters'
         ]));
         $this->add($password);
