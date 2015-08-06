@@ -38,6 +38,7 @@ select{padding:5px; border:1px solid #bbb;}
 button{cursor:pointer;}
 hr{border:0; background:$grey-light; height:1px; margin-bottom:1em;}
 hr.yellow{background:$yellow;}
+.radio{margin-left:0;}
 
 ul.list {margin:0 0 1em 2em;}
 .list li{margin-bottom:.5em;}
@@ -56,6 +57,9 @@ img.right{margin:0 0 15px 10px;}
 #main-page > .ui-content{padding:0;}
 .ui-checkbox{margin:0;}
 .ui-checkbox label{padding:0; overflow:none;}
+.ui-link:hover, .ui-link:focus{text-decoration:none!important;}
+.ui-radio{display:inline-block;}
+.ui-mobile label, .ui-controlgroup-label{display:inline-block;}
 
 /* CLEARFIX */
 .cl:before, .cl:after, .wrapper:before, .wrapper:after, .btn:before, .btn:after, .box:before, .box:after{content:" "; display:table;}
@@ -71,6 +75,7 @@ img.right{margin:0 0 15px 10px;}
 label.submit{cursor:pointer;}
 .label{cursor:pointer; font-size:$basic-size; font-weight:bold; display:block; margin-bottom:3px;}
 .label + .input, .label + .select{margin-bottom:1em;}
+.select{padding-top:6px;}
 
 /* INFO BOX */
 .box{text-align:left; padding:10px; border-radius:5px; font-weight:bold; margin-bottom:1em;}

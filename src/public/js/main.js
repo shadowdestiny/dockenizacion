@@ -33,18 +33,15 @@ function checkSize(){
 		// DESKTOP
 		menu(".li-currency", ".div-currency");
 
-
 		if(mobile == 1){ // You came from a screen sized mobile interface
 			$(".your-account").attr({"data-transition":"slide", "href":navUrl[0]});
 			$(".li-currency .link").attr({"data-transition":"slide", "href":navUrl[1]});
 		}
-
 	    $(".main-nav .li-your-account").hover(function(event){
 	    	$(".main-nav .subnav").show();
 	    }, function(){
 			$(".main-nav .subnav").hide();
 	    });
-
 		mobile = 0;
 	}
 

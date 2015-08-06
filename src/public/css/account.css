@@ -234,22 +234,17 @@ ALLOWED: Variable and Extension
   border-radius: 3px;
   padding: 5px 8px 6px 25px;
 }
-.wallet .congrats {
-  font-weight: bold;
-  font-style: normal;
-  display: block;
-}
-.wallet .info .txt {
+.wallet .box-details .info .txt {
   margin: 0 15px 0 0 !important;
   float: left;
   width: 597px;
 }
-.wallet .info .btn {
+.wallet .box-details .info .btn {
   font-style: normal;
   min-width: 200px;
   text-align: center;
 }
-.wallet .btn {
+.wallet .box-details .btn {
   min-width: 210px;
   text-align: center;
 }
@@ -259,6 +254,115 @@ ALLOWED: Variable and Extension
   right: -23px;
   font-weight: bold;
   color: #ebb019;
+}
+.wallet .table {
+  width: 100%;
+  border-collapse: separate;
+  font-size: 0.875em;
+  margin-bottom: 1em;
+}
+.wallet .table th, .wallet .table td {
+  padding: 12px;
+  vertical-align: top;
+}
+.wallet .table th {
+  color: #ae5279;
+  font-weight: bold;
+  padding: 4px 12px;
+}
+.wallet .table thead .card:first-child {
+  padding: 4px 0 0 0;
+}
+.wallet .table .cards {
+  color: #777;
+}
+.wallet .table .type {
+  color: #333;
+  font-weight: bold;
+}
+.wallet .table .active {
+  background: #fffeec;
+}
+.wallet .table .active td {
+  border: 1px solid #efc048;
+  border-width: 1px 0;
+}
+.wallet .table .active td:first-child {
+  border-left: 1px solid #efc048;
+  border-radius: 5px 0 0 5px;
+}
+.wallet .table .active td:last-child {
+  border-right: 1px solid #efc048;
+  border-radius: 0 5px 5px 0;
+}
+.wallet .margin {
+  margin-bottom: 1em;
+}
+.wallet .card {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 25px;
+  border-radius: 3px;
+  vertical-align: text-bottom;
+  top: 1px;
+  margin: -5px 4px 0 2px;
+}
+.wallet .card .txt {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+}
+.wallet .bank {
+  font-weight: bold;
+}
+.wallet .back {
+  margin-top: 10px;
+}
+.wallet .box-congrats.info .txt {
+  margin: 0 15px 0 34px !important;
+  width: auto !important;
+  float: none !important;
+}
+.wallet .congrats {
+  font-weight: bold;
+  font-style: normal;
+  display: block;
+}
+
+.box-add-bank .submit {
+  float: right;
+}
+.box-add-bank .submit .btn {
+  font-size: 100%;
+}
+.box-add-bank .subtxt {
+  font-weight: normal;
+  color: #777;
+}
+.box-add-bank .cols {
+  margin-bottom: 0 !important;
+}
+
+.box-add-card .month, .box-add-card .year {
+  float: left;
+  width: auto;
+  margin-right: 10px;
+}
+.box-add-card .margin {
+  margin: 0 20px 0 0;
+}
+.box-add-card .cols {
+  margin-bottom: 0 !important;
+}
+.box-add-card .submit {
+  margin-top: 27px;
+}
+.box-add-card .cvv {
+  width: 65px !important;
+}
+.box-add-card .block {
+  display: block;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -344,6 +448,9 @@ ALLOWED: Variable and Extension
   }
   .wallet .box-wallet .input {
     margin-bottom: .5em;
+  }
+  .wallet .wrap {
+    margin: 0;
   }
 }
 @media only screen and (max-width: 480px) {

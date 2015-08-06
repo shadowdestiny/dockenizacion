@@ -1622,6 +1622,10 @@ hr.yellow {
   background: #efc048;
 }
 
+.radio {
+  margin-left: 0;
+}
+
 ul.list {
   margin: 0 0 1em 2em;
 }
@@ -1689,6 +1693,18 @@ img.right {
   overflow: none;
 }
 
+.ui-link:hover, .ui-link:focus {
+  text-decoration: none !important;
+}
+
+.ui-radio {
+  display: inline-block;
+}
+
+.ui-mobile label, .ui-controlgroup-label {
+  display: inline-block;
+}
+
 /* CLEARFIX */
 .cl:before, .cl:after, .wrapper:before, .wrapper:after, .btn:before, .btn:after, .box:before, .box:after {
   content: " ";
@@ -1746,6 +1762,10 @@ label.submit {
 
 .label + .input, .label + .select {
   margin-bottom: 1em;
+}
+
+.select {
+  padding-top: 6px;
 }
 
 /* INFO BOX */

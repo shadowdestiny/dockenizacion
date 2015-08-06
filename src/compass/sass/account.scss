@@ -15,7 +15,6 @@
             .ico{color:#fff;}
         }
     }
-
     .content{
         margin:0 0 2em 290px;
         hr{margin:0 -20px;}
@@ -78,13 +77,54 @@
         .value{position:relative; top:4px; float:left; font-weight:bold;}
         .input{width:180px!important; border-radius:3px; padding:5px 8px 6px 25px;} 
     }
-    .congrats{font-weight:bold; font-style:normal; display:block;}
-    .info{
+    .box-details .info{
         .txt{margin:0 15px 0 0!important; float:left; width:597px;}
         .btn{font-style:normal; min-width:200px; text-align:center;}
     }
-    .btn{min-width:210px; text-align:center;}
+    .box-details .btn{min-width:210px; text-align:center;}
     .symbol{position:relative; top:1px; right:-23px; font-weight:bold; color:$yellow-dark;}
+    .table{
+        width:100%; border-collapse:separate; font-size:$basic-size; margin-bottom:1em;
+        th, td{padding:12px; vertical-align:top;}
+        th{color:$purple; font-weight:bold; padding:4px 12px;}
+        thead .card:first-child{padding:4px 0 0 0;}
+        .cards{color:$grey;}
+        .type{color:$black; font-weight:bold;}
+        .active{
+            background:$yellow-lighter;
+            td{border:1px solid $yellow; border-width:1px 0;}
+            td:first-child{border-left:1px solid $yellow; border-radius:5px 0 0 5px;}
+            td:last-child{border-right:1px solid $yellow; border-radius:0 5px 5px 0;}
+        }
+    }
+    .margin{margin-bottom:1em;}
+    .card{
+        position:relative; display:inline-block; width:40px; height:25px; border-radius:3px; vertical-align:text-bottom; top:1px; margin:-5px 4px 0 2px;
+        .txt{position:absolute; left:-9999px; top:-9999px;}
+    }
+    .bank{font-weight:bold;}
+    .back{margin-top:10px;}
+    .box-congrats.info{
+        .txt{margin:0 15px 0 34px !important; width:auto!important; float:none!important;}
+    }
+    .congrats{font-weight:bold; font-style:normal; display:block;}
+}
+
+.box-add-bank{
+    .submit{
+        float:right;
+        .btn{font-size:100%;}
+    }
+    .subtxt{font-weight:normal; color:$grey;}
+    .cols{margin-bottom:0!important;}
+}
+.box-add-card{
+    .month, .year{float:left; width:auto; margin-right:10px;}
+    .margin{margin:0 20px 0 0;}
+    .cols{margin-bottom:0!important;}
+    .submit{margin-top:27px;}
+    .cvv{width:65px!important;}
+    .block{display:block;}
 }
 
 @media only screen and (max-width:1200px){
@@ -134,6 +174,7 @@
     .box-wallet{
         .input{margin-bottom:.5em;}
     }
+    .wrap{margin:0;}
 }
 }
 
