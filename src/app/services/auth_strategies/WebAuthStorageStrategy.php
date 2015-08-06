@@ -56,7 +56,7 @@ class WebAuthStorageStrategy implements IAuthStorageStrategy
     {
         $this->session->set(self::CURRENT_USER_VAR, $user);
         if (get_class($user) == 'EuroMillions\entities\GuestUser') {
-            $this->cookieManager->set(self::CURRENT_USER_VAR, $user->getId(), self::GUEST_USER_EXPIRATION);
+            $this->cookieManager->set(self::CURRENT_USER_VAR, $user->getId()->id(), self::GUEST_USER_EXPIRATION);
         }
     }
 
