@@ -6,23 +6,39 @@
 
 {% block template_scripts %}
 <script>
-/*
-function checkRadio(id){
-    $(id).click(function(){
-        $('.bank .radio').is(':checked')
-
-        if($('.bank .radio').is(':checked')){ 
-            console.log("it's checked"); 
+function deleteLnk(id){
+    $(id).click(function(e){
+        if($(this).closest('tr').hasClass('active')){
+            $(this).parent().parent().siblings("tr").addClass("active");
+            $(this).parent().parent().siblings("tr").find('input[type=radio]').prop('checked', true);
+            $(this).closest('tr').remove();
+        }else{
+            $(this).closest('tr').remove();
         }
     });
 }
-*/
+function checkRadio(id){
+    $(id).click(function(e){
+        if($(this).hasClass("active")){
+            //do nothing
+        }else{
+            if($(e.target).closest('a').length){ // click a link or link's child
+                // Do nothing
+            }else{
+                $(this).siblings("tr").removeClass("active");
+                $(this).addClass("active");
+                $(this).find('input[type=radio]').prop('checked', true);
+            }
+        }
+    });
+}
 
 $(function(){
     btnShowHide('.new-card', '.box-add-card, .back', '.box-details');
     btnShowHide('.new-bank', '.box-add-bank, .back', '.box-details');
     btnShowHide('.back', '.box-details', '.back, .box-add-bank, .box-add-card');
-//    checkRadio(".wallet");
+    checkRadio("#card-list tr, #bank-list tr");
+    deleteLnk("#card-list .action a, #bank-list .action a");
 });
 </script>
 {% endblock %} 
