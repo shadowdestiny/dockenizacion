@@ -74,7 +74,6 @@ ALLOWED: Variable and Extension
 }
 #content .content .label {
   font-weight: bold;
-  font-size: 0.875em;
   margin-bottom: 3px;
 }
 #content .content .asterisk {
@@ -90,6 +89,9 @@ ALLOWED: Variable and Extension
   margin-bottom: 20px;
 }
 
+.account .label {
+  font-size: 0.875em;
+}
 .account .change .info.box {
   margin-top: 22px;
 }
@@ -234,10 +236,12 @@ ALLOWED: Variable and Extension
   border-radius: 3px;
   padding: 5px 8px 6px 25px;
 }
+.wallet .info .txt {
+  width: 597px;
+}
 .wallet .box-details .info .txt {
   margin: 0 15px 0 0 !important;
   float: left;
-  width: 597px;
 }
 .wallet .box-details .info .btn {
   font-style: normal;
@@ -272,6 +276,9 @@ ALLOWED: Variable and Extension
 }
 .wallet .table thead .card:first-child {
   padding: 4px 0 0 0;
+}
+.wallet .table tr {
+  cursor: hand;
 }
 .wallet .table .cards {
   color: #777;
@@ -363,6 +370,64 @@ ALLOWED: Variable and Extension
 }
 .box-add-card .block {
   display: block;
+}
+
+.messages .table {
+  width: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid #ae5279;
+  border-collapse: separate;
+  font-size: 0.875em;
+  margin-bottom: 1em;
+}
+.messages .table tr {
+  cursor: pointer;
+}
+.messages .table tr:hover td {
+  background: #efc048;
+  color: #fff;
+  text-decoration: none !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+.messages .table th, .messages .table td {
+  padding: 7px 12px;
+  vertical-align: top;
+}
+.messages .table th {
+  background: #ae5279;
+  color: #fff;
+  border-right: 1px solid #fff;
+}
+.messages .table td {
+  border: 1px solid #ae5279;
+  border-width: 0 1px 1px 0;
+}
+.messages .table th:last-child, .messages .table td:last-child {
+  border-right: 0;
+}
+.messages .table tr:last-child td {
+  border-bottom: 0;
+}
+.messages .table .mail {
+  text-align: center;
+  width: 30px;
+}
+.messages .table .date {
+  width: 115px;
+}
+.messages .table .ico {
+  font-size: 16px;
+}
+.messages .table .unread td {
+  background: #fffeec;
+  font-weight: bold;
+}
+.messages .table .unread td:not(.mail) {
+  text-decoration: underline;
+}
+.messages .table .unread .ico-email {
+  text-decoration: none !important;
 }
 
 @media only screen and (max-width: 1200px) {

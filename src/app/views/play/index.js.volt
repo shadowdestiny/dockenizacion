@@ -1,20 +1,21 @@
 var numberCount = [0,0,0,0,0,0,0];
 var starCount = numberCount.slice();
 var totalCount = numberCount.slice();
+var hasValue = [0,0,0,0,0,0,0];
 
 function checkMark(arrayCount){
 	obj = $(".num"+arrayCount+" .ico-checkmark")
 	if(numberCount[arrayCount] >= 5 && starCount[arrayCount] >= 2){
 		obj.show();
+		hasValue[arrayCount] = 1;
 	}else{
+		hasValue[arrayCount] = 0;
 		obj.hide();
 	}
 
 	if(numberCount[arrayCount] > 0 || starCount[arrayCount] > 0){
 		$(".num"+arrayCount+" .line").addClass("number-on");
-		$(".add-cart").addClass("active");
 	}else{
-		$(".add-cart").removeClass("active");
 		$(".num"+arrayCount+" .line").removeClass("number-on");
 	}
 
@@ -22,6 +23,12 @@ function checkMark(arrayCount){
 		$(".fix-margin").hide();
 	}else{
 		$(".fix-margin").css("display","inline-block");
+	}
+
+	if(jQuery.inArray( 1, hasValue ) !== -1){ // check if there is a value selected
+		$(".add-cart").addClass("active");
+	}else{
+		$(".add-cart").removeClass("active");
 	}
 
 //	console.log(arrayCount+" totalCount= "+totalCount[arrayCount]+" // numberCount= "+numberCount[arrayCount]+" // starCount= "+starCount[arrayCount]);

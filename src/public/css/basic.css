@@ -274,7 +274,6 @@ label.submit {
 
 .label {
   cursor: pointer;
-  font-size: 0.875em;
   font-weight: bold;
   display: block;
   margin-bottom: 3px;
@@ -912,7 +911,7 @@ body {
 
 /* PAGE LAYOUT */
 .wrapper {
-  max-width: 1200px;
+  max-width: 1180px;
   margin: auto;
   position: relative;
   min-width: 235px;

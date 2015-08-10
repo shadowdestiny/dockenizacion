@@ -73,7 +73,7 @@ img.right{margin:0 0 15px 10px;}
 .input.error, .select.error{border:2px solid $red;}
 .checkbox{margin:0!important; padding:0;}
 label.submit{cursor:pointer;}
-.label{cursor:pointer; font-size:$basic-size; font-weight:bold; display:block; margin-bottom:3px;}
+.label{cursor:pointer; font-weight:bold; display:block; margin-bottom:3px;}
 .label + .input, .label + .select{margin-bottom:1em;}
 .select{padding-top:6px;}
 
@@ -285,7 +285,7 @@ body{font-family:$basic-font;}
 
 
 /* PAGE LAYOUT */
-.wrapper{max-width:1200px; margin:auto; position:relative; min-width:235px;}
+.wrapper{max-width:1180px; margin:auto; position:relative; min-width:235px;}
 .logo{float:left; margin-top:10px;}
 .logo .pic{height:100%;}
 .small-logo{float:left; width:200px;}

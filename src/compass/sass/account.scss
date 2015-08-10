@@ -20,7 +20,7 @@
         hr{margin:0 -20px;}
         .title{margin-bottom:0.5em;}
         .input{width:100%;}
-        .label{font-weight:bold; font-size:$basic-size; margin-bottom:3px;}
+        .label{font-weight:bold; margin-bottom:3px;}
         .asterisk{color:$red;}
         .wrap{margin-right:-20px;}
         .cols > div{border-right:20px solid transparent}
@@ -28,7 +28,10 @@
     }
 }
 
-.account .change .info.box{margin-top:22px;}
+.account{
+    .label{font-size:$basic-size;}
+    .change .info.box{margin-top:22px;}
+}
 .connect{
     margin:20px 0;
     .title, .revoke{float:left;}
@@ -77,8 +80,9 @@
         .value{position:relative; top:4px; float:left; font-weight:bold;}
         .input{width:180px!important; border-radius:3px; padding:5px 8px 6px 25px;} 
     }
+    .info .txt{width:597px;}
     .box-details .info{
-        .txt{margin:0 15px 0 0!important; float:left; width:597px;}
+        .txt{margin:0 15px 0 0!important; float:left;}
         .btn{font-style:normal; min-width:200px; text-align:center;}
     }
     .box-details .btn{min-width:210px; text-align:center;}
@@ -88,6 +92,7 @@
         th, td{padding:12px; vertical-align:top;}
         th{color:$purple; font-weight:bold; padding:4px 12px;}
         thead .card:first-child{padding:4px 0 0 0;}
+        tr{cursor:hand;}
         .cards{color:$grey;}
         .type{color:$black; font-weight:bold;}
         .active{
@@ -126,6 +131,32 @@
     .cvv{width:65px!important;}
     .block{display:block;}
 }
+
+.messages{
+    .table{
+        width:100%; border-radius:5px; overflow:hidden; border:1px solid $purple; border-collapse:separate; font-size:$basic-size; margin-bottom:1em;
+        tr{
+            cursor:pointer;
+            &:hover{
+                td{background:$yellow; color:#fff; text-decoration:none!important; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);}
+            }
+        }
+        th, td{padding:7px 12px; vertical-align:top;}
+        th{background:$purple; color:#fff; border-right:1px solid #fff;}
+        td{border:1px solid $purple; border-width:0 1px 1px 0;}
+        th:last-child, td:last-child{border-right:0;}
+        tr:last-child td{border-bottom:0;}
+        .mail{text-align:center; width:30px;}
+        .date{width:115px;}
+        .ico{font-size:16px;}
+        .unread{
+            td{background:$yellow-lighter; font-weight:bold;}
+            td:not(.mail){text-decoration:underline;}
+            .ico-email{text-decoration:none!important;}
+        }
+    }
+}
+
 
 @media only screen and (max-width:1200px){
 .wallet .info .txt{width:384px;}

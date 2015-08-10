@@ -50,6 +50,13 @@ $(function(){
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
+
+{#
+
+    * NO DATA & DATA: VARIOUS COMBINATIONS IN THIS CODE, CHECK THE GRAPHICS (no bank account set up, no credit card set up, winning infobox) *
+
+#}
+
 <main id="content">
     <div class="wrapper">
         <div class="nav box-basic">
@@ -78,7 +85,7 @@ $(function(){
                             <td class="cards">
                                 <input name="bankRadio" checked="checked" type="radio" class="radio" data-role="none">
                                 <span class="sprite card mastercard"><span class="txt">Mastercard</span></span>
-                                <span class="type">Mastercard</span> that ends with 1234
+                                {{ language.translate('<span class="type">Mastercard</span> that ends with 1234') }}
                             </td>
                             <td class="expire">02 2019</td>
                             <td class="name">Mario Rossi</td>
@@ -88,7 +95,7 @@ $(function(){
                             <td class="cards">
                                 <input name="bankRadio" type="radio" class="radio" data-role="none"> 
                                 <span class="sprite card mastercard"><span class="txt">Mastercard</span></span>
-                                <span class="type">Mastercard</span> that ends with 1234
+                                {{ language.translate('<span class="type">Mastercard</span> that ends with 1234') }}
                             </td>
                             <td class="expire">02 2019</td>
                             <td class="name">Mario Rossi</td>
@@ -101,8 +108,6 @@ $(function(){
                     <a href="javascript:void(0);" class="new-card btn gwy">{{ language.translate("Add a new Credit card") }}</a>
                 </div>
 
-                * NO DATA VARIOUS COMBINATIONS (no bank account set up, no credit card set up, winning infobox) *
-
                 <div class="info box">
                     <i class="ico ico-info"></i>
                     <span class="txt">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</span>
@@ -114,11 +119,14 @@ $(function(){
                         <span class="purple">{{ language.translate("Wallet balance:") }}</span> 20 &euro;
                     </div>
 
-                    <div class="right">
+                    <form class="right">
                         <span class="symbol">&euro;</span>
                         <input class="input" type="text" placeholder="Enter any amount">
-                        <a href="javascript:void(0)" class="btn green">{{ language.translate("Add funds to your wallet") }}</a>
-                    </div>
+                        <label class="label submit btn green">
+                            {{ language.translate("Add funds to your wallet") }}
+                            <input type="submit" class="hidden">
+                        </label>
+                    </form>
                 </div>
 
                 <hr class="yellow">
@@ -178,15 +186,18 @@ $(function(){
                         <span class="purple">Wallet balance:</span> 500 &euro;
                     </div>
 
-                    <div class="right">
+                    <form class="right">
                         <span class="symbol">&euro;</span>
                         <input class="input" type="text" placeholder="Enter any amount">
-                        <a href="javascript:void(0)" class="btn blue">{{ language.translate("Withdraw winnings") }}</a>
-                    </div>
+                        <label class="label submit btn blue" for="withdraw">
+                            {{ language.translate("Withdraw winnings") }}
+                            <input id="withdraw" type="submit" class="hidden">
+                        </label>
+                    </form>
                 </div>
             </div>
 
-            <div class="hidden box-add-card">
+            <form class="hidden box-add-card">
                 <h2 class="h3 yellow">{{ language.translate("Your card") }}</h2>
                 <div class="wrap">
                     <div class="cols">
@@ -211,8 +222,9 @@ $(function(){
                 </div>
 
                 <div class="cl">
-                    <label class="btn submit green right">
+                    <label class="btn submit green right" for="new-card">
                         {{ language.translate("Add a new card") }}
+                        <input id="new-card" type="submit" class="hidden">
                     </label>
                     <div class="left margin">
                         <label class="label block">
@@ -248,19 +260,18 @@ $(function(){
                         <input id="cvv" class="input cvv" type="text">
                     </div>
                 </div>
+            </form>
 
-            </div>
-
-            <div class="hidden box-add-bank">
+            <form class="hidden box-add-bank">
                 <h2 class="h3 yellow">{{ language.translate("Bank account details") }}</h2>
 
                 <div class="wrap">
                     <div class="cols">
                         <div class="col6">
-                            <label class="label" for="add-bank-user-name">
-                                {{ language.translate("Name") }} <span class="asterisk">*</span> <span class="subtxt">({{ language.translate("bank account holder") }}</span>
+                            <label class="label" for="add-bank-user">
+                                {{ language.translate("Name") }} <span class="asterisk">*</span> <span class="subtxt">({{ language.translate("bank account holder name") }}</span>
                             </label>
-                            <input id="add-bank-name" class="input" type="text">
+                            <input id="add-bank-user" class="input" type="text">
 
                             <label class="label" for="add-bank-user-surname">
                                 {{ language.translate("Surname") }} <span class="asterisk">*</span> <span class="subtxt">({{ language.translate("bank account holder") }})</span>
@@ -316,13 +327,13 @@ $(function(){
                     </div>
                 </div>
                 <div class="cl">
-                    <label class="label submit">
-                        <span class="btn green">{{ language.translate("Add your Bank Account") }}</span>
-                        <input type="submit" class="hidden">
+                    <label class="label submit btn green" for="new-bank">
+                        {{ language.translate("Add your Bank Account") }}
+                        <input id="new-bank" type="submit" class="hidden">
                     </label>
                 </div>
 
-            </div>
+            </form>
 
         </div>
     </div>
