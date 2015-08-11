@@ -18,7 +18,7 @@ ALLOWED: Variable and Extension
 /* ANIMATION */
 /* COLUMNS */
 .bg-top {
-  padding: 20px;
+  padding: 12px 20px;
   background: #000736;
   border-radius: 5px 5px 0 0;
 }
@@ -30,11 +30,6 @@ ALLOWED: Variable and Extension
 .bg-top .h3, .bg-top .h1 {
   margin: 0;
   color: #fff;
-}
-
-.bg-top .h3 {
-  position: relative;
-  top: -5px;
 }
 
 .bg-top .circle {

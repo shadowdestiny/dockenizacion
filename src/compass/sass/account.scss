@@ -80,9 +80,8 @@
         .value{position:relative; top:4px; float:left; font-weight:bold;}
         .input{width:180px!important; border-radius:3px; padding:5px 8px 6px 25px;} 
     }
-    .info .txt{width:597px;}
-    .box-details .info{
-        .txt{margin:0 15px 0 0!important; float:left;}
+    .info{
+        .txt{margin:0 15px 0 0!important; float:left; width:567px;}
         .btn{font-style:normal; min-width:200px; text-align:center;}
     }
     .box-details .btn{min-width:210px; text-align:center;}
@@ -90,7 +89,8 @@
     .table{
         width:100%; border-collapse:separate; font-size:$basic-size; margin-bottom:1em;
         th, td{padding:12px; vertical-align:top;}
-        th{color:$purple; font-weight:bold; padding:4px 12px;}
+        td{cursor:pointer;}
+        th{color:$purple; font-weight:bold; padding:4px 12px; text-align:left;}
         thead .card:first-child{padding:4px 0 0 0;}
         tr{cursor:hand;}
         .cards{color:$grey;}
@@ -107,12 +107,18 @@
         position:relative; display:inline-block; width:40px; height:25px; border-radius:3px; vertical-align:text-bottom; top:1px; margin:-5px 4px 0 2px;
         .txt{position:absolute; left:-9999px; top:-9999px;}
     }
-    .bank{font-weight:bold;}
+    .bank{font-weight:bold; width:150px;}
+    .expire{min-width:80px;}
     .back{margin-top:10px;}
     .box-congrats.info{
-        .txt{margin:0 15px 0 34px !important; width:auto!important; float:none!important;}
+        .txt{margin:0 0 0 34px !important; width:auto!important; float:none!important;}
     }
     .congrats{font-weight:bold; font-style:normal; display:block;}
+}
+
+.box-add-bank, .box-add-card{
+    .info .txt{width:auto!important;}
+    .label{font-size:$basic-size;}
 }
 
 .box-add-bank{
@@ -130,6 +136,7 @@
     .submit{margin-top:27px;}
     .cvv{width:65px!important;}
     .block{display:block;}
+    .left{text-align:left;}
 }
 
 .messages{
@@ -159,27 +166,29 @@
 
 
 @media only screen and (max-width:1200px){
-.wallet .info .txt{width:384px;}
+.wallet .info .txt{width:363px;}
 }
 
 @media only screen and (max-width:992px){
-    #content{
-        .nav{width:220px;}
-        .content{margin-left:240px;}
-    }
+#content{
+    .nav{width:200px;}
+    .content{margin-left:220px;}
+}
 
-    .wallet{
-        .box-wallet{
-            > div{float:none!important;}
-            .value{margin-bottom:10px;}
-            .symbol{margin-left:-13px;}
-        }
-        .info{
-            .txt{margin:0 0 .5em!important;}
-            .btn{margin-left:34px;}
-        }
+.wallet{
+    .box-wallet{
+        > div{float:none!important;}
+        .value{margin-bottom:10px;}
+        .symbol{margin-left:-13px;}
+    }
+    .info{
+        .txt{margin:0 0 .5em!important; width:430px;}
+        .btn{margin-left:34px;}
     }
 }
+.box-details form.right{float:left;}
+}
+
 
 @media only screen and (max-width:768px){
 #content{ 
@@ -206,7 +215,15 @@
         .input{margin-bottom:.5em;}
     }
     .wrap{margin:0;}
+    .back{
+        float:none; margin:0 0 1em;
+        a:visited{color:#fff;} /*Fix IE9*/
+    }
 }
+.box-add-bank, .box-add-card{
+    .submit{float:none; margin:0; width:100%;}
+}
+.box-details form.right{float:none;}
 }
 
 @media only screen and (max-width:480px){
@@ -227,6 +244,16 @@
         .h1{font-size:$h2;}
     }
 }
-.wallet .btn{min-width:auto!important;}
+.wallet{
+    .btn{min-width:auto!important;}
+    .table{ 
+        td{padding:4px;}
+        .active{
+            display:inline-block; border:1px solid $yellow; width:100%; padding:5px 0;
+            td{border:0!important;}
+        }
+        .bank{width:100%;}
+    }
+}
 }
 

@@ -71,7 +71,7 @@ $(function(){
             <div class="box-details">
                 <h2 class="h3 yellow">{{ language.translate("Add funds to your wallet") }}</h2>
 
-                <table id="card-list" class="table ui-responsive" data-role="table" data-mode="reflow">
+                <table id="card-list" class="table ui-responsive" >
                     <thead>
                         <tr>
                             <th class="cards">{{ language.translate("Your credit card") }}</th>
@@ -136,7 +136,7 @@ $(function(){
                     <span class="txt"><span class="congrats">{{ language.translate("Congratulations!!! You won 100.000 &euro;") }}</span> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</span>
                 </div>
 
-                <table id="bank-list" class="table ui-responsive" data-role="table" data-mode="reflow">
+                <table id="bank-list" class="table ui-responsive">
                     <thead>
                         <tr>
                             <th class="bank">{{ language.translate("Bank name") }}</th>
@@ -222,10 +222,6 @@ $(function(){
                 </div>
 
                 <div class="cl">
-                    <label class="btn submit green right" for="new-card">
-                        {{ language.translate("Add a new card") }}
-                        <input id="new-card" type="submit" class="hidden">
-                    </label>
                     <div class="left margin">
                         <label class="label block">
                             {{ language.translate("Expiration date") }} <span class="asterisk">*</span>
@@ -259,6 +255,10 @@ $(function(){
                         </label>
                         <input id="cvv" class="input cvv" type="text">
                     </div>
+                    <label class="btn submit green right" for="new-card">
+                        {{ language.translate("Add a new card") }}
+                        <input id="new-card" type="submit" class="hidden">
+                    </label>
                 </div>
             </form>
 
@@ -332,9 +332,7 @@ $(function(){
                         <input id="new-bank" type="submit" class="hidden">
                     </label>
                 </div>
-
             </form>
-
         </div>
     </div>
 </main>

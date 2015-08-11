@@ -1,9 +1,8 @@
 @import "variable";
 
-.bg-top{padding:20px; background:#000736; border-radius:5px 5px 0 0;}
+.bg-top{padding:12px 20px; background:#000736; border-radius:5px 5px 0 0;}
 .bg-top .cols{margin:0;}
 .bg-top .h3, .bg-top .h1{margin:0; color:#fff;}
-.bg-top .h3{position:relative; top:-5px;}
 .bg-top .circle{
 	transition:background-color 0.3s,color 0.3s,border 0.3s; position:absolute;
 	width:156px; height:156px; border-radius:50%; margin:auto; color:#fff;
