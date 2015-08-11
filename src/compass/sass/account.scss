@@ -18,7 +18,7 @@
     .content{
         margin:0 0 2em 290px;
         hr{margin:0 -20px;}
-        .title{margin-bottom:0.5em;}
+        h1.title{margin-bottom:0.5em;}
         .input{width:100%;}
         .label{font-weight:bold; margin-bottom:3px;}
         .asterisk{color:$red;}
@@ -149,7 +149,7 @@
             }
         }
         th, td{padding:7px 12px; vertical-align:top;}
-        th{background:$purple; color:#fff; border-right:1px solid #fff;}
+        th{background:$purple; color:#fff; border-right:1px solid #fff; font-weight:bold; text-align:left;}
         td{border:1px solid $purple; border-width:0 1px 1px 0;}
         th:last-child, td:last-child{border-right:0;}
         tr:last-child td{border-bottom:0;}
@@ -157,7 +157,8 @@
         .date{width:115px;}
         .ico{font-size:16px;}
         .unread{
-            td{background:$yellow-lighter; font-weight:bold;}
+            background:$yellow-lighter;
+            td{font-weight:bold;}
             td:not(.mail){text-decoration:underline;}
             .ico-email{text-decoration:none!important;}
         }
@@ -196,7 +197,7 @@
     .content{
         margin:0 0 1em; border-width:0 0 1px 0;
         .wrap{margin:0;}
-        .title{float:none; margin:0 auto .5em;}
+        h1.title{float:none; margin:0 auto .5em;}
         .revoke{float:none; margin:10px auto;}
     }
     .content .cols{margin:0;}
@@ -255,5 +256,15 @@
         .bank{width:100%;}
     }
 }
+
+.messages{
+    .table{
+        td, th{display:inline-block; width:100%!important; border:0; padding:3px 5px; text-decoration:none!important;}
+        tr{display:inline-block!important; float:left; width:100%; border-bottom:1px solid $purple;}
+        tr:last-child{border-bottom:0;}
+        .mail{display:none;}
+    }
+}
+
 }
 

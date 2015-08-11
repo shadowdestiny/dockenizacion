@@ -66,7 +66,7 @@ ALLOWED: Variable and Extension
 #content .content hr {
   margin: 0 -20px;
 }
-#content .content .title {
+#content .content h1.title {
   margin-bottom: 0.5em;
 }
 #content .content .input {
@@ -414,6 +414,8 @@ ALLOWED: Variable and Extension
   background: #ae5279;
   color: #fff;
   border-right: 1px solid #fff;
+  font-weight: bold;
+  text-align: left;
 }
 .messages .table td {
   border: 1px solid #ae5279;
@@ -435,8 +437,10 @@ ALLOWED: Variable and Extension
 .messages .table .ico {
   font-size: 16px;
 }
-.messages .table .unread td {
+.messages .table .unread {
   background: #fffeec;
+}
+.messages .table .unread td {
   font-weight: bold;
 }
 .messages .table .unread td:not(.mail) {
@@ -491,7 +495,7 @@ ALLOWED: Variable and Extension
   #content .content .wrap {
     margin: 0;
   }
-  #content .content .title {
+  #content .content h1.title {
     float: none;
     margin: 0 auto .5em;
   }
@@ -620,5 +624,25 @@ ALLOWED: Variable and Extension
   }
   .wallet .table .bank {
     width: 100%;
+  }
+
+  .messages .table td, .messages .table th {
+    display: inline-block;
+    width: 100% !important;
+    border: 0;
+    padding: 3px 5px;
+    text-decoration: none !important;
+  }
+  .messages .table tr {
+    display: inline-block !important;
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #ae5279;
+  }
+  .messages .table tr:last-child {
+    border-bottom: 0;
+  }
+  .messages .table .mail {
+    display: none;
   }
 }

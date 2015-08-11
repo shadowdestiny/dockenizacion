@@ -47,7 +47,6 @@ function checkSize(){
 	return varSize;
 }
 
-
 function menu(id, target){
 	$(id).hover(function(event){
 		$(target).show();
