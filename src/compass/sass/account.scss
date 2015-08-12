@@ -140,6 +140,7 @@
 }
 
 .messages{
+    .box-basic.content{min-height:200px;}
     .table{
         width:100%; border-radius:5px; overflow:hidden; border:1px solid $purple; border-collapse:separate; font-size:$basic-size; margin-bottom:1em;
         tr{
