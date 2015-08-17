@@ -39,7 +39,7 @@ class AuthServiceUnitTest extends UnitTestBase
     public function setUp()
     {
         $this->userRepository_double = $this->prophesize('EuroMillions\repositories\UserRepository');
-        $this->hasher_double = $this->prophesize('EuroMillions\interfaces\IpasswordHasher');
+        $this->hasher_double = $this->prophesize('EuroMillions\interfaces\IPasswordHasher');
         $this->storageStrategy_double = $this->prophesize('EuroMillions\interfaces\IAuthStorageStrategy');
         parent::setUp();
         $this->userId = UserId::create();
