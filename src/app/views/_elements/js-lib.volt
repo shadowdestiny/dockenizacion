@@ -8,6 +8,6 @@ $(document).bind("mobileinit", function(){
     $.mobile.ajaxEnabled = false;
 });
 </script>
-<script src="/js/vendor/jquery.mobile.custom.min.js"></script>
-<script src="/js/main.js" async></script>
+<script src="/js/vendor/jquery.mobile.custom.min.js" async></script>
+<script src="/js/main.js"></script>
 <script src="/js/global.js" async></script>

@@ -1,11 +1,11 @@
-<li class="li-play">
+<li class="li-play {% if activeNav.myClass == 'play' %}active{% endif %}">
     <a href="javascript:void(0);">
         <span class="link desktop">{{ language.translate("Win top prizes") }}</span>
         <br class="br">
         <span class="txt">{{ language.translate("Play Games") }}</span>
     </a>
 </li>
-<li class="li-numbers">
+<li class="li-numbers {% if activeNav.myClass == 'numbers' %}active{% endif %}">
     <a href="javascript:void(0);">
         <span class="link desktop">{{ language.translate("Winning") }}</span>
         <br class="br">
@@ -15,7 +15,7 @@
 		</span>
     </a>
 </li>
-<li class="li-your-account">
+<li class="li-your-account {% if activeNav.myClass == 'account' %}active{% endif %}">
     {% if user_logged %}
         {% set link="javascript:void(0)" %}
     {% else %}
@@ -43,7 +43,7 @@
     {% endif %}
 
 </li>
-<li class="li-help">
+<li class="li-help {% if activeNav.myClass == 'help' %}active{% endif %}">
     <a href="javascript:void(0);">
         <span class="link desktop">{{ language.translate("How to play") }}</span>
         <br class="br">

@@ -2,7 +2,7 @@
 
 #content{
     .nav{
-        float:left; width:270px; margin:0; padding:0;
+        position:absolute; width:270px; margin:0; padding:0;
         a{display:block; text-decoration:none; padding:10px 15px; border-bottom:1px solid $yellow;}
         a:hover, a:focus{
             background:$yellow; color:#fff;
@@ -11,17 +11,16 @@
         li:last-child a{border-bottom:0;}
         .ico{float:right; color:$yellow; font-size:14px; margin-top:3px; display:block;}
         .active{
-            font-weight:bold; background:$yellow; color:#fff; cursor:default;
+            font-weight:bold; background:$yellow; color:#fff; cursor:default; text-shadow:0 1px 3px rgba(0, 0, 0, 0.2);
             .ico{color:#fff;}
         }
     }
-
     .content{
         margin:0 0 2em 290px;
         hr{margin:0 -20px;}
-        .title{margin-bottom:0.5em;}
-        .input{width:100%; margin-bottom:1em;}
-        .label{font-weight:bold; font-size:$basic-size; margin-bottom:3px;}
+        h1.title{margin-bottom:0.5em;}
+        .input{width:100%;}
+        .label{font-weight:bold; margin-bottom:3px;}
         .asterisk{color:$red;}
         .wrap{margin-right:-20px;}
         .cols > div{border-right:20px solid transparent}
@@ -29,6 +28,10 @@
     }
 }
 
+.account{
+    .label{font-size:$basic-size;}
+    .change .info.box{margin-top:22px;}
+}
 .connect{
     margin:20px 0;
     .title, .revoke{float:left;}
@@ -36,12 +39,158 @@
     .revoke{position:relative; top:-3px;}
 }
 
+.my-games{
+    .table{
+        width:100%; border-radius:5px; overflow:hidden; border:1px solid $purple; border-collapse:separate; font-size:$basic-size;
+        th, td{padding:7px 12px;}
+        th{background:$purple; color:#fff; font-weight:bold; border-right:1px solid #fff;}
+        td{border:1px solid $purple; border-width:0 1px 1px 0; vertical-align:top;}
+        th:last-child, td:last-child{border-right:0;}
+        tr:last-child td{border-bottom:0;}
+        td.action{text-align:center;}
+        .numbers .star{font-weight:bold; color:$yellow-dark}
+        .ico{font-size:12px;}
+        .id{min-width:52px;}
+        .special{
+            background:$yellow url(../img/special-bg.png) no-repeat center center; background-size:cover; color:#fff; font-weight:bold; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);
+            .star{color:$purple; text-shadow:none!important;}
+        }
+    }
+    .myCol{display:inline-block;}
+    .no-data{
+        display:block; background:url(../img/no-game.jpg) no-repeat center center; background-size:cover; color:#fff; min-height:274px; border-radius:5px; text-decoration:none; text-shadow:0 1px 3px rgba(0, 0, 0, 0.8);
+        .h1{line-height:120%;}
+        .txt{padding:15px 20px;}
+        .jackpot-txt{margin:20px 0 3px; font-weight:bold; display:block;}
+        .btn{margin-top:10px;}
+        &:hover, &:focus{
+            .btn{color:$btn-blue; background:#fff; border:1px solid $btn-blue; text-shadow:none!important;}
+        }
+    }
+    .box-value.yellow{@extend %stroke2; margin-bottom:15px;}
+    .box-value{display:block;}
+    .box-value span{display:inline-block; line-height:100%;}
+    .box-value .currency{font-size:$h1; vertical-align:middle; margin-right:5px; font-weight:bold;} /*16x1.875 = 30px*/
+    .box-value .value{font-size:$h0; font-weight:bold; vertical-align:middle;} /*16x3.375 = 54px*/
+}
+
+.wallet{
+    hr{position:relative; margin:1.5em -20px!important;}
+    .box-wallet{
+        .value{position:relative; top:4px; float:left; font-weight:bold;}
+        .input{width:180px!important; border-radius:3px; padding:5px 8px 6px 25px;} 
+    }
+    .info{
+        .txt{margin:0 15px 0 0!important; float:left; width:567px;}
+        .btn{font-style:normal; min-width:200px; text-align:center;}
+    }
+    .box-details .btn{min-width:210px; text-align:center;}
+    .symbol{position:relative; top:1px; right:-23px; font-weight:bold; color:$yellow-dark;}
+    .table{
+        width:100%; border-collapse:separate; font-size:$basic-size; margin-bottom:1em;
+        th, td{padding:12px; vertical-align:top;}
+        td{cursor:pointer;}
+        th{color:$purple; font-weight:bold; padding:4px 12px; text-align:left;}
+        thead .card:first-child{padding:4px 0 0 0;}
+        tr{cursor:hand;}
+        .cards{color:$grey;}
+        .type{color:$black; font-weight:bold;}
+        .active{
+            background:$yellow-lighter;
+            td{border:1px solid $yellow; border-width:1px 0;}
+            td:first-child{border-left:1px solid $yellow; border-radius:5px 0 0 5px;}
+            td:last-child{border-right:1px solid $yellow; border-radius:0 5px 5px 0;}
+        }
+    }
+    .margin{margin-bottom:1em;}
+    .card{
+        position:relative; display:inline-block; width:40px; height:25px; border-radius:3px; vertical-align:text-bottom; top:1px; margin:-5px 4px 0 2px;
+        .txt{position:absolute; left:-9999px; top:-9999px;}
+    }
+    .bank{font-weight:bold; width:150px;}
+    .expire{min-width:80px;}
+    .back{margin-top:10px;}
+    .box-congrats.info{
+        .txt{margin:0 0 0 34px !important; width:auto!important; float:none!important;}
+    }
+    .congrats{font-weight:bold; font-style:normal; display:block;}
+}
+
+.box-add-bank, .box-add-card{
+    .info .txt{width:auto!important;}
+    .label{font-size:$basic-size;}
+}
+
+.box-add-bank{
+    .submit{
+        float:right;
+        .btn{font-size:100%;}
+    }
+    .subtxt{font-weight:normal; color:$grey;}
+    .cols{margin-bottom:0!important;}
+}
+.box-add-card{
+    .month, .year{float:left; width:auto; margin-right:10px;}
+    .margin{margin:0 20px 0 0;}
+    .cols{margin-bottom:0!important;}
+    .submit{margin-top:27px;}
+    .cvv{width:65px!important;}
+    .block{display:block;}
+    .left{text-align:left;}
+}
+
+.messages{
+    .box-basic.content{min-height:200px;}
+    .table{
+        width:100%; border-radius:5px; overflow:hidden; border:1px solid $purple; border-collapse:separate; font-size:$basic-size; margin-bottom:1em;
+        tr{
+            cursor:pointer;
+            &:hover{
+                td{background:$yellow; color:#fff; text-decoration:none!important; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);}
+            }
+        }
+        th, td{padding:7px 12px; vertical-align:top;}
+        th{background:$purple; color:#fff; border-right:1px solid #fff; font-weight:bold; text-align:left;}
+        td{border:1px solid $purple; border-width:0 1px 1px 0;}
+        th:last-child, td:last-child{border-right:0;}
+        tr:last-child td{border-bottom:0;}
+        .mail{text-align:center; width:30px;}
+        .date{width:115px;}
+        .ico{font-size:16px;}
+        .unread{
+            background:$yellow-lighter;
+            td{font-weight:bold;}
+            td:not(.mail){text-decoration:underline;}
+            .ico-email{text-decoration:none!important;}
+        }
+    }
+}
+
+
+@media only screen and (max-width:1200px){
+.wallet .info .txt{width:363px;}
+}
+
 @media only screen and (max-width:992px){
 #content{
-    .nav{width:220px;}
-    .content{margin-left:240px;}
+    .nav{width:200px;}
+    .content{margin-left:220px;}
 }
+
+.wallet{
+    .box-wallet{
+        > div{float:none!important;}
+        .value{margin-bottom:10px;}
+        .symbol{margin-left:-13px;}
+    }
+    .info{
+        .txt{margin:0 0 .5em!important; width:430px;}
+        .btn{margin-left:34px;}
+    }
 }
+.box-details form.right{float:left;}
+}
+
 
 @media only screen and (max-width:768px){
 #content{ 
@@ -49,18 +198,74 @@
     .content{
         margin:0 0 1em; border-width:0 0 1px 0;
         .wrap{margin:0;}
-        .title{float:none; margin:0 auto;}
+        h1.title{float:none; margin:0 auto .5em;}
         .revoke{float:none; margin:10px auto;}
     }
     .content .cols{margin:0;}
     .cols > div{margin-bottom:10px;}
 }
+.my-games .no-data{
+    .currency, .value{font-size:$h1;}
+    .h1{margin:10px auto 0; font-size:$h1; display:inline-block;}
+}
 .change-psw{float:left;}
 .gap{padding-bottom:20px;}
-
+.account .change .info.box{margin-top:0;}
+.wallet{
+    .info .txt{float:none; width:auto; margin:0 0 .5em 34px!important;}
+    .box-wallet{
+        .input{margin-bottom:.5em;}
+    }
+    .wrap{margin:0;}
+    .back{
+        float:none; margin:0 0 1em;
+        a:visited{color:#fff;} /*Fix IE9*/
+    }
+}
+.box-add-bank, .box-add-card{
+    .submit{float:none; margin:0; width:100%;}
+}
+.box-details form.right{float:none;}
 }
 
 @media only screen and (max-width:480px){
 .change-psw{margin:0 auto 20px; float:none; width:100%;}
 .submit{margin:0 auto; float:none;}
+.ui-responsive td{width:100%; float:left; clear:left; border-right:0!important;}
+.ui-responsive th{display:none;}
+.my-games{
+    .table{
+        td{border-bottom:0 solid transparent;}
+        td:last-child{border-bottom:1px solid $purple;}
+        .action{text-align:left!important;}
+        .ico{display:none;}
+    }
+    .myCol{width:65%; vertical-align:text-top;}
+    .no-data{
+        min-height:inherit;
+        .h1{font-size:$h2;}
+    }
 }
+.wallet{
+    .btn{min-width:auto!important;}
+    .table{ 
+        td{padding:4px;}
+        .active{
+            display:inline-block; border:1px solid $yellow; width:100%; padding:5px 0;
+            td{border:0!important;}
+        }
+        .bank{width:100%;}
+    }
+}
+
+.messages{
+    .table{
+        td, th{display:inline-block; width:100%!important; border:0; padding:3px 5px; text-decoration:none!important;}
+        tr{display:inline-block!important; float:left; width:100%; border-bottom:1px solid $purple;}
+        tr:last-child{border-bottom:0;}
+        .mail{display:none;}
+    }
+}
+
+}
+

@@ -341,28 +341,6 @@ body.numbers .crown {
   transform: rotate(-20deg);
 }
 
-/* JQUERY MOBILE TABLE STYLE*/
-.ui-table-reflow td, .ui-table-reflow th {
-  text-align: left;
-  display: block;
-}
-
-.ui-table-reflow .ui-table-cell-label {
-  padding: .4em;
-  min-width: 30%;
-  display: inline-block;
-  margin: -.4em 1em -.4em -.4em;
-}
-
-.ui-table-reflow .ui-table-cell-label-top {
-  display: block;
-  padding: .4em 0;
-  margin: .4em 0;
-  text-transform: uppercase;
-  font-size: .9em;
-  font-weight: normal;
-}
-
 /*Retina only */
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3 / 2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx) {
   .star-ball {
@@ -477,28 +455,8 @@ body.numbers .crown {
     margin: -15px 0 1em;
   }
 }
-@media screen and (min-width: 480px) {
-  .ui-responsive td, .ui-responsive th {
-    display: table-cell;
-    margin: 0;
-  }
-
-  .ui-responsive .ui-table-cell-label {
-    display: none;
-  }
-}
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {
-  .ui-responsive td {
-    width: 100%;
-    float: left;
-    clear: left;
-  }
-
-  .ui-responsive th {
-    display: none;
-  }
-
   .box-results .purple {
     display: block;
   }

@@ -24,7 +24,6 @@ function checkSize(){
 			navUrl[0] = $(".your-account").attr("href");
 			navUrl[1] = $(".li-currency .link").attr("href");
 		}
-
 		// add sliding capability
 		$(".your-account").attr({"data-transition":"slide", "href":"#nav-account"});
 		$(".li-currency .link").attr({"data-transition":"slide", "href":"#language"});
@@ -32,26 +31,21 @@ function checkSize(){
 	}else{
 		// DESKTOP
 		menu(".li-currency", ".div-currency");
-
-
 		if(mobile == 1){ // You came from a screen sized mobile interface
 			$(".your-account").attr({"data-transition":"slide", "href":navUrl[0]});
 			$(".li-currency .link").attr({"data-transition":"slide", "href":navUrl[1]});
 		}
-
 	    $(".main-nav .li-your-account").hover(function(event){
 	    	$(".main-nav .subnav").show();
 	    }, function(){
 			$(".main-nav .subnav").hide();
 	    });
-
 		mobile = 0;
 	}
 
 //	console.log("varSize= "+varSize)
 	return varSize;
 }
-
 
 function menu(id, target){
 	$(id).hover(function(event){
@@ -61,11 +55,16 @@ function menu(id, target){
 	});
 }
 
+function btnShowHide(button, show, hide){
+	$(button).click(function(){
+		$(show).show();
+		$(hide).hide();
+	});
+}
 
 $(function(){
 	checkSize();
 	$(window).resize(checkSize);
-
 	$('.menu-ham').click(function(){
 		$(this).toggleClass('expanded').siblings('ul').slideToggle().toggleClass('open');
 	});

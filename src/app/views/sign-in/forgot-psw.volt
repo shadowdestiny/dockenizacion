@@ -21,10 +21,9 @@
                     <span class="txt">Error info lorem ipsum</span>
                 </div>
 
-                <label for="email" class="label">
-                    <span class="txt">{{ language.translate("Email address") }}</span>
-                    <input id="email" class="input email" type="email">
-                </label>
+                <label for="email" class="label">{{ language.translate("Email address") }}</label>
+                <input id="email" class="input email" type="email">
+
 
                 <p>
                     <strong>{{ language.translate("Insert captcha") }}</strong>

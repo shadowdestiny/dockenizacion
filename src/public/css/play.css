@@ -18,7 +18,7 @@ ALLOWED: Variable and Extension
 /* ANIMATION */
 /* COLUMNS */
 .bg-top {
-  padding: 20px;
+  padding: 12px 20px;
   background: #000736;
   border-radius: 5px 5px 0 0;
 }
@@ -30,11 +30,6 @@ ALLOWED: Variable and Extension
 .bg-top .h3, .bg-top .h1 {
   margin: 0;
   color: #fff;
-}
-
-.bg-top .h3 {
-  position: relative;
-  top: -5px;
 }
 
 .bg-top .circle {
@@ -83,13 +78,13 @@ ALLOWED: Variable and Extension
 }
 
 .box-lines {
-  padding: 20px;
+  padding: 10px 20px;
   margin: 0;
 }
 
 .box-action {
   float: right;
-  margin-right: 20px;
+  margin-right: 12px;
 }
 
 .box-action li {
@@ -112,7 +107,7 @@ ALLOWED: Variable and Extension
 }
 
 .box-bottom {
-  padding: 20px;
+  padding: 20px 12px;
   border-top: 1px solid #efc048;
   background: #fff;
   border-radius: 0 0 5px 5px;
@@ -142,7 +137,11 @@ ALLOWED: Variable and Extension
   border-right: 12px solid transparent;
 }
 
-.gameplay .wrap, .box-bottom > .wrap {
+.gameplay > .wrap {
+  margin-left: -6px;
+}
+
+.box-bottom > .wrap {
   margin-right: -12px;
 }
 
@@ -433,6 +432,10 @@ ALLOWED: Variable and Extension
   .bg-top .circle {
     margin-left: 50px;
   }
+
+  .box-lines {
+    padding: 10px 0 10px 20px;
+  }
 }
 /* I NEED TO MAKE DISAPPEAR IN A CLEVER WAY ONE COLUMN AT TIME */
 /* Medium Devices, Desktops */
@@ -564,6 +567,10 @@ ALLOWED: Variable and Extension
     background: #fffeec;
     border-radius: 0;
   }
+
+  .box-bottom > .wrap {
+    margin: 0;
+  }
 }
 @media all and (min-width: 581px) {
   .bg-top {
@@ -585,7 +592,7 @@ ALLOWED: Variable and Extension
   }
 
   .gameplay .wrap {
-    margin-right: -6px;
+    margin: 0 -6px 0 0;
   }
 
   .line .numbers .btn, .line .stars .txt {

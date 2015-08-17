@@ -107,8 +107,8 @@
 }
 @font-face {
   font-family: 'icomoon';
-  src: url("fonts/icomoon.eot?-xg5wnp");
-  src: url("fonts/icomoon.eot?#iefix-xg5wnp") format("embedded-opentype"), url("fonts/icomoon.woff?-xg5wnp") format("woff"), url("fonts/icomoon.ttf?-xg5wnp") format("truetype"), url("fonts/icomoon.svg?-xg5wnp#icomoon") format("svg");
+  src: url("fonts/icomoon.eot?-gs0ru1");
+  src: url("fonts/icomoon.eot?#iefix-gs0ru1") format("embedded-opentype"), url("fonts/icomoon.ttf?-gs0ru1") format("truetype"), url("fonts/icomoon.woff?-gs0ru1") format("woff"), url("fonts/icomoon.svg?-gs0ru1#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -123,6 +123,14 @@
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.ico-email-open:before {
+  content: "\e60d";
+}
+
+.ico-email:before {
+  content: "\e60c";
 }
 
 .ico-star:before {
@@ -1622,6 +1630,10 @@ hr.yellow {
   background: #efc048;
 }
 
+.radio {
+  margin-left: 0;
+}
+
 ul.list {
   margin: 0 0 1em 2em;
 }
@@ -1689,6 +1701,18 @@ img.right {
   overflow: none;
 }
 
+.ui-link:hover, .ui-link:focus {
+  text-decoration: none !important;
+}
+
+.ui-radio {
+  display: inline-block;
+}
+
+.ui-mobile label, .ui-controlgroup-label {
+  display: inline-block;
+}
+
 /* CLEARFIX */
 .cl:before, .cl:after, .wrapper:before, .wrapper:after, .btn:before, .btn:after, .box:before, .box:after {
   content: " ";
@@ -1738,13 +1762,17 @@ label.submit {
 
 .label {
   cursor: pointer;
-}
-
-.label .txt {
-  font-size: 0.875em;
   font-weight: bold;
   display: block;
   margin-bottom: 3px;
+}
+
+.label + .input, .label + .select {
+  margin-bottom: 1em;
+}
+
+.select {
+  padding-top: 6px;
 }
 
 /* INFO BOX */
@@ -1764,7 +1792,7 @@ label.submit {
 .box .txt {
   display: block;
   font-size: 0.9375em;
-  margin-left: 34px;
+  margin: 0 0 0 34px !important;
 }
 
 .box.error {
@@ -1784,6 +1812,20 @@ label.submit {
   color: #004500;
 }
 
+.box.info {
+  border: 1px solid #efc048;
+  border-radius: 5px;
+  font-weight: normal;
+  font-style: italic;
+  font-size: basic-size;
+}
+.box.info a:hover, .box.info a:focus {
+  text-decoration: none;
+}
+.box.info .ico {
+  font-size: 22px;
+}
+
 .box-basic {
   border: 1px solid #efc048;
   background: #fff;
@@ -1791,7 +1833,6 @@ label.submit {
   padding: 15px 20px;
   margin: 0 auto;
   position: relative;
-  /*  .submit{margin-top:1em;}*/
 }
 .box-basic > h1 {
   color: #ebb019;
@@ -2302,9 +2343,63 @@ body {
   left: 295px !important;
 }
 
+/* PAGING */
+.paging {
+  font-size: 0.875em;
+  margin: 1em auto;
+  text-align: center;
+}
+.paging li {
+  display: inline;
+  margin: 0 3px;
+}
+.paging a {
+  text-decoration: none;
+  padding: 2px 6px;
+}
+.paging a:hover, .paging a:focus {
+  background: #efc048;
+  color: #fff;
+}
+.paging .active a {
+  font-weight: bold;
+  color: #000;
+  cursor: default;
+  background: #ddd;
+}
+.paging .disable a {
+  color: #777;
+  cursor: default;
+  background: transparent;
+}
+.paging .prev {
+  margin-right: 25px;
+}
+.paging .next {
+  margin-left: 25px;
+}
+
+/* JQUERY MOBILE TABLE */
+.ui-table-reflow td, .ui-table-reflow th {
+  text-align: left;
+  display: block;
+}
+
+.ui-table-reflow .ui-table-cell-label {
+  min-width: 30%;
+  display: inline-block;
+}
+
+.ui-table-reflow .ui-table-cell-label-top {
+  display: block;
+  text-transform: uppercase;
+  font-size: .9em;
+  font-weight: normal;
+}
+
 /* PAGE LAYOUT */
 .wrapper {
-  max-width: 1200px;
+  max-width: 1180px;
   margin: auto;
   position: relative;
   min-width: 235px;
@@ -2893,11 +2988,9 @@ body {
   .info .wrapper {
     text-align: center;
   }
-
   .info .social {
     margin-bottom: 10px;
   }
-
   .info .txt, .info .partner {
     margin: 0 auto 2em;
     float: none;
@@ -2952,12 +3045,31 @@ body {
     border-top: 1px solid #ddd;
   }
 
-  .box-basic {
+  .box-basic, .box-basic.small {
     width: 100%;
     border-radius: 0;
     border-left: 0;
     border-right: 0;
-    margin-bottom: 1em;
+    margin-bottom: 1em !important;
+  }
+
+  .paging li, .paging .next, .paging .prev {
+    margin: 0;
+  }
+
+  .minimal .main-foot .txt {
+    text-align: center;
+  }
+}
+/* End Media query */
+@media screen and (min-width: 480px) {
+  .ui-responsive td, .ui-responsive th {
+    display: table-cell;
+    margin: 0;
+  }
+
+  .ui-responsive .ui-table-cell-label {
+    display: none;
   }
 }
 /* Extra Small Devices, Phones */
@@ -2969,6 +3081,18 @@ body {
 
   .box-estimated .h2 {
     line-height: 1.3em;
+  }
+
+  .ui-responsive thead {
+    display: none;
+  }
+
+  .paging {
+    margin-top: 2em;
+  }
+  .paging li {
+    margin-bottom: 10px;
+    display: inline-block;
   }
 }
 /* Custom, iPhone Retina */
