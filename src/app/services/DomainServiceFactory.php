@@ -3,10 +3,13 @@ namespace EuroMillions\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\components\EmTranslationAdapter;
+use EuroMillions\components\MandrillWrapper;
 use EuroMillions\components\PhpassWrapper;
 use EuroMillions\interfaces\IAuthStorageStrategy;
 use EuroMillions\interfaces\ICurrencyApi;
+use EuroMillions\interfaces\IMailServiceApi;
 use EuroMillions\interfaces\IPasswordHasher;
+use EuroMillions\interfaces\IUrlManager;
 use EuroMillions\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\interfaces\ILanguageStrategy;
 use EuroMillions\repositories\LanguageRepository;
@@ -15,8 +18,10 @@ use EuroMillions\services\auth_strategies\WebAuthStorageStrategy;
 use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\services\external_apis\RedisCurrencyApiCache;
 use EuroMillions\services\external_apis\YahooCurrencyApi;
+use EuroMillions\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\services\preferences_strategies\WebUserPreferencesStorageStrategy;
 use Phalcon\Di;
+use Phalcon\DiInterface;
 
 class DomainServiceFactory
 {
@@ -24,7 +29,7 @@ class DomainServiceFactory
     private $di;
     private $entityManager;
 
-    public function __construct(Di $di)
+    public function __construct(DiInterface $di)
     {
         $this->di = $di;
         $this->entityManager = $di->get('entityManager');
@@ -37,8 +42,9 @@ class DomainServiceFactory
         return new LotteriesDataService($entityManager, $lotteryApisFactory);
     }
 
-    public function getLanguageService(ILanguageStrategy $languageStrategy, LanguageRepository $languageRepository = null, EmTranslationAdapter $translationAdapter = null)
+    public function getLanguageService(ILanguageStrategy $languageStrategy = null, LanguageRepository $languageRepository = null, EmTranslationAdapter $translationAdapter = null)
     {
+        if (!$languageStrategy) $languageStrategy = new WebLanguageStrategy($this->di->get('session'), $this->di->get('request'));
         if (!$languageRepository) $languageRepository = $this->getRepository('Language');
         if (!$translationAdapter) {
             $translationAdapter = new EmTranslationAdapter($languageStrategy->get(), $this->getRepository('TranslationDetail'));
@@ -72,11 +78,12 @@ class DomainServiceFactory
      * @param IAuthStorageStrategy $storageStrategy
      * @return AuthService
      */
-    public function getAuthService(IPasswordHasher $passwordHasher = null, IAuthStorageStrategy $storageStrategy = null)
+    public function getAuthService(IPasswordHasher $passwordHasher = null, IAuthStorageStrategy $storageStrategy = null, IUrlManager $urlManager= null)
     {
-        if(!$storageStrategy) $storageStrategy = new WebAuthStorageStrategy($this->di->get('session'), $this->di->get('cookies'));
-        if(!$passwordHasher) $passwordHasher = new PhpassWrapper();
-        return new AuthService($this->entityManager, $passwordHasher, $storageStrategy);
+        if (!$storageStrategy) $storageStrategy = new WebAuthStorageStrategy($this->di->get('session'), $this->di->get('cookies'));
+        if (!$passwordHasher) $passwordHasher = new PhpassWrapper();
+        if (!$urlManager) $urlManager = $this->di->get('url');
+        return new AuthService($this->entityManager, $passwordHasher, $storageStrategy, $urlManager);
     }
 
     /**
@@ -87,8 +94,17 @@ class DomainServiceFactory
         return new GeoService();
     }
 
+    public function getEmailService(IMailServiceApi $mailServiceApi = null, AuthService $authService = null, $config = null)
+    {
+        if (!$config) $config = $this->di->get('globalConfig')['mail'];
+        $api_key = $config['mandrill_api_key'];
+        if (!$mailServiceApi) $mailServiceApi = new MandrillWrapper($api_key);
+        if (!$authService) $authService = $this->getAuthService();
+        return new EmailService($mailServiceApi, $authService, $config);
+    }
+
     private function getRepository($entity)
     {
-        return $this->entityManager->getRepository(self::ENTITIES_NS.$entity);
+        return $this->entityManager->getRepository(self::ENTITIES_NS . $entity);
     }
 }

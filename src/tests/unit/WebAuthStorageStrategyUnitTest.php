@@ -2,7 +2,6 @@
 namespace tests\unit;
 
 use EuroMillions\entities\GuestUser;
-use EuroMillions\entities\User;
 use EuroMillions\services\auth_strategies\WebAuthStorageStrategy;
 use EuroMillions\vo\UserId;
 use Phalcon\Http\Cookie;
@@ -27,9 +26,9 @@ class WebAuthStorageStrategyUnitTest extends UnitTestBase
      */
     public function test_getCurrentUser_calledWithUserInSession_returnUserInSession()
     {
-        $expected = new GuestUser();
-        $this->session_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn($expected);
-        $actual = $this->exerciseGetCurrentUser();
+        $expected = UserId::create();
+        $this->session_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn($expected->id());
+        $actual = $this->exerciseGetCurrentUserId();
         $this->assertEquals($expected, $actual);
     }
 
@@ -47,25 +46,23 @@ class WebAuthStorageStrategyUnitTest extends UnitTestBase
         $this->cookieManager_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn($cookie);
         $this->session_double->set(Argument::any(), Argument::any())->willReturn(null);
         $this->cookieManager_double->set(Argument::any(),Argument::any(),Argument::any())->willReturn(null);
-        $expected = new GuestUser();
-        $expected->setId($expected_id);
-        $actual = $this->exerciseGetCurrentUser();
-        $this->assertEquals($expected, $actual);
+        $actual = $this->exerciseGetCurrentUserId();
+        $this->assertEquals($expected_id, $actual);
     }
 
     /**
      * method getCurrentUser
      * when calledWithoutUserInSessionNorCookie
-     * should returnNewGuestUser
+     * should returnNewUserId
      */
-    public function test_getCurrentUser_calledWithoutUserInSessionNorCookie_returnNewGuestUser()
+    public function test_getCurrentUser_calledWithoutUserInSessionNorCookie_returnNewUserId()
     {
         $this->session_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
         $this->cookieManager_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
         $this->session_double->set(Argument::any(), Argument::any())->willReturn(null);
         $this->cookieManager_double->set(Argument::any(),Argument::any(),Argument::any())->willReturn(null);
-        $actual = $this->exerciseGetCurrentUser();
-        $this->assertInstanceOf('EuroMillions\entities\GuestUser', $actual);
+        $actual = $this->exerciseGetCurrentUserId();
+        $this->assertInstanceOf('EuroMillions\vo\UserId', $actual);
 
     }
 
@@ -78,9 +75,9 @@ class WebAuthStorageStrategyUnitTest extends UnitTestBase
     {
         $this->session_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
         $this->cookieManager_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
-        $this->session_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, Argument::type('EuroMillions\entities\GuestUser'))->shouldBeCalled();
+        $this->session_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, Argument::type('string'))->shouldBeCalled();
         $this->cookieManager_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, Argument::type('string'), WebAuthStorageStrategy::GUEST_USER_EXPIRATION)->shouldBeCalled();
-        $this->exerciseGetCurrentUser();
+        $this->exerciseGetCurrentUserId();
     }
 
     /**
@@ -101,41 +98,14 @@ class WebAuthStorageStrategyUnitTest extends UnitTestBase
     /**
      * method setCurrentUser
      * when calledWithProperUser
-     * should setUserInSession
+     * should setUserInSessionAndSetCookie
      */
     public function test_setCurrentUser_calledWithProperUser_setUserInSession()
     {
-        $user = new GuestUser();
-        $user->initialize(['id' => UserId::create()]);
-        $this->session_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, $user)->shouldBeCalled();
-        $this->exerciseSetCurrentUser($user);
-    }
-
-    /**
-     * method setCurrentUser
-     * when calledWithGuestUser
-     * should setUserIdInCookie
-     */
-    public function test_setCurrentUser_calledWithGuestUser_setUserIdInCookie()
-    {
         $user_id = UserId::create();
-        $expected = $user_id->id();
-        $user = new GuestUser();
-        $user->setId($user_id);
-        $this->cookieManager_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, $expected, WebAuthStorageStrategy::GUEST_USER_EXPIRATION)->shouldBeCalled();
-        $this->exerciseSetCurrentUser($user);
-    }
-
-    /**
-     * method setCurrentUser
-     * when calledWithRegisteredUser
-     * should notSetUserIdInCookie
-     */
-    public function test_setCurrentUser_calledWithRegisteredUser_notSetUserIdInCookie()
-    {
-        $user = new User();
-        $this->cookieManager_double->set(Argument::any(), Argument::any(), Argument::any())->shouldNotBeCalled();
-        $this->exerciseSetCurrentUser($user);
+        $this->session_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, $user_id->id())->shouldBeCalled();
+        $this->cookieManager_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, $user_id->id(), WebAuthStorageStrategy::GUEST_USER_EXPIRATION)->shouldBeCalled();
+        $this->exerciseSetCurrentUser($user_id);
     }
 
     /**
@@ -150,10 +120,10 @@ class WebAuthStorageStrategyUnitTest extends UnitTestBase
     /**
      * @return \EuroMillions\interfaces\IUser
      */
-    protected function exerciseGetCurrentUser()
+    protected function exerciseGetCurrentUserId()
     {
         $sut = $this->getSut();
-        $actual = $sut->getCurrentUser();
+        $actual = $sut->getCurrentUserId();
         return $actual;
     }
 
@@ -163,6 +133,6 @@ class WebAuthStorageStrategyUnitTest extends UnitTestBase
     protected function exerciseSetCurrentUser($expected)
     {
         $sut = $this->getSut();
-        $sut->setCurrentUser($expected);
+        $sut->setCurrentUserId($expected);
     }
 }

@@ -7,7 +7,8 @@ return [
             'email' => 'algarrobo@currojimenez.com',
             'token' => 'skldjskl',
             'balance_amount' => 300005,
-            'balance_currency_name' => 'EUR'
+            'balance_currency_name' => 'EUR',
+            'validated' => false,
         ],
   ]
 ];

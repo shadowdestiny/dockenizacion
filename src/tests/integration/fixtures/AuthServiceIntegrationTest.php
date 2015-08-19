@@ -2,11 +2,15 @@
 namespace tests\integration\fixtures;
 
 use EuroMillions\components\NullPasswordHasher;
+use EuroMillions\entities\User;
 use EuroMillions\repositories\UserRepository;
 use tests\base\DatabaseIntegrationTestBase;
 
 class AuthServiceIntegrationTest extends DatabaseIntegrationTestBase
 {
+    /** @var UserRepository $user_repo */
+    private $userRepository;
+
     /**
      * Child classes must implement this method. Return empty array if no fixtures are needed
      * @return array
@@ -18,6 +22,11 @@ class AuthServiceIntegrationTest extends DatabaseIntegrationTestBase
         ];
     }
 
+    public function setUp()
+    {
+        parent::setUp();
+        $this->userRepository = $this->entityManager->getRepository(self::ENTITIES_NS.'User');
+    }
     /**
      * method register
      * when calledWithProperCredentials
@@ -35,9 +44,29 @@ class AuthServiceIntegrationTest extends DatabaseIntegrationTestBase
         ];
         $sut = $this->getDomainServiceFactory()->getAuthService(new NullPasswordHasher());
         $sut->register($credentials);
-        /** @var UserRepository $user_repo */
-        $user_repo = $this->entityManager->getRepository(self::ENTITIES_NS.'User');
-        $actual = $user_repo->getByEmail('antonio@panamedia.net');
+        $actual = $this->userRepository->getByEmail('antonio@panamedia.net');
         $this->assertNotNull($actual);
+    }
+
+    /**
+     * method validateEmailToken
+     * when tokenValidates
+     * should setUserAsValidated
+     */
+    public function test_validateEmailToken_tokenValidates_setUserAsValidated()
+    {
+        $email = 'algarrobo@currojimenez.com';
+        /** @var User $user */
+        $user = $this->userRepository->getByEmail($email);
+        $this->assertFalse($user->getValidated(), "The user is validated yet");
+        $sut = $this->getDomainServiceFactory()->getAuthService();
+        $token = 'azoafaifo';
+        $validation_token_generator = $this->prophesize('EuroMillions\interfaces\IEmailValidationToken');
+        $validation_token_generator->validate($email, $token)->willReturn(true);
+        $actual = $sut->validateEmailToken($user, $token, $validation_token_generator->reveal());
+        $this->assertTrue($actual->success(), "The service reported failure");
+        $this->entityManager->detach($user);
+        $user = $this->userRepository->getByEmail($email);
+        $this->assertTrue($user->getValidated(), "The user is not validated on the database");
     }
 }

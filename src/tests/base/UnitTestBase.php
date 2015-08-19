@@ -147,4 +147,12 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
         return $languageRepository_stub;
     }
 
+    public function booleanDataProvider()
+    {
+        return [
+            [true],
+            [false],
+        ];
+    }
+
 }

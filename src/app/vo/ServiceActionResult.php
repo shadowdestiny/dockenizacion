@@ -4,12 +4,12 @@ namespace EuroMillions\vo;
 class ServiceActionResult
 {
     private $success;
-    private $errorMessage;
+    private $returnValues;
 
-    public function __construct($success, $errorMessage = null)
+    public function __construct($success, $returnValues = null)
     {
         $this->success = $success;
-        $this->errorMessage = $errorMessage;
+        $this->returnValues = $returnValues;
     }
 
     /**
@@ -25,6 +25,11 @@ class ServiceActionResult
      */
     public function errorMessage()
     {
-        return $this->errorMessage;
+        return $this->returnValues;
+    }
+
+    public function getValues()
+    {
+        return $this->returnValues;
     }
 }

@@ -53,7 +53,6 @@ class UserAccessController extends ControllerBase
                 ) {
                     $errors[] = 'Email/password combination not valid';
                 } else {
-                    //EMTD send email meesage to new user.
                     $this->redirectToPreviousAction($paramsFromPreviousAction);
                 }
             }
@@ -87,20 +86,19 @@ class UserAccessController extends ControllerBase
                 }
             } else {
                 $register_result = $this->authService->register([
-                    'name'             => $this->request->getPost('name'),
-                    'surname'          => $this->request->getPost('surname'),
-                    'email'            => $this->request->getPost('email'),
-                    'password'         => $this->request->getPost('password'),
-                    'country'          => $this->request->getPost('country'),
+                    'name'     => $this->request->getPost('name'),
+                    'surname'  => $this->request->getPost('surname'),
+                    'email'    => $this->request->getPost('email'),
+                    'password' => $this->request->getPost('password'),
+                    'country'  => $this->request->getPost('country'),
                 ]);
                 if (!$register_result->success()) {
                     $errors[] = $register_result->errorMessage();
                 } else {
+                    $email_service = $this->domainServiceFactory->getEmailService();
+                    $email_service->sendRegistrationMail($register_result->getValues());
                     $this->redirectToPreviousAction($paramsFromPreviousAction);
                 }
-
-                var_dump($this->request->getPost());
-                $this->noRender();
             }
         }
         $this->view->pick('sign-in/index');
@@ -111,6 +109,25 @@ class UserAccessController extends ControllerBase
             'errors'      => $errors,
             'form_errors' => $form_errors,
         ]);
+    }
+
+    public function validateAction($token)
+    {
+        $this->noRender();
+        //EMTD comprobar que el usuario está logueado. Si no, redirigir a login.
+        $result = $this->authService->validateEmailToken($this->authService->getCurrentUser(), $token);
+        if ($result->success()) {
+            $message = 'Thanks! Your email has been validated';
+        } else {
+            $message = 'Sorry, the token you used is no longer valid. (message was: "'.$result->getValues().'""). Click here to request a new one.'; //EMTD click here has to work and send a new token to the user.
+        }
+        $this->view->setVar('message', $message);
+    }
+
+    public function logoutAction()
+    {
+        $this->authService->logout();
+        $this->response->redirect();
     }
 
     /**

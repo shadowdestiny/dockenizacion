@@ -19,4 +19,9 @@ class UserId
     public static function create() {
         return new static(strtoupper(Uuid::uuid4()));
     }
+
+    public function __toString()
+    {
+        return $this->id;
+    }
 }

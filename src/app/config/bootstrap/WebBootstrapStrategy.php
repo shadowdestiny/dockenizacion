@@ -5,9 +5,9 @@ use EuroMillions\components\EnvironmentDetector;
 use EuroMillions\components\PhalconCookiesWrapper;
 use EuroMillions\components\PhalconRequestWrapper;
 use EuroMillions\components\PhalconSessionWrapper;
+use EuroMillions\components\PhalconUrlWrapper;
 use EuroMillions\interfaces\IBootstrapStrategy;
 use EuroMillions\services\DomainServiceFactory;
-use EuroMillions\services\preferences_strategies\WebLanguageStrategy;
 use Phalcon;
 use Phalcon\Di;
 use Phalcon\Events\Event;
@@ -43,7 +43,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $di = parent::dependencyInjector();
         $di->set('view', $this->configView(), true);
         $di->set('request', $this->configRequest(), false);
-        $di->set('url', $this->configUrl(), true);
+        $di->set('url', $this->configUrl($di), true);
         $di->set('dispatcher', $this->configDispatcher(), true);
         $di->set('router', $this->configRouter(), true);
         $di->set('response', $this->configResponse(), true);
@@ -67,8 +67,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     {
         /** @var DomainServiceFactory $dsf */
         $dsf = $di->get('domainServiceFactory');
-        $language_strategy = new WebLanguageStrategy($di->get('session'), $di->get('request'));
-        return $dsf->getLanguageService($language_strategy);
+        return $dsf->getLanguageService();
     }
 
     protected function configView()
@@ -97,9 +96,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         return new PhalconRequestWrapper();
     }
 
-    protected function configUrl()
+    protected function configUrl(Di $di)
     {
-        return new Phalcon\Mvc\Url();
+        $request = $di->get('request');
+        $url = new PhalconUrlWrapper();
+        $url->setBaseUri($request->getScheme(). '://localhost:8080/');
+        $url->setStaticBaseUri($request->getScheme(). '://localhost:8080/'); //EMTD pasar por configuración
+        return $url;
     }
 
     protected function configDispatcher()

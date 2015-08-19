@@ -10,7 +10,7 @@ use EuroMillions\vo\UserId;
 use Money\Money;
 use Rhumsaa\Uuid\Uuid;
 
-class User extends EntityBase implements IEntity,IUser
+class User extends EntityBase implements IEntity, IUser
 {
     /** @var  Uuid */
     protected $id;
@@ -26,6 +26,7 @@ class User extends EntityBase implements IEntity,IUser
     protected $balance;
 
     protected $country;
+    protected $validated;
 
     /**
      * @return mixed
@@ -77,7 +78,7 @@ class User extends EntityBase implements IEntity,IUser
 
     public function setId(UserId $id)
     {
-        $this->id = $id;
+        $this->id = (string)$id;
     }
 
     /**
@@ -85,7 +86,7 @@ class User extends EntityBase implements IEntity,IUser
      */
     public function getId()
     {
-        return $this->id;
+        return new UserId($this->id);
     }
 
     /**
@@ -131,5 +132,13 @@ class User extends EntityBase implements IEntity,IUser
         return $this->balance;
     }
 
+    public function setValidated($validated)
+    {
+        $this->validated = $validated;
+    }
 
+    public function getValidated()
+    {
+        return $this->validated;
+    }
 }
