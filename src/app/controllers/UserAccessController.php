@@ -28,8 +28,14 @@ class UserAccessController extends ControllerBase
         $form_errors = $this->getErrorsArray();
 
         $sign_up_form = $this->getSignUpForm();
+        $controller = $this->dispatcher->getPreviousControllerName();
+        $action = $this->dispatcher->getPreviousActionName();
+        $params = $paramsFromPreviousAction;
 
         if ($this->request->isPost()) {
+            $controller = $this->request->getPost('controller');
+            $action = $this->request->getPost('action');
+            $params = json_decode($this->request->getPost('params'));
             if ($sign_in_form->isValid($this->request->getPost()) == false) {
                 $messages = $sign_in_form->getMessages(true);
                 /**
@@ -49,17 +55,20 @@ class UserAccessController extends ControllerBase
                 ) {
                     $errors[] = 'Email/password combination not valid';
                 } else {
-                    return $this->redirectToPreviousAction($paramsFromPreviousAction);
+                    return $this->response->redirect("$controller/$action/".implode('/',$params));
                 }
             }
         }
         $this->view->pick('sign-in/index');
-        $this->view->setVars([
+        return $this->view->setVars([
             'which_form'  => 'in',
             'signinform'  => $sign_in_form,
             'signupform'  => $sign_up_form,
             'errors'      => $errors,
             'form_errors' => $form_errors,
+            'controller' => $controller,
+            'action' => $action,
+            'params' => json_encode($params),
         ]);
     }
 
@@ -98,7 +107,7 @@ class UserAccessController extends ControllerBase
             }
         }
         $this->view->pick('sign-in/index');
-        $this->view->setVars([
+        return $this->view->setVars([
             'which_form'  => 'up',
             'signinform'  => $sign_in_form,
             'signupform'  => $sign_up_form,
@@ -109,9 +118,11 @@ class UserAccessController extends ControllerBase
 
     public function validateAction($token)
     {
-        $this->noRender();
-        //EMTD comprobar que el usuario está logueado. Si no, redirigir a login.
-        $result = $this->authService->validateEmailToken($this->authService->getCurrentUser(), $token);
+        $current_user = $this->forceLogin($this->authService);
+        if(!$current_user) {
+            return;
+        }
+        $result = $this->authService->validateEmailToken($current_user, $token);
         if ($result->success()) {
             $message = 'Thanks! Your email has been validated';
         } else {
@@ -132,9 +143,8 @@ class UserAccessController extends ControllerBase
      */
     private function redirectToPreviousAction($paramsFromPreviousAction)
     {
-        $dispatcher = $this->getDI()->get('dispatcher');
-        $controller = $dispatcher->getPreviousControllerName();
-        $action = $dispatcher->getPreviousActionName();
+        $controller = $this->dispatcher->getPreviousControllerName();
+        $action = $this->dispatcher->getPreviousActionName();
         $redirect = "$controller/$action/$paramsFromPreviousAction";
         return $this->response->redirect($redirect);
     }

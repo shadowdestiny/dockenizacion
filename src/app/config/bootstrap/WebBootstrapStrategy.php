@@ -1,6 +1,8 @@
 <?php
 namespace EuroMillions\config\bootstrap;
 
+use DebugBar\Bridge\DoctrineCollector;
+use Doctrine\DBAL\Logging\DebugStack;
 use EuroMillions\components\EnvironmentDetector;
 use EuroMillions\components\PhalconCookiesWrapper;
 use EuroMillions\components\PhalconRequestWrapper;
@@ -11,6 +13,7 @@ use EuroMillions\services\DomainServiceFactory;
 use Phalcon;
 use Phalcon\Di;
 use Phalcon\Events\Event;
+use Snowair\Debugbar\ServiceProvider;
 
 class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapStrategy
 {
@@ -60,6 +63,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     {
         (new Phalcon\Debug())->listen();
         $application = new Phalcon\Mvc\Application($di);
+        // CONFIGURE DEBUGBAR
+        $di['app'] = $application;
+        (new ServiceProvider(APP_PATH . 'config/debugbar.php'))->start();
+        $em = $di->get('entityManager');
+        $debugStack = new DebugStack();
+        $em->getConnection()->getConfiguration()->setSQLLogger($debugStack);
+        $debugbar = $di->get('debugbar');
+        $debugbar->addCollector(new DoctrineCollector($debugStack));
         echo $application->handle()->getContent();
     }
 
@@ -100,8 +111,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     {
         $request = $di->get('request');
         $url = new PhalconUrlWrapper();
-        $url->setBaseUri($request->getScheme(). '://localhost:8080/');
-        $url->setStaticBaseUri($request->getScheme(). '://localhost:8080/'); //EMTD pasar por configuración
+        $url->setBaseUri($request->getScheme() . '://localhost:8080/');
+        $url->setStaticBaseUri($request->getScheme() . '://localhost:8080/'); //EMTD pasar por configuración
         return $url;
     }
 
@@ -125,7 +136,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                         $dispatcher->forward(array(
                             'controller' => 'index',
                             'action'     => 'notfound',
-                            'params'    => array($exception)
+                            'params'     => array($exception)
                         ));
                         return false;
                 }
@@ -156,10 +167,10 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action'     => 'signIn'
         ));
         $router->add('/ajax/:controller/:action/:params', array(
-            'namespace' => 'EuroMillions\controllers\ajax',
+            'namespace'  => 'EuroMillions\controllers\ajax',
             'controller' => 1,
-            'action' => 2,
-            'params' => 3,
+            'action'     => 2,
+            'params'     => 3,
         ));
         $router->setDefaults(array(
             'controller' => 'index',

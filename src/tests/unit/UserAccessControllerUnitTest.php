@@ -2,6 +2,7 @@
 namespace tests\unit;
 
 use EuroMillions\controllers\UserAccessController;
+use EuroMillions\entities\GuestUser;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
 

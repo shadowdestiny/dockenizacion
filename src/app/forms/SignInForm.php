@@ -47,5 +47,11 @@ class SignInForm extends Form
             'message' => 'Cross scripting protection. Reload the page.'
         )));
         $this->add($csrf);
+        $controller = new Hidden('controller');
+        $this->add($controller);
+        $action = new Hidden('action');
+        $this->add($action);
+        $params = new Hidden('params');
+        $this->add($params);
     }
 }

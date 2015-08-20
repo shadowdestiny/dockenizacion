@@ -3,7 +3,8 @@
     "phpunit/phpunit": "4.7.*",
     "phpunit/dbunit": "1.3.*",
     "phalcon/devtools": "dev-master",
-    "antonienko/php-template-previewer": "0.2.*"
+    "antonienko/php-template-previewer": "0.2.*",
+    "snowair/phalcon-debugbar": "^1.1"
   },
   "require": {
     "doctrine/orm": "2.5.*",
