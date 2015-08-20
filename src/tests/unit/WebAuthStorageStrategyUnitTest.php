@@ -77,8 +77,7 @@ class WebAuthStorageStrategyUnitTest extends UnitTestBase
         $this->session_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
         $this->cookieManager_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
         $this->session_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, Argument::type('string'))->shouldBeCalled();
-        $guest_expiration_callback = $this->getGuestExpirationCallback();
-        $this->cookieManager_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, Argument::type('string'), Argument::that($guest_expiration_callback))->shouldBeCalled();
+        $this->cookieManager_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, Argument::type('string'), Argument::that($this->getGuestExpirationCallback()))->shouldBeCalled();
         $this->exerciseGetCurrentUserId();
     }
 
