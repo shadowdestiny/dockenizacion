@@ -54,18 +54,21 @@ class WebAuthStorageStrategy implements IAuthStorageStrategy
     public function setCurrentUserId(UserId $userId)
     {
         $this->session->set(self::CURRENT_USER_VAR, $userId->id());
-        $this->cookieManager->set(self::CURRENT_USER_VAR, $userId->id(), self::GUEST_USER_EXPIRATION);
+        $this->cookieManager->set(self::CURRENT_USER_VAR, $userId->id(), time()+self::GUEST_USER_EXPIRATION);
     }
 
     public function removeCurrentUser()
     {
         $this->session->destroy();
+        $this->cookieManager->get(self::CURRENT_USER_VAR)->delete();
+        $this->cookieManager->get(self::REMEMBER_USERID_VAR)->delete();
+        $this->cookieManager->get(self::REMEMBER_TOKEN_VAR)->delete();
     }
 
     public function storeRemember(User $user)
     {
-        $this->cookieManager->set(self::REMEMBER_USERID_VAR, $user->getId()->id(), self::REMEMBER_ME_EXPIRATION);
-        $this->cookieManager->set(self::REMEMBER_TOKEN_VAR, $user->getRememberToken()->token(), self::REMEMBER_ME_EXPIRATION);
+        $this->cookieManager->set(self::REMEMBER_USERID_VAR, $user->getId()->id(), time()+self::REMEMBER_ME_EXPIRATION);
+        $this->cookieManager->set(self::REMEMBER_TOKEN_VAR, $user->getRememberToken()->token(), time()+self::REMEMBER_ME_EXPIRATION);
     }
 
     public function getRememberUserId()
@@ -86,6 +89,6 @@ class WebAuthStorageStrategy implements IAuthStorageStrategy
 
     public function hasRemember()
     {
-        $this->cookieManager->has(self::REMEMBER_USERID_VAR);
+        return $this->cookieManager->has(self::REMEMBER_USERID_VAR);
     }
 }

@@ -12,6 +12,7 @@ class WebAuthStorageStrategyUnitTest extends UnitTestBase
 {
     private $session_double;
     private $cookieManager_double;
+
     public function setUp()
     {
         parent::setUp();
@@ -76,7 +77,8 @@ class WebAuthStorageStrategyUnitTest extends UnitTestBase
         $this->session_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
         $this->cookieManager_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn(null);
         $this->session_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, Argument::type('string'))->shouldBeCalled();
-        $this->cookieManager_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, Argument::type('string'), WebAuthStorageStrategy::GUEST_USER_EXPIRATION)->shouldBeCalled();
+        $guest_expiration_callback = $this->getGuestExpirationCallback();
+        $this->cookieManager_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, Argument::type('string'), Argument::that($guest_expiration_callback))->shouldBeCalled();
         $this->exerciseGetCurrentUserId();
     }
 
@@ -104,8 +106,22 @@ class WebAuthStorageStrategyUnitTest extends UnitTestBase
     {
         $user_id = UserId::create();
         $this->session_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, $user_id->id())->shouldBeCalled();
-        $this->cookieManager_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, $user_id->id(), WebAuthStorageStrategy::GUEST_USER_EXPIRATION)->shouldBeCalled();
+        $this->cookieManager_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, $user_id->id(), Argument::that($this->getGuestExpirationCallback()))->shouldBeCalled();
         $this->exerciseSetCurrentUser($user_id);
+    }
+
+    /**
+     * method hasRemember
+     * when called
+     * should returnCookieManagerResult
+     */
+    public function test_hasRemember_called_returnCookieManagerResult()
+    {
+        $expected = 'ldsjlkñasdf';
+        $this->cookieManager_double->has(Argument::any())->willReturn($expected);
+        $sut = $this->getSut();
+        $actual = $sut->hasRemember();
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -134,5 +150,15 @@ class WebAuthStorageStrategyUnitTest extends UnitTestBase
     {
         $sut = $this->getSut();
         $sut->setCurrentUserId($expected);
+    }
+
+    /**
+     * @return \Closure
+     */
+    private function getGuestExpirationCallback()
+    {
+        return function ($arg) {
+            return $arg >= time() + WebAuthStorageStrategy::GUEST_USER_EXPIRATION;
+        };
     }
 }

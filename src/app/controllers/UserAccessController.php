@@ -29,11 +29,7 @@ class UserAccessController extends ControllerBase
 
         $sign_up_form = $this->getSignUpForm();
 
-        if (!$this->request->isPost()) {
-            if ($this->authService->hasRememberMe()) {
-                return $this->authService->loginWithRememberMe();
-            }
-        } else {
+        if ($this->request->isPost()) {
             if ($sign_in_form->isValid($this->request->getPost()) == false) {
                 $messages = $sign_in_form->getMessages(true);
                 /**
@@ -53,12 +49,12 @@ class UserAccessController extends ControllerBase
                 ) {
                     $errors[] = 'Email/password combination not valid';
                 } else {
-                    $this->redirectToPreviousAction($paramsFromPreviousAction);
+                    return $this->redirectToPreviousAction($paramsFromPreviousAction);
                 }
             }
         }
         $this->view->pick('sign-in/index');
-        return $this->view->setVars([
+        $this->view->setVars([
             'which_form'  => 'in',
             'signinform'  => $sign_in_form,
             'signupform'  => $sign_up_form,
@@ -97,12 +93,12 @@ class UserAccessController extends ControllerBase
                 } else {
                     $email_service = $this->domainServiceFactory->getEmailService();
                     $email_service->sendRegistrationMail($register_result->getValues());
-                    $this->redirectToPreviousAction($paramsFromPreviousAction);
+                    return $this->redirectToPreviousAction($paramsFromPreviousAction);
                 }
             }
         }
         $this->view->pick('sign-in/index');
-        return $this->view->setVars([
+        $this->view->setVars([
             'which_form'  => 'up',
             'signinform'  => $sign_in_form,
             'signupform'  => $sign_up_form,
@@ -132,6 +128,7 @@ class UserAccessController extends ControllerBase
 
     /**
      * @param $paramsFromPreviousAction
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
      */
     private function redirectToPreviousAction($paramsFromPreviousAction)
     {
@@ -139,7 +136,7 @@ class UserAccessController extends ControllerBase
         $controller = $dispatcher->getPreviousControllerName();
         $action = $dispatcher->getPreviousActionName();
         $redirect = "$controller/$action/$paramsFromPreviousAction";
-        $this->response->redirect($redirect);
+        return $this->response->redirect($redirect);
     }
 
     /**

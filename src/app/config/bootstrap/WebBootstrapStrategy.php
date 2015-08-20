@@ -178,7 +178,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     {
         $wrapper = new PhalconCookiesWrapper();
         $wrapper->useEncryption(true);
-        return new PhalconCookiesWrapper();
+        return $wrapper;
     }
 
     protected function configSession()

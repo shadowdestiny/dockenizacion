@@ -43,11 +43,17 @@ class PublicSiteControllerBase extends ControllerBase
 
     public function afterExecuteRoute()
     {
+        $this->checkAuth();
         $this->setActiveLanguages();
         $this->setActiveCurrencies();
         $this->setTopNavValues();
         $this->setNavValues();
         $this->setCommonTemplateVariables();
+    }
+
+    public function checkAuth()
+    {
+        $this->authService->tryLoginWithRemember();
     }
 
     private function setTopNavValues()

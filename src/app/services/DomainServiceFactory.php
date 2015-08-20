@@ -76,6 +76,7 @@ class DomainServiceFactory
     /**
      * @param IPasswordHasher $passwordHasher
      * @param IAuthStorageStrategy $storageStrategy
+     * @param IUrlManager $urlManager
      * @return AuthService
      */
     public function getAuthService(IPasswordHasher $passwordHasher = null, IAuthStorageStrategy $storageStrategy = null, IUrlManager $urlManager= null)

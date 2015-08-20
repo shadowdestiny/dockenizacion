@@ -14,7 +14,6 @@ use EuroMillions\repositories\UserRepository;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\ServiceActionResult;
-use EuroMillions\vo\UserId;
 use Money\Currency;
 use Money\Money;
 
@@ -90,7 +89,7 @@ class AuthService
 
     public function loginWithRememberMe()
     {
-        $user_id = new UserId($this->storageStrategy->getRememberUserId());
+        $user_id = $this->storageStrategy->getRememberUserId();
         /** @var User $user */
         $user = $this->userRepository->find($user_id);
         $token = $this->storageStrategy->getRememberToken();
@@ -150,6 +149,13 @@ class AuthService
     public function getValidationUrl(User $user)
     {
         return $this->urlManager->get('userAccess/validate/' . $this->getEmailValidationToken($user));
+    }
+
+    public function tryLoginWithRemember()
+    {
+        if ($this->hasRememberMe()) {
+            $this->loginWithRememberMe();
+        }
     }
 
     /**
