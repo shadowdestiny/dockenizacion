@@ -28,14 +28,10 @@ class UserAccessController extends ControllerBase
         $form_errors = $this->getErrorsArray();
 
         $sign_up_form = $this->getSignUpForm();
-        $controller = $this->dispatcher->getPreviousControllerName();
-        $action = $this->dispatcher->getPreviousActionName();
-        $params = $paramsFromPreviousAction;
+
+        list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
 
         if ($this->request->isPost()) {
-            $controller = $this->request->getPost('controller');
-            $action = $this->request->getPost('action');
-            $params = json_decode($this->request->getPost('params'));
             if ($sign_in_form->isValid($this->request->getPost()) == false) {
                 $messages = $sign_in_form->getMessages(true);
                 /**
@@ -78,6 +74,7 @@ class UserAccessController extends ControllerBase
         $sign_in_form = new SignInForm();
         $form_errors = $this->getErrorsArray();
         $sign_up_form = $this->getSignUpForm();
+        list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
         if ($this->request->isPost()) {
             if ($sign_up_form->isValid($this->request->getPost()) == false) {
                 $messages = $sign_up_form->getMessages(true);
@@ -102,7 +99,7 @@ class UserAccessController extends ControllerBase
                 } else {
                     $email_service = $this->domainServiceFactory->getEmailService();
                     $email_service->sendRegistrationMail($register_result->getValues());
-                    return $this->redirectToPreviousAction($paramsFromPreviousAction);
+                    return $this->response->redirect("$controller/$action/".implode('/',$params));
                 }
             }
         }
@@ -113,6 +110,9 @@ class UserAccessController extends ControllerBase
             'signupform'  => $sign_up_form,
             'errors'      => $errors,
             'form_errors' => $form_errors,
+            'controller' => $controller,
+            'action' => $action,
+            'params' => json_encode($params),
         ]);
     }
 
@@ -137,17 +137,6 @@ class UserAccessController extends ControllerBase
         $this->response->redirect();
     }
 
-    /**
-     * @param $paramsFromPreviousAction
-     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
-     */
-    private function redirectToPreviousAction($paramsFromPreviousAction)
-    {
-        $controller = $this->dispatcher->getPreviousControllerName();
-        $action = $this->dispatcher->getPreviousActionName();
-        $redirect = "$controller/$action/$paramsFromPreviousAction";
-        return $this->response->redirect($redirect);
-    }
 
     /**
      * @return SignUpForm
@@ -174,5 +163,24 @@ class UserAccessController extends ControllerBase
 
         ];
         return $form_errors;
+    }
+
+    /**
+     * @param $paramsFromPreviousAction
+     * @return array
+     */
+    private function getPreviousParams($paramsFromPreviousAction)
+    {
+        if ($this->request->isPost()) {
+            $controller = $this->request->getPost('controller');
+            $action = $this->request->getPost('action');
+            $params = json_decode($this->request->getPost('params'));
+            return array($controller, $action, $params);
+        } else {
+            $controller = $this->dispatcher->getPreviousControllerName();
+            $action = $this->dispatcher->getPreviousActionName();
+            $params = $paramsFromPreviousAction;
+            return array($controller, $action, $params);
+        }
     }
 }
