@@ -157,7 +157,7 @@ class WebAuthStorageStrategyUnitTest extends UnitTestBase
     private function getGuestExpirationCallback()
     {
         return function ($arg) {
-            return $arg >= time() + WebAuthStorageStrategy::GUEST_USER_EXPIRATION;
+            return $arg > WebAuthStorageStrategy::GUEST_USER_EXPIRATION;
         };
     }
 }
