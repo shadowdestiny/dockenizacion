@@ -17,4 +17,9 @@ class RememberToken extends ValueObject
     {
         return $this->token;
     }
+
+    public function __toString()
+    {
+        return $this->token;
+    }
 }

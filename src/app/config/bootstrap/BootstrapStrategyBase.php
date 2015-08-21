@@ -49,7 +49,7 @@ abstract class BootstrapStrategyBase
     protected function configCrypt()
     {
         $crypt = new Crypt();
-        $crypt->setKey('8p2904fj@¢#al/4289'); // Use your own key!
+        $crypt->setKey('8p2904fj@¢#al/4'); // Use your own key!
         return $crypt;
     }
 

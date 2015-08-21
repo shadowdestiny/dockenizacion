@@ -2,11 +2,20 @@
 namespace EuroMillions\services;
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\components\Md5EmailValidationToken;
+use EuroMillions\entities\GuestUser;
 use EuroMillions\entities\User;
 use EuroMillions\interfaces\IAuthStorageStrategy;
+use EuroMillions\interfaces\IEmailValidationToken;
 use EuroMillions\interfaces\IPasswordHasher;
+use EuroMillions\interfaces\IUrlManager;
+use EuroMillions\interfaces\IUser;
 use EuroMillions\repositories\UserRepository;
-use EuroMillions\vo\UserId;
+use EuroMillions\vo\Email;
+use EuroMillions\vo\Password;
+use EuroMillions\vo\ServiceActionResult;
+use Money\Currency;
+use Money\Money;
 
 class AuthService
 {
@@ -18,18 +27,40 @@ class AuthService
     private $passwordHasher;
     /** @var IAuthStorageStrategy */
     private $storageStrategy;
+    /** @var IUrlManager */
+    private $urlManager;
 
-    public function __construct(EntityManager $entityManager, IPasswordHasher $hasher, IAuthStorageStrategy $storageStrategy)
+    public function __construct(EntityManager $entityManager, IPasswordHasher $hasher, IAuthStorageStrategy $storageStrategy, IUrlManager $urlManager)
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $entityManager->getRepository('EuroMillions\entities\User');
         $this->passwordHasher = $hasher;
         $this->storageStrategy = $storageStrategy;
+        $this->urlManager = $urlManager;
     }
 
+    /**
+     * @return IUser
+     */
     public function getCurrentUser()
     {
-        return $this->storageStrategy->getCurrentUser();
+        $user_id = $this->storageStrategy->getCurrentUserId();
+        $user = $this->userRepository->find($user_id);
+        if (!$user) {
+            $user = new GuestUser();
+            $user->setId($user_id);
+        }
+        return $user;
+    }
+
+    public function setCurrentUser(User $user)
+    {
+        $this->storageStrategy->setCurrentUserId($user->getId());
+    }
+
+    public function logout()
+    {
+        $this->storageStrategy->removeCurrentUser();
     }
 
     public function isLogged()
@@ -41,26 +72,29 @@ class AuthService
     public function check($credentials, $agentIdentificationString)
     {
         $user = $this->userRepository->getByEmail($credentials['email']);
-        if(!$user) {
+        if (!$user) {
             return false;
         }
         $password_match = $this->passwordHasher->checkPassword($credentials['password'], $user->getPassword()->password());
-        if ($password_match && $credentials['remember']) {
-            $user->setRememberToken($agentIdentificationString);
-            $this->storageStrategy->storeRemember($user);
-            $this->entityManager->flush();
+        if ($password_match) {
+            $this->setCurrentUser($user); //EMTD faltan tests aquí. (testear que se está poniendo el current user cuando toca)
+            if ($credentials['remember']) {
+                $user->setRememberToken($agentIdentificationString);
+                $this->storageStrategy->storeRemember($user);
+                $this->entityManager->flush();
+            }
         }
         return $password_match;
     }
 
     public function loginWithRememberMe()
     {
-        $user_id = new UserId($this->storageStrategy->getRememberUserId());
+        $user_id = $this->storageStrategy->getRememberUserId();
         /** @var User $user */
         $user = $this->userRepository->find($user_id);
         $token = $this->storageStrategy->getRememberToken();
         if ($user && $token == $user->getRememberToken()->token()) {
-            $this->storageStrategy->setCurrentUser($user);
+            $this->storageStrategy->setCurrentUserId($user->getId());
             return true;
         } else {
             $this->storageStrategy->removeRemember();
@@ -71,6 +105,67 @@ class AuthService
     public function hasRememberMe()
     {
         return $this->storageStrategy->hasRemember();
+    }
+
+    public function register(array $credentials)
+    {
+        if ($this->userRepository->getByEmail($credentials['email'])) {
+            return new ServiceActionResult(false, 'Email already registered');
+        }
+        $user = new User();
+        $user->initialize([
+            'name'     => $credentials['name'],
+            'surname'  => $credentials['surname'],
+            'email'    => new Email($credentials['email']),
+            'password' => new Password($credentials['password'], $this->passwordHasher),
+            'country'  => $credentials['country'],
+            'balance'  => new Money(0, new Currency('EUR')),
+            'validated' => 0,
+        ]);
+        $this->userRepository->add($user);
+        $this->entityManager->flush();
+        $this->storageStrategy->setCurrentUserId($user->getId());
+        return new ServiceActionResult(true, $user);
+    }
+
+    public function getEmailValidationToken(User $user, IEmailValidationToken $emailValidationTokenGenerator = null)
+    {
+        $emailValidationTokenGenerator = $this->getEmailValidationTokenGenerator($emailValidationTokenGenerator);
+        return $emailValidationTokenGenerator->token($user->getEmail()->email());
+    }
+
+    public function validateEmailToken(User $user, $token, IEmailValidationToken $emailValidationTokenGenerator = null)
+    {
+        $emailValidationTokenGenerator = $this->getEmailValidationTokenGenerator($emailValidationTokenGenerator);
+        if ($emailValidationTokenGenerator->validate($user->getEmail()->email(), $token)) {
+            $user->setValidated(true);
+            $this->entityManager->flush($user);
+            return new ServiceActionResult(true, $user);
+        } else {
+            return new ServiceActionResult(false, "The token is invalid");
+        }
+    }
+
+    public function getValidationUrl(User $user)
+    {
+        return $this->urlManager->get('userAccess/validate/' . $this->getEmailValidationToken($user));
+    }
+
+    public function tryLoginWithRemember()
+    {
+        if ($this->hasRememberMe()) {
+            $this->loginWithRememberMe();
+        }
+    }
+
+    /**
+     * @param IEmailValidationToken $emailValidationTokenGenerator
+     * @return IEmailValidationToken
+     */
+    private function getEmailValidationTokenGenerator(IEmailValidationToken $emailValidationTokenGenerator = null)
+    {
+        if (!$emailValidationTokenGenerator) $emailValidationTokenGenerator = new Md5EmailValidationToken();
+        return $emailValidationTokenGenerator;
     }
 
 

@@ -1,12 +1,10 @@
 <?php
 namespace EuroMillions\services\auth_strategies;
 
-use EuroMillions\entities\GuestUser;
 use EuroMillions\entities\User;
 use EuroMillions\interfaces\IAuthStorageStrategy;
 use EuroMillions\interfaces\ICookieManager;
 use EuroMillions\interfaces\ISession;
-use EuroMillions\interfaces\IUser;
 use EuroMillions\vo\UserId;
 use Phalcon\Http\Cookie;
 
@@ -28,45 +26,49 @@ class WebAuthStorageStrategy implements IAuthStorageStrategy
     }
 
     /**
-     * @return IUser
+     * @return UserId
      */
-    public function getCurrentUser()
+    public function getCurrentUserId()
     {
-        $user = $this->session->get(self::CURRENT_USER_VAR);
-        if(!$user) {
+        $id = $this->session->get(self::CURRENT_USER_VAR);
+        if(!$id) {
             /** @var Cookie $cookie */
             $cookie = $this->cookieManager->get(self::CURRENT_USER_VAR);
             if (!$cookie) {
-                $user_id = null;
+                $id = null;
             } else {
-                $user_id = $cookie->getValue();
+                $id = $cookie->getValue();
             }
-            /** @var UserId $user_id */
-            if (!$user_id) {
+            if (!$id) {
                 $user_id = UserId::create();
+            } else {
+                $user_id = new UserId($id);
             }
-            $user = new GuestUser();
-            $user->setId($user_id);
-            $this->setCurrentUser($user);
+            $this->setCurrentUserId($user_id);
+        } else {
+            $user_id = new UserId($id);
         }
-        return $user;
+        return $user_id;
     }
 
-    public function setCurrentUser(IUser $user)
+    public function setCurrentUserId(UserId $userId)
     {
-        $this->session->set(self::CURRENT_USER_VAR, $user);
-        if (get_class($user) == 'EuroMillions\entities\GuestUser') {
-            $this->cookieManager->set(self::CURRENT_USER_VAR, $user->getId(), self::GUEST_USER_EXPIRATION);
-        }
+        $this->session->set(self::CURRENT_USER_VAR, $userId->id());
+        $this->cookieManager->set(self::CURRENT_USER_VAR, $userId->id(), time()+self::GUEST_USER_EXPIRATION);
     }
 
-    /**
-     * @param $user
-     */
+    public function removeCurrentUser()
+    {
+        $this->session->destroy();
+        $this->cookieManager->get(self::CURRENT_USER_VAR)->delete();
+        $this->cookieManager->get(self::REMEMBER_USERID_VAR)->delete();
+        $this->cookieManager->get(self::REMEMBER_TOKEN_VAR)->delete();
+    }
+
     public function storeRemember(User $user)
     {
-        $this->cookieManager->set(self::REMEMBER_USERID_VAR, $user->getId()->id(), self::REMEMBER_ME_EXPIRATION);
-        $this->cookieManager->set(self::REMEMBER_TOKEN_VAR, $user->getRememberToken()->token(), self::REMEMBER_ME_EXPIRATION);
+        $this->cookieManager->set(self::REMEMBER_USERID_VAR, $user->getId()->id(), time()+self::REMEMBER_ME_EXPIRATION);
+        $this->cookieManager->set(self::REMEMBER_TOKEN_VAR, $user->getRememberToken()->token(), time()+self::REMEMBER_ME_EXPIRATION);
     }
 
     public function getRememberUserId()
@@ -87,6 +89,6 @@ class WebAuthStorageStrategy implements IAuthStorageStrategy
 
     public function hasRemember()
     {
-        $this->cookieManager->has(self::REMEMBER_USERID_VAR);
+        return $this->cookieManager->has(self::REMEMBER_USERID_VAR);
     }
 }

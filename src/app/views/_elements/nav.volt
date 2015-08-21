@@ -23,7 +23,7 @@
     {% endif %}
 
     <a class="your-account" href="{{ link }}">
-        <span class="link desktop">{{ language.translate("Hello, Sign in") }}</span>
+        <span class="link desktop">{{ language.translate("Hello, ") }}{% if user_name %}{{ user_name }}{% else %}{{ language.translate("Sign in") }}{% endif %}</span>
         <br class="br">
         <span class="txt"><span class="ico ico-user"></span>{{ language.translate(" Your Account") }}</span>
     </a>
@@ -38,7 +38,7 @@
                             class="ico ico-arrow-right"></span></a></li>
             <li><a href="javascript:void(0);">{{ language.translate("Messages") }} <span
                             class="ico ico-arrow-right"></span></a></li>
-            <li><a href="javascript:void(0);">{{ language.translate("Sign out") }} <span class="ico ico-exit"></span></a></li>
+            <li><a href="/userAccess/logout">{{ language.translate("Sign out") }} <span class="ico ico-exit"></span></a></li>
         </ul>
     {% endif %}
 

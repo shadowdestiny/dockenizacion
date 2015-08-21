@@ -2,6 +2,7 @@
 namespace EuroMillions\controllers;
 
 use EuroMillions\entities\Language;
+use EuroMillions\entities\User;
 use EuroMillions\services\AuthService;
 use EuroMillions\services\CurrencyService;
 use EuroMillions\services\LanguageService;
@@ -42,11 +43,17 @@ class PublicSiteControllerBase extends ControllerBase
 
     public function afterExecuteRoute()
     {
+        $this->checkAuth();
         $this->setActiveLanguages();
         $this->setActiveCurrencies();
         $this->setTopNavValues();
         $this->setNavValues();
         $this->setCommonTemplateVariables();
+    }
+
+    public function checkAuth()
+    {
+        $this->authService->tryLoginWithRemember();
     }
 
     private function setTopNavValues()
@@ -57,7 +64,17 @@ class PublicSiteControllerBase extends ControllerBase
 
     private function setNavValues()
     {
-        $this->view->setVar('user_logged', $this->authService->isLogged());
+        $is_logged = $this->authService->isLogged();
+        if ($is_logged) {
+            /** @var User $user */
+            $user = $this->authService->getCurrentUser();
+            $user_name = $user->getName();
+        } else {
+            $user_name = '';
+        }
+
+        $this->view->setVar('user_logged', $is_logged);
+        $this->view->setVar('user_name', $user_name);
     }
 
     private function setActiveCurrencies()

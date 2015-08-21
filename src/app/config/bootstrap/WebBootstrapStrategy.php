@@ -1,16 +1,19 @@
 <?php
 namespace EuroMillions\config\bootstrap;
 
+use DebugBar\Bridge\DoctrineCollector;
+use Doctrine\DBAL\Logging\DebugStack;
 use EuroMillions\components\EnvironmentDetector;
 use EuroMillions\components\PhalconCookiesWrapper;
 use EuroMillions\components\PhalconRequestWrapper;
 use EuroMillions\components\PhalconSessionWrapper;
+use EuroMillions\components\PhalconUrlWrapper;
 use EuroMillions\interfaces\IBootstrapStrategy;
 use EuroMillions\services\DomainServiceFactory;
-use EuroMillions\services\preferences_strategies\WebLanguageStrategy;
 use Phalcon;
 use Phalcon\Di;
 use Phalcon\Events\Event;
+use Snowair\Debugbar\ServiceProvider;
 
 class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapStrategy
 {
@@ -43,7 +46,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $di = parent::dependencyInjector();
         $di->set('view', $this->configView(), true);
         $di->set('request', $this->configRequest(), false);
-        $di->set('url', $this->configUrl(), true);
+        $di->set('url', $this->configUrl($di), true);
         $di->set('dispatcher', $this->configDispatcher(), true);
         $di->set('router', $this->configRouter(), true);
         $di->set('response', $this->configResponse(), true);
@@ -60,6 +63,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     {
         (new Phalcon\Debug())->listen();
         $application = new Phalcon\Mvc\Application($di);
+        // CONFIGURE DEBUGBAR
+        $di['app'] = $application;
+        (new ServiceProvider(APP_PATH . 'config/debugbar.php'))->start();
+        $em = $di->get('entityManager');
+        $debugStack = new DebugStack();
+        $em->getConnection()->getConfiguration()->setSQLLogger($debugStack);
+        $debugbar = $di->get('debugbar');
+        $debugbar->addCollector(new DoctrineCollector($debugStack));
         echo $application->handle()->getContent();
     }
 
@@ -67,8 +78,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     {
         /** @var DomainServiceFactory $dsf */
         $dsf = $di->get('domainServiceFactory');
-        $language_strategy = new WebLanguageStrategy($di->get('session'), $di->get('request'));
-        return $dsf->getLanguageService($language_strategy);
+        return $dsf->getLanguageService();
     }
 
     protected function configView()
@@ -97,9 +107,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         return new PhalconRequestWrapper();
     }
 
-    protected function configUrl()
+    protected function configUrl(Di $di)
     {
-        return new Phalcon\Mvc\Url();
+        $request = $di->get('request');
+        $url = new PhalconUrlWrapper();
+        $url->setBaseUri($request->getScheme() . '://localhost:8080/');
+        $url->setStaticBaseUri($request->getScheme() . '://localhost:8080/'); //EMTD pasar por configuración
+        return $url;
     }
 
     protected function configDispatcher()
@@ -122,7 +136,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                         $dispatcher->forward(array(
                             'controller' => 'index',
                             'action'     => 'notfound',
-                            'params'    => array($exception)
+                            'params'     => array($exception)
                         ));
                         return false;
                 }
@@ -153,10 +167,10 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action'     => 'signIn'
         ));
         $router->add('/ajax/:controller/:action/:params', array(
-            'namespace' => 'EuroMillions\controllers\ajax',
+            'namespace'  => 'EuroMillions\controllers\ajax',
             'controller' => 1,
-            'action' => 2,
-            'params' => 3,
+            'action'     => 2,
+            'params'     => 3,
         ));
         $router->setDefaults(array(
             'controller' => 'index',
@@ -175,7 +189,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     {
         $wrapper = new PhalconCookiesWrapper();
         $wrapper->useEncryption(true);
-        return new PhalconCookiesWrapper();
+        return $wrapper;
     }
 
     protected function configSession()

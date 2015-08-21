@@ -10,10 +10,12 @@ use EuroMillions\vo\UserId;
 use Money\Money;
 use Rhumsaa\Uuid\Uuid;
 
-class User extends EntityBase implements IEntity,IUser
+class User extends EntityBase implements IEntity, IUser
 {
     /** @var  Uuid */
     protected $id;
+    protected $name;
+    protected $surname;
     /** @var  Password */
     protected $password;
     /** @var  Email */
@@ -23,9 +25,60 @@ class User extends EntityBase implements IEntity,IUser
     /** @var  Money */
     protected $balance;
 
+    protected $country;
+    protected $validated;
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    /**
+     * @param mixed $surname
+     */
+    public function setSurname($surname)
+    {
+        $this->surname = $surname;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param mixed $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
     public function setId(UserId $id)
     {
-        $this->id = $id;
+        $this->id = (string)$id;
     }
 
     /**
@@ -33,7 +86,7 @@ class User extends EntityBase implements IEntity,IUser
      */
     public function getId()
     {
-        return $this->id;
+        return new UserId($this->id);
     }
 
     /**
@@ -79,5 +132,13 @@ class User extends EntityBase implements IEntity,IUser
         return $this->balance;
     }
 
+    public function setValidated($validated)
+    {
+        $this->validated = $validated;
+    }
 
+    public function getValidated()
+    {
+        return $this->validated;
+    }
 }

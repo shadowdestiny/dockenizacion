@@ -2,15 +2,17 @@
 namespace EuroMillions\interfaces;
 
 use EuroMillions\entities\User;
+use EuroMillions\vo\UserId;
 
 interface IAuthStorageStrategy
 {
     /**
-     * @return IUser
+     * @return UserId
      */
-    public function getCurrentUser();
-    public function setCurrentUser(IUser $user);
-    public function storeRemember(User $user);
+    public function getCurrentUserId();
+    public function setCurrentUserId(UserId $userId);
+    public function storeRemember(User $userId);
+    public function removeCurrentUser();
 
     public function getRememberUserId();
     public function getRememberToken();

@@ -7,12 +7,19 @@
 
     <entity name="EuroMillions\entities\User" table="users" repository-class="EuroMillions\repositories\UserRepository">
         <id name="id">
-            <generator strategy="UUID" />
+            <generator strategy="UUID"/>
         </id>
-        <embedded name="password" class="EuroMillions\vo\Password" use-column-prefix="false" />
-        <embedded name="email" class="EuroMillions\vo\Email" use-column-prefix="false" />
-        <embedded name="rememberToken" class="EuroMillions\vo\RememberToken" use-column-prefix="false" />
-        <embedded name="balance" class="Money\Money" use-column-prefix="true" />
+        <field name="name" type="string"/>
+        <field name="surname" type="string"/>
+        <field name="country" type="string"/>
+        <field name="validated" type="boolean">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+        <embedded name="password" class="EuroMillions\vo\Password" use-column-prefix="false"/>
+        <embedded name="email" class="EuroMillions\vo\Email" use-column-prefix="false"/>
+        <embedded name="rememberToken" class="EuroMillions\vo\RememberToken" use-column-prefix="false"/>
+        <embedded name="balance" class="Money\Money" use-column-prefix="true"/>
     </entity>
-
 </doctrine-mapping>

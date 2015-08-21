@@ -2,14 +2,15 @@
 namespace tests\unit;
 
 use EuroMillions\components\NullPasswordHasher;
-use EuroMillions\entities\GuestUser;
 use EuroMillions\entities\User;
-use EuroMillions\interfaces\IUser;
 use EuroMillions\services\AuthService;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\RememberToken;
+use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
+use Money\Currency;
+use Money\Money;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
 
@@ -25,6 +26,7 @@ class AuthServiceUnitTest extends UnitTestBase
     private $userRepository_double;
     private $hasher_double;
     private $storageStrategy_double;
+    private $urlManager_double;
 
     protected function getEntityManagerStubExtraMappings()
     {
@@ -36,8 +38,9 @@ class AuthServiceUnitTest extends UnitTestBase
     public function setUp()
     {
         $this->userRepository_double = $this->prophesize('EuroMillions\repositories\UserRepository');
-        $this->hasher_double = $this->prophesize('EuroMillions\interfaces\IpasswordHasher');
+        $this->hasher_double = $this->prophesize('EuroMillions\interfaces\IPasswordHasher');
         $this->storageStrategy_double = $this->prophesize('EuroMillions\interfaces\IAuthStorageStrategy');
+        $this->urlManager_double = $this->prophesize('EuroMillions\interfaces\IUrlManager');
         parent::setUp();
         $this->userId = UserId::create();
     }
@@ -66,6 +69,7 @@ class AuthServiceUnitTest extends UnitTestBase
         /** @var User $user */
         $credentials = $this->prepareHasherCredentialsAndUserRepo(true);
         $this->storageStrategy_double->storeRemember(Argument::type('EuroMillions\interfaces\IUser'))->shouldBeCalled();
+        $this->storageStrategy_double->setCurrentUserId(Argument::type('EuroMillions\vo\UserId'))->shouldBeCalled();
         $this->expectFlushInEntityManager();
         $this->exerciseCheck($credentials);
     }
@@ -84,36 +88,17 @@ class AuthServiceUnitTest extends UnitTestBase
 
         $this->userRepository_double->getByEmail(self::EMAIL)->willReturn($user_mock);
         $this->storageStrategy_double->storeRemember(Argument::any())->shouldNotBeCalled();
-        $this->exerciseCheck($credentials);
-    }
-
-    /**
-     * method check
-     * when calledWithRememberAndPasswordMatch
-     * should storeToken
-     */
-    public function test_check_calledWithRememberAndPasswordMatch_storeToken()
-    {
-        $credentials= $this->prepareHasherAndCredentials(true, true);
-
-        $user_mock = $this->prepareUserMock();
-        $user_mock->setRememberToken(self::USER_AGENT)->shouldBeCalled();
-
-        $this->userRepository_double->getByEmail(self::EMAIL)->willReturn($user_mock);
-
-        $this->expectFlushInEntityManager();
-
-        $this->storageStrategy_double->storeRemember(Argument::any())->shouldBeCalled();
+        $this->storageStrategy_double->setCurrentUserId(Argument::any())->shouldNotBeCalled();
 
         $this->exerciseCheck($credentials);
     }
 
     /**
      * method check
-     * when calledWithoutRemember
-     * should notSetRememberEnvironment
+     * when calledWithoutRememberAndPasswordMatch
+     * should notSetRememberEnvironmentButSetCurrentUser
      */
-    public function test_check_calledWithoutRemember_notSetRememberEnvironment()
+    public function test_check_calledWithoutRememberAndPasswordMatch_notSetRememberEnvironmentButSetCurrentUser()
     {
         $credentials = $this->prepareHasherAndCredentials(false, true);
 
@@ -127,6 +112,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $this->stubEntityManager($entityManager_stub);
 
         $this->storageStrategy_double->storeRemember(Argument::any())->shouldNotBeCalled();
+        $this->storageStrategy_double->setCurrentUserId(Argument::type('EuroMillions\vo\UserId'))->shouldBeCalled();
 
         $this->exerciseCheck($credentials);
     }
@@ -139,7 +125,7 @@ class AuthServiceUnitTest extends UnitTestBase
     public function test_check_calledWithWrongEmail_returnFalse()
     {
         $this->userRepository_double->getByEmail(Argument::any())->willReturn(null);
-        $actual = $this->exerciseCheck(['email'=>'email@email.com']);
+        $actual = $this->exerciseCheck(['email' => 'email@email.com']);
         $this->assertFalse($actual);
     }
 
@@ -202,47 +188,48 @@ class AuthServiceUnitTest extends UnitTestBase
         return $user_mock;
     }
 
-    private function expectFlushInEntityManager()
+    private function expectFlushInEntityManager($argument = null)
     {
         $entityManager_stub = $this->getEntityManagerDouble();
-        $entityManager_stub->flush()->shouldBeCalled();
+        $entityManager_stub->flush($argument)->shouldBeCalled();
         $this->stubEntityManager($entityManager_stub);
     }
 
     /**
      * method getCurrentUser
      * when called
-     * should returnStrategyResult
+     * should returnIUserWithTheIdReturnedByTheStrategy
      */
-    public function test_getCurrentUser_called_returnStrategyResult()
+    public function test_getCurrentUser_called_returnIUserWithTheIdReturnedByTheStrategy()
     {
-        $expected = new GuestUser();
-        $this->storageStrategy_double->getCurrentUser()->willReturn($expected);
+        $expected = UserId::create();
+        $this->storageStrategy_double->getCurrentUserId()->willReturn($expected);
         $sut = $this->getSut();
         $actual = $sut->getCurrentUser();
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($expected, $actual->getId());
     }
 
     /**
      * method isLogged
      * when called
      * should returnFalseIfCurrentUserIsGuestUserAndTrueIfCurrentUserIsUser
-     * @dataProvider getIUserAndExpectedLogged
-     * @param IUser $user
+     * @dataProvider getRepositoryResultAndExpectedLogged
+     * @param $result
      * @param $expected
      */
-    public function test_isLogged_called_returnFalseIfCurrentUserIsGuestUserAndTrueIfCurrentUserIsUser(IUser $user, $expected)
+    public function test_isLogged_called_returnFalseIfCurrentUserIsGuestUserAndTrueIfCurrentUserIsUser($result, $expected)
     {
-        $this->storageStrategy_double->getCurrentUser()->willReturn($user);
+        $this->storageStrategy_double->getCurrentUserId()->willReturn(UserId::create());
+        $this->userRepository_double->find(Argument::any())->willReturn($result);
         $sut = $this->getSut();
         $actual = $sut->isLogged();
         $this->assertEquals($expected, $actual);
     }
 
-    public function getIUserAndExpectedLogged()
+    public function getRepositoryResultAndExpectedLogged()
     {
         return [
-            [new GuestUser(), false],
+            [null, false],
             [new User(), true],
         ];
     }
@@ -280,14 +267,110 @@ class AuthServiceUnitTest extends UnitTestBase
     public function test_loginWithRememberMe_tokenValidates_createdProperUserSession()
     {
         $user_id = UserId::create();
-        $user_id_obj = new UserId($user_id);
 
         $user_agent = 'azofaifo';
-        $user = $this->getUserWithRemember($user_id_obj, $user_agent);
-        $this->storageStrategy_double->setCurrentUser($user)->shouldBeCalled();
+        $user = $this->getUserWithRemember($user_id, $user_agent);
+        $this->storageStrategy_double->setCurrentUserId($user_id)->shouldBeCalled();
 
-        $actual = $this->exerciseRememberMeWithTokenValidating($user, $user_agent, $user_id_obj, $user_id);
+        $actual = $this->exerciseRememberMeWithTokenValidating($user, $user_agent, $user_id, $user_id->id());
         $this->assertTrue($actual);
+    }
+
+    /**
+     * method register
+     * when calledWithExistingEmail
+     * should returnProperErrorMessage
+     */
+    public function test_register_calledWithExistingEmail_returnProperErrorMessage()
+    {
+        $existing_mail = 'antonio.hernandez@panamedia.net';
+        $this->userRepository_double->getByEmail($existing_mail)->willReturn(new User());
+        $credentials = $this->getRegisterCredentials($existing_mail);
+        $expected = new ServiceActionResult(false, 'Email already registered');
+        $sut = $this->getSut();
+        $actual = $sut->register($credentials);
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * method register
+     * when calledWithProperCredentials
+     * should storeNewUserAndLoginAndReturnOk
+     */
+    public function test_register_calledWithProperCredentials_storeNewUserAndLoginAndReturnOk()
+    {
+        $this->expectFlushInEntityManager();
+        $credentials = $this->getRegisterCredentials();
+        $user = new User();
+        $user->initialize(
+            [
+                'name'     => $credentials['name'],
+                'surname'  => $credentials['surname'],
+                'email'    => new Email($credentials['email']),
+                'password' => new Password($credentials['password'], $this->hasher_double->reveal()),
+                'country'  => $credentials['country'],
+                'balance'  => new Money(0, new Currency('EUR')),
+            ]
+        );
+        $this->userRepository_double->getByEmail($credentials['email'])->willReturn(null);
+        $this->userRepository_double->add($user)->shouldBeCalled();
+        $this->storageStrategy_double->setCurrentUserId(Argument::type('EuroMillions\vo\UserId'))->shouldBeCalled();
+        $sut = $this->getSut();
+        $actual = $sut->register($credentials);
+        $expected = new ServiceActionResult(true, $user);
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * method getEmailValidationService
+     * when called
+     * should returnProperValue
+     */
+    public function test_getEmailValidationService_called_returnProperValue()
+    {
+        $user = new User();
+        $email = 'azofaifo@azofaifo.com';
+        $user->initialize(['email' => new Email($email)]);
+        $expected = 'sdlkfjds0943¡';
+        $emailValidationTokenGenerator = $this->prophesize('EuroMillions\interfaces\IEmailValidationToken');
+        $emailValidationTokenGenerator->token($email)->willReturn($expected);
+        $sut = $this->getSut();
+        $actual = $sut->getEmailValidationToken($user, $emailValidationTokenGenerator->reveal());
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * method validateEmailToken
+     * when calledWithValidationFalse
+     * should returnErrorResult
+     */
+    public function test_validateEmailToken_calledWithValidationFalse_returnFalse()
+    {
+        $expected = new ServiceActionResult(false, "The token is invalid");
+        $token = 'ñaiijlñasdil¡';
+        $validation_result = false;
+        list($user, $emailValidationTokenGenerator) = $this->getUserAndPrepareValidator($token, $validation_result);
+        $actual = $this->exerciseValidateEmailToken($user, $token, $emailValidationTokenGenerator);
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * method validateEmailToken
+     * when calledWithValidationTrue
+     * should returnValidatedUserAndFlush
+     */
+    public function test_validateEmailToken_calledWithValidationTrue_returnValidatedUserAndFlush()
+    {
+        $token = 'ñaiijlñasdil¡';
+        $validation_result = true;
+        list($user, $emailValidationTokenGenerator) = $this->getUserAndPrepareValidator($token, $validation_result);
+        /** @var User $expected_user */
+        $expected_user = clone $user;
+        $expected_user->setValidated(true);
+        $expected_result = new ServiceActionResult(true, $expected_user);
+        $this->expectFlushInEntityManager($expected_user);
+        $actual = $this->exerciseValidateEmailToken($user, $token, $emailValidationTokenGenerator);
+        $this->assertEquals($expected_result, $actual);
     }
 
     /**
@@ -295,7 +378,7 @@ class AuthServiceUnitTest extends UnitTestBase
      */
     private function getSut()
     {
-        $sut = new AuthService($this->getDi()->get('entityManager'), $this->hasher_double->reveal(), $this->storageStrategy_double->reveal());
+        $sut = new AuthService($this->getDi()->get('entityManager'), $this->hasher_double->reveal(), $this->storageStrategy_double->reveal(), $this->urlManager_double->reveal());
         return $sut;
     }
 
@@ -308,7 +391,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $user = new User();
         $user->initialize([
             'id'       => $user_id_obj,
-            'email' => new Email('azofaifo@algarrobo.com'),
+            'email'    => new Email('azofaifo@algarrobo.com'),
             'password' => new Password('azofaifoPass01', new NullPasswordHasher())
         ]);
         return $user;
@@ -385,6 +468,52 @@ class AuthServiceUnitTest extends UnitTestBase
         $this->prepareStorageAndRepository($user_id_obj, $user, $user_id, $remember->token());
 
         $actual = $this->exerciseLoginWithRememberMe();
+        return $actual;
+    }
+
+    /**
+     * @param $email
+     * @param $confirm_password
+     * @return array
+     */
+    private function getRegisterCredentials($email = 'nonexisting@email.com', $confirm_password = 'passWord01')
+    {
+        $credentials = [
+            'name'             => 'Antonio',
+            'surname'          => 'Hernández',
+            'email'            => $email,
+            'password'         => 'passWord01',
+            'confirm_password' => $confirm_password,
+            'country'          => 'Spain',
+        ];
+        return $credentials;
+    }
+
+    /**
+     * @param $token
+     * @param $validation_result
+     * @return array
+     */
+    private function getUserAndPrepareValidator($token, $validation_result)
+    {
+        $user = new User();
+        $email = 'azofaifo@azofaifo.com';
+        $user->initialize(['email' => new Email($email)]);
+        $emailValidationTokenGenerator = $this->prophesize('EuroMillions\interfaces\IEmailValidationToken');
+        $emailValidationTokenGenerator->validate($email, $token)->willReturn($validation_result);
+        return array($user, $emailValidationTokenGenerator);
+    }
+
+    /**
+     * @param $user
+     * @param $token
+     * @param $emailValidationTokenGenerator
+     * @return ServiceActionResult
+     */
+    private function exerciseValidateEmailToken($user, $token, $emailValidationTokenGenerator)
+    {
+        $sut = $this->getSut();
+        $actual = $sut->validateEmailToken($user, $token, $emailValidationTokenGenerator->reveal());
         return $actual;
     }
 }
