@@ -14,7 +14,7 @@ use Phalcon\Validation\Validator\Email as EmailValidator;
 
 class SignUpForm extends RedirectableFormBase
 {
-    public function initialize($entity, $options)
+    public function initialize($entity = null, $options = null)
     {
         $name = new Text('name', [
             'placeholder' => 'Name'
@@ -76,5 +76,6 @@ class SignUpForm extends RedirectableFormBase
             'message' => 'Cross scripting protection. Reload the page.'
         )));
         $this->add($csrf);
+        parent::initialize();
     }
 }
