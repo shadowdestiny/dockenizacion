@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2940161830aefc1d03c7a86f849aeeaa",
+    "hash": "2a7b4377a46004dc30df418a4136af35",
     "packages": [
         {
             "name": "alcohol/iso4217",
