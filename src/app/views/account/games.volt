@@ -4,10 +4,6 @@
 {% endblock %}
 {% block bodyClass %}my-games{% endblock %}
 
-{% block template_scripts %}
-
-{% endblock %}
-
 {% block header %}
     {% set activeNav='{"myClass": "account"}'|json_decode %}
     {% include "_elements/header.volt" %}

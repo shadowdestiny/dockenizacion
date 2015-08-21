@@ -415,6 +415,50 @@ ALLOWED: Variable and Extension
   margin: auto;
 }
 
+.informative {
+  margin-bottom: 2em;
+}
+.informative .li-title {
+  font-weight: bold;
+}
+.informative .ul-home li {
+  margin-bottom: 1em;
+  border-right: 15px solid transparent;
+  font-size: 0.875em;
+}
+.informative .ul-home li:nth-child(odd) {
+  clear: both;
+}
+.informative .ul-home li:last-child {
+  margin: 0;
+}
+.informative .h1 {
+  margin-bottom: .3em;
+}
+
+.playing-euro {
+  margin: 0;
+}
+
+.who-we-are {
+  padding: 20px;
+  border-radius: 5px 5px 0 0;
+  color: #fff;
+  background: url(../img/home/bg-woosh.jpg) no-repeat;
+  font-size: 1.125em;
+  background-size: cover;
+  line-height: 1.4em;
+}
+.who-we-are .title {
+  font-size: 1.375em;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: .7em;
+}
+.who-we-are p {
+  margin: 0;
+}
+
 /*Retina only */
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3 / 2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx) {
   .box-estimated {
@@ -447,6 +491,10 @@ ALLOWED: Variable and Extension
     top: 25px;
     height: 150px;
     right: -8px;
+  }
+
+  .box-estimated h1 {
+    font-size: 1.2em;
   }
 
   .outbound {
