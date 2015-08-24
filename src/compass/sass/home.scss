@@ -101,6 +101,24 @@
 .box-prize .btn{margin-bottom:10px;}
 .box-prize .vector{width:75%; margin:auto;}
 
+.informative{
+    margin-bottom:2em;
+    .li-title{font-weight:bold;}
+    .ul-home{
+        li{margin-bottom:1em; border-right:15px solid transparent; font-size:$basic-size;}
+        li:nth-child(odd){clear:both;}
+        li:last-child{margin:0;}
+    }
+    .h1{margin-bottom:.3em;}
+}
+.playing-euro{margin:0;}
+.who-we-are{
+    padding:20px; border-radius:5px 5px 0 0; color:#fff; background:url(../img/home/bg-woosh.jpg) no-repeat; font-size:$h3; background-size:cover; line-height:1.4em;
+    .title{font-size:$h2; text-transform:uppercase; font-weight:bold; margin-bottom:.7em;}
+    p{margin:0;}
+}
+
+
 /*Retina only */
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx){
 	.box-estimated{background-image:url(/img/home/bg-euro@2x.jpg); background-size:600px 171px;}
@@ -113,6 +131,7 @@
 /* Large Devices, Wide Screens */
 @media only screen and (max-width: 1200px){
 .box-estimated .vector{top:25px; height:150px; right:-8px;}
+.box-estimated h1{font-size:1.2em;}
 .outbound{width:430px; height:430px; border:15px solid #fff;}
 .outbound:hover, .outbound:focus{border-width:13px;}
 .win-millions .pic{width:350px;}

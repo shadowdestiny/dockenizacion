@@ -1246,8 +1246,9 @@ body {
   text-align: right;
 }
 
-.contact .input, .contact .textarea {
+.contact .input, .contact .textarea, .contact .select {
   width: 100%;
+  margin-bottom: 1em;
 }
 
 /* SPRITES */
