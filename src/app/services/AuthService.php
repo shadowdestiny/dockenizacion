@@ -29,14 +29,17 @@ class AuthService
     private $storageStrategy;
     /** @var IUrlManager */
     private $urlManager;
+    /** @var LogService */
+    private $logService;
 
-    public function __construct(EntityManager $entityManager, IPasswordHasher $hasher, IAuthStorageStrategy $storageStrategy, IUrlManager $urlManager)
+    public function __construct(EntityManager $entityManager, IPasswordHasher $hasher, IAuthStorageStrategy $storageStrategy, IUrlManager $urlManager, LogService $logService)
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $entityManager->getRepository('EuroMillions\entities\User');
         $this->passwordHasher = $hasher;
         $this->storageStrategy = $storageStrategy;
         $this->urlManager = $urlManager;
+        $this->logService = $logService;
     }
 
     /**
@@ -60,6 +63,7 @@ class AuthService
 
     public function logout()
     {
+        $this->logService->logOut($this->getCurrentUser());
         $this->storageStrategy->removeCurrentUser();
     }
 
@@ -77,12 +81,13 @@ class AuthService
         }
         $password_match = $this->passwordHasher->checkPassword($credentials['password'], $user->getPassword()->password());
         if ($password_match) {
-            $this->setCurrentUser($user); //EMTD faltan tests aquí. (testear que se está poniendo el current user cuando toca)
+            $this->setCurrentUser($user);
             if ($credentials['remember']) {
                 $user->setRememberToken($agentIdentificationString);
                 $this->storageStrategy->storeRemember($user);
                 $this->entityManager->flush();
             }
+            $this->logService->logIn($user);
         }
         return $password_match;
     }
@@ -95,6 +100,7 @@ class AuthService
         $token = $this->storageStrategy->getRememberToken();
         if ($user && $token == $user->getRememberToken()->token()) {
             $this->storageStrategy->setCurrentUserId($user->getId());
+            $this->logService->logRemember($user);
             return true;
         } else {
             $this->storageStrategy->removeRemember();
@@ -125,6 +131,7 @@ class AuthService
         $this->userRepository->add($user);
         $this->entityManager->flush();
         $this->storageStrategy->setCurrentUserId($user->getId());
+        $this->logService->logRegistration($user);
         return new ServiceActionResult(true, $user);
     }
 

@@ -1,8 +1,8 @@
 <?php
 namespace EuroMillions\services;
 
-use EuroMillions\entities\User;
 use EuroMillions\interfaces\ILogger;
+use EuroMillions\interfaces\IUser;
 
 class LogService
 {
@@ -16,17 +16,26 @@ class LogService
         $this->loggerFactory = $loggerFactory;
     }
 
-    public function logIn(User $user)
+    public function logIn(IUser $user)
     {
-        $logger = $this->getLogger('userAuth');
-        $logger->info(json_encode(['action' => 'login', 'user'=> $user->getId()->id()]));
+        $this->logUserAuthAction($user, 'login');
     }
 
-    public function logOut(User $user)
+    public function logOut(IUser $user)
     {
-        $logger = $this->getLogger('userAuth');
-        $logger->info(json_encode(['action' => 'logout', 'user'=> $user->getId()->id()]));
+        $this->logUserAuthAction($user, 'logout');
     }
+
+    public function logRemember(IUser $user)
+    {
+        $this->logUserAuthAction($user, 'login with remember me');
+    }
+
+    public function logRegistration(IUser $user)
+    {
+        $this->logUserAuthAction($user, 'registration');
+    }
+
 
     private function getLogger($logName)
     {
@@ -35,5 +44,15 @@ class LogService
             $this->logs[$logName] = $logger;
         }
         return $this->logs[$logName];
+    }
+
+    /**
+     * @param IUser $user
+     * @param $action
+     */
+    private function logUserAuthAction(IUser $user, $action)
+    {
+        $logger = $this->getLogger('userAuth');
+        $logger->info(json_encode(['action' => $action, 'user' => $user->getId()->id()]));
     }
 }

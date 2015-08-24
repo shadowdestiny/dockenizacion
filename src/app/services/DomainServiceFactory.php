@@ -21,7 +21,6 @@ use EuroMillions\components\MandrillWrapper;
 use EuroMillions\interfaces\IMailServiceApi;
 
 
-
 class DomainServiceFactory extends ServiceFactory
 {
     const ENTITIES_NS = 'EuroMillions\entities\\';
@@ -68,14 +67,16 @@ class DomainServiceFactory extends ServiceFactory
      * @param IPasswordHasher $passwordHasher
      * @param IAuthStorageStrategy $storageStrategy
      * @param IUrlManager $urlManager
+     * @param LogService $logService
      * @return AuthService
      */
-    public function getAuthService(IPasswordHasher $passwordHasher = null, IAuthStorageStrategy $storageStrategy = null, IUrlManager $urlManager= null)
+    public function getAuthService(IPasswordHasher $passwordHasher = null, IAuthStorageStrategy $storageStrategy = null, IUrlManager $urlManager = null, LogService $logService = null)
     {
         if (!$storageStrategy) $storageStrategy = new WebAuthStorageStrategy($this->di->get('session'), $this->di->get('cookies'));
         if (!$passwordHasher) $passwordHasher = new PhpassWrapper();
         if (!$urlManager) $urlManager = $this->di->get('url');
-        return new AuthService($this->entityManager, $passwordHasher, $storageStrategy, $urlManager);
+        if (!$logService) $logService = $this->getLogService();
+        return new AuthService($this->entityManager, $passwordHasher, $storageStrategy, $urlManager, $logService);
     }
 
     public function getEmailService(IMailServiceApi $mailServiceApi = null, AuthService $authService = null, $config = null)

@@ -29,6 +29,8 @@ class LogServiceIntegrationTest extends FileIntegrationTestBase
         return [
             ['logIn', [$this->getUserWithId()]],
             ['logOut', [$this->getUserWithId()]],
+            ['logRemember', [$this->getUserWithId()]],
+            ['logRegistration', [$this->getUserWithId()]],
         ];
     }
 

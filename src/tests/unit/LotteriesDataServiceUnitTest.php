@@ -11,7 +11,6 @@ use Money\Money;
 use Phalcon\Di;
 use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\UnitTestBase;
-use Doctrine\ORM\EntityManager;
 
 class LotteriesDataServiceUnitTest extends UnitTestBase
 {
@@ -41,7 +40,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
                 '\Doctrine\Common\Persistence\ObjectRepository'
             )->disableOriginalConstructor()->getMock();
 
-        $this->entityManagerDouble = parent::getEntityManagerStub();
+        $this->entityManagerDouble = $this->getEntityManagerDouble();
     }
 
     /**

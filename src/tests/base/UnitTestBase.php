@@ -28,9 +28,8 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        parent::setUp();
         $this->helper = new TestBaseHelper();
-        $this->stubDiService('entityManager', $this->getEntityManagerStub()->reveal());
+        $this->stubDiService('entityManager', $this->addMappingsToEntityManager()->reveal());
         $this->stubDiService('redisCache', $this->prophesize('\Phalcon\Cache\Backend\Redis')->reveal());
     }
 
@@ -89,9 +88,9 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
         $this->stubDIService('view', $view_mock);
     }
 
-    public function getEntityManagerStub()
+    private function addMappingsToEntityManager()
     {
-        $entityManager_stub = $this->prophesize('\Doctrine\ORM\EntityManager');
+        $entityManager_stub = $this->getEntityManagerDouble();
         $mappings = $this->getEntityManagerStubMappings();
         foreach ($mappings as $entity_name => $repository_double) {
             $entityManager_stub
@@ -105,11 +104,12 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
 
     private function getEntityManagerStubMappings()
     {
-        return array_merge(
+        $mappings = array_merge(
             [
-                self::ENTITIES_NAMESPACE.'Language'          => $this->prophesize(self::REPOSITORIES_NAMESPACE.'LanguageRepository'),
-                self::ENTITIES_NAMESPACE.'TranslationDetail' => $this->prophesize(self::REPOSITORIES_NAMESPACE.'TranslationDetailRepository'),
+                self::ENTITIES_NAMESPACE . 'Language'          => $this->prophesize(self::REPOSITORIES_NAMESPACE . 'LanguageRepository'),
+                self::ENTITIES_NAMESPACE . 'TranslationDetail' => $this->prophesize(self::REPOSITORIES_NAMESPACE . 'TranslationDetailRepository'),
             ], $this->getEntityManagerStubExtraMappings());
+        return $mappings;
     }
 
     protected function getEntityManagerStubExtraMappings()
@@ -153,6 +153,14 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
             [true],
             [false],
         ];
+    }
+
+    /**
+     * @return \Prophecy\Prophecy\ObjectProphecy
+     */
+    public function prophesizeEntityManager()
+    {
+        return $this->prophesize('\Doctrine\ORM\EntityManager');
     }
 
 }

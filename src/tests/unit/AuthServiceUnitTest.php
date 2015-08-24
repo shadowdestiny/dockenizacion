@@ -27,6 +27,7 @@ class AuthServiceUnitTest extends UnitTestBase
     private $hasher_double;
     private $storageStrategy_double;
     private $urlManager_double;
+    private $logService_double;
 
     protected function getEntityManagerStubExtraMappings()
     {
@@ -41,8 +42,9 @@ class AuthServiceUnitTest extends UnitTestBase
         $this->hasher_double = $this->prophesize('EuroMillions\interfaces\IPasswordHasher');
         $this->storageStrategy_double = $this->prophesize('EuroMillions\interfaces\IAuthStorageStrategy');
         $this->urlManager_double = $this->prophesize('EuroMillions\interfaces\IUrlManager');
-        parent::setUp();
+        $this->logService_double = $this->prophesize('EuroMillions\services\LogService');
         $this->userId = UserId::create();
+        parent::setUp();
     }
 
     /**
@@ -378,7 +380,8 @@ class AuthServiceUnitTest extends UnitTestBase
      */
     private function getSut()
     {
-        $sut = new AuthService($this->getDi()->get('entityManager'), $this->hasher_double->reveal(), $this->storageStrategy_double->reveal(), $this->urlManager_double->reveal());
+        $dsf = $this->getDomainServiceFactory();
+        $sut = $dsf->getAuthService($this->hasher_double->reveal(), $this->storageStrategy_double->reveal(), $this->urlManager_double->reveal(), $this->logService_double->reveal());
         return $sut;
     }
 

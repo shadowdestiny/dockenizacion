@@ -42,7 +42,7 @@ class AuthServiceIntegrationTest extends DatabaseIntegrationTestBase
             'confirm_password' => 'passWord01',
             'country'          => 'Spain',
         ];
-        $sut = $this->getDomainServiceFactory()->getAuthService(new NullPasswordHasher());
+        $sut = $this->getDomainServiceFactory()->getAuthService(new NullPasswordHasher(), null, null, $this->prophesize('EuroMillions\services\LogService')->reveal());
         $sut->register($credentials);
         $actual = $this->userRepository->getByEmail('antonio@panamedia.net');
         $this->assertNotNull($actual);
