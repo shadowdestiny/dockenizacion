@@ -10,12 +10,22 @@ use tests\base\UnitTestBase;
 class TestWebBootstrapStrategy extends WebBootstrapStrategy
 {
     protected $isUnitTest;
+    protected $testsPath;
 
     public function __construct($isUnitTest, $appPath, $globalConfigPath, $configPath, $assetsPath, $testsPath)
     {
+        $this->testsPath = $testsPath;
         $this->isUnitTest = $isUnitTest;
-        parent::__construct($appPath, $globalConfigPath, $configPath, $assetsPath, $testsPath);
+        parent::__construct($appPath, $globalConfigPath, $configPath, $assetsPath);
     }
+
+    public function dependencyInjector()
+    {
+        $di = parent::dependencyInjector();
+        $di->set('testsPath', function() {return $this->testsPath;}, true);
+        return $di;
+    }
+
 
     public function execute(Di $di)
     {

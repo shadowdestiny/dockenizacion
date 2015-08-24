@@ -3,41 +3,39 @@ namespace EuroMillions\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\components\EmTranslationAdapter;
-use EuroMillions\components\MandrillWrapper;
-use EuroMillions\components\PhpassWrapper;
-use EuroMillions\interfaces\IAuthStorageStrategy;
-use EuroMillions\interfaces\ICurrencyApi;
-use EuroMillions\interfaces\IMailServiceApi;
-use EuroMillions\interfaces\IPasswordHasher;
-use EuroMillions\interfaces\IUrlManager;
 use EuroMillions\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\interfaces\ILanguageStrategy;
 use EuroMillions\repositories\LanguageRepository;
 use EuroMillions\repositories\UserRepository;
-use EuroMillions\services\auth_strategies\WebAuthStorageStrategy;
 use EuroMillions\services\external_apis\LotteryApisFactory;
-use EuroMillions\services\external_apis\RedisCurrencyApiCache;
-use EuroMillions\services\external_apis\YahooCurrencyApi;
 use EuroMillions\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\services\preferences_strategies\WebUserPreferencesStorageStrategy;
 use Phalcon\Di;
 use Phalcon\DiInterface;
+use EuroMillions\services\auth_strategies\WebAuthStorageStrategy;
+use EuroMillions\components\PhpassWrapper;
+use EuroMillions\interfaces\IAuthStorageStrategy;
+use EuroMillions\interfaces\IPasswordHasher;
+use EuroMillions\interfaces\IUrlManager;
+use EuroMillions\components\MandrillWrapper;
+use EuroMillions\interfaces\IMailServiceApi;
 
-class DomainServiceFactory
+
+
+class DomainServiceFactory extends ServiceFactory
 {
     const ENTITIES_NS = 'EuroMillions\entities\\';
-    private $di;
     private $entityManager;
 
     public function __construct(DiInterface $di)
     {
-        $this->di = $di;
         $this->entityManager = $di->get('entityManager');
+        parent::__construct($di);
     }
 
     public function getLotteriesDataService(EntityManager $entityManager = null, LotteryApisFactory $lotteryApisFactory = null)
     {
-        if (!$entityManager) $entityManager = $this->di->get('entityManager');
+        if (!$entityManager) $entityManager = $this->entityManager;
         if (!$lotteryApisFactory) $lotteryApisFactory = new LotteryApisFactory();
         return new LotteriesDataService($entityManager, $lotteryApisFactory);
     }
@@ -50,13 +48,6 @@ class DomainServiceFactory
             $translationAdapter = new EmTranslationAdapter($languageStrategy->get(), $this->getRepository('TranslationDetail'));
         }
         return new LanguageService($languageStrategy, $languageRepository, $translationAdapter);
-    }
-
-    public function getCurrencyService(ICurrencyApi $currencyApi = null, LanguageService $languageService = null)
-    {
-        if (!$currencyApi) $currencyApi = new YahooCurrencyApi(new RedisCurrencyApiCache($this->di->get('redisCache')));
-        if (!$languageService) $languageService = $this->di->get('language');
-        return new CurrencyService($currencyApi, $languageService);
     }
 
     /**
@@ -85,14 +76,6 @@ class DomainServiceFactory
         if (!$passwordHasher) $passwordHasher = new PhpassWrapper();
         if (!$urlManager) $urlManager = $this->di->get('url');
         return new AuthService($this->entityManager, $passwordHasher, $storageStrategy, $urlManager);
-    }
-
-    /**
-     * @return GeoService
-     */
-    public function getGeoService()
-    {
-        return new GeoService();
     }
 
     public function getEmailService(IMailServiceApi $mailServiceApi = null, AuthService $authService = null, $config = null)
