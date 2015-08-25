@@ -21,7 +21,7 @@ class YahooCurrencyApiUnitTest extends UnitTestBase
     public function setUp()
     {
         $this->curlWrapper_double = $this->prophesize('\Phalcon\Http\Client\Provider\Curl');
-        $this->currencyApiCache_double = $this->prophesize('\EuroMillions\interfaces\ICurrencyApiCacheStrategy');
+        $this->currencyApiCache_double = $this->getInterfaceDouble('ICurrencyApiCacheStrategy');
         $this->eurGbpCurrencyPair = new CurrencyPair(new Currency('EUR'), new Currency('GBP'), 0.7183);
 
         parent::setUp();

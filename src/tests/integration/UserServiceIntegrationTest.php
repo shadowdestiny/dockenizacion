@@ -1,5 +1,5 @@
 <?php
-namespace tests\integration\fixtures;
+namespace tests\integration;
 
 use EuroMillions\vo\UserId;
 use tests\base\DatabaseIntegrationTestBase;

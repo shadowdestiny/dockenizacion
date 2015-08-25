@@ -1,7 +1,6 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\entities\Language;
 use EuroMillions\services\LanguageService;
 use Phalcon\Di;
 use Prophecy\Argument;
@@ -16,9 +15,9 @@ class LanguageServiceUnitTest extends UnitTestBase
     public function setUp()
     {
         parent::setUp();
-        $this->languageStrategy_double = $this->prophesize('EuroMillions\interfaces\ILanguageStrategy');
-        $this->languageRepository_double = $this->prophesize(self::REPOSITORIES_NAMESPACE.'LanguageRepository');
-        $this->translationAdapter_double = $this->prophesize('EuroMillions\components\EmTranslationAdapter');
+        $this->languageStrategy_double = $this->getInterfaceDouble('ILanguageStrategy');
+        $this->languageRepository_double = $this->getRepositoryDouble('LanguageRepository');
+        $this->translationAdapter_double = $this->getComponentDouble('EmTranslationAdapter');
     }
 
     public function test_translate_calledWithProperArguments_returnTranslationAdapterResult()

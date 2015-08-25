@@ -16,13 +16,10 @@ use PHPUnit_Extensions_Database_DB_IDatabaseConnection;
 abstract class DatabaseIntegrationTestBase extends \PHPUnit_Extensions_Database_TestCase
 {
     use PhalconDiRelatedTest;
-
-    const ENTITIES_NS = '\EuroMillions\entities\\';
+    use TestHelperTrait;
 
     protected $connection;
     protected $pdo;
-    /** @var  TestBaseHelper */
-    protected $helper;
     /** @var  EntityManager */
     protected $entityManager;
     /**
@@ -62,7 +59,6 @@ abstract class DatabaseIntegrationTestBase extends \PHPUnit_Extensions_Database_
     }
     protected function setUp()
     {
-        $this->helper = new TestBaseHelper();
         $conn = $this->getPDO();
         $conn->query("set foreign_key_checks=0");
         parent::setUp();
@@ -102,7 +98,7 @@ abstract class DatabaseIntegrationTestBase extends \PHPUnit_Extensions_Database_
         for ($i = 1; $i < $num_objects; $i++) {
             if (get_class($objects[$i]) != $class) {
                 $this->fail();
-                return;
+                return false;
             }
         }
         return $class;

@@ -1,7 +1,8 @@
 <?php
-namespace tests\integration\fixtures;
+namespace tests\integration;
 
 use EuroMillions\components\NullPasswordHasher;
+use EuroMillions\config\Namespaces;
 use EuroMillions\entities\User;
 use EuroMillions\repositories\UserRepository;
 use tests\base\DatabaseIntegrationTestBase;
@@ -25,7 +26,7 @@ class AuthServiceIntegrationTest extends DatabaseIntegrationTestBase
     public function setUp()
     {
         parent::setUp();
-        $this->userRepository = $this->entityManager->getRepository(self::ENTITIES_NS.'User');
+        $this->userRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS.'User');
     }
     /**
      * method register
@@ -42,7 +43,7 @@ class AuthServiceIntegrationTest extends DatabaseIntegrationTestBase
             'confirm_password' => 'passWord01',
             'country'          => 'Spain',
         ];
-        $sut = $this->getDomainServiceFactory()->getAuthService(new NullPasswordHasher(), null, null, $this->prophesize('EuroMillions\services\LogService')->reveal());
+        $sut = $this->getDomainServiceFactory()->getAuthService(new NullPasswordHasher(), null, null, $this->getServiceDouble('LogService')->reveal());
         $sut->register($credentials);
         $actual = $this->userRepository->getByEmail('antonio@panamedia.net');
         $this->assertNotNull($actual);
@@ -61,7 +62,7 @@ class AuthServiceIntegrationTest extends DatabaseIntegrationTestBase
         $this->assertFalse($user->getValidated(), "The user is validated yet");
         $sut = $this->getDomainServiceFactory()->getAuthService();
         $token = 'azoafaifo';
-        $validation_token_generator = $this->prophesize('EuroMillions\interfaces\IEmailValidationToken');
+        $validation_token_generator = $this->getInterfaceDouble('IEmailValidationToken');
         $validation_token_generator->validate($email, $token)->willReturn(true);
         $actual = $sut->validateEmailToken($user, $token, $validation_token_generator->reveal());
         $this->assertTrue($actual->success(), "The service reported failure");

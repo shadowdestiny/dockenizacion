@@ -1,6 +1,7 @@
 <?php
 namespace tests\base;
 
+use EuroMillions\config\Namespaces;
 use EuroMillions\entities\Language;
 use Phalcon\DI;
 use Prophecy\Argument;
@@ -8,14 +9,11 @@ use Prophecy\Argument;
 class UnitTestBase extends \PHPUnit_Framework_TestCase
 {
     use PhalconDiRelatedTest;
+    use TestHelperTrait;
 
     const DEFAULT_ENTITY_REPOSITORY = '\Doctrine\ORM\EntityRepository';
-    const REPOSITORIES_NAMESPACE = 'EuroMillions\repositories\\';
-    const ENTITIES_NAMESPACE = 'EuroMillions\entities\\';
 
     protected $original_di = null;
-    /** @var  TestBaseHelper */
-    protected $helper;
 
     protected function stubDIService($serviceName, $stubObject)
     {
@@ -28,7 +26,6 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->helper = new TestBaseHelper();
         $this->stubDiService('entityManager', $this->addMappingsToEntityManager()->reveal());
         $this->stubDiService('redisCache', $this->prophesize('\Phalcon\Cache\Backend\Redis')->reveal());
     }
@@ -106,8 +103,8 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
     {
         $mappings = array_merge(
             [
-                self::ENTITIES_NAMESPACE . 'Language'          => $this->prophesize(self::REPOSITORIES_NAMESPACE . 'LanguageRepository'),
-                self::ENTITIES_NAMESPACE . 'TranslationDetail' => $this->prophesize(self::REPOSITORIES_NAMESPACE . 'TranslationDetailRepository'),
+                Namespaces::ENTITIES_NS . 'Language'          => $this->getRepositoryDouble('LanguageRepository'),
+                Namespaces::ENTITIES_NS . 'TranslationDetail' => $this->getRepositoryDouble('TranslationDetailRepository'),
             ], $this->getEntityManagerStubExtraMappings());
         return $mappings;
     }
@@ -136,7 +133,7 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
      */
     protected function getLanguageRepositoryStubWithDefaultLanguage()
     {
-        $languageRepository_stub = $this->prophesize(self::REPOSITORIES_NAMESPACE . 'LanguageRepository');
+        $languageRepository_stub = $this->getRepositoryDouble('LanguageRepository');
         $language = new Language();
         $language->initialize([
             'ccode'         => 'en',

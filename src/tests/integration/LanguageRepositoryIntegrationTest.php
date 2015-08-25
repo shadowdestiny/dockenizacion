@@ -28,16 +28,6 @@ class LanguageRepositoryIntegrationTest extends RepositoryIntegrationTestBase
         $this->assertEquals($expected, $this->getIdsFromArrayOfObjects($actual));
     }
 
-    protected function getIdsFromArrayOfObjects(array $objects)
-    {
-        $result = array();
-        /** @var \EuroMillions\interfaces\IEntity $object */
-        foreach ($objects as $object) {
-            $result[] = $object->getId();
-        }
-        return $result;
-    }
-
     /**
      * method getActiveLanguage
      * when calledWithExistingLanguage

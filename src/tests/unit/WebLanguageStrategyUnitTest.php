@@ -12,8 +12,8 @@ class WebLanguageStrategyUnitTest extends UnitTestBase
     public function setUp()
     {
         parent::setUp();
-        $this->session_double = $this->prophesize('EuroMillions\interfaces\ISession');
-        $this->request_double = $this->prophesize('EuroMillions\interfaces\IRequest');
+        $this->session_double = $this->getInterfaceDouble('ISession');
+        $this->request_double = $this->getInterfaceDouble('IRequest');
     }
 
     /**

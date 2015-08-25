@@ -2,6 +2,7 @@
 namespace tests\unit;
 
 use EuroMillions\components\NullPasswordHasher;
+use EuroMillions\config\Namespaces;
 use EuroMillions\entities\User;
 use EuroMillions\services\AuthService;
 use EuroMillions\vo\Email;
@@ -32,17 +33,17 @@ class AuthServiceUnitTest extends UnitTestBase
     protected function getEntityManagerStubExtraMappings()
     {
         return [
-            self::ENTITIES_NAMESPACE . 'User' => $this->userRepository_double
+            Namespaces::ENTITIES_NS . 'User' => $this->userRepository_double
         ];
     }
 
     public function setUp()
     {
-        $this->userRepository_double = $this->prophesize('EuroMillions\repositories\UserRepository');
-        $this->hasher_double = $this->prophesize('EuroMillions\interfaces\IPasswordHasher');
-        $this->storageStrategy_double = $this->prophesize('EuroMillions\interfaces\IAuthStorageStrategy');
-        $this->urlManager_double = $this->prophesize('EuroMillions\interfaces\IUrlManager');
-        $this->logService_double = $this->prophesize('EuroMillions\services\LogService');
+        $this->userRepository_double = $this->getRepositoryDouble('UserRepository');
+        $this->hasher_double = $this->getInterfaceDouble('IPasswordHasher');
+        $this->storageStrategy_double = $this->getInterfaceDouble('IAuthStorageStrategy');
+        $this->urlManager_double = $this->getInterfaceDouble('IUrlManager');
+        $this->logService_double = $this->getServiceDouble('LogService');
         $this->userId = UserId::create();
         parent::setUp();
     }
@@ -181,10 +182,10 @@ class AuthServiceUnitTest extends UnitTestBase
      */
     private function prepareUserMock()
     {
-        $user_mock = $this->prophesize('EuroMillions\entities\User');
-        $user_mock->getId()->willReturn($this->prophesize('EuroMillions\vo\UserId'));
-        $user_mock->getRememberToken()->willReturn($this->prophesize('EuroMillions\vo\RememberToken'));
-        $password_stub = $this->prophesize('EuroMillions\vo\Password');
+        $user_mock = $this->getEntityDouble('User');
+        $user_mock->getId()->willReturn($this->getValueObjectDouble('UserId'));
+        $user_mock->getRememberToken()->willReturn($this->getValueObjectDouble('RememberToken'));
+        $password_stub = $this->getValueObjectDouble('Password');
         $password_stub->password()->willReturn(self::HASH);
         $user_mock->getPassword()->willReturn($password_stub);
         return $user_mock;
@@ -334,7 +335,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $email = 'azofaifo@azofaifo.com';
         $user->initialize(['email' => new Email($email)]);
         $expected = 'sdlkfjds0943¡';
-        $emailValidationTokenGenerator = $this->prophesize('EuroMillions\interfaces\IEmailValidationToken');
+        $emailValidationTokenGenerator = $this->getInterfaceDouble('IEmailValidationToken');
         $emailValidationTokenGenerator->token($email)->willReturn($expected);
         $sut = $this->getSut();
         $actual = $sut->getEmailValidationToken($user, $emailValidationTokenGenerator->reveal());
@@ -502,7 +503,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $user = new User();
         $email = 'azofaifo@azofaifo.com';
         $user->initialize(['email' => new Email($email)]);
-        $emailValidationTokenGenerator = $this->prophesize('EuroMillions\interfaces\IEmailValidationToken');
+        $emailValidationTokenGenerator = $this->getInterfaceDouble('IEmailValidationToken');
         $emailValidationTokenGenerator->validate($email, $token)->willReturn($validation_result);
         return array($user, $emailValidationTokenGenerator);
     }

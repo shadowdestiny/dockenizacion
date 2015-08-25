@@ -1,6 +1,7 @@
 <?php
 namespace tests\integration;
 
+use EuroMillions\config\Namespaces;
 use EuroMillions\entities\EuroMillionsDraw;
 use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\services\LotteriesDataService;
@@ -83,10 +84,10 @@ class LotteriesDataServiceIntegrationTest extends DatabaseIntegrationTestBase
      */
     private function getDrawFromDatabase($lotteryName, $drawDate)
     {
-        $lottery_repo = $this->entityManager->getRepository(self::ENTITIES_NS . 'Lottery');
+        $lottery_repo = $this->entityManager->getRepository(Namespaces::ENTITIES_NS.'Lottery');
         $lottery = $lottery_repo->findOneBy(['name' => $lotteryName]);
 
-        $draw_repo = $this->entityManager->getRepository(self::ENTITIES_NS . 'EuroMillionsDraw');
+        $draw_repo = $this->entityManager->getRepository(Namespaces::ENTITIES_NS.'EuroMillionsDraw');
         /** @var EuroMillionsDraw $euromillions_draw */
         $euromillions_draw = $draw_repo->findOneBy(['lottery' => $lottery->getId(), 'draw_date' => $drawDate]);
         return $euromillions_draw;

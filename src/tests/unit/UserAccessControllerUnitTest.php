@@ -13,8 +13,8 @@ class UserAccessControllerControllerBaseUnitTest extends UnitTestBase
 
     public function setUp()
     {
-        $this->authService_stub = $this->prophesize('EuroMillions\services\AuthService');
-        $this->geoService_stub = $this->prophesize('EuroMillions\services\GeoService');
+        $this->authService_stub = $this->getServiceDouble('AuthService');
+        $this->geoService_stub = $this->getServiceDouble('GeoService');
         parent::setUp();
     }
     /**

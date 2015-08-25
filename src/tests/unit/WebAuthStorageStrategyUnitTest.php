@@ -16,8 +16,8 @@ class WebAuthStorageStrategyUnitTest extends UnitTestBase
     public function setUp()
     {
         parent::setUp();
-        $this->session_double = $this->prophesize('EuroMillions\interfaces\ISession');
-        $this->cookieManager_double = $this->prophesize('EuroMillions\interfaces\ICookieManager');
+        $this->session_double = $this->getInterfaceDouble('ISession');
+        $this->cookieManager_double = $this->getInterfaceDouble('ICookieManager');
     }
 
     /**

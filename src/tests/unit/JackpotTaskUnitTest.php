@@ -1,6 +1,7 @@
 <?php
 namespace tests\unit;
 
+use EuroMillions\config\Namespaces;
 use EuroMillions\tasks\JackpotTask;
 use tests\base\UnitTestBase;
 
@@ -11,7 +12,7 @@ class JackpotTaskUnitTest extends UnitTestBase
     {
         return [
             'EuroMillions\entities\EuroMillionsDraw' => self::DEFAULT_ENTITY_REPOSITORY,
-            'EuroMillions\entities\Lottery' => self::REPOSITORIES_NAMESPACE.'LotteryRepository',
+            'EuroMillions\entities\Lottery' => Namespaces::REPOSITORIES_NS.'LotteryRepository',
         ];
     }
 

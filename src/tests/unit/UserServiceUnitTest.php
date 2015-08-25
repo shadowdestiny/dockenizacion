@@ -14,9 +14,9 @@ class UserServiceUnitTest extends UnitTestBase
     public function setUp()
     {
         parent::setUp();
-        $this->userRepository_double = $this->prophesize(self::REPOSITORIES_NAMESPACE . 'UserRepository');
-        $this->currencyService_double = $this->prophesize('EuroMillions\services\CurrencyService');
-        $this->storageStrategy_double = $this->prophesize('EuroMillions\interfaces\IUsersPreferencesStorageStrategy');
+        $this->userRepository_double = $this->getRepositoryDouble('UserRepository');
+        $this->currencyService_double = $this->getServiceDouble('CurrencyService');
+        $this->storageStrategy_double = $this->getInterfaceDouble('IUsersPreferencesStorageStrategy');
     }
 
     /**
