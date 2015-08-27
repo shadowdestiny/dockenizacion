@@ -25,7 +25,7 @@ class EmailService
             $this->mailConfig['from_address'],
             [
                 [
-                    'email' => $user->getEmail()->email(),
+                    'email' => $user->getEmail()->toNative(),
                     'name'  => $user->getSurname() . ', ' . $user->getName(),
                     'type'  => 'to',
                 ]
@@ -44,7 +44,7 @@ class EmailService
                 ],
                 [
                     'name' => 'main',
-                    'content' => '<a href="'.$url.'">Click here to validate you email!</a> <br>or copy and paste this url in your browser:<br>'.$url,
+                    'content' => '<a href="'.$url->toNative().'">Click here to validate you email!</a> <br>or copy and paste this url in your browser:<br>'.$url->toNative(),
                 ],
             ],
             [],

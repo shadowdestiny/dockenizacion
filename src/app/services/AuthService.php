@@ -14,6 +14,7 @@ use EuroMillions\repositories\UserRepository;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\Url;
 use Money\Currency;
 use Money\Money;
 
@@ -153,9 +154,13 @@ class AuthService
         }
     }
 
+    /**
+     * @param User $user
+     * @return Url
+     */
     public function getValidationUrl(User $user)
     {
-        return $this->urlManager->get('userAccess/validate/' . $this->getEmailValidationToken($user));
+        return new Url($this->urlManager->get('userAccess/validate/' . $this->getEmailValidationToken($user)));
     }
 
     public function tryLoginWithRemember()
