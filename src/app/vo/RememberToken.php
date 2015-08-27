@@ -1,25 +1,16 @@
 <?php
 namespace EuroMillions\vo;
 
-class RememberToken extends ValueObject
-{
-    private $token;
+use Assert\Assertion;
+use EuroMillions\vo\base\StringLiteral;
 
+class RememberToken extends StringLiteral
+{
     public function __construct($username, $password, $agentIdentificationString)
     {
-        $this->assertNotEmpty($username);
-        $this->assertNotEmpty($password);
-        $this->assertNotEmpty($agentIdentificationString);
-        $this->token = md5($username . $password . $agentIdentificationString);
-    }
-
-    public function token()
-    {
-        return $this->token;
-    }
-
-    public function __toString()
-    {
-        return $this->token;
+        Assertion::notEmpty($username);
+        Assertion::notEmpty($password);
+        Assertion::notEmpty($agentIdentificationString);
+        parent::__construct(md5($username . $password . $agentIdentificationString));
     }
 }

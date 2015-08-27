@@ -56,7 +56,7 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $hasher = new PhpassWrapper();
         /** @var User $actual */
         list($user, $actual) = $this->exerciseAdd($password, $hasher, $email);
-        $this->assertTrue($hasher->checkPassword($password, $actual->getPassword()->password()));
+        $this->assertTrue($hasher->checkPassword($password, $actual->getPassword()->toNative()));
     }
 
     /**
@@ -87,9 +87,9 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
             ->createQuery(
                 'SELECT u'
                 . ' FROM \EuroMillions\entities\User u'
-                . ' WHERE u.password.password = :password AND u.email.email = :email')
+                . ' WHERE u.password.value = :password AND u.email.value = :email')
             ->setMaxResults(1)
-            ->setParameters(['password' => $hashed_pass->password(), 'email' => $email])
+            ->setParameters(['password' => $hashed_pass->toNative(), 'email' => $email])
             ->getResult()[0];
         return array($user, $actual);
     }

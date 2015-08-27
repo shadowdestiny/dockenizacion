@@ -29,7 +29,7 @@ class UserRepository extends EntityRepository
         $entity_name = $this->getEntityName();
         $result = $this->getEntityManager()
             ->createQuery(
-                "SELECT u FROM {$entity_name} u WHERE u.email.email = :email"
+                "SELECT u FROM {$entity_name} u WHERE u.email.value = :email"
             )
             ->setMaxResults(1)
             ->setParameters(['email' => $email])

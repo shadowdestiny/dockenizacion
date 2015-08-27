@@ -114,7 +114,7 @@ class User extends EntityBase implements IEntity, IUser
 
     public function setRememberToken($agentIdentificationString)
     {
-        $this->rememberToken = new RememberToken($this->email->email(), $this->password->password(), $agentIdentificationString);
+        $this->rememberToken = new RememberToken($this->email->toNative(), $this->password->toNative(), $agentIdentificationString);
     }
 
     public function getRememberToken()

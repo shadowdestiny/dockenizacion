@@ -41,6 +41,7 @@ class AuthServiceUnitTest extends UnitTestBase
     {
         $this->userRepository_double = $this->getRepositoryDouble('UserRepository');
         $this->hasher_double = $this->getInterfaceDouble('IPasswordHasher');
+        $this->hasher_double->hashPassword(Argument::any())->willReturn(self::HASH);
         $this->storageStrategy_double = $this->getInterfaceDouble('IAuthStorageStrategy');
         $this->urlManager_double = $this->getInterfaceDouble('IUrlManager');
         $this->logService_double = $this->getServiceDouble('LogService');
@@ -186,7 +187,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $user_mock->getId()->willReturn($this->getValueObjectDouble('UserId'));
         $user_mock->getRememberToken()->willReturn($this->getValueObjectDouble('RememberToken'));
         $password_stub = $this->getValueObjectDouble('Password');
-        $password_stub->password()->willReturn(self::HASH);
+        $password_stub->toNative()->willReturn(self::HASH);
         $user_mock->getPassword()->willReturn($password_stub);
         return $user_mock;
     }
@@ -467,9 +468,9 @@ class AuthServiceUnitTest extends UnitTestBase
      */
     private function exerciseRememberMeWithTokenValidating($user, $user_agent, $user_id_obj, $user_id)
     {
-        $remember = new RememberToken($user->getEmail()->email(), $user->getPassword()->password(), $user_agent);
+        $remember = new RememberToken($user->getEmail()->toNative(), $user->getPassword()->toNative(), $user_agent);
 
-        $this->prepareStorageAndRepository($user_id_obj, $user, $user_id, $remember->token());
+        $this->prepareStorageAndRepository($user_id_obj, $user, $user_id, $remember->toNative());
 
         $actual = $this->exerciseLoginWithRememberMe();
         return $actual;

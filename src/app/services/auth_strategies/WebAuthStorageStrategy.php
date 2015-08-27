@@ -68,7 +68,7 @@ class WebAuthStorageStrategy implements IAuthStorageStrategy
     public function storeRemember(User $user)
     {
         $this->cookieManager->set(self::REMEMBER_USERID_VAR, $user->getId()->id(), time()+self::REMEMBER_ME_EXPIRATION);
-        $this->cookieManager->set(self::REMEMBER_TOKEN_VAR, $user->getRememberToken()->token(), time()+self::REMEMBER_ME_EXPIRATION);
+        $this->cookieManager->set(self::REMEMBER_TOKEN_VAR, $user->getRememberToken()->toNative(), time()+self::REMEMBER_ME_EXPIRATION);
     }
 
     public function getRememberUserId()

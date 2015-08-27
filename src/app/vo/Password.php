@@ -1,36 +1,47 @@
 <?php
 namespace EuroMillions\vo;
 
+use Assert\Assertion;
 use EuroMillions\interfaces\IPasswordHasher;
+use EuroMillions\vo\base\StringLiteral;
 
-class Password extends ValueObject
+class Password extends StringLiteral
 {
-    private $password;
     private $passwordHasher;
 
     const MIN_LENGTH = 5;
-    const MAX_LENGTH = 10;
     const FORMAT = '/^[a-zA-Z0-9_]+$/';
 
-    public function __construct($password, IPasswordHasher $passwordHasher)
+    public function __construct($value, IPasswordHasher $passwordHasher)
     {
         $this->passwordHasher = $passwordHasher;
-        $this->setPassword($password);
+        Assertion::notEmpty($value);
+        Assertion::minLength($value, self::MIN_LENGTH);
+        Assertion::regex($value, self::FORMAT);
+        $this->assertHasNumbers($value);
+        $this->assertHasLowercaseChars($value);
+        $this->assertHasUppercaseChars($value);
+        parent::__construct($this->passwordHasher->hashPassword($value));
     }
 
-    public function setPassword($password)
+    private function assertHasNumbers($string)
     {
-        $this->assertNotEmpty($password);
-        $this->assertNotTooShort($password);
-        $this->assertValidFormat($password);
-        $this->assertHasNumbers($password);
-        $this->assertHasLowercaseChars($password);
-        $this->assertHasUppercaseChars($password);
-        $this->password = $this->passwordHasher->hashPassword($password);
+        if (preg_match('/[0-9]/', $string) !== 1) {
+            throw new \InvalidArgumentException(get_class($this) . ' must have numbers');
+        }
     }
 
-    public function password()
+    private function assertHasLowercaseChars($string)
     {
-        return $this->password;
+        if (preg_match('/[a-z]/', $string) !== 1) {
+            throw new \InvalidArgumentException(get_class($this) . ' must have lowercase characters');
+        }
+    }
+
+    private function assertHasUppercaseChars($string)
+    {
+        if (preg_match('/[A-Z]/', $string) !== 1) {
+            throw new \InvalidArgumentException(get_class($this) . ' must have uppercase characters');
+        }
     }
 }

@@ -4,12 +4,11 @@ namespace EuroMillions\vo;
 use Assert\Assertion;
 use EuroMillions\vo\base\StringLiteral;
 
-class Email extends StringLiteral
+final class SchemeName extends StringLiteral
 {
     public function __construct($value)
     {
-        Assertion::notEmpty($value);
-        Assertion::email($value);
+        Assertion::regex($value, '/^[a-z]([a-z0-9\+\.-]+)?$/i');
         parent::__construct($value);
     }
 }

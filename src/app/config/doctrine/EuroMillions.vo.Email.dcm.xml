@@ -6,7 +6,7 @@
     https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <embeddable name="EuroMillions\vo\Email">
-        <field name="email" type="string" nullable="true" />
+        <field name="value" type="string" nullable="true" column="email" />
     </embeddable>
 
 </doctrine-mapping>

@@ -79,7 +79,7 @@ class AuthService
         if (!$user) {
             return false;
         }
-        $password_match = $this->passwordHasher->checkPassword($credentials['password'], $user->getPassword()->password());
+        $password_match = $this->passwordHasher->checkPassword($credentials['password'], $user->getPassword()->toNative());
         if ($password_match) {
             $this->setCurrentUser($user);
             if ($credentials['remember']) {
@@ -98,7 +98,7 @@ class AuthService
         /** @var User $user */
         $user = $this->userRepository->find($user_id);
         $token = $this->storageStrategy->getRememberToken();
-        if ($user && $token == $user->getRememberToken()->token()) {
+        if ($user && $token == $user->getRememberToken()->toNative()) {
             $this->storageStrategy->setCurrentUserId($user->getId());
             $this->logService->logRemember($user);
             return true;
@@ -138,13 +138,13 @@ class AuthService
     public function getEmailValidationToken(User $user, IEmailValidationToken $emailValidationTokenGenerator = null)
     {
         $emailValidationTokenGenerator = $this->getEmailValidationTokenGenerator($emailValidationTokenGenerator);
-        return $emailValidationTokenGenerator->token($user->getEmail()->email());
+        return $emailValidationTokenGenerator->token($user->getEmail()->toNative());
     }
 
     public function validateEmailToken(User $user, $token, IEmailValidationToken $emailValidationTokenGenerator = null)
     {
         $emailValidationTokenGenerator = $this->getEmailValidationTokenGenerator($emailValidationTokenGenerator);
-        if ($emailValidationTokenGenerator->validate($user->getEmail()->email(), $token)) {
+        if ($emailValidationTokenGenerator->validate($user->getEmail()->toNative(), $token)) {
             $user->setValidated(true);
             $this->entityManager->flush($user);
             return new ServiceActionResult(true, $user);
