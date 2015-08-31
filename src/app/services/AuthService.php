@@ -163,6 +163,11 @@ class AuthService
         return new Url($this->urlManager->get('userAccess/validate/' . $this->getEmailValidationToken($user)));
     }
 
+    public function getPasswordResetUrl(User $user)
+    {
+        return new Url($this->urlManager->get('userAccess/passwordReset/'. $this->getEmailValidationToken($user)));
+    }
+
     public function tryLoginWithRemember()
     {
         if ($this->hasRememberMe()) {
