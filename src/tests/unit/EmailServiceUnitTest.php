@@ -33,16 +33,16 @@ class EmailServiceUnitTest extends UnitTestBase
 
         $expected_mail_data = [
             [
-                'name' => 'title',
+                'name'    => 'title',
                 'content' => 'Validate your email',
             ],
             [
-                'name' => 'subtitle',
+                'name'    => 'subtitle',
                 'content' => 'We need you to validate your email.',
             ],
             [
-                'name' => 'main',
-                'content' => '<a href="'.$url_address.'">Click here to validate you email!</a> <br>or copy and paste this url in your browser:<br>'.$url_address,
+                'name'    => 'main',
+                'content' => '<a href="' . $url_address . '">Click here to validate you email!</a> <br>or copy and paste this url in your browser:<br>' . $url_address,
             ],
         ];
         $this->authService_double->getValidationUrl($user)->willReturn($url);
@@ -64,16 +64,16 @@ class EmailServiceUnitTest extends UnitTestBase
         $expected_recipient_data = $this->getExpectedRecipientData();
         $expected_mail_data = [
             [
-                'name' => 'title',
+                'name'    => 'title',
                 'content' => 'Password reset',
             ],
             [
-                'name' => 'subtitle',
+                'name'    => 'subtitle',
                 'content' => 'Somebody has asked to reset your password.',
             ],
             [
-                'name' => 'main',
-                'content' => 'If it was you, you just have to <a href="'.$url_address.'">click this link to reset your password</a> <br>or copy and paste this url in your browser:<br>'.$url_address.'<br>If you didn\'t ask for the password reset, just ignore this email',
+                'name'    => 'main',
+                'content' => 'If it was you, you just have to <a href="' . $url_address . '">click this link to reset your password</a> <br>or copy and paste this url in your browser:<br>' . $url_address . '<br>If you didn\'t ask for the password reset, just ignore this email',
             ],
 
         ];
