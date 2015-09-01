@@ -2,6 +2,7 @@
 .idea
 phpinfo.php
 src/app/assets/*
+!src/app/assets/README.md
 src/app/logs/*
 !src/app/logs/README.md
 src/vendor/*

@@ -120,4 +120,5 @@ class EmailServiceUnitTest extends UnitTestBase
         ];
         return $expected_recipient_data;
     }
+
 }
