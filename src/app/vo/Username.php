@@ -2,7 +2,9 @@
 
 namespace EuroMillions\vo;
 
-class Username extends ValueObject
+use EuroMillions\vo\base\StringLiteral;
+
+class Username extends StringLiteral
 {
     const MIN_LENGTH = 5;
     const MAX_LENGTH = 10;
