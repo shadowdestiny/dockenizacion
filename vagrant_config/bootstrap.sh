@@ -50,17 +50,7 @@ if [ ! -f /usr/bin/mysql ]; then
     sudo apt-get install -y mysql-client-5.6
 fi
 
-####
-## INSTALLING COMPOSER
-####
-e "Checking composer installation"
-if [ ! -f /usr/local/bin/composer ]; then
-    e "installing composer and installing libraries"
-    curl -sS https://getcomposer.org/installer | php
-    sudo mv composer.phar /usr/local/bin/composer
-    cd /var/www
-    composer install
-fi
+
 
 ####
 ## INSTALLING PHALCON
@@ -75,7 +65,17 @@ if [ ! -f /etc/php5/cli/conf.d/30-phalcon.ini ] || [ ! -f /usr/lib/php5/20131226
     sudo ./install
     sudo cp /vagrant/vagrant_config/30-phalcon.ini /etc/php5/cli/conf.d
 fi
-
+####
+## INSTALLING COMPOSER
+####
+e "Checking composer installation"
+if [ ! -f /usr/local/bin/composer ]; then
+    e "installing composer and installing libraries"
+    curl -sS https://getcomposer.org/installer | php
+    sudo mv composer.phar /usr/local/bin/composer
+    cd /var/www
+    composer install
+fi
 ####
 ## PHALCON DEVTOOLS
 ####
