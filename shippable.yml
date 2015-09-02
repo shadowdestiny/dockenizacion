@@ -15,8 +15,8 @@ services:
     - redis
 
 before_script:
-  - pecl channel-update pecl.php.net
-  - pecl install channel://pecl.php.net/apcu-4.0.7
+#  - pecl channel-update pecl.php.net
+#  - pecl install channel://pecl.php.net/apcu-4.0.7
   - mysql -e 'create database if not exists euromillions_test;'
   - mkdir -p shippable/codecoverage
   - mkdir -p shippable/testresults
