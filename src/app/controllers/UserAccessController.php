@@ -1,10 +1,12 @@
 <?php
 namespace EuroMillions\controllers;
 
+use EuroMillions\forms\ForgotPasswordForm;
 use EuroMillions\forms\SignInForm;
 use EuroMillions\forms\SignUpForm;
 use EuroMillions\services\AuthService;
 use EuroMillions\services\GeoService;
+use EuroMillions\vo\Email;
 use Phalcon\Validation\Message;
 
 class UserAccessController extends ControllerBase
@@ -18,7 +20,7 @@ class UserAccessController extends ControllerBase
     {
         parent::initialize();
         $this->authService = $authService ? $authService : $this->domainServiceFactory->getAuthService();
-        $this->geoService = $geoService ? $geoService : $this->domainServiceFactory->getGeoService();
+        $this->geoService = $geoService ? $geoService : $this->domainServiceFactory->getServiceFactory()->getGeoService();
     }
 
     public function signInAction($paramsFromPreviousAction = null)
@@ -97,8 +99,6 @@ class UserAccessController extends ControllerBase
                 if (!$register_result->success()) {
                     $errors[] = $register_result->errorMessage();
                 } else {
-                    $email_service = $this->domainServiceFactory->getEmailService();
-                    $email_service->sendRegistrationMail($register_result->getValues());
                     return $this->response->redirect("$controller/$action/".implode('/',$params));
                 }
             }
@@ -135,6 +135,60 @@ class UserAccessController extends ControllerBase
     {
         $this->authService->logout();
         $this->response->redirect();
+    }
+
+
+    public function forgotPasswordAction()
+    {
+        $errors = null;
+        $forgot_password_form = new ForgotPasswordForm();
+        $form_errors = $this->getErrorsArray();
+
+        if ($this->request->isPost()) {
+
+            if ($forgot_password_form->isValid($this->request->getPost()) == false) {
+                $messages = $forgot_password_form->getMessages(true);
+                /**
+                 * @var string $field
+                 * @var Message\Group $field_messages
+                 */
+                foreach ($messages as $field => $field_messages) {
+                    $errors[] = $field_messages[0]->getMessage();
+                    $form_errors[$field] = ' error';
+                }
+                $message = 'Email doesn\'t exist';
+            } else {
+                    $email = $this->request->getPost('email');
+                    $result = $this->authService->forgotPassword(new Email($email));
+                    if($result->success()) {
+                        $message = 'Email sent!';
+                    } else {
+                        $message = 'Email doesn\'t exist';
+                    }
+
+            }
+        }
+        $this->view->pick('sign-in/forgot-psw');
+        return $this->view->setVars([
+            'forgot_password_form' => $forgot_password_form,
+            'form_errors'          => $form_errors,
+            'errors'               => $errors,
+            'message'              => $message,
+        ]);
+    }
+
+    public function passwordResetAction($token)
+    {
+        $result = $this->authService->resetPassword($token);
+        if ($result->success()) {
+            $message = 'Thanks! Your email has been validated';
+        } else {
+            $message = 'Sorry, the token you used is no longer valid. (message was: "'.$result->getValues().'""). Click here to request a new one.'; //EMTD click here has to work and send a new token to the user.
+        }
+        //$this->response->se
+        //$this->view->setVar('message', $message);
+
+
     }
 
 

@@ -14,15 +14,19 @@
             <p>{{ language.translate("Enter the email address associated with your Euromillions.com account, then click the button.") }}</p>
             <p>{{ language.translate("We'll email your a link to a page where you can easily create a new password.") }}</p>
 
-            <form novalidate>
+            {{ form('userAccess/forgotPassword') }}
 
-                <div class="box error">
-                    <span class="ico-warning ico"></span>
-                    <span class="txt">Error info lorem ipsum</span>
-                </div>
+
+                {%if message %}
+                    <div class="box error">
+                        <span class="ico- ico"></span>
+                        <span class="txt">{{ message }}</span>
+                    </div>
+                {% endif %}
+
 
                 <label for="email" class="label">{{ language.translate("Email address") }}</label>
-                <input id="email" class="input email" type="email">
+                {{ forgot_password_form.render('email', {'class':'input'~form_errors['email']}) }}
 
 
                 <p>
@@ -37,9 +41,12 @@
 
 #}
                 <div class="cl">
-                    <a href="javascript:void(0);" class="btn blue big submit right">{{ language.translate("Save Password") }}</a>
+                            <div class="cl">
+                                <input id="go" type="submit" class="hidden2" />
+                                <label for="go" class="submit btn big blue">{{ language.translate("Save Password") }}<span class="ico ico-arrow-right"></span></label>
+                            </div>
                 </div>
-            </form>
+            {{ endform() }}
 		</div>
 	</div>
 </main>

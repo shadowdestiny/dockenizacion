@@ -2,6 +2,7 @@
 namespace tests\integration;
 
 use EuroMillions\services\DomainServiceFactory;
+use EuroMillions\services\ServiceFactory;
 use tests\base\DatabaseIntegrationTestBase;
 
 class DomainServiceFactoryIntegrationTest extends DatabaseIntegrationTestBase
@@ -14,7 +15,7 @@ class DomainServiceFactoryIntegrationTest extends DatabaseIntegrationTestBase
     {
         parent::setUp();
         $class = $this->className;
-        $this->sut = new $class($this->getDi());
+        $this->sut = new $class($this->getDi(), new ServiceFactory($this->getDi()));
     }
 
     /**

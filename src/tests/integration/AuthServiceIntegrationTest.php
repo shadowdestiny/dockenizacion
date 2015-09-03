@@ -5,6 +5,7 @@ use EuroMillions\components\NullPasswordHasher;
 use EuroMillions\config\Namespaces;
 use EuroMillions\entities\User;
 use EuroMillions\repositories\UserRepository;
+use EuroMillions\vo\Email;
 use tests\base\DatabaseIntegrationTestBase;
 
 class AuthServiceIntegrationTest extends DatabaseIntegrationTestBase
@@ -43,7 +44,7 @@ class AuthServiceIntegrationTest extends DatabaseIntegrationTestBase
             'confirm_password' => 'passWord01',
             'country'          => 'Spain',
         ];
-        $sut = $this->getDomainServiceFactory()->getAuthService(new NullPasswordHasher(), null, null, $this->getServiceDouble('LogService')->reveal());
+        $sut = $this->getDomainServiceFactory()->getAuthService(new NullPasswordHasher(), null, null, $this->getServiceDouble('LogService')->reveal(), $this->getServiceDouble('EmailService')->reveal());
         $sut->register($credentials);
         $actual = $this->userRepository->getByEmail('antonio@panamedia.net');
         $this->assertNotNull($actual);
@@ -70,4 +71,5 @@ class AuthServiceIntegrationTest extends DatabaseIntegrationTestBase
         $user = $this->userRepository->getByEmail($email);
         $this->assertTrue($user->getValidated(), "The user is not validated on the database");
     }
+
 }

@@ -1,6 +1,7 @@
 <?php
 namespace tests\unit;
 
+use EuroMillions\components\Md5EmailValidationToken;
 use EuroMillions\components\NullPasswordHasher;
 use EuroMillions\config\Namespaces;
 use EuroMillions\entities\User;
@@ -10,6 +11,7 @@ use EuroMillions\vo\Password;
 use EuroMillions\vo\RememberToken;
 use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
+use EuroMillions\vo\ValidationToken;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -29,6 +31,7 @@ class AuthServiceUnitTest extends UnitTestBase
     private $storageStrategy_double;
     private $urlManager_double;
     private $logService_double;
+    private $emailService_double;
 
     protected function getEntityManagerStubExtraMappings()
     {
@@ -45,6 +48,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $this->storageStrategy_double = $this->getInterfaceDouble('IAuthStorageStrategy');
         $this->urlManager_double = $this->getInterfaceDouble('IUrlManager');
         $this->logService_double = $this->getServiceDouble('LogService');
+        $this->emailService_double = $this->getServiceDouble('EmailService');
         $this->userId = UserId::create();
         parent::setUp();
     }
@@ -314,34 +318,21 @@ class AuthServiceUnitTest extends UnitTestBase
                 'password' => new Password($credentials['password'], $this->hasher_double->reveal()),
                 'country'  => $credentials['country'],
                 'balance'  => new Money(0, new Currency('EUR')),
+                'validated' => 0,
+                'validationToken' => new ValidationToken(new Email($credentials['email']), new Md5EmailValidationToken())
+
             ]
         );
         $this->userRepository_double->getByEmail($credentials['email'])->willReturn(null);
         $this->userRepository_double->add($user)->shouldBeCalled();
         $this->storageStrategy_double->setCurrentUserId(Argument::type('EuroMillions\vo\UserId'))->shouldBeCalled();
+        $this->urlManager_double->get(Argument::type('string'))->willReturn('http://localhost/userAccess/validate/441a9e42f0e3c769a6112b56a04b6');
         $sut = $this->getSut();
         $actual = $sut->register($credentials);
         $expected = new ServiceActionResult(true, $user);
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * method getEmailValidationService
-     * when called
-     * should returnProperValue
-     */
-    public function test_getEmailValidationService_called_returnProperValue()
-    {
-        $user = new User();
-        $email = 'azofaifo@azofaifo.com';
-        $user->initialize(['email' => new Email($email)]);
-        $expected = 'sdlkfjds0943¡';
-        $emailValidationTokenGenerator = $this->getInterfaceDouble('IEmailValidationToken');
-        $emailValidationTokenGenerator->token($email)->willReturn($expected);
-        $sut = $this->getSut();
-        $actual = $sut->getEmailValidationToken($user, $emailValidationTokenGenerator->reveal());
-        $this->assertEquals($expected, $actual);
-    }
 
     /**
      * method validateEmailToken
@@ -378,12 +369,58 @@ class AuthServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method forgotPassword
+     * when called
+     * should returnServiceActionResult
+     */
+    public function test_forgotPassword_called_returnServiceActionResult()
+    {
+        $emailUser = 'algarrobo@currojimenez.com';
+        $email = new Email($emailUser);
+        $user = $this->getNewUser();
+        $this->urlManager_double->get(Argument::type('string'))->willReturn('http://localhost/userAccess/validate/441a9e42f0e3c769a6112b56a04b6');
+        $this->userRepository_double->getByEmail($email->toNative())->willReturn($user);
+        $sut = $this->getSut();
+        $actual = $sut->forgotPassword($email);
+        $this->assertTrue($actual->success());
+        $this->assertInstanceOf('EuroMillions\vo\ServiceActionResult', $actual);
+    }
+
+
+
+
+    /**
+     * method getEmailValidationToken
+     * when doesntHaveToken
+     * should persistUserWithNewToken
+     */
+    public function test_getEmailValidationToken_doesntHaveToken_persistUserWithNewToken()
+    {
+
+    }
+
+    /**
+     * method resetPassword
+     * when called
+     * should returnServiceActionResult
+     */
+    public function test_resetPassword_called_returnServiceActionResult()
+    {
+        $user = $this->getNewUser();
+        $token = '33e4e6a08f82abb38566fc3bb8e8ef0d';
+        $sut = $this->getSut();
+        $actual = $sut->resetPassword($token);
+        $this->userRepository_double->getByToken($token)->willReturn($user);
+        $this->assertInstanceOf('Euromillions\vo\ServiceActionResult', $actual);
+    }
+
+    /**
      * @return AuthService
      */
     private function getSut()
     {
         $dsf = $this->getDomainServiceFactory();
-        $sut = $dsf->getAuthService($this->hasher_double->reveal(), $this->storageStrategy_double->reveal(), $this->urlManager_double->reveal(), $this->logService_double->reveal());
+        $sut = $dsf->getAuthService($this->hasher_double->reveal(), $this->storageStrategy_double->reveal(), $this->urlManager_double->reveal(), $this->logService_double->reveal(), $this->emailService_double->reveal());
         return $sut;
     }
 
@@ -399,6 +436,25 @@ class AuthServiceUnitTest extends UnitTestBase
             'email'    => new Email('azofaifo@algarrobo.com'),
             'password' => new Password('azofaifoPass01', new NullPasswordHasher())
         ]);
+        return $user;
+    }
+
+    /**
+     * @return User
+     */
+    private function getNewUser()
+    {
+        $user = new User();
+        $user->initialize(
+            [
+                'name'     => 'test',
+                'surname'  => 'test01',
+                'email'    => new Email('raul.mesa@panamedia.net'),
+                'password' => new Password('passworD01', $this->hasher_double->reveal()),
+                'validated' => false,
+                'validation_token' => '33e4e6a08f82abb38566fc3bb8e8ef0d'
+            ]
+        );
         return $user;
     }
 

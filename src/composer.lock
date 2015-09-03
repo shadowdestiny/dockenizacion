@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3ab3fff8a1f7616ef0c4f42b2d85161a",
+    "hash": "2cf307cc369fb8f61b79cd63db69e426",
     "packages": [
         {
             "name": "alcohol/iso4217",
@@ -1147,6 +1147,52 @@
                 "uuid"
             ],
             "time": "2015-07-23 19:00:41"
+        },
+        {
+            "name": "recaptcha/php5",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AlekseyKorzun/reCaptcha-PHP-5.git",
+                "reference": "b7f5c3df98fa6e8bc3ace3dd6351bcbc32ac7da4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AlekseyKorzun/reCaptcha-PHP-5/zipball/b7f5c3df98fa6e8bc3ace3dd6351bcbc32ac7da4",
+                "reference": "b7f5c3df98fa6e8bc3ace3dd6351bcbc32ac7da4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Captcha": "Package"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Aleksey Korzun",
+                    "email": "aleksey@webfoundation.net",
+                    "homepage": "http://www.alekseykorzun.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A properly coded PHP 5 reCaptcha class that will allow you to interact with Google's reCaptcha API.",
+            "homepage": "https://github.com/AlekseyKorzun/reCaptcha-PHP-5",
+            "keywords": [
+                "api",
+                "captcha",
+                "google",
+                "php",
+                "recaptcha"
+            ],
+            "time": "2015-07-18 19:13:08"
         },
         {
             "name": "robmorgan/phinx",

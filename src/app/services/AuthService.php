@@ -3,6 +3,8 @@ namespace EuroMillions\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\components\Md5EmailValidationToken;
+use EuroMillions\components\NullPasswordHasher;
+use EuroMillions\components\RandomPasswordGenerator;
 use EuroMillions\entities\GuestUser;
 use EuroMillions\entities\User;
 use EuroMillions\interfaces\IAuthStorageStrategy;
@@ -15,6 +17,7 @@ use EuroMillions\vo\Email;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\Url;
+use EuroMillions\vo\ValidationToken;
 use Money\Currency;
 use Money\Money;
 
@@ -32,8 +35,10 @@ class AuthService
     private $urlManager;
     /** @var LogService */
     private $logService;
+    /** @var EmailService */
+    private $emailService;
 
-    public function __construct(EntityManager $entityManager, IPasswordHasher $hasher, IAuthStorageStrategy $storageStrategy, IUrlManager $urlManager, LogService $logService)
+    public function __construct(EntityManager $entityManager, IPasswordHasher $hasher, IAuthStorageStrategy $storageStrategy, IUrlManager $urlManager, LogService $logService, EmailService $emailService)
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $entityManager->getRepository('EuroMillions\entities\User');
@@ -41,6 +46,7 @@ class AuthService
         $this->storageStrategy = $storageStrategy;
         $this->urlManager = $urlManager;
         $this->logService = $logService;
+        $this->emailService = $emailService;
     }
 
     /**
@@ -120,26 +126,32 @@ class AuthService
             return new ServiceActionResult(false, 'Email already registered');
         }
         $user = new User();
+        $email = new Email($credentials['email']);
         $user->initialize([
             'name'     => $credentials['name'],
             'surname'  => $credentials['surname'],
-            'email'    => new Email($credentials['email']),
+            'email'    => $email,
             'password' => new Password($credentials['password'], $this->passwordHasher),
             'country'  => $credentials['country'],
             'balance'  => new Money(0, new Currency('EUR')),
             'validated' => 0,
+            'validation_token' => $this->getEmailValidationToken($email)
         ]);
         $this->userRepository->add($user);
         $this->entityManager->flush();
-        $this->storageStrategy->setCurrentUserId($user->getId());
-        $this->logService->logRegistration($user);
-        return new ServiceActionResult(true, $user);
+        if(!empty($user->getId())) {
+            $this->storageStrategy->setCurrentUserId($user->getId());
+            $this->logService->logRegistration($user);
+            $url = $this->getValidationUrl($user);
+            $this->emailService->sendRegistrationMail($user, $url);
+            return new ServiceActionResult(true, $user);
+        }
     }
 
-    public function getEmailValidationToken(User $user, IEmailValidationToken $emailValidationTokenGenerator = null)
+    private function getEmailValidationToken(Email $email, IEmailValidationToken $emailValidationTokenGenerator = null)
     {
         $emailValidationTokenGenerator = $this->getEmailValidationTokenGenerator($emailValidationTokenGenerator);
-        return $emailValidationTokenGenerator->token($user->getEmail()->toNative());
+        return $validationToken = new ValidationToken($email, $emailValidationTokenGenerator);
     }
 
     public function validateEmailToken(User $user, $token, IEmailValidationToken $emailValidationTokenGenerator = null)
@@ -158,20 +170,56 @@ class AuthService
      * @param User $user
      * @return Url
      */
-    public function getValidationUrl(User $user)
+    private function getValidationUrl(User $user)
     {
-        return new Url($this->urlManager->get('userAccess/validate/' . $this->getEmailValidationToken($user)));
+        return new Url($this->urlManager->get('userAccess/validate/' . $this->getEmailValidationToken(new Email($user->getEmail()->toNative()))));
     }
 
-    public function getPasswordResetUrl(User $user)
+    /**
+     * @param User $user
+     * @return Url
+     */
+    private function getPasswordResetUrl(User $user)
     {
-        return new Url($this->urlManager->get('userAccess/passwordReset/'. $this->getEmailValidationToken($user)));
+        return new Url($this->urlManager->get('userAccess/passwordReset/'. $this->getEmailValidationToken(new Email($user->getEmail()->toNative()))));
     }
 
     public function tryLoginWithRemember()
     {
         if ($this->hasRememberMe()) {
             $this->loginWithRememberMe();
+        }
+    }
+
+    /**
+     * @param $token
+     * @return ServiceActionResult
+     */
+    public function resetPassword($token)
+    {
+        $user = $this->userRepository->getByToken($token);
+        if(!empty($user)){
+            $passwordGenerator = new RandomPasswordGenerator(new NullPasswordHasher());
+            $password = $passwordGenerator->getPassword();
+            $this->emailService->sendNewPasswordMail($user, $password);
+            return new ServiceActionResult(true, 'Email sent');
+        } else {
+            return new ServiceActionResult(false, '');
+        }
+    }
+
+    /**
+     * @param Email $email
+     * @return ServiceActionResult
+     */
+    public function forgotPassword(Email $email)
+    {
+        $user = $this->userRepository->getByEmail($email->toNative());
+        if (!empty($user)) {
+            $this->emailService->sendPasswordResetMail($user, $this->getPasswordResetUrl($user));
+            return new ServiceActionResult(true, 'Email sent');
+        } else {
+            return new ServiceActionResult(false, 'Email doesn\'t exist');
         }
     }
 

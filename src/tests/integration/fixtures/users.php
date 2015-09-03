@@ -9,6 +9,7 @@ return [
             'balance_amount' => 300005,
             'balance_currency_name' => 'EUR',
             'validated' => false,
+            'validation_token' => 'fdsdsfsdffsd54353GFD'
         ],
   ]
 ];
