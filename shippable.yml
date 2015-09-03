@@ -18,10 +18,7 @@ before_script:
 #  - pecl channel-update pecl.php.net
 #  - pecl install channel://pecl.php.net/apcu-4.0.7
   - /etc/init.d/mysql start
-  - while ! nc -vz localhost 3306 &>/dev/null; do
-    exec_cmd "echo \"Waiting for mysql to start...\"";
-    sleep 5;
-    done
+  - sleep 10
   - mysql -e 'create database if not exists euromillions_test;'
   - mkdir -p shippable/codecoverage
   - mkdir -p shippable/testresults
