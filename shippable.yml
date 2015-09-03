@@ -20,6 +20,7 @@ before_script:
   - /etc/init.d/mysql start & > /dev/null
   - sleep 10
   - mysql -e 'create database if not exists euromillions_test;'
+  - redis-server &
   - mkdir -p shippable/codecoverage
   - mkdir -p shippable/testresults
 #  - if [ ! -d "cphalcon" ]; then git clone --depth=1 git://github.com/phalcon/cphalcon.git && cd cphalcon/build && ./install && cd ../.. && echo 'extension="phalcon.so"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
