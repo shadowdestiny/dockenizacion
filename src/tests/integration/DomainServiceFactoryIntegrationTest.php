@@ -2,7 +2,6 @@
 namespace tests\integration;
 
 use EuroMillions\services\DomainServiceFactory;
-use EuroMillions\services\ServiceFactory;
 use tests\base\DatabaseIntegrationTestBase;
 
 class DomainServiceFactoryIntegrationTest extends DatabaseIntegrationTestBase
@@ -11,11 +10,18 @@ class DomainServiceFactoryIntegrationTest extends DatabaseIntegrationTestBase
     /** @var  DomainServiceFactory */
     private $sut;
 
+    private $externalDependencies;
+
     public function setUp()
     {
         parent::setUp();
         $class = $this->className;
-        $this->sut = new $class($this->getDi(), new ServiceFactory($this->getDi()));
+        $this->sut = new $class($this->getDi());
+        $this->externalDependencies = [
+            'EmailService' => [
+                $this->prophesize('EuroMillions\components\MandrillWrapper')->reveal(),
+            ],
+        ];
     }
 
     /**
@@ -28,7 +34,8 @@ class DomainServiceFactoryIntegrationTest extends DatabaseIntegrationTestBase
      */
     public function test_getX_called_returnProperService($methodName, $expectedService)
     {
-        $actual = $this->sut->$methodName();
+        $params = isset($this->externalDependencies[$expectedService]) ? $this->externalDependencies[$expectedService] : [];
+        $actual = $this->sut->$methodName(...$params);
         $this->assertInstanceOf('EuroMillions\services\\'.$expectedService, $actual);
     }
 
