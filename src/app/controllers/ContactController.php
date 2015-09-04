@@ -15,7 +15,6 @@ class ContactController extends PublicSiteControllerBase
                    2 => 'fdsfdsf',
                    3 => 'dsfsdfsd'
         ];
-
         //TODO: Perhaps move topic like a dynamic data
         $guestContactForm = new GuestContactForm(null, ['topics' => $topics]);
 
