@@ -138,13 +138,20 @@ class AuthService
             'validation_token' => $this->getEmailValidationToken($email)
         ]);
         $this->userRepository->add($user);
-        $this->entityManager->flush();
-        if(!empty($user->getId())) {
-            $this->storageStrategy->setCurrentUserId($user->getId());
-            $this->logService->logRegistration($user);
-            $url = $this->getValidationUrl($user);
-            $this->emailService->sendRegistrationMail($user, $url);
-            return new ServiceActionResult(true, $user);
+
+        try{
+            $this->entityManager->flush();
+            if(!empty($user->getId())) {
+                $this->storageStrategy->setCurrentUserId($user->getId());
+                $this->logService->logRegistration($user);
+                $url = $this->getValidationUrl($user);
+                $this->emailService->sendRegistrationMail($user, $url);
+                return new ServiceActionResult(true, $user);
+            }else{
+                return new ServiceActionResult(false, 'Error getting an user');
+            }
+        } catch(Exception $e) {
+            return new ServiceActionResult(false,'An error ocurred saving an user');
         }
     }
 

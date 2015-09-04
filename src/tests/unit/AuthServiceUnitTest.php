@@ -386,19 +386,6 @@ class AuthServiceUnitTest extends UnitTestBase
         $this->assertInstanceOf('EuroMillions\vo\ServiceActionResult', $actual);
     }
 
-
-
-
-    /**
-     * method getEmailValidationToken
-     * when doesntHaveToken
-     * should persistUserWithNewToken
-     */
-    public function test_getEmailValidationToken_doesntHaveToken_persistUserWithNewToken()
-    {
-
-    }
-
     /**
      * method resetPassword
      * when called

@@ -24,14 +24,21 @@
                     </div>
                 {% endif %}
 
+                {% if errors %}
+                    <div class="box error">
+                        <span class="ico-warning ico"></span>
+                        <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
+                    </div>
+                {%  endif %}
 
                 <label for="email" class="label">{{ language.translate("Email address") }}</label>
-                {{ forgot_password_form.render('email', {'class':'input'~form_errors['email']}) }}
+                {{ forgot_password_form.render('email', {'class':'input'}) }}
 
 
                 <p>
                     <strong>{{ language.translate("Insert captcha") }}</strong>
-                    <br><img style="width:250px;" src="/img/fake-captcha.gif" alt="">
+                    <br>
+                    {{ captcha }}
                 </p>
 
 {# *** Code to use in case no google captcha is utilised ***}

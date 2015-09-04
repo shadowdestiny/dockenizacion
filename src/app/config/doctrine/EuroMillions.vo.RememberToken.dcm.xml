@@ -6,6 +6,6 @@
     https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <embeddable name="EuroMillions\vo\RememberToken">
-        <field name="value" type="string" nullable="true" column="token" />
+        <field name="value" type="string" nullable="true" column="remember_token" />
     </embeddable>
 </doctrine-mapping>

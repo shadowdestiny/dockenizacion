@@ -25,11 +25,7 @@ class ForgotPasswordForm extends RedirectableFormBase
             ]),
         ));
 
-
-
-
         $this->add($email);
-
 
         $csrf = new Hidden('csrf');
         $csrf->addValidator(new Identical(array(

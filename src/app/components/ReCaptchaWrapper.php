@@ -16,7 +16,7 @@ class ReCaptchaWrapper implements ICaptcha
 
     public function __construct($captcha)
     {
-        $this->captcha=$captcha;
+        $this->captcha = $captcha;
     }
 
 
