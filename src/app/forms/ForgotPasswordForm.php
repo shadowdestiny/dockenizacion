@@ -9,7 +9,7 @@ use Phalcon\Validation\Validator\Identical;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email as EmailValidator;
 
-class ForgotPasswordForm extends RedirectableFormBase
+class ForgotPasswordForm extends Form
 {
     public function initialize()
     {
