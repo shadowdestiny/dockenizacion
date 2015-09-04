@@ -13,6 +13,7 @@ use EuroMillions\interfaces\IPasswordHasher;
 use EuroMillions\interfaces\IUrlManager;
 use EuroMillions\interfaces\IUser;
 use EuroMillions\repositories\UserRepository;
+use EuroMillions\vo\ContactFormInfo;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\ServiceActionResult;
@@ -229,6 +230,7 @@ class AuthService
             return new ServiceActionResult(false, 'Email doesn\'t exist');
         }
     }
+
 
     /**
      * @param IEmailValidationToken $emailValidationTokenGenerator

@@ -53,14 +53,16 @@ class DomainServiceFactory
      * @param UserRepository|null $userRepository
      * @param CurrencyService|null $currencyService
      * @param IUsersPreferencesStorageStrategy $preferencesStrategy
+     * @param EmailService $emailService
      * @return UserService
      */
-    public function getUserService(UserRepository $userRepository = null, CurrencyService $currencyService = null, IUsersPreferencesStorageStrategy $preferencesStrategy = null)
+    public function getUserService(UserRepository $userRepository = null, CurrencyService $currencyService = null, IUsersPreferencesStorageStrategy $preferencesStrategy = null, EmailService $emailService = null)
     {
         if (!$userRepository) $userRepository = $this->getRepository('User');
         if (!$currencyService) $currencyService = $this->serviceFactory->getCurrencyService();
         if (!$preferencesStrategy) $preferencesStrategy = new WebUserPreferencesStorageStrategy($this->serviceFactory->getDI()->get('session'), $this->serviceFactory->getDI()->get('cookies'));
-        return new UserService($userRepository, $currencyService, $preferencesStrategy);
+        if (!$emailService) $emailService = $this->serviceFactory->getEmailService();
+        return new UserService($userRepository, $currencyService, $preferencesStrategy, $emailService);
     }
 
     /**

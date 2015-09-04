@@ -3,6 +3,7 @@ namespace EuroMillions\services;
 
 use EuroMillions\entities\User;
 use EuroMillions\interfaces\IMailServiceApi;
+use EuroMillions\vo\ContactFormInfo;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\Url;
 
@@ -49,6 +50,23 @@ class EmailService
     }
 
     /**
+     * @param ContactFormInfo $contactFormInfo
+     */
+    public function sendContactRequest(ContactFormInfo $contactFormInfo)
+    {
+        $content = <<<EOF
+        New contact request from: {$contactFormInfo->getFullName()} ({$contactFormInfo->getEmail()})
+        <br>
+        Content: {$contactFormInfo->getContent()}
+EOF;
+        $this->sendMailToContactService(
+            'Contact request',
+            $contactFormInfo->getTopic(),
+            $content
+        );
+    }
+
+    /**
      * @param User $user
      * @param $title
      * @param $subtitle
@@ -90,4 +108,49 @@ class EmailService
     }
 
 
+    /**
+     * @param $title
+     * @param $subtitle
+     * @param $content
+     * @throws Exception
+     * @throws \Exception
+     */
+    private function sendMailToContactService($title, $subtitle, $content)
+    {
+        try{
+            $this->mailServiceApi->send(
+                $this->mailConfig['from_name'],
+                $this->mailConfig['from_address'],
+                [
+                    [
+                        'email' => 'rmrbest@gmail.com',
+                        'name'  => 'Contact',
+                        'type'  => 'to',
+                    ]
+
+                ],
+                'Confirm your email',
+                '',
+                [
+                    [
+                        'name'    => 'title',
+                        'content' => $title
+                    ],
+                    [
+                        'name'    => 'subtitle',
+                        'content' => $subtitle
+                    ],
+                    [
+                        'name'    => 'main',
+                        'content' => $content,
+                    ],
+                ],
+                [],
+                'simple',
+                []
+            );
+        }catch(\Exception $e){
+            throw $e;
+        }
+   }
 }

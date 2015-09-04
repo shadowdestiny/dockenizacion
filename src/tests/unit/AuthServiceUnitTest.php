@@ -6,6 +6,7 @@ use EuroMillions\components\NullPasswordHasher;
 use EuroMillions\config\Namespaces;
 use EuroMillions\entities\User;
 use EuroMillions\services\AuthService;
+use EuroMillions\vo\ContactFormInfo;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\RememberToken;
