@@ -4,7 +4,7 @@
 namespace EuroMillions\forms;
 
 use Phalcon\Forms\Element\Email;
-use Phalcon\Forms\Element\Hidden;
+use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\Identical;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email as EmailValidator;
@@ -26,14 +26,5 @@ class ForgotPasswordForm extends Form
         ));
 
         $this->add($email);
-
-        $csrf = new Hidden('csrf');
-        $csrf->addValidator(new Identical(array(
-            'value'   => $this->security->getSessionToken(),
-            'message' => 'Cross scripting protection. Reload the page.'
-        )));
-        $this->add($csrf);
-        parent::initialize();
-
     }
 }
