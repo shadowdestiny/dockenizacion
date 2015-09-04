@@ -113,7 +113,7 @@
                                         </label>
                                     </div>
                                     <div class="col6 forgot-psw">
-                                        <a href="javascript:void(0);">{{ language.translate("Forgot password?") }}</a>
+                                        <a href="user-access/forgotPassword">{{ language.translate("Forgot password?") }}</a>
                                     </div>
                                 </div>
                                 <div class="cl">

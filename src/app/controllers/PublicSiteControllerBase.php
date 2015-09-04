@@ -36,7 +36,8 @@ class PublicSiteControllerBase extends ControllerBase
         parent::initialize();
         $this->lotteriesDataService = $lotteriesDataService ? $lotteriesDataService : $this->domainServiceFactory->getLotteriesDataService();
         $this->languageService = $languageService ? $languageService : $this->language; //from DI
-        $this->currencyService = $currencyService ? $currencyService : $this->domainServiceFactory->getCurrencyService();
+        $this->currencyService = $currencyService ? $currencyService : $this->domainServiceFactory->getServiceFactory()->getCurrencyService();
+        $this->currencyService = $currencyService ? $currencyService : $this->domainServiceFactory->getServiceFactory()->getCurrencyService();
         $this->userService = $userService ? $userService : $this->domainServiceFactory->getUserService();
         $this->authService = $authService ? $authService : $this->domainServiceFactory->getAuthService();
     }

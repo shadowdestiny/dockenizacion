@@ -115,4 +115,27 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $actual = $this->sut->getByEmail('nonexisting@email.com');
         $this->assertNull($actual);
     }
+
+    /**
+     * method getByToken
+     * when called
+     * should returnProperResult
+     */
+    public function test_getByToken_called_returnProperResult()
+    {
+        $actual = $this->sut->getByToken('fdsdsfsdffsd54353GFD');
+        $this->assertEquals('9098299B-14AC-4124-8DB0-19571EDABE55', $actual->getId());
+    }
+
+    /**
+     * method getByToken
+     * when calledWithTokenInvalid
+     * should returnNull
+     */
+    public function test_getByToken_calledWithTokenInvalid_returnNull()
+    {
+        $actual = $this->sut->getByToken('1111aaaaaAAAA');
+        $this->assertNull($actual);
+    }
+
 }

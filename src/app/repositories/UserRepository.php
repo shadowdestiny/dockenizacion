@@ -36,4 +36,22 @@ class UserRepository extends EntityRepository
             ->getResult();
         return $result ? $result[0] : null;
     }
+
+
+    /**
+     * @param string $email
+     * @return User
+     */
+    public function getByToken($token)
+    {
+        $entity_name = $this->getEntityName();
+        $result = $this->getEntityManager()
+            ->createQuery(
+                "SELECT u FROM {$entity_name} u WHERE u.validationToken.value = :token"
+            )
+            ->setMaxResults(1)
+            ->setParameters(['token' => $token])
+            ->getResult();
+        return $result ? $result[0] : null;
+    }
 }

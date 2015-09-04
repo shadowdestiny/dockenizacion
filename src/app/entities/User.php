@@ -7,6 +7,7 @@ use EuroMillions\vo\Email;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\RememberToken;
 use EuroMillions\vo\UserId;
+use EuroMillions\vo\ValidationToken;
 use Money\Money;
 use Rhumsaa\Uuid\Uuid;
 
@@ -27,6 +28,8 @@ class User extends EntityBase implements IEntity, IUser
 
     protected $country;
     protected $validated;
+    /** @var  ValidationToken */
+    protected $validationToken;
 
     /**
      * @return mixed
@@ -140,5 +143,14 @@ class User extends EntityBase implements IEntity, IUser
     public function getValidated()
     {
         return $this->validated;
+    }
+
+    public function setValidationToken($validationToken)
+    {
+        $this->validationToken=$validationToken;
+    }
+    public function getValidationToken()
+    {
+        return $this->validationToken;
     }
 }
