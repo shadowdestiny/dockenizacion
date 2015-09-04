@@ -100,7 +100,5 @@ class UserService
         }catch(Exception $e){
             return new ServiceActionResult(false, 'Sorry, we have problems receiving data');
         }
-
-
     }
 }

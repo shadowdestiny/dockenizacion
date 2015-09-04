@@ -11,9 +11,9 @@ class ContactController extends PublicSiteControllerBase
     {
         $errors = null;
 
-        $topics = ['Playing the game',
-                   'fdsfdsf',
-                   'dsfsdfsd'
+        $topics = [1 => 'Playing the game',
+                   2 => 'fdsfdsf',
+                   3 => 'dsfsdfsd'
         ];
 
         //TODO: Perhaps move topic like a dynamic data

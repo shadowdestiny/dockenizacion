@@ -48,10 +48,16 @@ class GuestContactForm extends Form
 
         $this->add($content);
 
-        $topic = new Select('topic', [
-            'emptyText' => 'Select a topic',
-            'options' => $options['topics']
-        ]);
+        $topic = new Select(
+            'topic',
+            $options['topics'],
+            [
+                'useEmpty' => true,
+                'emptyText' => 'Please select...',
+
+            ]
+        );
+
         $this->add($topic);
     }
 }
