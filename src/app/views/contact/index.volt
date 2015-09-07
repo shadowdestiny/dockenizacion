@@ -15,7 +15,7 @@
 
             <p>{{ language.translate("What can we help you with?") }}</p>
 
-            {{  form('contact/guest') }}
+            {{  form('contact') }}
 
 
                 {% if message %}
@@ -44,6 +44,7 @@
                     {{ guestContactForm.render('email', {'class':'input'}) }}
                 {% endif %}
                 {{ guestContactForm.render('content', {'class':'input'}) }}
+                {{ guestContactForm.render('csrf', ['value': security.getSessionToken()]) }}
 
                 <div class="cl">
                     <label for="submitBtn" class="btn blue big submit right">{{ language.translate("Send message") }}</label>

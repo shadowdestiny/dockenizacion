@@ -2,10 +2,15 @@ var numberCount = [0,0,0,0,0,0,0];
 var starCount = numberCount.slice();
 var totalCount = numberCount.slice();
 var hasValue = [0,0,0,0,0,0,0];
+var maxNumbers = 5;
+var maxStars = 2;
 
 function checkMark(arrayCount){
+
 	obj = $(".num"+arrayCount+" .ico-checkmark")
-	if(numberCount[arrayCount] >= 5 && starCount[arrayCount] >= 2){
+	if(numberCount[arrayCount] == maxNumbers
+        &&
+            starCount[arrayCount] == maxStars){
 		obj.show();
 		hasValue[arrayCount] = 1;
 	}else{
@@ -36,12 +41,13 @@ function checkMark(arrayCount){
 
 function playLine(button, type){
 	$(button).click(function(){
-		myThis = $(this).closest(".col2").attr('class').split(" "); 
-
+		myThis = $(this).closest(".col2").attr('class').split(" ");
 		valNum = myThis[1].split("num");
 		line = "."+myThis[1];
 
-		// remove count if disabled
+        countS = starCount[valNum[1]];
+        countN = numberCount[valNum[1]];
+        // remove count if disabled
 		if($(this).hasClass("active")){
 			if(type == "number"){
 				numberCount[valNum[1]]--
@@ -51,17 +57,25 @@ function playLine(button, type){
 			totalCount[valNum[1]]--
 		}else{
 			if(type == "number"){
-				numberCount[valNum[1]]++
+                if(countN <= maxNumbers){
+                    numberCount[valNum[1]]++;
+                }
 			}else if(type == "star"){
-				starCount[valNum[1]]++
+                if(countS <= maxStars){
+                    starCount[valNum[1]]++
+                }
 			}
 			totalCount[valNum[1]]++
 		}
+        if(countN+1 <= maxNumbers && type == "number"){
+            $(this).toggleClass('active');
+        }
+        if(countS+1 <= maxStars && type == "star"){
+            $(this).toggleClass('active');
+        }
+        checkMark(valNum[1]);
 
-		$(this).toggleClass('active');
-		checkMark(valNum[1]);
-		
-	});
+    });
 }
 
 function setIntervalRepetition(callback, delay, repetitions){
@@ -124,7 +138,6 @@ function randomNum(button){
 		myThis = $(this).closest(".col2").attr('class').split(" "); 
 		valNum = myThis[1].split("num");
 		line = "."+myThis[1];
-
 		console.log("line= "+line);
 		randomCalculation(line, valNum[1]);
 	});
@@ -133,7 +146,8 @@ function randomNum(button){
 function randomAll(button){
 	$(button).click(function(){
 		line = $(".box-lines .col2");
-		for(var i=1; i <= line.length; i++){
+        lengthLine = line.length;
+		for(var i=1; i <= lengthLine; i++){
 			randomCalculation(".num"+i, i);
 		}
 	});
@@ -159,7 +173,8 @@ function clearNumAll(button){
 	$(button).click(function(){
 		line = $(".box-lines .col2");
 		$(".box-lines .values .active").toggleClass('active');
-		for(var i=1; i <= line.length; i++){
+		lengthLine = line.length;
+		for(var i=1; i <= lengthLine; i++){
 			numberCount[i] = 0;
 			starCount[i] = 0;
 			totalCount[i] = 0;
