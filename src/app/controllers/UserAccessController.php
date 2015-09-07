@@ -56,7 +56,7 @@ class UserAccessController extends ControllerBase
                 ) {
                     $errors[] = 'Email/password combination not valid';
                 } else {
-                    return $this->response->redirect("$controller/$action/".implode('/',$params));
+                    return $this->response->redirect("$controller/$action".implode('/',$params));
                 }
             }
         }

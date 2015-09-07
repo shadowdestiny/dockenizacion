@@ -37,8 +37,12 @@
                 </select>-->
 
                 {{ guestContactForm.render('topic', {'class':'input'}) }}
-                {{ guestContactForm.render('fullname', {'class':'input'}) }}
-                {{ guestContactForm.render('email', {'class':'input'}) }}
+                {% if user_logged %}
+                    {{ "Hello " }}{{ user_name }}
+                {% else %}
+                    {{ guestContactForm.render('fullname', {'class':'input'}) }}
+                    {{ guestContactForm.render('email', {'class':'input'}) }}
+                {% endif %}
                 {{ guestContactForm.render('content', {'class':'input'}) }}
 
                 <div class="cl">

@@ -7,11 +7,12 @@ use EuroMillions\vo\Email;
 
 class ContactController extends PublicSiteControllerBase
 {
-    public function guestAction()
+
+    public function indexAction()
     {
         $errors = null;
 
-        //TODO: Perhaps move topic like a dynamic data
+        //TODO: move topics like dynamic data
         $topics = [1 => 'Playing the game',
                    2 => 'Password, Email and Log in',
                    3 => 'Account settings',
@@ -19,7 +20,10 @@ class ContactController extends PublicSiteControllerBase
                    5 => 'Other kind of questions'
         ];
 
-        $guestContactForm = new GuestContactForm(null, ['topics' => $topics]);
+        $guestContactForm = new GuestContactForm(null, [
+                'topics' => $topics
+            ]
+        );
 
         if ($this->request->isPost()) {
             if ($guestContactForm->isValid($this->request->getPost()) == false) {
@@ -55,12 +59,7 @@ class ContactController extends PublicSiteControllerBase
             'guestContactForm'  => $guestContactForm,
             'message'     => $message,
             'class'       => $class,
-            'errors'      => $errors,
         ]);
-    }
 
-    public function registeredAction()
-    {
-        //EMTD to be completed by Raul
     }
 }
