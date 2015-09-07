@@ -70,8 +70,6 @@ class SignUpForm extends RedirectableFormBase
             [
                 'useEmpty' => true,
                 'emptyText' => 'Select your country of residence',
-                'using' => array('id')
-
             ]
         );
         $this->add($country);

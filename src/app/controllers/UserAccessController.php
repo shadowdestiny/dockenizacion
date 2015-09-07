@@ -198,8 +198,8 @@ class UserAccessController extends ControllerBase
     private function getSignUpForm()
     {
         $countries = $this->geoService->countryList();
-
-        //key+1, select element from phalcon need index 0 to set empty
+        sort($countries);
+        //key+1, select element from phalcon need index 0 to set empty value
         $countries = array_combine(range(1, count($countries)), array_values($countries));
         $sign_up_form = new SignUpForm(null, ['countries' => $countries]);
         return $sign_up_form;

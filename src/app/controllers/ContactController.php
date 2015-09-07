@@ -11,11 +11,14 @@ class ContactController extends PublicSiteControllerBase
     {
         $errors = null;
 
-        $topics = [1 => 'Playing the game',
-                   2 => 'fdsfdsf',
-                   3 => 'dsfsdfsd'
-        ];
         //TODO: Perhaps move topic like a dynamic data
+        $topics = [1 => 'Playing the game',
+                   2 => 'Password, Email and Log in',
+                   3 => 'Account settings',
+                   4 => 'Bank and Credit card',
+                   5 => 'Other kind of questions'
+        ];
+
         $guestContactForm = new GuestContactForm(null, ['topics' => $topics]);
 
         if ($this->request->isPost()) {
