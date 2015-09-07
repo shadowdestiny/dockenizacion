@@ -3,6 +3,7 @@ namespace tests\unit;
 
 use EuroMillions\components\Md5EmailValidationToken;
 use EuroMillions\components\NullPasswordHasher;
+use EuroMillions\components\RandomPasswordGenerator;
 use EuroMillions\config\Namespaces;
 use EuroMillions\entities\User;
 use EuroMillions\services\AuthService;
@@ -137,6 +138,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $actual = $this->exerciseCheck(['email' => 'email@email.com']);
         $this->assertFalse($actual);
     }
+
 
     /**
      * @param $remember
@@ -401,6 +403,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $this->userRepository_double->getByToken($token)->willReturn($user);
         $this->assertInstanceOf('Euromillions\vo\ServiceActionResult', $actual);
     }
+
 
     /**
      * @return AuthService

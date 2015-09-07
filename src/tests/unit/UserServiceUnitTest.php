@@ -1,11 +1,17 @@
 <?php
 namespace tests\unit;
 
+use EuroMillions\components\NullPasswordHasher;
+use EuroMillions\entities\User;
 use EuroMillions\vo\ContactFormInfo;
 use EuroMillions\vo\Email;
+use EuroMillions\vo\Password;
+use EuroMillions\vo\UserId;
 use Money\Currency;
+use Money\Money;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
+
 
 class UserServiceUnitTest extends UnitTestBase
 {
@@ -91,6 +97,35 @@ class UserServiceUnitTest extends UnitTestBase
         );
         $this->assertInstanceOf('Euromillions\vo\ServiceActionResult', $actual);
         $this->assertTrue($actual->success());
+    }
+
+    /**
+     * method getBalance
+     * when called
+     * should returnBalanceByUser
+     */
+    public function test_getBalance_called_returnBalanceByUser()
+    {
+        $currency = 'EUR';
+        $user = new User();
+        $user->initialize(
+            [
+                'id' => new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'),
+                'name'     => 'test',
+                'surname'  => 'test01',
+                'email'    => new Email('raul.mesa@panamedia.net'),
+                'password' => new Password('passworD01', new NullPasswordHasher()),
+                'validated' => false,
+                'balance' => new Money(50,new Currency($currency)),
+                'validation_token' => '33e4e6a08f82abb38566fc3bb8e8ef0d'
+            ]
+        );
+
+        $this->userRepository_double->find(Argument::any())->willReturn($user);
+        $this->currencyService_double->toString(Argument::any())->willReturn('50');
+        $sut = $this->getSut();
+        $actual = $sut->getBalance($user->getId());
+        $this->assertGreaterThan(0, $actual, "Amount should be an greater than 0");
     }
 
     /**
