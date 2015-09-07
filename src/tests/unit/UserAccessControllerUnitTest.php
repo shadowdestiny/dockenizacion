@@ -41,6 +41,7 @@ class UserAccessControllerControllerBaseUnitTest extends UnitTestBase
         $this->stubDiService('request', $request_stub->reveal());
         $this->authService_stub->register(Argument::any())->shouldNotBeCalled();
         $this->checkViewVarsContain('errors', ['The password should have numbers, lowercase and uppercase characters']);
+        $this->geoService_stub->countryList()->willReturn(array('Spain'));
         $sut = $this->getSut();
         $sut->signUpAction();
     }

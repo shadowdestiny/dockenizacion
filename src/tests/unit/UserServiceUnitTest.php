@@ -1,6 +1,8 @@
 <?php
 namespace tests\unit;
 
+use EuroMillions\vo\ContactFormInfo;
+use EuroMillions\vo\Email;
 use Money\Currency;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
@@ -10,6 +12,7 @@ class UserServiceUnitTest extends UnitTestBase
     private $userRepository_double;
     private $currencyService_double;
     private $storageStrategy_double;
+    private $emailService_double;
 
     public function setUp()
     {
@@ -17,6 +20,7 @@ class UserServiceUnitTest extends UnitTestBase
         $this->userRepository_double = $this->getRepositoryDouble('UserRepository');
         $this->currencyService_double = $this->getServiceDouble('CurrencyService');
         $this->storageStrategy_double = $this->getInterfaceDouble('IUsersPreferencesStorageStrategy');
+        $this->emailService_double = $this->getServiceDouble('EmailService');
     }
 
     /**
@@ -70,13 +74,31 @@ class UserServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * method contactRequest
+     * when called
+     * should returnServiceActionResultTrue
+     */
+    public function test_contactRequest_called_returnServiceActionResultTrue()
+    {
+        $sut = $this->getSut();
+        $actual = $sut->contactRequest(
+            new ContactFormInfo(new Email('raul.mesa@panamedia.net'),
+            'Raul Mesa Ros',
+            'I have a problem',
+            'Playing the game'
+            )
+        );
+        $this->assertInstanceOf('Euromillions\vo\ServiceActionResult', $actual);
+        $this->assertTrue($actual->success());
+    }
 
     /**
      * @return \EuroMillions\services\UserService
      */
     protected function getSut()
     {
-        $sut = $this->getDomainServiceFactory()->getUserService($this->userRepository_double->reveal(), $this->currencyService_double->reveal(), $this->storageStrategy_double->reveal());
+        $sut = $this->getDomainServiceFactory()->getUserService($this->userRepository_double->reveal(), $this->currencyService_double->reveal(), $this->storageStrategy_double->reveal(), $this->emailService_double->reveal());
         return $sut;
     }
 }

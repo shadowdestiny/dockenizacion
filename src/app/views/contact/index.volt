@@ -15,13 +15,17 @@
 
             <p>{{ language.translate("What can we help you with?") }}</p>
 
-            <form novalidate>
-                <div class="box error">
-                    <span class="ico-warning ico"></span>
-                    <span class="txt">{{ language.translate("Error info lorem ipsum") }}</span>
-                </div>
+            {{  form('contact/guest') }}
 
-                <label for="option" class="label">
+
+                {% if message %}
+                    <div class="box {{ class }}">
+                        <span class="ico-warning ico"></span>
+                        <span class="txt">{{ message }}</span>
+                    </div>
+                {%  endif %}
+
+                <!--<label for="option" class="label">
                     {{ language.translate("Select a topic") }}
                 </label>
                 <select class="select" id="option">
@@ -30,31 +34,23 @@
                     <option>{{ language.translate("Account settings") }}</option>
                     <option>{{ language.translate("Bank and Credit card") }}</option>
                     <option>{{ language.translate("Other kind of questions") }}</option>
-                </select>
+                </select>-->
 
-
-
-                <label for="name" class="label"> 
-                    {{ language.translate("Full Name") }}
-                </label>
-                <input id="name" class="input" type="text">
-               
-
-                <label for="email" class="label">
-                    {{ language.translate("Email") }}
-                </label>
-                <input id="email" class="input" type="email">
-
-                <label for="email" class="label">
-                    {{ language.translate("Content") }}
-                </label>
-                <textarea id="textarea" class="textarea" rows="5"></textarea>
+                {{ guestContactForm.render('topic', {'class':'input'}) }}
+                {% if user_logged %}
+                    {{ "Hello " }}{{ user_name }}
+                {% else %}
+                    {{ guestContactForm.render('fullname', {'class':'input'}) }}
+                    {{ guestContactForm.render('email', {'class':'input'}) }}
+                {% endif %}
+                {{ guestContactForm.render('content', {'class':'input'}) }}
 
                 <div class="cl">
                     <label for="submitBtn" class="btn blue big submit right">{{ language.translate("Send message") }}</label>
                     <input id="submitBtn" type="submit" class="hidden">
                 </div>
-            </form>
+
+            {{ endform() }}
         </div>
     </div>
 </main>

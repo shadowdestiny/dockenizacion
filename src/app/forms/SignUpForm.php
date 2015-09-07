@@ -64,10 +64,14 @@ class SignUpForm extends RedirectableFormBase
         $this->add($password_confirm);
         // Remember
 
-        $country = new Select('country', [
-            'placeholder' => 'Select your country of residence',
-            'options' => $options['countries']
-        ]);
+        $country = new Select(
+            'country',
+            $options['countries'],
+            [
+                'useEmpty' => true,
+                'emptyText' => 'Select your country of residence',
+            ]
+        );
         $this->add($country);
 
         $csrf = new Hidden('csrf');

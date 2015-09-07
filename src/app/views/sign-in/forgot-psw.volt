@@ -18,7 +18,7 @@
 
 
                 {%if message %}
-                    <div class="box error">
+                    <div class="box success">
                         <span class="ico- ico"></span>
                         <span class="txt">{{ message }}</span>
                     </div>
