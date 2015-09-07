@@ -1,7 +1,7 @@
 {% extends "main.volt" %}
 {% block template_css %}<link rel="stylesheet" href="/css/play.css">{% endblock %}
 {% block template_scripts %}
-<script>{% include "play/index.js.volt" %}</script>
+<script>{% include "play/index.js" %}</script>
 {% endblock %}
 {% block bodyClass %}play{% endblock %}
 
@@ -17,7 +17,7 @@
 		<header class="bg-top">
 			<div class="cols">
 				<div class="col8">
-					<h1 class="h3"><span class="br">{{ language.translate("Next Draw") }}:</span> Friday 29 May 19:20</h2>
+					<h1 class="h3"><span class="br">{{ language.translate("Next Draw") }}:</span> Friday 29 May 19:20</h1>
 					<span class="h1">
 						Jackpot
 						{% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
