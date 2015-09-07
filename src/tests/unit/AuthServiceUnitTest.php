@@ -404,18 +404,6 @@ class AuthServiceUnitTest extends UnitTestBase
         $this->assertInstanceOf('Euromillions\vo\ServiceActionResult', $actual);
     }
 
-    /**
-     * method randomPasswordGenerator
-     * when called
-     * should returnPasswordSuccesfully
-     */
-    public function test_randomPasswordGenerator_called_returnPasswordSuccesfully()
-    {
-        $randomPassword = new RandomPasswordGenerator(new NullPasswordHasher());
-        $match = preg_match('/^[A-Za-z0-9_]+$/',$randomPassword->getPassword());
-        $this->assertEquals(1,$match);
-        $this->assertEquals(9,strlen($randomPassword->getPassword()));
-    }
 
     /**
      * @return AuthService
