@@ -37,7 +37,6 @@ class PublicSiteControllerBase extends ControllerBase
         $this->lotteriesDataService = $lotteriesDataService ? $lotteriesDataService : $this->domainServiceFactory->getLotteriesDataService();
         $this->languageService = $languageService ? $languageService : $this->language; //from DI
         $this->currencyService = $currencyService ? $currencyService : $this->domainServiceFactory->getServiceFactory()->getCurrencyService();
-        $this->currencyService = $currencyService ? $currencyService : $this->domainServiceFactory->getServiceFactory()->getCurrencyService();
         $this->userService = $userService ? $userService : $this->domainServiceFactory->getUserService();
         $this->authService = $authService ? $authService : $this->domainServiceFactory->getAuthService();
     }
@@ -60,7 +59,18 @@ class PublicSiteControllerBase extends ControllerBase
     private function setTopNavValues()
     {
         $user_currency = $this->userService->getMyCurrencyNameAndSymbol();
+        $is_logged = $this->authService->isLogged();
+        if($is_logged){
+            $user_balance = $this->userService->getBalance($this->authService->getCurrentUser()->getId());
+            $user = $this->authService->getCurrentUser();
+            $user_balance_raw = $user->getBalance()->getAmount();
+        }else{
+            $user_balance = '';
+            $user_balance_raw = '';
+        }
         $this->view->setVar('user_currency', $user_currency);
+        $this->view->setVar('user_balance', $user_balance);
+        $this->view->setVar('user_balance_raw', $user_balance_raw);
     }
 
     private function setNavValues()
@@ -76,6 +86,7 @@ class PublicSiteControllerBase extends ControllerBase
 
         $this->view->setVar('user_logged', $is_logged);
         $this->view->setVar('user_name', $user_name);
+
     }
 
     private function setActiveCurrencies()

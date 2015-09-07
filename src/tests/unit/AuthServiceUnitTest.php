@@ -138,6 +138,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $this->assertFalse($actual);
     }
 
+
     /**
      * @param $remember
      * @param bool $passwordIsGood

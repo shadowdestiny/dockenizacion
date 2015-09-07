@@ -10,9 +10,8 @@ class ContactController extends PublicSiteControllerBase
 
     public function indexAction()
     {
-        $errors = null;
 
-        //TODO: move topics like dynamic data
+        //EMTD: move topics like dynamic data
         $topics = [1 => 'Playing the game',
                    2 => 'Password, Email and Log in',
                    3 => 'Account settings',
@@ -27,15 +26,7 @@ class ContactController extends PublicSiteControllerBase
 
         if ($this->request->isPost()) {
             if ($guestContactForm->isValid($this->request->getPost()) == false) {
-                $messages = $guestContactForm->getMessages(true);
-                /**
-                 * @var string $field
-                 * @var Message\Group $field_messages
-                 */
-                foreach ($messages as $field => $field_messages) {
-                    $errors[] = $field_messages[0]->getMessage();
-                    $form_errors[$field] = ' error';
-                }
+                //
             } else {
                 $email = $this->request->getPost('email');
                 $fullName = $this->request->getPost('fullname');
