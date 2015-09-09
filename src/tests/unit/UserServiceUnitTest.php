@@ -2,6 +2,7 @@
 namespace tests\unit;
 
 use EuroMillions\components\NullPasswordHasher;
+use EuroMillions\config\Namespaces;
 use EuroMillions\entities\User;
 use EuroMillions\entities\VisaPaymentMethod;
 use EuroMillions\vo\CardHolderName;
@@ -28,15 +29,21 @@ class UserServiceUnitTest extends UnitTestBase
     private $emailService_double;
     private $paymentProviderService_double;
 
+    protected function getEntityManagerStubExtraMappings()
+    {
+        return [
+            Namespaces::ENTITIES_NS . 'User' => $this->userRepository_double
+        ];
+    }
+
     public function setUp()
     {
-        parent::setUp();
         $this->userRepository_double = $this->getRepositoryDouble('UserRepository');
         $this->currencyService_double = $this->getServiceDouble('CurrencyService');
         $this->storageStrategy_double = $this->getInterfaceDouble('IUsersPreferencesStorageStrategy');
         $this->emailService_double = $this->getServiceDouble('EmailService');
         $this->paymentProviderService_double = $this->getServiceDouble('PaymentProviderService');
-
+        parent::setUp();
     }
 
     /**
@@ -137,6 +144,10 @@ class UserServiceUnitTest extends UnitTestBase
         $paymentMethod = new VisaPaymentMethod($user ,$creditCard);
         $amount = new Money(5000, new Currency('EUR'));
         $this->paymentProviderService_double->charge($paymentMethod,$amount)->willReturn(true);
+        $this->userRepository_double->add($user);
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->flush($user)->shouldNotBeCalled();
+        $this->stubEntityManager($entityManager_stub);
         $sut = $this->getSut();
         $actual = $sut->recharge($user,$paymentMethod, $amount);
         $this->assertTrue($actual->success());
@@ -166,15 +177,8 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_recharge_callPassAmountGreaterThanZeroAndProviderReturnsOkResult_increaseUserBalanceInTheGivenAmount()
     {
-        $creditCard = $this->getCreditCard();
-        $user = $this->getUser();
-        $paymentMethod = new VisaPaymentMethod($user ,$creditCard);
-        $amount = new Money(5000, new Currency('EUR'));
-        $this->paymentProviderService_double->charge($paymentMethod,$amount)->willReturn(true);
-        $sut = $this->getSut();
-        $actual = $sut->recharge($user, $paymentMethod, $amount);
         $expected = new ServiceActionResult(true, new Money(10000, new Currency('EUR')));
-        $this->assertEquals($expected, $actual);
+        $this->exerciseRecharge(true, $expected->success());
     }
 
     /**
@@ -184,15 +188,8 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_recharge_ProviderReturnKoResult_leaveUserBalanceLikeBeforeAndReturnServiceActionResultWithFalse()
     {
-        $creditCard = $this->getCreditCard();
-        $user = $this->getUser();
-        $paymentMethod = new VisaPaymentMethod($user ,$creditCard);
-        $amount = new Money(5000, new Currency('EUR'));
-        $this->paymentProviderService_double->charge($paymentMethod,$amount)->willReturn(false);
         $expected = new ServiceActionResult(false, 'Provider denied the operation');
-        $sut = $this->getSut();
-        $actual = $sut->recharge($user, $paymentMethod, $amount);
-        $this->assertEquals($expected, $actual);
+        $this->exerciseRecharge(false, $expected->success());
     }
 
 
@@ -236,7 +233,25 @@ class UserServiceUnitTest extends UnitTestBase
      */
     protected function getSut()
     {
-        $sut = $this->getDomainServiceFactory()->getUserService($this->userRepository_double->reveal(), $this->currencyService_double->reveal(), $this->storageStrategy_double->reveal(), $this->emailService_double->reveal(), $this->paymentProviderService_double->reveal());
+        $sut = $this->getDomainServiceFactory()->getUserService($this->currencyService_double->reveal(), $this->storageStrategy_double->reveal(), $this->emailService_double->reveal(), $this->paymentProviderService_double->reveal());
         return $sut;
+    }
+
+    /**
+     * @param $payment_provider_result
+     * @param $expected
+     */
+    protected function exerciseRecharge($payment_provider_result, $expected)
+    {
+        $creditCard = $this->getCreditCard();
+        $user = $this->getUser();
+        $paymentMethod = new VisaPaymentMethod($user, $creditCard);
+        $amount = new Money(5000, new Currency('EUR'));
+        $this->paymentProviderService_double->charge($paymentMethod, $amount)->willReturn($payment_provider_result);
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->flush($user)->shouldNotBeCalled();
+        $sut = $this->getSut();
+        $actual = $sut->recharge($user, $paymentMethod, $amount);
+        $this->assertEquals($expected, $actual->success());
     }
 }

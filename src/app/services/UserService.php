@@ -2,6 +2,7 @@
 namespace EuroMillions\services;
 use Alcohol\ISO4217;
 use antonienko\MoneyFormatter\MoneyFormatter;
+use Doctrine\ORM\EntityManager;
 use EuroMillions\entities\PaymentMethod;
 use EuroMillions\entities\User;
 use EuroMillions\interfaces\IUsersPreferencesStorageStrategy;
@@ -37,9 +38,17 @@ class UserService
      */
     private $paymentProviderService;
 
-    public function __construct(UserRepository $userRepository, CurrencyService $currencyService, IUsersPreferencesStorageStrategy $strategy, EmailService $emailService, PaymentProviderService $paymentProviderService)
+    /** @var EntityManager */
+    private $entityManager;
+
+    public function __construct(CurrencyService $currencyService,
+                                IUsersPreferencesStorageStrategy $strategy,
+                                EmailService $emailService,
+                                PaymentProviderService $paymentProviderService,
+                                EntityManager $entityManager)
     {
-        $this->userRepository = $userRepository;
+        $this->entityManager = $entityManager;
+        $this->userRepository = $entityManager->getRepository('EuroMillions\entities\User');
         $this->currencyService = $currencyService;
         $this->storageStrategy = $strategy;
         $this->emailService = $emailService;
@@ -120,8 +129,14 @@ class UserService
         if($amount->getAmount() > 0){
             $result = $this->paymentProviderService->charge($paymentMethod,$amount);
             if ($result) {
-                $user->setBalance($user->getBalance()->add($amount));
-                return new ServiceActionResult(true, $user->getBalance());
+                try{
+                    $user->setBalance($user->getBalance()->add($amount));
+                    $this->userRepository->add($user);
+                    $this->entityManager->flush($user);
+                    return new ServiceActionResult(true, $user->getBalance()->getAmount());
+                } catch(Exception $e){
+                    $error_message = 'Error updating balance';
+                }
             } else {
                 $error_message = 'Provider denied the operation';
             }
@@ -130,4 +145,5 @@ class UserService
         }
         return new ServiceActionResult(false, $error_message);
     }
+
 }
