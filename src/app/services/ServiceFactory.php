@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\services;
 
+use EuroMillions\interfaces\IPaymentProvider;
 use Phalcon\DiInterface;
 use EuroMillions\interfaces\ICurrencyApi;
 use EuroMillions\services\external_apis\RedisCurrencyApiCache;
@@ -47,6 +48,7 @@ class ServiceFactory
         if (!$mailServiceApi) $mailServiceApi = new MandrillWrapper($api_key);
         return new EmailService($mailServiceApi, $config);
     }
+
 
     public function getDI()
     {

@@ -10,15 +10,18 @@ use Phalcon\Test\UnitTestCase;
 class ExpiryDateUnitTest extends UnitTestCase
 {
     /**
-     * method __construct
+     * method assertExpiryDate
      * when calledWithExpiredDate
      * should throw
      * @dataProvider getExpiryDates
      */
-    public function test___construct_calledWithExpiredDate_throw($excepted)
+    public function test___calledWithExpiredDate_calledWithExpiredDate_throw($excepted)
     {
         $this->setExpectedException('\EuroMillions\exceptions\InvalidExpirationDateException');
-        new ExpiryDate($excepted);
+        $sut = new ExpiryDate();
+        $sut->assertExpiryDate($excepted);
+
+
     }
 
     public function getExpiryDates()

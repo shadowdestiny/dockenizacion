@@ -2,6 +2,7 @@
 namespace EuroMillions\services;
 use Alcohol\ISO4217;
 use antonienko\MoneyFormatter\MoneyFormatter;
+use EuroMillions\entities\PaymentMethod;
 use EuroMillions\entities\User;
 use EuroMillions\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\repositories\UserRepository;
@@ -31,12 +32,18 @@ class UserService
      */
     private $emailService;
 
-    public function __construct(UserRepository $userRepository, CurrencyService $currencyService, IUsersPreferencesStorageStrategy $strategy, EmailService $emailService)
+    /**
+     * @var PaymentProviderService
+     */
+    private $paymentProviderService;
+
+    public function __construct(UserRepository $userRepository, CurrencyService $currencyService, IUsersPreferencesStorageStrategy $strategy, EmailService $emailService, PaymentProviderService $paymentProviderService)
     {
         $this->userRepository = $userRepository;
         $this->currencyService = $currencyService;
         $this->storageStrategy = $strategy;
         $this->emailService = $emailService;
+        $this->paymentProviderService = $paymentProviderService;
     }
 
     public function getBalance(UserId $userId)
@@ -100,5 +107,27 @@ class UserService
         }catch(Exception $e){
             return new ServiceActionResult(false, 'Sorry, we have problems receiving data');
         }
+    }
+
+    /**
+     * @param User $user
+     * @param PaymentMethod $paymentMethod
+     * @param Money $amount
+     * @return ServiceActionResult
+     */
+    public function recharge(User $user, PaymentMethod $paymentMethod,Money $amount)
+    {
+        if($amount->getAmount() > 0){
+            $result = $this->paymentProviderService->charge($paymentMethod,$amount);
+            if ($result) {
+                $user->setBalance($user->getBalance()->add($amount));
+                return new ServiceActionResult(true, $user->getBalance());
+            } else {
+                $error_message = 'Provider denied the operation';
+            }
+        } else {
+            $error_message = 'Amount should be greater than 0';
+        }
+        return new ServiceActionResult(false, $error_message);
     }
 }

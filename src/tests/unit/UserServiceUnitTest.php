@@ -3,9 +3,16 @@ namespace tests\unit;
 
 use EuroMillions\components\NullPasswordHasher;
 use EuroMillions\entities\User;
+use EuroMillions\entities\VisaPaymentMethod;
+use EuroMillions\vo\CardHolderName;
+use EuroMillions\vo\CardNumber;
 use EuroMillions\vo\ContactFormInfo;
+use EuroMillions\vo\CreditCard;
+use EuroMillions\vo\CVV;
 use EuroMillions\vo\Email;
+use EuroMillions\vo\ExpiryDate;
 use EuroMillions\vo\Password;
+use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
 use Money\Currency;
 use Money\Money;
@@ -19,6 +26,7 @@ class UserServiceUnitTest extends UnitTestBase
     private $currencyService_double;
     private $storageStrategy_double;
     private $emailService_double;
+    private $paymentProviderService_double;
 
     public function setUp()
     {
@@ -27,6 +35,8 @@ class UserServiceUnitTest extends UnitTestBase
         $this->currencyService_double = $this->getServiceDouble('CurrencyService');
         $this->storageStrategy_double = $this->getInterfaceDouble('IUsersPreferencesStorageStrategy');
         $this->emailService_double = $this->getServiceDouble('EmailService');
+        $this->paymentProviderService_double = $this->getServiceDouble('PaymentProviderService');
+
     }
 
     /**
@@ -107,6 +117,91 @@ class UserServiceUnitTest extends UnitTestBase
     public function test_getBalance_called_returnBalanceByUser()
     {
         $currency = 'EUR';
+        $user = $this->getUser();
+        $this->userRepository_double->find(Argument::any())->willReturn($user);
+        $this->currencyService_double->toString(Argument::any())->willReturn('50');
+        $sut = $this->getSut();
+        $actual = $sut->getBalance($user->getId());
+        $this->assertGreaterThan(0, $actual, "Amount should be an greater than 0");
+    }
+
+    /**
+     * method recharge
+     * when calledAndPaymentProviderSuccess
+     * should returnServiceResultActionTrue
+     */
+    public function test_recharge_calledAndPaymentProviderSuccess_returnServiceResultActionTrue()
+    {
+        $creditCard = $this->getCreditCard();
+        $user = $this->getUser();
+        $paymentMethod = new VisaPaymentMethod($user ,$creditCard);
+        $amount = new Money(5000, new Currency('EUR'));
+        $this->paymentProviderService_double->charge($paymentMethod,$amount)->willReturn(true);
+        $sut = $this->getSut();
+        $actual = $sut->recharge($user,$paymentMethod, $amount);
+        $this->assertTrue($actual->success());
+    }
+
+    /**
+     * method recharge
+     * when calledPassAmountZero
+     * should returnServiceResultActionFalse
+     */
+    public function test_recharge_calledPassAmountZero_returnServiceResultActionFalse()
+    {
+        $creditCard = $this->getCreditCard();
+        $user = $this->getUser();
+        $sut = $this->getSut();
+        $actual = $sut->recharge($user,new VisaPaymentMethod(new User(),$creditCard),
+            new Money(0, new Currency('EUR')));
+        $this->assertFalse($actual->success());
+    }
+
+//EMTEST probar que se suma el amount
+
+    /**
+     * method recharge
+     * when callPassAmountGreaterThanZeroAndProviderReturnsOkResult
+     * should increaseUserBalanceInTheGivenAmount
+     */
+    public function test_recharge_callPassAmountGreaterThanZeroAndProviderReturnsOkResult_increaseUserBalanceInTheGivenAmount()
+    {
+        $creditCard = $this->getCreditCard();
+        $user = $this->getUser();
+        $paymentMethod = new VisaPaymentMethod($user ,$creditCard);
+        $amount = new Money(5000, new Currency('EUR'));
+        $this->paymentProviderService_double->charge($paymentMethod,$amount)->willReturn(true);
+        $sut = $this->getSut();
+        $actual = $sut->recharge($user, $paymentMethod, $amount);
+        $expected = new ServiceActionResult(true, new Money(10000, new Currency('EUR')));
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * method recharge
+     * when ProviderReturnKoResult
+     * should leaveUserBalanceLikeBeforeAndReturnServiceActionResultWithFalse
+     */
+    public function test_recharge_ProviderReturnKoResult_leaveUserBalanceLikeBeforeAndReturnServiceActionResultWithFalse()
+    {
+        $creditCard = $this->getCreditCard();
+        $user = $this->getUser();
+        $paymentMethod = new VisaPaymentMethod($user ,$creditCard);
+        $amount = new Money(5000, new Currency('EUR'));
+        $this->paymentProviderService_double->charge($paymentMethod,$amount)->willReturn(false);
+        $expected = new ServiceActionResult(false, 'Provider denied the operation');
+        $sut = $this->getSut();
+        $actual = $sut->recharge($user, $paymentMethod, $amount);
+        $this->assertEquals($expected, $actual);
+    }
+
+
+    /**
+     * @param string $currency
+     * @return User
+     */
+    private function getUser($currency = 'EUR')
+    {
         $user = new User();
         $user->initialize(
             [
@@ -116,24 +211,32 @@ class UserServiceUnitTest extends UnitTestBase
                 'email'    => new Email('raul.mesa@panamedia.net'),
                 'password' => new Password('passworD01', new NullPasswordHasher()),
                 'validated' => false,
-                'balance' => new Money(50,new Currency($currency)),
+                'balance' => new Money(5000,new Currency($currency)),
                 'validation_token' => '33e4e6a08f82abb38566fc3bb8e8ef0d'
             ]
         );
-
-        $this->userRepository_double->find(Argument::any())->willReturn($user);
-        $this->currencyService_double->toString(Argument::any())->willReturn('50');
-        $sut = $this->getSut();
-        $actual = $sut->getBalance($user->getId());
-        $this->assertGreaterThan(0, $actual, "Amount should be an greater than 0");
+        return $user;
     }
+
+    /**
+     * @return CreditCard
+     */
+    private function getCreditCard()
+    {
+        return $creditCard = new CreditCard(new CardHolderName('Raul Mesa Ros'),
+            new CardNumber('5500005555555559'),
+            new ExpiryDate('10/19'),
+            new CVV('123')
+        );
+    }
+
 
     /**
      * @return \EuroMillions\services\UserService
      */
     protected function getSut()
     {
-        $sut = $this->getDomainServiceFactory()->getUserService($this->userRepository_double->reveal(), $this->currencyService_double->reveal(), $this->storageStrategy_double->reveal(), $this->emailService_double->reveal());
+        $sut = $this->getDomainServiceFactory()->getUserService($this->userRepository_double->reveal(), $this->currencyService_double->reveal(), $this->storageStrategy_double->reveal(), $this->emailService_double->reveal(), $this->paymentProviderService_double->reveal());
         return $sut;
     }
 }

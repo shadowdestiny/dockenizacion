@@ -11,15 +11,12 @@ class ExpiryDate
 
     private $expiryDate;
 
-    public function __construct($expiryDate)
+    public function __construct()
     {
-        $value = $this->assertExpiryDate($expiryDate);
-        if(empty($value)){
-            throw new InvalidExpirationDateException('The expiration date is not valid');
-        }
+
     }
 
-    private function assertExpiryDate($expiryDate)
+    public function assertExpiryDate($expiryDate)
     {
         $date = explode('/',$expiryDate);
 
@@ -27,10 +24,10 @@ class ExpiryDate
             $expires = \DateTime::createFromFormat('my',$date[0] . $date[1]);
             $now = new \DateTime();
 
-            if($expires < $now) return false;
+            if($expires < $now) throw new InvalidExpirationDateException('The expiration date is not valid');
 
             return true;
         }
-        return false;
+        throw new InvalidExpirationDateException('The expiration date is not valid');
     }
 }

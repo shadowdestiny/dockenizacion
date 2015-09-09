@@ -2,11 +2,9 @@
 
 namespace EuroMillions\entities;
 
-use EuroMillions\interfaces\IPaymentMethod;
-use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\CreditCard;
 
-class VisaPaymentMethod implements IPaymentMethod
+class VisaPaymentMethod extends PaymentMethod
 {
     /** @var  CreditCard */
     private $creditCard;
@@ -18,11 +16,6 @@ class VisaPaymentMethod implements IPaymentMethod
     {
         $this->user = $user;
         $this->creditCard = $creditCard;
-    }
-
-    public function charge($amount)
-    {
-        return new ServiceActionResult(true,'id transaction: xxxxxxxx');
     }
 
     public function creditCard()
