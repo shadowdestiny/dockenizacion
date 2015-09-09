@@ -4,7 +4,7 @@ namespace tests\integration;
 use EuroMillions\components\NullPasswordHasher;
 use EuroMillions\config\Namespaces;
 use EuroMillions\entities\User;
-use EuroMillions\entities\VisaPaymentMethod;
+use EuroMillions\entities\CreditCardPaymentMethod;
 use EuroMillions\vo\CardHolderName;
 use EuroMillions\vo\CardNumber;
 use EuroMillions\vo\CreditCard;
@@ -67,7 +67,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
             new ExpiryDate('10/19'),
             new CVV('123')
         );
-        $paymentMethod = new VisaPaymentMethod($user, $creditCard);
+        $paymentMethod = new CreditCardPaymentMethod($user, $creditCard);
         $amount = new Money(6000, new Currency('EUR'));
         $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
         $paymentProvider_double->charge($paymentMethod,$amount)->willReturn(true);

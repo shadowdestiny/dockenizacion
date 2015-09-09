@@ -4,12 +4,12 @@ namespace EuroMillions\entities;
 
 use EuroMillions\vo\CreditCard;
 
-class VisaPaymentMethod extends PaymentMethod
+class CreditCardPaymentMethod extends PaymentMethod
 {
     /** @var  CreditCard */
     private $creditCard;
     /** @var  User */
-    private $user;
+    protected $user;
 
 
     public function __construct(User $user, CreditCard $creditCard)
@@ -21,5 +21,15 @@ class VisaPaymentMethod extends PaymentMethod
     public function creditCard()
     {
         return $this->creditCard;
+    }
+
+    public function getType()
+    {
+        return $this->creditCard()->getCompany();
+    }
+
+    public function getId()
+    {
+
     }
 }

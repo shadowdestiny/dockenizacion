@@ -9,7 +9,7 @@ use EuroMillions\exceptions\InvalidExpirationDateException;
 class ExpiryDate
 {
 
-    private $expiryDate;
+    private $expiry_date;
 
     public function __construct()
     {

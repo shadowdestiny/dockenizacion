@@ -4,7 +4,7 @@ namespace tests\unit;
 use EuroMillions\components\NullPasswordHasher;
 use EuroMillions\config\Namespaces;
 use EuroMillions\entities\User;
-use EuroMillions\entities\VisaPaymentMethod;
+use EuroMillions\entities\CreditCardPaymentMethod;
 use EuroMillions\vo\CardHolderName;
 use EuroMillions\vo\CardNumber;
 use EuroMillions\vo\ContactFormInfo;
@@ -141,7 +141,7 @@ class UserServiceUnitTest extends UnitTestBase
     {
         $creditCard = $this->getCreditCard();
         $user = $this->getUser();
-        $paymentMethod = new VisaPaymentMethod($user ,$creditCard);
+        $paymentMethod = new CreditCardPaymentMethod($user ,$creditCard);
         $amount = new Money(5000, new Currency('EUR'));
         $this->paymentProviderService_double->charge($paymentMethod,$amount)->willReturn(true);
         $this->userRepository_double->add($user);
@@ -163,7 +163,7 @@ class UserServiceUnitTest extends UnitTestBase
         $creditCard = $this->getCreditCard();
         $user = $this->getUser();
         $sut = $this->getSut();
-        $actual = $sut->recharge($user,new VisaPaymentMethod(new User(),$creditCard),
+        $actual = $sut->recharge($user,new CreditCardPaymentMethod(new User(),$creditCard),
             new Money(0, new Currency('EUR')));
         $this->assertFalse($actual->success());
     }
@@ -245,7 +245,7 @@ class UserServiceUnitTest extends UnitTestBase
     {
         $creditCard = $this->getCreditCard();
         $user = $this->getUser();
-        $paymentMethod = new VisaPaymentMethod($user, $creditCard);
+        $paymentMethod = new CreditCardPaymentMethod($user, $creditCard);
         $amount = new Money(5000, new Currency('EUR'));
         $this->paymentProviderService_double->charge($paymentMethod, $amount)->willReturn($payment_provider_result);
         $entityManager_stub = $this->getEntityManagerDouble();
