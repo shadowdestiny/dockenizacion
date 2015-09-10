@@ -28,11 +28,13 @@ class UserServiceUnitTest extends UnitTestBase
     private $storageStrategy_double;
     private $emailService_double;
     private $paymentProviderService_double;
+    private $paymentMethodRepository_double;
 
     protected function getEntityManagerStubExtraMappings()
     {
         return [
-            Namespaces::ENTITIES_NS . 'User' => $this->userRepository_double
+            Namespaces::ENTITIES_NS . 'User' => $this->userRepository_double,
+            Namespaces::ENTITIES_NS . 'PaymentMethod' => $this->paymentMethodRepository_double
         ];
     }
 
@@ -43,6 +45,7 @@ class UserServiceUnitTest extends UnitTestBase
         $this->storageStrategy_double = $this->getInterfaceDouble('IUsersPreferencesStorageStrategy');
         $this->emailService_double = $this->getServiceDouble('EmailService');
         $this->paymentProviderService_double = $this->getServiceDouble('PaymentProviderService');
+        $this->paymentMethodRepository_double = $this->getRepositoryDouble('PaymentMethodRepository');
         parent::setUp();
     }
 
@@ -192,6 +195,30 @@ class UserServiceUnitTest extends UnitTestBase
         $this->exerciseRecharge(false, $expected->success());
     }
 
+    /**
+     * method addNewPaymentMethod
+     * when called
+     * should returnServiceActionResultTrue
+     */
+    public function test_addNewPaymentMethod_called_returnServiceActionResultTrue()
+    {
+        $expected = new ServiceActionResult(true);
+        $this->exerciseAddNewPaymentMethod($expected);
+    }
+
+    /**
+     * method addNewPaymentMethod
+     * when NoPersist
+     * should returnServiceActionResultFalse
+     */
+    public function test_addNewPaymentMethod_NoPersist_returnServiceActionResultFalse()
+    {
+        $expected = (new ServiceActionResult(false,'Error inserting payment method'));
+        $this->exerciseAddNewPaymentMethod($expected);
+    }
+    
+    
+
 
     /**
      * @param string $currency
@@ -254,4 +281,19 @@ class UserServiceUnitTest extends UnitTestBase
         $actual = $sut->recharge($user, $paymentMethod, $amount);
         $this->assertEquals($expected, $actual->success());
     }
+
+    /**
+     * @param $expected
+     */
+    protected function exerciseAddNewPaymentMethod(ServiceActionResult $expected)
+    {
+        $user = $this->getUser();
+        $creditCard = $this->getCreditCard();
+        $paymentMethod = new CreditCardPaymentMethod($user, $creditCard);
+        $this->paymentMethodRepository_double->add(Argument::any())->willReturn($expected->success());
+        $sut = $this->getSut();
+        $actual = $sut->addNewPaymentMethod($paymentMethod);
+        $this->assertEquals($expected, $actual);
+    }
+
 }

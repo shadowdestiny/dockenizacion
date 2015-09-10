@@ -6,7 +6,7 @@ namespace EuroMillions\entities;
 
 use EuroMillions\interfaces\IEntity;
 
-class PaymentMethod extends EntityBase implements IEntity
+abstract class PaymentMethod extends EntityBase implements IEntity
 {
 
     protected $id;
@@ -15,10 +15,11 @@ class PaymentMethod extends EntityBase implements IEntity
     protected $cardHolderName;
     protected $expiry_date;
     protected $cvv;
-    protected $type;
+    protected $payment_method_type;
     protected $company;
+    protected $type;
 
-    public function getType()
+    public function getPaymentMethodType()
     {
 
     }
@@ -26,6 +27,19 @@ class PaymentMethod extends EntityBase implements IEntity
     public function getId()
     {
         // TODO: Implement getId() method.
+    }
+
+    public function getUser()
+    {
+
+    }
+
+    /**
+     * @param $userID
+     */
+    public function setUser($userID)
+    {
+        $this->user=$userID;
     }
 
     public function getCardNumber()

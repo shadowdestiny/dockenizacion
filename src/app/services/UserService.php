@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use EuroMillions\entities\PaymentMethod;
 use EuroMillions\entities\User;
 use EuroMillions\interfaces\IUsersPreferencesStorageStrategy;
+use EuroMillions\repositories\PaymentMethodRepository;
 use EuroMillions\repositories\UserRepository;
 use EuroMillions\vo\ContactFormInfo;
 use EuroMillions\vo\ServiceActionResult;
@@ -41,6 +42,10 @@ class UserService
     /** @var EntityManager */
     private $entityManager;
 
+    /** @var PaymentMethodRepository */
+    private $paymentMethodRepository;
+
+
     public function __construct(CurrencyService $currencyService,
                                 IUsersPreferencesStorageStrategy $strategy,
                                 EmailService $emailService,
@@ -49,6 +54,7 @@ class UserService
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $entityManager->getRepository('EuroMillions\entities\User');
+        $this->paymentMethodRepository = $entityManager->getRepository('EuroMillions\entities\PaymentMethod');
         $this->currencyService = $currencyService;
         $this->storageStrategy = $strategy;
         $this->emailService = $emailService;
@@ -144,6 +150,24 @@ class UserService
             $error_message = 'Amount should be greater than 0';
         }
         return new ServiceActionResult(false, $error_message);
+    }
+
+    /**
+     * @param PaymentMethod $paymentMethod
+     * @return ServiceActionResult
+     */
+    public function addNewPaymentMethod(PaymentMethod $paymentMethod)
+    {
+        try{
+            $result = $this->paymentMethodRepository->add($paymentMethod);
+            if($result){
+                return new ServiceActionResult(true);
+            }else{
+                return new ServiceActionResult(false,'Error inserting payment method');
+            }
+        }catch(Exception $e){
+            return new ServiceActionResult(false,'An exception ocurred while payment method was saved');
+        }
     }
 
 }
