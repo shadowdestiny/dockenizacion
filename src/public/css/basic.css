@@ -40,7 +40,11 @@ header, footer, figure, details, hgroup, section, article, nav, aside, picture, 
   display: block;
 }
 
-img, object, audio, video, svg, select {
+img, object, audio, video {
+  max-width: 100%;
+}
+
+svg, select {
   width: 100%;
 }
 
