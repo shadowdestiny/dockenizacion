@@ -170,4 +170,22 @@ class UserService
         }
     }
 
+    /**
+     * @param UserId $userId
+     * @return ServiceActionResult
+     */
+    public function getPaymentMethods(UserId $userId)
+    {
+        $user = $this->userRepository->find($userId->id());
+        if(!empty($user)){
+            $paymentMethodCollection = $this->paymentMethodRepository->getPaymentMethodsByUser($user);
+            if(!empty($paymentMethodCollection)){
+                return new ServiceActionResult(true,$paymentMethodCollection);
+            }else{
+                return new ServiceActionResult(false,'You don\'t have any payment method registered');
+            }
+        }
+
+    }
+
 }

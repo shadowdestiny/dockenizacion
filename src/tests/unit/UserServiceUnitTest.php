@@ -216,7 +216,28 @@ class UserServiceUnitTest extends UnitTestBase
         $expected = (new ServiceActionResult(false,'Error inserting payment method'));
         $this->exerciseAddNewPaymentMethod($expected);
     }
-    
+
+    /**
+     * method getPaymentMethods
+     * when called
+     * should returnServiceActionResultTrueWithArrayOfPaymentMethods
+     */
+    public function test_getPaymentMethods_called_returnServiceActionResultTrueWithArrayOfPaymentMethods()
+    {
+        $expected = new ServiceActionResult(true,array('EuroMillions\Entities\PaymentMethod'));
+        $this->exerciseGetPaymentMethod($expected,['EuroMillions\Entities\PaymentMethod']);
+    }
+
+    /**
+     * method getPaymentMethods
+     * when calledWithValidUser
+     * should returnServiceActionResultFalseWithEmptyArray
+     */
+    public function test_getPaymentMethods_calledWithValidUser_returnServiceActionResultFalseWithEmptyArray()
+    {
+        $expected = new ServiceActionResult(false,'You don\'t have any payment method registered');
+        $this->exerciseGetPaymentMethod($expected);
+    }
     
 
 
@@ -294,6 +315,21 @@ class UserServiceUnitTest extends UnitTestBase
         $sut = $this->getSut();
         $actual = $sut->addNewPaymentMethod($paymentMethod);
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @param $expected
+     * @param array $return
+     * @return ServiceActionResult
+     */
+    protected function exerciseGetPaymentMethod($expected,$return = [])
+    {
+        $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
+        $user = $this->getUser();
+        $this->userRepository_double->find($userId)->willReturn($user);
+        $this->paymentMethodRepository_double->getPaymentMethodsByUser($user)->willReturn($return);
+        $actual = $this->getSut()->getPaymentMethods($userId);
+        $this->assertEquals($expected,$actual);
     }
 
 }
