@@ -5,15 +5,17 @@ namespace EuroMillions\vo;
 
 
 use EuroMillions\exceptions\InvalidExpirationDateException;
+use EuroMillions\vo\base\StringLiteral;
 
-class ExpiryDate
+class ExpiryDate extends StringLiteral
 {
 
     private $expiry_date;
 
-    public function __construct()
+    public function __construct($expiry_date)
     {
-
+        $this->expiry_date = $expiry_date;
+        parent::__construct($expiry_date);
     }
 
     public function assertExpiryDate($expiryDate)

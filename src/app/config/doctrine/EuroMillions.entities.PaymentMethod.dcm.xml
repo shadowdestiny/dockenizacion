@@ -11,7 +11,7 @@
 
         <discriminator-column name="type" type="string" />
         <discriminator-map>
-            <discriminator-mapping value="cat" class="EuroMillions\entities\CreditCardPaymentMethod" />
+            <discriminator-mapping value="1" class="EuroMillions\entities\CreditCardPaymentMethod" />
         </discriminator-map>
 
         <id name="id" type="integer">
@@ -28,7 +28,8 @@
         <embedded name="cardNumber" class="EuroMillions\vo\CardNumber" use-column-prefix="false"/>
         <embedded name="cardHolderName" class="EuroMillions\vo\CardHolderName" use-column-prefix="false"/>
         <embedded name="expiry_date" class="EuroMillions\vo\ExpiryDate" use-column-prefix="false"/>
-        <many-to-one target-entity="EuroMillions\entities\User" field="user" inversed-by="paymentMethod" />
+        <many-to-one target-entity="EuroMillions\entities\User" field="user" inversed-by="paymentMethod">
+        </many-to-one>
 
     </entity>
 </doctrine-mapping>

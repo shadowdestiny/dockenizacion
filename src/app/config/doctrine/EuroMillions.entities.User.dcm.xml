@@ -25,7 +25,6 @@
 
         <one-to-many target-entity="EuroMillions\entities\PaymentMethod" mapped-by="payment_method"
                      field="paymentMethod">
-            <cascade><cascade-remove /></cascade>
         </one-to-many>
 
 

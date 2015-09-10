@@ -8,14 +8,16 @@ class CreditCardPaymentMethod extends PaymentMethod
 {
     /** @var  CreditCard */
     private $creditCard;
-    /** @var  User */
-    protected $user;
 
 
-    public function __construct(User $user, CreditCard $creditCard)
+    public function __construct(CreditCard $creditCard)
     {
-        $this->user = $user;
         $this->creditCard = $creditCard;
+        $this->cardHolderName = $creditCard->cardHolderName();
+        $this->cardNumber = $creditCard->cardNumber();
+        $this->cvv = $creditCard->cvv();
+        $this->expiry_date = $creditCard->expiryDate();
+        $this->company = $creditCard->getCompany();
     }
 
     public function creditCard()
@@ -32,4 +34,5 @@ class CreditCardPaymentMethod extends PaymentMethod
     {
 
     }
+
 }

@@ -18,7 +18,7 @@ class ExpiryDateUnitTest extends UnitTestCase
     public function test___calledWithExpiredDate_calledWithExpiredDate_throw($excepted)
     {
         $this->setExpectedException('\EuroMillions\exceptions\InvalidExpirationDateException');
-        $sut = new ExpiryDate();
+        $sut = new ExpiryDate($excepted);
         $sut->assertExpiryDate($excepted);
 
 

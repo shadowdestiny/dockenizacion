@@ -144,7 +144,7 @@ class UserServiceUnitTest extends UnitTestBase
     {
         $creditCard = $this->getCreditCard();
         $user = $this->getUser();
-        $paymentMethod = new CreditCardPaymentMethod($user ,$creditCard);
+        $paymentMethod = new CreditCardPaymentMethod($creditCard);
         $amount = new Money(5000, new Currency('EUR'));
         $this->paymentProviderService_double->charge($paymentMethod,$amount)->willReturn(true);
         $this->userRepository_double->add($user);
@@ -166,7 +166,7 @@ class UserServiceUnitTest extends UnitTestBase
         $creditCard = $this->getCreditCard();
         $user = $this->getUser();
         $sut = $this->getSut();
-        $actual = $sut->recharge($user,new CreditCardPaymentMethod(new User(),$creditCard),
+        $actual = $sut->recharge($user,new CreditCardPaymentMethod($creditCard),
             new Money(0, new Currency('EUR')));
         $this->assertFalse($actual->success());
     }
@@ -272,7 +272,7 @@ class UserServiceUnitTest extends UnitTestBase
     {
         $creditCard = $this->getCreditCard();
         $user = $this->getUser();
-        $paymentMethod = new CreditCardPaymentMethod($user, $creditCard);
+        $paymentMethod = new CreditCardPaymentMethod($creditCard);
         $amount = new Money(5000, new Currency('EUR'));
         $this->paymentProviderService_double->charge($paymentMethod, $amount)->willReturn($payment_provider_result);
         $entityManager_stub = $this->getEntityManagerDouble();
@@ -289,7 +289,7 @@ class UserServiceUnitTest extends UnitTestBase
     {
         $user = $this->getUser();
         $creditCard = $this->getCreditCard();
-        $paymentMethod = new CreditCardPaymentMethod($user, $creditCard);
+        $paymentMethod = new CreditCardPaymentMethod($creditCard);
         $this->paymentMethodRepository_double->add(Argument::any())->willReturn($expected->success());
         $sut = $this->getSut();
         $actual = $sut->addNewPaymentMethod($paymentMethod);

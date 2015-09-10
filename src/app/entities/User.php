@@ -32,7 +32,6 @@ class User extends EntityBase implements IEntity, IUser
     /** @var  ValidationToken */
     protected $validationToken;
 
-    /** @var  PaymentMethod */
     private $paymentMethod;
 
 
@@ -161,5 +160,10 @@ class User extends EntityBase implements IEntity, IUser
     public function getValidationToken()
     {
         return $this->validationToken;
+    }
+
+    public function toString()
+    {
+        return $this;
     }
 }

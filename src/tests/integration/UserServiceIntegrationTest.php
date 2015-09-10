@@ -67,7 +67,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
             new ExpiryDate('10/19'),
             new CVV('123')
         );
-        $paymentMethod = new CreditCardPaymentMethod($user, $creditCard);
+        $paymentMethod = new CreditCardPaymentMethod($creditCard);
         $amount = new Money(6000, new Currency('EUR'));
         $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
         $paymentProvider_double->charge($paymentMethod,$amount)->willReturn(true);

@@ -21,12 +21,20 @@ abstract class PaymentMethod extends EntityBase implements IEntity
 
     public function getPaymentMethodType()
     {
-
+        return $this->type;
     }
 
     public function getId()
     {
         // TODO: Implement getId() method.
+    }
+
+    /**
+     * @param $user
+     */
+    public function setUser($user)
+    {
+        $this->user=$user;
     }
 
     public function getUser()
@@ -35,11 +43,11 @@ abstract class PaymentMethod extends EntityBase implements IEntity
     }
 
     /**
-     * @param $userID
+     * @param $cardNumber
      */
-    public function setUser($userID)
+    public function setCardNumber($cardNumber)
     {
-        $this->user=$userID;
+        $this->cardNumber = $cardNumber;
     }
 
     public function getCardNumber()
@@ -47,9 +55,25 @@ abstract class PaymentMethod extends EntityBase implements IEntity
 
     }
 
+    /**
+     * @param $cardHolderName
+     */
+    public function setCardHolderName($cardHolderName)
+    {
+        $this->cardHolderName=$cardHolderName;
+    }
+
     public function getCardHolderName()
     {
 
+    }
+
+    /**
+     * @param $expiryDate
+     */
+    public function setExpiryDate($expiryDate)
+    {
+        $this->expiry_date=$expiryDate;
     }
 
     public function getExpiryDate()
@@ -57,9 +81,25 @@ abstract class PaymentMethod extends EntityBase implements IEntity
 
     }
 
+    /**
+     * @param $cvv
+     */
+    public function setCVV($cvv)
+    {
+        $this->cvv=$cvv;
+    }
+
     public function getCVV()
     {
 
+    }
+
+    /**
+     * @param $company
+     */
+    public function setCompany($company)
+    {
+        $this->company=$company;
     }
 
     public function getCompany()
