@@ -19,6 +19,7 @@
     "antonienko/money-formatter": ">=1.1",
     "antonienko/mledoze-countries-phpwrapper": "dev-master",
     "mandrill/mandrill": "1.0.*",
-    "beberlei/assert": "^2.4"
+    "beberlei/assert": "^2.4",
+    "recaptcha/php5": "^2.0"
   }
 }

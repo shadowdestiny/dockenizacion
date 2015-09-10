@@ -17,19 +17,19 @@ use EuroMillions\components\PhpassWrapper;
 use EuroMillions\interfaces\IAuthStorageStrategy;
 use EuroMillions\interfaces\IPasswordHasher;
 use EuroMillions\interfaces\IUrlManager;
-use EuroMillions\components\MandrillWrapper;
-use EuroMillions\interfaces\IMailServiceApi;
 
 
-class DomainServiceFactory extends ServiceFactory
+
+class DomainServiceFactory
 {
     const ENTITIES_NS = 'EuroMillions\entities\\';
     private $entityManager;
+    private $serviceFactory;
 
-    public function __construct(DiInterface $di)
+    public function __construct(DiInterface $di, ServiceFactory $serviceFactory)
     {
         $this->entityManager = $di->get('entityManager');
-        parent::__construct($di);
+        $this->serviceFactory = $serviceFactory;
     }
 
     public function getLotteriesDataService(EntityManager $entityManager = null, LotteryApisFactory $lotteryApisFactory = null)
@@ -41,7 +41,7 @@ class DomainServiceFactory extends ServiceFactory
 
     public function getLanguageService(ILanguageStrategy $languageStrategy = null, LanguageRepository $languageRepository = null, EmTranslationAdapter $translationAdapter = null)
     {
-        if (!$languageStrategy) $languageStrategy = new WebLanguageStrategy($this->di->get('session'), $this->di->get('request'));
+        if (!$languageStrategy) $languageStrategy = new WebLanguageStrategy($this->serviceFactory->getDI()->get('session'), $this->serviceFactory->getDI()->get('request'));
         if (!$languageRepository) $languageRepository = $this->getRepository('Language');
         if (!$translationAdapter) {
             $translationAdapter = new EmTranslationAdapter($languageStrategy->get(), $this->getRepository('TranslationDetail'));
@@ -53,14 +53,16 @@ class DomainServiceFactory extends ServiceFactory
      * @param UserRepository|null $userRepository
      * @param CurrencyService|null $currencyService
      * @param IUsersPreferencesStorageStrategy $preferencesStrategy
+     * @param EmailService $emailService
      * @return UserService
      */
-    public function getUserService(UserRepository $userRepository = null, CurrencyService $currencyService = null, IUsersPreferencesStorageStrategy $preferencesStrategy = null)
+    public function getUserService(UserRepository $userRepository = null, CurrencyService $currencyService = null, IUsersPreferencesStorageStrategy $preferencesStrategy = null, EmailService $emailService = null)
     {
         if (!$userRepository) $userRepository = $this->getRepository('User');
-        if (!$currencyService) $currencyService = $this->getCurrencyService();
-        if (!$preferencesStrategy) $preferencesStrategy = new WebUserPreferencesStorageStrategy($this->di->get('session'), $this->di->get('cookies'));
-        return new UserService($userRepository, $currencyService, $preferencesStrategy);
+        if (!$currencyService) $currencyService = $this->serviceFactory->getCurrencyService();
+        if (!$preferencesStrategy) $preferencesStrategy = new WebUserPreferencesStorageStrategy($this->serviceFactory->getDI()->get('session'), $this->serviceFactory->getDI()->get('cookies'));
+        if (!$emailService) $emailService = $this->serviceFactory->getEmailService();
+        return new UserService($userRepository, $currencyService, $preferencesStrategy, $emailService);
     }
 
     /**
@@ -68,28 +70,27 @@ class DomainServiceFactory extends ServiceFactory
      * @param IAuthStorageStrategy $storageStrategy
      * @param IUrlManager $urlManager
      * @param LogService $logService
+     * @param EmailService $emailService
      * @return AuthService
      */
-    public function getAuthService(IPasswordHasher $passwordHasher = null, IAuthStorageStrategy $storageStrategy = null, IUrlManager $urlManager = null, LogService $logService = null)
+    public function getAuthService(IPasswordHasher $passwordHasher = null, IAuthStorageStrategy $storageStrategy = null, IUrlManager $urlManager = null, LogService $logService = null, EmailService $emailService = null)
     {
-        if (!$storageStrategy) $storageStrategy = new WebAuthStorageStrategy($this->di->get('session'), $this->di->get('cookies'));
+        if (!$storageStrategy) $storageStrategy = new WebAuthStorageStrategy($this->serviceFactory->getDI()->get('session'), $this->serviceFactory->getDI()->get('cookies'));
         if (!$passwordHasher) $passwordHasher = new PhpassWrapper();
-        if (!$urlManager) $urlManager = $this->di->get('url');
-        if (!$logService) $logService = $this->getLogService();
-        return new AuthService($this->entityManager, $passwordHasher, $storageStrategy, $urlManager, $logService);
-    }
-
-    public function getEmailService(IMailServiceApi $mailServiceApi = null, AuthService $authService = null, $config = null)
-    {
-        if (!$config) $config = $this->di->get('globalConfig')['mail'];
-        $api_key = $config['mandrill_api_key'];
-        if (!$mailServiceApi) $mailServiceApi = new MandrillWrapper($api_key);
-        if (!$authService) $authService = $this->getAuthService();
-        return new EmailService($mailServiceApi, $authService, $config);
+        if (!$urlManager) $urlManager = $this->serviceFactory->getDI()->get('url');
+        if (!$logService) $logService = $this->serviceFactory->getLogService();
+        if (!$emailService) $emailService = $this->serviceFactory->getEmailService();
+        return new AuthService($this->entityManager, $passwordHasher, $storageStrategy, $urlManager, $logService, $emailService);
     }
 
     private function getRepository($entity)
     {
         return $this->entityManager->getRepository(self::ENTITIES_NS . $entity);
     }
+
+    public function getServiceFactory()
+    {
+        return $this->serviceFactory;
+    }
+
 }

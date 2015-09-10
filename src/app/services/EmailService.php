@@ -3,23 +3,23 @@ namespace EuroMillions\services;
 
 use EuroMillions\entities\User;
 use EuroMillions\interfaces\IMailServiceApi;
+use EuroMillions\vo\ContactFormInfo;
+use EuroMillions\vo\Password;
+use EuroMillions\vo\Url;
 
 class EmailService
 {
     private $mailServiceApi;
-    private $authService;
     private $mailConfig;
 
-    public function __construct(IMailServiceApi $mailServiceApi, AuthService $authService, $mailConfig)
+    public function __construct(IMailServiceApi $mailServiceApi, $mailConfig)
     {
         $this->mailServiceApi = $mailServiceApi;
-        $this->authService = $authService;
         $this->mailConfig = $mailConfig;
     }
 
-    public function sendRegistrationMail(User $user)
+    public function sendRegistrationMail(User $user, Url $url)
     {
-        $url = $this->authService->getValidationUrl($user);
         $this->sendMailToUser(
             $user,
             'Validate your email',
@@ -28,14 +28,41 @@ class EmailService
         );
     }
 
-    public function sendPasswordResetMail(User $user)
+    public function sendPasswordResetMail(User $user, Url $url)
     {
-        $url = $this->authService->getPasswordResetUrl($user);
         $this->sendMailToUser(
             $user,
             'Password reset',
             'Somebody has asked to reset your password.',
             'If it was you, you just have to <a href="'.$url->toNative().'">click this link to reset your password</a> <br>or copy and paste this url in your browser:<br>'.$url->toNative().'<br>If you didn\'t ask for the password reset, just ignore this email'
+        );
+    }
+
+    public function sendNewPasswordMail(User $user, Password $password)
+    {
+        $this->sendMailToUser(
+            $user,
+            'New password',
+            'We have created a new password for you:' . $password->toNative(),
+            'Please use it.....'
+        );
+
+    }
+
+    /**
+     * @param ContactFormInfo $contactFormInfo
+     */
+    public function sendContactRequest(ContactFormInfo $contactFormInfo)
+    {
+        $content = <<<EOF
+        New contact request from: {$contactFormInfo->getFullName()} ({$contactFormInfo->getEmail()})
+        <br>
+        Content: {$contactFormInfo->getContent()}
+EOF;
+        $this->sendMailToContactService(
+            'Contact request',
+            $contactFormInfo->getTopic(),
+            $content
         );
     }
 
@@ -81,4 +108,49 @@ class EmailService
     }
 
 
+    /**
+     * @param $title
+     * @param $subtitle
+     * @param $content
+     * @throws Exception
+     * @throws \Exception
+     */
+    private function sendMailToContactService($title, $subtitle, $content)
+    {
+        try{
+            $this->mailServiceApi->send(
+                $this->mailConfig['from_name'],
+                $this->mailConfig['from_address'],
+                [
+                    [
+                        'email' => 'rmrbest@gmail.com',
+                        'name'  => 'Contact',
+                        'type'  => 'to',
+                    ]
+
+                ],
+                'Confirm your email',
+                '',
+                [
+                    [
+                        'name'    => 'title',
+                        'content' => $title
+                    ],
+                    [
+                        'name'    => 'subtitle',
+                        'content' => $subtitle
+                    ],
+                    [
+                        'name'    => 'main',
+                        'content' => $content,
+                    ],
+                ],
+                [],
+                'simple',
+                []
+            );
+        }catch(\Exception $e){
+            throw $e;
+        }
+   }
 }

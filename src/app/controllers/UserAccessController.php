@@ -1,10 +1,15 @@
 <?php
 namespace EuroMillions\controllers;
 
+use Captcha\Captcha;
+use EuroMillions\components\ReCaptchaWrapper;
+use EuroMillions\forms\ForgotPasswordForm;
 use EuroMillions\forms\SignInForm;
 use EuroMillions\forms\SignUpForm;
 use EuroMillions\services\AuthService;
 use EuroMillions\services\GeoService;
+use EuroMillions\vo\Email;
+use EuroMillions\vo\ServiceActionResult;
 use Phalcon\Validation\Message;
 
 class UserAccessController extends ControllerBase
@@ -18,7 +23,7 @@ class UserAccessController extends ControllerBase
     {
         parent::initialize();
         $this->authService = $authService ? $authService : $this->domainServiceFactory->getAuthService();
-        $this->geoService = $geoService ? $geoService : $this->domainServiceFactory->getGeoService();
+        $this->geoService = $geoService ? $geoService : $this->domainServiceFactory->getServiceFactory()->getGeoService();
     }
 
     public function signInAction($paramsFromPreviousAction = null)
@@ -51,7 +56,7 @@ class UserAccessController extends ControllerBase
                 ) {
                     $errors[] = 'Email/password combination not valid';
                 } else {
-                    return $this->response->redirect("$controller/$action/".implode('/',$params));
+                    return $this->response->redirect("$controller/$action".implode('/',$params));
                 }
             }
         }
@@ -97,8 +102,6 @@ class UserAccessController extends ControllerBase
                 if (!$register_result->success()) {
                     $errors[] = $register_result->errorMessage();
                 } else {
-                    $email_service = $this->domainServiceFactory->getEmailService();
-                    $email_service->sendRegistrationMail($register_result->getValues());
                     return $this->response->redirect("$controller/$action/".implode('/',$params));
                 }
             }
@@ -138,12 +141,66 @@ class UserAccessController extends ControllerBase
     }
 
 
+    public function forgotPasswordAction()
+    {
+        $errors = null;
+        $forgot_password_form = new ForgotPasswordForm();
+
+        //get captcha instance
+        $config = $this->di->get('globalConfig')['recaptcha'];
+        $captcha = new ReCaptchaWrapper(new Captcha());
+        $captcha->getCaptcha()->setPublicKey($config['public_key']);
+        $captcha->getCaptcha()->setPrivateKey($config['private_key']);
+
+        if ($this->request->isPost()) {
+            if ($forgot_password_form->isValid($this->request->getPost()) == false) {
+                $errors[] = 'Invalid email';
+            } else {
+
+                    $email = $this->request->getPost('email');
+                    $reCaptchaResult = $captcha->check()->isValid();
+                    $result = new ServiceActionResult(false);
+
+                    if(!empty($email) && !empty($reCaptchaResult)){
+                        $result = $this->authService->forgotPassword(new Email($email));
+                    }
+                    if($result->success() && $reCaptchaResult){
+                        $message = $result->getValues();
+                    } else {
+                        if(empty($reCaptchaResult)) $errors[] = 'You are a robot';
+                        $errors[] = $result->errorMessage();
+                    }
+            }
+        }
+        $this->view->pick('sign-in/forgot-psw');
+        return $this->view->setVars([
+            'forgot_password_form' => $forgot_password_form,
+            'captcha'              => $captcha->html(),
+            'errors'               => $errors,
+            'message'              => $message,
+        ]);
+    }
+
+    public function passwordResetAction($token)
+    {
+        $result = $this->authService->resetPassword($token);
+        if ($result->success()) {
+            $message = 'Your password was reset!';
+        } else {
+            $message = 'Sorry, the token you used is no longer valid.';
+        }
+    }
+
+
     /**
      * @return SignUpForm
      */
     private function getSignUpForm()
     {
         $countries = $this->geoService->countryList();
+        sort($countries);
+        //key+1, select element from phalcon need index 0 to set empty value
+        $countries = array_combine(range(1, count($countries)), array_values($countries));
         $sign_up_form = new SignUpForm(null, ['countries' => $countries]);
         return $sign_up_form;
     }

@@ -33,22 +33,22 @@ class EmailServiceUnitTest extends UnitTestBase
 
         $expected_mail_data = [
             [
-                'name'    => 'title',
+                'name' => 'title',
                 'content' => 'Validate your email',
             ],
             [
-                'name'    => 'subtitle',
+                'name' => 'subtitle',
                 'content' => 'We need you to validate your email.',
             ],
             [
-                'name'    => 'main',
-                'content' => '<a href="' . $url_address . '">Click here to validate you email!</a> <br>or copy and paste this url in your browser:<br>' . $url_address,
+                'name' => 'main',
+                'content' => '<a href="'.$url_address.'">Click here to validate you email!</a> <br>or copy and paste this url in your browser:<br>'.$url_address,
             ],
         ];
         $this->authService_double->getValidationUrl($user)->willReturn($url);
         $this->mailServiceApi_double->send(Argument::type('string'), Argument::type('string'), $expected_recipient_data, Argument::type('string'), '', $expected_mail_data, [], Argument::type('string'), [])->shouldBeCalled();
         $sut = $this->getSut();
-        $sut->sendRegistrationMail($user);
+        $sut->sendRegistrationMail($user, $url);
     }
 
     /**
@@ -64,23 +64,23 @@ class EmailServiceUnitTest extends UnitTestBase
         $expected_recipient_data = $this->getExpectedRecipientData();
         $expected_mail_data = [
             [
-                'name'    => 'title',
+                'name' => 'title',
                 'content' => 'Password reset',
             ],
             [
-                'name'    => 'subtitle',
+                'name' => 'subtitle',
                 'content' => 'Somebody has asked to reset your password.',
             ],
             [
-                'name'    => 'main',
-                'content' => 'If it was you, you just have to <a href="' . $url_address . '">click this link to reset your password</a> <br>or copy and paste this url in your browser:<br>' . $url_address . '<br>If you didn\'t ask for the password reset, just ignore this email',
+                'name' => 'main',
+                'content' => 'If it was you, you just have to <a href="'.$url_address.'">click this link to reset your password</a> <br>or copy and paste this url in your browser:<br>'.$url_address.'<br>If you didn\'t ask for the password reset, just ignore this email',
             ],
 
         ];
         $this->authService_double->getPasswordResetUrl($user)->willReturn($url);
         $this->mailServiceApi_double->send(Argument::type('string'), Argument::type('string'), $expected_recipient_data, Argument::type('string'), '', $expected_mail_data, [], Argument::type('string'), [])->shouldBeCalled();
         $sut = $this->getSut();
-        $sut->sendPasswordResetMail($user);
+        $sut->sendPasswordResetMail($user, $url);
     }
 
     /**
@@ -88,7 +88,7 @@ class EmailServiceUnitTest extends UnitTestBase
      */
     private function getSut()
     {
-        $sut = $this->getDomainServiceFactory()->getEmailService($this->mailServiceApi_double->reveal(), $this->authService_double->reveal());
+        $sut = $this->getDomainServiceFactory()->getServiceFactory()->getEmailService($this->mailServiceApi_double->reveal());
         return $sut;
     }
 
@@ -120,5 +120,4 @@ class EmailServiceUnitTest extends UnitTestBase
         ];
         return $expected_recipient_data;
     }
-
 }

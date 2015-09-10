@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\Common\Cache\ApcCache;
 use EuroMillions\services\DomainServiceFactory;
+use EuroMillions\services\ServiceFactory;
 use Phalcon\Cache\Frontend\Data;
 use Phalcon\Config;
 use Phalcon\Config\Adapter\Ini;
@@ -55,7 +56,7 @@ abstract class BootstrapStrategyBase
 
     protected function configDomainServiceFactory(Di $di)
     {
-        return new DomainServiceFactory($di);
+        return new DomainServiceFactory($di, new ServiceFactory($di));
     }
 
     protected function configRedis(Ini $appConfig)

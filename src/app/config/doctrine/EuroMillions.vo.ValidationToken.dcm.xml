@@ -5,7 +5,8 @@
         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
     https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <embeddable name="EuroMillions\vo\RememberToken">
-        <field name="value" type="string" nullable="true" column="remember_token" />
+    <embeddable name="EuroMillions\vo\ValidationToken">
+        <field name="value" type="string" nullable="true" column="validation_token" />
     </embeddable>
+
 </doctrine-mapping>

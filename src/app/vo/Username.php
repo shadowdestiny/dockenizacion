@@ -4,6 +4,7 @@ namespace EuroMillions\vo;
 
 use EuroMillions\vo\base\StringLiteral;
 
+
 class Username extends StringLiteral
 {
     const MIN_LENGTH = 5;
