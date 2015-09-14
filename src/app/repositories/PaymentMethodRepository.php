@@ -5,16 +5,10 @@ namespace EuroMillions\repositories;
 
 
 use Doctrine\ORM\EntityRepository;
-use EuroMillions\entities\PaymentMethod;
 use EuroMillions\entities\User;
 
-class PaymentMethodRepository extends EntityRepository
+class PaymentMethodRepository extends RepositoryBase
 {
-
-    public function add(PaymentMethod $paymentMethod)
-    {
-        $this->getEntityManager()->persist($paymentMethod);
-    }
 
     /**
      * @param User $user

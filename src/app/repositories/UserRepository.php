@@ -1,11 +1,10 @@
 <?php
 namespace EuroMillions\repositories;
 
-use Doctrine\ORM\EntityRepository;
 use EuroMillions\entities\User;
 use EuroMillions\vo\UserId;
 
-class UserRepository extends EntityRepository
+class UserRepository extends RepositoryBase
 {
     /**
      * @return UserId
@@ -13,11 +12,6 @@ class UserRepository extends EntityRepository
     public function nextIdentity()
     {
         return UserId::create();
-    }
-
-    public function add(User $anUser)
-    {
-        $this->getEntityManager()->persist($anUser);
     }
 
     /**

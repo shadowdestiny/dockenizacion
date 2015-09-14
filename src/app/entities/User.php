@@ -162,8 +162,4 @@ class User extends EntityBase implements IEntity, IUser
         return $this->validationToken;
     }
 
-    public function toString()
-    {
-        return $this;
-    }
 }
