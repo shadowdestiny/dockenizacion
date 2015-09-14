@@ -63,11 +63,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         // CONFIGURE DEBUGBAR
         $di['app'] = $application;
         (new ServiceProvider(APP_PATH . 'config/debugbar.php'))->start();
-        $em = $di->get('entityManager');
-        $debugStack = new DebugStack();
-        $em->getConnection()->getConfiguration()->setSQLLogger($debugStack);
-        $debugbar = $di->get('debugbar');
-        $debugbar->addCollector(new DoctrineCollector($debugStack));
         echo $application->handle()->getContent();
     }
 

@@ -30,7 +30,7 @@
       file: path=/home/vagrant/mysqldata state=directory mode=0754
 
     - name: Install pip
-      shell: wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py
+      shell: wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py && rm get-pip.py
 
     - name: Install docker-py
       pip: name=docker-py
