@@ -87,7 +87,7 @@
 									<!--[if IE 9]><video style="display: none;"><![endif]-->
 									<source media="(max-width: 768px)" srcset="/img/home/win-millions-sm.png">
 									<!--[if IE 9]></video><![endif]-->
-									<img srcset="/img/home/win-millions.png, /img/home/win-millions@2x.png 1.5x" alt="{{ language.translate('Win Millions') }}">
+									<img src="/img/home/win-millions.png" srcset="/img/home/win-millions.png, /img/home/win-millions@2x.png 1.5x" alt="{{ language.translate('Win Millions') }}">
 								</picture>
 							</div>
 							<div class="box-ball">
@@ -151,13 +151,6 @@
 						<div class="col6">
 							<div class="title-em cl">
 								<svg class="vector best"><use xlink:href="#best-choice"></use></svg>
-{#								<picture class="pic">
-									<!--[if IE 9]><video style="display: none;"><![endif]-->
-									<source media="(max-width: 768px)" srcset="/img/home/em-text-sm.png">
-									<!--[if IE 9]></video><![endif]-->
-									<img srcset="/img/home/em-text.png, /img/home/em-text@2x.png 1.5x" alt="{{ language.translate('Win Millions') }}">
-								</picture>
-#}
 								<svg class="vector text"><use xlink:href="#em-golden"></use></svg>
 								<h3 class="title">Fast, Convenient &amp; Secure</h3>
 							</div>
