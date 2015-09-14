@@ -17,6 +17,7 @@ class CardHolderName extends StringLiteral
     public function __construct($cardHolderName)
     {
         $this->setCardHolderName($cardHolderName);
+        parent::__construct($cardHolderName);
     }
 
     private function setCardHolderName($cardHolderName)

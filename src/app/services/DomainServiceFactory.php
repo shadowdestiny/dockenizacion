@@ -50,19 +50,24 @@ class DomainServiceFactory
     }
 
     /**
-     * @param UserRepository|null $userRepository
      * @param CurrencyService|null $currencyService
      * @param IUsersPreferencesStorageStrategy $preferencesStrategy
      * @param EmailService $emailService
+     * @param PaymentProviderService $paymentProviderService
      * @return UserService
      */
-    public function getUserService(UserRepository $userRepository = null, CurrencyService $currencyService = null, IUsersPreferencesStorageStrategy $preferencesStrategy = null, EmailService $emailService = null)
+    public function getUserService(CurrencyService $currencyService = null,
+                                   IUsersPreferencesStorageStrategy $preferencesStrategy = null,
+                                   EmailService $emailService = null,
+                                   PaymentProviderService $paymentProviderService = null
+                                   )
     {
-        if (!$userRepository) $userRepository = $this->getRepository('User');
+        //if (!$userRepository) $userRepository = $this->getRepository('User');
         if (!$currencyService) $currencyService = $this->serviceFactory->getCurrencyService();
         if (!$preferencesStrategy) $preferencesStrategy = new WebUserPreferencesStorageStrategy($this->serviceFactory->getDI()->get('session'), $this->serviceFactory->getDI()->get('cookies'));
         if (!$emailService) $emailService = $this->serviceFactory->getEmailService();
-        return new UserService($userRepository, $currencyService, $preferencesStrategy, $emailService);
+        if (!$paymentProviderService) $paymentProviderService = new PaymentProviderService();
+        return new UserService($currencyService, $preferencesStrategy, $emailService, $paymentProviderService, $this->entityManager);
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use EuroMillions\interfaces\IEntity;
 use EuroMillions\interfaces\IUser;
 use EuroMillions\vo\Email;
@@ -30,6 +31,13 @@ class User extends EntityBase implements IEntity, IUser
     protected $validated;
     /** @var  ValidationToken */
     protected $validationToken;
+
+    private $paymentMethod;
+
+
+    public function __construct(){
+        $this->paymentMethod = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -152,5 +160,10 @@ class User extends EntityBase implements IEntity, IUser
     public function getValidationToken()
     {
         return $this->validationToken;
+    }
+
+    public function toString()
+    {
+        return $this;
     }
 }
