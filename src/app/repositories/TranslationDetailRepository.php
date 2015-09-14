@@ -14,6 +14,7 @@ class TranslationDetailRepository extends EntityRepository
                 .' WHERE td.lang = :lang AND t.key = :key')
             ->setMaxResults(1)
             ->setParameters(['lang' => $language, 'key'=>$key])
+            ->useResultCache(true)
             ->getResult();
         if ($result) {
             return $result[0]['value'];
