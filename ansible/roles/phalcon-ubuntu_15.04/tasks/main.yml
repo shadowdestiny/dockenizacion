@@ -1,0 +1,16 @@
+    - name: add phalcon repositories
+      apt_repository: repo='ppa:phalcon/stable'
+
+    - name: install redis & phalcon with dependencies
+      apt: pkg={{ item }} state=latest update_cache=yes
+      with_items:
+        - php5-phalcon
+        - php5-redis
+        - php5-intl
+        - php5-cli
+        - php5-xdebug
+        - php5-mysql
+        - php5-curl
+
+    - name: copy phalcon.ini file
+      copy: src=phalcon.ini dest=/etc/php5/mods-available/phalcon.ini owner=root group=root mode=0644
