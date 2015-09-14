@@ -55,7 +55,7 @@
                     <!--[if IE 9]><video style="display: none;"><![endif]-->
                     <source media="(max-width: 768px)" srcset="/img/help/help-sm.png">
                     <!--[if IE 9]></video><![endif]-->
-                    <img srcset="/img/help/help.png, /img/help/help@2x.png 1.5x" alt="{{ language.translate('How to play') }}">
+                    <img src="/img/help/help.png" srcset="/img/help/help.png, /img/help/help@2x.png 1.5x" alt="{{ language.translate('How to play') }}">
                 </picture>
             </div>
         </div>

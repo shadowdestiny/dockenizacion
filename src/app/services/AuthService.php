@@ -4,6 +4,7 @@ namespace EuroMillions\services;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\components\Md5EmailValidationToken;
 use EuroMillions\components\NullPasswordHasher;
+use EuroMillions\components\PhpassWrapper;
 use EuroMillions\components\RandomPasswordGenerator;
 use EuroMillions\entities\GuestUser;
 use EuroMillions\entities\User;
@@ -13,6 +14,7 @@ use EuroMillions\interfaces\IPasswordHasher;
 use EuroMillions\interfaces\IUrlManager;
 use EuroMillions\interfaces\IUser;
 use EuroMillions\repositories\UserRepository;
+use EuroMillions\vo\ContactFormInfo;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\ServiceActionResult;
@@ -20,6 +22,7 @@ use EuroMillions\vo\Url;
 use EuroMillions\vo\ValidationToken;
 use Money\Currency;
 use Money\Money;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 class AuthService
 {
@@ -206,10 +209,17 @@ class AuthService
     {
         $user = $this->userRepository->getByToken($token);
         if(!empty($user)){
-            $passwordGenerator = new RandomPasswordGenerator(new NullPasswordHasher());
-            $password = $passwordGenerator->getPassword();
-            $this->emailService->sendNewPasswordMail($user, $password);
-            return new ServiceActionResult(true, 'Email sent');
+            try {
+                $passwordGenerator = new RandomPasswordGenerator(new NullPasswordHasher());
+                $password = $passwordGenerator->getPassword();
+                $this->emailService->sendNewPasswordMail($user, $password);
+                $user->setPassword(new Password($password->toNative(), new PhpassWrapper()));
+                $this->entityManager->flush($user);
+                return new ServiceActionResult(true, 'Email sent');
+            }catch(Exception $e){
+                return new ServiceActionResult(false, '');
+            }
+
         } else {
             return new ServiceActionResult(false, '');
         }
@@ -229,6 +239,7 @@ class AuthService
             return new ServiceActionResult(false, 'Email doesn\'t exist');
         }
     }
+
 
     /**
      * @param IEmailValidationToken $emailValidationTokenGenerator

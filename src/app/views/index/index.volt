@@ -81,14 +81,13 @@
 				<div class="box-play">
 					<a href="javascript:void(0);" class="outbound">
 						<div class="content">
-
 							<p class="h2">{{ language.translate('for only %priceValue% &euro;',['priceValue':2,35]) }}</p>
 							<div class="win-millions">
 								<picture class="pic">
 									<!--[if IE 9]><video style="display: none;"><![endif]-->
 									<source media="(max-width: 768px)" srcset="/img/home/win-millions-sm.png">
 									<!--[if IE 9]></video><![endif]-->
-									<img srcset="/img/home/win-millions.png, /img/home/win-millions@2x.png 1.5x" alt="{{ language.translate('Win Millions') }}">
+									<img src="/img/home/win-millions.png" srcset="/img/home/win-millions.png, /img/home/win-millions@2x.png 1.5x" alt="{{ language.translate('Win Millions') }}">
 								</picture>
 							</div>
 							<div class="box-ball">
@@ -145,85 +144,104 @@
 			</div>
 		</div>
 
-{#	Hidden temporarly
-
 		<div class="informative">
-			* highlight this section*
-			<div class="">
-				<div class="who-we-are cols">
-					<div class="col6">
-						<h3 class="title">Who we are</h3>
-						<p>The Euromillions.com is the first European transnational lottery launched in 2004: Fast, Convenient and Secure. We are the first lottery-website with a full responsive design that offers you the same user experience on all your devices, (mobile, tablet, computer). Our draws are held every Tuesday and Friday night at 20:45 CET‬ in Paris, France.</p>
+			<div class="who-we-are">
+				<a href="javascript:void(0);" class="start-playing">
+					<div class="cols top">
+						<div class="col6">
+							<div class="title-em cl">
+								<svg class="vector best"><use xlink:href="#best-choice"></use></svg>
+								<svg class="vector text"><use xlink:href="#em-golden"></use></svg>
+								<h3 class="title">Fast, Convenient &amp; Secure</h3>
+							</div>
+						</div>
+						<div class="col6">
+							<span class="gold-pile">
+								<svg class="vector"><use xlink:href="#logo-shadow"></use></svg>
+								<span class="btn blue">Start playing, Win millions</span>
+							</span>
+						</div>
 					</div>
-					<div class="col6">
-						img
-					</div>
-				</div>
-				<div class="cols">
-					<div class="col6">
-						<picture class="pic">
-							<!--[if IE 9]><video style="display: none;"><![endif]-->
-							<source media="(max-width: 768px)" srcset="/img/home/quality-sm.jpg">
-							<!--[if IE 9]></video><![endif]-->
-							<img srcset="/img/home/quality.jpg, /img/home/quality@2x.jpg 1.5x" alt="{{ language.translate('Win Millions') }}">
-						</picture>
-					</div>
-					<div class="col6">
-						*highlight those 3 text with graphics *
-						<h3 class="li-title">Fast</h3>
-						<p>Regular players rarely exceed two minutes to validate their euromillions tickets on our website. At Euromillions.com, you just have to choose your favourite numbers, sit back, and relax. We do all the nerve-wracking, waiting, and checking the results for you. Shortly after the draw, you will receive an email notification detailing the latest results, and if you have won, the winnings will automatically be credited to your player account.
-						</p>
+				</a>
+				<div class="bg-white">
+					<div class="cols fcs">
+						<div class="col6 bg-quality"></div>
+						<div class="col6 box-txt r">
+							<h3 class="li-title">Fast</h3>
+							<p>Regular players rarely exceed two minutes to validate their euromillions tickets on our website. At Euromillions.com, you just have to choose your favourite numbers, sit back, and relax. We do all the nerve-wracking, waiting, and checking the results for you. Shortly after the draw, you will receive an email notification detailing the latest results, and if you have won, the winnings will automatically be credited to your player account.</p>
 
-						<h3 class="li-title">Convenient</h3>
-						<p>You’ll find your played tickets, latest euromillions results, and customer support at the same place. At only €2.35 (£1.65) per play, we offer the best price available on the Internet. Your winnings are commission free and will remain so forever.
-						It doesn’t matter where you live – we are a regulated operator and our services are available worldwide. If you win big, our team of professionals will be at your assistance to make sure you receive your winnings quickly and safely.  
-						</p>
+							<h3 class="li-title">Convenient</h3>
+							<p>You’ll find your played tickets, latest euromillions results, and customer support at the same place. At only €2.35 (£1.65) per play, we offer the best price available on the Internet. Your winnings are commission free and will remain so forever.
+							It doesn’t matter where you live – we are a regulated operator and our services are available worldwide. If you win big, our team of professionals will be at your assistance to make sure you receive your winnings quickly and safely.</p>
 
-						<h3 class="li-title">Secure</h3>
-						<p>Euromillions.com is a fully licensed lottery operator. We are customer-centric and constantly endeavour to improve our performance to meet and exceed the demands of our customers. Our partnerships with top financial institutions and certification companies ensure your optimum safety when playing on our website supporting 256-bit SSL encryption. 
-						</p>
+							<h3 class="li-title">Secure</h3>
+							<p>Euromillions.com is a fully licensed lottery operator. We are customer-centric and constantly endeavour to improve our performance to meet and exceed the demands of our customers. Our partnerships with top financial institutions and certification companies ensure your optimum safety when playing on our website supporting 256-bit SSL encryption.</p>
+						</div>
 					</div>
+					<a href="javascript:void(0);" class="box-action">
+						<span class="h2 phrase">Millions of people play the Euromillion lottery everyday.</span>
+						<span class="btn blue">Play anytime, anywhere</span>
+					</a>
 				</div>
 			</div>
 
-			<div class="box-basic">
+			<div class="box-basic how-play">
 				<div class="cols playing-euro">
-					<div class="col6">
+					<div class="col6 box-txt l">
 						<h2 class="h1 yellow">Playing euromillions</h2>
-						<ul class="no-li ul-home cl">
-							<li>
-								<h3 class="li-title">Play</h3>
-								Players select five main numbers from 1 to 50 and two lucky stars numbered from 1 to 11. The results are published shortly after the draw on Euromillions.com, and players receive an email notification detailing the latest results and if they have won. 
-								Winnings are commission free and are immediately credited to the player’s account on Euromillions.com.  
-							</li>
-							<li>
-								<h3 class="li-title">Eligibility</h3>
-								Any person who is 18 years or above can participate in the Euromillions. This differs for some countries such as the United Kingdom, where lottery players can participate starting from the age of 16. 
-							</li>
-							<li>
-								<h3 class="li-title">Jackpot</h3>
-								Euromillions jackpot prizes can reach up to €190 million with a guaranteed jackpot of at least €15 million (£10.5 million) per draw (two draws per week). In the absence of a first prize winner, the money is rolled over to the next draw which will grow in successive categories until either a Euromillions jackpot winner is produced, or the Euromillions Pool Cap (190 million euro) is reached. 
-							</li>
-							<li>
-								<h3 class="li-title">Odds</h3>
-								To win the Euromillions jackpot prize, players need to match 5 main numbers from 50, and 2 lucky stars from 11. The Euromillions odds of this actually happening are 1 in 116,531,800. In addition, the Euromillions lottery features 13 different tiers and the odds of a Euromillions win are 1 in 23. 
-							</li>
-							<li>
-								<h3 class="li-title">International</h3> 
-								As there are several participating countries, EuroMillions is said differently in each language. In Portuguese: Euro Milhões
-								In Spanish: Euromillones. In German EuroMilionen. In France, Euromillions is written the same way as in English, but the last letter, "s" is not pronounced and the word is sometimes misspelled as l’Euromillion.
-							</li>
-						</ul>
+						<h3 class="li-title">Play</h3>
+						<p>Players select five main numbers from 1 to 50 and two lucky stars numbered from 1 to 11. The results are published shortly after the draw on Euromillions.com, and players receive an email notification detailing the latest results and if they have won. Winnings are commission free and are immediately credited to the player’s account on Euromillions.com.</p>
+						<h3 class="li-title">Eligibility</h3>
+						<p>Any person who is 18 years or above can participate in the Euromillions. This differs for some countries such as the United Kingdom, where lottery players can participate starting from the age of 16.</p>
+						<h3 class="li-title">Jackpot</h3>
+						<p>Euromillions jackpot prizes can reach up to €190 million with a guaranteed jackpot of at least €15 million (£10.5 million) per draw (two draws per week). In the absence of a first prize winner, the money is rolled over to the next draw which will grow in successive categories until either a Euromillions jackpot winner is produced, or the Euromillions Pool Cap (190 million euro) is reached.</p>
+						<h3 class="li-title">Odds</h3>
+						<p>To win the Euromillions jackpot prize, players need to match 5 main numbers from 50, and 2 lucky stars from 11. The Euromillions odds of this actually happening are 1 in 116,531,800. In addition, the Euromillions lottery features 13 different tiers and the odds of a Euromillions win are 1 in 23.</p>
 					</div>
-					<div class="col6">
-						xxxx
+					<div class="col6 bg-hope"></div>
+				</div>
+				<a href="javascript:void(0);" class="box-action">
+					<span class="h2 phrase">For a very small amount of money<br class="mobile"> you might change your life.</span>
+					<span class="btn blue">Beat the odds, Play the Lotto</span>
+				</a>
+			</div>
+
+			<div class="box-basic about-us">
+				<div class="cols">
+					<div class="col6 bg-win"></div>
+					<div class="col6 box-txt r">
+						<h2 class="h1 yellow">About us</h2>
+
+						<h3 class="li-title">What we do</h3>
+						<p>Euromillions.com is the first lottery based website built to work on every device and every screen size, no matter how large or small. Mobile or desktop, we will always offer you the best user experience.</p>
+
+						<p>Your time is valuable to us, so we work hard to provide you with a quick, smart, and reliable experience to play lottery online from the comfort of your home or on the go.</p> 
+
+						<p>Your fate-changer might be right here in the palm of your hand.</p>
+
+						<p>We understand what you expect from us and we assure you that your winnings are commission free and will remain so forever.</p>
+
+						<h3 class="li-title">Who we are</h3>
+						<p>Euromillions.com is the first European transnational lottery launched in 2004.</p>
+
+						<p>We are an international team composed of experts and passionate players, and we believe that in order to provide you the best services, we need to follow three important principles: to be fast, convenient and secure.</p> 
+
+						<p>We really hope that playing with us will make your dreams come true. For the less lucky ones, we hope that the thrill of imagining a life with a big lottery prize will give you some pleasant hours of day dreaming, until the day that you actually win and everything that you imagined becomes real.</p>
+
+						<p>Draws are held every Tuesday and Friday night at 20:45 CET in Paris, France.</p>
+
+						<p>We wish you the very best of luck playing and to never stop dreaming.</p>
 					</div>
 				</div>
+				<a href="javascript:void(0);" class="box-action">
+					<span class="h2 phrase">Winning starts by saying to yourself,<br class="mobile"> "One day I’m going to win."</span>
+					<span class="btn blue">Play.  Dare to dream.  Win.</span>
+				</a>
 			</div>
 		</div>
 
 
-#}
+
 	</div>
 </main>
 

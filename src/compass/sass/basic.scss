@@ -11,7 +11,8 @@ header, footer, figure, details, hgroup, section, article, nav, aside, picture, 
   font-family:inherit; text-decoration:inherit; background:transparent; vertical-align:baseline;
 }
 header, footer, figure, details, hgroup, section, article, nav, aside, picture, main{display:block;}
-img, object, audio, video, svg, select{width:100%;}
+img, object, audio, video{max-width:100%;}
+svg, select{width:100%;}
 
 /* BOX SIZING FIX */
 *{@include box-sizing(border-box);}
@@ -94,7 +95,6 @@ label.submit{cursor:pointer;}
   border:1px solid $yellow; background:#fff; border-radius:5px; padding:15px 20px;
   margin:0 auto; position:relative;
   > h1{color:$yellow-dark;}
-
 }
 .box-basic.small{width:400px; margin:0 auto 8em;}
 

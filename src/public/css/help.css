@@ -51,6 +51,7 @@ ALLOWED: Variable and Extension
   border: 3px solid #ae5279;
   border-radius: 50%;
   line-height: 0;
+  width: 100%;
 }
 .help .bg {
   background: url(../img/help/bg-help.jpg) no-repeat;

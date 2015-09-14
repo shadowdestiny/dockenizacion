@@ -2,10 +2,16 @@
 namespace EuroMillions\services;
 use Alcohol\ISO4217;
 use antonienko\MoneyFormatter\MoneyFormatter;
+use Doctrine\ORM\EntityManager;
+use EuroMillions\entities\PaymentMethod;
 use EuroMillions\entities\User;
 use EuroMillions\interfaces\IUsersPreferencesStorageStrategy;
+use EuroMillions\repositories\PaymentMethodRepository;
 use EuroMillions\repositories\UserRepository;
+use EuroMillions\vo\ContactFormInfo;
+use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
+use Exception;
 use Money\Currency;
 use Money\Money;
 
@@ -23,12 +29,36 @@ class UserService
      * @var IUsersPreferencesStorageStrategy
      */
     private $storageStrategy;
+    /**
+     * @var EmailService
+     */
+    private $emailService;
 
-    public function __construct(UserRepository $userRepository, CurrencyService $currencyService, IUsersPreferencesStorageStrategy $strategy)
+    /**
+     * @var PaymentProviderService
+     */
+    private $paymentProviderService;
+
+    /** @var EntityManager */
+    private $entityManager;
+
+    /** @var PaymentMethodRepository */
+    private $paymentMethodRepository;
+
+
+    public function __construct(CurrencyService $currencyService,
+                                IUsersPreferencesStorageStrategy $strategy,
+                                EmailService $emailService,
+                                PaymentProviderService $paymentProviderService,
+                                EntityManager $entityManager)
     {
-        $this->userRepository = $userRepository;
+        $this->entityManager = $entityManager;
+        $this->userRepository = $entityManager->getRepository('EuroMillions\entities\User');
+        $this->paymentMethodRepository = $entityManager->getRepository('EuroMillions\entities\PaymentMethod');
         $this->currencyService = $currencyService;
         $this->storageStrategy = $strategy;
+        $this->emailService = $emailService;
+        $this->paymentProviderService = $paymentProviderService;
     }
 
     public function getBalance(UserId $userId)
@@ -79,4 +109,84 @@ class UserService
         }
         return ['symbol' => $symbol, 'name' => $currency_data['name']];
     }
+
+    /**
+     * @param ContactFormInfo $contactFormInfo
+     * @return ServiceActionResult
+     */
+    public function contactRequest(ContactFormInfo $contactFormInfo)
+    {
+        try{
+            $this->emailService->sendContactRequest($contactFormInfo);
+            return new ServiceActionResult(true,'We have received your request!');
+        }catch(Exception $e){
+            return new ServiceActionResult(false, 'Sorry, we have problems receiving data');
+        }
+    }
+
+    /**
+     * @param User $user
+     * @param PaymentMethod $paymentMethod
+     * @param Money $amount
+     * @return ServiceActionResult
+     */
+    public function recharge(User $user, PaymentMethod $paymentMethod,Money $amount)
+    {
+        if($amount->getAmount() > 0){
+            $result = $this->paymentProviderService->charge($paymentMethod,$amount);
+            if ($result) {
+                try{
+                    $user->setBalance($user->getBalance()->add($amount));
+                    $this->userRepository->add($user);
+                    $this->entityManager->flush($user);
+                    return new ServiceActionResult(true, $user->getBalance()->getAmount());
+                } catch(Exception $e){
+                    $error_message = 'Error updating balance';
+                }
+            } else {
+                $error_message = 'Provider denied the operation';
+            }
+        } else {
+            $error_message = 'Amount should be greater than 0';
+        }
+        return new ServiceActionResult(false, $error_message);
+    }
+
+    /**
+     * @param PaymentMethod $paymentMethod
+     * @return ServiceActionResult
+     */
+    public function addNewPaymentMethod(PaymentMethod $paymentMethod)
+    {
+        try{
+            $result = $this->paymentMethodRepository->add($paymentMethod);
+            if($result){
+                $paymentMethodsCollection = $this->getPaymentMethods($paymentMethod->getUser()->getId());
+                return new ServiceActionResult(true,$paymentMethodsCollection);
+            }else{
+                return new ServiceActionResult(false,'Error inserting payment method');
+            }
+        }catch(Exception $e){
+            return new ServiceActionResult(false,'An exception ocurred while payment method was saved');
+        }
+    }
+
+    /**
+     * @param UserId $userId
+     * @return ServiceActionResult
+     */
+    public function getPaymentMethods(UserId $userId)
+    {
+        $user = $this->userRepository->find($userId->id());
+        if(!empty($user)){
+            $paymentMethodCollection = $this->paymentMethodRepository->getPaymentMethodsByUser($user);
+            if(!empty($paymentMethodCollection)){
+                return new ServiceActionResult(true,$paymentMethodCollection);
+            }else{
+                return new ServiceActionResult(false,'You don\'t have any payment method registered');
+            }
+        }
+
+    }
+
 }
