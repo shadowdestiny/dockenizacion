@@ -40,7 +40,7 @@ class LotteryDrawRepository extends EntityRepository
                 .'  OR (ld.draw_date = :date AND l.draw_time > :time)'
                 .' ORDER BY ld.draw_date ASC')
             ->setMaxResults(1)
-            ->setParameters(['lottery_name' => $lotteryName, 'date' => $date->format("Y-m-d"), 'time' => $date->format("H:i:s")])
+            ->setParameters(['lottery_name' => $lotteryName, 'date' => $date->format("Y-m-d"), 'time' => $date->format("H:i")])
             ->useResultCache(true)
             ->getResult();
         return $result[0]->getJackpot();
