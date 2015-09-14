@@ -10,6 +10,7 @@ abstract class PaymentMethod extends EntityBase implements IEntity
 {
 
     protected $id;
+    /** @var  User */
     protected $user;
     protected $cardNumber;
     protected $cardHolderName;
@@ -39,7 +40,7 @@ abstract class PaymentMethod extends EntityBase implements IEntity
 
     public function getUser()
     {
-
+        return $this->user;
     }
 
     /**

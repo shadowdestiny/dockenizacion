@@ -46,4 +46,9 @@ class CreditCard
         return $this->cardNumber->type();
     }
 
+    public function getLastNumbersOfCreditCard()
+    {
+        return substr($this->cardNumber->toNative(),-4);
+    }
+
 }

@@ -218,6 +218,30 @@ class UserServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method addNewPaymentMethod
+     * when called
+     * should increasePaymentMethodByUser
+     */
+    public function test_addNewPaymentMethod_called_increasePaymentMethodByUser()
+    {
+        $expected = new ServiceActionResult(true,1);
+        $creditCard = $this->getCreditCard();
+        $paymentMethod = new CreditCardPaymentMethod($creditCard);
+        $user = $this->getUser();
+        $user->setId(new UserId('bbf01cc4-5548-11e5-b753-0242ac110002'));
+        $paymentMethod->setUser($user);
+        $this->paymentMethodRepository_double->add(Argument::any())->willReturn(true);
+        $this->userRepository_double->find(Argument::any())->willReturn($user);
+        $this->paymentMethodRepository_double->getPaymentMethodsByUser(Argument::any())->willReturn([$paymentMethod]);
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $this->stubEntityManager($entityManager_stub);
+        $sut = $this->getSut();
+        $result_add = $sut->addNewPaymentMethod($paymentMethod);
+        $actual = new ServiceActionResult(true,count($result_add));
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
      * method getPaymentMethods
      * when called
      * should returnServiceActionResultTrueWithArrayOfPaymentMethods
@@ -311,6 +335,7 @@ class UserServiceUnitTest extends UnitTestBase
         $user = $this->getUser();
         $creditCard = $this->getCreditCard();
         $paymentMethod = new CreditCardPaymentMethod($creditCard);
+        $paymentMethod->setUser($user);
         $this->paymentMethodRepository_double->add(Argument::any())->willReturn($expected->success());
         $sut = $this->getSut();
         $actual = $sut->addNewPaymentMethod($paymentMethod);

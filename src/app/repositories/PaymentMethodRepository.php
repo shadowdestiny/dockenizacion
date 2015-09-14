@@ -22,9 +22,14 @@ class PaymentMethodRepository extends EntityRepository
      */
     public function getPaymentMethodsByUser(User $user)
     {
-        return $this->findBy([
-            'user' => $user
-        ]);
+        $entity_name = $this->getEntityName();
+        $result = $this->getEntityManager()
+            ->createQuery(
+                "SELECT p FROM {$entity_name} p WHERE p.user = :user"
+            )
+            ->setParameters(['user' => $user->getId()->id()])
+            ->getResult();
+        return $result ? $result : null;
     }
 
 }
