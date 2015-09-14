@@ -63,6 +63,12 @@
           MYSQL_ROOT_PASSWORD: tpl9
           MYSQL_DATABASE: euromillions
 
+    - name: pause waiting for db to initialize
+      pause: seconds=20
+
+    - name: initialize test database
+      shell:  mysql -h 127.0.0.1 -u root -ptpl9 -e 'CREATE DATABASE IF NOT EXISTS euromillions_test'
+
     - name: start redis container
       docker:
         name: develredis
