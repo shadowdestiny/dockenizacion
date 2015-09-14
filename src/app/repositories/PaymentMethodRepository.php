@@ -4,7 +4,6 @@
 namespace EuroMillions\repositories;
 
 
-use Doctrine\ORM\EntityRepository;
 use EuroMillions\entities\User;
 
 class PaymentMethodRepository extends RepositoryBase

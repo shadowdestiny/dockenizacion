@@ -161,8 +161,7 @@ class UserService
         try{
             $result = $this->paymentMethodRepository->add($paymentMethod);
             if($result){
-                $paymentMethodsCollection = $this->getPaymentMethods($paymentMethod->getUser()->getId());
-                return new ServiceActionResult(true,$paymentMethodsCollection);
+                return new ServiceActionResult(true, 'Your payment method was added');
             }else{
                 return new ServiceActionResult(false,'Error inserting payment method');
             }

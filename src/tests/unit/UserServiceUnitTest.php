@@ -202,7 +202,7 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_addNewPaymentMethod_called_returnServiceActionResultTrue()
     {
-        $expected = new ServiceActionResult(true);
+        $expected = new ServiceActionResult(true,'Your payment method was added');
         $this->exerciseAddNewPaymentMethod($expected);
     }
 
@@ -224,7 +224,7 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_addNewPaymentMethod_called_increasePaymentMethodByUser()
     {
-        $expected = new ServiceActionResult(true,1);
+        $expected =1;
         $creditCard = $this->getCreditCard();
         $paymentMethod = new CreditCardPaymentMethod($creditCard);
         $user = $this->getUser();
@@ -237,7 +237,7 @@ class UserServiceUnitTest extends UnitTestBase
         $this->stubEntityManager($entityManager_stub);
         $sut = $this->getSut();
         $result_add = $sut->addNewPaymentMethod($paymentMethod);
-        $actual = new ServiceActionResult(true,count($result_add));
+        $actual = count($result_add);
         $this->assertEquals($expected,$actual);
     }
 
@@ -261,6 +261,17 @@ class UserServiceUnitTest extends UnitTestBase
     {
         $expected = new ServiceActionResult(false,'You don\'t have any payment method registered');
         $this->exerciseGetPaymentMethod($expected);
+    }
+
+    /**
+     * method getPaymentMethods
+     * when calledWithInvalidUser
+     * should returnServiceActionResultFalseWithEmptyArray
+     */
+    public function test_getPaymentMethods_calledWithInvalidUser_returnServiceActionResultFalseWithEmptyArray()
+    {
+        $expected = new ServiceActionResult(false,'You don\'t have any payment method registered');
+        $this->exerciseGetPaymentMethod($expected,[],'43872489302fdkosfds');
     }
     
 
@@ -347,9 +358,9 @@ class UserServiceUnitTest extends UnitTestBase
      * @param array $return
      * @return ServiceActionResult
      */
-    protected function exerciseGetPaymentMethod($expected,$return = [])
+    protected function exerciseGetPaymentMethod($expected,$return = [], $userId = '9098299B-14AC-4124-8DB0-19571EDABE55')
     {
-        $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
+        $userId = new UserId($userId);
         $user = $this->getUser();
         $this->userRepository_double->find($userId)->willReturn($user);
         $this->paymentMethodRepository_double->getPaymentMethodsByUser($user)->willReturn($return);
