@@ -6,6 +6,9 @@ namespace tests\unit;
 
 use EuroMillions\components\NullPasswordHasher;
 use EuroMillions\config\Namespaces;
+use EuroMillions\entities\Bet;
+use EuroMillions\entities\EuroMillionsDraw;
+use EuroMillions\entities\PlayConfig;
 use EuroMillions\entities\User;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\EuroMillionsLine;
@@ -25,16 +28,30 @@ class PlayServiceUnitTest extends UnitTestBase
 
     private $playConfigRepository_double;
 
+    private $euroMillionsDrawRepository_double;
+
+    private $lotteryDrawRepository_double;
+
+    private $lotteryDataService_double;
+
+    private $betRepository_double;
+
     protected function getEntityManagerStubExtraMappings()
     {
         return [
-            Namespaces::ENTITIES_NS . 'PlayConfig' => $this->playConfigRepository_double
+            Namespaces::ENTITIES_NS . 'PlayConfig' => $this->playConfigRepository_double,
+            Namespaces::ENTITIES_NS . 'EuroMillionsDraw' => $this->euroMillionsDrawRepository_double,
+            Namespaces::ENTITIES_NS . 'Lottery' => $this->lotteryDrawRepository_double,
+            Namespaces::ENTITIES_NS . 'Bet' => $this->betRepository_double,
         ];
     }
 
     public function setUp()
     {
         $this->playConfigRepository_double = $this->getRepositoryDouble('PlayConfigRepository');
+        $this->lotteryDataService_double = $this->getServiceDouble('LotteriesDataService');
+        $this->betRepository_double = $this->getRepositoryDouble('BetRepository');
+        $this->lotteryDrawRepository_double = $this->getRepositoryDouble('EuroMillions\entities\Lottery');
         parent::setUp();
     }
 
@@ -82,8 +99,81 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
+    /**
+     * method bet
+     * when calledWhenTheresNoBetInDB
+     * should returnServiceActionResultTrueAndCreateNewBet
+     */
+    public function test_bet_calledWhenTheresNoBetInDB_returnServiceActionResultTrueAndCreateNewBet()
+    {
+        // MODIFICAR PARA QUE EL NOMBRE DEL TEST SEA: bet_calledWhenTheresNoBetInDB_returnServiceActionREsultTrueAndCreateNewBet
+        $expected = new ServiceActionResult(true);
+        $user = $this->getUser();
+        $regular_numbers = [1, 2, 3, 4, 5];
+        $lucky_numbers = [5, 8];
+        $euroMillionsDraw = new EuroMillionsDraw();
+        $euroMillionsLine = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),
+            $this->getLuckyNumbers($lucky_numbers));
+
+        $euroMillionsDraw->createResult($regular_numbers, $lucky_numbers);
+        $playConfig = new PlayConfig();
+        $playConfig->initialize([
+                'user' => $user,
+                'line' => $euroMillionsLine
+            ]
+        );
+
+        $this->betRepository_double->getBetsByDrawDate(Argument::any())->willReturn(null);
+        $this->betRepository_double->add(Argument::any())->willReturn(true);
+        $sut = $this->getSut();
+        $actual = $sut->bet($playConfig,$euroMillionsDraw, new \DateTime('2015-09-16 00:00:00'));
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method bet
+     * when calledWhenABetForNextDrawYetExists
+     * should returnServiceActionResultTrueButNotCreateNewBet
+     */
+    public function test_bet_calledWhenABetForNextDrawYetExists_returnServiceActionResultTrueButNotCreateNewBet()
+    {
+
+        $expected = new ServiceActionResult(true);
+        $today = new \DateTime('2015-09-16 00:00:00');
+        $user = $this->getUser();
+        $regular_numbers = [1, 2, 3, 4, 5];
+        $lucky_numbers = [5, 8];
+        $euroMillionsDraw = new EuroMillionsDraw();
+        $euroMillionsLine = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),
+            $this->getLuckyNumbers($lucky_numbers));
+        $euroMillionsDraw->createResult($regular_numbers, $lucky_numbers);
+        $playConfig = new PlayConfig();
+        $playConfig->initialize([
+                'user' => $user,
+                'line' => $euroMillionsLine
+            ]
+        );
+
+        $bet = new Bet($playConfig,$euroMillionsDraw);
+
+        $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions',$today)->willReturn('2015-09-18 00:00:00');
+        $this->betRepository_double->getBetsByDrawDate(Argument::any())->willReturn($bet);
+        $this->betRepository_double->add(Argument::any())->shouldNotBeCalled();
+        $sut = $this->getSut();
+        $actual = $sut->bet($playConfig,$euroMillionsDraw, $today);
+        $this->assertEquals($expected,$actual);
+
+        // preparar el repositorio de bets para devolver una bet cuando yo le pase la fecha del siguiente sorteo
+        // inyectar al sut la fecha "hoy" que te interesa (posterior al anterior draw, anterior a la fecha de draw que has preparado)
+        // pasar la fecha al servicio de loterry data que te devuelve el next_draw
+        // assert de que el service result es true
+        // shouldnotbecalled en __construct the Bet ó betreporsitory->add
+
+    }
+
+
     private function getSut(){
-        $sut = $this->getDomainServiceFactory()->getPlayService();
+        $sut = $this->getDomainServiceFactory()->getPlayService($this->lotteryDataService_double->reveal());
         return $sut;
     }
 

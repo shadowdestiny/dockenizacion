@@ -87,10 +87,10 @@ class DomainServiceFactory
         return new AuthService($this->entityManager, $passwordHasher, $storageStrategy, $urlManager, $logService, $emailService);
     }
 
-    public function getPlayService(EntityManager $entityManager = null)
+    public function getPlayService(LotteriesDataService $lotteriesDataService = null)
     {
-        if (!$entityManager) $entityManager = $this->entityManager;
-        return new PlayService($entityManager);
+        if (!$lotteriesDataService) $lotteriesDataService = new LotteriesDataService($this->entityManager, new LotteryApisFactory());
+        return new PlayService($this->entityManager, $lotteriesDataService);
     }
 
     private function getRepository($entity)

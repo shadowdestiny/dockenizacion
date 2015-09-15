@@ -16,6 +16,13 @@ class Bet extends EntityBase implements IEntity
 
     protected $bet;
 
+
+    public function __construct(PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw)
+    {
+        $this->play_config = $playConfig;
+        $this->euromillionsDraw = $euroMillionsDraw;
+    }
+
     public function getId()
     {
         // TODO: Implement getId() method.

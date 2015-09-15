@@ -106,4 +106,18 @@ class LotteriesDataService
         $next_draw_date = $lottery->getNextDrawDate($now);
         return $now->diff($next_draw_date);
     }
+
+    public function getNextDrawByLottery($lotteryName, $now = null)
+    {
+        if (!$now) {
+            $now = new \DateTime();
+        }
+        /** @var Lottery $lottery */
+        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        $nextDrawDate = $lottery->getNextDrawDate($now);
+        return $nextDrawDate;
+
+    }
+
+
 }
