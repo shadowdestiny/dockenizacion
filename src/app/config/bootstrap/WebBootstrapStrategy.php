@@ -61,6 +61,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         (new Phalcon\Debug())->listen();
         $application = new Phalcon\Mvc\Application($di);
         // CONFIGURE DEBUGBAR
+/*
         $di['app'] = $application;
         (new ServiceProvider(APP_PATH . 'config/debugbar.php'))->start();
         $em = $di->get('entityManager');
@@ -68,7 +69,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $em->getConnection()->getConfiguration()->setSQLLogger($debugStack);
         $debugbar = $di->get('debugbar');
         $debugbar->addCollector(new DoctrineCollector($debugStack));
-        echo $application->handle()->getContent();
+*/        echo $application->handle()->getContent();
     }
 
     protected function configLanguage(Di $di)

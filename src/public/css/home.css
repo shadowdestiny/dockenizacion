@@ -144,7 +144,6 @@ ALLOWED: Variable and Extension
   margin-bottom: 5px;
 }
 
-/*.box-how .vec2{margin:-6px auto 16px;}*/
 .bg-yellow {
   background: #efc048;
   color: #fff;
@@ -775,10 +774,6 @@ ALLOWED: Variable and Extension
 
   .bg-quality, .bg-win {
     background-size: 340px;
-  }
-
-  .bg-hope {
-    background-image: url(../img/home/bg-hope@2x.jpg);
   }
 }
 /* Small Devices, Tablets */

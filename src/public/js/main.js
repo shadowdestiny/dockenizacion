@@ -1,4 +1,5 @@
 /* Initialise variables */
+
 var varSize = 0
 var mobile = 0;
 var navUrl = [];
@@ -65,7 +66,8 @@ function btnShowHide(button, show, hide){
 $(function(){
 	checkSize();
 	$(window).resize(checkSize);
-	$('.menu-ham').click(function(){
+
+	$(".menu-ham").click(function(){
 		$(this).toggleClass('expanded').siblings('ul').slideToggle().toggleClass('open');
 	});
 });
