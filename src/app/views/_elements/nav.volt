@@ -30,14 +30,10 @@
     {% if user_logged %}
         {# EDTD To remove SUBNAV when not connected as account #}
         <ul class="subnav hidden">
-            <li><a href="javascript:void(0);">{{ language.translate("My Account") }} <span class="ico ico-arrow-right"></span></a>
-            </li>
-            <li><a href="javascript:void(0);">{{ language.translate("My Games") }} <span
-                            class="ico ico-arrow-right"></span></a></li>
-            <li><a href="javascript:void(0);">{{ language.translate("My Wallet") }} <span
-                            class="ico ico-arrow-right"></span></a></li>
-            <li><a href="javascript:void(0);">{{ language.translate("Messages") }} <span
-                            class="ico ico-arrow-right"></span></a></li>
+            <li><a href="javascript:void(0);">{{ language.translate("My Account") }} <span class="ico ico-arrow-right"></span></a></li>
+            <li><a href="javascript:void(0);">{{ language.translate("My Games") }} <span class="ico ico-arrow-right"></span></a></li>
+            <li><a href="javascript:void(0);">{{ language.translate("My Wallet") }} <span class="ico ico-arrow-right"></span></a></li>
+            <li><a href="javascript:void(0);">{{ language.translate("Messages") }} <span class="ico ico-arrow-right"></span></a></li>
             <li><a href="/userAccess/logout">{{ language.translate("Sign out") }} <span class="ico ico-exit"></span></a></li>
         </ul>
     {% endif %}

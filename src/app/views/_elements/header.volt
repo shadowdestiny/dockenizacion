@@ -1,6 +1,7 @@
 {# EMTD To insert *burger* for  mobile version #}
 
 {# Caching SVG #}
+
 {% include "_elements/svg.volt" %}
 
 <header data-role="header">
@@ -29,7 +30,7 @@
 		</div>
 	</div>
 	<nav class="nav mobile">
-		<button class="menu-ham"><span class="bar"></span></button>
+		<button class="menu-ham"><span class="bar"></span></button> 
 		<ul>
 			{% include "_elements/nav.volt" %}
 			{% include "_elements/top-nav.volt" %}

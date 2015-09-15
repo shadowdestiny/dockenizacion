@@ -26,6 +26,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         return [
             'users',
             'languages',
+            'payment_methods'
         ];
     }
 
