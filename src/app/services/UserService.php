@@ -161,6 +161,7 @@ class UserService
         try{
             $result = $this->paymentMethodRepository->add($paymentMethod);
             if($result){
+                $this->entityManager->flush($paymentMethod);
                 return new ServiceActionResult(true, 'Your payment method was added');
             }else{
                 return new ServiceActionResult(false,'Error inserting payment method');
@@ -185,7 +186,6 @@ class UserService
                 return new ServiceActionResult(false,'You don\'t have any payment method registered');
             }
         }
-
     }
 
 }

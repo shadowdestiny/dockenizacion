@@ -26,6 +26,10 @@
         <one-to-many target-entity="EuroMillions\entities\PaymentMethod" mapped-by="payment_method"
                      field="paymentMethod">
         </one-to-many>
+        <one-to-many target-entity="EuroMillions\entities\PlayConfig" mapped-by="play_config"
+                     field="playConfig">
+        </one-to-many>
+
 
 
     </entity>

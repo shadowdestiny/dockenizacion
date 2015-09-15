@@ -348,6 +348,8 @@ class UserServiceUnitTest extends UnitTestBase
         $paymentMethod = new CreditCardPaymentMethod($creditCard);
         $paymentMethod->setUser($user);
         $this->paymentMethodRepository_double->add(Argument::any())->willReturn($expected->success());
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->flush($paymentMethod)->shouldNotBeCalled();
         $sut = $this->getSut();
         $actual = $sut->addNewPaymentMethod($paymentMethod);
         $this->assertEquals($expected, $actual);

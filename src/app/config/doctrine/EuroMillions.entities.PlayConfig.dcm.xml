@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="EuroMillions\entities\PlayConfig" table="play_config"
+            repository-class="EuroMillions\repositories\PlayConfigRepository">
+
+        <id name="id" type="integer">
+            <generator strategy="IDENTITY"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <embedded name="play_config" class="EuroMillions\vo\EuroMillionsResult"/>
+
+        <one-to-many target-entity="EuroMillions\entities\Bet" mapped-by="bet"
+                     field="bet">
+        </one-to-many>
+
+        <many-to-one target-entity="EuroMillions\entities\User" inversed-by="user"
+                     field="user">
+
+        </many-to-one>
+
+
+
+    </entity>
+</doctrine-mapping>

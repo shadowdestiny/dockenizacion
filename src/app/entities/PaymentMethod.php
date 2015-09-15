@@ -3,9 +3,6 @@
 
 namespace EuroMillions\entities;
 
-
-use EuroMillions\interfaces\IEntity;
-
 abstract class PaymentMethod extends EntityBase
 {
 
