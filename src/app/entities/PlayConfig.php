@@ -6,6 +6,7 @@ namespace EuroMillions\entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use EuroMillions\interfaces\IEntity;
+use EuroMillions\vo\EuroMillionsLine;
 
 class PlayConfig extends EntityBase implements IEntity
 {
@@ -16,10 +17,14 @@ class PlayConfig extends EntityBase implements IEntity
 
     protected $user;
 
-    /** @var  EuroMillionsResult */
+    /** @var  EuroMillionsLine */
     protected $line;
 
     protected $play_config;
+
+    protected $playConfigDateEnd;
+
+    protected $active;
 
     public function __construct()
     {
@@ -51,7 +56,14 @@ class PlayConfig extends EntityBase implements IEntity
         return $this->line;
     }
 
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
 
-
+    public function getActive()
+    {
+        return $this->active;
+    }
 
 }

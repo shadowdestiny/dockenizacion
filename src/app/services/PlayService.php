@@ -35,14 +35,20 @@ class PlayService
      */
     public function play(User $user, EuroMillionsLine $euromillionsResult)
     {
-        $playConfig = new PlayConfig();
-        $playConfig->initialize([
-                'user' => $user,
-                'line' => $euromillionsResult
-            ]
-        );
-        $this->playConfigRepository->add($playConfig);
-        return new ServiceActionResult(true);
+        if($user->getBalance()->getAmount() > 0){
+            $playConfig = new PlayConfig();
+            $playConfig->initialize([
+                    'user' => $user,
+                    'line' => $euromillionsResult
+                ]
+            );
+            $this->playConfigRepository->add($playConfig);
+            $this->entityManager->flush($playConfig);
+            return new ServiceActionResult(true);
+        } else {
+            return new ServiceActionResult(false);
+        }
+
     }
 
 }

@@ -14,6 +14,7 @@ use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
 use Money\Currency;
 use Money\Money;
+use Prophecy\Argument;
 use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\UnitTestBase;
 
@@ -49,38 +50,41 @@ class PlayServiceUnitTest extends UnitTestBase
         $regular_numbers = [1, 2, 3, 4, 5];
         $lucky_numbers = [5, 8];
         $euroMillionsResult = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),
-                                                     $this->getLuckyNumbers($lucky_numbers));
+                                                    $this->getLuckyNumbers($lucky_numbers));
 
         $sut = $this->getSut();
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->flush(Argument::any())->shouldNotBeCalled();
+        $this->stubEntityManager($entityManager_stub);
         $actual = $sut->play($user,$euroMillionsResult);
         $this->assertEquals($expected,$actual);
     }
 
     /**
      * method play
-     * when calledWithUserBalanceGreaterThanZero
-     * should returnServiceActionResultTrue
+     * when calledWithUserWithoutBalance
+     * should returnServiceActionResultFalse
      */
-    public function test_play_calledWithUserBalanceGreaterThanZero_returnServiceActionResultTrue()
+    public function test_play_calledWithUserWithoutBalance_returnServiceActionResultFalse()
     {
-        $expected = new ServiceActionResult(true);
+        $expected = new ServiceActionResult(false);
         $user = $this->getUser();
+        $user->setBalance(new Money(0,new Currency('EUR')));
         $regular_numbers = [1, 2, 3, 4, 5];
         $lucky_numbers = [5, 8];
         $euroMillionsResult = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),
             $this->getLuckyNumbers($lucky_numbers));
-
         $sut = $this->getSut();
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->flush(Argument::any())->shouldNotBeCalled();
+        $this->stubEntityManager($entityManager_stub);
         $actual = $sut->play($user,$euroMillionsResult);
         $this->assertEquals($expected,$actual);
-
     }
 
     private function getSut(){
-
         $sut = $this->getDomainServiceFactory()->getPlayService();
         return $sut;
-
     }
 
     /**
