@@ -88,6 +88,12 @@ class DomainServiceFactory
         return new AuthService($this->entityManager, $passwordHasher, $storageStrategy, $urlManager, $logService, $emailService);
     }
 
+    public function getPlayConfigService(EntityManager $entityManager = null)
+    {
+        if (!$entityManager) $entityManager = $this->entityManager;
+        return new PlayConfigService($entityManager);
+    }
+
     private function getRepository($entity)
     {
         return $this->entityManager->getRepository(self::ENTITIES_NS . $entity);
