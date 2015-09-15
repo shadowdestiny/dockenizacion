@@ -86,6 +86,34 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         ];
     }
 
+    /**
+     * method addNewPaymentMethod
+     * when called
+     * should increasePaymentMethodByUser
+     */
+    public function test_addNewPaymentMethod_called_increasePaymentMethodByUser()
+    {
+        $expected =1;
+        $userRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS.'User');
+        $email = 'algarrobo@currojimenez.com';
+        /** @var User $user */
+        $user = $userRepository->getByEmail($email);
+        $creditCard = new CreditCard(new CardHolderName('Raul Mesa Ros'),
+            new CardNumber('5500005555555559'),
+            new ExpiryDate('10/19'),
+            new CVV('123')
+        );
+        $paymentMethod = new CreditCardPaymentMethod($creditCard);
+        $paymentMethod->setUser($user);
+        $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
+        $sut = $this->getDomainServiceFactory()->getUserService(null, null, null, $paymentProvider_double->reveal());
+        $sut->addNewPaymentMethod($paymentMethod);
+        $this->entityManager->detach($paymentMethod);
+        $paymentMethodCollection = $sut->getPaymentMethods($user->getId());
+        $actual = count($paymentMethodCollection->getValues());
+        $this->assertEquals($expected,$actual);
+    }
+
 
 
 }

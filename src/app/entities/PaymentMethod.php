@@ -3,10 +3,7 @@
 
 namespace EuroMillions\entities;
 
-
-use EuroMillions\interfaces\IEntity;
-
-abstract class PaymentMethod extends EntityBase implements IEntity
+abstract class PaymentMethod extends EntityBase
 {
 
     protected $id;
@@ -27,7 +24,7 @@ abstract class PaymentMethod extends EntityBase implements IEntity
 
     public function getId()
     {
-        // TODO: Implement getId() method.
+        return $this->id;
     }
 
     /**
@@ -53,7 +50,7 @@ abstract class PaymentMethod extends EntityBase implements IEntity
 
     public function getCardNumber()
     {
-
+        return $this->cardNumber;
     }
 
     /**
@@ -66,7 +63,7 @@ abstract class PaymentMethod extends EntityBase implements IEntity
 
     public function getCardHolderName()
     {
-
+        return $this->cardHolderName;
     }
 
     /**
@@ -79,7 +76,7 @@ abstract class PaymentMethod extends EntityBase implements IEntity
 
     public function getExpiryDate()
     {
-
+        return $this->expiry_date;
     }
 
     /**
@@ -92,7 +89,7 @@ abstract class PaymentMethod extends EntityBase implements IEntity
 
     public function getCVV()
     {
-
+        return $this->cvv;
     }
 
     /**
@@ -105,7 +102,7 @@ abstract class PaymentMethod extends EntityBase implements IEntity
 
     public function getCompany()
     {
-
+        return $this->company;
     }
 
 }

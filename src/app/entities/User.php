@@ -34,9 +34,13 @@ class User extends EntityBase implements IEntity, IUser
 
     private $paymentMethod;
 
+    /** @var  PlayConfig */
+    private $playConfig;
+
 
     public function __construct(){
         $this->paymentMethod = new ArrayCollection();
+        $this->playConfig = new ArrayCollection();
     }
 
     /**
@@ -162,8 +166,4 @@ class User extends EntityBase implements IEntity, IUser
         return $this->validationToken;
     }
 
-    public function toString()
-    {
-        return $this;
-    }
 }

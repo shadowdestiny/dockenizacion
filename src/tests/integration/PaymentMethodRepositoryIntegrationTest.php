@@ -65,7 +65,6 @@ class PaymentMethodRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $this->exerciseAdd($user, $creditCard);
         $actual = $this->sut->getPaymentMethodsByUser($user);
         $this->assertInstanceOf($expected,$actual[0]);
-
     }
 
     private function exerciseAdd($user,$creditCard)
