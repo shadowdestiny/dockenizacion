@@ -73,6 +73,13 @@ abstract class DatabaseIntegrationTestBase extends \PHPUnit_Extensions_Database_
             $conn->rollBack();
             throw new \LogicException("Transaction opened and not closed");
         }
+        $fixtures = $this->getFixtures();
+        $conn = $this->getPDO();
+        $conn->query("set foreign_key_checks=0");
+        foreach ($fixtures as $fixture) {
+            $conn->exec("TRUNCATE $fixture");
+        }
+        $conn->query("set foreign_key_checks=1");
     }
     /**
      * Child classes must implement this method. Return empty array if no fixtures are needed

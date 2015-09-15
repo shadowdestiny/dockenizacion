@@ -22,5 +22,15 @@
         <embedded name="rememberToken" class="EuroMillions\vo\RememberToken" use-column-prefix="false"/>
         <embedded name="validationToken" class="EuroMillions\vo\ValidationToken" use-column-prefix="false"/>
         <embedded name="balance" class="Money\Money" use-column-prefix="true"/>
+
+        <one-to-many target-entity="EuroMillions\entities\PaymentMethod" mapped-by="payment_method"
+                     field="paymentMethod">
+        </one-to-many>
+        <one-to-many target-entity="EuroMillions\entities\PlayConfig" mapped-by="play_config"
+                     field="playConfig">
+        </one-to-many>
+
+
+
     </entity>
 </doctrine-mapping>

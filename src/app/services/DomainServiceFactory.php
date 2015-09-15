@@ -6,7 +6,6 @@ use EuroMillions\components\EmTranslationAdapter;
 use EuroMillions\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\interfaces\ILanguageStrategy;
 use EuroMillions\repositories\LanguageRepository;
-use EuroMillions\repositories\UserRepository;
 use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\services\preferences_strategies\WebUserPreferencesStorageStrategy;
@@ -50,19 +49,24 @@ class DomainServiceFactory
     }
 
     /**
-     * @param UserRepository|null $userRepository
      * @param CurrencyService|null $currencyService
      * @param IUsersPreferencesStorageStrategy $preferencesStrategy
      * @param EmailService $emailService
+     * @param PaymentProviderService $paymentProviderService
      * @return UserService
      */
-    public function getUserService(UserRepository $userRepository = null, CurrencyService $currencyService = null, IUsersPreferencesStorageStrategy $preferencesStrategy = null, EmailService $emailService = null)
+    public function getUserService(CurrencyService $currencyService = null,
+                                   IUsersPreferencesStorageStrategy $preferencesStrategy = null,
+                                   EmailService $emailService = null,
+                                   PaymentProviderService $paymentProviderService = null
+                                   )
     {
-        if (!$userRepository) $userRepository = $this->getRepository('User');
+        //if (!$userRepository) $userRepository = $this->getRepository('User');
         if (!$currencyService) $currencyService = $this->serviceFactory->getCurrencyService();
         if (!$preferencesStrategy) $preferencesStrategy = new WebUserPreferencesStorageStrategy($this->serviceFactory->getDI()->get('session'), $this->serviceFactory->getDI()->get('cookies'));
         if (!$emailService) $emailService = $this->serviceFactory->getEmailService();
-        return new UserService($userRepository, $currencyService, $preferencesStrategy, $emailService);
+        if (!$paymentProviderService) $paymentProviderService = new PaymentProviderService();
+        return new UserService($currencyService, $preferencesStrategy, $emailService, $paymentProviderService, $this->entityManager);
     }
 
     /**
@@ -81,6 +85,12 @@ class DomainServiceFactory
         if (!$logService) $logService = $this->serviceFactory->getLogService();
         if (!$emailService) $emailService = $this->serviceFactory->getEmailService();
         return new AuthService($this->entityManager, $passwordHasher, $storageStrategy, $urlManager, $logService, $emailService);
+    }
+
+    public function getPlayService(EntityManager $entityManager = null)
+    {
+        if (!$entityManager) $entityManager = $this->entityManager;
+        return new PlayService($entityManager);
     }
 
     private function getRepository($entity)

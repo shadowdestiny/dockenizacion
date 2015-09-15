@@ -6,8 +6,9 @@ namespace EuroMillions\vo;
 
 use EuroMillions\exceptions\InvalidCardNumberException;
 use EuroMillions\vo\base\Integer;
+use EuroMillions\vo\base\StringLiteral;
 
-class CardNumber extends Integer
+class CardNumber extends StringLiteral
 {
 
     private $type;
@@ -19,6 +20,7 @@ class CardNumber extends Integer
             throw new InvalidCardNumberException( get_class() . ' unknown');
         }
         $this->type=$value;
+        parent::__construct($cardNumber);
     }
 
     private function assertCreditNumber($value)

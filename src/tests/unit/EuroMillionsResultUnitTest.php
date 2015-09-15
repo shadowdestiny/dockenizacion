@@ -3,7 +3,7 @@ namespace tests\unit;
 
 use EuroMillions\vo\EuroMillionsLuckyNumber;
 use EuroMillions\vo\EuroMillionsRegularNumber;
-use EuroMillions\vo\EuroMillionsResult;
+use EuroMillions\vo\EuroMillionsLine;
 use tests\base\UnitTestBase;
 
 class EuroMillionsResultUnitTest extends UnitTestBase
@@ -59,7 +59,7 @@ class EuroMillionsResultUnitTest extends UnitTestBase
     public function test_construct_calledWithWrongDataTypes_throw($regular_numbers, $lucky_numbers)
     {
         $this->setExpectedException('\InvalidArgumentException', "The numbers should be proper value objects");
-        (new EuroMillionsResult($regular_numbers, $lucky_numbers));
+        (new EuroMillionsLine($regular_numbers, $lucky_numbers));
     }
 
     public function getNumbersWithWrongTypes()
@@ -80,7 +80,7 @@ class EuroMillionsResultUnitTest extends UnitTestBase
         $regular_numbers = [21, 23, 34, 46, 50];
         $expected = "21,23,34,46,50";
         $lucky_numbers = [10, 11];
-        $sut = new EuroMillionsResult($this->getRegularNumbers($regular_numbers),$this->getLuckyNumbers($lucky_numbers));
+        $sut = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),$this->getLuckyNumbers($lucky_numbers));
         $actual = $sut->getRegularNumbers();
         $this->assertEquals($expected, $actual);
     }
@@ -95,7 +95,7 @@ class EuroMillionsResultUnitTest extends UnitTestBase
         $regular_numbers = [21, 23, 34, 46, 50];
         $lucky_numbers = [10, 11];
         $expected = "10,11";
-        $sut = new EuroMillionsResult($this->getRegularNumbers($regular_numbers),$this->getLuckyNumbers($lucky_numbers));
+        $sut = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),$this->getLuckyNumbers($lucky_numbers));
         $actual = $sut->getLuckyNumbers();
         $this->assertEquals($expected, $actual);
     }
@@ -123,6 +123,6 @@ class EuroMillionsResultUnitTest extends UnitTestBase
     {
         $regular_numbers = $this->getRegularNumbers($regular_numbers);
         $lucky_numbers = $this->getLuckyNumbers($lucky_numbers);
-        (new EuroMillionsResult($regular_numbers, $lucky_numbers));
+        (new EuroMillionsLine($regular_numbers, $lucky_numbers));
     }
 }

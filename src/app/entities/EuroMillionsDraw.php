@@ -4,7 +4,7 @@ namespace EuroMillions\entities;
 use EuroMillions\interfaces\IEntity;
 use EuroMillions\vo\EuroMillionsLuckyNumber;
 use EuroMillions\vo\EuroMillionsRegularNumber;
-use EuroMillions\vo\EuroMillionsResult;
+use EuroMillions\vo\EuroMillionsLine;
 
 class EuroMillionsDraw extends EntityBase implements IEntity
 {
@@ -15,7 +15,7 @@ class EuroMillionsDraw extends EntityBase implements IEntity
     protected $published;
     /** @var  Lottery */
     protected $lottery;
-    /** @var  EuroMillionsResult */
+    /** @var  EuroMillionsLine */
     protected $result;
 
     public function getResult()
@@ -73,6 +73,6 @@ class EuroMillionsDraw extends EntityBase implements IEntity
         foreach ($luckyNumbers as $number) {
             $lucky_numbers[] = new EuroMillionsLuckyNumber($number);
         }
-        $this->result = new EuroMillionsResult($regular_numbers, $lucky_numbers);
+        $this->result = new EuroMillionsLine($regular_numbers, $lucky_numbers);
     }
 }

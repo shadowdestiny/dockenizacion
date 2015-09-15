@@ -3,7 +3,7 @@ namespace tests\integration;
 
 use EuroMillions\entities\Lottery;
 use EuroMillions\repositories\LotteryDrawRepository;
-use EuroMillions\vo\EuroMillionsResult;
+use EuroMillions\vo\EuroMillionsLine;
 use Money\Currency;
 use Money\Money;
 use tests\base\RepositoryIntegrationTestBase;
@@ -73,7 +73,7 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
      */
     public function test_getLastResult_called_returnProperValue()
     {
-        /** @var EuroMillionsResult $actual */
+        /** @var EuroMillionsLine $actual */
         $lottery = (new Lottery())->initialize([
              'name' => 'EuroMillions',
             'frequency' => 'w0100100',

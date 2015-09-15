@@ -1,0 +1,9 @@
+- name: download composer installer & install
+  shell: curl -sS https://getcomposer.org/installer | php
+
+- name: mv composer executable
+  shell: mv composer.phar /usr/local/bin/composer
+
+- name: execute install
+  shell: >
+    cd {{ json_path }};composer install
