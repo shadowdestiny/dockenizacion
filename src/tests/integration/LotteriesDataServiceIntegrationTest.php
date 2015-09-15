@@ -5,7 +5,7 @@ use EuroMillions\config\Namespaces;
 use EuroMillions\entities\EuroMillionsDraw;
 use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\services\LotteriesDataService;
-use EuroMillions\vo\EuroMillionsResult;
+use EuroMillions\vo\EuroMillionsLine;
 use Money\Currency;
 use Money\Money;
 use Phalcon\Di;
@@ -68,7 +68,7 @@ class LotteriesDataServiceIntegrationTest extends DatabaseIntegrationTestBase
         $sut = new LotteriesDataService($this->entityManager, new LotteryApisFactory());
         $sut->updateLastDrawResult($lottery_name, new \DateTime($now), $curlWrapper_stub);
 
-        $expected = new EuroMillionsResult($this->getRegularNumbers([2,7,8,45,48]),$this->getLuckyNumbers([1,9]));
+        $expected = new EuroMillionsLine($this->getRegularNumbers([2,7,8,45,48]),$this->getLuckyNumbers([1,9]));
 
         $euromillions_draw = $this->getDrawFromDatabase($lottery_name, new \DateTime($date));
         $actual_result = $euromillions_draw->getResult();

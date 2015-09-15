@@ -14,7 +14,7 @@
             </options>
         </id>
         <field name="draw_date" type="date" unique="true"/>
-        <embedded name="result" class="EuroMillions\vo\EuroMillionsResult"/>
+        <embedded name="result" class="EuroMillions\vo\EuroMillionsLine"/>
         <embedded name="jackpot" class="Money\Money"/>
         <many-to-one target-entity="EuroMillions\entities\Lottery" field="lottery" inversed-by="draws"/>
     </entity>

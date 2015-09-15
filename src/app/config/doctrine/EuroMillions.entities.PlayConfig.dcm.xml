@@ -15,7 +15,7 @@
             </options>
         </id>
 
-        <embedded name="line" class="EuroMillions\vo\EuroMillionsResult"/>
+        <embedded name="line" class="EuroMillions\vo\EuroMillionsLine"/>
 
         <one-to-many target-entity="EuroMillions\entities\Bet" mapped-by="bet"
                      field="bet">

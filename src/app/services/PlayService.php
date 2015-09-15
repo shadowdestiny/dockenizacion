@@ -9,7 +9,7 @@ use Doctrine\ORM\EntityManager;
 use EuroMillions\entities\PlayConfig;
 use EuroMillions\entities\User;
 use EuroMillions\repositories\PlayConfigRepository;
-use EuroMillions\vo\EuroMillionsResult;
+use EuroMillions\vo\EuroMillionsLine;
 use EuroMillions\vo\ServiceActionResult;
 
 class PlayService
@@ -30,10 +30,10 @@ class PlayService
 
     /**
      * @param User $user
-     * @param EuroMillionsResult $euromillionsResult
+     * @param EuroMillionsLine $euromillionsResult
      * @return ServiceActionResult
      */
-    public function play(User $user, EuroMillionsResult $euromillionsResult)
+    public function play(User $user, EuroMillionsLine $euromillionsResult)
     {
         $playConfig = new PlayConfig();
         $playConfig->initialize([

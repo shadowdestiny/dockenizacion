@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
     https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <embeddable name="EuroMillions\vo\EuroMillionsResult">
+    <embeddable name="EuroMillions\vo\EuroMillionsLine">
         <field name="regular_numbers" type="string" nullable="true" />
         <field name="lucky_numbers" type="string" nullable="true" />
     </embeddable>

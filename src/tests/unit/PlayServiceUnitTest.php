@@ -8,7 +8,7 @@ use EuroMillions\components\NullPasswordHasher;
 use EuroMillions\config\Namespaces;
 use EuroMillions\entities\User;
 use EuroMillions\vo\Email;
-use EuroMillions\vo\EuroMillionsResult;
+use EuroMillions\vo\EuroMillionsLine;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
@@ -48,7 +48,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $user = $this->getUser();
         $regular_numbers = [1, 2, 3, 4, 5];
         $lucky_numbers = [5, 8];
-        $euroMillionsResult = new EuroMillionsResult($this->getRegularNumbers($regular_numbers),
+        $euroMillionsResult = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),
                                                      $this->getLuckyNumbers($lucky_numbers));
 
         $sut = $this->getSut();
@@ -67,7 +67,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $user = $this->getUser();
         $regular_numbers = [1, 2, 3, 4, 5];
         $lucky_numbers = [5, 8];
-        $euroMillionsResult = new EuroMillionsResult($this->getRegularNumbers($regular_numbers),
+        $euroMillionsResult = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),
             $this->getLuckyNumbers($lucky_numbers));
 
         $sut = $this->getSut();
