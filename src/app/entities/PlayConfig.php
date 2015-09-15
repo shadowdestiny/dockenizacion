@@ -16,9 +16,8 @@ class PlayConfig extends EntityBase implements IEntity
 
     protected $user;
 
-    protected $regularNumbers;
-
-    protected $luckyNumbers;
+    /** @var  EuroMillionsResult */
+    protected $line;
 
     protected $play_config;
 
@@ -40,6 +39,16 @@ class PlayConfig extends EntityBase implements IEntity
     public function getUser()
     {
         return $this->user;
+    }
+
+    public function setLine($line)
+    {
+        $this->line = $line;
+    }
+
+    public function getLine()
+    {
+        return $this->line;
     }
 
 

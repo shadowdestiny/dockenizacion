@@ -5,7 +5,7 @@ use EuroMillions\entities\Lottery;
 use EuroMillions\entities\EuroMillionsDraw;
 use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\services\LotteriesDataService;
-use EuroMillions\vo\EuroMillionsResult;
+use EuroMillions\vo\EuroMillionsLine;
 use Money\Currency;
 use Money\Money;
 use Phalcon\Di;
@@ -166,7 +166,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
             'lucky_numbers' => [7,8],
         ];
 
-        $euro_millions_result = new EuroMillionsResult($this->getRegularNumbers([1,2,3,4,5]), $this->getLuckyNumbers([7,8]));
+        $euro_millions_result = new EuroMillionsLine($this->getRegularNumbers([1,2,3,4,5]), $this->getLuckyNumbers([7,8]));
 
         $this->lotteryDrawRepositoryDouble->expects($this->any())
             ->method('getLastResult')

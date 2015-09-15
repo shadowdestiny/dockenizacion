@@ -2,7 +2,7 @@
 namespace tests\unit;
 
 use EuroMillions\entities\EuroMillionsDraw;
-use EuroMillions\vo\EuroMillionsResult;
+use EuroMillions\vo\EuroMillionsLine;
 use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\UnitTestBase;
 
@@ -20,7 +20,7 @@ class EuroMillionsDrawUnitTest extends UnitTestBase
         $lucky_numbers = [5, 8];
         $sut = new EuroMillionsDraw();
         $sut->createResult($regular_numbers, $lucky_numbers);
-        $expected = new EuroMillionsResult($this->getRegularNumbers($regular_numbers), $this->getLuckyNumbers($lucky_numbers));
+        $expected = new EuroMillionsLine($this->getRegularNumbers($regular_numbers), $this->getLuckyNumbers($lucky_numbers));
         $this->assertEquals($expected, $sut->getResult());
     }
 }

@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
     https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="EuroMillions\entities\PlayConfig" table="play_config"
+    <entity name="EuroMillions\entities\PlayConfig" table="play_configs"
             repository-class="EuroMillions\repositories\PlayConfigRepository">
 
         <id name="id" type="integer">
@@ -15,7 +15,7 @@
             </options>
         </id>
 
-        <embedded name="play_config" class="EuroMillions\vo\EuroMillionsResult"/>
+        <embedded name="line" class="EuroMillions\vo\EuroMillionsLine"/>
 
         <one-to-many target-entity="EuroMillions\entities\Bet" mapped-by="bet"
                      field="bet">

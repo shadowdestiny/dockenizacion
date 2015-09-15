@@ -91,7 +91,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
      */
     public function test_addNewPaymentMethod_called_increasePaymentMethodByUser()
     {
-        $expected =1;
+        $expected = 1;
         $userRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS.'User');
         $email = 'algarrobo@currojimenez.com';
         /** @var User $user */
