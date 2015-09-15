@@ -1,7 +1,6 @@
 <?php
 namespace tests\integration;
 
-use EuroMillions\components\NullPasswordHasher;
 use EuroMillions\config\Namespaces;
 use EuroMillions\entities\User;
 use EuroMillions\entities\CreditCardPaymentMethod;
@@ -9,9 +8,7 @@ use EuroMillions\vo\CardHolderName;
 use EuroMillions\vo\CardNumber;
 use EuroMillions\vo\CreditCard;
 use EuroMillions\vo\CVV;
-use EuroMillions\vo\Email;
 use EuroMillions\vo\ExpiryDate;
-use EuroMillions\vo\Password;
 use EuroMillions\vo\UserId;
 use Money\Currency;
 use Money\Money;
