@@ -1,0 +1,107 @@
+- hosts: 127.0.0.1
+  connection: local
+  sudo: yes
+  roles:
+    - phalcon-ubuntu_15.04
+    - { role: composer, json_path: /var/www }
+    - em-locales
+    - docker
+    - { role: docker-compose, version: 1.4.0}
+  tasks:
+    - name: set environment variable for euromillions
+      lineinfile: dest=/etc/profile line='export EM_ENV=vagrant'
+
+    - name: set file attributes
+      file: path=/vagrant/dev-scripts state=directory mode=0755
+
+    - name: install git
+      apt: pkg=git state=latest update_cache=yes
+
+    - name: install mysql client
+      apt: pkg=mysql-client-5.6 state=latest update_cache=yes
+
+    - name: create phalcon executable softlink
+      file: src=/var/www/vendor/phalcon/devtools/phalcon.php dest=/usr/local/bin/phalcon mode=0554 state=link
+
+    - name: create doctrine executable softlink
+      file: src=/var/www/vendor/bin/doctrine dest=/usr/local/bin/doctrine mode=0554 state=link
+
+    - name: create mysql data directory if it doesn't exists
+      file: path=/home/vagrant/mysqldata state=directory mode=0754
+
+    - name: Install pip
+      shell: wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py && rm get-pip.py
+
+    - name: Install docker-py
+      pip: name=docker-py
+
+    - name: start compass container
+      docker:
+        name: compass
+        image: antonienko/compass-watch
+        command: watch --poll /src/compass
+        volumes:
+          - /var/www:/src
+        state: reloaded
+
+    - name: build database container
+      docker_image:
+        name: develdbmaster
+        path: /vagrant/docker/devel-dbmaster
+        state: present
+
+    - name: start database container
+      docker:
+        name: develdbmaster
+        image: develdbmaster
+        state: reloaded
+        ports:
+          - "3306:3306"
+        volumes:
+          - /home/vagrant/mysqldata:/var/lib/mysql
+        env:
+          MYSQL_ROOT_PASSWORD: tpl9
+          MYSQL_DATABASE: euromillions
+
+    - name: pause waiting for db to initialize
+      pause: seconds=20
+
+    - name: initialize test database
+      shell:  mysql -h 127.0.0.1 -u root -ptpl9 -e 'CREATE DATABASE IF NOT EXISTS euromillions_test'
+
+    - name: start redis container
+      docker:
+        name: develredis
+        image: redis
+        ports:
+          - "6379:6379"
+
+    - name: build web container
+      docker_image:
+        name: develweb
+        path: /vagrant/docker/devel-web
+        state: present
+
+    - name: start web container
+      docker:
+        name: develweb
+        image: develweb
+        state: reloaded
+        ports:
+          - "8080:80"
+        volumes:
+          - /var/www:/var/www
+        links:
+          - develdbmaster:mysql
+          - develredis:redis
+        env:
+          EM_ENV: docker
+
+    - name: execute migrations
+      shell: /vagrant/dev-scripts/schema_and_data_migration.sh dev
+
+    - name: execute crons for updating jackpots and results
+      shell: >
+        php /var/www/app/cli.php jackpot updatePrevious;
+        php /var/www/app/cli.php result update;
+        php /var/www/app/cli.php jackpot update;

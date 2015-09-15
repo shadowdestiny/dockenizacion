@@ -26,7 +26,7 @@ return array(
         'route'           => true, // Display the current route infomations.
         'log'             => false, // Display messages of the log service sent.
         'db'              => true, // Display the sql statments infomations.
-        'doctrine'              => true,
+        'doctrine'        => true,
         'view'            => true, // Display the rendered views infomations.
         'cache'           => true, // Display the cache operation infomations.
         'mail'            => false,
@@ -35,13 +35,6 @@ return array(
     'options' => array(
         'exceptions'=>array(
             'chain'=>true,
-        ),
-        'db' => array(
-            'with_params'       => false,   // Render SQL with the parameters substituted
-            'backtrace' => false,  // EXPERIMENTAL: Use a backtrace to find the origin of the query in your files.
-            'explain'   => false,  // EXPLAIN select statement
-            'error_mode'=> \PDO::ERRMODE_EXCEPTION, // \PDO::ERRMODE_SILENT , \PDO::ERRMODE_WARNING, \PDO::ERRMODE_EXCEPTION
-            'show_conn'=>false, // IF show connection info
         ),
         'mail' => array(
             'full_log' => false

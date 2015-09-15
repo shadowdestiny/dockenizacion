@@ -1,0 +1,5 @@
+- name: Install docker compose
+  shell: curl -L https://github.com/docker/compose/releases/download/{{ version }}/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+
+- name: File attributes
+  file: path=/usr/local/bin/docker-compose mode=0754

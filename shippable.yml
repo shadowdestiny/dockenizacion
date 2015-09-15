@@ -15,17 +15,12 @@ services:
     - redis
 
 before_script:
-#  - pecl channel-update pecl.php.net
-#  - pecl install channel://pecl.php.net/apcu-4.0.7
   - /etc/init.d/mysql start & > /dev/null
   - sleep 10
   - mysql -e 'create database if not exists euromillions_test;'
   - redis-server &
   - mkdir -p shippable/codecoverage
   - mkdir -p shippable/testresults
-#  - if [ ! -d "cphalcon" ]; then git clone --depth=1 git://github.com/phalcon/cphalcon.git && cd cphalcon/build && ./install && cd ../.. && echo 'extension="phalcon.so"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
-#  - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-#  - /home/shippable/.phpenv/versions/5.6/composer/composer.phar self-update
   - cd src
   - composer install --prefer-source --no-interaction
   - cd ..
@@ -34,3 +29,11 @@ before_script:
 
 script:
  - src/vendor/bin/phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage --configuration src/tests/phpunit.xml --testsuite=unit+integration
+
+notifications:
+  email:
+    recipients:
+      - antonio.hernandez@panamedia.net
+      - raul.mesa@panamedia.net
+    on_success: change
+    on_failure: always
