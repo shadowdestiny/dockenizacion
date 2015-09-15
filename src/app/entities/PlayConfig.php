@@ -22,7 +22,11 @@ class PlayConfig extends EntityBase implements IEntity
 
     protected $play_config;
 
-    protected $playConfigDateEnd;
+    protected $drawDays;
+
+    protected $startDrawDate;
+
+    protected $lastDrawDate;
 
     protected $active;
 
@@ -64,6 +68,36 @@ class PlayConfig extends EntityBase implements IEntity
     public function getActive()
     {
         return $this->active;
+    }
+
+    public function setDrawDays($drawDays)
+    {
+        $this->drawDays = $drawDays;
+    }
+
+    public function getDrawDays()
+    {
+        return $this->drawDays;
+    }
+
+    public function setStartDrawDate($startDrawDate)
+    {
+        $this->startDrawDate = $startDrawDate;
+    }
+
+    public function getStartDrawDate()
+    {
+        return $this->startDrawDate;
+    }
+
+    public function setLastDrawDate($lastDrawDate)
+    {
+        $this->lastDrawDate = $lastDrawDate;
+    }
+
+    public function getLastDrawDate()
+    {
+        return $this->lastDrawDate;
     }
 
 }

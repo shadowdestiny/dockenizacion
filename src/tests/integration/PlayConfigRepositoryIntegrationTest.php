@@ -58,6 +58,7 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $playConfig->setUser($user);
         $playConfig->setLine($euroMillionsLine);
         $playConfig->setActive(true);
+        $playConfig->setDrawDays(2);
         $this->sut->add($playConfig);
         $this->entityManager->flush();
         $actual = $this->entityManager
