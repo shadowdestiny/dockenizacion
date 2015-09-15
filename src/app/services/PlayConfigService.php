@@ -4,6 +4,8 @@
 namespace EuroMillions\services;
 
 
+use EuroMillions\vo\EuroMillionsResult;
+
 class PlayConfigService
 {
 
@@ -14,10 +16,9 @@ class PlayConfigService
 
     /**
      * @param User $user
-     * @param array $regularNumbers
-     * @param array $luckyNumbers
+     * @param EuroMillionsResult $euromillionsResult
      */
-    public function create(User $user )
+    public function create(User $user, EuroMillionsResult $euromillionsResult)
     {
 
     }

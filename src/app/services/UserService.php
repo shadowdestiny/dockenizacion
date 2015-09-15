@@ -159,13 +159,9 @@ class UserService
     public function addNewPaymentMethod(PaymentMethod $paymentMethod)
     {
         try{
-            $result = $this->paymentMethodRepository->add($paymentMethod);
-            if($result){
-                $this->entityManager->flush($paymentMethod);
-                return new ServiceActionResult(true, 'Your payment method was added');
-            }else{
-                return new ServiceActionResult(false,'Error inserting payment method');
-            }
+            $this->paymentMethodRepository->add($paymentMethod);
+            $this->entityManager->flush($paymentMethod);
+            return new ServiceActionResult(true, 'Your payment method was added');
         }catch(Exception $e){
             return new ServiceActionResult(false,'An exception ocurred while payment method was saved');
         }

@@ -17,6 +17,7 @@ use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
 use Money\Currency;
 use Money\Money;
+use Phalcon\Paginator\Exception;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
 
@@ -213,8 +214,8 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_addNewPaymentMethod_NoPersist_returnServiceActionResultFalse()
     {
-        $expected = (new ServiceActionResult(false,'Error inserting payment method'));
-        $this->exerciseAddNewPaymentMethod($expected);
+        $expected = (new ServiceActionResult(false,'An exception ocurred while payment method was saved'));
+        $this->exerciseAddNewPaymentMethodThrowException($expected);
     }
 
     /**
@@ -347,9 +348,21 @@ class UserServiceUnitTest extends UnitTestBase
         $creditCard = $this->getCreditCard();
         $paymentMethod = new CreditCardPaymentMethod($creditCard);
         $paymentMethod->setUser($user);
-        $this->paymentMethodRepository_double->add(Argument::any())->willReturn($expected->success());
+        //$this->paymentMethodRepository_double->add(Argument::any())->willThrow(new \Exception('An exception ocurred while payment method was saved'));
         $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush($paymentMethod)->shouldNotBeCalled();
+        $sut = $this->getSut();
+        $actual = $sut->addNewPaymentMethod($paymentMethod);
+        $this->assertEquals($expected, $actual);
+    }
+
+    protected function exerciseAddNewPaymentMethodThrowException(ServiceActionResult $expected)
+    {
+        $user = $this->getUser();
+        $creditCard = $this->getCreditCard();
+        $paymentMethod = new CreditCardPaymentMethod($creditCard);
+        $paymentMethod->setUser($user);
+        $this->paymentMethodRepository_double->add(Argument::any())->willThrow(new \Exception('An exception ocurred while payment method was saved'));
         $sut = $this->getSut();
         $actual = $sut->addNewPaymentMethod($paymentMethod);
         $this->assertEquals($expected, $actual);

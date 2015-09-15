@@ -15,7 +15,7 @@ class RepositoryBase extends EntityRepository
      */
     public function add(EntityBase $entity)
     {
-        return $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->persist($entity);
     }
 
 }
