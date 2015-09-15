@@ -29,7 +29,7 @@ class PaymentMethodRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     {
         return [
             'users',
-            //'payment_methods'
+            'payment_methods'
         ];
     }
 
@@ -117,6 +117,4 @@ class PaymentMethodRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         );
         return $user;
     }
-
-
 }

@@ -17,7 +17,7 @@ use Money\Money;
 use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\UnitTestBase;
 
-class PlayConfigServiceUnitTest extends UnitTestBase
+class PlayServiceUnitTest extends UnitTestBase
 {
 
     use EuroMillionsResultRelatedTest;
@@ -38,11 +38,11 @@ class PlayConfigServiceUnitTest extends UnitTestBase
     }
 
     /**
-     * method create
+     * method play
      * when called
      * should returnServiceActionResultTrue
      */
-    public function test_create_called_returnServiceActionResultTrue()
+    public function test_play_called_returnServiceActionResultTrue()
     {
         $expected = new ServiceActionResult(true);
         $user = $this->getUser();
@@ -52,13 +52,33 @@ class PlayConfigServiceUnitTest extends UnitTestBase
                                                      $this->getLuckyNumbers($lucky_numbers));
 
         $sut = $this->getSut();
-        $actual = $sut->create($user,$euroMillionsResult);
+        $actual = $sut->play($user,$euroMillionsResult);
         $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method play
+     * when calledWithUserBalanceGreaterThanZero
+     * should returnServiceActionResultTrue
+     */
+    public function test_play_calledWithUserBalanceGreaterThanZero_returnServiceActionResultTrue()
+    {
+        $expected = new ServiceActionResult(true);
+        $user = $this->getUser();
+        $regular_numbers = [1, 2, 3, 4, 5];
+        $lucky_numbers = [5, 8];
+        $euroMillionsResult = new EuroMillionsResult($this->getRegularNumbers($regular_numbers),
+            $this->getLuckyNumbers($lucky_numbers));
+
+        $sut = $this->getSut();
+        $actual = $sut->play($user,$euroMillionsResult);
+        $this->assertEquals($expected,$actual);
+
     }
 
     private function getSut(){
 
-        $sut = $this->getDomainServiceFactory()->getPlayConfigService();
+        $sut = $this->getDomainServiceFactory()->getPlayService();
         return $sut;
 
     }
