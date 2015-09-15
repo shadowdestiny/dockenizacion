@@ -61,8 +61,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         (new Phalcon\Debug())->listen();
         $application = new Phalcon\Mvc\Application($di);
         // CONFIGURE DEBUGBAR
-        $di['app'] = $application;
-        (new ServiceProvider(APP_PATH . 'config/debugbar.php'))->start();
+//        $di['app'] = $application;
+//        (new ServiceProvider(APP_PATH . 'config/debugbar.php'))->start();
         echo $application->handle()->getContent();
     }
 
