@@ -15,7 +15,7 @@
     <div class="wrapper">
         <div class="nav box-basic">
            {% set activeSubnav='{"myClass": "games"}'|json_decode %}
-           {% include "account/nav.volt" %}
+           {% include "account/_nav.volt" %}
         </div>
         <div class="box-basic content">
             <h1 class="h1 title">{{ language.translate("My Games") }}</h1>
@@ -108,7 +108,7 @@
                 </tbody>
             </table>
 
-            {% include "account/paging.volt" %}
+            {% include "account/_paging.volt" %}
         </div>
     </div>
 </main>
