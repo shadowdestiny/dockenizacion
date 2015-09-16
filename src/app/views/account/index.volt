@@ -18,6 +18,11 @@ $(function(){
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
+
+{#
+    {% set activePsw='{"myClass": "active"}'|json_decode %}
+#}
+
 <main id="content">
     <div class="wrapper">
         <div class="nav box-basic">
@@ -26,8 +31,10 @@ $(function(){
         </div>
         <div class="box-basic content">
             <div class="my-account">
+
                 <h1 class="h1 title yellow">{{ language.translate("My Account") }}</h1>
                 <h2 class="h3 yellow">{{ language.translate("User detail") }}</h2>
+
                 <form novalidate>
                     <div class="box error">
                         <span class="ico-warning ico"></span>
@@ -36,23 +43,7 @@ $(function(){
                     <div class="wrap">
                         <div class="cols">
                             <div class="col6">
-                                <label class="label" for="name">{{ language.translate("Name") }} <span class="asterisk">*</span></label>
-                                <input id="name" class="input" type="text">
-
-                                <label class="label" for="surname">{{ language.translate("Surname") }} <span class="asterisk">*</span></label>
-                                <input id="surname" class="input" type="text">
-
-                                <label class="label" for="email">{{ language.translate("Email") }} <span class="asterisk">*</span></label>
-                                <input id="email" class="input" type="email">
-
-                                <label class="label" for="country">{{ language.translate("Country of residence") }} <span class="asterisk">*</span></label>
-                                <select id="country" class="select">
-                                    <option>{{ language.translate("Select a country") }}</option>
-                                    <option>lorem ipsum 1</option>
-                                    <option>lorem ipsum 2</option>
-                                    <option>lorem ipsum 3</option>
-                                    <option>lorem ipsum 4</option>
-                                </select>
+                                {% include "account/_user-detail.volt" %}
                             </div>
                             <div class="col6">
                                 <label class="label" for="street">{{ language.translate("Street address") }}</label>
@@ -69,7 +60,7 @@ $(function(){
                             </div>
                         </div>
 
-*click to see change psw area*
+                *click to see change psw area*
                         <div class="cols gap">
                             <div class="col12">
                                 <a href="javascript:void(0)" class="change-psw btn gwy big">{{ language.translate("Change password") }}</a>
@@ -79,6 +70,7 @@ $(function(){
                                 </label>
                             </div>
                         </div>
+
                     </div>
                 </form>
 

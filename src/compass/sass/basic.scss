@@ -97,6 +97,7 @@ label.submit{cursor:pointer;}
   > h1{color:$yellow-dark;}
 }
 .box-basic.small{width:400px; margin:0 auto 8em;}
+.box-basic.medium{width:760px;}
 
 /* BUTTONS */
 .btn{
@@ -329,11 +330,10 @@ body{font-family:$basic-font;}
 .desktop{
   .li-your-account:hover > a, .li-your-account:hover .txt{color:#fff;}
 }
-.main-nav a:hover .ico-cart, .main-nav .active .ico-cart, .main-nav .active a, .main-nav .active .txt, .main-nav a:hover, .main-nav a:hover .txt{color:#fff;}
+.main-nav a:hover .ico-cart, .main-nav .active .ico-cart, .main-nav .active .link, .main-nav .active .txt, .main-nav a:hover, .main-nav a:hover .txt{color:#fff;}
 
 .main-nav .txt, .main-nav .ico-cart{transition:color 0.1s ease;}
 .main-nav li:hover{border-right:1px solid transparent;} /* erase yellow border */
-.main-nav .active a:hover{background:transparent;} /* disable hover on active menu */
 .main-nav .subnav{
   position:absolute; z-index:1; background:#fff; width:101%; border:1px solid $yellow; border-top:0;
   margin:-1px 0 0 -1px; border-radius:0 0 5px 5px;
@@ -475,7 +475,7 @@ body{font-family:$basic-font;}
 .box-links .col20per{width:100%; float:none; text-align:center; padding:0;}
 .box-links a{display:block; width:100%; border-bottom:1px solid #ddd; padding:7px 0; margin-bottom:0;}
 .box-links li:first-child a{border-top:1px solid #ddd;}
-.box-basic, .box-basic.small{width:100%; border-radius:0; border-left:0; border-right:0; margin-bottom:1em!important;}
+.box-basic, .box-basic.small, .box-basic.medium{width:100%; border-radius:0; border-left:0; border-right:0; margin-bottom:1em!important;}
 .paging{
   li, .next, .prev{margin:0;}
 }

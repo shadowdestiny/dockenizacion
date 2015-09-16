@@ -1,9 +1,9 @@
 {% extends "main.volt" %}
-{% block template_css %}<link rel="stylesheet" href="/css/shop.css">{% endblock %}
+{% block template_css %}<link rel="stylesheet" href="/css/cart.css">{% endblock %}
 {% block template_scripts %}
     {% include "sign-in/_sign-in-js.volt" %}
 {% endblock %}
-{% block bodyClass %}shop minimal{% endblock %}
+{% block bodyClass %}cart minimal{% endblock %}
 
 {% block header %}
     {% set activeSteps='{"myClass": "step1"}'|json_decode %}

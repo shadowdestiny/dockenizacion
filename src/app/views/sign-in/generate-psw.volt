@@ -27,9 +27,7 @@
             </div>
             {% set myPsw='{"value": ""}'|json_decode %}
             {% include "_elements/generate-psw.volt" %}
-     </div>
-
+        </div>
     </div>
 </main>
-
 {% endblock %}
