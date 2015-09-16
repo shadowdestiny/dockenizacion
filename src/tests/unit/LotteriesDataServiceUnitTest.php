@@ -152,6 +152,22 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method getNewDrawByLottery
+     * when called
+     * should returnLotteryNextDrawDate
+     */
+    public function test_getNewDrawByLottery_called_returnLotteryNextDrawDate()
+    {
+        $lottery_name = 'EuroMillions';
+        $this->prepareLotteryEntity($lottery_name);
+
+        $sut = $this->getSut();
+        $actual = $sut->getNextDrawByLottery($lottery_name, new \DateTime("2015-09-16 19:00:00"));
+        $expected = new \DateTime("2015-09-18 20:00:00");
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
      * method getLastResult
      * when called
      * should returnArrayWithContentsOfRepositoryREsult

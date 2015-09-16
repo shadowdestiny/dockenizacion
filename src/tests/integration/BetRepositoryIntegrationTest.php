@@ -59,7 +59,6 @@ class BetRepositoryIntegrationTest extends DatabaseIntegrationTestBase
 
     private function exerciseAdd()
     {
-//        $user = $this->entityManager->find('EuroMillions\entities\User', '9098299B-14AC-4124-8DB0-19571EDABE55');
         $playConfig = $this->entityManager->find('EuroMillions\entities\PlayConfig', 1);
         $euroMillionsDraw = $this->entityManager->find('EuroMillions\entities\EuroMillionsDraw', 1);
         $bet = new Bet($playConfig,$euroMillionsDraw);
