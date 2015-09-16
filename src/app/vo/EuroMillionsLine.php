@@ -1,7 +1,7 @@
 <?php
 namespace EuroMillions\vo;
 
-class EuroMillionsResult 
+class EuroMillionsLine
 {
     const NUM_REGULAR_NUMBERS = 5;
     const NUM_LUCKY_NUMBERS = 2;

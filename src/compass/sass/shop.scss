@@ -1,0 +1,21 @@
+@import "variable";
+
+.steps{float:right; height:80px; width:450px; margin-right:100px;}
+.line{
+    width:100%; height:0; margin:30px auto 0; border-top:2px solid $grey-light;
+    .ico{position:relative; top:-15px; float:right; font-size:18px; padding:2px; background:#fff;}
+}
+.line.basic:after{content:""; display:block; height:16px; width:2px; background:$grey-light; margin-top:-9px; float:right;}
+.line.position{position:absolute; border-color:$yellow; margin:-2px 0;}
+.line.step1{width:50px;}
+.line.step2{width:218px;}
+.line.step3{width:400px;}
+.wrap{border:10px solid #f00!important};
+.names{
+  position:relative; top:7px; color:$grey; text-transform:uppercase; font-size:$h4;
+  li{float:left;}
+  .active{font-weight:bold; color:$purple;}
+  .step1{margin-left:10px;}
+  .step2{margin-left:90px;}
+  .step3{float:right; margin-right:10px;}  
+} 

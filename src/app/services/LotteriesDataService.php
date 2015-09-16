@@ -6,7 +6,7 @@ use EuroMillions\entities\Lottery;
 use EuroMillions\entities\EuroMillionsDraw;
 use EuroMillions\repositories\LotteryDrawRepository;
 use EuroMillions\services\external_apis\LotteryApisFactory;
-use EuroMillions\vo\EuroMillionsResult;
+use EuroMillions\vo\EuroMillionsLine;
 use Money\Money;
 use Phalcon\Http\Client\Provider\Curl;
 
@@ -89,7 +89,7 @@ class LotteriesDataService
     {
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
-        /** @var EuroMillionsResult $lottery_result */
+        /** @var EuroMillionsLine $lottery_result */
         $lottery_result = $this->lotteryDrawRepository->getLastResult($lottery);
         $result['regular_numbers'] = explode(',',$lottery_result->getRegularNumbers());
         $result['lucky_numbers'] = explode(',',$lottery_result->getLuckyNumbers());
@@ -106,4 +106,18 @@ class LotteriesDataService
         $next_draw_date = $lottery->getNextDrawDate($now);
         return $now->diff($next_draw_date);
     }
+
+    public function getNextDrawByLottery($lotteryName, $now = null)
+    {
+        if (!$now) {
+            $now = new \DateTime();
+        }
+        /** @var Lottery $lottery */
+        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        $nextDrawDate = $lottery->getNextDrawDate($now);
+        return $nextDrawDate;
+
+    }
+
+
 }

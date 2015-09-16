@@ -29,7 +29,6 @@
             </div>
 
             {% block footer %}{% endblock %}
-
         </div>
 
         {# EDTD To remove SUBNAV when not connected as account #}

@@ -6,7 +6,6 @@ use EuroMillions\components\EmTranslationAdapter;
 use EuroMillions\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\interfaces\ILanguageStrategy;
 use EuroMillions\repositories\LanguageRepository;
-use EuroMillions\repositories\UserRepository;
 use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\services\preferences_strategies\WebUserPreferencesStorageStrategy;
@@ -88,10 +87,10 @@ class DomainServiceFactory
         return new AuthService($this->entityManager, $passwordHasher, $storageStrategy, $urlManager, $logService, $emailService);
     }
 
-    public function getPlayConfigService(EntityManager $entityManager = null)
+    public function getPlayService(LotteriesDataService $lotteriesDataService = null)
     {
-        if (!$entityManager) $entityManager = $this->entityManager;
-        return new PlayConfigService($entityManager);
+        if (!$lotteriesDataService) $lotteriesDataService = new LotteriesDataService($this->entityManager, new LotteryApisFactory());
+        return new PlayService($this->entityManager, $lotteriesDataService);
     }
 
     private function getRepository($entity)

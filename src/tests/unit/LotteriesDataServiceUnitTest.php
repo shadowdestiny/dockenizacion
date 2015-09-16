@@ -5,7 +5,7 @@ use EuroMillions\entities\Lottery;
 use EuroMillions\entities\EuroMillionsDraw;
 use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\services\LotteriesDataService;
-use EuroMillions\vo\EuroMillionsResult;
+use EuroMillions\vo\EuroMillionsLine;
 use Money\Currency;
 use Money\Money;
 use Phalcon\Di;
@@ -152,6 +152,22 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method getNewDrawByLottery
+     * when called
+     * should returnLotteryNextDrawDate
+     */
+    public function test_getNewDrawByLottery_called_returnLotteryNextDrawDate()
+    {
+        $lottery_name = 'EuroMillions';
+        $this->prepareLotteryEntity($lottery_name);
+
+        $sut = $this->getSut();
+        $actual = $sut->getNextDrawByLottery($lottery_name, new \DateTime("2015-09-16 19:00:00"));
+        $expected = new \DateTime("2015-09-18 20:00:00");
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
      * method getLastResult
      * when called
      * should returnArrayWithContentsOfRepositoryREsult
@@ -166,7 +182,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
             'lucky_numbers' => [7,8],
         ];
 
-        $euro_millions_result = new EuroMillionsResult($this->getRegularNumbers([1,2,3,4,5]), $this->getLuckyNumbers([7,8]));
+        $euro_millions_result = new EuroMillionsLine($this->getRegularNumbers([1,2,3,4,5]), $this->getLuckyNumbers([7,8]));
 
         $this->lotteryDrawRepositoryDouble->expects($this->any())
             ->method('getLastResult')
