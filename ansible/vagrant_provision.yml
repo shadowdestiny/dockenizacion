@@ -1,12 +1,10 @@
-- hosts: 127.0.0.1
-  connection: local
+- hosts: localhost
   sudo: yes
   roles:
-    - phalcon-ubuntu_15.04
+    - external/ansible-phalcon_on_ubuntu1504
     - { role: composer, json_path: /var/www }
     - em-locales
-    - docker
-    - { role: docker-compose, version: 1.4.0}
+    - {role: external/ansible-docker, compose_version: 1.4.0}
   tasks:
     - name: set environment variable for euromillions
       lineinfile: dest=/etc/profile line='export EM_ENV=vagrant'
