@@ -14,8 +14,6 @@ use EuroMillions\repositories\BetRepository;
 use EuroMillions\repositories\PlayConfigRepository;
 use EuroMillions\vo\EuroMillionsLine;
 use EuroMillions\vo\ServiceActionResult;
-use Phalcon\Forms\Element\Date;
-use Prophecy\Exception\InvalidArgumentException;
 
 class PlayService
 {
@@ -46,10 +44,11 @@ class PlayService
 
     /**
      * @param User $user
-     * @param EuroMillionsLine $euromillionsResult
+     * @param EuroMillionsLine $euromillionsLine
      * @return ServiceActionResult
+     * @internal param EuroMillionsLine $euromillionsResult
      */
-    public function play(User $user, EuroMillionsLine $euromillionsResult)
+    public function play(User $user, EuroMillionsLine $euromillionsLine)
     {
         if($user->getBalance()->getAmount() > 0){
 
@@ -57,7 +56,7 @@ class PlayService
             $playConfig = new PlayConfig();
             $playConfig->initialize([
                     'user' => $user,
-                    'line' => $euromillionsResult
+                    'line' => $euromillionsLine
                 ]
             );
             try {
