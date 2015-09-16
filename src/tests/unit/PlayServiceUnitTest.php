@@ -179,7 +179,6 @@ class PlayServiceUnitTest extends UnitTestBase
                 'line' => $euroMillionsLine
             ]
         );
-
         return [$playConfig,$euroMillionsDraw];
     }
 

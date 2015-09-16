@@ -37,7 +37,7 @@ class PlayConfig extends EntityBase implements IEntity
 
     public function getId()
     {
-
+        return $this->id;
     }
 
     public function setUser($user)
