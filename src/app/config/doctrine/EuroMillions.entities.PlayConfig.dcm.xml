@@ -14,19 +14,19 @@
                 <option name="unsigned">true</option>
             </options>
         </id>
+        <field name="drawDays" type="integer" nullable="true" column="draw_days"/>
+        <field name="active" type="boolean"><options><option name="default">1</option></options></field>
+
+        <field name="startDrawDate" type="date" nullable="true" column="start_draw_date"/>
+        <field name="lastDrawDate" type="date" nullable="true" column="last_draw_date"/>
 
         <embedded name="line" class="EuroMillions\vo\EuroMillionsLine"/>
-
         <one-to-many target-entity="EuroMillions\entities\Bet" mapped-by="bet"
                      field="bet">
         </one-to-many>
-
         <many-to-one target-entity="EuroMillions\entities\User" inversed-by="user"
                      field="user">
-
         </many-to-one>
-
-
 
     </entity>
 </doctrine-mapping>

@@ -19,6 +19,6 @@ EuroMillions\entities\EuroMillionsDraw:
       inversedBy: draws
   embedded:
     result:
-      class: \EuroMillions\vo\EuroMillionsResult
+      class: \EuroMillions\vo\EuroMillionsLine
     jackpot:
       class: \Money\Money

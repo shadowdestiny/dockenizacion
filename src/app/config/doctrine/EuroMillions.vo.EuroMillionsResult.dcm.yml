@@ -1,4 +1,4 @@
-EuroMillions\vo\EuroMillionsResult:
+EuroMillions\vo\EuroMillionsLine:
   type: embeddable
   fields:
     regular_numbers:
