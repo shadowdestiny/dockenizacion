@@ -106,23 +106,8 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_bet_calledWhenTheresNoBetInDB_returnServiceActionResultTrueAndCreateNewBet()
     {
-        // MODIFICAR PARA QUE EL NOMBRE DEL TEST SEA: bet_calledWhenTheresNoBetInDB_returnServiceActionREsultTrueAndCreateNewBet
         $expected = new ServiceActionResult(true);
-        $user = $this->getUser();
-        $regular_numbers = [1, 2, 3, 4, 5];
-        $lucky_numbers = [5, 8];
-        $euroMillionsDraw = new EuroMillionsDraw();
-        $euroMillionsLine = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),
-            $this->getLuckyNumbers($lucky_numbers));
-
-        $euroMillionsDraw->createResult($regular_numbers, $lucky_numbers);
-        $playConfig = new PlayConfig();
-        $playConfig->initialize([
-                'user' => $user,
-                'line' => $euroMillionsLine
-            ]
-        );
-
+        list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $this->betRepository_double->getBetsByDrawDate(Argument::any())->willReturn(null);
         $this->betRepository_double->add(Argument::any())->willReturn(true);
         $sut = $this->getSut();
@@ -140,34 +125,14 @@ class PlayServiceUnitTest extends UnitTestBase
 
         $expected = new ServiceActionResult(true);
         $today = new \DateTime('2015-09-16 00:00:00');
-        $user = $this->getUser();
-        $regular_numbers = [1, 2, 3, 4, 5];
-        $lucky_numbers = [5, 8];
-        $euroMillionsDraw = new EuroMillionsDraw();
-        $euroMillionsLine = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),
-            $this->getLuckyNumbers($lucky_numbers));
-        $euroMillionsDraw->createResult($regular_numbers, $lucky_numbers);
-        $playConfig = new PlayConfig();
-        $playConfig->initialize([
-                'user' => $user,
-                'line' => $euroMillionsLine
-            ]
-        );
-
+        list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $bet = new Bet($playConfig,$euroMillionsDraw);
-
         $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions',$today)->willReturn('2015-09-18 00:00:00');
         $this->betRepository_double->getBetsByDrawDate(Argument::any())->willReturn($bet);
         $this->betRepository_double->add(Argument::any())->shouldNotBeCalled();
         $sut = $this->getSut();
         $actual = $sut->bet($playConfig,$euroMillionsDraw, $today);
         $this->assertEquals($expected,$actual);
-
-        // preparar el repositorio de bets para devolver una bet cuando yo le pase la fecha del siguiente sorteo
-        // inyectar al sut la fecha "hoy" que te interesa (posterior al anterior draw, anterior a la fecha de draw que has preparado)
-        // pasar la fecha al servicio de loterry data que te devuelve el next_draw
-        // assert de que el service result es true
-        // shouldnotbecalled en __construct the Bet ó betreporsitory->add
 
     }
 
@@ -197,6 +162,25 @@ class PlayServiceUnitTest extends UnitTestBase
             ]
         );
         return $user;
+    }
+
+    private function getPlayConfigAndEuroMillionsDraw()
+    {
+        $user = $this->getUser();
+        $regular_numbers = [1, 2, 3, 4, 5];
+        $lucky_numbers = [5, 8];
+        $euroMillionsDraw = new EuroMillionsDraw();
+        $euroMillionsLine = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),
+            $this->getLuckyNumbers($lucky_numbers));
+        $euroMillionsDraw->createResult($regular_numbers, $lucky_numbers);
+        $playConfig = new PlayConfig();
+        $playConfig->initialize([
+                'user' => $user,
+                'line' => $euroMillionsLine
+            ]
+        );
+
+        return [$playConfig,$euroMillionsDraw];
     }
 
 

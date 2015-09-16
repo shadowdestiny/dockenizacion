@@ -91,20 +91,8 @@ class PlayService
         }else{
             $bet = new Bet($playConfig,$euroMillionsDraw);
             $this->betRepository->add($bet);
+            $this->entityManager->flush($bet);
             return new ServiceActionResult(true);
         }
-//        if( is_null($playConfig) || is_null($euroMillionsDraw)) {
-//            throw new InvalidArgumentException('');
-//        }
-//        $bet = new Bet($playConfig, $euroMillionsDraw);
-//        try{
-//            $this->betRepository->add($bet);
-//        }catch(\Exception $e){
-//            return new ServiceActionResult(false);
-//        }
-
     }
-
-
-
 }
