@@ -1,0 +1,5 @@
+- src: https://github.com/antonienko/ansible-docker
+  path: /vagrant/ansible/roles/external
+
+- src: https://github.com/antonienko/ansible-phalcon_on_ubuntu1504
+  path: /vagrant/ansible/roles/external

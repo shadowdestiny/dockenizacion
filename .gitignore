@@ -12,3 +12,4 @@ src/.phalcon/*
 src/.sass-cache/*
 !src/.sass-cache/README.md
 dev-logs/*
+ansible/roles/external/*

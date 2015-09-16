@@ -1,2 +1,0 @@
-- name: download docker installer & install
-  shell: wget -qO- https://get.docker.com/ | sh
