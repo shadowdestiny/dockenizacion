@@ -16,7 +16,7 @@
     <div class="wrapper">
         <div class="nav box-basic">
            {% set activeSubnav='{"myClass": "messages"}'|json_decode %}
-           {% include "account/nav.volt" %}
+           {% include "account/_nav.volt" %}
         </div>
         <div class="box-basic content">
             <div class="hidden right back">
@@ -70,7 +70,7 @@
                     </tbody>
                 </table>
 
-                {% include "account/paging.volt" %}
+                {% include "account/_paging.volt" %}
             </div>
 
             <div class="hidden single-msg">

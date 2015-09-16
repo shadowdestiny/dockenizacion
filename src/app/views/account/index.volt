@@ -22,7 +22,7 @@ $(function(){
     <div class="wrapper">
         <div class="nav box-basic">
            {% set activeSubnav='{"myClass": "account"}'|json_decode %}
-           {% include "account/nav.volt" %}
+           {% include "account/_nav.volt" %}
         </div>
         <div class="box-basic content">
             <div class="my-account">

@@ -1,0 +1,22 @@
+/*** VARIABLES ***
+NO ALLLOWED: Class, ID or Keyframes
+ALLOWED: Variable and Extension
+*/
+/* COLORS */
+/* LINKS COLORS */
+/* TYPOGRAPHY */
+/* 16x3.375 = 54px */
+/* 16x1.875 = 30px */
+/* 16x1.375=22 */
+/* 16x1.125=18 */
+/* 16x0.9375=15 */
+/* 16x1.125=14 */
+/* 16x0.75=12 */
+/* STROKE OUTLINE */
+/* NOTE: IE9 doesn't support text-shadow */
+/* BUTTONS */
+/* ANIMATION */
+/* COLUMNS */
+.wrap {
+  border: 10px solid #f00 !important;
+}
