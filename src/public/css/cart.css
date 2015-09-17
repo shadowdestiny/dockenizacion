@@ -49,6 +49,7 @@ ALLOWED: Variable and Extension
 }
 .cart .cvv {
   width: 65px;
+  float: left;
 }
 .cart .margin {
   margin-right: 20px;
@@ -60,10 +61,13 @@ ALLOWED: Variable and Extension
 .card-detail .label {
   display: block;
 }
+.card-detail .submit {
+  margin-top: 30px;
+}
 
 .steps {
   float: right;
-  height: 80px;
+  min-height: 70px;
   width: 450px;
   margin-right: 100px;
 }
@@ -71,7 +75,7 @@ ALLOWED: Variable and Extension
 .line {
   width: 100%;
   height: 0;
-  margin: 30px auto 0;
+  margin: 27px auto 0;
   border-top: 2px solid #aaa;
 }
 .line .ico {
@@ -141,6 +145,13 @@ ALLOWED: Variable and Extension
     margin-right: 20px;
   }
 }
+@media only screen and (max-width: 840px) {
+  /*Not standard size */
+  .cart .submit {
+    width: 100%;
+    margin: 0;
+  }
+}
 @media only screen and (max-width: 768px) {
   .steps {
     margin: auto;
@@ -161,8 +172,17 @@ ALLOWED: Variable and Extension
     margin-right: 4%;
   }
 
-  .card-info {
-    margin: 0;
+  .card-info, .wrap .second {
+    margin: 0 !important;
+  }
+
+  .wrap .first {
+    margin-bottom: 0.5em !important;
+  }
+
+  .cart .label {
+    text-align: left;
+    width: 100%;
   }
 }
 @media only screen and (max-width: 480px) {

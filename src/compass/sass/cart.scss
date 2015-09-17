@@ -9,14 +9,17 @@
     .hr{margin:1em -20px}
     .input{width:100%; }
     .month, .year{width:auto; margin-right:10px;}
-    .cvv{width:65px;}
+    .cvv{width:65px; float:left;}
     .margin{margin-right:20px;}
     .wrap .cols{margin-bottom:0;}
 }
-.card-detail .label{display:block;}
-.steps{float:right; height:80px; width:450px; margin-right:100px;}
+.card-detail{ 
+  .label{display:block;}
+  .submit{margin-top:30px;}
+}
+.steps{float:right; min-height:70px; width:450px; margin-right:100px;}
 .line{
-    width:100%; height:0; margin:30px auto 0; border-top:2px solid $grey-light;
+    width:100%; height:0; margin:27px auto 0; border-top:2px solid $grey-light;
     .ico{position:relative; top:-15px; float:right; font-size:18px; padding:2px; background:#fff;}
 }
 .line.basic:after{content:""; display:block; height:16px; width:2px; background:$grey-light; margin-top:-9px; float:right;}
@@ -38,12 +41,18 @@
 .steps{margin-right:20px}
 }
 
+@media only screen and (max-width:840px){ /*Not standard size */
+.cart .submit{width:100%; margin:0;}
+}
+
 @media only screen and (max-width:768px){
 .steps{margin:auto; width:100%;}
 .line.step2{width:50%;}
 .names .step2{position:absolute; left:50%; margin-left:-65px;}
 .fields li:nth-child(odd){margin-right:4%;}
-.card-info{margin:0;}
+.card-info, .wrap .second{margin:0!important;}
+.wrap .first{margin-bottom:.5em!important;}
+.cart .label{text-align:left; width:100%;}
 }
 
 @media only screen and (max-width:480px){

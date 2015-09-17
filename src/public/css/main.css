@@ -1617,6 +1617,8 @@ blockquote:before, blockquote:after, q:before, q:after {
 select {
   padding: 5px;
   border: 1px solid #bbb;
+  line-height: 30px;
+  /*Safari need line-height*/
 }
 
 button {
@@ -3054,7 +3056,14 @@ body {
     border-radius: 0;
     border-left: 0;
     border-right: 0;
-    margin-bottom: 1em !important;
+    margin-bottom: 0 !important;
+  }
+
+  .minimal .box-basic {
+    margin-bottom: 0 !important;
+  }
+  .minimal .main-foot .col8, .minimal .main-foot .col4 {
+    margin: 0 auto 1em;
   }
 
   .paging li, .paging .next, .paging .prev {
