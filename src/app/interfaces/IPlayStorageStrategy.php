@@ -3,11 +3,10 @@
 
 namespace EuroMillions\interfaces;
 
-use EuroMillions\vo\UserId;
 
 interface IPlayStorageStrategy
 {
-    public function saveAll(array $euroMillionsLine);
+    public function saveAll(array $euroMillionsLines);
     public function findByKey($key);
     public function delete($key = '');
 
