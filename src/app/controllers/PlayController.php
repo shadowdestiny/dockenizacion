@@ -5,10 +5,7 @@ class PlayController extends PublicSiteControllerBase
 {
     public function indexAction()
     {
-        //EMTD remove this value :)
-        return $this->view->setVars([
-            'jackpot_value'  => '10000000000',
-        ]);
-
+        $jackpot = $this->userService->getJackpotInMyCurrency($this->lotteriesDataService->getNextJackpot('EuroMillions'));
+        return $this->view->setVar('jackpot_value', $jackpot->getAmount()/100);
     }
 }
