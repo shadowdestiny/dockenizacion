@@ -19,9 +19,9 @@ class SessionPlayStorageStrategy implements IPlayStorageStrategy
         $this->session = $session;
     }
 
-    public function saveAll(array $euroMillionsLine)
+    public function saveAll(array $euroMillionsLines)
     {
-        $this->session->set(self::CURRENT_EMLINE_VAR, $euroMillionsLine);
+        $this->session->set(self::CURRENT_EMLINE_VAR, $euroMillionsLines);
     }
 
     /**

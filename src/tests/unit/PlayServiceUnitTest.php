@@ -13,6 +13,7 @@ use EuroMillions\entities\User;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\EuroMillionsLine;
 use EuroMillions\vo\Password;
+use EuroMillions\vo\PlayForm;
 use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
 use Money\Currency;
@@ -147,6 +148,40 @@ class PlayServiceUnitTest extends UnitTestBase
 
     }
 
+    /**
+     * method temporarilyStorePlay
+     * when called
+     * should returnServiceActionResultTrueWhenStore
+     */
+    public function test_temporarilyStorePlay_called_returnServiceActionResultTrueWhenStore()
+    {
+        $expected = new ServiceActionResult(true);
+        $actual = $this->exerciseTemporarilyStorePlay($expected);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method temporarilyStorePlay
+     * when called
+     * should returnServiceActionResultFalseWhenTryStore
+     */
+    public function test_temporarilyStorePlay_called_returnServiceActionResultFalseWhenTryStore()
+    {
+        $expected = new ServiceActionResult(false);
+        $actual = $this->exerciseTemporarilyStorePlay($expected);
+        $this->assertEquals($expected,$actual);
+    }
+
+
+    private function exerciseTemporarilyStorePlay($expected)
+    {
+        $euroMillionsLine = $this->getEuroMillionsLines();
+        $playForm = new PlayForm($euroMillionsLine);
+        $this->playStorageStrategy_double->saveAll($playForm->getEuroMillionsLines())->willReturn($expected);
+        $sut = $this->getSut();
+        return $actual = $sut->temporarilyStorePlay($playForm);
+
+    }
 
     private function getSut(){
         $sut = $this->getDomainServiceFactory()->getPlayService($this->lotteryDataService_double->reveal(), $this->playStorageStrategy_double->reveal());
@@ -174,6 +209,26 @@ class PlayServiceUnitTest extends UnitTestBase
         );
         return $user;
     }
+
+    /**
+     * @return array
+     */
+    private function getEuroMillionsLines()
+    {
+        $regular_numbers = [1, 2, 3, 4, 5];
+        $lucky_numbers = [5, 8];
+
+        $r_numbers = $this->getRegularNumbers($regular_numbers);
+        $l_numbers = $this->getLuckyNumbers($lucky_numbers);
+
+        $euroMillionsLine = [
+            new EuroMillionsLine($r_numbers,$l_numbers),
+            new EuroMillionsLine($r_numbers,$l_numbers),
+            new EuroMillionsLine($r_numbers,$l_numbers)
+        ];
+        return $euroMillionsLine;
+    }
+
 
     private function getPlayConfigAndEuroMillionsDraw()
     {

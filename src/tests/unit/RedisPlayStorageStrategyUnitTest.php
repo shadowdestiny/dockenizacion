@@ -47,11 +47,11 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
      */
     public function test_saveAll_calledWithArrayEuroMillionsLine_setEuroMillionsLineArrayInRedisAndResturnServiceActionResultTrue()
     {
-        $excepted = new ServiceActionResult(true);
+        $expected = new ServiceActionResult(true);
         $sut = $this->getSut();
         $this->redis_double->save(Argument::any(),$this->getEuroMillionsLine())->shouldBeCalled();
         $actual = $sut->saveAll($this->getEuroMillionsLine());
-        $this->assertEquals($excepted,$actual);
+        $this->assertEquals($expected,$actual);
     }
 
     /**
@@ -61,11 +61,11 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
      */
     public function test_findByKey_calledWithKeyInRedisStorage_returnServiceResultActionTrueAndEuroMillionsLineArray()
     {
-        $excepted = new ServiceActionResult(true, $this->getEuroMillionsLine());
+        $expected = new ServiceActionResult(true, $this->getEuroMillionsLine());
         $sut = $this->getSut();
         $this->redis_double->get(self::EMLINE_FETCH_KEY)->willReturn($this->getEuroMillionsLine());
         $actual = $sut->findByKey(self::EMLINE_FETCH_KEY);
-        $this->assertEquals($excepted,$actual);
+        $this->assertEquals($expected,$actual);
     }
 
     /**
@@ -128,11 +128,11 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
      */
     public function test_remove_calledWithValidKey_throwExceptionAndReturnServiceActionResultFalse()
     {
-        $excepted = new ServiceActionResult(false,'An exception ocurred while delete key');
+        $expected = new ServiceActionResult(false,'An exception ocurred while delete key');
         $sut = $this->getSut();
         $this->redis_double->delete(self::EMLINE_FETCH_KEY)->willThrow(new RedisException('An exception ocurred while delete key'));
         $actual = $sut->delete(self::EMLINE_FETCH_KEY);
-        $this->assertEquals($excepted,$actual);
+        $this->assertEquals($expected,$actual);
     }
 
     /**
@@ -142,11 +142,11 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
      */
     public function test_findByKey_calledWithValidKey_throwExceptionAndReturnServiceActionResultFalse()
     {
-        $excepted = new ServiceActionResult(false,'An error ocurred while find key');
+        $expected = new ServiceActionResult(false,'An error ocurred while find key');
         $sut = $this->getSut();
         $this->redis_double->get(self::EMLINE_FETCH_KEY)->willThrow(new RedisException('An error ocurred while find key'));
         $actual = $sut->findByKey(self::EMLINE_FETCH_KEY);
-        $this->assertEquals($excepted,$actual);
+        $this->assertEquals($expected,$actual);
     }
 
     /**
