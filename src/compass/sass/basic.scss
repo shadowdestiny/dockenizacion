@@ -28,7 +28,7 @@ a:active, .lnk:active{color:$active;}
 
 body{color:$black; text-align:center; line-height:1.25em;}
 p{margin-bottom:1em;}
-table{border-collapse:collapse; border-spacing:0;}
+table{border-collapse:collapse; border-spacing:0; width:100%;}
 strong{font-weight:bold;}
 nav ul, .main-foot ul{list-style:none;}
 nav a, .main-foot ul a, #nav-account a{text-decoration:none;}
@@ -212,6 +212,12 @@ label.submit{cursor:pointer;}
 .menu-ham.expanded span:before, #nav-toggle.active span:after{top:0;}
 .menu-ham.expanded span:before{transform:rotate(45deg);}
 .menu-ham.expanded span:after{transform:rotate(-45deg); bottom:0;}
+
+.back-top a{
+  float:right; margin:-0.5em 0 1.5em; text-decoration:none; font-size:$basic-size;
+  &:hover, &:focus{text-decoration:underline;}
+  .ico{font-size:12px; margin-right:3px;}
+}
 
 /* ANIMATION */
 /* Pulse Link/Btn Right */
