@@ -3,10 +3,12 @@ namespace EuroMillions\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\components\EmTranslationAdapter;
+use EuroMillions\interfaces\IPlayStorageStrategy;
 use EuroMillions\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\interfaces\ILanguageStrategy;
 use EuroMillions\repositories\LanguageRepository;
 use EuroMillions\services\external_apis\LotteryApisFactory;
+use EuroMillions\services\play_strategies\RedisPlayStorageStrategy;
 use EuroMillions\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\services\preferences_strategies\WebUserPreferencesStorageStrategy;
 use Phalcon\Di;
@@ -87,10 +89,11 @@ class DomainServiceFactory
         return new AuthService($this->entityManager, $passwordHasher, $storageStrategy, $urlManager, $logService, $emailService);
     }
 
-    public function getPlayService(LotteriesDataService $lotteriesDataService = null)
+    public function getPlayService(LotteriesDataService $lotteriesDataService = null, IPlayStorageStrategy $playStorageStrategy = null)
     {
         if (!$lotteriesDataService) $lotteriesDataService = new LotteriesDataService($this->entityManager, new LotteryApisFactory());
-        return new PlayService($this->entityManager, $lotteriesDataService);
+        if (!$playStorageStrategy)  $playStorageStrategy = new RedisPlayStorageStrategy($this->serviceFactory->getDI()->get('redisCache'), $this->getAuthService()->getCurrentUser()->getId());
+        return new PlayService($this->entityManager, $lotteriesDataService, $playStorageStrategy);
     }
 
     private function getRepository($entity)

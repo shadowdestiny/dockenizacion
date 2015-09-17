@@ -36,6 +36,13 @@ class PlayServiceUnitTest extends UnitTestBase
 
     private $betRepository_double;
 
+    private $playStorageStrategy_double;
+
+    private $userRepository_double;
+
+    private $authService_double;
+
+
     protected function getEntityManagerStubExtraMappings()
     {
         return [
@@ -43,6 +50,7 @@ class PlayServiceUnitTest extends UnitTestBase
             Namespaces::ENTITIES_NS . 'EuroMillionsDraw' => $this->euroMillionsDrawRepository_double,
             Namespaces::ENTITIES_NS . 'Lottery' => $this->lotteryDrawRepository_double,
             Namespaces::ENTITIES_NS . 'Bet' => $this->betRepository_double,
+            Namespaces::ENTITIES_NS . 'User' => $this->userRepository_double,
         ];
     }
 
@@ -52,6 +60,9 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->lotteryDataService_double = $this->getServiceDouble('LotteriesDataService');
         $this->betRepository_double = $this->getRepositoryDouble('BetRepository');
         $this->lotteryDrawRepository_double = $this->getRepositoryDouble('EuroMillions\entities\Lottery');
+        $this->playStorageStrategy_double = $this->getInterfaceDouble('IPlayStorageStrategy');
+        $this->userRepository_double = $this->getRepositoryDouble('EuroMillions\entities\User');
+        $this->authService_double = $this->getServiceDouble('AuthService');
         parent::setUp();
     }
 
@@ -138,7 +149,7 @@ class PlayServiceUnitTest extends UnitTestBase
 
 
     private function getSut(){
-        $sut = $this->getDomainServiceFactory()->getPlayService($this->lotteryDataService_double->reveal());
+        $sut = $this->getDomainServiceFactory()->getPlayService($this->lotteryDataService_double->reveal(), $this->playStorageStrategy_double->reveal());
         return $sut;
     }
 

@@ -10,12 +10,12 @@ use EuroMillions\entities\Bet;
 use EuroMillions\entities\EuroMillionsDraw;
 use EuroMillions\entities\PlayConfig;
 use EuroMillions\entities\User;
+use EuroMillions\interfaces\IPlayStorageStrategy;
 use EuroMillions\repositories\BetRepository;
 use EuroMillions\repositories\PlayConfigRepository;
 use EuroMillions\vo\EuroMillionsLine;
+use EuroMillions\vo\PlayForm;
 use EuroMillions\vo\ServiceActionResult;
-use Phalcon\Forms\Element\Date;
-use Prophecy\Exception\InvalidArgumentException;
 
 class PlayService
 {
@@ -35,21 +35,25 @@ class PlayService
 
     private $lotteryRepository;
 
-    public function __construct(EntityManager $entityManager, LotteriesDataService $lotteriesDataService)
+    private $playStorageStrategy;
+
+    public function __construct(EntityManager $entityManager, LotteriesDataService $lotteriesDataService, IPlayStorageStrategy $playStorageStrategy)
     {
         $this->entityManager = $entityManager;
         $this->playConfigRepository = $entityManager->getRepository('EuroMillions\entities\PlayConfig');
         $this->betRepository = $entityManager->getRepository('EuroMillions\entities\Bet');
         $this->lotteryRepository = $this->entityManager->getRepository('EuroMillions\entities\Lottery');
         $this->lotteriesDataService = $lotteriesDataService;
+        $this->playStorageStrategy = $playStorageStrategy;
     }
 
     /**
      * @param User $user
-     * @param EuroMillionsLine $euromillionsResult
+     * @param EuroMillionsLine $euromillionsLine
      * @return ServiceActionResult
+     * @internal param EuroMillionsLine $euromillionsResult
      */
-    public function play(User $user, EuroMillionsLine $euromillionsResult)
+    public function play(User $user, EuroMillionsLine $euromillionsLine)
     {
         if($user->getBalance()->getAmount() > 0){
 
@@ -57,7 +61,7 @@ class PlayService
             $playConfig = new PlayConfig();
             $playConfig->initialize([
                     'user' => $user,
-                    'line' => $euromillionsResult
+                    'line' => $euromillionsLine
                 ]
             );
             try {
@@ -94,5 +98,10 @@ class PlayService
             $this->entityManager->flush($bet);
             return new ServiceActionResult(true);
         }
+    }
+
+    public function temporarilyStorePlay(PlayForm $playForm)
+    {
+
     }
 }
