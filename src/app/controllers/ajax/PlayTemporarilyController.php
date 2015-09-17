@@ -7,6 +7,7 @@ namespace EuroMillions\controllers\ajax;
 use EuroMillions\vo\EuroMillionsLine;
 use EuroMillions\vo\EuroMillionsLuckyNumber;
 use EuroMillions\vo\EuroMillionsRegularNumber;
+use EuroMillions\vo\LastDrawDate;
 use EuroMillions\vo\PlayForm;
 
 class PlayTemporarilyController extends AjaxControllerBase
@@ -16,7 +17,14 @@ class PlayTemporarilyController extends AjaxControllerBase
     public function temporarilyCartAction()
     {
         $bets = $this->request->getPost('bet');
-        $playForm = new PlayForm($this->create($bets));
+        //EMTD drawdays, get start draw days from post
+
+        //WARNING: Test vars
+        $frequency = 1;
+        $startDrawDate = '2015-09-18';
+        $lastDrawDate = new LastDrawDate($startDrawDate,$frequency);
+        $playForm = new PlayForm($this->create($bets), $frequency, $startDrawDate, $lastDrawDate);
+
         $playService = $this->domainServiceFactory->getPlayService();
         $result = $playService->temporarilyStorePlay($playForm);
         if($result->success()) {
