@@ -29,11 +29,11 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
         $this->userId = $userId;
     }
 
-    public function saveAll(array $euroMillionsLine)
+    public function saveAll(array $euroMillionsLines)
     {
         try{
 
-            $this->storage->save($this->getNameKey(), $euroMillionsLine);
+            $this->storage->save($this->getNameKey(), $euroMillionsLines);
             return new ServiceActionResult(true);
         }catch(RedisException $e){
             return new ServiceActionResult(false,'Unable to save data in storage');

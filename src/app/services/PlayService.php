@@ -102,6 +102,12 @@ class PlayService
 
     public function temporarilyStorePlay(PlayForm $playForm)
     {
+        $result = $this->playStorageStrategy->saveAll($playForm->getEuroMillionsLines());
+        if($result->success()){
+            return new ServiceActionResult(true);
+        }else{
+            return new ServiceActionResult(false);
+        }
 
     }
 }
