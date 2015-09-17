@@ -4,9 +4,17 @@
 namespace tests\unit;
 
 
+use EuroMillions\components\NullPasswordHasher;
+use EuroMillions\entities\User;
 use EuroMillions\services\play_strategies\RedisPlayStorageStrategy;
+use EuroMillions\vo\Email;
 use EuroMillions\vo\EuroMillionsLine;
+use EuroMillions\vo\Password;
 use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\UserId;
+use Money\Currency;
+use Money\Money;
+use Prophecy\Argument;
 use RedisException;
 use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\UnitTestBase;
@@ -18,22 +26,32 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
 
     private $redis_double;
 
+    private $authService_double;
+
+    private $userId;
+
+    const EMLINE_FETCH_KEY = 'PlayStore_EMLINES:';
+
     public function setUp()
     {
         $this->redis_double = $this->getInterfaceDouble('IRedis');
+        $this->authService_double = $this->getServiceDouble('AuthService');
+        $this->userId = UserId::create();
         parent::setUp();
     }
 
     /**
      * method saveAll
      * when calledWithArrayEuroMillionsLine
-     * should setEuroMillionsLineArrayInRedis
+     * should setEuroMillionsLineArrayInRedisAndResturnServiceActionResultTrue
      */
-    public function test_saveAll_calledWithArrayEuroMillionsLine_setEuroMillionsLineArrayInRedis()
+    public function test_saveAll_calledWithArrayEuroMillionsLine_setEuroMillionsLineArrayInRedisAndResturnServiceActionResultTrue()
     {
+        $excepted = new ServiceActionResult(true);
         $sut = $this->getSut();
-        $this->redis_double->save(RedisPlayStorageStrategy::EMLINE_FETCH_KEY,$this->getEuroMillionsLine())->shouldBeCalled();
-        $sut->saveAll($this->getEuroMillionsLine());
+        $this->redis_double->save(Argument::any(),$this->getEuroMillionsLine())->shouldBeCalled();
+        $actual = $sut->saveAll($this->getEuroMillionsLine());
+        $this->assertEquals($excepted,$actual);
     }
 
     /**
@@ -45,8 +63,8 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     {
         $excepted = new ServiceActionResult(true, $this->getEuroMillionsLine());
         $sut = $this->getSut();
-        $this->redis_double->get(RedisPlayStorageStrategy::EMLINE_FETCH_KEY)->willReturn($this->getEuroMillionsLine());
-        $actual = $sut->findByKey(RedisPlayStorageStrategy::EMLINE_FETCH_KEY);
+        $this->redis_double->get(self::EMLINE_FETCH_KEY)->willReturn($this->getEuroMillionsLine());
+        $actual = $sut->findByKey(self::EMLINE_FETCH_KEY);
         $this->assertEquals($excepted,$actual);
     }
 
@@ -59,8 +77,8 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     {
         $expected = new ServiceActionResult(false,'Key not found');
         $sut = $this->getSut();
-        $this->redis_double->get(RedisPlayStorageStrategy::EMLINE_FETCH_KEY)->willReturn(null);
-        $actual = $sut->findByKey(RedisPlayStorageStrategy::EMLINE_FETCH_KEY);
+        $this->redis_double->get(self::EMLINE_FETCH_KEY)->willReturn(null);
+        $actual = $sut->findByKey(self::EMLINE_FETCH_KEY);
         $this->assertEquals($expected,$actual);
     }
 
@@ -73,8 +91,8 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     public function test_remove_called_removeEuroMillionsLineArrayFromRedisStorage()
     {
         $sut = $this->getSut();
-        $this->redis_double->delete(RedisPlayStorageStrategy::EMLINE_FETCH_KEY)->shouldBeCalled();
-        $sut->delete(RedisPlayStorageStrategy::EMLINE_FETCH_KEY);
+        $this->redis_double->delete(self::EMLINE_FETCH_KEY)->shouldBeCalled();
+        $sut->delete(self::EMLINE_FETCH_KEY);
     }
 
     /**
@@ -99,7 +117,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     {
         $expected = new ServiceActionResult(true);
         $sut = $this->getSut();
-        $actual  = $sut->delete(RedisPlayStorageStrategy::EMLINE_FETCH_KEY);
+        $actual  = $sut->delete(self::EMLINE_FETCH_KEY);
         $this->assertEquals($expected,$actual);
     }
 
@@ -112,8 +130,8 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     {
         $excepted = new ServiceActionResult(false,'An exception ocurred while delete key');
         $sut = $this->getSut();
-        $this->redis_double->delete(RedisPlayStorageStrategy::EMLINE_FETCH_KEY)->willThrow(new RedisException('An exception ocurred while delete key'));
-        $actual = $sut->delete(RedisPlayStorageStrategy::EMLINE_FETCH_KEY);
+        $this->redis_double->delete(self::EMLINE_FETCH_KEY)->willThrow(new RedisException('An exception ocurred while delete key'));
+        $actual = $sut->delete(self::EMLINE_FETCH_KEY);
         $this->assertEquals($excepted,$actual);
     }
 
@@ -126,8 +144,8 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     {
         $excepted = new ServiceActionResult(false,'An error ocurred while find key');
         $sut = $this->getSut();
-        $this->redis_double->get(RedisPlayStorageStrategy::EMLINE_FETCH_KEY)->willThrow(new RedisException('An error ocurred while find key'));
-        $actual = $sut->findByKey(RedisPlayStorageStrategy::EMLINE_FETCH_KEY);
+        $this->redis_double->get(self::EMLINE_FETCH_KEY)->willThrow(new RedisException('An error ocurred while find key'));
+        $actual = $sut->findByKey(self::EMLINE_FETCH_KEY);
         $this->assertEquals($excepted,$actual);
     }
 
@@ -140,7 +158,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     {
         $expected = new ServiceActionResult(false,'Unable to save data in storage');
         $sut = $this->getSut();
-        $this->redis_double->save(RedisPlayStorageStrategy::EMLINE_FETCH_KEY,$this->getEuroMillionsLine())->willThrow(new RedisException('Unable to save data in storage'));
+        $this->redis_double->save(Argument::any(),$this->getEuroMillionsLine())->willThrow(new RedisException('Unable to save data in storage'));
         $actual = $sut->saveAll($this->getEuroMillionsLine());
         $this->assertEquals($expected,$actual);
     }
@@ -148,7 +166,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
 
     protected function getSut()
     {
-        $sut = new RedisPlayStorageStrategy($this->redis_double->reveal());
+        $sut = new RedisPlayStorageStrategy($this->redis_double->reveal(), $this->userId);
         return $sut;
     }
 
@@ -167,6 +185,28 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
             new EuroMillionsLine($r_numbers,$l_numbers)
         ];
         return $euroMillionsLine;
+    }
+
+    /**
+     * @param string $currency
+     * @return User
+     */
+    private function getUser($currency = 'EUR')
+    {
+        $user = new User();
+        $user->initialize(
+            [
+                'id' => new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'),
+                'name'     => 'test',
+                'surname'  => 'test01',
+                'email'    => new Email('raul.mesa@panamedia.net'),
+                'password' => new Password('passworD01', new NullPasswordHasher()),
+                'validated' => false,
+                'balance' => new Money(5000,new Currency($currency)),
+                'validation_token' => '33e4e6a08f82abb38566fc3bb8e8ef0d'
+            ]
+        );
+        return $user;
     }
 
 

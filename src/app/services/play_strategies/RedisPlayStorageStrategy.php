@@ -7,30 +7,34 @@ namespace EuroMillions\services\play_strategies;
 use EuroMillions\interfaces\IPlayStorageStrategy;
 use EuroMillions\interfaces\IRedis;
 use EuroMillions\vo\ServiceActionResult;
-use Exception;
+use EuroMillions\vo\UserId;
 use Phalcon\Cache\Backend\Redis;
 use RedisException;
 
 class RedisPlayStorageStrategy implements IPlayStorageStrategy
 {
 
-    const EMLINE_FETCH_KEY = 'PlayStore_EMLINES';
-
     /** @var  Redis */
     protected $storage;
 
+    protected $userId;
+
     /**
      * @param IRedis $storage
+     * @param UserId $userId
      */
-    public function __construct(IRedis $storage)
+    public function __construct(IRedis $storage, UserId $userId)
     {
         $this->storage = $storage;
+        $this->userId = $userId;
     }
 
     public function saveAll(array $euroMillionsLine)
     {
         try{
-            $this->storage->save(self::EMLINE_FETCH_KEY, $euroMillionsLine);
+
+            $this->storage->save($this->getNameKey(), $euroMillionsLine);
+            return new ServiceActionResult(true);
         }catch(RedisException $e){
             return new ServiceActionResult(false,'Unable to save data in storage');
         }
@@ -63,5 +67,10 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
                 return new ServiceActionResult(false,'An exception ocurred while delete key');
             }
         }
+    }
+
+    private function getNameKey()
+    {
+        return "PlayStore_EMLINES:" . $this->userId->id();
     }
 }
