@@ -12,6 +12,7 @@ use EuroMillions\entities\PlayConfig;
 use EuroMillions\entities\User;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\EuroMillionsLine;
+use EuroMillions\vo\LastDrawDate;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\PlayForm;
 use EuroMillions\vo\ServiceActionResult;
@@ -176,7 +177,10 @@ class PlayServiceUnitTest extends UnitTestBase
     private function exerciseTemporarilyStorePlay($expected)
     {
         $euroMillionsLine = $this->getEuroMillionsLines();
-        $playForm = new PlayForm($euroMillionsLine);
+        $frequency = 1;
+        $startDrawDate = '2015-09-18';
+        $lastDrawDate = new LastDrawDate($startDrawDate,$frequency);
+        $playForm = new PlayForm($euroMillionsLine,$frequency, $startDrawDate, $lastDrawDate);
         $this->playStorageStrategy_double->saveAll($playForm->getEuroMillionsLines())->willReturn($expected);
         $sut = $this->getSut();
         return $actual = $sut->temporarilyStorePlay($playForm);
