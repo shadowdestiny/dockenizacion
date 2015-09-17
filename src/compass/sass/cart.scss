@@ -6,13 +6,16 @@
 .card-info{margin-right:28px;}
 .cart{
     .title{margin:0 0 .5em;}
-    .hr{margin:1em -20px}
     .input{width:100%; }
     .month, .year{width:auto; margin-right:10px;}
     .cvv{width:65px; float:left;}
     .margin{margin-right:20px;}
-    .wrap .cols{margin-bottom:0;}
 }
+.cart.profile{
+  .wrap .cols{margin-bottom:0;}
+  .hr{margin:1em -20px}
+}
+
 .card-detail{ 
   .label{display:block;}
   .submit{margin-top:30px;}
@@ -34,7 +37,29 @@
   .step1{margin-left:10px;}
   .step2{margin-left:90px;}
   .step3{float:right; margin-right:10px;}  
-} 
+}
+
+.order{
+  .purchase{width:100%; text-align:center;}
+  .row{border-top:1px solid $black; margin:.5em 0; padding:.5em 0;}
+  .sub-txt{margin:1em 0 0;}
+  .desc{font-weight:bold; float:left; width:70px;}
+  .detail{float:left;}
+  .num{
+    li{display:inline; margin-right:4px;}
+    li:last-child{margin:0;}
+  }
+  .extra{clear:both; /*float:right*/}
+  .summary{font-weight:bold;}
+  .box-total{
+    color:$purple; font-weight:bold; border-top:2px solid $black;
+    .total{float:right;}
+  }
+  .box-order a{
+    text-decoration:none;
+    &:hover, &:focus{text-decoration:underline;}
+  }
+}
 
 
 @media only screen and (max-width:992px){

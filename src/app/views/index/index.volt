@@ -9,6 +9,7 @@
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
+<a name="top"></a>
 <main id="content">
 	<div class="wrapper">
 		<div class="cols">
@@ -185,6 +186,10 @@
 				</div>
 			</div>
 
+			<div class="back-top cl">
+				<a href="#top"><i class="ico ico-arrow-up2"></i> Back to Top</a>
+			</div>
+
 			<div class="box-basic how-play">
 				<div class="cols playing-euro">
 					<div class="col6 box-txt l">
@@ -204,6 +209,10 @@
 					<span class="h2 phrase">For a very small amount of money<br class="mobile"> you might change your life.</span>
 					<span class="btn blue">Beat the odds, Play the Lotto</span>
 				</a>
+			</div>
+
+			<div class="back-top cl">
+				<a href="#top"><i class="ico ico-arrow-up2"></i> Back to Top</a>
 			</div>
 
 			<div class="box-basic about-us">
@@ -238,11 +247,12 @@
 					<span class="btn blue">Play.  Dare to dream.  Win.</span>
 				</a>
 			</div>
+
+			<div class="back-top cl">
+				<a href="#top"><i class="ico ico-arrow-up2"></i> Back to Top</a>
+			</div>
 		</div>
-
-
 
 	</div>
 </main>
-
 {% endblock %}

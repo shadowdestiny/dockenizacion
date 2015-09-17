@@ -37,9 +37,6 @@ ALLOWED: Variable and Extension
 .cart .title {
   margin: 0 0 .5em;
 }
-.cart .hr {
-  margin: 1em -20px;
-}
 .cart .input {
   width: 100%;
 }
@@ -54,8 +51,12 @@ ALLOWED: Variable and Extension
 .cart .margin {
   margin-right: 20px;
 }
-.cart .wrap .cols {
+
+.cart.profile .wrap .cols {
   margin-bottom: 0;
+}
+.cart.profile .hr {
+  margin: 1em -20px;
 }
 
 .card-detail .label {
@@ -138,6 +139,55 @@ ALLOWED: Variable and Extension
 .names .step3 {
   float: right;
   margin-right: 10px;
+}
+
+.order .purchase {
+  width: 100%;
+  text-align: center;
+}
+.order .row {
+  border-top: 1px solid #333;
+  margin: .5em 0;
+  padding: .5em 0;
+}
+.order .sub-txt {
+  margin: 1em 0 0;
+}
+.order .desc {
+  font-weight: bold;
+  float: left;
+  width: 70px;
+}
+.order .detail {
+  float: left;
+}
+.order .num li {
+  display: inline;
+  margin-right: 4px;
+}
+.order .num li:last-child {
+  margin: 0;
+}
+.order .extra {
+  clear: both;
+  /*float:right*/
+}
+.order .summary {
+  font-weight: bold;
+}
+.order .box-total {
+  color: #ae5279;
+  font-weight: bold;
+  border-top: 2px solid #333;
+}
+.order .box-total .total {
+  float: right;
+}
+.order .box-order a {
+  text-decoration: none;
+}
+.order .box-order a:hover, .order .box-order a:focus {
+  text-decoration: underline;
 }
 
 @media only screen and (max-width: 992px) {
