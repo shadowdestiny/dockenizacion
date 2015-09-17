@@ -6,6 +6,7 @@ namespace EuroMillions\services\play_strategies;
 
 use EuroMillions\interfaces\IPlayStorageStrategy;
 use EuroMillions\interfaces\IRedis;
+use EuroMillions\vo\PlayFormToStorage;
 use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
 use Phalcon\Cache\Backend\Redis;
@@ -29,11 +30,10 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
         $this->userId = $userId;
     }
 
-    public function saveAll(array $euroMillionsLines)
+    public function saveAll(PlayFormToStorage $data)
     {
         try{
-
-            $this->storage->save($this->getNameKey(), $euroMillionsLines);
+            $this->storage->save($this->getNameKey(), $data->toJson());
             return new ServiceActionResult(true);
         }catch(RedisException $e){
             return new ServiceActionResult(false,'Unable to save data in storage');

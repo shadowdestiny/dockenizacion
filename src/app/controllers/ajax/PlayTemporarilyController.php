@@ -8,7 +8,7 @@ use EuroMillions\vo\EuroMillionsLine;
 use EuroMillions\vo\EuroMillionsLuckyNumber;
 use EuroMillions\vo\EuroMillionsRegularNumber;
 use EuroMillions\vo\LastDrawDate;
-use EuroMillions\vo\PlayForm;
+use EuroMillions\vo\PlayFormToStorage;
 
 class PlayTemporarilyController extends AjaxControllerBase
 {
@@ -23,10 +23,16 @@ class PlayTemporarilyController extends AjaxControllerBase
         $frequency = 1;
         $startDrawDate = '2015-09-18';
         $lastDrawDate = new LastDrawDate($startDrawDate,$frequency);
-        $playForm = new PlayForm($this->create($bets), $frequency, $startDrawDate, $lastDrawDate);
+
+        $playFormToStorage = new PlayFormToStorage();
+        $playFormToStorage->startDrawDate = $startDrawDate;
+        $playFormToStorage->frequency = $startDrawDate;
+        $playFormToStorage->lastDrawDate = $lastDrawDate->getLastDrawDate();
+        $playFormToStorage->drawDays = 2;
+        $playFormToStorage->euroMillionsLine = $this->create($bets);
 
         $playService = $this->domainServiceFactory->getPlayService();
-        $result = $playService->temporarilyStorePlay($playForm);
+        $result = $playService->temporarilyStorePlay($playFormToStorage);
         if($result->success()) {
             echo json_encode(['result'=>'OK']);
         } else {

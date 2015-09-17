@@ -6,6 +6,8 @@ namespace tests\integration;
 
 use EuroMillions\services\play_strategies\RedisPlayStorageStrategy;
 use EuroMillions\vo\EuroMillionsLine;
+use EuroMillions\vo\LastDrawDate;
+use EuroMillions\vo\PlayFormToStorage;
 use EuroMillions\vo\UserId;
 use Phalcon\Di;
 use tests\base\EuroMillionsResultRelatedTest;
@@ -38,30 +40,10 @@ class RedisPlayStorageStrategyIntegrationTest extends RedisIntegrationTestBase
     public function test_saveAll_calledWithEuroMillionsLineArray_storeCorrectlyOnCache()
     {
         $key = self::EMLINE_FETCH_KEY . ':'. $this->userId->id();
-        $expected = $this->getEuroMillionsLine();
+        $expected = $this->getPlayFormToStorage();
         $this->sut->saveAll($expected);
         $actual = $this->sut->findByKey($key);
-        $this->assertEquals($expected,$actual->getValues());
+        $this->assertEquals($expected->toJson(),$actual->getValues());
     }
-
-    /**
-     * @return array
-     */
-    private function getEuroMillionsLine()
-    {
-        $regular_numbers = [1, 2, 3, 4, 5];
-        $lucky_numbers = [5, 8];
-
-        $r_numbers = $this->getRegularNumbers($regular_numbers);
-        $l_numbers = $this->getLuckyNumbers($lucky_numbers);
-
-        $euroMillionsLine = [
-            new EuroMillionsLine($r_numbers,$l_numbers),
-            new EuroMillionsLine($r_numbers,$l_numbers),
-            new EuroMillionsLine($r_numbers,$l_numbers)
-        ];
-        return $euroMillionsLine;
-    }
-
 
 }

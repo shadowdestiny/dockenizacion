@@ -9,7 +9,9 @@ use EuroMillions\entities\User;
 use EuroMillions\services\play_strategies\RedisPlayStorageStrategy;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\EuroMillionsLine;
+use EuroMillions\vo\LastDrawDate;
 use EuroMillions\vo\Password;
+use EuroMillions\vo\PlayFormToStorage;
 use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
 use Money\Currency;
@@ -49,8 +51,9 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     {
         $expected = new ServiceActionResult(true);
         $sut = $this->getSut();
-        $this->redis_double->save(Argument::any(),$this->getEuroMillionsLine())->shouldBeCalled();
-        $actual = $sut->saveAll($this->getEuroMillionsLine());
+        $playFormToStorage = $this->getPlayFormToStorage();
+        $this->redis_double->save(Argument::any(),$playFormToStorage->toJson())->shouldBeCalled();
+        $actual = $sut->saveAll($playFormToStorage);
         $this->assertEquals($expected,$actual);
     }
 
@@ -158,8 +161,9 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     {
         $expected = new ServiceActionResult(false,'Unable to save data in storage');
         $sut = $this->getSut();
-        $this->redis_double->save(Argument::any(),$this->getEuroMillionsLine())->willThrow(new RedisException('Unable to save data in storage'));
-        $actual = $sut->saveAll($this->getEuroMillionsLine());
+        $playFormToStorage = $this->getPlayFormToStorage();
+        $this->redis_double->save(Argument::any(),$playFormToStorage->toJson())->willThrow(new RedisException('Unable to save data in storage'));
+        $actual = $sut->saveAll($playFormToStorage);
         $this->assertEquals($expected,$actual);
     }
 
@@ -168,23 +172,6 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     {
         $sut = new RedisPlayStorageStrategy($this->redis_double->reveal(), $this->userId);
         return $sut;
-    }
-
-
-    private function getEuroMillionsLine()
-    {
-        $regular_numbers = [1, 2, 3, 4, 5];
-        $lucky_numbers = [5, 8];
-
-        $r_numbers = $this->getRegularNumbers($regular_numbers);
-        $l_numbers = $this->getLuckyNumbers($lucky_numbers);
-
-        $euroMillionsLine = [
-            new EuroMillionsLine($r_numbers,$l_numbers),
-            new EuroMillionsLine($r_numbers,$l_numbers),
-            new EuroMillionsLine($r_numbers,$l_numbers)
-        ];
-        return $euroMillionsLine;
     }
 
     /**

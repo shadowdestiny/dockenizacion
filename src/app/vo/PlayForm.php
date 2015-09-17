@@ -15,6 +15,8 @@ class PlayForm
 
     protected $lastDrawDate;
 
+    protected $amount;
+
     public function __construct(array $euroMillionsLines,
                                 $drawDays,
                                 $startDrawDate,
