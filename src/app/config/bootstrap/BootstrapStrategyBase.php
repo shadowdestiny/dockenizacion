@@ -6,6 +6,7 @@ use EuroMillions\components\EnvironmentDetector;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\Common\Cache\ApcCache;
+use EuroMillions\components\PhalconRedisWrapper;
 use EuroMillions\services\DomainServiceFactory;
 use EuroMillions\services\ServiceFactory;
 use Phalcon\Cache\Frontend\Data;
@@ -62,7 +63,8 @@ abstract class BootstrapStrategyBase
     protected function configRedis(Ini $appConfig)
     {
         $frontend = new Data(['lifetime'=> 900]);
-        return new PhalconRedis($frontend, ['host'=>$appConfig['redis']['host'], 'prefix'=>$appConfig['redis']['prefix']]);
+        return new PhalconRedisWrapper($frontend, ['host'=>$appConfig['redis']['host'], 'prefix'=>$appConfig['redis']['prefix']]);
+        //return new PhalconRedis($frontend, ['host'=>$appConfig['redis']['host'], 'prefix'=>$appConfig['redis']['prefix']]);
     }
 
     protected function configDoctrine(Ini $appConfig)
