@@ -186,7 +186,6 @@ function getBets(){
 	return bets;
 }
 
-
 function clearNumAll(button){
 	$(button).click(function(){
 		line = $(".box-lines .col2");
@@ -243,8 +242,29 @@ $(function(){
 				params += 'bet['+k+']='+ bets[k] + '&';
 			}
 		}
-		//EMTD add more params like frequency, draw date, ....
+		var draw_days = $('.draw_days').val();
+		var frequency = $('.frequency').val();
+		var start_draw = $('.start_draw option').data('date');
+		params += 'draw_days='+draw_days+'&frequency='+frequency+'&start_draw='+start_draw;
 		ajaxFunctions.playCart(params);
 	});
 
+	$('.draw_days').on('change',function(){
+		var filter = $(this).val();
+		if(isNaN(filter)){
+			$('.start_draw option').each(function() {
+				$(this).css('display', 'block');
+				$('.start_draw').val($(this).val());
+			});
+		}else {
+			$('.start_draw option').each(function () {
+				if ($(this).val() != filter) {
+					$(this).hide();
+				} else {
+					$(this).show();
+					$('.start_draw').val($(this).val());
+				}
+			})
+		}
+	})
 });

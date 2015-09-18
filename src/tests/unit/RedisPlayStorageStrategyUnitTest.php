@@ -64,9 +64,9 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
      */
     public function test_findByKey_calledWithKeyInRedisStorage_returnServiceResultActionTrueAndEuroMillionsLineArray()
     {
-        $expected = new ServiceActionResult(true, $this->getEuroMillionsLine());
+        $expected = new ServiceActionResult(true, $this->getEuroMillionsLines());
         $sut = $this->getSut();
-        $this->redis_double->get(self::EMLINE_FETCH_KEY)->willReturn($this->getEuroMillionsLine());
+        $this->redis_double->get(self::EMLINE_FETCH_KEY)->willReturn($this->getEuroMillionsLines());
         $actual = $sut->findByKey(self::EMLINE_FETCH_KEY);
         $this->assertEquals($expected,$actual);
     }
