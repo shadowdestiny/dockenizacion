@@ -17,7 +17,7 @@ class PlayFormToStorage
 
     public $amount;
 
-    public $euroMillionsLine;
+    public $euroMillionsLines;
 
     public function toJson()
     {

@@ -38,7 +38,7 @@ trait EuroMillionsResultRelatedTest {
         $playFormToStorage->frequency = $startDrawDate;
         $playFormToStorage->lastDrawDate = $lastDrawDate->getLastDrawDate();
         $playFormToStorage->drawDays = 2;
-        $playFormToStorage->euroMillionsLine = $this->getEuroMillionsLine();
+        $playFormToStorage->euroMillionsLines = $this->getEuroMillionsLines();
 
         return $playFormToStorage;
     }
@@ -46,7 +46,7 @@ trait EuroMillionsResultRelatedTest {
     /**
      * @return array
      */
-    protected function getEuroMillionsLine()
+    protected function getEuroMillionsLines()
     {
         $regular_numbers = [1, 2, 3, 4, 5];
         $lucky_numbers = [5, 8];

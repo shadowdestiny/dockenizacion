@@ -69,20 +69,34 @@
 					<div class="cols">
 						<div class="col2">
 							<label>{{ language.translate("Which draws?") }}</label>
-							<select>
-								<option>Friday</option>
+							<select class="draw_days">
+								<option value="2,5">{{ language.translate("Tuesday & Friday") }}</option>
+								<option value="2" {% if next_draw == 2 %} selected {% endif %}>{{ language.translate("Tuesday") }}</option>
+								<option value="5" {% if next_draw == 5 %} selected {% endif %}>{{ language.translate("Friday") }}</option>
 							</select>
 						</div>
 						<div class="col2">
 							<label>{{ language.translate("Starting from?") }}</label>
-							<select>
-								<option>29.May.2015</option>
+							<select class="start_draw">
+									{% for k,dates in play_dates %}
+										{% for j,date in dates %}
+											{% if k == 0 %}
+												<option data-date="{{ date }}" value="{{ j }}">{{ date }} {{ jackpot_value/1000000 }}M</option>
+											{% else %}
+												<option data-date="{{ date }}" value="{{ j }}">{{ date }}</option>
+											{% endif %}
+										{% endfor %}
+									{% endfor %}
 							</select>
 						</div>
 						<div class="col2">
 							<label>{{ language.translate("For how many weeks?") }}</label>
-							<select>
-								<option>1 week (Draws:1</option>
+							<select class="frequency">
+								<option value="1">{{ language.translate("1 week (Draws: 1)") }}</option>
+								<option value="2">{{ language.translate("2 week (Draws: 2)") }}</option>
+								<option value="4">{{ language.translate("4 week (Draws: 4)") }}</option>
+								<option value="8">{{ language.translate("8 week (Draws: 8)") }}</option>
+								<option value="52">{{ language.translate("52 week (Draws: 52)") }}</option>
 							</select>
 						</div>
 						<div class="col6">
