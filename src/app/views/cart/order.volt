@@ -16,26 +16,27 @@
     <div class="wrapper">
         <div class="box-basic small">
             <h1 class="h1 title yellow">{{ language.translate("Place your Order") }}</h1>
-            <a href="javascript:void(0)" class="btn blue big purchase">Purchase your ticket</a>
+            <a href="javascript:void(0)" class="btn blue big purchase">{{ language.translate("Purchase your ticket") }}</a>
 
-            <h2 class="h4 sub-txt">Order Summary</h2>
+            <h2 class="h4 sub-txt">{{ language.translate("Order Summary") }}</h2>
 
             <div class="box-order">
                 <div class="row">
                     <div class="desc">
-                        Draws
+                        {{ language.translate("Draws") }}
                     </div>
                     <div class="detail">
-                        starting 29 May 2015 for 4 weeks 
+                        Since 29th of May 2015 for 4 weeks 
                     </div>
-                    <div class="extra">
-                        <a class="change" href="javascript:void(0);">change</a>
-                        <span class="summary">8 draws</span>
+                    <div class="extra cl">
+                        {# EMTD It need to add DRAW or DRAWS word depending if plural or not #}
+                        <span class="summary">8 {{ language.translate("draws") }}</span> 
+                        <a class="change" href="javascript:void(0);">{{ language.translate("Change") }}</a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="desc">
-                        Line A
+                        {{ language.translate("Line") }} A
                     </div>
                     <div class="detail">
                         <ol class="no-li num">
@@ -48,15 +49,17 @@
                             <li class="yellow">10</li>
                         </ol> 
                     </div>
-                    <div class="extra">
-                        <a class="delete small" href="javascript:void(0);">delete</a>
-                        <span class="type">5 numbers + 2 stars</span>
-                        <span class="summary">20,00 &euro;</span>
+                    <div class="extra cl">
+                        <div class="box-delete">
+                            <a class="delete" href="javascript:void(0);">Delete</a>
+                        </div>
+                        <span class="type">5 {{ language.translate("numbers") }} + 2 {{ language.translate("stars") }}</span>
+                        <span class="summary">&euro; 20,00</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="desc">
-                        Line B
+                        {{ language.translate("Line") }} B
                     </div>
                     <div class="detail">
                         <ol class="no-li num">
@@ -70,15 +73,17 @@
                             <li class="yellow">09</li>
                         </ol> 
                     </div>
-                    <div class="extra">
-                        <a class="delete small" href="javascript:void(0);">delete</a>
-                        <span class="type">5 numbers + 3 stars</span>
-                        <span class="summary">40,00 &euro;</span>
+                    <div class="extra cl">
+                        <div class="box-delete">
+                            <a class="delete" href="javascript:void(0);">{{ language.translate("Delete") }}</a>
+                        </div>
+                        <span class="type">5 {{ language.translate("numbers") }} + 3 {{ language.translate("stars") }}</span>
+                        <span class="summary">&euro; 70,00</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="desc">
-                        Line C
+                        {{ language.translate("Line") }} C
                     </div>
                     <div class="detail">
                         <ol class="no-li num">
@@ -94,24 +99,28 @@
                             <li class="yellow">11</li>
                         </ol> 
                     </div>
-                    <div class="extra">
-                        <a class="delete small" href="javascript:void(0);">delete</a>
-                        <span class="type">8 numbers + 2 stars</span>
-                        <span class="summary">40,00 &euro;</span>
+                    <div class="extra cl">
+                        <div class="box-delete">
+                            <a class="delete" href="javascript:void(0);">{{ language.translate("Delete") }}</a>
+                        </div>
+                        <span class="type">8 {{ language.translate("numbers") }} + 2 {{ language.translate("stars") }}</span>
+                        <span class="summary">&euro; 140,00</span>
                     </div>
                 </div>
             </div>
             <div class="box-total cl">
-                <span class="txt">Order total:</span> 
-                <span class="total">400,00&euro;</span>
+                <span class="txt">{{ language.translate("Order total") }}</span> 
+                <span class="total">&euro; 400,00</span>
             </div>
 
-            <h3 class="h4 yellow">Current jackpot</h3>
-
-            {% set extraClass='{"boxvalueClass": "","currencyClass":"","valueClass":""}'|json_decode %}
-            {% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
-
-            <a href="javascript:void(0)" class="btn blue big">Buy ticket</a>
+            <div class="box-bottom cl">
+                <div class="box-jackpot">
+                    <h3 class="h4 yellow current">{{ language.translate("Current jackpot") }}</h3>
+                    {% set extraClass='{"boxvalueClass": "","currencyClass":"","valueClass":""}'|json_decode %}
+                    {% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
+                </div>
+                <a href="javascript:void(0)" class="btn blue big buy">{{ language.translate("Buy ticket") }}</a>
+            </div>
 
         </div>
     </div>

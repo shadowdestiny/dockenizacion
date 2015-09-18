@@ -41,24 +41,35 @@
 
 .order{
   .purchase{width:100%; text-align:center;}
-  .row{border-top:1px solid $black; margin:.5em 0; padding:.5em 0;}
-  .sub-txt{margin:1em 0 0;}
-  .desc{font-weight:bold; float:left; width:70px;}
+  .row{border-top:1px solid $black; padding:10px 0;}
+  .sub-txt{margin:1em 0 .5em;}
+  .desc{font-weight:bold; float:left; width:70px; font-size:$h3;}
   .detail{float:left;}
   .num{
     li{display:inline; margin-right:4px;}
     li:last-child{margin:0;}
   }
-  .extra{clear:both; /*float:right*/}
-  .summary{font-weight:bold;}
+  .extra{clear:both; padding-top:4px;}
+  .box-delete{float:left; width:70px; font-size:$small;}
+  .change{font-size:$basic-size; float:right;}
+  .type{float:left; width:200px; text-align:left; font-style:italic; font-size:$basic-size;}
+  .summary{font-weight:bold; float:right; margin-left:14px;}
   .box-total{
-    color:$purple; font-weight:bold; border-top:2px solid $black;
+    color:$purple; font-weight:bold; border-top:2px solid $purple; padding-top:8px; margin-bottom:.5em; font-size:$h3;
     .total{float:right;}
   }
-  .box-order a{
-    text-decoration:none;
-    &:hover, &:focus{text-decoration:underline;}
+  .box-order{
+    a{
+      text-decoration:none;
+      &:hover, &:focus{text-decoration:underline;}
+    }
   }
+  .num{width:288px;}
+  .box-value{font-size:$h2; font-weight:bold;}
+  .current{margin:0 0 .3em;}
+  .buy{float:right; margin-top:6px;}
+  .box-bottom{margin-top:1em;}
+  .box-jackpot{float:left;}
 }
 
 
@@ -74,10 +85,25 @@
 .steps{margin:auto; width:100%;}
 .line.step2{width:50%;}
 .names .step2{position:absolute; left:50%; margin-left:-65px;}
+.line.step3{width:93%;}
+
 .fields li:nth-child(odd){margin-right:4%;}
 .card-info, .wrap .second{margin:0!important;}
 .wrap .first{margin-bottom:.5em!important;}
 .cart .label{text-align:left; width:100%;}
+.order{
+  .box-total .txt{float:left;}
+.box-order{text-align:left;}
+.box-jackpot{margin-bottom:1em; float:left;}
+}
+}
+
+@media only screen and (max-width:650px){ /*Not standard size */
+  .line.step3{width:92%;}
+}
+
+@media only screen and (max-width:600px){ /*Not standard size */
+  .line.step3{width:90%;}
 }
 
 @media only screen and (max-width:480px){
@@ -88,4 +114,24 @@
 }
 .fields li{float:none; width:100%;}
 .fields li:nth-child(odd){margin-right:0;}
+.line.step3{width:93%;}
+}
+
+@media only screen and (max-width:420px){ /*Not standard size */
+  .line.step3{width:92%;}
+  .order{
+    .num{width:240px;}
+    .type{width:150px;}
+  }
+}
+
+@media only screen and (max-width:380px){ /*Not standard size */
+  .line.step3{width:90%;}
+  .order{
+    .desc{margin-bottom:.2em;}
+    .num{width:100%;}
+    .box-delete{width:auto; margin-right:10px;}
+    .box-jackpot{width:100%;}
+    .buy{float:none;}
+  }
 }
