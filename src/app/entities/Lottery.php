@@ -14,6 +14,7 @@ class Lottery extends EntityBase implements IEntity
     protected $draw_time; //utc
     protected $jackpot_api;
     protected $result_api;
+    protected $single_bet_price;
 
     public function getJackpotApi()
     {
@@ -83,6 +84,16 @@ class Lottery extends EntityBase implements IEntity
     public function getLastDrawDate(\DateTime $now = null)
     {
         return $this->getDrawDate($now, 'Last');
+    }
+
+    public function setSingleBetPrice($single_bet_price)
+    {
+        $this->single_bet_price = $single_bet_price;
+    }
+
+    public function getSingleBetPrice()
+    {
+        return $this->single_bet_price;
     }
 
     /**
