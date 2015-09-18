@@ -12,8 +12,10 @@ use EuroMillions\entities\PlayConfig;
 use EuroMillions\entities\User;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\EuroMillionsLine;
+use EuroMillions\vo\LastDrawDate;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\PlayForm;
+use EuroMillions\vo\PlayFormToStorage;
 use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
 use Money\Currency;
@@ -175,9 +177,8 @@ class PlayServiceUnitTest extends UnitTestBase
 
     private function exerciseTemporarilyStorePlay($expected)
     {
-        $euroMillionsLine = $this->getEuroMillionsLines();
-        $playForm = new PlayForm($euroMillionsLine);
-        $this->playStorageStrategy_double->saveAll($playForm->getEuroMillionsLines())->willReturn($expected);
+        $playForm = $this->getPlayFormToStorage();
+        $this->playStorageStrategy_double->saveAll($playForm)->willReturn($expected);
         $sut = $this->getSut();
         return $actual = $sut->temporarilyStorePlay($playForm);
 
@@ -208,6 +209,22 @@ class PlayServiceUnitTest extends UnitTestBase
             ]
         );
         return $user;
+    }
+
+    private function getPlayFormToStorage()
+    {
+        $frequency = 1;
+        $startDrawDate = '2015-09-18';
+        $lastDrawDate = new LastDrawDate($startDrawDate,$frequency);
+
+        $playFormToStorage = new PlayFormToStorage();
+        $playFormToStorage->startDrawDate = $startDrawDate;
+        $playFormToStorage->frequency = $startDrawDate;
+        $playFormToStorage->lastDrawDate = $lastDrawDate->getLastDrawDate();
+        $playFormToStorage->drawDays = 2;
+        $playFormToStorage->euroMillionsLine = $this->getEuroMillionsLines();
+
+        return $playFormToStorage;
     }
 
     /**

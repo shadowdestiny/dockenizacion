@@ -15,6 +15,7 @@ use EuroMillions\repositories\BetRepository;
 use EuroMillions\repositories\PlayConfigRepository;
 use EuroMillions\vo\EuroMillionsLine;
 use EuroMillions\vo\PlayForm;
+use EuroMillions\vo\PlayFormToStorage;
 use EuroMillions\vo\ServiceActionResult;
 
 class PlayService
@@ -100,9 +101,9 @@ class PlayService
         }
     }
 
-    public function temporarilyStorePlay(PlayForm $playForm)
+    public function temporarilyStorePlay(PlayFormToStorage $playForm)
     {
-        $result = $this->playStorageStrategy->saveAll($playForm->getEuroMillionsLines());
+        $result = $this->playStorageStrategy->saveAll($playForm);
         if($result->success()){
             return new ServiceActionResult(true);
         }else{
