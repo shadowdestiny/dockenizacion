@@ -2759,6 +2759,26 @@ body {
   margin-bottom: 1em;
 }
 
+.my-left, .my-right {
+  position: absolute;
+  width: 100%;
+}
+
+.my-left {
+  left: -100%;
+  padding-right: 15px;
+  text-align: right;
+}
+
+.my-right {
+  right: -100%;
+  padding-left: 15px;
+}
+
+.my-left h1 {
+  margin-bottom: .5em;
+}
+
 /* SPRITES */
 .sprite {
   display: block;
@@ -2825,6 +2845,22 @@ body {
   .wrapper {
     max-width: 992px;
   }
+
+  .my-left, .my-right {
+    width: 72%;
+  }
+
+  .my-left {
+    left: -72%;
+  }
+
+  .my-right {
+    right: -72%;
+  }
+
+  .br {
+    display: none;
+  }
 }
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 992px) {
@@ -2853,6 +2889,10 @@ body {
 
   .box-links .col20per {
     padding: 0 10px;
+  }
+
+  .my-left, .my-right {
+    display: none;
   }
 }
 @media only screen and (min-width: 769px) {

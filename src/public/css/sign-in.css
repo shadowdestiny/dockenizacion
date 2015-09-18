@@ -137,24 +137,7 @@ ALLOWED: Variable and Extension
 }
 
 .my-left, .my-right {
-  position: absolute;
   margin-top: 100px;
-  width: 100%;
-}
-
-.my-left {
-  left: -100%;
-  padding-right: 15px;
-  text-align: right;
-}
-
-.my-right {
-  right: -100%;
-  padding-left: 15px;
-}
-
-.my-left h1 {
-  margin-bottom: .5em;
 }
 
 .box-basic.email {
@@ -180,22 +163,7 @@ ALLOWED: Variable and Extension
 
 @media only screen and (max-width: 1200px) {
   .my-left, .my-right {
-    width: 72%;
     margin-top: 90px;
-  }
-
-  .my-left {
-    left: -72%;
-  }
-
-  .my-right {
-    right: -72%;
-  }
-}
-/* Medium Devices, Desktops */
-@media only screen and (max-width: 992px) {
-  .my-left, .my-right {
-    display: none;
   }
 }
 /* Small Devices, Tablets */

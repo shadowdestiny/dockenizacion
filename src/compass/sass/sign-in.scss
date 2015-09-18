@@ -38,10 +38,7 @@
 	.submit .ico{position:relative; margin-left:5px; top:1px;}
 }
 
-.my-left, .my-right{position:absolute; margin-top:100px; width:100%;}
-.my-left{left:-100%; padding-right:15px; text-align:right;}
-.my-right{right:-100%; padding-left:15px;}
-.my-left h1{margin-bottom:.5em;}
+.my-left, .my-right{margin-top:100px;}
 
 .box-basic.email{width:100%;}
 
@@ -54,16 +51,9 @@
 }
 
 @media only screen and (max-width:1200px){
-.my-left, .my-right{width:72%; margin-top:90px;}
-.my-left{left:-72%;}
-.my-right{right:-72%;}
+.my-left, .my-right{margin-top:90px;}
 }
  
-/* Medium Devices, Desktops */
-@media only screen and (max-width:992px){
-.my-left, .my-right{display:none;}
-}
-
 /* Small Devices, Tablets */
 @media only screen and (max-width:768px){
 	.head{border-bottom:1px solid $purple;}

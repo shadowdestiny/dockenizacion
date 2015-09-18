@@ -14,7 +14,17 @@
 {% block body %}
 <main id="content">
     <div class="wrapper">
+
         <div class="box-basic small">
+            <div class="my-right">
+                <h1 class="h3">A step away from a dream</h1>
+                <p>
+                    A wine cellar, a pool, a car, a bigger house,
+                    <br class="br">a surprise gift for your loved one,
+                    <br class="br">a vision of tropical blue waters and white sand.
+                </p>
+            </div>
+
             <h1 class="h1 title yellow">{{ language.translate("Place your Order") }}</h1>
             <a href="javascript:void(0)" class="btn blue big purchase">{{ language.translate("Purchase your ticket") }}</a>
 

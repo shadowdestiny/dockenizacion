@@ -144,9 +144,10 @@ ALLOWED: Variable and Extension
 .order .purchase {
   width: 100%;
   text-align: center;
+  font-size: 1.125em;
 }
 .order .row {
-  border-top: 1px solid #333;
+  border-top: 1px solid #aaa;
   padding: 10px 0;
 }
 .order .sub-txt {
@@ -230,7 +231,15 @@ ALLOWED: Variable and Extension
 .order .box-jackpot {
   float: left;
 }
+.order .my-right {
+  margin-top: 65px;
+}
 
+@media only screen and (max-width: 1200px) {
+  .order .my-right {
+    margin-top: 55px;
+  }
+}
 @media only screen and (max-width: 992px) {
   .steps {
     margin-right: 20px;

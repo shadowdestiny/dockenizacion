@@ -382,6 +382,11 @@ body{font-family:$basic-font;}
   .input, .textarea, .select{width:100%; margin-bottom:1em;}
 }
 
+.my-left, .my-right{position:absolute; width:100%;}
+.my-left{left:-100%; padding-right:15px; text-align:right;}
+.my-right{right:-100%; padding-left:15px;}
+.my-left h1{margin-bottom:.5em;}
+
 /* SPRITES */
 .sprite{display:block; width:75px; height:75px; background: url(../img/sprite.png) no-repeat 0 0;} /* Basic sprite size of @1x is 270x220px */
 .visa, .visa:hover{background-position:-50px 0; border:1px solid #bbb;} 
@@ -411,6 +416,10 @@ body{font-family:$basic-font;}
 /*body{border:10px solid #0ff;} /* BLUE WATER */
 .media{width:1px}
 .wrapper{max-width:992px;}
+.my-left, .my-right{width:72%;}
+.my-left{left:-72%;}
+.my-right{right:-72%;}
+.br{display:none;}
 }
  
 /* Medium Devices, Desktops */
@@ -422,6 +431,7 @@ body{font-family:$basic-font;}
 .main-nav a{padding:10px 12px; min-height:62px;}
 .main-nav .subnav a{min-height:inherit;} 
 .box-links .col20per{padding:0 10px;}
+.my-left, .my-right{display:none;}
 }
 
 @media only screen and (min-width:769px){
