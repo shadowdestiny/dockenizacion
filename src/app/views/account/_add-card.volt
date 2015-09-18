@@ -5,7 +5,7 @@
 </div>
 <div class="wrap">
     <div class="cols">
-        <div class="col6">
+        <div class="col6 first">
             <div class="card-info">
                 <label class="label" for="add-card-number">
                     {{ language.translate("Card Number") }} <span class="asterisk">*</span>
@@ -18,7 +18,7 @@
                 <input id="add-card-name" class="input" type="text">
             </div>
         </div>
-        <div class="col6">
+        <div class="col6 second">
             <div class="info box">
                 <i class="ico ico-info"></i>
                 <span class="txt">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</span>

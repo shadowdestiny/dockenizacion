@@ -37,9 +37,6 @@ ALLOWED: Variable and Extension
 .cart .title {
   margin: 0 0 .5em;
 }
-.cart .hr {
-  margin: 1em -20px;
-}
 .cart .input {
   width: 100%;
 }
@@ -49,21 +46,29 @@ ALLOWED: Variable and Extension
 }
 .cart .cvv {
   width: 65px;
+  float: left;
 }
 .cart .margin {
   margin-right: 20px;
 }
-.cart .wrap .cols {
+
+.cart.profile .wrap .cols {
   margin-bottom: 0;
+}
+.cart.profile .hr {
+  margin: 1em -20px;
 }
 
 .card-detail .label {
   display: block;
 }
+.card-detail .submit {
+  margin-top: 30px;
+}
 
 .steps {
   float: right;
-  height: 80px;
+  min-height: 70px;
   width: 450px;
   margin-right: 100px;
 }
@@ -71,7 +76,7 @@ ALLOWED: Variable and Extension
 .line {
   width: 100%;
   height: 0;
-  margin: 30px auto 0;
+  margin: 27px auto 0;
   border-top: 2px solid #aaa;
 }
 .line .ico {
@@ -136,9 +141,106 @@ ALLOWED: Variable and Extension
   margin-right: 10px;
 }
 
+.order .purchase {
+  width: 100%;
+  text-align: center;
+}
+.order .row {
+  border-top: 1px solid #333;
+  padding: 10px 0;
+}
+.order .sub-txt {
+  margin: 1em 0 .5em;
+}
+.order .desc {
+  font-weight: bold;
+  float: left;
+  width: 70px;
+  font-size: 1.125em;
+}
+.order .detail {
+  float: left;
+}
+.order .num li {
+  display: inline;
+  margin-right: 4px;
+}
+.order .num li:last-child {
+  margin: 0;
+}
+.order .extra {
+  clear: both;
+  padding-top: 4px;
+}
+.order .box-delete {
+  float: left;
+  width: 70px;
+  font-size: 0.75em;
+}
+.order .change {
+  font-size: 0.875em;
+  float: right;
+}
+.order .type {
+  float: left;
+  width: 200px;
+  text-align: left;
+  font-style: italic;
+  font-size: 0.875em;
+}
+.order .summary {
+  font-weight: bold;
+  float: right;
+  margin-left: 14px;
+}
+.order .box-total {
+  color: #ae5279;
+  font-weight: bold;
+  border-top: 2px solid #ae5279;
+  padding-top: 8px;
+  margin-bottom: .5em;
+  font-size: 1.125em;
+}
+.order .box-total .total {
+  float: right;
+}
+.order .box-order a {
+  text-decoration: none;
+}
+.order .box-order a:hover, .order .box-order a:focus {
+  text-decoration: underline;
+}
+.order .num {
+  width: 288px;
+}
+.order .box-value {
+  font-size: 1.375em;
+  font-weight: bold;
+}
+.order .current {
+  margin: 0 0 .3em;
+}
+.order .buy {
+  float: right;
+  margin-top: 6px;
+}
+.order .box-bottom {
+  margin-top: 1em;
+}
+.order .box-jackpot {
+  float: left;
+}
+
 @media only screen and (max-width: 992px) {
   .steps {
     margin-right: 20px;
+  }
+}
+@media only screen and (max-width: 840px) {
+  /*Not standard size */
+  .cart .submit {
+    width: 100%;
+    margin: 0;
   }
 }
 @media only screen and (max-width: 768px) {
@@ -157,12 +259,48 @@ ALLOWED: Variable and Extension
     margin-left: -65px;
   }
 
+  .line.step3 {
+    width: 93%;
+  }
+
   .fields li:nth-child(odd) {
     margin-right: 4%;
   }
 
-  .card-info {
-    margin: 0;
+  .card-info, .wrap .second {
+    margin: 0 !important;
+  }
+
+  .wrap .first {
+    margin-bottom: 0.5em !important;
+  }
+
+  .cart .label {
+    text-align: left;
+    width: 100%;
+  }
+
+  .order .box-total .txt {
+    float: left;
+  }
+  .order .box-order {
+    text-align: left;
+  }
+  .order .box-jackpot {
+    margin-bottom: 1em;
+    float: left;
+  }
+}
+@media only screen and (max-width: 650px) {
+  /*Not standard size */
+  .line.step3 {
+    width: 92%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  /*Not standard size */
+  .line.step3 {
+    width: 90%;
   }
 }
 @media only screen and (max-width: 480px) {
@@ -185,5 +323,45 @@ ALLOWED: Variable and Extension
 
   .fields li:nth-child(odd) {
     margin-right: 0;
+  }
+
+  .line.step3 {
+    width: 93%;
+  }
+}
+@media only screen and (max-width: 420px) {
+  /*Not standard size */
+  .line.step3 {
+    width: 92%;
+  }
+
+  .order .num {
+    width: 240px;
+  }
+  .order .type {
+    width: 150px;
+  }
+}
+@media only screen and (max-width: 380px) {
+  /*Not standard size */
+  .line.step3 {
+    width: 90%;
+  }
+
+  .order .desc {
+    margin-bottom: .2em;
+  }
+  .order .num {
+    width: 100%;
+  }
+  .order .box-delete {
+    width: auto;
+    margin-right: 10px;
+  }
+  .order .box-jackpot {
+    width: 100%;
+  }
+  .order .buy {
+    float: none;
   }
 }

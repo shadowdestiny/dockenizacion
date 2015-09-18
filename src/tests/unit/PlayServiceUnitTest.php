@@ -12,7 +12,10 @@ use EuroMillions\entities\PlayConfig;
 use EuroMillions\entities\User;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\EuroMillionsLine;
+use EuroMillions\vo\LastDrawDate;
 use EuroMillions\vo\Password;
+use EuroMillions\vo\PlayForm;
+use EuroMillions\vo\PlayFormToStorage;
 use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
 use Money\Currency;
@@ -36,6 +39,13 @@ class PlayServiceUnitTest extends UnitTestBase
 
     private $betRepository_double;
 
+    private $playStorageStrategy_double;
+
+    private $userRepository_double;
+
+    private $authService_double;
+
+
     protected function getEntityManagerStubExtraMappings()
     {
         return [
@@ -43,6 +53,7 @@ class PlayServiceUnitTest extends UnitTestBase
             Namespaces::ENTITIES_NS . 'EuroMillionsDraw' => $this->euroMillionsDrawRepository_double,
             Namespaces::ENTITIES_NS . 'Lottery' => $this->lotteryDrawRepository_double,
             Namespaces::ENTITIES_NS . 'Bet' => $this->betRepository_double,
+            Namespaces::ENTITIES_NS . 'User' => $this->userRepository_double,
         ];
     }
 
@@ -52,6 +63,9 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->lotteryDataService_double = $this->getServiceDouble('LotteriesDataService');
         $this->betRepository_double = $this->getRepositoryDouble('BetRepository');
         $this->lotteryDrawRepository_double = $this->getRepositoryDouble('EuroMillions\entities\Lottery');
+        $this->playStorageStrategy_double = $this->getInterfaceDouble('IPlayStorageStrategy');
+        $this->userRepository_double = $this->getRepositoryDouble('EuroMillions\entities\User');
+        $this->authService_double = $this->getServiceDouble('AuthService');
         parent::setUp();
     }
 
@@ -136,9 +150,42 @@ class PlayServiceUnitTest extends UnitTestBase
 
     }
 
+    /**
+     * method temporarilyStorePlay
+     * when called
+     * should returnServiceActionResultTrueWhenStore
+     */
+    public function test_temporarilyStorePlay_called_returnServiceActionResultTrueWhenStore()
+    {
+        $expected = new ServiceActionResult(true);
+        $actual = $this->exerciseTemporarilyStorePlay($expected);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method temporarilyStorePlay
+     * when called
+     * should returnServiceActionResultFalseWhenTryStore
+     */
+    public function test_temporarilyStorePlay_called_returnServiceActionResultFalseWhenTryStore()
+    {
+        $expected = new ServiceActionResult(false);
+        $actual = $this->exerciseTemporarilyStorePlay($expected);
+        $this->assertEquals($expected,$actual);
+    }
+
+
+    private function exerciseTemporarilyStorePlay($expected)
+    {
+        $playForm = $this->getPlayFormToStorage();
+        $this->playStorageStrategy_double->saveAll($playForm)->willReturn($expected);
+        $sut = $this->getSut();
+        return $actual = $sut->temporarilyStorePlay($playForm);
+
+    }
 
     private function getSut(){
-        $sut = $this->getDomainServiceFactory()->getPlayService($this->lotteryDataService_double->reveal());
+        $sut = $this->getDomainServiceFactory()->getPlayService($this->lotteryDataService_double->reveal(), $this->playStorageStrategy_double->reveal());
         return $sut;
     }
 
@@ -163,6 +210,42 @@ class PlayServiceUnitTest extends UnitTestBase
         );
         return $user;
     }
+
+    private function getPlayFormToStorage()
+    {
+        $frequency = 1;
+        $startDrawDate = '2015-09-18';
+        $lastDrawDate = new LastDrawDate($startDrawDate,$frequency);
+
+        $playFormToStorage = new PlayFormToStorage();
+        $playFormToStorage->startDrawDate = $startDrawDate;
+        $playFormToStorage->frequency = $startDrawDate;
+        $playFormToStorage->lastDrawDate = $lastDrawDate->getLastDrawDate();
+        $playFormToStorage->drawDays = 2;
+        $playFormToStorage->euroMillionsLine = $this->getEuroMillionsLines();
+
+        return $playFormToStorage;
+    }
+
+    /**
+     * @return array
+     */
+    private function getEuroMillionsLines()
+    {
+        $regular_numbers = [1, 2, 3, 4, 5];
+        $lucky_numbers = [5, 8];
+
+        $r_numbers = $this->getRegularNumbers($regular_numbers);
+        $l_numbers = $this->getLuckyNumbers($lucky_numbers);
+
+        $euroMillionsLine = [
+            new EuroMillionsLine($r_numbers,$l_numbers),
+            new EuroMillionsLine($r_numbers,$l_numbers),
+            new EuroMillionsLine($r_numbers,$l_numbers)
+        ];
+        return $euroMillionsLine;
+    }
+
 
     private function getPlayConfigAndEuroMillionsDraw()
     {

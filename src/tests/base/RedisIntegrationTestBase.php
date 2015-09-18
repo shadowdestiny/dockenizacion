@@ -6,6 +6,7 @@ use Phalcon\DI;
 
 abstract class RedisIntegrationTestBase extends \PHPUnit_Framework_TestCase
 {
+
     const ENTITIES_NS = '\EuroMillions\entities\\';
 
     /** @var  Redis */

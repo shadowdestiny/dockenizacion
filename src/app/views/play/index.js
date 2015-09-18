@@ -138,7 +138,6 @@ function randomNum(button){
 		myThis = $(this).closest(".col2").attr('class').split(" "); 
 		valNum = myThis[1].split("num");
 		line = "."+myThis[1];
-		console.log("line= "+line);
 		randomCalculation(line, valNum[1]);
 	});
 }
@@ -169,6 +168,25 @@ function clearNum(button){
 	});
 }
 
+function getBets(){
+	var bets = [], iBets = 0;
+	$('.col2').each(function(){
+		var num = [];
+		if( $(this).find('.ico-checkmark').css('display') == 'block'){
+			numArr = $(this).find('.values .numbers .active, .values .stars .active').toArray();
+			for(k in numArr){
+				if(numArr.hasOwnProperty(k)){
+					num[k] = numArr[k].text;
+				}
+			}
+			bets[iBets] = num;
+			iBets++;
+		}
+	});
+	return bets;
+}
+
+
 function clearNumAll(button){
 	$(button).click(function(){
 		line = $(".box-lines .col2");
@@ -183,6 +201,28 @@ function clearNumAll(button){
 	});
 }
 
+//EMTD add more functions
+var ajaxFunctions = {
+	playCart : function (params) {
+		$.ajax({
+			url: '/ajax/play-temporarily/temporarilyCart/',
+			data: params,
+			type: 'POST',
+			dataType: "json",
+			success: function(json) {
+				if(json.result = 'OK') {
+					//EMTD location to cart
+					location.href = location.href;
+				}
+			},
+			error: function (xhr, status, errorThrown) {
+				//EMTD manage errrors
+			},
+		});
+	}
+};
+
+
 $(function(){
 	//$(".random-all").css("margin-right","-15px"); // Fix initial positioning of a button
 	playLine('.numbers .btn', "number");
@@ -193,4 +233,18 @@ $(function(){
 	clearNumAll(".clear-all");
 
 	$(".li-play").addClass("active");
+
+	//send played numbers to temporarily cart
+	$('.add-cart').on('click',function(){
+		var params = '';
+		var bets = getBets();
+		for(k in bets){
+			if( bets.hasOwnProperty(k)){
+				params += 'bet['+k+']='+ bets[k] + '&';
+			}
+		}
+		//EMTD add more params like frequency, draw date, ....
+		ajaxFunctions.playCart(params);
+	});
+
 });

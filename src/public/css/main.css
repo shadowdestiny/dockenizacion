@@ -1587,6 +1587,7 @@ p {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+  width: 100%;
 }
 
 strong {
@@ -1617,6 +1618,8 @@ blockquote:before, blockquote:after, q:before, q:after {
 select {
   padding: 5px;
   border: 1px solid #bbb;
+  line-height: 30px;
+  /*Safari need line-height*/
 }
 
 button {
@@ -2217,6 +2220,20 @@ label.submit {
 .menu-ham.expanded span:after {
   transform: rotate(-45deg);
   bottom: 0;
+}
+
+.back-top a {
+  float: right;
+  margin: -0.5em 0 1.5em;
+  text-decoration: none;
+  font-size: 0.875em;
+}
+.back-top a:hover, .back-top a:focus {
+  text-decoration: underline;
+}
+.back-top a .ico {
+  font-size: 12px;
+  margin-right: 3px;
 }
 
 /* ANIMATION */
@@ -3054,7 +3071,14 @@ body {
     border-radius: 0;
     border-left: 0;
     border-right: 0;
-    margin-bottom: 1em !important;
+    margin-bottom: 0 !important;
+  }
+
+  .minimal .box-basic {
+    margin-bottom: 0 !important;
+  }
+  .minimal .main-foot .col8, .minimal .main-foot .col4 {
+    margin: 0 auto 1em;
   }
 
   .paging li, .paging .next, .paging .prev {

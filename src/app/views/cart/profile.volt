@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="/css/cart.css">
 {% endblock %}
 {% block template_scripts %}{% endblock %}
-{% block bodyClass %}cart minimal{% endblock %}
+{% block bodyClass %}cart profile minimal{% endblock %}
 
 {% block header %}
     {% set activeSteps='{"myClass": "step2"}'|json_decode %}
