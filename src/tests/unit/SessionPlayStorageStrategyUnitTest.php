@@ -5,6 +5,8 @@ namespace tests\unit;
 
 use EuroMillions\services\play_strategies\SessionPlayStorageStrategy;
 use EuroMillions\vo\EuroMillionsLine;
+use EuroMillions\vo\LastDrawDate;
+use EuroMillions\vo\PlayFormToStorage;
 use EuroMillions\vo\ServiceActionResult;
 use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\UnitTestBase;
@@ -70,9 +72,9 @@ class SessionPlayStorageStrategyUnitTest extends UnitTestBase
      */
     public function test_saveAll_calledWithProperArrayEuroMillionsLine_setEuroMillionsLineSession()
     {
-        $euroMillionsLine = $this->getEuroMillionsLine();
-        $this->session_double->set(SessionPlayStorageStrategy::CURRENT_EMLINE_VAR, $euroMillionsLine)->shouldBeCalled();
-        $this->exerciseSaveAll($euroMillionsLine);
+        $playFormToStorage = $this->getPlayFormToStorage();
+        $this->session_double->set(SessionPlayStorageStrategy::CURRENT_EMLINE_VAR, $playFormToStorage->toJson())->shouldBeCalled();
+        $this->exerciseSaveAll($playFormToStorage);
     }
 
     /**
@@ -88,21 +90,6 @@ class SessionPlayStorageStrategyUnitTest extends UnitTestBase
     }
 
 
-    private function getEuroMillionsLine()
-    {
-        $regular_numbers = [1, 2, 3, 4, 5];
-        $lucky_numbers = [5, 8];
-
-        $r_numbers = $this->getRegularNumbers($regular_numbers);
-        $l_numbers = $this->getLuckyNumbers($lucky_numbers);
-
-        $euroMillionsLine = [
-            new EuroMillionsLine($r_numbers,$l_numbers),
-            new EuroMillionsLine($r_numbers,$l_numbers),
-            new EuroMillionsLine($r_numbers,$l_numbers)
-        ];
-        return $euroMillionsLine;
-    }
 
     /**
      * @return SessionPlayStorageStrategy

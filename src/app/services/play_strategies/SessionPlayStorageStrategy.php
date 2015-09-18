@@ -5,6 +5,7 @@ namespace EuroMillions\services\play_strategies;
 
 use EuroMillions\interfaces\IPlayStorageStrategy;
 use EuroMillions\interfaces\ISession;
+use EuroMillions\vo\PlayFormToStorage;
 use EuroMillions\vo\ServiceActionResult;
 
 class SessionPlayStorageStrategy implements IPlayStorageStrategy
@@ -19,9 +20,9 @@ class SessionPlayStorageStrategy implements IPlayStorageStrategy
         $this->session = $session;
     }
 
-    public function saveAll(array $euroMillionsLines)
+    public function saveAll(PlayFormToStorage $data)
     {
-        $this->session->set(self::CURRENT_EMLINE_VAR, $euroMillionsLines);
+        $this->session->set(self::CURRENT_EMLINE_VAR, $data->toJson());
     }
 
     /**
