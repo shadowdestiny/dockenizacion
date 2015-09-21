@@ -2279,7 +2279,7 @@ label.submit {
   }
 }
 /* TYPOGRAPHY */
-body {
+body, .submit {
   font-family: "Open Sans", helvetica, arial, verdana, sans-serif;
 }
 

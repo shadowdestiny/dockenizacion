@@ -39,16 +39,17 @@
   .step3{float:right; margin-right:10px;}  
 }
 
+.num{
+  li{display:inline; margin-right:4px;}
+  li:last-child{margin:0;}
+}
+
 .order{
   .purchase{width:100%; text-align:center; font-size:$h3;}
   .row{border-top:1px solid $grey-light; padding:10px 0;}
   .sub-txt{margin:1em 0 .5em;}
   .desc{font-weight:bold; float:left; width:70px; font-size:$h3;}
   .detail{float:left;}
-  .num{
-    li{display:inline; margin-right:4px;}
-    li:last-child{margin:0;}
-  }
   .extra{clear:both; padding-top:4px;}
   .box-delete{float:left; width:70px; font-size:$small;}
   .change{font-size:$basic-size; float:right;}
@@ -72,16 +73,47 @@
   .box-jackpot{float:left;}
   .my-right{margin-top:65px;}
 }
+
+.success{
+  .countdown{font-weight:bold; margin-bottom:1em;}
+  h2.h4{margin-bottom:.3em;}
+  .textarea{width:100%; font-size:$basic-size; height:180px; margin-bottom:.5em;}
+  .submit{float:right; right:0;}
+  .small-margin{margin-bottom:0.5em;}
+  .bg-ticket{
+    background:url(../img/cart/ticket.png) no-repeat; font-family:$mono; width:100%; width:340px; max-height:350px;  box-shadow:3px 3px 3px 0 #999; transform:rotate(5deg);
+    position:absolute; top:-15px; left:20px;  text-align:center;
+    .title{font-weight:bold; font-size:$h3;}
+  }
+  .results{
+    padding:10px 20px; overflow:auto; max-height:350px;
+    ul.num:last-child{margin-bottom:0!important; border:1px solid #f00;}
+  }
+  .num{
+    min-width:302px; float:left; margin-bottom:.4em; overflow:hidden; height:auto; text-align:left;
+    li{margin-right:9px;}
+    li:nth-child(11n){display:inline-block; border:1px solid transparent; margin-right:0;}
+    .yellow{font-weight:bold;}
+  }
+  .luck{display:inline-block; font-weight:bold;}
+  .box-basic .cols{margin:0;}
+  .txt-logo{color:$purple; font-weight:bold; font-size:$h3; text-align:left; margin:.5em 0;}
+  .txt-col{padding-right:20px;}
+}
+
+
+
 @media only screen and (max-width:1200px){
 .order .my-right{margin-top:55px;}
 }
 
 @media only screen and (max-width:992px){
 .steps{margin-right:20px}
+.success .bg-ticket{left:0;}
 }
 
 @media only screen and (max-width:840px){ /*Not standard size */
-.cart .submit{width:100%; margin:0;}
+/*.cart.profile  .submit{margin:0;}*/
 }
 
 @media only screen and (max-width:768px){
@@ -89,7 +121,6 @@
 .line.step2{width:50%;}
 .names .step2{position:absolute; left:50%; margin-left:-65px;}
 .line.step3{width:93%;}
-
 .fields li:nth-child(odd){margin-right:4%;}
 .card-info, .wrap .second{margin:0!important;}
 .wrap .first{margin-bottom:.5em!important;}
@@ -99,6 +130,12 @@
 .box-order{text-align:left;}
 .box-jackpot{margin-bottom:1em; float:left;}
 }
+.success{
+  .ticket-col{display:none!important;}
+  .txt-col{text-align:left;}
+  .form{width:70%; margin:auto;}
+}
+.cart.profile  .submit{width:100%; margin:0;}
 }
 
 @media only screen and (max-width:650px){ /*Not standard size */
@@ -115,9 +152,14 @@
     .step1, .step3{margin:0;}
     .step2{position:absolute; left:50%; margin-left:-55px;}
 }
-.fields li{float:none; width:100%;}
-.fields li:nth-child(odd){margin-right:0;}
+.fields{
+  li{float:none; width:100%;}
+  li:nth-child(odd){margin-right:0;}
+}
 .line.step3{width:93%;}
+.success{
+  .submit, .form{width:100%;}
+}
 }
 
 @media only screen and (max-width:420px){ /*Not standard size */

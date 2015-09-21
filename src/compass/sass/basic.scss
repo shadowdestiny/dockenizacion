@@ -242,7 +242,7 @@ $var2-pulseRight:20px,0;
 }
 
 /* TYPOGRAPHY */
-body{font-family:$basic-font;}
+body, .submit{font-family:$basic-font;}
 .h0, .h1, .h2, .h3, .h4, .h5, .h6{margin-bottom:1em; font-weight:bold; line-height:normal;}
 .h0{font-size:$h0; margin-bottom:0;}
 .h1{font-size:$h1;}
