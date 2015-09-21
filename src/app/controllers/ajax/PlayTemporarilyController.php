@@ -17,22 +17,21 @@ class PlayTemporarilyController extends AjaxControllerBase
     public function temporarilyCartAction()
     {
         $bets = $this->request->getPost('bet');
-        //EMTD drawdays, get start draw days from post
-
-        //WARNING: Test vars
-        $frequency = 1;
-        $startDrawDate = '2015-09-18';
+        $frequency = $this->request->getPost('frequency');
+        $startDrawDate = $this->request->getPost('start_draw');
+        $drawDays = $this->request->getPost('draw_days');
         $lastDrawDate = new LastDrawDate($startDrawDate,$frequency);
 
         $playFormToStorage = new PlayFormToStorage();
         $playFormToStorage->startDrawDate = $startDrawDate;
         $playFormToStorage->frequency = $startDrawDate;
         $playFormToStorage->lastDrawDate = $lastDrawDate->getLastDrawDate();
-        $playFormToStorage->drawDays = 2;
-        $playFormToStorage->euroMillionsLine = $this->create($bets);
+        $playFormToStorage->drawDays = $drawDays;
+        $playFormToStorage->euroMillionsLines = $this->create($bets);
 
         $playService = $this->domainServiceFactory->getPlayService();
         $result = $playService->temporarilyStorePlay($playFormToStorage);
+
         if($result->success()) {
             echo json_encode(['result'=>'OK']);
         } else {
