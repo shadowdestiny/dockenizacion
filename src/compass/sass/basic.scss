@@ -215,7 +215,7 @@ label.submit{cursor:pointer;}
 
 .back-top a{
   float:right; margin:-0.5em 0 1.5em; text-decoration:none; font-size:$basic-size;
-  &:hover, &:focus{text-decoration:underline;}
+  &:hover, &:focus{color:$blue-dark;}
   .ico{font-size:12px; margin-right:3px;}
 }
 
@@ -419,7 +419,7 @@ body, .submit{font-family:$basic-font;}
 .my-left, .my-right{width:72%;}
 .my-left{left:-72%;}
 .my-right{right:-72%;}
-.br{display:none;}
+/*.br{display:none;}*/
 }
  
 /* Medium Devices, Desktops */
@@ -500,6 +500,7 @@ body, .submit{font-family:$basic-font;}
   li, .next, .prev{margin:0;}
 }
 .minimal .main-foot .txt{text-align:center;}
+.br{display:none;}
 } /* End Media query */
 
 @media screen and (min-width:480px){
