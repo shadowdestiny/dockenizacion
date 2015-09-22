@@ -147,7 +147,7 @@
 
 		<div class="informative">
 			<div class="who-we-are">
-				<a href="javascript:void(0);" class="start-playing">
+				<div class="start-playing">
 					<div class="cols top">
 						<div class="col6">
 							<div class="title-em cl">
@@ -159,11 +159,11 @@
 						<div class="col6">
 							<span class="gold-pile">
 								<svg class="vector"><use xlink:href="#logo-shadow"></use></svg>
-								<span class="btn blue">Start playing, Win millions</span>
+								<a href="javascript:void(0);" class="btn blue">Start playing, Win millions</a>
 							</span>
 						</div>
 					</div>
-				</a>
+				</div>
 				<div class="bg-white">
 					<div class="cols fcs">
 						<div class="col6 bg-quality"></div>
@@ -179,10 +179,10 @@
 							<p>Euromillions.com is a fully licensed lottery operator. We are customer-centric and constantly endeavour to improve our performance to meet and exceed the demands of our customers. Our partnerships with top financial institutions and certification companies ensure your optimum safety when playing on our website supporting 256-bit SSL encryption.</p>
 						</div>
 					</div>
-					<a href="javascript:void(0);" class="box-action">
+					<div class="box-action">
 						<span class="h2 phrase">Millions of people play the Euromillion lottery everyday.</span>
-						<span class="btn blue">Play anytime, anywhere</span>
-					</a>
+						<a href="javascript:void(0);" class="btn blue">Play anytime, anywhere</a>
+					</div>
 				</div>
 			</div>
 
@@ -205,10 +205,10 @@
 					</div>
 					<div class="col6 bg-hope"></div>
 				</div>
-				<a href="javascript:void(0);" class="box-action">
+				<div class="box-action">
 					<span class="h2 phrase">For a very small amount of money<br class="mobile"> you might change your life.</span>
-					<span class="btn blue">Beat the odds, Play the Lotto</span>
-				</a>
+					<a href="javascript:void(0);" class="btn blue">Beat the odds, Play the Lotto</a>
+				</div>
 			</div>
 
 			<div class="back-top cl">
@@ -242,10 +242,10 @@
 						<p>We wish you the very best of luck playing and to never stop dreaming.</p>
 					</div>
 				</div>
-				<a href="javascript:void(0);" class="box-action">
+				<div class="box-action">
 					<span class="h2 phrase">Winning starts by saying to yourself,<br class="mobile"> "One day I’m going to win."</span>
-					<span class="btn blue">Play.  Dare to dream.  Win.</span>
-				</a>
+					<a href="javascript:void(0);"  class="btn blue">Play. Dare to dream. Win.</a>
+				</div>
 			</div>
 
 			<div class="back-top cl">

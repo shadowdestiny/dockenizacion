@@ -741,7 +741,7 @@ label.submit {
   font-size: 0.875em;
 }
 .back-top a:hover, .back-top a:focus {
-  text-decoration: underline;
+  color: #1c173b;
 }
 .back-top a .ico {
   font-size: 12px;
@@ -791,7 +791,7 @@ label.submit {
   }
 }
 /* TYPOGRAPHY */
-body {
+body, .submit {
   font-family: "Open Sans", helvetica, arial, verdana, sans-serif;
 }
 
@@ -1370,9 +1370,7 @@ body {
     right: -72%;
   }
 
-  .br {
-    display: none;
-  }
+  /*.br{display:none;}*/
 }
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 992px) {
@@ -1639,6 +1637,10 @@ body {
 
   .minimal .main-foot .txt {
     text-align: center;
+  }
+
+  .br {
+    display: none;
   }
 }
 /* End Media query */

@@ -215,7 +215,7 @@ label.submit{cursor:pointer;}
 
 .back-top a{
   float:right; margin:-0.5em 0 1.5em; text-decoration:none; font-size:$basic-size;
-  &:hover, &:focus{text-decoration:underline;}
+  &:hover, &:focus{color:$blue-dark;}
   .ico{font-size:12px; margin-right:3px;}
 }
 
@@ -242,7 +242,7 @@ $var2-pulseRight:20px,0;
 }
 
 /* TYPOGRAPHY */
-body{font-family:$basic-font;}
+body, .submit{font-family:$basic-font;}
 .h0, .h1, .h2, .h3, .h4, .h5, .h6{margin-bottom:1em; font-weight:bold; line-height:normal;}
 .h0{font-size:$h0; margin-bottom:0;}
 .h1{font-size:$h1;}
@@ -419,7 +419,7 @@ body{font-family:$basic-font;}
 .my-left, .my-right{width:72%;}
 .my-left{left:-72%;}
 .my-right{right:-72%;}
-.br{display:none;}
+/*.br{display:none;}*/
 }
  
 /* Medium Devices, Desktops */
@@ -500,6 +500,7 @@ body{font-family:$basic-font;}
   li, .next, .prev{margin:0;}
 }
 .minimal .main-foot .txt{text-align:center;}
+.br{display:none;}
 } /* End Media query */
 
 @media screen and (min-width:480px){

@@ -47,6 +47,10 @@ ALLOWED: Variable and Extension
   padding: 20px 0 13px 20px;
   border-radius: 10px 0 0 0;
   background-size: cover;
+  /* Fix Safari problem*/
+}
+.box-estimated .try {
+  position: relative;
 }
 
 .box-estimated .vector {
@@ -409,10 +413,15 @@ ALLOWED: Variable and Extension
   margin-bottom: 10px;
 }
 
+.box-prize .box-vector {
+  width: 220px;
+  height: 160px;
+}
 .box-prize .vector {
   width: 75%;
   margin: auto;
   max-width: 220px;
+  position: relative;
 }
 
 .informative .li-title {
@@ -441,7 +450,7 @@ ALLOWED: Variable and Extension
 .informative .box-action .btn {
   margin: auto;
 }
-.informative .box-action:hover .btn {
+.informative .box-action .btn:hover {
   color: #1479b9;
   background: #fff;
   border: 1px solid #1479b9;
@@ -465,7 +474,7 @@ ALLOWED: Variable and Extension
   display: block;
   text-decoration: none;
 }
-.who-we-are .start-playing:hover .btn {
+.who-we-are .start-playing .btn:hover {
   color: #1479b9;
   background: #fff;
   border: 1px solid #1479b9;

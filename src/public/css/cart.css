@@ -141,6 +141,14 @@ ALLOWED: Variable and Extension
   margin-right: 10px;
 }
 
+.num li {
+  display: inline;
+  margin-right: 4px;
+}
+.num li:last-child {
+  margin: 0;
+}
+
 .order .purchase {
   width: 100%;
   text-align: center;
@@ -161,13 +169,6 @@ ALLOWED: Variable and Extension
 }
 .order .detail {
   float: left;
-}
-.order .num li {
-  display: inline;
-  margin-right: 4px;
-}
-.order .num li:last-child {
-  margin: 0;
 }
 .order .extra {
   clear: both;
@@ -235,6 +236,89 @@ ALLOWED: Variable and Extension
   margin-top: 65px;
 }
 
+.success .countdown {
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+.success h2.h4 {
+  margin-bottom: .3em;
+}
+.success .textarea {
+  width: 100%;
+  font-size: 0.875em;
+  height: 180px;
+  margin-bottom: .5em;
+}
+.success .submit {
+  float: right;
+  right: 0;
+}
+.success .small-margin {
+  margin-bottom: 0.5em;
+}
+.success .bg-ticket {
+  background: url(../img/cart/ticket.png) no-repeat;
+  font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+  width: 100%;
+  width: 340px;
+  max-height: 350px;
+  box-shadow: 3px 3px 3px 0 #999;
+  transform: rotate(5deg);
+  position: absolute;
+  top: -15px;
+  left: 20px;
+  text-align: center;
+}
+.success .bg-ticket .title {
+  font-weight: bold;
+  font-size: 1.125em;
+}
+.success .results {
+  padding: 10px 20px;
+  overflow: auto;
+  max-height: 350px;
+}
+.success .results ul.num:last-child {
+  margin-bottom: 0 !important;
+  border: 1px solid #f00;
+}
+.success .num {
+  min-width: 302px;
+  float: left;
+  margin-bottom: .4em;
+  overflow: hidden;
+  height: auto;
+  text-align: left;
+}
+.success .num li {
+  margin-right: 9px;
+}
+.success .num li:nth-child(11n) {
+  display: inline-block;
+  border: 1px solid transparent;
+  margin-right: 0;
+}
+.success .num .yellow {
+  font-weight: bold;
+}
+.success .luck {
+  display: inline-block;
+  font-weight: bold;
+}
+.success .box-basic .cols {
+  margin: 0;
+}
+.success .txt-logo {
+  color: #ae5279;
+  font-weight: bold;
+  font-size: 1.125em;
+  text-align: left;
+  margin: .5em 0;
+}
+.success .txt-col {
+  padding-right: 20px;
+}
+
 @media only screen and (max-width: 1200px) {
   .order .my-right {
     margin-top: 55px;
@@ -244,13 +328,14 @@ ALLOWED: Variable and Extension
   .steps {
     margin-right: 20px;
   }
+
+  .success .bg-ticket {
+    left: 0;
+  }
 }
 @media only screen and (max-width: 840px) {
   /*Not standard size */
-  .cart .submit {
-    width: 100%;
-    margin: 0;
-  }
+  /*.cart.profile  .submit{margin:0;}*/
 }
 @media only screen and (max-width: 768px) {
   .steps {
@@ -299,6 +384,22 @@ ALLOWED: Variable and Extension
     margin-bottom: 1em;
     float: left;
   }
+
+  .success .ticket-col {
+    display: none !important;
+  }
+  .success .txt-col {
+    text-align: left;
+  }
+  .success .form {
+    width: 70%;
+    margin: auto;
+  }
+
+  .cart.profile .submit {
+    width: 100%;
+    margin: 0;
+  }
 }
 @media only screen and (max-width: 650px) {
   /*Not standard size */
@@ -329,13 +430,16 @@ ALLOWED: Variable and Extension
     float: none;
     width: 100%;
   }
-
   .fields li:nth-child(odd) {
     margin-right: 0;
   }
 
   .line.step3 {
     width: 93%;
+  }
+
+  .success .submit, .success .form {
+    width: 100%;
   }
 }
 @media only screen and (max-width: 420px) {

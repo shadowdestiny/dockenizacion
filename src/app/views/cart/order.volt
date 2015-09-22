@@ -17,11 +17,11 @@
 
         <div class="box-basic small">
             <div class="my-right">
-                <h1 class="h3">A step away from a dream</h1>
+                <h1 class="h3">{{ language.translate("A step away from a dream") }}</h1>
                 <p>
-                    A wine cellar, a pool, a car, a bigger house,
+                    {{ language.translate('A wine cellar, a pool, a car, a bigger house,
                     <br class="br">a surprise gift for your loved one,
-                    <br class="br">a vision of tropical blue waters and white sand.
+                    <br class="br">a vision of tropical blue waters and white sand.') }}
                 </p>
             </div>
 
