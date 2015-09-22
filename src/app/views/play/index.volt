@@ -62,7 +62,6 @@
 				<ul class="no-li cl box-action">
 					<li><a class="btn gwg add-more" href="javascript:void(0);">{{ language.translate("Add more lines") }} <i class="ico ico-plus"></i></a></li>
 					<li><a class="btn bwb random-all" href="javascript:void(0);">{{ language.translate("Randomize all lines") }} <i class="ico ico-shuffle"></i></a></li>
-					<li><a class="btn bwb new-line" href="javascript:void(0);">{{ language.translate("New line") }} <i class="ico ico-shuffle"></i></a></li>
 					<li class="fix-margin"><a class="btn rwr clear-all" href="javascript:void(0);">{{ language.translate("Clear all lines") }} <i class="ico ico-cross"></i></a></li>
 				</ul>
 			</div>

@@ -1,12 +1,14 @@
-var numberCount = [0,0,0,0,0,0,0];
+var numberCount = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 var starCount = numberCount.slice();
 var totalCount = numberCount.slice();
-var hasValue = [0,0,0,0,0,0,0];
+var hasValue = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 var maxNumbers = 5;
 var maxStars = 2;
 
 function checkMark(arrayCount){
-	obj = $(".num"+arrayCount+" .ico-checkmark")
+	console.log(arrayCount);
+	obj = $(".num"+arrayCount+" .ico-checkmark");
+	console.log(obj);
 	if(numberCount[arrayCount] == maxNumbers
         &&
             starCount[arrayCount] == maxStars){
@@ -38,12 +40,11 @@ function checkMark(arrayCount){
 //	console.log(arrayCount+" totalCount= "+totalCount[arrayCount]+" // numberCount= "+numberCount[arrayCount]+" // starCount= "+starCount[arrayCount]);
 }
 
-function playLine(button, type){
-	$(button).click(function(){
+function playLine(selector, type){
+	$(document).on('click',selector,function(){
 		myThis = $(this).closest(".col2").attr('class').split(" ");
 		valNum = myThis[1].split("num");
 		line = "."+myThis[1];
-
         countS = starCount[valNum[1]];
         countN = numberCount[valNum[1]];
         // remove count if disabled
@@ -73,7 +74,6 @@ function playLine(button, type){
             $(this).toggleClass('active');
         }
         checkMark(valNum[1]);
-
     });
 }
 
@@ -206,12 +206,14 @@ function newLine(){
 				$(this).removeClass('active');
 			}
 			if($(this).hasClass('ico-checkmark')){
-				$(this).removeClass('ico-checkmark');
+				$(this).hide();
 			}
+			playLine('.col2 .num'+idNumber+' .numbers .btn','numbers');
 		});
 		var num = $(this).closest(".col2").attr('class').split(" ");
 		//Remove current class
 		$(this).removeClass(num[1]);$(this).addClass("num"+idNumber);
+		$(".num"+idNumber+" .line").removeClass("number-on");
 		//Remove current id
 		$(this).removeAttr("id");$(this).attr("id","num_"+idNumber);
 		//h1 text
@@ -219,8 +221,8 @@ function newLine(){
 	})
 }
 
-function clearNumAll(button){
-	$(button).click(function(){
+function clearNumAll(selector){
+	$(document).on('click',selector,function(){
 		line = $(".box-lines .col2");
 		$(".box-lines .values .active").toggleClass('active');
 		lengthLine = line.length;
@@ -301,7 +303,7 @@ $(function(){
 		}
 	});
 
-	$('.new-line').on('click',function(){
+	$('.add-more').on('click',function(){
 		newLine();
 	});
 
