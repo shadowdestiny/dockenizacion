@@ -4,7 +4,10 @@
 namespace EuroMillions\vo;
 
 
-class PlayFormToStorage
+use EuroMillions\forms\EMForm;
+
+
+class PlayFormToStorage extends EMForm
 {
 
     public $drawDays;
@@ -23,4 +26,10 @@ class PlayFormToStorage
     {
         return json_encode(get_object_vars($this));
     }
+
+    public static function className()
+    {
+        return get_class();
+    }
+
 }

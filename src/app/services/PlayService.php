@@ -50,28 +50,31 @@ class PlayService
 
     /**
      * @param User $user
-     * @param EuroMillionsLine $euromillionsLine
      * @return ServiceActionResult
-     * @internal param EuroMillionsLine $euromillionsResult
      */
-    public function play(User $user, EuroMillionsLine $euromillionsLine)
+    public function play(User $user)
     {
+        //EMTD previously should check amount or userservice deduct amount about his balance
         if($user->getBalance()->getAmount() > 0){
-
-            //EMTD we need get params from view form
-            $playConfig = new PlayConfig();
-            $playConfig->initialize([
-                    'user' => $user,
-                    'line' => $euromillionsLine
-                ]
-            );
             try {
-                $this->playConfigRepository->add($playConfig);
+                $temporalForm = $this->playStorageStrategy->findByKey($user->getId()->id());
+                if(empty($temporalForm)){
+                    return new ServiceActionResult(false,'The search key doesn\'t exist');
+                }
+                $playConfig = new PlayConfig();
+                $playConfig->formToEntity($user,$temporalForm);
+                $this->playConfigRepository->add($user, $playConfig);
                 $this->entityManager->flush($playConfig);
+                //Remove play storage
+                $result = $this->playStorageStrategy->delete($user->getId()->id());
+                if(!empty($result)){
+                    return new ServiceActionResult(true);
+                }else{
+                    return new ServiceActionResult(false);
+                }
             } catch(\Exception $e){
                 return new ServiceActionResult(false, 'An exception occurred while created play');
             }
-            return new ServiceActionResult(true);
         } else {
             return new ServiceActionResult(false);
         }
@@ -111,4 +114,5 @@ class PlayService
         }
 
     }
+
 }

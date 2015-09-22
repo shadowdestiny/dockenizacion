@@ -394,11 +394,11 @@ ALLOWED: Variable and Extension
   /*.test{display:block;}*/
   /*.stars a{position:absolute;}*/
   /* STARS IS THE PROBLEM FOR RESPONSIVE DESIGN */
-  .num6 {
-    display: none;
-  }
-
-  .num1, .num2, .num3, .num4, .num5, .box-bottom .col2 {
+  /*
+    .num6{display:none;}
+  .num1,.num2,.num3,.num4,.num5, .box-bottom .col2{width:20%;}
+  */
+  .box-lines .col2 {
     width: 20%;
   }
 

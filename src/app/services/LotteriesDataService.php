@@ -127,6 +127,8 @@ class LotteriesDataService
         $lottery = $this->lotteryRepository->getLotteryByName($lotteryName);
         if(!empty($lottery)){
             return new ServiceActionResult(true, $lottery);
+        }else{
+            return new ServiceActionResult(false,'Lottery unknown');
         }
     }
 
