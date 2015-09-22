@@ -35,11 +35,13 @@
 		<div class="gameplay">
 			<div class="wrap">
 				<div class="cols box-lines">
-					<div class="col2 num1">
-						{# EMTD -  Every single line, need to have a different Line Number and unique ID generated #}
+					{# EMTD I think put length in global config var javascript #}
+					{% for index in 1..6 %}
+					<div id="num_{{ index }}" class="col2 num{{ index }}">
 						{% include "_elements/line.volt" %}
 					</div>
-					<div class="col2 num2">
+					{% endfor %}
+					<!--<div class="col2 num2">
 						{% include "_elements/line.volt" %}
 					</div>
 					<div class="col2 num3">
@@ -53,7 +55,7 @@
 					</div>
 					<div class="col2 num6">
 						{% include "_elements/line.volt" %}
-					</div>
+					</div>-->
 				</div>
 			</div>
 			<div class="cl">
@@ -61,6 +63,7 @@
 					{# EMTD - Feature to do in second phase 
 					<li><a class="btn gwg add-more" href="javascript:void(0);">{{ language.translate("Add more lines") }} <i class="ico ico-plus"></i></a></li> #}
 					<li><a class="btn bwb random-all" href="javascript:void(0);">{{ language.translate("Randomize all lines") }} <i class="ico ico-shuffle"></i></a></li>
+					<li><a class="btn bwb new-line" href="javascript:void(0);">{{ language.translate("New line") }} <i class="ico ico-shuffle"></i></a></li>
 					<li class="fix-margin"><a class="btn rwr clear-all" href="javascript:void(0);">{{ language.translate("Clear all lines") }} <i class="ico ico-cross"></i></a></li>
 				</ul>
 			</div>

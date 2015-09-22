@@ -8,10 +8,14 @@ class PlayController extends PublicSiteControllerBase
         //EMTD surely we need more things
         $jackpot = $this->userService->getJackpotInMyCurrency($this->lotteriesDataService->getNextJackpot('EuroMillions'));
         $play_dates = $this->nextDrawsRecurrent();
+        $dayOfWeek = function() {
+            $draw = $this->lotteriesDataService->getNextDrawByLottery('EuroMillions');
+            return (int) date('w',$draw->getTimestamp());
+        };
         return $this->view->setVars([
             'jackpot_value' => $jackpot->getAmount()/100,
             'play_dates' => $play_dates,
-            'next_draw' => $this->getDayOfWeek()
+            'next_draw' => $dayOfWeek()
         ]);
 
     }
@@ -27,11 +31,4 @@ class PlayController extends PublicSiteControllerBase
         }
         return $drawDates;
     }
-
-    private function getDayOfWeek()
-    {
-        $draw = $this->lotteriesDataService->getNextDrawByLottery('EuroMillions');
-        return date('w',$draw->getTimestamp());
-    }
-
 }
