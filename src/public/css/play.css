@@ -83,7 +83,7 @@ ALLOWED: Variable and Extension
 }
 
 .box-action li {
-  margin: 20px 0 20px 10px;
+  margin: 10px 0 20px 10px;
   display: inline-block;
 }
 
@@ -188,6 +188,10 @@ ALLOWED: Variable and Extension
 }
 .combo .col6 .gwy .ico {
   margin-left: 2px !important;
+}
+
+.add-more .ico-plus {
+  margin-left: 2px;
 }
 
 .box-lines {
