@@ -8,6 +8,7 @@ use Phalcon\Di;
 
 class JackpotTask extends TaskBase
 {
+    /** @var  LotteriesDataService */
     protected $lotteriesDataService;
 
     public function initialize(LotteriesDataService $lotteriesDataService = null)

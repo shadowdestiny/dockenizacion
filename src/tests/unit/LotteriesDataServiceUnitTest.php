@@ -6,6 +6,7 @@ use EuroMillions\entities\EuroMillionsDraw;
 use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\services\LotteriesDataService;
 use EuroMillions\vo\EuroMillionsLine;
+use EuroMillions\vo\ServiceActionResult;
 use Money\Currency;
 use Money\Money;
 use Phalcon\Di;
@@ -35,9 +36,13 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
             $this->getMockBuilder(
                 '\EuroMillions\repositories\LotteryDrawRepository'
             )->disableOriginalConstructor()->getMock();
-        $this->lotteryRepositoryDouble =
+        /*$this->lotteryRepositoryDouble =
             $this->getMockBuilder(
                 '\Doctrine\Common\Persistence\ObjectRepository'
+            )->disableOriginalConstructor()->getMock();*/
+        $this->lotteryRepositoryDouble =
+            $this->getMockBuilder(
+                '\EuroMillions\repositories\LotteryRepository'
             )->disableOriginalConstructor()->getMock();
 
         $this->entityManagerDouble = $this->getEntityManagerDouble();
@@ -218,6 +223,35 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
         $actual = $sut->getLastDrawDate($lottery_name, new \DateTime("2015-06-12 19:00:00"));
         $expected = new \DateTime("2015-06-09 20:00:00");
         $this->assertEquals($expected, $actual);
+    }
+
+
+    /**
+     * method getLotteryConfigByName
+     * when called
+     * should returnServiceActionResultTrueWithLotteryConfig
+     */
+    public function test_getLotteryConfigByName_called_returnServiceActionResultTrueWithLotteryConfig()
+    {
+        $lotteryName = 'EuroMillions';
+
+        $lottery = new Lottery();
+        $lottery->initialize([
+            'id'        => 1,
+            'name'      => $lotteryName,
+            'active'    => 1,
+            'frequency' => 'w0100100',
+            'draw_time' => '20:00:00'
+        ]);
+
+        $expected = new ServiceActionResult(true,$lottery);
+        $this->lotteryRepositoryDouble->expects($this->any())
+            ->method('getLotteryByName')
+            ->will($this->returnValue($lottery));
+
+        $sut = $this->getSut();
+        $actual = $sut->getLotteryConfigByName($lotteryName);
+        $this->assertEquals($expected,$actual);
     }
 
     /**

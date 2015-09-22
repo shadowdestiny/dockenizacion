@@ -53,14 +53,14 @@ class PlayTemporarilyController extends AjaxControllerBase
          * @return EuroMillionsRegularNumber
          */
         $callbackN = function($number) {
-            return new EuroMillionsRegularNumber((int) $number);
+                return new EuroMillionsRegularNumber((int) $number);
         };
         /**
          * @param $number
          * @return EuroMillionsLuckyNumber
          */
         $callbackL = function($number) {
-            return new EuroMillionsLuckyNumber((int) $number);
+                return new EuroMillionsLuckyNumber((int) $number);
         };
         foreach($bets as $numbers){
             $regular_numbers = array_map($callbackN,array_slice(explode(',',$numbers),0,5));

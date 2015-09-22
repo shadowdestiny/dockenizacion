@@ -1,13 +1,14 @@
-var numberCount = [0,0,0,0,0,0,0];
+var numberCount = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 var starCount = numberCount.slice();
 var totalCount = numberCount.slice();
-var hasValue = [0,0,0,0,0,0,0];
+var hasValue = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 var maxNumbers = 5;
 var maxStars = 2;
 
 function checkMark(arrayCount){
-
-	obj = $(".num"+arrayCount+" .ico-checkmark")
+	console.log(arrayCount);
+	obj = $(".num"+arrayCount+" .ico-checkmark");
+	console.log(obj);
 	if(numberCount[arrayCount] == maxNumbers
         &&
             starCount[arrayCount] == maxStars){
@@ -39,12 +40,11 @@ function checkMark(arrayCount){
 //	console.log(arrayCount+" totalCount= "+totalCount[arrayCount]+" // numberCount= "+numberCount[arrayCount]+" // starCount= "+starCount[arrayCount]);
 }
 
-function playLine(button, type){
-	$(button).click(function(){
+function playLine(selector, type){
+	$(document).on('click',selector,function(){
 		myThis = $(this).closest(".col2").attr('class').split(" ");
 		valNum = myThis[1].split("num");
 		line = "."+myThis[1];
-
         countS = starCount[valNum[1]];
         countN = numberCount[valNum[1]];
         // remove count if disabled
@@ -74,7 +74,6 @@ function playLine(button, type){
             $(this).toggleClass('active');
         }
         checkMark(valNum[1]);
-
     });
 }
 
@@ -133,17 +132,17 @@ function randomCalculation(line, value){
 	checkMark(value);
 }
 
-function randomNum(button){
-	$(button).click(function(){
-		myThis = $(this).closest(".col2").attr('class').split(" "); 
+function randomNum(selector){
+	$(document).on('click',selector,function(){
+		myThis = $(this).closest(".col2").attr('class').split(" ");
 		valNum = myThis[1].split("num");
 		line = "."+myThis[1];
 		randomCalculation(line, valNum[1]);
 	});
 }
 
-function randomAll(button){
-	$(button).click(function(){
+function randomAll(selector){
+	$(document).on('click',selector, function(){
 		line = $(".box-lines .col2");
         lengthLine = line.length;
 		for(var i=1; i <= lengthLine; i++){
@@ -152,9 +151,9 @@ function randomAll(button){
 	});
 }
 
-function clearNum(button){
+function clearNum(selector){
 //	$(".num1 numbers gwp").hasClass("active")
-	$(button).click(function(){
+	$(document).on('click',selector, function(){
 		myThis = $(this).closest(".col2").attr('class').split(" ");
 		valNum = myThis[1].split("num");
 		line = "."+myThis[1];
@@ -169,25 +168,61 @@ function clearNum(button){
 }
 
 function getBets(){
-	var bets = [], iBets = 0;
-	$('.col2').each(function(){
+	//EMTD put as global var
+	var numColumns = $("div[class*='col2 num']").length +1;
+	var bets = [];
+	for(var k=1; k < numColumns;k++){
 		var num = [];
-		if( $(this).find('.ico-checkmark').css('display') == 'block'){
-			numArr = $(this).find('.values .numbers .active, .values .stars .active').toArray();
-			for(k in numArr){
-				if(numArr.hasOwnProperty(k)){
-					num[k] = numArr[k].text;
-				}
+		var numCount = 0;
+		var flagActive = false;
+		$('#num_'+k).find('a.active').each(function(){
+			if($(this).text() !== 'undefined'){
+				num[numCount] = $(this).text();
+				numCount++;
 			}
-			bets[iBets] = num;
-			iBets++;
+			flagActive = true;
+		});
+		if(flagActive){
+			bets[k] = num;
 		}
-	});
+	}
 	return bets;
 }
 
-function clearNumAll(button){
-	$(button).click(function(){
+function newLine(){
+	var numTickets = $('div.cols.box-lines').length;
+	if(numTickets > 1){
+		//EMTD show popup with a correct message
+		$('')
+		return false;
+	}
+	var classNum = $('div[class*="col2 num"]:last').attr('class').split(" ");
+	var idNumber = classNum[1].slice(-1);
+	$('div.cols.box-lines:first').clone().insertAfter('div.cols.box-lines:last');
+	$('div[class="cols box-lines"]:last').find('div[class*="col2 num"]').each(function(){
+		idNumber++;
+		$(this).find('.numbers a,.stars a,i').each(function(){
+			if($(this).hasClass('active')){
+				$(this).removeClass('active');
+			}
+			if($(this).hasClass('ico-checkmark')){
+				$(this).hide();
+			}
+			playLine('.col2 .num'+idNumber+' .numbers .btn','numbers');
+		});
+		var num = $(this).closest(".col2").attr('class').split(" ");
+		//Remove current class
+		$(this).removeClass(num[1]);$(this).addClass("num"+idNumber);
+		$(".num"+idNumber+" .line").removeClass("number-on");
+		//Remove current id
+		$(this).removeAttr("id");$(this).attr("id","num_"+idNumber);
+		//h1 text
+		$(this).find('h1').text('Line ' + idNumber);
+	})
+}
+
+function clearNumAll(selector){
+	$(document).on('click',selector,function(){
 		line = $(".box-lines .col2");
 		$(".box-lines .values .active").toggleClass('active');
 		lengthLine = line.length;
@@ -266,5 +301,10 @@ $(function(){
 				}
 			})
 		}
-	})
+	});
+
+	$('.add-more').on('click',function(){
+		newLine();
+	});
+
 });

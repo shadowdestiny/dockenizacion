@@ -35,11 +35,13 @@
 		<div class="gameplay">
 			<div class="wrap">
 				<div class="cols box-lines">
-					<div class="col2 num1">
-						{# EMTD -  Every single line, need to have a different Line Number and unique ID generated #}
+					{# EMTD I think put length in global config var javascript #}
+					{% for index in 1..6 %}
+					<div id="num_{{ index }}" class="col2 num{{ index }}">
 						{% include "_elements/line.volt" %}
 					</div>
-					<div class="col2 num2">
+					{% endfor %}
+					<!--<div class="col2 num2">
 						{% include "_elements/line.volt" %}
 					</div>
 					<div class="col2 num3">
@@ -53,7 +55,7 @@
 					</div>
 					<div class="col2 num6">
 						{% include "_elements/line.volt" %}
-					</div>
+					</div>-->
 				</div>
 			</div>
 			<div class="cl">

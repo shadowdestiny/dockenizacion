@@ -5,8 +5,10 @@ use Doctrine\ORM\EntityManager;
 use EuroMillions\entities\Lottery;
 use EuroMillions\entities\EuroMillionsDraw;
 use EuroMillions\repositories\LotteryDrawRepository;
+use EuroMillions\repositories\LotteryRepository;
 use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\vo\EuroMillionsLine;
+use EuroMillions\vo\ServiceActionResult;
 use Money\Money;
 use Phalcon\Http\Client\Provider\Curl;
 
@@ -14,6 +16,7 @@ class LotteriesDataService
 {
     /** @var  LotteryDrawRepository */
     protected $lotteryDrawRepository;
+    /** @var  LotteryRepository*/
     protected $lotteryRepository;
     protected $apisFactory;
     protected $entityManager;
@@ -117,6 +120,14 @@ class LotteriesDataService
         $nextDrawDate = $lottery->getNextDrawDate($now);
         return $nextDrawDate;
 
+    }
+
+    public function getLotteryConfigByName($lotteryName)
+    {
+        $lottery = $this->lotteryRepository->getLotteryByName($lotteryName);
+        if(!empty($lottery)){
+            return new ServiceActionResult(true, $lottery);
+        }
     }
 
 

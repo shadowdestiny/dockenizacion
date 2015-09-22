@@ -10,4 +10,19 @@ class DevopsController extends ControllerBase
         apc_clear_cache('user');
         echo 'Cache cleared';
     }
+
+
+    /**
+     * @param \Phalcon\Mvc\Dispatcher $dispatcher
+     * @return bool
+     */
+    public function beforeExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
+    {
+        $config = $dispatcher->getDI()->get('globalConfig')['ips'];
+        $ipClient = $this->request->getClientAddress();
+        if(!in_array($ipClient,explode(',',$config['ips']))){
+            $this->response->redirect('/');
+        }
+    }
+
 }
