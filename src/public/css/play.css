@@ -77,11 +77,6 @@ ALLOWED: Variable and Extension
   display: block;
 }
 
-.box-lines {
-  padding: 10px 20px;
-  margin: 0;
-}
-
 .box-action {
   float: right;
   margin-right: 12px;
@@ -133,12 +128,9 @@ ALLOWED: Variable and Extension
 
 /* Gap between lines  */
 /* Gap between numbers */
-.box-lines > .col2, .box-bottom .col2, .box-bottom .col6 {
+/* Responsive design 3 column */
+.box-bottom .col2, .box-bottom .col6 {
   border-right: 12px solid transparent;
-}
-
-.gameplay > .wrap {
-  margin-left: -6px;
 }
 
 .box-bottom > .wrap {
@@ -196,6 +188,19 @@ ALLOWED: Variable and Extension
 }
 .combo .col6 .gwy .ico {
   margin-left: 2px !important;
+}
+
+.box-lines {
+  margin: 0;
+  padding: 10px 12px;
+}
+.box-lines .myCol {
+  width: 16.66666666666667%;
+  float: left;
+  border-right: 12px solid transparent;
+}
+.box-lines .myCol:last-child {
+  border-right: 0;
 }
 
 /*** DO NOT DELETE COMBO BUTTON STYLE ***/
@@ -391,17 +396,9 @@ ALLOWED: Variable and Extension
     overflow: visible;
   }
 
-  /*.test{display:block;}*/
-  /*.stars a{position:absolute;}*/
-  /* STARS IS THE PROBLEM FOR RESPONSIVE DESIGN */
-  .num6 {
-    display: none;
-  }
-
-  .num1, .num2, .num3, .num4, .num5, .box-bottom .col2 {
+  .box-bottom .col2 {
     width: 20%;
   }
-
   .box-bottom .col6 {
     width: 40%;
   }
@@ -434,7 +431,21 @@ ALLOWED: Variable and Extension
   }
 
   .box-lines {
-    padding: 10px 0 10px 20px;
+    margin-right: 0;
+    padding: 10px 0 0 30px;
+    display: block;
+  }
+  .box-lines .myCol {
+    margin-bottom: 10px;
+    width: 33.3%;
+    border-right: 30px solid transparent;
+  }
+  .box-lines .myCol:last-child {
+    border-right: 30px solid transparent;
+  }
+
+  .box-action {
+    margin-right: 31px;
   }
 }
 /* I NEED TO MAKE DISAPPEAR IN A CLEVER WAY ONE COLUMN AT TIME */
@@ -444,11 +455,7 @@ ALLOWED: Variable and Extension
     background-size: cover;
   }
 
-  .num5, .num6 {
-    display: none !important;
-  }
-
-  .num1, .num2, .num3, .num4, .box-bottom .col2, .box-bottom .col6 {
+  .box-bottom .col2, .box-bottom .col6 {
     width: 25%;
   }
 
@@ -471,17 +478,26 @@ ALLOWED: Variable and Extension
   .bg-top .circle {
     margin-left: -15px;
   }
+
+  .box-lines {
+    margin-right: 0;
+    padding: 10px 0 0 15px;
+  }
+  .box-lines .myCol {
+    margin-bottom: 10px;
+    width: 33.3%;
+    border-right: 15px solid transparent;
+  }
+  .box-lines .myCol:last-child {
+    border-right: 15px solid transparent;
+  }
+
+  .box-action {
+    margin-right: 16px;
+  }
 }
 /* Small Devices, Tablets */
 @media only screen and (max-width: 768px) {
-  .num4, .num5, .num6 {
-    display: none !important;
-  }
-
-  .num1, .num2, .num3 {
-    width: 33.33%;
-  }
-
   .main-foot .cols, .box-bottom .cols {
     margin-bottom: 0;
     display: block;
@@ -571,6 +587,22 @@ ALLOWED: Variable and Extension
   .box-bottom > .wrap {
     margin: 0;
   }
+
+  .box-lines {
+    margin-right: 0;
+    padding: 10px 0 0 15px;
+  }
+  .box-lines .myCol {
+    margin-bottom: 10px;
+    width: 33.3%;
+    border-right: 12px solid transparent;
+  }
+  .box-lines .myCol:last-child {
+    border-right: 12px solid transparent;
+  }
+  .box-lines .myCol:nth-child(3n) {
+    border-right: 12px solid transparent;
+  }
 }
 @media all and (min-width: 581px) {
   .bg-top {
@@ -579,11 +611,7 @@ ALLOWED: Variable and Extension
 }
 @media only screen and (max-width: 580px) {
   /*breakpoint only in PLAY page*/
-  .box-lines {
-    padding: 20px 10px;
-  }
-
-  .box-lines > .col2, .box-bottom > .col2 {
+  .box-bottom > .col2 {
     border-width: 5px;
   }
 
@@ -662,6 +690,10 @@ ALLOWED: Variable and Extension
     text-align: center;
     display: block;
   }
+
+  .box-lines {
+    padding-top: 25px;
+  }
 }
 @media only screen and (min-width: 481px) {
   .gameplay {
@@ -670,10 +702,6 @@ ALLOWED: Variable and Extension
 }
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {
-  .num3, .num4, .num5, .num6 {
-    display: none !important;
-  }
-
   .num1, .num2 {
     width: 50%;
   }
@@ -711,13 +739,14 @@ ALLOWED: Variable and Extension
     float: none;
     margin: 0 auto 10px;
   }
+
+  .box-lines {
+    margin-right: 0;
+    padding: 20px 0 0 12px;
+  }
 }
 /* Custom, iPhone Retina */
 @media only screen and (max-width: 320px) {
-  .num2, .num3, .num4, .num5, .num6 {
-    display: none !important;
-  }
-
   .gameplay .wrap {
     margin-right: 0;
   }
@@ -726,7 +755,7 @@ ALLOWED: Variable and Extension
     padding: 20px;
   }
 
-  .box-lines > .col2, .box-bottom .col2 {
+  .box-bottom .col2 {
     border-width: 10px;
   }
 
