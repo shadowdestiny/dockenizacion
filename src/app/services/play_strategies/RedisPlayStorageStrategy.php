@@ -20,6 +20,7 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
 
     protected $userId;
 
+    protected static $key = 'PlayStore_EMLINES:';
     /**
      * @param IRedis $storage
      * @param UserId $userId
