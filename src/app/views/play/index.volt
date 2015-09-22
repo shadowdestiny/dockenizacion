@@ -33,30 +33,13 @@
 			</div>
 		</header>
 		<div class="gameplay">
-			<div class="wrap">
-				<div class="cols box-lines">
-					{# EMTD I think put length in global config var javascript #}
-					{% for index in 1..6 %}
-					<div id="num_{{ index }}" class="col2 num{{ index }}">
+			<div class="box-lines cl">
+				{# EMTD I think put length in global config var javascript #}
+				{% for index in 1..6 %}
+					<div id="num_{{ index }}" class="myCol num{{ index }}">
 						{% include "_elements/line.volt" %}
 					</div>
-					{% endfor %}
-					<!--<div class="col2 num2">
-						{% include "_elements/line.volt" %}
-					</div>
-					<div class="col2 num3">
-						{% include "_elements/line.volt" %}
-					</div>
-					<div class="col2 num4">
-						{% include "_elements/line.volt" %}
-					</div>
-					<div class="col2 num5">
-						{% include "_elements/line.volt" %}
-					</div>
-					<div class="col2 num6">
-						{% include "_elements/line.volt" %}
-					</div>-->
-				</div>
+				{% endfor %}
 			</div>
 			<div class="cl">
 				<ul class="no-li cl box-action">

@@ -17,7 +17,6 @@
 }
 .bg-top .ico{margin-top:25px; display:block; font-size:54px;}
 .bg-top .txt{font-weight:bold; margin-top:5px; display:block;}
-.box-lines{padding:10px 20px; margin:0;}
 .box-action{float:right; margin-right:12px;}
 .box-action li{margin:20px 0 20px 10px; display:inline-block}
 .box-action .btn{font-weight:normal;}
@@ -29,8 +28,8 @@
 .gameplay{overflow:hidden; border:1px solid $yellow; border-radius:0 0 5px 5px; margin-bottom:2em;}
 $gap1:12px; /* Gap between lines  */
 $gap2:5px; 	/* Gap between numbers */
-.box-lines > .col2, .box-bottom .col2, .box-bottom .col6{border-right:$gap1 solid transparent;} 
-.gameplay > .wrap{margin-left:-6px;}
+$gap3:15px; /* Responsive design 3 column */
+.box-bottom .col2, .box-bottom .col6{border-right:$gap1 solid transparent;} 
 .box-bottom > .wrap{margin-right:-12px;}
 .gameplay .h3.blue{color:$blue; margin-bottom:1.25em;}
 .line{border:2px solid $yellow; border-radius:5px; background:#fff;}
@@ -44,6 +43,11 @@ $gap2:5px; 	/* Gap between numbers */
 	border-radius:5px;
 	&:hover, &:focus{border:1px solid $purple;}
 	.ico{margin-left:2px!important;}
+}
+.box-lines{
+	margin:0; padding:10px $gap1; 
+	.myCol{width:16.66666666666667%; float:left; border-right:$gap1 solid transparent;}
+	.myCol:last-child{border-right:0;}
 }
 
 /*** DO NOT DELETE COMBO BUTTON STYLE ***/
@@ -64,6 +68,7 @@ $gap2:5px; 	/* Gap between numbers */
   &:hover, &:focus{border-left:1px solid $purple;}
 }
 */ 
+
 .combo .gwy.active{
 	border:1px solid $yellow!important; color:#fff; background:$yellow;
 	&:hover, &:focus{border:1px solid $yellow-darker!important;}
@@ -114,20 +119,21 @@ $gap2:5px; 	/* Gap between numbers */
 /* Large Devices, Wide Screens */
 @media only screen and (max-width:1200px){
 .gameplay{overflow:visible;}
-/*.test{display:block;}*/
-/*.stars a{position:absolute;}*/ /* STARS IS THE PROBLEM FOR RESPONSIVE DESIGN */
-/*
-  .num6{display:none;}
-.num1,.num2,.num3,.num4,.num5, .box-bottom .col2{width:20%;}
-*/
-.box-lines .col2{width:20%;}
-.box-bottom .col6{width:40%;}
+.box-bottom{
+	.col2{width:20%;}
+	.col6{width:40%;}
+}
 .line .stars .ico{font-size:200%;}
 .line .stars .txt{top:10px;}
 .line .numbers .btn, .line .stars .txt{font-size:13px;}
 .bg-top:before{content:""; background:rgba(0, 0, 0, 0.4); width:100%; height:88px; position:absolute; top:0; left:0; border-radius:5px 5px 0 0;}
 .bg-top .circle{margin-left:50px;}
-.box-lines{padding:10px 0 10px 20px}
+.box-lines{
+	margin-right:0; padding:10px 0 0 $gap3+$gap3; display:block;
+	.myCol{margin-bottom:10px; width:33.3%; border-right:$gap3+$gap3 solid transparent;}
+	.myCol:last-child{border-right:$gap3+$gap3 solid transparent;}
+}
+.box-action{margin-right:$gap3+$gap3+1;}
 }
 
 /* I NEED TO MAKE DISAPPEAR IN A CLEVER WAY ONE COLUMN AT TIME */
@@ -135,19 +141,22 @@ $gap2:5px; 	/* Gap between numbers */
 /* Medium Devices, Desktops */
 @media only screen and (max-width:992px){
 .gameplay{background-size:cover;}
-.num5, .num6{display:none!important;}
-.num1,.num2,.num3,.num4, .box-bottom .col2, .box-bottom .col6{width:25%;}
+.box-bottom .col2, .box-bottom .col6{width:25%;}
 .add-cart{margin-top:16px;}
 .gap{padding:0 9px;}
 .line .stars .ico{font-size:180%;}
 .line .stars .txt{top:9px;}
 .bg-top .circle{margin-left:-15px;}
+.box-lines{
+	margin-right:0; padding:10px 0 0 15px;
+	.myCol{margin-bottom:10px; width:33.3%; border-right:$gap3 solid transparent;}
+	.myCol:last-child{border-right:$gap3 solid transparent;}
+}
+.box-action{margin-right:$gap3+1;}
 }
 
 /* Small Devices, Tablets */
 @media only screen and (max-width:768px){
-.num4, .num5, .num6{display:none!important;}
-.num1,.num2,.num3{width:33.33%;}
 .main-foot, .box-bottom{
 	.cols{margin-bottom:0; display:block;}
 	.col1, .col2, .col3, .col4, .col5, .col6, .col7, .col8, .col9, .col10, .col11, .col12, .col20per{display:block; float:none; position:relative; width:100%; border:0!important; margin:0 0 2em; padding-bottom:0;}
@@ -167,17 +176,20 @@ $gap2:5px; 	/* Gap between numbers */
 .add-cart{margin:10px auto 0; float:none;}
 .box-bottom{background:$yellow-lighter; border-radius:0;}
 .box-bottom > .wrap{margin:0;}
+.box-lines{
+	margin-right:0; padding:10px 0 0 15px;
+	.myCol{margin-bottom:10px; width:33.3%; border-right:$gap1 solid transparent;}
+	.myCol:last-child{border-right:$gap1 solid transparent;}
+	.myCol:nth-child(3n){border-right:$gap1 solid transparent;}
 }
-
+}
 
 @media all and (min-width:581px){
 .bg-top{background:#000736 url(../img/play/europe.jpg) no-repeat right center;}
 }
 
-
 @media only screen and (max-width:580px){ /*breakpoint only in PLAY page*/
-.box-lines{padding:20px 10px;}
-.box-lines > .col2, .box-bottom > .col2{border-width:5px;}
+.box-bottom > .col2{border-width:5px;}
 .gameplay{padding-top:20px;}
 .gameplay .wrap{margin:0 -6px 0 0;}
 .line .numbers .btn, .line .stars .txt{font-size:12px;}
@@ -193,6 +205,7 @@ $gap2:5px; 	/* Gap between numbers */
 .bg-top .cols{margin-bottom:0; display:block;}
 .bg-top .col4, .bg-top .col8{display:block; float:none; position:relative; width:100%; border:0!important; margin:0 0 2em; padding-bottom:0;}
 .bg-top .h3, .bg-top .h1{text-align:center; display:block;}
+.box-lines{padding-top:25px;}
 }
 
  
@@ -202,7 +215,6 @@ $gap2:5px; 	/* Gap between numbers */
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width:480px){
-.num3, .num4, .num5, .num6{display:none!important;}
 .num1, .num2{width:50%;}
 .box-lines{padding:20px 5px 10px;}
 .bg-top .br:after{white-space:pre; content:"\A";} /*Insert a break*/
@@ -211,15 +223,15 @@ $gap2:5px; 	/* Gap between numbers */
 .bg-top .circle{width:150px; border-width:2px}
 .box-action{text-align:center; margin-bottom:10px;}
 .box-action li{float:none; margin:0 auto 10px;}
+.box-lines{margin-right:0; padding:20px 0 0 $gap1;}
 }
 
  
 /* Custom, iPhone Retina */
 @media only screen and (max-width:320px){
-.num2, .num3, .num4, .num5, .num6{display:none!important;}
 .gameplay .wrap{margin-right:0;}
 .box-lines{padding:20px;}
-.box-lines > .col2, .box-bottom .col2{border-width:10px;}
+.box-bottom .col2{border-width:10px;}
 .line .numbers .btn, .line .stars .txt{font-size:14px;}
 .line .stars .ico{font-size:220%;}
 .line .stars .txt{top:12px;}
