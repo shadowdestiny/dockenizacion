@@ -6,7 +6,6 @@ var maxNumbers = 5;
 var maxStars = 2;
 
 function checkMark(arrayCount){
-
 	obj = $(".num"+arrayCount+" .ico-checkmark")
 	if(numberCount[arrayCount] == maxNumbers
         &&

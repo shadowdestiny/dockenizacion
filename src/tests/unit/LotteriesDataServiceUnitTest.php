@@ -36,9 +36,13 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
             $this->getMockBuilder(
                 '\EuroMillions\repositories\LotteryDrawRepository'
             )->disableOriginalConstructor()->getMock();
-        $this->lotteryRepositoryDouble =
+        /*$this->lotteryRepositoryDouble =
             $this->getMockBuilder(
                 '\Doctrine\Common\Persistence\ObjectRepository'
+            )->disableOriginalConstructor()->getMock();*/
+        $this->lotteryRepositoryDouble =
+            $this->getMockBuilder(
+                '\EuroMillions\repositories\LotteryRepository'
             )->disableOriginalConstructor()->getMock();
 
         $this->entityManagerDouble = $this->getEntityManagerDouble();
@@ -240,7 +244,11 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
             'draw_time' => '20:00:00'
         ]);
 
-        $expected = new ServiceActionResult(true,$lotteryName);
+        $expected = new ServiceActionResult(true,$lottery);
+        $this->lotteryRepositoryDouble->expects($this->any())
+            ->method('getLotteryByName')
+            ->will($this->returnValue($lottery));
+
         $sut = $this->getSut();
         $actual = $sut->getLotteryConfigByName($lotteryName);
         $this->assertEquals($expected,$actual);
