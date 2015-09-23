@@ -255,6 +255,34 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method getLotteryConfigByName
+     * when calledWithWorngNameLottery
+     * should returnServiceActionResultFalse
+     */
+    public function test_getLotteryConfigByName_calledWithWorngNameLottery_returnServiceActionResultFalse()
+    {
+        $lotteryName = 'EuroMillions2';
+
+        $lottery = new Lottery();
+        $lottery->initialize([
+            'id'        => 1,
+            'name'      => $lotteryName,
+            'active'    => 1,
+            'frequency' => 'w0100100',
+            'draw_time' => '20:00:00'
+        ]);
+
+        $expected = new ServiceActionResult(false,'Lottery unknown');
+
+        $this->lotteryRepositoryDouble->expects($this->any())
+            ->method('getLotteryByName')
+            ->will($this->returnValue(null));
+        $sut = $this->getSut();
+        $actual = $sut->getLotteryConfigByName($lotteryName);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
      * @param $lottery_name
      * @return Lottery
      */

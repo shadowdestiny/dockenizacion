@@ -167,8 +167,13 @@ function clearNum(selector){
 	});
 }
 
+function getTotalColumns(){
+	return numColumns = $("div[class*='col2 num']").length;
+}
+
+
 function getBets(){
-	//EMTD put as global var
+	//EMTD call getTotalColumns
 	var numColumns = $("div[class*='col2 num']").length +1;
 	var bets = [];
 	for(var k=1; k < numColumns;k++){
@@ -313,3 +318,7 @@ $(function(){
 		}
 	});
 });
+
+
+
+
