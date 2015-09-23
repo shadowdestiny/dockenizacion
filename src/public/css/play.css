@@ -724,12 +724,11 @@ ALLOWED: Variable and Extension
 }
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {
-  .num1, .num2 {
-    width: 50%;
-  }
-
   .box-lines {
     padding: 20px 5px 10px;
+  }
+  .box-lines .myCol {
+    width: 50%;
   }
 
   .bg-top .br:after {

@@ -222,8 +222,10 @@ $gap3:15px; /* Responsive design 3 column */
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width:480px){
-.num1, .num2{width:50%;}
-.box-lines{padding:20px 5px 10px;}
+.box-lines{
+  padding:20px 5px 10px;
+  .myCol{width:50%;}
+}
 .bg-top .br:after{white-space:pre; content:"\A";} /*Insert a break*/
 .bg-top .h1{font-size:$h2;}
 .bg-top .h3{font-size:$basic-size; line-height:125%;}

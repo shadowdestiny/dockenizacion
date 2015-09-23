@@ -29,8 +29,33 @@ class CurrencyServiceUnitTest extends UnitTestBase
     {
         $this->yahooCurrencyApi_double->getRate('EUR', 'USD')->willReturn(new CurrencyPair(new Currency('EUR'), new Currency('USD'), 1.25));
 
-        $sut = $this->factory->getServiceFactory()->getCurrencyService($this->yahooCurrencyApi_double->reveal(), $this->getServiceDouble('LanguageService')->reveal());
+        $sut = $this->getSut();
         $actual = $sut->convert(new Money(1000, new Currency('EUR')), new Currency('USD'));
         $this->assertEquals(new Money(1250, new Currency('USD')), $actual);
     }
+
+    /**
+     * method convert
+     * when calledWithSameCurrency
+     * should returnIncomingMoneyObject
+     */
+    public function test_convert_calledWithSameCurrency_returnIncomingMoneyObject()
+    {
+        $sut = $this->getSut();
+        $currency = new Currency('EUR');
+        $expected = new Money(20, $currency);
+        $actual = $sut->convert($expected, $currency);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getSut()
+    {
+        $sut = $this->factory->getServiceFactory()->getCurrencyService($this->yahooCurrencyApi_double->reveal(), $this->getServiceDouble('LanguageService')->reveal());
+        return $sut;
+    }
+
+
 }
