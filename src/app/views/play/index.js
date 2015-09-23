@@ -359,7 +359,13 @@ $(function(){
 
 	$('.add-more').on('click',function(){
 		newLine();
-		checkHeightColumn();
+	});
+
+	$('.add-more').mouseover(function(){
+		if($(this).hasClass("stop")){
+			$('.box-more').tipr({'mode':'top'});
+		}else{
+		}
 	});
 });
 
