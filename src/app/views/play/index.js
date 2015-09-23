@@ -196,7 +196,7 @@ function newLine(){
 		$('')
 		return false;
 	}
-	var classNum = $('div[class*="col2 num"]:last').attr('class').split(" ");
+	var classNum = $('div[class*=".myCol num"]:last').attr('class').split(" ");
 	var idNumber = classNum[1].slice(-1);
 	$('div.cols.box-lines:first').clone().insertAfter('div.cols.box-lines:last');
 	$('div[class="cols box-lines"]:last').find('div[class*="col2 num"]').each(function(){
@@ -223,7 +223,7 @@ function newLine(){
 
 function clearNumAll(selector){
 	$(document).on('click',selector,function(){
-		line = $(".box-lines .col2");
+		line = $(".box-lines .myCol");
 		$(".box-lines .values .active").toggleClass('active');
 		lengthLine = line.length;
 		for(var i=1; i <= lengthLine; i++){
@@ -255,7 +255,6 @@ var ajaxFunctions = {
 		});
 	}
 };
-
 
 $(function(){
 	//$(".random-all").css("margin-right","-15px"); // Fix initial positioning of a button
@@ -307,4 +306,10 @@ $(function(){
 		newLine();
 	});
 
+	$('.add-more').mouseover(function(){
+		if($(this).hasClass("stop")){
+			$('.box-more').tipr({'mode':'top'});
+		}else{
+		}
+	});
 });

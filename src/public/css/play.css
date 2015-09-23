@@ -190,8 +190,26 @@ ALLOWED: Variable and Extension
   margin-left: 2px !important;
 }
 
+.add-more {
+  position: relative;
+}
 .add-more .ico-plus {
   margin-left: 2px;
+}
+
+.box-more {
+  position: relative;
+}
+
+.warn-info {
+  /*display:none;*/
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #fff;
+  padding: 10px 15px;
+  width: 200px;
+  display: block;
 }
 
 .box-lines {
