@@ -279,6 +279,9 @@ function columnAdapter(){
 function resizeAdapterColumn(){
 	var totalColumns = getTotalColumns();
 	if(varSize < 4){
+		console.log("Total " + totalColumns);
+		console.log("max " + maxColumnsInMobile);
+
 		if(totalColumns < maxColumnsInMobile){
 			addColumn(totalColumns+1);
 		}
@@ -286,7 +289,16 @@ function resizeAdapterColumn(){
 }
 
 function checkHeightColumn(){
-
+	lastHeight = 0;
+	nextAreExtra = false;
+	$(".box-lines .myCol").each(function(){
+		currentColH = $(this).height();
+		if(currentColH < lastHeight && lastHeight > 0 || nextAreExtra){
+			$(this).toggleClass('more-row');
+			nextAreExtra=true;
+		}
+		lastHeight = currentColH;
+	});
 }
 
 $(function(){
@@ -298,14 +310,18 @@ $(function(){
 	randomAll(".random-all");
 	clearNumAll(".clear-all");
 	checkHeightColumn();
-	$(window).resize(resizeAdapterColumn);
+	$(window).resize(function(){
+		resizeAdapterColumn();
+		checkHeightColumn();
+	});
 
-	if(varSize > 4){
+
+	//Check varSize
+	if(varSize >= 4){
 		columnAdapter();
 	}
 
 	$(".li-play").addClass("active");
-
 	//send played numbers to temporarily cart
 	$('.add-cart').on('click',function(){
 		var params = '';
@@ -343,6 +359,7 @@ $(function(){
 
 	$('.add-more').on('click',function(){
 		newLine();
+		checkHeightColumn();
 	});
 });
 
