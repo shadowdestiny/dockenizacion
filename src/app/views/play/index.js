@@ -7,7 +7,9 @@ var maxStars = 2;
 var maxColumnsInMobile = 6;
 
 function checkMark(arrayCount){
+
 	obj = $(".num"+arrayCount+" .ico-checkmark");
+
 	if(numberCount[arrayCount] == maxNumbers
         &&
             starCount[arrayCount] == maxStars){
@@ -18,16 +20,27 @@ function checkMark(arrayCount){
 		obj.hide();
 	}
 
+
+	hasNumbers = checkNumbersInPlay(numberCount);
+	hasStars = checkNumbersInPlay(starCount);
+
+
 	if(numberCount[arrayCount] > 0 || starCount[arrayCount] > 0){
 		$(".num"+arrayCount+" .line").addClass("number-on");
 	}else{
 		$(".num"+arrayCount+" .line").removeClass("number-on");
 	}
 
-	if(numberCount[arrayCount] == 0 && starCount[arrayCount] == 0){
+	if(numberCount.length == 0 && starCount.length == 0){
 		$(".fix-margin").hide();
 	}else{
 		$(".fix-margin").css("display","inline-block");
+	}
+
+	hasNumbers =  checkNumbersInPlay(numberCount);
+	hasStars = checkNumbersInPlay(starCount);
+	if(hasNumbers == false && hasStars == false){
+		$(".fix-margin .clear-all").hide();
 	}
 
 	if(jQuery.inArray( 1, hasValue ) !== -1){ // check if there is a value selected
@@ -38,6 +51,17 @@ function checkMark(arrayCount){
 
 //	console.log(arrayCount+" totalCount= "+totalCount[arrayCount]+" // numberCount= "+numberCount[arrayCount]+" // starCount= "+starCount[arrayCount]);
 }
+
+function checkNumbersInPlay(collection){
+	var hasNumber = false;
+	for(var i=0;i<collection.length;i++){
+		if(collection[i] > 0){
+			return hasNumber = true;
+		}
+	}
+	return hasNumber;
+}
+
 
 function playLine(selector, type){
 	$(document).on('click',selector,function(){
@@ -72,6 +96,7 @@ function playLine(selector, type){
         if(countS+1 <= maxStars && type == "star"){
             $(this).toggleClass('active');
         }
+		console.log(valNum[1]);
         checkMark(valNum[1]);
     });
 }
@@ -279,9 +304,6 @@ function columnAdapter(){
 function resizeAdapterColumn(){
 	var totalColumns = getTotalColumns();
 	if(varSize < 4){
-		console.log("Total " + totalColumns);
-		console.log("max " + maxColumnsInMobile);
-
 		if(totalColumns < maxColumnsInMobile){
 			addColumn(totalColumns+1);
 		}
@@ -365,6 +387,7 @@ $(function(){
 		if($(this).hasClass("stop")){
 			$('.box-more').tipr({'mode':'top'});
 		}else{
+			$('.box-more').unbind('mouseenter mouseleave');
 		}
 	});
 });
