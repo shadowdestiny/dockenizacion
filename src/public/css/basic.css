@@ -294,6 +294,16 @@ label.submit {
   padding-top: 6px;
 }
 
+/* POPUP */
+.bg-black {
+  display: none;
+  z-index: 100;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
 /* INFO BOX */
 .box {
   text-align: left;

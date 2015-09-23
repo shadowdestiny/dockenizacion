@@ -18,7 +18,7 @@
 .bg-top .ico{margin-top:25px; display:block; font-size:54px;}
 .bg-top .txt{font-weight:bold; margin-top:5px; display:block;}
 .box-action{float:right; margin-right:12px;}
-.box-action li{margin:20px 0 20px 10px; display:inline-block}
+.box-action li{margin:10px 0 20px 10px; display:inline-block}
 .box-action .btn{font-weight:normal;}
 .box-action .ico-shuffle{font-size:125%; position:relative; top:2px;}
 .box-action li.fix-margin{display:none;}
@@ -44,6 +44,13 @@ $gap3:15px; /* Responsive design 3 column */
 	&:hover, &:focus{border:1px solid $purple;}
 	.ico{margin-left:2px!important;}
 }
+.add-more{
+	position:relative;
+	.ico-plus{margin-left:2px;}
+}
+.box-more{position:relative;}
+.warn-info{/*display:none;*/ position:absolute; left:0; top:0; background:#fff; padding:10px 15px; width:200px; display:block;}
+
 .box-lines{
 	margin:0; padding:10px $gap1; 
 	.myCol{width:16.66666666666667%; float:left; border-right:$gap1 solid transparent;}
