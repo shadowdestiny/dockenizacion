@@ -387,7 +387,7 @@ $(function(){
 		if($(this).hasClass("stop")){
 			$('.box-more').tipr({'mode':'top'});
 		}else{
-			$('.box-more').unbind('mouseenter mouseleave');
+			//$('.box-more').unbind('mouseenter mouseleave');
 		}
 	});
 });
