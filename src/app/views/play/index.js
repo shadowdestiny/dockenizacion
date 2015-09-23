@@ -4,11 +4,10 @@ var totalCount = numberCount.slice();
 var hasValue = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 var maxNumbers = 5;
 var maxStars = 2;
+var maxColumnsInMobile = 6;
 
 function checkMark(arrayCount){
-	console.log(arrayCount);
 	obj = $(".num"+arrayCount+" .ico-checkmark");
-	console.log(obj);
 	if(numberCount[arrayCount] == maxNumbers
         &&
             starCount[arrayCount] == maxStars){
@@ -42,7 +41,7 @@ function checkMark(arrayCount){
 
 function playLine(selector, type){
 	$(document).on('click',selector,function(){
-		myThis = $(this).closest(".col2").attr('class').split(" ");
+		myThis = $(this).closest(".myCol").attr('class').split(" ");
 		valNum = myThis[1].split("num");
 		line = "."+myThis[1];
         countS = starCount[valNum[1]];
@@ -134,7 +133,7 @@ function randomCalculation(line, value){
 
 function randomNum(selector){
 	$(document).on('click',selector,function(){
-		myThis = $(this).closest(".col2").attr('class').split(" ");
+		myThis = $(this).closest(".myCol").attr('class').split(" ");
 		valNum = myThis[1].split("num");
 		line = "."+myThis[1];
 		randomCalculation(line, valNum[1]);
@@ -143,7 +142,7 @@ function randomNum(selector){
 
 function randomAll(selector){
 	$(document).on('click',selector, function(){
-		line = $(".box-lines .col2");
+		line = $(".box-lines .myCol");
         lengthLine = line.length;
 		for(var i=1; i <= lengthLine; i++){
 			randomCalculation(".num"+i, i);
@@ -154,7 +153,7 @@ function randomAll(selector){
 function clearNum(selector){
 //	$(".num1 numbers gwp").hasClass("active")
 	$(document).on('click',selector, function(){
-		myThis = $(this).closest(".col2").attr('class').split(" ");
+		myThis = $(this).closest(".myCol").attr('class').split(" ");
 		valNum = myThis[1].split("num");
 		line = "."+myThis[1];
 
@@ -168,13 +167,13 @@ function clearNum(selector){
 }
 
 function getTotalColumns(){
-	return numColumns = $("div[class*='col2 num']").length;
+	return numColumns = $("div[class*='myCol num']").length;
 }
 
 
 function getBets(){
 	//EMTD call getTotalColumns
-	var numColumns = $("div[class*='col2 num']").length +1;
+	var numColumns = $("div[class*='myCol num']").length +1;
 	var bets = [];
 	for(var k=1; k < numColumns;k++){
 		var num = [];
@@ -195,40 +194,26 @@ function getBets(){
 }
 
 function newLine(){
-	var numTickets = $('div.cols.box-lines').length;
+	var numTickets = $('div.box-lines').length;
+	var totalColumns = getTotalColumns();
 	if(numTickets > 1){
 		//EMTD show popup with a correct message
 		$('')
 		return false;
 	}
-	var classNum = $('div[class*="col2 num"]:last').attr('class').split(" ");
+	var classNum = $('div[class*="myCol num"]:last').attr('class').split(" ");
 	var idNumber = classNum[1].slice(-1);
-	$('div.cols.box-lines:first').clone().insertAfter('div.cols.box-lines:last');
-	$('div[class="cols box-lines"]:last').find('div[class*="col2 num"]').each(function(){
-		idNumber++;
-		$(this).find('.numbers a,.stars a,i').each(function(){
-			if($(this).hasClass('active')){
-				$(this).removeClass('active');
-			}
-			if($(this).hasClass('ico-checkmark')){
-				$(this).hide();
-			}
-			playLine('.col2 .num'+idNumber+' .numbers .btn','numbers');
-		});
-		var num = $(this).closest(".col2").attr('class').split(" ");
-		//Remove current class
-		$(this).removeClass(num[1]);$(this).addClass("num"+idNumber);
-		$(".num"+idNumber+" .line").removeClass("number-on");
-		//Remove current id
-		$(this).removeAttr("id");$(this).attr("id","num_"+idNumber);
-		//h1 text
-		$(this).find('h1').text('Line ' + idNumber);
-	})
+
+	var counter = totalColumns+1;
+	for(i=0;i<totalColumns;i++){
+		addColumn(counter);
+		counter++;
+	}
 }
 
 function clearNumAll(selector){
 	$(document).on('click',selector,function(){
-		line = $(".box-lines .col2");
+		line = $(".box-lines .myCol");
 		$(".box-lines .values .active").toggleClass('active');
 		lengthLine = line.length;
 		for(var i=1; i <= lengthLine; i++){
@@ -262,6 +247,48 @@ var ajaxFunctions = {
 };
 
 
+function addColumn(position){
+	var column = $($('div[class*="myCol num"]:last')).clone();
+	column.find('.numbers a,.stars a,i').each(function(index){
+		if($(this).hasClass('active')){
+			$(this).removeClass('active');
+		}
+		if($(this).hasClass('ico-checkmark')){
+			$(this).hide();
+		}
+		playLine('.myCol .num'+index+' .numbers .btn','numbers');
+	});
+
+	//Remove current id
+	column.removeAttr("id");column.attr("id","num_"+position);
+	column.insertAfter($($('div[class*="myCol num"]:last')));
+
+	//Remove current classes
+	var num = column.attr('class').split(' ');
+	column.removeClass(num[1]);column.addClass("num"+position);
+	column.find("div.line").removeClass('number-on');
+
+	//h1 text
+	column.find('h1').text('Line ' + position);
+}
+
+function columnAdapter(){
+	$(".box-lines").children("div").filter(':eq(5), :eq(4), :eq(3), :eq(2)').remove();
+}
+
+function resizeAdapterColumn(){
+	var totalColumns = getTotalColumns();
+	if(varSize < 4){
+		if(totalColumns < maxColumnsInMobile){
+			addColumn(totalColumns+1);
+		}
+	}
+}
+
+function checkHeightColumn(){
+
+}
+
 $(function(){
 	//$(".random-all").css("margin-right","-15px"); // Fix initial positioning of a button
 	playLine('.numbers .btn', "number");
@@ -270,6 +297,12 @@ $(function(){
 	clearNum(".clear");
 	randomAll(".random-all");
 	clearNumAll(".clear-all");
+	checkHeightColumn();
+	$(window).resize(resizeAdapterColumn);
+
+	if(varSize > 4){
+		columnAdapter();
+	}
 
 	$(".li-play").addClass("active");
 

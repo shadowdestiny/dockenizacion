@@ -4,6 +4,7 @@ namespace tests\unit;
 use EuroMillions\services\external_apis\YahooCurrencyApi;
 use Money\Currency;
 use Money\CurrencyPair;
+use Money\Money;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
 
@@ -184,6 +185,18 @@ class YahooCurrencyApiUnitTest extends UnitTestBase
         $actual = $this->exerciseGetRate('EUR', 'USD');
         $this->assertEquals($expected, $actual);
 
+    }
+
+    /**
+     * method getRate
+     * when calledWithSameCurrency
+     * should throwInvalidArgumentException
+     */
+    public function test_getRate_calledWithSameCurrency_throwInvalidArgumentException()
+    {
+        $this->setExpectedException('\InvalidArgumentException');
+        $sut = $this->getSut();
+        $actual = $sut->getRate(new Currency('EUR'),new Currency('EUR'));
     }
 
 

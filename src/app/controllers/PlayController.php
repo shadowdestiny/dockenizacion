@@ -12,12 +12,12 @@ class PlayController extends PublicSiteControllerBase
             $draw = $this->lotteriesDataService->getNextDrawByLottery('EuroMillions');
             return (int) date('w',$draw->getTimestamp());
         };
+
         return $this->view->setVars([
             'jackpot_value' => $jackpot->getAmount()/100,
             'play_dates' => $play_dates,
             'next_draw' => $dayOfWeek()
         ]);
-
     }
 
     private function nextDrawsRecurrent($maxIteration = 5)
