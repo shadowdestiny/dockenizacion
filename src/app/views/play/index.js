@@ -40,7 +40,7 @@ function checkMark(arrayCount){
 	hasNumbers =  checkNumbersInPlay(numberCount);
 	hasStars = checkNumbersInPlay(starCount);
 	if(hasNumbers == false && hasStars == false){
-		$(".fix-margin .clear-all").hide();
+		$(".fix-margin").hide();
 	}
 
 	if(jQuery.inArray( 1, hasValue ) !== -1){ // check if there is a value selected
