@@ -7,9 +7,7 @@ var maxStars = 2;
 var maxColumnsInMobile = 6;
 
 function checkMark(arrayCount){
-
 	obj = $(".num"+arrayCount+" .ico-checkmark");
-
 	if(numberCount[arrayCount] == maxNumbers
         &&
             starCount[arrayCount] == maxStars){
@@ -68,8 +66,10 @@ function playLine(selector, type){
 		myThis = $(this).closest(".myCol").attr('class').split(" ");
 		valNum = myThis[1].split("num");
 		line = "."+myThis[1];
-        countS = starCount[valNum[1]];
-        countN = numberCount[valNum[1]];
+
+		valNumCount = 0;
+		starNumCount = 0;
+
         // remove count if disabled
 		if($(this).hasClass("active")){
 			if(type == "number"){
@@ -80,23 +80,26 @@ function playLine(selector, type){
 			totalCount[valNum[1]]--
 		}else{
 			if(type == "number"){
-                if(countN <= maxNumbers){
+				numArr = numberCount[valNum[1]];
+				valNumCount = ++numArr;
+                if(numberCount[valNum[1]] < maxNumbers){
                     numberCount[valNum[1]]++;
                 }
 			}else if(type == "star"){
-                if(countS <= maxStars){
-                    starCount[valNum[1]]++
+				starArr = starCount[valNum[1]];
+				starNumCount = ++starArr;
+                if(starCount[valNum[1]] < maxStars){
+                    starCount[valNum[1]]++;
                 }
 			}
 			totalCount[valNum[1]]++
 		}
-        if(countN+1 <= maxNumbers && type == "number"){
+        if(valNumCount <= maxNumbers && numberCount[valNum[1]] <= maxNumbers && type == "number"){
             $(this).toggleClass('active');
         }
-        if(countS+1 <= maxStars && type == "star"){
+        if(starNumCount <= maxStars && starCount[valNum[1]] <= maxStars && type == "star"){
             $(this).toggleClass('active');
         }
-		console.log(valNum[1]);
         checkMark(valNum[1]);
     });
 }
