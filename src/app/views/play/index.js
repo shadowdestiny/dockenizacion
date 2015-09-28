@@ -336,12 +336,13 @@ $(function(){
 	clearNum(".clear");
 	randomAll(".random-all");
 	clearNumAll(".clear-all");
+	$('.ico-question-mark').tipr({'mode':'top'});
 	checkHeightColumn();
 	$(window).resize(function(){
 		resizeAdapterColumn();
 		checkHeightColumn();
 	});
-
+	
 
 	//Check varSize
 	if(varSize >= 4){
@@ -386,13 +387,14 @@ $(function(){
 
 	$('.add-more').on('click',function(){
 		newLine();
+		checkHeightColumn();
 	});
 
 	$('.add-more').mouseover(function(){
 		if($(this).hasClass("stop")){
 			$('.box-more').tipr({'mode':'top'});
 		}else{
-			//$('.box-more').unbind('mouseenter mouseleave');
+			$('.box-more').unbind('mouseenter mouseleave');
 		}
 	});
 });

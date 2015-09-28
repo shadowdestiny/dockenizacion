@@ -22,10 +22,15 @@
 .box-action .btn{font-weight:normal;}
 .box-action .ico-shuffle{font-size:125%; position:relative; top:2px;}
 .box-action li.fix-margin{display:none;}
-.box-bottom{padding:20px 12px; border-top:1px solid $yellow; background:#fff; border-radius:0 0 5px 5px;}
-.box-bottom .cols{margin-bottom:0;}
-.box-bottom label{font-size:$basic-size; display:block; font-weight:bold; margin-bottom:.2em;}
-.gameplay{overflow:hidden; border:1px solid $yellow; border-radius:0 0 5px 5px; margin-bottom:2em;}
+.box-bottom{padding:20px 12px; border-top:1px solid $yellow; background:#fff; border-radius:0 0 5px 5px;
+	select{font-size:$basic-size;}
+	label{
+		font-size:$basic-size; display:block; font-weight:bold; margin-bottom:.2em;
+	}
+	.cols{margin-bottom:0;}
+	.ico-question-mark{display:inline-block; position:relative; font-size:18px; bottom:-3px; color:$grey; margin-left:2px;}
+}
+.gameplay{/*overflow:hidden;*/ border:1px solid $yellow; border-radius:0 0 5px 5px; margin-bottom:2em;}
 $gap1:12px; /* Gap between lines  */
 $gap2:5px; 	/* Gap between numbers */
 $gap3:15px; /* Responsive design 3 column */

@@ -107,20 +107,29 @@ ALLOWED: Variable and Extension
   background: #fff;
   border-radius: 0 0 5px 5px;
 }
-
-.box-bottom .cols {
-  margin-bottom: 0;
+.box-bottom select {
+  font-size: 0.875em;
 }
-
 .box-bottom label {
   font-size: 0.875em;
   display: block;
   font-weight: bold;
   margin-bottom: .2em;
 }
+.box-bottom .cols {
+  margin-bottom: 0;
+}
+.box-bottom .ico-question-mark {
+  display: inline-block;
+  position: relative;
+  font-size: 18px;
+  bottom: -3px;
+  color: #777;
+  margin-left: 2px;
+}
 
 .gameplay {
-  overflow: hidden;
+  /*overflow:hidden;*/
   border: 1px solid #efc048;
   border-radius: 0 0 5px 5px;
   margin-bottom: 2em;
