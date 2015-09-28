@@ -5,6 +5,71 @@ var hasValue = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 var maxNumbers = 5;
 var maxStars = 2;
 var maxColumnsInMobile = 6;
+var numLines = [];
+
+var lineObject = function(){
+	this.numbers = [];
+	this.stars = [];
+}
+
+
+var numbers = [];
+var stars = [];
+
+var storeNum = new CustomEvent(
+	"storeNum",
+	{
+		detail: {
+			numColumn: 0,
+			typeColumn: "",
+			num: "",
+			active: 1,
+		},
+		bubbles: true,
+		cancelable: true
+	}
+);
+
+document.addEventListener("storeNum", function(e) {
+
+	var bet_line = localStorage.getItem('bet_line');
+	var column = e.numColumn;
+	var isActive = e.active;
+	var objLine = null;
+
+	if(window.localStorage == 'undefined'){
+		//EMTD save in cookie
+	}else if(bet_line != null){
+		numLines = JSON.parse(bet_line);
+	}
+
+	if(typeof numLines[column] == 'undefined' || numLines[column] == null){
+		objLine = new lineObject();
+	}else{
+		objLine = numLines[column];
+	}
+	if(e.typeColumn == 'number'){
+		if(isActive){
+			objLine.numbers.push(e.num);
+		}else{
+			//find item
+			var item = objLine.numbers.indexOf(e.num);
+			objLine.numbers.splice(item,1);
+		}
+	}else{
+		if(isActive){
+			objLine.stars.push(e.num);
+		}else{
+			var item = objLine.stars.indexOf(e.num);
+			objLine.stars.splice(item,1);
+		}
+	}
+	numLines[column] = objLine;
+
+	//get in load page
+	localStorage.setItem('bet_line', JSON.stringify(numLines));
+
+});
 
 function checkMark(arrayCount){
 	obj = $(".num"+arrayCount+" .ico-checkmark");
@@ -101,16 +166,23 @@ function playLine(selector, type){
             $(this).toggleClass('active');
         }
 
+		var isActive = $(this).hasClass('active');
 
-        checkMark(valNum[1]);
+		storeNum.numColumn=valNum[1]-1;
+		storeNum.typeColumn = type;
+		storeNum.num = $(this).text();
+		storeNum.active = isActive;
+		document.dispatchEvent(storeNum);
+		checkMark(valNum[1]);
     });
 }
 
-function setIntervalRepetition(callback, delay, repetitions){
+function setIntervalRepetition(callback, delay, repetitions, callback2){
     var x = 0;
     var intervalID = window.setInterval(function (){
        callback();
        if (++x === repetitions){
+		   callback2();
            window.clearInterval(intervalID);
        }
     }, delay);
@@ -134,6 +206,32 @@ function shuffle(array){ // Fisher–Yates shuffle
 }
 
 
+function persistRandomNum(line){
+	var numColumn = --line.match(/\d+/)[0];
+	$(".box-lines "+line+" .values .numbers a.btn").each(function(){
+		if($(this).hasClass('active')){
+			var num = $(this).text();
+			storeNum.numColumn = numColumn;
+			storeNum.typeColumn = 'number';
+			storeNum.active = true;
+			storeNum.num = num;
+			document.dispatchEvent(storeNum);
+		}
+	});
+	$(".box-lines "+line+" .values .stars a.ico").each(function(){
+		if($(this).hasClass('active')){
+			var num = $(this).text();
+			storeNum.numColumn = numColumn;
+			storeNum.typeColumn = 'star';
+			storeNum.active = true;
+			storeNum.num = num;
+			document.dispatchEvent(storeNum);
+		}
+	});
+	checkMark(numColumn);
+
+}
+
 function randomCalculation(line, value){
 	var arr = new Array(45);
 	var arr2 = new Array(11);
@@ -143,17 +241,17 @@ function randomCalculation(line, value){
 	setIntervalRepetition(function(){
 		shuffle(arr);
 		shuffle(arr2);
-
 		$(line+" .values .active").toggleClass('active');
-
 		for(var i=0; i < 5; i++){
-	 		$(line+" .n"+arr[i]).toggleClass('active');
-		}
-		for(var i=0; i < 2; i++){
-	 		$(line+" .s"+arr2[i]).toggleClass('active');
+			$(line+" .n"+arr[i]).toggleClass('active');
 		}
 
-	}, 50, 12);
+		for(var i=0; i < 2; i++){
+			$(line+" .s"+arr2[i]).toggleClass('active');
+		}
+	}, 50, 12, function(){
+		persistRandomNum(line);
+	});
 
 	numberCount[value] = 5;
 	starCount[value] = 2;
@@ -255,6 +353,47 @@ function clearNumAll(selector){
 	});
 }
 
+//REFACTOR
+function printPreviousPlay(col,numbers,stars){
+	var column = $(".box-lines").children("div").filter(':eq('+col+')');
+	for(var i=0;i<numbers.length;i++){
+		column.find('.values .numbers').each(function(){
+			$(this).find('a.btn').filter(function(){
+				return $(this).text() == numbers[i];
+			}).addClass('active');
+		})
+	}
+	for(var i=0;i<stars.length;i++){
+		column.find('.values .stars').each(function(){
+			$(this).find('a.ico').filter(function(){
+				return $(this).text() == stars[i];
+			}).addClass('active');
+
+		})
+	}
+}
+
+function putNumbersPreviousPlay(numbers){
+	var numbersJSON = JSON.parse(numbers);
+	if(numbersJSON != null){
+		for(var i=0;i < numbersJSON.length;i++){
+			if(numbersJSON[i] != null){
+				var numberColumns = getTotalColumns();
+				if(i > 5 && numberColumns < 12){
+					newLine();
+				}
+				var numbers = numbersJSON[i].numbers;
+				var stars = numbersJSON[i].stars;
+				if(numbers || stars){
+					printPreviousPlay(i,numbers,stars);
+					checkMark(i);
+				}
+			}
+		}
+	}
+}
+
+
 //EMTD add more functions
 var ajaxFunctions = {
 	playCart : function (params) {
@@ -318,9 +457,10 @@ function resizeAdapterColumn(){
 function checkHeightColumn(){
 	lastHeight = 0;
 	nextAreExtra = false;
-	$(".box-lines .myCol").each(function(){
-		currentColH = $(this).height();
-		if(currentColH < lastHeight && lastHeight > 0 || nextAreExtra){
+	$(".box-lines .myCol").each(function(i){
+		currentColH = $(this).position().top
+		console.log(currentColH);
+		if(currentColH > lastHeight && lastHeight > 0 || nextAreExtra){
 			$(this).toggleClass('more-row');
 			nextAreExtra=true;
 		}
@@ -386,6 +526,7 @@ $(function(){
 
 	$('.add-more').on('click',function(){
 		newLine();
+		checkHeightColumn();
 	});
 
 	$('.add-more').mouseover(function(){
@@ -395,6 +536,12 @@ $(function(){
 			//$('.box-more').unbind('mouseenter mouseleave');
 		}
 	});
+
+	//check key in localstorage to get numbers in previous play
+	var numbers = localStorage.getItem('bet_line');
+	putNumbersPreviousPlay(numbers);
+	checkHeightColumn();
+
 });
 
 
