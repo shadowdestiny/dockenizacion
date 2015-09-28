@@ -47,7 +47,7 @@
 			</div>
 			<div class="cl">
 				<ul class="no-li cl box-action">
-					<li class="box-more" data-tip="{{ language.translate('It is not possible to add more lines until you fill in the previous ones') }}"><a class="btn gwg add-more stop" href="javascript:void(0);">{{ language.translate("Add more lines") }} <i class="ico ico-plus"></i></a></li>
+					<li class="box-more" data-tip="{{ language.translate('It is not possible to add more lines until you fill in the previous ones') }}"><a class="btn gwg add-more" href="javascript:void(0);">{{ language.translate("Add more lines") }} <i class="ico ico-plus"></i></a></li>
 					<li><a class="btn bwb random-all" href="javascript:void(0);">{{ language.translate("Randomize all lines") }} <i class="ico ico-shuffle"></i></a></li>
 					<li class="fix-margin"><a class="btn rwr clear-all" href="javascript:void(0);">{{ language.translate("Clear all lines") }} <i class="ico ico-cross"></i></a></li>
 				</ul>
@@ -56,7 +56,7 @@
 				<div class="wrap">
 					<div class="cols">
 						<div class="col2">
-							<label>{{ language.translate("Which draws?") }}</label>
+							<label>{{ language.translate("Draw") }} <i data-tip="{{ language.translate('Which draw do you want to play?') }}" class="ico ico-question-mark"></i></label>
 							<select class="draw_days">
 								<option value="2,5">{{ language.translate("Tuesday & Friday") }}</option>
 								<option value="2" {% if next_draw == 2 %} selected {% endif %}>{{ language.translate("Tuesday") }}</option>
@@ -64,7 +64,7 @@
 							</select>
 						</div>
 						<div class="col2">
-							<label>{{ language.translate("Starting from?") }}</label>
+							<label>{{ language.translate("First Draw") }} <i data-tip="{{ language.translate('From which draw do you wish to play?') }}" class="ico ico-question-mark"></i></label>
 							<select class="start_draw">
 									{% for k,dates in play_dates %}
 										{% for j,date in dates %}
@@ -78,13 +78,14 @@
 							</select>
 						</div>
 						<div class="col2">
-							<label>{{ language.translate("For how many weeks?") }}</label>
+							<label>{{ language.translate("Duration") }} <i data-tip="{{ language.translate('For how long do you wish to play?') }}"class="ico ico-question-mark"></i></label>
 							<select class="frequency">
 								<option value="1">{{ language.translate("1 week (Draws: 1)") }}</option>
 								<option value="2">{{ language.translate("2 week (Draws: 2)") }}</option>
 								<option value="4">{{ language.translate("4 week (Draws: 4)") }}</option>
 								<option value="8">{{ language.translate("8 week (Draws: 8)") }}</option>
 								<option value="52">{{ language.translate("52 week (Draws: 52)") }}</option>
+								<option value="always">{{ language.translate("Always (Ever draw)") }}</option>
 							</select>
 						</div>
 						<div class="col6">

@@ -19,15 +19,17 @@ ALLOWED: Variable and Extension
 /* COLUMNS */
 /* Tipr 2.0.1 Copyright (c) 2015 Tipue Tipr is released under the MIT License http://www.tipue.com/tipr */
 .tipr {
-  width: 250px;
+  min-width: 270px;
 }
 
 .tipr_content {
   color: #333;
-  padding: 9px 17px;
-  font-size: 0.875em;
+  padding: 8px 12px;
+  font-size: 14px !important;
   text-align: center;
-  font-style: italic;
+  font-style: italic !important;
+  font-weight: normal !important;
+  font-family: "Open Sans", helvetica, arial, verdana, sans-serif;
 }
 
 .tipr_container_bottom, .tipr_container_top {
