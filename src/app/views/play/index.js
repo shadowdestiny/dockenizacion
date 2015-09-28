@@ -100,6 +100,8 @@ function playLine(selector, type){
         if(starNumCount <= maxStars && starCount[valNum[1]] <= maxStars && type == "star"){
             $(this).toggleClass('active');
         }
+
+
         checkMark(valNum[1]);
     });
 }
