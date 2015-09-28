@@ -35,8 +35,9 @@ class BetRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         return [
             'users',
             'lotteries',
+            'play_configs',
             'euromillions_draws',
-            'play_configs'
+            'bets'
         ];
     }
 
@@ -59,18 +60,17 @@ class BetRepositoryIntegrationTest extends DatabaseIntegrationTestBase
 
     private function exerciseAdd()
     {
+        $euroMillionsDraw = $this->entityManager->find('EuroMillions\entities\EuroMillionsDraw', 2);
         $playConfig = $this->entityManager->find('EuroMillions\entities\PlayConfig', 1);
-        $euroMillionsDraw = $this->entityManager->find('EuroMillions\entities\EuroMillionsDraw', 1);
         $bet = new Bet($playConfig,$euroMillionsDraw);
         $this->sut->add($bet);
-        $this->entityManager->flush();
+        $this->entityManager->flush($bet);
         $actual = $this->entityManager
             ->createQuery(
                 'SELECT b'
                 .    ' FROM \EuroMillions\entities\Bet b'
-                .    ' WHERE b.play_config = :play_config_id')
-            ->setMaxResults(1)
-            ->setParameters(['play_config_id' => $playConfig->getId() ])
+                .    ' WHERE b.euromillionsDraw = :euromillions_draw_id')
+            ->setParameters(['euromillions_draw_id' => $euroMillionsDraw->getId() ])
             ->getResult()[0];
         return array($bet, $actual);
     }

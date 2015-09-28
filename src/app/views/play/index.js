@@ -1,11 +1,13 @@
 var numberCount = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 var starCount = numberCount.slice();
 var totalCount = numberCount.slice();
-var hasValue = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+var hasValue = [0,0,0,0,0,0,0,0,0,0,0,0];
 var maxNumbers = 5;
 var maxStars = 2;
 var maxColumnsInMobile = 6;
 var numLines = [];
+var isAddMoreClicked = false;
+
 
 var lineObject = function(){
 	this.numbers = [];
@@ -51,17 +53,21 @@ document.addEventListener("storeNum", function(e) {
 	if(e.typeColumn == 'number'){
 		if(isActive){
 			objLine.numbers.push(e.num);
+			numberCount[column]++;
 		}else{
 			//find item
 			var item = objLine.numbers.indexOf(e.num);
 			objLine.numbers.splice(item,1);
+			numberCount[column]--;
 		}
 	}else{
 		if(isActive){
 			objLine.stars.push(e.num);
+			starCount[column]++;
 		}else{
 			var item = objLine.stars.indexOf(e.num);
 			objLine.stars.splice(item,1);
+			starCount[column]--;
 		}
 	}
 	numLines[column] = objLine;
@@ -72,21 +78,19 @@ document.addEventListener("storeNum", function(e) {
 });
 
 function checkMark(arrayCount){
+
 	obj = $(".num"+arrayCount+" .ico-checkmark");
+	console.log("NumberCount " + numberCount[arrayCount]);
 	if(numberCount[arrayCount] == maxNumbers
         &&
             starCount[arrayCount] == maxStars){
 		obj.show();
+		console.log("se muestra");
 		hasValue[arrayCount] = 1;
 	}else{
 		hasValue[arrayCount] = 0;
 		obj.hide();
 	}
-
-
-	hasNumbers = checkNumbersInPlay(numberCount);
-	hasStars = checkNumbersInPlay(starCount);
-
 
 	if(numberCount[arrayCount] > 0 || starCount[arrayCount] > 0){
 		$(".num"+arrayCount+" .line").addClass("number-on");
@@ -324,6 +328,7 @@ function getBets(){
 function newLine(){
 	var numTickets = $('div.box-lines').length;
 	var totalColumns = getTotalColumns();
+
 	if(numTickets > 1){
 		//EMTD show popup with a correct message
 		$('')
@@ -337,6 +342,18 @@ function newLine(){
 		addColumn(counter);
 		counter++;
 	}
+}
+
+function checkFillColumns(){
+	var totalColumns = getTotalColumns();
+	var lengthHasValueInColumns = hasValue.length-totalColumns;
+	for(var i=0;i<lengthHasValueInColumns;i++){
+		if(hasValue[i] == 0){
+			return true;
+		}
+	}
+	return false;
+
 }
 
 function clearNumAll(selector){
@@ -361,6 +378,7 @@ function printPreviousPlay(col,numbers,stars){
 			$(this).find('a.btn').filter(function(){
 				return $(this).text() == numbers[i];
 			}).addClass('active');
+			numberCount[col]++;
 		})
 	}
 	for(var i=0;i<stars.length;i++){
@@ -368,9 +386,10 @@ function printPreviousPlay(col,numbers,stars){
 			$(this).find('a.ico').filter(function(){
 				return $(this).text() == stars[i];
 			}).addClass('active');
-
+			starCount[col]++;
 		})
 	}
+	checkMark(col);
 }
 
 function putNumbersPreviousPlay(numbers){
@@ -386,11 +405,11 @@ function putNumbersPreviousPlay(numbers){
 				var stars = numbersJSON[i].stars;
 				if(numbers || stars){
 					printPreviousPlay(i,numbers,stars);
-					checkMark(i);
 				}
 			}
 		}
 	}
+
 }
 
 
@@ -459,7 +478,6 @@ function checkHeightColumn(){
 	nextAreExtra = false;
 	$(".box-lines .myCol").each(function(i){
 		currentColH = $(this).position().top
-		console.log(currentColH);
 		if(currentColH > lastHeight && lastHeight > 0 || nextAreExtra){
 			$(this).toggleClass('more-row');
 			nextAreExtra=true;
@@ -525,10 +543,20 @@ $(function(){
 		}
 	});
 
-	$('.add-more').on('click',function(){
-		newLine();
-		checkHeightColumn();
+	$('.add-more').on('click', function () {
+		if(isAddMoreClicked == false){
+			newLine();
+			checkHeightColumn();
+		}else{
+			if(checkFillColumns()){
+				newLine();
+				checkHeightColumn();
+			}
+		}
+		isAddMoreClicked=true;
+		$('.add-more').addClass('stop');
 	});
+
 
 	$('.add-more').mouseover(function(){
 		if($(this).hasClass("stop")){
