@@ -55,42 +55,72 @@
 			</div>
 			<div class="box-bottom">
 				<div class="wrap">
-					<div class="cols">
-						<div class="col2">
-							<label>{{ language.translate("Draw") }} <i data-tip="{{ language.translate('Which draw do you want to play?') }}" class="ico ico-question-mark"></i></label>
-							<select class="draw_days">
-								<option value="2,5">{{ language.translate("Tuesday & Friday") }}</option>
-								<option value="2" {% if next_draw == 2 %} selected {% endif %}>{{ language.translate("Tuesday") }}</option>
-								<option value="5" {% if next_draw == 5 %} selected {% endif %}>{{ language.translate("Friday") }}</option>
-							</select>
+					<div class="cl">
+						<div class="right">
+							<a href="javascript:void(0);" class="btn big gwp advanced">Advanced Play <i class="ico ico-clover"></i></a>
+
+							<a href="javascript:void(0);" class="btn add-cart"><span class="value">0.00 &euro;</span><span class="gap"><span class="separator"></span></span>{{ language.translate("Add to Cart") }}</a>
 						</div>
-						<div class="col2">
-							<label>{{ language.translate("First Draw") }} <i data-tip="{{ language.translate('From which draw do you wish to play?') }}" class="ico ico-question-mark"></i></label>
-							<select class="start_draw">
-									{% for k,dates in play_dates %}
-										{% for j,date in dates %}
-											{% if k == 0 %}
-												<option data-date="{{ date }}" value="{{ j }}">{{ date }} {{ jackpot_value/1000000 }}M</option>
-											{% else %}
-												<option data-date="{{ date }}" value="{{ j }}">{{ date }}</option>
-											{% endif %}
+					</div>
+					<div class="advanced-play">
+						<hr class="hr yellow">
+						<a href="javascript:void(0);" class="close"><i class="ico ico-cancel-circle"></i></a>
+						<div class="cols">
+							<div class="col2 watch">
+								<label>{{ language.translate("Draw") }} <i data-tip="{{ language.translate('Which draw do you want to play?') }}" class="ico ico-question-mark"></i></label>
+								<select class="draw_days">
+									<option value="2,5">{{ language.translate("Tuesday & Friday") }}</option>
+									<option value="2" {% if next_draw == 2 %} selected {% endif %}>{{ language.translate("Tuesday") }}</option>
+									<option value="5" {% if next_draw == 5 %} selected {% endif %}>{{ language.translate("Friday") }}</option>
+								</select>
+							</div>
+							<div class="col2 watch">
+								<label>{{ language.translate("First Draw") }} <i data-tip="{{ language.translate('From which draw do you wish to play?') }}" class="ico ico-question-mark"></i></label>
+								<select class="start_draw">
+										{% for k,dates in play_dates %}
+											{% for j,date in dates %}
+												{% if k == 0 %}
+													<option data-date="{{ date }}" value="{{ j }}">{{ date }} {{ jackpot_value/1000000 }}M</option>
+												{% else %}
+													<option data-date="{{ date }}" value="{{ j }}">{{ date }}</option>
+												{% endif %}
+											{% endfor %}
 										{% endfor %}
-									{% endfor %}
-							</select>
-						</div>
-						<div class="col2">
-							<label>{{ language.translate("Duration") }} <i data-tip="{{ language.translate('For how long do you wish to play?') }}"class="ico ico-question-mark"></i></label>
-							<select class="frequency">
-								<option value="1">{{ language.translate("1 week (Draws: 1)") }}</option>
-								<option value="2">{{ language.translate("2 week (Draws: 2)") }}</option>
-								<option value="4">{{ language.translate("4 week (Draws: 4)") }}</option>
-								<option value="8">{{ language.translate("8 week (Draws: 8)") }}</option>
-								<option value="52">{{ language.translate("52 week (Draws: 52)") }}</option>
-								<option value="always">{{ language.translate("Always (Ever draw)") }}</option>
-							</select>
-						</div>
-						<div class="col6">
-							<a href="javascript:void(0);" class="btn right add-cart"><span class="value">0.00 &euro;</span><span class="gap"><span class="separator"></span></span>{{ language.translate("Add to cart") }}</a>
+								</select>
+							</div>
+							<div class="col2 watch">
+								<label>{{ language.translate("Duration") }} <i data-tip="{{ language.translate('For how long do you wish to play?') }}"class="ico ico-question-mark"></i></label>
+								<select class="frequency">
+									<option value="1">{{ language.translate("1 week (Draws: 1)") }}</option>
+									<option value="2">{{ language.translate("2 week (Draws: 2)") }}</option>
+									<option value="4">{{ language.translate("4 week (Draws: 4)") }}</option>
+									<option value="8">{{ language.translate("8 week (Draws: 8)") }}</option>
+									<option value="52">{{ language.translate("52 week (Draws: 52)") }}</option>
+	{#
+									<option value="always">{{ language.translate("Always (Every draw)") }}</option>
+	#}
+								</select>
+							</div>
+							<div class="col6">
+								<label for="threshold">{{ language.translate("Jackpot Threshold") }} <i data-tip="{{ language.translate('Set the condition when you want to play or to be informed automatically. Thresholds are calculated only in Euro.') }}"class="ico ico-question-mark"></i></label>
+								<div class="box-threshold cl">
+									<input id="threshold" class="checkbox" data-role="none" type="checkbox">
+									<div class="details">
+											<span class="txt">{{ language.translate("When  Jackpot is") }}</span>
+											<input class="hidden" type="text" placeholder="{{ language.translate('Insert your value') }} ">
+											<select class="threshold">
+												<option title="{{ language.translate('aprox. $49 millions') }}">{{ language.translate('50 millions &euro;') }}</option>
+												<option selected="selected" title="{{ language.translate('aprox. $74 millions') }}">{{ language.translate('75 millions &euro;') }}</option>
+												<option title="{{ language.translate('aprox. $99 millions') }}">{{ language.translate('100 millions &euro;') }}</option>
+												<option>{{ language.translate('Choose   threshold') }}</option>
+											</select>
+										<select class="type">
+											<option>Play the chosen numbers</option>
+											<option>Send me an email as reminder</option>
+										</select>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

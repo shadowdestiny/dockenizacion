@@ -522,6 +522,35 @@ function redrawTotalCost()
 
 
 
+function showAdvanced(btnShow, target, btnHide){
+	$(btnShow).on('click',function(){
+		$(target).show();
+	});
+	$(btnHide).on('click',function(){
+		$(target).hide();
+	});
+}
+
+function disableSelect(area, target, disable){
+	$(target).on('click',function(){
+		if($(target).prop("checked")){
+			$(disable).prop('disabled', 'disabled');
+			console.log("01")
+		}else{
+			//$(target).prop('checked', true);
+			$(disable).prop('disabled', false);
+			console.log("02")
+		}
+	});
+
+	$(area).on('click',function(){
+		if($(target).prop("checked", false)){
+			$(target).prop('checked', true);
+			$(disable).prop('disabled', 'disabled');
+		}
+	});
+}
+
 $(function(){
 	//$(".random-all").css("margin-right","-15px"); // Fix initial positioning of a button
 	playLine('.numbers .btn', "number");
@@ -530,7 +559,9 @@ $(function(){
 	clearNum(".clear");
 	randomAll(".random-all");
 	clearNumAll(".clear-all");
-	$('.ico-question-mark').tipr({'mode':'top'});
+	$('.ico-question-mark').tipr({'mode':'top'});	
+	showAdvanced(".advanced", ".advanced-play", ".advanced-play .close")
+	disableSelect(".details","#threshold",".advanced-play .col2 select");
 	$(window).resize(function(){
 		resizeAdapterColumn();
 	});
