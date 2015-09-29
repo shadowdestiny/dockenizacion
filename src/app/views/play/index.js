@@ -59,7 +59,6 @@ document.addEventListener("storeNum", function(e) {
 			//find item
 			var item = objLine.numbers.indexOf(e.num);
 			objLine.numbers.splice(item,1);
-
 		}
 	}else{
 		if(isActive){
@@ -94,6 +93,7 @@ function removeColumnInLocalStorage(column){
 
 function checkMark(arrayCount){
 	obj = $(".num"+arrayCount+" .ico-checkmark");
+
 	if(numberCount[arrayCount] == maxNumbers
         &&
             starCount[arrayCount] == maxStars){
@@ -127,7 +127,6 @@ function checkMark(arrayCount){
 	}else{
 		$(".add-cart").removeClass("active");
 	}
-
 //	console.log(arrayCount+" totalCount= "+totalCount[arrayCount]+" // numberCount= "+numberCount[arrayCount]+" // starCount= "+starCount[arrayCount]);
 }
 
@@ -151,8 +150,14 @@ function playLine(selector, type){
 		// remove count if disabled
 		if($(this).hasClass("active")){
 			if(type == "number"){
+				if(numberCount[valNum[1]] > maxNumbers){
+					return;
+				}
 				numberCount[valNum[1]]--
 			}else if(type == "star"){
+				if(starCount[valNum[1]] > maxStars){
+					return;
+				}
 				starCount[valNum[1]]--
 			}
 			totalCount[valNum[1]]--
@@ -175,10 +180,10 @@ function playLine(selector, type){
 			totalCount[valNum[1]]++
 		}
 
-		if(valNumCount <= maxNumbers  && type == "number"){
+		if(numberCount[valNum[1]] <= maxNumbers  && type == "number"){
 			$(this).toggleClass('active');
 		}
-		if(starNumCount <= maxStars  && type == "star"){
+		if(starCount[valNum[1]] <= maxStars  && type == "star"){
 			$(this).toggleClass('active');
 		}
 
@@ -245,6 +250,7 @@ function persistRandomNum(line){
 			document.dispatchEvent(storeNum);
 		}
 	});
+	redrawTotalCost();
 }
 
 function randomCalculation(line, value){
@@ -281,6 +287,7 @@ function randomNum(selector){
 		line = "."+myThis[1];
 		randomCalculation(line, valNum[1]);
 	});
+
 }
 
 function randomAll(selector){
@@ -291,6 +298,7 @@ function randomAll(selector){
 			randomCalculation(".num"+i, i);
 		}
 	});
+	redrawTotalCost();
 }
 
 function clearNum(selector){
@@ -305,6 +313,7 @@ function clearNum(selector){
 		totalCount[valNum[1]] = 0;
 		removeColumnInLocalStorage(valNum[1]);
 		checkMark(valNum[1])
+		redrawTotalCost();
 	});
 }
 
@@ -315,7 +324,7 @@ function getTotalColumns(){
 
 function getBets(){
 	//EMTD call getTotalColumns
-	var numColumns = $("div[class*='myCol num']").length +1;
+	var numColumns = $("div[class*='myCol num']").length+1;
 	var bets = [];
 	for(var k=0; k < numColumns;k++){
 		var num = [];
@@ -348,7 +357,7 @@ function newLine(){
 	var idNumber = classNum[1].slice(-1);
 
 	var counter = totalColumns;
-	for(i=0;i<totalColumns;i++){
+	for(var i=0;i<totalColumns;i++){
 		addColumn(counter);
 		counter++;
 	}
@@ -375,7 +384,8 @@ function clearNumAll(selector){
 			starCount[i] = 0;
 			totalCount[i] = 0;
 			removeColumnInLocalStorage(i);
-			checkMark(i)
+			checkMark(i);
+			redrawTotalCost();
 		}
 	});
 }
@@ -484,6 +494,33 @@ function resizeAdapterColumn(){
 	}
 }
 
+function getBetsActive(){
+	var totalBets = getBets();
+	var numBetsFinished = 0;
+	for(var i=0;i<totalBets.length;i++){
+		if(typeof totalBets[i] !=  'undefined'){
+			if(totalBets[i].length == 7 ){
+				numBetsFinished++;
+			}
+		}
+	}
+	return numBetsFinished;
+}
+
+function redrawTotalCost()
+{
+	var numWeeks = $('.frequency').val();
+	var playDays = $('.draw_days').val().split(',').length;
+	var numDraws = numWeeks * playDays;
+	var price = '{{ single_bet_price }}';
+	var betsActive = getBetsActive();
+	var total = betsActive * price * numDraws;
+	//EMTD put user currency
+	var user_currency = "\u20AC";
+	$('div.col6 .value').text(total + " " + user_currency);
+}
+
+
 
 $(function(){
 	//$(".random-all").css("margin-right","-15px"); // Fix initial positioning of a button
@@ -537,14 +574,17 @@ $(function(){
 				}
 			})
 		}
+		redrawTotalCost();
 	});
+
+	$('.frequency').on('change',function(){
+		redrawTotalCost();
+	})
 
 	$('.add-more').on('click', function () {
 		if(isAddMoreClicked == false){
 			newLine();
 		}else{
-			var check = checkFillColumns();
-			console.log(check);
 			if(checkFillColumns()){
 				newLine();
 			}
@@ -565,6 +605,7 @@ $(function(){
 	//check key in localstorage to get numbers in previous play
 	var numbers = localStorage.getItem('bet_line');
 	putNumbersPreviousPlay(numbers);
+	redrawTotalCost();
 });
 
 

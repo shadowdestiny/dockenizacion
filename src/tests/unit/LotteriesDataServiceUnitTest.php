@@ -246,7 +246,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
 
         $expected = new ServiceActionResult(true,$lottery);
         $this->lotteryRepositoryDouble->expects($this->any())
-            ->method('getLotteryByName')
+            ->method('findOneBy')
             ->will($this->returnValue($lottery));
 
         $sut = $this->getSut();
