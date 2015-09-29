@@ -23,7 +23,6 @@ class PlayController extends PublicSiteControllerBase
 
         }
 
-
         return $this->view->setVars([
             'jackpot_value' => $jackpot->getAmount()/100,
             'play_dates' => $play_dates,
