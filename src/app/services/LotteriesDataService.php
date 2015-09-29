@@ -124,7 +124,8 @@ class LotteriesDataService
 
     public function getLotteryConfigByName($lotteryName)
     {
-        $lottery = $this->lotteryRepository->getLotteryByName($lotteryName);
+        /** @var Lottery $lottery */
+        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         if(!empty($lottery)){
             return new ServiceActionResult(true, $lottery);
         }else{

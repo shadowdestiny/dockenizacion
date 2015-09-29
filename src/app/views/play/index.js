@@ -7,6 +7,8 @@ var maxStars = 2;
 var maxColumnsInMobile = 6;
 var numLines = [];
 var isAddMoreClicked = false;
+var valNumCount = 0;
+var starNumCount = 0;
 
 
 var lineObject = function(){
@@ -53,33 +55,45 @@ document.addEventListener("storeNum", function(e) {
 	if(e.typeColumn == 'number'){
 		if(isActive){
 			objLine.numbers.push(e.num);
-			numberCount[column]++;
 		}else{
 			//find item
 			var item = objLine.numbers.indexOf(e.num);
 			objLine.numbers.splice(item,1);
-			numberCount[column]--;
 		}
 	}else{
 		if(isActive){
 			objLine.stars.push(e.num);
-			starCount[column]++;
 		}else{
 			var item = objLine.stars.indexOf(e.num);
 			objLine.stars.splice(item,1);
-			starCount[column]--;
 		}
 	}
 	numLines[column] = objLine;
 
 	//get in load page
 	localStorage.setItem('bet_line', JSON.stringify(numLines));
-
 });
 
-function checkMark(arrayCount){
 
+function removeColumnInLocalStorage(column){
+	var bet_line = localStorage.getItem('bet_line');
+	if(bet_line != null){
+		numLines = JSON.parse(bet_line);
+	}
+	var objLine = numLines[column];
+	try{
+		objLine.numbers = [];
+		objLine.stars = [];
+		numLines[column] = objLine;
+		localStorage.setItem('bet_line', JSON.stringify(numLines));
+	}catch(Exception){
+
+	}
+}
+
+function checkMark(arrayCount){
 	obj = $(".num"+arrayCount+" .ico-checkmark");
+
 	if(numberCount[arrayCount] == maxNumbers
         &&
             starCount[arrayCount] == maxStars){
@@ -113,6 +127,7 @@ function checkMark(arrayCount){
 	}else{
 		$(".add-cart").removeClass("active");
 	}
+//	console.log(arrayCount+" totalCount= "+totalCount[arrayCount]+" // numberCount= "+numberCount[arrayCount]+" // starCount= "+starCount[arrayCount]);
 }
 
 function checkNumbersInPlay(collection){
@@ -132,14 +147,17 @@ function playLine(selector, type){
 		valNum = myThis[1].split("num");
 		line = "."+myThis[1];
 
-		valNumCount = 0;
-		starNumCount = 0;
-
-        // remove count if disabled
+		// remove count if disabled
 		if($(this).hasClass("active")){
 			if(type == "number"){
+				if(numberCount[valNum[1]] > maxNumbers){
+					return;
+				}
 				numberCount[valNum[1]]--
 			}else if(type == "star"){
+				if(starCount[valNum[1]] > maxStars){
+					return;
+				}
 				starCount[valNum[1]]--
 			}
 			totalCount[valNum[1]]--
@@ -147,34 +165,37 @@ function playLine(selector, type){
 			if(type == "number"){
 				numArr = numberCount[valNum[1]];
 				valNumCount = ++numArr;
-                if(numberCount[valNum[1]] < maxNumbers){
-                    numberCount[valNum[1]]++;
-                }
+				if(valNumCount > maxNumbers){
+					return;
+				}
+				numberCount[valNum[1]]++
 			}else if(type == "star"){
 				starArr = starCount[valNum[1]];
 				starNumCount = ++starArr;
-                if(starCount[valNum[1]] < maxStars){
-                    starCount[valNum[1]]++;
-                }
+				if(starNumCount > maxStars){
+					return;
+				}
+				starCount[valNum[1]]++
 			}
 			totalCount[valNum[1]]++
 		}
-        if(valNumCount <= maxNumbers && numberCount[valNum[1]] <= maxNumbers && type == "number"){
-            $(this).toggleClass('active');
-        }
-        if(starNumCount <= maxStars && starCount[valNum[1]] <= maxStars && type == "star"){
-            $(this).toggleClass('active');
-        }
+
+		if(numberCount[valNum[1]] <= maxNumbers  && type == "number"){
+			$(this).toggleClass('active');
+		}
+		if(starCount[valNum[1]] <= maxStars  && type == "star"){
+			$(this).toggleClass('active');
+		}
 
 		var isActive = $(this).hasClass('active');
 
-		storeNum.numColumn=valNum[1]-1;
+		storeNum.numColumn=valNum[1];
 		storeNum.typeColumn = type;
 		storeNum.num = $(this).text();
 		storeNum.active = isActive;
 		document.dispatchEvent(storeNum);
 		checkMark(valNum[1]);
-    });
+	});
 }
 
 function setIntervalRepetition(callback, delay, repetitions, callback2){
@@ -207,7 +228,8 @@ function shuffle(array){ // Fisher–Yates shuffle
 
 
 function persistRandomNum(line){
-	var numColumn = --line.match(/\d+/)[0];
+	var numColumn = line.match(/\d+/)[0];
+	removeColumnInLocalStorage(numColumn);
 	$(".box-lines "+line+" .values .numbers a.btn").each(function(){
 		if($(this).hasClass('active')){
 			var num = $(this).text();
@@ -228,8 +250,7 @@ function persistRandomNum(line){
 			document.dispatchEvent(storeNum);
 		}
 	});
-	checkMark(numColumn);
-
+	redrawTotalCost();
 }
 
 function randomCalculation(line, value){
@@ -266,16 +287,18 @@ function randomNum(selector){
 		line = "."+myThis[1];
 		randomCalculation(line, valNum[1]);
 	});
+
 }
 
 function randomAll(selector){
 	$(document).on('click',selector, function(){
 		line = $(".box-lines .myCol");
         lengthLine = line.length;
-		for(var i=1; i <= lengthLine; i++){
+		for(var i=0; i <= lengthLine; i++){
 			randomCalculation(".num"+i, i);
 		}
 	});
+	redrawTotalCost();
 }
 
 function clearNum(selector){
@@ -284,13 +307,13 @@ function clearNum(selector){
 		myThis = $(this).closest(".myCol").attr('class').split(" ");
 		valNum = myThis[1].split("num");
 		line = "."+myThis[1];
-
 		$(line+" .values .active").toggleClass('active');
-
 		numberCount[valNum[1]] = 0;
 		starCount[valNum[1]] = 0;
 		totalCount[valNum[1]] = 0;
+		removeColumnInLocalStorage(valNum[1]);
 		checkMark(valNum[1])
+		redrawTotalCost();
 	});
 }
 
@@ -301,9 +324,9 @@ function getTotalColumns(){
 
 function getBets(){
 	//EMTD call getTotalColumns
-	var numColumns = $("div[class*='myCol num']").length +1;
+	var numColumns = $("div[class*='myCol num']").length+1;
 	var bets = [];
-	for(var k=1; k < numColumns;k++){
+	for(var k=0; k < numColumns;k++){
 		var num = [];
 		var numCount = 0;
 		var flagActive = false;
@@ -333,23 +356,22 @@ function newLine(){
 	var classNum = $('div[class*="myCol num"]:last').attr('class').split(" ");
 	var idNumber = classNum[1].slice(-1);
 
-	var counter = totalColumns+1;
-	for(i=0;i<totalColumns;i++){
+	var counter = totalColumns;
+	for(var i=0;i<totalColumns;i++){
 		addColumn(counter);
 		counter++;
 	}
 }
 
 function checkFillColumns(){
-	var totalColumns = getTotalColumns();
-	var lengthHasValueInColumns = hasValue.length-totalColumns;
-	for(var i=0;i<lengthHasValueInColumns;i++){
-		if(hasValue[i] == 0){
-			return true;
+	var fill = true;
+	$(".box-lines .myCol").each(function(){
+		var checkMark = $(this).find('.line .ico-checkmark').css('display') == 'block' ? true : false;
+		if(!checkMark){
+			fill = false;
 		}
-	}
-	return false;
-
+	});
+	return fill;
 }
 
 function clearNumAll(selector){
@@ -357,11 +379,13 @@ function clearNumAll(selector){
 		line = $(".box-lines .myCol");
 		$(".box-lines .values .active").toggleClass('active');
 		lengthLine = line.length;
-		for(var i=1; i <= lengthLine; i++){
+		for(var i=0; i <= lengthLine; i++){
 			numberCount[i] = 0;
 			starCount[i] = 0;
 			totalCount[i] = 0;
-			checkMark(i)
+			removeColumnInLocalStorage(i);
+			checkMark(i);
+			redrawTotalCost();
 		}
 	});
 }
@@ -453,7 +477,8 @@ function addColumn(position){
 	column.find("div.line").removeClass('number-on');
 
 	//h1 text
-	column.find('h1').text('Line ' + position);
+	newPosition = ++position;
+	column.find('h1').text('Line ' + newPosition);
 }
 
 function columnAdapter(){
@@ -464,23 +489,38 @@ function resizeAdapterColumn(){
 	var totalColumns = getTotalColumns();
 	if(varSize < 4){
 		if(totalColumns < maxColumnsInMobile){
-			addColumn(totalColumns+1);
+			addColumn(totalColumns);
 		}
 	}
 }
 
-function checkHeightColumn(){
-	lastHeight = 0;
-	nextAreExtra = false;
-	$(".box-lines .myCol").each(function(){		
-		currentColH = $(this).position().top
-		if(currentColH > lastHeight && lastHeight > 0 || nextAreExtra){
-			//$(this).addClass('more-row');
-			nextAreExtra=true;
+function getBetsActive(){
+	var totalBets = getBets();
+	var numBetsFinished = 0;
+	for(var i=0;i<totalBets.length;i++){
+		if(typeof totalBets[i] !=  'undefined'){
+			if(totalBets[i].length == 7 ){
+				numBetsFinished++;
+			}
 		}
-		lastHeight = currentColH;
-	});
+	}
+	return numBetsFinished;
 }
+
+function redrawTotalCost()
+{
+	var numWeeks = $('.frequency').val();
+	var playDays = $('.draw_days').val().split(',').length;
+	var numDraws = numWeeks * playDays;
+	var price = '{{ single_bet_price }}';
+	var betsActive = getBetsActive();
+	var total = betsActive * price * numDraws;
+	//EMTD put user currency
+	var user_currency = "\u20AC";
+	$('div.col6 .value').text(total + " " + user_currency);
+}
+
+
 
 function showAdvanced(btnShow, target, btnHide){
 	$(btnShow).on('click',function(){
@@ -524,9 +564,7 @@ $(function(){
 	disableSelect(".details","#threshold",".advanced-play .col2 select");
 	$(window).resize(function(){
 		resizeAdapterColumn();
-		checkHeightColumn();
 	});
-	
 
 	//Check varSize
 	if(varSize >= 4){
@@ -567,16 +605,19 @@ $(function(){
 				}
 			})
 		}
+		redrawTotalCost();
 	});
+
+	$('.frequency').on('change',function(){
+		redrawTotalCost();
+	})
 
 	$('.add-more').on('click', function () {
 		if(isAddMoreClicked == false){
 			newLine();
-			checkHeightColumn();
 		}else{
 			if(checkFillColumns()){
 				newLine();
-				checkHeightColumn();
 			}
 		}
 		isAddMoreClicked=true;
@@ -595,6 +636,9 @@ $(function(){
 	//check key in localstorage to get numbers in previous play
 	var numbers = localStorage.getItem('bet_line');
 	putNumbersPreviousPlay(numbers);
-	checkHeightColumn();
+	redrawTotalCost();
 });
+
+
+
 

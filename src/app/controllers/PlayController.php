@@ -1,6 +1,9 @@
 <?php
 namespace EuroMillions\controllers;
 
+use Money\Currency;
+use Money\Money;
+
 class PlayController extends PublicSiteControllerBase
 {
     public function indexAction()
@@ -13,10 +16,18 @@ class PlayController extends PublicSiteControllerBase
             return (int) date('w',$draw->getTimestamp());
         };
 
+        $result = $this->lotteriesDataService->getLotteryConfigByName('EuroMillions');
+        $single_bet_price = new Money(0, new Currency('EUR'));
+        if($result->success()){
+            $single_bet_price = $result->getValues()->getSingleBetPrice();
+
+        }
+
         return $this->view->setVars([
             'jackpot_value' => $jackpot->getAmount()/100,
             'play_dates' => $play_dates,
-            'next_draw' => $dayOfWeek()
+            'next_draw' => $dayOfWeek(),
+            'single_bet_price' => $single_bet_price->getAmount(),
         ]);
     }
 
