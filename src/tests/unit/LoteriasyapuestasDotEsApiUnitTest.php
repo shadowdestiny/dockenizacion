@@ -119,6 +119,47 @@ class LoteriasyapuestasDotEsApiUnitTest extends UnitTestBase
         ];
     }
 
+    /**
+     * method getResultBreakDownForDate
+     * when calledWithAvailableDate
+     * should returnProperValues
+     * @dataProvider getDateAndBreakDownResults
+     */
+    public function test_getResultBreakDownForDate_calledWithAvailableDate_returnProperValues($date, $expected)
+    {
+        $actual = $this->exerciseGetResultBreakDown($date);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function getDateAndBreakDownResults()
+    {
+        return [
+            ['2015-06-05',
+                [
+                    'category_one' => ['5 + 2', '0.00 €', '0'],
+                    'category_two' => ['5 + 1', '293.926.57 €', '9'],
+                    'category_three' => ['5 + 0', '88.177.97 €', '10'],
+                    'category_four' => ['4 + 2', '6.680.15 €', '66'],
+                    'category_five' => ['4 + 1', '275.16 €', '1.402'],
+                    'category_six' => ['4 + 0', '131.49 €', '2.934'],
+                    'category_seven' => ['3 + 2', '60.87 €', '4.527'],
+                    'category_eight' => ['2 + 2', '18.93 €', '66.973'],
+                    'category_nine' => ['3 + 1', '16.73 €', '72.488'],
+                    'category_ten' => ['3 + 0', '13.41 €', '152.009'],
+                    'category_eleven' => ['1 + 2', '9.98 €', '358.960'],
+                    'category_twelve' => ['2 + 1', '8.52 €', '1.138.617'],
+                    'category_thirteen' => ['2 + 0', '4.15 €', '2.390.942'],
+                ]
+            ],
+        ];
+    }
+
+    protected function exerciseGetResultBreakDown($date)
+    {
+        $curlWrapper_stub = $this->getCurlWrapperWithResultRssResponse();
+        $sut = new LoteriasyapuestasDotEsApi($curlWrapper_stub);
+        return $sut->getResultBreakDownForDate('EuroMillions', $date);
+    }
 
     protected function exerciseGetResult($date)
     {

@@ -12,6 +12,8 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
 {
     protected $curlWrapper;
 
+    protected $result_response;
+
     public function __construct(Curl $curlWrapper = null)
     {
         $this->curlWrapper = $curlWrapper ? $curlWrapper : new Curl();
@@ -47,8 +49,10 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
      */
     public function getResultForDate($lotteryName, $date)
     {
-        $response = $this->curlWrapper->get('http://www.loteriasyapuestas.es/es/euromillones/resultados/.formatoRSS');
-        $xml = new \SimpleXMLElement($response->body);
+        if($this->result_response == null){
+            $this->result_response = $this->curlWrapper->get('http://www.loteriasyapuestas.es/es/euromillones/resultados/.formatoRSS');
+        }
+        $xml = new \SimpleXMLElement($this->result_response->body);
         foreach ($xml->channel->item as $item) {
             if(preg_match('/Euromillones: resultados del [a-z]+ ([0123][0-9]) de ([a-z]+) de ([0-9]{4})/', $item->title ,$matches)) {
                 $day = $matches[1];
@@ -69,6 +73,74 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
             }
         }
         throw new ValidDateRangeException('The date requested ('.$date.') is not valid for the LoteriasyapuestasDotEsApi');
+    }
+
+    /**
+     * @param $lotteryName
+     * @param $date
+     * return @array
+     * @return array
+     */
+    public function getResultBreakDownForDate($lotteryName, $date)
+    {
+        if ($this->result_response == null) {
+            $this->result_response = $this->curlWrapper->get('http://www.loteriasyapuestas.es/es/euromillones/resultados/.formatoRSS');
+        }
+        $s = preg_replace('~//<!\[CDATA\[\s*|\s*//\]\]>~', '', $this->result_response->body);
+        $xml = simplexml_load_string($s, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
+        foreach ($xml->channel->item as $item) {
+            if (preg_match('/Euromillones: resultados del [a-z]+ ([0123][0-9]) de ([a-z]+) de ([0-9]{4})/', $item->title, $matches)) {
+                $day = $matches[1];
+                $month = $this->translateMonth($matches[2]);
+                $year = $matches[3];
+                $item_date = "$year-$month-$day";
+                if ($item_date == $date) {
+                    preg_match_all('/<td[^>]*>(.*?)<\/td>/', $xml->channel->item->description, $matches);
+                    $result = $this->sanetizeArrayResults(array_chunk($matches[1],4));
+                    return $result;
+                }
+            }
+        }
+    }
+
+    private function sanetizeArrayResults($array)
+    {
+        foreach($array as $b => $result){
+            if(is_array($result)){
+                foreach($result as $k => $breakDown){
+                    if($k == 0){
+                        $category = explode(" ",$breakDown);
+                        $result[$k] = $category[1]. " ".$category[2]." ".$category[3];
+                    }
+                    if($k == 1){
+                        unset($result[$k]);
+                    }
+                }
+                $array[$b] = $result;
+            }
+        }
+        return $this->translateKey(array_map('array_values', $array));
+    }
+
+    private function translateKey($array)
+    {
+       $new_keys = [
+           'category_one',
+           'category_two',
+           'category_three',
+           'category_four',
+           'category_five',
+           'category_six',
+           'category_seven',
+           'category_eight',
+           'category_nine',
+           'category_ten',
+           'category_eleven',
+           'category_twelve',
+           'category_thirteen'
+       ];
+
+       return array_combine($new_keys,$array);
     }
 
     private function translateMonth($string)
