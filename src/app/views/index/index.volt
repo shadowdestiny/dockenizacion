@@ -53,7 +53,6 @@
 							</div>
 						</li>
 					</ul>
-
 					<div class="center">
 						<a href="javascript:void(0);" class="btn big blue">{{ language.translate("Start to Play") }} <i class="ico ico-arrow-right"></i></a>
 					</div>
