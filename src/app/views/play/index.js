@@ -55,21 +55,18 @@ document.addEventListener("storeNum", function(e) {
 	if(e.typeColumn == 'number'){
 		if(isActive){
 			objLine.numbers.push(e.num);
-			numberCount[column]++;
 		}else{
 			//find item
 			var item = objLine.numbers.indexOf(e.num);
 			objLine.numbers.splice(item,1);
-			numberCount[column]--;
+
 		}
 	}else{
 		if(isActive){
 			objLine.stars.push(e.num);
-			starCount[column]++;
 		}else{
 			var item = objLine.stars.indexOf(e.num);
 			objLine.stars.splice(item,1);
-			starCount[column]--;
 		}
 	}
 	numLines[column] = objLine;
@@ -166,15 +163,18 @@ function playLine(selector, type){
 				if(valNumCount > maxNumbers){
 					return;
 				}
+				numberCount[valNum[1]]++
 			}else if(type == "star"){
 				starArr = starCount[valNum[1]];
 				starNumCount = ++starArr;
 				if(starNumCount > maxStars){
 					return;
 				}
+				starCount[valNum[1]]++
 			}
-			//totalCount[valNum[1]]++
+			totalCount[valNum[1]]++
 		}
+
 		if(valNumCount <= maxNumbers  && type == "number"){
 			$(this).toggleClass('active');
 		}
@@ -355,15 +355,14 @@ function newLine(){
 }
 
 function checkFillColumns(){
-	var totalColumns = getTotalColumns();
-	var lengthHasValueInColumns = hasValue.length-totalColumns;
-	for(var i=0;i<lengthHasValueInColumns;i++){
-		if(hasValue[i] == 0){
-			return true;
+	var fill = true;
+	$(".box-lines .myCol").each(function(){
+		var checkMark = $(this).find('.line .ico-checkmark').css('display') == 'block' ? true : false;
+		if(!checkMark){
+			fill = false;
 		}
-	}
-	return false;
-
+	});
+	return fill;
 }
 
 function clearNumAll(selector){
@@ -400,9 +399,7 @@ function printPreviousPlay(col,numbers,stars){
 			starCount[col]++;
 		})
 	}
-
-	var columnNum = col;
-	checkMark(columnNum);
+	checkMark(col);
 }
 
 function putNumbersPreviousPlay(numbers){
@@ -487,18 +484,6 @@ function resizeAdapterColumn(){
 	}
 }
 
-function checkHeightColumn(){
-	lastHeight = 0;
-	nextAreExtra = false;
-	$(".box-lines .myCol").each(function(i){
-		currentColH = $(this).position().top
-		if(currentColH > lastHeight && lastHeight > 0 || nextAreExtra){
-			$(this).addClass('more-row');
-			nextAreExtra=true;
-		}
-		lastHeight = currentColH;
-	});
-}
 
 $(function(){
 	//$(".random-all").css("margin-right","-15px"); // Fix initial positioning of a button
@@ -511,7 +496,6 @@ $(function(){
 	$('.ico-question-mark').tipr({'mode':'top'});
 	$(window).resize(function(){
 		resizeAdapterColumn();
-		checkHeightColumn();
 	});
 
 	//Check varSize
@@ -558,11 +542,11 @@ $(function(){
 	$('.add-more').on('click', function () {
 		if(isAddMoreClicked == false){
 			newLine();
-			checkHeightColumn();
 		}else{
+			var check = checkFillColumns();
+			console.log(check);
 			if(checkFillColumns()){
 				newLine();
-				checkHeightColumn();
 			}
 		}
 		isAddMoreClicked=true;
@@ -581,8 +565,6 @@ $(function(){
 	//check key in localstorage to get numbers in previous play
 	var numbers = localStorage.getItem('bet_line');
 	putNumbersPreviousPlay(numbers);
-	checkHeightColumn();
-
 });
 
 
