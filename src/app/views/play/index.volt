@@ -39,8 +39,9 @@
 		<div class="gameplay">
 			<div class="box-lines cl">
 				{# EMTD I think put length in global config var javascript #}
-				{% for index in 1..6 %}
+				{% for index in 0..5 %}
 					<div id="num_{{ index }}" class="myCol num{{ index }}">
+						{% set showIndex = index + 1 %}
 						{% include "_elements/line.volt" %}
 					</div>
 				{% endfor %}

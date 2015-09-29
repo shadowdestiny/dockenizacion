@@ -7,6 +7,8 @@ var maxStars = 2;
 var maxColumnsInMobile = 6;
 var numLines = [];
 var isAddMoreClicked = false;
+var valNumCount = 0;
+var starNumCount = 0;
 
 
 var lineObject = function(){
@@ -74,18 +76,31 @@ document.addEventListener("storeNum", function(e) {
 
 	//get in load page
 	localStorage.setItem('bet_line', JSON.stringify(numLines));
-
 });
 
-function checkMark(arrayCount){
 
+function removeColumnInLocalStorage(column){
+	var bet_line = localStorage.getItem('bet_line');
+	if(bet_line != null){
+		numLines = JSON.parse(bet_line);
+	}
+	var objLine = numLines[column];
+	try{
+		objLine.numbers = [];
+		objLine.stars = [];
+		numLines[column] = objLine;
+		localStorage.setItem('bet_line', JSON.stringify(numLines));
+	}catch(Exception){
+
+	}
+}
+
+function checkMark(arrayCount){
 	obj = $(".num"+arrayCount+" .ico-checkmark");
-	console.log("NumberCount " + numberCount[arrayCount]);
 	if(numberCount[arrayCount] == maxNumbers
         &&
             starCount[arrayCount] == maxStars){
 		obj.show();
-		console.log("se muestra");
 		hasValue[arrayCount] = 1;
 	}else{
 		hasValue[arrayCount] = 0;
@@ -136,10 +151,7 @@ function playLine(selector, type){
 		valNum = myThis[1].split("num");
 		line = "."+myThis[1];
 
-		valNumCount = 0;
-		starNumCount = 0;
-
-        // remove count if disabled
+		// remove count if disabled
 		if($(this).hasClass("active")){
 			if(type == "number"){
 				numberCount[valNum[1]]--
@@ -151,34 +163,34 @@ function playLine(selector, type){
 			if(type == "number"){
 				numArr = numberCount[valNum[1]];
 				valNumCount = ++numArr;
-                if(numberCount[valNum[1]] < maxNumbers){
-                    numberCount[valNum[1]]++;
-                }
+				if(valNumCount > maxNumbers){
+					return;
+				}
 			}else if(type == "star"){
 				starArr = starCount[valNum[1]];
 				starNumCount = ++starArr;
-                if(starCount[valNum[1]] < maxStars){
-                    starCount[valNum[1]]++;
-                }
+				if(starNumCount > maxStars){
+					return;
+				}
 			}
-			totalCount[valNum[1]]++
+			//totalCount[valNum[1]]++
 		}
-        if(valNumCount <= maxNumbers && numberCount[valNum[1]] <= maxNumbers && type == "number"){
-            $(this).toggleClass('active');
-        }
-        if(starNumCount <= maxStars && starCount[valNum[1]] <= maxStars && type == "star"){
-            $(this).toggleClass('active');
-        }
+		if(valNumCount <= maxNumbers  && type == "number"){
+			$(this).toggleClass('active');
+		}
+		if(starNumCount <= maxStars  && type == "star"){
+			$(this).toggleClass('active');
+		}
 
 		var isActive = $(this).hasClass('active');
 
-		storeNum.numColumn=valNum[1]-1;
+		storeNum.numColumn=valNum[1];
 		storeNum.typeColumn = type;
 		storeNum.num = $(this).text();
 		storeNum.active = isActive;
 		document.dispatchEvent(storeNum);
 		checkMark(valNum[1]);
-    });
+	});
 }
 
 function setIntervalRepetition(callback, delay, repetitions, callback2){
@@ -211,7 +223,8 @@ function shuffle(array){ // Fisher–Yates shuffle
 
 
 function persistRandomNum(line){
-	var numColumn = --line.match(/\d+/)[0];
+	var numColumn = line.match(/\d+/)[0];
+	removeColumnInLocalStorage(numColumn);
 	$(".box-lines "+line+" .values .numbers a.btn").each(function(){
 		if($(this).hasClass('active')){
 			var num = $(this).text();
@@ -232,8 +245,6 @@ function persistRandomNum(line){
 			document.dispatchEvent(storeNum);
 		}
 	});
-	checkMark(numColumn);
-
 }
 
 function randomCalculation(line, value){
@@ -276,7 +287,7 @@ function randomAll(selector){
 	$(document).on('click',selector, function(){
 		line = $(".box-lines .myCol");
         lengthLine = line.length;
-		for(var i=1; i <= lengthLine; i++){
+		for(var i=0; i <= lengthLine; i++){
 			randomCalculation(".num"+i, i);
 		}
 	});
@@ -288,12 +299,11 @@ function clearNum(selector){
 		myThis = $(this).closest(".myCol").attr('class').split(" ");
 		valNum = myThis[1].split("num");
 		line = "."+myThis[1];
-
 		$(line+" .values .active").toggleClass('active');
-
 		numberCount[valNum[1]] = 0;
 		starCount[valNum[1]] = 0;
 		totalCount[valNum[1]] = 0;
+		removeColumnInLocalStorage(valNum[1]);
 		checkMark(valNum[1])
 	});
 }
@@ -307,7 +317,7 @@ function getBets(){
 	//EMTD call getTotalColumns
 	var numColumns = $("div[class*='myCol num']").length +1;
 	var bets = [];
-	for(var k=1; k < numColumns;k++){
+	for(var k=0; k < numColumns;k++){
 		var num = [];
 		var numCount = 0;
 		var flagActive = false;
@@ -337,7 +347,7 @@ function newLine(){
 	var classNum = $('div[class*="myCol num"]:last').attr('class').split(" ");
 	var idNumber = classNum[1].slice(-1);
 
-	var counter = totalColumns+1;
+	var counter = totalColumns;
 	for(i=0;i<totalColumns;i++){
 		addColumn(counter);
 		counter++;
@@ -361,10 +371,11 @@ function clearNumAll(selector){
 		line = $(".box-lines .myCol");
 		$(".box-lines .values .active").toggleClass('active');
 		lengthLine = line.length;
-		for(var i=1; i <= lengthLine; i++){
+		for(var i=0; i <= lengthLine; i++){
 			numberCount[i] = 0;
 			starCount[i] = 0;
 			totalCount[i] = 0;
+			removeColumnInLocalStorage(i);
 			checkMark(i)
 		}
 	});
@@ -389,7 +400,9 @@ function printPreviousPlay(col,numbers,stars){
 			starCount[col]++;
 		})
 	}
-	checkMark(col);
+
+	var columnNum = col;
+	checkMark(columnNum);
 }
 
 function putNumbersPreviousPlay(numbers){
@@ -457,7 +470,8 @@ function addColumn(position){
 	column.find("div.line").removeClass('number-on');
 
 	//h1 text
-	column.find('h1').text('Line ' + position);
+	newPosition = ++position;
+	column.find('h1').text('Line ' + newPosition);
 }
 
 function columnAdapter(){
@@ -468,7 +482,7 @@ function resizeAdapterColumn(){
 	var totalColumns = getTotalColumns();
 	if(varSize < 4){
 		if(totalColumns < maxColumnsInMobile){
-			addColumn(totalColumns+1);
+			addColumn(totalColumns);
 		}
 	}
 }
@@ -479,7 +493,7 @@ function checkHeightColumn(){
 	$(".box-lines .myCol").each(function(i){
 		currentColH = $(this).position().top
 		if(currentColH > lastHeight && lastHeight > 0 || nextAreExtra){
-			$(this).toggleClass('more-row');
+			$(this).addClass('more-row');
 			nextAreExtra=true;
 		}
 		lastHeight = currentColH;
@@ -495,12 +509,10 @@ $(function(){
 	randomAll(".random-all");
 	clearNumAll(".clear-all");
 	$('.ico-question-mark').tipr({'mode':'top'});
-	checkHeightColumn();
 	$(window).resize(function(){
 		resizeAdapterColumn();
 		checkHeightColumn();
 	});
-	
 
 	//Check varSize
 	if(varSize >= 4){
