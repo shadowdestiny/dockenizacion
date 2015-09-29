@@ -80,12 +80,10 @@ document.addEventListener("storeNum", function(e) {
 function checkMark(arrayCount){
 
 	obj = $(".num"+arrayCount+" .ico-checkmark");
-	console.log("NumberCount " + numberCount[arrayCount]);
 	if(numberCount[arrayCount] == maxNumbers
         &&
             starCount[arrayCount] == maxStars){
 		obj.show();
-		console.log("se muestra");
 		hasValue[arrayCount] = 1;
 	}else{
 		hasValue[arrayCount] = 0;
@@ -115,8 +113,6 @@ function checkMark(arrayCount){
 	}else{
 		$(".add-cart").removeClass("active");
 	}
-
-//	console.log(arrayCount+" totalCount= "+totalCount[arrayCount]+" // numberCount= "+numberCount[arrayCount]+" // starCount= "+starCount[arrayCount]);
 }
 
 function checkNumbersInPlay(collection){
@@ -476,13 +472,42 @@ function resizeAdapterColumn(){
 function checkHeightColumn(){
 	lastHeight = 0;
 	nextAreExtra = false;
-	$(".box-lines .myCol").each(function(i){
+	$(".box-lines .myCol").each(function(){		
 		currentColH = $(this).position().top
 		if(currentColH > lastHeight && lastHeight > 0 || nextAreExtra){
-			$(this).toggleClass('more-row');
+			//$(this).addClass('more-row');
 			nextAreExtra=true;
 		}
 		lastHeight = currentColH;
+	});
+}
+
+function showAdvanced(btnShow, target, btnHide){
+	$(btnShow).on('click',function(){
+		$(target).show();
+	});
+	$(btnHide).on('click',function(){
+		$(target).hide();
+	});
+}
+
+function disableSelect(area, target, disable){
+	$(target).on('click',function(){
+		if($(target).prop("checked")){
+			$(disable).prop('disabled', 'disabled');
+			console.log("01")
+		}else{
+			//$(target).prop('checked', true);
+			$(disable).prop('disabled', false);
+			console.log("02")
+		}
+	});
+
+	$(area).on('click',function(){
+		if($(target).prop("checked", false)){
+			$(target).prop('checked', true);
+			$(disable).prop('disabled', 'disabled');
+		}
 	});
 }
 
@@ -494,8 +519,9 @@ $(function(){
 	clearNum(".clear");
 	randomAll(".random-all");
 	clearNumAll(".clear-all");
-	$('.ico-question-mark').tipr({'mode':'top'});
-	checkHeightColumn();
+	$('.ico-question-mark').tipr({'mode':'top'});	
+	showAdvanced(".advanced", ".advanced-play", ".advanced-play .close")
+	disableSelect(".details","#threshold",".advanced-play .col2 select");
 	$(window).resize(function(){
 		resizeAdapterColumn();
 		checkHeightColumn();
@@ -570,9 +596,5 @@ $(function(){
 	var numbers = localStorage.getItem('bet_line');
 	putNumbersPreviousPlay(numbers);
 	checkHeightColumn();
-
 });
-
-
-
 
