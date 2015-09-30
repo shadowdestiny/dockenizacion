@@ -507,8 +507,7 @@ function getBetsActive(){
 	return numBetsFinished;
 }
 
-function redrawTotalCost()
-{
+function redrawTotalCost(){
 	var numWeeks = $('.frequency').val();
 	var playDays = $('.draw_days').val().split(',').length;
 	var numDraws = numWeeks * playDays;
@@ -517,7 +516,7 @@ function redrawTotalCost()
 	var total = betsActive * price * numDraws;
 	//EMTD put user currency
 	var user_currency = "\u20AC";
-	$('div.col6 .value').text(total + " " + user_currency);
+	$('.box-bottom .add-cart .value').text(total + " " + user_currency);
 }
 
 
