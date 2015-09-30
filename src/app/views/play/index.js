@@ -522,7 +522,7 @@ function redrawTotalCost()
 	var numDraws = numWeeks * playDays;
 	var price = '{{ single_bet_price }}';
 	var betsActive = getBetsActive();
-	var total = betsActive * price * numDraws;
+	var total = Number(betsActive * price * numDraws).toFixed(2);
 	//EMTD put user currency
 	var user_currency = "\u20AC";
 	$('.box-bottom .add-cart .value').text(total + " " + user_currency);
