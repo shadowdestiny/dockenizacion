@@ -1,6 +1,9 @@
 @import "variable";
 
-.special{margin-bottom:0; border-radius:0!important; border-width:0 1px!important; background:#fff;}
+.special{
+	margin-bottom:0; border:1px solid $yellow; border-width:0 1px!important; background:#fff; padding:7px 15px; font-size:$basic-size; font-style:italic; text-align:center;
+	.ico{position:relative; top:2px; font-size:16px; margin-right:5px;}
+}
 .bg-top{padding:12px 20px; background:#000736; border-radius:5px 5px 0 0;}
 .bg-top .cols{margin:0;}
 .bg-top .h3, .bg-top .h1{margin:0; color:#fff;}
@@ -269,7 +272,6 @@ $gap3:15px; /* Responsive design 3 column */
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width:480px){
-.special .txt{font-size:$small; line-height:$h3;}
 .box-lines{
   padding:0 0 0 $gap1; margin-right:0; 
   .myCol{width:50%;}
@@ -281,6 +283,7 @@ $gap3:15px; /* Responsive design 3 column */
 .box-action{text-align:center; margin-bottom:10px;}
 .box-action li{float:none; margin:0 auto 10px;}
 .advanced{margin-bottom:15px;}
+.special{font-size:$small; line-height:$h2;}
 }
 
  
