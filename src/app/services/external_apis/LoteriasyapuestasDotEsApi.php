@@ -115,6 +115,9 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
                     if($k == 1){
                         unset($result[$k]);
                     }
+                    if($k == 2){
+                        $result[$k] = trim(str_replace('€','',$result[$k]));
+                    }
                 }
                 $array[$b] = $result;
             }

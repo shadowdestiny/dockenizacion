@@ -2,6 +2,7 @@
 namespace EuroMillions\entities;
 
 use EuroMillions\interfaces\IEntity;
+use EuroMillions\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\vo\EuroMillionsLuckyNumber;
 use EuroMillions\vo\EuroMillionsRegularNumber;
 use EuroMillions\vo\EuroMillionsLine;
@@ -17,6 +18,41 @@ class EuroMillionsDraw extends EntityBase implements IEntity
     protected $lottery;
     /** @var  EuroMillionsLine */
     protected $result;
+    /** @var  EuroMillionsDrawBreakDown */
+    protected $break_down;
+
+    /**
+     * @return mixed
+     */
+    public function getPublished()
+    {
+        return $this->published;
+    }
+
+    /**
+     * @param mixed $published
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBreakDown()
+    {
+        return $this->break_down;
+    }
+
+    /**
+     * @param mixed $break_down
+     */
+    public function setBreakDown($break_down)
+    {
+        $this->break_down = $break_down;
+    }
+
 
     public function getResult()
     {
@@ -74,5 +110,11 @@ class EuroMillionsDraw extends EntityBase implements IEntity
             $lucky_numbers[] = new EuroMillionsLuckyNumber($number);
         }
         $this->result = new EuroMillionsLine($regular_numbers, $lucky_numbers);
+    }
+
+    public function createBreakDown(array $breakDowns)
+    {
+        $euroMilliosnBreakDownData = new EuroMillionsDrawBreakDown($breakDowns);
+        $this->setBreakDown($euroMilliosnBreakDownData);
     }
 }
