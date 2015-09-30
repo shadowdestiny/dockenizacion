@@ -17,7 +17,51 @@ var lineObject = function(){
 }
 var numbers = [];
 var stars = [];
-var storeNum = new CustomEvent(
+
+$(document).on("storeNum",{numColumn: 0, typeColumn: "", num: "", active: 1},
+	function(e, numColumn,typeColumn,num,active) {
+	var bet_line = localStorage.getItem('bet_line');
+	var column = numColumn;
+	var isActive = active;
+	var objLine = null;
+
+	if(window.localStorage == 'undefined'){
+		//EMTD save in cookie
+	}else if(bet_line != null){
+		numLines = JSON.parse(bet_line);
+	}
+
+	if(typeof numLines[column] == 'undefined' || numLines[column] == null){
+		objLine = new lineObject();
+	}else{
+		objLine = numLines[column];
+	}
+	if(typeColumn == 'number'){
+		if(isActive){
+			objLine.numbers.push(num);
+		}else{
+			//find item
+			var item = objLine.numbers.indexOf(num);
+			objLine.numbers.splice(item,1);
+		}
+	}else{
+		if(isActive){
+			objLine.stars.push(num);
+		}else{
+			var item = objLine.stars.indexOf(num);
+			objLine.stars.splice(item,1);
+		}
+	}
+	numLines[column] = objLine;
+
+	//get in load page
+	localStorage.setItem('bet_line', JSON.stringify(numLines));
+
+
+
+});
+
+/*var storeNum = new CustomEvent(
 	"storeNum",
 	{
 		detail: {
@@ -32,6 +76,7 @@ var storeNum = new CustomEvent(
 );
 
 document.addEventListener("storeNum", function(e) {
+
 	var bet_line = localStorage.getItem('bet_line');
 	var column = e.numColumn;
 	var isActive = e.active;
@@ -68,7 +113,7 @@ document.addEventListener("storeNum", function(e) {
 
 	//get in load page
 	localStorage.setItem('bet_line', JSON.stringify(numLines));
-});
+});*/
 
 
 function removeColumnInLocalStorage(column){
@@ -183,11 +228,12 @@ function playLine(selector, type){
 
 		var isActive = $(this).hasClass('active');
 
-		storeNum.numColumn=valNum[1];
+		$(document).trigger("storeNum", [ valNum[1],type,$(this).text(),isActive] );
+/*		storeNum.numColumn=valNum[1];
 		storeNum.typeColumn = type;
 		storeNum.num = $(this).text();
 		storeNum.active = isActive;
-		document.dispatchEvent(storeNum);
+		document.dispatchEvent(storeNum);*/
 		checkMark(valNum[1]);
 	});
 }
@@ -220,27 +266,30 @@ function shuffle(array){ // Fisher–Yates shuffle
   return array;
 }
 
+
 function persistRandomNum(line){
 	var numColumn = line.match(/\d+/)[0];
 	removeColumnInLocalStorage(numColumn);
 	$(".box-lines "+line+" .values .numbers a.btn").each(function(){
 		if($(this).hasClass('active')){
 			var num = $(this).text();
-			storeNum.numColumn = numColumn;
+			$(document).trigger("storeNum", [ numColumn, 'number', num, true] );
+			/*storeNum.numColumn = numColumn;
 			storeNum.typeColumn = 'number';
 			storeNum.active = true;
 			storeNum.num = num;
-			document.dispatchEvent(storeNum);
+			document.dispatchEvent(storeNum);*/
 		}
 	});
 	$(".box-lines "+line+" .values .stars a.ico").each(function(){
 		if($(this).hasClass('active')){
 			var num = $(this).text();
-			storeNum.numColumn = numColumn;
+			$(document).trigger("storeNum", [ numColumn, 'star', num, true] );
+			/*storeNum.numColumn = numColumn;
 			storeNum.typeColumn = 'star';
 			storeNum.active = true;
 			storeNum.num = num;
-			document.dispatchEvent(storeNum);
+			document.dispatchEvent(storeNum);*/
 		}
 	});
 	redrawTotalCost();
@@ -427,6 +476,7 @@ function putNumbersPreviousPlay(numbers){
 			}
 		}
 	}
+
 }
 
 
@@ -512,7 +562,7 @@ function redrawTotalCost(){
 	var numDraws = numWeeks * playDays;
 	var price = '{{ single_bet_price }}';
 	var betsActive = getBetsActive();
-	var total = betsActive * price * numDraws;
+	var total = Number(betsActive * price * numDraws).toFixed(2);
 	//EMTD put user currency
 	var user_currency = "\u20AC";
 	$('.box-bottom .add-cart .value').text(total + " " + user_currency);

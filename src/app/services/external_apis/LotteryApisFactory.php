@@ -29,4 +29,5 @@ class LotteryApisFactory
         $object_name = '\EuroMillions\services\external_apis\\'.$lottery->getResultApi().'Api';
         return new $object_name($curlWrapper);
     }
+
 }
