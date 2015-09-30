@@ -20,14 +20,13 @@ class PlayController extends PublicSiteControllerBase
         $single_bet_price = new Money(0, new Currency('EUR'));
         if($result->success()){
             $single_bet_price = $result->getValues()->getSingleBetPrice();
-
         }
 
         return $this->view->setVars([
             'jackpot_value' => $jackpot->getAmount()/100,
             'play_dates' => $play_dates,
             'next_draw' => $dayOfWeek(),
-            'single_bet_price' => $single_bet_price->getAmount(),
+            'single_bet_price' => $single_bet_price->getAmount()/100,
         ]);
     }
 

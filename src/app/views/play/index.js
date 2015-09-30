@@ -1,7 +1,7 @@
-var numberCount = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+var numberCount = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 var starCount = numberCount.slice();
 var totalCount = numberCount.slice();
-var hasValue = [0,0,0,0,0,0,0,0,0,0,0,0];
+var hasValue = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 var maxNumbers = 5;
 var maxStars = 2;
 var maxColumnsInMobile = 6;
@@ -9,6 +9,7 @@ var numLines = [];
 var isAddMoreClicked = false;
 var valNumCount = 0;
 var starNumCount = 0;
+var currentColumns = 0;
 
 
 var lineObject = function(){
@@ -357,7 +358,7 @@ function newLine(){
 	var idNumber = classNum[1].slice(-1);
 
 	var counter = totalColumns;
-	for(var i=0;i<totalColumns;i++){
+	for(var i=0;i<currentColumns;i++){
 		addColumn(counter);
 		counter++;
 	}
@@ -418,13 +419,18 @@ function putNumbersPreviousPlay(numbers){
 		for(var i=0;i < numbersJSON.length;i++){
 			if(numbersJSON[i] != null){
 				var numberColumns = getTotalColumns();
-				if(i > 5 && numberColumns < 12){
-					newLine();
-				}
-				var numbers = numbersJSON[i].numbers;
-				var stars = numbersJSON[i].stars;
-				if(numbers || stars){
-					printPreviousPlay(i,numbers,stars);
+				if(numbersJSON[i].numbers.length > 0 || numbersJSON[i].stars.length > 0){
+					if(i > (currentColumns)-1 && numberColumns < numbersJSON.length){
+						newLine();
+					}
+					var numbers = numbersJSON[i].numbers;
+					var stars = numbersJSON[i].stars;
+					if(numbers || stars){
+						printPreviousPlay(i,numbers,stars);
+					}
+				}else{
+					//remove column from localstorage, is empty
+					removeColumnInLocalStorage(numbersJSON[i]);
 				}
 			}
 		}
@@ -482,7 +488,9 @@ function addColumn(position){
 }
 
 function columnAdapter(){
-	$(".box-lines").children("div").filter(':eq(5), :eq(4), :eq(3), :eq(2)').remove();
+	$(".box-lines").children("div").filter(':eq(2), :eq(3), :eq(4), :eq(5)').each(function(){
+		$(this).remove();
+	})
 }
 
 function resizeAdapterColumn(){
@@ -534,11 +542,9 @@ function disableSelect(area, target, disable){
 	$(target).on('click',function(){
 		if($(target).prop("checked")){
 			$(disable).prop('disabled', 'disabled');
-			console.log("01")
 		}else{
 			//$(target).prop('checked', true);
 			$(disable).prop('disabled', false);
-			console.log("02")
 		}
 	});
 
@@ -612,7 +618,7 @@ $(function(){
 	})
 
 	$('.add-more').on('click', function () {
-		if(isAddMoreClicked == false){
+		if(isAddMoreClicked == false && getTotalColumns() == currentColumns ){
 			newLine();
 		}else{
 			if(checkFillColumns()){
@@ -632,6 +638,7 @@ $(function(){
 		}
 	});
 
+	currentColumns = getTotalColumns();
 	//check key in localstorage to get numbers in previous play
 	var numbers = localStorage.getItem('bet_line');
 	putNumbersPreviousPlay(numbers);
