@@ -199,10 +199,13 @@ $gap3:15px; /* Responsive design 3 column */
 	.cols{margin-bottom:0; display:block;}
 	.col1, .col2, .col3, .col4, .col5, .col6, .col7, .col8, .col9, .col10, .col11, .col12, .col20per{display:block; float:none; position:relative; width:100%; border:0!important; margin:0 0 2em; padding-bottom:0;}
 }
-.bg-top .circle{top:0; left:0; border-radius:5px; width:auto; height:auto; margin:-8px 0 0 8px; padding:8px; text-align: left; width:96%;}
-.bg-top .ico{font-size:36px; margin:0 0 0 5px; float:right;}
-.bg-top .col4{text-align:center;}
-.bg-top .txt{margin:0;}
+.bg-top{
+	.circle{top:0; left:0; border-radius:5px; width:auto; height:auto; margin:-8px 0 0 8px; padding:8px; text-align: left; width:96%;}	
+ 	.ico{font-size:36px; margin:0 0 0 5px; float:right;}
+	.col8{text-align:center; width:100%;}
+	.col4{display:none;}
+	.txt{margin:0;}
+}
 .gameplay{border-right:0; border-left:0; border-radius:0;}
 .bg-top, .bg-top:before{border-radius:0;}
 .gameplay > .cl{text-align:center;}
@@ -231,6 +234,7 @@ $gap3:15px; /* Responsive design 3 column */
 	.hr{margin:20px -12px;}
 	.close{top:10px; right:-2px;}
 }
+.special{border-width:0!important;}
 }
 
 @media all and (min-width:581px){
@@ -253,7 +257,7 @@ $gap3:15px; /* Responsive design 3 column */
 .bg-top .circle{margin:-15px auto 0; width:200px; right:0;}
 .bg-top .circle, .bg-top .circle:hover, .bg-top .circle:focus, .bg-top .circle:active{border-width:2px!important};
 .bg-top .cols{margin-bottom:0; display:block;}
-.bg-top .col4, .bg-top .col8{display:block; float:none; position:relative; width:100%; border:0!important; margin:0 0 2em; padding-bottom:0;}
+.bg-top .col4, .bg-top .col8{display:block; float:none; position:relative; width:100%; border:0!important; margin:0; padding-bottom:0;}
 .bg-top .h3, .bg-top .h1{text-align:center; display:block;}
 .box-lines{padding-top:0;}
 }
@@ -265,8 +269,9 @@ $gap3:15px; /* Responsive design 3 column */
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width:480px){
+.special .txt{font-size:$small; line-height:$h3;}
 .box-lines{
-  padding:0 0 0 12px!important;
+  padding:0 0 0 $gap1; margin-right:0; 
   .myCol{width:50%;}
 }
 .bg-top .br:after{white-space:pre; content:"\A";} /*Insert a break*/
@@ -275,7 +280,7 @@ $gap3:15px; /* Responsive design 3 column */
 .bg-top .circle{width:150px; border-width:2px}
 .box-action{text-align:center; margin-bottom:10px;}
 .box-action li{float:none; margin:0 auto 10px;}
-.box-lines{margin-right:0; padding:20px 0 0 $gap1;}
+.advanced{margin-bottom:15px;}
 }
 
  
