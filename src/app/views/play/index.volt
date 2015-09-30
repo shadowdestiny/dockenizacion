@@ -29,13 +29,19 @@
 					</span>
 				</div>
 				<div class="col4">
+{#
 					<a href="javascript:void(0);" class="circle center">
 						<span class="ico ico-multimedia"></span>
 						<span class="txt">{{ language.translate("How to play<br>Lotto") }}</span>
 					</a>
+#}
 				</div>
 			</div>
 		</header>
+		<div class="box info special">
+			<span class="ico ico-info"></span>
+			<span class="txt">{{ language.translate("A single bet in a line consist in 5 numbers + 2 star numbers. Do you want to make a bet with multiple numbers in a line?") }} <a href="javascript:void(0);">{{ language.translate("Yes, please.") }}</a></span>
+		</div>
 		<div class="gameplay">
 			<div class="box-lines cl">
 				{# EMTD I think put length in global config var javascript #}
@@ -66,7 +72,7 @@
 						<hr class="hr yellow">
 						<a href="javascript:void(0);" class="close"><i class="ico ico-cancel-circle"></i></a>
 						<div class="cols">
-							<div class="col2 watch">
+							<div class="col2">
 								<label>{{ language.translate("Draw") }} <i data-tip="{{ language.translate('Which draw do you want to play?') }}" class="ico ico-question-mark"></i></label>
 								<select class="draw_days">
 									<option value="2,5">{{ language.translate("Tuesday & Friday") }}</option>
@@ -74,21 +80,21 @@
 									<option value="5" {% if next_draw == 5 %} selected {% endif %}>{{ language.translate("Friday") }}</option>
 								</select>
 							</div>
-							<div class="col2 watch">
+							<div class="col2">
 								<label>{{ language.translate("First Draw") }} <i data-tip="{{ language.translate('From which draw do you wish to play?') }}" class="ico ico-question-mark"></i></label>
 								<select class="start_draw">
-										{% for k,dates in play_dates %}
-											{% for j,date in dates %}
-												{% if k == 0 %}
-													<option data-date="{{ date }}" value="{{ j }}">{{ date }} {{ jackpot_value/1000000 }}M</option>
-												{% else %}
-													<option data-date="{{ date }}" value="{{ j }}">{{ date }}</option>
-												{% endif %}
-											{% endfor %}
+									{% for k,dates in play_dates %}
+										{% for j,date in dates %}
+											{% if k == 0 %}
+												<option data-date="{{ date }}" value="{{ j }}">{{ date }} {{ jackpot_value/1000000 }}M</option>
+											{% else %}
+												<option data-date="{{ date }}" value="{{ j }}">{{ date }}</option>
+											{% endif %}
 										{% endfor %}
+									{% endfor %}
 								</select>
 							</div>
-							<div class="col2 watch">
+							<div class="col2">
 								<label>{{ language.translate("Duration") }} <i data-tip="{{ language.translate('For how long do you wish to play?') }}"class="ico ico-question-mark"></i></label>
 								<select class="frequency">
 									<option value="1">{{ language.translate("1 week (Draws: 1)") }}</option>
@@ -101,26 +107,27 @@
 	#}
 								</select>
 							</div>
-							<div class="col6">
+							<div class="col6 wrap-threshold">
 								<label for="threshold">{{ language.translate("Jackpot Threshold") }} <i data-tip="{{ language.translate('Set the condition when you want to play or to be informed automatically. Thresholds are calculated only in Euro.') }}"class="ico ico-question-mark"></i></label>
 								<div class="box-threshold cl">
 									<input id="threshold" class="checkbox" data-role="none" type="checkbox">
 									<div class="details">
-											<span class="txt">{{ language.translate("When  Jackpot is") }}</span>
-											<input class="hidden" type="text" placeholder="{{ language.translate('Insert your value') }} ">
-											<select class="threshold">
-												<option title="{{ language.translate('aprox. $49 millions') }}">{{ language.translate('50 millions &euro;') }}</option>
-												<option selected="selected" title="{{ language.translate('aprox. $74 millions') }}">{{ language.translate('75 millions &euro;') }}</option>
-												<option title="{{ language.translate('aprox. $99 millions') }}">{{ language.translate('100 millions &euro;') }}</option>
-												<option>{{ language.translate('Choose   threshold') }}</option>
-											</select>
-										<select class="type">
-											<option>Play the chosen numbers</option>
-											<option>Send me an email as reminder</option>
+										<span class="txt">{{ language.translate("When  Jackpot is") }}</span>
+										<span class="input-value hidden">
+											&euro;
+											<input type="text" placeholder="{{ language.translate('Insert value') }} ">
+										</span>
+										<select class="threshold">
+											<option title="{{ language.translate('aprox. $49 millions') }}">{{ language.translate('50 millions &euro;') }}</option>
+											<option value="default" selected="selected" title="{{ language.translate('aprox. $74 millions') }}">{{ language.translate('75 millions &euro;') }}</option>
+											<option title="{{ language.translate('aprox. $99 millions') }}">{{ language.translate('100 millions &euro;') }}</option>
+											<option value="choose">{{ language.translate('Choose threshold') }}</option>
 										</select>
+										<span class="txt type">{{ language.translate("play the chosen numbers") }}</span>
 									</div>
 								</div>
 							</div>
+
 						</div>
 					</div>
 				</div>

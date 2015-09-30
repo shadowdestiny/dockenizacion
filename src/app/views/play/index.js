@@ -11,13 +11,10 @@ var valNumCount = 0;
 var starNumCount = 0;
 var currentColumns = 0;
 
-
 var lineObject = function(){
 	this.numbers = [];
 	this.stars = [];
 }
-
-
 var numbers = [];
 var stars = [];
 
@@ -131,16 +128,14 @@ function removeColumnInLocalStorage(column){
 		numLines[column] = objLine;
 		localStorage.setItem('bet_line', JSON.stringify(numLines));
 	}catch(Exception){
-
+		//do nothing
 	}
 }
 
 function checkMark(arrayCount){
 	obj = $(".num"+arrayCount+" .ico-checkmark");
 
-	if(numberCount[arrayCount] == maxNumbers
-        &&
-            starCount[arrayCount] == maxStars){
+	if(numberCount[arrayCount] == maxNumbers && starCount[arrayCount] == maxStars){
 		obj.show();
 		hasValue[arrayCount] = 1;
 	}else{
@@ -561,8 +556,7 @@ function getBetsActive(){
 	return numBetsFinished;
 }
 
-function redrawTotalCost()
-{
+function redrawTotalCost(){
 	var numWeeks = $('.frequency').val();
 	var playDays = $('.draw_days').val().split(',').length;
 	var numDraws = numWeeks * playDays;
@@ -574,31 +568,56 @@ function redrawTotalCost()
 	$('.box-bottom .add-cart .value').text(total + " " + user_currency);
 }
 
+function multiTask(target, activate, check){
+	$(activate).prop('disabled', false);
+	$(check).prop('checked', false);
+	$(target).hide();
+}
 
-
-function showAdvanced(btnShow, target, btnHide){
+function showAdvanced(btnShow, target, btnHide, disable, activate, check, input, select){
 	$(btnShow).on('click',function(){
-		$(target).show();
+		if($(target).is(':hidden')){
+			$(target).show();
+			$(select).show();
+		  	$(input).hide();
+			if($(select).val() != "default"){
+				$(select).val('default');
+			}
+			$(disable).prop('disabled', 'disabled');
+		}else{
+			multiTask(target, activate, check);
+		}
 	});
 	$(btnHide).on('click',function(){
-		$(target).hide();
+		multiTask(target, activate, check);
 	});
 }
 
-function disableSelect(area, target, disable){
-	$(target).on('click',function(){
-		if($(target).prop("checked")){
-			$(disable).prop('disabled', 'disabled');
-		}else{
-			//$(target).prop('checked', true);
-			$(disable).prop('disabled', false);
-		}
-	});
+function disableSelect(area, target, disable, activate){
+    $(target).on('click',function(){
+        if($(target).prop("checked")){
+            $(disable).prop('disabled', 'disabled');
+            $(activate).prop('disabled', false);
+        }else{
+            $(disable).prop('disabled', false);
+            $(activate).prop('disabled', 'disabled');
+        }
+    });
 
-	$(area).on('click',function(){
-		if($(target).prop("checked", false)){
-			$(target).prop('checked', true);
-			$(disable).prop('disabled', 'disabled');
+    $(area).on('click',function(){
+        if($(target).prop("checked", false)){
+            $(target).prop('checked', true);
+            $(disable).prop('disabled', 'disabled');
+            $(activate).prop('disabled', false);
+        }
+    });
+}
+
+function checkOption(target, show){
+	$(target).change(function(){
+		if($(this).val() == 'choose'){ // or this.value == 'volvo'
+			$(show).show();
+			$(this).hide();
 		}
 	});
 }
@@ -612,8 +631,10 @@ $(function(){
 	randomAll(".random-all");
 	clearNumAll(".clear-all");
 	$('.ico-question-mark').tipr({'mode':'top'});	
-	showAdvanced(".advanced", ".advanced-play", ".advanced-play .close")
-	disableSelect(".details","#threshold",".advanced-play .col2 select");
+	showAdvanced(".advanced", ".advanced-play", ".advanced-play .close", ".details select", ".advanced-play .col2 select", "#threshold", ".input-value",".threshold")
+	disableSelect(".details","#threshold",".advanced-play .col2 select", ".details select");
+	checkOption(".threshold",".input-value");
+
 	$(window).resize(function(){
 		resizeAdapterColumn();
 	});
