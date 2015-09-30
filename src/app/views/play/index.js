@@ -9,6 +9,7 @@ var numLines = [];
 var isAddMoreClicked = false;
 var valNumCount = 0;
 var starNumCount = 0;
+var currentColumns = 0;
 
 
 var lineObject = function(){
@@ -356,8 +357,10 @@ function newLine(){
 	var classNum = $('div[class*="myCol num"]:last').attr('class').split(" ");
 	var idNumber = classNum[1].slice(-1);
 
+	console.log(currentColumns);
+	console.log(totalColumns);
 	var counter = totalColumns;
-	for(var i=0;i<totalColumns;i++){
+	for(var i=0;i<currentColumns;i++){
 		addColumn(counter);
 		counter++;
 	}
@@ -482,7 +485,9 @@ function addColumn(position){
 }
 
 function columnAdapter(){
-	$(".box-lines").children("div").filter(':eq(5), :eq(4), :eq(3), :eq(2)').remove();
+	$(".box-lines").children("div").filter(':eq(2), :eq(3), :eq(4), :eq(5)').each(function(){
+		$(this).remove();
+	})
 }
 
 function resizeAdapterColumn(){
@@ -636,6 +641,7 @@ $(function(){
 	//check key in localstorage to get numbers in previous play
 	var numbers = localStorage.getItem('bet_line');
 	putNumbersPreviousPlay(numbers);
+	currentColumns = getTotalColumns();
 	redrawTotalCost();
 });
 
