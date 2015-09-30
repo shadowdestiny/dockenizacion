@@ -1,5 +1,6 @@
 @import "variable";
 
+.special{margin-bottom:0; border-radius:0!important; border-width:0 1px!important; background:#fff;}
 .bg-top{padding:12px 20px; background:#000736; border-radius:5px 5px 0 0;}
 .bg-top .cols{margin:0;}
 .bg-top .h3, .bg-top .h1{margin:0; color:#fff;}
@@ -142,7 +143,7 @@ $gap3:15px; /* Responsive design 3 column */
 .box-threshold{
 	.txt{line-height:32px; display:inline-block; font-size:$basic-size;}
 	.checkbox{position:relative; top:3px; float:left; height:30px;}
-	input[type="text"]{border:1px solid $grey-light; line-height:30px; padding:0 5px; font-size:$basic-size; width:110px;}
+	.input-value input{border:1px solid $grey-light; line-height:30px; padding:0 5px; font-size:$basic-size;}
 	select{display:inline-block; width:auto;}
 	.details{margin-left:20px;}
 	.margin{margin-bottom:5px;}
@@ -254,7 +255,7 @@ $gap3:15px; /* Responsive design 3 column */
 .bg-top .cols{margin-bottom:0; display:block;}
 .bg-top .col4, .bg-top .col8{display:block; float:none; position:relative; width:100%; border:0!important; margin:0 0 2em; padding-bottom:0;}
 .bg-top .h3, .bg-top .h1{text-align:center; display:block;}
-.box-lines{padding-top:25px;}
+.box-lines{padding-top:0;}
 }
 
  
@@ -265,7 +266,7 @@ $gap3:15px; /* Responsive design 3 column */
 /* Extra Small Devices, Phones */
 @media only screen and (max-width:480px){
 .box-lines{
-  padding:20px 5px 10px;
+  padding:0 0 0 12px!important;
   .myCol{width:50%;}
 }
 .bg-top .br:after{white-space:pre; content:"\A";} /*Insert a break*/
@@ -282,7 +283,7 @@ $gap3:15px; /* Responsive design 3 column */
 @media only screen and (max-width:320px){
 .gameplay .wrap{margin-right:0;}
 .box-action{margin-top:5px;}
-.box-lines{padding:20px 20px 0;}
+.box-lines{padding:0 20px 0;}
 .box-lines .myCol{width:100%; border-width:0!important;}
 .line .numbers .btn, .line .stars .txt{font-size:14px;}
 .line .stars .ico{font-size:220%;}

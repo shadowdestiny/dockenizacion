@@ -519,26 +519,39 @@ function redrawTotalCost(){
 	$('.box-bottom .add-cart .value').text(total + " " + user_currency);
 }
 
+function multiTask(target, activate, check){
+	$(activate).prop('disabled', false);
+	$(check).prop('checked', false);
+	$(target).hide();
+}
 
-
-function showAdvanced(btnShow, target, btnHide){
+function showAdvanced(btnShow, target, btnHide, disable, activate, check, input, select){
 	$(btnShow).on('click',function(){
-		$(target).show();
+		if($(target).is(':hidden')){
+			$(target).show();
+			$(select).show();
+		  	$(input).hide();
+			if($(select).val() != "default"){
+				$(select).val('default');
+			}
+			$(disable).prop('disabled', 'disabled');
+		}else{
+			multiTask(target, activate, check);
+		}
 	});
 	$(btnHide).on('click',function(){
-		$(target).hide();
+		multiTask(target, activate, check);
 	});
 }
 
-function disableSelect(area, target, disable){
+function disableSelect(area, target, disable, activate){
 	$(target).on('click',function(){
 		if($(target).prop("checked")){
 			$(disable).prop('disabled', 'disabled');
-			console.log("01")
+			$(activate).prop('disabled', false);
 		}else{
-			//$(target).prop('checked', true);
 			$(disable).prop('disabled', false);
-			console.log("02")
+			$(activate).prop('disabled', 'disabled');
 		}
 	});
 
@@ -546,7 +559,17 @@ function disableSelect(area, target, disable){
 		if($(target).prop("checked", false)){
 			$(target).prop('checked', true);
 			$(disable).prop('disabled', 'disabled');
+			$(activate).prop('disabled', false);
 		}
+	});
+}
+
+function checkOption(target, show){
+	$(target).change(function(){
+	  if($(this).val() == 'choose'){ // or this.value == 'volvo'
+	  	$(show).show();
+	  	$(this).hide();
+	  }
 	});
 }
 
@@ -559,8 +582,10 @@ $(function(){
 	randomAll(".random-all");
 	clearNumAll(".clear-all");
 	$('.ico-question-mark').tipr({'mode':'top'});	
-	showAdvanced(".advanced", ".advanced-play", ".advanced-play .close")
-	disableSelect(".details","#threshold",".advanced-play .col2 select");
+	showAdvanced(".advanced", ".advanced-play", ".advanced-play .close", ".details select", ".advanced-play .col2 select", "#threshold", ".input-value",".threshold")
+	disableSelect(".details","#threshold",".advanced-play .col2 select", ".details select");
+	checkOption(".threshold",".input-value");
+
 	$(window).resize(function(){
 		resizeAdapterColumn();
 	});
