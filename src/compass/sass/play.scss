@@ -143,19 +143,19 @@ $gap3:15px; /* Responsive design 3 column */
 .box-threshold{
 	.txt{line-height:32px; display:inline-block; font-size:$basic-size;}
 	.checkbox{position:relative; top:3px; float:left; height:30px;}
-	.input-value input{border:1px solid $grey-light; line-height:30px; padding:0 5px; font-size:$basic-size;}
+	.input-value input{border:1px solid $grey-light; line-height:30px; padding:0 5px; font-size:$basic-size; height:30px;}
 	select{display:inline-block; width:auto;}
 	.details{margin-left:20px;}
 	.margin{margin-bottom:5px;}
 }
-.wrap-threshold{position:relative; padding:10px 15px 15px; background:$grey-lighter2;}
+.wrap-threshold{position:relative; padding:10px 15px 15px; background:$grey-lighter2; border-radius:0 0 5px 0;}
 
 /* Large Devices, Wide Screens */
 @media only screen and (max-width:1200px){
 .gameplay{overflow:visible;}
 .box-bottom{
 	.col2{width:32%; float:left; display:block; margin-bottom:15px;}
-	.col6{width:100%; display:block;}
+	.wrap-threshold{width:100%; display:block; overflow:auto; margin-left:-12px; border-right:22px solid $grey-lighter2; border-radius:0 0 5px 5px;}
 	.cols{width:96%;}
 }
 .line .stars .ico{font-size:200%;}
@@ -178,7 +178,7 @@ $gap3:15px; /* Responsive design 3 column */
 .gameplay{background-size:cover;}
 .box-bottom{
 	.col2{width:31%;}
-	.col6{width:100%;}
+	.wrap-threshold{margin-left:-12px; border-right:12px solid $grey-lighter2;}
 }
 .gap{padding:0 9px;}
 .line .stars .ico{font-size:180%;}
@@ -214,7 +214,7 @@ $gap3:15px; /* Responsive design 3 column */
 .box-bottom{
 	background:$yellow-lighter; border-radius:0;
 	.col2{margin:0 0 10px;}
-	.col6{margin:0; text-align:center;}
+	.wrap-threshold{text-align:center; margin-left:-12px;}
 	.cols{width:100%;}
 	.right{float:none; margin:auto;}
 }
