@@ -45,7 +45,57 @@
             </a>
 
             *With Data*
+            <h2 class="h3">Ongoing Games</h2>
+            <table class="ongoing cl table ui-responsive" data-role="table" data-mode="reflow">
+                <thead>
+                    <th class="date">
+                        {{ language.translate("Start date") }}
+                    </th>
+                    <th class="duration">
+                        {{ language.translate("Duration") }}
+                    </th>
+                    <th class="numbers">
+                        {{ language.translate("Numbers") }}
+                    </th>
+                    <th class="action">
+                        {{ language.translate("Actions") }}
+                    </th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="date">13 May 2015</td>
+                        <td class="duration"><strong>Next Friday</strong> Draw: 1</td>
+                        <td class="numbers">
+                            <div class="myCol">
+                                05 08 24 25 32 <span class="star">08</span> <span class="star">10</span>
+                            </div>
+                        </td>
+                        <td class="action"><a href="javascript:void(0);" class="btn blue">Edit</a> <a href="javascript:void(0);" class="btn red">Delete</a></td>
+                    </tr>
+                    <tr>
+                        <td class="date">14 May 2015</td>
+                        <td class="duration"><strong>4 weeks</strong> Draws: 8</td>
+                        <td class="numbers">
+                            <div class="myCol">
+                                02 03 04 05 07 <span class="star">08</span> <span class="star">10</span>
+                            </div>
+                        </td>
+                        <td class="action"><a href="javascript:void(0);" class="btn blue">Edit</a> <a href="javascript:void(0);" class="btn red">Delete</a></td>
+                    </tr>
+                    <tr>
+                        <td class="date">18 May 2015</td>
+                        <td class="duration"><strong>Ongoing</strong> Play only when the Jackpot reach 75 millions &euro;</td>
+                        <td class="numbers">
+                            <div class="myCol">
+                                05 13 24 35 41 <span class="star">01</span> <span class="star">09</span>
+                            </div>
+                        </td>
+                        <td class="action"><a href="javascript:void(0);" class="btn blue">Edit</a> <a href="javascript:void(0);" class="btn red">Delete</a></td>
+                    </tr>
+                </tbody>
+            </table>
 
+            <h2 class="h3">Past Games</h2>
             <table id="game-history" class="cl table ui-responsive" data-role="table" data-mode="reflow">
                 <thead>
                     <tr>
