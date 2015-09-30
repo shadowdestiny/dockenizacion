@@ -1,7 +1,7 @@
-var numberCount = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+var numberCount = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 var starCount = numberCount.slice();
 var totalCount = numberCount.slice();
-var hasValue = [0,0,0,0,0,0,0,0,0,0,0,0];
+var hasValue = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 var maxNumbers = 5;
 var maxStars = 2;
 var maxColumnsInMobile = 6;
@@ -9,17 +9,14 @@ var numLines = [];
 var isAddMoreClicked = false;
 var valNumCount = 0;
 var starNumCount = 0;
-
+var currentColumns = 0;
 
 var lineObject = function(){
 	this.numbers = [];
 	this.stars = [];
 }
-
-
 var numbers = [];
 var stars = [];
-
 var storeNum = new CustomEvent(
 	"storeNum",
 	{
@@ -35,7 +32,6 @@ var storeNum = new CustomEvent(
 );
 
 document.addEventListener("storeNum", function(e) {
-
 	var bet_line = localStorage.getItem('bet_line');
 	var column = e.numColumn;
 	var isActive = e.active;
@@ -87,16 +83,14 @@ function removeColumnInLocalStorage(column){
 		numLines[column] = objLine;
 		localStorage.setItem('bet_line', JSON.stringify(numLines));
 	}catch(Exception){
-
+		//do nothing
 	}
 }
 
 function checkMark(arrayCount){
 	obj = $(".num"+arrayCount+" .ico-checkmark");
 
-	if(numberCount[arrayCount] == maxNumbers
-        &&
-            starCount[arrayCount] == maxStars){
+	if(numberCount[arrayCount] == maxNumbers && starCount[arrayCount] == maxStars){
 		obj.show();
 		hasValue[arrayCount] = 1;
 	}else{
@@ -225,7 +219,6 @@ function shuffle(array){ // Fisher–Yates shuffle
   }
   return array;
 }
-
 
 function persistRandomNum(line){
 	var numColumn = line.match(/\d+/)[0];
@@ -357,7 +350,7 @@ function newLine(){
 	var idNumber = classNum[1].slice(-1);
 
 	var counter = totalColumns;
-	for(var i=0;i<totalColumns;i++){
+	for(var i=0;i<currentColumns;i++){
 		addColumn(counter);
 		counter++;
 	}
@@ -418,18 +411,22 @@ function putNumbersPreviousPlay(numbers){
 		for(var i=0;i < numbersJSON.length;i++){
 			if(numbersJSON[i] != null){
 				var numberColumns = getTotalColumns();
-				if(i > 5 && numberColumns < 12){
-					newLine();
-				}
-				var numbers = numbersJSON[i].numbers;
-				var stars = numbersJSON[i].stars;
-				if(numbers || stars){
-					printPreviousPlay(i,numbers,stars);
+				if(numbersJSON[i].numbers.length > 0 || numbersJSON[i].stars.length > 0){
+					if(i > (currentColumns)-1 && numberColumns < numbersJSON.length){
+						newLine();
+					}
+					var numbers = numbersJSON[i].numbers;
+					var stars = numbersJSON[i].stars;
+					if(numbers || stars){
+						printPreviousPlay(i,numbers,stars);
+					}
+				}else{
+					//remove column from localstorage, is empty
+					removeColumnInLocalStorage(numbersJSON[i]);
 				}
 			}
 		}
 	}
-
 }
 
 
@@ -482,7 +479,9 @@ function addColumn(position){
 }
 
 function columnAdapter(){
-	$(".box-lines").children("div").filter(':eq(5), :eq(4), :eq(3), :eq(2)').remove();
+	$(".box-lines").children("div").filter(':eq(2), :eq(3), :eq(4), :eq(5)').each(function(){
+		$(this).remove();
+	})
 }
 
 function resizeAdapterColumn(){
@@ -545,31 +544,31 @@ function showAdvanced(btnShow, target, btnHide, disable, activate, check, input,
 }
 
 function disableSelect(area, target, disable, activate){
-	$(target).on('click',function(){
-		if($(target).prop("checked")){
-			$(disable).prop('disabled', 'disabled');
-			$(activate).prop('disabled', false);
-		}else{
-			$(disable).prop('disabled', false);
-			$(activate).prop('disabled', 'disabled');
-		}
-	});
+    $(target).on('click',function(){
+        if($(target).prop("checked")){
+            $(disable).prop('disabled', 'disabled');
+            $(activate).prop('disabled', false);
+        }else{
+            $(disable).prop('disabled', false);
+            $(activate).prop('disabled', 'disabled');
+        }
+    });
 
-	$(area).on('click',function(){
-		if($(target).prop("checked", false)){
-			$(target).prop('checked', true);
-			$(disable).prop('disabled', 'disabled');
-			$(activate).prop('disabled', false);
-		}
-	});
+    $(area).on('click',function(){
+        if($(target).prop("checked", false)){
+            $(target).prop('checked', true);
+            $(disable).prop('disabled', 'disabled');
+            $(activate).prop('disabled', false);
+        }
+    });
 }
 
 function checkOption(target, show){
 	$(target).change(function(){
-	  if($(this).val() == 'choose'){ // or this.value == 'volvo'
-	  	$(show).show();
-	  	$(this).hide();
-	  }
+		if($(this).val() == 'choose'){ // or this.value == 'volvo'
+			$(show).show();
+			$(this).hide();
+		}
 	});
 }
 
@@ -637,7 +636,7 @@ $(function(){
 	})
 
 	$('.add-more').on('click', function () {
-		if(isAddMoreClicked == false){
+		if(isAddMoreClicked == false && getTotalColumns() == currentColumns ){
 			newLine();
 		}else{
 			if(checkFillColumns()){
@@ -657,6 +656,7 @@ $(function(){
 		}
 	});
 
+	currentColumns = getTotalColumns();
 	//check key in localstorage to get numbers in previous play
 	var numbers = localStorage.getItem('bet_line');
 	putNumbersPreviousPlay(numbers);
