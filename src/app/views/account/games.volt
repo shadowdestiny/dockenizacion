@@ -45,8 +45,49 @@
             </a>
 
             *With Data*
-            <h2 class="h3">Ongoing Games</h2>
-            <table class="ongoing cl table ui-responsive" data-role="table" data-mode="reflow">
+            <h2 class="h3">Present Games</h2>
+            <table class="present cl table ui-responsive" data-role="table" data-mode="reflow">
+                <thead>
+                    <th class="date">
+                        {{ language.translate("Game played") }}
+                    </th>
+                    <th class="when">
+                        {{ language.translate("When") }}
+                    </th>
+                    <th class="numbers">
+                        {{ language.translate("Numbers played") }}
+                    </th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="date">
+                            <strong>{{ language.translate("Euromillions") }}</strong>
+                            13 May 2015
+                        </td>
+                        <td class="when"><strong>Next Friday</strong> Draw: 1</td>
+                        <td class="numbers">
+                            <div class="myCol">
+                                05 08 24 25 32 <span class="star">08</span> <span class="star">10</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="date">
+                            <strong>{{ language.translate("Euromillions") }}</strong>
+                            13 May 2015
+                        </td>
+                        <td class="when"><strong>19th September 2015, Tuesday</strong> Draw: 1</td>
+                        <td class="numbers">
+                            <div class="myCol">
+                                05 08 24 25 32 <span class="star">08</span> <span class="star">10</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 class="h3">Game Configuration</h2>
+            <table class="configuration cl table ui-responsive" data-role="table" data-mode="reflow">
                 <thead>
                     <th class="date">
                         {{ language.translate("Game played") }}
@@ -62,19 +103,6 @@
                     </th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="date">
-                            <strong>{{ language.translate("Euromillions") }}</strong>
-                            13 May 2015
-                        </td>
-                        <td class="duration"><strong>Next Friday</strong> Draw: 1</td>
-                        <td class="numbers">
-                            <div class="myCol">
-                                05 08 24 25 32 <span class="star">08</span> <span class="star">10</span>
-                            </div>
-                        </td>
-                        <td class="action"><a href="javascript:void(0);" class="btn blue">Edit <i class="ico ico-pencil"></i></a> <a href="javascript:void(0);" class="btn red">Delete <i class="ico ico-cross"></i></a></td>
-                    </tr>
                     <tr>
                         <td class="date">
                             <strong>{{ language.translate("Euromillions") }}</strong>
