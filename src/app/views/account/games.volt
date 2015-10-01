@@ -45,14 +45,14 @@
             </a>
 
             *With Data*
-            <h2 class="h3">Ongoing Games</h2>
-            <table class="ongoing cl table ui-responsive" data-role="table" data-mode="reflow">
+            <h2 class="h3">Present Games</h2>
+            <table class="present cl table ui-responsive" data-role="table" data-mode="reflow">
                 <thead>
                     <th class="date">
                         {{ language.translate("Game played") }}
                     </th>
-                    <th class="duration">
-                        {{ language.translate("Duration") }}
+                    <th class="when">
+                        {{ language.translate("When") }}
                     </th>
                     <th class="numbers">
                         {{ language.translate("Numbers played") }}

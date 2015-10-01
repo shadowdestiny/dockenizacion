@@ -62,7 +62,7 @@ $gap3:15px; /* Responsive design 3 column */
 .warn-info{/*display:none;*/ position:absolute; left:0; top:0; background:#fff; padding:10px 15px; width:200px; display:block;}
 
 .box-lines{
-	margin:0; padding:10px $gap1; 
+	margin:0; padding:10px $gap1 0; 
 	.myCol{margin-bottom:25px; width:16.66666666666667%; float:left; border-right:$gap1 solid transparent;}
 	.myCol:last-child{border-right:0;}
 }
@@ -212,7 +212,7 @@ $gap3:15px; /* Responsive design 3 column */
 .gameplay{border-right:0; border-left:0; border-radius:0;}
 .bg-top, .bg-top:before{border-radius:0;}
 .gameplay > .cl{text-align:center;}
-.box-action{float:none; margin:15px 20px 0;}
+.box-action{float:none; margin:0 20px 0;}
 .box-action li{margin:0 10px 15px 0;}
 .box-bottom{
 	background:$yellow-lighter; border-radius:0;

@@ -101,6 +101,13 @@
   .txt-col{padding-right:20px;}
 }
 
+.fail{
+  a:hover{text-decoration:none;}
+  .title{margin-bottom:0;}
+  .txt{font-size:$h3; line-height:$h2;}
+  .cols{margin-bottom:0;}
+  .img{background:url(../img/cart/sad-robot.jpg) no-repeat;}
+}
 
 
 @media only screen and (max-width:1200px){
