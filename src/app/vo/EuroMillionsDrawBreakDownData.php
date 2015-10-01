@@ -24,6 +24,7 @@ class EuroMillionsDrawBreakDownData
     public function getName()
     {
         return $this->name;
+
     }
 
     /**

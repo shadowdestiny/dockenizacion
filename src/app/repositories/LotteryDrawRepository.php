@@ -71,6 +71,7 @@ class LotteryDrawRepository extends EntityRepository
             $date = new \DateTime();
         }
         $draw_date = $lottery->getLastDrawDate($date);
+
         /** @var EuroMillionsDraw[] $result */
         $result = $this->getEntityManager()
             ->createQuery(
@@ -81,6 +82,7 @@ class LotteryDrawRepository extends EntityRepository
             ->setParameters(['lottery_name' => $lottery->getName(), 'date' => $draw_date->format("Y-m-d")])
             ->useResultCache(true)
             ->getResult();
+
         return $result[0]->getBreakDown();
     }
 

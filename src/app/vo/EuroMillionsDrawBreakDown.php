@@ -37,6 +37,9 @@ class EuroMillionsDrawBreakDown
     protected $category_thirteen;
 
 
+    /**
+     * @param array $breakdown
+     */
     public function __construct(array $breakdown)
     {
         if(!is_array($breakdown)){
