@@ -11,43 +11,46 @@
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
-<main id="content">
-    <div class="wrapper">
-        <div class="nav box-basic">
-           {% set activeSubnav='{"myClass": "games"}'|json_decode %}
-           {% include "account/_nav.volt" %}
-        </div>
-        <div class="box-basic content">
-            <h1 class="h1 title">{{ language.translate("My Games") }}</h1>
+    <main id="content">
+        <div class="wrapper">
+            <div class="nav box-basic">
+                {% set activeSubnav='{"myClass": "games"}'|json_decode %}
+                {% include "account/_nav.volt" %}
+            </div>
+            <div class="box-basic content">
+                <h1 class="h1 title">{{ language.translate("My Games") }}</h1>
 
-            *Without Data*
+                *Without Data*
 
-            <div class="box info">
-                <span class="ico ico-info"></span>
+                <div class="box info">
+                    <span class="ico ico-info"></span>
                 <span class="txt">
                     {{ language.translate("You didn't play any games yet.") }} <a href="javascript:void(0);">{{ language.translate("Play now and start to win.") }}</a>
                 </span>
-            </div>
+                </div>
 
-            <a href="javascript:void(0)" class="no-data img">
-                <div class="txt">
+                <a href="javascript:void(0)" class="no-data img">
+                    <div class="txt">
                     <span class="h1">
                         {{ language.translate("Dream to Win<br>
                         a real treasure awaits!") }}
                     </span>
-                    
-                    <span class="jackpot-txt">{{ language.translate("Jackpot this week") }}</span>
-                    
-                    {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
-                    {% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
-                    <span class="btn blue big" >{{ language.translate("Play now") }}</span>
-                </div>
-            </a>
 
-            *With Data*
-            <h2 class="h3">Present Games</h2>
-            <table class="present cl table ui-responsive" data-role="table" data-mode="reflow">
-                <thead>
+                        <span class="jackpot-txt">{{ language.translate("Jackpot this week") }}</span>
+
+                        {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
+                        {% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
+                        <span class="btn blue big" >{{ language.translate("Play now") }}</span>
+                    </div>
+                </a>
+
+                *With Data*
+                <h2 class="h3">Present Games</h2>
+                {% if my_games_actives is empty %}
+                    {{ message_actives }}
+                {% else %}
+                <table class="present cl table ui-responsive" data-role="table" data-mode="reflow">
+                    <thead>
                     <th class="date">
                         {{ language.translate("Game played") }}
                     </th>
@@ -57,84 +60,35 @@
                     <th class="numbers">
                         {{ language.translate("Numbers played") }}
                     </th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="date">
-                            <strong>{{ language.translate("Euromillions") }}</strong>
-                            13 May 2015
-                        </td>
-                        <td class="when"><strong>{{ language.translate("Next Friday") }}</strong> Draw: 1</td>
-                        <td class="numbers">
-                            <div class="myCol">
-                                05 08 24 25 32 <span class="star">08</span> <span class="star">10</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="date">
-                            <strong>{{ language.translate("Euromillions") }}</strong>
-                            13 May 2015
-                        </td>
-                        <td class="when"><strong>19th September 2015, Tuesday</strong> {{ language.translate("Draw:") }} 1</td>
-                        <td class="numbers">
-                            <div class="myCol">
-                                05 08 24 25 32 <span class="star">08</span> <span class="star">10</span>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h2 class="h3">{{ language.translate("Game Configuration") }}</h2>
-            <table class="configuration cl table ui-responsive" data-role="table" data-mode="reflow">
-                <thead>
-                    <th class="date">
-                        {{ language.translate("Game played") }}
-                    </th>
-                    <th class="duration">
-                        {{ language.translate("Duration") }}
-                    </th>
-                    <th class="numbers">
-                        {{ language.translate("Numbers played") }}
-                    </th>
                     <th class="action">
                         {{ language.translate("Actions") }}
                     </th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="date">
-                            <strong>{{ language.translate("Euromillions") }}</strong>
-                            14 May 2015
-                        </td>
-                        <td class="duration"><strong>4 weeks</strong> {{ language.translate("Draws:") }} 8</td>
-                        <td class="numbers">
-                            <div class="myCol">
-                                02 03 04 05 07 <span class="star">08</span> <span class="star">10</span>
-                            </div>
-                        </td>
-                        <td class="action"><a href="javascript:void(0);" class="btn blue">{{ language.translate("Edit") }} <i class="ico ico-pencil"></i></a> <a href="javascript:void(0);" class="btn red">{{ language.translate("Delete") }} <i class="ico ico-cross"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td class="date">
-                            <strong>{{ language.translate("Euromillions") }}</strong>
-                            18 May 2015
-                        </td>
-                        <td class="duration">{{ language.translate("<strong>Ongoing</strong> Play only when the Jackpot reach") }} 75 millions &euro;</td>
-                        <td class="numbers">
-                            <div class="myCol">
-                                05 13 24 35 41 <span class="star">01</span> <span class="star">09</span>
-                            </div>
-                        </td>
-                        <td class="action"><a href="javascript:void(0);" class="btn blue">{{ language.translate("Edit") }} <i class="ico ico-pencil"></i></a> <a href="javascript:void(0);" class="btn red">{{ language.translate("Delete") }} <i class="ico ico-cross"></i></a></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h2 class="h3">Past Games</h2>
-            <table id="game-history" class="cl table ui-responsive" data-role="table" data-mode="reflow">
-                <thead>
+                    </thead>
+                    <tbody>
+                    {% for game in my_games_actives %}
+                        <tr>
+                            <td class="date">
+                                <strong>{{ language.translate("Euromillions") }}</strong>
+                                {{ game.startDrawDate }}
+                            </td>
+                            <td class="duration"><strong></strong> {{ game.duration }}</td>
+                            <td class="numbers">
+                                <div class="myCol">
+                                    {{ game.regular_numbers }} <span class="star">{{ game.lucky_numbers }}</span>
+                                </div>
+                            </td>
+                            <td class="action"><a href="javascript:void(0);" class="btn blue">Edit <i class="ico ico-pencil"></i></a> <a href="javascript:void(0);" class="btn red">Delete <i class="ico ico-cross"></i></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+                <h2 class="h3">Past Games</h2>
+                {% if my_games_inactives is empty %}
+                   {{ message_inactives }}
+                {% else %}
+                <table id="game-history" class="cl table ui-responsive" data-role="table" data-mode="reflow">
+                    <thead>
                     <tr>
                         <th class="date">
                             {{ language.translate("Game played") }}
@@ -146,22 +100,24 @@
                             {{ language.translate("Actions") }}
                         </th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
+                    {% for game in my_games_inactives %}
                     <tr>
                         <td class="date">
                             <strong>{{ language.translate("Euromillions") }}</strong>
-                            16 May 2015
+                            {{ game.startDrawDate }}
                         </td>
                         <td class="numbers">
                             <div class="myCol">
-                                02 03 04 05 07 <span class="star">08</span> <span class="star">10</span>
+                                {{ game.regular_numbers }} <span class="star">{{ game.lucky_numbers }}</span>
                             </div>
                         </td>
                         <td class="action">
                             <a href="javascript:void(0);" class="btn blue">{{ language.translate("Play it <span class='desktop'>again</span> for") }} 2,35 &euro;</a>
                         </td>
                     </tr>
+                    {% endfor %}
                     <tr class="special">
                         <td class="date">
                             <strong>{{ language.translate("Euromillions") }}</strong>
@@ -176,11 +132,12 @@
                             <a href="javascript:void(0);" class="btn blue">{{ language.translate("Play it <span class='desktop'>again</span> for") }} 2,35 &euro;</a>
                         </td>
                     </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+                {% endif %}
 
-            {% include "account/_paging.volt" %}
+                {% include "account/_paging.volt" %}
+            </div>
         </div>
-    </div>
-</main>
+    </main>
 {% endblock %}

@@ -61,61 +61,6 @@ $(document).on("storeNum",{numColumn: 0, typeColumn: "", num: "", active: 1},
 
 });
 
-/*var storeNum = new CustomEvent(
-	"storeNum",
-	{
-		detail: {
-			numColumn: 0,
-			typeColumn: "",
-			num: "",
-			active: 1,
-		},
-		bubbles: true,
-		cancelable: true
-	}
-);
-
-document.addEventListener("storeNum", function(e) {
-
-	var bet_line = localStorage.getItem('bet_line');
-	var column = e.numColumn;
-	var isActive = e.active;
-	var objLine = null;
-
-	if(window.localStorage == 'undefined'){
-		//EMTD save in cookie
-	}else if(bet_line != null){
-		numLines = JSON.parse(bet_line);
-	}
-
-	if(typeof numLines[column] == 'undefined' || numLines[column] == null){
-		objLine = new lineObject();
-	}else{
-		objLine = numLines[column];
-	}
-	if(e.typeColumn == 'number'){
-		if(isActive){
-			objLine.numbers.push(e.num);
-		}else{
-			//find item
-			var item = objLine.numbers.indexOf(e.num);
-			objLine.numbers.splice(item,1);
-		}
-	}else{
-		if(isActive){
-			objLine.stars.push(e.num);
-		}else{
-			var item = objLine.stars.indexOf(e.num);
-			objLine.stars.splice(item,1);
-		}
-	}
-	numLines[column] = objLine;
-
-	//get in load page
-	localStorage.setItem('bet_line', JSON.stringify(numLines));
-});*/
-
-
 function removeColumnInLocalStorage(column){
 	var bet_line = localStorage.getItem('bet_line');
 	if(bet_line != null){
@@ -160,7 +105,6 @@ function checkMark(arrayCount){
 	if(hasNumbers == false && hasStars == false){
 		$(".fix-margin").hide();
 	}
-
 	if(jQuery.inArray( 1, hasValue ) !== -1){ // check if there is a value selected
 		$(".add-cart").addClass("active");
 	}else{
@@ -229,12 +173,8 @@ function playLine(selector, type){
 		var isActive = $(this).hasClass('active');
 
 		$(document).trigger("storeNum", [ valNum[1],type,$(this).text(),isActive] );
-/*		storeNum.numColumn=valNum[1];
-		storeNum.typeColumn = type;
-		storeNum.num = $(this).text();
-		storeNum.active = isActive;
-		document.dispatchEvent(storeNum);*/
 		checkMark(valNum[1]);
+		redrawTotalCost();
 	});
 }
 
@@ -274,22 +214,12 @@ function persistRandomNum(line){
 		if($(this).hasClass('active')){
 			var num = $(this).text();
 			$(document).trigger("storeNum", [ numColumn, 'number', num, true] );
-			/*storeNum.numColumn = numColumn;
-			storeNum.typeColumn = 'number';
-			storeNum.active = true;
-			storeNum.num = num;
-			document.dispatchEvent(storeNum);*/
 		}
 	});
 	$(".box-lines "+line+" .values .stars a.ico").each(function(){
 		if($(this).hasClass('active')){
 			var num = $(this).text();
 			$(document).trigger("storeNum", [ numColumn, 'star', num, true] );
-			/*storeNum.numColumn = numColumn;
-			storeNum.typeColumn = 'star';
-			storeNum.active = true;
-			storeNum.num = num;
-			document.dispatchEvent(storeNum);*/
 		}
 	});
 	redrawTotalCost();
@@ -335,7 +265,7 @@ function randomNum(selector){
 function randomAll(selector){
 	$(document).on('click',selector, function(){
 		line = $(".box-lines .myCol");
-        lengthLine = line.length;
+        lengthLine = (line.length) -1;
 		for(var i=0; i <= lengthLine; i++){
 			randomCalculation(".num"+i, i);
 		}
@@ -408,7 +338,7 @@ function newLine(){
 function checkFillColumns(){
 	var fill = true;
 	$(".box-lines .myCol").each(function(){
-		var checkMark = $(this).find('.line .ico-checkmark').css('display') == 'block' ? true : false;
+		var checkMark = $(this).find('.line .ico-checkmark').is(':visible');
 		if(!checkMark){
 			fill = false;
 		}
@@ -599,12 +529,10 @@ function disableSelect(area, target, disable, activate, input){ //Jackpot Thresh
             $(disable).prop('disabled', 'disabled');
             $(activate).prop('disabled', false);
             $(input).prop('disabled', false);
-            console.log("01")
         }else{
             $(disable).prop('disabled', false);
             $(activate).prop('disabled', 'disabled');
             $(input).prop('disabled', 'disabled');
-            console.log("02")
         }
     });
 
@@ -614,7 +542,6 @@ function disableSelect(area, target, disable, activate, input){ //Jackpot Thresh
             $(disable).prop('disabled', 'disabled');
             $(activate).prop('disabled', false);
             $(input).prop('disabled', false);
-            console.log("03")
         }
     });
 }
@@ -691,19 +618,24 @@ $(function(){
 	})
 
 	$('.add-more').on('click', function () {
-		if(isAddMoreClicked == false && getTotalColumns() == currentColumns ){
+		if(isAddMoreClicked == false ){
 			newLine();
+			isAddMoreClicked=true;
+			$('.add-more').addClass('stop');
 		}else{
 			if(checkFillColumns()){
 				newLine();
+				isAddMoreClicked=true;
+				$('.add-more').addClass('stop');
 			}
 		}
-		isAddMoreClicked=true;
-		$('.add-more').addClass('stop');
 	});
 
 
 	$('.add-more').mouseover(function(){
+		if(checkFillColumns() && isAddMoreClicked == true){
+			$('.add-more').removeClass('stop');
+		}
 		if($(this).hasClass("stop")){
 			$('.box-more').tipr({'mode':'top'});
 		}else{
