@@ -324,7 +324,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
      * when calledWithValidData
      * should returnServiceActionResultTrueWithBreakDownDataDraw
      */
-   /* public function test_getBreakDownDrawByDate_calledWithValidData_returnServiceActionResultTrueWithBreakDownDataDraw()
+    public function test_getBreakDownDrawByDate_calledWithValidData_returnServiceActionResultTrueWithBreakDownDataDraw()
     {
         $expected = new ServiceActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw()));
         $this->lotteryRepositoryDouble->expects($this->any())
@@ -332,13 +332,34 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
             ->will($this->returnValue(new Lottery()));
 
         $this->lotteryDrawRepositoryDouble->expects($this->any())
-            ->method('getLastResult')
+            ->method('getBreakDownData')
             ->will($this->returnValue($expected));
 
         $sut = $this->getSut();
-        $actual = $sut->getBreakDownDrawByDate('EuroMillions');
+        $actual = $sut->getBreakDownDrawByDate('EuroMillions', new \DateTime("2015-06-06 20:00:00"));
+        $this->assertEquals($expected,$actual->getValues());
+    }
+
+    /**
+     * method getBreakDownDrawByDate
+     * when calledWithValidData
+     * should returnServiceActionResultFalseWithoutBreakDownDataDraw
+     */
+    public function test_getBreakDownDrawByDate_calledWithValidData_returnServiceActionResultFalseWithoutBreakDownDataDraw()
+    {
+        $expected = new ServiceActionResult(false);
+        $this->lotteryRepositoryDouble->expects($this->any())
+            ->method('findOneBy')
+            ->will($this->returnValue(new Lottery()));
+
+        $this->lotteryDrawRepositoryDouble->expects($this->any())
+            ->method('getBreakDownData')
+            ->will($this->returnValue(null));
+
+        $sut = $this->getSut();
+        $actual = $sut->getBreakDownDrawByDate('EuroMillions', new \DateTime());
         $this->assertEquals($expected,$actual);
-    }*/
+    }
 
     /**
      * @param $lottery_name

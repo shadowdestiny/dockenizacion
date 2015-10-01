@@ -141,9 +141,14 @@ class LotteriesDataService
         if(!empty($lottery)){
             /** @var EuroMillionsDrawBreakDown $emBreakDownData */
             $emBreakDownData = $this->lotteryDrawRepository->getBreakDownData($lottery);
-            return new ServiceActionResult(true, $emBreakDownData);
+            if(!empty($emBreakDownData)){
+                return new ServiceActionResult(true, $emBreakDownData);
+            }else{
+                return new ServiceActionResult(false);
+            }
+        }else{
+            return new ServiceActionResult(false);
         }
-
     }
 
     public function updateLastBreakDown($lotteryName, \DateTime $now = null, Curl $curlWrapper = null)

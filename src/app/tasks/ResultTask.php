@@ -12,5 +12,6 @@ class ResultTask extends TaskBase
     {
         $service = $this->domainServiceFactory->getLotteriesDataService();
         $service->updateLastDrawResult('EuroMillions');
+        $service->updateLastBreakDown('EuroMillions');
     }
 }
