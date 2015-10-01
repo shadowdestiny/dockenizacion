@@ -14,18 +14,35 @@ class AccountController extends PublicSiteControllerBase
         $user = $this->authService->getCurrentUser();
         $jackpot = $this->userService->getJackpotInMyCurrency($this->lotteriesDataService->getNextJackpot('EuroMillions'));
         $myGames = null;
-        $playConfigDTOCollection = [];
+        $playConfigActivesDTOCollection = [];
+        $playConfigInactivesDTOCollection = [];
+        $message_actives = '';
+        $message_inactives = '';
 
         if(!empty($user)){
-            $myGames = $this->userService->getMyPlays($user->getId());
-            foreach($myGames->getValues() as $game){
-                $playConfigDTOCollection[] = new PlayConfigDTO($game);
+            $myGamesActives = $this->userService->getMyPlaysActives($user->getId());
+            if($myGamesActives->success()){
+                foreach($myGamesActives->getValues() as $game){
+                    $playConfigActivesDTOCollection[] = new PlayConfigDTO($game);
+                }
+            }else{
+                $message_actives = $myGamesActives->errorMessage();
+            }
+            $myGamesInactives = $this->userService->getMyPlaysInactives($user->getId());
+            if($myGamesInactives->success()){
+                foreach($myGamesInactives->getValues() as $myGamesInactives){
+                    $playConfigInactivesDTOCollection[] = new PlayConfigDTO($myGamesInactives);
+                }
+            }else{
+                $message_inactives = $myGamesInactives->errorMessage();
             }
         }
-
         return $this->view->setVars([
-            'my_games' => $playConfigDTOCollection,
-            'jackpot_value' => $jackpot->getAmount()/100
+            'my_games_actives' => $playConfigActivesDTOCollection,
+            'my_games_inactives' => $playConfigInactivesDTOCollection,
+            'jackpot_value' => $jackpot->getAmount()/100,
+            'message_active' => $message_actives,
+            'message_inactives' => $message_inactives
         ]);
     }
 

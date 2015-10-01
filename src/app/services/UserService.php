@@ -189,11 +189,25 @@ class UserService
         }
     }
 
-    public function getMyPlays(UserId $userId)
+    public function getMyPlaysActives(UserId $userId)
     {
         if(!empty($userId)){
             /** @var array $result */
-            $result = $this->playRepository->getPlayConfigsByUser($userId);
+            $result = $this->playRepository->getPlayConfigsActivesByUser($userId);
+            if(empty($result)){
+                return new ServiceActionResult(false,'You don\'t have games');
+            }
+            return new ServiceActionResult(true,$result);
+        }else{
+            return new ServiceActionResult(false);
+        }
+    }
+
+    public function getMyPlaysInActives(UserId $userId)
+    {
+        if(!empty($userId)){
+            /** @var array $result */
+            $result = $this->playRepository->getPlayConfigsInActivesByUser($userId);
             if(empty($result)){
                 return new ServiceActionResult(false,'You don\'t have games');
             }

@@ -126,14 +126,29 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
      * when called
      * should returnArrayWithPlayConfigs
      */
-    public function test_getMyPlays_called_returnArrayWithPlayConfigs()
+    public function test_getMyPlaysActives_called_returnArrayWithPlayConfigs()
     {
         list($user,$playConfig) = $this->getPlayConfigExpected();
         $expected = 1;
         $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
         $sut = $this->getDomainServiceFactory()->getUserService(null, null, null, $paymentProvider_double->reveal());
-        $actual = count($sut->getMyPlays($user->getId()));
+        $actual = count($sut->getMyPlaysActives($user->getId()));
         $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method getMyPlaysInActives
+     * when called
+     * should returnArrayWithPlaysConfigsInactives
+     */
+    public function test_getMyPlaysInActives_called_returnArrayWithPlaysConfigsInactives()
+    {
+        list($user,$playConfig) = $this->getPlayConfigExpected();
+        $expected = 1;
+        $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
+        $sut = $this->getDomainServiceFactory()->getUserService(null, null, null, $paymentProvider_double->reveal());
+        $actual = count($sut->getMyPlaysInActives($user->getId()));
+        $this->assertGreaterThanOrEqual($expected,$actual);
     }
 
     public function getPlayConfigExpected()

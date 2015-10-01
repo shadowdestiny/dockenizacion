@@ -71,6 +71,8 @@ class PlayConfigDTO extends DTOBase
             case 52:
                 $duration = "52 weeks";
                 break;
+            default:
+                break;
         }
 
         return $duration;

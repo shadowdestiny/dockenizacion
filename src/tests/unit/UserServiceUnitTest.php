@@ -295,8 +295,8 @@ class UserServiceUnitTest extends UnitTestBase
         $expected = new ServiceActionResult(true,$playConfig);
         $sut = $this->getSut();
         $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
-        $this->playRepository_double->getPlayConfigsByUser($userId)->willReturn($playConfig);
-        $actual = $sut->getMyPlays($userId);
+        $this->playRepository_double->getPlayConfigsActivesByUser($userId)->willReturn($playConfig);
+        $actual = $sut->getMyPlaysActives($userId);
         $this->assertEquals($expected,$actual);
     }
 
@@ -310,8 +310,8 @@ class UserServiceUnitTest extends UnitTestBase
         $expected = new ServiceActionResult(false,'You don\'t have games');
         $sut = $this->getSut();
         $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
-        $this->playRepository_double->getPlayConfigsByUser($userId)->willReturn(null);
-        $actual = $sut->getMyPlays($userId);
+        $this->playRepository_double->getPlayConfigsActivesByUser($userId)->willReturn(null);
+        $actual = $sut->getMyPlaysActives($userId);
         $this->assertEquals($expected,$actual);
     }
 
