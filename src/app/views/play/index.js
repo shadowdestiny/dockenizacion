@@ -575,8 +575,8 @@ function multiTask(target, activate, check){
 }
 
 function showAdvanced(btnShow, target, btnHide, disable, activate, check, input, select){
-	$(btnShow).on('click',function(){
-		if($(target).is(':hidden')){
+	$(btnShow).on('click',function(){ //Activate Play Button
+		if($(target).is(':hidden')){ //Show
 			$(target).show();
 			$(select).show();
 		  	$(input).hide();
@@ -585,22 +585,26 @@ function showAdvanced(btnShow, target, btnHide, disable, activate, check, input,
 			}
 			$(disable).prop('disabled', 'disabled');
 		}else{
-			multiTask(target, activate, check);
+			multiTask(target, activate, check); //Hide
 		}
 	});
-	$(btnHide).on('click',function(){
-		multiTask(target, activate, check);
+	$(btnHide).on('click',function(){ // Close button
+		multiTask(target, activate, check); //Hide
 	});
 }
 
-function disableSelect(area, target, disable, activate){
+function disableSelect(area, target, disable, activate, input){ //Jackpot Threshold Activate/Deactivate area
     $(target).on('click',function(){
         if($(target).prop("checked")){
             $(disable).prop('disabled', 'disabled');
             $(activate).prop('disabled', false);
+            $(input).prop('disabled', false);
+            console.log("01")
         }else{
             $(disable).prop('disabled', false);
             $(activate).prop('disabled', 'disabled');
+            $(input).prop('disabled', 'disabled');
+            console.log("02")
         }
     });
 
@@ -609,6 +613,8 @@ function disableSelect(area, target, disable, activate){
             $(target).prop('checked', true);
             $(disable).prop('disabled', 'disabled');
             $(activate).prop('disabled', false);
+            $(input).prop('disabled', false);
+            console.log("03")
         }
     });
 }
@@ -623,7 +629,6 @@ function checkOption(target, show){
 }
 
 $(function(){
-	//$(".random-all").css("margin-right","-15px"); // Fix initial positioning of a button
 	playLine('.numbers .btn', "number");
 	playLine('.stars .ico-star-out', "star");
 	randomNum(".random");
@@ -632,7 +637,7 @@ $(function(){
 	clearNumAll(".clear-all");
 	$('.ico-question-mark').tipr({'mode':'top'});	
 	showAdvanced(".advanced", ".advanced-play", ".advanced-play .close", ".details select", ".advanced-play .col2 select", "#threshold", ".input-value",".threshold")
-	disableSelect(".details","#threshold",".advanced-play .col2 select", ".details select");
+	disableSelect(".details","#threshold",".advanced-play .col2 select", ".details select",".input-value input");
 	checkOption(".threshold",".input-value");
 
 	$(window).resize(function(){
