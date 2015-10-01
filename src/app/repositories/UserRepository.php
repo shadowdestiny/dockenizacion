@@ -48,4 +48,5 @@ class UserRepository extends RepositoryBase
             ->getResult();
         return $result ? $result[0] : null;
     }
+
 }

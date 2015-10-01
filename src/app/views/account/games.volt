@@ -62,45 +62,21 @@
                     </th>
                 </thead>
                 <tbody>
+                {% for game in my_games %}
                     <tr>
                         <td class="date">
                             <strong>{{ language.translate("Euromillions") }}</strong>
-                            13 May 2015
+                            {{ game.startDrawDate }}
                         </td>
-                        <td class="duration"><strong>Next Friday</strong> Draw: 1</td>
+                        <td class="duration"><strong></strong> {{ game.duration }}</td>
                         <td class="numbers">
                             <div class="myCol">
-                                05 08 24 25 32 <span class="star">08</span> <span class="star">10</span>
+                                {{ game.regular_numbers }} <span class="star">{{ game.lucky_numbers }}</span>
                             </div>
                         </td>
                         <td class="action"><a href="javascript:void(0);" class="btn blue">Edit <i class="ico ico-pencil"></i></a> <a href="javascript:void(0);" class="btn red">Delete <i class="ico ico-cross"></i></a></td>
                     </tr>
-                    <tr>
-                        <td class="date">
-                            <strong>{{ language.translate("Euromillions") }}</strong>
-                            14 May 2015
-                        </td>
-                        <td class="duration"><strong>4 weeks</strong> Draws: 8</td>
-                        <td class="numbers">
-                            <div class="myCol">
-                                02 03 04 05 07 <span class="star">08</span> <span class="star">10</span>
-                            </div>
-                        </td>
-                        <td class="action"><a href="javascript:void(0);" class="btn blue">Edit <i class="ico ico-pencil"></i></a> <a href="javascript:void(0);" class="btn red">Delete <i class="ico ico-cross"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td class="date">
-                            <strong>{{ language.translate("Euromillions") }}</strong>
-                            18 May 2015
-                        </td>
-                        <td class="duration"><strong>Ongoing</strong> Play only when the Jackpot reach 75 millions &euro;</td>
-                        <td class="numbers">
-                            <div class="myCol">
-                                05 13 24 35 41 <span class="star">01</span> <span class="star">09</span>
-                            </div>
-                        </td>
-                        <td class="action"><a href="javascript:void(0);" class="btn blue">Edit <i class="ico ico-pencil"></i></a> <a href="javascript:void(0);" class="btn red">Delete <i class="ico ico-cross"></i></a></td>
-                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
 

@@ -7,6 +7,7 @@ use EuroMillions\entities\PaymentMethod;
 use EuroMillions\entities\User;
 use EuroMillions\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\repositories\PaymentMethodRepository;
+use EuroMillions\repositories\PlayConfigRepository;
 use EuroMillions\repositories\UserRepository;
 use EuroMillions\vo\ContactFormInfo;
 use EuroMillions\vo\ServiceActionResult;
@@ -45,6 +46,9 @@ class UserService
     /** @var PaymentMethodRepository */
     private $paymentMethodRepository;
 
+    /** @var PlayConfigRepository  */
+    private $playRepository;
+
 
     public function __construct(CurrencyService $currencyService,
                                 IUsersPreferencesStorageStrategy $strategy,
@@ -59,6 +63,7 @@ class UserService
         $this->storageStrategy = $strategy;
         $this->emailService = $emailService;
         $this->paymentProviderService = $paymentProviderService;
+        $this->playRepository = $entityManager->getRepository('EuroMillions\entities\PlayConfig');
     }
 
     public function getBalance(UserId $userId)
@@ -181,6 +186,20 @@ class UserService
             }else{
                 return new ServiceActionResult(false,'You don\'t have any payment method registered');
             }
+        }
+    }
+
+    public function getMyPlays(UserId $userId)
+    {
+        if(!empty($userId)){
+            /** @var array $result */
+            $result = $this->playRepository->getPlayConfigsByUser($userId);
+            if(empty($result)){
+                return new ServiceActionResult(false,'You don\'t have games');
+            }
+            return new ServiceActionResult(true,$result);
+        }else{
+            return new ServiceActionResult(false);
         }
     }
 

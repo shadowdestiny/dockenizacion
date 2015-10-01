@@ -4,9 +4,11 @@
 namespace EuroMillions\vo\dto;
 
 
+use EuroMillions\exceptions\UnsupportedOperationException;
+use EuroMillions\vo\dto\base\DTOBase;
 use EuroMillions\vo\EuroMillionsDrawBreakDownData;
 
-class EuroMillionsDrawBreakDownDataDTO
+class EuroMillionsDrawBreakDownDataDTO extends DTOBase
 {
 
     private $euroMillionsDrawBreakDownDataDTO;
@@ -110,7 +112,7 @@ class EuroMillionsDrawBreakDownDataDTO
     }
 
 
-    private function exChangeObject()
+    protected function exChangeObject()
     {
         $this->setName($this->euroMillionsDrawBreakDownDataDTO->getName());
         $this->setLotteryPrizes($this->euroMillionsDrawBreakDownDataDTO->getLotteryPrizes());
@@ -118,5 +120,10 @@ class EuroMillionsDrawBreakDownDataDTO
         $corrected = explode("+",trim($this->getName()));
         $this->setNumbersCorrected($corrected[0]);
         $this->setStarsCorrected($corrected[1]);
+    }
+
+    public function toArray()
+    {
+        throw new UnsupportedOperationException('Method no implemented');
     }
 }

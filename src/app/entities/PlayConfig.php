@@ -4,6 +4,7 @@
 namespace EuroMillions\entities;
 
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use EuroMillions\interfaces\IEntity;
 use EuroMillions\interfaces\IEMForm;
@@ -37,6 +38,12 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm
     {
         $this->bet = new ArrayCollection();
     }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
 
     public function getId()
     {
@@ -101,6 +108,16 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm
     public function getLastDrawDate()
     {
         return $this->lastDrawDate;
+    }
+
+    public function setBet($bet)
+    {
+        $this->bet = $bet;
+    }
+
+    public function getBet()
+    {
+        return $this->bet;
     }
 
 
