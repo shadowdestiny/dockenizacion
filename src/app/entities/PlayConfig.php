@@ -4,7 +4,6 @@
 namespace EuroMillions\entities;
 
 
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use EuroMillions\interfaces\IEntity;
 use EuroMillions\interfaces\IEMForm;
@@ -26,7 +25,7 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm
 
     protected $play_config;
 
-    protected $drawDays;
+    protected $draw_days;
 
     protected $startDrawDate;
 
@@ -80,14 +79,14 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm
         return $this->active;
     }
 
-    public function setDrawDays($drawDays)
+    public function setDrawDays($draw_days)
     {
-        $this->drawDays = $drawDays;
+        $this->draw_days = $draw_days;
     }
 
     public function getDrawDays()
     {
-        return $this->drawDays;
+        return $this->draw_days;
     }
 
     public function setStartDrawDate($startDrawDate)
@@ -134,7 +133,7 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm
             $this->setUser($user);
             $this->setLine($formPlay['euroMillionsLines']);
             $this->setActive(true);
-            $this->setDrawDays($formPlay['drawDays']);
+            $this->setDrawDays(new \DrawDays($formPlay['drawDays']));
             $this->setStartDrawDate($formPlay['startDrawDate']);
             $this->setLastDrawDate($formPlay['lastDrawDate']);
         }catch(Exception $e){

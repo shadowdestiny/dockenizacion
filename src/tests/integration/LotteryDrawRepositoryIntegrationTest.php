@@ -83,4 +83,23 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
         $this->assertEquals('5,9,17,32,34', $actual->getRegularNumbers(), 'Regular numbers don\'t match');
         $this->assertEquals('6,8', $actual->getLuckyNumbers(), 'Lucky numbers don\'t match');
     }
+
+    /**
+     * method getNextDraw
+     * when called
+     * should returnProperValue
+     */
+    public function test_getNextDraw_called_returnProperValue()
+    {
+        /** @var EuroMillionsLine $actual */
+        $lottery = (new Lottery())->initialize([
+            'name' => 'EuroMillions',
+            'frequency' => 'w0100100',
+            'draw_time' => '20:00:00',
+        ]);
+        $date = new \DateTime('2015-10-02 12:00:00');
+        $actual = count($this->sut->getNextDraw($lottery,$date));
+        $this->assertGreaterThanOrEqual(1,$actual);
+    }
+
 }

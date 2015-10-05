@@ -112,7 +112,7 @@ class LotteriesDataService
         return $now->diff($next_draw_date);
     }
 
-    public function getNextDrawByLottery($lotteryName, $now = null)
+    public function getNextDateDrawByLottery($lotteryName, $now = null)
     {
         if (!$now) {
             $now = new \DateTime();
@@ -121,6 +121,23 @@ class LotteriesDataService
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         $nextDrawDate = $lottery->getNextDrawDate($now);
         return $nextDrawDate;
+    }
+
+    public function getNextDrawByLottery($lotteryName, $now = null)
+    {
+        if(!$now){
+            $now = new \DateTime();
+        }
+        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        if(!empty($lottery)){
+            $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery,$now);
+            if(!empty($euroMillionsDraw)){
+                return new ServiceActionResult(true,$euroMillionsDraw);
+            }else{
+                return new ServiceActionResult(false);
+            }
+        }
+
     }
 
     public function getLotteryConfigByName($lotteryName)

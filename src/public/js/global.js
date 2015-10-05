@@ -1,7 +1,7 @@
 var globalFunctions = {
     setCurrency : function (value) {
         $.ajax({
-            url: 'ajax/userSettings/setCurrency/'+value,
+            url: 'ajax/user-settings/setCurrency/'+value,
             type: 'GET',
             dataType: "json",
             success: function(json) {

@@ -205,20 +205,57 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     }
 
     /**
-     * method getNewDrawByLottery
+     * method getNextDateDrawByLottery
      * when called
      * should returnLotteryNextDrawDate
      */
-    public function test_getNewDrawByLottery_called_returnLotteryNextDrawDate()
+    public function test_getNextDateDrawByLottery_called_returnLotteryNextDrawDate()
     {
         $lottery_name = 'EuroMillions';
         $this->prepareLotteryEntity($lottery_name);
 
         $sut = $this->getSut();
-        $actual = $sut->getNextDrawByLottery($lottery_name, new \DateTime("2015-09-16 19:00:00"));
+        $actual = $sut->getNextDateDrawByLottery($lottery_name, new \DateTime("2015-09-16 19:00:00"));
         $expected = new \DateTime("2015-09-18 20:00:00");
         $this->assertEquals($expected, $actual);
     }
+
+    /**
+     * method getNextDrawByLottery
+     * when called
+     * should returnServiceActionResultTrueWithEuroMillionsDrawInstance
+     */
+    public function test_getNextDrawByLottery_called_returnServiceActionResultTrueWithEuroMillionsDrawInstance()
+    {
+        $euroMillionsDraw_stub = $this->getMockBuilder('\EuroMillions\entities\EuroMillionsDraw')->getMock();
+        $lotteryName = 'EuroMillions';
+        $this->prepareLotteryEntity($lotteryName);
+        $this->lotteryDrawRepositoryDouble->expects($this->any())
+            ->method('getNextDraw')
+            ->will($this->returnValue($euroMillionsDraw_stub));
+        $sut = $this->getSut($lotteryName);
+        $actual = $sut->getNextDrawByLottery($lotteryName);
+        $this->assertInstanceOf('EuroMillions\entities\EuroMillionsDraw',$actual->getValues());
+    }
+
+    /**
+     * method getNextDrawByLottery
+     * when calledAndEuroMillionsDrawReturnedIsEmpty
+     * should returnServiceActionResultFalse
+     */
+    public function test_getNextDrawByLottery_calledAndEuroMillionsDrawReturnedIsEmpty_returnServiceActionResultFalse()
+    {
+        $expected = new ServiceActionResult(false);
+        $lotteryName = 'EuroMillions';
+        $this->prepareLotteryEntity($lotteryName);
+        $this->lotteryDrawRepositoryDouble->expects($this->any())
+            ->method('getNextDraw')
+            ->will($this->returnValue(null));
+        $sut = $this->getSut($lotteryName);
+        $actual = $sut->getNextDrawByLottery($lotteryName);
+        $this->assertEquals($expected,$actual);
+    }
+
 
     /**
      * method getLastResult

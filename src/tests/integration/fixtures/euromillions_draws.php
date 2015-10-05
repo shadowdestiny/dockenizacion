@@ -46,5 +46,15 @@ return [
             'result_lucky_numbers' => '6,8',
             'jackpot_currency_name' => 'EUR',
         ],
+        [
+            'id'   => 7,
+            'draw_date' => '2015-10-02',
+            'jackpot_amount' => 10000000000,
+            'lottery_id' => 1,
+            'result_regular_numbers' => null,
+            'result_lucky_numbers' => null,
+            'jackpot_currency_name' => 'EUR',
+        ],
+
     ]
 ];
