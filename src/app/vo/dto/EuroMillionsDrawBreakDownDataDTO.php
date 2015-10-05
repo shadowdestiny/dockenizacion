@@ -7,6 +7,8 @@ namespace EuroMillions\vo\dto;
 use EuroMillions\exceptions\UnsupportedOperationException;
 use EuroMillions\vo\dto\base\DTOBase;
 use EuroMillions\vo\EuroMillionsDrawBreakDownData;
+use Money\Currency;
+use Money\Money;
 
 class EuroMillionsDrawBreakDownDataDTO extends DTOBase
 {
@@ -15,7 +17,7 @@ class EuroMillionsDrawBreakDownDataDTO extends DTOBase
 
     public $name;
 
-    public $lottery_prizes;
+    public $lottery_prize;
 
     public $winners;
 
@@ -49,17 +51,17 @@ class EuroMillionsDrawBreakDownDataDTO extends DTOBase
     /**
      * @return mixed
      */
-    public function getLotteryPrizes()
+    public function getLotteryPrize()
     {
-        return $this->lottery_prizes;
+        return $this->lottery_prize;
     }
 
     /**
-     * @param mixed $lottery_prizes
+     * @param mixed $lottery_prize
      */
-    public function setLotteryPrizes($lottery_prizes)
+    public function setLotteryPrize($lottery_prize)
     {
-        $this->lottery_prizes = $lottery_prizes;
+        $this->lottery_prize = $lottery_prize;
     }
 
     /**
@@ -115,7 +117,7 @@ class EuroMillionsDrawBreakDownDataDTO extends DTOBase
     protected function exChangeObject()
     {
         $this->setName($this->euroMillionsDrawBreakDownDataDTO->getName());
-        $this->setLotteryPrizes($this->euroMillionsDrawBreakDownDataDTO->getLotteryPrizes());
+        $this->setLotteryPrize($this->euroMillionsDrawBreakDownDataDTO->getLotteryPrize()->getAmount());
         $this->setWinners($this->euroMillionsDrawBreakDownDataDTO->getWinners());
         $corrected = explode("+",trim($this->getName()));
         $this->setNumbersCorrected($corrected[0]);
@@ -126,4 +128,5 @@ class EuroMillionsDrawBreakDownDataDTO extends DTOBase
     {
         throw new UnsupportedOperationException('Method no implemented');
     }
+
 }

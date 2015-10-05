@@ -256,7 +256,7 @@ class EuroMillionsDrawBreakDown
                 try{
                     $euroMillionsDrawBreakDown = new EuroMillionsDrawBreakDownData();
                     $euroMillionsDrawBreakDown->setName($breakDown[0]);
-                    $euroMillionsDrawBreakDown->setLotteryPrizes($breakDown[1]);
+                    $euroMillionsDrawBreakDown->setLotteryPrize($breakDown[1]);
                     $euroMillionsDrawBreakDown->setWinners($breakDown[2]);
                     $this->$nameMethod($euroMillionsDrawBreakDown);
                 }catch(Exception $e){
