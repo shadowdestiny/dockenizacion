@@ -35,7 +35,7 @@
                     <li><a href="#n17">What is a Euromillions Superdraw?</a></li>
                     <li><a href="#n18">What is a Euromillions Subscription?</a></li> 
                     <li><a href="#n08">How can I participate in a future draw?</a></li>
-                    <li><a href="#">Can I play only when the Jackpot Prize reach a specific ammount?</a></li> 
+                    <li><a href="#">Can I play only when the Jackpot Prize reach a specific ammount?</a></li>
                     <li><a href="#">How do I make a bet with multiple numbers in a line?</a></li>
                 </ul>
 
@@ -78,6 +78,11 @@
                 <br>Your time is valuable to us, so we work hard to provide you with a quick, smart, and reliable experience to play lottery online from the comfort of your home or on the go.
                 <br>Your fate-changer might be right here in the palm of your hand.
                 <br>We understand what you expect from us and we assure you that your winnings are commission free and will remain so forever.</p>
+                <a href="#top" class="back"><i class="ico ico-arrow-up2"></i> Back to the top</a>
+
+                <a id="multiple-line"></a>
+                <h3 class="h4">How do I make a bet with multiple numbers in a line?</h3>
+                <p>At the moment of launching our new improved version of Euromillions, we are not supporting this feature. In the close future we are commited to re-introduce it and to give you the best lotto experience that you expect.</p>
                 <a href="#top" class="back"><i class="ico ico-arrow-up2"></i> Back to the top</a>
 
                 <a id="n01"></a>

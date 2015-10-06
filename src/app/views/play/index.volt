@@ -40,7 +40,7 @@
 		</header>
 		<div class="special">
 			<span class="ico ico-info"></span>
-			<span class="txt">{{ language.translate("A single bet in a line consist in 5 numbers + 2 star numbers. Do you want to make a bet with multiple numbers in a line?") }} <a href="javascript:void(0);">{{ language.translate("Yes, please.") }}</a></span>
+			<span class="txt">{{ language.translate("A single bet in a line consist in 5 numbers + 2 star numbers. Do you want to make a bet with multiple numbers in a line?") }} <a href="faq#multiple-line">{{ language.translate("Yes, please.") }}</a></span>
 		</div>
 		<div class="gameplay">
 			<div class="box-lines cl">

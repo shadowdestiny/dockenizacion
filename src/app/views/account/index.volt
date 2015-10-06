@@ -61,7 +61,7 @@ $(function(){
                         </div>
 
                 *click to see change psw area*
-                        <div class="cols gap">
+                        <div class="cols gap" style="margin-bottom:0;"> {# temporary inline style to remove the gap with #}
                             <div class="col12">
                                 <a href="javascript:void(0)" class="change-psw btn gwy big">{{ language.translate("Change password") }}</a>
                                 <label class="btn big blue right submit" for="submit">
@@ -74,6 +74,7 @@ $(function(){
                     </div>
                 </form>
 
+                {# DO NOT DELETE - Facebook revoke access
                 <hr class="yellow">
                 <div class="connect">
                     <div class="cl">
@@ -82,6 +83,7 @@ $(function(){
                     </div>
                     <p>{{ language.translate("Permissions: Read only") }}</p>
                 </div>
+                #}
             </div>
             <div class="box-change-psw hidden">
                  <h1 class="h1 title yellow">{{ language.translate("My Account") }}</h2>
@@ -89,7 +91,6 @@ $(function(){
                 {% set myPsw='{"value": "change"}'|json_decode %}
                 {% include "_elements/generate-psw.volt" %}
             </div>
-
         </div>
     </div>
 </main>
