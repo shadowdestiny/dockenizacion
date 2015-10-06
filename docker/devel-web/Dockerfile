@@ -1,4 +1,4 @@
-FROM antonienko/phalcon2-apache2
+FROM antonienko/phalcon2-apache2:v1.0
 MAINTAINER Antonio Hernández "antonio.hernandez@panamedia.net"
 
 ADD crontab.txt /tmp/crontab.txt

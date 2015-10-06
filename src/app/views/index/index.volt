@@ -54,10 +54,10 @@
 						</li>
 					</ul>
 					<div class="center">
-						<a href="javascript:void(0);" class="btn big blue">{{ language.translate("Start to Play") }} <i class="ico ico-arrow-right"></i></a>
+						<a href="{{ url("play") }}" class="btn big blue">{{ language.translate("Start to Play") }} <i class="ico ico-arrow-right"></i></a>
 					</div>
 				</div>
-				<a href="javascript:void(0);" class="box-result no-lnk">
+				<a href="{{ url("numbers") }}" class="box-result no-lnk">
 					<div class="cols">
 						<div class="col8 content">
 							<h1 class="h2">{{ language.translate('Euromillions Results') }}</h1>
@@ -79,7 +79,7 @@
 			<div class="col6 box-right">
 
 				<div class="box-play">
-					<a href="javascript:void(0);" class="outbound">
+					<a href="{{ url("play") }}" class="outbound">
 						<div class="content">
 							<p class="h2">{{ language.translate('for only %priceValue% &euro;',['priceValue':2,35]) }}</p>
 							<div class="win-millions">
@@ -116,9 +116,9 @@
                                             {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
                                             {% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
 											<div class="box-btn">
-												<a href="javascript:void(0);" class="btn blue expand">{{ language.translate('I feel lucky') }} <i class="ico ico-arrow-right"></i></a>
+												<a href="{{ url("play") }}" class="btn blue expand">{{ language.translate('I feel lucky') }} <i class="ico ico-arrow-right"></i></a>
 
-												<a href="javascript:void(0);" class="btn red expand">{{ language.translate('Pick your numbers') }} <i class="ico ico-arrow-right"></i></a>
+												<a href="{{ url("play") }}" class="btn red expand">{{ language.translate('Pick your numbers') }} <i class="ico ico-arrow-right"></i></a>
 											</div>
 										</div>
 										<div class="col6 center box-vector">
@@ -131,7 +131,9 @@
 
 						<div class="notes cl">
 							<div class="left">
-								<i class="ico ico-hourglass"></i> <span class="time">{{ days_till_next_draw }} {{ language.translate('DAYS') }} {{ hours_till_next_draw }}:{{ minutes_till_next_draw }}</span>
+								<i class="ico ico-hourglass"></i><span class="time">
+									<div id="clock"></div>
+								</span>
 								{# EMTD be careful to add singolar/plural: DAY / DAYS and if it is a matter of hours put content text as "04:09:34" format#}
 							</div>
 							<div class="right">
@@ -158,7 +160,7 @@
 						<div class="col6">
 							<span class="gold-pile">
 								<svg class="vector"><use xlink:href="#logo-shadow"></use></svg>
-								<a href="javascript:void(0);" class="btn blue">Start playing, Win millions</a>
+								<a href="{{ url("play") }}" class="btn blue">Start playing, Win millions</a>
 							</span>
 						</div>
 					</div>
@@ -180,7 +182,7 @@
 					</div>
 					<div class="box-action">
 						<span class="h2 phrase">Millions of people play the Euromillion lottery everyday.</span>
-						<a href="javascript:void(0);" class="btn blue">Play anytime, anywhere</a>
+						<a href="{{ url("play") }}" class="btn blue">Play anytime, anywhere</a>
 					</div>
 				</div>
 			</div>
@@ -206,7 +208,7 @@
 				</div>
 				<div class="box-action">
 					<span class="h2 phrase">For a very small amount of money<br class="mobile"> you might change your life.</span>
-					<a href="javascript:void(0);" class="btn blue">Beat the odds, Play the Lotto</a>
+					<a href="{{ url("play") }}" class="btn blue">Beat the odds, Play the Lotto</a>
 				</div>
 			</div>
 
@@ -243,7 +245,7 @@
 				</div>
 				<div class="box-action">
 					<span class="h2 phrase">Winning starts by saying to yourself,<br class="mobile"> "One day I’m going to win."</span>
-					<a href="javascript:void(0);"  class="btn blue">Play. Dare to dream. Win.</a>
+					<a href="{{ url("play") }}"  class="btn blue">Play. Dare to dream. Win.</a>
 				</div>
 			</div>
 
@@ -254,4 +256,20 @@
 
 	</div>
 </main>
+<script>
+	$(function() {
+		$('span.time').countdown('{{ date_to_draw }}',  {elapse: true})
+				.on('update.countdown', function (event) {
+					var format = '%H h %M min %S sec';
+					if(event.offset.days > 0) {
+						format = '%-d day%!d:singular,plural; ' + format;
+					}
+					$(this).html(event.strftime(format));
+				})
+				.on('finish.countdown', function () {
+					$(this).html('This offer has expired!')
+					.parent().addClass('disabled');
+				});
+	});
+</script>
 {% endblock %}

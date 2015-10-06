@@ -9,7 +9,7 @@ class EuroMillionsDrawBreakDownData
 
     protected $name;
 
-    protected $lottery_prizes;
+    protected $lottery_prize;
 
     protected $winners;
 
@@ -38,17 +38,17 @@ class EuroMillionsDrawBreakDownData
     /**
      * @return mixed
      */
-    public function getLotteryPrizes()
+    public function getLotteryPrize()
     {
-        return $this->lottery_prizes;
+        return $this->lottery_prize;
     }
 
     /**
-     * @param mixed $lottery_prizes
+     * @param mixed $lottery_prize
      */
-    public function setLotteryPrizes($lottery_prizes)
+    public function setLotteryPrize($lottery_prize)
     {
-        $this->lottery_prizes = $lottery_prizes;
+        $this->lottery_prize = $lottery_prize;
     }
 
     /**

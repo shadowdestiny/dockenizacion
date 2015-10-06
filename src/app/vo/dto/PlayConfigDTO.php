@@ -5,6 +5,7 @@ namespace EuroMillions\vo\dto;
 
 
 use EuroMillions\entities\PlayConfig;
+use EuroMillions\vo\DrawDays;
 use EuroMillions\vo\dto\base\DTOBase;
 
 class PlayConfigDTO extends DTOBase
@@ -16,6 +17,7 @@ class PlayConfigDTO extends DTOBase
 
     public $lucky_numbers;
 
+    /** @var  DrawDays */
     public $drawDays;
 
     public $startDrawDate;

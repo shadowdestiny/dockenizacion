@@ -92,7 +92,7 @@ class PlayService
             $today = new \DateTime();
         }
 
-        $dateNextDraw = $this->lotteriesDataService->getNextDrawByLottery('EuroMillions', $today);
+        $dateNextDraw = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions', $today);
         $result = $this->betRepository->getBetsByDrawDate(new \DateTime($dateNextDraw));
         if(!empty($result)){
             return new ServiceActionResult(true);
@@ -112,7 +112,16 @@ class PlayService
         }else{
             return new ServiceActionResult(false);
         }
+    }
 
+    public function getPlaysConfigToBet($date)
+    {
+        $result = $this->playConfigRepository->getPlayConfigsByDrawDayAndDate($date);
+        if(!empty($result)){
+            return new ServiceActionResult(true,$result);
+        }else{
+            return new ServiceActionResult(false);
+        }
     }
 
 }

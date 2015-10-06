@@ -171,7 +171,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $today = new \DateTime('2015-09-16 00:00:00');
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $bet = new Bet($playConfig,$euroMillionsDraw);
-        $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions',$today)->willReturn('2015-09-18 00:00:00');
+        $this->lotteryDataService_double->getNextDateDrawByLottery('EuroMillions',$today)->willReturn('2015-09-18 00:00:00');
         $this->betRepository_double->getBetsByDrawDate(Argument::any())->willReturn($bet);
         $this->betRepository_double->add(Argument::any())->shouldNotBeCalled();
         $sut = $this->getSut();
@@ -202,6 +202,21 @@ class PlayServiceUnitTest extends UnitTestBase
         $expected = new ServiceActionResult(false);
         $actual = $this->exerciseTemporarilyStorePlay($expected);
         $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method getPlayConfigToBet
+     * when called
+     * should returnServiceActionResultTrueWithProperData
+     */
+    public function test_getPlayConfigToBet_called_returnServiceActionResultTrueWithProperData()
+    {
+        $expected = 1;
+        $date = '2015-10-05';
+        $sut = $this->getSut();
+        $this->playConfigRepository_double->getPlayConfigsByDrawDayAndDate($date)->willReturn(true);
+        $actual = $sut->getPlaysConfigToBet($date);
+        $this->assertGreaterThanOrEqual($expected,count($actual->getValues()));
     }
 
 

@@ -11,29 +11,43 @@ class PlayConfigRepository extends RepositoryBase
 
     public function getPlayConfigsActivesByUser(UserId $userId)
     {
-        $result = $this->getEntityManager()
-            ->createQuery(
-                'SELECT p'
-                . ' FROM ' . $this->getEntityName() . ' p'
-                . ' WHERE p.user = :user_id AND p.active = 1')
-            ->setParameters(['user_id' => $userId->id()])
-            ->getResult();
-
-        return $result;
+        return $this->getPlayConfigsByUser($userId, '1');
     }
 
     public function getPlayConfigsInActivesByUser(UserId $userId)
+    {
+        return $this->getPlayConfigsByUser($userId, '0');
+    }
+
+    public function getPlayConfigsByDrawDayAndDate($day)
     {
         $result = $this->getEntityManager()
             ->createQuery(
                 'SELECT p'
                 . ' FROM ' . $this->getEntityName() . ' p'
-                . ' WHERE p.user = :user_id AND p.active = 0')
+                . ' WHERE p.active = 1 AND ' . $day . ' BETWEEN p.start_draw_date and p.last_draw_date ')
+            ->getResult();
+
+        return $result;
+
+    }
+
+    /**
+     * @param UserId $userId
+     * @param $active
+     * @return array
+     */
+    protected function getPlayConfigsByUser(UserId $userId, $active)
+    {
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT p'
+                . ' FROM ' . $this->getEntityName() . ' p'
+                . ' WHERE p.user = :user_id AND p.active = ' . $active . '')
             ->setParameters(['user_id' => $userId->id()])
             ->getResult();
 
         return $result;
     }
-
 
 }

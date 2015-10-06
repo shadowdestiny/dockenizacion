@@ -123,7 +123,7 @@
 											{% endfor %}
 										</td>
 										<td class="td-winners">{{ break_downs[name]['winners'] }}</td>
-										<td class="td-prize">{{ break_downs[name]['lottery_prizes'] }}</td>
+										<td class="td-prize">{{ break_downs[name]['lottery_prize'] | number_format(2, ',', '.') }}</td>
 										<td class="td-payout">-</td>
 									{% endif %}
 									</tr>
