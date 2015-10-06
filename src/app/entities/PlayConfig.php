@@ -6,9 +6,12 @@ namespace EuroMillions\entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use EuroMillions\interfaces\IEntity;
+use EuroMillions\interfaces\IEMForm;
 use EuroMillions\vo\EuroMillionsLine;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
-class PlayConfig extends EntityBase implements IEntity
+
+class PlayConfig extends EntityBase implements IEntity,IEMForm
 {
 
     protected $id;
@@ -22,7 +25,7 @@ class PlayConfig extends EntityBase implements IEntity
 
     protected $play_config;
 
-    protected $drawDays;
+    protected $draw_days;
 
     protected $startDrawDate;
 
@@ -34,6 +37,12 @@ class PlayConfig extends EntityBase implements IEntity
     {
         $this->bet = new ArrayCollection();
     }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
 
     public function getId()
     {
@@ -70,14 +79,14 @@ class PlayConfig extends EntityBase implements IEntity
         return $this->active;
     }
 
-    public function setDrawDays($drawDays)
+    public function setDrawDays($draw_days)
     {
-        $this->drawDays = $drawDays;
+        $this->draw_days = $draw_days;
     }
 
     public function getDrawDays()
     {
-        return $this->drawDays;
+        return $this->draw_days;
     }
 
     public function setStartDrawDate($startDrawDate)
@@ -100,4 +109,37 @@ class PlayConfig extends EntityBase implements IEntity
         return $this->lastDrawDate;
     }
 
+    public function setBet($bet)
+    {
+        $this->bet = $bet;
+    }
+
+    public function getBet()
+    {
+        return $this->bet;
+    }
+
+
+    public function formToEntity(User $user, $json)
+    {
+        $formPlay = null;
+        try{
+
+            $formPlay = json_decode($json);
+            if(!is_array($formPlay)){
+                throw new Exception('Error converting object to array from storage');
+            }
+
+            $this->setUser($user);
+            $this->setLine($formPlay['euroMillionsLines']);
+            $this->setActive(true);
+            $this->setDrawDays(new \DrawDays($formPlay['drawDays']));
+            $this->setStartDrawDate($formPlay['startDrawDate']);
+            $this->setLastDrawDate($formPlay['lastDrawDate']);
+        }catch(Exception $e){
+
+        }
+
+
+    }
 }

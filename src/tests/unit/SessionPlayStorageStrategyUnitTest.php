@@ -31,9 +31,9 @@ class SessionPlayStorageStrategyUnitTest extends UnitTestBase
      */
     public function test_findByKey_calledWithEuroMillionsLineInSession_returnEuroMillionInSession()
     {
-        $expected = new ServiceActionResult(true,$this->getEuroMillionsLine());
+        $expected = new ServiceActionResult(true,$this->getEuroMillionsLines());
         $sut = $this->getSut();
-        $this->session_double->get(SessionPlayStorageStrategy::CURRENT_EMLINE_VAR)->willReturn($this->getEuroMillionsLine());
+        $this->session_double->get(SessionPlayStorageStrategy::CURRENT_EMLINE_VAR)->willReturn($this->getEuroMillionsLines());
         $actual = $sut->findByKey(SessionPlayStorageStrategy::CURRENT_EMLINE_VAR);
         $this->assertEquals($expected,$actual);
     }

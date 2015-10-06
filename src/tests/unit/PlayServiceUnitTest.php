@@ -77,17 +77,7 @@ class PlayServiceUnitTest extends UnitTestBase
     public function test_play_called_returnServiceActionResultTrue()
     {
         $expected = new ServiceActionResult(true);
-        $user = $this->getUser();
-        $regular_numbers = [1, 2, 3, 4, 5];
-        $lucky_numbers = [5, 8];
-        $euroMillionsResult = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),
-                                                    $this->getLuckyNumbers($lucky_numbers));
-
-        $sut = $this->getSut();
-        $entityManager_stub = $this->getEntityManagerDouble();
-        $entityManager_stub->flush(Argument::any())->shouldNotBeCalled();
-        $this->stubEntityManager($entityManager_stub);
-        $actual = $sut->play($user,$euroMillionsResult);
+        $actual = $this->exerciseTemporarilyStorePlay($expected);
         $this->assertEquals($expected,$actual);
     }
 
@@ -110,6 +100,46 @@ class PlayServiceUnitTest extends UnitTestBase
         $entityManager_stub->flush(Argument::any())->shouldNotBeCalled();
         $this->stubEntityManager($entityManager_stub);
         $actual = $sut->play($user,$euroMillionsResult);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method play
+     * when calledAndPlayIsStored
+     * should removeKeyAndReturnServiceActionResultTrue
+     */
+    public function test_play_calledAndPlayIsStored_removeKeyAndReturnServiceActionResultTrue()
+    {
+        $expected = new ServiceActionResult(true);
+        $actual = $this->exerciseTemporarilyStorePlay($expected);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method play
+     * when calledAndRemoveKeyFromStorage
+     * should returnServiceActionResultFalse
+     */
+    public function test_play_calledAndPlayIsNotStored_returnServiceActionResultFalse()
+    {
+        $expected = new ServiceActionResult(false);
+        $actual = $this->exerciseTemporarilyStorePlay($expected);
+        $this->assertEquals($expected,$actual);
+    }
+
+
+    /**
+     * method play
+     * when calledAndPassKeyInvalidToSearchInStorage
+     * should returnServiceActionResultFalse
+     */
+    public function test_play_calledAndPassKeyInvalidToSearchInStorage_returnServiceActionResultFalse()
+    {
+        $expected = new ServiceActionResult(false,'The search key doesn\'t exist');
+        $user = $this->getUser();
+        $sut = $this->getSut();
+        $this->playStorageStrategy_double->findByKey($user->getId()->id())->willReturn(null);
+        $actual = $sut->play($user);
         $this->assertEquals($expected,$actual);
     }
 
@@ -141,7 +171,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $today = new \DateTime('2015-09-16 00:00:00');
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $bet = new Bet($playConfig,$euroMillionsDraw);
-        $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions',$today)->willReturn('2015-09-18 00:00:00');
+        $this->lotteryDataService_double->getNextDateDrawByLottery('EuroMillions',$today)->willReturn('2015-09-18 00:00:00');
         $this->betRepository_double->getBetsByDrawDate(Argument::any())->willReturn($bet);
         $this->betRepository_double->add(Argument::any())->shouldNotBeCalled();
         $sut = $this->getSut();
@@ -174,6 +204,21 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
+    /**
+     * method getPlayConfigToBet
+     * when called
+     * should returnServiceActionResultTrueWithProperData
+     */
+    public function test_getPlayConfigToBet_called_returnServiceActionResultTrueWithProperData()
+    {
+        $expected = 1;
+        $date = '2015-10-05';
+        $sut = $this->getSut();
+        $this->playConfigRepository_double->getPlayConfigsByDrawDayAndDate($date)->willReturn(true);
+        $actual = $sut->getPlaysConfigToBet($date);
+        $this->assertGreaterThanOrEqual($expected,count($actual->getValues()));
+    }
+
 
     private function exerciseTemporarilyStorePlay($expected)
     {
@@ -182,6 +227,20 @@ class PlayServiceUnitTest extends UnitTestBase
         $sut = $this->getSut();
         return $actual = $sut->temporarilyStorePlay($playForm);
 
+    }
+
+    private function exerciseRemoveTemporarilyStorePlay($expected)
+    {
+        $user = $this->getUser();
+        $form = $this->getPlayFormToStorage();
+        $this->playStorageStrategy_double->findByKey($user->getId()->id())->willReturn($form->toJson());
+        $playConfig = new PlayConfig();
+        $playConfig->formToEntity($user,$form->toJson());
+        $this->betRepository_double->add(Argument::any())->shouldNotBeCalled();
+        $this->getEntityManagerDouble()->flush($playConfig)->shouldNotBeCalled();
+        $this->playStorageStrategy_double->delete($user->getId()->id())->willReturn($expected);
+        $sut = $this->getSut();
+        return $actual = $sut->play($user);
     }
 
     private function getSut(){
@@ -222,7 +281,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $playFormToStorage->frequency = $startDrawDate;
         $playFormToStorage->lastDrawDate = $lastDrawDate->getLastDrawDate();
         $playFormToStorage->drawDays = 2;
-        $playFormToStorage->euroMillionsLine = $this->getEuroMillionsLines();
+        $playFormToStorage->euroMillionsLines = $this->getEuroMillionsLines();
 
         return $playFormToStorage;
     }

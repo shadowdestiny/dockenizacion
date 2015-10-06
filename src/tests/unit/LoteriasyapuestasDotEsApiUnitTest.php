@@ -119,6 +119,47 @@ class LoteriasyapuestasDotEsApiUnitTest extends UnitTestBase
         ];
     }
 
+    /**
+     * method getResultBreakDownForDate
+     * when calledWithAvailableDate
+     * should returnProperValues
+     * @dataProvider getDateAndBreakDownResults
+     */
+    public function test_getResultBreakDownForDate_calledWithAvailableDate_returnProperValues($date, $expected)
+    {
+        $actual = $this->exerciseGetResultBreakDown($date);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function getDateAndBreakDownResults()
+    {
+        return [
+            ['2015-06-05',
+                [
+                    'category_one' => ['5 + 2', new Money(str_replace('.','','0.00')*100, new Currency('EUR')), '0'],
+                    'category_two' => ['5 + 1', new Money(str_replace('.','','293.926.57')*100, new Currency('EUR')), '9'],
+                    'category_three' => ['5 + 0', new Money(str_replace('.','','88.177.97')*100, new Currency('EUR')), '10'],
+                    'category_four' => ['4 + 2', new Money(str_replace('.','','6.680.15')*100, new Currency('EUR')), '66'],
+                    'category_five' => ['4 + 1', new Money(str_replace('.','','275.16')*100, new Currency('EUR')), '1.402'],
+                    'category_six' => ['4 + 0', new Money(str_replace('.','','131.49')*100, new Currency('EUR')), '2.934'],
+                    'category_seven' => ['3 + 2', new Money(str_replace('.','','60.87')*100, new Currency('EUR')), '4.527'],
+                    'category_eight' => ['2 + 2', new Money(str_replace('.','','18.93')*100, new Currency('EUR')), '66.973'],
+                    'category_nine' => ['3 + 1', new Money(str_replace('.','','16.73')*100, new Currency('EUR')), '72.488'],
+                    'category_ten' => ['3 + 0', new Money(str_replace('.','','13.41')*100, new Currency('EUR')), '152.009'],
+                    'category_eleven' => ['1 + 2', new Money(str_replace('.','','9.98')*100, new Currency('EUR')), '358.960'],
+                    'category_twelve' => ['2 + 1', new Money(str_replace('.','','8.52')*100, new Currency('EUR')), '1.138.617'],
+                    'category_thirteen' => ['2 + 0', new Money(str_replace('.','','4.15')*100, new Currency('EUR')), '2.390.942'],
+                ]
+            ],
+        ];
+    }
+
+    protected function exerciseGetResultBreakDown($date)
+    {
+        $curlWrapper_stub = $this->getCurlWrapperWithResultRssResponse();
+        $sut = new LoteriasyapuestasDotEsApi($curlWrapper_stub);
+        return $sut->getResultBreakDownForDate('EuroMillions', $date);
+    }
 
     protected function exerciseGetResult($date)
     {

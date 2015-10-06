@@ -35,7 +35,7 @@ nav a, .main-foot ul a, #nav-account a{text-decoration:none;}
 em{font-style:italic;}
 blockquote, q{quotes:none;}
 blockquote:before, blockquote:after,q:before, q:after{content:''; content:none;}
-select{padding:5px; border:1px solid #bbb; line-height:30px; /*Safari need line-height*/}
+select{padding:5px; border:1px solid $grey-light; line-height:30px; /*Safari need line-height*/}
 button{cursor:pointer;}
 hr{border:0; background:$grey-light; height:1px; margin-bottom:1em;}
 hr.yellow{background:$yellow;}
@@ -56,7 +56,7 @@ img.right{margin:0 0 15px 10px;}
 
 /* RESET UI */
 #main-page > .ui-content{padding:0;}
-.ui-checkbox{margin:0;}
+.ui-checkbox{margin:0; height:auto; position:relative;}
 .ui-checkbox label{padding:0; overflow:none;}
 .ui-link:hover, .ui-link:focus{text-decoration:none!important;}
 .ui-radio{display:inline-block;}
@@ -77,6 +77,9 @@ label.submit{cursor:pointer;}
 .label{cursor:pointer; font-weight:bold; display:block; margin-bottom:3px;}
 .label + .input, .label + .select{margin-bottom:1em;}
 .select{padding-top:6px;}
+
+/* POPUP */
+.bg-black{display:none; z-index:100; position:absolute; width:100%; height:100%; background:rgba(0, 0, 0, 0.6);}
 
 /* INFO BOX */
 .box{text-align:left; padding:10px; border-radius:5px; font-weight:bold; margin-bottom:1em;}
@@ -215,7 +218,7 @@ label.submit{cursor:pointer;}
 
 .back-top a{
   float:right; margin:-0.5em 0 1.5em; text-decoration:none; font-size:$basic-size;
-  &:hover, &:focus{text-decoration:underline;}
+  &:hover, &:focus{color:$blue-dark;}
   .ico{font-size:12px; margin-right:3px;}
 }
 
@@ -242,7 +245,7 @@ $var2-pulseRight:20px,0;
 }
 
 /* TYPOGRAPHY */
-body{font-family:$basic-font;}
+body, .submit{font-family:$basic-font;}
 .h0, .h1, .h2, .h3, .h4, .h5, .h6{margin-bottom:1em; font-weight:bold; line-height:normal;}
 .h0{font-size:$h0; margin-bottom:0;}
 .h1{font-size:$h1;}
@@ -255,6 +258,7 @@ body{font-family:$basic-font;}
 
 /* COLORS */
 .yellow{color:$yellow-dark;}
+.red{color:$red!important;}
 .grey{color:$grey;}
 .purple{color:$purple;}
 
@@ -382,6 +386,11 @@ body{font-family:$basic-font;}
   .input, .textarea, .select{width:100%; margin-bottom:1em;}
 }
 
+.my-left, .my-right{position:absolute; width:100%;}
+.my-left{left:-100%; padding-right:15px; text-align:right;}
+.my-right{right:-100%; padding-left:15px;}
+.my-left h1{margin-bottom:.5em;}
+
 /* SPRITES */
 .sprite{display:block; width:75px; height:75px; background: url(../img/sprite.png) no-repeat 0 0;} /* Basic sprite size of @1x is 270x220px */
 .visa, .visa:hover{background-position:-50px 0; border:1px solid #bbb;} 
@@ -411,6 +420,10 @@ body{font-family:$basic-font;}
 /*body{border:10px solid #0ff;} /* BLUE WATER */
 .media{width:1px}
 .wrapper{max-width:992px;}
+.my-left, .my-right{width:72%;}
+.my-left{left:-72%;}
+.my-right{right:-72%;}
+/*.br{display:none;}*/
 }
  
 /* Medium Devices, Desktops */
@@ -422,6 +435,7 @@ body{font-family:$basic-font;}
 .main-nav a{padding:10px 12px; min-height:62px;}
 .main-nav .subnav a{min-height:inherit;} 
 .box-links .col20per{padding:0 10px;}
+.my-left, .my-right{display:none;}
 }
 
 @media only screen and (min-width:769px){
@@ -490,6 +504,7 @@ body{font-family:$basic-font;}
   li, .next, .prev{margin:0;}
 }
 .minimal .main-foot .txt{text-align:center;}
+.br{display:none;}
 } /* End Media query */
 
 @media screen and (min-width:480px){

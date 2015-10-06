@@ -3,7 +3,10 @@
 .box-left{background:#fff; border:1px solid $yellow; border-right:0; border-radius:10px 0 0 10px;}
 .box-right{background:url(../img/home/bg-coloured.jpg) no-repeat; border-radius:0 10px 10px 0; }
 
-.box-estimated{background:url(/img/home/bg-euro.jpg) no-repeat; padding:20px 0 13px 20px; border-radius:10px 0 0 0; background-size:cover;}
+.box-estimated{
+  background:url(/img/home/bg-euro.jpg) no-repeat; padding:20px 0 13px 20px; border-radius:10px 0 0 0; background-size:cover;
+  .try{position:relative;} /* Fix Safari problem*/
+}
 .box-estimated:hover .try{@extend %pulseRight;}
 .box-estimated .vector{
     position:absolute; top:-20px; right:-5px; width:35%; height:215px;
@@ -97,7 +100,10 @@
 .box-prize .notes{font-weight:bold; margin-top:10px; font-size:$basic-size; color:$grey;}
 .box-prize .notes .ico{position:relative; top:1px;}
 .box-prize .btn{margin-bottom:10px;}
-.box-prize .vector{width:75%; margin:auto; max-width:220px;}
+.box-prize{
+  .box-vector{width:220px; height:160px;}
+  .vector{width:75%; margin:auto; max-width:220px; position:relative;}
+}
 
 .informative{
   .li-title{font-weight:bold; font-size:$h2; margin-bottom:.5em;}
@@ -107,7 +113,7 @@
     padding:20px 0 25px; border-top:1px solid $yellow; display:block; text-decoration:none; color:$black; text-align:center;
     .phrase{display:block; margin-bottom:5px;}
     .btn{margin:auto;}
-    &:hover .btn{color:$btn-blue; background:#fff; border:1px solid $btn-blue; text-shadow:0 0 0 transparent;}
+    .btn:hover{color:$btn-blue; background:#fff; border:1px solid $btn-blue; text-shadow:0 0 0 transparent;}
   }
   .box-basic{margin-bottom:2em; padding:0;}
   .box-txt.r{padding:15px 20px 10px 0;}
@@ -117,7 +123,7 @@
   margin-bottom:2em;
   .start-playing{
     display:block; text-decoration:none;
-    &:hover .btn{color:$btn-blue; background:#fff; border:1px solid $btn-blue; text-shadow:0 0 0 transparent;}
+     .btn:hover{color:$btn-blue; background:#fff; border:1px solid $btn-blue; text-shadow:0 0 0 transparent;}
   }
   .top{padding:20px; border-radius:5px 5px 0 0; color:#fff; background:url(../img/home/bg-woosh.jpg) no-repeat; font-size:$h3; background-size:cover; line-height:1.4em; margin-bottom:0;}
   .title{font-size:$h2; font-weight:bold; position:relative; left:5px; color:#fff;}

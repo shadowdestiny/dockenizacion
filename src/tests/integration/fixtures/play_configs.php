@@ -8,7 +8,7 @@ return [
             'line_lucky_numbers' => '5,8',
             'active' => 1,
             'start_draw_date' => '2015-09-16 00:00:00',
-            'draw_days' => 25,
+            'draw_days_config' => 25,
             'last_draw_date' => '2015-09-30 00:00:00'
         ],
     ]

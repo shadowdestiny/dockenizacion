@@ -2,13 +2,18 @@
 namespace tests\integration;
 
 use EuroMillions\config\Namespaces;
+use EuroMillions\entities\PlayConfig;
 use EuroMillions\entities\User;
 use EuroMillions\entities\CreditCardPaymentMethod;
 use EuroMillions\vo\CardHolderName;
 use EuroMillions\vo\CardNumber;
 use EuroMillions\vo\CreditCard;
 use EuroMillions\vo\CVV;
+use EuroMillions\vo\EuroMillionsLine;
+use EuroMillions\vo\EuroMillionsLuckyNumber;
+use EuroMillions\vo\EuroMillionsRegularNumber;
 use EuroMillions\vo\ExpiryDate;
+use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
 use Money\Currency;
 use Money\Money;
@@ -26,7 +31,8 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         return [
             'users',
             'languages',
-            'payment_methods'
+            'payment_methods',
+            'play_configs',
         ];
     }
 
@@ -94,6 +100,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         $expected = 1;
         $userRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS.'User');
         $email = 'algarrobo@currojimenez.com';
+
         /** @var User $user */
         $user = $userRepository->getByEmail($email);
         $creditCard = new CreditCard(new CardHolderName('Raul Mesa Ros'),
@@ -101,6 +108,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
             new ExpiryDate('10/19'),
             new CVV('123')
         );
+
         $paymentMethod = new CreditCardPaymentMethod($creditCard);
         $paymentMethod->setUser($user);
         $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
@@ -112,6 +120,77 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         $this->assertEquals($expected,$actual);
     }
 
+
+    /**
+     * method getMyPlays
+     * when called
+     * should returnArrayWithPlayConfigs
+     */
+    public function test_getMyPlaysActives_called_returnArrayWithPlayConfigs()
+    {
+        list($user,$playConfig) = $this->getPlayConfigExpected();
+        $expected = 1;
+        $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
+        $sut = $this->getDomainServiceFactory()->getUserService(null, null, null, $paymentProvider_double->reveal());
+        $actual = count($sut->getMyPlaysActives($user->getId()));
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method getMyPlaysInActives
+     * when called
+     * should returnArrayWithPlaysConfigsInactives
+     */
+    public function test_getMyPlaysInActives_called_returnArrayWithPlaysConfigsInactives()
+    {
+        list($user,$playConfig) = $this->getPlayConfigExpected();
+        $expected = 1;
+        $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
+        $sut = $this->getDomainServiceFactory()->getUserService(null, null, null, $paymentProvider_double->reveal());
+        $actual = count($sut->getMyPlaysInActives($user->getId()));
+        $this->assertGreaterThanOrEqual($expected,$actual);
+    }
+
+    public function getPlayConfigExpected()
+    {
+
+        $userRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS.'User');
+
+        $email = 'algarrobo@currojimenez.com';
+        /** @var User $user */
+        $user = $userRepository->getByEmail($email);
+        $reg_numbers = [1, 2, 3, 4, 5];
+        $luc_numbers = [5, 8];
+
+        $regular_numbers = function($numbers){
+            foreach ($numbers as $number) {
+                $result[] = new EuroMillionsRegularNumber($number);
+            }
+            return $result;
+
+        };
+
+        $lucky_numbers = function($numbers){
+            foreach ($numbers as $number) {
+                $result[] = new EuroMillionsLuckyNumber($number);
+            }
+            return $result;
+        };
+
+        $euroMillionsLine = new EuroMillionsLine($regular_numbers($reg_numbers),
+            $lucky_numbers($luc_numbers));
+
+        $playConfig = new PlayConfig();
+        $playConfig->setId(1);
+        $playConfig->setUser($user);
+        $playConfig->setLine($euroMillionsLine);
+        $playConfig->setActive(true);
+        $playConfig->setDrawDays(25);
+        $playConfig->setStartDrawDate(new \DateTime('2015-09-16 00:00:00'));
+        $playConfig->setLastDrawDate(new \DateTime('2015-09-30 00:00:00'));
+
+        return [$user,$playConfig];
+    }
 
 
 }

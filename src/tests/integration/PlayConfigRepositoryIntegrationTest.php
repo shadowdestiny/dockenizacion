@@ -6,6 +6,7 @@ namespace tests\integration;
 
 use EuroMillions\entities\PlayConfig;
 use EuroMillions\repositories\PlayConfigRepository;
+use EuroMillions\vo\DrawDays;
 use EuroMillions\vo\EuroMillionsLine;
 use tests\base\DatabaseIntegrationTestBase;
 use tests\base\EuroMillionsResultRelatedTest;
@@ -58,7 +59,7 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $playConfig->setUser($user);
         $playConfig->setLine($euroMillionsLine);
         $playConfig->setActive(true);
-        $playConfig->setDrawDays(2);
+        $playConfig->setDrawDays(new DrawDays(2));
         $this->sut->add($playConfig);
         $this->entityManager->flush();
         $actual = $this->entityManager

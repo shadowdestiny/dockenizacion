@@ -5,7 +5,9 @@ use EuroMillions\entities\Lottery;
 use EuroMillions\entities\EuroMillionsDraw;
 use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\services\LotteriesDataService;
+use EuroMillions\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\vo\EuroMillionsLine;
+use EuroMillions\vo\ServiceActionResult;
 use Money\Currency;
 use Money\Money;
 use Phalcon\Di;
@@ -35,9 +37,13 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
             $this->getMockBuilder(
                 '\EuroMillions\repositories\LotteryDrawRepository'
             )->disableOriginalConstructor()->getMock();
-        $this->lotteryRepositoryDouble =
+        /*$this->lotteryRepositoryDouble =
             $this->getMockBuilder(
                 '\Doctrine\Common\Persistence\ObjectRepository'
+            )->disableOriginalConstructor()->getMock();*/
+        $this->lotteryRepositoryDouble =
+            $this->getMockBuilder(
+                '\EuroMillions\repositories\LotteryRepository'
             )->disableOriginalConstructor()->getMock();
 
         $this->entityManagerDouble = $this->getEntityManagerDouble();
@@ -133,6 +139,53 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method updateLastBreakDown
+     * when calledWithPreviousDateThanNow
+     * should persistDataInExistDraw
+     */
+    public function test_updateLastBreakDown_calledWithPreviousDateThanNow_persistDataInExistDraw()
+    {
+        $lottery_name = 'EuroMillions';
+
+        $this->prepareLotteryEntity($lottery_name);
+
+        $api_mock = $this->getMockBuilder(
+            '\EuroMillions\services\external_apis\LoteriasyapuestasDotEsApi'
+        )->getMock();
+
+        $this->apiFactoryDouble->expects($this->any())
+            ->method('resultApi')
+            ->will($this->returnValue($api_mock));
+
+        $euroMillionsDraw_stub = $this->getMockBuilder('\EuroMillions\entities\EuroMillionsDraw')->getMock();
+        $this->lotteryDrawRepositoryDouble->expects($this->any())
+            ->method('findOneBy')
+            ->will($this->returnValue($euroMillionsDraw_stub));
+
+        $api_mock->expects($this->once())
+            ->method('getResultBreakDownForDate')
+            ->with($lottery_name, '2015-09-22')
+            ->will($this->returnValue(['category_one'=>[],
+                                       'category_two'=>[],
+                                       'category_three'=>[],
+                                       'category_four'=>[],
+                                       'category_five'=>[],
+                                       'category_six'=>[],
+                                       'category_seven'=>[],
+                                       'category_eight'=>[],
+                                       'category_nine'=>[],
+                                       'category_ten'=>[],
+                                       'category_eleven'=>[],
+                                       'category_twelve'=>[],
+                                       'category_thirteen'=>[]
+                                      ]
+            ));
+        $this->entityManagerDouble->flush()->willReturn();
+        $sut = $this->getSut();
+        $sut->updateLastBreakDown($lottery_name, new \DateTime('2015-09-25'));
+    }
+
+    /**
      * method getTimeToNextDraw
      * when called
      * should returnProperResult
@@ -152,20 +205,57 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     }
 
     /**
-     * method getNewDrawByLottery
+     * method getNextDateDrawByLottery
      * when called
      * should returnLotteryNextDrawDate
      */
-    public function test_getNewDrawByLottery_called_returnLotteryNextDrawDate()
+    public function test_getNextDateDrawByLottery_called_returnLotteryNextDrawDate()
     {
         $lottery_name = 'EuroMillions';
         $this->prepareLotteryEntity($lottery_name);
 
         $sut = $this->getSut();
-        $actual = $sut->getNextDrawByLottery($lottery_name, new \DateTime("2015-09-16 19:00:00"));
+        $actual = $sut->getNextDateDrawByLottery($lottery_name, new \DateTime("2015-09-16 19:00:00"));
         $expected = new \DateTime("2015-09-18 20:00:00");
         $this->assertEquals($expected, $actual);
     }
+
+    /**
+     * method getNextDrawByLottery
+     * when called
+     * should returnServiceActionResultTrueWithEuroMillionsDrawInstance
+     */
+    public function test_getNextDrawByLottery_called_returnServiceActionResultTrueWithEuroMillionsDrawInstance()
+    {
+        $euroMillionsDraw_stub = $this->getMockBuilder('\EuroMillions\entities\EuroMillionsDraw')->getMock();
+        $lotteryName = 'EuroMillions';
+        $this->prepareLotteryEntity($lotteryName);
+        $this->lotteryDrawRepositoryDouble->expects($this->any())
+            ->method('getNextDraw')
+            ->will($this->returnValue($euroMillionsDraw_stub));
+        $sut = $this->getSut($lotteryName);
+        $actual = $sut->getNextDrawByLottery($lotteryName);
+        $this->assertInstanceOf('EuroMillions\entities\EuroMillionsDraw',$actual->getValues());
+    }
+
+    /**
+     * method getNextDrawByLottery
+     * when calledAndEuroMillionsDrawReturnedIsEmpty
+     * should returnServiceActionResultFalse
+     */
+    public function test_getNextDrawByLottery_calledAndEuroMillionsDrawReturnedIsEmpty_returnServiceActionResultFalse()
+    {
+        $expected = new ServiceActionResult(false);
+        $lotteryName = 'EuroMillions';
+        $this->prepareLotteryEntity($lotteryName);
+        $this->lotteryDrawRepositoryDouble->expects($this->any())
+            ->method('getNextDraw')
+            ->will($this->returnValue(null));
+        $sut = $this->getSut($lotteryName);
+        $actual = $sut->getNextDrawByLottery($lotteryName);
+        $this->assertEquals($expected,$actual);
+    }
+
 
     /**
      * method getLastResult
@@ -220,6 +310,94 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected, $actual);
     }
 
+
+    /**
+     * method getLotteryConfigByName
+     * when called
+     * should returnServiceActionResultTrueWithLotteryConfig
+     */
+    public function test_getLotteryConfigByName_called_returnServiceActionResultTrueWithLotteryConfig()
+    {
+        $lotteryName = 'EuroMillions';
+
+        $lottery = new Lottery();
+        $lottery->initialize([
+            'id'        => 1,
+            'name'      => $lotteryName,
+            'active'    => 1,
+            'frequency' => 'w0100100',
+            'draw_time' => '20:00:00'
+        ]);
+
+        $expected = new ServiceActionResult(true,$lottery);
+        $this->lotteryRepositoryDouble->expects($this->any())
+            ->method('findOneBy')
+            ->will($this->returnValue($lottery));
+
+        $sut = $this->getSut();
+        $actual = $sut->getLotteryConfigByName($lotteryName);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method getLotteryConfigByName
+     * when calledWithWorngNameLottery
+     * should returnServiceActionResultFalse
+     */
+    public function test_getLotteryConfigByName_calledWithWorngNameLottery_returnServiceActionResultFalse()
+    {
+        $lotteryName = 'EuroMillions2';
+        $expected = new ServiceActionResult(false,'Lottery unknown');
+        $this->lotteryRepositoryDouble->expects($this->any())
+            ->method('getLotteryByName')
+            ->will($this->returnValue(null));
+        $sut = $this->getSut();
+        $actual = $sut->getLotteryConfigByName($lotteryName);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method getBreakDownDrawByDate
+     * when calledWithValidData
+     * should returnServiceActionResultTrueWithBreakDownDataDraw
+     */
+    public function test_getBreakDownDrawByDate_calledWithValidData_returnServiceActionResultTrueWithBreakDownDataDraw()
+    {
+        $expected = new ServiceActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw()));
+        $this->lotteryRepositoryDouble->expects($this->any())
+            ->method('findOneBy')
+            ->will($this->returnValue(new Lottery()));
+
+        $this->lotteryDrawRepositoryDouble->expects($this->any())
+            ->method('getBreakDownData')
+            ->will($this->returnValue($expected));
+
+        $sut = $this->getSut();
+        $actual = $sut->getBreakDownDrawByDate('EuroMillions', new \DateTime("2015-06-06 20:00:00"));
+        $this->assertEquals($expected,$actual->getValues());
+    }
+
+    /**
+     * method getBreakDownDrawByDate
+     * when calledWithValidData
+     * should returnServiceActionResultFalseWithoutBreakDownDataDraw
+     */
+    public function test_getBreakDownDrawByDate_calledWithValidData_returnServiceActionResultFalseWithoutBreakDownDataDraw()
+    {
+        $expected = new ServiceActionResult(false);
+        $this->lotteryRepositoryDouble->expects($this->any())
+            ->method('findOneBy')
+            ->will($this->returnValue(new Lottery()));
+
+        $this->lotteryDrawRepositoryDouble->expects($this->any())
+            ->method('getBreakDownData')
+            ->will($this->returnValue(null));
+
+        $sut = $this->getSut();
+        $actual = $sut->getBreakDownDrawByDate('EuroMillions', new \DateTime());
+        $this->assertEquals($expected,$actual);
+    }
+
     /**
      * @param $lottery_name
      * @return Lottery
@@ -239,6 +417,27 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
             ->with(['name' => $lottery_name])
             ->will($this->returnValue($lottery));
         return $lottery;
+    }
+
+    protected function getBreakDownDataDraw()
+    {
+        return [
+                    [
+                        'category_one' => ['5 + 2', '0.00', '0'],
+                        'category_two' => ['5 + 1', '293.926.57', '9'],
+                        'category_three' => ['5 + 0', '88.177.97', '10'],
+                        'category_four' => ['4 + 2', '6.680.15', '66'],
+                        'category_five' => ['4 + 1', '275.16', '1.402'],
+                        'category_six' => ['4 + 0', '131.49', '2.934'],
+                        'category_seven' => ['3 + 2', '60.87', '4.527'],
+                        'category_eight' => ['2 + 2', '18.93', '66.973'],
+                        'category_nine' => ['3 + 1', '16.73', '72.488'],
+                        'category_ten' => ['3 + 0', '13.41', '152.009'],
+                        'category_eleven' => ['1 + 2', '9.98', '358.960'],
+                        'category_twelve' => ['2 + 1', '8.52', '1.138.617'],
+                        'category_thirteen' => ['2 + 0', '4.15', '2.390.942'],
+                    ]
+        ];
     }
 
     /**

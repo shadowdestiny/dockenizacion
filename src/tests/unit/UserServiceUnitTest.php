@@ -3,6 +3,7 @@ namespace tests\unit;
 
 use EuroMillions\components\NullPasswordHasher;
 use EuroMillions\config\Namespaces;
+use EuroMillions\entities\PlayConfig;
 use EuroMillions\entities\User;
 use EuroMillions\entities\CreditCardPaymentMethod;
 use EuroMillions\vo\CardHolderName;
@@ -11,6 +12,9 @@ use EuroMillions\vo\ContactFormInfo;
 use EuroMillions\vo\CreditCard;
 use EuroMillions\vo\CVV;
 use EuroMillions\vo\Email;
+use EuroMillions\vo\EuroMillionsLine;
+use EuroMillions\vo\EuroMillionsLuckyNumber;
+use EuroMillions\vo\EuroMillionsRegularNumber;
 use EuroMillions\vo\ExpiryDate;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\ServiceActionResult;
@@ -30,12 +34,15 @@ class UserServiceUnitTest extends UnitTestBase
     private $emailService_double;
     private $paymentProviderService_double;
     private $paymentMethodRepository_double;
+    private $playRepository_double;
 
     protected function getEntityManagerStubExtraMappings()
     {
         return [
             Namespaces::ENTITIES_NS . 'User' => $this->userRepository_double,
-            Namespaces::ENTITIES_NS . 'PaymentMethod' => $this->paymentMethodRepository_double
+            Namespaces::ENTITIES_NS . 'PaymentMethod' => $this->paymentMethodRepository_double,
+            Namespaces::ENTITIES_NS . 'PlayConfig' => $this->playRepository_double,
+
         ];
     }
 
@@ -47,6 +54,7 @@ class UserServiceUnitTest extends UnitTestBase
         $this->emailService_double = $this->getServiceDouble('EmailService');
         $this->paymentProviderService_double = $this->getServiceDouble('PaymentProviderService');
         $this->paymentMethodRepository_double = $this->getRepositoryDouble('PaymentMethodRepository');
+        $this->playRepository_double = $this->getRepositoryDouble('PlayConfigRepository');
         parent::setUp();
     }
 
@@ -274,7 +282,54 @@ class UserServiceUnitTest extends UnitTestBase
         $expected = new ServiceActionResult(false,'You don\'t have any payment method registered');
         $this->exerciseGetPaymentMethod($expected,[],'43872489302fdkosfds');
     }
-    
+
+    /**
+     * method getMyPlays
+     * when called
+     * should returnServiceActionResultTrueWithProperData
+     */
+    public function test_getMyPlays_called_returnServiceActionResultTrueWithProperData()
+    {
+
+        $playConfig = $this->getPlayConfig();
+        $expected = new ServiceActionResult(true,$playConfig);
+        $sut = $this->getSut();
+        $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
+        $this->playRepository_double->getPlayConfigsActivesByUser($userId)->willReturn($playConfig);
+        $actual = $sut->getMyPlaysActives($userId);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method getMyPlays
+     * when calledWithUserIDValid
+     * should returnServiceActionResultFalseWithEmtpyValue
+     */
+    public function test_getMyPlays_calledWithUserIDValid_returnServiceActionResultFalseWithEmtpyValue()
+    {
+        $expected = new ServiceActionResult(false,'You don\'t have games');
+        $sut = $this->getSut();
+        $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
+        $this->playRepository_double->getPlayConfigsActivesByUser($userId)->willReturn(null);
+        $actual = $sut->getMyPlaysActives($userId);
+        $this->assertEquals($expected,$actual);
+    }
+
+    private function getPlayConfig()
+    {
+        $regular_numbers = [1, 2, 3, 4, 5];
+        $lucky_numbers = [5, 8];
+        $euroMillionsLine = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),
+            $this->getLuckyNumbers($lucky_numbers));
+
+        $playConfig = new PlayConfig();
+        $playConfig->setUser($this->getUser());
+        $playConfig->setLine($euroMillionsLine);
+        $playConfig->setActive(true);
+        $playConfig->setDrawDays(2);
+
+        return $playConfig;
+    }
 
 
     /**
@@ -311,13 +366,21 @@ class UserServiceUnitTest extends UnitTestBase
         );
     }
 
+    private function getPlayByUser()
+    {
+        $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
+    }
+
 
     /**
      * @return \EuroMillions\services\UserService
      */
     protected function getSut()
     {
-        $sut = $this->getDomainServiceFactory()->getUserService($this->currencyService_double->reveal(), $this->storageStrategy_double->reveal(), $this->emailService_double->reveal(), $this->paymentProviderService_double->reveal());
+        $sut = $this->getDomainServiceFactory()->getUserService($this->currencyService_double->reveal(),
+                                                                $this->storageStrategy_double->reveal(),
+                                                                $this->emailService_double->reveal(),
+                                                                $this->paymentProviderService_double->reveal());
         return $sut;
     }
 
@@ -381,6 +444,21 @@ class UserServiceUnitTest extends UnitTestBase
         $this->paymentMethodRepository_double->getPaymentMethodsByUser($user)->willReturn($return);
         $actual = $this->getSut()->getPaymentMethods($userId);
         $this->assertEquals($expected,$actual);
+    }
+
+    protected function getRegularNumbers(array $numbers)
+    {
+        foreach ($numbers as $number) {
+            $result[] = new EuroMillionsRegularNumber($number);
+        }
+        return $result;
+    }
+    protected function getLuckyNumbers(array $numbers)
+    {
+        foreach ($numbers as $number) {
+            $result[] = new EuroMillionsLuckyNumber($number);
+        }
+        return $result;
     }
 
 }
