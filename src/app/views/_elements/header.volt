@@ -5,13 +5,10 @@
 {% include "_elements/svg.volt" %}
 
 <header data-role="header">
-
 	{% include "_elements/top-bar.volt" %}
-
 	<div class="head">
 		<div class="wrapper">
             {% include "_elements/logo.volt" %}
-
 			<nav class="main-nav desktop">
 				<ul>
 					{% include "_elements/nav.volt" %}
