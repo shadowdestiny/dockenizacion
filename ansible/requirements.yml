@@ -10,3 +10,6 @@
 
 - src: https://github.com/antonienko/ansible-locale_list_gen
   path: /vagrant/ansible/roles/external
+
+- src: https://github.com/antonienko/ansible-docker_redis_container
+  path: /vagrant/ansible/roles/external
