@@ -7,6 +7,27 @@
 {% include "_elements/header.volt" %}
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
+{% block template_scripts %}
+<script>
+	$(function() {
+		'2015-10-07 15:35'
+		$('span.time').countdown('2015-10-07 15:56')
+		//$('span.time').countdown('{{ date_to_draw }}',  {elapse: true})
+				.on('update.countdown', function (event) {
+					var format = '%-Hh %-Mm %-Ss';
+					if(event.offset.days > 0) {
+						format = '%-dd ' + format;
+					}
+					$(this).html(event.strftime(format));
+				})
+				.on('finish.countdown', function (event) {
+					console.log('countdown');
+					$(this).html('This offer has expired!')
+							.parent().addClass('disabled');
+				});
+	});
+</script>
+{% endblock %}
 
 {% block body %}
 <a name="top"></a>
@@ -256,20 +277,4 @@
 
 	</div>
 </main>
-<script>
-	$(function() {
-		$('span.time').countdown('{{ date_to_draw }}',  {elapse: true})
-				.on('update.countdown', function (event) {
-					var format = '%H h %M min %S sec';
-					if(event.offset.days > 0) {
-						format = '%-d day%!d ' + format;
-					}
-					$(this).html(event.strftime(format));
-				})
-				.on('finish.countdown', function () {
-					$(this).html('This offer has expired!')
-					.parent().addClass('disabled');
-				});
-	});
-</script>
 {% endblock %}
