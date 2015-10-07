@@ -262,7 +262,7 @@
 				.on('update.countdown', function (event) {
 					var format = '%H h %M min %S sec';
 					if(event.offset.days > 0) {
-						format = '%-d day%!d:singular,plural; ' + format;
+						format = '%-d day%!d ' + format;
 					}
 					$(this).html(event.strftime(format));
 				})
