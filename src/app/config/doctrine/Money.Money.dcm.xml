@@ -6,7 +6,7 @@
     https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <embeddable name="Money\Money">
-        <field name="amount" type="bigint" />
+        <field name="amount" type="bigint" nullable="true"/>
         <embedded name="currency" class="Money\Currency" />
     </embeddable>
 
