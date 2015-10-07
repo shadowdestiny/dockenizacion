@@ -10,9 +10,7 @@
 {% block template_scripts %}
 <script>
 	$(function() {
-		'2015-10-07 15:35'
-		$('span.time').countdown('2015-10-07 15:56')
-		//$('span.time').countdown('{{ date_to_draw }}',  {elapse: true})
+		$('span.time').countdown('{{ date_to_draw }}')
 				.on('update.countdown', function (event) {
 					var format = '%-Hh %-Mm %-Ss';
 					if(event.offset.days > 0) {
