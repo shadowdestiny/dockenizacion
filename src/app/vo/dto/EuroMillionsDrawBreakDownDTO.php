@@ -6,6 +6,8 @@ namespace EuroMillions\vo\dto;
 
 use EuroMillions\vo\dto\base\DTOBase;
 use EuroMillions\vo\EuroMillionsDrawBreakDown;
+use EuroMillions\vo\EuroMillionsLuckyNumber;
+use EuroMillions\vo\EuroMillionsRegularNumber;
 use ReflectionObject;
 use ReflectionProperty;
 

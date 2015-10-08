@@ -13,6 +13,7 @@ class EuroMillionsDrawBreakDownData
 
     protected $winners;
 
+
     public function __construct()
     {
 

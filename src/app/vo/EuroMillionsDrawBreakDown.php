@@ -4,6 +4,8 @@
 namespace EuroMillions\vo;
 
 
+use Money\Currency;
+use Money\Money;
 use Phalcon\Exception;
 
 class EuroMillionsDrawBreakDown
@@ -245,6 +247,11 @@ class EuroMillionsDrawBreakDown
         $this->category_thirteen = $category_thirteen;
     }
 
+    public function getAwardFromCategory($cnt_number, $cnt_lucky)
+    {
+        return $this->mappingAward($cnt_number, $cnt_lucky);
+
+    }
 
     private function loadBreakDownData()
     {
@@ -253,10 +260,11 @@ class EuroMillionsDrawBreakDown
         foreach($collection as $key => $breakDown){
             $nameMethod = 'set'.str_replace("_","",ucwords($key,'_'));
             if(is_array($breakDown)){
+                $money = ($breakDown[1] instanceof Money) ? $breakDown[1] : new Money(str_replace('.','',$breakDown[1])*100,new Currency('EUR'));
                 try{
                     $euroMillionsDrawBreakDown = new EuroMillionsDrawBreakDownData();
                     $euroMillionsDrawBreakDown->setName($breakDown[0]);
-                    $euroMillionsDrawBreakDown->setLotteryPrize($breakDown[1]);
+                    $euroMillionsDrawBreakDown->setLotteryPrize($money);
                     $euroMillionsDrawBreakDown->setWinners($breakDown[2]);
                     $this->$nameMethod($euroMillionsDrawBreakDown);
                 }catch(Exception $e){
@@ -265,4 +273,33 @@ class EuroMillionsDrawBreakDown
             }
         }
     }
+
+    private function mappingAward($cnt_number,$cnt_lucky)
+    {
+        $name_method = $this->structureOfCombinations()[$cnt_number.$cnt_lucky];
+        return $this->$name_method->getLotteryPrize();
+    }
+
+
+    private function structureOfCombinations()
+    {
+        return [
+            52 => 'category_one',
+            51 => 'category_two',
+            50 => 'category_three',
+            42 => 'category_four',
+            41 => 'category_five',
+            40 => 'category_six',
+            32 => 'category_seven',
+            22 => 'category_eight',
+            31 => 'category_nine',
+            30 => 'category_ten',
+            12 => 'category_eleven',
+            21 => 'category_twelve',
+            20 => 'category_thirteen'
+       ];
+    }
+
+
+
 }

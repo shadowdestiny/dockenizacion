@@ -183,8 +183,4 @@ class LotteriesDataService
         $this->entityManager->flush();
     }
 
-    public function getBreakDownInCurrencyGiven(EuroMillionsDrawBreakDown $euroMillionsDrawBreakDown)
-    {
-
-    }
 }
