@@ -16,6 +16,5 @@ $(document).bind("mobileinit", function(){
 #}
 <script src="/js/vendor/jquery.countdown.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/global.js" async></script>
 
 
