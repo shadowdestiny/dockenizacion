@@ -16,7 +16,7 @@
 {% block body %}
 <main id="content">
     <div class="wrapper">
-        <div class="box-basic medium">
+        <div class="box-basic medium" data-ajax="false">
             <a id="top"></a>
             <h1 class="h1 title">Frequently Asked Questions</h1>
 

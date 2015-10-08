@@ -1,6 +1,5 @@
 <li class="li-currency">
 	<a class="link" href="javascript:void(0);">{{ user_currency['symbol'] }} {{ user_currency['name'] }}</a>
-
 	<div class="div-currency">
 		<ul class="no-li">
             {% for currency in currencies %}
@@ -8,8 +7,8 @@
             {% endfor %}
         </ul>
 	</div>
-
 </li>
+
 {% if user_balance_raw > 0 %}
 	{% set class_balance="" %}
 {% else %}

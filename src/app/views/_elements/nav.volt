@@ -1,5 +1,5 @@
 <li class="li-play {% if activeNav.myClass == 'play' %}active{% endif %}">
-    <a href="{{ url("numbers") }}">
+    <a href="{{ url("play") }}">
         <span class="link desktop">{{ language.translate("Win top prizes") }}</span>
         <br class="br">
         <span class="txt">{{ language.translate("Play Games") }}</span>
@@ -30,7 +30,7 @@
     {% if user_logged %}
         {# EDTD To remove SUBNAV when not connected as account #}
         <ul class="subnav hidden">
-            <li><a href="{{ url("my-account")}}">{{ language.translate("My Account") }} <span class="ico ico-arrow-right"></span></a></li>
+            <li><a href="{{ url("account")}}">{{ language.translate("My Account") }} <span class="ico ico-arrow-right"></span></a></li>
             <li><a href="{{ url("account/games") }}">{{ language.translate("My Games") }} <span class="ico ico-arrow-right"></span></a></li>
             <li><a href="{{ url("account/wallet") }}">{{ language.translate("My Wallet") }} <span class="ico ico-arrow-right"></span></a></li>
             <li><a href="{{ url("account/messages")}}">{{ language.translate("Messages") }} <span class="ico ico-arrow-right"></span></a></li>
