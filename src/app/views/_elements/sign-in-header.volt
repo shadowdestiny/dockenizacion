@@ -6,7 +6,6 @@
 
     <div class="head">
         <div class="wrapper">
-
             {% include "_elements/logo.volt" %}
 
             <div class="steps">

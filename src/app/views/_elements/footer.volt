@@ -37,9 +37,7 @@
 					<li><a href="javascript:void(0);">{{ language.translate('How to Play') }}</a></li>
 					<li><a href="javascript:void(0);">{{ language.translate('Frequently Asked Questions') }}</a></li>
 					<li><a href="javascript:void(0);">{{ language.translate('Player Protection') }}</a></li>
-					<li>
-						<a href="/contact/">{{ language.translate('Contact us') }}</a>
-					</li>
+					<li><a href="/contact/">{{ language.translate('Contact us') }}</a></li>
 				</ul>
 			</div>
 			<div class="col20per">
@@ -95,4 +93,4 @@
 		</div>
 	</div>
 </footer>
-<div class="media"></div>
+<div class="media"></div> {# Used to check the size of the document to determin what size it is with JS #}
