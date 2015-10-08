@@ -97,7 +97,7 @@
 
                 <a id="n02"></a>
                 <h3 class="h4">How much does a Euromillions ticket cost?</h3>
-                <p><a href="javascript:void(0)">Playing Euromillions (link play page)</a> costs &euro;2.35/&pound;1.65 per play. This is the best price available on the Internet.</p>
+                <p><a href="javascript:void(0)">Playing Euromillions (link play page)</a> costs &euro; 2.35 / &pound; 1.65 per play. This is the best price available on the Internet.</p>
                 <a href="#top" class="back"><i class="ico ico-arrow-up2"></i> Back to the top</a>
 
                 <a id="n03"></a>
@@ -117,7 +117,7 @@
 
                 <a id="n06"></a>
                 <h3 class="h4">What is the minimum guaranteed jackpot?</h3>
-                <p>The minimum guaranteed jackpot is &euro;15 million (approx. &pound;10.5 million). It can rollover until &euro;190 million.</p>
+                <p>The minimum guaranteed jackpot is &euro;15 million. It can rollover until &euro;190 million.</p>
                 <a href="#top" class="back"><i class="ico ico-arrow-up2"></i> Back to the top</a>
 
                 <a id="n08"></a>
@@ -147,7 +147,7 @@
                 
                 <a id="n13"></a>
                 <h3 class="h4">Does the Euromillions have a rollover limit or jackpot cap?</h3>
-                <p>Currently there is no limit as to the number of times the jackpot can rollover however, a jackpot pool cap of &euro;190 million (approx. &pound;161 million) does exist. Thus, the Euromillions jackpot will continue to roll over to the subsequent draw in the event of no first prize winner until the &euro;190 million jackpot cap is reached.  In addition, it can only remain at the aforementioned sum for another two draws with funds accumulated from any further rollovers cascading down to the next tier with a winner. Similarly, if upon the second draw no first prize winner is produced, the jackpot will roll down to the next prize tier (level) featuring a winner.</p>
+                <p>Currently there is no limit as to the number of times the jackpot can rollover however, a jackpot pool cap of &euro;190 million does exist. Thus, the Euromillions jackpot will continue to roll over to the subsequent draw in the event of no first prize winner until the &euro;190 million jackpot cap is reached.  In addition, it can only remain at the aforementioned sum for another two draws with funds accumulated from any further rollovers cascading down to the next tier with a winner. Similarly, if upon the second draw no first prize winner is produced, the jackpot will roll down to the next prize tier (level) featuring a winner.</p>
                 <a href="#top" class="back"><i class="ico ico-arrow-up2"></i> Back to the top</a>
 
                 <a id="n14"></a>
@@ -157,17 +157,17 @@
 
                 <a id="n16"></a>
                 <h3 class="h4">How do I claim a prize?</h3>
-                <p>All winnings are automatically accredited to players' accounts shortly after the relevant Euromillions draw. Large prizes are transferred to the players personal bank account (without commissions) when a scanned copy of the winner's ID or passport has been provided.</p>
+                <p>All winnings below &euro; 1500 are automatically accredited to players' accounts shortly after the relevant Euromillions draw. For prizes equal or above &euro; 1500 you need to get in contact with us at <a href="mailto:support@euromillions.com">support@euromillions.com</a> and provide us with the necessary documents: Passport or ID copy and Banking Details.</p>
                 <a href="#top" class="back"><i class="ico ico-arrow-up2"></i> Back to the top</a>
 
                 <a id="n15"></a>
                 <h3 class="h4">How long do I have to claim my prize?</h3>
-                <p>With Euromillions.com all prizes must be claimed within 2 months (60 days) prior to the draw taking place. Failure to do so within the given time will result in the forfeiting of your prize. During the aforementioned claim period we will do our very best to inform clients of any winnings using the contact details provided in their online players account.</p> 
+                <p>With Euromillions.com all prizes must be claimed within 60 days prior to the draw taking place. Failure to do so within the given time will result in the forfeiting of your prize. During the aforementioned claim period we will do our very best to inform clients of any winnings using the contact details provided in their online players account.</p> 
                 <a href="#top" class="back"><i class="ico ico-arrow-up2"></i> Back to the top</a>
 
                 <a id="n17"></a>
                 <h3 class="h4">What is a Euromillions Superdraw?</h3>
-                <p>A Euromillions Superdraw is a special draw which typically features a guaranteed &euro;100 million jackpot (approx. &pound;70 million) whether or not the Euromillions jackpot was won in the preceding draw. They usually occur once or twice a year in celebration of a special event or to mark changes in the lottery however, they can happen at any time. Similarly to a normal Euromillions draw, if no one matches the 5 main numbers and two lucky stars, the jackpot is rolled over to the next draw.</p>
+                <p>A Euromillions Superdraw is a special draw which typically features a guaranteed &euro;100 million jackpot whether or not the Euromillions jackpot was won in the preceding draw. They usually occur once or twice a year in celebration of a special event or to mark changes in the lottery however, they can happen at any time. Similarly to a normal Euromillions draw, if no one matches the 5 main numbers and two lucky stars, the jackpot is rolled over to the next draw.</p>
                 <a href="#top" class="back"><i class="ico ico-arrow-up2"></i> Back to the top</a>
 
                 <a id="n18"></a>
