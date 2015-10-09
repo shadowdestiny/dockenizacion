@@ -315,6 +315,68 @@ class UserServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
+    /**
+     * method updateUserData
+     * when called
+     * should returnServiceActionResultTrue
+     */
+    public function test_updateUserData_called_returnServiceActionResultTrue()
+    {
+        $expected = new ServiceActionResult(true,'Your data was update');
+        $credentials = [
+            'name'             => 'Raul',
+            'surname'          => 'Mesa',
+            'email'            => 'rmrbest@gmail.com',
+            'password'         => 'passWord01',
+            'confirm_password' => 'passWord01',
+            'country'          => 'Spain',
+            'street'           => 'Tres',
+            'city'             => 'Barcelona',
+            'zip'              => '08830',
+            'phone_number'     => '626966592'
+
+        ];
+        $user = $this->getUser();
+        $this->userRepository_double->getByEmail($credentials['email'])->willReturn($user);
+        $this->userRepository_double->add(Argument::any())->shouldBeCalled();
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->flush(Argument::any())->shouldBeCalled();
+        $sut = $this->getSut();
+        $actual = $sut->updateUserData($credentials);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method updateUserDate
+     * when called
+     * should throrExceptionAndReturnServiceActionResultFalse
+     */
+    public function test_updateUserDate_called_throrExceptionAndReturnServiceActionResultFalse()
+    {
+        $expected = new ServiceActionResult(false,'Sorry, try it later');
+        $credentials = [
+            'name'             => 'Raul',
+            'surname'          => 'Mesa',
+            'email'            => 'rmrbest@gmail.com',
+            'password'         => 'passWord01',
+            'confirm_password' => 'passWord01',
+            'country'          => 'Spain',
+            'street'           => 'Tres',
+            'city'             => 'Barcelona',
+            'zip'              => '08830',
+            'phone_number'     => '626966592'
+        ];
+
+        $user = $this->getUser();
+        $this->userRepository_double->getByEmail($credentials['email'])->willReturn($user);
+        $this->userRepository_double->add(Argument::any())->shouldBeCalled();
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->flush(Argument::any())->willThrow('Exception');
+        $sut = $this->getSut();
+        $actual = $sut->updateUserData($credentials);
+        $this->assertEquals($expected,$actual);
+    }
+
     private function getPlayConfig()
     {
         $regular_numbers = [1, 2, 3, 4, 5];
