@@ -29,7 +29,7 @@
 					</span>
 				</div>
 				<div class="col4">
-{#
+{# How to play video - hidden we have no video
 					<a href="javascript:void(0);" class="circle center">
 						<span class="ico ico-multimedia"></span>
 						<span class="txt">{{ language.translate("How to play<br>Lotto") }}</span>
@@ -73,7 +73,7 @@
 						<a href="javascript:void(0);" class="close"><i class="ico ico-cancel-circle"></i></a>
 						<div class="cols">
 							<div class="col2">
-								<label>{{ language.translate("Draw") }} <i data-tip="{{ language.translate('Which draw do you want to play?') }}" class="ico ico-question-mark"></i></label>
+								<label class="label">{{ language.translate("Draw") }} <i data-tip="{{ language.translate('Which draw do you want to play?') }}" class="ico ico-question-mark"></i></label>
 								<select class="draw_days">
 									<option value="2,5">{{ language.translate("Tuesday & Friday") }}</option>
 									<option value="2" {% if next_draw == 2 %} selected {% endif %}>{{ language.translate("Tuesday") }}</option>
@@ -95,7 +95,7 @@
 								</select>
 							</div>
 							<div class="col2">
-								<label>{{ language.translate("Duration") }} <i data-tip="{{ language.translate('For how long do you wish to play?') }}"class="ico ico-question-mark"></i></label>
+								<label class="label">{{ language.translate("Duration") }} <i data-tip="{{ language.translate('For how long do you wish to play?') }}"class="ico ico-question-mark"></i></label>
 								<select class="frequency">
 									<option value="1">{{ language.translate("1 week (Draws: 1)") }}</option>
 									<option value="2">{{ language.translate("2 week (Draws: 2)") }}</option>
@@ -108,24 +108,9 @@
 								</select>
 							</div>
 							<div class="col6 wrap-threshold">
-								<label for="threshold">{{ language.translate("Jackpot Threshold") }} <i data-tip="{{ language.translate('Set the condition when you want to play or to be informed automatically. Thresholds are calculated only in Euro.') }}"class="ico ico-question-mark"></i></label>
-								<div class="box-threshold cl">
-									<input id="threshold" class="checkbox" data-role="none" type="checkbox">
-									<div class="details">
-										<span class="txt">{{ language.translate("When  Jackpot is") }}</span>
-										<span class="input-value hidden">
-											&euro;
-											<input type="text" placeholder="{{ language.translate('Insert value') }} ">
-										</span>
-										<select class="threshold">
-											<option title="{{ language.translate('aprox. $49 millions') }}">{{ language.translate('50 millions &euro;') }}</option>
-											<option value="default" selected="selected" title="{{ language.translate('aprox. $74 millions') }}">{{ language.translate('75 millions &euro;') }}</option>
-											<option title="{{ language.translate('aprox. $99 millions') }}">{{ language.translate('100 millions &euro;') }}</option>
-											<option value="choose">{{ language.translate('Choose threshold') }}</option>
-										</select>
-										<span class="txt type">{{ language.translate("play the chosen numbers") }}</span>
-									</div>
-								</div>
+								<label class="label" for="threshold">{{ language.translate("Jackpot Threshold") }} <i data-tip="{{ language.translate('Set the condition when you want to play or to be informed automatically. Thresholds are calculated only in Euro.') }}"class="ico ico-question-mark"></i></label>
+
+								{% include "_elements/jackpot-threshold.volt" %}
 							</div>
 
 						</div>
