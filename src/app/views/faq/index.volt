@@ -21,6 +21,10 @@
             <h1 class="h1 title">Frequently Asked Questions</h1>
 
             <div class="questions">
+                <ul class="no-li">
+                    <li><a href="#">How I can disable emails notifications?</a></li>
+                </ul>
+
                 <h2 class="h3">Euromillions Basics</h2>
                 <ul class="no-li">
                     <li><a href="#">What is Euromillion?</a></li>
