@@ -15,6 +15,7 @@ class EnvironmentDetector
     {
         $this->var_name = $varName;
         $this->valid_environments = [
+            'shippable',
             'vagrant',
             'development',
             'staging',
