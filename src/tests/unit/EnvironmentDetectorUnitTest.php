@@ -33,7 +33,6 @@ class EnvironmentDetectorUnitTest extends UnitTestBase
 
     public function test_get_calledWithEnvironmentSet_returnSameValue()
     {
-        $var_name = self::VAR_NAME;
         $expected = 'azofaifa';
         $this->setEnvironment($expected);
 
@@ -71,11 +70,25 @@ class EnvironmentDetectorUnitTest extends UnitTestBase
         $actual = $this->sut->isEnvSet();
         $this->assertFalse($actual);
     }
+
     public function test_isEnvSet_calledWhenSet_returnTrue()
     {
         $this->setEnvironment('sdklfjs');
         $actual = $this->sut->isEnvSet();
         $this->assertTrue($actual);
+    }
+
+    /**
+     * method get
+     * when calledWhenAnInvalidEnvironmentHasBeenSet
+     * should throwException
+     */
+    public function test_get_calledWhenAnInvalidEnvironmentHasBeenSet_throwException()
+    {
+        $bad = 'AZOFAIFA';
+        $this->setExpectedException(self::EXPECTED_EXCEPTION, 'Invalid environment var set: "'.$bad.'"');
+        $this->setEnvironment($bad);
+        $this->sut->get();
     }
 
     /**
