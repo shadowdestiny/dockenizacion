@@ -19,10 +19,6 @@ $(function(){
 
 {% block body %}
 
-{#
-    {% set activePsw='{"myClass": "active"}'|json_decode %}
-#}
-
 <main id="content">
     <div class="wrapper">
         <div class="nav box-basic">
