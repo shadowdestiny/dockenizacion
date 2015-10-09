@@ -9,6 +9,12 @@ use EuroMillions\vo\dto\PlayConfigDTO;
 class AccountController extends PublicSiteControllerBase
 {
 
+
+    public function indexAction()
+    {
+
+    }
+
     public function gamesAction()
     {
         $user = $this->authService->getCurrentUser();

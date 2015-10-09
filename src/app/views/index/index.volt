@@ -19,7 +19,6 @@
 					$(this).html(event.strftime(format));
 				})
 				.on('finish.countdown', function (event) {
-					console.log('countdown');
 					$(this).html('This offer has expired!')
 							.parent().addClass('disabled');
 				});

@@ -399,6 +399,16 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method resultCheck
+     * when called
+     * should returnServiceActionResultTrueWithProperData
+     */
+    public function test_resultCheck_called_returnServiceActionResultTrueWithProperData()
+    {
+
+    }
+
+    /**
      * @param $lottery_name
      * @return Lottery
      */
@@ -423,19 +433,19 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     {
         return [
                     [
-                        'category_one' => ['5 + 2', '0.00', '0'],
-                        'category_two' => ['5 + 1', '293.926.57', '9'],
-                        'category_three' => ['5 + 0', '88.177.97', '10'],
-                        'category_four' => ['4 + 2', '6.680.15', '66'],
-                        'category_five' => ['4 + 1', '275.16', '1.402'],
-                        'category_six' => ['4 + 0', '131.49', '2.934'],
-                        'category_seven' => ['3 + 2', '60.87', '4.527'],
-                        'category_eight' => ['2 + 2', '18.93', '66.973'],
-                        'category_nine' => ['3 + 1', '16.73', '72.488'],
-                        'category_ten' => ['3 + 0', '13.41', '152.009'],
-                        'category_eleven' => ['1 + 2', '9.98', '358.960'],
-                        'category_twelve' => ['2 + 1', '8.52', '1.138.617'],
-                        'category_thirteen' => ['2 + 0', '4.15', '2.390.942'],
+                        'category_one' => ['5 + 2', '000', '0'],
+                        'category_two' => ['5 + 1', '29392657', '9'],
+                        'category_three' => ['5 + 0', '8817797', '10'],
+                        'category_four' => ['4 + 2', '668015', '66'],
+                        'category_five' => ['4 + 1', '27516', '1.402'],
+                        'category_six' => ['4 + 0', '13149', '2.934'],
+                        'category_seven' => ['3 + 2', '6087', '4.527'],
+                        'category_eight' => ['2 + 2', '1893', '66.973'],
+                        'category_nine' => ['3 + 1', '1673', '72.488'],
+                        'category_ten' => ['3 + 0', '1341', '152.009'],
+                        'category_eleven' => ['1 + 2', '998', '358.960'],
+                        'category_twelve' => ['2 + 1', '852', '1.138.617'],
+                        'category_thirteen' => ['2 + 0', '415', '2.390.942'],
                     ]
         ];
     }

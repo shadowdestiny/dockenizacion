@@ -38,11 +38,7 @@ class BetTaskUnitTest extends UnitTestBase
 
     private $betRepository_double;
 
-    private $playStorageStrategy_double;
-
     private $userRepository_double;
-
-    private $authService_double;
 
     private $playService_double;
 

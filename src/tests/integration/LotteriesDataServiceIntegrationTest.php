@@ -92,12 +92,21 @@ class LotteriesDataServiceIntegrationTest extends DatabaseIntegrationTestBase
         $curlWrapper_stub = $this->getCurlWrapperWithResultRssResponse();
         $sut = new LotteriesDataService($this->entityManager, new LotteryApisFactory());
         $sut->updateLastBreakDown($lotteryName, new \DateTime($date), $curlWrapper_stub);
-
         $expected = new EuroMillionsDrawBreakDown($this->getBreakDownResult());
         $euromillions_draw = $this->getDrawFromDatabase($lotteryName, new \DateTime($date));
         /** @var EuroMillionsDrawBreakDown $actual_result */
         $actual_result = $euromillions_draw->getBreakDown()->getCategoryOne();
         $this->assertEquals($expected->getCategoryOne(),$actual_result);
+    }
+
+    /**
+     * method test
+     * when called
+     * should returnSQL
+     */
+    public function test_test_called_returnSQL()
+    {
+
     }
 
 

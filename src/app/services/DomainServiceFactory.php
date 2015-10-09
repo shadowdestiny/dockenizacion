@@ -96,6 +96,12 @@ class DomainServiceFactory
         return new PlayService($this->entityManager, $lotteriesDataService, $playStorageStrategy);
     }
 
+    public function getPriceCheckoutService(LotteriesDataService $lotteriesDataService = null)
+    {
+        if (!$lotteriesDataService) $lotteriesDataService = new LotteriesDataService($this->entityManager, new LotteryApisFactory());
+        return new PriceCheckoutService($this->entityManager, $lotteriesDataService);
+    }
+
     private function getRepository($entity)
     {
         return $this->entityManager->getRepository(self::ENTITIES_NS . $entity);

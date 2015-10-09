@@ -6,5 +6,11 @@ return [
             'play_config_id' => 1,
             'euromillions_draw_id' => 1,
         ],
+        [
+            'id'   => 2,
+            'play_config_id' => 2,
+            'euromillions_draw_id' => 1,
+        ],
+
     ]
 ];

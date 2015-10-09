@@ -18,6 +18,7 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm
 
     protected $bet;
 
+    /** @var  User */
     protected $user;
 
     /** @var  EuroMillionsLine */
