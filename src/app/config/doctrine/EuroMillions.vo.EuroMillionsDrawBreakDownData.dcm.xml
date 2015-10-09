@@ -8,7 +8,7 @@
     <embeddable name="EuroMillions\vo\EuroMillionsDrawBreakDownData">
         <field name="name" type="string" nullable="true" />
         <field name="winners" type="string" nullable="true" />
-        <embedded name="lottery_prize" class="Money\Money" use-column-prefix="true" />
+        <embedded name="lottery_prize" class="Money\Money" use-column-prefix="true"/>
     </embeddable>
 
 </doctrine-mapping>

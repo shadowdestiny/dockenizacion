@@ -37,6 +37,12 @@ class User extends EntityBase implements IEntity, IUser
     /** @var  PlayConfig */
     private $playConfig;
 
+    protected $street;
+    protected $zip;
+    protected $city;
+    protected $phone_number;
+
+
 
     public function __construct(){
         $this->paymentMethod = new ArrayCollection();
@@ -164,6 +170,70 @@ class User extends EntityBase implements IEntity, IUser
     public function getValidationToken()
     {
         return $this->validationToken;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhoneNumber()
+    {
+        return $this->phone_number;
+    }
+
+    /**
+     * @param mixed $phone_number
+     */
+    public function setPhoneNumber($phone_number)
+    {
+        $this->phone_number = $phone_number;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStreet()
+    {
+        return $this->street;
+    }
+
+    /**
+     * @param mixed $street
+     */
+    public function setStreet($street)
+    {
+        $this->street = $street;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getZip()
+    {
+        return $this->zip;
+    }
+
+    /**
+     * @param mixed $zip
+     */
+    public function setZip($zip)
+    {
+        $this->zip = $zip;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
     }
 
 }

@@ -118,9 +118,11 @@
 											{% endfor %}
 										</td>
 										<td class="td-star-ball">
-											{%  for corrected_stars in 1..break_downs[name]['stars_corrected'] %}
-												<span class="star-ball"></span>
-											{% endfor %}
+											{% if break_downs[name]['stars_corrected'] > 0 %}
+												{%  for corrected_stars in 1..break_downs[name]['stars_corrected'] %}
+													<span class="star-ball"></span>
+												{% endfor %}
+											{% endif %}
 										</td>
 										<td class="td-winners">{{ break_downs[name]['winners'] }}</td>
 										<td class="td-prize">{{ break_downs[name]['lottery_prize'] | number_format(2, ',', '.') }}</td>

@@ -2,7 +2,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class NotNullEuroMillionDrawInBet extends AbstractMigration
+class AddMoreDataUsers extends AbstractMigration
 {
     /**
      * Change Method.
@@ -27,6 +27,9 @@ class NotNullEuroMillionDrawInBet extends AbstractMigration
      */
     public function change()
     {
-       // $this->execute('ALTER TABLE bets DROP INDEX FK_7C28752BB6F88F5C, ADD UNIQUE INDEX UNIQ_7C28752BC9AECF8 (euromillions_draw_id);');
+        $this->execute('ALTER TABLE users ADD street VARCHAR(255) NOT NULL,
+                        ADD zip INT NOT NULL,
+                        ADD city VARCHAR(255) NOT NULL,
+                        ADD phone_number INT NOT NULL;');
     }
 }

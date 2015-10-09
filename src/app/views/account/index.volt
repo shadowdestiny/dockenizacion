@@ -19,10 +19,6 @@ $(function(){
 
 {% block body %}
 
-{#
-    {% set activePsw='{"myClass": "active"}'|json_decode %}
-#}
-
 <main id="content">
     <div class="wrapper">
         <div class="nav box-basic">
@@ -35,11 +31,19 @@ $(function(){
                 <h1 class="h1 title yellow">{{ language.translate("My Account") }}</h1>
                 <h2 class="h3 yellow">{{ language.translate("User detail") }}</h2>
 
-                <form novalidate>
+                {{ form('account/index') }}
+                {% if msg %}
+                    <div class="box success">
+                        <span class="ico- ico"></span>
+                        <span class="txt">{{ msg }}</span>
+                    </div>
+                {% endif %}
+                {% if  errors %}
                     <div class="box error">
                         <span class="ico-warning ico"></span>
-                        <span class="txt">{{ language.translate("Error info lorem ipsum") }}</span>
+                        <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
                     </div>
+                {% endif %}
                     <div class="wrap">
                         <div class="cols">
                             <div class="col6">
@@ -47,16 +51,16 @@ $(function(){
                             </div>
                             <div class="col6">
                                 <label class="label" for="street">{{ language.translate("Street address") }}</label>
-                                <input id="street" class="input" type="text">
+                                {{ myaccount.render('street', {'class':'input'~form_errors['street'],'value' : user_dto.street }) }}
 
                                 <label class="label" for="po">{{ language.translate("ZIP / Postal code") }}</label>
-                                <input id="po" class="input" type="text">
+                                {{ myaccount.render('zip', {'class':'input'~form_errors['zip'],'value' : user_dto.zip }) }}
 
                                 <label class="label" for="city">{{ language.translate("City") }}</label>
-                                <input id="city" class="input" type="text">
+                                {{ myaccount.render('city', {'class':'input'~form_errors['city'],'value' : user_dto.city }) }}
 
                                 <label class="label" for="phone">{{ language.translate("Phone Number") }}</label>
-                                <input id="phone" class="input" type="text">
+                                {{ myaccount.render('phone_number', {'class':'input'~form_errors['phone_number'],'value' : user_dto.phone_number }) }}
                             </div>
                         </div>
 
@@ -72,7 +76,7 @@ $(function(){
                         </div>
 
                     </div>
-                </form>
+                {{ endform() }}
 
                 {# DO NOT DELETE - Facebook revoke access
                 <hr class="yellow">
