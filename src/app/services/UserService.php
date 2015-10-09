@@ -10,6 +10,7 @@ use EuroMillions\repositories\PaymentMethodRepository;
 use EuroMillions\repositories\PlayConfigRepository;
 use EuroMillions\repositories\UserRepository;
 use EuroMillions\vo\ContactFormInfo;
+use EuroMillions\vo\Email;
 use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
 use Exception;
@@ -76,6 +77,11 @@ class UserService
     public function setCurrency(Currency $currency)
     {
         $this->storageStrategy->setCurrency($currency);
+    }
+
+    public function getUser(UserId $userId)
+    {
+        return $this->userRepository->find($userId->id());
     }
 
     public function getCurrency()
@@ -214,6 +220,28 @@ class UserService
             return new ServiceActionResult(true,$result);
         }else{
             return new ServiceActionResult(false);
+        }
+    }
+
+    public function updateUserData(array $user_data)
+    {
+        $user = $this->userRepository->getByEmail($user_data['email']);
+
+        $user->setName($user_data['name']);
+        $user->setSurname($user_data['surname']);
+        $user->setEmail($user_data['email']);
+        $user->setCountry($user_data['country']);
+        $user->setStreet($user_data['street']);
+        $user->setZip($user_data['zip']);
+        $user->setCity($user_data['city']);
+        $user->setPhoneNumber($user_data['phone_number']);
+
+        try{
+            $this->userRepository->add($user);
+            $this->entityManager->flush($user);
+            return new ServiceActionResult(true,'Your data was update');
+        }catch(Exception $e){
+            return new ServiceActionResult(false,'Sorry, try it later');
         }
     }
 

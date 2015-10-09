@@ -4,15 +4,87 @@
 namespace EuroMillions\controllers;
 
 
+use EuroMillions\forms\MyAccountForm;
+use EuroMillions\services\AuthService;
+use EuroMillions\services\GeoService;
+use EuroMillions\services\UserService;
 use EuroMillions\vo\dto\PlayConfigDTO;
+use EuroMillions\vo\dto\UserDTO;
+use EuroMillions\vo\Email;
+use Phalcon\Validation\Message;
 
 class AccountController extends PublicSiteControllerBase
 {
+
+    /** @var  UserService */
+    protected $userService;
+
+    /** @var  GeoService */
+    protected $geoService;
+
+    /** @var  AuthService */
+    protected $authService;
+
+    public function initialize()
+    {
+        parent::initialize();
+        $this->userService = $this->domainServiceFactory->getUserService();
+        $this->geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
+        $this->authService = $this->domainServiceFactory->getAuthService();
+    }
 
 
     public function indexAction()
     {
 
+        $errors = null;
+        $userId = $this->authService->getCurrentUser();
+
+        $countries = $this->geoService->countryList();
+        sort($countries);
+        $countries = array_combine(range(1, count($countries)), array_values($countries));
+        $myaccount_form = new MyAccountForm(null,['countries' => $countries]);
+
+        //$form_errors = $this->getErrorsArray();
+        if($this->request->isPost()) {
+            if ($myaccount_form->isValid($this->request->getPost()) == false) {
+                $messages = $myaccount_form->getMessages(true);
+                /**
+                 * @var string $field
+                 * @var Message\Group $field_messages
+                 */
+                foreach ($messages as $field => $field_messages) {
+                    $errors[] = $field_messages[0]->getMessage();
+                    $form_errors[$field] = ' error';
+                }
+            }else {
+                $result = $this->userService->updateUserData([
+                    'name'     => $this->request->getPost('name'),
+                    'surname'  => $this->request->getPost('surname'),
+                    'email'    => new Email($this->request->getPost('email')),
+                    'country'  => $this->request->getPost('country'),
+                    'street'   => $this->request->getPost('street'),
+                    'zip'      => (int) $this->request->getPost('zip'),
+                    'city'     => $this->request->getPost('city'),
+                    'phone_number' =>(int) $this->request->getPost('phone_number')
+                ]);
+                if($result->success()){
+                    $msg = $result->getValues();
+                }else{
+                    $errors [] = $result->errorMessage();
+                }
+            }
+        }
+        $user = $this->userService->getUser($userId->getId());
+        $user_dto = new UserDTO($user);
+        $this->view->pick('account/index');
+        return $this->view->setVars([
+            'user_dto' => $user_dto,
+            'form_errors' => $form_errors,
+            'errors' => $errors,
+            'msg' => $msg,
+            'myaccount' => $myaccount_form
+        ]);
     }
 
     public function gamesAction()
