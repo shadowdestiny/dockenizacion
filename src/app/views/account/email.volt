@@ -12,13 +12,7 @@
 
 {% block template_scripts %}
 <script>
-/*
-function multiTask(target, activate, check){
-    $(activate).prop('disabled', false);
-    $(check).prop('checked', false);
-    $(target).hide();
-}
-*/
+/* EMTD - This function together with the one in PLAY need to become one single function shared between the two pages */
 $(function(){
     $(".threshold").prop('disabled', 'disabled');
     $('#threshold').change(function(){
@@ -36,13 +30,6 @@ $(function(){
             $(this).hide();
         }
     });
-/*
-    $(".box-threshold").on('click',function(){
-        if($("#threshold").prop("checked", false)){
-            console.log("in")
-        }
-    });
-*/
 });
 </script>
 {% endblock %}
