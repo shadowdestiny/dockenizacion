@@ -225,6 +225,29 @@ class AuthService
         }
     }
 
+    public function samePassword(User $user, $password)
+    {
+        $password_match = $this->passwordHasher->checkPassword($password, $user->getPassword()->toNative());
+       if($password_match) {
+           return new ServiceActionResult(true);
+       }else{
+           return new ServiceActionResult(false);
+       }
+    }
+
+    public function updatePassword(User $user, $new_password)
+    {
+        try{
+            $password = new Password($new_password, $this->passwordHasher);
+            $user->setPassword($password);
+            $this->userRepository->add($user);
+            $this->entityManager->flush($user);
+            return new ServiceActionResult(true);
+        }catch (\Exception $e) {
+            return new ServiceActionResult(false);
+        }
+    }
+
     /**
      * @param Email $email
      * @return ServiceActionResult
