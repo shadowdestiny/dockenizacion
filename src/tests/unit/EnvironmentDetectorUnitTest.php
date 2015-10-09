@@ -33,7 +33,7 @@ class EnvironmentDetectorUnitTest extends UnitTestBase
 
     public function test_get_calledWithEnvironmentSet_returnSameValue()
     {
-        $expected = 'azofaifa';
+        $expected = 'vagrant';
         $this->setEnvironment($expected);
 
         $actual = $this->sut->get();
