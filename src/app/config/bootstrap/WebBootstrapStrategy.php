@@ -212,6 +212,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     protected function getConfigFileName(EnvironmentDetector $em)
     {
-        return self::CONFIG_FILENAME;
+        return $em->get().'_'.self::CONFIG_FILENAME;
     }
 }

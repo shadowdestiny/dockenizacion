@@ -4,6 +4,7 @@
 namespace EuroMillions\controllers;
 
 
+use EuroMillions\forms\MyAccountChangePasswordForm;
 use EuroMillions\forms\MyAccountForm;
 use EuroMillions\services\AuthService;
 use EuroMillions\services\GeoService;
@@ -40,11 +41,8 @@ class AccountController extends PublicSiteControllerBase
         $errors = null;
         $userId = $this->authService->getCurrentUser();
 
-        $countries = $this->geoService->countryList();
-        sort($countries);
-        $countries = array_combine(range(1, count($countries)), array_values($countries));
-        $myaccount_form = new MyAccountForm(null,['countries' => $countries]);
-
+        $myaccount_form = $this->getMyACcountForm($userId);
+        $myaccount_passwordchange_form = new MyAccountChangePasswordForm();
         //$form_errors = $this->getErrorsArray();
         if($this->request->isPost()) {
             if ($myaccount_form->isValid($this->request->getPost()) == false) {
@@ -75,16 +73,54 @@ class AccountController extends PublicSiteControllerBase
                 }
             }
         }
-        $user = $this->userService->getUser($userId->getId());
-        $user_dto = new UserDTO($user);
         $this->view->pick('account/index');
         return $this->view->setVars([
-            'user_dto' => $user_dto,
             'form_errors' => $form_errors,
             'errors' => $errors,
             'msg' => $msg,
-            'myaccount' => $myaccount_form
+            'myaccount' => $myaccount_form,
+            'password_change' => $myaccount_passwordchange_form
         ]);
+    }
+
+    public function passwordAction()
+    {
+        $errors = null;
+        $userId = $this->authService->getCurrentUser();
+        $user = $this->userService->getUser($userId->getId());
+        $myaccount_form = $this->getMyACcountForm($userId);
+        $myaccount_passwordchange_form = new MyAccountChangePasswordForm();
+        if($this->request->isPost()) {
+            if ($myaccount_passwordchange_form->isValid($this->request->getPost()) == false) {
+                $messages = $myaccount_passwordchange_form->getMessages(true);
+                /**
+                 * @var string $field
+                 * @var Message\Group $field_messages
+                 */
+                foreach ($messages as $field => $field_messages) {
+                    $errors[] = $field_messages[0]->getMessage();
+                    $form_errors[$field] = ' error';
+                }
+            }else {
+                if($this->authService->samePassword($user,$this->request->getPost('old-password'))->success()) {
+                    $result = $this->authService->updatePassword($user, $this->request->getPost('new-password'));
+                    if ($result->success()) {
+                        $msg = $result->getValues();
+                    } else {
+                        $errors [] = $result->errorMessage();
+                    }
+                }
+            }
+        }
+        $this->view->pick('account/index');
+        return $this->view->setVars([
+            'form_errors' => $form_errors,
+            'errors' => $errors,
+            'msg' => $msg,
+            'myaccount' => $myaccount_form,
+            'password_change' => $myaccount_passwordchange_form
+        ]);
+
     }
 
     public function gamesAction()
@@ -122,6 +158,18 @@ class AccountController extends PublicSiteControllerBase
             'message_active' => $message_actives,
             'message_inactives' => $message_inactives
         ]);
+    }
+
+    private function getMyACcountForm($userId)
+    {
+
+        $countries = $this->geoService->countryList();
+        sort($countries);
+        $countries = array_combine(range(1, count($countries)), array_values($countries));
+        $user = $this->userService->getUser($userId->getId());
+        $user_dto = new UserDTO($user);
+        $myaccount_form = new MyAccountForm($user_dto,['countries' => $countries]);
+        return $myaccount_form;
     }
 
 }

@@ -44,4 +44,13 @@ class Password extends StringLiteral
             throw new \InvalidArgumentException(get_class($this) . ' must have uppercase characters');
         }
     }
+
+    /**
+     * @param Password $password
+     * @return bool
+     */
+    public function equals(Password $password)
+    {
+        return $this->toNative() === $password->toNative();
+    }
 }

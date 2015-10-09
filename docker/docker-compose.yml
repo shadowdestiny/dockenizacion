@@ -23,7 +23,7 @@ develweb:
     - develdbmaster:mysql
     - develredis:redis
   environment:
-    EM_ENV: docker
+    EM_ENV: development
 
 compass:
   image: antonienko/compass-watch

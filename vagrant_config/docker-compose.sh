@@ -12,7 +12,7 @@ else
 fi
 cd /vagrant/docker
 e "Starting containers"
-docker-compose --verbose up -d
+docker-compose up -d
 e "Sleeping"
 sleep 30
 if [ inidatabase==true ]; then
