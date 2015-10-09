@@ -55,16 +55,16 @@ $(function(){
                             </div>
                             <div class="col6">
                                 <label class="label" for="street">{{ language.translate("Street address") }}</label>
-                                {{ myaccount.render('street', {'class':'input'~form_errors['street'],'value' : user_dto.street }) }}
+                                {{ myaccount.render('street', {'class':'input'}) }}
 
                                 <label class="label" for="po">{{ language.translate("ZIP / Postal code") }}</label>
-                                {{ myaccount.render('zip', {'class':'input'~form_errors['zip'],'value' : user_dto.zip }) }}
+                                {{ myaccount.render('zip', {'class':'input'}) }}
 
                                 <label class="label" for="city">{{ language.translate("City") }}</label>
-                                {{ myaccount.render('city', {'class':'input'~form_errors['city'],'value' : user_dto.city }) }}
+                                {{ myaccount.render('city', {'class':'input'}) }}
 
                                 <label class="label" for="phone">{{ language.translate("Phone Number") }}</label>
-                                {{ myaccount.render('phone_number', {'class':'input'~form_errors['phone_number'],'value' : user_dto.phone_number }) }}
+                                {{ myaccount.render('phone_number', {'class':'input'}) }}
                             </div>
                         </div>
 

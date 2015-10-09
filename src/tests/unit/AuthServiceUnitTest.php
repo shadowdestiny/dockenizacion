@@ -3,6 +3,7 @@ namespace tests\unit;
 
 use EuroMillions\components\Md5EmailValidationToken;
 use EuroMillions\components\NullPasswordHasher;
+use EuroMillions\components\PhpassWrapper;
 use EuroMillions\components\RandomPasswordGenerator;
 use EuroMillions\config\Namespaces;
 use EuroMillions\entities\User;
@@ -139,6 +140,45 @@ class AuthServiceUnitTest extends UnitTestBase
         $this->assertFalse($actual);
     }
 
+
+    /**
+     * method updatePassword
+     * when called
+     * should returnServiceActionResultTrue
+     */
+    public function test_updatePassword_called_returnServiceActionResultTrue()
+    {
+        $expected = new ServiceActionResult(true);
+        $sut = $this->getSut();
+        $user = $this->getNewUser();
+        $password = 'passworD01';
+        $this->userRepository_double->add($user)->shouldBeCalled();
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->flush($user)->shouldNotBeCalled();
+        $this->stubEntityManager($entityManager_stub);
+        $actual = $sut->updatePassword($user,$password);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method updatePassword
+     * when called
+     * should throwExceptionAndReturnServiceActionResultFalse
+     */
+    public function test_updatePassword_called_throwExceptionAndReturnServiceActionResultFalse()
+    {
+        $expected = new ServiceActionResult(false);
+        $sut = $this->getSut();
+        $user = $this->getNewUser();
+        $password = 'passworD01';
+        $this->userRepository_double->add($user)->willThrow('\Exception','Error updating password');
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->flush($user)->shouldNotBeCalled();
+        $this->stubEntityManager($entityManager_stub);
+        $actual = $sut->updatePassword($user,$password);
+        $this->assertEquals($expected,$actual);
+
+    }
 
     /**
      * @param $remember
@@ -438,6 +478,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $user = new User();
         $user->initialize(
             [
+
                 'name'     => 'test',
                 'surname'  => 'test01',
                 'email'    => new Email('raul.mesa@panamedia.net'),
