@@ -1,8 +1,6 @@
 <?php
 namespace EuroMillions\config\bootstrap;
 
-use DebugBar\Bridge\DoctrineCollector;
-use Doctrine\DBAL\Logging\DebugStack;
 use EuroMillions\components\EnvironmentDetector;
 use EuroMillions\components\PhalconCookiesWrapper;
 use EuroMillions\components\PhalconRequestWrapper;
@@ -58,6 +56,10 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     public function execute(Di $di)
     {
+        $config = $di->get('config');
+        ini_set('display_errors', $config->application['displayErrors']);
+        ini_set('display_startup_errors', $config->application['displayStartupErrors']);
+        error_reporting($config->application['errorReporting']);
         (new Phalcon\Debug())->listen();
         $application = new Phalcon\Mvc\Application($di);
         // CONFIGURE DEBUGBAR
