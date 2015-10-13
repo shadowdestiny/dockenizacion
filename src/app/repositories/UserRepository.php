@@ -49,4 +49,16 @@ class UserRepository extends RepositoryBase
         return $result ? $result[0] : null;
     }
 
+    public function getUsersWithJackpotReminder()
+    {
+        $entity_name = $this->getEntityName();
+        $result = $this->getEntityManager()
+            ->createQuery(
+              "SELECT u from {$entity_name} u WHERE u.jackpot_reminder = 1"
+            )
+            ->getResult();
+
+        return $result;
+    }
+
 }

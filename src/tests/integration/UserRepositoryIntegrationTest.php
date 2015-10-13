@@ -77,7 +77,8 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
             'password' => new Password($password, $hasher),
             'email'    => new Email($email),
             'balance'  => new Money(3000, new Currency('EUR')),
-            'validated' => 0
+            'validated' => 0,
+            'jackpot_reminder' => 0,
         ]);
         /** @var Password $hashed_pass */
         $hashed_pass = $user->getPassword();

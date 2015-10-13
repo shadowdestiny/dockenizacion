@@ -21,6 +21,12 @@
         <field name="zip" type="integer" nullable="true"/>
         <field name="city" type="string" nullable="true"/>
         <field name="phone_number" type="integer" nullable="true"/>
+        <field name="jackpot_reminder" type="boolean" nullable="true">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+        <embedded name="jackpot_above" class="Money\Money" use-column-prefix="true" />
         <embedded name="password" class="EuroMillions\vo\Password" use-column-prefix="false"/>
         <embedded name="email" class="EuroMillions\vo\Email" use-column-prefix="false"/>
         <embedded name="rememberToken" class="EuroMillions\vo\RememberToken" use-column-prefix="false"/>
