@@ -76,6 +76,7 @@ class AccountController extends PublicSiteControllerBase
         $this->view->pick('account/index');
         return $this->view->setVars([
             'form_errors' => $form_errors,
+            'which_form'  => 'index',
             'errors' => $errors,
             'msg' => $msg,
             'myaccount' => $myaccount_form,
@@ -102,19 +103,23 @@ class AccountController extends PublicSiteControllerBase
                     $form_errors[$field] = ' error';
                 }
             }else {
-                if($this->authService->samePassword($user,$this->request->getPost('old-password'))->success()) {
+                $result_same_password = $this->authService->samePassword($user,$this->request->getPost('old-password'));
+                if($result_same_password->success()) {
                     $result = $this->authService->updatePassword($user, $this->request->getPost('new-password'));
                     if ($result->success()) {
                         $msg = $result->getValues();
                     } else {
                         $errors [] = $result->errorMessage();
                     }
+                }else{
+                    $errors[] = $result_same_password->errorMessage();
                 }
             }
         }
         $this->view->pick('account/index');
         return $this->view->setVars([
             'form_errors' => $form_errors,
+            'which_form'  => 'password',
             'errors' => $errors,
             'msg' => $msg,
             'myaccount' => $myaccount_form,
