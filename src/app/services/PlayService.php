@@ -10,6 +10,7 @@ use EuroMillions\entities\Bet;
 use EuroMillions\entities\EuroMillionsDraw;
 use EuroMillions\entities\PlayConfig;
 use EuroMillions\entities\User;
+use EuroMillions\exceptions\InvalidBalanceException;
 use EuroMillions\interfaces\IPlayStorageStrategy;
 use EuroMillions\repositories\BetRepository;
 use EuroMillions\repositories\PlayConfigRepository;
@@ -38,6 +39,8 @@ class PlayService
 
     private $playStorageStrategy;
 
+    private $userRepository;
+
     public function __construct(EntityManager $entityManager, LotteriesDataService $lotteriesDataService, IPlayStorageStrategy $playStorageStrategy)
     {
         $this->entityManager = $entityManager;
@@ -46,6 +49,7 @@ class PlayService
         $this->lotteryRepository = $this->entityManager->getRepository('EuroMillions\entities\Lottery');
         $this->lotteriesDataService = $lotteriesDataService;
         $this->playStorageStrategy = $playStorageStrategy;
+        $this->userRepository = $entityManager->getRepository('EuroMillions\entities\User');
     }
 
     /**
@@ -85,22 +89,28 @@ class PlayService
      * @param EuroMillionsDraw $euroMillionsDraw
      * @param \DateTime $today
      * @return ServiceActionResult
+     * @throws \Exception
      */
     public function bet(PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw, \DateTime $today = null)
     {
         if (!$today) {
             $today = new \DateTime();
         }
-
-        $dateNextDraw = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions', $today);
-        $result = $this->betRepository->getBetsByDrawDate(new \DateTime($dateNextDraw));
-        if(!empty($result)){
-            return new ServiceActionResult(true);
-        }else{
-            $bet = new Bet($playConfig,$euroMillionsDraw);
-            $this->betRepository->add($bet);
-            $this->entityManager->flush($bet);
-            return new ServiceActionResult(true);
+        /** @var User $user */
+        $user = $this->userRepository->find($playConfig->getUser()->getId()->id());
+        if($user->getBalance()->getAmount() > $euroMillionsDraw->getLottery()->getSingleBetPrice()) {
+            $dateNextDraw = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions', $today);
+            $result = $this->betRepository->getBetsByDrawDate(new \DateTime($dateNextDraw));
+            if(!empty($result)){
+                return new ServiceActionResult(true);
+            }else{
+                $bet = new Bet($playConfig,$euroMillionsDraw);
+                $this->betRepository->add($bet);
+                $this->entityManager->flush($bet);
+                return new ServiceActionResult(true);
+            }
+        } else {
+            throw new InvalidBalanceException();
         }
     }
 

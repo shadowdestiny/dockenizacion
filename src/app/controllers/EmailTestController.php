@@ -14,6 +14,16 @@ class EmailTestController extends PublicSiteControllerBase
     /** @var  ServiceFactory */
     private $serviceFactory;
 
+    private static $config = [
+        'mandrill_api_key' => 'YNzChiS2tFA5s9-SiZ0ydw',
+        'from_name' => 'Euromillions.com',
+        'from_address' => 'noreply@euromillions.com'
+    ];
+
+    private static $tags = [
+        'tags' => 'test-template'
+    ];
+
     public function initialize()
     {
         parent::initialize();
@@ -21,42 +31,32 @@ class EmailTestController extends PublicSiteControllerBase
     }
 
 
-    public function jackpotAction($userEmail)
+    public function indexAction()
     {
-        $user = $this->getNewUser($userEmail);
-        $this->serviceFactory->getEmailService()->sendJackpotRolloverMail($user,'jackpot-rollover');
+
     }
 
-    public function lastestResultAction($userEmail)
+    public function sendAction()
     {
+        $userEmail = $this->request->getPost('user-email');
+        $template = $this->request->getPost('template');
         $user = $this->getNewUser($userEmail);
-        $this->serviceFactory->getEmailService()->sendLatestResultMail($user,'jackpot-rollover');
+        $this->serviceFactory->getEmailService(null,self::$config)->sendTransactionalEmail($user,$template,self::$tags);
+        $this->view->pick('email-test/index');
     }
 
-    public function longPlayAction($userEmail)
+    /**
+     * @param \Phalcon\Mvc\Dispatcher $dispatcher
+     * @return bool
+     */
+    public function beforeExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
-        $user = $this->getNewUser($userEmail);
-        $this->serviceFactory->getEmailService()->sendLongPlayMail($user,'long-play-is-ended');
+        $config = $dispatcher->getDI()->get('globalConfig')['ips'];
+        $ipClient = $this->request->getClientAddress();
+        if(!in_array($ipClient,explode(',',$config['ips']))){
+            $this->response->redirect('/');
+        }
     }
-
-    public function lowBalanceAction($userEmail)
-    {
-        $user = $this->getNewUser($userEmail);
-        $this->serviceFactory->getEmailService()->sendLowBalanceMail($user,'low-balance');
-    }
-
-    public function winAction($userEmail)
-    {
-        $user = $this->getNewUser($userEmail);
-        $this->serviceFactory->getEmailService()->sendWinEmail($user,'win-email');
-    }
-
-    public function winEmailAboveAction($userEmail)
-    {
-        $user = $this->getNewUser($userEmail);
-        $this->serviceFactory->getEmailService()->sendWinEmailAbove($user,'win-email-above-1500');
-    }
-
 
     private function getNewUser($userEmail)
     {
@@ -72,6 +72,5 @@ class EmailTestController extends PublicSiteControllerBase
         );
         return $user;
     }
-
 
 }

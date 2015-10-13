@@ -406,6 +406,7 @@ class UserServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
+
     private function getPlayConfig()
     {
         $regular_numbers = [1, 2, 3, 4, 5];

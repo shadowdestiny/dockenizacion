@@ -5,6 +5,7 @@ namespace EuroMillions\tasks;
 
 
 use EuroMillions\entities\EuroMillionsDraw;
+use EuroMillions\entities\Lottery;
 use EuroMillions\entities\PlayConfig;
 use EuroMillions\services\DomainServiceFactory;
 use EuroMillions\services\LotteriesDataService;
@@ -19,11 +20,14 @@ class BetTask extends TaskBase
     /** @var  PlayService */
     private $playService;
 
+
+
     public function initialize(LotteriesDataService $lotteriesDataService = null, PlayService $playService= null)
     {
         $domainFactory = new DomainServiceFactory($this->getDI(),new ServiceFactory($this->getDI()));
         ($lotteriesDataService) ? $this->lotteriesDataService = $lotteriesDataService : $this->lotteriesDataService = $domainFactory->getLotteriesDataService();
         ($playService) ? $this->playService = $playService : $this->playService = $domainFactory->getPlayService();
+
         parent::initialize();
     }
 
@@ -48,6 +52,8 @@ class BetTask extends TaskBase
             }
         }
     }
+
+
 
 
 }
