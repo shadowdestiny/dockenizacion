@@ -26,7 +26,7 @@ $(function(){
            {% include "account/_nav.volt" %}
         </div>
         <div class="box-basic content">
-            <div class="my-account">
+            <div class="my-account" {% if which_form == 'index' %} style="display: block" {%  else %} style="display: none" {% endif %}>
 
                 <h1 class="h1 title yellow">{{ language.translate("My Account") }}</h1>
                 <h2 class="h3 yellow">{{ language.translate("User detail") }}</h2>
@@ -89,7 +89,7 @@ $(function(){
                 </div>
                 #}
             </div>
-            <div class="box-change-psw hidden">
+            <div class="box-change-psw hidden" {% if which_form == 'password' %} style="display: block" {%  else %} style="display: none" {% endif %}>
                  <h1 class="h1 title yellow">{{ language.translate("My Account") }}</h2>
                  <h2 class="h3 yellow">{{ language.translate("Change password") }}</h2>
                 {% set myPsw='{"value": "change"}'|json_decode %}

@@ -148,7 +148,7 @@ class AuthServiceUnitTest extends UnitTestBase
      */
     public function test_updatePassword_called_returnServiceActionResultTrue()
     {
-        $expected = new ServiceActionResult(true);
+        $expected = new ServiceActionResult(true,'Your password was changed correctly');
         $sut = $this->getSut();
         $user = $this->getNewUser();
         $password = 'passworD01';

@@ -231,7 +231,7 @@ class AuthService
        if($password_match) {
            return new ServiceActionResult(true);
        }else{
-           return new ServiceActionResult(false);
+           return new ServiceActionResult(false,'The old password doesn\'t exist');
        }
     }
 
@@ -242,7 +242,7 @@ class AuthService
             $user->setPassword($password);
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
-            return new ServiceActionResult(true);
+            return new ServiceActionResult(true,'Your password was changed correctly');
         }catch (\Exception $e) {
             return new ServiceActionResult(false);
         }
