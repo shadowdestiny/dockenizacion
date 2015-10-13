@@ -87,7 +87,7 @@
                 <a id="n02"></a>
                 <h3 class="h3">{{ language.translate("How do I play?") }}</h3>
 
-                <p>{{ language.translate('Information regarding how to play Euromillions is available in detail on the  <a href="%link%">How to play</a> page.',['link':url("help")]) }}</p> 
+                <p>{{ language.translate('Information regarding how to play Euromillions is available in detail on <a href="%link%">How to play</a>.',['link':url("help")]) }}</p> 
                 {% include "faq/back-top.volt" %}
 
                 <a id="n03"></a>
@@ -120,7 +120,7 @@
 
                 <a id="n08"></a>
                 <h3 class="h3">{{ language.translate("Can I participate in a future draw?") }}</h3>
-                <p>>{{ language.translate('Yes, you can purchase a play for a future Euromillions draw by clicking on Advance Play in the <a href="%link%">Play Page</a>, and selecting the numbers of draws you would like your ticket(s) to participate in or by selecting a future date on which you would like to play.',['link':url("play")]) }}</p>
+                <p>{{ language.translate('Yes, you can purchase a play for a future Euromillions draw by clicking on Advance Play in the <a href="%link%">Play Page</a>, and selecting the numbers of draws you would like your ticket(s) to participate in or by selecting a future date on which you would like to play.',['link':url("play")]) }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <a id="n09"></a>

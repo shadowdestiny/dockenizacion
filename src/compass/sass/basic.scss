@@ -19,7 +19,7 @@ svg, select{width:100%;}
 
 
 /*** BASIC STYLE ***/
-.no-lnk, .no-lnk:hover{display:block; color:$black; text-decoration:none;} /* It need to be before the LINK declaration */
+.no-lnk, .no-lnk:hover{display:block; color:$black!important; text-decoration:none;} /* It need to be before the LINK declaration */
 a, .lnk{text-decoration:underline; color:$link; border:none;}
 .lnk > .ico, .no-lnk .btn, .no-lnk .btn .ico{color:$link;}
 a:visited, .lnk:visited{color:$visited;}
