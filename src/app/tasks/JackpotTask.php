@@ -54,7 +54,7 @@ class JackpotTask extends TaskBase
             $users_reminder = $result->getValues();
             foreach($users_reminder as $user) {
                 if($jackpot_amount->getAmount() >= $user->getBalance()->getAmount()) {
-                    $this->emailService->sendJackpotRolloverMail($user,'jackpot-rollover');
+                    $this->emailService->sendTransactionalEmail($user,'jackpot-rollover');
                 }
             }
         }

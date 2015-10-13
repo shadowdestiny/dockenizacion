@@ -12,7 +12,15 @@ class BetRepository extends RepositoryBase
 
     public function getBetsByDrawDate(\DateTime $date)
     {
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT b'
+                . ' FROM ' . $this->getEntityName() . ' p INNER JOIN p.euromillionsDraw e'
+                . ' WHERE p.draw_date = :date')
+            ->setParameters(['date' => $date->format('Y-m-d')])
+            ->getResult();
 
+        return $result;
     }
 
     public function getBetsByPlayConfig(PlayConfig $playConfig)
