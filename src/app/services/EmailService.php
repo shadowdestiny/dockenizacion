@@ -66,6 +66,60 @@ EOF;
         );
     }
 
+    public function sendJackpotRolloverMail(User $user, $template)
+    {
+        $this->sendTransactionalMail($user,$template);
+    }
+
+    public function sendLatestResultMail(User $user, $template)
+    {
+        $this->sendTransactionalMail($user,$template);
+    }
+
+    public function sendLongPlayMail(User $user, $template)
+    {
+        $this->sendTransactionalMail($user,$template);
+    }
+
+    public function sendLowBalanceMail(User $user, $template)
+    {
+        $this->sendTransactionalMail($user, $template);
+    }
+
+    public function sendWinEmail(User $user, $template)
+    {
+        $this->sendTransactionalMail($user, $template);
+    }
+
+    public function sendWinEmailAbove(User $user, $template)
+    {
+        $this->sendTransactionalMail($user, $template);
+    }
+
+
+    private function sendTransactionalMail(User $user, $template, $vars = null)
+    {
+        $this->mailServiceApi->send(
+            $this->mailConfig['from_name'],
+            $this->mailConfig['from_address'],
+            [
+                [
+                    'email' => $user->getEmail()->toNative(),
+                    'name'  => $user->getSurname() . ', ' . $user->getName(),
+                    'type'  => 'to',
+                ]
+
+            ],
+            'Confirm your email',
+            '',
+            [],
+            [],
+            $template,
+            []
+        );
+
+    }
+
     /**
      * @param User $user
      * @param $title
