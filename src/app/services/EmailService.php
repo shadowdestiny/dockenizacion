@@ -66,38 +66,14 @@ EOF;
         );
     }
 
-    public function sendJackpotRolloverMail(User $user, $template)
-    {
-        $this->sendTransactionalMail($user,$template);
-    }
 
-    public function sendLatestResultMail(User $user, $template)
+    public function sendTransactionalEmail(User $user, $template, array $vars = null)
     {
-        $this->sendTransactionalMail($user,$template);
-    }
-
-    public function sendLongPlayMail(User $user, $template)
-    {
-        $this->sendTransactionalMail($user,$template);
-    }
-
-    public function sendLowBalanceMail(User $user, $template)
-    {
-        $this->sendTransactionalMail($user, $template);
-    }
-
-    public function sendWinEmail(User $user, $template)
-    {
-        $this->sendTransactionalMail($user, $template);
-    }
-
-    public function sendWinEmailAbove(User $user, $template)
-    {
-        $this->sendTransactionalMail($user, $template);
+        $this->sendTransactional($user, $template, $vars);
     }
 
 
-    private function sendTransactionalMail(User $user, $template, $vars = null)
+    private function sendTransactional(User $user, $template, $vars = null)
     {
         $this->mailServiceApi->send(
             $this->mailConfig['from_name'],
