@@ -245,4 +245,14 @@ class UserService
         }
     }
 
+    public function getAllUsersWithJackpotReminder()
+    {
+        $result = $this->userRepository->getUsersWithJackpotReminder();
+        if(!empty($result)) {
+            return new ServiceActionResult(true,$result);
+        } else {
+            return new ServiceActionResult(false);
+        }
+    }
+
 }

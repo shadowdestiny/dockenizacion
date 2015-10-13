@@ -43,6 +43,7 @@ class AuthServiceIntegrationTest extends DatabaseIntegrationTestBase
             'password'         => 'passWord01',
             'confirm_password' => 'passWord01',
             'country'          => 'Spain',
+            'jackpot_reminder'  => 0,
         ];
         $sut = $this->getDomainServiceFactory()->getAuthService(new NullPasswordHasher(), null, null, $this->getServiceDouble('LogService')->reveal(), $this->getServiceDouble('EmailService')->reveal());
         $sut->register($credentials);

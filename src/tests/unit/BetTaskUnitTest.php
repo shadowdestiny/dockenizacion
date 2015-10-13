@@ -61,7 +61,8 @@ class BetTaskUnitTest extends UnitTestBase
     }
 
 
-    private function getSut(){
+    private function getSut()
+    {
         $sut = $this->getDomainServiceFactory();
         return $sut;
     }

@@ -41,6 +41,8 @@ class User extends EntityBase implements IEntity, IUser
     protected $zip;
     protected $city;
     protected $phone_number;
+    protected $jackpot_reminder;
+    protected $jackpot_above;
 
 
 
@@ -234,6 +236,38 @@ class User extends EntityBase implements IEntity, IUser
     public function setCity($city)
     {
         $this->city = $city;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJackpotReminder()
+    {
+        return $this->jackpot_reminder;
+    }
+
+    /**
+     * @param mixed $jackpot_reminder
+     */
+    public function setJackpotReminder($jackpot_reminder)
+    {
+        $this->jackpot_reminder = $jackpot_reminder;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJackpotAbove()
+    {
+        return $this->jackpot_above;
+    }
+
+    /**
+     * @param mixed $jackpot_above
+     */
+    public function setJackpotAbove($jackpot_above)
+    {
+        $this->jackpot_above = $jackpot_above;
     }
 
 }
