@@ -88,6 +88,10 @@ $(function(){
 	checkSize();
 	$(window).resize(checkSize);
 
+    /* EDMTD it should be applied only on mobile devices */
+    var attachFastClick = Origami.fastclick;
+    attachFastClick(document.body); // It removes the delay of 300ms on mobile browsers because of double tap
+
 	$(".menu-ham").click(function(){
 		$(this).toggleClass('expanded').siblings('ul').slideToggle().toggleClass('open');
 	});
