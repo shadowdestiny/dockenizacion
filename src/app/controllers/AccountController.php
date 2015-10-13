@@ -160,7 +160,7 @@ class AccountController extends PublicSiteControllerBase
             'my_games_actives' => $playConfigActivesDTOCollection,
             'my_games_inactives' => $playConfigInactivesDTOCollection,
             'jackpot_value' => $jackpot->getAmount()/100,
-            'message_active' => $message_actives,
+            'message_actives' => $message_actives,
             'message_inactives' => $message_inactives
         ]);
     }

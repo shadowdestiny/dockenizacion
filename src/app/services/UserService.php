@@ -4,6 +4,7 @@ use Alcohol\ISO4217;
 use antonienko\MoneyFormatter\MoneyFormatter;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\entities\PaymentMethod;
+use EuroMillions\entities\PlayConfig;
 use EuroMillions\entities\User;
 use EuroMillions\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\repositories\PaymentMethodRepository;
@@ -254,5 +255,11 @@ class UserService
             return new ServiceActionResult(false);
         }
     }
+
+    public function checkBalanceInSuscription(UserId $userId)
+    {
+
+    }
+
 
 }

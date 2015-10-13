@@ -73,5 +73,4 @@ class EmailTestController extends PublicSiteControllerBase
         return $user;
     }
 
-
 }
