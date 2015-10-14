@@ -58,7 +58,7 @@ class JackpotTaskUnitTest extends UnitTestBase
         $this->lotteryDataService_double->getLastDrawDate($lottery_name,$today)->willReturn(new \DateTime('2015-06-09 20:00:00'));
         $this->lotteryDataService_double->updateNextDrawJackpot($lottery_name,new \DateTime('2015-06-09 19:59:00'))->shouldBeCalled();
         $sut = new JackpotTask();
-        $sut->initialize($this->lotteryDataService_double->reveal(),$this->userService_double->reveal());
+        $sut->initialize($this->lotteryDataService_double->reveal(),$this->userService_double->reveal(), $this->emailService_double->reveal());
         $sut->updatePreviousAction($today);
     }
 

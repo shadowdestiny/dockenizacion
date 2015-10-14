@@ -191,6 +191,7 @@ class BetTaskUnitTest extends UnitTestBase
 //        $this->playService_double->bet(Argument::type('EuroMillions\entities\PlayConfig'), $euroMillionsDraw)->willThrow(new InvalidBalanceException());
 //        $this->userService_double->getUser(Argument::any())->willReturn($this->getUser());
 //        $this->emailService_double->sendTransactionalEmail(Argument::type('EuroMillions\entities\User'),'low-balance')->shouldBeCalledTimes(1);
+//        $this->emailService_double->sendTransactionalEmail(Argument::type('EuroMillions\entities\User'),'low-balance')->shouldBeCalledTimes(1);
 //        $sut = new BetTask();
 //        $sut->initialize($this->lotteryDataService_double->reveal(),
 //            $this->playService_double->reveal(),$this->emailService_double->reveal(), $this->userService_double->reveal());

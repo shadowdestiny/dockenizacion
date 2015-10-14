@@ -40,17 +40,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     {
         $di = parent::dependencyInjector();
         $di->set('view', $this->configView(), true);
-        $di->set('request', $this->configRequest(), false);
         $di->set('url', $this->configUrl($di), true);
         $di->set('dispatcher', $this->configDispatcher(), true);
         $di->set('router', $this->configRouter(), true);
         $di->set('response', $this->configResponse(), true);
-        $di->set('cookies', $this->configCookies(), true);
-        $di->set('session', $this->configSession(), true);
         $di->set('tag', $this->configTag(), true);
         $di->set('escaper', $this->configEscaper(), true);
         $di->set('security', $this->configSecurity(), true);
-        $di->set('language', $this->configLanguage($di), true);
         return $di;
     }
 
@@ -66,13 +62,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 //        $di['app'] = $application;
 //        (new ServiceProvider(APP_PATH . 'config/debugbar.php'))->start();
         echo $application->handle()->getContent();
-    }
-
-    protected function configLanguage(Di $di)
-    {
-        /** @var DomainServiceFactory $dsf */
-        $dsf = $di->get('domainServiceFactory');
-        return $dsf->getLanguageService();
     }
 
     protected function configView()
@@ -94,11 +83,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             }
         ));
         return $view;
-    }
-
-    protected function configRequest()
-    {
-        return new PhalconRequestWrapper();
     }
 
     protected function configUrl(Di $di)
@@ -181,20 +165,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     protected function configResponse()
     {
         return new Phalcon\Http\Response();
-    }
-
-    protected function configCookies()
-    {
-        $wrapper = new PhalconCookiesWrapper();
-        $wrapper->useEncryption(true);
-        return $wrapper;
-    }
-
-    protected function configSession()
-    {
-        $session = new PhalconSessionWrapper();
-        $session->start();
-        return $session;
     }
 
     protected function configTag()

@@ -58,10 +58,15 @@ class BetTask extends TaskBase
             foreach($play_config_list as $play_config) {
                 if($play_config->getDrawDays()->compareTo($euromillions_draw->getDrawDate()->format('w'))){
                     try{
-                        $this->playService->bet($play_config, $euromillions_draw);
+                        if(empty($user)){
+                            $this->playService->bet($play_config, $euromillions_draw);
+                        }
                     }catch(InvalidBalanceException $e){
-                        $user = $this->userService->getUser($play_config->getUser()->getId());
-                        $this->emailService->sendTransactionalEmail($user, 'low-balance');
+                        if(empty($user)){
+                            $user = $this->userService->getUser($play_config->getUser()->getId());
+                            $this->emailService->sendTransactionalEmail($user, 'low-balance');
+                            continue;
+                        }
                     }
                     $user = null;
                 }
