@@ -7,6 +7,7 @@ namespace EuroMillions\tasks;
 use EuroMillions\entities\EuroMillionsDraw;
 use EuroMillions\entities\Lottery;
 use EuroMillions\entities\PlayConfig;
+use EuroMillions\entities\User;
 use EuroMillions\exceptions\InvalidBalanceException;
 use EuroMillions\services\DomainServiceFactory;
 use EuroMillions\services\EmailService;
@@ -54,21 +55,26 @@ class BetTask extends TaskBase
         if($result_play_configs->success()){
             /** @var PlayConfig[] $play_config_list */
             $play_config_list = $result_play_configs->getValues();
+            /** @var User $user */
             $user = null;
+            $user_id = '';
             foreach($play_config_list as $play_config) {
                 if($play_config->getDrawDays()->compareTo($euromillions_draw->getDrawDate()->format('w'))){
                     try{
-                        if(empty($user)){
+                        if(empty($user_id)){
+                            $this->playService->bet($play_config, $euromillions_draw);
+                        }
+                        if(!empty($user_id) && $user_id != $play_config->getUser()->getId()->id()){
+                            $user_id = '';
                             $this->playService->bet($play_config, $euromillions_draw);
                         }
                     }catch(InvalidBalanceException $e){
-                        if(empty($user)){
+                        if(empty($user_id) || $user_id != $play_config->getUser()->getId()->id()){
                             $user = $this->userService->getUser($play_config->getUser()->getId());
+                            $user_id = $play_config->getUser()->getId()->id();
                             $this->emailService->sendTransactionalEmail($user, 'low-balance');
-                            continue;
                         }
                     }
-                    $user = null;
                 }
             }
         }
