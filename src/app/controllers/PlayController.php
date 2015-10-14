@@ -37,7 +37,7 @@ class PlayController extends PublicSiteControllerBase
         for($i=0; $i < $maxIteration; $i++){
             if($i == 0) $lastDraw = new \DateTime(date("Y-m-d H:i:s"));
             $lastDraw = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions',$lastDraw);
-            $drawDates[] = [date('w',$lastDraw->getTimestamp()) => $lastDraw->format('Y-m-d')];
+            $drawDates[] = [date('w',$lastDraw->getTimestamp()) => $lastDraw->format('d M Y')];
         }
         return $drawDates;
     }

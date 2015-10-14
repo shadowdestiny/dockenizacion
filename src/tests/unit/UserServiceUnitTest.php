@@ -377,6 +377,36 @@ class UserServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
+    /**
+     * method getAllUsersWithJackpotReminder
+     * when called
+     * should returnServiceActionResultTrueWithProperData
+     */
+    public function test_getAllUsersWithJackpotReminder_called_returnServiceActionResultTrueWithProperData()
+    {
+        $user = [$this->getUser()];
+        $expected = new ServiceActionResult(true,$user);
+        $this->userRepository_double->getUsersWithJackpotReminder()->willReturn($user);
+        $sut = $this->getSut();
+        $actual = $sut->getAllUsersWithJackpotReminder();
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method getAllUsersWithJackpotReminder
+     * when called
+     * should returnServiceActionResultFalse
+     */
+    public function test_getAllUsersWithJackpotReminder_called_returnServiceActionResultFalse()
+    {
+        $expected = new ServiceActionResult(false);
+        $this->userRepository_double->getUsersWithJackpotReminder()->willReturn(null);
+        $sut = $this->getSut();
+        $actual = $sut->getAllUsersWithJackpotReminder();
+        $this->assertEquals($expected,$actual);
+    }
+
+
     private function getPlayConfig()
     {
         $regular_numbers = [1, 2, 3, 4, 5];

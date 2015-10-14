@@ -30,7 +30,7 @@ class MyAccountChangePasswordForm extends RedirectableFormBase
         )));
         $password->addValidator(new Confirmation(
             [
-                'with' => 'confirm_password',
+                'with' => 'confirm-password',
                 'message' => 'Passwords don\'t match'
             ]
         ));

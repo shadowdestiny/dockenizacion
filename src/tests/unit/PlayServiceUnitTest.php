@@ -8,6 +8,7 @@ use EuroMillions\components\NullPasswordHasher;
 use EuroMillions\config\Namespaces;
 use EuroMillions\entities\Bet;
 use EuroMillions\entities\EuroMillionsDraw;
+use EuroMillions\entities\Lottery;
 use EuroMillions\entities\PlayConfig;
 use EuroMillions\entities\User;
 use EuroMillions\vo\Email;
@@ -64,7 +65,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->betRepository_double = $this->getRepositoryDouble('BetRepository');
         $this->lotteryDrawRepository_double = $this->getRepositoryDouble('EuroMillions\entities\Lottery');
         $this->playStorageStrategy_double = $this->getInterfaceDouble('IPlayStorageStrategy');
-        $this->userRepository_double = $this->getRepositoryDouble('EuroMillions\entities\User');
+        $this->userRepository_double = $this->getRepositoryDouble('UserRepository');
         $this->authService_double = $this->getServiceDouble('AuthService');
         parent::setUp();
     }
@@ -152,8 +153,11 @@ class PlayServiceUnitTest extends UnitTestBase
     {
         $expected = new ServiceActionResult(true);
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
+        $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
         $this->betRepository_double->getBetsByDrawDate(Argument::any())->willReturn(null);
         $this->betRepository_double->add(Argument::any())->willReturn(true);
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->flush(Argument::any())->shouldNotBeCalled();
         $sut = $this->getSut();
         $actual = $sut->bet($playConfig,$euroMillionsDraw, new \DateTime('2015-09-16 00:00:00'));
         $this->assertEquals($expected,$actual);
@@ -171,6 +175,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $today = new \DateTime('2015-09-16 00:00:00');
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $bet = new Bet($playConfig,$euroMillionsDraw);
+        $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
         $this->lotteryDataService_double->getNextDateDrawByLottery('EuroMillions',$today)->willReturn('2015-09-18 00:00:00');
         $this->betRepository_double->getBetsByDrawDate(Argument::any())->willReturn($bet);
         $this->betRepository_double->add(Argument::any())->shouldNotBeCalled();
@@ -178,6 +183,22 @@ class PlayServiceUnitTest extends UnitTestBase
         $actual = $sut->bet($playConfig,$euroMillionsDraw, $today);
         $this->assertEquals($expected,$actual);
 
+    }
+
+    /**
+     * method bet
+     * when calledWhenUserWithoutBalance
+     * should throwExceptionNoBalance
+     */
+    public function test_bet_calledWhenUserWithoutBalance_throwExceptionNoBalance()
+    {
+        $user = $this->getUser();
+        list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
+        $this->userRepository_double->find($user->getId()->id())->willReturn($user);
+        $user->setBalance(new Money(0, new Currency('EUR')));
+        $this->setExpectedException('EuroMillions\exceptions\InvalidBalanceException');
+        $sut = $this->getSut();
+        $sut->bet($playConfig,$euroMillionsDraw,new \DateTime());
     }
 
     /**
@@ -315,6 +336,16 @@ class PlayServiceUnitTest extends UnitTestBase
         $euroMillionsLine = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),
             $this->getLuckyNumbers($lucky_numbers));
         $euroMillionsDraw->createResult($regular_numbers, $lucky_numbers);
+        $lottery = new Lottery();
+        $lottery->initialize([
+            'id'        => 1,
+            'name'      => 'EuroMillions',
+            'active'    => 1,
+            'frequency' => 'freq',
+            'draw_time' => 'draw',
+            'single_bet_price' => 235,
+        ]);
+        $euroMillionsDraw->setLottery($lottery);
         $playConfig = new PlayConfig();
         $playConfig->initialize([
                 'user' => $user,

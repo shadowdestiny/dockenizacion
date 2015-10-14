@@ -6,7 +6,10 @@ use EuroMillions\components\EnvironmentDetector;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\Common\Cache\ApcCache;
+use EuroMillions\components\PhalconCookiesWrapper;
 use EuroMillions\components\PhalconRedisWrapper;
+use EuroMillions\components\PhalconRequestWrapper;
+use EuroMillions\components\PhalconSessionWrapper;
 use EuroMillions\services\DomainServiceFactory;
 use EuroMillions\services\ServiceFactory;
 use Phalcon\Cache\Frontend\Data;
@@ -45,6 +48,11 @@ abstract class BootstrapStrategyBase
         $di->set('entityManager', $this->configDoctrine($config), true);
         $di->set('redisCache', $this->configRedis($config), true);
         $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
+        $di->set('request', $this->configRequest(), false);
+        $di->set('cookies', $this->configCookies(), true);
+        $di->set('session', $this->configSession(), true);
+        $di->set('language', $this->configLanguage($di), true);
+
         return $di;
     }
 
@@ -106,6 +114,32 @@ abstract class BootstrapStrategyBase
     protected function configGlobalConfig()
     {
         return new Ini($this->globalConfigPath . 'config.ini');
+    }
+
+    protected function configLanguage(Di $di)
+    {
+        /** @var DomainServiceFactory $dsf */
+        $dsf = $di->get('domainServiceFactory');
+        return $dsf->getLanguageService();
+    }
+
+    protected function configSession()
+    {
+        $session = new PhalconSessionWrapper();
+        $session->start();
+        return $session;
+    }
+
+    protected function configRequest()
+    {
+        return new PhalconRequestWrapper();
+    }
+
+    protected function configCookies()
+    {
+        $wrapper = new PhalconCookiesWrapper();
+        $wrapper->useEncryption(true);
+        return $wrapper;
     }
 
     abstract protected function getConfigFileName(EnvironmentDetector $em);

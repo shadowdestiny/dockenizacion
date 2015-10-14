@@ -66,6 +66,36 @@ EOF;
         );
     }
 
+
+    public function sendTransactionalEmail(User $user, $template, array $vars = null)
+    {
+        $this->sendTransactional($user, $template, $vars);
+    }
+
+
+    private function sendTransactional(User $user, $template, $vars = null)
+    {
+        $this->mailServiceApi->send(
+            $this->mailConfig['from_name'],
+            $this->mailConfig['from_address'],
+            [
+                [
+                    'email' => $user->getEmail()->toNative(),
+                    'name'  => $user->getSurname() . ', ' . $user->getName(),
+                    'type'  => 'to',
+                ]
+
+            ],
+            $vars['subject'],
+            '',
+            [],
+            [],
+            $template,
+            []
+        );
+
+    }
+
     /**
      * @param User $user
      * @param $title

@@ -34,6 +34,7 @@
             <li><a href="{{ url("account/games") }}">{{ language.translate("My Games") }} <span class="ico ico-arrow-right"></span></a></li>
             <li><a href="{{ url("account/wallet") }}">{{ language.translate("My Wallet") }} <span class="ico ico-arrow-right"></span></a></li>
             <li><a href="{{ url("account/messages")}}">{{ language.translate("Messages") }} <span class="ico ico-arrow-right"></span></a></li>
+            <li><a href="{{ url("account/email")}}">{{ language.translate("Email Settings") }} <span class="ico ico-arrow-right"></span></a></li>
             <li><a href="{{ url("userAccess/logout") }}">{{ language.translate("Sign out") }} <span class="ico ico-exit"></span></a></li>
         </ul>
     {% endif %}

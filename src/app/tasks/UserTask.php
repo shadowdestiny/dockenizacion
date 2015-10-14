@@ -32,8 +32,6 @@ class UserTask extends TaskBase
             $date = new \DateTime();
         }
 
-
-
     }
 
 }

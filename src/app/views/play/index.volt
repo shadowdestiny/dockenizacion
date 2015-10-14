@@ -81,7 +81,7 @@
 								</select>
 							</div>
 							<div class="col2">
-								<label>{{ language.translate("First Draw") }} <i data-tip="{{ language.translate('From which draw do you wish to play?') }}" class="ico ico-question-mark"></i></label>
+								<label class="label">{{ language.translate("First Draw") }} <i data-tip="{{ language.translate('From which draw do you wish to play?') }}" class="ico ico-question-mark"></i></label>
 								<select class="start_draw">
 									{% for k,dates in play_dates %}
 										{% for j,date in dates %}

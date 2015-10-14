@@ -4,6 +4,7 @@ use Alcohol\ISO4217;
 use antonienko\MoneyFormatter\MoneyFormatter;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\entities\PaymentMethod;
+use EuroMillions\entities\PlayConfig;
 use EuroMillions\entities\User;
 use EuroMillions\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\repositories\PaymentMethodRepository;
@@ -244,5 +245,21 @@ class UserService
             return new ServiceActionResult(false,'Sorry, try it later');
         }
     }
+
+    public function getAllUsersWithJackpotReminder()
+    {
+        $result = $this->userRepository->getUsersWithJackpotReminder();
+        if(!empty($result)) {
+            return new ServiceActionResult(true,$result);
+        } else {
+            return new ServiceActionResult(false);
+        }
+    }
+
+    public function checkBalanceInSuscription(UserId $userId)
+    {
+
+    }
+
 
 }

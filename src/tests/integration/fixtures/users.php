@@ -9,7 +9,8 @@ return [
             'balance_amount' => 300005,
             'balance_currency_name' => 'EUR',
             'validated' => false,
-            'validation_token' => 'fdsdsfsdffsd54353GFD'
+            'validation_token' => 'fdsdsfsdffsd54353GFD',
+            'jackpot_reminder' => false,
         ],
         [
             'id'   => '9098299B-14AC-4124-8DB0-19571EDABE56',
@@ -19,7 +20,8 @@ return [
             'balance_amount' => 300006,
             'balance_currency_name' => 'EUR',
             'validated' => false,
-            'validation_token' => 'fdsdsfsdffsd54353GFD'
+            'validation_token' => 'fdsdsfsdffsd54353GFD',
+            'jackpot_reminder' => false,
         ],
 
   ]
