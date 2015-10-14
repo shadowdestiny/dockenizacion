@@ -3,11 +3,12 @@
 phpinfo.php
 src/app/assets/*
 !src/app/assets/README.md
+!src/app/assets/compiled_templates
+src/app/assets/compiled_templates/*
+!src/app/assets/compiled_templates/README.md
 src/app/logs/*
 !src/app/logs/README.md
 src/vendor/*
-!src/app/assets/compiled_templates
-src/app/assets/compiled_templates/*
 src/.phalcon/*
 src/.sass-cache/*
 !src/.sass-cache/README.md
