@@ -20,10 +20,6 @@ class EmailTestController extends PublicSiteControllerBase
         'from_address' => 'noreply@euromillions.com'
     ];
 
-    private static $tags = [
-        'tags' => 'test-template'
-    ];
-
     public function initialize()
     {
         parent::initialize();
@@ -38,10 +34,14 @@ class EmailTestController extends PublicSiteControllerBase
 
     public function sendAction()
     {
+        $vars =  [
+            'tags' => 'test'
+        ];
         $userEmail = $this->request->getPost('user-email');
         $template = $this->request->getPost('template');
         $user = $this->getNewUser($userEmail);
-        $this->serviceFactory->getEmailService(null,self::$config)->sendTransactionalEmail($user,$template,self::$tags);
+        $vars['subject'] = $this->getSubject($template,$user);
+        $this->serviceFactory->getEmailService(null,self::$config)->sendTransactionalEmail($user,$template,$vars);
         $this->view->pick('email-test/index');
     }
 
@@ -56,6 +56,40 @@ class EmailTestController extends PublicSiteControllerBase
         if(!in_array($ipClient,explode(',',$config['ips']))){
             $this->response->redirect('/');
         }
+    }
+
+    /**
+     * @param $template
+     * @param $user
+     * @return string
+     */
+    private function getSubject($template,User $user)
+    {
+        $subject = '';
+        $draw_date = $this->domainServiceFactory->getLotteriesDataService()->getLastDrawDate('EuroMillions')->format('Y-m-d');
+        $user_name = $user->getName();
+        switch($template){
+            case 'jackpot-rollover':
+                $subject = 'The Jackpot has surpassed *&euro; 120 millions*';
+                break;
+            case 'latest-results':
+                $subject = 'Latest draw results: ' .$draw_date;
+                break;
+            case 'low-balance':
+                $subject = 'Your balance is too low, we are unable to process your play';
+                break;
+            case 'long-play-is-ended':
+                $subject = 'You just finished a long term play';
+                break;
+            case 'win-email':
+                $subject = 'Congratulations ' .$user_name . ', you won the lottery';
+                break;
+            case 'win-email-above-1500':
+                $subject = 'Congratulations ' . $user_name . ', you won the lottery';
+                break;
+        }
+
+        return $subject;
     }
 
     private function getNewUser($userEmail)

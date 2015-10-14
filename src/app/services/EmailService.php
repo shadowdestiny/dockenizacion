@@ -86,7 +86,7 @@ EOF;
                 ]
 
             ],
-            'Confirm your email',
+            $vars['subject'],
             '',
             [],
             [],
