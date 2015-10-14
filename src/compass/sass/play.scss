@@ -217,9 +217,13 @@ $gap3:15px; /* Responsive design 3 column */
 .box-bottom{
 	background:$yellow-lighter; border-radius:0;
 	.col2{margin:0 0 10px;}
-	.wrap-threshold{text-align:center; margin-left:-12px;}
+	.wrap-threshold{
+		text-align:center; margin:20px -12px 0 -12px; padding-bottom:15px;
+		.label{margin-bottom:5px;}
+	}
 	.cols{width:100%;}
 	.right{float:none; margin:auto;}
+	.col2 select{width:75%; margin:auto;}
 }
 .box-bottom > .wrap{margin:0;}
 .gap{padding:0 10px;}
@@ -246,6 +250,9 @@ $gap3:15px; /* Responsive design 3 column */
 
 @media only screen and (max-width:580px){ /*breakpoint only in PLAY page*/
 .box-bottom > .col2{border-width:5px;}
+.box-bottom{
+	.col2 select{width:100%;}
+}
 .box-threshold .threshold{margin-bottom:5px;}
 .gameplay{padding-top:20px;}
 .gameplay .wrap{margin:0 -6px 0 0;}
