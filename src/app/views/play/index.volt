@@ -73,7 +73,7 @@
 						<a href="javascript:void(0);" class="close"><i class="ico ico-cancel-circle"></i></a>
 						<div class="cols">
 							<div class="col2">
-								<label class="label">{{ language.translate("Draw") }} <i data-tip="{{ language.translate('Which draw do you want to play?') }}" class="ico ico-question-mark"></i></label>
+								<label class="label">{{ language.translate("Draw") }} <i data-tip="{{ language.translate('Which draw do you want to play?') }}" class="ico ico-question-mark tipr-small"></i></label>
 								<select class="draw_days">
 									<option value="2,5">{{ language.translate("Tuesday & Friday") }}</option>
 									<option value="2" {% if next_draw == 2 %} selected {% endif %}>{{ language.translate("Tuesday") }}</option>
@@ -81,7 +81,7 @@
 								</select>
 							</div>
 							<div class="col2">
-								<label class="label">{{ language.translate("First Draw") }} <i data-tip="{{ language.translate('From which draw do you wish to play?') }}" class="ico ico-question-mark"></i></label>
+								<label class="label">{{ language.translate("First Draw") }} <i data-tip="{{ language.translate('From which draw do you wish to play?') }}" class="ico ico-question-mark tipr-small"></i></label>
 								<select class="start_draw">
 									{% for k,dates in play_dates %}
 										{% for j,date in dates %}
@@ -95,7 +95,7 @@
 								</select>
 							</div>
 							<div class="col2">
-								<label class="label">{{ language.translate("Duration") }} <i data-tip="{{ language.translate('For how long do you wish to play?') }}"class="ico ico-question-mark"></i></label>
+								<label class="label">{{ language.translate("Duration") }} <i data-tip="{{ language.translate('For how long do you wish to play?') }}"class="ico ico-question-mark tipr-small"></i></label>
 								<select class="frequency">
 									<option value="1">{{ language.translate("1 week (Draws: 1)") }}</option>
 									<option value="2">{{ language.translate("2 week (Draws: 2)") }}</option>
@@ -108,8 +108,7 @@
 								</select>
 							</div>
 							<div class="col6 wrap-threshold">
-								<label class="label" for="threshold">{{ language.translate("Jackpot Threshold") }} <i data-tip="{{ language.translate('Set the condition when you want to play or to be informed automatically. Thresholds are calculated only in Euro.') }}"class="ico ico-question-mark"></i></label>
-
+								<label class="label" for="threshold">{{ language.translate("Jackpot Threshold") }} <i data-tip="{{ language.translate('Set the condition when you want to play or to be informed automatically. Thresholds are calculated only in Euro.') }}"class="ico ico-question-mark tipr-normal"></i></label>
 								{% include "_elements/jackpot-threshold.volt" %}
 							</div>
 

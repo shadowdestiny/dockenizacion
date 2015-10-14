@@ -158,7 +158,7 @@ $gap3:15px; /* Responsive design 3 column */
 .gameplay{overflow:visible;}
 .box-bottom{
 	.col2{width:32%; float:left; display:block; margin-bottom:15px;}
-	.wrap-threshold{width:100%; display:block; overflow:auto; margin-left:-12px; border-right:22px solid $grey-lighter2; border-radius:0 0 5px 5px;}
+	.wrap-threshold{width:100%; display:inline-table!important; overflow:auto; margin-left:-12px; border-right:22px solid $grey-lighter2; border-radius:0 0 5px 5px;}
 	.cols{width:96%;}
 }
 .line .stars .ico{font-size:200%;}
@@ -223,7 +223,9 @@ $gap3:15px; /* Responsive design 3 column */
 	}
 	.cols{width:100%;}
 	.right{float:none; margin:auto;}
-	.col2 select{width:75%; margin:auto;}
+	.col2{
+		select, .label{width:75%; margin:auto;}
+	}
 }
 .box-bottom > .wrap{margin:0;}
 .gap{padding:0 10px;}
@@ -251,7 +253,9 @@ $gap3:15px; /* Responsive design 3 column */
 @media only screen and (max-width:580px){ /*breakpoint only in PLAY page*/
 .box-bottom > .col2{border-width:5px;}
 .box-bottom{
-	.col2 select{width:100%;}
+	.col2{
+		select, .label{width:100%;}
+	}
 }
 .box-threshold .threshold{margin-bottom:5px;}
 .gameplay{padding-top:20px;}
