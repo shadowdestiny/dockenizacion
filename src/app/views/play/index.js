@@ -571,6 +571,7 @@ $(function(){
 		resizeAdapterColumn();
 	});
 
+
 	//Check varSize
 	if(varSize >= 4){
 		columnAdapter();
@@ -617,7 +618,7 @@ $(function(){
 		redrawTotalCost();
 	})
 
-	$('.add-more').on('click', function () {
+	$('.add-more').on('click touchend', function () {
 		if(isAddMoreClicked == false ){
 			newLine();
 			isAddMoreClicked=true;
@@ -632,14 +633,16 @@ $(function(){
 	});
 
 
-	$('.add-more').mouseover(function(){
+	$('.add-more').on('mouseover touchstart', function(){
 		if(checkFillColumns() && isAddMoreClicked == true){
 			$('.add-more').removeClass('stop');
 		}
 		if($(this).hasClass("stop")){
-			$('.box-more').tipr({'mode':'top'});
+			if(!$('.tipr').length) {
+				$('.box-more').tipr({'mode':'top'});
+			}
 		}else{
-			$('.box-more').unbind('mouseenter mouseleave');
+			$('.box-more').unbind('mouseenter mouseleave vclick');
 		}
 	});
 
