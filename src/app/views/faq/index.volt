@@ -12,8 +12,19 @@
     {% include "_elements/header.volt" %}
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
-
+{% block template_scripts %}
+    //EMTD we use this function as workaround from jquery mobile to anchor link via url
+    <script>
+        $(function() {
+            var hash = window.location.hash;
+            $(document.body).animate({
+                'scrollTop':   $('#'+hash.split('#')[1]).offset().top
+            }, 100);
+        });
+    </script>
+{% endblock %}
 {% block body %}
+
 <main id="content">
     <div class="wrapper">
         <div class="box-basic medium" data-ajax="false">
@@ -101,7 +112,7 @@
                     If you want') }}</p>
                 {% include "faq/back-top.volt" %}
 
-                <a id="n05"></a>
+                <a id="n05" name="n05" href="n05"></a>
                 <h3 class="h3">{{ language.translate("When the Draw results are released?") }}</h3>
                 <p>{{ language.translate('The latest Euromillions results are revealed approximately an hour following the draw 22:30 CET. A full breakdown of prizes is released another hour later 23:30 CET. However, in the event of a large jackpot the processing and verification of the latest results can take up until midnight to finalise. You can get the latest Euromillions results on our results page.') }}</p>
                 {% include "faq/back-top.volt" %}
