@@ -1,4 +1,4 @@
-<a href="{{ url("")}}" class="logo" title="Go to Homepage">
+<a href="/" class="logo" title="Go to Homepage">
     <picture class="pic">
         <!--[if IE 9]><video style="display: none;"><![endif]-->
         <source media="(max-width: 768px)" srcset="/img/logo/euromillions-sm.png">
