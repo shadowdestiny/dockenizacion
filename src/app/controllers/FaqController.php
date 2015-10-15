@@ -7,7 +7,7 @@ class FaqController extends PublicSiteControllerBase
 
     public function indexAction()
     {
-        
+
     }
 
 }
