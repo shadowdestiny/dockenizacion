@@ -56,9 +56,6 @@ $(document).on("storeNum",{numColumn: 0, typeColumn: "", num: "", active: 1},
 
 	//get in load page
 	localStorage.setItem('bet_line', JSON.stringify(numLines));
-
-
-
 });
 
 function removeColumnInLocalStorage(column){
@@ -507,6 +504,7 @@ function multiTask(target, activate, check){
 function showAdvanced(btnShow, target, btnHide, disable, activate, check, input, select){
 	$(btnShow).on('click',function(){ //Activate Play Button
 		if($(target).is(':hidden')){ //Show
+			$(check).prop("checked", false);
 			$(target).show();
 			$(select).show();
 		  	$(input).hide();
@@ -523,9 +521,9 @@ function showAdvanced(btnShow, target, btnHide, disable, activate, check, input,
 	});
 }
 
-function disableSelect(area, target, disable, activate, input){ //Jackpot Threshold Activate/Deactivate area
+function disableSelect(target, disable, activate, input, inputParent, select){ //Jackpot Threshold Activate/Deactivate area
     $(target).on('click',function(){
-        if($(target).prop("checked")){
+        if($(target).is(":checked")){
             $(disable).prop('disabled', 'disabled');
             $(activate).prop('disabled', false);
             $(input).prop('disabled', false);
@@ -533,22 +531,19 @@ function disableSelect(area, target, disable, activate, input){ //Jackpot Thresh
             $(disable).prop('disabled', false);
             $(activate).prop('disabled', 'disabled');
             $(input).prop('disabled', 'disabled');
-        }
-    });
+			if($(inputParent).is(":visible")){
+				console.log("in")            
+            	$(inputParent).hide();
+            	$(select).show().val("default");
 
-    $(area).on('click',function(){
-        if($(target).prop("checked", false)){
-            $(target).prop('checked', true);
-            $(disable).prop('disabled', 'disabled');
-            $(activate).prop('disabled', false);
-            $(input).prop('disabled', false);
+            }
         }
     });
 }
 
 function checkOption(target, show){
 	$(target).change(function(){
-		if($(this).val() == 'choose'){ // or this.value == 'volvo'
+		if($(this).val() == 'choose'){ // if you want to specify the jackpot threshold
 			$(show).show();
 			$(this).hide();
 		}
@@ -565,13 +560,12 @@ $(function(){
 	$('.tipr-normal').tipr({'mode':'top', "styled":"normal"});
 	$('.tipr-small').tipr({'mode':'top', "styled":"small"});	
 	showAdvanced(".advanced", ".advanced-play", ".advanced-play .close", ".details select", ".advanced-play .col2 select", "#threshold", ".input-value",".threshold")
-	disableSelect(".details","#threshold",".advanced-play .col2 select", ".details select",".input-value input");
+	disableSelect("#threshold",".advanced-play .col2 select", ".details select",".input-value input",".input-value",".threshold");
 	checkOption(".threshold",".input-value");
 
 	$(window).resize(function(){
 		resizeAdapterColumn();
 	});
-
 
 	//Check varSize
 	if(varSize >= 4){
@@ -598,12 +592,12 @@ $(function(){
 	$('.draw_days').on('change',function(){
 		var filter = $(this).val();
 		if(isNaN(filter)){
-			$('.start_draw option').each(function() {
+			$('.start_draw option').each(function(){
 				$(this).css('display', 'block');
 				$('.start_draw').val($(this).val());
 			});
 		}else {
-			$('.start_draw option').each(function () {
+			$('.start_draw option').each(function(){
 				if ($(this).val() != filter) {
 					$(this).hide();
 				} else {
@@ -619,7 +613,7 @@ $(function(){
 		redrawTotalCost();
 	})
 
-	$('.add-more').on('click touchend', function () {
+	$('.add-more').on('click touchend', function(){
 		if(isAddMoreClicked == false ){
 			newLine();
 			isAddMoreClicked=true;
