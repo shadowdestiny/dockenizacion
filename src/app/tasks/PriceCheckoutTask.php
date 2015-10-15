@@ -5,6 +5,7 @@ namespace EuroMillions\tasks;
 
 
 use EuroMillions\services\DomainServiceFactory;
+use EuroMillions\services\EmailService;
 use EuroMillions\services\LotteriesDataService;
 use EuroMillions\services\PriceCheckoutService;
 use EuroMillions\services\ServiceFactory;
@@ -14,17 +15,23 @@ use Money\Money;
 
 class PriceCheckoutTask extends TaskBase
 {
+    const EMAIL_ABOVE = 1500*100;
+
     /** @var  PriceCheckoutService */
     private $priceCheckoutService;
 
     /** @var  LotteriesDataService */
     private $lotteriesDataService;
 
-    public function initialize(PriceCheckoutService $priceCheckoutService = null, LotteriesDataService $lotteriesDataService = null)
+    /** @var  EmailService */
+    private $emailService;
+
+    public function initialize(PriceCheckoutService $priceCheckoutService = null, LotteriesDataService $lotteriesDataService = null, EmailService $emailService = null)
     {
         $domainFactory = new DomainServiceFactory($this->getDI(), new ServiceFactory($this->getDI()));
         ($priceCheckoutService) ? $this->priceCheckoutService = $priceCheckoutService : $domainFactory->getPriceCheckoutService();
         ($lotteriesDataService) ? $this->lotteriesDataService = $lotteriesDataService : $this->lotteriesDataService = $domainFactory->getLotteriesDataService();
+        ($emailService) ? $this->emailService = $emailService : $this->emailService = $domainFactory->getServiceFactory()->getEmailService();
         parent::initialize();
     }
 
@@ -46,6 +53,9 @@ class PriceCheckoutTask extends TaskBase
                 if($result_amount->getAmount() > 0) {
                     $user = $play_config_and_count[0]->getUser();
                     $this->priceCheckoutService->reChargeAmountAwardedToUser($user,$result_amount);
+                    if($result_amount->getAmount() > self::EMAIL_ABOVE) {
+                        $this->emailService->sendTransactionalEmail($user,'win-email-above-1500');
+                    }
                 }
             }
         }

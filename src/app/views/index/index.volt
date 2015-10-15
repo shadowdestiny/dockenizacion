@@ -95,7 +95,7 @@ $(function(){
 			<div class="col6 box-right">
 
 				<div class="box-play">
-					<a href="{{ url("play") }}" class="outbound">
+					<a href="{{ url.getBaseUri() }}" class="outbound">
 						<div class="content">
 							<p class="h2">{{ language.translate('for only %priceValue% &euro;',['priceValue':2,35]) }}</p>
 							<div class="win-millions">

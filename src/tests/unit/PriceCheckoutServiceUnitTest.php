@@ -134,6 +134,7 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
     }
 
 
+
     private function getSut(){
         $sut = $this->getDomainServiceFactory()->getPriceCheckoutService($this->lotteryDataService_double->reveal());
         return $sut;

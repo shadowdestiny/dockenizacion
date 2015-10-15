@@ -42,6 +42,8 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
 
     private $priceCheckoutService_double;
 
+    private $emailService_double;
+
     protected function getEntityManagerStubExtraMappings()
     {
         return [
@@ -59,6 +61,7 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
         $this->playService_double = $this->getServiceDouble('PlayService');
         $this->priceCheckoutService_double = $this->getServiceDouble('PriceCheckoutService');
         $this->betRepository_double = $this->getRepositoryDouble('BetRepository');
+        $this->emailService_double = $this->getServiceDouble('EmailService');
         parent::setUp();
     }
 
@@ -79,6 +82,26 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
         $this->priceCheckoutService_double->reChargeAmountAwardedToUser($user,Argument::any())->willReturn(new ServiceActionResult(true))->shouldBeCalledTimes(2);
         $sut = new PriceCheckoutTask();
         $sut->initialize($this->priceCheckoutService_double->reveal(), $this->lotteryDataService_double->reveal());
+        $sut->checkoutAction($today);
+    }
+
+    /**
+     * method checkout
+     * when calledAndAmountAwardedIsMoreThan1500
+     * should sendEmailToUserReminder
+     */
+    public function test_checkout_calledAndAmountAwardedIsMoreThan1500_sendEmailToUserReminder()
+    {
+        $today = new \DateTime('2015-10-06');
+        $lottery_name = 'EuroMillions';
+        $user = $this->getUser();
+        $result_awarded = $this->getPlayConfigsAwarded();
+        $this->priceCheckoutService_double->playConfigsWithBetsAwarded($today)->willReturn(new ServiceActionResult(true,$result_awarded));
+        $this->lotteryDataService_double->getBreakDownDrawByDate($lottery_name,$today)->willReturn(new ServiceActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())));
+        $this->priceCheckoutService_double->reChargeAmountAwardedToUser($user,Argument::any())->willReturn(new ServiceActionResult(true))->shouldBeCalledTimes(2);
+        $this->emailService_double->sendTransactionalEmail($user,Argument::any())->shouldBeCalled();
+        $sut = new PriceCheckoutTask();
+        $sut->initialize($this->priceCheckoutService_double->reveal(), $this->lotteryDataService_double->reveal(), $this->emailService_double->reveal());
         $sut->checkoutAction($today);
     }
 
@@ -154,19 +177,19 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
     {
         return [
             [
-                'category_one' => ['5 + 2', '0.00', '0'],
-                'category_two' => ['5 + 1', '293.926.57', '9'],
-                'category_three' => ['5 + 0', '88.177.97', '10'],
-                'category_four' => ['4 + 2', '6.680.15', '66'],
-                'category_five' => ['4 + 1', '275.16', '1.402'],
-                'category_six' => ['4 + 0', '131.49', '2.934'],
-                'category_seven' => ['3 + 2', '60.87', '4.527'],
-                'category_eight' => ['2 + 2', '18.93', '66.973'],
-                'category_nine' => ['3 + 1', '16.73', '72.488'],
-                'category_ten' => ['3 + 0', '13.41', '152.009'],
-                'category_eleven' => ['1 + 2', '9.98', '358.960'],
-                'category_twelve' => ['2 + 1', '8.52', '1.138.617'],
-                'category_thirteen' => ['2 + 0', '4.15', '2.390.942'],
+                'category_one' => ['5 + 2', '000', '0'],
+                'category_two' => ['5 + 1', '2939257', '9'],
+                'category_three' => ['5 + 0', '8817797', '10'],
+                'category_four' => ['4 + 2', '668015', '66'],
+                'category_five' => ['4 + 1', '27516', '1.402'],
+                'category_six' => ['4 + 0', '13149', '2.934'],
+                'category_seven' => ['3 + 2', '6087', '4.527'],
+                'category_eight' => ['2 + 2', '1893', '66.973'],
+                'category_nine' => ['3 + 1', '1673', '72.488'],
+                'category_ten' => ['3 + 0', '1341', '152.009'],
+                'category_eleven' => ['1 + 2', '998', '358.960'],
+                'category_twelve' => ['2 + 1', '852', '1.138.617'],
+                'category_thirteen' => ['2 + 0', '415', '2.390.942'],
             ]
         ];
     }
