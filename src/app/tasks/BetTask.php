@@ -15,6 +15,7 @@ use EuroMillions\services\LotteriesDataService;
 use EuroMillions\services\PlayService;
 use EuroMillions\services\ServiceFactory;
 use EuroMillions\services\UserService;
+use EuroMillions\vo\ServiceActionResult;
 
 class BetTask extends TaskBase
 {
@@ -80,7 +81,24 @@ class BetTask extends TaskBase
         }
     }
 
+    public function longTermNotificationAction(\DateTime $today = null)
+    {
+        if(!$today) {
+            $today = new \DateTime();
+        }
 
-
-
+        /** @var ServiceActionResult $result_play_config */
+        $result_play_config = $this->playService->getPlaysConfigToBet($today->format('Y-m-d'));
+        if($result_play_config->success()) {
+            /** @var PlayConfig[] $play_config_list */
+            $play_config_list = $result_play_config->getValues();
+            foreach($play_config_list as $play_config) {
+                $day_before = strtotime('-3 days',strtotime($play_config->getLastDrawDate()->format('Y-m-d')));
+                if($day_before == $today->getTimestamp()) {
+                    $user = $this->userService->getUser($play_config->getUser()->getId());
+                    $this->emailService->sendTransactionalEmail($user,'long-play-is-ended');
+                }
+            }
+        }
+    }
 }

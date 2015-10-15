@@ -25,11 +25,11 @@
                 <div class="box info">
                     <span class="ico ico-info"></span>
                 <span class="txt">
-                    {{ language.translate("You didn't play any games yet.") }} <a href="javascript:void(0);">{{ language.translate("Play now and start to win.") }}</a>
+                    {{ language.translate("You didn't play any games yet.") }} <a href="/play">{{ language.translate("Play now and start to win.") }}</a>
                 </span>
                 </div>
 
-                <a href="javascript:void(0)" class="no-data img">
+                <a href="/play" class="no-data img">
                     <div class="txt">
                     <span class="h1">
                         {{ language.translate("Dream to Win<br>

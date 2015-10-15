@@ -217,6 +217,24 @@ class BetTaskUnitTest extends UnitTestBase
     }
 
     /**
+     * method longTermNotificationAction
+     * when calledThreeDaysBeforeLastDrawFromMySuscription
+     * should sendEmailNotification
+     */
+    public function test_longTermNotificationAction_calledThreeDaysBeforeLastDrawFromMySuscription_sendEmailNotification()
+    {
+        $today = new \DateTime('2015-11-30 00:00:00');
+        $result_play_config = $this->getPlayConfigList();
+        $user = $this->getUser();
+        $this->playService_double->getPlaysConfigToBet($today->format('Y-m-d'))->willReturn($result_play_config);
+        $this->userService_double->getUser(new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'))->willReturn($user);
+        $this->emailService_double->sendTransactionalEmail(Argument::type('EuroMillions\entities\User'),'long-play-is-ended')->shouldBeCalledTimes(4);
+        $sut = new BetTask();
+        $sut->initialize($this->lotteryDataService_double->reveal(), $this->playService_double->reveal(),$this->emailService_double->reveal(), $this->userService_double->reveal());
+        $sut->longTermNotificationAction($today);
+    }
+
+    /**
      * @param string $currency
      * @return User
      */

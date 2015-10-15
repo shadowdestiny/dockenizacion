@@ -15,38 +15,38 @@
 			<div class="col20per">
 				<strong>{{ language.translate('Winning Numbers') }}</strong>
 				<ul>
-					<li><a href="javascript:void(0);">{{ language.translate('Latest Results') }}</a></li>
-					<li><a href="javascript:void(0);">{{ language.translate('Last %number% Drawings', ['number': 25]) }}</a></li>
-					<li><a href="javascript:void(0);">{{ language.translate('Draw History') }}</a></li>
+					<li><a href="/numbers">{{ language.translate('Latest Results') }}</a></li>
+					<li><a href="/numbers">{{ language.translate('Last %number% Drawings', ['number': 25]) }}</a></li>
+					<li><a href="/numbers">{{ language.translate('Draw History') }}</a></li>
 					<li><a href="javascript:void(0);">{{ language.translate('Unclaimed Prizes') }}</a></li>
 				</ul>
 			</div>
 			<div class="col20per">
 				<strong>Your Account</strong>
 				<ul>
-					<li><a href="javascript:void(0);">{{ language.translate('Sign in') }}</a></li>
-					<li><a href="javascript:void(0);">{{ language.translate('My Games') }}</a></li>
-					<li><a href="javascript:void(0);">{{ language.translate('Transactions') }}</a></li>
-					<li><a href="javascript:void(0);">{{ language.translate('Deposit Funds') }}</a></li>
-					<li><a href="javascript:void(0);">{{ language.translate('Withdraw winnings') }}</a></li>
+					<li><a href="/sign-in">{{ language.translate('Sign in') }}</a></li>
+					<li><a href="/account/games">{{ language.translate('My Games') }}</a></li>
+					<li><a href="/account/wallet">{{ language.translate('Transactions') }}</a></li>
+					<li><a href="/account/wallet">{{ language.translate('Deposit Funds') }}</a></li>
+					<li><a href="/account/wallet">{{ language.translate('Withdraw winnings') }}</a></li>
 				</ul>
 			</div>
 			<div class="col20per">
 				<strong>Help</strong>
 				<ul>
-					<li><a href="javascript:void(0);">{{ language.translate('How to Play') }}</a></li>
-					<li><a href="javascript:void(0);">{{ language.translate('Frequently Asked Questions') }}</a></li>
-					<li><a href="javascript:void(0);">{{ language.translate('Player Protection') }}</a></li>
+					<li><a href="">{{ language.translate('How to Play') }}</a></li>
+					<li><a href="/faq">{{ language.translate('Frequently Asked Questions') }}</a></li>
+					<li><a href="">{{ language.translate('Player Protection') }}</a></li>
 					<li><a href="/contact/">{{ language.translate('Contact us') }}</a></li>
 				</ul>
 			</div>
 			<div class="col20per">
 				<strong>About</strong>
 				<ul>
-					<li><a href="javascript:void(0);">{{ language.translate('News') }}</a></li>
-					<li><a href="javascript:void(0);">{{ language.translate('About us') }}</a></li>
-					<li><a href="javascript:void(0);">{{ language.translate('Terms &amp; Conditions') }}</a></li>
-					<li><a href="javascript:void(0);">{{ language.translate('Legal info') }}</a></li>
+					<li><a href="">{{ language.translate('News') }}</a></li>
+					<li><a href="">{{ language.translate('About us') }}</a></li>
+					<li><a href="">{{ language.translate('Terms &amp; Conditions') }}</a></li>
+					<li><a href="">{{ language.translate('Legal info') }}</a></li>
 {# Future links
 					<!--<li><a href="javascript:void(0);">Affiliate Program</a></li>-->
 #}
