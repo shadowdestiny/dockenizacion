@@ -31,6 +31,21 @@ class PlayConfigRepository extends RepositoryBase
         return $result;
     }
 
+
+    public function getPlayConfigsByUserAndDate(UserId $userId, $date)
+    {
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT p'
+                . ' FROM ' . $this->getEntityName() . ' p'
+                . ' WHERE p.user = :user_id AND p.active = 1 AND ' . $date . ' BETWEEN p.start_draw_date and p.last_draw_date ')
+            ->setParameters(['user_id' => $userId->id()])
+            ->getResult();
+
+        return $result;
+    }
+
+
     /**
      * @param UserId $userId
      * @param $active
@@ -49,17 +64,5 @@ class PlayConfigRepository extends RepositoryBase
         return $result;
     }
 
-    public function getPlayConfigsByUserAndDate(UserId $userId, $date)
-    {
-        $result = $this->getEntityManager()
-            ->createQuery(
-                'SELECT p'
-                . ' FROM ' . $this->getEntityName() . ' p'
-                . ' WHERE p.user = :user_id AND p.active = 1 AND ' . $date . ' BETWEEN p.start_draw_date and p.last_draw_date ')
-            ->setParameters(['user_id' => $userId->id()])
-            ->getResult();
-
-        return $result;
-    }
 
 }
