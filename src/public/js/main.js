@@ -84,9 +84,43 @@ function btnShowHide(button, show, hide){
 	});
 }
 
+function selectFix(){ // Style the "Select"
+    if('querySelector' in document && 'addEventListener' in window){
+        // check query selector is recognised by the browser IE9+
+        var value;
+        var obj = $('.mySelect');
+        if($(obj).is(":disabled")){
+            $(obj).parent().addClass("disabled");
+        }
+        $('.mySelect option:selected').each(function(k){    
+            var content = $(this).text();            
+            $('.select-txt').each(function(index, el) {
+                if(index == k) {
+                    $(this).text(content);
+                }
+            });
+            
+            //elem.text(content);            
+        });        
+        $('.mySelect').each(function(k){
+            $(this).on('change',function(){
+                var content = $('option:selected',this).text();
+                $('.select-txt').each(function(index, el) {
+                    console.log("select=" + index);
+                    if(index == k) {                        
+                        $(this).text(content);
+                    }
+                });
+            })
+        })
+    }
+}
+
 $(function(){
 	checkSize();
 	$(window).resize(checkSize);
+
+    selectFix();
 
     /* EDMTD it should be applied only on mobile devices */
     var attachFastClick = Origami.fastclick;

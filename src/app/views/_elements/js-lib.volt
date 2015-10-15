@@ -12,6 +12,7 @@ $(document).bind("mobileinit", function(){
 <script src="/js/vendor/jquery.mobile.custom.min.js"></script>
 <script src="/js/vendor/picturefill.min.js" async></script>
 <script src="/js/vendor/fastclick.min.js"></script>
+
 {#
 <script src="/js/lazysizes.min.js"></script>
 #}

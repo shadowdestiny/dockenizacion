@@ -41,8 +41,6 @@ hr{border:0; background:$grey-light; height:1px; margin-bottom:1em;}
 hr.yellow{background:$yellow;}
 .radio{margin-left:0;}
 
-ul.list {margin:0 0 1em 2em;}
-.list li{margin-bottom:.5em;}
 .no-li{list-style-type:none;}
 .no-li li{margin-bottom:0;}
 .left{float:left;}
@@ -55,12 +53,14 @@ img.right{margin:0 0 15px 10px;}
 .hidden2{position:absolute; left:-9999px; top:-9999px; line-height:0;}
 
 /* RESET UI */
+
 #main-page > .ui-content{padding:0;}
 .ui-checkbox{margin:0; height:auto; position:relative;}
 .ui-checkbox label{padding:0; overflow:none;}
 .ui-link:hover, .ui-link:focus{text-decoration:none!important;}
 .ui-radio{display:inline-block;}
 .ui-mobile label, .ui-controlgroup-label{display:inline-block;}
+body .ui-mobile .ui-page-active, body .ui-content, body #content{overflow:unset!important;} /* Fix problem with js select box */
 
 /* CLEARFIX */
 .cl:before, .cl:after, .wrapper:before, .wrapper:after, .btn:before, .btn:after, .box:before, .box:after{content:" "; display:table;}
@@ -478,7 +478,6 @@ body, .submit{font-family:$basic-font;}
   a:active{box-shadow:0 5px 10px #aaa inset; background:#fff;}
 }
 .nav.mobile li:last-child a{border-bottom:0;}
-
 .info{
   .wrapper{text-align:center;} 
   .social{margin-bottom:10px;}
@@ -504,6 +503,7 @@ body, .submit{font-family:$basic-font;}
 }
 .minimal .main-foot .txt{text-align:center;}
 .br{display:none;}
+select{padding:10px 5px; line-height:40px; /*Safari need line-height*/}
 } /* End Media query */
 
 @media screen and (min-width:480px){

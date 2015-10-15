@@ -503,6 +503,7 @@ function multiTask(target, activate, check){
 
 function showAdvanced(btnShow, target, btnHide, disable, activate, check, input, select){
 	$(btnShow).on('click',function(){ //Activate Play Button
+		$(".col2 .styled-select").removeClass("disabled")
 		if($(target).is(':hidden')){ //Show
 			$(check).prop("checked", false);
 			$(target).show();
@@ -518,16 +519,18 @@ function showAdvanced(btnShow, target, btnHide, disable, activate, check, input,
 	});
 	$(btnHide).on('click',function(){ // Close button
 		multiTask(target, activate, check); //Hide
-	});
+	});	
 }
 
 function disableSelect(target, disable, activate, input, inputParent, select){ //Jackpot Threshold Activate/Deactivate area
     $(target).on('click',function(){
         if($(target).is(":checked")){
+			$(".col2 .styled-select").addClass("disabled")
             $(disable).prop('disabled', 'disabled');
             $(activate).prop('disabled', false);
             $(input).prop('disabled', false);
         }else{
+			$(".col2 .styled-select").removeClass("disabled")
             $(disable).prop('disabled', false);
             $(activate).prop('disabled', 'disabled');
             $(input).prop('disabled', 'disabled');
