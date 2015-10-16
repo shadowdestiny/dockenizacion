@@ -93,8 +93,8 @@ class BetTask extends TaskBase
             /** @var PlayConfig[] $play_config_list */
             $play_config_list = $result_play_config->getValues();
             foreach($play_config_list as $play_config) {
-                $day_before = strtotime('-3 days',strtotime($play_config->getLastDrawDate()->format('Y-m-d')));
-                if($day_before == $today->getTimestamp()) {
+                $day_last_draw = $play_config->getLastDrawDate()->getTimestamp();
+                if($today->getTimestamp() > $day_last_draw ) {
                     $user = $this->userService->getUser($play_config->getUser()->getId());
                     $this->emailService->sendTransactionalEmail($user,'long-play-is-ended');
                 }
