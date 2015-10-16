@@ -45,6 +45,7 @@ class LanguageService
     public function getLocale()
     {
         $language_code = $this->languageStrategy->get();
+        /** @var Language $language_entity */
         $language_entity = $this->languageRepository->getActiveLanguage($language_code);
         if (!$language_entity) {
             throw new InvalidLanguageException("There's no active language with ccode $language_code");

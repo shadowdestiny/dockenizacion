@@ -223,7 +223,7 @@ class BetTaskUnitTest extends UnitTestBase
      */
     public function test_longTermNotificationAction_calledThreeDaysBeforeLastDrawFromMySuscription_sendEmailNotification()
     {
-        $today = new \DateTime('2015-11-30 00:00:00');
+        $today = new \DateTime('2015-12-04 00:00:00');
         $result_play_config = $this->getPlayConfigList();
         $user = $this->getUser();
         $this->playService_double->getPlaysConfigToBet($today->format('Y-m-d'))->willReturn($result_play_config);
