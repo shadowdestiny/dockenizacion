@@ -4,14 +4,13 @@
 namespace EuroMillions\vo\dto;
 
 
+use EuroMillions\interfaces\IDto;
 use EuroMillions\vo\dto\base\DTOBase;
 use EuroMillions\vo\EuroMillionsDrawBreakDown;
-use EuroMillions\vo\EuroMillionsLuckyNumber;
-use EuroMillions\vo\EuroMillionsRegularNumber;
 use ReflectionObject;
 use ReflectionProperty;
 
-class EuroMillionsDrawBreakDownDTO extends DTOBase
+class EuroMillionsDrawBreakDownDTO extends DTOBase implements IDto
 {
 
     private $euroMillionsDrawBreakDown;
@@ -49,7 +48,7 @@ class EuroMillionsDrawBreakDownDTO extends DTOBase
         $this->exChangeObject();
     }
 
-    protected function exChangeObject()
+    public function exChangeObject()
     {
         $reflection = new ReflectionObject($this);
         $properties = $reflection->getProperties(ReflectionProperty::IS_PUBLIC);

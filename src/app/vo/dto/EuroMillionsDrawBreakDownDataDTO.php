@@ -5,12 +5,13 @@ namespace EuroMillions\vo\dto;
 
 
 use EuroMillions\exceptions\UnsupportedOperationException;
+use EuroMillions\interfaces\IDto;
 use EuroMillions\vo\dto\base\DTOBase;
 use EuroMillions\vo\EuroMillionsDrawBreakDownData;
 use Money\Currency;
 use Money\Money;
 
-class EuroMillionsDrawBreakDownDataDTO extends DTOBase
+class EuroMillionsDrawBreakDownDataDTO extends DTOBase implements IDto
 {
 
     private $euroMillionsDrawBreakDownDataDTO;
@@ -114,7 +115,7 @@ class EuroMillionsDrawBreakDownDataDTO extends DTOBase
     }
 
 
-    protected function exChangeObject()
+    public function exChangeObject()
     {
         $this->setName($this->euroMillionsDrawBreakDownDataDTO->getName());
         $this->setLotteryPrize($this->euroMillionsDrawBreakDownDataDTO->getLotteryPrize()->getAmount());

@@ -5,9 +5,10 @@ namespace EuroMillions\vo\dto;
 
 
 use EuroMillions\entities\User;
+use EuroMillions\interfaces\IDto;
 use EuroMillions\vo\dto\base\DTOBase;
 
-class UserDTO extends DTOBase
+class UserDTO extends DTOBase implements IDto
 {
 
     /** @var User $user */
@@ -28,7 +29,7 @@ class UserDTO extends DTOBase
         $this->exChangeObject();
     }
 
-    protected function exChangeObject()
+    public function exChangeObject()
     {
         $this->name = $this->user->getName();
         $this->surname = ($this->user->getSurname()) ? $this->user->getSurname() : '';
