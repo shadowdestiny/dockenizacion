@@ -28,8 +28,9 @@ class BetRepository extends RepositoryBase
         $result = $this->getEntityManager()
             ->createQuery(
                 'SELECT b'
-                . ' FROM ' . $this->getEntityName() . ' p'
-                . ' WHERE b.play_config = :play_config_id')
+                . ' FROM ' . $this->getEntityName() . ' b INNER JOIN b.play_config p'
+                . ' WHERE b.play_config = :play_config_id'
+                . ' GROUP BY p.user')
             ->setParameters(['play_config_id' => $playConfig->getId()])
             ->getResult();
 

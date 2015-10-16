@@ -112,7 +112,7 @@
                     If you want') }}</p>
                 {% include "faq/back-top.volt" %}
 
-                <a id="n05" name="n05" href="n05"></a>
+                <a id="n05"></a>
                 <h3 class="h3">{{ language.translate("When the Draw results are released?") }}</h3>
                 <p>{{ language.translate('The latest Euromillions results are revealed approximately an hour following the draw 22:30 CET. A full breakdown of prizes is released another hour later 23:30 CET. However, in the event of a large jackpot the processing and verification of the latest results can take up until midnight to finalise. You can get the latest Euromillions results on our results page.') }}</p>
                 {% include "faq/back-top.volt" %}
