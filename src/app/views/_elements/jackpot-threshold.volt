@@ -1,3 +1,55 @@
+{# This element has his own SCSS file #}
+{% block template_scripts %}
+<script>
+function showSelect(){
+    $(".input-value").hide();
+    $(".threshold").show().val("default");
+    $(".box-threshold .styled-select").show()
+}
+
+function resetSelect(){
+    var mySelect = $(".threshold option:default").text();
+    $(".box-threshold .select-txt").text(mySelect)
+    $(".box-threshold .styled-select").addClass("disabled")
+    $(".threshold").prop('disabled', 'disabled');
+}
+
+function toggleSelect(){
+    $("#threshold").on('click',function(){
+        if($(this).is(":checked")){
+            $(".box-threshold .styled-select").removeClass("disabled")
+            $(".threshold").prop('disabled', false);
+        }else{
+            $(".box-threshold .styled-select").addClass("disabled")
+            $(".threshold").prop('disabled', 'disabled');
+            resetSelect()
+        }
+        if($(".input-value").is(":visible")){
+            showSelect()
+            resetSelect()
+        }
+    });
+}
+
+function checkOption(){
+    console.log("3")
+    $(".threshold").change(function(){
+        if($(this).val() == 'choose'){ // if you want to specify the jackpot threshold
+            $(".input-value").show();
+            $(this).hide();
+            $(".box-threshold .styled-select").hide()
+        }
+    });
+}
+
+$(function(){
+    resetSelect()
+    toggleSelect()
+    checkOption()
+});
+</script>
+{% endblock %}
+
 <div class="box-threshold cl">
     <input id="threshold" class="checkbox" data-role="none" type="checkbox">
     <div class="details">

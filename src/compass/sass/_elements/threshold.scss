@@ -1,0 +1,19 @@
+.box-threshold{
+    .txt{line-height:32px; display:inline-block; font-size:$basic-size;}
+    .checkbox{position:relative; top:2px; float:left; height:30px;}
+    .input-value input{border:1px solid $grey-light; line-height:30px; padding:0 5px; font-size:$basic-size; height:30px;}
+    .styled-select{width:auto;}
+    .details{margin-left:7px; display:inline-block;}
+    .margin{margin-bottom:5px;}
+}
+
+@media only screen and (max-width:768px){
+    .box-threshold{
+        .checkbox{float:none; height:auto;}
+        .details{display:inline; margin-left:5px; top:1px;}
+    }
+}
+
+@media only screen and (max-width:580px){ /*breakpoint only in PLAY page*/
+    .box-threshold .threshold{margin-bottom:5px;}
+}

@@ -10,30 +10,6 @@
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
-{% block template_scripts %}
-<script>
-/* EMTD - This function together with the one in PLAY need to become one single function shared between the two pages */
-$(function(){
-    $(".threshold").prop('disabled', 'disabled');
-    $('#threshold').change(function(){
-        if($('#threshold').prop("checked")){
-            $(".threshold").prop('disabled', false);
-        }else{
-            $(".threshold").prop('disabled', 'disabled').show().val("default");
-            $(".input-value").hide();
-        }
-    });
-
-    $(".threshold").change(function(){
-        if($(this).val() == 'choose'){
-            $(".input-value").show();
-            $(this).hide();
-        }
-    });
-});
-</script>
-{% endblock %}
-
 {% block body %}
 <main id="content">
     <div class="wrapper">

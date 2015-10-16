@@ -499,6 +499,7 @@ function multiTask(target, activate, check){
 	$(activate).prop('disabled', false);
 	$(check).prop('checked', false);
 	$(target).hide();
+	$(".col2 .styled-select").removeClass("disabled")
 }
 
 function showAdvanced(btnShow, target, btnHide, disable, activate, check, input, select){
@@ -512,54 +513,32 @@ function showAdvanced(btnShow, target, btnHide, disable, activate, check, input,
 				$(select).val('default');
 			}
 			$(disable).prop('disabled', 'disabled');
-			$(disable).parent().addClass("disabled")
-			var mySelect = $(".threshold option:default").text();
-        	$(".col6 .select-txt").text(mySelect)
+			resetSelect(); // _elements/jackpot-threshold.volt
 		}else{
 			multiTask(target, activate, check); //Hide
-			$(".col2 .styled-select").removeClass("disabled")
 		}
 	});
 	$(btnHide).on('click',function(){ // Close button
 		multiTask(target, activate, check); //Hide
-		$(".col2 .styled-select").removeClass("disabled")
 	});	
 }
 
 function disableSelect(target, disable, activate, input, inputParent, select){ //Jackpot Threshold Activate/Deactivate area
+   	toggleSelect(); // _elements/jackpot-threshold.volt
     $(target).on('click',function(){
         if($(target).is(":checked")){
 			$(".col2 .styled-select").addClass("disabled")
-			$(".col6 .styled-select").removeClass("disabled")
-            $(disable).prop('disabled', 'disabled');
-            $(activate).prop('disabled', false);
-            $(input).prop('disabled', false);
         }else{
 			$(".col2 .styled-select").removeClass("disabled")
-			$(".col6 .styled-select").addClass("disabled")
-            $(disable).prop('disabled', false);
-            $(activate).prop('disabled', 'disabled');
-            $(input).prop('disabled', 'disabled');
-
-			if($(inputParent).is(":visible")){
-            	$(inputParent).hide();
-            	$(select).show().val("default");
-				$(".col6 .styled-select").show()
-				var mySelect = $(".threshold option:default").text();
-	        	$(".col6 .select-txt").text(mySelect)
-            }
         }
     });
-}
-
-function checkOption(target, show){
-	$(target).change(function(){
-		if($(this).val() == 'choose'){ // if you want to specify the jackpot threshold
-			$(show).show();
-			$(this).hide();
-			$(".col6 .styled-select").hide()
-		}
-	});
+    $(target).on('click',function(){
+        if($(target).is(":checked")){
+            $(disable).prop('disabled', 'disabled');
+        }else{
+            $(disable).prop('disabled', false);
+        }
+    });
 }
 
 $(function(){
@@ -573,7 +552,6 @@ $(function(){
 	$('.tipr-small').tipr({'mode':'top', "styled":"small"});	
 	showAdvanced(".advanced", ".advanced-play", ".advanced-play .close", ".details select", ".advanced-play .col2 select", "#threshold", ".input-value",".threshold")
 	disableSelect("#threshold",".advanced-play .col2 select", ".details select",".input-value input",".input-value",".threshold");
-	checkOption(".threshold",".input-value");
 
 	$(window).resize(function(){
 		resizeAdapterColumn();

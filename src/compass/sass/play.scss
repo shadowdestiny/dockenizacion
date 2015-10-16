@@ -1,4 +1,5 @@
 @import "variable";
+@import "_elements/threshold.scss";
 
 .special{
 	margin-bottom:0; border:1px solid $yellow; border-width:0 1px!important; background:#fff; padding:7px 15px; font-size:$basic-size; font-style:italic; text-align:center;
@@ -144,17 +145,6 @@ $gap3:15px; /* Responsive design 3 column */
 	}
 	select:disabled{background:#ccc;}
 }
-.box-threshold{
-	.txt{line-height:32px; display:inline-block; font-size:$basic-size;}
-	.checkbox{position:relative; top:3px; float:left; height:30px;}
-	.input-value input{border:1px solid $grey-light; line-height:30px; padding:0 5px; font-size:$basic-size; height:30px;}
-	.styled-select{
-		width:auto;
-		.mySelect{}
-	}
-	.details{margin-left:5px; display:inline-block;}
-	.margin{margin-bottom:5px;}
-}
 .wrap-threshold{position:relative; padding:10px 15px 15px; background:$grey-lighter2; border-radius:0 0 5px 0;}
 
 /* Large Devices, Wide Screens */
@@ -197,7 +187,6 @@ $gap3:15px; /* Responsive design 3 column */
 	.myCol:last-child{border-right:$gap3 solid transparent;}
 }
 .box-action{margin-right:$gap3+1;}
-
 }
 
 /* Small Devices, Tablets */
@@ -239,10 +228,6 @@ $gap3:15px; /* Responsive design 3 column */
 	.myCol:last-child{border-right:$gap1 solid transparent;}
 	.myCol:nth-child(3n){border-right:$gap1 solid transparent;}
 }
-.box-threshold{
-	.checkbox{float:none; height:auto;}
-	.details{display:inline; margin-left:5px; top:1px;}
-}
 .advanced-play{
 	.hr{margin:20px -12px;}
 	.close{top:10px; right:-2px;}
@@ -261,7 +246,7 @@ $gap3:15px; /* Responsive design 3 column */
 		select, .label{width:100%;}
 	}
 }
-.box-threshold .threshold{margin-bottom:5px;}
+
 .gameplay{padding-top:20px;}
 .gameplay .wrap{margin:0 -6px 0 0;}
 .line .numbers .btn, .line .stars .txt{font-size:12px;}
