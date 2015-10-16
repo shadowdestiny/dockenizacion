@@ -503,7 +503,6 @@ function multiTask(target, activate, check){
 
 function showAdvanced(btnShow, target, btnHide, disable, activate, check, input, select){
 	$(btnShow).on('click',function(){ //Activate Play Button
-		$(".col2 .styled-select").removeClass("disabled")
 		if($(target).is(':hidden')){ //Show
 			$(check).prop("checked", false);
 			$(target).show();
@@ -513,12 +512,17 @@ function showAdvanced(btnShow, target, btnHide, disable, activate, check, input,
 				$(select).val('default');
 			}
 			$(disable).prop('disabled', 'disabled');
+			$(disable).parent().addClass("disabled")
+			var mySelect = $(".threshold option:default").text();
+        	$(".col6 .select-txt").text(mySelect)
 		}else{
 			multiTask(target, activate, check); //Hide
+			$(".col2 .styled-select").removeClass("disabled")
 		}
 	});
 	$(btnHide).on('click',function(){ // Close button
 		multiTask(target, activate, check); //Hide
+		$(".col2 .styled-select").removeClass("disabled")
 	});	
 }
 
@@ -526,19 +530,23 @@ function disableSelect(target, disable, activate, input, inputParent, select){ /
     $(target).on('click',function(){
         if($(target).is(":checked")){
 			$(".col2 .styled-select").addClass("disabled")
+			$(".col6 .styled-select").removeClass("disabled")
             $(disable).prop('disabled', 'disabled');
             $(activate).prop('disabled', false);
             $(input).prop('disabled', false);
         }else{
 			$(".col2 .styled-select").removeClass("disabled")
+			$(".col6 .styled-select").addClass("disabled")
             $(disable).prop('disabled', false);
             $(activate).prop('disabled', 'disabled');
             $(input).prop('disabled', 'disabled');
+
 			if($(inputParent).is(":visible")){
-				console.log("in")            
             	$(inputParent).hide();
             	$(select).show().val("default");
-
+				$(".col6 .styled-select").show()
+				var mySelect = $(".threshold option:default").text();
+	        	$(".col6 .select-txt").text(mySelect)
             }
         }
     });
@@ -549,6 +557,7 @@ function checkOption(target, show){
 		if($(this).val() == 'choose'){ // if you want to specify the jackpot threshold
 			$(show).show();
 			$(this).hide();
+			$(".col6 .styled-select").hide()
 		}
 	});
 }

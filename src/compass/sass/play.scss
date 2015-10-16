@@ -67,6 +67,7 @@ $gap3:15px; /* Responsive design 3 column */
 	.myCol:last-child{border-right:0;}
 }
 
+
 /*** DO NOT DELETE COMBO BUTTON STYLE ***/
 /*   
 .combo .col6:first-child .btn{
@@ -147,7 +148,10 @@ $gap3:15px; /* Responsive design 3 column */
 	.txt{line-height:32px; display:inline-block; font-size:$basic-size;}
 	.checkbox{position:relative; top:3px; float:left; height:30px;}
 	.input-value input{border:1px solid $grey-light; line-height:30px; padding:0 5px; font-size:$basic-size; height:30px;}
-	select{display:inline-block; width:auto;}
+	.styled-select{
+		width:auto;
+		.mySelect{}
+	}
 	.details{margin-left:5px; display:inline-block;}
 	.margin{margin-bottom:5px;}
 }

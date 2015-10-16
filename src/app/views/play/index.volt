@@ -75,7 +75,7 @@
 								<label class="label">{{ language.translate("Draw") }} <i data-tip="{{ language.translate('Which draw do you want to play?') }}" class="ico ico-question-mark tipr-small"></i></label>
 								<div class="styled-select">
 									<div class="select-txt"></div>
-									<select class="draw_days mySelect">
+									<select  autocomplete="off"  class="draw_days mySelect">
 										<option value="2,5">{{ language.translate("Tuesday & Friday") }}</option>
 										<option value="2" {% if next_draw == 2 %} selected {% endif %}>{{ language.translate("Tuesday") }}</option>
 										<option value="5" {% if next_draw == 5 %} selected {% endif %}>{{ language.translate("Friday") }}</option>
@@ -86,7 +86,7 @@
 								<label class="label">{{ language.translate("First Draw") }} <i data-tip="{{ language.translate('From which draw do you wish to play?') }}" class="ico ico-question-mark tipr-small"></i></label>
 								<div class="styled-select">
 									<div class="select-txt"></div>
-									<select class="start_draw mySelect">
+									<select autocomplete="off" class="start_draw mySelect">
 										{% for k,dates in play_dates %}
 											{% for j,date in dates %}
 												{% if k == 0 %}
@@ -103,7 +103,7 @@
 								<label class="label">{{ language.translate("Duration") }} <i data-tip="{{ language.translate('For how long do you wish to play?') }}"class="ico ico-question-mark tipr-small"></i></label>
 								<div class="styled-select">
 									<div class="select-txt"></div>
-									<select class="frequency mySelect">
+									<select autocomplete="off" class="frequency mySelect">
 										<option value="1">{{ language.translate("1 week (Draws: 1)") }}</option>
 										<option value="2">{{ language.translate("2 week (Draws: 2)") }}</option>
 										<option value="4">{{ language.translate("4 week (Draws: 4)") }}</option>

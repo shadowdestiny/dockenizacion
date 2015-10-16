@@ -65,7 +65,6 @@ function checkSize(){
 		mobile = 0;
 	}
 
-//	console.log("varSize= "+varSize)
 	return varSize;
 }
 
@@ -89,9 +88,12 @@ function selectFix(){ // Style the "Select"
         // check query selector is recognised by the browser IE9+
         var value;
         var obj = $('.mySelect');
-        if($(obj).is(":disabled")){
-            $(obj).parent().addClass("disabled");
+/*
+        if(typeof $(obj).attr("disabled") == "undefined" || $(obj).attr("disabled") == "disabled"){
+            console.log("test")
+            $(this).parent().addClass("disabled");
         }
+*/
         $('.mySelect option:selected').each(function(k){    
             var content = $(this).text();            
             $('.select-txt').each(function(index, el) {
@@ -106,7 +108,6 @@ function selectFix(){ // Style the "Select"
             $(this).on('change',function(){
                 var content = $('option:selected',this).text();
                 $('.select-txt').each(function(index, el) {
-                    console.log("select=" + index);
                     if(index == k) {                        
                         $(this).text(content);
                     }

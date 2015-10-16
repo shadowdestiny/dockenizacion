@@ -1,49 +1,22 @@
-.styled-select {
-    position: relative;
-    height: 40px;
-/*
-    &__select,&__label{
-        // ensure select-box and label to fill the container
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: 0;
-        bottom: 0;
-    }*/
+@import "variable";
 
-    .mySelect {
-        position:absolute;
-        top:0; left:0; right:0; bottom:0;
-        background: none;
-        opacity: 0;
-        width: 100%;
-        cursor: pointer;
-    }
-
-    .select-txt {
+.styled-select{
+    position:relative; display:inline-block; height:40px; width:100%;
+    .mySelect{position:absolute; top:0; left:0; right:0; bottom:0; background:none; opacity:0; width:100%; cursor:pointer;}
+    .select-txt{
         // style the select box
-        border: 1px solid #45d296;
-        border-radius: 3px;
-        line-height: 40px;
-        padding: 0 10px;
-        color: #333;
-        background: white;
-        
-        &:before {
+        font-size:$basic-size; border:1px solid #45d296; border-radius:3px; line-height:40px; padding:0 30px 0 10px; color:#333; background:white;        
+        &:before{
             // create the triangle
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            margin-top: -3px;
-            border-left: 6px solid transparent;
-            border-right: 6px solid transparent;
-            border-top: 6px solid #45d296;
-            content: " ";
+            position:absolute; top:50%; right:10px; margin-top:-3px; border-left:6px solid transparent; border-right:6px solid transparent; border-top:6px solid #45d296; content:" ";
         }
     }
 }
 
-.styled-select.disabled .select-txt{
-    background:#bbb; cursor:default; color:#333; border:1px solid #bbb;
-    &:before{border-top: 6px solid #333;}
-}
+.styled-select.disabled{
+    .mySelect{cursor:default;}
+    .select-txt{
+        background:#bbb; color:#333; border:1px solid #bbb;
+        &:before{border-top: 6px solid #333;}
+    }
+}   
