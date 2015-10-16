@@ -5,10 +5,11 @@ namespace EuroMillions\vo\dto;
 
 
 use EuroMillions\entities\PlayConfig;
+use EuroMillions\interfaces\IDto;
 use EuroMillions\vo\DrawDays;
 use EuroMillions\vo\dto\base\DTOBase;
 
-class PlayConfigDTO extends DTOBase
+class PlayConfigDTO extends DTOBase implements IDto
 {
 
     private $playConfig;
@@ -32,7 +33,7 @@ class PlayConfigDTO extends DTOBase
         $this->exChangeObject();
     }
 
-    protected function exChangeObject()
+    public function exChangeObject()
     {
         $last = $this->playConfig->getLastDrawDate();
         $start = $this->playConfig->getStartDrawDate();
