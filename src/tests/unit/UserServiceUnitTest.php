@@ -406,6 +406,44 @@ class UserServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
+    /**
+     * method editMyPaymentMethod
+     * when called
+     * should updateDataAndReturnServiceActionResultTrue
+     */
+    public function test_editMyPaymentMethod_called_updateDataAndReturnServiceActionResultTrue()
+    {
+        $expected = new ServiceActionResult(true,'Your credit card data was updating');
+        $id = 1;
+        $creditCard = new CreditCard(new CardHolderName('Test01 test02 test03'),
+            new CardNumber('5500005555555559'),
+            new ExpiryDate('01/20'),
+            new CVV('456')
+        );
+
+        $paymentMethod = new CreditCardPaymentMethod($creditCard);
+        $paymentMethod->setId($id);
+        $paymentMethod->setUser($this->getUser());
+        $paymentMethod->setType(1);
+        $paymentMethod->setPaymentMethodType(1);
+
+        $edit_credit_card = [
+            'cardHolderName' => 'Test01 test02 test03',
+            'cardNumber' => '5500005555555559',
+            'month' => '01',
+            'year'  => '20',
+            'cvv'   => '456'
+        ];
+        $this->paymentMethodRepository_double->findOneBy(['id' => 1])->willReturn($paymentMethod);
+        $this->paymentMethodRepository_double->add($paymentMethod)->shouldBeCalled();
+        $entityManager_stub = $this->getEntityManagerDouble();
+        //$entityManager_stub->detach();
+        $entityManager_stub->flush($paymentMethod)->shouldBeCalled();
+        $sut = $this->getSut();
+        $actual = $sut->editMyPaymentMethod($id,$edit_credit_card);
+        $this->assertEquals($expected,$actual);
+    }
+
 
     private function getPlayConfig()
     {

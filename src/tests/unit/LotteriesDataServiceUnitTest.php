@@ -139,6 +139,25 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method lastBreakDown
+     * when called
+     * should returnServiceActionResultTrueWithDraw
+     */
+    public function test_lastBreakDown_called_returnServiceActionResultTrueWithDraw()
+    {
+        $lotteryName = 'EuroMillions';
+        $this->prepareLotteryEntity($lotteryName);
+        $expected = new ServiceActionResult(true);
+        $this->lotteryDrawRepositoryDouble->expects($this->any())
+            ->method('findOneBy')
+            ->will($this->returnValue($expected));
+
+        $sut = $this->getSut();
+        $actual = $sut->lastBreakDown($lotteryName,new \DateTime('2015-06-10'));
+        $this->assertEquals($expected->success(),$actual->success());
+    }
+
+    /**
      * method updateLastBreakDown
      * when calledWithPreviousDateThanNow
      * should persistDataInExistDraw

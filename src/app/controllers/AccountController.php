@@ -4,11 +4,13 @@
 namespace EuroMillions\controllers;
 
 
+use EuroMillions\forms\CreditCardForm;
 use EuroMillions\forms\MyAccountChangePasswordForm;
 use EuroMillions\forms\MyAccountForm;
 use EuroMillions\services\AuthService;
 use EuroMillions\services\GeoService;
 use EuroMillions\services\UserService;
+use EuroMillions\vo\dto\PaymentMethodDTO;
 use EuroMillions\vo\dto\PlayConfigDTO;
 use EuroMillions\vo\dto\UserDTO;
 use EuroMillions\vo\Email;
@@ -163,6 +165,74 @@ class AccountController extends PublicSiteControllerBase
             'message_actives' => $message_actives,
             'message_inactives' => $message_inactives
         ]);
+    }
+
+    public function walletAction()
+    {
+        $user = $this->authService->getCurrentUser();
+        $payment_methods_dto = [];
+        $result_payment_methods = $this->userService->getPaymentMethods($user->getId());
+        if($result_payment_methods->success()){
+            $payment_methods_list = $result_payment_methods->getValues();
+            foreach($payment_methods_list as $payment_method){
+                $payment_methods_dto[] = new PaymentMethodDTO($payment_method);
+            }
+        }
+        return $this->view->setVars([
+            'which_form' => 'wallet',
+            'payment_methods' => $payment_methods_dto
+        ]);
+    }
+
+    public function editPaymentAction($id)
+    {
+        if(!empty($id)){
+            $payment_method = $this->userService->getPaymentMethod($id);
+        }else{
+            $payment_method = $this->userService->getPaymentMethod($this->request->getPost('id_payment'));
+        }
+        $payment_method_dto = new PaymentMethodDTO($payment_method);
+        $payment_method_form = new CreditCardForm();
+        $errors = null;
+        if($this->request->isPost()) {
+            if ($payment_method_form->isValid($this->request->getPost()) == false) {
+                $messages = $payment_method_form->getMessages(true);
+                /**
+                 * @var string $field
+                 * @var Message\Group $field_messages
+                 */
+                foreach ($messages as $field => $field_messages) {
+                    $errors[] = $field_messages[0]->getMessage();
+                    $form_errors[$field] = ' error';
+                }
+            }else {
+                $result_update_payment_method = $this->userService->editMyPaymentMethod($id,[
+                    'cardHolderName' => $this->request->getPost('card-holder'),
+                    'cardNumber' => $this->request->getPost('card-number'),
+                    'month' => $this->request->getPost('month'),
+                    'year'  => $this->request->getPost('year'),
+                    'cvv'   => $this->request->getPost('card-cvv')
+                ]);
+                if($result_update_payment_method->success()){
+                    $msg = $result_update_payment_method->errorMessage();
+                    $payment_method = $this->userService->getPaymentMethod($this->request->getPost('id_payment'));
+                    $payment_method_dto = new PaymentMethodDTO($payment_method);
+                }else{
+                    $errors[] = $result_update_payment_method->errorMessage();
+                }
+            }
+
+        }
+        $this->view->pick('account/wallet');
+        return $this->view->setVars([
+            'form_errors' => $form_errors,
+            'errors' => $errors,
+            'msg' => $msg,
+            'which_form' => 'edit',
+            'payment_methods' => '',
+            'payment_method'  => $payment_method_dto,
+        ]);
+
     }
 
     private function getMyACcountForm($userId)

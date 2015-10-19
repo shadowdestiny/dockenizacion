@@ -22,6 +22,11 @@ abstract class PaymentMethod extends EntityBase
         return $this->type;
     }
 
+    public function setId($id)
+    {
+        $this->id=$id;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -105,4 +110,13 @@ abstract class PaymentMethod extends EntityBase
         return $this->company;
     }
 
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    public function setPaymentMethodType($payment_method_type)
+    {
+        $this->payment_method_type = $payment_method_type;
+    }
 }

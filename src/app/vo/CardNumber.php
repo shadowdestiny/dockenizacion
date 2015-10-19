@@ -17,7 +17,7 @@ class CardNumber extends StringLiteral
     {
         $value = $this->assertCreditNumber($cardNumber);
         if(empty($value)){
-            throw new InvalidCardNumberException( get_class() . ' unknown');
+            throw new InvalidCardNumberException('Card number unknown');
         }
         $this->type=$value;
         parent::__construct($cardNumber);

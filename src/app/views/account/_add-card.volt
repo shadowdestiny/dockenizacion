@@ -1,8 +1,18 @@
 <h2 class="h3 yellow">{{ language.translate("Your card") }}</h2>
-<div class="box error">
-    <span class="ico-warning ico"></span>
-    <span class="txt">Error info lorem ipsum</span>
-</div>
+
+{% if msg %}
+    <div class="box success">
+        <span class="ico- ico"></span>
+        <span class="txt">{{ msg }}</span>
+    </div>
+{% endif %}
+{% if which_form == 'edit' and errors %}
+    <div class="box error">
+        <span class="ico-warning ico"></span>
+        <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
+    </div>
+{% endif %}
+
 <div class="wrap">
     <div class="cols">
         <div class="col6 first">
@@ -10,12 +20,12 @@
                 <label class="label" for="add-card-number">
                     {{ language.translate("Card Number") }} <span class="asterisk">*</span>
                 </label>
-                <input id="add-card-number" class="input" type="text">
+                <input id="add-card-number" name="card-number" class="input" type="text" value="{{ payment_method.cardNumber }}">
 
                 <label class="label" for="add-card-name">
                     {{ language.translate("Name on card") }} <span class="asterisk">*</span>
                 </label>
-                <input id="add-card-name" class="input" type="text">
+                <input id="add-card-name" name="card-holder" class="input" type="text" value="{{ payment_method.cardHolderName }}">
             </div>
         </div>
         <div class="col6 second">
@@ -32,7 +42,7 @@
         <label class="label block">
             {{ language.translate("Expiration date") }} <span class="asterisk">*</span>
         </label>
-        <select class="select month">
+        <select class="select month" name="month">
             <option>01</option>
             <option>02</option>
             <option>03</option>
@@ -46,7 +56,7 @@
             <option>11</option>
             <option>12</option>
         </select>
-        <select class="select year">
+        <select class="select year" name="year">
             <option>2014</option>
             <option>2015</option>
             <option>2016</option>
@@ -59,8 +69,9 @@
         <label class="label block" for="cvv">
             {{ language.translate("Security Code / CVV") }} <span class="asterisk">*</span>
         </label>
-        <input id="cvv" class="input cvv" type="text">
+        <input id="cvv" name="card-cvv" class="input cvv" type="text">
     </div>
+    <input id="id_payment" name="id_payment" value="{{ payment_method.id_payment }}" type="hidden"/>
     <label class="btn submit green right" for="new-card">
         {{ language.translate("Add a new card") }}
         <input id="new-card" type="submit" class="hidden">

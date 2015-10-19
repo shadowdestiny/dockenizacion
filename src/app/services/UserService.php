@@ -3,6 +3,7 @@ namespace EuroMillions\services;
 use Alcohol\ISO4217;
 use antonienko\MoneyFormatter\MoneyFormatter;
 use Doctrine\ORM\EntityManager;
+use EuroMillions\entities\CreditCardPaymentMethod;
 use EuroMillions\entities\PaymentMethod;
 use EuroMillions\entities\PlayConfig;
 use EuroMillions\entities\User;
@@ -10,8 +11,13 @@ use EuroMillions\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\repositories\PaymentMethodRepository;
 use EuroMillions\repositories\PlayConfigRepository;
 use EuroMillions\repositories\UserRepository;
+use EuroMillions\vo\CardHolderName;
+use EuroMillions\vo\CardNumber;
 use EuroMillions\vo\ContactFormInfo;
+use EuroMillions\vo\CreditCard;
+use EuroMillions\vo\CVV;
 use EuroMillions\vo\Email;
+use EuroMillions\vo\ExpiryDate;
 use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
 use Exception;
@@ -194,6 +200,37 @@ class UserService
                 return new ServiceActionResult(false,'You don\'t have any payment method registered');
             }
         }
+    }
+
+
+    public function editMyPaymentMethod($id,array $data)
+    {
+        try{
+            /** @var CreditCardPaymentMethod $payment_method */
+            $payment_method = $this->paymentMethodRepository->findOneBy(['id' => $id]);
+            $payment_method->setCardHolderName(new CardHolderName($data['cardHolderName']));
+            $payment_method->setCardNumber(new CardNumber($data['cardNumber']));
+            $exp_date = new ExpiryDate($data['month'].'/'.$data['year']);
+            $payment_method->setExpiryDate(ExpiryDate::assertExpiryDate($exp_date));
+            $payment_method->setCVV(new CVV($data['cvv']));
+            $payment_method->setCompany($payment_method->getCardNumber()->type());
+            $this->paymentMethodRepository->add($payment_method);
+            $this->entityManager->flush($payment_method);
+            return new ServiceActionResult(true,'Your credit card data was updating');
+        }catch(\Exception $e) {
+            return new ServiceActionResult(false, $e->getMessage());
+        }
+
+    }
+
+    public function getPaymentMethod($id)
+    {
+        try{
+            return $this->paymentMethodRepository->findOneBy(['id' => $id]);
+        }catch(\Exception $e) {
+
+        }
+
     }
 
     public function getMyPlaysActives(UserId $userId)

@@ -32,7 +32,7 @@ class CreditCardPaymentMethod extends PaymentMethod
 
     public function getId()
     {
-
+        return $this->id;
     }
 
 }

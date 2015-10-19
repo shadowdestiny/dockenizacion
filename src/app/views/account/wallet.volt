@@ -68,7 +68,7 @@ $(function(){
                 <a class="btn" href="javascript:void(0);">Go Back</a>
             </div>
             <h1 class="h1 title yellow">{{ language.translate("My Wallet") }}</h1>
-            <div class="box-details">
+            <div class="box-details {% if which_form == 'edit' %} hidden {% endif %}">
                 <h2 class="h3 yellow">{{ language.translate("Add funds to your wallet") }}</h2>
 
                 <table id="card-list" class="table ui-responsive" >
@@ -81,17 +81,23 @@ $(function(){
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="active">
-                            <td class="cards">
-                                <input name="bankRadio" checked="checked" type="radio" class="radio" data-role="none">
-                                <span class="sprite card mastercard"><span class="txt">Mastercard</span></span>
-                                {{ language.translate('<span class="type">Mastercard</span> that ends with 1234') }}
-                            </td>
-                            <td class="expire">02 2019</td>
-                            <td class="name">Mario Rossi</td>
-                            <td class="action"><a href="javascript:void(0);">{{ language.translate("Delete") }}</a></td>
-                        </tr>
-                        <tr>
+                    {% if payment_methods is empty %}
+                    {% else %}
+                        {% for payment_method in payment_methods %}
+                            <tr class="active">
+                                <td class="cards">
+                                    <input name="bankRadio" checked="checked" type="radio" class="radio" data-role="none">
+                                    <span class="sprite card mastercard"><span class="txt">Mastercard</span></span>
+                                    {{ language.translate('<span class="type">Mastercard</span> that ends with ') }}{{ payment_method.last_number }}
+                                </td>
+                                <td class="expire">{{ payment_method.expiry_date }}</td>
+                                <td class="name">{{ payment_method.cardHolderName}}</td>
+                                <td class="action"><a href="/account/editPayment/{{ payment_method.id_payment }}">{{ language.translate("Edit") }}</a></td>
+                                <td class="action"><a href="/account/remove/{{ payment_method.id_payment }}">{{ language.translate("Delete") }}</a></td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                        <!--<tr>
                             <td class="cards">
                                 <input name="bankRadio" type="radio" class="radio" data-role="none"> 
                                 <span class="sprite card mastercard"><span class="txt">Mastercard</span></span>
@@ -100,7 +106,7 @@ $(function(){
                             <td class="expire">02 2019</td>
                             <td class="name">Mario Rossi</td>
                             <td class="action"><a href="javascript:void(0);">{{ language.translate("Delete") }}</a></td>
-                        </tr>
+                        </tr>-->
                     </tbody>
                 </table>
 
@@ -154,6 +160,9 @@ $(function(){
                             <td class="id">GR 0110 1250 0000 0001 2300 695</td>
                             <td class="expire">Mario Rossi</td>
                             <td class="action">
+                                <a href="javascript:void(0);">{{ language.translate("Edit") }}</a>
+                            </td>
+                            <td class="action">
                                 <a href="javascript:void(0);">{{ language.translate("Delete") }}</a>
                             </td>
                         </tr>
@@ -197,7 +206,7 @@ $(function(){
                 </div>
             </div>
 
-            <form class="hidden box-add-card">
+    <form class="{% if which_form != 'edit' and which_form%}hidden{% endif %} box-add-card" method="post" action="{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}">
                 {% include "account/_add-card.volt" %}
             </form>
 

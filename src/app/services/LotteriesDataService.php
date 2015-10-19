@@ -76,6 +76,8 @@ class LotteriesDataService
     public function getLastDrawDate($lotteryName, $today = null)
     {
         if (!$today) {
+
+
             $today = new \DateTime();
         }
         return $this->lotteryRepository->findOneby(['name' => $lotteryName])->getLastDrawDate($today);
@@ -181,6 +183,22 @@ class LotteriesDataService
         $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' =>$last_draw_date]);
         $draw->createBreakDown($result);
         $this->entityManager->flush();
+    }
+
+    public function lastBreakDown($lotteryName, \DateTime $now = null) {
+        if(!$now) {
+            $now = new \DateTime();
+        }
+        /** @var Lottery $lottery */
+        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        $last_draw_date = $lottery->getLastDrawDate($now);
+        /** @var EuroMillionsDraw $draw */
+        $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lotteryName, 'draw_date' => $last_draw_date]);
+        if(!empty($draw)) {
+            return new ServiceActionResult(true,$draw);
+        }else{
+            return new ServiceActionResult(false);
+        }
     }
 
 }

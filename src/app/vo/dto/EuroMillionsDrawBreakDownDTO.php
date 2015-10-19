@@ -64,4 +64,7 @@ class EuroMillionsDrawBreakDownDTO extends DTOBase implements IDto
         return $array = json_decode(json_encode($this),TRUE);
     }
 
+
+
+
 }
