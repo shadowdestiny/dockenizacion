@@ -2,13 +2,16 @@
 namespace EuroMillions\vo;
 
 
+use ReflectionObject;
+use ReflectionProperty;
+
 class EuroMillionsLine
 {
     const NUM_REGULAR_NUMBERS = 5;
     const NUM_LUCKY_NUMBERS = 2;
 
-    protected $regular_numbers;
-    protected $lucky_numbers;
+    private $regular_numbers;
+    private $lucky_numbers;
 
     protected $regular_number_one;
     protected $regular_number_two;
@@ -49,6 +52,7 @@ class EuroMillionsLine
         $this->regular_number_five = $regular_numbers[4]->getNumber();
         $this->lucky_number_one = $lucky_numbers[0]->getNumber();
         $this->lucky_number_two = $lucky_numbers[1]->getNumber();
+
     }
 
     /**
@@ -73,21 +77,32 @@ class EuroMillionsLine
 
     public function getRegularNumbers()
     {
+        $reflection = new ReflectionObject($this);
+        $properties = $reflection->getProperties(ReflectionProperty::IS_PROTECTED);
+        $numbers = [];
+        foreach ($properties as $property) {
+            $name = $property->getName();
+            if(substr($name,0,7) === 'regular'){
+                $numbers[] = $this->$name;
+            }
+        }
+        $this->regular_numbers = implode(',', $numbers);
         return $this->regular_numbers;
     }
 
     public function getLuckyNumbers()
     {
+        $reflection = new ReflectionObject($this);
+        $properties = $reflection->getProperties(ReflectionProperty::IS_PROTECTED);
+        $lucky = [];
+        foreach ($properties as $property) {
+            $name = $property->getName();
+            if(substr($name,0,5) === 'lucky'){
+                $lucky[] = $this->$name;
+            }
+        }
+        $this->lucky_numbers = implode(',', $lucky);
         return $this->lucky_numbers;
     }
 
-    public function setLuckyNumbers($luckyNumbers)
-    {
-        $this->lucky_numbers = $luckyNumbers;
-    }
-
-    public function setRegularNumbers($regularNumbers)
-    {
-        $this->regular_numbers = $regularNumbers;
-    }
 }

@@ -44,12 +44,12 @@ Consultoría & Seguridad
 </ticket>;
 EOD;
 
-        $content_cyphered = base64_encode($this->encrypt($cypher,self::$cypher_keys[0],$content));
+        $content_cyphered = base64_encode($this->encrypt($cypher,self::$cypher_keys[5],$content));
         $signature = sha1(base64_decode($content_cyphered).'1234567890');
         $xml = <<< EOD
 <?xml version="1.0" encoding="UTF-8"?>
 <message>
- <operation id="123458908809" type="1" key="0">
+ <operation id="123458908809" type="1" key="5">
  <content>
  {$content_cyphered}
  </content>
@@ -60,32 +60,27 @@ EOD;
 </message>
 EOD;
 
-//        $curl = new Curl();
-//        $curl->setOption(CURLOPT_SSL_VERIFYHOST,0);
-//        $curl->setOption(CURLOPT_SSL_VERIFYPEER,0);
-//        print_r($xml);die();
-//        $result = $curl->post('https://www.loteriacastillo.com/euromillions',[
-//            'xml' => $xml
-//        ]);
+////        $curl = new Curl();
+////        $curl->setOption(CURLOPT_SSL_VERIFYHOST,0);
+////        $curl->setOption(CURLOPT_SSL_VERIFYPEER,0);
+////        print_r($xml);die();
+////        $result = $curl->post('https://www.loteriacastillo.com/euromillions',[
+////            'xml' => $xml
+////        ]);
 //
 //        $xml_response  = simplexml_load_string($result->body);
 //        $content = (string) $xml_response->operation->content;
 //        $key = (int) $xml_response->operation->attributes()['key'];
-        $content = strtoupper(bin2hex(base64_decode('gd9xZ4GIEL5z9nTkWDAjoouGOSNLKBjDt4TEFJgOHdKPuNTVnvIPRAhVPEF6fk7vammpRPXT41TKVpXNyc4UEfDyTKzcjXy9qKOyVbtc5B5d4a+uwsRsJDq8ONgap5kGglGDVODsdQMoYTPpUBn1t/3AMW6KaVoD4jivz5br9mLd+YvWgMQv2X+LkfxKP6I+99xvFKuB2HKjoq/7axaoZQ==')));
-        var_dump($content);
-        $decrypt_result = $this->decryptString($content,self::$cypher_keys[3]);
-        $data = 'gd9xZ4GIEL5z9nTkWDAjoouGOSNLKBjDt4TEFJgOHdKPuNTVnvIPRAhVPEF6fk7vammpRPXT41TKVpXNyc4UEfDyTKzcjXy9qKOyVbtc5B5d4a+uwsRsJDq8ONgap5kGglGDVODsdQMoYTPpUBn1t/3AMW6KaVoD4jivz5br9mLd+YvWgMQv2X+LkfxKP6I+99xvFKuB2HKjoq/7axaoZQ==';
 
-      //  $input = base64_decode('GyRCQjZCPjhsOEBCLDtuGyhCIC0gdGVzdGluZw==');//$BB6B>8l8@B,;n(B - testing
-        $input_encoding = 'UTF-8';
-        echo mb_detect_encoding($decrypt_result);
-        //echo iconv('UTF-8', 'UTF-8', $decrypt_result);
 
-        if ( base64_encode(base64_decode($data, true)) === $data){
-            echo '$data is valid';
-        } else {
-            echo '$data is NOT valid';
-        }
+
+        $content = bin2hex('I9/Ah21LO9CnSbgO0yS1NBwbZsbp9yfDoQnol8mdFfPC9PY7qJYDDos9TT5pxPEVDRwtqHYH8jjb5HIIMVnPYEV6K9RpuYSgAhVk1JMjQIlxVd/XWI23XvpWCLnrPf4pl2p/jL4Iem+mNyqQGJYHTd1LxKX7XtEzRO/m/4B4Zexi7ktEJE5nqWdB7V71YcMqDV0c2o70FXx6DNr8mw7CDg==');
+
+        $decrypt_result = $this->decryptString($content,self::$cypher_keys[8]);
+        var_dump($decrypt_result);
+        $bdecode = base64_decode($decrypt_result);
+
+        echo $bdecode;
     }
 
 
@@ -136,6 +131,7 @@ EOD;
         $clear_data = str_replace(str_repeat(chr(8),8),'',$clear_data);
         $clear_data = str_replace(chr(0),'',$clear_data);
 
+        var_dump($clear_data);
         return($clear_data);
     }
 

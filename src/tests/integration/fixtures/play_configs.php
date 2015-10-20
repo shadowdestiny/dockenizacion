@@ -4,8 +4,6 @@ return [
         [
             'id'   => '1',
             'user_id' => '9098299B-14AC-4124-8DB0-19571EDABE55',
-            'line_regular_numbers' => '11,20,22,29,40',
-            'line_lucky_numbers' => '1,7',
             'active' => 1,
             'start_draw_date' => '2015-09-16 00:00:00',
             'draw_days_config' => 25,
@@ -22,8 +20,6 @@ return [
         [
             'id'   => '2',
             'user_id' => '9098299B-14AC-4124-8DB0-19571EDABE56',
-            'line_regular_numbers' => '11,20,22,29,40',
-            'line_lucky_numbers' => '5,8',
             'active' => 1,
             'start_draw_date' => '2015-09-16 00:00:00',
             'draw_days_config' => 25,
@@ -40,8 +36,6 @@ return [
         [
             'id'   => '3',
             'user_id' => '9098299B-14AC-4124-8DB0-19571EDABE56',
-            'line_regular_numbers' => '11,12,13,14,15',
-            'line_lucky_numbers' => '5,8',
             'active' => 1,
             'start_draw_date' => '2015-10-01 00:00:00',
             'draw_days_config' => 2,

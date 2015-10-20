@@ -6,8 +6,6 @@
     https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <embeddable name="EuroMillions\vo\EuroMillionsLine">
-        <field name="regular_numbers" type="string" nullable="true" />
-        <field name="lucky_numbers" type="string" nullable="true" />
         <field name="regular_number_one" type="integer" length="2" nullable="true" />
         <field name="regular_number_two" type="integer" length="2" nullable="true" />
         <field name="regular_number_three" type="integer" length="2" nullable="true" />
