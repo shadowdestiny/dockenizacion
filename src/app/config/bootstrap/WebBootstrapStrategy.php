@@ -179,4 +179,46 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     {
         return $em->get().'_'.self::CONFIG_FILENAME;
     }
+
+    protected function configLanguage(Di $di)
+    {
+        /** @var DomainServiceFactory $dsf */
+        $dsf = $di->get('domainServiceFactory');
+        return $dsf->getLanguageService();
+    }
+
+    protected function configSession()
+    {
+        $session = new PhalconSessionWrapper();
+        $session->start();
+        return $session;
+    }
+
+    protected function configRequest()
+    {
+        return new PhalconRequestWrapper();
+    }
+
+    protected function configCookies()
+    {
+        $wrapper = new PhalconCookiesWrapper();
+        $wrapper->useEncryption(true);
+        return $wrapper;
+    }
+
+
+    protected function configUrl(Di $di)
+    {
+        $request = $di->get('request');
+        $url = new PhalconUrlWrapper();
+        $url->setBaseUri($request->getScheme() . '://localhost:8080/');
+        $url->setStaticBaseUri($request->getScheme() . '://localhost:8080/'); //EMTD pasar por configuración
+        return $url;
+    }
+
+    protected function configResponse()
+    {
+        return new \Phalcon\Http\Response();
+    }
+
 }
