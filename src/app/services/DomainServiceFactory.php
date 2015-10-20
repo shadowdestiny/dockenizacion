@@ -92,7 +92,7 @@ class DomainServiceFactory
     public function getPlayService(LotteriesDataService $lotteriesDataService = null, IPlayStorageStrategy $playStorageStrategy = null)
     {
         if (!$lotteriesDataService) $lotteriesDataService = new LotteriesDataService($this->entityManager, new LotteryApisFactory());
-        if (!$playStorageStrategy)  $playStorageStrategy = new RedisPlayStorageStrategy($this->serviceFactory->getDI()->get('redisCache'), $this->getAuthService()->getCurrentUser()->getId());
+        if (!$playStorageStrategy)  $playStorageStrategy = new RedisPlayStorageStrategy($this->serviceFactory->getDI()->get('redisCache'));
         return new PlayService($this->entityManager, $lotteriesDataService, $playStorageStrategy);
     }
 

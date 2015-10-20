@@ -18,6 +18,7 @@ use EuroMillions\vo\EuroMillionsLine;
 use EuroMillions\vo\PlayForm;
 use EuroMillions\vo\PlayFormToStorage;
 use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\UserId;
 
 class PlayService
 {
@@ -114,9 +115,9 @@ class PlayService
         }
     }
 
-    public function temporarilyStorePlay(PlayFormToStorage $playForm)
+    public function temporarilyStorePlay(PlayFormToStorage $playForm,UserId $userId)
     {
-        $result = $this->playStorageStrategy->saveAll($playForm);
+        $result = $this->playStorageStrategy->saveAll($playForm,$userId);
         if($result->success()){
             return new ServiceActionResult(true);
         }else{
@@ -124,8 +125,9 @@ class PlayService
         }
     }
 
-    public function getPlaysConfigToBet($date)
+    public function getPlaysConfigToBet(\DateTime $date)
     {
+
         $result = $this->playConfigRepository->getPlayConfigsByDrawDayAndDate($date);
         if(!empty($result)){
             return new ServiceActionResult(true,$result);

@@ -88,7 +88,7 @@ class BetTask extends TaskBase
         }
 
         /** @var ServiceActionResult $result_play_config */
-        $result_play_config = $this->playService->getPlaysConfigToBet($today->format('Y-m-d'));
+        $result_play_config = $this->playService->getPlaysConfigToBet($today);
         if($result_play_config->success()) {
             /** @var PlayConfig[] $play_config_list */
             $play_config_list = $result_play_config->getValues();

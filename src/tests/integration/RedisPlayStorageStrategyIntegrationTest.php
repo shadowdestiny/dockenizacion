@@ -29,7 +29,7 @@ class RedisPlayStorageStrategyIntegrationTest extends RedisIntegrationTestBase
     {
         parent::setUp();
         $this->userId = UserId::create();
-        $this->sut = new RedisPlayStorageStrategy($this->redis,$this->userId);
+        $this->sut = new RedisPlayStorageStrategy($this->redis);
     }
 
     /**
@@ -41,7 +41,7 @@ class RedisPlayStorageStrategyIntegrationTest extends RedisIntegrationTestBase
     {
         $key = self::EMLINE_FETCH_KEY . ':'. $this->userId->id();
         $expected = $this->getPlayFormToStorage();
-        $this->sut->saveAll($expected);
+        $this->sut->saveAll($expected,$this->userId);
         $actual = $this->sut->findByKey($key);
         $this->assertEquals($expected->toJson(),$actual->getValues());
     }

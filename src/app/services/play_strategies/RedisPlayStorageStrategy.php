@@ -18,23 +18,20 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
     /** @var  Redis */
     protected $storage;
 
-    protected $userId;
-
     protected static $key = 'PlayStore_EMLINES:';
+
     /**
      * @param IRedis $storage
-     * @param UserId $userId
      */
-    public function __construct(IRedis $storage, UserId $userId)
+    public function __construct(IRedis $storage)
     {
         $this->storage = $storage;
-        $this->userId = $userId;
     }
 
-    public function saveAll(PlayFormToStorage $data)
+    public function saveAll(PlayFormToStorage $data, UserId $userId)
     {
         try{
-            $this->storage->save($this->getNameKey(), $data->toJson());
+            $this->storage->save($this->getNameKey($userId), $data->toJson());
             return new ServiceActionResult(true);
         }catch(RedisException $e){
             return new ServiceActionResult(false,'Unable to save data in storage');
@@ -70,8 +67,8 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
         }
     }
 
-    private function getNameKey()
+    private function getNameKey(UserId $userId)
     {
-        return "PlayStore_EMLINES:" . $this->userId->id();
+        return "PlayStore_EMLINES:" . $userId->id();
     }
 }

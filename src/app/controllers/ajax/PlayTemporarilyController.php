@@ -20,6 +20,7 @@ class PlayTemporarilyController extends AjaxControllerBase
         $frequency = $this->request->getPost('frequency');
         $startDrawDate = $this->request->getPost('start_draw');
         $drawDays = $this->request->getPost('draw_days');
+        $authService = $this->domainServiceFactory->getAuthService();
         $lastDrawDate = new LastDrawDate($startDrawDate,$frequency);
 
         $playFormToStorage = new PlayFormToStorage();
@@ -30,7 +31,8 @@ class PlayTemporarilyController extends AjaxControllerBase
         $playFormToStorage->euroMillionsLines = $this->create($bets);
 
         $playService = $this->domainServiceFactory->getPlayService();
-        $result = $playService->temporarilyStorePlay($playFormToStorage);
+        $current_user = $authService->getCurrentUser();
+        $result = $playService->temporarilyStorePlay($playFormToStorage,$current_user->getId());
 
         if($result->success()) {
             echo json_encode(['result'=>'OK']);

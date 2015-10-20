@@ -19,27 +19,31 @@ class PlayConfigRepository extends RepositoryBase
         return $this->getPlayConfigsByUser($userId, '0');
     }
 
-    public function getPlayConfigsByDrawDayAndDate($day)
+    /**
+     * @return array
+     */
+    public function getPlayConfigsByDrawDayAndDate(\DateTime $day)
     {
         $result = $this->getEntityManager()
             ->createQuery(
                 'SELECT p'
                 . ' FROM ' . $this->getEntityName() . ' p'
-                . ' WHERE p.active = 1 AND ' . $day . ' BETWEEN p.start_draw_date and p.last_draw_date '
+                . ' WHERE p.active = 1 AND :day BETWEEN p.startDrawDate and p.lastDrawDate '
                 . ' GROUP BY p.user ' )
+            ->setParameters(['day' => $day])
             ->getResult();
         return $result;
     }
 
 
-    public function getPlayConfigsByUserAndDate(UserId $userId, $date)
+    public function getPlayConfigsByUserAndDate(UserId $userId, \DateTime $day)
     {
         $result = $this->getEntityManager()
             ->createQuery(
                 'SELECT p'
                 . ' FROM ' . $this->getEntityName() . ' p'
-                . ' WHERE p.user = :user_id AND p.active = 1 AND ' . $date . ' BETWEEN p.start_draw_date and p.last_draw_date ')
-            ->setParameters(['user_id' => $userId->id()])
+                . ' WHERE p.user = :user_id AND p.active = 1 AND :day BETWEEN p.startDrawDate and p.lastDrawDate ')
+            ->setParameters(['user_id' => $userId->id(),'day' => $day])
             ->getResult();
 
         return $result;

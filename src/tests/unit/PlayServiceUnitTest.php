@@ -233,20 +233,35 @@ class PlayServiceUnitTest extends UnitTestBase
     public function test_getPlayConfigToBet_called_returnServiceActionResultTrueWithProperData()
     {
         $expected = 1;
-        $date = '2015-10-05';
+        $date = new \DateTime('2015-10-05');
         $sut = $this->getSut();
         $this->playConfigRepository_double->getPlayConfigsByDrawDayAndDate($date)->willReturn(true);
         $actual = $sut->getPlaysConfigToBet($date);
         $this->assertGreaterThanOrEqual($expected,count($actual->getValues()));
     }
 
+    /**
+     * method getPlayConfigToBet
+     * when called
+     * should transformDateTimeToStringAndPassItToRepository
+     */
+    public function test_getPlayConfigToBet_called_transformDateTimeToStringAndPassItToRepository()
+    {
+        $expected = '2015-10-10';
+        $date = new \DateTime($expected);
+        $this->playConfigRepository_double->getPlayConfigsByDrawDayAndDate($date)->shouldBeCalled();
+        $sut = $this->getSut();
+        $sut->getPlaysConfigToBet($date);
+    }
+
 
     private function exerciseTemporarilyStorePlay($expected)
     {
+        $user = $this->getUser();
         $playForm = $this->getPlayFormToStorage();
-        $this->playStorageStrategy_double->saveAll($playForm)->willReturn($expected);
+        $this->playStorageStrategy_double->saveAll($playForm,$user->getId())->willReturn($expected);
         $sut = $this->getSut();
-        return $actual = $sut->temporarilyStorePlay($playForm);
+        return $actual = $sut->temporarilyStorePlay($playForm,$user->getId());
 
     }
 

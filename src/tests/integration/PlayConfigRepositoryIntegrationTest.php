@@ -8,6 +8,7 @@ use EuroMillions\entities\PlayConfig;
 use EuroMillions\repositories\PlayConfigRepository;
 use EuroMillions\vo\DrawDays;
 use EuroMillions\vo\EuroMillionsLine;
+use EuroMillions\vo\UserId;
 use tests\base\DatabaseIntegrationTestBase;
 use tests\base\EuroMillionsResultRelatedTest;
 
@@ -26,7 +27,8 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     protected function getFixtures()
     {
         return [
-            'users'
+            'users',
+            'play_configs'
         ];
     }
 
@@ -43,7 +45,7 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
      */
     public function test_add_called_storeCorrectlyInDatabase()
     {
-        $user = $this->entityManager->find('EuroMillions\entities\User', '9098299B-14AC-4124-8DB0-19571EDABE55');
+        $user = $this->entityManager->find('EuroMillions\entities\User', '9098299B-14AC-4124-8DB0-19571EDABE57');
         $regular_numbers = [1, 2, 3, 4, 5];
         $lucky_numbers = [5, 8];
         $euroMillionsLine = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),
@@ -51,6 +53,45 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
 
         list($expected, $actual) = $this->exerciseAdd($user, $euroMillionsLine);
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * method getPlayConfigsByDrawDayAndDate
+     * when called
+     * should returnProperResult
+     * @dataProvider getDateAndExpectedIds
+     */
+    public function test_getPlayConfigsByDrawDayAndDate_called_returnProperResult($date, $ids)
+    {
+        $date_expected = new \DateTime($date);
+        $expected = $ids;
+        $actual = $this->sut->getPlayConfigsByDrawDayAndDate($date_expected);
+        $this->assertEquals($expected,$this->getIdsFromArrayOfObjects($actual));
+    }
+
+    /**
+     * method getPlayConfigsByUser
+     * when called
+     * should returnProperResult
+     */
+    public function test_getPlayConfigsByUser_called_returnProperResult()
+    {
+        $date = new \DateTime('2015-09-20 00:00:00');
+        $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE56');
+        $expected = [2];
+        $actual = $this->sut->getPlayConfigsByUserAndDate($userId,$date);
+        $this->assertEquals($expected,$this->getIdsFromArrayOfObjects($actual));
+
+    }
+
+
+    public function getDateAndExpectedIds()
+    {
+        return [
+            ['2015-10-05',[3]],
+            ['2015-09-22',[1,2]],
+            ['2001-09-01',[]]
+        ];
     }
 
     private function exerciseAdd($user,$euroMillionsLine)
@@ -67,7 +108,6 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
                 'SELECT p'
                 . ' FROM \EuroMillions\entities\PlayConfig p'
                 . ' WHERE p.user = :user_id ')
-            ->setMaxResults(1)
             ->setParameters(['user_id' => $user->getId() ])
             ->getResult()[0];
         return array($playConfig,$actual);
