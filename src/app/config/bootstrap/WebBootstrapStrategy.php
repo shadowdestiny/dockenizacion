@@ -45,6 +45,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $di->set('tag', $this->configTag(), true);
         $di->set('escaper', $this->configEscaper(), true);
         $di->set('security', $this->configSecurity(), true);
+
+        $di->set('request', $this->configRequest(), false);
+        $di->set('cookies', $this->configCookies(), true);
+        $di->set('session', $this->configSession(), true);
+        $di->set('language', $this->configLanguage($di), true);
+        $di->set('url', $this->configUrl($di), true);
+        $di->set('response', $this->configResponse(), true);
+
         return $di;
     }
 
@@ -171,4 +179,46 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     {
         return $em->get().'_'.self::CONFIG_FILENAME;
     }
+
+    protected function configLanguage(Di $di)
+    {
+        /** @var DomainServiceFactory $dsf */
+        $dsf = $di->get('domainServiceFactory');
+        return $dsf->getLanguageService();
+    }
+
+    protected function configSession()
+    {
+        $session = new PhalconSessionWrapper();
+        $session->start();
+        return $session;
+    }
+
+    protected function configRequest()
+    {
+        return new PhalconRequestWrapper();
+    }
+
+    protected function configCookies()
+    {
+        $wrapper = new PhalconCookiesWrapper();
+        $wrapper->useEncryption(true);
+        return $wrapper;
+    }
+
+
+    protected function configUrl(Di $di)
+    {
+        $request = $di->get('request');
+        $url = new PhalconUrlWrapper();
+        $url->setBaseUri($request->getScheme() . '://localhost:8080/');
+        $url->setStaticBaseUri($request->getScheme() . '://localhost:8080/'); //EMTD pasar por configuración
+        return $url;
+    }
+
+    protected function configResponse()
+    {
+        return new \Phalcon\Http\Response();
+    }
+
 }

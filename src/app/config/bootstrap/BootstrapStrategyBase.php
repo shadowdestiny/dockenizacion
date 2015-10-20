@@ -6,11 +6,7 @@ use EuroMillions\components\EnvironmentDetector;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\Common\Cache\ApcCache;
-use EuroMillions\components\PhalconCookiesWrapper;
 use EuroMillions\components\PhalconRedisWrapper;
-use EuroMillions\components\PhalconRequestWrapper;
-use EuroMillions\components\PhalconSessionWrapper;
-use EuroMillions\components\PhalconUrlWrapper;
 use EuroMillions\services\DomainServiceFactory;
 use EuroMillions\services\ServiceFactory;
 use Phalcon\Cache\Frontend\Data;
@@ -19,7 +15,6 @@ use Phalcon\Config\Adapter\Ini;
 use Phalcon\Crypt;
 use Phalcon\Di;
 use Redis;
-use Phalcon\Cache\Backend\Redis as PhalconRedis;
 
 abstract class BootstrapStrategyBase
 {
@@ -49,12 +44,6 @@ abstract class BootstrapStrategyBase
         $di->set('entityManager', $this->configDoctrine($config), true);
         $di->set('redisCache', $this->configRedis($config), true);
         $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
-        $di->set('request', $this->configRequest(), false);
-        $di->set('cookies', $this->configCookies(), true);
-        $di->set('session', $this->configSession(), true);
-        $di->set('language', $this->configLanguage($di), true);
-        $di->set('url', $this->configUrl($di), true);
-        $di->set('response', $this->configResponse(), true);
         return $di;
     }
 
@@ -116,47 +105,6 @@ abstract class BootstrapStrategyBase
     protected function configGlobalConfig()
     {
         return new Ini($this->globalConfigPath . 'config.ini');
-    }
-
-    protected function configLanguage(Di $di)
-    {
-        /** @var DomainServiceFactory $dsf */
-        $dsf = $di->get('domainServiceFactory');
-        return $dsf->getLanguageService();
-    }
-
-    protected function configSession()
-    {
-        $session = new PhalconSessionWrapper();
-        $session->start();
-        return $session;
-    }
-
-    protected function configRequest()
-    {
-        return new PhalconRequestWrapper();
-    }
-
-    protected function configCookies()
-    {
-        $wrapper = new PhalconCookiesWrapper();
-        $wrapper->useEncryption(true);
-        return $wrapper;
-    }
-
-
-    protected function configUrl(Di $di)
-    {
-        $request = $di->get('request');
-        $url = new PhalconUrlWrapper();
-        $url->setBaseUri($request->getScheme() . '://localhost:8080/');
-        $url->setStaticBaseUri($request->getScheme() . '://localhost:8080/'); //EMTD pasar por configuración
-        return $url;
-    }
-
-    protected function configResponse()
-    {
-        return new \Phalcon\Http\Response();
     }
 
     abstract protected function getConfigFileName(EnvironmentDetector $em);
