@@ -40,10 +40,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     {
         $di = parent::dependencyInjector();
         $di->set('view', $this->configView(), true);
-        $di->set('url', $this->configUrl($di), true);
         $di->set('dispatcher', $this->configDispatcher(), true);
         $di->set('router', $this->configRouter(), true);
-        $di->set('response', $this->configResponse(), true);
         $di->set('tag', $this->configTag(), true);
         $di->set('escaper', $this->configEscaper(), true);
         $di->set('security', $this->configSecurity(), true);
@@ -85,14 +83,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         return $view;
     }
 
-    protected function configUrl(Di $di)
-    {
-        $request = $di->get('request');
-        $url = new PhalconUrlWrapper();
-        $url->setBaseUri($request->getScheme() . '://localhost:8080/');
-        $url->setStaticBaseUri($request->getScheme() . '://localhost:8080/'); //EMTD pasar por configuración
-        return $url;
-    }
 
     protected function configDispatcher()
     {
@@ -160,11 +150,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
         $router->removeExtraSlashes(true);
         return $router;
-    }
-
-    protected function configResponse()
-    {
-        return new Phalcon\Http\Response();
     }
 
     protected function configTag()

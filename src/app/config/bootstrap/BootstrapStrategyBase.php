@@ -10,6 +10,7 @@ use EuroMillions\components\PhalconCookiesWrapper;
 use EuroMillions\components\PhalconRedisWrapper;
 use EuroMillions\components\PhalconRequestWrapper;
 use EuroMillions\components\PhalconSessionWrapper;
+use EuroMillions\components\PhalconUrlWrapper;
 use EuroMillions\services\DomainServiceFactory;
 use EuroMillions\services\ServiceFactory;
 use Phalcon\Cache\Frontend\Data;
@@ -52,7 +53,8 @@ abstract class BootstrapStrategyBase
         $di->set('cookies', $this->configCookies(), true);
         $di->set('session', $this->configSession(), true);
         $di->set('language', $this->configLanguage($di), true);
-
+        $di->set('url', $this->configUrl($di), true);
+        $di->set('response', $this->configResponse(), true);
         return $di;
     }
 
@@ -140,6 +142,21 @@ abstract class BootstrapStrategyBase
         $wrapper = new PhalconCookiesWrapper();
         $wrapper->useEncryption(true);
         return $wrapper;
+    }
+
+
+    protected function configUrl(Di $di)
+    {
+        $request = $di->get('request');
+        $url = new PhalconUrlWrapper();
+        $url->setBaseUri($request->getScheme() . '://localhost:8080/');
+        $url->setStaticBaseUri($request->getScheme() . '://localhost:8080/'); //EMTD pasar por configuración
+        return $url;
+    }
+
+    protected function configResponse()
+    {
+        return new \Phalcon\Http\Response();
     }
 
     abstract protected function getConfigFileName(EnvironmentDetector $em);
