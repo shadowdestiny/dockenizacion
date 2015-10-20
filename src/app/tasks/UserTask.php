@@ -28,6 +28,8 @@ class UserTask extends TaskBase
 
     public function checkResultAction(\DateTime $date)
     {
+        //EMQ What's this method? Looks imcomplete
+
         if(!$date) {
             $date = new \DateTime();
         }
