@@ -49,12 +49,12 @@ abstract class BootstrapStrategyBase
         $di->set('entityManager', $this->configDoctrine($config), true);
         $di->set('redisCache', $this->configRedis($config), true);
         $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
-        $di->set('request', $this->configRequest(), false);
-        $di->set('cookies', $this->configCookies(), true);
-        $di->set('session', $this->configSession(), true);
-        $di->set('language', $this->configLanguage($di), true);
-        $di->set('url', $this->configUrl($di), true);
-        $di->set('response', $this->configResponse(), true);
+//        $di->set('request', $this->configRequest(), false);
+//        $di->set('cookies', $this->configCookies(), true);
+//        $di->set('session', $this->configSession(), true);
+//        $di->set('language', $this->configLanguage($di), true);
+//        $di->set('url', $this->configUrl($di), true);
+//        $di->set('response', $this->configResponse(), true);
         return $di;
     }
 

@@ -45,6 +45,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $di->set('tag', $this->configTag(), true);
         $di->set('escaper', $this->configEscaper(), true);
         $di->set('security', $this->configSecurity(), true);
+
+        $di->set('request', $this->configRequest(), false);
+        $di->set('cookies', $this->configCookies(), true);
+        $di->set('session', $this->configSession(), true);
+        $di->set('language', $this->configLanguage($di), true);
+        $di->set('url', $this->configUrl($di), true);
+        $di->set('response', $this->configResponse(), true);
+
         return $di;
     }
 
