@@ -1,12 +1,9 @@
 <?php
 namespace EuroMillions\services;
-use Alcohol\ISO4217;
-use antonienko\MoneyFormatter\MoneyFormatter;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\entities\CreditCardPaymentMethod;
 use EuroMillions\entities\PaymentMethod;
 use EuroMillions\entities\User;
-use EuroMillions\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\repositories\PaymentMethodRepository;
 use EuroMillions\repositories\PlayConfigRepository;
 use EuroMillions\repositories\UserRepository;
@@ -18,7 +15,6 @@ use EuroMillions\vo\ExpiryDate;
 use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
 use Exception;
-use Money\Currency;
 use Money\Money;
 
 class UserService
@@ -31,10 +27,6 @@ class UserService
      * @var CurrencyService
      */
     private $currencyService;
-    /**
-     * @var IUsersPreferencesStorageStrategy
-     */
-    private $storageStrategy;
     /**
      * @var EmailService
      */
@@ -56,7 +48,6 @@ class UserService
 
 
     public function __construct(CurrencyService $currencyService,
-                                IUsersPreferencesStorageStrategy $strategy,
                                 EmailService $emailService,
                                 PaymentProviderService $paymentProviderService,
                                 EntityManager $entityManager)
@@ -65,7 +56,6 @@ class UserService
         $this->userRepository = $entityManager->getRepository('EuroMillions\entities\User');
         $this->paymentMethodRepository = $entityManager->getRepository('EuroMillions\entities\PaymentMethod');
         $this->currencyService = $currencyService;
-        $this->storageStrategy = $strategy;
         $this->emailService = $emailService;
         $this->paymentProviderService = $paymentProviderService;
         $this->playRepository = $entityManager->getRepository('EuroMillions\entities\PlayConfig');
@@ -78,51 +68,14 @@ class UserService
         return $this->currencyService->toString($user->getBalance(), $locale);
     }
 
-    public function setCurrency(Currency $currency)
-    {
-        $this->storageStrategy->setCurrency($currency);
-    }
-
     public function getUser(UserId $userId)
     {
         return $this->userRepository->find($userId->id());
     }
 
-    public function getCurrency()
-    {
-        $currency = $this->storageStrategy->getCurrency();
-        if (!$currency) {
-            $currency = new Currency('EUR');
-        }
-        return $currency;
-    }
-
-    /**
-     * @param Money $jackpot
-     * @return Money
-     */
-    public function getJackpotInMyCurrency(Money $jackpot)
-    {
-        return $this->currencyService->convert($jackpot, $this->storageStrategy->getCurrency());
-    }
-
     public function getBalanceFromCurrentUser()
     {
         //EMTD after user is registered and logged in
-    }
-
-    public function getMyCurrencyNameAndSymbol()
-    {
-        $currency = $this->getCurrency();
-        $iso4217 = new ISO4217();
-        $currency_data = $iso4217->getByAlpha3($currency->getName());
-        $mf = new MoneyFormatter();
-        $symbol = $mf->getSymbolFromCurrency('en_US', $currency);
-        if (!$symbol)
-        {
-            $symbol = $currency->getName();
-        }
-        return ['symbol' => $symbol, 'name' => $currency_data['name']];
     }
 
     /**

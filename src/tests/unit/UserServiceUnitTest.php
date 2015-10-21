@@ -57,56 +57,7 @@ class UserServiceUnitTest extends UnitTestBase
         parent::setUp();
     }
 
-    /**
-     * method getMyCurrencyNameAndSymbol
-     * when currencyIsSetInStorage
-     * should returnProperValueAndSymbol
-     * @dataProvider getCurrenciesAndSymbols
-     */
-    public function test_getMyCurrencyNameAndSymbol_currencyIsSetInStorage_returnProperValueAndSymbol($code, $name, $symbol)
-    {
-        $this->storageStrategy_double->getCurrency()->willReturn(new Currency($code));
-        $sut = $this->getSut();
-        $actual = $sut->getMyCurrencyNameAndSymbol();
-        $this->assertEquals(['symbol' => $symbol, 'name' => $name], $actual);
-    }
 
-    public function getCurrenciesAndSymbols()
-    {
-        return [
-            ['EUR', 'Euro', '€'],
-            ['USD', 'US Dollar', '$'],
-            ['COP', 'Colombian Peso', 'COP'],
-            ['OMR', 'Omani Rial', 'OMR'],
-        ];
-    }
-
-    /**
-     * method getMyCurrencyNameAndSymbol
-     * when currencyIsNotSet
-     * should returnEuro
-     */
-    public function test_getMyCurrencyNameAndSymbol_currencyIsNotSet_returnEuro()
-    {
-        $this->storageStrategy_double->getCurrency(Argument::any())->willReturn(null);
-        $sut = $this->getSut();
-        $actual = $sut->getMyCurrencyNameAndSymbol();
-        $this->assertEquals(['symbol' => '€', 'name' => 'Euro'], $actual);
-    }
-
-    /**
-     * method getCurrency
-     * when calledWithoutCurrencyOnStorage
-     * should returnEuro
-     */
-    public function test_getCurrency_calledWithoutCurrencyOnStorage_returnEuro()
-    {
-        $this->storageStrategy_double->getCurrency(Argument::any())->willReturn(null);
-        $expected = new Currency('EUR');
-        $sut = $this->getSut();
-        $actual = $sut->getCurrency();
-        $this->assertEquals($expected, $actual);
-    }
 
     /**
      * method contactRequest
@@ -502,7 +453,6 @@ class UserServiceUnitTest extends UnitTestBase
     protected function getSut()
     {
         $sut = $this->getDomainServiceFactory()->getUserService($this->currencyService_double->reveal(),
-                                                                $this->storageStrategy_double->reveal(),
                                                                 $this->emailService_double->reveal(),
                                                                 $this->paymentProviderService_double->reveal());
         return $sut;

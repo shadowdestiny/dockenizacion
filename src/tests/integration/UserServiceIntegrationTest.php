@@ -81,7 +81,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         $amount = new Money(6000, new Currency('EUR'));
         $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
         $paymentProvider_double->charge($paymentMethod,$amount)->willReturn(true);
-        $sut = $this->getDomainServiceFactory()->getUserService(null, null, null, $paymentProvider_double->reveal());
+        $sut = $this->getSut($paymentProvider_double);
         $sut->recharge($user,$paymentMethod,$amount);
         $this->entityManager->detach($user);
         $user = $userRepository->getByEmail($email);
@@ -111,7 +111,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         $paymentMethod = new CreditCardPaymentMethod($creditCard);
         $paymentMethod->setUser($user);
         $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
-        $sut = $this->getDomainServiceFactory()->getUserService(null, null, null, $paymentProvider_double->reveal());
+        $sut = $this->getSut($paymentProvider_double);
         $sut->addNewPaymentMethod($paymentMethod);
         $this->entityManager->detach($paymentMethod);
         $paymentMethodCollection = $sut->getPaymentMethods($user->getId());
@@ -130,7 +130,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         list($user,$playConfig) = $this->getPlayConfigExpected();
         $expected = 1;
         $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
-        $sut = $this->getDomainServiceFactory()->getUserService(null, null, null, $paymentProvider_double->reveal());
+        $sut = $this->getSut($paymentProvider_double);
         $this->markTestIncomplete('getMyPlaysActives returns a ServiceActionResult, so the count will always be 1 independently of the number of plays');
         $actual = count($sut->getMyPlaysActives($user->getId()));
         $this->assertEquals($expected,$actual);
@@ -146,7 +146,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         list($user,$playConfig) = $this->getPlayConfigExpected();
         $expected = 1;
         $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
-        $sut = $this->getDomainServiceFactory()->getUserService(null, null, null, $paymentProvider_double->reveal());
+        $sut = $this->getSut($paymentProvider_double);
         $this->markTestIncomplete('getMyPlaysActives returns a ServiceActionResult, so the count will always be 1 independently of the number of plays');
         $actual = count($sut->getMyPlaysInActives($user->getId()));
         $this->assertGreaterThanOrEqual($expected,$actual);
@@ -193,6 +193,16 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         $playConfig->setLastDrawDate(new \DateTime('2015-09-30 00:00:00'));
 
         return [$user,$playConfig];
+    }
+
+    /**
+     * @param $paymentProvider_double
+     * @return \EuroMillions\services\UserService
+     */
+    protected function getSut($paymentProvider_double)
+    {
+        $sut = $this->getDomainServiceFactory()->getUserService(null, null, $paymentProvider_double->reveal());
+        return $sut;
     }
 
 
