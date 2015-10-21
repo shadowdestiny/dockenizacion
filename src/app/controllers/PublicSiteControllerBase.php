@@ -61,7 +61,7 @@ class PublicSiteControllerBase extends ControllerBase
         $user_currency = $this->userService->getMyCurrencyNameAndSymbol();
         $is_logged = $this->authService->isLogged();
         if($is_logged){
-            $user_balance = $this->userService->getBalance($this->authService->getCurrentUser()->getId());
+            $user_balance = $this->userService->getBalance($this->authService->getCurrentUser()->getId(), $this->languageService->getLocale());
             $user = $this->authService->getCurrentUser();
             $user_balance_raw = $user->getBalance()->getAmount();
         }else{

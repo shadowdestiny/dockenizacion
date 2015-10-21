@@ -1,7 +1,6 @@
 <?php
 namespace EuroMillions\services;
 
-use EuroMillions\interfaces\IPaymentProvider;
 use Phalcon\DiInterface;
 use EuroMillions\interfaces\ICurrencyApi;
 use EuroMillions\services\external_apis\RedisCurrencyApiCache;
@@ -19,11 +18,10 @@ class ServiceFactory
         $this->di = $di;
     }
 
-    public function getCurrencyService(ICurrencyApi $currencyApi = null, LanguageService $languageService = null)
+    public function getCurrencyService(ICurrencyApi $currencyApi = null)
     {
         if (!$currencyApi) $currencyApi = new YahooCurrencyApi(new RedisCurrencyApiCache($this->di->get('redisCache')));
-        if (!$languageService) $languageService = $this->di->get('language');
-        return new CurrencyService($currencyApi, $languageService);
+        return new CurrencyService($currencyApi);
     }
 
     /**

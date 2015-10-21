@@ -13,7 +13,6 @@ use EuroMillions\vo\EuroMillionsLine;
 use EuroMillions\vo\EuroMillionsLuckyNumber;
 use EuroMillions\vo\EuroMillionsRegularNumber;
 use EuroMillions\vo\ExpiryDate;
-use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
 use Money\Currency;
 use Money\Money;
@@ -49,8 +48,15 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         $userId = new UserId($uuid);
         $dsf = $this->getDomainServiceFactory();
         $sut = $dsf->getUserService();
-        $actual = $sut->getBalance($userId);
+        $actual = $sut->getBalance($userId, 'en_US');
         $this->assertEquals($expected, $actual);
+    }
+
+    public function getUserIdsAndExpectedBalances()
+    {
+        return [
+            ['9098299B-14AC-4124-8DB0-19571EDABE55', '€3,000.05'],
+        ];
     }
 
     /**
@@ -75,19 +81,12 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         $amount = new Money(6000, new Currency('EUR'));
         $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
         $paymentProvider_double->charge($paymentMethod,$amount)->willReturn(true);
-        $sut = $this->getDomainServiceFactory()->getUserService(null, null, null, $paymentProvider_double->reveal());
+        $sut = $this->getSut($paymentProvider_double);
         $sut->recharge($user,$paymentMethod,$amount);
         $this->entityManager->detach($user);
         $user = $userRepository->getByEmail($email);
         $actual = $user->getBalance()->getAmount();
         $this->assertEquals($expected,$actual);
-    }
-
-    public function getUserIdsAndExpectedBalances()
-    {
-        return [
-            ['9098299B-14AC-4124-8DB0-19571EDABE55', '€3,000.05'],
-        ];
     }
 
     /**
@@ -112,7 +111,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         $paymentMethod = new CreditCardPaymentMethod($creditCard);
         $paymentMethod->setUser($user);
         $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
-        $sut = $this->getDomainServiceFactory()->getUserService(null, null, null, $paymentProvider_double->reveal());
+        $sut = $this->getSut($paymentProvider_double);
         $sut->addNewPaymentMethod($paymentMethod);
         $this->entityManager->detach($paymentMethod);
         $paymentMethodCollection = $sut->getPaymentMethods($user->getId());
@@ -131,7 +130,8 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         list($user,$playConfig) = $this->getPlayConfigExpected();
         $expected = 1;
         $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
-        $sut = $this->getDomainServiceFactory()->getUserService(null, null, null, $paymentProvider_double->reveal());
+        $sut = $this->getSut($paymentProvider_double);
+        $this->markTestIncomplete('getMyPlaysActives returns a ServiceActionResult, so the count will always be 1 independently of the number of plays');
         $actual = count($sut->getMyPlaysActives($user->getId()));
         $this->assertEquals($expected,$actual);
     }
@@ -146,7 +146,8 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         list($user,$playConfig) = $this->getPlayConfigExpected();
         $expected = 1;
         $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
-        $sut = $this->getDomainServiceFactory()->getUserService(null, null, null, $paymentProvider_double->reveal());
+        $sut = $this->getSut($paymentProvider_double);
+        $this->markTestIncomplete('getMyPlaysActives returns a ServiceActionResult, so the count will always be 1 independently of the number of plays');
         $actual = count($sut->getMyPlaysInActives($user->getId()));
         $this->assertGreaterThanOrEqual($expected,$actual);
     }
@@ -163,6 +164,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         $luc_numbers = [5, 8];
 
         $regular_numbers = function($numbers){
+            $result = [];
             foreach ($numbers as $number) {
                 $result[] = new EuroMillionsRegularNumber($number);
             }
@@ -171,6 +173,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         };
 
         $lucky_numbers = function($numbers){
+            $result = [];
             foreach ($numbers as $number) {
                 $result[] = new EuroMillionsLuckyNumber($number);
             }
@@ -190,6 +193,16 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         $playConfig->setLastDrawDate(new \DateTime('2015-09-30 00:00:00'));
 
         return [$user,$playConfig];
+    }
+
+    /**
+     * @param $paymentProvider_double
+     * @return \EuroMillions\services\UserService
+     */
+    protected function getSut($paymentProvider_double)
+    {
+        $sut = $this->getDomainServiceFactory()->getUserService(null, null, $paymentProvider_double->reveal());
+        return $sut;
     }
 
 

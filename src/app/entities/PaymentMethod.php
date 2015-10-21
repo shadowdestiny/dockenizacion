@@ -3,6 +3,8 @@
 
 namespace EuroMillions\entities;
 
+use EuroMillions\vo\CardNumber;
+
 abstract class PaymentMethod extends EntityBase
 {
 
@@ -53,6 +55,9 @@ abstract class PaymentMethod extends EntityBase
         $this->cardNumber = $cardNumber;
     }
 
+    /**
+     * @return CardNumber
+     */
     public function getCardNumber()
     {
         return $this->cardNumber;
