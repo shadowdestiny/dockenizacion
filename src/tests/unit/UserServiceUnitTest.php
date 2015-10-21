@@ -21,7 +21,6 @@ use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
 use Money\Currency;
 use Money\Money;
-use Phalcon\Paginator\Exception;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
 
@@ -135,12 +134,12 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_getBalance_called_returnBalanceByUser()
     {
-        $currency = 'EUR';
+        $this->markTestIncomplete('This test makes no sense, Raul please redo it.');
         $user = $this->getUser();
         $this->userRepository_double->find(Argument::any())->willReturn($user);
-        $this->currencyService_double->toString(Argument::any())->willReturn('50');
+        $this->currencyService_double->toString(Argument::any(), Argument::any())->willReturn('50');
         $sut = $this->getSut();
-        $actual = $sut->getBalance($user->getId());
+        $actual = $sut->getBalance($user->getId(), 'es_ES');
         $this->assertGreaterThan(0, $actual, "Amount should be an greater than 0");
     }
 
@@ -246,6 +245,7 @@ class UserServiceUnitTest extends UnitTestBase
         $this->stubEntityManager($entityManager_stub);
         $sut = $this->getSut();
         $result_add = $sut->addNewPaymentMethod($paymentMethod);
+        $this->markTestIncomplete("result_add looks like is not an array, but a ServiceResultObject. Pay attention to the hints that phpstorms gives you, you can see that the variable is highlighted inside the count");
         $actual = count($result_add);
         $this->assertEquals($expected,$actual);
     }
@@ -496,12 +496,6 @@ class UserServiceUnitTest extends UnitTestBase
         );
     }
 
-    private function getPlayByUser()
-    {
-        $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
-    }
-
-
     /**
      * @return \EuroMillions\services\UserService
      */
@@ -578,6 +572,7 @@ class UserServiceUnitTest extends UnitTestBase
 
     protected function getRegularNumbers(array $numbers)
     {
+        $result = [];
         foreach ($numbers as $number) {
             $result[] = new EuroMillionsRegularNumber($number);
         }
@@ -585,6 +580,7 @@ class UserServiceUnitTest extends UnitTestBase
     }
     protected function getLuckyNumbers(array $numbers)
     {
+        $result = [];
         foreach ($numbers as $number) {
             $result[] = new EuroMillionsLuckyNumber($number);
         }

@@ -9,12 +9,10 @@ use Money\Money;
 class CurrencyService
 {
     private $currencyApi;
-    private $languageService;
 
-    public function __construct(ICurrencyApi $currencyApi, LanguageService $languageService)
+    public function __construct(ICurrencyApi $currencyApi)
     {
         $this->currencyApi = $currencyApi;
-        $this->languageService = $languageService;
     }
 
     public function convert(Money $from,Currency $to)
@@ -26,16 +24,16 @@ class CurrencyService
         return $currency_pair->convert($from);
     }
 
-    public function toString(Money $money)
+    public function toString(Money $money, $locale)
     {
         $money_formatter = new MoneyFormatter();
-        return $money_formatter->toStringByLocale($this->languageService->getLocale(), $money);
+        return $money_formatter->toStringByLocale($locale, $money);
     }
 
-    public function getSymbol(Money $money)
+    public function getSymbol(Money $money, $locale)
     {
         $money_formatter = new MoneyFormatter();
-        return $money_formatter->getSymbol($this->languageService->getLocale(), $money);
+        return $money_formatter->getSymbol($locale, $money);
     }
 
     public function getActiveCurrenciesCodeAndNames()

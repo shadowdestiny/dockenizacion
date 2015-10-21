@@ -5,7 +5,6 @@ use antonienko\MoneyFormatter\MoneyFormatter;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\entities\CreditCardPaymentMethod;
 use EuroMillions\entities\PaymentMethod;
-use EuroMillions\entities\PlayConfig;
 use EuroMillions\entities\User;
 use EuroMillions\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\repositories\PaymentMethodRepository;
@@ -14,9 +13,7 @@ use EuroMillions\repositories\UserRepository;
 use EuroMillions\vo\CardHolderName;
 use EuroMillions\vo\CardNumber;
 use EuroMillions\vo\ContactFormInfo;
-use EuroMillions\vo\CreditCard;
 use EuroMillions\vo\CVV;
-use EuroMillions\vo\Email;
 use EuroMillions\vo\ExpiryDate;
 use EuroMillions\vo\ServiceActionResult;
 use EuroMillions\vo\UserId;
@@ -74,11 +71,11 @@ class UserService
         $this->playRepository = $entityManager->getRepository('EuroMillions\entities\PlayConfig');
     }
 
-    public function getBalance(UserId $userId)
+    public function getBalance(UserId $userId, $locale)
     {
         /** @var User $user */
         $user = $this->userRepository->find($userId->id());
-        return $this->currencyService->toString($user->getBalance());
+        return $this->currencyService->toString($user->getBalance(), $locale);
     }
 
     public function setCurrency(Currency $currency)
@@ -191,6 +188,7 @@ class UserService
      */
     public function getPaymentMethods(UserId $userId)
     {
+        /** @var User $user */
         $user = $this->userRepository->find($userId->id());
         if(!empty($user)){
             $paymentMethodCollection = $this->paymentMethodRepository->getPaymentMethodsByUser($user);
@@ -200,6 +198,7 @@ class UserService
                 return new ServiceActionResult(false,'You don\'t have any payment method registered');
             }
         }
+        //EMTD @rmrbest, what happens if we don't find the user? Maybe it should throw
     }
 
 
@@ -230,7 +229,7 @@ class UserService
         }catch(\Exception $e) {
 
         }
-
+        //EMTD @rmrbest, empty catch?
     }
 
     public function getMyPlaysActives(UserId $userId)
