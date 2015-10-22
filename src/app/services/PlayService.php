@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManager;
 
 use EuroMillions\entities\Bet;
 use EuroMillions\entities\EuroMillionsDraw;
+use EuroMillions\entities\Lottery;
 use EuroMillions\entities\PlayConfig;
 use EuroMillions\entities\User;
 use EuroMillions\exceptions\InvalidBalanceException;
@@ -99,16 +100,23 @@ class PlayService
         }
         /** @var User $user */
         $user = $this->userRepository->find($playConfig->getUser()->getId()->id());
-        if($user->getBalance()->getAmount() > $euroMillionsDraw->getLottery()->getSingleBetPrice()) {
+        $single_bet_price = $euroMillionsDraw->getLottery()->getSingleBetPrice();
+        if($user->getBalance()->getAmount() > $single_bet_price->getAmount()) {
             $dateNextDraw = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions', $today);
             $result = $this->betRepository->getBetsByDrawDate(new \DateTime($dateNextDraw));
             if(!empty($result)){
                 return new ServiceActionResult(true);
             }else{
-                $bet = new Bet($playConfig,$euroMillionsDraw);
-                $this->betRepository->add($bet);
-                $this->entityManager->flush($bet);
-                return new ServiceActionResult(true);
+                try{
+                    $bet = new Bet($playConfig,$euroMillionsDraw);
+                    $this->betRepository->add($bet);
+                    $user->setBalance($user->getBalance()->subtract($single_bet_price));
+                    $this->userRepository->add($user);
+                    $this->entityManager->flush();
+                    return new ServiceActionResult(true);
+                }catch(\Exception $e) {
+                    return new ServiceActionResult(false);
+                }
             }
         } else {
             throw new InvalidBalanceException();

@@ -150,8 +150,9 @@ class UserService
             }else{
                 return new ServiceActionResult(false,'You don\'t have any payment method registered');
             }
+        }else{
+            throw new \InvalidArgumentException('User doesn\'t exist');
         }
-        //EMTD @rmrbest, what happens if we don't find the user? Maybe it should throw
     }
 
 
@@ -180,9 +181,9 @@ class UserService
         try{
             return $this->paymentMethodRepository->findOneBy(['id' => $id]);
         }catch(\Exception $e) {
-
+            return new ServiceActionResult(false);
         }
-        //EMTD @rmrbest, empty catch?
+
     }
 
     public function getMyPlaysActives(UserId $userId)
@@ -244,11 +245,5 @@ class UserService
             return new ServiceActionResult(false);
         }
     }
-
-    public function checkBalanceInSuscription(UserId $userId)
-    {
-
-    }
-
 
 }

@@ -23,10 +23,6 @@ class LotteryValidationCastilloApiUnitTest extends UnitTestBase
     public function test_request_called_getResponseMessageFromProvider()
     {
         $this->markTestIncomplete();
-        $key = new OperationKey('', new NullCypher());
-        $curlWrapper_stub = $this->getCurlWrapperWithXmlRequest();
-        $sut = new LotteryValidationCastilloApi($curlWrapper_stub);
-        $sut->request();
     }
     
     

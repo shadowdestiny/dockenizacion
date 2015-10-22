@@ -55,6 +55,8 @@ class PriceCheckoutTask extends TaskBase
                     $this->priceCheckoutService->reChargeAmountAwardedToUser($user,$result_amount);
                     if($result_amount->getAmount() > self::EMAIL_ABOVE) {
                         $this->emailService->sendTransactionalEmail($user,'win-email-above-1500');
+                    }else{
+                        $this->emailService->sendTransactionalEmail($user,'win-email');
                     }
                 }
             }

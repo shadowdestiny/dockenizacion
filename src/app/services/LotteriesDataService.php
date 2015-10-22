@@ -139,7 +139,6 @@ class LotteriesDataService
                 return new ServiceActionResult(false);
             }
         }
-
     }
 
     public function getLotteryConfigByName($lotteryName)

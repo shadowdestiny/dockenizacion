@@ -131,8 +131,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         $expected = 1;
         $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
         $sut = $this->getSut($paymentProvider_double);
-        $this->markTestIncomplete('getMyPlaysActives returns a ServiceActionResult, so the count will always be 1 independently of the number of plays');
-        $actual = count($sut->getMyPlaysActives($user->getId()));
+        $actual = count($sut->getMyPlaysActives($user->getId())->getValues());
         $this->assertEquals($expected,$actual);
     }
 
@@ -147,8 +146,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         $expected = 1;
         $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
         $sut = $this->getSut($paymentProvider_double);
-        $this->markTestIncomplete('getMyPlaysActives returns a ServiceActionResult, so the count will always be 1 independently of the number of plays');
-        $actual = count($sut->getMyPlaysInActives($user->getId()));
+        $actual = count($sut->getMyPlaysInActives($user->getId())->getValues());
         $this->assertGreaterThanOrEqual($expected,$actual);
     }
 

@@ -8,7 +8,7 @@ use EuroMillions\components\PasswordValidator;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Validation\Validator\PresenceOf;
-
+s
 class MyAccountChangePasswordForm extends RedirectableFormBase
 {
 

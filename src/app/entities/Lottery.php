@@ -4,6 +4,7 @@ namespace EuroMillions\entities;
 
 use antonienko\PositiveModulus\PositiveModulus;
 use EuroMillions\interfaces\IEntity;
+use Money\Money;
 
 class Lottery extends EntityBase implements IEntity
 {
@@ -14,6 +15,7 @@ class Lottery extends EntityBase implements IEntity
     protected $draw_time; //utc
     protected $jackpot_api;
     protected $result_api;
+    /** @var  Money */
     protected $single_bet_price;
 
     public function getJackpotApi()

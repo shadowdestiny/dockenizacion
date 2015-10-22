@@ -3,6 +3,7 @@ namespace EuroMillions\tasks;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\entities\EuroMillionsDraw;
 use EuroMillions\entities\PlayConfig;
+use EuroMillions\entities\User;
 use EuroMillions\services\CurrencyService;
 use EuroMillions\services\DomainServiceFactory;
 use EuroMillions\services\EmailService;
@@ -63,33 +64,29 @@ class ResultTask extends TaskBase
         $breakdown_list = null;
         if($draw->success()){
             $break_down_list = new EuroMillionsDrawBreakDownDTO($draw->getValues());
-          //  $break_down_list = $this->convertCurrency($break_down_list->toArray(), new Currency('EUR'));
-
         }
         $result_play_config = $this->playService->getPlaysConfigToBet($today);
         if($result_play_config->success() && !empty($break_down_list)){
             /** @var PlayConfig[] $play_config_list */
             $play_config_list = $result_play_config->getValues();
             foreach($play_config_list as $play_config){
+                /** @var User $user */
                 $user = $this->userService->getUser($play_config->getUser()->getId());
+                $break_down_list = $this->convertCurrency($break_down_list->toArray(), $user->getBalance()->getCurrency());
                 $this->emailService->sendTransactionalEmail($user,'latest-results');
             }
         }
     }
 
-    //EMTD method inside BreakDownDTO
-    private function convertCurrency(array $break_downs, Currency $user_currency = null)
+    //EMTD convert in service instead?
+    private function convertCurrency($break_downs, Currency $user_currency = null)
     {
         if(empty($user_currency)){
             $user_currency = $this->userService->getCurrency();
         }
-
-        if(!empty($break_downs)) {
-            foreach($break_downs as &$breakDown) {
-                //var_dump($breakDown['lottery_prize']);
-                //new Money((int) $breakDown['lottery_prize'], new Currency('EUR')), $user_currency)
-                $breakDown['lottery_prize'] = $this->currencyService->convert(new Money((int) $breakDown['lottery_prize'], new Currency('EUR')), $user_currency)->getAmount() / 10000;
-            }
+        foreach($break_downs as $k => $name) {
+            $new_currency_prize = $this->currencyService->convert(new Money((int) $break_downs[$k]['lottery_prize'], new Currency('EUR')), $user_currency);
+            $break_downs[$k]['lottery_prize'] = $new_currency_prize->getAmount() / 10000;
         }
         return $break_downs;
     }

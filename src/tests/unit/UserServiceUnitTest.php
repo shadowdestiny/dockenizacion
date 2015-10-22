@@ -1,6 +1,7 @@
 <?php
 namespace tests\unit;
 
+use antonienko\MoneyFormatter\MoneyFormatter;
 use EuroMillions\components\NullPasswordHasher;
 use EuroMillions\config\Namespaces;
 use EuroMillions\entities\PlayConfig;
@@ -85,13 +86,12 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_getBalance_called_returnBalanceByUser()
     {
-        $this->markTestIncomplete('This test makes no sense, Raul please redo it.');
         $user = $this->getUser();
         $this->userRepository_double->find(Argument::any())->willReturn($user);
-        $this->currencyService_double->toString(Argument::any(), Argument::any())->willReturn('50');
+        $this->currencyService_double->toString($user->getBalance(), 'es_ES')->willReturn(new MoneyFormatter());
         $sut = $this->getSut();
         $actual = $sut->getBalance($user->getId(), 'es_ES');
-        $this->assertGreaterThan(0, $actual, "Amount should be an greater than 0");
+        $this->assertInstanceOf('antonienko\MoneyFormatter\MoneyFormatter',$actual);
     }
 
     /**
@@ -196,8 +196,7 @@ class UserServiceUnitTest extends UnitTestBase
         $this->stubEntityManager($entityManager_stub);
         $sut = $this->getSut();
         $result_add = $sut->addNewPaymentMethod($paymentMethod);
-        $this->markTestIncomplete("result_add looks like is not an array, but a ServiceResultObject. Pay attention to the hints that phpstorms gives you, you can see that the variable is highlighted inside the count");
-        $actual = count($result_add);
+        $actual = count($result_add->getValues());
         $this->assertEquals($expected,$actual);
     }
 
@@ -223,6 +222,7 @@ class UserServiceUnitTest extends UnitTestBase
         $this->exerciseGetPaymentMethod($expected);
     }
 
+
     /**
      * method getPaymentMethods
      * when calledWithInvalidUser
@@ -233,6 +233,21 @@ class UserServiceUnitTest extends UnitTestBase
         $expected = new ServiceActionResult(false,'You don\'t have any payment method registered');
         $this->exerciseGetPaymentMethod($expected,[],'43872489302fdkosfds');
     }
+
+    /**
+     * method getPaymentMethod
+     * when calledWithInvalidIdPayment
+     * should returnServiceActionResultFalse
+     */
+    public function test_getPaymentMethod_calledWithInvalidIdPayment_returnServiceActionResultFalse()
+    {
+        $expected = new ServiceActionResult(false);
+        $this->paymentMethodRepository_double->findOneBy(['id' => '1234'])->willThrow(new \Exception());
+        $sut = $this->getSut();
+        $actual = $sut->getPaymentMethod('1234');
+        $this->assertEquals($expected,$actual);
+    }
+
 
     /**
      * method getMyPlays
@@ -250,6 +265,21 @@ class UserServiceUnitTest extends UnitTestBase
         $actual = $sut->getMyPlaysActives($userId);
         $this->assertEquals($expected,$actual);
     }
+
+    /**
+     * method getMyPlays
+     * when calledWithInvalidUser
+     * should throwException
+     */
+    public function test_getMyPlays_calledWithInvalidUser_throwException()
+    {
+        $this->setExpectedException('\InvalidArgumentException');
+        $this->userRepository_double->find(Argument::any())->willReturn(null);
+        $sut = $this->getSut();
+        $sut->getPaymentMethods($this->getUser()->getId());
+    }
+
+
 
     /**
      * method getMyPlays

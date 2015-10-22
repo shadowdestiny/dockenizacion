@@ -8,6 +8,7 @@ use EuroMillions\services\CurrencyService;
 use EuroMillions\services\LanguageService;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\services\LotteriesDataService;
+use EuroMillions\services\UserPreferencesService;
 use EuroMillions\services\UserService;
 use Phalcon\Di;
 use Phalcon\Mvc\View;
@@ -30,8 +31,10 @@ class PublicSiteControllerBase extends ControllerBase
     protected $userService;
     /** @var  AuthService */
     protected $authService;
+    /** @var  UserPreferencesService */
+    protected $userPreferencesService;
 
-    public function initialize(LotteriesDataService $lotteriesDataService = null, LanguageService $languageService = null, CurrencyService $currencyService = null, UserService $userService = null, AuthService $authService= null)
+    public function initialize(LotteriesDataService $lotteriesDataService = null, LanguageService $languageService = null, CurrencyService $currencyService = null, UserService $userService = null, AuthService $authService= null, UserPreferencesService $userPreferencesService = null)
     {
         parent::initialize();
         $this->lotteriesDataService = $lotteriesDataService ? $lotteriesDataService : $this->domainServiceFactory->getLotteriesDataService();
@@ -39,6 +42,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->currencyService = $currencyService ? $currencyService : $this->domainServiceFactory->getServiceFactory()->getCurrencyService();
         $this->userService = $userService ? $userService : $this->domainServiceFactory->getUserService();
         $this->authService = $authService ? $authService : $this->domainServiceFactory->getAuthService();
+        $this->userPreferencesService = $userPreferencesService ? $userPreferencesService : $this->domainServiceFactory->getUserPreferencesService();
     }
 
     public function afterExecuteRoute()
@@ -58,7 +62,7 @@ class PublicSiteControllerBase extends ControllerBase
 
     private function setTopNavValues()
     {
-        $user_currency = $this->userService->getMyCurrencyNameAndSymbol();
+        $user_currency = $this->userPreferencesService->getMyCurrencyNameAndSymbol();
         $is_logged = $this->authService->isLogged();
         if($is_logged){
             $user_balance = $this->userService->getBalance($this->authService->getCurrentUser()->getId(), $this->languageService->getLocale());

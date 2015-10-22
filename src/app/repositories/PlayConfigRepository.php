@@ -29,7 +29,7 @@ class PlayConfigRepository extends RepositoryBase
                 'SELECT p'
                 . ' FROM ' . $this->getEntityName() . ' p'
                 . ' WHERE p.active = 1 AND :day BETWEEN p.startDrawDate and p.lastDrawDate '
-                . ' GROUP BY p.user ' )
+                . ' ')
             ->setParameters(['day' => $day])
             ->getResult();
         return $result;
@@ -68,5 +68,14 @@ class PlayConfigRepository extends RepositoryBase
         return $result;
     }
 
-
+    public function getUsersWithPlayConfigsActive()
+    {
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT p'
+                . ' FROM ' . $this->getEntityName() . ' p INNER JOIN p.user u'
+                . ' WHERE p.active = 1 GROUP BY u.id')
+            ->getResult();
+        return $result;
+    }
 }

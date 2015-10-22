@@ -156,8 +156,30 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
         $this->betRepository_double->getBetsByDrawDate(Argument::any())->willReturn(null);
         $this->betRepository_double->add(Argument::any())->willReturn(true);
+        $this->userRepository_double->add(Argument::any())->willReturn(true);
         $entityManager_stub = $this->getEntityManagerDouble();
-        $entityManager_stub->flush(Argument::any())->shouldNotBeCalled();
+        $entityManager_stub->flush()->shouldNotBeCalled();
+        $sut = $this->getSut();
+        $actual = $sut->bet($playConfig,$euroMillionsDraw, new \DateTime('2015-09-16 00:00:00'));
+        $this->assertEquals($expected,$actual);
+    }
+
+
+    /**
+     * method bet
+     * when called
+     * should returnExceptionNoWasPossibleSubstractAmountInUser
+     */
+    public function test_bet_called_returnExceptionNoWasPossibleSubstractAmountInUser()
+    {
+        $expected = new ServiceActionResult(false);
+        list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
+        $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
+        $this->betRepository_double->getBetsByDrawDate(Argument::any())->willReturn(null);
+        $this->betRepository_double->add(Argument::any())->willReturn(true);
+        $this->userRepository_double->add($this->getUser())->willThrow(new \Exception());
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->flush()->shouldNotBeCalled();
         $sut = $this->getSut();
         $actual = $sut->bet($playConfig,$euroMillionsDraw, new \DateTime('2015-09-16 00:00:00'));
         $this->assertEquals($expected,$actual);
@@ -188,9 +210,9 @@ class PlayServiceUnitTest extends UnitTestBase
     /**
      * method bet
      * when calledWhenUserWithoutBalance
-     * should throwExceptionNoBalance
+     * should throwInvalidBalanceException
      */
-    public function test_bet_calledWhenUserWithoutBalance_throwExceptionNoBalance()
+    public function test_bet_calledWhenUserWithoutBalance_throwInvalidBalanceException()
     {
         $user = $this->getUser();
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
@@ -299,7 +321,7 @@ class PlayServiceUnitTest extends UnitTestBase
                 'email'    => new Email('raul.mesa@panamedia.net'),
                 'password' => new Password('passworD01', new NullPasswordHasher()),
                 'validated' => false,
-                'balance' => new Money(5000,new Currency($currency)),
+                'balance' => new Money(50000,new Currency($currency)),
                 'validation_token' => '33e4e6a08f82abb38566fc3bb8e8ef0d'
             ]
         );
@@ -358,7 +380,7 @@ class PlayServiceUnitTest extends UnitTestBase
             'active'    => 1,
             'frequency' => 'freq',
             'draw_time' => 'draw',
-            'single_bet_price' => 235,
+            'single_bet_price' => new Money(23500, new Currency('EUR')),
         ]);
         $euroMillionsDraw->setLottery($lottery);
         $playConfig = new PlayConfig();
@@ -370,5 +392,18 @@ class PlayServiceUnitTest extends UnitTestBase
         return [$playConfig,$euroMillionsDraw];
     }
 
+    private function getLotteryConfig()
+    {
+        $lottery = new Lottery();
+        $lottery->initialize([
+            'id'        => 1,
+            'name'      => 'EuroMillions',
+            'active'    => 1,
+            'frequency' => 'freq',
+            'draw_time' => 'draw',
+            'single_bet_price' => 23500,
+        ]);
 
+        return $lottery;
+    }
 }

@@ -26,7 +26,7 @@ class PlayController extends PublicSiteControllerBase
             'jackpot_value' => $jackpot->getAmount()/100,
             'play_dates' => $play_dates,
             'next_draw' => $dayOfWeek(),
-            'single_bet_price' => $single_bet_price->getAmount()/100,
+            'single_bet_price' => $single_bet_price->getAmount()/10000,
         ]);
     }
 

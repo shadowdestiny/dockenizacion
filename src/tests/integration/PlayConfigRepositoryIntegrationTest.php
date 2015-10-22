@@ -52,6 +52,7 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
             $this->getLuckyNumbers($lucky_numbers));
 
         list($expected, $actual) = $this->exerciseAdd($user, $euroMillionsLine);
+
         $this->assertEquals($expected, $actual);
     }
 

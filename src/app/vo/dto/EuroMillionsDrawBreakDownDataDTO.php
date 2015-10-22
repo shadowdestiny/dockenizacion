@@ -6,6 +6,7 @@ namespace EuroMillions\vo\dto;
 
 use EuroMillions\exceptions\UnsupportedOperationException;
 use EuroMillions\interfaces\IDto;
+use EuroMillions\services\CurrencyService;
 use EuroMillions\vo\dto\base\DTOBase;
 use EuroMillions\vo\EuroMillionsDrawBreakDownData;
 use Money\Currency;
@@ -127,7 +128,7 @@ class EuroMillionsDrawBreakDownDataDTO extends DTOBase implements IDto
 
     public function toArray()
     {
-        throw new UnsupportedOperationException('Method no implemented');
+        throw new UnsupportedOperationException('Method not implemented');
     }
 
 }
