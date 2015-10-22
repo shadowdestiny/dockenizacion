@@ -23,7 +23,7 @@
                 <input id="add-card-number" name="card-number" class="input" type="text" value="{{ payment_method.cardNumber }}">
 
                 <label class="label" for="add-card-name">
-                    {{ language.translate("Name on card") }} <span class="asterisk">*</span>
+                    {{ language.translate("Full Name on card") }} <span class="asterisk">*</span>
                 </label>
                 <input id="add-card-name" name="card-holder" class="input" type="text" value="{{ payment_method.cardHolderName }}">
             </div>

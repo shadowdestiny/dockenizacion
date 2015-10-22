@@ -97,7 +97,7 @@ $(function(){
                             </tr>
                         {% endfor %}
                     {% endif %}
-                        <!--<tr>
+                        {# <tr>
                             <td class="cards">
                                 <input name="bankRadio" type="radio" class="radio" data-role="none"> 
                                 <span class="sprite card mastercard"><span class="txt">Mastercard</span></span>
@@ -106,7 +106,7 @@ $(function(){
                             <td class="expire">02 2019</td>
                             <td class="name">Mario Rossi</td>
                             <td class="action"><a href="javascript:void(0);">{{ language.translate("Delete") }}</a></td>
-                        </tr>-->
+                        </tr> #}
                     </tbody>
                 </table>
 

@@ -32,6 +32,7 @@
 .account{
     .label{font-size:$basic-size;}
     .change .info.box{margin-top:22px;}
+    .box-change-psw .col6:last-child{border:0!important;}
 }
 .connect{
     margin:20px 0;
@@ -96,6 +97,7 @@
         .txt{margin:0 15px 0 0!important; float:left; width:567px;}
         .btn{font-style:normal; min-width:200px; text-align:center;}
     }
+    .box-add-card .info .txt{float:none; margin:0 0 0 34px!important;}
     .box-details .btn{min-width:210px; text-align:center;}
     .symbol{position:relative; top:1px; right:-23px; font-weight:bold; color:$yellow-dark;}
     .table{

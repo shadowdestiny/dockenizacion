@@ -32,18 +32,18 @@ $(function(){
                 <h2 class="h3 yellow">{{ language.translate("User detail") }}</h2>
 
                 {{ form('account/index') }}
-                {% if msg %}
-                    <div class="box success">
-                        <span class="ico- ico"></span>
-                        <span class="txt">{{ msg }}</span>
-                    </div>
-                {% endif %}
-                {% if  errors %}
-                    <div class="box error">
-                        <span class="ico-warning ico"></span>
-                        <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
-                    </div>
-                {% endif %}
+                    {% if msg %}
+                        <div class="box success">
+                            <span class="ico-checkmark ico"></span>
+                            <span class="txt">{{ msg }}</span>
+                        </div>
+                    {% endif %}
+                    {% if  errors %}
+                        <div class="box error">
+                            <span class="ico-warning ico"></span>
+                            <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
+                        </div>
+                    {% endif %}
                     <div class="wrap">
                         <div class="cols">
                             <div class="col6">
