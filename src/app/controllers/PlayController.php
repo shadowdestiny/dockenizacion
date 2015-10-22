@@ -9,7 +9,7 @@ class PlayController extends PublicSiteControllerBase
     public function indexAction()
     {
         //EMTD surely we need more things
-        $jackpot = $this->userService->getJackpotInMyCurrency($this->lotteriesDataService->getNextJackpot('EuroMillions'));
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteriesDataService->getNextJackpot('EuroMillions'));
         $play_dates = $this->nextDrawsRecurrent();
         $dayOfWeek = function() {
             $draw = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions');

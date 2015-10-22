@@ -18,7 +18,7 @@ class NumbersController extends PublicSiteControllerBase
         $lotteryName = 'EuroMillions';
         $now = new \DateTime();
         $breakDown = $this->lotteriesDataService->getBreakDownDrawByDate($lotteryName,$now);
-        $jackpot = $this->userService->getJackpotInMyCurrency($this->lotteriesDataService->getNextJackpot('EuroMillions'));
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteriesDataService->getNextJackpot('EuroMillions'));
         $breakDownDTO = new EuroMillionsDrawBreakDownDTO($breakDown->getValues(),$this->currencyService);
 
         $break_down_list = $breakDownDTO->convertCurrency($this->userService->getCurrency());
