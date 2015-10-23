@@ -6,7 +6,7 @@ namespace EuroMillions\services\play_strategies;
 use EuroMillions\interfaces\IPlayStorageStrategy;
 use EuroMillions\interfaces\ISession;
 use EuroMillions\vo\PlayFormToStorage;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 use EuroMillions\vo\UserId;
 
 class SessionPlayStorageStrategy implements IPlayStorageStrategy
@@ -28,17 +28,17 @@ class SessionPlayStorageStrategy implements IPlayStorageStrategy
 
     /**
      * @param $key
-     * @return ServiceActionResult
+     * @return ActionResult
      */
     public function findByKey($key)
     {
-        if(empty($key)) return new ServiceActionResult(false, 'Key is invalid in session');
+        if(empty($key)) return new ActionResult(false, 'Key is invalid in session');
 
         $result = $this->session->get($key);
         if(!empty($result)){
-            return new ServiceActionResult(true,$result);
+            return new ActionResult(true,$result);
         }else{
-            return new ServiceActionResult(false,'No EuroMillions lines in session');
+            return new ActionResult(false,'No EuroMillions lines in session');
         }
     }
 

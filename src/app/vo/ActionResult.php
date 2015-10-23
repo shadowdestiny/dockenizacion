@@ -1,7 +1,7 @@
 <?php
 namespace EuroMillions\vo;
 
-class ServiceActionResult
+class ActionResult
 {
     private $success;
     private $returnValues;

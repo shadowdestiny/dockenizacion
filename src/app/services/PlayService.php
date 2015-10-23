@@ -18,7 +18,7 @@ use EuroMillions\repositories\PlayConfigRepository;
 use EuroMillions\vo\EuroMillionsLine;
 use EuroMillions\vo\PlayForm;
 use EuroMillions\vo\PlayFormToStorage;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 use EuroMillions\vo\UserId;
 
 class PlayService
@@ -56,7 +56,7 @@ class PlayService
 
     /**
      * @param User $user
-     * @return ServiceActionResult
+     * @return ActionResult
      */
     public function play(User $user)
     {
@@ -65,7 +65,7 @@ class PlayService
             try {
                 $temporalForm = $this->playStorageStrategy->findByKey($user->getId()->id());
                 if(empty($temporalForm)){
-                    return new ServiceActionResult(false,'The search key doesn\'t exist');
+                    return new ActionResult(false,'The search key doesn\'t exist');
                 }
                 $playConfig = new PlayConfig();
                 $playConfig->formToEntity($user,$temporalForm);
@@ -74,15 +74,15 @@ class PlayService
                 //Remove play storage
                 $result = $this->playStorageStrategy->delete($user->getId()->id());
                 if(!empty($result)){
-                    return new ServiceActionResult(true);
+                    return new ActionResult(true);
                 }else{
-                    return new ServiceActionResult(false);
+                    return new ActionResult(false);
                 }
             } catch(\Exception $e){
-                return new ServiceActionResult(false, 'An exception occurred while created play');
+                return new ActionResult(false, 'An exception occurred while created play');
             }
         } else {
-            return new ServiceActionResult(false);
+            return new ActionResult(false);
         }
     }
 
@@ -90,7 +90,7 @@ class PlayService
      * @param PlayConfig $playConfig
      * @param EuroMillionsDraw $euroMillionsDraw
      * @param \DateTime $today
-     * @return ServiceActionResult
+     * @return ActionResult
      * @throws \Exception
      */
     public function bet(PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw, \DateTime $today = null)
@@ -105,7 +105,7 @@ class PlayService
             $dateNextDraw = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions', $today);
             $result = $this->betRepository->getBetsByDrawDate(new \DateTime($dateNextDraw));
             if(!empty($result)){
-                return new ServiceActionResult(true);
+                return new ActionResult(true);
             }else{
                 try{
                     $bet = new Bet($playConfig,$euroMillionsDraw);
@@ -113,9 +113,9 @@ class PlayService
                     $user->setBalance($user->getBalance()->subtract($single_bet_price));
                     $this->userRepository->add($user);
                     $this->entityManager->flush();
-                    return new ServiceActionResult(true);
+                    return new ActionResult(true);
                 }catch(\Exception $e) {
-                    return new ServiceActionResult(false);
+                    return new ActionResult(false);
                 }
             }
         } else {
@@ -127,9 +127,9 @@ class PlayService
     {
         $result = $this->playStorageStrategy->saveAll($playForm,$userId);
         if($result->success()){
-            return new ServiceActionResult(true);
+            return new ActionResult(true);
         }else{
-            return new ServiceActionResult(false);
+            return new ActionResult(false);
         }
     }
 
@@ -138,9 +138,9 @@ class PlayService
 
         $result = $this->playConfigRepository->getPlayConfigsByDrawDayAndDate($date);
         if(!empty($result)){
-            return new ServiceActionResult(true,$result);
+            return new ActionResult(true,$result);
         }else{
-            return new ServiceActionResult(false);
+            return new ActionResult(false);
         }
     }
 

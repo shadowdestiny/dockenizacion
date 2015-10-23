@@ -12,7 +12,7 @@ use EuroMillions\entities\User;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\EuroMillionsLine;
 use EuroMillions\vo\Password;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 use EuroMillions\vo\UserId;
 use Money\Currency;
 use Money\Money;
@@ -88,7 +88,7 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
      */
     public function test_playConfigsWithBetsAwarded_calledAndReturnEmptyResult_returnServiceActionResultFalse()
     {
-        $expected = new ServiceActionResult(false);
+        $expected = new ActionResult(false);
         $date = new \DateTime('2015-10-06 00:00:00');
         $sut = $this->getSut();
         $this->betRepository_double->getCheckResult($date->format('Y-m-d'))->willReturn(null);
@@ -103,7 +103,7 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
      */
     public function test_chargeAmountAwardedToUser_called_chargeAmountInHisAccountAndReturnServiceActionResultTrue()
     {
-        $expected = new ServiceActionResult(true);
+        $expected = new ActionResult(true);
         $amount_awarded = new Money(5000, new Currency('EUR'));
         $user = $this->getUser();
         $this->userRepository_double->add($user);
@@ -122,7 +122,7 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
      */
     public function test_chargeAmountAwardedToUser_throwException_returnServiceActionResultFalse()
     {
-        $expected = new ServiceActionResult(false);
+        $expected = new ActionResult(false);
         $user = $this->getUser();
         $amount_awarded = new Money(5000, new Currency('EUR'));
         $this->userRepository_double->add($user);

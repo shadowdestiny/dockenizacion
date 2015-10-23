@@ -17,7 +17,7 @@ use EuroMillions\vo\LastDrawDate;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\PlayForm;
 use EuroMillions\vo\PlayFormToStorage;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 use EuroMillions\vo\UserId;
 use Money\Currency;
 use Money\Money;
@@ -77,7 +77,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_play_called_returnServiceActionResultTrue()
     {
-        $expected = new ServiceActionResult(true);
+        $expected = new ActionResult(true);
         $actual = $this->exerciseTemporarilyStorePlay($expected);
         $this->assertEquals($expected,$actual);
     }
@@ -89,7 +89,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_play_calledWithUserWithoutBalance_returnServiceActionResultFalse()
     {
-        $expected = new ServiceActionResult(false);
+        $expected = new ActionResult(false);
         $user = $this->getUser();
         $user->setBalance(new Money(0,new Currency('EUR')));
         $regular_numbers = [1, 2, 3, 4, 5];
@@ -111,7 +111,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_play_calledAndPlayIsStored_removeKeyAndReturnServiceActionResultTrue()
     {
-        $expected = new ServiceActionResult(true);
+        $expected = new ActionResult(true);
         $actual = $this->exerciseTemporarilyStorePlay($expected);
         $this->assertEquals($expected,$actual);
     }
@@ -123,7 +123,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_play_calledAndPlayIsNotStored_returnServiceActionResultFalse()
     {
-        $expected = new ServiceActionResult(false);
+        $expected = new ActionResult(false);
         $actual = $this->exerciseTemporarilyStorePlay($expected);
         $this->assertEquals($expected,$actual);
     }
@@ -136,7 +136,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_play_calledAndPassKeyInvalidToSearchInStorage_returnServiceActionResultFalse()
     {
-        $expected = new ServiceActionResult(false,'The search key doesn\'t exist');
+        $expected = new ActionResult(false,'The search key doesn\'t exist');
         $user = $this->getUser();
         $sut = $this->getSut();
         $this->playStorageStrategy_double->findByKey($user->getId()->id())->willReturn(null);
@@ -151,7 +151,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_bet_calledWhenTheresNoBetInDB_returnServiceActionResultTrueAndCreateNewBet()
     {
-        $expected = new ServiceActionResult(true);
+        $expected = new ActionResult(true);
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
         $this->betRepository_double->getBetsByDrawDate(Argument::any())->willReturn(null);
@@ -172,7 +172,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_bet_called_returnExceptionNoWasPossibleSubstractAmountInUser()
     {
-        $expected = new ServiceActionResult(false);
+        $expected = new ActionResult(false);
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
         $this->betRepository_double->getBetsByDrawDate(Argument::any())->willReturn(null);
@@ -193,7 +193,7 @@ class PlayServiceUnitTest extends UnitTestBase
     public function test_bet_calledWhenABetForNextDrawYetExists_returnServiceActionResultTrueButNotCreateNewBet()
     {
 
-        $expected = new ServiceActionResult(true);
+        $expected = new ActionResult(true);
         $today = new \DateTime('2015-09-16 00:00:00');
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $bet = new Bet($playConfig,$euroMillionsDraw);
@@ -230,7 +230,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_temporarilyStorePlay_called_returnServiceActionResultTrueWhenStore()
     {
-        $expected = new ServiceActionResult(true);
+        $expected = new ActionResult(true);
         $actual = $this->exerciseTemporarilyStorePlay($expected);
         $this->assertEquals($expected,$actual);
     }
@@ -242,7 +242,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_temporarilyStorePlay_called_returnServiceActionResultFalseWhenTryStore()
     {
-        $expected = new ServiceActionResult(false);
+        $expected = new ActionResult(false);
         $actual = $this->exerciseTemporarilyStorePlay($expected);
         $this->assertEquals($expected,$actual);
     }

@@ -9,7 +9,7 @@ use EuroMillions\forms\SignUpForm;
 use EuroMillions\services\AuthService;
 use EuroMillions\services\GeoService;
 use EuroMillions\vo\Email;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 use Phalcon\Validation\Message;
 
 class UserAccessController extends ControllerBase
@@ -159,7 +159,7 @@ class UserAccessController extends ControllerBase
 
                     $email = $this->request->getPost('email');
                     $reCaptchaResult = $captcha->check()->isValid();
-                    $result = new ServiceActionResult(false);
+                    $result = new ActionResult(false);
 
                     if(!empty($email) && !empty($reCaptchaResult)){
                         $result = $this->authService->forgotPassword(new Email($email));

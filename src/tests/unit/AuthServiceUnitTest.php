@@ -12,7 +12,7 @@ use EuroMillions\vo\ContactFormInfo;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\RememberToken;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 use EuroMillions\vo\UserId;
 use EuroMillions\vo\ValidationToken;
 use Money\Currency;
@@ -148,7 +148,7 @@ class AuthServiceUnitTest extends UnitTestBase
      */
     public function test_updatePassword_called_returnServiceActionResultTrue()
     {
-        $expected = new ServiceActionResult(true,'Your password was changed correctly');
+        $expected = new ActionResult(true,'Your password was changed correctly');
         $sut = $this->getSut();
         $user = $this->getNewUser();
         $password = 'passworD01';
@@ -167,7 +167,7 @@ class AuthServiceUnitTest extends UnitTestBase
      */
     public function test_updatePassword_called_throwExceptionAndReturnServiceActionResultFalse()
     {
-        $expected = new ServiceActionResult(false);
+        $expected = new ActionResult(false);
         $sut = $this->getSut();
         $user = $this->getNewUser();
         $password = 'passworD01';
@@ -337,7 +337,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $existing_mail = 'antonio.hernandez@panamedia.net';
         $this->userRepository_double->getByEmail($existing_mail)->willReturn(new User());
         $credentials = $this->getRegisterCredentials($existing_mail);
-        $expected = new ServiceActionResult(false, 'Email already registered');
+        $expected = new ActionResult(false, 'Email already registered');
         $sut = $this->getSut();
         $actual = $sut->register($credentials);
         $this->assertEquals($expected, $actual);
@@ -372,7 +372,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $this->urlManager_double->get(Argument::type('string'))->willReturn('http://localhost/userAccess/validate/441a9e42f0e3c769a6112b56a04b6');
         $sut = $this->getSut();
         $actual = $sut->register($credentials);
-        $expected = new ServiceActionResult(true, $user);
+        $expected = new ActionResult(true, $user);
         $this->assertEquals($expected, $actual);
     }
 
@@ -384,7 +384,7 @@ class AuthServiceUnitTest extends UnitTestBase
      */
     public function test_validateEmailToken_calledWithValidationFalse_returnFalse()
     {
-        $expected = new ServiceActionResult(false, "The token is invalid");
+        $expected = new ActionResult(false, "The token is invalid");
         $token = 'ñaiijlñasdil¡';
         $validation_result = false;
         list($user, $emailValidationTokenGenerator) = $this->getUserAndPrepareValidator($token, $validation_result);
@@ -405,7 +405,7 @@ class AuthServiceUnitTest extends UnitTestBase
         /** @var User $expected_user */
         $expected_user = clone $user;
         $expected_user->setValidated(true);
-        $expected_result = new ServiceActionResult(true, $expected_user);
+        $expected_result = new ActionResult(true, $expected_user);
         $this->expectFlushInEntityManager($expected_user);
         $actual = $this->exerciseValidateEmailToken($user, $token, $emailValidationTokenGenerator);
         $this->assertEquals($expected_result, $actual);
@@ -426,7 +426,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $sut = $this->getSut();
         $actual = $sut->forgotPassword($email);
         $this->assertTrue($actual->success());
-        $this->assertInstanceOf('EuroMillions\vo\ServiceActionResult', $actual);
+        $this->assertInstanceOf('EuroMillions\vo\ActionResult', $actual);
     }
 
     /**
@@ -441,7 +441,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $sut = $this->getSut();
         $actual = $sut->resetPassword($token);
         $this->userRepository_double->getByToken($token)->willReturn($user);
-        $this->assertInstanceOf('Euromillions\vo\ServiceActionResult', $actual);
+        $this->assertInstanceOf('Euromillions\vo\ActionResult', $actual);
     }
 
 
@@ -601,7 +601,7 @@ class AuthServiceUnitTest extends UnitTestBase
      * @param $user
      * @param $token
      * @param $emailValidationTokenGenerator
-     * @return ServiceActionResult
+     * @return ActionResult
      */
     private function exerciseValidateEmailToken($user, $token, $emailValidationTokenGenerator)
     {

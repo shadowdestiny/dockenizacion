@@ -7,7 +7,7 @@ use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\services\LotteriesDataService;
 use EuroMillions\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\vo\EuroMillionsLine;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 use Money\Currency;
 use Money\Money;
 use Phalcon\Di;
@@ -147,7 +147,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     {
         $lotteryName = 'EuroMillions';
         $this->prepareLotteryEntity($lotteryName);
-        $expected = new ServiceActionResult(true);
+        $expected = new ActionResult(true);
         $this->lotteryDrawRepositoryDouble->expects($this->any())
             ->method('findOneBy')
             ->will($this->returnValue($expected));
@@ -264,7 +264,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
      */
     public function test_getNextDrawByLottery_calledAndEuroMillionsDrawReturnedIsEmpty_returnServiceActionResultFalse()
     {
-        $expected = new ServiceActionResult(false);
+        $expected = new ActionResult(false);
         $lotteryName = 'EuroMillions';
         $this->prepareLotteryEntity($lotteryName);
         $this->lotteryDrawRepositoryDouble->expects($this->any())
@@ -348,7 +348,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
             'draw_time' => '20:00:00'
         ]);
 
-        $expected = new ServiceActionResult(true,$lottery);
+        $expected = new ActionResult(true,$lottery);
         $this->lotteryRepositoryDouble->expects($this->any())
             ->method('findOneBy')
             ->will($this->returnValue($lottery));
@@ -366,7 +366,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     public function test_getLotteryConfigByName_calledWithWorngNameLottery_returnServiceActionResultFalse()
     {
         $lotteryName = 'EuroMillions2';
-        $expected = new ServiceActionResult(false,'Lottery unknown');
+        $expected = new ActionResult(false,'Lottery unknown');
         $this->lotteryRepositoryDouble->expects($this->any())
             ->method('getLotteryByName')
             ->will($this->returnValue(null));
@@ -382,7 +382,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
      */
     public function test_getBreakDownDrawByDate_calledWithValidData_returnServiceActionResultTrueWithBreakDownDataDraw()
     {
-        $expected = new ServiceActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw()));
+        $expected = new ActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw()));
         $this->lotteryRepositoryDouble->expects($this->any())
             ->method('findOneBy')
             ->will($this->returnValue(new Lottery()));
@@ -403,7 +403,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
      */
     public function test_getBreakDownDrawByDate_calledWithValidData_returnServiceActionResultFalseWithoutBreakDownDataDraw()
     {
-        $expected = new ServiceActionResult(false);
+        $expected = new ActionResult(false);
         $this->lotteryRepositoryDouble->expects($this->any())
             ->method('findOneBy')
             ->will($this->returnValue(new Lottery()));

@@ -1,6 +1,8 @@
 <?php
 namespace tests\base;
 
+use tests\unit\utils\CurlResponse;
+
 trait LoteriasyapuestasDotEsRelatedTest
 {
     protected $rss_results = <<<'EOD'
@@ -1721,8 +1723,7 @@ EOD;
      */
     private function setCurlWrapper($rss)
     {
-        $response = new \stdClass();
-        $response->body = $rss;
+		$response = new CurlResponse($rss);
 
         /** @var \Phalcon\Http\Client\Provider\Curl|\PHPUnit_Framework_MockObject_MockObject $curlWrapper_stub */
         $curlWrapper_stub =

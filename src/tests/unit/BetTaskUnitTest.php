@@ -16,7 +16,7 @@ use EuroMillions\vo\DrawDays;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\EuroMillionsLine;
 use EuroMillions\vo\Password;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 use EuroMillions\vo\UserId;
 use Money\Currency;
 use Money\Money;
@@ -95,7 +95,7 @@ class BetTaskUnitTest extends UnitTestBase
     public function test_createBet_called_callPlayServiceBetOncePerEachEuromillionsDraw($today, $callTimes, $lotteryDrawDate)
     {
         $euroMillionsDraw = $this->getEuroMillionsDraw($lotteryDrawDate);
-        $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ServiceActionResult(true,$euroMillionsDraw));
+        $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true,$euroMillionsDraw));
         $play_config_list = $this->getPlayConfigList();
         $this->playService_double->getPlaysConfigToBet($euroMillionsDraw->getDrawDate())->willReturn($play_config_list);
         $this->playService_double->bet(Argument::type('EuroMillions\entities\PlayConfig'), $euroMillionsDraw)->shouldBeCalledTimes($callTimes);
@@ -150,7 +150,7 @@ class BetTaskUnitTest extends UnitTestBase
         foreach($attributes_list as $attributes) {
             $play_config_list[] = $this->getPlayConfigFromAttributes($attributes);
         }
-        return new ServiceActionResult(true, $play_config_list);
+        return new ActionResult(true, $play_config_list);
     }
 
     /**
@@ -161,7 +161,7 @@ class BetTaskUnitTest extends UnitTestBase
     public function test_createBet_called_sendProperArgumentsToEachCallOfPlayServiceBet()
     {
         $euroMillionsDraw = $this->getEuroMillionsDraw('2015-10-09');
-        $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ServiceActionResult(true,$euroMillionsDraw));
+        $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true,$euroMillionsDraw));
         $play_config_list = $this->getPlayConfigList();
         $this->playService_double->getPlaysConfigToBet($euroMillionsDraw->getDrawDate())->willReturn($play_config_list);
         $play_config = $this->getPlayConfigList();
@@ -184,7 +184,7 @@ class BetTaskUnitTest extends UnitTestBase
     public function test_createBet_calledWithValidUserButWithLowBalance_sendEmailWithEmptyBalance()
     {
         $euroMillionsDraw = $this->getEuroMillionsDraw('2015-10-16');
-        $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ServiceActionResult(true,$euroMillionsDraw));
+        $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true,$euroMillionsDraw));
         $play_config_list = $this->getPlayConfigList();
         $this->playService_double->getPlaysConfigToBet($euroMillionsDraw->getDrawDate())->willReturn($play_config_list);
         $this->playService_double->bet(Argument::type('EuroMillions\entities\PlayConfig'), $euroMillionsDraw)->shouldBeCalledTimes(1);
@@ -207,8 +207,8 @@ class BetTaskUnitTest extends UnitTestBase
     public function test_createBetAction_calledWithValidData_returnServiceActionResultFalseWithoutResult()
     {
         $euroMillionsDraw = $this->getEuroMillionsDraw('2015-10-09');
-        $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ServiceActionResult(true,$euroMillionsDraw));
-        $this->playService_double->getPlaysConfigToBet($euroMillionsDraw->getDrawDate())->willReturn(new ServiceActionResult(false));
+        $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true,$euroMillionsDraw));
+        $this->playService_double->getPlaysConfigToBet($euroMillionsDraw->getDrawDate())->willReturn(new ActionResult(false));
         $this->playService_double->bet(Argument::any(),Argument::any())->shouldNotBeCalled();
         $sut = new BetTask();
         $sut->initialize($this->lotteryDataService_double->reveal(), $this->playService_double->reveal(),$this->emailService_double->reveal(), $this->userService_double->reveal());

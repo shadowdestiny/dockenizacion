@@ -7,7 +7,7 @@ namespace EuroMillions\services\play_strategies;
 use EuroMillions\interfaces\IPlayStorageStrategy;
 use EuroMillions\interfaces\IRedis;
 use EuroMillions\vo\PlayFormToStorage;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 use EuroMillions\vo\UserId;
 use Phalcon\Cache\Backend\Redis;
 use RedisException;
@@ -32,9 +32,9 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
     {
         try{
             $this->storage->save($this->getNameKey($userId), $data->toJson());
-            return new ServiceActionResult(true);
+            return new ActionResult(true);
         }catch(RedisException $e){
-            return new ServiceActionResult(false,'Unable to save data in storage');
+            return new ActionResult(false,'Unable to save data in storage');
         }
 
     }
@@ -44,25 +44,25 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
         try{
             $result = $this->storage->get($key);
             if(empty($result)){
-                return new ServiceActionResult(false,'Key not found');
+                return new ActionResult(false,'Key not found');
             }else{
-                return new ServiceActionResult(true, $result);
+                return new ActionResult(true, $result);
             }
         }catch(RedisException $e){
-            return new ServiceActionResult(false,'An error ocurred while find key');
+            return new ActionResult(false,'An error ocurred while find key');
         }
     }
 
     public function delete($key = '')
     {
         if(empty($key)){
-            return new ServiceActionResult(false,'Invalid key');
+            return new ActionResult(false,'Invalid key');
         }else{
             try{
                 $this->storage->delete($key);
-                return new ServiceActionResult(true);
+                return new ActionResult(true);
             }catch(RedisException $e){
-                return new ServiceActionResult(false,'An exception ocurred while delete key');
+                return new ActionResult(false,'An exception ocurred while delete key');
             }
         }
     }

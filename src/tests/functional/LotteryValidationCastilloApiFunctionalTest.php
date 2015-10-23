@@ -4,124 +4,90 @@
 namespace tests\functional;
 
 
+use EuroMillions\components\CypherCastillo3DES;
+use EuroMillions\entities\Bet;
+use EuroMillions\entities\EuroMillionsDraw;
+use EuroMillions\entities\PlayConfig;
 use EuroMillions\services\external_apis\LotteryValidationCastilloApi;
-use Phalcon\Http\Client\Provider\Curl;
+use EuroMillions\vo\ActionResult;
+use EuroMillions\vo\CastilloBetId;
+use EuroMillions\vo\CastilloCypherKey;
 use tests\base\DatabaseIntegrationTestBase;
+use tests\base\LotteryValidationCastilloRelatedTest;
 
 class LotteryValidationCastilloApiFunctionalTest extends DatabaseIntegrationTestBase
 {
 
+    use LotteryValidationCastilloRelatedTest;
+
+    private $id_for_test;
+
+    private $cypher_double;
+
+    public function setUp()
+    {
+        parent::setUp();
+        if (empty($this->id_for_test)) {
+            $this->id_for_test = CastilloBetId::create();
+        }
+        $this->cypher_double = $this->prophesize('EuroMillions\interfaces\ICypherStrategy');
+    }
+
+
     /**
      * method validateBet
-     * when called
-     * should returnAcceptableResult
+     * when calledWithNotUsedId
+     * should returnActionResultTrue
      */
-    public function test_validateBet_called_returnAcceptableResult()
+    public function test_validateBet_calledWithNotUsedId_returnActionResultTrue()
     {
-
-        $cypher = \mcrypt_module_open(MCRYPT_3DES, '', MCRYPT_MODE_CBC, '');
-
-        $content = <<< 'EOD'
-<?xml version='1.0' encoding='UTF-8'?>
-<ticket type='6' date='161004' bets='1' price='2'>
-<id>2330000001</id>
-<combination>
-<number>7</number>
-<number>16</number>
-<number>17</number>
-<number>22</number>
-<number>15</number>
-<star>7</star>
-<star>1</star>
-</combination>
-</ticket>
-EOD;
-
-        $key = rand(0,9);
-        $idsession = strtotime('now');
-        $content_cyphered = base64_encode($this->encrypt($cypher,self::$cypher_keys[$key],$content));
-        $preshared = '1234567890';
-        $signature = sha1(base64_decode($content_cyphered).$preshared);
-        $signature = base64_encode($signature);
-
-        $xml = <<< EOD
-<?xml version="1.0" encoding="UTF-8"?><message><operation id="'.$idsession.'" key="'.$key.'" type="1">
-<content>'.$content_cyphered.'</content></operation>';
-<signature>'.$signature.'</signature></message>
-
-EOD;
-
-        $curl = new Curl();
-        $curl->setOption(CURLOPT_POST, 1);
-        $curl->setOption(CURLOPT_SSL_VERIFYHOST,0);
-        $curl->setOption(CURLOPT_SSL_VERIFYPEER,0);
-        $curl->setOption(CURLOPT_RETURNTRANSFER,1);
-        $curl->setOption(CURLOPT_POSTFIELDS,$xml);
-
-        $result = $curl->post('https://www.loteriacastillo.com/euromillions/');
-
-        $xml_response  = simplexml_load_string($result->body);
-        $content = (string) $xml_response->operation->content;
-        $key = (int) $xml_response->operation->attributes()['key'];
-
-        $decrypt_result = $this->decryptString(base64_decode($content),self::$cypher_keys[$key]);
-
-        echo $decrypt_result;
+        $bet = $this->getBetForValidation();
+        $castilloCypherKey = CastilloCypherKey::create();
+        $bet->setCastilloBet($this->id_for_test);
+        $cypher = new CypherCastillo3DES();
+        $sut = $this->getSut();
+        $actual = $sut->validateBet($bet,$cypher,$castilloCypherKey);
+        $expected = new ActionResult(true);
+        $this->assertEquals($expected,$actual);
     }
 
 
-    private static $cypher_keys = [
-        '000000000000000000000000000000000000000000000000',
-        '000000000000000000000000000000000000000000000001',
-        '000000000000000000000000000000000000000000000002',
-        '000000000000000000000000000000000000000000000003',
-        '000000000000000000000000000000000000000000000004',
-        '000000000000000000000000000000000000000000000005',
-        '000000000000000000000000000000000000000000000006',
-        '000000000000000000000000000000000000000000000007',
-        '000000000000000000000000000000000000000000000008',
-        '000000000000000000000000000000000000000000000009',
-    ];
-
-    private function encrypt($cypher, $key, $clear)
+    /**
+     * method validateBet
+     * when calledWithNotUsedId
+     * should returnOkResult
+     */
+    public function test_validateBet_calledWithNotUsedId_returnOkResult()
     {
-        $key = pack("H" . strlen($key), $key);
-        $bs = mcrypt_enc_get_block_size($cypher);
-
-        if ((strlen($clear) % $bs) > 0) {
-            $fill = str_repeat(chr(0),8-(strlen($clear) % $bs));
-        } else {
-            $fill = str_repeat(chr(0),8);
-        }
-        $clear .= $fill;
-        $padding = str_repeat(chr(8),8);
-        $iv = str_repeat(chr(0),mcrypt_enc_get_iv_size($cypher));
-        mcrypt_generic_init($cypher, $key, $iv);
-        $encrypted_data = mcrypt_generic($cypher, $clear.$padding);
-        $cyphered = strtoupper(bin2hex($encrypted_data));
-        mcrypt_generic_deinit($cypher);
-        //close module mcrypt
-        mcrypt_module_close($cypher);
-
-        return $cyphered;
+        $id_session = $this->id_for_test;
+        //$ok_result = str_replace('[ID]', $id_session, self::$ok_result));
+        $expected = new ActionResult(true);
+        $play_config = $this->getPlayConfig();
+        $euromillions_draw = new EuroMillionsDraw();
+        $cypher = new CypherCastillo3DES();
+        $bet = new Bet($play_config,$euromillions_draw);
+        $bet->setCastilloBet($id_session);
+        $sut = $this->getSut();
+        $actual = $sut->validateBet($bet,$cypher);
+        print_r($actual);
+        $this->assertEquals($expected, $actual);
     }
 
-    private function decryptString($cyphered, $key) {
 
-        $key = pack("H" . strlen($key), $key);
 
-        if ($key && $cyphered) {
-            $td = mcrypt_module_open(MCRYPT_3DES, '', 'cbc', '');
-            $iv = str_repeat(chr(0),mcrypt_enc_get_iv_size($td));
-            mcrypt_generic_init($td, $key, $iv);
-            $clear_data = mdecrypt_generic($td, $cyphered);
-            mcrypt_generic_deinit($td);
-            mcrypt_module_close($td);
-            $clear_data = str_replace(str_repeat(chr(8),8),'',$clear_data);
-            $clear_data = str_replace(chr(0),'',$clear_data);
-            return($clear_data);
-        }
+    /**
+     * method validateBet
+     * when calledWithUsedId
+     * should returnKOResult
+     */
+    public function test_validateBet_calledWithUsedId_returnKOResult()
+    {
 
+    }
+
+    public function getSut()
+    {
+        return new LotteryValidationCastilloApi();
     }
 
     /**

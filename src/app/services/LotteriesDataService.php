@@ -10,7 +10,7 @@ use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\vo\EuroMillionsDrawBreakDownData;
 use EuroMillions\vo\EuroMillionsLine;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 use Money\Money;
 use Phalcon\Http\Client\Provider\Curl;
 
@@ -134,9 +134,9 @@ class LotteriesDataService
         if(!empty($lottery)){
             $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery,$now);
             if(!empty($euroMillionsDraw)){
-                return new ServiceActionResult(true,$euroMillionsDraw);
+                return new ActionResult(true,$euroMillionsDraw);
             }else{
-                return new ServiceActionResult(false);
+                return new ActionResult(false);
             }
         }
     }
@@ -146,9 +146,9 @@ class LotteriesDataService
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         if(!empty($lottery)){
-            return new ServiceActionResult(true, $lottery);
+            return new ActionResult(true, $lottery);
         }else{
-            return new ServiceActionResult(false,'Lottery unknown');
+            return new ActionResult(false,'Lottery unknown');
         }
     }
 
@@ -160,12 +160,12 @@ class LotteriesDataService
             /** @var EuroMillionsDrawBreakDown $emBreakDownData */
             $emBreakDownData = $this->lotteryDrawRepository->getBreakDownData($lottery);
             if(!empty($emBreakDownData)){
-                return new ServiceActionResult(true, $emBreakDownData);
+                return new ActionResult(true, $emBreakDownData);
             }else{
-                return new ServiceActionResult(false);
+                return new ActionResult(false);
             }
         }else{
-            return new ServiceActionResult(false);
+            return new ActionResult(false);
         }
     }
 
@@ -194,9 +194,9 @@ class LotteriesDataService
         /** @var EuroMillionsDraw $draw */
         $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lotteryName, 'draw_date' => $last_draw_date]);
         if(!empty($draw)) {
-            return new ServiceActionResult(true,$draw);
+            return new ActionResult(true,$draw);
         }else{
-            return new ServiceActionResult(false);
+            return new ActionResult(false);
         }
     }
 
