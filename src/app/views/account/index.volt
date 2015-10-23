@@ -18,7 +18,6 @@ $(function(){
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
-
 <main id="content">
     <div class="wrapper">
         <div class="nav box-basic">

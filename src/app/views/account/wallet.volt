@@ -64,13 +64,14 @@ $(function(){
            {% include "account/_nav.volt" %}
         </div>
         <div class="box-basic content">
+            
             <div class="hidden right back">
                 <a class="btn" href="javascript:void(0);">Go Back</a>
             </div>
             <h1 class="h1 title yellow">{{ language.translate("My Wallet") }}</h1>
             <div class="box-details {% if which_form == 'edit' %} hidden {% endif %}">
                 <h2 class="h3 yellow">{{ language.translate("Add funds to your wallet") }}</h2>
-
+{# EMTD - Until we are unable to keep the information of the credit card, this code need to be commented
                 <table id="card-list" class="table ui-responsive" >
                     <thead>
                         <tr>
@@ -81,23 +82,33 @@ $(function(){
                         </tr>
                     </thead>
                     <tbody>
-                    {% if payment_methods is empty %}
-                    {% else %}
-                        {% for payment_method in payment_methods %}
-                            <tr class="active">
-                                <td class="cards">
-                                    <input name="bankRadio" checked="checked" type="radio" class="radio" data-role="none">
-                                    <span class="sprite card mastercard"><span class="txt">Mastercard</span></span>
-                                    {{ language.translate('<span class="type">Mastercard</span> that ends with ') }}{{ payment_method.last_number }}
-                                </td>
-                                <td class="expire">{{ payment_method.expiry_date }}</td>
-                                <td class="name">{{ payment_method.cardHolderName}}</td>
-                                <td class="action"><a href="/account/editPayment/{{ payment_method.id_payment }}">{{ language.translate("Edit") }}</a></td>
-                                <td class="action"><a href="/account/remove/{{ payment_method.id_payment }}">{{ language.translate("Delete") }}</a></td>
-                            </tr>
-                        {% endfor %}
-                    {% endif %}
-                        {# <tr>
+                        {% if payment_methods is empty %}
+                        {% else %}
+                            {% for payment_method in payment_methods %}
+                                <tr class="active">
+                                    <td class="cards">
+                                        <input name="bankRadio" checked="checked" type="radio" class="radio" data-role="none">
+                                        <span class="sprite card mastercard"><span class="txt">Mastercard</span></span>
+                                        {{ language.translate('<span class="type">Mastercard</span> that ends with ') }}{{ payment_method.last_number }}
+                                    </td>
+                                    <td class="expire">{{ payment_method.expiry_date }}</td>
+                                    <td class="name">{{ payment_method.cardHolderName}}</td>
+                                    <td class="action"><a href="/account/editPayment/{{ payment_method.id_payment }}">{{ language.translate("Edit") }}</a></td>
+                                    <td class="action"><a href="/account/remove/{{ payment_method.id_payment }}">{{ language.translate("Delete") }}</a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+
+                    </tbody>
+                </table>
+
+                <div class="cl margin">
+                    <a href="javascript:void(0);" class="new-card btn gwy">{{ language.translate("Add a new Credit card") }}</a>
+                </div>
+#}
+
+{#    ORIGINAL PIECE OF CODE IN SIMPLE HTML
+                         <tr>
                             <td class="cards">
                                 <input name="bankRadio" type="radio" class="radio" data-role="none"> 
                                 <span class="sprite card mastercard"><span class="txt">Mastercard</span></span>
@@ -107,12 +118,6 @@ $(function(){
                             <td class="name">Mario Rossi</td>
                             <td class="action"><a href="javascript:void(0);">{{ language.translate("Delete") }}</a></td>
                         </tr> #}
-                    </tbody>
-                </table>
-
-                <div class="cl margin">
-                    <a href="javascript:void(0);" class="new-card btn gwy">{{ language.translate("Add a new Credit card") }}</a>
-                </div>
 
                 <div class="info box">
                     <i class="ico ico-info"></i>
@@ -122,7 +127,7 @@ $(function(){
 
                 <div class="cl box-wallet">
                     <div class="value">
-                        <span class="purple">{{ language.translate("Wallet balance:") }}</span> 20 &euro;
+                        <span class="purple">{{ language.translate("Wallet balance:") }}</span> &euro; 20 
                     </div>
 
                     <form class="right">
@@ -139,7 +144,7 @@ $(function(){
 
                 <div class="info box box-congrats">
                     <i class="ico ico-info"></i>
-                    <span class="txt"><span class="congrats">{{ language.translate("Congratulations!!! You won 100.000 &euro;") }}</span> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</span>
+                    <span class="txt"><span class="congrats">{{ language.translate("Congratulations!!! You won &euro; 100.000") }}</span> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</span>
                 </div>
 
                 <table id="bank-list" class="table ui-responsive">
@@ -192,7 +197,7 @@ $(function(){
 
                 <div class="cl box-wallet">
                     <div class="value">
-                        <span class="purple">{{ language.translate("Wallet balance:") }}</span> 500 &euro;
+                        <span class="purple">{{ language.translate("Wallet balance:") }}</span> &euro; 500 
                     </div>
 
                     <form class="right">
