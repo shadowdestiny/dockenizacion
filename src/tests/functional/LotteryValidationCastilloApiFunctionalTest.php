@@ -49,7 +49,7 @@ class LotteryValidationCastilloApiFunctionalTest extends DatabaseIntegrationTest
      */
     public function test_validateBet_calledWithNotUsedId_returnActionResultTrue()
     {
-        $actual = $this->exerciseValidation($this->id_ticket_for_test);
+        $actual = $this->exerciseValidation($this->id_ticket_for_test,new \DateTime('2016-10-04'));
         $expected = new ActionResult(true);
         $this->assertEquals($expected,$actual);
     }
@@ -61,12 +61,23 @@ class LotteryValidationCastilloApiFunctionalTest extends DatabaseIntegrationTest
      */
     public function test_validateBet_calledWithTicketUsed_returnActionResultFalse()
     {
-        $actual = $this->exerciseValidation(new CastilloTicketId('2176681082'));
+        $actual = $this->exerciseValidation(new CastilloTicketId('2176681082'), new \DateTime('2016-10-04'));
         $expected = new ActionResult(false,'Ticket id (2176681082) already received.');
         $this->assertEquals($expected,$actual);
 
     }
 
+    /**
+     * method validateBet
+     * when calledWithIncorrectDate
+     * should returnActionResultFalse
+     */
+    public function test_validateBet_calledWithIncorrectDate_returnActionResultFalse()
+    {
+        $actual = $this->exerciseValidation($this->id_ticket_for_test, new \DateTime('2015-10-04'));
+        $expected = new ActionResult(false,'Invalid ticket date.');
+        $this->assertEquals($expected,$actual);
+    }
 
     /**
      * method validateBet
@@ -84,7 +95,7 @@ class LotteryValidationCastilloApiFunctionalTest extends DatabaseIntegrationTest
         $bet = new Bet($play_config,$euromillions_draw);
         $bet->setCastilloBet($id_session);
         $sut = $this->getSut();
-        $actual = $sut->validateBet($bet,$cypher);
+        $actual = $sut->validateBet($bet,$cypher,null,null,new \DateTime('2016-10-04'));
         $this->assertEquals($expected, $actual);
     }
 
@@ -117,14 +128,14 @@ class LotteryValidationCastilloApiFunctionalTest extends DatabaseIntegrationTest
     /**
      * @return ActionResult
      */
-    protected function exerciseValidation($id_ticket_for_test)
+    protected function exerciseValidation($id_ticket_for_test, $date_time = null)
     {
         $bet = $this->getBetForValidation();
         $castilloCypherKey = CastilloCypherKey::create();
         $bet->setCastilloBet($this->id_for_test);
         $cypher = new CypherCastillo3DES();
         $sut = $this->getSut();
-        $actual = $sut->validateBet($bet, $cypher, $castilloCypherKey, $id_ticket_for_test, new \DateTime('2016-10-04'));
+        $actual = $sut->validateBet($bet, $cypher, $castilloCypherKey, $id_ticket_for_test,$date_time);
         return $actual;
     }
 

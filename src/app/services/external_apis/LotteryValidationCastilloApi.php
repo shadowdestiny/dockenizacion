@@ -2,6 +2,7 @@
 namespace EuroMillions\services\external_apis;
 use EuroMillions\entities\Bet;
 use EuroMillions\interfaces\ICypherStrategy;
+use EuroMillions\services\LotteriesDataService;
 use EuroMillions\vo\ActionResult;
 use EuroMillions\vo\CastilloCypherKey;
 use EuroMillions\vo\CastilloTicketId;
@@ -29,7 +30,11 @@ class LotteryValidationCastilloApi
         '000000000000000000000000000000000000000000000009'
     ];
 
-    public function validateBet(Bet $bet, ICypherStrategy $cypher, CastilloCypherKey $castilloKey = null, CastilloTicketId $castilloTicketId = null, \DateTime $today = null)
+    public function validateBet(Bet $bet,
+                                ICypherStrategy $cypher,
+                                CastilloCypherKey $castilloKey = null,
+                                CastilloTicketId $castilloTicketId = null,
+                                \DateTime $date_next_draw)
     {
         if(empty($castilloKey)){
             $castilloKey = CastilloCypherKey::create();
@@ -37,13 +42,10 @@ class LotteryValidationCastilloApi
         if(empty($castilloTicketId)){
             $castilloTicketId = CastilloTicketId::create();
         }
-        if(empty($today)){
-            $today = new \DateTime('2016-10-04');
-        }
 
         $regular_numbers = $bet->getPlayConfig()->getLine()->getRegularNumbersArray();
         $lucky_numbers = $bet->getPlayConfig()->getLine()->getLuckyNumbersArray();
-        $content = "<?xml version='1.0' encoding='UTF-8'?><ticket type='6' date='".$today->format('ymd')."' bets='1' price='2'><id>".$castilloTicketId->id()."</id><combination>";
+        $content = "<?xml version='1.0' encoding='UTF-8'?><ticket type='6' date='".$date_next_draw->format('ymd')."' bets='1' price='2'><id>".$castilloTicketId->id()."</id><combination>";
         foreach($regular_numbers as $number) {
             $content .= "<number>{$number}</number>";
         }
