@@ -3,9 +3,6 @@
 
 namespace EuroMillions\vo;
 
-
-use Rhumsaa\Uuid\Uuid;
-
 class CastilloTicketId
 {
 
@@ -23,7 +20,8 @@ class CastilloTicketId
 
     public static function create()
     {
-        return new static(Uuid::uuid4());
+        $id_number = substr(number_format(time() * mt_rand(),0,'',''),0,10);
+        return new static($id_number);
     }
 
     public function __toString()

@@ -22,7 +22,7 @@ class CastilloTicketIdUnitTest extends UnitTestBase
      */
     public function test_create_called_shouldReturnAnUniqueIdentificator()
     {
-        $expected = strlen('feab5a4e-789e-11e5-9a41-0242ac110001');
+        $expected = 10;
         $actual = CastilloTicketId::create();
         $this->assertEquals($expected,strlen($actual->id()));
     }

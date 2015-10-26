@@ -12,6 +12,7 @@ use EuroMillions\services\external_apis\LotteryValidationCastilloApi;
 use EuroMillions\vo\ActionResult;
 use EuroMillions\vo\CastilloBetId;
 use EuroMillions\vo\CastilloCypherKey;
+use EuroMillions\vo\CastilloTicketId;
 use tests\base\DatabaseIntegrationTestBase;
 use tests\base\LotteryValidationCastilloRelatedTest;
 
@@ -24,13 +25,20 @@ class LotteryValidationCastilloApiFunctionalTest extends DatabaseIntegrationTest
 
     private $cypher_double;
 
+    private $id_ticket_for_test;
+
+
+
     public function setUp()
     {
-        parent::setUp();
         if (empty($this->id_for_test)) {
             $this->id_for_test = CastilloBetId::create();
         }
+        if(empty($this->id_ticket_for_test)) {
+            $this->id_ticket_for_test = CastilloTicketId::create();
+        }
         $this->cypher_double = $this->prophesize('EuroMillions\interfaces\ICypherStrategy');
+        parent::setUp();
     }
 
 
@@ -41,14 +49,22 @@ class LotteryValidationCastilloApiFunctionalTest extends DatabaseIntegrationTest
      */
     public function test_validateBet_calledWithNotUsedId_returnActionResultTrue()
     {
-        $bet = $this->getBetForValidation();
-        $castilloCypherKey = CastilloCypherKey::create();
-        $bet->setCastilloBet($this->id_for_test);
-        $cypher = new CypherCastillo3DES();
-        $sut = $this->getSut();
-        $actual = $sut->validateBet($bet,$cypher,$castilloCypherKey);
+        $actual = $this->exerciseValidation($this->id_ticket_for_test);
         $expected = new ActionResult(true);
         $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method validateBet
+     * when calledWithTicketUsed
+     * should returnActionResultFalse
+     */
+    public function test_validateBet_calledWithTicketUsed_returnActionResultFalse()
+    {
+        $actual = $this->exerciseValidation(new CastilloTicketId('2176681082'));
+        $expected = new ActionResult(false,'Ticket id (2176681082) already received.');
+        $this->assertEquals($expected,$actual);
+
     }
 
 
@@ -69,7 +85,6 @@ class LotteryValidationCastilloApiFunctionalTest extends DatabaseIntegrationTest
         $bet->setCastilloBet($id_session);
         $sut = $this->getSut();
         $actual = $sut->validateBet($bet,$cypher);
-        print_r($actual);
         $this->assertEquals($expected, $actual);
     }
 
@@ -98,4 +113,20 @@ class LotteryValidationCastilloApiFunctionalTest extends DatabaseIntegrationTest
     {
         return [];
     }
+
+    /**
+     * @return ActionResult
+     */
+    protected function exerciseValidation($id_ticket_for_test)
+    {
+        $bet = $this->getBetForValidation();
+        $castilloCypherKey = CastilloCypherKey::create();
+        $bet->setCastilloBet($this->id_for_test);
+        $cypher = new CypherCastillo3DES();
+        $sut = $this->getSut();
+        $actual = $sut->validateBet($bet, $cypher, $castilloCypherKey, $id_ticket_for_test, new \DateTime('2016-10-04'));
+        return $actual;
+    }
+
+    //EMTD date should be a draw date valid
 }
