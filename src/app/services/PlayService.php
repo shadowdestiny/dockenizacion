@@ -6,15 +6,20 @@ namespace EuroMillions\services;
 
 use Doctrine\ORM\EntityManager;
 
+use EuroMillions\components\CypherCastillo3DES;
 use EuroMillions\entities\Bet;
 use EuroMillions\entities\EuroMillionsDraw;
 use EuroMillions\entities\Lottery;
 use EuroMillions\entities\PlayConfig;
 use EuroMillions\entities\User;
 use EuroMillions\exceptions\InvalidBalanceException;
+use EuroMillions\interfaces\ILotteryValidation;
 use EuroMillions\interfaces\IPlayStorageStrategy;
 use EuroMillions\repositories\BetRepository;
 use EuroMillions\repositories\PlayConfigRepository;
+use EuroMillions\services\external_apis\LotteryValidationCastilloApi;
+use EuroMillions\vo\CastilloCypherKey;
+use EuroMillions\vo\CastilloTicketId;
 use EuroMillions\vo\EuroMillionsLine;
 use EuroMillions\vo\PlayForm;
 use EuroMillions\vo\PlayFormToStorage;
@@ -43,7 +48,8 @@ class PlayService
 
     private $userRepository;
 
-    public function __construct(EntityManager $entityManager, LotteriesDataService $lotteriesDataService, IPlayStorageStrategy $playStorageStrategy)
+
+    public function __construct(EntityManager $entityManager, LotteriesDataService $lotteriesDataService, IPlayStorageStrategy $playStorageStrategy )
     {
         $this->entityManager = $entityManager;
         $this->playConfigRepository = $entityManager->getRepository('EuroMillions\entities\PlayConfig');
@@ -90,13 +96,17 @@ class PlayService
      * @param PlayConfig $playConfig
      * @param EuroMillionsDraw $euroMillionsDraw
      * @param \DateTime $today
+     * @param LotteryValidationCastilloApi $lotteryValidation
      * @return ActionResult
-     * @throws \Exception
      */
-    public function bet(PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw, \DateTime $today = null)
+    public function bet(PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw, \DateTime $today = null, LotteryValidationCastilloApi $lotteryValidation = null)
     {
         if (!$today) {
             $today = new \DateTime();
+        }
+
+        if(!$lotteryValidation) {
+            $lotteryValidation = new LotteryValidationCastilloApi();
         }
         /** @var User $user */
         $user = $this->userRepository->find($playConfig->getUser()->getId()->id());
@@ -109,11 +119,18 @@ class PlayService
             }else{
                 try{
                     $bet = new Bet($playConfig,$euroMillionsDraw);
-                    $this->betRepository->add($bet);
-                    $user->setBalance($user->getBalance()->subtract($single_bet_price));
-                    $this->userRepository->add($user);
-                    $this->entityManager->flush();
-                    return new ActionResult(true);
+                    $castillo_key = CastilloCypherKey::create();
+                    $castillo_ticket = CastilloTicketId::create();
+                    $result_validation = $lotteryValidation->validateBet($bet,new CypherCastillo3DES(),$castillo_key,$castillo_ticket,new \DateTime($dateNextDraw));
+                    if($result_validation->success()) {
+                        $this->betRepository->add($bet);
+                        $user->setBalance($user->getBalance()->subtract($single_bet_price));
+                        $this->userRepository->add($user);
+                        $this->entityManager->flush();
+                        return new ActionResult(true);
+                    } else{
+                        return new ActionResult(false, $result_validation->errorMessage());
+                    }
                 }catch(\Exception $e) {
                     return new ActionResult(false);
                 }

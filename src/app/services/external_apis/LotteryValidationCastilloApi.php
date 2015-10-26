@@ -2,7 +2,6 @@
 namespace EuroMillions\services\external_apis;
 use EuroMillions\entities\Bet;
 use EuroMillions\interfaces\ICypherStrategy;
-use EuroMillions\services\LotteriesDataService;
 use EuroMillions\vo\ActionResult;
 use EuroMillions\vo\CastilloCypherKey;
 use EuroMillions\vo\CastilloTicketId;
