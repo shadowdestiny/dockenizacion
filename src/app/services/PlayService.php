@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManager;
 use EuroMillions\components\CypherCastillo3DES;
 use EuroMillions\entities\Bet;
 use EuroMillions\entities\EuroMillionsDraw;
+use EuroMillions\entities\LogValidationApi;
 use EuroMillions\entities\Lottery;
 use EuroMillions\entities\PlayConfig;
 use EuroMillions\entities\User;
@@ -48,6 +49,8 @@ class PlayService
 
     private $userRepository;
 
+    private $logValidationRepository;
+
 
     public function __construct(EntityManager $entityManager, LotteriesDataService $lotteriesDataService, IPlayStorageStrategy $playStorageStrategy )
     {
@@ -58,6 +61,7 @@ class PlayService
         $this->lotteriesDataService = $lotteriesDataService;
         $this->playStorageStrategy = $playStorageStrategy;
         $this->userRepository = $entityManager->getRepository('EuroMillions\entities\User');
+        $this->logValidationRepository = $entityManager->getRepository('EuroMillions\entities\LogValidationApi');
     }
 
     /**
@@ -122,6 +126,17 @@ class PlayService
                     $castillo_key = CastilloCypherKey::create();
                     $castillo_ticket = CastilloTicketId::create();
                     $result_validation = $lotteryValidation->validateBet($bet,new CypherCastillo3DES(),$castillo_key,$castillo_ticket,new \DateTime($dateNextDraw));
+
+                    $log_api_reponse = new LogValidationApi();
+                    $log_api_reponse->initialize([
+                        'id_provider' => 1,
+                        'id_ticket' => $lotteryValidation->getXmlResponse()->id,
+                        'status' => $lotteryValidation->getXmlResponse()->status,
+                        'response' => $lotteryValidation->getXmlResponse(),
+                        'received' => new \DateTime()
+                    ]);
+                    $this->logValidationRepository->add($log_api_reponse);
+                    $this->entityManager->flush($log_api_reponse);
                     if($result_validation->success()) {
                         $this->betRepository->add($bet);
                         $user->setBalance($user->getBalance()->subtract($single_bet_price));

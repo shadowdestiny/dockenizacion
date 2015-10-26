@@ -1,6 +1,8 @@
 <?php
 namespace EuroMillions\services\external_apis;
+
 use EuroMillions\entities\Bet;
+use EuroMillions\entities\LogValidationApi;
 use EuroMillions\interfaces\ICypherStrategy;
 use EuroMillions\vo\ActionResult;
 use EuroMillions\vo\CastilloCypherKey;
@@ -11,23 +13,12 @@ class LotteryValidationCastilloApi
 {
     private $curlWrapper;
 
+    private $xml_response;
+
     public function __construct(Curl $curlWrapper = null)
     {
         $this->curlWrapper = $curlWrapper ? $curlWrapper : new Curl();
     }
-
-    public static $cypher_keys = [
-        '000000000000000000000000000000000000000000000000',
-        '000000000000000000000000000000000000000000000001',
-        '000000000000000000000000000000000000000000000002',
-        '000000000000000000000000000000000000000000000003',
-        '000000000000000000000000000000000000000000000004',
-        '000000000000000000000000000000000000000000000005',
-        '000000000000000000000000000000000000000000000006',
-        '000000000000000000000000000000000000000000000007',
-        '000000000000000000000000000000000000000000000008',
-        '000000000000000000000000000000000000000000000009'
-    ];
 
     public function validateBet(Bet $bet,
                                 ICypherStrategy $cypher,
@@ -68,10 +59,21 @@ class LotteryValidationCastilloApi
         $xml_uncyphered_string = $cypher->decrypt((string) $xml_response->operation->content, (string) $xml_response->operation->attributes()['key']);
         $xml_uncyphered = simplexml_load_string($xml_uncyphered_string);
 
+        //set xml_uncypherd to be visible from outside.
+        $this->xml_response = $xml_uncyphered;
+
         if($xml_uncyphered->status == 'OK') {
             return new ActionResult(true);
         } else {
             return new ActionResult(false,(string) $xml_uncyphered->message);
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getXmlResponse()
+    {
+        return $this->xml_response;
     }
 }
