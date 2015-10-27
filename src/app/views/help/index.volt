@@ -19,16 +19,16 @@
                         <h2 class="h3 purple">{{ language.translate("How to play") }}</h2>
                     </div>
                     <div class="wrap">
-                        <p class="txt">{{ language.translate("Playing Euromillions on Euromillions.com costs only €2.35 (£1.65) per play, the best price available on the Internet.") }}</p>
+                        <p class="txt">{{ language.translate("Playing Euromillions on Euromillions.com costs only &euro; 2.35 (&pound; 1.65) per play, the best price available on the Internet.") }}</p>
 
                         <ol class="ul-help no-li cl">
                             <li>
                                 <h3 class="li-title">{{ language.translate("1. Choose your numbers") }}</h3>
-                                {{ language.translate("Complete a Euromillions play slip by selecting 5 main numbers from 1 to 50 and two Lucky Stars from 1 to 11. Alternatively, click on “randomize all lines” to generate a random selection of numbers.") }}
+                                {{ language.translate("Complete a Euromillions play slip by selecting 5 main numbers from 1 to 45 and two Lucky Stars from 1 to 11. Alternatively, click on “randomize all lines” to generate a random selection of numbers.") }}
                             </li>
                             <li>
                                 <h3 class="li-title">{{ language.translate("2. Play Slip") }}</h3>
-                                {{ language.translate("There are 6 lines per play slip. To play further lines, click on “add additional lines” whereby more play slips will appear.") }}
+                                {{ language.translate("There are 6 lines per play slip (or less if you access from a mobile device). To play further lines, click on “add additional lines” whereby more play slips will appear.") }}
                             </li>
                             <li>
                                  <h3 class="li-title">{{ language.translate("3. Duration") }}</h3>
@@ -40,7 +40,7 @@
                             </li>
                             <li>
                                 <h3 class="li-title">{{ language.translate("5. Confirmation") }}</h3>
-                                {{ language.translate("On completion of payment you will receive an email notification confirming the numbers you have played and the draws you have entered. Numbers you have played are as well accessible anytime in your player account.") }}
+                                {{ language.translate("On completion of payment you will receive a message on the website confirming that the numbers you have played and the draws you have entered. Any running games that you have played are as well accessible anytime in your player account.") }}
                             </li>
                             <li>
                                 <h3 class="li-title">{{ language.translate("6. Notification") }}</h3>
