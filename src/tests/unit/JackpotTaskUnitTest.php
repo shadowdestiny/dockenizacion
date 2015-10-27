@@ -7,7 +7,7 @@ use EuroMillions\entities\User;
 use EuroMillions\tasks\JackpotTask;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\Password;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 use EuroMillions\vo\UserId;
 use Money\Currency;
 use Money\Money;
@@ -74,7 +74,7 @@ class JackpotTaskUnitTest extends UnitTestBase
         $jackpot_amount = new Money(100000, new Currency('EUR'));
 
         $this->lotteryDataService_double->getNextJackpot($lottery_name)->willReturn($jackpot_amount);
-        $this->userService_double->getAllUsersWithJackpotReminder()->willReturn(new ServiceActionResult(true,$users));
+        $this->userService_double->getAllUsersWithJackpotReminder()->willReturn(new ActionResult(true,$users));
         $this->emailService_double->sendTransactionalEmail(Argument::type('EuroMillions\entities\User'), 'jackpot-rollover')->shouldBeCalledTimes(2);
         $sut = new JackpotTask();
         $sut->initialize($this->lotteryDataService_double->reveal(),$this->userService_double->reveal(), $this->emailService_double->reveal());

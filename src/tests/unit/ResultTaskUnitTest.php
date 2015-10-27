@@ -14,7 +14,7 @@ use EuroMillions\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\vo\Password;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 use EuroMillions\vo\UserId;
 use Money\Currency;
 use Money\Money;
@@ -80,7 +80,7 @@ class ResultTaskUnitTest extends UnitTestBase
         $break_down_data_list = $this->getBreakDownDataDraw();
         $this->lotteryDataService_double->updateLastDrawResult('EuroMillions')->shouldBeCalled();
         $this->lotteryDataService_double->updateLastBreakDown('EuroMillions')->shouldBeCalled();
-        $this->lotteryDataService_double->getBreakDownDrawByDate($lottery_name,$today)->willReturn(new ServiceActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())));
+        $this->lotteryDataService_double->getBreakDownDrawByDate($lottery_name,$today)->willReturn(new ActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())));
         $this->playService_double->getPlaysConfigToBet($today)->willReturn($play_config_list);
         $this->userService_double->getUser(new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'))->willReturn($this->getUser());
         foreach($break_down_data_list as $break_down_element_category) {
@@ -134,7 +134,7 @@ class ResultTaskUnitTest extends UnitTestBase
         foreach($attributes_list as $attributes) {
             $play_config_list[] = $this->getPlayConfigFromAttributes($attributes);
         }
-        return new ServiceActionResult(true, $play_config_list);
+        return new ActionResult(true, $play_config_list);
     }
 
     /**

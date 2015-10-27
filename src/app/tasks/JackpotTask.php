@@ -8,7 +8,7 @@ use EuroMillions\services\external_apis\LotteryApisFactory;
 use EuroMillions\services\LanguageService;
 use EuroMillions\services\LotteriesDataService;
 use EuroMillions\services\UserService;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 use Phalcon\CLI\Task;
 use Phalcon\Di;
 
@@ -47,7 +47,7 @@ class JackpotTask extends TaskBase
     public function reminderJackpotAction()
     {
         $jackpot_amount = $this->lotteriesDataService->getNextJackpot('EuroMillions');
-        /** @var ServiceActionResult $users_reminder */
+        /** @var ActionResult $users_reminder */
         $result = $this->userService->getAllUsersWithJackpotReminder();
         if($result->success()) {
             /** @var User[] $users_reminder */

@@ -3,11 +3,13 @@ namespace EuroMillions\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\components\EmTranslationAdapter;
+use EuroMillions\interfaces\ILotteryValidation;
 use EuroMillions\interfaces\IPlayStorageStrategy;
 use EuroMillions\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\interfaces\ILanguageStrategy;
 use EuroMillions\repositories\LanguageRepository;
 use EuroMillions\services\external_apis\LotteryApisFactory;
+use EuroMillions\services\external_apis\LotteryValidationCastilloApi;
 use EuroMillions\services\play_strategies\RedisPlayStorageStrategy;
 use EuroMillions\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\services\preferences_strategies\WebUserPreferencesStorageStrategy;
@@ -97,7 +99,7 @@ class DomainServiceFactory
     {
         if (!$lotteriesDataService) $lotteriesDataService = new LotteriesDataService($this->entityManager, new LotteryApisFactory());
         if (!$playStorageStrategy)  $playStorageStrategy = new RedisPlayStorageStrategy($this->serviceFactory->getDI()->get('redisCache'));
-        return new PlayService($this->entityManager, $lotteriesDataService, $playStorageStrategy);
+         return new PlayService($this->entityManager, $lotteriesDataService, $playStorageStrategy);
     }
 
     public function getPriceCheckoutService(LotteriesDataService $lotteriesDataService = null)

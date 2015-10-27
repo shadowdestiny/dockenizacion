@@ -9,18 +9,18 @@ use EuroMillions\interfaces\ICypherStrategy;
 class NullCypher implements ICypherStrategy
 {
 
-    public function encrypt($clear)
+    public function encrypt($key, $clear)
     {
-
+        return $clear;
     }
 
     public function decrypt($cyphered, $key)
     {
-
+        return $cyphered;
     }
 
-    public function getCypherResult()
+    public function getSignature($content_cypehered)
     {
-
+        return $content_cypehered;
     }
 }

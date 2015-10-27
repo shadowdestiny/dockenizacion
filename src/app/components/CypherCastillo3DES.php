@@ -9,13 +9,13 @@ use EuroMillions\interfaces\ICypherStrategy;
 class CypherCastillo3DES implements ICypherStrategy
 {
 
+    const PRESHARED = '1234567890';
+
     private $cypher;
 
     private $key;
 
-    private $cyphered;
-
-    private static $cypher_keys = [
+    public static $cypher_keys = [
         '000000000000000000000000000000000000000000000000',
         '000000000000000000000000000000000000000000000001',
         '000000000000000000000000000000000000000000000002',
@@ -30,39 +30,61 @@ class CypherCastillo3DES implements ICypherStrategy
 
     public function __construct()
     {
-        $this->cypher =  mcrypt_module_open(MCRYPT_3DES, '', MCRYPT_MODE_CBC, '');
-        $this->key = array_rand(self::$cypher_keys);
+        $this->cypher = mcrypt_module_open(MCRYPT_3DES, '', MCRYPT_MODE_CBC, '');
+//        $key_rand = rand(0,9);
+//        $this->key = self::$cypher_keys[$key_rand];
     }
 
-    public function encrypt($clear)
+    public function encrypt($key,$clear)
     {
+        $key = self::$cypher_keys[$key];
+        $key = pack("H" . strlen($key), $key);
 
-        $bs = mcrypt_enc_get_block_size($this->cypher);
-
-        if ((strlen($clear) % $bs) > 0) {
-            $fill = str_repeat(chr(0),8-(strlen($clear) % $bs));
-        } else {
-            $fill = str_repeat(chr(0),8);
+        if ($key && $clear) {
+            $td = mcrypt_module_open(MCRYPT_3DES, '', 'cbc', '');
+            $bs = mcrypt_enc_get_block_size($td);
+            if ((strlen($clear) % $bs) > 0) {
+                $fill = str_repeat(chr(0), 8 - (strlen($clear) % $bs));
+            } else {
+                $fill = str_repeat(chr(0), 8);
+            }
+            $clear .= $fill;
+            $padding = str_repeat(chr(8), 8);
+            $iv = str_repeat(chr(0), mcrypt_enc_get_iv_size($td));
+            mcrypt_generic_init($td, $key, $iv);
+            $encrypted_data = mcrypt_generic($td, $clear . $padding);
+            $cifrado = $encrypted_data;
+            mcrypt_generic_deinit($td);
+            mcrypt_module_close($td);
+            return base64_encode(($cifrado));
         }
-        $clear .= $fill;
-        $padding = str_repeat(chr(8),8);
-        $iv = str_repeat(chr(0),mcrypt_enc_get_iv_size($this->cypher));
-        mcrypt_generic_init($this->cypher, $this->key, $iv);
-        $encrypted_data = mcrypt_generic($this->cypher, $clear.$padding);
-        $this->cyphered = strtoupper(bin2hex($encrypted_data));
-        mcrypt_generic_deinit($this->cypher);
-        //close module mcrypt
-        mcrypt_module_close($this->cypher);
 
-    }
-
-    public function getCypherResult()
-    {
-        return $this->cyphered;
     }
 
     public function decrypt($cyphered, $key)
     {
+        $cyphered = base64_decode($cyphered);
+        $key = pack("H" . strlen(self::$cypher_keys[$key]), self::$cypher_keys[$key]);
+
+        if ($key && $cyphered) {
+            $td = mcrypt_module_open(MCRYPT_3DES, '', 'cbc', '');
+            $iv = str_repeat(chr(0), mcrypt_enc_get_iv_size($td));
+            mcrypt_generic_init($td, $key, $iv);
+            $clear_data = mdecrypt_generic($td, $cyphered);
+            mcrypt_generic_deinit($td);
+            mcrypt_module_close($td);
+            $clear_data = str_replace(str_repeat(chr(8), 8), '', $clear_data);
+            $clear_data = str_replace(chr(0), '', $clear_data);
+            return ($clear_data);
+        }
 
     }
+
+    public function getSignature($content_cypehered)
+    {
+        $signature = sha1(base64_decode($content_cypehered).self::PRESHARED);
+        return base64_encode($signature);
+    }
+
+
 }

@@ -10,7 +10,7 @@ use EuroMillions\services\LotteriesDataService;
 use EuroMillions\services\PriceCheckoutService;
 use EuroMillions\services\ServiceFactory;
 use EuroMillions\vo\EuroMillionsDrawBreakDown;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 use Money\Money;
 
 class PriceCheckoutTask extends TaskBase

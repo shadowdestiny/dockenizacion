@@ -17,7 +17,7 @@ use EuroMillions\repositories\UserRepository;
 use EuroMillions\vo\ContactFormInfo;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\Password;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 use EuroMillions\vo\Url;
 use EuroMillions\vo\ValidationToken;
 use Money\Currency;
@@ -126,7 +126,7 @@ class AuthService
     public function register(array $credentials)
     {
         if ($this->userRepository->getByEmail($credentials['email'])) {
-            return new ServiceActionResult(false, 'Email already registered');
+            return new ActionResult(false, 'Email already registered');
         }
         $user = new User();
         $email = new Email($credentials['email']);
@@ -149,12 +149,12 @@ class AuthService
                 $this->logService->logRegistration($user);
                 $url = $this->getValidationUrl($user);
                 $this->emailService->sendRegistrationMail($user, $url);
-                return new ServiceActionResult(true, $user);
+                return new ActionResult(true, $user);
             }else{
-                return new ServiceActionResult(false, 'Error getting an user');
+                return new ActionResult(false, 'Error getting an user');
             }
         } catch(Exception $e) {
-            return new ServiceActionResult(false,'An error ocurred saving an user');
+            return new ActionResult(false,'An error ocurred saving an user');
         }
     }
 
@@ -170,9 +170,9 @@ class AuthService
         if ($emailValidationTokenGenerator->validate($user->getEmail()->toNative(), $token)) {
             $user->setValidated(true);
             $this->entityManager->flush($user);
-            return new ServiceActionResult(true, $user);
+            return new ActionResult(true, $user);
         } else {
-            return new ServiceActionResult(false, "The token is invalid");
+            return new ActionResult(false, "The token is invalid");
         }
     }
 
@@ -203,7 +203,7 @@ class AuthService
 
     /**
      * @param $token
-     * @return ServiceActionResult
+     * @return ActionResult
      */
     public function resetPassword($token)
     {
@@ -215,13 +215,13 @@ class AuthService
                 $this->emailService->sendNewPasswordMail($user, $password);
                 $user->setPassword(new Password($password->toNative(), new PhpassWrapper()));
                 $this->entityManager->flush($user);
-                return new ServiceActionResult(true, 'Email sent');
+                return new ActionResult(true, 'Email sent');
             }catch(Exception $e){
-                return new ServiceActionResult(false, '');
+                return new ActionResult(false, '');
             }
 
         } else {
-            return new ServiceActionResult(false, '');
+            return new ActionResult(false, '');
         }
     }
 
@@ -229,9 +229,9 @@ class AuthService
     {
         $password_match = $this->passwordHasher->checkPassword($password, $user->getPassword()->toNative());
        if($password_match) {
-           return new ServiceActionResult(true);
+           return new ActionResult(true);
        }else{
-           return new ServiceActionResult(false,'The old password doesn\'t exist');
+           return new ActionResult(false,'The old password doesn\'t exist');
        }
     }
 
@@ -242,24 +242,24 @@ class AuthService
             $user->setPassword($password);
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
-            return new ServiceActionResult(true,'Your password was changed correctly');
+            return new ActionResult(true,'Your password was changed correctly');
         }catch (\Exception $e) {
-            return new ServiceActionResult(false);
+            return new ActionResult(false);
         }
     }
 
     /**
      * @param Email $email
-     * @return ServiceActionResult
+     * @return ActionResult
      */
     public function forgotPassword(Email $email)
     {
         $user = $this->userRepository->getByEmail($email->toNative());
         if (!empty($user)) {
             $this->emailService->sendPasswordResetMail($user, $this->getPasswordResetUrl($user));
-            return new ServiceActionResult(true, 'Email sent');
+            return new ActionResult(true, 'Email sent');
         } else {
-            return new ServiceActionResult(false, 'Email doesn\'t exist');
+            return new ActionResult(false, 'Email doesn\'t exist');
         }
     }
 

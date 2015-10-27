@@ -5,8 +5,8 @@
         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
     https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="EuroMillions\entities\Bet" table="bets"
-            repository-class="EuroMillions\repositories\BetRepository">
+    <entity name="EuroMillions\entities\LogValidationApi" table="log_validation_api"
+            repository-class="EuroMillions\repositories\LogValidationApiRepository">
 
         <id name="id" type="integer">
             <generator strategy="IDENTITY"/>
@@ -15,13 +15,11 @@
             </options>
         </id>
 
-        <embedded name="castillo_bet" class="EuroMillions\vo\CastilloBetId"/>
-        <many-to-one field="euromillionsDraw" target-entity="EuroMillions\entities\EuroMillionsDraw" >
-            <join-column name="euromillions_draw_id" referenced-column-name="id" />
-        </many-to-one>
-        <many-to-one target-entity="EuroMillions\entities\PlayConfig" inversed-by="playConfig"
-                     field="play_config">
-        </many-to-one>
+        <field name="id_provider" type="integer"/>
+        <field name="status" type="string"/>
+        <field name="response" type="text"/>
+        <field name="received" type="datetime"/>
+        <field name="id_ticket" type="integer"/>
 
     </entity>
 </doctrine-mapping>

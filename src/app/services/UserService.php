@@ -12,7 +12,7 @@ use EuroMillions\vo\CardNumber;
 use EuroMillions\vo\ContactFormInfo;
 use EuroMillions\vo\CVV;
 use EuroMillions\vo\ExpiryDate;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 use EuroMillions\vo\UserId;
 use Exception;
 use Money\Money;
@@ -80,15 +80,15 @@ class UserService
 
     /**
      * @param ContactFormInfo $contactFormInfo
-     * @return ServiceActionResult
+     * @return ActionResult
      */
     public function contactRequest(ContactFormInfo $contactFormInfo)
     {
         try{
             $this->emailService->sendContactRequest($contactFormInfo);
-            return new ServiceActionResult(true,'We have received your request!');
+            return new ActionResult(true,'We have received your request!');
         }catch(Exception $e){
-            return new ServiceActionResult(false, 'Sorry, we have problems receiving data');
+            return new ActionResult(false, 'Sorry, we have problems receiving data');
         }
     }
 
@@ -96,7 +96,7 @@ class UserService
      * @param User $user
      * @param PaymentMethod $paymentMethod
      * @param Money $amount
-     * @return ServiceActionResult
+     * @return ActionResult
      */
     public function recharge(User $user, PaymentMethod $paymentMethod,Money $amount)
     {
@@ -107,7 +107,7 @@ class UserService
                     $user->setBalance($user->getBalance()->add($amount));
                     $this->userRepository->add($user);
                     $this->entityManager->flush($user);
-                    return new ServiceActionResult(true, $user->getBalance()->getAmount());
+                    return new ActionResult(true, $user->getBalance()->getAmount());
                 } catch(Exception $e){
                     $error_message = 'Error updating balance';
                 }
@@ -117,27 +117,27 @@ class UserService
         } else {
             $error_message = 'Amount should be greater than 0';
         }
-        return new ServiceActionResult(false, $error_message);
+        return new ActionResult(false, $error_message);
     }
 
     /**
      * @param PaymentMethod $paymentMethod
-     * @return ServiceActionResult
+     * @return ActionResult
      */
     public function addNewPaymentMethod(PaymentMethod $paymentMethod)
     {
         try{
             $this->paymentMethodRepository->add($paymentMethod);
             $this->entityManager->flush($paymentMethod);
-            return new ServiceActionResult(true, 'Your payment method was added');
+            return new ActionResult(true, 'Your payment method was added');
         }catch(Exception $e){
-            return new ServiceActionResult(false,'An exception ocurred while payment method was saved');
+            return new ActionResult(false,'An exception ocurred while payment method was saved');
         }
     }
 
     /**
      * @param UserId $userId
-     * @return ServiceActionResult
+     * @return ActionResult
      */
     public function getPaymentMethods(UserId $userId)
     {
@@ -146,9 +146,9 @@ class UserService
         if(!empty($user)){
             $paymentMethodCollection = $this->paymentMethodRepository->getPaymentMethodsByUser($user);
             if(!empty($paymentMethodCollection)){
-                return new ServiceActionResult(true,$paymentMethodCollection);
+                return new ActionResult(true,$paymentMethodCollection);
             }else{
-                return new ServiceActionResult(false,'You don\'t have any payment method registered');
+                return new ActionResult(false,'You don\'t have any payment method registered');
             }
         }else{
             throw new \InvalidArgumentException('User doesn\'t exist');
@@ -169,9 +169,9 @@ class UserService
             $payment_method->setCompany($payment_method->getCardNumber()->type());
             $this->paymentMethodRepository->add($payment_method);
             $this->entityManager->flush($payment_method);
-            return new ServiceActionResult(true,'Your credit card data was updating');
+            return new ActionResult(true,'Your credit card data was updating');
         }catch(\Exception $e) {
-            return new ServiceActionResult(false, $e->getMessage());
+            return new ActionResult(false, $e->getMessage());
         }
 
     }
@@ -181,7 +181,7 @@ class UserService
         try{
             return $this->paymentMethodRepository->findOneBy(['id' => $id]);
         }catch(\Exception $e) {
-            return new ServiceActionResult(false);
+            return new ActionResult(false);
         }
 
     }
@@ -192,11 +192,11 @@ class UserService
             /** @var array $result */
             $result = $this->playRepository->getPlayConfigsActivesByUser($userId);
             if(empty($result)){
-                return new ServiceActionResult(false,'You don\'t have games');
+                return new ActionResult(false,'You don\'t have games');
             }
-            return new ServiceActionResult(true,$result);
+            return new ActionResult(true,$result);
         }else{
-            return new ServiceActionResult(false);
+            return new ActionResult(false);
         }
     }
 
@@ -206,11 +206,11 @@ class UserService
             /** @var array $result */
             $result = $this->playRepository->getPlayConfigsInActivesByUser($userId);
             if(empty($result)){
-                return new ServiceActionResult(false,'You don\'t have games');
+                return new ActionResult(false,'You don\'t have games');
             }
-            return new ServiceActionResult(true,$result);
+            return new ActionResult(true,$result);
         }else{
-            return new ServiceActionResult(false);
+            return new ActionResult(false);
         }
     }
 
@@ -230,9 +230,9 @@ class UserService
         try{
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
-            return new ServiceActionResult(true,'Your data was update');
+            return new ActionResult(true,'Your data was update');
         }catch(Exception $e){
-            return new ServiceActionResult(false,'Sorry, try it later');
+            return new ActionResult(false,'Sorry, try it later');
         }
     }
 
@@ -240,9 +240,9 @@ class UserService
     {
         $result = $this->userRepository->getUsersWithJackpotReminder();
         if(!empty($result)) {
-            return new ServiceActionResult(true,$result);
+            return new ActionResult(true,$result);
         } else {
-            return new ServiceActionResult(false);
+            return new ActionResult(false);
         }
     }
 

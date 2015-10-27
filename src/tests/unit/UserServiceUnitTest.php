@@ -18,7 +18,7 @@ use EuroMillions\vo\EuroMillionsLuckyNumber;
 use EuroMillions\vo\EuroMillionsRegularNumber;
 use EuroMillions\vo\ExpiryDate;
 use EuroMillions\vo\Password;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 use EuroMillions\vo\UserId;
 use Money\Currency;
 use Money\Money;
@@ -75,7 +75,7 @@ class UserServiceUnitTest extends UnitTestBase
             'Playing the game'
             )
         );
-        $this->assertInstanceOf('Euromillions\vo\ServiceActionResult', $actual);
+        $this->assertInstanceOf('Euromillions\vo\ActionResult', $actual);
         $this->assertTrue($actual->success());
     }
 
@@ -139,7 +139,7 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_recharge_callPassAmountGreaterThanZeroAndProviderReturnsOkResult_increaseUserBalanceInTheGivenAmount()
     {
-        $expected = new ServiceActionResult(true, new Money(10000, new Currency('EUR')));
+        $expected = new ActionResult(true, new Money(10000, new Currency('EUR')));
         $this->exerciseRecharge(true, $expected->success());
     }
 
@@ -150,7 +150,7 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_recharge_ProviderReturnKoResult_leaveUserBalanceLikeBeforeAndReturnServiceActionResultWithFalse()
     {
-        $expected = new ServiceActionResult(false, 'Provider denied the operation');
+        $expected = new ActionResult(false, 'Provider denied the operation');
         $this->exerciseRecharge(false, $expected->success());
     }
 
@@ -161,7 +161,7 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_addNewPaymentMethod_called_returnServiceActionResultTrue()
     {
-        $expected = new ServiceActionResult(true,'Your payment method was added');
+        $expected = new ActionResult(true,'Your payment method was added');
         $this->exerciseAddNewPaymentMethod($expected);
     }
 
@@ -172,7 +172,7 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_addNewPaymentMethod_NoPersist_returnServiceActionResultFalse()
     {
-        $expected = (new ServiceActionResult(false,'An exception ocurred while payment method was saved'));
+        $expected = (new ActionResult(false,'An exception ocurred while payment method was saved'));
         $this->exerciseAddNewPaymentMethodThrowException($expected);
     }
 
@@ -207,7 +207,7 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_getPaymentMethods_called_returnServiceActionResultTrueWithArrayOfPaymentMethods()
     {
-        $expected = new ServiceActionResult(true,array('EuroMillions\Entities\PaymentMethod'));
+        $expected = new ActionResult(true,array('EuroMillions\Entities\PaymentMethod'));
         $this->exerciseGetPaymentMethod($expected,['EuroMillions\Entities\PaymentMethod']);
     }
 
@@ -218,7 +218,7 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_getPaymentMethods_calledWithValidUser_returnServiceActionResultFalseWithEmptyArray()
     {
-        $expected = new ServiceActionResult(false,'You don\'t have any payment method registered');
+        $expected = new ActionResult(false,'You don\'t have any payment method registered');
         $this->exerciseGetPaymentMethod($expected);
     }
 
@@ -230,7 +230,7 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_getPaymentMethods_calledWithInvalidUser_returnServiceActionResultFalseWithEmptyArray()
     {
-        $expected = new ServiceActionResult(false,'You don\'t have any payment method registered');
+        $expected = new ActionResult(false,'You don\'t have any payment method registered');
         $this->exerciseGetPaymentMethod($expected,[],'43872489302fdkosfds');
     }
 
@@ -241,7 +241,7 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_getPaymentMethod_calledWithInvalidIdPayment_returnServiceActionResultFalse()
     {
-        $expected = new ServiceActionResult(false);
+        $expected = new ActionResult(false);
         $this->paymentMethodRepository_double->findOneBy(['id' => '1234'])->willThrow(new \Exception());
         $sut = $this->getSut();
         $actual = $sut->getPaymentMethod('1234');
@@ -258,7 +258,7 @@ class UserServiceUnitTest extends UnitTestBase
     {
 
         $playConfig = $this->getPlayConfig();
-        $expected = new ServiceActionResult(true,$playConfig);
+        $expected = new ActionResult(true,$playConfig);
         $sut = $this->getSut();
         $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
         $this->playRepository_double->getPlayConfigsActivesByUser($userId)->willReturn($playConfig);
@@ -288,7 +288,7 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_getMyPlays_calledWithUserIDValid_returnServiceActionResultFalseWithEmtpyValue()
     {
-        $expected = new ServiceActionResult(false,'You don\'t have games');
+        $expected = new ActionResult(false,'You don\'t have games');
         $sut = $this->getSut();
         $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
         $this->playRepository_double->getPlayConfigsActivesByUser($userId)->willReturn(null);
@@ -303,7 +303,7 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_updateUserData_called_returnServiceActionResultTrue()
     {
-        $expected = new ServiceActionResult(true,'Your data was update');
+        $expected = new ActionResult(true,'Your data was update');
         $credentials = [
             'name'             => 'Raul',
             'surname'          => 'Mesa',
@@ -334,7 +334,7 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_updateUserDate_called_throrExceptionAndReturnServiceActionResultFalse()
     {
-        $expected = new ServiceActionResult(false,'Sorry, try it later');
+        $expected = new ActionResult(false,'Sorry, try it later');
         $credentials = [
             'name'             => 'Raul',
             'surname'          => 'Mesa',
@@ -366,7 +366,7 @@ class UserServiceUnitTest extends UnitTestBase
     public function test_getAllUsersWithJackpotReminder_called_returnServiceActionResultTrueWithProperData()
     {
         $user = [$this->getUser()];
-        $expected = new ServiceActionResult(true,$user);
+        $expected = new ActionResult(true,$user);
         $this->userRepository_double->getUsersWithJackpotReminder()->willReturn($user);
         $sut = $this->getSut();
         $actual = $sut->getAllUsersWithJackpotReminder();
@@ -380,7 +380,7 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_getAllUsersWithJackpotReminder_called_returnServiceActionResultFalse()
     {
-        $expected = new ServiceActionResult(false);
+        $expected = new ActionResult(false);
         $this->userRepository_double->getUsersWithJackpotReminder()->willReturn(null);
         $sut = $this->getSut();
         $actual = $sut->getAllUsersWithJackpotReminder();
@@ -394,7 +394,7 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_editMyPaymentMethod_called_updateDataAndReturnServiceActionResultTrue()
     {
-        $expected = new ServiceActionResult(true,'Your credit card data was updating');
+        $expected = new ActionResult(true,'Your credit card data was updating');
         $id = 1;
         $creditCard = new CreditCard(new CardHolderName('Test01 test02 test03'),
             new CardNumber('5500005555555559'),
@@ -509,7 +509,7 @@ class UserServiceUnitTest extends UnitTestBase
     /**
      * @param $expected
      */
-    protected function exerciseAddNewPaymentMethod(ServiceActionResult $expected)
+    protected function exerciseAddNewPaymentMethod(ActionResult $expected)
     {
         $user = $this->getUser();
         $creditCard = $this->getCreditCard();
@@ -523,7 +523,7 @@ class UserServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected, $actual);
     }
 
-    protected function exerciseAddNewPaymentMethodThrowException(ServiceActionResult $expected)
+    protected function exerciseAddNewPaymentMethodThrowException(ActionResult $expected)
     {
         $user = $this->getUser();
         $creditCard = $this->getCreditCard();
@@ -538,7 +538,7 @@ class UserServiceUnitTest extends UnitTestBase
     /**
      * @param $expected
      * @param array $return
-     * @return ServiceActionResult
+     * @return ActionResult
      */
     protected function exerciseGetPaymentMethod($expected,$return = [], $userId = '9098299B-14AC-4124-8DB0-19571EDABE55')
     {

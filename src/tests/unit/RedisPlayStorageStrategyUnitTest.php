@@ -12,7 +12,7 @@ use EuroMillions\vo\EuroMillionsLine;
 use EuroMillions\vo\LastDrawDate;
 use EuroMillions\vo\Password;
 use EuroMillions\vo\PlayFormToStorage;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 use EuroMillions\vo\UserId;
 use Money\Currency;
 use Money\Money;
@@ -49,7 +49,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
      */
     public function test_saveAll_calledWithArrayEuroMillionsLine_setEuroMillionsLineArrayInRedisAndResturnServiceActionResultTrue()
     {
-        $expected = new ServiceActionResult(true);
+        $expected = new ActionResult(true);
         $sut = $this->getSut();
         $playFormToStorage = $this->getPlayFormToStorage();
         $this->redis_double->save(Argument::any(),$playFormToStorage->toJson())->shouldBeCalled();
@@ -64,7 +64,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
      */
     public function test_findByKey_calledWithKeyInRedisStorage_returnServiceResultActionTrueAndEuroMillionsLineArray()
     {
-        $expected = new ServiceActionResult(true, $this->getEuroMillionsLines());
+        $expected = new ActionResult(true, $this->getEuroMillionsLines());
         $sut = $this->getSut();
         $this->redis_double->get(self::EMLINE_FETCH_KEY)->willReturn($this->getEuroMillionsLines());
         $actual = $sut->findByKey(self::EMLINE_FETCH_KEY);
@@ -78,7 +78,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
      */
     public function test_findByKey_keyNotFoundInRedisStore_returnServiceActionResultFalse()
     {
-        $expected = new ServiceActionResult(false,'Key not found');
+        $expected = new ActionResult(false,'Key not found');
         $sut = $this->getSut();
         $this->redis_double->get(self::EMLINE_FETCH_KEY)->willReturn(null);
         $actual = $sut->findByKey(self::EMLINE_FETCH_KEY);
@@ -105,7 +105,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
      */
     public function test_remove_calledWithEmptyKey_returnServiceActionResultFalseAndNotRemove()
     {
-        $expected = new ServiceActionResult(false,'Invalid key');
+        $expected = new ActionResult(false,'Invalid key');
         $sut = $this->getSut();
         $actual = $sut->delete();
         $this->assertEquals($expected,$actual);
@@ -118,7 +118,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
      */
     public function test_remove_calledWithValidKey_returnServiceActionResultTrue()
     {
-        $expected = new ServiceActionResult(true);
+        $expected = new ActionResult(true);
         $sut = $this->getSut();
         $actual  = $sut->delete(self::EMLINE_FETCH_KEY);
         $this->assertEquals($expected,$actual);
@@ -131,7 +131,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
      */
     public function test_remove_calledWithValidKey_throwExceptionAndReturnServiceActionResultFalse()
     {
-        $expected = new ServiceActionResult(false,'An exception ocurred while delete key');
+        $expected = new ActionResult(false,'An exception ocurred while delete key');
         $sut = $this->getSut();
         $this->redis_double->delete(self::EMLINE_FETCH_KEY)->willThrow(new RedisException('An exception ocurred while delete key'));
         $actual = $sut->delete(self::EMLINE_FETCH_KEY);
@@ -145,7 +145,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
      */
     public function test_findByKey_calledWithValidKey_throwExceptionAndReturnServiceActionResultFalse()
     {
-        $expected = new ServiceActionResult(false,'An error ocurred while find key');
+        $expected = new ActionResult(false,'An error ocurred while find key');
         $sut = $this->getSut();
         $this->redis_double->get(self::EMLINE_FETCH_KEY)->willThrow(new RedisException('An error ocurred while find key'));
         $actual = $sut->findByKey(self::EMLINE_FETCH_KEY);
@@ -159,7 +159,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
      */
     public function test_saveAll_calledWithValidEuroMillionsArray_throwExceptionAndReturnServiceActionResultFalse()
     {
-        $expected = new ServiceActionResult(false,'Unable to save data in storage');
+        $expected = new ActionResult(false,'Unable to save data in storage');
         $sut = $this->getSut();
         $playFormToStorage = $this->getPlayFormToStorage();
         $this->redis_double->save(Argument::any(),$playFormToStorage->toJson())->willThrow(new RedisException('Unable to save data in storage'));

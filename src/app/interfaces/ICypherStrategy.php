@@ -6,9 +6,10 @@ namespace EuroMillions\interfaces;
 
 interface ICypherStrategy
 {
-    public function encrypt($clear);
+    public function encrypt($key,$clear);
 
     public function decrypt($cyphered, $key);
 
-    public function getCypherResult();
+    public function getSignature($content_cypehered);
+
 }

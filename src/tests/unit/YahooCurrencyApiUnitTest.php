@@ -4,9 +4,9 @@ namespace tests\unit;
 use EuroMillions\services\external_apis\YahooCurrencyApi;
 use Money\Currency;
 use Money\CurrencyPair;
-use Money\Money;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
+use tests\unit\utils\CurlResponse;
 
 class YahooCurrencyApiUnitTest extends UnitTestBase
 {
@@ -224,8 +224,7 @@ class YahooCurrencyApiUnitTest extends UnitTestBase
      */
     private function getResponse($result = self::RESULT)
     {
-        $response = new \stdClass();
-        $response->body = $result;
+        $response = new CurlResponse($result);
         return $response;
     }
 

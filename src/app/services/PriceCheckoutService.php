@@ -9,7 +9,7 @@ use EuroMillions\entities\User;
 use EuroMillions\repositories\BetRepository;
 use EuroMillions\repositories\PlayConfigRepository;
 use EuroMillions\repositories\UserRepository;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 use Money\Money;
 
 class PriceCheckoutService
@@ -49,9 +49,9 @@ class PriceCheckoutService
 
         $result_awarded = $this->betRepository->getCheckResult($date->format('Y-m-d'));
         if(!empty($result_awarded)){
-            return new ServiceActionResult(true,$result_awarded);
+            return new ActionResult(true,$result_awarded);
         }else{
-            return new ServiceActionResult(false);
+            return new ActionResult(false);
         }
     }
 
@@ -62,9 +62,9 @@ class PriceCheckoutService
                 $user->setBalance($user->getBalance()->add($amount));
                 $this->userRespository->add($user);
                 $this->entityManager->flush($user);
-                return new ServiceActionResult(true);
+                return new ActionResult(true);
             }catch(\Exception $e){
-                return new ServiceActionResult(false);
+                return new ActionResult(false);
             }
         }
     }

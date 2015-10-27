@@ -45,6 +45,8 @@ class EuroMillionsLine
 
     private function setPropertiesValues(array $regular_numbers, array $lucky_numbers)
     {
+        sort($regular_numbers);
+        sort($lucky_numbers);
         $this->regular_number_one = $regular_numbers[0]->getNumber();
         $this->regular_number_two = $regular_numbers[1]->getNumber();
         $this->regular_number_three = $regular_numbers[2]->getNumber();
@@ -77,32 +79,50 @@ class EuroMillionsLine
 
     public function getRegularNumbers()
     {
-        $reflection = new ReflectionObject($this);
-        $properties = $reflection->getProperties(ReflectionProperty::IS_PROTECTED);
-        $numbers = [];
-        foreach ($properties as $property) {
-            $name = $property->getName();
-            if(substr($name,0,7) === 'regular'){
-                $numbers[] = $this->$name;
-            }
-        }
+        $numbers = $this->getRegularNumbersArray();
         $this->regular_numbers = implode(',', $numbers);
         return $this->regular_numbers;
     }
 
     public function getLuckyNumbers()
     {
+        $lucky = $this->getLuckyNumbersArray();
+        $this->lucky_numbers = implode(',', $lucky);
+        return $this->lucky_numbers;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRegularNumbersArray()
+    {
+        $reflection = new ReflectionObject($this);
+        $properties = $reflection->getProperties(ReflectionProperty::IS_PROTECTED);
+        $numbers = [];
+        foreach ($properties as $property) {
+            $name = $property->getName();
+            if (substr($name, 0, 7) === 'regular') {
+                $numbers[] = $this->$name;
+            }
+        }
+        return $numbers;
+    }
+
+    /**
+     * @return array
+     */
+    public function getLuckyNumbersArray()
+    {
         $reflection = new ReflectionObject($this);
         $properties = $reflection->getProperties(ReflectionProperty::IS_PROTECTED);
         $lucky = [];
         foreach ($properties as $property) {
             $name = $property->getName();
-            if(substr($name,0,5) === 'lucky'){
+            if (substr($name, 0, 5) === 'lucky') {
                 $lucky[] = $this->$name;
             }
         }
-        $this->lucky_numbers = implode(',', $lucky);
-        return $this->lucky_numbers;
+        return $lucky;
     }
 
 }

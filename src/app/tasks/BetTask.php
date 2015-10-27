@@ -15,7 +15,7 @@ use EuroMillions\services\LotteriesDataService;
 use EuroMillions\services\PlayService;
 use EuroMillions\services\ServiceFactory;
 use EuroMillions\services\UserService;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 
 class BetTask extends TaskBase
 {
@@ -87,7 +87,7 @@ class BetTask extends TaskBase
             $today = new \DateTime();
         }
 
-        /** @var ServiceActionResult $result_play_config */
+        /** @var ActionResult $result_play_config */
         $result_play_config = $this->playService->getPlaysConfigToBet($today);
         if($result_play_config->success()) {
             /** @var PlayConfig[] $play_config_list */

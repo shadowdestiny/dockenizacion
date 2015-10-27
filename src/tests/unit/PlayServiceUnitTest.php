@@ -11,24 +11,28 @@ use EuroMillions\entities\EuroMillionsDraw;
 use EuroMillions\entities\Lottery;
 use EuroMillions\entities\PlayConfig;
 use EuroMillions\entities\User;
+use EuroMillions\vo\CastilloBetId;
 use EuroMillions\vo\Email;
 use EuroMillions\vo\EuroMillionsLine;
+use EuroMillions\vo\EuroMillionsLuckyNumber;
+use EuroMillions\vo\EuroMillionsRegularNumber;
 use EuroMillions\vo\LastDrawDate;
 use EuroMillions\vo\Password;
-use EuroMillions\vo\PlayForm;
 use EuroMillions\vo\PlayFormToStorage;
-use EuroMillions\vo\ServiceActionResult;
+use EuroMillions\vo\ActionResult;
 use EuroMillions\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
 use tests\base\EuroMillionsResultRelatedTest;
+use tests\base\LotteryValidationCastilloRelatedTest;
 use tests\base\UnitTestBase;
 
 class PlayServiceUnitTest extends UnitTestBase
 {
 
     use EuroMillionsResultRelatedTest;
+    use LotteryValidationCastilloRelatedTest;
 
     private $playConfigRepository_double;
 
@@ -46,6 +50,9 @@ class PlayServiceUnitTest extends UnitTestBase
 
     private $authService_double;
 
+    private $lotteryValidation_double;
+
+    private $logValidationApi_double;
 
     protected function getEntityManagerStubExtraMappings()
     {
@@ -55,6 +62,7 @@ class PlayServiceUnitTest extends UnitTestBase
             Namespaces::ENTITIES_NS . 'Lottery' => $this->lotteryDrawRepository_double,
             Namespaces::ENTITIES_NS . 'Bet' => $this->betRepository_double,
             Namespaces::ENTITIES_NS . 'User' => $this->userRepository_double,
+            Namespaces::ENTITIES_NS . 'LogValidationApi' => $this->logValidationApi_double
         ];
     }
 
@@ -66,7 +74,9 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->lotteryDrawRepository_double = $this->getRepositoryDouble('EuroMillions\entities\Lottery');
         $this->playStorageStrategy_double = $this->getInterfaceDouble('IPlayStorageStrategy');
         $this->userRepository_double = $this->getRepositoryDouble('UserRepository');
+        $this->logValidationApi_double = $this->getRepositoryDouble('LogValidationApiRepository');
         $this->authService_double = $this->getServiceDouble('AuthService');
+        $this->lotteryValidation_double = $this->prophesize('EuroMillions\services\external_apis\LotteryValidationCastilloApi');
         parent::setUp();
     }
 
@@ -77,7 +87,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_play_called_returnServiceActionResultTrue()
     {
-        $expected = new ServiceActionResult(true);
+        $expected = new ActionResult(true);
         $actual = $this->exerciseTemporarilyStorePlay($expected);
         $this->assertEquals($expected,$actual);
     }
@@ -89,7 +99,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_play_calledWithUserWithoutBalance_returnServiceActionResultFalse()
     {
-        $expected = new ServiceActionResult(false);
+        $expected = new ActionResult(false);
         $user = $this->getUser();
         $user->setBalance(new Money(0,new Currency('EUR')));
         $regular_numbers = [1, 2, 3, 4, 5];
@@ -111,7 +121,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_play_calledAndPlayIsStored_removeKeyAndReturnServiceActionResultTrue()
     {
-        $expected = new ServiceActionResult(true);
+        $expected = new ActionResult(true);
         $actual = $this->exerciseTemporarilyStorePlay($expected);
         $this->assertEquals($expected,$actual);
     }
@@ -123,7 +133,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_play_calledAndPlayIsNotStored_returnServiceActionResultFalse()
     {
-        $expected = new ServiceActionResult(false);
+        $expected = new ActionResult(false);
         $actual = $this->exerciseTemporarilyStorePlay($expected);
         $this->assertEquals($expected,$actual);
     }
@@ -136,7 +146,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_play_calledAndPassKeyInvalidToSearchInStorage_returnServiceActionResultFalse()
     {
-        $expected = new ServiceActionResult(false,'The search key doesn\'t exist');
+        $expected = new ActionResult(false,'The search key doesn\'t exist');
         $user = $this->getUser();
         $sut = $this->getSut();
         $this->playStorageStrategy_double->findByKey($user->getId()->id())->willReturn(null);
@@ -151,16 +161,20 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_bet_calledWhenTheresNoBetInDB_returnServiceActionResultTrueAndCreateNewBet()
     {
-        $expected = new ServiceActionResult(true);
+        $expected = new ActionResult(true);
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
+        $entityManager_stub = $this->getEntityManagerDouble();
         $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
         $this->betRepository_double->getBetsByDrawDate(Argument::any())->willReturn(null);
+        $this->callValidationApi(true);
+        $this->lotteryValidation_double->getXmlResponse()->willReturn(new \SimpleXMLElement(self::$content_with_ok_result));
+        $this->logValidationApi_double->add(Argument::type('EuroMillions\entities\LogValidationApi'))->shouldBeCalled();
+        $entityManager_stub->flush(Argument::type('EuroMillions\entities\LogValidationApi'))->shouldNotBeCalled();
         $this->betRepository_double->add(Argument::any())->willReturn(true);
         $this->userRepository_double->add(Argument::any())->willReturn(true);
-        $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush()->shouldNotBeCalled();
         $sut = $this->getSut();
-        $actual = $sut->bet($playConfig,$euroMillionsDraw, new \DateTime('2015-09-16 00:00:00'));
+        $actual = $sut->bet($playConfig,$euroMillionsDraw, new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
         $this->assertEquals($expected,$actual);
     }
 
@@ -172,16 +186,17 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_bet_called_returnExceptionNoWasPossibleSubstractAmountInUser()
     {
-        $expected = new ServiceActionResult(false);
+        $expected = new ActionResult(false);
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
         $this->betRepository_double->getBetsByDrawDate(Argument::any())->willReturn(null);
+        $this->callValidationApi(true);
         $this->betRepository_double->add(Argument::any())->willReturn(true);
         $this->userRepository_double->add($this->getUser())->willThrow(new \Exception());
         $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush()->shouldNotBeCalled();
         $sut = $this->getSut();
-        $actual = $sut->bet($playConfig,$euroMillionsDraw, new \DateTime('2015-09-16 00:00:00'));
+        $actual = $sut->bet($playConfig,$euroMillionsDraw, new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
         $this->assertEquals($expected,$actual);
     }
 
@@ -193,7 +208,7 @@ class PlayServiceUnitTest extends UnitTestBase
     public function test_bet_calledWhenABetForNextDrawYetExists_returnServiceActionResultTrueButNotCreateNewBet()
     {
 
-        $expected = new ServiceActionResult(true);
+        $expected = new ActionResult(true);
         $today = new \DateTime('2015-09-16 00:00:00');
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $bet = new Bet($playConfig,$euroMillionsDraw);
@@ -230,7 +245,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_temporarilyStorePlay_called_returnServiceActionResultTrueWhenStore()
     {
-        $expected = new ServiceActionResult(true);
+        $expected = new ActionResult(true);
         $actual = $this->exerciseTemporarilyStorePlay($expected);
         $this->assertEquals($expected,$actual);
     }
@@ -242,7 +257,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_temporarilyStorePlay_called_returnServiceActionResultFalseWhenTryStore()
     {
-        $expected = new ServiceActionResult(false);
+        $expected = new ActionResult(false);
         $actual = $this->exerciseTemporarilyStorePlay($expected);
         $this->assertEquals($expected,$actual);
     }
@@ -276,6 +291,44 @@ class PlayServiceUnitTest extends UnitTestBase
         $sut->getPlaysConfigToBet($date);
     }
 
+    /**
+     * method bet
+     * when calledToValidationApi
+     * should returnActionResultTrue
+     */
+    public function test_bet_calledToValidationApi_returnActionResultTrue()
+    {
+        $expected = new ActionResult(true);
+        list($playConfig, $euroMillionsDraw) = $this->exerciseValidationBet($expected);
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $this->userRepository_double->add(Argument::any())->willReturn(true);
+        $this->lotteryValidation_double->getXmlResponse()->willReturn(new \SimpleXMLElement(self::$content_with_ok_result));
+        $this->logValidationApi_double->add(Argument::type('EuroMillions\entities\LogValidationApi'))->shouldBeCalled();
+        $entityManager_stub->flush(Argument::type('EuroMillions\entities\LogValidationApi'))->shouldNotBeCalled();
+        $this->logValidationApi_double->add(Argument::any())->shouldBeCalled();
+        $entityManager_stub->flush()->shouldBeCalled();
+        $sut = $this->getSut();
+        $actual = $sut->bet($playConfig,$euroMillionsDraw, new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
+        $this->assertEquals($expected,$actual);
+    }
+
+
+    /**
+     * method bet
+     * when calledToValidationApi
+     * should returnActionResultFalse
+     */
+    public function test_bet_calledToValidationApi_returnActionResultFalse()
+    {
+        $expected = new ActionResult(false);
+        list($playConfig, $euroMillionsDraw) = $this->exerciseValidationBet($expected);
+        $sut = $this->getSut();
+        $actual = $sut->bet($playConfig,$euroMillionsDraw, new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
+        $this->assertEquals($expected,$actual);
+
+    }
+
+
 
     private function exerciseTemporarilyStorePlay($expected)
     {
@@ -294,6 +347,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->playStorageStrategy_double->findByKey($user->getId()->id())->willReturn($form->toJson());
         $playConfig = new PlayConfig();
         $playConfig->formToEntity($user,$form->toJson());
+        $this->logValidationApi_double->add(Argument::any())->shouldNotBeCalled();
         $this->betRepository_double->add(Argument::any())->shouldNotBeCalled();
         $this->getEntityManagerDouble()->flush($playConfig)->shouldNotBeCalled();
         $this->playStorageStrategy_double->delete($user->getId()->id())->willReturn($expected);
@@ -302,7 +356,9 @@ class PlayServiceUnitTest extends UnitTestBase
     }
 
     private function getSut(){
-        $sut = $this->getDomainServiceFactory()->getPlayService($this->lotteryDataService_double->reveal(), $this->playStorageStrategy_double->reveal());
+        $sut = $this->getDomainServiceFactory()->getPlayService($this->lotteryDataService_double->reveal(),
+                                                                $this->playStorageStrategy_double->reveal()
+                                                                );
         return $sut;
     }
 
@@ -405,5 +461,62 @@ class PlayServiceUnitTest extends UnitTestBase
         ]);
 
         return $lottery;
+    }
+
+    /**
+     * @return Bet
+     */
+    protected function getBetForValidation()
+    {
+        $play_config = $this->getPlayConfig();
+        $euromillions_draw = new EuroMillionsDraw();
+        $bet_id_castillo = CastilloBetId::create();
+        $bet = new Bet($play_config, $euromillions_draw);
+        $bet->setCastilloBet($bet_id_castillo);
+        return $bet;
+    }
+
+    protected function getPlayConfig()
+    {
+        $reg = [7,16,17,22,15];
+        $regular_numbers = [];
+        foreach($reg as $regular_number){
+            $regular_numbers[] = new EuroMillionsRegularNumber($regular_number);
+        }
+        $luck = [7,1];
+        $lucky_numbers = [];
+        foreach($luck as $lucky_number){
+            $lucky_numbers[] = new EuroMillionsLuckyNumber($lucky_number);
+        }
+
+        $playConfig = new PlayConfig();
+        $line = new EuroMillionsLine($regular_numbers,$lucky_numbers);
+        $playConfig->setLine($line);
+        return $playConfig;
+    }
+
+    /**
+     * @param $expected
+     * @return array
+     */
+    private function exerciseValidationBet($expected)
+    {
+        list($playConfig, $euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
+        $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
+        $this->lotteryDataService_double->getNextDateDrawByLottery('EuroMillions', Argument::any())->willReturn('2016-10-04');
+        $this->callValidationApi($expected);
+        return array($playConfig, $euroMillionsDraw);
+    }
+
+    /**
+     * @param $expected
+     */
+    private function callValidationApi($expected)
+    {
+        $this->lotteryValidation_double->validateBet(Argument::type('EuroMillions\entities\Bet'),
+            Argument::type('EuroMillions\interfaces\ICypherStrategy'),
+            Argument::type('EuroMillions\vo\CastilloCypherKey'),
+            Argument::type('EuroMillions\vo\CastilloTicketId'),
+            Argument::type('\DateTime'))->willReturn(new ActionResult($expected));
     }
 }
