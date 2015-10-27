@@ -19,12 +19,24 @@ class NumbersController extends PublicSiteControllerBase
         $now = new \DateTime();
         $breakDown = $this->lotteriesDataService->getBreakDownDrawByDate($lotteryName,$now);
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteriesDataService->getNextJackpot('EuroMillions'));
-        $breakDownDTO = new EuroMillionsDrawBreakDownDTO($breakDown->getValues(),$this->currencyService);
+        $breakDownDTO = new EuroMillionsDrawBreakDownDTO($breakDown->getValues());
 
-        $break_down_list = $breakDownDTO->convertCurrency($this->userService->getCurrency());
+        $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
         return $this->view->setVars([
             'break_downs' => $break_down_list,
             'jackpot_value' => $jackpot->getAmount()/100
         ]);
     }
+
+    private function convertCurrency(array $break_downs)
+    {
+        $user_currency = $this->userPreferencesService->getCurrency();
+        if(!empty($break_downs)) {
+            foreach($break_downs as &$breakDown) {
+                $breakDown['lottery_prize'] = $this->currencyService->convert(new Money((int) $breakDown['lottery_prize'], new Currency('EUR')), $user_currency)->getAmount() / 10000;
+            }
+        }
+        return $break_downs;
+    }
+
 }
