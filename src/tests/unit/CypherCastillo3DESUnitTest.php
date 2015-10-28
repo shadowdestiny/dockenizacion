@@ -59,7 +59,7 @@ class CypherCastillo3DESUnitTest extends UnitTestBase
 
     public function getSut()
     {
-        return new \EuroMillions\components\CypherCastillo3DES();
+        return new \EuroMillions\web\components\CypherCastillo3DES();
     }
 
 

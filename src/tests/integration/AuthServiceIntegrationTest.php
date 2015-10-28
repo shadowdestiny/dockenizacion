@@ -1,11 +1,10 @@
 <?php
 namespace tests\integration;
 
-use EuroMillions\components\NullPasswordHasher;
-use EuroMillions\config\Namespaces;
-use EuroMillions\entities\User;
-use EuroMillions\repositories\UserRepository;
-use EuroMillions\vo\Email;
+use EuroMillions\web\components\NullPasswordHasher;
+use EuroMillions\shareconfig\Namespaces;
+use EuroMillions\web\entities\User;
+use EuroMillions\web\repositories\UserRepository;
 use tests\base\DatabaseIntegrationTestBase;
 
 class AuthServiceIntegrationTest extends DatabaseIntegrationTestBase
@@ -64,7 +63,7 @@ class AuthServiceIntegrationTest extends DatabaseIntegrationTestBase
         $this->assertFalse($user->getValidated(), "The user is validated yet");
         $sut = $this->getDomainServiceFactory()->getAuthService();
         $token = 'azoafaifo';
-        $validation_token_generator = $this->getInterfaceDouble('IEmailValidationToken');
+        $validation_token_generator = $this->getInterfaceWebDouble('IEmailValidationToken');
         $validation_token_generator->validate($email, $token)->willReturn(true);
         $actual = $sut->validateEmailToken($user, $token, $validation_token_generator->reveal());
         $this->assertTrue($actual->success(), "The service reported failure");

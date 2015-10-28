@@ -1,7 +1,7 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\services\external_apis\LoteriasyapuestasDotEsApi;
+use EuroMillions\web\services\external_apis\LoteriasyapuestasDotEsApi;
 use Money\Currency;
 use Money\Money;
 use tests\base\LoteriasyapuestasDotEsRelatedTest;
@@ -18,7 +18,7 @@ class LoteriasyapuestasDotEsApiUnitTest extends UnitTestBase
      */
     public function test_getJackpotForDate_calledWithNonAvailableDate_throw()
     {
-        $this->setExpectedException('\EuroMillions\exceptions\ValidDateRangeException');
+        $this->setExpectedException($this->getExceptionToArgument('ValidDateRangeException'));
         $date = '2010-02-02';
         $this->exerciseGetJackpot($date);
     }
@@ -66,7 +66,7 @@ class LoteriasyapuestasDotEsApiUnitTest extends UnitTestBase
      */
     public function test_getResultForDate_calledWithNonAvailableDate_throw()
     {
-        $this->setExpectedException('\EuroMillions\exceptions\ValidDateRangeException');
+        $this->setExpectedException($this->getExceptionToArgument('ValidDateRangeException'));
         $date = '2010-02-02';
         $this->exerciseGetResult($date);
     }

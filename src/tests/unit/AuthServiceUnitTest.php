@@ -1,20 +1,17 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\components\Md5EmailValidationToken;
-use EuroMillions\components\NullPasswordHasher;
-use EuroMillions\components\PhpassWrapper;
-use EuroMillions\components\RandomPasswordGenerator;
-use EuroMillions\config\Namespaces;
-use EuroMillions\entities\User;
-use EuroMillions\services\AuthService;
-use EuroMillions\vo\ContactFormInfo;
-use EuroMillions\vo\Email;
-use EuroMillions\vo\Password;
-use EuroMillions\vo\RememberToken;
-use EuroMillions\vo\ActionResult;
-use EuroMillions\vo\UserId;
-use EuroMillions\vo\ValidationToken;
+use EuroMillions\web\components\Md5EmailValidationToken;
+use EuroMillions\web\components\NullPasswordHasher;
+use EuroMillions\shareconfig\Namespaces;
+use EuroMillions\web\entities\User;
+use EuroMillions\web\services\AuthService;
+use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\Password;
+use EuroMillions\web\vo\RememberToken;
+use EuroMillions\web\vo\ActionResult;
+use EuroMillions\web\vo\UserId;
+use EuroMillions\web\vo\ValidationToken;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -46,9 +43,9 @@ class AuthServiceUnitTest extends UnitTestBase
     public function setUp()
     {
         $this->userRepository_double = $this->getRepositoryDouble('UserRepository');
-        $this->hasher_double = $this->getInterfaceDouble('IPasswordHasher');
+        $this->hasher_double = $this->getInterfaceWebDouble('IPasswordHasher');
         $this->hasher_double->hashPassword(Argument::any())->willReturn(self::HASH);
-        $this->storageStrategy_double = $this->getInterfaceDouble('IAuthStorageStrategy');
+        $this->storageStrategy_double = $this->getInterfaceWebDouble('IAuthStorageStrategy');
         $this->urlManager_double = $this->getInterfaceDouble('IUrlManager');
         $this->logService_double = $this->getServiceDouble('LogService');
         $this->emailService_double = $this->getServiceDouble('EmailService');
@@ -79,8 +76,9 @@ class AuthServiceUnitTest extends UnitTestBase
     {
         /** @var User $user */
         $credentials = $this->prepareHasherCredentialsAndUserRepo(true);
-        $this->storageStrategy_double->storeRemember(Argument::type('EuroMillions\interfaces\IUser'))->shouldBeCalled();
-        $this->storageStrategy_double->setCurrentUserId(Argument::type('EuroMillions\vo\UserId'))->shouldBeCalled();
+
+        $this->storageStrategy_double->storeRemember(Argument::type($this->getInterfacesToArgument('IUser')))->shouldBeCalled();
+        $this->storageStrategy_double->setCurrentUserId(Argument::type($this->getVOToArgument('UserId')))->shouldBeCalled();
         $this->expectFlushInEntityManager();
         $this->exerciseCheck($credentials);
     }
@@ -123,7 +121,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $this->stubEntityManager($entityManager_stub);
 
         $this->storageStrategy_double->storeRemember(Argument::any())->shouldNotBeCalled();
-        $this->storageStrategy_double->setCurrentUserId(Argument::type('EuroMillions\vo\UserId'))->shouldBeCalled();
+        $this->storageStrategy_double->setCurrentUserId(Argument::type($this->getVOToArgument('UserId')))->shouldBeCalled();
 
         $this->exerciseCheck($credentials);
     }
@@ -368,7 +366,7 @@ class AuthServiceUnitTest extends UnitTestBase
         );
         $this->userRepository_double->getByEmail($credentials['email'])->willReturn(null);
         $this->userRepository_double->add($user)->shouldBeCalled();
-        $this->storageStrategy_double->setCurrentUserId(Argument::type('EuroMillions\vo\UserId'))->shouldBeCalled();
+        $this->storageStrategy_double->setCurrentUserId(Argument::type($this->getVOToArgument('UserId')))->shouldBeCalled();
         $this->urlManager_double->get(Argument::type('string'))->willReturn('http://localhost/userAccess/validate/441a9e42f0e3c769a6112b56a04b6');
         $sut = $this->getSut();
         $actual = $sut->register($credentials);
@@ -426,7 +424,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $sut = $this->getSut();
         $actual = $sut->forgotPassword($email);
         $this->assertTrue($actual->success());
-        $this->assertInstanceOf('EuroMillions\vo\ActionResult', $actual);
+        $this->assertInstanceOf($this->getVOToArgument('ActionResult'), $actual);
     }
 
     /**
@@ -441,7 +439,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $sut = $this->getSut();
         $actual = $sut->resetPassword($token);
         $this->userRepository_double->getByToken($token)->willReturn($user);
-        $this->assertInstanceOf('Euromillions\vo\ActionResult', $actual);
+        $this->assertInstanceOf($this->getVOToArgument('ActionResult'), $actual);
     }
 
 
@@ -592,7 +590,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $user = new User();
         $email = 'azofaifo@azofaifo.com';
         $user->initialize(['email' => new Email($email)]);
-        $emailValidationTokenGenerator = $this->getInterfaceDouble('IEmailValidationToken');
+        $emailValidationTokenGenerator = $this->getInterfaceWebDouble('IEmailValidationToken');
         $emailValidationTokenGenerator->validate($email, $token)->willReturn($validation_result);
         return array($user, $emailValidationTokenGenerator);
     }

@@ -4,9 +4,9 @@
 namespace tests\unit;
 
 
-use EuroMillions\services\external_apis\LotteryValidationCastilloApi;
-use EuroMillions\vo\ActionResult;
-use EuroMillions\vo\CastilloCypherKey;
+use EuroMillions\web\services\external_apis\LotteryValidationCastilloApi;
+use EuroMillions\web\vo\ActionResult;
+use EuroMillions\web\vo\CastilloCypherKey;
 use Prophecy\Argument;
 use tests\base\LotteryValidationCastilloRelatedTest;
 use tests\base\UnitTestBase;
@@ -27,8 +27,8 @@ class LotteryValidationCastilloApiUnitTest extends UnitTestBase
     {
         parent::setUp();
         $this->curlWrapper_double = $this->prophesize('\Phalcon\Http\Client\Provider\Curl');
-        $this->cypher_double = $this->prophesize('EuroMillions\interfaces\ICypherStrategy');
-        $this->castilloTicketId_double = $this->prophesize('EuroMillions\vo\CastilloTicketId');
+        $this->cypher_double = $this->prophesize($this->getInterfacesToArgument('ICypherStrategy'));
+        $this->castilloTicketId_double = $this->prophesize($this->getVOToArgument('CastilloTicketId'));
     }
 
 

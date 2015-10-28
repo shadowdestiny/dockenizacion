@@ -4,11 +4,11 @@
 namespace tests\integration;
 
 
-use EuroMillions\entities\PlayConfig;
-use EuroMillions\repositories\PlayConfigRepository;
-use EuroMillions\vo\DrawDays;
-use EuroMillions\vo\EuroMillionsLine;
-use EuroMillions\vo\UserId;
+use EuroMillions\web\entities\PlayConfig;
+use EuroMillions\web\repositories\PlayConfigRepository;
+use EuroMillions\web\vo\DrawDays;
+use EuroMillions\web\vo\EuroMillionsLine;
+use EuroMillions\web\vo\UserId;
 use tests\base\DatabaseIntegrationTestBase;
 use tests\base\EuroMillionsResultRelatedTest;
 
@@ -35,7 +35,7 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     public function setUp()
     {
         parent::setUp();
-        $this->sut = $this->entityManager->getRepository('\EuroMillions\entities\PlayConfig');
+        $this->sut = $this->entityManager->getRepository($this->getEntitiesToArgument('PlayConfig'));
     }
 
     /**
@@ -45,7 +45,7 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
      */
     public function test_add_called_storeCorrectlyInDatabase()
     {
-        $user = $this->entityManager->find('EuroMillions\entities\User', '9098299B-14AC-4124-8DB0-19571EDABE57');
+        $user = $this->entityManager->find($this->getEntitiesToArgument('User'), '9098299B-14AC-4124-8DB0-19571EDABE57');
         $regular_numbers = [1, 2, 3, 4, 5];
         $lucky_numbers = [5, 8];
         $euroMillionsLine = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),
@@ -107,7 +107,7 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $actual = $this->entityManager
             ->createQuery(
                 'SELECT p'
-                . ' FROM \EuroMillions\entities\PlayConfig p'
+                . ' FROM \EuroMillions\web\entities\PlayConfig p'
                 . ' WHERE p.user = :user_id ')
             ->setParameters(['user_id' => $user->getId() ])
             ->getResult()[0];

@@ -135,12 +135,15 @@ class PlayService
                         'response' => $lotteryValidation->getXmlResponse(),
                         'received' => new \DateTime()
                     ]);
+
                     $this->logValidationRepository->add($log_api_reponse);
                     $this->entityManager->flush($log_api_reponse);
                     if($result_validation->success()) {
                         $this->betRepository->add($bet);
                         $user->setBalance($user->getBalance()->subtract($single_bet_price));
                         $this->userRepository->add($user);
+                        $playConfig->setActive(false);
+                        $this->playConfigRepository->add($playConfig);
                         $this->entityManager->flush();
                         return new ActionResult(true);
                     } else{

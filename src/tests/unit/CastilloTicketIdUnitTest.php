@@ -4,7 +4,7 @@
 namespace tests\unit;
 
 
-use EuroMillions\vo\CastilloTicketId;
+use EuroMillions\web\vo\CastilloTicketId;
 use tests\base\UnitTestBase;
 
 class CastilloTicketIdUnitTest extends UnitTestBase

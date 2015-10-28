@@ -1,7 +1,7 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\vo\NullPortNumber;
+use EuroMillions\web\vo\NullPortNumber;
 use tests\base\ValueObjectUnitTestBase;
 
 class NullValueUnitTest extends ValueObjectUnitTestBase

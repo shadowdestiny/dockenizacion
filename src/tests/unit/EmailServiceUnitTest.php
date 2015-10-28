@@ -1,9 +1,9 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\entities\User;
-use EuroMillions\vo\Email;
-use EuroMillions\vo\Url;
+use EuroMillions\web\entities\User;
+use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\Url;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
 
@@ -16,7 +16,7 @@ class EmailServiceUnitTest extends UnitTestBase
     {
         parent::setUp();
         $this->authService_double = $this->getServiceDouble('AuthService');
-        $this->mailServiceApi_double = $this->getInterfaceDouble('IMailServiceApi');
+        $this->mailServiceApi_double = $this->getInterfaceWebDouble('IMailServiceApi');
     }
 
     /**

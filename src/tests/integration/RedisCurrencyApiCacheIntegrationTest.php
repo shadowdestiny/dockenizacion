@@ -1,7 +1,7 @@
 <?php
 namespace tests\integration;
 
-use EuroMillions\services\external_apis\RedisCurrencyApiCache;
+use EuroMillions\web\services\external_apis\RedisCurrencyApiCache;
 use Money\Currency;
 use Money\CurrencyPair;
 use tests\base\RedisIntegrationTestBase;

@@ -1,13 +1,12 @@
 <?php
 namespace tests\integration;
 
-use EuroMillions\config\Namespaces;
-use EuroMillions\entities\EuroMillionsDraw;
-use EuroMillions\services\external_apis\LotteryApisFactory;
-use EuroMillions\services\LotteriesDataService;
-use EuroMillions\vo\EuroMillionsDrawBreakDown;
-use EuroMillions\vo\EuroMillionsDrawBreakDownData;
-use EuroMillions\vo\EuroMillionsLine;
+use EuroMillions\shareconfig\Namespaces;
+use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\services\external_apis\LotteryApisFactory;
+use EuroMillions\web\services\LotteriesDataService;
+use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
+use EuroMillions\web\vo\EuroMillionsLine;
 use Money\Currency;
 use Money\Money;
 use Phalcon\Di;

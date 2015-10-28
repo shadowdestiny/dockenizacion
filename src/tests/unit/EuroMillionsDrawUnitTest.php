@@ -1,8 +1,8 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\entities\EuroMillionsDraw;
-use EuroMillions\vo\EuroMillionsLine;
+use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\vo\EuroMillionsLine;
 use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\UnitTestBase;
 

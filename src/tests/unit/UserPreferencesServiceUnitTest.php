@@ -1,7 +1,7 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\config\Namespaces;
+use EuroMillions\shareconfig\Namespaces;
 use Money\Currency;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
@@ -31,7 +31,7 @@ class UserPreferencesServiceUnitTest extends UnitTestBase
     {
         $this->userRepository_double = $this->getRepositoryDouble('UserRepository');
         $this->currencyService_double = $this->getServiceDouble('CurrencyService');
-        $this->storageStrategy_double = $this->getInterfaceDouble('IUsersPreferencesStorageStrategy');
+        $this->storageStrategy_double = $this->getInterfaceWebDouble('IUsersPreferencesStorageStrategy');
         $this->emailService_double = $this->getServiceDouble('EmailService');
         $this->paymentProviderService_double = $this->getServiceDouble('PaymentProviderService');
         $this->paymentMethodRepository_double = $this->getRepositoryDouble('PaymentMethodRepository');

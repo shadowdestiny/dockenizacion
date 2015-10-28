@@ -4,9 +4,9 @@
 namespace tests\unit;
 
 
-use EuroMillions\vo\EuroMillionsLine;
-use EuroMillions\vo\EuroMillionsLuckyNumber;
-use EuroMillions\vo\EuroMillionsRegularNumber;
+use EuroMillions\web\vo\EuroMillionsLine;
+use EuroMillions\web\vo\EuroMillionsLuckyNumber;
+use EuroMillions\web\vo\EuroMillionsRegularNumber;
 use tests\base\UnitTestBase;
 
 class EuroMillionsLineUnitTest extends UnitTestBase

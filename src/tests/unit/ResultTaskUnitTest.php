@@ -4,18 +4,17 @@
 namespace tests\unit;
 
 
-use EuroMillions\components\NullPasswordHasher;
-use EuroMillions\config\Namespaces;
-use EuroMillions\entities\PlayConfig;
-use EuroMillions\entities\User;
-use EuroMillions\tasks\ResultTask;
-use EuroMillions\vo\DrawDays;
-use EuroMillions\vo\dto\EuroMillionsDrawBreakDownDTO;
-use EuroMillions\vo\Email;
-use EuroMillions\vo\EuroMillionsDrawBreakDown;
-use EuroMillions\vo\Password;
-use EuroMillions\vo\ActionResult;
-use EuroMillions\vo\UserId;
+use EuroMillions\web\components\NullPasswordHasher;
+use EuroMillions\shareconfig\Namespaces;
+use EuroMillions\web\entities\PlayConfig;
+use EuroMillions\web\entities\User;
+use EuroMillions\web\tasks\ResultTask;
+use EuroMillions\web\vo\DrawDays;
+use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
+use EuroMillions\web\vo\Password;
+use EuroMillions\web\vo\ActionResult;
+use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -73,7 +72,7 @@ class ResultTaskUnitTest extends UnitTestBase
      */
     public function test_updateAction_updateLastBreakDown_sendEmailByEachUserInPlayConfig()
     {
-        $this->markTestSkipped();
+
         $lottery_name = 'EuroMillions';
         $today = new \DateTime('2015-10-10');
         $play_config_list = $this->getPlayConfigList();
@@ -83,13 +82,13 @@ class ResultTaskUnitTest extends UnitTestBase
         $this->lotteryDataService_double->getBreakDownDrawByDate($lottery_name,$today)->willReturn(new ActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())));
         $this->playService_double->getPlaysConfigToBet($today)->willReturn($play_config_list);
         $this->userService_double->getUser(new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'))->willReturn($this->getUser());
-        foreach($break_down_data_list as $break_down_element_category) {
-            foreach($break_down_element_category as $k => $break_down){
-                $lottery_prize = $break_down[1];
-                $this->currencyService_double->convert(new Money((int) $lottery_prize, new Currency('EUR')),new Currency('EUR'))->willReturn(new Money(5000,new Currency('EUR')));
-            }
-        }
-        $this->emailService_double->sendTransactionalEmail(Argument::type('EuroMillions\entities\User'),'latest-results')->shouldBeCalledTimes(4);
+//        foreach($break_down_data_list as $break_down_element_category) {
+//            foreach($break_down_element_category as $k => $break_down){
+//                $lottery_prize = $break_down[1];
+//                $this->currencyService_double->convert(new Money((int) $lottery_prize, new Currency('EUR')),new Currency('EUR'))->willReturn(new Money(5000,new Currency('EUR')));
+//            }
+//        }
+        $this->emailService_double->sendTransactionalEmail($this->getUser(),'latest-results')->shouldBeCalledTimes(4);
         $sut = new ResultTask();
         $sut->initialize($this->lotteryDataService_double->reveal(),
         $this->playService_double->reveal(),

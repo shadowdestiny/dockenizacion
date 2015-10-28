@@ -1,8 +1,8 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\entities\Lottery;
-use EuroMillions\services\external_apis\LotteryApisFactory;
+use EuroMillions\web\entities\Lottery;
+use EuroMillions\web\services\external_apis\LotteryApisFactory;
 use tests\base\UnitTestBase;
 
 class LotteryApisFactoryUnitTest extends UnitTestBase
@@ -22,7 +22,7 @@ class LotteryApisFactoryUnitTest extends UnitTestBase
         ]);
         $sut = new LotteryApisFactory();
         $api = $sut->jackpotApi($lottery);
-        $this->assertInstanceOf('\Euromillions\services\external_apis\\' . $expected_jackpot_api, $api);
+        $this->assertInstanceOf('\Euromillions\web\services\external_apis\\' . $expected_jackpot_api, $api);
     }
 
     /**
@@ -40,6 +40,6 @@ class LotteryApisFactoryUnitTest extends UnitTestBase
         ]);
         $sut = new LotteryApisFactory();
         $api = $sut->resultApi($lottery);
-        $this->assertInstanceOf('\Euromillions\services\external_apis\\' . $expected_result_api, $api);
+        $this->assertInstanceOf('\Euromillions\web\services\external_apis\\' . $expected_result_api, $api);
     }
 }

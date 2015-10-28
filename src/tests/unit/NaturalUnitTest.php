@@ -1,7 +1,7 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\vo\base\Natural;
+use EuroMillions\web\vo\base\Natural;
 use tests\base\ValueObjectUnitTestBase;
 
 class NaturalUnitTest extends ValueObjectUnitTestBase

@@ -1,14 +1,14 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\components\NullPasswordHasher;
-use EuroMillions\config\Namespaces;
-use EuroMillions\entities\User;
-use EuroMillions\tasks\JackpotTask;
-use EuroMillions\vo\Email;
-use EuroMillions\vo\Password;
-use EuroMillions\vo\ActionResult;
-use EuroMillions\vo\UserId;
+use EuroMillions\web\components\NullPasswordHasher;
+use EuroMillions\shareconfig\Namespaces;
+use EuroMillions\web\entities\User;
+use EuroMillions\web\tasks\JackpotTask;
+use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\Password;
+use EuroMillions\web\vo\ActionResult;
+use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -75,7 +75,7 @@ class JackpotTaskUnitTest extends UnitTestBase
 
         $this->lotteryDataService_double->getNextJackpot($lottery_name)->willReturn($jackpot_amount);
         $this->userService_double->getAllUsersWithJackpotReminder()->willReturn(new ActionResult(true,$users));
-        $this->emailService_double->sendTransactionalEmail(Argument::type('EuroMillions\entities\User'), 'jackpot-rollover')->shouldBeCalledTimes(2);
+        $this->emailService_double->sendTransactionalEmail(Argument::type($this->getEntitiesToArgument('User')), 'jackpot-rollover')->shouldBeCalledTimes(2);
         $sut = new JackpotTask();
         $sut->initialize($this->lotteryDataService_double->reveal(),$this->userService_double->reveal(), $this->emailService_double->reveal());
         $sut->reminderJackpotAction();

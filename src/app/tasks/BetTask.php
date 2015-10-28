@@ -42,31 +42,39 @@ class BetTask extends TaskBase
         parent::initialize();
     }
 
-    public function createBetAction(\DateTime $today = null)
+    public function createBetAction(\DateTime $today = null, $time_to_retry = null)
     {
         if (!$today) $today = new \DateTime();
 
+        if(!$time_to_retry) strtotime('now');
+        $time_config = $this->getDI()->get('globalConfig')['retry_validation_time'];
+        $date_today = new \DateTime();
+        $limit_time = strtotime($date_today->format('Y/m/d '. $time_config['time']));
+        $is_check_time = ($limit_time < $time_to_retry) ? true : false;
+
         $lotteryName = 'EuroMillions';
-        //$playService = $this->domainServiceFactory->getPlayService();
         $result_euromillions_draw = $this->lotteriesDataService->getNextDrawByLottery($lotteryName);
         /** @var EuroMillionsDraw $euromillions_draw */
         $euromillions_draw = $result_euromillions_draw->getValues();
         $result_play_configs = $this->playService->getPlaysConfigToBet($result_euromillions_draw->getValues()->getDrawDate());
 
-        if($result_play_configs->success()){
+        if($result_play_configs->success() && $is_check_time){
             /** @var PlayConfig[] $play_config_list */
             $play_config_list = $result_play_configs->getValues();
             /** @var User $user */
             $user = null;
             $user_id = '';
+            $result_bet = null;
             foreach($play_config_list as $play_config) {
                 if($play_config->getDrawDays()->compareTo($euromillions_draw->getDrawDate()->format('w'))){
                     try{
                         if(empty($user_id)){
+                            /** @var ActionResult $result_bet */
                             $this->playService->bet($play_config, $euromillions_draw);
                         }
                         if(!empty($user_id) && $user_id != $play_config->getUser()->getId()->id()){
                             $user_id = '';
+                            /** @var ActionResult $result_bet */
                             $this->playService->bet($play_config, $euromillions_draw);
                         }
                     }catch(InvalidBalanceException $e){
@@ -76,6 +84,19 @@ class BetTask extends TaskBase
                             $this->emailService->sendTransactionalEmail($user, 'low-balance');
                         }
                     }
+                }
+            }
+        }
+        if(!$is_check_time) {
+            $user_id = '';
+            $play_config_list = $result_play_configs->getValues();
+            /** @var PlayConfig[] $play_config */
+            foreach($play_config_list as $play_config) {
+                if(empty($user_id) || $user_id != $play_config->getUser()->getId()->id()){
+                    $user = $this->userService->getUser($play_config->getUser()->getId());
+                    //EMTD change name template to new template with information about validation ticket
+                    $this->emailService->sendTransactionalEmail($user,'low-balance');
+                    $user_id = $user->getId()->id();
                 }
             }
         }

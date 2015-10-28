@@ -4,13 +4,13 @@
 namespace tests\base;
 
 
-use EuroMillions\entities\Bet;
-use EuroMillions\entities\EuroMillionsDraw;
-use EuroMillions\entities\PlayConfig;
-use EuroMillions\vo\CastilloBetId;
-use EuroMillions\vo\EuroMillionsLine;
-use EuroMillions\vo\EuroMillionsLuckyNumber;
-use EuroMillions\vo\EuroMillionsRegularNumber;
+use EuroMillions\web\entities\Bet;
+use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\entities\PlayConfig;
+use EuroMillions\web\vo\CastilloBetId;
+use EuroMillions\web\vo\EuroMillionsLine;
+use EuroMillions\web\vo\EuroMillionsLuckyNumber;
+use EuroMillions\web\vo\EuroMillionsRegularNumber;
 
 trait LotteryValidationCastilloRelatedTest
 {

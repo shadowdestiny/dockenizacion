@@ -1,7 +1,7 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\services\preferences_strategies\WebLanguageStrategy;
+use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use tests\base\UnitTestBase;
 
 class WebLanguageStrategyUnitTest extends UnitTestBase

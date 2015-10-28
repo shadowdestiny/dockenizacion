@@ -1,9 +1,9 @@
 <?php
 namespace tests\integration;
 
-use EuroMillions\entities\Lottery;
-use EuroMillions\repositories\LotteryDrawRepository;
-use EuroMillions\vo\EuroMillionsLine;
+use EuroMillions\web\entities\Lottery;
+use EuroMillions\web\repositories\LotteryDrawRepository;
+use EuroMillions\web\vo\EuroMillionsLine;
 use Money\Currency;
 use Money\Money;
 use tests\base\RepositoryIntegrationTestBase;

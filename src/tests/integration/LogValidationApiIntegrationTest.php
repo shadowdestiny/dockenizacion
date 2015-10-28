@@ -4,8 +4,8 @@
 namespace tests\integration;
 
 
-use EuroMillions\entities\Bet;
-use EuroMillions\entities\LogValidationApi;
+use EuroMillions\web\entities\Bet;
+use EuroMillions\web\entities\LogValidationApi;
 use tests\base\DatabaseIntegrationTestBase;
 
 class LogValidationApiIntegrationTest extends DatabaseIntegrationTestBase
@@ -31,7 +31,7 @@ class LogValidationApiIntegrationTest extends DatabaseIntegrationTestBase
     public function setUp()
     {
         parent::setup();
-        $this->sut = $this->entityManager->getRepository('\EuroMillions\entities\LogValidationApi');
+        $this->sut = $this->entityManager->getRepository('\EuroMillions\web\entities\LogValidationApi');
     }
 
     /**
@@ -42,7 +42,7 @@ class LogValidationApiIntegrationTest extends DatabaseIntegrationTestBase
     public function test_add_called_storeCorrectlyeInDatabase()
     {
         /** @var Bet $bet */
-        $bet = $this->entityManager->find('EuroMillions\entities\Bet', 2);
+        $bet = $this->entityManager->find('EuroMillions\web\entities\Bet', 2);
         $log_api_reponse = new LogValidationApi();
         $log_api_reponse->initialize([
             'id_provider' => 1,
@@ -58,7 +58,7 @@ class LogValidationApiIntegrationTest extends DatabaseIntegrationTestBase
         $actual = $this->entityManager
             ->createQuery(
                 'SELECT l'
-                .    ' FROM \EuroMillions\entities\LogValidationApi l'
+                .    ' FROM \EuroMillions\web\entities\LogValidationApi l'
                 .    ' WHERE l.id_ticket = :castillo_bet_id')
             ->setParameters(['castillo_bet_id' => $bet->getCastilloBet()->id() ])
             ->getResult()[0];

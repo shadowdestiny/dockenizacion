@@ -1,9 +1,9 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\entities\GuestUser;
-use EuroMillions\services\auth_strategies\WebAuthStorageStrategy;
-use EuroMillions\vo\UserId;
+use EuroMillions\web\entities\GuestUser;
+use EuroMillions\web\services\auth_strategies\WebAuthStorageStrategy;
+use EuroMillions\web\vo\UserId;
 use Phalcon\Http\Cookie;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
@@ -63,7 +63,7 @@ class WebAuthStorageStrategyUnitTest extends UnitTestBase
         $this->session_double->set(Argument::any(), Argument::any())->willReturn(null);
         $this->cookieManager_double->set(Argument::any(),Argument::any(),Argument::any())->willReturn(null);
         $actual = $this->exerciseGetCurrentUserId();
-        $this->assertInstanceOf('EuroMillions\vo\UserId', $actual);
+        $this->assertInstanceOf($this->getVOToArgument('UserId'), $actual);
 
     }
 

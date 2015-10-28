@@ -4,7 +4,7 @@
 namespace tests\unit;
 
 
-use EuroMillions\vo\CardNumber;
+use EuroMillions\web\vo\CardNumber;
 use Phalcon\Test\UnitTestCase;
 
 class CardNumberUnitTest extends UnitTestCase
@@ -19,7 +19,7 @@ class CardNumberUnitTest extends UnitTestCase
      */
     public function test___construct_calledWithWrongCardNumber_throw($expected)
     {
-        $this->setExpectedException('EuroMillions\exceptions\InvalidCardNumberException');
+        $this->setExpectedException('EuroMillions\web\exceptions\InvalidCardNumberException');
         new CardNumber($expected);
     }
 

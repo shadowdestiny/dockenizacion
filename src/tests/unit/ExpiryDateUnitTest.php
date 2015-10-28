@@ -4,7 +4,7 @@
 namespace tests\unit;
 
 
-use EuroMillions\vo\ExpiryDate;
+use EuroMillions\web\vo\ExpiryDate;
 use Phalcon\Test\UnitTestCase;
 
 class ExpiryDateUnitTest extends UnitTestCase
@@ -17,7 +17,7 @@ class ExpiryDateUnitTest extends UnitTestCase
      */
     public function test___calledWithExpiredDate_calledWithExpiredDate_throw($excepted)
     {
-        $this->setExpectedException('\EuroMillions\exceptions\InvalidExpirationDateException');
+        $this->setExpectedException('\EuroMillions\web\exceptions\InvalidExpirationDateException');
         $sut = new ExpiryDate($excepted);
         $sut->assertExpiryDate($excepted);
 

@@ -1,19 +1,19 @@
 <?php
 namespace tests\integration;
 
-use EuroMillions\config\Namespaces;
-use EuroMillions\entities\PlayConfig;
-use EuroMillions\entities\User;
-use EuroMillions\entities\CreditCardPaymentMethod;
-use EuroMillions\vo\CardHolderName;
-use EuroMillions\vo\CardNumber;
-use EuroMillions\vo\CreditCard;
-use EuroMillions\vo\CVV;
-use EuroMillions\vo\EuroMillionsLine;
-use EuroMillions\vo\EuroMillionsLuckyNumber;
-use EuroMillions\vo\EuroMillionsRegularNumber;
-use EuroMillions\vo\ExpiryDate;
-use EuroMillions\vo\UserId;
+use EuroMillions\shareconfig\Namespaces;
+use EuroMillions\web\entities\PlayConfig;
+use EuroMillions\web\entities\User;
+use EuroMillions\web\entities\CreditCardPaymentMethod;
+use EuroMillions\web\vo\CardHolderName;
+use EuroMillions\web\vo\CardNumber;
+use EuroMillions\web\vo\CreditCard;
+use EuroMillions\web\vo\CVV;
+use EuroMillions\web\vo\EuroMillionsLine;
+use EuroMillions\web\vo\EuroMillionsLuckyNumber;
+use EuroMillions\web\vo\EuroMillionsRegularNumber;
+use EuroMillions\web\vo\ExpiryDate;
+use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use tests\base\DatabaseIntegrationTestBase;

@@ -4,11 +4,8 @@
 namespace tests\integration;
 
 
-use EuroMillions\services\play_strategies\RedisPlayStorageStrategy;
-use EuroMillions\vo\EuroMillionsLine;
-use EuroMillions\vo\LastDrawDate;
-use EuroMillions\vo\PlayFormToStorage;
-use EuroMillions\vo\UserId;
+use EuroMillions\web\services\play_strategies\RedisPlayStorageStrategy;
+use EuroMillions\web\vo\UserId;
 use Phalcon\Di;
 use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\RedisIntegrationTestBase;

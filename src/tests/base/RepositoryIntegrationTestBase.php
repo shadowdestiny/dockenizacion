@@ -11,6 +11,6 @@ abstract class RepositoryIntegrationTestBase extends DatabaseIntegrationTestBase
     {
         parent::setUp();
         $entity_manager = Di::getDefault()->get('entityManager');
-        $this->sut = $entity_manager->getRepository('EuroMillions\entities\\'.$entity);
+        $this->sut = $entity_manager->getRepository('EuroMillions\web\entities\\'.$entity);
     }
 }

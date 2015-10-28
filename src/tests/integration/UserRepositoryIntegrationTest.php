@@ -1,12 +1,12 @@
 <?php
 namespace tests\integration;
 
-use EuroMillions\components\NullPasswordHasher;
-use EuroMillions\components\PhpassWrapper;
-use EuroMillions\entities\User;
-use EuroMillions\repositories\UserRepository;
-use EuroMillions\vo\Email;
-use EuroMillions\vo\Password;
+use EuroMillions\web\components\NullPasswordHasher;
+use EuroMillions\web\components\PhpassWrapper;
+use EuroMillions\web\entities\User;
+use EuroMillions\web\repositories\UserRepository;
+use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\Password;
 use Money\Currency;
 use Money\Money;
 use tests\base\DatabaseIntegrationTestBase;
@@ -26,7 +26,7 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     public function setUp()
     {
         parent::setUp();
-        $this->sut = $this->entityManager->getRepository('\EuroMillions\entities\User');
+        $this->sut = $this->entityManager->getRepository($this->getEntitiesToArgument('User'));
     }
 
     /**
@@ -87,7 +87,7 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $actual = $this->entityManager
             ->createQuery(
                 'SELECT u'
-                . ' FROM \EuroMillions\entities\User u'
+                . ' FROM \EuroMillions\web\entities\User u'
                 . ' WHERE u.password.value = :password AND u.email.value = :email')
             ->setMaxResults(1)
             ->setParameters(['password' => $hashed_pass->toNative(), 'email' => $email])
