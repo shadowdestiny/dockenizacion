@@ -1,0 +1,51 @@
+<?php echo $this->tag->form(array('account/password')); ?>
+    <?php if ($msg) { ?>
+        <div class="box success">
+            <span class="ico- ico"></span>
+            <span class="txt"><?php echo $msg; ?></span>
+        </div>
+    <?php } ?>
+    <?php if ($which_form == 'password' && $errors) { ?>
+        <div class="box error">
+            <span class="ico-warning ico"></span>
+            <span class="txt"><?php foreach ($errors as $error) { ?><?php echo $error; ?><br><?php } ?></span>
+        </div>
+    <?php } ?>
+
+    <?php if ($myPsw->value == 'change') { ?>
+        <div class="cols change">
+            <div class="col6">
+                <label for="old-password" class="label"><?php echo $this->language->translate('Old password'); ?> <span class="asterisk">*</span></label>
+                <?php echo $password_change->render('old-password', array('class' => 'input')); ?>
+                <?php } ?>
+
+                <label for="new-password" class="label"><?php echo $this->language->translate('New password'); ?> <span class="asterisk">*</span></label>
+                <?php echo $password_change->render('new-password', array('class' => 'input')); ?>
+
+                <label for="confirm-password" class="label"><?php echo $this->language->translate('Confirm password'); ?> <span class="asterisk">*</span></label>
+                <?php echo $password_change->render('confirm-password', array('class' => 'input')); ?>
+
+                <?php if ($myPsw->value == 'change') { ?>
+            </div>
+            <div class="col6">
+                <div class="box info">
+                    <span class="ico ico-info"></span>
+                    <span class="txt">
+                        <?php echo $this->language->translate('Use a long password made up of numbers, letters and symbols. The longer your password is, the harder it is to guess. So make your password long to help keep your information safe.'); ?>
+                    </span>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+
+    <div class="cl">
+        <?php if ($myPsw->value == 'change') { ?>
+            <label class="btn big blue left submit" for="submitpass">
+                <?php echo $this->language->translate('Update password'); ?>
+                <input id="submitpass" type="submit" class="hidden2">
+            </label>
+        <?php } else { ?>
+            <a href="javascript:void(0);" class="btn blue submit right"><?php echo $this->language->translate('Request new password'); ?></a>
+        <?php } ?>
+    </div>
+<?php echo $this->tag->endform(); ?>

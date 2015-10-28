@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="EuroMillions\web\entities\PlayConfig" table="play_configs"
+            repository-class="EuroMillions\web\repositories\PlayConfigRepository">
+
+        <id name="id" type="integer">
+            <generator strategy="IDENTITY"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="active" type="boolean"><options><option name="default">1</option></options></field>
+        <field name="startDrawDate" type="date" nullable="true" column="start_draw_date"/>
+        <field name="lastDrawDate" type="date" nullable="true" column="last_draw_date"/>
+
+        <embedded name="line" class="EuroMillions\web\vo\EuroMillionsLine"/>
+        <embedded name="draw_days" class="EuroMillions\web\vo\DrawDays"/>
+        <one-to-many target-entity="EuroMillions\web\entities\Bet" mapped-by="bet"
+                     field="bet">
+        </one-to-many>
+        <many-to-one target-entity="EuroMillions\web\entities\User" inversed-by="user"
+                     field="user">
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

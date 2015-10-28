@@ -1,0 +1,80 @@
+a:13:{i:0;s:1200:"<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<title>Euromillions.com - Default title</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Insert description">
+<meta name="author" content="Name Company">
+
+
+<link rel="shortcut icon" href="/images/specialicon.ico" type="image/x-icon">
+ 
+
+    
+        <!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="/js/vendor/jquery-1.11.3.min.js"></script>
+<script>
+$(document).bind("mobileinit", function(){
+    $.mobile.ajaxEnabled=false;
+    $.mobile.pushStateEnabled=false; // Disable Ajax
+    $.mobile.ignoreContentEnabled=true; // Unable disactivation of Jquery behaviour on anchors, by adding on the parent/container of the links  data-ajax="false"
+});
+</script>
+<script src="/js/vendor/jquery.mobile.custom.min.js"></script>
+<script src="/js/vendor/picturefill.min.js" async></script>
+<script src="/js/vendor/fastclick.min.js"></script>
+
+
+<script src="/js/vendor/jquery.countdown.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+ 
+
+
+        
+        <link rel="stylesheet" href="/css/main.css">
+        ";s:12:"template_css";N;i:1;s:132:"      
+
+        
+        <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700'>
+
+        ";s:16:"template_scripts";N;i:2;s:30:"  
+    </head>
+
+	<body class="";s:9:"bodyClass";N;i:3;s:98:"">
+        <div class="bg-black"></div>
+        <div data-role="page" id="main-page">
+            ";s:6:"header";N;i:4;s:56:"
+
+            <div data-role="content">
+                ";s:4:"body";N;i:5;s:33:"
+            </div>
+
+            ";s:6:"footer";N;i:6;s:1378:"
+        </div>
+
+        
+        <div data-role="page" id="nav-account">
+            <ul class="no-li" data-role="listview">
+                <li><a href="#main-page" data-transition="slide" data-direction="reverse"><?php echo $this->language->translate('My Account'); ?></a></li>
+                <li><a href="#main-page" data-transition="slide" data-direction="reverse"><?php echo $this->language->translate('My Games'); ?></a></li>
+                <li><a href="#main-page" data-transition="slide" data-direction="reverse"><?php echo $this->language->translate('My Wallet'); ?></a></li>
+                <li><a href="#main-page" data-transition="slide" data-direction="reverse"><?php echo $this->language->translate('Messages'); ?></a></li>
+                <li><a href="#main-page" data-transition="slide" data-direction="reverse"><?php echo $this->language->translate('Sign out'); ?></a></li>
+            </ul>
+        </div> 
+
+        <div data-role="page" id="language">
+            <ul class="no-li" data-role="listview">
+                <?php foreach ($currencies as $currency) { ?>
+                    <li><a href="#main-page" onclick="globalFunctions.setCurrency('<?php echo $currency['code']; ?>')" data-transition="slide" data-direction="reverse"><?php echo $currency['name']; ?></a></li>
+                <?php } ?>
+            </ul>
+        </div>
+
+    </body>
+</html>";}

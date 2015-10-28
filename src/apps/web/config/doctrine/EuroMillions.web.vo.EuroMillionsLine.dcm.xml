@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <embeddable name="EuroMillions\web\vo\EuroMillionsLine">
+        <field name="regular_number_one" type="integer" length="2" nullable="true" />
+        <field name="regular_number_two" type="integer" length="2" nullable="true" />
+        <field name="regular_number_three" type="integer" length="2" nullable="true" />
+        <field name="regular_number_four" type="integer" length="2" nullable="true" />
+        <field name="regular_number_five" type="integer" length="2" nullable="true" />
+        <field name="lucky_number_one" type="integer"  length="2" nullable="true" />
+        <field name="lucky_number_two" type="integer" length="2" nullable="true" />
+    </embeddable>
+
+</doctrine-mapping>
