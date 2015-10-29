@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\shareconfig\bootstrap;
 
+use EuroMillions\admin\services\DomainAdminServiceFactory;
 use EuroMillions\sharecomponents\EnvironmentDetector;
 use EuroMillions\sharecomponents\PhalconCookiesWrapper;
 use EuroMillions\sharecomponents\PhalconRequestWrapper;
@@ -67,7 +68,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         error_reporting($config->application['errorReporting']);
         (new Phalcon\Debug())->listen();
         $application = new Phalcon\Mvc\Application($di);
-
         $application->registerModules([
             'web' => [
                 'className' => 'EuroMillions\web\Module',
@@ -78,12 +78,10 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 'path' => '../apps/admin/Module.php',
             ]
         ]);
-
         $this->ownDependency($application);
         // CONFIGURE DEBUGBAR
 //        $di['app'] = $application;
 //        (new ServiceProvider(APP_PATH . 'config/debugbar.php'))->start();
-
         echo $application->handle()->getContent();
     }
 
@@ -151,11 +149,29 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $router->setDefaultModule('web');
 
 
-        $router->add("/admin", [
+//        $router->add("/admin", [
+//            'module' => 'admin',
+//            'controller' => 'login',
+//            'action' => 'index'
+//        ]);
+        $router->add('/admin/:controller/:action(/?.*)', array(
+            'module' => 'admin',
+            'controller' => 1,
+            'action' => 2,
+            'params' => 3,
+        ));
+
+        $router->add('/admin/:controller(/?)', array(
+            'module' => 'admin',
+            'controller' => 1,
+            'action' => 'index',
+        ));
+
+        $router->add('/admin(/?)', array(
             'module' => 'admin',
             'controller' => 'login',
-            'action' => 'index'
-        ]);
+            'action' => 'index',
+        ));
 
         $router->notFound(array(
             "module"     => "web",
@@ -184,6 +200,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action'     => 2,
             'params'     => 3,
         ));
+
         $router->setDefaults(array(
             "module"     => "web",
             'controller' => 'index',
@@ -259,6 +276,11 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
        return new DomainServiceFactory($di, new ServiceFactory($di));
     }
 
+    protected function configDomainAdminServiceFactory(Di $di)
+    {
+        return new DomainAdminServiceFactory($di);
+    }
+
     protected function ownDependency(Phalcon\Mvc\Application $application)
     {
         $di = $application->getDI();
@@ -272,6 +294,12 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
                 $di->set('language', $this->configLanguage($di), true);
                 $di->set('view', $this->configView($di), true);
+                $object->registerServices($di);
+            }
+            if($module_name == 'admin'){
+                $admin_module = $application->getModule($module_name);
+                $object = $di->get($admin_module['className']);
+                $di->set('domainAdminServiceFactory',$this->configDomainAdminServiceFactory($di),true);
                 $object->registerServices($di);
             }
         });

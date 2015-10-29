@@ -1,15 +1,15 @@
 <?php
 namespace EuroMillions\web\controllers;
 
-use EuroMillions\web\web\entities\Language;
-use EuroMillions\web\web\entities\User;
-use EuroMillions\web\web\services\AuthService;
-use EuroMillions\web\web\services\CurrencyService;
-use EuroMillions\web\web\services\LanguageService;
+use EuroMillions\web\entities\Language;
+use EuroMillions\web\entities\User;
+use EuroMillions\web\services\AuthService;
+use EuroMillions\web\services\CurrencyService;
+use EuroMillions\web\services\LanguageService;
 use Doctrine\ORM\EntityManager;
-use EuroMillions\web\web\services\LotteriesDataService;
-use EuroMillions\web\web\services\UserPreferencesService;
-use EuroMillions\web\web\services\UserService;
+use EuroMillions\web\services\LotteriesDataService;
+use EuroMillions\web\services\UserPreferencesService;
+use EuroMillions\web\services\UserService;
 use Phalcon\Di;
 use Phalcon\Mvc\View;
 
