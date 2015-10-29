@@ -73,7 +73,7 @@ abstract class BootstrapStrategyBase
         //EMTD use path_config by each module
         $config = Setup::createXMLMetadataConfiguration(array('/var/www/public/../apps/web/config/' . 'doctrine'), $is_dev_mode);
         $config->setQueryCacheImpl(new ApcCache());
-        $config->setMetadataCacheImpl(new ApcCache());
+        //$config->setMetadataCacheImpl(new ApcCache());
 
         $redis = new Redis();
         $redis->connect($appConfig['redis']['host']);
