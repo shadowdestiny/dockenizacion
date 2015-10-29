@@ -4,6 +4,8 @@ error_reporting(E_ALL);
 use EuroMillions\shareconfig\bootstrap\CliLoader;
 use EuroMillions\shareconfig\bootstrap\CliBootstrapStrategy;
 
+
+apc_clear_cache();
 $app_path = __DIR__.'/';
 $global_config_path = $app_path.'../global_config/';
 $tests_path = $app_path.'../tests/';
