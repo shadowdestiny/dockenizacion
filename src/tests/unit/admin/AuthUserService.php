@@ -11,6 +11,12 @@ class AuthUserService extends UnitTestBase
 {
 
     use PhalconDiRelatedTest;
+
+    public function setUp()
+    {
+        parent::setUp();
+    }
+
     /**
      * method login
      * when calledWithValidCredentials
@@ -18,13 +24,7 @@ class AuthUserService extends UnitTestBase
      */
     public function test_login_calledWithValidCredentials_returnActionResultTrue()
     {
-        $expected = new ActionResult(true);
-        $sut = $this->getSut();
-        $credentials = [
-            'user' => 'admin',
-            'pass' => 'euromillions'
-        ];
-        $actual = $sut->login($credentials);
+        list($expected, $actual) = $this->exreciseUserLogin(true);
         $this->assertEquals($expected,$actual);
     }
 
@@ -35,19 +35,28 @@ class AuthUserService extends UnitTestBase
      */
     public function test_login_calledWithInvalidCredentials_returnActionResultFalse()
     {
-        $expected = new ActionResult(false);
-        $credentials = [
-            'user' => 'test',
-            'pass' => 'test'
-        ];
-        $sut = $this->getSut();
-        $actual = $sut->login($credentials);
+        list($expected, $actual) = $this->exreciseUserLogin(false);
         $this->assertEquals($expected,$actual);
     }
 
     private function getSut()
     {
         return $this->getDomainAdminServiceFactory()->getAuthUserService();
+    }
+
+    /**
+     * @return array
+     */
+    private function exreciseUserLogin($expected)
+    {
+        $expected = new ActionResult($expected);
+        $credentials = [
+            'user' => 'test',
+            'pass' => 'test'
+        ];
+        $sut = $this->getSut();
+        $actual = $sut->login($credentials);
+        return array($expected, $actual);
     }
 
 }

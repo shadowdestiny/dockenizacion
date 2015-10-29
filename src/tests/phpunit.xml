@@ -24,7 +24,7 @@
         <testsuite name="functional">
             <directory>./functional/</directory>
         </testsuite>
-        <testsuite name="unit+admin">
+        <testsuite name="admin+unit">
             <directory>./unit/admin/</directory>
         </testsuite>
 
