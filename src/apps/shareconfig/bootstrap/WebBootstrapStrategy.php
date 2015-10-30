@@ -261,8 +261,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     {
         $request = $di->get('request');
         $url = new PhalconUrlWrapper();
-        $url->setBaseUri($request->getScheme() . '://localhost:8080/');
-        $url->setStaticBaseUri($request->getScheme() . '://localhost:8080/'); //EMTD pasar por configuración
+        $url->setBaseUri($request->getScheme() . '://beta.panamedia.net/');
+        $url->setStaticBaseUri($request->getScheme() . '://beta.panamedia.net/'); //EMTD pasar por configuración
         return $url;
     }
 
