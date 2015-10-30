@@ -27,4 +27,9 @@ class DomainAdminServiceFactory
         return new MaintenanceUserService($this->entityManager);
     }
 
+    public function getMaintenanceDrawService()
+    {
+        return new MaintenanceDrawService($this->entityManager);
+    }
+
 }
