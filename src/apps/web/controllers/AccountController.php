@@ -158,6 +158,7 @@ class AccountController extends PublicSiteControllerBase
                 $message_inactives = $myGamesInactives->errorMessage();
             }
         }
+        $this->view->pick('account/games');
         return $this->view->setVars([
             'my_games_actives' => $playConfigActivesDTOCollection,
             'my_games_inactives' => $playConfigInactivesDTOCollection,
