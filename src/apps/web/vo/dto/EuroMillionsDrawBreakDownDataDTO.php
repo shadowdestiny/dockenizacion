@@ -121,7 +121,7 @@ class EuroMillionsDrawBreakDownDataDTO extends DTOBase implements IDto
         $this->setName($this->euroMillionsDrawBreakDownDataDTO->getName());
         $this->setLotteryPrize($this->euroMillionsDrawBreakDownDataDTO->getLotteryPrize()->getAmount());
         $this->setWinners($this->euroMillionsDrawBreakDownDataDTO->getWinners());
-        $corrected = explode("+",trim($this->getName()));
+        $corrected = explode("+",trim($this->getName()));        
         $this->setNumbersCorrected($corrected[0]);
         $this->setStarsCorrected($corrected[1]);
     }

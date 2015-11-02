@@ -17,10 +17,9 @@ class NumbersController extends PublicSiteControllerBase
         //EMTD surely we need send to view more vars
         $lotteryName = 'EuroMillions';
         $now = new \DateTime();
-        $breakDown = $this->lotteriesDataService->getBreakDownDrawByDate($lotteryName,$now);
+        $breakDown = $this->lotteriesDataService->getBreakDownDrawByDate($lotteryName,$now);        
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteriesDataService->getNextJackpot('EuroMillions'));
-        $breakDownDTO = new EuroMillionsDrawBreakDownDTO($breakDown->getValues());
-
+        $breakDownDTO = new EuroMillionsDrawBreakDownDTO($breakDown->getValues());        
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
         return $this->view->setVars([
             'break_downs' => $break_down_list,
