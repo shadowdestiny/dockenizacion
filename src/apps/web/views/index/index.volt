@@ -1,5 +1,5 @@
 {% extends "main.volt" %}
-{% block template_css %}<link rel="stylesheet" href="w/css/home.css">{% endblock %}
+{% block template_css %}<link rel="stylesheet" href="/w/css/home.css">{% endblock %}
 {% block bodyClass %}home{% endblock %}
 
 {% block header %}
@@ -101,9 +101,9 @@ $(function(){
 							<div class="win-millions">
 								<picture class="pic">
 									<!--[if IE 9]><video style="display: none;"><![endif]-->
-									<source media="(max-width: 768px)" srcset="w/img/home/win-millions-sm.png">
+									<source media="(max-width: 768px)" srcset="/w/img/home/win-millions-sm.png">
 									<!--[if IE 9]></video><![endif]-->
-									<img src="w/img/home/win-millions.png" srcset="w/img/home/win-millions.png, w/img/home/win-millions@2x.png 1.5x" alt="{{ language.translate('Win Millions') }}">
+									<img src="w/img/home/win-millions.png" srcset="/w/img/home/win-millions.png, /w/img/home/win-millions@2x.png 1.5x" alt="{{ language.translate('Win Millions') }}">
 								</picture>
 							</div>
 							<div class="box-ball">

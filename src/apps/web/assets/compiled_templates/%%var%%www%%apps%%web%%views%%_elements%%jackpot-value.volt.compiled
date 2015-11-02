@@ -1,0 +1,13 @@
+<span class="box-value<?php if ($extraClass->boxvalueClass) { ?> <?php echo $extraClass->boxvalueClass; ?><?php } ?>">
+	<?php if ($currency_symbol_first) { ?>
+		<span class="currency first<?php if ($extraClass->currencyClass) { ?> <?php echo $extraClass->currencyClass; ?><?php } ?>"><?php echo $user_currency['symbol']; ?></span>
+	<?php } ?>
+	
+	<span class="maxChar value<?php if ($extraClass->valueClass) { ?> <?php echo $extraClass->valueClass; ?><?php } ?>">
+			<?php echo number_format($jackpot_value, 0, ',', '.'); ?>
+	</span>
+	
+	<?php if (!$currency_symbol_first) { ?>
+		<span class="currency last<?php if ($extraClass->currencyClass) { ?> <?php echo $extraClass->currencyClass; ?><?php } ?>"><?php echo $user_currency['symbol']; ?></span>
+	<?php } ?>
+</span>

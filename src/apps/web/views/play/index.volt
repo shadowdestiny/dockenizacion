@@ -1,11 +1,11 @@
 {% extends "main.volt" %}
 {% block template_css %}
-<link rel="stylesheet" href="w/css/vendor/tipr.css">
-<link rel="stylesheet" href="w/css/play.css">
+<link rel="stylesheet" href="/w/css/vendor/tipr.css">
+<link rel="stylesheet" href="/w/css/play.css">
 {% endblock %}
 {% block template_scripts %}
 <script>{% include "play/index.js" %}</script>
-<script src="w/js/vendor/tipr.min.js"></script>
+<script src="/w/js/vendor/tipr.min.js"></script>
 {% endblock %}
 {% block bodyClass %}play{% endblock %}
 

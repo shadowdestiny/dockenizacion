@@ -1,7 +1,7 @@
 {{ form('account/password') }}
     {% if msg %}
         <div class="box success">
-            <span class="ico- ico"></span>
+            <span class="ico- ico"></span> {# Ico- ? shouldn't be something else? #}
             <span class="txt">{{ msg }}</span>
         </div>
     {% endif %}

@@ -1,7 +1,7 @@
 {% extends "main.volt" %}
 {% block template_css %}
-<link rel="stylesheet" href="w/css/sign-in.css">
-<link rel="stylesheet" href="w/css/cart.css">
+<link rel="stylesheet" href="/w/css/sign-in.css">
+<link rel="stylesheet" href="/w/css/cart.css">
 {% endblock %}
 {% block template_scripts %}
     {% include "sign-in/_sign-in-js.volt" %}

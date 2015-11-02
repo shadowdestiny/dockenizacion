@@ -1,6 +1,6 @@
 {% extends "main.volt" %}
 {% block template_css %}
-    <link rel="stylesheet" href="w/css/faq.css">
+    <link rel="stylesheet" href="/w/css/faq.css">
     <!--[if IE 9]>
     <style>.laurel{display:none;}</style>
     <![endif]-->
