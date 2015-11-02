@@ -99,7 +99,7 @@ class LotteryDrawRepository extends EntityRepository
                 . ' WHERE l.name = :lottery_name AND ld.draw_date = :date')
             ->setMaxResults(1)
             ->setParameters(['lottery_name' => $lottery->getName(), 'date' => $draw_date->format("Y-m-d")])
-            ->useResultCache(true)
+            ->useResultCache(false)
             ->getResult();
 
         return $result[0]->getBreakDown();
