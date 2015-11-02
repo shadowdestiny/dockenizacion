@@ -5,4 +5,4 @@
 <meta name="author" content="Name Company">
 
 {# EMTD - Change .ico #}
-<link rel="shortcut icon" href="/images/specialicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="w/images/specialicon.ico" type="image/x-icon">

@@ -10,7 +10,7 @@
 
 
         {# CSS Compress this css in a single file #}
-        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="w/css/main.css">
         {% block template_css %}{% endblock %}      {# Inject unique css #}
 
         {# FONTS  #}

@@ -64,16 +64,6 @@ class MaintenanceDrawServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
-    /**
-     * method 
-     * when 
-     * should 
-     */
-    public function test___()
-    {
-        
-    }
-
     private function getSut()
     {
         return $sut = $this->getDomainAdminServiceFactory()->getMaintenanceDrawService();
