@@ -262,10 +262,11 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     protected function configUrl(Di $di)
     {
+        $config = $di->get('config');
         $request = $di->get('request');
         $url = new PhalconUrlWrapper();
-        $url->setBaseUri($request->getScheme() . '://beta.euromillions.com/');
-        $url->setStaticBaseUri($request->getScheme() . '://beta.euromillions.com/'); //EMTD pasar por configuración
+        $url->setBaseUri($request->getScheme() . '://'.$config->domain['url']);
+        $url->setStaticBaseUri($request->getScheme() . '://'.$config->domain['url']); //EMTD pasar por configuración
         return $url;
     }
 
