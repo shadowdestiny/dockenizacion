@@ -4,7 +4,7 @@
 .box-right{background:url(../img/home/bg-coloured.jpg) no-repeat; border-radius:0 10px 10px 0; }
 
 .box-estimated{
-  background:url(/img/home/bg-euro.jpg) no-repeat; padding:20px 0 13px 20px; border-radius:10px 0 0 0; background-size:cover;
+  background:url(../img/home/bg-euro.jpg) no-repeat; padding:20px 0 13px 20px; border-radius:10px 0 0 0; background-size:cover;
   .try{position:relative;} /* Fix Safari problem*/
 }
 .box-estimated:hover .try{@extend %pulseRight;}
@@ -92,7 +92,7 @@
 .box-prize .cols{margin-bottom:0;}
 .box-prize .content{margin:10px;}
 .box-prize .content .content{margin-right:0;}
-.box-prize .bg{background:url(/img/pattern/01.png) repeat; overflow:hidden; color:#fff;} 
+.box-prize .bg{background:url(../img/pattern/01.png) repeat; overflow:hidden; color:#fff;} 
 .box-prize .bg2{@include background-image(linear-gradient(to right top, $purple, $purple-darker));} /* I had to insert a second BG div because mixing @include doesn't work well with multiple background */
 .box-prize .value, .box-prize .currency{font-size:$h1; margin-bottom:5px;}
 .box-prize .box-value{margin:0 0 1em;}
@@ -143,10 +143,9 @@
 .bg-hope{background:url(../img/home/bg-hope.jpg) no-repeat center center; background-size:cover;}
 .bg-win{background:url(../img/home/bg-win.jpg) no-repeat center center;}
 
-
 /*Retina only */
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx){
-    .box-estimated{background-image:url(/img/home/bg-euro@2x.jpg); background-size:600px 171px;}
+    .box-estimated{background-image:url(../img/home/bg-euro@2x.jpg); background-size:600px 171px;}
     .box-result .woman{background-image:url(../img/home/bg-result@2x.jpg); background-size:168px 189px;}
     .outbound{background-image:url(../img/home/bg-win-millions@2x.png); background-size:445px 445px;}
     .box-play .awards li, .box-play .ball{background-image:url(../img/sprite@2x.png); background-size:270px 220px;}
