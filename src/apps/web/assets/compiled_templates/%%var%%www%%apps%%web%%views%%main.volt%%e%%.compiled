@@ -1,4 +1,4 @@
-a:13:{i:0;s:1200:"<!DOCTYPE html>
+a:13:{i:0;s:1239:"<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -37,24 +37,24 @@ $(document).bind("mobileinit", function(){
 
         
         <link rel="stylesheet" href="/css/main.css">
-        ";s:12:"template_css";N;i:1;s:132:"      
+        ";s:12:"template_css";N;i:1;s:137:"      
 
         
         <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700'>
 
-        ";s:16:"template_scripts";N;i:2;s:30:"  
+        ";s:16:"template_scripts";N;i:2;s:33:"  
     </head>
 
-	<body class="";s:9:"bodyClass";N;i:3;s:98:"">
+	<body class="";s:9:"bodyClass";N;i:3;s:101:"">
         <div class="bg-black"></div>
         <div data-role="page" id="main-page">
-            ";s:6:"header";N;i:4;s:56:"
+            ";s:6:"header";N;i:4;s:59:"
 
             <div data-role="content">
-                ";s:4:"body";N;i:5;s:33:"
+                ";s:4:"body";N;i:5;s:36:"
             </div>
 
-            ";s:6:"footer";N;i:6;s:1378:"
+            ";s:6:"footer";N;i:6;s:1401:"
         </div>
 
         
