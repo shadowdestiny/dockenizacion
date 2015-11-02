@@ -41,11 +41,5 @@ class Module implements ModuleDefinitionInterface
             return $dispatcher;
         });
 
-        // Registering the view component
-        $dependencyInjector->set('view', function () {
-            $view = new View();
-            $view->setViewsDir('../apps/admin/views/');
-            return $view;
-        });
     }
 }

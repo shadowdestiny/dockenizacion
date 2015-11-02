@@ -85,11 +85,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         echo $application->handle()->getContent();
     }
 
-    protected function configView()
+    protected function configView($module)
     {
-        $compiled_path = $this->assetsPath . 'compiled_templates/';
         $view = new Phalcon\Mvc\View();
+        $compiled_path = $this->assetsPath . 'compiled_templates/';
         $view->setViewsDir($this->appPath . 'web/views/');
+        if($module == 'admin') {
+            $view->setViewsDir($this->appPath . 'admin/views/');
+        }
         $view->registerEngines(array(
             ".volt" => function ($view, $di) use ($compiled_path) {
                 $volt = new Phalcon\Mvc\View\Engine\Volt($view, $di);
@@ -293,11 +296,12 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 $object = $di->get($web_module['className']);
                 $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
                 $di->set('language', $this->configLanguage($di), true);
-                $di->set('view', $this->configView($di), true);
+                $di->set('view', $this->configView($module_name), true);
                 $object->registerServices($di);
             }
             if($module_name == 'admin'){
                 $admin_module = $application->getModule($module_name);
+                $di->set('view', $this->configView($module_name), true);
                 $object = $di->get($admin_module['className']);
                 $di->set('domainAdminServiceFactory',$this->configDomainAdminServiceFactory($di),true);
                 $object->registerServices($di);
