@@ -1,19 +1,19 @@
 <?php
 namespace EuroMillions\services;
 use Doctrine\ORM\EntityManager;
-use EuroMillions\web\entities\CreditCardPaymentMethod;
-use EuroMillions\web\entities\PaymentMethod;
-use EuroMillions\web\entities\User;
-use EuroMillions\web\repositories\PaymentMethodRepository;
-use EuroMillions\web\repositories\PlayConfigRepository;
-use EuroMillions\web\repositories\UserRepository;
-use EuroMillions\web\vo\CardHolderName;
-use EuroMillions\web\vo\CardNumber;
-use EuroMillions\web\vo\ContactFormInfo;
-use EuroMillions\web\vo\CVV;
-use EuroMillions\web\vo\ExpiryDate;
-use EuroMillions\web\vo\ActionResult;
-use EuroMillions\web\vo\UserId;
+use EuroMillions\entities\CreditCardPaymentMethod;
+use EuroMillions\entities\PaymentMethod;
+use EuroMillions\entities\User;
+use EuroMillions\repositories\PaymentMethodRepository;
+use EuroMillions\repositories\PlayConfigRepository;
+use EuroMillions\repositories\UserRepository;
+use EuroMillions\vo\CardHolderName;
+use EuroMillions\vo\CardNumber;
+use EuroMillions\vo\ContactFormInfo;
+use EuroMillions\vo\CVV;
+use EuroMillions\vo\ExpiryDate;
+use EuroMillions\vo\ActionResult;
+use EuroMillions\vo\UserId;
 use Exception;
 use Money\Money;
 
