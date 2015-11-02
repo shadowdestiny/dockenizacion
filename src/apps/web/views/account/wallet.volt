@@ -1,6 +1,6 @@
 {% extends "main.volt" %}
 {% block template_css %}
-    <link rel="stylesheet" href="w/css/account.css">
+    <link rel="stylesheet" href="/w/css/account.css">
 {% endblock %}
 {% block bodyClass %}wallet{% endblock %}
 

@@ -1,5 +1,5 @@
 {% extends "main.volt" %}
-{% block template_css %}<link rel="stylesheet" href="w/css/sign-in.css">{% endblock %}
+{% block template_css %}<link rel="stylesheet" href="/w/css/sign-in.css">{% endblock %}
 {% block bodyClass %}generate-psw minimal{% endblock %}
 
 {% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
