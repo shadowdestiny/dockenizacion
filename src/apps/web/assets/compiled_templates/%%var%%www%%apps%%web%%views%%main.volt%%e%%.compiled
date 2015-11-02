@@ -1,4 +1,4 @@
-a:13:{i:0;s:1239:"<!DOCTYPE html>
+a:13:{i:0;s:1247:"<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -8,14 +8,14 @@ a:13:{i:0;s:1239:"<!DOCTYPE html>
 <meta name="author" content="Name Company">
 
 
-<link rel="shortcut icon" href="/images/specialicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="w/images/specialicon.ico" type="image/x-icon">
  
 
     
         <!--[if lt IE 9]>
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-<script src="/js/vendor/jquery-1.11.3.min.js"></script>
+<script src="w/js/vendor/jquery-1.11.3.min.js"></script>
 <script>
 $(document).bind("mobileinit", function(){
     $.mobile.ajaxEnabled=false;
@@ -23,20 +23,20 @@ $(document).bind("mobileinit", function(){
     $.mobile.ignoreContentEnabled=true; // Unable disactivation of Jquery behaviour on anchors, by adding on the parent/container of the links  data-ajax="false"
 });
 </script>
-<script src="/js/vendor/jquery.mobile.custom.min.js"></script>
-<script src="/js/vendor/picturefill.min.js" async></script>
-<script src="/js/vendor/fastclick.min.js"></script>
+<script src="w/js/vendor/jquery.mobile.custom.min.js"></script>
+<script src="w/js/vendor/picturefill.min.js" async></script>
+<script src="w/js/vendor/fastclick.min.js"></script>
 
 
-<script src="/js/vendor/jquery.countdown.min.js"></script>
-<script src="/js/main.js"></script>
+<script src="w/js/vendor/jquery.countdown.min.js"></script>
+<script src="w/js/main.js"></script>
 
 
  
 
 
         
-        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="w/css/main.css">
         ";s:12:"template_css";N;i:1;s:137:"      
 
         

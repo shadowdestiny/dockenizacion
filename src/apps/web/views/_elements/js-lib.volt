@@ -14,7 +14,7 @@ $(document).bind("mobileinit", function(){
 <script src="w/js/vendor/fastclick.min.js"></script>
 
 {#
-<script src="/js/lazysizes.min.js"></script>
+<script src="w/js/lazysizes.min.js"></script>
 #}
 <script src="w/js/vendor/jquery.countdown.min.js"></script>
 <script src="w/js/main.js"></script>

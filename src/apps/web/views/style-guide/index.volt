@@ -4,9 +4,9 @@
         {% include "_elements/meta.volt" %} {# META tags #}
         {% include "_elements/js-lib.volt" %} {# JS libraries #}
 
-        <script src="/js/style-guide/shCore.js"></script>
-        <script src="/js/style-guide/shBrushXml.js"></script>
-        <script src="/js/style-guide/shAutoloader.js"></script>
+        <script src="w/js/style-guide/shCore.js"></script>
+        <script src="w/js/style-guide/shBrushXml.js"></script>
+        <script src="w/js/style-guide/shAutoloader.js"></script>
         <script>
             $(function(){
                 SyntaxHighlighter.all()
@@ -33,9 +33,9 @@
 
 
 
-        <link rel="stylesheet" href="/css/main.css"> {# Basic style library #}
+        <link rel="stylesheet" href="w/css/main.css"> {# Basic style library #}
 
-        <link rel="stylesheet" href="/css/style-guide/style.css"> {# Style of this specific page  #}
+        <link rel="stylesheet" href="w/css/style-guide/style.css"> {# Style of this specific page  #}
 
         {# FONTS  #}
         <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700'>

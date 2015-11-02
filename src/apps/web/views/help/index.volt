@@ -1,5 +1,5 @@
 {% extends "main.volt" %}
-{% block template_css %}<link rel="stylesheet" href="/css/help.css">{% endblock %}
+{% block template_css %}<link rel="stylesheet" href="w/css/help.css">{% endblock %}
 {% block bodyClass %}help{% endblock %}
 
 {% block header %}
@@ -53,9 +53,9 @@
             <div class="col5">
                 <picture class="pic img-help">
                     <!--[if IE 9]><video style="display: none;"><![endif]-->
-                    <source media="(max-width: 768px)" srcset="/img/help/help-sm.png">
+                    <source media="(max-width: 768px)" srcset="w/img/help/help-sm.png">
                     <!--[if IE 9]></video><![endif]-->
-                    <img src="/img/help/help.png" srcset="/img/help/help.png, /img/help/help@2x.png 1.5x" alt="{{ language.translate('How to play') }}">
+                    <img src="/img/help/help.png" srcset="w/img/help/help.png, /img/help/help@2x.png 1.5x" alt="{{ language.translate('How to play') }}">
                 </picture>
             </div>
         </div>

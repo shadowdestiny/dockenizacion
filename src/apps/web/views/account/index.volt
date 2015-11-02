@@ -1,6 +1,6 @@
 {% extends "main.volt" %}
 {% block template_css %}
-    <link rel="stylesheet" href="/css/account.css">
+    <link rel="stylesheet" href="w/css/account.css">
 {% endblock %}
 {% block template_scripts %}
 <script>
