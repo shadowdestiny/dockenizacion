@@ -64,10 +64,35 @@ class MaintenanceDrawServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
+    /**
+     * method updaLastResult
+     * when called
+     * should returnActionResultFalse
+     */
+    public function test_updaLastResult_called_returnActionResultFalse()
+    {
+        $regular_numbers = [1,2,3,4,5];
+        $lucky_numbers = [1,2];
+        $id_draw = 1;
+        $draw_to_persist = new EuroMillionsDraw();
+        $draw_to_persist->initialize([
+            'draw_date'  => new \DateTime('2015-06-02 20:00:00'),
+            'jackpot'    => new Money(5000, new Currency('EUR')),
+            'lottery'    => 1
+        ]);
+        $expected = new ActionResult(false);
+        $this->lotteryDrawRepository_double->findOneBy(['id' => $id_draw])->willReturn($draw_to_persist);
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->flush()->willThrow(new \Exception());
+        $this->stubEntityManager($entityManager_stub);
+        $sut = $this->getSut();
+        $actual = $sut->updateLastResult($regular_numbers,$lucky_numbers,$id_draw);
+        $this->assertEquals($expected,$actual);
+    }
+
+
     private function getSut()
     {
         return $sut = $this->getDomainAdminServiceFactory()->getMaintenanceDrawService();
     }
-
-
 }

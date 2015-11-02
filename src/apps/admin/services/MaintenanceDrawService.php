@@ -31,9 +31,13 @@ class MaintenanceDrawService
         /** @var EuroMillionsDraw $lottery_draw */
         $lottery_draw = $this->lotteryDrawRepository->findOneBy(['id' => $id_draw]);
         if(!empty($lottery_draw)) {
-            $lottery_draw->createResult($regular_numbers,$lucky_numbers);
-            $this->entityManager->flush();
-            return new ActionResult(true);
+            try{
+                $lottery_draw->createResult($regular_numbers,$lucky_numbers);
+                $this->entityManager->flush();
+                return new ActionResult(true);
+            }catch(\Exception $e) {
+                return new ActionResult(false);
+            }
         }else{
             return new ActionResult(false);
         }

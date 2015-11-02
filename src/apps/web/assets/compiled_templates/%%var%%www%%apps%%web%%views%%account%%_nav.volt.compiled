@@ -1,7 +1,0 @@
-<ul class="no-li">
-    <li><a <?php if ($activeSubnav->myClass == 'account') { ?>class="active"<?php } ?> href="/account"><?php echo $this->language->translate('Account'); ?> <i class="ico ico-arrow-right"></i></a></li>
-    <li><a <?php if ($activeSubnav->myClass == 'games') { ?>class="active"<?php } ?> href="/account/games"><?php echo $this->language->translate('Games'); ?> <i class="ico ico-arrow-right"></i></a></li>
-    <li><a <?php if ($activeSubnav->myClass == 'wallet') { ?>class="active"<?php } ?> href="/account/wallet"><?php echo $this->language->translate('Wallet'); ?> <i class="ico ico-arrow-right"></i></a></li>
-    <li><a <?php if ($activeSubnav->myClass == 'messages') { ?>class="active"<?php } ?>href="/account/messages"><?php echo $this->language->translate('Messages'); ?> <i class="ico ico-arrow-right"></i></a></li>
-    <li><a <?php if ($activeSubnav->myClass == 'email') { ?>class="active"<?php } ?>href="account/email"><?php echo $this->language->translate('Email Settings'); ?> <i class="ico ico-arrow-right"></i></a></li>
-</ul>
