@@ -1,5 +1,11 @@
 <?php
 
+$allow = array("62.57.159.66", "10.0.2.2");
+if(!in_array($_SERVER['REMOTE_ADDR'], $allow) && !in_array($_SERVER["HTTP_X_FORWARDED_FOR"], $allow)) {
+    header("Location: http://localhost");
+    exit();
+}
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
