@@ -1,8 +1,4 @@
 {% extends "main.volt" %}
-{% block template_css %}
-{#<link rel="stylesheet" href="/w/css/home.css">
-#}
-{% endblock %}
 
 {% block bodyClass %}overview{% endblock %}
 
@@ -16,5 +12,18 @@
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
-xxx
+<div class="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <div class="content">
+                    <h1 class="h1 purple">Overview</h1>
+                    /* Insert here stuff overview from other pages */
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

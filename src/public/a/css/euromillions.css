@@ -19,6 +19,9 @@ html{box-sizing:border-box;}
 .table td{border-top:1px solid #AE5279!important; border-right:1px solid #ccc!important; padding:10px 8px;}
 .table th{color:#AE5279; font-size:16px!important; border-right:1px solid #ccc!important; padding:10px 8px;}
 .alert{font-size:14px;}
+.info-link{list-style:none; margin:0; font-size:16px;}
+.info-link li{display:inline-block; margin-right:14px;}
+.divider{border-top:1px solid #AE5279!important;}
 
 /* Navigation */
 .navbar .brand{padding:0; margin:10px 0;}
@@ -72,7 +75,7 @@ html{box-sizing:border-box;}
 .translation .table td{vertical-align:middle;}
 .icon-check{color:#090;}
 .icon-warning-sign{color:#f90;}
-.translation .lang{font-size:16px; font-weight:bold;}
+.translation .lang{font-size:16px; font-weight:bold; width:118px;}
 .translation .lang span{padding:2px 4px; background:#eee; min-width:30px; display:inline-block; margin-bottom:5px;}
 .translation .lang .active{background:#060; color:#fff;}
 .translation .lang .change{background:#f90; color:#000;}
