@@ -4,6 +4,8 @@
 namespace EuroMillions\admin\services;
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\sharecomponents\PhalconSessionWrapper;
+use EuroMillions\shareconfig\interfaces\ISession;
 use Phalcon\DiInterface;
 
 class DomainAdminServiceFactory
@@ -16,10 +18,10 @@ class DomainAdminServiceFactory
         $this->entityManager = $di->get('entityManager');
     }
 
-    public function getAuthUserService(EntityManager $entityManager = null)
+    public function getAuthUserService(ISession $session = null)
     {
-        if(!$entityManager) $entityManager = $this->entityManager;
-        return new AuthUserService();
+        if(!$session) $session = new PhalconSessionWrapper();
+        return new AuthUserService($session);
     }
 
     public function getMaintenanceService()
