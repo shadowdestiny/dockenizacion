@@ -109,19 +109,32 @@ td.approved, td.modif, td.missing, td.review, td.verify{text-align:center;}
 .news .stream-text{max-width:50em; color:#000;}
 .news strong,.news em{color:#000;}
 
-/* ADMIN */
-.admin .special{background:#AE5279;}
-.admin .special th{color:#fff;}
+/* ADMIN & USERS */
+.admin .special, .users .special{background:#AE5279;}
+.admin .special th, .users .special th{color:#fff;}
 .admin .legend{margin-bottom:20px;}
-.admin .table{margin-bottom:15px;}
-.admin .table .btn-danger{margin-right:8px;}
+.admin .table, .users .table{margin-bottom:15px;}
+.admin .table .btn-danger{margin-right:10px;}
 .admin .table td, .admin .checkbox{font-size:16px;}
 .admin .checkbox{color:#000; margin-bottom:10px;}
-.admin strong{color:#000;}
+.admin strong, .users strong{color:#000;}
 .admin .select{color:#000; width:auto; margin:-5px 0 0;}
 .admin label{color:#000; font-size:16px;}
 .admin label:hover{background:#fc0;}
 .admin input[type=text], .admin input[type=password]{height:30px;}
+.users .add{margin-bottom:10px;}
+.users .table td{font-size:14px;}
+.users .select{width:auto; margin-right:5px; color:000;}
+.users .input{height:30px; line-height:30px;}
+.users label{font-weight:bold; color:#000; background:#fff;}
+.users .search label{line-height:30px; float:left; margin-right:7px;}
+.users input[type=text]{margin-right:8px;}
+.users td.wallet{text-align:right;}
+.users td.wallet strong{color:#AE5279;}
+.users .action .btn{margin-right:5px;}
+.users .action .btn:last-child{margin-right:0;}
+.users .form-user .input, .users .form-user .select{width:80%;}
+.users .sub-title{font-size:16px;}
 
 /* STYLE GUIDE */
 .style-guide .txt{font-size:16px; color:#000;}

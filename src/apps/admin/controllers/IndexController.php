@@ -13,5 +13,7 @@ class IndexController extends AdminControllerBase{
     public function detailAction(){}
     public function newsAction(){}
     public function adminAction(){}
+    public function usersAction(){}
+    public function jackpotAction(){}
     public function accountAction(){}
 }
