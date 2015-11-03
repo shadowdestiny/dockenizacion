@@ -137,8 +137,10 @@
                         </tr>
                     </tbody>
                 </table>
+                /* Insert paging functionality for the table above */
 
-                /* ADD NEW USER/ or EDIT change the title accordingly */ 
+
+                <br><br>/* ADD NEW USER/ or EDIT change the title accordingly */ 
                 <h2 class="sub-title purple">Add/Edit User</h1>
                 {% include "_elements/registration.volt" %}
                 {#
