@@ -38,7 +38,8 @@ class PriceCheckoutTask extends TaskBase
     {
         if(!$today) $today = new \DateTime();
         $lottery_name = 'EuroMillions';
-
+        $config = $this->di->get('config');
+        $threshold_price = (int) $config->threshold_above['value'] * 100;
         $play_configs_result_awarded = $this->priceCheckoutService->playConfigsWithBetsAwarded($today);
         //get breakdown
         $result_breakdown = $this->lotteriesDataService->getBreakDownDrawByDate($lottery_name,$today);
@@ -52,7 +53,7 @@ class PriceCheckoutTask extends TaskBase
                 if($result_amount->getAmount() > 0) {
                     $user = $play_config_and_count[0]->getUser();
                     $this->priceCheckoutService->reChargeAmountAwardedToUser($user,$result_amount);
-                    if($result_amount->getAmount() > self::EMAIL_ABOVE) {
+                    if($result_amount->getAmount() > $threshold_price) {
                         $this->emailService->sendTransactionalEmail($user,'win-email-above-1500');
                     }else{
                         $this->emailService->sendTransactionalEmail($user,'win-email');

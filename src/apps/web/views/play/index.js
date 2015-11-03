@@ -222,11 +222,28 @@ function persistRandomNum(line){
 	redrawTotalCost();
 }
 
+
+function isMobile()
+{
+	try{
+		document.createEvent('TouchEvent');
+		if(varSize > 2){
+			return true;
+		}
+	}catch(e){
+		return false;
+	}
+}
+
+
 function randomCalculation(line, value){
 	var arr = new Array(45);
 	var arr2 = new Array(11);
+
 	for(var i=0; i < arr.length; i++){arr[i] = i+1;}
 	for(var i=0; i < arr2.length; i++){arr2[i] = i+1;}
+	var delay = (isMobile() || getTotalColumns() > 12) ? 0 : 50;
+	var repetition = (isMobile() || getTotalColumns() > 12) ? 1 : 12;
 
 	setIntervalRepetition(function(){
 		shuffle(arr);
@@ -239,7 +256,7 @@ function randomCalculation(line, value){
 		for(var i=0; i < 2; i++){
 			$(line+" .s"+arr2[i]).toggleClass('active');
 		}
-	}, 50, 12, function(){
+	}, delay, repetition, function(){
 		persistRandomNum(line);
 	});
 
@@ -427,7 +444,6 @@ var ajaxFunctions = {
 		});
 	}
 };
-
 
 function addColumn(position){
 	var column = $($('div[class*="myCol num"]:last')).clone();
