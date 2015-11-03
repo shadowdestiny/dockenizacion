@@ -134,6 +134,8 @@ td.approved, td.modif, td.missing, td.review, td.verify{text-align:center;}
 .users .action .btn{margin-right:5px;}
 .users .action .btn:last-child{margin-right:0;}
 .users .form-user .input, .users .form-user .select{width:80%;}
+.users .form-user .value{width:200px;}
+.users .txt{font-weight:bold; line-height:30px; font-size:16px; display:inline-block; margin-right:3px; color:#000;}
 .users .sub-title{font-size:16px;}
 
 /* STYLE GUIDE */

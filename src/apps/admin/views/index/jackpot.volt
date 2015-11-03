@@ -65,7 +65,7 @@
                             </td>
                             <td class="action">
                                 <a href="#" class="btn btn-danger">Delete</a>
-                                <a href="#" class="btn btn-success">View Transactions</a>  
+                                {# <a href="#" class="btn btn-success">View Transactions</a> #} 
                                 <a href="#" class="btn btn-primary">Edit</a> 
                             </td>
                         </tr>
@@ -87,7 +87,7 @@
                             </td>
                             <td class="action">
                                 <a href="#" class="btn btn-danger">Delete</a>
-                                <a href="#" class="btn btn-success">View Transactions</a>  
+                                {# <a href="#" class="btn btn-success">View Transactions</a> #} 
                                 <a href="#" class="btn btn-primary">Edit</a> 
                             </td>                            
                         </tr>
@@ -109,7 +109,7 @@
                             </td>
                             <td class="action">
                                 <a href="#" class="btn btn-danger">Delete</a>
-                                <a href="#" class="btn btn-success">View Transactions</a>  
+                                {# <a href="#" class="btn btn-success">View Transactions</a> #} 
                                 <a href="#" class="btn btn-primary">Edit</a> 
                             </td>
                         </tr>
@@ -131,7 +131,7 @@
                             </td>
                             <td class="action">
                                 <a href="#" class="btn btn-danger">Delete</a>
-                                <a href="#" class="btn btn-success">View Transactions</a> 
+                                {# <a href="#" class="btn btn-success">View Transactions</a> #} 
                                 <a href="#" class="btn btn-primary">Edit</a> 
                             </td>
                         </tr>
@@ -143,7 +143,7 @@
                 <br><br>/* ADD NEW USER/ or EDIT change the title accordingly */ 
                 <h2 class="sub-title purple">Add/Edit User</h1>
                 {% include "_elements/registration.volt" %}
-                
+                {#
                  /* View Transactions */
                 <h2 class="sub-title purple">View Transactions</h1>
                 <div class="row-fluid">
@@ -169,7 +169,7 @@
                         </tr>
                     </tbody>
                 </table>
-                
+                #}
             </div>
         </div>
     </div>
