@@ -12,6 +12,7 @@
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
+    {{ users }}
  <div class="wrapper">
     <div class="container">
         <div class="module">
@@ -47,94 +48,32 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="date">04 Jun 2014</td>
-                            <td class="name">Luis</td>
-                            <td class="surname">Pold</td>
-                            <td class="contact">
-                                <a href="mailto:otto@panamedia.net">otto@panamedia.net</a>
-                                <br>+36 257 850 952
-                            </td>
-                            <td class="residence">
-                                Barcelona, 08005, Spain
-                                <br>Avenida Tenedor 125, 1-1
-                            </td>
-                            <td class="wallet">
-                                 <strong>Wallet:</strong> &euro; 0
-                                 <br><strong>Winning:</strong> &euro; 0
-                            </td>
-                            <td class="action">
-                                <a href="#" class="btn btn-danger">Delete</a>
-                                {# <a href="#" class="btn btn-success">View Transactions</a> #} 
-                                <a href="#" class="btn btn-primary">Edit</a> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="date">04 Jun 2014</td>
-                            <td class="name">Mark</td>
-                            <td class="surname">Velasquez</td>
-                            <td class="contact">
-                                <a href="mailto:otto@panamedia.net">mark@panamedia.net</a>
-                                <br>+36 257 850 952
-                            </td>
-                            <td class="residence">
-                                Barcelona, 08005, Spain
-                                <br>Avenida Tenedor 125, 1-1
-                            </td>
-                            <td class="wallet">
-                                 <strong>Wallet:</strong> &euro; 5,00
-                                 <br><strong>Winning:</strong> &euro; 0
-                            </td>
-                            <td class="action">
-                                <a href="#" class="btn btn-danger">Delete</a>
-                                {# <a href="#" class="btn btn-success">View Transactions</a> #} 
-                                <a href="#" class="btn btn-primary">Edit</a> 
-                            </td>                            
-                        </tr>
-                        <tr>
-                            <td class="date">04 Jun 2014</td>
-                            <td class="name">Ella</td>
-                            <td class="surname">Edison</td>
-                            <td class="contact">
-                                <a href="mailto:otto@panamedia.net">mario@panamedia.net</a>
-                                <br>+36 257 850 952
-                            </td>
-                            <td class="residence">
-                                Barcelona, 08005, Spain
-                                <br>Avenida Tenedor 125, 1-1
-                            </td>
-                            <td class="wallet">
-                                 <strong>Wallet:</strong> &euro; 2,35
-                                 <br><strong>Winning:</strong> &euro; 0
-                            </td>
-                            <td class="action">
-                                <a href="#" class="btn btn-danger">Delete</a>
-                                {# <a href="#" class="btn btn-success">View Transactions</a> #} 
-                                <a href="#" class="btn btn-primary">Edit</a> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="date">04 Jun 2014</td>
-                            <td class="name">Sonya</td>
-                            <td class="surname">Rossi</td>
-                            <td class="contact">
-                                <a href="mailto:otto@panamedia.net">robert.ciao@gmail.com</a>
-                                <br>+36 257 850 952
-                            </td>
-                            <td class="residence">
-                                Barcelona, 08005, Spain
-                                <br>Avenida Tenedor 125, 1-1
-                            </td>
-                            <td class="wallet">
-                                 <strong>Wallet:</strong> &euro; 5,00
-                                 <br><strong>Winning:</strong> &euro; 0
-                            </td>
-                            <td class="action">
-                                <a href="#" class="btn btn-danger">Delete</a>
-                                {# <a href="#" class="btn btn-success">View Transactions</a> #} 
-                                <a href="#" class="btn btn-primary">Edit</a> 
-                            </td>
-                        </tr>
+
+                        {% if users is empty %}
+                        {% else %}
+                            {%  for users in user %}
+                                <tr>
+                                    <td class="name">{{ user.name}}</td>
+                                    <td class="surname">{{ user.surname }}</td>
+                                    <td class="contact">
+                                        <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+                                        <br>{{ user.phone_number }}
+                                    </td>
+                                    <td class="residence">
+                                        {{ user.city }}, {{ user.zip }}, {{ user.country }}
+                                        <br>{{ user.street }}
+                                    </td>
+                                    <td class="wallet">
+                                        <strong>Wallet:</strong> &euro; {{ user.balance }}
+                                        <br><strong>Winning:</strong> &euro; 0
+                                    </td>
+                                    <td class="action">
+                                        <a href="#" class="btn btn-danger">Delete</a>
+                                        {# <a href="#" class="btn btn-success">View Transactions</a> #}
+                                        <a href="#" class="btn btn-primary">Edit</a>
+                                    </td>
+                                </tr>
+                        {% endif %}
                     </tbody>
                 </table>
                 /* Insert paging functionality for the table above */
