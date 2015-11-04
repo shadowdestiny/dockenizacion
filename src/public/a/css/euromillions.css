@@ -139,7 +139,8 @@ td.approved, td.modif, td.missing, td.review, td.verify{text-align:center;}
 .users .sub-title{font-size:16px;}
 
 /* JACKPOT */
-.jackpot input[type=text]{height:30px; margin:0 8px 10px 0; width:80%; font-size:16px;}
+.jackpot input[type=text]{height:30px; margin:0 8px 10px 0; font-size:16px;}
+.jackpot .update input[type=text]{width:80%;}
 .jackpot label{font-weight:bold; color:#000; background:#fff; font-size:16px;}
 .jackpot .box-value{font-size:16px; color:#000;}
 .jackpot .value{margin-right:5px; font-weight:bold; color:#000;}
@@ -149,6 +150,8 @@ td.approved, td.modif, td.missing, td.review, td.verify{text-align:center;}
 .jackpot .yellow{color:#ebb019;}
 .jackpot .add{margin-bottom:10px;}
 .jackpot .in-value{width:200px!important;}
+.jackpot .search .input{float:left;}
+.jackpot .search .btn{float:left;}
 
 /* STYLE GUIDE */
 .style-guide .txt{font-size:16px; color:#000;}

@@ -2,6 +2,7 @@
 
 {% block template_css %}
     <link rel="stylesheet" href="/a/css/calendar.css">
+    <link rel="stylesheet" href="/a/css/pagination.css">
 {% endblock %}
 
 {% block bodyClass %}jackpot{% endblock %}
@@ -23,6 +24,10 @@
                 <h1 class="h1 purple">Jackpot</h1>
                 <div class="box-value">
                     <div class="cl">
+                        <form class="search left cl">
+                            <input class="input" type="text" placeholder="search by date">
+                            <input class="btn btn-primary" type="button" value="Search">
+                        </form>
                         <a href="javascript:void(0)" class="right btn btn-primary add">Add new</a>
                     </div>
                     <table class="table">
@@ -57,7 +62,7 @@
                             </tr>
                             <tr>
                                 <td class="date">
-                                    24 April 2015
+                                    28 April 2015
                                 </td>
                                 <td class="jackpot">
                                     &euro; 5.035.400,20
@@ -77,7 +82,7 @@
                             </tr>
                             <tr>
                                 <td class="date">
-                                    24 April 2015
+                                    2 May 2015
                                 </td>
                                 <td class="jackpot">
                                     &euro; 5.035.400,20
@@ -97,6 +102,18 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="pagination">
+                        <div class="centered">
+                            <a href="#" class="page gradient">first</a>
+                            <a href=
+                            "#" class="page gradient">2</a>
+                            <a href="#" class="page gradient">3</a>
+                            <span class="page active">4</span>
+                            <a href="#" class="page gradient">5</a>
+                            <a href="#" class="page gradient">6</a>
+                            <a href="#" class="page gradient">last</a>
+                        </div>
+                    </div>
 
                     /* Add / Edit jackpot */
                     <form class="cl update">
@@ -156,6 +173,7 @@
                             </tbody>
                           </table>
                         </div>
+
 
                         <div class="row-fluid">
                             <div class="span6">
