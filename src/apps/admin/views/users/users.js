@@ -46,4 +46,7 @@ $(function(){
         var params = $('.form-user').serialize();
         ajaxFunctions.edit(params);
     })
+    $('.form-user .btn-danger').on('click',function(){
+        $('.crud-user').hide('fast');
+    })
 });
