@@ -14,6 +14,7 @@ class UserDTO extends DTOBase implements IDto
     /** @var User $user */
     private $user;
 
+    public $id;
     public $name;
     public $surname;
     public $email;
@@ -32,6 +33,7 @@ class UserDTO extends DTOBase implements IDto
 
     public function exChangeObject()
     {
+        $this->id = $this->user->getId()->id();
         $this->name = $this->user->getName();
         $this->surname = ($this->user->getSurname()) ? $this->user->getSurname() : '';
         $this->email = $this->user->getEmail()->toNative();
@@ -45,7 +47,7 @@ class UserDTO extends DTOBase implements IDto
 
     public function toArray()
     {
-        // TODO: Implement toArray() method.
+        return $array = json_decode(json_encode($this),TRUE);
     }
 
     /**
@@ -110,5 +112,15 @@ class UserDTO extends DTOBase implements IDto
     public function setZip($zip)
     {
         $this->zip = $zip;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 }

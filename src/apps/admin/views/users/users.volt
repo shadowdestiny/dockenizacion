@@ -1,5 +1,8 @@
 {% extends "main.volt" %}
 
+{% block template_scripts %}
+    <script>{% include "users/users.js" %}</script>
+{% endblock %}
 {% block bodyClass %}users{% endblock %}
 
 {% block meta %}<title>Tanslation Overview - Euromillions Admin System</title>{% endblock %}
@@ -68,7 +71,7 @@
                 <td class="action">
                     <a href="#" class="btn btn-danger">Delete</a>
                     {# <a href="#" class="btn btn-success">View Transactions</a> #}
-                    <a href="#" class="btn btn-primary">Edit</a>
+                    <a href="#" data-id="{{ user.id }}" class="btn btn-primary">Edit</a>
                 </td>
             </tr>
         {% endfor %}
@@ -77,10 +80,10 @@
             </table>
             /* Insert paging functionality for the table above */
 
-
-            <br><br>/* ADD NEW USER/ or EDIT change the title accordingly */
-            <h2 class="sub-title purple">Add/Edit User</h1>
-                {% include "_elements/registration.volt" %}
+            <div class="hidden-form crud-user">
+                <h2 class="sub-title purple"></h1>
+                    {% include "_elements/registration.volt" %}
+            </div>
                 {#
                  /* View Transactions */
                 <h2 class="sub-title purple">View Transactions</h1>
@@ -112,4 +115,22 @@
             </div>
             </div>
             </div>
+            {# Alessio, please, feel free to change div modal#}
+            <div class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>One fine body&hellip;</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
             {% endblock %}
