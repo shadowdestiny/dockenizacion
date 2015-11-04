@@ -51,6 +51,7 @@
     <tbody>
 
     {% if users is empty %}
+       <span>No data to show</span>
     {% else %}
         {%  for user in users %}
             <tr>
