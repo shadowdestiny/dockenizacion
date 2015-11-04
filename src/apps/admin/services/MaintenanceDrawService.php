@@ -10,6 +10,7 @@ use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
+use Money\Money;
 
 class MaintenanceDrawService
 {
@@ -28,12 +29,13 @@ class MaintenanceDrawService
         $this->lotteryRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Lottery');
     }
 
-    public function updateLastResult(array $regular_numbers, array $lucky_numbers, $id_draw)
+    public function updateLastResult(array $regular_numbers, array $lucky_numbers, Money $jackpot_value, $id_draw)
     {
         /** @var EuroMillionsDraw $lottery_draw */
         $lottery_draw = $this->lotteryDrawRepository->findOneBy(['id' => $id_draw]);
         if(!empty($lottery_draw)) {
             try{
+                $lottery_draw->setJackpot($jackpot_value);
                 $lottery_draw->createResult($regular_numbers,$lucky_numbers);
                 $this->entityManager->flush();
                 return new ActionResult(true);

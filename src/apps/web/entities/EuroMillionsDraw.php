@@ -109,7 +109,7 @@ class EuroMillionsDraw extends EntityBase implements IEntity
             $regular_numbers[] = new EuroMillionsRegularNumber($number);
         }
         foreach ($luckyNumbers as $number) {
-            $lucky_numbers[] = new EuroMillionsLuckyNumber($number);
+            $lucky_numbers[] = new EuroMillionsLuckyNumber((int) $number);
         }
         $this->result = new EuroMillionsLine($regular_numbers, $lucky_numbers);
     }

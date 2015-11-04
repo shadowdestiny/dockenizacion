@@ -8,13 +8,12 @@ var ajaxFunctions = {
             dataType: "json",
             success: function(json) {
                 if(typeof json.message !== 'undefined'){
-                    $('.modal-title').html('').html(json.message.OK);
-                    $('.modal').modal('show');
+
                 }else if(typeof json.message !== 'undefined') {
-                    $('.modal-title').html('').html(json.message.KO);
-                    $('.modal').modal('show');
+
                 }else if(typeof json.result !== 'undefined'){
                     $('.crud-user .sub-title.purple').text('Edit user');
+                    $('.box-user-data').hide();
                     $('.crud-user').show('fast');
                     $('.form-user #name').val(json.result.OK.name);
                     $('.form-user #surname').val(json.result.OK.surname);
@@ -48,5 +47,6 @@ $(function(){
     })
     $('.form-user .btn-danger').on('click',function(){
         $('.crud-user').hide('fast');
+        $('.box-user-data').show();
     })
 });
