@@ -2,7 +2,7 @@
 
 {% block bodyClass %}users{% endblock %}
 
-{% block meta %}<title>Tanslation Overview - Euromillions Admin System</title>{% endblock %}
+{% block meta %}<title>Users- Euromillions Admin System</title>{% endblock %}
 
 {% block header %}
 {% set activeNav='{"myClass": ""}'|json_decode %} {# It need to be empty #}
@@ -16,7 +16,6 @@
     <div class="container">
         <div class="module">
             <div class="module-body">
-
                 <h1 class="h1 purple">Registered Users</h1>
                 <form class="cl search">
                     <div class="left">

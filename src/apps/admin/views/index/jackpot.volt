@@ -1,8 +1,12 @@
 {% extends "main.volt" %}
 
-{% block bodyClass %}users{% endblock %}
+{% block template_css %}
+    <link rel="stylesheet" href="/a/css/calendar.css">
+{% endblock %}
 
-{% block meta %}<title>Tanslation Overview - Euromillions Admin System</title>{% endblock %}
+{% block bodyClass %}jackpot{% endblock %}
+
+{% block meta %}<title>Jackpot - Euromillions Admin System</title>{% endblock %}
 
 {% block header %}
 {% set activeNav='{"myClass": ""}'|json_decode %} {# It need to be empty #}
@@ -16,160 +20,163 @@
     <div class="container">
         <div class="module">
             <div class="module-body">
-
-                <h1 class="h1 purple">Registered Users</h1>
-                <form class="cl search">
-                    <div class="left">
-                        <label for="search">Search by</label>
-                        <select class="select">
-                            <option>Surname</option>
-                            <option>Email</option>
-                            <option>Telephone</option>
-                            <option>Residence</option>
-                        </select>
-                        <input id="search" class="input" type="text">
-                        <a href="#" class="btn btn-primary right add">Search</a>
+                <h1 class="h1 purple">Jackpot</h1>
+                <div class="box-value">
+                    <div class="cl">
+                        <a href="javascript:void(0)" class="right btn btn-primary add">Add new</a>
                     </div>
+                    <table class="table">
+                        <thead>
+                            <tr class="special">
+                                <th class="date">Date</th>
+                                <th class="jackpot">Jackpot</th>
+                                <th class="numbers">Numbers</th>
+                                <th class="action">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="date">
+                                    24 April 2015
+                                </td>
+                                <td class="jackpot">
+                                    &euro; 5.035.400,20
+                                </td>
+                                <td class="numbers">
+                                    <span class="num">07</span> 
+                                    <span class="num">18</span> 
+                                    <span class="num">19</span> 
+                                    <span class="num">24</span> 
+                                    <span class="num">32</span> 
+                                    <span class="num yellow">04</span>
+                                    <span class="num yellow">11</span>
+                                </td>
+                                <td class="action">
+                                     <a href="javascript:void(0)" class="btn btn-primary">Edit</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="date">
+                                    24 April 2015
+                                </td>
+                                <td class="jackpot">
+                                    &euro; 5.035.400,20
+                                </td>
+                                <td class="numbers">
+                                    <span class="num">07</span> 
+                                    <span class="num">18</span> 
+                                    <span class="num">19</span> 
+                                    <span class="num">24</span> 
+                                    <span class="num">32</span> 
+                                    <span class="num yellow">04</span>
+                                    <span class="num yellow">11</span>
+                                </td>
+                                <td class="action">
+                                     <a href="javascript:void(0)" class="btn btn-primary">Edit</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="date">
+                                    24 April 2015
+                                </td>
+                                <td class="jackpot">
+                                    &euro; 5.035.400,20
+                                </td>
+                                <td class="numbers">
+                                    <span class="num">07</span> 
+                                    <span class="num">18</span> 
+                                    <span class="num">19</span> 
+                                    <span class="num">24</span> 
+                                    <span class="num">32</span> 
+                                    <span class="num yellow">04</span>
+                                    <span class="num yellow">11</span>
+                                </td>
+                                <td class="action">
+                                     <a href="javascript:void(0)" class="btn btn-primary">Edit</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                    <a href="#" class="btn btn-primary right add">Add New User</a>
-                </form>
+                    /* Add / Edit jackpot */
+                    <form class="cl update">
+                        <div class="cal">
+                          <table class="cal-table">
+                            <caption class="cal-caption">
+                              <a class="prev" href="index.html">«</a>
+                              <a class="next" href="index.html">»</a>
+                              May 2012
+                            </caption>
+                            <tbody class="cal-body">
+                              <tr>
+                                <td class="cal-off"><a href="index.html">30</a></td>
+                                <td><a href="index.html">1</a></td>
+                                <td><a href="index.html">2</a></td>
+                                <td class="cal-today"><a href="index.html">3</a></td>
+                                <td><a href="index.html">4</a></td>
+                                <td><a href="index.html">5</a></td>
+                                <td><a href="index.html">6</a></td>
+                              </tr>
+                              <tr>
+                                <td><a href="index.html">7</a></td>
+                                <td class="cal-selected"><a href="index.html">8</a></td>
+                                <td><a href="index.html">9</a></td>
+                                <td><a href="index.html">10</a></td>
+                                <td><a href="index.html">11</a></td>
+                                <td class="cal-check"><a href="index.html">12</a></td>
+                                <td><a href="index.html">13</a></td>
+                              </tr>
+                              <tr>
+                                <td><a href="index.html">14</a></td>
+                                <td><a href="index.html">15</a></td>
+                                <td><a href="index.html">16</a></td>
+                                <td class="cal-check"><a href="index.html">17</a></td>
+                                <td><a href="index.html">18</a></td>
+                                <td><a href="index.html">19</a></td>
+                                <td><a href="index.html">20</a></td>
+                              </tr>
+                              <tr>
+                                <td><a href="index.html">21</a></td>
+                                <td><a href="index.html">22</a></td>
+                                <td><a href="index.html">23</a></td>
+                                <td><a href="index.html">24</a></td>
+                                <td><a href="index.html">25</a></td>
+                                <td><a href="index.html">26</a></td>
+                                <td><a href="index.html">27</a></td>
+                              </tr>
+                              <tr>
+                                <td><a href="index.html">28</a></td>
+                                <td><a href="index.html">29</a></td>
+                                <td><a href="index.html">30</a></td>
+                                <td><a href="index.html">31</a></td>
+                                <td class="cal-off"><a href="index.html">1</a></td>
+                                <td class="cal-off"><a href="index.html">2</a></td>
+                                <td class="cal-off"><a href="index.html">3</a></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
 
-                <table class="table">
-                    <thead>
-                        <tr class="special">
-                            <th class="date">Date Registered</th>
-                            <th class="name">Name</th>
-                            <th class="surname">Surname</th>
-                            <th class="contact">Contact detail</th>
-                            <th class="residence">Residence</th>
-                            <th class="wallet">Balance</th>
-                            <th class="action">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="date">04 Jun 2014</td>
-                            <td class="name">Luis</td>
-                            <td class="surname">Pold</td>
-                            <td class="contact">
-                                <a href="mailto:otto@panamedia.net">otto@panamedia.net</a>
-                                <br>+36 257 850 952
-                            </td>
-                            <td class="residence">
-                                Barcelona, 08005, Spain
-                                <br>Avenida Tenedor 125, 1-1
-                            </td>
-                            <td class="wallet">
-                                 <strong>Wallet:</strong> &euro; 0
-                                 <br><strong>Winning:</strong> &euro; 0
-                            </td>
-                            <td class="action">
-                                <a href="#" class="btn btn-danger">Delete</a>
-                                {# <a href="#" class="btn btn-success">View Transactions</a> #} 
-                                <a href="#" class="btn btn-primary">Edit</a> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="date">04 Jun 2014</td>
-                            <td class="name">Mark</td>
-                            <td class="surname">Velasquez</td>
-                            <td class="contact">
-                                <a href="mailto:otto@panamedia.net">mark@panamedia.net</a>
-                                <br>+36 257 850 952
-                            </td>
-                            <td class="residence">
-                                Barcelona, 08005, Spain
-                                <br>Avenida Tenedor 125, 1-1
-                            </td>
-                            <td class="wallet">
-                                 <strong>Wallet:</strong> &euro; 5,00
-                                 <br><strong>Winning:</strong> &euro; 0
-                            </td>
-                            <td class="action">
-                                <a href="#" class="btn btn-danger">Delete</a>
-                                {# <a href="#" class="btn btn-success">View Transactions</a> #} 
-                                <a href="#" class="btn btn-primary">Edit</a> 
-                            </td>                            
-                        </tr>
-                        <tr>
-                            <td class="date">04 Jun 2014</td>
-                            <td class="name">Ella</td>
-                            <td class="surname">Edison</td>
-                            <td class="contact">
-                                <a href="mailto:otto@panamedia.net">mario@panamedia.net</a>
-                                <br>+36 257 850 952
-                            </td>
-                            <td class="residence">
-                                Barcelona, 08005, Spain
-                                <br>Avenida Tenedor 125, 1-1
-                            </td>
-                            <td class="wallet">
-                                 <strong>Wallet:</strong> &euro; 2,35
-                                 <br><strong>Winning:</strong> &euro; 0
-                            </td>
-                            <td class="action">
-                                <a href="#" class="btn btn-danger">Delete</a>
-                                {# <a href="#" class="btn btn-success">View Transactions</a> #} 
-                                <a href="#" class="btn btn-primary">Edit</a> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="date">04 Jun 2014</td>
-                            <td class="name">Sonya</td>
-                            <td class="surname">Rossi</td>
-                            <td class="contact">
-                                <a href="mailto:otto@panamedia.net">robert.ciao@gmail.com</a>
-                                <br>+36 257 850 952
-                            </td>
-                            <td class="residence">
-                                Barcelona, 08005, Spain
-                                <br>Avenida Tenedor 125, 1-1
-                            </td>
-                            <td class="wallet">
-                                 <strong>Wallet:</strong> &euro; 5,00
-                                 <br><strong>Winning:</strong> &euro; 0
-                            </td>
-                            <td class="action">
-                                <a href="#" class="btn btn-danger">Delete</a>
-                                {# <a href="#" class="btn btn-success">View Transactions</a> #} 
-                                <a href="#" class="btn btn-primary">Edit</a> 
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                /* Insert paging functionality for the table above */
-
-
-                <br><br>/* ADD NEW USER/ or EDIT change the title accordingly */ 
-                <h2 class="sub-title purple">Add/Edit User</h1>
-                {% include "_elements/registration.volt" %}
-                {#
-                 /* View Transactions */
-                <h2 class="sub-title purple">View Transactions</h1>
-                <div class="row-fluid">
-                    <span class="span6">
-                        <strong>Name</strong>: Mario Rossi 
-                    </span>
-                    <span class="span6">
-                        <strong>Contact Details</strong>: <a href="mailto:robert.ciao@gmail.com">robert.ciao@gmail.com</a> - +36 257 850 952                   
-                    </span>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <label for="update-date">Date</label>
+                                <input id="update-date" class="input" type="text" value="24 Apr 2015">
+                                <label for="update-value">Jackpot Value</label>
+                                <span class="value">&euro;</span> <input id="update-value" class="input in-value" type="text" value="5.035.400,20">
+                            </div>
+                            <div class="span6">
+                                <label for="update-number">Numbers</label>
+                                <input id="update-number" class="input" type="text" value="02,13,24,32,34">
+                                <label for="update-star-number">Star Numbers</label>
+                                <input id="update-star-number" class="input" type="text" value="07,11">
+                            </div>
+                        </div>
+                        <div class="cl">
+                            <a href="javascript:void(0)" class="left btn btn-danger">Cancel</a>
+                            <input type="submit" value="Save" class="right btn btn-primary">
+                        </div>
+                    </form>
                 </div>
-
-                <table class="table">
-                    <thead>
-                        <tr class="special">
-                            <th class="date">Date Played</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                ddd
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                #}
             </div>
         </div>
     </div>

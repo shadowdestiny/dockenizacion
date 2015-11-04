@@ -139,6 +139,18 @@ td.approved, td.modif, td.missing, td.review, td.verify{text-align:center;}
 .users .txt{font-weight:bold; line-height:30px; font-size:16px; display:inline-block; margin-right:3px; color:#000;}
 .users .sub-title{font-size:16px;}
 
+/* JACKPOT */
+.jackpot input[type=text]{height:30px; margin:0 8px 10px 0; width:80%; font-size:16px;}
+.jackpot label{font-weight:bold; color:#000; background:#fff; font-size:16px;}
+.jackpot .box-value{font-size:16px; color:#000;}
+.jackpot .value{margin-right:5px; font-weight:bold; color:#000;}
+.jackpot .special{background:#AE5279;}
+.jackpot .special th{color:#fff;}
+.jackpot .num{font-weight:bold;margin-right:3px;}
+.jackpot .yellow{color:#ebb019;}
+.jackpot .add{margin-bottom:10px;}
+.jackpot .in-value{width:200px!important;}
+
 /* STYLE GUIDE */
 .style-guide .txt{font-size:16px; color:#000;}
 .style-guide .list li{margin-bottom:10px;}
