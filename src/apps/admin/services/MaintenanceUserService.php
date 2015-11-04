@@ -61,20 +61,21 @@ class MaintenanceUserService
 
     public function updateUserData(array $user_data)
     {
-        /** @var User $user */
-        $user = $this->userRepository->getByEmail($user_data['email']);
-
-        $user->setName($user_data['name']);
-        $user->setSurname($user_data['surname']);
-        $user->setEmail($user_data['email']);
-        $user->setCountry($user_data['country']);
-        $user->setStreet($user_data['street']);
-        $user->setZip($user_data['zip']);
-        $user->setCity($user_data['city']);
-        $user->setPhoneNumber($user_data['phone_number']);
-        $user->setBalance(new Money($user_data['balance'],new Currency('EUR')));
 
         try{
+            /** @var User $user */
+            $user = $this->userRepository->getByEmail($user_data['email']);
+
+            $user->setName($user_data['name']);
+            $user->setSurname($user_data['surname']);
+            $user->setEmail($user_data['email']);
+            $user->setCountry($user_data['country']);
+            $user->setStreet($user_data['street']);
+            $user->setZip($user_data['zip']);
+            $user->setCity($user_data['city']);
+            $user->setPhoneNumber($user_data['phone_number']);
+            $user->setBalance(new Money($user_data['balance'],new Currency('EUR')));
+
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
             return new ActionResult(true,'Your data was update');
