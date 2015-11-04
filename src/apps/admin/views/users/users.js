@@ -8,10 +8,10 @@ var ajaxFunctions = {
             dataType: "json",
             success: function(json) {
                 if(typeof json.message !== 'undefined'){
-                    $('.modal').html('').html(json.message.OK);
+                    $('.modal-title').html('').html(json.message.OK);
                     $('.modal').modal('show');
                 }else if(typeof json.message !== 'undefined') {
-                    $('.modal').html('').html(json.message.KO);
+                    $('.modal-title').html('').html(json.message.KO);
                     $('.modal').modal('show');
                 }else if(typeof json.result !== 'undefined'){
                     $('.crud-user .sub-title.purple').text('Edit user');

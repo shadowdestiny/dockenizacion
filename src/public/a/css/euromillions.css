@@ -23,6 +23,7 @@ html{box-sizing:border-box;}
 .info-link li{display:inline-block; margin-right:14px;}
 .divider{border-top:1px solid #AE5279!important;}
 .hidden-element{display:none;}
+.modal-backdrop{background:#000!important;}
 
 /* Navigation */
 .navbar .brand{padding:0; margin:10px 0;}
