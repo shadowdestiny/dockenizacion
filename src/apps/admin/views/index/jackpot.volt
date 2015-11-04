@@ -46,6 +46,7 @@
                                 <th class="date">Date</th>
                                 <th class="jackpot">Jackpot</th>
                                 <th class="numbers">Numbers</th>
+                                <th class="prize">Prize breakdown</th>
                                 <th class="action">Action</th>
                             </tr>
                         </thead>

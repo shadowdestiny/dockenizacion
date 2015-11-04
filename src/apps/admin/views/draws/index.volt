@@ -2,6 +2,7 @@
 
 {% block template_css %}
     <link rel="stylesheet" href="/a/css/calendar.css">
+    <link rel="stylesheet" href="/a/css/pagination.css">
 {% endblock %}
 
 {% block bodyClass %}jackpot{% endblock %}
@@ -27,6 +28,10 @@
                 <h1 class="h1 purple">Jackpot</h1>
                 <div class="box-value">
                     <div class="cl">
+                        <form class="search left cl">
+                            <input class="input" type="text" placeholder="search by date">
+                            <input class="btn btn-primary" type="button" value="Search">
+                        </form>
                         <a href="javascript:void(0)" class="right btn btn-primary add">Add new</a>
                     </div>
                     <table class="table">
@@ -35,38 +40,46 @@
                                 <th class="date">Date</th>
                                 <th class="jackpot">Jackpot</th>
                                 <th class="numbers">Numbers</th>
+                                <th class="breakdown">Prize Breakdown</th>
                                 <th class="action">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                        {% if draws is empty %}
-                            <span>No data was found</span>
-                        {% else %}
-                        {% for draw in draws %}
-                            <tr>
-                                <td class="date">
-                                    {{ draw.draw_date }}
-                                </td>
-                                <td class="jackpot">
-                                    &euro; {{ draw.jackpot }}
-                                </td>
-                                <td class="numbers">
-                                    {% for number in draw.regular_numbers %}
-                                        <span class="num">{{ number }}</span>
-                                    {% endfor %}
-                                    {% for lucky in draw.lucky_numbers %}
-                                        <span class="num yellow">{{ lucky }}</span>
-                                    {% endfor %}
-                                </td>
-                                <td class="action">
-                                     <a href="javascript:void(0)" data-id="{{ draw.id }}" class="btn btn-primary">Edit</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        {% endif %}
+                            {% if draws is empty %}
+                                <tr>
+                                    <td colspan="5">No data was found</td>
+                                </tr>
+                            {% else %}
+                                {% for draw in draws %}
+                                    <tr>
+                                        <td class="date">
+                                            {{ draw.draw_date }}
+                                        </td>
+                                        <td class="jackpot">
+                                            &euro; {{ draw.jackpot }}
+                                        </td>
+                                        <td class="numbers">
+                                            {% for number in draw.regular_numbers %}
+                                                <span class="num">{{ number }}</span>
+                                            {% endfor %}
+                                            {% for lucky in draw.lucky_numbers %}
+                                                <span class="num yellow">{{ lucky }}</span>
+                                            {% endfor %}
+                                        </td>
+                                        <td>
+                                            * Defined / Not Defined *
+                                        </td>
+                                        <td class="action">
+                                            <a href="javascript:void(0)" data-id="{{ draw.id }}" class="btn btn-primary">Edit</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
                         </tbody>
                     </table>
-                    /* Add / Edit jackpot */
+                    {% include "_elements/pagination.volt" %}
+
+                    <h2 class="sub-title purple">/* Add / Edit */ Draws</h3>
                     <form class="cl update">
                         <div class="cal">
                           <table class="cal-table">
@@ -139,7 +152,35 @@
                                 <input id="update-star-number" class="input" type="text" value="07,11">
                             </div>
                         </div>
-                        <div class="cl">
+
+                        <h3 class="sub-title purple">Prize breakdown</h3>
+                        <table class="table">
+                            <thead>
+                                <tr class="special">
+                                    <th class="match">Match</th>
+                                    <th class="prize">Prize</th>
+                                    <th class="winners">Winners</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="match"><strong>5+2</strong></td>
+                                    <td class="prize"><span class="value">&euro;</span> <input type="text" class="input" value="0"></td>
+                                    <td class="winners"><input type="text" class="input" value="0"></td>
+                                </tr>
+                                <tr>
+                                    <td class="match"><strong>5+1</strong></td>
+                                    <td class="prize"><span class="value">&euro;</span> <input type="text" class="input" value="0"></td>
+                                    <td class="winners"><input type="text" class="input" value="0"></td>
+                                </tr>
+                                <tr>
+                                    <td class="match"><strong>5</strong></td>
+                                    <td class="prize"><span class="value">&euro;</span> <input type="text" class="input" value="0"></td>
+                                    <td class="winners"><input type="text" class="input" value="0"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="cl box-action">
                             <a href="javascript:void(0)" class="left btn btn-danger">Cancel</a>
                             <input type="submit" value="Save" class="right btn btn-primary">
                         </div>

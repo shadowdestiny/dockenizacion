@@ -145,7 +145,7 @@ td.approved, td.modif, td.missing, td.review, td.verify{text-align:center;}
 .jackpot .update input[type=text]{width:80%;}
 .jackpot label{font-weight:bold; color:#000; background:#fff; font-size:16px;}
 .jackpot .box-value{font-size:16px; color:#000;}
-.jackpot .value{margin-right:5px; font-weight:bold; color:#000;}
+.jackpot .value{margin-right:5px; font-weight:bold; color:#000; line-height:30px; float:left; margin-right:6px;}
 .jackpot .special{background:#AE5279;}
 .jackpot .special th{color:#fff;}
 .jackpot .num{font-weight:bold;margin-right:3px;}
@@ -154,6 +154,10 @@ td.approved, td.modif, td.missing, td.review, td.verify{text-align:center;}
 .jackpot .in-value{width:200px!important;}
 .jackpot .search .input{float:left;}
 .jackpot .search .btn{float:left;}
+.jackpot .sub-title{font-size:16px;}
+.jackpot .box-action{margin-top:20px;}
+.jackpot td.match{font-size:20px; line-height:30px;}
+.jackpot .table .input{margin:0; width:200px!important;}
 
 /* STYLE GUIDE */
 .style-guide .txt{font-size:16px; color:#000;}
