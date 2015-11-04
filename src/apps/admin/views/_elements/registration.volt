@@ -265,6 +265,8 @@
             </select>
             <label>Street Address</label>
             <input type="text" placeholder="Address" class="input">
+            <label>Wallet Balance</label>
+            <span class="txt">&euro;</span> <input type="text" placeholder="Wallet Balance" class="input value" value="0">
         </span>
         <span class="span6">
             <label>Surname</label>
@@ -277,9 +279,12 @@
             <input type="text" placeholder="Telephone number" class="input">
             <label>Postal Code</label>
             <input type="text" placeholder="Postal Code" class="input">
+            <label>Winning Balance</label>
+            <span class="txt">&euro;</span> <input type="text" placeholder="Winning Balance" class="input value" value="0">
         </span>
     </div>
-    <input type="hidden" name="controller" id="controller">                                <input type="hidden" name="action" id="action">
+    <input type="hidden" name="controller" id="controller">                                
+    <input type="hidden" name="action" id="action">
     <input type="hidden" value="null" name="params" id="params">
     <div class="cl">
         <input type="button" class="left btn btn-danger" value="Cancel">

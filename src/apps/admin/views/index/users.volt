@@ -12,7 +12,6 @@
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
-    {{ users }}
  <div class="wrapper">
     <div class="container">
         <div class="module">
@@ -82,7 +81,7 @@
                 <br><br>/* ADD NEW USER/ or EDIT change the title accordingly */ 
                 <h2 class="sub-title purple">Add/Edit User</h1>
                 {% include "_elements/registration.volt" %}
-                {#
+                
                  /* View Transactions */
                 <h2 class="sub-title purple">View Transactions</h1>
                 <div class="row-fluid">
@@ -108,7 +107,7 @@
                         </tr>
                     </tbody>
                 </table>
-                #}
+                
             </div>
         </div>
     </div>
