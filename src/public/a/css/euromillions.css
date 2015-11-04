@@ -22,7 +22,7 @@ html{box-sizing:border-box;}
 .info-link{list-style:none; margin:0; font-size:16px;}
 .info-link li{display:inline-block; margin-right:14px;}
 .divider{border-top:1px solid #AE5279!important;}
-.hidden-form{display:none;}
+.hidden-element{display:none;}
 
 /* Navigation */
 .navbar .brand{padding:0; margin:10px 0;}

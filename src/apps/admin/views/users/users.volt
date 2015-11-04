@@ -80,7 +80,7 @@
             </table>
             /* Insert paging functionality for the table above */
 
-            <div class="hidden-form crud-user">
+            <div class="hidden-element crud-user">
                 <h2 class="sub-title purple"></h1>
                     {% include "_elements/registration.volt" %}
             </div>
