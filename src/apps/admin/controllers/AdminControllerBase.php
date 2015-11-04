@@ -6,6 +6,7 @@ namespace EuroMillions\admin\controllers;
 
 use EuroMillions\admin\services\DomainAdminServiceFactory;
 use Phalcon\Mvc\Controller;
+use Phalcon\Mvc\View;
 
 class AdminControllerBase extends Controller
 {
@@ -18,6 +19,10 @@ class AdminControllerBase extends Controller
         $this->domainAdminServiceFactory = $this->di->get('domainAdminServiceFactory');
     }
 
+    protected function noRender()
+    {
+        $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
+    }
     //EMTD discomment to protect session
 /*    public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {

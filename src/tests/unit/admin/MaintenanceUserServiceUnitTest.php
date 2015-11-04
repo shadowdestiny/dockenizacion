@@ -101,7 +101,7 @@ class MaintenanceUserServiceUnitTest extends UnitTestBase
 
     private function getSut()
     {
-        return $sut = $this->getDomainAdminServiceFactory()->getMaintenanceService();
+        return $sut = $this->getDomainAdminServiceFactory()->getMaintenanceUserService();
     }
 
     /**

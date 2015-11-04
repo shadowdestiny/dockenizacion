@@ -24,7 +24,7 @@ class DomainAdminServiceFactory
         return new AuthUserService($session);
     }
 
-    public function getMaintenanceService()
+    public function getMaintenanceUserService()
     {
         return new MaintenanceUserService($this->entityManager);
     }

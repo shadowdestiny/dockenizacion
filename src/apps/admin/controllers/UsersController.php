@@ -4,8 +4,11 @@
 namespace EuroMillions\admin\controllers;
 
 use EuroMillions\admin\services\MaintenanceUserService;
+use EuroMillions\admin\vo\ActionResult;
 use EuroMillions\admin\vo\dto\UserDTO;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\UserId;
 
 class UsersController extends AdminControllerBase
 {
@@ -13,10 +16,12 @@ class UsersController extends AdminControllerBase
     /** @var  MaintenanceUserService */
     private $maintenanceUserService;
 
+
     public function initialize()
     {
         parent::initialize();
-        $this->maintenanceUserService = $this->domainAdminServiceFactory->getMaintenanceService();
+        $this->maintenanceUserService = $this->domainAdminServiceFactory->getMaintenanceUserService();
+
     }
 
     public function indexAction()
@@ -43,8 +48,51 @@ class UsersController extends AdminControllerBase
 
     public function editAction()
     {
-
-    }
+        $id = $this->request->get('id');
+        if(empty($id)){
+            /** @var ActionResult $result */
+            $result = $this->maintenanceUserService->updateUserData([
+                'name'     => $this->request->getPost('name'),
+                'surname'  => $this->request->getPost('surname'),
+                'email'    => new Email($this->request->getPost('email')),
+                'country'  => $this->request->getPost('country'),
+                'street'   => $this->request->getPost('street'),
+                'zip'      => (int) $this->request->getPost('zip'),
+                'city'     => $this->request->getPost('city'),
+                'phone_number' =>(int) $this->request->getPost('phone_number'),
+                'balance'  => (empty($this->request->getPost('balance'))) ? (int) 0 : (int) $this->request->getPost('balance')
+            ]);
+            $this->noRender();
+            if($result->success()){
+                echo json_encode(['message' => [
+                                                 'OK' => $result->getValues()
+                                               ]
+                                ]);
+            } else{
+                echo json_encode(['message' => [
+                                                 'KO' => $result->errorMessage()
+                                               ]
+                                ]);
+            }
+        } else {
+            /** @var ActionResult $result */
+            $result = $this->maintenanceUserService->getUser(new UserId($id));
+            $this->noRender();
+            if($result->success()){
+                /** @var UserDTO $user */
+                $user = new UserDTO($result->getValues());
+                echo json_encode(['result'=> [
+                                                'OK' => $user->toArray()
+                                            ]
+                ]);
+            }else{
+                echo json_encode(['result'=> [
+                                    'KO' => 'Error fetching user'
+                                ]
+                ]);
+            }
+        }
+   }
 
     public function deleteAction($id)
     {

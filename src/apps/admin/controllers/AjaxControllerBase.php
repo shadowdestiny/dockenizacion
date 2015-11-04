@@ -3,10 +3,7 @@
 
 namespace EuroMillions\admin\controllers;
 
-
-use Phalcon\Mvc\Controller;
-
-class AjaxControllerBase extends Controller
+class AjaxControllerBase extends AdminControllerBase
 {
     public function initialize()
     {

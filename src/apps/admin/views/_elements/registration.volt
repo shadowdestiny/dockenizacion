@@ -1,4 +1,4 @@
-<form method="post" class="cl form-user" action="http://localhost:8080/userAccess/signUp">
+<form method="post" class="cl form-user" action="/admin/users/edit">
     <div class="row-fluid">
         <span class="span6">
             <label>Name</label>
@@ -264,9 +264,9 @@
                 <option>Madrid</option>
             </select>
             <label>Street Address</label>
-            <input type="text" placeholder="Address" class="input">
+            <input type="text" placeholder="Address" id="address" class="input">
             <label>Wallet Balance</label>
-            <span class="txt">&euro;</span> <input type="text" placeholder="Wallet Balance" class="input value" value="0">
+            <span class="txt">&euro;</span> <input type="text" id="balance" name="balance" placeholder="Wallet Balance" class="input value" value="0">
         </span>
         <span class="span6">
             <label>Surname</label>
@@ -278,7 +278,7 @@
             <label>Telephone number</label>
             <input type="text" placeholder="Telephone number" class="input">
             <label>Postal Code</label>
-            <input type="text" placeholder="Postal Code" class="input">
+            <input type="text" placeholder="Postal Code" id="zip" class="input">
             <label>Winning Balance</label>
             <span class="txt">&euro;</span> <input type="text" placeholder="Winning Balance" class="input value" value="0">
         </span>
@@ -288,6 +288,6 @@
     <input type="hidden" value="null" name="params" id="params">
     <div class="cl">
         <input type="button" class="left btn btn-danger" value="Cancel">
-        <input type="submit" class="right btn btn-primary" value="Submit">
+        <input type="button" class="right btn btn-primary" value="Submit">
     </div>
 </form>
