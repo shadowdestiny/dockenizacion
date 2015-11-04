@@ -1,0 +1,126 @@
+.cal {
+  position: relative;
+  padding: 4px;
+  font-weight: bold;
+  background: #bebfc0;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  display: inline-block;
+  vertical-align: baseline;
+  zoom: 1;
+  *display: inline;
+  *vertical-align: auto;
+}
+
+.cal a {
+  text-decoration: none;
+}
+.cal tr:first-child td {
+  border-top: 0;
+}
+.cal td:first-child {
+  border-left: 0;
+}
+.cal tr:first-child a {
+  border-top: 0;
+  margin-top: 0;
+}
+.cal tr:last-child a {
+  border-bottom: 0;
+  margin-bottom: 0;
+}
+.cal td:first-child a {
+  border-left: 0;
+  margin-left: 0;
+}
+.cal td:last-child a {
+  border-right: 0;
+  margin-right: 0;
+}
+.cal tr:last-child td:first-child a {
+  border-radius: 0 0 0 3px;
+}
+.cal tr:last-child td:last-child a {
+  border-radius: 0 0 3px 0;
+}
+
+.cal-table{position:relative;}
+
+.cal-caption {
+  width: 100%;
+  padding-bottom: 1px;
+  line-height: 32px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.3);
+  background: #629c2e;
+  border-radius: 3px 3px 0 0;
+  background-image: -webkit-linear-gradient(top, #89c84d, #629c2e 75%, #548d20);
+  background-image: -moz-linear-gradient(top, #89c84d, #629c2e 75%, #548d20);
+  background-image: -o-linear-gradient(top, #89c84d, #629c2e 75%, #548d20);
+  background-image: linear-gradient(to bottom, #89c84d, #629c2e 75%, #548d20);
+}
+.cal-caption a {
+  line-height: 30px;
+  padding: 0 10px;
+  font-size: 20px;
+  font-weight: normal;
+  color: white;
+}
+.cal-caption .prev {
+  float: left;
+}
+.cal-caption .next {
+  float: right;
+}
+
+.cal-body td {
+  width: 30px;
+  font-size: 11px;
+  border-top: 1px solid #eaeaea;
+  border-left: 1px solid #eaeaea;
+}
+.cal-body a {
+  display: block;
+  position: relative;
+  line-height: 28px;
+  color: #555;
+  text-align: center;
+  background: white;
+}
+.cal-body a:hover {
+  background: #fafafa;
+}
+
+.cal-off a {
+  color: #ccc;
+  font-weight: normal;
+}
+
+.cal-today a {
+  color: black;
+  background: #f5f5f5;
+  background-image: -webkit-linear-gradient(top, whitesmoke, white 70%);
+  background-image: -moz-linear-gradient(top, whitesmoke, white 70%);
+  background-image: -o-linear-gradient(top, whitesmoke, white 70%);
+  background-image: linear-gradient(to bottom, whitesmoke, white 70%);
+}
+
+.cal-selected a, .cal-body a:active {
+  margin: -1px;
+  color: #b2494d;
+  background: #fff5f6;
+  border: 1px solid #e7d4d4;
+}
+
+.cal-check a{
+  color:#fff;
+  overflow:hidden;
+  background:#1B6985;
+}
+.lt-ie8 .cal-table {
+  *border-collapse: collapse;
+}
+.lt-ie8 .cal-body a {
+  zoom: 1;
+}
