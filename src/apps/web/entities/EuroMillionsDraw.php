@@ -6,11 +6,13 @@ use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
 use EuroMillions\web\vo\EuroMillionsLine;
+use Money\Money;
 
 class EuroMillionsDraw extends EntityBase implements IEntity
 {
     protected $id;
     protected $draw_date;
+    /** @var  Money $jackpot */
     protected $jackpot;
 
     protected $published;

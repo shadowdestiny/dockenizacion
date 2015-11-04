@@ -87,7 +87,7 @@ class UsersController extends AdminControllerBase
                 ]);
             }else{
                 echo json_encode(['result'=> [
-                                    'KO' => 'Error fetching user'
+                                    'KO' => $result->errorMessage()
                                 ]
                 ]);
             }
