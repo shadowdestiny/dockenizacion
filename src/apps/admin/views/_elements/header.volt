@@ -19,7 +19,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="/admin">Admin users</a></li>
                             <li><a href="/admin/users">Users</a></li>
-                            <li><a href="/admin/index/jackpot">Jackpot</a></li>
+                            <li><a href="/admin/draws">Draws</a></li>
                         </ul>
                     </li>
                     <li class=" dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
