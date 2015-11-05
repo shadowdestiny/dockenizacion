@@ -71,4 +71,14 @@ class MaintenanceDrawService
         }
     }
 
+    public function getDrawByDate(\DateTime $date)
+    {
+        $draw = $this->lotteryDrawRepository->findOneBy(['draw_date' => $date]);
+        if(!empty($draw)) {
+            return new ActionResult(true,$draw);
+        }else{
+            return new ActionResult(false);
+        }
+    }
+
 }

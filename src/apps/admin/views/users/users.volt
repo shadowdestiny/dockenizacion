@@ -20,11 +20,11 @@
         <div class="module">
             <div class="module-body">
                 <h1 class="h1 purple">Registered Users</h1>
-                <div class="alert alert-success">
+                <div class="alert alert-success hidden-element">
                     <button type="button" class="close" data-dismiss="alert">×</button>
                     <strong>Changes Saved</strong>
                 </div>
-                <div class="alert alert-danger">
+                <div class="alert alert-danger hidden-element">
                     <button type="button" class="close" data-dismiss="alert">×</button>
                     <strong>Changes Failed</strong>
                 </div>

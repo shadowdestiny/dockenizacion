@@ -1,7 +1,6 @@
 {% extends "main.volt" %}
 
 {% block template_css %}
-    <link rel="stylesheet" href="/a/css/calendar.css">
     <link rel="stylesheet" href="/a/css/pagination.css">
 {% endblock %}
 
@@ -26,11 +25,23 @@
         <div class="module">
             <div class="module-body">
                 <h1 class="h1 purple">Jackpot</h1>
+                <div class="alert alert-success hidden-element">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>Changes Saved</strong>
+                </div>
+                <div class="alert alert-danger hidden-element">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>Changes Failed</strong>
+                </div>
                 <div class="box-value">
                     <div class="box-draw-data">
-                        <div class="cl">
-                            <a href="javascript:void(0)" class="right btn btn-primary add">Add new</a>
+                        <div class="left">
+                            <label for="search">Search by date</label>
+                            <input id="search" class="input" type="text">
+                            <a href="javascript:void(0)" class="btn btn-primary search right add">Search</a>
                         </div>
+                        <a href="javasscript:void(0);" class="btn btn-primary right add">Add New</a>
+                        </form>
                         <table class="table">
                             <thead>
                                 <tr class="special">
@@ -68,6 +79,7 @@
                             {% endif %}
                             </tbody>
                         </table>
+                          {% include "_elements/pagination.volt" %}
                     </div>
                     <div class="crud-draw hidden-element">
                         <h2 class="sub-title purple"></h2>
@@ -94,11 +106,9 @@
                                 <input type="button" value="Save" class="right btn btn-primary">
                             </div>
                         </form>
-                    </div>
-                        </div>
 
                         <h3 class="sub-title purple">Prize breakdown</h3>
-                        <table class="table">
+                        <table class="table-breakdown">
                             <thead>
                                 <tr class="special">
                                     <th class="match">Match</th>
@@ -129,6 +139,7 @@
                             <input type="submit" value="Save" class="right btn btn-primary">
                         </div>
                     </form>
+                    </div>
                 </div>
             </div>
         </div>

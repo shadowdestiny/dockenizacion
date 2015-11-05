@@ -11,6 +11,9 @@
         {# CSS Compress this css in a single file #}
         <link type="text/css" href="/a/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link type="text/css" href="/a/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/a/css/vendor/jquery-ui.min.css">
+        <link rel="stylesheet" href="/a/css/vendor/jquery-ui.structure.min.css">
+        <link rel="stylesheet" href="/a/css/vendor/jquery-ui.theme.css">
         <link rel="stylesheet" href="/a/css/theme.css">
         <link rel="stylesheet" href="/a/css/euromillions.css">
         <link type="text/css" href="/a/images/icons/css/font-awesome.css" rel="stylesheet">

@@ -7,22 +7,22 @@ var ajaxFunctions = {
             type: 'POST',
             dataType: "json",
             success: function(json) {
-                if(typeof json.message !== 'undefined'){
-
-                }else if(typeof json.message !== 'undefined') {
-
-                }else if(typeof json.result !== 'undefined'){
+                if(json.result == 'OK'){
+                    $('.alert-success').show();
+                }else if(json.result == 'KO') {
+                    $('.alert-danger').show();
+                }else if(typeof json.result_view !== 'undefined' && json.result_view == 'OK'){
                     $('.crud-user .sub-title.purple').text('Edit user');
                     $('.box-user-data').hide();
                     $('.crud-user').show('fast');
-                    $('.form-user #name').val(json.result.OK.name);
-                    $('.form-user #surname').val(json.result.OK.surname);
-                    $('.form-user #email').val(json.result.OK.email);
-                    $('.form-user #country').val(json.result.OK.country);
-                    $('.form-user #password').val(json.result.OK.password);
-                    $('.form-user #address').val(json.result.OK.address);
-                    $('.form-user #zip').val(json.result.OK.zip);
-                    $('.form-user #balance').val(json.result.OK.balance);
+                    $('.form-user #name').val(json.value.name);
+                    $('.form-user #surname').val(json.value.surname);
+                    $('.form-user #email').val(json.value.email);
+                    $('.form-user #country').val(json.value.country);
+                    $('.form-user #password').val(json.value.password);
+                    $('.form-user #address').val(json.value.address);
+                    $('.form-user #zip').val(json.value.zip);
+                    $('.form-user #balance').val(json.value.balance);
                 }
             },
             error: function (xhr, status, errorThrown) {

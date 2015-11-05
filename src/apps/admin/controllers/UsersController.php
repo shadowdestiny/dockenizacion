@@ -51,6 +51,7 @@ class UsersController extends AdminControllerBase
         $id = $this->request->get('id');
         if(empty($id)){
             /** @var ActionResult $result */
+
             $result = $this->maintenanceUserService->updateUserData([
                 'name'     => $this->request->getPost('name'),
                 'surname'  => $this->request->getPost('surname'),
@@ -64,14 +65,12 @@ class UsersController extends AdminControllerBase
             ]);
             $this->noRender();
             if($result->success()){
-                echo json_encode(['message' => [
-                                                 'OK' => $result->getValues()
-                                               ]
+                echo json_encode(['result' => 'OK',
+                                  'value' => $result->getValues()
                                 ]);
             } else{
-                echo json_encode(['message' => [
-                                                 'KO' => $result->errorMessage()
-                                               ]
+                echo json_encode(['result' => 'KO',
+                                  'value'=> $result->errorMessage()
                                 ]);
             }
         } else {
@@ -81,14 +80,12 @@ class UsersController extends AdminControllerBase
             if($result->success()){
                 /** @var UserDTO $user */
                 $user = new UserDTO($result->getValues());
-                echo json_encode(['result'=> [
-                                                'OK' => $user->toArray()
-                                            ]
+                echo json_encode(['result_view'=> 'OK',
+                                  'value' => $user->toArray()
                 ]);
             }else{
-                echo json_encode(['result'=> [
-                                    'KO' => $result->errorMessage()
-                                ]
+                echo json_encode(['result_view'=> 'KO',
+                                  'value' => $result->errorMessage()
                 ]);
             }
         }
