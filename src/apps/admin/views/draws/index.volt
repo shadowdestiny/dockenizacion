@@ -2,6 +2,7 @@
 
 {% block template_css %}
     <link rel="stylesheet" href="/a/css/calendar.css">
+    <link rel="stylesheet" href="/a/css/pagination.css">
 {% endblock %}
 
 {% block bodyClass %}jackpot{% endblock %}
@@ -94,6 +95,40 @@
                             </div>
                         </form>
                     </div>
+                        </div>
+
+                        <h3 class="sub-title purple">Prize breakdown</h3>
+                        <table class="table">
+                            <thead>
+                                <tr class="special">
+                                    <th class="match">Match</th>
+                                    <th class="prize">Prize</th>
+                                    <th class="winners">Winners</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="match"><strong>5+2</strong></td>
+                                    <td class="prize"><span class="value">&euro;</span> <input type="text" class="input" value="0"></td>
+                                    <td class="winners"><input type="text" class="input" value="0"></td>
+                                </tr>
+                                <tr>
+                                    <td class="match"><strong>5+1</strong></td>
+                                    <td class="prize"><span class="value">&euro;</span> <input type="text" class="input" value="0"></td>
+                                    <td class="winners"><input type="text" class="input" value="0"></td>
+                                </tr>
+                                <tr>
+                                    <td class="match"><strong>5</strong></td>
+                                    <td class="prize"><span class="value">&euro;</span> <input type="text" class="input" value="0"></td>
+                                    <td class="winners"><input type="text" class="input" value="0"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="cl box-action">
+                            <a href="javascript:void(0)" class="left btn btn-danger">Cancel</a>
+                            <input type="submit" value="Save" class="right btn btn-primary">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

@@ -22,6 +22,16 @@
         <div class="module">
             <div class="module-body">
                 <h1 class="h1 purple">Jackpot</h1>
+
+                <div class="alert alert-success">
+                    <button data-dismiss="alert" class="close" type="button">×</button>
+                    <strong>Jackpot Modified</strong>
+                </div>
+                <div class="alert alert-danger">
+                    <button data-dismiss="alert" class="close" type="button">×</button>
+                    <strong>Error</strong> xxx
+                </div>
+
                 <div class="box-value">
                     <div class="cl">
                         <form class="search left cl">
@@ -36,6 +46,7 @@
                                 <th class="date">Date</th>
                                 <th class="jackpot">Jackpot</th>
                                 <th class="numbers">Numbers</th>
+                                <th class="prize">Prize breakdown</th>
                                 <th class="action">Action</th>
                             </tr>
                         </thead>
