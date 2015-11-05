@@ -151,12 +151,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
         $router->setDefaultModule('web');
 
-
-//        $router->add("/admin", [
-//            'module' => 'admin',
-//            'controller' => 'login',
-//            'action' => 'index'
-//        ]);
         $router->add('/admin/:controller/:action/:params', array(
             'module' => 'admin',
             'controller' => 1,
