@@ -46,11 +46,31 @@ class UsersController extends AdminControllerBase
 
     }
 
-    public function editAction()
+    public function viewAction()
     {
         $id = $this->request->get('id');
-        if(empty($id)){
+        /** @var ActionResult $result */
+        $result = $this->maintenanceUserService->getUser(new UserId($id));
+        $this->noRender();
+        if($result->success()){
+            /** @var UserDTO $user */
+            $user = new UserDTO($result->getValues());
+            echo json_encode(['result'=> 'OK',
+                              'value' => $user->toArray()
+            ]);
+        }else{
+            echo json_encode(['result'=> 'KO',
+                              'value' => $result->errorMessage()
+            ]);
+        }
+    }
+
+    public function editAction()
+    {
+        $email = $this->request->get('email');
+        if(!empty($email)){
             /** @var ActionResult $result */
+
             $result = $this->maintenanceUserService->updateUserData([
                 'name'     => $this->request->getPost('name'),
                 'surname'  => $this->request->getPost('surname'),
@@ -64,32 +84,13 @@ class UsersController extends AdminControllerBase
             ]);
             $this->noRender();
             if($result->success()){
-                echo json_encode(['message' => [
-                                                 'OK' => $result->getValues()
-                                               ]
+                echo json_encode(['result' => 'OK',
+                                  'value' => $result->getValues()
                                 ]);
             } else{
-                echo json_encode(['message' => [
-                                                 'KO' => $result->errorMessage()
-                                               ]
+                echo json_encode(['result' => 'KO',
+                                  'value'=> $result->errorMessage()
                                 ]);
-            }
-        } else {
-            /** @var ActionResult $result */
-            $result = $this->maintenanceUserService->getUser(new UserId($id));
-            $this->noRender();
-            if($result->success()){
-                /** @var UserDTO $user */
-                $user = new UserDTO($result->getValues());
-                echo json_encode(['result'=> [
-                                                'OK' => $user->toArray()
-                                            ]
-                ]);
-            }else{
-                echo json_encode(['result'=> [
-                                    'KO' => $result->errorMessage()
-                                ]
-                ]);
             }
         }
    }

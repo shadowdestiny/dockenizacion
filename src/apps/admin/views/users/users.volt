@@ -20,14 +20,15 @@
         <div class="module">
             <div class="module-body">
                 <h1 class="h1 purple">Registered Users</h1>
-                <div class="alert alert-success">
+                <div class="alert alert-success hidden-element">
                     <button type="button" class="close" data-dismiss="alert">×</button>
                     <strong>Changes Saved</strong>
                 </div>
-                <div class="alert alert-danger">
+                <div class="alert alert-danger hidden-element">
                     <button type="button" class="close" data-dismiss="alert">×</button>
                     <strong>Changes Failed</strong>
                 </div>
+           <div class="box-user-data">
                 <form class="cl search">
                     <div class="left">
                         <label for="search">Search by</label>
@@ -89,7 +90,7 @@
                     </tbody>
                 </table>
                 {% include "_elements/pagination.volt" %}
-
+           </div>
                 <div class="hidden-element crud-user">
                     <h2 class="sub-title purple"></h1>
                     {% include "_elements/registration.volt" %}

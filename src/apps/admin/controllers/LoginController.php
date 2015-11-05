@@ -27,10 +27,13 @@ class LoginController extends AdminControllerBase
                     $form_errors[$field] = ' error';
                 }
             } else {
+                $config = $this->di->get('config');
+                $config_credentials = $config->admin_credentials;
                 $result = $auth_user_service->login([
                     'user'    => $this->request->getPost('username'),
                     'pass' => $this->request->getPost('password')
-                ]);
+                ],$config_credentials);
+
                 if(!$result->success())
                 {
                     $errors[] = 'Username/password combination not valid';

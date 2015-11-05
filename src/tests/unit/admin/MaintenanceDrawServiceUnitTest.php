@@ -25,7 +25,7 @@ class MaintenanceDrawServiceUnitTest extends UnitTestBase
     {
         return [
             Namespaces::ENTITIES_NS . 'EuroMillionsDraw' => $this->lotteryDrawRepository_double,
-            Namespaces::ENTITIES_NS . 'Lotter' => $this->lotteryRepository_double,
+            Namespaces::ENTITIES_NS . 'Lottery' => $this->lotteryRepository_double,
 
         ];
     }
@@ -49,9 +49,10 @@ class MaintenanceDrawServiceUnitTest extends UnitTestBase
         $lucky_numbers = [1,2];
         $id_draw = 1;
         $draw_to_persist = new EuroMillionsDraw();
+        $money = new Money(5000, new Currency('EUR'));
         $draw_to_persist->initialize([
             'draw_date'  => new \DateTime('2015-06-02 20:00:00'),
-            'jackpot'    => new Money(5000, new Currency('EUR')),
+            'jackpot'    => $money,
             'lottery'    => 1
         ]);
         $expected = new ActionResult(true);
@@ -60,7 +61,7 @@ class MaintenanceDrawServiceUnitTest extends UnitTestBase
         $entityManager_stub->flush()->shouldBeCalled();
         $this->stubEntityManager($entityManager_stub);
         $sut = $this->getSut();
-        $actual = $sut->updateLastResult($regular_numbers,$lucky_numbers,$id_draw);
+        $actual = $sut->updateLastResult($regular_numbers,$lucky_numbers,$money,$id_draw);
         $this->assertEquals($expected,$actual);
     }
 
@@ -75,9 +76,10 @@ class MaintenanceDrawServiceUnitTest extends UnitTestBase
         $lucky_numbers = [1,2];
         $id_draw = 1;
         $draw_to_persist = new EuroMillionsDraw();
+        $money = new Money(5000, new Currency('EUR'));
         $draw_to_persist->initialize([
             'draw_date'  => new \DateTime('2015-06-02 20:00:00'),
-            'jackpot'    => new Money(5000, new Currency('EUR')),
+            'jackpot'    => $money,
             'lottery'    => 1
         ]);
         $expected = new ActionResult(false);
@@ -86,8 +88,37 @@ class MaintenanceDrawServiceUnitTest extends UnitTestBase
         $entityManager_stub->flush()->willThrow(new \Exception());
         $this->stubEntityManager($entityManager_stub);
         $sut = $this->getSut();
-        $actual = $sut->updateLastResult($regular_numbers,$lucky_numbers,$id_draw);
+        $actual = $sut->updateLastResult($regular_numbers,$lucky_numbers,$money,$id_draw);
         $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method getDrawByDate
+     * when calledWithValidDate
+     * should returnActionResultWithOnceDraw
+     */
+    public function test_getDrawByDate_calledWithValidDate_returnActionResultWithOnceDraw()
+    {
+        $today = new \DateTime('2015-11-03');
+        $draw_to_persist = new EuroMillionsDraw();
+        $sut = $this->getSut();
+        $this->lotteryDrawRepository_double->findOneBy(['draw_date' => $today])->willReturn($draw_to_persist);
+        $actual = $sut->getDrawByDate($today);
+        $this->assertEquals(true,$actual->success());
+    }
+
+    /**
+     * method getDrawByDate
+     * when calledWithInvalidDate
+     * should returnActionResultFalse
+     */
+    public function test_getDrawByDate_calledWithInvalidDate_returnActionResultFalse()
+    {
+        $today = new \DateTime('2015-11-04');
+        $sut = $this->getSut();
+        $this->lotteryDrawRepository_double->findOneBy(['draw_date' => $today])->willReturn(false);
+        $actual = $sut->getDrawByDate($today);
+        $this->assertEquals(false,$actual->success());
     }
 
 

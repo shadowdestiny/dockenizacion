@@ -32,7 +32,10 @@ class AuthUserService extends UnitTestBase
             'user' => 'admin',
             'pass' => 'euromillions'
         ];
-        list($expected, $actual) = $this->exreciseUserLogin(true,$credentials);
+        $config = new \Phalcon\Config();
+        $config->user = 'admin';
+        $config->pass = 'euromillions';
+        list($expected, $actual) = $this->exreciseUserLogin(true,$credentials,$config);
         $this->assertEquals($expected,$actual);
     }
 
@@ -47,7 +50,10 @@ class AuthUserService extends UnitTestBase
             'user' => 'admin',
             'pass' => 'euromillions2'
         ];
-        list($expected, $actual) = $this->exreciseUserLogin(false,$credentials);
+        $config = new \Phalcon\Config();
+        $config->user = 'admin';
+        $config->pass = 'euromill';
+        list($expected, $actual) = $this->exreciseUserLogin(false,$credentials,$config);
         $this->assertEquals($expected,$actual);
     }
 
@@ -59,12 +65,12 @@ class AuthUserService extends UnitTestBase
     /**
      * @return array
      */
-    private function exreciseUserLogin($expected,$credentials)
+    private function exreciseUserLogin($expected,$credentials,$config)
     {
         $expected = new ActionResult($expected);
         $sut = $this->getSut();
         $this->storageStrategy_double->set(Argument::any(),time());
-        $actual = $sut->login($credentials);
+        $actual = $sut->login($credentials,$config);
         return array($expected, $actual);
     }
 
