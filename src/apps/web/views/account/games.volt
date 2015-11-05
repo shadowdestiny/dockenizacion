@@ -24,9 +24,9 @@
 
                 <div class="box info">
                     <span class="ico ico-info"></span>
-                <span class="txt">
-                    {{ language.translate("You didn't play any games yet.") }} <a href="/play">{{ language.translate("Play now and start to win.") }}</a>
-                </span>
+                    <span class="txt">
+                        {{ language.translate("You didn't play any games yet.") }} <a href="/play">{{ language.translate("Play now and start to win.") }}</a>
+                    </span>
                 </div>
 
                 <a href="/play" class="no-data img">
@@ -49,39 +49,39 @@
                 {% if my_games_actives is empty %}
                     {{ message_actives }}
                 {% else %}
-                <table class="present cl table ui-responsive" data-role="table" data-mode="reflow">
-                    <thead>
-                    <th class="date">
-                        {{ language.translate("Game played") }}
-                    </th>
-                    <th class="when">
-                        {{ language.translate("When") }}
-                    </th>
-                    <th class="numbers">
-                        {{ language.translate("Numbers played") }}
-                    </th>
-                    <th class="action">
-                        {{ language.translate("Actions") }}
-                    </th>
-                    </thead>
-                    <tbody>
-                    {% for game in my_games_actives %}
-                        <tr>
-                            <td class="date">
-                                <strong>{{ language.translate("Euromillions") }}</strong>
-                                {{ game.startDrawDate }}
-                            </td>
-                            <td class="duration"><strong></strong> {{ game.duration }}</td>
-                            <td class="numbers">
-                                <div class="myCol">
-                                    {{ game.regular_numbers }} <span class="star">{{ game.lucky_numbers }}</span>
-                                </div>
-                            </td>
-                            <td class="action"><a href="javascript:void(0);" class="btn blue">Edit <i class="ico ico-pencil"></i></a> <a href="javascript:void(0);" class="btn red">Delete <i class="ico ico-cross"></i></a></td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                    <table class="present cl table ui-responsive" data-role="table" data-mode="reflow">
+                        <thead>
+                            <th class="date">
+                                {{ language.translate("Game played") }}
+                            </th>
+                            <th class="when">
+                                {{ language.translate("When") }}
+                            </th>
+                            <th class="numbers">
+                                {{ language.translate("Numbers played") }}
+                            </th>
+                            <th class="action">
+                                {{ language.translate("Actions") }}
+                            </th>
+                        </thead>
+                        <tbody>
+                        {% for game in my_games_actives %}
+                            <tr>
+                                <td class="date">
+                                    <strong>{{ language.translate("Euromillions") }}</strong>
+                                    {{ game.startDrawDate }}
+                                </td>
+                                <td class="duration"><strong></strong> {{ game.duration }}</td>
+                                <td class="numbers">
+                                    <div class="myCol">
+                                        {{ game.regular_numbers }} <span class="star">{{ game.lucky_numbers }}</span>
+                                    </div>
+                                </td>
+                                <td class="action"><a href="javascript:void(0);" class="btn blue">Edit <i class="ico ico-pencil"></i></a> <a href="javascript:void(0);" class="btn red">Delete <i class="ico ico-cross"></i></a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 {% endif %}
                 <h2 class="h3">Past Games</h2>
                 {% if my_games_inactives is empty %}

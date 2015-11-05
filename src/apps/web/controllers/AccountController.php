@@ -37,6 +37,8 @@ class AccountController extends PublicSiteControllerBase
     }
 
 
+    public function TransactionAction(){}
+
     public function indexAction()
     {
 
