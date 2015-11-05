@@ -80,7 +80,7 @@
                                     </td>
                                     <td class="action">
                                         <a href="javascript:void(0)" class="btn btn-danger">Delete</a>
-                                        {# <a href="#" class="btn btn-success">View Transactions</a> #}
+                                        <a href="#" class="btn btn-success">View Transactions</a>
                                         <a href="javascript:void(0)" data-id="{{ user.id }}" class="btn btn-primary">Edit</a>
                                     </td>
                                 </tr>
@@ -94,7 +94,7 @@
                     <h2 class="sub-title purple"></h1>
                     {% include "_elements/registration.volt" %}
                 </div>
-                {#
+
                  /* View Transactions */
                 <h2 class="sub-title purple">View Transactions</h1>
                 <div class="row-fluid">
@@ -110,17 +110,23 @@
                     <thead>
                         <tr class="special">
                             <th class="date">Date Played</th>
+                            <th class="type">Transaction</th>
+                            <th class="movement">Movement</th>
+                            <th class="wallet2">Wallet</th>
+                            <th class="winnings">Winnings</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>
-                                ddd
-                            </td>
+                            <td class="date">16 May 2015, 18:35</td>
+                            <td class="type">Played lotto</td>
+                            <td class="movement">&euro; -15</td>
+                            <td class="wallet2">&euro; 75</td>
+                            <td class="winnings">&euro; 75</td>
                         </tr>
                     </tbody>
                 </table>
-                #}
+
             </div>
         </div>
     </div>

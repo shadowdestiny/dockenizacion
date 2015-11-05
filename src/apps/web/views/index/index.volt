@@ -11,18 +11,35 @@
 {% block template_scripts %}
 <script>
 $(function(){
-		$('.box-prize .time').countdown('{{ date_to_draw }}')
-		.on('update.countdown', function(event){
-			var format = '%-Hh %-Mm %-Ss';
-			if(event.offset.days > 0){
-				format = '%-dd ' + format;
-			}
-			$(this).html(event.strftime(format));
-		}).on('finish.countdown', function(event){
-			$(this).html("{{language.translate('Draw closed')}}").parent().addClass('disabled');
-		});
+	$('.box-prize .time').countdown('{{ date_to_draw }}')
+	.on('update.countdown', function(event){
+		var format = '%-Hh %-Mm %-Ss';
+		if(event.offset.days > 0){
+			format = '%-dd ' + format;
+		}
+		$(this).html(event.strftime(format));
+	}).on('finish.countdown', function(event){
+		$(this).html("{{language.translate('Draw closed')}}").parent().addClass('disabled');
+	});
+
+    $("#win").easyModal({
+	    top:100,
+	    autoOpen:true,
+	    overlayOpacity:0.7,
+	    overlayColor:"#000",
+	    transitionIn:'animated fadeIn',
+	    transitionOut:'animated fadeOut'
+    });
 });
+
+
 </script>
+{% endblock %}
+
+{% block modal %}
+<a href="/account/transaction" id="win" class="modal win">
+	<span class="btn blue">View the prize</span>
+</a>
 {% endblock %}
 
 {% block body %}

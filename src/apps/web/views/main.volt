@@ -20,7 +20,8 @@
     </head>
 
 	<body class="{% block bodyClass %}{% endblock %}">
-        <div class="bg-black"></div>
+        {% block modal %}{% endblock %}
+
         <div data-role="page" id="main-page">
             {% block header %}{% endblock %}
 
