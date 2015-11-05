@@ -7,19 +7,30 @@ var ajaxFunctions = {
             type: 'POST',
             dataType: "json",
             success: function(json) {
-                if(json.result == 'OK'){
-                    $('.alert-success').show();
-                }else if(json.result == 'KO') {
-                    $('.alert-danger').show();
-                }else if(typeof json.result_view !== 'undefined' && json.result_view == 'OK'){
+                json.result == 'OK' ? $('.alert-success').show() : $('.alert-danger').show();
+            },
+            error: function (xhr, status, errorThrown) {
+            },
+        });
+    },
+    view: function(params) {
+        $.ajax({
+            url: '/admin/draws/view/',
+            data: params,
+            type: 'POST',
+            dataType: 'json',
+            success: function(model) {
+                if(model.result == 'OK') {
                     $('.crud-draw .sub-title.purple').text('Edit draw');
                     $('.box-draw-data').hide();
                     $('.crud-draw').show('fast');
-                    $('#update-date').val(json.value.draw_date);
-                    $('#update-number').val(json.value.regular_numbers);
-                    $('#update-star-number').val(json.value.lucky_numbers);
-                    $('#update-value').val(json.value.jackpot);
-                    $('#id_draw').val(json.value.id);
+                    $('#update-date').val(model.value.draw_date);
+                    $('#update-number').val(model.value.regular_numbers);
+                    $('#update-star-number').val(model.value.lucky_numbers);
+                    $('#update-value').val(model.value.jackpot);
+                    $('#id_draw').val(model.value.id);
+                } else {
+                    $('.alert-danger').show();
                 }
             },
             error: function (xhr, status, errorThrown) {
@@ -70,7 +81,7 @@ $(function(){
     $('body').on('click','.action .btn-primary',function(){
         var id = $(this).data('id');
         params = 'id='+id;
-        ajaxFunctions.edit(params);
+        ajaxFunctions.view(params);
     });
     $('.form-draw .btn-primary').on('click',function(){
         var params = $('.form-draw').serialize();

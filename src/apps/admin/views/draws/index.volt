@@ -61,7 +61,7 @@
                                         {{ draw.draw_date }}
                                     </td>
                                     <td class="jackpot">
-                                        &euro; {{ draw.jackpot }}
+                                        &euro; {{ draw.jackpot | number_format(0, ',', '.')}}
                                     </td>
                                     <td class="numbers">
                                         {% for number in draw.regular_numbers %}

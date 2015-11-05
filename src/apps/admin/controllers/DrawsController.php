@@ -40,15 +40,33 @@ class DrawsController extends AdminControllerBase
         ]);
     }
 
+    public function viewAction()
+    {
+        $id = $this->request->getPost('id');
+        $result = $this->maintenanceDrawService->getDrawById($id);
+        if($result->success()) {
+            /** @var DrawDTO $draw_dto */
+            $draw_dto = new DrawDTO($result->getValues());
+            $draw_dto->setRegularNumbers(implode(',',$draw_dto->getRegularNumbers()));
+            $draw_dto->setLuckyNumbers(implode(',',$draw_dto->getLuckyNumbers()));
+            echo json_encode(['result'=> 'OK',
+                              'value' => $draw_dto->toArray()
+            ]);
+        }else{
+            echo json_encode(['result'=> 'KO',
+                              'value' => $result->errorMessage()
+            ]);
+        }
+    }
+
     public function editAction()
     {
         $this->noRender();
-        $id = $this->request->getPost('id');
         $id_draw_to_edit = $this->request->getPost('id_draw');
         if(!empty($id_draw_to_edit)){
             $regular_numbers = array_map('intval', explode(',', $this->request->getPost('numbers')));
             $lucky_numbers = array_map('intval', explode(',', $this->request->getPost('stars')));
-            $jackpot_value = new Money((int) $this->request->getPost('jackpot') * 100, new Currency('EUR'));
+            $jackpot_value = new Money((int) $this->request->getPost('jackpot'), new Currency('EUR'));
             /** @var ActionResult $result */
             $result = $this->maintenanceDrawService->updateLastResult($regular_numbers,$lucky_numbers,$jackpot_value,$id_draw_to_edit);
             if($result->success()){
@@ -57,21 +75,6 @@ class DrawsController extends AdminControllerBase
             } else{
                 echo json_encode(['result' => 'KO',
 
-                ]);
-            }
-        }else{
-            $result = $this->maintenanceDrawService->getDrawById($id);
-            if($result->success()) {
-                /** @var DrawDTO $draw_dto */
-                $draw_dto = new DrawDTO($result->getValues());
-                $draw_dto->setRegularNumbers(implode(',',$draw_dto->getRegularNumbers()));
-                $draw_dto->setLuckyNumbers(implode(',',$draw_dto->getLuckyNumbers()));
-                echo json_encode(['result_view'=> 'OK',
-                                  'value' => $draw_dto->toArray()
-                ]);
-            }else{
-                echo json_encode(['result_view'=> 'KO',
-                                  'value' => $result->errorMessage()
                 ]);
             }
         }

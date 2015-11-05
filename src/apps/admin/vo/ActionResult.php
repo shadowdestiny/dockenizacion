@@ -32,4 +32,9 @@ class ActionResult
     {
         return $this->returnValues;
     }
+
+    public function toJson()
+    {
+
+    }
 }
