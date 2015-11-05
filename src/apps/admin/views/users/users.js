@@ -6,8 +6,31 @@ var ajaxFunctions = {
             data: params,
             type: 'POST',
             dataType: "json",
-            success: function(json) {
-                (json.result == 'OK') ? $('.alert-success').show() : $('.alert-danger').show();
+            success: function(model) {
+                if(model.result == 'OK') {
+                    $('.alert-success').show();
+                    $('.crud-user').hide('fast');
+                    $.each(model.value,function(i,v){
+                        console.log(v);
+                        $tr = '<tr>';
+                        $tr += '<td class="name">'+v.name+'</td>';
+                        $tr += '<td class="surname">'+v.surname+'</td>';
+                        $tr += '<td class="contact"><a href="mailto:'+v.email+'">'+v.email+'</a></td>';
+                        $tr += '<td class="residence">'+v.street+'</td>';
+                        $tr += '<td class="wallet"><strong>Wallet:</strong>&euro;'+ v.balance+'</br><strong>Winning: </strong></td>';
+                        $tr += '<td class="action">';
+                        $tr += '<a href="javascript:void(0)" class="btn btn-danger">Delete</a>';
+                        $tr += '<a href="#" class="btn btn-success">Delete</a>';
+                        $tr += '<a href="javascript:void(0)" data-id="'+ v.id+'" class="btn btn-primary">Edit</a>';
+                        $tr += '</td>';
+                        $tr += '</tr>';
+                    });
+                    $('.table tbody').html('');
+                    $('.table tbody').append($tr);
+                    $('.box-user-data').show();
+                }else{
+                    $('.alert-danger').show();
+                }
             },
             error: function (xhr, status, errorThrown) {
                 //EMTD manage errrors
@@ -45,7 +68,8 @@ var ajaxFunctions = {
 };
 
 $(function(){
-    $('.action .btn-primary').on('click',function(){
+
+    $('body').on('click','.action .btn-primary', function(){
         var id = $(this).data('id');
         params = 'id='+id;
         ajaxFunctions.view(params);

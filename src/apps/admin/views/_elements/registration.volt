@@ -264,7 +264,7 @@
                 <option>Madrid</option>
             </select>
             <label>Street Address</label>
-            <input type="text" placeholder="Address" id="address" class="input">
+            <input type="text" placeholder="Address" name="street" id="address" class="input">
             <label>Wallet Balance</label>
             <span class="txt">&euro;</span> <input type="text" id="balance" name="balance" placeholder="Wallet Balance" class="input value" value="0">
         </span>
