@@ -9,7 +9,7 @@
   /* Because of JQ Mobile */
   .btn-box{position:absolute; right:35px; bottom:25px; display:inline-block;}
 }
-.fix-win{margin:auto!important; left:auto!important; position:fix; top:100px; z-index:10000001;} /*Class applied when modal win is being resized*/
+.fix-modal{margin:auto!important; left:auto!important; position:fix; top:100px; z-index:10000001;} /*Class applied when modal win is being resized*/
 
 /* RETINA ONLY */
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx){
