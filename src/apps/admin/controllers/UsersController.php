@@ -83,9 +83,16 @@ class UsersController extends AdminControllerBase
                 'balance'  => (empty($this->request->getPost('balance'))) ? (int) 0 : (int) $this->request->getPost('balance')
             ]);
             $this->noRender();
+            $result = $this->maintenanceUserService->listAllUsers();
+            $list_users_dto = [];
+            if($result->success()){
+                foreach($result->getValues() as $user) {
+                    $list_users_dto[] = new UserDTO($user);
+                }
+            }
             if($result->success()){
                 echo json_encode(['result' => 'OK',
-                                  'value' => $result->getValues()
+                                  'value' => $list_users_dto
                                 ]);
             } else{
                 echo json_encode(['result' => 'KO',

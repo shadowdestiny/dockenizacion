@@ -55,7 +55,7 @@ class MaintenanceUserService
         if(!empty($user)) {
             return new ActionResult(true,$user[0]);
         }else{
-            return new ActionResult(false);
+             return new ActionResult(false);
         }
     }
 
@@ -78,7 +78,7 @@ class MaintenanceUserService
 
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
-            return new ActionResult(true,'Your data was update');
+            return new ActionResult(true,$user);
         }catch(\Exception $e){
             return new ActionResult(false,'Sorry, try it later');
         }
