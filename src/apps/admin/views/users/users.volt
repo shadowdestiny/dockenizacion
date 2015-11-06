@@ -72,8 +72,10 @@
                                         <br>{{ user.phone_number }}
                                     </td>
                                     <td class="residence">
-                                        {{ user.city }}, {{ user.zip }}, {{ user.country }}
-                                        <br>{{ user.street }}
+                                        City: {{ user.city }}
+                                        <br>Zip: {{ user.zip }}
+                                        <br>Country: {{ user.country }}
+                                        <br>Address: {{ user.street }}
                                     </td>
                                     <td class="wallet">
                                         <strong>Wallet:</strong> &euro; {{ user.balance }}

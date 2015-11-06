@@ -35,13 +35,13 @@
                 </div>
                 <div class="box-value">
                     <div class="box-draw-data">
-                        <div class="left">
-                            <label for="search">Search by date</label>
-                            <input id="search" class="input" type="text">
-                            <a href="javascript:void(0)" class="btn btn-primary search right add">Search</a>
+                        <div class="cl">
+                            <div class="left">
+                                <input id="search" class="input" type="text" placeholder="Search by date">
+                                <a href="javascript:void(0)" class="btn btn-primary search right add">Search</a>
+                            </div>
+                            <a href="javasscript:void(0);" class="btn btn-primary right add">Add New</a>
                         </div>
-                        <a href="javasscript:void(0);" class="btn btn-primary right add">Add New</a>
-                        </form>
                         <table class="table">
                             <thead>
                                 <tr class="special">
