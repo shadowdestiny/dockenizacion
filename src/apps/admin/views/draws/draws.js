@@ -6,8 +6,44 @@ var ajaxFunctions = {
             data: params,
             type: 'POST',
             dataType: "json",
-            success: function(json) {
-                json.result == 'OK' ? $('.alert-success').show() : $('.alert-danger').show();
+            success: function(model) {
+                if(model.result == 'OK') {
+                    $('.alert-success').show();
+                    $('.crud-draw').hide('fast');
+                    $tr = '';
+                    $.each(model.value,function(i,v){
+                        $tr += '<tr>';
+                        $tr += '<td class="date">'+v.draw_date+'</td>';
+                        $tr += '<td class="jackpot">&euro; '+v.jackpot+'</td>';
+                        $regular_numbers = v.regular_numbers;
+                        $tr += '<td class="numbers">';
+                        $.each($regular_numbers, function(i,n){
+                            if(n != null ){
+                                $tr += '<span class="num">'+n+'</span>';
+                            }else{
+                                $tr += '<span class="num"></span>';
+                            }
+                        });
+                        $lucky_numbers = v.lucky_numbers;
+                        $.each($lucky_numbers,function(i,l){
+                            if(l != null){
+                                $tr += '<span class="num yellow">'+l+'</span>';
+                            }else{
+                                $tr += '<span class="num yellow"></span>';
+                            }
+                        });
+                        $tr += '</td>';
+                        $tr += '<td class="action">';
+                        $tr += '<a href="javascript:void(0)" data-id='+v.id+' class="btn btn-primary">Edit</a>';
+                        $tr += '</td>';
+                        $tr += '</tr>';
+                    });
+                    $('.table tbody').html('');
+                    $('.table tbody').append($tr);
+                    $('.box-draw-data').show();
+                }else{
+                    $('.alert-danger').show();
+                }
             },
             error: function (xhr, status, errorThrown) {
             },

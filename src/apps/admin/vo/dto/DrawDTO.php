@@ -110,8 +110,8 @@ class DrawDTO extends DTOBase implements IDto
     public function exChangeObject()
     {
         $this->id = $this->draw->getId();
-        $this->draw_date  = $this->draw->getDrawDate()->format('Y-m-d');
-        $this->jackpot = $this->draw->getJackpot()->getAmount() / 100;
+        $this->draw_date  = $this->draw->getDrawDate()->format('j M Y');
+        $this->jackpot = $this->draw->getJackpot()->getAmount() /100;
         $this->regular_numbers = $this->draw->getResult()->getRegularNumbersArray();
         $this->lucky_numbers = $this->draw->getResult()->getLuckyNumbersArray();
     }
