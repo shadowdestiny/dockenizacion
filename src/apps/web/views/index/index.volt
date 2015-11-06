@@ -10,6 +10,21 @@
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}
 <script>
+var checkWinSize = 0;
+function checkWin(){
+	console.log("media="+ $(".media").width());
+	var temp = checkWinSize;
+	if($(".media").width() > 1){
+		checkWinSize = 1;
+	}else{
+		checkWinSize = 0;
+	}
+	if(checkWinSize != temp){
+		console.log("different")
+		$("#win[style]").removeAttr("style").addClass("fix-modal");
+	}
+}
+
 $(function(){
 	$('.box-prize .time').countdown('{{ date_to_draw }}')
 	.on('update.countdown', function(event){
@@ -30,6 +45,7 @@ $(function(){
 	    transitionIn:'animated fadeIn',
 	    transitionOut:'animated fadeOut'
     });
+    $(window).resize(checkWin); //fix alignment of the popup when resized
 });
 
 
@@ -38,7 +54,7 @@ $(function(){
 
 {% block modal %}
 <a href="/account/transaction" id="win" class="modal win">
-	<span class="btn blue">View the prize</span>
+	<span class="btn-box"><span class="btn blue">View the prize</span></span>
 </a>
 {% endblock %}
 

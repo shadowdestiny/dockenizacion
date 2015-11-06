@@ -41,7 +41,7 @@
                         <input id="search" class="input" type="text">
                         <a href="javascript:void(0)" class="btn btn-primary right add">Search</a>
                     </div>
-                    <a href="javasscript:void(0);" class="btn btn-primary right add">Add New User</a>
+                    <a href="javascript:void(0);" class="btn btn-primary right add">Add New User</a>
                 </form>
 
                 <table class="table">
