@@ -66,15 +66,24 @@ class DrawsController extends AdminControllerBase
         if(!empty($id_draw_to_edit)){
             $regular_numbers = array_map('intval', explode(',', $this->request->getPost('numbers')));
             $lucky_numbers = array_map('intval', explode(',', $this->request->getPost('stars')));
-            $jackpot_value = new Money((int) $this->request->getPost('jackpot'), new Currency('EUR'));
+            $jackpot_value = new Money((int) $this->request->getPost('jackpot')*100, new Currency('EUR'));
             /** @var ActionResult $result */
             $result = $this->maintenanceDrawService->updateLastResult($regular_numbers,$lucky_numbers,$jackpot_value,$id_draw_to_edit);
+            $result_draws = $this->maintenanceDrawService->getAllDrawsByLottery('EuroMillions');
+            $list_draws_dto = [];
+            if($result_draws->success()){
+                foreach($result_draws->getValues() as $draw) {
+                    $list_draws_dto[] = new DrawDTO($draw);
+                }
+            }
             if($result->success()){
+
                 echo json_encode(['result' => 'OK',
+                                  'value'  => $list_draws_dto
                 ]);
             } else{
                 echo json_encode(['result' => 'KO',
-
+                                  'value'  => $list_draws_dto
                 ]);
             }
         }

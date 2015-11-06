@@ -11,7 +11,6 @@ var ajaxFunctions = {
                     $('.alert-success').show();
                     $('.crud-user').hide('fast');
                     $.each(model.value,function(i,v){
-                        console.log(v);
                         $tr = '<tr>';
                         $tr += '<td class="name">'+v.name+'</td>';
                         $tr += '<td class="surname">'+v.surname+'</td>';

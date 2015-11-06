@@ -108,7 +108,7 @@
                         </form>
 
                         <h3 class="sub-title purple">Prize breakdown</h3>
-                        <table class="table-breakdown">
+                        <table class="table table-breakdown">
                             <thead>
                                 <tr class="special">
                                     <th class="match">Match</th>
