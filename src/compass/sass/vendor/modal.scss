@@ -7,8 +7,9 @@
   position:relative; display:block; width:900px; height:300px; border-radius:5px; background:url(../img/win/win.jpg) no-repeat;
 
   /* Because of JQ Mobile */
-  .btn{position:absolute; right:35px; bottom:25px; display:inline-block;}
+  .btn-box{position:absolute; right:35px; bottom:25px; display:inline-block;}
 }
+.fix-win{margin:auto!important; left:auto!important; position:fix; top:100px; z-index:10000001;} /*Class applied when modal win is being resized*/
 
 /* RETINA ONLY */
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx){
@@ -21,7 +22,10 @@
 }
 
 @media only screen and (max-width:992px){
-  .modal.win{width:454px; height:244px; background:url(../img/win/win-mobile.jpg) no-repeat;}
+  .modal.win{
+    width:454px; height:244px; background:url(../img/win/win-mobile.jpg) no-repeat;
+    .btn-box{width:100%; left:0; right:auto; margin:auto; bottom:40px;}
+  }
 }
 
 /*EMTD - To test on retina display */
