@@ -4,18 +4,18 @@
 namespace tests\integration;
 
 
-use EuroMillions\components\NullPasswordHasher;
-use EuroMillions\entities\CreditCardPaymentMethod;
-use EuroMillions\entities\User;
-use EuroMillions\repositories\PaymentMethodRepository;
-use EuroMillions\vo\CardHolderName;
-use EuroMillions\vo\CardNumber;
-use EuroMillions\vo\CreditCard;
-use EuroMillions\vo\CVV;
-use EuroMillions\vo\Email;
-use EuroMillions\vo\ExpiryDate;
-use EuroMillions\vo\Password;
-use EuroMillions\vo\UserId;
+use EuroMillions\web\components\NullPasswordHasher;
+use EuroMillions\web\entities\CreditCardPaymentMethod;
+use EuroMillions\web\entities\User;
+use EuroMillions\web\repositories\PaymentMethodRepository;
+use EuroMillions\web\vo\CardHolderName;
+use EuroMillions\web\vo\CardNumber;
+use EuroMillions\web\vo\CreditCard;
+use EuroMillions\web\vo\CVV;
+use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\ExpiryDate;
+use EuroMillions\web\vo\Password;
+use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use tests\base\DatabaseIntegrationTestBase;
@@ -36,7 +36,7 @@ class PaymentMethodRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     public function setUp()
     {
         parent::setUp();
-        $this->sut = $this->entityManager->getRepository('\EuroMillions\entities\PaymentMethod');
+        $this->sut = $this->entityManager->getRepository($this->getEntitiesToArgument('PaymentMethod'));
     }
 
     /**
@@ -46,7 +46,7 @@ class PaymentMethodRepositoryIntegrationTest extends DatabaseIntegrationTestBase
      */
     public function test_add_calledWithValidPaymentMethod_storeCorrectlyInTheDatabase()
     {
-        $user = $this->entityManager->find('EuroMillions\entities\User', '9098299B-14AC-4124-8DB0-19571EDABE55');
+        $user = $this->entityManager->find($this->getEntitiesToArgument('User'), '9098299B-14AC-4124-8DB0-19571EDABE55');
         $creditCard = $this->getCreditCard();
         list($paymentMethod, $actual) = $this->exerciseAdd($user, $creditCard);
         $this->assertEquals($paymentMethod, $actual);
@@ -59,8 +59,8 @@ class PaymentMethodRepositoryIntegrationTest extends DatabaseIntegrationTestBase
      */
     public function test_getPaymentMethodsByUser_calledWithValidUser_returnAnInstanceCreditCardPaymentMethod()
     {
-        $user = $this->entityManager->find('EuroMillions\entities\User', '9098299B-14AC-4124-8DB0-19571EDABE55');
-        $expected = 'EuroMillions\entities\CreditCardPaymentMethod';
+        $user = $this->entityManager->find($this->getEntitiesToArgument('User'), '9098299B-14AC-4124-8DB0-19571EDABE55');
+        $expected = $this->getEntitiesToArgument('CreditCardPaymentMethod');
         $creditCard = $this->getCreditCard();
         $this->exerciseAdd($user, $creditCard);
         $actual = $this->sut->getPaymentMethodsByUser($user);
@@ -76,7 +76,7 @@ class PaymentMethodRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $actual = $this->entityManager
             ->createQuery(
                 'SELECT p'
-                . ' FROM \EuroMillions\entities\PaymentMethod p'
+                . ' FROM \EuroMillions\web\entities\PaymentMethod p'
                 . ' WHERE p.user = :user_id ')
             ->setMaxResults(1)
             ->setParameters(['user_id' => $user->getId() ])

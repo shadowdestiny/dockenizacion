@@ -1,12 +1,12 @@
 <?php
 namespace tests\integration;
 
-use EuroMillions\entities\Language;
+use EuroMillions\web\entities\Language;
 use tests\base\RepositoryIntegrationTestBase;
 
 class LanguageRepositoryIntegrationTest extends RepositoryIntegrationTestBase
 {
-    /** @var  \EuroMillions\repositories\LanguageRepository */
+    /** @var  \EuroMillions\web\repositories\LanguageRepository */
     protected $sut;
 
     protected function getFixtures()

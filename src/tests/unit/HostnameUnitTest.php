@@ -1,7 +1,7 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\vo\Hostname;
+use EuroMillions\web\vo\Hostname;
 use tests\base\UnitTestBase;
 
 class HostnameUnitTest extends UnitTestBase

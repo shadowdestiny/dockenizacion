@@ -1,14 +1,14 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\components\EnvironmentDetector;
+use EuroMillions\sharecomponents\EnvironmentDetector;
 use tests\base\UnitTestBase;
 
 class EnvironmentDetectorUnitTest extends UnitTestBase
 {
     const VAR_NAME = 'VAR_NAME';
 
-    const EXPECTED_EXCEPTION = '\EuroMillions\exceptions\EnvironmentNotSetException';
+    const EXPECTED_EXCEPTION = '\EuroMillions\shareconfig\exceptions\EnvironmentNotSetException';
 
     /** @var  EnvironmentDetector */
     protected $sut;

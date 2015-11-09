@@ -1,9 +1,9 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\vo\EuroMillionsLuckyNumber;
-use EuroMillions\vo\EuroMillionsRegularNumber;
-use EuroMillions\vo\EuroMillionsLine;
+use EuroMillions\web\vo\EuroMillionsLuckyNumber;
+use EuroMillions\web\vo\EuroMillionsRegularNumber;
+use EuroMillions\web\vo\EuroMillionsLine;
 use tests\base\UnitTestBase;
 
 class EuroMillionsResultUnitTest extends UnitTestBase

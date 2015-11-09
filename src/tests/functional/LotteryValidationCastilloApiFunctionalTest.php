@@ -4,15 +4,14 @@
 namespace tests\functional;
 
 
-use EuroMillions\components\CypherCastillo3DES;
-use EuroMillions\entities\Bet;
-use EuroMillions\entities\EuroMillionsDraw;
-use EuroMillions\entities\PlayConfig;
-use EuroMillions\services\external_apis\LotteryValidationCastilloApi;
-use EuroMillions\vo\ActionResult;
-use EuroMillions\vo\CastilloBetId;
-use EuroMillions\vo\CastilloCypherKey;
-use EuroMillions\vo\CastilloTicketId;
+use EuroMillions\web\components\CypherCastillo3DES;
+use EuroMillions\web\entities\Bet;
+use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\services\external_apis\LotteryValidationCastilloApi;
+use EuroMillions\web\vo\ActionResult;
+use EuroMillions\web\vo\CastilloBetId;
+use EuroMillions\web\vo\CastilloCypherKey;
+use EuroMillions\web\vo\CastilloTicketId;
 use tests\base\DatabaseIntegrationTestBase;
 use tests\base\LotteryValidationCastilloRelatedTest;
 
@@ -37,7 +36,7 @@ class LotteryValidationCastilloApiFunctionalTest extends DatabaseIntegrationTest
         if(empty($this->id_ticket_for_test)) {
             $this->id_ticket_for_test = CastilloTicketId::create();
         }
-        $this->cypher_double = $this->prophesize('EuroMillions\interfaces\ICypherStrategy');
+        $this->cypher_double = $this->prophesize('EuroMillions\web\interfaces\ICypherStrategy');
         parent::setUp();
     }
 

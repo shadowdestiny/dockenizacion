@@ -1,7 +1,7 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\services\external_apis\LotteryDotIeEuroMillionsResultsStrategy;
+use EuroMillions\web\services\external_apis\LotteryDotIeEuroMillionsResultsStrategy;
 use tests\base\LotteryDotIeEuromillionsRelatedTest;
 use tests\base\UnitTestBase;
 

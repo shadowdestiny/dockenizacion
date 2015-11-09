@@ -4,16 +4,16 @@
 namespace tests\unit;
 
 
-use EuroMillions\components\NullPasswordHasher;
-use EuroMillions\config\Namespaces;
-use EuroMillions\entities\EuroMillionsDraw;
-use EuroMillions\entities\PlayConfig;
-use EuroMillions\entities\User;
-use EuroMillions\vo\Email;
-use EuroMillions\vo\EuroMillionsLine;
-use EuroMillions\vo\Password;
-use EuroMillions\vo\ActionResult;
-use EuroMillions\vo\UserId;
+use EuroMillions\web\components\NullPasswordHasher;
+use EuroMillions\shareconfig\Namespaces;
+use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\entities\PlayConfig;
+use EuroMillions\web\entities\User;
+use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\EuroMillionsLine;
+use EuroMillions\web\vo\Password;
+use EuroMillions\web\vo\ActionResult;
+use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use tests\base\EuroMillionsResultRelatedTest;

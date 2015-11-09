@@ -23,6 +23,6 @@ e "Executing migrations"
 . /vagrant/dev-scripts/schema_and_data_migration.sh dev
 
 e "Updating jackpot and results"
-php /var/www/app/cli.php jackpot updatePrevious
-php /var/www/app/cli.php result update
-php /var/www/app/cli.php jackpot update
+php /var/www/apps/cli.php jackpot updatePrevious
+php /var/www/apps/cli.php result update
+php /var/www/apps/cli.php jackpot update

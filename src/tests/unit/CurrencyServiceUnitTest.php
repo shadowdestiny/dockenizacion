@@ -1,8 +1,8 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\services\DomainServiceFactory;
-use EuroMillions\services\ServiceFactory;
+use EuroMillions\web\services\DomainServiceFactory;
+use EuroMillions\web\services\ServiceFactory;
 use Money\Currency;
 use Money\CurrencyPair;
 use Money\Money;

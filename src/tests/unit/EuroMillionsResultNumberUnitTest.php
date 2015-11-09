@@ -1,7 +1,7 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\vo\EuroMillionsRegularNumber;
+use EuroMillions\web\vo\EuroMillionsRegularNumber;
 use tests\base\UnitTestBase;
 
 class EuroMillionsResultNumberUnitTest extends UnitTestBase

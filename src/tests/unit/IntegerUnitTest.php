@@ -1,7 +1,7 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\vo\base\Integer;
+use EuroMillions\web\vo\base\Integer;
 use tests\base\ValueObjectUnitTestBase;
 
 class IntegerUnitTest extends ValueObjectUnitTestBase

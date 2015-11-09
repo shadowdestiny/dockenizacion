@@ -4,7 +4,7 @@
 namespace tests\unit;
 
 
-use EuroMillions\vo\CastilloCypherKey;
+use EuroMillions\web\vo\CastilloCypherKey;
 use tests\base\UnitTestBase;
 
 class CastilloCypherKeyUnitTest extends UnitTestBase
@@ -35,7 +35,7 @@ class CastilloCypherKeyUnitTest extends UnitTestBase
      */
     public function test___construct_calledWithOutOfRangeValue_throwInvalidArgumentException()
     {
-        $this->setExpectedException('EuroMillions\exceptions\InvalidNativeArgumentException');
+        $this->setExpectedException('EuroMillions\web\exceptions\InvalidNativeArgumentException');
         new CastilloCypherKey('a');
     }
 }

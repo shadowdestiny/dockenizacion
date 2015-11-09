@@ -11,7 +11,7 @@ use EuroMillions\services\DomainServiceFactory;
 use Phalcon;
 use Phalcon\Di;
 use Phalcon\Events\Event;
-use Snowair\Debugbar\ServiceProvider;
+
 
 class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapStrategy
 {
@@ -45,7 +45,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $di->set('tag', $this->configTag(), true);
         $di->set('escaper', $this->configEscaper(), true);
         $di->set('security', $this->configSecurity(), true);
-
         $di->set('request', $this->configRequest(), false);
         $di->set('cookies', $this->configCookies(), true);
         $di->set('session', $this->configSession(), true);

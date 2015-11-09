@@ -44,7 +44,7 @@
     &:hover .btn, &:focus .btn{color:$btn-red; background:#fff; border:1px solid $btn-red; text-shadow:initial;}
     &:active .btn{box-shadow:0 0 0 1px #eee inset, 0 5px 20px #888 inset!important; color:$black;}
     .content{display:block; text-decoration:none; min-height:152px;}
-    .bg{background:url("/img/pattern/01.png") repeat;}
+    .bg{background:url("../img/pattern/01.png") repeat;}
     .box-next-draw *, h1{color:#fff;}
     h1{margin-bottom:1em;}
     .countdown{float:left;}
@@ -110,7 +110,7 @@ body.numbers{
 
 /*Retina only */
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx){
-    .star-ball{background-image:url(/img/home/bg-euro@2x.jpg); background-size:600px 171px;}
+    .star-ball{background-image:url(../img/home/bg-euro@2x.jpg); background-size:600px 171px;}
 }
 
 @media only screen and (max-width:1200px){

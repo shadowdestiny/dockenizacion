@@ -1,7 +1,7 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\services\LanguageService;
+use EuroMillions\web\services\LanguageService;
 use Phalcon\Di;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
@@ -15,7 +15,7 @@ class LanguageServiceUnitTest extends UnitTestBase
     public function setUp()
     {
         parent::setUp();
-        $this->languageStrategy_double = $this->getInterfaceDouble('ILanguageStrategy');
+        $this->languageStrategy_double = $this->getInterfaceWebDouble('ILanguageStrategy');
         $this->languageRepository_double = $this->getRepositoryDouble('LanguageRepository');
         $this->translationAdapter_double = $this->getComponentDouble('EmTranslationAdapter');
     }
@@ -43,7 +43,7 @@ class LanguageServiceUnitTest extends UnitTestBase
         $language = 'azofaifo';
         $this->languageStrategy_double->get()->willReturn($language);
         $this->languageRepository_double->getActiveLanguage($language)->willReturn(null);
-        $this->setExpectedException('EuroMillions\exceptions\InvalidLanguageException');
+        $this->setExpectedException($this->getExceptionToArgument('InvalidLanguageException'));
         $sut = $this->getSut();
         $sut->getLocale();
     }

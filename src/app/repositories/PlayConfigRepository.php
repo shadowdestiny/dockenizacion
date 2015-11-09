@@ -29,7 +29,7 @@ class PlayConfigRepository extends RepositoryBase
                 'SELECT p'
                 . ' FROM ' . $this->getEntityName() . ' p'
                 . ' WHERE p.active = 1 AND :day BETWEEN p.startDrawDate and p.lastDrawDate '
-                . ' ')
+                . ' group by p.user')
             ->setParameters(['day' => $day])
             ->getResult();
         return $result;

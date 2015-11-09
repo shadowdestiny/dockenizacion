@@ -22,7 +22,7 @@ abstract class TranslationMigrationIntegrationTestBase extends DatabaseIntegrati
     protected function checkTranslationTree($migrationClassName, $migrationFileName)
     {
         $loader = new Loader();
-        $loader->registerClasses([$migrationClassName => APP_PATH.'migrations_data/'.$migrationFileName.'.php']);
+        $loader->registerClasses([$migrationClassName => APP_PATH.'web/migrations_data/'.$migrationFileName.'.php']);
         $loader->register();
 
         $dbname = DI::getDefault()->get('config')->database->dbname;

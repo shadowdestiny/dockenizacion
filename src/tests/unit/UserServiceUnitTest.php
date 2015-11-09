@@ -2,24 +2,24 @@
 namespace tests\unit;
 
 use antonienko\MoneyFormatter\MoneyFormatter;
-use EuroMillions\components\NullPasswordHasher;
-use EuroMillions\config\Namespaces;
-use EuroMillions\entities\PlayConfig;
-use EuroMillions\entities\User;
-use EuroMillions\entities\CreditCardPaymentMethod;
-use EuroMillions\vo\CardHolderName;
-use EuroMillions\vo\CardNumber;
-use EuroMillions\vo\ContactFormInfo;
-use EuroMillions\vo\CreditCard;
-use EuroMillions\vo\CVV;
-use EuroMillions\vo\Email;
-use EuroMillions\vo\EuroMillionsLine;
-use EuroMillions\vo\EuroMillionsLuckyNumber;
-use EuroMillions\vo\EuroMillionsRegularNumber;
-use EuroMillions\vo\ExpiryDate;
-use EuroMillions\vo\Password;
-use EuroMillions\vo\ActionResult;
-use EuroMillions\vo\UserId;
+use EuroMillions\web\components\NullPasswordHasher;
+use EuroMillions\shareconfig\Namespaces;
+use EuroMillions\web\entities\PlayConfig;
+use EuroMillions\web\entities\User;
+use EuroMillions\web\entities\CreditCardPaymentMethod;
+use EuroMillions\web\vo\CardHolderName;
+use EuroMillions\web\vo\CardNumber;
+use EuroMillions\web\vo\ContactFormInfo;
+use EuroMillions\web\vo\CreditCard;
+use EuroMillions\web\vo\CVV;
+use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\EuroMillionsLine;
+use EuroMillions\web\vo\EuroMillionsLuckyNumber;
+use EuroMillions\web\vo\EuroMillionsRegularNumber;
+use EuroMillions\web\vo\ExpiryDate;
+use EuroMillions\web\vo\Password;
+use EuroMillions\web\vo\ActionResult;
+use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -50,7 +50,7 @@ class UserServiceUnitTest extends UnitTestBase
     {
         $this->userRepository_double = $this->getRepositoryDouble('UserRepository');
         $this->currencyService_double = $this->getServiceDouble('CurrencyService');
-        $this->storageStrategy_double = $this->getInterfaceDouble('IUsersPreferencesStorageStrategy');
+        $this->storageStrategy_double = $this->getInterfaceWebDouble('IUsersPreferencesStorageStrategy');
         $this->emailService_double = $this->getServiceDouble('EmailService');
         $this->paymentProviderService_double = $this->getServiceDouble('PaymentProviderService');
         $this->paymentMethodRepository_double = $this->getRepositoryDouble('PaymentMethodRepository');
@@ -75,7 +75,7 @@ class UserServiceUnitTest extends UnitTestBase
             'Playing the game'
             )
         );
-        $this->assertInstanceOf('Euromillions\vo\ActionResult', $actual);
+        $this->assertInstanceOf($this->getVOToArgument('ActionResult'), $actual);
         $this->assertTrue($actual->success());
     }
 

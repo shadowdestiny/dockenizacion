@@ -4,16 +4,16 @@
 namespace tests\integration;
 
 
-use EuroMillions\components\NullPasswordHasher;
-use EuroMillions\entities\Bet;
-use EuroMillions\entities\EuroMillionsDraw;
-use EuroMillions\entities\PlayConfig;
-use EuroMillions\entities\User;
-use EuroMillions\repositories\BetRepository;
-use EuroMillions\vo\Email;
-use EuroMillions\vo\EuroMillionsLine;
-use EuroMillions\vo\Password;
-use EuroMillions\vo\UserId;
+use EuroMillions\web\components\NullPasswordHasher;
+use EuroMillions\web\entities\Bet;
+use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\entities\PlayConfig;
+use EuroMillions\web\entities\User;
+use EuroMillions\web\repositories\BetRepository;
+use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\EuroMillionsLine;
+use EuroMillions\web\vo\Password;
+use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use tests\base\DatabaseIntegrationTestBase;
@@ -44,7 +44,7 @@ class BetRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     public function setUp()
     {
         parent::setup();
-        $this->sut = $this->entityManager->getRepository('\EuroMillions\entities\Bet');
+        $this->sut = $this->entityManager->getRepository($this->getEntitiesToArgument('Bet'));
     }
 
     /**
@@ -60,15 +60,15 @@ class BetRepositoryIntegrationTest extends DatabaseIntegrationTestBase
 
     private function exerciseAdd()
     {
-        $euroMillionsDraw = $this->entityManager->find('EuroMillions\entities\EuroMillionsDraw', 2);
-        $playConfig = $this->entityManager->find('EuroMillions\entities\PlayConfig', 1);
+        $euroMillionsDraw = $this->entityManager->find($this->getEntitiesToArgument('EuroMillionsDraw'), 2);
+        $playConfig = $this->entityManager->find($this->getEntitiesToArgument('PlayConfig'), 1);
         $bet = new Bet($playConfig,$euroMillionsDraw);
         $this->sut->add($bet);
         $this->entityManager->flush($bet);
         $actual = $this->entityManager
             ->createQuery(
                 'SELECT b'
-                .    ' FROM \EuroMillions\entities\Bet b'
+                .    ' FROM \EuroMillions\web\entities\Bet b'
                 .    ' WHERE b.euromillionsDraw = :euromillions_draw_id')
             ->setParameters(['euromillions_draw_id' => $euroMillionsDraw->getId() ])
             ->getResult()[0];

@@ -1,9 +1,9 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\entities\EntityBase;
-use EuroMillions\entities\Language;
-use EuroMillions\entities\Lottery;
+use EuroMillions\web\entities\EntityBase;
+use EuroMillions\web\entities\Language;
+use EuroMillions\web\entities\Lottery;
 use tests\base\UnitTestBase;
 
 class EntityBaseUnitTest extends UnitTestBase
@@ -26,7 +26,7 @@ class EntityBaseUnitTest extends UnitTestBase
     public function test_initialize_calledWithWrongPropertyName_throw()
     {
         $bad_name = 'badproperty';
-        $this->setExpectedException('\EuroMillions\exceptions\BadEntityInitializationException', 'Bad property name: "' . $bad_name . '"');
+        $this->setExpectedException($this->getExceptionToArgument('BadEntityInitializationException'), 'Bad property name: "' . $bad_name . '"');
 
         $this->sut->initialize(['ccode' => 'es', $bad_name => 'anyway']);
     }

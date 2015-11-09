@@ -1,7 +1,7 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\services\preferences_strategies\WebUserPreferencesStorageStrategy;
+use EuroMillions\web\services\preferences_strategies\WebUserPreferencesStorageStrategy;
 use Money\Currency;
 use Phalcon\Http\Cookie;
 use Prophecy\Argument;

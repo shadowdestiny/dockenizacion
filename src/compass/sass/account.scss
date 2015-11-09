@@ -27,6 +27,7 @@
         .cols > div{border-right:20px solid transparent}
         .cols{margin-bottom:20px;}
     }
+    .box-basic.content{min-height:248px;}
 }
 
 .account{
@@ -154,7 +155,6 @@
 }
 
 .messages{
-    .box-basic.content{min-height:200px;}
     .table{
         width:100%; border-radius:5px; overflow:hidden; border:1px solid $purple; border-collapse:separate; font-size:$basic-size; margin-bottom:1em;
         tr{
@@ -190,6 +190,17 @@
     .input-value input{border:1px solid $grey-light; line-height:30px; padding:0 5px; font-size:$basic-size; height:30px; margin:-5px 0;}
 }
 
+
+.transaction{
+    .table{width:100%; border-radius:5px; overflow:hidden; border:1px solid $purple; border-collapse:separate; font-size:$basic-size;
+        th, td{padding:7px 12px;}
+        th{background:$purple; color:#fff; font-weight:bold; border-right:1px solid #fff;}
+        td{border:1px solid $purple; border-width:0 1px 1px 0; vertical-align:top;}
+        th:last-child, td:last-child{border-right:0;}
+        tr:last-child td{border-bottom:0;}
+    }
+    .info{font-weight:normal;}
+}
 
 @media only screen and (max-width:1200px){
 .wallet .info .txt{width:363px;}

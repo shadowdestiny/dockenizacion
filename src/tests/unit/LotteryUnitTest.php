@@ -2,7 +2,7 @@
 
 namespace tests\unit;
 
-use EuroMillions\entities\Lottery;
+use EuroMillions\web\entities\Lottery;
 use tests\base\UnitTestBase;
 
 class LotteryUnitTest extends UnitTestBase

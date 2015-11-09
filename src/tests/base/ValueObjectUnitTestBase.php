@@ -1,7 +1,7 @@
 <?php
 namespace tests\base;
 
-use EuroMillions\config\Namespaces;
+use EuroMillions\shareconfig\Namespaces;
 
 abstract class ValueObjectUnitTestBase extends UnitTestBase
 {
@@ -56,7 +56,7 @@ abstract class ValueObjectUnitTestBase extends UnitTestBase
      */
     public function test___construct_calledWithBadValue_throw()
     {
-        $this->setExpectedException('EuroMillions\exceptions\InvalidNativeArgumentException');
+        $this->setExpectedException($this->getExceptionToArgument('InvalidNativeArgumentException'));
         $this->getSut($this->getBadNativeValue());
     }
 }

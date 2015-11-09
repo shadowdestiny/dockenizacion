@@ -1,7 +1,7 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\controllers\UserAccessController;
+use EuroMillions\web\controllers\UserAccessController;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
 

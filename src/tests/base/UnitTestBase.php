@@ -1,8 +1,8 @@
 <?php
 namespace tests\base;
 
-use EuroMillions\config\Namespaces;
-use EuroMillions\entities\Language;
+use EuroMillions\shareconfig\Namespaces;
+use EuroMillions\web\entities\Language;
 use Phalcon\DI;
 use Prophecy\Argument;
 

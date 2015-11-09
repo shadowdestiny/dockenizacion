@@ -19,7 +19,7 @@ class LoteriasyapuestasDotEsApiFunctionalTest extends DatabaseIntegrationTestBas
         $this->markTestSkipped();
         /** @var EntityManager $entity_manager */
         $entity_manager = DI::getDefault()->get('entityManager');
-        $lottery_repository = $entity_manager->getRepository('\EuroMillions\entities\Lottery');
+        $lottery_repository = $entity_manager->getRepository($this->getEntitiesToArgument('Lottery'));
         /** @var Lottery $lottery */
         $lottery = $lottery_repository->findOneBy(['name'=>'EuroMillions']);
         $sut = new LoteriasyapuestasDotEsApi();

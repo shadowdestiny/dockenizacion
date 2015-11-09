@@ -4,16 +4,16 @@
 namespace tests\unit;
 
 
-use EuroMillions\components\NullPasswordHasher;
-use EuroMillions\entities\User;
-use EuroMillions\services\play_strategies\RedisPlayStorageStrategy;
-use EuroMillions\vo\Email;
-use EuroMillions\vo\EuroMillionsLine;
-use EuroMillions\vo\LastDrawDate;
-use EuroMillions\vo\Password;
-use EuroMillions\vo\PlayFormToStorage;
-use EuroMillions\vo\ActionResult;
-use EuroMillions\vo\UserId;
+use EuroMillions\web\components\NullPasswordHasher;
+use EuroMillions\web\entities\User;
+use EuroMillions\web\services\play_strategies\RedisPlayStorageStrategy;
+use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\EuroMillionsLine;
+use EuroMillions\web\vo\LastDrawDate;
+use EuroMillions\web\vo\Password;
+use EuroMillions\web\vo\PlayFormToStorage;
+use EuroMillions\web\vo\ActionResult;
+use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -36,7 +36,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
 
     public function setUp()
     {
-        $this->redis_double = $this->getInterfaceDouble('IRedis');
+        $this->redis_double = $this->getInterfaceWebDouble('IRedis');
         $this->authService_double = $this->getServiceDouble('AuthService');
         $this->userId = UserId::create();
         parent::setUp();

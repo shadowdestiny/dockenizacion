@@ -1,7 +1,7 @@
 <?php
 namespace tests\integration;
 
-use EuroMillions\components\EmTranslationAdapter;
+use EuroMillions\web\components\EmTranslationAdapter;
 use Phalcon\Di;
 use tests\base\DatabaseIntegrationTestBase;
 
@@ -24,7 +24,7 @@ class EmTranslationAdapterIntegrationTest extends DatabaseIntegrationTestBase
         parent::setUp();
         $di = Di::getDefault();
         $entityManager = $di->get('entityManager');
-        $this->sut = new EmTranslationAdapter('en', $entityManager->getRepository('\EuroMillions\entities\TranslationDetail'));
+        $this->sut = new EmTranslationAdapter('en', $entityManager->getRepository($this->getEntitiesToArgument('TranslationDetail')));
     }
 
     /**

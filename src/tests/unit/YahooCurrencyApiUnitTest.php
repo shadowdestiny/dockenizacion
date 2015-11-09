@@ -1,7 +1,7 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\services\external_apis\YahooCurrencyApi;
+use EuroMillions\web\services\external_apis\YahooCurrencyApi;
 use Money\Currency;
 use Money\CurrencyPair;
 use Prophecy\Argument;
@@ -22,7 +22,7 @@ class YahooCurrencyApiUnitTest extends UnitTestBase
     public function setUp()
     {
         $this->curlWrapper_double = $this->prophesize('\Phalcon\Http\Client\Provider\Curl');
-        $this->currencyApiCache_double = $this->getInterfaceDouble('ICurrencyApiCacheStrategy');
+        $this->currencyApiCache_double = $this->getInterfaceWebDouble('ICurrencyApiCacheStrategy');
         $this->eurGbpCurrencyPair = new CurrencyPair(new Currency('EUR'), new Currency('GBP'), 0.7183);
 
         parent::setUp();

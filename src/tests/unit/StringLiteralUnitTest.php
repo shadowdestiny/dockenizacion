@@ -1,7 +1,7 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\vo\base\StringLiteral;
+use EuroMillions\web\vo\base\StringLiteral;
 use tests\base\ValueObjectUnitTestBase;
 
 class StringLiteralUnitTest extends ValueObjectUnitTestBase

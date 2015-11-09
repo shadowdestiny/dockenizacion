@@ -1,13 +1,13 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\vo\NullPortNumber;
-use EuroMillions\vo\NullQueryString;
-use EuroMillions\vo\Path;
-use EuroMillions\vo\PortNumber;
-use EuroMillions\vo\QueryString;
-use EuroMillions\vo\SchemeName;
-use EuroMillions\vo\Url;
+use EuroMillions\web\vo\NullPortNumber;
+use EuroMillions\web\vo\NullQueryString;
+use EuroMillions\web\vo\Path;
+use EuroMillions\web\vo\PortNumber;
+use EuroMillions\web\vo\QueryString;
+use EuroMillions\web\vo\SchemeName;
+use EuroMillions\web\vo\Url;
 use tests\base\UnitTestBase;
 
 class UrlUnitTest extends UnitTestBase

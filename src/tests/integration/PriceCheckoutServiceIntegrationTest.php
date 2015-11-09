@@ -4,7 +4,7 @@
 namespace tests\integration;
 
 
-use EuroMillions\config\Namespaces;
+use EuroMillions\shareconfig\Namespaces;
 use Money\Currency;
 use Money\Money;
 use tests\base\DatabaseIntegrationTestBase;

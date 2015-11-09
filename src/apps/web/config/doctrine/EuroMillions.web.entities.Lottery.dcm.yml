@@ -1,0 +1,28 @@
+EuroMillions\web\entities\Lottery:
+  type: entity
+  table: lotteries
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: IDENTITY
+  fields:
+    name:
+      type: string
+      unique: true
+    active:
+      type: boolean
+      options:
+        default: 0
+    frequency:
+      type: string
+    jackpot_api:
+      type: string
+      nullable: true
+    result_api:
+      type: string
+      nullable: true
+    draw_time:
+      type: string

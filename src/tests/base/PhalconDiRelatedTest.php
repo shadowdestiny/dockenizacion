@@ -3,7 +3,9 @@
 
 namespace tests\base;
 
-use EuroMillions\services\DomainServiceFactory;
+
+use EuroMillions\admin\services\DomainAdminServiceFactory;
+use EuroMillions\web\services\DomainServiceFactory;
 use Phalcon\Di;
 
 trait PhalconDiRelatedTest {
@@ -19,4 +21,13 @@ trait PhalconDiRelatedTest {
     {
         return Di::getDefault()->get('domainServiceFactory');
     }
+
+    /**
+     * @return DomainAdminServiceFactory
+     */
+    protected function getDomainAdminServiceFactory()
+    {
+        return Di::getDefault()->get('domainAdminServiceFactory');
+    }
+
 }

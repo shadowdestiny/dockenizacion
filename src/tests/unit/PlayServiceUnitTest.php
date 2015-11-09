@@ -4,23 +4,23 @@
 namespace tests\unit;
 
 
-use EuroMillions\components\NullPasswordHasher;
-use EuroMillions\config\Namespaces;
-use EuroMillions\entities\Bet;
-use EuroMillions\entities\EuroMillionsDraw;
-use EuroMillions\entities\Lottery;
-use EuroMillions\entities\PlayConfig;
-use EuroMillions\entities\User;
-use EuroMillions\vo\CastilloBetId;
-use EuroMillions\vo\Email;
-use EuroMillions\vo\EuroMillionsLine;
-use EuroMillions\vo\EuroMillionsLuckyNumber;
-use EuroMillions\vo\EuroMillionsRegularNumber;
-use EuroMillions\vo\LastDrawDate;
-use EuroMillions\vo\Password;
-use EuroMillions\vo\PlayFormToStorage;
-use EuroMillions\vo\ActionResult;
-use EuroMillions\vo\UserId;
+use EuroMillions\web\components\NullPasswordHasher;
+use EuroMillions\shareconfig\Namespaces;
+use EuroMillions\web\entities\Bet;
+use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\entities\Lottery;
+use EuroMillions\web\entities\PlayConfig;
+use EuroMillions\web\entities\User;
+use EuroMillions\web\vo\CastilloBetId;
+use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\EuroMillionsLine;
+use EuroMillions\web\vo\EuroMillionsLuckyNumber;
+use EuroMillions\web\vo\EuroMillionsRegularNumber;
+use EuroMillions\web\vo\LastDrawDate;
+use EuroMillions\web\vo\Password;
+use EuroMillions\web\vo\PlayFormToStorage;
+use EuroMillions\web\vo\ActionResult;
+use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -72,11 +72,11 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->lotteryDataService_double = $this->getServiceDouble('LotteriesDataService');
         $this->betRepository_double = $this->getRepositoryDouble('BetRepository');
         $this->lotteryDrawRepository_double = $this->getRepositoryDouble('EuroMillions\entities\Lottery');
-        $this->playStorageStrategy_double = $this->getInterfaceDouble('IPlayStorageStrategy');
+        $this->playStorageStrategy_double = $this->getInterfaceWebDouble('IPlayStorageStrategy');
         $this->userRepository_double = $this->getRepositoryDouble('UserRepository');
         $this->logValidationApi_double = $this->getRepositoryDouble('LogValidationApiRepository');
         $this->authService_double = $this->getServiceDouble('AuthService');
-        $this->lotteryValidation_double = $this->prophesize('EuroMillions\services\external_apis\LotteryValidationCastilloApi');
+        $this->lotteryValidation_double = $this->prophesize('EuroMillions\web\services\external_apis\LotteryValidationCastilloApi');
         parent::setUp();
     }
 
@@ -168,8 +168,8 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->betRepository_double->getBetsByDrawDate(Argument::any())->willReturn(null);
         $this->callValidationApi(true);
         $this->lotteryValidation_double->getXmlResponse()->willReturn(new \SimpleXMLElement(self::$content_with_ok_result));
-        $this->logValidationApi_double->add(Argument::type('EuroMillions\entities\LogValidationApi'))->shouldBeCalled();
-        $entityManager_stub->flush(Argument::type('EuroMillions\entities\LogValidationApi'))->shouldNotBeCalled();
+        $this->logValidationApi_double->add(Argument::type($this->getEntitiesToArgument('LogValidationApi')))->shouldBeCalled();
+        $entityManager_stub->flush(Argument::type($this->getEntitiesToArgument('LogValidationApi')))->shouldNotBeCalled();
         $this->betRepository_double->add(Argument::any())->willReturn(true);
         $this->userRepository_double->add(Argument::any())->willReturn(true);
         $entityManager_stub->flush()->shouldNotBeCalled();
@@ -233,7 +233,7 @@ class PlayServiceUnitTest extends UnitTestBase
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $this->userRepository_double->find($user->getId()->id())->willReturn($user);
         $user->setBalance(new Money(0, new Currency('EUR')));
-        $this->setExpectedException('EuroMillions\exceptions\InvalidBalanceException');
+        $this->setExpectedException('EuroMillions\web\exceptions\InvalidBalanceException');
         $sut = $this->getSut();
         $sut->bet($playConfig,$euroMillionsDraw,new \DateTime());
     }
@@ -303,8 +303,8 @@ class PlayServiceUnitTest extends UnitTestBase
         $entityManager_stub = $this->getEntityManagerDouble();
         $this->userRepository_double->add(Argument::any())->willReturn(true);
         $this->lotteryValidation_double->getXmlResponse()->willReturn(new \SimpleXMLElement(self::$content_with_ok_result));
-        $this->logValidationApi_double->add(Argument::type('EuroMillions\entities\LogValidationApi'))->shouldBeCalled();
-        $entityManager_stub->flush(Argument::type('EuroMillions\entities\LogValidationApi'))->shouldNotBeCalled();
+        $this->logValidationApi_double->add(Argument::type($this->getEntitiesToArgument('LogValidationApi')))->shouldBeCalled();
+        $entityManager_stub->flush(Argument::type($this->getEntitiesToArgument('LogValidationApi')))->shouldNotBeCalled();
         $this->logValidationApi_double->add(Argument::any())->shouldBeCalled();
         $entityManager_stub->flush()->shouldBeCalled();
         $sut = $this->getSut();
@@ -513,10 +513,10 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     private function callValidationApi($expected)
     {
-        $this->lotteryValidation_double->validateBet(Argument::type('EuroMillions\entities\Bet'),
-            Argument::type('EuroMillions\interfaces\ICypherStrategy'),
-            Argument::type('EuroMillions\vo\CastilloCypherKey'),
-            Argument::type('EuroMillions\vo\CastilloTicketId'),
+        $this->lotteryValidation_double->validateBet(Argument::type($this->getEntitiesToArgument('Bet')),
+            Argument::type($this->getInterfacesToArgument('ICypherStrategy')),
+            Argument::type($this->getVOToArgument('CastilloCypherKey')),
+            Argument::type($this->getVOToArgument('CastilloTicketId')),
             Argument::type('\DateTime'))->willReturn(new ActionResult($expected));
     }
 }

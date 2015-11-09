@@ -1,7 +1,7 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\components\MandrillWrapper;
+use EuroMillions\web\components\MandrillWrapper;
 use tests\base\UnitTestBase;
 
 class MandrillWrapperUnitTest extends UnitTestBase

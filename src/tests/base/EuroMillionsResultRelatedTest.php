@@ -4,11 +4,11 @@
 namespace tests\base;
 
 
-use EuroMillions\vo\EuroMillionsLine;
-use EuroMillions\vo\EuroMillionsLuckyNumber;
-use EuroMillions\vo\EuroMillionsRegularNumber;
-use EuroMillions\vo\LastDrawDate;
-use EuroMillions\vo\PlayFormToStorage;
+use EuroMillions\web\vo\EuroMillionsLine;
+use EuroMillions\web\vo\EuroMillionsLuckyNumber;
+use EuroMillions\web\vo\EuroMillionsRegularNumber;
+use EuroMillions\web\vo\LastDrawDate;
+use EuroMillions\web\vo\PlayFormToStorage;
 
 trait EuroMillionsResultRelatedTest {
 

@@ -3,7 +3,7 @@
 
 namespace tests\base;
 
-use EuroMillions\config\Namespaces;
+use EuroMillions\shareconfig\Namespaces;
 
 trait TestHelperTrait
 {
@@ -22,6 +22,11 @@ trait TestHelperTrait
         return $this->prophesize(Namespaces::INTERFACES_NS . $interfaceName);
     }
 
+    protected function getInterfaceWebDouble($interfaceName)
+    {
+        return $this->prophesize(Namespaces::INTERFACES_WEB_NS . $interfaceName);
+    }
+
     protected function getEntityDouble($entityName)
     {
         return $this->prophesize(Namespaces::ENTITIES_NS . $entityName);
@@ -35,6 +40,26 @@ trait TestHelperTrait
     protected function getValueObjectDouble($valueObjectName)
     {
         return $this->prophesize(Namespaces::VALUEOBJECTS_NS . $valueObjectName);
+    }
+
+    protected function getEntitiesToArgument($entityName)
+    {
+        return Namespaces::ENTITIES_NS . $entityName;
+    }
+
+    protected function getVOToArgument($valueObjectName)
+    {
+        return Namespaces::VALUEOBJECTS_NS . $valueObjectName;
+    }
+
+    protected function getInterfacesToArgument($interfaceName)
+    {
+        return Namespaces::INTERFACES_WEB_NS . $interfaceName;
+    }
+
+    protected function getExceptionToArgument($exceptionName)
+    {
+        return 'EuroMillions\web\exceptions\\' . $exceptionName;
     }
 
     public function getIdsFromArrayOfObjects(array $objects)

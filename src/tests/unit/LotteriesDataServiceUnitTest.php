@@ -1,13 +1,13 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\entities\Lottery;
-use EuroMillions\entities\EuroMillionsDraw;
-use EuroMillions\services\external_apis\LotteryApisFactory;
-use EuroMillions\services\LotteriesDataService;
-use EuroMillions\vo\EuroMillionsDrawBreakDown;
-use EuroMillions\vo\EuroMillionsLine;
-use EuroMillions\vo\ActionResult;
+use EuroMillions\web\entities\Lottery;
+use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\services\external_apis\LotteryApisFactory;
+use EuroMillions\web\services\LotteriesDataService;
+use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
+use EuroMillions\web\vo\EuroMillionsLine;
+use EuroMillions\web\vo\ActionResult;
 use Money\Currency;
 use Money\Money;
 use Phalcon\Di;
@@ -31,11 +31,11 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
         parent::setUp();
         $this->apiFactoryDouble =
             $this->getMockBuilder(
-                '\EuroMillions\services\external_apis\LotteryApisFactory'
+                '\EuroMillions\web\services\external_apis\LotteryApisFactory'
             )->getMock();
         $this->lotteryDrawRepositoryDouble =
             $this->getMockBuilder(
-                '\EuroMillions\repositories\LotteryDrawRepository'
+                '\EuroMillions\web\repositories\LotteryDrawRepository'
             )->disableOriginalConstructor()->getMock();
         /*$this->lotteryRepositoryDouble =
             $this->getMockBuilder(
@@ -43,7 +43,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
             )->disableOriginalConstructor()->getMock();*/
         $this->lotteryRepositoryDouble =
             $this->getMockBuilder(
-                '\EuroMillions\repositories\LotteryRepository'
+                '\EuroMillions\web\repositories\LotteryRepository'
             )->disableOriginalConstructor()->getMock();
 
         $this->entityManagerDouble = $this->getEntityManagerDouble();
@@ -117,14 +117,14 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
         $this->prepareLotteryEntity($lottery_name);
 
         $api_mock = $this->getMockBuilder(
-            '\EuroMillions\services\external_apis\LoteriasyapuestasDotEsApi'
+            '\EuroMillions\web\services\external_apis\LoteriasyapuestasDotEsApi'
         )->getMock();
 
         $this->apiFactoryDouble->expects($this->any())
             ->method('resultApi')
             ->will($this->returnValue($api_mock));
 
-        $euroMillionsDraw_stub = $this->getMockBuilder('\EuroMillions\entities\EuroMillionsDraw')->getMock();
+        $euroMillionsDraw_stub = $this->getMockBuilder($this->getEntitiesToArgument('EuroMillionsDraw'))->getMock();
         $this->lotteryDrawRepositoryDouble->expects($this->any())
             ->method('findOneBy')
             ->will($this->returnValue($euroMillionsDraw_stub));
@@ -169,14 +169,14 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
         $this->prepareLotteryEntity($lottery_name);
 
         $api_mock = $this->getMockBuilder(
-            '\EuroMillions\services\external_apis\LoteriasyapuestasDotEsApi'
+            '\EuroMillions\web\services\external_apis\LoteriasyapuestasDotEsApi'
         )->getMock();
 
         $this->apiFactoryDouble->expects($this->any())
             ->method('resultApi')
             ->will($this->returnValue($api_mock));
 
-        $euroMillionsDraw_stub = $this->getMockBuilder('\EuroMillions\entities\EuroMillionsDraw')->getMock();
+        $euroMillionsDraw_stub = $this->getMockBuilder($this->getEntitiesToArgument('EuroMillionsDraw'))->getMock();
         $this->lotteryDrawRepositoryDouble->expects($this->any())
             ->method('findOneBy')
             ->will($this->returnValue($euroMillionsDraw_stub));
@@ -246,7 +246,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
      */
     public function test_getNextDrawByLottery_called_returnServiceActionResultTrueWithEuroMillionsDrawInstance()
     {
-        $euroMillionsDraw_stub = $this->getMockBuilder('\EuroMillions\entities\EuroMillionsDraw')->getMock();
+        $euroMillionsDraw_stub = $this->getMockBuilder($this->getEntitiesToArgument('EuroMillionsDraw'))->getMock();
         $lotteryName = 'EuroMillions';
         $this->prepareLotteryEntity($lotteryName);
         $this->lotteryDrawRepositoryDouble->expects($this->any())
@@ -254,7 +254,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
             ->will($this->returnValue($euroMillionsDraw_stub));
         $sut = $this->getSut($lotteryName);
         $actual = $sut->getNextDrawByLottery($lotteryName);
-        $this->assertInstanceOf('EuroMillions\entities\EuroMillionsDraw',$actual->getValues());
+        $this->assertInstanceOf($this->getEntitiesToArgument('EuroMillionsDraw'),$actual->getValues());
     }
 
     /**
@@ -475,7 +475,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     protected function setLotteryDrawRepositoryResult($lottery_draw_in_db)
     {
         $this->lotteryDrawRepositoryDouble = $this->getMockBuilder(
-            '\EuroMillions\repositories\LotteryDrawRepository'
+            '\EuroMillions\web\repositories\LotteryDrawRepository'
         )->disableOriginalConstructor()->getMock();
         $this->lotteryDrawRepositoryDouble->expects($this->any())
             ->method('findOneBy')
@@ -489,7 +489,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     protected function prepareJackpotApi($lottery_name, $jackpot)
     {
         $api_stub = $this->getMockBuilder(
-            '\EuroMillions\services\external_apis\LoteriasyapuestasDotEsApi'
+            '\EuroMillions\web\services\external_apis\LoteriasyapuestasDotEsApi'
         )->getMock();
         $api_stub->expects($this->any())
             ->method('getJackpotForDate')
@@ -519,8 +519,8 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
      */
     protected function getSut()
     {
-        $this->entityManagerDouble->getRepository('EuroMillions\entities\EuroMillionsDraw')->willReturn($this->lotteryDrawRepositoryDouble);
-        $this->entityManagerDouble->getRepository('EuroMillions\entities\Lottery')->willReturn($this->lotteryRepositoryDouble);
+        $this->entityManagerDouble->getRepository('EuroMillions\web\entities\EuroMillionsDraw')->willReturn($this->lotteryDrawRepositoryDouble);
+        $this->entityManagerDouble->getRepository('EuroMillions\web\entities\Lottery')->willReturn($this->lotteryRepositoryDouble);
         return new LotteriesDataService($this->entityManagerDouble->reveal(), $this->apiFactoryDouble);
     }
 }
