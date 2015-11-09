@@ -55,7 +55,7 @@
                             {% if draws is empty %}
                                 <span>No data was found</span>
                             {% else %}
-                            {% for draw in draws %}
+                            {% for draw in draws.items %}
                                 <tr>
                                     <td class="date">
                                         {{ draw.draw_date }}
@@ -79,7 +79,7 @@
                             {% endif %}
                             </tbody>
                         </table>
-                          {% include "_elements/pagination.volt" %}
+                        {{ paginator_view }}
                     </div>
                     <div class="crud-draw hidden-element">
                         <h2 class="sub-title purple"></h2>

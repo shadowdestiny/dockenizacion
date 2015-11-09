@@ -7,6 +7,7 @@ namespace EuroMillions\admin\controllers;
 use EuroMillions\admin\services\DomainAdminServiceFactory;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\View;
+use Phalcon\Paginator\Adapter\NativeArray as PaginatorArray;
 
 class AdminControllerBase extends Controller
 {
@@ -34,4 +35,15 @@ class AdminControllerBase extends Controller
         }
     }*/
 
+    protected function getPaginatorAsArray(array $collection, $limit, $currentPage)
+    {
+        $paginator = new PaginatorArray(
+                [
+                    'data' => $collection,
+                    'limit' => $limit,
+                    'page'  => $currentPage,
+                ]
+         );
+        return $paginator;
+    }
 }
