@@ -10,6 +10,7 @@ class FaqController extends PublicSiteControllerBase
 
     public function indexAction()
     {
+        $config = $this->di->get('config');
         /** @var ActionResult $result */
         $result = $this->lotteriesDataService->getLotteryConfigByName('EuroMillions');
 
@@ -18,8 +19,11 @@ class FaqController extends PublicSiteControllerBase
             /** @var Lottery $lottery*/
             $lottery = $result->getValues();
         }
+
         return $this->view->setVars([
-            'price_bet' => (!empty($lottery)) ? $lottery->getSingleBetPrice()->getAmount() / 100 : "",
+            'price_bet' => (!empty($lottery)) ? $lottery->getSingleBetPrice()->getAmount() / 10000 : "",
+            'draw_time' => (!empty($lottery)) ? $lottery->getDrawTime() : '',
+            'email_support' => $config->email_support['email'],
         ]);
     }
 

@@ -30,7 +30,6 @@
         <div class="box-basic medium" data-ajax="false">
             <a id="top"></a>
             <h1 class="h1 title">{{ language.translate("Frequently Asked Questions") }}</h1>
-
             <div class="questions">
                 <h2 class="h3">{{ language.translate("Euromillions Basics") }}</h2>
                 <ul class="no-li">
@@ -114,7 +113,7 @@
 
                 <a id="n04"></a>
                 <h3 class="h3">{{ language.translate("What time is the draw?") }}</h3>
-                <p>{{ language.translate('<a href="%link%">Euromillions draws</a> take place on Tuesday and Friday evenings at approximately 21:45 CET.',['link':url("play")]) }}</p>
+                <p>{{ language.translate('<a href="%link%">Euromillions draws</a> take place on Tuesday and Friday evenings at approximately %draw_time% CET.',['link':url("play"), 'draw_time':draw_time]) }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <a id="n05"></a>
@@ -195,7 +194,7 @@
 
                 <a id="n18"></a>
                 <h3 class="h3">{{ language.translate("How much does a Euromillions ticket cost?") }}</h3>
-                <p>{{ language.translate('<a href="%link%">Playing Euromillions</a> costs &euro; 2.35 / &pound; 1.65 per play. This is the best price available on the Internet.',['link':url("play")]) }}</p>
+                <p>{{ language.translate('<a href="%link%">Playing Euromillions</a> costs &euro; %price_bet% / &pound; 1.65 per play. This is the best price available on the Internet.',['link':url("play"), 'price_bet': price_bet  ]) }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <a id="n19"></a>
@@ -222,12 +221,12 @@
 
                 <a id="n23"></a>
                 <h3 class="h3">{{ language.translate("What should I do if I am experiencing technical problems?") }}</h3>
-                <p>{{ language.translate('You should contact <a href="mailto:support@euromillions.com">support@euromillions.com</a> describing in detail your problem, which kind of device, browser and operative system you are using, and possibly provide a screenshot of the issue.') }}</p>
+                <p>{{ language.translate('You should contact <a href="mailto:%email_support%">%email_support%</a> describing in detail your problem, which kind of device, browser and operative system you are using, and possibly provide a screenshot of the issue.',['email_support':email_support]) }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <a id="n24"></a>
                 <h3 class="h3">{{ language.translate("I have forgotten my password and I cannot login. What do I do?") }}</h3>
-                <p>{{ language.translate('If you have forgotten your password you can <a href="%link%">easily reset it</a>. If your account has all ready been blocked please contact our customer support to resolve the problem. <a href="mailto:support@euromillions.com">support@euromillions.com</a>',['link':url("reset")]) }}</p> {# EMTD - Insert reset link #}
+                <p>{{ language.translate('If you have forgotten your password you can <a href="%link%">easily reset it</a>. If your account has all ready been blocked please contact our customer support to resolve the problem. <a href="mailto:%email_support%">%email_support%</a>',['link':url("reset"),'email_support':email_support]) }}</p> {# EMTD - Insert reset link #}
                 {% include "faq/back-top.volt" %}
 
                 <a id="n25"></a>
