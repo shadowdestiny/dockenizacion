@@ -1,8 +1,5 @@
 <?php
-
-
 namespace EuroMillions\components;
-
 
 use EuroMillions\interfaces\ICypherStrategy;
 
@@ -29,8 +26,6 @@ class CypherCastillo3DES implements ICypherStrategy
     public function __construct()
     {
         $this->cypher = \mcrypt_module_open(MCRYPT_3DES, '', MCRYPT_MODE_CBC, '');
-//        $key_rand = rand(0,9);
-//        $this->key = self::$cypher_keys[$key_rand];
     }
 
     public function encrypt($key,$clear)
