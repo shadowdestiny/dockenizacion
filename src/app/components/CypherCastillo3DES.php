@@ -1,8 +1,5 @@
 <?php
-
-
 namespace EuroMillions\components;
-
 
 use EuroMillions\interfaces\ICypherStrategy;
 
@@ -12,8 +9,6 @@ class CypherCastillo3DES implements ICypherStrategy
     const PRESHARED = '1234567890';
 
     private $cypher;
-
-    private $key;
 
     public static $cypher_keys = [
         '000000000000000000000000000000000000000000000000',
@@ -30,9 +25,7 @@ class CypherCastillo3DES implements ICypherStrategy
 
     public function __construct()
     {
-        $this->cypher = mcrypt_module_open(MCRYPT_3DES, '', MCRYPT_MODE_CBC, '');
-//        $key_rand = rand(0,9);
-//        $this->key = self::$cypher_keys[$key_rand];
+        $this->cypher = \mcrypt_module_open(MCRYPT_3DES, '', MCRYPT_MODE_CBC, '');
     }
 
     public function encrypt($key,$clear)
@@ -41,8 +34,8 @@ class CypherCastillo3DES implements ICypherStrategy
         $key = pack("H" . strlen($key), $key);
 
         if ($key && $clear) {
-            $td = mcrypt_module_open(MCRYPT_3DES, '', 'cbc', '');
-            $bs = mcrypt_enc_get_block_size($td);
+            $td = \mcrypt_module_open(MCRYPT_3DES, '', 'cbc', '');
+            $bs = \mcrypt_enc_get_block_size($td);
             if ((strlen($clear) % $bs) > 0) {
                 $fill = str_repeat(chr(0), 8 - (strlen($clear) % $bs));
             } else {
@@ -51,11 +44,11 @@ class CypherCastillo3DES implements ICypherStrategy
             $clear .= $fill;
             $padding = str_repeat(chr(8), 8);
             $iv = str_repeat(chr(0), mcrypt_enc_get_iv_size($td));
-            mcrypt_generic_init($td, $key, $iv);
+            \mcrypt_generic_init($td, $key, $iv);
             $encrypted_data = mcrypt_generic($td, $clear . $padding);
             $cifrado = $encrypted_data;
-            mcrypt_generic_deinit($td);
-            mcrypt_module_close($td);
+            \mcrypt_generic_deinit($td);
+            \mcrypt_module_close($td);
             return base64_encode(($cifrado));
         }
 
@@ -71,8 +64,8 @@ class CypherCastillo3DES implements ICypherStrategy
             $iv = str_repeat(chr(0), mcrypt_enc_get_iv_size($td));
             mcrypt_generic_init($td, $key, $iv);
             $clear_data = mdecrypt_generic($td, $cyphered);
-            mcrypt_generic_deinit($td);
-            mcrypt_module_close($td);
+            \mcrypt_generic_deinit($td);
+            \mcrypt_module_close($td);
             $clear_data = str_replace(str_repeat(chr(8), 8), '', $clear_data);
             $clear_data = str_replace(chr(0), '', $clear_data);
             return ($clear_data);
