@@ -35,7 +35,8 @@ class DrawsController extends AdminControllerBase
                 $list_draws_dto[] = new DrawDTO($draw);
             }
         }
-        $paginator = $this->getPaginatorAsArray($list_draws_dto,1,1);
+        $page = (!empty($this->request->getQuery('page'))) ? $this->request->getQuery('page') : 1;
+        $paginator = $this->getPaginatorAsArray($list_draws_dto,1,$page);
         /** @var \Phalcon\Mvc\ViewInterface $paginator_view */
         $paginator_view = (new PaginationWidget($paginator, $this->request->getQuery()))->render();
 
@@ -55,7 +56,7 @@ class DrawsController extends AdminControllerBase
             $draw_dto->setRegularNumbers(implode(',',$draw_dto->getRegularNumbers()));
             $draw_dto->setLuckyNumbers(implode(',',$draw_dto->getLuckyNumbers()));
             echo json_encode(['result'=> 'OK',
-                              'value' => $this->getPaginatorAsArray($draw_dto->toArray(),1,1)
+                              'value' =>$draw_dto->toArray()
             ]);
         }else{
             echo json_encode(['result'=> 'KO',
@@ -82,7 +83,6 @@ class DrawsController extends AdminControllerBase
                 }
             }
             if($result->success()){
-
                 echo json_encode(['result' => 'OK',
                                   'value'  => $list_draws_dto
                 ]);

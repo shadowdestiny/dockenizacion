@@ -7,9 +7,6 @@ namespace EuroMillions\web\controllers;
 use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
-use EuroMillions\web\services\AuthService;
-use EuroMillions\web\services\GeoService;
-use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\dto\PaymentMethodDTO;
 use EuroMillions\web\vo\dto\PlayConfigDTO;
 use EuroMillions\web\vo\dto\UserDTO;
@@ -19,32 +16,12 @@ use Phalcon\Validation\Message;
 class AccountController extends PublicSiteControllerBase
 {
 
-    /** @var  UserService */
-    protected $userService;
-
-    /** @var  GeoService */
-    protected $geoService;
-
-    /** @var  AuthService */
-    protected $authService;
-
-    public function initialize()
-    {
-        parent::initialize();
-        $this->userService = $this->domainServiceFactory->getUserService();
-        $this->geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
-        $this->authService = $this->domainServiceFactory->getAuthService();
-    }
-
-
     public function TransactionAction(){}
 
     public function indexAction()
     {
-
         $errors = null;
         $userId = $this->authService->getCurrentUser();
-
         $myaccount_form = $this->getMyACcountForm($userId);
         $myaccount_passwordchange_form = new MyAccountChangePasswordForm();
         //$form_errors = $this->getErrorsArray();
@@ -240,8 +217,8 @@ class AccountController extends PublicSiteControllerBase
 
     private function getMyACcountForm($userId)
     {
-
-        $countries = $this->geoService->countryList();
+        $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
+        $countries = $geoService->countryList();
         sort($countries);
         $countries = array_combine(range(1, count($countries)), array_values($countries));
         $user = $this->userService->getUser($userId->getId());

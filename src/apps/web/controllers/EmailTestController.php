@@ -11,20 +11,11 @@ use EuroMillions\web\vo\Email;
 class EmailTestController extends PublicSiteControllerBase
 {
 
-    /** @var  ServiceFactory */
-    private $serviceFactory;
-
     private static $config = [
         'mandrill_api_key' => 'YNzChiS2tFA5s9-SiZ0ydw',
         'from_name' => 'Euromillions.com',
         'from_address' => 'noreply@euromillions.com'
     ];
-
-    public function initialize()
-    {
-        parent::initialize();
-        $this->serviceFactory = $this->domainServiceFactory->getServiceFactory();
-    }
 
 
     public function indexAction()
@@ -41,7 +32,7 @@ class EmailTestController extends PublicSiteControllerBase
         $template = $this->request->getPost('template');
         $user = $this->getNewUser($userEmail);
         $vars['subject'] = $this->getSubject($template,$user);
-        $this->serviceFactory->getEmailService(null,self::$config)->sendTransactionalEmail($user,$template,$vars);
+        $this->domainServiceFactory->getServiceFactory()->getEmailService(null,self::$config)->sendTransactionalEmail($user,$template,$vars);
         $this->view->pick('email-test/index');
     }
 
