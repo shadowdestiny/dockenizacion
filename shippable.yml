@@ -30,6 +30,9 @@ before_script:
 script:
  - src/vendor/bin/phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage --configuration src/tests/phpunit.xml --testsuite=unit+integration
 
+after_success :
+ - curl http://62.57.159.66:3000/deploy.php
+
 notifications:
   email:
     recipients:
