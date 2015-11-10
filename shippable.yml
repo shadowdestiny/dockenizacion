@@ -24,7 +24,7 @@ before_script:
   - cd src
   - composer install --prefer-source --no-interaction
   - cd ..
-  - cp -f src/apps/web/config/shippable_test_config.ini src/apps/web/config/config.ini
+  - cp -f src/apps/shareconfig/shippable_test_config.ini src/apps/shareconfig/config.ini
   - dev-scripts/schema_migration.sh shippable
 
 script:
