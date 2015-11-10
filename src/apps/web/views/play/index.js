@@ -237,7 +237,7 @@ function isMobile()
 
 
 function randomCalculation(line, value){
-	var arr = new Array(50);
+	var arr = new Array(45);
 	var arr2 = new Array(11);
 
 	for(var i=0; i < arr.length; i++){arr[i] = i+1;}

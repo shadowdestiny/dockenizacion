@@ -33,7 +33,6 @@ class PlayTemporarilyController extends AjaxControllerBase
         $playService = $this->domainServiceFactory->getPlayService();
         $current_user = $authService->getCurrentUser();
         $result = $playService->temporarilyStorePlay($playFormToStorage,$current_user->getId());
-
         if($result->success()) {
             echo json_encode(['result'=>'OK']);
         } else {

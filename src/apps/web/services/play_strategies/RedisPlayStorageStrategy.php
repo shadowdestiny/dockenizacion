@@ -36,7 +36,6 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
         }catch(RedisException $e){
             return new ActionResult(false,'Unable to save data in storage');
         }
-
     }
 
     public function findByKey($key)
