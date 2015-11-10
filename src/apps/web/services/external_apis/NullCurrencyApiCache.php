@@ -1,7 +1,7 @@
 <?php
 namespace EuroMillions\web\services\external_apis;
 
-use EuroMillions\interfaces\ICurrencyApiCacheStrategy;
+use EuroMillions\web\interfaces\ICurrencyApiCacheStrategy;
 use Money\Currency;
 use Money\CurrencyPair;
 

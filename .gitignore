@@ -3,6 +3,8 @@
 phpinfo.php
 src/app/assets/*
 !src/app/assets/README.md
+src/logs/*
+!src/logs/README.md
 !src/app/assets/compiled_templates
 src/app/assets/compiled_templates/*
 !src/app/assets/compiled_templates/README.md
