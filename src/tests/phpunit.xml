@@ -34,7 +34,7 @@
     </listeners>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">../app</directory>
+            <directory suffix=".php">../apps</directory>
             <exclude>
                 <file>../apps/cli.php</file>
                 <directory>../apps/web/migrations</directory>
