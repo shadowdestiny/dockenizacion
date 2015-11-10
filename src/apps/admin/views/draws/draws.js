@@ -113,7 +113,6 @@ var ajaxFunctions = {
     }
 };
 $(function(){
-
     $('body').on('click','.action .btn-primary',function(){
         var id = $(this).data('id');
         params = 'id='+id;

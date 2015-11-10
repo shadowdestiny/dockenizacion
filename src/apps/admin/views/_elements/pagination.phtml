@@ -1,47 +1,31 @@
 <div class="pagination">
     <div class="centered">
-        <?php var_dump($pagination); ?>
-
-        <a <?= ($pagination['isFirst'] ? 'class="disabled"' : '') ?> href="<?= $pagination['prev_url'] ?>" data-start="<?= $pagination['prev_num'] ?>">first</a>
-        <a {% if draws.current == draws.before %} class="disabled" {% else %} class="" {% endif %}>previous</a>
-        <a href="" class="page gradient">next</a>
+        <?php if($pagination['isFirst']){ ?>
+            <span class="page active">first</span>
+        <?php }else { ?>
+            <a href="<?= $pagination['first_url'] ?>" class="page gradient">first</a>
+        <?php } ?>
         <?php foreach($pagination['pages'] as $page): ?>
-        <?php endforeach ?>
-        <a href="#" class="page gradient">2</a>
-        <a href="#" class="page gradient">3</a>
-        <span class="page active">4</span>
-        <a href="#" class="page gradient">5</a>
-        <a href="#" class="page gradient">6</a>
-        <a href="#" class="page gradient">last</a>
-    </div>
-</div>
-
-<ul class="pagination">
-
-    <li <?= ($pagination['isFirst'] ? 'class="disabled"' : '') ?>
-        <a href="<?= $pagination['prev_url'] ?>" class="btn-page btn-page-next"
-           data-start="<?= $pagination['prev_num'] ?>">
-            &laquo;
-        </a>
-    </li>
-    <?php foreach($pagination['pages'] as $page): ?>
-        <li class="<?= $page['class'] ?>">
             <?php if(!$page['isSeparator']): ?>
-                <a href="<?= $page['url'] ?>" class="btn-page page-<?= $page['num'] ?>"
-                   data-start="<?= $page['num'] ?>">
-                    <?= $page['num'] ?>
-                </a>
+                <?php if($page['class'] != null): ?>
+                    <span class="page active"><?= $page['num'] ?></span>
+                <?php else: ?>
+                    <a href="<?= $page['url'] ?>" class="page gradient"
+                       data-start="<?= $page['num'] ?>">
+                        <?= $page['num'] ?>
+                    </a>
+                <?php endif ?>
             <?php else: ?>
                 <a href="#" onclick="return false">
                     <?= $page['num'] ?>
                 </a>
             <?php endif; ?>
-        </li>
-    <?php endforeach ?>
-    <li <?= ($pagination['isLast'] ? 'class="disabled"' : '') ?>>
-        <a href="<?= $pagination['next_url'] ?>" class="btn-page btn-page-prev"
-           data-start="<?= $pagination['next_num'] ?>">
-            &raquo;
-        </a>
-    </li>
-</ul>
+        <?php endforeach ?>
+        <?php if($pagination['isLast']): ?>
+            <span class="page active">last</span>
+        <?php else: ?>
+            <a href="<?=$pagination['next_url'] ?>" class="page gradient">next</a>
+            <a href="<?=$pagination['last_url'] ?>" class="page gradient">last</a>
+        <?php endif ?>
+    </div>
+</div>
