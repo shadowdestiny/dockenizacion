@@ -1,1 +1,0 @@
-This directory is intended for dynamic files that the logger system generate. It is ignored in git.

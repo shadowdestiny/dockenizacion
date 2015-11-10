@@ -1,1 +1,0 @@
-This directory is intended for dynamic files that the framework and other systems generate and needs. It is ignored in git.
