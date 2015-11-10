@@ -35,11 +35,13 @@ class LotteriesDataService
         if (!$now) {
             $now = new \DateTime();
         }
+
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         $next_draw_date = $lottery->getNextDrawDate($now);
         $jackpot_api = $this->apisFactory->jackpotApi($lottery, $curlWrapper);
         $jackpot = $jackpot_api->getJackpotForDate($lotteryName, $next_draw_date->format("Y-m-d"));
+
         /** @var EuroMillionsDraw $draw */
         $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $next_draw_date]);
         if (!$draw) {
