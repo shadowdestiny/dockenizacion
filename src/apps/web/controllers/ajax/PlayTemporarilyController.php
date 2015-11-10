@@ -38,7 +38,6 @@ class PlayTemporarilyController extends AjaxControllerBase
         } else {
             echo json_encode(['result'=> $result->errorMessage()]);
         }
-
     }
 
     /**

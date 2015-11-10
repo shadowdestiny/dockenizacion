@@ -91,7 +91,6 @@
                         {% endif %}
                     </tbody>
                 </table>
-                {% include "_elements/pagination.volt" %}
            </div>
                 <div class="hidden-element crud-user">
                     <h2 class="sub-title purple"></h1>

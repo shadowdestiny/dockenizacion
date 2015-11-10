@@ -10,8 +10,9 @@ var ajaxFunctions = {
                 if(model.result == 'OK') {
                     $('.alert-success').show();
                     $('.crud-user').hide('fast');
+                    $tr = '';
                     $.each(model.value,function(i,v){
-                        $tr = '<tr>';
+                        $tr += '<tr>';
                         $tr += '<td class="name">'+v.name+'</td>';
                         $tr += '<td class="surname">'+v.surname+'</td>';
                         $tr += '<td class="contact"><a href="mailto:'+v.email+'">'+v.email+'</a></td>';

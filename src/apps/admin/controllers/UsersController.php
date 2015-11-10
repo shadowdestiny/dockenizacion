@@ -21,7 +21,6 @@ class UsersController extends AdminControllerBase
     {
         parent::initialize();
         $this->maintenanceUserService = $this->domainAdminServiceFactory->getMaintenanceUserService();
-
     }
 
     public function indexAction()
@@ -89,11 +88,9 @@ class UsersController extends AdminControllerBase
                 foreach($result->getValues() as $user) {
                     $list_users_dto[] = new UserDTO($user);
                 }
-            }
-            if($result->success()){
                 echo json_encode(['result' => 'OK',
                                   'value' => $list_users_dto
-                                ]);
+                ]);
             } else{
                 echo json_encode(['result' => 'KO',
                                   'value'=> $result->errorMessage()
