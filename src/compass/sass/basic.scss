@@ -53,7 +53,6 @@ img.right{margin:0 0 15px 10px;}
 .hidden2{position:absolute; left:-9999px; top:-9999px; line-height:0;}
 
 /* RESET UI */
-
 #main-page > .ui-content{padding:0;}
 .ui-checkbox{margin:0; height:auto; position:relative;}
 .ui-checkbox label{padding:0; overflow:none;}
@@ -66,6 +65,9 @@ body .ui-mobile .ui-page-active, body .ui-content, body #content{overflow:unset!
 .cl:before, .cl:after, .wrapper:before, .wrapper:after, .btn:before, .btn:after, .box:before, .box:after{content:" "; display:table;}
 .cl:after, .wrapper:after, .btn:after, .box:after{clear:both;}
 .cl, .wrapper, .btn, .box{*zoom:1;} /* IE6/7 */
+
+/* VECTOR */
+[class^="v-"], [class*=" v-"]{display:inline-block; fill:currentcolor; height:1em; width:1em;}
 
 /* FORM ELEMENTS */
 .input, .select, .textarea{font-family:$basic-font; padding:8px; background:$yellow-lighter; border:1px solid $grey;}
@@ -108,6 +110,7 @@ label.submit{cursor:pointer;}
   transition:background-color 0.3s,color 0.3s,border 0.3s, box-shadow 0.1s; display:inline-block; padding:5px 12px; text-decoration:none; font-size:$basic-size; border-radius:5px; font-weight:bold; border:1px solid #777; color:#fff; background:#aaa; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);
   @include background-image(linear-gradient(#cccccc, #777777));
 }
+.btn .ico{position:relative; top:2px;}
 .btn.expand{width:100%;}
 .btn.expand .ico{float:right; line-height:20px;}
 .btn:hover, .btn:focus{text-shadow:0 0 0 transparent; background:#fff; color:#777;}
@@ -220,7 +223,7 @@ label.submit{cursor:pointer;}
 .back-top a{
   float:right; margin:-0.5em 0 1.5em; text-decoration:none; font-size:$basic-size;
   &:hover, &:focus{color:$blue-dark;}
-  .ico{font-size:12px; margin-right:3px;}
+  .ico{position:relative; top:1px; font-size:12px; margin-right:3px;}
 }
 
 /* ANIMATION */
@@ -368,7 +371,7 @@ body, .submit{font-family:$basic-font;}
 
 .social{float:right;}
 .social a{display:block; text-align:center; font-size:115%; width:34px; height:34px;}
-.social .ico{color:#fff; line-height:34px;}
+.social .ico{color:#fff; line-height:34px; height:34px; margin:auto;}
 
 .fb, .gp, .tw{border-radius:17px;}
 .fb{background:#436fb5;}

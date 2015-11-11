@@ -27,7 +27,7 @@
 	li{margin:0 10px 20px 0; display:inline-block}
 	li.fix-margin{display:none;}
 	.btn{font-weight:normal;}
-	.ico-shuffle{font-size:125%; position:relative; top:2px;}
+	.v-shuffle{display:inline-block; font-size:125%; position:relative; top:3px; margin-left:3px;}
 }
 .box-bottom{padding:20px 12px; border-top:1px solid $yellow; background:#fff; border-radius:0 0 5px 5px;
 	select{font-size:$basic-size;}
@@ -45,7 +45,7 @@ $gap3:15px; /* Responsive design 3 column */
 .gameplay .h3.blue{color:$blue; margin-bottom:1.25em;}
 .line{position:relative; border:2px solid $yellow; border-radius:5px; background:#fff;}
 .line:hover{border-color:$purple; transition:border .2s ease;}
-.line .ico-shuffle{font-size:160%;}
+.line .v-shuffle{position:relative; top:-1px; left:1px; font-size:160%;}
 .line .ico-m{font-size:130%; top:2px;}
 .combo{position:relative; margin:-18px auto 0; width:110px;}
 .combo .btn{display:block; min-height:35px; line-height:0;}
@@ -57,7 +57,7 @@ $gap3:15px; /* Responsive design 3 column */
 }
 .add-more{
 	position:relative;
-	.ico-plus{margin-left:2px;}
+	.v-plus{margin-left:3px;}
 }
 .box-more{position:relative;}
 .warn-info{/*display:none;*/ position:absolute; left:0; top:0; background:#fff; padding:10px 15px; width:200px; display:block;}
@@ -107,12 +107,19 @@ $gap3:15px; /* Responsive design 3 column */
 	}
 	.cols{margin:0;}
 	.txt{
-		position:absolute; left:0; top:12px; width:100%; font-family:$basic-font; 
+		position:absolute; left:-1px; top:10px; width:100%; font-family:$basic-font; 
 		font-weight:bold; font-size:14px; color:$purple;
 	}
 	.ico{color:$yellow; font-size:220%; transition:color 0.15s ease;}
+	.ico{
+		.v-star{display:none;}
+		.v-star-out{display:block;}
+	}
 	.active.ico{
-		&:before{content:"\e60b";}
+		.v-star{display:block;}
+		.v-star-out{display:none;}
+
+//		&:before{content:"\e60b";}
 		&:hover,&:focus{color:$yellow;}
 		.txt, .txt:hover, .txt:focus{color:#fff;}
 	}
@@ -122,7 +129,7 @@ $gap3:15px; /* Responsive design 3 column */
 .line.active{display:block;}
 .btn.clear{visibility:hidden; position:relative; width:90px; bottom:-16px; margin:-12px auto 0; display:block;}
 
-.btn.clear .ico, .clear-all .ico{position:relative; margin-left:2px; top:1px;}
+.btn.clear .ico, .clear-all .ico{position:relative; margin-left:3px; top:2px;}
 .random-all .ico{position:relative; margin-left:2px;}
 .number-on .clear{visibility:visible;}
 

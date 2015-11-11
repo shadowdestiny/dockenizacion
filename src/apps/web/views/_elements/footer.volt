@@ -58,9 +58,9 @@
 		<div class="wrapper">
 			<div class="social">
 				<ul>
-					<li class="fb"><a href="javascript:void(0);"><i class="ico ico-facebook"></i><span class="txt">{{ language.translate('Facebook') }}</span></a></li>
-					<li class="gp"><a href="javascript:void(0);"><i class="ico ico-google-plus"></i><span class="txt">{{ language.translate('Google +') }}</span></a></li>
-					<li class="tw"><a href="javascript:void(0);"><i class="ico ico-twitter"></i><span class="txt">{{ language.translate('Twitter') }}</span></a></li>
+					<li class="fb"><a href="javascript:void(0);"><svg class="ico v-facebook"><use xlink:href="/w/mono.svg#v-facebook"></use></svg><span class="txt">{{ language.translate('Facebook') }}</span></a></li>
+					<li class="gp"><a href="javascript:void(0);"><svg class="ico v-google-plus"><use xlink:href="/w/mono.svg#v-google-plus"></use></svg><span class="txt">{{ language.translate('Google +') }}</span></a></li>
+					<li class="tw"><a href="javascript:void(0);"><svg class="ico v-twitter"><use xlink:href="/w/mono.svg#v-twitter"></use></svg><span class="txt">{{ language.translate('Twitter') }}</span></a></li>
 				</ul>
 			</div>
 			<a href="javascript:void(0);" class="small-logo" title="Go to Homepage">

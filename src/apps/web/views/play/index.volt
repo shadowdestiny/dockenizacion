@@ -54,9 +54,9 @@
 			</div>
 			<div class="cl">
 				<ul class="no-li cl box-action">
-					<li class="box-more" data-tip="{{ language.translate('It is not possible to add more lines until you fill in the previous ones') }}"><a class="btn gwg add-more" href="javascript:void(0);">{{ language.translate("Add more lines") }} <i class="ico ico-plus"></i></a></li>
-					<li><a class="btn bwb random-all" href="javascript:void(0);">{{ language.translate("Randomize all lines") }} <i class="ico ico-shuffle"></i></a></li>
-					<li class="fix-margin"><a class="btn rwr clear-all" href="javascript:void(0);">{{ language.translate("Clear all lines") }} <i class="ico ico-cross"></i></a></li>
+					<li class="box-more" data-tip="{{ language.translate('It is not possible to add more lines until you fill in the previous ones') }}"><a class="btn gwg add-more" href="javascript:void(0);">{{ language.translate("Add more lines") }} <svg class="ico v-plus"><use xlink:href="/w/icon.svg#v-plus"></use></svg></a></li>
+					<li><a class="btn bwb random-all" href="javascript:void(0);">{{ language.translate("Randomize all lines") }} <svg class="v-shuffle"><use xlink:href="/w/icon.svg#v-shuffle"></use></svg></a></li>
+					<li class="fix-margin"><a class="btn rwr clear-all" href="javascript:void(0);">{{ language.translate("Clear all lines") }} <svg class="ico v-cross"><use xlink:href="/w/icon.svg#v-cross"></use></svg></i></a></li>
 				</ul>
 			</div>
 			<div class="box-bottom">
@@ -129,5 +129,4 @@
 
 	</div>
 </main>
-
 {% endblock %}

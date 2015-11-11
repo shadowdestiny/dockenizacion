@@ -22,20 +22,20 @@
 .box-how{border-bottom:1px solid $yellow; padding-bottom:25px;}
 .box-how ul{padding:20px 20px 0; text-align:center; margin-bottom:1em;}
 .box-how li{width:28%; float:left; margin-right:8%; position:relative;}
-.box-how li:after{
-    content:"\e605"; position:absolute; top:60px; right:-20%; z-index:1; display:block; color:#bbb;
-    font-family: 'icomoon';
+.box-how li:after{ /*Including a grey arrow*/
+    content:""; position:absolute; top:60px; right:-20%; z-index:1; display:block; fill:$grey-light; height:20px; width:12px;background:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDE5IDMyIj48cGF0aCBmaWxsPSIjYmJiIiBkPSJNMi40MSAzMmMtLjY5IDAtMS4yNjMtLjIzLTEuNzItLjgwMy0uOTItLjkxOC0uOTItMi41MjMuMTE0LTMuNDRMMTMuMTkgMTUuOTQuODA1IDQuMTI4Qy0uMTE0IDMuMjEtLjIyOCAxLjcxOC42OS42ODggMS42MDYtLjIzMyAzLjA5Ny0uMzQ2IDQuMTMuNTdsMTQuMjIyIDEzLjUzNGMuNDYuNDYuODAzIDEuMTQ3LjgwMyAxLjcycy0uMjMgMS4yNjItLjgwMyAxLjcyTDQuMTMgMzEuMzFjLS40Ni40NTgtMS4xNDcuNjg3LTEuNzIuNjg3eiIvPjwvc3ZnPg==) no-repeat center center;
 }
 .box-how li:last-child{margin-right:0;}
 .box-how li:last-child:after{display:none;}
 .box-how p{margin-bottom:0;}
 .box-how .vector{width:90%; margin:0 auto 10px; display:block; height:120px;} 
 .box-how .box-txt h2{margin-bottom:5px;}
+.box-how .ico{margin-left:5px;}
 
 .bg-yellow{background:$yellow; color:#fff; padding:10px 20px;} 
 .bg-yellow > h1{margin:0;}
 
-.try .ico{margin:5px 0 0 10px;}
+.try .ico{position:relative; top:2px; margin:0 0 0 10px;}
 
 .box-result h1{margin-bottom:0;}
 .box-result:hover .lnk{@extend %pulseRight;}
@@ -67,7 +67,7 @@
 .win-millions{margin-top:-46px; text-align:center;}
 .win-millions .pic{margin:auto; width:417px;}
 .box-play .content{margin-top:125px; color:#fff;}
-.box-play .ico{position:relative; top:-1px;}
+.box-play .ico{position:relative; top:2px;}
 .box-play .awards li, .box-play .ball{background:url(../img/sprite.png) no-repeat;}
 .box-play .awards{margin-top:25px;}
 .box-play .awards li{display:inline-block; width:67px; height:67px;}
@@ -75,7 +75,7 @@
 .box-play .awards .best-price{background-position:0 -150px;}
 .box-play .awards .risk-free{background-position:-75px -150px;}
 .box-play .box-ball{position:relative; margin-top:25px;}
-.box-play .btn{position:relative; left:-25px; font-size:160%;}
+.box-play .btn{position:relative; left:-25px; font-size:160%; line-height:100%;}
 .box-play .ball{position:absolute; display:block; top:-25px; right:-90px; display:block; width:101px; height:99px; background-position:-150px -110px; transition:transform .5s ease;}
 .box-ball .btn:hover .ball{@include transform(rotate(25deg));}
 
@@ -129,13 +129,13 @@
   .title{font-size:$h2; font-weight:bold; position:relative; left:5px; color:#fff;}
   .gold-pile{display:block; width:412px; height:189px; background:url(../img/home/gold-pile.png) no-repeat center center; margin:5px auto 0; text-align:center;
     .btn{display:block; width:250px; margin:auto;}
-    .vector{width:138px; margin-bottom:-30px; max-height:148px;}
+    .vector{width:115px; margin-bottom:-18px; max-height:148px;}
   }
   .em-shadow{display:inline-block; width:135px; height:135px; background-image:url(../img/home/em-shadow.png); margin:0 auto -33px;}
   .pic{position:relative;}
   .title-em{margin:43px 0 0 20px;}
-  .best{width:138px; height:120px; float:left; margin:-15px 10px 0 0;}
-  .text{height:52px; width:380px;}
+  .best{width:138px; height:120px; float:left; margin:-18px 10px 0 0;}
+  .text{height:50px; width:358px;}
   .bg-white{background:#fff; border:1px solid $yellow; border-top:0; border-radius:0 0 5px 5px;}
   .cols{padding:20px 0;}
 }

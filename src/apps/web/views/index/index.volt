@@ -47,8 +47,6 @@ $(function(){
     });
     $(window).resize(checkWin); //fix alignment of the popup when resized
 });
-
-
 </script>
 {% endblock %}
 
@@ -68,9 +66,9 @@ $(function(){
 						<h1 class="h2">{{ language.translate("Estimated Euromillions Jackpot") }}</h1>
 						{% set extraClass='{"boxvalueClass": "yellow","currencyClass":"","valueClass":""}'|json_decode %}
 						{% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
-						<span class="btn white try animate infi">{{ language.translate("Try your luck") }} <i class="ico ico-arrow-right3"></i></span>
+						<span class="btn white try animate infi">{{ language.translate("Try your luck") }} <svg class="ico v-arrow-right3"><use xlink:href="/w/icon.svg#v-arrow-right3"></use></svg></span>
 					</div>
-					<svg class="vector"><use xlink:href="#emblem"></use></svg>
+					<svg class="vector"><use xlink:href="/w/index.svg#emblem"></use></svg>
 				</a>
 				<div class="box-how">
 					<div class="bg-yellow">
@@ -78,24 +76,21 @@ $(function(){
 					</div>
 					<ul class="no-li cl">
 						<li>
-							<svg class="vector"><use xlink:href="#lottery-ticket"></use></svg>
-
+							<svg class="vector"><use xlink:href="/w/index.svg#lottery-ticket"></use></svg>
 							<div class="box-txt">
 								<h2 class="h3"><span class="grey">1.</span> {{ language.translate("play")|upper }}</h2>
 								<p class="sub-txt">{{ language.translate("Choose <em>PLAY NOW</em> or <em>QuickPlay</em>") }}</p>
 							</div>
 						</li>
 						<li>
-							<svg class="vector"><use xlink:href="#monitor-number"></use></svg>
-						
+							<svg class="vector"><use xlink:href="/w/index.svg#monitor"></use></svg>
 							<div class="box-txt">
 								<h2 class="h3"><span class="grey">2.</span> {{ language.translate("pick")|upper }}</h2>
 								<p class="sub-txt">{{ language.translate("Pick 5+2 Lucky Stars or <em>QuickPick</em>") }}</p>
 							</div>
 						</li>
 						<li>
-							<svg class="vector"><use xlink:href="#winner-cup"></use></svg>
-
+							<svg class="vector"><use xlink:href="/w/index.svg#winner-cup"></use></svg>
 							<div class="box-txt">
 								<h2 class="h3"><span class="grey">3.</span> {{ language.translate("win")|upper }}</h2>
 								<p class="sub-txt">{{ language.translate("Check results and cash your winnings") }}</p>
@@ -103,7 +98,7 @@ $(function(){
 						</li>
 					</ul>
 					<div class="center">
-						<a href="/play" class="btn big blue">{{ language.translate("Start to Play") }} <i class="ico ico-arrow-right"></i></a>
+						<a href="/play" class="btn big blue">{{ language.translate("Start to Play") }} <svg class="ico v-arrow-right"><use xlink:href="/w/icon.svg#v-arrow-right"></use></svg></a>
 					</div>
 				</div>
 				<a href="/numbers" class="box-result no-lnk">
@@ -119,7 +114,7 @@ $(function(){
 								    <li class="star">{{ lucky_number }}</li>
                                 {% endfor %}
 							</ul>
-							<span class="lnk animate infi"><span class="txt">{{ language.translate('Results &amp; Prizes') }}</span> <i class="ico ico-arrow-right3"></i></span>
+							<span class="lnk animate infi"><span class="txt">{{ language.translate('Results &amp; Prizes') }}</span> <svg class="ico v-arrow-right3"><use xlink:href="/w/icon.svg#v-arrow-right3"></use></svg></span>
 						</div>
 						<div class="col4 woman">&nbsp;</div>
 					</div>
@@ -141,7 +136,7 @@ $(function(){
 							</div>
 							<div class="box-ball">
 								<div class="btn big purple">
-									{{ language.translate('PLAY NOW')|upper }} <i class="ico ico-arrow-right"></i>
+									{{ language.translate('PLAY NOW')|upper }} <svg class="ico v-arrow-right"><use xlink:href="/w/icon.svg#v-arrow-right"></use></svg>
 									<span class="ball"></span>
 								</div>
 							</div>
@@ -165,13 +160,13 @@ $(function(){
                                             {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
                                             {% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
 											<div class="box-btn">
-												<a href="/play" class="btn blue expand">{{ language.translate('I feel lucky') }} <i class="ico ico-arrow-right"></i></a>
+												<a href="/play" class="btn blue expand">{{ language.translate('I feel lucky') }} <svg class="ico v-arrow-right"><use xlink:href="/w/icon.svg#v-arrow-right"></use></svg></a>
 
-												<a href="/play" class="btn red expand">{{ language.translate('Pick your numbers') }} <i class="ico ico-arrow-right"></i></a>
+												<a href="/play" class="btn red expand">{{ language.translate('Pick your numbers') }} <svg class="ico v-arrow-right"><use xlink:href="/w/icon.svg#v-arrow-right"></use></svg></a>
 											</div>
 										</div>
 										<div class="col6 center box-vector">
-											<svg class="vector"><use xlink:href="#lotto-game"></use></svg>
+											<svg class="vector"><use xlink:href="/w/index.svg#lotto-game"></use></svg>
 										</div>
 									</div>
 								</div>
@@ -180,7 +175,7 @@ $(function(){
 
 						<div class="notes cl">
 							<div class="left">
-								<i class="ico ico-hourglass"></i>
+								<svg class="ico v-hourglass"><use xlink:href="/w/icon.svg#v-hourglass"></use></svg>
 								<span class="time">
 									<span id="clock"></span>
 								</span>
@@ -202,14 +197,14 @@ $(function(){
 					<div class="cols top">
 						<div class="col6">
 							<div class="title-em cl">
-								<svg class="vector best"><use xlink:href="#best-choice"></use></svg>
-								<svg class="vector text"><use xlink:href="#em-golden"></use></svg>
+								<img class="vector best" src="/w/img/home/best-choice.svg" alt="Best Choice Guarantee">
+								<img class="vector text" src="/w/img/home/em-golden.svg" alt="Euromillions">
 								<h3 class="title">Fast, Convenient &amp; Secure</h3>
 							</div>
 						</div>
 						<div class="col6">
 							<span class="gold-pile">
-								<svg class="vector"><use xlink:href="#logo-shadow"></use></svg>
+								<img class="vector" src="/w/img/home/logo-shadow.svg" alt="">
 								<a href="/play" class="btn blue">Start playing, Win millions</a>
 							</span>
 						</div>
@@ -237,9 +232,7 @@ $(function(){
 				</div>
 			</div>
 
-			<div class="back-top cl">
-				<a data-ajax="false" href="#top"><i class="ico ico-arrow-up2"></i> Back to Top</a>
-			</div>
+			{% include "index/_top.volt" %}
 
 			<div class="box-basic how-play">
 				<div class="cols playing-euro">
@@ -262,9 +255,7 @@ $(function(){
 				</div>
 			</div>
 
-			<div class="back-top cl">
-				<a data-ajax="false" href="#top"><i class="ico ico-arrow-up2"></i> Back to Top</a>
-			</div>
+			{% include "index/_top.volt" %}
 
 			<div class="box-basic about-us">
 				<div class="cols">
@@ -298,9 +289,7 @@ $(function(){
 				</div>
 			</div>
 
-			<div class="back-top cl">
-				<a data-ajax="false" href="#top"><i class="ico ico-arrow-up2"></i> Back to Top</a>
-			</div>
+			{% include "index/_top.volt" %}
 		</div>
 
 	</div>
