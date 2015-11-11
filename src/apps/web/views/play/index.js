@@ -189,12 +189,12 @@ function setIntervalRepetition(callback, delay, repetitions, callback2){
 function shuffle(array){ // Fisher–Yates shuffle
   var m = array.length, t, i;
 
+
   // While there remain elements to shuffle…
   while (m) {
 
     // Pick a remaining element…
     i = Math.floor(Math.random() * m--);
-
     // And swap it with the current element.
     t = array[m];
     array[m] = array[i];
@@ -237,7 +237,7 @@ function isMobile()
 
 
 function randomCalculation(line, value){
-	var arr = new Array(45);
+	var arr = new Array(50);
 	var arr2 = new Array(11);
 
 	for(var i=0; i < arr.length; i++){arr[i] = i+1;}
@@ -250,11 +250,13 @@ function randomCalculation(line, value){
 		shuffle(arr2);
 		$(line+" .values .active").toggleClass('active');
 		for(var i=0; i < 5; i++){
-			$(line+" .n"+arr[i]).toggleClass('active');
+			var val = Math.floor( Math.random() * arr.length);
+			$(line+" .n"+arr[val]).toggleClass('active');
 		}
 
 		for(var i=0; i < 2; i++){
-			$(line+" .s"+arr2[i]).toggleClass('active');
+			var val = Math.floor( Math.random() * arr2.length);
+			$(line+" .s"+arr2[val]).toggleClass('active');
 		}
 	}, delay, repetition, function(){
 		persistRandomNum(line);
