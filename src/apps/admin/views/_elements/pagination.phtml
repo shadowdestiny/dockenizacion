@@ -1,9 +1,9 @@
 <div class="pagination">
     <div class="centered">
         <?php if($pagination['isFirst']){ ?>
-            <span class="page active">first</span>
         <?php }else { ?>
             <a href="<?= $pagination['first_url'] ?>" class="page gradient">first</a>
+            <a href="<?=$pagination['prev_url'] ?>" class="page gradient">prev</a>
         <?php } ?>
         <?php foreach($pagination['pages'] as $page): ?>
             <?php if(!$page['isSeparator']): ?>
@@ -16,13 +16,10 @@
                     </a>
                 <?php endif ?>
             <?php else: ?>
-                <a href="#" onclick="return false">
-                    <?= $page['num'] ?>
-                </a>
+                <span ><?= $page['num']?></span>
             <?php endif; ?>
         <?php endforeach ?>
         <?php if($pagination['isLast']): ?>
-            <span class="page active">last</span>
         <?php else: ?>
             <a href="<?=$pagination['next_url'] ?>" class="page gradient">next</a>
             <a href="<?=$pagination['last_url'] ?>" class="page gradient">last</a>

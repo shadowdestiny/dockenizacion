@@ -4,6 +4,7 @@ namespace EuroMillions\sharecomponents\widgets;
 
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\View\Simple as ViewSimple;
+use Phalcon\Mvc\ViewInterface;
 
 class PaginationWidget extends \Phalcon\Mvc\User\Component {
 
@@ -14,9 +15,11 @@ class PaginationWidget extends \Phalcon\Mvc\User\Component {
     protected $page = 1;
     protected $before;
     protected $next;
+    protected $total_items;
+    protected $total_pages;
+    protected $current;
     protected $last;
-    protected $limit = 20;
-    protected $num_links = 10;
+    protected $limit;
     protected $url = '';
     protected $_options = [];
     private $paginator;
@@ -25,12 +28,13 @@ class PaginationWidget extends \Phalcon\Mvc\User\Component {
 
         $paginatorObj = $paginator->getPaginate();
         $this->paginator = $paginator;
-        $this->total = $paginator->getPaginate()->total_items;
-        $this->limit = $paginator->getLimit();
-        $this->page = $paginator->getPaginate()->current;
+        $this->total_pages = $paginatorObj->total_pages;
+        $this->total_items = $paginatorObj->total_items;
+        $this->current = $paginatorObj->current;
         $this->before       = $paginatorObj->before;
         $this->next         = $paginatorObj->next;
         $this->last         = $paginatorObj->last;
+        $this->limit = ceil($this->total / $this->total_pages);
 
         // Create url
         if(isset($options['url'])) {
@@ -57,9 +61,9 @@ class PaginationWidget extends \Phalcon\Mvc\User\Component {
     public function render() {
         $pagination = [
             'limit' => $this->limit,
-            'count' => $this->total,
-            'total' => $this->total,
-            'current' => $this->page,
+            'count' => $this->total_items,
+            'total' => $this->total_pages,
+            'current' => $this->current,
             'next_num' => $this->next,
             'next_url' => $this->getLink($this->next),
             'prev_num' => $this->before,
@@ -69,15 +73,15 @@ class PaginationWidget extends \Phalcon\Mvc\User\Component {
             'last_num' => $this->last,
             'last_url' => $this->getLink($this->last),
             'pages' => [],
-            'isFirst' => 1 == $this->page,
-            'isLast' => $this->last == $this->page,
+            'isFirst' => 1 == $this->current,
+            'isLast' => $this->last == $this->current,
         ];
 
         $dotted = false;
         $separator   = $this->getOptions('separator');
         $classActive = $this->getOptions('classActive');
-        $c = $this->page;
-        $t = $this->total;
+        $c = $this->current;
+        $t = $this->total_pages;
         $k = $this->getOptions('numPage');
         $pagination['pages'] = [];
 
@@ -86,9 +90,10 @@ class PaginationWidget extends \Phalcon\Mvc\User\Component {
             $page['url'] = $this->getLink($i);
             $page['num'] = $i;
             $page['isSeparator'] = false;
-            $page['isActive'] = ($this->page == $i) ? true : false;
-            $page['class'] = ($this->page == $i) ? $classActive : null;
+            $page['isActive'] = ($this->current == $i) ? true : false;
+            $page['class'] = ($this->current == $i) ? $classActive : null;
             if (($i > $k && $i <= ($c - $k)) || ($i >= ($c + $k) && $i <= ($t - $k))) {
+
                 if (!$dotted) {
                     $page['num'] = $separator;
                     $page['isSeparator'] = true;
@@ -102,7 +107,7 @@ class PaginationWidget extends \Phalcon\Mvc\User\Component {
         }
         $params['pagination'] = $pagination;
         $this->getView();
-        try {
+       try {
             return $this->getView()->render('_elements/pagination',$params);
         } catch (\Exception $exc) {
             return;
@@ -189,5 +194,6 @@ class PaginationWidget extends \Phalcon\Mvc\User\Component {
         $this->_options = array_merge($this->getDefaultOptions(), (array)$options);
         return $this;
     }
+
 }
 ?>

@@ -39,6 +39,7 @@ trait EuroMillionsResultRelatedTest {
         $playFormToStorage->lastDrawDate = $lastDrawDate->getLastDrawDate();
         $playFormToStorage->drawDays = 2;
         $playFormToStorage->euroMillionsLines = $this->getEuroMillionsLines();
+
         return $playFormToStorage;
     }
 
@@ -58,9 +59,7 @@ trait EuroMillionsResultRelatedTest {
             new EuroMillionsLine($r_numbers,$l_numbers),
             new EuroMillionsLine($r_numbers,$l_numbers)
         ];
+
         return $euroMillionsLine;
     }
-
-
-
 }

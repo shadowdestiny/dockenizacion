@@ -6,7 +6,6 @@ namespace EuroMillions\admin\controllers;
 use EuroMillions\admin\vo\ActionResult;
 use EuroMillions\admin\vo\dto\DrawDTO;
 use EuroMillions\admin\services\MaintenanceDrawService;
-use EuroMillions\sharecomponents\widgets\Pagination;
 use EuroMillions\sharecomponents\widgets\PaginationWidget;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use Money\Currency;
@@ -17,6 +16,8 @@ class DrawsController extends AdminControllerBase
 
     /** @var  MaintenanceDrawService */
     private $maintenanceDrawService;
+
+    CONST LIMIT = 1;
 
     public function initialize()
     {
@@ -36,7 +37,7 @@ class DrawsController extends AdminControllerBase
             }
         }
         $page = (!empty($this->request->getQuery('page'))) ? $this->request->getQuery('page') : 1;
-        $paginator = $this->getPaginatorAsArray($list_draws_dto,1,$page);
+        $paginator = $this->getPaginatorAsArray($list_draws_dto,self::LIMIT,$page);
         /** @var \Phalcon\Mvc\ViewInterface $paginator_view */
         $paginator_view = (new PaginationWidget($paginator, $this->request->getQuery()))->render();
 
@@ -82,13 +83,16 @@ class DrawsController extends AdminControllerBase
                     $list_draws_dto[] = new DrawDTO($draw);
                 }
             }
+            $page = (!empty($this->request->getQuery('page'))) ? $this->request->getQuery('page') : 1;
+            $paginator = $this->getPaginatorAsArray($list_draws_dto,self::LIMIT,$page);
+
             if($result->success()){
                 echo json_encode(['result' => 'OK',
-                                  'value'  => $list_draws_dto
+                                  'value'  => $paginator->getPaginate()->items
                 ]);
             } else{
                 echo json_encode(['result' => 'KO',
-                                  'value'  => $list_draws_dto
+                                  'value'  => $paginator->getPaginate()->items
                 ]);
             }
         }
