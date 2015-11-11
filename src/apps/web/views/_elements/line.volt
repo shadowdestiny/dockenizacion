@@ -1,6 +1,6 @@
 <h1 class="h3 blue center">{{ language.translate("Line") }} {{ showIndex }}</h1>
 <div class="line center">
-		<i class="ico ico-checkmark"></i>
+		<svg class="ico v-checkmark"><use xlink:href="/w/icon.svg#v-checkmark"></use></svg>
 
 	<div class="combo cols not">
 		<div class="col6 not random"><a class="btn gwy multiplay" href="javascript:void(0);"><svg class="v-shuffle"><use xlink:href="/w/icon.svg#v-shuffle"></use></svg></a></div>
