@@ -1,5 +1,0 @@
-Money\Currency:
-  type: embeddable
-  fields:
-    name:
-      type: string

@@ -74,11 +74,11 @@
 				<li class="col20per not"><a class="btn gwp n45" href="javascript:void(0);">45</a></li>
 			</ol>
 			<ol class="no-li cols not">
-				<li class="col20per not"><a class="btn gwp n41" href="javascript:void(0);">46</a></li>
-				<li class="col20per not"><a class="btn gwp n42" href="javascript:void(0);">47</a></li>
-				<li class="col20per not"><a class="btn gwp n43" href="javascript:void(0);">48</a></li>
-				<li class="col20per not"><a class="btn gwp n44" href="javascript:void(0);">49</a></li>
-				<li class="col20per not"><a class="btn gwp n45" href="javascript:void(0);">50</a></li>
+				<li class="col20per not"><a class="btn gwp n46" href="javascript:void(0);">46</a></li>
+				<li class="col20per not"><a class="btn gwp n47" href="javascript:void(0);">47</a></li>
+				<li class="col20per not"><a class="btn gwp n48" href="javascript:void(0);">48</a></li>
+				<li class="col20per not"><a class="btn gwp n49" href="javascript:void(0);">49</a></li>
+				<li class="col20per not"><a class="btn gwp n50" href="javascript:void(0);">50</a></li>
 			</ol>
 		</div>
 		<div class="stars">

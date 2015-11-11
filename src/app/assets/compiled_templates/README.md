@@ -1,1 +1,0 @@
-This directory is intended for compiled templates. It is ignored in git.
