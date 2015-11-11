@@ -2,7 +2,6 @@
 namespace EuroMillions\web\services;
 
 use EuroMillions\web\components\EmTranslationAdapter;
-use Doctrine\ORM\EntityManager;
 use EuroMillions\web\entities\Language;
 use EuroMillions\web\exceptions\InvalidLanguageException;
 use EuroMillions\web\interfaces\ILanguageStrategy;
@@ -10,7 +9,7 @@ use EuroMillions\web\repositories\LanguageRepository;
 
 class LanguageService
 {
-    /** @var \EuroMillions\repositories\LanguageRepository  */
+    /** @var \EuroMillions\web\repositories\LanguageRepository  */
     protected $languageRepository;
     protected $languageStrategy;
     protected $translationAdapter;
