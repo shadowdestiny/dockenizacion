@@ -20,21 +20,25 @@ class PlayFormToStorage extends EMForm
 
     public $amount;
 
-    public $regular_numnbers;
+    public $regular_numbers;
 
     public $lucky_numbers;
 
-    /** @var EuroMillionsLine $euroMillionsLine */
     public $euroMillionsLines;
 
+    public $numbers;
 
     public function toJson()
     {
 
-        foreach($this->euroMillionsLines as $numbers) {
-            $this->regular_numnbers[] = ['numbers' => $numbers->getRegularNumbers(),
-                                         'lucky'   => $numbers->getLuckyNumbers()
-                                        ];
+        /** @var EuroMillionsLine[] $arr_lines */
+        $arr_lines = $this->euroMillionsLines;
+        $this->euroMillionsLines = null;
+        foreach($arr_lines as $lines){
+            $this->euroMillionsLines[] = [
+                                            'regular' => $lines->getRegularNumbersArray(),
+                                            'lucky'   => $lines->getLuckyNumbersArray()
+            ];
         }
         return json_encode(get_object_vars($this));
     }

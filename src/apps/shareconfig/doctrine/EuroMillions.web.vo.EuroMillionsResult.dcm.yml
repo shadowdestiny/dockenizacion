@@ -1,0 +1,9 @@
+EuroMillions\web\vo\EuroMillionsLine:
+  type: embeddable
+  fields:
+    regular_numbers:
+      type: string
+      nullable: true
+    lucky_numbers:
+      type: string
+      nullable: true

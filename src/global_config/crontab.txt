@@ -1,0 +1,2 @@
+30 * * * * php /var/www/app/cli.php jackpot update
+35 * * * * php /var/www/app/cli.php result update

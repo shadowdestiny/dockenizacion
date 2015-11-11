@@ -1,0 +1,22 @@
+EuroMillions\web\entities\Translation:
+  type: entity
+  table: translations
+  id:
+    translation_id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: IDENTITY
+  fields:
+    key:
+      type: string
+      unique: true
+    used:
+      type: boolean
+      options:
+        default: 0
+  oneToMany:
+    translatedTo:
+      targetEntity: EuroMillions\web\entities\TranslationDetail
+      mappedBy: translation

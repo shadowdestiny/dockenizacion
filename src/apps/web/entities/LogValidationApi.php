@@ -22,9 +22,14 @@ class LogValidationApi extends EntityBase implements IEntity
     protected $received;
 
 
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
     public function getId()
     {
-        // TODO: Implement getId() method.
+        return $this->id;
     }
 
 

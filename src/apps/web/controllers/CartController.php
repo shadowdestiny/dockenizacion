@@ -6,8 +6,6 @@ use EuroMillions\web\components\ReCaptchaWrapper;
 use EuroMillions\web\forms\ForgotPasswordForm;
 use EuroMillions\web\forms\SignInForm;
 use EuroMillions\web\forms\SignUpForm;
-use EuroMillions\web\services\AuthService;
-use EuroMillions\web\services\GeoService;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\ActionResult;
 use Phalcon\Validation\Message;
@@ -18,17 +16,6 @@ use Phalcon\Validation\Message;
 
 class CartController extends PublicSiteControllerBase
 {
-    /** @var  AuthService */
-    protected $authService;
-    /** @var  GeoService */
-    private $geoService;
-
-    public function initialize(AuthService $authService = null, GeoService $geoService = null)
-    {
-        parent::initialize();
-        $this->authService = $authService ? $authService : $this->domainServiceFactory->getAuthService();
-        $this->geoService = $geoService ? $geoService : $this->domainServiceFactory->getServiceFactory()->getGeoService();
-    }
 
     public function indexAction($paramsFromPreviousAction = null)
     {
@@ -201,7 +188,8 @@ class CartController extends PublicSiteControllerBase
      */
     private function getSignUpForm()
     {
-        $countries = $this->geoService->countryList();
+        $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
+        $countries = $geoService->countryList();
         sort($countries);
         //key+1, select element from phalcon need index 0 to set empty value
         $countries = array_combine(range(1, count($countries)), array_values($countries));

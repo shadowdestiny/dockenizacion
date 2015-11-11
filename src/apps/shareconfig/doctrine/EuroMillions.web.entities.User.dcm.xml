@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="EuroMillions\web\entities\User" table="users" repository-class="EuroMillions\web\repositories\UserRepository">
+        <id name="id">
+            <generator strategy="UUID"/>
+        </id>
+        <field name="name" type="string"/>
+        <field name="surname" type="string"/>
+        <field name="country" type="string"/>
+        <field name="validated" type="boolean">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+        <field name="street" type="string" nullable="true"/>
+        <field name="zip" type="integer" nullable="true"/>
+        <field name="city" type="string" nullable="true"/>
+        <field name="phone_number" type="integer" nullable="true"/>
+        <field name="jackpot_reminder" type="boolean" nullable="true">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+        <embedded name="jackpot_above" class="Money\Money" use-column-prefix="true" />
+        <embedded name="password" class="EuroMillions\web\vo\Password" use-column-prefix="false"/>
+        <embedded name="email" class="EuroMillions\web\vo\Email" use-column-prefix="false"/>
+        <embedded name="rememberToken" class="EuroMillions\web\vo\RememberToken" use-column-prefix="false"/>
+        <embedded name="validationToken" class="EuroMillions\web\vo\ValidationToken" use-column-prefix="false"/>
+        <embedded name="balance" class="Money\Money" use-column-prefix="true" />
+
+        <one-to-many target-entity="EuroMillions\web\entities\PaymentMethod" mapped-by="payment_method"
+                     field="paymentMethod">
+        </one-to-many>
+        <one-to-many target-entity="EuroMillions\web\entities\PlayConfig" mapped-by="play_config"
+                     field="playConfig">
+        </one-to-many>
+
+
+
+    </entity>
+</doctrine-mapping>

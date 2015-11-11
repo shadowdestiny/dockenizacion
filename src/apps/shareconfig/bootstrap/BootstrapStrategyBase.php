@@ -70,8 +70,7 @@ abstract class BootstrapStrategyBase
     {
         $is_dev_mode = true; //EMDEPLOY hay que pasarlo por configuración. Quizá con el nuevo detector de environment
 
-        //EMTD use path_config by each module
-        $config = Setup::createXMLMetadataConfiguration(array('/var/www/public/../apps/web/config/' . 'doctrine'), $is_dev_mode);
+        $config = Setup::createXMLMetadataConfiguration(array($this->configPath . 'doctrine'), $is_dev_mode);
         $config->setQueryCacheImpl(new ApcCache());
         $config->setMetadataCacheImpl(new ApcCache());
 

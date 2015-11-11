@@ -7,6 +7,9 @@ namespace EuroMillions\admin\vo\dto;
 use EuroMillions\admin\interfaces\IDto;
 use EuroMillions\admin\vo\dto\base\DTOBase;
 use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
+use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
+use EuroMillions\web\vo\EuroMillionsDrawBreakDownData;
 
 class DrawDTO extends DTOBase implements IDto
 {
@@ -19,6 +22,8 @@ class DrawDTO extends DTOBase implements IDto
     public $jackpot;
     public $regular_numbers;
     public $lucky_numbers;
+
+    public $break_down;
 
     public function __construct(EuroMillionsDraw $draw)
     {
@@ -114,10 +119,25 @@ class DrawDTO extends DTOBase implements IDto
         $this->jackpot = $this->draw->getJackpot()->getAmount() /100;
         $this->regular_numbers = $this->draw->getResult()->getRegularNumbersArray();
         $this->lucky_numbers = $this->draw->getResult()->getLuckyNumbersArray();
+        $this->setBreakDown();
     }
 
     public function toArray()
     {
         return $array = json_decode(json_encode($this),TRUE);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getBreakDown()
+    {
+        return $this->break_down;
+    }
+
+    private function setBreakDown()
+    {
+        $this->break_down = new EuroMillionsDrawBreakDownDTO($this->draw->getBreakDown());
+    }
+
 }

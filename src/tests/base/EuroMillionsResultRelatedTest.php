@@ -59,9 +59,7 @@ trait EuroMillionsResultRelatedTest {
             new EuroMillionsLine($r_numbers,$l_numbers),
             new EuroMillionsLine($r_numbers,$l_numbers)
         ];
+
         return $euroMillionsLine;
     }
-
-
-
 }
