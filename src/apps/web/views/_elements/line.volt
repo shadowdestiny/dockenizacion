@@ -5,7 +5,7 @@
 	<div class="combo cols not">
 		<div class="col6 not random"><a class="btn gwy multiplay" href="javascript:void(0);"><svg class="v-shuffle"><use xlink:href="/w/icon.svg#v-shuffle"></use></svg></a></div>
 {# To add later
-		<div class="col6 not"><a class="btn gwy" href="javascript:void(0);"><i class="ico ico-m"></i></a></div>
+		<div class="col6 not"><a class="btn gwy" href="javascript:void(0);"><svg class="ico v-m"><use xlink:href="/w/icon.svg#v-m"></use></svg></a></div>
 #}
 	</div>
 	<div class="values">

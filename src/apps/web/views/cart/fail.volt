@@ -22,7 +22,7 @@
                     </p>
                     <p>
                         <strong>If difficulties persist, please contact our support team.</strong>
-                        <br>                Write us directly at <em><a href="mailto:support@euromillion.com">support@euromillion.com</a></em> and describe in detail your issue. Describe as well what browser and operative system you are using for the operation. Thank you.
+                        <br>Write us directly at <em><a href="mailto:support@euromillion.com">support@euromillion.com</a></em> and describe in detail your issue. Describe as well what browser and operative system you are using for the operation. Thank you.
                     </p>
                 </div>
                 <div class="col3 img"></div>

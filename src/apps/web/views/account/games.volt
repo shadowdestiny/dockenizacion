@@ -23,7 +23,7 @@
                 *Without Data*
 
                 <div class="box info">
-                    <span class="ico ico-info"></span>
+                    <svg class="ico v-info"><use xlink:href="/w/icon.svg#info"></use></svg>
                     <span class="txt">
                         {{ language.translate("You didn't play any games yet.") }} <a href="/play">{{ language.translate("Play now and start to win.") }}</a>
                     </span>
@@ -77,7 +77,7 @@
                                         {{ game.regular_numbers }} <span class="star">{{ game.lucky_numbers }}</span>
                                     </div>
                                 </td>
-                                <td class="action"><a href="javascript:void(0);" class="btn blue">Edit <i class="ico ico-pencil"></i></a> <a href="javascript:void(0);" class="btn red">Delete <i class="ico ico-cross"></i></a></td>
+                                <td class="action"><a href="javascript:void(0);" class="btn blue">Edit <svg class="ico v-pencil"><use xlink:href="/w/icon.svg#pencil"></use></svg></a> <a href="javascript:void(0);" class="btn red">Delete <svg class="ico v-cross"><use xlink:href="/w/icon.svg#cross"></use></svg></a></td>
                             </tr>
                         {% endfor %}
                         </tbody>

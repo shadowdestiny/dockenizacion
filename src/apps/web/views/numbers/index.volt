@@ -28,7 +28,7 @@
 								<ul class="no-li inline numbers">
 								    <li>
 								    	<div class="crown">
-											<svg class="vector"><use xlink:href="#crown"></use></svg>
+											<svg class="vector"><use xlink:href="/w/number.svg#crown"></use></svg>
 								    	</div>
 								    	<span class="num">5</span></li>
 								    <li><span class="num">7</span></li>
@@ -56,10 +56,10 @@
 					<div class="col4">
 						<div class="box-estimated">
 							<div class="laurel first">
-								<svg class="vector"><use xlink:href="#laurel"></use></svg>
+								<svg class="vector"><use xlink:href="/w/number.svg#laurel"></use></svg>
 							</div>
 							<div class="laurel last">
-								<svg class="vector"><use xlink:href="#laurel"></use></svg>
+								<svg class="vector"><use xlink:href="/w/number.svg#laurel"></use></svg>
 							</div>
 							<div class="bg">
 								<a href="javascript:void(0);" class="content">

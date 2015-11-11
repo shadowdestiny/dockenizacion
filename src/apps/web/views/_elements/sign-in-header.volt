@@ -1,6 +1,3 @@
-{# Caching SVG #}
-{% include "_elements/svg.volt" %}
-
 <header data-role="header">
     {% include "_elements/top-bar.volt" %}
 
@@ -18,7 +15,7 @@
                     {% elseif activeSteps.myClass == 'step3' %}
                         step3
                     {% endif %}">
-                    <span class="ico ico-cart"></span>
+                    <svg class="ico v-cart"><use xlink:href="/w/icon.svg#v-cart"></use></svg>
                 </div>
                 <ol class="no-li names cl">
                     <li class="step1 {% if activeSteps.myClass == 'step1' %}active{% endif %}">{{ language.translate("Sign in") }}</li>

@@ -19,5 +19,5 @@
 	<a class="link" href="javascript:void(0);">{{ language.translate('Balance') }}: {{ user_balance }}</a>
 </li>
 <li class="cart">
-	<a class="link" href="/cart"><span class="ico ico-cart"></span> {{ language.translate('Cart') }}</a>
+	<a class="link" href="/cart"><svg class="ico v-cart"><use xlink:href="/w/icon.svg#v-cart"></use></svg> {{ language.translate('Cart') }}</a>
 </li>
