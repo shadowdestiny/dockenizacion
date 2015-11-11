@@ -4,6 +4,7 @@ namespace EuroMillions\sharecomponents\widgets;
 
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\View\Simple as ViewSimple;
+use Phalcon\Mvc\ViewInterface;
 
 class PaginationWidget extends \Phalcon\Mvc\User\Component {
 
@@ -193,5 +194,6 @@ class PaginationWidget extends \Phalcon\Mvc\User\Component {
         $this->_options = array_merge($this->getDefaultOptions(), (array)$options);
         return $this;
     }
+
 }
 ?>

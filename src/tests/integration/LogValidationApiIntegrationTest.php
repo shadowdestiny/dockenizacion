@@ -41,6 +41,7 @@ class LogValidationApiIntegrationTest extends DatabaseIntegrationTestBase
      */
     public function test_add_called_storeCorrectlyeInDatabase()
     {
+
         /** @var Bet $bet */
         $bet = $this->entityManager->find('EuroMillions\web\entities\Bet', 2);
         $log_api_reponse = new LogValidationApi();

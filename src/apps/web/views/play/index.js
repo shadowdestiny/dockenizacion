@@ -250,13 +250,11 @@ function randomCalculation(line, value){
 		shuffle(arr2);
 		$(line+" .values .active").toggleClass('active');
 		for(var i=0; i < 5; i++){
-			var val = Math.floor( Math.random() * arr.length);
-			$(line+" .n"+arr[val]).toggleClass('active');
+			$(line+" .n"+arr[i]).toggleClass('active');
 		}
 
 		for(var i=0; i < 2; i++){
-			var val = Math.floor( Math.random() * arr2.length);
-			$(line+" .s"+arr2[val]).toggleClass('active');
+			$(line+" .s"+arr2[i]).toggleClass('active');
 		}
 	}, delay, repetition, function(){
 		persistRandomNum(line);
