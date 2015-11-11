@@ -53,7 +53,7 @@ class WebLanguageStrategyUnitTest extends UnitTestBase
      */
     public function test_get_calledAndSessionHasNoValue_returnRequestBestLanguageAndSetInSession()
     {
-        $language = 'blablabla';
+        $language = 'en';
         $this->session_double->has(WebLanguageStrategy::LANGUAGE_VAR)->willReturn(false);
         $this->request_double->getBestLanguage()->willReturn($language);
         $this->session_double->set(WebLanguageStrategy::LANGUAGE_VAR, $language)->shouldBeCalled();
