@@ -1,5 +1,10 @@
 @import "variable";
 @import "_elements/with-subnav.scss";
 
-.list{margin-left:20px;}
-.list li{margin-bottom:10px;}
+.list{
+    margin:0 0 1em 20px;
+    li{margin-bottom:5px;}
+}
+.list:last-child{margin-bottom:0;}
+
+.h3{margin-bottom:.5em;}

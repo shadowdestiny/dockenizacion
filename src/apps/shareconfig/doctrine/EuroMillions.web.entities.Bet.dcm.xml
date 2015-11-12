@@ -16,9 +16,11 @@
         </id>
 
         <embedded name="castillo_bet" class="EuroMillions\web\vo\CastilloBetId"/>
+
         <many-to-one field="euromillionsDraw" target-entity="EuroMillions\web\entities\EuroMillionsDraw" >
             <join-column name="euromillions_draw_id" referenced-column-name="id" />
         </many-to-one>
+
         <many-to-one target-entity="EuroMillions\web\entities\PlayConfig" inversed-by="playConfig"
                      field="play_config">
         </many-to-one>

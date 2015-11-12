@@ -44,11 +44,12 @@ class User extends EntityBase implements IEntity, IUser
     protected $jackpot_reminder;
     protected $threshold;
 
-
+    protected $userNotification;
 
     public function __construct(){
         $this->paymentMethod = new ArrayCollection();
         $this->playConfig = new ArrayCollection();
+        $this->userNotification = new ArrayCollection();
     }
 
     /**
