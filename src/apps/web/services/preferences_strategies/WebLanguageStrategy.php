@@ -23,15 +23,14 @@ class WebLanguageStrategy implements ILanguageStrategy
         if ($this->session->has(self::LANGUAGE_VAR)) {
             $language = $this->session->get(self::LANGUAGE_VAR);
         } else {
-//EMTD reactivate language detection when we need it.
-//            $language = $this->request->getBestLanguage();
-//            $has_hyphen = strpos($language, '-');
-//            if ($has_hyphen !== false) {
-//                $language = substr($language, 0, $has_hyphen);
-//            }
-//            if (!$language) {
+            $language = $this->request->getBestLanguage();
+            $has_hyphen = strpos($language, '-');
+            if ($has_hyphen !== false) {
+                $language = substr($language, 0, $has_hyphen);
+            }
+            if (!$language) {
                 $language = 'en';
-//            }
+            }
             $this->session->set(self::LANGUAGE_VAR, $language);
         }
         return $language;

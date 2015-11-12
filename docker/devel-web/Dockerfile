@@ -1,7 +1,5 @@
-FROM antonienko/phalcon2-apache2:v1.0
+FROM antonienko/phalcon2-apache2:v2.0
 MAINTAINER Antonio Hernández "antonio.hernandez@panamedia.net"
-
-RUN crontab var/www/global_config/crontab.txt
 
 RUN echo "INSTALLING LOCALES"
 

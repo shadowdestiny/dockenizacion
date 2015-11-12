@@ -40,7 +40,9 @@
                      field="playConfig">
         </one-to-many>
 
-
+        <one-to-many target-entity="EuroMillions\web\entities\UsersNotifications" mapped-by="user_notification"
+                     field="userNotification">
+        </one-to-many>
 
     </entity>
 </doctrine-mapping>

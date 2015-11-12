@@ -3,7 +3,6 @@ namespace EuroMillions\web\services;
 
 use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\entities\Language;
-use EuroMillions\web\exceptions\InvalidLanguageException;
 use EuroMillions\web\interfaces\ILanguageStrategy;
 use EuroMillions\web\repositories\LanguageRepository;
 
@@ -47,7 +46,7 @@ class LanguageService
         /** @var Language $language_entity */
         $language_entity = $this->languageRepository->getActiveLanguage($language_code);
         if (!$language_entity) {
-            throw new InvalidLanguageException("There's no active language with ccode $language_code");
+            $language_entity = $this->languageRepository->findOneBy(['ccode' => 'en']);
         }
         return $language_entity->getDefaultLocale();
     }

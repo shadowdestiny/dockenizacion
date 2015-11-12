@@ -1,6 +1,7 @@
 <?php
 namespace tests\unit;
 
+use EuroMillions\web\entities\Language;
 use EuroMillions\web\services\LanguageService;
 use Phalcon\Di;
 use Prophecy\Argument;
@@ -35,17 +36,21 @@ class LanguageServiceUnitTest extends UnitTestBase
 
     /**
      * method getLocale
-     * when calledWithNonExistingLanguage
-     * should throw
+     * when languageCodeNotFoundOnDatabase
+     * should returnEnLocale
      */
-    public function test_getLocale_calledWithNonExistingLanguage_throw()
+    public function test_getLocale_languageCodeNotFoundOnDatabase_returnEnLocale()
     {
-        $language = 'azofaifo';
+        $language = 'non_existing';
+        $default_locale = 'lsdflksj';
+        $language_entity = new Language();
+        $language_entity->setDefaultLocale($default_locale);
         $this->languageStrategy_double->get()->willReturn($language);
         $this->languageRepository_double->getActiveLanguage($language)->willReturn(null);
-        $this->setExpectedException($this->getExceptionToArgument('InvalidLanguageException'));
+        $this->languageRepository_double->findOneBy(['ccode'=>'en'])->willReturn($language_entity);
         $sut = $this->getSut();
-        $sut->getLocale();
+        $actual = $sut->getLocale();
+        $this->assertEquals($default_locale, $actual);
     }
 
     protected function getSut()
