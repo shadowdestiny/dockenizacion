@@ -75,7 +75,7 @@ function removeColumnInLocalStorage(column){
 }
 
 function checkMark(arrayCount){
-	obj = $(".num"+arrayCount+" .ico-checkmark");
+	obj = $(".num"+arrayCount+" .v-checkmark");
 
 	if(numberCount[arrayCount] == maxNumbers && starCount[arrayCount] == maxStars){
 		obj.show();
@@ -352,7 +352,7 @@ function newLine(){
 function checkFillColumns(){
 	var fill = true;
 	$(".box-lines .myCol").each(function(){
-		var checkMark = $(this).find('.line .ico-checkmark').is(':visible');
+		var checkMark = $(this).find('.line .v-checkmark').is(':visible');
 		if(!checkMark){
 			fill = false;
 		}
@@ -451,7 +451,7 @@ function addColumn(position){
 		if($(this).hasClass('active')){
 			$(this).removeClass('active');
 		}
-		if($(this).hasClass('ico-checkmark')){
+		if($(this).hasClass('v-checkmark')){
 			$(this).hide();
 		}
 		playLine('.myCol .num'+index+' .numbers .btn','numbers');
@@ -559,7 +559,7 @@ function disableSelect(target, disable, activate, input, inputParent, select){ /
 
 $(function(){
 	playLine('.numbers .btn', "number");
-	playLine('.stars .ico-star-out', "star");
+	playLine('.stars .ico', "star");
 	randomNum(".random");
 	clearNum(".clear");
 	randomAll(".random-all");
@@ -612,6 +612,18 @@ $(function(){
 				}
 			})
 		}
+
+
+		day_of_week = filter.split(',').length;
+		var txt_frequency = '';
+		var val_frequency = $('.frequency').find(":selected").val();
+		txt_frequency = val_frequency + ' week (Draws: ' + (val_frequency * day_of_week) + ' )';
+		$('.select-txt').eq(2).text(txt_frequency);
+		$(".frequency > option").each(function() {
+			val_frequency = $(this).val();
+			txt_frequency = val_frequency + ' week (Draws: ' + (val_frequency * day_of_week) + ' )';
+			$(this).text(txt_frequency);
+		});
 		redrawTotalCost();
 	});
 

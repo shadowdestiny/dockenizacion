@@ -46,7 +46,10 @@
 					<li><a href="">{{ language.translate('News') }}</a></li>
 					<li><a href="">{{ language.translate('About us') }}</a></li>
 					<li><a href="">{{ language.translate('Terms &amp; Conditions') }}</a></li>
-					<li><a href="">{{ language.translate('Legal info') }}</a></li>
+					<li><a href="">{{ language.translate('Legal Info') }}</a></li>
+					<li><a href="/legal/cookies">{{ language.translate('Cookies Info') }}</a></li>
+
+
 {# Future links
 					<!--<li><a href="javascript:void(0);">Affiliate Program</a></li>-->
 #}
@@ -58,9 +61,9 @@
 		<div class="wrapper">
 			<div class="social">
 				<ul>
-					<li class="fb"><a href="javascript:void(0);"><i class="ico ico-facebook"></i><span class="txt">{{ language.translate('Facebook') }}</span></a></li>
-					<li class="gp"><a href="javascript:void(0);"><i class="ico ico-google-plus"></i><span class="txt">{{ language.translate('Google +') }}</span></a></li>
-					<li class="tw"><a href="javascript:void(0);"><i class="ico ico-twitter"></i><span class="txt">{{ language.translate('Twitter') }}</span></a></li>
+					<li class="fb"><a href="javascript:void(0);"><svg class="ico v-facebook"><use xlink:href="/w/icon.svg#v-facebook"></use></svg><span class="txt">{{ language.translate('Facebook') }}</span></a></li>
+					<li class="gp"><a href="javascript:void(0);"><svg class="ico v-google-plus"><use xlink:href="/w/icon.svg#v-google-plus"></use></svg><span class="txt">{{ language.translate('Google +') }}</span></a></li>
+					<li class="tw"><a href="javascript:void(0);"><svg class="ico v-twitter"><use xlink:href="/w/icon.svg#v-twitter"></use></svg><span class="txt">{{ language.translate('Twitter') }}</span></a></li>
 				</ul>
 			</div>
 			<a href="javascript:void(0);" class="small-logo" title="Go to Homepage">

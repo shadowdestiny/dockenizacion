@@ -8,7 +8,6 @@
     #}
         {% include "_elements/js-lib.volt" %} {# JS libraries #}
 
-
         {# CSS Compress this css in a single file #}
         <link rel="stylesheet" href="/w/css/main.css">
         {% block template_css %}{% endblock %}      {# Inject unique css #}
@@ -20,6 +19,9 @@
     </head>
 
 	<body class="{% block bodyClass %}{% endblock %}">
+        {# Caching SVG   (NOT USED ANYMORE, I AM KEEPING IT HERE FOR REFERENCE UNTIL SPRINT 7)
+        {% include "_elements/svg.volt" %} #}
+
         {% block modal %}{% endblock %}
 
         <div data-role="page" id="main-page">

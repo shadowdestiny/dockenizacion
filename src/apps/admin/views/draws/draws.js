@@ -37,6 +37,7 @@ var ajaxFunctions = {
                         $tr += '<a href="javascript:void(0)" data-id='+v.id+' class="btn btn-primary">Edit</a>';
                         $tr += '</td>';
                         $tr += '</tr>';
+
                     });
                     $('.table tbody').html('');
                     $('.table tbody').append($tr);
@@ -65,6 +66,16 @@ var ajaxFunctions = {
                     $('#update-star-number').val(model.value.lucky_numbers);
                     $('#update-value').val(model.value.jackpot);
                     $('#id_draw').val(model.value.id);
+                    $tr = '';
+                    $.each(model.value.break_down,function(i,v){
+                        $tr += '<tr>';
+                        $tr += '<td class="match"><strong>'+ v.name+ '</strong></td>';
+                        $tr += '<td class="prize"><span class="value">&euro;</span> <input type="text" class="input" value="'+ v.lottery_prize+'"></td>';
+                        $tr += '<td class="winners"><input type="text" class="input" value="'+v.winners+'"></td>';
+                        $tr += '</tr>';
+                    });
+                    $('.table-breakdown tbody').html('');
+                    $('.table-breakdown tbody').append($tr);
                 } else {
                     $('.alert-danger').show();
                 }
@@ -108,6 +119,20 @@ var ajaxFunctions = {
             error: function( xhr,status,errorThrown) {
                 $('.alert-danger strong').text('An error ocurred');
                 $('.alert-danger').show();
+            },
+        });
+    },
+    editDraw: function(params){
+        $.ajax({
+            url: '/admin/draws/editBreakDown/',
+            data: params,
+            type: 'POST',
+            dataType: 'json',
+            success: function(model) {
+
+            },
+            error: function(xhr,status,errorThrown) {
+
             },
         });
     }

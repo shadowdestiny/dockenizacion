@@ -53,7 +53,6 @@ img.right{margin:0 0 15px 10px;}
 .hidden2{position:absolute; left:-9999px; top:-9999px; line-height:0;}
 
 /* RESET UI */
-
 #main-page > .ui-content{padding:0;}
 .ui-checkbox{margin:0; height:auto; position:relative;}
 .ui-checkbox label{padding:0; overflow:none;}
@@ -66,6 +65,9 @@ body .ui-mobile .ui-page-active, body .ui-content, body #content{overflow:unset!
 .cl:before, .cl:after, .wrapper:before, .wrapper:after, .btn:before, .btn:after, .box:before, .box:after{content:" "; display:table;}
 .cl:after, .wrapper:after, .btn:after, .box:after{clear:both;}
 .cl, .wrapper, .btn, .box{*zoom:1;} /* IE6/7 */
+
+/* VECTOR */
+[class^="v-"], [class*=" v-"]{display:inline-block; fill:currentcolor; height:1em; width:1em;}
 
 /* FORM ELEMENTS */
 .input, .select, .textarea{font-family:$basic-font; padding:8px; background:$yellow-lighter; border:1px solid $grey;}
@@ -87,7 +89,7 @@ label.submit{cursor:pointer;}
 .box .ico{width:34px; float:left;}
 .box .txt{display:block; font-size:$h4; margin:0 0 0 34px!important;}
 .box.error{border:1px solid $red; background:$bg-red; color:$red; font-size:$h4;}
-.box.error .ico-warning{font-size:21px;}
+.box.error .v-warning{font-size:21px;}
 .box.success{border:1px solid $green-dark; background:$bg-green; color:$green-dark;}
 .box.info{
   border:1px solid $yellow; border-radius:5px; font-weight:normal; font-style:italic; font-size:basic-size;
@@ -108,6 +110,7 @@ label.submit{cursor:pointer;}
   transition:background-color 0.3s,color 0.3s,border 0.3s, box-shadow 0.1s; display:inline-block; padding:5px 12px; text-decoration:none; font-size:$basic-size; border-radius:5px; font-weight:bold; border:1px solid #777; color:#fff; background:#aaa; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);
   @include background-image(linear-gradient(#cccccc, #777777));
 }
+.btn .ico{position:relative; top:2px;}
 .btn.expand{width:100%;}
 .btn.expand .ico{float:right; line-height:20px;}
 .btn:hover, .btn:focus{text-shadow:0 0 0 transparent; background:#fff; color:#777;}
@@ -220,7 +223,7 @@ label.submit{cursor:pointer;}
 .back-top a{
   float:right; margin:-0.5em 0 1.5em; text-decoration:none; font-size:$basic-size;
   &:hover, &:focus{color:$blue-dark;}
-  .ico{font-size:12px; margin-right:3px;}
+  .ico{position:relative; top:1px; font-size:12px; margin-right:3px;}
 }
 
 /* ANIMATION */
@@ -303,7 +306,7 @@ body, .submit{font-family:$basic-font;}
 
 .top-nav{position:relative; min-height:28px; background:#ae5279; z-index:10;}
 .top-nav .link{font-size:75%;}
-.top-nav .ico-cart{font-size:16px; position:relative; top:2px; margin-right:2px;}
+.top-nav .v-cart{font-size:16px; position:relative; top:3px; margin-right:2px;}
 .ul-top-nav > li{float:right;}
 .ul-top-nav > li:before{display:block; content:"\00b7"; color:#fff; float:right; line-height:28px; margin-right:-2px;} // &middot;  
 .ul-top-nav > li:first-child:before{display:none;}
@@ -322,7 +325,7 @@ body, .submit{font-family:$basic-font;}
 .main-nav{float:right; margin-bottom:-1px; border-left:1px solid $yellow;}
 .main-nav li{float:left; border-right:1px solid $yellow; position:relative;}
 .main-nav li:last-child{margin:0;}
-.main-nav .ico-cart{display:inline-block; color:$black; margin-top:4px;}
+.main-nav .v-cart{display:inline-block; color:$black; margin-top:4px;}
 .main-nav a{display:block; padding:15px 20px; transition:background 0.2s ease, color 0.15s ease;}
 .main-nav > span{display:block;}
 .main-nav .link{font-size:75%; text-decoration:none!important;}
@@ -340,9 +343,9 @@ body, .submit{font-family:$basic-font;}
 .desktop{
   .li-your-account:hover > a, .li-your-account:hover .txt{color:#fff;}
 }
-.main-nav a:hover .ico-cart, .main-nav .active .ico-cart, .main-nav .active .link, .main-nav .active .txt, .main-nav a:hover, .main-nav a:hover .txt{color:#fff;}
+.main-nav a:hover .v-cart, .main-nav .active .v-cart, .main-nav .active .link, .main-nav .active .txt, .main-nav a:hover, .main-nav a:hover .txt{color:#fff;}
 
-.main-nav .txt, .main-nav .ico-cart{transition:color 0.1s ease;}
+.main-nav .txt, .main-nav .v-cart{transition:color 0.1s ease;}
 .main-nav li:hover{border-right:1px solid transparent;} /* erase yellow border */
 .main-nav .subnav{
   position:absolute; z-index:1; background:#fff; width:101%; border:1px solid $yellow; border-top:0;
@@ -368,7 +371,7 @@ body, .submit{font-family:$basic-font;}
 
 .social{float:right;}
 .social a{display:block; text-align:center; font-size:115%; width:34px; height:34px;}
-.social .ico{color:#fff; line-height:34px;}
+.social .ico{color:#fff; line-height:34px; height:34px; margin:auto;}
 
 .fb, .gp, .tw{border-radius:17px;}
 .fb{background:#436fb5;}

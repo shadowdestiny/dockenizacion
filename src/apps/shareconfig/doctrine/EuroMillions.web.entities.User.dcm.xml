@@ -26,7 +26,7 @@
                 <option name="default">0</option>
             </options>
         </field>
-        <embedded name="jackpot_above" class="Money\Money" use-column-prefix="true" />
+        <embedded name="threshold" class="Money\Money" use-column-prefix="true" />
         <embedded name="password" class="EuroMillions\web\vo\Password" use-column-prefix="false"/>
         <embedded name="email" class="EuroMillions\web\vo\Email" use-column-prefix="false"/>
         <embedded name="rememberToken" class="EuroMillions\web\vo\RememberToken" use-column-prefix="false"/>

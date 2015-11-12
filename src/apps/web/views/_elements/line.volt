@@ -1,11 +1,11 @@
 <h1 class="h3 blue center">{{ language.translate("Line") }} {{ showIndex }}</h1>
 <div class="line center">
-		<i class="ico ico-checkmark"></i>
+		<svg class="ico v-checkmark"><use xlink:href="/w/icon.svg#v-checkmark"></use></svg>
 
 	<div class="combo cols not">
-		<div class="col6 not random"><a class="btn gwy multiplay" href="javascript:void(0);"><i class="ico ico-shuffle"></i></a></div>
+		<div class="col6 not random"><a class="btn gwy multiplay" href="javascript:void(0);"><svg class="v-shuffle"><use xlink:href="/w/icon.svg#v-shuffle"></use></svg></a></div>
 {# To add later
-		<div class="col6 not"><a class="btn gwy" href="javascript:void(0);"><i class="ico ico-m"></i></a></div>
+		<div class="col6 not"><a class="btn gwy" href="javascript:void(0);"><svg class="ico v-m"><use xlink:href="/w/icon.svg#v-m"></use></svg></a></div>
 #}
 	</div>
 	<div class="values">
@@ -80,27 +80,28 @@
 				<li class="col20per not"><a class="btn gwp n49" href="javascript:void(0);">49</a></li>
 				<li class="col20per not"><a class="btn gwp n50" href="javascript:void(0);">50</a></li>
 			</ol>
-
 		</div>
 		<div class="stars">
 			<ol class="no-li cols not">
-				<li class="col3 not"><a class="ico ico-star-out s1" href="javascript:void(0);"><span class="txt">1</span></a></li>
-				<li class="col3 not"><a class="ico ico-star-out s2" href="javascript:void(0);"><span class="txt">2</span></a></li>
-				<li class="col3 not"><a class="ico ico-star-out s3" href="javascript:void(0);"><span class="txt">3</span></a></li>
-				<li class="col3 not"><a class="ico ico-star-out s4" href="javascript:void(0);"><span class="txt">4</span></a></li>
+				<li class="col3 not">
+            		<a href="javascript:void(0);" class="ico s1">{% include "play/_star.volt" %}<span class="txt">1</span></a>
+				</li>
+				<li class="col3 not"><a class="ico s2" href="javascript:void(0);">{% include "play/_star.volt" %}<span class="txt">2</span></a></li>
+				<li class="col3 not"><a class="ico s3" href="javascript:void(0);">{% include "play/_star.volt" %}<span class="txt">3</span></a></li>
+				<li class="col3 not"><a class="ico s4" href="javascript:void(0);">{% include "play/_star.volt" %}<span class="txt">4</span></a></li>
 			</ol>
 			<ol class="no-li cols extra-pad not">
-				<li class="col4 not"><a class="ico ico-star-out s5" href="javascript:void(0);"><span class="txt">5</span></a></li>
-				<li class="col4 not"><a class="ico ico-star-out s6" href="javascript:void(0);"><span class="txt">6</span></a></li>
-				<li class="col4 not"><a class="ico ico-star-out s7" href="javascript:void(0);"><span class="txt">7</span></a></li>
+				<li class="col4 not"><a class="ico s5" href="javascript:void(0);">{% include "play/_star.volt" %}<span class="txt">5</span></a></li>
+				<li class="col4 not"><a class="ico s6" href="javascript:void(0);">{% include "play/_star.volt" %}<span class="txt">6</span></a></li>
+				<li class="col4 not"><a class="ico s7" href="javascript:void(0);">{% include "play/_star.volt" %}<span class="txt">7</span></a></li>
 			</ol>
 			<ol class="no-li cols not">
-				<li class="col3 not"><a class="ico ico-star-out s8" href="javascript:void(0);"><span class="txt">8</span></a></li>
-				<li class="col3 not"><a class="ico ico-star-out s9" href="javascript:void(0);"><span class="txt">9</span></a></li>
-				<li class="col3 not"><a class="ico ico-star-out s10" href="javascript:void(0);"><span class="txt">10</span></a></li>
-				<li class="col3 not"><a class="ico ico-star-out s11" href="javascript:void(0);"><span class="txt">11</span></a></li>
+				<li class="col3 not"><a class="ico s8" href="javascript:void(0);">{% include "play/_star.volt" %}<span class="txt">8</span></a></li>
+				<li class="col3 not"><a class="ico s9" href="javascript:void(0);">{% include "play/_star.volt" %}<span class="txt">9</span></a></li>
+				<li class="col3 not"><a class="ico s10" href="javascript:void(0);">{% include "play/_star.volt" %}<span class="txt">10</span></a></li>
+				<li class="col3 not"><a class="ico s11" href="javascript:void(0);">{% include "play/_star.volt" %}<span class="txt">11</span></a></li>
 			</ol>
 		</div>
 	</div>
-	<a class="clear btn gwr" href="javascript:void(0);">{{ language.translate("Clear") }} <i class="ico ico-cross"></i></a>
+	<a class="clear btn gwr" href="javascript:void(0);">{{ language.translate("Clear") }} <svg class="ico v-cross"><use xlink:href="/w/icon.svg#v-cross"></use></svg></a>
 </div>

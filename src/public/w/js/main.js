@@ -117,6 +117,15 @@ function selectFix(){ // Style the "Select"
     }
 }
 
+function count_down(element,html_formatted,date) {
+    element.countdown(date).
+        on('update.countdown', function(event){
+            $(this).html(event.strftime(html_formatted));
+        }).on('finish.countdown',function(event){
+            $(this).html("{{language.translate('Draw closed')}}").parent().addClass('disabled');
+        });
+    //visit: http://hilios.github.io/jQuery.countdown/ to formatted html result
+}
 $(function(){
 	checkSize();
 	$(window).resize(checkSize);
@@ -124,13 +133,13 @@ $(function(){
     selectFix();
 
     /* EDMTD it should be applied only on mobile devices */
+/*
     var attachFastClick = Origami.fastclick;
     attachFastClick(document.body); // It removes the delay of 300ms on mobile browsers because of double tap
-
+*/
 	$(".menu-ham").click(function(){
 		$(this).toggleClass('expanded').siblings('ul').slideToggle().toggleClass('open');
 	});
-
 });
 
 

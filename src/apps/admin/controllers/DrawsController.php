@@ -79,6 +79,7 @@ class DrawsController extends AdminControllerBase
             $result_draws = $this->maintenanceDrawService->getAllDrawsByLottery('EuroMillions');
             $list_draws_dto = [];
             if($result_draws->success()){
+                /** @var EuroMillionsDraw $draw */
                 foreach($result_draws->getValues() as $draw) {
                     $list_draws_dto[] = new DrawDTO($draw);
                 }
@@ -131,6 +132,11 @@ class DrawsController extends AdminControllerBase
                         'result' => 'KO'
             ]);
         }
+    }
+
+    public function editBreakDownAction()
+    {
+
     }
 
 }

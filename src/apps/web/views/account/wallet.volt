@@ -120,7 +120,7 @@ $(function(){
                         </tr> #}
 
                 <div class="info box">
-                    <i class="ico ico-info"></i>
+                    <svg class="ico v-info"><use xlink:href="/w/icon.svg#info"></use></svg>
                     <span class="txt">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</span>
                     <a href="javascript:void(0)" class="new-card btn gwy">{{ language.translate("Add a new Credit Card") }}</a>
                 </div>
@@ -143,7 +143,7 @@ $(function(){
                 <hr class="yellow">
 
                 <div class="info box box-congrats">
-                    <i class="ico ico-info"></i>
+                    <svg class="ico v-info"><use xlink:href="/w/icon.svg#info"></use></svg>
                     <span class="txt"><span class="congrats">{{ language.translate("Congratulations!!! You won &euro; 100.000") }}</span> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</span>
                 </div>
 
@@ -190,7 +190,7 @@ $(function(){
                 </div>
 
                 <div class="info box">
-                    <i class="ico ico-info"></i>
+                    <svg class="ico v-info"><use xlink:href="/w/icon.svg#info"></use></svg>
                     <span class="txt">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</span>
                     <a href="javascript:void(0)" class="new-bank btn gwy">{{ language.translate("Add a new Bank Account") }}</a>                
                 </div>

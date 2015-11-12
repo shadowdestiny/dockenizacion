@@ -33,13 +33,13 @@ $(function(){
                 {{ form('account/index') }}
                     {% if msg %}
                         <div class="box success">
-                            <span class="ico-checkmark ico"></span>
+                            <svg class="ico v-checkmark"><use xlink:href="/w/icon.svg#checkmark"></use></svg>
                             <span class="txt">{{ msg }}</span>
                         </div>
                     {% endif %}
                     {% if  errors %}
                         <div class="box error">
-                            <span class="ico-warning ico"></span>
+                            <svg class="ico v-warning"><use xlink:href="/w/icon.svg#warning"></use></svg>
                             <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
                         </div>
                     {% endif %}

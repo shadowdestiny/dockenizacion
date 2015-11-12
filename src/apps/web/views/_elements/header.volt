@@ -1,9 +1,5 @@
 {# EMTD To insert *burger* for  mobile version #}
 
-{# Caching SVG #}
-
-{% include "_elements/svg.volt" %}
-
 <header data-role="header">
 	{% include "_elements/top-bar.volt" %}
 	<div class="head">
