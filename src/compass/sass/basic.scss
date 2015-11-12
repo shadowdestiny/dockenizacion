@@ -394,6 +394,12 @@ body, .submit{font-family:$basic-font;}
 .my-right{right:-100%; padding-left:15px;}
 .my-left h1{margin-bottom:.5em;}
 
+/* COOKIES */
+.box-cookies{
+  float:left; color:#eee; font-size:$small; line-height:28px;
+  .lnk{color:#eee;}
+}
+
 /* SPRITES */
 .sprite{display:block; width:75px; height:75px; background: url(../img/sprite.png) no-repeat 0 0;} /* Basic sprite size of @1x is 270x220px */
 .visa, .visa:hover{background-position:-50px 0; border:1px solid #bbb;} 
@@ -442,7 +448,7 @@ body, .submit{font-family:$basic-font;}
 }
 
 @media only screen and (min-width:769px){
-#content{background:url(../img/bg.jpg) no-repeat 50% 0; background-size:cover; overflow:hidden; text-align:left; padding-top:25px;}
+#content{background:url(../img/bg.jpg) no-repeat 50% 0; background-size:cover; background-attachment:fixed; overflow:hidden; text-align:left; padding-top:25px;}
 }
 
 /* Small Devices, Tablets */
