@@ -12,7 +12,6 @@
 <script>
 var checkWinSize = 0;
 function checkWin(){
-	console.log("media="+ $(".media").width());
 	var temp = checkWinSize;
 	if($(".media").width() > 1){
 		checkWinSize = 1;
@@ -20,23 +19,11 @@ function checkWin(){
 		checkWinSize = 0;
 	}
 	if(checkWinSize != temp){
-		console.log("different")
 		$("#win[style]").removeAttr("style").addClass("fix-modal");
 	}
 }
 
 $(function(){
-	$('.box-prize .time').countdown('{{ date_to_draw }}')
-	.on('update.countdown', function(event){
-		var format = '%-Hh %-Mm %-Ss';
-		if(event.offset.days > 0){
-			format = '%-dd ' + format;
-		}
-		$(this).html(event.strftime(format));
-	}).on('finish.countdown', function(event){
-		$(this).html("{{language.translate('Draw closed')}}").parent().addClass('disabled');
-	});
-
     $("#win").easyModal({
 	    top:100,
 	    autoOpen:true,
@@ -46,6 +33,11 @@ $(function(){
 	    transitionOut:'animated fadeOut'
     });
     $(window).resize(checkWin); //fix alignment of the popup when resized
+	//countdown
+	var element = $('.box-prize .time');
+	var html_formatted = '%-dd%!d %-Hh %-Mm %-Ss';
+	var date = '{{ date_to_draw }}';
+	count_down(element,html_formatted,date);
 });
 </script>
 {% endblock %}
@@ -285,7 +277,7 @@ $(function(){
 				</div>
 				<div class="box-action">
 					<span class="h2 phrase">Winning starts by saying to yourself,<br class="mobile"> "One day I’m going to win."</span>
-					<a href="/play}"  class="btn blue">Play. Dare to dream. Win.</a>
+					<a href="/play"  class="btn blue">Play. Dare to dream. Win.</a>
 				</div>
 			</div>
 

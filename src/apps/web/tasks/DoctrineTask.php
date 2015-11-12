@@ -1,5 +1,7 @@
 <?php
-use EuroMillions\web\tasks;
+
+namespace EuroMillions\web\tasks;
+
 use Doctrine\ORM\EntityManager;
 use Phalcon\CLI\Task;
 

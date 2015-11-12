@@ -38,7 +38,6 @@ var ajaxFunctions = {
                         $tr += '</td>';
                         $tr += '</tr>';
 
-
                     });
                     $('.table tbody').html('');
                     $('.table tbody').append($tr);
@@ -120,6 +119,20 @@ var ajaxFunctions = {
             error: function( xhr,status,errorThrown) {
                 $('.alert-danger strong').text('An error ocurred');
                 $('.alert-danger').show();
+            },
+        });
+    },
+    editDraw: function(params){
+        $.ajax({
+            url: '/admin/draws/editBreakDown/',
+            data: params,
+            type: 'POST',
+            dataType: 'json',
+            success: function(model) {
+
+            },
+            error: function(xhr,status,errorThrown) {
+
             },
         });
     }
