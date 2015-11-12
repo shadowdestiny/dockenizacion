@@ -78,7 +78,7 @@
 								</label>
 								<div class="styled-select">
 									<div class="select-txt"></div>
-									<select  autocomplete="off"  class="draw_days mySelect">
+									<select autocomplete="off" class="draw_days mySelect">
 										<option value="2,5">{{ language.translate("Tuesday & Friday") }}</option>
 										<option value="2" {% if next_draw == 2 %} selected {% endif %}>{{ language.translate("Tuesday") }}</option>
 										<option value="5" {% if next_draw == 5 %} selected {% endif %}>{{ language.translate("Friday") }}</option>
