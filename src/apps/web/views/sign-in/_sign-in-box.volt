@@ -28,10 +28,9 @@
                         <div id="one" class="tab-content{% if which_form == 'in' %} active{% endif %}">
                             {# DO NOT DELETE - Facebook connect
                             <div class="connect">
-                                <a href="#" class="btn blue big"><span class="ico ico-facebook"></span> {{ language.translate("Log in with Facebook") }}</a>
-                                <a href="#" class="btn red big"><span class="ico ico-google-plus"></span> {{ language.translate("Log in with Google") }}</a>
+                                <a href="#" class="btn blue big"><svg class="ico v-facebook"><use xlink:href="/w/icon.svg#v-facebook"></use></svg> {{ language.translate("Log in with Facebook") }}</a>
+                                <a href="#" class="btn red big"><svg class="ico v-google-plus"><use xlink:href="/w/icon.svg#v-google-plus"></use></svg></span> {{ language.translate("Log in with Google") }}</a>
                             </div>
-
 
                             <div class="separator">
                                 <hr class="hr">
@@ -43,7 +42,7 @@
 
                             {% if  which_form == 'in' and errors %}
                                 <div class="box error">
-                                    <span class="ico-warning ico"></span>
+                                    <svg class="ico v-warning"><use xlink:href="/w/icon.svg#v-warning"></use></svg>
                                     <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
                                 </div>
                             {% endif %}
@@ -66,7 +65,7 @@
                             </div>
                             <div class="cl">
                                 <input id="go" type="submit" class="hidden2" />
-                                <label for="go" class="submit btn big blue">Log in to a secure server <span class="ico ico-arrow-right"></span></label>
+                                <label for="go" class="submit btn big blue">Log in to a secure server <svg class="ico v-right"><use xlink:href="/w/icon.svg#v-right"></use></svg></label>
                             </div>
                             {{ endform() }}
                         </div>
@@ -74,8 +73,8 @@
                         <div id="two" class="tab-content{% if which_form == 'up' %} active{% endif %}">
                             {# DO NOT DELETE - Facebook connect
                             <div class="connect">
-                                <a href="#" class="btn blue big"><span class="ico ico-facebook"></span>{{ language.translate("Connect with Facebook") }}</a>
-                                <a href="#" class="btn red big"><span class="ico ico-google-plus"></span> {{ language.translate("Connect with Google") }}</a>
+                                <a href="#" class="btn blue big"><svg class="ico v-facebook"><use xlink:href="/w/icon.svg#v-facebook"></use></svg> {{ language.translate("Log in with Facebook") }}</a>
+                                <a href="#" class="btn red big"><svg class="ico v-google-plus"><use xlink:href="/w/icon.svg#v-google-plus"></use></svg></span> {{ language.translate("Log in with Google") }}</a>
                             </div>
 
                             <div class="separator">
@@ -88,7 +87,7 @@
 
                             {% if  which_form == 'up' and errors %}
                                 <div class="box error">
-                                    <span class="ico-warning ico"></span>
+                                    <svg class="ico v-warning"><use xlink:href="/w/icon.svg#v-warning"></use></svg>
                                     <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
                                 </div>
                             {% endif %}
@@ -104,7 +103,7 @@
 
                                 <div class="cl">
                                     <input id="goSignUp" type="submit" class="hidden2" />
-                                    <label for="goSignUp" class="submit btn big blue">Connect to a secure server <span class="ico ico-arrow-right"></span></label>
+                                    <label for="goSignUp" class="submit btn big blue">Connect to a secure server <svg class="ico v-arrow-right"><use xlink:href="/w/icon.svg#v-arrow-right"></use></svg></label>
                                 </div>
                             {{ endform() }}
                         </div>
