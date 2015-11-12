@@ -12,7 +12,16 @@
 	{% include "_elements/header.volt" %}
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
-
+{% block template_scripts %}
+<script>
+$(function(){
+	var element = $('.countdown');
+	var html_formatted = element.html();
+	var date = '{{ date_draw }}';
+	count_down(element,html_formatted,date)
+});
+</script>
+{% endblock %}
 {% block body %}
 <main id="content">
 	<div class="wrapper">
@@ -26,17 +35,20 @@
 								<h2 class="h2"><span class="purple">Last Draw</span> Friday, 03 Jul 2015</h2>
 
 								<ul class="no-li inline numbers">
-								    <li>
-								    	<div class="crown">
-											<svg class="vector"><use xlink:href="/w/number.svg#crown"></use></svg>
-								    	</div>
-								    	<span class="num">5</span></li>
-								    <li><span class="num">7</span></li>
-								    <li><span class="num">11</span></li>
-								    <li><span class="num">28</span></li>
-								    <li><span class="num">40</span></li>
-								    <li class="star"><span class="num">7</span><span class="txt">Star ball</span></li>
-								    <li class="star"><span class="num">10</span><span class="txt">Star ball</span></li>
+									{% for index,regular_number in last_result["regular_numbers"] %}
+										{% if index == '0'%}
+											<li>
+											<div class="crown">
+												<svg class="vector"><use xlink:href="/w/number.svg#crown"></use></svg>
+											</div>
+												<span class="num">{{ regular_number }}</span></li>
+										{% else %}
+											<li><span class="num">{{ regular_number }}</span></li>
+										{% endif %}
+									{% endfor %}
+									{% for lucky_number in last_result["lucky_numbers"] %}
+										<li class="star"><span class="num">{{ lucky_number }}</span><span class="txt">Star ball</span></li>
+									{% endfor %}
 								</ul>
 
 	{#
@@ -62,7 +74,6 @@
 								<svg class="vector"><use xlink:href="/w/number.svg#laurel"></use></svg>
 							</div>
 							<div class="bg">
-								<a href="javascript:void(0);" class="content">
 									<h1 class="h3">Estimated jackpot</h1>
 
 									{% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
@@ -72,21 +83,21 @@
                                     	<div class="countdown">
 		                                    <span class="next-draw"><span class="txt-one">Next</span><br class="br">Draw</span>
 		                                    <div class="day unit">
-		                                    	<span class="val">1</span>
-		                                    	<span class="txt">day</span>
+		                                    	<span class="val">%-d</span>
+		                                    	<span class="txt">day%!d</span>
 		                                    </div>
 		                                    <div class="dots">:</div>
 		                                    <div class="hour unit">
-		                                    	<span class="val">15</span>
-		                                    	<span class="txt">hours</span>
+		                                    	<span class="val">%H</span>
+		                                    	<span class="txt">hr</span>
 			                                </div>
 		                                    <div class="dots">:</div>
 		                                    <div class="minute unit">
-		                                    	<span class="val">35</span>
-		                                    	<span class="txt">minutes</span>
+		                                    	<span class="val">%M</span>
+		                                    	<span class="txt">min</span>
 		                                    </div>
 		                                </div>
-                                    	<span class="btn red big right">PLAY NOW</span>
+                                    	<a href="/play" class="outbound ui-link"><span class="btn red big right">PLAY NOW</span></a>
 	                                </div>
 								</a>
 							</div>

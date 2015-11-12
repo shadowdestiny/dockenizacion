@@ -32,7 +32,6 @@ function toggleSelect(){
 }
 
 function checkOption(){
-    console.log("3")
     $(".threshold").change(function(){
         if($(this).val() == 'choose'){ // if you want to specify the jackpot threshold
             $(".input-value").show();

@@ -59,44 +59,21 @@ class MyAccountForm extends RedirectableFormBase
             'placeholder' => 'Street'
         ]);
         $this->add($street);
-        $street->addValidators([
-            new PresenceOf([
-                'message' => 'The street is required'
-            ]),
-        ]);
 
 
         $zip = new Text('zip', [
             'placeholder' => 'Zip Code'
         ]);
         $this->add($zip);
-        $zip->addValidators([
-            new PresenceOf([
-                'message' => 'The zip is required'
-            ]),
-        ]);
-
-
         $city = new Text('city', [
             'placeholder' => 'City'
         ]);
         $this->add($city);
-        $city->addValidators([
-            new PresenceOf([
-                'message' => 'The city is required'
-            ]),
-        ]);
-
-
         $phone_number = new Text('phone_number', [
             'placeholder' => 'Phone number'
         ]);
         $this->add($phone_number);
-        $phone_number->addValidators([
-            new PresenceOf([
-                'message' => 'A phone number is required'
-            ]),
-        ]);
+
 
 
         /*$password = new Password('password', array(
