@@ -1,34 +1,6 @@
 @import "variable";
 @import "_elements/threshold.scss";
-
-#content{
-    .nav{
-        position:absolute; width:270px; margin:0; padding:0;
-        a{display:block; text-decoration:none; padding:10px 15px; border-bottom:1px solid $yellow;}
-        a:hover, a:focus{
-            background:$yellow; color:#fff;
-            .ico{color:#fff;}
-        }
-        li:last-child a{border-bottom:0;}
-        .ico{float:right; color:$yellow; font-size:14px; margin-top:3px; display:block;}
-        .active{
-            font-weight:bold; background:$yellow; color:#fff; cursor:default; text-shadow:0 1px 3px rgba(0, 0, 0, 0.2);
-            .ico{color:#fff;}
-        }
-    }
-    .content{
-        margin:0 0 2em 290px;
-        hr{margin:0 -20px;}
-        h1.title{margin-bottom:0.5em;}
-        .input{width:100%;}
-        .label{font-weight:bold; margin-bottom:3px;}
-        .asterisk{color:$red;}
-        .wrap{margin-right:-20px;}
-        .cols > div{border-right:20px solid transparent}
-        .cols{margin-bottom:20px;}
-    }
-    .box-basic.content{min-height:248px;}
-}
+@import "_elements/with-subnav.scss";
 
 .account{
     .label{font-size:$basic-size;}
@@ -207,11 +179,6 @@
 }
 
 @media only screen and (max-width:992px){
-#content{
-    .nav{width:200px;}
-    .content{margin-left:220px;}
-}
-
 .wallet{
     .box-wallet{
         > div{float:none!important;}
@@ -234,17 +201,6 @@
 
 
 @media only screen and (max-width:768px){
-#content{ 
-    .nav{display:none;}
-    .content{
-        margin:0 0 1em; border-width:0 0 1px 0;
-        .wrap{margin:0;}
-        h1.title{float:none; margin:0 auto .5em;}
-        .revoke{float:none; margin:10px auto;}
-    }
-    .content .cols{margin:0;}
-    .cols > div{margin-bottom:10px;}
-}
 .my-games{
     .table{
         th, td{padding:3px 8px;} 

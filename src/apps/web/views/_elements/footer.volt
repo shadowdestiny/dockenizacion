@@ -46,7 +46,10 @@
 					<li><a href="">{{ language.translate('News') }}</a></li>
 					<li><a href="">{{ language.translate('About us') }}</a></li>
 					<li><a href="">{{ language.translate('Terms &amp; Conditions') }}</a></li>
-					<li><a href="">{{ language.translate('Legal info') }}</a></li>
+					<li><a href="">{{ language.translate('Legal Info') }}</a></li>
+					<li><a href="/legal/cookies">{{ language.translate('Cookies Info') }}</a></li>
+
+
 {# Future links
 					<!--<li><a href="javascript:void(0);">Affiliate Program</a></li>-->
 #}

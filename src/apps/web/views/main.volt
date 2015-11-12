@@ -19,7 +19,7 @@
     </head>
 
 	<body class="{% block bodyClass %}{% endblock %}">
-        {# Caching SVG   
+        {# Caching SVG   (NOT USED ANYMORE, I AM KEEPING IT HERE FOR REFERENCE UNTIL SPRINT 7)
         {% include "_elements/svg.volt" %} #}
 
         {% block modal %}{% endblock %}
