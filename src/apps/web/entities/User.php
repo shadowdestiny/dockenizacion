@@ -42,7 +42,7 @@ class User extends EntityBase implements IEntity, IUser
     protected $city;
     protected $phone_number;
     protected $jackpot_reminder;
-    protected $jackpot_above;
+    protected $threshold;
 
 
 
@@ -257,17 +257,17 @@ class User extends EntityBase implements IEntity, IUser
     /**
      * @return mixed
      */
-    public function getJackpotAbove()
+    public function getThreshold()
     {
-        return $this->jackpot_above;
+        return $this->threshold;
     }
 
     /**
-     * @param mixed $jackpot_above
+     * @param mixed $threshold
      */
-    public function setJackpotAbove($jackpot_above)
+    public function setThreshold($threshold)
     {
-        $this->jackpot_above = $jackpot_above;
+        $this->threshold = $threshold;
     }
 
 }
