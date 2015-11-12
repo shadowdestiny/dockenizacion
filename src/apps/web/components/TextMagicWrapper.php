@@ -1,6 +1,4 @@
 <?php
-
-
 namespace apps\web\components;
 
 
@@ -11,6 +9,8 @@ class TextMagicWrapper implements ISmsServiceApi
 
     public function send($apiKey)
     {
+        //EMTD @rmrbest ???
+
         // TODO: Implement send() method.
     }
 }
