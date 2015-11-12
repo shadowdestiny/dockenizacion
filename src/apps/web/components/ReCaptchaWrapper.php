@@ -1,12 +1,8 @@
 <?php
-
-
 namespace EuroMillions\web\components;
-
 
 use Captcha\Captcha;
 use EuroMillions\web\interfaces\ICaptcha;
-
 
 class ReCaptchaWrapper implements ICaptcha
 {

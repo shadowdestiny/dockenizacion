@@ -37,8 +37,17 @@
             <directory suffix=".php">../apps</directory>
             <exclude>
                 <file>../apps/cli.php</file>
+                <file>../apps/admin/Module.php</file>
+                <file>../apps/web/Module.php</file>
                 <directory>../apps/web/migrations</directory>
                 <directory>../apps/web/migrations_data</directory>
+                <directory>../apps/shareconfig</directory>
+                <directory>../apps/admin/interfaces</directory>
+                <directory>../apps/web/interfaces</directory>
+                <directory>../apps/admin/views</directory>
+                <directory>../apps/web/views</directory>
+                <directory>../apps/web/assets</directory>
+                <directory>../apps/web/templateHelpers</directory>
             </exclude>
         </whitelist>
     </filter>

@@ -27,6 +27,7 @@ class Bet extends EntityBase implements IEntity
 
     public function getId()
     {
+        //EMTD @rmrbest You cannot create empty methods to comply with the interfaces, you should implement them. This will lead to hard to find bugs
         // TODO: Implement getId() method.
     }
     public function setPlayConfig($playConfig)
