@@ -13,6 +13,8 @@ fi
 cd /vagrant/docker
 e "Starting containers"
 docker-compose up -d
+e "Installing cron"
+docker exec docker_develweb_1 crontab /var/www/global_config/crontab.txt
 e "Sleeping"
 sleep 30
 if [ inidatabase==true ]; then
