@@ -60,7 +60,7 @@ $(function(){
 						{% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
 						<span class="btn white try animate infi">{{ language.translate("Try your luck") }} <svg class="ico v-arrow-right3"><use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use></svg></span>
 					</div>
-					<svg class="vector"><use xlink:href="/w/index.svg#emblem"></use></svg>
+					<svg class="vector"><use xlink:href="/w/svg/index.svg#emblem"></use></svg>
 				</a>
 				<div class="box-how">
 					<div class="bg-yellow">
@@ -68,21 +68,21 @@ $(function(){
 					</div>
 					<ul class="no-li cl">
 						<li>
-							<svg class="vector"><use xlink:href="/w/index.svg#lottery-ticket"></use></svg>
+							<svg class="vector"><use xlink:href="/w/svg/index.svg#lottery-ticket"></use></svg>
 							<div class="box-txt">
 								<h2 class="h3"><span class="grey">1.</span> {{ language.translate("play")|upper }}</h2>
 								<p class="sub-txt">{{ language.translate("Choose <em>PLAY NOW</em> or <em>QuickPlay</em>") }}</p>
 							</div>
 						</li>
 						<li>
-							<svg class="vector"><use xlink:href="/w/index.svg#monitor"></use></svg>
+							<svg class="vector"><use xlink:href="/w/svg/index.svg#monitor"></use></svg>
 							<div class="box-txt">
 								<h2 class="h3"><span class="grey">2.</span> {{ language.translate("pick")|upper }}</h2>
 								<p class="sub-txt">{{ language.translate("Pick 5+2 Lucky Stars or <em>QuickPick</em>") }}</p>
 							</div>
 						</li>
 						<li>
-							<svg class="vector"><use xlink:href="/w/index.svg#winner-cup"></use></svg>
+							<svg class="vector"><use xlink:href="/w/svg/index.svg#winner-cup"></use></svg>
 							<div class="box-txt">
 								<h2 class="h3"><span class="grey">3.</span> {{ language.translate("win")|upper }}</h2>
 								<p class="sub-txt">{{ language.translate("Check results and cash your winnings") }}</p>
@@ -158,7 +158,7 @@ $(function(){
 											</div>
 										</div>
 										<div class="col6 center box-vector">
-											<svg class="vector"><use xlink:href="/w/index.svg#lotto-game"></use></svg>
+											<svg class="vector"><use xlink:href="/w/svg/index.svg#lotto-game"></use></svg>
 										</div>
 									</div>
 								</div>

@@ -39,7 +39,7 @@ $(function(){
 										{% if index == '0'%}
 											<li>
 											<div class="crown">
-												<svg class="vector"><use xlink:href="/w/number.svg#crown"></use></svg>
+												<svg class="vector"><use xlink:href="/w/svg/number.svg#crown"></use></svg>
 											</div>
 												<span class="num">{{ regular_number }}</span></li>
 										{% else %}
@@ -68,10 +68,10 @@ $(function(){
 					<div class="col4">
 						<div class="box-estimated">
 							<div class="laurel first">
-								<svg class="vector"><use xlink:href="/w/number.svg#laurel"></use></svg>
+								<svg class="vector"><use xlink:href="/w/svg/number.svg#laurel"></use></svg>
 							</div>
 							<div class="laurel last">
-								<svg class="vector"><use xlink:href="/w/number.svg#laurel"></use></svg>
+								<svg class="vector"><use xlink:href="/w/svg/number.svg#laurel"></use></svg>
 							</div>
 							<div class="bg">
 									<h1 class="h3">Estimated jackpot</h1>

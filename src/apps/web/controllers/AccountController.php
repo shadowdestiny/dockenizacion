@@ -67,7 +67,7 @@ class AccountController extends PublicSiteControllerBase
 
     public function passwordAction()
     {
-        $errors = null;
+    /*    $errors = null;
         $userId = $this->authService->getCurrentUser();
         $user = $this->userService->getUser($userId->getId());
         $myaccount_form = $this->getMyACcountForm($userId);
@@ -75,10 +75,6 @@ class AccountController extends PublicSiteControllerBase
         if($this->request->isPost()) {
             if ($myaccount_passwordchange_form->isValid($this->request->getPost()) == false) {
                 $messages = $myaccount_passwordchange_form->getMessages(true);
-                /**
-                 * @var string $field
-                 * @var Message\Group $field_messages
-                 */
                 foreach ($messages as $field => $field_messages) {
                     $errors[] = $field_messages[0]->getMessage();
                     $form_errors[$field] = ' error';
@@ -105,7 +101,7 @@ class AccountController extends PublicSiteControllerBase
             'msg' => $msg,
             'myaccount' => $myaccount_form,
             'password_change' => $myaccount_passwordchange_form
-        ]);
+        ]);*/
 
     }
 
