@@ -20,7 +20,7 @@
 
                 {% if message %}
                     <div class="box {{ class }}">
-                        <svg class="ico v-warning"><use xlink:href="/w/icon.svg#v-warning"></use></svg>
+                        <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
                         <span class="txt">{{ message }}</span>
                     </div>
                 {%  endif %}

@@ -19,7 +19,7 @@
             <form novalidate>
                 <div class="fields cl">
                     <div class="box error">
-                        <svg class="ico v-warning"><use xlink:href="/w/icon.svg#warning"></use></svg>
+                        <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#warning"></use></svg>
                         <span class="txt">Error info lorem ipsum</span>
                     </div>
                     {% set activePsw='{"myClass": "no"}'|json_decode %}

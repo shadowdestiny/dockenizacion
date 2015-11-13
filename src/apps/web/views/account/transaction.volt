@@ -22,7 +22,7 @@
                 <h1 class="h1 title">{{ language.translate("Transaction") }}</h1>
 
                 <div class="box success">
-                    <svg class="ico v-checkmark"><use xlink:href="/w/icon.svg#checkmark"></use></svg>
+                    <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#checkmark"></use></svg>
                     <span class="txt">Transaction successful. <span class="info">You just added &euro; 300 to your balance.</span></span> 
                 </div>
 
