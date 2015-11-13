@@ -30,6 +30,11 @@
                 <li>{{ language.translate("<strong>Security</strong> - We use security cookies to authenticate users, prevent fraudulent use of login credentials, and protect user data from unauthorized parties.") }}</li>
                 <li>{{ language.translate("<strong>Analytics</strong> - We use analytics tool that helps us understand how visitors engage with the website, and we use a set of cookies to collect information and report website usage statistics without personally identifying individual visitors.") }}</li>
             </ul>
+
+            <h2 class="h3 title yellow">{{ language.translate("Third parties cookies") }}</h2>
+            <p>{{ language.translate('To obtain better statistics relating to access to this portal and test better ways to make this website more usable and interesting for our users, we use the third party service of <a href="https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage">Google Analytics</a>.') }}</p>
+
+
             <h2 class="h3 title yellow">{{ language.translate("More informations on Cookies") }}</h2>
             <ul class="list">
                 <li><a href="http://www.agpd.es/portalwebAGPD/index-ides-idphp.php">{{ language.translate('Agencia Española de Proteción de datos') }}</a></li>

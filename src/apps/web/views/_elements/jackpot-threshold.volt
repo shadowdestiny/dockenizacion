@@ -1,17 +1,17 @@
 {# This element has his own SCSS file #}
 {% block template_scripts %}
 <script>
-function showSelect(){
-    $(".input-value").hide();
-    $(".threshold").show().val("default");
-    $(".box-threshold .styled-select").show()
-}
-
 function resetSelect(){
     var mySelect = $(".threshold option:default").text();
     $(".box-threshold .select-txt").text(mySelect)
     $(".box-threshold .styled-select").addClass("disabled")
     $(".threshold").prop('disabled', 'disabled');
+}
+
+function showSelect(){
+    $(".input-value").hide();
+    $(".threshold").show().val("default");
+    $(".box-threshold .styled-select").show()
 }
 
 function toggleSelect(){
@@ -46,6 +46,7 @@ $(function(){
     toggleSelect()
     checkOption()
 });
+/**/
 </script>
 {% endblock %}
 
@@ -61,8 +62,8 @@ $(function(){
             <div class="select-txt"></div>
             <select class="threshold mySelect">
                 <option title="{{ language.translate('aprox. $49 millions') }}">{{ language.translate('50 millions &euro;') }}</option>
-                <option value="default" selected="selected" title="{{ language.translate('aprox. $74 millions') }}">{{ language.translate('75 millions &euro;') }}</option>
-                <option title="{{ language.translate('aprox. $99 millions') }}">{{ language.translate('100 millions &euro;') }}</option>
+                <option value="default" selected="selected" title="{{ language.translate('aprox. &dollar;74 millions') }}">{{ language.translate('75 millions &euro;') }}</option>
+                <option title="{{ language.translate('aprox. &dollar;99 millions') }}">{{ language.translate('100 millions &euro;') }}</option>
                 <option value="choose">{{ language.translate('Choose threshold') }}</option>
             </select>
         </div>

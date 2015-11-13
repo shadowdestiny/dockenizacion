@@ -18,7 +18,7 @@ class Notification extends EntityBase implements IEntity
 
     public function getId()
     {
-
+        return $this->id;
     }
 
     /**
@@ -51,4 +51,6 @@ class Notification extends EntityBase implements IEntity
     {
         $this->userNotification = $userNotification;
     }
+
+
 }

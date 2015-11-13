@@ -35,9 +35,10 @@ $(function(){
     $(window).resize(checkWin); //fix alignment of the popup when resized
 	//countdown
 	var element = $('.box-prize .time');
-	var html_formatted = '%-dd%!d %-Hh %-Mm %-Ss';
+	var html_formatted = '%-Hh %-Mm %-Ss';
+	var html_formatted_offset = '%-dd ' + html_formatted;
 	var date = '{{ date_to_draw }}';
-	count_down(element,html_formatted,date);
+	var count  = count_down(element,html_formatted,html_formatted_offset,date);
 });
 </script>
 {% endblock %}
@@ -58,9 +59,9 @@ $(function(){
 						<h1 class="h2">{{ language.translate("Estimated Euromillions Jackpot") }}</h1>
 						{% set extraClass='{"boxvalueClass": "yellow","currencyClass":"","valueClass":""}'|json_decode %}
 						{% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
-						<span class="btn white try animate infi">{{ language.translate("Try your luck") }} <svg class="ico v-arrow-right3"><use xlink:href="/w/icon.svg#v-arrow-right3"></use></svg></span>
+						<span class="btn white try animate infi">{{ language.translate("Try your luck") }} <svg class="ico v-arrow-right3"><use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use></svg></span>
 					</div>
-					<svg class="vector"><use xlink:href="/w/index.svg#emblem"></use></svg>
+					<svg class="vector"><use xlink:href="/w/svg/index.svg#emblem"></use></svg>
 				</a>
 				<div class="box-how">
 					<div class="bg-yellow">
@@ -68,21 +69,21 @@ $(function(){
 					</div>
 					<ul class="no-li cl">
 						<li>
-							<svg class="vector"><use xlink:href="/w/index.svg#lottery-ticket"></use></svg>
+							<svg class="vector"><use xlink:href="/w/svg/index.svg#lottery-ticket"></use></svg>
 							<div class="box-txt">
 								<h2 class="h3"><span class="grey">1.</span> {{ language.translate("play")|upper }}</h2>
 								<p class="sub-txt">{{ language.translate("Choose <em>PLAY NOW</em> or <em>QuickPlay</em>") }}</p>
 							</div>
 						</li>
 						<li>
-							<svg class="vector"><use xlink:href="/w/index.svg#monitor"></use></svg>
+							<svg class="vector"><use xlink:href="/w/svg/index.svg#monitor"></use></svg>
 							<div class="box-txt">
 								<h2 class="h3"><span class="grey">2.</span> {{ language.translate("pick")|upper }}</h2>
 								<p class="sub-txt">{{ language.translate("Pick 5+2 Lucky Stars or <em>QuickPick</em>") }}</p>
 							</div>
 						</li>
 						<li>
-							<svg class="vector"><use xlink:href="/w/index.svg#winner-cup"></use></svg>
+							<svg class="vector"><use xlink:href="/w/svg/index.svg#winner-cup"></use></svg>
 							<div class="box-txt">
 								<h2 class="h3"><span class="grey">3.</span> {{ language.translate("win")|upper }}</h2>
 								<p class="sub-txt">{{ language.translate("Check results and cash your winnings") }}</p>
@@ -90,7 +91,7 @@ $(function(){
 						</li>
 					</ul>
 					<div class="center">
-						<a href="/play" class="btn big blue">{{ language.translate("Start to Play") }} <svg class="ico v-arrow-right"><use xlink:href="/w/icon.svg#v-arrow-right"></use></svg></a>
+						<a href="/play" class="btn big blue">{{ language.translate("Start to Play") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
 					</div>
 				</div>
 				<a href="/numbers" class="box-result no-lnk">
@@ -106,7 +107,7 @@ $(function(){
 								    <li class="star">{{ lucky_number }}</li>
                                 {% endfor %}
 							</ul>
-							<span class="lnk animate infi"><span class="txt">{{ language.translate('Results &amp; Prizes') }}</span> <svg class="ico v-arrow-right3"><use xlink:href="/w/icon.svg#v-arrow-right3"></use></svg></span>
+							<span class="lnk animate infi"><span class="txt">{{ language.translate('Results &amp; Prizes') }}</span> <svg class="ico v-arrow-right3"><use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use></svg></span>
 						</div>
 						<div class="col4 woman">&nbsp;</div>
 					</div>
@@ -128,7 +129,7 @@ $(function(){
 							</div>
 							<div class="box-ball">
 								<div class="btn big purple">
-									{{ language.translate('PLAY NOW')|upper }} <svg class="ico v-arrow-right"><use xlink:href="/w/icon.svg#v-arrow-right"></use></svg>
+									{{ language.translate('PLAY NOW')|upper }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg>
 									<span class="ball"></span>
 								</div>
 							</div>
@@ -152,13 +153,13 @@ $(function(){
                                             {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
                                             {% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
 											<div class="box-btn">
-												<a href="/play" class="btn blue expand">{{ language.translate('I feel lucky') }} <svg class="ico v-arrow-right"><use xlink:href="/w/icon.svg#v-arrow-right"></use></svg></a>
+												<a href="/play" class="btn blue expand">{{ language.translate('I feel lucky') }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
 
-												<a href="/play" class="btn red expand">{{ language.translate('Pick your numbers') }} <svg class="ico v-arrow-right"><use xlink:href="/w/icon.svg#v-arrow-right"></use></svg></a>
+												<a href="/play" class="btn red expand">{{ language.translate('Pick your numbers') }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
 											</div>
 										</div>
 										<div class="col6 center box-vector">
-											<svg class="vector"><use xlink:href="/w/index.svg#lotto-game"></use></svg>
+											<svg class="vector"><use xlink:href="/w/svg/index.svg#lotto-game"></use></svg>
 										</div>
 									</div>
 								</div>
@@ -167,7 +168,7 @@ $(function(){
 
 						<div class="notes cl">
 							<div class="left">
-								<svg class="ico v-hourglass"><use xlink:href="/w/icon.svg#v-hourglass"></use></svg>
+								<svg class="ico v-hourglass"><use xlink:href="/w/svg/icon.svg#v-hourglass"></use></svg>
 								<span class="time">
 									<span id="clock"></span>
 								</span>
@@ -189,14 +190,14 @@ $(function(){
 					<div class="cols top">
 						<div class="col6">
 							<div class="title-em cl">
-								<img class="vector best" src="/w/img/home/best-choice.svg" alt="Best Choice Guarantee">
-								<img class="vector text" src="/w/img/home/em-golden.svg" alt="Euromillions">
+								<img class="vector best" src="/w/svg/home/best-choice.svg" alt="Best Choice Guarantee">
+								<img class="vector text" src="/w/svg/home/em-golden.svg" alt="Euromillions">
 								<h3 class="title">Fast, Convenient &amp; Secure</h3>
 							</div>
 						</div>
 						<div class="col6">
 							<span class="gold-pile">
-								<img class="vector" src="/w/img/home/logo-shadow.svg" alt="">
+								<img class="vector" src="/w/svg/home/logo-shadow.svg" alt="">
 								<a href="/play" class="btn blue">Start playing, Win millions</a>
 							</span>
 						</div>

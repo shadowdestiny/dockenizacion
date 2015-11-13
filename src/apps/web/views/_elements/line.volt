@@ -1,11 +1,11 @@
 <h1 class="h3 blue center">{{ language.translate("Line") }} {{ showIndex }}</h1>
 <div class="line center">
-		<svg class="ico v-checkmark"><use xlink:href="/w/icon.svg#v-checkmark"></use></svg>
+		<svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>
 
 	<div class="combo cols not">
-		<div class="col6 not random"><a class="btn gwy multiplay" href="javascript:void(0);"><svg class="v-shuffle"><use xlink:href="/w/icon.svg#v-shuffle"></use></svg></a></div>
+		<div class="col6 not random"><a class="btn gwy multiplay" href="javascript:void(0);"><svg class="v-shuffle"><use xlink:href="/w/svg/icon.svg#v-shuffle"></use></svg></a></div>
 {# To add later
-		<div class="col6 not"><a class="btn gwy" href="javascript:void(0);"><svg class="ico v-m"><use xlink:href="/w/icon.svg#v-m"></use></svg></a></div>
+		<div class="col6 not"><a class="btn gwy" href="javascript:void(0);"><svg class="ico v-m"><use xlink:href="/w/svg/icon.svg#v-m"></use></svg></a></div>
 #}
 	</div>
 	<div class="values">
@@ -103,5 +103,5 @@
 			</ol>
 		</div>
 	</div>
-	<a class="clear btn gwr" href="javascript:void(0);">{{ language.translate("Clear") }} <svg class="ico v-cross"><use xlink:href="/w/icon.svg#v-cross"></use></svg></a>
+	<a class="clear btn gwr" href="javascript:void(0);">{{ language.translate("Clear") }} <svg class="ico v-cross"><use xlink:href="/w/svg/icon.svg#v-cross"></use></svg></a>
 </div>

@@ -15,7 +15,7 @@
                     {% elseif activeSteps.myClass == 'step3' %}
                         step3
                     {% endif %}">
-                    <svg class="ico v-cart"><use xlink:href="/w/icon.svg#v-cart"></use></svg>
+                    <svg class="ico v-cart"><use xlink:href="/w/svg/icon.svg#v-cart"></use></svg>
                 </div>
                 <ol class="no-li names cl">
                     <li class="step1 {% if activeSteps.myClass == 'step1' %}active{% endif %}">{{ language.translate("Sign in") }}</li>
