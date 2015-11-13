@@ -5,7 +5,7 @@ namespace EuroMillions\web\entities;
 
 use EuroMillions\web\interfaces\IEntity;
 
-class UsersNotifications extends EntityBase implements IEntity
+class UserNotifications extends EntityBase implements IEntity
 {
     protected $id;
 
@@ -15,11 +15,12 @@ class UsersNotifications extends EntityBase implements IEntity
 
     protected $active;
 
+    protected $config_value;
 
 
     public function getId()
     {
-        // TODO: Implement getId() method.
+        return $this->id;
     }
 
     /**
@@ -68,6 +69,22 @@ class UsersNotifications extends EntityBase implements IEntity
     public function setActive($active)
     {
         $this->active = $active;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConfigValue()
+    {
+        return $this->config_value;
+    }
+
+    /**
+     * @param mixed $config_value
+     */
+    public function setConfigValue($config_value)
+    {
+        $this->config_value = $config_value;
     }
 
 }

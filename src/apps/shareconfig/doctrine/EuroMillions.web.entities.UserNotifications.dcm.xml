@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
     https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="EuroMillions\web\entities\UsersNotifications" table="users_notifications"
+    <entity name="EuroMillions\web\entities\UserNotifications" table="users_notifications"
             repository-class="EuroMillions\web\repositories\UserNotificationsRepository">
 
         <id name="id" type="integer">
@@ -20,6 +20,8 @@
                 <option name="default">1</option>
             </options>
         </field>
+
+        <field name="config_value" type="string" nullable="true" />
 
         <many-to-one field="user" target-entity="EuroMillions\web\entities\User" >
             <join-column name="user_id" referenced-column-name="id" />

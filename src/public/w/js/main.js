@@ -117,10 +117,14 @@ function selectFix(){ // Style the "Select"
     }
 }
 
-function count_down(element,html_formatted,date) {
-    element.countdown(date).
+function count_down(element,html_formatted,html_formatted_offset,date) {
+    return element.countdown(date).
         on('update.countdown', function(event){
-            $(this).html(event.strftime(html_formatted));
+            if(event.offset.days > 0) {
+                $(this).html(event.strftime(html_formatted));
+            }else {
+                $(this).html(event.strftime(html_formatted_offset));
+            }
         }).on('finish.countdown',function(event){
             $(this).html("{{language.translate('Draw closed')}}").parent().addClass('disabled');
         });

@@ -17,8 +17,11 @@
 $(function(){
 	var element = $('.countdown');
 	var html_formatted = element.html();
+	$('.countdown .day').remove();
+	$('.countdown .dots').eq(0).remove();
+	var html_formatted_offset = $('.countdown').html();
 	var date = '{{ date_draw }}';
-	count_down(element,html_formatted,date)
+	count_down(element,html_formatted,html_formatted_offset, date);
 });
 </script>
 {% endblock %}

@@ -5,8 +5,10 @@ use Doctrine\ORM\EntityManager;
 use EuroMillions\web\entities\CreditCardPaymentMethod;
 use EuroMillions\web\entities\PaymentMethod;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\repositories\PaymentMethodRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
+use EuroMillions\web\repositories\UserNotificationsRepository;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
@@ -47,6 +49,8 @@ class UserService
     /** @var PlayConfigRepository  */
     private $playRepository;
 
+    /** @var UserNotificationsRepository  */
+    private $userNotificationsRepository;
 
     public function __construct(CurrencyService $currencyService,
                                 EmailService $emailService,
@@ -60,6 +64,8 @@ class UserService
         $this->emailService = $emailService;
         $this->paymentProviderService = $paymentProviderService;
         $this->playRepository = $entityManager->getRepository('EuroMillions\web\entities\PlayConfig');
+        $this->userNotificationsRepository = $entityManager->getRepository('EuroMillions\web\entities\UserNotifications');
+
     }
 
     public function getBalance(UserId $userId, $locale)
@@ -174,7 +180,6 @@ class UserService
         }catch(\Exception $e) {
             return new ActionResult(false, $e->getMessage());
         }
-
     }
 
     public function getPaymentMethod($id)
@@ -246,5 +251,16 @@ class UserService
             return new ActionResult(false);
         }
     }
+
+    public function getActiveNotificationsByUser(User $user)
+    {
+        /** @var UserNotifications $collection */
+        $collection = $this->userNotificationsRepository->findBy(['user' => $user]);
+        if(!empty($collection)) {
+            return new ActionResult(true,$collection);
+        }else{
+            return new ActionResult(false);
+        }
+   }
 
 }

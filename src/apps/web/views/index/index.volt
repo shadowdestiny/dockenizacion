@@ -35,9 +35,10 @@ $(function(){
     $(window).resize(checkWin); //fix alignment of the popup when resized
 	//countdown
 	var element = $('.box-prize .time');
-	var html_formatted = '%-dd%!d %-Hh %-Mm %-Ss';
+	var html_formatted = '%-Hh %-Mm %-Ss';
+	var html_formatted_offset = '%-dd ' + html_formatted;
 	var date = '{{ date_to_draw }}';
-	count_down(element,html_formatted,date);
+	var count  = count_down(element,html_formatted,html_formatted_offset,date);
 });
 </script>
 {% endblock %}

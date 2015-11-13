@@ -10,6 +10,27 @@
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
+{% block template_scripts %}
+<script>
+$(function() {
+    $('.box-basic input').on('click', function () {
+        $id = $(this).data('id');
+        $checked = $(this).is(':checked');
+        $value = $(this).data('value'));
+        params = 'id=' + $id + '&active=' + $checked + '&value=' + $value;
+        $.ajax({
+            url: '/account/editEmail/',
+            data: params,
+            type: 'POST',
+            dataType: 'json',
+            success: function (json) {
+
+            }
+        })
+    });
+});
+</script>
+{% endblock %}
 {% block body %}
 <main id="content">
     <div class="wrapper">
@@ -24,31 +45,17 @@
                     Email me
                 </div>
                 <ul class="no-li options">
-                    <li>
-                        {% include "_elements/jackpot-threshold.volt" %}
-                    </li>
-                    <li>
-                        <label for="check2">
-                            <input id="check2" class="checkbox" type="checkbox" checked="checked" data-role="none">
-                            When Auto-Play has not enough funds
-                        </label>
-                    </li>
-                    <li>
-                        <label for="check3">
-                            <input id="check3" class="checkbox" type="checkbox" checked="checked" data-role="none">
-                            When Auto-Play has played the last Draw
-                        </label>
-                    </li>
-                    <li>
-                        <label for="check4">
-                            <input id="check4" class="checkbox" type="checkbox" checked="checked" data-role="none">
-                            Results of the Draw
-                            <select data-role="none">
-                                <option>When I played a ticket</option>
-                                <option>Always</option>
-                            </select>
-                        </label>
-                    </li>
+                    {% if list_notifications is empty %}
+                    {% else %}
+                    {% for notification in list_notifications %}
+                        <li>
+                            <label for="check2">
+                                <input id="check2" data-value="{{ notification.config_value }}" data-id="{{ notification.notification.id }}" class="checkbox" type="checkbox" {% if notification.active == true %} checked="checked" {% endif %} data-role="none">
+                                {{ notification.notification.description }}
+                            </label>
+                        </li>
+                    {% endfor %}
+                    {% endif %}
                 </ul>
             </div>
         </div>
