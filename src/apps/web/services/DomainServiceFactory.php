@@ -1,7 +1,6 @@
 <?php
 namespace EuroMillions\web\services;
 
-use apps\web\services\CreditCardPaymentService;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\interfaces\ICardPaymentProvider;

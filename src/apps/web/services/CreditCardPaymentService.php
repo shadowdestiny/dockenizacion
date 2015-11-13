@@ -1,5 +1,5 @@
 <?php
-namespace apps\web\services;
+namespace EuroMillions\web\services;
 
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\vo\CreditCard;
