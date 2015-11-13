@@ -30,7 +30,7 @@
         </div>
         <div class="col6 second">
             <div class="info box">
-                <svg class="ico v-info"><use xlink:href="/w/icon.svg#v-info"></use></svg>
+                <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                 <span class="txt">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</span>
             </div>
         </div>

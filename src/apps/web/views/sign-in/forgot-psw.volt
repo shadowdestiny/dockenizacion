@@ -19,14 +19,14 @@
 
                 {%if message %}
                     <div class="box success">
-                        <svg class="ico v-success"><use xlink:href="/w/icon.svg#v-success"></use></svg>
+                        <svg class="ico v-success"><use xlink:href="/w/svg/icon.svg#v-success"></use></svg>
                         <span class="txt">{{ message }}</span>
                     </div>
                 {% endif %}
 
                 {% if errors %}
                     <div class="box error">
-                        <svg class="ico v-warning"><use xlink:href="/w/icon.svg#v-warning"></use></svg>
+                        <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
                         <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
                     </div>
                 {%  endif %}
@@ -50,7 +50,7 @@
                 <div class="cl">
                             <div class="cl">
                                 <input id="go" type="submit" class="hidden2" />
-                                <label for="go" class="submit btn big blue">{{ language.translate("Save Password") }}<svg class="ico v-arrow-right"><use xlink:href="/w/icon.svg#v-arrow-right"></use></svg></label>
+                                <label for="go" class="submit btn big blue">{{ language.translate("Save Password") }}<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
                             </div>
                 </div>
             {{ endform() }}
