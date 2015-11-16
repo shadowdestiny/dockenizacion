@@ -428,6 +428,44 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method getSingleBetPriceByLottery
+     * when called
+     * should returnSingleBetPriceMoney
+     */
+    public function test_getSingleBetPriceByLottery_called_returnSingleBetPriceMoney()
+    {
+        $lottery = new Lottery();
+        $lottery->setSingleBetPrice(new Money(1000, new Currency('EUR')));
+        $expected = $lottery;
+        $lotteryName = 'EuroMillions';
+        $this->lotteryRepositoryDouble->expects($this->any())
+            ->method('findOneBy')
+            ->will($this->returnValue($lottery));
+
+        $sut = $this->getSut();
+        $actual = $sut->getSingleBetPriceByLottery($lotteryName);
+        $this->assertEquals($expected->getSingleBetPrice(),$actual);
+    }
+
+    /**
+     * method getSingleBetPriceByLottery
+     * when calledWithoutSingleBetPrice
+     * should returnActionResultFalse
+     */
+    public function test_getSingleBetPriceByLottery_calledWithoutSingleBetPrice_returnActionResultFalse()
+    {
+        $expected = new ActionResult(false);
+        $lotteryName = 'EuroMillions';
+        $this->lotteryRepositoryDouble->expects($this->any())
+            ->method('findOneBy')
+            ->will($this->returnValue(null));
+
+        $sut = $this->getSut();
+        $actual = $sut->getSingleBetPriceByLottery($lotteryName);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
      * @param $lottery_name
      * @return Lottery
      */
