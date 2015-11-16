@@ -4,8 +4,19 @@
 namespace EuroMillions\web\vo;
 
 
+use EuroMillions\web\exceptions\InvalidNotificationException;
+
+
 class NotificationType
 {
+
+    const NOTIFICATION_THRESHOLD = 1;
+
+    const NOTIFICATION_NOT_ENOUGH_FUNDS = 2;
+
+    const NOTIFICATION_LAST_DRAW = 3;
+
+    const NOTIFICATION_RESULT_DRAW = 4;
 
     protected $type;
 
@@ -13,30 +24,31 @@ class NotificationType
 
     public function __construct($type,$value)
     {
-        $this->type = $type;
-        $this->value = $value;
-        if(!$this->checkValueOfType()) {
-            throw new \Exception();
+        if(!$this->checkValueOfType($type,$value)) {
+            throw new InvalidNotificationException;
+        }else{
+            $this->type = $type;
+            $this->value = $value;
         }
     }
 
-    private function checkValueOfType()
+    private function checkValueOfType($type,$value)
     {
-
         $result = false;
-        switch($this->type) {
-            case 1:
-                $result = (is_int((int) $this->value)) ? true : false;
+
+        switch($type) {
+            case self::NOTIFICATION_THRESHOLD:
+                $result = (is_int($value)) ? true : false;
                 break;
-            case 2:
+            case self::NOTIFICATION_NOT_ENOUGH_FUNDS:
                 break;
-            case 3:
+            case self::NOTIFICATION_LAST_DRAW:
                 break;
-            case 4:
-                $result = (is_bool((bool) $this->value)) ? true : false;
+            case self::NOTIFICATION_RESULT_DRAW:
+                $result = (is_bool((bool) $value)) ? true : false;
                 break;
             default:
-                throw new \Exception();
+                throw new InvalidNotificationException;
         }
         return $result;
     }

@@ -69,25 +69,6 @@ class BetTaskUnitTest extends UnitTestBase
         parent::setUp();
     }
 
-
-    private function getSut()
-    {
-        $sut = $this->getDomainServiceFactory();
-        return $sut;
-    }
-
-
-    private function getEuroMillionsDraw($lotteryDrawDate)
-    {
-        $regular_numbers = [1, 2, 3, 4, 5];
-        $lucky_numbers = [5, 8];
-        $euroMillionsDraw = new EuroMillionsDraw();
-        $euroMillionsDraw->setDrawDate((new \DateTime($lotteryDrawDate)));
-        $euroMillionsDraw->createResult($regular_numbers, $lucky_numbers);
-        return $euroMillionsDraw;
-    }
-
-
     /**
      * method createBet
      * when called
@@ -98,14 +79,14 @@ class BetTaskUnitTest extends UnitTestBase
     {
         $euroMillionsDraw = $this->getEuroMillionsDraw($lotteryDrawDate);
         $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true,$euroMillionsDraw));
-        $play_config_list = $this->getPlayConfigList();
+        $play_config_list = $this->getPlayConfigList($this->getUser());
         $this->playService_double->getPlaysConfigToBet($euroMillionsDraw->getDrawDate())->willReturn($play_config_list);
         $this->playService_double->bet(Argument::type('EuroMillions\web\entities\PlayConfig'), $euroMillionsDraw)->shouldBeCalledTimes($callTimes);
         $sut = new BetTask();
         $sut->initialize($this->lotteryDataService_double->reveal(), $this->playService_double->reveal(), $this->emailService_double->reveal(), $this->userService_double->reveal());
         $today = new \DateTime($today);
         $sut->createBetAction($today, $this->time_to_retry);
-    }
+     }
 
     public function getDatesAndPlayConfigsForCreateBet()
     {
@@ -113,46 +94,6 @@ class BetTaskUnitTest extends UnitTestBase
             ["2015-10-05", 2, "2015-10-06"],
             ["2015-10-07", 3, "2015-10-09"],
         ];
-    }
-
-    private function getPlayConfigList()
-    {
-
-        $attributes_list = [
-            [
-                'active'        => 1,
-                'startDrawDate' => new \DateTime('2015-10-05'),
-                'lastDrawDate'  => new \DateTime('2015-12-03'),
-                'draw_days'     => new DrawDays('25'),
-                'user'          => $this->getUser()
-            ],
-            [
-                'active'        => 1,
-                'startDrawDate' => new \DateTime('2015-10-05'),
-                'lastDrawDate'  => new \DateTime('2015-12-03'),
-                'draw_days'     => new DrawDays('5'),
-                'user'          => $this->getUser()
-            ],
-            [
-                'active'        => 1,
-                'startDrawDate' => new \DateTime('2015-10-07'),
-                'lastDrawDate'  => new \DateTime('2015-12-03'),
-                'draw_days'     => new DrawDays('5'),
-                'user'          => $this->getUser()
-            ],
-            [
-                'active'        => 1,
-                'startDrawDate' => new \DateTime('2015-10-05'),
-                'lastDrawDate'  => new \DateTime('2015-12-03'),
-                'draw_days'     => new DrawDays('2'),
-                'user'          => $this->getUser()
-            ]
-        ];
-        $play_config_list = [];
-        foreach($attributes_list as $attributes) {
-            $play_config_list[] = $this->getPlayConfigFromAttributes($attributes);
-        }
-        return new ActionResult(true, $play_config_list);
     }
 
     /**
@@ -164,9 +105,9 @@ class BetTaskUnitTest extends UnitTestBase
     {
         $euroMillionsDraw = $this->getEuroMillionsDraw('2015-10-09');
         $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true,$euroMillionsDraw));
-        $play_config_list = $this->getPlayConfigList();
+        $play_config_list = $this->getPlayConfigList($this->getUser());
         $this->playService_double->getPlaysConfigToBet($euroMillionsDraw->getDrawDate())->willReturn($play_config_list);
-        $play_config = $this->getPlayConfigList();
+        $play_config = $this->getPlayConfigList($this->getUser());
 
         $this->playService_double->bet($play_config->getValues()[0], $euroMillionsDraw)->shouldBeCalled();
         $this->playService_double->bet($play_config->getValues()[1], $euroMillionsDraw)->shouldBeCalled();
@@ -187,7 +128,7 @@ class BetTaskUnitTest extends UnitTestBase
     {
         $euroMillionsDraw = $this->getEuroMillionsDraw('2015-10-16');
         $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true,$euroMillionsDraw));
-        $play_config_list = $this->getPlayConfigList();
+        $play_config_list = $this->getPlayConfigList($this->getUser());
         $this->playService_double->getPlaysConfigToBet($euroMillionsDraw->getDrawDate())->willReturn($play_config_list);
         $this->playService_double->bet(Argument::type('EuroMillions\web\entities\PlayConfig'), $euroMillionsDraw)->shouldBeCalledTimes(1);
         $this->playService_double->bet(Argument::type('EuroMillions\web\entities\PlayConfig'), $euroMillionsDraw)->willThrow(new InvalidBalanceException());
@@ -226,7 +167,7 @@ class BetTaskUnitTest extends UnitTestBase
     public function test_longTermNotificationAction_calledThreeDaysBeforeLastDrawFromMySuscription_sendEmailNotification()
     {
         $today = new \DateTime('2015-12-04 00:00:00');
-        $result_play_config = $this->getPlayConfigList();
+        $result_play_config = $this->getPlayConfigList($this->getUser());
         $user = $this->getUser();
         $this->playService_double->getPlaysConfigToBet($today)->willReturn($result_play_config);
         $this->userService_double->getUser(new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'))->willReturn($user);
@@ -262,7 +203,7 @@ class BetTaskUnitTest extends UnitTestBase
         $time_to_retry = 1445880600;
         $euroMillionsDraw = $this->getEuroMillionsDraw('2015-10-09');
         $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true,$euroMillionsDraw));
-        $play_config_list = $this->getPlayConfigList();
+        $play_config_list = $this->getPlayConfigList($this->getUser());
         $this->playService_double->getPlaysConfigToBet($euroMillionsDraw->getDrawDate())->willReturn($play_config_list);
         $this->playService_double->bet(Argument::any(),Argument::any())->shouldNotBeCalled();
         $this->userService_double->getUser(Argument::any())->willReturn($this->getUser());
@@ -271,6 +212,25 @@ class BetTaskUnitTest extends UnitTestBase
         $sut->initialize($this->lotteryDataService_double->reveal(), $this->playService_double->reveal(),$this->emailService_double->reveal(), $this->userService_double->reveal());
         $today = new \DateTime('2015-10-07');
         $sut->createBetAction($today,$time_to_retry);
+    }
+
+
+    /**
+     * method createBetAction
+     * when jackpotDrawIsgreatherThanJackpotConfigUser
+     * should createBet
+     */
+    public function test_createBetAction_jackpotDrawIsgreatherThanJackpotConfigUser_createBet()
+    {
+        $euroMillionsDraw = $this->getEuroMillionsDraw('2015-11-20');
+        $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true,$euroMillionsDraw));
+        $play_config_list = $this->getPlayConfigList($this->getUserTwo());
+        $this->playService_double->getPlaysConfigToBet($euroMillionsDraw->getDrawDate())->willReturn($play_config_list);
+        $this->playService_double->bet(Argument::any(),Argument::any())->shouldBeCalled();
+        $sut = new BetTask();
+        $sut->initialize($this->lotteryDataService_double->reveal(), $this->playService_double->reveal(),$this->emailService_double->reveal(), $this->userService_double->reveal());
+        $today = new \DateTime('2015-11-20');
+        $sut->createBetAction($today,$this->time_to_retry);
     }
 
     /**
@@ -289,7 +249,7 @@ class BetTaskUnitTest extends UnitTestBase
                 'password' => new Password('passworD01', new NullPasswordHasher()),
                 'validated' => false,
                 'balance' => new Money(5000,new Currency($currency)),
-                'validation_token' => '33e4e6a08f82abb38566fc3bb8e8ef0d'
+                'validation_token' => '33e4e6a08f82abb38566fc3bb8e8ef0d',
             ]
         );
         return $user;
@@ -311,7 +271,8 @@ class BetTaskUnitTest extends UnitTestBase
                 'password' => new Password('passworD01', new NullPasswordHasher()),
                 'validated' => false,
                 'balance' => new Money(5000,new Currency($currency)),
-                'validation_token' => '33e4e6a08f82abb38566fc3bb8e8ef0d'
+                'validation_token' => '33e4e6a08f82abb38566fc3bb8e8ef0d',
+                'threshold' => new Money(100000, new Currency($currency))
             ]
         );
         return $user;
@@ -334,7 +295,66 @@ class BetTaskUnitTest extends UnitTestBase
     {
         $euroMillionsDraw = $this->getEuroMillionsDraw('2015-10-09');
         $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true, $euroMillionsDraw));
-        $play_config_list = $this->getPlayConfigList();
+        $play_config_list = $this->getPlayConfigList($this->getUser());
         $this->playService_double->getPlaysConfigToBet($euroMillionsDraw->getDrawDate())->willReturn($play_config_list);
+    }
+
+    private function getSut()
+    {
+        $sut = $this->getDomainServiceFactory();
+        return $sut;
+    }
+
+
+    private function getEuroMillionsDraw($lotteryDrawDate)
+    {
+        $regular_numbers = [1, 2, 3, 4, 5];
+        $lucky_numbers = [5, 8];
+        $euroMillionsDraw = new EuroMillionsDraw();
+        $euroMillionsDraw->setDrawDate((new \DateTime($lotteryDrawDate)));
+        $euroMillionsDraw->setJackpot(new Money(1000000, new Currency('EUR')));
+        $euroMillionsDraw->createResult($regular_numbers, $lucky_numbers);
+        return $euroMillionsDraw;
+    }
+
+
+    private function getPlayConfigList($user)
+    {
+
+        $attributes_list = [
+            [
+                'active'        => 1,
+                'startDrawDate' => new \DateTime('2015-10-05'),
+                'lastDrawDate'  => new \DateTime('2015-12-03'),
+                'draw_days'     => new DrawDays('25'),
+                'user'          => $user
+            ],
+            [
+                'active'        => 1,
+                'startDrawDate' => new \DateTime('2015-10-05'),
+                'lastDrawDate'  => new \DateTime('2015-12-03'),
+                'draw_days'     => new DrawDays('5'),
+                'user'          => $user
+            ],
+            [
+                'active'        => 1,
+                'startDrawDate' => new \DateTime('2015-10-07'),
+                'lastDrawDate'  => new \DateTime('2015-12-03'),
+                'draw_days'     => new DrawDays('5'),
+                'user'          => $user
+            ],
+            [
+                'active'        => 1,
+                'startDrawDate' => new \DateTime('2015-10-05'),
+                'lastDrawDate'  => new \DateTime('2015-12-03'),
+                'draw_days'     => new DrawDays('2'),
+                'user'          => $user
+            ]
+        ];
+        $play_config_list = [];
+        foreach($attributes_list as $attributes) {
+            $play_config_list[] = $this->getPlayConfigFromAttributes($attributes);
+        }
+        return new ActionResult(true, $play_config_list);
     }
 }

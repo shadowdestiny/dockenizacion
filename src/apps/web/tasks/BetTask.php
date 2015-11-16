@@ -66,21 +66,28 @@ class BetTask extends TaskBase
             $result_bet = null;
             foreach($play_config_list as $play_config) {
                 if($play_config->getDrawDays()->compareTo($euromillions_draw->getDrawDate()->format('w'))){
-                    try{
-                        if(empty($user_id)){
+                    if(empty($play_config->getUser()->getThreshold())){
+                        try{
+                            if(empty($user_id)){
+                                /** @var ActionResult $result_bet */
+                                $this->playService->bet($play_config, $euromillions_draw);
+                            }
+                            if(!empty($user_id) && $user_id != $play_config->getUser()->getId()->id()){
+                                $user_id = '';
+                                /** @var ActionResult $result_bet */
+                                $this->playService->bet($play_config, $euromillions_draw);
+                            }
+                        }catch(InvalidBalanceException $e){
+                            if(empty($user_id) || $user_id != $play_config->getUser()->getId()->id()){
+                                $user = $this->userService->getUser($play_config->getUser()->getId());
+                                $user_id = $play_config->getUser()->getId()->id();
+                                $this->emailService->sendTransactionalEmail($user, 'low-balance');
+                            }
+                        }
+                    } else {
+                        if($euromillions_draw->getJackpot()->getAmount() >= $play_config->getUser()->getThreshold()->getAmount()) {
                             /** @var ActionResult $result_bet */
                             $this->playService->bet($play_config, $euromillions_draw);
-                        }
-                        if(!empty($user_id) && $user_id != $play_config->getUser()->getId()->id()){
-                            $user_id = '';
-                            /** @var ActionResult $result_bet */
-                            $this->playService->bet($play_config, $euromillions_draw);
-                        }
-                    }catch(InvalidBalanceException $e){
-                        if(empty($user_id) || $user_id != $play_config->getUser()->getId()->id()){
-                            $user = $this->userService->getUser($play_config->getUser()->getId());
-                            $user_id = $play_config->getUser()->getId()->id();
-                            $this->emailService->sendTransactionalEmail($user, 'low-balance');
                         }
                     }
                 }
