@@ -4,12 +4,14 @@
 namespace EuroMillions\web\controllers;
 
 
+use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
 use EuroMillions\web\vo\dto\PaymentMethodDTO;
 use EuroMillions\web\vo\dto\PlayConfigDTO;
 use EuroMillions\web\vo\dto\UserDTO;
+use EuroMillions\web\vo\dto\UserNotificationsDTO;
 use EuroMillions\web\vo\Email;
 use Phalcon\Validation\Message;
 
@@ -208,6 +210,33 @@ class AccountController extends PublicSiteControllerBase
             'payment_methods' => '',
             'payment_method'  => $payment_method_dto,
         ]);
+
+    }
+
+    public function emailAction()
+    {
+        $userId = $this->authService->getCurrentUser();
+        $result = $this->userService->getActiveNotificationsByUser($userId);
+        $list_notifications = null;
+
+        if($result->success()) {
+            $notifications_collection = $result->getValues();
+            foreach($notifications_collection as $notifications) {
+                $list_notifications[] = new UserNotificationsDTO($notifications);
+            }
+        }else {
+            $error_msg = 'An error occurred';
+        }
+
+        $this->view->pick('account/email');
+        return $this->view->setVars([
+            'error' => (!empty($error_msg)) ? $error_msg : '',
+            'list_notifications' => $list_notifications
+        ]);
+    }
+
+    public function editEmailAction()
+    {
 
     }
 

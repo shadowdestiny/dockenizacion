@@ -17,7 +17,7 @@
 
         <field name="description" type="string" nullable="true" />
 
-        <one-to-many target-entity="EuroMillions\web\entities\UsersNotifications" mapped-by="userNotification"
+        <one-to-many target-entity="EuroMillions\web\entities\UserNotifications" mapped-by="userNotification"
                      field="userNotification">
         </one-to-many>
 

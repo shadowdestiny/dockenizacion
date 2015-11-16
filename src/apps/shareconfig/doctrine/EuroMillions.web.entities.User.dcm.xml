@@ -40,7 +40,7 @@
                      field="playConfig">
         </one-to-many>
 
-        <one-to-many target-entity="EuroMillions\web\entities\UsersNotifications" mapped-by="user_notification"
+        <one-to-many target-entity="EuroMillions\web\entities\UserNotifications" mapped-by="user_notification"
                      field="userNotification">
         </one-to-many>
 

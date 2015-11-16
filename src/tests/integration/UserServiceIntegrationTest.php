@@ -32,6 +32,8 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
             'languages',
             'payment_methods',
             'play_configs',
+            'notifications',
+            'users_notifications'
         ];
     }
 
@@ -150,6 +152,24 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         $this->assertGreaterThanOrEqual($expected,$actual);
     }
 
+    /**
+     * method getActiveNotificationsByUser
+     * when called
+     * should returnCollectionWithUserNotifications
+     */
+    public function test_getActiveNotificationsByUser_called_returnCollectionWithUserNotifications()
+    {
+        $expected = 2;
+        $email = 'algarrobo@currojimenez.com';
+        $userRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS.'User');
+        /** @var User $user */
+        $user = $userRepository->getByEmail($email);
+        $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
+        $sut = $this->getSut($paymentProvider_double);
+        $actual = count($sut->getActiveNotificationsByUser($user)->getValues());
+        $this->assertEquals($expected,$actual);
+    }
+
     public function getPlayConfigExpected()
     {
 
@@ -193,9 +213,11 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         return [$user,$playConfig];
     }
 
+
+
     /**
      * @param $paymentProvider_double
-     * @return \EuroMillions\services\UserService
+     * @return \EuroMillions\web\services\UserService
      */
     protected function getSut($paymentProvider_double)
     {

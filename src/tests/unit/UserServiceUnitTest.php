@@ -35,6 +35,7 @@ class UserServiceUnitTest extends UnitTestBase
     private $paymentProviderService_double;
     private $paymentMethodRepository_double;
     private $playRepository_double;
+    private $userNotificationsRepository_double;
 
     protected function getEntityManagerStubExtraMappings()
     {
@@ -42,7 +43,7 @@ class UserServiceUnitTest extends UnitTestBase
             Namespaces::ENTITIES_NS . 'User' => $this->userRepository_double,
             Namespaces::ENTITIES_NS . 'PaymentMethod' => $this->paymentMethodRepository_double,
             Namespaces::ENTITIES_NS . 'PlayConfig' => $this->playRepository_double,
-
+            Namespaces::ENTITIES_NS . 'UserNotifications' => $this->userNotificationsRepository_double,
         ];
     }
 
@@ -55,6 +56,7 @@ class UserServiceUnitTest extends UnitTestBase
         $this->paymentProviderService_double = $this->getServiceDouble('PaymentProviderService');
         $this->paymentMethodRepository_double = $this->getRepositoryDouble('PaymentMethodRepository');
         $this->playRepository_double = $this->getRepositoryDouble('PlayConfigRepository');
+        $this->userNotificationsRepository_double = $this->getRepositoryDouble('UserNotificationsRepository');
         parent::setUp();
     }
 
@@ -256,7 +258,6 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_getMyPlays_called_returnServiceActionResultTrueWithProperData()
     {
-
         $playConfig = $this->getPlayConfig();
         $expected = new ActionResult(true,$playConfig);
         $sut = $this->getSut();
@@ -425,6 +426,30 @@ class UserServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
+    /**
+     * method getActiveNotificationsByUser
+     * when calledWithValidUser
+     * should returnActionResultTrueWithNotificationCollection
+     */
+    public function test_getActiveNotificationsByUser_calledWithValidUser_returnActionResultTrueWithNotificationCollection()
+    {
+        $expected = true;
+        $actual = $this->exerciseGetNotifications($expected);
+        $this->assertEquals($expected,$actual->success());
+    }
+
+    /**
+     * method getActiveNotificationsByUser
+     * when calledAndEmptyCollection
+     * should returnActionResultFalse
+     */
+    public function test_getActiveNotificationsByUser_calledAndEmptyCollection_returnActionResultFalse()
+    {
+        $expected = false;
+        $actual = $this->exerciseGetNotifications($expected);
+        $this->assertEquals($expected,$actual->success());
+    }
+
 
     private function getPlayConfig()
     {
@@ -565,6 +590,18 @@ class UserServiceUnitTest extends UnitTestBase
             $result[] = new EuroMillionsLuckyNumber($number);
         }
         return $result;
+    }
+
+    /**
+     * @return mixed
+     */
+    private function exerciseGetNotifications($expected)
+    {
+        $user = $this->getUser();
+        $this->userNotificationsRepository_double->findBy(['user' => $user])->willReturn($expected);
+        $sut = $this->getSut();
+        $actual = $sut->getActiveNotificationsByUser($user);
+        return $actual;
     }
 
 }

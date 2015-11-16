@@ -28,6 +28,7 @@ class UserAccessController extends ControllerBase
 
     public function signInAction($paramsFromPreviousAction = null)
     {
+
         $errors = null;
         $sign_in_form = new SignInForm();
         $form_errors = $this->getErrorsArray();
@@ -102,6 +103,7 @@ class UserAccessController extends ControllerBase
                 if (!$register_result->success()) {
                     $errors[] = $register_result->errorMessage();
                 } else {
+                    var_dump("$controller/$action/".implode('/',$params));die();
                     return $this->response->redirect("$controller/$action/".implode('/',$params));
                 }
             }

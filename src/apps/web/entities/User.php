@@ -34,7 +34,6 @@ class User extends EntityBase implements IEntity, IUser
 
     private $paymentMethod;
 
-    /** @var  PlayConfig */
     private $playConfig;
 
     protected $street;
