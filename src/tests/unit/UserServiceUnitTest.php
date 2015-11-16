@@ -466,7 +466,7 @@ class UserServiceUnitTest extends UnitTestBase
         $this->userNotificationsRepository_double->findOneBy(['id' => 4])->willReturn($user_notification);
         $this->userNotificationsRepository_double->add($user_notification)->shouldBeCalled();
         $entityManager_stub = $this->getEntityManagerDouble();
-        $entityManager_stub->flush()->shouldBeCalled();
+        $entityManager_stub->flush($user_notification)->shouldBeCalled();
         $sut = $this->getSut();
         $actual = $sut->updateEmailNotification($notificationType,4,$active);
         $this->assertEquals($expected,$actual->success());

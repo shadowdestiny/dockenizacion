@@ -273,7 +273,7 @@ class UserService
            $user_notification->setConfigValue($notificationType);
            $user_notification->setActive($active);
            $this->userNotificationsRepository->add($user_notification);
-           $this->entityManager->flush();
+           $this->entityManager->flush($user_notification);
            return new ActionResult(true);
         }else {
             return new ActionResult(false);
