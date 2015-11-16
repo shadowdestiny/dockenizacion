@@ -201,4 +201,19 @@ class LotteriesDataService
         }
     }
 
+    public function getSingleBetPriceByLottery($lotteryName)
+    {
+        /** @var Lottery $lottery */
+        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        if(!empty($lottery)) {
+            return $lottery->getSingleBetPrice();
+        }else{
+            return new ActionResult(false);
+        }
+    }
+
+    public function getNextDrawsByIteration($max_iteration = 5)
+    {
+
+    }
 }
