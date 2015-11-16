@@ -65,7 +65,7 @@
 						<div class="right">
 							<a href="javascript:void(0);" class="btn big gwp advanced">Advanced Play <svg class="ico v-clover"><use xlink:href="/w/svg/icon.svg#v-clover"></use></svg></a>
 
-							<a href="javascript:void(0);" class="btn add-cart"><span class="value">0.00 &euro;</span><span class="gap"><span class="separator"></span></span>{{ language.translate("Add to Cart") }}</a>
+							<a href="javascript:void(0);" class="btn add-cart"><span class="value">&euro; 0.00</span><span class="gap"><span class="separator"></span></span>{{ language.translate("Add to Cart") }}</a>
 						</div>
 					</div>
 					<div class="advanced-play">

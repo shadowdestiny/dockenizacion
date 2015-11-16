@@ -508,7 +508,7 @@ function redrawTotalCost(){
 	var total = Number(betsActive * price * numDraws).toFixed(2);
 	//EMTD put user currency
 	var user_currency = "\u20AC";
-	$('.box-bottom .add-cart .value').text(total + " " + user_currency);
+	$('.box-bottom .add-cart .value').text(user_currency +" "+ total);
 }
 
 function multiTask(target, activate, check){

@@ -30,7 +30,7 @@ class ContactController extends PublicSiteControllerBase
             } else {
                 $email = $this->request->getPost('email');
                 $fullName = $this->request->getPost('fullname');
-                $content = $this->request->getPost('content');
+                $content = $this->request->getPost('message');
                 $topic   = $this->request->getPost('topic');
 
                 $contactFormInfo  = new ContactFormInfo(new Email($email), $fullName, $content, $topic);
