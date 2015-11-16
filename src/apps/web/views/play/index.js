@@ -617,11 +617,12 @@ $(function(){
 		day_of_week = filter.split(',').length;
 		var txt_frequency = '';
 		var val_frequency = $('.frequency').find(":selected").val();
-		txt_frequency = val_frequency + ' week (Draws: ' + (val_frequency * day_of_week) + ' )';
+		console.log("day_of_week= "+day_of_week)
+		txt_frequency = val_frequency + ' week (Draws: '+(val_frequency * day_of_week)+ ')';
 		$('.select-txt').eq(2).text(txt_frequency);
 		$(".frequency > option").each(function() {
 			val_frequency = $(this).val();
-			txt_frequency = val_frequency + ' week (Draws: ' + (val_frequency * day_of_week) + ' )';
+			txt_frequency = val_frequency + ' week (Draws: '+(val_frequency * day_of_week)+ ')';
 			$(this).text(txt_frequency);
 		});
 		redrawTotalCost();

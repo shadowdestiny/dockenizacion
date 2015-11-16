@@ -95,7 +95,8 @@
 										{% for k,dates in play_dates %}
 											{% for j,date in dates %}
 												{% if k == 0 %}
-													<option data-date="{{ date }}" value="{{ j }}">{{ date }} {{ jackpot_value/1000000 }}M</option>
+													<option data-date="{{ date }}" value="{{ j }}">{{ date }}</option>
+													{# We do not need to show the millions in the date, commenting in the case that we want to reactivate this <option data-date="{{ date }}" value="{{ j }}">{{ date }} {{ jackpot_value/1000000 }}M</option>#}
 												{% else %}
 													<option data-date="{{ date }}" value="{{ j }}">{{ date }}</option>
 												{% endif %}
