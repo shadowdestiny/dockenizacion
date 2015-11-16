@@ -98,7 +98,7 @@ $(function(){
 					<div class="cols">
 						<div class="col8 content">
 							<h1 class="h2">{{ language.translate('Euromillions Results') }}</h1>
-							<p>{{ language.translate('Draw of') }} Tuesday, June 16, 2015</p>
+							<p>{{ language.translate('Draw of') }} {{ last_draw_date }}</p>
 							<ul class="no-li inline numbers small">
                                 {% for regular_number in euromillions_results["regular_numbers"] %}
 								    <li>{{ regular_number }}</li>
