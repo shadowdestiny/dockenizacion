@@ -466,10 +466,24 @@ class UserServiceUnitTest extends UnitTestBase
         $this->userNotificationsRepository_double->findOneBy(['id' => 4])->willReturn($user_notification);
         $this->userNotificationsRepository_double->add($user_notification)->shouldBeCalled();
         $entityManager_stub = $this->getEntityManagerDouble();
-        $entityManager_stub->flush()->shouldBeCalled();
+        $entityManager_stub->flush($user_notification)->shouldBeCalled();
         $sut = $this->getSut();
         $actual = $sut->updateEmailNotification($notificationType,4,$active);
         $this->assertEquals($expected,$actual->success());
+    }
+
+
+    /**
+     * method getActiveNotificationsTypeJackpot
+     * when called
+     * should returnActionResultWithCollection
+     */
+    public function test_getActiveNotificationsTypeJackpot_called_returnActionResultWithCollection()
+    {
+        $sut = $this->getSut();
+        $this->userNotificationsRepository_double->findBy(['active' => true, 'notification' => 1])->willReturn(true);
+        $actual = $sut->getActiveNotificationsTypeJAckpot();
+        $this->assertTrue($actual->success());
     }
 
 
