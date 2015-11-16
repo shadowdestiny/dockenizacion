@@ -172,7 +172,6 @@ $(function(){
 								<span class="time">
 									<span id="clock"></span>
 								</span>
-								{# EMTD be careful to add singolar/plural: DAY / DAYS and if it is a matter of hours put content text as "04:09:34" format#}
 							</div>
 							<div class="right">
 								{{ language.translate('Luck is not as random as you think') }}

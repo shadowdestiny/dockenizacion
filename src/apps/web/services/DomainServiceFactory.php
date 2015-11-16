@@ -3,10 +3,12 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\components\EmTranslationAdapter;
+use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\web\interfaces\ILanguageStrategy;
 use EuroMillions\web\repositories\LanguageRepository;
+use EuroMillions\web\services\card_payment_providers\FakeCardPaymentProvider;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
 use EuroMillions\web\services\play_strategies\RedisPlayStorageStrategy;
 use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
@@ -31,6 +33,12 @@ class DomainServiceFactory
     {
         $this->entityManager = $di->get('entityManager');
         $this->serviceFactory = $serviceFactory;
+    }
+
+    public function getCreditCardPaymentService(ICardPaymentProvider $provider = null)
+    {
+        if (!$provider) $provider = new FakeCardPaymentProvider();
+        return new CreditCardPaymentService($provider);
     }
 
     public function getLotteriesDataService(EntityManager $entityManager = null, LotteryApisFactory $lotteryApisFactory = null)

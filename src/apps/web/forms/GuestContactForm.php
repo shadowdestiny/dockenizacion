@@ -36,8 +36,8 @@ class GuestContactForm extends Form
         ]);
         $this->add($fullname);
 
-        $content = new TextArea('content', [
-            'placeholder' => 'Content'
+        $content = new TextArea('message', [
+            'placeholder' => 'Insert your messag here'
         ]);
         $content->addValidators(array(
             new PresenceOf(array(
@@ -51,7 +51,7 @@ class GuestContactForm extends Form
             $options['topics'],
             [
                 'useEmpty' => true,
-                'emptyText' => 'Please select...',
+                'emptyText' => 'Please select an option',
 
             ]
         );
