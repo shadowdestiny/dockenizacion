@@ -2,6 +2,7 @@
 namespace EuroMillions\web\tasks;
 
 use EuroMillions\web\entities\User;
+use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\UserService;
@@ -43,13 +44,15 @@ class JackpotTask extends TaskBase
     public function reminderJackpotAction()
     {
         $jackpot_amount = $this->lotteriesDataService->getNextJackpot('EuroMillions');
-        /** @var ActionResult $users_reminder */
-        $result = $this->userService->getAllUsersWithJackpotReminder();
+        /** @var ActionResult $result */
+        $result = $this->userService->getActiveNotificationsTypeJackpot();
+
         if($result->success()) {
-            /** @var User[] $users_reminder */
-            $users_reminder = $result->getValues();
-            foreach($users_reminder as $user) {
-                if($jackpot_amount->getAmount() >= $user->getBalance()->getAmount()) {
+            /** @var UserNotifications[] $user_notifications */
+            $user_notifications = $result->getValues();
+            foreach($user_notifications as $user_notification) {
+                if($jackpot_amount->getAmount() >= $user_notification->getConfigValue()->getValue()) {
+                    $user = $this->userService->getUser($user_notification->getUser()->getId());
                     $this->emailService->sendTransactionalEmail($user,'jackpot-rollover');
                 }
             }

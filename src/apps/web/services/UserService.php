@@ -262,7 +262,7 @@ class UserService
         }else{
             return new ActionResult(false);
         }
-   }
+    }
 
    public function updateEmailNotification(NotificationType $notificationType, $id_user_notification,$active)
    {
@@ -279,5 +279,15 @@ class UserService
             return new ActionResult(false);
         }
    }
+
+    public function getActiveNotificationsTypeJackpot()
+    {
+        $user_notifications = $this->userNotificationsRepository->findBy(['active' => true,
+                                                                          'notification' => 1
+                                                                         ]);
+        if(!empty($user_notifications)) {
+            return new ActionResult(true,$user_notifications);
+        }
+    }
 
 }

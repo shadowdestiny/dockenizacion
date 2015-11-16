@@ -473,6 +473,20 @@ class UserServiceUnitTest extends UnitTestBase
     }
 
 
+    /**
+     * method getActiveNotificationsTypeJackpot
+     * when called
+     * should returnActionResultWithCollection
+     */
+    public function test_getActiveNotificationsTypeJackpot_called_returnActionResultWithCollection()
+    {
+        $sut = $this->getSut();
+        $this->userNotificationsRepository_double->findBy(['active' => true, 'notification' => 1])->willReturn(true);
+        $actual = $sut->getActiveNotificationsTypeJAckpot();
+        $this->assertTrue($actual->success());
+    }
+
+
     private function getPlayConfig()
     {
         $regular_numbers = [1, 2, 3, 4, 5];
