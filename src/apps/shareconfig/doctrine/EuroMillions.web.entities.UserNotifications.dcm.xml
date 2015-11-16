@@ -21,7 +21,7 @@
             </options>
         </field>
 
-        <field name="config_value" type="string" nullable="true" />
+        <embedded name="type" class="EuroMillions\web\vo\NotificationType"/>
 
         <many-to-one field="user" target-entity="EuroMillions\web\entities\User" >
             <join-column name="user_id" referenced-column-name="id" />

@@ -7,6 +7,7 @@ use EuroMillions\shareconfig\Namespaces;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\CreditCardPaymentMethod;
+use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\ContactFormInfo;
@@ -17,6 +18,7 @@ use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
 use EuroMillions\web\vo\ExpiryDate;
+use EuroMillions\web\vo\NotificationType;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\ActionResult;
 use EuroMillions\web\vo\UserId;
@@ -450,6 +452,26 @@ class UserServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual->success());
     }
 
+    /**
+     * method updateEmailNotification
+     * when called
+     * should updateNotificationByUserAndRetunrnActionResultTrue
+     */
+    public function test_updateEmailNotification_called_updateNotificationByUserAndRetunrnActionResultTrue()
+    {
+        $expected = true;
+        $notificationType = new NotificationType(4,true);
+        $active = true;
+        $user_notification = $this->getUserNoticiation();
+        $this->userNotificationsRepository_double->findOneBy(['id' => 4])->willReturn($user_notification);
+        $this->userNotificationsRepository_double->add($user_notification)->shouldBeCalled();
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->flush()->shouldBeCalled();
+        $sut = $this->getSut();
+        $actual = $sut->updateEmailNotification($notificationType,4,$active);
+        $this->assertEquals($expected,$actual->success());
+    }
+
 
     private function getPlayConfig()
     {
@@ -488,6 +510,23 @@ class UserServiceUnitTest extends UnitTestBase
             ]
         );
         return $user;
+    }
+
+    private function getUserNoticiation()
+    {
+
+        $user_notification = new UserNotifications();
+        $notificationType = new NotificationType(4,true);
+        $user_notification->initialize(
+            [
+                'id' => 4,
+                'user'     => '03bef482-89eb-11e5-ad54-0242ac110002',
+                'active'  => 1,
+                'notification' => $notificationType
+            ]
+        );
+
+        return $user_notification;
     }
 
     /**

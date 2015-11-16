@@ -11,6 +11,7 @@ class PlayController extends PublicSiteControllerBase
         //EMTD surely we need more things
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteriesDataService->getNextJackpot('EuroMillions'));
         $play_dates = $this->nextDrawsRecurrent();
+
         $dayOfWeek = function() {
             $draw = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions');
             return (int) date('w',$draw->getTimestamp());

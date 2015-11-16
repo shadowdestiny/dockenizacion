@@ -45,7 +45,7 @@ class Notification extends EntityBase implements IEntity
     }
 
     /**
-     * @param mixed $userNotification
+     * @param UserNotifications
      */
     public function setUserNotification($userNotification)
     {
