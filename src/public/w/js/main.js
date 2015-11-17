@@ -139,6 +139,7 @@ function count_down(element,
             }
         }).on('finish.countdown',function(event){
             $(this).html(finish_text).parent().addClass('disabled');
+            $(".box-estimated .content").removeAttr("href");
             finish_action();
         });
      //visit: http://hilios.github.io/jQuery.countdown to formatted html result
