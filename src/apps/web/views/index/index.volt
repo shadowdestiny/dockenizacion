@@ -34,9 +34,10 @@ $(function(){
     });
     $(window).resize(checkWin); //fix alignment of the popup when resized
 	//countdown
+	var html_formatted_offset = [];
 	var element = $('.box-prize .time');
 	var html_formatted = '%-Hh %-Mm %-Ss';
-	var html_formatted_offset = '%-dd ' + html_formatted;
+	html_formatted_offset[0] = '%-dd ' + html_formatted;
 	var date = '{{ date_to_draw }}';
 	var count  = count_down(element,html_formatted,html_formatted_offset,date);
 });
@@ -98,7 +99,7 @@ $(function(){
 					<div class="cols">
 						<div class="col8 content">
 							<h1 class="h2">{{ language.translate('Euromillions Results') }}</h1>
-							<p>{{ language.translate('Draw of') }} {{ last_draw_date }}</p>
+							<p>{{ language.translate('Draw of') }} {{ last_draw_date }} </p>
 							<ul class="no-li inline numbers small">
                                 {% for regular_number in euromillions_results["regular_numbers"] %}
 								    <li>{{ regular_number }}</li>

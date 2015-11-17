@@ -104,8 +104,6 @@ class UserAccessController extends ControllerBase
                 if (!$register_result->success()) {
                     $errors[] = $register_result->errorMessage();
                 } else {
-                    $email_service = $this->domainServiceFactory->getServiceFactory()->getEmailService();
-                    $email_service->sendRegistrationMail($register_result->getValues());
                     return $this->response->redirect($this->request->getHTTPReferer());
                 }
             }

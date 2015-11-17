@@ -19,6 +19,7 @@
         <field name="startDrawDate" type="date" nullable="true" column="start_draw_date"/>
         <field name="lastDrawDate" type="date" nullable="true" column="last_draw_date"/>
 
+        <embedded name="threshold" class="Money\Money" use-column-prefix="true" />
         <embedded name="line" class="EuroMillions\web\vo\EuroMillionsLine"/>
         <embedded name="draw_days" class="EuroMillions\web\vo\DrawDays"/>
         <one-to-many target-entity="EuroMillions\web\entities\Bet" mapped-by="bet"

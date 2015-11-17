@@ -142,6 +142,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
         $dispatcher = new Phalcon\Mvc\Dispatcher();
         $dispatcher->setEventsManager($eventsManager);
+
         $dispatcher->setDefaultNamespace('EuroMillions\web\controllers');
         return $dispatcher;
     }

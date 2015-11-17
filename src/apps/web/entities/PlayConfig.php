@@ -34,6 +34,8 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm
 
     protected $active;
 
+    protected $threshold;
+
     public function __construct()
     {
         $this->bet = new ArrayCollection();
