@@ -1,9 +1,7 @@
 {% extends "main.volt" %}
 {% block template_css %}
 	<link rel="stylesheet" href="/w/css/numbers.css">
-	<!--[if IE 9]>
-	<style>.laurel{display:none;}</style>
-	<![endif]-->
+	<!--[if IE 9]><style>.laurel{display:none;}</style><![endif]-->
 {% endblock %}
 {% block bodyClass %}numbers{% endblock %}
 
