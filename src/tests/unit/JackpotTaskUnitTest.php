@@ -3,9 +3,12 @@ namespace tests\unit;
 
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shareconfig\Namespaces;
+use EuroMillions\web\entities\Notification;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\tasks\JackpotTask;
 use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\NotificationType;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\ActionResult;
 use EuroMillions\web\vo\UserId;
@@ -70,12 +73,12 @@ class JackpotTaskUnitTest extends UnitTestBase
     public function test_reminderJackpotAction_called_sendReminderAllUsers()
     {
         $lottery_name = 'EuroMillions';
-        $users = [$this->getUser(),$this->getUser()];
-        $jackpot_amount = new Money(100000, new Currency('EUR'));
-
+        $notifications = [$this->getUserNotifications()];
+        $jackpot_amount = new Money(40000000, new Currency('EUR'));
         $this->lotteryDataService_double->getNextJackpot($lottery_name)->willReturn($jackpot_amount);
-        $this->userService_double->getAllUsersWithJackpotReminder()->willReturn(new ActionResult(true,$users));
-        $this->emailService_double->sendTransactionalEmail(Argument::type($this->getEntitiesToArgument('User')), 'jackpot-rollover')->shouldBeCalledTimes(2);
+        $this->userService_double->getActiveNotificationsTypeJackpot()->willReturn(new ActionResult(true,$notifications));
+        $this->userService_double->getUser($this->getUser()->getId())->willReturn($this->getUser());
+        $this->emailService_double->sendTransactionalEmail(Argument::type($this->getEntitiesToArgument('User')), 'jackpot-rollover')->shouldBeCalledTimes(1);
         $sut = new JackpotTask();
         $sut->initialize($this->lotteryDataService_double->reveal(),$this->userService_double->reveal(), $this->emailService_double->reveal());
         $sut->reminderJackpotAction();
@@ -108,5 +111,18 @@ class JackpotTaskUnitTest extends UnitTestBase
             ]
         );
         return $user;
+    }
+
+    private function getUserNotifications()
+    {
+        $userNotifications = new UserNotifications();
+        $userNotifications->setUser($this->getUser());
+        $notification = new Notification();
+        $notification->setDescription('Test');
+        $userNotifications->setNotification($notification);
+        $notificationType = new NotificationType(1,3500000);
+        $userNotifications->setConfigValue($notificationType);
+        $userNotifications->setActive(true);
+        return $userNotifications;
     }
 }

@@ -4,6 +4,7 @@
 namespace EuroMillions\web\entities;
 
 use EuroMillions\web\interfaces\IEntity;
+use EuroMillions\web\vo\NotificationType;
 
 class UserNotifications extends EntityBase implements IEntity
 {
@@ -11,12 +12,28 @@ class UserNotifications extends EntityBase implements IEntity
 
     protected $user;
 
-    protected $notification;
-
     protected $active;
 
-    protected $config_value;
+    /** @var  NotificationType */
+    protected $type;
 
+    protected $notification;
+
+    /**
+     * @return mixed
+     */
+    public function getNotification()
+    {
+        return $this->notification;
+    }
+
+    /**
+     * @param mixed $notification
+     */
+    public function setNotification($notification)
+    {
+        $this->notification = $notification;
+    }
 
     public function getId()
     {
@@ -42,22 +59,6 @@ class UserNotifications extends EntityBase implements IEntity
     /**
      * @return mixed
      */
-    public function getNotification()
-    {
-        return $this->notification;
-    }
-
-    /**
-     * @param mixed $notification
-     */
-    public function setNotification($notification)
-    {
-        $this->notification = $notification;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getActive()
     {
         return $this->active;
@@ -76,15 +77,15 @@ class UserNotifications extends EntityBase implements IEntity
      */
     public function getConfigValue()
     {
-        return $this->config_value;
+        return $this->type;
     }
 
     /**
      * @param mixed $config_value
      */
-    public function setConfigValue($config_value)
+    public function setConfigValue($type)
     {
-        $this->config_value = $config_value;
+        $this->type = $type;
     }
 
 }

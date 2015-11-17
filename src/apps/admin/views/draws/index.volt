@@ -52,31 +52,31 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            {% if draws is empty %}
-                                <span>No data was found</span>
-                            {% else %}
-                            {% for draw in draws.items %}
-                                <tr>
-                                    <td class="date">
-                                        {{ draw.draw_date }}
-                                    </td>
-                                    <td class="jackpot">
-                                        &euro; {{ draw.jackpot | number_format(0, ',', '.')}}
-                                    </td>
-                                    <td class="numbers">
-                                        {% for number in draw.regular_numbers %}
-                                            <span class="num">{{ number }}</span>
-                                        {% endfor %}
-                                        {% for lucky in draw.lucky_numbers %}
-                                            <span class="num yellow">{{ lucky }}</span>
-                                        {% endfor %}
-                                    </td>
-                                    <td class="action">
-                                         <a href="javascript:void(0)" data-id="{{ draw.id }}" class="btn btn-primary">Edit</a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            {% endif %}
+                                {% if draws is empty %}
+                                    <span>No data was found</span>
+                                {% else %}
+                                    {% for draw in draws.items %}
+                                        <tr>
+                                            <td class="date">
+                                                {{ draw.draw_date }}
+                                            </td>
+                                            <td class="jackpot">
+                                                &euro; {{ draw.jackpot | number_format(0, ',', '.')}}
+                                            </td>
+                                            <td class="numbers">
+                                                {% for number in draw.regular_numbers %}
+                                                    <span class="num">{{ number }}</span>
+                                                {% endfor %}
+                                                {% for lucky in draw.lucky_numbers %}
+                                                    <span class="num yellow">{{ lucky }}</span>
+                                                {% endfor %}
+                                            </td>
+                                            <td class="action">
+                                                 <a href="javascript:void(0)" data-id="{{ draw.id }}" class="btn btn-primary">Edit</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
                             </tbody>
                         </table>
                         {{ paginator_view }}
@@ -84,8 +84,7 @@
                     <div class="crud-draw hidden-element">
                         <h2 class="sub-title purple"></h2>
                         <form method="post" class="cl form-draw" action="/admin/draws/edit">
-                            <div class="cal">
-                            </div>
+                            <div class="cal"></div>
                             <div class="row-fluid">
                                 <div class="span6">
                                     <label for="update-date">Date</label>

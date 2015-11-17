@@ -16,41 +16,28 @@
             <p>{{ language.translate("What can we help you with?") }}</p>
 
             {{  form('contact') }}
-
-
                 {% if message %}
                     <div class="box {{ class }}">
                         <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
                         <span class="txt">{{ message }}</span>
                     </div>
-                {%  endif %}
-
-                <!--<label for="option" class="label">
-                    {{ language.translate("Select a topic") }}
-                </label>
-                <select class="select" id="option">
-                    <option>{{ language.translate("Playing the game") }}</option>
-                    <option>{{ language.translate("Password, Email and Log in") }}</option>
-                    <option>{{ language.translate("Account settings") }}</option>
-                    <option>{{ language.translate("Bank and Credit card") }}</option>
-                    <option>{{ language.translate("Other kind of questions") }}</option>
-                </select>-->
+                {% endif %}
 
                 {{ guestContactForm.render('topic', {'class':'input'}) }}
+                
                 {% if user_logged %}
-                    {{ "Hello " }}{{ user_name }}
+                    <p class="logged">{{ language.translate('Sending message as: ') }}{{ user_name }}</p>
                 {% else %}
                     {{ guestContactForm.render('fullname', {'class':'input'}) }}
                     {{ guestContactForm.render('email', {'class':'input'}) }}
                 {% endif %}
-                {{ guestContactForm.render('content', {'class':'input'}) }}
+                {{ guestContactForm.render('message', {'class':'textarea'}) }}
                 {{ guestContactForm.render('csrf', ['value': security.getSessionToken()]) }}
 
                 <div class="cl">
                     <label for="submitBtn" class="btn blue big submit right">{{ language.translate("Send message") }}</label>
                     <input id="submitBtn" type="submit" class="hidden">
                 </div>
-
             {{ endform() }}
         </div>
     </div>

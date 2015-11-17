@@ -118,6 +118,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             //The controller exists but the action not
             if ($event->getType() == 'beforeNotFoundAction') {
                 $dispatcher->forward(array(
+                    'module' => 'web',
                     'controller' => 'index',
                     'action'     => 'notfound'
                 ));
@@ -128,6 +129,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                     case Phalcon\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
                     case Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
                         $dispatcher->forward(array(
+                            'module' => 'web',
                             'controller' => 'index',
                             'action'     => 'notfound',
                             'params'     => array($exception)
@@ -140,8 +142,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
         $dispatcher = new Phalcon\Mvc\Dispatcher();
         $dispatcher->setEventsManager($eventsManager);
-        //$dispatcher->setDefaultNamespace('EuroMillions\web\controllers');
 
+        $dispatcher->setDefaultNamespace('EuroMillions\web\controllers');
         return $dispatcher;
     }
 

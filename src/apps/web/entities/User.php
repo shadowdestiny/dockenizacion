@@ -255,7 +255,7 @@ class User extends EntityBase implements IEntity, IUser
     }
 
     /**
-     * @return mixed
+     * @return Money
      */
     public function getThreshold()
     {

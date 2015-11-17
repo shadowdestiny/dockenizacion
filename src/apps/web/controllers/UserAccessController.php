@@ -83,6 +83,7 @@ class UserAccessController extends ControllerBase
         list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
         if ($this->request->isPost()) {
             if ($sign_up_form->isValid($this->request->getPost()) == false) {
+
                 $messages = $sign_up_form->getMessages(true);
                 /**
                  * @var string $field
@@ -103,8 +104,7 @@ class UserAccessController extends ControllerBase
                 if (!$register_result->success()) {
                     $errors[] = $register_result->errorMessage();
                 } else {
-                    var_dump("$controller/$action/".implode('/',$params));die();
-                    return $this->response->redirect("$controller/$action/".implode('/',$params));
+                    return $this->response->redirect($this->request->getHTTPReferer());
                 }
             }
         }

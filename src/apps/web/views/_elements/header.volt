@@ -1,6 +1,4 @@
-{# EMTD To insert *burger* for  mobile version #}
-
-<header data-role="header">
+<header data-role="header" class="header">
 	{% include "_elements/top-bar.volt" %}
 	<div class="head">
 		<div class="wrapper">

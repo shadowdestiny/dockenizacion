@@ -20,8 +20,8 @@
             <div class="box-basic content">
                 <h1 class="h1 title">{{ language.translate("My Games") }}</h1>
 
-                *Without Data*
 
+                {% if my_games_actives is empty or my_games_inactives is empty %}
                 <div class="box info">
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#info"></use></svg>
                     <span class="txt">
@@ -43,12 +43,11 @@
                         <span class="btn blue big" >{{ language.translate("Play now") }}</span>
                     </div>
                 </a>
-
-                *With Data*
-                <h2 class="h3">Present Games</h2>
+                {% endif %}
                 {% if my_games_actives is empty %}
-                    {{ message_actives }}
+
                 {% else %}
+                    <h2 class="h3">Present Games</h2>
                     <table class="present cl table ui-responsive" data-role="table" data-mode="reflow">
                         <thead>
                             <th class="date">
@@ -83,10 +82,11 @@
                         </tbody>
                     </table>
                 {% endif %}
-                <h2 class="h3">Past Games</h2>
+
                 {% if my_games_inactives is empty %}
-                   {{ message_inactives }}
+
                 {% else %}
+                    <h2 class="h3">Past Games</h2>
                 <table id="game-history" class="cl table ui-responsive" data-role="table" data-mode="reflow">
                     <thead>
                     <tr>
@@ -134,9 +134,8 @@
                     </tr>
                     </tbody>
                 </table>
+                    {% include "account/_paging.volt" %}
                 {% endif %}
-
-                {% include "account/_paging.volt" %}
             </div>
         </div>
     </main>

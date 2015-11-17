@@ -16,6 +16,7 @@ use EuroMillions\web\vo\ContactFormInfo;
 use EuroMillions\web\vo\CVV;
 use EuroMillions\web\vo\ExpiryDate;
 use EuroMillions\web\vo\ActionResult;
+use EuroMillions\web\vo\NotificationType;
 use EuroMillions\web\vo\UserId;
 use Exception;
 use Money\Money;
@@ -261,6 +262,32 @@ class UserService
         }else{
             return new ActionResult(false);
         }
+    }
+
+   public function updateEmailNotification(NotificationType $notificationType, $id_user_notification,$active)
+   {
+       /** @var UserNotifications $user_notification */
+        $user_notification = $this->userNotificationsRepository->findOneBy(['id' => $id_user_notification]);
+
+        if(!empty($user_notification)) {
+           $user_notification->setConfigValue($notificationType);
+           $user_notification->setActive($active);
+           $this->userNotificationsRepository->add($user_notification);
+           $this->entityManager->flush($user_notification);
+           return new ActionResult(true);
+        }else {
+            return new ActionResult(false);
+        }
    }
+
+    public function getActiveNotificationsTypeJackpot()
+    {
+        $user_notifications = $this->userNotificationsRepository->findBy(['active' => true,
+                                                                          'notification' => 1
+                                                                         ]);
+        if(!empty($user_notifications)) {
+            return new ActionResult(true,$user_notifications);
+        }
+    }
 
 }

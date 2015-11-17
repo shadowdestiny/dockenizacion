@@ -13,6 +13,7 @@ use EuroMillions\web\vo\dto\PlayConfigDTO;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\UserNotificationsDTO;
 use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\NotificationType;
 use Phalcon\Validation\Message;
 
 class AccountController extends PublicSiteControllerBase
@@ -227,7 +228,6 @@ class AccountController extends PublicSiteControllerBase
         }else {
             $error_msg = 'An error occurred';
         }
-
         $this->view->pick('account/email');
         return $this->view->setVars([
             'error' => (!empty($error_msg)) ? $error_msg : '',
@@ -237,6 +237,23 @@ class AccountController extends PublicSiteControllerBase
 
     public function editEmailAction()
     {
+        $id = $this->request->getPost('id');
+        $active = $this->request->getPost('active');
+        $type = $this->request->getPost('type');
+        $value = $this->request->getPost('value');
+        $notificationType = new NotificationType($type,$value);
+        /** @var ActionResult $result */
+        $result = $this->userService->updateEmailNotification($notificationType,$id,$active);
+        $this->noRender();
+        if($result->success()){
+            echo json_encode(['result'=> 'OK',
+                              'value' => 'Your notifications were updated'
+            ]);
+        }else{
+            echo json_encode(['result'=> 'KO',
+                              'value' => 'A problem occurred'
+            ]);
+        }
 
     }
 

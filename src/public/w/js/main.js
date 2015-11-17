@@ -120,15 +120,22 @@ function selectFix(){ // Style the "Select"
 function count_down(element,html_formatted,html_formatted_offset,date) {
     return element.countdown(date).
         on('update.countdown', function(event){
+            if(event.offset.days == 0) {
+                $(this).html(event.strftime(html_formatted_offset[0]));
+            }
+            if(event.offset.hours == 0){
+                $(this).html(event.strftime(html_formatted_offset[1]));
+            }
+            if(event.offset.minutes == 0){
+                $(this).html(event.strftime(html_formatted_offset[2]));
+            }
             if(event.offset.days > 0) {
                 $(this).html(event.strftime(html_formatted));
-            }else {
-                $(this).html(event.strftime(html_formatted_offset));
             }
         }).on('finish.countdown',function(event){
             $(this).html("{{language.translate('Draw closed')}}").parent().addClass('disabled');
         });
-    //visit: http://hilios.github.io/jQuery.countdown/ to formatted html result
+     //visit: http://hilios.github.io/jQuery.countdown to formatted html result
 }
 $(function(){
 	checkSize();
