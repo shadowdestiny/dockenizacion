@@ -1,9 +1,7 @@
 {% extends "main.volt" %}
 {% block template_css %}
 	<link rel="stylesheet" href="/w/css/numbers.css">
-	<!--[if IE 9]>
-	<style>.laurel{display:none;}</style>
-	<![endif]-->
+	<!--[if IE 9]><style>.laurel{display:none;}</style><![endif]-->
 {% endblock %}
 {% block bodyClass %}numbers{% endblock %}
 
@@ -27,10 +25,11 @@ $(function(){
 	$('.countdown .minute').remove();
 	$('.countdown .dots').eq(0).remove();
 	html_formatted_offset[2] = $('.countdown').html();
-	var date = '{{ date_draw }}'
+	var date = '{{ date_draw }}'; {# Format Example for DATE '2015/11/17 10:7:00'#} 
 	count_down(element,html_formatted,html_formatted_offset, date);
 });
 </script>
+
 {% endblock %}
 {% block body %}
 <main id="content">
