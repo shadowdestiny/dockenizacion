@@ -25,10 +25,12 @@ $(function(){
 	$('.countdown .minute').remove();
 	$('.countdown .dots').eq(0).remove();
 	html_formatted_offset[2] = $('.countdown').html();
-	//var date = '{{ date_draw }}'
-	var date = '2015/11/17 10:10:00';
+	var finish_action = function(){
+		$('.box-next-draw .btn.red').remove();
+	}
+	var date = '{{ date_draw }}';
 	var finish_text = "{{ language.translate('Draw closed') }}";
-	count_down(element,html_formatted,html_formatted_offset, date,finish_text);
+	count_down(element,html_formatted,html_formatted_offset, date,finish_text, finish_action);
 });
 </script>
 {% endblock %}

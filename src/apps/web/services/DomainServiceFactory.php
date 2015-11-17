@@ -91,14 +91,15 @@ class DomainServiceFactory
      * @param EmailService $emailService
      * @return AuthService
      */
-    public function getAuthService(IPasswordHasher $passwordHasher = null, IAuthStorageStrategy $storageStrategy = null, IUrlManager $urlManager = null, LogService $logService = null, EmailService $emailService = null)
+    public function getAuthService(IPasswordHasher $passwordHasher = null, IAuthStorageStrategy $storageStrategy = null, IUrlManager $urlManager = null, LogService $logService = null, EmailService $emailService = null, UserService $userService = null)
     {
         if (!$storageStrategy) $storageStrategy = new WebAuthStorageStrategy($this->serviceFactory->getDI()->get('session'), $this->serviceFactory->getDI()->get('cookies'));
         if (!$passwordHasher) $passwordHasher = new PhpassWrapper();
         if (!$urlManager) $urlManager = $this->serviceFactory->getDI()->get('url');
         if (!$logService) $logService = $this->serviceFactory->getLogService();
         if (!$emailService) $emailService = $this->serviceFactory->getEmailService();
-        return new AuthService($this->entityManager, $passwordHasher, $storageStrategy, $urlManager, $logService, $emailService);
+        if (!$userService) $userService = $this->getUserService();
+        return new AuthService($this->entityManager, $passwordHasher, $storageStrategy, $urlManager, $logService, $emailService, $userService);
     }
 
     public function getPlayService(LotteriesDataService $lotteriesDataService = null, IPlayStorageStrategy $playStorageStrategy = null)

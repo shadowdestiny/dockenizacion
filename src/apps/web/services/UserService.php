@@ -290,4 +290,9 @@ class UserService
         }
     }
 
+    public function initUserNotifications()
+    {
+
+    }
+
 }

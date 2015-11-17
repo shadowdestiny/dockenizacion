@@ -40,7 +40,7 @@ $(function(){
 	html_formatted_offset[0] = '%-dd ' + html_formatted;
 	var date = '{{ date_to_draw }}';
 	var finish_text = "{{ language.translate('Draw closed') }}";
-	var count  = count_down(element,html_formatted,html_formatted_offset,date,finish_text);
+	var count  = count_down(element,html_formatted,html_formatted_offset,date,finish_text,null);
 });
 </script>
 {% endblock %}
