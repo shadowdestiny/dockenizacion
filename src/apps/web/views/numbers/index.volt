@@ -15,12 +15,19 @@
 {% block template_scripts %}
 <script>
 $(function(){
+	var html_formatted_offset = [];
 	var element = $('.countdown');
 	var html_formatted = element.html();
 	$('.countdown .day').remove();
 	$('.countdown .dots').eq(0).remove();
-	var html_formatted_offset = $('.countdown').html();
-	var date = '{{ date_draw }}';
+	html_formatted_offset[0] = $('.countdown').html();
+	$('.countdown .hour').remove();
+	$('.countdown .dots').eq(0).remove();
+	html_formatted_offset[1] = $('.countdown').html();
+	$('.countdown .minute').remove();
+	$('.countdown .dots').eq(0).remove();
+	html_formatted_offset[2] = $('.countdown').html();
+	var date = '{{ date_draw }}'
 	count_down(element,html_formatted,html_formatted_offset, date);
 });
 </script>
@@ -35,7 +42,7 @@ $(function(){
 					<div class="col8">
 						<div class="box-results">
 							<div class="content cl">
-								<h2 class="h2"><span class="purple">{{ language.translate("Last Draw") }}</span> Friday, 03 Jul 2015</h2>
+								<h2 class="h2"><span class="purple">{{ language.translate("Last Draw") }}</span> {{ last_draw_date }}</h2>
 
 								<ul class="no-li inline numbers">
 									{% for index,regular_number in last_result["regular_numbers"] %}
@@ -81,14 +88,19 @@ $(function(){
 		                                    </div>
 		                                    <div class="dots">:</div>
 		                                    <div class="hour unit">
-		                                    	<span class="val">%H</span>
+		                                    	<span class="val">%-H</span>
 		                                    	<span class="txt">hr</span>
 			                                </div>
 		                                    <div class="dots">:</div>
 		                                    <div class="minute unit">
-		                                    	<span class="val">%M</span>
+		                                    	<span class="val">%-M</span>
 		                                    	<span class="txt">min</span>
 		                                    </div>
+											<div class="dots">:</div>
+											<div class="seconds unit">
+												<span class="val">%-S</span>
+												<span class="txt">sec</span>
+											</div>
 		                                </div>
                                     	<span class="btn red big right">{{ language.translate("PLAY NOW") }}</span>
 	                                </div>

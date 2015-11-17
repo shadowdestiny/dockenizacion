@@ -166,7 +166,6 @@ class PlayService
 
     public function getPlaysConfigToBet(\DateTime $date)
     {
-
         $result = $this->playConfigRepository->getPlayConfigsByDrawDayAndDate($date);
         if(!empty($result)){
             return new ActionResult(true,$result);
@@ -174,5 +173,4 @@ class PlayService
             return new ActionResult(false);
         }
     }
-
 }

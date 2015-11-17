@@ -34,7 +34,6 @@ class EuroMillionsLineUnitTest extends UnitTestBase
         $this->assertEquals([1,8],$sut->getLuckyNumbersArray());
         $this->assertEquals("10,15,20,30,35",$sut->getRegularNumbers());
         $this->assertEquals("1,8",$sut->getLuckyNumbers());
-
     }
 
 }
