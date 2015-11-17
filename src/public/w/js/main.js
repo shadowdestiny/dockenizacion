@@ -117,7 +117,7 @@ function selectFix(){ // Style the "Select"
     }
 }
 
-function count_down(element,html_formatted,html_formatted_offset,date) {
+function count_down(element,html_formatted,html_formatted_offset,date,finish_text) {
     return element.countdown(date).
         on('update.countdown', function(event){
             if(event.offset.days == 0) {
@@ -133,7 +133,7 @@ function count_down(element,html_formatted,html_formatted_offset,date) {
                 $(this).html(event.strftime(html_formatted));
             }
         }).on('finish.countdown',function(event){
-            $(this).html("{{language.translate('Draw closed')}}").parent().addClass('disabled');
+            $(this).html(finish_text).parent().addClass('disabled');
         });
      //visit: http://hilios.github.io/jQuery.countdown to formatted html result
 }
