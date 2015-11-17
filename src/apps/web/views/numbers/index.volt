@@ -22,12 +22,12 @@ $(function(){
 	$('.countdown .dots').eq(0).remove();
 	html_formatted_offset[0] = $('.countdown').html();
 	$('.countdown .hour').remove();
-	$('.countdown .dots').eq(1).remove();
+	$('.countdown .dots').eq(0).remove();
 	html_formatted_offset[1] = $('.countdown').html();
 	$('.countdown .minute').remove();
-	$('.countdown .dots').eq(2).remove();
+	$('.countdown .dots').eq(0).remove();
 	html_formatted_offset[2] = $('.countdown').html();
-	var date = '{{ date_draw }}';
+	var date = '{{ date_draw }}'
 	count_down(element,html_formatted,html_formatted_offset, date);
 });
 </script>
