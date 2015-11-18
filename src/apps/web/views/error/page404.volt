@@ -13,17 +13,15 @@
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block body %}
-
 <main id="content">
     <div class="bg">
         <div class="wrapper">
             <h1 class="h1 message yellow">{{ language.translate("The page you requested was not found - ERROR 404") }}</h1>
             <h2 class="h0 title">{{ language.translate("Sorry, we just ran out of magic.") }}</h2>
             <p class="p">
-                {{ language.translate("Our Genies are currently recharging their magic dust or Aladdin is asking too many wishes at once,
-                <br>either way we are unable to realize all the wishes requested. We apologise for the inconvenience.") }}
+                {{ language.translate('Our Genies are currently recharging their magic dust or Aladdin is asking too many wishes at once,
+                <br class="br">either way we are unable to realize all the wishes requested. We apologise for the inconvenience.') }}
             </p>
-
             <form class="box-results">
                 <p class="last-known">The last known wish <span class="yellow">"win the lottery"</span> was</p>
                 <ul class="no-li inline numbers">
@@ -41,7 +39,7 @@
     </div>
     <div class="looking">
         <div class="wrapper">
-            <h2 class="h1">Or maybe you were looking for</h2>
+            <h2 class="h1 title2">Or maybe you were looking for</h2>
             <ul class="no-li cl h3">
                 <li><a href="/play">Playing the Lottery</a></li>
                 <li><a href="/numbers">Draw History</a></li>
