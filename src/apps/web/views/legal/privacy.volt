@@ -53,8 +53,8 @@
             <h2 class="h3">{{ language.translate("Legal Disclaimer") }}</h2>
             <p>{{ language.translate("Though we make every effort to preserve your privacy, we may need to disclose personal information when required by law wherein we have a good-faith belief that such action is necessary to comply with a current judicial proceeding, a court order or legal process demanded by our 
             website.") }}</p>
-
-            <p>{{ language.translate("If you have any additional questions or suggestions regarding our privacypolicy, please contact us at: <a href='mailto:support@euromillions.com'>support@euromillions.com</a>") }}</p>
+            <hr class="yellow">
+            <br><p>{{ language.translate("If you have any additional questions or suggestions regarding our privacy policy, please contact us at: <a href='mailto:support@euromillions.com'>support@euromillions.com</a>") }}</p>
         </div>
     </div>
 </main>

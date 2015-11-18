@@ -23,11 +23,16 @@
         tr:last-child td{border-bottom:0;}
         td.action{text-align:center; vertical-align:middle;}
         strong{display:block;}
-        .numbers .star{font-weight:bold; color:$yellow-dark}
+        .numbers{
+            font-weight:bold;
+            .star{color:$yellow-dark}
+            .num{margin-right:5px;}
+            .num:last-child{margin-right:0;}
+        }
         .ico{font-size:12px;}
         .id{min-width:52px;}
         .special{
-            background:$yellow url(../img/special-bg.png) no-repeat center center; background-size:cover; color:#fff; font-weight:bold; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);
+            background:$yellow url(../img/special-bg.png) no-repeat center center; background-size:cover; color:#fff; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);
             .star{color:$purple; text-shadow:none!important;}
         }
         .date{width:120px;}

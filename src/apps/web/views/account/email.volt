@@ -42,7 +42,7 @@ $(function() {
            {% include "account/_nav.volt" %}
         </div>
         <div class="box success hidden">
-            <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#checkmark"></use></svg>
+            <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>
 
         </div>
         <div class="box-basic content">
