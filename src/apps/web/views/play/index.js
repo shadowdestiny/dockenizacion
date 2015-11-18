@@ -448,11 +448,12 @@ var ajaxFunctions = {
 
 function addColumn(position){
 	var column = $($('div[class*="myCol num"]:last')).clone();
-	column.find('.numbers a,.stars a,i').each(function(index){
+	column.find('.numbers a,.stars a, svg.ico').each(function(index){
 		if($(this).hasClass('active')){
 			$(this).removeClass('active');
 		}
-		if($(this).hasClass('v-checkmark')){
+		//workaround svg class in jquery
+		if($(this).attr('class') === 'ico v-checkmark'){
 			$(this).hide();
 		}
 		playLine('.myCol .num'+index+' .numbers .btn','numbers');

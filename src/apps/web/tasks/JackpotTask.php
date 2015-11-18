@@ -43,7 +43,32 @@ class JackpotTask extends TaskBase
 
     public function reminderJackpotAction()
     {
+        $next_draw_day = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions');
+        $time_config = $this->getDI()->get('globalConfig')['retry_validation_time'];
+        $draw_day_format_one = $next_draw_day->format('l');
+        $draw_day_format_two = $next_draw_day->format('j F Y') . ' ' . $time_config['time'];
         $jackpot_amount = $this->lotteriesDataService->getNextJackpot('EuroMillions');
+
+        //vars email template
+        $vars = [
+            'subject' => 'Jackpot',
+            'template_vars' =>
+            [
+                [
+                    'name'    => 'jackpot',
+                    'content' => $jackpot_amount->getAmount()
+                ],
+                [
+                    'name'    => 'draw_day_format_one',
+                    'content' => $draw_day_format_one
+                ],
+                [
+                    'name'    => 'draw_day_format_two',
+                    'content' => $draw_day_format_two,
+                ],
+            ]
+        ];
+
         /** @var ActionResult $result */
         $result = $this->userService->getActiveNotificationsTypeJackpot();
 
@@ -54,7 +79,7 @@ class JackpotTask extends TaskBase
                 if($user_notification->getActive()) {
                     if($jackpot_amount->getAmount() >= $user_notification->getConfigValue()->getValue()) {
                         $user = $this->userService->getUser($user_notification->getUser()->getId());
-                        $this->emailService->sendTransactionalEmail($user,'jackpot-rollover');
+                        $this->emailService->sendTransactionalEmail($user,'jackpot-rollover',$vars);
                     }
                 }
             }
