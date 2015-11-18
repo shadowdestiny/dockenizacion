@@ -1,12 +1,6 @@
 {% extends "main.volt" %}
-{% block template_css %}
-    <link rel="stylesheet" href="/w/css/error.css">
-    <!--[if IE 9]>
-    <style>.laurel{display:none;}</style>
-    <![endif]-->
-{% endblock %}
+{% block template_css %}<link rel="stylesheet" href="/w/css/error.css">{% endblock %}
 {% block bodyClass %}error{% endblock %}
-
 {% block header %}
     {% set activeNav='{"myClass": ""}'|json_decode %}
     {% include "_elements/header.volt" %}
