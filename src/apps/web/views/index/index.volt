@@ -255,6 +255,7 @@ $(function(){
 				<div class="cols">
 					<div class="col6 bg-win"></div>
 					<div class="col6 box-txt r">
+						<a id="about-us"></a>
 						<h2 class="h1 yellow">About us</h2>
 						<h3 class="li-title">What we do</h3>
 						<p>Euromillions.com is the first lottery based website built to work on every device and every screen size, no matter how large or small. Mobile or desktop, we will always offer you the best user experience.</p>
