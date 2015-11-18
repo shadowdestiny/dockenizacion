@@ -21,7 +21,7 @@
         td{border:1px solid $purple; border-width:0 1px 1px 0; vertical-align:top;}
         th:last-child, td:last-child{border-right:0;}
         tr:last-child td{border-bottom:0;}
-        td.action{text-align:center; vertical-align:middle; width:220px;}
+        td.action{text-align:center; vertical-align:middle; width:200px;}
         strong{display:block;}
         .numbers{
             font-weight:bold;
@@ -61,7 +61,6 @@
         .action{min-width:180px;}
         .ico{position:relative; float:right; top:4px; margin-left:5px;}
     }
-    .present .duration{max-width:200px; min-width:160px;}
 }
 
 .wallet{
@@ -197,7 +196,7 @@
 .box-details form.right{float:left;}
 .my-games{
     .present, .configuration{
-        .action{min-width:100px;}
+        .action{min-width:100px; width:auto;}
         .btn:first-child{margin-bottom:8px;}
     }
 }
@@ -238,12 +237,12 @@
 .ui-responsive td{width:100%; float:left; clear:left; border-right:0!important;}
 .ui-responsive th{display:none;}
 .my-games{
+    .ui-table-cell-label{float:left; text-align:left; font-weight:normal; margin-right:10px;}
     .table{
-        th, td{width:100%; min-width:100%!important; max-width:100%!important; }
-        td{border-bottom:0 solid transparent;}
+        strong{display:inline;}
+        th, td{width:100%; min-width:100%!important; max-width:100%!important;}
+        td{border-bottom:0 solid transparent; border-bottom:1px solid $purple;}
         td:last-child{border-bottom:1px solid $purple;}
-        /*.action{text-align:left!important;}*/
-        /*.ico{display:none;}*/
     }
     .myCol{width:65%; vertical-align:text-top;}
     .no-data{

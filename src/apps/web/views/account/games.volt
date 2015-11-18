@@ -52,13 +52,13 @@
                     <table class="present cl table ui-responsive" data-role="table" data-mode="reflow">
                         <thead>
                             <th class="date">
-                                {{ language.translate("Game played") }}
+                                {{ language.translate("Game <span class='desktop'>played</span>") }}
                             </th>
                             <th class="when">
                                 {{ language.translate("Duration") }}
                             </th>
                             <th class="numbers">
-                                {{ language.translate("Numbers played") }}
+                                {{ language.translate("Numbers <span class='desktop'>played</span>") }}
                             </th>
                             <th class="action">
                                 {{ language.translate("Actions") }}
@@ -68,12 +68,16 @@
                             {% for game in my_games_actives %}
                                 <tr>
                                     <td class="date">
-                                        <strong>{{ language.translate("Euromillions") }}</strong>
-                                        {{ game.startDrawDate }}
+                                        <div class="myCol">
+                                            <strong>{{ language.translate("Euromillions") }}</strong>
+                                            {{ game.startDrawDate }}
+                                        </div>
                                     </td>
                                     <td class="duration">
-                                        <strong>{{ game.duration }}</strong>
-                                        (8 {{ language.translate("draws") }})
+                                        <div class="myCol">
+                                            <strong>{{ game.duration }}</strong>
+                                            (8 {{ language.translate("draws") }})
+                                        </div>
                                     </td>
                                     <td class="numbers">
                                         <div class="myCol">
@@ -110,7 +114,7 @@
                     <thead>
                     <tr>
                         <th class="date">
-                            {{ language.translate("Game played") }}
+                            {{ language.translate("Game <span class='desktop'>played</span>") }}
                         </th>
                         <th class="numbers">
                             {{ language.translate("Numbers <span class='desktop'>played</span>") }}
@@ -124,8 +128,10 @@
                     {% for game in my_games_inactives %}
                     <tr>
                         <td class="date">
-                            <strong>{{ language.translate("Euromillions") }}</strong>
-                            {{ game.startDrawDate }}
+                            <div class="myCol">
+                                <strong>{{ language.translate("Euromillions") }}</strong>
+                                {{ game.startDrawDate }}
+                            </div>
                         </td>
                         <td class="numbers">
                             <div class="myCol">
@@ -142,14 +148,18 @@
                             </div>
                         </td>
                         <td class="action">
-                            <a href="javascript:void(0);" class="btn blue">{{ language.translate("Play it <span class='desktop'>again</span> for") }} 2,35 &euro;</a>
+                            <div class="myCol">
+                                <a href="javascript:void(0);" class="btn blue">{{ language.translate("Play it <span class='desktop'>again</span> for") }} 2,35 &euro;</a>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}
                     <tr class="special">
                         <td class="date">
-                            <strong>{{ language.translate("Euromillions") }}</strong>
-                            12 May 2015
+                            <div class="myCol">
+                                <strong>{{ language.translate("Euromillions") }}</strong>
+                                12 May 2015
+                            </div>
                         </td>
                         <td class="numbers">
                             <div class="myCol">
@@ -163,7 +173,9 @@
                             </div>
                         </td>
                         <td class="action">
-                            <a href="javascript:void(0);" class="btn blue">{{ language.translate("Play it <span class='desktop'>again</span> for") }} 2,35 &euro;</a>
+                            <div class="myCol">
+                                <a href="javascript:void(0);" class="btn blue">{{ language.translate("Play it <span class='desktop'>again</span> for") }} 2,35 &euro;</a>
+                            </div>
                         </td>
                     </tr>
                     </tbody>
