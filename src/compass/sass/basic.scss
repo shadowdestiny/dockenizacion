@@ -397,8 +397,12 @@ body, .submit{font-family:$basic-font;}
 .my-left h1{margin-bottom:.5em;}
 
 /* COOKIES */
+.header{position:relative;}
 .box-cookies{
-  float:left; color:#eee; font-size:$small; line-height:28px;
+  font-size:$small; line-height:28px;
+}
+.top-nav .box-cookies{
+  float:left; color:#eee;
   .lnk{color:#eee;}
 }
 
