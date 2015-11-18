@@ -154,7 +154,7 @@ class AuthService
                 $url = $this->getValidationUrl($user);
                 $this->emailService->sendRegistrationMail($user, $url);
                 //user notifications default
-
+                $this->userService->initUserNotifications($user->getId());
                 return new ActionResult(true, $user);
             }else{
                 return new ActionResult(false, 'Error getting an user');

@@ -122,7 +122,6 @@ class PlayService
                     $castillo_key = CastilloCypherKey::create();
                     $castillo_ticket = CastilloTicketId::create();
                     $result_validation = $lotteryValidation->validateBet($bet,new CypherCastillo3DES(),$castillo_key,$castillo_ticket,new \DateTime($dateNextDraw));
-
                     $log_api_reponse = new LogValidationApi();
                     $log_api_reponse->initialize([
                         'id_provider' => 1,

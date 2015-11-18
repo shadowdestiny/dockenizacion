@@ -2,7 +2,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class AddNotification extends AbstractMigration
+class TypeNotification extends AbstractMigration
 {
     /**
      * Change Method.
@@ -27,10 +27,6 @@ class AddNotification extends AbstractMigration
      */
     public function change()
     {
-        $sql = "INSERT INTO notifications (`description`,`notification_type`) VALUES ('When Jackpot reach',1);
-                INSERT INTO notifications (`description`,`notification_type`) VALUES ('When Auto-Play has not enough funds',2);
-                INSERT INTO notifications (`description`,`notification_type`) VALUES ('When Auto-Play has played the last Draw',3);
-                INSERT INTO notifications (`description`,`notification_type`) VALUES ('Results of the Draw',4);";
-        $this->execute($sql);
+        $this->execute('ALTER TABLE notifications ADD type INT DEFAULT NULL;');
     }
 }

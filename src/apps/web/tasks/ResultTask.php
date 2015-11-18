@@ -3,6 +3,7 @@ namespace EuroMillions\web\tasks;
 
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\DomainServiceFactory;
 use EuroMillions\web\services\EmailService;
@@ -12,6 +13,7 @@ use EuroMillions\web\services\ServiceFactory;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
+use EuroMillions\web\vo\NotificationType;
 use Money\Currency;
 use Money\Money;
 use Phalcon\Di;
@@ -69,8 +71,24 @@ class ResultTask extends TaskBase
             foreach($play_config_list as $play_config){
                 /** @var User $user */
                 $user = $this->userService->getUser($play_config->getUser()->getId());
-                //$break_down_list = $this->convertCurrency($break_down_list->toArray(), $user->getBalance()->getCurrency());
-                $this->emailService->sendTransactionalEmail($user,'latest-results');
+                $user_notifications_result = $this->userService->getActiveNotificationsByUserAndType($user, NotificationType::NOTIFICATION_RESULT_DRAW);
+                if($user_notifications_result->success()) {
+                    /** @var UserNotifications $user_notification */
+                    $user_notification = $user_notifications_result->getValues();
+                    if($user_notification->getActive() && $user_notification->getConfigValue()) {
+                        $this->emailService->sendTransactionalEmail($user,'latest-results');
+                    }
+                }
+            }
+        }
+
+        $user_notifications_result = $this->userService->getActiveNotificationsByType(NotificationType::NOTIFICATION_RESULT_DRAW);
+        if($user_notifications_result->success()) {
+            $users_notifications = $user_notifications_result->getValues();
+            foreach($users_notifications as $user_notification) {
+                if(!$user_notification->getConfigValue()) {
+                    $this->emailService->sendTransactionalEmail($user_notification->getUser(),'latest-results');
+                }
             }
         }
     }

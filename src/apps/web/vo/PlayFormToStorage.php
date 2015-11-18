@@ -28,6 +28,8 @@ class PlayFormToStorage extends EMForm
 
     public $numbers;
 
+    public $threshold;
+
     public function toJson()
     {
 

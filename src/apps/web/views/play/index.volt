@@ -112,11 +112,11 @@
 								<div class="styled-select">
 									<div class="select-txt"></div>
 									<select autocomplete="off" class="frequency mySelect">
-										<option value="1">{{ language.translate("1 week (Draws: 1)") }}</option>
-										<option value="2">{{ language.translate("2 week (Draws: 2)") }}</option>
-										<option value="4">{{ language.translate("4 week (Draws: 4)") }}</option>
-										<option value="8">{{ language.translate("8 week (Draws: 8)") }}</option>
-										<option value="52">{{ language.translate("52 week (Draws: 52)") }}</option>
+										<option value="1">{{ language.translate("1 week (Draw: 1)") }}</option>
+										<option value="2">{{ language.translate("2 weeks (Draws: 2)") }}</option>
+										<option value="4">{{ language.translate("4 weeks (Draws: 4)") }}</option>
+										<option value="8">{{ language.translate("8 weeks (Draws: 8)") }}</option>
+										<option value="52">{{ language.translate("52 weeks (Draws: 52)") }}</option>
 		{#
 										<option value="always">{{ language.translate("Always (Every draw)") }}</option>
 		#}

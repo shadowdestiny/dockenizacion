@@ -13,6 +13,24 @@ class Notification extends EntityBase implements IEntity
 
     protected $description;
 
+    protected $notification_type;
+
+    /**
+     * @return mixed
+     */
+    public function getNotificationType()
+    {
+        return $this->notification_type;
+    }
+
+    /**
+     * @param mixed $notification_type
+     */
+    public function setNotificationType($notification_type)
+    {
+        $this->notification_type = $notification_type;
+    }
+
     protected $userNotification;
 
 
@@ -36,21 +54,5 @@ class Notification extends EntityBase implements IEntity
     {
         $this->description = $description;
     }
-    /**
-     * @return mixed
-     */
-    public function getUserNotification()
-    {
-        return $this->userNotification;
-    }
-
-    /**
-     * @param UserNotifications
-     */
-    public function setUserNotification($userNotification)
-    {
-        $this->userNotification = $userNotification;
-    }
-
 
 }

@@ -3,9 +3,11 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\entities\CreditCardPaymentMethod;
+use EuroMillions\web\entities\Notification;
 use EuroMillions\web\entities\PaymentMethod;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\UserNotifications;
+use EuroMillions\web\repositories\NotificationRepository;
 use EuroMillions\web\repositories\PaymentMethodRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserNotificationsRepository;
@@ -53,6 +55,9 @@ class UserService
     /** @var UserNotificationsRepository  */
     private $userNotificationsRepository;
 
+    /** @var NotificationRepository */
+    private $notificationRepository;
+
     public function __construct(CurrencyService $currencyService,
                                 EmailService $emailService,
                                 PaymentProviderService $paymentProviderService,
@@ -66,7 +71,7 @@ class UserService
         $this->paymentProviderService = $paymentProviderService;
         $this->playRepository = $entityManager->getRepository('EuroMillions\web\entities\PlayConfig');
         $this->userNotificationsRepository = $entityManager->getRepository('EuroMillions\web\entities\UserNotifications');
-
+        $this->notificationRepository = $entityManager->getRepository('EuroMillions\web\entities\Notification');
     }
 
     public function getBalance(UserId $userId, $locale)
@@ -264,35 +269,86 @@ class UserService
         }
     }
 
-   public function updateEmailNotification(NotificationType $notificationType, $id_user_notification,$active)
+   public function updateEmailNotification(NotificationType $notificationType, User $user,$active)
    {
-       /** @var UserNotifications $user_notification */
-        $user_notification = $this->userNotificationsRepository->findOneBy(['id' => $id_user_notification]);
 
-        if(!empty($user_notification)) {
-           $user_notification->setConfigValue($notificationType);
-           $user_notification->setActive($active);
-           $this->userNotificationsRepository->add($user_notification);
-           $this->entityManager->flush($user_notification);
-           return new ActionResult(true);
-        }else {
-            return new ActionResult(false);
-        }
+       /** @var Notification $notification */
+       $notification = $this->notificationRepository->findBy(['notification_type' => $notificationType->getType()]);
+
+
+       /** @var UserNotifications $user_notification */
+       $user_notification = $this->userNotificationsRepository->findOneBy(['user' => $user,
+                                                                           'notification' => $notification
+                                                                          ]
+       );
+       if(!empty($user_notification)) {
+           try {
+               $user_notification->setConfigValue($notificationType);
+               $user_notification->setActive($active);
+               $this->userNotificationsRepository->add($user_notification);
+               $this->entityManager->flush($user_notification);
+               return new ActionResult(true);
+            }catch(Exception $e) {
+                throw new \Exception();
+            }
+        }else{
+           throw new \Exception();
+       }
    }
 
     public function getActiveNotificationsTypeJackpot()
     {
         $user_notifications = $this->userNotificationsRepository->findBy(['active' => true,
-                                                                          'notification' => 1
+                                                                          'notification' => 1,
                                                                          ]);
         if(!empty($user_notifications)) {
             return new ActionResult(true,$user_notifications);
         }
     }
 
-    public function initUserNotifications()
+    public function getActiveNotificationsByUserAndType(User $user, $notificationType)
     {
+        $user_notifications = $this->userNotificationsRepository->findBy(['active' => true,
+                                                                          'notification' => $notificationType,
+                                                                          'user' => $user
+        ]);
+        if(!empty($user_notifications)) {
+            return new ActionResult(true,$user_notifications);
+        }
+    }
 
+    public function getActiveNotificationsByType($notificationType)
+    {
+        $user_notifications = $this->userNotificationsRepository->findBy(['active' => true,
+                                                                          'notification' => $notificationType,
+        ]);
+        if(!empty($user_notifications)) {
+            return new ActionResult(true,$user_notifications);
+        }
+    }
+
+    public function initUserNotifications(UserId $userId)
+    {
+        /** @var User $user */
+        $user = $this->userRepository->find($userId->id());
+        if(!empty($user)) {
+            try{
+                /** @var Notification[] $notifications */
+                $notifications = $this->notificationRepository->findAll();
+                foreach($notifications as $notification) {
+                    /** @var UserNotifications $user_notifications */
+                    $user_notifications = new UserNotifications();
+                    $user_notifications->setUser($user);
+                    $user_notifications->setNotification($notification);
+                    $user_notifications->setActive(true);
+                    $this->userNotificationsRepository->add($user_notifications);
+                    $this->entityManager->flush($user_notifications);
+                }
+                return new ActionResult(true);
+            } catch(\Exception $ex) {
+                return new ActionResult(false);
+            }
+        }
     }
 
 }
