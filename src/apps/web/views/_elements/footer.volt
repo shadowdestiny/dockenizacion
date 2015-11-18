@@ -34,7 +34,7 @@
 			<div class="col20per">
 				<strong>Help</strong>
 				<ul>
-					<li><a href="">{{ language.translate('How to Play') }}</a></li>
+					<li><a href="/help">{{ language.translate('How to Play') }}</a></li>
 					<li><a href="/faq">{{ language.translate('Frequently Asked Questions') }}</a></li>
 					<li><a href="">{{ language.translate('Player Protection') }}</a></li>
 					<li><a href="/contact/">{{ language.translate('Contact us') }}</a></li>
@@ -44,9 +44,9 @@
 				<strong>About</strong>
 				<ul>
 					<li><a href="">{{ language.translate('News') }}</a></li>
-					<li><a href="">{{ language.translate('About us') }}</a></li>
-					<li><a href="">{{ language.translate('Terms &amp; Conditions') }}</a></li>
-					<li><a href="">{{ language.translate('Legal Info') }}</a></li>
+					<li><a href="/index#about-us">{{ language.translate('About us') }}</a></li>
+					<li><a href="/legal/terms">{{ language.translate('Terms &amp; Conditions') }}</a></li>
+					<li><a href="/legal/privacy">{{ language.translate('Privacy Policy') }}</a></li>
 					<li><a href="/legal/cookies">{{ language.translate('Cookies Info') }}</a></li>
 
 

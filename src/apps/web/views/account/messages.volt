@@ -27,7 +27,7 @@
 
     * NO MESSAGE <br> *
                 <div class="info box">
-                    <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#info"></use></svg>
+                    <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                     <span class="txt">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod.</span>
                 </div>
 
@@ -56,7 +56,7 @@
                     </thead>
                     <tbody>
                         <tr class="unread msg-1">
-                            <td class="mail"><svg class="ico v-email"><use xlink:href="/w/svg/icon.svg#email"></use></svg></td>
+                            <td class="mail"><svg class="ico v-email"><use xlink:href="/w/svg/icon.svg#v-email"></use></svg></td>
                             <td class="date">16 May 2015</td>
                             <td class="title">Lorem ipsum dolor sit amet</td>
                             <td class="from">Aenan commodo ligula eget &hellip;</td>

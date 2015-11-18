@@ -1,0 +1,65 @@
+/*
+Error: Undefined variable: "$black".
+        on line 2 of /src/compass/sass/_elements/balls.scss
+
+1: .box-results .numbers{
+2:     margin:0 auto 11px; color:$black;
+3:     li{
+4:         background:url("../img/sprite.png") no-repeat -75px -70px; height:70px; width:69px; font-weight:bold; line-height:66px; margin-right:3px; position:relative;
+5:     }
+6:     li:last-child{margin-right:0;}
+7:     .num{font-size:$h1;}
+
+Backtrace:
+/src/compass/sass/_elements/balls.scss:2
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:394:in `visit_prop'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block (2 levels) in visit_rule'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `map'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block in visit_rule'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:428:in `visit_rule'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:52:in `map'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:167:in `block in visit_children'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:186:in `visit_root'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:157:in `visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:8:in `visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/root_node.rb:36:in `css_tree'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/root_node.rb:20:in `render'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/engine.rb:268:in `render'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:492:in `update_stylesheet'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:209:in `each'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:470:in `on_file_changed'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:328:in `block in watch'
+/var/lib/gems/1.9.1/gems/listen-2.10.0/lib/listen/listener.rb:291:in `call'
+/var/lib/gems/1.9.1/gems/listen-2.10.0/lib/listen/listener.rb:291:in `_process_changes'
+/var/lib/gems/1.9.1/gems/listen-2.10.0/lib/listen/listener.rb:255:in `block in _wait_for_changes'
+/var/lib/gems/1.9.1/gems/listen-2.10.0/lib/listen/listener.rb:238:in `loop'
+/var/lib/gems/1.9.1/gems/listen-2.10.0/lib/listen/listener.rb:238:in `_wait_for_changes'
+/var/lib/gems/1.9.1/gems/listen-2.10.0/lib/listen/listener.rb:327:in `block in _start_wait_thread'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Undefined variable: \"$black\".\A         on line 2 of /src/compass/sass/_elements/balls.scss\A \A 1: .box-results .numbers{\A 2:     margin:0 auto 11px; color:$black;\A 3:     li{\A 4:         background:url(\"../img/sprite.png\") no-repeat -75px -70px; height:70px; width:69px; font-weight:bold; line-height:66px; margin-right:3px; position:relative;\A 5:     }\A 6:     li:last-child{margin-right:0;}\A 7:     .num{font-size:$h1;}"; }
