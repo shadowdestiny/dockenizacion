@@ -53,7 +53,6 @@ $(document).on("storeNum",{numColumn: 0, typeColumn: "", num: "", active: 1},
 		}
 	}
 	numLines[column] = objLine;
-
 	//get in load page
 	localStorage.setItem('bet_line', JSON.stringify(numLines));
 });
@@ -168,8 +167,10 @@ function playLine(selector, type){
 		}
 
 		var isActive = $(this).hasClass('active');
+		var value = $(this).text();
+		if(type == "start") value = $(this).children('.txt').text();
 
-		$(document).trigger("storeNum", [ valNum[1],type,$(this).text(),isActive] );
+		$(document).trigger("storeNum", [ valNum[1],type,value.trim(),isActive] );
 		checkMark(valNum[1]);
 		redrawTotalCost();
 	});
@@ -216,7 +217,7 @@ function persistRandomNum(line){
 	$(".box-lines "+line+" .values .stars a.ico").each(function(){
 		if($(this).hasClass('active')){
 			var num = $(this).text();
-			$(document).trigger("storeNum", [ numColumn, 'star', num, true] );
+			$(document).trigger("storeNum", [ numColumn, 'star', num.trim(), true] );
 		}
 	});
 	redrawTotalCost();
@@ -617,12 +618,23 @@ $(function(){
 		day_of_week = filter.split(',').length;
 		var txt_frequency = '';
 		var val_frequency = $('.frequency').find(":selected").val();
-		console.log("day_of_week= "+day_of_week)
-		txt_frequency = val_frequency + ' week (Draws: '+(val_frequency * day_of_week)+ ')';
+		$draws_calculation = val_frequency * day_of_week;
+		$draw_string = 'Draw';
+		if($draws_calculation > 1) {
+			$draw_string = 'Draws';
+		}
+		txt_frequency = val_frequency + ' week ('+$draw_string+': '+$draws_calculation+ ')';
 		$('.select-txt').eq(2).text(txt_frequency);
 		$(".frequency > option").each(function() {
 			val_frequency = $(this).val();
-			txt_frequency = val_frequency + ' week (Draws: '+(val_frequency * day_of_week)+ ')';
+			$draws_calculation = val_frequency * day_of_week;
+			$draw_string = 'Draw';
+			$week_string = 'week'
+			if($draws_calculation > 1) {
+				$draw_string = 'Draws';
+				$week_string = 'weeks'
+			}
+			txt_frequency = val_frequency + ' ' + $week_string + ' ('+$draw_string+': '+$draws_calculation+ ')';
 			$(this).text(txt_frequency);
 		});
 		redrawTotalCost();

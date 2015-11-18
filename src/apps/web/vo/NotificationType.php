@@ -41,8 +41,10 @@ class NotificationType
                 $result = (is_int($value)) ? true : false;
                 break;
             case self::NOTIFICATION_NOT_ENOUGH_FUNDS:
+                $result = true;
                 break;
             case self::NOTIFICATION_LAST_DRAW:
+                $result = true;
                 break;
             case self::NOTIFICATION_RESULT_DRAW:
                 $result = (is_bool((bool) $value)) ? true : false;

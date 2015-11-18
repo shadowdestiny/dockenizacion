@@ -6,12 +6,15 @@ namespace tests\unit;
 
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shareconfig\Namespaces;
+use EuroMillions\web\entities\Notification;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\tasks\ResultTask;
 use EuroMillions\web\vo\DrawDays;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
+use EuroMillions\web\vo\NotificationType;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\ActionResult;
 use EuroMillions\web\vo\UserId;
@@ -88,7 +91,11 @@ class ResultTaskUnitTest extends UnitTestBase
 //                $this->currencyService_double->convert(new Money((int) $lottery_prize, new Currency('EUR')),new Currency('EUR'))->willReturn(new Money(5000,new Currency('EUR')));
 //            }
 //        }
+        $this->userService_double->getUser(Argument::any())->willReturn($this->getUser());
+        $this->userService_double->getActiveNotificationsByUserAndType(Argument::any(),Argument::any())->willReturn(new ActionResult(true,$this->getUserNotifications()));
         $this->emailService_double->sendTransactionalEmail($this->getUser(),'latest-results')->shouldBeCalledTimes(4);
+        $this->userService_double->getActiveNotificationsByType(Argument::any())->willReturn(new ActionResult(true,$this->getUserNotifications()));
+
         $sut = new ResultTask();
         $sut->initialize($this->lotteryDataService_double->reveal(),
         $this->playService_double->reveal(),
@@ -188,6 +195,19 @@ class ResultTaskUnitTest extends UnitTestBase
                 'category_thirteen' => ['2 + 0', '415', '2.390.942'],
             ]
         ];
+    }
+
+    private function getUserNotifications()
+    {
+        $userNotifications = new UserNotifications();
+        $userNotifications->setUser($this->getUser());
+        $notification = new Notification();
+        $notification->setDescription('Test');
+        $userNotifications->setNotification($notification);
+        $notificationType = new NotificationType(1,3500000);
+        $userNotifications->setConfigValue($notificationType);
+        $userNotifications->setActive(true);
+        return $userNotifications;
     }
 
 }

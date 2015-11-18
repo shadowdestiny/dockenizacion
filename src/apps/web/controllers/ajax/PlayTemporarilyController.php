@@ -20,6 +20,7 @@ class PlayTemporarilyController extends AjaxControllerBase
         $frequency = $this->request->getPost('frequency');
         $startDrawDate = $this->request->getPost('start_draw');
         $drawDays = $this->request->getPost('draw_days');
+        $threshold = $this->request->getPost('threshold');
         $authService = $this->domainServiceFactory->getAuthService();
         $lastDrawDate = new LastDrawDate($startDrawDate,$frequency);
 
@@ -29,6 +30,7 @@ class PlayTemporarilyController extends AjaxControllerBase
         $playFormToStorage->lastDrawDate = $lastDrawDate->getLastDrawDate();
         $playFormToStorage->drawDays = $drawDays;
         $playFormToStorage->euroMillionsLines = $this->create($bets);
+        $playFormToStorage->threshold = $threshold;
 
         $playService = $this->domainServiceFactory->getPlayService();
         $current_user = $authService->getCurrentUser();

@@ -15,8 +15,8 @@ class BetRepository extends RepositoryBase
         $result = $this->getEntityManager()
             ->createQuery(
                 'SELECT b'
-                . ' FROM ' . $this->getEntityName() . ' p INNER JOIN p.euromillionsDraw e'
-                . ' WHERE p.draw_date = :date')
+                . ' FROM ' . $this->getEntityName() . ' b INNER JOIN b.euromillionsDraw e'
+                . ' WHERE e.draw_date = :date')
             ->setParameters(['date' => $date->format('Y-m-d')])
             ->getResult();
 

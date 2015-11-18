@@ -16,6 +16,7 @@
         </id>
 
         <field name="description" type="string" nullable="true" />
+        <field name="notification_type" type="integer" nullable="true" />
 
         <one-to-many target-entity="EuroMillions\web\entities\UserNotifications" mapped-by="userNotification"
                      field="userNotification">

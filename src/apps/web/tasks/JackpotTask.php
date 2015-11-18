@@ -51,9 +51,11 @@ class JackpotTask extends TaskBase
             /** @var UserNotifications[] $user_notifications */
             $user_notifications = $result->getValues();
             foreach($user_notifications as $user_notification) {
-                if($jackpot_amount->getAmount() >= $user_notification->getConfigValue()->getValue()) {
-                    $user = $this->userService->getUser($user_notification->getUser()->getId());
-                    $this->emailService->sendTransactionalEmail($user,'jackpot-rollover');
+                if($user_notification->getActive()) {
+                    if($jackpot_amount->getAmount() >= $user_notification->getConfigValue()->getValue()) {
+                        $user = $this->userService->getUser($user_notification->getUser()->getId());
+                        $this->emailService->sendTransactionalEmail($user,'jackpot-rollover');
+                    }
                 }
             }
         }

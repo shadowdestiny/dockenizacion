@@ -8,6 +8,7 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
+use EuroMillions\web\vo\ActionResult;
 use EuroMillions\web\vo\dto\PaymentMethodDTO;
 use EuroMillions\web\vo\dto\PlayConfigDTO;
 use EuroMillions\web\vo\dto\UserDTO;
@@ -231,29 +232,69 @@ class AccountController extends PublicSiteControllerBase
         $this->view->pick('account/email');
         return $this->view->setVars([
             'error' => (!empty($error_msg)) ? $error_msg : '',
-            'list_notifications' => $list_notifications
+            'list_notifications' => $list_notifications,
+            'message' => ''
         ]);
     }
 
     public function editEmailAction()
     {
-        $id = $this->request->getPost('id');
-        $active = $this->request->getPost('active');
-        $type = $this->request->getPost('type');
-        $value = $this->request->getPost('value');
-        $notificationType = new NotificationType($type,$value);
-        /** @var ActionResult $result */
-        $result = $this->userService->updateEmailNotification($notificationType,$id,$active);
-        $this->noRender();
-        if($result->success()){
-            echo json_encode(['result'=> 'OK',
-                              'value' => 'Your notifications were updated'
-            ]);
-        }else{
-            echo json_encode(['result'=> 'KO',
-                              'value' => 'A problem occurred'
-            ]);
+
+        $userId = $this->authService->getCurrentUser();
+        /** @var User $user */
+        $user = $this->userService->getUser($userId->getId());
+
+        //EMTD we should refactor it this part
+        $reach_notification = ($this->request->getPost('jackpot_reach') == 'on') ? true : false;
+        $auto_play_funds = ($this->request->getPost('autoplay_funds') == 'on') ? true: false;
+        $auto_play_lastdraw = ($this->request->getPost('autoplay_lastdraw') == 'on') ? true: false;
+        $results_draw = ($this->request->getPost('results') == 'on') ? true : false;
+        $config_value_threshold = (int) $this->request->getPost('config_value_jackpot_reach');
+        $config_value_results = $this->request->getPost('config_value_results');
+
+        $message = 'Your settings were saved';
+        $error = '';
+
+        try {
+            //Reach notification
+            $notificationType = new NotificationType(NotificationType::NOTIFICATION_THRESHOLD,$config_value_threshold);
+            /** @var ActionResult $result */
+            $result = $this->userService->updateEmailNotification($notificationType,$user,$reach_notification);
+
+            $notificationType = new NotificationType(NotificationType::NOTIFICATION_NOT_ENOUGH_FUNDS,'');
+            /** @var ActionResult $result */
+            $result = $this->userService->updateEmailNotification($notificationType,$user,$auto_play_funds);
+
+            $notificationType = new NotificationType(NotificationType::NOTIFICATION_LAST_DRAW,'');
+            /** @var ActionResult $result */
+            $result = $this->userService->updateEmailNotification($notificationType,$user,$auto_play_lastdraw);
+
+            $notificationType = new NotificationType(NotificationType::NOTIFICATION_RESULT_DRAW,$config_value_results);
+            /** @var ActionResult $result */
+            $result = $this->userService->updateEmailNotification($notificationType,$user,$results_draw);
+        } catch(\Exception $e) {
+            $error = 'An error occurred while updated. Please, try it later';
         }
+
+        $result = $this->userService->getActiveNotificationsByUser($userId);
+        $list_notifications = null;
+
+        if($result->success()) {
+            $notifications_collection = $result->getValues();
+            foreach($notifications_collection as $notifications) {
+                $list_notifications[] = new UserNotificationsDTO($notifications);
+            }
+        }else {
+            $error = 'An error occurred while updated. Please, try it later';
+        }
+
+        $this->view->pick('account/email');
+        return $this->view->setVars([
+            'message' => $message,
+            'error' => $error,
+            'list_notifications' => $list_notifications,
+        ]);
+
 
     }
 

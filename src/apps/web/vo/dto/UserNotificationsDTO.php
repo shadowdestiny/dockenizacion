@@ -22,6 +22,8 @@ class UserNotificationsDTO extends DTOBase implements IDto
 
     public $config_value;
 
+    public $name;
+
     public $type;
 
     public function __construct(UserNotifications $userNotifications)
@@ -43,5 +45,32 @@ class UserNotificationsDTO extends DTOBase implements IDto
         $this->config_value = $this->userNotifications->getConfigValue()->__toString();
         $this->id = $this->userNotifications->getId();
         $this->type = $this->userNotifications->getNotification()->getId();
+        $this->name = $this->nameFormatted();
     }
+
+    private function nameFormatted()
+    {
+        $type = $this->notification->getNotificationType();
+        $name = '';
+        switch($type) {
+            case 1:
+                $name = 'jackpot_reach';
+                break;
+            case 2:
+                $name = 'autoplay_funds';
+                break;
+            case 3:
+                $name = 'autoplay_lastdraw';
+                break;
+            case 4:
+                $name = 'results';
+                break;
+            default:
+                throw new \Exception();
+        }
+
+        return $name;
+    }
+
+
 }
