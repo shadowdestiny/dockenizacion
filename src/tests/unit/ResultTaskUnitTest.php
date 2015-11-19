@@ -93,7 +93,7 @@ class ResultTaskUnitTest extends UnitTestBase
 //        }
         $this->userService_double->getUser(Argument::any())->willReturn($this->getUser());
         $this->userService_double->getActiveNotificationsByUserAndType(Argument::any(),Argument::any())->willReturn(new ActionResult(true,$this->getUserNotifications()));
-        $this->emailService_double->sendTransactionalEmail($this->getUser(),'latest-results')->shouldBeCalledTimes(4);
+        $this->emailService_double->sendTransactionalEmail($this->getUser(),'latest-results', Argument::any())->shouldBeCalledTimes(4);
         $this->userService_double->getActiveNotificationsByType(Argument::any())->willReturn(new ActionResult(true,$this->getUserNotifications()));
 
         $sut = new ResultTask();

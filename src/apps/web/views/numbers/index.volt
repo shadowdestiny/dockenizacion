@@ -14,8 +14,12 @@
 <script>
 $(function(){
 	var html_formatted_offset = [];
+	$('.countdown .dots').eq(2).hide();
+	$('.countdown .seconds').hide();
 	var element = $('.countdown');
 	var html_formatted = element.html();
+	$('.countdown .dots').eq(2).show();
+	$('.countdown .seconds').show();
 	$('.countdown .day').remove();
 	$('.countdown .dots').eq(0).remove();
 	html_formatted_offset[0] = $('.countdown').html();

@@ -149,8 +149,13 @@ $(function(){
 	$(window).resize(checkSize);
 
     selectFix();
-
-    /* EDMTD it should be applied only on mobile devices */
+    try{
+        document.createEvent('TouchEvent');
+        var attachFastClick = Origami.fastclick;
+        attachFastClick(document.body); // It removes the delay of 300ms on mobile browsers because of double tap
+    }catch(e){
+        return false;
+    }
 /*
     var attachFastClick = Origami.fastclick;
     attachFastClick(document.body); // It removes the delay of 300ms on mobile browsers because of double tap

@@ -133,4 +133,10 @@ class EuroMillionsDrawBreakDownDataDTO extends DTOBase implements IDto
         throw new UnsupportedOperationException('Method not implemented');
     }
 
+
+    public function toJson()
+    {
+        return json_encode(json_decode(json_encode($this),TRUE));
+    }
+
 }

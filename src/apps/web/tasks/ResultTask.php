@@ -11,6 +11,7 @@ use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\PlayService;
 use EuroMillions\web\services\ServiceFactory;
 use EuroMillions\web\services\UserService;
+use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDataDTO;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\NotificationType;
@@ -36,6 +37,8 @@ class ResultTask extends TaskBase
 
     /** @var  CurrencyService */
     private $currencyService;
+
+    private $break_down_json;
 
 
     public function initialize(LotteriesDataService $lotteriesDataService = null, PlayService $playService= null, EmailService $emailService = null, UserService $userService = null, CurrencyService $currencyService = null)
@@ -76,7 +79,8 @@ class ResultTask extends TaskBase
                     /** @var UserNotifications $user_notification */
                     $user_notification = $user_notifications_result->getValues();
                     if($user_notification->getActive() && $user_notification->getConfigValue()) {
-                        $this->emailService->sendTransactionalEmail($user,'latest-results');
+                        $vars = $this->getVarsToEmailTemplate($break_down_list);
+                        $this->emailService->sendTransactionalEmail($user,'latest-results', $vars);
                     }
                 }
             }
@@ -104,5 +108,32 @@ class ResultTask extends TaskBase
             $break_downs[$k]['lottery_prize'] = $new_currency_prize->getAmount() / 10000;
         }
         return $break_downs;
+    }
+
+    private function getVarsToEmailTemplate($break_down_dto_list)
+    {
+
+        if(empty($this->break_down_json)) {
+            $break_down_json = [];
+            /** @var EuroMillionsDrawBreakDownDataDTO[] $break_down_dto_list */
+            foreach($break_down_dto_list as $break_down) {
+                $break_down_json[] = $break_down->toJson();
+            }
+            $this->break_down_json = $break_down_json;
+        }
+
+        //vars email template
+        $vars = [
+            'subject' => 'Last results',
+            'template_vars' =>
+                [
+                    [
+                        'name'    => 'break_down',
+                        'content' => $this->break_down_json
+                    ]
+                ]
+        ];
+
+        return $vars;
     }
 }
