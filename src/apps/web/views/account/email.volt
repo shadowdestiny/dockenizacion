@@ -44,13 +44,13 @@ $(function() {
         <div class="box-basic content">
             {% if message %}
                 <div class="box success">
-                    <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#checkmark"></use></svg>
+                    <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>
                     {{ message }}
                 </div>
             {% endif %}
             {% if error %}
                 <div class="box danger">
-                    <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#checkmark"></use></svg>
+                    <svg class="ico v-cross"><use xlink:href="/w/svg/icon.svg#v-cross"></use></svg>
                     {{ error }}
                 </div>
             {% endif %}
@@ -63,34 +63,37 @@ $(function() {
                 <form action="/account/editEmail" name="form_notifications" method="post" >
                     <ul class="no-li options">
                         {% if list_notifications is empty %}
+                         {# EMTD - We shouldn't do something about when notification is empty? Alessio #}
                         {% else %}
-                        {% for notification in list_notifications %}
-                            <li>
-                                <label for="check2">
-                                    <input id="check2" data-type="{{ notification.notification.notification_type }}" name="{{ notification.name }}" data-value="{{ notification.config_value }}" data-id="{{ notification.id }}" class="checkbox" type="checkbox" {% if notification.active == true %} checked="checked" {% endif %} data-role="none">
-                                    {{ notification.notification.description }}
+                            {% for notification in list_notifications %}
+                                <li>
+                                    <label for="check2">
+                                        <input id="check2" data-type="{{ notification.notification.notification_type }}" name="{{ notification.name }}" data-value="{{ notification.config_value }}" data-id="{{ notification.id }}" class="checkbox" type="checkbox" {% if notification.active == true %} checked="checked" {% endif %} data-role="none">
+                                        {{ notification.notification.description }}
 
-                                    {% if notification.notification.notification_type == 4 %}
-                                        <select id="config_value" name="config_value_{{ notification.name }}">
-                                            <option value="0" {% if notification.config_value == 0 %} selected {% endif %}>{{ language.translate("Always") }}</option>
-                                            <option value="1" {% if notification.config_value == 0 %} selected {% endif %}>{{ language.translate("When I played a ticket") }}</option>
-                                        </select>
-                                    {% endif %}
+                                        {% if notification.notification.notification_type == 4 %}
+                                            <select id="config_value" name="config_value_{{ notification.name }}">
+                                                <option value="0" {% if notification.config_value == 0 %}selected{% endif %}>{{ language.translate("When I played a ticket") }}</option>
+                                                <option value="1" {% if notification.config_value == 1 %}selected{% endif %}>{{ language.translate("Always") }}</option>
+                                            </select>
+                                        {% endif %}
 
-                                    {% if notification.notification.notification_type == 1 %}
-                                        <input name="config_value_{{ notification.name }}" value="{{ notification.config_value }}"/>
-                                    {% endif %}
-                                </label>
-                            </li>
-                        {% endfor %}
+                                        {% if notification.notification.notification_type == 1 %}
+                                            <input name="config_value_{{ notification.name }}" value="{{ notification.config_value }}"/>
+                                        {% endif %}
+                                    </label>
+                                </li>
+                            {% endfor %}
                         {% endif %}
                     </ul>
+                </form>
+
             </div>
-            <label class="btn submit green right" for="new-card">
+            <label class="btn submit blue right" for="new-card">
                 {{ language.translate("Save") }}
                 <input id="new-card" type="submit" class="hidden">
             </label>
-            </form>
+
         </div>
     </div>
 </main>
