@@ -47,7 +47,7 @@
 					<li><a href="/index#about-us">{{ language.translate('About us') }}</a></li>
 					<li><a href="/legal/terms">{{ language.translate('Terms &amp; Conditions') }}</a></li>
 					<li><a href="/legal/privacy">{{ language.translate('Privacy Policy') }}</a></li>
-					<li><a href="/legal/cookies">{{ language.translate('Cookies Info') }}</a></li>
+					<li><a href="/legal/cookies">{{ language.translate('Cookies') }}</a></li>
 
 
 {# Future links

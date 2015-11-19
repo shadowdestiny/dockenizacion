@@ -23,11 +23,9 @@ $(document).bind("mobileinit", function(){
 <script src="/w/js/vendor/svg4everybody.js"></script>
 <script>$(function(){svg4everybody()})</script> {# SVG rendering for include svg for IE9+ #}
 
-
 {#
 <script src="/w/js/vendor/jquery.lazyloadxt.min.js"></script>
-<script src="/w/js/vendor/jquery.lazyloadxt.bg.js"></script>
-#}
+<script src="/w/js/vendor/jquery.lazyloadxt.bg.js"></script>  #}
 
 {#
 <script src="/w/js/vendor/lazysizes.min.js" async></script>
