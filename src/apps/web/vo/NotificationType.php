@@ -35,10 +35,9 @@ class NotificationType
     private function checkValueOfType($type,$value)
     {
         $result = false;
-
         switch($type) {
             case self::NOTIFICATION_THRESHOLD:
-                $result = (is_int($value)) ? true : false;
+                $result = (is_numeric($value)) ? true : false;
                 break;
             case self::NOTIFICATION_NOT_ENOUGH_FUNDS:
                 $result = true;

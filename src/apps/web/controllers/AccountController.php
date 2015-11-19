@@ -266,8 +266,13 @@ class AccountController extends PublicSiteControllerBase
         }
 
         try {
+            if($reach_notification && $config_value_threshold > 0) {
+                $notificationType = new NotificationType(NotificationType::NOTIFICATION_THRESHOLD, $config_value_threshold);
+            } else {
+                $reach_notification = false;
+                $notificationType = new NotificationType(NotificationType::NOTIFICATION_THRESHOLD,0);
+            }
             //Reach notification
-            $notificationType = new NotificationType(NotificationType::NOTIFICATION_THRESHOLD,$config_value_threshold);
             /** @var ActionResult $result */
             $result = $this->userService->updateEmailNotification($notificationType,$user,$reach_notification);
 
@@ -284,6 +289,7 @@ class AccountController extends PublicSiteControllerBase
             $result = $this->userService->updateEmailNotification($notificationType,$user,$results_draw);
 
             $result = $this->userService->getActiveNotificationsByUser($userId);
+            $list_notifications = [];
             if($result->success()) {
                 $notifications_collection = $result->getValues();
                 foreach($notifications_collection as $notifications) {
