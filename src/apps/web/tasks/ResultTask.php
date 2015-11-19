@@ -75,13 +75,15 @@ class ResultTask extends TaskBase
             foreach($play_config_list as $play_config){
                 /** @var User $user */
                 $user = $this->userService->getUser($play_config->getUser()->getId());
-                $user_notifications_result = $this->domainServiceFactory->getUserService()->getActiveNotificationsByUserAndType($user, NotificationType::NOTIFICATION_RESULT_DRAW);
+                $user_notifications_result = $this->userService->getActiveNotificationsByUserAndType($user, NotificationType::NOTIFICATION_RESULT_DRAW);
                 if($user_notifications_result->success()) {
-                    /** @var UserNotifications $user_notification */
-                    $user_notification = $user_notifications_result->getValues();
-                    if($user_notification->getActive() && $user_notification->getConfigValue()) {
-                        $vars = $this->getVarsToEmailTemplate($break_down_list);
-                        $this->emailService->sendTransactionalEmail($user,'latest-results', $vars);
+                    /** @var UserNotifications[] $user_notifications */
+                    $user_notifications = $user_notifications_result->getValues();
+                    foreach($user_notifications as $user_notification) {
+                        if($user_notification->getActive() && $user_notification->getConfigValue()->getValue()) {
+                            $vars = $this->getVarsToEmailTemplate($break_down_list);
+                            $this->emailService->sendTransactionalEmail($user,'latest-results', $vars);
+                        }
                     }
                 }
             }
@@ -91,7 +93,7 @@ class ResultTask extends TaskBase
         if($user_notifications_result->success()) {
             $users_notifications = $user_notifications_result->getValues();
             foreach($users_notifications as $user_notification) {
-                if(!$user_notification->getConfigValue()) {
+                if(!$user_notification->getConfigValue()->getValue()) {
                     $vars = $this->getVarsToEmailTemplate($break_down_list);
                     $this->emailService->sendTransactionalEmail($user_notification->getUser(),'latest-results',$vars);
                 }

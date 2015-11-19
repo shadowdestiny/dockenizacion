@@ -255,18 +255,10 @@ class AccountController extends PublicSiteControllerBase
         $message = null;
         $error = null;
         $list_notifications = null;
-        $result = $this->userService->getActiveNotificationsByUser($userId);
-        if($result->success()) {
-            $notifications_collection = $result->getValues();
-            foreach($notifications_collection as $notifications) {
-                $list_notifications[] = new UserNotificationsDTO($notifications);
-            }
-        }else {
-            $error = 'An error occurred while updated. Please, try it later';
-        }
 
         try {
-            if($reach_notification && $config_value_threshold > 0) {
+
+            if($reach_notification) {
                 $notificationType = new NotificationType(NotificationType::NOTIFICATION_THRESHOLD, $config_value_threshold);
             } else {
                 $reach_notification = false;
@@ -287,9 +279,11 @@ class AccountController extends PublicSiteControllerBase
             $notificationType = new NotificationType(NotificationType::NOTIFICATION_RESULT_DRAW,$config_value_results);
             /** @var ActionResult $result */
             $result = $this->userService->updateEmailNotification($notificationType,$user,$results_draw);
-
+            $message = 'Your data was saved';
+        } catch(\Exception $e) {
+            $error = $e->getMessage();
+        } finally {
             $result = $this->userService->getActiveNotificationsByUser($userId);
-            $list_notifications = [];
             if($result->success()) {
                 $notifications_collection = $result->getValues();
                 foreach($notifications_collection as $notifications) {
@@ -298,9 +292,6 @@ class AccountController extends PublicSiteControllerBase
             }else {
                 $error = 'An error occurred while updated. Please, try it later';
             }
-
-        } catch(\Exception $e) {
-            $error = $e->getMessage();
         }
 
         $this->view->pick('account/email');
