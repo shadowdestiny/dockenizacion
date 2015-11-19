@@ -46,7 +46,7 @@ class JackpotTask extends TaskBase
         $next_draw_day = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions');
         $time_config = $this->getDI()->get('globalConfig')['retry_validation_time'];
         $draw_day_format_one = $next_draw_day->format('l');
-        $draw_day_format_two = $next_draw_day->format('j F Y') . ' ' . $time_config['time'];
+        $draw_day_format_two = $next_draw_day->format('j F Y');
         $jackpot_amount = $this->lotteriesDataService->getNextJackpot('EuroMillions');
 
         //vars email template
@@ -56,7 +56,7 @@ class JackpotTask extends TaskBase
             [
                 [
                     'name'    => 'jackpot',
-                    'content' => $jackpot_amount->getAmount()
+                    'content' => $jackpot_amount->getAmount()/100
                 ],
                 [
                     'name'    => 'draw_day_format_one',
@@ -66,6 +66,10 @@ class JackpotTask extends TaskBase
                     'name'    => 'draw_day_format_two',
                     'content' => $draw_day_format_two,
                 ],
+                [
+                    'name'    => 'time_closed',
+                    'content' => $time_config['time'] . ' CET'
+                ]
             ]
         ];
 

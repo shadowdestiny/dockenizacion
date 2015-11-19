@@ -54,13 +54,31 @@ class PriceCheckoutTask extends TaskBase
                     $user = $play_config_and_count[0]->getUser();
                     $this->priceCheckoutService->reChargeAmountAwardedToUser($user,$result_amount);
                     if($result_amount->getAmount() > $threshold_price) {
-                        $this->emailService->sendTransactionalEmail($user,'win-email-above-1500');
+                        $this->emailService->sendTransactionalEmail($user,'win-email-above-1500', $this->getVarsToEmailTemplate('Test1'));
                     }else{
-                        $this->emailService->sendTransactionalEmail($user,'win-email');
+                        $this->emailService->sendTransactionalEmail($user,'win-email',$this->getVarsToEmailTemplate('Test1'));
                     }
                 }
             }
         }
+    }
+
+
+    private function getVarsToEmailTemplate($subject)
+    {
+        //vars email template
+        $vars = [
+            'subject' => $subject,
+            'template_vars' =>
+                [
+                    [
+                        'name'    => 'test',
+                        'content' => 'Test'
+                    ]
+                ]
+        ];
+
+        return $vars;
     }
 
 }
