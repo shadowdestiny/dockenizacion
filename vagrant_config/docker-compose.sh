@@ -21,10 +21,4 @@ if [ inidatabase==true ]; then
     e "Initializing database"
     mysql -h 127.0.0.1 -u root -ptpl9 -e 'CREATE DATABASE IF NOT EXISTS euromillions_test'
 fi
-e "Executing migrations"
-. /vagrant/dev-scripts/schema_and_data_migration.sh dev
 
-e "Updating jackpot and results"
-php /var/www/apps/cli.php jackpot updatePrevious
-php /var/www/apps/cli.php result update
-php /var/www/apps/cli.php jackpot update
