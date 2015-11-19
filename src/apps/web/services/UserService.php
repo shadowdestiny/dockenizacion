@@ -341,8 +341,11 @@ class UserService
                     /** @var UserNotifications $user_notifications */
                     $user_notifications = new UserNotifications();
                     $user_notifications->setUser($user);
+                    ($notification->getNotificationType() == NotificationType::NOTIFICATION_THRESHOLD) ? $user_notifications->setActive(false) : $user_notifications->setActive(true);
+                    if($notification->getNotificationType() == NotificationType::NOTIFICATION_RESULT_DRAW) {
+                        $user_notifications->setConfigValue(0);
+                    }
                     $user_notifications->setNotification($notification);
-                    $user_notifications->setActive(true);
                     $this->userNotificationsRepository->add($user_notifications);
                     $this->entityManager->flush($user_notifications);
                 }

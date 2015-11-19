@@ -249,11 +249,21 @@ class AccountController extends PublicSiteControllerBase
         $auto_play_funds = ($this->request->getPost('autoplay_funds') == 'on') ? true: false;
         $auto_play_lastdraw = ($this->request->getPost('autoplay_lastdraw') == 'on') ? true: false;
         $results_draw = ($this->request->getPost('results') == 'on') ? true : false;
-        $config_value_threshold = (int) $this->request->getPost('config_value_jackpot_reach');
+        $config_value_threshold = $this->request->getPost('config_value_jackpot_reach');
         $config_value_results = $this->request->getPost('config_value_results');
 
-        $message = 'Your settings were saved';
-        $error = '';
+        $message = null;
+        $error = null;
+        $list_notifications = null;
+        $result = $this->userService->getActiveNotificationsByUser($userId);
+        if($result->success()) {
+            $notifications_collection = $result->getValues();
+            foreach($notifications_collection as $notifications) {
+                $list_notifications[] = new UserNotificationsDTO($notifications);
+            }
+        }else {
+            $error = 'An error occurred while updated. Please, try it later';
+        }
 
         try {
             //Reach notification
@@ -272,20 +282,19 @@ class AccountController extends PublicSiteControllerBase
             $notificationType = new NotificationType(NotificationType::NOTIFICATION_RESULT_DRAW,$config_value_results);
             /** @var ActionResult $result */
             $result = $this->userService->updateEmailNotification($notificationType,$user,$results_draw);
-        } catch(\Exception $e) {
-            $error = 'An error occurred while updated. Please, try it later';
-        }
 
-        $result = $this->userService->getActiveNotificationsByUser($userId);
-        $list_notifications = null;
-
-        if($result->success()) {
-            $notifications_collection = $result->getValues();
-            foreach($notifications_collection as $notifications) {
-                $list_notifications[] = new UserNotificationsDTO($notifications);
+            $result = $this->userService->getActiveNotificationsByUser($userId);
+            if($result->success()) {
+                $notifications_collection = $result->getValues();
+                foreach($notifications_collection as $notifications) {
+                    $list_notifications[] = new UserNotificationsDTO($notifications);
+                }
+            }else {
+                $error = 'An error occurred while updated. Please, try it later';
             }
-        }else {
-            $error = 'An error occurred while updated. Please, try it later';
+
+        } catch(\Exception $e) {
+            $error = $e->getMessage();
         }
 
         $this->view->pick('account/email');
@@ -294,7 +303,6 @@ class AccountController extends PublicSiteControllerBase
             'error' => $error,
             'list_notifications' => $list_notifications,
         ]);
-
 
     }
 

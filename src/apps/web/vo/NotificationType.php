@@ -25,7 +25,7 @@ class NotificationType
     public function __construct($type,$value)
     {
         if(!$this->checkValueOfType($type,$value)) {
-            throw new InvalidNotificationException;
+            throw new InvalidNotificationException('Incorrect value');
         }else{
             $this->type = $type;
             $this->value = $value;
