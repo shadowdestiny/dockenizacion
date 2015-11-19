@@ -43,13 +43,13 @@ class ResultTask extends TaskBase
 
     public function initialize(LotteriesDataService $lotteriesDataService = null, PlayService $playService= null, EmailService $emailService = null, UserService $userService = null, CurrencyService $currencyService = null)
     {
+        parent::initialize();
         $domainFactory = new DomainServiceFactory($this->getDI(),new ServiceFactory($this->getDI()));
         ($lotteriesDataService) ? $this->lotteriesDataService = $lotteriesDataService : $this->lotteriesDataService = $domainFactory->getLotteriesDataService();
         ($playService) ? $this->playService = $playService : $this->playService = $domainFactory->getPlayService();
         ($emailService) ? $this->emailService = $emailService : $this->emailService = $domainFactory->getServiceFactory()->getEmailService();
-        ($userService) ? $this->userService = $userService : $domainFactory->getUserService();
+        $this->userService = $userService ? $userService : $this->domainServiceFactory->getUserService();
         ($currencyService) ? $this->currencyService = $currencyService : $domainFactory->getServiceFactory()->getCurrencyService();
-        parent::initialize();
     }
 
 
@@ -67,6 +67,7 @@ class ResultTask extends TaskBase
         if($draw->success()){
             $break_down_list = new EuroMillionsDrawBreakDownDTO($draw->getValues());
         }
+
         $result_play_config = $this->playService->getPlaysConfigToBet($today);
         if($result_play_config->success() && !empty($break_down_list)){
             /** @var PlayConfig[] $play_config_list */
@@ -74,7 +75,7 @@ class ResultTask extends TaskBase
             foreach($play_config_list as $play_config){
                 /** @var User $user */
                 $user = $this->userService->getUser($play_config->getUser()->getId());
-                $user_notifications_result = $this->userService->getActiveNotificationsByUserAndType($user, NotificationType::NOTIFICATION_RESULT_DRAW);
+                $user_notifications_result = $this->domainServiceFactory->getUserService()->getActiveNotificationsByUserAndType($user, NotificationType::NOTIFICATION_RESULT_DRAW);
                 if($user_notifications_result->success()) {
                     /** @var UserNotifications $user_notification */
                     $user_notification = $user_notifications_result->getValues();
@@ -91,7 +92,8 @@ class ResultTask extends TaskBase
             $users_notifications = $user_notifications_result->getValues();
             foreach($users_notifications as $user_notification) {
                 if(!$user_notification->getConfigValue()) {
-                    $this->emailService->sendTransactionalEmail($user_notification->getUser(),'latest-results');
+                    $vars = $this->getVarsToEmailTemplate($break_down_list);
+                    $this->emailService->sendTransactionalEmail($user_notification->getUser(),'latest-results',$vars);
                 }
             }
         }

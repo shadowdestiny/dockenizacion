@@ -36,6 +36,7 @@ class JackpotTask extends TaskBase
         if (!$today) {
             $today = new \DateTime();
         }
+
         /** @var \DateTime $date */
         $date = $this->lotteriesDataService->getLastDrawDate('EuroMillions', $today);
         $this->lotteriesDataService->updateNextDrawJackpot('EuroMillions', $date->sub(new \DateInterval('PT1M')));

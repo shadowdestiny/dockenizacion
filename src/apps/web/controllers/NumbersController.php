@@ -23,6 +23,7 @@ class NumbersController extends PublicSiteControllerBase
         $breakDownDTO = new EuroMillionsDrawBreakDownDTO($breakDown->getValues());        
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
         $last_result = $this->lotteriesDataService->getLastResult($lotteryName);
+
         $last_draw_date = $this->lotteriesDataService->getLastDrawDate($lotteryName);
 
         return $this->view->setVars([

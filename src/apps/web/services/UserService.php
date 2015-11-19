@@ -324,6 +324,8 @@ class UserService
         ]);
         if(!empty($user_notifications)) {
             return new ActionResult(true,$user_notifications);
+        }else {
+            return new ActionResult(false);
         }
     }
 

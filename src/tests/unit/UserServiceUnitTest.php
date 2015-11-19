@@ -526,6 +526,30 @@ class UserServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
+    /**
+     * method getActiveNotificationsByType
+     * when called
+     * should returnActionResultTrueWithCollection
+     */
+    public function test_getActiveNotificationsByType_called_returnActionResultTrueWithCollection()
+    {
+        $expected = new ActionResult(true,$this->getNotifications());
+        $actual = $this->exerciseNotifications($this->getNotifications());
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method getActiveNotificationsByType
+     * when called
+     * should returnActionResultFalse
+     */
+    public function test_getActiveNotificationsByType_called_returnActionResultFalse()
+    {
+        $expected = new ActionResult(false);
+        $actual = $this->exerciseNotifications(false);
+        $this->assertEquals($expected,$actual);
+    }
+
 
     private function getNotifications()
     {
@@ -719,6 +743,20 @@ class UserServiceUnitTest extends UnitTestBase
         $this->userNotificationsRepository_double->add(Argument::any())->shouldBeCalled();
         $entityManager_stub = $this->getEntityManagerDouble();
         return array($expected, $userId, $entityManager_stub);
+    }
+
+    /**
+     * @return mixed
+     */
+    private function exerciseNotifications($return)
+    {
+        $this->userNotificationsRepository_double->findBy(['active'       => true,
+                                                           'notification' => NotificationType::NOTIFICATION_LAST_DRAW
+
+        ])->willReturn($return);
+        $sut = $this->getSut();
+        $actual = $sut->getActiveNotificationsByType(NotificationType::NOTIFICATION_LAST_DRAW);
+        return $actual;
     }
 
 }

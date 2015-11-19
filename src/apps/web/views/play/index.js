@@ -626,15 +626,18 @@ $(function(){
 		}
 		txt_frequency = val_frequency + ' week ('+$draw_string+': '+$draws_calculation+ ')';
 		$('.select-txt').eq(2).text(txt_frequency);
-		$(".frequency > option").each(function() {
+		$(".frequency > option").each(function(i) {
 			val_frequency = $(this).val();
 			$draws_calculation = val_frequency * day_of_week;
 			$draw_string = 'Draw';
-			$week_string = 'week'
+
+
+
 			if($draws_calculation > 1) {
 				$draw_string = 'Draws';
-				$week_string = 'weeks'
+				$week_string = 'weeks';
 			}
+			if(i == 0) $week_string = 'week';
 			txt_frequency = val_frequency + ' ' + $week_string + ' ('+$draw_string+': '+$draws_calculation+ ')';
 			$(this).text(txt_frequency);
 		});
