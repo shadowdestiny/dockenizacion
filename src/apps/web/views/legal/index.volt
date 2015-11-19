@@ -58,12 +58,12 @@
             <p><strong>Winning Numbers</strong> means a set of numbers of the certain game, drawn on a given day and published in a final manner by the official lottery operator.</p>
 
             <div class="numbered">
-                <h2 class="h3">1. Introduction</h2>
+                <h2 class="h3">1 Introduction</h2>
                 <p>
-                    <span class="n">1.1.</span> <span class="txt">The main purpose of this Euromillions.com website is to enable its registered users to participate without any geographical limitations in any games listed on the Euromillions.com website.</span>
+                    <span class="n">1.1</span> <span class="txt">The main purpose of this Euromillions.com website is to enable its registered users to participate without any geographical limitations in any games listed on the Euromillions.com website.</span>
                 </p>
                 <p>
-                    <span class="n">1.2.</span> <span class="txt"><strong>What Euromillions.com Does</strong></span>
+                    <span class="n">1.2</span> <span class="txt"><strong>What Euromillions.com Does</strong></span>
                 </p>
                 <p>
                     <span class="n">1.2.1</span> <span class="txt">Customers come to the Euromillions.com website</span>
@@ -72,31 +72,31 @@
                     <span class="n">1.2.2</span> <span class="txt">Customers select the lottery and the numbers.</span>
                 </p>
                 <p>
-                    <span class="n">1.2.3.</span> <span class="txt">Euromillions.com acts on the placement assignment and keeps track of the status, results and success of the Ticket(s).</span>
+                    <span class="n">1.2.3</span> <span class="txt">Euromillions.com acts on the placement assignment and keeps track of the status, results and success of the Ticket(s).</span>
                 </p>
                 <p>
-                    <span class="n">1.2.4.</span> <span class="txt">In case of winnings, Euromillions.com assists to claim the prize.</span>
+                    <span class="n">1.2.4</span> <span class="txt">In case of winnings, Euromillions.com assists to claim the prize.</span>
                 </p>
 
                 <p>
-                    <span class="n">1.3.</span> 
+                    <span class="n">1.3</span> 
                     <span class="txt">To fulfill its main purpose, the Euromillions.com website provides a variety of additional services, such as providing users a player account, validation of tickets, publishing results of the draws, and collecting and forwarding prizes to the winners in cases where collection is allowed to be executed by the Euromillions.com website.</span>
                 </p>
 
-                <strong>What Euromillions.com Does Not</strong>
+                <strong><span class="n">1.4</span> <span class="txt">What Euromillions.com Does Not</span></strong>
 
                 <p>
-                    <span class="n"></span>
+                    <span class="n">1.4.1</span>
                     <span class="txt">Euromillions.com does not organize any lottery games. They are existing, offline lotteries independent from the Euromillions.com website or its business entity. The participants understood and acknowledge therefore that the payment after their prizes will come from the offline lottery companies and not directly from the Euromillions.com</span>
                 </p>
 
                 <p>
-                    <span class="n"></span>
+                    <span class="n">1.4.2</span>
                     <span class="txt">Euromillions.com does NOT take any commission from the winnings as a fee for its service as long as the takeover of the winnings does not cause any costs to Euromillions.com. Euromillions.com only applies a reasonable markup on the individual ticket prices as a fee for its service.</span>
                 </p>
 
                 <p>
-                    <span class="n"></span>
+                    <span class="n">1.5</span>
                     <span class="txt">Registered users must accept the Terms and Conditions not only at registration, but at each time they send Tickets into game. In every paid game, the participants have the chance to review and agree to the updated Terms and Conditions. With the acceptance of the Terms and Conditions, the participants authorize Euromillions.com to act on their behalf in front of the offline lotteries, and to claim and handle winnings of the participants in all cases where offline lotteries allow agents to takeover the winnings.</span>
                 </p>
 
