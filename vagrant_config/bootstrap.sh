@@ -10,6 +10,8 @@ cd /var/www
 composer install
 e "Installing npm packages"
 npm install --no-bin-links
+e "Watching react files"
+npm run watch &
 
 e "Executing migrations"
 . /vagrant/dev-scripts/schema_and_data_migration.sh dev
