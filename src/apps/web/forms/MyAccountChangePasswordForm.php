@@ -35,7 +35,7 @@ class MyAccountChangePasswordForm extends RedirectableFormBase
             ]
         ));
         $password->addValidator(new PasswordValidator([
-            'message' => 'The password should have numbers, lowercase and uppercase characters'
+            'message' => 'The password should have a number, a lowercase and an uppercase character and should be at composed at least by 6 characters.'
         ]));
         $this->add($password);
         $password_confirm = new Password('confirm-password', array(

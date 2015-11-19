@@ -8,6 +8,6 @@
    <li><a {% if activeSubnav.myClass == "messages" %}class="active"{% endif %}href="/account/messages">{{ language.translate("Messages") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
 #}
 
-    <li><a {% if activeSubnav.myClass == "email" %}class="active"{% endif %}href="account/email">{{ language.translate("Email Settings") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
+    <li><a {% if activeSubnav.myClass == "email" %}class="active"{% endif %}href="/account/email">{{ language.translate("Email Settings") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
     <li><a {% if activeSubnav.myClass == "password" %}class="active"{% endif %}href="/account/password">{{ language.translate("Change password") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
 </ul>

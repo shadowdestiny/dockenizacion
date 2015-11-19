@@ -20,9 +20,7 @@
         </div>
         <div class="box-basic content">
             <h1 class="h1 title yellow">{{ language.translate("Change Password") }}</h1>
-            <div class="box-change-psw" {% if which_form == 'password' %} style="display: block" {%  else %} style="display: none" {% endif %}>
-                 <h1 class="h1 title yellow">{{ language.translate("My Account") }}</h2>
-                 <h2 class="h3 yellow">{{ language.translate("Change password") }}</h2>
+            <div class="box-change-psw" {% if which_form == 'password' %}style="display:block" {%  else %}style="display:none"{% endif %}>
                 {% set myPsw='{"value": "change"}'|json_decode %}
                 {% include "_elements/generate-psw.volt" %}
             </div>
