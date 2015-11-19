@@ -1,18 +1,46 @@
 var EuroMillionsNumber = React.createClass({
-// El selected hay que ponerlo como propiedad de cada número
-    render: function() {
-        var button = this.props.selected ?
-            <a className="btn gwp n1 active" href="javascript:void(0);">{this.props.number}</a> :
-            <a className="btn gwp n1" href="javascript:void(0);">{this.props.number}</a>;
-        return (<li className="col20per not">{button}</li>)
+    getDefaultProps: function()
+    {
+        return {
+            selected: false
+        }
+    },
+    propTypes: {
+        number: React.PropTypes.number.isRequired,
+        selected: React.PropTypes.bool,
+        onNumberClick: React.PropTypes.func.isRequired
+    },
+    render: function () {
+        var class_name = this.props.selected ? "btn gwp n" + this.props.number + " active" : "btn gwp n" + this.props.number;
+        var button = <a className={class_name} onClick={this.props.onNumberClick.bind(null, this.props.number)} href="javascript:void(0);">{this.props.number}</a>;
+        return (<li className="col20per not">{button}</li>);
+    }
+});
+
+var EuroMillionsStar = React.createClass({
+    render: function () {
+        var number = this.props.number;
+        var class_name = this.props.selected ? 'ico s' + number + ' active' : 'ico s' + number;
+        return (
+            <li className={this.props.columnClass}><a href="javascript:void(0);" className={class_name}>
+                <svg className="vector v-star-out"
+                     dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star-out"></use>'}}/>
+                <svg className="vector v-star"
+                     dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star"></use>'}}/>
+                <span className="txt">{number}</span></a></li>
+        );
     }
 });
 
 var EuroMillionsLineRow = React.createClass({
-    render: function() {
+    render: function () {
         var numbers = [];
-        this.props.numbers.forEach(function(number) {
-            numbers.push(<EuroMillionsNumber number={number} key={number} />);
+        var selected = false;
+        var selected_numbers = this.props.selectedNumbers.numbers;
+        var onNumberClick = this.props.onNumberClick;
+        this.props.numbers.forEach(function (number) {
+            selected = selected_numbers.indexOf(number) != -1;
+            numbers.push(<EuroMillionsNumber onNumberClick={onNumberClick} number={number} key={number} selected={selected}/>);
         });
         return (
             <ol className="no-li cols not">
@@ -22,48 +50,109 @@ var EuroMillionsLineRow = React.createClass({
     }
 });
 
+var EuroMillionsLineStarsRow = React.createClass({
+    render: function () {
+        var numbers = [];
+        var selected = false;
+        var selected_numbers = this.props.selectedNumbers.stars ? this.props.selectedNumbers.stars : [];
+        var class_name = "no-li cols not" + this.props.extraClass;
+        var column_class = this.props.columnClass;
+        this.props.numbers.forEach(function (number) {
+            selected = selected_numbers.indexOf(number) != -1;
+            numbers.push(<EuroMillionsStar number={number} key={number} selected={selected}
+                                           columnClass={column_class}/>);
+        });
+        return (
+            <ol className={class_name}>
+                {numbers}
+            </ol>
+        );
+    }
+});
+
 var EuroMillionsLine = React.createClass({
-    render: function() {
-        var rows = [];
-        var linenumber = this.props.lineNumber +1;
-        for (var i=1; i<=this.props.maxRegularNumber; i=i+j) {
-            var row = [];
-            for (var j=0; j < this.props.numberPerLine; j++)
-            {
-                row.push(i+j)
+    getInitialState: function () {
+        return {
+            selectedNumbers: {
+                'numbers': [],
+                'stars': []
             }
-            rows.push(<EuroMillionsLineRow numbers={row} key={row[0]}/>);
+        };
+    },
+    componentDidMount: function() {
+        //sacar los values de las cookies
+    },
+    handleClickOnNumber: function (number) {
+        if (typeof number != 'undefined') {
+            var position = this.state.selectedNumbers.numbers.indexOf(number);
+            if (position == -1) {
+                this.state.selectedNumbers.numbers.push(number);
+            } else {
+                this.state.selectedNumbers.numbers.splice(position, 1);
+            }
+            this.setState(this.state);
         }
+    },
+    handleClickOnStar: function (star) {
+        if (typeof star != 'undefined') {
+            var position = this.state.selectedNumbers.stars.indexOf(star);
+            if (position == -1) {
+                this.state.selectedNumbers.stars.push(star);
+            } else {
+                this.state.selectedNumbers.stars.splice(position, 1);
+            }
+        }
+    },
+
+    render: function () {
+        var rows = [];
+        var linenumber = this.props.lineNumber + 1;
+        for (var i = 1; i <= 50; i = i + j) {
+            var row = [];
+            for (var j = 0; j < this.props.numberPerLine; j++) {
+                row.push(i + j)
+            }
+            rows.push(<EuroMillionsLineRow numbers={row} onNumberClick={this.handleClickOnNumber}
+                                           selectedNumbers={this.state.selectedNumbers} key={row[0]}/>);
+        }
+        var star_rows = [];
+        var star_numbers = [];
+        for (var k = 1; k <= 4; k++) {
+            star_numbers.push(k);
+        }
+        star_rows.push(<EuroMillionsLineStarsRow numbers={star_numbers} selectedNumbers={this.state.selectedNumbers}
+                                                 extraClass="" columnClass="col3 not" key="1"/>);
+        star_numbers = [];
+        for (; k <= 7; k++) {
+            star_numbers.push(k);
+        }
+        star_rows.push(<EuroMillionsLineStarsRow numbers={star_numbers} selectedNumbers={this.state.selectedNumbers}
+                                                 extraClass=" extra-pad" columnClass="col4 not" key="2"/>);
+        star_numbers = [];
+        for (; k <= 11; k++) {
+            star_numbers.push(k);
+        }
+        star_rows.push(<EuroMillionsLineStarsRow numbers={star_numbers} selectedNumbers={this.state.selectedNumbers}
+                                                 extraClass="" columnClass="col3 not" key="3"/>);
+
         return (
             <div>
                 <h1 className="h3 blue center">Line {  linenumber }</h1>
                 <div className="line center">
-                    <svg dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-checkmark"></use>'}} className="ico v-checkmark" />
+                    <svg dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-checkmark"></use>'}}
+                         className="ico v-checkmark"/>
                     <div className="combo cols not">
-                        <div className="col6 not random"><a className="btn gwy multiplay" href="javascript:void(0);"><svg className="v-shuffle" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-shuffle"></use>'}} /></a></div>
+                        <div className="col6 not random"><a className="btn gwy multiplay" href="javascript:void(0);">
+                            <svg className="v-shuffle"
+                                 dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-shuffle"></use>'}}/>
+                        </a></div>
                     </div>
                     <div className="values">
                         <div className="numbers">
-                           {rows}
+                            {rows}
                         </div>
                         <div className="stars">
-                            <ol className="no-li cols not">
-                                <li className="col3 not"><a href="javascript:void(0);" className="ico s1"><svg className="v-star-out" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star-out"></use>'}} /><svg className="v-star" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star"></use>'}} /><span className="txt">1</span></a></li>
-                                <li className="col3 not"><a className="ico s2" href="javascript:void(0);"><svg className="v-star-out" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star-out"></use>'}} /><svg className="v-star" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star"></use>'}} /><span className="txt">2</span></a></li>
-                                <li className="col3 not"><a className="ico s3" href="javascript:void(0);"><svg className="v-star-out" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star-out"></use>'}} /><svg className="v-star" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star"></use>'}} /><span className="txt">3</span></a></li>
-                                <li className="col3 not"><a className="ico s4" href="javascript:void(0);"><svg className="v-star-out" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star-out"></use>'}} /><svg className="v-star" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star"></use>'}} /><span className="txt">4</span></a></li>
-                            </ol>
-                            <ol className="no-li cols extra-pad not">
-                                <li className="col4 not"><a className="ico s5" href="javascript:void(0);"><svg className="v-star-out" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star-out"></use>'}} /><svg className="v-star" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star"></use>'}} /><span className="txt">5</span></a></li>
-                                <li className="col4 not"><a className="ico s6" href="javascript:void(0);"><svg className="v-star-out" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star-out"></use>'}} /><svg className="v-star" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star"></use>'}} /><span className="txt">6</span></a></li>
-                                <li className="col4 not"><a className="ico s7" href="javascript:void(0);"><svg className="v-star-out" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star-out"></use>'}} /><svg className="v-star" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star"></use>'}} /><span className="txt">7</span></a></li>
-                            </ol>
-                            <ol className="no-li cols not">
-                                <li className="col3 not"><a className="ico s8" href="javascript:void(0);"><svg className="v-star-out" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star-out"></use>'}} /><svg className="v-star" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star"></use>'}} /><span className="txt">8</span></a></li>
-                                <li className="col3 not"><a className="ico s9" href="javascript:void(0);"><svg className="v-star-out" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star-out"></use>'}} /><svg className="v-star" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star"></use>'}} /><span className="txt">9</span></a></li>
-                                <li className="col3 not"><a className="ico s10" href="javascript:void(0);"><svg className="v-star-out" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star-out"></use>'}} /><svg className="v-star" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star"></use>'}} /><span className="txt">10</span></a></li>
-                                <li className="col3 not"><a className="ico s11" href="javascript:void(0);"><svg className="v-star-out" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star-out"></use>'}} /><svg className="v-star" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-star"></use>'}} /><span className="txt">11</span></a></li>
-                            </ol>
+                            {star_rows}
                         </div>
                     </div>
                 </div>
@@ -73,9 +162,10 @@ var EuroMillionsLine = React.createClass({
     }
 });
 
-for(var i=0; i<=5; i++) {
+for (var i = 0; i <= 5; i++) {
+    var selected_numbers = eval('typeof selected_numbers_' + i) != 'undefined' ? eval('selected_numbers_' + i) : {};
     ReactDOM.render(
-        <EuroMillionsLine numberPerLine="5" maxRegularNumber="50" lineNumber={i} />,
-        document.getElementById('num_'+i)
+        <EuroMillionsLine numberPerLine="5" lineNumber={i}/>,
+        document.getElementById('num_' + i)
     );
 }
