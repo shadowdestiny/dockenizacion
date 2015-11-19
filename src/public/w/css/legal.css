@@ -1,1 +1,45 @@
-#content .nav{position:absolute;width:270px;margin:0;padding:0}#content .nav a{display:block;text-decoration:none;padding:10px 15px;border-bottom:1px solid #efc048}#content .nav a:hover,#content .nav a:focus{background:#efc048;color:#fff}#content .nav a:hover .ico,#content .nav a:focus .ico{color:#fff}#content .nav li:last-child a{border-bottom:0}#content .nav .ico{float:right;color:#efc048;font-size:14px;margin-top:3px;display:block}#content .nav .active{font-weight:bold;background:#efc048;color:#fff;cursor:default;text-shadow:0 1px 3px rgba(0,0,0,0.2)}#content .nav .active .ico{color:#fff}#content .content{margin:0 0 2em 290px}#content .content hr{margin:0 -20px}#content .content h1.title{margin-bottom:0.5em}#content .content .input{width:100%}#content .content .label{font-weight:bold;margin-bottom:3px}#content .content .asterisk{color:#c22}#content .content .wrap{margin-right:-20px}#content .content .cols>div{border-right:20px solid transparent}#content .content .cols{margin-bottom:20px}#content .box-basic.content{min-height:248px}@media only screen and (max-width: 992px){#content .nav{width:200px}#content .content{margin-left:220px}}@media only screen and (max-width: 768px){#content .nav{display:none}#content .content{margin:0 0 1em;border-width:0 0 1px 0}#content .content .wrap{margin:0}#content .content h1.title{float:none;margin:0 auto .5em}#content .content .revoke{float:none;margin:10px auto}#content .content .cols{margin:0}#content .cols>div{margin-bottom:10px}}.list{margin:0 0 1em 20px}.list li{margin-bottom:5px}.list:last-child{margin-bottom:0}.h3{margin-bottom:.5em}
+/*
+Error: Invalid CSS after "....net/qGCUk/538/": expected "{", was ""
+        on line 14 of /src/compass/sass/legal.scss
+
+9: .h3{margin-bottom:.5em;}
+10: .ol-list{margin-left:20px;}
+11: .ol li:before{display:block; content:counters(item, ".")"."; counter-increment:item;}
+12: /*.no-margin{margin:0;}*\/
+13: 
+14: http://jsfiddle.net/qGCUk/538/
+
+Backtrace:
+/src/compass/sass/legal.scss:14
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/scss/parser.rb:1167:in `expected'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/scss/parser.rb:1101:in `expected'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/scss/parser.rb:1096:in `tok!'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/scss/parser.rb:641:in `block'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/scss/parser.rb:636:in `ruleset'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/scss/parser.rb:660:in `block_child'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/scss/parser.rb:653:in `block_contents'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/scss/parser.rb:117:in `stylesheet'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/scss/parser.rb:42:in `parse'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/engine.rb:393:in `_to_tree'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/engine.rb:268:in `render'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:492:in `update_stylesheet'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:209:in `each'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:293:in `watch'
+/var/lib/gems/1.9.1/gems/compass-1.0.3/lib/compass/sass_compiler.rb:46:in `watch!'
+/var/lib/gems/1.9.1/gems/compass-1.0.3/lib/compass/commands/watch_project.rb:41:in `perform'
+/var/lib/gems/1.9.1/gems/compass-1.0.3/lib/compass/commands/base.rb:18:in `execute'
+/var/lib/gems/1.9.1/gems/compass-1.0.3/lib/compass/commands/project_base.rb:19:in `execute'
+/var/lib/gems/1.9.1/gems/compass-1.0.3/lib/compass/exec/sub_command_ui.rb:43:in `perform!'
+/var/lib/gems/1.9.1/gems/compass-1.0.3/lib/compass/exec/sub_command_ui.rb:15:in `run!'
+/var/lib/gems/1.9.1/gems/compass-1.0.3/bin/compass:30:in `block in <top (required)>'
+/var/lib/gems/1.9.1/gems/compass-1.0.3/bin/compass:44:in `call'
+/var/lib/gems/1.9.1/gems/compass-1.0.3/bin/compass:44:in `<top (required)>'
+/usr/local/bin/compass:23:in `load'
+/usr/local/bin/compass:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Invalid CSS after \"....net/qGCUk/538/\": expected \"{\", was \"\"\A         on line 14 of /src/compass/sass/legal.scss\A \A 9: .h3{margin-bottom:.5em;}\A 10: .ol-list{margin-left:20px;}\A 11: .ol li:before{display:block; content:counters(item, \".\")\".\"; counter-increment:item;}\A 12: /*.no-margin{margin:0;}*/\A 13: \A 14: http://jsfiddle.net/qGCUk/538/"; }
