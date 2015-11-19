@@ -33,7 +33,6 @@
 
             <h1 class="h1 title yellow">{{ language.translate("Email Settings") }}</h1>
             <form action="/account/editEmail" name="form_notifications" method="post" >
-
                 <div class="cl">
                     <div class="email-me">
                         Email me
