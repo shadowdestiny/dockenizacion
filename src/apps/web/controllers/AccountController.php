@@ -71,7 +71,7 @@ class AccountController extends PublicSiteControllerBase
 
     public function passwordAction()
     {
-    /*    $errors = null;
+        $errors = null;
         $userId = $this->authService->getCurrentUser();
         $user = $this->userService->getUser($userId->getId());
         $myaccount_form = $this->getMyACcountForm($userId);
@@ -97,7 +97,7 @@ class AccountController extends PublicSiteControllerBase
                 }
             }
         }
-        $this->view->pick('account/index');
+        //$this->view->pick('account/index');
         return $this->view->setVars([
             'form_errors' => $form_errors,
             'which_form'  => 'password',
@@ -105,7 +105,7 @@ class AccountController extends PublicSiteControllerBase
             'msg' => $msg,
             'myaccount' => $myaccount_form,
             'password_change' => $myaccount_passwordchange_form
-        ]);*/
+        ]);
 
     }
 
