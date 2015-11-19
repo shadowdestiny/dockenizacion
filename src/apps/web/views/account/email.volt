@@ -50,7 +50,7 @@ $(function() {
             {% endif %}
             {% if error %}
                 <div class="box danger">
-                    <svg class="ico v-cross"><use xlink:href="/w/svg/icon.svg#v-cross"></use></svg>
+                    <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
                     {{ error }}
                 </div>
             {% endif %}
