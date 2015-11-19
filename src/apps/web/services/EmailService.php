@@ -88,7 +88,7 @@ EOF;
             ],
             $vars['subject'],
             '',
-            [],
+            $vars['template_vars'],
             [],
             $template,
             []
