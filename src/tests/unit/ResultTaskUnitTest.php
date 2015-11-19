@@ -207,7 +207,7 @@ class ResultTaskUnitTest extends UnitTestBase
         $notificationType = new NotificationType(1,3500000);
         $userNotifications->setConfigValue($notificationType);
         $userNotifications->setActive(true);
-        return $userNotifications;
+        return [$userNotifications];
     }
 
 }

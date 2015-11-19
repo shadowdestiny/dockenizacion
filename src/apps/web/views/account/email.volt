@@ -25,7 +25,7 @@
                 </div>
             {% endif %}
             {% if error %}
-                <div class="box danger">
+                <div class="box error">
                     <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
                     {{ error }}
                 </div>
@@ -56,7 +56,7 @@
                                     {% endif %}
 
                                     {% if notification.notification.notification_type == 1 %}
-                                        <input name="config_value_{{ notification.name }}" value="{{ notification.config_value }}" class="input {% if error %}error{% endif %}"/>
+                                        <input name="config_value_{{ notification.name }}" value="{{ notification.config_value }}" class="{% if error %}error{% endif %}"/>
                                     {% endif %}
                                 </li>
                             {% endfor %}
