@@ -14,6 +14,7 @@ use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDataDTO;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
+use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\NotificationType;
 use Money\Currency;
 use Money\Money;
@@ -40,6 +41,7 @@ class ResultTask extends TaskBase
 
     private $break_down_json;
 
+    private $draw_result;
 
     public function initialize(LotteriesDataService $lotteriesDataService = null, PlayService $playService= null, EmailService $emailService = null, UserService $userService = null, CurrencyService $currencyService = null)
     {
@@ -124,6 +126,8 @@ class ResultTask extends TaskBase
                 $break_down_json[] = $break_down->toJson();
             }
             $this->break_down_json = $break_down_json;
+            /** @var EuroMillionsLine $draw_result */
+            $this->draw_result = $this->lotteriesDataService->getLastResult('EuroMillions');
         }
 
         //vars email template
@@ -133,7 +137,15 @@ class ResultTask extends TaskBase
                 [
                     [
                         'name'    => 'break_down',
-                        'content' => $this->break_down_json
+                        'content' => json_encode($this->break_down_json)
+                    ],
+                    [
+                        'name'    => 'regular_numbers',
+                        'content' => $this->draw_result['regular_numbers']
+                    ],
+                    [
+                        'name'    => 'lucky_numbers',
+                        'content' => $this->draw_result['lucky_numbers']
                     ]
                 ]
         ];

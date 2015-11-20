@@ -257,7 +257,6 @@ class AccountController extends PublicSiteControllerBase
         $list_notifications = null;
 
         try {
-
             if($reach_notification) {
                 $notificationType = new NotificationType(NotificationType::NOTIFICATION_THRESHOLD, $config_value_threshold);
             } else {

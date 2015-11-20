@@ -503,9 +503,9 @@ class UserServiceUnitTest extends UnitTestBase
 
         $this->userRepository_double->find($userId->id())->willReturn(true);
         $this->notificationsRepository_double->findAll()->willReturn($this->getNotifications());
-        $this->userNotificationsRepository_double->add($this->getUserNoticiation())->shouldBeCalled();
+        $this->userNotificationsRepository_double->add(Argument::type('EuroMillions\web\entities\UserNotifications'))->shouldBeCalled();
         $entityManager_stub = $this->getEntityManagerDouble();
-        $entityManager_stub->flush($this->getUserNoticiation())->shouldNotBeCalled();
+        $entityManager_stub->flush(Argument::type('EuroMillions\web\entities\UserNotifications'))->shouldBeCalled();
         $sut = $this->getSut();
         $actual = $sut->initUserNotifications($userId);
         $this->assertEquals($expected,$actual);
@@ -520,7 +520,7 @@ class UserServiceUnitTest extends UnitTestBase
     {
         $expected = new ActionResult(false);
         list($expected, $userId, $entityManager_stub) = $this->exerciseUserNotifications($expected);
-        $entityManager_stub->flush(Argument::any())->willThrow('Exception');
+        $entityManager_stub->flush(Argument::type('EuroMillions\web\entities\UserNotifications'))->willThrow('Exception');
         $sut = $this->getSut();
         $actual = $sut->initUserNotifications($userId);
         $this->assertEquals($expected,$actual);

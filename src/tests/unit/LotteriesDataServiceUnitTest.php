@@ -418,16 +418,6 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     }
 
     /**
-     * method resultCheck
-     * when called
-     * should returnServiceActionResultTrueWithProperData
-     */
-    public function test_resultCheck_called_returnServiceActionResultTrueWithProperData()
-    {
-
-    }
-
-    /**
      * method getSingleBetPriceByLottery
      * when called
      * should returnSingleBetPriceMoney

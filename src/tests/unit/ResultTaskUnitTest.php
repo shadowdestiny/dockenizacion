@@ -21,11 +21,11 @@ use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
+use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\UnitTestBase;
 
 class ResultTaskUnitTest extends UnitTestBase
 {
-
 
     private $playConfigRepository_double;
 
@@ -78,24 +78,18 @@ class ResultTaskUnitTest extends UnitTestBase
 
         $lottery_name = 'EuroMillions';
         $today = new \DateTime('2015-10-10');
+        $draw_result['regular_numbers'] = [];
+        $draw_result['lucky_numbers'] = [];
         $play_config_list = $this->getPlayConfigList();
-        $break_down_data_list = $this->getBreakDownDataDraw();
         $this->lotteryDataService_double->updateLastDrawResult('EuroMillions')->shouldBeCalled();
         $this->lotteryDataService_double->updateLastBreakDown('EuroMillions')->shouldBeCalled();
         $this->lotteryDataService_double->getBreakDownDrawByDate($lottery_name,$today)->willReturn(new ActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())));
         $this->playService_double->getPlaysConfigToBet($today)->willReturn($play_config_list);
         $this->userService_double->getUser(new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'))->willReturn($this->getUser());
-//        foreach($break_down_data_list as $break_down_element_category) {
-//            foreach($break_down_element_category as $k => $break_down){
-//                $lottery_prize = $break_down[1];
-//                $this->currencyService_double->convert(new Money((int) $lottery_prize, new Currency('EUR')),new Currency('EUR'))->willReturn(new Money(5000,new Currency('EUR')));
-//            }
-//        }
-        $this->userService_double->getUser(Argument::any())->willReturn($this->getUser());
         $this->userService_double->getActiveNotificationsByUserAndType(Argument::any(),Argument::any())->willReturn(new ActionResult(true,$this->getUserNotifications()));
+        $this->lotteryDataService_double->getLastResult('EuroMillions')->willReturn($draw_result);
         $this->emailService_double->sendTransactionalEmail($this->getUser(),'latest-results', Argument::any())->shouldBeCalledTimes(4);
         $this->userService_double->getActiveNotificationsByType(Argument::any())->willReturn(new ActionResult(true,$this->getUserNotifications()));
-
         $sut = new ResultTask();
         $sut->initialize($this->lotteryDataService_double->reveal(),
         $this->playService_double->reveal(),
@@ -196,6 +190,7 @@ class ResultTaskUnitTest extends UnitTestBase
             ]
         ];
     }
+
 
     private function getUserNotifications()
     {
