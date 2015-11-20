@@ -3,7 +3,7 @@
 <script>
 function resetSelect(){
     var mySelect = $(".threshold option:default").text();
-    $(".box-threshold .select-txt").text(mySelect)
+    $("#old_threshold_select_div").text(mySelect)
     $(".box-threshold .styled-select").addClass("disabled")
     $(".threshold").prop('disabled', 'disabled');
 }
@@ -59,7 +59,7 @@ $(function(){
             <input type="text" value="85000000" placeholder="{{ language.translate('Insert numeric value') }}">
         </span>
         <div class="styled-select">
-            <div class="select-txt"></div>
+            <div id="old_threshold_select_div"  class="select-txt"></div>
             <select class="threshold mySelect">
                 <option title="{{ language.translate('aprox. $49 millions') }}">{{ language.translate('50 millions &euro;') }}</option>
                 <option value="default" selected="selected" title="{{ language.translate('aprox. &dollar;74 millions') }}">{{ language.translate('75 millions &euro;') }}</option>
@@ -67,6 +67,8 @@ $(function(){
                 <option value="choose">{{ language.translate('Choose threshold') }}</option>
             </select>
         </div>
+        <div class="styled-select" id="threshold_select"></div>
+        <script src="/w/js/react/play.js"></script>
         <span class="txt type">{{ language.translate("play the chosen numbers") }}</span>
     </div>
 </div>
