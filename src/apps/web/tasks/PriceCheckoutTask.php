@@ -4,6 +4,7 @@
 namespace EuroMillions\web\tasks;
 
 
+use EuroMillions\web\entities\User;
 use EuroMillions\web\services\DomainServiceFactory;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteriesDataService;
@@ -53,27 +54,40 @@ class PriceCheckoutTask extends TaskBase
                 if($result_amount->getAmount() > 0) {
                     $user = $play_config_and_count[0]->getUser();
                     $this->priceCheckoutService->reChargeAmountAwardedToUser($user,$result_amount);
+                    $vars = $this->getVarsToEmailTemplate($user,$result_amount);
                     if($result_amount->getAmount() > $threshold_price) {
-                        $this->emailService->sendTransactionalEmail($user,'win-email-above-1500', $this->getVarsToEmailTemplate('Test1'));
-                    }else{
-                        $this->emailService->sendTransactionalEmail($user,'win-email',$this->getVarsToEmailTemplate('Test1'));
+                        $this->emailService->sendTransactionalEmail($user,'win-email-above-1500', $vars);
+                    } else {
+                        $this->emailService->sendTransactionalEmail($user,'win-email',$vars);
                     }
                 }
             }
         }
     }
 
-
-    private function getVarsToEmailTemplate($subject)
+    public function getVarsToEmailTemplate(User $user,Money $result_amount)
     {
+
         //vars email template
         $vars = [
-            'subject' => $subject,
-            'template_vars' =>
+            'subject' => 'Congratulations',
+            'vars' =>
                 [
                     [
-                        'name'    => 'test',
-                        'content' => 'Test'
+                        'name'    => 'user_name',
+                        'content' => $user->getName()
+                    ],
+                    [
+                        'name'    => 'winning',
+                        'content' => $result_amount->getAmount()
+                    ],
+                    [
+                        'name'    => 'url_play',
+                        'content' => $this->config->domain['url'] . 'play'
+                    ],
+                    [
+                        'name'    => 'url_account',
+                        'content' => $this->config->domain['url'] . 'account/wallet'
                     ]
                 ]
         ];

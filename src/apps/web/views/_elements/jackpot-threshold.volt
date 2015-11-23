@@ -2,7 +2,7 @@
 {% block template_scripts %}
 <script>
 function resetSelect(){
-    var mySelect = $(".threshold option:default").text();
+    var mySelect = $(".threshold option:selected").text();
     $(".box-threshold .select-txt").text(mySelect)
     $(".box-threshold .styled-select").addClass("disabled")
     $(".threshold").prop('disabled', 'disabled');

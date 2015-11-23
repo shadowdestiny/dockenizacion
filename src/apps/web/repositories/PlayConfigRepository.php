@@ -35,6 +35,19 @@ class PlayConfigRepository extends RepositoryBase
         return $result;
     }
 
+    public function getPlayConfigsLongEnded(\DateTime $day)
+    {
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT p'
+                . ' FROM ' . $this->getEntityName() . ' p'
+                . ' WHERE p.active = 1 AND :day NOT BETWEEN p.startDrawDate and p.lastDrawDate '
+                . ' group by p.user')
+            ->setParameters(['day' => $day])
+            ->getResult();
+        return $result;
+    }
+
 
     public function getPlayConfigsByUserAndDate(UserId $userId, \DateTime $day)
     {

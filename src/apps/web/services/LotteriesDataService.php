@@ -212,8 +212,9 @@ class LotteriesDataService
         }
     }
 
-    public function getNextDrawsByIteration($max_iteration = 5)
-    {
 
+    public function getLastJackpot($lotteryName)
+    {
+        return $this->lotteryDrawRepository->getLastJackpot($lotteryName);
     }
 }

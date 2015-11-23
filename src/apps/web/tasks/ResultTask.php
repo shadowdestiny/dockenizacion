@@ -43,6 +43,10 @@ class ResultTask extends TaskBase
 
     private $draw_result;
 
+    private $jackpot;
+
+    private $last_draw_date;
+
     public function initialize(LotteriesDataService $lotteriesDataService = null, PlayService $playService= null, EmailService $emailService = null, UserService $userService = null, CurrencyService $currencyService = null)
     {
         parent::initialize();
@@ -82,7 +86,7 @@ class ResultTask extends TaskBase
                     /** @var UserNotifications[] $user_notifications */
                     $user_notifications = $user_notifications_result->getValues();
                     foreach($user_notifications as $user_notification) {
-                        if($user_notification->getActive() && $user_notification->getConfigValue()->getValue()) {
+                        if($user_notification->getActive() && !$user_notification->getConfigValue()->getValue()) {
                             $vars = $this->getVarsToEmailTemplate($break_down_list);
                             $this->emailService->sendTransactionalEmail($user,'latest-results', $vars);
                         }
@@ -95,7 +99,7 @@ class ResultTask extends TaskBase
         if($user_notifications_result->success()) {
             $users_notifications = $user_notifications_result->getValues();
             foreach($users_notifications as $user_notification) {
-                if(!$user_notification->getConfigValue()->getValue()) {
+                if($user_notification->getConfigValue()->getValue()) {
                     $vars = $this->getVarsToEmailTemplate($break_down_list);
                     $this->emailService->sendTransactionalEmail($user_notification->getUser(),'latest-results',$vars);
                 }
@@ -123,21 +127,33 @@ class ResultTask extends TaskBase
             $break_down_json = [];
             /** @var EuroMillionsDrawBreakDownDataDTO[] $break_down_dto_list */
             foreach($break_down_dto_list as $break_down) {
-                $break_down_json[] = $break_down->toJson();
+                $break_down_json[] = $break_down;
             }
+
             $this->break_down_json = $break_down_json;
             /** @var EuroMillionsLine $draw_result */
             $this->draw_result = $this->lotteriesDataService->getLastResult('EuroMillions');
+            $this->jackpot = $this->lotteriesDataService->getLastJackpot('EuroMillions');
+            $this->last_draw_date = $this->lotteriesDataService->getLastDrawDate('EuroMillions')->format('j F Y');
         }
+
 
         //vars email template
         $vars = [
-            'subject' => 'Last results',
-            'template_vars' =>
+            'subject' => 'Latest results',
+            'vars' =>
                 [
                     [
-                        'name'    => 'break_down',
-                        'content' => json_encode($this->break_down_json)
+                        'name'    => 'breakdown',
+                        'content' => $this->break_down_json
+                    ],
+                    [
+                        'name'    => 'jackpot',
+                        'content' => $this->jackpot->getAmount()/100
+                    ],
+                    [
+                        'name'    => 'draw_date',
+                        'content' => $this->last_draw_date
                     ],
                     [
                         'name'    => 'regular_numbers',

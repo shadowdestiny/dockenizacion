@@ -88,7 +88,7 @@ EOF;
             ],
             $vars['subject'],
             '',
-            $vars['template_vars'],
+            $vars['vars'],
             [],
             $template,
             []
@@ -142,7 +142,6 @@ EOF;
      * @param $title
      * @param $subtitle
      * @param $content
-     * @throws Exception
      * @throws \Exception
      */
     private function sendMailToContactService($title, $subtitle, $content)

@@ -32,6 +32,10 @@ class BetTask extends TaskBase
     /** @var  UserService */
     private $userService;
 
+    private $jackpot;
+
+    private $url;
+
 
     public function initialize(LotteriesDataService $lotteriesDataService = null, PlayService $playService= null, EmailService $emailService = null, UserService $userService = null)
     {
@@ -40,7 +44,7 @@ class BetTask extends TaskBase
         ($lotteriesDataService) ? $this->lotteriesDataService = $lotteriesDataService : $this->lotteriesDataService = $domainFactory->getLotteriesDataService();
         ($playService) ? $this->playService = $playService : $this->playService = $domainFactory->getPlayService();
         ($emailService) ? $this->emailService = $emailService : $this->emailService = $domainFactory->getServiceFactory()->getEmailService();
-        ($userService) ? $this->userService = $userService : $this->domainServiceFactory->getUserService();
+        $this->userService = $userService ? $userService : $this->domainServiceFactory->getUserService();
     }
 
     public function createBetAction(\DateTime $today = null, $time_to_retry = null)
@@ -55,9 +59,13 @@ class BetTask extends TaskBase
 
         $lotteryName = 'EuroMillions';
         $result_euromillions_draw = $this->lotteriesDataService->getNextDrawByLottery($lotteryName);
-        /** @var EuroMillionsDraw $euromillions_draw */
-        $euromillions_draw = $result_euromillions_draw->getValues();
-        $result_play_configs = $this->playService->getPlaysConfigToBet($result_euromillions_draw->getValues()->getDrawDate());
+        if($result_euromillions_draw->success()){
+            /** @var EuroMillionsDraw $euromillions_draw */
+            $euromillions_draw = $result_euromillions_draw->getValues();
+            $result_play_configs = $this->playService->getPlaysConfigToBet($result_euromillions_draw->getValues()->getDrawDate());
+        } else {
+            $result_play_configs = new ActionResult(false);
+        }
 
         if($result_play_configs->success()){
             if($is_check_time) {
@@ -89,9 +97,12 @@ class BetTask extends TaskBase
                                     $user_notifications_result = $this->userService->getActiveNotificationsByUserAndType($user, NotificationType::NOTIFICATION_NOT_ENOUGH_FUNDS);
                                     if($user_notifications_result->success()) {
                                         /** @var UserNotifications $user_notification */
-                                        $user_notification = $user_notifications_result->getValues();
-                                        if($user_notification->getActive()) {
-                                            $this->emailService->sendTransactionalEmail($user, 'low-balance');
+                                        $users_notifications = $user_notifications_result->getValues();
+                                        foreach($users_notifications as $user_notification) {
+                                            if($user_notification->getActive()) {
+                                                $vars = $this->getVarsToLowBalanceEmailTemplate();
+                                                $this->emailService->sendTransactionalEmail($user, 'low-balance',$vars);
+                                            }
                                         }
                                     }
                                 }
@@ -110,8 +121,9 @@ class BetTask extends TaskBase
                 foreach($play_config_list as $play_config) {
                     if(empty($user_id) || $user_id != $play_config->getUser()->getId()->id()){
                         $user = $this->userService->getUser($play_config->getUser()->getId());
-                        //EMTD change name template to new template with information about validation ticket
-                        $this->emailService->sendTransactionalEmail($user,'low-balance');
+                        $vars = $this->getVarsToLowBalanceEmailTemplate();
+                        //EMTD template, the draw is closed
+                        $this->emailService->sendTransactionalEmail($user,'low-balance',$vars);
                         $user_id = $user->getId()->id();
                     }
                 }
@@ -126,7 +138,7 @@ class BetTask extends TaskBase
         }
 
         /** @var ActionResult $result_play_config */
-        $result_play_config = $this->playService->getPlaysConfigToBet($today);
+        $result_play_config = $this->playService->getPlayConfigWithLongEnded($today);
         if($result_play_config->success()) {
             /** @var PlayConfig[] $play_config_list */
             $play_config_list = $result_play_config->getValues();
@@ -134,7 +146,8 @@ class BetTask extends TaskBase
                 $day_last_draw = $play_config->getLastDrawDate()->getTimestamp();
                 if($today->getTimestamp() > $day_last_draw ) {
                     $user = $this->userService->getUser($play_config->getUser()->getId());
-                    $this->emailService->sendTransactionalEmail($user,'long-play-is-ended');
+                    $vars = $this->getVarsToEmailTemplate();
+                    $this->emailService->sendTransactionalEmail($user,'long-play-is-ended',$vars);
                 }
             }
         }
@@ -146,10 +159,74 @@ class BetTask extends TaskBase
         $user_notifications_result = $this->userService->getActiveNotificationsByUserAndType($user, NotificationType::NOTIFICATION_LAST_DRAW);
         if($user_notifications_result->success()) {
             /** @var UserNotifications $user_notification */
-            $user_notification = $user_notifications_result->getValues();
-            if($user_notification->getActive()) {
-                $this->emailService->sendTransactionalEmail($user, 'low-balance');
+            $users_notifications = $user_notifications_result->getValues();
+            foreach($users_notifications as $user_notification) {
+                if ($user_notification->getActive()) {
+                    $vars = $this->getVarsToLowBalanceEmailTemplate();
+                    $this->emailService->sendTransactionalEmail($user, 'low-balance', $vars);
+                }
             }
         }
+    }
+
+    private function getVarsToEmailTemplate()
+    {
+        if(empty($this->jackpot)) {
+            $this->jackpot = $this->lotteriesDataService->getNextJackpot('EuroMillions');
+            //EMTD get url from config di
+            $this->url = 'http://localhost:8080/';
+        }
+        //vars email template
+        $vars = [
+            'subject' => 'Your long play is ended',
+            'vars' =>
+                [
+                    [
+                        'name'    => 'jackpot',
+                        'content' => $this->jackpot->getAmount() /100
+                    ],
+                    [
+                        'name'    => 'url_play',
+                        'content' => $this->config->domain['url'] . 'play'
+                    ]
+                ]
+        ];
+
+        return $vars;
+    }
+
+    public function getVarsToLowBalanceEmailTemplate()
+    {
+        if(empty($this->jackpot)) {
+            $this->jackpot = $this->lotteriesDataService->getNextJackpot('EuroMillions');
+            $next_draw_day = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions');
+            $draw_day_format_one = $next_draw_day->format('l');
+            $draw_day_format_two = $next_draw_day->format('j F Y');
+        }
+        //vars email template
+        $vars = [
+            'subject' => 'Low balance',
+            'vars' =>
+                [
+                    [
+                        'name'    => 'jackpot',
+                        'content' => $this->jackpot->getAmount() /100
+                    ],
+                    [
+                        'name'    => 'draw_day_format_one',
+                        'content' => $draw_day_format_one
+                    ],
+                    [
+                        'name'    => 'draw_day_format_two',
+                        'content' => $draw_day_format_two,
+                    ],
+                    [
+                        'name' => 'url_add_funds',
+                        'content' => $this->config->domain['url'] . 'account/wallet'
+                    ]
+                ]
+        ];
+
+        return $vars;
     }
 }

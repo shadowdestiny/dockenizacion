@@ -53,7 +53,7 @@ class JackpotTask extends TaskBase
         //vars email template
         $vars = [
             'subject' => 'Jackpot',
-            'template_vars' =>
+            'vars' =>
             [
                 [
                     'name'    => 'jackpot',
@@ -70,6 +70,10 @@ class JackpotTask extends TaskBase
                 [
                     'name'    => 'time_closed',
                     'content' => $time_config['time'] . ' CET'
+                ],
+                [
+                    'name'    => 'url_play',
+                    'content' => $this->config->domain['url'] . 'play'
                 ]
             ]
         ];

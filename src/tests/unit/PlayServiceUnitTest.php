@@ -165,7 +165,8 @@ class PlayServiceUnitTest extends UnitTestBase
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $entityManager_stub = $this->getEntityManagerDouble();
         $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
-        $this->betRepository_double->getBetsByDrawDate(Argument::any())->willReturn(null);
+        $this->lotteryDataService_double->getNextDateDrawByLottery('EuroMillions', new \DateTime('2015-09-16 00:00:00'))->willReturn(new \DateTime());
+        $this->betRepository_double->getBetsByDrawDate(new \DateTime())->willReturn(null);
         $this->callValidationApi(true);
         $this->lotteryValidation_double->getXmlResponse()->willReturn(new \SimpleXMLElement(self::$content_with_ok_result));
         $this->logValidationApi_double->add(Argument::type($this->getEntitiesToArgument('LogValidationApi')))->shouldBeCalled();
@@ -189,7 +190,8 @@ class PlayServiceUnitTest extends UnitTestBase
         $expected = new ActionResult(false);
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
-        $this->betRepository_double->getBetsByDrawDate(Argument::any())->willReturn(null);
+        $this->lotteryDataService_double->getNextDateDrawByLottery('EuroMillions', new \DateTime('2015-09-16 00:00:00'))->willReturn(new \DateTime());
+        $this->betRepository_double->getBetsByDrawDate(new \DateTime())->willReturn(null);
         $this->callValidationApi(true);
         $this->betRepository_double->add(Argument::any())->willReturn(true);
         $this->userRepository_double->add($this->getUser())->willThrow(new \Exception());
@@ -213,7 +215,7 @@ class PlayServiceUnitTest extends UnitTestBase
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $bet = new Bet($playConfig,$euroMillionsDraw);
         $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
-        $this->lotteryDataService_double->getNextDateDrawByLottery('EuroMillions',$today)->willReturn('2015-09-18 00:00:00');
+        $this->lotteryDataService_double->getNextDateDrawByLottery('EuroMillions',$today)->willReturn(new \DateTime('2015-09-18 00:00:00'));
         $this->betRepository_double->getBetsByDrawDate(Argument::any())->willReturn($bet);
         $this->betRepository_double->add(Argument::any())->shouldNotBeCalled();
         $sut = $this->getSut();
@@ -328,6 +330,36 @@ class PlayServiceUnitTest extends UnitTestBase
 
     }
 
+
+    /**
+     * method getPlayConfigWithLongEnded
+     * when called
+     * should returnActionResultTrueWithCollection
+     */
+    public function test_getPlayConfigWithLongEnded_called_returnActionResultTrueWithCollection()
+    {
+        $expected = new ActionResult(true, $this->getPlayConfig());
+        $date = new \DateTime('2015-11-25');
+        $this->playConfigRepository_double->getPlayConfigsLongEnded($date)->willReturn($this->getPlayConfig());
+        $sut = $this->getSut();
+        $actual = $sut->getPlayConfigWithLongEnded($date);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method getPlayConfigWithLongEnded
+     * when called
+     * should returnActionResultFalse
+     */
+    public function test_getPlayConfigWithLongEnded_called_returnActionResultFalse()
+    {
+        $expected = new ActionResult(false);
+        $date = new \DateTime('2015-11-25');
+        $this->playConfigRepository_double->getPlayConfigsLongEnded($date)->willReturn(false);
+        $sut = $this->getSut();
+        $actual = $sut->getPlayConfigWithLongEnded($date);
+        $this->assertEquals($expected,$actual);
+    }
 
 
     private function exerciseTemporarilyStorePlay($expected)
@@ -503,7 +535,7 @@ class PlayServiceUnitTest extends UnitTestBase
     {
         list($playConfig, $euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
-        $this->lotteryDataService_double->getNextDateDrawByLottery('EuroMillions', Argument::any())->willReturn('2016-10-04');
+        $this->lotteryDataService_double->getNextDateDrawByLottery('EuroMillions', Argument::any())->willReturn(new \DateTime('2016-10-04'));
         $this->callValidationApi($expected);
         return array($playConfig, $euroMillionsDraw);
     }
