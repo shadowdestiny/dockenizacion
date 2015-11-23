@@ -73,8 +73,10 @@
 						<a href="javascript:void(0);" class="close"><svg class="ico v-cancel-circle"><use xlink:href="/w/svg/icon.svg#v-cancel-circle"></use></svg></a>
 						<div class="cols">
 							<div class="col2">
-								<label data-tip="{{ language.translate('Which draw do you want to play?') }}" class="label tipr-small">{{ language.translate("Draw") }}
-									<svg class="ico v-question-mark"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
+								<label class="label">{{ language.translate("Draw") }}
+									<div class="wrap tipr-small" data-tip="{{ language.translate('Which draw do you want to play?') }}">
+										<svg class="ico v-question-mark"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
+									</div>
 								</label>
 								<div class="styled-select">
 									<div class="select-txt"></div>
@@ -86,8 +88,10 @@
 								</div>
 							</div>
 							<div class="col2">
-								<label data-tip="{{ language.translate('From which draw do you wish to play?') }}" class="label tipr-small">{{ language.translate("First Draw") }}
-									<svg  class="ico v-question-mark"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
+								<label class="label">{{ language.translate("First Draw") }}
+									<div class="wrap tipr-small" data-tip="{{ language.translate('From which draw do you wish to play?') }}">
+										<svg  class="ico v-question-mark"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
+									</div>
 								</label>
 								<div class="styled-select">
 									<div class="select-txt"></div>
@@ -106,8 +110,10 @@
 								</div>
 							</div>
 							<div class="col2">
-								<label data-tip="{{ language.translate('For how long do you wish to play?') }}" class="label tipr-small">{{ language.translate("Duration") }}
-									<svg class="ico v-question-mark"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
+								<label class="label">{{ language.translate("Duration") }}
+									<div class="wrap tipr-small" data-tip="{{ language.translate('For how long do you wish to play?') }}">
+										<svg class="ico v-question-mark"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
+									</div>
 								</label>
 								<div class="styled-select">
 									<div class="select-txt"></div>
@@ -124,8 +130,10 @@
 								</div>
 							</div>
 							<div class="col6 wrap-threshold">
-								<label data-tip="{{ language.translate('Set the condition when you want to play or to be informed automatically. Thresholds are calculated only in Euro.') }}" class="label tipr-normal" for="threshold">{{ language.translate("Jackpot Threshold") }}
-									<svg  class="ico v-question-mark"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
+								<label class="label" for="threshold">{{ language.translate("Jackpot Threshold") }}
+									<div class="wrap tipr-normal" data-tip="{{ language.translate('Set the condition when you want to play or to be informed automatically. Thresholds are calculated only in Euro.') }}">
+										<svg class="ico v-question-mark"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
+									</div>
 								</label>
 								{% include "_elements/jackpot-threshold.volt" %}
 							</div>
