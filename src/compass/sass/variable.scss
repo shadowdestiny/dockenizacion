@@ -81,7 +81,4 @@ $small:0.75em;			/* 16x0.75=12 */
 
 /* COLUMNS */
 %cols{position:relative; margin-bottom:2em; display:table; width:100%;}
-%columns{
-	display:table-cell; float:none; vertical-align:top; position:relative;
-	@include box-sizing(content-box);
-}
+%columns{display:table-cell; float:none; vertical-align:top; position:relative; box-sizing:content-box;}
