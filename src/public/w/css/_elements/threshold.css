@@ -8,7 +8,7 @@ Error: Undefined variable: "$basic-size".
 4:     .input-value input{border:1px solid $grey-light; line-height:30px; padding:0 5px; font-size:$basic-size; height:30px;}
 5:     .styled-select{width:auto;}
 6:     .details{margin-left:7px; display:inline-block;}
-7:     .margin{margin-bottom:5px;}
+7: /*    .margin{margin-bottom:5px;}*\/
 
 Backtrace:
 /src/compass/sass/_elements/threshold.scss:2
@@ -61,20 +61,16 @@ Backtrace:
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:209:in `each'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:293:in `watch'
-/var/lib/gems/1.9.1/gems/compass-1.0.3/lib/compass/sass_compiler.rb:46:in `watch!'
-/var/lib/gems/1.9.1/gems/compass-1.0.3/lib/compass/commands/watch_project.rb:41:in `perform'
-/var/lib/gems/1.9.1/gems/compass-1.0.3/lib/compass/commands/base.rb:18:in `execute'
-/var/lib/gems/1.9.1/gems/compass-1.0.3/lib/compass/commands/project_base.rb:19:in `execute'
-/var/lib/gems/1.9.1/gems/compass-1.0.3/lib/compass/exec/sub_command_ui.rb:43:in `perform!'
-/var/lib/gems/1.9.1/gems/compass-1.0.3/lib/compass/exec/sub_command_ui.rb:15:in `run!'
-/var/lib/gems/1.9.1/gems/compass-1.0.3/bin/compass:30:in `block in <top (required)>'
-/var/lib/gems/1.9.1/gems/compass-1.0.3/bin/compass:44:in `call'
-/var/lib/gems/1.9.1/gems/compass-1.0.3/bin/compass:44:in `<top (required)>'
-/usr/local/bin/compass:23:in `load'
-/usr/local/bin/compass:23:in `<main>'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:470:in `on_file_changed'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:328:in `block in watch'
+/var/lib/gems/1.9.1/gems/listen-2.10.0/lib/listen/listener.rb:291:in `call'
+/var/lib/gems/1.9.1/gems/listen-2.10.0/lib/listen/listener.rb:291:in `_process_changes'
+/var/lib/gems/1.9.1/gems/listen-2.10.0/lib/listen/listener.rb:255:in `block in _wait_for_changes'
+/var/lib/gems/1.9.1/gems/listen-2.10.0/lib/listen/listener.rb:238:in `loop'
+/var/lib/gems/1.9.1/gems/listen-2.10.0/lib/listen/listener.rb:238:in `_wait_for_changes'
+/var/lib/gems/1.9.1/gems/listen-2.10.0/lib/listen/listener.rb:327:in `block in _start_wait_thread'
 */
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$basic-size\".\A         on line 2 of /src/compass/sass/_elements/threshold.scss\A \A 1: .box-threshold{\A 2:     .txt{line-height:32px; display:inline-block; font-size:$basic-size;}\A 3:     .checkbox{position:relative; top:2px; float:left; height:30px;}\A 4:     .input-value input{border:1px solid $grey-light; line-height:30px; padding:0 5px; font-size:$basic-size; height:30px;}\A 5:     .styled-select{width:auto;}\A 6:     .details{margin-left:7px; display:inline-block;}\A 7:     .margin{margin-bottom:5px;}"; }
+  content: "Error: Undefined variable: \"$basic-size\".\A         on line 2 of /src/compass/sass/_elements/threshold.scss\A \A 1: .box-threshold{\A 2:     .txt{line-height:32px; display:inline-block; font-size:$basic-size;}\A 3:     .checkbox{position:relative; top:2px; float:left; height:30px;}\A 4:     .input-value input{border:1px solid $grey-light; line-height:30px; padding:0 5px; font-size:$basic-size; height:30px;}\A 5:     .styled-select{width:auto;}\A 6:     .details{margin-left:7px; display:inline-block;}\A 7: /*    .margin{margin-bottom:5px;}*/"; }
