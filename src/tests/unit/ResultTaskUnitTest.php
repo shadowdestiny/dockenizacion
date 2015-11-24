@@ -91,7 +91,7 @@ class ResultTaskUnitTest extends UnitTestBase
         $this->lotteryDataService_double->getLastResult('EuroMillions')->willReturn($draw_result);
         $this->lotteryDataService_double->getLastJackpot('EuroMillions')->willReturn(new Money(10000, new Currency('EUR')));
         $this->lotteryDataService_double->getLastDrawDate('EuroMillions')->willReturn(new \DateTime());
-        $this->emailService_double->sendTransactionalEmail($this->getUser(),'latest-results', Argument::any())->shouldBeCalledTimes(4);
+        $this->emailService_double->sendTransactionalEmail($this->getUser(),Argument::type('EuroMillions\web\emailTemplates\IEmailTemplate'))->shouldBeCalledTimes(4);
         $this->userService_double->getActiveNotificationsByType(Argument::any())->willReturn(new ActionResult(true,$this->getUserNotifications($notificationType)));
         $sut = new ResultTask();
         $sut->initialize($this->lotteryDataService_double->reveal(),

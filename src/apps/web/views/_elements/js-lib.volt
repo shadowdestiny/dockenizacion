@@ -33,4 +33,5 @@ $(document).bind("mobileinit", function(){
 #}
 
 <script src="/w/js/vendor/jquery.countdown.min.js"></script>
+<script src="/w/js/vendor/jquery.cookie.js"></script>
 <script src="/w/js/main.js"></script>

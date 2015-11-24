@@ -1,6 +1,8 @@
 <?php
 namespace EuroMillions\web\tasks;
 
+use EuroMillions\web\emailTemplates\LatestResultsEmailTemplate;
+use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\UserNotifications;
@@ -11,10 +13,8 @@ use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\PlayService;
 use EuroMillions\web\services\ServiceFactory;
 use EuroMillions\web\services\UserService;
-use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDataDTO;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
-use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\NotificationType;
 use Money\Currency;
 use Money\Money;
@@ -64,7 +64,6 @@ class ResultTask extends TaskBase
         if(!$today) {
             $today = new \DateTime();
         }
-
         $this->lotteriesDataService->updateLastDrawResult('EuroMillions');
         $this->lotteriesDataService->updateLastBreakDown('EuroMillions');
         /** @var EuroMillionsDrawBreakDown $emBreakDownData */
@@ -73,7 +72,9 @@ class ResultTask extends TaskBase
         if($draw->success()){
             $break_down_list = new EuroMillionsDrawBreakDownDTO($draw->getValues());
         }
-
+        $emailTemplate = new EmailTemplate();
+        $emailTemplate = new LatestResultsEmailTemplate($emailTemplate);
+        $emailTemplate->setBreakDownList($break_down_list);
         $result_play_config = $this->playService->getPlaysConfigToBet($today);
         if($result_play_config->success() && !empty($break_down_list)){
             /** @var PlayConfig[] $play_config_list */
@@ -87,8 +88,7 @@ class ResultTask extends TaskBase
                     $user_notifications = $user_notifications_result->getValues();
                     foreach($user_notifications as $user_notification) {
                         if($user_notification->getActive() && !$user_notification->getConfigValue()->getValue()) {
-                            $vars = $this->getVarsToEmailTemplate($break_down_list);
-                            $this->emailService->sendTransactionalEmail($user,'latest-results', $vars);
+                            $this->emailService->sendTransactionalEmail($user,$emailTemplate);
                         }
                     }
                 }
@@ -120,52 +120,4 @@ class ResultTask extends TaskBase
         return $break_downs;
     }
 
-    private function getVarsToEmailTemplate($break_down_dto_list)
-    {
-
-        if(empty($this->break_down_json)) {
-            $break_down_json = [];
-            /** @var EuroMillionsDrawBreakDownDataDTO[] $break_down_dto_list */
-            foreach($break_down_dto_list as $break_down) {
-                $break_down_json[] = $break_down;
-            }
-
-            $this->break_down_json = $break_down_json;
-            /** @var EuroMillionsLine $draw_result */
-            $this->draw_result = $this->lotteriesDataService->getLastResult('EuroMillions');
-            $this->jackpot = $this->lotteriesDataService->getLastJackpot('EuroMillions');
-            $this->last_draw_date = $this->lotteriesDataService->getLastDrawDate('EuroMillions')->format('j F Y');
-        }
-
-
-        //vars email template
-        $vars = [
-            'subject' => 'Latest results',
-            'vars' =>
-                [
-                    [
-                        'name'    => 'breakdown',
-                        'content' => $this->break_down_json
-                    ],
-                    [
-                        'name'    => 'jackpot',
-                        'content' => $this->jackpot->getAmount()/100
-                    ],
-                    [
-                        'name'    => 'draw_date',
-                        'content' => $this->last_draw_date
-                    ],
-                    [
-                        'name'    => 'regular_numbers',
-                        'content' => $this->draw_result['regular_numbers']
-                    ],
-                    [
-                        'name'    => 'lucky_numbers',
-                        'content' => $this->draw_result['lucky_numbers']
-                    ]
-                ]
-        ];
-
-        return $vars;
-    }
 }

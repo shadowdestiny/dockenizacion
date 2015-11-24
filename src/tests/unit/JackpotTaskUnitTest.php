@@ -78,7 +78,7 @@ class JackpotTaskUnitTest extends UnitTestBase
         $this->lotteryDataService_double->getNextJackpot($lottery_name)->willReturn($jackpot_amount);
         $this->userService_double->getActiveNotificationsTypeJackpot()->willReturn(new ActionResult(true,$notifications));
         $this->userService_double->getUser($this->getUser()->getId())->willReturn($this->getUser());
-        $this->emailService_double->sendTransactionalEmail(Argument::type($this->getEntitiesToArgument('User')), 'jackpot-rollover',Argument::any())->shouldBeCalledTimes(1);
+        $this->emailService_double->sendTransactionalEmail(Argument::type($this->getEntitiesToArgument('User')), Argument::type('EuroMillions\web\emailTemplates\IEmailTemplate'))->shouldBeCalledTimes(1);
         $sut = new JackpotTask();
         $sut->initialize($this->lotteryDataService_double->reveal(),$this->userService_double->reveal(), $this->emailService_double->reveal());
         $sut->reminderJackpotAction();

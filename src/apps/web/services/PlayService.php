@@ -121,6 +121,7 @@ class PlayService
                     $bet = new Bet($playConfig,$euroMillionsDraw);
                     $castillo_key = CastilloCypherKey::create();
                     $castillo_ticket = CastilloTicketId::create();
+                    $bet->setCastilloBet($castillo_ticket);
                     $result_validation = $lotteryValidation->validateBet($bet,new CypherCastillo3DES(),$castillo_key,$castillo_ticket,$dateNextDraw);
                     $log_api_reponse = new LogValidationApi();
                     $log_api_reponse->initialize([

@@ -1,7 +1,8 @@
 <?php
 namespace EuroMillions\web\tasks;
 
-use EuroMillions\web\entities\User;
+use EuroMillions\web\emailTemplates\EmailTemplate;
+use EuroMillions\web\emailTemplates\JackpotRolloverEmailTemplate;
 use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteriesDataService;
@@ -44,40 +45,10 @@ class JackpotTask extends TaskBase
 
     public function reminderJackpotAction()
     {
-        $next_draw_day = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions');
-        $time_config = $this->getDI()->get('globalConfig')['retry_validation_time'];
-        $draw_day_format_one = $next_draw_day->format('l');
-        $draw_day_format_two = $next_draw_day->format('j F Y');
+
         $jackpot_amount = $this->lotteriesDataService->getNextJackpot('EuroMillions');
-
-        //vars email template
-        $vars = [
-            'subject' => 'Jackpot',
-            'vars' =>
-            [
-                [
-                    'name'    => 'jackpot',
-                    'content' => $jackpot_amount->getAmount()/100
-                ],
-                [
-                    'name'    => 'draw_day_format_one',
-                    'content' => $draw_day_format_one
-                ],
-                [
-                    'name'    => 'draw_day_format_two',
-                    'content' => $draw_day_format_two,
-                ],
-                [
-                    'name'    => 'time_closed',
-                    'content' => $time_config['time'] . ' CET'
-                ],
-                [
-                    'name'    => 'url_play',
-                    'content' => $this->config->domain['url'] . 'play'
-                ]
-            ]
-        ];
-
+        $emailTemplate = new EmailTemplate();
+        $emailTemplate = new JackpotRolloverEmailTemplate($emailTemplate);
         /** @var ActionResult $result */
         $result = $this->userService->getActiveNotificationsTypeJackpot();
 
@@ -88,7 +59,7 @@ class JackpotTask extends TaskBase
                 if($user_notification->getActive()) {
                     if($jackpot_amount->getAmount() >= $user_notification->getConfigValue()->getValue()) {
                         $user = $this->userService->getUser($user_notification->getUser()->getId());
-                        $this->emailService->sendTransactionalEmail($user,'jackpot-rollover',$vars);
+                        $this->emailService->sendTransactionalEmail($user,$emailTemplate);
                     }
                 }
             }

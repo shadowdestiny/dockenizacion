@@ -23,6 +23,33 @@ class DateTimeUtilUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
+    /**
+     * method checkOpenTicket
+     * when calledWithTimeLessThanOpenTimeConfigure
+     * should returnTrue
+     */
+    public function test_checkOpenTicket_calledWithTimeLessThanOpenTimeConfigure_returnTrue()
+    {
+        $expected = true;
+        $sut = $this->getSut();
+        $actual = $sut->checkOpenTicket();
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method checkOpenTicket
+     * when calledWithTimeToRetryGreatherThanTimeLimit
+     * should returnFalse
+     */
+    public function test_checkOpenTicket_calledWithTimeToRetryGreatherThanTimeLimit_returnFalse()
+    {
+        $expected = false;
+        $time_to_retry = '1458355313';
+        $sut = $this->getSut();
+        $actual = $sut->checkOpenTicket($time_to_retry);
+        $this->assertEquals($expected,$actual);
+    }
+
     private function getSut()
     {
         return new DateTimeUtil();

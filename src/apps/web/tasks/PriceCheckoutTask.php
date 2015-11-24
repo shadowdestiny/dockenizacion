@@ -4,7 +4,8 @@
 namespace EuroMillions\web\tasks;
 
 
-use EuroMillions\web\entities\User;
+use EuroMillions\web\emailTemplates\EmailTemplate;
+use EuroMillions\web\emailTemplates\WinEmailTemplate;
 use EuroMillions\web\services\DomainServiceFactory;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteriesDataService;
@@ -54,45 +55,17 @@ class PriceCheckoutTask extends TaskBase
                 if($result_amount->getAmount() > 0) {
                     $user = $play_config_and_count[0]->getUser();
                     $this->priceCheckoutService->reChargeAmountAwardedToUser($user,$result_amount);
-                    $vars = $this->getVarsToEmailTemplate($user,$result_amount);
+                    $emailTemplate = new EmailTemplate();
+                    $emailTemplate = new WinEmailTemplate($emailTemplate);
+                    $emailTemplate->setUser($user);
+                    $emailTemplate->setResultAmount($result_amount);
                     if($result_amount->getAmount() > $threshold_price) {
-                        $this->emailService->sendTransactionalEmail($user,'win-email-above-1500', $vars);
+                        $this->emailService->sendTransactionalEmail($user,$emailTemplate);
                     } else {
-                        $this->emailService->sendTransactionalEmail($user,'win-email',$vars);
+                        $this->emailService->sendTransactionalEmail($user,$emailTemplate);
                     }
                 }
             }
         }
     }
-
-    public function getVarsToEmailTemplate(User $user,Money $result_amount)
-    {
-
-        //vars email template
-        $vars = [
-            'subject' => 'Congratulations',
-            'vars' =>
-                [
-                    [
-                        'name'    => 'user_name',
-                        'content' => $user->getName()
-                    ],
-                    [
-                        'name'    => 'winning',
-                        'content' => $result_amount->getAmount()
-                    ],
-                    [
-                        'name'    => 'url_play',
-                        'content' => $this->config->domain['url'] . 'play'
-                    ],
-                    [
-                        'name'    => 'url_account',
-                        'content' => $this->config->domain['url'] . 'account/wallet'
-                    ]
-                ]
-        ];
-
-        return $vars;
-    }
-
 }
