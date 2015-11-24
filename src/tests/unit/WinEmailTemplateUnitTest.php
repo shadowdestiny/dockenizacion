@@ -47,7 +47,9 @@ class WinEmailTemplateUnitTest extends UnitTestBase
 
     private function getArrayContentTemplate()
     {
+        $date = new \DateTime();
         $vars = [
+            'header' => $date->format('j M Y'),
             'template' => 'win-email',
             'subject' => 'Congratulations',
             'vars' =>

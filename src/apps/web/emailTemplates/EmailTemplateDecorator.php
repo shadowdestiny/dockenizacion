@@ -16,6 +16,8 @@ abstract class EmailTemplateDecorator implements IEmailTemplate
 
     protected $lotteriesDataService;
 
+    protected $vars;
+
     /** @var DomainServiceFactory $domainServiceFactory*/
     protected $domainServiceFactory;
 

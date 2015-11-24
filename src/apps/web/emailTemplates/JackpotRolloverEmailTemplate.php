@@ -15,7 +15,10 @@ class JackpotRolloverEmailTemplate extends EmailTemplateDecorator
         $jackpot_amount = $this->lotteriesDataService->getNextJackpot('EuroMillions');
 
         //vars email template
-        $this->emailTemplate->loadVars()[] = [
+        $header = $this->emailTemplate->loadVars();
+
+        $vars = [
+            'header'  => $header['date'],
             'template' => 'jackpot-rollover',
             'subject' => 'Jackpot',
             'vars' =>
@@ -42,7 +45,6 @@ class JackpotRolloverEmailTemplate extends EmailTemplateDecorator
                     ]
                 ]
         ];
-
-        return $this->emailTemplate->loadVars();
+        return $vars;
     }
 }
