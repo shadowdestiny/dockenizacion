@@ -224,8 +224,7 @@ function persistRandomNum(line){
 }
 
 
-function isMobile()
-{
+function isMobile(){
 	try{
 		document.createEvent('TouchEvent');
 		if(varSize > 2){

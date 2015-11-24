@@ -13,9 +13,8 @@ header, footer, figure, details, hgroup, section, article, nav, aside, picture, 
 header, footer, figure, details, hgroup, section, article, nav, aside, picture, main{display:block;}
 img, object, audio, video{max-width:100%;}
 svg, select{width:100%;}
-
 /* BOX SIZING FIX */
-*{@include box-sizing(border-box);}
+*{box-sizing:border-box;}
 
 
 /*** BASIC STYLE ***/

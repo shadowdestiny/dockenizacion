@@ -62,7 +62,6 @@
 }
 .outbound:hover, .outbound:focus{top:10px; border-width:18px;}
 .box-play{position:relative; top:-115px; text-align:center;}
-.box-play h1{font-size:140%;}
 .box-play .txt{position:absolute; left:-9999px; top:-9999px;}
 .win-millions{margin-top:-46px; text-align:center;}
 .win-millions .pic{margin:auto; width:417px;}
@@ -96,7 +95,6 @@
 .box-prize .bg2{@include background-image(linear-gradient(to right top, $purple, $purple-darker));} /* I had to insert a second BG div because mixing @include doesn't work well with multiple background */
 .box-prize .value, .box-prize .currency{font-size:$h1; margin-bottom:5px;}
 .box-prize .box-value{margin:0 0 1em;}
-.box-prize .only{display:block; margin-bottom:1em; font-size:$basic-size; text-shadow:0 1px 3px rgba(0, 0, 0, 0.6);}
 .box-prize .notes{font-weight:bold; margin-top:10px; font-size:$basic-size; color:$grey;}
 .box-prize .notes .ico{position:relative; top:1px;}
 .box-prize .btn{margin-bottom:10px;}
@@ -131,8 +129,6 @@
     .btn{display:block; width:250px; margin:auto;}
     .vector{width:115px; margin-bottom:-18px; max-height:148px;}
   }
-  .em-shadow{display:inline-block; width:135px; height:135px; background-image:url(../img/home/em-shadow.png); margin:0 auto -33px;}
-  .pic{position:relative;}
   .title-em{margin:45px 0 0 45px;}
   .best{width:138px; height:120px; float:left; margin:-18px 10px 0 0;}
   .text{height:50px; width:358px;}
@@ -235,7 +231,7 @@
   margin:20px auto; width:90%;
   .btn{max-width:220px;}
   .box-vector{display:none;}
-  .box-vallue{margin-bottom:.5em;}
+  .box-value{margin-bottom:.5em;}
   .col6{width:50%; float:left; margin:0!important;}
 }
 .who-we-are{
