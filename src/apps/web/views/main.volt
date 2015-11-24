@@ -3,25 +3,15 @@
     <head>
         {% include "_elements/meta.volt" %} {# META tags #}
 
-    {#  JS 
-        for old browsers (use SHIV or Modernizr)
-    #}
-        {% include "_elements/js-lib.volt" %} {# JS libraries #}
-
         {# CSS Compress this css in a single file #}
         <link rel="stylesheet" href="/w/css/main.css">
         {% block template_css %}{% endblock %}      {# Inject unique css #}
 
         {# FONTS  #}
         <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700'>
-
-        {% block template_scripts %}{% endblock %}  {# Inject unique js #}
     </head>
 
 	<body class="{% block bodyClass %}{% endblock %}">
-        {# Caching SVG   (NOT USED ANYMORE, I AM KEEPING IT HERE FOR REFERENCE UNTIL SPRINT 7)
-        {% include "_elements/svg.volt" %} #}
-
         {% block modal %}{% endblock %}
 
         <div data-role="page" id="main-page">
@@ -52,5 +42,10 @@
             </ul>
         </div>
 
+    {#  JS 
+        EMTD for old browsers (use SHIV or Modernizr)
+    #}
+        {% include "_elements/js-lib.volt" %} {# JS libraries #}
+        {% block template_scripts %}{% endblock %}  {# Inject unique js #}
     </body>
 </html>
