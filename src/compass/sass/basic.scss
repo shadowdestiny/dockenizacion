@@ -32,8 +32,9 @@ strong{font-weight:bold;}
 nav ul, .main-foot ul{list-style:none;}
 nav a, .main-foot ul a, #nav-account a{text-decoration:none;}
 em{font-style:italic;}
+/* Not using quotations
 blockquote, q{quotes:none;}
-blockquote:before, blockquote:after,q:before, q:after{content:''; content:none;}
+blockquote:before, blockquote:after,q:before, q:after{content:''; content:none;}*/
 select{padding:5px; border:1px solid $grey-light; line-height:30px; /*Safari need line-height*/}
 button{cursor:pointer;}
 hr{border:0; background:$grey-light; height:1px; margin-bottom:1em;}
@@ -50,15 +51,6 @@ img.right{margin:0 0 15px 10px;}
 .center{margin:auto; text-align:center;}
 .hidden{display:none;} /* Class to hide things */
 .hidden2{position:absolute; left:-9999px; top:-9999px; line-height:0;}
-
-/* RESET UI */
-#main-page > .ui-content{padding:0;}
-.ui-checkbox{margin:0; height:auto; position:relative;}
-.ui-checkbox label{padding:0; overflow:none;}
-.ui-link:hover, .ui-link:focus{text-decoration:none!important;}
-.ui-radio{display:inline-block;}
-.ui-mobile label, .ui-controlgroup-label{display:inline-block;}
-body .ui-mobile .ui-page-active, body .ui-content, body #content{overflow:unset!important;} /* Fix problem with js select box */
 
 /* CLEARFIX */
 .cl:before, .cl:after, .wrapper:before, .wrapper:after, .btn:before, .btn:after, .box:before, .box:after{content:" "; display:table;}
@@ -80,8 +72,8 @@ label.submit{cursor:pointer;}
 .select{padding-top:6px;}
 
 /* POPUP *//*
-.bg-black{display:none; z-index:100; position:absolute; width:100%; height:100%; background:rgba(0, 0, 0, 0.6);}*/
 #lean_overlay{position:fixed; z-index:100; top:0px; left:0px; height:100%; width:100%;background:#000; display:none;}
+*/
 
 /* INFO BOX */
 .box{text-align:left; padding:10px; border-radius:5px; font-weight:bold; margin-bottom:1em;}
@@ -279,24 +271,6 @@ body, .submit{font-family:$basic-font;}
 }
 .arrow-box2:after, .arrow-box2:before{left:295px!important;}
 
-/* PAGING */
-.paging{
-  font-size:$basic-size; margin:1em auto; text-align:center;
-  li{display:inline; margin:0 3px;}
-  a{text-decoration:none; padding:2px 6px;}
-  a:hover, a:focus{background:$yellow; color:#fff;}
-  .active a{font-weight:bold; color:#000; cursor:default; background:$grey-lighter;}
-  .disable a{color:$grey; cursor:default; background:transparent;}
-  .prev{margin-right:25px;}
-  .next{margin-left:25px;}
-}
-
-/* JQUERY MOBILE TABLE */
-.ui-table-reflow td, .ui-table-reflow th{text-align:left;display:block;}
-.ui-table-reflow .ui-table-cell-label{min-width:30%;display:inline-block;}
-.ui-table-reflow .ui-table-cell-label-top{display:block;text-transform:uppercase;font-size:.9em;font-weight:normal;}
-
-
 /* PAGE LAYOUT */
 .wrapper{max-width:1180px; margin:auto; position:relative; min-width:235px;}
 .logo{float:left; margin-top:10px;}
@@ -384,17 +358,6 @@ body, .submit{font-family:$basic-font;}
 
 .minimal .main-foot .txt{text-align:right;}
 
-.contact{
-  p{margin-bottom:5px;}
-  .input, .textarea, .select{width:100%; margin-bottom:1em;}
-  .textarea{font-size:90%; height:180px;}
-}
-
-.my-left, .my-right{position:absolute; width:100%;}
-.my-left{left:-100%; padding-right:15px; text-align:right;}
-.my-right{right:-100%; padding-left:15px;}
-.my-left h1{margin-bottom:.5em;}
-
 /* COOKIES */
 .header{position:relative;}
 .box-cookies{
@@ -425,7 +388,6 @@ body, .submit{font-family:$basic-font;}
   }
 }
 
-
 /* MEDIA QUERY DESKTOP STATUS SETTINGS */
 .media{width:0; height:0;} // It help me debug with Jquery which media query it is applied
 .mobile, .nav.mobile ul{display:none;}
@@ -434,9 +396,7 @@ body, .submit{font-family:$basic-font;}
 /*body{border:10px solid #0ff;} /* BLUE WATER */
 .media{width:1px}
 .wrapper{max-width:992px;}
-.my-left, .my-right{width:72%;}
-.my-left{left:-72%;}
-.my-right{right:-72%;}
+
 }
  
 /* Medium Devices, Desktops */
@@ -448,7 +408,7 @@ body, .submit{font-family:$basic-font;}
 .main-nav a{padding:10px 12px; min-height:62px;}
 .main-nav .subnav a{min-height:inherit;} 
 .box-links .col20per{padding:0 10px;}
-.my-left, .my-right{display:none;}
+
 }
 
 @media only screen and (min-width:769px){
@@ -493,8 +453,7 @@ body, .submit{font-family:$basic-font;}
 }
 .nav.mobile li:last-child a{border-bottom:0;}
 .info{
-  .wrapper{text-align:center;} 
-  .social{margin-bottom:10px;}
+  .wrapper{text-align:center;}
   .txt, .partner{margin:0 auto 2em; float:none;}
 }
 .main-foot .col20per:nth-child(odd){clear:both;}
@@ -512,29 +471,18 @@ body, .submit{font-family:$basic-font;}
   .box-basic{margin-bottom:0!important}
   .main-foot .col8, .main-foot .col4{margin:0 auto 1em;}
 }
-.paging{
-  li, .next, .prev{margin:0;}
-}
+
 .minimal .main-foot .txt{text-align:center;}
 .br{display:none;}
-select{padding:10px 5px; line-height:40px; /*Safari need line-height*/}
 } /* End Media query */
 
-@media screen and (min-width:480px){
-    .ui-responsive td, .ui-responsive th{display:table-cell; margin:0;}
-    .ui-responsive .ui-table-cell-label{display:none;}
-}
+
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width:480px){
 /*body{border:2px solid #00f;} /* BLUE*/
 .media{width:4px}
 .box-estimated .h2{line-height:1.3em}
-.ui-responsive thead{display:none;}
-.paging{
-  margin-top:2em;
-  li{margin-bottom:10px; display:inline-block;}
-  }
 }
  
 /* Custom, iPhone Retina */
