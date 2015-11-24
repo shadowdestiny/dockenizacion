@@ -34,7 +34,6 @@ class EmailTestController extends PublicSiteControllerBase
             'tags' => 'test'
         ];
         $userEmail = $this->request->getPost('user-email');
-
         $template = $this->request->getPost('template');
         $this->user = $this->getNewUser($userEmail);
         $vars = $this->getVarsFromTemplate($template);
@@ -263,7 +262,6 @@ class EmailTestController extends PublicSiteControllerBase
                     ]
             ]
        ];
-
 
        return $vars[$template];
 

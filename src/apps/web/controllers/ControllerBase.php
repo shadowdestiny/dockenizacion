@@ -39,4 +39,16 @@ class ControllerBase extends Controller
         }
         return $authService->getCurrentUser();
     }
+
+    /**
+     * @param \Phalcon\Mvc\Dispatcher $dispatcher
+     * @return bool
+     */
+    public function beforeExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
+    {
+        if(empty($this->cookies->get('EM_law')->getValue()) && $dispatcher->getControllerName() != 'index') {
+            $this->cookies->set('EM_law', 'accepted', time() * 15 * 86400);
+        }
+    }
+
 }

@@ -20,5 +20,6 @@ $(document).bind("mobileinit", function(){
 <script>$(function(){svg4everybody()})</script> {# SVG rendering for include svg for IE9+ #}
 
 <script src="/w/js/vendor/jquery.countdown.min.js"></script>
+<script src="/w/js/vendor/jquery.cookie.js"></script>
 <script src="/w/js/vendor/easyModal.min.js"></script>
 <script src="/w/js/main.js"></script>

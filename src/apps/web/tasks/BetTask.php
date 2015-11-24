@@ -4,6 +4,11 @@
 namespace EuroMillions\web\tasks;
 
 
+use EuroMillions\web\components\DateTimeUtil;
+use EuroMillions\web\emailTemplates\EmailTemplate;
+use EuroMillions\web\emailTemplates\IEmailTemplate;
+use EuroMillions\web\emailTemplates\LongPlayEndedEmailTemplate;
+use EuroMillions\web\emailTemplates\LowBalanceEmailTemplate;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
@@ -51,14 +56,13 @@ class BetTask extends TaskBase
     {
         if (!$today) $today = new \DateTime();
 
-        if(!$time_to_retry) strtotime('now');
-        $time_config = $this->getDI()->get('globalConfig')['retry_validation_time'];
-        $date_today = new \DateTime();
-        $limit_time = strtotime($date_today->format('Y/m/d '. $time_config['time']));
-        $is_check_time = ($limit_time< $time_to_retry) ? true : false;
-
+        $dateUtil = new DateTimeUtil();
+        $is_check_time = $dateUtil->checkOpenTicket($time_to_retry);
         $lotteryName = 'EuroMillions';
         $result_euromillions_draw = $this->lotteriesDataService->getNextDrawByLottery($lotteryName);
+        $emailTemplate = new EmailTemplate();
+        $emailTemplate = new LowBalanceEmailTemplate($emailTemplate);
+
         if($result_euromillions_draw->success()){
             /** @var EuroMillionsDraw $euromillions_draw */
             $euromillions_draw = $result_euromillions_draw->getValues();
@@ -66,9 +70,11 @@ class BetTask extends TaskBase
         } else {
             $result_play_configs = new ActionResult(false);
         }
-
         if($result_play_configs->success()){
-            if($is_check_time) {
+            try{
+                if(empty($is_check_time)) {
+                    throw new \Exception();
+                }
                 /** @var PlayConfig[] $play_config_list */
                 $play_config_list = $result_play_configs->getValues();
                 /** @var User $user */
@@ -76,19 +82,19 @@ class BetTask extends TaskBase
                 $user_id = '';
                 $result_bet = null;
                 foreach($play_config_list as $play_config) {
-                    if($play_config->getDrawDays()->compareTo($euromillions_draw->getDrawDate()->format('w'))){
+                    if($play_config->getDrawDays()->compareTo($dateUtil->getDayOfWeek($euromillions_draw->getDrawDate()))){
                         if(empty($play_config->getUser()->getThreshold())){
                             try{
                                 if(empty($user_id)){
                                     /** @var ActionResult $result_bet */
                                     $this->playService->bet($play_config, $euromillions_draw);
-                                    $this->sendEmailAutoPlay($play_config);
+                                    $this->sendEmailAutoPlay($play_config,$emailTemplate);
                                 }
                                 if(!empty($user_id) && $user_id != $play_config->getUser()->getId()->id()){
                                     $user_id = '';
                                     /** @var ActionResult $result_bet */
                                     $this->playService->bet($play_config, $euromillions_draw);
-                                    $this->sendEmailAutoPlay($play_config);
+                                    $this->sendEmailAutoPlay($play_config,$emailTemplate);
                                 }
                             }catch(InvalidBalanceException $e){
                                 if(empty($user_id) || $user_id != $play_config->getUser()->getId()->id()){
@@ -100,8 +106,7 @@ class BetTask extends TaskBase
                                         $users_notifications = $user_notifications_result->getValues();
                                         foreach($users_notifications as $user_notification) {
                                             if($user_notification->getActive()) {
-                                                $vars = $this->getVarsToLowBalanceEmailTemplate();
-                                                $this->emailService->sendTransactionalEmail($user, 'low-balance',$vars);
+                                                $this->emailService->sendTransactionalEmail($user, $emailTemplate);
                                             }
                                         }
                                     }
@@ -114,16 +119,14 @@ class BetTask extends TaskBase
                         }
                     }
                 }
-            }else {
+            } catch( \Exception $e) {
                 $user_id = '';
                 $play_config_list = $result_play_configs->getValues();
                 /** @var PlayConfig[] $play_config */
                 foreach($play_config_list as $play_config) {
                     if(empty($user_id) || $user_id != $play_config->getUser()->getId()->id()){
                         $user = $this->userService->getUser($play_config->getUser()->getId());
-                        $vars = $this->getVarsToLowBalanceEmailTemplate();
-                        //EMTD template, the draw is closed
-                        $this->emailService->sendTransactionalEmail($user,'low-balance',$vars);
+                        $this->emailService->sendTransactionalEmail($user,$emailTemplate);
                         $user_id = $user->getId()->id();
                     }
                 }
@@ -137,6 +140,8 @@ class BetTask extends TaskBase
             $today = new \DateTime();
         }
 
+        $emailTemplate = new EmailTemplate();
+        $emailTemplate = new LongPlayEndedEmailTemplate($emailTemplate);
         /** @var ActionResult $result_play_config */
         $result_play_config = $this->playService->getPlayConfigWithLongEnded($today);
         if($result_play_config->success()) {
@@ -146,14 +151,13 @@ class BetTask extends TaskBase
                 $day_last_draw = $play_config->getLastDrawDate()->getTimestamp();
                 if($today->getTimestamp() > $day_last_draw ) {
                     $user = $this->userService->getUser($play_config->getUser()->getId());
-                    $vars = $this->getVarsToEmailTemplate();
-                    $this->emailService->sendTransactionalEmail($user,'long-play-is-ended',$vars);
+                    $this->emailService->sendTransactionalEmail($user,$emailTemplate);
                 }
             }
         }
     }
 
-    private function sendEmailAutoPlay(PlayConfig $playConfig)
+    private function sendEmailAutoPlay(PlayConfig $playConfig, IEmailTemplate $emailTemplate)
     {
         $user = $this->userService->getUser($playConfig->getUser()->getId());
         $user_notifications_result = $this->userService->getActiveNotificationsByUserAndType($user, NotificationType::NOTIFICATION_LAST_DRAW);
@@ -162,71 +166,9 @@ class BetTask extends TaskBase
             $users_notifications = $user_notifications_result->getValues();
             foreach($users_notifications as $user_notification) {
                 if ($user_notification->getActive()) {
-                    $vars = $this->getVarsToLowBalanceEmailTemplate();
-                    $this->emailService->sendTransactionalEmail($user, 'low-balance', $vars);
+                    $this->emailService->sendTransactionalEmail($user, $emailTemplate);
                 }
             }
         }
-    }
-
-    private function getVarsToEmailTemplate()
-    {
-        if(empty($this->jackpot)) {
-            $this->jackpot = $this->lotteriesDataService->getNextJackpot('EuroMillions');
-            //EMTD get url from config di
-            $this->url = 'http://localhost:8080/';
-        }
-        //vars email template
-        $vars = [
-            'subject' => 'Your long play is ended',
-            'vars' =>
-                [
-                    [
-                        'name'    => 'jackpot',
-                        'content' => $this->jackpot->getAmount() /100
-                    ],
-                    [
-                        'name'    => 'url_play',
-                        'content' => $this->config->domain['url'] . 'play'
-                    ]
-                ]
-        ];
-
-        return $vars;
-    }
-
-    public function getVarsToLowBalanceEmailTemplate()
-    {
-        if(empty($this->jackpot)) {
-            $this->jackpot = $this->lotteriesDataService->getNextJackpot('EuroMillions');
-            $next_draw_day = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions');
-            $draw_day_format_one = $next_draw_day->format('l');
-            $draw_day_format_two = $next_draw_day->format('j F Y');
-        }
-        //vars email template
-        $vars = [
-            'subject' => 'Low balance',
-            'vars' =>
-                [
-                    [
-                        'name'    => 'jackpot',
-                        'content' => $this->jackpot->getAmount() /100
-                    ],
-                    [
-                        'name'    => 'draw_day_format_one',
-                        'content' => $draw_day_format_one
-                    ],
-                    [
-                        'name'    => 'draw_day_format_two',
-                        'content' => $draw_day_format_two,
-                    ],
-                    [
-                        'name' => 'url_add_funds',
-                        'content' => $this->config->domain['url'] . 'account/wallet'
-                    ]
-                ]
-        ];
-
-        return $vars;
     }
 }
