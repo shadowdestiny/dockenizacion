@@ -37,11 +37,6 @@ class BetTask extends TaskBase
     /** @var  UserService */
     private $userService;
 
-    private $jackpot;
-
-    private $url;
-
-
     public function initialize(LotteriesDataService $lotteriesDataService = null, PlayService $playService= null, EmailService $emailService = null, UserService $userService = null)
     {
         parent::initialize();
