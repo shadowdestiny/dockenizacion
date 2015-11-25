@@ -26,7 +26,7 @@
 }
 .box-estimated{
     position:relative; border:1px solid $black; border-radius:5px; text-align:center; 
-    text-decoration:none; margin:0 0 12px; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);
+    text-decoration:none; margin:0 0 12px; text-shadow:0 1px 3px rgba(0, 0, 0, .4);
     @include background-image(linear-gradient($purple, $purple-dark));
     &:hover .btn, &:focus .btn{color:$btn-red; background:#fff; border:1px solid $btn-red; text-shadow:initial;}
     &:active .btn{box-shadow:0 0 0 1px #eee inset, 0 5px 20px #888 inset!important; color:$black;}
@@ -35,26 +35,26 @@
     .box-next-draw *, h1{color:#fff;}
     h1{margin-bottom:1em;}
     .countdown{float:left;}
-    .disabled .countdown{float:none;}
-    .closed{width:100%; font-weight:bold; text-align:center;}
+/*    .disabled .countdown{float:none;}*/
+    .closed{width:100%; font-weight:700; text-align:center;}
     .box-value{
-        display:block; font-weight:bold; margin-bottom:28px;
+        display:block; font-weight:700; margin-bottom:28px;
         .yellow{color:$yellow-light;}
         .value{font-size:50px;}
         .currency{position:relative; font-size:$h1; margin-right:7px; top:-7px;}
     }
-    .next-draw{position:relative; top:-8px; margin-right:15px; font-size:13px; line-height:15px; font-weight:bold; display:inline-block;}
+    .next-draw{position:relative; top:-8px; margin-right:15px; font-size:13px; line-height:15px; font-weight:700; display:inline-block;}
     .unit{display:inline-block;}
     .unit:last-child{margin:0;}
     .txt{font-size:$small;}
-    .val{display:block; font-weight:bold; font-size:$h1; margin-bottom:4px;}
+    .val{display:block; font-weight:700; font-size:$h1; margin-bottom:4px;}
     .dots{content:":"; display:inline-block; font-size:$h1; position:relative; margin:0 2px; top:-20px;}
 }
 
 .box-current-winners{
     background:#fff; border:1px solid $yellow; border-radius:5px;
     h1{margin:5px 10px 6px;}
-    th{font-weight:bold;}
+    th{font-weight:700;}
 }
 .table, .table2{
     border-radius:0 0 5px 5px; overflow:hidden;
@@ -63,9 +63,8 @@
 .table{
     border-collapse:separate; font-size:$basic-size; background:#fff;
     tr:last-child td{border-bottom:0;}
-    th{color:#fff; text-shadow:0 1px 2px rgba(0, 0, 0, 0.4); @include background-image(linear-gradient( $yellow-dark, $yellow-light)); border-right:1px solid #fff; line-height:1.1em;}
+    th{color:#fff; text-shadow:0 1px 2px rgba(0, 0, 0, .4); @include background-image(linear-gradient($yellow-dark, $yellow-light)); border-right:1px solid #fff; line-height:1.1em;}
     td{border-right:1px solid transparent; word-break:break-all;}
-    .vector{font-size:18px;}
 }
 .table th:last-child, .table td:last-child{border-right:0;}
 .table tr:nth-child(even) td, .table2 tr:nth-child(odd) td{background-color:$grey-lighter2;}
@@ -75,7 +74,7 @@
     th{font-weight:normal; font-style:italic;}
     tr:last-child td{border-bottom:0;}
     .ball, .star-ball{position:relative; top:-1px; margin-left:3px;}
-    td.td-ball-numbers, td.td-star-numbers{font-weight:bold;}
+    td.td-ball-numbers, td.td-star-numbers{font-weight:700;}
     td.td-star-numbers{color:$yellow-dark;}
 }
 .box-history{
@@ -89,7 +88,7 @@
 
 .prev-results{
     float:right;
-    .txt{font-weight:bold; font:$basic-font; margin-right:10px; line-height:30px;}
+    .txt{font-weight:700; font:$basic-font; margin-right:10px; line-height:30px;}
     .select{width:auto; background:#fff; padding:4px 8px;}
 }
 body.numbers{
@@ -166,7 +165,7 @@ body.numbers{
     .box-history .pad, .table .td-payout, .table2 .td-star-numbers{border-bottom:1px solid $yellow;}
     .box-history .h2{display:inline-block; padding-bottom:4px;}
     .box-history .box-basic, .box-current-winners{background:$yellow;}
-    h1.purple{font-size:$h3; color:#fff; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);}
+    h1.purple{font-size:$h3; color:#fff; text-shadow:0 1px 3px rgba(0, 0, 0, .4);}
     .box-basic{padding:15px 0;}
     .table, .table2{border-radius:0;}
     .box-current-winners, .box-history .box-basic, .box-results{border-radius:0; border-left:0; border-right:0;}

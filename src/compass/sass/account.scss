@@ -1,5 +1,4 @@
 @import "variable";
-@import "_elements/threshold.scss";
 @import "_elements/with-subnav.scss";
 @import "_elements/paging.scss";
 
@@ -7,25 +6,31 @@
     .label{font-size:$basic-size;}
     .change .info.box{margin-top:22px;}
 }
+/* Temporarely removed (Facebook)
 .connect{
     margin:20px 0;
     .title, .revoke{float:left;}
     .title{margin-right:20px;}
     .revoke{position:relative; top:-3px;}
 }
-
-.my-games{
-    .table{
-        width:100%; border-radius:5px; overflow:hidden; border:1px solid $purple; border-collapse:separate; font-size:$basic-size;
+*/
+.games, .transaction{
+    .table{width:100%; border-radius:5px; overflow:hidden; border:1px solid $purple; border-collapse:separate; font-size:$basic-size;
         th, td{padding:7px 12px;}
-        th{background:$purple; color:#fff; font-weight:bold; border-right:1px solid #fff;}
+        th{background:$purple; color:#fff; font-weight:700; border-right:1px solid #fff;}
         td{border:1px solid $purple; border-width:0 1px 1px 0; vertical-align:top;}
         th:last-child, td:last-child{border-right:0;}
         tr:last-child td{border-bottom:0;}
+    }
+}
+
+.games{
+    .table{
+        width:100%; border-radius:5px; overflow:hidden; border:1px solid $purple; border-collapse:separate; font-size:$basic-size;
         td.action{text-align:center; vertical-align:middle; width:200px;}
         strong{display:block;}
         .numbers{
-            font-weight:bold;
+            font-weight:700;
             .star{color:$yellow-dark}
             .num{margin-right:5px;}
             .num:last-child{margin-right:0;}
@@ -33,17 +38,17 @@
         .ico{font-size:12px;}
         .id{min-width:52px;}
         .special{
-            background:$yellow url(../img/special-bg.png) no-repeat center center; background-size:cover; color:#fff; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);
+            background:$yellow url(../img/special-bg.png) no-repeat center center; background-size:cover; color:#fff; text-shadow:0 1px 3px rgba(0, 0, 0, .4);
             .star{color:$purple; text-shadow:none!important;}
         }
         .date{width:120px;}
     }
     .myCol{display:inline-block;}
     .no-data{
-        display:block; background:url(../img/no-game.jpg) no-repeat center center; background-size:cover; color:#fff; min-height:274px; border-radius:5px; text-decoration:none; text-shadow:0 1px 3px rgba(0, 0, 0, 0.8);
+        display:block; background:url(../img/no-game.jpg) no-repeat center center; background-size:cover; color:#fff; min-height:274px; border-radius:5px; text-decoration:none; text-shadow:0 1px 3px rgba(0, 0, 0, .8);
         .h1{line-height:120%;}
         .txt{padding:15px 20px;}
-        .jackpot-txt{margin:20px 0 3px; font-weight:bold; display:block;}
+        .jackpot-txt{margin:20px 0 3px; font-weight:700; display:block;}
         .btn{margin-top:10px;}
         &:hover, &:focus{
             .btn{color:$btn-blue; background:#fff; border:1px solid $btn-blue; text-shadow:none!important;}
@@ -53,8 +58,8 @@
     .box-value{
         display:block;
         span{display:inline-block; line-height:100%;}
-        .currency{font-size:$h1; vertical-align:middle; margin-right:5px; font-weight:bold;} /*16x1.875 = 30px*/
-        .value{font-size:$h0; font-weight:bold; vertical-align:middle;} /*16x3.375 = 54px*/
+        .currency{font-size:$h1; vertical-align:middle; margin-right:5px; font-weight:700;} /*16x1.875 = 30px*/
+        .value{font-size:$h0; font-weight:700; vertical-align:middle;} /*16x3.375 = 54px*/
     }
     .h3{margin-bottom:.2em;}
     .present, .configuration{
@@ -67,25 +72,25 @@
 .wallet{
     hr{position:relative; margin:1.5em -15px!important;}
     .box-wallet{
-        .value{position:relative; top:4px; float:left; font-weight:bold;}
+        .value{position:relative; top:4px; float:left; font-weight:700;}
         .input{width:180px!important; border-radius:3px; padding:5px 8px 6px 25px;} 
     }
     .info{
-        .txt{margin:0 15px 0 0!important; float:left; width:567px;}
+        .txt{margin:0 15px 0 8px!important; float:left; width:576px;}
         .btn{font-style:normal; min-width:200px; text-align:center;}
     }
     .box-add-card .info .txt{float:none; margin:0 0 0 34px!important;}
     .box-details .btn{min-width:210px; text-align:center;}
-    .symbol{position:relative; top:1px; right:-23px; font-weight:bold; color:$yellow-dark;}
+    .symbol{position:relative; top:1px; right:-23px; font-weight:700; color:$yellow-dark;}
     .table{
         width:100%; border-collapse:separate; font-size:$basic-size; margin-bottom:1em;
         th, td{padding:12px; vertical-align:top;}
         td{cursor:pointer;}
-        th{color:$purple; font-weight:bold; padding:4px 12px; text-align:left;}
+        th{color:$purple; font-weight:700; padding:4px 12px; text-align:left;}
         thead .card:first-child{padding:4px 0 0 0;}
         tr{cursor:hand;}
         .cards{color:$grey;}
-        .type{color:$black; font-weight:bold;}
+        .type{color:$black; font-weight:700;}
         .active{
             background:$yellow-lighter;
             td{border:1px solid $yellow; border-width:1px 0;}
@@ -98,13 +103,13 @@
         position:relative; display:inline-block; width:40px; height:25px; border-radius:3px; vertical-align:text-bottom; top:1px; margin:-5px 4px 0 2px;
         .txt{position:absolute; left:-9999px; top:-9999px;}
     }
-    .bank{font-weight:bold; width:150px;}
+    .bank{font-weight:700; width:150px;}
     .expire{min-width:80px;}
     .back{margin-top:10px;}
     .box-congrats.info{
         .txt{margin:0 0 0 34px !important; width:auto!important; float:none!important;}
     }
-    .congrats{font-weight:bold; font-style:normal; display:block;}
+    .congrats{font-weight:700; font-style:normal; display:block;}
 }
 
 .box-add-bank, .box-add-card{
@@ -130,17 +135,18 @@
     .left{text-align:left;}
 }
 
+/* Temporarely Removed
 .messages{
     .table{
         width:100%; border-radius:5px; overflow:hidden; border:1px solid $purple; border-collapse:separate; font-size:$basic-size; margin-bottom:1em;
         tr{
             cursor:pointer;
             &:hover{
-                td{background:$yellow; color:#fff; text-decoration:none!important; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);}
+                td{background:$yellow; color:#fff; text-decoration:none!important; text-shadow:0 1px 3px rgba(0, 0, 0, .4);}
             }
         }
         th, td{padding:7px 12px; vertical-align:top;}
-        th{background:$purple; color:#fff; border-right:1px solid #fff; font-weight:bold; text-align:left;}
+        th{background:$purple; color:#fff; border-right:1px solid #fff; font-weight:700; text-align:left;}
         td{border:1px solid $purple; border-width:0 1px 1px 0;}
         th:last-child, td:last-child{border-right:0;}
         tr:last-child td{border-bottom:0;}
@@ -149,16 +155,16 @@
         .ico{font-size:16px;}
         .unread{
             background:$yellow-lighter;
-            td{font-weight:bold;}
+            td{font-weight:700;}
             td:not(.mail){text-decoration:underline;}
             .v-email{text-decoration:none!important;}
         }
     }
 }
-
+*/
 .email .content{
     select{width:auto; font-size:$basic-size; margin:-5px 0;}
-    .email-me{float:left; font-weight:bold; min-width:100px;}
+    .email-me{float:left; font-weight:700; min-width:100px;}
     .options{float:left;}
     li{min-height:40px;}
     .details{display:inline-block;}
@@ -166,17 +172,7 @@
     .input-value input{border:1px solid $grey-light; line-height:30px; padding:0 5px; font-size:$basic-size; height:30px; margin:-5px 0;}
 }
 
-
-.transaction{
-    .table{width:100%; border-radius:5px; overflow:hidden; border:1px solid $purple; border-collapse:separate; font-size:$basic-size;
-        th, td{padding:7px 12px;}
-        th{background:$purple; color:#fff; font-weight:bold; border-right:1px solid #fff;}
-        td{border:1px solid $purple; border-width:0 1px 1px 0; vertical-align:top;}
-        th:last-child, td:last-child{border-right:0;}
-        tr:last-child td{border-bottom:0;}
-    }
-    .info{font-weight:normal;}
-}
+.transaction .info{font-weight:normal;}
 
 @media only screen and (max-width:1200px){
 .wallet .info .txt{width:363px;}
@@ -195,7 +191,7 @@
     }
 }
 .box-details form.right{float:left;}
-.my-games{
+.games{
     .present, .configuration{
         .action{min-width:100px; width:auto;}
         .btn:first-child{margin-bottom:8px;}
@@ -205,7 +201,7 @@
 
 
 @media only screen and (max-width:768px){
-.my-games{
+.games{
     .table{
         th, td{padding:3px 8px;} 
     }
@@ -237,7 +233,7 @@
 .submit{margin:0 auto; float:none;}
 .ui-responsive td{width:100%; float:left; clear:left; border-right:0!important;}
 .ui-responsive th{display:none;}
-.my-games{
+.games{
     .ui-table-cell-label{float:left; text-align:left; font-weight:normal; margin-right:10px;}
     .table{
         strong{display:inline;}
@@ -262,7 +258,7 @@
         .bank{width:100%;}
     }
 }
-
+/* Temporarely
 .messages{
     .table{
         td, th{display:inline-block; width:100%!important; border:0; padding:3px 5px; text-decoration:none!important;}
@@ -271,6 +267,6 @@
         .mail{display:none;}
     }
 }
-
+*/
 }
 

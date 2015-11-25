@@ -1,6 +1,7 @@
 {% extends "main.volt" %}
 {% block template_css %}
     <link rel="stylesheet" href="/w/css/account.css">
+    <link rel="stylesheet" href="/w/css/_elements/threshold.scss">
 {% endblock %}
 {% block bodyClass %}email{% endblock %}
 

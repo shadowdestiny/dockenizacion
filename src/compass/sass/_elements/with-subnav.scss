@@ -9,16 +9,16 @@
         li:last-child a{border-bottom:0;}
         .ico{float:right; color:$yellow; font-size:14px; margin-top:3px; display:block;}
         .active{
-            font-weight:bold; background:$yellow; color:#fff; cursor:default; text-shadow:0 1px 3px rgba(0, 0, 0, 0.2);
+            font-weight:700; background:$yellow; color:#fff; cursor:default; text-shadow:0 1px 3px rgba(0, 0, 0, .2);
             .ico{color:#fff;}
         }
     }
     .content{
         margin:0 0 2em 290px;
         hr{margin:0 -20px;}
-        h1.title{margin-bottom:0.5em;}
+        h1.title{margin-bottom:.5em;}
         .input{width:100%;}
-        .label{font-weight:bold; margin-bottom:3px;}
+        .label{font-weight:700; margin-bottom:3px;}
         .asterisk{color:$red;}
         .wrap{margin-right:-20px;}
         .cols > div{border-right:20px solid transparent}

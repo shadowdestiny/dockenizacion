@@ -23,7 +23,7 @@
 }
 
 .bg-top .ico{margin-top:25px; display:block; font-size:54px;}
-.bg-top .txt{font-weight:bold; margin-top:5px; display:block;}
+.bg-top .txt{font-weight:700; margin-top:5px; display:block;}
 */
 .box-action{
 	float:left; margin:0 0 0 12px;
@@ -34,7 +34,7 @@
 }
 .box-bottom{padding:20px 12px; border-top:1px solid $yellow; background:#fff; border-radius:0 0 5px 5px;
 	select{font-size:$basic-size;}
-	.label{font-size:$basic-size; display:inline-block; font-weight:bold; margin-bottom:.2em;}
+	.label{font-size:$basic-size; display:inline-block; font-weight:700; margin-bottom:.2em;}
 	.cols{margin:0;}
 	.col2{padding-top:10px;}
 	.v-question-mark{display:inline-block; position:relative; font-size:18px; bottom:-4px; color:$grey; margin-left:2px;}
@@ -109,13 +109,13 @@ $gap3:15px; /* Responsive design 3 column */
 	}
 	.cols{margin:0;}
 	.ico{
-		position:relative; display:block; width:36px; height:36px; color:$yellow; transition:color 0.15s ease;
+		position:relative; display:block; width:36px; height:36px; color:$yellow; transition:color .15s ease;
 		.vector{position:absolute; width:100%; height:100%;}
 		.v-star{display:none;}
 		.v-star-out{display:block;}
 	}
 	.txt{
-		position:relative; top:10px; width:100%; font-family:$basic-font; font-size:14px; font-weight:bold; color:$purple; display:block;
+		position:relative; top:10px; width:100%; font-family:$basic-font; font-size:14px; font-weight:700; color:$purple; display:block;
 	}
 	.active.ico{
 		.v-star{display:block;}
@@ -134,8 +134,8 @@ $gap3:15px; /* Responsive design 3 column */
 .btn.clear .ico, .clear-all .ico{position:relative; margin-left:3px; top:2px;}
 .number-on .clear{visibility:visible;}
 
-.add-cart, .add-cart:hover, .add-cart:focus{position:relative; font-weight:bold; text-shadow:0 0 0 transparent; border:1px solid $grey; background:$grey-light; color:#fff; padding:10px; cursor:default; margin:0 12px;}
-.active.add-cart{transition:background .2s,border .2s, color .2s; cursor:pointer; color:#fff; background:$purple; border-color:$purple-dark; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);}
+.add-cart, .add-cart:hover, .add-cart:focus{position:relative; font-weight:700; text-shadow:0 0 0 transparent; border:1px solid $grey; background:$grey-light; color:#fff; padding:10px; cursor:default; margin:0 12px;}
+.active.add-cart{transition:background .2s,border .2s, color .2s; cursor:pointer; color:#fff; background:$purple; border-color:$purple-dark; text-shadow:0 1px 3px rgba(0, 0, 0, .4);}
 .active.add-cart .separator{border-color:$purple-dark; transition:border .2s}
 .active.add-cart:hover, .active.add-cart:hover .separator, .active.add-cart:focus, .active.add-cart:focus .separator{background:$purple-dark; color:#fff; border-color:$black;}
 .active.add-cart:active .separator{border-color:$black;}
@@ -167,7 +167,7 @@ $gap3:15px; /* Responsive design 3 column */
 .line .stars .ico{font-size:200%;}
 .line .stars .txt{top:10px;}
 .line .numbers .btn, .line .stars .txt{font-size:13px;}
-.bg-top:before{content:""; background:rgba(0, 0, 0, 0.4); width:100%; height:88px; position:absolute; top:0; left:0; border-radius:5px 5px 0 0;}
+.bg-top:before{content:""; background:rgba(0, 0, 0, .4); width:100%; height:88px; position:absolute; top:0; left:0; border-radius:5px 5px 0 0;}
 /* Temporary removed
 .bg-top .circle{margin-left:50px;}
 */
