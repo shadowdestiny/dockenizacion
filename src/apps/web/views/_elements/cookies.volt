@@ -1,11 +1,12 @@
 {% block template_scripts %}
 <script>
 $(function(){
+
     if($.cookie('EM_law')) {
         $('.box-cookies').hide();
     }
 }
-)
+);
 </script>
 {% endblock %}
 <div class="box-cookies">

@@ -23,7 +23,7 @@ class ControllerBase extends Controller
     }
 
     /**
-     * @param AuthService $authService
+     * @param AuthService $authServicePlay
      * @return User
      */
     protected function forceLogin(AuthService $authService)

@@ -87,7 +87,7 @@ class EuroMillionsDrawBreakDownDTO extends DTOBase implements IDto
 
     private function convert($prize, Currency $currency)
     {
-        $currency_prize = $this->currencyService->convert(new Money((int) $prize, new Currency('EUR')), $currency)->getAmount() / 10000;
+        $currency_prize = $this->currencyService->convert(new Money((int) $prize, new Currency('EUR')), $currency)->getAmount();
         return $currency_prize;
     }
 
