@@ -123,13 +123,13 @@
 									</select>
 								</div>
 							</div>
-							<div class="col6 wrap-threshold">
-								<label class="label" for="threshold">{{ language.translate("Jackpot Threshold") }} 
-									<svg data-tip="{{ language.translate('Set the condition when you want to play or to be informed automatically. Thresholds are calculated only in Euro.') }}" class="ico v-question-mark tipr-normal"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
-								</label>
-								{% include "_elements/jackpot-threshold.volt" %}
+							<div id="wrap-threshold" class="col6 wrap-threshold">
+								{#<label class="label" for="threshold">{{ language.translate("Jackpot Threshold") }}#}
+									{#<svg data-tip="{{ language.translate('Set the condition when you want to play or to be informed automatically. Thresholds are calculated only in Euro.') }}" class="ico v-question-mark tipr-normal"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>#}
+								{#</label>#}
+								{#{% include "_elements/jackpot-threshold.volt" %}#}
 							</div>
-
+							<script src="/w/js/react/play.js"></script>
 						</div>
 					</div>
 				</div>

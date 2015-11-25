@@ -524,12 +524,12 @@ function showAdvanced(btnShow, target, btnHide, disable, activate, check, input,
 			$(check).prop("checked", false);
 			$(target).show();
 			$(select).show();
-		  	$(input).hide();
+//		  	$(input).hide();
 			if($(select).val() != "default"){
 				$(select).val('default');
 			}
 			$(disable).prop('disabled', 'disabled');
-			resetSelect(); // _elements/jackpot-threshold.volt
+//			resetSelect(); // _elements/jackpot-threshold.volt
 		}else{
 			multiTask(target, activate, check); //Hide
 		}
@@ -540,7 +540,7 @@ function showAdvanced(btnShow, target, btnHide, disable, activate, check, input,
 }
 
 function disableSelect(target, disable, activate, input, inputParent, select){ //Jackpot Threshold Activate/Deactivate area
-   	toggleSelect(); // _elements/jackpot-threshold.volt
+//   	toggleSelect(); // _elements/jackpot-threshold.volt
     $(target).on('click',function(){
         if($(target).is(":checked")){
 			$(".col2 .styled-select").addClass("disabled")
