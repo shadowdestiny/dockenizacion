@@ -54,11 +54,9 @@ $gap3:15px; /* Responsive design 3 column */
 */
 .combo{position:relative; margin:-18px auto 0; width:110px;}
 .combo .btn{display:block; min-height:35px; line-height:0;}
-.combo .ico{margin:0; position:relative; display:block;}
 .combo .col6 .gwy{
 	border-radius:5px;
 	&:hover, &:focus{border:1px solid $purple;}
-	.ico{margin-left:2px!important;}
 }
 
 .add-more{
@@ -257,11 +255,8 @@ $gap3:15px; /* Responsive design 3 column */
 }
 
 @media only screen and (max-width:580px){ /*breakpoint only in PLAY page*/
-.box-bottom > .col2{border-width:5px;}
-.box-bottom{
-	.col2{
-		select, .label{width:100%;}
-	}
+.box-bottom	.col2{
+	select, .label{width:100%;}
 }
 
 .gameplay{padding-top:20px;}

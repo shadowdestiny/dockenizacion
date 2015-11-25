@@ -157,9 +157,10 @@ $(function(){
     }catch(e){
     }
 
-	$(".menu-ham").click(function(){
-		$(this).toggleClass('expanded').siblings('ul').slideToggle().toggleClass('open');
-	});
+    $(".menu-ham").click(function(){
+        $(this).toggleClass('expanded').siblings('ul').slideToggle().toggleClass('open');
+    });
+
 });
 
 
