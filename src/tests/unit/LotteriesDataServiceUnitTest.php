@@ -456,6 +456,41 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method getRecurrentDrawDates
+     * when calledWitIterationNum
+     * should returnArrayDrawDates
+     */
+    public function test_getRecurrentDrawDates_calledWitIterationNum_returnArrayDrawDates()
+    {
+        $lottery = new Lottery();
+        $lottery->initialize([
+            'id'        => 1,
+            'name'      => 'EuroMillions',
+            'active'    => 1,
+            'frequency' => 'w0100100',
+            'draw_time' => '20:00:00'
+        ]);
+        $now = new \DateTime('2015-11-25');
+
+        $expected = [
+            ['5' => '27 Nov 2015'],
+            ['2' => '01 Dec 2015'],
+            ['5' => '04 Dec 2015'],
+            ['2' => '08 Dec 2015'],
+            ['5' => '11 Dec 2015']
+        ];
+        $this->lotteryRepositoryDouble->expects($this->any())
+            ->method('findOneBy')
+            ->with(['name' => 'EuroMillions'])
+            ->will($this->returnValue($lottery));
+
+        $sut = $this->getSut();
+        $actual = $sut->getRecurrentDrawDates('EuroMillions',5,$now);
+        $this->assertEquals($expected,$actual);
+
+    }
+
+    /**
      * @param $lottery_name
      * @return Lottery
      */

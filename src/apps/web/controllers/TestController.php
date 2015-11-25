@@ -39,5 +39,19 @@ class TestController extends PublicSiteControllerBase
         var_dump($this->cookies->get('hola')->getValue());
     }
 
+    public function reactAction()
+    {
+        $this->noRender();
+        echo "
+        <html>
+        <head></head>
+        <body>
+        <div id='example'>Example</div>
+        <script src='/w/js/react/play.js'></script>
+        </body>
+        </html>
+        ";
+    }
+
 }
 

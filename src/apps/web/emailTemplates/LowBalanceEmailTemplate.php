@@ -13,10 +13,8 @@ class LowBalanceEmailTemplate extends EmailTemplateDecorator
         $next_draw_day = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions');
         $draw_day_format_one = $next_draw_day->format('l');
         $draw_day_format_two = $next_draw_day->format('j F Y');
-        $header = $this->emailTemplate->loadVars();
 
         $vars = [
-            'header'  => $header['date'],
             'template' => 'low-balance',
             'subject' => 'Low balance',
             'vars' =>
@@ -41,6 +39,15 @@ class LowBalanceEmailTemplate extends EmailTemplateDecorator
         ];
 
         return $vars;
+    }
 
+    public function loadHeader()
+    {
+        return $this->emailTemplate->loadHeader();
+    }
+
+    public function loadFooter()
+    {
+        return $this->emailTemplate->loadFooter();
     }
 }

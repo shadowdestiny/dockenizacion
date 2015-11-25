@@ -10,10 +10,8 @@ class LongPlayEndedEmailTemplate extends EmailTemplateDecorator
     public function loadVars()
     {
         $jackpot = $this->lotteriesDataService->getNextJackpot('EuroMillions');
-        $header = $this->emailTemplate->loadVars();
-        //vars email template
+
         $vars = [
-            'header'  => $header['date'],
             'template' => 'long-play-is-ended',
             'subject' => 'Your long play is ended',
             'vars' =>
@@ -30,5 +28,15 @@ class LongPlayEndedEmailTemplate extends EmailTemplateDecorator
         ];
 
         return $vars;
+    }
+
+    public function loadHeader()
+    {
+        return $this->emailTemplate->loadHeader();
+    }
+
+    public function loadFooter()
+    {
+        return $this->emailTemplate->loadFooter();
     }
 }

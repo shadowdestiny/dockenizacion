@@ -16,8 +16,6 @@ abstract class EmailTemplateDecorator implements IEmailTemplate
 
     protected $lotteriesDataService;
 
-    protected $vars;
-
     /** @var DomainServiceFactory $domainServiceFactory*/
     protected $domainServiceFactory;
 
@@ -30,5 +28,9 @@ abstract class EmailTemplateDecorator implements IEmailTemplate
     }
 
     abstract public function loadVars();
+
+    abstract public function loadHeader();
+
+    abstract public function loadFooter();
 
 }

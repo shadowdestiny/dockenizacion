@@ -55,11 +55,9 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
         $jackpot  = new Money(10000,new Currency('EUR'));
         $next_draw_day = new \DateTime();
         $last_draw_date = $next_draw_day->format('j F Y');
-        $date = new \DateTime();
 
         //vars email template
         $vars = [
-            'header' => $date->format('j M Y'),
             'template' => 'latest-results',
             'subject' => 'Latest results',
             'vars' =>

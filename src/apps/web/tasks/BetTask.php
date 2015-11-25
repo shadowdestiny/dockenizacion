@@ -37,11 +37,6 @@ class BetTask extends TaskBase
     /** @var  UserService */
     private $userService;
 
-    private $jackpot;
-
-    private $url;
-
-
     public function initialize(LotteriesDataService $lotteriesDataService = null, PlayService $playService= null, EmailService $emailService = null, UserService $userService = null)
     {
         parent::initialize();
@@ -82,8 +77,8 @@ class BetTask extends TaskBase
                 $user_id = '';
                 $result_bet = null;
                 foreach($play_config_list as $play_config) {
-                    if($play_config->getDrawDays()->compareTo($dateUtil->getDayOfWeek($euromillions_draw->getDrawDate()))){
-                        if(empty($play_config->getUser()->getThreshold())){
+                    if( $play_config->getDrawDays()->compareTo($dateUtil->getDayOfWeek($euromillions_draw->getDrawDate())) ) {
+                        if( empty( $play_config->getUser()->getThreshold() ) ){
                             try{
                                 if(empty($user_id)){
                                     /** @var ActionResult $result_bet */
@@ -96,12 +91,12 @@ class BetTask extends TaskBase
                                     $this->playService->bet($play_config, $euromillions_draw);
                                     $this->sendEmailAutoPlay($play_config,$emailTemplate);
                                 }
-                            }catch(InvalidBalanceException $e){
-                                if(empty($user_id) || $user_id != $play_config->getUser()->getId()->id()){
+                            } catch( InvalidBalanceException $e ) {
+                                if( empty($user_id) || $user_id != $play_config->getUser()->getId()->id() ) {
                                     $user = $this->userService->getUser($play_config->getUser()->getId());
                                     $user_id = $play_config->getUser()->getId()->id();
                                     $user_notifications_result = $this->userService->getActiveNotificationsByUserAndType($user, NotificationType::NOTIFICATION_NOT_ENOUGH_FUNDS);
-                                    if($user_notifications_result->success()) {
+                                    if( $user_notifications_result->success() ) {
                                         /** @var UserNotifications $user_notification */
                                         $users_notifications = $user_notifications_result->getValues();
                                         foreach($users_notifications as $user_notification) {
@@ -113,13 +108,13 @@ class BetTask extends TaskBase
                                 }
                             }
                         } else {
-                            if($euromillions_draw->getJackpot()->getAmount() >= $play_config->getThreshold()) {
+                            if( $euromillions_draw->getJackpot()->getAmount() >= $play_config->getThreshold() ) {
                                 $this->playService->bet($play_config, $euromillions_draw);
                             }
                         }
                     }
                 }
-            } catch( \Exception $e) {
+            } catch( \Exception $e ) {
                 $user_id = '';
                 $play_config_list = $result_play_configs->getValues();
                 /** @var PlayConfig[] $play_config */

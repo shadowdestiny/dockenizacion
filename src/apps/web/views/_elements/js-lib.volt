@@ -10,13 +10,11 @@ $(document).bind("mobileinit", function(){
 </script>
 <script src="/w/js/vendor/jquery.mobile.custom.min.js"></script>
 <script src="/w/js/vendor/picturefill.min.js" async></script>
-{#
-<script src="/w/js/vendor/fastclick.min.js"></script>
 <script>
 $(function(){
     try{
         document.createEvent('TouchEvent');
-        alert('mobile');
+        document.write('<script src="/w/js/vendor/fastclick.min.js"><\/script>');
         var attachFastClick = Origami.fastclick;
         attachFastClick(document.body); // It removes the delay of 300ms on mobile browsers because of double tap
     }catch(e){
@@ -24,7 +22,7 @@ $(function(){
     }
 });
 </script>
-#}
+
 
 <script src="/w/js/vendor/svg4everybody.min.js"></script>
 <script>$(function(){svg4everybody()})</script> {# SVG rendering for include svg for IE9+ #}

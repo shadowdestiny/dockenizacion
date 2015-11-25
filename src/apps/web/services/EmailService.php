@@ -77,6 +77,8 @@ EOF;
     private function sendTransactional(User $user, IEmailTemplate $emailTemplate)
     {
         $vars = $emailTemplate->loadVars();
+        $vars['vars'][] = $emailTemplate->loadHeader();
+        $vars['vars'][] = $emailTemplate->loadFooter();
 
         $this->mailServiceApi->send(
             $this->mailConfig['from_name'],

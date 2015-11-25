@@ -13,10 +13,7 @@ class WinEmailTemplate extends EmailTemplateDecorator
 
     public function loadVars()
     {
-        $header = $this->emailTemplate->loadVars();
-
         $vars = [
-            'header'  => $header['date'],
             'template' => 'win-email',
             'subject' => 'Congratulations',
             'vars' =>
@@ -72,6 +69,16 @@ class WinEmailTemplate extends EmailTemplateDecorator
     public function setResultAmount($result_amount)
     {
         $this->result_amount = $result_amount;
+    }
+
+    public function loadHeader()
+    {
+        return $this->emailTemplate->loadHeader();
+    }
+
+    public function loadFooter()
+    {
+        return $this->emailTemplate->loadFooter();
     }
 
 }
