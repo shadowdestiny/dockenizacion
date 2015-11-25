@@ -3,14 +3,12 @@ var EmSelect = require('../em_select/main.js');
 
 var EmCustomizableSelect = React.createClass({
     getInitialState: function () {
-        console.log('getInitialState');
         return {
             hideSelect: false,
             inputValue: '85000000'
         }
     },
     componentWillReceiveProps: function (nextProps) {
-        console.log('will receive2');
         this.setState(
             {
                 hideSelect: !nextProps.active ? false : this.state.hideSelect
