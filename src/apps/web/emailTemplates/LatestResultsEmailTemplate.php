@@ -29,7 +29,7 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
                     ],
                     [
                         'name'    => 'jackpot',
-                        'content' => $jackpot->getAmount()
+                        'content' => $jackpot->getAmount() / 100
                     ],
                     [
                         'name'    => 'draw_date',
