@@ -9,6 +9,9 @@
 
         {# FONTS  #}
         <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700'>
+
+        {# EMTD - we need to move this in the footer, and fix all the inline script #}
+        <script src="/w/js/vendor/jquery-1.11.3.min.js"></script>
     </head>
 
 	<body class="{% block bodyClass %}{% endblock %}">
@@ -42,9 +45,6 @@
             </ul>
         </div>
 
-    {#  JS 
-        EMTD for old browsers (use SHIV or Modernizr)
-    #}
         {% include "_elements/js-lib.volt" %} {# JS libraries #}
         {% block template_scripts %}{% endblock %}  {# Inject unique js #}
     </body>

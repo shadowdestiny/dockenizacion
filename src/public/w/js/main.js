@@ -149,18 +149,11 @@ $(function(){
 	$(window).resize(checkSize);
 
     selectFix();
-    try{
-        document.createEvent('TouchEvent');
-        alert('mobile');
-        var attachFastClick = Origami.fastclick;
-        attachFastClick(document.body); // It removes the delay of 300ms on mobile browsers because of double tap
-    }catch(e){
-        return false;
-    }
 
-	$(".menu-ham").click(function(){
-		$(this).toggleClass('expanded').siblings('ul').slideToggle().toggleClass('open');
-	});
+    $(".menu-ham").click(function(){
+        $(this).toggleClass('expanded').siblings('ul').slideToggle().toggleClass('open');
+    });
+
 });
 
 

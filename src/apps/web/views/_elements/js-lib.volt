@@ -1,7 +1,6 @@
 <!--[if lt IE 9]>
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-<script src="/w/js/vendor/jquery-1.11.3.min.js"></script>
 <script>
 $(document).bind("mobileinit", function(){
     $.mobile.ajaxEnabled=false;
@@ -11,9 +10,20 @@ $(document).bind("mobileinit", function(){
 </script>
 <script src="/w/js/vendor/jquery.mobile.custom.min.js"></script>
 <script src="/w/js/vendor/picturefill.min.js" async></script>
-
 {#
 <script src="/w/js/vendor/fastclick.min.js"></script>
+<script>
+$(function(){
+    try{
+        document.createEvent('TouchEvent');
+        alert('mobile');
+        var attachFastClick = Origami.fastclick;
+        attachFastClick(document.body); // It removes the delay of 300ms on mobile browsers because of double tap
+    }catch(e){
+        //empty
+    }
+});
+</script>
 #}
 
 <script src="/w/js/vendor/svg4everybody.min.js"></script>
