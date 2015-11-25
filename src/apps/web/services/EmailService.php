@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\web\services;
 
+use EuroMillions\web\emailTemplates\IEmailTemplate;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IMailServiceApi;
 use EuroMillions\web\vo\ContactFormInfo;
@@ -67,14 +68,18 @@ EOF;
     }
 
 
-    public function sendTransactionalEmail(User $user, $template, array $vars = null)
+    public function sendTransactionalEmail(User $user, IEmailTemplate $emailTemplate)
     {
-        $this->sendTransactional($user, $template, $vars);
+        $this->sendTransactional($user, $emailTemplate);
     }
 
 
-    private function sendTransactional(User $user, $template, $vars = null)
+    private function sendTransactional(User $user, IEmailTemplate $emailTemplate)
     {
+        $vars = $emailTemplate->loadVars();
+        $vars['vars'][] = $emailTemplate->loadHeader();
+        $vars['vars'][] = $emailTemplate->loadFooter();
+
         $this->mailServiceApi->send(
             $this->mailConfig['from_name'],
             $this->mailConfig['from_address'],
@@ -88,9 +93,9 @@ EOF;
             ],
             $vars['subject'],
             '',
+            $vars['vars'],
             [],
-            [],
-            $template,
+            $vars['template'],
             []
         );
 
@@ -142,7 +147,6 @@ EOF;
      * @param $title
      * @param $subtitle
      * @param $content
-     * @throws Exception
      * @throws \Exception
      */
     private function sendMailToContactService($title, $subtitle, $content)

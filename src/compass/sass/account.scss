@@ -1,6 +1,7 @@
 @import "variable";
 @import "_elements/threshold.scss";
 @import "_elements/with-subnav.scss";
+@import "_elements/paging.scss";
 
 .account{
     .label{font-size:$basic-size;}
@@ -21,13 +22,18 @@
         td{border:1px solid $purple; border-width:0 1px 1px 0; vertical-align:top;}
         th:last-child, td:last-child{border-right:0;}
         tr:last-child td{border-bottom:0;}
-        td.action{text-align:center; vertical-align:middle;}
+        td.action{text-align:center; vertical-align:middle; width:200px;}
         strong{display:block;}
-        .numbers .star{font-weight:bold; color:$yellow-dark}
+        .numbers{
+            font-weight:bold;
+            .star{color:$yellow-dark}
+            .num{margin-right:5px;}
+            .num:last-child{margin-right:0;}
+        }
         .ico{font-size:12px;}
         .id{min-width:52px;}
         .special{
-            background:$yellow url(../img/special-bg.png) no-repeat center center; background-size:cover; color:#fff; font-weight:bold; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);
+            background:$yellow url(../img/special-bg.png) no-repeat center center; background-size:cover; color:#fff; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);
             .star{color:$purple; text-shadow:none!important;}
         }
         .date{width:120px;}
@@ -56,11 +62,10 @@
         .action{min-width:180px;}
         .ico{position:relative; float:right; top:4px; margin-left:5px;}
     }
-    .present .duration{max-width:200px; min-width:160px;}
 }
 
 .wallet{
-    hr{position:relative; margin:1.5em -20px!important;}
+    hr{position:relative; margin:1.5em -15px!important;}
     .box-wallet{
         .value{position:relative; top:4px; float:left; font-weight:bold;}
         .input{width:180px!important; border-radius:3px; padding:5px 8px 6px 25px;} 
@@ -192,7 +197,7 @@
 .box-details form.right{float:left;}
 .my-games{
     .present, .configuration{
-        .action{min-width:100px;}
+        .action{min-width:100px; width:auto;}
         .btn:first-child{margin-bottom:8px;}
     }
 }
@@ -233,12 +238,12 @@
 .ui-responsive td{width:100%; float:left; clear:left; border-right:0!important;}
 .ui-responsive th{display:none;}
 .my-games{
+    .ui-table-cell-label{float:left; text-align:left; font-weight:normal; margin-right:10px;}
     .table{
-        th, td{width:100%; min-width:100%!important; max-width:100%!important; }
-        td{border-bottom:0 solid transparent;}
+        strong{display:inline;}
+        th, td{width:100%; min-width:100%!important; max-width:100%!important;}
+        td{border-bottom:0 solid transparent; border-bottom:1px solid $purple;}
         td:last-child{border-bottom:1px solid $purple;}
-        /*.action{text-align:left!important;}*/
-        /*.ico{display:none;}*/
     }
     .myCol{width:65%; vertical-align:text-top;}
     .no-data{

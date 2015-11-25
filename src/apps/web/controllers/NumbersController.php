@@ -23,6 +23,7 @@ class NumbersController extends PublicSiteControllerBase
         $breakDownDTO = new EuroMillionsDrawBreakDownDTO($breakDown->getValues());        
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
         $last_result = $this->lotteriesDataService->getLastResult($lotteryName);
+
         $last_draw_date = $this->lotteriesDataService->getLastDrawDate($lotteryName);
 
         return $this->view->setVars([
@@ -39,7 +40,7 @@ class NumbersController extends PublicSiteControllerBase
         $user_currency = $this->userPreferencesService->getCurrency();
         if(!empty($break_downs)) {
             foreach($break_downs as &$breakDown) {
-                $breakDown['lottery_prize'] = $this->currencyService->convert(new Money((int) $breakDown['lottery_prize'], new Currency('EUR')), $user_currency)->getAmount() / 10000;
+                $breakDown['lottery_prize'] = $this->currencyService->convert(new Money((int) $breakDown['lottery_prize'], new Currency('EUR')), $user_currency)->getAmount();
             }
         }
         return $break_downs;

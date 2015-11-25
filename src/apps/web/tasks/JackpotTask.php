@@ -1,7 +1,8 @@
 <?php
 namespace EuroMillions\web\tasks;
 
-use EuroMillions\web\entities\User;
+use EuroMillions\web\emailTemplates\EmailTemplate;
+use EuroMillions\web\emailTemplates\JackpotRolloverEmailTemplate;
 use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteriesDataService;
@@ -36,6 +37,7 @@ class JackpotTask extends TaskBase
         if (!$today) {
             $today = new \DateTime();
         }
+
         /** @var \DateTime $date */
         $date = $this->lotteriesDataService->getLastDrawDate('EuroMillions', $today);
         $this->lotteriesDataService->updateNextDrawJackpot('EuroMillions', $date->sub(new \DateInterval('PT1M')));
@@ -43,7 +45,10 @@ class JackpotTask extends TaskBase
 
     public function reminderJackpotAction()
     {
+
         $jackpot_amount = $this->lotteriesDataService->getNextJackpot('EuroMillions');
+        $emailTemplate = new EmailTemplate();
+        $emailTemplate = new JackpotRolloverEmailTemplate($emailTemplate);
         /** @var ActionResult $result */
         $result = $this->userService->getActiveNotificationsTypeJackpot();
 
@@ -51,9 +56,11 @@ class JackpotTask extends TaskBase
             /** @var UserNotifications[] $user_notifications */
             $user_notifications = $result->getValues();
             foreach($user_notifications as $user_notification) {
-                if($jackpot_amount->getAmount() >= $user_notification->getConfigValue()->getValue()) {
-                    $user = $this->userService->getUser($user_notification->getUser()->getId());
-                    $this->emailService->sendTransactionalEmail($user,'jackpot-rollover');
+                if($user_notification->getActive()) {
+                    if($jackpot_amount->getAmount() >= $user_notification->getConfigValue()->getValue()) {
+                        $user = $this->userService->getUser($user_notification->getUser()->getId());
+                        $this->emailService->sendTransactionalEmail($user,$emailTemplate);
+                    }
                 }
             }
         }

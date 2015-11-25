@@ -117,7 +117,12 @@ function selectFix(){ // Style the "Select"
     }
 }
 
-function count_down(element,html_formatted,html_formatted_offset,date) {
+function count_down(element,
+                    html_formatted,
+                    html_formatted_offset,
+                    date,
+                    finish_text,finish_action) {
+
     return element.countdown(date).
         on('update.countdown', function(event){
             if(event.offset.days == 0) {
@@ -133,7 +138,9 @@ function count_down(element,html_formatted,html_formatted_offset,date) {
                 $(this).html(event.strftime(html_formatted));
             }
         }).on('finish.countdown',function(event){
-            $(this).html("{{language.translate('Draw closed')}}").parent().addClass('disabled');
+            $(this).html(finish_text).parent().addClass('disabled');
+            $(".box-estimated .content").removeAttr("href");
+            finish_action();
         });
      //visit: http://hilios.github.io/jQuery.countdown to formatted html result
 }
@@ -142,15 +149,17 @@ $(function(){
 	$(window).resize(checkSize);
 
     selectFix();
+    try{
+        document.createEvent('TouchEvent');
+        var attachFastClick = Origami.fastclick;
+        attachFastClick(document.body); // It removes the delay of 300ms on mobile browsers because of double tap
+    }catch(e){
+    }
 
-    /* EDMTD it should be applied only on mobile devices */
-/*
-    var attachFastClick = Origami.fastclick;
-    attachFastClick(document.body); // It removes the delay of 300ms on mobile browsers because of double tap
-*/
-	$(".menu-ham").click(function(){
-		$(this).toggleClass('expanded').siblings('ul').slideToggle().toggleClass('open');
-	});
+    $(".menu-ham").click(function(){
+        $(this).toggleClass('expanded').siblings('ul').slideToggle().toggleClass('open');
+    });
+
 });
 
 

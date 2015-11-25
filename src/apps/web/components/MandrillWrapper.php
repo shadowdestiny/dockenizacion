@@ -39,6 +39,7 @@ class MandrillWrapper implements IMailServiceApi
             'merge_vars'          => $recipientVars,
         ];
         if ($templateName) {
+            //print_r(json_encode($message));die();
             $this->mandrill->messages->sendTemplate($templateName, $templateVars, $message);
         } else {
             $this->mandrill->messages->send($message);

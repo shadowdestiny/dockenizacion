@@ -5,6 +5,14 @@
     {% include "_elements/header.volt" %}
 {% endblock %}
 
+{% block template_css %}
+<style>
+.box-basic p{margin-bottom:5px;}
+.box-basic .input, .box-basic .textarea, .box-basic .select{width:100%; margin-bottom:1em;}
+.box-basic .textarea{font-size:90%; height:180px;}
+</style>
+{% endblock %}
+
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}

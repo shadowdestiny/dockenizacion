@@ -99,7 +99,7 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
         $this->priceCheckoutService_double->playConfigsWithBetsAwarded($today)->willReturn(new ActionResult(true,$result_awarded));
         $this->lotteryDataService_double->getBreakDownDrawByDate($lottery_name,$today)->willReturn(new ActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())));
         $this->priceCheckoutService_double->reChargeAmountAwardedToUser($user,Argument::any())->willReturn(new ActionResult(true))->shouldBeCalledTimes(2);
-        $this->emailService_double->sendTransactionalEmail($user,Argument::any())->shouldBeCalled();
+        $this->emailService_double->sendTransactionalEmail($user,Argument::type('EuroMillions\web\emailTemplates\IEmailTemplate'))->shouldBeCalled();
         $sut = new PriceCheckoutTask();
         $sut->initialize($this->priceCheckoutService_double->reveal(), $this->lotteryDataService_double->reveal(), $this->emailService_double->reveal());
         $sut->checkoutAction($today);

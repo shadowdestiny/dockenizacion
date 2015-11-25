@@ -27,10 +27,10 @@ class AddNotification extends AbstractMigration
      */
     public function change()
     {
-        $sql = "INSERT INTO notifications (`description`) VALUES ('When Jackpot reach');
-                INSERT INTO notifications (`description`) VALUES ('When Auto-Play has not enough funds');
-                INSERT INTO notifications (`description`) VALUES ('When Auto-Play has played the last Draw');
-                INSERT INTO notifications (`description`) VALUES ('Results of the Draw');";
+        $sql = "INSERT INTO notifications (`description`,`notification_type`) VALUES ('When Jackpot reach',1);
+                INSERT INTO notifications (`description`,`notification_type`) VALUES ('When Auto-Play has not enough funds',2);
+                INSERT INTO notifications (`description`,`notification_type`) VALUES ('When Auto-Play has played the last Draw',3);
+                INSERT INTO notifications (`description`,`notification_type`) VALUES ('Results of the Draw',4);";
         $this->execute($sql);
     }
 }

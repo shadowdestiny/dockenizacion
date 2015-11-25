@@ -16,7 +16,7 @@
            {% include "legal/_nav.volt" %}
         </div>
         <div class="box-basic content">
-            <h1 class="h1 title yellow">{{ language.translate("Cookies Info") }}</h1>
+            <h1 class="h1 title yellow">{{ language.translate("Cookies") }}</h1>
             <p>
                 {{ language.translate('<strong>Visiting Euromillions.com websites with your browser settings adjusted to accept cookies or using Euromillions.com mobile apps, tells us that you want to use of Euromillion products and services and that you consent to our use of cookies and other technologies to provide them to you as described in this notice and in the <a href="/legal/">Terms &amp; Conditions</a> and <a href="/legal/legal/">Legal Info</a>.') }}</strong>
             </p>

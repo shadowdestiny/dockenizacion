@@ -1,0 +1,14 @@
+@import "variable";
+
+/* TABS */
+.tab{
+  transition:background-color 0.3s,color 0.3s,border 0.3s, box-shadow 0.1s; border:1px solid $grey;
+  display:inline-block; padding:5px 12px; text-decoration:none; font-size:$basic-size; background:#aaa; text-shadow:0 1px 3px rgba(0, 0, 0, 0.4);
+  @include background-image(linear-gradient(#cccccc, #777777));
+}
+.tab.active, .tab.active:visited{cursor:default;}
+.tab:hover, .tab:focus{background:$yellow;}
+.tab.active, .tab.active:visited, .tab.active:hover{background:#fff; border:1px solid $yellow-dark; color:$yellow-dark;}
+.tab.active, .tab:focus, .tab:active{border-bottom:0!important;}
+.tab-content{display:none; position:relative;}
+.tab-content.active{display:block;}

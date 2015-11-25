@@ -1,0 +1,13 @@
+.my-left, .my-right{position:absolute; width:100%;}
+.my-left{left:-100%; padding-right:15px; text-align:right;}
+.my-right{right:-100%; padding-left:15px;}
+.my-left h1{margin-bottom:.5em;}
+
+@media only screen and (max-width:1200px){
+.my-left, .my-right{width:72%;}
+.my-left{left:-72%;}
+.my-right{right:-72%;}
+}
+@media only screen and (max-width:992px){
+.my-left, .my-right{display:none;}
+}

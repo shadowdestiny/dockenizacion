@@ -16,7 +16,10 @@ class NotificationDTO extends DTOBase implements IDto
 
     public $id;
 
+    public $notification_type;
+
     public $description;
+
 
     /**
      * NotificationDTO constructor.
@@ -32,10 +35,62 @@ class NotificationDTO extends DTOBase implements IDto
     {
         $this->id = $this->notification->getId();
         $this->description = $this->notification->getDescription();
+        $this->notification_type = $this->notification->getNotificationType();
     }
 
     public function toArray()
     {
         throw new UnsupportedOperationException();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getNotificationType()
+    {
+        return $this->notification_type;
+    }
+
+    /**
+     * @param mixed $notification_type
+     */
+    public function setNotificationType($notification_type)
+    {
+        $this->notification_type = $notification_type;
+    }
+
+    /**
+     * @return Notification
+     */
+    public function getNotification()
+    {
+        return $this->notification;
+    }
+
+    /**
+     * @param Notification $notification
+     */
+    public function setNotification($notification)
+    {
+        $this->notification = $notification;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
 }

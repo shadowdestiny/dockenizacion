@@ -73,8 +73,10 @@
 						<a href="javascript:void(0);" class="close"><svg class="ico v-cancel-circle"><use xlink:href="/w/svg/icon.svg#v-cancel-circle"></use></svg></a>
 						<div class="cols">
 							<div class="col2">
-								<label class="label">{{ language.translate("Draw") }} 
-									<svg data-tip="{{ language.translate('Which draw do you want to play?') }}" class="ico v-question-mark tipr-small"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
+								<label class="label">{{ language.translate("Draw") }}
+									<div class="wrap tipr-small" data-tip="{{ language.translate('Which draw do you want to play?') }}">
+										<svg class="ico v-question-mark"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
+									</div>
 								</label>
 								<div class="styled-select">
 									<div class="select-txt"></div>
@@ -86,8 +88,10 @@
 								</div>
 							</div>
 							<div class="col2">
-								<label class="label">{{ language.translate("First Draw") }} 
-									<svg data-tip="{{ language.translate('From which draw do you wish to play?') }}" class="ico v-question-mark tipr-small"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
+								<label class="label">{{ language.translate("First Draw") }}
+									<div class="wrap tipr-small" data-tip="{{ language.translate('From which draw do you wish to play?') }}">
+										<svg  class="ico v-question-mark"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
+									</div>
 								</label>
 								<div class="styled-select">
 									<div class="select-txt"></div>
@@ -106,17 +110,19 @@
 								</div>
 							</div>
 							<div class="col2">
-								<label class="label">{{ language.translate("Duration") }} 
-									<svg data-tip="{{ language.translate('For how long do you wish to play?') }}" class="ico v-question-mark tipr-small"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
+								<label class="label">{{ language.translate("Duration") }}
+									<div class="wrap tipr-small" data-tip="{{ language.translate('For how long do you wish to play?') }}">
+										<svg class="ico v-question-mark"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
+									</div>
 								</label>
 								<div class="styled-select">
 									<div class="select-txt"></div>
 									<select autocomplete="off" class="frequency mySelect">
-										<option value="1">{{ language.translate("1 week (Draws: 1)") }}</option>
-										<option value="2">{{ language.translate("2 week (Draws: 2)") }}</option>
-										<option value="4">{{ language.translate("4 week (Draws: 4)") }}</option>
-										<option value="8">{{ language.translate("8 week (Draws: 8)") }}</option>
-										<option value="52">{{ language.translate("52 week (Draws: 52)") }}</option>
+										<option value="1">{{ language.translate("1 week (Draw: 1)") }}</option>
+										<option value="2">{{ language.translate("2 weeks (Draws: 2)") }}</option>
+										<option value="4">{{ language.translate("4 weeks (Draws: 4)") }}</option>
+										<option value="8">{{ language.translate("8 weeks (Draws: 8)") }}</option>
+										<option value="52">{{ language.translate("52 weeks (Draws: 52)") }}</option>
 		{#
 										<option value="always">{{ language.translate("Always (Every draw)") }}</option>
 		#}

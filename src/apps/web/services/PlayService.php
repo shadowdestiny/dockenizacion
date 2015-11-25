@@ -113,7 +113,7 @@ class PlayService
         $single_bet_price = $euroMillionsDraw->getLottery()->getSingleBetPrice();
         if($user->getBalance()->getAmount() > $single_bet_price->getAmount()) {
             $dateNextDraw = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions', $today);
-            $result = $this->betRepository->getBetsByDrawDate(new \DateTime($dateNextDraw));
+            $result = $this->betRepository->getBetsByDrawDate($dateNextDraw);
             if(!empty($result)){
                 return new ActionResult(true);
             }else{
@@ -121,8 +121,8 @@ class PlayService
                     $bet = new Bet($playConfig,$euroMillionsDraw);
                     $castillo_key = CastilloCypherKey::create();
                     $castillo_ticket = CastilloTicketId::create();
-                    $result_validation = $lotteryValidation->validateBet($bet,new CypherCastillo3DES(),$castillo_key,$castillo_ticket,new \DateTime($dateNextDraw));
-
+                    $bet->setCastilloBet($castillo_ticket);
+                    $result_validation = $lotteryValidation->validateBet($bet,new CypherCastillo3DES(),$castillo_key,$castillo_ticket,$dateNextDraw);
                     $log_api_reponse = new LogValidationApi();
                     $log_api_reponse->initialize([
                         'id_provider' => 1,
@@ -170,6 +170,16 @@ class PlayService
         if(!empty($result)){
             return new ActionResult(true,$result);
         }else{
+            return new ActionResult(false);
+        }
+    }
+
+    public function getPlayConfigWithLongEnded(\DateTime $date)
+    {
+        $result = $this->playConfigRepository->getPlayConfigsLongEnded($date);
+        if(!empty($result)) {
+            return new ActionResult(true,$result);
+        }else {
             return new ActionResult(false);
         }
     }

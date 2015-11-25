@@ -4,6 +4,8 @@
 namespace EuroMillions\web\tasks;
 
 
+use EuroMillions\web\emailTemplates\EmailTemplate;
+use EuroMillions\web\emailTemplates\WinEmailTemplate;
 use EuroMillions\web\services\DomainServiceFactory;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteriesDataService;
@@ -53,14 +55,17 @@ class PriceCheckoutTask extends TaskBase
                 if($result_amount->getAmount() > 0) {
                     $user = $play_config_and_count[0]->getUser();
                     $this->priceCheckoutService->reChargeAmountAwardedToUser($user,$result_amount);
+                    $emailTemplate = new EmailTemplate();
+                    $emailTemplate = new WinEmailTemplate($emailTemplate);
+                    $emailTemplate->setUser($user);
+                    $emailTemplate->setResultAmount($result_amount);
                     if($result_amount->getAmount() > $threshold_price) {
-                        $this->emailService->sendTransactionalEmail($user,'win-email-above-1500');
-                    }else{
-                        $this->emailService->sendTransactionalEmail($user,'win-email');
+                        $this->emailService->sendTransactionalEmail($user,$emailTemplate);
+                    } else {
+                        $this->emailService->sendTransactionalEmail($user,$emailTemplate);
                     }
                 }
             }
         }
     }
-
 }

@@ -82,7 +82,6 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $expected = [2];
         $actual = $this->sut->getPlayConfigsByUserAndDate($userId,$date);
         $this->assertEquals($expected,$this->getIdsFromArrayOfObjects($actual));
-
     }
 
 

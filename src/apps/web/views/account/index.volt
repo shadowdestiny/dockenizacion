@@ -26,13 +26,13 @@
                 {{ form('account/index') }}
                     {% if msg %}
                         <div class="box success">
-                            <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#checkmark"></use></svg>
+                            <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>
                             <span class="txt">{{ msg }}</span>
                         </div>
                     {% endif %}
                     {% if  errors %}
                         <div class="box error">
-                            <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#warning"></use></svg>
+                            <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
                             <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
                         </div>
                     {% endif %}
@@ -55,6 +55,14 @@
                                 {{ myaccount.render('phone_number', {'class':'input'}) }}
                             </div>
                         </div>
+                        <div class="cols gap" style="margin-bottom:0;"> {# temporary inline style to remove the gap with #}
+                             <div class="col12">
+                                 <label class="btn big blue right submit" for="submit">
+                                     {{ language.translate("Update profile details") }}
+                                     <input id="submit" type="submit" class="hidden2">
+                                 </label>
+                             </div>
+                         </div>
                     </div>
                 {{ endform() }}
 
@@ -69,6 +77,7 @@
                 </div>
                 #}
             </div>
+
         </div>
     </div>
 </main>

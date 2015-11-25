@@ -53,7 +53,6 @@ $(document).on("storeNum",{numColumn: 0, typeColumn: "", num: "", active: 1},
 		}
 	}
 	numLines[column] = objLine;
-
 	//get in load page
 	localStorage.setItem('bet_line', JSON.stringify(numLines));
 });
@@ -168,8 +167,10 @@ function playLine(selector, type){
 		}
 
 		var isActive = $(this).hasClass('active');
+		var value = $(this).text();
+		if(type == "start") value = $(this).children('.txt').text();
 
-		$(document).trigger("storeNum", [ valNum[1],type,$(this).text(),isActive] );
+		$(document).trigger("storeNum", [ valNum[1],type,value.trim(),isActive] );
 		checkMark(valNum[1]);
 		redrawTotalCost();
 	});
@@ -216,15 +217,14 @@ function persistRandomNum(line){
 	$(".box-lines "+line+" .values .stars a.ico").each(function(){
 		if($(this).hasClass('active')){
 			var num = $(this).text();
-			$(document).trigger("storeNum", [ numColumn, 'star', num, true] );
+			$(document).trigger("storeNum", [ numColumn, 'star', num.trim(), true] );
 		}
 	});
 	redrawTotalCost();
 }
 
 
-function isMobile()
-{
+function isMobile(){
 	try{
 		document.createEvent('TouchEvent');
 		if(varSize > 2){
@@ -447,11 +447,12 @@ var ajaxFunctions = {
 
 function addColumn(position){
 	var column = $($('div[class*="myCol num"]:last')).clone();
-	column.find('.numbers a,.stars a,i').each(function(index){
+	column.find('.numbers a,.stars a, svg.ico').each(function(index){
 		if($(this).hasClass('active')){
 			$(this).removeClass('active');
 		}
-		if($(this).hasClass('v-checkmark')){
+		//workaround svg class in jquery
+		if($(this).attr('class') === 'ico v-checkmark'){
 			$(this).hide();
 		}
 		playLine('.myCol .num'+index+' .numbers .btn','numbers');
@@ -565,7 +566,7 @@ $(function(){
 	randomAll(".random-all");
 	clearNumAll(".clear-all");
 	$('.tipr-normal').tipr({'mode':'top', "styled":"normal"});
-	$('.tipr-small').tipr({'mode':'top', "styled":"small"});	
+	$('.tipr-small').tipr({'mode':'top', "styled":"small"});
 	showAdvanced(".advanced", ".advanced-play", ".advanced-play .close", ".details select", ".advanced-play .col2 select", "#threshold", ".input-value",".threshold")
 	disableSelect("#threshold",".advanced-play .col2 select", ".details select",".input-value input",".input-value",".threshold");
 
@@ -617,12 +618,26 @@ $(function(){
 		day_of_week = filter.split(',').length;
 		var txt_frequency = '';
 		var val_frequency = $('.frequency').find(":selected").val();
-		console.log("day_of_week= "+day_of_week)
-		txt_frequency = val_frequency + ' week (Draws: '+(val_frequency * day_of_week)+ ')';
+		$draws_calculation = val_frequency * day_of_week;
+		$draw_string = 'Draw';
+		if($draws_calculation > 1) {
+			$draw_string = 'Draws';
+		}
+		txt_frequency = val_frequency + ' week ('+$draw_string+': '+$draws_calculation+ ')';
 		$('.select-txt').eq(2).text(txt_frequency);
-		$(".frequency > option").each(function() {
+		$(".frequency > option").each(function(i) {
 			val_frequency = $(this).val();
-			txt_frequency = val_frequency + ' week (Draws: '+(val_frequency * day_of_week)+ ')';
+			$draws_calculation = val_frequency * day_of_week;
+			$draw_string = 'Draw';
+
+
+
+			if($draws_calculation > 1) {
+				$draw_string = 'Draws';
+				$week_string = 'weeks';
+			}
+			if(i == 0) $week_string = 'week';
+			txt_frequency = val_frequency + ' ' + $week_string + ' ('+$draw_string+': '+$draws_calculation+ ')';
 			$(this).text(txt_frequency);
 		});
 		redrawTotalCost();

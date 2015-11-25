@@ -3,7 +3,7 @@
 		<div class="wrapper">
 			<div class="cols">
 				<div class="col8">
-					<a href="javascript:void(0);" class="small-logo" title="Go to Homepage">
+					<a href="/index" class="small-logo" title="Go to Homepage">
 						<picture class="pic">
 							<!--[if IE 9]><video style="display: none;"><![endif]-->
 							<source media="(max-width: 768px)" srcset="w/img/logo/euromillions-sm.png" >

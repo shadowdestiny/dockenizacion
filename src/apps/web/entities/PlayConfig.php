@@ -36,6 +36,22 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm
 
     protected $threshold;
 
+    /**
+     * @return mixed
+     */
+    public function getThreshold()
+    {
+        return $this->threshold;
+    }
+
+    /**
+     * @param mixed $threshold
+     */
+    public function setThreshold($threshold)
+    {
+        $this->threshold = $threshold;
+    }
+
     public function __construct()
     {
         $this->bet = new ArrayCollection();

@@ -39,7 +39,8 @@ $(function(){
 	var html_formatted = '%-Hh %-Mm %-Ss';
 	html_formatted_offset[0] = '%-dd ' + html_formatted;
 	var date = '{{ date_to_draw }}';
-	var count  = count_down(element,html_formatted,html_formatted_offset,date);
+	var finish_text = "{{ language.translate('Draw closed') }}";
+	var count  = count_down(element,html_formatted,html_formatted_offset,date,finish_text,null);
 });
 </script>
 {% endblock %}
@@ -191,7 +192,7 @@ $(function(){
 						<div class="col6">
 							<div class="title-em cl">
 								<img class="vector best" src="/w/svg/home/best-choice.svg" alt="Best Choice Guarantee">
-								<img class="vector text" src="/w/svg/home/em-golden.svg" alt="Euromillions">
+								<img class="lazy vector text" src="/w/svg/home/em-golden.svg" alt="Euromillions">
 								<h3 class="title">Fast, Convenient &amp; Secure</h3>
 							</div>
 						</div>
@@ -254,6 +255,7 @@ $(function(){
 				<div class="cols">
 					<div class="col6 bg-win"></div>
 					<div class="col6 box-txt r">
+						<a id="about-us"></a>
 						<h2 class="h1 yellow">About us</h2>
 						<h3 class="li-title">What we do</h3>
 						<p>Euromillions.com is the first lottery based website built to work on every device and every screen size, no matter how large or small. Mobile or desktop, we will always offer you the best user experience.</p>

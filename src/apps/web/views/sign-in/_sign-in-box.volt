@@ -114,7 +114,7 @@
 
 
             <div class="small txt">
-                {{ language.translate("By signing in you agree to our") }} <a href="javascript:void(0);">{{ language.translate("Terms &amp; Conditions") }}</a>
+                {{ language.translate("By signing in you agree to our") }} <a href="/legal/index">{{ language.translate("Terms &amp; Conditions") }}</a>
                 <br>{{ language.translate("and agree that you are 18+ years old") }}
             </div>
         </div>

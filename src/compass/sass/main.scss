@@ -1,9 +1,7 @@
-@import "column.scss";
-/*
-@import "vendor/icomoon.scss";
-*/
-@import "vendor/jquery.mobile.custom.structure.min.scss";
-@import "vendor/select.scss";
-@import "vendor/modal.scss";
-@import "vendor/animated.scss";
-@import "basic.scss";
+@import "column";
+
+@import "vendor/jquery.mobile.custom.structure.min";
+@import "vendor/select";
+@import "vendor/modal";
+@import "vendor/animated";
+@import "basic";

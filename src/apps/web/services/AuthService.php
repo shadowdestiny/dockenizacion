@@ -8,6 +8,7 @@ use EuroMillions\web\components\PhpassWrapper;
 use EuroMillions\web\components\RandomPasswordGenerator;
 use EuroMillions\web\entities\GuestUser;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\interfaces\IAuthStorageStrategy;
 use EuroMillions\web\interfaces\IEmailValidationToken;
 use EuroMillions\web\interfaces\IPasswordHasher;
@@ -39,8 +40,10 @@ class AuthService
     private $logService;
     /** @var EmailService */
     private $emailService;
+    /** @var  UserService */
+    private $userService;
 
-    public function __construct(EntityManager $entityManager, IPasswordHasher $hasher, IAuthStorageStrategy $storageStrategy, IUrlManager $urlManager, LogService $logService, EmailService $emailService)
+    public function __construct(EntityManager $entityManager, IPasswordHasher $hasher, IAuthStorageStrategy $storageStrategy, IUrlManager $urlManager, LogService $logService, EmailService $emailService,UserService $userService)
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
@@ -49,6 +52,7 @@ class AuthService
         $this->urlManager = $urlManager;
         $this->logService = $logService;
         $this->emailService = $emailService;
+        $this->userService = $userService;
     }
 
     /**
@@ -139,6 +143,7 @@ class AuthService
             'validated' => 0,
             'validation_token' => $this->getEmailValidationToken($email)
         ]);
+
         $this->userRepository->add($user);
 
         try{
@@ -148,6 +153,8 @@ class AuthService
                 $this->logService->logRegistration($user);
                 $url = $this->getValidationUrl($user);
                 $this->emailService->sendRegistrationMail($user, $url);
+                //user notifications default
+                $this->userService->initUserNotifications($user->getId());
                 return new ActionResult(true, $user);
             }else{
                 return new ActionResult(false, 'Error getting an user');

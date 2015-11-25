@@ -25,7 +25,7 @@ class NotificationType
     public function __construct($type,$value)
     {
         if(!$this->checkValueOfType($type,$value)) {
-            throw new InvalidNotificationException;
+            throw new InvalidNotificationException('Incorrect value');
         }else{
             $this->type = $type;
             $this->value = $value;
@@ -38,11 +38,13 @@ class NotificationType
 
         switch($type) {
             case self::NOTIFICATION_THRESHOLD:
-                $result = (is_int($value)) ? true : false;
+                $result = (is_numeric($value)) ? true : false;
                 break;
             case self::NOTIFICATION_NOT_ENOUGH_FUNDS:
+                $result = true;
                 break;
             case self::NOTIFICATION_LAST_DRAW:
+                $result = true;
                 break;
             case self::NOTIFICATION_RESULT_DRAW:
                 $result = (is_bool((bool) $value)) ? true : false;

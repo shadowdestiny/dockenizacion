@@ -126,6 +126,17 @@ class LotteriesDataService
         return $nextDrawDate;
     }
 
+    public function getRecurrentDrawDates($lotteryName, $iteration = 5,\DateTime $now = null)
+    {
+        if(!$now) {
+            $now = new \DateTime();
+        }
+        /** @var Lottery $lottery */
+        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        $recurrentDrawDates = $lottery->getRecurringIntervalDrawDate($iteration,$now);
+        return $recurrentDrawDates;
+    }
+
     public function getNextDrawByLottery($lotteryName, $now = null)
     {
         if(!$now){
@@ -212,8 +223,9 @@ class LotteriesDataService
         }
     }
 
-    public function getNextDrawsByIteration($max_iteration = 5)
-    {
 
+    public function getLastJackpot($lotteryName)
+    {
+        return $this->lotteryDrawRepository->getLastJackpot($lotteryName);
     }
 }

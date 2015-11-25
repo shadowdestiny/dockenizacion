@@ -1,4 +1,4 @@
-<form action="{{  url("email-test/send") }}" method="post">
+<form action="/email-test/send" method="post">
     <input name="user-email" type="text"/>
     <select name="template">
         <option value="jackpot-rollover">jackpot-rollover</option>

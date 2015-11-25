@@ -14,8 +14,12 @@
 <script>
 $(function(){
 	var html_formatted_offset = [];
+	$('.countdown .dots').eq(2).hide();
+	$('.countdown .seconds').hide();
 	var element = $('.countdown');
 	var html_formatted = element.html();
+	$('.countdown .dots').eq(2).show();
+	$('.countdown .seconds').show();
 	$('.countdown .day').remove();
 	$('.countdown .dots').eq(0).remove();
 	html_formatted_offset[0] = $('.countdown').html();
@@ -25,11 +29,14 @@ $(function(){
 	$('.countdown .minute').remove();
 	$('.countdown .dots').eq(0).remove();
 	html_formatted_offset[2] = $('.countdown').html();
-	var date = '{{ date_draw }}'; {# Format Example for DATE '2015/11/17 10:7:00'#} 
-	count_down(element,html_formatted,html_formatted_offset, date);
+	var finish_action = function(){
+		$('.box-next-draw .btn.red').remove();
+	}
+	var date = '{{ date_draw }}'; {# To test "2015/11/17 10:49:00"  #}
+	var finish_text = "<div class='closed'>{{ language.translate('The Draw is closed') }}</div>";
+	count_down(element,html_formatted,html_formatted_offset, date,finish_text, finish_action);
 });
 </script>
-
 {% endblock %}
 {% block body %}
 <main id="content">

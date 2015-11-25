@@ -32,6 +32,7 @@ class AuthServiceUnitTest extends UnitTestBase
     private $urlManager_double;
     private $logService_double;
     private $emailService_double;
+    private $userService_double;
 
     protected function getEntityManagerStubExtraMappings()
     {
@@ -49,6 +50,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $this->urlManager_double = $this->getInterfaceDouble('IUrlManager');
         $this->logService_double = $this->getServiceDouble('LogService');
         $this->emailService_double = $this->getServiceDouble('EmailService');
+        $this->userService_double = $this->getServiceDouble('UserService');
         $this->userId = UserId::create();
         parent::setUp();
     }
@@ -449,7 +451,7 @@ class AuthServiceUnitTest extends UnitTestBase
     private function getSut()
     {
         $dsf = $this->getDomainServiceFactory();
-        $sut = $dsf->getAuthService($this->hasher_double->reveal(), $this->storageStrategy_double->reveal(), $this->urlManager_double->reveal(), $this->logService_double->reveal(), $this->emailService_double->reveal());
+        $sut = $dsf->getAuthService($this->hasher_double->reveal(), $this->storageStrategy_double->reveal(), $this->urlManager_double->reveal(), $this->logService_double->reveal(), $this->emailService_double->reveal(), $this->userService_double->reveal());
         return $sut;
     }
 

@@ -4,6 +4,7 @@ namespace tests\unit;
 use antonienko\MoneyFormatter\MoneyFormatter;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shareconfig\Namespaces;
+use EuroMillions\web\entities\Notification;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\CreditCardPaymentMethod;
@@ -38,6 +39,7 @@ class UserServiceUnitTest extends UnitTestBase
     private $paymentMethodRepository_double;
     private $playRepository_double;
     private $userNotificationsRepository_double;
+    private $notificationsRepository_double;
 
     protected function getEntityManagerStubExtraMappings()
     {
@@ -46,6 +48,7 @@ class UserServiceUnitTest extends UnitTestBase
             Namespaces::ENTITIES_NS . 'PaymentMethod' => $this->paymentMethodRepository_double,
             Namespaces::ENTITIES_NS . 'PlayConfig' => $this->playRepository_double,
             Namespaces::ENTITIES_NS . 'UserNotifications' => $this->userNotificationsRepository_double,
+            Namespaces::ENTITIES_NS . 'Notification' => $this->notificationsRepository_double,
         ];
     }
 
@@ -59,10 +62,9 @@ class UserServiceUnitTest extends UnitTestBase
         $this->paymentMethodRepository_double = $this->getRepositoryDouble('PaymentMethodRepository');
         $this->playRepository_double = $this->getRepositoryDouble('PlayConfigRepository');
         $this->userNotificationsRepository_double = $this->getRepositoryDouble('UserNotificationsRepository');
+        $this->notificationsRepository_double = $this->getRepositoryDouble('NotificationRepository');
         parent::setUp();
     }
-
-
 
     /**
      * method contactRequest
@@ -460,15 +462,18 @@ class UserServiceUnitTest extends UnitTestBase
     public function test_updateEmailNotification_called_updateNotificationByUserAndRetunrnActionResultTrue()
     {
         $expected = true;
+        $user = $this->getUser();
         $notificationType = new NotificationType(4,true);
+        $notification = $this->getNotifications()[0];
         $active = true;
         $user_notification = $this->getUserNoticiation();
-        $this->userNotificationsRepository_double->findOneBy(['id' => 4])->willReturn($user_notification);
+        $this->notificationsRepository_double->findBy(['notification_type' => $notificationType->getType()])->willReturn($notification);
+        $this->userNotificationsRepository_double->findOneBy(['user' => $user, 'notification' => $notification])->willReturn($user_notification);
         $this->userNotificationsRepository_double->add($user_notification)->shouldBeCalled();
         $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush($user_notification)->shouldBeCalled();
         $sut = $this->getSut();
-        $actual = $sut->updateEmailNotification($notificationType,4,$active);
+        $actual = $sut->updateEmailNotification($notificationType,$user,$active);
         $this->assertEquals($expected,$actual->success());
     }
 
@@ -486,6 +491,76 @@ class UserServiceUnitTest extends UnitTestBase
         $this->assertTrue($actual->success());
     }
 
+    /**
+     * method initUserNotifications
+     * when called
+     * should createUserNotificationsDefaultAndReturnActionResultTrue
+     */
+    public function test_initUserNotifications_called_createUserNotificationsDefaultAndReturnActionResultTrue()
+    {
+        $expected = new ActionResult(true);
+        $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
+
+        $this->userRepository_double->find($userId->id())->willReturn(true);
+        $this->notificationsRepository_double->findAll()->willReturn($this->getNotifications());
+        $this->userNotificationsRepository_double->add(Argument::type('EuroMillions\web\entities\UserNotifications'))->shouldBeCalled();
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->flush(Argument::type('EuroMillions\web\entities\UserNotifications'))->shouldBeCalled();
+        $sut = $this->getSut();
+        $actual = $sut->initUserNotifications($userId);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method initUserNotifications
+     * when called
+     * should throwExceptionAndReturnActionResultFalse
+     */
+    public function test_initUserNotifications_called_throwExceptionAndReturnActionResultFalse()
+    {
+        $expected = new ActionResult(false);
+        list($expected, $userId, $entityManager_stub) = $this->exerciseUserNotifications($expected);
+        $entityManager_stub->flush(Argument::type('EuroMillions\web\entities\UserNotifications'))->willThrow('Exception');
+        $sut = $this->getSut();
+        $actual = $sut->initUserNotifications($userId);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method getActiveNotificationsByType
+     * when called
+     * should returnActionResultTrueWithCollection
+     */
+    public function test_getActiveNotificationsByType_called_returnActionResultTrueWithCollection()
+    {
+        $expected = new ActionResult(true,$this->getNotifications());
+        $actual = $this->exerciseNotifications($this->getNotifications());
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method getActiveNotificationsByType
+     * when called
+     * should returnActionResultFalse
+     */
+    public function test_getActiveNotificationsByType_called_returnActionResultFalse()
+    {
+        $expected = new ActionResult(false);
+        $actual = $this->exerciseNotifications(false);
+        $this->assertEquals($expected,$actual);
+    }
+
+
+    private function getNotifications()
+    {
+        $notification = new Notification();
+        $notification->initialize([
+            'id' => 1,
+            'description' => 'Test description'
+        ]);
+
+        return [$notification];
+    }
 
     private function getPlayConfig()
     {
@@ -654,6 +729,33 @@ class UserServiceUnitTest extends UnitTestBase
         $this->userNotificationsRepository_double->findBy(['user' => $user])->willReturn($expected);
         $sut = $this->getSut();
         $actual = $sut->getActiveNotificationsByUser($user);
+        return $actual;
+    }
+
+    /**
+     * @return array
+     */
+    private function exerciseUserNotifications($expected)
+    {
+        $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
+        $this->userRepository_double->find($userId->id())->willReturn(true);
+        $this->notificationsRepository_double->findAll()->willReturn($this->getNotifications());
+        $this->userNotificationsRepository_double->add(Argument::any())->shouldBeCalled();
+        $entityManager_stub = $this->getEntityManagerDouble();
+        return array($expected, $userId, $entityManager_stub);
+    }
+
+    /**
+     * @return mixed
+     */
+    private function exerciseNotifications($return)
+    {
+        $this->userNotificationsRepository_double->findBy(['active'       => true,
+                                                           'notification' => NotificationType::NOTIFICATION_LAST_DRAW
+
+        ])->willReturn($return);
+        $sut = $this->getSut();
+        $actual = $sut->getActiveNotificationsByType(NotificationType::NOTIFICATION_LAST_DRAW);
         return $actual;
     }
 

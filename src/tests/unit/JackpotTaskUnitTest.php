@@ -57,7 +57,6 @@ class JackpotTaskUnitTest extends UnitTestBase
     {
         $today = new \DateTime('2015-06-12 10:37:08');
         $lottery_name = 'EuroMillions';
-
         $this->lotteryDataService_double->getLastDrawDate($lottery_name,$today)->willReturn(new \DateTime('2015-06-09 20:00:00'));
         $this->lotteryDataService_double->updateNextDrawJackpot($lottery_name,new \DateTime('2015-06-09 19:59:00'))->shouldBeCalled();
         $sut = new JackpotTask();
@@ -75,10 +74,11 @@ class JackpotTaskUnitTest extends UnitTestBase
         $lottery_name = 'EuroMillions';
         $notifications = [$this->getUserNotifications()];
         $jackpot_amount = new Money(40000000, new Currency('EUR'));
+        $this->lotteryDataService_double->getNextDateDrawByLottery($lottery_name)->willReturn(new \DateTime());
         $this->lotteryDataService_double->getNextJackpot($lottery_name)->willReturn($jackpot_amount);
         $this->userService_double->getActiveNotificationsTypeJackpot()->willReturn(new ActionResult(true,$notifications));
         $this->userService_double->getUser($this->getUser()->getId())->willReturn($this->getUser());
-        $this->emailService_double->sendTransactionalEmail(Argument::type($this->getEntitiesToArgument('User')), 'jackpot-rollover')->shouldBeCalledTimes(1);
+        $this->emailService_double->sendTransactionalEmail(Argument::type($this->getEntitiesToArgument('User')), Argument::type('EuroMillions\web\emailTemplates\IEmailTemplate'))->shouldBeCalledTimes(1);
         $sut = new JackpotTask();
         $sut->initialize($this->lotteryDataService_double->reveal(),$this->userService_double->reveal(), $this->emailService_double->reveal());
         $sut->reminderJackpotAction();
