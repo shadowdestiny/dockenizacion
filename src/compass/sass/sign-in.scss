@@ -11,27 +11,30 @@
 	.h3{display:inline-block; margin:0;}
 	.tab{
 		border-radius:5px 5px 0 0; float:left; padding:13px 26px; text-align:center; border-bottom:0;
-		p{margin-bottom:.5em;}
+		/*p{margin-bottom:.5em;}*/
 	}
 	.small{margin:1em; text-align:center; font-size:$small; color:$grey; line-height:$h2;}
 	.label{float:left;}
 	.tabs-menu{position:relative; margin-bottom:-1px;}
 }
 .padding{margin:15px;}
-.padding h1{text-align:center; color:$yellow-dark;}
+/*.padding h1{text-align:center; color:$yellow-dark;}*/
 
+/* Temporary removed
 .connect{
 	.ico{float:left; font-size:24px; position:relative;}
 	.v-facebook{left:-6px; top:-2px;}
 	.v-google-plus{top:1px;}
 }
-
+*/
 .sign{
 	.btn.big, .input, .select{width:100%; margin-bottom:.8em; font-size:$h4;}
+/* Temporarely removed
 	.or{font-weight:700; color:$grey; background:#fff; padding:0 8px;}
 	.bg-or{position:absolute; top:-12px; left:0; width:100%;}
 	.separator{position:relative;}
 	.hr{margin:1em 0 1.5em;}
+*/
 	.label{text-align:left!important;}
 	.label .txt{display:inline-block; margin-left:3px;}
 	.tab-content .cols{margin:0 0 1em;}
@@ -42,9 +45,12 @@
 
 .my-left, .my-right{margin-top:100px;}
 
-.box-basic.email{width:100%;}
-
-.forgot-psw .input{width:100%;}
+/*.box-basic.email{width:100%;}
+*/
+.forgot-psw{
+	.input{width:100%;}
+	.v-arrow-right{margin-left:8px;}
+}
 .generate-psw .box-basic{
 	.my-left, .my-right{margin-top:2px;}
 	.my-right{font-size:$basic-size;}
@@ -83,9 +89,4 @@
 		.input{width:100%;}
 		.submit{margin-right:0;}
 	}
-}
-
- 
-/* Custom, iPhone Retina */
-@media only screen and (max-width:320px){
 }
