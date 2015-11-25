@@ -107,6 +107,11 @@ class Lottery extends EntityBase implements IEntity
         return $this->getDrawDate($now, 'Next');
     }
 
+    public function getRecurringIntervalDrawDate($iteration = 5, \DateTime $now = null)
+    {
+        return $this->getRecurrentDraw($iteration, $now);
+    }
+
     private function getDateWithDrawTime(\DateTime $date)
     {
         return new \DateTime($date->format("Y-m-d {$this->draw_time}"));
@@ -258,6 +263,22 @@ class Lottery extends EntityBase implements IEntity
             default:
                 return false; //throw instead?
         }
+    }
+
+    private function getRecurrentDraw($iteration = 5, \DateTime $now = null)
+    {
+        if( !$now ) {
+            $now = new \DateTime();
+        }
+
+        $drawDates = [];
+        for($i=0; $i < $iteration; $i++){
+            if($i == 0) $lastDraw = $now;
+            /** @var \DateTime $lastDraw */
+            $lastDraw = $this->getDrawDate($lastDraw, 'Next');
+            $drawDates[] = [ date('w',$lastDraw->getTimestamp()) => $lastDraw->format('d M Y')];
+        }
+        return $drawDates;
     }
 
 }

@@ -151,7 +151,6 @@ $(function(){
     selectFix();
     try{
         document.createEvent('TouchEvent');
-        alert('mobile');
         var attachFastClick = Origami.fastclick;
         attachFastClick(document.body); // It removes the delay of 300ms on mobile browsers because of double tap
     }catch(e){
