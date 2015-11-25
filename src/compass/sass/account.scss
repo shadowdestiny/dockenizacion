@@ -1,6 +1,14 @@
 @import "variable";
 @import "_elements/with-subnav.scss";
 @import "_elements/paging.scss";
+#content .content{
+    .input{width:100%;}
+    .label{font-weight:700; margin-bottom:3px;}
+    .asterisk{color:$red;}
+    .wrap{margin-right:-20px;}
+    .cols > div{border-right:20px solid transparent}
+    .cols{margin-bottom:20px;}
+}
 
 .account{
     .label{font-size:$basic-size;}
@@ -199,8 +207,12 @@
 }
 }
 
-
 @media only screen and (max-width:768px){
+#content .content{
+    .wrap{margin:0;}
+    .cols{margin:0;}
+    .cols > div{margin-bottom:10px;}
+}
 .games{
     .table{
         th, td{padding:3px 8px;} 

@@ -37,7 +37,7 @@ blockquote:before, blockquote:after,q:before, q:after{content:''; content:none;}
 select{padding:5px; border:1px solid $grey-light; line-height:30px; /*Safari need line-height*/}
 button{cursor:pointer;}
 hr{border:0; background:$grey-light; height:1px; margin-bottom:1em;}
-hr.yellow{background:$yellow;}
+hr.yellow{background:$yellow; margin:0 -15px;}
 .radio{margin-left:0;}
 
 .no-li{list-style-type:none;}
