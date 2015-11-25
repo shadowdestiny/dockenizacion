@@ -40,6 +40,8 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
 
     private $authService_double;
 
+    private $emailService_double;
+
 
     protected function getEntityManagerStubExtraMappings()
     {
@@ -61,6 +63,7 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
         $this->playStorageStrategy_double = $this->getInterfaceDouble('IPlayStorageStrategy');
         $this->userRepository_double = $this->getRepositoryDouble('UserRepository');
         $this->authService_double = $this->getServiceDouble('AuthService');
+        $this->emailService_double = $this->getServiceDouble('EmailService');
         parent::setUp();
     }
 
@@ -136,7 +139,7 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
 
 
     private function getSut(){
-        $sut = $this->getDomainServiceFactory()->getPriceCheckoutService($this->lotteryDataService_double->reveal());
+        $sut = $this->getDomainServiceFactory()->getPriceCheckoutService($this->lotteryDataService_double->reveal(), null, $this->emailService_double->reveal());
         return $sut;
     }
 

@@ -41,15 +41,12 @@ class JackpotRolloverEmailTemplateUnitTest extends UnitTestBase
 
     private function getArrayContentTemplateJackpot()
     {
-
         $next_draw_day = new \DateTime();
         $jackpot_amount = new Money(10000, new Currency('EUR'));
         $draw_day_format_one = $next_draw_day->format('l');
         $draw_day_format_two = $next_draw_day->format('j F Y');
-        $date = new \DateTime();
 
         return $vars = [
-            'header'  => $date->format('j M Y'),
             'template'=> 'jackpot-rollover',
             'subject' => 'Jackpot',
             'vars' =>

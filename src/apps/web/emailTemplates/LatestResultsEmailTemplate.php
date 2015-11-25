@@ -18,10 +18,7 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
         $jackpot = $this->lotteriesDataService->getLastJackpot('EuroMillions');
         $last_draw_date = $this->lotteriesDataService->getLastDrawDate('EuroMillions')->format('j F Y');
 
-        $header = $this->emailTemplate->loadVars();
-        //vars email template
         $vars = [
-            'header'  => $header['date'],
             'template' => 'latest-results',
             'subject' => 'Latest results',
             'vars' =>
@@ -66,5 +63,15 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
     public function setBreakDownList($break_down_list)
     {
         $this->break_down_list = $break_down_list;
+    }
+
+    public function loadHeader()
+    {
+        return $this->emailTemplate->loadHeader();
+    }
+
+    public function loadFooter()
+    {
+        return $this->emailTemplate->loadFooter();
     }
 }

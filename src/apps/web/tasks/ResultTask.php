@@ -100,8 +100,7 @@ class ResultTask extends TaskBase
             $users_notifications = $user_notifications_result->getValues();
             foreach($users_notifications as $user_notification) {
                 if($user_notification->getConfigValue()->getValue()) {
-                    $vars = $this->getVarsToEmailTemplate($break_down_list);
-                    $this->emailService->sendTransactionalEmail($user_notification->getUser(),'latest-results',$vars);
+                    $this->emailService->sendTransactionalEmail($user_notification->getUser(),$emailTemplate);
                 }
             }
         }

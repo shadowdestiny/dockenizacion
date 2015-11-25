@@ -44,10 +44,8 @@ class LowBalanceEmailTemplateUnitTest extends UnitTestBase
         $jackpot= new Money(10000, new Currency('EUR'));
         $draw_day_format_one = $next_draw_day->format('l');
         $draw_day_format_two = $next_draw_day->format('j F Y');
-        $date = new \DateTime();
 
         $vars = [
-            'header' => $date->format('j M Y'),
             'template' => 'low-balance',
             'subject' => 'Low balance',
             'vars' =>
