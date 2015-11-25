@@ -11,7 +11,7 @@ ol{margin-left:20px;}
 ol ol{margin-left:0;}
 .terms{
     .n{float:left; font-style:italic;}
-    .txt{display:table;}
+    .content .txt{display:table;}
     .numbered p{clear:both; margin-bottom:.5em;}
     .gap{
         margin-left:20px;
@@ -21,10 +21,8 @@ ol ol{margin-left:0;}
         margin:0 0 15px 30px;
         .n{width:45px;}
     }
-
     .gap .gap .gap{
         margin-left:47px;
         .n{width:55px;}
     }
-
 }

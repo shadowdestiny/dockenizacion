@@ -20,7 +20,7 @@
         <div class="box-basic content">
             <div class="my-account" {% if which_form == 'index' %} style="display: block" {%  else %} style="display: none" {% endif %}>
 
-                <h1 class="h1 title yellow">{{ language.translate("My Account") }}</h1>
+                <h1 class="h1 title yellow">{{ language.translate("Account") }}</h1>
                 <h2 class="h3 yellow">{{ language.translate("User detail") }}</h2>
 
                 {{ form('account/index') }}

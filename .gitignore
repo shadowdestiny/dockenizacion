@@ -23,6 +23,7 @@ src/apps/admin/assets/compiled_templates/*
 src/apps/admin/logs/*
 !src/apps/admin/logs/README.md
 src/vendor/*
+src/node_modules/*
 src/.phalcon/*
 src/.sass-cache/*
 !src/.sass-cache/README.md

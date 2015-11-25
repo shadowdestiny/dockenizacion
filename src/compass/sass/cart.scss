@@ -34,7 +34,7 @@
 .names{
   position:relative; top:7px; color:$grey; text-transform:uppercase; font-size:$h4;
   li{float:left;}
-  .active{font-weight:bold; color:$purple;}
+  .active{font-weight:700; color:$purple;}
   .step1{margin-left:10px;}
   .step2{margin-left:90px;}
   .step3{float:right; margin-right:10px;}  
@@ -49,15 +49,15 @@
   .purchase{width:100%; text-align:center; font-size:$h3;}
   .row{border-top:1px solid $grey-light; padding:10px 0;}
   .sub-txt{margin:1em 0 .5em;}
-  .desc{font-weight:bold; float:left; width:70px; font-size:$h3;}
+  .desc{font-weight:700; float:left; width:70px; font-size:$h3;}
   .detail{float:left;}
   .extra{clear:both; padding-top:4px;}
   .box-delete{float:left; width:70px; font-size:$small;}
   .change{font-size:$basic-size; float:right;}
   .type{float:left; width:200px; text-align:left; font-style:italic; font-size:$basic-size;}
-  .summary{font-weight:bold; float:right; margin-left:14px;}
+  .summary{font-weight:700; float:right; margin-left:14px;}
   .box-total{
-    color:$purple; font-weight:bold; border-top:2px solid $purple; padding-top:8px; margin-bottom:.5em; font-size:$h3;
+    color:$purple; font-weight:700; border-top:2px solid $purple; padding-top:8px; margin-bottom:.5em; font-size:$h3;
     .total{float:right;}
   }
   .box-order{
@@ -67,7 +67,7 @@
     }
   }
   .num{width:288px;}
-  .box-value{font-size:$h2; font-weight:bold;}
+  .box-value{font-size:$h2; font-weight:700;}
   .current{margin:0 0 .3em;}
   .buy{float:right; margin-top:6px;}
   .box-bottom{margin-top:1em;}
@@ -76,15 +76,15 @@
 }
 
 .success{
-  .countdown{font-weight:bold; margin-bottom:1em;}
+  .countdown{font-weight:700; margin-bottom:1em;}
   h2.h4{margin-bottom:.3em;}
   .textarea{width:100%; font-size:$basic-size; height:180px; margin-bottom:.5em;}
   .submit{float:right; right:0;}
-  .small-margin{margin-bottom:0.5em;}
+  .small-margin{margin-bottom:.5em;}
   .bg-ticket{
     background:url(../img/cart/ticket.png) no-repeat; font-family:$mono; width:100%; width:340px; max-height:350px;  box-shadow:3px 3px 3px 0 #999; transform:rotate(5deg);
     position:absolute; top:-15px; left:20px;  text-align:center;
-    .title{font-weight:bold; font-size:$h3;}
+    .title{font-weight:700; font-size:$h3;}
   }
   .results{
     padding:10px 20px; overflow:auto; max-height:350px;
@@ -94,11 +94,11 @@
     min-width:302px; float:left; margin-bottom:.4em; overflow:hidden; height:auto; text-align:left;
     li{margin-right:9px;}
     li:nth-child(11n){display:inline-block; border:1px solid transparent; margin-right:0;}
-    .yellow{font-weight:bold;}
+    .yellow{font-weight:700;}
   }
-  .luck{display:inline-block; font-weight:bold;}
+  .luck{display:inline-block; font-weight:700;}
   .box-basic .cols{margin:0;}
-  .txt-logo{color:$purple; font-weight:bold; font-size:$h3; text-align:left; margin:.5em 0;}
+  .txt-logo{color:$purple; font-weight:700; font-size:$h3; text-align:left; margin:.5em 0;}
   .txt-col{padding-right:20px;}
 }
 
