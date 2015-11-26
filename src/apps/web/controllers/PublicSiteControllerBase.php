@@ -45,7 +45,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->userPreferencesService = $userPreferencesService ? $userPreferencesService : $this->domainServiceFactory->getUserPreferencesService();
     }
 
-    public function afterExecuteRoute()
+    public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
         $this->checkAuth();
         $this->setActiveLanguages();
@@ -53,6 +53,11 @@ class PublicSiteControllerBase extends ControllerBase
         $this->setTopNavValues();
         $this->setNavValues();
         $this->setCommonTemplateVariables();
+
+        if($dispatcher->getControllerName() != 'user-access') {
+            $this->session->set('original_referer',$dispatcher->getControllerName().'/'.$dispatcher->getActionName());
+        }
+
     }
 
     public function checkAuth()
