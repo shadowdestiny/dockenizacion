@@ -23,7 +23,7 @@ class NumbersController extends PublicSiteControllerBase
         $breakDownDTO = new EuroMillionsDrawBreakDownDTO($breakDown->getValues());        
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
         $last_result = $this->lotteriesDataService->getLastResult($lotteryName);
-
+        $currency_symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol();
         $last_draw_date = $this->lotteriesDataService->getLastDrawDate($lotteryName);
 
         return $this->view->setVars([
@@ -31,7 +31,8 @@ class NumbersController extends PublicSiteControllerBase
             'jackpot_value' => $jackpot->getAmount()/100,
             'last_result' => $last_result,
             'date_draw' => $date_next_draw->format('Y-m-d H:i:s'),
-            'last_draw_date' => $last_draw_date->format('D, d M Y')
+            'last_draw_date' => $last_draw_date->format('D, d M Y'),
+            'symbol' => $currency_symbol['symbol']
         ]);
     }
 

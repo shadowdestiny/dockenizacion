@@ -1,7 +1,7 @@
 .box-results .numbers{
     margin:0 auto 11px; color:$black;
     li{
-        background:url("../img/sprite.png") no-repeat -75px -70px; height:70px; width:69px; font-weight:bold; line-height:66px; margin-right:3px; position:relative;
+        background:url("../img/sprite.png") no-repeat -75px -70px; height:70px; width:69px; font-weight:700; line-height:66px; margin-right:3px; position:relative;
     }
     li:last-child{margin-right:0;}
     .num{font-size:$h1;}

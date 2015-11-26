@@ -23,7 +23,7 @@ class ControllerBase extends Controller
     }
 
     /**
-     * @param AuthService $authService
+     * @param AuthService $authServicePlay
      * @return User
      */
     protected function forceLogin(AuthService $authService)
@@ -46,8 +46,8 @@ class ControllerBase extends Controller
      */
     public function beforeExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
-        if(empty($this->cookies->get('EM_law')->getValue()) && $dispatcher->getControllerName() != 'index') {
-            $this->cookies->set('EM_law', 'accepted', time() * 15 * 86400);
+        if(empty($this->cookies->has('EM-law')) && $dispatcher->getControllerName() != 'index') {
+            $this->cookies->set('EM-law', 'accepted', time() + 15 * 86400);
         }
     }
 

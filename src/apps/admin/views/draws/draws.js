@@ -37,7 +37,6 @@ var ajaxFunctions = {
                         $tr += '<a href="javascript:void(0)" data-id='+v.id+' class="btn btn-primary">Edit</a>';
                         $tr += '</td>';
                         $tr += '</tr>';
-
                     });
                     $('.table tbody').html('');
                     $('.table tbody').append($tr);
@@ -66,6 +65,7 @@ var ajaxFunctions = {
                     $('#update-star-number').val(model.value.lucky_numbers);
                     $('#update-value').val(model.value.jackpot);
                     $('#id_draw').val(model.value.id);
+                    $('#page').val(model.page);
                     $tr = '';
                     $.each(model.value.break_down,function(i,v){
                         $tr += '<tr>';
@@ -140,7 +140,8 @@ var ajaxFunctions = {
 $(function(){
     $('body').on('click','.action .btn-primary',function(){
         var id = $(this).data('id');
-        params = 'id='+id;
+        var page = $('#page').val();
+        params = 'id='+id+'&page='+page;
         ajaxFunctions.view(params);
     });
     $('.form-draw .btn-primary').on('click',function(){

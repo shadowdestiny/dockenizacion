@@ -6,14 +6,14 @@ section{border:4px solid $grey-light; text-align:left; margin-bottom:2em;}
 section .title{background:$grey; color:#fff; padding:15px 20px;}
 .nav li{border-bottom:1px solid $grey-light;}
 .nav li:last-child{border-bottom:0;}
-.nav a{display:block; font-size:$h3; font-weight:bold; padding:10px; text-decoration:none; line-height:100%;}
+.nav a{display:block; font-size:$h3; font-weight:700; padding:10px; text-decoration:none; line-height:100%;}
 .textarea{width:100%; height:200px;}
 .divider > div{border-right:20px solid transparent;}
 .divider > div:last-child{margin-right:0;}
 .content{margin:20px;}
 .top{position:fixed; top:20px;}
 
-.bg-color{float:left; width:220px; text-align:center; font-weight:bold; padding:15px; color:#fff; margin:0 20px 20px; border-radius:5px; border:1px solid #000;}
+.bg-color{float:left; width:220px; text-align:center; font-weight:700; padding:15px; color:#fff; margin:0 20px 20px; border-radius:5px; border:1px solid #000;}
 
 .blk{color:$black;}
 .black{background:$black;}
@@ -111,7 +111,7 @@ section .title{background:$grey; color:#fff; padding:15px 20px;}
   overflow: hidden !important;
 }
 .syntaxhighlighter .bold {
-  font-weight: bold !important;
+  font-weight: 700 !important;
 }
 .syntaxhighlighter .italic {
   font-style: italic !important;
@@ -124,7 +124,7 @@ section .title{background:$grey; color:#fff; padding:15px 20px;}
 }
 .syntaxhighlighter table caption {
   text-align: left !important;
-  padding: .5em 0 0.5em 1em !important;
+  padding: .5em 0 .5em 1em !important;
 }
 .syntaxhighlighter table td.code {
   width: 100% !important;
@@ -147,7 +147,7 @@ section .title{background:$grey; color:#fff; padding:15px 20px;}
 }
 .syntaxhighlighter table td.gutter .line {
   text-align: right !important;
-  padding: 0 0.5em 0 1em !important;
+  padding: 0 .5em 0 1em !important;
 }
 .syntaxhighlighter table td.code .line {
   padding: 0 1em !important;
@@ -162,7 +162,7 @@ section .title{background:$grey; color:#fff; padding:15px 20px;}
   display: none !important;
 }
 .syntaxhighlighter.collapsed .toolbar {
-  padding: 0.1em 0.8em 0em 0.8em !important;
+  padding: .1em .8em 0 .8em !important;
   font-size: 1em !important;
   position: static !important;
   width: auto !important;
@@ -240,7 +240,7 @@ section .title{background:$grey; color:#fff; padding:15px 20px;}
 }
 .syntaxhighlighter.printing .keyword {
   color: #006699 !important;
-  font-weight: bold !important;
+  font-weight: 700 !important;
 }
 .syntaxhighlighter.printing .preprocessor {
   color: gray !important;
@@ -258,7 +258,7 @@ section .title{background:$grey; color:#fff; padding:15px 20px;}
   color: #0066cc !important;
 }
 .syntaxhighlighter.printing .script {
-  font-weight: bold !important;
+  font-weight: 700 !important;
 }
 .syntaxhighlighter.printing .color1, .syntaxhighlighter.printing .color1 a {
   color: gray !important;
@@ -374,7 +374,7 @@ section .title{background:$grey; color:#fff; padding:15px 20px;}
   color: #0066cc !important;
 }
 .syntaxhighlighter .script {
-  font-weight: bold !important;
+  font-weight: 700 !important;
   color: #006699 !important;
   background-color: none !important;
 }
@@ -389,7 +389,7 @@ section .title{background:$grey; color:#fff; padding:15px 20px;}
 }
 
 .syntaxhighlighter .keyword {
-  font-weight: bold !important;
+  font-weight: 700 !important;
 }
 
 .syntaxhighlighter{

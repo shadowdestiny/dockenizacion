@@ -110,7 +110,7 @@ class PaginationWidget extends \Phalcon\Mvc\User\Component {
        try {
             return $this->getView()->render('_elements/pagination',$params);
         } catch (\Exception $exc) {
-            return;
+
         }
     }
 

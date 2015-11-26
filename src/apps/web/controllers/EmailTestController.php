@@ -127,6 +127,7 @@ class EmailTestController extends PublicSiteControllerBase
         $draw_result = $this->lotteriesDataService->getLastResult('EuroMillions');
         $last_draw_date = $this->lotteriesDataService->getLastDrawDate('EuroMillions')->format('j F Y');
         $config = $this->getDI()->get('config');
+        $date = new \DateTime();
 
         $vars = [
             'jackpot-rollover' => [
@@ -152,6 +153,10 @@ class EmailTestController extends PublicSiteControllerBase
                         [
                             'name'    => 'url_play',
                             'content' => $config->domain['url'] . 'play'
+                        ],
+                        [
+                            'name' => 'date_header',
+                            'content' => $date->format('j M Y')
                         ]
                     ]
             ],
@@ -178,6 +183,10 @@ class EmailTestController extends PublicSiteControllerBase
                         [
                             'name'    => 'lucky_numbers',
                             'content' => $draw_result['lucky_numbers']
+                        ],
+                        [
+                            'name' => 'date_header',
+                            'content' => $date->format('j M Y')
                         ]
                     ]
             ],
@@ -200,7 +209,11 @@ class EmailTestController extends PublicSiteControllerBase
                             [
                                 'name' => 'url_add_funds',
                                 'content' => $config->domain['url'] . 'account/wallet'
-                            ]
+                            ],
+                        [
+                            'name' => 'date_header',
+                            'content' => $date->format('j M Y')
+                        ]
                     ]
             ],
             'long-play-is-ended' => [
@@ -214,6 +227,10 @@ class EmailTestController extends PublicSiteControllerBase
                         [
                             'name'    => 'url_play',
                             'content' => $config->domain['url'] . 'play'
+                        ],
+                        [
+                            'name' => 'date_header',
+                            'content' => $date->format('j M Y')
                         ]
                     ]
             ],
@@ -236,6 +253,10 @@ class EmailTestController extends PublicSiteControllerBase
                         [
                             'name'    => 'url_account',
                             'content' => $config->domain['url'] . 'account/wallet'
+                        ],
+                        [
+                            'name' => 'date_header',
+                            'content' => $date->format('j M Y')
                         ]
                     ]
             ],
@@ -258,6 +279,10 @@ class EmailTestController extends PublicSiteControllerBase
                         [
                             'name'    => 'url_account',
                             'content' => $config->domain['url'] . 'account/wallet'
+                        ],
+                        [
+                            'name' => 'date_header',
+                            'content' => $date->format('j M Y')
                         ]
                     ]
             ]

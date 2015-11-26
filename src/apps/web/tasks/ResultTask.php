@@ -39,14 +39,6 @@ class ResultTask extends TaskBase
     /** @var  CurrencyService */
     private $currencyService;
 
-    private $break_down_json;
-
-    private $draw_result;
-
-    private $jackpot;
-
-    private $last_draw_date;
-
     public function initialize(LotteriesDataService $lotteriesDataService = null, PlayService $playService= null, EmailService $emailService = null, UserService $userService = null, CurrencyService $currencyService = null)
     {
         parent::initialize();
@@ -72,9 +64,11 @@ class ResultTask extends TaskBase
         if($draw->success()){
             $break_down_list = new EuroMillionsDrawBreakDownDTO($draw->getValues());
         }
+
         $emailTemplate = new EmailTemplate();
         $emailTemplate = new LatestResultsEmailTemplate($emailTemplate);
         $emailTemplate->setBreakDownList($break_down_list);
+
         $result_play_config = $this->playService->getPlaysConfigToBet($today);
         if($result_play_config->success() && !empty($break_down_list)){
             /** @var PlayConfig[] $play_config_list */
@@ -82,6 +76,7 @@ class ResultTask extends TaskBase
             foreach($play_config_list as $play_config){
                 /** @var User $user */
                 $user = $this->userService->getUser($play_config->getUser()->getId());
+               // $break_down_list->convertCurrency($user->getBalance()->getCurrency());
                 $user_notifications_result = $this->userService->getActiveNotificationsByUserAndType($user, NotificationType::NOTIFICATION_RESULT_DRAW);
                 if($user_notifications_result->success()) {
                     /** @var UserNotifications[] $user_notifications */

@@ -1,41 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        {% include "_elements/meta.volt" %} {# META tags #}
-        {% include "_elements/js-lib.volt" %} {# JS libraries #}
+        {% include "/_elements/meta.volt" %} {# META tags #}
 
-        <script src="/w/js/style-guide/shCore.js"></script>
-        <script src="/w/js/style-guide/shBrushXml.js"></script>
-        <script src="/w/js/style-guide/shAutoloader.js"></script>
-        <script>
-            $(function(){
-                SyntaxHighlighter.all()
-
-                var target = $(".nav").offset().top,
-                    timeout = null;
-
-                $(window).scroll(function(){
-                    if (!timeout){
-                        timeout = setTimeout(function() {
-                            console.log('scroll');            
-                            clearTimeout(timeout);
-                            timeout = null;
-                            if ($(window).scrollTop() >= target) {
-                                $(".nav").addClass('top');
-                            }else{
-                                $(".nav").removeClass('top');
-                            }
-                        }, 250);
-                    }
-                });
-            });
-        </script>
-
-
+        {# EMTD - we need to move this in the footer, and fix all the inline script #}
+        <script src="/w/js/vendor/jquery-1.11.3.min.js"></script>
 
         <link rel="stylesheet" href="/w/css/main.css"> {# Basic style library #}
 
-        <link rel="stylesheet" href="/w/css/style-guide/style.css"> {# Style of this specific page  #}
+        <link rel="stylesheet" href="/w/css/style/style.css"> {# Style of this specific page  #}
 
         {# FONTS  #}
         <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700'>
@@ -294,5 +267,35 @@
                 </div>
             </div>
         </div>
+
+
+        {% include "/_elements/js-lib.volt" %} {# JS libraries #}
+
+        <script src="/w/js/style-guide/shCore.js"></script>
+        <script src="/w/js/style-guide/shBrushXml.js"></script>
+        <script src="/w/js/style-guide/shAutoloader.js"></script>
+        <script>
+            $(function(){
+                SyntaxHighlighter.all()
+
+                var target = $(".nav").offset().top,
+                    timeout = null;
+
+                $(window).scroll(function(){
+                    if (!timeout){
+                        timeout = setTimeout(function() {
+                            console.log('scroll');            
+                            clearTimeout(timeout);
+                            timeout = null;
+                            if ($(window).scrollTop() >= target) {
+                                $(".nav").addClass('top');
+                            }else{
+                                $(".nav").removeClass('top');
+                            }
+                        }, 250);
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

@@ -6,7 +6,7 @@
   li{display:inline; margin:0 3px;}
   a{text-decoration:none; padding:2px 6px;}
   a:hover, a:focus{background:$yellow; color:#fff;}
-  .active a{font-weight:bold; color:#000; cursor:default; background:$grey-lighter;}
+  .active a{font-weight:700; color:#000; cursor:default; background:$grey-lighter;}
   .disable a{color:$grey; cursor:default; background:transparent;}
   .prev{margin-right:25px;}
   .next{margin-left:25px;}

@@ -147,7 +147,7 @@ $(function(){
 											{% endif %}
 										</td>
 										<td class="td-winners">{{ break_downs[name]['winners'] }}</td>
-										<td class="td-prize">&euro; {{ break_downs[name]['lottery_prize'] | number_format(2, ',', '.') }}</td>
+										<td class="td-prize">{{ symbol }} {{ break_downs[name]['lottery_prize'] | number_format(2, ',', '.') }}</td>
 										<td class="td-payout">-</td>
 									{% endif %}
 									</tr>

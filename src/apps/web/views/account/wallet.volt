@@ -68,7 +68,7 @@ $(function(){
             <div class="hidden right back">
                 <a class="btn" href="javascript:void(0);">Go Back</a>
             </div>
-            <h1 class="h1 title yellow">{{ language.translate("My Wallet") }}</h1>
+            <h1 class="h1 title yellow">{{ language.translate("Wallet") }}</h1>
             <div class="box-details {% if which_form == 'edit' %} hidden {% endif %}">
                 <h2 class="h3 yellow">{{ language.translate("Add funds to your wallet") }}</h2>
 {# EMTD - Until we are unable to keep the information of the credit card, this code need to be commented

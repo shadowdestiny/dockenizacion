@@ -17,7 +17,7 @@
 .box-value{display:block;}
 .box-value span{display:inline-block; line-height:100%;}
 .box-value .currency{font-size:$h1; vertical-align:middle; margin-right:5px;}   /*16x1.875 = 30px*/
-.box-value .value{font-size:$h0; font-weight:bold; vertical-align:middle;}      /*16x3.375 = 54px*/
+.box-value .value{font-size:$h0; font-weight:700; vertical-align:middle;}      /*16x3.375 = 54px*/
 
 .box-how{border-bottom:1px solid $yellow; padding-bottom:25px;}
 .box-how ul{padding:20px 20px 0; text-align:center; margin-bottom:1em;}
@@ -45,7 +45,7 @@
 .box-result .lnk{text-decoration:none; display:block; font-size:$basic-size;}
 .box-result .lnk:hover .txt{text-decoration:underline; color:$hover;}
 .box-result .lnk .ico{font-size:75%; margin-left:8px;}
-.box-result .numbers{font-weight:bold; margin-bottom:1em;}
+.box-result .numbers{font-weight:700; margin-bottom:1em;}
 .box-result .numbers.small li{
   text-align:center; width:36px; height:35px; line-height:32px;
   background:url(../img/sprite.png) no-repeat -190px -70px;
@@ -96,7 +96,7 @@
 .box-prize .bg2{@include background-image(linear-gradient(to right top, $purple, $purple-darker));} /* I had to insert a second BG div because mixing @include doesn't work well with multiple background */
 .box-prize .value, .box-prize .currency{font-size:$h1; margin-bottom:5px;}
 .box-prize .box-value{margin:0 0 1em;}
-.box-prize .notes{font-weight:bold; margin-top:10px; font-size:$basic-size; color:$grey;}
+.box-prize .notes{font-weight:700; margin-top:10px; font-size:$basic-size; color:$grey;}
 .box-prize .notes .ico{position:relative; top:1px;}
 .box-prize .btn{margin-bottom:10px;}
 .box-prize{
@@ -105,7 +105,7 @@
 }
 
 .informative{
-  .li-title{font-weight:bold; font-size:$h2; margin-bottom:.5em;}
+  .li-title{font-weight:700; font-size:$h2; margin-bottom:.5em;}
   .h1{margin-bottom:.3em;}
   .cols{margin:0;}
   .box-action{
@@ -125,7 +125,7 @@
      .btn:hover{color:$btn-blue; background:#fff; border:1px solid $btn-blue; text-shadow:0 0 0 transparent;}
   }
   .top{padding:20px; border-radius:5px 5px 0 0; color:#fff; background:url(../img/home/bg-woosh.jpg) no-repeat; font-size:$h3; background-size:cover; line-height:1.4em; margin-bottom:0;}
-  .title{font-size:$h2; font-weight:bold; position:relative; left:5px; color:#fff;}
+  .title{font-size:$h2; font-weight:700; position:relative; left:5px; color:#fff;}
   .gold-pile{display:block; width:412px; height:189px; background:url(../img/home/gold-pile.png) no-repeat center center; margin:5px auto 0; text-align:center;
     .btn{display:block; width:250px; margin:auto;}
     .vector{width:115px; margin-bottom:-18px; max-height:148px;}
@@ -178,7 +178,7 @@
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 992px){
 .box-result .content{width:100%; margin:0;}
-.box-result .woman, .box-estimated .vector, .box-play .awards, .box-how .sub-txt
+.box-result .woman, .box-estimated .vector, .box-play .awards, .box-how .sub-txt, .box-play .ball
 {display:none!important;}
 .box-prize .box-vector{position:absolute; height:0; width:0; overflow:hidden;} /* Vector disappear if I don't use this hiding technique */
 .outbound{width:330px; height:330px; border:10px solid #fff;}
@@ -187,7 +187,6 @@
 .win-millions .pic{width:280px;}
 .box-play .content{margin-top:85px;}
 .box-play .box-ball{margin-top:10px;}
-.box-play .ball{display:none;}
 .box-play .btn{left:0; font-size:$h2;}
 .box-prize{margin:-35px auto 0;}
 .box-prize .col6{width:100%; margin:0;}
@@ -268,19 +267,17 @@
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px){
-.box-how li:after{display:none!important;}
+.box-how li:after, br.mobile{display:none!important;}
 .outbound{width:290px; height:290px; border-width:5px;}
 .outbound:hover, .outbound:focus{border-width:5px;}
 .box-play .btn{font-size:$h4;}
 .box-prize .col6{width:100%; float:none; margin-bottom:0!important;}
-br.mobile{display:none;}
 .phrase{font-size:$h3;}
 }
  
 /* Custom, iPhone Retina */
 @media only screen and (max-width: 320px){
 .box-how li{width:100%; margin:0 0 10px; text-align:center;}
-.box-how .vector{width:60%; display:none;}
+.box-how .vector, .box-play, .box-how li:after{display:none;}
 .box-how li:first-child .vector{display:block!important;}
-.box-play, .box-how li:after{display:none;}
 }

@@ -2,7 +2,7 @@
 {% block template_css %}
     <link rel="stylesheet" href="/w/css/account.css">
 {% endblock %}
-{% block bodyClass %}my-games{% endblock %}
+{% block bodyClass %}games{% endblock %}
 
 {% block header %}
     {% set activeNav='{"myClass": "account"}'|json_decode %}
@@ -18,8 +18,7 @@
                 {% include "account/_nav.volt" %}
             </div>
             <div class="box-basic content">
-                <h1 class="h1 title">{{ language.translate("My Games") }}</h1>
-
+                <h1 class="h1 title">{{ language.translate("Games") }}</h1>
 
                 {% if my_games_actives is empty or my_games_inactives is empty %}
                     <div class="box info">

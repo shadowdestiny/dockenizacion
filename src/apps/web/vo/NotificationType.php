@@ -50,7 +50,7 @@ class NotificationType
                 $result = (is_bool((bool) $value)) ? true : false;
                 break;
             default:
-                throw new InvalidNotificationException;
+                throw new InvalidNotificationException();
         }
         return $result;
     }
