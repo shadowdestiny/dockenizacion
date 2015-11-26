@@ -3,7 +3,7 @@
 /* COLUMN FLUID GRID */
 
 /* Clearfix added to columns */
-.cols:before, .cols:after{content:" "; display:table;}
+.cols:before, .cols:after{content:""; display:table;}
 .cols:after{clear:both;}
 .cols{*zoom:1;} /* IE6/7 */
 
