@@ -64,10 +64,10 @@ class PublicSiteControllerBase extends ControllerBase
     {
         $user_currency = $this->userPreferencesService->getMyCurrencyNameAndSymbol();
         $is_logged = $this->authService->isLogged();
+        $user = $this->authService->getCurrentUser();
         if($is_logged){
-            $user_balance = $this->userService->getBalance($this->authService->getCurrentUser()->getId(), $this->languageService->getLocale());
-            $user = $this->authService->getCurrentUser();
-            $user_balance_raw = $user->getBalance()->getAmount();
+            $user_balance = $this->userService->getBalance($this->authService->getCurrentUser()->getId(), $this->userPreferencesService->getCurrency());
+            $user_balance_raw = $this->currencyService->convert($user->getBalance(),$this->userPreferencesService->getCurrency())->getAmount();
         }else{
             $user_balance = '';
             $user_balance_raw = '';

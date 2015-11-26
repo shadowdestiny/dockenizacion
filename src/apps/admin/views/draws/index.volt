@@ -101,6 +101,7 @@
                             </div>
                             <div class="cl">
                                 <input type="hidden" name="id_draw" id="id_draw" value=""/>
+                                <input type="hidden" name="page" id="page" value="{{ page }}"/>
                                 <a href="javascript:void(0)" class="left btn btn-danger">Cancel</a>
                                 <input type="button" value="Save" class="right btn btn-primary">
                             </div>

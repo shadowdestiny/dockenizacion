@@ -2,7 +2,6 @@
 <script>
 $(function(){
     if($.cookie('EM-law')) {
-
         $('.box-cookies').hide();
     }
 }

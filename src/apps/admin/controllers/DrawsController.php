@@ -43,7 +43,8 @@ class DrawsController extends AdminControllerBase
 
         return $this->view->setVars([
             'draws' => $paginator->getPaginate(),
-            'paginator_view' => $paginator_view
+            'paginator_view' => $paginator_view,
+            'page' => $page
         ]);
     }
 
@@ -51,17 +52,20 @@ class DrawsController extends AdminControllerBase
     {
         $id = $this->request->getPost('id');
         $result = $this->maintenanceDrawService->getDrawById($id);
+        $page  = $this->request->getPost('page');
         if($result->success()) {
             /** @var DrawDTO $draw_dto */
             $draw_dto = new DrawDTO($result->getValues());
             $draw_dto->setRegularNumbers(implode(',',$draw_dto->getRegularNumbers()));
             $draw_dto->setLuckyNumbers(implode(',',$draw_dto->getLuckyNumbers()));
             echo json_encode(['result'=> 'OK',
-                              'value' =>$draw_dto->toArray()
+                              'value' =>$draw_dto->toArray(),
+                              'page'  => $page
             ]);
         }else{
             echo json_encode(['result'=> 'KO',
-                              'value' => $result->errorMessage()
+                              'value' => $result->errorMessage(),
+                              'page'  => $page
             ]);
         }
     }
@@ -84,16 +88,18 @@ class DrawsController extends AdminControllerBase
                     $list_draws_dto[] = new DrawDTO($draw);
                 }
             }
-            $page = (!empty($this->request->getQuery('page'))) ? $this->request->getQuery('page') : 1;
+            $page = (!empty($this->request->getPost('page'))) ? $this->request->getPost('page') : 1;
             $paginator = $this->getPaginatorAsArray($list_draws_dto,self::LIMIT,$page);
 
             if($result->success()){
                 echo json_encode(['result' => 'OK',
-                                  'value'  => $paginator->getPaginate()->items
+                                  'value'  => $paginator->getPaginate()->items,
+                                  'page'   => $page
                 ]);
             } else{
                 echo json_encode(['result' => 'KO',
-                                  'value'  => $paginator->getPaginate()->items
+                                  'value'  => $paginator->getPaginate()->items,
+                                  'page'   => $page
                 ]);
             }
         }
