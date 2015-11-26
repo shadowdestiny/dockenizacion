@@ -1,0 +1,11 @@
+{
+  "testPathDirs": ["react"],
+  "scriptPreprocessor": "node_modules/babel-jest",
+  "unmockedModulePathPatterns": [
+    "node_modules/react",
+    "node_modules/react-dom",
+    "node_modules/react-addons-test-utils"
+  ],
+  "testFileExtensions": ["js", "es6"],
+  "moduleFileExtensions": ["js", "json", "es6"]
+}

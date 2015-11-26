@@ -40,8 +40,14 @@ hr{border:0; background:$grey-light; height:1px; margin-bottom:1em;}
 hr.yellow{background:$yellow; margin:0 -15px;}
 .radio{margin-left:0;}
 
-.no-li{list-style-type:none;}
-.no-li li{margin-bottom:0;}
+.no-li{
+  list-style-type:none;
+  li{margin-bottom:0;}
+}
+.ol, .ul{
+  margin-left:20px;
+  li{margin-bottom:.5em; padding-left:5px;}
+}
 .left{float:left;}
 img.left{margin:0 10px 15px 0;}
 .right{float:right;} 
@@ -236,6 +242,7 @@ body, .submit{font-family:$basic-font;}
 .h5, p, .btn.big, ul.list{font-size:$basic-size;}
 .h6, .small-txt{font-size:$small;}
 #content{font-family:$basic-font;}
+.res{margin-bottom:0;} /* To reset to 0 typographic margins */
 
 /* COLORS */
 .yellow{color:$yellow-dark;}
