@@ -1,8 +1,8 @@
 {% block template_scripts %}
 <script>
 $(function(){
+    if($.cookie('EM-law')) {
 
-    if($.cookie('EM_law')) {
         $('.box-cookies').hide();
     }
 }
