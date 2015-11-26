@@ -15,20 +15,25 @@ var EmSelect = React.createClass({
             classBox: 'styled-select',
             classSelect: 'threshold mySelect',
             disabled: 'false',
-            hidden: 'false',
+            hidden: 'false'
         };
     },
     getInitialState: function() {
         return {
             value: this.props.defaultValue,
-            divText: this.props.defaultText,
+            divText: this.props.defaultText
         };
     },
     handleChange: function(event) {
-        if (this.props.onChange && this.props.onChange(event) !== false) {
+        if (this.props.onChange == undefined || this.props.onChange(event) !== false) {
+            console.log('handleChange2');
             this.setState({
                 value: event.target.value,
                 divText: event.target.selectedOptions[0].text
+            });
+        } else {
+            this.setState({
+                value: this.state.value
             });
         }
     },

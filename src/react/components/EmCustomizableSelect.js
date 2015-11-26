@@ -1,5 +1,5 @@
 var React = require('react');
-var EmSelect = require('../em_select/main.js');
+var EmSelect = require('./EmSelect.js');
 
 var EmCustomizableSelect = React.createClass({
     getInitialState: function () {

@@ -104,7 +104,8 @@ class UserAccessController extends ControllerBase
                 if (!$register_result->success()) {
                     $errors[] = $register_result->errorMessage();
                 } else {
-                    return $this->response->redirect($this->request->getHTTPReferer());
+                    $url_redirect = $this->session->get('original_referer');
+                    return $this->response->redirect($url_redirect);
                 }
             }
         }

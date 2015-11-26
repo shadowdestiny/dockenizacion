@@ -67,6 +67,45 @@ EOF;
         );
     }
 
+    public function sendLog($name, $type, $message, $time)
+    {
+        var_dump($name, $type, $message);die();
+        try{
+            $this->mailServiceApi->send(
+                $this->mailConfig['from_name'],
+                $this->mailConfig['from_address'],
+                [
+                    [
+                        'email' => 'rmrbest@gmail.com',
+                        'name'  => 'Contact',
+                        'type'  => 'to',
+                    ]
+
+                ],
+                'Error log',
+                '',
+                [
+                    [
+                        'name'    => 'title',
+                        'content' => $name
+                    ],
+                    [
+                        'name'    => 'subtitle',
+                        'content' => $type
+                    ],
+                    [
+                        'name'    => 'main',
+                        'content' => $message,
+                    ],
+                ],
+                [],
+                'simple',
+                []
+            );
+        }catch(\Exception $e){
+            throw $e;
+        }
+    }
 
     public function sendTransactionalEmail(User $user, IEmailTemplate $emailTemplate)
     {
@@ -118,7 +157,6 @@ EOF;
                     'name'  => $user->getSurname() . ', ' . $user->getName(),
                     'type'  => 'to',
                 ]
-
             ],
             'Confirm your email',
             '',
