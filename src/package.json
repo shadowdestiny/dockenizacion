@@ -9,6 +9,13 @@
     "watchify": "^3.6.1"
   },
   "scripts": {
+    "test": "node node_modules/jest-cli/bin/jest.js --config=jest-config.json",
     "watch": "node node_modules/watchify/bin/cmd.js -t [ babelify --presets [ react ] ] react/play.js -o public/w/js/react/play.js --poll=1000"
+  },
+  "devDependencies": {
+    "babel-jest": "^6.0.1",
+    "babel-preset-react": "^6.1.18",
+    "jest-cli": "^0.8.0",
+    "react-addons-test-utils": "^0.14.3"
   }
 }
