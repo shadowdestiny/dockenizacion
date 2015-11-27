@@ -164,8 +164,12 @@ $(function(){
         $(this).toggleClass('expanded').siblings('ul').slideToggle().toggleClass('open');
     });
 
-    if($.cookie('EM-law')){ //First time visitor, load cookies
-        $('.box-cookies').hide();
+    var first_page = (new Date().valueOf() - $.cookie('lastSeen') > 0);
+    if($.cookie('EM-law') && first_page){ //First time visitor, load cookies
+        $('.box-cookies').remove();
+    }
+    if(!$.cookie('lastSeen')) {
+        $.cookie('lastSeen', new Date().valueOf());
     }
 });
 
