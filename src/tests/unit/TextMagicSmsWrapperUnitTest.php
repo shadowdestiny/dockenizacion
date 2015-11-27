@@ -35,6 +35,17 @@ class TextMagicSmsWrapperUnitTest extends UnitTestBase
         $sut->send($config_data['message'],$config_data['number_phones'],$config_data['is_unicode']);
     }
 
+    /**
+     * method send
+     * when called
+     * should sendSMS
+     */
+    public function test_send_called_sendSMS()
+    {
+
+    }
+
+
     private function getDataToSendSMS()
     {
         return [
@@ -42,7 +53,7 @@ class TextMagicSmsWrapperUnitTest extends UnitTestBase
               'password' => '123456',
               'message'  => 'Error updating result',
               'number_phones' => [
-                  '626966592',
+                  '34626966592',
               ],
               'is_unicode' => true
         ];

@@ -262,7 +262,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $request = $di->get('request');
         $url = new PhalconUrlWrapper();
         $url->setBaseUri($request->getScheme() . '://'.$config->domain['url']);
-        $url->setStaticBaseUri($request->getScheme() . '://'.$config->domain['url']); //EMTD pasar por configuración
+        $url->setStaticBaseUri($request->getScheme() . '://'.$config->domain['url']);
         return $url;
     }
 
