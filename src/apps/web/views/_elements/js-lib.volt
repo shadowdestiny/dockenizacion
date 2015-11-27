@@ -8,6 +8,8 @@ $(document).bind("mobileinit", function(){
     $.mobile.ignoreContentEnabled=true; // Unable disactivation of Jquery behaviour on anchors, by adding on the parent/container of the links  data-ajax="false"
 });
 </script>
+
+
 <script src="/w/js/vendor/jquery.mobile.custom.min.js"></script>
 <script src="/w/js/vendor/picturefill.min.js" async></script>
 <script>

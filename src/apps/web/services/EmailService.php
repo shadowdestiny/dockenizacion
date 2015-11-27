@@ -69,7 +69,7 @@ EOF;
 
     public function sendLog($name, $type, $message, $time)
     {
-        var_dump($name, $type, $message);die();
+       // var_dump($name, $type, $message);die();
         try{
             $this->mailServiceApi->send(
                 $this->mailConfig['from_name'],

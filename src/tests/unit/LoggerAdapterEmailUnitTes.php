@@ -5,7 +5,6 @@ namespace tests\unit;
 
 
 use EuroMillions\web\components\Logger\Adapter\Email as EmailAdapter;
-use EuroMillions\web\services\EmailService;
 use Phalcon\Logger;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
