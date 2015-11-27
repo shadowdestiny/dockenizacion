@@ -22,7 +22,6 @@ use Money\Currency;
 use Money\Money;
 use Phalcon\Di;
 use Phalcon\Logger;
-use TextMagicSMS\TextMagicAPI;
 
 class ResultTask extends TaskBase
 {
@@ -61,22 +60,19 @@ class ResultTask extends TaskBase
             $today = new \DateTime();
         }
 
-        //EMTD logger with sms alert
-       /* $config = $this->di->get('config');
+        //EMTD refactor, DI instead -> loggerService
+        $config = $this->di->get('config');
         $smsAlert = new TextMagicSmsWrapper(['username' => $config->sms['username'],
                                              'password' => $config->sms['password']
-                                            ],
-                                             new TextMagicAPI()
-                                            );
+                                            ]);
 
         $logger = new SmsAdapter('updateResults', $smsAlert, [$config->sms['number']]);
-        $logger->setLogLevel(Logger::ERROR);*/
+        $logger->setLogLevel(Logger::ERROR);
         try{
-            //throw new \Exception('Error updating results');
             $this->lotteriesDataService->updateLastDrawResult('EuroMillions');
             $this->lotteriesDataService->updateLastBreakDown('EuroMillions');
-        } catch( \Exception $e) {
-           // $logger->error($e->getMessage());
+        } catch( \Exception $e ) {
+            $logger->error($e->getMessage());
         }
 
         /** @var EuroMillionsDrawBreakDown $emBreakDownData */

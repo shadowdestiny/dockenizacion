@@ -21,6 +21,11 @@ class TextMagicSmsWrapper implements ISmsServiceApi
 
     public function send($message, array $phone_numbers, $is_unicode)
     {
-        $this->textMagicAPI->send($message, $phone_numbers, $is_unicode);
+        try{
+            $this->textMagicAPI->send($message, $phone_numbers, $is_unicode);
+        }catch( \Exception $e ) {
+            throw new \Exception($e->getMessage());
+        }
+
     }
 }
