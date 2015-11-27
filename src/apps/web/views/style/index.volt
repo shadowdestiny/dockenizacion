@@ -183,104 +183,105 @@
                         <a name="layout"></a>
                         <h1 class="title h2">Layout</h1>
                         <div class="content">
-
-                            <div class="cols">
-                                <div class="col6">
-                                    <div class="box-col1">
-                                        <h2 class="h3">Columns (without margins)</h2>
-                                        <div class="cols">
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
+                            <div class="wrap">
+                                <div class="cols">
+                                    <div class="col6">
+                                        <div class="box-col1">
+                                            <h2 class="h3">Columns (without margins)</h2>
+                                            <div class="cols">
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                            </div>
+                                            <div class="cols">
+                                                <div class="col2">&nbsp;</div>
+                                                <div class="col4">&nbsp;</div>
+                                                <div class="col6">&nbsp;</div>
+                                            </div>
+                                            <div class="cols">
+                                                <div class="col7">&nbsp;</div>
+                                                <div class="col5">&nbsp;</div>
+                                            </div>
+                                            <div class="cols">
+                                                <div class="col8">&nbsp;</div>
+                                                <div class="col4">&nbsp;</div>
+                                            </div>
+                                            <div class="cols">
+                                                <div class="col9">&nbsp;</div>
+                                                <div class="col3">&nbsp;</div>
+                                            </div>
+                                            <div class="cols">
+                                                <div class="col10">&nbsp;</div>
+                                                <div class="col2">&nbsp;</div>
+                                            </div>
+                                            <div class="cols">
+                                                <div class="col11">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                            </div>
+                                            <div class="cols">
+                                                <div class="col12">&nbsp;</div>
+                                            </div>
                                         </div>
-                                        <div class="cols">
-                                            <div class="col2">&nbsp;</div>
-                                            <div class="col4">&nbsp;</div>
-                                            <div class="col6">&nbsp;</div>
-                                        </div>
-                                        <div class="cols">
-                                            <div class="col7">&nbsp;</div>
-                                            <div class="col5">&nbsp;</div>
-                                        </div>
-                                        <div class="cols">
-                                            <div class="col8">&nbsp;</div>
-                                            <div class="col4">&nbsp;</div>
-                                        </div>
-                                        <div class="cols">
-                                            <div class="col9">&nbsp;</div>
-                                            <div class="col3">&nbsp;</div>
-                                        </div>
-                                        <div class="cols">
-                                            <div class="col10">&nbsp;</div>
-                                            <div class="col2">&nbsp;</div>
-                                        </div>
-                                        <div class="cols">
-                                            <div class="col11">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                        </div>
-                                        <div class="cols">
-                                            <div class="col12">&nbsp;</div>
+                                    </div>
+                                    <div class="col6">
+                                        <div class="box-col2">
+                                            <h2 class="h3">Columns (without margins)</h2>
+                                            <div class="cols">
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                            </div>
+                                            <div class="cols">
+                                                <div class="col2">&nbsp;</div>
+                                                <div class="col4">&nbsp;</div>
+                                                <div class="col6">&nbsp;</div>
+                                            </div>
+                                            <div class="cols">
+                                                <div class="col7">&nbsp;</div>
+                                                <div class="col5">&nbsp;</div>
+                                            </div>
+                                            <div class="cols">
+                                                <div class="col8">&nbsp;</div>
+                                                <div class="col4">&nbsp;</div>
+                                            </div>
+                                            <div class="cols">
+                                                <div class="col9">&nbsp;</div>
+                                                <div class="col3">&nbsp;</div>
+                                            </div>
+                                            <div class="cols">
+                                                <div class="col10">&nbsp;</div>
+                                                <div class="col2">&nbsp;</div>
+                                            </div>
+                                            <div class="cols">
+                                                <div class="col11">&nbsp;</div>
+                                                <div class="col1">&nbsp;</div>
+                                            </div>
+                                            <div class="cols">
+                                                <div class="col12">&nbsp;</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col6">
-                                    <div class="box-col2">
-                                        <h2 class="h3">Columns (without margins)</h2>
-                                        <div class="cols">
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                        </div>
-                                        <div class="cols">
-                                            <div class="col2">&nbsp;</div>
-                                            <div class="col4">&nbsp;</div>
-                                            <div class="col6">&nbsp;</div>
-                                        </div>
-                                        <div class="cols">
-                                            <div class="col7">&nbsp;</div>
-                                            <div class="col5">&nbsp;</div>
-                                        </div>
-                                        <div class="cols">
-                                            <div class="col8">&nbsp;</div>
-                                            <div class="col4">&nbsp;</div>
-                                        </div>
-                                        <div class="cols">
-                                            <div class="col9">&nbsp;</div>
-                                            <div class="col3">&nbsp;</div>
-                                        </div>
-                                        <div class="cols">
-                                            <div class="col10">&nbsp;</div>
-                                            <div class="col2">&nbsp;</div>
-                                        </div>
-                                        <div class="cols">
-                                            <div class="col11">&nbsp;</div>
-                                            <div class="col1">&nbsp;</div>
-                                        </div>
-                                        <div class="cols">
-                                            <div class="col12">&nbsp;</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
+                            </div> 
                         </div>
                     </section>
 
