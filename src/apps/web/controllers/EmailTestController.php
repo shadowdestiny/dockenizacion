@@ -4,6 +4,13 @@
 namespace EuroMillions\web\controllers;
 
 
+use EuroMillions\web\emailTemplates\EmailTemplate;
+use EuroMillions\web\emailTemplates\IEmailTemplate;
+use EuroMillions\web\emailTemplates\JackpotRolloverEmailTemplate;
+use EuroMillions\web\emailTemplates\LatestResultsEmailTemplate;
+use EuroMillions\web\emailTemplates\LongPlayEndedEmailTemplate;
+use EuroMillions\web\emailTemplates\LowBalanceEmailTemplate;
+use EuroMillions\web\emailTemplates\WinEmailTemplate;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\ServiceFactory;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDataDTO;
@@ -35,9 +42,10 @@ class EmailTestController extends PublicSiteControllerBase
         ];
         $userEmail = $this->request->getPost('user-email');
         $template = $this->request->getPost('template');
+        $emailTemplate = new EmailTemplate();
+        $emailTemplate = $this->getInstanceDecorator($template,$emailTemplate);
         $this->user = $this->getNewUser($userEmail);
-        $vars = $this->getVarsFromTemplate($template);
-        $this->domainServiceFactory->getServiceFactory()->getEmailService(null,self::$config)->sendTransactionalEmail($this->user,$template,$vars);
+        $this->domainServiceFactory->getServiceFactory()->getEmailService(null,self::$config)->sendTransactionalEmail($this->user,$emailTemplate);
         $this->view->pick('email-test/index');
     }
 
@@ -59,33 +67,31 @@ class EmailTestController extends PublicSiteControllerBase
      * @param $user
      * @return string
      */
-    private function getSubject($template,User $user)
+    private function getInstanceDecorator($template,IEmailTemplate $emailTemplate)
     {
-        $subject = '';
-        $draw_date = $this->domainServiceFactory->getLotteriesDataService()->getLastDrawDate('EuroMillions')->format('Y-m-d');
-        $user_name = $user->getName();
+
+        $instance = null;
         switch($template){
             case 'jackpot-rollover':
-                $subject = 'The Jackpot has surpassed *&euro; 120 millions*';
+                $instance = new JackpotRolloverEmailTemplate($emailTemplate);
                 break;
             case 'latest-results':
-                $subject = 'Latest draw results: ' .$draw_date;
+                $instance = new LatestResultsEmailTemplate($emailTemplate);
                 break;
             case 'low-balance':
-                $subject = 'Your balance is too low, we are unable to process your play';
+                $instance = new LowBalanceEmailTemplate($emailTemplate);
                 break;
             case 'long-play-is-ended':
-                $subject = 'You just finished a long term play';
+                $instance = new LongPlayEndedEmailTemplate($emailTemplate);
                 break;
             case 'win-email':
-                $subject = 'Congratulations ' .$user_name . ', you won the lottery';
+                $instance = new WinEmailTemplate($emailTemplate);
                 break;
             case 'win-email-above-1500':
-                $subject = 'Congratulations ' . $user_name . ', you won the lottery';
+                $instance = new WinEmailTemplate($emailTemplate);
                 break;
         }
-
-        return $subject;
+        return $instance;
     }
 
     private function getNewUser($userEmail)
