@@ -3,8 +3,6 @@ Vagrant.configure(2) do |config|
         v.memory = 2048
     end
     config.vm.box = "ubuntu/vivid64"
-#    config.vm.provision "shell", path: "vagrant_config/install_ansible.sh", privileged: false
-#    config.vm.provision "shell", path: "vagrant_config/provision_with_ansible.sh", run: "always", privileged: false
     config.vm.provision "shell", path: "vagrant_config/provision.sh", privileged: false
     config.vm.provision "shell", path: "vagrant_config/docker-compose.sh", run: "always", privileged: true
     config.vm.provision "shell", path: "vagrant_config/bootstrap.sh", run: "always", privileged: false

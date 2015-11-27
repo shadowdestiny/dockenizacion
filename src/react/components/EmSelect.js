@@ -26,7 +26,6 @@ var EmSelect = React.createClass({
     },
     handleChange: function(event) {
         if (this.props.onChange == undefined || this.props.onChange(event) !== false) {
-            console.log('handleChange2');
             this.setState({
                 value: event.target.value,
                 divText: event.target.selectedOptions[0].text
@@ -38,11 +37,11 @@ var EmSelect = React.createClass({
         }
     },
     render: function () {
-        var options = [];
+        let options = [];
         this.props.options.forEach(function(option) {
             options.push(<option value={option.value} key={option.value}>{option.text}</option>);
         });
-        var box_class = this.props.disabled ? this.props.classBox+' disabled': this.props.classBox;
+        let box_class = this.props.disabled ? this.props.classBox+' disabled': this.props.classBox;
         return (
             <div className={box_class}>
                 <div className={this.props.classDiv}>{this.state.divText}</div>
