@@ -1,6 +1,8 @@
 <?php
 namespace EuroMillions\web\tasks;
 
+use EuroMillions\web\components\logger\Adapter\Sms as SmsAdapter;
+use EuroMillions\web\components\TextMagicSmsWrapper;
 use EuroMillions\web\emailTemplates\LatestResultsEmailTemplate;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\entities\PlayConfig;
@@ -19,6 +21,8 @@ use EuroMillions\web\vo\NotificationType;
 use Money\Currency;
 use Money\Money;
 use Phalcon\Di;
+use Phalcon\Logger;
+use TextMagicSMS\TextMagicAPI;
 
 class ResultTask extends TaskBase
 {
@@ -56,8 +60,25 @@ class ResultTask extends TaskBase
         if(!$today) {
             $today = new \DateTime();
         }
-        $this->lotteriesDataService->updateLastDrawResult('EuroMillions');
-        $this->lotteriesDataService->updateLastBreakDown('EuroMillions');
+
+        //EMTD logger with sms alert
+       /* $config = $this->di->get('config');
+        $smsAlert = new TextMagicSmsWrapper(['username' => $config->sms['username'],
+                                             'password' => $config->sms['password']
+                                            ],
+                                             new TextMagicAPI()
+                                            );
+
+        $logger = new SmsAdapter('updateResults', $smsAlert, [$config->sms['number']]);
+        $logger->setLogLevel(Logger::ERROR);*/
+        try{
+            //throw new \Exception('Error updating results');
+            $this->lotteriesDataService->updateLastDrawResult('EuroMillions');
+            $this->lotteriesDataService->updateLastBreakDown('EuroMillions');
+        } catch( \Exception $e) {
+           // $logger->error($e->getMessage());
+        }
+
         /** @var EuroMillionsDrawBreakDown $emBreakDownData */
         $draw = $this->lotteriesDataService->getBreakDownDrawByDate('EuroMillions',$today);
         $breakdown_list = null;
