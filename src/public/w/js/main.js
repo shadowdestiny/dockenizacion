@@ -164,8 +164,7 @@ $(function(){
         $(this).toggleClass('expanded').siblings('ul').slideToggle().toggleClass('open');
     });
 
-    var cookiestring=RegExp("EM-law"+"[^;]+").exec(document.cookie);
-    if(cookiestring !== '' || cookiestring !== 'undefined'){ //First time visitor, load cookies
+    if($.cookie('EM-law')){ //First time visitor, load cookies
         $('.box-cookies').hide();
     }
 });
