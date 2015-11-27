@@ -185,25 +185,47 @@
                         <div class="content">
                             <div class="cols">
                                 <div class="col6">
+                                    <p>The div <strong>wrapper</strong> is used to define a limit to the width of the page. Its standard max-width size is 1180px, but it will become responsive if the page will result to be smaller, and when getting to mobile size it will expand automatically to the edges of the mobile screen looking like an uniformed background.</p>
+                                    <pre class="brush:html">
+                                        <div id="content">
+                                            <div class="wrapper">...</div> /* Max-Width 1180px  */
+                                        </div>
+                                    </pre>
+                                    <br>
+                                    <p>The div <strong>box-basic</strong> is used to define the style of the container of content, each Box-Basic has a yellow border, with white background and paddings set.</p>
+                                    <p>There are three sizes. Example on how to use it are listed in the code below.</p> 
+
+                                    <pre class="brush:html">
+                                        Used 
+                                        <div class="box-basic">...</div> /* No width defined it adapt to his container */
+
+                                        <div class="box-basic medium">...</div> /* Max-width 760px -  Used in cart area */
+
+                                        <div class="box-basic small">...</div> /* Max-width 400px - Used for Login or Review transaction */
+                                    </pre>
 
                                 </div>
                                 <div class="col6">
+                                    <p>Areas of the project that require a <strong>subnavigation</strong> (like Account and Legal), need to use this code</p>
 
+                                    <pre class="brush:html">
+                                        <div class="wrapper">
+                                            <div class="nav box-basic">
+                                                *Navigation*
+                                            </div>
+                                            <div class="content box-basic">
+                                                *Content*
+                                            </div>
+                                        </div>
+                                    </pre>
+
+                                    <br>
+                                    <p>And import this css in the SASS related style of that area</p>
+                                    <pre class="brush:css">
+                                        @import "_elements/with-subnav.scss";
+                                    </pre>
                                 </div>
                             </div>
-                            <p>wrapper</p>
-                            <p>The main background is defined by the DIV "box-basic". Its standard max-width size is 1180px, but it will become responsive if the page will result to be smaller, and when getting to mobile size it will expand automatically to the edges of the mobile screen looking like an uniformed background.</p>
-                            <p>There are three sizes, every box basic will come with a yellow border a white background and a 15px padding. Example on how to use it are listed in the code below.</p> 
-                            <pre class="brush:html">
-                                Used 
-                                <div class="box-basic">...</div> /* Max-Width 1180px - Used for large content pages */
-
-                                <div class="box-basic medium">...</div> /* Max-width 760px -  */
-
-                                <div class="box-basic small">...</div> /* Max-width 400px - Used for Login or Review transaction */
-                            </pre>
-                            
-                            We are using 3 siz
                         </div>
                     </section>
 
