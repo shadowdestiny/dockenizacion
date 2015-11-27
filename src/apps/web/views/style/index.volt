@@ -206,7 +206,7 @@
 
                                 </div>
                                 <div class="col6">
-                                    <p>Areas of the project that require a <strong>subnavigation</strong> (like Account and Legal), need to use this code</p>
+                                    <p>Areas of the project that require a <strong>subnavigation</strong> (like Account and Legal), need to use this code...</p>
 
                                     <pre class="brush:html">
                                         <div class="wrapper">
@@ -220,7 +220,7 @@
                                     </pre>
 
                                     <br>
-                                    <p>And import this css in the SASS related style of that area</p>
+                                    <p>...and import this css in the SASS related style of that area.</p>
                                     <pre class="brush:css">
                                         @import "_elements/with-subnav.scss";
                                     </pre>
@@ -234,7 +234,47 @@
                         <h1 class="title h2">Columns</h1>
 
                         <div class="content">
-                          <div class="cols">
+                            <h2 class="h3 res">Introduction</h2>
+                            <p>This columns system is developed by me, it is a much lighter solution and very similar to the other famous grid sytem (for example <a href="http://getbootstrap.com/2.3.2/scaffolding.html#gridSystem">Twitter Bootstrap</a>). As the famous system is based on 12 column grid system. Each grid need two main components, a definition of the row "cols" and the definition of the size of the column "col1" or up till "col12". The number signify what proportion of the slice of the whole area you want to reserve. The mosts important feature about this column system is that the columns are fluid and they are a perfect use for building a responsive website. The important thing is to keep always the sum of all the number of the columns to be equal to 12 so that the whole space is divided to fill the whole area.</p>
+
+                            <div class="cols">
+                                <div class="col6">
+                                    <p>Some example code</p>
+                                    <pre class="brush:html">
+                                        /* This example show how divide a space in 3 parts */
+                                        <div class="cols">
+                                            <div class="col4"></div>
+                                            <div class="col4"></div>
+                                            <div class="col4"></div>
+                                        </div>
+
+                                        /* This example show how divide a space in 3 parts but different sizes */
+                                        <div class="cols">
+                                            <div class="col2"></div>
+                                            <div class="col4"></div>
+                                            <div class="col6"></div>
+                                        </div>
+                                    </pre>
+                                </div>
+                                <div class="col6">
+                                    <p>The <strong>only exception</strong> to this rule it is the "col20per" or "Column 20 percent". because 12 it is not a space divisible by 5, I created this class name just for that</p>
+                                    <pre class="brush:html">
+                                        /* This example show how divide a space in 5 parts */
+                                        <div class="cols">
+                                            <div class="col20per"></div>
+                                            <div class="col20per"></div>
+                                            <div class="col20per"></div>
+                                            <div class="col20per"></div>
+                                            <div class="col20per"></div>
+                                        </div>
+                                    </pre>
+                                </div>
+                            </div>
+                            <br>
+                            <hr class="hr">
+
+                            <p>Here some example to show how easy it is to construct a grid system, with and without margins.</p>
+                            <div class="cols res">
                                 <div class="col6">
                                     <div class="box-col1">
                                         <h2 class="h3">Columns (without margins)</h2>
@@ -281,7 +321,10 @@
                                             <div class="col12">&nbsp;</div>
                                         </div>
                                     </div>
+
                                 </div>
+                               
+
                                 <div class="col6">
                                     <div class="box-col2">
                                         <h2 class="h3">Columns (with margins)</h2>
@@ -328,13 +371,32 @@
                                             <div class="col12">&nbsp;</div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div> 
+                            <p>The only difference between the two system is in the css, if you want add a margin to your column you have two choices:
+                                
+                                <div class="cols">
+                                    <div class="col6">
+                                        <h3 class="h4">Margin with Padding</h2>
+                                        If you don't have any background colors applied to the col, simply use a padding right that points at the col* (* = number)</p>
 
+                                        <pre class="brush:css">
+                                            /* ".content" it is the name of your div wrapper */
+                                            .content > .cols > .col6{padding-right:20px;}
+                                            .content > .cols > .col6:last-child{padding-right:0;}
+                                        </pre>
+                                    </div>
+                                    <div class="col6">
+                                        <p>*bla bla bla*</p>
+                                        <pre class="brush:css">
+                                            .content{margin-right:-20px;}
+                                            .content > .cols > .col6{border-right:20px solid transparent;}
+                                        </pre>
+                                    </div>
+                                </div>
 
                             <hr class="hr">
-
-                          xxxx
 
                         </div>
                     </section>
