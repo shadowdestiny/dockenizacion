@@ -22,7 +22,7 @@
 
             <div class="cols divider">
                 <div class="col2">
-                    <ul class="nav no-li">
+                    <ul class="nav no-li" data-ajax="false">
                         <li><a href="#overview">Overview</a></li>
                         <li><a href="#breakpoints">CSS Media Queries</a></li>
                         <li><a href="#layout">Layout</a></li>
@@ -185,6 +185,35 @@
                         <div class="content">
                             <div class="cols">
                                 <div class="col6">
+
+                                </div>
+                                <div class="col6">
+
+                                </div>
+                            </div>
+                            <p>wrapper</p>
+                            <p>The main background is defined by the DIV "box-basic". Its standard max-width size is 1180px, but it will become responsive if the page will result to be smaller, and when getting to mobile size it will expand automatically to the edges of the mobile screen looking like an uniformed background.</p>
+                            <p>There are three sizes, every box basic will come with a yellow border a white background and a 15px padding. Example on how to use it are listed in the code below.</p> 
+                            <pre class="brush:html">
+                                Used 
+                                <div class="box-basic">...</div> /* Max-Width 1180px - Used for large content pages */
+
+                                <div class="box-basic medium">...</div> /* Max-width 760px -  */
+
+                                <div class="box-basic small">...</div> /* Max-width 400px - Used for Login or Review transaction */
+                            </pre>
+                            
+                            We are using 3 siz
+                        </div>
+                    </section>
+
+                    <section>
+                        <a name="columns"></a>
+                        <h1 class="title h2">Columns</h1>
+
+                        <div class="content">
+                          <div class="cols">
+                                <div class="col6">
                                     <div class="box-col1">
                                         <h2 class="h3">Columns (without margins)</h2>
                                         <div class="cols">
@@ -279,22 +308,6 @@
                                     </div>
                                 </div>
                             </div> 
-                        </div>
-                    </section>
-
-                    <section>
-                        <a name="columns"></a>
-                        <h1 class="title h2">Columns</h1>
-
-                        <div class="content">
-                            <div class="cols">
-                                <div class="col6">
-                                  xxx
-                                </div>
-                                <div class="col6">
-                                  xxxx
-                                </div>
-                            </div>
 
 
                             <hr class="hr">
