@@ -55,9 +55,10 @@ section{border:1px solid $grey; background:#f3f3f3;  border-radius:5px; text-ali
 
 .box-col1 .cols > div, .box-col2 .cols > div{background:$grey-dark;}
 .box-col1 .cols > div:nth-child(2n), .box-col2 .cols > div:nth-child(2n){background:#f00;}
-.box-col2{position:relative; margin-right:-20px;}
-.box-col2 .cols > div{border-right:20px solid #F3F3F3;}
+.box-col2, .col-height{position:relative; margin-right:-20px;}
+.box-col2 .cols > div, .col-height > .cols > div{border-right:20px solid #F3F3F3;}
 
+.col-height > .cols > div{background:#4CCFFF; padding:20px;}
 
 @media only screen and (max-width:1200px){
 .content > .cols > .col6{float:none; width:100%; display:block;}

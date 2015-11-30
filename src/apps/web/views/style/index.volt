@@ -374,30 +374,50 @@
 
                                 </div>
                             </div> 
-                            <p>The only difference between the two system is in the css, if you want add a margin to your column you have two choices:
+                            <p>The only difference between the two system is in the css, not in the html. Adding a margin to columns can be done in two ways, using Padding or Margin depending if the columns have a coloured background or not.</p>
                                 
-                                <div class="cols">
-                                    <div class="col6">
-                                        <h3 class="h4">Margin with Padding</h2>
-                                        If you don't have any background colors applied to the col, simply use a padding right that points at the col* (* = number)</p>
+                            <div class="cols">
+                                <div class="col6">
+                                    <h3 class="h4">Using Padding</h3>
+                                    <p>If you don't have any background colors applied to the col, simply use a padding right that points at the col* (* = number). Yhis is the preferred method.</p>
 
-                                        <pre class="brush:css">
-                                            /* ".content" it is the name of your div wrapper */
-                                            .content > .cols > .col6{padding-right:20px;}
-                                            .content > .cols > .col6:last-child{padding-right:0;}
-                                        </pre>
-                                    </div>
-                                    <div class="col6">
-                                        <p>*bla bla bla*</p>
-                                        <pre class="brush:css">
-                                            .content{margin-right:-20px;}
-                                            .content > .cols > .col6{border-right:20px solid transparent;}
-                                        </pre>
-                                    </div>
+                                    <pre class="brush:css">
+                                        /* ".nameWrapper" it is the name of your div wrapper */
+                                        .nameWrapper > .cols > div{padding-right:20px;}
+                                        .nameWrapper > .cols > div:last-child{padding-right:0;}
+                                    </pre>
+
+                                    <pre class="brush:html">
+                                        <div class="nameWrapper">
+                                            <div class="cols">
+                                                <div class="col2"></div> 
+                                                <div class="col4"></div> 
+                                                <div class="col8"></div> 
+                                            </div>
+                                        </div>
+                                    </pre>
                                 </div>
+                                <div class="col6">
+                                    <h3 class="h4">Using Margin</h3>
+                                    <p>If you instead have a coloured background specifically limited to the width of the column, than use this method.</p>
+                                    <pre class="brush:css">
+                                        .nameWrapper{margin-right:-20px;}
+                                        .nameWrapper > .cols > div{border-right:20px solid transparent;} /*The color of the border need to match the background color*/
+                                    </pre>
+                                </div>
+                            </div>
 
                             <hr class="hr">
 
+                            <h3 class="h4">Column height</h3>
+                            <p>By default any cols system is used, the columns will have same height, to keep an equally aligned design. Here you can see an example. As you notice even when padding is applied the height doesn't change.</p>
+                            <div class="col-height">
+                                <div class="cols">
+                                    <div class="col4">Lorem ipsum dolor sit amet, in at morbi in lacus cursus a, consequat magna, neque donec, sit at sit, morbi elit justo volutpat sodales. Lorem ullamcorper volutpat nulla in, quas sed tempor arcu nam consequat, suscipit sit non massa suscipit a eleifend, interdum lacinia morbi ligula etiam, sagittis quis maecenas non donec. Auctor luctus et at nec ut et, cum lacinia aliquam. Leo tortor libero vehicula vitae, montes libero, sed sed quis facilisis massa, a congue lacinia luctus pretium erat tellus, autem felis massa mauris mauris hendrerit luctus. Nisl nulla, molestie nisl, vitae praesent a ea in accumsan. Nam placerat sem pharetra sed quam lacus, fames nullam, sociis vestibulum donec congue et vestibulum.</div>
+                                    <div class="col4">Nisl nulla, molestie nisl, vitae praesent a ea in accumsan. Nam placerat sem pharetra sed quam lacus, fames nullam, sociis vestibulum donec congue et vestibulum.</div>
+                                    <div class="col4">Nisl nulla, molestie nisl, vitae praesent a ea in accumsan. Nam placerat sem pharetra sed quam lacus, fames nullam, sociis vestibulum donec congue et vestibulum.</div>
+                                </div>
+                            </div>
                         </div>
                     </section>
 
