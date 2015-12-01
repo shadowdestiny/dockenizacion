@@ -3,7 +3,7 @@
 	<div class="div-currency">
 		<ul class="no-li">
             {% for currency in currencies %}
-				<li><a href="javascript:globalFunctions.setCurrency('{{ currency['code'] }}');">{{ currency['symbol'] }} {{ currency['name'] }}</a></li>
+				<li><a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">{{ currency.symbol }} {{ currency.name }}</a></li>
             {% endfor %}
         </ul>
 	</div>

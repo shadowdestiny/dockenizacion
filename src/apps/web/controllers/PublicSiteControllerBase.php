@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManager;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\UserPreferencesService;
 use EuroMillions\web\services\UserService;
+use EuroMillions\web\vo\dto\CurrencyDTO;
 use Phalcon\Di;
 use Phalcon\Mvc\View;
 
@@ -39,7 +40,7 @@ class PublicSiteControllerBase extends ControllerBase
         parent::initialize();
         $this->lotteriesDataService = $lotteriesDataService ? $lotteriesDataService : $this->domainServiceFactory->getLotteriesDataService();
         $this->languageService = $languageService ? $languageService : $this->language; //from DI
-        $this->currencyService = $currencyService ? $currencyService : $this->domainServiceFactory->getServiceFactory()->getCurrencyService();
+        $this->currencyService = $currencyService ? $currencyService : $this->domainServiceFactory->getCurrencyService();
         $this->userService = $userService ? $userService : $this->domainServiceFactory->getUserService();
         $this->authService = $authService ? $authService : $this->domainServiceFactory->getAuthService();
         $this->userPreferencesService = $userPreferencesService ? $userPreferencesService : $this->domainServiceFactory->getUserPreferencesService();
@@ -101,7 +102,14 @@ class PublicSiteControllerBase extends ControllerBase
     private function setActiveCurrencies()
     {
         $currencies = $this->currencyService->getActiveCurrenciesCodeAndNames();
-        $this->view->setVars(['currencies' => $currencies]);
+        if($currencies->success()) {
+            $currencies_dto = [];
+            foreach($currencies->getValues() as $currency ) {
+                $currencies_dto[] = new CurrencyDTO($currency);
+            }
+            $this->view->setVars(['currencies' => $currencies_dto]);
+        }
+
     }
 
     private function setActiveLanguages()

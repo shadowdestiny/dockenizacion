@@ -48,6 +48,7 @@ class UserPreferencesService
         $currency_data = $iso4217->getByAlpha3($currency->getName());
         $mf = new MoneyFormatter();
         $symbol = $mf->getSymbolFromCurrency('en_US', $currency);
+
         if (!$symbol)
         {
             $symbol = $currency->getName();
