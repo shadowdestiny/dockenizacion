@@ -37,11 +37,11 @@ var EmSelect = React.createClass({
         }
     },
     render: function () {
-        let options = [];
+        var options = [];
         this.props.options.forEach(function(option) {
             options.push(<option value={option.value} key={option.value}>{option.text}</option>);
         });
-        let box_class = this.props.disabled ? this.props.classBox+' disabled': this.props.classBox;
+        var box_class = this.props.disabled ? this.props.classBox+' disabled': this.props.classBox;
         return (
             <div className={box_class}>
                 <div className={this.props.classDiv}>{this.state.divText}</div>

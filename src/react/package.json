@@ -1,0 +1,23 @@
+{
+  "name": "euromillions",
+  "dependencies": {
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3"
+  },
+  "scripts": {
+    "watch": "WEBPACK_ENV=dev ./node_modules/.bin/webpack --watch --inline",
+    "build": "WEBPACK_ENV=build ./node_modules/.bin/webpack",
+    "test": "karma start",
+    "test:ci": "watch 'npm run test' src/"
+  },
+  "devDependencies": {
+    "babel-core": "^6.2.1",
+    "babel-eslint": "^4.1.6",
+    "babel-loader": "^6.2.0",
+    "babel-preset-react": "^6.1.18",
+    "eslint": "^1.10.2",
+    "eslint-loader": "^1.1.1",
+    "eslint-plugin-react": "^3.11.2",
+    "webpack": "^1.12.9"
+  }
+}
