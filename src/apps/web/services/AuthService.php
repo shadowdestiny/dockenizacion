@@ -141,7 +141,8 @@ class AuthService
             'country'  => $credentials['country'],
             'balance'  => new Money(0, new Currency('EUR')),
             'validated' => 0,
-            'validation_token' => $this->getEmailValidationToken($email)
+            'validation_token' => $this->getEmailValidationToken($email),
+            'user_currency' => new Currency('EUR')
         ]);
 
         $this->userRepository->add($user);

@@ -362,8 +362,8 @@ class AuthServiceUnitTest extends UnitTestBase
                 'country'  => $credentials['country'],
                 'balance'  => new Money(0, new Currency('EUR')),
                 'validated' => 0,
-                'validationToken' => new ValidationToken(new Email($credentials['email']), new Md5EmailValidationToken())
-
+                'validationToken' => new ValidationToken(new Email($credentials['email']), new Md5EmailValidationToken()),
+                'user_currency' => new Currency('EUR')
             ]
         );
         $this->userRepository_double->getByEmail($credentials['email'])->willReturn(null);
