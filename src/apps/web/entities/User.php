@@ -26,6 +26,8 @@ class User extends EntityBase implements IEntity, IUser
     protected $rememberToken;
     /** @var  Money */
     protected $balance;
+    /** @var  Currency */
+    protected $user_currency;
 
     protected $country;
     protected $validated;
@@ -268,6 +270,22 @@ class User extends EntityBase implements IEntity, IUser
     public function setThreshold($threshold)
     {
         $this->threshold = $threshold;
+    }
+
+    /**
+     * @return Currency
+     */
+    public function getUserCurrency()
+    {
+        return $this->user_currency;
+    }
+
+    /**
+     * @param Currency $user_currency
+     */
+    public function setUserCurrency($user_currency)
+    {
+        $this->user_currency = $user_currency;
     }
 
 }

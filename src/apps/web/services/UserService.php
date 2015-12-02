@@ -21,6 +21,7 @@ use EuroMillions\web\vo\ActionResult;
 use EuroMillions\web\vo\NotificationType;
 use EuroMillions\web\vo\UserId;
 use Exception;
+use Money\Currency;
 use Money\Money;
 
 class UserService
@@ -353,6 +354,22 @@ class UserService
             } catch(\Exception $ex) {
                 return new ActionResult(false);
             }
+        }
+    }
+
+    public function updateCurrency(User $user, Currency $new_currency)
+    {
+        if(!empty($user)) {
+            try{
+                $user->setUserCurrency($new_currency);
+                $this->userRepository->add($user);
+                $this->entityManager->flush($user);
+                return new ActionResult(true,$new_currency);
+            } catch( \Exception $e) {
+                return new ActionResult(false);
+            }
+        } else {
+            return new ActionResult(false);
         }
     }
 
