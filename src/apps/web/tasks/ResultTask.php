@@ -61,18 +61,18 @@ class ResultTask extends TaskBase
         }
 
         //EMTD refactor, DI instead -> loggerService
-        $config = $this->di->get('config');
-        $smsAlert = new TextMagicSmsWrapper(['username' => $config->sms['username'],
-                                             'password' => $config->sms['password']
-                                            ]);
-
-        $logger = new SmsAdapter('updateResults', $smsAlert, [$config->sms['number']]);
-        $logger->setLogLevel(Logger::ERROR);
+//        $config = $this->di->get('config');
+//        $smsAlert = new TextMagicSmsWrapper(['username' => $config->sms['username'],
+//                                             'password' => $config->sms['password']
+//                                            ]);
+//
+//        $logger = new SmsAdapter('updateResults', $smsAlert, [$config->sms['number']]);
+//        $logger->setLogLevel(Logger::ERROR);
         try{
             $this->lotteriesDataService->updateLastDrawResult('EuroMillions');
             $this->lotteriesDataService->updateLastBreakDown('EuroMillions');
         } catch( \Exception $e ) {
-            $logger->error($e->getMessage());
+//            $logger->error($e->getMessage());
         }
 
         /** @var EuroMillionsDrawBreakDown $emBreakDownData */
