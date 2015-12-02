@@ -4,6 +4,7 @@
 namespace EuroMillions\web\controllers;
 
 
+use EuroMillions\web\components\PhpassWrapper;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\IEmailTemplate;
 use EuroMillions\web\emailTemplates\JackpotRolloverEmailTemplate;
@@ -12,11 +13,13 @@ use EuroMillions\web\emailTemplates\LongPlayEndedEmailTemplate;
 use EuroMillions\web\emailTemplates\LowBalanceEmailTemplate;
 use EuroMillions\web\emailTemplates\WinEmailTemplate;
 use EuroMillions\web\entities\User;
-use EuroMillions\web\services\ServiceFactory;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDataDTO;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsLine;
+use EuroMillions\web\vo\Password;
+use EuroMillions\web\vo\Url;
 use Money\Currency;
 use Money\Money;
 
@@ -38,7 +41,10 @@ class EmailTestController extends PublicSiteControllerBase
         'low-balance',
         'long-play-is-ended',
         'win-email',
-        'win-email-above-1500'
+        'win-email-above-1500',
+        'register',
+        'send-password-request',
+        'send-new-password'
     ];
 
 
@@ -51,24 +57,24 @@ class EmailTestController extends PublicSiteControllerBase
     {
         $userEmail = $this->request->getPost('user-email');
         $template = $this->request->getPost('template');
-        $emailTemplate = new EmailTemplate();
         $this->user = $this->getNewUser($userEmail);
+        $url = new Url('http://localhost:8080');
         if($template == 'all') {
             foreach(self::$emailTemplates as $nameTemplate) {
-                $emailTemplate = $this->getInstanceDecorator($nameTemplate,$emailTemplate);
+                $emailTemplate = $this->getInstanceDecorator($nameTemplate);
                 if($emailTemplate instanceof WinEmailTemplate) {
                     $emailTemplate->setUser($this->user);
                     $emailTemplate->setResultAmount(new Money(10000000, new Currency('EUR')));
                 }
-                $this->domainServiceFactory->getServiceFactory()->getEmailService(null,self::$config)->sendTransactionalEmail($this->user,$emailTemplate);
+                $this->sendEmail($nameTemplate, $url, $emailTemplate);
             }
         } else {
-            $emailTemplate = $this->getInstanceDecorator($template,$emailTemplate);
+            $emailTemplate = $this->getInstanceDecorator($template);
             if($emailTemplate instanceof WinEmailTemplate) {
                 $emailTemplate->setUser($this->user);
                 $emailTemplate->setResultAmount(new Money(10000000, new Currency('EUR')));
             }
-            $this->domainServiceFactory->getServiceFactory()->getEmailService(null,self::$config)->sendTransactionalEmail($this->user,$emailTemplate);
+            $this->sendEmail($template, $url, $emailTemplate);
         }
 
         $this->view->pick('email-test/index');
@@ -92,10 +98,12 @@ class EmailTestController extends PublicSiteControllerBase
      * @param $user
      * @return string
      */
-    private function getInstanceDecorator($template,IEmailTemplate $emailTemplate)
+    private function getInstanceDecorator($template)
     {
 
         $instance = null;
+        $emailTemplate = new EmailTemplate();
+
         switch($template){
             case 'jackpot-rollover':
                 $instance = new JackpotRolloverEmailTemplate($emailTemplate);
@@ -320,6 +328,23 @@ class EmailTestController extends PublicSiteControllerBase
        ];
 
        return $vars[$template];
+    }
 
+    /**
+     * @param $nameTemplate
+     * @param $url
+     * @param $emailTemplate
+     */
+    private function sendEmail($nameTemplate, $url, $emailTemplate)
+    {
+        if ($nameTemplate == 'register') {
+            $this->domainServiceFactory->getServiceFactory()->getEmailService(null, self::$config)->sendRegistrationMail($this->user, $url);
+        } else if ($nameTemplate == 'send-password-request') {
+            $this->domainServiceFactory->getServiceFactory()->getEmailService(null, self::$config)->sendPasswordResetMail($this->user, $url);
+        } else if ($nameTemplate == 'send-new-password') {
+            $this->domainServiceFactory->getServiceFactory()->getEmailService(null, self::$config)->sendNewPasswordMail($this->user, new Password('EuroMillions123', new PhpassWrapper()));
+        } else {
+            $this->domainServiceFactory->getServiceFactory()->getEmailService(null, self::$config)->sendTransactionalEmail($this->user, $emailTemplate);
+        }
     }
 }
