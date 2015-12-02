@@ -82,6 +82,7 @@ class ResultTaskUnitTest extends UnitTestBase
         $draw_result['lucky_numbers'] = [];
         $play_config_list = $this->getPlayConfigList();
         $notificationType = new NotificationType(4,0);
+
         $this->lotteryDataService_double->updateLastDrawResult('EuroMillions')->shouldBeCalled();
         $this->lotteryDataService_double->updateLastBreakDown('EuroMillions')->shouldBeCalled();
         $this->lotteryDataService_double->getBreakDownDrawByDate($lottery_name,$today)->willReturn(new ActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())));
@@ -96,7 +97,7 @@ class ResultTaskUnitTest extends UnitTestBase
         $sut = new ResultTask();
         $sut->initialize($this->lotteryDataService_double->reveal(),
         $this->playService_double->reveal(),
-            $this->emailService_double->reveal(), $this->userService_double->reveal(), $this->currencyService_double->reveal());
+        $this->emailService_double->reveal(), $this->userService_double->reveal(), $this->currencyService_double->reveal());
         $sut->updateAction($today);
     }
 

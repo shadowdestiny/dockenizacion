@@ -11,7 +11,7 @@ var globalFunctions = {
             dataType: "json",
             success: function(json) {
                 if(json.result = 'OK') {
-                    location.href = location.href;
+                    location.href = location.href.split('#')[0];
                 }
             },
             error: function (xhr, status, errorThrown) {
@@ -151,8 +151,12 @@ $(function(){
     selectFix();
     try{
         document.createEvent('TouchEvent');
-        var attachFastClick = Origami.fastclick;
-        attachFastClick(document.body); // It removes the delay of 300ms on mobile browsers because of double tap
+        var script = document.createElement('script');
+        script.src = "/w/js/vendor/fastclick.min.js";
+        document.getElementsByTagName('head')[0].appendChild(script);
+        //var attachFastClick = Origami.fastclick;
+        FastClick.attach(document.body); // It removes the delay of 300ms on mobile browsers because of double tap
+        //attachFastClick(document.body);
     }catch(e){
     }
 
@@ -160,6 +164,13 @@ $(function(){
         $(this).toggleClass('expanded').siblings('ul').slideToggle().toggleClass('open');
     });
 
+    var first_page = (new Date().valueOf() - $.cookie('lastSeen') > 0);
+    if($.cookie('EM-law') && first_page){ //First time visitor, load cookies
+        $('.box-cookies').remove();
+    }
+    if(!$.cookie('lastSeen')) {
+        $.cookie('lastSeen', new Date().valueOf());
+    }
 });
 
 

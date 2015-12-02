@@ -63,15 +63,18 @@ class LotteriesDataService
         if (!$now) {
             $now = new \DateTime();
         }
-        /** @var Lottery $lottery */
-        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
-        $result_api = $this->apisFactory->resultApi($lottery, $curlWrapper);
-        $last_draw_date = $lottery->getLastDrawDate($now);
-        $result = $result_api->getResultForDate($lotteryName, $last_draw_date->format('Y-m-d'));
-        $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' =>$last_draw_date]);
-        $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
-        $this->entityManager->flush();
-
+        try{
+            /** @var Lottery $lottery */
+            $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+            $result_api = $this->apisFactory->resultApi($lottery, $curlWrapper);
+            $last_draw_date = $lottery->getLastDrawDate($now);
+            $result = $result_api->getResultForDate($lotteryName, $last_draw_date->format('Y-m-d'));
+            $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' =>$last_draw_date]);
+            $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
+            $this->entityManager->flush();
+        } catch ( \Exception $e ) {
+            throw new \Exception('Error updating results');
+        }
     }
 
     public function getLastDrawDate($lotteryName, $today = null)

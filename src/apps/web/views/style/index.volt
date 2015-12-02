@@ -22,7 +22,7 @@
 
             <div class="cols divider">
                 <div class="col2">
-                    <ul class="nav no-li">
+                    <ul class="nav no-li" data-ajax="false">
                         <li><a href="#overview">Overview</a></li>
                         <li><a href="#breakpoints">CSS Media Queries</a></li>
                         <li><a href="#layout">Layout</a></li>
@@ -183,105 +183,49 @@
                         <a name="layout"></a>
                         <h1 class="title h2">Layout</h1>
                         <div class="content">
-                            <div class="wrap">
-                                <div class="cols">
-                                    <div class="col6">
-                                        <div class="box-col1">
-                                            <h2 class="h3">Columns (without margins)</h2>
-                                            <div class="cols">
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                            </div>
-                                            <div class="cols">
-                                                <div class="col2">&nbsp;</div>
-                                                <div class="col4">&nbsp;</div>
-                                                <div class="col6">&nbsp;</div>
-                                            </div>
-                                            <div class="cols">
-                                                <div class="col7">&nbsp;</div>
-                                                <div class="col5">&nbsp;</div>
-                                            </div>
-                                            <div class="cols">
-                                                <div class="col8">&nbsp;</div>
-                                                <div class="col4">&nbsp;</div>
-                                            </div>
-                                            <div class="cols">
-                                                <div class="col9">&nbsp;</div>
-                                                <div class="col3">&nbsp;</div>
-                                            </div>
-                                            <div class="cols">
-                                                <div class="col10">&nbsp;</div>
-                                                <div class="col2">&nbsp;</div>
-                                            </div>
-                                            <div class="cols">
-                                                <div class="col11">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                            </div>
-                                            <div class="cols">
-                                                <div class="col12">&nbsp;</div>
-                                            </div>
+                            <div class="cols">
+                                <div class="col6">
+                                    <p>The div <strong>wrapper</strong> is used to define a limit to the width of the page. Its standard max-width size is 1180px, but it will become responsive if the page will result to be smaller, and when getting to mobile size it will expand automatically to the edges of the mobile screen looking like an uniformed background.</p>
+                                    <pre class="brush:html">
+                                        <div id="content">
+                                            <div class="wrapper">...</div> /* Max-Width 1180px  */
                                         </div>
-                                    </div>
-                                    <div class="col6">
-                                        <div class="box-col2">
-                                            <h2 class="h3">Columns (without margins)</h2>
-                                            <div class="cols">
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                            </div>
-                                            <div class="cols">
-                                                <div class="col2">&nbsp;</div>
-                                                <div class="col4">&nbsp;</div>
-                                                <div class="col6">&nbsp;</div>
-                                            </div>
-                                            <div class="cols">
-                                                <div class="col7">&nbsp;</div>
-                                                <div class="col5">&nbsp;</div>
-                                            </div>
-                                            <div class="cols">
-                                                <div class="col8">&nbsp;</div>
-                                                <div class="col4">&nbsp;</div>
-                                            </div>
-                                            <div class="cols">
-                                                <div class="col9">&nbsp;</div>
-                                                <div class="col3">&nbsp;</div>
-                                            </div>
-                                            <div class="cols">
-                                                <div class="col10">&nbsp;</div>
-                                                <div class="col2">&nbsp;</div>
-                                            </div>
-                                            <div class="cols">
-                                                <div class="col11">&nbsp;</div>
-                                                <div class="col1">&nbsp;</div>
-                                            </div>
-                                            <div class="cols">
-                                                <div class="col12">&nbsp;</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    </pre>
+                                    <br>
+                                    <p>The div <strong>box-basic</strong> is used to define the style of the container of content, each Box-Basic has a yellow border, with white background and paddings set.</p>
+                                    <p>There are three sizes. Example on how to use it are listed in the code below.</p> 
 
-                            </div> 
+                                    <pre class="brush:html">
+                                        Used 
+                                        <div class="box-basic">...</div> /* No width defined it adapt to his container */
+
+                                        <div class="box-basic medium">...</div> /* Max-width 760px -  Used in cart area */
+
+                                        <div class="box-basic small">...</div> /* Max-width 400px - Used for Login or Review transaction */
+                                    </pre>
+
+                                </div>
+                                <div class="col6">
+                                    <p>Areas of the project that require a <strong>subnavigation</strong> (like Account and Legal), need to use this code...</p>
+
+                                    <pre class="brush:html">
+                                        <div class="wrapper">
+                                            <div class="nav box-basic">
+                                                *Navigation*
+                                            </div>
+                                            <div class="content box-basic">
+                                                *Content*
+                                            </div>
+                                        </div>
+                                    </pre>
+
+                                    <br>
+                                    <p>...and import this css in the SASS related style of that area.</p>
+                                    <pre class="brush:css">
+                                        @import "_elements/with-subnav.scss";
+                                    </pre>
+                                </div>
+                            </div>
                         </div>
                     </section>
 
@@ -290,20 +234,190 @@
                         <h1 class="title h2">Columns</h1>
 
                         <div class="content">
+                            <h2 class="h3 res">Introduction</h2>
+                            <p>This columns system is developed by me, it is a much lighter solution and very similar to the other famous grid sytem (for example <a href="http://getbootstrap.com/2.3.2/scaffolding.html#gridSystem">Twitter Bootstrap</a>). As the famous system is based on 12 column grid system. Each grid need two main components, a definition of the row "cols" and the definition of the size of the column "col1" or up till "col12". The number signify what proportion of the slice of the whole area you want to reserve. The mosts important feature about this column system is that the columns are fluid and they are a perfect use for building a responsive website. The important thing is to keep always the sum of all the number of the columns to be equal to 12 so that the whole space is divided to fill the whole area.</p>
+
                             <div class="cols">
                                 <div class="col6">
-                                  xxx
+                                    <p>Some example code</p>
+                                    <pre class="brush:html">
+                                        /* This example show how divide a space in 3 parts */
+                                        <div class="cols">
+                                            <div class="col4"></div>
+                                            <div class="col4"></div>
+                                            <div class="col4"></div>
+                                        </div>
+
+                                        /* This example show how divide a space in 3 parts but different sizes */
+                                        <div class="cols">
+                                            <div class="col2"></div>
+                                            <div class="col4"></div>
+                                            <div class="col6"></div>
+                                        </div>
+                                    </pre>
                                 </div>
                                 <div class="col6">
-                                  xxxx
+                                    <p>The <strong>only exception</strong> to this rule it is the "col20per" or "Column 20 percent". because 12 it is not a space divisible by 5, I created this class name just for that</p>
+                                    <pre class="brush:html">
+                                        /* This example show how divide a space in 5 parts */
+                                        <div class="cols">
+                                            <div class="col20per"></div>
+                                            <div class="col20per"></div>
+                                            <div class="col20per"></div>
+                                            <div class="col20per"></div>
+                                            <div class="col20per"></div>
+                                        </div>
+                                    </pre>
+                                </div>
+                            </div>
+                            <br>
+                            <hr class="hr">
+
+                            <p>Here some example to show how easy it is to construct a grid system, with and without margins.</p>
+                            <div class="cols res">
+                                <div class="col6">
+                                    <div class="box-col1">
+                                        <h2 class="h3">Columns (without margins)</h2>
+                                        <div class="cols">
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                        </div>
+                                        <div class="cols">
+                                            <div class="col2">&nbsp;</div>
+                                            <div class="col4">&nbsp;</div>
+                                            <div class="col6">&nbsp;</div>
+                                        </div>
+                                        <div class="cols">
+                                            <div class="col7">&nbsp;</div>
+                                            <div class="col5">&nbsp;</div>
+                                        </div>
+                                        <div class="cols">
+                                            <div class="col8">&nbsp;</div>
+                                            <div class="col4">&nbsp;</div>
+                                        </div>
+                                        <div class="cols">
+                                            <div class="col9">&nbsp;</div>
+                                            <div class="col3">&nbsp;</div>
+                                        </div>
+                                        <div class="cols">
+                                            <div class="col10">&nbsp;</div>
+                                            <div class="col2">&nbsp;</div>
+                                        </div>
+                                        <div class="cols">
+                                            <div class="col11">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                        </div>
+                                        <div class="cols">
+                                            <div class="col12">&nbsp;</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                               
+
+                                <div class="col6">
+                                    <div class="box-col2">
+                                        <h2 class="h3">Columns (with margins)</h2>
+                                        <div class="cols">
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                        </div>
+                                        <div class="cols">
+                                            <div class="col2">&nbsp;</div>
+                                            <div class="col4">&nbsp;</div>
+                                            <div class="col6">&nbsp;</div>
+                                        </div>
+                                        <div class="cols">
+                                            <div class="col7">&nbsp;</div>
+                                            <div class="col5">&nbsp;</div>
+                                        </div>
+                                        <div class="cols">
+                                            <div class="col8">&nbsp;</div>
+                                            <div class="col4">&nbsp;</div>
+                                        </div>
+                                        <div class="cols">
+                                            <div class="col9">&nbsp;</div>
+                                            <div class="col3">&nbsp;</div>
+                                        </div>
+                                        <div class="cols">
+                                            <div class="col10">&nbsp;</div>
+                                            <div class="col2">&nbsp;</div>
+                                        </div>
+                                        <div class="cols">
+                                            <div class="col11">&nbsp;</div>
+                                            <div class="col1">&nbsp;</div>
+                                        </div>
+                                        <div class="cols">
+                                            <div class="col12">&nbsp;</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div> 
+                            <p>The only difference between the two system is in the css, not in the html. Adding a margin to columns can be done in two ways, using Padding or Margin depending if the columns have a coloured background or not.</p>
+                                
+                            <div class="cols">
+                                <div class="col6">
+                                    <h3 class="h4">Using Padding</h3>
+                                    <p>If you don't have any background colors applied to the col, simply use a padding right that points at the col* (* = number). Yhis is the preferred method.</p>
+
+                                    <pre class="brush:css">
+                                        /* ".nameWrapper" it is the name of your div wrapper */
+                                        .nameWrapper > .cols > div{padding-right:20px;}
+                                        .nameWrapper > .cols > div:last-child{padding-right:0;}
+                                    </pre>
+
+                                    <pre class="brush:html">
+                                        <div class="nameWrapper">
+                                            <div class="cols">
+                                                <div class="col2"></div> 
+                                                <div class="col4"></div> 
+                                                <div class="col8"></div> 
+                                            </div>
+                                        </div>
+                                    </pre>
+                                </div>
+                                <div class="col6">
+                                    <h3 class="h4">Using Margin</h3>
+                                    <p>If you instead have a coloured background specifically limited to the width of the column, than use this method.</p>
+                                    <pre class="brush:css">
+                                        .nameWrapper{margin-right:-20px;}
+                                        .nameWrapper > .cols > div{border-right:20px solid transparent;} /*The color of the border need to match the background color*/
+                                    </pre>
                                 </div>
                             </div>
 
-
                             <hr class="hr">
 
-                          xxxx
-
+                            <h3 class="h4">Column height</h3>
+                            <p>By default any cols system is used, the columns will have same height, to keep an equally aligned design. Here you can see an example. As you notice even when padding is applied the height doesn't change.</p>
+                            <div class="col-height">
+                                <div class="cols">
+                                    <div class="col4">Lorem ipsum dolor sit amet, in at morbi in lacus cursus a, consequat magna, neque donec, sit at sit, morbi elit justo volutpat sodales. Lorem ullamcorper volutpat nulla in, quas sed tempor arcu nam consequat, suscipit sit non massa suscipit a eleifend, interdum lacinia morbi ligula etiam, sagittis quis maecenas non donec. Auctor luctus et at nec ut et, cum lacinia aliquam. Leo tortor libero vehicula vitae, montes libero, sed sed quis facilisis massa, a congue lacinia luctus pretium erat tellus, autem felis massa mauris mauris hendrerit luctus. Nisl nulla, molestie nisl, vitae praesent a ea in accumsan. Nam placerat sem pharetra sed quam lacus, fames nullam, sociis vestibulum donec congue et vestibulum.</div>
+                                    <div class="col4">Nisl nulla, molestie nisl, vitae praesent a ea in accumsan. Nam placerat sem pharetra sed quam lacus, fames nullam, sociis vestibulum donec congue et vestibulum.</div>
+                                    <div class="col4">Nisl nulla, molestie nisl, vitae praesent a ea in accumsan. Nam placerat sem pharetra sed quam lacus, fames nullam, sociis vestibulum donec congue et vestibulum.</div>
+                                </div>
+                            </div>
                         </div>
                     </section>
 
