@@ -473,6 +473,10 @@ body, .submit{font-family:$basic-font;}
 /*body{border:2px solid #00f;} /* BLUE*/
 .media{width:4px}
 .box-estimated .h2{line-height:1.3em}
+.box-cookies{
+  line-height:135%;
+  .lnk{display:block;}
+}
 }
  
 /* Custom, iPhone Retina */

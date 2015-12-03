@@ -692,6 +692,10 @@
                     *tabs*
                     *tipr/tooltip*
                     *modal*
+
+
+<br>                    [Remove all the margin-bottom from paragraphs with ".res"]
+<br>                    [Box-basic and wrapper size, is there a way to reduce the html? or size?]
                 </div>
             </div>
         </div>
