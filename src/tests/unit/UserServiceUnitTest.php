@@ -550,6 +550,24 @@ class UserServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
+    /**
+     * method updateCurrency
+     * when called
+     * should updateNewCurrencyInUserEntity
+     */
+    public function test_updateCurrency_called_updateNewCurrencyInUserEntity()
+    {
+        $currency = new Currency('USD');
+        $expected = new ActionResult(true, $currency);
+        $user = $this->getUser();
+        $this->userRepository_double->add(Argument::type('EuroMillions\web\entities\User'))->shouldBeCalled();
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->flush(Argument::type('EuroMillions\web\entities\User'))->shouldBeCalled();
+        $sut = $this->getSut();
+        $actual = $sut->updateCurrency($user, $currency);
+        $this->assertEquals($expected,$actual);
+    }
+
 
     private function getNotifications()
     {

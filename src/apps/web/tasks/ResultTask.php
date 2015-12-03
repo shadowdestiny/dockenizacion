@@ -50,7 +50,7 @@ class ResultTask extends TaskBase
         ($playService) ? $this->playService = $playService : $this->playService = $domainFactory->getPlayService();
         ($emailService) ? $this->emailService = $emailService : $this->emailService = $domainFactory->getServiceFactory()->getEmailService();
         $this->userService = $userService ? $userService : $this->domainServiceFactory->getUserService();
-        ($currencyService) ? $this->currencyService = $currencyService : $domainFactory->getServiceFactory()->getCurrencyService();
+        $this->currencyService =  $currencyService ? $currencyService : $domainFactory->getCurrencyService();
     }
 
 
@@ -61,18 +61,18 @@ class ResultTask extends TaskBase
         }
 
         //EMTD refactor, DI instead -> loggerService
-        $config = $this->di->get('config');
-        $smsAlert = new TextMagicSmsWrapper(['username' => $config->sms['username'],
-                                             'password' => $config->sms['password']
-                                            ]);
-
-        $logger = new SmsAdapter('updateResults', $smsAlert, [$config->sms['number']]);
-        $logger->setLogLevel(Logger::ERROR);
+//        $config = $this->di->get('config');
+//        $smsAlert = new TextMagicSmsWrapper(['username' => $config->sms['username'],
+//                                             'password' => $config->sms['password']
+//                                            ]);
+//
+//        $logger = new SmsAdapter('updateResults', $smsAlert, [$config->sms['number']]);
+//        $logger->setLogLevel(Logger::ERROR);
         try{
             $this->lotteriesDataService->updateLastDrawResult('EuroMillions');
             $this->lotteriesDataService->updateLastBreakDown('EuroMillions');
         } catch( \Exception $e ) {
-            $logger->error($e->getMessage());
+//            $logger->error($e->getMessage());
         }
 
         /** @var EuroMillionsDrawBreakDown $emBreakDownData */
@@ -84,7 +84,7 @@ class ResultTask extends TaskBase
 
         $emailTemplate = new EmailTemplate();
         $emailTemplate = new LatestResultsEmailTemplate($emailTemplate);
-        $emailTemplate->setBreakDownList($break_down_list);
+       // $emailTemplate->setBreakDownList($break_down_list);
 
         $result_play_config = $this->playService->getPlaysConfigToBet($today);
         if($result_play_config->success() && !empty($break_down_list)){
@@ -93,7 +93,8 @@ class ResultTask extends TaskBase
             foreach($play_config_list as $play_config){
                 /** @var User $user */
                 $user = $this->userService->getUser($play_config->getUser()->getId());
-               // $break_down_list->convertCurrency($user->getBalance()->getCurrency());
+                $emailTemplate->setBreakDownList($break_down_list/*$this->convertCurrency($break_down_list,$user->getBalance()->getCurrency())*/);
+                //$break_down_list->convertCurrency($user->getBalance()->getCurrency());
                 $user_notifications_result = $this->userService->getActiveNotificationsByUserAndType($user, NotificationType::NOTIFICATION_RESULT_DRAW);
                 if($user_notifications_result->success()) {
                     /** @var UserNotifications[] $user_notifications */
@@ -112,6 +113,7 @@ class ResultTask extends TaskBase
             $users_notifications = $user_notifications_result->getValues();
             foreach($users_notifications as $user_notification) {
                 if($user_notification->getConfigValue()->getValue()) {
+                    $emailTemplate->setBreakDownList($break_down_list/*$this->convertCurrency($break_down_list,$user->getBalance()->getCurrency())*/);
                     $this->emailService->sendTransactionalEmail($user_notification->getUser(),$emailTemplate);
                 }
             }
@@ -121,12 +123,15 @@ class ResultTask extends TaskBase
     //EMTD convert in service instead?
     private function convertCurrency($break_downs, Currency $user_currency = null)
     {
+
         if(empty($user_currency)){
             $user_currency = $this->userService->getCurrency();
         }
-        foreach($break_downs as $k => $name) {
-            $new_currency_prize = $this->currencyService->convert(new Money((int) $break_downs[$k]['lottery_prize'], new Currency('EUR')), $user_currency);
-            $break_downs[$k]['lottery_prize'] = $new_currency_prize->getAmount() / 10000;
+        $break_down_array = $break_downs->toArray();
+        foreach($break_down_array as $k => $name) {
+            $new_currency_prize = $this->currencyService->convert(new Money((int) $break_down_array[$k]['lottery_prize'], new Currency('EUR')), $user_currency);
+            $break_down_array[$k]['lottery_prize'] = $new_currency_prize->getAmount() / 10000;
+            $break_down_array[$k]['currency'] = $new_currency_prize->getCurrency();
         }
         return $break_downs;
     }

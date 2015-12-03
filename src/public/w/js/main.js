@@ -11,7 +11,7 @@ var globalFunctions = {
             dataType: "json",
             success: function(json) {
                 if(json.result = 'OK') {
-                    location.href = location.href;
+                    location.href = location.href.split('#')[0];
                 }
             },
             error: function (xhr, status, errorThrown) {

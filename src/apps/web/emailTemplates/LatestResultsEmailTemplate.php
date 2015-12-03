@@ -42,7 +42,7 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
                     [
                         'name'    => 'lucky_numbers',
                         'content' => $draw_result['lucky_numbers']
-                    ]
+                    ],
                 ]
         ];
 

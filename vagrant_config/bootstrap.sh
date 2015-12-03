@@ -8,13 +8,15 @@ function e {
 e "Installing composer packages"
 cd /var/www
 composer install
+cd /var/www/react
 e "Installing npm packages"
-npm install --no-bin-links
+npm install
 e "Watching react files"
 npm run watch &
 
 e "Executing migrations"
 . /vagrant/dev-scripts/schema_and_data_migration.sh dev
+
 
 e "Updating jackpot and results"
 php /var/www/apps/cli.php jackpot updatePrevious

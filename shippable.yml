@@ -16,19 +16,21 @@ services:
 
 before_script:
   - /etc/init.d/mysql start & > /dev/null
-  - sleep 10
-  - mysql -e 'create database if not exists euromillions_test;'
   - redis-server &
   - mkdir -p shippable/codecoverage
   - mkdir -p shippable/testresults
   - cd src
   - composer install --prefer-source --no-interaction
-  - cd ..
+  - cd react
+  - npm install
+  - cd ../..
+  - mysql -e 'create database if not exists euromillions_test;'
   - cp -f src/apps/shareconfig/shippable_test_config.ini src/apps/shareconfig/config.ini
   - dev-scripts/schema_migration.sh shippable
 
 script:
  - src/vendor/bin/phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage --configuration src/tests/phpunit.xml --testsuite=unit+integration
+ - cd src/react;npm test
 
 after_success :
  - curl http://62.57.159.66:3000/deploy.php

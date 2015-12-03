@@ -71,7 +71,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->playConfigRepository_double = $this->getRepositoryDouble('PlayConfigRepository');
         $this->lotteryDataService_double = $this->getServiceDouble('LotteriesDataService');
         $this->betRepository_double = $this->getRepositoryDouble('BetRepository');
-        $this->lotteryDrawRepository_double = $this->getRepositoryDouble('EuroMillions\entities\Lottery');
+        $this->lotteryDrawRepository_double = $this->getRepositoryDouble('EuroMillions\web\entities\Lottery');
         $this->playStorageStrategy_double = $this->getInterfaceWebDouble('IPlayStorageStrategy');
         $this->userRepository_double = $this->getRepositoryDouble('UserRepository');
         $this->logValidationApi_double = $this->getRepositoryDouble('LogValidationApiRepository');

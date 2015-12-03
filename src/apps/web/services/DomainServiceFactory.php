@@ -4,12 +4,15 @@ namespace EuroMillions\web\services;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
+use EuroMillions\web\interfaces\ICurrencyApi;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\web\interfaces\ILanguageStrategy;
 use EuroMillions\web\repositories\LanguageRepository;
 use EuroMillions\web\services\card_payment_providers\FakeCardPaymentProvider;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
+use EuroMillions\web\services\external_apis\RedisCurrencyApiCache;
+use EuroMillions\web\services\external_apis\YahooCurrencyApi;
 use EuroMillions\web\services\play_strategies\RedisPlayStorageStrategy;
 use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\services\preferences_strategies\WebUserPreferencesStorageStrategy;
@@ -69,7 +72,7 @@ class DomainServiceFactory
                                    PaymentProviderService $paymentProviderService = null
                                    )
     {
-        if (!$currencyService) $currencyService = $this->serviceFactory->getCurrencyService();
+        if (!$currencyService) $currencyService = $this->getCurrencyService();
         if (!$emailService) $emailService = $this->serviceFactory->getEmailService();
         if (!$paymentProviderService) $paymentProviderService = new PaymentProviderService();
         return new UserService($currencyService, $emailService, $paymentProviderService, $this->entityManager);
@@ -78,7 +81,7 @@ class DomainServiceFactory
     public function getUserPreferencesService(CurrencyService $currencyService = null,
                                               IUsersPreferencesStorageStrategy $preferencesStrategy = null)
     {
-        if (!$currencyService) $currencyService = $this->serviceFactory->getCurrencyService();
+        if (!$currencyService) $currencyService = $this->getCurrencyService();
         if (!$preferencesStrategy) $preferencesStrategy = new WebUserPreferencesStorageStrategy($this->serviceFactory->getDI()->get('session'), $this->serviceFactory->getDI()->get('cookies'));
         return new UserPreferencesService($currencyService, $preferencesStrategy);
     }
@@ -113,6 +116,12 @@ class DomainServiceFactory
     {
         if (!$lotteriesDataService) $lotteriesDataService = new LotteriesDataService($this->entityManager, new LotteryApisFactory());
         return new PriceCheckoutService($this->entityManager, $lotteriesDataService);
+    }
+
+    public function getCurrencyService(ICurrencyApi $currencyApi = null)
+    {
+        if (!$currencyApi) $currencyApi = new YahooCurrencyApi(new RedisCurrencyApiCache($this->serviceFactory->getDI()->get('redisCache')));
+        return new CurrencyService($currencyApi, $this->entityManager);
     }
 
     private function getRepository($entity)

@@ -29,7 +29,7 @@ if [ ! -f /etc/php5/cli/conf.d/20-xdebug.ini ]; then
     sudo apt-add-repository -y ppa:phalcon/stable;\
     sudo apt-get clean
     sudo apt-get update -q
-    sudo apt-get install -y php5-phalcon php5-cli php5-dev php5-xdebug php5-mysql php-apc php5-redis php5-intl
+    sudo apt-get install -y php5-phalcon php5-cli php5-dev php5-xdebug php5-mysql php-apc php5-redis php5-intl libfontconfig
     sudo cp /vagrant/vagrant_config/20-xdebug.ini /etc/php5/cli/conf.d
 fi
 if [ ! -f /etc/php5/mods-available/curl.ini ]; then

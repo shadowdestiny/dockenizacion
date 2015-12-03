@@ -18,11 +18,11 @@ class ServiceFactory
         $this->di = $di;
     }
 
-    public function getCurrencyService(ICurrencyApi $currencyApi = null)
-    {
-        if (!$currencyApi) $currencyApi = new YahooCurrencyApi(new RedisCurrencyApiCache($this->di->get('redisCache')));
-        return new CurrencyService($currencyApi);
-    }
+//    public function getCurrencyService(ICurrencyApi $currencyApi = null)
+//    {
+//        if (!$currencyApi) $currencyApi = new YahooCurrencyApi(new RedisCurrencyApiCache($this->di->get('redisCache')));
+//        return new CurrencyService($currencyApi);
+//    }
 
     /**
      * @return GeoService
