@@ -24,4 +24,8 @@ describe('EmSelect', function() {
             expect(actual_options[i].value).to.equal(options[i].value);
         }
     });
+
+    it ('will fail', function() {
+       expect(true).to.equal(false);
+    });
 });
