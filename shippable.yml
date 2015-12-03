@@ -16,8 +16,6 @@ services:
 
 before_script:
   - /etc/init.d/mysql start & > /dev/null
-  - sleep 10
-  - mysql -e 'create database if not exists euromillions_test;'
   - redis-server &
   - mkdir -p shippable/codecoverage
   - mkdir -p shippable/testresults
@@ -26,6 +24,7 @@ before_script:
   - cd react
   - npm install
   - cd ../..
+  - mysql -e 'create database if not exists euromillions_test;'
   - cp -f src/apps/shareconfig/shippable_test_config.ini src/apps/shareconfig/config.ini
   - dev-scripts/schema_migration.sh shippable
 
