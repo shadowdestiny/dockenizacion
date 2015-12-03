@@ -23,7 +23,9 @@ before_script:
   - mkdir -p shippable/testresults
   - cd src
   - composer install --prefer-source --no-interaction
-  - cd ..
+  - cd react
+  - npm install
+  - cd ../..
   - cp -f src/apps/shareconfig/shippable_test_config.ini src/apps/shareconfig/config.ini
   - dev-scripts/schema_migration.sh shippable
 
