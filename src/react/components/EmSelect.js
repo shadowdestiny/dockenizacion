@@ -8,7 +8,7 @@ var EmSelect = React.createClass({
         classDiv: React.PropTypes.string,
         classSelect: React.PropTypes.string
     },
-    getDefaultProps: function() {
+    getDefaultProps: function () {
         return {
             defaultValue: null,
             classDiv: 'select-txt',
@@ -18,13 +18,13 @@ var EmSelect = React.createClass({
             hidden: 'false'
         };
     },
-    getInitialState: function() {
+    getInitialState: function () {
         return {
             value: this.props.defaultValue,
             divText: this.props.defaultText
         };
     },
-    handleChange: function(event) {
+    handleChange: function (event) {
         if (this.props.onChange == undefined || this.props.onChange(event) !== false) {
             this.setState({
                 value: event.target.value,
