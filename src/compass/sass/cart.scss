@@ -6,11 +6,10 @@
 .fields li:nth-child(odd){margin-right:28px;}
 .card-info{margin-right:28px;}
 .cart{
-    .title{margin:0 0 .5em;}
-    .input{width:100%; }
     .month, .year{width:auto; margin-right:10px;}
     .cvv{width:65px; float:left;}
     .margin{margin-right:20px;}
+    .title{line-height:100%;}
 }
 .cart.profile{
   .wrap .cols{margin-bottom:0;}
@@ -21,7 +20,8 @@
   .label{display:block;}
   .submit{margin-top:30px;}
 }
-.steps{float:right; min-height:70px; width:450px; margin-right:100px;}
+/*
+.steps{float:right; min-height:70px; width:450px;}
 .line{
     width:100%; height:0; margin:27px auto 0; border-top:2px solid $grey-light;
     .ico{position:relative; top:-15px; float:right; font-size:18px; padding:2px; background:#fff;}
@@ -32,13 +32,14 @@
 .line.step2{width:218px;}
 .line.step3{width:400px;}
 .names{
-  position:relative; top:7px; color:$grey; text-transform:uppercase; font-size:$h4;
+  position:relative; top:7px; color:$grey; text-transform:uppercase; font-size:$basic-size;
   li{float:left;}
   .active{font-weight:700; color:$purple;}
   .step1{margin-left:10px;}
   .step2{margin-left:90px;}
   .step3{float:right; margin-right:10px;}  
 }
+*/
 
 .num{
   li{display:inline; margin-right:4px;}
@@ -46,19 +47,34 @@
 }
 
 .order{
-  .purchase{width:100%; text-align:center; font-size:$h3;}
-  .row{border-top:1px solid $grey-light; padding:10px 0;}
-  .sub-txt{margin:1em 0 .5em;}
-  .desc{font-weight:700; float:left; width:70px; font-size:$h3;}
-  .detail{float:left;}
-  .extra{clear:both; padding-top:4px;}
-  .box-delete{float:left; width:70px; font-size:$small;}
-  .change{font-size:$basic-size; float:right;}
-  .type{float:left; width:200px; text-align:left; font-style:italic; font-size:$basic-size;}
-  .summary{font-weight:700; float:right; margin-left:14px;}
+  .box-wallet .txt{font-size:$basic-size!important; margin:0 0 0 8px; float:right; cursor:pointer;}
+  .checkbox{float:right; position:relative; top:4px;}
+  .input{width:100%; border-color:$grey-light; border-left:0;}
+  .combo{background:$grey-lighter; border-radius:5px 0 0 5px; font-weight:bold; padding:1px 9px; border:1px solid $grey-light; border-right:0; position:relative; top:2px;}
+  .txt-fee, .desc, .detail, .summary{font-size:$basic-size;}
+  .change, .add-funds, .txt-currency{font-size:$small;}
+  .txt-fee, .detail, .type{float:left;}
+  .change{position:relative; top:-2px;}
+  .txt-currency{float:left; font-style:italic; color:$grey-light}
+  .terms{margin:5px 0 .75em; font-size:.675em;}
+  .val{display:inline-block; min-width:80px; text-align:right;}
+  .row{border-top:1px solid $grey-lighter; padding:10px;}
+  .sub-txt{margin:0 0 .5em;}
+  .desc{font-weight:700; float:left; width:70px;}
+  .change{margin-left:15px;}
+  .type{width:200px; text-align:left; font-style:italic;}
+  .summary{font-weight:700; float:right;}
+  .add-funds{float:right;}
+  .box-funds{
+    float:right;
+    .input{background:#fff; width:140px; padding:4px 8px; font-size:$small;}
+  }
   .box-total{
-    color:$purple; font-weight:700; border-top:2px solid $purple; padding-top:8px; margin-bottom:.5em; font-size:$h3;
-    .total{float:right;}
+    color:$purple; border-top:2px solid $purple; padding:8px 10px;
+    .total{
+      float:right; font-weight:700; font-size:$h3;
+      .txt{display:inline-block;}
+    }
   }
   .box-order{
     a{
@@ -70,7 +86,6 @@
   .box-value{font-size:$h2; font-weight:700;}
   .current{margin:0 0 .3em;}
   .buy{float:right; margin-top:6px;}
-  .box-bottom{margin-top:1em;}
   .box-jackpot{float:left;}
   .my-right{margin-top:65px;}
 }
@@ -121,10 +136,6 @@
 .success .bg-ticket{left:0;}
 }
 
-@media only screen and (max-width:840px){ /*Not standard size */
-/*.cart.profile  .submit{margin:0;}*/
-}
-
 @media only screen and (max-width:768px){
 .steps{margin:auto; width:100%;}
 .line.step2{width:50%;}
@@ -136,8 +147,8 @@
 .cart .label{text-align:left; width:100%;}
 .order{
   .box-total .txt{float:left;}
-.box-order{text-align:left;}
-.box-jackpot{margin-bottom:1em; float:left;}
+  .box-order{text-align:left;}
+  .box-jackpot{margin-bottom:1em; float:left;}
 }
 .success{
   .ticket-col{display:none!important;}
@@ -147,13 +158,16 @@
 .cart.profile  .submit{width:100%; margin:0;}
 }
 
-@media only screen and (max-width:650px){ /*Not standard size */
+/*
+@media only screen and (max-width:650px){
   .line.step3{width:92%;}
 }
-
-@media only screen and (max-width:600px){ /*Not standard size */
+*/
+@media only screen and (max-width:600px){
+  .order .change{}
   .line.step3{width:90%;}
 }
+
 
 @media only screen and (max-width:480px){
 .names{
@@ -176,15 +190,20 @@
   .order{
     .num{width:240px;}
     .type{width:150px;}
+    .val{min-width:auto; margin-left:8px;}
+    .box-order, .box-total{margin:0 -15px;}
+    .desc{display:none;}
+    .tweak{float:none;}
+    .box-funds{margin-top:5px; float:left;}
+    .add-funds{float:left;}
   }
 }
 
 @media only screen and (max-width:380px){ /*Not standard size */
   .line.step3{width:90%;}
   .order{
-    .desc{margin-bottom:.2em;}
+/*    .desc{margin-bottom:.2em;}*/
     .num{width:100%;}
-    .box-delete{width:auto; margin-right:10px;}
     .box-jackpot{width:100%;}
     .buy{float:none;}
   }
