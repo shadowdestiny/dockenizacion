@@ -23,10 +23,9 @@ src/apps/admin/assets/compiled_templates/*
 src/apps/admin/logs/*
 !src/apps/admin/logs/README.md
 src/vendor/*
-src/react/node_modules
-src/react/node_modules/*
 src/.phalcon/*
 src/.sass-cache/*
 !src/.sass-cache/README.md
 dev-logs/*
 ansible/roles/external/*
+/src/react/node_modules
