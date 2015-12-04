@@ -35,9 +35,10 @@ class EmailService
     {
         $this->sendMailToUser(
             $user,
-            'Password reset',
-            'Somebody has asked to reset your password.',
-            'If it was you, you just have to <a href="'.$url->toNative().'">click this link to reset your password</a> <br>or copy and paste this url in your browser:<br>'.$url->toNative().'<br>If you didn\'t ask for the password reset, just ignore this email'
+            'Reset your password',
+            'Reset your password',
+            'We have received a request to reset your password. If you didn\'t make the request, just ignore this email.<br>You can reset your password using this link: <a href="'.$url->toNative().'">Click here to reset your password</a>
+                <br><br>or copy and paste this url in your browser: '.$url->toNative()
         );
     }
 
@@ -45,11 +46,11 @@ class EmailService
     {
         $this->sendMailToUser(
             $user,
-            'New password',
-            'We have created a new password for you:' . $password->toNative(),
-            'Please use it.....'
+            'Your New password',
+            'Your New password',
+            'We have created a new password for you:<br><strong>'.$password->toNative().'</strong>
+            <br><br>You can change and personalize your password later, by accessing "Change Password" in "Your Account" area.'
         );
-
     }
 
     /**
