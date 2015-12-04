@@ -125,11 +125,11 @@ $gap3:15px; /* Responsive design 3 column */
 	}
 }
 .line .extra-pad{padding:0 22px;}
-.line .v-checkmark{display:none; position:absolute; top:155px; left:0; width:100%; font-size:600%; color:$green; opacity:.4;}
+.line .v-checkmark{position:absolute; top:155px; left:0; width:100%; font-size:600%; color:$green; opacity:.4;}
 /* removed to check if it is used or not 24/11/2015
 .line.active{display:block;}
 */
-.btn.clear{visibility:hidden; position:relative; width:90px; bottom:-16px; margin:-12px auto 0; display:block;}
+.btn.clear{position:relative; width:90px; bottom:-16px; margin:-12px auto 0; display:block;}
 
 .btn.clear .ico, .clear-all .ico{position:relative; margin-left:3px; top:2px;}
 .number-on .clear{visibility:visible;}

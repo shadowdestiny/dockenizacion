@@ -2,12 +2,12 @@
 <div class="line center">
 		<svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>
 
-	<div class="combo cols not">
+{#	<div class="combo cols not">
 		<div class="col6 not random"><a class="btn gwy multiplay" href="javascript:void(0);"><svg class="v-shuffle"><use xlink:href="/w/svg/icon.svg#v-shuffle"></use></svg></a></div>
 {# To add later
 		<div class="col6 not"><a class="btn gwy" href="javascript:void(0);"><svg class="ico v-m"><use xlink:href="/w/svg/icon.svg#v-m"></use></svg></a></div>
-#}
-	</div>
+
+	</div>#}
 	<div class="values">
 		<div class="numbers">
 			<ol class="no-li cols not">

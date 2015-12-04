@@ -25,7 +25,4 @@ describe('EmSelect', function() {
         }
     });
 
-    it ('will fail', function() {
-       expect(true).to.equal(false);
-    });
 });

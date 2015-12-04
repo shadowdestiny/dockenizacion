@@ -46,8 +46,6 @@ var EmCustomizableSelect = React.createClass({
             onChange={this.handleChange}
             disabled={disabled}/>;
 
-
-
         return (
             <div className="details">
                 <span className="txt">When Jackpot reach</span>
