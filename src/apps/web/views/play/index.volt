@@ -48,16 +48,12 @@
 				{% for index in 0..5 %}
 					<div id="num_{{ index }}" class="myCol num{{ index }}">
 						{% set showIndex = index + 1 %}
-						{% include "_elements/line.volt" %}
+					{#% include "_elements/line.volt" %} #}
 					</div>
 				{% endfor %}
 			</div>
-			<div class="cl">
-				<ul class="no-li cl box-action">
-					<li class="box-more" data-tip="{{ language.translate('It is not possible to add more lines until you fill in the previous ones') }}"><a class="btn gwg add-more" href="javascript:void(0);">{{ language.translate("Add more lines") }} <svg class="ico v-plus"><use xlink:href="/w/svg/icon.svg#v-plus"></use></svg></a></li>
-					<li><a class="btn bwb random-all" href="javascript:void(0);">{{ language.translate("Randomize all lines") }} <svg class="v-shuffle"><use xlink:href="/w/svg/icon.svg#v-shuffle"></use></svg></a></li>
-					<li class="fix-margin"><a class="btn rwr clear-all" href="javascript:void(0);">{{ language.translate("Clear all lines") }} <svg class="ico v-cross"><use xlink:href="/w/svg/icon.svg#v-cross"></use></svg></a></li>
-				</ul>
+			<div id="lines-react"></div>
+			<div class="cl" id="box-action">
 			</div>
 			<div class="box-bottom">
 				<div class="wrap">

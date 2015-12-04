@@ -20,7 +20,7 @@
 
         <div class="box-basic medium">
             <h1 class="h1 title yellow res">{{ language.translate("Shopping cart") }}</h1>
-            <div class="terms">By purchasing you agree to <a href="#">Terms &amp; Conditions</a></div>
+            <div class="terms">{{ language.translate("By purchasing you agree to") }} <a href="/legal/">{{ language.translate("Terms &amp; Conditions") }}</a></div>
 
             <h2 class="h4 sub-txt">{{ language.translate("Order Summary") }}</h2>
 
@@ -35,8 +35,8 @@
 
                     {# EMTD It need to add DRAW or DRAWS word depending if plural or not #}
                     <div class="right">
-                        <a class="change" href="javascript:void(0);">{{ language.translate("Change") }}</a>
                         <div class="val summary">8 {{ language.translate("draws") }}</div>
+                        <a class="change" href="javascript:void(0);">{{ language.translate("Change") }}</a>
                     </div>
                 </div>
                 <div class="row cl">
@@ -102,7 +102,9 @@
                         <div class="summary val">&euro; 0,35</div>
                         <div class="box-funds cl">
                             <a class="add-funds" href="javascript:void(0)">{{ language.translate("Add Funds to avoid charges") }}</a><br>
-                            <span class="combo">&euro;</span><input class="input" type="text" placeholder='{{ language.translate("Insert an ammount")}}' value="">
+                            <div class="box-combo">
+                                <div class="combo currency">&euro;</div><input class="combo input" type="text" placeholder='{{ language.translate("Insert an ammount")}}' value="">
+                            </div>
                         </div>
                     </div>
                 </div>

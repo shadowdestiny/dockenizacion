@@ -28,7 +28,6 @@ class EmailService
             'Thank you for registering an account with us. Please valudate the email address you regitered with by clicking on the link below:<br>
             <a href="' . $url->toNative() . '">Click this link to validate your registration</a>
             <br><br>or copy and paste this url in your browser:<br><span style="font-size:12px;">'.$url->toNative().'</span>'
-
         );
     }
 

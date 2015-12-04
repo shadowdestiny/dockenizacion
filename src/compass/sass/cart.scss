@@ -49,8 +49,11 @@
 .order{
   .box-wallet .txt{font-size:$basic-size!important; margin:0 0 0 8px; float:right; cursor:pointer;}
   .checkbox{float:right; position:relative; top:4px;}
-  .input{width:100%; border-color:$grey-light; border-left:0;}
-  .combo{background:$grey-lighter; border-radius:5px 0 0 5px; font-weight:bold; padding:1px 9px; border:1px solid $grey-light; border-right:0; position:relative; top:2px;}
+  .combo.input{
+    background:#fff; width:140px; padding:4px 8px; 
+    -webkit-appearance:none; -webkit-border-radius:0; height:1%; /* Fix Safari */
+  }
+  .combo.currency{padding:0 9px;}
   .txt-fee, .desc, .detail, .summary{font-size:$basic-size;}
   .change, .add-funds, .txt-currency{font-size:$small;}
   .txt-fee, .detail, .type{float:left;}
@@ -61,14 +64,11 @@
   .row{border-top:1px solid $grey-lighter; padding:10px;}
   .sub-txt{margin:0 0 .5em;}
   .desc{font-weight:700; float:left; width:70px;}
-  .change{margin-left:15px;}
+  .change{margin-left:15px; display:inline-block;}
   .type{width:200px; text-align:left; font-style:italic;}
   .summary{font-weight:700; float:right;}
   .add-funds{float:right;}
-  .box-funds{
-    float:right;
-    .input{background:#fff; width:140px; padding:4px 8px; font-size:$small;}
-  }
+  .box-funds{float:right;}
   .box-total{
     color:$purple; border-top:2px solid $purple; padding:8px 10px;
     .total{
@@ -196,6 +196,7 @@
     .tweak{float:none;}
     .box-funds{margin-top:5px; float:left;}
     .add-funds{float:left;}
+    .box-wallet .txt{font-size:$small!important;}
   }
 }
 

@@ -30,7 +30,6 @@ class EmailServiceUnitTest extends UnitTestBase
         $url_address = 'http://www.lasdfslsdklhfa.cat';
         $url = new Url($url_address);
         $expected_recipient_data = $this->getExpectedRecipientData();
-
         $expected_mail_data = [
             [
                 'name' => 'title',
@@ -42,7 +41,10 @@ class EmailServiceUnitTest extends UnitTestBase
             ],
             [
                 'name' => 'main',
-                'content' => '<a href="'.$url_address.'">Click here to validate you email!</a> <br>or copy and paste this url in your browser:<br>'.$url_address,
+                'content' => 'Thank you for registering an account with us. Please valudate the email address you regitered with by clicking on the link below:<br>
+            <a href="' . $url->toNative() . '">Click this link to validate your registration</a>
+            <br><br>or copy and paste this url in your browser:<br><span style="font-size:12px;">'.$url->toNative().'</span>'
+                ,
             ],
         ];
         $this->authService_double->getValidationUrl($user)->willReturn($url);

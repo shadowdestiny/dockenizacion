@@ -657,6 +657,7 @@
                         </div>
 
                         * Combo buttons *
+                        * combo currency in order *
                     </section>
 
                     <section>
