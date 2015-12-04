@@ -14,8 +14,12 @@ use Phalcon\Validation\Message;
  *  THE FUNCTIONALITY IS NOT THE REAL ONE
  */
 
-class CartController extends PublicSiteControllerBase
-{
+class CartController extends PublicSiteControllerBase{
+
+    public function orderAction(){}
+  //  public function profileAction(){}
+    public function successAction(){}
+    public function failAction(){}
 
     public function indexAction($paramsFromPreviousAction = null)
     {
@@ -232,4 +236,5 @@ class CartController extends PublicSiteControllerBase
             return array($controller, $action, $params);
         }
     }
+
 }

@@ -9,8 +9,7 @@
 {% block bodyClass %}cart minimal{% endblock %}
 
 {% block header %}
-    {% set activeSteps='{"myClass": "step1"}'|json_decode %}
-    {% include "_elements/sign-in-header.volt" %}
+    {% include "_elements/minimal-header.volt" %}
 {% endblock %}
 {% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}
 
