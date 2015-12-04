@@ -182,6 +182,10 @@ label.submit{cursor:pointer;}
 .gwy.active, .ywy.active, .gwy.active:active, .ywy.active:active
 {background:$yellow!important; color:#fff!important; border:1px solid $yellow-darker!important; box-shadow:none!important;}
 
+.box-combo{display:table;}
+.combo.currency{display:table-cell; background:$grey-lighter; border-radius:5px 0 0 5px; font-weight:bold; border:1px solid $grey-light; border-right:0;  vertical-align:middle; white-space:nowrap; line-height:1;}
+.combo.input{display:table-cell; border-color:$grey-light; border-left:0; }
+
 /* MENU HAMBURGER */
 .menu-ham{
   position:absolute; top:10px; right:10px; border:0; border:1px solid $grey-light;
@@ -477,6 +481,7 @@ body, .submit{font-family:$basic-font;}
   line-height:135%;
   .lnk{display:block;}
 }
+.minimal .main-foot .wrapper{padding:0 15px;}
 }
  
 /* Custom, iPhone Retina */
