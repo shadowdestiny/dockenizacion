@@ -88,20 +88,23 @@ var EuroMillionsLine = React.createClass({
     handleClickRandom : function () {
         var nums = [];
         var stars = [];
-        var repeat = 50;
-        var x = 0;
-        var self = this;
-        var intervalID = setInterval(function(){
-            for(var i=0; i < 5; i++){
-                nums[i] = Math.floor(Math.random() * 50);
-                self.state.selectedNumbers.numbers = nums[i];
-            }
-            for(var i=0; i < 2; i++){
-                stars[i] = Math.floor(Math.random() * 11);
-                self.state.selectedNumbers.stars = stars[i];
-            }
-            if(repeat === ++x) clearInterval(intervalID);
-        },repeat);
+        for(var i=0; i < 5; i++){
+            n = Math.floor(Math.random() * (50) + 1);
+            if(nums.indexOf(n) == -1) nums[i] = n; else i--;
+        }
+        for(var i=0; i < 2; i++){
+            s = Math.floor(Math.random() * (11) + 1);
+            if(stars.indexOf(s) == -1) stars[i] = s; else i--;
+        }
+
+        //var interval = setInterval(function(){
+        //    for(var j=0;j<nums.length;j++) {
+        //        this.state.selectedNumbers.numbers.push(nums[j]);
+        //    }
+        //},50,12);
+        //clearInterval(interval);
+        this.state.selectedNumbers.numbers = nums;
+        this.state.selectedNumbers.stars = stars;
         this.state.showedLine = true;
         this.storePlay();
     },
