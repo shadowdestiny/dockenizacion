@@ -1,13 +1,14 @@
 @import "variable";
+@import "compass/css3";
 
 /* PAGING */
 .paging{
   font-size:$basic-size; margin:1em auto; text-align:center;
   li{display:inline; margin:0 3px;}
-  a{text-decoration:none; padding:2px 6px;}
-  a:hover, a:focus{background:$yellow; color:#fff;}
-  .active a{font-weight:700; color:#000; cursor:default; background:$grey-lighter;}
-  .disable a{color:$grey; cursor:default; background:transparent;}
+  a{text-decoration:none; padding:5px 11px; border-radius:5px; border:1px solid $grey-light; color:$black; @include background-image(linear-gradient(#f7f7f7, $grey-lighter));}
+  a:hover, a:focus{background:$yellow; color:#fff; text-shadow:0 0 3px rgba(0, 0, 0, .5);}
+  .active a{font-weight:700; cursor:default; background:$grey; border:1px solid $grey-dark; color:#fff; text-shadow:0 0 3px rgba(0, 0, 0, .5); box-shadow:0 0 8px rgba(0, 0, 0, .5) inset, 0 1px 0 rgba(255, 255, 255, .8);}
+  .disable a{color:$grey; cursor:default; background:transparent; text-shadow:none; opacity:.5;}
   .prev{margin-right:25px;}
   .next{margin-left:25px;}
 }
