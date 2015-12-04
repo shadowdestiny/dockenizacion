@@ -5,9 +5,10 @@ var EuroMilliosnBoxActionPlay = React.createClass({
 
     render : function() {
         var elem = [];
+        elem.push(<EuroMillionsAddLinesBtn />);
         return (
-            <ul class="no-li cl box-action">
-                elem.push(<EuroMillionsAddLinesBtn />);
+            <ul className="no-li cl box-action">
+                {elem}
             </ul>
         );
     }

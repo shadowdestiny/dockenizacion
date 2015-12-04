@@ -63,24 +63,24 @@ class EmailServiceUnitTest extends UnitTestBase
         $user = $this->getUser();
         $url_address = 'http://www.lasdfslsdklhfa.cat';
         $url = new Url($url_address);
-        $expected_recipient_data = $this->getExpectedRecipientData();
-        $expected_mail_data = [
-            [
-                'name' => 'title',
-                'content' => 'Password reset',
-            ],
-            [
-                'name' => 'subtitle',
-                'content' => 'Somebody has asked to reset your password.',
-            ],
-            [
-                'name' => 'main',
-                'content' => 'If it was you, you just have to <a href="'.$url_address.'">click this link to reset your password</a> <br>or copy and paste this url in your browser:<br>'.$url_address.'<br>If you didn\'t ask for the password reset, just ignore this email',
-            ],
-
-        ];
+//        $expected_recipient_data = $this->getExpectedRecipientData();
+//        $expected_mail_data = [
+//            [
+//                'name' => 'title',
+//                'content' => 'Password reset',
+//            ],
+//            [
+//                'name' => 'subtitle',
+//                'content' => 'Somebody has asked to reset your password.',
+//            ],
+//            [
+//                'name' => 'main',
+//                'content' => 'If it was you, you just have to <a href="'.$url_address.'">click this link to reset your password</a> <br>or copy and paste this url in your browser:<br>'.$url_address.'<br>If you didn\'t ask for the password reset, just ignore this email',
+//            ],
+//
+//        ];
         $this->authService_double->getPasswordResetUrl($user)->willReturn($url);
-        $this->mailServiceApi_double->send(Argument::type('string'), Argument::type('string'), $expected_recipient_data, Argument::type('string'), '', $expected_mail_data, [], Argument::type('string'), [])->shouldBeCalled();
+        $this->mailServiceApi_double->send(Argument::type('string'), Argument::type('string'), Argument::type('array'), Argument::type('string'), '', Argument::type('array'), [], Argument::type('string'), [])->shouldBeCalled();
         $sut = $this->getSut();
         $sut->sendPasswordResetMail($user, $url);
     }
