@@ -26,44 +26,44 @@
 //       }
 //    });
 //
-//    it('div text corresponds to selected option', function() {
-//        let em_select = TestUtils.renderIntoDocument(
-//            <EmSelect options={options} defaultValue="75" defaultText="75 text" />
-//        );
-//        let select = ReactDOM.findDOMNode(em_select).childNodes[1];
-//        TestUtils.Simulate.change(select, {
-//            "target": {
-//                "value": '100',
-//                "selectedOptions": [
-//                    {"text": '100 text'}
-//                ]}
-//        });
-//
-//        let div_text = ReactDOM.findDOMNode(em_select).childNodes[0].textContent;
-//
-//        expect(div_text).toBe('100 text');
-//    });
-//
-//    it('doesn\'t change the value nor the div text when the parent handleChange returns false', function (){
-//        let parentOnChange = function(event) {
-//            return false;
-//        };
-//        let em_select = TestUtils.renderIntoDocument(
-//            <EmSelect options={options} defaultValue="75" defaultText="75 text" onChange={parentOnChange}/>
-//        );
-//        let select = ReactDOM.findDOMNode(em_select).childNodes[1];
-//        TestUtils.Simulate.change(select, {
-//            "target": {
-//                "value": '100',
-//                "selectedOptions": [
-//                    {"text": '100 text'}
-//                ]}
-//        });
-//
-//        let div_text = ReactDOM.findDOMNode(em_select).childNodes[0].textContent;
-//
-//        expect(div_text).toBe('75 text');
-//        expect(select.value).toBe('75');
-//    });
-//
+    it('div text corresponds to selected option', function() {
+        let em_select = TestUtils.renderIntoDocument(
+            <EmSelect options={options} defaultValue="75" defaultText="75 text" />
+        );
+        let select = ReactDOM.findDOMNode(em_select).childNodes[1];
+        TestUtils.Simulate.change(select, {
+            "target": {
+                "value": '100',
+                "selectedOptions": [
+                    {"text": '100 text'}
+                ]}
+        });
+
+        let div_text = ReactDOM.findDOMNode(em_select).childNodes[0].textContent;
+
+        expect(div_text).toBe('100 text');
+    });
+
+    it('doesn\'t change the value nor the div text when the parent handleChange returns false', function (){
+        let parentOnChange = function(event) {
+            return false;
+        };
+        let em_select = TestUtils.renderIntoDocument(
+            <EmSelect options={options} defaultValue="75" defaultText="75 text" onChange={parentOnChange}/>
+        );
+        let select = ReactDOM.findDOMNode(em_select).childNodes[1];
+        TestUtils.Simulate.change(select, {
+            "target": {
+                "value": '100',
+                "selectedOptions": [
+                    {"text": '100 text'}
+                ]}
+        });
+
+        let div_text = ReactDOM.findDOMNode(em_select).childNodes[0].textContent;
+
+        expect(div_text).toBe('75 text');
+        expect(select.value).toBe('75');
+    });
+
 //});
