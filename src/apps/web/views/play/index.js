@@ -25,36 +25,36 @@ $(document).on("storeNum",{numColumn: 0, typeColumn: "", num: "", active: 1},
 	var isActive = active;
 	var objLine = null;
 
-	if(window.localStorage == 'undefined'){
-		//EMTD save in cookie
-	}else if(bet_line != null){
-		numLines = JSON.parse(bet_line);
-	}
-
-	if(typeof numLines[column] == 'undefined' || numLines[column] == null){
-		objLine = new lineObject();
-	}else{
-		objLine = numLines[column];
-	}
-	if(typeColumn == 'number'){
-		if(isActive){
-			objLine.numbers.push(num);
-		}else{
-			//find item
-			var item = objLine.numbers.indexOf(num);
-			objLine.numbers.splice(item,1);
-		}
-	}else{
-		if(isActive){
-			objLine.stars.push(num);
-		}else{
-			var item = objLine.stars.indexOf(num);
-			objLine.stars.splice(item,1);
-		}
-	}
-	numLines[column] = objLine;
-	//get in load page
-	localStorage.setItem('bet_line', JSON.stringify(numLines));
+	//if(window.localStorage == 'undefined'){
+	//	//EMTD save in cookie
+	//}else if(bet_line != null){
+	//	numLines = JSON.parse(bet_line);
+	//}
+    //
+	//if(typeof numLines[column] == 'undefined' || numLines[column] == null){
+	//	objLine = new lineObject();
+	//}else{
+	//	objLine = numLines[column];
+	//}
+	//if(typeColumn == 'number'){
+	//	if(isActive){
+	//		objLine.numbers.push(num);
+	//	}else{
+	//		//find item
+	//		var item = objLine.numbers.indexOf(num);
+	//		objLine.numbers.splice(item,1);
+	//	}
+	//}else{
+	//	if(isActive){
+	//		objLine.stars.push(num);
+	//	}else{
+	//		var item = objLine.stars.indexOf(num);
+	//		objLine.stars.splice(item,1);
+	//	}
+	//}
+	//numLines[column] = objLine;
+	////get in load page
+	//localStorage.setItem('bet_line', JSON.stringify(numLines));
 });
 
 function removeColumnInLocalStorage(column){
@@ -132,12 +132,12 @@ function playLine(selector, type){
 				if(numberCount[valNum[1]] > maxNumbers){
 					return;
 				}
-				numberCount[valNum[1]]--
+				//numberCount[valNum[1]]--
 			}else if(type == "star"){
 				if(starCount[valNum[1]] > maxStars){
 					return;
 				}
-				starCount[valNum[1]]--
+				//starCount[valNum[1]]--
 			}
 			totalCount[valNum[1]]--
 		}else{
@@ -147,14 +147,14 @@ function playLine(selector, type){
 				if(valNumCount > maxNumbers){
 					return;
 				}
-				numberCount[valNum[1]]++
+				//numberCount[valNum[1]]++
 			}else if(type == "star"){
 				starArr = starCount[valNum[1]];
-				starNumCount = ++starArr;
+				//starNumCount = ++starArr;
 				if(starNumCount > maxStars){
 					return;
 				}
-				starCount[valNum[1]]++
+				//starCount[valNum[1]]++
 			}
 			totalCount[valNum[1]]++
 		}
@@ -193,7 +193,6 @@ function shuffle(array){ // Fisher–Yates shuffle
 
   // While there remain elements to shuffle…
   while (m) {
-
     // Pick a remaining element…
     i = Math.floor(Math.random() * m--);
     // And swap it with the current element.
@@ -559,24 +558,24 @@ function disableSelect(target, disable, activate, input, inputParent, select){ /
 }
 
 $(function(){
-	playLine('.numbers .btn', "number");
-	playLine('.stars .ico', "star");
-	randomNum(".random");
-	clearNum(".clear");
+	//playLine('.numbers .btn', "number");
+//	playLine('.stars .ico', "star");
+//	randomNum(".random");
+//	clearNum(".clear");
 	randomAll(".random-all");
-	clearNumAll(".clear-all");
+//	clearNumAll(".clear-all");
 	$('.tipr-normal').tipr({'mode':'top', "styled":"normal"});
 	$('.tipr-small').tipr({'mode':'top', "styled":"small"});
 	showAdvanced(".advanced", ".advanced-play", ".advanced-play .close", ".details select", ".advanced-play .col2 select", "#threshold", ".input-value",".threshold")
 	disableSelect("#threshold",".advanced-play .col2 select", ".details select",".input-value input",".input-value",".threshold");
 
 	$(window).resize(function(){
-		resizeAdapterColumn();
+	//	resizeAdapterColumn();
 	});
 
 	//Check varSize
 	if(varSize >= 4){
-		columnAdapter();
+	//	columnAdapter();
 	}
 
 	$(".li-play").addClass("active");
@@ -677,7 +676,7 @@ $(function(){
 
 	currentColumns = getTotalColumns();
 	//check key in localstorage to get numbers in previous play
-	var numbers = localStorage.getItem('bet_line');
+	//var numbers = localStorage.getItem('bet_line');
 	putNumbersPreviousPlay(numbers);
 	redrawTotalCost();
 });
