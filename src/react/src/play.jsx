@@ -1,43 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var EmCustomizableSelect = require('../components/EmCustomizableSelect.js');
 var EuroMillionsLine = require('../components/EmLine.js');
-
-
-
-var PlayPage = React.createClass({
-    handleCheck: function (event) {
-        var active;
-        if(event.target.checked) {
-            active = true;
-        } else {
-            active = false;
-        }
-        this.setState({
-            thresholdActive: active
-        });
-    },
-
-    getInitialState: function () {
-        return ({
-            thresholdActive: false,
-        });
-    },
-
-    render: function() {
-       return (
-               <div>
-               <label className="label" htmlFor="threshold">Jackpot Threshold <div data-tip="Set the condition when you want to play or to be informed automatically. Thresholds are calculated only in Euro." className="wrap tipr-normal"><svg className="ico v-question-mark" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-question-mark"</use>'}} /></div></label>
-               <div className="box-threshold cl">
-                   <input type="checkbox" className="checkbox" id="threshold" onChange={this.handleCheck}/>
-                   <EmCustomizableSelect {...this.props} active={this.state.thresholdActive}/>
-               </div>
-               <div class="test">Test
-               </div>
-           </div>
-       );
-    }
-});
+var ThresholdPlay = require('../components/EmThresholdPlay.jsx');
+var EuroMillionsBoxAction = require('../components/EmBoxActionPlay.jsx');
 
 var default_value = '75';
 var default_text = '75 millions €';
@@ -50,9 +15,14 @@ var options = [
 ];
 
 ReactDOM.render(
-    <PlayPage options={options} customValue={custom_value} defaultValue={default_value} defaultText={default_text}/>,
+    <ThresholdPlay options={options} customValue={custom_value} defaultValue={default_value} defaultText={default_text}/>,
     document.getElementById('wrap-threshold')
 );
+
+ReactDOM.render(
+    <EuroMillionsBoxAction />,
+    document.getElementById('box-action')
+)
 
 $(function(){
     var numberEuroMillionsLine = 0;

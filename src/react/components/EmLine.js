@@ -96,13 +96,6 @@ var EuroMillionsLine = React.createClass({
             s = Math.floor(Math.random() * (11) + 1);
             if(stars.indexOf(s) == -1) stars[i] = s; else i--;
         }
-
-        //var interval = setInterval(function(){
-        //    for(var j=0;j<nums.length;j++) {
-        //        this.state.selectedNumbers.numbers.push(nums[j]);
-        //    }
-        //},50,12);
-        //clearInterval(interval);
         this.state.selectedNumbers.numbers = nums;
         this.state.selectedNumbers.stars = stars;
         this.state.showedLine = true;
@@ -164,7 +157,6 @@ var EuroMillionsLine = React.createClass({
                     <EuroMillionsClearLine showed={this.state.showedLine} onClearClick={this.handleClickOnClear}/>
                 </div>
             </div>
-
         );
     }
 });
