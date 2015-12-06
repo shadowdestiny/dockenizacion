@@ -38,7 +38,12 @@ var EuroMillionsLine = React.createClass({
     },
 
     componentDidMount: function() {
-        this.state.storage[this.props.lineNumber] = this.state.selectedNumbers
+
+        this.state.storage[this.props.lineNumber] = this.state.selectedNumbers;
+    },
+
+    count: function() {
+        $(document).trigger('increment_line');
     },
 
     handleClickOnNumber: function (number) {
@@ -89,12 +94,11 @@ var EuroMillionsLine = React.createClass({
         var nums = [];
         var stars = [];
         for(var i=0; i < 5; i++){
-            var n = Math.floor(Math.random() * (50) + 1);
+            var n = Math.floor(Math.random() * 51);
             if(nums.indexOf(n) == -1) nums[i] = n; else i--;
         }
-
         for(var i=0; i < 2; i++){
-            var s = Math.floor(Math.random() * (11) + 1);
+            var s = Math.floor(Math.random() * 12);
             if(stars.indexOf(s) == -1) stars[i] = s; else i--;
         }
         this.state.selectedNumbers.numbers = nums;
@@ -116,6 +120,7 @@ var EuroMillionsLine = React.createClass({
             for (var j = 0; j < this.props.numberPerLine; j++) {
                 row.push(i + j)
             }
+
             rows.push(<EuroMillionsLineRow numbers={row} onNumberClick={this.handleClickOnNumber}
                                            selectedNumbers={this.state.selectedNumbers} key={row[0]}/>);
         }
@@ -139,25 +144,26 @@ var EuroMillionsLine = React.createClass({
         star_rows.push(<EuroMillionsLineStarsRow numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
                                                  extraClass="" columnClass="col3 not" key="3"/>);
 
+        var class_name = "myCol num"+this.props.lineNumber;
         return (
-            <div>
-                <h1 className="h3 blue center">Line {  linenumber }</h1>
-                <div className="line center">
-                    <EuroMillionsCheckMark numbers_length={numbers_length} stars_length={stars_length}/>
-                    <div className="combo cols not">
-                        <EuroMillionsRandomBtn line={this.props.lineNumber} onBtnRandomClick={this.handleClickRandom}/>
-                    </div>
-                    <div className="values">
-                        <div className="numbers">
-                            {rows}
+                <div onLoad={this.count} className={class_name}>
+                    <h1 className="h3 blue center">Line {  linenumber }</h1>
+                    <div className="line center">
+                        <EuroMillionsCheckMark numbers_length={numbers_length} stars_length={stars_length}/>
+                        <div className="combo cols not">
+                            <EuroMillionsRandomBtn line={this.props.lineNumber} onBtnRandomClick={this.handleClickRandom}/>
                         </div>
-                        <div className="stars">
-                            {star_rows}
+                        <div className="values">
+                            <div className="numbers">
+                                {rows}
+                            </div>
+                            <div className="stars">
+                                {star_rows}
+                            </div>
                         </div>
+                        <EuroMillionsClearLine showed={this.state.showedLine} onClearClick={this.handleClickOnClear}/>
                     </div>
-                    <EuroMillionsClearLine showed={this.state.showedLine} onClearClick={this.handleClickOnClear}/>
                 </div>
-            </div>
         );
     }
 });

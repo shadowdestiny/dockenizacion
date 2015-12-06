@@ -646,7 +646,7 @@ $(function(){
 		redrawTotalCost();
 	})
 
-	$('.add-more').on('click touchend', function(){
+	/*$('.add-more').on('click touchend', function(){
 		if(isAddMoreClicked == false ){
 			newLine();
 			isAddMoreClicked=true;
@@ -658,7 +658,7 @@ $(function(){
 				$('.add-more').addClass('stop');
 			}
 		}
-	});
+	});*/
 
 
 	$('.add-more').on('mouseover touchstart', function(){

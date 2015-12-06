@@ -44,12 +44,12 @@
 			<a href="/faq#n10">{{ language.translate("Yes, please.") }}</a></span>
 		</div>
 		<div class="gameplay">
-			<div class="box-lines cl">
+			<div class="box-lines cl" id="box-lines">
 				{% for index in 0..5 %}
-					<div id="num_{{ index }}" class="myCol num{{ index }}">
+					{#<div id="num_{{ index }}" class="myCol num{{ index }}">
 						{% set showIndex = index + 1 %}
 					{#% include "_elements/line.volt" %} #}
-					</div>
+					{#</div>#}
 				{% endfor %}
 			</div>
 			<div id="lines-react"></div>

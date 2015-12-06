@@ -1,15 +1,18 @@
 var React = require('react');
 var EuroMillionsAddLinesBtn = require('./EmAddLinesBtn.jsx');
-
 var EuroMillionsRandomAllBtn = require('./EmRandomAllBtn.jsx');
 
 var EuroMilliosnBoxActionPlay = React.createClass({
 
+    handlerAddLines : function() {
+        $(document).trigger('add_lines');
+    },
+
     render : function() {
         var elem = [];
 
-        elem.push(<EuroMillionsAddLinesBtn key="1"/>);
-        elem.push(<EuroMillionsRandomAllBtn key="2"/>);
+        elem.push(<EuroMillionsAddLinesBtn onBtnAddLinesClick={this.handlerAddLines} key="1"/>);
+        elem.push(<EuroMillionsRandomAllBtn  key="2"/>);
         return (
             <ul className="no-li cl box-action">
                 {elem}

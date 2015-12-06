@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 var EuroMillionsLine = require('../components/EmLine.js');
 var ThresholdPlay = require('../components/EmThresholdPlay.jsx');
 var EuroMillionsBoxAction = require('../components/EmBoxActionPlay.jsx');
+var EuroMillionsMultipleEmLines = require('../components/EmMultipleEmLines.jsx');
 
 var default_value = '75';
 var default_text = '75 millions €';
@@ -42,13 +43,14 @@ $(function(){
             }
         }
     }
-    var storage = [];
-    for (var i = 0; i <= numberEuroMillionsLine; i++) {
-        var selected_numbers = eval('typeof selected_numbers_' + i) != 'undefined' ? eval('selected_numbers_' + i) : {};
-        ReactDOM.render(
-            <EuroMillionsLine storage={storage} numberPerLine="5" lineNumber={i}/>,
-            document.getElementById('num_' + i)
-        );
-    }
+
+    ReactDOM.render(
+        <EuroMillionsMultipleEmLines numberEuroMillionsLine={numberEuroMillionsLine}/>
+        ,
+        document.getElementById('box-lines')
+    );
+
 })
 
+var count = React.Children.count(<EuroMillionsLine/>);
+console.log(count);
