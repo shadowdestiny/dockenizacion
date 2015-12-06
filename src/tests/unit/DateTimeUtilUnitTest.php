@@ -25,19 +25,6 @@ class DateTimeUtilUnitTest extends UnitTestBase
 
     /**
      * method checkOpenTicket
-     * when calledWithTimeLessThanOpenTimeConfigure
-     * should returnTrue
-     */
-    public function test_checkOpenTicket_calledWithTimeLessThanOpenTimeConfigure_returnTrue()
-    {
-        $expected = true;
-        $sut = $this->getSut();
-        $actual = $sut->checkOpenTicket();
-        $this->assertEquals($expected,$actual);
-    }
-
-    /**
-     * method checkOpenTicket
      * when calledWithTimeToRetryGreatherThanTimeLimit
      * should returnFalse
      */
