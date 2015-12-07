@@ -1,5 +1,5 @@
 var React = require('react');
-var EmCustomizableSelect = require('../components/EmCustomizableSelect.js');
+var EmCustomizableSelect = require('../components/EmCustomizableSelect.jsx');
 
 var PlayPage = React.createClass({
     handleCheck: function (event) {
