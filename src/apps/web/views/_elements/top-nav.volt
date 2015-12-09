@@ -1,12 +1,12 @@
 <li class="li-currency">
 	<a class="link" href="javascript:void(0);">{{ user_currency['symbol'] }} {{ user_currency['name'] }}</a>
-	<div class="div-currency">
+	<div id="iscroll" class="div-currency">
 		<ul class="no-li">
             {% for currency in currencies %}
-				<li><a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">{{ currency.symbol }} {{ currency.name }}</a></li>
+				<li><a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">EUR &nbsp; {{ currency.name }}</a></li>
             {% endfor %}
         </ul>
-	</div>
+    </div>
 </li>
 
 {% if user_balance_raw > 0 %}

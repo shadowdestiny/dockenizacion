@@ -42,7 +42,6 @@
             <li><a href="/userAccess/logout">{{ language.translate("Sign out") }} <svg class="ico v-exit"><use xlink:href="/w/svg/icon.svg#v-exit"></use></svg></a></li>
         </ul>
     {% endif %}
-
 </li>
 <li class="li-help {% if activeNav.myClass == 'help' %}active{% endif %}">
     <a href="/help">
