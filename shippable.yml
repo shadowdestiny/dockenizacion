@@ -10,21 +10,23 @@ env:
 
 before_install:
 - composer config -g github-oauth.github.com $MY_GITHUB_TOKEN
+- /etc/init.d/mysql start & > /dev/null
+- redis-server &
 
-services:
-    - redis
-
-before_script:
-  - /etc/init.d/mysql start & > /dev/null
-  - redis-server &
-  - mkdir -p shippable/codecoverage
-  - mkdir -p shippable/testresults
+install:
   - cd src
   - composer install --prefer-source --no-interaction
   - cd react
   - npm install
   - cd ../..
   - mysql -e 'create database if not exists euromillions_test;'
+
+services:
+  - redis
+
+before_script:
+  - mkdir -p shippable/codecoverage
+  - mkdir -p shippable/testresults
   - cp -f src/apps/shared/config/shippable_test_config.ini src/apps/shared/config/config.ini
   - dev-scripts/schema_migration.sh shippable
 
