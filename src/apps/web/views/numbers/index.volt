@@ -131,27 +131,27 @@ $(function(){
 									</tr>
 								</thead>
 								<tbody>
-								{% for name,categories in break_downs %}
-									<tr>
-									{% if break_downs[name] is defined %}
-										<td class="td-ball">
-											{%  for corrected_numbers in 1..break_downs[name]['numbers_corrected'] %}
-												<span class="ball"></span>
-											{% endfor %}
-										</td>
-										<td class="td-star-ball">
-											{% if break_downs[name]['stars_corrected'] > 0 %}
-												{%  for corrected_stars in 1..break_downs[name]['stars_corrected'] %}
-													<span class="star-ball"></span>
-												{% endfor %}
+									{% for name,categories in break_downs %}
+										<tr>
+											{% if break_downs[name] is defined %}
+												<td class="td-ball">
+													{%  for corrected_numbers in 1..break_downs[name]['numbers_corrected'] %}
+														<span class="ball"></span>
+													{% endfor %}
+												</td>
+												<td class="td-star-ball">
+													{% if break_downs[name]['stars_corrected'] > 0 %}
+														{%  for corrected_stars in 1..break_downs[name]['stars_corrected'] %}
+															<span class="star-ball"></span>
+														{% endfor %}
+													{% endif %}
+												</td>
+												<td class="td-winners">{{ break_downs[name]['winners'] }}</td>
+												<td class="td-prize">{{ symbol }} {{ break_downs[name]['lottery_prize'] | number_format(2, ',', '.') }}</td>
+												<td class="td-payout">-</td>
 											{% endif %}
-										</td>
-										<td class="td-winners">{{ break_downs[name]['winners'] }}</td>
-										<td class="td-prize">{{ symbol }} {{ break_downs[name]['lottery_prize'] | number_format(2, ',', '.') }}</td>
-										<td class="td-payout">-</td>
-									{% endif %}
-									</tr>
-								{% endfor %}
+										</tr>
+									{% endfor %}
 								</tbody>
 							</table>
 						</div>
