@@ -1,7 +1,7 @@
 <?php
 namespace tests\base;
 
-use EuroMillions\shared\shareconfig\Namespaces;
+use EuroMillions\shared\config\Namespaces;
 
 abstract class ValueObjectUnitTestBase extends UnitTestBase
 {

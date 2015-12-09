@@ -4,8 +4,8 @@
 namespace EuroMillions\admin\services;
 
 use Doctrine\ORM\EntityManager;
-use EuroMillions\shared\sharecomponents\PhalconSessionWrapper;
-use EuroMillions\shared\shareconfig\interfaces\ISession;
+use EuroMillions\shared\components\PhalconSessionWrapper;
+use EuroMillions\shared\config\interfaces\ISession;
 use Phalcon\DiInterface;
 
 class DomainAdminServiceFactory

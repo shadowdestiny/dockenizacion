@@ -4,7 +4,7 @@
 namespace tests\unit\admin;
 
 
-use EuroMillions\shared\shareconfig\Namespaces;
+use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\web\entities\User;
 use EuroMillions\admin\vo\ActionResult;

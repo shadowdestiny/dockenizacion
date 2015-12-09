@@ -12,7 +12,7 @@ use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\interfaces\IAuthStorageStrategy;
 use EuroMillions\web\interfaces\IEmailValidationToken;
 use EuroMillions\web\interfaces\IPasswordHasher;
-use EuroMillions\shared\shareconfig\interfaces\IUrlManager;
+use EuroMillions\shared\config\interfaces\IUrlManager;
 use EuroMillions\web\interfaces\IUser;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\vo\Email;

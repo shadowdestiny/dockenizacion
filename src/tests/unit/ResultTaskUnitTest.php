@@ -5,7 +5,7 @@ namespace tests\unit;
 
 
 use EuroMillions\web\components\NullPasswordHasher;
-use EuroMillions\shared\shareconfig\Namespaces;
+use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\Notification;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
