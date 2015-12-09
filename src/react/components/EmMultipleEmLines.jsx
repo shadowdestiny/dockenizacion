@@ -5,21 +5,20 @@ var EuroMillionsLine = require('./EmLine.js');
 var EuroMillionsMultipleEmLines = React.createClass({
 
     getInitialState: function (){
-        return {numberLines : 0, animate : false, count: 0, clearAll : false};
+        return { numberLines : 0, random_all : false, count: 0 };
     },
 
     componentDidMount: function(){
-
         $(document).on('add_lines',function(e) {
             this.state.numberLines = this.state.numberLines + this.props.numberEuroMillionsLine +1;
             this.setState(this.state);
         }.bind(this));
-
         $(document).on('random_all_lines',function(e) {
-            this.state.animate = true;
+            this.state.random_all = true;
             this.setState(this.state);
         }.bind(this));
     },
+
     render : function() {
 
         if(this.state.numberLines < this.props.numberEuroMillionsLine) {
@@ -27,7 +26,7 @@ var EuroMillionsMultipleEmLines = React.createClass({
         }
 
         var numberEuroMillionsLine = this.state.numberLines;
-        var isAnimate = this.state.animate;
+        var isAnimate = this.state.random_all;
         var storage = [];
         var em_lines = [];
         for (var i = 0; i <= numberEuroMillionsLine; i++) {
