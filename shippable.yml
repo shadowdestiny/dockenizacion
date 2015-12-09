@@ -25,7 +25,7 @@ before_script:
   - npm install
   - cd ../..
   - mysql -e 'create database if not exists euromillions_test;'
-  - cp -f src/apps/share/shareconfig/shippable_test_config.ini src/apps/share/shareconfig/config.ini
+  - cp -f src/apps/shared/shareconfig/shippable_test_config.ini src/apps/shared/shareconfig/config.ini
   - dev-scripts/schema_migration.sh shippable
 
 script:
