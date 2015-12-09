@@ -46,6 +46,10 @@
             </ul>
         </div>
 
+        <div class="ending">
+            {{ language.translate("The draw will close in 30 minutes.") }}
+        </div>
+
         {% include "_elements/js-lib.volt" %} {# JS libraries #}
         {% block template_scripts %}{% endblock %}  {# Inject unique js #}
     </body>
