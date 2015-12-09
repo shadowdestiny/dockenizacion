@@ -39,14 +39,14 @@ var EuroMillionsLine = React.createClass({
 
     componentDidMount: function() {
         this.state.storage[this.props.lineNumber] = this.state.selectedNumbers;
-        this.checkNumbersAndShowClearBtn();
         $(document).on('clear_line',function(e) {
             this.state.selectedNumbers.numbers = [];
             this.state.selectedNumbers.stars = [];
             this.storePlay();
+            this.checkNumbersForActions();
             this.setState(this.state);
         }.bind(this));
-
+        this.checkNumbersForActions();
     },
 
     handleClickOnNumber: function (number) {
@@ -62,7 +62,7 @@ var EuroMillionsLine = React.createClass({
                 this.state.selectedNumbers.numbers.splice(position, 1);
             }
             this.storePlay();
-            this.checkNumbersAndShowClearBtn();
+            this.checkNumbersForActions();
             this.setState(this.state);
         }
     },
@@ -73,14 +73,23 @@ var EuroMillionsLine = React.createClass({
         localStorage.setItem('bet_line', JSON.stringify(this.state.storage));
     },
 
-    checkNumbersAndShowClearBtn : function () {
+
+
+    checkNumbersForActions : function () {
         var linenumber = this.props.lineNumber
         var numbers_length = this.state.selectedNumbers.numbers.length;
         var stars_length = this.state.selectedNumbers.stars.length;
+
         if(numbers_length == 0 && stars_length == 0) {
             $(document).trigger('show_btn_clear',[ linenumber, false ]);
         } else {
             $(document).trigger('show_btn_clear',[ linenumber, true ]);
+        }
+
+        if(numbers_length == 5 && stars_length == 2) {
+            $(document).trigger('lines_to_add', { linenumber });
+        } else {
+            $(document).trigger('lines_to_remove', { linenumber });
         }
     },
 
@@ -97,7 +106,7 @@ var EuroMillionsLine = React.createClass({
                 this.state.selectedNumbers.stars.splice(position, 1);
             }
             this.storePlay();
-            this.checkNumbersAndShowClearBtn();
+            this.checkNumbersForActions();
             this.setState(this.state);
         }
     },
@@ -107,17 +116,17 @@ var EuroMillionsLine = React.createClass({
         this.state.selectedNumbers.stars = [];
         this.state.showedLine = false;
         this.storePlay();
-        this.checkNumbersAndShowClearBtn();
+        this.checkNumbersForActions();
         this.setState(this.state);
     },
 
     handleClickRandom : function () {
         this.random();
         this.storePlay();
-        this.checkNumbersAndShowClearBtn();
+        this.checkNumbersForActions();
         this.setState(this.state);
     },
-    random : function() {
+    randomAll : function() {
         var nums = [];
         var stars = [];
         for(var i=0; i < 5; i++){
@@ -130,16 +139,15 @@ var EuroMillionsLine = React.createClass({
         }
         this.state.selectedNumbers.numbers = nums;
         this.state.selectedNumbers.stars = stars;
-        this.checkNumbersAndShowClearBtn();
+     //   this.checkNumbersForActions();
         this.state.showedLine = true;
+        //this.setState(this.state);
     },
     render: function () {
-
         if(this.props.animate) {
-            this.random();
+            this.randomAll();
             this.storePlay();
         }
-
         var rows = [];
         var linenumber = this.props.lineNumber + 1;
         var numbers_length = this.state.selectedNumbers.numbers.length;
