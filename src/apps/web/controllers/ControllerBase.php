@@ -49,6 +49,18 @@ class ControllerBase extends Controller
         if(empty($this->cookies->has('EM-law')) && $dispatcher->getControllerName() != 'index') {
             $this->cookies->set('EM-law', 'accepted', time() + 15 * 86400);
         }
+
+        $this->filterIps();
+    }
+
+    private function filterIps()
+    {
+        $config = $this->di->get('config');
+        if(!empty($config->restricted_access)) {
+            $ips = $config->restricted_access_ips;
+            $user = $config->restricted_access_user;
+            $pass = $config->restricted_access_pass;
+        }
     }
 
 }

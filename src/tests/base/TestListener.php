@@ -15,7 +15,7 @@ class TestListener extends \PHPUnit_Framework_BaseTestListener
             strpos($suite->getName(),"tests\\integration") !== false ||
             strpos($suite->getName(),"tests\\functional") !== false
         ) {
-            $bootstrap = new Bootstrap(new TestWebBootstrapStrategy(false, APP_PATH, APP_PATH . '../global_config/', APP_PATH . 'shareconfig/', APP_PATH . 'assets/', TESTS_PATH));
+            $bootstrap = new Bootstrap(new TestWebBootstrapStrategy(false, APP_PATH, APP_PATH . '../global_config/', APP_PATH . 'shared/shareconfig/', APP_PATH . 'assets/', TESTS_PATH));
             $di = DI::getDefault();
             $config = $di->get('config');
             /** @var EnvironmentDetector $ed */
@@ -28,7 +28,7 @@ class TestListener extends \PHPUnit_Framework_BaseTestListener
                 exec($command);
             }
         } else {
-            $bootstrap = new Bootstrap(new TestWebBootstrapStrategy(true, APP_PATH, APP_PATH.'../global_config/', APP_PATH . 'shareconfig/', APP_PATH . 'assets/', TESTS_PATH));
+            $bootstrap = new Bootstrap(new TestWebBootstrapStrategy(true, APP_PATH, APP_PATH.'../global_config/', APP_PATH . 'shared/shareconfig/', APP_PATH . 'assets/', TESTS_PATH));
         }
         $bootstrap->execute();
     }
