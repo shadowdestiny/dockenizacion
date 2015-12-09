@@ -1,7 +1,7 @@
 <?php
 
 
-namespace EuroMillions\shared\shareDTO;
+namespace EuroMillions\shared\dto;
 
 use EuroMillions\shared\shareVO\HttpUser;
 
