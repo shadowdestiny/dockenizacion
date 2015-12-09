@@ -1,8 +1,8 @@
 <?php
 namespace EuroMillions\shared\components\restrictedAccessStrategies;
 
-use EuroMillions\shared\components\shareInterfaces\IRestrictedAccessStrategy;
-use EuroMillions\shared\shareDTO\RestrictedAccessConfig;
+use EuroMillions\shared\components\interfaces\IRestrictedAccessStrategy;
+use EuroMillions\shared\dto\RestrictedAccessConfig;
 use Phalcon\Http\Request;
 
 class RestrictionByIp implements IRestrictedAccessStrategy
