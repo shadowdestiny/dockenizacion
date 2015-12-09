@@ -1,7 +1,7 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\shareconfig\Namespaces;
+use EuroMillions\shared\shareconfig\Namespaces;
 use Money\Currency;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;

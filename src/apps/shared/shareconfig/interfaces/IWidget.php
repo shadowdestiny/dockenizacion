@@ -10,7 +10,7 @@
  * All Rights Reserved.
  * ----------------------------------------------
  */
-namespace EuroMillions\shareconfig\interfaces;
+namespace EuroMillions\shared\shareconfig\interfaces;
 use Phalcon\Mvc\ViewInterface;
 /**
  * Interface WidgetInterface

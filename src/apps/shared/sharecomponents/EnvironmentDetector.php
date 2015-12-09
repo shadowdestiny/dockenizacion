@@ -1,8 +1,8 @@
 <?php
-namespace EuroMillions\sharecomponents;
+namespace EuroMillions\shared\sharecomponents;
 
 
-use EuroMillions\shareconfig\exceptions\EnvironmentNotSetException;
+use EuroMillions\shared\shareconfig\exceptions\EnvironmentNotSetException;
 
 class EnvironmentDetector
 {

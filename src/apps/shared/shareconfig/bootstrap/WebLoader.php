@@ -1,5 +1,5 @@
 <?php
-namespace EuroMillions\shareconfig\bootstrap;
+namespace EuroMillions\shared\shareconfig\bootstrap;
 use Phalcon;
 require_once 'LoaderBase.php';
 class WebLoader extends LoaderBase

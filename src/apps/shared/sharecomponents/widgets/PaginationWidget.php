@@ -1,6 +1,6 @@
 <?php
 
-namespace EuroMillions\sharecomponents\widgets;
+namespace EuroMillions\shared\sharecomponents\widgets;
 
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\View\Simple as ViewSimple;

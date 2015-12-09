@@ -1,5 +1,5 @@
 <?php
-namespace EuroMillions\shareconfig\bootstrap;
+namespace EuroMillions\shared\shareconfig\bootstrap;
 
 use Phalcon;
 use Phalcon\Di;
@@ -34,8 +34,6 @@ abstract class LoaderBase
             'EuroMillions'                 => $this->appPath,
             'Phalcon'                      => $this->appPath . 'vendor/phalcon/incubator/Library/Phalcon',
             'tests'                        => $this->testsPath,
-            'EuroMillions\shareconfig'     => $this->appPath . 'shared/shareconfig',
-            'EuroMillions\sharecomponents' => $this->appPath . 'shared/sharecomponents',
         ];
     }
 

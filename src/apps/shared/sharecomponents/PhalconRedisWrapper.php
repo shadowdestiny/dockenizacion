@@ -1,7 +1,7 @@
 <?php
 
 
-namespace EuroMillions\sharecomponents;
+namespace EuroMillions\shared\sharecomponents;
 
 use EuroMillions\web\interfaces\IRedis;
 use Phalcon\Cache\Backend\Redis;

@@ -6,6 +6,12 @@ class HttpUser
     private $username;
     private $password;
 
+    public function __construct($username, $password)
+    {
+        $this->setUsername($username);
+        $this->setPassword($password);
+    }
+
     /**
      * @return mixed
      */

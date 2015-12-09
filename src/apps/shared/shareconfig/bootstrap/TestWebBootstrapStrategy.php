@@ -1,7 +1,7 @@
 <?php
-namespace EuroMillions\shareconfig\bootstrap;
+namespace EuroMillions\shared\shareconfig\bootstrap;
 
-use EuroMillions\sharecomponents\EnvironmentDetector;
+use EuroMillions\shared\sharecomponents\EnvironmentDetector;
 use EuroMillions\web\services\DomainServiceFactory;
 use EuroMillions\web\services\ServiceFactory;
 use Phalcon;

@@ -24,7 +24,7 @@ class CypherCastillo3DES implements ICypherStrategy
 
     public function __construct()
     {
-        $this->cypher = mcrypt_module_open(MCRYPT_3DES, '', MCRYPT_MODE_CBC, '');
+        $this->cypher = \mcrypt_module_open(MCRYPT_3DES, '', MCRYPT_MODE_CBC, '');
     }
 
     public function encrypt($key,$clear)

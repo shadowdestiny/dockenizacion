@@ -36,9 +36,10 @@ if [ ! -f /etc/php5/mods-available/curl.ini ]; then
     sudo apt-get install -y php5-curl
 fi
 
-if [ ! -f /etc/php5/cli/conf.d/20-mcrypt.ini ]; then
+if [ ! -f /etc/php5/mods-available/mcrypt.ini ]; then
     e "Installing Mcrypt"
     sudo apt-get install -y php5-mcrypt
+    sudo ln -s /etc/php5/mods-available/mcrypt.ini /etc/php5/cli/conf.d/20-mcrypt.ini
 fi
 
 e "Installing git"

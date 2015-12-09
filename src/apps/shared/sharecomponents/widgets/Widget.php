@@ -1,6 +1,6 @@
 <?php
 
-namespace EuroMillions\sharecomponents\widgets;
+namespace EuroMillions\shared\sharecomponents\widgets;
 
 use Phalcon\Di\Injectable;
 use Phalcon\Mvc\View;

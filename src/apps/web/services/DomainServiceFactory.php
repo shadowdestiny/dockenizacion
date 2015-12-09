@@ -22,7 +22,7 @@ use EuroMillions\web\services\auth_strategies\WebAuthStorageStrategy;
 use EuroMillions\web\components\PhpassWrapper;
 use EuroMillions\web\interfaces\IAuthStorageStrategy;
 use EuroMillions\web\interfaces\IPasswordHasher;
-use EuroMillions\shareconfig\interfaces\IUrlManager;
+use EuroMillions\shared\shareconfig\interfaces\IUrlManager;
 
 
 

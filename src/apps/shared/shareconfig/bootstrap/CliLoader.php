@@ -1,5 +1,5 @@
 <?php
-namespace EuroMillions\shareconfig\bootstrap;
+namespace EuroMillions\shared\shareconfig\bootstrap;
 
 require_once 'LoaderBase.php';
 class CliLoader extends LoaderBase

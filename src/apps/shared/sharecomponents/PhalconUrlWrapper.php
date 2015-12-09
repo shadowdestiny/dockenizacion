@@ -1,7 +1,7 @@
 <?php
-namespace EuroMillions\sharecomponents;
+namespace EuroMillions\shared\sharecomponents;
 
-use EuroMillions\shareconfig\interfaces\IUrlManager;
+use EuroMillions\shared\shareconfig\interfaces\IUrlManager;
 use Phalcon\Mvc\Url;
 
 class PhalconUrlWrapper extends Url implements IUrlManager{}

@@ -1,12 +1,12 @@
 <?php
-namespace EuroMillions\shareconfig\bootstrap;
+namespace EuroMillions\shared\shareconfig\bootstrap;
 
 use Doctrine\Common\Cache\RedisCache;
-use EuroMillions\sharecomponents\EnvironmentDetector;
+use EuroMillions\shared\sharecomponents\EnvironmentDetector;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\Common\Cache\ApcCache;
-use EuroMillions\sharecomponents\PhalconRedisWrapper;
+use EuroMillions\shared\sharecomponents\PhalconRedisWrapper;
 use EuroMillions\web\services\DomainServiceFactory;
 use EuroMillions\web\services\ServiceFactory;
 use Phalcon\Cache\Frontend\Data;

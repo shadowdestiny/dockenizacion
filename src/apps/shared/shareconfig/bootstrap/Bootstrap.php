@@ -6,9 +6,9 @@
  * Time: 12:41
  */
 
-namespace EuroMillions\shareconfig\bootstrap;
+namespace EuroMillions\shared\shareconfig\bootstrap;
 
-use EuroMillions\shareconfig\interfaces\IBootstrapStrategy;
+use EuroMillions\shared\shareconfig\interfaces\IBootstrapStrategy;
 use Phalcon;
 
 class Bootstrap

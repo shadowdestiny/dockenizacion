@@ -1,13 +1,13 @@
 <?php
-namespace EuroMillions\shareconfig\bootstrap;
+namespace EuroMillions\shared\shareconfig\bootstrap;
 
 use EuroMillions\admin\services\DomainAdminServiceFactory;
-use EuroMillions\sharecomponents\EnvironmentDetector;
-use EuroMillions\sharecomponents\PhalconCookiesWrapper;
-use EuroMillions\sharecomponents\PhalconRequestWrapper;
-use EuroMillions\sharecomponents\PhalconSessionWrapper;
-use EuroMillions\sharecomponents\PhalconUrlWrapper;
-use EuroMillions\shareconfig\interfaces\IBootstrapStrategy;
+use EuroMillions\shared\sharecomponents\EnvironmentDetector;
+use EuroMillions\shared\sharecomponents\PhalconCookiesWrapper;
+use EuroMillions\shared\sharecomponents\PhalconRequestWrapper;
+use EuroMillions\shared\sharecomponents\PhalconSessionWrapper;
+use EuroMillions\shared\sharecomponents\PhalconUrlWrapper;
+use EuroMillions\shared\shareconfig\interfaces\IBootstrapStrategy;
 use EuroMillions\web\services\DomainServiceFactory;
 use EuroMillions\web\services\ServiceFactory;
 use Phalcon;

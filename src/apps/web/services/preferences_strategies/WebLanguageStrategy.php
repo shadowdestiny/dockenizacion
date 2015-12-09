@@ -2,8 +2,8 @@
 namespace EuroMillions\web\services\preferences_strategies;
 
 use EuroMillions\web\interfaces\ILanguageStrategy;
-use EuroMillions\shareconfig\interfaces\IRequest;
-use EuroMillions\shareconfig\interfaces\ISession;
+use EuroMillions\shared\shareconfig\interfaces\IRequest;
+use EuroMillions\shared\shareconfig\interfaces\ISession;
 
 class WebLanguageStrategy implements ILanguageStrategy
 {

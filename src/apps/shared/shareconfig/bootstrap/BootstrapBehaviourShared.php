@@ -1,7 +1,7 @@
 <?php
 
 
-namespace EuroMillions\shareconfig\bootstrap;
+namespace EuroMillions\shared\shareconfig\bootstrap;
 
 
 use EuroMillions\admin\services\DomainAdminServiceFactory;

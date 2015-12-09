@@ -1,4 +1,4 @@
 <?php
-namespace EuroMillions\shareconfig\exceptions;
+namespace EuroMillions\shared\shareconfig\exceptions;
 
 class EnvironmentNotSetException extends \RuntimeException {}

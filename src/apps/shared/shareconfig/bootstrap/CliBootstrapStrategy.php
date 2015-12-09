@@ -1,8 +1,8 @@
 <?php
-namespace EuroMillions\shareconfig\bootstrap;
+namespace EuroMillions\shared\shareconfig\bootstrap;
 
-use EuroMillions\sharecomponents\EnvironmentDetector;
-use EuroMillions\shareconfig\interfaces\IBootstrapStrategy;
+use EuroMillions\shared\sharecomponents\EnvironmentDetector;
+use EuroMillions\shared\shareconfig\interfaces\IBootstrapStrategy;
 use Phalcon\Cli\Console as ConsoleApp;
 use Phalcon\Cli\Dispatcher;
 use Phalcon\Cli\Router;

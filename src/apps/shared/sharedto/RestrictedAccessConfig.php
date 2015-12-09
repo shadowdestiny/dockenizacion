@@ -10,11 +10,11 @@ class RestrictedAccessConfig
     private $allowedIps;
     private $allowedHttpUser;
 
-    public function __construct(array $properties = null)
+    public function __construct(array $properties = [])
     {
         foreach($properties as $property_name => $property_value) {
             $setter_method = 'set'.ucfirst($property_name);
-            $this->$property_name = $this->$setter_method($property_value);
+            $this->$setter_method($property_value);
         }
     }
 
@@ -27,4 +27,21 @@ class RestrictedAccessConfig
     {
         $this->allowedHttpUser = $user;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAllowedIps()
+    {
+        return $this->allowedIps;
+    }
+
+    /**
+     * @return HttpUser
+     */
+    public function getAllowedHttpUser()
+    {
+        return $this->allowedHttpUser;
+    }
+
 }
