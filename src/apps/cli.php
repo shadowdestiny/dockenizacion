@@ -1,14 +1,14 @@
 <?php
 error_reporting(E_ALL);
 
-use EuroMillions\shareconfig\bootstrap\CliLoader;
-use EuroMillions\shareconfig\bootstrap\CliBootstrapStrategy;
+use EuroMillions\shared\shareconfig\bootstrap\CliLoader;
+use EuroMillions\shared\shareconfig\bootstrap\CliBootstrapStrategy;
 
 
 $app_path = __DIR__.'/';
 $global_config_path = $app_path.'../global_config/';
 $tests_path = $app_path.'../tests/';
-$config_path = $app_path . 'shareconfig/';
+$config_path = $app_path . 'shared/shareconfig/';
 $config_path_web = $app_path . 'web/config';
 
 require_once $app_path.'../vendor/autoload.php';
@@ -17,7 +17,7 @@ try {
     $loader = new CliLoader($app_path, $tests_path);
     $loader->register();
 
-    $bootstrap = new \EuroMillions\shareconfig\bootstrap\Bootstrap(new CliBootstrapStrategy(
+    $bootstrap = new \EuroMillions\shared\shareconfig\bootstrap\Bootstrap(new CliBootstrapStrategy(
         $argv, $global_config_path , $config_path, 'cliconfig.ini'
     ));
     $bootstrap->execute();

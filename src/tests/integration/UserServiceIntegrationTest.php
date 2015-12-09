@@ -1,7 +1,7 @@
 <?php
 namespace tests\integration;
 
-use EuroMillions\shareconfig\Namespaces;
+use EuroMillions\shared\shareconfig\Namespaces;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\CreditCardPaymentMethod;

@@ -5,7 +5,7 @@ namespace tests\unit\admin;
 
 
 use EuroMillions\admin\vo\ActionResult;
-use EuroMillions\shareconfig\Namespaces;
+use EuroMillions\shared\shareconfig\Namespaces;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use Money\Currency;
 use Money\Money;

@@ -3,7 +3,7 @@
 
 namespace tests\base;
 
-use EuroMillions\shareconfig\Namespaces;
+use EuroMillions\shared\shareconfig\Namespaces;
 
 trait TestHelperTrait
 {

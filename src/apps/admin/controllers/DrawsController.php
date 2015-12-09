@@ -6,7 +6,7 @@ namespace EuroMillions\admin\controllers;
 use EuroMillions\admin\vo\ActionResult;
 use EuroMillions\admin\vo\dto\DrawDTO;
 use EuroMillions\admin\services\MaintenanceDrawService;
-use EuroMillions\sharecomponents\widgets\PaginationWidget;
+use EuroMillions\shared\sharecomponents\widgets\PaginationWidget;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use Money\Currency;
 use Money\Money;
