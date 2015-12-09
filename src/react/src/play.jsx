@@ -20,6 +20,7 @@ ReactDOM.render(
     document.getElementById('wrap-threshold')
 );
 
+
 ReactDOM.render(
     <EuroMillionsBoxAction />,
     document.getElementById('box-action')
@@ -52,5 +53,5 @@ $(function(){
 
 })
 
-var count = React.Children.count(<EuroMillionsLine/>);
-console.log(count);
+
+
