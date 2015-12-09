@@ -3,7 +3,6 @@ var EuroMillionsNumber = require('./EmNumber.js');
 
 var EuroMillionsLineRow = React.createClass({
 
-
     random : function () {
 
     },

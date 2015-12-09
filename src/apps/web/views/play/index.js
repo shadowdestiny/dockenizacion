@@ -562,7 +562,7 @@ $(function(){
 //	playLine('.stars .ico', "star");
 //	randomNum(".random");
 //	clearNum(".clear");
-	randomAll(".random-all");
+	//randomAll(".random-all");
 //	clearNumAll(".clear-all");
 	$('.tipr-normal').tipr({'mode':'top', "styled":"normal"});
 	$('.tipr-small').tipr({'mode':'top', "styled":"small"});
