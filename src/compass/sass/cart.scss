@@ -59,7 +59,11 @@
   .txt-fee, .detail, .type{float:left;}
   .change{position:relative; top:-2px;}
   .txt-currency{float:left; font-style:italic; color:$grey-light}
-  .terms{margin:5px 0 .75em; font-size:.675em;}
+  .terms{
+    margin:5px 0 .75em; font-size:.675em;
+    a{text-decoration:none;}
+    a:hover, a:focus{text-decoration:underline!important;}
+  }
   .val{display:inline-block; min-width:80px; text-align:right;}
   .row{border-top:1px solid $grey-lighter; padding:10px;}
   .sub-txt{margin:0 0 .5em;}
@@ -68,6 +72,7 @@
   .type{width:200px; text-align:left; font-style:italic;}
   .summary{font-weight:700; float:right;}
   .add-funds{float:right;}
+  .add-funds:hover, .add-funds:focus{text-decoration:underline!important;}
   .box-funds{float:right;}
   .box-total{
     color:$purple; border-top:2px solid $purple; padding:8px 10px;
