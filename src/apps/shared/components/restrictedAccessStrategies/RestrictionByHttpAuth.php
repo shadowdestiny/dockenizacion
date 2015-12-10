@@ -29,5 +29,4 @@ class RestrictionByHttpAuth implements IRestrictedAccessStrategy
         header('WWW-Authenticate: Basic realm="euromillions.com"');
         header('HTTP/1.0 401 Unauthorized');
     }
-
 }

@@ -70,7 +70,6 @@ class ControllerBase extends Controller
             ]);
             $ra = new RestrictedAccess();
             if ($ra->isRestricted(new RestrictionByIpAndHttpAuth(), $this->request, $ra_config)) {
-                header('Location: http://localhost');
                 exit();
             }
         }
