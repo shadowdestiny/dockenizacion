@@ -406,7 +406,6 @@ body, .submit{font-family:$basic-font;}
 .main-nav a{padding:10px 12px; min-height:62px;}
 .main-nav .subnav a{min-height:inherit;} 
 .box-links .col20per{padding:0 10px;}
-
 }
 
 @media only screen and (min-width:769px){
@@ -471,6 +470,7 @@ body, .submit{font-family:$basic-font;}
   .main-foot .col8, .main-foot .col4{margin:0 auto 1em;}
 }
 .minimal .main-foot .txt{text-align:center;}
+.ending{left:0; right:0; border-radius:0; padding:10px; font-size:90%;}
 } /* End Media query */
 
 
