@@ -35,18 +35,18 @@ var EuroMilliosnBoxActionPlay = React.createClass({
     },
 
     render : function() {
+
         var elem = [];
-        var show_btn = false;
+
         this.state.lines.forEach(function (show_value) {
             if(show_value) {
-                show_btn = true;
+                this.state.show_btn_clear = true;
             }
         });
-        this.state.show_btn_clear = show_btn;
-        var show_btn_clear = this.state.show_btn_clear;
+
         elem.push(<EuroMillionsAddLinesBtn onBtnAddLinesClick={this.handlerAddLines} key="1"/>);
         elem.push(<EuroMillionsRandomAllBtn onBtnRandomAllClick={this.handlerRandomAll} key="2"/>);
-        elem.push(<EuroMillionsClearAllBtn show_btn_clear={show_btn_clear} onBtnClearAllClick={this.handlerClearAll} key="3"/>);
+        elem.push(<EuroMillionsClearAllBtn show_btn_clear={this.state.show_btn_clear} onBtnClearAllClick={this.handlerClearAll} key="3"/>);
 
         return (
             <ul className="no-li cl box-action">
