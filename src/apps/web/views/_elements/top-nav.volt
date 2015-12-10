@@ -1,10 +1,11 @@
 <li class="li-currency">
 	<a class="link" href="javascript:void(0);">{{ user_currency['symbol'] }} {{ user_currency['name'] }}</a>
-	<div id="iscroll" class="div-currency">
+	<div class="div-currency">
 		<ul class="no-li">
             {% for currency in currencies %}
 				<li><a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">EUR &nbsp; {{ currency.name }}</a></li>
             {% endfor %}
+            <li><a href="/currency">Show more</a></li>
         </ul>
     </div>
 </li>
