@@ -5,6 +5,7 @@ var ThresholdPlay = require('../components/EmThresholdPlay.jsx');
 var EuroMillionsBoxAction = require('../components/EmBoxActionPlay.jsx');
 var EuroMillionsMultipleEmLines = require('../components/EmMultipleEmLines.jsx');
 var EuroMillionsBoxBottomAction = require('../components/EmBoxBottomAction.jsx');
+var EmDrawConfig = require('../components/EmDrawConfig.jsx');
 
 var default_value = '75';
 var default_text = '75 millions €';
@@ -16,6 +17,12 @@ var options = [
     {text: 'Choose threshold', value: custom_value}
 ];
 
+var options_draw_days = [
+    {text: 'Tuesday & Friday' , value : '2,5'},
+    {text: 'Tuesday', value : '2'},
+    {text: 'Firday' , value : '5'}
+];
+
 
 ReactDOM.render(
     <EuroMillionsBoxBottomAction />,
@@ -25,6 +32,12 @@ ReactDOM.render(
 ReactDOM.render(
     <ThresholdPlay options={options} customValue={custom_value} defaultValue={default_value} defaultText={default_text}/>,
     document.getElementById('wrap-threshold')
+);
+
+
+ReactDOM.render(
+    <EmDrawConfig options={options_draw_days} customValue={custom_value}/>,
+    document.getElementById('draw-config')
 );
 
 

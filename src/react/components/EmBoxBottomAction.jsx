@@ -31,8 +31,8 @@ var EuroMillionsBoxBottomAction = React.createClass({
     },
 
     updatePrice : function () {
-        var numWeeks = $('.frequency').val();
-        var playDays = $('.draw_days').val().split(',').length;
+        var numWeeks = 0;/*$('.frequency').val();*/
+        var playDays = 0;/*$('.draw_days').val().split(',').length;*/
         var numDraws = numWeeks * playDays;
         var price = 2.35;
         var betsActive = 0;

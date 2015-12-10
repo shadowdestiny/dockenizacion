@@ -68,7 +68,9 @@
 						<hr class="hr yellow">
 						<a href="javascript:void(0);" class="close"><svg class="ico v-cancel-circle"><use xlink:href="/w/svg/icon.svg#v-cancel-circle"></use></svg></a>
 						<div class="cols">
-							<div class="col2">
+							<div id="draw-config">
+							</div>
+							{#<div class="col2">
 								<label class="label">{{ language.translate("Draw") }}
 									<div class="wrap tipr-small" data-tip="{{ language.translate('Which draw do you want to play?') }}">
 										<svg class="ico v-question-mark"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
@@ -96,7 +98,7 @@
 											{% for j,date in dates %}
 												{% if k == 0 %}
 													<option data-date="{{ date }}" value="{{ j }}">{{ date }}</option>
-													{# We do not need to show the millions in the date, commenting in the case that we want to reactivate this <option data-date="{{ date }}" value="{{ j }}">{{ date }} {{ jackpot_value/1000000 }}M</option>#}
+
 												{% else %}
 													<option data-date="{{ date }}" value="{{ j }}">{{ date }}</option>
 												{% endif %}
@@ -119,12 +121,9 @@
 										<option value="4">{{ language.translate("4 weeks (Draws: 4)") }}</option>
 										<option value="8">{{ language.translate("8 weeks (Draws: 8)") }}</option>
 										<option value="52">{{ language.translate("52 weeks (Draws: 52)") }}</option>
-		{#
-										<option value="always">{{ language.translate("Always (Every draw)") }}</option>
-		#}
 									</select>
 								</div>
-							</div>
+							</div>#}
 							<div id="wrap-threshold" class="col6 wrap-threshold"></div>
 							<script src="/w/js/react/play.js"></script>
 						</div>
