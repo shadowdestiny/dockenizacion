@@ -4,7 +4,7 @@ namespace EuroMillions\web\controllers;
 use EuroMillions\shared\dto\RestrictedAccessConfig;
 use EuroMillions\shared\components\restrictedAccessStrategies\RestrictionByIpAndHttpAuth;
 use EuroMillions\shared\components\RestrictedAccess;
-use EuroMillions\shared\shareVO\HttpUser;
+use EuroMillions\shared\vo\HttpUser;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\AuthService;
 use EuroMillions\web\services\DomainServiceFactory;

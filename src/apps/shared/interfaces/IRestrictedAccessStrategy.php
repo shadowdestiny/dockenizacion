@@ -1,5 +1,5 @@
 <?php
-namespace EuroMillions\shared\components\interfaces;
+namespace EuroMillions\shared\interfaces;
 use EuroMillions\shared\dto\RestrictedAccessConfig;
 use Phalcon\Http\Request;
 

@@ -1,7 +1,7 @@
 <?php
 namespace EuroMillions\shared\components;
 
-use EuroMillions\shared\components\interfaces\IRestrictedAccessStrategy;
+use EuroMillions\shared\interfaces\IRestrictedAccessStrategy;
 use EuroMillions\shared\dto\RestrictedAccessConfig;
 use Phalcon\Http\Request;
 
