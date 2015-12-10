@@ -37,7 +37,7 @@ var EuroMillionsLine = React.createClass({
         };
     },
     componentWillReceiveProps: function(nextProps) {
-        if(nextProps.animate) {
+        if(nextProps.random) {
             this.randomAll();
             this.storePlay();
             this.checkNumbersForActions();
@@ -55,7 +55,10 @@ var EuroMillionsLine = React.createClass({
             this.checkNumbersForActions();
             this.setState(this.state);
         }.bind(this));
-        this.checkNumbersForActions();
+
+        setTimeout(
+            this.checkNumbersForActions()
+        ,500)
     },
 
     handleClickOnNumber: function (number) {
@@ -158,7 +161,7 @@ var EuroMillionsLine = React.createClass({
         var linenumber = this.props.lineNumber + 1;
         var numbers_length = this.state.selectedNumbers.numbers.length;
         var stars_length = this.state.selectedNumbers.stars.length;
-
+        this.props.callback(this.props.lineNumber,numbers_length,stars_length);
         if(numbers_length == 0 && stars_length == 0) {
             this.state.show_btn_clear = false;
         }

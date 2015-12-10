@@ -9,15 +9,6 @@ var EuroMillionsMultipleEmLines = React.createClass({
     },
 
     componentDidMount: function(){
-        $(document).on('add_lines',function(e) {
-            this.state.numberLines = this.state.numberLines + this.props.numberEuroMillionsLine +1;
-            this.setState(this.state);
-        }.bind(this));
-        $(document).on('random_all_lines',function(e) {
-            this.state.random_all = true;
-            this.setState(this.state);
-        }.bind(this));
-
         var storage = JSON.parse(localStorage.getItem('bet_line'));
         var current_count = this.props.numberEuroMillionsLine;
         if( storage != null ) {
@@ -36,25 +27,21 @@ var EuroMillionsMultipleEmLines = React.createClass({
         }
         this.state.numberLines = current_count -1;
         this.setState(this.state);
+
     },
 
     render : function() {
-
-        if(this.state.numberLines < this.props.numberEuroMillionsLine) {
-            this.state.numberLines = this.props.numberEuroMillionsLine;
-        }
-
-        var numberEuroMillionsLine = this.state.numberLines;
-        var isAnimate = this.state.random_all;
+        var numberEuroMillionsLine = this.props.numberEuroMillionsLine;
+        var random = this.props.random_all;
         var em_lines = [];
         for (var i = 0; i <= numberEuroMillionsLine; i++) {
             em_lines.push(
-                    <EuroMillionsLine animate={isAnimate} storage={this.state.storage} numberPerLine="5" key={i} lineNumber={i}/>
+                    <EuroMillionsLine random={random} callback={this.props.callback} storage={this.state.storage} numberPerLine="5" key={i} lineNumber={i}/>
             );
         }
         return (
-            <div>
-              {em_lines}
+            <div className="box-lines cl" id="box-lines">
+                {em_lines}
             </div>
         );
 

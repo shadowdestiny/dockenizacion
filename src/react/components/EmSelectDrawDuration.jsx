@@ -1,20 +1,12 @@
 var React = require('react');
-var EmSelect = require('./EmSelect');
 
-var EmSelectDrawDate = React.createClass({
+var EmSelect = require('./EmSelect.jsx');
 
+var EmSelectDrawDuration = React.createClass({
 
-    getInitialState: function () {
-        return {
-            dates : []
-        }
-    },
-
-    componentDidMount: function() {
-    },
 
     handleChange: function (event) {
-
+        $(document).trigger('update_price',[null,null,event.target.value,null]);
     },
 
     render: function () {
@@ -28,10 +20,11 @@ var EmSelectDrawDate = React.createClass({
             onChange={this.handleChange}
             disabled={disabled}/>;
 
+
         return (
             <div className="col2">
-                <label className="label">First Draw
-                    <div className="wrap tipr-small" data-tip="First draw">
+                <label className="label">Duration
+                    <div className="wrap tipr-small" data-tip="For how long do you wish to play?">
                         <svg className="ico v-question-mark"
                              dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-question-mark"></use>'}}/>
                     </div>
@@ -40,7 +33,6 @@ var EmSelectDrawDate = React.createClass({
             </div>
         )
     }
+});
 
-})
-
-module.exports = EmSelectDrawDate
+module.exports = EmSelectDrawDuration;

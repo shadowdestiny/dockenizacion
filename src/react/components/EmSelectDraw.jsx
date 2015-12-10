@@ -5,6 +5,10 @@ var EmSelect = require('./EmSelect.jsx');
 var EmSelectDraw = React.createClass({
 
 
+    handleChange: function (event) {
+        $(document).trigger('update_price',[null,event.target.value,null,null]);
+    },
+
     render: function () {
 
         var disabled = !this.props.active;

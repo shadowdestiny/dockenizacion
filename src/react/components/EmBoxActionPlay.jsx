@@ -49,9 +49,11 @@ var EuroMilliosnBoxActionPlay = React.createClass({
         elem.push(<EuroMillionsClearAllBtn show_btn_clear={show_btn_clear} onBtnClearAllClick={this.handlerClearAll} key="3"/>);
 
         return (
-            <ul className="no-li cl box-action">
-                {elem}
-            </ul>
+            <div className="cl" id="box-action">
+                <ul className="no-li cl box-action">
+                    {elem}
+                </ul>
+            </div>
         );
     }
 })
