@@ -693,6 +693,7 @@
                     *tabs*
                     *tipr/tooltip*
                     *modal*
+                    *currency style*
 
 
 <br>                    [Remove all the margin-bottom from paragraphs with ".res"]

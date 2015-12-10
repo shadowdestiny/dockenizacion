@@ -82,7 +82,7 @@ label.submit{cursor:pointer;}
 
 /* INFO BOX */
 .box{text-align:left; padding:10px; border-radius:5px; font-weight:700; margin-bottom:1em;}
-.box .ico{width:34px; float:left;}
+.box .ico{/*width:34px;*/ float:left;}
 .box .txt{display:block; font-size:$h4; margin:0 0 0 34px!important;}
 .box.error{border:1px solid $red; background:$bg-red; color:$red; font-size:$h4;}
 .box.error .v-warning{font-size:21px;}
@@ -411,6 +411,7 @@ body, .submit{font-family:$basic-font;}
 
 @media only screen and (min-width:769px){
 #content{background:url(../img/bg.jpg) no-repeat 50% 0; background-size:cover; background-attachment:fixed; overflow:hidden; text-align:left; padding-top:25px;}
+.main-nav .username{display:inline-block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; width:110px; margin-bottom:-1px;}
 }
 
 /* Small Devices, Tablets */
