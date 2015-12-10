@@ -3,7 +3,7 @@
 
 namespace EuroMillions\shared\dto;
 
-use EuroMillions\shared\shareVO\HttpUser;
+use EuroMillions\shared\vo\HttpUser;
 
 class RestrictedAccessConfig
 {
