@@ -29,12 +29,21 @@ var EuroMillionsLine = React.createClass({
         return {
             isAnimated : false,
             storage : storage,
-            showedLine : showClearBtn,
+            show_btn_clear : showClearBtn,
             selectedNumbers: {
                 'numbers': numbers,
                 'stars': stars
             }
         };
+    },
+    componentWillReceiveProps: function(nextProps) {
+        if(nextProps.animate) {
+            this.randomAll();
+            this.storePlay();
+            this.checkNumbersForActions();
+            this.setState(this.state);
+        }
+        //this.setState(this.state);
     },
 
     componentDidMount: function() {
@@ -54,11 +63,11 @@ var EuroMillionsLine = React.createClass({
             var position = this.state.selectedNumbers.numbers.indexOf(number);
             if (position == -1) {
                 if( this.state.selectedNumbers.numbers.length < this.props.maxNumbers ) {
-                    this.state.showedLine = true;
+                    this.state.show_btn_clear = true;
                     this.state.selectedNumbers.numbers.push(number);
                 }
             } else {
-                this.state.showedLine = true;
+                this.state.show_btn_clear = true;
                 this.state.selectedNumbers.numbers.splice(position, 1);
             }
             this.storePlay();
@@ -98,11 +107,11 @@ var EuroMillionsLine = React.createClass({
             var position = this.state.selectedNumbers.stars.indexOf(star);
             if (position == -1) {
                 if( this.state.selectedNumbers.stars.length < this.props.maxStars ) {
-                    this.state.showedLine = true;
+                    this.state.show_btn_clear = true;
                     this.state.selectedNumbers.stars.push(star);
                 }
             } else {
-                this.state.showedLine = true;
+                this.state.show_btn_clear = true;
                 this.state.selectedNumbers.stars.splice(position, 1);
             }
             this.storePlay();
@@ -114,14 +123,14 @@ var EuroMillionsLine = React.createClass({
     handleClickOnClear: function() {
         this.state.selectedNumbers.numbers = [];
         this.state.selectedNumbers.stars = [];
-        this.state.showedLine = false;
+        this.state.show_btn_clear = false;
         this.storePlay();
-        this.checkNumbersForActions();
         this.setState(this.state);
+        this.checkNumbersForActions();
     },
 
     handleClickRandom : function () {
-        this.random();
+        this.randomAll();
         this.storePlay();
         this.checkNumbersForActions();
         this.setState(this.state);
@@ -130,31 +139,28 @@ var EuroMillionsLine = React.createClass({
         var nums = [];
         var stars = [];
         for(var i=0; i < 5; i++){
-            var n = Math.floor(Math.random() * 51);
+            var n = Math.floor(Math.random() * 50);
             if(nums.indexOf(n) == -1) nums[i] = n; else i--;
         }
         for(var i=0; i < 2; i++){
-            var s = Math.floor(Math.random() * 12);
+            var s = Math.floor(Math.random() * 11);
             if(stars.indexOf(s) == -1) stars[i] = s; else i--;
         }
         this.state.selectedNumbers.numbers = nums;
         this.state.selectedNumbers.stars = stars;
      //   this.checkNumbersForActions();
-        this.state.showedLine = true;
+        this.state.show_btn_clear = true;
         //this.setState(this.state);
     },
     render: function () {
-        if(this.props.animate) {
-            this.randomAll();
-            this.storePlay();
-        }
+
         var rows = [];
         var linenumber = this.props.lineNumber + 1;
         var numbers_length = this.state.selectedNumbers.numbers.length;
         var stars_length = this.state.selectedNumbers.stars.length;
 
         if(numbers_length == 0 && stars_length == 0) {
-            this.state.showedLine = false;
+            this.state.show_btn_clear = false;
         }
 
         for (var i = 1; i <= 50; i = i + j) {
@@ -203,7 +209,7 @@ var EuroMillionsLine = React.createClass({
                                 {star_rows}
                             </div>
                         </div>
-                        <EuroMillionsClearLine showed={this.state.showedLine} onClearClick={this.handleClickOnClear}/>
+                        <EuroMillionsClearLine showed={this.state.show_btn_clear} onClearClick={this.handleClickOnClear}/>
                     </div>
                 </div>
         );

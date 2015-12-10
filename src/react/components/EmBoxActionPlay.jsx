@@ -17,7 +17,7 @@ var EuroMilliosnBoxActionPlay = React.createClass({
         //EMTD surely, should be move it to another place
         $(document).on('show_btn_clear',function(e, line, show) {
             this.state.lines[line] = show;
-            this.setState(this.state);
+            this.setState( {lines : this.state.lines});
         }.bind(this));
     },
 
