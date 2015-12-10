@@ -18,7 +18,6 @@ var EuroMillionsClearAllBtn = new React.createClass({
                     </a>
                 </li>
             )
-
         }
     }
 

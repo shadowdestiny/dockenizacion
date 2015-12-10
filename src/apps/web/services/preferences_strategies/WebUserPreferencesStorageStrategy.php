@@ -1,9 +1,9 @@
 <?php
 namespace EuroMillions\web\services\preferences_strategies;
 
-use EuroMillions\shared\shareconfig\interfaces\ICookieManager;
+use EuroMillions\shared\config\interfaces\ICookieManager;
 use EuroMillions\web\interfaces\IUsersPreferencesStorageStrategy;
-use EuroMillions\shared\shareconfig\interfaces\ISession;
+use EuroMillions\shared\config\interfaces\ISession;
 use Money\Currency;
 use Phalcon\Http\Cookie;
 

@@ -1,7 +1,7 @@
 <?php
 namespace tests\integration;
 
-use EuroMillions\shared\shareconfig\Namespaces;
+use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
 use EuroMillions\web\services\LotteriesDataService;

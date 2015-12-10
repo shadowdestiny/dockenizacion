@@ -29,24 +29,33 @@ var EuroMillionsLine = React.createClass({
         return {
             isAnimated : false,
             storage : storage,
-            showedLine : showClearBtn,
+            show_btn_clear : showClearBtn,
             selectedNumbers: {
                 'numbers': numbers,
                 'stars': stars
             }
         };
     },
+    componentWillReceiveProps: function(nextProps) {
+        if(nextProps.animate) {
+            this.randomAll();
+            this.storePlay();
+            this.checkNumbersForActions();
+            this.setState(this.state);
+        }
+        //this.setState(this.state);
+    },
 
     componentDidMount: function() {
         this.state.storage[this.props.lineNumber] = this.state.selectedNumbers;
-        this.checkNumbersAndShowClearBtn();
         $(document).on('clear_line',function(e) {
             this.state.selectedNumbers.numbers = [];
             this.state.selectedNumbers.stars = [];
             this.storePlay();
+            this.checkNumbersForActions();
             this.setState(this.state);
         }.bind(this));
-
+        this.checkNumbersForActions();
     },
 
     handleClickOnNumber: function (number) {
@@ -54,15 +63,15 @@ var EuroMillionsLine = React.createClass({
             var position = this.state.selectedNumbers.numbers.indexOf(number);
             if (position == -1) {
                 if( this.state.selectedNumbers.numbers.length < this.props.maxNumbers ) {
-                    this.state.showedLine = true;
+                    this.state.show_btn_clear = true;
                     this.state.selectedNumbers.numbers.push(number);
                 }
             } else {
-                this.state.showedLine = true;
+                this.state.show_btn_clear = true;
                 this.state.selectedNumbers.numbers.splice(position, 1);
             }
             this.storePlay();
-            this.checkNumbersAndShowClearBtn();
+            this.checkNumbersForActions();
             this.setState(this.state);
         }
     },
@@ -73,14 +82,23 @@ var EuroMillionsLine = React.createClass({
         localStorage.setItem('bet_line', JSON.stringify(this.state.storage));
     },
 
-    checkNumbersAndShowClearBtn : function () {
+
+
+    checkNumbersForActions : function () {
         var linenumber = this.props.lineNumber
         var numbers_length = this.state.selectedNumbers.numbers.length;
         var stars_length = this.state.selectedNumbers.stars.length;
+
         if(numbers_length == 0 && stars_length == 0) {
             $(document).trigger('show_btn_clear',[ linenumber, false ]);
         } else {
             $(document).trigger('show_btn_clear',[ linenumber, true ]);
+        }
+
+        if(numbers_length == 5 && stars_length == 2) {
+            $(document).trigger('lines_to_add', { linenumber });
+        } else {
+            $(document).trigger('lines_to_remove', { linenumber });
         }
     },
 
@@ -89,15 +107,15 @@ var EuroMillionsLine = React.createClass({
             var position = this.state.selectedNumbers.stars.indexOf(star);
             if (position == -1) {
                 if( this.state.selectedNumbers.stars.length < this.props.maxStars ) {
-                    this.state.showedLine = true;
+                    this.state.show_btn_clear = true;
                     this.state.selectedNumbers.stars.push(star);
                 }
             } else {
-                this.state.showedLine = true;
+                this.state.show_btn_clear = true;
                 this.state.selectedNumbers.stars.splice(position, 1);
             }
             this.storePlay();
-            this.checkNumbersAndShowClearBtn();
+            this.checkNumbersForActions();
             this.setState(this.state);
         }
     },
@@ -105,40 +123,36 @@ var EuroMillionsLine = React.createClass({
     handleClickOnClear: function() {
         this.state.selectedNumbers.numbers = [];
         this.state.selectedNumbers.stars = [];
-        this.state.showedLine = false;
+        this.state.show_btn_clear = false;
         this.storePlay();
-        this.checkNumbersAndShowClearBtn();
         this.setState(this.state);
+        this.checkNumbersForActions();
     },
 
     handleClickRandom : function () {
-        this.random();
+        this.randomAll();
         this.storePlay();
-        this.checkNumbersAndShowClearBtn();
+        this.checkNumbersForActions();
         this.setState(this.state);
     },
-    random : function() {
+    randomAll : function() {
         var nums = [];
         var stars = [];
         for(var i=0; i < 5; i++){
-            var n = Math.floor(Math.random() * 51);
+            var n = Math.floor(Math.random() * 50);
             if(nums.indexOf(n) == -1) nums[i] = n; else i--;
         }
         for(var i=0; i < 2; i++){
-            var s = Math.floor(Math.random() * 12);
+            var s = Math.floor(Math.random() * 11);
             if(stars.indexOf(s) == -1) stars[i] = s; else i--;
         }
         this.state.selectedNumbers.numbers = nums;
         this.state.selectedNumbers.stars = stars;
-        this.checkNumbersAndShowClearBtn();
-        this.state.showedLine = true;
+     //   this.checkNumbersForActions();
+        this.state.show_btn_clear = true;
+        //this.setState(this.state);
     },
     render: function () {
-
-        if(this.props.animate) {
-            this.random();
-            this.storePlay();
-        }
 
         var rows = [];
         var linenumber = this.props.lineNumber + 1;
@@ -146,7 +160,7 @@ var EuroMillionsLine = React.createClass({
         var stars_length = this.state.selectedNumbers.stars.length;
 
         if(numbers_length == 0 && stars_length == 0) {
-            this.state.showedLine = false;
+            this.state.show_btn_clear = false;
         }
 
         for (var i = 1; i <= 50; i = i + j) {
@@ -195,7 +209,7 @@ var EuroMillionsLine = React.createClass({
                                 {star_rows}
                             </div>
                         </div>
-                        <EuroMillionsClearLine showed={this.state.showedLine} onClearClick={this.handleClickOnClear}/>
+                        <EuroMillionsClearLine showed={this.state.show_btn_clear} onClearClick={this.handleClickOnClear}/>
                     </div>
                 </div>
         );

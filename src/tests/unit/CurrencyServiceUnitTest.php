@@ -1,7 +1,7 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\shared\shareconfig\Namespaces;
+use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\services\DomainServiceFactory;
 use EuroMillions\web\services\ServiceFactory;
 use EuroMillions\web\vo\ActionResult;

@@ -500,15 +500,15 @@ function getBetsActive(){
 }
 
 function redrawTotalCost(){
-	var numWeeks = $('.frequency').val();
-	var playDays = $('.draw_days').val().split(',').length;
-	var numDraws = numWeeks * playDays;
-	var price = '{{ single_bet_price }}';
-	var betsActive = getBetsActive();
-	var total = Number(betsActive * price * numDraws).toFixed(2);
-	//EMTD put user currency
-	var user_currency = "\u20AC";
-	$('.box-bottom .add-cart .value').text(user_currency +" "+ total);
+	//var numWeeks = $('.frequency').val();
+	//var playDays = $('.draw_days').val().split(',').length;
+	//var numDraws = numWeeks * playDays;
+	//var price = '{{ single_bet_price }}';
+	//var betsActive = getBetsActive();
+	//var total = Number(betsActive * price * numDraws).toFixed(2);
+	////EMTD put user currency
+	//var user_currency = "\u20AC";
+	//$('.box-bottom .add-cart .value').text(user_currency +" "+ total);
 }
 
 function multiTask(target, activate, check){

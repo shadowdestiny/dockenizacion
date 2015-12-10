@@ -41,7 +41,7 @@
                 <file>../apps/web/Module.php</file>
                 <directory>../apps/web/migrations</directory>
                 <directory>../apps/web/migrations_data</directory>
-                <directory>../apps/shareconfig</directory>
+                <directory>../apps/config</directory>
                 <directory>../apps/admin/interfaces</directory>
                 <directory>../apps/web/interfaces</directory>
                 <directory>../apps/admin/views</directory>

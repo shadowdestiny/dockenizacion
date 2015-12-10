@@ -1,11 +1,11 @@
 <?php
 namespace tests\base;
 
-use EuroMillions\shared\shareconfig\bootstrap\Bootstrap;
-use EuroMillions\shared\shareconfig\bootstrap\TestWebBootstrapStrategy;
+use EuroMillions\shared\config\bootstrap\Bootstrap;
+use EuroMillions\shared\config\bootstrap\TestWebBootstrapStrategy;
 use Phalcon\DI;
 use PHPUnit_Framework_TestSuite;
-use EuroMillions\shared\sharecomponents\EnvironmentDetector;
+use EuroMillions\shared\components\EnvironmentDetector;
 
 class TestListener extends \PHPUnit_Framework_BaseTestListener
 {
@@ -15,7 +15,7 @@ class TestListener extends \PHPUnit_Framework_BaseTestListener
             strpos($suite->getName(),"tests\\integration") !== false ||
             strpos($suite->getName(),"tests\\functional") !== false
         ) {
-            $bootstrap = new Bootstrap(new TestWebBootstrapStrategy(false, APP_PATH, APP_PATH . '../global_config/', APP_PATH . 'shared/shareconfig/', APP_PATH . 'assets/', TESTS_PATH));
+            $bootstrap = new Bootstrap(new TestWebBootstrapStrategy(false, APP_PATH, APP_PATH . '../global_config/', APP_PATH . 'shared/config/', APP_PATH . 'assets/', TESTS_PATH));
             $di = DI::getDefault();
             $config = $di->get('config');
             /** @var EnvironmentDetector $ed */
@@ -28,7 +28,7 @@ class TestListener extends \PHPUnit_Framework_BaseTestListener
                 exec($command);
             }
         } else {
-            $bootstrap = new Bootstrap(new TestWebBootstrapStrategy(true, APP_PATH, APP_PATH.'../global_config/', APP_PATH . 'shared/shareconfig/', APP_PATH . 'assets/', TESTS_PATH));
+            $bootstrap = new Bootstrap(new TestWebBootstrapStrategy(true, APP_PATH, APP_PATH.'../global_config/', APP_PATH . 'shared/config/', APP_PATH . 'assets/', TESTS_PATH));
         }
         $bootstrap->execute();
     }

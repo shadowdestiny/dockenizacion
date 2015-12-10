@@ -4,6 +4,7 @@ var EuroMillionsLine = require('../components/EmLine.js');
 var ThresholdPlay = require('../components/EmThresholdPlay.jsx');
 var EuroMillionsBoxAction = require('../components/EmBoxActionPlay.jsx');
 var EuroMillionsMultipleEmLines = require('../components/EmMultipleEmLines.jsx');
+var EuroMillionsBoxBottomAction = require('../components/EmBoxBottomAction.jsx');
 
 var default_value = '75';
 var default_text = '75 millions €';
@@ -14,6 +15,12 @@ var options = [
     {text: '100 millions €', value: '100'},
     {text: 'Choose threshold', value: custom_value}
 ];
+
+
+ReactDOM.render(
+    <EuroMillionsBoxBottomAction />,
+    document.getElementById('box-bottom-action')
+)
 
 ReactDOM.render(
     <ThresholdPlay options={options} customValue={custom_value} defaultValue={default_value} defaultText={default_text}/>,

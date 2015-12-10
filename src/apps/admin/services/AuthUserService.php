@@ -5,7 +5,7 @@ namespace EuroMillions\admin\services;
 
 
 use EuroMillions\admin\vo\ActionResult;
-use EuroMillions\shared\shareconfig\interfaces\ISession;
+use EuroMillions\shared\config\interfaces\ISession;
 use Phalcon\Config;
 
 class AuthUserService

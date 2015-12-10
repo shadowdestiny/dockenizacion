@@ -2,7 +2,7 @@
 namespace tests\integration;
 
 use EuroMillions\web\components\NullPasswordHasher;
-use EuroMillions\shared\shareconfig\Namespaces;
+use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\repositories\UserRepository;
 use tests\base\DatabaseIntegrationTestBase;
