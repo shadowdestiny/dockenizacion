@@ -28,8 +28,6 @@ var PlayPage = React.createClass({
                     <input type="checkbox" className="checkbox" id="threshold" onChange={this.handleCheck}/>
                     <EmCustomizableSelect {...this.props} active={this.state.thresholdActive}/>
                 </div>
-                <div class="test">Test
-                </div>
             </div>
         );
     }

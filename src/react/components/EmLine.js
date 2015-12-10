@@ -41,12 +41,12 @@ var EuroMillionsLine = React.createClass({
             this.randomAll();
             this.storePlay();
             this.checkNumbersForActions();
+            this.setState(this.state);
         }
-        this.setState(this.state);
+        //this.setState(this.state);
     },
 
     componentDidMount: function() {
-
         this.state.storage[this.props.lineNumber] = this.state.selectedNumbers;
         $(document).on('clear_line',function(e) {
             this.state.selectedNumbers.numbers = [];
@@ -55,7 +55,7 @@ var EuroMillionsLine = React.createClass({
             this.checkNumbersForActions();
             this.setState(this.state);
         }.bind(this));
-       // this.checkNumbersForActions();
+        this.checkNumbersForActions();
     },
 
     handleClickOnNumber: function (number) {
@@ -125,12 +125,12 @@ var EuroMillionsLine = React.createClass({
         this.state.selectedNumbers.stars = [];
         this.state.show_btn_clear = false;
         this.storePlay();
-        this.checkNumbersForActions();
         this.setState(this.state);
+        this.checkNumbersForActions();
     },
 
     handleClickRandom : function () {
-        this.random();
+        this.randomAll();
         this.storePlay();
         this.checkNumbersForActions();
         this.setState(this.state);
@@ -139,11 +139,11 @@ var EuroMillionsLine = React.createClass({
         var nums = [];
         var stars = [];
         for(var i=0; i < 5; i++){
-            var n = Math.floor(Math.random() * 51);
+            var n = Math.floor(Math.random() * 50);
             if(nums.indexOf(n) == -1) nums[i] = n; else i--;
         }
         for(var i=0; i < 2; i++){
-            var s = Math.floor(Math.random() * 12);
+            var s = Math.floor(Math.random() * 11);
             if(stars.indexOf(s) == -1) stars[i] = s; else i--;
         }
         this.state.selectedNumbers.numbers = nums;
@@ -155,7 +155,6 @@ var EuroMillionsLine = React.createClass({
     render: function () {
 
         var rows = [];
-
         var linenumber = this.props.lineNumber + 1;
         var numbers_length = this.state.selectedNumbers.numbers.length;
         var stars_length = this.state.selectedNumbers.stars.length;
