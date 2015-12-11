@@ -14,21 +14,15 @@ var EuroMillionsLine = React.createClass({
         }
     },
     getInitialState: function () {
+        var showClearBtn = false;
         var numbers = [];
         var stars = [];
-        var storage = this.props.storage;
-        var showClearBtn = false;
-        var localStoredNumbers = JSON.parse(localStorage.getItem('bet_line'));
-        if(localStoredNumbers != null && typeof localStoredNumbers[this.props.lineNumber] != 'undefined') {
-            if(localStoredNumbers[this.props.lineNumber] != null) {
-                numbers = localStoredNumbers[this.props.lineNumber].numbers;
-                stars = localStoredNumbers[this.props.lineNumber].stars;
-                showClearBtn = true;
-            }
+        if(this.props.storage != null || typeof this.props.storage != 'undefined') {
+            numbers = this.props.storage.numbers;
+            stars = this.props.storage.stars;
         }
         return {
             isAnimated : false,
-            storage : storage,
             show_btn_clear : showClearBtn,
             selectedNumbers: {
                 'numbers': numbers,
@@ -36,30 +30,36 @@ var EuroMillionsLine = React.createClass({
             }
         };
     },
+
     componentWillReceiveProps: function(nextProps) {
         if(nextProps.random) {
             this.randomAll();
             this.storePlay();
-            this.checkNumbersForActions();
-            this.setState(this.state);
         }
-        //this.setState(this.state);
     },
 
     componentDidMount: function() {
-        this.state.storage[this.props.lineNumber] = this.state.selectedNumbers;
-        $(document).on('clear_line',function(e) {
-            this.state.selectedNumbers.numbers = [];
-            this.state.selectedNumbers.stars = [];
-            this.storePlay();
-            this.checkNumbersForActions();
-            this.setState(this.state);
-        }.bind(this));
-
-        setTimeout(
-            this.checkNumbersForActions()
-        ,500)
+        if(this.isMounted()) {
+            $(document).on('clear_line',function(e) {
+                this.state.selectedNumbers.numbers = [];
+                this.state.selectedNumbers.stars = [];
+                this.storePlay();
+                this.checkNumbersForActions();
+                this.setState(this.state);
+            }.bind(this));
+        }
     },
+
+
+    componentWillUpdate : function (nextProps, nextState) {
+        console.log(nextState.selectedNumbers);
+        console.log(this.state.selectedNumbers);
+
+        var numbers_length = this.state.selectedNumbers.numbers.length;
+        var stars_length = this.state.selectedNumbers.stars.length;
+        this.props.callback( this.props.lineNumber,numbers_length,stars_length);
+    },
+
 
     handleClickOnNumber: function (number) {
         if (typeof number != 'undefined') {
@@ -81,11 +81,8 @@ var EuroMillionsLine = React.createClass({
 
 
     storePlay : function() {
-        this.state.storage[this.props.lineNumber] = this.state.selectedNumbers;
-        localStorage.setItem('bet_line', JSON.stringify(this.state.storage));
+        this.props.addLineInStorage(null,this.props.lineNumber,this.state.selectedNumbers.numbers, this.state.selectedNumbers.stars);
     },
-
-
 
     checkNumbersForActions : function () {
         var linenumber = this.props.lineNumber
@@ -96,12 +93,6 @@ var EuroMillionsLine = React.createClass({
             $(document).trigger('show_btn_clear',[ linenumber, false ]);
         } else {
             $(document).trigger('show_btn_clear',[ linenumber, true ]);
-        }
-
-        if(numbers_length == 5 && stars_length == 2) {
-            $(document).trigger('lines_to_add', { linenumber });
-        } else {
-            $(document).trigger('lines_to_remove', { linenumber });
         }
     },
 
@@ -127,7 +118,7 @@ var EuroMillionsLine = React.createClass({
         this.state.selectedNumbers.numbers = [];
         this.state.selectedNumbers.stars = [];
         this.state.show_btn_clear = false;
-        this.storePlay();
+        this.props.addLineInStorage(null,this.props.lineNumber,this.state.selectedNumbers.numbers, this.state.selectedNumbers.stars);
         this.setState(this.state);
         this.checkNumbersForActions();
     },
@@ -142,28 +133,27 @@ var EuroMillionsLine = React.createClass({
         var nums = [];
         var stars = [];
         for(var i=0; i < 5; i++){
-            var n = Math.floor(Math.random() * 50);
+            var n = Math.floor(Math.random() * 51);
             if(nums.indexOf(n) == -1) nums[i] = n; else i--;
         }
         for(var i=0; i < 2; i++){
-            var s = Math.floor(Math.random() * 11);
+            var s = Math.floor(Math.random() * 12);
             if(stars.indexOf(s) == -1) stars[i] = s; else i--;
         }
         this.state.selectedNumbers.numbers = nums;
         this.state.selectedNumbers.stars = stars;
-     //   this.checkNumbersForActions();
         this.state.show_btn_clear = true;
-        //this.setState(this.state);
     },
-    render: function () {
 
+    render: function () {
         var rows = [];
         var linenumber = this.props.lineNumber + 1;
         var numbers_length = this.state.selectedNumbers.numbers.length;
         var stars_length = this.state.selectedNumbers.stars.length;
-        this.props.callback(this.props.lineNumber,numbers_length,stars_length);
-        if(numbers_length == 0 && stars_length == 0) {
+        if(numbers_length === 0 && stars_length === 0) {
             this.state.show_btn_clear = false;
+        } else {
+            this.state.show_btn_clear = true;
         }
 
         for (var i = 1; i <= 50; i = i + j) {
@@ -197,24 +187,24 @@ var EuroMillionsLine = React.createClass({
 
         var class_name = "myCol num"+this.props.lineNumber;
         return (
-                <div onLoad={this.count} className={class_name}>
-                    <h1 className="h3 blue center">Line {  linenumber }</h1>
-                    <div className="line center">
-                        <EuroMillionsCheckMark numbers_length={numbers_length} stars_length={stars_length}/>
-                        <div className="combo cols not">
-                            <EuroMillionsRandomBtn line={this.props.lineNumber} onBtnRandomClick={this.handleClickRandom}/>
-                        </div>
-                        <div className="values">
-                            <div className="numbers">
-                                {rows}
-                            </div>
-                            <div className="stars">
-                                {star_rows}
-                            </div>
-                        </div>
-                        <EuroMillionsClearLine showed={this.state.show_btn_clear} onClearClick={this.handleClickOnClear}/>
+            <div onLoad={this.count} className={class_name}>
+                <h1 className="h3 blue center">Line {  linenumber }</h1>
+                <div className="line center">
+                    <EuroMillionsCheckMark numbers_length={numbers_length} stars_length={stars_length}/>
+                    <div className="combo cols not">
+                        <EuroMillionsRandomBtn line={this.props.lineNumber} onBtnRandomClick={this.handleClickRandom}/>
                     </div>
+                    <div className="values">
+                        <div className="numbers">
+                            {rows}
+                        </div>
+                        <div className="stars">
+                            {star_rows}
+                        </div>
+                    </div>
+                    <EuroMillionsClearLine showed={this.state.show_btn_clear} onClearClick={this.handleClickOnClear}/>
                 </div>
+            </div>
         );
     }
 });

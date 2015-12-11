@@ -31,23 +31,12 @@ var PlayPage = React.createClass({
         }.bind(this));
 
         $(document).on('random_all_lines',function(e) {
-          //  this.state.random_all = true;
-           // this.setState(this.state);
+            this.state.random_all = true;
+            //this.setState(this.state);
         }.bind(this));
 
-        $(document).on('lines_to_add',function(e,line) {
-            this.state.lines[line.linenumber] = 1;
-            $(document).trigger('update_price',[ null,null,null,this.state.lines]);
-        }.bind(this));
 
-        $(document).on('lines_to_remove',function(e,line) {
-            if(this.state.lines[line.linenumber] > 0 ) {
-                this.state.lines[line.linenumber] = 0;
-            }
-            $(document).trigger('update_price',[ null,null,null,this.state.lines]);
-        }.bind(this));
-
-        $(document).on('update_price', function(e,numWeek,playDays,duration,numBets) {
+        $(document).on('update_price', function(e,numBets,numWeek,playDays,duration) {
             (numWeek) ? this.state.numWeek = numWeek : this.state.numWeek;
             (playDays) ? this.state.playDays = playDays.split(',').length : this.state.playDays;
             (duration) ? this.state.duration = duration : this.state.duration;
@@ -58,8 +47,8 @@ var PlayPage = React.createClass({
         this.state.count_lines = this.state.lines_default + this.state.count_lines;
         this.updatePrice();
         this.setState(this.state);
-
     },
+
 
     getValidNumberBets : function(line, numbers,stars) {
         if(numbers == 5 && stars == 2) {
@@ -68,6 +57,8 @@ var PlayPage = React.createClass({
             this.state.lines[line] = 0;
         }
         this.state.numBets = this.state.lines;
+
+        this.updatePrice();
     },
 
     updatePrice : function () {
@@ -77,13 +68,16 @@ var PlayPage = React.createClass({
         var price = 2.35;
         var betsActive = 0;
 
-        this.state.numBets.forEach(function(value) {
-            if (value > 0) {
-                betsActive = betsActive + 1;
-            }
-        });
-        this.state.price = Number(betsActive * price * numDraws).toFixed(2);
-        this.setState( this.state );
+        if(this.state.numBets.length > 0) {
+            this.state.numBets.forEach(function(value) {
+                if (value > 0) {
+                    betsActive = betsActive + 1;
+                }
+            });
+        }
+        var total = Number(betsActive * price * numDraws).toFixed(2);
+        console.log(total);
+      //  this.setState( { price : total } );
     },
 
 
@@ -114,7 +108,6 @@ var PlayPage = React.createClass({
         if(varSize >= 4) { //varSize var is in main.js
             numberEuroMillionsLine = 1;
         }
-
         window.onresize = function() {
             if(varSize < 4) {
                 if( numberEuroMillionsLine < 5 ) {
@@ -134,16 +127,16 @@ var PlayPage = React.createClass({
                         <EuroMillionsBoxBottomAction price={this.state.price}/>
                         <div className="advanced-play">
                             <hr className="hr yellow" />
-                                <a href="javascript:void(0);" className="close"><svg className="ico v-cancel-circle"
-                                    dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-cancel-circle"></use>'}}/>
-                                </a>
-                                <div className="cols">
-                                    <EmDrawConfig  options={options_draw_days} customValue={custom_value}/>
-                                    <ThresholdPlay  options={options} customValue={custom_value} defaultValue={default_value} defaultText={default_text}/>
-                                </div>
+                            <a href="javascript:void(0);" className="close"><svg className="ico v-cancel-circle"
+                                                                                 dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-cancel-circle"></use>'}}/>
+                            </a>
+                            <div className="cols">
+                                <EmDrawConfig  options={options_draw_days} customValue={custom_value}/>
+                                <ThresholdPlay  options={options} customValue={custom_value} defaultValue={default_value} defaultText={default_text}/>
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
         )
     }
