@@ -19,21 +19,30 @@ var PlayPage = React.createClass({
             playDays : 1,
             duration : 1,
             numBets : 0,
-            lines : []
+            lines : [],
+            clear_all : false
         }
     },
 
+    shouldComponentUpdate : function (nextProps, nextState) {
+        if( nextState.lines != this.state.lines) return true;
+        if( nextState.clear_all != this.state.clear_all) return true;
+        if( nextState.random_all != this.state.random_all) return true;
+        if( nextState.count_lines != this.state.count_lines ) return true;
+        return nextState.price != this.state.price;
+    },
+
+
     componentDidMount : function () {
+        //
+        //$(document).on('add_lines',function(e) {
+        //    this.state.count_lines = this.state.lines_default + this.state.count_lines +1;
+        //    this.setState(this.state);
+        //}.bind(this));
 
-        $(document).on('add_lines',function(e) {
-            this.state.count_lines = this.state.lines_default + this.state.count_lines +1;
-            this.setState(this.state);
-        }.bind(this));
-
-        $(document).on('random_all_lines',function(e) {
-            this.state.random_all = true;
-            //this.setState(this.state);
-        }.bind(this));
+        //$(document).on('random_all_lines',function(e) {
+        //    this.setState( { random_all : true } );
+        //}.bind(this));
 
 
         $(document).on('update_price', function(e,numBets,numWeek,playDays,duration) {
@@ -50,14 +59,25 @@ var PlayPage = React.createClass({
     },
 
 
+    handlerAddLines : function() {
+        this.setState( { count_lines : this.state.lines_default + this.state.count_lines +1 });
+    },
+    handlerRandomAll : function() {
+        this.setState( { random_all : true } );
+    },
+    handlerClearAll : function () {
+        this.setState( { clear_all : true });
+    },
+
+
     getValidNumberBets : function(line, numbers,stars) {
+        console.log(numbers,stars)
         if(numbers == 5 && stars == 2) {
             this.state.lines[line] = 1;
         } else {
             this.state.lines[line] = 0;
         }
         this.state.numBets = this.state.lines;
-
         this.updatePrice();
     },
 
@@ -76,8 +96,7 @@ var PlayPage = React.createClass({
             });
         }
         var total = Number(betsActive * price * numDraws).toFixed(2);
-        console.log(total);
-      //  this.setState( { price : total } );
+        this.setState( { price : total } );
     },
 
 
@@ -116,8 +135,8 @@ var PlayPage = React.createClass({
                 }
             }
         }
-        elem.push(<EuroMillionsMultipleEmLines callback={this.getValidNumberBets} random_all={random_all} numberEuroMillionsLine={numberEuroMillionsLine} key="1"/>);
-        elem.push(<EuroMillionsBoxAction key="2"/>)
+        elem.push(<EuroMillionsMultipleEmLines clear_all={this.state.clear_all} callback={this.getValidNumberBets} random_all={random_all} numberEuroMillionsLine={numberEuroMillionsLine} key="1"/>);
+        elem.push(<EuroMillionsBoxAction add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} clear_all_btn={this.handlerClearAll} key="2"/>)
 
         return (
             <div>

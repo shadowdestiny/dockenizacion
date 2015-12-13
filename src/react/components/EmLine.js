@@ -18,9 +18,10 @@ var EuroMillionsLine = React.createClass({
         var numbers = [];
         var stars = [];
         if(this.props.storage != null || typeof this.props.storage != 'undefined') {
-            numbers = this.props.storage.numbers;
-            stars = this.props.storage.stars;
+                numbers = this.props.storage.numbers;
+                stars = this.props.storage.stars;
         }
+
         return {
             isAnimated : false,
             show_btn_clear : showClearBtn,
@@ -30,6 +31,10 @@ var EuroMillionsLine = React.createClass({
             }
         };
     },
+
+    //shouldComponentUpdate : function (nextProps, nextState) {
+    //    return this.state.selectedNumbers != nextState.selectedNumbers;
+    //},
 
     componentWillReceiveProps: function(nextProps) {
         if(nextProps.random) {
@@ -45,16 +50,21 @@ var EuroMillionsLine = React.createClass({
                 this.state.selectedNumbers.stars = [];
                 this.storePlay();
                 this.checkNumbersForActions();
-                this.setState(this.state);
+                this.setState({selectedNumbers : {
+                                numbers : [],
+                                stars : []
+                              }});
             }.bind(this));
         }
     },
 
 
-    componentWillUpdate : function (nextProps, nextState) {
-        console.log(nextState.selectedNumbers);
-        console.log(this.state.selectedNumbers);
 
+    componentWillUpdate : function (nextProps, nextState) {
+        if(this.props.random) {
+            this.randomAll();
+            this.storePlay();
+        }
         var numbers_length = this.state.selectedNumbers.numbers.length;
         var stars_length = this.state.selectedNumbers.stars.length;
         this.props.callback( this.props.lineNumber,numbers_length,stars_length);
@@ -75,7 +85,7 @@ var EuroMillionsLine = React.createClass({
             }
             this.storePlay();
             this.checkNumbersForActions();
-            this.setState(this.state);
+            this.setState( {numbers : this.state.selectedNumbers.numbers });
         }
     },
 
@@ -94,6 +104,8 @@ var EuroMillionsLine = React.createClass({
         } else {
             $(document).trigger('show_btn_clear',[ linenumber, true ]);
         }
+
+
     },
 
     handleClickOnStar: function (star) {
@@ -110,23 +122,28 @@ var EuroMillionsLine = React.createClass({
             }
             this.storePlay();
             this.checkNumbersForActions();
-            this.setState(this.state);
+            this.setState( {numbers : this.state.selectedNumbers.stars });
         }
     },
 
     handleClickOnClear: function() {
-        this.state.selectedNumbers.numbers = [];
-        this.state.selectedNumbers.stars = [];
         this.state.show_btn_clear = false;
-        this.props.addLineInStorage(null,this.props.lineNumber,this.state.selectedNumbers.numbers, this.state.selectedNumbers.stars);
-        this.setState(this.state);
+        this.props.addLineInStorage(null,this.props.lineNumber,[], []);
         this.checkNumbersForActions();
+        this.setState( {selectedNumbers : {
+                            numbers : [],
+                            stars : []
+                        },
+                        show_btn_clear: false
+        });
+        this.props.callback( this.props.lineNumber,0,0);
     },
 
     handleClickRandom : function () {
         this.randomAll();
         this.storePlay();
         this.checkNumbersForActions();
+        this.props.callback( this.props.lineNumber,this.state.selectedNumbers.numbers.length,this.state.selectedNumbers.stars.length);
         this.setState(this.state);
     },
     randomAll : function() {
@@ -155,7 +172,6 @@ var EuroMillionsLine = React.createClass({
         } else {
             this.state.show_btn_clear = true;
         }
-
         for (var i = 1; i <= 50; i = i + j) {
             var row = [];
             for (var j = 0; j < this.props.numberPerLine; j++) {
