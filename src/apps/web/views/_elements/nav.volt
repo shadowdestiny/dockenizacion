@@ -1,11 +1,11 @@
-<li class="li-play {% if activeNav.myClass == 'play' %}active{% endif %}">
+<li class="li-play{% if activeNav.myClass == 'play' %} active{% endif %}">
     <a href="/play">
         <span class="link desktop">{{ language.translate("Win top prizes") }}</span>
         <br class="br">
         <span class="txt">{{ language.translate("Play Games") }}</span>
     </a>
 </li>
-<li class="li-numbers {% if activeNav.myClass == 'numbers' %}active{% endif %}">
+<li class="li-numbers{% if activeNav.myClass == 'numbers' %} active{% endif %}">
     <a href="/numbers">
         <span class="link desktop">{{ language.translate("Winning") }}</span>
         <br class="br">
@@ -15,7 +15,7 @@
 		</span>
     </a>
 </li>
-<li class="li-your-account {% if activeNav.myClass == 'account' %}active{% endif %}">
+<li class="li-your-account{% if activeNav.myClass == 'account' %} active{% endif %}">
     {% if user_logged %}
         {% set link="javascript:void(0)" %}
     {% else %}
@@ -23,7 +23,7 @@
     {% endif %}
 
     <a class="your-account" href="{{ link }}">
-        <span class="link desktop">{{ language.translate("Hello, ") }}{% if user_name %}{{ user_name }}{% else %}{{ language.translate("Sign in") }}{% endif %}</span>
+        <span class="link desktop username">{{ language.translate("Hi, ") }}{% if user_name %}{{ user_name }}{% else %}{{ language.translate("Sign in") }}{% endif %}</span>
         <br class="br">
         <span class="txt"><svg class="ico v-user"><use xlink:href="/w/svg/icon.svg#v-user"></use></svg>{{ language.translate(" Your Account") }}</span>
     </a>
@@ -43,7 +43,7 @@
         </ul>
     {% endif %}
 </li>
-<li class="li-help {% if activeNav.myClass == 'help' %}active{% endif %}">
+<li class="li-help{% if activeNav.myClass == 'help' %} active{% endif %}">
     <a href="/help">
         <span class="link desktop">{{ language.translate("How to play") }}</span>
         <br class="br">
