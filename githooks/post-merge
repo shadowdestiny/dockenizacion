@@ -8,7 +8,10 @@ while read -r line; do
     fi
     if [[ $line == "docker/"* ]]
     then
-        vagrant reload --provision
+        sudo docker-compose -f /vagrant/docker/docker-compose.yml stop
+        sudo docker-compose -f /vagrant/docker/docker-compose.yml rm -f
+        sudo docker-compose -f /vagrant/docker/docker-compose.yml build --no-cache
+        sudo docker-compose -f /vagrant/docker/docker-compose.yml up
     fi
     if [[ $line == "src/apps/web/migrations/"* ]]
     then

@@ -14,7 +14,7 @@
     "watch": "WEBPACK_ENV=dev ./node_modules/.bin/webpack --watch --inline",
     "build": "WEBPACK_ENV=build ./node_modules/.bin/webpack",
     "test": "karma start",
-    "test:ci": "watch 'npm run test' src/"
+    "test:ci": "watch 'npm run test' ./"
   },
   "devDependencies": {
     "babel-core": "^6.2.1",
