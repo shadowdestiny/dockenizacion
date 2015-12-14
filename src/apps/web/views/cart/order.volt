@@ -127,7 +127,6 @@
             </div>
 
             <div class="box-bottom cl">
-
                 <a href="javascript:void(0)" class="btn blue big buy">{{ language.translate("Continue to Payment") }}</a>
             </div>
 

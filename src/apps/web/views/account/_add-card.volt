@@ -1,6 +1,4 @@
-<h2 class="h3 yellow">{{ language.translate("Your card") }}</h2>
-
-{% if msg %}
+{#{% if msg %}
     <div class="box success">
         <span class="ico- ico"></span>
         <span class="txt">{{ msg }}</span>
@@ -11,28 +9,47 @@
         <span class="ico-warning ico"></span>
         <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
     </div>
-{% endif %}
+{% endif %}#}
 
 <div class="wrap">
-    <div class="cols">
+    <div class="cols{% if component.where == 'account' %} fix-margin{% endif %}">
         <div class="col6 first">
+            <h2 class="h3 yellow">{{ language.translate("Enter your credit card details") }}</h2>
+
             <div class="card-info">
                 <label class="label" for="add-card-number">
                     {{ language.translate("Card Number") }} <span class="asterisk">*</span>
                 </label>
-                <input id="add-card-number" name="card-number" class="input" type="text" value="{{ payment_method.cardNumber }}">
+                <input id="add-card-number" name="card-number" class="input" type="text" value="{#{{ payment_method.cardNumber }}#}">
 
                 <label class="label" for="add-card-name">
                     {{ language.translate("Full Name on card") }} <span class="asterisk">*</span>
                 </label>
-                <input id="add-card-name" name="card-holder" class="input" type="text" value="{{ payment_method.cardHolderName }}">
+                <input id="add-card-name" name="card-holder" class="input" type="text" value="{#{{ payment_method.cardHolderName }}#}">
             </div>
         </div>
         <div class="col6 second">
-            <div class="info box">
-                <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                <span class="txt">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</span>
-            </div>
+            {% if component.where == 'cart' %}
+                <div class="info box">
+                    <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
+                    <span class="txt">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</span>
+                </div>
+            {% endif %}
+            {% if component.where == 'account' %}
+                <h2 class="h3 yellow">{{ language.translate("Add funds to your wallet") }}</h2>
+                <div class="balance"><strong class="purple">Wallet balance:</strong> <span class="value">&euro; 20.00</span></div>
+                <div class="box-wallet">
+                    <span class="symbol">&euro;</span><input class="input" type="text" placeholder="Enter any amount">
+                    <label class="label btn green">
+                        {{ language.translate("Add funds to your wallet") }}
+                        <input type="submit" class="hidden">
+                    </label>
+                </div>
+                <div class="notes">
+                    <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
+                    <span class="txt">Fee of &euro; 0.35 will be charged for transfers of small amount</span>
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -71,9 +88,11 @@
         </label>
         <input id="cvv" name="card-cvv" class="input cvv" type="text">
     </div>
-    <input id="id_payment" name="id_payment" value="{{ payment_method.id_payment }}" type="hidden"/>
-    <label class="btn submit green right" for="new-card">
-        {{ language.translate("Add a new card") }}
-        <input id="new-card" type="submit" class="hidden">
-    </label>
+    <input id="id_payment" name="id_payment" value="{#{{ payment_method.id_payment }}#}" type="hidden"/>
+    {% if component.where == 'cart' %}
+        <label class="btn submit green right" for="new-card">
+            {{ language.translate("Add a new card") }}
+            <input id="new-card" type="submit" class="hidden">
+        </label>
+    {% endif %}
 </div>
