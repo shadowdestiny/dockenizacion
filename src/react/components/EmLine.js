@@ -32,13 +32,14 @@ var EuroMillionsLine = React.createClass({
         };
     },
 
-    //shouldComponentUpdate : function (nextProps, nextState) {
-    //    return this.state.selectedNumbers != nextState.selectedNumbers;
-    //},
-
     componentWillReceiveProps: function(nextProps) {
         if(nextProps.random) {
             this.randomAll();
+            this.storePlay();
+        }
+        if(nextProps.clear_all){
+            this.state.selectedNumbers.numbers = [];
+            this.state.selectedNumbers.stars = [];
             this.storePlay();
         }
     },
@@ -57,8 +58,6 @@ var EuroMillionsLine = React.createClass({
             }.bind(this));
         }
     },
-
-
 
     componentWillUpdate : function (nextProps, nextState) {
         if(this.props.random) {
@@ -144,7 +143,7 @@ var EuroMillionsLine = React.createClass({
         this.storePlay();
         this.checkNumbersForActions();
         this.props.callback( this.props.lineNumber,this.state.selectedNumbers.numbers.length,this.state.selectedNumbers.stars.length);
-        this.setState(this.state);
+        //this.setState(this.state);
     },
     randomAll : function() {
         var nums = [];

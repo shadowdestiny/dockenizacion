@@ -29,17 +29,19 @@ var EuroMillionsMultipleEmLines = React.createClass({
                 }
             });
         }
-        this.state.storage = storage;
-        this.state.numberLines = current_count -1;
-        this.setState(this.state);
+        this.setState( { storage : storage,
+                         numberLines : current_count -1 });
     },
 
     addLinesInStorage : function (e, line, numbers, stars) {
         this.state.storage[line] = {
-                                'numbers': numbers,
-                                'stars': stars
-                              };
-        localStorage.setItem('bet_line', JSON.stringify(this.state.storage));
+            'numbers': numbers,
+            'stars': stars
+        };
+        localStorage.setItem('bet_line', JSON.stringify(this.state.storage, function(k,v){
+                return (v == null) ? { 'numbers' : [], 'stars' : []} : v;
+            }
+        ));
     },
 
     render : function() {

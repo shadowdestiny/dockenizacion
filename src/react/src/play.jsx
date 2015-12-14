@@ -34,17 +34,6 @@ var PlayPage = React.createClass({
 
 
     componentDidMount : function () {
-        //
-        //$(document).on('add_lines',function(e) {
-        //    this.state.count_lines = this.state.lines_default + this.state.count_lines +1;
-        //    this.setState(this.state);
-        //}.bind(this));
-
-        //$(document).on('random_all_lines',function(e) {
-        //    this.setState( { random_all : true } );
-        //}.bind(this));
-
-
         $(document).on('update_price', function(e,numBets,numWeek,playDays,duration) {
             (numWeek) ? this.state.numWeek = numWeek : this.state.numWeek;
             (playDays) ? this.state.playDays = playDays.split(',').length : this.state.playDays;
@@ -69,9 +58,18 @@ var PlayPage = React.createClass({
         this.setState( { clear_all : true });
     },
 
+    handleChangeDraw : function (value) {
+        this.state.playDays = value.split(',').length;
+        this.updatePrice();
+    },
+
+    handleChangeDuration : function (value) {
+        this.state.duration = value;
+        this.updatePrice();
+    },
+
 
     getValidNumberBets : function(line, numbers,stars) {
-        console.log(numbers,stars)
         if(numbers == 5 && stars == 2) {
             this.state.lines[line] = 1;
         } else {
@@ -96,7 +94,7 @@ var PlayPage = React.createClass({
             });
         }
         var total = Number(betsActive * price * numDraws).toFixed(2);
-        this.setState( { price : total } );
+        this.setState( { price : total, clear_all : false, random_all : false } );
     },
 
 
@@ -150,7 +148,7 @@ var PlayPage = React.createClass({
                                                                                  dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-cancel-circle"></use>'}}/>
                             </a>
                             <div className="cols">
-                                <EmDrawConfig  options={options_draw_days} customValue={custom_value}/>
+                                <EmDrawConfig change_draw={this.handleChangeDraw} change_duration={this.handleChangeDuration}  options={options_draw_days} customValue={custom_value}/>
                                 <ThresholdPlay  options={options} customValue={custom_value} defaultValue={default_value} defaultText={default_text}/>
                             </div>
                         </div>

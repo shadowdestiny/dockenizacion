@@ -31,9 +31,9 @@ var EuroMillionsDrawConfig = new React.createClass({
             {text : '52 weeks (Draws: 52)' , value : '52'},
         ];
 
-        elem.push(<EmSelectDraw {...this.props} active={this.state.selectdrawactive} key="1"/>)
+        elem.push(<EmSelectDraw change_draw={this.props.change_draw} {...this.props} active={this.state.selectdrawactive} key="1"/>)
         elem.push(<EmSelectDrawDate options={options_draw_dates} active={this.state.selectdrawactive} key="2"/>)
-        elem.push(<EmSelectDrawDuration options={options_draw_duration} active={this.state.selectdrawactive} key="3"/>)
+        elem.push(<EmSelectDrawDuration change_duration={this.props.change_duration} options={options_draw_duration} active={this.state.selectdrawactive} key="3"/>)
         return (
             <div>
                 {elem}

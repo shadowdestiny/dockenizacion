@@ -6,7 +6,7 @@ var EmSelectDraw = React.createClass({
 
 
     handleChange: function (event) {
-        $(document).trigger('update_price',[null,event.target.value,null,null]);
+          this.props.change_draw(event.target.value);
     },
 
     render: function () {
