@@ -5,20 +5,15 @@ var EuroMillionsLine = require('./EmLine.js');
 var EuroMillionsMultipleEmLines = React.createClass({
 
     getInitialState: function (){
-        return { storage: [], numberLines : 0, random_all : false, count: 0 };
+        return { storage: JSON.parse(localStorage.getItem('bet_line')) || [],
+                 numberLines : 0,
+                 random_all : false,
+                 count: 0
+                };
     },
 
     componentDidMount: function(){
-        $(document).on('add_lines',function(e) {
-            this.state.numberLines = this.state.numberLines + this.props.numberEuroMillionsLine +1;
-            this.setState(this.state);
-        }.bind(this));
-        $(document).on('random_all_lines',function(e) {
-            this.state.random_all = true;
-            this.setState(this.state);
-        }.bind(this));
-
-        var storage = JSON.parse(localStorage.getItem('bet_line'));
+        var storage = this.state.storage;
         var current_count = this.props.numberEuroMillionsLine;
         if( storage != null ) {
             storage.forEach(function(obj,i) {
@@ -29,32 +24,39 @@ var EuroMillionsMultipleEmLines = React.createClass({
                         storage[i] = obj;
                         localStorage.setItem('bet_line', JSON.stringify(storage));
                     } else if(i > (current_count) && current_count < storage.length) {
-                        current_count = storage.length ;
+                        current_count = storage.length;
                     }
                 }
             });
         }
-        this.state.numberLines = current_count -1;
-        this.setState(this.state);
+        this.setState( { storage : storage,
+                         numberLines : current_count -1 });
+    },
+
+    addLinesInStorage : function (e, line, numbers, stars) {
+        this.state.storage[line] = {
+            'numbers': numbers,
+            'stars': stars
+        };
+        localStorage.setItem('bet_line', JSON.stringify(this.state.storage, function(k,v){
+                return (v == null) ? { 'numbers' : [], 'stars' : []} : v;
+            }
+        ));
     },
 
     render : function() {
+        var numberEuroMillionsLine = this.props.numberEuroMillionsLine;
+        var random = this.props.random_all;
 
-        if(this.state.numberLines < this.props.numberEuroMillionsLine) {
-            this.state.numberLines = this.props.numberEuroMillionsLine;
-        }
-
-        var numberEuroMillionsLine = this.state.numberLines;
-        var isAnimate = this.state.random_all;
         var em_lines = [];
-        for (var i = 0; i <= numberEuroMillionsLine; i++) {
+        for (let i = 0; i <= numberEuroMillionsLine; i++) {
             em_lines.push(
-                    <EuroMillionsLine animate={isAnimate} storage={this.state.storage} numberPerLine="5" key={i} lineNumber={i}/>
+                    <EuroMillionsLine clear_all={this.props.clear_all} random={random} addLineInStorage={this.addLinesInStorage} storage={this.state.storage[i]} callback={this.props.callback} numberPerLine="5" key={i} lineNumber={i}/>
             );
         }
         return (
-            <div>
-              {em_lines}
+            <div className="box-lines cl" id="box-lines">
+                {em_lines}
             </div>
         );
 
