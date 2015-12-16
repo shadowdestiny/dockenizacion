@@ -57,12 +57,12 @@ var PlayPage = React.createClass({
             }
             for(let i=0;i<storage.length;i++) {
                 if(storage[i].numbers.length > 0 || storage[i].stars.length > 0) {
-                    if(i > lines.length) {
+                    if(i > lines.length-1 ) {
                         for(let j=0; j< default_lines;j++) {
                            lines.push(0);
                         }
+                        lines[i] = 1;
                     }
-                    lines[i] = 1;
                 } else {
                     storage[i].numbers = [];
                     storage[i].stars = [];
@@ -113,15 +113,13 @@ var PlayPage = React.createClass({
                allLinesFilled = false;
            }
         });
-
-       // alert(default_lines);
         if(allLinesFilled || firstClick) {
             for(let i=0; i< default_lines;i++) {
                 current_lines.push(0);
             }
-           // $('.add-more').addClass('stop');
+            $('.add-more').addClass('stop');
         } else {
-          //  $('.add-more').addClass('stop');
+            $('.add-more').addClass('stop');
         }
         this.setState( {count_lines : current_lines.length -1 , lines : current_lines} );
     },

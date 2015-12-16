@@ -17,7 +17,6 @@ var EuroMillionsLineRow = React.createClass({
             selected = selected_numbers.indexOf(number) != -1;
             numbers.push(<EuroMillionsNumber random_animation={random_animation} onNumberClick={onNumberClick} number={number} key={number} selected={selected}/>);
         });
-
         return (
             <ol className="no-li cols not">
                 {numbers}

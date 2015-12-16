@@ -13,7 +13,6 @@ var EuroMillionsMultipleEmLines = React.createClass({
     },
 
     render : function() {
-
         var numberEuroMillionsLine = this.props.numberEuroMillionsLine;
         var random = this.props.random_all;
         var em_lines = [];

@@ -38,7 +38,9 @@ var EuroMillionsLine = React.createClass({
     componentDidUpdate : function ( prevProps, prevState)
     {
         if( prevState.isAnimated ) {
-            this.state.isAnimated = false;
+            this.setState({
+                isAnimated : false
+            });
         }
     },
 
@@ -47,22 +49,8 @@ var EuroMillionsLine = React.createClass({
         if(nextProps.clear_all){
             this.state.selectedNumbers.numbers = [];
             this.state.selectedNumbers.stars = [];
+            this.state.isAnimated = false;
             this.storePlay();
-        }
-    },
-
-    componentDidMount: function()
-    {
-        if(this.isMounted()) {
-            $(document).on('clear_line',function(e) {
-                this.state.selectedNumbers.numbers = [];
-                this.state.selectedNumbers.stars = [];
-                this.storePlay();
-                this.setState({selectedNumbers : {
-                                numbers : [],
-                                stars : []
-                              }});
-            }.bind(this));
         }
     },
 
@@ -127,7 +115,8 @@ var EuroMillionsLine = React.createClass({
                             numbers : [],
                             stars : []
                         },
-                        show_btn_clear: false
+                        show_btn_clear: false,
+                        isAnimated : false
         });
         this.props.callback( this.props.lineNumber,0,0);
     },
@@ -154,6 +143,11 @@ var EuroMillionsLine = React.createClass({
         this.state.show_btn_clear = true;
         this.state.isAnimated = true;
         this.storePlay();
+        this.setState({
+                isAnimated: true
+            }
+        )
+
     },
 
     render: function ()
