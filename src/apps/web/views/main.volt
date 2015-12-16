@@ -30,11 +30,13 @@
         {# EDTD To remove SUBNAV when not connected as account #}
         <div data-role="page" id="nav-account">
             <ul class="no-li" data-role="listview">
-                <li><a href="#main-page" data-transition="slide" data-direction="reverse">{{ language.translate("My Account") }}</a></li>
-                <li><a href="#main-page" data-transition="slide" data-direction="reverse">{{ language.translate("My Games") }}</a></li>
-                <li><a href="#main-page" data-transition="slide" data-direction="reverse">{{ language.translate("My Wallet") }}</a></li>
-                <li><a href="#main-page" data-transition="slide" data-direction="reverse">{{ language.translate("Messages") }}</a></li>
-                <li><a href="#main-page" data-transition="slide" data-direction="reverse">{{ language.translate("Sign out") }}</a></li>
+                <li><a href="/account" data-transition="slide" data-direction="reverse">{{ language.translate("Account") }}</a></li>
+                <li><a href="/account/games" data-transition="slide" data-direction="reverse">{{ language.translate("Games") }}</a></li>
+                <li><a href="/account/wallet" data-transition="slide" data-direction="reverse">{{ language.translate("Wallet") }}</a></li>
+                <li><a href="/account/transaction" data-transition="slide" data-direction="reverse">{{ language.translate("Transactions") }}</a></li>
+                <li><a href="/account/email" data-transition="slide" data-direction="reverse">{{ language.translate("Email Settings") }}</a></li>
+                <li><a href="/account/password" data-transition="slide" data-direction="reverse">{{ language.translate("Change Password") }}</a></li>
+                <li><a href="/userAccess/logout" data-transition="slide" data-direction="reverse">{{ language.translate("Sign out") }}</a></li>
             </ul>
         </div> 
 

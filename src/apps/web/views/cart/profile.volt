@@ -25,6 +25,7 @@
                     {% include "account/_user-detail.volt" %}
                 </div>
                 <hr class="hr yellow">
+                {% set component='{"where": "cart"}'|json_decode %}
                 {% include "account/_add-card.volt" %}
             </form>
         </div>
