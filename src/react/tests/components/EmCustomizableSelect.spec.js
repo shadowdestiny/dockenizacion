@@ -10,11 +10,13 @@ import EmCustomizableSelect from '../../components/EmCustomizableSelect.jsx';
 import EmSelect from '../../components/EmSelect.jsx';
 
 describe('EmCustomizableSelect', function () {
+    let custom = 'custom';
+
     var options = [
         {text: '50 text', value: '50'},
         {text: '75 text', value: '75'},
         {text: '100 text', value: '100'},
-        {text: 'custom text', value: 'custom'}
+        {text: 'custom text', value: custom}
     ];
 
     it('renders an EmSelect element on startup', function () {
@@ -24,7 +26,7 @@ describe('EmCustomizableSelect', function () {
     });
 
     it('hides EmSelect on selection custom value', function () {
-        var em_customizable_select = TestUtils.renderIntoDocument(<EmCustomizableSelect options={options}/>);
+        var em_customizable_select = TestUtils.renderIntoDocument(<EmCustomizableSelect options={options} customValue={custom} />);
         em_customizable_select.handleChange({
             "target": {
                 "value": 'custom',
@@ -33,7 +35,7 @@ describe('EmCustomizableSelect', function () {
                 ]
             }
         });
-        var select = TestUtils.findRenderedComponentWithType(em_customizable_select, EmSelect);
-        expect(select).to.equal(null);
+        var select = TestUtils.scryRenderedComponentsWithType(em_customizable_select, EmSelect);
+        expect(select).to.be.empty;
     })
 });
