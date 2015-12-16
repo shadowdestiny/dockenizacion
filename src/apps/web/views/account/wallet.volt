@@ -34,9 +34,10 @@ function checkRadio(id){
 }
 
 $(function(){
-    btnShowHide('.new-card', '.box-add-card, .back', '.box-details');
-    btnShowHide('.new-bank', '.box-add-bank, .back', '.box-details');
-    btnShowHide('.back', '.box-details', '.back, .box-add-bank, .box-add-card');
+    btnShowHide('.btn.add-funds', '.box-add-card, .back', '.overview-wallet'); // Add funds
+    btnShowHide('.btn.withdraw', '.box-bank, .back', '.overview-wallet'); // Withdraw winnings
+    btnShowHide('.btn.convert', '.box-convert, .back', '.overview-wallet');
+    btnShowHide('.back', '.overview-wallet', '.back, .box-bank, .box-add-card, .box-convert'); // Back button
     checkRadio("#card-list tr, #bank-list tr");
     deleteLnk("#card-list .action a, #bank-list .action a");
 });
@@ -64,30 +65,30 @@ $(function(){
            {% include "account/_nav.volt" %}
         </div>
         <div class="box-basic content">
-            <div class="hidden right back">
+            <div class="hidden right back cl">
                 <a class="btn" href="javascript:void(0);">Go Back</a>
             </div>
             <h1 class="h1 title yellow">{{ language.translate("Wallet") }}</h1>
 
-            <div class="box-wallet">
+            <div class="overview-wallet">
                 <div class="info box box-congrats">
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                     <span class="txt"><span class="congrats">{{ language.translate("Congratulations!!! You won &euro; 100.000") }}</span> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</span>
                 </div>
 
-                <div class="balance">
+                <div class="box-balance">
                     <div class="cols res">
                         <div class="col7">
                             <div class="border">
                                 <div class="txt">Your current balance: <span class="value">&euro; 20.00</span></div>
-                                <a href="javascript:void(0)" class="btn blue">Add funds of your wallet</a>
-                                <a href="javascript:void(0)" class="btn green">Withdraw winnings</a>
+                                <a href="javascript:void(0)" class="btn blue add-funds">Add funds of your wallet</a>
+                                <a href="javascript:void(0)" class="btn green withdraw">Withdraw winnings</a>
                             </div>
                         </div>
                         <div class="col5">
                             <div class="border">
                                 <div class="txt">Your winnings: <span class="value">&euro; 20.00</span></div>
-                                <a href="javascript:void(0)" class="btn blue">Convert winnings into your wallet</a>
+                                <a href="javascript:void(0)" class="btn blue convert">Convert winnings into your wallet</a>
                             </div>
                         </div>
                     </div>
@@ -250,7 +251,7 @@ $(function(){
                     <span class="txt">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</span>
                 </div>
 
-                <div class="cl box-wallet">
+                <div class="cl box-wallet wrap-value">
                     <div class="value">
                         <span class="purple">{{ language.translate("Wallet balance:") }}</span> &euro; 500.00 
                     </div>
