@@ -93,6 +93,11 @@ label.submit{cursor:pointer;}
   .ico{font-size:22px; width:26px;}
 }
 
+.border{
+  border:1px solid $yellow; border-radius:5px; padding:15px;
+  .txt{margin-bottom:10px;}
+}
+
 .box-basic{
   border:1px solid $yellow; background:#fff; border-radius:5px; padding:15px;
   margin:0 auto; position:relative;
@@ -100,6 +105,7 @@ label.submit{cursor:pointer;}
 }
 .box-basic.medium{width:760px;}
 .box-basic.small{width:400px; margin:0 auto 8em;}
+
 
 /* BUTTONS */
 .btn{
@@ -246,7 +252,7 @@ body, .submit{font-family:$basic-font;}
 .h5, p, .btn.big, ul.list{font-size:$basic-size;}
 .h6, .small-txt{font-size:$small;}
 #content{font-family:$basic-font;}
-.res{margin-bottom:0;} /* To reset to 0 typographic margins */
+.res{margin-bottom:0!important;} /* To reset to 0 typographic margins */
 
 /* COLORS */
 .yellow{color:$yellow-dark;}
