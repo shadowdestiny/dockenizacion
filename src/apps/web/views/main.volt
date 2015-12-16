@@ -12,7 +12,7 @@
 
         {# EMTD - we need to move this in the footer, and fix all the inline script #}
         <script src="/w/js/vendor/jquery-1.11.3.min.js"></script>
-        <script src="/w/js/main.js"></script>
+
     </head>
 
 	<body class="{% block bodyClass %}{% endblock %}">

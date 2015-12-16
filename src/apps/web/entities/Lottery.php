@@ -270,13 +270,12 @@ class Lottery extends EntityBase implements IEntity
         if( !$now ) {
             $now = new \DateTime();
         }
-
         $drawDates = [];
         for($i=0; $i < $iteration; $i++){
             if($i == 0) $lastDraw = $now;
             /** @var \DateTime $lastDraw */
             $lastDraw = $this->getDrawDate($lastDraw, 'Next');
-            $drawDates[] = [ date('w',$lastDraw->getTimestamp()) => $lastDraw->format('d M Y')];
+            $drawDates[] = [ $lastDraw->format('d M Y')];
         }
         return $drawDates;
     }

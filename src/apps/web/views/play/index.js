@@ -661,18 +661,18 @@ $(function(){
 	});*/
 
 
-	$('.add-more').on('mouseover touchstart', function(){
-		if(checkFillColumns() && isAddMoreClicked == true){
-			$('.add-more').removeClass('stop');
-		}
-		if($(this).hasClass("stop")){
-			if(!$('.tipr').length) {
-				$('.box-more').tipr({'mode':'top'});
-			}
-		}else{
-			$('.box-more').unbind('mouseenter mouseleave vclick');
-		}
-	});
+	//$('.add-more').on('mouseover touchstart', function(){
+	//	if(checkFillColumns() && isAddMoreClicked == true){
+	//		$('.add-more').removeClass('stop');
+	//	}
+	//	if($(this).hasClass("stop")){
+	//		if(!$('.tipr').length) {
+	//			$('.box-more').tipr({'mode':'top'});
+	//		}
+	//	}else{
+	//		$('.box-more').unbind('mouseenter mouseleave vclick');
+	//	}
+	//});
 
 	currentColumns = getTotalColumns();
 	//check key in localstorage to get numbers in previous play
