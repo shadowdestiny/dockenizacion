@@ -68,7 +68,7 @@ class CurrencyServiceUnitTest extends UnitTestBase
     public function test_getActiveCurrenciesCodeAndNames_called_returnActionResultTrueWithProperlyCollection()
     {
         $expected = new ActionResult(true,$this->getCurrencies());
-        $this->currencyRepository_double->findAll()->willReturn($this->getCurrencies());
+        $this->currencyRepository_double->findBy([],['name' => 'ASC'])->willReturn($this->getCurrencies());
         $sut = $this->getSut();
         $actual = $sut->getActiveCurrenciesCodeAndNames();
         $this->assertEquals($expected,$actual);
