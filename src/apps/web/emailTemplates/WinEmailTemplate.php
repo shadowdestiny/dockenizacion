@@ -24,7 +24,7 @@ class WinEmailTemplate extends EmailTemplateDecorator
                     ],
                     [
                         'name'    => 'winning',
-                        'content' => $this->result_amount->getAmount() / 10000
+                        'content' => $this->result_amount->getAmount()
                     ],
                     [
                         'name'    => 'url_play',

@@ -113,6 +113,7 @@ var PlayPage = React.createClass({
                allLinesFilled = false;
            }
         });
+
         if(allLinesFilled || firstClick) {
             for(let i=0; i< default_lines;i++) {
                 current_lines.push(0);
