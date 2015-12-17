@@ -630,7 +630,6 @@ $(function(){
 			$draw_string = 'Draw';
 
 
-
 			if($draws_calculation > 1) {
 				$draw_string = 'Draws';
 				$week_string = 'weeks';

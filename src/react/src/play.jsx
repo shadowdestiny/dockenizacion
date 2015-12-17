@@ -7,6 +7,7 @@ var EuroMillionsMultipleEmLines = require('../components/EmMultipleEmLines.jsx')
 var EuroMillionsBoxBottomAction = require('../components/EmBoxBottomAction.jsx');
 var EmDrawConfig = require('../components/EmDrawConfig.jsx');
 
+
 var PlayPage = React.createClass({
 
     getInitialState : function ()
@@ -18,6 +19,7 @@ var PlayPage = React.createClass({
             price : 0.00,
             varSize : checkSize(),
             numWeek : 1,
+            show_tooltip_lines : false,
             playDays : 1,
             duration : 1,
             numBets : 0,
@@ -34,12 +36,14 @@ var PlayPage = React.createClass({
 
     shouldComponentUpdate : function (nextProps, nextState)
     {
+        if( nextState.show_tooltip_lines != this.state.show_tooltip_lines) return true;
         if( nextState.lines != this.state.lines) return true;
         if( nextState.clear_all != this.state.clear_all) return true;
         if( nextState.random_all != this.state.random_all) return true;
         if( nextState.count_lines != this.state.count_lines ) return true;
         return nextState.price != this.state.price;
     },
+
 
     componentWillMount : function ()
     {
@@ -59,19 +63,36 @@ var PlayPage = React.createClass({
                 if(storage[i].numbers.length > 0 || storage[i].stars.length > 0) {
                     if(i > lines.length-1 ) {
                         for(let j=0; j< default_lines;j++) {
-                           lines.push(0);
+                            lines.push(0);
                         }
-                        lines[i] = 1;
                     }
+                    lines[i] = 1;
                 } else {
                     storage[i].numbers = [];
                     storage[i].stars = [];
                     localStorage.setItem('bet_line', JSON.stringify(storage));
+                    this.state.show_tooltip_lines = true;
                 }
             }
         }
-        this.setState( { lines_default : default_lines, lines: lines, count_lines : lines.length -1 });
+
+        var show_tooltip_lines = (this.checkBetsConfirmed() || lines.length <= default_lines) ? false : true;
+        this.setState( { show_tooltip_lines : show_tooltip_lines, lines_default : default_lines, lines: lines, count_lines : lines.length -1 });
         this.updatePrice();
+    },
+
+
+    checkBetsConfirmed : function ()
+    {
+        var current_lines = this.state.lines;
+        var allLinesFilled = true;
+
+        current_lines.forEach(function(value){
+            if(value == 0) {
+                allLinesFilled = false;
+            }
+        });
+        return allLinesFilled;
     },
 
     addLinesInStorage : function (e, line, numbers, stars)
@@ -101,51 +122,30 @@ var PlayPage = React.createClass({
         }
     },
 
-    handlerAddLines : function()
+    handlerAddLines : function(event)
     {
+        var show_tooltip = this.state.show_tooltip_lines;
         var current_lines = this.state.lines;
         var default_lines = this.state.lines_default;
-        var allLinesFilled = true;
         var firstClick = (current_lines.length == default_lines );
-
-        current_lines.forEach(function(value){
-           if(value == 0) {
-               allLinesFilled = false;
-           }
-        });
-
+        var allLinesFilled = this.checkBetsConfirmed();
         if(allLinesFilled || firstClick) {
             for(let i=0; i< default_lines;i++) {
                 current_lines.push(0);
             }
-            $('.add-more').addClass('stop');
-        } else {
-            $('.add-more').addClass('stop');
+            show_tooltip = true;
         }
-        this.setState( {count_lines : current_lines.length -1 , lines : current_lines} );
+        this.setState( { show_tooltip_lines: show_tooltip,  count_lines : current_lines.length -1 , lines : current_lines} );
     },
 
     mouseOverBtnAddLines : function ()
     {
-        var allLinesFilled = true;
-        this.state.lines.forEach(function(value){
-            if(value == 0) {
-                allLinesFilled = false;
-            }
-        });
-        if(allLinesFilled) {
-            $('.add-more').removeClass('stop');
-            $('.box-more').unbind('mouseenter mouseleave vclick');
-        } else {
-            $('.add-more').addClass('stop');
-        }
-        if($('.add-more').hasClass('stop')) {
-            if(!$('.tipr').length) {
-                $('.box-more').tipr({'mode':'top'});
-            }
-        } else {
-
-        }
+        var current_lines = this.state.lines;
+        var default_lines = this.state.lines_default;
+        var allLinesFilled = this.checkBetsConfirmed();
+        var firstClick = (current_lines.length == default_lines );
+        var show_tooltip_lines = (allLinesFilled || firstClick) ? false : true;
+        this.setState( { show_tooltip_lines : show_tooltip_lines } );
     },
 
     handlerRandomAll : function()
@@ -225,7 +225,7 @@ var PlayPage = React.createClass({
         ];
 
         elem.push(<EuroMillionsMultipleEmLines add_storage={this.addLinesInStorage} clear_all={this.state.clear_all} callback={this.handleOfBetsLine} random_all={random_all} numberEuroMillionsLine={numberEuroMillionsLine} key="1"/>);
-        elem.push(<EuroMillionsBoxAction mouse_over_btn={this.mouseOverBtnAddLines}  add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} clear_all_btn={this.handlerClearAll} key="2"/>)
+        elem.push(<EuroMillionsBoxAction show_tooltip={this.state.show_tooltip_lines}  mouse_over_btn={this.mouseOverBtnAddLines}  add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} clear_all_btn={this.handlerClearAll} key="2"/>)
 
         return (
             <div>
@@ -239,7 +239,7 @@ var PlayPage = React.createClass({
                                                                                  dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-cancel-circle"></use>'}}/>
                             </a>
                             <div className="cols">
-                                <EmDrawConfig change_draw={this.handleChangeDraw} change_duration={this.handleChangeDuration}  options={options_draw_days} customValue={custom_value}/>
+                                <EmDrawConfig  change_draw={this.handleChangeDraw} change_duration={this.handleChangeDuration}  options={options_draw_days} customValue={custom_value}/>
                                 <ThresholdPlay  options={options} customValue={custom_value} defaultValue={default_value} defaultText={default_text}/>
                             </div>
                         </div>

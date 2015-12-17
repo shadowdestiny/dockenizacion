@@ -42,7 +42,7 @@
 		<div class="media"></div>
 		{% set dates_draw = play_dates|json_encode %}
 		<script> var draw_dates = <?php echo $dates_draw ?>;
-					var price_bet = {{ single_bet_price }}
+					var price_bet = {{ single_bet_price }};
 		</script>
 		<script src="/w/js/react/play.js"></script>
 	</div>

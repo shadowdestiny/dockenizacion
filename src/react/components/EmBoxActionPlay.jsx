@@ -24,7 +24,7 @@ var EuroMilliosnBoxActionPlay = React.createClass({
                 show_btn = true;
             }
         });
-        elem.push(<EuroMillionsAddLinesBtn mouse_over_btn={this.props.mouse_over_btn} onBtnAddLinesClick={this.handlerAddLines} key="1"/>);
+        elem.push(<EuroMillionsAddLinesBtn show_tooltip={this.props.show_tooltip}  mouse_over_btn={this.props.mouse_over_btn} onBtnAddLinesClick={this.handlerAddLines} key="1"/>);
         elem.push(<EuroMillionsRandomAllBtn onBtnRandomAllClick={this.handlerRandomAll} key="2"/>);
         elem.push(<EuroMillionsClearAllBtn show_btn_clear={show_btn} onBtnClearAllClick={this.handlerClearAll} key="3"/>);
 
