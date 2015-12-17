@@ -7,7 +7,6 @@ var EmSelectDrawDuration = React.createClass({
 
     handleChange: function (event) {
         this.props.change_duration(event.target.value);
-        //$(document).trigger('update_price',[null,null,event.target.value,null]);
     },
 
     render: function () {

@@ -15,7 +15,7 @@ var EuroMillionsClearLine = React.createClass({
             return null;
         } else {
             return (
-                <a className="clear btn gwr ui-link" onClick={this.props.onClearClick.bind(null,null)} href="javascript:void(0);">
+                <a className="clear btn gwr" onClick={this.props.onClearClick.bind(null,null)} href="javascript:void(0);">
                     Clear<svg className="ico v-cross"
                                dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-cross"></use>'}}/>
                 </a>

@@ -18,6 +18,7 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
         $jackpot = $this->lotteriesDataService->getLastJackpot('EuroMillions');
         $last_draw_date = $this->lotteriesDataService->getLastDrawDate('EuroMillions')->format('j F Y');
 
+        $amount = $jackpot->getAmount();
         $vars = [
             'template' => 'latest-results',
             'subject' => 'Latest results',
@@ -29,7 +30,7 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
                     ],
                     [
                         'name'    => 'jackpot',
-                        'content' => $jackpot->getAmount() / 100
+                        'content' => $amount
                     ],
                     [
                         'name'    => 'draw_date',

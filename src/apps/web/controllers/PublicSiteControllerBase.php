@@ -55,10 +55,14 @@ class PublicSiteControllerBase extends ControllerBase
         $this->setNavValues();
         $this->setCommonTemplateVariables();
 
-        if($dispatcher->getControllerName() != 'user-access') {
+        $controller_not_referer = [
+            'user-access',
+            'currency',
+            'user-settings'
+        ];
+        if(!in_array($dispatcher->getControllerName(),$controller_not_referer)) {
             $this->session->set('original_referer',$dispatcher->getControllerName().'/'.$dispatcher->getActionName());
         }
-
     }
 
     public function checkAuth()
@@ -101,7 +105,7 @@ class PublicSiteControllerBase extends ControllerBase
 
     private function setActiveCurrencies()
     {
-        $currencies = $this->currencyService->getActiveCurrenciesCodeAndNames();
+        $currencies = $this->currencyService->getCurrenciesMostImportant();
         if($currencies->success()) {
             $currencies_dto = [];
             foreach($currencies->getValues() as $currency ) {
