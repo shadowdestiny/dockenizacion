@@ -65,7 +65,7 @@
                             </div>
                             <div class="cl">
                                 <input id="go" type="submit" class="hidden2" />
-                                <label for="go" class="submit btn big blue">Log in to a secure server <svg class="ico v-right"><use xlink:href="/w/svg/icon.svg#v-right"></use></svg></label>
+                                <label for="go" class="submit btn big blue">Log in to a secure server <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
                             </div>
                             {{ endform() }}
                         </div>
@@ -85,12 +85,12 @@
 
                             {{ form('userAccess/signUp') }}
 
-                            {% if  which_form == 'up' and errors %}
-                                <div class="box error">
-                                    <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
-                                    <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
-                                </div>
-                            {% endif %}
+                                {% if  which_form == 'up' and errors %}
+                                    <div class="box error">
+                                        <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
+                                        <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
+                                    </div>
+                                {% endif %}
                                 {{ signupform.render('name', {'class':'input'~form_errors['name']}) }}
                                 {{ signupform.render('surname', {'class':'input'~form_errors['surname']}) }}
                                 {{ signupform.render('email', {'class':'input'~form_errors['email']}) }}
