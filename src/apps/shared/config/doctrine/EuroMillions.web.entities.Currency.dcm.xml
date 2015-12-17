@@ -17,6 +17,7 @@
 
         <field name="symbol" type="string" nullable="true"/>
         <field name="name" type="string" nullable="true"/>
+        <field name="order" type="integer" nullable="true"/>
         <embedded name="code" class="Money\Currency"/>
 
     </entity>

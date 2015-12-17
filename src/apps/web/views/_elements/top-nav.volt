@@ -3,7 +3,9 @@
 	<div class="div-currency">
 		<ul class="no-li">
             {% for currency in currencies %}
-				<li><a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">EUR &nbsp; {{ currency.name }}</a></li>
+				{% if currency.name != user_currency['name'] %}
+					<li><a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">{{ currency.code }} &nbsp; {{ currency.name }}</a></li>
+				{% endif %}
             {% endfor %}
             <li><a href="/currency">Show more</a></li>
         </ul>

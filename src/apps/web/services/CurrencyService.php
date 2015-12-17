@@ -76,4 +76,16 @@ class CurrencyService
 //        ];
     }
 
+
+    public function getCurrenciesMostImportant($limit = 6)
+    {
+        /** @var Currency $collection */
+        $collection = $this->currencyRepository->findBy([],['order' => 'ASC'],$limit);
+        if(!empty($collection)) {
+            return new ActionResult(true,$collection);
+        } else {
+            return new ActionResult(false);
+        }
+    }
+
 }

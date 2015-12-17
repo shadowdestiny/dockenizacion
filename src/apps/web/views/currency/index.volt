@@ -27,15 +27,9 @@
         <div class="box-basic">
             <h1 class="h2">Choose your currency</h1>
             <ul class="no-li list cl">
-                <li><a href="javascript:void(0)">EUR - Euro</a></li>
-                <li><a href="javascript:void(0)">EUR - Euro</a></li>
-                <li><a href="javascript:void(0)">EUR - Euro</a></li>
-                <li><a href="javascript:void(0)">EUR - Euro</a></li>
-                <li><a href="javascript:void(0)">EUR - Euro</a></li>
-                <li><a href="javascript:void(0)">EUR - Euro</a></li>
-                <li><a href="javascript:void(0)">EUR - Euro</a></li>
-                <li><a href="javascript:void(0)">EUR - Euro</a></li>
-                <li><a href="javascript:void(0)">EUR - Euro</a></li>
+            {% for currency in currency_list %}
+                <li><a href="/ajax/user-settings/setCurrencyReload/{{currency.code}}">{{ currency.code }} &nbsp; {{ currency.name }}</a></li>
+            {% endfor %}
             </ul>
         </div>
     </div>
