@@ -1,4 +1,4 @@
-FROM antonienko/phalcon2-apache2:v3.0.1
+FROM antonienko/nginx-php-fpm:v0.2.1
 MAINTAINER Antonio Hernández "antonio.hernandez@panamedia.net"
 
 RUN echo "INSTALLING LOCALES"
