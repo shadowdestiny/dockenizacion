@@ -148,7 +148,6 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm
             if(!is_array($formPlay)){
                 throw new Exception('Error converting object to array from storage');
             }
-
             $this->setUser($user);
             $this->setLine($formPlay['euroMillionsLines']);
             $this->setActive(true);

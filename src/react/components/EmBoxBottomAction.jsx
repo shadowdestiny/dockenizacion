@@ -6,8 +6,20 @@ var EuroMillionsAddToCart = require('./EmAddToCart.jsx');
 var EuroMillionsBoxBottomAction = React.createClass({
 
 
-    addToCart : function () {
 
+
+    addToCart : function () {
+        var params = '';
+        this.props.lines.forEach(function(bet,i){
+            if(bet.numbers.length > 0 && bet.stars.length > 0 ) {
+                params += 'bet['+i+']='+ bet.numbers +","+ bet.stars + '&';
+            }
+        });
+        var draw_days = this.props.play_days;
+        var frequency = this.props.duration;
+        var start_draw = this.props.date_play;
+        params += 'draw_days='+draw_days+'&frequency='+frequency+'&start_draw='+start_draw;
+        ajaxFunctions.playCart(params);
     },
 
     render : function () {

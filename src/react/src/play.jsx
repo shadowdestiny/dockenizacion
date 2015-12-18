@@ -22,6 +22,7 @@ var PlayPage = React.createClass({
             show_tooltip_lines : false,
             playDays : 1,
             duration : 1,
+            date_play : '',
             numBets : 0,
             lines : [],
             clear_all : false,
@@ -86,7 +87,6 @@ var PlayPage = React.createClass({
     {
         var current_lines = this.state.lines;
         var allLinesFilled = true;
-
         current_lines.forEach(function(value){
             if(value == 0) {
                 allLinesFilled = false;
@@ -169,6 +169,11 @@ var PlayPage = React.createClass({
         this.updatePrice();
     },
 
+    handleChangeDate : function (value)
+    {
+
+    },
+
 
     handleOfBetsLine : function(line, numbers,stars)
     {
@@ -232,14 +237,14 @@ var PlayPage = React.createClass({
                 {elem}
                 <div className="box-bottom">
                     <div className="wrap">
-                        <EuroMillionsBoxBottomAction price={this.state.price}/>
+                        <EuroMillionsBoxBottomAction date_play={this.state.date_play} duration={this.state.duration} play_days={this.state.playDays}  lines={this.state.storage}  price={this.state.price}/>
                         <div className="advanced-play">
                             <hr className="hr yellow" />
                             <a href="javascript:void(0);" className="close"><svg className="ico v-cancel-circle"
                                                                                  dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-cancel-circle"></use>'}}/>
                             </a>
                             <div className="cols">
-                                <EmDrawConfig  change_draw={this.handleChangeDraw} change_duration={this.handleChangeDuration}  options={options_draw_days} customValue={custom_value}/>
+                                <EmDrawConfig change_date={this.handleChangeDate}  change_draw={this.handleChangeDraw} change_duration={this.handleChangeDuration}  options={options_draw_days} customValue={custom_value}/>
                                 <ThresholdPlay  options={options} customValue={custom_value} defaultValue={default_value} defaultText={default_text}/>
                             </div>
                         </div>
