@@ -47,7 +47,7 @@ class CurrencyService
     public function getActiveCurrenciesCodeAndNames()
     {
         /** @var Currency $collection */
-        $collection = $this->currencyRepository->findAll();
+        $collection = $this->currencyRepository->findBy([],[ 'name' => 'ASC']);
         if(!empty($collection)) {
             return new ActionResult(true,$collection);
         } else {
@@ -74,6 +74,18 @@ class CurrencyService
 //            ['symbol' => '&#165;', 'code' => 'JPY', 'name' => 'Japanese Yen'],
 //            ['symbol' => '&#3647;', 'code' => 'THB', 'name' => 'Thai Baht'],
 //        ];
+    }
+
+
+    public function getCurrenciesMostImportant($limit = 6)
+    {
+        /** @var Currency $collection */
+        $collection = $this->currencyRepository->findBy([],['order' => 'ASC'],$limit);
+        if(!empty($collection)) {
+            return new ActionResult(true,$collection);
+        } else {
+            return new ActionResult(false);
+        }
     }
 
 }

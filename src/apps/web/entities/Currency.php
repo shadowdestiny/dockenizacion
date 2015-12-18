@@ -16,6 +16,7 @@ class Currency extends EntityBase implements IEntity
 
     protected $name;
 
+    protected $order;
 
     public function getId()
     {
@@ -68,6 +69,22 @@ class Currency extends EntityBase implements IEntity
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * @param mixed $order
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
     }
 
 }

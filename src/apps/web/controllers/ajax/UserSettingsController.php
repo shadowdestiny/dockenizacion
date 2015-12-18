@@ -8,13 +8,28 @@ class UserSettingsController extends AjaxControllerBase
 {
     public function setCurrencyAction($currency)
     {
+        $this->loadCurrency($currency);
+        echo json_encode(['result'=>'OK']);
+    }
+
+    public function setCurrencyReloadAction($currency)
+    {
+        $this->loadCurrency($currency);
+        $this->response->redirect($this->session->get('original_referer'));
+    }
+
+    /**
+     * @param $currency
+     */
+    private function loadCurrency($currency)
+    {
         $user_service = $this->domainServiceFactory->getUserPreferencesService();
         $new_currency = new Currency($currency);
         $user_service->setCurrency($new_currency);
         $user = $this->domainServiceFactory->getAuthService()->getCurrentUser();
-        if($user instanceof User) {
-            $this->domainServiceFactory->getUserService()->updateCurrency($user,$new_currency);
+        if ($user instanceof User) {
+            $this->domainServiceFactory->getUserService()->updateCurrency($user, $new_currency);
         }
-        echo json_encode(['result'=>'OK']);
     }
+
 }

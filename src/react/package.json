@@ -8,7 +8,8 @@
   "license": "All rights reserved",
   "dependencies": {
     "react": "^0.14.3",
-    "react-dom": "^0.14.3"
+    "react-dom": "^0.14.3",
+    "react-tooltip": "^0.9.7"
   },
   "scripts": {
     "watch": "WEBPACK_ENV=dev ./node_modules/.bin/webpack --watch --inline",

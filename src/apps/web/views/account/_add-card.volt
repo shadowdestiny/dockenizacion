@@ -27,6 +27,43 @@
                 </label>
                 <input id="add-card-name" name="card-holder" class="input" type="text" value="{#{{ payment_method.cardHolderName }}#}">
             </div>
+
+            <div class="cl card-detail">
+                <div class="left margin">
+                    <label class="label block">
+                        {{ language.translate("Expiration date") }} <span class="asterisk">*</span>
+                    </label>
+                    <select class="select month" name="month">
+                        <option>01</option>
+                        <option>02</option>
+                        <option>03</option>
+                        <option>04</option>
+                        <option>05</option>
+                        <option>06</option>
+                        <option>07</option>
+                        <option>08</option>
+                        <option>09</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                    </select>
+                    <select class="select year" name="year">
+                        <option>2014</option>
+                        <option>2015</option>
+                        <option>2016</option>
+                        <option>2017</option>
+                        <option>2018</option>
+                        <option>2019</option>
+                    </select>
+                </div>
+                <div class="left cvv">
+                    <label class="label block" for="cvv">
+                        {{ language.translate("CVV") }} <span class="asterisk">*</span>
+                        <svg class="ico v-question-mark"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
+                    </label>
+                    <input id="cvv" name="card-cvv" class="input " type="text">
+                </div>
+            </div>
         </div>
         <div class="col6 second">
             {% if component.where == 'cart' %}
@@ -38,7 +75,7 @@
             {% if component.where == 'account' %}
                 <h2 class="h3 yellow">{{ language.translate("Add funds to your wallet") }}</h2>
                 <div class="balance"><strong class="purple">Wallet balance:</strong> <span class="value">&euro; 20.00</span></div>
-                <div class="box-wallet">
+                <div class="box-wallet overview">
                     <span class="symbol">&euro;</span><input class="input" type="text" placeholder="Enter any amount">
                     <label class="label btn green">
                         {{ language.translate("Add funds to your wallet") }}
@@ -54,45 +91,11 @@
     </div>
 </div>
 
-<div class="cl card-detail">
-    <div class="left margin">
-        <label class="label block">
-            {{ language.translate("Expiration date") }} <span class="asterisk">*</span>
-        </label>
-        <select class="select month" name="month">
-            <option>01</option>
-            <option>02</option>
-            <option>03</option>
-            <option>04</option>
-            <option>05</option>
-            <option>06</option>
-            <option>07</option>
-            <option>08</option>
-            <option>09</option>
-            <option>10</option>
-            <option>11</option>
-            <option>12</option>
-        </select>
-        <select class="select year" name="year">
-            <option>2014</option>
-            <option>2015</option>
-            <option>2016</option>
-            <option>2017</option>
-            <option>2018</option>
-            <option>2019</option>
-        </select>
-    </div>
-    <div class="left">
-        <label class="label block" for="cvv">
-            {{ language.translate("Security Code / CVV") }} <span class="asterisk">*</span>
-        </label>
-        <input id="cvv" name="card-cvv" class="input cvv" type="text">
-    </div>
-    <input id="id_payment" name="id_payment" value="{#{{ payment_method.id_payment }}#}" type="hidden"/>
-    {% if component.where == 'cart' %}
-        <label class="btn submit green right" for="new-card">
-            {{ language.translate("Add a new card") }}
-            <input id="new-card" type="submit" class="hidden">
-        </label>
-    {% endif %}
-</div>
+
+<input id="id_payment" name="id_payment" value="{#{{ payment_method.id_payment }}#}" type="hidden"/>
+{% if component.where == 'cart' %}
+    <label class="btn submit green right" for="new-card">
+        {{ language.translate("Add a new card") }}
+        <input id="new-card" type="submit" class="hidden">
+    </label>
+{% endif %}

@@ -7,24 +7,36 @@ var EuroMillionsMultipleEmLines = require('../components/EmMultipleEmLines.jsx')
 var EuroMillionsBoxBottomAction = require('../components/EmBoxBottomAction.jsx');
 var EmDrawConfig = require('../components/EmDrawConfig.jsx');
 
+
 var PlayPage = React.createClass({
 
-    getInitialState : function () {
+    getInitialState : function ()
+    {
         return {
-            lines_default : 5,
+            lines_default : 6,
             count_lines : 0,
             random_all : false,
             price : 0.00,
+            varSize : checkSize(),
             numWeek : 1,
+            show_tooltip_lines : false,
             playDays : 1,
             duration : 1,
             numBets : 0,
             lines : [],
-            clear_all : false
+            clear_all : false,
+            storage : JSON.parse(localStorage.getItem('bet_line')) || []
         }
     },
 
-    shouldComponentUpdate : function (nextProps, nextState) {
+    componentDidMount : function ()
+    {
+        window.addEventListener('resize', this.handleResize);
+    },
+
+    shouldComponentUpdate : function (nextProps, nextState)
+    {
+        if( nextState.show_tooltip_lines != this.state.show_tooltip_lines) return true;
         if( nextState.lines != this.state.lines) return true;
         if( nextState.clear_all != this.state.clear_all) return true;
         if( nextState.random_all != this.state.random_all) return true;
@@ -33,43 +45,133 @@ var PlayPage = React.createClass({
     },
 
 
-    componentDidMount : function () {
-        $(document).on('update_price', function(e,numBets,numWeek,playDays,duration) {
-            (numWeek) ? this.state.numWeek = numWeek : this.state.numWeek;
-            (playDays) ? this.state.playDays = playDays.split(',').length : this.state.playDays;
-            (duration) ? this.state.duration = duration : this.state.duration;
-            (numBets) ? this.state.numBets = numBets : this.state.numBets;
-            this.updatePrice();
-        }.bind(this));
+    componentWillMount : function ()
+    {
+        if(varSize >= 4) {
+            this.state.lines_default = 2;
+        }
+        var storage = this.state.storage;
+        var lines = this.state.lines;
+        var default_lines = this.state.lines_default;
+        if( storage != null ) {
+            if(lines.length == 0) {
+                for(let i=0; i< default_lines;i++) {
+                    lines.push(0);
+                }
+            }
+            for(let i=0;i<storage.length;i++) {
+                if(storage[i].numbers.length > 0 || storage[i].stars.length > 0) {
+                    if(i > lines.length-1 ) {
+                        for(let j=0; j< default_lines;j++) {
+                            lines.push(0);
+                        }
+                    }
+                    lines[i] = 1;
+                } else {
+                    storage[i].numbers = [];
+                    storage[i].stars = [];
+                    localStorage.setItem('bet_line', JSON.stringify(storage));
+                    this.state.show_tooltip_lines = true;
+                }
+            }
+        }
 
-        this.state.count_lines = this.state.lines_default + this.state.count_lines;
+        var show_tooltip_lines = (this.checkBetsConfirmed() || lines.length <= default_lines) ? false : true;
+        this.setState( { show_tooltip_lines : show_tooltip_lines, lines_default : default_lines, lines: lines, count_lines : lines.length -1 });
         this.updatePrice();
-        this.setState(this.state);
     },
 
 
-    handlerAddLines : function() {
-        this.setState( { count_lines : this.state.lines_default + this.state.count_lines +1 });
+    checkBetsConfirmed : function ()
+    {
+        var current_lines = this.state.lines;
+        var allLinesFilled = true;
+
+        current_lines.forEach(function(value){
+            if(value == 0) {
+                allLinesFilled = false;
+            }
+        });
+        return allLinesFilled;
     },
-    handlerRandomAll : function() {
+
+    addLinesInStorage : function (e, line, numbers, stars)
+    {
+        this.state.storage[line] = {
+            'numbers': numbers,
+            'stars': stars
+        };
+        localStorage.setItem('bet_line', JSON.stringify(this.state.storage, function(k,v){
+                return (v == null) ? { 'numbers' : [], 'stars' : []} : v;
+            }
+        ));
+    },
+
+    handleResize : function ()
+    {
+        var varSize = checkSize();
+        if(varSize >= 4) {
+            this.state.lines_default = 2;
+        }else {
+            this.state.lines_default = 6;
+        }
+        var default_lines = this.state.lines_default -1;
+        var count_lines = this.state.count_lines;
+        if(varSize < 4 && (count_lines < default_lines)) {
+            this.setState({ count_lines : count_lines +1 });
+        }
+    },
+
+    handlerAddLines : function(event)
+    {
+        var show_tooltip = this.state.show_tooltip_lines;
+        var current_lines = this.state.lines;
+        var default_lines = this.state.lines_default;
+        var firstClick = (current_lines.length == default_lines );
+        var allLinesFilled = this.checkBetsConfirmed();
+        if(allLinesFilled || firstClick) {
+            for(let i=0; i< default_lines;i++) {
+                current_lines.push(0);
+            }
+            show_tooltip = true;
+        }
+        this.setState( { show_tooltip_lines: show_tooltip,  count_lines : current_lines.length -1 , lines : current_lines} );
+    },
+
+    mouseOverBtnAddLines : function ()
+    {
+        var current_lines = this.state.lines;
+        var default_lines = this.state.lines_default;
+        var allLinesFilled = this.checkBetsConfirmed();
+        var firstClick = (current_lines.length == default_lines );
+        var show_tooltip_lines = (allLinesFilled || firstClick) ? false : true;
+        this.setState( { show_tooltip_lines : show_tooltip_lines } );
+    },
+
+    handlerRandomAll : function()
+    {
         this.setState( { random_all : true } );
     },
-    handlerClearAll : function () {
+    handlerClearAll : function ()
+    {
         this.setState( { clear_all : true });
     },
 
-    handleChangeDraw : function (value) {
+    handleChangeDraw : function (value)
+    {
         this.state.playDays = value.split(',').length;
         this.updatePrice();
     },
 
-    handleChangeDuration : function (value) {
+    handleChangeDuration : function (value)
+    {
         this.state.duration = value;
         this.updatePrice();
     },
 
 
-    getValidNumberBets : function(line, numbers,stars) {
+    handleOfBetsLine : function(line, numbers,stars)
+    {
         if(numbers == 5 && stars == 2) {
             this.state.lines[line] = 1;
         } else {
@@ -79,15 +181,16 @@ var PlayPage = React.createClass({
         this.updatePrice();
     },
 
-    updatePrice : function () {
+    updatePrice : function ()
+    {
         var numWeeks = this.state.duration;
         var playDays = this.state.playDays;
         var numDraws = numWeeks * playDays;
-        var price = 2.35;
+        var price = price_bet;
         var betsActive = 0;
 
-        if(this.state.numBets.length > 0) {
-            this.state.numBets.forEach(function(value) {
+        if(this.state.lines.length > 0) {
+            this.state.lines.forEach(function(value) {
                 if (value > 0) {
                     betsActive = betsActive + 1;
                 }
@@ -97,16 +200,14 @@ var PlayPage = React.createClass({
         this.setState( { price : total, clear_all : false, random_all : false } );
     },
 
-
-    render : function () {
-
+    render : function ()
+    {
         var elem = [];
         var numberEuroMillionsLine = this.state.lines_default;
         if(this.state.count_lines > 0) {
-            numberEuroMillionsLine = this.state.count_lines;
+            numberEuroMillionsLine = this.state.count_lines ;
         }
         var random_all = this.state.random_all;
-
         var default_value = '75';
         var default_text = '75 millions €';
         var custom_value = 'custom';
@@ -122,19 +223,9 @@ var PlayPage = React.createClass({
             {text: 'Tuesday', value : '2'},
             {text: 'Firday' , value : '5'}
         ];
-        if(varSize >= 4) { //varSize var is in main.js
-            numberEuroMillionsLine = 1;
-        }
-        window.onresize = function() {
-            if(varSize < 4) {
-                if( numberEuroMillionsLine < 5 ) {
-                    numberEuroMillionsLine = numberEuroMillionsLine + 1;
-                    elem.push(<EuroMillionsLine random_all={random_all} numberPerLine="5" key="1" lineNumber={numberEuroMillionsLine}/>);
-                }
-            }
-        }
-        elem.push(<EuroMillionsMultipleEmLines clear_all={this.state.clear_all} callback={this.getValidNumberBets} random_all={random_all} numberEuroMillionsLine={numberEuroMillionsLine} key="1"/>);
-        elem.push(<EuroMillionsBoxAction add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} clear_all_btn={this.handlerClearAll} key="2"/>)
+
+        elem.push(<EuroMillionsMultipleEmLines add_storage={this.addLinesInStorage} clear_all={this.state.clear_all} callback={this.handleOfBetsLine} random_all={random_all} numberEuroMillionsLine={numberEuroMillionsLine} key="1"/>);
+        elem.push(<EuroMillionsBoxAction show_tooltip={this.state.show_tooltip_lines}  mouse_over_btn={this.mouseOverBtnAddLines}  add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} clear_all_btn={this.handlerClearAll} key="2"/>)
 
         return (
             <div>
@@ -148,7 +239,7 @@ var PlayPage = React.createClass({
                                                                                  dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-cancel-circle"></use>'}}/>
                             </a>
                             <div className="cols">
-                                <EmDrawConfig change_draw={this.handleChangeDraw} change_duration={this.handleChangeDuration}  options={options_draw_days} customValue={custom_value}/>
+                                <EmDrawConfig  change_draw={this.handleChangeDraw} change_duration={this.handleChangeDuration}  options={options_draw_days} customValue={custom_value}/>
                                 <ThresholdPlay  options={options} customValue={custom_value} defaultValue={default_value} defaultText={default_text}/>
                             </div>
                         </div>

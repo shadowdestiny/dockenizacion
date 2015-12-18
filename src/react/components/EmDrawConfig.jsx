@@ -15,14 +15,10 @@ var EuroMillionsDrawConfig = new React.createClass({
     render : function () {
 
         var elem = [];
-        var options_draw_dates = [
-            {text: '11 Dec 2015' , value : '1'},
-            {text: '15 Dec 2015', value : '2'},
-            {text: '18 Dec 2015' , value : '3'},
-            {text: '22 Dec 2015' , value : '4'},
-            {text: '25 Dec 2015' , value : '5'}
-        ];
-
+        var options_draw_dates = [];
+        draw_dates.forEach(function(obj,i){
+            options_draw_dates.push({text : obj, value : i});
+        });
         var options_draw_duration = [
             {text : '1 week (Draw: 1)' , value : '1'},
             {text : '2 weeks (Draws: 2)' , value : '2'},

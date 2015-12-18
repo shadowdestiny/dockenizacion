@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="/w/css/play.css">
 {% endblock %}
 {% block template_scripts %}
-<script>{% include "play/index.js" %}</script>
+{#<script>{% include "play/index.js" %}</script>#}
 <script src="/w/js/vendor/tipr.min.js"></script>
 {% endblock %}
 {% block bodyClass %}play{% endblock %}
@@ -39,6 +39,11 @@
 		</div>
 		<div class="gameplay" id="gameplay">
 		</div>
+		<div class="media"></div>
+		{% set dates_draw = play_dates|json_encode %}
+		<script> var draw_dates = <?php echo $dates_draw ?>;
+					var price_bet = {{ single_bet_price }};
+		</script>
 		<script src="/w/js/react/play.js"></script>
 	</div>
 </main>

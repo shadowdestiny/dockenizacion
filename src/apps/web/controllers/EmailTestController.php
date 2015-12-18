@@ -4,9 +4,9 @@
 namespace EuroMillions\web\controllers;
 
 
-use EuroMillions\web\components\PhpassWrapper;
+use EuroMillions\web\components\NullPasswordHasher;
+use EuroMillions\web\components\RandomPasswordGenerator;
 use EuroMillions\web\emailTemplates\EmailTemplate;
-use EuroMillions\web\emailTemplates\IEmailTemplate;
 use EuroMillions\web\emailTemplates\JackpotRolloverEmailTemplate;
 use EuroMillions\web\emailTemplates\LatestResultsEmailTemplate;
 use EuroMillions\web\emailTemplates\LongPlayEndedEmailTemplate;
@@ -18,7 +18,6 @@ use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsLine;
-use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\Url;
 use Money\Currency;
 use Money\Money;
@@ -55,6 +54,7 @@ class EmailTestController extends PublicSiteControllerBase
 
     public function sendAction()
     {
+
         $userEmail = $this->request->getPost('user-email');
         $template = $this->request->getPost('template');
         $this->user = $this->getNewUser($userEmail);
@@ -73,6 +73,14 @@ class EmailTestController extends PublicSiteControllerBase
             if($emailTemplate instanceof WinEmailTemplate) {
                 $emailTemplate->setUser($this->user);
                 $emailTemplate->setResultAmount(new Money(10000000, new Currency('EUR')));
+            }
+            if($emailTemplate instanceof LatestResultsEmailTemplate) {
+                $draw = $this->lotteriesDataService->getBreakDownDrawByDate('EuroMillions',new \DateTime());
+                $break_down_list = null;
+                if($draw->success()){
+                    $break_down_list = new EuroMillionsDrawBreakDownDTO($draw->getValues());
+                }
+                $emailTemplate->setBreakDownList($break_down_list);
             }
             $this->sendEmail($template, $url, $emailTemplate);
         }
@@ -340,9 +348,12 @@ class EmailTestController extends PublicSiteControllerBase
         if ($nameTemplate == 'register') {
             $this->domainServiceFactory->getServiceFactory()->getEmailService(null, self::$config)->sendRegistrationMail($this->user, $url);
         } else if ($nameTemplate == 'send-password-request') {
+            $url = new Url('http://localhost:8080/userAccess/validate/fdsnahjfkdhsa878907');
             $this->domainServiceFactory->getServiceFactory()->getEmailService(null, self::$config)->sendPasswordResetMail($this->user, $url);
         } else if ($nameTemplate == 'send-new-password') {
-            $this->domainServiceFactory->getServiceFactory()->getEmailService(null, self::$config)->sendNewPasswordMail($this->user, new Password('EuroMillions123', new PhpassWrapper()));
+            $passwordGenerator = new RandomPasswordGenerator(new NullPasswordHasher());
+            $password = $passwordGenerator->getPassword();
+            $this->domainServiceFactory->getServiceFactory()->getEmailService(null, self::$config)->sendNewPasswordMail($this->user, $password);
         } else {
             $this->domainServiceFactory->getServiceFactory()->getEmailService(null, self::$config)->sendTransactionalEmail($this->user, $emailTemplate);
         }
