@@ -133,9 +133,11 @@ var EuroMillionsLine = React.createClass({
         for(var i=0; i < 5; i++){
             var n = Math.floor(Math.random() * 51);
             if(nums.indexOf(n) == -1) nums[i] = n; else i--;
+            if(n == 0) i--;
         }
         for(var i=0; i < 2; i++){
             var s = Math.floor(Math.random() * 12);
+            if(s == 0) i--;
             if(stars.indexOf(s) == -1) stars[i] = s; else i--;
         }
         this.state.selectedNumbers.numbers = nums;

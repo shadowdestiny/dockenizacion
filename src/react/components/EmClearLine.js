@@ -11,16 +11,13 @@ var EuroMillionsClearLine = React.createClass({
         onClearClick : React.PropTypes.func.isRequired,
     },
     render: function () {
-        if( !this.props.showed ) {
-            return null;
-        } else {
-            return (
-                <a className="clear btn gwr" onClick={this.props.onClearClick.bind(null,null)} href="javascript:void(0);">
-                    Clear<svg className="ico v-cross"
-                               dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-cross"></use>'}}/>
-                </a>
-            );
-        }
+        var class_name = this.props.showed ? "clear btn gwr active" : "clear btn gwr";
+        return (
+            <a className={class_name} onClick={this.props.onClearClick.bind(null,null)} href="javascript:void(0);">
+                Clear<svg className="ico v-cross"
+                           dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-cross"></use>'}}/>
+            </a>
+        );
     }
 });
 
