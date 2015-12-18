@@ -25,7 +25,7 @@ var EuroMillionsAddLinesBtn = React.createClass({
 
     render: function() {
 
-        var react_tooltip = <ReactTooltip id='add-lines'/>;
+        var react_tooltip = <ReactTooltip type="light" id='add-lines'/>;
         if( !this.props.show_tooltip) {
             react_tooltip  = null;
         }
