@@ -14,7 +14,7 @@ var EmSelectDrawDate = React.createClass({
     },
 
     handleChange: function (event) {
-
+        this.props.change_draw(event.target.value);
     },
 
     render: function () {
@@ -26,6 +26,7 @@ var EmSelectDrawDate = React.createClass({
             defaultValue={this.props.defaultValue}
             defaultText={this.props.defaultText}
             onChange={this.handleChange}
+            useTextAsValue={'true'}
             disabled={disabled}/>;
 
         return (

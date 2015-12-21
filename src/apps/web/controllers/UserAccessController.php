@@ -124,11 +124,7 @@ class UserAccessController extends ControllerBase
 
     public function validateAction($token)
     {
-        $current_user = $this->forceLogin($this->authService);
-        if(!$current_user) {
-            return;
-        }
-        $result = $this->authService->validateEmailToken($current_user, $token);
+        $result = $this->authService->validateEmailToken($token);
         if ($result->success()) {
             $message = 'Thanks! Your email has been validated';
         } else {

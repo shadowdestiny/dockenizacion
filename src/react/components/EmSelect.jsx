@@ -15,7 +15,8 @@ var EmSelect = React.createClass({
             classBox: 'styled-select',
             classSelect: 'threshold mySelect',
             disabled: 'false',
-            hidden: 'false'
+            hidden: 'false',
+            useTextAsValue : 'false'
         };
     },
     getInitialState: function () {
@@ -38,8 +39,10 @@ var EmSelect = React.createClass({
     },
     render: function () {
         var options = [];
+        var textAsValue = this.props.useTextAsValue;
         this.props.options.forEach(function(option) {
-            options.push(<option value={option.value} key={option.value}>{option.text}</option>);
+            var option_value = textAsValue ? option.text : option.value;
+            options.push(<option value={option_value} key={option.value}>{option.text}</option>);
         });
         var box_class = this.props.disabled ? this.props.classBox+' disabled': this.props.classBox;
         return (
