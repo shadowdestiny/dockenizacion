@@ -433,8 +433,7 @@ var ajaxFunctions = {
 			dataType: "json",
 			success: function(json) {
 				if(json.result = 'OK') {
-					//EMTD location to cart
-					location.href = location.href;
+					location.href = json.url;
 				}
 			},
 			error: function (xhr, status, errorThrown) {

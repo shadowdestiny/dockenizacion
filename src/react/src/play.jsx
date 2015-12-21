@@ -22,7 +22,7 @@ var PlayPage = React.createClass({
             show_tooltip_lines : false,
             playDays : 1,
             duration : 1,
-            date_play : '',
+            date_play : 0,
             numBets : 0,
             lines : [],
             clear_all : false,
@@ -37,6 +37,9 @@ var PlayPage = React.createClass({
 
     shouldComponentUpdate : function (nextProps, nextState)
     {
+        if(nextState.date_play != this.state.date_play) return true;
+        if( nextState.playDays != this.state.playDays) return true;
+        if( nextState.duration != this.state.duration) return true;
         if( nextState.show_tooltip_lines != this.state.show_tooltip_lines) return true;
         if( nextState.lines != this.state.lines) return true;
         if( nextState.clear_all != this.state.clear_all) return true;
@@ -159,7 +162,18 @@ var PlayPage = React.createClass({
 
     handleChangeDraw : function (value)
     {
-        this.state.playDays = value.split(',').length;
+        switch(value) {
+            case 'Friday':
+                value = 1;
+                break;
+            case 'Tuesday':
+                value = 1;
+                break;
+            default:
+                value = 2;
+        }
+
+        this.state.playDays = value;
         this.updatePrice();
     },
 
@@ -171,7 +185,8 @@ var PlayPage = React.createClass({
 
     handleChangeDate : function (value)
     {
-
+        this.state.date_play = value;
+        this.updatePrice();
     },
 
 
@@ -191,6 +206,7 @@ var PlayPage = React.createClass({
         var numWeeks = this.state.duration;
         var playDays = this.state.playDays;
         var numDraws = numWeeks * playDays;
+
         var price = price_bet;
         var betsActive = 0;
 
@@ -202,7 +218,7 @@ var PlayPage = React.createClass({
             });
         }
         var total = Number(betsActive * price * numDraws).toFixed(2);
-        this.setState( { price : total, clear_all : false, random_all : false } );
+        this.setState( { date_play : this.state.date_play, price : total, clear_all : false, random_all : false } );
     },
 
     render : function ()
@@ -229,6 +245,8 @@ var PlayPage = React.createClass({
             {text: 'Firday' , value : '5'}
         ];
 
+        console.log('date_play ' + this.state.date_play);
+
         elem.push(<EuroMillionsMultipleEmLines add_storage={this.addLinesInStorage} clear_all={this.state.clear_all} callback={this.handleOfBetsLine} random_all={random_all} numberEuroMillionsLine={numberEuroMillionsLine} key="1"/>);
         elem.push(<EuroMillionsBoxAction show_tooltip={this.state.show_tooltip_lines}  mouse_over_btn={this.mouseOverBtnAddLines}  add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} clear_all_btn={this.handlerClearAll} key="2"/>)
 
@@ -244,7 +262,7 @@ var PlayPage = React.createClass({
                                                                                  dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-cancel-circle"></use>'}}/>
                             </a>
                             <div className="cols">
-                                <EmDrawConfig change_date={this.handleChangeDate}  change_draw={this.handleChangeDraw} change_duration={this.handleChangeDuration}  options={options_draw_days} customValue={custom_value}/>
+                                <EmDrawConfig date_play={this.handleChangeDate} duration={this.handleChangeDuration} play_days={this.handleChangeDraw}  options={options_draw_days} customValue={custom_value}/>
                                 <ThresholdPlay  options={options} customValue={custom_value} defaultValue={default_value} defaultText={default_text}/>
                             </div>
                         </div>

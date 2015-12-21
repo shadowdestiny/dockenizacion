@@ -36,7 +36,7 @@ class PlayTemporarilyController extends AjaxControllerBase
         $current_user = $authService->getCurrentUser();
         $result = $playService->temporarilyStorePlay($playFormToStorage,$current_user->getId());
         if($result->success()) {
-            echo json_encode(['result'=>'OK']);
+            echo json_encode(['result'=>'OK', 'url' => '/cart/profile']);
         } else {
             echo json_encode(['result'=> $result->errorMessage()]);
         }
