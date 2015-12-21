@@ -42,7 +42,7 @@
 
         <div data-role="page" id="language">
             <ul class="no-li" data-role="listview">
-                {% for currency in currencies %}
+                {% for currency in currency_list %}
                     <li><a href="#main-page" onclick="globalFunctions.setCurrency('{{ currency.code }}')" data-transition="slide" data-direction="reverse">{{ currency.name }}</a></li>
                 {% endfor %}
             </ul>

@@ -62,10 +62,10 @@ class AuthServiceIntegrationTest extends DatabaseIntegrationTestBase
         $user = $this->userRepository->getByEmail($email);
         $this->assertFalse($user->getValidated(), "The user is validated yet");
         $sut = $this->getDomainServiceFactory()->getAuthService();
-        $token = 'azoafaifo';
+        $token = 'fdsdsfsdffsd54353GFD1';
         $validation_token_generator = $this->getInterfaceWebDouble('IEmailValidationToken');
         $validation_token_generator->validate($email, $token)->willReturn(true);
-        $actual = $sut->validateEmailToken($user, $token, $validation_token_generator->reveal());
+        $actual = $sut->validateEmailToken($token, $validation_token_generator->reveal());
         $this->assertTrue($actual->success(), "The service reported failure");
         $this->entityManager->detach($user);
         $user = $this->userRepository->getByEmail($email);

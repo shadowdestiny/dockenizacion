@@ -19,6 +19,7 @@ use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\Url;
+use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 
@@ -137,16 +138,7 @@ class EmailTestController extends PublicSiteControllerBase
 
     private function getNewUser($userEmail)
     {
-        $user = new User();
-        $user->initialize(
-            [
-                'name'     => 'test',
-                'surname'  => 'test01',
-                'email'    => new Email($userEmail),
-                'validated' => false,
-                'validation_token' => '33e4e6a08f82abb38566fc3bb8e8ef0d'
-            ]
-        );
+        $user = $this->userService->getUser(new UserId('832063cb-a559-11e5-b358-0242ac110002'));
         return $user;
     }
 
@@ -346,9 +338,10 @@ class EmailTestController extends PublicSiteControllerBase
     private function sendEmail($nameTemplate, $url, $emailTemplate)
     {
         if ($nameTemplate == 'register') {
+            $url = new Url('http://localhost:8080/user-access/validate/3c44633d83a5780f5bac7dcc6eccb0ab');
             $this->domainServiceFactory->getServiceFactory()->getEmailService(null, self::$config)->sendRegistrationMail($this->user, $url);
         } else if ($nameTemplate == 'send-password-request') {
-            $url = new Url('http://localhost:8080/userAccess/validate/fdsnahjfkdhsa878907');
+            $url = new Url('http://localhost:8080/user-access/passwordReset/3c44633d83a5780f5bac7dcc6eccb0ab');
             $this->domainServiceFactory->getServiceFactory()->getEmailService(null, self::$config)->sendPasswordResetMail($this->user, $url);
         } else if ($nameTemplate == 'send-new-password') {
             $passwordGenerator = new RandomPasswordGenerator(new NullPasswordHasher());

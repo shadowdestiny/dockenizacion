@@ -15,9 +15,6 @@ use Phalcon\Validation\Validator\Email as EmailValidator;
 class MyAccountForm extends RedirectableFormBase
 {
 
-
-
-
     public function initialize($entity = null, $options = null)
     {
         $name = new Text('name', [

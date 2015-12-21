@@ -171,13 +171,18 @@ class AuthService
         return $validationToken = new ValidationToken($email, $emailValidationTokenGenerator);
     }
 
-    public function validateEmailToken(User $user, $token, IEmailValidationToken $emailValidationTokenGenerator = null)
+    public function validateEmailToken($token, IEmailValidationToken $emailValidationTokenGenerator = null)
     {
         $emailValidationTokenGenerator = $this->getEmailValidationTokenGenerator($emailValidationTokenGenerator);
-        if ($emailValidationTokenGenerator->validate($user->getEmail()->toNative(), $token)) {
-            $user->setValidated(true);
-            $this->entityManager->flush($user);
-            return new ActionResult(true, $user);
+        $user = $this->userRepository->getByToken($token);
+        if(!empty($user)) {
+            if ($emailValidationTokenGenerator->validate($user->getEmail()->toNative(), $token)) {
+                $user->setValidated(true);
+                $this->entityManager->flush($user);
+                return new ActionResult(true, $user);
+            } else {
+                return new ActionResult(false, "The token is invalid");
+            }
         } else {
             return new ActionResult(false, "The token is invalid");
         }

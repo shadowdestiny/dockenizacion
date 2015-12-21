@@ -14,7 +14,7 @@ describe('EmSelect', function() {
 
     it ('render provided options', function () {
         var em_select = TestUtils.renderIntoDocument(
-            <EmSelect options={options} />
+            <EmSelect useTextAsValue={false} options={options} />
         );
         var actual_options = TestUtils.scryRenderedDOMComponentsWithTag(em_select,'option');
 
@@ -26,7 +26,7 @@ describe('EmSelect', function() {
 
     it ('render div text corresponding to selected option', function() {
         var em_select = TestUtils.renderIntoDocument(
-            <EmSelect options={options} defaultValue="75" defaultText="75 text" />
+            <EmSelect options={options} useTextAsValue={false} defaultValue="75" defaultText="75 text" />
         );
         var select = TestUtils.findRenderedDOMComponentWithTag(em_select, 'select');
         TestUtils.Simulate.change(select, {
@@ -46,7 +46,7 @@ describe('EmSelect', function() {
             return false;
         };
         var em_select = TestUtils.renderIntoDocument(
-            <EmSelect options={options} defaultValue="75" defaultText="75 text" onChange={parentOnChange}/>
+            <EmSelect options={options} useTextAsValue={false} defaultValue="75" defaultText="75 text" onChange={parentOnChange}/>
         );
         var select = TestUtils.findRenderedDOMComponentWithTag(em_select, 'select');
         TestUtils.Simulate.change(select, {

@@ -433,8 +433,7 @@ var ajaxFunctions = {
 			dataType: "json",
 			success: function(json) {
 				if(json.result = 'OK') {
-					//EMTD location to cart
-					location.href = location.href;
+					location.href = json.url;
 				}
 			},
 			error: function (xhr, status, errorThrown) {
@@ -580,20 +579,20 @@ $(function(){
 
 	$(".li-play").addClass("active");
 	//send played numbers to temporarily cart
-	$('.add-cart').on('click',function(){
-		var params = '';
-		var bets = getBets();
-		for(k in bets){
-			if( bets.hasOwnProperty(k)){
-				params += 'bet['+k+']='+ bets[k] + '&';
-			}
-		}
-		var draw_days = $('.draw_days').val();
-		var frequency = $('.frequency').val();
-		var start_draw = $('.start_draw option').data('date');
-		params += 'draw_days='+draw_days+'&frequency='+frequency+'&start_draw='+start_draw;
-		ajaxFunctions.playCart(params);
-	});
+	//$('.add-cart').on('click',function(){
+	//	var params = '';
+	//	var bets = getBets();
+	//	for(k in bets){
+	//		if( bets.hasOwnProperty(k)){
+	//			params += 'bet['+k+']='+ bets[k] + '&';
+	//		}
+	//	}
+	//	var draw_days = $('.draw_days').val();
+	//	var frequency = $('.frequency').val();
+	//	var start_draw = $('.start_draw option').data('date');
+	//	params += 'draw_days='+draw_days+'&frequency='+frequency+'&start_draw='+start_draw;
+	//	ajaxFunctions.playCart(params);
+	//});
 
 	$('.draw_days').on('change',function(){
 		var filter = $(this).val();

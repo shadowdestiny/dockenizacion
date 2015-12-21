@@ -53,5 +53,12 @@ class TestController extends PublicSiteControllerBase
         ";
     }
 
+    public function httpsAction()
+    {
+        $this->noRender();
+        $request = new \Phalcon\Http\Request();
+        var_dump($request->getScheme());
+    }
+
 }
 

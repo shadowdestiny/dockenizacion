@@ -4,9 +4,8 @@ var EmSelect = require('./EmSelect.jsx');
 
 var EmSelectDraw = React.createClass({
 
-
     handleChange: function (event) {
-          this.props.change_draw(event.target.value);
+          this.props.play_days(event.target.value);
     },
 
     render: function () {

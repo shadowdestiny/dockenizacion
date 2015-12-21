@@ -18,6 +18,7 @@ var EmSelectDrawDuration = React.createClass({
             defaultValue={this.props.defaultValue}
             defaultText={this.props.defaultText}
             onChange={this.handleChange}
+            useTextAsValue={false}
             disabled={disabled}/>;
 
 

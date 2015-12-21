@@ -106,14 +106,19 @@ class PublicSiteControllerBase extends ControllerBase
     private function setActiveCurrencies()
     {
         $currencies = $this->currencyService->getCurrenciesMostImportant();
+        $currencies_list = $this->currencyService->getActiveCurrenciesCodeAndNames();
         if($currencies->success()) {
             $currencies_dto = [];
             foreach($currencies->getValues() as $currency ) {
                 $currencies_dto[] = new CurrencyDTO($currency);
             }
             $this->view->setVars(['currencies' => $currencies_dto]);
+            $currencies_dto = [];
+            foreach($currencies_list->getValues() as $currency ) {
+                $currencies_dto[] = new CurrencyDTO($currency);
+            }
+            $this->view->setVars(['currency_list' => $currencies_dto]);
         }
-
     }
 
     private function setActiveLanguages()

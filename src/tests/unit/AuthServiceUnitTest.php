@@ -388,7 +388,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $token = 'ñaiijlñasdil¡';
         $validation_result = false;
         list($user, $emailValidationTokenGenerator) = $this->getUserAndPrepareValidator($token, $validation_result);
-        $actual = $this->exerciseValidateEmailToken($user, $token, $emailValidationTokenGenerator);
+        $actual = $this->exerciseValidateEmailToken($token, $emailValidationTokenGenerator);
         $this->assertEquals($expected, $actual);
     }
 
@@ -407,7 +407,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $expected_user->setValidated(true);
         $expected_result = new ActionResult(true, $expected_user);
         $this->expectFlushInEntityManager($expected_user);
-        $actual = $this->exerciseValidateEmailToken($user, $token, $emailValidationTokenGenerator);
+        $actual = $this->exerciseValidateEmailToken($token, $emailValidationTokenGenerator);
         $this->assertEquals($expected_result, $actual);
     }
 
@@ -593,6 +593,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $email = 'azofaifo@azofaifo.com';
         $user->initialize(['email' => new Email($email)]);
         $emailValidationTokenGenerator = $this->getInterfaceWebDouble('IEmailValidationToken');
+        $this->userRepository_double->getByToken($token)->willReturn($user);
         $emailValidationTokenGenerator->validate($email, $token)->willReturn($validation_result);
         return array($user, $emailValidationTokenGenerator);
     }
@@ -603,10 +604,10 @@ class AuthServiceUnitTest extends UnitTestBase
      * @param $emailValidationTokenGenerator
      * @return ActionResult
      */
-    private function exerciseValidateEmailToken($user, $token, $emailValidationTokenGenerator)
+    private function exerciseValidateEmailToken($token, $emailValidationTokenGenerator)
     {
         $sut = $this->getSut();
-        $actual = $sut->validateEmailToken($user, $token, $emailValidationTokenGenerator->reveal());
+        $actual = $sut->validateEmailToken($token, $emailValidationTokenGenerator->reveal());
         return $actual;
     }
 }
