@@ -37,7 +37,7 @@ class PlayFormToStorage extends EMForm
         $arr_lines = $this->euroMillionsLines;
         $this->euroMillionsLines = null;
         foreach($arr_lines as $lines){
-            $this->euroMillionsLines[] = [
+            $this->euroMillionsLines['bets'][] = [
                                             'regular' => $lines->getRegularNumbersArray(),
                                             'lucky'   => $lines->getLuckyNumbersArray()
             ];

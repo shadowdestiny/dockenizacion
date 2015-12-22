@@ -38,6 +38,7 @@ class EuroMillionsLine
         $callback = function (EuroMillionsResultNumber $elem) {
             return $elem->getNumber();
         };
+
         $this->regular_numbers = implode(',',array_map($callback, $regular_numbers));
         $this->lucky_numbers = implode(',',array_map($callback, $lucky_numbers));
         $this->setPropertiesValues($regular_numbers, $lucky_numbers);

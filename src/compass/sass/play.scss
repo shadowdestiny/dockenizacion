@@ -144,7 +144,7 @@ $gap3:15px; /* Responsive design 3 column */
 .separator{position:absolute; top:0; border-right:1px solid $grey; display:inline-block; width:1px; height:40px;}
 
 .advanced-play{
-	position:relative; display:none; margin:0 0 -20px;
+	position:relative; margin:0 0 -20px;
 	.hr{margin:20px 0 0 -12px;}
 	.close{
 		position:absolute; top:7px; right:5px; text-decoration:none; padding:2px 4px; color:$grey; z-index:1;

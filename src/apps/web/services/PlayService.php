@@ -67,29 +67,32 @@ class PlayService
     public function play(User $user)
     {
         //EMTD previously should check amount or userservice deduct amount about his balance
-        if($user->getBalance()->getAmount() > 0){
-            try {
-                $temporalForm = $this->playStorageStrategy->findByKey($user->getId()->id());
-                if(empty($temporalForm)){
-                    return new ActionResult(false,'The search key doesn\'t exist');
-                }
+   //     if($user->getBalance()->getAmount() > 0){
+        try {
+            $temporalForm = $this->playStorageStrategy->findByKey($user->getId()->id());
+            if(empty($temporalForm)){
+                return new ActionResult(false,'The search key doesn\'t exist');
+            }
+            $form_decode = json_decode($temporalForm->getValues());
+            foreach($form_decode->euroMillionsLines->bets as $bet) {
                 $playConfig = new PlayConfig();
-                $playConfig->formToEntity($user,$temporalForm);
-                $this->playConfigRepository->add($user, $playConfig);
-                $this->entityManager->flush($playConfig);
+                $playConfig->formToEntity($user,$temporalForm->getValues(),$bet);
+                $this->playConfigRepository->add($playConfig);
+                $this->entityManager->flush();
                 //Remove play storage
                 $result = $this->playStorageStrategy->delete($user->getId()->id());
-                if(!empty($result)){
-                    return new ActionResult(true);
-                }else{
-                    return new ActionResult(false);
-                }
-            } catch(\Exception $e){
-                return new ActionResult(false, 'An exception occurred while created play');
             }
-        } else {
-            return new ActionResult(false);
+            if(!empty($result)){
+                return new ActionResult(true);
+            }else{
+                return new ActionResult(false);
+            }
+        } catch(\Exception $e){
+            return new ActionResult(false, 'An exception occurred while created play');
         }
+//        } else {
+//            return new ActionResult(false);
+//        }
     }
 
     /**

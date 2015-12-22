@@ -11,9 +11,9 @@ var EuroMillionsClearLine = React.createClass({
         onClearClick : React.PropTypes.func.isRequired,
     },
     render: function () {
-        var class_name = this.props.showed ? "clear btn gwr active" : "clear btn gwr";
+        var style = this.props.showed ? "visible" : "hidden";
         return (
-            <a className={class_name} onClick={this.props.onClearClick.bind(null,null)} href="javascript:void(0);">
+            <a className="clear btn gwr" style={{visibility : style}} onClick={this.props.onClearClick.bind(null,null)} href="javascript:void(0);">
                 Clear<svg className="ico v-cross"
                            dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-cross"></use>'}}/>
             </a>

@@ -126,7 +126,7 @@ class AuthService
         return $this->storageStrategy->hasRemember();
     }
 
-    public function register(array $credentials)
+    public function register(array $credentials, $from_cart = false)
     {
         if ($this->userRepository->getByEmail($credentials['email'])) {
             return new ActionResult(false, 'Email already registered');
@@ -153,7 +153,7 @@ class AuthService
                 $this->storageStrategy->setCurrentUserId($user->getId());
                 $this->logService->logRegistration($user);
                 $url = $this->getValidationUrl($user);
-                $this->emailService->sendRegistrationMail($user, $url);
+                if(!$from_cart) $this->emailService->sendRegistrationMail($user, $url);
                 //user notifications default
                 $this->userService->initUserNotifications($user->getId());
                 return new ActionResult(true, $user);
