@@ -28,9 +28,7 @@
 
 .col20per{width:20%;}
 
-/*** ADD OR EDIT YOUR BREAKPOINTS BEHAVIOUR WITH COLUMNS ***/
 /* Medium Devices and Desktop */
-
 @media screen and (max-width:768px){
 body:not(.play){
 	.cols{margin-bottom:0; display:block;}
