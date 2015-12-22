@@ -1,4 +1,4 @@
-FROM antonienko/nginx-php-fpm:v0.2.2
+FROM antonienko/nginx-php-fpm:v0.3
 MAINTAINER Antonio Hernández "antonio.hernandez@panamedia.net"
 
 RUN echo "INSTALLING LOCALES"
