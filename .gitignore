@@ -29,3 +29,4 @@ src/.sass-cache/*
 dev-logs/*
 ansible/roles/external/*
 /src/react/node_modules
+/src/public/w/js/react/*
