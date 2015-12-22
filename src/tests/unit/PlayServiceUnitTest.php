@@ -99,6 +99,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_play_calledWithUserWithoutBalance_returnServiceActionResultFalse()
     {
+        $this->markTestSkipped();
         $expected = new ActionResult(false);
         $user = $this->getUser();
         $user->setBalance(new Money(0,new Currency('EUR')));

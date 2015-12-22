@@ -36,11 +36,10 @@ class RedisPlayStorageStrategyIntegrationTest extends RedisIntegrationTestBase
      */
     public function test_saveAll_calledWithEuroMillionsLineArray_storeCorrectlyOnCache()
     {
-        $key = self::EMLINE_FETCH_KEY . ':'. $this->userId->id();
         $playFormStorage = $this->getPlayFormToStorage();
         $this->sut->saveAll($playFormStorage,$this->userId);
         $expected = $this->getPlayFormToStorage()->toJson();
-        $actual = $this->sut->findByKey($key);
+        $actual = $this->sut->findByKey($this->userId->id());
         $this->assertEquals($expected,$actual->getValues());
     }
 

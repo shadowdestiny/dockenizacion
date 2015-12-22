@@ -4,6 +4,7 @@ namespace EuroMillions\web\controllers;
 use Captcha\Captcha;
 use EuroMillions\web\components\ReCaptchaWrapper;
 use EuroMillions\web\entities\GuestUser;
+use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\ForgotPasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
 use EuroMillions\web\forms\SignInForm;
@@ -19,7 +20,18 @@ use Phalcon\Validation\Message;
 
 class CartController extends PublicSiteControllerBase{
 
-    public function orderAction(){}
+    public function orderAction(){
+
+        $user = $this->authService->getCurrentUser();
+        $result = $this->domainServiceFactory->getPlayService()->play($user);
+        if($result->success()) {
+            $play_config_result = $this->domainServiceFactory->getUserService()->getMyPlaysActives($user->getId());
+            if($play_config_result->success()) {
+                
+            }
+        }
+    }
+
   //  public function profileAction(){}
     public function successAction(){}
     public function failAction(){}
@@ -73,49 +85,46 @@ class CartController extends PublicSiteControllerBase{
     {
         $errors = null;
         $userId = $this->authService->getCurrentUser();
-        if($userId instanceof GuestUser) {
-            $this->response->redirect('/cart/order');
+        if($userId instanceof User) {
+            $this->response->redirect('cart/order');
         }
-        var_dump(get_class($userId));die();
-     //   $myaccount_form = $this->getMyACcountForm($userId);
-        //$form_errors = $this->getErrorsArray();
-//        if($this->request->isPost()) {
-//            if ($myaccount_form->isValid($this->request->getPost()) == false) {
-//                $messages = $myaccount_form->getMessages(true);
-//                /**
-//                 * @var string $field
-//                 * @var Message\Group $field_messages
-//                 */
-//                foreach ($messages as $field => $field_messages) {
-//                    $errors[] = $field_messages[0]->getMessage();
-//                    $form_errors[$field] = ' error';
-//                }
-//            }else {
-//                $result = $this->userService->updateUserData([
-//                    'name'     => $this->request->getPost('name'),
-//                    'surname'  => $this->request->getPost('surname'),
-//                    'email'    => new Email($this->request->getPost('email')),
-//                    'country'  => $this->request->getPost('country'),
-//                    'street'   => $this->request->getPost('street'),
-//                    'zip'      => (int) $this->request->getPost('zip'),
-//                    'city'     => $this->request->getPost('city'),
-//                    'phone_number' =>(int) $this->request->getPost('phone_number')
-//                ]);
-//                if($result->success()){
-//                    $msg = $result->getValues();
-//                }else{
-//                    $errors [] = $result->errorMessage();
-//                }
-//            }
-//        }
+
+        $myaccount_form = $this->getMyACcountForm();
+        $form_errors = $this->getErrorsArray();
+        if($this->request->isPost()) {
+            if ($myaccount_form->isValid($this->request->getPost()) == false) {
+                $messages = $myaccount_form->getMessages(true);
+                /**
+                 * @var string $field
+                 * @var Message\Group $field_messages
+                 */
+                foreach ($messages as $field => $field_messages) {
+                    $errors[] = $field_messages[0]->getMessage();
+                    $form_errors[$field] = ' error';
+                }
+            }else {
+                $result = $this->authService->register([
+                    'user_id'  => $userId,
+                    'name'     => $this->request->getPost('name'),
+                    'surname'  => $this->request->getPost('surname'),
+                    'email'    => $this->request->getPost('email'),
+                    'country'  => $this->request->getPost('country'),
+                ],true);
+                if($result->success()){
+                    $msg = $result->getValues();
+                }else{
+                    $errors [] = $result->errorMessage();
+                }
+            }
+        }
         $this->view->pick('cart/profile');
-//        return $this->view->setVars([
-//            'form_errors' => $form_errors,
-//            'which_form'  => 'index',
-//            'errors' => $errors,
-//            'msg' => $msg,
-//            'myaccount' => $myaccount_form,
-//        ]);
+        return $this->view->setVars([
+            'form_errors' => $form_errors,
+            'which_form'  => 'index',
+            'errors' => $errors,
+            'msg' => $msg,
+            'myaccount' => $myaccount_form,
+        ]);
     }
 
     public function validateAction($token)
@@ -241,15 +250,19 @@ class CartController extends PublicSiteControllerBase{
         }
     }
 
-    private function getMyACcountForm($userId)
+    private function getMyACcountForm($userId = null)
     {
         $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
         $countries = $geoService->countryList();
-        sort($countries);
         $countries = array_combine(range(1, count($countries)), array_values($countries));
-        $user = $this->userService->getUser($userId->getId());
-        $user_dto = new UserDTO($user);
-        $myaccount_form = new MyAccountForm($user_dto,['countries' => $countries]);
+        if( $userId == null ) {
+            $myaccount_form = new MyAccountForm(null,['countries' => $countries]);
+        } else {
+            $user = $this->userService->getUser($userId->getId());
+            $user_dto = new UserDTO($user);
+            $myaccount_form = new MyAccountForm($user_dto,['countries' => $countries]);
+        }
+        sort($countries);
         return $myaccount_form;
     }
 

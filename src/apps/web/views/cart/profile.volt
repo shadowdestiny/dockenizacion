@@ -15,7 +15,7 @@
     <div class="wrapper">
         <div class="box-basic medium">
             <h1 class="h1 title yellow">{{ language.translate("Your Profile") }}</h1>
-            <form novalidate>
+            <form action="/cart/profile" method="post">
                 <div class="fields cl">
                     <div class="box error">
                         <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
