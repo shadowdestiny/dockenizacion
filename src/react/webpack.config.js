@@ -1,5 +1,4 @@
 var webpack = require('webpack');
-
 var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 var env = process.env.WEBPACK_ENV;
 
@@ -55,5 +54,4 @@ var config = {
         poll: 1000
     }
 };
-
 module.exports = config;

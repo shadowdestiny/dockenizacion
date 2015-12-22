@@ -3,9 +3,9 @@ webpackConfig.devtool = 'inline-source-map';
 
 module.exports = function (config) {
     config.set({
-        browsers: [ 'PhantomJS' ],
+        browsers: ['PhantomJS'],
         singleRun: true,
-        frameworks: [ 'mocha', 'chai', 'sinon', 'sinon-chai' ],
+        frameworks: [ 'mocha'],
         files: [
             'tests.webpack.js'
         ],
