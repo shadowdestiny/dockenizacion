@@ -1,3 +1,4 @@
+{# this is not used anymore #}
 <script>
     var link = "";
     function showInfo() {
@@ -20,7 +21,7 @@
     $(function () {
         $(".tabs-menu a").click(function (event) {
             event.preventDefault();
-            if (!$(this).hasClass("active")) {
+            if (!$(this).hasClass("active")){
                 $(this).siblings().removeClass("active");
                 $(this).addClass("active");
                 var tab = $(this).attr("href");
