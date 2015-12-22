@@ -4,18 +4,19 @@
 namespace EuroMillions\web\services\play_strategies;
 
 
+use EuroMillions\shared\components\PhalconRedisWrapper;
+use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\interfaces\IRedis;
 use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\web\vo\ActionResult;
 use EuroMillions\web\vo\UserId;
-use Phalcon\Cache\Backend\Redis;
 use RedisException;
 
 class RedisPlayStorageStrategy implements IPlayStorageStrategy
 {
 
-    /** @var  Redis */
+    /** @var  IRedis $storage */
     protected $storage;
 
     protected static $key = 'PlayStore_EMLINES:';
@@ -41,7 +42,7 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
     public function findByKey($key)
     {
         try{
-            $result = $this->storage->get($key);
+            $result = $this->storage->get(self::$key.$key);
             if(empty($result)){
                 return new ActionResult(false,'Key not found');
             }else{
@@ -58,7 +59,7 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
             return new ActionResult(false,'Invalid key');
         }else{
             try{
-                $this->storage->delete($key);
+                $this->storage->delete(self::$key.$key);
                 return new ActionResult(true);
             }catch(RedisException $e){
                 return new ActionResult(false,'An exception ocurred while delete key');

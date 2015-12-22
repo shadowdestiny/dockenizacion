@@ -1,12 +1,9 @@
 var React = require('react');
 
-var EuroMillionsAdvancedPlay = require('./EmAdvancedPlay.jsx');
+var EuroMillionsAdvancedPlayBtn = require('./EmAdvancedPlayBtn.jsx');
 var EuroMillionsAddToCart = require('./EmAddToCart.jsx');
 
 var EuroMillionsBoxBottomAction = React.createClass({
-
-
-
 
     addToCart : function () {
         var params = '';
@@ -24,9 +21,10 @@ var EuroMillionsBoxBottomAction = React.createClass({
         ajaxFunctions.playCart(params);
     },
 
+
     render : function () {
         var elem = [];
-        elem.push(<EuroMillionsAdvancedPlay key="1"/>);
+        elem.push(<EuroMillionsAdvancedPlayBtn click_advanced_play={this.props.click_advanced_play} key="1"/>);
         elem.push(<EuroMillionsAddToCart price={this.props.price} onBtnAddToCartClick={this.addToCart} key="2"/>);
 
         return (

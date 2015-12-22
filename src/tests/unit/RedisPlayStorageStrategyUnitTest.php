@@ -65,9 +65,10 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     public function test_findByKey_calledWithKeyInRedisStorage_returnServiceResultActionTrueAndEuroMillionsLineArray()
     {
         $expected = new ActionResult(true, $this->getEuroMillionsLines());
+        $user = $this->getUser();
         $sut = $this->getSut();
-        $this->redis_double->get(self::EMLINE_FETCH_KEY)->willReturn($this->getEuroMillionsLines());
-        $actual = $sut->findByKey(self::EMLINE_FETCH_KEY);
+        $this->redis_double->get(self::EMLINE_FETCH_KEY.$user->getId()->id())->willReturn($this->getEuroMillionsLines());
+        $actual = $sut->findByKey($user->getId()->id());
         $this->assertEquals($expected,$actual);
     }
 
@@ -79,9 +80,10 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     public function test_findByKey_keyNotFoundInRedisStore_returnServiceActionResultFalse()
     {
         $expected = new ActionResult(false,'Key not found');
+        $userId = $this->getUser()->getId()->id();
         $sut = $this->getSut();
-        $this->redis_double->get(self::EMLINE_FETCH_KEY)->willReturn(null);
-        $actual = $sut->findByKey(self::EMLINE_FETCH_KEY);
+        $this->redis_double->get(self::EMLINE_FETCH_KEY.$userId)->willReturn(null);
+        $actual = $sut->findByKey($userId);
         $this->assertEquals($expected,$actual);
     }
 
@@ -94,8 +96,9 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     public function test_remove_called_removeEuroMillionsLineArrayFromRedisStorage()
     {
         $sut = $this->getSut();
-        $this->redis_double->delete(self::EMLINE_FETCH_KEY)->shouldBeCalled();
-        $sut->delete(self::EMLINE_FETCH_KEY);
+        $userId = $this->getUser()->getId()->id();
+        $this->redis_double->delete(self::EMLINE_FETCH_KEY.$userId)->shouldBeCalled();
+        $sut->delete($userId);
     }
 
     /**
@@ -119,8 +122,9 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     public function test_remove_calledWithValidKey_returnServiceActionResultTrue()
     {
         $expected = new ActionResult(true);
+        $userId = $this->getUser()->getId()->id();
         $sut = $this->getSut();
-        $actual  = $sut->delete(self::EMLINE_FETCH_KEY);
+        $actual  = $sut->delete($userId);
         $this->assertEquals($expected,$actual);
     }
 
@@ -133,8 +137,9 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     {
         $expected = new ActionResult(false,'An exception ocurred while delete key');
         $sut = $this->getSut();
-        $this->redis_double->delete(self::EMLINE_FETCH_KEY)->willThrow(new RedisException('An exception ocurred while delete key'));
-        $actual = $sut->delete(self::EMLINE_FETCH_KEY);
+        $userId = $this->getUser()->getId()->id();
+        $this->redis_double->delete(self::EMLINE_FETCH_KEY.$userId)->willThrow(new RedisException('An exception ocurred while delete key'));
+        $actual = $sut->delete($userId);
         $this->assertEquals($expected,$actual);
     }
 
@@ -147,8 +152,9 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     {
         $expected = new ActionResult(false,'An error ocurred while find key');
         $sut = $this->getSut();
-        $this->redis_double->get(self::EMLINE_FETCH_KEY)->willThrow(new RedisException('An error ocurred while find key'));
-        $actual = $sut->findByKey(self::EMLINE_FETCH_KEY);
+        $userId = $this->getUser()->getId()->id();
+        $this->redis_double->get(self::EMLINE_FETCH_KEY.$userId)->willThrow(new RedisException('An error ocurred while find key'));
+        $actual = $sut->findByKey($userId);
         $this->assertEquals($expected,$actual);
     }
 

@@ -54,6 +54,7 @@ class ControllerBase extends Controller
         }
 
         $this->checkRestrictedAccess();
+
     }
 
     private function checkRestrictedAccess()

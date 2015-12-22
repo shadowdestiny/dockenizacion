@@ -114,7 +114,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     {
         $eventsManager = new Phalcon\Events\Manager();
         $eventsManager->attach("dispatch", function (Event $event, Phalcon\Mvc\Dispatcher $dispatcher, \Exception $exception = null) {
-
             //The controller exists but the action not
             if ($event->getType() == 'beforeNotFoundAction') {
                 $dispatcher->forward(array(
@@ -142,7 +141,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
         $dispatcher = new Phalcon\Mvc\Dispatcher();
         $dispatcher->setEventsManager($eventsManager);
-
         $dispatcher->setDefaultNamespace('EuroMillions\web\controllers');
         return $dispatcher;
     }
@@ -152,7 +150,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $router = new Phalcon\Mvc\Router();
 
         $router->setDefaultModule('web');
-
         $router->add('/admin/:controller/:action/:params', array(
             'module' => 'admin',
             'controller' => 1,

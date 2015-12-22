@@ -49,11 +49,10 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
 	var EuroMillionsLine = __webpack_require__(159);
-	var ThresholdPlay = __webpack_require__(167);
 	var EuroMillionsBoxAction = __webpack_require__(170);
 	var EuroMillionsMultipleEmLines = __webpack_require__(177);
 	var EuroMillionsBoxBottomAction = __webpack_require__(178);
-	var EmDrawConfig = __webpack_require__(181);
+	var EmConfigPlayBlock = __webpack_require__(186);
 	
 	var PlayPage = React.createClass({
 	    displayName: 'PlayPage',
@@ -72,6 +71,7 @@
 	            date_play: 0,
 	            numBets: 0,
 	            lines: [],
+	            show_block_config: false,
 	            clear_all: false,
 	            storage: JSON.parse(localStorage.getItem('bet_line')) || []
 	        };
@@ -82,6 +82,7 @@
 	    },
 	
 	    shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) {
+	        if (nextState.show_block_config != this.state.show_block_config) return true;
 	        if (nextState.date_play != this.state.date_play) return true;
 	        if (nextState.playDays != this.state.playDays) return true;
 	        if (nextState.duration != this.state.duration) return true;
@@ -220,6 +221,13 @@
 	        this.updatePrice();
 	    },
 	
+	    handleClickAdvancedPlay: function handleClickAdvancedPlay(value) {
+	        var show_block_config = !this.state.show_block_config;
+	        this.setState({
+	            show_block_config: show_block_config
+	        });
+	    },
+	
 	    handleOfBetsLine: function handleOfBetsLine(line, numbers, stars) {
 	        if (numbers == 5 && stars == 2) {
 	            this.state.lines[line] = 1;
@@ -255,15 +263,11 @@
 	        if (this.state.count_lines > 0) {
 	            numberEuroMillionsLine = this.state.count_lines;
 	        }
+	        if (this.state.date_play == 0) {
+	            //EMTD pass as property
+	            this.state.date_play = '2015-12-22';
+	        }
 	        var random_all = this.state.random_all;
-	        var default_value = '75';
-	        var default_text = '75 millions €';
-	        var custom_value = 'custom';
-	
-	        var options = [{ text: '50 millions €', value: '50' }, { text: default_text, value: default_value }, { text: '100 millions €', value: '100' }, { text: 'Choose threshold', value: custom_value }];
-	        var options_draw_days = [{ text: 'Tuesday & Friday', value: '2,5' }, { text: 'Tuesday', value: '2' }, { text: 'Firday', value: '5' }];
-	
-	        console.log('date_play ' + this.state.date_play);
 	
 	        elem.push(React.createElement(EuroMillionsMultipleEmLines, { add_storage: this.addLinesInStorage, clear_all: this.state.clear_all, callback: this.handleOfBetsLine, random_all: random_all, numberEuroMillionsLine: numberEuroMillionsLine, key: '1' }));
 	        elem.push(React.createElement(EuroMillionsBoxAction, { show_tooltip: this.state.show_tooltip_lines, mouse_over_btn: this.mouseOverBtnAddLines, add_lines: this.handlerAddLines, lines: this.state.lines, random_all_btn: this.handlerRandomAll, clear_all_btn: this.handlerClearAll, key: '2' }));
@@ -278,24 +282,8 @@
 	                React.createElement(
 	                    'div',
 	                    { className: 'wrap' },
-	                    React.createElement(EuroMillionsBoxBottomAction, { date_play: this.state.date_play, duration: this.state.duration, play_days: this.state.playDays, lines: this.state.storage, price: this.state.price }),
-	                    React.createElement(
-	                        'div',
-	                        { className: 'advanced-play' },
-	                        React.createElement('hr', { className: 'hr yellow' }),
-	                        React.createElement(
-	                            'a',
-	                            { href: 'javascript:void(0);', className: 'close' },
-	                            React.createElement('svg', { className: 'ico v-cancel-circle',
-	                                dangerouslySetInnerHTML: { __html: '<use xlink:href="/w/svg/icon.svg#v-cancel-circle"></use>' } })
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: 'cols' },
-	                            React.createElement(EmDrawConfig, { date_play: this.handleChangeDate, duration: this.handleChangeDuration, play_days: this.handleChangeDraw, options: options_draw_days, customValue: custom_value }),
-	                            React.createElement(ThresholdPlay, { options: options, customValue: custom_value, defaultValue: default_value, defaultText: default_text })
-	                        )
-	                    )
+	                    React.createElement(EuroMillionsBoxBottomAction, { click_advanced_play: this.handleClickAdvancedPlay, date_play: this.state.date_play, duration: this.state.duration, play_days: this.state.playDays, lines: this.state.storage, price: this.state.price }),
+	                    React.createElement(EmConfigPlayBlock, { date_play: this.handleChangeDate, duration: this.handleChangeDuration, play_days: this.handleChangeDraw, show: this.state.show_block_config })
 	                )
 	            )
 	        );
@@ -20166,8 +20154,8 @@
 	    getDefaultProps: function getDefaultProps() {
 	        return {
 	            selected: false,
-	            timeout_number_selected: 50,
-	            timeout_number_not_selected: 200
+	            timeout_number_selected: 100,
+	            timeout_number_not_selected: 250
 	        };
 	    },
 	
@@ -20190,9 +20178,9 @@
 	            var delay = Math.random() * this.props.timeout_number_not_selected;
 	            var delay_selected = Math.random() * this.props.timeout_number_selected;
 	            if (nextProps.selected) {
-	                window.setTimeout(function () {
-	                    _this.setState({ active: false });
-	                }, delay_selected);
+	                //window.setTimeout(() => {
+	                //    this.setState({ active : false })
+	                //}, delay_selected);
 	
 	                window.setTimeout(function () {
 	                    _this.setState({ active: true });
@@ -20207,7 +20195,7 @@
 	                    _this.setState({
 	                        active: false
 	                    });
-	                }, delay + Math.random() * 300);
+	                }, delay + Math.random() * 40);
 	            }
 	        }
 	    },
@@ -20292,6 +20280,7 @@
 	            selected: false
 	        };
 	    },
+	
 	    propTypes: {
 	        number: React.PropTypes.number.isRequired,
 	        selected: React.PropTypes.bool,
@@ -20343,10 +20332,10 @@
 	        onClearClick: React.PropTypes.func.isRequired
 	    },
 	    render: function render() {
-	        var class_name = this.props.showed ? "clear btn gwr active" : "clear btn gwr";
+	        var style = this.props.showed ? "visible" : "hidden";
 	        return React.createElement(
 	            "a",
-	            { className: class_name, onClick: this.props.onClearClick.bind(null, null), href: "javascript:void(0);" },
+	            { className: "clear btn gwr", style: { visibility: style }, onClick: this.props.onClearClick.bind(null, null), href: "javascript:void(0);" },
 	            "Clear",
 	            React.createElement("svg", { className: "ico v-cross",
 	                dangerouslySetInnerHTML: { __html: '<use xlink:href="/w/svg/icon.svg#v-cross"></use>' } })
@@ -21486,7 +21475,7 @@
 	
 	var React = __webpack_require__(1);
 	
-	var EuroMillionsAdvancedPlay = __webpack_require__(179);
+	var EuroMillionsAdvancedPlayBtn = __webpack_require__(185);
 	var EuroMillionsAddToCart = __webpack_require__(180);
 	
 	var EuroMillionsBoxBottomAction = React.createClass({
@@ -21509,7 +21498,7 @@
 	
 	    render: function render() {
 	        var elem = [];
-	        elem.push(React.createElement(EuroMillionsAdvancedPlay, { key: '1' }));
+	        elem.push(React.createElement(EuroMillionsAdvancedPlayBtn, { click_advanced_play: this.props.click_advanced_play, key: '1' }));
 	        elem.push(React.createElement(EuroMillionsAddToCart, { price: this.props.price, onBtnAddToCartClick: this.addToCart, key: '2' }));
 	
 	        return React.createElement(
@@ -21527,29 +21516,7 @@
 	module.exports = EuroMillionsBoxBottomAction;
 
 /***/ },
-/* 179 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	var React = __webpack_require__(1);
-	
-	var EuroMillionsAdvancedPlay = new React.createClass({
-	
-	    render: function render() {
-	        return React.createElement(
-	            "a",
-	            { href: "javascript:void(0);", className: "btn big gwp advanced" },
-	            "Advanced Play",
-	            React.createElement("svg", { className: "ico v-clover",
-	                dangerouslySetInnerHTML: { __html: '<use xlink:href="/w/svg/icon.svg#v-clover"></use>' } })
-	        );
-	    }
-	});
-	
-	module.exports = EuroMillionsAdvancedPlay;
-
-/***/ },
+/* 179 */,
 /* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -21621,11 +21588,17 @@
 	            options_draw_dates.push({ text: obj, value: i });
 	        });
 	
+	        var default_value_draw = '2';
+	        var default_text_draw = 'Tuesday';
+	
+	        var default_value_duration = '1';
+	        var default_text_duration = '1 week (Draw: 1)';
+	
 	        var options_draw_duration = [{ text: '1 week (Draw: 1)', value: 1 }, { text: '2 weeks (Draws: 2)', value: 2 }, { text: '4 weeks (Draws: 4)', value: 4 }, { text: '8 weeks (Draws: 8)', value: 8 }, { text: '52 weeks (Draws: 52)', value: 52 }];
 	
-	        elem.push(React.createElement(EmSelectDraw, _extends({ play_days: this.props.play_days }, this.props, { active: this.state.selectdrawactive, key: '1' })));
+	        elem.push(React.createElement(EmSelectDraw, _extends({ play_days: this.props.play_days, defaultValue: default_value_draw, defaultText: default_text_draw }, this.props, { active: this.state.selectdrawactive, key: '1' })));
 	        elem.push(React.createElement(EmSelectDrawDate, { change_date: this.props.date_play, options: options_draw_dates, active: this.state.selectdrawactive, key: '2' }));
-	        elem.push(React.createElement(EmSelectDrawDuration, { change_duration: this.props.duration, options: options_draw_duration, active: this.state.selectdrawactive, key: '3' }));
+	        elem.push(React.createElement(EmSelectDrawDuration, { change_duration: this.props.duration, defaultValue: default_value_duration, defaultText: default_text_duration, options: options_draw_duration, active: this.state.selectdrawactive, key: '3' }));
 	        return React.createElement(
 	            'div',
 	            null,
@@ -21792,6 +21765,83 @@
 	});
 	
 	module.exports = EmSelectDrawDuration;
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var React = __webpack_require__(1);
+	
+	var EuroMillionsAdvancedPlayBtn = new React.createClass({
+	
+	    render: function render() {
+	        return React.createElement(
+	            "a",
+	            { href: "javascript:void(0);", onClick: this.props.click_advanced_play, className: "btn big gwp advanced" },
+	            "Advanced Play",
+	            React.createElement("svg", { className: "ico v-clover",
+	                dangerouslySetInnerHTML: { __html: '<use xlink:href="/w/svg/icon.svg#v-clover"></use>' } })
+	        );
+	    }
+	});
+	
+	module.exports = EuroMillionsAdvancedPlayBtn;
+
+/***/ },
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var ThresholdPlay = __webpack_require__(167);
+	var EmDrawConfig = __webpack_require__(181);
+	
+	var EmConfigPlayBlock = new React.createClass({
+	
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            date_play: 0,
+	            duration: 1,
+	            play_days: 1
+	        };
+	    },
+	
+	    render: function render() {
+	
+	        var default_value = '75';
+	        var default_text = '75 millions €';
+	        var custom_value = 'custom';
+	
+	        var options = [{ text: '50 millions €', value: '50' }, { text: default_text, value: default_value }, { text: '100 millions €', value: '100' }, { text: 'Choose threshold', value: custom_value }];
+	        var options_draw_days = [{ text: 'Tuesday & Friday', value: '2,5' }, { text: 'Tuesday', value: '2' }, { text: 'Firday', value: '5' }];
+	
+	        if (!this.props.show) {
+	            return null;
+	        } else {
+	            return React.createElement(
+	                'div',
+	                { className: 'advanced-play' },
+	                React.createElement('hr', { className: 'hr yellow' }),
+	                React.createElement(
+	                    'a',
+	                    { href: 'javascript:void(0);', className: 'close' },
+	                    React.createElement('svg', { className: 'ico v-cancel-circle', dangerouslySetInnerHTML: { __html: '<use xlink:href="/w/svg/icon.svg#v-cancel-circle"></use>' } })
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'cols' },
+	                    React.createElement(EmDrawConfig, { date_play: this.props.date_play, duration: this.props.duration, play_days: this.props.play_days, options: options_draw_days, customValue: custom_value }),
+	                    React.createElement(ThresholdPlay, { options: options, customValue: custom_value, defaultValue: default_value, defaultText: default_text })
+	                )
+	            );
+	        }
+	    }
+	});
+	
+	module.exports = EmConfigPlayBlock;
 
 /***/ }
 /******/ ]);

@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="/w/css/style/style.css"> {# Style of this specific page  #}
 
         {# FONTS  #}
-        <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700'>
+        <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700'>
     </head>
 
     <body class="style-guide">

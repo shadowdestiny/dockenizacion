@@ -1,11 +1,10 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var EuroMillionsLine = require('../components/EmLine.js');
-var ThresholdPlay = require('../components/EmThresholdPlay.jsx');
 var EuroMillionsBoxAction = require('../components/EmBoxActionPlay.jsx');
 var EuroMillionsMultipleEmLines = require('../components/EmMultipleEmLines.jsx');
 var EuroMillionsBoxBottomAction = require('../components/EmBoxBottomAction.jsx');
-var EmDrawConfig = require('../components/EmDrawConfig.jsx');
+var EmConfigPlayBlock = require('../components/EmConfigPlayBlock.jsx');
 
 
 var PlayPage = React.createClass({
@@ -25,6 +24,7 @@ var PlayPage = React.createClass({
             date_play : 0,
             numBets : 0,
             lines : [],
+            show_block_config : false,
             clear_all : false,
             storage : JSON.parse(localStorage.getItem('bet_line')) || []
         }
@@ -37,6 +37,7 @@ var PlayPage = React.createClass({
 
     shouldComponentUpdate : function (nextProps, nextState)
     {
+        if( nextState.show_block_config != this.state.show_block_config) return true;
         if(nextState.date_play != this.state.date_play) return true;
         if( nextState.playDays != this.state.playDays) return true;
         if( nextState.duration != this.state.duration) return true;
@@ -189,6 +190,13 @@ var PlayPage = React.createClass({
         this.updatePrice();
     },
 
+    handleClickAdvancedPlay : function (value)
+    {
+        var show_block_config = (!this.state.show_block_config);
+        this.setState( {
+            show_block_config : show_block_config
+        });
+    },
 
     handleOfBetsLine : function(line, numbers,stars)
     {
@@ -228,24 +236,11 @@ var PlayPage = React.createClass({
         if(this.state.count_lines > 0) {
             numberEuroMillionsLine = this.state.count_lines ;
         }
+        if(this.state.date_play == 0) {
+            //EMTD pass as property
+            this.state.date_play = '2015-12-22';
+        }
         var random_all = this.state.random_all;
-        var default_value = '75';
-        var default_text = '75 millions €';
-        var custom_value = 'custom';
-
-        var options = [
-            {text: '50 millions €', value: '50'},
-            {text: default_text, value: default_value},
-            {text: '100 millions €', value: '100'},
-            {text: 'Choose threshold', value: custom_value}
-        ];
-        var options_draw_days = [
-            {text: 'Tuesday & Friday' , value : '2,5'},
-            {text: 'Tuesday', value : '2'},
-            {text: 'Firday' , value : '5'}
-        ];
-
-        console.log('date_play ' + this.state.date_play);
 
         elem.push(<EuroMillionsMultipleEmLines add_storage={this.addLinesInStorage} clear_all={this.state.clear_all} callback={this.handleOfBetsLine} random_all={random_all} numberEuroMillionsLine={numberEuroMillionsLine} key="1"/>);
         elem.push(<EuroMillionsBoxAction show_tooltip={this.state.show_tooltip_lines}  mouse_over_btn={this.mouseOverBtnAddLines}  add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} clear_all_btn={this.handlerClearAll} key="2"/>)
@@ -255,17 +250,8 @@ var PlayPage = React.createClass({
                 {elem}
                 <div className="box-bottom">
                     <div className="wrap">
-                        <EuroMillionsBoxBottomAction date_play={this.state.date_play} duration={this.state.duration} play_days={this.state.playDays}  lines={this.state.storage}  price={this.state.price}/>
-                        <div className="advanced-play">
-                            <hr className="hr yellow" />
-                            <a href="javascript:void(0);" className="close"><svg className="ico v-cancel-circle"
-                                                                                 dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-cancel-circle"></use>'}}/>
-                            </a>
-                            <div className="cols">
-                                <EmDrawConfig date_play={this.handleChangeDate} duration={this.handleChangeDuration} play_days={this.handleChangeDraw}  options={options_draw_days} customValue={custom_value}/>
-                                <ThresholdPlay  options={options} customValue={custom_value} defaultValue={default_value} defaultText={default_text}/>
-                            </div>
-                        </div>
+                        <EuroMillionsBoxBottomAction click_advanced_play={this.handleClickAdvancedPlay} date_play={this.state.date_play} duration={this.state.duration} play_days={this.state.playDays}  lines={this.state.storage}  price={this.state.price}/>
+                        <EmConfigPlayBlock date_play={this.handleChangeDate} duration={this.handleChangeDuration} play_days={this.handleChangeDraw} show={this.state.show_block_config}/>
                     </div>
                 </div>
             </div>

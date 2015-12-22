@@ -7,7 +7,10 @@ namespace EuroMillions\web\entities;
 use Doctrine\Common\Collections\ArrayCollection;
 use EuroMillions\web\interfaces\IEntity;
 use EuroMillions\web\interfaces\IEMForm;
+use EuroMillions\web\vo\DrawDays;
 use EuroMillions\web\vo\EuroMillionsLine;
+use EuroMillions\web\vo\EuroMillionsLuckyNumber;
+use EuroMillions\web\vo\EuroMillionsRegularNumber;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
 
@@ -139,25 +142,30 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm
     }
 
 
-    public function formToEntity(User $user, $json)
+    public function formToEntity(User $user, $json, $bet)
     {
         $formPlay = null;
         try{
-
-            $formPlay = json_decode($json);
-            if(!is_array($formPlay)){
+            $formPlay = json_decode($json,TRUE);
+            if(!is_array($formPlay) || empty($formPlay)){
                 throw new Exception('Error converting object to array from storage');
             }
             $this->setUser($user);
-            $this->setLine($formPlay['euroMillionsLines']);
+            $regular_numbers = [];
+            $lucky_numbers = [];
+            foreach ($bet->regular as $number) {
+                $regular_numbers[] = new EuroMillionsRegularNumber($number);
+            }
+            foreach ($bet->lucky as $number) {
+                $lucky_numbers[] = new EuroMillionsLuckyNumber((int) $number);
+            }
+            $this->setLine(new EuroMillionsLine($regular_numbers,$lucky_numbers));
             $this->setActive(true);
-            $this->setDrawDays(new \DrawDays($formPlay['drawDays']));
-            $this->setStartDrawDate($formPlay['startDrawDate']);
-            $this->setLastDrawDate($formPlay['lastDrawDate']);
+            $this->setDrawDays(new DrawDays($formPlay['drawDays']));
+            $this->setStartDrawDate(new \DateTime($formPlay['startDrawDate']));
+            $this->setLastDrawDate(new \DateTime($formPlay['lastDrawDate']));
         }catch(Exception $e){
-
+            throw new Exception($e);
         }
-
-
     }
 }

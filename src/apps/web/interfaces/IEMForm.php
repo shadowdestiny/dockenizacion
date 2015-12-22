@@ -9,5 +9,5 @@ use EuroMillions\web\entities\User;
 
 interface IEMForm
 {
-    public function formToEntity(User $user,$json);
+    public function formToEntity(User $user,$json, $bet);
 }
