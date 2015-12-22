@@ -1,24 +1,5 @@
 @import "variable";
 @import "_elements/extra-info";
-@import "_elements/tabs";
-
-.box-sign{
-	width:400px; margin:0 auto 8em; position:relative;
-	.wrap{background:#fff; padding:5px 0; border:1px solid $yellow; border-radius:0 5px 5px 5px;}
-	.wrap a:link{text-decoration:none;}
-	.wrap a:hover{color:$blue; transition:color .3s;}
-	.h1{margin-bottom:.5em;}
-	.h3{display:inline-block; margin:0;}
-	.tab{
-		border-radius:5px 5px 0 0; float:left; padding:13px 26px; text-align:center; border-bottom:0;
-		/*p{margin-bottom:.5em;}*/
-	}
-	.small{margin:1em; text-align:center; font-size:$small; color:$grey; line-height:$h2;}
-	.label{float:left;}
-	.tabs-menu{position:relative; margin-bottom:-1px;}
-}
-.padding{margin:15px;}
-/*.padding h1{text-align:center; color:$yellow-dark;}*/
 
 /* Temporary removed
 .connect{
@@ -27,66 +8,103 @@
 	.v-google-plus{top:1px;}
 }
 */
-.sign{
-	.btn.big, .input, .select{width:100%; margin-bottom:.8em; font-size:$h4;}
+
 /* Temporarely removed
 	.or{font-weight:700; color:$grey; background:#fff; padding:0 8px;}
 	.bg-or{position:absolute; top:-12px; left:0; width:100%;}
 	.separator{position:relative;}
 	.hr{margin:1em 0 1.5em;}
 */
-	.label{text-align:left!important;}
-	.label .txt{display:inline-block; margin-left:3px;}
-	.tab-content .cols{margin:0 0 1em;}
-	.forgot-psw{text-align:right;}
-	.btn.submit{width:75%; float:right; margin-bottom:0;}
-	.submit .ico{position:relative; margin-left:5px; top:1px;}
+
+#main-page, .ui-content, #content{height:100%;}
+#content{padding-top:0!important; transform-style:preserve-3d;} /* Preserve is used because of translateY*/
+.sign-in .wrapper{max-width:1000px; position:relative; top:30%; transform:translateY(-30%);}
+.col-left, .col-right{float:left;}
+.col-left{width:50%; margin-right:5%;}
+.col-right{width:40%;}
+
+.v-logo{max-height:90px; height:1%; margin:100px auto 0; width:100%;}
+.title{margin-bottom:10px;}
+.log-in{
+	.label{
+		text-align:left!important;
+		.txt{display:inline-block; margin-left:3px;}
+	}
+	.forgot-psw{
+		a{text-align:right; text-decoration:none;}
+		a:hover{text-decoration:underline!important;}
+	}
+	
+	.checkbox{position:relative; top:1px;}
+}
+.sign-in, .forgot-psw{
+	.input, .select{width:100%; margin-bottom:.8em; font-size:$h4;}
+	.submit{
+		width:100%; margin-bottom:0; text-align:center;
+		.ico{position:relative; margin-left:5px; top:2px;}
+	}
+}
+.box-extra{
+	font-size:100%; margin-top:1.5em; text-align:right;
+	span{font-size:$basic-size; margin-right:5px;}
+}
+.reduce{
+	font-size:$basic-size; margin:5px 0 15px;
+	.label{margin:0;}
 }
 
-.my-left, .my-right{margin-top:100px;}
-
-/*.box-basic.email{width:100%;}
-*/
 .forgot-psw{
-	.input{width:100%;}
-	.v-arrow-right{margin-left:8px;}
+	p{margin-bottom:5px;}
+	.submit{margin-top:10px;}
 }
+
 .generate-psw .box-basic{
 	.my-left, .my-right{margin-top:2px;}
 	.my-right{font-size:$basic-size;}
 	.input{width:100%;}
 	.ul{margin-left:1em;}
 }
-
-@media only screen and (max-width:1200px){
-.my-left, .my-right{margin-top:90px;}
+.terms{
+	color:#777; font-size:$small; text-align:center; margin:1em; line-height:130%;
+	a{text-decoration:none;}
+	a:hover, a:focus{text-decoration:underline!important;}
 }
- 
+
+@media only screen and (max-width:1050px){ /*Not standard size*/
+	.sign-in .wrapper{max-width:800px;}
+	.col-left{width:45%;}
+	.col-right{width:50%;}
+}
+
+@media only screen and (max-width:850px){ /*Not standard size*/
+	.sign-in .wrapper{max-width:700px;}
+	.col-left{width:40%;}
+	.col-right{width:55%;}
+}
+
 /* Small Devices, Tablets */
 @media only screen and (max-width:768px){
-	.head{border-bottom:1px solid $purple;}
-	.box-sign, .box-basic{width:100%; margin-bottom:0;}
-	.box-sign .col6{width:50%!important; border-radius:0!important; display:block!important; margin:0!important; float:left!important; border:0!important; padding:15px 0!important;}
-	.box-sign .wrap{border-radius:0; border-width:4px; border-left:0; border-right:0;}
-	.box-basic{border:0; border-bottom:1px solid $yellow; margin-bottom:1em;}
-	.sign .col6{padding:0!important;}
-	.sign-in .main-foot .txt{text-align:center;}
-	.info .cols{margin-top:0;}
-	#content, .main-foot, body{background:$yellow-lighter}
-	.generate-psw .box-basic{
-		.input{width:75%;}
-		.submit{margin-right:12.5%;}
-	}
+.sign-in .wrapper{max-width:100%; top:0; transform:translateY(0);}
+.col-left, .col-right{width:100%; float:none;}
+.col-right .box-basic{padding:15px 25px;}
+.v-logo{margin:10px 0; max-height:40px;}
+
+#content, .main-foot, body{background:$yellow-lighter;}
+.generate-psw .box-basic{
+	.input{width:75%;}
+	.submit{margin-right:12.5%;}
+}
 /* Temp Removed
 	.revoke{float:none; margin:10px auto;}*/
 }
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width:480px){
-	.sign .btn.submit{width:100%;}
-	.sign .submit .ico{margin-left:0; top:1px;}
-	.generate-psw .box-basic{
-		.input{width:100%;}
-		.submit{margin-right:0;}
-	}
+.generate-psw .box-basic{
+	.input{width:100%;}
+	.submit{margin-right:0;}
+}
+.sign-in, .forgot-psw{
+	.submit .ico{margin-left:0;}
+}
 }
