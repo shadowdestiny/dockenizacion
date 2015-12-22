@@ -107,7 +107,8 @@
 	.input{width:100%;}
 	.submit{margin-right:0;}
 }
-.sign-in, .forgot-psw{
+.sign-up, .forgot-psw{
 	.submit .ico{margin-left:0;}
 }
+.sign-in .select{font-size:$small;}
 }

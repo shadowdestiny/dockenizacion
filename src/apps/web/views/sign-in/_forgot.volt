@@ -30,9 +30,7 @@
                     {{ forgot_password_form.render('email', {'class':'input'}) }}
 
                     <p><strong>{{ language.translate("Insert captcha") }}</strong></p>
-                    <div class="captcha">
-                        {{ captcha }}
-                    </div>
+                    <div class="captcha">{{ captcha }}</div>
     {# *** Code to use in case no google captcha is utilised ***}
                     <br><a href="javascript:void(0);">{{ language.translate("reload the image") }}</a>
                     <br>
