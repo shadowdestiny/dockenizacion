@@ -49,10 +49,10 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
 	var EuroMillionsLine = __webpack_require__(159);
-	var EuroMillionsBoxAction = __webpack_require__(170);
-	var EuroMillionsMultipleEmLines = __webpack_require__(177);
-	var EuroMillionsBoxBottomAction = __webpack_require__(178);
-	var EmConfigPlayBlock = __webpack_require__(186);
+	var EuroMillionsBoxAction = __webpack_require__(167);
+	var EuroMillionsMultipleEmLines = __webpack_require__(174);
+	var EuroMillionsBoxBottomAction = __webpack_require__(175);
+	var EmConfigPlayBlock = __webpack_require__(178);
 	
 	var PlayPage = React.createClass({
 	    displayName: 'PlayPage',
@@ -20422,211 +20422,10 @@
 
 	'use strict';
 	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
 	var React = __webpack_require__(1);
-	var EmCustomizableSelect = __webpack_require__(168);
-	
-	var PlayPage = React.createClass({
-	    displayName: 'PlayPage',
-	
-	    handleCheck: function handleCheck(event) {
-	        var active;
-	        if (event.target.checked) {
-	            active = true;
-	        } else {
-	            active = false;
-	        }
-	        this.setState({
-	            thresholdActive: active
-	        });
-	    },
-	
-	    getInitialState: function getInitialState() {
-	        return {
-	            thresholdActive: false
-	        };
-	    },
-	
-	    render: function render() {
-	        return React.createElement(
-	            'div',
-	            { id: 'wrap-threshold', className: 'col6 wrap-threshold' },
-	            React.createElement(
-	                'label',
-	                { className: 'label', htmlFor: 'threshold' },
-	                'Jackpot Threshold ',
-	                React.createElement(
-	                    'div',
-	                    { 'data-tip': 'Set the condition when you want to play or to be informed automatically. Thresholds are calculated only in Euro.', className: 'wrap tipr-normal' },
-	                    React.createElement('svg', { className: 'ico v-question-mark', dangerouslySetInnerHTML: { __html: '<use xlink:href="/w/svg/icon.svg#v-question-mark"</use>' } })
-	                )
-	            ),
-	            React.createElement(
-	                'div',
-	                { className: 'box-threshold cl' },
-	                React.createElement('input', { type: 'checkbox', className: 'checkbox', id: 'threshold', onChange: this.handleCheck }),
-	                React.createElement(EmCustomizableSelect, _extends({}, this.props, { active: this.state.thresholdActive }))
-	            )
-	        );
-	    }
-	});
-	
-	module.exports = PlayPage;
-
-/***/ },
-/* 168 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(1);
-	var EmSelect = __webpack_require__(169);
-	
-	var EmCustomizableSelect = React.createClass({
-	    displayName: 'EmCustomizableSelect',
-	
-	    getInitialState: function getInitialState() {
-	        return {
-	            hideSelect: false,
-	            inputValue: '85000000'
-	        };
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        this.setState({
-	            hideSelect: !nextProps.active ? false : this.state.hideSelect
-	        });
-	    },
-	    handleChange: function handleChange(event) {
-	        if (event.target.value == this.props.customValue) {
-	            this.setState({
-	                hideSelect: true
-	            });
-	            return false;
-	        }
-	    },
-	    handleInputChange: function handleInputChange(event) {
-	        this.setState({
-	            inputValue: event.target.value
-	        });
-	    },
-	    render: function render() {
-	        var disabled = !this.props.active;
-	        var input = this.state.hideSelect ? React.createElement(
-	            'span',
-	            { className: 'input-value' },
-	            React.createElement('input', { type: 'text', value: this.state.inputValue, onChange: this.handleInputChange, placeholder: 'Insert numeric value' })
-	        ) : null;
-	        var select = this.state.hideSelect ? null : React.createElement(EmSelect, {
-	            options: this.props.options,
-	            defaultValue: this.props.defaultValue,
-	            defaultText: this.props.defaultText,
-	            onChange: this.handleChange,
-	            disabled: disabled });
-	
-	        return React.createElement(
-	            'div',
-	            { className: 'details' },
-	            React.createElement(
-	                'span',
-	                { className: 'txt' },
-	                'When Jackpot reach'
-	            ),
-	            input,
-	            select
-	        );
-	    }
-	});
-	
-	module.exports = EmCustomizableSelect;
-
-/***/ },
-/* 169 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(1);
-	
-	var EmSelect = React.createClass({
-	    displayName: 'EmSelect',
-	
-	    propTypes: {
-	        options: React.PropTypes.array.isRequired,
-	        defaultValue: React.PropTypes.string,
-	        defaultText: React.PropTypes.string,
-	        classDiv: React.PropTypes.string,
-	        classSelect: React.PropTypes.string
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            defaultValue: null,
-	            classDiv: 'select-txt',
-	            classBox: 'styled-select',
-	            classSelect: 'threshold mySelect',
-	            disabled: 'false',
-	            hidden: 'false',
-	            useTextAsValue: 'false'
-	        };
-	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            value: this.props.defaultValue,
-	            divText: this.props.defaultText
-	        };
-	    },
-	    handleChange: function handleChange(event) {
-	        if (this.props.onChange == undefined || this.props.onChange(event) !== false) {
-	            this.setState({
-	                value: event.target.value,
-	                divText: event.target.selectedOptions[0].text
-	            });
-	        } else {
-	            this.setState({
-	                value: this.state.value
-	            });
-	        }
-	    },
-	    render: function render() {
-	        var options = [];
-	        var textAsValue = this.props.useTextAsValue;
-	        this.props.options.forEach(function (option) {
-	            var option_value = textAsValue ? option.text : option.value;
-	            options.push(React.createElement(
-	                'option',
-	                { value: option_value, key: option.value },
-	                option.text
-	            ));
-	        });
-	        var box_class = this.props.disabled ? this.props.classBox + ' disabled' : this.props.classBox;
-	        return React.createElement(
-	            'div',
-	            { className: box_class },
-	            React.createElement(
-	                'div',
-	                { className: this.props.classDiv },
-	                this.state.divText
-	            ),
-	            React.createElement(
-	                'select',
-	                { value: this.state.value, onChange: this.handleChange, className: this.props.classSelect, disabled: this.props.disabled },
-	                options
-	            )
-	        );
-	    }
-	});
-	module.exports = EmSelect;
-
-/***/ },
-/* 170 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(1);
-	var EuroMillionsAddLinesBtn = __webpack_require__(171);
-	var EuroMillionsRandomAllBtn = __webpack_require__(175);
-	var EuroMillionsClearAllBtn = __webpack_require__(176);
+	var EuroMillionsAddLinesBtn = __webpack_require__(168);
+	var EuroMillionsRandomAllBtn = __webpack_require__(172);
+	var EuroMillionsClearAllBtn = __webpack_require__(173);
 	
 	var EuroMilliosnBoxActionPlay = React.createClass({
 	    displayName: 'EuroMilliosnBoxActionPlay',
@@ -20668,13 +20467,13 @@
 	module.exports = EuroMilliosnBoxActionPlay;
 
 /***/ },
-/* 171 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	var React = __webpack_require__(1);
-	var ReactTooltip = __webpack_require__(172);
+	var ReactTooltip = __webpack_require__(169);
 	
 	var EuroMillionsAddLinesBtn = React.createClass({
 	    displayName: "EuroMillionsAddLinesBtn",
@@ -20720,7 +20519,7 @@
 	module.exports = EuroMillionsAddLinesBtn;
 
 /***/ },
-/* 172 */
+/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20741,11 +20540,11 @@
 	
 	var _reactDom = __webpack_require__(158);
 	
-	var _classnames = __webpack_require__(173);
+	var _classnames = __webpack_require__(170);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _style = __webpack_require__(174);
+	var _style = __webpack_require__(171);
 	
 	var _style2 = _interopRequireDefault(_style);
 	
@@ -21311,7 +21110,7 @@
 
 
 /***/ },
-/* 173 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -21360,7 +21159,7 @@
 
 
 /***/ },
-/* 174 */
+/* 171 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21371,7 +21170,7 @@
 
 
 /***/ },
-/* 175 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -21399,7 +21198,7 @@
 	module.exports = EuroMillionsRandomAllBtn;
 
 /***/ },
-/* 176 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -21431,7 +21230,7 @@
 	module.exports = EuroMillionsClearAllBtn;
 
 /***/ },
-/* 177 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21468,15 +21267,15 @@
 	module.exports = EuroMillionsMultipleEmLines;
 
 /***/ },
-/* 178 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
 	
-	var EuroMillionsAdvancedPlayBtn = __webpack_require__(185);
-	var EuroMillionsAddToCart = __webpack_require__(180);
+	var EuroMillionsAdvancedPlayBtn = __webpack_require__(176);
+	var EuroMillionsAddToCart = __webpack_require__(177);
 	
 	var EuroMillionsBoxBottomAction = React.createClass({
 	    displayName: 'EuroMillionsBoxBottomAction',
@@ -21516,8 +21315,30 @@
 	module.exports = EuroMillionsBoxBottomAction;
 
 /***/ },
-/* 179 */,
-/* 180 */
+/* 176 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var React = __webpack_require__(1);
+	
+	var EuroMillionsAdvancedPlayBtn = new React.createClass({
+	
+	    render: function render() {
+	        return React.createElement(
+	            "a",
+	            { href: "javascript:void(0);", onClick: this.props.click_advanced_play, className: "btn big gwp advanced" },
+	            "Advanced Play",
+	            React.createElement("svg", { className: "ico v-clover",
+	                dangerouslySetInnerHTML: { __html: '<use xlink:href="/w/svg/icon.svg#v-clover"></use>' } })
+	        );
+	    }
+	});
+	
+	module.exports = EuroMillionsAdvancedPlayBtn;
+
+/***/ },
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21558,7 +21379,262 @@
 	module.exports = EuroMillionsAddToCart;
 
 /***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var ThresholdPlay = __webpack_require__(179);
+	var EmDrawConfig = __webpack_require__(182);
+	
+	var EmConfigPlayBlock = new React.createClass({
+	
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            date_play: 0,
+	            duration: 1,
+	            play_days: 1
+	        };
+	    },
+	
+	    render: function render() {
+	
+	        var default_value = '75';
+	        var default_text = '75 millions €';
+	        var custom_value = 'custom';
+	
+	        var options = [{ text: '50 millions €', value: '50' }, { text: default_text, value: default_value }, { text: '100 millions €', value: '100' }, { text: 'Choose threshold', value: custom_value }];
+	        var options_draw_days = [{ text: 'Tuesday & Friday', value: '2,5' }, { text: 'Tuesday', value: '2' }, { text: 'Firday', value: '5' }];
+	
+	        if (!this.props.show) {
+	            return null;
+	        } else {
+	            return React.createElement(
+	                'div',
+	                { className: 'advanced-play' },
+	                React.createElement('hr', { className: 'hr yellow' }),
+	                React.createElement(
+	                    'a',
+	                    { href: 'javascript:void(0);', className: 'close' },
+	                    React.createElement('svg', { className: 'ico v-cancel-circle', dangerouslySetInnerHTML: { __html: '<use xlink:href="/w/svg/icon.svg#v-cancel-circle"></use>' } })
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'cols' },
+	                    React.createElement(EmDrawConfig, { date_play: this.props.date_play, duration: this.props.duration, play_days: this.props.play_days, options: options_draw_days, customValue: custom_value }),
+	                    React.createElement(ThresholdPlay, { options: options, customValue: custom_value, defaultValue: default_value, defaultText: default_text })
+	                )
+	            );
+	        }
+	    }
+	});
+	
+	module.exports = EmConfigPlayBlock;
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var React = __webpack_require__(1);
+	var EmCustomizableSelect = __webpack_require__(180);
+	
+	var PlayPage = React.createClass({
+	    displayName: 'PlayPage',
+	
+	    handleCheck: function handleCheck(event) {
+	        var active;
+	        if (event.target.checked) {
+	            active = true;
+	        } else {
+	            active = false;
+	        }
+	        this.setState({
+	            thresholdActive: active
+	        });
+	    },
+	
+	    getInitialState: function getInitialState() {
+	        return {
+	            thresholdActive: false
+	        };
+	    },
+	
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            { id: 'wrap-threshold', className: 'col6 wrap-threshold' },
+	            React.createElement(
+	                'label',
+	                { className: 'label', htmlFor: 'threshold' },
+	                'Jackpot Threshold ',
+	                React.createElement(
+	                    'div',
+	                    { 'data-tip': 'Set the condition when you want to play or to be informed automatically. Thresholds are calculated only in Euro.', className: 'wrap tipr-normal' },
+	                    React.createElement('svg', { className: 'ico v-question-mark', dangerouslySetInnerHTML: { __html: '<use xlink:href="/w/svg/icon.svg#v-question-mark"</use>' } })
+	                )
+	            ),
+	            React.createElement(
+	                'div',
+	                { className: 'box-threshold cl' },
+	                React.createElement('input', { type: 'checkbox', className: 'checkbox', id: 'threshold', onChange: this.handleCheck }),
+	                React.createElement(EmCustomizableSelect, _extends({}, this.props, { active: this.state.thresholdActive }))
+	            )
+	        );
+	    }
+	});
+	
+	module.exports = PlayPage;
+
+/***/ },
+/* 180 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var EmSelect = __webpack_require__(181);
+	
+	var EmCustomizableSelect = React.createClass({
+	    displayName: 'EmCustomizableSelect',
+	
+	    getInitialState: function getInitialState() {
+	        return {
+	            hideSelect: false,
+	            inputValue: '85000000'
+	        };
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        this.setState({
+	            hideSelect: !nextProps.active ? false : this.state.hideSelect
+	        });
+	    },
+	    handleChange: function handleChange(event) {
+	        if (event.target.value == this.props.customValue) {
+	            this.setState({
+	                hideSelect: true
+	            });
+	            return false;
+	        }
+	    },
+	    handleInputChange: function handleInputChange(event) {
+	        this.setState({
+	            inputValue: event.target.value
+	        });
+	    },
+	    render: function render() {
+	        var disabled = !this.props.active;
+	        var input = this.state.hideSelect ? React.createElement(
+	            'span',
+	            { className: 'input-value' },
+	            React.createElement('input', { type: 'text', value: this.state.inputValue, onChange: this.handleInputChange, placeholder: 'Insert numeric value' })
+	        ) : null;
+	        var select = this.state.hideSelect ? null : React.createElement(EmSelect, {
+	            options: this.props.options,
+	            defaultValue: this.props.defaultValue,
+	            defaultText: this.props.defaultText,
+	            onChange: this.handleChange,
+	            disabled: disabled });
+	
+	        return React.createElement(
+	            'div',
+	            { className: 'details' },
+	            React.createElement(
+	                'span',
+	                { className: 'txt' },
+	                'When Jackpot reach'
+	            ),
+	            input,
+	            select
+	        );
+	    }
+	});
+	
+	module.exports = EmCustomizableSelect;
+
+/***/ },
 /* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	
+	var EmSelect = React.createClass({
+	    displayName: 'EmSelect',
+	
+	    propTypes: {
+	        options: React.PropTypes.array.isRequired,
+	        defaultValue: React.PropTypes.string,
+	        defaultText: React.PropTypes.string,
+	        classDiv: React.PropTypes.string,
+	        classSelect: React.PropTypes.string
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            defaultValue: null,
+	            classDiv: 'select-txt',
+	            classBox: 'styled-select',
+	            classSelect: 'threshold mySelect',
+	            disabled: 'false',
+	            hidden: 'false',
+	            useTextAsValue: 'false'
+	        };
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            value: this.props.defaultValue,
+	            divText: this.props.defaultText
+	        };
+	    },
+	    handleChange: function handleChange(event) {
+	        if (this.props.onChange == undefined || this.props.onChange(event) !== false) {
+	            this.setState({
+	                value: event.target.value,
+	                divText: event.target.selectedOptions[0].text
+	            });
+	        } else {
+	            this.setState({
+	                value: this.state.value
+	            });
+	        }
+	    },
+	    render: function render() {
+	        var options = [];
+	        var textAsValue = this.props.useTextAsValue;
+	        this.props.options.forEach(function (option) {
+	            var option_value = textAsValue ? option.text : option.value;
+	            options.push(React.createElement(
+	                'option',
+	                { value: option_value, key: option.value },
+	                option.text
+	            ));
+	        });
+	        var box_class = this.props.disabled ? this.props.classBox + ' disabled' : this.props.classBox;
+	        return React.createElement(
+	            'div',
+	            { className: box_class },
+	            React.createElement(
+	                'div',
+	                { className: this.props.classDiv },
+	                this.state.divText
+	            ),
+	            React.createElement(
+	                'select',
+	                { value: this.state.value, onChange: this.handleChange, className: this.props.classSelect, disabled: this.props.disabled },
+	                options
+	            )
+	        );
+	    }
+	});
+	module.exports = EmSelect;
+
+/***/ },
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21567,9 +21643,9 @@
 	
 	var React = __webpack_require__(1);
 	
-	var EmSelectDraw = __webpack_require__(182);
-	var EmSelectDrawDate = __webpack_require__(183);
-	var EmSelectDrawDuration = __webpack_require__(184);
+	var EmSelectDraw = __webpack_require__(183);
+	var EmSelectDrawDate = __webpack_require__(184);
+	var EmSelectDrawDuration = __webpack_require__(185);
 	
 	var EuroMillionsDrawConfig = new React.createClass({
 	
@@ -21610,14 +21686,14 @@
 	module.exports = EuroMillionsDrawConfig;
 
 /***/ },
-/* 182 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
 	
-	var EmSelect = __webpack_require__(169);
+	var EmSelect = __webpack_require__(181);
 	
 	var EmSelectDraw = React.createClass({
 	    displayName: 'EmSelectDraw',
@@ -21659,13 +21735,13 @@
 	module.exports = EmSelectDraw;
 
 /***/ },
-/* 183 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var EmSelect = __webpack_require__(169);
+	var EmSelect = __webpack_require__(181);
 	
 	var EmSelectDrawDate = React.createClass({
 	    displayName: 'EmSelectDrawDate',
@@ -21717,14 +21793,14 @@
 	module.exports = EmSelectDrawDate;
 
 /***/ },
-/* 184 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
 	
-	var EmSelect = __webpack_require__(169);
+	var EmSelect = __webpack_require__(181);
 	
 	var EmSelectDrawDuration = React.createClass({
 	    displayName: 'EmSelectDrawDuration',
@@ -21765,83 +21841,6 @@
 	});
 	
 	module.exports = EmSelectDrawDuration;
-
-/***/ },
-/* 185 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	var React = __webpack_require__(1);
-	
-	var EuroMillionsAdvancedPlayBtn = new React.createClass({
-	
-	    render: function render() {
-	        return React.createElement(
-	            "a",
-	            { href: "javascript:void(0);", onClick: this.props.click_advanced_play, className: "btn big gwp advanced" },
-	            "Advanced Play",
-	            React.createElement("svg", { className: "ico v-clover",
-	                dangerouslySetInnerHTML: { __html: '<use xlink:href="/w/svg/icon.svg#v-clover"></use>' } })
-	        );
-	    }
-	});
-	
-	module.exports = EuroMillionsAdvancedPlayBtn;
-
-/***/ },
-/* 186 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(1);
-	var ThresholdPlay = __webpack_require__(167);
-	var EmDrawConfig = __webpack_require__(181);
-	
-	var EmConfigPlayBlock = new React.createClass({
-	
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            date_play: 0,
-	            duration: 1,
-	            play_days: 1
-	        };
-	    },
-	
-	    render: function render() {
-	
-	        var default_value = '75';
-	        var default_text = '75 millions €';
-	        var custom_value = 'custom';
-	
-	        var options = [{ text: '50 millions €', value: '50' }, { text: default_text, value: default_value }, { text: '100 millions €', value: '100' }, { text: 'Choose threshold', value: custom_value }];
-	        var options_draw_days = [{ text: 'Tuesday & Friday', value: '2,5' }, { text: 'Tuesday', value: '2' }, { text: 'Firday', value: '5' }];
-	
-	        if (!this.props.show) {
-	            return null;
-	        } else {
-	            return React.createElement(
-	                'div',
-	                { className: 'advanced-play' },
-	                React.createElement('hr', { className: 'hr yellow' }),
-	                React.createElement(
-	                    'a',
-	                    { href: 'javascript:void(0);', className: 'close' },
-	                    React.createElement('svg', { className: 'ico v-cancel-circle', dangerouslySetInnerHTML: { __html: '<use xlink:href="/w/svg/icon.svg#v-cancel-circle"></use>' } })
-	                ),
-	                React.createElement(
-	                    'div',
-	                    { className: 'cols' },
-	                    React.createElement(EmDrawConfig, { date_play: this.props.date_play, duration: this.props.duration, play_days: this.props.play_days, options: options_draw_days, customValue: custom_value }),
-	                    React.createElement(ThresholdPlay, { options: options, customValue: custom_value, defaultValue: default_value, defaultText: default_text })
-	                )
-	            );
-	        }
-	    }
-	});
-	
-	module.exports = EmConfigPlayBlock;
 
 /***/ }
 /******/ ]);

@@ -1,6 +1,7 @@
 Vagrant.configure(2) do |config|
     config.vm.provider "virtualbox" do |v|
         v.memory = 2048
+        v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
     end
     config.vm.box = "ubuntu/vivid64"
     config.vm.provision "shell", path: "vagrant_config/provision.sh", privileged: false
