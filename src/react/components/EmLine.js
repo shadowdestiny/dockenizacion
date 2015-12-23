@@ -137,8 +137,8 @@ var EuroMillionsLine = React.createClass({
         }
         for(var i=0; i < 2; i++){
             var s = Math.floor(Math.random() * 12);
-            if(s == 0) i--;
             if(stars.indexOf(s) == -1) stars[i] = s; else i--;
+            if(s == 0) i--;
         }
         this.state.selectedNumbers.numbers = nums;
         this.state.selectedNumbers.stars = stars;
@@ -149,7 +149,6 @@ var EuroMillionsLine = React.createClass({
                 isAnimated: true
             }
         )
-
     },
 
     render: function ()
