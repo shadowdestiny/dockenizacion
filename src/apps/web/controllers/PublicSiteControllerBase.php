@@ -111,7 +111,7 @@ class PublicSiteControllerBase extends ControllerBase
             $currencies_dto = [];
             foreach($currencies->getValues() as $currency ) {
                 $currencies_dto[] = new CurrencyDTO($currency);
-            }
+            }           
             $this->view->setVars(['currencies' => $currencies_dto]);
             $currencies_dto = [];
             foreach($currencies_list->getValues() as $currency ) {
