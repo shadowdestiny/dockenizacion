@@ -20,7 +20,7 @@ var config = {
     entry: './src/play.jsx',
     devtool: 'source-map',
     output: {
-        path: '/var/www/public/w/js/react',
+        path: '../public/w/js/react',
         filename: outputFile,
         publicPath: '/w/js/react'
     },
