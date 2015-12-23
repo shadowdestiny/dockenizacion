@@ -6,9 +6,7 @@ var EuroMillionsMultipleEmLines = React.createClass({
 
     getInitialState: function (){
         return { storage: JSON.parse(localStorage.getItem('bet_line')) || [],
-                 numberLines : 0,
                  random_all : false,
-                 count: 0
                 };
     },
 

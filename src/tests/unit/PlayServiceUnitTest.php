@@ -155,6 +155,23 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
+
+
+    /**
+     * method getPlaysFromTemporarilyStorage
+     * when calledAndPassKeyValid
+     * should returnServiceActionResultTrueWithProperlyData
+     */
+    public function test_getPlaysFromTemporarilyStorage_calledAndPassKeyValid_returnServiceActionResultTrueWithProperlyData()
+    {
+        $user = $this->getUser();
+        $sut = $this->getSut();
+        $this->playStorageStrategy_double->findByKey($user->getId()->id())->willReturn(true);
+        $this->playStorageStrategy_double->delete($user->getId()->id())->willReturn(true);
+        $actual = $sut->getPlaysFromTemporarilyStorage($user);
+        $this->assertTrue($actual->success());
+    }
+
     /**
      * method bet
      * when calledWhenTheresNoBetInDB

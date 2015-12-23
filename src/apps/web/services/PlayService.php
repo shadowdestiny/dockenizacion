@@ -157,6 +157,23 @@ class PlayService
         }
     }
 
+    public function getPlaysFromTemporarilyStorage(User $user)
+    {
+        try {
+            $result = $this->playStorageStrategy->findByKey($user->getId()->id());
+            if(!empty($result)) {
+                //Remove play storage
+               // $this->playStorageStrategy->delete($user->getId()->id());
+                return new ActionResult(true,$result);
+            } else {
+                return new ActionResult(false);
+            }
+        } catch ( \RedisException $r) {
+            return new ActionResult(false, $r->getMessage());
+        }
+
+    }
+
     public function temporarilyStorePlay(PlayFormToStorage $playForm,UserId $userId)
     {
         $result = $this->playStorageStrategy->saveAll($playForm,$userId);

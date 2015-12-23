@@ -4,6 +4,7 @@
 namespace EuroMillions\web\controllers\ajax;
 
 
+use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
@@ -23,14 +24,16 @@ class PlayTemporarilyController extends AjaxControllerBase
         $threshold = $this->request->getPost('threshold');
         $authService = $this->domainServiceFactory->getAuthService();
         $lastDrawDate = new LastDrawDate($startDrawDate,$frequency);
+        $date_time_util = new DateTimeUtil();
 
         $playFormToStorage = new PlayFormToStorage();
         $playFormToStorage->startDrawDate = $startDrawDate;
-        $playFormToStorage->frequency = $startDrawDate;
+        $playFormToStorage->frequency = $frequency;
         $playFormToStorage->lastDrawDate = $lastDrawDate->getLastDrawDate();
         $playFormToStorage->drawDays = $drawDays;
         $playFormToStorage->euroMillionsLines = $this->create($bets);
         $playFormToStorage->threshold = $threshold;
+        $playFormToStorage->num_weeks = $date_time_util->getNumWeeksBetweenDates(new \DateTime($startDrawDate),new \DateTime($lastDrawDate->getLastDrawDate()));
 
         $playService = $this->domainServiceFactory->getPlayService();
         $current_user = $authService->getCurrentUser();

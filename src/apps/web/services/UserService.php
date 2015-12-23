@@ -196,7 +196,6 @@ class UserService
         }catch(\Exception $e) {
             return new ActionResult(false);
         }
-
     }
 
     public function getMyPlaysActives(UserId $userId)
