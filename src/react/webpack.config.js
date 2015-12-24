@@ -20,10 +20,8 @@ var config = {
     },
     devtool: 'source-map',
     output: {
-        path: '/var/www/public/w/js/react',
-        filename: '[name]'+outputFile,
         path: '../public/w/js/react',
-        filename: outputFile,
+        filename: '[name]'+outputFile,
         publicPath: '/w/js/react'
     },
     module: {
