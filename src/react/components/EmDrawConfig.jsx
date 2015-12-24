@@ -17,8 +17,9 @@ var EuroMillionsDrawConfig = new React.createClass({
         var elem = [];
         var options_draw_dates = [];
 
-        draw_dates.forEach(function(obj,i){
-            options_draw_dates.push({text : obj, value : i});
+        this.props.draw_dates.forEach(function(obj,i){
+            var obj_split = String(obj).split('#');
+            options_draw_dates.push({text : obj_split[0], value : obj_split[0]});
         });
 
         var default_value_draw = '2';
@@ -27,20 +28,18 @@ var EuroMillionsDrawConfig = new React.createClass({
         var default_value_date = ""+options_draw_dates[0].text;
         var default_text_date = ""+options_draw_dates[0].text;
 
-        var default_value_duration = '1';
-        var default_text_duration = '1 week (Draw: 1)';
+        var default_value_duration = ""+this.props.draw_duration[0].value;
+        var default_text_duration = ""+this.props.draw_duration[0].text;
 
-        var options_draw_duration = [
-            {text : '1 week (Draw: 1)' , value : 1},
-            {text : '2 weeks (Draws: 2)' , value : 2},
-            {text : '4 weeks (Draws: 4)' , value : 4},
-            {text : '8 weeks (Draws: 8)' , value : 8},
-            {text : '52 weeks (Draws: 52)' , value : 52},
+        var options_draw_days = [
+            {text: 'Tuesday & Friday' , value : '2,5'},
+            {text: 'Tuesday', value : '2'},
+            {text: 'Friday' , value : '5'}
         ];
 
-        elem.push(<EmSelectDraw play_days={this.props.play_days} defaultValue={default_value_draw} defaultText={default_text_draw} {...this.props} active={this.state.selectdrawactive} key="1"/>)
+        elem.push(<EmSelectDraw play_days={this.props.play_days} defaultValue={default_value_draw} defaultText={default_text_draw} options={options_draw_days} {...this.props} active={this.state.selectdrawactive} key="1"/>)
         elem.push(<EmSelectDrawDate change_date={this.props.date_play} defaultValue={default_value_date} defaultText={default_text_date} options={options_draw_dates} active={this.state.selectdrawactive} key="2"/>)
-        elem.push(<EmSelectDrawDuration change_duration={this.props.duration} defaultValue={default_value_duration} defaultText={default_text_duration} options={options_draw_duration} active={this.state.selectdrawactive} key="3"/>)
+        elem.push(<EmSelectDrawDuration change_duration={this.props.duration} defaultValue={default_value_duration} defaultText={default_text_duration} options={this.props.draw_duration} active={this.state.selectdrawactive} key="3"/>)
         return (
             <div>
                 {elem}

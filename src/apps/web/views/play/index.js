@@ -612,7 +612,6 @@ $(function(){
 			})
 		}
 
-
 		day_of_week = filter.split(',').length;
 		var txt_frequency = '';
 		var val_frequency = $('.frequency').find(":selected").val();
