@@ -424,26 +424,22 @@
                     <section>
                         <a name="type"></a>
                         <h1 class="title h2">Typography</h1>
-
                         <div class="content">
-                            <div class="cols">
-                                <div class="col6">
-                                    <strong class="h3">Font family: Open Sans</strong>
-                                    <br><br>The quick brown fox jumps over the lazy dog
-                                    <br><br>1234567890!@#$%^&*()
-                                    <br>ABCDEFGHIJKLMNOPQRSTUVWXYZ
-                                    <br>abcdefghijklmnopqrstuvwxyz
-                                </div>
-                                <div class="col6">
-                                    <p>The font is applied to the following tags and classes:
+
+                                    <p>The main typography used is <strong>Open Sans</strong>. We have only 3 type of font styles: <strong>Normal</strong> (400 weight), <strong>Italic</strong> (400 weight) and <strong>Bold</strong> (700 weight).</p>
+
+                                    <p><a href="https://www.google.com/fonts/specimen/Open+Sans">Full Open Sans Alphabet</a></p>
+                                    
+                                    <p>This font family is applied to the following tags and classes:
                                     <br><strong>body, #content, .input, .select, .textarea</strong></p>
                                     <p>The variable defined in SASS is:
                                     <br><strong>$basic-font:"Open Sans", helvetica, arial, verdana, sans-serif;</strong></p>
-                                </div>
-                            </div>
-
+     
 
                             <hr class="hr">
+
+                            <h2 class="h4">Title Styling and font sizes.</h3>
+                            <p>Instead of using the predefined size of the titles, I rather use class related size for the type. This is especially useful for separating the semantic value of an h1 to an h2, but still giving an uniform or more different visual style that would fit more with the design of the page. In Html5, each main tag could have various h1, while having less hierarchy importance between the various titles.</p>
 
                             <div class="cols">
                                 <div class="col6">
@@ -469,12 +465,22 @@
                                         <p>$basic-font 14px</p>
                                         <p class="small-txt">$small 12px</p>
                                     </pre>
+                                    <br><br>
+                                    <p>
+                                        Every title (a part from .h0) has a predefined margin-bottom set to 1em.<br>
+                                        In the case that you need to reset margin <strong>Use class .res to reset margin.</strong>
+                                        <br>Example:
+                                    </p>
+                                    <pre class="brush: html">
+                                        <h1 class="h1 res">Title 30px</h1>
+                                    </pre>
                                 </div>
                             </div>
 
 
                             <hr class="hr">
 
+                            <h2 class="h4">Content and list examples</h3>
 
                             <div class="cols">
                                 <div class="col6">
@@ -485,6 +491,7 @@
                                         <li>in hendrerit in vulputate velit esse molestie consequat</li>
                                         <li>vel illum dolore eu feugiat nulla facilisis at</li>
                                     </ul>
+                                    <br>
 
                                     <ul class="no-li">
                                         <li><strong>List without bullet points</strong></li>
