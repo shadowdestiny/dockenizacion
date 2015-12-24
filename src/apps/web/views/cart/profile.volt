@@ -13,7 +13,7 @@
 {% block body %}
 <main id="content">
     <div class="wrapper">
-        <div class="box-basic medium">
+        <div class="box-basic medium content">
             <h1 class="h1 title yellow">{{ language.translate("Your Profile") }}</h1>
             <form action="/cart/profile" method="post">
                 <div class="fields cl">
@@ -21,12 +21,21 @@
                         <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
                         <span class="txt">Error info lorem ipsum</span>
                     </div>
+                    <p>{{ language.translate("We need your information in order to proceed to payment.") }}</p>
                     {% set activePsw='{"myClass": "no"}'|json_decode %}
                     {% include "account/_user-detail.volt" %}
                 </div>
+                <div class="cl">
+                    <label class="btn blue big right">
+                        {{ language.translate("Save and proceed to Checkout") }} 
+                        <input type="submit" class="hidden2">
+                    </label>
+                </div>
+                {# Temporary commented (Credit Card details)
                 <hr class="hr yellow">
                 {% set component='{"where": "cart"}'|json_decode %}
                 {% include "account/_add-card.volt" %}
+                #}
             </form>
         </div>
     </div>
