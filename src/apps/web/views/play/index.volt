@@ -7,8 +7,9 @@
 <script>{% include "play/index.js" %}</script>
 <script src="/w/js/vendor/tipr.min.js"></script>
 {% set dates_draw = play_dates|json_encode %}
-<script> var draw_dates = <?php echo $dates_draw ?>;
-			var price_bet = {{ single_bet_price }};
+<script>
+var draw_dates = <?php echo $dates_draw ?>;
+var price_bet = {{ single_bet_price }};
 </script>
 <script src="/w/js/react/play.js"></script>
 {% endblock %}

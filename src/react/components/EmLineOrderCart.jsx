@@ -6,30 +6,30 @@ var EmLineOrder = new React.createClass({
     render : function ()
     {
 
-
-
+        var char_line = 'ABCDEFGHIJKLMNOPQRSTVWXYZ'.charAt(this.props.line);
         return (
             <div className="row cl">
                 <div className="desc">
-                    Line A
+                    Line {char_line}
                 </div>
                 <div className="detail">
                     <ol className="no-li num">
-                        <li>04</li>
-                        <li>14</li>
-                        <li>21</li>
-                        <li>36</li>
-                        <li>38</li>
-                        <li className="yellow">07</li>
-                        <li className="yellow">10</li>
+                        {
+                            this.props.numbers.map(function(number,i) {
+                                return <li key={i}>{number}</li>
+                            })
+                        }
+                        {
+                            this.props.stars.map(function(star,i) {
+                                return <li className="yellow" key={i}>{star}</li>
+                            })
+                        }
                     </ol>
                 </div>
-                <div className="summary val">&euro; 20,00</div>
+                <div className="summary val">&euro; {this.props.single_bet_price}</div>
             </div>
         )
     }
-
-
 });
 
 module.exports = EmLineOrder;

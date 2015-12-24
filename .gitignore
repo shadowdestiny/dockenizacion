@@ -30,4 +30,4 @@ dev-logs/*
 ansible/roles/external/*
 /src/react/node_modules
 /src/public/w/js/react/*
-/src/react/npm-debug*
+/src/react/npm-debug.log*

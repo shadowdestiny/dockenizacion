@@ -21,7 +21,7 @@ var PlayPage = React.createClass({
             show_tooltip_lines : false,
             playDays : 1,
             duration : 1,
-            date_play : 0,
+            date_play : this.props.date_play,
             numBets : 0,
             lines : [],
             show_block_config : false,
@@ -186,8 +186,8 @@ var PlayPage = React.createClass({
 
     handleChangeDate : function (value)
     {
-        this.state.date_play = value;
-        this.updatePrice();
+        this.setState( { date_play : value } );
+        //this.updatePrice();
     },
 
     handleClickAdvancedPlay : function (value)
@@ -226,7 +226,7 @@ var PlayPage = React.createClass({
             });
         }
         var total = Number(betsActive * price * numDraws).toFixed(2);
-        this.setState( { date_play : this.state.date_play, price : total, clear_all : false, random_all : false } );
+        this.setState( { price : total, clear_all : false, random_all : false } );
     },
 
     render : function ()
@@ -235,10 +235,6 @@ var PlayPage = React.createClass({
         var numberEuroMillionsLine = this.state.lines_default;
         if(this.state.count_lines > 0) {
             numberEuroMillionsLine = this.state.count_lines ;
-        }
-        if(this.state.date_play == 0) {
-            //EMTD pass as property
-            this.state.date_play = '2015-12-22';
         }
         var random_all = this.state.random_all;
 
@@ -260,7 +256,7 @@ var PlayPage = React.createClass({
 });
 
 module.exports = PlayPage;
-ReactDOM.render(<PlayPage lines_default={5} />, document.getElementById('gameplay'));
+ReactDOM.render(<PlayPage lines_default={5} date_play={""+draw_dates[0]}/>, document.getElementById('gameplay'));
 
 
 

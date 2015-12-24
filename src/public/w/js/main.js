@@ -21,6 +21,22 @@ var globalFunctions = {
                 console.dir( xhr );
             },
         });
+    },
+    playCart : function (params) {
+        $.ajax({
+            url: '/ajax/play-temporarily/temporarilyCart/',
+            data: params,
+            type: 'POST',
+            dataType: "json",
+            success: function(json) {
+                if(json.result = 'OK') {
+                    location.href = json.url;
+                }
+            },
+            error: function (xhr, status, errorThrown) {
+                //EMTD manage errrors
+            },
+        });
     }
 };
 

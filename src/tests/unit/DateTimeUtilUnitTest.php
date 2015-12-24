@@ -37,6 +37,22 @@ class DateTimeUtilUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
+
+    /**
+     * method getNumWeeksBetweenDates
+     * when calledPassingTwoDatesValids
+     * should returnNumWeeksBetweenDatesPassed
+     */
+    public function test_getNumWeeksBetweenDates_calledPassingTwoDatesValids_returnNumWeeksBetweenDatesPassed()
+    {
+        $date_ini = new \DateTime('2015-12-23');
+        $date_end = new \DateTime('2016-01-06');
+        $sut = $this->getSut();
+        $actual = $sut->getNumWeeksBetweenDates($date_ini,$date_end);
+        $this->assertEquals(2,$actual);
+    }
+
+
     private function getSut()
     {
         return new DateTimeUtil();
