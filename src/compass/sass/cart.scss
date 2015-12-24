@@ -14,6 +14,9 @@
 .cart.profile{
   .wrap .cols{margin-bottom:0;}
   .hr{margin:1em -20px}
+  .label, .input{width:100%;}
+  .title{margin-bottom:10px;}
+  .submit{cursor:hand;}
 }
 
 .card-detail{ 
@@ -93,6 +96,7 @@
   .buy{float:right; margin-top:6px;}
   .box-jackpot{float:left;}
   .my-right{margin-top:65px;}
+  .mySelect{width:auto; padding:3px;}
 }
 
 .success{

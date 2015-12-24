@@ -35,8 +35,14 @@ var EmLineOrderConfig = new React.createClass({
         var num_weeks = this.props.playConfig.num_weeks;
         var text_weeks = num_weeks > 0 ? 'for ' + num_weeks : '';// + (num_weeks > 1) ? ' weeks' : 'week' : '';
         text_weeks += (num_weeks > 1) ? ' weeks' : 'week';
-        var frequency_draws_text = frequency > 1 ? ' draws' : 'draw';
-        var select_draw_duration = <div className="val summary">{frequency} {frequency_draws_text}</div>;
+        var frequency_draws_text = frequency > 1 ? 'draws' : 'draw';
+        var select_draw_duration = 
+            <div className="val summary">
+            <select className="mySelect">
+                <option>1 draw</option>
+                <option>2 draws</option>
+            </select>
+            {frequency} {frequency_draws_text}</div>;
 
         if(this.state.show_select) {
             select_draw_duration = <EmSelectDrawDuration change_duration={this.props.duration} defaultValue={default_value_duration} defaultText={default_text_duration} options={options_draw_duration} active={true}/>;
@@ -56,7 +62,6 @@ var EmLineOrderConfig = new React.createClass({
             </div>
         )
     }
-
 
 });
 
