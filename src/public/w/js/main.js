@@ -6,7 +6,7 @@ var navUrl = [];
 var globalFunctions = {
     setCurrency : function (value) {
         $.ajax({
-            url: 'ajax/user-settings/setCurrency/'+value,
+            url: '/ajax/user-settings/setCurrency/'+value,
             type: 'GET',
             dataType: "json",
             success: function(json) {

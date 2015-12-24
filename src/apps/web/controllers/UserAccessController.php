@@ -188,6 +188,7 @@ class UserAccessController extends ControllerBase
         } else {
             $message = 'Sorry, the token you used is no longer valid.';
         }
+        $this->view->pick('recovery/index');
     }
 
 

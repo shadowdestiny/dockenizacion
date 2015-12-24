@@ -4,15 +4,18 @@
 #content .content{
     .input{width:100%;}
     .label{font-weight:700; margin-bottom:3px;}
-    .asterisk{color:$red;}
     .wrap{margin-right:-15px;}
     .cols > div{border-right:15px solid transparent}
     .cols{margin-bottom:20px;}
+    .change{margin-bottom:0!important;}
 }
+
 
 .account{
     .label{font-size:$basic-size;}
-    .change .info.box{margin-top:22px;}
+    .change{
+        .info.box{margin-top:22px;}
+    }
 }
 /* Temporarely removed (Facebook)
 .connect{

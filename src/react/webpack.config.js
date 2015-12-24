@@ -22,6 +22,8 @@ var config = {
     output: {
         path: '/var/www/public/w/js/react',
         filename: '[name]'+outputFile,
+        path: '../public/w/js/react',
+        filename: outputFile,
         publicPath: '/w/js/react'
     },
     module: {
