@@ -1,9 +1,9 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var EmLineOrderCart = require('../components/EmLineOrderCart.jsx');
-var EmLineOrderConfig = require('../components/EmLineOrderConfig.jsx');
-var EmTotalCart = require('../components/EmTotalCart.jsx');
-var EmLineFeeCart = require('../components/EmLineFeeCart.jsx');
+var EmLineOrderCart = require('../components/cart/EmLineOrderCart.jsx');
+var EmLineOrderConfig = require('../components/cart/EmLineOrderConfig.jsx');
+var EmTotalCart = require('../components/cart/EmTotalCart.jsx');
+var EmLineFeeCart = require('../components/cart/EmLineFeeCart.jsx');
 
 var CartPage = new React.createClass({
 
