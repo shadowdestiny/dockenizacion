@@ -26,7 +26,7 @@
                     {% include "account/_user-detail.volt" %}
                 </div>
                 <div class="cl">
-                    <label class="btn blue big right">
+                    <label class="btn blue big right submit">
                         {{ language.translate("Save and proceed to Checkout") }} 
                         <input type="submit" class="hidden2">
                     </label>
