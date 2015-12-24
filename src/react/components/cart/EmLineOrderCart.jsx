@@ -2,6 +2,7 @@ var React = require('react');
 
 var EmLineOrder = new React.createClass({
 
+    displayName: 'EmLineOrder',
 
     render : function ()
     {

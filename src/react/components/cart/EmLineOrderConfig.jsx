@@ -4,6 +4,8 @@ var EmSelectDrawDuration = require('./../EmSelectDrawDuration.jsx');
 
 var EmLineOrderConfig = new React.createClass({
 
+    displayName: 'EmLineOrderConfig',
+
     getInitialState : function ()
     {
         return {

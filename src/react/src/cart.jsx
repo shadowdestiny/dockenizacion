@@ -7,6 +7,7 @@ var EmLineFeeCart = require('../components/cart/EmLineFeeCart.jsx');
 
 var CartPage = new React.createClass({
 
+    displayName: 'CartPage',
 
     getInitialState : function ()
     {

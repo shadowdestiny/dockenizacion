@@ -5,6 +5,8 @@ var EuroMillionsClearAllBtn = require('./EmClearAllBtn.jsx');
 
 var EuroMilliosnBoxActionPlay = React.createClass({
 
+    displayName : 'EuroMilliosnBoxActionPlay',
+
     handlerAddLines : function() {
         this.props.add_lines(null);
     },

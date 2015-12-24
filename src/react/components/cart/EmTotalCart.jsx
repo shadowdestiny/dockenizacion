@@ -4,6 +4,8 @@ var ReactDOM = require('react-dom');
 
 var EmTotalCart = new React.createClass({
 
+    displayName: 'EmTotalCart',
+
     render : function ()
     {
         return (
