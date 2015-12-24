@@ -473,11 +473,11 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
         $now = new \DateTime('2015-11-25');
 
         $expected = [
-            ['0'=> '27 Nov 2015'],
-            ['0'=> '01 Dec 2015'],
-            ['0' => '04 Dec 2015'],
-            ['0' => '08 Dec 2015'],
-            ['0' => '11 Dec 2015']
+            ['0'=> '27 Nov 2015#5'],
+            ['0'=> '01 Dec 2015#2'],
+            ['0' => '04 Dec 2015#5'],
+            ['0' => '08 Dec 2015#2'],
+            ['0' => '11 Dec 2015#5']
         ];
         $this->lotteryRepositoryDouble->expects($this->any())
             ->method('findOneBy')

@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var EmSelectDrawDuration = require('./EmSelectDrawDuration.jsx');
+var EmSelectDrawDuration = require('./../EmSelectDrawDuration.jsx');
 
 var EmLineOrderConfig = new React.createClass({
 

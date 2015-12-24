@@ -14,7 +14,7 @@ var EuroMillionsBoxBottomAction = React.createClass({
         });
         var draw_days = this.props.play_days;
         var frequency = this.props.duration;
-        var start_draw = this.props.date_play;
+        var start_draw = String(this.props.date_play).split('#')[0];
 
 
         params += 'draw_days='+draw_days+'&frequency='+frequency+'&start_draw='+start_draw;

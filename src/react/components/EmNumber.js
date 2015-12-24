@@ -13,9 +13,9 @@ var EuroMillionsNumber = React.createClass({
 
     componentDidUpdate : function ( prevProps, prevState)
     {
-        //if( prevState.active ) {
-        //    this.state.active = false;
-        //}
+        if( prevState.active ) {
+            this.state.active = false;
+        }
     },
 
     getInitialState : function ()

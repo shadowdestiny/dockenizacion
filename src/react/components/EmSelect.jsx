@@ -25,6 +25,13 @@ var EmSelect = React.createClass({
             divText: this.props.defaultText
         };
     },
+
+    componentWillReceiveProps : function (nextProps) {
+        if (nextProps.defaultText != this.props.defaultText) {
+            this.setState( { divText : nextProps.defaultText })
+        }
+    },
+
     handleChange: function (event) {
         if (this.props.onChange == undefined || this.props.onChange(event) !== false) {
             this.setState({
