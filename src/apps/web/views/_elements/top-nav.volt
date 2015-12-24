@@ -25,5 +25,5 @@
 	<a class="link" href="/cart"><svg class="ico v-cart"><use xlink:href="/w/svg/icon.svg#v-cart"></use></svg> {{ language.translate('Cart') }}</a>
 </li>
 <li class="li-sign">
-    <a class="link" href="/cart">{{ language.translate('Sign up') }}</a>
+    <a class="link" href="/sign-in">{{ language.translate('Sign up') }}</a>
 </li>

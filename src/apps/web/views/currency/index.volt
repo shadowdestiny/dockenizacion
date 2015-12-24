@@ -1,20 +1,31 @@
 {% extends "main.volt" %}
 {% block template_css %}
 <style>
-    .currency .box-basic{margin-bottom:2em;}
-    .currency .list a:link{text-decoration:none; display:block; padding:5px 10px; border:1px solid #fff;}
-    .currency .list a:hover{background:#ffc; border:1px solid #f00;}
-    .currency .list li{float:left; margin-bottom:1em; width:20%;}
-    .currency .curr{display:inline-block; width:100px; font-size:125%; font-weight:bold;}
-    .currency .name{display:block;}
+.currency .box-basic{margin-bottom:2em;}
+.currency .list{margin-right:-2%;}
+.currency .list a{text-decoration:none; display:block; padding:5px 10px; border:1px solid #EFC048; border-radius:5px;}
+.currency .list a:hover{background:#EFC048; color:#fff;}
+.currency .list li{float:left; margin:0 2% 1em 0; width:18%;}
+.currency .list .active{background:#AE5279; color:#fff; border:1px solid #710045;}
+.currency .list .active:hover{cursor:default;}
+.currency .curr{display:inline-block; width:100px; font-size:125%; font-weight:bold;}
+.currency .name{display:block;}
 
-    @media only screen and (max-width:768px){
-        .currency .list li{width:33%;}
-    }
+@media only screen and (max-width:992px){
+    .currency .list a{min-height:74px;}
+}
+@media only screen and (max-width:768px){
+    .currency .list li{width:31%;}
+    .currency .list a{min-height:auto;}
+}
 
-    @media only screen and (max-width:480px){
-        .currency .list li{width:50%;  text-align:left;}
-    }
+@media only screen and (max-width:500px){/*Not standard size*/
+    .currency .list a{min-height:74px;}
+}        
+
+@media only screen and (max-width:480px){
+    .currency .list li{width:48%; text-align:left;}
+}
 </style>
 {% endblock %}
 {% block bodyClass %}currency{% endblock %}
