@@ -4,6 +4,7 @@ namespace EuroMillions\web\controllers;
 use Captcha\Captcha;
 use EuroMillions\web\components\ReCaptchaWrapper;
 use EuroMillions\web\entities\GuestUser;
+use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\ForgotPasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
@@ -22,14 +23,25 @@ class CartController extends PublicSiteControllerBase{
 
     public function orderAction(){
 
+        /** @var User $user */
         $user = $this->authService->getCurrentUser();
-        $result = $this->domainServiceFactory->getPlayService()->play($user);
+        $price_single_bet = $this->lotteriesDataService->getSingleBetPriceByLottery('EuroMillions');
+        $result = $this->domainServiceFactory->getPlayService()->getPlaysFromTemporarilyStorage($user);
+        $play_config_json = '';
         if($result->success()) {
-            $play_config_result = $this->domainServiceFactory->getUserService()->getMyPlaysActives($user->getId());
-            if($play_config_result->success()) {
-                
-            }
+            /** @var ActionResult $play_config_json */
+            $play_config_json = $result->getValues();
         }
+        $play_config_decode = json_decode($play_config_json->getValues());
+        $total_price = count($play_config_decode->euroMillionsLines->bets)
+                            * $price_single_bet->getAmount() *  $play_config_decode->frequency / 10000;
+
+        return $this->view->setVars([
+            'total' => $total_price,
+            'single_bet_price' => $price_single_bet->getAmount() /10000,
+            'wallet_balance' => $user->getBalance()->getAmount() / 100,
+            'play_config_list' => $play_config_json->getValues(),
+        ]);
     }
 
   //  public function profileAction(){}

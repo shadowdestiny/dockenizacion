@@ -19,11 +19,11 @@
                 {{ password_change.render('old-password', {'class':'input' }) }}
     {% endif %}
 
-                <label for="new-password" class="label">{{ language.translate("New password") }} <span class="asterisk">*</span></label>
-                {{ password_change.render('new-password', {'class':'input' }) }}
+    <label for="new-password" class="label">{{ language.translate("New password") }} <span class="asterisk">*</span></label>
+    {{ password_change.render('new-password', {'class':'input' }) }}
 
-                <label for="confirm-password" class="label">{{ language.translate("Confirm password") }} <span class="asterisk">*</span></label>
-                {{ password_change.render('confirm-password', {'class':'input' }) }}
+    <label for="confirm-password" class="label">{{ language.translate("Confirm password") }} <span class="asterisk">*</span></label>
+    {{ password_change.render('confirm-password', {'class':'input' }) }}
 
     {% if myPsw.value == "change" %}
             </div>

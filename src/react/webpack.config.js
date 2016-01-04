@@ -4,24 +4,24 @@ var env = process.env.WEBPACK_ENV;
 
 var path = require('path');
 
-
-
-var appName = 'play';
 var plugins = [], outputFile;
 
 if (env == 'build') {
     plugins.push(new UglifyJsPlugin({minimize: true}));
-    outputFile = appName + '.min.js';
+    outputFile = '.min.js';
 } else {
-    outputFile = appName + '.js';
+    outputFile = '.js';
 }
 
 var config = {
-    entry: './src/play.jsx',
+    entry: {
+       play : './src/play.jsx',
+       cart : './src/cart.jsx'
+    },
     devtool: 'source-map',
     output: {
         path: '../public/w/js/react',
-        filename: outputFile,
+        filename: '[name]'+outputFile,
         publicPath: '/w/js/react'
     },
     module: {

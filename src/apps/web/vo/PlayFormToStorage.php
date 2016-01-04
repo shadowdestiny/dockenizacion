@@ -30,9 +30,10 @@ class PlayFormToStorage extends EMForm
 
     public $threshold;
 
+    public $num_weeks;
+
     public function toJson()
     {
-
         /** @var EuroMillionsLine[] $arr_lines */
         $arr_lines = $this->euroMillionsLines;
         $this->euroMillionsLines = null;

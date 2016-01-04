@@ -24,7 +24,6 @@ var EuroMillionsLine = React.createClass({
                 numbers = this.props.storage.numbers;
                 stars = this.props.storage.stars;
         }
-
         return {
             isAnimated : false,
             show_btn_clear : showClearBtn,
@@ -35,7 +34,7 @@ var EuroMillionsLine = React.createClass({
         };
     },
 
-    componentDidUpdate : function ( prevProps, prevState)
+    componentDidUpdate : function (prevProps, prevState)
     {
         if( prevState.isAnimated ) {
             this.setState({
@@ -162,12 +161,12 @@ var EuroMillionsLine = React.createClass({
         } else {
             this.state.show_btn_clear = true;
         }
+
         for (var i = 1; i <= 50; i = i + j) {
             var row = [];
             for (var j = 0; j < this.props.numberPerLine; j++) {
                 row.push(i + j)
             }
-
             rows.push(<EuroMillionsLineRow random_animation={this.state.isAnimated} numbers={row} onNumberClick={this.handleClickOnNumber}
                                            selectedNumbers={this.state.selectedNumbers} key={row[0]}/>);
         }

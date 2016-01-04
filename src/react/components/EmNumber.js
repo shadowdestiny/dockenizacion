@@ -28,15 +28,10 @@ var EuroMillionsNumber = React.createClass({
     componentWillReceiveProps : function (nextProps) {
         if(nextProps.random_animation) {
             var delay = Math.random() * this.props.timeout_number_not_selected;
-            var delay_selected =  Math.random() * this.props.timeout_number_selected;
             if(nextProps.selected) {
-                //window.setTimeout(() => {
-                //    this.setState({ active : false })
-                //}, delay_selected);
-
                 window.setTimeout(() => {
                     this.setState({ active : true })
-                }, delay_selected + this.props.timeout_number_selected);
+                }, delay + Math.random() + this.props.timeout_number_selected);
             } else {
                 window.setTimeout(() => {
                     this.setState({
@@ -47,7 +42,7 @@ var EuroMillionsNumber = React.createClass({
                     this.setState({
                         active: false
                     });
-                }, delay + Math.random() * 40);
+                }, delay + Math.random() + 40);
             }
         }
     },
@@ -64,6 +59,7 @@ var EuroMillionsNumber = React.createClass({
         } else {
             class_name = "btn gwp n" + this.props.number;
         }
+
         if(!this.props.random_animation && !this.state.active) {
             class_name = this.props.selected ? "btn gwp n" + this.props.number + " active" : "btn gwp n" + this.props.number;
         }

@@ -6,7 +6,7 @@ var navUrl = [];
 var globalFunctions = {
     setCurrency : function (value) {
         $.ajax({
-            url: 'ajax/user-settings/setCurrency/'+value,
+            url: '/ajax/user-settings/setCurrency/'+value,
             type: 'GET',
             dataType: "json",
             success: function(json) {
@@ -19,6 +19,22 @@ var globalFunctions = {
                 console.log( "Error: " + errorThrown );
                 console.log( "Status: " + status );
                 console.dir( xhr );
+            },
+        });
+    },
+    playCart : function (params) {
+        $.ajax({
+            url: '/ajax/play-temporarily/temporarilyCart/',
+            data: params,
+            type: 'POST',
+            dataType: "json",
+            success: function(json) {
+                if(json.result = 'OK') {
+                    location.href = json.url;
+                }
+            },
+            error: function (xhr, status, errorThrown) {
+                //EMTD manage errrors
             },
         });
     }

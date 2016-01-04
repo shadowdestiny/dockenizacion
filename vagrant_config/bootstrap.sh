@@ -11,6 +11,7 @@ composer install
 cd /var/www/react
 e "Installing npm packages"
 npm install
+
 e "Watching react files"
 npm run watch &
 

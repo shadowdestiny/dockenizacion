@@ -21,11 +21,13 @@ var PlayPage = React.createClass({
             show_tooltip_lines : false,
             playDays : 1,
             duration : 1,
-            date_play : 0,
+            date_play : this.props.date_play,
             numBets : 0,
             lines : [],
             show_block_config : false,
             clear_all : false,
+            draw_dates : this.props.draw_dates,
+            draw_duration : this.props.draw_duration,
             storage : JSON.parse(localStorage.getItem('bet_line')) || []
         }
     },
@@ -37,6 +39,8 @@ var PlayPage = React.createClass({
 
     shouldComponentUpdate : function (nextProps, nextState)
     {
+        if( nextState.draw_duration != this.state.draw_duration) return true;
+        if( nextState.draw_dates != this.state.draw_dates) return true;
         if( nextState.show_block_config != this.state.show_block_config) return true;
         if(nextState.date_play != this.state.date_play) return true;
         if( nextState.playDays != this.state.playDays) return true;
@@ -163,18 +167,41 @@ var PlayPage = React.createClass({
 
     handleChangeDraw : function (value)
     {
+        var length_value_day = 0;
         switch(value) {
             case 'Friday':
-                value = 1;
+                value = 5;
+                length_value_day = 1;
                 break;
             case 'Tuesday':
-                value = 1;
+                value = 2;
+                length_value_day = 1;
                 break;
             default:
-                value = 2;
+                value = 25;
+                length_value_day = 2;
         }
 
-        this.state.playDays = value;
+        var draw_dates = this.props.draw_dates;
+        if(value < 25) {
+            draw_dates = this.props.draw_dates.filter(function(value_dates) {
+                var value_date = String(value_dates);
+                return (value_date.substr(value_date.length -1) == value)
+            });
+       }
+        var options_draw_duration = this.props.draw_duration;
+        if(length_value_day > 1) {
+            options_draw_duration = [
+                {text : '1 week (Draws: 2)' , value : 2},
+                {text : '2 weeks (Draws: 4)' , value : 4},
+                {text : '4 weeks (Draws: 8)' , value : 8},
+                {text : '8 weeks (Draws: 16)' , value : 16},
+                {text : '52 weeks (Draws: 104)' , value : 104},
+            ];
+        }
+        this.setState( { playDays : length_value_day,
+                         draw_dates : draw_dates,
+                         draw_duration : options_draw_duration});
         this.updatePrice();
     },
 
@@ -186,8 +213,8 @@ var PlayPage = React.createClass({
 
     handleChangeDate : function (value)
     {
-        this.state.date_play = value;
-        this.updatePrice();
+        this.setState( { date_play : value } );
+        //this.updatePrice();
     },
 
     handleClickAdvancedPlay : function (value)
@@ -226,7 +253,7 @@ var PlayPage = React.createClass({
             });
         }
         var total = Number(betsActive * price * numDraws).toFixed(2);
-        this.setState( { date_play : this.state.date_play, price : total, clear_all : false, random_all : false } );
+        this.setState( { price : total, clear_all : false, random_all : false } );
     },
 
     render : function ()
@@ -235,10 +262,6 @@ var PlayPage = React.createClass({
         var numberEuroMillionsLine = this.state.lines_default;
         if(this.state.count_lines > 0) {
             numberEuroMillionsLine = this.state.count_lines ;
-        }
-        if(this.state.date_play == 0) {
-            //EMTD pass as property
-            this.state.date_play = '2015-12-22';
         }
         var random_all = this.state.random_all;
 
@@ -251,7 +274,7 @@ var PlayPage = React.createClass({
                 <div className="box-bottom">
                     <div className="wrap">
                         <EuroMillionsBoxBottomAction click_advanced_play={this.handleClickAdvancedPlay} date_play={this.state.date_play} duration={this.state.duration} play_days={this.state.playDays}  lines={this.state.storage}  price={this.state.price}/>
-                        <EmConfigPlayBlock date_play={this.handleChangeDate} duration={this.handleChangeDuration} play_days={this.handleChangeDraw} show={this.state.show_block_config}/>
+                        <EmConfigPlayBlock draw_dates={this.state.draw_dates} date_play={this.handleChangeDate} draw_duration={this.state.draw_duration} duration={this.handleChangeDuration} play_days={this.handleChangeDraw} show={this.state.show_block_config}/>
                     </div>
                 </div>
             </div>
@@ -260,7 +283,17 @@ var PlayPage = React.createClass({
 });
 
 module.exports = PlayPage;
-ReactDOM.render(<PlayPage lines_default={5} />, document.getElementById('gameplay'));
+
+var options_draw_duration = [
+    {text : '1 week (Draw: 1)' , value : 1},
+    {text : '2 weeks (Draws: 2)' , value : 2},
+    {text : '4 weeks (Draws: 4)' , value : 4},
+    {text : '8 weeks (Draws: 8)' , value : 8},
+    {text : '52 weeks (Draws: 52)' , value : 52},
+];
+
+
+ReactDOM.render(<PlayPage lines_default={5} date_play={""+draw_dates[0]} draw_duration={options_draw_duration} draw_dates={draw_dates}/>, document.getElementById('gameplay'));
 
 
 

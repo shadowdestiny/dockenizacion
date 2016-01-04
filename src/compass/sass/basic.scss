@@ -189,7 +189,7 @@ label.submit{cursor:pointer;}
 {background:$yellow!important; color:#fff!important; border:1px solid $yellow-darker!important; box-shadow:none!important;}
 
 .box-combo{display:table;}
-.combo.currency{display:table-cell; background:$grey-lighter; border-radius:5px 0 0 5px; font-weight:bold; border:1px solid $grey-light; border-right:0;  vertical-align:middle; white-space:nowrap; line-height:1;}
+.combo.currency{display:table-cell; background:$grey-lighter; border-radius:5px 0 0 5px; font-weight:bold; border:1px solid $grey-light; border-right:0; vertical-align:middle; white-space:nowrap; line-height:1;}
 .combo.input{display:table-cell; border-color:$grey-light; border-left:0; }
 
 /* MENU HAMBURGER */
@@ -249,7 +249,7 @@ body, .submit{font-family:$basic-font;}
 .h2{font-size:$h2;}
 .h3{font-size:$h3;}
 .h4{font-size:$h4;}
-.h5, p, .btn.big, ul.list{font-size:$basic-size;}
+.h5, p, .btn.big, ul.list, .no-li{font-size:$basic-size;}
 .h6, .small-txt{font-size:$small;}
 #content{font-family:$basic-font;}
 .res{margin-bottom:0!important;} /* To reset to 0 typographic margins */
@@ -280,9 +280,14 @@ body, .submit{font-family:$basic-font;}
 .logo .pic{height:100%;}
 .small-logo{float:left; width:200px;}
 
-.top-nav{position:relative; min-height:28px; background:#ae5279; z-index:10;}
-.top-nav .link{font-size:75%;}
-.top-nav .v-cart{font-size:16px; position:relative; top:3px; margin-right:2px;}
+.top-nav{
+  position:relative; min-height:28px; background:#ae5279; z-index:10;
+  .link{font-size:75%;}
+  .v-cart{font-size:16px; position:relative; top:3px; margin-right:2px;}
+  .v-triangle-down{position:relative; top:2px; margin-left:3px;}
+  .v-arrow-right3{position:relative; top:1px; margin-left:3px; font-size:75%;}
+}
+
 .ul-top-nav > li{float:right;}
 .ul-top-nav > li:before{display:block; content:"\00b7"; color:#fff; float:right; line-height:28px; margin-right:-2px;} // &middot;  
 .ul-top-nav > li:first-child:before{display:none;}
@@ -360,6 +365,7 @@ body, .submit{font-family:$basic-font;}
 .partner .card{width:40px; height:25px; border-radius:3px;}
 
 .minimal .main-foot .txt{text-align:right;}
+.asterisk{color:$red;}
 
 /* COOKIES */
 .header{position:relative;}

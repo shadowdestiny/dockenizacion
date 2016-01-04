@@ -34,4 +34,10 @@ class DateTimeUtil
         return ($time_to_retry < $limit_time) ? true : false;
     }
 
+    public function getNumWeeksBetweenDates( \DateTime $date_ini, \DateTime $date_end )
+    {
+        $interval = $date_ini->diff($date_end);
+        return intval( $interval->days / 7 );
+    }
+
 }
