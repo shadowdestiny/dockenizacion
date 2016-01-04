@@ -21,6 +21,11 @@
             <directory>./unit/</directory>
             <directory>./integration/</directory>
         </testsuite>
+        <testsuite name="unit+integration+controllers">
+            <directory>./unit/</directory>
+            <directory>./integration/</directory>
+            <directory>./functional/controllers/</directory>
+        </testsuite>
         <testsuite name="functional">
             <directory>./functional/</directory>
         </testsuite>

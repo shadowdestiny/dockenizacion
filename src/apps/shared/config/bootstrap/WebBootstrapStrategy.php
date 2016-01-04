@@ -256,10 +256,9 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     protected function configUrl(Di $di)
     {
         $config = $di->get('config');
-        $request = $di->get('request');
         $url = new PhalconUrlWrapper();
-        $url->setBaseUri($request->getScheme() . '://'.$config->domain['url']);
-        $url->setStaticBaseUri($request->getScheme() . '://'.$config->domain['url']);
+        $url->setBaseUri('https://'.$config->domain['url']);
+        $url->setStaticBaseUri('https://'.$config->domain['url']);
         return $url;
     }
 
