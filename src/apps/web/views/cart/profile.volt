@@ -17,10 +17,14 @@
             <h1 class="h1 title yellow">{{ language.translate("Your Profile") }}</h1>
             <form action="/cart/profile" method="post">
                 <div class="fields cl">
+                    {% if errors %}
                     <div class="box error">
-                        <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
-                        <span class="txt">Error info lorem ipsum</span>
+                        {% for error in errors %}
+                            <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
+                            <span class="txt">{{ error }}</span>
+                        {% endfor %}
                     </div>
+                    {% endif %}
                     <p>{{ language.translate("We need your information in order to proceed to payment.") }}</p>
                     {% set activePsw='{"myClass": "no"}'|json_decode %}
                     {% include "account/_user-detail.volt" %}

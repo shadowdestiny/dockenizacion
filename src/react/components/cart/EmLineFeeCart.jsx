@@ -1,24 +1,50 @@
 var React = require('react');
 
+var EmAddFund = require('./EmAddFund.jsx');
+
+
 var EmLineFeeCart = new React.createClass({
+
+
+    getInitialState : function ()
+    {
+        return {
+            show_addfund: false
+        };
+
+    },
+
+    handleClick : function ()
+    {
+        this.setState( {show_addfund : true} );
+    },
 
 
     render : function ()
     {
-
+        var addFundComponent = null;
+        if(this.state.show_addfund) {
+            addFundComponent = <EmAddFund keyup_callback={this.props.keyup} show={this.state.show_addfund}/>;
+        }
+        var show_fee_text = null;
+        if(this.props.show_fee_text) {
+            show_fee_text = 'Fee for transactions below € 12,00';
+        }
         return (
             <div className="row cl">
                 <div className="txt-fee">
-                    Fee for transactions below &euro; 12,00
+                    {show_fee_text}
                 </div>
                 <div className="right tweak">
                     <div className="summary val">&euro; 0,35</div>
                         <div className="box-funds cl">
-                            <a className="add-funds" href="javascript:void(0)">Add Funds to avoid charges</a><br></br>
+                            <a className="add-funds" onClick={this.handleClick} href="javascript:void(0)">Add Funds to avoid charges</a><br></br>
                             <div className="box-combo">
+                                {addFundComponent}
                             </div>
                         </div>
-                    </div>
+                </div>
+
             </div>
         )
     }

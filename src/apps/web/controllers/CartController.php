@@ -31,20 +31,22 @@ class CartController extends PublicSiteControllerBase{
         if($result->success()) {
             /** @var ActionResult $play_config_json */
             $play_config_json = $result->getValues();
+            $play_config_decode = json_decode($play_config_json->getValues());
+            $total_price = count($play_config_decode->euroMillionsLines->bets)
+                * $play_config_decode->drawDays * $price_single_bet->getAmount() *  $play_config_decode->frequency / 10000;
+        } else {
+            $msg = 'Error trying get data';
         }
-        $play_config_decode = json_decode($play_config_json->getValues());
-        $total_price = count($play_config_decode->euroMillionsLines->bets)
-                            * $price_single_bet->getAmount() *  $play_config_decode->frequency / 10000;
 
         return $this->view->setVars([
             'total' => $total_price,
             'single_bet_price' => $price_single_bet->getAmount() /10000,
             'wallet_balance' => $user->getBalance()->getAmount() / 100,
             'play_config_list' => $play_config_json->getValues(),
+            'message' => (!empty($msg)) ? $msg : ''
         ]);
     }
 
-  //  public function profileAction(){}
     public function successAction(){}
     public function failAction(){}
 
@@ -100,7 +102,6 @@ class CartController extends PublicSiteControllerBase{
         if($userId instanceof User) {
             $this->response->redirect('cart/order');
         }
-
         $myaccount_form = $this->getMyACcountForm();
         $form_errors = $this->getErrorsArray();
         if($this->request->isPost()) {
@@ -115,14 +116,15 @@ class CartController extends PublicSiteControllerBase{
                     $form_errors[$field] = ' error';
                 }
             }else {
-                $result = $this->authService->register([
+                $result = $this->authService->registerFromCheckout([
                     'user_id'  => $userId,
                     'name'     => $this->request->getPost('name'),
                     'surname'  => $this->request->getPost('surname'),
                     'email'    => $this->request->getPost('email'),
                     'country'  => $this->request->getPost('country'),
-                ],true);
+                ]);
                 if($result->success()){
+                    $this->response->redirect('cart/order');
                     $msg = $result->getValues();
                 }else{
                     $errors [] = $result->errorMessage();

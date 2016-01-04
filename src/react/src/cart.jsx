@@ -4,6 +4,7 @@ var EmLineOrderCart = require('../components/cart/EmLineOrderCart.jsx');
 var EmLineOrderConfig = require('../components/cart/EmLineOrderConfig.jsx');
 var EmTotalCart = require('../components/cart/EmTotalCart.jsx');
 var EmLineFeeCart = require('../components/cart/EmLineFeeCart.jsx');
+var EmWallet = require('../components/cart/EmWallet.jsx');
 
 var CartPage = new React.createClass({
 
@@ -12,7 +13,8 @@ var CartPage = new React.createClass({
     getInitialState : function ()
     {
         return {
-            playConfigList : JSON.parse(this.props.play_list)
+            playConfigList : JSON.parse(this.props.play_list),
+            show_fee_text : true
         }
     },
 
@@ -29,6 +31,15 @@ var CartPage = new React.createClass({
         globalFunctions.playCart(params);
     },
 
+    handleKeyUpAddFund : function (value)
+    {
+        if(parseFloat(value) > parseFloat(this.props.total_price)) {
+            this.setState( {show_fee_text : false });
+        } else {
+            this.setState( {show_fee_text : true });
+        }
+    },
+
     render : function ()
     {
         var _playConfigList = this.state.playConfigList;
@@ -40,7 +51,11 @@ var CartPage = new React.createClass({
         }
         var line_fee_component = null;
         if(this.props.show_fee_line) {
-            line_fee_component = <EmLineFeeCart />
+            line_fee_component = <EmLineFeeCart show_fee_text={this.state.show_fee_text} keyup={this.handleKeyUpAddFund} />
+        }
+        var wallet_component = null;
+        if(parseFloat(this.props.wallet_balance) > 0) {
+            wallet_component = <EmWallet total_price={this.props.total_price} wallet_balance={this.props.wallet_balance}/>;
         }
 
         return (
@@ -51,6 +66,9 @@ var CartPage = new React.createClass({
                 </div>
                 <div className="box-order">
                     {line_fee_component}
+                </div>
+                <div className="box-wallet">
+                    {wallet_component}
                 </div>
                 <div className="box-total cl">
                     <EmTotalCart total_price={this.props.total_price} />
