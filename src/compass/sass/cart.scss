@@ -90,7 +90,11 @@
       &:hover, &:focus{text-decoration:underline;}
     }
   }
-  .num{width:288px;}
+  .num{
+    width:288px;
+    li{margin-right:8px;}
+    li:last-child{margin-right:0;}
+  }
   .box-value{font-size:$h2; font-weight:700;}
   .current{margin:0 0 .3em;}
   .buy{float:right; margin-top:6px;}
