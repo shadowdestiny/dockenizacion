@@ -126,7 +126,7 @@ class AuthService
         return $this->storageStrategy->hasRemember();
     }
 
-    public function register(array $credentials, $from_cart = false)
+    public function register(array $credentials)
     {
         if ($this->userRepository->getByEmail($credentials['email'])) {
             return new ActionResult(false, 'Email already registered');
@@ -153,9 +153,59 @@ class AuthService
                 $this->storageStrategy->setCurrentUserId($user->getId());
                 $this->logService->logRegistration($user);
                 $url = $this->getValidationUrl($user);
-                if(!$from_cart) $this->emailService->sendRegistrationMail($user, $url);
+                $this->emailService->sendRegistrationMail($user, $url);
                 //user notifications default
                 $this->userService->initUserNotifications($user->getId());
+                return new ActionResult(true, $user);
+            }else{
+                return new ActionResult(false, 'Error getting an user');
+            }
+        } catch(Exception $e) {
+            return new ActionResult(false,'An error ocurred saving an user');
+        }
+    }
+
+    public function registerFromCheckout(array $credentials, Password $password = null)
+    {
+        if(!$this->getCurrentUser() instanceof GuestUser) {
+            return new ActionResult(false, 'Error getting user');
+        }
+        if ($this->userRepository->getByEmail($credentials['email'])) {
+            return new ActionResult(false, 'Email already registered');
+        }
+        if($password == null) {
+            $passwordGenerator = new RandomPasswordGenerator($this->passwordHasher);
+            $password = $passwordGenerator->getPassword();
+        }
+
+        $user = new User();
+        $email = new Email($credentials['email']);
+
+        /** @var GuestUser $guest_user */
+        $guest_user = $credentials['user_id'];
+        $user->initialize([
+            'id' => $guest_user->getId(),
+            'name'     => $credentials['name'],
+            'surname'  => $credentials['surname'],
+            'email'    => $email,
+            'password' => $password,
+            'country'  => $credentials['country'],
+            'balance'  => new Money(0, new Currency('EUR')),
+            'validated' => 0,
+            'validation_token' => $this->getEmailValidationToken($email),
+            'user_currency' => new Currency('EUR')
+        ]);
+        try{
+            $this->userRepository->add($user);
+            $this->entityManager->flush();
+            $user->setId($guest_user->getId());
+            $this->userRepository->add($user);
+            $this->entityManager->flush();
+            if(!empty($user->getId())) {
+                $this->storageStrategy->setCurrentUserId($guest_user->getId());
+                $this->logService->logRegistration($user);
+                $this->userService->initUserNotifications($user->getId());
+                $this->emailService->sendNewPasswordMail($user,$password);
                 return new ActionResult(true, $user);
             }else{
                 return new ActionResult(false, 'Error getting an user');

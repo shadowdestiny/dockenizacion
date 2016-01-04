@@ -4,6 +4,8 @@ namespace tests\unit;
 use EuroMillions\web\components\Md5EmailValidationToken;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shared\config\Namespaces;
+use EuroMillions\web\components\RandomPasswordGenerator;
+use EuroMillions\web\entities\GuestUser;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\AuthService;
 use EuroMillions\web\vo\Email;
@@ -372,6 +374,50 @@ class AuthServiceUnitTest extends UnitTestBase
         $this->urlManager_double->get(Argument::type('string'))->willReturn('http://localhost/userAccess/validate/441a9e42f0e3c769a6112b56a04b6');
         $sut = $this->getSut();
         $actual = $sut->register($credentials);
+        $expected = new ActionResult(true, $user);
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * method registerFromCheckout
+     * when calledWithProperData
+     * should storeNewUserAndReturnOk
+     */
+    public function test_registerFromCheckout_calledWithProperData_storeNewUserAndReturnOk()
+    {
+        $this->expectFlushInEntityManager();
+        $credentials = $this->getRegisterCredentials();
+        $passwordGenerator = new RandomPasswordGenerator(new NullPasswordHasher());
+        $password = $passwordGenerator->getPassword();
+        $user = new User();
+        $guest_user = new GuestUser();
+        $guest_user->setId(new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'));
+        $credentials['user_id'] = $guest_user;
+        $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
+        $user->initialize(
+            [
+                'id' => $userId,
+                'name'     => $credentials['name'],
+                'surname'  => $credentials['surname'],
+                'email'    => new Email($credentials['email']),
+                'password' => $password,
+                'country'  => $credentials['country'],
+                'balance'  => new Money(0, new Currency('EUR')),
+                'validated' => 0,
+                'validationToken' => new ValidationToken(new Email($credentials['email']), new Md5EmailValidationToken()),
+                'user_currency' => new Currency('EUR')
+            ]
+        );
+
+        $this->storageStrategy_double->getCurrentUserId()->willReturn($userId);
+        $this->userRepository_double->find($userId)->willReturn(null);
+        $this->userRepository_double->getByEmail($credentials['email'])->willReturn(null);
+        $this->userRepository_double->add($user)->shouldBeCalled();
+        $user->setId($userId);
+        $this->userRepository_double->add($user)->shouldBeCalled();
+        $this->storageStrategy_double->setCurrentUserId(Argument::type($this->getVOToArgument('UserId')))->shouldBeCalled();
+        $sut = $this->getSut();
+        $actual = $sut->registerFromCheckout($credentials,$password);
         $expected = new ActionResult(true, $user);
         $this->assertEquals($expected, $actual);
     }
