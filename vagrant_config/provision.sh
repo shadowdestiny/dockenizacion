@@ -88,6 +88,7 @@ fi
 e "Installing Node.js and NPM"
 curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
 sudo apt-get install -y nodejs
+sudo npm update -g npm@3.5.3
 
 ####
 ## CHECKING DOCKER INSTALLATION
