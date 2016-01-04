@@ -14,8 +14,24 @@ var CartPage = new React.createClass({
     {
         return {
             playConfigList : JSON.parse(this.props.play_list),
-            show_fee_text : true
+            show_fee_text : true,
+            show_all_fee : true,
+            checked_wallet : true,
+            total : this.props.total_price
         }
+    },
+
+    //shouldComponentUpdate : function(nextProps, nextState)
+    //{
+    //    //if(nextState.checked_wallet != this.state.checked_wallet) return true;
+    //
+    //    //if(nextState.show_all_fee != this.state.show_all_fee) return true;
+    //    //return nextState.total != this.state.total;
+    //},
+
+    componentDidMount : function()
+    {
+       this.handleUpdatePrice();
     },
 
     handleChangeDrawDuration : function (value)
@@ -40,6 +56,30 @@ var CartPage = new React.createClass({
         }
     },
 
+    handleCheckedWallet : function (value)
+    {
+        this.state.checked_wallet = value;
+        this.handleUpdatePrice();
+    },
+
+    handleUpdatePrice : function()
+    {
+        var price = parseFloat(this.state.total);
+        if(this.state.checked_wallet){
+            var wallet = parseFloat(this.props.wallet_balance) > price ? price : this.props.wallet_balance;
+            price = (wallet > price) ? wallet - price : price - wallet;
+        } else {
+            price = this.props.total_price;
+        }
+
+        if(price == 0) {
+            this.state.show_all_fee = false;
+        } else {
+            this.state.show_all_fee = true;
+        }
+        this.setState({ total : price });
+    },
+
     render : function ()
     {
         var _playConfigList = this.state.playConfigList;
@@ -51,11 +91,11 @@ var CartPage = new React.createClass({
         }
         var line_fee_component = null;
         if(this.props.show_fee_line) {
-            line_fee_component = <EmLineFeeCart show_fee_text={this.state.show_fee_text} keyup={this.handleKeyUpAddFund} />
+            line_fee_component = <EmLineFeeCart show_all_fee={this.state.show_all_fee} show_fee_text={this.state.show_fee_text} keyup={this.handleKeyUpAddFund} />
         }
         var wallet_component = null;
         if(parseFloat(this.props.wallet_balance) > 0) {
-            wallet_component = <EmWallet total_price={this.props.total_price} wallet_balance={this.props.wallet_balance}/>;
+            wallet_component = <EmWallet  checked_callback={this.handleCheckedWallet} show_checked={this.state.checked_wallet} total_price={this.props.total_price} wallet_balance={this.props.wallet_balance}/>;
         }
 
         return (
@@ -71,7 +111,7 @@ var CartPage = new React.createClass({
                     {wallet_component}
                 </div>
                 <div className="box-total cl">
-                    <EmTotalCart total_price={this.props.total_price} />
+                    <EmTotalCart  total_price={this.state.total} />
                 </div>
             </div>
         )
@@ -86,7 +126,7 @@ var price_below_fee = 12;
 var show_fee_line = false;
 if( total_price < price_below_fee) {
     show_fee_line = true;
-    total_price = parseFloat(total_price) + parseFloat(0.35);
+    total_price = parseFloat(total_price) + parseFloat(0.35); //EMTD 0.35 should be calculated inside react
 }
 ReactDOM.render(<CartPage play_list={play_list} wallet_balance={wallet_balance} single_bet_price={single_bet_price} total_price={total_price.toFixed(2)} show_fee_line={show_fee_line}/>,
     document.getElementById('cart-order'));

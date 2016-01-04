@@ -30,6 +30,9 @@ var EmLineFeeCart = new React.createClass({
         if(this.props.show_fee_text) {
             show_fee_text = 'Fee for transactions below € 12,00';
         }
+        if(!this.props.show_all_fee){
+            return null;
+        }
         return (
             <div className="row cl">
                 <div className="txt-fee">
