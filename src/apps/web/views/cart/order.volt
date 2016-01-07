@@ -8,7 +8,8 @@
     var play_list = '<?php echo $play_configs ?>';
     var wallet_balance = '<?php echo $wallet_balance ?>';
     var total_price = parseFloat('<?php echo $total?>');
-    var single_bet_price = '<?php echo $single_bet_price ?>';
+    var single_bet_price = '<?php echo number_format($single_bet_price, 2,".",",") ?>';
+    var currency_symbol = '<?php echo $currency_symbol?>';
 </script>
 <script src="/w/js/react/cart.js"></script>
 {% endblock %}

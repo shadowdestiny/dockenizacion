@@ -85,15 +85,15 @@ var CartPage = new React.createClass({
         for (let i=0; i< _playConfigList.euroMillionsLines.bets.length; i++) {
             var numbers = _playConfigList.euroMillionsLines.bets[i].regular;
             var stars = _playConfigList.euroMillionsLines.bets[i].lucky;
-            _euroMillionsLine.push(<EmLineOrderCart line={i} key={i} numbers={numbers} stars={stars} single_bet_price={this.props.single_bet_price}/>);
+            _euroMillionsLine.push(<EmLineOrderCart currency_symbol={this.props.currency_symbol} line={i} key={i} numbers={numbers} stars={stars} single_bet_price={this.props.single_bet_price}/>);
         }
         var line_fee_component = null;
        //if(this.props.show_fee_line) {
-            line_fee_component = <EmLineFeeCart show_all_fee={this.state.show_all_fee} show_fee_text={this.state.show_fee_text} keyup={this.handleKeyUpAddFund} />
+            line_fee_component = <EmLineFeeCart currency_symbol={this.props.currency_symbol} show_all_fee={this.state.show_all_fee} show_fee_text={this.state.show_fee_text} keyup={this.handleKeyUpAddFund} />
        // }
         var wallet_component = null;
         if(parseFloat(this.props.wallet_balance) > 0) {
-            wallet_component = <EmWallet  checked_callback={this.handleCheckedWallet} show_checked={this.state.checked_wallet} total_price={this.props.total_price} wallet_balance={this.props.wallet_balance}/>;
+            wallet_component = <EmWallet currency_symbol={this.props.currency_symbol} checked_callback={this.handleCheckedWallet} show_checked={this.state.checked_wallet} total_price={this.props.total_price} wallet_balance={this.props.wallet_balance}/>;
         }
 
         return (
@@ -109,7 +109,7 @@ var CartPage = new React.createClass({
                     {wallet_component}
                 </div>
                 <div className="box-total cl">
-                    <EmTotalCart  total_price={this.state.total} />
+                    <EmTotalCart currency_symbol={this.props.currency_symbol} total_price={this.state.total} />
                 </div>
             </div>
         )
@@ -126,5 +126,5 @@ if( total_price < price_below_fee) {
     show_fee_line = true;
     total_price = parseFloat(total_price) + parseFloat(0.35); //EMTD 0.35 should be calculated inside react
 }
-ReactDOM.render(<CartPage play_list={play_list} wallet_balance={wallet_balance} single_bet_price={single_bet_price} total_price={total_price.toFixed(2)} show_fee_line={show_fee_line}/>,
+ReactDOM.render(<CartPage currency_symbol={currency_symbol} play_list={play_list} wallet_balance={wallet_balance} single_bet_price={single_bet_price} total_price={total_price.toFixed(2)} show_fee_line={show_fee_line}/>,
     document.getElementById('cart-order'));
