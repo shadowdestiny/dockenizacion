@@ -15,22 +15,15 @@ var CartPage = new React.createClass({
         return {
             playConfigList : JSON.parse(this.props.play_list),
             show_fee_text : true,
-            show_all_fee : true,
+            show_all_fee : false,
             checked_wallet : true,
             total : this.props.total_price
         }
     },
 
-    //shouldComponentUpdate : function(nextProps, nextState)
-    //{
-    //    //if(nextState.checked_wallet != this.state.checked_wallet) return true;
-    //
-    //    //if(nextState.show_all_fee != this.state.show_all_fee) return true;
-    //    //return nextState.total != this.state.total;
-    //},
-
     componentDidMount : function()
     {
+       this.setState({ show_all_fee : false });
        this.handleUpdatePrice();
     },
 
@@ -72,10 +65,15 @@ var CartPage = new React.createClass({
             price = this.props.total_price;
         }
 
-        if(price == 0) {
-            this.state.show_all_fee = false;
-        } else {
+        //if(price == 0) {
+        //    this.state.show_all_fee = false;
+        //} else {
+        //    this.state.show_all_fee = true;
+        //}
+        if(!this.state.checked_wallet) {
             this.state.show_all_fee = true;
+        } else {
+            this.state.show_all_fee = false;
         }
         this.setState({ total : price });
     },
@@ -90,9 +88,9 @@ var CartPage = new React.createClass({
             _euroMillionsLine.push(<EmLineOrderCart line={i} key={i} numbers={numbers} stars={stars} single_bet_price={this.props.single_bet_price}/>);
         }
         var line_fee_component = null;
-        if(this.props.show_fee_line) {
+       //if(this.props.show_fee_line) {
             line_fee_component = <EmLineFeeCart show_all_fee={this.state.show_all_fee} show_fee_text={this.state.show_fee_text} keyup={this.handleKeyUpAddFund} />
-        }
+       // }
         var wallet_component = null;
         if(parseFloat(this.props.wallet_balance) > 0) {
             wallet_component = <EmWallet  checked_callback={this.handleCheckedWallet} show_checked={this.state.checked_wallet} total_price={this.props.total_price} wallet_balance={this.props.wallet_balance}/>;

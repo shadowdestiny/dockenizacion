@@ -30,6 +30,7 @@ var EmLineFeeCart = new React.createClass({
         if(this.props.show_fee_text) {
             show_fee_text = 'Fee for transactions below € 12,00';
         }
+        console.log(this.props.show_all_fee);
         if(!this.props.show_all_fee){
             return null;
         }
