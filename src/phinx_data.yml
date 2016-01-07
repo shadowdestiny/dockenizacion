@@ -24,7 +24,7 @@ environments:
 
     staging:
         adapter: mysql
-        host: Mysql
+        host: mysql
         name: euromillions
         user: root
         pass: 'tpl9'
