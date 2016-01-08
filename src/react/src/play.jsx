@@ -160,6 +160,7 @@ var PlayPage = React.createClass({
     {
         this.setState( { random_all : true } );
     },
+
     handlerClearAll : function ()
     {
         this.setState( { clear_all : true });

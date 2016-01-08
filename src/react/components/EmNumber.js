@@ -6,8 +6,8 @@ var EuroMillionsNumber = React.createClass({
     {
         return {
             selected: false,
-            timeout_number_selected : 100,
-            timeout_number_not_selected : 250,
+            timeout_number_selected : 300,
+            timeout_number_not_selected : 500,
         }
     },
 
@@ -59,6 +59,7 @@ var EuroMillionsNumber = React.createClass({
         } else {
             class_name = "btn gwp n" + this.props.number;
         }
+
         if(!this.props.random_animation && !this.state.active) {
             class_name = this.props.selected ? "btn gwp n" + this.props.number + " active" : "btn gwp n" + this.props.number;
         }
