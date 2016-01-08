@@ -17,6 +17,8 @@ var CartPage = new React.createClass({
             show_fee_text : true,
             show_all_fee : false,
             checked_wallet : true,
+            fund_value : 0,
+            show_fee_value : true,
             total : this.props.total_price
         }
     },
@@ -42,11 +44,13 @@ var CartPage = new React.createClass({
 
     handleKeyUpAddFund : function (value)
     {
+        this.state.fund_value = parseFloat(value);
         if(parseFloat(value) > parseFloat(this.props.total_price)) {
             this.setState( {show_fee_text : false });
         } else {
             this.setState( {show_fee_text : true });
         }
+        this.handleUpdatePrice();
     },
 
     handleCheckedWallet : function (value)
@@ -75,6 +79,12 @@ var CartPage = new React.createClass({
         } else {
             this.state.show_all_fee = false;
         }
+        if(this.state.fund_value > 0) {
+            price = price - 0.35; //EMTD 0.35 should be passed as property from app var global
+            this.state.show_fee_value = false;
+        } else {
+            this.state.show_fee_value = true;
+        }
         this.setState({ total : price });
     },
 
@@ -89,7 +99,8 @@ var CartPage = new React.createClass({
         }
         var line_fee_component = null;
        //if(this.props.show_fee_line) {
-            line_fee_component = <EmLineFeeCart currency_symbol={this.props.currency_symbol} show_all_fee={this.state.show_all_fee} show_fee_text={this.state.show_fee_text} keyup={this.handleKeyUpAddFund} />
+
+        line_fee_component = <EmLineFeeCart show_fee_value={this.state.show_fee_value} currency_symbol={this.props.currency_symbol} show_all_fee={this.state.show_all_fee} show_fee_text={this.state.show_fee_text} keyup={this.handleKeyUpAddFund} />
        // }
         var wallet_component = null;
         if(parseFloat(this.props.wallet_balance) > 0) {

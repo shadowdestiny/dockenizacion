@@ -2,6 +2,7 @@ var React = require('react');
 
 var EmWallet = new React.createClass({
 
+    displayName: 'Wallet',
 
     getInitialState : function ()
     {

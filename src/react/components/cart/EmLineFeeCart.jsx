@@ -30,6 +30,10 @@ var EmLineFeeCart = new React.createClass({
         if(this.props.show_fee_text) {
             show_fee_text = 'Fee for transactions below € 12,00';
         }
+        var fee_value = this.props.currency_symbol + ' 0.35';
+        if(!this.props.show_fee_value) {
+            fee_value = '';
+        }
         if(!this.props.show_all_fee){
             return null;
         }
@@ -39,7 +43,7 @@ var EmLineFeeCart = new React.createClass({
                     {show_fee_text}
                 </div>
                 <div className="right tweak">
-                    <div className="summary val">&euro; 0,35</div>
+                    <div className="summary val">{fee_value}</div>
                         <div className="box-funds cl">
                             <a className="add-funds" onClick={this.handleClick} href="javascript:void(0)">Add Funds to avoid charges</a><br></br>
                             <div className="box-combo">
