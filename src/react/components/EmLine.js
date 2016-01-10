@@ -46,6 +46,8 @@ var EuroMillionsLine = React.createClass({
 
     componentWillReceiveProps: function(nextProps)
     {
+        if(this.state.isAnimated) this.state.isAnimated = false;
+
         if(nextProps.clear_all){
             this.state.selectedNumbers.numbers = [];
             this.state.selectedNumbers.stars = [];
