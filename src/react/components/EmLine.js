@@ -145,11 +145,12 @@ var EuroMillionsLine = React.createClass({
         }
         this.state.selectedNumbers.numbers = nums;
         this.state.selectedNumbers.stars = stars;
-        this.state.show_btn_clear = true;
         this.state.isAnimated = true;
         this.storePlay();
         this.setState({
-                isAnimated: true
+                isAnimated: true,
+                show_btn_clear : true
+
             }
         )
     },
