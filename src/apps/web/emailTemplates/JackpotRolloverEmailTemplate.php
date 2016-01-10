@@ -41,7 +41,6 @@ class JackpotRolloverEmailTemplate extends EmailTemplateDecorator
                     ]
                 ]
         ];
-        var_dump($vars);die();
         return $vars;
     }
 
