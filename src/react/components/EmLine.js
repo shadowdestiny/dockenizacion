@@ -180,19 +180,19 @@ var EuroMillionsLine = React.createClass({
         for (var k = 1; k <= 4; k++) {
             star_numbers.push(k);
         }
-        star_rows.push(<EuroMillionsLineStarsRow numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
+        star_rows.push(<EuroMillionsLineStarsRow random_animation={this.state.isAnimated} numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
                                                  extraClass="" columnClass="col3 not" key="1"/>);
         star_numbers = [];
         for (; k <= 7; k++) {
             star_numbers.push(k);
         }
-        star_rows.push(<EuroMillionsLineStarsRow numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
+        star_rows.push(<EuroMillionsLineStarsRow random_animation={this.state.isAnimated} numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
                                                  extraClass=" extra-pad" columnClass="col4 not" key="2"/>);
         star_numbers = [];
         for (; k <= 11; k++) {
             star_numbers.push(k);
         }
-        star_rows.push(<EuroMillionsLineStarsRow numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
+        star_rows.push(<EuroMillionsLineStarsRow random_animation={this.state.isAnimated} numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
                                                  extraClass="" columnClass="col3 not" key="3"/>);
 
         var class_name = "myCol num"+this.props.lineNumber;
