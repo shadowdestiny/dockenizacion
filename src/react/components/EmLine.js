@@ -37,14 +37,17 @@ var EuroMillionsLine = React.createClass({
     componentDidUpdate : function (prevProps, prevState)
     {
         if( prevState.isAnimated ) {
-            this.setState({
-                isAnimated : false
-            });
+            this.state.isAnimated = false;
+            //this.setState({
+            //    isAnimated : false
+            //});
         }
     },
 
     componentWillReceiveProps: function(nextProps)
     {
+        if(this.state.isAnimated) this.state.isAnimated = false;
+
         if(nextProps.clear_all){
             this.state.selectedNumbers.numbers = [];
             this.state.selectedNumbers.stars = [];
@@ -78,7 +81,7 @@ var EuroMillionsLine = React.createClass({
                 this.state.selectedNumbers.numbers.splice(position, 1);
             }
             this.storePlay();
-            this.setState( {numbers : this.state.selectedNumbers.numbers });
+            this.setState( {numbers : this.state.selectedNumbers.numbers } );
         }
     },
 
@@ -110,12 +113,12 @@ var EuroMillionsLine = React.createClass({
     {
         this.state.show_btn_clear = false;
         this.props.addLineInStorage(null,this.props.lineNumber,[], []);
+        this.state.isAnimated = false;
         this.setState( {selectedNumbers : {
                             numbers : [],
                             stars : []
                         },
                         show_btn_clear: false,
-                        isAnimated : false
         });
         this.props.callback( this.props.lineNumber,0,0);
     },
@@ -125,6 +128,7 @@ var EuroMillionsLine = React.createClass({
         this.randomAll();
         this.props.callback( this.props.lineNumber,this.state.selectedNumbers.numbers.length,this.state.selectedNumbers.stars.length);
     },
+
     randomAll : function()
     {
         var nums = [];
@@ -141,11 +145,12 @@ var EuroMillionsLine = React.createClass({
         }
         this.state.selectedNumbers.numbers = nums;
         this.state.selectedNumbers.stars = stars;
-        this.state.show_btn_clear = true;
         this.state.isAnimated = true;
         this.storePlay();
         this.setState({
-                isAnimated: true
+                isAnimated: true,
+                show_btn_clear : true
+
             }
         )
     },
@@ -175,19 +180,19 @@ var EuroMillionsLine = React.createClass({
         for (var k = 1; k <= 4; k++) {
             star_numbers.push(k);
         }
-        star_rows.push(<EuroMillionsLineStarsRow numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
+        star_rows.push(<EuroMillionsLineStarsRow random_animation={this.state.isAnimated} numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
                                                  extraClass="" columnClass="col3 not" key="1"/>);
         star_numbers = [];
         for (; k <= 7; k++) {
             star_numbers.push(k);
         }
-        star_rows.push(<EuroMillionsLineStarsRow numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
+        star_rows.push(<EuroMillionsLineStarsRow random_animation={this.state.isAnimated} numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
                                                  extraClass=" extra-pad" columnClass="col4 not" key="2"/>);
         star_numbers = [];
         for (; k <= 11; k++) {
             star_numbers.push(k);
         }
-        star_rows.push(<EuroMillionsLineStarsRow numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
+        star_rows.push(<EuroMillionsLineStarsRow random_animation={this.state.isAnimated} numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
                                                  extraClass="" columnClass="col3 not" key="3"/>);
 
         var class_name = "myCol num"+this.props.lineNumber;

@@ -58,6 +58,7 @@ class EmailTestController extends PublicSiteControllerBase
 
         $userEmail = $this->request->getPost('user-email');
         $template = $this->request->getPost('template');
+        if(!empty($userEmail))
         $this->user = $this->getNewUser($userEmail);
         $url = new Url('http://localhost:8080');
         if($template == 'all') {
@@ -136,9 +137,22 @@ class EmailTestController extends PublicSiteControllerBase
         return $instance;
     }
 
-    private function getNewUser($userEmail)
+    private function getNewUser($userEmail = null)
     {
-        $user = $this->userService->getUser(new UserId('832063cb-a559-11e5-b358-0242ac110002'));
+        $user = new User();
+        if(empty($userEmail)) {
+            $user = $this->userService->getUser(new UserId('832063cb-a559-11e5-b358-0242ac110002'));
+        } else {
+            $user->initialize(
+                [
+                    'name'     => 'test',
+                    'surname'  => 'test01',
+                    'email'    => new Email($userEmail),
+                    'validated' => false,
+                    'validation_token' => '33e4e6a08f82abb38566fc3bb8e8ef0d'
+                ]
+            );
+        }
         return $user;
     }
 

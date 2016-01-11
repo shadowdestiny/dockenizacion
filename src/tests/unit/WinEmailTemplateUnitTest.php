@@ -58,15 +58,15 @@ class WinEmailTemplateUnitTest extends UnitTestBase
                     ],
                     [
                         'name'    => 'winning',
-                        'content' => 10000
+                        'content' => 100.00
                     ],
                     [
                         'name'    => 'url_play',
-                        'content' => 'localhost:4433/play'
+                        'content' => 'localhost:443/play'
                     ],
                     [
                         'name'    => 'url_account',
-                        'content' => 'localhost:4433/account/wallet'
+                        'content' => 'localhost:443/account/wallet'
                     ]
                 ]
         ];

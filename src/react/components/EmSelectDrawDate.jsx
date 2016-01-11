@@ -1,5 +1,6 @@
 var React = require('react');
 var EmSelect = require('./EmSelect');
+var ReactTooltip = require("react-tooltip");
 
 var EmSelectDrawDate = React.createClass({
 
@@ -20,6 +21,7 @@ var EmSelectDrawDate = React.createClass({
     render: function () {
 
         var disabled = !this.props.active;
+        var react_tooltip = <ReactTooltip type="light" id='select-draw-date'/>;
 
         var select = <EmSelect
             options={this.props.options}
@@ -32,12 +34,13 @@ var EmSelectDrawDate = React.createClass({
         return (
             <div className="col2">
                 <label className="label">First Draw
-                    <div className="wrap tipr-small" data-tip="First draw">
+                    <div data-for="select-draw-date" className="wrap tipr-small" data-tip="First draw">
                         <svg className="ico v-question-mark"
                              dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-question-mark"></use>'}}/>
                     </div>
                 </label>
                 {select}
+                {react_tooltip}
             </div>
         )
     }

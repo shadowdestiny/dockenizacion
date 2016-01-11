@@ -21,7 +21,7 @@ class LowBalanceEmailTemplate extends EmailTemplateDecorator
                 [
                     [
                         'name'    => 'jackpot',
-                        'content' => $jackpot->getAmount() /100
+                        'content' => number_format((float) $jackpot->getAmount() / 100,2,".",",")
                     ],
                     [
                         'name'    => 'draw_day_format_one',

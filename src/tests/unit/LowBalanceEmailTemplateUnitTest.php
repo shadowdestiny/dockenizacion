@@ -52,7 +52,7 @@ class LowBalanceEmailTemplateUnitTest extends UnitTestBase
                 [
                     [
                         'name'    => 'jackpot',
-                        'content' => $jackpot->getAmount() /100
+                        'content' => number_format((float) $jackpot->getAmount() / 100,2,".",",")
                     ],
                     [
                         'name'    => 'draw_day_format_one',
@@ -64,7 +64,7 @@ class LowBalanceEmailTemplateUnitTest extends UnitTestBase
                     ],
                     [
                         'name' => 'url_add_funds',
-                        'content' => 'localhost:4433/account/wallet'
+                        'content' => 'localhost:443/account/wallet'
                     ]
                 ]
         ];

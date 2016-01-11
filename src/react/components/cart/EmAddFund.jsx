@@ -2,6 +2,7 @@ var React = require('react');
 
 var EmAddFund = new React.createClass({
 
+    displayName: 'AddFund',
 
     handleKeyUp : function (event)
     {

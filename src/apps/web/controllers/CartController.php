@@ -13,6 +13,9 @@ use EuroMillions\web\forms\SignUpForm;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\ActionResult;
+use EuroMillions\web\vo\UserId;
+use Money\Currency;
+use Money\Money;
 use Phalcon\Validation\Message;
 
 /** WARNING: THIS CONTROLLER HAS BEEN CLONED FROM THE USERACCESS CONTROLLER JUST SO ALESSIO CAN WORK ON THE DESIGN
@@ -21,26 +24,45 @@ use Phalcon\Validation\Message;
 
 class CartController extends PublicSiteControllerBase{
 
+    //EMTD should we create an entity to load config global data system?
+    private static $_config_vars = [
+        'fee_below' => 1200,
+        'fee_below_currency' => 'EUR',
+        'fee_charge' => 35,
+        'fee_charge_currency' => 'EUR'
+    ];
+
+
     public function orderAction(){
 
+        /** @var UserId $currenct_user_id */
+        $current_user_id = $this->authService->getCurrentUser()->getId();
         /** @var User $user */
-        $user = $this->authService->getCurrentUser();
+        $user = $this->userService->getUser($current_user_id);
         $price_single_bet = $this->lotteriesDataService->getSingleBetPriceByLottery('EuroMillions');
         $result = $this->domainServiceFactory->getPlayService()->getPlaysFromTemporarilyStorage($user);
         $play_config_json = '';
+        $bet_price_value_currency = $this->currencyService->convert($price_single_bet,$user->getUserCurrency());
+        $fee_below = $this->currencyService->convert(new Money(self::$_config_vars['fee_below'],new Currency(self::$_config_vars['fee_below_currency'])), $user->getUserCurrency());
+        $fee_charge = $this->currencyService->convert(new Money(self::$_config_vars['fee_charge'],new Currency(self::$_config_vars['fee_charge_currency'])), $user->getUserCurrency());
+
         if($result->success()) {
             /** @var ActionResult $play_config_json */
             $play_config_json = $result->getValues();
             $play_config_decode = json_decode($play_config_json->getValues());
             $total_price = count($play_config_decode->euroMillionsLines->bets)
-                * $play_config_decode->drawDays * $price_single_bet->getAmount() *  $play_config_decode->frequency / 10000;
+                * $play_config_decode->drawDays * $bet_price_value_currency->getAmount() *  $play_config_decode->frequency / 10000;
         } else {
             $msg = 'Error trying get data';
         }
+        $currency_symbol = $this->currencyService->getSymbol($bet_price_value_currency,$user->getBalance()->getCurrency());
 
         return $this->view->setVars([
             'total' => $total_price,
-            'single_bet_price' => $price_single_bet->getAmount() /10000,
+            'currency_symbol' => $currency_symbol,
+            'fee_below' => $fee_below->getAmount() / 100,
+            'fee_charge' => $fee_charge->getAmount() / 100,
+            'single_bet_price' => $bet_price_value_currency->getAmount() / 10000,
             'wallet_balance' => $user->getBalance()->getAmount() / 100,
             'play_config_list' => $play_config_json->getValues(),
             'message' => (!empty($msg)) ? $msg : ''

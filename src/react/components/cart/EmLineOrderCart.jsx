@@ -27,7 +27,7 @@ var EmLineOrder = new React.createClass({
                         }
                     </ol>
                 </div>
-                <div className="summary val">&euro; {this.props.single_bet_price}</div>
+                <div className="summary val">{this.props.currency_symbol} {this.props.single_bet_price}</div>
             </div>
         )
     }

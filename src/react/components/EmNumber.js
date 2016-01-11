@@ -6,8 +6,8 @@ var EuroMillionsNumber = React.createClass({
     {
         return {
             selected: false,
-            timeout_number_selected : 100,
-            timeout_number_not_selected : 250,
+            timeout_number_selected : 80,
+            timeout_number_not_selected : 300,
         }
     },
 
@@ -63,6 +63,7 @@ var EuroMillionsNumber = React.createClass({
         if(!this.props.random_animation && !this.state.active) {
             class_name = this.props.selected ? "btn gwp n" + this.props.number + " active" : "btn gwp n" + this.props.number;
         }
+
         var button = <a className={class_name} onClick={this.props.onNumberClick.bind(null, this.props.number)} href="javascript:void(0);">{this.props.number}</a>;
         return (<li className="col20per not">{button}</li>);
     }
