@@ -64,7 +64,7 @@ class LowBalanceEmailTemplateUnitTest extends UnitTestBase
                     ],
                     [
                         'name' => 'url_add_funds',
-                        'content' => 'localhost:443/account/wallet'
+                        'content' => 'localhost:4433/account/wallet'
                     ]
                 ]
         ];

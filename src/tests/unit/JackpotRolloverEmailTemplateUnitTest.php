@@ -69,7 +69,7 @@ class JackpotRolloverEmailTemplateUnitTest extends UnitTestBase
                     ],
                     [
                         'name'    => 'url_play',
-                        'content' => 'localhost:443/play'
+                        'content' => 'localhost:4433/play'
                     ]
                 ]
         ];
