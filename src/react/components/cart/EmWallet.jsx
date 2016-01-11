@@ -24,6 +24,7 @@ var EmWallet = new React.createClass({
         var wallet_balance = parseFloat(this.props.wallet_balance);
         var total_price = parseFloat(this.props.total_price);
         var wallet = wallet_balance > total_price ? total_price : wallet_balance;
+
         return (
             <div className="row cl">
                 <div className="summary val">{this.props.currency_symbol} - {wallet}</div>
