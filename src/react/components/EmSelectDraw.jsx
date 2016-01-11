@@ -1,5 +1,5 @@
 var React = require('react');
-
+var ReactTooltip = require("react-tooltip")
 var EmSelect = require('./EmSelect.jsx');
 
 var EmSelectDraw = React.createClass({
@@ -11,6 +11,7 @@ var EmSelectDraw = React.createClass({
     render: function () {
 
         var disabled = !this.props.active;
+        var react_tooltip = <ReactTooltip type="light" id='add-lines'/>;
 
         var select = <EmSelect
             options={this.props.options}

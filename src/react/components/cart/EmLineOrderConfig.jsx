@@ -28,8 +28,6 @@ var EmLineOrderConfig = new React.createClass({
 
     render : function ()
     {
-        //var default_value_duration = '1';
-        //var default_text_duration = '1 week (Draw: 1)';
         var date_since = this.props.playConfig.startDrawDate;
         var frequency = this.props.playConfig.frequency;
         var num_weeks = this.props.playConfig.num_weeks;

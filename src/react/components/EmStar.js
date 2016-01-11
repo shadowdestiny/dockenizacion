@@ -9,6 +9,9 @@ var EuroMillionsStar = React.createClass({
         }
     },
 
+
+
+
     propTypes: {
         number: React.PropTypes.number.isRequired,
         selected: React.PropTypes.bool,
