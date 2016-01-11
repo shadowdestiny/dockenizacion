@@ -10,7 +10,7 @@ if [ ! -d "/home/vagrant/mysqldata/euromillions" ]; then
 else
     inidatabase=false
 fi
-cd /vagrant/docker
+cd /vagrant/src/docker
 e "Starting containers"
 docker-compose up -d
 e "Installing cron"
