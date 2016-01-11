@@ -28,6 +28,7 @@ class CurrencyService
         if( $from->getCurrency()->equals($to) ) {
             return $from;
         }
+       
         $currency_pair = $this->currencyApi->getRate($from->getCurrency(), $to);
         return $currency_pair->convert($from);
     }

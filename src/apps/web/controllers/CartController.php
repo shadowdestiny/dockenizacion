@@ -31,9 +31,8 @@ class CartController extends PublicSiteControllerBase{
         $user = $this->userService->getUser($current_user_id);
         $price_single_bet = $this->lotteriesDataService->getSingleBetPriceByLottery('EuroMillions');
         $result = $this->domainServiceFactory->getPlayService()->getPlaysFromTemporarilyStorage($user);
-        $play_config_json = '';
+        $play_config_json = '';        
         $bet_price_value_currency = $this->currencyService->convert($price_single_bet,$user->getUserCurrency());
-
         if($result->success()) {
             /** @var ActionResult $play_config_json */
             $play_config_json = $result->getValues();
