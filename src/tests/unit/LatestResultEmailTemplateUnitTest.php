@@ -68,7 +68,7 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
                     ],
                     [
                         'name'    => 'jackpot',
-                        'content' => $jackpot->getAmount()
+                        'content' => number_format((float) $jackpot->getAmount() / 100,2,".",",")
                     ],
                     [
                         'name'    => 'draw_date',
