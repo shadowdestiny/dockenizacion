@@ -25,7 +25,6 @@ var EuroMillionsStar = React.createClass({
         }
     },
 
-
     componentWillReceiveProps : function (nextProps) {
         if(nextProps.random_animation) {
             var delay = Math.random() * this.props.timeout_star_not_selected;
