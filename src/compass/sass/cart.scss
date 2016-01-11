@@ -45,7 +45,7 @@
 */
 
 .num{
-  li{display:inline; margin-right:4px;}
+  li{display:inline-block; margin-right:4px; min-width:16px; text-align:center;}
   li:last-child{margin:0;}
 }
 

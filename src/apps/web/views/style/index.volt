@@ -487,14 +487,14 @@
                                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. <em>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</em> Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu <strong>feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim</strong> qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</p>
 
                                     <ul class="list">
-                                        <li><strong>List with bullet points</strong></li>
+                                        <li><strong>List with bullet points</strong> (.list)</li>
                                         <li>in hendrerit in vulputate velit esse molestie consequat</li>
                                         <li>vel illum dolore eu feugiat nulla facilisis at</li>
                                     </ul>
                                     <br>
 
                                     <ul class="no-li">
-                                        <li><strong>List without bullet points</strong></li>
+                                        <li><strong>List without bullet points</strong> (.no-li)</li>
                                         <li>in hendrerit in vulputate velit esse molestie consequat</li>
                                         <li>vel illum dolore eu feugiat nulla facilisis at</li>
                                     </ul>
