@@ -82,7 +82,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
     public function getUserIdsAndExpectedBalancesAndCurrency()
     {
         return [
-            ['9098299B-14AC-4124-8DB0-19571EDABE59', '$32.57'],
+            ['9098299B-14AC-4124-8DB0-19571EDABE59', '$32.54'],
         ];
     }
 
