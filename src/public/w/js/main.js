@@ -174,6 +174,7 @@ $(function(){
         FastClick.attach(document.body); // It removes the delay of 300ms on mobile browsers because of double tap
         //attachFastClick(document.body);
     }catch(e){
+
     }
 
     $(".menu-ham").click(function(){
