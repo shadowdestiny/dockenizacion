@@ -158,7 +158,8 @@ var PlayPage = React.createClass({
 
     handlerRandomAll : function()
     {
-        this.setState( { random_all : true } );
+        var random  = this.state.lines_default >= this.state.count_lines;
+        this.setState( { random_all : random } );
     },
 
     handlerClearAll : function ()
@@ -236,6 +237,8 @@ var PlayPage = React.createClass({
         this.state.numBets = this.state.lines;
         this.updatePrice();
     },
+
+
 
     updatePrice : function ()
     {
