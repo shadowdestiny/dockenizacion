@@ -45,7 +45,7 @@ class CartController extends PublicSiteControllerBase{
         $bet_price_value_currency = $this->currencyService->convert($price_single_bet,$user->getUserCurrency());
         $fee_below = $this->currencyService->convert(new Money(self::$_config_vars['fee_below'],new Currency(self::$_config_vars['fee_below_currency'])), $user->getUserCurrency());
         $fee_charge = $this->currencyService->convert(new Money(self::$_config_vars['fee_charge'],new Currency(self::$_config_vars['fee_charge_currency'])), $user->getUserCurrency());
-
+        $wallet_balance = $this->currencyService->convert($user->getBalance(),$user->getUserCurrency());
         if($result->success()) {
             /** @var ActionResult $play_config_json */
             $play_config_json = $result->getValues();
@@ -63,7 +63,7 @@ class CartController extends PublicSiteControllerBase{
             'fee_below' => $fee_below->getAmount() / 100,
             'fee_charge' => $fee_charge->getAmount() / 100,
             'single_bet_price' => $bet_price_value_currency->getAmount() / 10000,
-            'wallet_balance' => $user->getBalance()->getAmount() / 100,
+            'wallet_balance' => $wallet_balance->getAmount() / 100,
             'play_config_list' => $play_config_json->getValues(),
             'message' => (!empty($msg)) ? $msg : ''
         ]);

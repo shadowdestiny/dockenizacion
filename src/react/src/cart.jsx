@@ -74,16 +74,18 @@ var CartPage = new React.createClass({
 
         var fee = this.props.price_below_fee;
         if( wallet_balance < price && price < parseFloat(fee)) {
-            this.setState({ show_all_fee : true });
+            this.state.checked_wallet = false;
+            price = price + parseFloat(this.props.fee_charge);
+            this.setState({ show_all_fee : true});
         }
         if(wallet_balance == 0 && price > parseFloat(fee)) {
-            this.setState({ show_all_fee : false });
+            this.state.checked_wallet = false;
+            this.setState({ show_all_fee : false});
         }
 
         if(this.state.checked_wallet){
             var wallet = parseFloat(this.props.wallet_balance) > price ? price : this.props.wallet_balance;
             price = (wallet > price) ? wallet - price : price - wallet;
-
         }
 
         if(this.state.fund_value > this.props.price_below_fee) {
@@ -149,3 +151,5 @@ var show_fee_line = false;
 //}
 ReactDOM.render(<CartPage price_below_fee={price_below_fee} fee_charge={fee_charge} currency_symbol={currency_symbol} play_list={play_list} wallet_balance={wallet_balance} single_bet_price={single_bet_price} show_fee_line={show_fee_line}/>,
     document.getElementById('cart-order'));
+
+

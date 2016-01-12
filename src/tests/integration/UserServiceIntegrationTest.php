@@ -62,6 +62,32 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
     }
 
     /**
+     * method getBalanceWithUserCurrencyConvert
+     * when called
+     * should returnProperBalanceWithCurrencyConverted
+     * @dataProvider getUserIdsAndExpectedBalancesAndCurrency
+     * @param $uuid
+     * @param $expected
+     */
+    public function test_getBalanceWithUserCurrencyConvert_called_returnProperBalanceWithCurrencyConverted($uuid, $expected)
+    {
+        $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE59');
+        $dsf = $this->getDomainServiceFactory();
+        $sut = $dsf->getUserService();
+        $actual = $sut->getBalanceWithUserCurrencyConvert($userId,new Currency('USD'));
+        $this->assertEquals($expected,$actual);
+
+    }
+
+    public function getUserIdsAndExpectedBalancesAndCurrency()
+    {
+        return [
+            ['9098299B-14AC-4124-8DB0-19571EDABE59', '$32.54'],
+        ];
+    }
+
+
+    /**
      * method recharge
      * when called
      * should increaseUserBalanaceAndReturnNewBalanceValue

@@ -158,7 +158,8 @@ var PlayPage = React.createClass({
 
     handlerRandomAll : function()
     {
-        this.setState( { random_all : true } );
+        var random  = this.state.lines_default >= this.state.count_lines;
+        this.setState( { random_all : random } );
     },
 
     handlerClearAll : function ()
@@ -237,6 +238,8 @@ var PlayPage = React.createClass({
         this.updatePrice();
     },
 
+
+
     updatePrice : function ()
     {
         var numWeeks = this.state.duration;
@@ -274,7 +277,7 @@ var PlayPage = React.createClass({
                 {elem}
                 <div className="box-bottom">
                     <div className="wrap">
-                        <EuroMillionsBoxBottomAction click_advanced_play={this.handleClickAdvancedPlay} date_play={this.state.date_play} duration={this.state.duration} play_days={this.state.playDays}  lines={this.state.storage}  price={this.state.price}/>
+                        <EuroMillionsBoxBottomAction currency_symbol={this.props.currency_symbol} click_advanced_play={this.handleClickAdvancedPlay} date_play={this.state.date_play} duration={this.state.duration} play_days={this.state.playDays}  lines={this.state.storage}  price={this.state.price}/>
                         <EmConfigPlayBlock draw_dates={this.state.draw_dates} date_play={this.handleChangeDate} draw_duration={this.state.draw_duration} duration={this.handleChangeDuration} play_days={this.handleChangeDraw} show={this.state.show_block_config}/>
                     </div>
                 </div>
@@ -294,7 +297,7 @@ var options_draw_duration = [
 ];
 
 
-ReactDOM.render(<PlayPage lines_default={5} date_play={""+draw_dates[0]} draw_duration={options_draw_duration} draw_dates={draw_dates}/>, document.getElementById('gameplay'));
+ReactDOM.render(<PlayPage currency_symbol={currency_symbol}  lines_default={5} date_play={""+draw_dates[0]} draw_duration={options_draw_duration} draw_dates={draw_dates}/>, document.getElementById('gameplay'));
 
 
 
