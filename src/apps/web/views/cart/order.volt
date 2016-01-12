@@ -34,6 +34,7 @@
                 <div class="terms">{{ language.translate("By purchasing you agree to") }} <a href="/legal/">{{ language.translate("Terms &amp; Conditions") }}</a></div>
 
                 <h2 class="h4 sub-txt">{{ language.translate("Order Summary") }}</h2>
+                <div class="right"><h3>Your wallet balance: <?php echo $wallet_balance ?> <?php echo $currency_symbol ?> </h3></div>
 
                 <div id="cart-order"></div>
 
