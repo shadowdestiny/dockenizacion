@@ -75,6 +75,7 @@ var CartPage = new React.createClass({
         var fee = this.props.price_below_fee;
         if( wallet_balance < price && price < parseFloat(fee)) {
             this.state.checked_wallet = false;
+            price = price + parseFloat(this.props.fee_charge);
             this.setState({ show_all_fee : true});
         }
         if(wallet_balance == 0 && price > parseFloat(fee)) {
