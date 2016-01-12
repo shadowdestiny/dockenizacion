@@ -74,7 +74,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE59');
         $dsf = $this->getDomainServiceFactory();
         $sut = $dsf->getUserService();
-        $actual = $sut->getBalanceWithUserCurrencyConvert($userId,'USD');
+        $actual = $sut->getBalanceWithUserCurrencyConvert($userId,new Currency('USD'));
         $this->assertEquals($expected,$actual);
 
     }
@@ -82,7 +82,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
     public function getUserIdsAndExpectedBalancesAndCurrency()
     {
         return [
-            ['9098299B-14AC-4124-8DB0-19571EDABE59', '$32.56'],
+            ['9098299B-14AC-4124-8DB0-19571EDABE59', '$32.57'],
         ];
     }
 

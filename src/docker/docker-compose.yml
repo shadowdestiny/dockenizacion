@@ -20,8 +20,8 @@ develweb:
     - "443:443"
   volumes:
     - /var/www:/var/www
-    - /vagrant/docker/devel-web/nginxconfig:/etc/nginx/sites-enabled
-    - /vagrant/docker/devel-web/certs:/etc/nginx/ssl
+    - /vagrant/src/docker/devel-web/nginxconfig:/etc/nginx/sites-enabled
+    - /vagrant/src/docker/devel-web/certs:/etc/nginx/ssl
   links:
     - develdbmaster:mysql
     - develredis:redis
