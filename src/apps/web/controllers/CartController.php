@@ -104,20 +104,18 @@ class CartController extends PublicSiteControllerBase{
 
     public function profileAction($paramsFromPreviousAction = null)
     {
-        $errors = null;
+       /* $errors = null;
         $userId = $this->authService->getCurrentUser();
         if($userId instanceof User) {
             $this->response->redirect('cart/order');
         }
+        $sign_in_form = new SignInForm();
         $myaccount_form = $this->getMyACcountForm();
         $form_errors = $this->getErrorsArray();
         if($this->request->isPost()) {
             if ($myaccount_form->isValid($this->request->getPost()) == false) {
                 $messages = $myaccount_form->getMessages(true);
-                /**
-                 * @var string $field
-                 * @var Message\Group $field_messages
-                 */
+
                 foreach ($messages as $field => $field_messages) {
                     $errors[] = $field_messages[0]->getMessage();
                     $form_errors[$field] = ' error';
@@ -142,9 +140,51 @@ class CartController extends PublicSiteControllerBase{
         return $this->view->setVars([
             'form_errors' => $form_errors,
             'which_form'  => 'index',
+            'signinform'  => $sign_in_form,
             'errors' => $errors,
             'msg' => $msg,
             'myaccount' => $myaccount_form,
+        ]);*/
+        $errors = null;
+        $sign_in_form = new SignInForm();
+        $form_errors = $this->getErrorsArray();
+        $sign_up_form = $this->getSignUpForm();
+        list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
+
+        if ($this->request->isPost()) {
+            if ($sign_in_form->isValid($this->request->getPost()) == false) {
+                $messages = $sign_in_form->getMessages(true);
+                /**
+                 * @var string $field
+                 * @var Message\Group $field_messages
+                 */
+                foreach ($messages as $field => $field_messages) {
+                    $errors[] = $field_messages[0]->getMessage();
+                    $form_errors[$field] = ' error';
+                }
+            } else {
+                if (!$this->authService->check([
+                    'email'    => $this->request->getPost('email'),
+                    'password' => $this->request->getPost('password'),
+                    'remember' => $this->request->getPost('remember'),
+                ], 'string')
+                ) {
+                    $errors[] = 'Email/password combination not valid';
+                } else {
+                    return $this->response->redirect("$controller/$action".implode('/',$params));
+                }
+            }
+        }
+        $this->view->pick('cart/profile');
+        return $this->view->setVars([
+            'which_form'  => 'in',
+            'signinform'  => $sign_in_form,
+            'signupform'  => $sign_up_form,
+            'errors'      => $errors,
+            'form_errors' => $form_errors,
+            'controller' => $controller,
+            'action' => $action,
+            'params' => json_encode($params),
         ]);
     }
 

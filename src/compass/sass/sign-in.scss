@@ -1,5 +1,6 @@
 @import "variable";
-@import "_elements/extra-info";
+/*@import "_elements/extra-info";*/
+@import "_elements/form-sign-in";
 
 /* Temporary removed
 .connect{
@@ -24,33 +25,11 @@
 .col-right{width:40%;}
 
 .v-logo{max-height:90px; height:1%; margin:100px auto 0; width:100%;}
-.title{margin-bottom:10px;}
-.log-in{
-	.label{
-		text-align:left!important;
-		.txt{display:inline-block; margin-left:3px;}
-	}
-	.forgot-psw{
-		a{text-align:right; text-decoration:none;}
-		a:hover{text-decoration:underline!important;}
-	}
-	
-	.checkbox{position:relative; top:1px;}
-}
-.sign-in, .forgot-psw{
-	.input, .select{width:100%; margin-bottom:.8em; font-size:$h4;}
-	.submit{
-		width:100%; margin-bottom:0; text-align:center;
-		.ico{position:relative; margin-left:5px; top:2px;}
-	}
-}
+.title{position:relative; margin-bottom:10px; text-transform:uppercase;}
+
 .box-extra{
 	font-size:100%; margin-top:1.5em; text-align:right;
 	span{font-size:$basic-size; margin-right:5px;}
-}
-.reduce{
-	font-size:$basic-size; margin:5px 0 15px;
-	.label{margin:0;}
 }
 
 .forgot-psw{
@@ -63,11 +42,6 @@
 	.my-right{font-size:$basic-size;}
 	.input{width:100%;}
 	.ul{margin-left:1em;}
-}
-.terms{
-	color:#777; font-size:$small; text-align:center; margin:1em; line-height:130%;
-	a{text-decoration:none;}
-	a:hover, a:focus{text-decoration:underline!important;}
 }
 
 @media only screen and (max-width:1050px){ /*Not standard size*/
