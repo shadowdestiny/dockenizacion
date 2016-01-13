@@ -158,7 +158,7 @@ var EuroMillionsLine = React.createClass({
     render: function ()
     {
         var rows = [];
-        var linenumber = this.props.lineNumber + 1;
+        var linenumber = this.props.lineNumber;
         var numbers_length = this.state.selectedNumbers.numbers.length;
         var stars_length = this.state.selectedNumbers.stars.length;
         if(numbers_length === 0 && stars_length === 0) {
@@ -195,10 +195,11 @@ var EuroMillionsLine = React.createClass({
         star_rows.push(<EuroMillionsLineStarsRow random_animation={this.state.isAnimated} numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
                                                  extraClass="" columnClass="col3 not" key="3"/>);
 
+        var char_line = 'ABCDEFGHIJKLMNOPQRSTVWXYZ'.charAt(linenumber);
         var class_name = "myCol num"+this.props.lineNumber;
         return (
             <div onLoad={this.count} className={class_name}>
-                <h1 className="h3 blue center">Line {  linenumber }</h1>
+                <h1 className="h3 blue center">Line {  char_line }</h1>
                 <div className="line center">
                     <EuroMillionsCheckMark numbers_length={numbers_length} stars_length={stars_length}/>
                     <div className="combo cols not">
