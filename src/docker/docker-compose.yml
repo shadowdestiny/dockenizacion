@@ -28,13 +28,13 @@ develweb:
   environment:
     EM_ENV: development
 
-compass_web:
+compassweb:
   image: antonienko/compass-watch
   command: watch --poll /src/compass_web
   volumes:
     - /var/www:/src
 
-compass_admin:
+compassadmin:
   image: antonienko/compass-watch
   command: watch --poll /src/compass_admin
   volumes:
