@@ -53,6 +53,8 @@
                 <directory>../apps/web/views</directory>
                 <directory>../apps/web/assets</directory>
                 <directory>../apps/web/templateHelpers</directory>
+                <directory>../apps/shared/config</directory>
+                <directory>../apps/shared/interfaces</directory>
             </exclude>
         </whitelist>
     </filter>
