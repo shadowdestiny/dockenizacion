@@ -56,24 +56,6 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
         $this->stubDIService('view', $view_mock);
     }
 
-    protected function checkViewParam($values)
-    {
-        $view_mock = $this->getMockBuilder('\Phalcon\Mvc\View')->getMock();
-        $view_mock->expects($this->once())
-            ->method('setVars')
-            ->with($this->callback(function ($subject) use ($values) {
-                if ($values == $subject) return true;
-                $result = true;
-                foreach ($values as $key => $value) {
-                    if (!array_key_exists($key, $subject) || $subject[$key] != $value) {
-                        $result = false;
-                    }
-                }
-                return $result;
-            }));
-        $this->stubDIService('view', $view_mock);
-    }
-
     protected function checkViewVarsContain($key, $value)
     {
         $view_mock = $this->getMockBuilder('\Phalcon\Mvc\View')->getMock();
@@ -116,8 +98,7 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
 
     protected function getEntityManagerDouble()
     {
-        $entityManager_double = $this->getDi()->get('entityManager')->getProphecy();
-        return $entityManager_double;
+        return $this->getDi()->get('entityManager')->getProphecy();
     }
 
     /**
