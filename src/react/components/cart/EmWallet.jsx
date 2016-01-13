@@ -24,9 +24,10 @@ var EmWallet = new React.createClass({
         var wallet_balance = parseFloat(this.props.wallet_balance);
         var total_price = parseFloat(this.props.total_price);
         var wallet = wallet_balance > total_price ? total_price : wallet_balance;
+
         return (
             <div className="row cl">
-                <div className="summary val">{this.props.currency_symbol} - {wallet}</div>
+                <div className="summary val">{this.props.currency_symbol} - {wallet.toFixed(2)}</div>
                 <div className="box-wallet cl">
                     <label htmlFor="pay-wallet" className="txt">Pay with your Wallet balance</label>
                     <input id="pay-wallet" onChange={this.onChangeChecked} type="checkbox" className="checkbox" checked={this.state.checked} />

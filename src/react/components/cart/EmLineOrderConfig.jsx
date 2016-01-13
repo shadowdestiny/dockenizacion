@@ -57,14 +57,19 @@ var EmLineOrderConfig = new React.createClass({
         }
 
         if(this.state.show_select) {
-            select_draw_duration = <div className="val summary">
-                <select onChange={this.handleChange} className="mySelect">
-                    <option value="0" defaultValue>Select...</option>
-                    {options_text}
-                </select>
-                </div>;
+            //select_draw_duration = <div className="val summary">
+            //    <select onChange={this.handleChange} className="mySelect">
+            //        <option value="0" defaultValue>Select...</option>
+            //        {options_text}
+            //    </select>
+            //    </div>;
+            //change_link = '';
+            select_draw_duration = '';
             change_link = '';
         }
+        select_draw_duration = '';
+        change_link = '';
+
         return (
             <div className="row cl">
                 <div className="desc">

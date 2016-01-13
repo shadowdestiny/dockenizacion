@@ -1,0 +1,272 @@
+@import "variable";
+/*
+@import "_elements/extra-info";
+*/
+@import "_elements/form-sign-in";
+
+.box-basic{margin:0 auto 8em;}
+.fields li{width:48%; float:left; }
+.fields li:nth-child(odd){margin-right:28px;}
+.card-info{margin-right:28px;}
+.cart{
+    .month, .year{width:auto; margin-right:10px;}
+    .cvv{width:65px; float:left;}
+    .margin{margin-right:20px;}
+    .title{line-height:100%;}
+}
+.profile{
+  .wrap .cols{margin-bottom:0;}
+  .hr{margin:1em -20px}
+  .label, .input{width:100%;}
+  .sign-in{
+    .select, .input{width:48.5%; float:left;}
+    .input:nth-child(odd){margin-right:3%;}
+  }
+  .title{margin-bottom:10px;}
+  .submit{cursor:hand;}
+  .box-basic{margin-bottom:0;}
+  .what-user{
+    margin:auto; max-width:1000px;
+    > .cols{position:relative; margin:0;}
+    > .cols > div{padding-right:15px;}
+    > .cols > div:last-child{padding:0 0 0 15px;}
+  }
+  .info{text-align:center;}
+  .txt1{font-size:$h4; margin-bottom:10px; font-weight:bold; color:$grey-light;}
+  .txt2{position:relative; font-size:$h1; margin-bottom:24px; text-transform:uppercase; font-weight:bold;}
+  .terms{
+    margin:2em 0;
+    br{display:none;}
+  }
+}
+.log-in .reduce{margin:10px 0 21px;}
+
+.card-detail{ 
+  .label{display:block;}
+  .submit{margin-top:30px;}
+}
+
+.line-sep:before{content:""; display:block; position:absolute; width:100%; top:50%; z-index:1; height:1; border-top:1px solid $yellow;}
+.line-txt{position:relative; z-index:2; background:#fff; display:inline-block; padding:0 15px;}
+
+/*
+.steps{float:right; min-height:70px; width:450px;}
+.line{
+    width:100%; height:0; margin:27px auto 0; border-top:2px solid $grey-light;
+    .ico{position:relative; top:-15px; float:right; font-size:18px; padding:2px; background:#fff;}
+}
+.line.basic:after{content:""; display:block; height:16px; width:2px; background:$grey-light; margin-top:-9px; float:right;}
+.line.position{position:absolute; border-color:$yellow; margin:-2px 0;}
+.line.step1{width:50px;}
+.line.step2{width:218px;}
+.line.step3{width:400px;}
+.names{
+  position:relative; top:7px; color:$grey; text-transform:uppercase; font-size:$basic-size;
+  li{float:left;}
+  .active{font-weight:700; color:$purple;}
+  .step1{margin-left:10px;}
+  .step2{margin-left:90px;}
+  .step3{float:right; margin-right:10px;}  
+}
+*/
+
+.num{
+  li{display:inline-block; margin-right:4px; min-width:16px; text-align:center;}
+  li:last-child{margin:0;}
+}
+
+.order{
+  .box-wallet .txt{font-size:$basic-size!important; margin:0 0 0 8px; float:right; cursor:pointer;}
+  .checkbox{float:right; position:relative; top:4px;}
+  .combo.input{
+    background:#fff; width:140px; padding:4px 8px; 
+    -webkit-appearance:none; -webkit-border-radius:0; height:1%; /* Fix Safari */
+  }
+  .combo.currency{padding:0 9px;}
+  .txt-fee, .desc, .detail, .summary{font-size:$basic-size;}
+  .change, .add-funds, .txt-currency{font-size:$small;}
+  .txt-fee, .detail, .type{float:left;}
+  .change{position:relative; top:-2px;}
+  .txt-currency{float:left; font-style:italic; color:$grey-light}
+  .terms{
+    margin:5px 0 .75em; font-size:.675em;
+    a{text-decoration:none;}
+    a:hover, a:focus{text-decoration:underline!important;}
+  }
+  .val{display:inline-block; min-width:80px; text-align:right;}
+  .row{border-top:1px solid $grey-lighter; padding:10px;}
+  .sub-txt{margin:0 0 .5em;}
+  .desc{font-weight:700; float:left; width:70px;}
+  .change{margin-left:15px; display:inline-block;}
+  .type{width:200px; text-align:left; font-style:italic;}
+  .summary{font-weight:700; float:right;}
+  .add-funds{float:right;}
+  .add-funds:hover, .add-funds:focus{text-decoration:underline!important;}
+  .box-funds{float:right;}
+  .box-total{
+    color:$purple; border-top:2px solid $purple; padding:8px 10px;
+    .total{
+      float:right; font-weight:700; font-size:$h3;
+      .txt{display:inline-block;}
+    }
+  }
+  .box-order{
+    a{
+      text-decoration:none;
+      &:hover, &:focus{text-decoration:underline;}
+    }
+  }
+  .num{
+    width:288px;
+    li{margin-right:8px;}
+    li:last-child{margin-right:0;}
+  }
+  .box-value{font-size:$h2; font-weight:700;}
+  .current{margin:0 0 .3em;}
+  .buy{float:right; margin-top:6px;}
+  .box-jackpot{float:left;}
+  .my-right{margin-top:65px;}
+  .mySelect{width:auto; padding:3px;}
+}
+
+.success{
+  .countdown{font-weight:700; margin-bottom:1em;}
+  h2.h4{margin-bottom:.3em;}
+  .textarea{width:100%; font-size:$basic-size; height:180px; margin-bottom:.5em;}
+  .submit{float:right; right:0;}
+  .small-margin{margin-bottom:.5em;}
+  .bg-ticket{
+    background:url(../img/cart/ticket.png) no-repeat; font-family:$mono; width:100%; width:340px; max-height:350px;  box-shadow:3px 3px 3px 0 #999; transform:rotate(5deg);
+    position:absolute; top:-15px; left:20px;  text-align:center;
+    .title{font-weight:700; font-size:$h3;}
+  }
+  .results{
+    padding:10px 20px; overflow:auto; max-height:350px;
+    ul.num:last-child{margin-bottom:0!important; border:1px solid #f00;}
+  }
+  .num{
+    min-width:302px; float:left; margin-bottom:.4em; overflow:hidden; height:auto; text-align:left;
+    li{margin-right:9px;}
+    li:nth-child(11n){display:inline-block; border:1px solid transparent; margin-right:0;}
+    .yellow{font-weight:700;}
+  }
+  .luck{display:inline-block; font-weight:700;}
+  .box-basic .cols{margin:0;}
+  .txt-logo{color:$purple; font-weight:700; font-size:$h3; text-align:left; margin:.5em 0;}
+  .txt-col{padding-right:20px;}
+}
+
+.fail{
+  a:hover{text-decoration:none;}
+  .title{margin-bottom:0;}
+  .txt{font-size:$h3; line-height:$h2;}
+  .cols{margin-bottom:0;}
+  .img{background:url(../img/cart/sad-robot.jpg) no-repeat;}
+  .title.red{color:$red;}
+}
+
+
+@media only screen and (max-width:1200px){
+.order .my-right{margin-top:55px;}
+}
+
+@media only screen and (max-width:992px){
+.steps{margin-right:20px}
+.success .bg-ticket{left:0;}
+.profile .what-user{
+  .col4{width:40%; padding-right:0!important;}
+  .col8{width:60%;}
+  .input, .select{font-size:$basic-size;}
+}
+}
+
+@media only screen and (max-width:768px){
+.steps{margin:auto; width:100%;}
+.line.step2{width:50%;}
+.names .step2{position:absolute; left:50%; margin-left:-65px;}
+.line.step3{width:93%;}
+.fields li:nth-child(odd){margin-right:4%;}
+.card-info, .wrap .second{margin:0!important;}
+.wrap .first{margin-bottom:.5em!important;}
+.cart .label{text-align:left; width:100%;}
+.order{
+  .box-total .txt{float:left;}
+  .box-order{text-align:left;}
+  .box-jackpot{margin-bottom:1em; float:left;}
+}
+.success{
+  .ticket-col{display:none!important;}
+  .txt-col{text-align:left;}
+  .form{width:70%; margin:auto;}
+}
+.profile{
+  .what-user{
+    .col4, .col8{width:100%; margin:0; padding:0!important;}
+  }
+  .line-sep{display:none;}
+  .box-extra{
+    display:block; margin-top:20px;
+    span{font-size:$basic-size; margin-right:5px;}
+  }
+  .submit{width:100%; margin:0;}
+  .terms br{display:block;}
+}
+}
+
+/*
+@media only screen and (max-width:650px){
+  .line.step3{width:92%;}
+}
+*/
+@media only screen and (max-width:600px){
+.line.step3{width:90%;}
+}
+
+@media only screen and (max-width:500px){
+.profile{
+  .log-in, .sign-in{
+    .select, .input{width:100%!important; float:none; margin-right:0;}
+  }
+}
+}
+
+@media only screen and (max-width:480px){
+.names{
+    font-size:$small;
+    .step1, .step3{margin:0;}
+    .step2{position:absolute; left:50%; margin-left:-55px;}
+}
+.fields{
+  li{float:none; width:100%;}
+  li:nth-child(odd){margin-right:0;}
+}
+.line.step3{width:93%;}
+.success{
+  .submit, .form{width:100%;}
+}
+}
+
+@media only screen and (max-width:420px){ /*Not standard size */
+  .line.step3{width:92%;}
+  .order{
+    .num{width:240px;}
+    .type{width:150px;}
+    .val{min-width:auto; margin-left:8px;}
+    .box-order, .box-total{margin:0 -15px;}
+    .desc{display:none;}
+    .tweak{float:none;}
+    .box-funds{margin-top:5px; float:left;}
+    .add-funds{float:left;}
+    .box-wallet .txt{font-size:$small!important;}
+  }
+}
+
+@media only screen and (max-width:380px){ /*Not standard size */
+  .line.step3{width:90%;}
+  .order{
+/*    .desc{margin-bottom:.2em;}*/
+    .num{width:100%;}
+    .box-jackpot{width:100%;}
+    .buy{float:none;}
+  }
+}

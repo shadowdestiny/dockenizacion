@@ -36,8 +36,8 @@ $(function(){
 	//countdown
 	var html_formatted_offset = [];
 	var element = $('.box-prize .time');
-	var html_formatted = '%-Hh %-Mm %-Ss';
-	html_formatted_offset[0] = '%-dd ' + html_formatted;
+	var html_formatted = '%-Dd %-Hh %-Mm %-Ss';
+	html_formatted_offset[0] = '%-Hh %-Mm %-Ss';
 	var date = '{{ date_to_draw }}';
 	var finish_text = "{{ language.translate('Draw closed') }}";
 	var count  = count_down(element,html_formatted,html_formatted_offset,date,finish_text,null);

@@ -239,7 +239,9 @@ class AccountController extends PublicSiteControllerBase
 
     public function editEmailAction()
     {
-
+        if(!$this->request->isPost()) {
+            return $this->response->redirect('account/email');
+        }
         $userId = $this->authService->getCurrentUser();
         /** @var User $user */
         $user = $this->userService->getUser($userId->getId());
@@ -292,7 +294,6 @@ class AccountController extends PublicSiteControllerBase
                 $error = 'An error occurred while updated. Please, try it later';
             }
         }
-
         $this->view->pick('account/email');
         return $this->view->setVars([
             'message' => $message,

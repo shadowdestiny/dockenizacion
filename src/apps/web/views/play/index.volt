@@ -10,6 +10,7 @@
 <script>
 var draw_dates = <?php echo $dates_draw ?>;
 var price_bet = {{ single_bet_price }};
+var currency_symbol = '<?php echo $currency_symbol ?>';
 </script>
 <script src="/w/js/react/play.js"></script>
 {% endblock %}

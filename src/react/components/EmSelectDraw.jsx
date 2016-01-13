@@ -1,5 +1,5 @@
 var React = require('react');
-var ReactTooltip = require("react-tooltip")
+var ReactTooltip = require("react-tooltip");
 var EmSelect = require('./EmSelect.jsx');
 
 var EmSelectDraw = React.createClass({

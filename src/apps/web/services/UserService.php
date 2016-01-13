@@ -82,6 +82,14 @@ class UserService
         return $this->currencyService->toString($user->getBalance(), $locale);
     }
 
+    public function getBalanceWithUserCurrencyConvert(UserId $userId, $locale)
+    {
+        /** @var User $user */
+        $user = $this->userRepository->find($userId->id());
+        $money_convert = $this->currencyService->convert($user->getBalance(), $locale);
+        return $this->currencyService->toString($money_convert, $locale);
+    }
+
     public function getUser(UserId $userId)
     {
         return $this->userRepository->find($userId->id());

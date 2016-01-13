@@ -19,13 +19,21 @@ var CartPage = new React.createClass({
             checked_wallet : true,
             fund_value : 0,
             show_fee_value : true,
-            total : this.props.total_price
+            total : 0
         }
     },
 
     componentDidMount : function()
     {
-       this.setState({ show_all_fee : false });
+        var price = parseFloat(this.props.single_bet_price * this.state.playConfigList.euroMillionsLines.bets.length );
+        var wallet_balance = parseFloat(this.props.wallet_balance);
+        var fee = this.props.price_below_fee;
+        if( wallet_balance < price && price < parseFloat(fee)) {
+            this.setState({ show_all_fee : true, checked_wallet : false});
+        }
+        if(wallet_balance == 0 && price > parseFloat(fee)) {
+            this.setState({ show_all_fee : false, checked_wallet : false });
+        }
        this.handleUpdatePrice();
     },
 
@@ -48,7 +56,7 @@ var CartPage = new React.createClass({
         if(parseFloat(value) > parseFloat(this.props.total_price)) {
             this.setState( {show_fee_text : false });
         } else {
-            this.setState( {show_fee_text : true });
+          //  this.setState( {show_fee_text : true });
         }
         this.handleUpdatePrice();
     },
@@ -61,29 +69,40 @@ var CartPage = new React.createClass({
 
     handleUpdatePrice : function()
     {
-        var price = parseFloat(this.state.total);
+        var price = parseFloat(this.props.single_bet_price * this.state.playConfigList.euroMillionsLines.bets.length );
+        var wallet_balance = parseFloat(this.props.wallet_balance);
+        var fee = this.props.price_below_fee;
+
+
+        if( wallet_balance < price && price < parseFloat(fee)) {
+            this.state.checked_wallet = false;
+            price = price + parseFloat(this.props.fee_charge);
+            this.state.show_all_fee = true;
+        }
+
+        if(wallet_balance == 0 && price > parseFloat(fee)) {
+            this.state.checked_wallet = false;
+            this.setState({ show_all_fee : false});
+        }
+
         if(this.state.checked_wallet){
             var wallet = parseFloat(this.props.wallet_balance) > price ? price : this.props.wallet_balance;
             price = (wallet > price) ? wallet - price : price - wallet;
+            this.state.show_all_fee = false;
         } else {
-            price = this.props.total_price;
+            if(!this.state.show_all_fee) {
+                price = price + parseFloat(this.props.fee_charge);
+                this.state.show_all_fee = true;
+            }
         }
 
-        //if(price == 0) {
-        //    this.state.show_all_fee = false;
-        //} else {
-        //    this.state.show_all_fee = true;
-        //}
-        if(!this.state.checked_wallet) {
-            this.state.show_all_fee = true;
-        } else {
-            this.state.show_all_fee = false;
-        }
-        if(this.state.fund_value > 0) {
-            price = price - 0.35; //EMTD 0.35 should be passed as property from app var global
+        if(this.state.fund_value > this.props.price_below_fee) {
+            price = price - parseFloat(this.props.fee_charge);
             this.state.show_fee_value = false;
+            this.state.show_fee_text = false;
         } else {
             this.state.show_fee_value = true;
+            this.state.show_fee_text = true;
         }
         this.setState({ total : price });
     },
@@ -97,15 +116,15 @@ var CartPage = new React.createClass({
             var stars = _playConfigList.euroMillionsLines.bets[i].lucky;
             _euroMillionsLine.push(<EmLineOrderCart currency_symbol={this.props.currency_symbol} line={i} key={i} numbers={numbers} stars={stars} single_bet_price={this.props.single_bet_price}/>);
         }
-        var line_fee_component = null;
-       //if(this.props.show_fee_line) {
-
-        line_fee_component = <EmLineFeeCart show_fee_value={this.state.show_fee_value} currency_symbol={this.props.currency_symbol} show_all_fee={this.state.show_all_fee} show_fee_text={this.state.show_fee_text} keyup={this.handleKeyUpAddFund} />
-       // }
+        var line_fee_component = <EmLineFeeCart fee_charge={this.props.fee_charge} price_below_fee={this.props.price_below_fee} show_fee_value={this.state.show_fee_value} currency_symbol={this.props.currency_symbol} show_all_fee={this.state.show_all_fee} show_fee_text={this.state.show_fee_text} keyup={this.handleKeyUpAddFund} />
         var wallet_component = null;
-        if(parseFloat(this.props.wallet_balance) > 0) {
-            wallet_component = <EmWallet currency_symbol={this.props.currency_symbol} checked_callback={this.handleCheckedWallet} show_checked={this.state.checked_wallet} total_price={this.props.total_price} wallet_balance={this.props.wallet_balance}/>;
+
+        if(parseFloat(this.props.wallet_balance) > parseFloat(this.state.total)) {
+            var total_default = parseFloat(this.props.single_bet_price * this.state.playConfigList.euroMillionsLines.bets.length );
+            wallet_component = <EmWallet currency_symbol={this.props.currency_symbol} checked_callback={this.handleCheckedWallet} show_checked={this.state.checked_wallet} total_price={total_default} wallet_balance={this.props.wallet_balance}/>;
         }
+
+        var txt_button_payment = this.state.checked_wallet ? 'Pay with my wallet balance' : 'Continue to payment';
 
         return (
             <div>
@@ -122,6 +141,9 @@ var CartPage = new React.createClass({
                 <div className="box-total cl">
                     <EmTotalCart currency_symbol={this.props.currency_symbol} total_price={this.state.total} />
                 </div>
+                <div className="box-bottom cl">
+                    <a href="javascript:void(0)" className="btn blue big buy">{txt_button_payment}</a>
+                </div>
             </div>
         )
 
@@ -130,12 +152,12 @@ var CartPage = new React.createClass({
 
 module.exports = CartPage;
 
-//EMTD put this value as constant global in app
-var price_below_fee = 12;
 var show_fee_line = false;
-if( total_price < price_below_fee) {
-    show_fee_line = true;
-    total_price = parseFloat(total_price) + parseFloat(0.35); //EMTD 0.35 should be calculated inside react
-}
-ReactDOM.render(<CartPage currency_symbol={currency_symbol} play_list={play_list} wallet_balance={wallet_balance} single_bet_price={single_bet_price} total_price={total_price.toFixed(2)} show_fee_line={show_fee_line}/>,
+//if( total_price < price_below_fee) {
+//    show_fee_line = true;
+//    total_price = parseFloat(total_price) + parseFloat(fee_charge); //EMTD 0.35 should be calculated inside react
+//}
+ReactDOM.render(<CartPage price_below_fee={price_below_fee} fee_charge={fee_charge} currency_symbol={currency_symbol} play_list={play_list} wallet_balance={wallet_balance} single_bet_price={single_bet_price} show_fee_line={show_fee_line}/>,
     document.getElementById('cart-order'));
+
+
