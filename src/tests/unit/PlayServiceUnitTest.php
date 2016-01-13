@@ -99,8 +99,6 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_play_calledWithUserWithoutBalance_returnServiceActionResultFalse()
     {
-        $this->markTestSkipped();
-        $expected = new ActionResult(false);
         $user = $this->getUser();
         $user->setBalance(new Money(0,new Currency('EUR')));
         $regular_numbers = [1, 2, 3, 4, 5];
@@ -112,7 +110,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $entityManager_stub->flush(Argument::any())->shouldNotBeCalled();
         $this->stubEntityManager($entityManager_stub);
         $actual = $sut->play($user,$euroMillionsResult);
-        $this->assertEquals($expected,$actual);
+        $this->assertEquals(false,$actual->success());
     }
 
     /**
