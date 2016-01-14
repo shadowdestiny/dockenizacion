@@ -161,6 +161,10 @@ class CartController extends PublicSiteControllerBase{
             'myaccount' => $myaccount_form,
         ]);*/
         $errors = null;
+        $userId = $this->authService->getCurrentUser();
+        if($userId instanceof User) {
+            $this->response->redirect('cart/order');
+        }
         $sign_in_form = new SignInForm();
         $form_errors = $this->getErrorsArray();
         $sign_up_form = $this->getSignUpForm();

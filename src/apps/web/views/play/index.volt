@@ -4,6 +4,26 @@
 {% endblock %}
 {% block template_scripts %}
 {#<script>{% include "play/index.js" %}</script>#}
+<script>
+	var ajaxFunctions = {
+		playCart : function (params) {
+			$.ajax({
+				url: '/ajax/play-temporarily/temporarilyCart/',
+				data: params,
+				type: 'POST',
+				dataType: "json",
+				success: function(json) {
+					if(json.result = 'OK') {
+						location.href = json.url;
+					}
+				},
+				error: function (xhr, status, errorThrown) {
+					//EMTD manage errrors
+				},
+			});
+		}
+	};
+</script>
 {% set dates_draw = play_dates|json_encode %}
 <script>
 var draw_dates = <?php echo $dates_draw ?>;
