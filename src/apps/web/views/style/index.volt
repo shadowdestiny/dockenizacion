@@ -321,9 +321,7 @@
                                             <div class="col12">&nbsp;</div>
                                         </div>
                                     </div>
-
                                 </div>
-                               
 
                                 <div class="col6">
                                     <div class="box-col2">
@@ -379,23 +377,43 @@
                             <div class="cols">
                                 <div class="col6">
                                     <h3 class="h4">Using Padding</h3>
-                                    <p>If you don't have any background colors applied to the col, simply use a padding right that points at the col* (* = number). Yhis is the preferred method.</p>
+                                    <p><em>If you don't have any background colors or border applied to the col and it is used just for content</em>, simply use a padding right that points at the col* (* = number).</p>
 
                                     <pre class="brush:css">
                                         /* ".nameWrapper" it is the name of your div wrapper */
-                                        .nameWrapper > .cols > div{padding-right:20px;}
-                                        .nameWrapper > .cols > div:last-child{padding-right:0;}
+                                        
+                                        .nameWrapper > .cols > div{padding:0 10px;}
+                                        .nameWrapper > .cols > div:first-child{left:-10px;}
+                                        .nameWrapper > .cols > div:last-child{right:-10px;}
                                     </pre>
 
                                     <pre class="brush:html">
                                         <div class="nameWrapper">
                                             <div class="cols">
-                                                <div class="col2"></div> 
                                                 <div class="col4"></div> 
-                                                <div class="col8"></div> 
+                                                <div class="col4"></div> 
+                                                <div class="col4"></div> 
                                             </div>
                                         </div>
                                     </pre>
+
+                                    <br>
+                                    <div class="box1">
+                                        <div class="nameWrapper">
+                                            <div class="cols">
+                                                <div class="col4">
+                                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit tincidunt ut laoreet dolore magna aliquam erat volutpat. 
+                                                </div> 
+                                                <div class="col4">
+                                                    Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                                                </div> 
+                                                <div class="col4">
+                                                    Consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud ut aliquip ex ea commodo consequat.
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <div class="col6">
                                     <h3 class="h4">Using Margin</h3>
@@ -426,14 +444,14 @@
                         <h1 class="title h2">Typography</h1>
                         <div class="content">
 
-                                    <p>The main typography used is <strong>Open Sans</strong>. We have only 3 type of font styles: <strong>Normal</strong> (400 weight), <strong>Italic</strong> (400 weight) and <strong>Bold</strong> (700 weight).</p>
+                            <p>The main typography used is <strong>Open Sans</strong>. We have only 3 type of font styles: <strong>Normal</strong> (400 weight), <strong>Italic</strong> (400 weight) and <strong>Bold</strong> (700 weight).</p>
 
-                                    <p><a href="https://www.google.com/fonts/specimen/Open+Sans">Full Open Sans Alphabet</a></p>
-                                    
-                                    <p>This font family is applied to the following tags and classes:
-                                    <br><strong>body, #content, .input, .select, .textarea</strong></p>
-                                    <p>The variable defined in SASS is:
-                                    <br><strong>$basic-font:"Open Sans", helvetica, arial, verdana, sans-serif;</strong></p>
+                            <p><a href="https://www.google.com/fonts/specimen/Open+Sans">Full Open Sans Alphabet</a></p>
+                            
+                            <p>This font family is applied to the following tags and classes:
+                            <br><strong>body, #content, .input, .select, .textarea</strong></p>
+                            <p>The variable defined in SASS is:
+                            <br><strong>$basic-font:"Open Sans", helvetica, arial, verdana, sans-serif;</strong></p>
      
 
                             <hr class="hr">

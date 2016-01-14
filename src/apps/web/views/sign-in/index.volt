@@ -18,6 +18,9 @@ $(function(){
 {% endblock %}
 
 {% block body %}
+
+{% set signIn='{"myClass": "sign-in"}'|json_decode %}
+
 <main id="content" style="padding-top:40px;">
     <div class="wrapper cl">
         <div class="col-left">
@@ -25,7 +28,10 @@ $(function(){
         </div>
         <div class="col-right">
             <div class="box-basic log-in">
-                <h1 class="h2 title">{{ language.translate("Log in") }}</h1>
+                <h1 class="h1 title">
+                    <span class="line"></span>
+                    <span class="line-txt">{{ language.translate("Log in") }}</span>
+                </h1>
      
                 {# DO NOT DELETE - Facebook connect
                 <div class="connect">
@@ -39,75 +45,26 @@ $(function(){
                 </div>
                 #}
 
-                {{ form('userAccess/signIn') }}
-                    {% if  which_form == 'in' and errors %}
-                        <div class="box error">
-                            <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
-                            <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
-                        </div>
-                    {% endif %}
-                    {{ signinform.render('email', {'class':'input'~form_errors['email']}) }}
-                    {{ signinform.render('password', {'class':'input'~form_errors['password']}) }}
-                    {{ signinform.render('csrf', ['value': security.getSessionToken()]) }}
-                    {{ signinform.render('controller', ['value': controller]) }}
-                    {{ signinform.render('action', ['value': action]) }}
-                    {{ signinform.render('params', ['value': params]) }}
-                    <div class="cl reduce">
-                        <label class="label left" for="remember">
-                            {{ signinform.render('remember', {'class':'checkbox', 'data-role':'none'}) }}
-                            <span class="txt">{{ language.translate("Stay signed in") }}</span>
-                        </label>
-                        <div class="right forgot-psw">
-                            <a href="/user-access/forgotPassword">{{ language.translate("Forgot password?") }}</a>
-                        </div>
-                    </div>
-                    <div class="cl">
-                        <input id="go" type="submit" class="hidden2" />
-                        <label for="go" class="submit btn big blue">Log in to a secure server <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
-                        <div class="box-extra"><span>{{ language.translate("Don't you have an account?") }}</span> <a class="btn gwy" href="javascript:void(0)">{{ language.translate("Sign up") }}</a></div>
-                    </div>
-                {{ endform() }}
+                {% include "sign-in/_log-in.volt" %}
             </div>
 
             <div class="box-basic sign-up hidden">
-                <h1 class="h2 title">{{ language.translate("Sign up") }}</h1>
+                <h1 class="h1 title">
+                    <span class="line"></span>
+                    <span class="line-txt">{{ language.translate("Sign up") }}</span>
+                </h1>
 
-                {{ form('userAccess/signUp') }}
-                    {% if  which_form == 'up' and errors %}
-                        <div class="box error">
-                            <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
-                            <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
-                        </div>
-                    {% endif %}
-                    {{ signupform.render('name', {'class':'input'~form_errors['name']}) }}
-                    {{ signupform.render('surname', {'class':'input'~form_errors['surname']}) }}
-                    {{ signupform.render('email', {'class':'input'~form_errors['email']}) }}
-                    {{ signupform.render('password', {'class':'input'~form_errors['password']}) }}
-                    {{ signupform.render('confirm_password', {'class':'input'~form_errors['confirm_password']}) }}
-                    {{ signupform.render('country', {'class':'select'~form_errors['country']}) }}
-                    {{ signinform.render('controller', ['value': controller]) }}
-                    {{ signinform.render('action', ['value': action]) }}
-                    {{ signinform.render('params', ['value': params]) }}
-
-                    <div class="cl">
-                        <input id="goSignUp" type="submit" class="hidden2" />
-                        <label for="goSignUp" class="submit btn big blue">Connect to a secure server <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
-                    </div>
-                    <div class="box-extra"><span>{{ language.translate("Do you have an account?") }}</span> <a class="btn gwy" href="javascript:void(0)">{{ language.translate("Log in") }}</a></div>
-                {{ endform() }}
+                {% include "sign-in/_sign-up.volt" %}
             </div>
-
 
             <div class="terms txt">
                 {{ language.translate("By signing in you agree to our") }} <a href="/legal/index">{{ language.translate("Terms &amp; Conditions") }}</a>
-                <br>{{ language.translate("and agree that you are 18+ years old") }}
+                <br>{{ language.translate("and that you are 18+ years old.") }}
             </div>
 
         </div>
 
     </div>
 </main>
-
-
 {% endblock %}
 
