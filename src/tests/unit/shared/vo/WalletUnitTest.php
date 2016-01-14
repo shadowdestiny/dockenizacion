@@ -9,6 +9,8 @@ use Money\Money;
 
 class WalletUnitTest extends UnitTestBase
 {
+    const NOT_ENOUGH_FUNDS_EXCEPTION = 'EuroMillions\shared\exceptions\NotEnoughFunds';
+
     /**
      * method upload
      * when called
@@ -98,7 +100,7 @@ class WalletUnitTest extends UnitTestBase
     {
         $uploaded = 200;
         $winnings = 400;
-        $this->setExpectedException('EuroMillions\shared\exceptions\NotEnoughFunds');
+        $this->setExpectedException(self::NOT_ENOUGH_FUNDS_EXCEPTION);
         $sut = $this->exercisePayPreservingWinnings($uploaded, $winnings, 500);
         $this->assertEquals($this->getMoney($uploaded), $sut->getUploaded());
         $this->assertEquals($this->getMoney($winnings), $sut->getWinnings());
@@ -135,8 +137,13 @@ class WalletUnitTest extends UnitTestBase
      */
     public function test_payUsingWinnings_calledWithouthEnoughFunds_throw()
     {
-        $this->markTestIncomplete();
-
+        $uploaded = 400;
+        $winnings = 600;
+        $payment = 1001;
+        $this->setExpectedException(self::NOT_ENOUGH_FUNDS_EXCEPTION);
+        $sut = $this->exercisePayUsingWinnings($uploaded, $winnings, $payment);
+        $this->assertEquals($this->getMoney($uploaded), $sut->getUploaded());
+        $this->assertEquals($this->getMoney($winnings), $sut->getWinnings());
     }
 
     /**

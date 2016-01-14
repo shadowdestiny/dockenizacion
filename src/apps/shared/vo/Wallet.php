@@ -42,6 +42,9 @@ class Wallet
 
     public function payUsingWinnings(Money $amount)
     {
+        if ($amount->greaterThan($this->uploaded->add($this->winnings))) {
+            throw new NotEnoughFunds();
+        }
         if ($amount->greaterThan($this->uploaded)) {
             $to_subtract_from_winnings = $amount->subtract($this->uploaded);
             $this->uploaded = $this->initializeAmount(null);
