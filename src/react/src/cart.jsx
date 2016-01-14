@@ -131,22 +131,15 @@ var CartPage = new React.createClass({
                 <div className="box-order">
                     <EmLineOrderConfig playConfig={_playConfigList} duration={this.handleChangeDrawDuration}/>
                     {_euroMillionsLine}
-                </div>
-                <div className="box-order">
                     {line_fee_component}
-                </div>
-                <div className="box-wallet">
                     {wallet_component}
                 </div>
-                <div className="box-total cl">
-                    <EmTotalCart currency_symbol={this.props.currency_symbol} total_price={this.state.total} />
-                </div>
+                <EmTotalCart currency_symbol={this.props.currency_symbol} total_price={this.state.total} />
                 <div className="box-bottom cl">
                     <a href="javascript:void(0)" className="btn blue big buy">{txt_button_payment}</a>
                 </div>
             </div>
         )
-
     }
 });
 

@@ -12,7 +12,7 @@ var EmTotalCart = new React.createClass({
         var price = parseFloat(this.props.total_price).toFixed(2);
 
         return (
-            <div>
+            <div className="box-total cl">
                 <div className="txt-currency desktop">
                     Currencies are just informative, transactions are charged in Euros.
                 </div>
