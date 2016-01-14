@@ -28,7 +28,6 @@
 
     <main id="content">
         <div class="wrapper">
-
             <div class="box-basic medium">
                 <h1 class="h1 title yellow res">{{ language.translate("Shopping cart") }}</h1>
                 <div class="terms">{{ language.translate("By purchasing you agree to") }} <a href="/legal/">{{ language.translate("Terms &amp; Conditions") }}</a></div>

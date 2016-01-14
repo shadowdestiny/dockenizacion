@@ -22,7 +22,7 @@ var EuroMillionsDrawConfig = new React.createClass({
             options_draw_dates.push({text : obj_split[0], value : obj_split[0]});
         });
 
-        var default_value_draw = '2';
+        var default_value_draw = 'Tuesday';
         var default_text_draw = 'Tuesday';
 
         var default_value_date = ""+options_draw_dates[0].text;

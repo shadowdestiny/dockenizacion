@@ -6,8 +6,8 @@ var EuroMillionsStar = React.createClass({
     {
         return {
             selected: false,
-            timeout_star_selected : 100,
-            timeout_star_not_selected : 200,
+            timeout_star_selected : 150,
+            timeout_star_not_selected : 500,
         }
     },
 
