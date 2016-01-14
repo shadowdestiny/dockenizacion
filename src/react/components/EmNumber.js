@@ -6,8 +6,8 @@ var EuroMillionsNumber = React.createClass({
     {
         return {
             selected: false,
-            timeout_number_selected : 80,
-            timeout_number_not_selected : 300,
+            timeout_number_selected : 150,
+            timeout_number_not_selected : 500,
         }
     },
 
