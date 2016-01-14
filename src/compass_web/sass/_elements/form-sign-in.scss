@@ -1,0 +1,29 @@
+.log-in{
+    .label{
+        text-align:left!important;
+        .txt{display:inline-block; margin-left:3px;}
+    }
+    .forgot-psw{
+        a{text-align:right; text-decoration:none;}
+        a:hover{text-decoration:underline!important;}
+    }
+    
+    .checkbox{position:relative; top:1px;}
+}
+.sign-in, .forgot-psw{
+    .input, .select{width:100%; margin-bottom:.8em; font-size:$h4;}
+    .submit{
+        width:100%; margin-bottom:0; text-align:center;
+        .ico{position:relative; margin-left:5px; top:2px;}
+    }
+}
+.reduce{
+    font-size:$basic-size; margin:5px 0 15px;
+    .label{margin:0; width:auto!important;}
+}
+
+.terms{
+    color:#777; font-size:$small; text-align:center; margin:1em; line-height:130%;
+    a{text-decoration:none;}
+    a:hover, a:focus{text-decoration:underline!important;}
+}
