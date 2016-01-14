@@ -42,7 +42,13 @@ class Wallet
 
     public function payUsingWinnings(Money $amount)
     {
-
+        if ($amount->greaterThan($this->uploaded)) {
+            $to_subtract_from_winnings = $amount->subtract($this->uploaded);
+            $this->uploaded = $this->initializeAmount(null);
+            $this->winnings = $this->winnings->subtract($to_subtract_from_winnings);
+        } else {
+            $this->uploaded = $this->uploaded->subtract($amount);
+        }
     }
 
     public function withdraw(Money $amount)
