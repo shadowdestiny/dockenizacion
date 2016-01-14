@@ -35,12 +35,25 @@ class CartController extends PublicSiteControllerBase{
 
     public function orderAction(){
 
+        $user_id = $this->request->get('user');
         /** @var UserId $currenct_user_id */
         $current_user_id = $this->authService->getCurrentUser()->getId();
-        /** @var User $user */
-        $user = $this->userService->getUser($current_user_id);
+        if(!empty($user_id)) {
+            $user = new User();
+            $user->setId(new UserId($user_id));
+            $result_guest_user = $this->domainServiceFactory->getPlayService()->getPlaysFromTemporarilyStorage($user);
+            if($result_guest_user->success()) {
+               $json_play = $this->domainServiceFactory->getPlayService()->getPlaysFromTemporarilyStorage($user);
+               $this->domainServiceFactory->getPlayService()->savePlayFromJson($json_play->getValues()->getValues(),$current_user_id);
+                $user = $this->userService->getUser($current_user_id);
+                $result = $this->domainServiceFactory->getPlayService()->getPlaysFromTemporarilyStorage($user);
+            }
+        } else {
+            /** @var User $user */
+            $user = $this->userService->getUser($current_user_id);
+            $result = $this->domainServiceFactory->getPlayService()->getPlaysFromTemporarilyStorage($user);
+        }
         $price_single_bet = $this->lotteriesDataService->getSingleBetPriceByLottery('EuroMillions');
-        $result = $this->domainServiceFactory->getPlayService()->getPlaysFromTemporarilyStorage($user);
         $play_config_json = '';
         $bet_price_value_currency = $this->currencyService->convert($price_single_bet,$user->getUserCurrency());
         $fee_below = $this->currencyService->convert(new Money(self::$_config_vars['fee_below'],new Currency(self::$_config_vars['fee_below_currency'])), $user->getUserCurrency());
@@ -119,11 +132,13 @@ class CartController extends PublicSiteControllerBase{
 
     public function profileAction($paramsFromPreviousAction = null)
     {
-       /* $errors = null;
+        $errors = null;
         $userId = $this->authService->getCurrentUser();
         if($userId instanceof User) {
             $this->response->redirect('cart/order');
         }
+        $sign_up_form = $this->getSignUpForm();
+        list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
         $sign_in_form = new SignInForm();
         $myaccount_form = $this->getMyACcountForm();
         $form_errors = $this->getErrorsArray();
@@ -140,6 +155,7 @@ class CartController extends PublicSiteControllerBase{
                     'user_id'  => $userId,
                     'name'     => $this->request->getPost('name'),
                     'surname'  => $this->request->getPost('surname'),
+                    'password' => $this->request->getPost('password'),
                     'email'    => $this->request->getPost('email'),
                     'country'  => $this->request->getPost('country'),
                 ]);
@@ -148,49 +164,6 @@ class CartController extends PublicSiteControllerBase{
                     $msg = $result->getValues();
                 }else{
                     $errors [] = $result->errorMessage();
-                }
-            }
-        }
-        $this->view->pick('cart/profile');
-        return $this->view->setVars([
-            'form_errors' => $form_errors,
-            'which_form'  => 'index',
-            'signinform'  => $sign_in_form,
-            'errors' => $errors,
-            'msg' => $msg,
-            'myaccount' => $myaccount_form,
-        ]);*/
-        $errors = null;
-        $userId = $this->authService->getCurrentUser();
-        if($userId instanceof User) {
-            $this->response->redirect('cart/order');
-        }
-        $sign_in_form = new SignInForm();
-        $form_errors = $this->getErrorsArray();
-        $sign_up_form = $this->getSignUpForm();
-        list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
-
-        if ($this->request->isPost()) {
-            if ($sign_in_form->isValid($this->request->getPost()) == false) {
-                $messages = $sign_in_form->getMessages(true);
-                /**
-                 * @var string $field
-                 * @var Message\Group $field_messages
-                 */
-                foreach ($messages as $field => $field_messages) {
-                    $errors[] = $field_messages[0]->getMessage();
-                    $form_errors[$field] = ' error';
-                }
-            } else {
-                if (!$this->authService->check([
-                    'email'    => $this->request->getPost('email'),
-                    'password' => $this->request->getPost('password'),
-                    'remember' => $this->request->getPost('remember'),
-                ], 'string')
-                ) {
-                    $errors[] = 'Email/password combination not valid';
-                } else {
-                    return $this->response->redirect("$controller/$action".implode('/',$params));
                 }
             }
         }

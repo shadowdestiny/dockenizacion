@@ -188,7 +188,7 @@ class AuthService
             'name'     => $credentials['name'],
             'surname'  => $credentials['surname'],
             'email'    => $email,
-            'password' => $password,
+            'password' => new Password($credentials['password'], $this->passwordHasher),
             'country'  => $credentials['country'],
             'balance'  => new Money(0, new Currency('EUR')),
             'validated' => 0,

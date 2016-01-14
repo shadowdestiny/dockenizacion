@@ -29,6 +29,16 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
         $this->storage = $storage;
     }
 
+    public function save($json, UserId $userId)
+    {
+        try{
+            $this->storage->save($this->getNameKey($userId), $json);
+            return new ActionResult(true);
+        }catch(RedisException $e){
+            return new ActionResult(false,'Unable to save data in storage');
+        }
+    }
+
     public function saveAll(PlayFormToStorage $data, UserId $userId)
     {
         try{

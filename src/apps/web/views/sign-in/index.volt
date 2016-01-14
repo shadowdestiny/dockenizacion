@@ -53,7 +53,7 @@ $(function(){
                     <span class="line"></span>
                     <span class="line-txt">{{ language.translate("Sign up") }}</span>
                 </h1>
-
+                {% set url_signup = '/userAccess/signUp' %}
                 {% include "sign-in/_sign-up.volt" %}
             </div>
 
