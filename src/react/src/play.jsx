@@ -238,7 +238,10 @@ var PlayPage = React.createClass({
         this.updatePrice();
     },
 
+    handleTouchStart : function ()
+    {
 
+    },
 
     updatePrice : function ()
     {
@@ -273,7 +276,7 @@ var PlayPage = React.createClass({
         elem.push(<EuroMillionsBoxAction show_tooltip={this.state.show_tooltip_lines}  mouse_over_btn={this.mouseOverBtnAddLines}  add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} clear_all_btn={this.handlerClearAll} key="2"/>)
 
         return (
-            <div>
+            <div onTouchStart={this.handleTouchStart}>
                 {elem}
                 <div className="box-bottom">
                     <div className="wrap">

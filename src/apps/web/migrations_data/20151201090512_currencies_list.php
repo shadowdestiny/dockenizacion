@@ -31,7 +31,7 @@ class CurrenciesList extends AbstractMigration
                 INSERT INTO currencies (`symbol`,`code_name`,`name`,`order`) VALUES ('$','USD','Us Dollar',2);
                 INSERT INTO currencies (`symbol`,`code_name`,`name`,`order`) VALUES ('COP','COP','Colombian Peso',7);
                 INSERT INTO currencies (`symbol`,`code_name`,`name`,`order`) VALUES ('&pound;','GBP','Pound Sterling',3);
-                INSERT INTO currencies (`symbol`,`code_name`,`name`,`order`) VALUES ('&#x20bd;','RUR','Russian Ruble',5);
+                INSERT INTO currencies (`symbol`,`code_name`,`name`,`order`) VALUES ('&#x20bd;','RUB','Russian Ruble',5);
                 INSERT INTO currencies (`symbol`,`code_name`,`name`,`order`) VALUES ('&#x43;&#x48;&#x46;','CHF','Swiss Franc',4);
                 INSERT INTO currencies (`symbol`,`code_name`,`name`,`order`) VALUES ('&#x41;&#x24;','AUD','Australian Dolar',6);
                 INSERT INTO currencies (`symbol`,`code_name`,`name`,`order`) VALUES ('lei','RON','Romanian Leu',8);

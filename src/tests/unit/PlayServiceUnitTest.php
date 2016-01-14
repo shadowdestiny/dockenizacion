@@ -432,42 +432,6 @@ class PlayServiceUnitTest extends UnitTestBase
         return $user;
     }
 
-    private function getPlayFormToStorage()
-    {
-        $frequency = 1;
-        $startDrawDate = '2015-09-18';
-        $lastDrawDate = new LastDrawDate($startDrawDate,$frequency);
-
-        $playFormToStorage = new PlayFormToStorage();
-        $playFormToStorage->startDrawDate = $startDrawDate;
-        $playFormToStorage->frequency = $startDrawDate;
-        $playFormToStorage->lastDrawDate = $lastDrawDate->getLastDrawDate();
-        $playFormToStorage->drawDays = 2;
-        $playFormToStorage->euroMillionsLines = $this->getEuroMillionsLines();
-
-        return $playFormToStorage;
-    }
-
-    /**
-     * @return array
-     */
-    private function getEuroMillionsLines()
-    {
-        $regular_numbers = [1, 2, 3, 4, 5];
-        $lucky_numbers = [5, 8];
-
-        $r_numbers = $this->getRegularNumbers($regular_numbers);
-        $l_numbers = $this->getLuckyNumbers($lucky_numbers);
-
-        $euroMillionsLine = [
-            new EuroMillionsLine($r_numbers,$l_numbers),
-            new EuroMillionsLine($r_numbers,$l_numbers),
-            new EuroMillionsLine($r_numbers,$l_numbers)
-        ];
-        return $euroMillionsLine;
-    }
-
-
     private function getPlayConfigAndEuroMillionsDraw()
     {
         $user = $this->getUser();
