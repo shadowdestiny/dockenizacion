@@ -28,7 +28,6 @@ class UserAccessController extends ControllerBase
 
     public function signInAction($paramsFromPreviousAction = null)
     {
-
         $errors = null;
         $sign_in_form = new SignInForm();
         $form_errors = $this->getErrorsArray();
@@ -57,10 +56,15 @@ class UserAccessController extends ControllerBase
                 ) {
                     $errors[] = 'Email/password combination not valid';
                 } else {
+                    $url_redirect = $this->session->get('original_referer');
+                    if(explode('/',$url_redirect)[0] == 'cart' && explode('/',$url_redirect)[1] == 'profile') {
+                       return $this->response->redirect('cart/order');
+                    }
                     return $this->response->redirect("$controller/$action".implode('/',$params));
                 }
             }
         }
+
         $this->view->pick('sign-in/index');
         return $this->view->setVars([
             'which_form'  => 'in',
@@ -105,6 +109,9 @@ class UserAccessController extends ControllerBase
                     $errors[] = $register_result->errorMessage();
                 } else {
                     $url_redirect = $this->session->get('original_referer');
+                    if(explode('/',$url_redirect)[0] == 'cart' && explode('/',$url_redirect)[1] == 'profile') {
+                        return $this->response->redirect('cart/order');
+                    }
                     return $this->response->redirect($url_redirect);
                 }
             }
