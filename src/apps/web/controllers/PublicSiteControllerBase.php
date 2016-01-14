@@ -73,6 +73,7 @@ class PublicSiteControllerBase extends ControllerBase
     private function setTopNavValues()
     {
         $user_currency = $this->userPreferencesService->getMyCurrencyNameAndSymbol();
+        $current_currency = $this->userPreferencesService->getCurrency();
         $is_logged = $this->authService->isLogged();
         $user = $this->authService->getCurrentUser();
         if($is_logged){
@@ -82,6 +83,7 @@ class PublicSiteControllerBase extends ControllerBase
             $user_balance = '';
             $user_balance_raw = '';
         }
+        $this->view->setVar('current_currency', $current_currency->getName());
         $this->view->setVar('user_currency', $user_currency);
         $this->view->setVar('user_balance', $user_balance);
         $this->view->setVar('user_balance_raw', $user_balance_raw);

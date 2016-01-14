@@ -7,8 +7,6 @@ class WebLoader extends LoaderBase
     protected function getSpecificNamespaces()
     {
         return [
-            'EuroMillions\web\controllers'   => $this->appPath . 'web\controllers',
-            'EuroMillions\admin\controllers'   => $this->appPath . 'admin\controllers',
         ];
     }
 }
