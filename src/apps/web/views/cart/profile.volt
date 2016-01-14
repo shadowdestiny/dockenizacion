@@ -39,7 +39,7 @@
                                 <div class="line-sep"></div>
                                 <div class="line-txt">{{ language.translate("Sign Up") }}</div>
                             </div>
-
+                            {% set url_signup = '/cart/profile' %}
                             {% include "sign-in/_sign-up.volt" %}
 {#
                             <p>

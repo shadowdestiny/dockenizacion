@@ -10,6 +10,7 @@ use EuroMillions\web\vo\UserId;
 
 interface IPlayStorageStrategy
 {
+    public function save($json, UserId $userId);
     public function saveAll(PlayFormToStorage $data, UserId $userId);
     public function findByKey($key);
     public function delete($key = '');

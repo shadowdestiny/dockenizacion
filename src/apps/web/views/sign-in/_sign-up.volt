@@ -1,4 +1,4 @@
-{{ form('userAccess/signUp') }}
+{{ form( url_signup  ) }}
     {% if  which_form == 'up' and errors %}
         <div class="box error">
             <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>

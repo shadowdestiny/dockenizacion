@@ -23,7 +23,7 @@ var EmSelectDraw = React.createClass({
         return (
             <div className="col2">
                 <label className="label">Draw
-                    <div data-for="select-draw" className="wrap tipr-small" data-tip="Which draw do you want to play?">
+                    <div data-for="select-draw" className="wrap" data-tip="Which draw do you want to play?">
                         <svg className="ico v-question-mark"
                         dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-question-mark"></use>'}}/>
                     </div>

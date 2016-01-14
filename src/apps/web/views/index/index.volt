@@ -38,7 +38,9 @@ $(function(){
 	var element = $('.box-prize .time');
 	var html_formatted = '%-Dd %-Hh %-Mm %-Ss';
 	html_formatted_offset[0] = '%-Hh %-Mm %-Ss';
-	var date = '{{ date_to_draw }}';
+	html_formatted_offset[1] = '%-Mm %-Ss';
+	html_formatted_offset[2] = '%-Ss';
+	var date =  '{{ date_to_draw }}'; //   '2016-01-15 14:00:00';
 	var finish_text = "{{ language.translate('Draw closed') }}";
 	var count  = count_down(element,html_formatted,html_formatted_offset,date,finish_text,null);
 });

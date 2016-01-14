@@ -174,6 +174,17 @@ class PlayService
 
     }
 
+    public function savePlayFromJson($json, UserId $userId)
+    {
+        $result = $this->playStorageStrategy->save($json,$userId);
+        if($result->success()){
+            return new ActionResult(true);
+        }else{
+            return new ActionResult(false);
+        }
+    }
+
+
     public function temporarilyStorePlay(PlayFormToStorage $playForm,UserId $userId)
     {
         $result = $this->playStorageStrategy->saveAll($playForm,$userId);

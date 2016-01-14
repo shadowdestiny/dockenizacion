@@ -1,24 +1,37 @@
 /*
-Error: Undefined variable: "$h4".
-        on line 14 of /src/compass_web/sass/_elements/form-sign-in.scss
+Error: Undefined variable: "$yellow".
+        on line 4 of /src/compass_web/sass/_elements/with-subnav.scss
 
-9:     }
-10:     
-11:     .checkbox{position:relative; top:1px;}
-12: }
-13: .sign-in, .forgot-psw{
-14:     .input, .select{width:100%; margin-bottom:.8em; font-size:$h4;}
-15:     .submit{
-16:         width:100%; margin-bottom:0; text-align:center;
-17:         .ico{position:relative; margin-left:5px; top:2px;}
-18:     }
-19: }
+1: #content{
+2:     .nav{
+3:         position:absolute; width:270px; margin:0; padding:0;
+4:         a{display:block; text-decoration:none; padding:10px 15px; border-bottom:1px solid $yellow;}
+5:         a:hover, a:focus{
+6:             background:$yellow; color:#fff;
+7:             .ico{color:#fff;}
+8:         }
+9:         li:last-child a{border-bottom:0;}
 
 Backtrace:
-/src/compass_web/sass/_elements/form-sign-in.scss:14
+/src/compass_web/sass/_elements/with-subnav.scss:4
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/list_literal.rb:63:in `block in _perform'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/list_literal.rb:63:in `map'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/list_literal.rb:63:in `_perform'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:394:in `visit_prop'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block (2 levels) in visit_rule'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `map'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block in visit_rule'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:428:in `visit_rule'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
@@ -77,4 +90,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$h4\".\A         on line 14 of /src/compass_web/sass/_elements/form-sign-in.scss\A \A 9:     }\A 10:     \A 11:     .checkbox{position:relative; top:1px;}\A 12: }\A 13: .sign-in, .forgot-psw{\A 14:     .input, .select{width:100%; margin-bottom:.8em; font-size:$h4;}\A 15:     .submit{\A 16:         width:100%; margin-bottom:0; text-align:center;\A 17:         .ico{position:relative; margin-left:5px; top:2px;}\A 18:     }\A 19: }"; }
+  content: "Error: Undefined variable: \"$yellow\".\A         on line 4 of /src/compass_web/sass/_elements/with-subnav.scss\A \A 1: #content{\A 2:     .nav{\A 3:         position:absolute; width:270px; margin:0; padding:0;\A 4:         a{display:block; text-decoration:none; padding:10px 15px; border-bottom:1px solid $yellow;}\A 5:         a:hover, a:focus{\A 6:             background:$yellow; color:#fff;\A 7:             .ico{color:#fff;}\A 8:         }\A 9:         li:last-child a{border-bottom:0;}"; }

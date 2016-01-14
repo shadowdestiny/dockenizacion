@@ -563,8 +563,8 @@ $(function(){
 //	clearNum(".clear");
 	//randomAll(".random-all");
 //	clearNumAll(".clear-all");
-	$('.tipr-normal').tipr({'mode':'top', "styled":"normal"});
-	$('.tipr-small').tipr({'mode':'top', "styled":"small"});
+//	$('.tipr-normal').tipr({'mode':'top', "styled":"normal"});
+//	$('.tipr-small').tipr({'mode':'top', "styled":"small"});
 	showAdvanced(".advanced", ".advanced-play", ".advanced-play .close", ".details select", ".advanced-play .col2 select", "#threshold", ".input-value",".threshold")
 	disableSelect("#threshold",".advanced-play .col2 select", ".details select",".input-value input",".input-value",".threshold");
 

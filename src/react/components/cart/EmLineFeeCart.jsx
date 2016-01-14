@@ -29,7 +29,7 @@ var EmLineFeeCart = new React.createClass({
 
         var show_fee_text = null;
         if(this.props.show_fee_text) {
-            show_fee_text = 'Fee for transactions below ' + this.props.price_below_fee + ' ' + this.props.currency_symbol;
+            show_fee_text = 'Fee for transactions below ' + this.props.currency_symbol + ' ' + this.props.price_below_fee;
         }
         var fee_value = this.props.currency_symbol + ' ' + this.props.fee_charge;
         if(!this.props.show_fee_value) {
@@ -45,14 +45,13 @@ var EmLineFeeCart = new React.createClass({
                 </div>
                 <div className="right tweak">
                     <div className="summary val">{fee_value}</div>
-                        <div className="box-funds cl">
-                            <a className="add-funds" onClick={this.handleClick} href="javascript:void(0)">Add Funds to avoid charges</a><br></br>
-                            <div className="box-combo">
-                                {addFundComponent}
-                            </div>
+                    <div className="box-funds cl">
+                        <a className="add-funds" onClick={this.handleClick} href="javascript:void(0)">Add Funds to avoid charges</a><br></br>
+                        <div className="box-combo">
+                            {addFundComponent}
                         </div>
+                    </div>
                 </div>
-
             </div>
         )
     }

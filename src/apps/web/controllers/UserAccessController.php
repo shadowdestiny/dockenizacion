@@ -28,12 +28,11 @@ class UserAccessController extends ControllerBase
 
     public function signInAction($paramsFromPreviousAction = null)
     {
-
         $errors = null;
         $sign_in_form = new SignInForm();
         $form_errors = $this->getErrorsArray();
-
         $sign_up_form = $this->getSignUpForm();
+        $userId = $this->authService->getCurrentUser();
 
         list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
 
@@ -57,10 +56,15 @@ class UserAccessController extends ControllerBase
                 ) {
                     $errors[] = 'Email/password combination not valid';
                 } else {
+                    $url_redirect = $this->session->get('original_referer');
+                    if(explode('/',$url_redirect)[0] == 'cart' && explode('/',$url_redirect)[1] == 'profile') {
+                       return $this->response->redirect('cart/order?user='.$userId->getId());
+                    }
                     return $this->response->redirect("$controller/$action".implode('/',$params));
                 }
             }
         }
+
         $this->view->pick('sign-in/index');
         return $this->view->setVars([
             'which_form'  => 'in',
@@ -81,9 +85,9 @@ class UserAccessController extends ControllerBase
         $form_errors = $this->getErrorsArray();
         $sign_up_form = $this->getSignUpForm();
         list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
+        $url_redirect = $this->session->get('original_referer');
         if ($this->request->isPost()) {
             if ($sign_up_form->isValid($this->request->getPost()) == false) {
-
                 $messages = $sign_up_form->getMessages(true);
                 /**
                  * @var string $field
@@ -94,22 +98,30 @@ class UserAccessController extends ControllerBase
                     $form_errors[$field] = ' error';
                 }
             } else {
-                $register_result = $this->authService->register([
+                $credentials = [
                     'name'     => $this->request->getPost('name'),
                     'surname'  => $this->request->getPost('surname'),
                     'email'    => $this->request->getPost('email'),
                     'password' => $this->request->getPost('password'),
                     'country'  => $this->request->getPost('country'),
-                ]);
+                ];
+                if(explode('/',$url_redirect)[0] == 'cart' && explode('/',$url_redirect)[1] == 'profile') {
+                    $credentials['user_id'] = $this->authService->getCurrentUser();
+                    $register_result = $this->authService->registerFromCheckout($credentials);
+                } else {
+                    $register_result = $this->authService->register($credentials);
+                }
                 if (!$register_result->success()) {
                     $errors[] = $register_result->errorMessage();
                 } else {
-                    $url_redirect = $this->session->get('original_referer');
+                    if(explode('/',$url_redirect)[0] == 'cart' && explode('/',$url_redirect)[1] == 'profile') {
+                        return $this->response->redirect('cart/order');
+                    }
                     return $this->response->redirect($url_redirect);
                 }
             }
         }
-        $this->view->pick('sign-in/index');
+        $this->view->pick('cart/index');
         return $this->view->setVars([
             'which_form'  => 'up',
             'signinform'  => $sign_in_form,
