@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\shared\vo;
 
+use EuroMillions\shared\exceptions\NotEnoughFunds;
 use Money\Currency;
 use Money\InvalidArgumentException;
 use Money\Money;
@@ -29,10 +30,14 @@ class Wallet
 
     /**
      * @param Money $amount
+     * @throws NotEnoughFunds
      */
     public function payPreservingWinnings(Money $amount)
     {
-
+        if($this->uploaded->lessThan($amount)) {
+            throw new NotEnoughFunds();
+        }
+        $this->uploaded = $this->uploaded->subtract($amount);
     }
 
     public function payUsingWinnings(Money $amount)
@@ -74,6 +79,5 @@ class Wallet
         }
         return $amount;
     }
-
 
 }

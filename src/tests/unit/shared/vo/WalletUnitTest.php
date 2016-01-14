@@ -44,11 +44,11 @@ class WalletUnitTest extends UnitTestBase
      */
     public function test_award_called_addAmountToWinnings($uploaded, $winnings, $amount)
     {
-        list($uploadedInWallet, $winningsInWallet, $amountToUpload) = $this->getMoneyObjects($uploaded, $winnings, $amount);
+        list($uploadedInWallet, $winningsInWallet, $amountToAward) = $this->getMoneyObjects($uploaded, $winnings, $amount);
         $expected_uploaded = $uploadedInWallet;
-        $expected_winnings = $winningsInWallet->add($amountToUpload);
+        $expected_winnings = $winningsInWallet->add($amountToAward);
         $method = 'award';
-        $this->exercise($method, $uploadedInWallet, $winningsInWallet, $amountToUpload, $expected_uploaded, $expected_winnings);
+        $this->exercise($method, $uploadedInWallet, $winningsInWallet, $amountToAward, $expected_uploaded, $expected_winnings);
     }
 
     public function getUploadAndAwardTestCasesData()
@@ -68,10 +68,27 @@ class WalletUnitTest extends UnitTestBase
      * method payPreservingWinnings
      * when calledWithEnoughFunds
      * should substractFundsFromUploadedButNotFromWinnings
+     * @dataProvider getAmountsForPayPreservingWinnings
+     * @param $uploaded
+     * @param $winnings
+     * @param $payment
+     * @param $expected
      */
-    public function test_payPreservingWinnings_calledWithEnoughFunds_substractFundsFromUploadedButNotFromWinnings()
+    public function test_payPreservingWinnings_calledWithEnoughFunds_substractFundsFromUploadedButNotFromWinnings($uploaded, $winnings, $payment, $expected)
     {
-        $this->markTestIncomplete();
+        $sut = $this->exercisePayPreservingWinnings($uploaded, $winnings, $payment);
+        $expected_uploaded = $this->getMoney($expected);
+        $expected_winnings = $this->getMoney($winnings);
+        $this->assertEquals($expected_uploaded, $sut->getUploaded());
+        $this->assertEquals($expected_winnings, $sut->getWinnings());
+    }
+
+    public function getAmountsForPayPreservingWinnings()
+    {
+        return [
+            [4000, 2500, 3500, 500],
+            [4000, 2500, 4000, 0],
+        ];
     }
 
     /**
@@ -81,7 +98,12 @@ class WalletUnitTest extends UnitTestBase
      */
     public function test_payPreservingWinnings_calledWithouthEnoughFunds_throw()
     {
-        $this->markTestIncomplete();
+        $uploaded = 200;
+        $winnings = 400;
+        $this->setExpectedException('EuroMillions\shared\exceptions\NotEnoughFunds');
+        $sut = $this->exercisePayPreservingWinnings($uploaded, $winnings, 500);
+        $this->assertEquals($this->getMoney($uploaded), $sut->getUploaded());
+        $this->assertEquals($this->getMoney($winnings), $sut->getWinnings());
 
     }
 
@@ -162,5 +184,18 @@ class WalletUnitTest extends UnitTestBase
         $winningsInWallet = $this->getMoney($winnings);
         $amountToUpload = $this->getMoney($amount);
         return array($uploadedInWallet, $winningsInWallet, $amountToUpload);
+    }
+
+    /**
+     * @param $uploaded
+     * @param $winnings
+     * @param $payment
+     * @return Wallet
+     */
+    private function exercisePayPreservingWinnings($uploaded, $winnings, $payment)
+    {
+        $sut = new Wallet($this->getMoney($uploaded), $this->getMoney($winnings));
+        $sut->payPreservingWinnings($this->getMoney($payment));
+        return $sut;
     }
 }
