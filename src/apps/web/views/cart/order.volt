@@ -16,9 +16,7 @@
     <script src="/w/js/react/cart.js"></script>
 {% endblock %}
 {% block bodyClass %}cart order minimal{% endblock %}
-{% block header %}
-    {% include "_elements/minimal-header.volt" %}
-{% endblock %}
+{% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
 {% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}
 
 {% block body %}
@@ -32,8 +30,15 @@
                 <h1 class="h1 title yellow res">{{ language.translate("Shopping cart") }}</h1>
                 <div class="terms">{{ language.translate("By purchasing you agree to") }} <a href="/legal/">{{ language.translate("Terms &amp; Conditions") }}</a></div>
 
-                <h2 class="h4 sub-txt">{{ language.translate("Order Summary") }}</h2>
-                <div class="right"><h3>Your wallet balance: <?php echo $wallet_balance ?> <?php echo $currency_symbol ?> </h3></div>
+
+                <div class="box-top cl">
+                    <div class="balance">
+                        <span class="txt">{{ language.translate("Your current wallet balance:") }}</span>
+                        <span class="value"><?php echo $currency_symbol ?> <?php echo $wallet_balance ?></span>
+                    </div>
+
+                    <h2 class="h4 sub-txt">{{ language.translate("Order Summary") }}</h2>
+                </div>
 
                 <div id="cart-order"></div>
 

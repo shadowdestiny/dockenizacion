@@ -35,7 +35,7 @@
   .txt1{font-size:$h4; margin-bottom:10px; font-weight:bold; color:$grey-light;}
   .txt2{position:relative; font-size:$h1; margin-bottom:24px; text-transform:uppercase; font-weight:bold;}
   .terms{
-    margin:2em 0;
+    margin:2em 0; text-align:center;
     br{display:none;}
   }
 }
@@ -83,19 +83,20 @@
     -webkit-appearance:none; -webkit-border-radius:0; height:1%; /* Fix Safari */
   }
   .combo.currency{padding:0 9px;}
+  .txt-fee{font-weight:bold;}
   .txt-fee, .desc, .detail, .summary{font-size:$basic-size;}
   .change, .add-funds, .txt-currency{font-size:$small;}
   .txt-fee, .detail, .type{float:left;}
   .change{position:relative; top:-2px;}
   .txt-currency{float:left; font-style:italic; color:$grey-light}
   .terms{
-    margin:5px 0 .75em; font-size:.675em;
+    margin:10px 0 .75em; font-size:.675em;
     a{text-decoration:none;}
     a:hover, a:focus{text-decoration:underline!important;}
   }
   .val{display:inline-block; min-width:80px; text-align:right;}
   .row{border-top:1px solid $grey-lighter; padding:10px;}
-  .sub-txt{margin:0 0 .5em;}
+  .sub-txt{margin:0 0 .5em; text-transform:uppercase;}
   .desc{font-weight:700; float:left; width:70px;}
   .change{margin-left:15px; display:inline-block;}
   .type{width:200px; text-align:left; font-style:italic;}
@@ -127,6 +128,11 @@
   .box-jackpot{float:left;}
   .my-right{margin-top:65px;}
   .mySelect{width:auto; padding:3px;}
+  .balance{
+     float:right; margin-right:10px;
+    .txt{font-size:$small; position:relative; top:-2px;}
+    .value{font-size:$h4; font-weight:bold; color:$green;}
+  }
 }
 
 .success{
