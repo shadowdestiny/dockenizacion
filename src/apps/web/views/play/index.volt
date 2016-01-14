@@ -1,9 +1,9 @@
 {% extends "main.volt" %}
 {% block template_css %}
-<link rel="stylesheet" href="/w/css/vendor/tipr.css">
 <link rel="stylesheet" href="/w/css/play.css">
 {% endblock %}
 {% block template_scripts %}
+{#<script>{% include "play/index.js" %}</script>#}
 <script>
 	var ajaxFunctions = {
 		playCart : function (params) {
@@ -24,8 +24,6 @@
 		}
 	};
 </script>
-{#<script>{% include "play/index.js" %}</script>#}
-<script src="/w/js/vendor/tipr.min.js"></script>
 {% set dates_draw = play_dates|json_encode %}
 <script>
 var draw_dates = <?php echo $dates_draw ?>;
@@ -55,8 +53,7 @@ var currency_symbol = '<?php echo $currency_symbol ?>';
 						{% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
 					</span>
 				</div>
-				<div class="col4">
-				</div>
+				<div class="col4"></div>
 			</div>
 		</header>
 		<div class="special">

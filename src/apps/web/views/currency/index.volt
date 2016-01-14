@@ -4,10 +4,10 @@
 .currency .box-basic{margin-bottom:2em;}
 .currency .list{margin-right:-2%;}
 .currency .list a{text-decoration:none; display:block; padding:5px 10px; border:1px solid #EFC048; border-radius:5px;}
-.currency .list a:hover{background:#EFC048; color:#fff;}
+.currency .list a:hover{background:#EFC048; color:#fff; border:1px solid #C8A23C;}
 .currency .list li{float:left; margin:0 2% 1em 0; width:18%;}
 .currency .list .active{background:#AE5279; color:#fff; border:1px solid #710045;}
-.currency .list .active:hover{cursor:default;}
+.currency .list .active:hover{cursor:default; background:#AE5279; border:1px solid #710045;}
 .currency .curr{display:inline-block; width:100px; font-size:125%; font-weight:bold;}
 .currency .name{display:block;}
 
