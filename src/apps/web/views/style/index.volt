@@ -716,7 +716,7 @@
                     </section>
 
                     *tabs*
-                    *tipr/tooltip*
+                    *react tooltip*
                     *modal*
                     *currency style*
 
