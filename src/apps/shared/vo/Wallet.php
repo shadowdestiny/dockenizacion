@@ -54,6 +54,11 @@ class Wallet
         }
     }
 
+    public function getBalance()
+    {
+        return $this->uploaded->add($this->winnings);
+    }
+
     public function withdraw(Money $amount)
     {
 

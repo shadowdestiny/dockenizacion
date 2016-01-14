@@ -38,6 +38,7 @@ class WalletUnitTest extends UnitTestBase
         $sut->upload($amount);
         $this->assertEquals($amount, $sut->getUploaded());
     }
+
     /**
      * method award
      * when called
@@ -144,6 +145,29 @@ class WalletUnitTest extends UnitTestBase
         $sut = $this->exercisePayUsingWinnings($uploaded, $winnings, $payment);
         $this->assertEquals($this->getMoney($uploaded), $sut->getUploaded());
         $this->assertEquals($this->getMoney($winnings), $sut->getWinnings());
+    }
+
+    /**
+     * method getBalance
+     * when called
+     * should returnSumOfUploadedAndWinnings
+     * @dataProvider getAmountsAndBalance
+     */
+    public function test_getBalance_called_returnSumOfUploadedAndWinnings($uploaded, $winnings, $expectedBalance)
+    {
+        $sut = new Wallet($this->getMoney($uploaded), $this->getMoney($winnings));
+        $this->assertEquals($this->getMoney($expectedBalance), $sut->getBalance());
+    }
+
+    public function getAmountsAndBalance()
+    {
+        return [
+            [0,0,0],
+            [100,0,100],
+            [0,100,100],
+            [51,52,103],
+            [52,51,103],
+        ];
     }
 
     /**
