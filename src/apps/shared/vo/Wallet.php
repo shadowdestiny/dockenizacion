@@ -2,9 +2,9 @@
 namespace EuroMillions\shared\vo;
 
 use EuroMillions\shared\exceptions\NotEnoughFunds;
+use Money\Money;
 use Money\Currency;
 use Money\InvalidArgumentException;
-use Money\Money;
 use Money\UnknownCurrencyException;
 
 class Wallet
@@ -42,6 +42,9 @@ class Wallet
 
     public function payUsingWinnings(Money $amount)
     {
+        if ($amount->greaterThan($this->uploaded->add($this->winnings))) {
+            throw new NotEnoughFunds();
+        }
         if ($amount->greaterThan($this->uploaded)) {
             $to_subtract_from_winnings = $amount->subtract($this->uploaded);
             $this->uploaded = $this->initializeAmount(null);
@@ -49,6 +52,11 @@ class Wallet
         } else {
             $this->uploaded = $this->uploaded->subtract($amount);
         }
+    }
+
+    public function getBalance()
+    {
+        return $this->uploaded->add($this->winnings);
     }
 
     public function withdraw(Money $amount)

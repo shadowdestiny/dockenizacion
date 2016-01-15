@@ -9,6 +9,8 @@ use Money\Money;
 
 class WalletUnitTest extends UnitTestBase
 {
+    const NOT_ENOUGH_FUNDS_EXCEPTION = 'EuroMillions\shared\exceptions\NotEnoughFunds';
+
     /**
      * method upload
      * when called
@@ -36,6 +38,7 @@ class WalletUnitTest extends UnitTestBase
         $sut->upload($amount);
         $this->assertEquals($amount, $sut->getUploaded());
     }
+
     /**
      * method award
      * when called
@@ -98,7 +101,7 @@ class WalletUnitTest extends UnitTestBase
     {
         $uploaded = 200;
         $winnings = 400;
-        $this->setExpectedException('EuroMillions\shared\exceptions\NotEnoughFunds');
+        $this->setExpectedException(self::NOT_ENOUGH_FUNDS_EXCEPTION);
         $sut = $this->exercisePayPreservingWinnings($uploaded, $winnings, 500);
         $this->assertEquals($this->getMoney($uploaded), $sut->getUploaded());
         $this->assertEquals($this->getMoney($winnings), $sut->getWinnings());
@@ -135,8 +138,36 @@ class WalletUnitTest extends UnitTestBase
      */
     public function test_payUsingWinnings_calledWithouthEnoughFunds_throw()
     {
-        $this->markTestIncomplete();
+        $uploaded = 400;
+        $winnings = 600;
+        $payment = 1001;
+        $this->setExpectedException(self::NOT_ENOUGH_FUNDS_EXCEPTION);
+        $sut = $this->exercisePayUsingWinnings($uploaded, $winnings, $payment);
+        $this->assertEquals($this->getMoney($uploaded), $sut->getUploaded());
+        $this->assertEquals($this->getMoney($winnings), $sut->getWinnings());
+    }
 
+    /**
+     * method getBalance
+     * when called
+     * should returnSumOfUploadedAndWinnings
+     * @dataProvider getAmountsAndBalance
+     */
+    public function test_getBalance_called_returnSumOfUploadedAndWinnings($uploaded, $winnings, $expectedBalance)
+    {
+        $sut = new Wallet($this->getMoney($uploaded), $this->getMoney($winnings));
+        $this->assertEquals($this->getMoney($expectedBalance), $sut->getBalance());
+    }
+
+    public function getAmountsAndBalance()
+    {
+        return [
+            [0,0,0],
+            [100,0,100],
+            [0,100,100],
+            [51,52,103],
+            [52,51,103],
+        ];
     }
 
     /**
