@@ -9,7 +9,7 @@
         var wallet_balance = '<?php echo $wallet_balance ?>';
         var total_price = parseFloat('<?php echo $total?>');
         var single_bet_price = '<?php echo number_format($single_bet_price, 2,".",",") ?>';
-        var currency_symbol = '<?php echo $currency_symbol?>';
+        var currency_symbol = '<?php echo empty($currency_symbol) ? $current_currency : $currency_symbol;?>';
         var price_below_fee = '<?php echo $fee_below ?>';
         var fee_charge = '<?php echo $fee_charge ?>';
     </script>
