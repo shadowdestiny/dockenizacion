@@ -17,7 +17,8 @@ var EmTotalCart = new React.createClass({
                     Currencies are just informative, transactions are charged in Euros.
                 </div>
                 <div className="total">
-                    <div className="txt">Total</div><div className="val">{this.props.currency_symbol} {price}</div>
+                    <div className="txt">To be paid</div>
+                    <div className="val">{this.props.currency_symbol} {price}</div>
                 </div>
             </div>
         )

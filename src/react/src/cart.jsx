@@ -124,7 +124,7 @@ var CartPage = new React.createClass({
             wallet_component = <EmWallet currency_symbol={this.props.currency_symbol} checked_callback={this.handleCheckedWallet} show_checked={this.state.checked_wallet} total_price={total_default} wallet_balance={this.props.wallet_balance}/>;
         }
 
-        var txt_button_payment = this.state.checked_wallet ? 'Pay with my wallet balance' : 'Continue to payment';
+        var txt_button_payment = this.state.checked_wallet ? 'Buy now' : 'Continue to payment';
 
         return (
             <div>
