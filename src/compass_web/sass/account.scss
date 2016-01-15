@@ -196,13 +196,20 @@
 }
 */
 .email .content{
-    select{width:auto; font-size:$basic-size; margin:-5px 0;}
-    .email-me{float:left; font-weight:700; min-width:100px;}
-    .options{float:left;}
-    li{min-height:40px;}
-    .details{display:inline-block;}
-    .checkbox{margin-right:2px;}
-    .input-value input{border:1px solid $grey-light; line-height:30px; padding:0 5px; font-size:$basic-size; height:30px; margin:-5px 0;}
+/*    select{width:auto; font-size:$basic-size; margin:-5px 0;}*/
+    .email-me{font-size:$basic-size; float:left; font-weight:700; min-width:85px;}
+    .options{
+        float:left;
+        .txt{margin-left:3px; display:inline-block;}
+        .checkbox{position:relative; top:1px;}
+        .currency{font-weight:700;}
+    }
+    li{min-height:38px; font-size:$basic-size;}
+    label{margin:0;}
+/*    .details{display:inline-block;}*/
+    .input, .select{border:1px solid $grey-light; padding:5px; font-size:100%; margin-left:3px; width:auto!important; position:relative; margin-top:-5px;}
+
+/*    .input-value input{border:1px solid $grey-light; line-height:30px; padding:0 5px; font-size:$basic-size; height:30px; margin:-5px 0;}*/
 }
 
 .transaction .info{font-weight:normal;}
