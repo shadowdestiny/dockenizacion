@@ -294,6 +294,7 @@ class AccountController extends PublicSiteControllerBase
                 $error = 'An error occurred while updated. Please, try it later';
             }
         }
+        
         $this->view->pick('account/email');
         return $this->view->setVars([
             'message' => $message,

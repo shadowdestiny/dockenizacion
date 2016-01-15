@@ -55,6 +55,7 @@
                                     {% endif %}
 
                                     {% if notification.notification.notification_type == 1 %}
+                                        <span class="currency">&euro;</span>
                                         <input name="config_value_{{ notification.name }}" placeholder="{{ language.translate('Insert an ammount') }}" value="{{ notification.config_value }}" class="input {% if error %}error{% endif %}"/>
                                     {% endif %}
                                 </li>
