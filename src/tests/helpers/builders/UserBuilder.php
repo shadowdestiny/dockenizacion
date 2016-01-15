@@ -7,8 +7,10 @@ use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Password;
+use EuroMillions\web\vo\UserId;
 use EuroMillions\web\vo\ValidationToken;
 use Money\Currency;
+use Money\Money;
 
 class UserBuilder
 {
@@ -29,6 +31,7 @@ class UserBuilder
     private $validated = self::DEFAULT_VALIDATED;
     private $validationToken;
     private $user_currency;
+    private $threshold;
 
     public static function aUser()
     {
@@ -44,9 +47,27 @@ class UserBuilder
         $this->user_currency = new Currency(self::DEFAULT_USER_CURRENCY);
     }
 
+    public function withId(UserId $id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
     public function withPassword(Password $password)
     {
         $this->password = $password;
+        return $this;
+    }
+
+    public function withWallet(Wallet $wallet)
+    {
+        $this->wallet = $wallet;
+        return $this;
+    }
+
+    public function withThreshold(Money $threshold)
+    {
+        $this->threshold = $threshold;
         return $this;
     }
 

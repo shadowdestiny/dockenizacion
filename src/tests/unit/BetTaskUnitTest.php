@@ -4,6 +4,7 @@
 namespace tests\unit;
 
 
+use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\EuroMillionsDraw;
@@ -25,6 +26,8 @@ use Money\Money;
 use Prophecy\Argument;
 use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\UnitTestBase;
+use tests\helpers\builders\UserBuilder;
+use tests\helpers\mothers\UserMother;
 
 class BetTaskUnitTest extends UnitTestBase
 {
@@ -259,19 +262,8 @@ class BetTaskUnitTest extends UnitTestBase
      */
     private function getUser($currency = 'EUR')
     {
-        $user = new User();
-        $user->initialize(
-            [
-                'id' => new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'),
-                'name'     => 'test',
-                'surname'  => 'test01',
-                'email'    => new Email('raul.mesa@panamedia.net'),
-                'password' => new Password('passworD01', new NullPasswordHasher()),
-                'validated' => false,
-                'balance' => new Money(5000,new Currency($currency)),
-                'validation_token' => '33e4e6a08f82abb38566fc3bb8e8ef0d',
-            ]
-        );
+        $user = UserMother::aUserWith50Eur()
+            ->build();
         return $user;
     }
 
@@ -281,20 +273,9 @@ class BetTaskUnitTest extends UnitTestBase
      */
     private function getUserTwo($currency = 'EUR')
     {
-        $user = new User();
-        $user->initialize(
-            [
-                'id' => new UserId('9098299B-14AC-4124-8DB0-19571EDABE56'),
-                'name'     => 'test',
-                'surname'  => 'test01',
-                'email'    => new Email('raul.mesa@panamedia.net'),
-                'password' => new Password('passworD01', new NullPasswordHasher()),
-                'validated' => false,
-                'balance' => new Money(5000,new Currency($currency)),
-                'validation_token' => '33e4e6a08f82abb38566fc3bb8e8ef0d',
-                'threshold' => new Money(100000, new Currency($currency))
-            ]
-        );
+        $user = UserMother::aUserWith50Eur()
+            ->withThreshold(new Money(100000, new Currency($currency)))
+            ->build();
         return $user;
     }
 

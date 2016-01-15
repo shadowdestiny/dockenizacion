@@ -27,6 +27,7 @@ use Prophecy\Argument;
 use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\LotteryValidationCastilloRelatedTest;
 use tests\base\UnitTestBase;
+use tests\helpers\mothers\UserMother;
 
 class PlayServiceUnitTest extends UnitTestBase
 {
@@ -99,8 +100,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_play_calledWithUserWithoutBalance_returnServiceActionResultFalse()
     {
-        $user = $this->getUser();
-        $user->setBalance(new Money(0,new Currency('EUR')));
+        $user = UserMother::aUserWithNoMoney()->build();
         $regular_numbers = [1, 2, 3, 4, 5];
         $lucky_numbers = [5, 8];
         $euroMillionsResult = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),
@@ -247,10 +247,9 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_bet_calledWhenUserWithoutBalance_throwInvalidBalanceException()
     {
-        $user = $this->getUser();
+        $user = UserMother::aUserWithNoMoney()->build();
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $this->userRepository_double->find($user->getId()->id())->willReturn($user);
-        $user->setBalance(new Money(0, new Currency('EUR')));
         $this->setExpectedException('EuroMillions\web\exceptions\InvalidBalanceException');
         $sut = $this->getSut();
         $sut->bet($playConfig,$euroMillionsDraw,new \DateTime());
@@ -416,19 +415,20 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     private function getUser($currency = 'EUR')
     {
-        $user = new User();
-        $user->initialize(
-            [
-                'id' => new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'),
-                'name'     => 'test',
-                'surname'  => 'test01',
-                'email'    => new Email('raul.mesa@panamedia.net'),
-                'password' => new Password('passworD01', new NullPasswordHasher()),
-                'validated' => false,
-                'balance' => new Money(50000,new Currency($currency)),
-                'validation_token' => '33e4e6a08f82abb38566fc3bb8e8ef0d'
-            ]
-        );
+//        $user = new User();
+//        $user->initialize(
+//            [
+//                'id' => new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'),
+//                'name'     => 'test',
+//                'surname'  => 'test01',
+//                'email'    => new Email('raul.mesa@panamedia.net'),
+//                'password' => new Password('passworD01', new NullPasswordHasher()),
+//                'validated' => false,
+//                'balance' => new Money(50000,new Currency($currency)),
+//                'validation_token' => '33e4e6a08f82abb38566fc3bb8e8ef0d'
+//            ]
+//        );
+        $user = UserMother::aUserWith500Eur()->build();
         return $user;
     }
 

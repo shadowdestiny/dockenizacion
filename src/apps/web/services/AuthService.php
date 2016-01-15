@@ -2,6 +2,7 @@
 namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\Md5EmailValidationToken;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\web\components\PhpassWrapper;
@@ -139,7 +140,7 @@ class AuthService
             'email'    => $email,
             'password' => new Password($credentials['password'], $this->passwordHasher),
             'country'  => $credentials['country'],
-            'balance'  => new Money(0, new Currency('EUR')),
+            'wallet'  => new Wallet(),
             'validated' => 0,
             'validation_token' => $this->getEmailValidationToken($email),
             'user_currency' => new Currency('EUR')
