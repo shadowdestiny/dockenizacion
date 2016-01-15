@@ -18,6 +18,7 @@ use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
+use tests\helpers\mothers\UserMother;
 
 class AuthServiceUnitTest extends UnitTestBase
 {
@@ -386,40 +387,44 @@ class AuthServiceUnitTest extends UnitTestBase
     public function test_registerFromCheckout_calledWithProperData_storeNewUserAndReturnOk()
     {
         $this->expectFlushInEntityManager();
+        $user_id = UserId::create();
+        $user = UserMother::aJustRegisteredUser($this->hasher_double->reveal());
+        $user_build_entity = $user->build();
+        $expected = new ActionResult(true,$user_build_entity);
         $credentials = $this->getRegisterCredentials();
-        $passwordGenerator = new RandomPasswordGenerator(new NullPasswordHasher());
-        $password = $passwordGenerator->getPassword();
-        $user = new User();
-        $guest_user = new GuestUser();
-        $guest_user->setId(new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'));
-        $credentials['user_id'] = $guest_user;
-        $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
-        $user->initialize(
-            [
-                'id' => $userId,
-                'name'     => $credentials['name'],
-                'surname'  => $credentials['surname'],
-                'email'    => new Email($credentials['email']),
-                'password' => $password,
-                'country'  => $credentials['country'],
-                'balance'  => new Money(0, new Currency('EUR')),
-                'validated' => 0,
-                'validationToken' => new ValidationToken(new Email($credentials['email']), new Md5EmailValidationToken()),
-                'user_currency' => new Currency('EUR')
-            ]
-        );
-
-        $this->storageStrategy_double->getCurrentUserId()->willReturn($userId);
-        $this->userRepository_double->find($userId)->willReturn(null);
+        $user_build_entity->setId($user_id);
+        $this->storageStrategy_double->getCurrentUserId()->willReturn($user_id);
+        $this->userRepository_double->find($user_id)->willReturn(null);
         $this->userRepository_double->getByEmail($credentials['email'])->willReturn(null);
-        $this->userRepository_double->add($user)->shouldBeCalled();
-        $user->setId($userId);
-        $this->userRepository_double->add($user)->shouldBeCalled();
-        $this->storageStrategy_double->setCurrentUserId(Argument::type($this->getVOToArgument('UserId')))->shouldBeCalled();
+        $this->userRepository_double->addWithId($user_build_entity)->shouldBeCalled();
+        $this->storageStrategy_double->setCurrentUserId($user_id)->shouldBeCalled();
         $sut = $this->getSut();
-        $actual = $sut->registerFromCheckout($credentials,$password);
-        $expected = new ActionResult(true, $user);
-        $this->assertEquals($expected, $actual);
+        $actual = $sut->registerFromCheckout($credentials,$user_id);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method registerFromCheckout
+     * when calledWithProperData
+     * should returnUserEntityWithUserIdPassedAsParameter
+     */
+    public function test_registerFromCheckout_calledWithProperData_returnUserEntityWithUserIdPassedAsParameter()
+    {
+        $this->expectFlushInEntityManager();
+        $user_id = UserId::create();
+        $user = UserMother::aJustRegisteredUser($this->hasher_double->reveal());
+        $user_build_entity = $user->build();
+        $expected = $user_id;
+        $credentials = $this->getRegisterCredentials();
+        $user_build_entity->setId($user_id);
+        $this->storageStrategy_double->getCurrentUserId()->willReturn($user_id);
+        $this->userRepository_double->find($user_id)->willReturn(null);
+        $this->userRepository_double->getByEmail($credentials['email'])->willReturn(null);
+        $this->userRepository_double->addWithId($user_build_entity)->shouldBeCalled();
+        $this->storageStrategy_double->setCurrentUserId($user_id)->shouldBeCalled();
+        $sut = $this->getSut();
+        $actual = $sut->registerFromCheckout($credentials,$user_id);
+        $this->assertEquals($expected,$actual->getValues()->getId());
     }
 
 

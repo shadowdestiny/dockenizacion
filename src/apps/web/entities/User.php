@@ -47,6 +47,54 @@ class User extends EntityBase implements IEntity, IUser
 
     protected $userNotification;
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getPaymentMethod()
+    {
+        return $this->paymentMethod;
+    }
+
+    /**
+     * @param ArrayCollection $paymentMethod
+     */
+    public function setPaymentMethod($paymentMethod)
+    {
+        $this->paymentMethod = $paymentMethod;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getPlayConfig()
+    {
+        return $this->playConfig;
+    }
+
+    /**
+     * @param ArrayCollection $playConfig
+     */
+    public function setPlayConfig($playConfig)
+    {
+        $this->playConfig = $playConfig;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getUserNotification()
+    {
+        return $this->userNotification;
+    }
+
+    /**
+     * @param ArrayCollection $userNotification
+     */
+    public function setUserNotification($userNotification)
+    {
+        $this->userNotification = $userNotification;
+    }
+
     public function __construct(){
         $this->paymentMethod = new ArrayCollection();
         $this->playConfig = new ArrayCollection();

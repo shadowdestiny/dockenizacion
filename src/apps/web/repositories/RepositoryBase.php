@@ -18,4 +18,11 @@ class RepositoryBase extends EntityRepository
         $this->getEntityManager()->persist($entity);
     }
 
+    public function addWithId(EntityBase $entity)
+    {
+        $this->getEntityManager()->getClassMetadata(get_class($entity))->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
+        $this->getEntityManager()->persist($entity);
+    }
+
+
 }
