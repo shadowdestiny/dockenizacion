@@ -3,6 +3,7 @@
 
 namespace EuroMillions\web\services\play_strategies;
 
+use EuroMillions\web\exceptions\UnsupportedOperationException;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\interfaces\ISession;
 use EuroMillions\web\vo\PlayFormToStorage;
@@ -45,5 +46,10 @@ class SessionPlayStorageStrategy implements IPlayStorageStrategy
     public function delete($key = '')
     {
         $this->session->destroy();
+    }
+
+    public function save($json, UserId $userId)
+    {
+        throw new UnsupportedOperationException();
     }
 }

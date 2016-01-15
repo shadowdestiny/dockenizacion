@@ -28,6 +28,7 @@
                                 <div class="line-txt">{{ language.translate("Log in") }}</div>
                             </div>
                         </div>
+                        {% set url_signin = 'cart/login' %}
                         {% include "sign-in/_log-in.volt" %}
                     </div>
                 </div>
@@ -39,7 +40,7 @@
                                 <div class="line-sep"></div>
                                 <div class="line-txt">{{ language.translate("Sign Up") }}</div>
                             </div>
-                            {% set url_signup = '/cart/profile' %}
+                            {% set url_signup = 'cart/profile' %}
                             {% include "sign-in/_sign-up.volt" %}
 {#
                             <p>

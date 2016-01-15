@@ -1,10 +1,15 @@
-{{ form('userAccess/signIn') }}
+{{ form(url_signin) }}
     {% if  which_form == 'in' and errors %}
         <div class="box error">
             <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
             <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
         </div>
     {% endif %}
+    {% if  which_form == 'up' %}
+        {% set form_errors['email'] = '' %}
+        {% set form_errors['password'] = '' %}
+    {% endif %}
+
     {{ signinform.render('email', {'class':'input'~form_errors['email']}) }}
     {{ signinform.render('password', {'class':'input'~form_errors['password']}) }}
     {{ signinform.render('csrf', ['value': security.getSessionToken()]) }}

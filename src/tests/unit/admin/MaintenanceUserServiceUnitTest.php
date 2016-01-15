@@ -5,6 +5,7 @@ namespace tests\unit\admin;
 
 
 use EuroMillions\shared\config\Namespaces;
+use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\web\entities\User;
 use EuroMillions\admin\vo\ActionResult;
@@ -119,7 +120,7 @@ class MaintenanceUserServiceUnitTest extends UnitTestBase
                 'email'    => new Email('raul.mesa@panamedia.net'),
                 'password' => new Password('passworD01', new NullPasswordHasher()),
                 'validated' => false,
-                'balance' => new Money(5000,new Currency($currency)),
+                'wallet' => new Wallet(new Money(5000,new Currency($currency))),
                 'validation_token' => '33e4e6a08f82abb38566fc3bb8e8ef0d'
             ]
         );

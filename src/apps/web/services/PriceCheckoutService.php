@@ -59,7 +59,7 @@ class PriceCheckoutService
     {
         if($amount->getAmount() > 0) {
             try{
-                $user->setBalance($user->getBalance()->add($amount));
+                $user->awardPrize($amount);
                 $this->userRespository->add($user);
                 $this->entityManager->flush($user);
                 return new ActionResult(true);

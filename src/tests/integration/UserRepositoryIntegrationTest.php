@@ -1,6 +1,7 @@
 <?php
 namespace tests\integration;
 
+use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\web\components\PhpassWrapper;
 use EuroMillions\web\entities\User;
@@ -76,7 +77,7 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
             'country'  => 'pais',
             'password' => new Password($password, $hasher),
             'email'    => new Email($email),
-            'balance'  => new Money(3000, new Currency('EUR')),
+            'wallet'  => new Wallet(new Money(3000, new Currency('EUR'))),
             'validated' => 0,
             'jackpot_reminder' => 0,
         ]);
