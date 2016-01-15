@@ -31,7 +31,7 @@
         <embedded name="email" class="EuroMillions\web\vo\Email" use-column-prefix="false"/>
         <embedded name="rememberToken" class="EuroMillions\web\vo\RememberToken" use-column-prefix="false"/>
         <embedded name="validationToken" class="EuroMillions\web\vo\ValidationToken" use-column-prefix="false"/>
-        <embedded name="balance" class="Money\Money" use-column-prefix="true" />
+        <embedded name="wallet" class="EuroMillions\shared\vo\Wallet" use-column-prefix="true" />
         <embedded name="user_currency" class="Money\Currency" use-column-prefix="true" />
         <one-to-many target-entity="EuroMillions\web\entities\PaymentMethod" mapped-by="payment_method"
                      field="paymentMethod">

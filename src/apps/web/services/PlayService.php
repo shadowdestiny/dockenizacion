@@ -139,7 +139,7 @@ class PlayService
                     $this->entityManager->flush($log_api_reponse);
                     if($result_validation->success()) {
                         $this->betRepository->add($bet);
-                        $user->setBalance($user->getBalance()->subtract($single_bet_price));
+                        $user->payPreservingWinnings($single_bet_price);
                         $this->userRepository->add($user);
                         $playConfig->setActive(false);
                         $this->playConfigRepository->add($playConfig);

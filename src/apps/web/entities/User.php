@@ -2,6 +2,7 @@
 namespace EuroMillions\web\entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\interfaces\IEntity;
 use EuroMillions\web\interfaces\IUser;
 use EuroMillions\web\vo\Email;
@@ -24,8 +25,8 @@ class User extends EntityBase implements IEntity, IUser
     protected $email;
     /** @var  RememberToken */
     protected $rememberToken;
-    /** @var  Money */
-    protected $balance;
+    /** @var  Wallet */
+    protected $wallet;
     /** @var  Currency */
     protected $user_currency;
 
@@ -195,14 +196,14 @@ class User extends EntityBase implements IEntity, IUser
         return $this->rememberToken;
     }
 
-    public function setBalance(Money $balance)
-    {
-        $this->balance = $balance;
-    }
-
     public function getBalance()
     {
-        return $this->balance;
+        return $this->wallet->getBalance();
+    }
+
+    public function setWallet(Wallet $wallet)
+    {
+        $this->wallet = $wallet;
     }
 
     public function setValidated($validated)
@@ -334,6 +335,11 @@ class User extends EntityBase implements IEntity, IUser
     public function setUserCurrency($user_currency)
     {
         $this->user_currency = $user_currency;
+    }
+
+    public function payPreservingWinnings(Money $amount)
+    {
+        $this->wallet->payPreservingWinnings($amount);
     }
 
 }

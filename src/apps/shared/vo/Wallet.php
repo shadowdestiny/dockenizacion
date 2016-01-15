@@ -2,9 +2,9 @@
 namespace EuroMillions\shared\vo;
 
 use EuroMillions\shared\exceptions\NotEnoughFunds;
+use Money\Money;
 use Money\Currency;
 use Money\InvalidArgumentException;
-use Money\Money;
 use Money\UnknownCurrencyException;
 
 class Wallet
