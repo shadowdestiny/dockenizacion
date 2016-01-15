@@ -34,7 +34,7 @@
                 <div class="box-top cl">
                     <div class="balance">
                         <span class="txt">{{ language.translate("Your current wallet balance:") }}</span>
-                        <span class="value"><?php echo $currency_symbol ?> <?php echo $wallet_balance ?></span>
+                        <span class="value"><span class="old"><?php echo $currency_symbol ?> <?php echo $wallet_balance ?>.00</span> <span class="new"><?php echo $currency_symbol ?> 14.05</span></span>
                     </div>
 
                     <h2 class="h4 sub-txt">{{ language.translate("Order Summary") }}</h2>
