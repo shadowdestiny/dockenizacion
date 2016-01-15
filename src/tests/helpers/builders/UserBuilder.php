@@ -1,7 +1,6 @@
 <?php
 namespace tests\helpers\builders;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\Md5EmailValidationToken;
 use EuroMillions\web\components\NullPasswordHasher;
@@ -59,35 +58,57 @@ class UserBuilder
         $this->user_currency = new Currency(self::DEFAULT_USER_CURRENCY);
     }
 
+    /**
+     * @param UserId $id
+     * @return UserBuilder
+     */
     public function withId(UserId $id)
     {
         $this->id = $id;
         return $this;
     }
 
+    /**
+     * @param Password $password
+     * @return UserBuilder
+     */
     public function withPassword(Password $password)
     {
         $this->password = $password;
         return $this;
     }
 
+    /**
+     * @param Wallet $wallet
+     * @return UserBuilder
+     */
     public function withWallet(Wallet $wallet)
     {
         $this->wallet = $wallet;
         return $this;
     }
 
+    /**
+     * @param Money $threshold
+     * @return UserBuilder
+     */
     public function withThreshold(Money $threshold)
     {
         $this->threshold = $threshold;
         return $this;
     }
 
+    /**
+     * @return UserBuilder
+     */
     public function but()
     {
         return $this;
     }
 
+    /**
+     * @return User
+     */
     public function build()
     {
         $user = new User();

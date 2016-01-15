@@ -19,6 +19,7 @@
 
 #main-page, .ui-content, #content{height:100%;}
 #content{padding-top:0!important; transform-style:preserve-3d;} /* Preserve is used because of translateY*/
+.sign-in .terms{text-align:center;}
 .sign-in .wrapper, .forgot-psw .wrapper{max-width:1000px; position:relative; top:30%; transform:translateY(-30%);}
 .col-left, .col-right{float:left;}
 .col-left{width:50%; margin-right:5%;}

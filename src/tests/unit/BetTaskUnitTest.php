@@ -1,11 +1,6 @@
 <?php
-
-
 namespace tests\unit;
 
-
-use EuroMillions\shared\vo\Wallet;
-use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Notification;
@@ -15,10 +10,7 @@ use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\exceptions\InvalidBalanceException;
 use EuroMillions\web\tasks\BetTask;
 use EuroMillions\web\vo\DrawDays;
-use EuroMillions\web\vo\Email;
-use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\NotificationType;
-use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\ActionResult;
 use EuroMillions\web\vo\UserId;
 use Money\Currency;
@@ -26,7 +18,6 @@ use Money\Money;
 use Prophecy\Argument;
 use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\UnitTestBase;
-use tests\helpers\builders\UserBuilder;
 use tests\helpers\mothers\UserMother;
 
 class BetTaskUnitTest extends UnitTestBase
@@ -119,9 +110,11 @@ class BetTaskUnitTest extends UnitTestBase
         $this->playService_double->getPlaysConfigToBet($euroMillionsDraw->getDrawDate())->willReturn($play_config_list);
         $play_config = $this->getPlayConfigList($this->getUser());
 
-        $this->playService_double->bet($play_config->getValues()[0], $euroMillionsDraw)->shouldBeCalled();
-        $this->playService_double->bet($play_config->getValues()[1], $euroMillionsDraw)->shouldBeCalled();
-        $this->playService_double->bet($play_config->getValues()[2], $euroMillionsDraw)->shouldBeCalled();
+        /** @var array $play_config_values */
+        $play_config_values = $play_config->getValues();
+        $this->playService_double->bet($play_config_values[0], $euroMillionsDraw)->shouldBeCalled();
+        $this->playService_double->bet($play_config_values[1], $euroMillionsDraw)->shouldBeCalled();
+        $this->playService_double->bet($play_config_values[2], $euroMillionsDraw)->shouldBeCalled();
 
         $this->userService_double->getUser(Argument::any())->willReturn($this->getUser());
         $this->userService_double->getActiveNotificationsByUserAndType(Argument::any(),Argument::any())->willReturn(new ActionResult(true,$this->getUserNotifications()));
@@ -256,15 +249,10 @@ class BetTaskUnitTest extends UnitTestBase
         $sut->createBetAction($today,$this->time_to_retry);
     }
 
-    /**
-     * @param string $currency
-     * @return User
-     */
-    private function getUser($currency = 'EUR')
+    private function getUser()
     {
-        $user = UserMother::aUserWith50Eur()
+        return UserMother::aUserWith50Eur()
             ->build();
-        return $user;
     }
 
     /**
@@ -273,10 +261,9 @@ class BetTaskUnitTest extends UnitTestBase
      */
     private function getUserTwo($currency = 'EUR')
     {
-        $user = UserMother::aUserWith50Eur()
+        return UserMother::aUserWith50Eur()
             ->withThreshold(new Money(100000, new Currency($currency)))
             ->build();
-        return $user;
     }
 
 
@@ -299,13 +286,6 @@ class BetTaskUnitTest extends UnitTestBase
         $play_config_list = $this->getPlayConfigList($this->getUser());
         $this->playService_double->getPlaysConfigToBet($euroMillionsDraw->getDrawDate())->willReturn($play_config_list);
     }
-
-    private function getSut()
-    {
-        $sut = $this->getDomainServiceFactory();
-        return $sut;
-    }
-
 
     private function getEuroMillionsDraw($lotteryDrawDate)
     {
