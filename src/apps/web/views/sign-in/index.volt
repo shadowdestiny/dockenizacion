@@ -44,7 +44,7 @@ $(function(){
                     <span class="bg-or"><span class="or">{{ language.translate("or") }}</span></span>
                 </div>
                 #}
-
+                {% set url_signin = 'userAccess/signIn' %}
                 {% include "sign-in/_log-in.volt" %}
             </div>
 

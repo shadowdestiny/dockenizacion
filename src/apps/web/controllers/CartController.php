@@ -38,6 +38,7 @@ class CartController extends PublicSiteControllerBase{
         $user_id = $this->request->get('user');
         /** @var UserId $currenct_user_id */
         $current_user_id = $this->authService->getCurrentUser()->getId();
+        // for the moment user_id is a guest_user
         if(!empty($user_id)) {
             $user = new User();
             $user->setId(new UserId($user_id));
@@ -93,6 +94,101 @@ class CartController extends PublicSiteControllerBase{
         $sign_up_form = $this->getSignUpForm();
         list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
 
+//        if ($this->request->isPost()) {
+//            if ($sign_in_form->isValid($this->request->getPost()) == false) {
+//                $messages = $sign_in_form->getMessages(true);
+//                /**
+//                 * @var string $field
+//                 * @var Message\Group $field_messages
+//                 */
+//                foreach ($messages as $field => $field_messages) {
+//                    $errors[] = $field_messages[0]->getMessage();
+//                    $form_errors[$field] = ' error';
+//                }
+//            } else {
+//                if (!$this->authService->check([
+//                    'email'    => $this->request->getPost('email'),
+//                    'password' => $this->request->getPost('password'),
+//                    'remember' => $this->request->getPost('remember'),
+//                ], 'string')
+//                ) {
+//                    $errors[] = 'Email/password combination not valid';
+//                } else {
+//                    return $this->response->redirect("$controller/$action".implode('/',$params));
+//                }
+//            }
+//        }
+        $this->view->pick('cart/index');
+        return $this->view->setVars([
+            'which_form'  => 'in',
+            'signinform'  => $sign_in_form,
+            'signupform'  => $sign_up_form,
+            'errors'      => $errors,
+            'form_errors' => $form_errors,
+            'controller' => $controller,
+            'action' => $action,
+            'params' => json_encode($params),
+        ]);
+    }
+
+    public function profileAction($paramsFromPreviousAction = null)
+    {
+        $errors = null;
+        $user = $this->authService->getCurrentUser();
+        if($user instanceof User) {
+            $this->response->redirect('cart/order');
+        }
+        $sign_up_form = $this->getSignUpForm();
+        list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
+        $sign_in_form = new SignInForm();
+        $myaccount_form = $this->getMyACcountForm();
+        $form_errors = $this->getErrorsArray();
+        if($this->request->isPost()) {
+            if ($myaccount_form->isValid($this->request->getPost()) == false) {
+                $messages = $myaccount_form->getMessages(true);
+
+                foreach ($messages as $field => $field_messages) {
+                    $errors[] = $field_messages[0]->getMessage();
+                    $form_errors[$field] = ' error';
+                }
+            }else {
+                $result = $this->authService->registerFromCheckout([
+                    'name'     => $this->request->getPost('name'),
+                    'surname'  => $this->request->getPost('surname'),
+                    'password' => $this->request->getPost('password'),
+                    'email'    => $this->request->getPost('email'),
+                    'country'  => $this->request->getPost('country'),
+                ], $user->getId());
+                if($result->success()){
+                    $this->response->redirect('cart/order');
+                    $msg = $result->getValues();
+                }else{
+                    $errors [] = $result->errorMessage();
+                }
+            }
+        }
+        $this->view->pick('cart/profile');
+        return $this->view->setVars([
+            'which_form'  => 'up',
+            'signinform'  => $sign_in_form,
+            'signupform'  => $sign_up_form,
+            'errors'      => $errors,
+            'form_errors' => $form_errors,
+            'controller' => $controller,
+            'action' => $action,
+            'params' => json_encode($params),
+        ]);
+    }
+
+    public function loginAction($paramsFromPreviousAction = null)
+    {
+        $errors = null;
+        $sign_in_form = new SignInForm();
+        $form_errors = $this->getErrorsArray();
+        $sign_up_form = $this->getSignUpForm();
+        $userId = $this->authService->getCurrentUser();
+        list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
+
         if ($this->request->isPost()) {
             if ($sign_in_form->isValid($this->request->getPost()) == false) {
                 $messages = $sign_in_form->getMessages(true);
@@ -113,57 +209,7 @@ class CartController extends PublicSiteControllerBase{
                 ) {
                     $errors[] = 'Email/password combination not valid';
                 } else {
-                    return $this->response->redirect("$controller/$action".implode('/',$params));
-                }
-            }
-        }
-        $this->view->pick('cart/index');
-        return $this->view->setVars([
-            'which_form'  => 'in',
-            'signinform'  => $sign_in_form,
-            'signupform'  => $sign_up_form,
-            'errors'      => $errors,
-            'form_errors' => $form_errors,
-            'controller' => $controller,
-            'action' => $action,
-            'params' => json_encode($params),
-        ]);
-    }
-
-    public function profileAction($paramsFromPreviousAction = null)
-    {
-        $errors = null;
-        $userId = $this->authService->getCurrentUser();
-        if($userId instanceof User) {
-            $this->response->redirect('cart/order');
-        }
-        $sign_up_form = $this->getSignUpForm();
-        list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
-        $sign_in_form = new SignInForm();
-        $myaccount_form = $this->getMyACcountForm();
-        $form_errors = $this->getErrorsArray();
-        if($this->request->isPost()) {
-            if ($myaccount_form->isValid($this->request->getPost()) == false) {
-                $messages = $myaccount_form->getMessages(true);
-
-                foreach ($messages as $field => $field_messages) {
-                    $errors[] = $field_messages[0]->getMessage();
-                    $form_errors[$field] = ' error';
-                }
-            }else {
-                $result = $this->authService->registerFromCheckout([
-                    'user_id'  => $userId,
-                    'name'     => $this->request->getPost('name'),
-                    'surname'  => $this->request->getPost('surname'),
-                    'password' => $this->request->getPost('password'),
-                    'email'    => $this->request->getPost('email'),
-                    'country'  => $this->request->getPost('country'),
-                ]);
-                if($result->success()){
-                    $this->response->redirect('cart/order');
-                    $msg = $result->getValues();
-                }else{
-                    $errors [] = $result->errorMessage();
+                    return $this->response->redirect('cart/order?user='.$userId->getId());
                 }
             }
         }
@@ -179,6 +225,9 @@ class CartController extends PublicSiteControllerBase{
             'params' => json_encode($params),
         ]);
     }
+
+
+
 
     public function validateAction($token)
     {

@@ -41,7 +41,7 @@ class MaintenanceUserService
         /** @var User $user */
         $user = $this->userRepository->find($userId);
         if(!empty($user)){
-            $user->setBalance($user->getBalance()->add($amount));
+            $user->reChargeWallet($amount);
             $this->entityManager->flush();
             return new ActionResult(true,'Balance was updated correctly');
         }else{

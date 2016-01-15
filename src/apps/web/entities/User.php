@@ -342,4 +342,14 @@ class User extends EntityBase implements IEntity, IUser
         $this->wallet->payPreservingWinnings($amount);
     }
 
+    public function awardPrize(Money $amount)
+    {
+        $this->wallet->award($amount);
+    }
+
+    public function reChargeWallet(Money $amount)
+    {
+        $this->wallet->upload($amount);
+    }
+
 }

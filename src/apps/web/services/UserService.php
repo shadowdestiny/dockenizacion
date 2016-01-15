@@ -126,7 +126,7 @@ class UserService
             $result = $this->paymentProviderService->charge($paymentMethod,$amount);
             if ($result) {
                 try{
-                    $user->setBalance($user->getBalance()->add($amount));
+                    $user->reChargeWallet($amount);
                     $this->userRepository->add($user);
                     $this->entityManager->flush($user);
                     return new ActionResult(true, $user->getBalance()->getAmount());

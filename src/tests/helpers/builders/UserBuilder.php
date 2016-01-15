@@ -28,10 +28,10 @@ class UserBuilder
     private $email;
     private $password;
 //    private $rememberToken;
-    private $balance;
+//    private $balance;
     private $user_currency;
     private $country = self::DEFAULT_COUNTRY;
-    // private $wallet;
+    private $wallet;
     private $validated = self::DEFAULT_VALIDATED;
     private $validationToken;
  //   private $paymentMethod;
@@ -54,8 +54,7 @@ class UserBuilder
     {
         $this->email = new Email(self::DEFAULT_EMAIL);
         $this->password = new Password(self::DEFAULT_PASSWORD, new NullPasswordHasher());
-    //    $this->wallet = new Wallet();
-        $this->balance = new Money(0, new Currency(self::DEFAULT_USER_CURRENCY));
+        $this->wallet = new Wallet();
         $this->validationToken = new ValidationToken($this->email, new Md5EmailValidationToken());
         $this->user_currency = new Currency(self::DEFAULT_USER_CURRENCY);
     }

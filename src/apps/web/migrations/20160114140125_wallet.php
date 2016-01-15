@@ -27,6 +27,6 @@ class Wallet extends AbstractMigration
      */
     public function change()
     {
-        $this->execute('ALTER TABLE users ADD wallet_winnings_amount BIGINT DEFAULT NULL, ADD wallet_winnings_currency_name VARCHAR(255) DEFAULT NULL, CHANGE balance_amount wallet_uploaded_amount BIGINT DEFAULT NULL, CHANGE balance_currency_name wallet_uploaded_currency_name VARCHAR(255) DEFAULT NULL;');
+        $this->execute('ALTER TABLE users ADD wallet_winnings_amount BIGINT DEFAULT NULL, ADD wallet_winnings_currency_name VARCHAR(255) DEFAULT "EUR", CHANGE balance_amount wallet_uploaded_amount BIGINT DEFAULT 0, CHANGE balance_currency_name wallet_uploaded_currency_name VARCHAR(255) DEFAULT "EUR";');
     }
 }

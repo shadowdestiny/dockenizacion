@@ -5,6 +5,7 @@ namespace tests\integration;
 
 
 use EuroMillions\shared\config\Namespaces;
+use EuroMillions\shared\vo\Wallet;
 use Money\Currency;
 use Money\Money;
 use tests\base\DatabaseIntegrationTestBase;

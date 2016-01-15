@@ -377,7 +377,6 @@ class AuthServiceUnitTest extends UnitTestBase
      */
     public function test_registerFromCheckout_calledWithProperData_storeNewUserAndReturnOk()
     {
-        $this->markTestSkipped('Intenta arreglar el tema del credentials mezclado con el guest id. http://www.ens.ro/2012/07/03/symfony2-doctrine-force-entity-id-on-persist/ Créate un método addWithId en UserRepository que haga lo que sale en la url. Dame un toque mencionándome en el commit cuando lo hagas.');
         $this->expectFlushInEntityManager();
         $user_id = UserId::create();
         $user = UserMother::aJustRegisteredUser($this->hasher_double->reveal());
