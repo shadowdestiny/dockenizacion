@@ -5,6 +5,11 @@
             <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
         </div>
     {% endif %}
+    {% if  which_form == 'up' %}
+        {% set form_errors['email'] = '' %}
+        {% set form_errors['password'] = '' %}
+    {% endif %}
+
     {{ signinform.render('email', {'class':'input'~form_errors['email']}) }}
     {{ signinform.render('password', {'class':'input'~form_errors['password']}) }}
     {{ signinform.render('csrf', ['value': security.getSessionToken()]) }}

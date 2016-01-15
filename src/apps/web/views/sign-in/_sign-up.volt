@@ -5,6 +5,11 @@
             <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
         </div>
     {% endif %}
+    {% if  which_form == 'in' %}
+        {% set form_errors['email'] = '' %}
+        {% set form_errors['password'] = '' %}
+    {% endif %}
+
     {{ signupform.render('name', {'class':'input'~form_errors['name']}) }}
     {{ signupform.render('surname', {'class':'input'~form_errors['surname']}) }}
     {{ signupform.render('email', {'class':'input'~form_errors['email']}) }}
