@@ -14,7 +14,7 @@ var EmAddFund = new React.createClass({
         return (
                 <div className="box-combo">
                     <div className="combo currency">&euro;</div>
-                    <input className="combo input" onKeyUp={this.handleKeyUp} type="text" placeholder='Insert an ammount' />
+                    <label className="label">Insert an ammount</label><input className="combo input" onKeyUp={this.handleKeyUp} type="text" placeholder='Insert an ammount' />
                 </div>
         )
     }
