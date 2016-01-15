@@ -20,6 +20,7 @@ use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\ActionResult;
 use EuroMillions\web\vo\Url;
+use EuroMillions\web\vo\UserId;
 use EuroMillions\web\vo\ValidationToken;
 use Money\Currency;
 use Money\Money;
@@ -166,7 +167,7 @@ class AuthService
         }
     }
 
-    public function registerFromCheckout(array $credentials, Password $password = null)
+    public function registerFromCheckout(array $credentials, UserId $userId)
     {
         if(!$this->getCurrentUser() instanceof GuestUser) {
             return new ActionResult(false, 'Error getting user');
@@ -174,18 +175,9 @@ class AuthService
         if ($this->userRepository->getByEmail($credentials['email'])) {
             return new ActionResult(false, 'Email already registered');
         }
-        if($password == null) {
-            $passwordGenerator = new RandomPasswordGenerator($this->passwordHasher);
-            $password = $passwordGenerator->getPassword();
-        }
-
         $user = new User();
         $email = new Email($credentials['email']);
-
-        /** @var GuestUser $guest_user */
-        $guest_user = $credentials['user_id'];
         $user->initialize([
-            'id' => $guest_user->getId(),
             'name'     => $credentials['name'],
             'surname'  => $credentials['surname'],
             'email'    => $email,
@@ -197,16 +189,13 @@ class AuthService
             'user_currency' => new Currency('EUR')
         ]);
         try{
-            $this->userRepository->add($user);
-            $this->entityManager->flush();
-            $user->setId($guest_user->getId());
-            $this->userRepository->add($user);
+            $user->setId($userId);
+            $this->userRepository->addWithId($user);
             $this->entityManager->flush();
             if(!empty($user->getId())) {
-                $this->storageStrategy->setCurrentUserId($guest_user->getId());
+                $this->storageStrategy->setCurrentUserId($userId);
                 $this->logService->logRegistration($user);
                 $this->userService->initUserNotifications($user->getId());
-                $this->emailService->sendNewPasswordMail($user,$password);
                 return new ActionResult(true, $user);
             }else{
                 return new ActionResult(false, 'Error getting an user');
