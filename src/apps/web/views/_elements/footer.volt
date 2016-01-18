@@ -66,14 +66,7 @@
 					<li class="tw"><a href="javascript:void(0);"><svg class="ico v-twitter"><use xlink:href="/w/svg/icon.svg#v-twitter"></use></svg><span class="txt">{{ language.translate('Twitter') }}</span></a></li>
 				</ul>
 			</div>
-			<a href="javascript:void(0);" class="small-logo" title="Go to Homepage">
-				<picture class="pic">
-					<!--[if IE 9]><video style="display: none;"><![endif]-->
-					<source media="(max-width: 768px)" srcset="/w/img/logo/euromillions-sm.png">
-					<!--[if IE 9]></video><![endif]-->
-					<img src="/w/img/logo/euromillions.png" alt="{{ language.translate('EuroMillions.com') }}">
-				</picture>
-			</a>
+			{% include "_elements/logo.volt" %}
 		</div>
 	</aside>
 	<div class="info cl">
