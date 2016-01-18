@@ -12,11 +12,13 @@ var EmAddFund = new React.createClass({
     render : function ()
     {
         return (
+            <div className="box-charge cl">
+                <label htmlFor="charge" className="label">Insert an ammount</label>
                 <div className="box-combo">
-                    <label htmlFor="charge" className="label">Insert an ammount</label>
-                    <div className="combo currency">{this.props.currency_symbol}</div>
+                     <div className="combo currency">{this.props.currency_symbol}</div>
                     <input id="charge" className="combo input" onKeyUp={this.handleKeyUp} type="text" placeholder='Insert an ammount' />
                 </div>
+            </div>
         )
     }
 });
