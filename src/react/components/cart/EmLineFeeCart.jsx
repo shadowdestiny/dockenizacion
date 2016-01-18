@@ -46,10 +46,8 @@ var EmLineFeeCart = new React.createClass({
                 <div className="right tweak">
                     <div className="summary val">{fee_value}</div>
                     <div className="box-funds cl">
-                        <a className="add-funds" onClick={this.handleClick} href="javascript:void(0)">Add Funds to avoid charges</a><br></br>
-                        <div className="box-combo">
-                            {addFundComponent}
-                        </div>
+                        <a className="add-funds" onClick={this.handleClick} href="javascript:void(0)">Add Funds to avoid charges</a>
+                        {addFundComponent}
                     </div>
                 </div>
             </div>
