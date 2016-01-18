@@ -82,7 +82,8 @@ label.submit{cursor:pointer;}
 
 /* INFO BOX */
 .box{text-align:left; padding:10px; border-radius:5px; font-weight:700; margin-bottom:1em;}
-.box .ico{/*width:34px;*/ float:left;}
+.box .ico{width:30px; float:left;}
+.box .v-checkmark{margin-top:2px;}
 .box .txt{display:block; font-size:$h4; margin:0 0 0 34px!important;}
 .box.error{border:1px solid $red; background:$bg-red; color:$red; font-size:$h4;}
 .box.error .v-warning{font-size:21px;}
