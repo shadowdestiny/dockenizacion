@@ -24,7 +24,7 @@ var EmLineFeeCart = new React.createClass({
     {
         var addFundComponent = null;
         if(this.state.show_addfund) {
-            addFundComponent = <EmAddFund keyup_callback={this.props.keyup} show={this.state.show_addfund}/>;
+            addFundComponent = <EmAddFund currency_symbol={this.props.currency_symbol} keyup_callback={this.props.keyup} show={this.state.show_addfund}/>;
         }
 
         var show_fee_text = null;

@@ -56,15 +56,10 @@ class UserAccessController extends ControllerBase
                 ) {
                     $errors[] = 'Email/password combination not valid';
                 } else {
-                    $url_redirect = $this->session->get('original_referer');
-                    if(explode('/',$url_redirect)[0] == 'cart' && explode('/',$url_redirect)[1] == 'profile') {
-                       return $this->response->redirect('cart/order?user='.$userId->getId());
-                    }
                     return $this->response->redirect("$controller/$action".implode('/',$params));
                 }
             }
         }
-
         $this->view->pick('sign-in/index');
         return $this->view->setVars([
             'which_form'  => 'in',
@@ -105,12 +100,9 @@ class UserAccessController extends ControllerBase
                     'password' => $this->request->getPost('password'),
                     'country'  => $this->request->getPost('country'),
                 ];
-                if(explode('/',$url_redirect)[0] == 'cart' && explode('/',$url_redirect)[1] == 'profile') {
-                    $credentials['user_id'] = $this->authService->getCurrentUser();
-                    $register_result = $this->authService->registerFromCheckout($credentials);
-                } else {
-                    $register_result = $this->authService->register($credentials);
-                }
+
+                $register_result = $this->authService->register($credentials);
+
                 if (!$register_result->success()) {
                     $errors[] = $register_result->errorMessage();
                 } else {
@@ -121,7 +113,7 @@ class UserAccessController extends ControllerBase
                 }
             }
         }
-        $this->view->pick('cart/index');
+        $this->view->pick('sign-in/index');
         return $this->view->setVars([
             'which_form'  => 'up',
             'signinform'  => $sign_in_form,
