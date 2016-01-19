@@ -28,8 +28,7 @@ var EmSelectDrawDuration = React.createClass({
             <div className="col2">
                 <label className="label">Duration
                     <div data-for="select-draw-duration" className="wrap" data-tip="For how long do you wish to play?">
-                        <svg className="ico v-question-mark"
-                             dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-question-mark"></use>'}}/>
+                        <svg className="ico v-question-mark"><use xlinkHref="/w/svg/icon.svg#v-question-mark"></use></svg>
                     </div>
                 </label>
                 {select}

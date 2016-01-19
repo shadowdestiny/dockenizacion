@@ -22,8 +22,7 @@ var EuroMillionsCheckMark = React.createClass({
                     this.props.stars_length == this.state.maxStars
         ) {
             return(
-                <svg dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-checkmark"></use>'}}
-                     className="ico v-checkmark"/>
+                <svg className="ico v-checkmark"><use xlinkHref="/w/svg/icon.svg#v-checkmark"></use></svg>
             );
         } else {
             return null;

@@ -1,5 +1,5 @@
 .box-threshold{
-    .txt{line-height:32px; display:inline-block; font-size:$basic-size;}
+    .txt{line-height:32px; display:inline-block; font-size:$basic-size; margin-right:5px;}
     .checkbox{position:relative; top:2px; float:left; height:30px;}
     .input-value input{border:1px solid $grey-light; line-height:30px; padding:0 5px; font-size:$basic-size; height:30px;}
     .styled-select{width:auto;}
