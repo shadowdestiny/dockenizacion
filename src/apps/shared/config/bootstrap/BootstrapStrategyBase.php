@@ -61,7 +61,7 @@ abstract class BootstrapStrategyBase
 
     protected function configRedis(Ini $appConfig)
     {
-        $frontend = new Data(['lifetime'=> 900]);
+        $frontend = new Data(['lifetime'=> $appConfig['lifetime_cache']['redis']]);
         return new PhalconRedisWrapper($frontend, ['host'=>$appConfig['redis']['host'], 'prefix'=>$appConfig['redis']['prefix']]);
         //return new PhalconRedis($frontend, ['host'=>$appConfig['redis']['host'], 'prefix'=>$appConfig['redis']['prefix']]);
     }
