@@ -28,7 +28,7 @@ var EuroMillionsBoxBottomAction = React.createClass({
         elem.push(<EuroMillionsAddToCart currency_symbol={this.props.currency_symbol} price={this.props.price} onBtnAddToCartClick={this.addToCart} key="2"/>);
 
         return (
-        <div className="cl" id="box-action">
+        <div className="cl">
             <div className="right">
                 {elem}
             </div>

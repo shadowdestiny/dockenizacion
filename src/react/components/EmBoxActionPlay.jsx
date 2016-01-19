@@ -35,6 +35,9 @@ var EuroMilliosnBoxActionPlay = React.createClass({
                 <ul className="no-li cl box-action">
                     {elem}
                 </ul>
+                <div className="info right">
+                    Next Draw: Friday 29 May 19:20
+                </div>
             </div>
         );
     }
