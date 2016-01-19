@@ -4,6 +4,7 @@
 namespace tests\base;
 
 use EuroMillions\shared\config\Namespaces;
+use Prophecy\Prophecy\ObjectProphecy;
 
 trait TestHelperTrait
 {
@@ -17,6 +18,10 @@ trait TestHelperTrait
         return $this->prophesize(Namespaces::REPOSITORIES_NS . $repositoryName);
     }
 
+    /**
+     * @param $interfaceName
+     * @return ObjectProphecy
+     */
     protected function getInterfaceDouble($interfaceName)
     {
         return $this->prophesize(Namespaces::INTERFACES_NS . $interfaceName);

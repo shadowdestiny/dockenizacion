@@ -2,21 +2,15 @@
 namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
-use EuroMillions\web\entities\CreditCardPaymentMethod;
 use EuroMillions\web\entities\Notification;
-use EuroMillions\web\entities\PaymentMethod;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\UserNotifications;
+use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\repositories\NotificationRepository;
-use EuroMillions\web\repositories\PaymentMethodRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserNotificationsRepository;
 use EuroMillions\web\repositories\UserRepository;
-use EuroMillions\web\vo\CardHolderName;
-use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\ContactFormInfo;
-use EuroMillions\web\vo\CVV;
-use EuroMillions\web\vo\ExpiryDate;
 use EuroMillions\web\vo\ActionResult;
 use EuroMillions\web\vo\NotificationType;
 use EuroMillions\web\vo\UserId;
@@ -47,9 +41,6 @@ class UserService
     /** @var EntityManager */
     private $entityManager;
 
-    /** @var PaymentMethodRepository */
-    private $paymentMethodRepository;
-
     /** @var PlayConfigRepository  */
     private $playRepository;
 
@@ -66,7 +57,6 @@ class UserService
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
-        $this->paymentMethodRepository = $entityManager->getRepository('EuroMillions\web\entities\PaymentMethod');
         $this->currencyService = $currencyService;
         $this->emailService = $emailService;
         $this->paymentProviderService = $paymentProviderService;
@@ -116,14 +106,14 @@ class UserService
 
     /**
      * @param User $user
-     * @param PaymentMethod $paymentMethod
+     * @param ICardPaymentProvider $paymentProvider
      * @param Money $amount
      * @return ActionResult
      */
-    public function recharge(User $user, PaymentMethod $paymentMethod,Money $amount)
+    public function recharge(User $user, ICardPaymentProvider $paymentProvider, Money $amount)
     {
         if($amount->getAmount() > 0){
-            $result = $this->paymentProviderService->charge($paymentMethod,$amount);
+            $result = $this->paymentProviderService->charge($paymentProvider,$amount);
             if ($result) {
                 try{
                     $user->reChargeWallet($amount);
@@ -140,70 +130,6 @@ class UserService
             $error_message = 'Amount should be greater than 0';
         }
         return new ActionResult(false, $error_message);
-    }
-
-    /**
-     * @param PaymentMethod $paymentMethod
-     * @return ActionResult
-     */
-    public function addNewPaymentMethod(PaymentMethod $paymentMethod)
-    {
-        try{
-            $this->paymentMethodRepository->add($paymentMethod);
-            $this->entityManager->flush($paymentMethod);
-            return new ActionResult(true, 'Your payment method was added');
-        }catch(Exception $e){
-            return new ActionResult(false,'An exception ocurred while payment method was saved');
-        }
-    }
-
-    /**
-     * @param UserId $userId
-     * @return ActionResult
-     */
-    public function getPaymentMethods(UserId $userId)
-    {
-        /** @var User $user */
-        $user = $this->userRepository->find($userId->id());
-        if(!empty($user)){
-            $paymentMethodCollection = $this->paymentMethodRepository->getPaymentMethodsByUser($user);
-            if(!empty($paymentMethodCollection)){
-                return new ActionResult(true,$paymentMethodCollection);
-            }else{
-                return new ActionResult(false,'You don\'t have any payment method registered');
-            }
-        }else{
-            throw new \InvalidArgumentException('User doesn\'t exist');
-        }
-    }
-
-
-    public function editMyPaymentMethod($id,array $data)
-    {
-        try{
-            /** @var CreditCardPaymentMethod $payment_method */
-            $payment_method = $this->paymentMethodRepository->findOneBy(['id' => $id]);
-            $payment_method->setCardHolderName(new CardHolderName($data['cardHolderName']));
-            $payment_method->setCardNumber(new CardNumber($data['cardNumber']));
-            $exp_date = new ExpiryDate($data['month'].'/'.$data['year']);
-            $payment_method->setExpiryDate(ExpiryDate::assertExpiryDate($exp_date));
-            $payment_method->setCVV(new CVV($data['cvv']));
-            $payment_method->setCompany($payment_method->getCardNumber()->type());
-            $this->paymentMethodRepository->add($payment_method);
-            $this->entityManager->flush($payment_method);
-            return new ActionResult(true,'Your credit card data was updating');
-        }catch(\Exception $e) {
-            return new ActionResult(false, $e->getMessage());
-        }
-    }
-
-    public function getPaymentMethod($id)
-    {
-        try{
-            return $this->paymentMethodRepository->findOneBy(['id' => $id]);
-        }catch(\Exception $e) {
-            return new ActionResult(false);
-        }
     }
 
     public function getMyPlaysActives(UserId $userId)
