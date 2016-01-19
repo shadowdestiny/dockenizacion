@@ -10,7 +10,9 @@ use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\RememberToken;
 use EuroMillions\web\vo\UserId;
 use EuroMillions\web\vo\ValidationToken;
+use Money\Currency;
 use Money\Money;
+use Money\UnknownCurrencyException;
 use Rhumsaa\Uuid\Uuid;
 
 class User extends EntityBase implements IEntity, IUser
@@ -323,9 +325,13 @@ class User extends EntityBase implements IEntity, IUser
 
     /**
      * @return Currency
+     * @throws UnknownCurrencyException
      */
     public function getUserCurrency()
     {
+        if (!$this->user_currency) {
+            $this->user_currency = new Currency('EUR');
+        }
         return $this->user_currency;
     }
 
