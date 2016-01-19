@@ -4,7 +4,6 @@ namespace tests\integration;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
-use EuroMillions\web\entities\CreditCardPaymentMethod;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
@@ -71,7 +70,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
      */
     public function test_getBalanceWithUserCurrencyConvert_called_returnProperBalanceWithCurrencyConverted($uuid, $expected)
     {
-        $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE59');
+        $userId = new UserId($uuid);
         $dsf = $this->getDomainServiceFactory();
         $sut = $dsf->getUserService();
         $actual = $sut->getBalanceWithUserCurrencyConvert($userId,new Currency('EUR'));
@@ -100,12 +99,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         $email = 'algarrobo@currojimenez.com';
         /** @var User $user */
         $user = $userRepository->getByEmail($email);
-        $creditCard = new CreditCard(new CardHolderName('Raul Mesa Ros'),
-            new CardNumber('5500005555555559'),
-            new ExpiryDate('10/19'),
-            new CVV('123')
-        );
-        $paymentMethod = new CreditCardPaymentMethod($creditCard);
+        $paymentMethod = $this->getInterfaceWebDouble('ICardPaymentProvider')->reveal();
         $amount = new Money(6000, new Currency('EUR'));
         $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
         $paymentProvider_double->charge($paymentMethod,$amount)->willReturn(true);
@@ -116,37 +110,6 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         $actual = $user->getBalance()->getAmount();
         $this->assertEquals($expected,$actual);
     }
-
-    /**
-     * method addNewPaymentMethod
-     * when called
-     * should increasePaymentMethodByUser
-     */
-    public function test_addNewPaymentMethod_called_increasePaymentMethodByUser()
-    {
-        $expected = 1;
-        $userRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS.'User');
-        $email = 'algarrobo@currojimenez.com';
-
-        /** @var User $user */
-        $user = $userRepository->getByEmail($email);
-        $creditCard = new CreditCard(new CardHolderName('Raul Mesa Ros'),
-            new CardNumber('5500005555555559'),
-            new ExpiryDate('10/19'),
-            new CVV('123')
-        );
-
-        $paymentMethod = new CreditCardPaymentMethod($creditCard);
-        $paymentMethod->setUser($user);
-        $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
-        $sut = $this->getSut($paymentProvider_double);
-        $sut->addNewPaymentMethod($paymentMethod);
-        $this->entityManager->detach($paymentMethod);
-        $paymentMethodCollection = $sut->getPaymentMethods($user->getId());
-        $actual = count($paymentMethodCollection->getValues());
-        $this->assertEquals($expected,$actual);
-    }
-
 
     /**
      * method getMyPlays

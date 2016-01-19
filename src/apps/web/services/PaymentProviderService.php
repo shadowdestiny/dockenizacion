@@ -4,7 +4,7 @@
 namespace EuroMillions\web\services;
 
 
-use EuroMillions\web\entities\PaymentMethod;
+use EuroMillions\web\interfaces\ICardPaymentProvider;
 use Money\Money;
 
 class PaymentProviderService
@@ -15,16 +15,9 @@ class PaymentProviderService
 
     }
 
-    public function charge(PaymentMethod $paymentMethod, Money $amount)
+    public function charge(ICardPaymentProvider $paymentMethod, Money $amount)
     {
         $isOk = true;
         $provider = $this->getProvider($paymentMethod);
-
-        //call provider callPayment();
-    }
-
-    private function getProvider(PaymentMethod $paymentMethod)
-    {
-
     }
 }
