@@ -43,7 +43,7 @@
 	.v-shuffle{font-size:125%; top:4px; margin-top:-3px;}
 	.v-plus{margin-left:7px;}
 }
-#box-action .info{margin-right:14px; font-size:$basic-size; color:$blue; font-weight:bold;}
+#box-action .info{margin:6px 14px 0 0; font-size:$basic-size; color:$blue; font-weight:bold;}
 .box-bottom{padding:10px 12px; border-top:1px solid $yellow; background:#fff; border-radius:0 0 5px 5px;
 	select{font-size:$basic-size;}
 	.label{font-size:$basic-size; display:inline-block; font-weight:700; margin-bottom:.2em;}
@@ -109,7 +109,7 @@ $gap3:15px; /* Responsive design 3 column */
 .line .stars{
 	position:relative; margin:7px 2px 3px 7px;
 	a{
-		text-decoration:none;
+		text-decoration:none; margin:auto;
 		&:hover, &:focus, .txt:hover,.txt:focus{color:$blue;}
 	}
 	.cols{margin:0;}
@@ -200,7 +200,7 @@ $gap3:15px; /* Responsive design 3 column */
 	.myCol{width:33.3%; border-right:$gap3 solid transparent;}
 	.myCol:last-child{border-right:$gap3 solid transparent;}
 }
-.box-action{margin-right:$gap3+1;}
+.box-action{margin:0 12px;}
 }
 
 /* Small Devices, Tablets */
@@ -226,8 +226,11 @@ $gap3:15px; /* Responsive design 3 column */
 	> .cl{text-align:center;}
 }
 .bg-top, .bg-top:before{border-radius:0;}
-.box-action{float:none; margin:0 20px 0;}
-.box-action li{margin:0 10px 15px 0;}
+.box-action{
+	float:none; margin:0 20px 0;
+	li{margin:0 10px 10px 0;}
+}
+#box-action .info{float:none; margin:0 auto 10px;}
 .box-bottom{
 	background:$yellow-lighter; border-radius:0;
 	.col2{margin:0 0 10px;}
@@ -268,8 +271,8 @@ $gap3:15px; /* Responsive design 3 column */
 .gameplay{padding-top:10px;}
 .gameplay .wrap{margin:0 -6px 0 0;}
 .line .numbers .btn, .line .stars .txt{font-size:12px;}
-.line .stars .ico{font-size:160%;}
-.line .stars .txt{top:8px;}
+.line .stars .ico{font-size:160%; width:100%;}
+/*.line .stars .txt{top:8px;}*/
 .line .numbers{padding:10px 4px 0;}
 .line .numbers li, .line .stars li{border-width:3px;}
 .bg-top{
@@ -321,7 +324,7 @@ $gap3:15px; /* Responsive design 3 column */
 .box-lines .myCol{width:100%; border-width:0!important;}
 .line .numbers .btn, .line .stars .txt{font-size:14px;}
 .line .stars .ico{font-size:220%;}
-.line .stars .txt{top:12px;}
+.line .stars .txt{top:11px;}
 .line .numbers{padding:10px 10px 0; margin-right:-10px;}
 .line .numbers li, .line .stars li{border-width:6px;}
 .line .extra-pad{padding:0 30px;}
