@@ -2,9 +2,9 @@ var React = require('react');
 
 var EmAddFund = require('./EmAddFund.jsx');
 
-
 var EmLineFeeCart = new React.createClass({
 
+    displayName: 'EmLineFeeCart',
 
     getInitialState : function ()
     {
@@ -16,7 +16,13 @@ var EmLineFeeCart = new React.createClass({
 
     handleClick : function ()
     {
-        this.setState( {show_addfund : true} );
+        var show_add_fund = this.state.show_addfund;
+        if(show_add_fund) {
+            this.setState( {show_addfund : false} );
+        } else {
+            this.setState( {show_addfund : true} );
+        }
+
     },
 
 
@@ -27,16 +33,17 @@ var EmLineFeeCart = new React.createClass({
             addFundComponent = <EmAddFund currency_symbol={this.props.currency_symbol} keyup_callback={this.props.keyup} show={this.state.show_addfund}/>;
         }
 
-        var show_fee_text = null;
+        if(!this.props.show_all_fee){
+            return null;
+        }
+        var show_fee_text = 'No extra fee';
         if(this.props.show_fee_text) {
             show_fee_text = 'Fee for transactions below ' + this.props.currency_symbol + ' ' + this.props.price_below_fee;
         }
+
         var fee_value = this.props.currency_symbol + ' ' + this.props.fee_charge;
         if(!this.props.show_fee_value) {
             fee_value = '';
-        }
-        if(!this.props.show_all_fee){
-            return null;
         }
         return (
             <div className="row cl">

@@ -59,7 +59,7 @@ var EuroMillionsLine = React.createClass({
     componentWillUpdate : function (nextProps, nextState)
     {
         if(nextProps.random) {
-            this.randomAll();
+            this.randomAll(false);
         }
         var numbers_length = this.state.selectedNumbers.numbers.length;
         var stars_length = this.state.selectedNumbers.stars.length;
@@ -125,11 +125,11 @@ var EuroMillionsLine = React.createClass({
 
     handleClickRandom : function ()
     {
-        this.randomAll();
+        this.randomAll(true);
         this.props.callback( this.props.lineNumber,this.state.selectedNumbers.numbers.length,this.state.selectedNumbers.stars.length);
     },
 
-    randomAll : function()
+    randomAll : function(animated)
     {
         var nums = [];
         var stars = [];
@@ -145,10 +145,10 @@ var EuroMillionsLine = React.createClass({
         }
         this.state.selectedNumbers.numbers = nums;
         this.state.selectedNumbers.stars = stars;
-        this.state.isAnimated = true;
+        this.state.isAnimated = animated;
         this.storePlay();
         this.setState({
-                isAnimated: true,
+                isAnimated: animated,
                 show_btn_clear : true
 
             }
@@ -166,7 +166,6 @@ var EuroMillionsLine = React.createClass({
         } else {
             this.state.show_btn_clear = true;
         }
-
         for (var i = 1; i <= 50; i = i + j) {
             var row = [];
             for (var j = 0; j < this.props.numberPerLine; j++) {

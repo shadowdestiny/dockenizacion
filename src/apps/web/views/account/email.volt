@@ -27,10 +27,10 @@
                     <div class="txt">{{ message }}</div>
                 </div>
             {% endif %}
-            {% if error %}
+            {% if error_form %}
                 <div class="box error">
                     <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
-                    <div class="txt">{{ error }}</div>
+                    <span class="txt">{% for error in error_form %}{{ error }}<br>{% endfor %}</span>
                 </div>
             {% endif %}
 
@@ -56,7 +56,7 @@
 
                                     {% if notification.notification.notification_type == 1 %}
                                         <span class="currency">&euro;</span>
-                                        <input name="config_value_{{ notification.name }}" placeholder="{{ language.translate('Insert an ammount') }}" value="{{ notification.config_value }}" class="input {% if error %}error{% endif %}"/>
+                                        <input name="config_value_{{ notification.name }}" placeholder="{{ language.translate('Insert an ammount') }}" value="{{ notification.config_value }}" class="input {% if error_form %}error{% endif %}"/>
                                     {% endif %}
                                 </li>
                             {% endfor %}
