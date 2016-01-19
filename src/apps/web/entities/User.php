@@ -10,7 +10,6 @@ use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\RememberToken;
 use EuroMillions\web\vo\UserId;
 use EuroMillions\web\vo\ValidationToken;
-use Money\Currency;
 use Money\Money;
 use Money\UnknownCurrencyException;
 use Rhumsaa\Uuid\Uuid;
