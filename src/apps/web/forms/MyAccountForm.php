@@ -4,10 +4,13 @@
 namespace EuroMillions\web\forms;
 
 
+use EuroMillions\web\components\PasswordValidator;
 use Phalcon\Forms\Element\Email;
 use Phalcon\Forms\Element\Hidden;
+use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
+use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Validation\Validator\Identical;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email as EmailValidator;
@@ -71,9 +74,30 @@ class MyAccountForm extends RedirectableFormBase
         ]);
         $this->add($phone_number);
 
+        $country = new Select(
+            'country',
+            $options['countries'],
+            [
+                'useEmpty' => true,
+                'emptyText' => 'Select your country of residence',
+            ]
+        );
+        $this->add($country);
+
+        $csrf = new Hidden('csrf');
+        $csrf->addValidator(new Identical(array(
+            'value'   => $this->security->getSessionToken(),
+            'message' => 'Cross scripting protection. Reload the page.'
+        )));
+
+        $this->add($csrf);
+        parent::initialize();
+    }
 
 
-        /*$password = new Password('password', array(
+    public function addPasswordElement()
+    {
+        $password = new Password('password', array(
             'placeholder' => 'Password'
         ));
         $password->addValidator(new PresenceOf(array(
@@ -95,27 +119,7 @@ class MyAccountForm extends RedirectableFormBase
         $password_confirm->addValidator(new PresenceOf(array(
             'message' => 'The password confirmation is required'
         )));
-        $this->add($password_confirm);*/
-        // Remember
-
-        $country = new Select(
-            'country',
-            $options['countries'],
-            [
-                'useEmpty' => true,
-                'emptyText' => 'Select your country of residence',
-            ]
-        );
-        $this->add($country);
-
-        $csrf = new Hidden('csrf');
-        $csrf->addValidator(new Identical(array(
-            'value'   => $this->security->getSessionToken(),
-            'message' => 'Cross scripting protection. Reload the page.'
-        )));
-
-        $this->add($csrf);
-        parent::initialize();
+        $this->add($password_confirm);
     }
 
 

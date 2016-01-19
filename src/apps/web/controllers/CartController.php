@@ -3,8 +3,6 @@ namespace EuroMillions\web\controllers;
 
 use Captcha\Captcha;
 use EuroMillions\web\components\ReCaptchaWrapper;
-use EuroMillions\web\entities\GuestUser;
-use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\ForgotPasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
@@ -69,6 +67,7 @@ class CartController extends PublicSiteControllerBase{
         } else {
             $msg = 'Error trying get data';
         }
+
         $currency_symbol = $this->currencyService->getSymbol($bet_price_value_currency,$user->getBalance()->getCurrency());
 
         return $this->view->setVars([
@@ -359,6 +358,7 @@ class CartController extends PublicSiteControllerBase{
         $countries = array_combine(range(1, count($countries)), array_values($countries));
         if( $userId == null ) {
             $myaccount_form = new MyAccountForm(null,['countries' => $countries]);
+            $myaccount_form->addPasswordElement();
         } else {
             $user = $this->userService->getUser($userId->getId());
             $user_dto = new UserDTO($user);

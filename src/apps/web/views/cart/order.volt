@@ -10,8 +10,8 @@
         var total_price = parseFloat('<?php echo $total?>');
         var single_bet_price = '<?php echo number_format($single_bet_price, 2,".",",") ?>';
         var currency_symbol = '<?php echo empty($currency_symbol) ? $current_currency : $currency_symbol;?>';
-        var price_below_fee = '<?php echo $fee_below ?>';
-        var fee_charge = '<?php echo $fee_charge ?>';
+        var price_below_fee = '<?php echo number_format($fee_below,2,".",","); ?>';
+        var fee_charge = '<?php echo number_format($fee_charge,2,".",","); ?>';
     </script>
     <script src="/w/js/react/cart.js"></script>
 {% endblock %}
@@ -31,14 +31,14 @@
                 <div class="terms">{{ language.translate("By purchasing you agree to") }} <a href="/legal/">{{ language.translate("Terms &amp; Conditions") }}</a></div>
 
 
-                <div class="box-top cl">
-                    <div class="balance">
-                        <span class="txt">{{ language.translate("Your current wallet balance:") }}</span>
-                        <span class="value"><span class="old"><?php echo $currency_symbol ?> <?php echo $wallet_balance ?>.00</span> <span class="new"><?php echo $currency_symbol ?> 14.05</span></span>
-                    </div>
+                {#<div class="box-top cl">#}
+                    {#&#123;&#35;<div class="balance">&#35;&#125;#}
+                        {#&#123;&#35;<span class="txt">{{ language.translate("Your current wallet balance:") }}</span>&#35;&#125;#}
+                        {#&#123;&#35;<span class="value"><span class="old"><?php echo $currency_symbol ?> <?php echo $wallet_balance ?>.00</span> <span class="new"><?php echo $currency_symbol ?> 14.05</span></span>&#35;&#125;#}
+                    {#&#123;&#35;</div>&#35;&#125;#}
 
-                    <h2 class="h4 sub-txt">{{ language.translate("Order Summary") }}</h2>
-                </div>
+                    {#<h2 class="h4 sub-txt">{{ language.translate("Order Summary") }}</h2>#}
+                {#</div>#}
 
                 <div id="cart-order"></div>
 

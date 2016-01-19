@@ -32,9 +32,25 @@ var EmLineOrderConfig = new React.createClass({
         var frequency = this.props.playConfig.frequency;
         var num_weeks = this.props.playConfig.num_weeks;
         var draw_days = this.props.playConfig.drawDays;
+        var text_weeks = '';//num_weeks > 0 ? 'for ' + num_weeks : '';// + (num_weeks > 1) ? ' weeks' : 'week' : '';
 
-        var text_weeks = num_weeks > 0 ? 'for ' + num_weeks : '';// + (num_weeks > 1) ? ' weeks' : 'week' : '';
-        text_weeks += (num_weeks > 1) ? ' weeks' : 'week';
+        var date = new Date(date_since);
+        var day = '';
+        if(date.getDay() == 2 ) {
+            day = 'Tuesday';
+        } else if(date.getDay() == 5 ) {
+            day = 'Friday';
+        }
+
+        if(draw_days == 1 && num_weeks == 0) {
+            text_weeks = ' On ' + day + ' ' + date_since;
+        } else if ( draw_days > 1 && num_weeks == 0) {
+            text_weeks = 'Tuesday & Friday, since ' + date_since + ' for 1 week';
+        } else if ( draw_days == 1 && num_weeks > 0) {
+            text_weeks = 'Every ' + day +', since ' + date_since + ' for ' + num_weeks + ' weeks';
+        } else if ( draw_days > 1 && num_weeks > 0) {
+            text_weeks = 'Tuesday & Friday, since ' + date_since + ' for ' + num_weeks + ' weeks';
+        }
         var frequency_draws_text = frequency > 1 ? 'draws' : 'draw';
         var select_draw_duration = '';
         var change_link = <a className="change" onClick={this.handleClick} href="javascript:void(0);">Change {frequency} {frequency_draws_text}</a>;
@@ -76,7 +92,7 @@ var EmLineOrderConfig = new React.createClass({
                     Draws
                 </div>
                 <div className="detail">
-                    Since {date_since} {text_weeks}
+                    {text_weeks}
                 </div>
                 <div className="right">
                     {select_draw_duration}
