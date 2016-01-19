@@ -219,7 +219,7 @@ class AccountController extends PublicSiteControllerBase
             $notificationType = new NotificationType(NotificationType::NOTIFICATION_RESULT_DRAW,$config_value_results);
 
             $this->userService->updateEmailNotification($notificationType,$user,$results_draw);
-            $message = 'Your data was saved';
+            $message = 'Your new email settings are saved';
         } catch(\Exception $e) {
             $error[] = $e->getMessage();
         } finally {
@@ -264,7 +264,7 @@ class AccountController extends PublicSiteControllerBase
         if($this->request->getPost('jackpot_reach') == 'on') {
             $validation->add('config_value_jackpot_reach',
                 new Validation\Validator\Numericality([
-                   'message' => 'A numeric value should be'
+                   'message' => 'Error. You should insert a numeric value.'
 
                 ]));
             $messages = $validation->validate($this->request->getPost());
