@@ -82,7 +82,8 @@ label.submit{cursor:pointer;}
 
 /* INFO BOX */
 .box{text-align:left; padding:10px; border-radius:5px; font-weight:700; margin-bottom:1em;}
-.box .ico{/*width:34px;*/ float:left;}
+.box .ico{width:30px; float:left;}
+.box .v-checkmark{margin-top:2px;}
 .box .txt{display:block; font-size:$h4; margin:0 0 0 34px!important;}
 .box.error{border:1px solid $red; background:$bg-red; color:$red; font-size:$h4;}
 .box.error .v-warning{font-size:21px;}
@@ -277,8 +278,8 @@ body, .submit{font-family:$basic-font;}
 /* PAGE LAYOUT */
 .wrapper{max-width:1180px; margin:auto; position:relative; min-width:235px;}
 .logo{float:left; margin-top:10px;}
-.logo .pic{height:100%;}
-.small-logo{float:left; width:200px;}
+.v-logo{height:100%; width:274px;}
+.main-foot .logo{width:200px; margin:0;}
 
 .top-nav{
   position:relative; min-height:28px; background:#ae5279; z-index:10;
@@ -436,7 +437,7 @@ body, .submit{font-family:$basic-font;}
 .media{width:3px}
 .wrapper{max-width:100%;}
 .main-foot{border:0; text-align:center;}
-.main-foot .small-logo{width:150px; margin:10px auto 0; float:none; display:block;}
+.main-foot .logo{width:150px; margin:10px auto 0; float:none; display:block;}
 .main-foot .social{clear:both; float:none; margin-bottom:20px;}
 .main-foot .info .cols{margin-bottom:0;}
 .main-foot .col20per{width:50%; float:left; margin-bottom:1.5em; padding:0;}
