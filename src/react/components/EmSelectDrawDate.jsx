@@ -35,8 +35,7 @@ var EmSelectDrawDate = React.createClass({
             <div className="col2">
                 <label className="label">First Draw
                     <div data-for="select-draw-date" className="wrap" data-tip="First draw">
-                        <svg className="ico v-question-mark"
-                             dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-question-mark"></use>'}}/>
+                        <svg className="ico v-question-mark"><use xlinkHref="/w/svg/icon.svg#v-question-mark"></use></svg>
                     </div>
                 </label>
                 {select}

@@ -23,7 +23,7 @@
     {% endif %}
 
     <a class="your-account" href="{{ link }}">
-        <span class="link desktop username">{{ language.translate("Hi, ") }}{% if user_name %}{{ user_name }}{% else %}{{ language.translate("Sign in") }}{% endif %}</span>
+        <span class="link desktop username">{{ language.translate("Hello. ") }}{% if user_name %}{{ user_name }}{% else %}{{ language.translate("Log in") }}{% endif %}</span>
         <br class="br">
         <span class="txt"><svg class="ico v-user"><use xlink:href="/w/svg/icon.svg#v-user"></use></svg>{{ language.translate(" Your Account") }}</span>
     </a>

@@ -36,7 +36,7 @@ var EmConfigPlayBlock = new React.createClass({
             return (
                 <div className="advanced-play">
                     <hr className="hr yellow" />
-                    <a href="javascript:void(0);" className="close"><svg className="ico v-cancel-circle" dangerouslySetInnerHTML={{__html: '<use xlink:href="/w/svg/icon.svg#v-cancel-circle"></use>'}}/>
+                    <a href="javascript:void(0);" className="close"><svg className="ico v-cancel-circle"><use xlinkHref="/w/svg/icon.svg#v-cancel-circle"></use></svg>
                     </a>
                     <div className="cols">
                         <EmDrawConfig  draw_dates={this.props.draw_dates} date_play={this.props.date_play} draw_duration={this.props.draw_duration} duration={this.props.duration} play_days={this.props.play_days}  options={options_draw_days} customValue={custom_value}/>

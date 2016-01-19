@@ -8,8 +8,8 @@ use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\Notification;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
-use EuroMillions\web\entities\CreditCardPaymentMethod;
 use EuroMillions\web\entities\UserNotifications;
+use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\ContactFormInfo;
@@ -108,9 +108,8 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_recharge_calledAndPaymentProviderSuccess_returnServiceResultActionTrue()
     {
-        $creditCard = $this->getCreditCard();
         $user = $this->getUser();
-        $paymentMethod = new CreditCardPaymentMethod($creditCard);
+        $paymentMethod = $this->getInterfaceWebDouble('ICardPaymentProvider')->reveal();
         $amount = new Money(5000, new Currency('EUR'));
         $this->paymentProviderService_double->charge($paymentMethod,$amount)->willReturn(true);
         $this->userRepository_double->add($user);
@@ -118,7 +117,7 @@ class UserServiceUnitTest extends UnitTestBase
         $entityManager_stub->flush($user)->shouldNotBeCalled();
         $this->stubEntityManager($entityManager_stub);
         $sut = $this->getSut();
-        $actual = $sut->recharge($user,$paymentMethod, $amount);
+        $actual = $sut->recharge($user, $paymentMethod, $amount);
         $this->assertTrue($actual->success());
     }
 
@@ -129,10 +128,9 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_recharge_calledPassAmountZero_returnServiceResultActionFalse()
     {
-        $creditCard = $this->getCreditCard();
         $user = $this->getUser();
         $sut = $this->getSut();
-        $actual = $sut->recharge($user,new CreditCardPaymentMethod($creditCard),
+        $actual = $sut->recharge($user,        $paymentMethod = $this->getInterfaceWebDouble('ICardPaymentProvider')->reveal(),
             new Money(0, new Currency('EUR')));
         $this->assertFalse($actual->success());
     }
@@ -162,101 +160,6 @@ class UserServiceUnitTest extends UnitTestBase
     }
 
     /**
-     * method addNewPaymentMethod
-     * when called
-     * should returnServiceActionResultTrue
-     */
-    public function test_addNewPaymentMethod_called_returnServiceActionResultTrue()
-    {
-        $expected = new ActionResult(true,'Your payment method was added');
-        $this->exerciseAddNewPaymentMethod($expected);
-    }
-
-    /**
-     * method addNewPaymentMethod
-     * when NoPersist
-     * should returnServiceActionResultFalse
-     */
-    public function test_addNewPaymentMethod_NoPersist_returnServiceActionResultFalse()
-    {
-        $expected = (new ActionResult(false,'An exception ocurred while payment method was saved'));
-        $this->exerciseAddNewPaymentMethodThrowException($expected);
-    }
-
-    /**
-     * method addNewPaymentMethod
-     * when called
-     * should increasePaymentMethodByUser
-     */
-    public function test_addNewPaymentMethod_called_increasePaymentMethodByUser()
-    {
-        $expected =1;
-        $creditCard = $this->getCreditCard();
-        $paymentMethod = new CreditCardPaymentMethod($creditCard);
-        $user = $this->getUser();
-        $user->setId(new UserId('bbf01cc4-5548-11e5-b753-0242ac110002'));
-        $paymentMethod->setUser($user);
-        $this->paymentMethodRepository_double->add(Argument::any())->willReturn(true);
-        $this->userRepository_double->find(Argument::any())->willReturn($user);
-        $this->paymentMethodRepository_double->getPaymentMethodsByUser(Argument::any())->willReturn([$paymentMethod]);
-        $entityManager_stub = $this->getEntityManagerDouble();
-        $this->stubEntityManager($entityManager_stub);
-        $sut = $this->getSut();
-        $result_add = $sut->addNewPaymentMethod($paymentMethod);
-        $actual = count($result_add->getValues());
-        $this->assertEquals($expected,$actual);
-    }
-
-    /**
-     * method getPaymentMethods
-     * when called
-     * should returnServiceActionResultTrueWithArrayOfPaymentMethods
-     */
-    public function test_getPaymentMethods_called_returnServiceActionResultTrueWithArrayOfPaymentMethods()
-    {
-        $expected = new ActionResult(true,array('EuroMillions\Entities\PaymentMethod'));
-        $this->exerciseGetPaymentMethod($expected,['EuroMillions\Entities\PaymentMethod']);
-    }
-
-    /**
-     * method getPaymentMethods
-     * when calledWithValidUser
-     * should returnServiceActionResultFalseWithEmptyArray
-     */
-    public function test_getPaymentMethods_calledWithValidUser_returnServiceActionResultFalseWithEmptyArray()
-    {
-        $expected = new ActionResult(false,'You don\'t have any payment method registered');
-        $this->exerciseGetPaymentMethod($expected);
-    }
-
-
-    /**
-     * method getPaymentMethods
-     * when calledWithInvalidUser
-     * should returnServiceActionResultFalseWithEmptyArray
-     */
-    public function test_getPaymentMethods_calledWithInvalidUser_returnServiceActionResultFalseWithEmptyArray()
-    {
-        $expected = new ActionResult(false,'You don\'t have any payment method registered');
-        $this->exerciseGetPaymentMethod($expected,[],'43872489302fdkosfds');
-    }
-
-    /**
-     * method getPaymentMethod
-     * when calledWithInvalidIdPayment
-     * should returnServiceActionResultFalse
-     */
-    public function test_getPaymentMethod_calledWithInvalidIdPayment_returnServiceActionResultFalse()
-    {
-        $expected = new ActionResult(false);
-        $this->paymentMethodRepository_double->findOneBy(['id' => '1234'])->willThrow(new \Exception());
-        $sut = $this->getSut();
-        $actual = $sut->getPaymentMethod('1234');
-        $this->assertEquals($expected,$actual);
-    }
-
-
-    /**
      * method getMyPlays
      * when called
      * should returnServiceActionResultTrueWithProperData
@@ -271,21 +174,6 @@ class UserServiceUnitTest extends UnitTestBase
         $actual = $sut->getMyPlaysActives($userId);
         $this->assertEquals($expected,$actual);
     }
-
-    /**
-     * method getMyPlays
-     * when calledWithInvalidUser
-     * should throwException
-     */
-    public function test_getMyPlays_calledWithInvalidUser_throwException()
-    {
-        $this->setExpectedException('\InvalidArgumentException');
-        $this->userRepository_double->find(Argument::any())->willReturn(null);
-        $sut = $this->getSut();
-        $sut->getPaymentMethods($this->getUser()->getId());
-    }
-
-
 
     /**
      * method getMyPlays
@@ -390,44 +278,6 @@ class UserServiceUnitTest extends UnitTestBase
         $this->userRepository_double->getUsersWithJackpotReminder()->willReturn(null);
         $sut = $this->getSut();
         $actual = $sut->getAllUsersWithJackpotReminder();
-        $this->assertEquals($expected,$actual);
-    }
-
-    /**
-     * method editMyPaymentMethod
-     * when called
-     * should updateDataAndReturnServiceActionResultTrue
-     */
-    public function test_editMyPaymentMethod_called_updateDataAndReturnServiceActionResultTrue()
-    {
-        $expected = new ActionResult(true,'Your credit card data was updating');
-        $id = 1;
-        $creditCard = new CreditCard(new CardHolderName('Test01 test02 test03'),
-            new CardNumber('5500005555555559'),
-            new ExpiryDate('01/20'),
-            new CVV('456')
-        );
-
-        $paymentMethod = new CreditCardPaymentMethod($creditCard);
-        $paymentMethod->setId($id);
-        $paymentMethod->setUser($this->getUser());
-        $paymentMethod->setType(1);
-        $paymentMethod->setPaymentMethodType(1);
-
-        $edit_credit_card = [
-            'cardHolderName' => 'Test01 test02 test03',
-            'cardNumber' => '5500005555555559',
-            'month' => '01',
-            'year'  => '20',
-            'cvv'   => '456'
-        ];
-        $this->paymentMethodRepository_double->findOneBy(['id' => 1])->willReturn($paymentMethod);
-        $this->paymentMethodRepository_double->add($paymentMethod)->shouldBeCalled();
-        $entityManager_stub = $this->getEntityManagerDouble();
-        //$entityManager_stub->detach();
-        $entityManager_stub->flush($paymentMethod)->shouldBeCalled();
-        $sut = $this->getSut();
-        $actual = $sut->editMyPaymentMethod($id,$edit_credit_card);
         $this->assertEquals($expected,$actual);
     }
 
@@ -650,7 +500,7 @@ class UserServiceUnitTest extends UnitTestBase
     }
 
     /**
-     * @return \EuroMillions\services\UserService
+     * @return UserService
      */
     protected function getSut()
     {
@@ -666,9 +516,8 @@ class UserServiceUnitTest extends UnitTestBase
      */
     protected function exerciseRecharge($payment_provider_result, $expected)
     {
-        $creditCard = $this->getCreditCard();
         $user = $this->getUser();
-        $paymentMethod = new CreditCardPaymentMethod($creditCard);
+        $paymentMethod = $this->getInterfaceWebDouble('ICardPaymentProvider')->reveal();
         $amount = new Money(5000, new Currency('EUR'));
         $this->paymentProviderService_double->charge($paymentMethod, $amount)->willReturn($payment_provider_result);
         $entityManager_stub = $this->getEntityManagerDouble();
@@ -676,35 +525,6 @@ class UserServiceUnitTest extends UnitTestBase
         $sut = $this->getSut();
         $actual = $sut->recharge($user, $paymentMethod, $amount);
         $this->assertEquals($expected, $actual->success());
-    }
-
-    /**
-     * @param $expected
-     */
-    protected function exerciseAddNewPaymentMethod(ActionResult $expected)
-    {
-        $user = $this->getUser();
-        $creditCard = $this->getCreditCard();
-        $paymentMethod = new CreditCardPaymentMethod($creditCard);
-        $paymentMethod->setUser($user);
-        //$this->paymentMethodRepository_double->add(Argument::any())->willThrow(new \Exception('An exception ocurred while payment method was saved'));
-        $entityManager_stub = $this->getEntityManagerDouble();
-        $entityManager_stub->flush($paymentMethod)->shouldNotBeCalled();
-        $sut = $this->getSut();
-        $actual = $sut->addNewPaymentMethod($paymentMethod);
-        $this->assertEquals($expected, $actual);
-    }
-
-    protected function exerciseAddNewPaymentMethodThrowException(ActionResult $expected)
-    {
-        $user = $this->getUser();
-        $creditCard = $this->getCreditCard();
-        $paymentMethod = new CreditCardPaymentMethod($creditCard);
-        $paymentMethod->setUser($user);
-        $this->paymentMethodRepository_double->add(Argument::any())->willThrow(new \Exception('An exception ocurred while payment method was saved'));
-        $sut = $this->getSut();
-        $actual = $sut->addNewPaymentMethod($paymentMethod);
-        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -747,8 +567,7 @@ class UserServiceUnitTest extends UnitTestBase
         $user = $this->getUser();
         $this->userNotificationsRepository_double->findBy(['user' => $user])->willReturn($expected);
         $sut = $this->getSut();
-        $actual = $sut->getActiveNotificationsByUser($user);
-        return $actual;
+        return $sut->getActiveNotificationsByUser($user);
     }
 
     /**
