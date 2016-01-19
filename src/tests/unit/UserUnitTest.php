@@ -2,7 +2,7 @@
 namespace tests\unit;
 
 use EuroMillions\web\entities\User;
-use Money\MoneyCurrency;
+use Money\Currency;
 use tests\base\UnitTestBase;
 
 class UserUnitTest extends UnitTestBase
@@ -16,7 +16,7 @@ class UserUnitTest extends UnitTestBase
     {
         $sut = new User();
         $actual = $sut->getUserCurrency();
-        $expected = new MoneyCurrency('EUR');
+        $expected = new Currency('EUR');
         $this->assertEquals($expected, $actual);
     }
 }
