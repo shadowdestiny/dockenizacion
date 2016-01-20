@@ -7,7 +7,7 @@ namespace EuroMillions\web\controllers;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\dto\PlayConfigDTO;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\UserNotificationsDTO;
@@ -22,7 +22,9 @@ class AccountController extends PublicSiteControllerBase
 
     public function indexAction()
     {
-        $errors = null;
+        $errors = [];
+        $form_errors = [];
+        $msg = '';
         $userId = $this->authService->getCurrentUser();
         $myaccount_form = $this->getMyACcountForm($userId);
         $myaccount_passwordchange_form = new MyAccountChangePasswordForm();
@@ -69,7 +71,9 @@ class AccountController extends PublicSiteControllerBase
 
     public function passwordAction()
     {
-        $errors = null;
+        $errors = [];
+        $form_errors = [];
+        $msg = '';
         $userId = $this->authService->getCurrentUser();
         $user = $this->userService->getUser($userId->getId());
         $myaccount_form = $this->getMyACcountForm($userId);
@@ -118,7 +122,7 @@ class AccountController extends PublicSiteControllerBase
         $message_inactives = '';
 
         if(!empty($user)){
-            $myGamesActives = $this->userService->getMyPlaysActives($user->getId());
+            $myGamesActives = $this->userService->getMyActivePlays($user->getId());
             if($myGamesActives->success()){
                 foreach($myGamesActives->getValues() as $game){
                     $playConfigActivesDTOCollection[] = new PlayConfigDTO($game);
@@ -126,7 +130,7 @@ class AccountController extends PublicSiteControllerBase
             }else{
                 $message_actives = $myGamesActives->errorMessage();
             }
-            $myGamesInactives = $this->userService->getMyPlaysInactives($user->getId());
+            $myGamesInactives = $this->userService->getMyInactivePlays($user->getId());
             if($myGamesInactives->success()){
                 foreach($myGamesInactives->getValues() as $myGamesInactives){
                     $playConfigInactivesDTOCollection[] = new PlayConfigDTO($myGamesInactives);

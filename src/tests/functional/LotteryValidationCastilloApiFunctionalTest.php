@@ -8,7 +8,7 @@ use EuroMillions\web\components\CypherCastillo3DES;
 use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\services\external_apis\LotteryValidationCastilloApi;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\CastilloBetId;
 use EuroMillions\web\vo\CastilloCypherKey;
 use EuroMillions\web\vo\CastilloTicketId;

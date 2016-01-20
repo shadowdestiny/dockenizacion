@@ -22,7 +22,7 @@ use EuroMillions\web\vo\EuroMillionsRegularNumber;
 use EuroMillions\web\vo\ExpiryDate;
 use EuroMillions\web\vo\NotificationType;
 use EuroMillions\web\vo\Password;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
@@ -82,7 +82,7 @@ class UserServiceUnitTest extends UnitTestBase
             'Playing the game'
             )
         );
-        $this->assertInstanceOf($this->getVOToArgument('ActionResult'), $actual);
+        $this->assertInstanceOf($this->getResultObject('ActionResult'), $actual);
         $this->assertTrue($actual->success());
     }
 
@@ -170,8 +170,8 @@ class UserServiceUnitTest extends UnitTestBase
         $expected = new ActionResult(true,$playConfig);
         $sut = $this->getSut();
         $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
-        $this->playRepository_double->getPlayConfigsActivesByUser($userId)->willReturn($playConfig);
-        $actual = $sut->getMyPlaysActives($userId);
+        $this->playRepository_double->getActivePlayConfigsByUser($userId)->willReturn($playConfig);
+        $actual = $sut->getMyActivePlays($userId);
         $this->assertEquals($expected,$actual);
     }
 
@@ -185,8 +185,8 @@ class UserServiceUnitTest extends UnitTestBase
         $expected = new ActionResult(false,'You don\'t have games');
         $sut = $this->getSut();
         $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
-        $this->playRepository_double->getPlayConfigsActivesByUser($userId)->willReturn(null);
-        $actual = $sut->getMyPlaysActives($userId);
+        $this->playRepository_double->getActivePlayConfigsByUser($userId)->willReturn(null);
+        $actual = $sut->getMyActivePlays($userId);
         $this->assertEquals($expected,$actual);
     }
 
@@ -485,18 +485,6 @@ class UserServiceUnitTest extends UnitTestBase
         );
 
         return $user_notification;
-    }
-
-    /**
-     * @return CreditCard
-     */
-    private function getCreditCard()
-    {
-        return $creditCard = new CreditCard(new CardHolderName('Raul Mesa Ros'),
-            new CardNumber('5500005555555559'),
-            new ExpiryDate('10/19'),
-            new CVV('123')
-        );
     }
 
     /**

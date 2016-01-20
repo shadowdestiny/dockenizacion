@@ -355,4 +355,14 @@ class User extends EntityBase implements IEntity, IUser
         $this->wallet->upload($amount);
     }
 
+    /**
+     * @return Wallet
+     */
+    public function getWallet()
+    {
+        return $this->wallet;
+    }
+
+
+
 }

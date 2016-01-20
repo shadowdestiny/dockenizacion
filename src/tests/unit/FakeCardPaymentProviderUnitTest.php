@@ -1,7 +1,7 @@
 <?php
 namespace tests\unit;
 use EuroMillions\web\services\card_payment_providers\FakeCardPaymentProvider;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;

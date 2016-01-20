@@ -5,7 +5,7 @@ namespace EuroMillions\admin\services;
 
 
 use Doctrine\ORM\EntityManager;
-use EuroMillions\admin\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\repositories\LotteryDrawRepository;
@@ -19,7 +19,7 @@ class MaintenanceDrawService
 
     /** @var  LotteryDrawRepository */
     protected $lotteryDrawRepository;
-    /** @var  LotteryRepository*/
+    /** @var  LotteryRepository */
     protected $lotteryRepository;
 
     public function __construct(EntityManager $entityManager)
@@ -33,16 +33,16 @@ class MaintenanceDrawService
     {
         /** @var EuroMillionsDraw $lottery_draw */
         $lottery_draw = $this->lotteryDrawRepository->findOneBy(['id' => $id_draw]);
-        if(!empty($lottery_draw)) {
-            try{
+        if (null !== $lottery_draw) {
+            try {
                 $lottery_draw->setJackpot($jackpot_value);
-                $lottery_draw->createResult($regular_numbers,$lucky_numbers);
+                $lottery_draw->createResult($regular_numbers, $lucky_numbers);
                 $this->entityManager->flush();
                 return new ActionResult(true);
-            }catch(\Exception $e) {
+            } catch (\Exception $e) {
                 return new ActionResult(false);
             }
-        }else{
+        } else {
             return new ActionResult(false);
         }
     }
@@ -53,10 +53,10 @@ class MaintenanceDrawService
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         /** @var EuroMillionsDraw $draw */
         $draw = $this->lotteryDrawRepository->findBy(['lottery' => $lottery]);
-        if(!empty($draw)){
-            return new ActionResult(true,$draw);
-        }else{
-            return new ActionResult(false,'Error fetching');
+        if (null !== $draw) {
+            return new ActionResult(true, $draw);
+        } else {
+            return new ActionResult(false, 'Error fetching');
         }
     }
 
@@ -64,19 +64,19 @@ class MaintenanceDrawService
     {
         /** @var EuroMillionsDraw $draw */
         $draw = $this->lotteryDrawRepository->findOneBy(['id' => $id]);
-        if(!empty($draw)){
-            return new ActionResult(true,$draw);
-        }else{
-            return new ActionResult(false,'Error fetching');
+        if (null !== $draw) {
+            return new ActionResult(true, $draw);
+        } else {
+            return new ActionResult(false, 'Error fetching');
         }
     }
 
     public function getDrawByDate(\DateTime $date)
     {
         $draw = $this->lotteryDrawRepository->findOneBy(['draw_date' => $date]);
-        if(!empty($draw)) {
-            return new ActionResult(true,$draw);
-        }else{
+        if (null !== $draw) {
+            return new ActionResult(true, $draw);
+        } else {
             return new ActionResult(false);
         }
     }

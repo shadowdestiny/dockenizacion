@@ -5,7 +5,7 @@ use antonienko\MoneyFormatter\MoneyFormatter;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\interfaces\ICurrencyApi;
 use EuroMillions\web\repositories\CurrencyRepository;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use Money\Currency;
 use Money\Money;
 
@@ -49,7 +49,7 @@ class CurrencyService
     {
         /** @var Currency $collection */
         $collection = $this->currencyRepository->findBy([],[ 'name' => 'ASC']);
-        if(!empty($collection)) {
+        if(null !==$collection) {
             return new ActionResult(true,$collection);
         } else {
             return new ActionResult(false);
@@ -82,7 +82,7 @@ class CurrencyService
     {
         /** @var Currency $collection */
         $collection = $this->currencyRepository->findBy([],['order' => 'ASC'],$limit);
-        if(!empty($collection)) {
+        if(count($collection)) {
             return new ActionResult(true,$collection);
         } else {
             return new ActionResult(false);

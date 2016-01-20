@@ -4,7 +4,7 @@ namespace tests\unit;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\services\DomainServiceFactory;
 use EuroMillions\web\services\ServiceFactory;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use Money\Currency;
 use Money\CurrencyPair;
 use Money\Money;

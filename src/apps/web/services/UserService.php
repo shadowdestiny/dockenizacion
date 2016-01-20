@@ -11,7 +11,7 @@ use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserNotificationsRepository;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\vo\ContactFormInfo;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\NotificationType;
 use EuroMillions\web\vo\UserId;
 use Exception;
@@ -80,6 +80,10 @@ class UserService
         return $this->currencyService->toString($money_convert, $locale);
     }
 
+    /**
+     * @param UserId $userId
+     * @return User
+     */
     public function getUser(UserId $userId)
     {
         return $this->userRepository->find($userId->id());
@@ -132,11 +136,11 @@ class UserService
         return new ActionResult(false, $error_message);
     }
 
-    public function getMyPlaysActives(UserId $userId)
+    public function getMyActivePlays(UserId $userId)
     {
         if(!empty($userId)){
             /** @var array $result */
-            $result = $this->playRepository->getPlayConfigsActivesByUser($userId);
+            $result = $this->playRepository->getActivePlayConfigsByUser($userId);
             if(empty($result)){
                 return new ActionResult(false,'You don\'t have games');
             }
@@ -146,11 +150,11 @@ class UserService
         }
     }
 
-    public function getMyPlaysInActives(UserId $userId)
+    public function getMyInactivePlays(UserId $userId)
     {
         if(!empty($userId)){
             /** @var array $result */
-            $result = $this->playRepository->getPlayConfigsInActivesByUser($userId);
+            $result = $this->playRepository->getInactivePlayConfigsByUser($userId);
             if(empty($result)){
                 return new ActionResult(false,'You don\'t have games');
             }

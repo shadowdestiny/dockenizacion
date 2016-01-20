@@ -7,7 +7,7 @@ use EuroMillions\web\exceptions\UnsupportedOperationException;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\interfaces\ISession;
 use EuroMillions\web\vo\PlayFormToStorage;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\UserId;
 
 class SessionPlayStorageStrategy implements IPlayStorageStrategy
@@ -33,13 +33,15 @@ class SessionPlayStorageStrategy implements IPlayStorageStrategy
      */
     public function findByKey($key)
     {
-        if(empty($key)) return new ActionResult(false, 'Key is invalid in session');
+        if (null === $key) {
+            return new ActionResult(false, 'Key is invalid in session');
+        }
 
         $result = $this->session->get($key);
-        if(!empty($result)){
-            return new ActionResult(true,$result);
-        }else{
-            return new ActionResult(false,'No EuroMillions lines in session');
+        if (!empty($result)) {
+            return new ActionResult(true, $result);
+        } else {
+            return new ActionResult(false, 'No EuroMillions lines in session');
         }
     }
 

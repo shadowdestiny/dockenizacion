@@ -7,7 +7,7 @@ use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\UserService;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use Phalcon\Di;
 
 class JackpotTask extends TaskBase

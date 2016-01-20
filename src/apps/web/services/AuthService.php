@@ -9,7 +9,6 @@ use EuroMillions\web\components\PhpassWrapper;
 use EuroMillions\web\components\RandomPasswordGenerator;
 use EuroMillions\web\entities\GuestUser;
 use EuroMillions\web\entities\User;
-use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\interfaces\IAuthStorageStrategy;
 use EuroMillions\web\interfaces\IEmailValidationToken;
 use EuroMillions\web\interfaces\IPasswordHasher;
@@ -18,12 +17,11 @@ use EuroMillions\web\interfaces\IUser;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Password;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\Url;
 use EuroMillions\web\vo\UserId;
 use EuroMillions\web\vo\ValidationToken;
 use Money\Currency;
-use Money\Money;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
 class AuthService
@@ -45,7 +43,7 @@ class AuthService
     /** @var  UserService */
     private $userService;
 
-    public function __construct(EntityManager $entityManager, IPasswordHasher $hasher, IAuthStorageStrategy $storageStrategy, IUrlManager $urlManager, LogService $logService, EmailService $emailService,UserService $userService)
+    public function __construct(EntityManager $entityManager, IPasswordHasher $hasher, IAuthStorageStrategy $storageStrategy, IUrlManager $urlManager, LogService $logService, EmailService $emailService, UserService $userService)
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
@@ -85,7 +83,7 @@ class AuthService
     public function isLogged()
     {
         $user = $this->getCurrentUser();
-        return get_class($user) == 'EuroMillions\web\entities\User';
+        return get_class($user) === 'EuroMillions\web\entities\User';
     }
 
     public function check($credentials, $agentIdentificationString)
@@ -136,22 +134,22 @@ class AuthService
         $user = new User();
         $email = new Email($credentials['email']);
         $user->initialize([
-            'name'     => $credentials['name'],
-            'surname'  => $credentials['surname'],
-            'email'    => $email,
-            'password' => new Password($credentials['password'], $this->passwordHasher),
-            'country'  => $credentials['country'],
-            'wallet'  => new Wallet(),
-            'validated' => 0,
+            'name'             => $credentials['name'],
+            'surname'          => $credentials['surname'],
+            'email'            => $email,
+            'password'         => new Password($credentials['password'], $this->passwordHasher),
+            'country'          => $credentials['country'],
+            'wallet'           => new Wallet(),
+            'validated'        => 0,
             'validation_token' => $this->getEmailValidationToken($email),
-            'user_currency' => new Currency('EUR')
+            'user_currency'    => new Currency('EUR')
         ]);
 
         $this->userRepository->add($user);
 
-        try{
+        try {
             $this->entityManager->flush();
-            if(!empty($user->getId())) {
+            if (null !== $user->getId()) {
                 $this->storageStrategy->setCurrentUserId($user->getId());
                 $this->logService->logRegistration($user);
                 $url = $this->getValidationUrl($user);
@@ -159,17 +157,17 @@ class AuthService
                 //user notifications default
                 $this->userService->initUserNotifications($user->getId());
                 return new ActionResult(true, $user);
-            }else{
+            } else {
                 return new ActionResult(false, 'Error getting an user');
             }
-        } catch(Exception $e) {
-            return new ActionResult(false,'An error ocurred saving an user');
+        } catch (Exception $e) {
+            return new ActionResult(false, 'An error ocurred saving an user');
         }
     }
 
     public function registerFromCheckout(array $credentials, UserId $userId)
     {
-        if(!$this->getCurrentUser() instanceof GuestUser) {
+        if (!$this->getCurrentUser() instanceof GuestUser) {
             return new ActionResult(false, 'Error getting user');
         }
         if ($this->userRepository->getByEmail($credentials['email'])) {
@@ -178,30 +176,30 @@ class AuthService
         $user = new User();
         $email = new Email($credentials['email']);
         $user->initialize([
-            'name'     => $credentials['name'],
-            'surname'  => $credentials['surname'],
-            'email'    => $email,
-            'password' => new Password($credentials['password'], $this->passwordHasher),
-            'country'  => $credentials['country'],
-            'wallet'  => new Wallet(),
-            'validated' => 0,
+            'name'             => $credentials['name'],
+            'surname'          => $credentials['surname'],
+            'email'            => $email,
+            'password'         => new Password($credentials['password'], $this->passwordHasher),
+            'country'          => $credentials['country'],
+            'wallet'           => new Wallet(),
+            'validated'        => 0,
             'validation_token' => $this->getEmailValidationToken($email),
-            'user_currency' => new Currency('EUR')
+            'user_currency'    => new Currency('EUR')
         ]);
-        try{
+        try {
             $user->setId($userId);
             $this->userRepository->addWithId($user);
             $this->entityManager->flush();
-            if(!empty($user->getId())) {
+            if (null !== $user->getId()) {
                 $this->storageStrategy->setCurrentUserId($userId);
                 $this->logService->logRegistration($user);
                 $this->userService->initUserNotifications($user->getId());
                 return new ActionResult(true, $user);
-            }else{
+            } else {
                 return new ActionResult(false, 'Error getting an user');
             }
-        } catch(Exception $e) {
-            return new ActionResult(false,'An error ocurred saving an user');
+        } catch (Exception $e) {
+            return new ActionResult(false, 'An error ocurred saving an user');
         }
     }
 
@@ -215,7 +213,7 @@ class AuthService
     {
         $emailValidationTokenGenerator = $this->getEmailValidationTokenGenerator($emailValidationTokenGenerator);
         $user = $this->userRepository->getByToken($token);
-        if(!empty($user)) {
+        if (!empty($user)) {
             if ($emailValidationTokenGenerator->validate($user->getEmail()->toNative(), $token)) {
                 $user->setValidated(true);
                 $this->entityManager->flush($user);
@@ -243,7 +241,7 @@ class AuthService
      */
     private function getPasswordResetUrl(User $user)
     {
-        return new Url($this->urlManager->get('userAccess/passwordReset/'. $this->getEmailValidationToken(new Email($user->getEmail()->toNative()))));
+        return new Url($this->urlManager->get('userAccess/passwordReset/' . $this->getEmailValidationToken(new Email($user->getEmail()->toNative()))));
     }
 
     public function tryLoginWithRemember()
@@ -260,7 +258,7 @@ class AuthService
     public function resetPassword($token)
     {
         $user = $this->userRepository->getByToken($token);
-        if(!empty($user)){
+        if (!empty($user)) {
             try {
                 $passwordGenerator = new RandomPasswordGenerator(new NullPasswordHasher());
                 $password = $passwordGenerator->getPassword();
@@ -268,7 +266,7 @@ class AuthService
                 $user->setPassword(new Password($password->toNative(), new PhpassWrapper()));
                 $this->entityManager->flush($user);
                 return new ActionResult(true, 'Email sent');
-            }catch(Exception $e){
+            } catch (Exception $e) {
                 return new ActionResult(false, '');
             }
 
@@ -280,22 +278,22 @@ class AuthService
     public function samePassword(User $user, $password)
     {
         $password_match = $this->passwordHasher->checkPassword($password, $user->getPassword()->toNative());
-       if($password_match) {
-           return new ActionResult(true);
-       }else{
-           return new ActionResult(false,'The old password doesn\'t exist');
-       }
+        if ($password_match) {
+            return new ActionResult(true);
+        } else {
+            return new ActionResult(false, 'The old password doesn\'t exist');
+        }
     }
 
     public function updatePassword(User $user, $new_password)
     {
-        try{
+        try {
             $password = new Password($new_password, $this->passwordHasher);
             $user->setPassword($password);
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
-            return new ActionResult(true,'Your password was changed correctly');
-        }catch (\Exception $e) {
+            return new ActionResult(true, 'Your password was changed correctly');
+        } catch (\Exception $e) {
             return new ActionResult(false);
         }
     }
@@ -322,7 +320,9 @@ class AuthService
      */
     private function getEmailValidationTokenGenerator(IEmailValidationToken $emailValidationTokenGenerator = null)
     {
-        if (!$emailValidationTokenGenerator) $emailValidationTokenGenerator = new Md5EmailValidationToken();
+        if (!$emailValidationTokenGenerator) {
+            $emailValidationTokenGenerator = new Md5EmailValidationToken();
+        }
         return $emailValidationTokenGenerator;
     }
 

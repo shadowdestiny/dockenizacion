@@ -20,7 +20,7 @@ use EuroMillions\web\services\external_apis\LotteryValidationCastilloApi;
 use EuroMillions\web\vo\CastilloCypherKey;
 use EuroMillions\web\vo\CastilloTicketId;
 use EuroMillions\web\vo\PlayFormToStorage;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\UserId;
 
 class PlayService
@@ -69,7 +69,9 @@ class PlayService
         //EMTD previously should check amount or userservice deduct amount about his balance
    //     if($user->getBalance()->getAmount() > 0){
         try {
+            /** @var ActionResult $temporalForm */
             $temporalForm = $this->playStorageStrategy->findByKey($user->getId()->id());
+            //EMTD @rmrbest If the findByKey method returns an ActionResult object, why do you check empty instead of success?
             if(empty($temporalForm)){
                 return new ActionResult(false,'The search key doesn\'t exist');
             }

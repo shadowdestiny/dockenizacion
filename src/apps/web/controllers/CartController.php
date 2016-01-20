@@ -3,8 +3,6 @@ namespace EuroMillions\web\controllers;
 
 use Captcha\Captcha;
 use EuroMillions\web\components\ReCaptchaWrapper;
-use EuroMillions\web\entities\GuestUser;
-use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\ForgotPasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
@@ -12,7 +10,7 @@ use EuroMillions\web\forms\SignInForm;
 use EuroMillions\web\forms\SignUpForm;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\Email;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;

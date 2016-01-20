@@ -3,7 +3,7 @@
 
 namespace tests\unit\admin;
 
-use EuroMillions\admin\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use Prophecy\Argument;
 use tests\base\PhalconDiRelatedTest;
 use tests\base\UnitTestBase;

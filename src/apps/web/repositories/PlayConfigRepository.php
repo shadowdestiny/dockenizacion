@@ -9,12 +9,12 @@ use EuroMillions\web\vo\UserId;
 class PlayConfigRepository extends RepositoryBase
 {
 
-    public function getPlayConfigsActivesByUser(UserId $userId)
+    public function getActivePlayConfigsByUser(UserId $userId)
     {
         return $this->getPlayConfigsByUser($userId, '1');
     }
 
-    public function getPlayConfigsInActivesByUser(UserId $userId)
+    public function getInactivePlayConfigsByUser(UserId $userId)
     {
         return $this->getPlayConfigsByUser($userId, '0');
     }

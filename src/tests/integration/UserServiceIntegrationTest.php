@@ -2,16 +2,7 @@
 namespace tests\integration;
 
 use EuroMillions\shared\config\Namespaces;
-use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
-use EuroMillions\web\vo\CardHolderName;
-use EuroMillions\web\vo\CardNumber;
-use EuroMillions\web\vo\CreditCard;
-use EuroMillions\web\vo\CVV;
-use EuroMillions\web\vo\EuroMillionsLine;
-use EuroMillions\web\vo\EuroMillionsLuckyNumber;
-use EuroMillions\web\vo\EuroMillionsRegularNumber;
-use EuroMillions\web\vo\ExpiryDate;
 use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
@@ -112,33 +103,38 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
     }
 
     /**
-     * method getMyPlays
+     * method getMyActivePlays
      * when called
      * should returnArrayWithPlayConfigs
      */
-    public function test_getMyPlaysActives_called_returnArrayWithPlayConfigs()
+    public function test_getMyActivePlays_called_returnArrayWithPlayConfigs()
     {
-        list($user,$playConfig) = $this->getPlayConfigExpected();
+        $this->markTestIncomplete('Redo the test: look at the next one as an example');
+        $user = $this->getUser();
         $expected = 1;
         $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
         $sut = $this->getSut($paymentProvider_double);
-        $actual = count($sut->getMyPlaysActives($user->getId())->getValues());
+        $actual = count($sut->getMyActivePlays($user->getId())->getValues());
         $this->assertEquals($expected,$actual);
     }
 
     /**
-     * method getMyPlaysInActives
+     * method getMyInactivePlays
      * when called
-     * should returnArrayWithPlaysConfigsInactives
+     * should returnArrayWithInactivePlayConfigs
      */
-    public function test_getMyPlaysInActives_called_returnArrayWithPlaysConfigsInactives()
+    public function test_getMyInactivePlays_called_returnArrayWithInactivePlayConfigs()
     {
-        list($user,$playConfig) = $this->getPlayConfigExpected();
-        $expected = 1;
+        $user = $this->getUser();
+        $expected_play_config_id = 4;
         $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
         $sut = $this->getSut($paymentProvider_double);
-        $actual = count($sut->getMyPlaysInActives($user->getId())->getValues());
-        $this->assertGreaterThanOrEqual($expected,$actual);
+        $result = $sut->getMyInactivePlays($user->getId());
+        $play_configs = $result->getValues();
+        $this->assertTrue($result->success(), 'The result should have success');
+        $this->assertInternalType('array', $play_configs, 'The values returned should be an array');
+        $this->assertCount(1, $play_configs, 'The array should contain a single element');
+        $this->assertEquals($expected_play_config_id, $play_configs[0]->getId(), 'The id of the inactive play config should be: '.$expected_play_config_id);
     }
 
     /**
@@ -159,47 +155,12 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         $this->assertEquals($expected,$actual);
     }
 
-    public function getPlayConfigExpected()
+    public function getUser()
     {
-
         $userRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS.'User');
 
         $email = 'algarrobo@currojimenez.com';
-        /** @var User $user */
-        $user = $userRepository->getByEmail($email);
-        $reg_numbers = [1, 2, 3, 4, 5];
-        $luc_numbers = [5, 8];
-
-        $regular_numbers = function($numbers){
-            $result = [];
-            foreach ($numbers as $number) {
-                $result[] = new EuroMillionsRegularNumber($number);
-            }
-            return $result;
-
-        };
-
-        $lucky_numbers = function($numbers){
-            $result = [];
-            foreach ($numbers as $number) {
-                $result[] = new EuroMillionsLuckyNumber($number);
-            }
-            return $result;
-        };
-
-        $euroMillionsLine = new EuroMillionsLine($regular_numbers($reg_numbers),
-            $lucky_numbers($luc_numbers));
-
-        $playConfig = new PlayConfig();
-        $playConfig->setId(1);
-        $playConfig->setUser($user);
-        $playConfig->setLine($euroMillionsLine);
-        $playConfig->setActive(true);
-        $playConfig->setDrawDays(25);
-        $playConfig->setStartDrawDate(new \DateTime('2015-09-16 00:00:00'));
-        $playConfig->setLastDrawDate(new \DateTime('2015-09-30 00:00:00'));
-
-        return [$user,$playConfig];
+        return $userRepository->getByEmail($email);
     }
 
 
