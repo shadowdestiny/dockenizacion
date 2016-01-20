@@ -29,9 +29,6 @@ var CartPage = new React.createClass({
         var price = parseFloat(this.props.single_bet_price * this.state.playConfigList.euroMillionsLines.bets.length );
         var wallet_balance = parseFloat(this.props.wallet_balance);
         var fee = this.props.price_below_fee;
-       // if( wallet_balance < price && price < parseFloat(fee)) {
-            //this.setState({ show_all_fee : true, checked_wallet : false});
-      //  }
         if(wallet_balance == 0 && price > parseFloat(fee)) {
             this.setState({ show_all_fee : false, checked_wallet : false });
         }
@@ -96,8 +93,10 @@ var CartPage = new React.createClass({
             price = (wallet > price) ? wallet - price : price - wallet;
             this.state.new_balance = parseFloat(parseFloat(this.props.wallet_balance) - parseFloat(wallet)).toFixed(2);
         }
+        //checked wallet is disabled
         if(!this.state.checked_wallet) {
-            if(parseFloat(price) < parseFloat(fee_below)) {
+            //price less than fee_below_value and wallet_balance less than price
+            if(parseFloat(price) < parseFloat(fee_below) && parseFloat(wallet_balance) < parseFloat(price)) {
                 price = parseFloat(price);
                 if(this.state.fund_value > this.props.price_below_fee) {
                     price = price + parseFloat(this.state.fund_value);//(price - parseFloat(this.props.fee_charge)) + this.state.fund_value;
@@ -110,7 +109,14 @@ var CartPage = new React.createClass({
                     this.state.show_fee_text = true;
                     price = price + parseFloat(fee);
                 }
+            } else if(parseFloat(wallet_balance) > parseFloat(price)) {
+                console.log('llega')
+                this.state.show_fee_value = false;
+                this.state.show_fee_text = false;
+                this.state.show_all_fee = false;
+
             } else if(parseFloat(price) > parseFloat(fee_below)) {
+                console.log('llega')
                 this.state.show_fee_value = false;
                 this.state.show_fee_text = false;
                 this.state.show_all_fee = false;
@@ -120,45 +126,6 @@ var CartPage = new React.createClass({
             this.state.new_balance = parseFloat(this.props.wallet_balance);
         }
         this.setState({ total : price });
-
-
-        /*if( wallet_balance < price && price < parseFloat(fee)) {
-            this.state.checked_wallet = false;
-            price = price + parseFloat(this.props.fee_charge);
-            this.state.show_all_fee = false;
-        }
-
-        if(wallet_balance == 0 && price > parseFloat(fee)) {
-            this.state.checked_wallet = false;
-            this.setState({ show_all_fee : false});
-        }
-
-        if(this.state.checked_wallet) {
-            var wallet = parseFloat(this.props.wallet_balance) > price ? price : this.props.wallet_balance;
-            price = (wallet > price) ? wallet - price : price - wallet;
-            if(wallet < fee ) wallet_balance = wallet_balance + this.props.fee_charge;
-            this.state.new_balance = parseFloat(parseFloat(this.props.wallet_balance) - parseFloat(wallet)).toFixed(2);
-            this.state.show_all_fee = false;
-        } else {
-            if(!this.state.show_all_fee) {
-                price = price + parseFloat(this.props.fee_charge);
-                this.state.show_all_fee = true;
-            }
-            this.state.new_balance = parseFloat(this.props.wallet_balance);
-        }
-
-        if(price > this.props.price_below_fee) {
-            this.state.show_fee_value = false;
-            this.state.show_fee_text = false;
-        } else if(this.state.fund_value > this.props.price_below_fee) {
-            price = price + this.state.fund_value;//(price - parseFloat(this.props.fee_charge)) + this.state.fund_value;
-            this.state.show_fee_value = false;
-            this.state.show_fee_text = false;
-        } else {
-            price = price + this.state.fund_value + this.props.fee_charge;
-            this.state.show_fee_value = true;
-            this.state.show_fee_text = true;
-        }*/
     },
 
     render : function ()
@@ -193,9 +160,9 @@ var CartPage = new React.createClass({
             var total_default = parseFloat(this.props.total).toFixed(2);
 
             //add fee if total less than price below fee
-            if(parseFloat(total_default) < parseFloat(this.props.price_below_fee)){
+            //if(parseFloat(total_default) < parseFloat(this.props.price_below_fee)){
               //  total_default = parseFloat(total_default) + parseFloat(this.props.fee_charge);
-            }
+            // }
             wallet_component = <EmWallet currency_symbol={this.props.currency_symbol}
                                          checked_callback={this.handleCheckedWallet}
                                          show_checked={this.state.checked_wallet}
@@ -204,12 +171,17 @@ var CartPage = new React.createClass({
                 />;
         }
         var txt_button_payment = this.state.checked_wallet ? 'Buy now' : 'Continue to payment';
+        var old_balance_and_new_balance = <span className="value"> <span className='old'>{this.props.currency_symbol} {this.props.wallet_balance}</span><span className='new'>{this.props.currency_symbol} {this.state.new_balance}</span> </span>;
+        if(!this.state.checked_wallet) {
+            old_balance_and_new_balance = <span className="value"> <span className="new">{this.props.currency_symbol} {this.state.new_balance}</span> </span>;
+        }
+
         return (
             <div>
                 <div className="box-top cl">
                     <div className="balance">
                         <span className="txt">Your current wallet balance:</span>
-                        <span className="value"><span className="old">{this.props.currency_symbol} {this.props.wallet_balance}</span> <span className="new">{this.props.currency_symbol} {this.state.new_balance}</span></span>
+                        {old_balance_and_new_balance}
                     </div>
                     <h2 className="h4 sub-txt">Order Summary</h2>
                 </div>
@@ -229,12 +201,7 @@ var CartPage = new React.createClass({
 });
 
 module.exports = CartPage;
-
 var show_fee_line = false;
-//if( total_price < price_below_fee) {
-//    show_fee_line = true;
-//    total_price = parseFloat(total_price) + parseFloat(fee_charge); //EMTD 0.35 should be calculated inside react
-//}
 ReactDOM.render(<CartPage total={total_price} price_below_fee={price_below_fee} fee_charge={fee_charge} currency_symbol={currency_symbol} play_list={play_list} wallet_balance={wallet_balance} single_bet_price={single_bet_price} show_fee_line={show_fee_line}/>,
     document.getElementById('cart-order'));
 

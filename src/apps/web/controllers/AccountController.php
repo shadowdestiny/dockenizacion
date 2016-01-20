@@ -99,10 +99,10 @@ class AccountController extends PublicSiteControllerBase
         }
         //$this->view->pick('account/index');
         return $this->view->setVars([
-            'form_errors' => $form_errors,
+            'form_errors' => !empty($form_errors) ? $form_errors : [],
             'which_form'  => 'password',
             'errors' => $errors,
-            'msg' => $msg,
+            'msg' => !empty($msg) ? $msg : '',
             'myaccount' => $myaccount_form,
             'password_change' => $myaccount_passwordchange_form
         ]);
@@ -154,6 +154,11 @@ class AccountController extends PublicSiteControllerBase
         ]);
     }
 
+    public function addFundsAction()
+    {
+
+    }
+
     public function emailAction()
     {
         $userId = $this->authService->getCurrentUser();
@@ -196,7 +201,7 @@ class AccountController extends PublicSiteControllerBase
 
         $message = null;
         $list_notifications = null;
-        $errors = [];
+
         try {
             if($reach_notification) {
                 $notificationType = new NotificationType(NotificationType::NOTIFICATION_THRESHOLD, $config_value_threshold);

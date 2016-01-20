@@ -1,15 +1,11 @@
 <?php
 namespace EuroMillions\web\controllers;
 
-use Captcha\Captcha;
-use EuroMillions\web\components\ReCaptchaWrapper;
 use EuroMillions\web\entities\User;
-use EuroMillions\web\forms\ForgotPasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
 use EuroMillions\web\forms\SignInForm;
 use EuroMillions\web\forms\SignUpForm;
 use EuroMillions\web\vo\dto\UserDTO;
-use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\ActionResult;
 use EuroMillions\web\vo\UserId;
 use Money\Currency;
@@ -37,6 +33,7 @@ class CartController extends PublicSiteControllerBase{
         /** @var UserId $currenct_user_id */
         $current_user_id = $this->authService->getCurrentUser()->getId();
         // for the moment user_id is a guest_user
+        $result = false;
         if(!empty($user_id)) {
             $user = new User();
             $user->setId(new UserId($user_id));
@@ -71,7 +68,7 @@ class CartController extends PublicSiteControllerBase{
         $currency_symbol = $this->currencyService->getSymbol($bet_price_value_currency,$user->getBalance()->getCurrency());
 
         return $this->view->setVars([
-            'total' => $total_price,
+            'total' => !empty($total_price) ? $total_price : 0,
             'currency_symbol' => $currency_symbol,
             'fee_below' => $fee_below->getAmount() / 100,
             'fee_charge' => $fee_charge->getAmount() / 100,
@@ -159,8 +156,7 @@ class CartController extends PublicSiteControllerBase{
                     'country'  => $this->request->getPost('country'),
                 ], $user->getId());
                 if($result->success()){
-                    $this->response->redirect('cart/order');
-                    $msg = $result->getValues();
+                    $this->response->redirect('/cart/order');
                 }else{
                     $errors [] = $result->errorMessage();
                 }
@@ -208,7 +204,7 @@ class CartController extends PublicSiteControllerBase{
                 ) {
                     $errors[] = 'Email/password combination not valid';
                 } else {
-                    return $this->response->redirect('cart/order?user='.$userId->getId());
+                    return $this->response->redirect('/cart/order?user='.$userId->getId());
                 }
             }
         }
@@ -242,64 +238,6 @@ class CartController extends PublicSiteControllerBase{
         }
         $this->view->setVar('message', $message);
     }
-
-    public function logoutAction()
-    {
-        $this->authService->logout();
-        $this->response->redirect();
-    }
-
-
-    public function forgotPasswordAction()
-    {
-        $errors = null;
-        $forgot_password_form = new ForgotPasswordForm();
-
-        //get captcha instance
-        $config = $this->di->get('globalConfig')['recaptcha'];
-        $captcha = new ReCaptchaWrapper(new Captcha());
-        $captcha->getCaptcha()->setPublicKey($config['public_key']);
-        $captcha->getCaptcha()->setPrivateKey($config['private_key']);
-
-        if ($this->request->isPost()) {
-            if ($forgot_password_form->isValid($this->request->getPost()) == false) {
-                $errors[] = 'Invalid email';
-            } else {
-
-                    $email = $this->request->getPost('email');
-                    $reCaptchaResult = $captcha->check()->isValid();
-                    $result = new ActionResult(false);
-
-                    if(!empty($email) && !empty($reCaptchaResult)){
-                        $result = $this->authService->forgotPassword(new Email($email));
-                    }
-                    if($result->success() && $reCaptchaResult){
-                        $message = $result->getValues();
-                    } else {
-                        if(empty($reCaptchaResult)) $errors[] = 'You are a robot';
-                        $errors[] = $result->errorMessage();
-                    }
-            }
-        }
-        $this->view->pick('sign-in/forgot-psw');
-        return $this->view->setVars([
-            'forgot_password_form' => $forgot_password_form,
-            'captcha'              => $captcha->html(),
-            'errors'               => $errors,
-            'message'              => $message,
-        ]);
-    }
-
-    public function passwordResetAction($token)
-    {
-        $result = $this->authService->resetPassword($token);
-        if ($result->success()) {
-            $message = 'Your password was reset!';
-        } else {
-            $message = 'Sorry, the token you used is no longer valid.';
-        }
-    }
-
 
     /**
      * @return SignUpForm
@@ -360,6 +298,7 @@ class CartController extends PublicSiteControllerBase{
             $myaccount_form = new MyAccountForm(null,['countries' => $countries]);
             $myaccount_form->addPasswordElement();
         } else {
+            /** @var User $user */
             $user = $this->userService->getUser($userId->getId());
             $user_dto = new UserDTO($user);
             $myaccount_form = new MyAccountForm($user_dto,['countries' => $countries]);
