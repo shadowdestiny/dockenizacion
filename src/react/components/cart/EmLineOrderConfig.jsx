@@ -89,7 +89,7 @@ var EmLineOrderConfig = new React.createClass({
         return (
             <div className="row cl">
                 <div className="desc">
-                    Draws
+                    Draw
                 </div>
                 <div className="detail">
                     {text_weeks}
