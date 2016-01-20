@@ -51,11 +51,9 @@ $(function(){
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
-
 {#
 
     * NO DATA & DATA: VARIOUS COMBINATIONS IN THIS CODE, CHECK THE GRAPHICS (no bank account set up, no credit card set up, winning infobox) *
-
 #}
 
 <main id="content">
@@ -73,22 +71,22 @@ $(function(){
             <div class="overview-wallet">
                 <div class="info box box-congrats">
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                    <span class="txt"><span class="congrats">{{ language.translate("Congratulations!!! You won &euro; 100.000") }}</span> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</span>
+                    <span class="txt"><span class="congrats">{{ language.translate("Congratulations!!! You won &euro; 100.000") }}</span> {{ language.translate("Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.")}}</span>
                 </div>
 
                 <div class="box-balance">
                     <div class="cols res">
                         <div class="col7">
                             <div class="border">
-                                <div class="txt">Your current balance: <span class="value">&euro; 20.00</span></div>
-                                <a href="javascript:void(0)" class="btn blue add-funds">Add funds of your wallet</a>
-                                <a href="javascript:void(0)" class="btn green withdraw">Withdraw winnings</a>
+                                <div class="txt">{{ language.translate("Your current balance:") }} <span class="value">&euro; 20.00</span></div>
+                                <a href="javascript:void(0)" class="btn blue add-funds">{{ language.translate("Add funds of your wallet") }}</a>
+                                <a href="javascript:void(0)" class="btn green withdraw">{{ language.translate("Withdraw winnings") }}</a>
                             </div>
                         </div>
                         <div class="col5">
                             <div class="border">
-                                <div class="txt">Your winnings: <span class="value">&euro; 20.00</span></div>
-                                <a href="javascript:void(0)" class="btn blue convert">Convert winnings into your wallet</a>
+                                <div class="txt">{{ language.translate("Your winnings:")}} <span class="value">&euro; 20.00</span></div>
+                                <a href="javascript:void(0)" class="btn blue convert">{{ language.translate("Convert winnings into your wallet")}}</a>
                             </div>
                         </div>
                     </div>
@@ -150,7 +148,7 @@ $(function(){
                 *NO data*
                     <div class="info box special">
                         <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                        <span class="txt">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</span>
+                        <span class="txt">{{ language.translate("Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.") }}</span>
                         <a href="javascript:void(0)" class="new-bank btn gwy">{{ language.translate("Add a new Bank Account") }}</a>                
                     </div>
 
@@ -208,9 +206,9 @@ $(function(){
                                 </label>
                                 <select id="add-bank-country" class="select">
                                     <option>{{ language.translate("Select your country") }}</option>
-                                    <option>France</option>
-                                    <option>Italy</option>
-                                    <option>Spain</option>
+                                    <option>{{ language.translate("France")}}</option>
+                                    <option>{{ language.translate("Italy") }}</option>
+                                    <option>{{ language.translate("Spain")}}</option>
                                 </select>
 
                                 <label class="label" for="add-bank-address">
@@ -248,7 +246,7 @@ $(function(){
                 <h2 class="h3 yellow">{{ language.translate("Convert your winnings into your wallet") }}</h2>
                 <div class="info box">
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                    <span class="txt">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</span>
+                    <span class="txt">{{ language.translate("Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.") }}</span>
                 </div>
 
                 <div class="cl box-wallet wrap-value">

@@ -41,6 +41,10 @@
                 {#</div>#}
 
                 <div id="cart-order"></div>
+                <div class="payment">
+                    {% set component='{"where": "cart"}'|json_decode %}
+                    {% include "account/_add-card.volt" %}
+                </div>
 
                 {#            <div class="box-order">
                                 <div class="row cl">
