@@ -14,14 +14,14 @@
     <script>
         $('#form-email-settings').on('submit',function(){
            var pattern = /^[1-9][0-9]*$/;
-            if(!pattern.test($('#amount-threshold').val())){
-                alert('Use a correct format like 3000000');
+
+            if(!pattern.test($('#amount-threshold').val()) && $('#check0').is(':checked')){
                 return false;
             }
         });
         $('#amount-threshold').on('keypress',function(e) {
             var chr = String.fromCharCode(e.which);
-            var pattern = /^[0]|[a-zA-Z\,\.-]/;
+            var pattern = /[a-zA-Z\,\'-]/;
             if(pattern.test(chr)){
                 e.preventDefault();
             }
