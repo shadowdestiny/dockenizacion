@@ -4,6 +4,7 @@
 namespace EuroMillions\web\controllers;
 
 
+use apps\web\forms\MyAccountWalletAddFunds;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
@@ -156,6 +157,30 @@ class AccountController extends PublicSiteControllerBase
 
     public function addFundsAction()
     {
+        $myAccountWalletAddFundForm = new MyAccountWalletAddFunds();
+        if($this->request->isPost()) {
+            if ($myAccountWalletAddFundForm->isValid($this->request->getPost()) == false) {
+                $messages = $myAccountWalletAddFundForm->getMessages(true);
+                /**
+                 * @var string $field
+                 * @var Message\Group $field_messages
+                 */
+                foreach ($messages as $field => $field_messages) {
+                    $errors[] = $field_messages[0]->getMessage();
+                    $form_errors[$field] = ' error';
+                }
+            }else {
+
+            }
+        }
+        $this->view->pick('');
+        return $this->view->setVars([
+            'form_errors' => !empty($form_errors) ? $form_errors : [],
+            'which_form'  => 'password',
+            'errors' => $errors,
+            'msg' => !empty($msg) ? $msg : '',
+            'myaccountWalletAddFund' => $myAccountWalletAddFundForm,
+        ]);
 
     }
 
