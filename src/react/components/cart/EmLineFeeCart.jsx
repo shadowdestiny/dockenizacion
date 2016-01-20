@@ -1,5 +1,4 @@
 var React = require('react');
-
 var EmAddFund = require('./EmAddFund.jsx');
 
 var EmLineFeeCart = new React.createClass({
@@ -29,6 +28,7 @@ var EmLineFeeCart = new React.createClass({
     render : function ()
     {
         var addFundComponent = null;
+        var price_and_symbol_fee_below_text = this.props.symbol_position ? this.props.price_below_fee + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + this.props.price_below_fee;
         if(this.state.show_addfund) {
             addFundComponent = <EmAddFund currency_symbol={this.props.currency_symbol} keyup_callback={this.props.keyup} show={this.state.show_addfund}/>;
         }
@@ -38,10 +38,10 @@ var EmLineFeeCart = new React.createClass({
         }
         var show_fee_text = 'No extra fee';
         if(this.props.show_fee_text) {
-            show_fee_text = 'Fee for transactions below ' + this.props.currency_symbol + ' ' + this.props.price_below_fee;
+            show_fee_text = 'Fee for transactions below ' + price_and_symbol_fee_below_text;
         }
 
-        var fee_value = this.props.currency_symbol + ' ' + this.props.fee_charge;
+        var fee_value = this.props.symbol_position ? + this.props.fee_charge + ' '  + this.props.currency_symbol : this.props.currency_symbol + ' ' + this.props.fee_charge;
         if(!this.props.show_fee_value) {
             fee_value = '';
         }

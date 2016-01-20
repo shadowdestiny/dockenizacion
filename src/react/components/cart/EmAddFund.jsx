@@ -45,6 +45,7 @@ var EmAddFund = new React.createClass({
             var value = parseFloat(event.target.value).toFixed(2);
             this.setState({ value : value });
         } else {
+            this.props.keyup_callback(0.00);
             this.setState({ value :  null});
         }
     },

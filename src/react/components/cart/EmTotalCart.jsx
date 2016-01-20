@@ -8,17 +8,14 @@ var EmTotalCart = new React.createClass({
 
     render : function ()
     {
-
-        var price = parseFloat(this.props.total_price).toFixed(2);
-
         return (
             <div className="box-total cl">
                 <div className="txt-currency desktop">
                     Currencies are just informative, transactions are charged in Euros.
                 </div>
                 <div className="total">
-                    <div className="txt">To be paid</div>
-                    <div className="val">{this.props.currency_symbol} {price}</div>
+                    <div className="txt">To be paid </div>
+                    <div className="val">{this.props.total_price}</div>
                 </div>
             </div>
         )

@@ -55,5 +55,7 @@ class MyAccountWalletAddFunds extends Form
                 'message' => 'We need a funds to charge'
            ))
         ));
+
+
     }
 }

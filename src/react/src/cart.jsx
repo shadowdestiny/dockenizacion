@@ -72,6 +72,11 @@ var CartPage = new React.createClass({
         this.handleUpdatePrice();
     },
 
+    formatPriceWithSymbol : function (symbol, value)
+    {
+        return symbol ? parseFloat(value).toFixed(2) + ' ' + symbol : symbol + ' ' + parseFloat(value).toFixed(2);
+    },
+
     handleCheckedWallet : function (value)
     {
         this.state.checked_wallet = value;
@@ -93,7 +98,6 @@ var CartPage = new React.createClass({
             price = (wallet > price) ? wallet - price : price - wallet;
             this.state.new_balance = parseFloat(parseFloat(this.props.wallet_balance) - parseFloat(wallet)).toFixed(2);
         }
-        //checked wallet is disabled
         if(!this.state.checked_wallet) {
             //price less than fee_below_value and wallet_balance less than price
             if(parseFloat(price) < parseFloat(fee_below) && parseFloat(wallet_balance) < parseFloat(price)) {
@@ -110,13 +114,11 @@ var CartPage = new React.createClass({
                     price = price + parseFloat(fee);
                 }
             } else if(parseFloat(wallet_balance) > parseFloat(price)) {
-                console.log('llega')
                 this.state.show_fee_value = false;
                 this.state.show_fee_text = false;
                 this.state.show_all_fee = false;
 
             } else if(parseFloat(price) > parseFloat(fee_below)) {
-                console.log('llega')
                 this.state.show_fee_value = false;
                 this.state.show_fee_text = false;
                 this.state.show_all_fee = false;
@@ -125,26 +127,31 @@ var CartPage = new React.createClass({
             }
             this.state.new_balance = parseFloat(this.props.wallet_balance);
         }
-        this.setState({ total : price });
+        var price_and_symbol = this.props.symbol_position ? parseFloat(price).toFixed(2) + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + parseFloat(price).toFixed(2);
+        this.setState({ total : price_and_symbol });
     },
 
     render : function ()
     {
         var _playConfigList = this.state.playConfigList;
-
         var _euroMillionsLine = [];
+
+        var price_and_symbol_order_line = this.props.symbol_position ? this.props.single_bet_price + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + this.props.single_bet_price;
+
         for (let i=0; i< _playConfigList.euroMillionsLines.bets.length; i++) {
             var numbers = _playConfigList.euroMillionsLines.bets[i].regular;
             var stars = _playConfigList.euroMillionsLines.bets[i].lucky;
-            _euroMillionsLine.push(<EmLineOrderCart currency_symbol={this.props.currency_symbol}
+            _euroMillionsLine.push(<EmLineOrderCart
                                                     line={i}
                                                     key={i}
                                                     numbers={numbers}
                                                     stars={stars}
-                                                    single_bet_price={this.props.single_bet_price}
+                                                    single_bet_price={price_and_symbol_order_line}
                 />);
         }
+
         var line_fee_component = <EmLineFeeCart
+                                                symbol_position={this.props.symbol_position}
                                                 fee_charge={this.props.fee_charge}
                                                 price_below_fee={this.props.price_below_fee}
                                                 show_fee_value={this.state.show_fee_value}
@@ -171,9 +178,11 @@ var CartPage = new React.createClass({
                 />;
         }
         var txt_button_payment = this.state.checked_wallet ? 'Buy now' : 'Continue to payment';
-        var old_balance_and_new_balance = <span className="value"> <span className='old'>{this.props.currency_symbol} {this.props.wallet_balance}</span><span className='new'>{this.props.currency_symbol} {this.state.new_balance}</span> </span>;
+        var symbol_price_balance = this.props.symbol_position ? this.props.wallet_balance + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + this.props.wallet_balance;
+        var old_balance_and_new_balance = <span className="value"> <span className='old'>{symbol_price_balance}</span><span className='new'>{this.props.currency_symbol} {this.state.new_balance}</span> </span>;
         if(!this.state.checked_wallet) {
-            old_balance_and_new_balance = <span className="value"> <span className="new">{this.props.currency_symbol} {this.state.new_balance}</span> </span>;
+            symbol_price_balance = this.props.symbol_position ? this.state.new_balance + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + this.state.new_balance;
+            old_balance_and_new_balance = <span className="value"> <span className="new">{symbol_price_balance}</span> </span>;
         }
 
         return (
@@ -191,7 +200,7 @@ var CartPage = new React.createClass({
                     {line_fee_component}
                     {wallet_component}
                 </div>
-                <EmTotalCart currency_symbol={this.props.currency_symbol} total_price={this.state.total} />
+                <EmTotalCart total_price={this.state.total} />
                 <div className="box-bottom cl">
                     <a href="javascript:void(0)" className="btn blue big buy">{txt_button_payment}</a>
                 </div>
@@ -202,7 +211,7 @@ var CartPage = new React.createClass({
 
 module.exports = CartPage;
 var show_fee_line = false;
-ReactDOM.render(<CartPage total={total_price} price_below_fee={price_below_fee} fee_charge={fee_charge} currency_symbol={currency_symbol} play_list={play_list} wallet_balance={wallet_balance} single_bet_price={single_bet_price} show_fee_line={show_fee_line}/>,
+ReactDOM.render(<CartPage total={total_price} symbol_position={symbol_position} price_below_fee={price_below_fee} fee_charge={fee_charge} currency_symbol={currency_symbol} play_list={play_list} wallet_balance={wallet_balance} single_bet_price={single_bet_price} show_fee_line={show_fee_line}/>,
     document.getElementById('cart-order'));
 
 
