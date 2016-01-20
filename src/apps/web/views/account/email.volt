@@ -19,6 +19,13 @@
                 return false;
             }
         });
+        $('#amount-threshold').on('keypress',function(e) {
+            var chr = String.fromCharCode(e.which);
+            var pattern = /[a-zA-Z\,\.-]/;
+            if(pattern.test(chr)){
+                e.preventDefault();
+            }
+        });
     </script>
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
