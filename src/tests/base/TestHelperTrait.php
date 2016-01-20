@@ -27,6 +27,14 @@ trait TestHelperTrait
         return $this->prophesize(Namespaces::INTERFACES_NS . $interfaceName);
     }
 
+    /**
+     * @param $interfaceName
+     */
+    protected function getSharedInterfaceDouble($interfaceName)
+    {
+        return $this->prophesize(Namespaces::INTERFACES_SHARED_NS . $interfaceName);
+    }
+
     protected function getInterfaceWebDouble($interfaceName)
     {
         return $this->prophesize(Namespaces::INTERFACES_WEB_NS . $interfaceName);

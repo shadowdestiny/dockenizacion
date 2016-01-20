@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\web\services;
 
+use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\interfaces\IResult;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
@@ -9,6 +10,13 @@ use Money\Money;
 
 class WalletService
 {
+    private $entityManager;
+
+    public function __construct(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     /**
      * @param ICardPaymentProvider $provider
      * @param CreditCard $card
@@ -21,6 +29,11 @@ class WalletService
         $payment_result = $provider->charge($amount, $card);
         if ($payment_result->success()) {
             $user->reChargeWallet($amount);
+            try {
+                $this->entityManager->flush($user);
+            } catch (\Exception $e) {
+                //EMTD Log and warn the admin
+            }
         }
         return $payment_result;
     }
