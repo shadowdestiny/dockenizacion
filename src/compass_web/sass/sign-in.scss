@@ -30,7 +30,7 @@
 
 .box-extra{
 	font-size:100%; margin-top:1.5em; text-align:right;
-	span{font-size:$basic-size; margin-right:5px;}
+	.txt{font-size:$basic-size; margin-right:5px;}
 }
 
 .forgot-psw{
@@ -59,10 +59,15 @@
 
 /* Small Devices, Tablets */
 @media only screen and (max-width:768px){
-.sign-in .wrapper, .forgot .wrapper{max-width:100%; top:0; transform:translateY(0);}
+.sign-in .wrapper, .forgot-psw .wrapper{max-width:100%; top:0; transform:translateY(0);}
 .col-left, .col-right{width:100%; float:none;}
 .col-right .box-basic{padding:15px 25px;}
 .v-logo{margin:10px 0; max-height:40px;}
+.box-extra{
+	text-align:center;
+	.txt, .btn{width:100%;}
+	.btn{margin-top:4px; padding:10px 15px;}
+}
 
 #content, .main-foot, body{background:$yellow-lighter;}
 .generate-psw .box-basic{

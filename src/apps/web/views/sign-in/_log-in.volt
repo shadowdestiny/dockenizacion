@@ -35,6 +35,6 @@
         {% endif %}
     </div>
     
-    <div class="box-extra{% if signIn.myClass == 'cart' %} hidden{% endif %}"><span>{{ language.translate("Don't you have an account?") }}</span> <a class="btn gwy" href="javascript:void(0)">{{ language.translate("Sign up") }}</a></div>
+    <div class="box-extra{% if signIn.myClass == 'cart' %} hidden{% endif %}"><span class="txt">{{ language.translate("Don't you have an account?") }}</span> <a class="btn gwy" href="javascript:void(0)">{{ language.translate("Sign up") }}</a></div>
     
 {{ endform() }}
