@@ -9,7 +9,7 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\repositories\BetRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use Money\Money;
 
 class PriceCheckoutService
@@ -67,6 +67,7 @@ class PriceCheckoutService
                 return new ActionResult(false);
             }
         }
+        return new ActionResult(false);
     }
 
 

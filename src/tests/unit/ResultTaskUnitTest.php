@@ -17,12 +17,11 @@ use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\NotificationType;
 use EuroMillions\web\vo\Password;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
-use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\UnitTestBase;
 
 class ResultTaskUnitTest extends UnitTestBase

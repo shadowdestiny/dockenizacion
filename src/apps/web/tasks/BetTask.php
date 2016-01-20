@@ -20,7 +20,7 @@ use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\PlayService;
 use EuroMillions\web\services\ServiceFactory;
 use EuroMillions\web\services\UserService;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\NotificationType;
 
 class BetTask extends TaskBase
@@ -49,7 +49,9 @@ class BetTask extends TaskBase
 
     public function createBetAction(\DateTime $today = null, $time_to_retry = null)
     {
-        if (!$today) $today = new \DateTime();
+        if (!$today) {
+            $today = new \DateTime();
+        }
 
         $dateUtil = new DateTimeUtil();
         $is_check_time = $dateUtil->checkOpenTicket($time_to_retry);

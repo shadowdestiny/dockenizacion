@@ -3,7 +3,7 @@
 
 namespace EuroMillions\admin\controllers;
 
-use EuroMillions\admin\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\admin\vo\dto\DrawDTO;
 use EuroMillions\admin\services\MaintenanceDrawService;
 use EuroMillions\shared\components\widgets\PaginationWidget;

@@ -3,7 +3,7 @@ namespace EuroMillions\web\controllers;
 
 
 use EuroMillions\web\entities\Lottery;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 
 class FaqController extends PublicSiteControllerBase
 {
