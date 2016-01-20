@@ -35,7 +35,7 @@
 .btn.clear .ico{position:relative; margin-left:4px;} 
 
 .box-action{
-	float:left; margin:0 0 0 12px;
+	float:left; margin:0 0 0 15px;
 	li{margin:0 10px 10px 0; display:inline-block}
 	li.fix-margin{display:none;}
 	.btn{font-weight:normal;}
@@ -43,6 +43,7 @@
 	.v-shuffle{font-size:125%; top:4px; margin-top:-3px;}
 	.v-plus{margin-left:7px;}
 }
+#box-action .info{margin:6px 14px 0 0; font-size:$basic-size; color:$blue; font-weight:bold;}
 .box-bottom{padding:10px 12px; border-top:1px solid $yellow; background:#fff; border-radius:0 0 5px 5px;
 	select{font-size:$basic-size;}
 	.label{font-size:$basic-size; display:inline-block; font-weight:700; margin-bottom:.2em;}
@@ -100,15 +101,15 @@ $gap3:15px; /* Responsive design 3 column */
 	&:hover, &:focus{border:1px solid $yellow-darker!important;}
 }
 */ 
-.line .numbers{padding:10px 8px 0; margin-right:-$gap2;}
+.line .numbers{padding:6px 8px 0; margin-right:-$gap2;}
 .line .numbers li, .line .stars li{border-right:$gap2 solid transparent;}
 .line .numbers .cols{margin:0 0 $gap2;}
 .line .gwp{padding:2px 0; width:100%; background:transparent; transition:none;}
 .line .gwp.active{background:$blue-dark; border:1px solid $blue-dark; color:#fff;}
 .line .stars{
-	position:relative; margin:10px 2px 5px 7px;
+	position:relative; margin:7px 2px 3px 7px;
 	a{
-		text-decoration:none;
+		text-decoration:none; margin:auto;
 		&:hover, &:focus, .txt:hover,.txt:focus{color:$blue;}
 	}
 	.cols{margin:0;}
@@ -172,7 +173,7 @@ $gap3:15px; /* Responsive design 3 column */
 .bg-top .circle{margin-left:50px;}
 */
 .box-lines{
-	margin-right:0; padding:10px 0 0 $gap3+$gap3; display:block;
+	margin-right:0; padding:10px 0 0 $gap3+$gap3; display:block; right:0;
 	.myCol{width:33.3%; border-right:$gap3+$gap3 solid transparent;}
 	.myCol:last-child{border-right:$gap3+$gap3 solid transparent;}
 }
@@ -195,11 +196,11 @@ $gap3:15px; /* Responsive design 3 column */
 .bg-top .circle{margin-left:-15px;}
 */
 .box-lines{
-	margin-right:0; padding:10px 0 0 5px;
+	margin-right:0; padding:10px 0 0 5px; right:-6px;
 	.myCol{width:33.3%; border-right:$gap3 solid transparent;}
 	.myCol:last-child{border-right:$gap3 solid transparent;}
 }
-.box-action{margin-right:$gap3+1;}
+.box-action{margin:0 12px;}
 }
 
 /* Small Devices, Tablets */
@@ -214,14 +215,22 @@ $gap3:15px; /* Responsive design 3 column */
  	.ico{font-size:36px; margin:0 0 0 5px; float:right;}
 	.txt{margin:0;}
 	*/
-	.col8{text-align:center; width:100%;}
-	.col4{display:none;}
+	padding:5px 10px 10px;
+	.jackpot, .draw{float:none;}
+	.draw{margin-bottom:4px;}
+	.jackpot{margin:0;}
+	&:before{height:76px;}
 }
-.gameplay{border-right:0; border-left:0; border-radius:0;}
+.gameplay{
+	border-right:0; border-left:0; border-radius:0;
+	> .cl{text-align:center;}
+}
 .bg-top, .bg-top:before{border-radius:0;}
-.gameplay > .cl{text-align:center;}
-.box-action{float:none; margin:0 20px 0;}
-.box-action li{margin:0 10px 15px 0;}
+.box-action{
+	float:none; margin:0 20px 0;
+	li{margin:0 10px 10px 0;}
+}
+#box-action .info{float:none; margin:0 auto 10px;}
 .box-bottom{
 	background:$yellow-lighter; border-radius:0;
 	.col2{margin:0 0 10px;}
@@ -234,11 +243,11 @@ $gap3:15px; /* Responsive design 3 column */
 	.col2{
 		select, .label{width:75%; margin:auto;}
 	}
+	> .wrap{margin:0;}
 }
-.box-bottom > .wrap{margin:0;}
 .gap{padding:0 10px;}
 .box-lines{
-	margin-right:0; padding:10px 0 0 15px;
+	margin-right:0; padding:10px 0 0 15px; right:0;
 	.myCol{width:33.3%; border-right:$gap1 solid transparent;}
 	.myCol:last-child{border-right:$gap1 solid transparent;}
 	.myCol:nth-child(3n){border-right:$gap1 solid transparent;}
@@ -259,27 +268,24 @@ $gap3:15px; /* Responsive design 3 column */
 	select, .label{width:100%;}
 }
 
-.gameplay{padding-top:20px;}
+.gameplay{padding-top:10px;}
 .gameplay .wrap{margin:0 -6px 0 0;}
 .line .numbers .btn, .line .stars .txt{font-size:12px;}
-.line .stars .ico{font-size:160%;}
-.line .stars .txt{top:8px;}
+.line .stars .ico{font-size:160%; width:100%;}
+/*.line .stars .txt{top:8px;}*/
 .line .numbers{padding:10px 4px 0;}
 .line .numbers li, .line .stars li{border-width:3px;}
 .bg-top{
 	background:#1C365B; @include background-image(linear-gradient(#010101, #1C365B));
 	&:before{display:none;}
-	.jackpot, .draw{float:none;}
-	.jackpot{margin:5px 0;}
+	.cols{margin-bottom:0; display:block;}
 }
 /* Temporary removed
 .bg-top .txt{font-size:$basic-size;} 
 .bg-top .circle{margin:-15px auto 0; width:200px; right:0;}
 .bg-top .circle, .bg-top .circle:hover, .bg-top .circle:focus, .bg-top .circle:active{border-width:2px!important};
 */
-.bg-top .cols{margin-bottom:0; display:block;}
-.bg-top .col4, .bg-top .col8{display:block; float:none; position:relative; width:100%; border:0!important; margin:0; padding-bottom:0;}
-.bg-top .h4, .bg-top .h1{text-align:center; display:block;}
+.bg-top .h3, .bg-top .h1{text-align:center; display:block;}
 .box-lines{padding-top:0;}
 }
 
@@ -294,14 +300,17 @@ $gap3:15px; /* Responsive design 3 column */
   padding:0 0 0 $gap1; margin-right:0; 
   .myCol{width:50%;}
 }
-.bg-top .br:after{white-space:pre; content:"\A";} /*Insert a break*/
-.bg-top .h1{font-size:$h2;}
-.bg-top .h3{font-size:$basic-size; line-height:125%;}
+.bg-top{
+	.h1{font-size:$h2;}
+	.h3{font-size:$small; line-height:125%; font-weight:normal;}
+}
 /* Temporary removed
 .bg-top .circle{width:150px; border-width:2px}
 */
-.box-action{text-align:center; margin-bottom:10px;}
-.box-action li{float:none; margin:0 auto 10px;}
+.box-action{
+	text-align:center; margin-bottom:10px;
+	li{float:none; margin:0 auto 10px;}
+}
 .advanced{margin-bottom:15px;}
 .special{font-size:$small; line-height:$h2;}
 }
@@ -315,11 +324,11 @@ $gap3:15px; /* Responsive design 3 column */
 .box-lines .myCol{width:100%; border-width:0!important;}
 .line .numbers .btn, .line .stars .txt{font-size:14px;}
 .line .stars .ico{font-size:220%;}
-.line .stars .txt{top:12px;}
+.line .stars .txt{top:11px;}
 .line .numbers{padding:10px 10px 0; margin-right:-10px;}
 .line .numbers li, .line .stars li{border-width:6px;}
 .line .extra-pad{padding:0 30px;}
-.box-value{display:inline-block; margin-top:5px;}
+.box-value{display:inline-block;}
 .play{
 	.cols:not(.not){margin-bottom:0; display:block;}
 	.col1:not(.not), .col2:not(.not), .col3:not(.not), .col4:not(.not), .col5:not(.not), .col6:not(.not), .col7:not(.not), .col8:not(.not), .col9:not(.not), .col10:not(.not), .col11:not(.not), .col12:not(.not), .col20per:not(.not)

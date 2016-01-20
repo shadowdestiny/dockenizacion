@@ -11,6 +11,7 @@
 {% block template_scripts %}
 <script>
 var checkWinSize = 0;
+
 function checkWin(){
 	var temp = checkWinSize;
 	if($(".media").width() > 1){

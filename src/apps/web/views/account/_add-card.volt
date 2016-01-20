@@ -12,67 +12,89 @@
 {% endif %}#}
 
 <div class="wrap">
-    <div class="cols{% if component.where == 'account' %} fix-margin{% endif %}">
-        <div class="col6 first">
-            <h2 class="h3 yellow">{{ language.translate("Enter your credit card details") }}</h2>
+    {% if component.where == 'account' %} 
+        <div class="cols fix-margin">
+            <div class="col6 first">
+    {% endif %}
+    <h2 class="h3 yellow">{{ language.translate("Enter your credit card details") }}</h2>
 
-            <div class="card-info">
-                <label class="label" for="add-card-number">
-                    {{ language.translate("Card Number") }} <span class="asterisk">*</span>
-                </label>
-                <input id="add-card-number" name="card-number" class="input" type="text" value="{#{{ payment_method.cardNumber }}#}">
-
-                <label class="label" for="add-card-name">
-                    {{ language.translate("Full Name on card") }} <span class="asterisk">*</span>
-                </label>
-                <input id="add-card-name" name="card-holder" class="input" type="text" value="{#{{ payment_method.cardHolderName }}#}">
+    <div class="card-info">
+        {% if component.where == 'cart' %}
+            <div class="cols">
+                <div class="col6">
+        {% endif %}
+            <label class="label" for="add-card-number">
+                {{ language.translate("Card Number") }} <span class="asterisk">*</span>
+            </label>
+            <input id="add-card-number" name="card-number" class="input" type="text" value="{#{{ payment_method.cardNumber }}#}">
+        {% if component.where == 'cart' %}
+                </div>
+                <div class="col6">
+        {% endif %}
+        <label class="label" for="add-card-name">
+            {{ language.translate("Full Name on Card") }} <span class="asterisk">*</span>
+        </label>
+        <input id="add-card-name" name="card-holder" class="input" type="text" value="{#{{ payment_method.cardHolderName }}#}">
+        {% if component.where == 'cart' %}
+                </div>
             </div>
+        {% endif %}
+    </div>
 
-            <div class="cl card-detail">
-                <div class="left margin">
-                    <label class="label block">
-                        {{ language.translate("Expiration date") }} <span class="asterisk">*</span>
-                    </label>
-                    <select class="select month" name="month">
-                        <option>01</option>
-                        <option>02</option>
-                        <option>03</option>
-                        <option>04</option>
-                        <option>05</option>
-                        <option>06</option>
-                        <option>07</option>
-                        <option>08</option>
-                        <option>09</option>
-                        <option>10</option>
-                        <option>11</option>
-                        <option>12</option>
-                    </select>
-                    <select class="select year" name="year">
-                        <option>2014</option>
-                        <option>2015</option>
-                        <option>2016</option>
-                        <option>2017</option>
-                        <option>2018</option>
-                        <option>2019</option>
-                    </select>
-                </div>
-                <div class="left cvv">
-                    <label class="label block" for="cvv">
-                        {{ language.translate("CVV") }} <span class="asterisk">*</span>
-                        <svg class="ico v-question-mark"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
-                    </label>
-                    <input id="cvv" name="card-cvv" class="input " type="text">
-                </div>
+    {% if component.where == 'cart' %}
+        <div class="cols">
+    {% endif %}
+
+    <div class="col6 cl card-detail">
+        <div class="left margin">
+            <label class="label block">
+                {{ language.translate("Expiration date") }} <span class="asterisk">*</span>
+            </label>
+            <select class="select month" name="month">
+                <option>01</option>
+                <option>02</option>
+                <option>03</option>
+                <option>04</option>
+                <option>05</option>
+                <option>06</option>
+                <option>07</option>
+                <option>08</option>
+                <option>09</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+            </select>
+            <select class="select year" name="year">
+                <option>2014</option>
+                <option>2015</option>
+                <option>2016</option>
+                <option>2017</option>
+                <option>2018</option>
+                <option>2019</option>
+            </select>
+        </div>
+        <div class="left cvv">
+            <label class="label block" for="cvv">
+                {{ language.translate("CVV") }} <span class="asterisk">*</span>
+                <svg class="ico v-question-mark"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
+            </label>
+            <input id="cvv" name="card-cvv" class="input " type="text">
+        </div>
+    </div>
+
+    {% if component.where == 'cart' %}
+            <div class="cl col6">
+                <label class="btn submit big green right" for="new-card">
+                    {{ language.translate(" Pay &amp; Play your numbers") }}
+                    <input id="new-card" type="submit" class="hidden2">
+                </label>
             </div>
         </div>
-        <div class="col6 second">
-            {% if component.where == 'cart' %}
-                <div class="info box">
-                    <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                    <span class="txt">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</span>
-                </div>
-            {% endif %}
-            {% if component.where == 'account' %}
+    {% endif %}
+
+    {% if component.where == 'account' %}
+            </div>
+            <div class="col6 second">
                 <h2 class="h3 yellow">{{ language.translate("Add funds to your wallet") }}</h2>
                 <div class="balance"><strong class="purple">Wallet balance:</strong> <span class="value">&euro; 20.00</span></div>
                 <div class="box-wallet overview">
@@ -86,16 +108,11 @@
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                     <span class="txt">Fee of &euro; 0.35 will be charged for transfers of small amount</span>
                 </div>
-            {% endif %}
+            </div>
         </div>
-    </div>
+    {% endif %}
 </div>
 
 
 <input id="id_payment" name="id_payment" value="{#{{ payment_method.id_payment }}#}" type="hidden"/>
-{% if component.where == 'cart' %}
-    <label class="btn submit green right" for="new-card">
-        {{ language.translate("Add a new card") }}
-        <input id="new-card" type="submit" class="hidden">
-    </label>
-{% endif %}
+

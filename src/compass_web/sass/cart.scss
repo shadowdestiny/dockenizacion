@@ -7,7 +7,6 @@
 .box-basic{margin:0 auto 8em;}
 .fields li{width:48%; float:left; }
 .fields li:nth-child(odd){margin-right:28px;}
-.card-info{margin-right:28px;}
 .cart{
     .month, .year{width:auto; margin-right:10px;}
     .cvv{width:65px; float:left;}
@@ -144,6 +143,21 @@
   }
 }
 
+.payment{ /* Inside ORDER area*/
+  .cols{margin-bottom:0;}
+  .input{width:100%;}
+  .v-question-mark{position:relative; top:2px;}
+  .card-detail{
+    .select, .input{margin-bottom:0;}
+  }
+  .cols > div{
+    padding:0 10px;
+    &:first-child{padding-left:0px;}
+    &:last-child{padding-right:0px;}
+  }
+  .submit{margin-top:18px; width:100%;  text-align:center;}
+}
+
 .success{
   .countdown{font-weight:700; margin-bottom:1em;}
   h2.h4{margin-bottom:.3em;}
@@ -225,6 +239,15 @@
   }
   .submit{width:100%; margin:0;}
   .terms br{display:block;}
+}
+.payment{
+  .cols > div{
+    padding:0; margin:0;
+/*
+    &:first-child{padding-left:0px;}
+    &:last-child{padding-right:0px;}
+*/
+  }
 }
 }
 

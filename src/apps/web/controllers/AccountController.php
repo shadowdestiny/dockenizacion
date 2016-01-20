@@ -13,6 +13,8 @@ use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\UserNotificationsDTO;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\NotificationType;
+use Phalcon\Mvc\Model\Validator\Numericality;
+use Phalcon\Validation;
 use Phalcon\Validation\Message;
 
 class AccountController extends PublicSiteControllerBase
@@ -101,10 +103,10 @@ class AccountController extends PublicSiteControllerBase
         }
         //$this->view->pick('account/index');
         return $this->view->setVars([
-            'form_errors' => $form_errors,
+            'form_errors' => !empty($form_errors) ? $form_errors : [],
             'which_form'  => 'password',
             'errors' => $errors,
-            'msg' => $msg,
+            'msg' => !empty($msg) ? $msg : '',
             'myaccount' => $myaccount_form,
             'password_change' => $myaccount_passwordchange_form
         ]);
@@ -156,6 +158,11 @@ class AccountController extends PublicSiteControllerBase
         ]);
     }
 
+    public function addFundsAction()
+    {
+
+    }
+
     public function emailAction()
     {
         $userId = $this->authService->getCurrentUser();
@@ -173,6 +180,7 @@ class AccountController extends PublicSiteControllerBase
         $this->view->pick('account/email');
         return $this->view->setVars([
             'error' => (!empty($error_msg)) ? $error_msg : '',
+            'error_form' => [],
             'list_notifications' => $list_notifications,
             'message' => ''
         ]);
@@ -196,34 +204,33 @@ class AccountController extends PublicSiteControllerBase
         $config_value_results = $this->request->getPost('config_value_results');
 
         $message = null;
-        $error = null;
         $list_notifications = null;
 
         try {
             if($reach_notification) {
                 $notificationType = new NotificationType(NotificationType::NOTIFICATION_THRESHOLD, $config_value_threshold);
+                $reach_notification = true;
+                if(empty($config_value_threshold)) {
+                    $reach_notification = false;
+                }
+                $this->userService->updateEmailNotification($notificationType,$user,$reach_notification);
             } else {
-                $reach_notification = false;
-                $notificationType = new NotificationType(NotificationType::NOTIFICATION_THRESHOLD,0);
+                $notificationType = new NotificationType(NotificationType::NOTIFICATION_THRESHOLD,null);
+                $this->userService->updateEmailNotification($notificationType,$user,false);
             }
             //Reach notification
-            /** @var ActionResult $result */
-            $result = $this->userService->updateEmailNotification($notificationType,$user,$reach_notification);
-
             $notificationType = new NotificationType(NotificationType::NOTIFICATION_NOT_ENOUGH_FUNDS,'');
-            /** @var ActionResult $result */
-            $result = $this->userService->updateEmailNotification($notificationType,$user,$auto_play_funds);
 
+            $this->userService->updateEmailNotification($notificationType,$user,$auto_play_funds);
             $notificationType = new NotificationType(NotificationType::NOTIFICATION_LAST_DRAW,'');
-            /** @var ActionResult $result */
-            $result = $this->userService->updateEmailNotification($notificationType,$user,$auto_play_lastdraw);
 
+            $this->userService->updateEmailNotification($notificationType,$user,$auto_play_lastdraw);
             $notificationType = new NotificationType(NotificationType::NOTIFICATION_RESULT_DRAW,$config_value_results);
-            /** @var ActionResult $result */
-            $result = $this->userService->updateEmailNotification($notificationType,$user,$results_draw);
-            $message = 'Your data was saved';
+
+            $this->userService->updateEmailNotification($notificationType,$user,$results_draw);
+            $message = 'Your new email settings are saved';
         } catch(\Exception $e) {
-            $error = $e->getMessage();
+            $error[] = $e->getMessage();
         } finally {
             $result = $this->userService->getActiveNotificationsByUser($userId);
             if($result->success()) {
@@ -232,14 +239,16 @@ class AccountController extends PublicSiteControllerBase
                     $list_notifications[] = new UserNotificationsDTO($notifications);
                 }
             }else {
-                $error = 'An error occurred while updated. Please, try it later';
+                $error[] = 'An error occurred while updated. Please, try it later';
             }
+            $errors = $this->validationEmailSettings();
         }
-        
+
         $this->view->pick('account/email');
         return $this->view->setVars([
-            'message' => $message,
-            'error' => $error,
+            'error_form' => (is_object($errors) && $errors->count() > 0) ? $errors : [],
+            'message' => (is_object($errors) && $errors->count() > 0) ? '' : $message,
+           // 'errors' => $error,
             'list_notifications' => $list_notifications,
         ]);
 
@@ -255,6 +264,21 @@ class AccountController extends PublicSiteControllerBase
         $user_dto = new UserDTO($user);
         $myaccount_form = new MyAccountForm($user_dto,['countries' => $countries]);
         return $myaccount_form;
+    }
+
+    private function validationEmailSettings()
+    {
+        $validation = new Validation();
+        $messages = [];
+        if($this->request->getPost('jackpot_reach') == 'on') {
+            $validation->add('config_value_jackpot_reach',
+                new Validation\Validator\Numericality([
+                   'message' => 'Error. You should insert a numeric value.'
+
+                ]));
+            $messages = $validation->validate($this->request->getPost());
+        }
+        return $messages;
     }
 
 }

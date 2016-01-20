@@ -9,6 +9,25 @@
     {% set activeNav='{"myClass": "account"}'|json_decode %}
     {% include "_elements/header.volt" %}
 {% endblock %}
+
+{% block template_scripts %}
+    <script>
+        $('#form-email-settings').on('submit',function(){
+           var pattern = /^[1-9][0-9]*$/;
+            if(!pattern.test($('#amount-threshold').val())){
+                alert('Use a correct format like 3000000');
+                return false;
+            }
+        });
+        $('#amount-threshold').on('keypress',function(e) {
+            var chr = String.fromCharCode(e.which);
+            var pattern = /[a-zA-Z\,\.-]/;
+            if(pattern.test(chr)){
+                e.preventDefault();
+            }
+        });
+    </script>
+{% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
@@ -27,14 +46,14 @@
                     <div class="txt">{{ message }}</div>
                 </div>
             {% endif %}
-            {% if error %}
+            {% if error_form %}
                 <div class="box error">
                     <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
-                    <div class="txt">{{ error }}</div>
+                    <span class="txt">{% for error in error_form %}{{ error }}<br>{% endfor %}</span>
                 </div>
             {% endif %}
 
-            <form action="/account/editEmail" name="form_notifications" method="post" >
+            <form action="/account/editEmail" name="form_notifications" id="form-email-settings" method="post" >
                 <div class="cl">
                     <div class="email-me">{{ language.translate("Email me") }}</div>
                     <ul class="no-li options">
@@ -56,7 +75,7 @@
 
                                     {% if notification.notification.notification_type == 1 %}
                                         <span class="currency">&euro;</span>
-                                        <input name="config_value_{{ notification.name }}" placeholder="{{ language.translate('Insert an ammount') }}" value="{{ notification.config_value }}" class="input {% if error %}error{% endif %}"/>
+                                        <input name="config_value_{{ notification.name }}" id="amount-threshold" placeholder="{{ language.translate('Insert an ammount') }}" type="text" value="{{ notification.config_value }}" class="input {% if error_form %}error{% endif %}"/>
                                     {% endif %}
                                 </li>
                             {% endfor %}

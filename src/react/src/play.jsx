@@ -91,6 +91,18 @@ var PlayPage = React.createClass({
     },
 
 
+    getNumLinesThatAreFilled : function ()
+    {
+        var current_lines = this.state.storage;
+        var num_valid_lines = 0;
+        current_lines.forEach(function(value) {
+            if(value.numbers.length == 5 && value.stars.length == 2) {
+                num_valid_lines++;
+            }
+        });
+        return num_valid_lines;
+    },
+
     checkBetsConfirmed : function ()
     {
         var current_lines = this.state.lines;
@@ -194,11 +206,11 @@ var PlayPage = React.createClass({
         var options_draw_duration = this.props.draw_duration;
         if(length_value_day > 1) {
             options_draw_duration = [
-                {text : '1 week (Draws: 2)' , value : 2},
-                {text : '2 weeks (Draws: 4)' , value : 4},
-                {text : '4 weeks (Draws: 8)' , value : 8},
-                {text : '8 weeks (Draws: 16)' , value : 16},
-                {text : '52 weeks (Draws: 104)' , value : 104},
+                {text : '1 week (Draws: 2)' , value : 1},
+                {text : '2 weeks (Draws: 4)' , value : 2},
+                {text : '4 weeks (Draws: 8)' , value : 4},
+                {text : '8 weeks (Draws: 16)' , value : 8},
+                {text : '52 weeks (Draws: 104)' , value : 52},
             ];
         }
         this.setState( { playDays : length_value_day,
@@ -252,13 +264,14 @@ var PlayPage = React.createClass({
         var price = price_bet;
         var betsActive = 0;
 
-        if(this.state.lines.length > 0) {
-            this.state.lines.forEach(function(value) {
-                if (value > 0) {
-                    betsActive = betsActive + 1;
-                }
-            });
-        }
+        //if(this.state.lines.length > 0) {
+        //    this.state.lines.forEach(function(value) {
+        //        if (value > 0) {
+        //            betsActive = betsActive + 1;
+        //        }
+        //    });
+        //}
+        betsActive = this.getNumLinesThatAreFilled();
         var total = Number(betsActive * price * numDraws).toFixed(2);
         this.setState( { price : total, clear_all : false, random_all : false } );
     },

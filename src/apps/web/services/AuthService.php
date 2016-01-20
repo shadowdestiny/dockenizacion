@@ -173,20 +173,20 @@ class AuthService
         if ($this->userRepository->getByEmail($credentials['email'])) {
             return new ActionResult(false, 'Email already registered');
         }
-        $user = new User();
-        $email = new Email($credentials['email']);
-        $user->initialize([
-            'name'             => $credentials['name'],
-            'surname'          => $credentials['surname'],
-            'email'            => $email,
-            'password'         => new Password($credentials['password'], $this->passwordHasher),
-            'country'          => $credentials['country'],
-            'wallet'           => new Wallet(),
-            'validated'        => 0,
-            'validation_token' => $this->getEmailValidationToken($email),
-            'user_currency'    => new Currency('EUR')
-        ]);
-        try {
+        try{
+            $user = new User();
+            $email = new Email($credentials['email']);
+            $user->initialize([
+                'name'     => $credentials['name'],
+                'surname'  => $credentials['surname'],
+                'email'    => $email,
+                'password' => new Password($credentials['password'], $this->passwordHasher),
+                'country'  => $credentials['country'],
+                'wallet'  => new Wallet(),
+                'validated' => 0,
+                'validation_token' => $this->getEmailValidationToken($email),
+                'user_currency' => new Currency('EUR')
+            ]);
             $user->setId($userId);
             $this->userRepository->addWithId($user);
             $this->entityManager->flush();
@@ -198,8 +198,8 @@ class AuthService
             } else {
                 return new ActionResult(false, 'Error getting an user');
             }
-        } catch (Exception $e) {
-            return new ActionResult(false, 'An error ocurred saving an user');
+        } catch(\Exception $e) {
+            return new ActionResult(false,$e->getMessage());
         }
     }
 
