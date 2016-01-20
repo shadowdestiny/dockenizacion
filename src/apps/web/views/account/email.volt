@@ -21,7 +21,7 @@
         });
         $('#amount-threshold').on('keypress',function(e) {
             var chr = String.fromCharCode(e.which);
-            var pattern = /[a-zA-Z\,\.-]/;
+            var pattern = /^[0]|[a-zA-Z\,\.-]/;
             if(pattern.test(chr)){
                 e.preventDefault();
             }
