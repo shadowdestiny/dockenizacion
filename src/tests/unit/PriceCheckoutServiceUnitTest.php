@@ -13,7 +13,7 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\Password;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
@@ -140,7 +140,7 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
 
 
     private function getSut(){
-        $sut = $this->getDomainServiceFactory()->getPriceCheckoutService($this->lotteryDataService_double->reveal(), null, $this->emailService_double->reveal());
+        $sut = $this->getDomainServiceFactory()->getPriceCheckoutService($this->lotteryDataService_double->reveal());
         return $sut;
     }
 
@@ -185,7 +185,7 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
      * @param string $currency
      * @return User
      */
-    private function getUser($currency = 'EUR')
+    private function getUser()
     {
         $user = new User();
         $user->initialize(

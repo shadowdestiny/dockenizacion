@@ -5,7 +5,7 @@ namespace tests\unit;
 
 
 use EuroMillions\web\services\external_apis\LotteryValidationCastilloApi;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\CastilloCypherKey;
 use Prophecy\Argument;
 use tests\base\LotteryValidationCastilloRelatedTest;
@@ -110,10 +110,10 @@ class LotteryValidationCastilloApiUnitTest extends UnitTestBase
     }
 
 
-
     /**
      * @param $bet
      * @param $castilloCypherKey
+     * @return ActionResult
      */
     private function exerciseValidate($bet, $castilloCypherKey)
     {
@@ -132,6 +132,7 @@ class LotteryValidationCastilloApiUnitTest extends UnitTestBase
     }
 
     /**
+     * @param $contentResult
      * @return array
      */
     private function prepareForSendingValidation($contentResult)

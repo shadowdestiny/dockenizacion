@@ -7,7 +7,7 @@ use EuroMillions\web\services\external_apis\LotteryApisFactory;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsLine;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use Money\Currency;
 use Money\Money;
 use Phalcon\Di;
@@ -252,7 +252,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
         $this->lotteryDrawRepositoryDouble->expects($this->any())
             ->method('getNextDraw')
             ->will($this->returnValue($euroMillionsDraw_stub));
-        $sut = $this->getSut($lotteryName);
+        $sut = $this->getSut();
         $actual = $sut->getNextDrawByLottery($lotteryName);
         $this->assertInstanceOf($this->getEntitiesToArgument('EuroMillionsDraw'),$actual->getValues());
     }
@@ -270,7 +270,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
         $this->lotteryDrawRepositoryDouble->expects($this->any())
             ->method('getNextDraw')
             ->will($this->returnValue(null));
-        $sut = $this->getSut($lotteryName);
+        $sut = $this->getSut();
         $actual = $sut->getNextDrawByLottery($lotteryName);
         $this->assertEquals($expected,$actual);
     }

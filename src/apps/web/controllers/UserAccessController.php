@@ -9,7 +9,7 @@ use EuroMillions\web\forms\SignUpForm;
 use EuroMillions\web\services\AuthService;
 use EuroMillions\web\services\GeoService;
 use EuroMillions\web\vo\Email;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use Phalcon\Validation\Message;
 
 class UserAccessController extends ControllerBase
@@ -28,11 +28,10 @@ class UserAccessController extends ControllerBase
 
     public function signInAction($paramsFromPreviousAction = null)
     {
-        $errors = null;
+        $errors = [];
         $sign_in_form = new SignInForm();
         $form_errors = $this->getErrorsArray();
         $sign_up_form = $this->getSignUpForm();
-        $userId = $this->authService->getCurrentUser();
 
         list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
 

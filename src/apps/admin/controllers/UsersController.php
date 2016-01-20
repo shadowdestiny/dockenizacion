@@ -4,7 +4,7 @@
 namespace EuroMillions\admin\controllers;
 
 use EuroMillions\admin\services\MaintenanceUserService;
-use EuroMillions\admin\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\admin\vo\dto\UserDTO;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\vo\Email;
@@ -66,9 +66,9 @@ class UsersController extends AdminControllerBase
 
     public function editAction()
     {
+        //EMTD @rmrbest please, review this method, there are some weird things, like rewriting the result before checking if it was correct. Also you're breaking the encapsulation principle, you should past the request to updateUserData, check with Antonio in case of doubt.
         $email = $this->request->get('email');
         if(!empty($email)){
-            /** @var ActionResult $result */
 
             $result = $this->maintenanceUserService->updateUserData([
                 'name'     => $this->request->getPost('name'),
@@ -79,7 +79,7 @@ class UsersController extends AdminControllerBase
                 'zip'      => (int) $this->request->getPost('zip'),
                 'city'     => $this->request->getPost('city'),
                 'phone_number' =>(int) $this->request->getPost('phone_number'),
-                'balance'  => (empty($this->request->getPost('balance'))) ? (int) 0 : (int) $this->request->getPost('balance')
+                //'balance'  => (empty($this->request->getPost('balance'))) ? (int) 0 : (int) $this->request->getPost('balance')
             ]);
             $this->noRender();
             $result = $this->maintenanceUserService->listAllUsers();

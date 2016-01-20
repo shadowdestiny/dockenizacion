@@ -4,12 +4,10 @@
 namespace EuroMillions\web\services\play_strategies;
 
 
-use EuroMillions\shared\components\PhalconRedisWrapper;
-use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\interfaces\IRedis;
 use EuroMillions\web\vo\PlayFormToStorage;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\UserId;
 use RedisException;
 

@@ -18,6 +18,18 @@ class Wallet
         $this->winnings = $this->initializeAmount($winnings);
     }
 
+    /**
+     * @param int $uploaded
+     * @param int $winnings
+     * @throws InvalidArgumentException
+     * @throws UnknownCurrencyException
+     * @return Wallet
+     */
+    public static function create($uploaded = null, $winnings = null)
+    {
+        return new Wallet(self::getEuros((int)$uploaded), self::getEuros((int)$winnings));
+    }
+
     public function upload(Money $amount)
     {
         $this->uploaded = $this->uploaded->add($amount);
@@ -86,12 +98,16 @@ class Wallet
      * @throws InvalidArgumentException
      * @throws UnknownCurrencyException
      */
-    private function initializeAmount(Money $amount = null)
+    private static function initializeAmount(Money $amount = null)
     {
         if (null === $amount) {
-            $amount = new Money(0, new Currency('EUR'));
+            $amount = self::getEuros(0);
         }
         return $amount;
     }
 
+    private static function getEuros($amount)
+    {
+        return new Money($amount, new Currency('EUR'));
+    }
 }

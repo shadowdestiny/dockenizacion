@@ -5,10 +5,10 @@ namespace EuroMillions\admin\services;
 
 
 use Doctrine\ORM\EntityManager;
-use EuroMillions\admin\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\vo\UserId;
-use Money\Currency;
 use Money\Money;
 
 
@@ -17,6 +17,7 @@ class MaintenanceUserService
 
     private $entityManager;
 
+    /** @var UserRepository */
     private $userRepository;
 
     public function __construct(EntityManager $entityManager)
@@ -27,10 +28,10 @@ class MaintenanceUserService
 
     public function listAllUsers()
     {
-        /** @var User[]  $result */
+        /** @var User[] $result */
         $result = $this->userRepository->findAll();
-        if(!empty($result)) {
-            return new ActionResult(true,$result);
+        if (count($result)) {
+            return new ActionResult(true, $result);
         } else {
             return new ActionResult(false);
         }
@@ -40,11 +41,11 @@ class MaintenanceUserService
     {
         /** @var User $user */
         $user = $this->userRepository->find($userId);
-        if(!empty($user)){
+        if (null !== $user) {
             $user->reChargeWallet($amount);
             $this->entityManager->flush();
-            return new ActionResult(true,'Balance was updated correctly');
-        }else{
+            return new ActionResult(true, 'Balance was updated correctly');
+        } else {
             return new ActionResult(false);
         }
     }
@@ -52,17 +53,17 @@ class MaintenanceUserService
     public function getUser(UserId $userId)
     {
         $user = $this->userRepository->findBy(['id' => $userId]);
-        if(!empty($user)) {
-            return new ActionResult(true,$user[0]);
-        }else{
-             return new ActionResult(false);
+        if (null !== $user) {
+            return new ActionResult(true, $user[0]);
+        } else {
+            return new ActionResult(false);
         }
     }
 
     public function updateUserData(array $user_data)
     {
 
-        try{
+        try {
             /** @var User $user */
             $user = $this->userRepository->getByEmail($user_data['email']);
 
@@ -74,13 +75,13 @@ class MaintenanceUserService
             $user->setZip($user_data['zip']);
             $user->setCity($user_data['city']);
             $user->setPhoneNumber($user_data['phone_number']);
-            $user->setBalance(new Money($user_data['balance'],new Currency('EUR')));
+            //EMTD refactor this to use the wallet $user->setBalance(new Money($user_data['balance'], new Currency('EUR')));
 
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
-            return new ActionResult(true,$user);
-        }catch(\Exception $e){
-            return new ActionResult(false,'Sorry, try it later');
+            return new ActionResult(true, $user);
+        } catch (\Exception $e) {
+            return new ActionResult(false, 'Sorry, try it later');
         }
     }
 }

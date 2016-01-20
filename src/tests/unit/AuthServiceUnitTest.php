@@ -1,22 +1,15 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\shared\vo\Wallet;
-use EuroMillions\web\components\Md5EmailValidationToken;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shared\config\Namespaces;
-use EuroMillions\web\components\RandomPasswordGenerator;
-use EuroMillions\web\entities\GuestUser;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\AuthService;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\RememberToken;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\UserId;
-use EuroMillions\web\vo\ValidationToken;
-use Money\Currency;
-use Money\Money;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
 use tests\helpers\builders\UserBuilder;
@@ -212,8 +205,7 @@ class AuthServiceUnitTest extends UnitTestBase
     private function exerciseCheck($credentials)
     {
         $sut = $this->getSut();
-        $actual = $sut->check($credentials, self::USER_AGENT);
-        return $actual;
+        return $sut->check($credentials, self::USER_AGENT);
     }
 
     /**
@@ -468,7 +460,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $sut = $this->getSut();
         $actual = $sut->forgotPassword($email);
         $this->assertTrue($actual->success());
-        $this->assertInstanceOf($this->getVOToArgument('ActionResult'), $actual);
+        $this->assertInstanceOf($this->getResultObject('ActionResult'), $actual);
     }
 
     /**
@@ -483,7 +475,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $sut = $this->getSut();
         $actual = $sut->resetPassword($token);
         $this->userRepository_double->getByToken($token)->willReturn($user);
-        $this->assertInstanceOf($this->getVOToArgument('ActionResult'), $actual);
+        $this->assertInstanceOf($this->getResultObject('ActionResult'), $actual);
     }
 
 
@@ -563,8 +555,7 @@ class AuthServiceUnitTest extends UnitTestBase
     private function exerciseLoginWithRememberMe()
     {
         $sut = $this->getSut();
-        $actual = $sut->loginWithRememberMe();
-        return $actual;
+        return $sut->loginWithRememberMe();
     }
 
     /**
@@ -578,8 +569,7 @@ class AuthServiceUnitTest extends UnitTestBase
 
         $this->prepareStorageAndRepository($user_id_obj, $user, $user_id, 'another_token');
 
-        $actual = $this->exerciseLoginWithRememberMe();
-        return $actual;
+        return $this->exerciseLoginWithRememberMe();
     }
 
     private function prepareUserIdNotValid()
@@ -602,8 +592,7 @@ class AuthServiceUnitTest extends UnitTestBase
 
         $this->prepareStorageAndRepository($user_id_obj, $user, $user_id, $remember->toNative());
 
-        $actual = $this->exerciseLoginWithRememberMe();
-        return $actual;
+        return $this->exerciseLoginWithRememberMe();
     }
 
     /**

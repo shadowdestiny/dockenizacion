@@ -9,11 +9,8 @@ use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\play_strategies\RedisPlayStorageStrategy;
 use EuroMillions\web\vo\Email;
-use EuroMillions\web\vo\EuroMillionsLine;
-use EuroMillions\web\vo\LastDrawDate;
 use EuroMillions\web\vo\Password;
-use EuroMillions\web\vo\PlayFormToStorage;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
@@ -177,8 +174,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
 
     protected function getSut()
     {
-        $sut = new RedisPlayStorageStrategy($this->redis_double->reveal());
-        return $sut;
+        return new RedisPlayStorageStrategy($this->redis_double->reveal());
     }
 
     /**

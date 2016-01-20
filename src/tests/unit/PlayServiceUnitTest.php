@@ -4,7 +4,6 @@
 namespace tests\unit;
 
 
-use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\EuroMillionsDraw;
@@ -12,15 +11,10 @@ use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\vo\CastilloBetId;
-use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
-use EuroMillions\web\vo\LastDrawDate;
-use EuroMillions\web\vo\Password;
-use EuroMillions\web\vo\PlayFormToStorage;
-use EuroMillions\web\vo\ActionResult;
-use EuroMillions\web\vo\UserId;
+use EuroMillions\shared\vo\results\ActionResult;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -101,15 +95,11 @@ class PlayServiceUnitTest extends UnitTestBase
     public function test_play_calledWithUserWithoutBalance_returnServiceActionResultFalse()
     {
         $user = UserMother::aUserWithNoMoney()->build();
-        $regular_numbers = [1, 2, 3, 4, 5];
-        $lucky_numbers = [5, 8];
-        $euroMillionsResult = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),
-            $this->getLuckyNumbers($lucky_numbers));
         $sut = $this->getSut();
         $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush(Argument::any())->shouldNotBeCalled();
         $this->stubEntityManager($entityManager_stub);
-        $actual = $sut->play($user,$euroMillionsResult);
+        $actual = $sut->play($user);
         $this->assertEquals(false,$actual->success());
     }
 
@@ -383,23 +373,8 @@ class PlayServiceUnitTest extends UnitTestBase
         $playForm = $this->getPlayFormToStorage();
         $this->playStorageStrategy_double->saveAll($playForm,$user->getId())->willReturn($expected);
         $sut = $this->getSut();
-        return $actual = $sut->temporarilyStorePlay($playForm,$user->getId());
+        return $sut->temporarilyStorePlay($playForm,$user->getId());
 
-    }
-
-    private function exerciseRemoveTemporarilyStorePlay($expected)
-    {
-        $user = $this->getUser();
-        $form = $this->getPlayFormToStorage();
-        $this->playStorageStrategy_double->findByKey($user->getId()->id())->willReturn($form->toJson());
-        $playConfig = new PlayConfig();
-        $playConfig->formToEntity($user,$form->toJson());
-        $this->logValidationApi_double->add(Argument::any())->shouldNotBeCalled();
-        $this->betRepository_double->add(Argument::any())->shouldNotBeCalled();
-        $this->getEntityManagerDouble()->flush($playConfig)->shouldNotBeCalled();
-        $this->playStorageStrategy_double->delete($user->getId()->id())->willReturn($expected);
-        $sut = $this->getSut();
-        return $actual = $sut->play($user);
     }
 
     private function getSut(){
@@ -413,23 +388,9 @@ class PlayServiceUnitTest extends UnitTestBase
      * @param string $currency
      * @return User
      */
-    private function getUser($currency = 'EUR')
+    private function getUser()
     {
-//        $user = new User();
-//        $user->initialize(
-//            [
-//                'id' => new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'),
-//                'name'     => 'test',
-//                'surname'  => 'test01',
-//                'email'    => new Email('raul.mesa@panamedia.net'),
-//                'password' => new Password('passworD01', new NullPasswordHasher()),
-//                'validated' => false,
-//                'balance' => new Money(50000,new Currency($currency)),
-//                'validation_token' => '33e4e6a08f82abb38566fc3bb8e8ef0d'
-//            ]
-//        );
-        $user = UserMother::aUserWith500Eur()->build();
-        return $user;
+        return UserMother::aUserWith500Eur()->build();
     }
 
     private function getPlayConfigAndEuroMillionsDraw()
@@ -458,21 +419,6 @@ class PlayServiceUnitTest extends UnitTestBase
             ]
         );
         return [$playConfig,$euroMillionsDraw];
-    }
-
-    private function getLotteryConfig()
-    {
-        $lottery = new Lottery();
-        $lottery->initialize([
-            'id'        => 1,
-            'name'      => 'EuroMillions',
-            'active'    => 1,
-            'frequency' => 'freq',
-            'draw_time' => 'draw',
-            'single_bet_price' => 23500,
-        ]);
-
-        return $lottery;
     }
 
     /**

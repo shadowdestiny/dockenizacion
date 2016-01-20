@@ -12,6 +12,8 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
     use TestHelperTrait;
 
     const DEFAULT_ENTITY_REPOSITORY = '\Doctrine\ORM\EntityRepository';
+    const DOCTRINE_EMPTY_SINGLEOBJECT_RESULT= null;
+    const DOCTRINE_EMPTY_COLLECTION_RESULT = [];
 
     protected $original_di = null;
 
@@ -29,7 +31,6 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
         $this->stubDiService('entityManager', $this->addMappingsToEntityManager()->reveal());
         $this->stubDiService('redisCache', $this->prophesize('\Phalcon\Cache\Backend\Redis')->reveal());
     }
-
     protected function restoreDI()
     {
         DI::reset();

@@ -9,7 +9,7 @@ use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsLine;
-use EuroMillions\web\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use Money\Money;
 use Phalcon\Http\Client\Provider\Curl;
 

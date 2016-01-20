@@ -1,17 +1,13 @@
 <?php
 namespace tests\unit;
 
-use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\Notification;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\tasks\JackpotTask;
-use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\NotificationType;
-use EuroMillions\web\vo\Password;
-use EuroMillions\web\vo\ActionResult;
-use EuroMillions\web\vo\UserId;
+use EuroMillions\shared\vo\results\ActionResult;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -85,22 +81,13 @@ class JackpotTaskUnitTest extends UnitTestBase
         $sut->reminderJackpotAction();
     }
 
-
-    private function getSut()
-    {
-        $sut = $this->getDomainServiceFactory();
-        return $sut;
-    }
-
     /**
-     * @param string $currency
      * @return User
      */
-    private function getUser($currency = 'EUR')
+    private function getUser()
     {
-        $user = UserMother::aUserWith50Eur()
+        return UserMother::aUserWith50Eur()
             ->build();
-        return $user;
     }
 
     private function getUserNotifications()

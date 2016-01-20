@@ -4,7 +4,7 @@
 namespace tests\unit\admin;
 
 
-use EuroMillions\admin\vo\ActionResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use Money\Currency;
@@ -116,7 +116,7 @@ class MaintenanceDrawServiceUnitTest extends UnitTestBase
     {
         $today = new \DateTime('2015-11-04');
         $sut = $this->getSut();
-        $this->lotteryDrawRepository_double->findOneBy(['draw_date' => $today])->willReturn(false);
+        $this->lotteryDrawRepository_double->findOneBy(['draw_date' => $today])->willReturn(self::DOCTRINE_EMPTY_SINGLEOBJECT_RESULT);
         $actual = $sut->getDrawByDate($today);
         $this->assertEquals(false,$actual->success());
     }

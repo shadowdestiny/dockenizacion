@@ -57,6 +57,11 @@ trait TestHelperTrait
         return Namespaces::VALUEOBJECTS_NS . $valueObjectName;
     }
 
+    protected function getResultObject($resultObjectName)
+    {
+        return Namespaces::RESULTOBJECTS_NS . $resultObjectName;
+    }
+
     protected function getInterfacesToArgument($interfaceName)
     {
         return Namespaces::INTERFACES_WEB_NS . $interfaceName;

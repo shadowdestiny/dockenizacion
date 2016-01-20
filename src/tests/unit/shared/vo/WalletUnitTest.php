@@ -192,6 +192,18 @@ class WalletUnitTest extends UnitTestBase
 
     }
 
+    /**
+     * method create
+     * when called
+     * should createProperWalletObject
+     */
+    public function test_create_called_createProperWalletObject()
+    {
+        $actual = Wallet::create(3000, 400);
+        $expected = new Wallet($this->getMoney(3000), $this->getMoney(400));
+        $this->assertEquals($expected, $actual);
+    }
+
     private function getMoney($amount)
     {
         return new Money($amount, new Currency('EUR'));
