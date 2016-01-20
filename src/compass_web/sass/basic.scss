@@ -277,7 +277,7 @@ body, .submit{font-family:$basic-font;}
 
 /* PAGE LAYOUT */
 .wrapper{max-width:1180px; margin:auto; position:relative; min-width:235px;}
-.logo{float:left; margin-top:7px;}
+.logo{float:left; margin:7px 0 0;}
 .v-logo{height:100%; width:274px;}
 .main-foot .logo{width:200px; margin:0;}
 
@@ -313,8 +313,8 @@ body, .submit{font-family:$basic-font;}
 .main-nav .link{font-size:75%; text-decoration:none!important;}
 .main-nav .txt{position:relative; top:-2px; font-size:85%; font-weight:700; color:#000;}
 .main-nav.desktop .li-cart .txt{margin-bottom:-1px; display:inline-block;}
-.main-nav .active{border-right:1px solid transparent;}
 .main-nav .active{
+  border-right:0 solid transparent;
   background-color:$yellow;   /* fallback */
   @include background-image(linear-gradient(#CC9816, $yellow));
 }
@@ -329,7 +329,8 @@ body, .submit{font-family:$basic-font;}
 .main-nav a:hover .v-cart, .main-nav .active .v-cart, .main-nav .active .link, .main-nav .active .txt, .main-nav a:hover, .main-nav a:hover .txt{color:#fff;}
 
 .main-nav .txt, .main-nav .v-cart{transition:color .1s ease;}
-.main-nav li:hover{border-right:1px solid transparent;} /* erase yellow border */
+.main-nav li:hover{border-right:1px solid transparent;}
+.main-nav .active:hover{border-right:0 solid transparent;} /* erase yellow border */
 .main-nav .subnav{
   position:absolute; z-index:1; background:#fff; width:101%; border:1px solid $yellow; border-top:0;
   margin:-1px 0 0 -1px; border-radius:0 0 5px 5px;
