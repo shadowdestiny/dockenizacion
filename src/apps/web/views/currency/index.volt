@@ -40,7 +40,7 @@
 <main id="content">
     <div class="wrapper">
         <div class="box-basic">
-            <h1 class="h2">Choose your currency</h1>
+            <h1 class="h2">{{ language.translate("Choose your currency") }}</h1>
             <ul class="no-li list cl">
             {% for currency in currency_list %}
                 <li><a data-enhance=false href="/ajax/user-settings/setCurrencyReload/{{currency.code}}" class="{% if currency.code == current_currency %} active {% endif %}"><span class="curr">{{ currency.code }}</span> <span class="name">{{ currency.name }}</span></a></li>

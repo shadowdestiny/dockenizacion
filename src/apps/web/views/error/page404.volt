@@ -17,30 +17,30 @@
                 <br class="br">either way we are unable to realize all the wishes requested. We apologise for the inconvenience.') }}
             </p>
             <form class="box-results">
-                <p class="last-known">The last known wish <span class="yellow">"win the lottery"</span> was</p>
+                <p class="last-known">{{ language.translate('The last known wish <span class="yellow">"win the lottery"</span> was') }}</p>
                 <ul class="no-li inline numbers">
                     <li><span class="num">10</span></li>
                     <li><span class="num">17</span></li>
                     <li><span class="num">18</span></li>
                     <li><span class="num">33</span></li>
                     <li><span class="num">40</span></li>
-                    <li class="star"><span class="num">2</span><span class="txt">Star ball</span></li>
-                    <li class="star"><span class="num">8</span><span class="txt">Star ball</span></li>
+                    <li class="star"><span class="num">2</span><span class="txt">{{ language.translate("Star ball")}}</span></li>
+                    <li class="star"><span class="num">8</span><span class="txt">{{ language.translate("Star ball") }}</span></li>
                 </ul>
-                <a href="javascript:void(0)" class="btn big blue submit">Play magically selected numbers</a>
+                <a href="javascript:void(0)" class="btn big blue submit">{{ language.translate("Play magically selected numbers") }}</a>
             </form>
         </div>
     </div>
     <div class="looking">
         <div class="wrapper">
-            <h2 class="h1 title2">Or maybe you were looking for</h2>
+            <h2 class="h1 title2">{{ language.translate("Or maybe you were looking for") }}</h2>
             <ul class="no-li cl h3">
-                <li><a href="/play">Playing the Lottery</a></li>
-                <li><a href="/numbers">Draw History</a></li>
-                <li><a href="/faq">Asking for help</a></li>
-                <li><a href="/help">How to Play Lotto</a></li>
-                <li><a href="/index#about-us">About Euromillions</a></li>
-                <li><a href="/contact">Contact us</a></li>
+                <li><a href="/play">{{ language.translate("Playing the Lottery") }}</a></li>
+                <li><a href="/numbers">{{ language.translate("Draw History") }}</a></li>
+                <li><a href="/faq">{{ language.translate("Asking for help") }}</a></li>
+                <li><a href="/help">{{ language.translate("How to Play Lotto") }}</a></li>
+                <li><a href="/index#about-us">{{ language.translate("About Euromillions") }}</a></li>
+                <li><a href="/contact">{{ language.translate("Contact us") }}</a></li>
             </ul>
         </div>
     </div>

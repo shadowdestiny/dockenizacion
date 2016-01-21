@@ -103,7 +103,7 @@
             </div>
             <div class="col6 second">
                 <h2 class="h3 yellow">{{ language.translate("Add funds to your wallet") }}</h2>
-                <div class="balance"><strong class="purple">Wallet balance:</strong> <span class="value">&euro; 20.00</span></div>
+                <div class="balance"><strong class="purple">{{ language.translate("Wallet balance:") }}</strong> <span class="value">&euro; 20.00</span></div>
                 <div class="box-wallet overview">
                     <span class="symbol">&euro;</span>
                         {{ credit_card_form.render('funds-value', {'class':'input'~form_errors['funds-value']}) }}
@@ -114,7 +114,7 @@
                 </div>
                 <div class="notes">
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                    <span class="txt">Fee of &euro; 0.35 will be charged for transfers of small amount</span>
+                    <span class="txt">{{ language.translate("Fee of &euro; 0.35 will be charged for transfers of small amount") }}</span>
                 </div>
             </div>
         </div>

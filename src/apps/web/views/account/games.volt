@@ -47,7 +47,7 @@
                 {% if my_games_actives is empty %}
 
                 {% else %}
-                    <h2 class="h3">Present Games</h2>
+                    <h2 class="h3">{{ language.translate("Present Games") }}</h2>
                     <table class="present cl table ui-responsive" data-role="table" data-mode="reflow">
                         <thead>
                             <th class="date">
@@ -108,7 +108,7 @@
                 {% if my_games_inactives is empty %}
 
                 {% else %}
-                    <h2 class="h3">Past Games</h2>
+                    <h2 class="h3">{{ language.translate("Past Games") }}</h2>
                 <table id="game-history" class="cl table ui-responsive" data-role="table" data-mode="reflow">
                     <thead>
                     <tr>
@@ -173,7 +173,7 @@
                         </td>
                         <td class="action">
                             <div class="myCol">
-                                <a href="javascript:void(0);" class="btn blue">{{ language.translate("Play it <span class='desktop'>again</span> for") }} 2,35 &euro;</a>
+                                <a href="javascript:void(0);" class="btn blue">{{ language.translate("Play it <span class='desktop'>again</span> for") }} &euro; 2.35</a>
                             </div>
                         </td>
                     </tr>
