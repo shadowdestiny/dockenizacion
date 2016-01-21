@@ -23,44 +23,44 @@
 
                 <div class="box success">
                     <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>
-                    <span class="txt">Transaction successful. <span class="info">You just added &euro; 300 to your balance.</span></span> 
+                    <span class="txt">{{ language.translate("Transaction successful.")}} <span class="info">{{ language.translate("You just added &euro; 300 to your balance.")}}</span></span> 
                 </div>
 
                 <table class="cl table ui-responsive" data-role="table" data-mode="reflow">
                     <thead>
                         <tr>
-                            <th class="date">Date</th>
-                            <th class="type">Transaction</th>
-                            <th class="movement">Movement</th>
-                            <th class="wallet">Wallet</th>
-                            <th class="winnings">Winnings</th>
+                            <th class="date">{{ language.translate("Date")}}</th>
+                            <th class="type">{{ language.translate("Transaction")}}</th>
+                            <th class="movement">{{ language.translate("Movement")}}</th>
+                            <th class="wallet">{{ language.translate("Wallet")}}</th>
+                            <th class="winnings">{{ language.translate("Winnings")}}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td class="date">16 May 2015</td>
-                            <td class="type">Played lotto</td>
+                            <td class="type">{{ language.translate("Played lotto")}}</td>
                             <td class="movement">&euro; -15</td>
                             <td class="wallet">&euro; 75</td>
                             <td class="winnings">&euro; 75</td>
                         </tr>
                         <tr>
                             <td class="date">16 May 2015</td>
-                            <td class="type">Added funds</td>
+                            <td class="type">{{ language.translate("Added funds")}}</td>
                             <td class="movement">&euro; 35</td>
                             <td class="wallet">&euro; 75</td>
                             <td class="winnings">&euro; 75</td>
                         </tr>
                         <tr>
                             <td class="date">16 May 2015</td>
-                            <td class="type">Withdrawn</td>
+                            <td class="type">{{ language.translate("Withdrawn")}}</td>
                             <td class="movement">&euro; -15</td>
                             <td class="wallet">&euro; 75</td>
                             <td class="winnings">0</td>
                         </tr>
                         <tr>
                             <td class="date">16 May 2015</td>
-                            <td class="type">Winnings</td>
+                            <td class="type">{{ language.translate("Winnings") }}</td>
                             <td class="movement">&euro; -15</td>
                             <td class="wallet">&euro; 75</td>
                             <td class="winnings">&euro; 75</td>

@@ -168,9 +168,9 @@ $(function(){
                             <span class="purple">{{ language.translate("Wallet balance:") }}</span> &euro; 500.00 
                         </div>
 
-                        <form class="right">
-                            <span class="symbol">&euro;</span>
-                            <input class="input" type="text" placeholder="Enter any amount">
+                        <form class="right form-currency">
+                            <span class="currency">&euro;</span>
+                            <input class="input insert" type="text" placeholder="{{ language.translate('Insert an amount') }}">
                             <label class="label submit btn blue" for="withdraw">
                                 {{ language.translate("Withdraw winnings") }}
                                 <input id="withdraw" type="submit" class="hidden">
@@ -270,7 +270,7 @@ $(function(){
 
                     <form class="right">
                         <span class="symbol">&euro;</span>
-                        <input class="input" type="text" placeholder="Enter any amount">
+                        <input class="input" type="text" placeholder="{{ language.translate('Insert an amount')}}">
                         <label class="label submit btn blue" for="withdraw">
                             {{ language.translate("Convert winnings") }}
                             <input id="withdraw" type="submit" class="hidden">

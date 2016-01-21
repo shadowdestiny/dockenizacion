@@ -58,7 +58,7 @@
                 </div>
             {% endif %}
 
-            <form action="/account/editEmail" name="form_notifications" id="form-email-settings" method="post" >
+            <form action="/account/editEmail" name="form_notifications" id="form-email-settings" method="post" class="form-currency">
                 <div class="cl">
                     <div class="email-me">{{ language.translate("Email me") }}</div>
                     <ul class="no-li options">
@@ -80,7 +80,7 @@
 
                                     {% if notification.notification.notification_type == 1 %}
                                         <span class="currency">&euro;</span>
-                                        <input name="config_value_{{ notification.name }}" id="amount-threshold" placeholder="{{ language.translate('Insert an ammount') }}" type="text" value="{{ notification.config_value }}" class="input {% if error_form %}error{% endif %}"/>
+                                        <input name="config_value_{{ notification.name }}" id="amount-threshold" placeholder="{{ language.translate('Insert an amount') }}" type="text" value="{{ notification.config_value }}" class="input insert{% if error_form %}error{% endif %}"/>
                                     {% endif %}
                                 </li>
                             {% endfor %}
