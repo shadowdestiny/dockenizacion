@@ -63,12 +63,12 @@ $(function(){
            {% include "account/_nav.volt" %}
         </div>
         <div class="box-basic content">
-            <div class="hidden right back cl">
+            <div class="{%if show_box_basic == true %}hidden{% endif %} right back cl">
                 <a class="btn" href="javascript:void(0);">Go Back</a>
             </div>
             <h1 class="h1 title yellow">{{ language.translate("Wallet") }}</h1>
 
-            <div class="overview-wallet">
+            <div class="{%if show_box_basic == false %}hidden{% endif %} overview-wallet">
                 <div class="info box box-congrats">
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                     <span class="txt"><span class="congrats">{{ language.translate("Congratulations! You have won € 89.30") }}</span>
@@ -103,8 +103,7 @@ $(function(){
                     </div>
                 </div>
             </div>
-
-            <form class="hidden box-add-card {#{% if which_form != 'edit' and which_form%}hidden{% endif %}#}" method="post" action="{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
+            <form class="{%if show_form_add_fund == false %}hidden{% endif %} box-add-card {#{% if which_form != 'edit' and which_form%}hidden{% endif %}#}" method="post" action="/account/addFunds{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
                 {% set component='{"where": "account"}'|json_decode %}
                 {% include "account/_add-card.volt" %}
             </form>

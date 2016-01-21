@@ -6,6 +6,7 @@ namespace EuroMillions\web\controllers;
 
 use apps\web\forms\MyAccountWalletAddFunds;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
 use EuroMillions\shared\vo\results\ActionResult;
@@ -14,7 +15,10 @@ use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\UserNotificationsDTO;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\NotificationType;
-use Phalcon\Mvc\Model\Validator\Numericality;
+use Phalcon\Forms\Element\Text;
+use Phalcon\Forms\Form;
+use Phalcon\Validation\Validator\Numericality;
+use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation;
 use Phalcon\Validation\Message;
 
@@ -154,17 +158,27 @@ class AccountController extends PublicSiteControllerBase
 
     public function walletAction()
     {
+        $credit_card_form = new CreditCardForm();
+        $credit_card_form = $this->appendElementToAForm($credit_card_form);
+        $form_errors = $this->getErrorsArray();
+
         return $this->view->setVars([
             'which_form' => 'wallet',
+            'form_errors' => $form_errors,
+            'credit_card_form' => $credit_card_form,
+            'show_form_add_fund' => false,
+            'show_box_basic' => true
         ]);
     }
 
     public function addFundsAction()
     {
-        $myAccountWalletAddFundForm = new MyAccountWalletAddFunds();
+        $credit_card_form = new CreditCardForm();
+        $credit_card_form = $this->appendElementToAForm($credit_card_form);
+        $form_errors = $this->getErrorsArray();
         if($this->request->isPost()) {
-            if ($myAccountWalletAddFundForm->isValid($this->request->getPost()) == false) {
-                $messages = $myAccountWalletAddFundForm->getMessages(true);
+            if ($credit_card_form->isValid($this->request->getPost()) == false) {
+                $messages = $credit_card_form->getMessages(true);
                 /**
                  * @var string $field
                  * @var Message\Group $field_messages
@@ -174,16 +188,16 @@ class AccountController extends PublicSiteControllerBase
                     $form_errors[$field] = ' error';
                 }
             }else {
-
             }
         }
-        $this->view->pick('');
+
+        $this->view->pick('/account/wallet');
         return $this->view->setVars([
-            'form_errors' => !empty($form_errors) ? $form_errors : [],
-            'which_form'  => 'password',
-            'errors' => $errors,
+            'form_errors' => $form_errors,
+            'credit_card_form' => $credit_card_form,
             'msg' => !empty($msg) ? $msg : '',
-            'myaccountWalletAddFund' => $myAccountWalletAddFundForm,
+            'show_form_add_fund' => true,
+            'show_box_basic' => false,
         ]);
 
     }
@@ -228,9 +242,19 @@ class AccountController extends PublicSiteControllerBase
         $config_value_threshold = $this->request->getPost('config_value_jackpot_reach');
         $config_value_results = $this->request->getPost('config_value_results');
 
-        $message = null;
-        $list_notifications = null;
+        $validation = new Validation();
+        $validation->add(
+            'config_value_jackpot_reach',
+            new PresenceOf(
+                array (
+                    'message' => 'A numeric value is required'
+                )
+            )
+        );
 
+        $message = null;
+
+        $list_notifications = null;
         try {
             if($reach_notification) {
                 $notificationType = new NotificationType(NotificationType::NOTIFICATION_THRESHOLD, $config_value_threshold);
@@ -299,11 +323,44 @@ class AccountController extends PublicSiteControllerBase
             $validation->add('config_value_jackpot_reach',
                 new Validation\Validator\Numericality([
                    'message' => 'Error. You should insert a numeric value.'
-
                 ]));
             $messages = $validation->validate($this->request->getPost());
         }
         return $messages;
+    }
+
+    /**
+     * @return array
+     */
+    private function getErrorsArray()
+    {
+        $form_errors = [
+            'card-number' => '',
+            'card-holder' => '',
+            'card-cvv' => '',
+            'funds-value' => '',
+        ];
+        return $form_errors;
+    }
+
+    private function appendElementToAForm(Form $form)
+    {
+        $form->add(new Text('funds-value',array(
+            'placeholder' => 'Enter any amount'
+        )));
+
+        $validation = new Validation();
+        $validation->add(
+            'funds-value',
+            new PresenceOf(
+                array(
+                    'message' => 'A value is required'
+                )
+            )
+        );
+        $form->setValidation($validation);
+        var_dump($form);die();
+        return $form;
     }
 
 }
