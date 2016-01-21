@@ -114,13 +114,13 @@ var EuroMillionsLine = React.createClass({
         this.state.show_btn_clear = false;
         this.props.addLineInStorage(null,this.props.lineNumber,[], []);
         this.state.isAnimated = false;
-        this.props.callback( this.props.lineNumber,0,0);
         this.setState( {selectedNumbers : {
                             numbers : [],
                             stars : []
                         },
                         show_btn_clear: false,
         })
+        this.props.callback(this.props.lineNumber,0,0);
     },
 
     handleClickRandom : function ()

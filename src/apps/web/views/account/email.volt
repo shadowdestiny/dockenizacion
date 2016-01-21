@@ -21,8 +21,8 @@
 //        });
         $('#amount-threshold').on('keypress',function(e) {
             var chr = String.fromCharCode(e.which);
-            var pattern = /[a-zA-Z\,\.\?\!\"\$\%\&'-]/;
-            if(pattern.test(chr)){
+            var pattern = /^[1-9][0-9]*$/;
+            if(!pattern.test(chr)) {
                 e.preventDefault();
             }
         });

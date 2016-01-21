@@ -241,11 +241,13 @@ var PlayPage = React.createClass({
 
     handleOfBetsLine : function(line, numbers,stars)
     {
-        if(numbers == 5 && stars == 2) {
+        if(numbers > 0 || stars > 0) {
             this.state.lines[line] = 1;
         } else {
             this.state.lines[line] = 0;
         }
+        this.setState( { lines : this.state.lines });
+        console.log(this.state.lines);
         this.updatePrice();
     },
 
@@ -260,6 +262,7 @@ var PlayPage = React.createClass({
         var playDays = this.state.playDays;
         var numDraws = numWeeks * playDays;
         var betsActive = this.getNumLinesThatAreFilled();
+        this.state.numBets = this.state.lines;
         var total = Number(betsActive * price_bet * numDraws).toFixed(2);
         this.setState( { price : total, clear_all : false, random_all : false } );
     },
@@ -272,6 +275,7 @@ var PlayPage = React.createClass({
             numberEuroMillionsLine = this.state.count_lines ;
         }
         var random_all = this.state.random_all;
+
         elem.push(<EuroMillionsMultipleEmLines add_storage={this.addLinesInStorage} clear_all={this.state.clear_all} callback={this.handleOfBetsLine} random_all={random_all} numberEuroMillionsLine={numberEuroMillionsLine} key="1"/>);
         elem.push(<EuroMillionsBoxAction show_tooltip={this.state.show_tooltip_lines}  mouse_over_btn={this.mouseOverBtnAddLines}  add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} clear_all_btn={this.handlerClearAll} key="2"/>)
 

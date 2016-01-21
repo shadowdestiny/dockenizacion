@@ -4,7 +4,7 @@
         <span class="txt">{{ msg }}</span>
     </div>
 {% endif %}
-{% if which_form == 'edit' and errors %}
+{% if errors %}
     <div class="box error">
         <span class="ico-warning ico"></span>
         <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
@@ -33,7 +33,7 @@
             <label class="label" for="add-card-number">
                 {{ language.translate("Card Number") }} <span class="asterisk">*</span>
             </label>
-            {{ credit_card_form.render('card-number', {'class':'input'~form_errors['card-number']}) }}
+                    {{ credit_card_form.render('card-number', {'class':'input'~form_errors['card-number']}) }}
         {% if component.where == 'cart' %}
                 </div>
                 <div class="col6">
@@ -41,7 +41,7 @@
         <label class="label" for="add-card-name">
             {{ language.translate("Full Name on Card") }} <span class="asterisk">*</span>
         </label>
-            {{ credit_card_form.render('card-holder', {'class':'input'~form_errors['card-holder']}) }}
+                    {{ credit_card_form.render('card-holder', {'class':'input'~form_errors['card-holder']}) }}
         {% if component.where == 'cart' %}
                 </div>
             </div>
@@ -72,12 +72,12 @@
                 <option>12</option>
             </select>
             <select class="select year" name="year">
-                <option>2014</option>
-                <option>2015</option>
                 <option>2016</option>
                 <option>2017</option>
                 <option>2018</option>
                 <option>2019</option>
+                <option>2020</option>
+                <option>2021</option>
             </select>
         </div>
         <div class="left cvv">

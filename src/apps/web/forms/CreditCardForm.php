@@ -6,7 +6,10 @@ namespace EuroMillions\web\forms;
 
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Form;
+use Phalcon\Validation\Validator\CreditCard;
+use Phalcon\Validation\Validator\Numericality;
 use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\StringLength;
 
 class CreditCardForm extends Form
 {
@@ -18,8 +21,11 @@ class CreditCardForm extends Form
         $card_number->addValidators(array(
             new PresenceOf(array(
                 'message' => 'The card number is required'
-            ))
+            )),
+            new CreditCard(array())
         ));
+
+
 
         $this->add($card_number);
 
@@ -39,6 +45,13 @@ class CreditCardForm extends Form
         $card_cvv->addValidators(array(
             new PresenceOf(array(
                 'message' => 'The cvv number is required'
+            )),
+            new Numericality(array(
+
+            )),
+            new StringLength(array(
+                'min' => 3,
+                'max' => 3
             ))
         ));
         $this->add($card_cvv);
