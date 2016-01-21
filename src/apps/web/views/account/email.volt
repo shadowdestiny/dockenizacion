@@ -12,18 +12,23 @@
 
 {% block template_scripts %}
     <script>
-//        $('#form-email-settings').on('submit',function(){
-//           var pattern = /^[1-9][0-9]*$/;
-//
-//            if(!pattern.test($('#amount-threshold').val()) && $('#check0').is(':checked')){
-//                return false;
-//            }
-//        });
+        $('#form-email-settings').on('submit',function(){
+           var pattern = /^[1-9]/;
+            if(!pattern.test($('#amount-threshold').val()) && $('#check0').is(':checked')){
+                $('#amount-threshold').addClass('error');
+                return false;
+            }
+        });
         $('#amount-threshold').on('keypress',function(e) {
-            var chr = String.fromCharCode(e.which);
-            var pattern = /^[1-9][0-9]*$/;
-            if(!pattern.test(chr)) {
-                e.preventDefault();
+            var evt = e || window.event;
+            var code = evt.keyCode || evt.which;
+            var chr = String.fromCharCode(code);
+            var pattern = /^[0-9]/;
+            if( code == 8 || code == 83) {
+            } else {
+                if(!pattern.test(chr)) {
+                    evt.preventDefault();
+                }
             }
         });
     </script>
