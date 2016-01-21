@@ -41,7 +41,6 @@ class CreditCardForm extends Form
                 'message' => 'The cvv number is required'
             ))
         ));
-
         $this->add($card_cvv);
     }
 }
