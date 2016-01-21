@@ -170,8 +170,8 @@ var PlayPage = React.createClass({
 
     handlerRandomAll : function()
     {
-        var random  = this.state.lines_default >= this.state.count_lines;
-        this.setState( { random_all : random } );
+        //var random  = this.state.lines_default >= this.state.count_lines;
+        this.setState( { random_all : true } );
     },
 
     handlerClearAll : function ()
@@ -246,7 +246,6 @@ var PlayPage = React.createClass({
         } else {
             this.state.lines[line] = 0;
         }
-        this.state.numBets = this.state.lines;
         this.updatePrice();
     },
 
@@ -260,19 +259,8 @@ var PlayPage = React.createClass({
         var numWeeks = this.state.duration;
         var playDays = this.state.playDays;
         var numDraws = numWeeks * playDays;
-
-        var price = price_bet;
-        var betsActive = 0;
-
-        //if(this.state.lines.length > 0) {
-        //    this.state.lines.forEach(function(value) {
-        //        if (value > 0) {
-        //            betsActive = betsActive + 1;
-        //        }
-        //    });
-        //}
-        betsActive = this.getNumLinesThatAreFilled();
-        var total = Number(betsActive * price * numDraws).toFixed(2);
+        var betsActive = this.getNumLinesThatAreFilled();
+        var total = Number(betsActive * price_bet * numDraws).toFixed(2);
         this.setState( { price : total, clear_all : false, random_all : false } );
     },
 
@@ -284,7 +272,6 @@ var PlayPage = React.createClass({
             numberEuroMillionsLine = this.state.count_lines ;
         }
         var random_all = this.state.random_all;
-
         elem.push(<EuroMillionsMultipleEmLines add_storage={this.addLinesInStorage} clear_all={this.state.clear_all} callback={this.handleOfBetsLine} random_all={random_all} numberEuroMillionsLine={numberEuroMillionsLine} key="1"/>);
         elem.push(<EuroMillionsBoxAction show_tooltip={this.state.show_tooltip_lines}  mouse_over_btn={this.mouseOverBtnAddLines}  add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} clear_all_btn={this.handlerClearAll} key="2"/>)
 
