@@ -71,22 +71,33 @@ $(function(){
             <div class="{%if show_box_basic == false %}hidden{% endif %} overview-wallet">
                 <div class="info box box-congrats">
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                    <span class="txt"><span class="congrats">{{ language.translate("Congratulations!!! You won &euro; 100.000") }}</span> {{ language.translate("Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.")}}</span>
+                    <span class="txt"><span class="congrats">{{ language.translate("Congratulations! You have won € 89.30") }}</span>
+                        {{ language.translate("") }}
+                    </span>
+                </div>
+
+                <div class="info box box-congrats">
+                    <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
+                    <span class="txt"><span class="congrats">{{ language.translate("Congratulations! You have won &euro; 5,500.70") }}</span> 
+{#
+                    {{ language.translate("To transfer your big winnings into your bank account we required the following informations: 1) your full name, 2) passport or ID card, 3) a current residence address, 4) a telephone number and 5) your bank account details.<br> Please send us everything by email to <a href='mailto:support@euromillions.com?subject=I won the lottery'>support@euromillions.com</a>, we will soon get in contact with you.")}}
+#}
+                    </span>
                 </div>
 
                 <div class="box-balance">
                     <div class="cols res">
-                        <div class="col7">
+                        <div class="col5">
                             <div class="border">
                                 <div class="txt">{{ language.translate("Your current balance:") }} <span class="value">&euro; 20.00</span></div>
                                 <a href="javascript:void(0)" class="btn blue add-funds">{{ language.translate("Add funds of your wallet") }}</a>
-                                <a href="javascript:void(0)" class="btn green withdraw">{{ language.translate("Withdraw winnings") }}</a>
                             </div>
                         </div>
-                        <div class="col5">
+                        <div class="col7">
                             <div class="border">
                                 <div class="txt">{{ language.translate("Your winnings:")}} <span class="value">&euro; 20.00</span></div>
                                 <a href="javascript:void(0)" class="btn blue convert">{{ language.translate("Convert winnings into your wallet")}}</a>
+                                <a href="javascript:void(0)" class="btn green withdraw">{{ language.translate("Withdraw winnings") }}</a>
                             </div>
                         </div>
                     </div>
