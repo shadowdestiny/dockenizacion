@@ -20,12 +20,13 @@ var EuroMilliosnBoxActionPlay = React.createClass({
 
     render : function() {
         var elem = [];
-        var show_btn = false;
-        this.props.lines.forEach(function (show_value) {
-            if(show_value) {
-                show_btn = true;
-            }
-        });
+        var show_btn = this.props.show_clear_all;
+
+        //this.props.lines.forEach(function (show_value) {
+        //    if(show_value) {
+        //        show_btn = true;
+        //    }
+        //});
         elem.push(<EuroMillionsAddLinesBtn show_tooltip={this.props.show_tooltip}  mouse_over_btn={this.props.mouse_over_btn} onBtnAddLinesClick={this.handlerAddLines} key="1"/>);
         elem.push(<EuroMillionsRandomAllBtn onBtnRandomAllClick={this.handlerRandomAll} key="2"/>);
         elem.push(<EuroMillionsClearAllBtn show_btn_clear={show_btn} onBtnClearAllClick={this.handlerClearAll} key="3"/>);
