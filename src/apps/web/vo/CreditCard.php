@@ -51,4 +51,29 @@ class CreditCard
         return substr($this->cardNumber->toNative(),-4);
     }
 
+    public function getCardNumbers()
+    {
+        return $this->cardNumber->toNative();
+    }
+
+    public function getCVV()
+    {
+        return $this->cvv->toNative();
+    }
+
+    public function getHolderName()
+    {
+        return $this->cardHolderName->toNative();
+    }
+    
+    public function getExpiryMonth()
+    {
+        return $this->expiryDate->getMonth();
+    }
+
+    public function getExpiryYear()
+    {
+        return $this->expiryDate()->getYear();
+    }
+
 }

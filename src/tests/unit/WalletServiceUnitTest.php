@@ -47,7 +47,7 @@ class WalletServiceUnitTest extends UnitTestBase
         $card_payment_provider->charge(Argument::any(), Argument::any())->willReturn(new PaymentProviderResult($payment_provider_result));
         $credit_card = CreditCardMother::aValidCreditCard();
 
-        $sut = new WalletService();
+        $sut = new WalletService($this->getEntityManagerDouble()->reveal());
         $actual = $sut->rechargeWithCreditCard($card_payment_provider->reveal(), $credit_card, $user, $amount);
         $this->assertInstanceOf('EuroMillions\shared\interfaces\IResult', $actual);
         $this->assertEquals($payment_provider_result, $actual->success());

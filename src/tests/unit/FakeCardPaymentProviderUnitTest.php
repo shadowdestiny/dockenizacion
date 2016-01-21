@@ -21,7 +21,7 @@ class FakeCardPaymentProviderUnitTest extends UnitTestBase
      */
     public function test_charge_creditCarNumberIsEven_returnOkOtherwiseKo($cardNumber, $success)
     {
-        $card = new CreditCard(new CardHolderName('azofaifo'), new CardNumber($cardNumber), new ExpiryDate('2020/20'), new CVV('239'));
+        $card = new CreditCard(new CardHolderName('azofaifo'), new CardNumber($cardNumber), new ExpiryDate('12/2020'), new CVV('239'));
         $sut = new FakeCardPaymentProvider();
         /** @var ActionResult $actual */
         $actual = $sut->charge(new Money(300, new Currency('EUR')), $card);

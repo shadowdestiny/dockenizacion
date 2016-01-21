@@ -20,7 +20,7 @@ class CreditCardMother
         return new CreditCard(
             new CardHolderName('Pagafantas'),
             new CardNumber('4012888888881881'),
-            new ExpiryDate('2024/10'),
+            new ExpiryDate('10/2024'),
             new CVV('233')
         );
     }
