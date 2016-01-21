@@ -74,7 +74,10 @@
 .box-play .awards li:first-child{margin-right:25px;}
 .box-play .awards .best-price{background-position:0 -150px;}
 .box-play .awards .risk-free{background-position:-75px -150px;}
-.box-play .box-ball{position:relative; margin-top:25px;}
+.box-play .box-ball{
+  position:relative; margin-top:25px;
+  .info{position:relative; top:-2px;}
+}
 .box-play .btn{position:relative; left:-25px; font-size:160%; line-height:100%;}
 .box-play .ball{position:absolute; display:block; top:-25px; right:-90px; display:block; width:101px; height:99px; background-position:-150px -110px; transition:transform .5s ease;}
 .box-ball .btn:hover .ball{@include transform(rotate(25deg));}
@@ -110,7 +113,7 @@
   .cols{margin:0;}
   .box-action{
     padding:20px 0 25px; border-top:1px solid $yellow; display:block; text-decoration:none; color:$black; text-align:center;
-    .phrase{display:block; margin-bottom:5px;}
+    .phrase{display:block; margin-bottom:10px;}
     .btn{margin:auto;}
     .btn:hover{color:$btn-blue; background:#fff; border:1px solid $btn-blue; text-shadow:0 0 0 transparent;}
   }
