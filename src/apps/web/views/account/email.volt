@@ -31,6 +31,11 @@
                 }
             }
         });
+        $('#amount-threshold').on('focus', function(e) {
+           if($(this).hasClass('error')) {
+               $(this).removeClass('error');
+           }
+        });
     </script>
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
