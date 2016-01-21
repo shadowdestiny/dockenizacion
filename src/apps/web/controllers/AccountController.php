@@ -332,7 +332,7 @@ class AccountController extends PublicSiteControllerBase
         if($this->request->getPost('jackpot_reach') == 'on') {
             $validation->add('config_value_jackpot_reach',
                 new Validation\Validator\Numericality([
-                   'message' => 'Error. You should insert a numeric value.'
+                   'message' => 'Error. You can insert only a numeric value, symbols and letters are not allowed.'
                 ]));
             $messages = $validation->validate($this->request->getPost());
         }

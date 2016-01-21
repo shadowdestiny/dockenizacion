@@ -69,7 +69,7 @@ img.right{margin:0 0 15px 10px;}
 .input, .select, .textarea{font-family:$basic-font; padding:8px; background:$yellow-lighter; border:1px solid $grey;}
 .input:hover, .textarea:hover, .select:hover{border:1px solid #000;}
 .input:focus, .textarea:focus{transition:background-color .3s,color .3s,border .3s, box-shadow .2s; box-shadow:0 4px 4px #bbb inset!important; border:1px solid $black!important; background:#fff;}
-.input.error, .select.error{border:2px solid $red;}
+.input.error, .select.error{border:2px solid $red!important;}
 .checkbox{margin:0!important; padding:0;}
 label.submit{cursor:pointer;}
 .label{cursor:pointer; font-weight:700; display:block; margin-bottom:3px;}
