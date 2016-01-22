@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "66aeb17e8f66f89bbde1ec0c37bdf81f",
-    "content-hash": "c41c577cf02473f19d8aaacf5a0d6e55",
+    "hash": "888fbc52866ac49e94a6aad2d17c2307",
+    "content-hash": "1c06414c6c76e7bd2692f7996ecc8756",
     "packages": [
         {
             "name": "alcohol/iso4217",
@@ -1035,11 +1035,11 @@
         },
         {
             "name": "mledoze/countries",
-            "version": "1.7.5",
+            "version": "1.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mledoze/countries.git",
-                "reference": "35e39e78edf442acfc27ce754ab33b43e2c6bdfc"
+                "reference": "2e14a61ad1b9d70c76bf50b76b0af2f001df82b9"
             },
             "dist": {
                 "type": "zip",
@@ -1077,7 +1077,7 @@
                 "xml",
                 "yaml"
             ],
-            "time": "2016-01-20 11:07:42"
+            "time": "2016-01-21 13:42:51"
         },
         {
             "name": "phalcon/incubator",
@@ -1973,24 +1973,24 @@
         },
         {
             "name": "phpunit/dbunit",
-            "version": "1.3.1",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/dbunit.git",
-                "reference": "a5891b7a9c4f21587a51f9bc4e8f7042b741b480"
+                "reference": "9aaee6447663ff1b0cd50c23637e04af74c5e2ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/dbunit/zipball/a5891b7a9c4f21587a51f9bc4e8f7042b741b480",
-                "reference": "a5891b7a9c4f21587a51f9bc4e8f7042b741b480",
+                "url": "https://api.github.com/repos/sebastianbergmann/dbunit/zipball/9aaee6447663ff1b0cd50c23637e04af74c5e2ae",
+                "reference": "9aaee6447663ff1b0cd50c23637e04af74c5e2ae",
                 "shasum": ""
             },
             "require": {
                 "ext-pdo": "*",
                 "ext-simplexml": "*",
                 "php": ">=5.3.3",
-                "phpunit/phpunit": ">=3.7.0@stable",
-                "symfony/yaml": ">=2.1.0"
+                "phpunit/phpunit": "~4|~5",
+                "symfony/yaml": "~2.1|~3.0"
             },
             "bin": [
                 "composer/bin/dbunit"
@@ -2028,7 +2028,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-03-26 11:25:06"
+            "time": "2015-08-07 04:57:38"
         },
         {
             "name": "phpunit/php-code-coverage",
