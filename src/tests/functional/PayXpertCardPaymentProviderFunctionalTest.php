@@ -1,7 +1,12 @@
 <?php
 namespace tests\functional;
 
+use EuroMillions\web\services\card_payment_providers\payxpert\PayXpertConfig;
+use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentProvider;
+use Money\Currency;
+use Money\Money;
 use tests\base\DatabaseIntegrationTestBase;
+use tests\helpers\mothers\CreditCardMother;
 
 class PayXpertCardPaymentProviderFunctionalTest extends DatabaseIntegrationTestBase
 {
@@ -21,7 +26,8 @@ class PayXpertCardPaymentProviderFunctionalTest extends DatabaseIntegrationTestB
      */
     public function test_charge_calledWithValidCreditCard_returnProperResponse()
     {
-
+        $sut = new PayXpertCardPaymentProvider(new PayXpertConfig('103893','Panam Test Site', '5}G,,5[L.A~*&/{h'));
+        var_dump($sut->charge(new Money(10000, new Currency('EUR')), CreditCardMother::aValidCreditCard()));
     }
 
 }

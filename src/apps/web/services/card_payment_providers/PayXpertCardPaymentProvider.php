@@ -23,5 +23,7 @@ class PayXpertCardPaymentProvider implements ICardPaymentProvider
         $transaction = $this->gatewayClient->newTransaction('CCSale');
         $transaction->setTransactionInformation('100', 'EUR', 'order title');
         $transaction->setCardInformation($card->getCardNumbers(), $card->getCVV(), $card->getHolderName(), $card->getExpiryMonth(), $card->getExpiryYear());
+        $transaction->setShopperInformation('NA', 'NA', 'NA', 'NA', 'NA', 'ZZ', 'NA', 'NA');
+        return $transaction->send();
     }
 }

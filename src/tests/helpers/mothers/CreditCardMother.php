@@ -21,7 +21,7 @@ class CreditCardMother
             new CardHolderName('Pagafantas'),
             new CardNumber('4012888888881881'),
             new ExpiryDate('10/2024'),
-            new CVV('233')
+            new CVV('000')
         );
     }
 
