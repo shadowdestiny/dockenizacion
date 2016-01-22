@@ -13,11 +13,9 @@
 {% block template_scripts %}
     <script>
         $('#form-email-settings').on('submit',function(){
-           var pattern = /^[1-9]/;
-            if(!pattern.test($('#amount-threshold').val()) && $('#check0').is(':checked')){
-                $('#amount-threshold').addClass('error');
-                return false;
-            }
+            var value = $('#amount-threshold').val().replace(/^0+/, '');
+            $('#amount-threshold').val(value);
+            return true;
         });
         $('#amount-threshold').on('keypress',function(e) {
             var evt = e || window.event;
