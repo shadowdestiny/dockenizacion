@@ -48,6 +48,11 @@ var EuroMillionsNumber = React.createClass({
                 }, delay_to_disappear);
             }
         }
+        if(!nextProps.random_animation) {
+            this.setState({
+                active : false
+            });
+        }
     },
 
     propTypes: {
@@ -56,12 +61,7 @@ var EuroMillionsNumber = React.createClass({
         onNumberClick: React.PropTypes.func.isRequired
     },
     render: function () {
-        var class_name = '';
-        if(this.state.active) {
-            class_name = "btn gwp n" + this.props.number + " active";
-        } else {
-            class_name = "btn gwp n" + this.props.number;
-        }
+        var class_name = (this.state.active) ? "btn gwp n" + this.props.number + " active" : "btn gwp n" + this.props.number;
 
         if(!this.props.random_animation && !this.state.active) {
             class_name = this.props.selected ? "btn gwp n" + this.props.number + " active" : "btn gwp n" + this.props.number;

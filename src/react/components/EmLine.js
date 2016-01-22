@@ -119,8 +119,8 @@ var EuroMillionsLine = React.createClass({
                             stars : []
                         },
                         show_btn_clear: false,
-        });
-        this.props.callback( this.props.lineNumber,0,0);
+        })
+        this.props.callback(this.props.lineNumber,0,0);
     },
 
     handleClickRandom : function ()
@@ -166,6 +166,7 @@ var EuroMillionsLine = React.createClass({
         } else {
             this.state.show_btn_clear = true;
         }
+
         for (var i = 1; i <= 50; i = i + j) {
             var row = [];
             for (var j = 0; j < this.props.numberPerLine; j++) {

@@ -31,8 +31,8 @@
     > .cols > div:last-child{padding:0 0 0 15px;}
   }
   .info{text-align:center;}
-  .txt1{font-size:$h4; margin-bottom:10px; font-weight:bold; color:$grey-light;}
-  .txt2{position:relative; font-size:$h1; margin-bottom:24px; text-transform:uppercase; font-weight:bold;}
+  .txt1{font-size:$h4; margin-bottom:10px; font-weight:700; color:$grey-light;}
+  .txt2{position:relative; font-size:$h1; margin-bottom:24px; text-transform:uppercase; font-weight:700;}
   .terms{
     margin:2em 0; text-align:center;
     br{display:none;}
@@ -82,7 +82,7 @@
     -webkit-appearance:none; -webkit-border-radius:0; height:1%; /* Fix Safari */
   }
   .combo.currency{padding:0 9px;}
-  .txt-fee{font-weight:bold;}
+  .txt-fee{font-weight:700;}
   .txt-fee, .desc, .detail, .summary{font-size:$basic-size;}
   .change, .add-funds, .txt-currency{font-size:$small;}
   .txt-fee, .detail, .type{float:left;}
@@ -131,7 +131,7 @@
      float:right; margin-right:10px;
     .txt{font-size:$small; position:relative; top:-2px;}
     .value{
-      font-size:$basic-size; font-weight:bold; color:$green;
+      font-size:$basic-size; font-weight:700; color:$green;
       .old{text-decoration: line-through; color:$grey-light;}
     }
   }
@@ -156,6 +156,7 @@
     &:last-child{padding-right:0px;}
   }
   .submit{margin-top:18px; width:100%;  text-align:center;}
+  .info{color:$purple; font-weight:700;}
 }
 
 .success{
@@ -222,6 +223,8 @@
   .box-total .txt{float:left;}
   .box-order{text-align:left;}
   .box-jackpot{margin-bottom:1em; float:left;}
+  .num{width:auto;}
+  #content .balance{float:none;}
 }
 .success{
   .ticket-col{display:none!important;}
@@ -243,10 +246,6 @@
 .payment{
   .cols > div{
     padding:0; margin:0;
-/*
-    &:first-child{padding-left:0px;}
-    &:last-child{padding-right:0px;}
-*/
   }
 }
 }

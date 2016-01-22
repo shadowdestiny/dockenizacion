@@ -48,6 +48,12 @@ var EuroMillionsStar = React.createClass({
                 }, delay_to_disappear);
             }
         }
+
+        if(!nextProps.random_animation) {
+            this.setState({
+                active : false
+            });
+        }
     },
 
     propTypes: {
@@ -60,7 +66,7 @@ var EuroMillionsStar = React.createClass({
 
         var number = this.props.number;
         var class_name = '';
-        if(this.state.active){
+        if(this.state.active ){
             class_name = 'ico s' + number + ' active';
         } else {
             class_name = 'ico s' + number;

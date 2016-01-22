@@ -2,6 +2,7 @@
 namespace EuroMillions\web\controllers;
 
 use EuroMillions\web\entities\User;
+use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\forms\MyAccountForm;
 use EuroMillions\web\forms\SignInForm;
 use EuroMillions\web\forms\SignUpForm;
@@ -32,6 +33,9 @@ class CartController extends PublicSiteControllerBase{
         $user_id = $this->request->get('user');
         /** @var UserId $currenct_user_id */
         $current_user_id = $this->authService->getCurrentUser()->getId();
+        $credit_card_form = new CreditCardForm();
+        $form_errors = $this->getErrorsArray();
+
         // for the moment user_id is a guest_user
         $result = false;
         if(!empty($user_id)) {
@@ -49,6 +53,7 @@ class CartController extends PublicSiteControllerBase{
             $user = $this->userService->getUser($current_user_id);
             $result = $this->domainServiceFactory->getPlayService()->getPlaysFromTemporarilyStorage($user);
         }
+        //EMTD: @rmrbest move to a service method to get total price
         $price_single_bet = $this->lotteriesDataService->getSingleBetPriceByLottery('EuroMillions');
         $play_config_json = '';
         $bet_price_value_currency = $this->currencyService->convert($price_single_bet,$user->getUserCurrency());
@@ -66,16 +71,22 @@ class CartController extends PublicSiteControllerBase{
         }
 
         $currency_symbol = $this->currencyService->getSymbol($bet_price_value_currency,$user->getBalance()->getCurrency());
+        $symbol_position = $this->currencyService->getSymbolPosition($user->getBalance()->getCurrency(),$user->getUserCurrency());
 
         return $this->view->setVars([
             'total' => !empty($total_price) ? $total_price : 0,
+            'form_errors' => $form_errors,
             'currency_symbol' => $currency_symbol,
+            'symbol_position' => $symbol_position,
             'fee_below' => $fee_below->getAmount() / 100,
             'fee_charge' => $fee_charge->getAmount() / 100,
             'single_bet_price' => $bet_price_value_currency->getAmount() / 10000,
             'wallet_balance' => $wallet_balance->getAmount() / 100,
             'play_config_list' => $play_config_json->getValues(),
-            'message' => (!empty($msg)) ? $msg : ''
+            'message' => (!empty($msg)) ? $msg : '',
+            'errors' => [],
+            'msg' => [],
+            'credit_card_form' => $credit_card_form
         ]);
     }
 
@@ -265,6 +276,9 @@ class CartController extends PublicSiteControllerBase{
             'surname'          => '',
             'confirm_password' => '',
             'country'          => '',
+            'card-number' => '',
+            'card-holder' => '',
+            'card-cvv' => '',
 
         ];
         return $form_errors;
@@ -306,6 +320,5 @@ class CartController extends PublicSiteControllerBase{
         sort($countries);
         return $myaccount_form;
     }
-
 
 }

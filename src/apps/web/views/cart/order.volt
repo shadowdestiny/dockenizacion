@@ -5,6 +5,7 @@
 {% block template_scripts %}
     {% set play_configs = play_config_list %}
     <script>
+
         var play_list = '<?php echo $play_configs ?>';
         var wallet_balance = '<?php echo $wallet_balance ?>';
         var total_price = parseFloat('<?php echo $total?>');
@@ -12,6 +13,8 @@
         var currency_symbol = '<?php echo empty($currency_symbol) ? $current_currency : $currency_symbol;?>';
         var price_below_fee = '<?php echo number_format($fee_below,2,".",","); ?>';
         var fee_charge = '<?php echo number_format($fee_charge,2,".",","); ?>';
+        var symbol_position = '<?php echo $symbol_position ?>';
+
     </script>
     <script src="/w/js/react/cart.js"></script>
 {% endblock %}
@@ -45,43 +48,6 @@
                     {% set component='{"where": "cart"}'|json_decode %}
                     {% include "account/_add-card.volt" %}
                 </div>
-
-                {#            <div class="box-order">
-                                <div class="row cl">
-                                    <div class="txt-fee">
-                                        {{ language.translate("Fee for transactions below") }} &euro; 12,00
-                                    </div>
-                                    <div class="right tweak">
-                                        <div class="summary val">&euro; 0,35</div>
-                                        <div class="box-funds cl">
-                                            <a class="add-funds" href="javascript:void(0)">{{ language.translate("Add Funds to avoid charges") }}</a><br>
-                                            <div class="box-combo">
-                                                <div class="combo currency">&euro;</div><input class="combo input" type="text" placeholder='{{ language.translate("Insert an ammount")}}' value="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row cl">
-                                    <div class="summary val">&euro; -25,00</div>
-                                    <div class="box-wallet cl">
-                                        <label for="pay-wallet" class="txt">Pay with your Wallet balance</label>
-                                        <input id="pay-wallet" type="checkbox" class="checkbox" checked>
-                                    </div>
-                                </div>
-                            </div>
-                {#            <div class="box-total cl">
-                                <div class="txt-currency desktop">
-                                    {{ language.translate("Currencies are just informative, transactions are charged in Euros.") }}
-                                </div>
-
-                                <div class="total">
-                                    <div class="txt">{{ language.translate("Total") }}</div><div class="val">&euro; 400,00</div>
-                                </div>
-                            </div>
-
-                            <div class="box-bottom cl">
-                                <a href="javascript:void(0)" class="btn blue big buy">{{ language.translate("Continue to Payment") }}</a>
-                            </div>#}
 
             </div>
         </div>

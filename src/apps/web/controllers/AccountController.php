@@ -4,16 +4,24 @@
 namespace EuroMillions\web\controllers;
 
 
+use apps\web\forms\MyAccountWalletAddFunds;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\services\card_payment_providers\FakeCardPaymentProvider;
 use EuroMillions\web\vo\dto\PlayConfigDTO;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\UserNotificationsDTO;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\NotificationType;
-use Phalcon\Mvc\Model\Validator\Numericality;
+use EuroMillions\web\vo\UserId;
+use Money\Money;
+use Phalcon\Forms\Element\Text;
+use Phalcon\Forms\Form;
+use Phalcon\Validation\Validator\Numericality;
+use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation;
 use Phalcon\Validation\Message;
 
@@ -153,13 +161,64 @@ class AccountController extends PublicSiteControllerBase
 
     public function walletAction()
     {
+        $credit_card_form = new CreditCardForm();
+        $credit_card_form = $this->appendElementToAForm($credit_card_form);
+        $form_errors = $this->getErrorsArray();
+
         return $this->view->setVars([
             'which_form' => 'wallet',
+            'form_errors' => $form_errors,
+            'errors' => [],
+            'msg' => [],
+            'credit_card_form' => $credit_card_form,
+            'show_form_add_fund' => false,
+            'show_box_basic' => true
         ]);
     }
 
     public function addFundsAction()
     {
+        $credit_card_form = new CreditCardForm();
+        $credit_card_form = $this->appendElementToAForm($credit_card_form);
+        $form_errors = $this->getErrorsArray();
+        $funds_value = $this->request->getPost('funds-value');
+        if($this->request->isPost()) {
+            if ($credit_card_form->isValid($this->request->getPost()) == false) {
+                $messages = $credit_card_form->getMessages(true);
+                /**
+                 * @var string $field
+                 * @var Message\Group $field_messages
+                 */
+                foreach ($messages as $field => $field_messages) {
+                    $errors[] = $field_messages[0]->getMessage();
+                    $form_errors[$field] = ' error';
+                }
+            }else {
+                /** @var UserId $user_id */
+                $user_id = $this->authService->getCurrentUser();
+                /** User $user */
+                $user = $this->userService->getUser($user_id);
+                if(null != $user ){
+                    $this->userService->
+                    /** @var ActionResult $result */
+                    $result = $this->userService->recharge($user, new FakeCardPaymentProvider(), new Money($funds_value, $user->getUserCurrency()));
+                    if($result->success()) {
+                        $msg = 'Your balance was update with a value: ' . $result->getValues() / 100;
+                    } else {
+                        $errors[] = $result->getValues();
+                    }
+                }
+            }
+        }
+        $this->view->pick('/account/wallet');
+        return $this->view->setVars([
+            'form_errors' => $form_errors,
+            'errors' => $errors,
+            'credit_card_form' => $credit_card_form,
+            'msg' => !empty($msg) ? $msg : '',
+            'show_form_add_fund' => true,
+            'show_box_basic' => false,
+        ]);
 
     }
 
@@ -204,8 +263,8 @@ class AccountController extends PublicSiteControllerBase
         $config_value_results = $this->request->getPost('config_value_results');
 
         $message = null;
-        $list_notifications = null;
 
+        $list_notifications = null;
         try {
             if($reach_notification) {
                 $notificationType = new NotificationType(NotificationType::NOTIFICATION_THRESHOLD, $config_value_threshold);
@@ -273,12 +332,39 @@ class AccountController extends PublicSiteControllerBase
         if($this->request->getPost('jackpot_reach') == 'on') {
             $validation->add('config_value_jackpot_reach',
                 new Validation\Validator\Numericality([
-                   'message' => 'Error. You should insert a numeric value.'
-
+                   'message' => 'Error. You can insert only a numeric value, symbols and letters are not allowed.'
                 ]));
             $messages = $validation->validate($this->request->getPost());
         }
         return $messages;
     }
 
+    /**
+     * @return array
+     */
+    private function getErrorsArray()
+    {
+        $form_errors = [
+            'card-number' => '',
+            'card-holder' => '',
+            'card-cvv' => '',
+            'funds-value' => '',
+        ];
+        return $form_errors;
+    }
+
+    private function appendElementToAForm(Form $form)
+    {
+
+        $fund_value = new Text('funds-value', array(
+            'placeholder' => 'Insert an ammount'
+        ));
+        $fund_value->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'A value is required to add funds'
+            ))
+        ));
+       $form->add($fund_value);
+        return $form;
+    }
 }

@@ -45,6 +45,17 @@ class CurrencyService
         return $money_formatter->getSymbol($locale, $money);
     }
 
+    public function getSymbolPosition($locale, Currency $currency)
+    {
+        $money_formatter = new MoneyFormatter();
+        try {
+            return $money_formatter->getSymbolPosition($locale, $currency);
+        }catch(\Exception $e) {
+            return 1;
+        }
+
+    }
+
     public function getActiveCurrenciesCodeAndNames()
     {
         /** @var Currency $collection */

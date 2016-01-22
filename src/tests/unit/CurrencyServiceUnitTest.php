@@ -75,6 +75,21 @@ class CurrencyServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method getSymbolPosition
+     * when calledWithIncorrectSymbol
+     * should throwException
+     */
+    public function test_getSymbolPosition_calledWithIncorrectSymbol_throwException()
+    {
+        $this->markTestSkipped();
+        $this->setExpectedException('\Exception');
+        $currency = new Currency('TEST');
+        $locale = new Currency('TEST');
+        $sut = $this->getSut();
+        $sut->getSymbolPosition($locale,$currency);
+    }
+
+    /**
      * @return mixed
      */
     protected function getSut()

@@ -4,7 +4,7 @@
         <span class="txt">{{ msg }}</span>
     </div>
 {% endif %}
-{% if which_form == 'edit' and errors %}
+{% if errors %}
     <div class="box error">
         <span class="ico-warning ico"></span>
         <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
@@ -16,6 +16,13 @@
         <div class="cols fix-margin">
             <div class="col6 first">
     {% endif %}
+
+    {% if component.where == 'cart' %} 
+        <div class="h1 res info">
+            Total to be paid &euro; 12.10
+        </div>
+    {% endif %}
+
     <h2 class="h3 yellow">{{ language.translate("Enter your credit card details") }}</h2>
 
     <div class="card-info">
@@ -26,7 +33,7 @@
             <label class="label" for="add-card-number">
                 {{ language.translate("Card Number") }} <span class="asterisk">*</span>
             </label>
-            <input id="add-card-number" name="card-number" class="input" type="text" value="{#{{ payment_method.cardNumber }}#}">
+                    {{ credit_card_form.render('card-number', {'class':'input'~form_errors['card-number']}) }}
         {% if component.where == 'cart' %}
                 </div>
                 <div class="col6">
@@ -34,7 +41,7 @@
         <label class="label" for="add-card-name">
             {{ language.translate("Full Name on Card") }} <span class="asterisk">*</span>
         </label>
-        <input id="add-card-name" name="card-holder" class="input" type="text" value="{#{{ payment_method.cardHolderName }}#}">
+                    {{ credit_card_form.render('card-holder', {'class':'input'~form_errors['card-holder']}) }}
         {% if component.where == 'cart' %}
                 </div>
             </div>
@@ -65,12 +72,12 @@
                 <option>12</option>
             </select>
             <select class="select year" name="year">
-                <option>2014</option>
-                <option>2015</option>
                 <option>2016</option>
                 <option>2017</option>
                 <option>2018</option>
                 <option>2019</option>
+                <option>2020</option>
+                <option>2021</option>
             </select>
         </div>
         <div class="left cvv">
@@ -78,7 +85,7 @@
                 {{ language.translate("CVV") }} <span class="asterisk">*</span>
                 <svg class="ico v-question-mark"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
             </label>
-            <input id="cvv" name="card-cvv" class="input " type="text">
+            {{ credit_card_form.render('card-cvv', {'class':'input'~form_errors['card-cvv']}) }}
         </div>
     </div>
 
@@ -96,9 +103,10 @@
             </div>
             <div class="col6 second">
                 <h2 class="h3 yellow">{{ language.translate("Add funds to your wallet") }}</h2>
-                <div class="balance"><strong class="purple">Wallet balance:</strong> <span class="value">&euro; 20.00</span></div>
+                <div class="balance"><strong class="purple">{{ language.translate("Wallet balance:") }}</strong> <span class="value">&euro; 20.00</span></div>
                 <div class="box-wallet overview">
-                    <span class="symbol">&euro;</span><input class="input" type="text" placeholder="Enter any amount">
+                    <span class="symbol">&euro;</span>
+                        {{ credit_card_form.render('funds-value', {'class':'input'~form_errors['funds-value']}) }}
                     <label class="label btn green">
                         {{ language.translate("Add funds to your wallet") }}
                         <input type="submit" class="hidden">
@@ -106,7 +114,7 @@
                 </div>
                 <div class="notes">
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                    <span class="txt">Fee of &euro; 0.35 will be charged for transfers of small amount</span>
+                    <span class="txt">{{ language.translate("Fee of &euro; 0.35 will be charged for transfers of small amount") }}</span>
                 </div>
             </div>
         </div>
