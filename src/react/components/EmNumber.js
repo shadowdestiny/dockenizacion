@@ -6,8 +6,8 @@ var EuroMillionsNumber = React.createClass({
     {
         return {
             selected: false,
-            timeout_number_selected : 150,
-            timeout_number_not_selected : 500,
+            timeout_number_selected : 300,
+            timeout_number_not_selected : 1000
         }
     },
 
@@ -27,22 +27,25 @@ var EuroMillionsNumber = React.createClass({
 
     componentWillReceiveProps : function (nextProps) {
         if(nextProps.random_animation) {
-            var delay = Math.random() * this.props.timeout_number_not_selected;
+            var delay_to_appear_non_selected = Math.random() * this.props.timeout_number_not_selected;
+            var increase_to_appear_selected = Math.random() * this.props.timeout_number_selected;
+            var delay_to_appear_selected = this.props.timeout_number_not_selected + increase_to_appear_selected;
+            var delay_to_disappear = delay_to_appear_non_selected + Math.random() * this.props.timeout_number_selected;
             if(nextProps.selected) {
                 window.setTimeout(() => {
                     this.setState({ active : true })
-                }, delay + Math.random() + this.props.timeout_number_selected);
+                }, delay_to_appear_selected);
             } else {
                 window.setTimeout(() => {
                     this.setState({
                         active: true
                     });
-                }, delay);
+                }, delay_to_appear_non_selected);
                 window.setTimeout(() => {
                     this.setState({
                         active: false
                     });
-                }, delay + Math.random() + 40);
+                }, delay_to_disappear);
             }
         }
     },
