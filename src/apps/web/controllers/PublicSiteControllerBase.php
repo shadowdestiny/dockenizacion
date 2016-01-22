@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\entities\Language;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\AuthService;
@@ -54,6 +55,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->setTopNavValues();
         $this->setNavValues();
         $this->setCommonTemplateVariables();
+        $this->setClosingModalVariables();
 
         $controller_not_referer = [
             'user-access',
@@ -138,4 +140,17 @@ class PublicSiteControllerBase extends ControllerBase
     {
         $this->view->setVar('currency_symbol_first', true);
     }
+
+    private function setClosingModalVariables()
+    {
+        //Vars draw closing modal
+        $dateUtil = new DateTimeUtil();
+        $lottery_date_time = $this->domainServiceFactory->getLotteriesDataService()->getNextDateDrawByLottery('EuroMillions');
+        $time_to_remain = $dateUtil->getTimeRemainingToCloseDraw($lottery_date_time);
+        $this->view->setVar('time_to_remain_draw', (int) ($time_to_remain / 60) * 1000);
+        $this->view->setVar('timeout_to_closing_modal', 30 * 60 * 1000);
+        $this->view->setVar('interval_show_closing_modal',30000);
+        $this->view->setVar('phrase_show_closing_modal', 'Today\’s draw is closed, you will play for the next');
+    }
+
 }

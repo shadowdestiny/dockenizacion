@@ -190,5 +190,24 @@ $(function(){
     }
 });
 
+$(function(){
+
+    $('.ending').hide();
+    if( parseInt(remain_time) < parseInt(time_out_closing_modal)) {
+        $('.ending').show();
+        setTimeout(function(){
+            $('.ending').hide();
+        },30000);
+        setTimeout(function(){
+            setInterval(function(){
+                $('.ending').show();
+                setTimeout(function(){
+                    $('.ending').hide();
+                },30000);
+            },60000);
+        },60000);
+    }
+});
+
 
 

@@ -97,6 +97,7 @@ var PlayPage = React.createClass({
     {
         var current_lines = this.state.storage;
         var num_valid_lines = 0;
+
         current_lines.forEach(function(value) {
             if(value.numbers.length == 5 && value.stars.length == 2) {
                 num_valid_lines++;
@@ -137,7 +138,7 @@ var PlayPage = React.createClass({
             'stars': stars
         };
         localStorage.setItem('bet_line', JSON.stringify(this.state.storage, function(k,v){
-                return (v == null) ? { 'numbers' : [], 'stars' : []} : v;
+                return (v === null || v === 'null' ) ? { 'numbers' : [], 'stars' : []} : v;
             }
         ));
         this.updatePrice();

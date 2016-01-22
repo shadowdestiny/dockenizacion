@@ -40,4 +40,10 @@ class DateTimeUtil
         return intval( $interval->days / 7 );
     }
 
+    public function getTimeRemainingToCloseDraw( \DateTime $time_close_draw )
+    {
+        $now = new \DateTime();
+        return $time_to_remain = $time_close_draw->getTimestamp() - $now->getTimestamp();
+    }
+
 }
