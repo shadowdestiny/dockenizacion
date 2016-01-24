@@ -193,7 +193,7 @@ $(function(){
 $(function(){
 
     $('.ending').hide();
-    if( parseInt(remain_time) < parseInt(time_out_closing_modal)) {
+    if( remain_time ) {
         $('.ending').show();
         setTimeout(function(){
             $('.ending').hide();
