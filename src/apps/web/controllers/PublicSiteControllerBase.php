@@ -146,13 +146,15 @@ class PublicSiteControllerBase extends ControllerBase
         //Vars draw closing modal
         $dateUtil = new DateTimeUtil();
         $lottery_date_time = $this->domainServiceFactory->getLotteriesDataService()->getNextDateDrawByLottery('EuroMillions');
-
-        $lottery_date_time = new \DateTime('2016-01-24 21:00:00');
+        //$lottery_date_time = new \DateTime('2016-01-25 11:35:00');
         $time_to_remain = $dateUtil->getTimeRemainingToCloseDraw($lottery_date_time);
+        $last_minute = $dateUtil->isLastMinuteToDraw($lottery_date_time);
         $this->view->setVar('time_to_remain_draw', $time_to_remain);
+        $this->view->setVar('last_minute', $last_minute);
+        $this->view->setVar('draw_date', $lottery_date_time->format('Y-m-d H:i:s'));
         $this->view->setVar('timeout_to_closing_modal', 30 * 60 * 1000);
-        $this->view->setVar('interval_show_closing_modal',30000);
-        $this->view->setVar('phrase_show_closing_modal', 'Today\’s draw is closed, you will play for the next');
+//        $this->view->setVar('interval_show_closing_modal',30000);
+//        $this->view->setVar('phrase_show_closing_modal', 'Today\’s draw is closed, you will play for the next');
     }
 
 }

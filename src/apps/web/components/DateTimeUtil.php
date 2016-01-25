@@ -4,6 +4,7 @@
 namespace EuroMillions\web\components;
 
 
+use DateTimeZone;
 use Phalcon\Di;
 
 class DateTimeUtil
@@ -16,6 +17,7 @@ class DateTimeUtil
 
     public function __construct()
     {
+        date_default_timezone_set('Europe/Madrid');
         $this->di = \Phalcon\DI::getDefault();;
     }
 
@@ -43,9 +45,17 @@ class DateTimeUtil
     public function getTimeRemainingToCloseDraw( \DateTime $time_close_draw )
     {
         $now = new \DateTime();
-        $barrier_time = strtotime($time_close_draw->format('Y-m-d H:i:s') . ' -90 minutes' );
+        $barrier_time = $time_close_draw->getTimestamp() - 1800;
+        //$barrier_time = strtotime($time_close_draw->format('Y-m-d H:i:s') . ' -30 minutes' );
         return ($now->getTimestamp() > $barrier_time);
-        //return $time_to_remain = $time_close_draw->getTimestamp() - $now->getTimestamp();
+    }
+
+    public function isLastMinuteToDraw( \DateTime $time_close_draw )
+    {
+        $now = new \DateTime();
+        $last_minute = $time_close_draw->getTimestamp() - 60;
+        //$last_minute  = strtotime($time_close_draw->format('Y-m-d H:i:s') . ' -1 minute' );
+        return ($now->getTimestamp() > $last_minute);
     }
 
 }

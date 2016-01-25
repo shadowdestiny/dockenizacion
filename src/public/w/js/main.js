@@ -188,26 +188,32 @@ $(function(){
     if(!$.cookie('lastSeen')) {
         $.cookie('lastSeen', new Date().valueOf());
     }
-});
 
-$(function(){
-
+    var timeout_warning = '';
     $('.ending').hide();
-    if( remain_time ) {
+    if (remain_time) {
         $('.ending').show();
-        setTimeout(function(){
+        setTimeout(function () {
             $('.ending').hide();
-        },30000);
-        setTimeout(function(){
-            setInterval(function(){
+        }, 30000);
+        timeout_warning = setTimeout(function () {
+            setInterval(function () {
                 $('.ending').show();
-                setTimeout(function(){
+                setTimeout(function () {
                     $('.ending').hide();
-                },30000);
-            },60000);
-        },60000);
+                }, 30000);
+            }, 300000);
+        }, 60000);
     }
+    if (last_minute) {
+        clearTimeout(timeout_warning);
+        return $('.ending').countdown(draw_date).
+            on('update.countdown', function (event) {
+                $(this).html(event.strftime('%-Ss'));
+            }).on('finish.countdown', function (event) {
+                $(this).html('Today’s draw is closed, you will play for the next');
+            });
+
+    }
+
 });
-
-
-
