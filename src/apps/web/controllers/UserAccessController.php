@@ -114,8 +114,6 @@ class UserAccessController extends ControllerBase
             }
         }
 
-        var_dump($sign_in_form,$sign_up_form);die();
-
         $this->view->pick('sign-in/index');
         return $this->view->setVars([
             'which_form'  => 'up',
