@@ -26,7 +26,11 @@
                 <option name="default">0</option>
             </options>
         </field>
-
+        <field name="show_modal_winning" type="boolean" nullable="true">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
         <embedded name="password" class="EuroMillions\web\vo\Password" use-column-prefix="false"/>
         <embedded name="email" class="EuroMillions\web\vo\Email" use-column-prefix="false"/>
         <embedded name="rememberToken" class="EuroMillions\web\vo\RememberToken" use-column-prefix="false"/>

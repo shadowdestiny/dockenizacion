@@ -46,7 +46,6 @@ class PriceCheckoutService
         if(!$date) {
             $date = new \DateTime();
         }
-
         $result_awarded = $this->betRepository->getCheckResult($date->format('Y-m-d'));
         if(!empty($result_awarded)){
             return new ActionResult(true,$result_awarded);
@@ -60,6 +59,7 @@ class PriceCheckoutService
         if($amount->getAmount() > 0) {
             try{
                 $user->awardPrize($amount);
+                $user->setShowModalWinning(true);
                 $this->userRespository->add($user);
                 $this->entityManager->flush($user);
                 return new ActionResult(true);

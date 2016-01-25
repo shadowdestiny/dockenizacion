@@ -40,7 +40,7 @@ class BetRepository extends RepositoryBase
     public function getCheckResult($date)
     {
         $rsm = new ResultSetMapping;
-        $rsm->addEntityResult('EuroMillions\entities\PlayConfig', 'p');
+        $rsm->addEntityResult('EuroMillions\web\entities\PlayConfig', 'p');
         $rsm->addFieldResult('p','id','id');
         $rsm->addMetaResult('p','user_id','user_id');
         $rsm->addScalarResult('cnt','cnt');

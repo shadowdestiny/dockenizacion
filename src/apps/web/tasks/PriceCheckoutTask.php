@@ -30,7 +30,7 @@ class PriceCheckoutTask extends TaskBase
     public function initialize(PriceCheckoutService $priceCheckoutService = null, LotteriesDataService $lotteriesDataService = null, EmailService $emailService = null)
     {
         $domainFactory = new DomainServiceFactory($this->getDI(), new ServiceFactory($this->getDI()));
-        ($priceCheckoutService) ? $this->priceCheckoutService = $priceCheckoutService : $domainFactory->getPriceCheckoutService();
+        $this->priceCheckoutService = $priceCheckoutService ? $this->priceCheckoutService = $priceCheckoutService : $domainFactory->getPriceCheckoutService();
         ($lotteriesDataService) ? $this->lotteriesDataService = $lotteriesDataService : $this->lotteriesDataService = $domainFactory->getLotteriesDataService();
         ($emailService) ? $this->emailService = $emailService : $this->emailService = $domainFactory->getServiceFactory()->getEmailService();
         parent::initialize();
@@ -45,7 +45,6 @@ class PriceCheckoutTask extends TaskBase
         $play_configs_result_awarded = $this->priceCheckoutService->playConfigsWithBetsAwarded($today);
         //get breakdown
         $result_breakdown = $this->lotteriesDataService->getBreakDownDrawByDate($lottery_name,$today);
-
         if($result_breakdown->success() && $play_configs_result_awarded->success()){
             /** @var EuroMillionsDrawBreakDown $euromillions_breakDown */
             $euromillions_breakDown = $result_breakdown->getValues();

@@ -25,14 +25,17 @@ function checkWin(){
 }
 
 $(function(){
-    $("#win").easyModal({
-	    top:100,
-	    autoOpen:true,
-	    overlayOpacity:0.7,
-	    overlayColor:"#000",
-	    transitionIn:'animated fadeIn',
-	    transitionOut:'animated fadeOut'
-    });
+	var show_modal = '<?php echo $show_modal_winning ?>';
+    if(show_modal) {
+		$("#win").easyModal({
+			top:100,
+			autoOpen:true,
+			overlayOpacity:0.7,
+			overlayColor:"#000",
+			transitionIn:'animated fadeIn',
+			transitionOut:'animated fadeOut'
+		});
+	}
     $(window).resize(checkWin); //fix alignment of the popup when resized
 	//countdown
 	var html_formatted_offset = [];
@@ -50,7 +53,7 @@ $(function(){
 {% endblock %}
 
 {% block modal %}
-<a href="/account/transaction" id="win" class="modal win">
+<a href="/account/wallet" id="win" class="modal win">
 	<span class="btn-box"><span class="btn blue">{{ language.translate("View the prize") }}</span></span>
 </a>
 {% endblock %}

@@ -80,6 +80,7 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
             'wallet'  => new Wallet(new Money(3000, new Currency('EUR'))),
             'validated' => 0,
             'jackpot_reminder' => 0,
+            'show_modal_winning' => 0
         ]);
         /** @var Password $hashed_pass */
         $hashed_pass = $user->getPassword();

@@ -50,6 +50,8 @@ class User extends EntityBase implements IEntity, IUser
 
     protected $userNotification;
 
+    protected $show_modal_winning;
+
     /**
      * @return ArrayCollection
      */
@@ -363,6 +365,20 @@ class User extends EntityBase implements IEntity, IUser
         return $this->wallet;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getShowModalWinning()
+    {
+        return $this->show_modal_winning;
+    }
 
+    /**
+     * @param mixed $show_modal_winning
+     */
+    public function setShowModalWinning($show_modal_winning)
+    {
+        $this->show_modal_winning = $show_modal_winning;
+    }
 
 }
