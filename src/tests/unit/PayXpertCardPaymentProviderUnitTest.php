@@ -44,7 +44,6 @@ class PayXpertCardPaymentProviderUnitTest extends UnitTestBase
     /**
      * @param $creditCard
      * @param $success
-     * @param $expected_result
      * @param $errorCode
      * @param $errorMessage
      */
