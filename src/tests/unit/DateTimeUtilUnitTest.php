@@ -53,6 +53,20 @@ class DateTimeUtilUnitTest extends UnitTestBase
     }
 
 
+    /**
+     * method getTimeRemainingToCloseDraw
+     * when called
+     * should returnRemainingTimeToCloseDrawInMiliSeconds
+     */
+    public function test_getTimeRemainingToCloseDraw_called_returnRemainingTimeToCloseDraw()
+    {
+        $sut = $this->getSut();
+        $time_to_close_draw = new \DateTime('2016-01-22 12:00:00');
+        $time_now = new \DateTime('2016-01-22 11:31:00');
+        $actual = $sut->getTimeRemainingToCloseDraw($time_to_close_draw, $time_now);
+    }
+    
+
     private function getSut()
     {
         return new DateTimeUtil();

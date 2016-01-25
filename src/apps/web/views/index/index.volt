@@ -44,6 +44,7 @@ $(function(){
 	var date =  '{{ date_to_draw }}'; //   '2016-01-15 14:00:00';
 	var finish_text = "{{ language.translate('Draw closed') }}";
 	var count  = count_down(element,html_formatted,html_formatted_offset,date,finish_text,null);
+
 });
 </script>
 {% endblock %}

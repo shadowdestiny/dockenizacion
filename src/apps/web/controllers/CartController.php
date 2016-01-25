@@ -29,7 +29,6 @@ class CartController extends PublicSiteControllerBase{
 
 
     public function orderAction(){
-
         $user_id = $this->request->get('user');
         /** @var UserId $currenct_user_id */
         $current_user_id = $this->authService->getCurrentUser()->getId();
@@ -215,7 +214,7 @@ class CartController extends PublicSiteControllerBase{
                 ) {
                     $errors[] = 'Email/password combination not valid';
                 } else {
-                    return $this->response->redirect('/cart/order?user='.$userId->getId());
+                    return $this->response->redirect('cart/order?user='.$userId->getId());
                 }
             }
         }

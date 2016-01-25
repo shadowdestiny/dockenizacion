@@ -1,5 +1,6 @@
 <?php
 namespace EuroMillions\web\controllers;
+use EuroMillions\web\components\DateTimeUtil;
 use Phalcon\Di;
 
 class IndexController  extends PublicSiteControllerBase
@@ -17,6 +18,7 @@ class IndexController  extends PublicSiteControllerBase
         $this->view->setVar('minutes_till_next_draw', $time_till_next_draw->i);
         $this->view->setVar('date_to_draw', $date_next_draw->format('Y-m-d H:i:s'));
         $this->view->setVar('last_draw_date', $last_draw_date->format('l, F j, Y'));
+
     }
 
     public function notfoundAction($exception = null)

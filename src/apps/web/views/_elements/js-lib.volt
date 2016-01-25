@@ -35,6 +35,12 @@ $(function(){
 });
 </script>
 #}
+<script>
+    var remain_time = '<?php echo $time_to_remain_draw; ?>';
+    var time_out_closing_modal = '<?php echo $timeout_to_closing_modal; ?>';
+    var last_minute = '<?php echo $last_minute; ?>';
+    var draw_date = '<?php echo $draw_date; ?>';
+</script>
 
 <script src="/w/js/vendor/svg4everybody.min.js"></script>
 <script>$(function(){svg4everybody()})</script> {# SVG rendering for include svg for IE9+ #}
