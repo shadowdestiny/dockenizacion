@@ -17,6 +17,7 @@ class PlayController extends PublicSiteControllerBase
         $date_time_util = new DateTimeUtil();
         $dayOfWeek = $date_time_util->getDayOfWeek($draw);
         $single_bet_price = $this->lotteriesDataService->getSingleBetPriceByLottery('EuroMillions');
+        $automatic_random = $this->request->get('random');
 
         if(!$this->authService->isLogged()) {
             $user_currency = $this->userPreferencesService->getCurrency();
@@ -36,6 +37,7 @@ class PlayController extends PublicSiteControllerBase
             'next_draw' => $dayOfWeek,
             'currency_symbol' => $currency_symbol,
             'single_bet_price' => $single_bet_price_currency->getAmount() /10000,
+            'automatic_random' => isset($automatic_random) ? true : false,
         ]);
     }
 }

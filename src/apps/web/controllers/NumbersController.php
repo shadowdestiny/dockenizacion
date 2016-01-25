@@ -14,20 +14,22 @@ class NumbersController extends PublicSiteControllerBase
 
     public function indexAction()
     {
-        //EMTD surely we need send to view more vars
         $lotteryName = 'EuroMillions';
         $now = new \DateTime();
-        $breakDown = $this->lotteriesDataService->getBreakDownDrawByDate($lotteryName,$now);
+        $draw_result = $this->lotteriesDataService->getBreakDownDrawByDate($lotteryName,$now);
         $date_next_draw = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions');
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteriesDataService->getNextJackpot('EuroMillions'));
-        $breakDownDTO = new EuroMillionsDrawBreakDownDTO($breakDown->getValues());        
-        $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
+        if($draw_result->success()) {
+            $breakDownDTO = new EuroMillionsDrawBreakDownDTO($draw_result->getValues()->getBreakDown());
+            $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
+        }
         $last_result = $this->lotteriesDataService->getLastResult($lotteryName);
         $currency_symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol();
         $last_draw_date = $this->lotteriesDataService->getLastDrawDate($lotteryName);
 
         return $this->view->setVars([
-            'break_downs' => $break_down_list,
+            'break_downs' => !empty($break_down_list) ? $break_down_list : '',
+            'id_draw' => !empty($draw_result) ? $draw_result->getValues()->getId() : '',
             'jackpot_value' => $jackpot->getAmount()/100,
             'last_result' => $last_result,
             'date_draw' => $date_next_draw->format('Y-m-d H:i:s'),

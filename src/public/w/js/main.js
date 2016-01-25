@@ -191,7 +191,8 @@ $(function(){
 
     var timeout_warning = '';
     $('.ending').hide();
-    if (remain_time) {
+    var is_remain_time = typeof remain_time == 'undefined' ? false : remain_time;
+    if (is_remain_time) {
         $('.ending').show();
         setTimeout(function () {
             $('.ending').hide();
@@ -205,7 +206,8 @@ $(function(){
             }, 300000);
         }, 60000);
     }
-    if (last_minute) {
+    var is_last_minute = typeof last_minute == 'undefined' ? false : last_minute;
+    if (is_last_minute) {
         clearTimeout(timeout_warning);
         return $('.ending').countdown(draw_date).
             on('update.countdown', function (event) {
@@ -213,7 +215,6 @@ $(function(){
             }).on('finish.countdown', function (event) {
                 $(this).html('Today’s draw is closed, you will play for the next');
             });
-
     }
 
 });

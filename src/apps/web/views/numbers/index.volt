@@ -66,7 +66,7 @@ $(function(){
 										<li class="star"><span class="num">{{ lucky_number }}</span><span class="txt">{{ language.translate("Star ball") }}</span></li>
 									{% endfor %}
 								</ul>
-								<span class="grey left">{{ language.translate("Draw") }} 117</span> 
+								<span class="grey left">{{ language.translate("Draw") }} {{ id_draw }}</span>
 							</div>
 						</div>
 					</div>

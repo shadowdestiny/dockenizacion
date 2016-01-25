@@ -164,7 +164,7 @@ $(function(){
 											<div class="box-btn">
 												<a href="/play" class="btn blue expand">{{ language.translate('I feel lucky') }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
 
-												<a href="/play" class="btn red expand">{{ language.translate('Pick your numbers') }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
+												<a href="/play?random" class="btn red expand">{{ language.translate('Pick your numbers') }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
 											</div>
 										</div>
 										<div class="col6 center box-vector">

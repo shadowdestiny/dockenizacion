@@ -59,6 +59,7 @@ class UserAccessController extends ControllerBase
                 }
             }
         }
+
         $this->view->pick('sign-in/index');
         return $this->view->setVars([
             'which_form'  => 'in',
@@ -112,6 +113,9 @@ class UserAccessController extends ControllerBase
                 }
             }
         }
+
+        var_dump($sign_in_form,$sign_up_form);die();
+
         $this->view->pick('sign-in/index');
         return $this->view->setVars([
             'which_form'  => 'up',
@@ -220,6 +224,9 @@ class UserAccessController extends ControllerBase
             'surname'          => '',
             'confirm_password' => '',
             'country'          => '',
+            'card-number' => '',
+            'card-holder' => '',
+            'card-cvv' => '',
 
         ];
         return $form_errors;

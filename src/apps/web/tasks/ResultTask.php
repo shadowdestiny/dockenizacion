@@ -79,7 +79,7 @@ class ResultTask extends TaskBase
         $draw = $this->lotteriesDataService->getBreakDownDrawByDate('EuroMillions',$today);
         $breakdown_list = null;
         if($draw->success()){
-            $break_down_list = new EuroMillionsDrawBreakDownDTO($draw->getValues());
+            $break_down_list = new EuroMillionsDrawBreakDownDTO($draw->getValues()->getBreakDown());
         }
 
         $emailTemplate = new EmailTemplate();
