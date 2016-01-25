@@ -32,7 +32,7 @@ $(function(){
                     <span class="line"></span>
                     <span class="line-txt">{{ language.translate("Log in") }}</span>
                 </h1>
-     
+
                 {# DO NOT DELETE - Facebook connect
                 <div class="connect">
                     <a href="#" class="btn blue big"><svg class="ico v-facebook"><use xlink:href="/w/svg/icon.svg#v-facebook"></use></svg> {{ language.translate("Log in with Facebook") }}</a>

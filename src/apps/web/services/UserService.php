@@ -89,6 +89,17 @@ class UserService
         return $this->userRepository->find($userId->id());
     }
 
+    public function updateUser(User $user)
+    {
+        try{
+            $this->userRepository->add($user);
+            $this->entityManager->flush();
+            return new ActionResult(true);
+        } catch(\Exception $e) {
+            return new ActionResult(false);
+        }
+    }
+
     public function getBalanceFromCurrentUser()
     {
         //EMTD after user is registered and logged in

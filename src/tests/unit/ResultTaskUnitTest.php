@@ -7,6 +7,7 @@ namespace tests\unit;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shared\config\Namespaces;
+use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Notification;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
@@ -82,10 +83,11 @@ class ResultTaskUnitTest extends UnitTestBase
         $draw_result['lucky_numbers'] = [];
         $play_config_list = $this->getPlayConfigList();
         $notificationType = new NotificationType(4,0);
-
+        $euromillionsDraw = new EuroMillionsDraw();
+        $euromillionsDraw->setBreakDown(new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw()));
         $this->lotteryDataService_double->updateLastDrawResult('EuroMillions')->shouldBeCalled();
         $this->lotteryDataService_double->updateLastBreakDown('EuroMillions')->shouldBeCalled();
-        $this->lotteryDataService_double->getBreakDownDrawByDate($lottery_name,$today)->willReturn(new ActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())));
+        $this->lotteryDataService_double->getBreakDownDrawByDate($lottery_name,$today)->willReturn(new ActionResult(true,$euromillionsDraw));
         $this->playService_double->getPlaysConfigToBet($today)->willReturn($play_config_list);
         $this->userService_double->getUser(new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'))->willReturn($this->getUser());
         $this->userService_double->getActiveNotificationsByUserAndType(Argument::any(),Argument::any())->willReturn(new ActionResult(true,$this->getUserNotifications($notificationType)));

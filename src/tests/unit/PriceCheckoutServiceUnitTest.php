@@ -101,11 +101,11 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
     }
 
     /**
-     * method chargeAmountAwardedToUser
+     * method reChargeAmountAwardedToUser
      * when called
      * should chargeAmountInHisAccountAndReturnServiceActionResultTrue
      */
-    public function test_chargeAmountAwardedToUser_called_chargeAmountInHisAccountAndReturnServiceActionResultTrue()
+    public function test_reChargeAmountAwardedToUser_called_chargeAmountInHisAccountAndReturnServiceActionResultTrue()
     {
         $expected = new ActionResult(true);
         $amount_awarded = new Money(5000, new Currency('EUR'));
@@ -120,7 +120,7 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
     }
 
     /**
-     * method chargeAmountAwardedToUser
+     * method reChargeAmountAwardedToUser
      * when throwException
      * should returnServiceActionResultFalse
      */

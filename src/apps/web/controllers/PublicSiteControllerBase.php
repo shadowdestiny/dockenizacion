@@ -56,6 +56,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->setNavValues();
         $this->setCommonTemplateVariables();
         $this->setClosingModalVariables();
+        $this->setVarWinningModal();
 
         $controller_not_referer = [
             'user-access',
@@ -155,6 +156,28 @@ class PublicSiteControllerBase extends ControllerBase
         $this->view->setVar('timeout_to_closing_modal', 30 * 60 * 1000);
 //        $this->view->setVar('interval_show_closing_modal',30000);
 //        $this->view->setVar('phrase_show_closing_modal', 'Today\’s draw is closed, you will play for the next');
+    }
+
+    //EMTD i don't know for the moment if modal can be showed form anywhere or home page only.
+    private function setVarWinningModal()
+    {
+        $is_logged = $this->authService->isLogged();
+        if ($is_logged) {
+            $user_id = $this->authService->getCurrentUser();
+            /** @var User $user */
+            $user = $this->userService->getUser($user_id->getId());
+            if($user->getShowModalWinning()) {
+                $this->view->setVar('show_modal_winning', true);
+                $user->setShowModalWinning(false);
+                $result = $this->userService->updateUser($user);
+                if(!$result->success()) {
+
+                }
+            } else {
+                $this->view->setVar('show_modal_winning', false);
+            }
+        }
+
     }
 
 }

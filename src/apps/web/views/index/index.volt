@@ -25,14 +25,17 @@ function checkWin(){
 }
 
 $(function(){
-    $("#win").easyModal({
-	    top:100,
-	    autoOpen:true,
-	    overlayOpacity:0.7,
-	    overlayColor:"#000",
-	    transitionIn:'animated fadeIn',
-	    transitionOut:'animated fadeOut'
-    });
+	var show_modal = '<?php echo $show_modal_winning ?>';
+    if(show_modal) {
+		$("#win").easyModal({
+			top:100,
+			autoOpen:true,
+			overlayOpacity:0.7,
+			overlayColor:"#000",
+			transitionIn:'animated fadeIn',
+			transitionOut:'animated fadeOut'
+		});
+	}
     $(window).resize(checkWin); //fix alignment of the popup when resized
 	//countdown
 	var html_formatted_offset = [];
@@ -50,7 +53,7 @@ $(function(){
 {% endblock %}
 
 {% block modal %}
-<a href="/account/transaction" id="win" class="modal win">
+<a href="/account/wallet" id="win" class="modal win">
 	<span class="btn-box"><span class="btn blue">{{ language.translate("View the prize") }}</span></span>
 </a>
 {% endblock %}
@@ -161,7 +164,7 @@ $(function(){
 											<div class="box-btn">
 												<a href="/play" class="btn blue expand">{{ language.translate('I feel lucky') }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
 
-												<a href="/play" class="btn red expand">{{ language.translate('Pick your numbers') }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
+												<a href="/play?random" class="btn red expand">{{ language.translate('Pick your numbers') }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
 											</div>
 										</div>
 										<div class="col6 center box-vector">

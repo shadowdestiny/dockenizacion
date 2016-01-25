@@ -67,10 +67,11 @@ class BetTask extends TaskBase
         } else {
             $result_play_configs = new ActionResult(false);
         }
+
         if($result_play_configs->success()){
             try{
                 if(empty($is_check_time)) {
-                    throw new \Exception();
+                    throw new \Exception('');
                 }
                 /** @var PlayConfig[] $play_config_list */
                 $play_config_list = $result_play_configs->getValues();

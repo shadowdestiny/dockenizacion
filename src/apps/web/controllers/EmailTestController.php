@@ -168,7 +168,7 @@ class EmailTestController extends PublicSiteControllerBase
         $draw = $this->lotteriesDataService->getBreakDownDrawByDate('EuroMillions',new \DateTime());
         $breakdown_list = null;
         if($draw->success()){
-            $break_down_list = new EuroMillionsDrawBreakDownDTO($draw->getValues());
+            $break_down_list = new EuroMillionsDrawBreakDownDTO($draw->getValues()->getBreakDown());
         }
 
         $break_down_json = [];

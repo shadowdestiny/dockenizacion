@@ -267,8 +267,8 @@ class EuroMillionsDrawBreakDown
                     $euroMillionsDrawBreakDown->setLotteryPrize($money);
                     $euroMillionsDrawBreakDown->setWinners($breakDown[2]);
                     $this->$nameMethod($euroMillionsDrawBreakDown);
-                }catch(Exception $e){
-
+                }catch(\Exception $e){
+                    throw new \Exception($e->getMessage());
                 }
             }
         }
