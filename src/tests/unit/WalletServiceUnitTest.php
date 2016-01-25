@@ -2,7 +2,6 @@
 namespace tests\unit;
 
 use EuroMillions\shared\vo\Wallet;
-use EuroMillions\web\services\WalletService;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use Money\Currency;
 use Money\Money;
@@ -47,7 +46,7 @@ class WalletServiceUnitTest extends UnitTestBase
         $card_payment_provider->charge(Argument::any(), Argument::any())->willReturn(new PaymentProviderResult($payment_provider_result));
         $credit_card = CreditCardMother::aValidCreditCard();
 
-        $sut = new WalletService($this->getEntityManagerDouble()->reveal());
+        $sut = $this->getDomainServiceFactory()->getWalletService($this->getEntityManagerDouble()->reveal());
         $actual = $sut->rechargeWithCreditCard($card_payment_provider->reveal(), $credit_card, $user, $amount);
         $this->assertInstanceOf('EuroMillions\shared\interfaces\IResult', $actual);
         $this->assertEquals($payment_provider_result, $actual->success());

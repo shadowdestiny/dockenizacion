@@ -37,4 +37,9 @@ class WalletService
         }
         return $payment_result;
     }
+
+    public function logMovement()
+    {
+        //EMTD TO DO
+    }
 }
