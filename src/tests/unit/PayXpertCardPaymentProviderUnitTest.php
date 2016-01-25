@@ -18,6 +18,42 @@ class PayXpertCardPaymentProviderUnitTest extends UnitTestBase
      */
     public function test_charge_gatewayReturnsOkResult_returnResultTrueWithGatewayResult()
     {
+        $this->exerciseAndAssertCharge(
+            CreditCardMother::aValidCreditCard(),
+            true,
+            '000',
+            'Transaction successfully completed'
+        );
+    }
+
+    /**
+     * method charge
+     * when gatewayReturnKoResult
+     * should returnResultFalseWithGatewayErrorMessage
+     */
+    public function test_charge_gatewayReturnKoResult_returnResultFalseWithGatewayErrorMessage()
+    {
+        $this->exerciseAndAssertCharge(
+            CreditCardMother::aValidCreditCard(),
+            false,
+            '004',
+            'Invalid card'
+        );
+    }
+
+    /**
+     * @param $creditCard
+     * @param $success
+     * @param $expected_result
+     * @param $errorCode
+     * @param $errorMessage
+     */
+    private function exerciseAndAssertCharge($creditCard, $success, $errorCode, $errorMessage)
+    {
+        $expected_result = (object) [
+            'errorCode' => $errorCode,
+            'errorMessage' => $errorMessage
+        ];
         $api_key = 'disjfs';
         $originator_name = 'dlsfklds';
         $originator_id = '111';
@@ -26,7 +62,6 @@ class PayXpertCardPaymentProviderUnitTest extends UnitTestBase
         $money = new Money((int)$amount, new Currency($currency));
         $gateway = $this->prophesize('\EuroMillions\web\services\card_payment_providers\payxpert\GatewayClientWrapper');
         $transaction = $this->prophesize('\EuroMillions\web\services\card_payment_providers\payxpert\GatewayTransactionWrapper');
-        $credit_card = CreditCardMother::aValidCreditCard();
 
         $transaction->setTransactionInformation(
             $amount,
@@ -34,11 +69,11 @@ class PayXpertCardPaymentProviderUnitTest extends UnitTestBase
             'EuroMillions Wallet Recharge'
         )->shouldBeCalled();
         $transaction->setCardInformation(
-            $credit_card->getCardNumbers(),
-            $credit_card->getCVV(),
-            $credit_card->getHolderName(),
-            $credit_card->getExpiryMonth(),
-            $credit_card->getExpiryYear()
+            $creditCard->getCardNumbers(),
+            $creditCard->getCVV(),
+            $creditCard->getHolderName(),
+            $creditCard->getExpiryMonth(),
+            $creditCard->getExpiryYear()
         )->shouldBeCalled();
         $transaction->setShopperInformation(
             Argument::any(),
@@ -50,15 +85,15 @@ class PayXpertCardPaymentProviderUnitTest extends UnitTestBase
             Argument::any(),
             Argument::any()
         )->shouldBeCalled();
-        $expected_result = new \stdClass();
+
         $transaction->send()->willReturn($expected_result);
 
         $gateway->newTransaction('CCSale')->willReturn($transaction->reveal());
 
 
         $sut = new PayXpertCardPaymentProvider(new PayXpertConfig($originator_id, $originator_name, $api_key), $gateway->reveal());
-        $actual = $sut->charge($money, $credit_card);
-        $this->assertTrue($actual->success());
+        $actual = $sut->charge($money, $creditCard);
+        $this->assertEquals($success, $actual->success());
         $this->assertEquals($expected_result, $actual->returnValues());
     }
 }

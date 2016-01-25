@@ -23,6 +23,7 @@ class PayXpertCardPaymentProvider implements ICardPaymentProvider
         $transaction->setTransactionInformation($amount->getAmount(), $amount->getCurrency()->getName(), 'EuroMillions Wallet Recharge');
         $transaction->setCardInformation($card->getCardNumbers(), $card->getCVV(), $card->getHolderName(), $card->getExpiryMonth(), $card->getExpiryYear());
         $transaction->setShopperInformation('NA', 'NA', 'NA', 'NA', 'NA', 'ZZ', 'NA', 'NA');
-        return new PaymentProviderResult(true, $transaction->send());
+        $result = $transaction->send();
+        return new PaymentProviderResult($result->errorCode === "000", $result);
     }
 }

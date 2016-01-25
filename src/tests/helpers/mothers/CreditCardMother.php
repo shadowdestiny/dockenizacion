@@ -25,4 +25,14 @@ class CreditCardMother
         );
     }
 
+    public static function anInvalidCreditCard()
+    {
+        return new CreditCard(
+            new CardHolderName('Pagafantas'),
+            new CardNumber('4012800008881881'),
+            new ExpiryDate('10/2024'),
+            new CVV('042')
+        );
+    }
+
 }

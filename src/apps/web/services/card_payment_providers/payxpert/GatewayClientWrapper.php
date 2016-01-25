@@ -7,7 +7,7 @@ class GatewayClientWrapper
 
     public function __construct(PayXpertConfig $config)
     {
-        include 'GatewayClient.php';
+        include_once 'GatewayClient.php';
         $this->gateway = new \GatewayClient(PayXpertConfig::URL, $config->getOriginatorId(), $config->getApiKey());
     }
 
