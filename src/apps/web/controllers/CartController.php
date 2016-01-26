@@ -76,7 +76,7 @@ class CartController extends PublicSiteControllerBase{
             'total' => !empty($total_price) ? $total_price : 0,
             'form_errors' => $form_errors,
             'currency_symbol' => $currency_symbol,
-            'symbol_position' => $symbol_position,
+            'symbol_position' => ($symbol_position === 0) ? false : true,
             'fee_below' => $fee_below->getAmount() / 100,
             'fee_charge' => $fee_charge->getAmount() / 100,
             'single_bet_price' => $bet_price_value_currency->getAmount() / 10000,
