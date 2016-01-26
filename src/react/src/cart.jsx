@@ -95,14 +95,13 @@ var CartPage = new React.createClass({
             var wallet = parseFloat(this.props.wallet_balance) > price ? price : this.props.wallet_balance;
             //Discomment if we want add fee when checked wallet
             //price = parseFloat(price) + parseFloat(fee);
-            price = (wallet > price) ? wallet - price : price - wallet;
+            price = (parseFloat(wallet) > parseFloat(price)) ? wallet - price : price - wallet;
             this.state.new_balance = parseFloat(parseFloat(this.props.wallet_balance) - parseFloat(wallet)).toFixed(2);
-        }
-        if(!this.state.checked_wallet) {
+        } else {
             //price less than fee_below_value and wallet_balance less than price
             if(parseFloat(price) < parseFloat(fee_below) && parseFloat(wallet_balance) < parseFloat(price)) {
                 price = parseFloat(price);
-                if(this.state.fund_value > this.props.price_below_fee) {
+                if(this.state.fund_value > 0) {
                     price = price + parseFloat(this.state.fund_value);//(price - parseFloat(this.props.fee_charge)) + this.state.fund_value;
                     this.state.show_all_fee = true;
                     this.state.show_fee_value = false;
@@ -117,7 +116,6 @@ var CartPage = new React.createClass({
                 this.state.show_fee_value = false;
                 this.state.show_fee_text = false;
                 this.state.show_all_fee = false;
-
             } else if(parseFloat(price) > parseFloat(fee_below)) {
                 this.state.show_fee_value = false;
                 this.state.show_fee_text = false;
@@ -163,7 +161,7 @@ var CartPage = new React.createClass({
 
         var wallet_component = null;
 
-        if(parseFloat(this.props.wallet_balance) > parseFloat(this.state.total)) {
+        if(parseFloat(this.props.wallet_balance) > 0) {
             var total_default = parseFloat(this.props.total).toFixed(2);
 
             //add fee if total less than price below fee
@@ -174,7 +172,7 @@ var CartPage = new React.createClass({
                                          checked_callback={this.handleCheckedWallet}
                                          show_checked={this.state.checked_wallet}
                                          total_price={total_default}
-                                         wallet_balance={this.props.wallet_balance}
+                                         wallet_balance={parseFloat(this.props.wallet_balance).toFixed(2)}
                 />;
         }
         var txt_button_payment = this.state.checked_wallet ? 'Buy now' : 'Continue to payment';
@@ -182,7 +180,7 @@ var CartPage = new React.createClass({
         var old_balance_and_new_balance = <span className="value"> <span className='old'>{symbol_price_balance}</span><span className='new'>{this.props.currency_symbol} {this.state.new_balance}</span> </span>;
         if(!this.state.checked_wallet) {
             symbol_price_balance = this.props.symbol_position ? this.state.new_balance + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + this.state.new_balance;
-            old_balance_and_new_balance = <span className="value"> <span className="new">{symbol_price_balance}</span> </span>;
+            old_balance_and_new_balance = <span className="value"> <span className="current">{symbol_price_balance}</span> </span>;
         }
 
         return (

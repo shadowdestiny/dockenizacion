@@ -66,7 +66,7 @@ class CartController extends PublicSiteControllerBase{
             $total_price = count($play_config_decode->euroMillionsLines->bets)
                 * $play_config_decode->drawDays * $bet_price_value_currency->getAmount() *  $play_config_decode->frequency / 10000;
         } else {
-            $msg = 'Error trying get data';
+            $this->response->redirect('/play');
         }
 
         $currency_symbol = $this->currencyService->getSymbol($bet_price_value_currency,$user->getBalance()->getCurrency());
