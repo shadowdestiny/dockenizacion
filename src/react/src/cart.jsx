@@ -136,7 +136,7 @@ var CartPage = new React.createClass({
         var _playConfigList = this.state.playConfigList;
         var _euroMillionsLine = [];
 
-        var price_and_symbol_order_line = this.props.symbol_position ? this.props.single_bet_price + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + this.props.single_bet_price;
+        var price_and_symbol_order_line = this.props.symbol_position ? (this.props.single_bet_price * this.state.playConfigList.drawDays).toFixed(2) + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + (this.props.single_bet_price * this.state.playConfigList.drawDays).toFixed(2);
 
         for (let i=0; i< _playConfigList.euroMillionsLines.bets.length; i++) {
             var numbers = _playConfigList.euroMillionsLines.bets[i].regular;
