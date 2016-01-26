@@ -25,7 +25,7 @@ function checkWin(){
 }
 
 $(function(){
-	var show_modal = '<?php echo $show_modal_winning ?>';
+	var show_modal = '<?php echo !empty($show_modal_winning) ? $show_modal_winning : false; ?>';
     if(show_modal) {
 		$("#win").easyModal({
 			top:100,
