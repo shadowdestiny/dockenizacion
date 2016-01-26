@@ -230,22 +230,15 @@ class UserAccessController extends ControllerBase
 
     public function passwordResetAction($token)
     {
-        $result = $this->authService->resetPassword($token);
-        if ($result->success()) {
-            $message = 'Your password was reset!';
-        } else {
-            $message = 'Sorry, the token you used is no longer valid.';
-        }
-
+//        $result = $this->authService->resetPassword($token);
+//        if ($result->success()) {
+//            $message = 'Your password was reset!';
+//        } else {
+//            $message = 'Sorry, the token you used is no longer valid.';
+//        }
 
         $this->view->pick('recovery/index');
         return $this->view->setVars([
-            'user_currency'  => [],
-            'user_balance_raw'  => [],
-            'symbol' => [],
-            'name' => '',
-            'user_balance' => [],
-            'currencies' => []
         ]);
 
     }

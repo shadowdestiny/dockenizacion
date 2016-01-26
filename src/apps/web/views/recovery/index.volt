@@ -2,7 +2,6 @@
 {% block template_css %}{% endblock %}
 {% block bodyClass %}recovery minimal{% endblock %}
 
-{% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
 {% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}
 
 {% block template_css %}
@@ -21,16 +20,17 @@
 
 {% block body %}
 <main id="content">
-    <div class="wrapper cl">
 
+    <div class="wrapper cl">
         <div class="box-basic small content">
             <h1 class="h1 title res">{{ language.translate("Recovery Password") }}</h1>
             <p>{{ language.translate("Insert your new password") }}</p>
-            <div class="box error">
-                <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
-                <span class="txt">*Error message*</span>
-            </div>
-            
+            {% if errors %}
+                <div class="box error">
+                    <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
+                    <span class="txt"></span>
+                </div>
+            {% endif %}
             <label for="new-password" class="label">{{ language.translate("New password") }} <span class="asterisk">*</span></label>
             <input class="input" id="new-password" placeholder="{{ language.translate('New password') }}">
 
