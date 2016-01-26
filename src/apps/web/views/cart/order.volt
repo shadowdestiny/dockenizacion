@@ -33,7 +33,6 @@
                 <h1 class="h1 title yellow res">{{ language.translate("Shopping cart") }}</h1>
                 <div class="terms">{{ language.translate("By purchasing you agree to") }} <a href="/legal/">{{ language.translate("Terms &amp; Conditions") }}</a></div>
 
-
                 {#<div class="box-top cl">#}
                     {#&#123;&#35;<div class="balance">&#35;&#125;#}
                         {#&#123;&#35;<span class="txt">{{ language.translate("Your current wallet balance:") }}</span>&#35;&#125;#}

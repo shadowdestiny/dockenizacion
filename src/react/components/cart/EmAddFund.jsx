@@ -59,10 +59,9 @@ var EmAddFund = new React.createClass({
 
         return (
             <div className="box-charge cl">
-                <label htmlFor="charge" className="label">Insert an ammount</label>
-                <div className="box-combo">
-                     <div className="combo currency">{this.props.currency_symbol}</div>
-                    <input id="charge" className="combo input" value={this.state.value} onKeyPress={this.handleKeyPress} onBlur={this.sanetizedNumValue} onKeyUp={this.handleKeyUp} type="text" title="This should be a number with up to 2 decimal places."  placeholder='Insert an ammount' />
+                <div className="form-currency">
+                    <span className="currency">{this.props.currency_symbol}</span>
+                    <input id="charge" className="input insert" value={this.state.value} onKeyPress={this.handleKeyPress} onBlur={this.sanetizedNumValue} onKeyUp={this.handleKeyUp} type="text" title="This should be a number with up to 2 decimal places."  placeholder='Insert an ammount' />
                 </div>
             </div>
         )
