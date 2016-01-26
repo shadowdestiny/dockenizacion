@@ -4,10 +4,6 @@ var EmWallet = new React.createClass({
 
     displayName: 'Wallet',
 
-    propTypes: {
-        wallet_balance : React.PropTypes.number.isRequired
-    },
-
     getInitialState : function ()
     {
         return {
