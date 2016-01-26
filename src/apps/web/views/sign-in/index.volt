@@ -24,7 +24,7 @@ $(function(){
 <main id="content" style="padding-top:40px;">
     <div class="wrapper cl">
         <div class="col-left">
-            <img class="v-logo vector" alt="Euromillions" src="/w/svg/logo.svg">
+            <a href="/" title="{{ language.translate('Go to homepage')}}><img class="v-logo vector" alt="Euromillions" src="/w/svg/logo.svg"></a>
         </div>
         <div class="col-right">
             <div class="box-basic log-in">

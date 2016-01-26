@@ -77,11 +77,9 @@
 .order{
   .box-wallet .txt{font-size:$basic-size!important; margin:0 0 0 8px; float:right; cursor:pointer;}
   .checkbox{float:right; position:relative; top:4px;}
-  .combo.input{
-    background:#fff; width:140px; padding:5px 8px; 
-    -webkit-appearance:none; -webkit-border-radius:0; height:1%; /* Fix Safari */
-  }
-  .combo.currency{padding:0 9px;}
+/*  .combo.input{
+    -webkit-appearance:none; -webkit-border-radius:0; height:1%;
+  }*/  /* Fix Safari */
   .txt-fee{font-weight:700;}
   .txt-fee, .desc, .detail, .summary{font-size:$basic-size;}
   .change, .add-funds, .txt-currency{font-size:$small;}
@@ -100,9 +98,8 @@
   .change{margin-left:15px; display:inline-block;}
   .type{width:200px; text-align:left; font-style:italic;}
   .summary{font-weight:700; float:right;}
-  .add-funds{/*float:right;*/}
   .add-funds:hover, .add-funds:focus{text-decoration:underline!important;}
-  .box-funds{float:right; text-align:right;}
+  .box-funds{float:right; text-align:right; position:relative; top:-1px;}
   .box-total{
     color:$purple; border-top:2px solid $purple; padding:8px 10px;
     .total{
@@ -136,11 +133,8 @@
     }
   }
   .box-bottom .btn{min-width:180px; text-align:center;}
-  .box-charge{
-    position:relative;
-    .label{float:left; font-size:$small; font-style:italic; font-weight:normal; margin:0 10px 0 0; line-height:30px; width:auto;}
-    .box-combo{float:left;}
-  }
+  .box-charge{position:relative;}
+  .form-currency .currency{right:-9px;}
 }
 
 .payment{ /* Inside ORDER area*/
@@ -284,7 +278,8 @@
 }
 .order{
   .box-charge .label{width:100%; line-height:normal;}
-  .add-funds{float:left;}
+  .add-funds{float:none;}
+  .box-funds{text-align:left;}
 }
 }
 
