@@ -209,7 +209,7 @@ class CartController extends PublicSiteControllerBase{
                 if (!$this->authService->check([
                     'email'    => $this->request->getPost('email'),
                     'password' => $this->request->getPost('password'),
-                    'remember' => $this->request->getPost('remember'),
+                    'remember' => $this->requPest->getPost('remember'),
                 ], 'string')
                 ) {
                     $errors[] = 'Email/password combination not valid';

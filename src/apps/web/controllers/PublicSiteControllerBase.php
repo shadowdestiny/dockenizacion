@@ -88,6 +88,7 @@ class PublicSiteControllerBase extends ControllerBase
         }
         $this->view->setVar('current_currency', $current_currency->getName());
         $this->view->setVar('user_currency', $user_currency);
+        $this->view->setVar('user_currency_code', $current_currency->getName());
         $this->view->setVar('user_balance', $user_balance);
         $this->view->setVar('user_balance_raw', $user_balance_raw);
     }
@@ -147,7 +148,7 @@ class PublicSiteControllerBase extends ControllerBase
         //Vars draw closing modal
         $dateUtil = new DateTimeUtil();
         $lottery_date_time = $this->domainServiceFactory->getLotteriesDataService()->getNextDateDrawByLottery('EuroMillions');
-        //$lottery_date_time = new \DateTime('2016-01-25 11:35:00');
+        //$lottery_date_time = new \DateTime('2016-01-26 17:35:00');
         $time_to_remain = $dateUtil->getTimeRemainingToCloseDraw($lottery_date_time);
         $last_minute = $dateUtil->isLastMinuteToDraw($lottery_date_time);
         $this->view->setVar('time_to_remain_draw', $time_to_remain);

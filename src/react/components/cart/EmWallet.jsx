@@ -11,12 +11,21 @@ var EmWallet = new React.createClass({
         }
     },
 
-    onChangeChecked : function ()
+    handleClick : function (event)
     {
-        var checked_state = (this.state.checked) ? false : true;
-        this.setState({ checked : checked_state});
-        this.props.checked_callback(checked_state);
 
+    },
+
+    handleChange : function (event)
+    {
+        var active;
+        if(event.target.checked) {
+            active = true;
+        } else {
+            active = false;
+        }
+        this.setState({ checked : active});
+        this.props.checked_callback(active);
     },
 
     render : function ()
@@ -34,7 +43,7 @@ var EmWallet = new React.createClass({
                 <div className={disabled_value}>{total_value}</div>
                 <div className="box-wallet cl">
                     <label htmlFor="pay-wallet" className="txt">Pay with your Wallet balance</label>
-                    <input id="pay-wallet" onChange={this.onChangeChecked} type="checkbox" className="checkbox" checked={this.state.checked} />
+                    <input id="pay-wallet" onClick={this.handleClick} onChange={this.handleChange} type="checkbox" className="checkbox" checked={this.state.checked} />
                 </div>
             </div>
         )
