@@ -91,7 +91,7 @@
     a{text-decoration:none;}
     a:hover, a:focus{text-decoration:underline!important;}
   }
-  .val{display:inline-block; min-width:80px; text-align:right;}
+  .val{display:inline-block; min-width:80px; text-align:right; margin-left:10px;}
   .row{border-top:1px solid $grey-lighter; padding:10px;}
   .sub-txt{margin:0 0 .5em; text-transform:uppercase; text-align:left;}
   .desc{font-weight:700; float:left; width:70px;}
