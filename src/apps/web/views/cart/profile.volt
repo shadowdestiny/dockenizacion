@@ -2,6 +2,7 @@
 {% block template_css %}
     <link rel="stylesheet" href="/w/css/cart.css">
 {% endblock %}
+
 {% block template_scripts %}{% endblock %}
 {% block bodyClass %}cart profile minimal sign-in{% endblock %}
 
