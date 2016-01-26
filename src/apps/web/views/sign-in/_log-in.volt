@@ -5,7 +5,7 @@
     </div>
 {% endif %}
 {{ form(url_signin) }}
-    {% if  which_form == 'up' %}
+    {% if which_form == 'up' %}
         {% set form_errors['email'] = '' %}
         {% set form_errors['password'] = '' %}
     {% endif %}
