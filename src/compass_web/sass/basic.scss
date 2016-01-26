@@ -282,6 +282,7 @@ body, .submit{font-family:$basic-font;}
 /* PAGE LAYOUT */
 .wrapper{max-width:1180px; margin:auto; position:relative; min-width:235px;}
 .logo{float:left; margin:7px 0 0;}
+.minimal .logo{margin-bottom:4px;}
 .v-logo{height:100%; width:274px;}
 .main-foot .logo{width:200px; margin:0;}
 
@@ -421,7 +422,7 @@ body, .submit{font-family:$basic-font;}
  /*body{border:10px solid #ff0;} /* YELLOW */
 .media{width:2px}
 .wrapper{max-width:768px;}
-.logo{margin-top:8px; width:250px;}
+.logo{width:250px;}
 .main-nav a{padding:10px 12px; min-height:62px;}
 .main-nav .subnav a{min-height:inherit;} 
 .box-links .col20per{padding:0 10px;}
