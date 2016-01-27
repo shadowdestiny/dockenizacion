@@ -216,9 +216,9 @@ class AccountController extends PublicSiteControllerBase
                     $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($month.'/'.$year), new CVV($cvv));
                     $payXpertConfig = new PayXpertConfig($config_payment['originator_id'], $config_payment['originator_name'], $config_payment['api_key']);
                     $wallet_service = $this->domainServiceFactory->getWalletService();
-                    $result = $wallet_service->rechargeWithCreditCard(new PayXpertCardPaymentProvider($payXpertConfig), $card, $user, new Money($funds_value, $user->getUserCurrency()));
+                    $result = $wallet_service->rechargeWithCreditCard(new PayXpertCardPaymentProvider($payXpertConfig), $card, $user, new Money($funds_value * 100, $user->getUserCurrency()));
                     if($result->success()) {
-                        $msg = 'Your balance was update. Your current balance is: ' . $user->getBalance() / 100;
+                        $msg = 'Your balance was update. Your current balance is: ' . $user->getBalance()->getAmount() / 100 . ' ' . $user->getBalance()->getCurrency()->getName();
                     } else {
                         $errors[] = 'An error occurred. The response with our payment provider was: ' . $result->returnValues()->errorMessage;
                     }
