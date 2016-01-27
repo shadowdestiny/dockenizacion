@@ -13,9 +13,6 @@ use Money\Currency;
 use Money\Money;
 use Phalcon\Validation\Message;
 
-/** WARNING: THIS CONTROLLER HAS BEEN CLONED FROM THE USERACCESS CONTROLLER JUST SO ALESSIO CAN WORK ON THE DESIGN
- *  THE FUNCTIONALITY IS NOT THE REAL ONE
- */
 
 class CartController extends PublicSiteControllerBase{
 

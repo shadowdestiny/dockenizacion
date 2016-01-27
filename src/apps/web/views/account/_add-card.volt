@@ -107,7 +107,7 @@
             </div>
             <div class="col6 second">
                 <h2 class="h3 yellow">{{ language.translate("Add funds to your wallet") }}</h2>
-                <div class="balance"><strong class="purple">{{ language.translate("Wallet balance:") }}</strong> <span class="value">&euro; 20.00</span></div>
+                <div class="balance"><strong class="purple">{{ language.translate("Wallet balance:") }}</strong> <span class="value">{{ user_balance }}</span></div>
                 <div class="box-wallet overview">
                     <span class="symbol">&euro;</span>
                         {{ credit_card_form.render('funds-value', {'class':'input'~form_errors['funds-value']}) }}
