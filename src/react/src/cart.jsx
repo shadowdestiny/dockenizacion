@@ -101,11 +101,19 @@ var CartPage = new React.createClass({
             //price less than fee_below_value and wallet_balance less than price
             if(parseFloat(price) < parseFloat(fee_below) && parseFloat(wallet_balance) < parseFloat(price)) {
                 price = parseFloat(price);
+                this.state.show_all_fee = true;
                 if(this.state.fund_value > 0) {
-                    price = price + parseFloat(this.state.fund_value);//(price - parseFloat(this.props.fee_charge)) + this.state.fund_value;
-                    this.state.show_all_fee = true;
-                    this.state.show_fee_value = false;
-                    this.state.show_fee_text = false;
+                    if(parseFloat(price) + parseFloat(this.state.fund_value) < parseFloat(fee_below)) {
+                        price = parseFloat(price) + parseFloat(this.state.fund_value) + parseFloat(fee);
+                        this.state.show_all_fee = true;
+                        this.state.show_fee_value = true;
+                        this.state.show_fee_text = true;
+                    } else {
+                        price = parseFloat(price) + parseFloat(this.state.fund_value);
+                        this.state.show_all_fee = true;
+                        this.state.show_fee_value = false;
+                        this.state.show_fee_text = false;
+                    }
                 } else {
                     this.state.show_all_fee = true;
                     this.state.show_fee_value = true;
@@ -113,9 +121,10 @@ var CartPage = new React.createClass({
                     price = price + parseFloat(fee);
                 }
             } else if(parseFloat(wallet_balance) > parseFloat(price)) {
-                this.state.show_fee_value = false;
-                this.state.show_fee_text = false;
-                this.state.show_all_fee = false;
+                this.state.show_fee_value = true;
+                this.state.show_fee_text = true;
+                this.state.show_all_fee = true;
+                price = parseFloat(price) + parseFloat(fee);
             } else if(parseFloat(price) > parseFloat(fee_below)) {
                 this.state.show_fee_value = false;
                 this.state.show_fee_text = false;

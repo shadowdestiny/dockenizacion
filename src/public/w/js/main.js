@@ -192,6 +192,7 @@ $(function(){
     var timeout_warning = '';
     $('.ending').hide();
     var is_remain_time = typeof remain_time == 'undefined' ? false : remain_time;
+
     if (is_remain_time) {
         $('.ending').show();
         setTimeout(function () {
@@ -200,6 +201,7 @@ $(function(){
         timeout_warning = setTimeout(function () {
             setInterval(function () {
                 $('.ending').show();
+
                 setTimeout(function () {
                     $('.ending').hide();
                 }, 30000);

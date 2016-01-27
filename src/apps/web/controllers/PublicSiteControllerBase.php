@@ -159,7 +159,7 @@ class PublicSiteControllerBase extends ControllerBase
 //        $this->view->setVar('phrase_show_closing_modal', 'Today\’s draw is closed, you will play for the next');
     }
 
-    //EMTD i don't know for the moment if modal can be showed form anywhere or home page only.
+    //EMTD i don't know for the moment if modal can be showed anywhere or home page only.
     private function setVarWinningModal()
     {
         $is_logged = $this->authService->isLogged();
@@ -172,7 +172,6 @@ class PublicSiteControllerBase extends ControllerBase
                 $user->setShowModalWinning(false);
                 $result = $this->userService->updateUser($user);
                 if(!$result->success()) {
-
                 }
             } else {
                 $this->view->setVar('show_modal_winning', false);
