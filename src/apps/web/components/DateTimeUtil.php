@@ -50,6 +50,18 @@ class DateTimeUtil
         return ($now->getTimestamp() > $barrier_time);
     }
 
+    public function restMinutesToCloseDraw( \DateTime $time_close_draw, \DateTime $now = null )
+    {
+        if( $now == null ) {
+            $now = new \DateTime();
+        }
+        $barrier_time = $time_close_draw->getTimestamp();
+        $rest = $barrier_time - $now->getTimestamp();
+        $precision = 60 * 5;
+        $round = ( round ( $rest /  $precision) * $precision );
+        return date('i',$round);
+    }
+
     public function isLastMinuteToDraw( \DateTime $time_close_draw )
     {
         $now = new \DateTime();

@@ -190,18 +190,33 @@ $(function(){
     }
 
     var timeout_warning = '';
+    var finish_countdown_warning_close_draw = function () {
+        return $('.ending').countdown(draw_date).
+        on('update.countdown', function (event) {
+            $(this).html(event.strftime('%-Ss'));
+        }).on('finish.countdown', function (event) {
+            $(this).html('Today’s draw is closed, you will play for the next');
+            setTimeout(function () {
+                $('.ending').hide();
+            }, 30000);
+
+        });
+    };
+
     $('.ending').hide();
     var is_remain_time = typeof remain_time == 'undefined' ? false : remain_time;
-
     if (is_remain_time) {
         $('.ending').show();
+        $('.ending').text('The draw will close in '+ minutes_to_close +' minutes.')
         setTimeout(function () {
             $('.ending').hide();
         }, 30000);
+        var minutes_value = minute_to_close;
         timeout_warning = setTimeout(function () {
             setInterval(function () {
+                minutes_value = minutes_value - parseInt(5);
                 $('.ending').show();
-
+                $('.ending').text('The draw will close in '+ minutes_value +' minutes.');
                 setTimeout(function () {
                     $('.ending').hide();
                 }, 30000);
@@ -211,12 +226,6 @@ $(function(){
     var is_last_minute = typeof last_minute == 'undefined' ? false : last_minute;
     if (is_last_minute) {
         clearTimeout(timeout_warning);
-        return $('.ending').countdown(draw_date).
-            on('update.countdown', function (event) {
-                $(this).html(event.strftime('%-Ss'));
-            }).on('finish.countdown', function (event) {
-                $(this).html('Today’s draw is closed, you will play for the next');
-            });
+        finish_countdown_warning_close_draw();
     }
-
 });

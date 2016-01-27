@@ -83,6 +83,56 @@ var CartPage = new React.createClass({
         this.handleUpdatePrice();
     },
 
+    updatePriceWithCheckedWallet : function (price) {
+        this.state.show_all_fee = false;
+        var wallet = parseFloat(this.props.wallet_balance) > price ? price : this.props.wallet_balance;
+        //Discomment if we want add fee when checked wallet
+        //price = parseFloat(price) + parseFloat(fee);
+        price = (parseFloat(wallet) > parseFloat(price)) ? wallet - price : price - wallet;
+        this.state.new_balance = parseFloat(parseFloat(this.props.wallet_balance) - parseFloat(wallet)).toFixed(2);
+        return price;
+    },
+
+    updatePriceWithoutWallet : function (price, wallet_balance, fee_below, fee) {
+
+        //price less than fee_below_value and wallet_balance less than price
+        if(parseFloat(price) < parseFloat(fee_below) /*&& parseFloat(wallet_balance) < parseFloat(price)*/) {
+            price = parseFloat(price);
+            this.state.show_all_fee = true;
+            if(this.state.fund_value > 0) {
+                if(parseFloat(price) + parseFloat(this.state.fund_value) < parseFloat(fee_below)) {
+                    price = parseFloat(price) + parseFloat(this.state.fund_value) + parseFloat(fee);
+                    this.state.show_all_fee = true;
+                    this.state.show_fee_value = true;
+                    this.state.show_fee_text = true;
+                } else {
+                    price = parseFloat(price) + parseFloat(this.state.fund_value);
+                    this.state.show_all_fee = true;
+                    this.state.show_fee_value = false;
+                    this.state.show_fee_text = false;
+                }
+            } else {
+                this.state.show_all_fee = true;
+                this.state.show_fee_value = true;
+                this.state.show_fee_text = true;
+                price = price + parseFloat(fee);
+            }
+        } else if(parseFloat(wallet_balance) > parseFloat(price)) {
+            this.state.show_fee_value = true;
+            this.state.show_fee_text = true;
+            this.state.show_all_fee = true;
+            price = parseFloat(price) + parseFloat(fee);
+        } else if(parseFloat(price) > parseFloat(fee_below)) {
+            this.state.show_fee_value = false;
+            this.state.show_fee_text = false;
+            this.state.show_all_fee = false;
+            var fund_value = (this.state.fund_value > 0.00) ? parseFloat(this.state.fund_value) : 0.00;
+            price = parseFloat(price) + parseFloat(fund_value);
+        }
+        return price;
+
+    },
+
     handleUpdatePrice : function()
     {
         var price = parseFloat(this.props.total).toFixed(2);
@@ -90,48 +140,10 @@ var CartPage = new React.createClass({
         var fee_below = parseFloat(this.props.price_below_fee).toFixed(2);
         var fee = parseFloat(this.props.fee_charge).toFixed(2);
 
-        if(this.state.checked_wallet /*&& parseFloat(price) < parseFloat(fee_below)*/) {
-            this.state.show_all_fee = false;
-            var wallet = parseFloat(this.props.wallet_balance) > price ? price : this.props.wallet_balance;
-            //Discomment if we want add fee when checked wallet
-            //price = parseFloat(price) + parseFloat(fee);
-            price = (parseFloat(wallet) > parseFloat(price)) ? wallet - price : price - wallet;
-            this.state.new_balance = parseFloat(parseFloat(this.props.wallet_balance) - parseFloat(wallet)).toFixed(2);
+        if(this.state.checked_wallet) {
+            price = this.updatePriceWithCheckedWallet(price);
         } else {
-            //price less than fee_below_value and wallet_balance less than price
-            if(parseFloat(price) < parseFloat(fee_below) && parseFloat(wallet_balance) < parseFloat(price)) {
-                price = parseFloat(price);
-                this.state.show_all_fee = true;
-                if(this.state.fund_value > 0) {
-                    if(parseFloat(price) + parseFloat(this.state.fund_value) < parseFloat(fee_below)) {
-                        price = parseFloat(price) + parseFloat(this.state.fund_value) + parseFloat(fee);
-                        this.state.show_all_fee = true;
-                        this.state.show_fee_value = true;
-                        this.state.show_fee_text = true;
-                    } else {
-                        price = parseFloat(price) + parseFloat(this.state.fund_value);
-                        this.state.show_all_fee = true;
-                        this.state.show_fee_value = false;
-                        this.state.show_fee_text = false;
-                    }
-                } else {
-                    this.state.show_all_fee = true;
-                    this.state.show_fee_value = true;
-                    this.state.show_fee_text = true;
-                    price = price + parseFloat(fee);
-                }
-            } else if(parseFloat(wallet_balance) > parseFloat(price)) {
-                this.state.show_fee_value = true;
-                this.state.show_fee_text = true;
-                this.state.show_all_fee = true;
-                price = parseFloat(price) + parseFloat(fee);
-            } else if(parseFloat(price) > parseFloat(fee_below)) {
-                this.state.show_fee_value = false;
-                this.state.show_fee_text = false;
-                this.state.show_all_fee = false;
-                var fund_value = (this.state.fund_value > 0.00) ? parseFloat(this.state.fund_value) : 0.00;
-                price = parseFloat(price) + parseFloat(fund_value);
-            }
+            price = this.updatePriceWithoutWallet(price,wallet_balance,fee_below,fee);
             this.state.new_balance = parseFloat(this.props.wallet_balance);
         }
         var price_and_symbol = this.props.symbol_position ? parseFloat(price).toFixed(2) + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + parseFloat(price).toFixed(2);
