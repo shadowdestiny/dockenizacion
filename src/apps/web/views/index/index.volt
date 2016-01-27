@@ -55,8 +55,7 @@ $(function(){
 {% endblock %}
 
 {% block modal %}
-{% set modal_winning =  echo $show_modal_winning %}
-{% if modal_winning %}
+{% if show_modal_winning %}
 <a href="/account/wallet" id="win" class="modal win">
 	<span class="btn-box"><span class="btn blue">{{ language.translate("View the prize") }}</span></span>
 </a>

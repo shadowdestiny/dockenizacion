@@ -16,11 +16,15 @@ class CreditCardForm extends Form
     public function initialize()
     {
         $card_number = new Text('card-number', array(
-            'placeholder' => ''
+            'placeholder' => '',
+            'autocomplete' => 'off'
         ));
         $card_number->addValidators(array(
             new PresenceOf(array(
                 'message' => 'The card number is required'
+            )),
+            new Numericality(array(
+
             )),
             new CreditCard(array())
         ));
@@ -30,7 +34,8 @@ class CreditCardForm extends Form
         $this->add($card_number);
 
         $card_holder = new Text('card-holder', array(
-            'placeholder' => ''
+            'placeholder' => '',
+            'autocomplete' => 'off'
         ));
         $card_holder->addValidators(array(
             new PresenceOf(array(
@@ -40,7 +45,8 @@ class CreditCardForm extends Form
         $this->add($card_holder);
 
         $card_cvv = new Text('card-cvv', array(
-            'placeholder' => ''
+            'placeholder' => '',
+            'autocomplete' => 'off'
         ));
         $card_cvv->addValidators(array(
             new PresenceOf(array(
