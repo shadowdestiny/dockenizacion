@@ -31,7 +31,7 @@
 
 @media only screen and (max-width:768px){
 .box-extra{
-    text-align:center;
+    text-align:center!important;
     .txt, .btn{width:100%;}
     .btn{margin-top:4px; padding:10px 15px;}
 }

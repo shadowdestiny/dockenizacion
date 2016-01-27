@@ -17,7 +17,7 @@
 </li>
 <li class="li-your-account{% if activeNav.myClass == 'account' %} active{% endif %}">
     {% if user_logged %}
-        {% set link="javascript:void(0)" %}
+        {% set link="/account" %}
     {% else %}
         {% set link="/sign-in" %}
     {% endif %}
