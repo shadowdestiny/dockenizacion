@@ -36,6 +36,7 @@ class PublicSiteControllerBase extends ControllerBase
     /** @var  UserPreferencesService */
     protected $userPreferencesService;
 
+
     public function initialize(LotteriesDataService $lotteriesDataService = null, LanguageService $languageService = null, CurrencyService $currencyService = null, UserService $userService = null, AuthService $authService= null, UserPreferencesService $userPreferencesService = null)
     {
         parent::initialize();
@@ -45,6 +46,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->userService = $userService ? $userService : $this->domainServiceFactory->getUserService();
         $this->authService = $authService ? $authService : $this->domainServiceFactory->getAuthService();
         $this->userPreferencesService = $userPreferencesService ? $userPreferencesService : $this->domainServiceFactory->getUserPreferencesService();
+
     }
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)

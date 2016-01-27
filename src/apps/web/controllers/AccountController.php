@@ -10,9 +10,11 @@ use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
 use EuroMillions\web\services\card_payment_providers\FakeCardPaymentProvider;
 use EuroMillions\web\services\card_payment_providers\payxpert\PayXpertConfig;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentProvider;
+use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\WalletService;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
@@ -214,9 +216,11 @@ class AccountController extends PublicSiteControllerBase
                 if(null != $user ){
                     $config_payment = $this->di->get('config')['payxpert'];
                     $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($month.'/'.$year), new CVV($cvv));
-                    $payXpertConfig = new PayXpertConfig($config_payment['originator_id'], $config_payment['originator_name'], $config_payment['api_key']);
                     $wallet_service = $this->domainServiceFactory->getWalletService();
-                    $result = $wallet_service->rechargeWithCreditCard(new PayXpertCardPaymentProvider($payXpertConfig), $card, $user, new Money($funds_value * 100, $user->getUserCurrency()));
+                    /** @var PaymentProviderFactory $paymentProviderFactory */
+                    $paymentProviderFactory = $this->di->get('paymentProviderFactory');
+                    $payXpertCardPaymentStrategy = $paymentProviderFactory->getCreditCardPaymentProvider(new PayXpertCardPaymentStrategy($config_payment));
+                    $result = $wallet_service->rechargeWithCreditCard($payXpertCardPaymentStrategy, $card, $user, new Money($funds_value * 100, $user->getUserCurrency()));
                     if($result->success()) {
                         $msg = 'Your balance was update. Your current balance is: ' . $user->getBalance()->getAmount() / 100 . ' ' . $user->getBalance()->getCurrency()->getName();
                     } else {
@@ -231,8 +235,8 @@ class AccountController extends PublicSiteControllerBase
             'errors' => $errors,
             'credit_card_form' => $credit_card_form,
             'msg' => !empty($msg) ? $msg : '',
-            'show_form_add_fund' => true,
-            'show_box_basic' => false,
+            'show_form_add_fund' => false,
+            'show_box_basic' => true,
         ]);
 
     }

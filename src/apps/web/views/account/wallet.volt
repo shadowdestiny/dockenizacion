@@ -89,7 +89,7 @@ $(function(){
                     <div class="cols res">
                         <div class="col5">
                             <div class="border">
-                                <div class="txt">{{ language.translate("Your current balance:") }} <span class="value">&euro; 20.00</span></div>
+                                <div class="txt">{{ language.translate("Your current balance:") }} <span class="value">{{ user_balance }}</span></div>
                                 <a href="javascript:void(0)" class="btn blue add-funds">{{ language.translate("Add funds of your wallet") }}</a>
                             </div>
                         </div>
@@ -261,7 +261,7 @@ $(function(){
 
                 <div class="cl box-wallet wrap-value">
                     <div class="value">
-                        <span class="purple">{{ language.translate("Wallet balance:") }}</span> &euro; 500.00 
+                        <span class="purple">{{ language.translate("Wallet balance:") }}</span> {{ user_balance }}
                     </div>
 
                     <div class="value">
