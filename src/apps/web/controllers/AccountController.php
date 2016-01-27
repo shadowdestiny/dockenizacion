@@ -11,10 +11,18 @@ use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\services\card_payment_providers\FakeCardPaymentProvider;
+use EuroMillions\web\services\card_payment_providers\payxpert\PayXpertConfig;
+use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentProvider;
+use EuroMillions\web\services\WalletService;
+use EuroMillions\web\vo\CardHolderName;
+use EuroMillions\web\vo\CardNumber;
+use EuroMillions\web\vo\CreditCard;
+use EuroMillions\web\vo\CVV;
 use EuroMillions\web\vo\dto\PlayConfigDTO;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\UserNotificationsDTO;
 use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\ExpiryDate;
 use EuroMillions\web\vo\NotificationType;
 use EuroMillions\web\vo\UserId;
 use Money\Money;
@@ -181,7 +189,13 @@ class AccountController extends PublicSiteControllerBase
         $credit_card_form = new CreditCardForm();
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $form_errors = $this->getErrorsArray();
-        $funds_value = $this->request->getPost('funds-value');
+        $funds_value = (int) $this->request->getPost('funds-value');
+        $card_number = $this->request->getPost('card-number');
+        $card_holder_name = $this->request->getPost('card-holder');
+        $year = $this->request->getPost('year');
+        $month = $this->request->getPost('month');
+        $cvv = $this->request->getPost('card-cvv');
+
         if($this->request->isPost()) {
             if ($credit_card_form->isValid($this->request->getPost()) == false) {
                 $messages = $credit_card_form->getMessages(true);
@@ -194,18 +208,19 @@ class AccountController extends PublicSiteControllerBase
                     $form_errors[$field] = ' error';
                 }
             }else {
-                /** @var UserId $user_id */
                 $user_id = $this->authService->getCurrentUser();
                 /** User $user */
-                $user = $this->userService->getUser($user_id);
+                $user = $this->userService->getUser($user_id->getId());
                 if(null != $user ){
-                    $this->userService->
-                    /** @var ActionResult $result */
-                    $result = $this->userService->recharge($user, new FakeCardPaymentProvider(), new Money($funds_value, $user->getUserCurrency()));
+                    $config_payment = $this->di->get('config')['payxpert'];
+                    $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($month.'/'.$year), new CVV($cvv));
+                    $payXpertConfig = new PayXpertConfig($config_payment['originator_id'], $config_payment['originator_name'], $config_payment['api_key']);
+                    $wallet_service = $this->domainServiceFactory->getWalletService();
+                    $result = $wallet_service->rechargeWithCreditCard(new PayXpertCardPaymentProvider($payXpertConfig), $card, $user, new Money($funds_value, $user->getUserCurrency()));
                     if($result->success()) {
-                        $msg = 'Your balance was update with a value: ' . $result->getValues() / 100;
+                        $msg = 'Your balance was update. Your current balance is: ' . $user->getBalance() / 100;
                     } else {
-                        $errors[] = $result->getValues();
+                        $errors[] = 'An error occurred. The response with our payment provider was: ' . $result->returnValues()->errorMessage;
                     }
                 }
             }

@@ -119,33 +119,7 @@ class UserService
         }
     }
 
-    /**
-     * @param User $user
-     * @param ICardPaymentProvider $paymentProvider
-     * @param Money $amount
-     * @return ActionResult
-     */
-    public function recharge(User $user, ICardPaymentProvider $paymentProvider, Money $amount)
-    {
-        if($amount->getAmount() > 0){
-            $result = $this->paymentProviderService->charge($paymentProvider,$amount);
-            if ($result) {
-                try{
-                    $user->reChargeWallet($amount);
-                    $this->userRepository->add($user);
-                    $this->entityManager->flush($user);
-                    return new ActionResult(true, $user->getBalance()->getAmount());
-                } catch(Exception $e){
-                    $error_message = 'Error updating balance';
-                }
-            } else {
-                $error_message = 'Provider denied the operation';
-            }
-        } else {
-            $error_message = 'Amount should be greater than 0';
-        }
-        return new ActionResult(false, $error_message);
-    }
+
 
     public function getMyActivePlays(UserId $userId)
     {

@@ -1,4 +1,4 @@
-{#{% if msg %}
+{% if msg %}
     <div class="box success">
         <span class="ico- ico"></span>
         <span class="txt">{{ msg }}</span>
@@ -9,7 +9,7 @@
         <span class="ico-warning ico"></span>
         <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
     </div>
-{% endif %}#}
+{% endif %}
 
 <div class="wrap">
     {% if component.where == 'account' %} 

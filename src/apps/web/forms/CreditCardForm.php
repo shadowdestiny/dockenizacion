@@ -22,6 +22,9 @@ class CreditCardForm extends Form
             new PresenceOf(array(
                 'message' => 'The card number is required'
             )),
+            new Numericality(array(
+
+            )),
             new CreditCard(array())
         ));
 
