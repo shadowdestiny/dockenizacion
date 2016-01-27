@@ -20,7 +20,6 @@ var EmAddFund = new React.createClass({
 
     handleKeyPress : function (event)
     {
-        //var pattern = /[1-9]*(\.[0-9]+)?/;
         var pattern = /^[0-9.]+$/;
         var chr = String.fromCharCode(event.which);
         if(!pattern.test(chr)){

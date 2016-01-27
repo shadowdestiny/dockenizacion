@@ -69,7 +69,7 @@ $(function(){
             <h1 class="h1 title yellow">{{ language.translate("Wallet") }}</h1>
 
             <div class="{%if show_box_basic == false %}hidden{% endif %} overview-wallet">
-                <div class="info box box-congrats">
+                {#<div class="info box box-congrats">
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                     <span class="txt"><span class="congrats">{{ language.translate("Congratulations! You have won € 89.30") }}</span>
                         {{ language.translate("") }}
@@ -82,8 +82,21 @@ $(function(){
 {#
                     {{ language.translate("To transfer your big winnings into your bank account we required the following informations: 1) your full name, 2) passport or ID card, 3) a current residence address, 4) a telephone number and 5) your bank account details.<br> Please send us everything by email to <a href='mailto:support@euromillions.com?subject=I won the lottery'>support@euromillions.com</a>, we will soon get in contact with you.")}}
 #}
-                    </span>
-                </div>
+  {#                  </span>
+                </div>#}
+
+                {% if msg %}
+                    <div class="box success">
+                        <span class="ico- ico"></span>
+                        <span class="txt">{{ msg }}</span>
+                    </div>
+                {% endif %}
+                {% if errors %}
+                    <div class="box error">
+                        <span class="ico-warning ico"></span>
+                        <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
+                    </div>
+                {% endif %}
 
                 <div class="box-balance">
                     <div class="cols res">
