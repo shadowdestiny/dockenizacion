@@ -83,6 +83,14 @@ var CartPage = new React.createClass({
         this.handleUpdatePrice();
     },
 
+    handleClickAdd : function (value)
+    {
+        if(value) {
+            this.state.fund_value = 0;
+            this.handleUpdatePrice();
+        }
+    },
+
     updatePriceWithCheckedWallet : function (price) {
         this.state.show_all_fee = false;
         var wallet = parseFloat(this.props.wallet_balance) > price ? price : this.props.wallet_balance;
@@ -118,10 +126,10 @@ var CartPage = new React.createClass({
                 price = price + parseFloat(fee);
             }
         } else if(parseFloat(wallet_balance) > parseFloat(price)) {
-            this.state.show_fee_value = true;
-            this.state.show_fee_text = true;
-            this.state.show_all_fee = true;
-            price = parseFloat(price) + parseFloat(fee);
+            this.state.show_fee_value = false;
+            this.state.show_fee_text = false;
+            this.state.show_all_fee = false;
+            //price = parseFloat(price) + parseFloat(fee);
         } else if(parseFloat(price) > parseFloat(fee_below)) {
             this.state.show_fee_value = false;
             this.state.show_fee_text = false;
@@ -173,6 +181,7 @@ var CartPage = new React.createClass({
                                                 symbol_position={this.props.symbol_position}
                                                 fee_charge={this.props.fee_charge}
                                                 price_below_fee={this.props.price_below_fee}
+                                                callbackHandleClickAdd={this.handleClickAdd}
                                                 show_fee_value={this.state.show_fee_value}
                                                 currency_symbol={this.props.currency_symbol}
                                                 show_all_fee={this.state.show_all_fee}
