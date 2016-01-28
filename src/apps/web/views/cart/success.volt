@@ -5,10 +5,7 @@
 {% block template_scripts %}{% endblock %}
 {% block bodyClass %}cart success minimal{% endblock %}
 
-{% block header %}
-    {% set activeSteps='{"myClass": "step3"}'|json_decode %}
-    {% include "_elements/sign-in-header.volt" %}
-{% endblock %}
+{% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
 {% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}
 
 {% block body %}
@@ -17,22 +14,24 @@
         <div class="box-basic medium">
             <div class="cols">
                 <div class="col7 txt-col">
-                    <h1 class="h1 title yellow">{{ language.translate("Your Profile") }}</h1>
-                    <p>{{ language.translate('We just sent your an email with a resume of the number played, or if you wish you can always <a href="javascript:void(0);">print this ticket</a>') }}</p>
-
+                    <h1 class="h1 title yellow">{{ language.translate("Thanks for your order") }}</h1>
+                    <h2 class="h2 sub-title purple">{{ language.translate("You just completed your payment") }}</h2>
                     <div class="countdown">
-                        <span class="h4">{{ language.translate("Countdown Draw:") }}</span>
+                        <span class="h4">{{ language.translate("Countdown to the next draw:") }}</span>
                         <span class="purple">{{ language.translate("3 Days 05:29") }}</span>
                     </div>
 
+                    <p>{{ language.translate('We just sent your an email with a resume of the number played, or if you wish you can always <a href="javascript:void(0);">print this ticket</a>') }}</p>
+                    <p><strong>{{ language.translate("Note") }}:</strong> {{ language.translate("For long durations plays we'll use what you have added on your Wallet Balance and use only what is needed to play your numbers for each draw.") }}</p>
+
                     <h2 class="h4">{{ language.translate("In case of winning") }}</h2>
-                    <p>{{ language.translate("We'll contact you at <em>email@email.com</em> be sure to add our email <em>winning-ticket@euromillion.com</em> to your address book to avoid spam filters.") }}</p>
+                    <p>{{ language.translate("We'll contact you at <em>email@email.com</em> be sure to add our email <em>support@euromillion.com</em> to your address book to avoid spam filters.") }}</p>
 
                     <h2 class="h4">{{ language.translate("What would you do with your winnings?") }}</h2>
                     <p class="small-margin">{{ language.translate("We are very curious to know what makes you play and what are your dreams of victory. We would be very happy to hear from you and inspire us with your story and experience of playing the lottery.")}}</p>
                     <form novalidate class="form">
                         <textarea class="textarea" placeholder="{{ language.translate('What makes you play? What would you do if you won the big Euromillion jackpot?')}}"></textarea>
-                        <input type="submit" class="btn blue submit" value="Send message">
+                        <input type="submit" class="btn blue submit" value="{{ language.translate('Share with us') }}">
                     </form>
                 </div>
                 <div class="col5 ticket-col">

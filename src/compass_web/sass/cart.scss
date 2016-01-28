@@ -159,11 +159,12 @@
   h2.h4{margin-bottom:.3em;}
   .textarea{width:100%; font-size:$basic-size; height:180px; margin-bottom:.5em;}
   .submit{float:right; right:0;}
-  .small-margin{margin-bottom:.5em;}
+  .small-margin, .sub-title{margin-bottom:.5em;}
+  .title{margin-bottom:7px;}
   .bg-ticket{
     background:url(../img/cart/ticket.png) no-repeat; font-family:$mono; width:100%; width:340px; max-height:350px;  box-shadow:3px 3px 3px 0 #999; transform:rotate(5deg);
     position:absolute; top:-15px; left:20px;  text-align:center;
-    .title{font-weight:700; font-size:$h3;}
+    .title{font-weight:700; font-size:$h3; margin:0;}
   }
   .results{
     padding:10px 20px; overflow:auto; max-height:350px;
