@@ -16,13 +16,19 @@
                 <div class="col7 txt-col">
                     <h1 class="h1 title yellow">{{ language.translate("Thanks for your order") }}</h1>
                     <h2 class="h2 sub-title purple">{{ language.translate("You just completed your payment") }}</h2>
+
+
+                    <p class="note">
+                        <strong>{{ language.translate("NOTE") }}</strong><br>
+                        {{ language.translate("For long durations plays of your numbers a portion of your payment we'll be added directly on your Wallet Balance to be used to pay the future Draws.") }}
+                    </p>
+
                     <div class="countdown">
                         <span class="h4">{{ language.translate("Countdown to the next draw:") }}</span>
                         <span class="purple">{{ language.translate("3 Days 05:29") }}</span>
                     </div>
 
                     <p>{{ language.translate('We just sent your an email with a resume of the number played, or if you wish you can always <a href="javascript:void(0);">print this ticket</a>') }}</p>
-                    <p><strong>{{ language.translate("Note") }}:</strong> {{ language.translate("For long durations plays we'll use what you have added on your Wallet Balance and use only what is needed to play your numbers for each draw.") }}</p>
 
                     <h2 class="h4">{{ language.translate("In case of winning") }}</h2>
                     <p>{{ language.translate("We'll contact you at <em>email@email.com</em> be sure to add our email <em>support@euromillion.com</em> to your address book to avoid spam filters.") }}</p>
