@@ -19,9 +19,12 @@
 
 .pageGeneric{
     .box-basic{margin-bottom:2em;}
-    #content .wrapper{width:800px;}
-    .title{margin-bottom:5px;}
-    .p{font-weight:700; font-size:$h3;}
+    #content .wrapper{width:1000px;}
+    .title{line-height:100%; margin-bottom:.5em;}
+    .p{font-weight:700; font-size:$h4;}
+    .cols{margin:0;}
+    .box-img{text-align:center;}
+    .img{width:75%;}
 }
 @media only screen and (max-width:1200px){
 #content .br{display:none;}

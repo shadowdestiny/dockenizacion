@@ -10,12 +10,21 @@
 <main id="content">
     <div class="wrapper">
         <div class="box-basic">
-            <h1 class="h1 title">{{ language.translate("Internal Server Error - ERROR 500") }}</h1>
-            <p class="p">{{ language.translate("The server encountered an internal error or misconfiguration and was unable to complete your request.") }}</p>
+            <div class="cols">
+                <div class="col7">
+                    <h1 class="h1 title yellow">{{ language.translate("Internal Server Error - ERROR 500") }}</h1>
+                    <h1 class="h2 purple">{{ language.translate("We are so terribly sorry...") }}</h1>
 
-            <p class="res">
-                {{ language.translate('If the problem persists, please <a href="mailto:support@euromillions.com">report your problem to  support@euromillions.com</a></a> and mention this error message, when the error occurred, and possibly anything you might have done that may have caused the error.<br><br> <strong>Thank you</strong>')}}
-            </p>
+                    <p class="p">{{ language.translate("The server encountered an internal error or misconfiguration and was unable to complete your request.") }}</p>
+
+                    <p class="res">
+                        {{ language.translate('If the problem persists, please <a href="mailto:support@euromillions.com">report your problem to  support@euromillions.com</a></a> and mention this error message, when the error occurred, and possibly anything you might have done that may have caused the error.<br><br> <strong>Thank you</strong>')}}
+                    </p>
+                </div>
+                <div class="col5 box-img">
+                    <img class="img" src="/w/img/error/dog.jpg" alt="{{ language.translate('Sorry Dog') }}" title="{{ language.translate('We are very sorry')}}">
+                </div>
+            </div>
         </div>
     </div>
 </main>
