@@ -24,7 +24,7 @@ abstract class EmailTemplateDecorator implements IEmailTemplate
         $this->emailTemplate = $emailTemplate;
         $this->domainServiceFactory = \Phalcon\Di::getDefault()->get('domainServiceFactory');
         $this->config = $this->domainServiceFactory->getServiceFactory()->getDI()->get('config');
-        $this->lotteriesDataService = $lotteriesDataService ? $lotteriesDataService : $this->domainServiceFactory->getLotteriesDataService();
+        $this->lotteriesDataService = ($lotteriesDataService != null) ? $lotteriesDataService : $this->domainServiceFactory->getLotteriesDataService();
     }
 
     abstract public function loadVars();
