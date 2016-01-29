@@ -7,12 +7,13 @@ use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
+use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Validation\Validator\Identical;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email as EmailValidator;
 
-class SignUpForm extends RedirectableFormBase
+class SignUpForm extends Form
 {
     public function initialize($entity = null, $options = null)
     {
@@ -80,6 +81,5 @@ class SignUpForm extends RedirectableFormBase
             'message' => 'Cross scripting protection. Reload the page.'
         )));
         $this->add($csrf);
-        parent::initialize();
     }
 }

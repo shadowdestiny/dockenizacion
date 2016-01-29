@@ -139,10 +139,10 @@ class CartController extends PublicSiteControllerBase{
 
     public function profileAction($paramsFromPreviousAction = null)
     {
-        $errors = null;
+        $errors = [];
         $user = $this->authService->getCurrentUser();
         if($user instanceof User) {
-            $this->response->redirect('cart/order');
+            $this->response->redirect('/cart/order');
         }
         $sign_up_form = $this->getSignUpForm();
         list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
@@ -187,7 +187,7 @@ class CartController extends PublicSiteControllerBase{
 
     public function loginAction($paramsFromPreviousAction = null)
     {
-        $errors = null;
+        $errors = [];
         $sign_in_form = new SignInForm();
         $form_errors = $this->getErrorsArray();
         $sign_up_form = $this->getSignUpForm();
@@ -214,7 +214,7 @@ class CartController extends PublicSiteControllerBase{
                 ) {
                     $errors[] = 'Email/password combination not valid';
                 } else {
-                    return $this->response->redirect('cart/order?user='.$userId->getId());
+                    return $this->response->redirect('/cart/order?user='.$userId->getId());
                 }
             }
         }
@@ -259,8 +259,7 @@ class CartController extends PublicSiteControllerBase{
         sort($countries);
         //key+1, select element from phalcon need index 0 to set empty value
         $countries = array_combine(range(1, count($countries)), array_values($countries));
-        $sign_up_form = new SignUpForm(null, ['countries' => $countries]);
-        return $sign_up_form;
+        return new SignUpForm(null, ['countries' => $countries]);
     }
 
     /**

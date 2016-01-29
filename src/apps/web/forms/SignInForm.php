@@ -5,12 +5,13 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Email;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Password;
+use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\Identical;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email as EmailValidator;
 
 
-class SignInForm extends RedirectableFormBase
+class SignInForm extends Form
 {
     public function initialize()
     {
@@ -46,6 +47,5 @@ class SignInForm extends RedirectableFormBase
             'message' => 'Cross scripting protection. Reload the page.'
         )));
         $this->add($csrf);
-        parent::initialize();
     }
 }

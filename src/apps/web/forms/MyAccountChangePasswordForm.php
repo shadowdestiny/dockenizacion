@@ -6,10 +6,11 @@ namespace EuroMillions\web\forms;
 
 use EuroMillions\web\components\PasswordValidator;
 use Phalcon\Forms\Element\Password;
+use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Validation\Validator\PresenceOf;
 
-class MyAccountChangePasswordForm extends RedirectableFormBase
+class MyAccountChangePasswordForm extends Form
 {
 
     public function initialize($entity = null, $options = null)
@@ -45,6 +46,5 @@ class MyAccountChangePasswordForm extends RedirectableFormBase
             'message' => 'The password confirmation is required'
         )));
         $this->add($password_confirm);
-        parent::initialize();
     }
 }

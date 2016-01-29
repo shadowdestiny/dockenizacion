@@ -2,6 +2,7 @@
 namespace EuroMillions\shared\config\bootstrap;
 
 use EuroMillions\shared\components\EnvironmentDetector;
+use EuroMillions\shared\components\PhalconUrlWrapper;
 use EuroMillions\web\services\DomainServiceFactory;
 use EuroMillions\web\services\ServiceFactory;
 use Phalcon;
@@ -67,4 +68,10 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
         return new DomainServiceFactory($di, new ServiceFactory($di));
     }
 
+    protected function configUrl(Di $di)
+    {
+        $url = new PhalconUrlWrapper();
+        $url->setBaseUri('https://localhost');
+        return $url;
+    }
 }

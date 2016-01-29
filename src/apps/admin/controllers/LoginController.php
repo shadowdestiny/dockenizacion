@@ -11,7 +11,7 @@ class LoginController extends AdminControllerBase
     public function indexAction($paramsFromPreviousAction = null)
     {
         $auth_user_service = $this->domainAdminServiceFactory->getAuthUserService();
-        $errors = null;
+        $errors = [];
         $sign_in_form = new LoginForm();
         list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
 
@@ -39,9 +39,9 @@ class LoginController extends AdminControllerBase
                     $errors[] = 'Username/password combination not valid';
                 } else {
                     if(!empty($controller) && !empty($action) && !empty($params)) {
-                        return $this->response->redirect('admin/'.$controller.'/'.$action.'/'.$params);
+                        return $this->response->redirect('/admin/'.$controller.'/'.$action.'/'.$params);
                     } else {
-                        return $this->response->redirect('admin/index/index');
+                        return $this->response->redirect('/admin/index/index');
                     }
                 }
             }

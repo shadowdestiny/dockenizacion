@@ -12,9 +12,6 @@
     {{ signinform.render('email', {'class':'input'~form_errors['email']}) }}
     {{ signinform.render('password', {'class':'input'~form_errors['password']}) }}
     {{ signinform.render('csrf', ['value': security.getSessionToken()]) }}
-    {{ signinform.render('controller', ['value': controller]) }}
-    {{ signinform.render('action', ['value': action]) }}
-    {{ signinform.render('params', ['value': params]) }}
     <div class="cl reduce">
         <label class="label left" for="remember">
             {{ signinform.render('remember', {'class':'checkbox', 'data-role':'none'}) }}

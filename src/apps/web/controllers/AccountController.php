@@ -4,7 +4,6 @@
 namespace EuroMillions\web\controllers;
 
 
-use apps\web\forms\MyAccountWalletAddFunds;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
@@ -20,7 +19,6 @@ use EuroMillions\web\vo\UserId;
 use Money\Money;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Form;
-use Phalcon\Validation\Validator\Numericality;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation;
 use Phalcon\Validation\Message;
@@ -89,8 +87,12 @@ class AccountController extends PublicSiteControllerBase
         $myaccount_form = $this->getMyACcountForm($userId);
         $myaccount_passwordchange_form = new MyAccountChangePasswordForm();
         if($this->request->isPost()) {
-            if ($myaccount_passwordchange_form->isValid($this->request->getPost()) == false) {
+            if ($myaccount_passwordchange_form->isValid($this->request->getPost()) === false) {
                 $messages = $myaccount_passwordchange_form->getMessages(true);
+                /**
+                 * @var  $field
+                 * @var Message[] $field_messages
+                 */
                 foreach ($messages as $field => $field_messages) {
                     $errors[] = $field_messages[0]->getMessage();
                     $form_errors[$field] = ' error';
@@ -111,10 +113,10 @@ class AccountController extends PublicSiteControllerBase
         }
         //$this->view->pick('account/index');
         return $this->view->setVars([
-            'form_errors' => !empty($form_errors) ? $form_errors : [],
+            'form_errors' => $form_errors,
             'which_form'  => 'password',
             'errors' => $errors,
-            'msg' => !empty($msg) ? $msg : '',
+            'msg' => $msg,
             'myaccount' => $myaccount_form,
             'password_change' => $myaccount_passwordchange_form
         ]);
@@ -182,6 +184,9 @@ class AccountController extends PublicSiteControllerBase
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $form_errors = $this->getErrorsArray();
         $funds_value = $this->request->getPost('funds-value');
+        $errors = [];
+        $msg = '';
+
         if($this->request->isPost()) {
             if ($credit_card_form->isValid($this->request->getPost()) == false) {
                 $messages = $credit_card_form->getMessages(true);
@@ -215,7 +220,7 @@ class AccountController extends PublicSiteControllerBase
             'form_errors' => $form_errors,
             'errors' => $errors,
             'credit_card_form' => $credit_card_form,
-            'msg' => !empty($msg) ? $msg : '',
+            'msg' => $msg,
             'show_form_add_fund' => true,
             'show_box_basic' => false,
         ]);
@@ -226,9 +231,10 @@ class AccountController extends PublicSiteControllerBase
     {
         $userId = $this->authService->getCurrentUser();
         $result = $this->userService->getActiveNotificationsByUser($userId);
-        $list_notifications = null;
+        $list_notifications = [];
 
         if($result->success()) {
+            $error_msg = '';
             $notifications_collection = $result->getValues();
             foreach($notifications_collection as $notifications) {
                 $list_notifications[] = new UserNotificationsDTO($notifications);
@@ -238,7 +244,7 @@ class AccountController extends PublicSiteControllerBase
         }
         $this->view->pick('account/email');
         return $this->view->setVars([
-            'error' => (!empty($error_msg)) ? $error_msg : '',
+            'error' => $error_msg,
             'error_form' => [],
             'list_notifications' => $list_notifications,
             'message' => ''
@@ -248,7 +254,7 @@ class AccountController extends PublicSiteControllerBase
     public function editEmailAction()
     {
         if(!$this->request->isPost()) {
-            return $this->response->redirect('account/email');
+            return $this->response->redirect('/account/email');
         }
         $userId = $this->authService->getCurrentUser();
         /** @var User $user */
@@ -264,7 +270,7 @@ class AccountController extends PublicSiteControllerBase
 
         $message = null;
 
-        $list_notifications = null;
+        $list_notifications = [];
         try {
             if($reach_notification) {
                 $notificationType = new NotificationType(NotificationType::NOTIFICATION_THRESHOLD, $config_value_threshold);
@@ -313,7 +319,7 @@ class AccountController extends PublicSiteControllerBase
 
     }
 
-    private function getMyACcountForm($userId)
+    private function getMyACcountForm(UserId $userId)
     {
         $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
         $countries = $geoService->countryList();
@@ -321,8 +327,7 @@ class AccountController extends PublicSiteControllerBase
         $countries = array_combine(range(1, count($countries)), array_values($countries));
         $user = $this->userService->getUser($userId->getId());
         $user_dto = new UserDTO($user);
-        $myaccount_form = new MyAccountForm($user_dto,['countries' => $countries]);
-        return $myaccount_form;
+        return new MyAccountForm($user_dto,['countries' => $countries]);
     }
 
     private function validationEmailSettings()

@@ -10,12 +10,13 @@ use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
+use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Validation\Validator\Identical;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email as EmailValidator;
 
-class MyAccountForm extends RedirectableFormBase
+class MyAccountForm extends Form
 {
 
     public function initialize($entity = null, $options = null)
@@ -91,7 +92,6 @@ class MyAccountForm extends RedirectableFormBase
         )));
 
         $this->add($csrf);
-        parent::initialize();
     }
 
 

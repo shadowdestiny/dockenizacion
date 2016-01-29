@@ -232,7 +232,7 @@ class AuthService
      */
     private function getValidationUrl(User $user)
     {
-        return new Url($this->urlManager->get('userAccess/validate/' . $this->getEmailValidationToken(new Email($user->getEmail()->toNative()))));
+        return new Url($this->urlManager->get('/validate/' . $this->getEmailValidationToken(new Email($user->getEmail()->toNative()))));
     }
 
     /**
@@ -241,7 +241,7 @@ class AuthService
      */
     private function getPasswordResetUrl(User $user)
     {
-        return new Url($this->urlManager->get('userAccess/passwordReset/' . $this->getEmailValidationToken(new Email($user->getEmail()->toNative()))));
+        return new Url($this->urlManager->get('/passwordReset/' . $this->getEmailValidationToken(new Email($user->getEmail()->toNative()))));
     }
 
     public function tryLoginWithRemember()

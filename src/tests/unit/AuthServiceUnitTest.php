@@ -354,7 +354,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $this->userRepository_double->getByEmail(UserBuilder::DEFAULT_EMAIL)->willReturn(null);
         $this->userRepository_double->add($user)->shouldBeCalled();
         $this->storageStrategy_double->setCurrentUserId(Argument::type($this->getVOToArgument('UserId')))->shouldBeCalled();
-        $this->urlManager_double->get(Argument::type('string'))->willReturn('http://localhost/userAccess/validate/441a9e42f0e3c769a6112b56a04b6');
+        $this->urlManager_double->get(Argument::type('string'))->willReturn('http://localhost/validate/441a9e42f0e3c769a6112b56a04b6');
 
         $sut = $this->getSut();
         $actual = $sut->register($credentials);
@@ -455,7 +455,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $emailUser = 'algarrobo@currojimenez.com';
         $email = new Email($emailUser);
         $user = $this->getNewUser();
-        $this->urlManager_double->get(Argument::type('string'))->willReturn('http://localhost/userAccess/validate/441a9e42f0e3c769a6112b56a04b6');
+        $this->urlManager_double->get(Argument::type('string'))->willReturn('http://localhost/validate/441a9e42f0e3c769a6112b56a04b6');
         $this->userRepository_double->getByEmail($email->toNative())->willReturn($user);
         $sut = $this->getSut();
         $actual = $sut->forgotPassword($email);

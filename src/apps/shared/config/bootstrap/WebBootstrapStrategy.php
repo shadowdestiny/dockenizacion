@@ -184,11 +184,32 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'controller' => 'user-access',
             'action'     => 'signIn'
         ));
-        $router->add("/userAccess/:action", array(
+        $router->add("/sign-up", array(
             "module"     => "web",
             'controller' => 'user-access',
-            'action' => 1
+            'action'     => 'signUp'
         ));
+        $router->add("/logout", array(
+            "module"     => "web",
+            'controller' => 'user-access',
+            'action'     => 'logout'
+        ));
+        $router->add("/validate", array(
+            "module"     => "web",
+            'controller' => 'user-access',
+            'action'     => 'validate'
+        ));
+        $router->add("/passwordReset", array(
+            "module"     => "web",
+            'controller' => 'user-access',
+            'action'     => 'passwordReset'
+        ));
+        $router->add("/forgotPassword", array(
+            "module"     => "web",
+            'controller' => 'user-access',
+            'action'     => 'passwordReset'
+        ));
+
         $router->add('/ajax/:controller/:action/:params', array(
             "module"     => "web",
             'namespace'  => 'EuroMillions\web\controllers\ajax',
@@ -255,10 +276,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     protected function configUrl(Di $di)
     {
-        $config = $di->get('config');
         $url = new PhalconUrlWrapper();
-        $url->setBaseUri('https://'.$config->domain['url']);
-        $url->setStaticBaseUri('https://'.$config->domain['url']);
+        $url->setBaseUri('https://'.$_SERVER['HTTP_HOST']);
         return $url;
     }
 

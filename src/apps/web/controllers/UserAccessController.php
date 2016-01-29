@@ -27,17 +27,18 @@ class UserAccessController extends ControllerBase
         $this->geoService = $geoService ? $geoService : $this->domainServiceFactory->getServiceFactory()->getGeoService();
     }
 
-    public function signInAction($paramsFromPreviousAction = null)
+    public function signInAction()
     {
         $errors = [];
         $sign_in_form = new SignInForm();
         $form_errors = $this->getErrorsArray();
         $sign_up_form = $this->getSignUpForm();
 
-        list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
+        $url_redirect = $this->session->get('original_referer');
+
 
         if ($this->request->isPost()) {
-            if ($sign_in_form->isValid($this->request->getPost()) == false) {
+            if ($sign_in_form->isValid($this->request->getPost()) === false) {
                 $messages = $sign_in_form->getMessages(true);
                 /**
                  * @var string $field
@@ -56,7 +57,7 @@ class UserAccessController extends ControllerBase
                 ) {
                     $errors[] = 'Email/password combination not valid';
                 } else {
-                    return $this->response->redirect("$controller/$action".implode('/',$params));
+                    return $this->response->redirect($url_redirect);
                 }
             }
         }
@@ -68,22 +69,18 @@ class UserAccessController extends ControllerBase
             'signupform'  => $sign_up_form,
             'errors'      => $errors,
             'form_errors' => $form_errors,
-            'controller' => $controller,
-            'action' => $action,
-            'params' => json_encode($params),
         ]);
     }
 
-    public function signUpAction($paramsFromPreviousAction = null)
+    public function signUpAction()
     {
-        $errors = null;
+        $errors = [];
         $sign_in_form = new SignInForm();
         $form_errors = $this->getErrorsArray();
         $sign_up_form = $this->getSignUpForm();
-        list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
         $url_redirect = $this->session->get('original_referer');
         if ($this->request->isPost()) {
-            if ($sign_up_form->isValid($this->request->getPost()) == false) {
+            if ($sign_up_form->isValid($this->request->getPost()) === false) {
                 $messages = $sign_up_form->getMessages(true);
                 /**
                  * @var string $field
@@ -107,9 +104,6 @@ class UserAccessController extends ControllerBase
                 if (!$register_result->success()) {
                     $errors[] = $register_result->errorMessage();
                 } else {
-                    if(explode('/',$url_redirect)[0] == 'cart' && explode('/',$url_redirect)[1] == 'profile') {
-                        return $this->response->redirect('cart/order');
-                    }
                     return $this->response->redirect($url_redirect);
                 }
             }
@@ -122,9 +116,6 @@ class UserAccessController extends ControllerBase
             'signupform'  => $sign_up_form,
             'errors'      => $errors,
             'form_errors' => $form_errors,
-            'controller' => $controller,
-            'action' => $action,
-            'params' => json_encode($params),
         ]);
     }
 
@@ -184,7 +175,7 @@ class UserAccessController extends ControllerBase
     public function logoutAction()
     {
         $this->authService->logout();
-        $this->response->redirect();
+        $this->response->redirect('/');
     }
 
 
