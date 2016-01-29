@@ -110,7 +110,7 @@ class MyAccountForm extends RedirectableFormBase
             ]
         ));
         $password->addValidator(new PasswordValidator([
-            'message' => 'The password should have numbers, lowercase and uppercase characters'
+            'message' => 'The password should have at least one number, a lowercase and uppercase character.'
         ]));
         $this->add($password);
         $password_confirm = new Password('confirm_password', array(

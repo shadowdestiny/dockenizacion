@@ -217,7 +217,7 @@ var CartPage = new React.createClass({
             <div>
                 <div className="box-top cl">
                     <div className="balance">
-                        <span className="txt">Your current wallet balance:</span>
+                        <span className="txt">Your Wallet balance:</span>
                         {old_balance_and_new_balance}
                     </div>
                     <h2 className="h4 sub-txt">Order Summary</h2>

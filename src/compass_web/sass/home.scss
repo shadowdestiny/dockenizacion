@@ -38,7 +38,7 @@
 .box-result .cols{margin:0;}
 .box-result .content{padding:20px;}
 .box-result .woman{background:url(../img/home/bg-result.jpg) no-repeat center center;}
-.box-result .lnk{text-decoration:none; display:block; font-size:$basic-size;}
+.box-result .lnk{text-decoration:none; display:inline-block; font-size:$basic-size;}
 .box-result .lnk:hover .txt{text-decoration:underline; color:$hover;}
 .box-result .lnk .ico{font-size:75%; margin-left:8px;}
 .box-result .numbers{font-weight:700; margin-bottom:1em;}
@@ -139,7 +139,7 @@
 
 
 @media only screen and (min-width:769px){
-.box-estimated:hover .try, .box-result:hover .lnk{-webkit-animation-name:pulseRight; animation-name:pulseRight;}
+.box-estimated:hover .try, .box-result:hover .lnk{-webkit-animation-name:pulseRight; animation-name:pulseRight!important;}
 .outbound{transition:top .3s, border .3s;}
 .box-play .ball{transition:transform .5s ease;}
 .box-ball .btn:hover .ball{@include transform(rotate(25deg));}
