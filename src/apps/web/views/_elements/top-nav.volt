@@ -26,6 +26,6 @@
 </li>
 {% if user_logged is empty %}
 <li class="li-sign">
-    <a class="link" href="/sign-in">{{ language.translate('Sign up') }}</a>
+    <a class="link" href="/sign-up">{{ language.translate('Sign up') }}</a>
 </li>
 {% endif %}

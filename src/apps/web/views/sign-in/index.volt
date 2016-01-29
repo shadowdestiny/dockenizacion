@@ -15,6 +15,13 @@ $(function(){
     swap(".log-in .box-extra a, .sign-up .box-extra a");
 });
 </script>
+
+{% if which_form == 'up' %}
+<script>
+        $(".sign-up").show()
+        $(".log-in").hide();
+</Script>
+{% endif %}
 {% endblock %}
 
 {% block body %}

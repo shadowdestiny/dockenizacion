@@ -186,6 +186,12 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'controller' => 'user-access',
             'action'     => 'signIn'
         ));
+        $router->add("/sign-up", array(
+            "module"     => "web",
+            'controller' => 'user-access',
+            'action'     => 'signUp'
+        ));
+
         $router->add("/userAccess/:action", array(
             "module"     => "web",
             'controller' => 'user-access',
