@@ -20,16 +20,21 @@ var EmAddFund = new React.createClass({
 
     handleKeyPress : function (event)
     {
+        var pattern = /^[0-9]+$/;
         var chr = String.fromCharCode(event.which);
-        var pattern = /[a-zA-Z\,-]/;
-        if(pattern.test(chr)){
+        if(!pattern.test(chr)){
             event.preventDefault();
         }
     },
 
     handleKeyUp : function (event)
     {
-        var pattern = /^[1-9][0-9]+(\.\d{1,2})?$/i;
+        //var charge_value = document.getElementById('charge').value;
+        //var pattern = /^[0-9.]+$/;
+        //if(!pattern.test(charge_value)) {
+        //    event.preventDefault();
+        //}
+        var pattern = /[0-9]+(\.\d{1,2})?$/i;
         var b = pattern.test(event.target.value);
         if(!isNaN(event.target.value) && b) {
             this.props.keyup_callback(parseFloat(event.target.value).toFixed(2));
@@ -56,13 +61,11 @@ var EmAddFund = new React.createClass({
 
     render : function ()
     {
-
         return (
             <div className="box-charge cl">
-                <label htmlFor="charge" className="label">Insert an ammount</label>
-                <div className="box-combo">
-                     <div className="combo currency">{this.props.currency_symbol}</div>
-                    <input id="charge" className="combo input" value={this.state.value} onKeyPress={this.handleKeyPress} onBlur={this.sanetizedNumValue} onKeyUp={this.handleKeyUp} type="text" title="This should be a number with up to 2 decimal places."  placeholder='Insert an ammount' />
+                <div className="form-currency">
+                    <span className="currency">{this.props.currency_symbol}</span>
+                    <input autoFocus id="charge" className="input insert" value={this.state.value} onKeyPress={this.handleKeyPress} onBlur={this.sanetizedNumValue} onKeyUp={this.handleKeyUp} type="text" title="This should be a number with up to 2 decimal places."  placeholder='Insert an amount' />
                 </div>
             </div>
         )

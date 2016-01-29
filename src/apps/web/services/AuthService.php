@@ -7,6 +7,8 @@ use EuroMillions\web\components\Md5EmailValidationToken;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\web\components\PhpassWrapper;
 use EuroMillions\web\components\RandomPasswordGenerator;
+use EuroMillions\web\emailTemplates\EmailTemplate;
+use EuroMillions\web\emailTemplates\WelcomeEmailTemplate;
 use EuroMillions\web\entities\GuestUser;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IAuthStorageStrategy;
@@ -153,7 +155,10 @@ class AuthService
                 $this->storageStrategy->setCurrentUserId($user->getId());
                 $this->logService->logRegistration($user);
                 $url = $this->getValidationUrl($user);
-                $this->emailService->sendRegistrationMail($user, $url);
+                $emailTemplate = new EmailTemplate();
+                $emailTemplate = new WelcomeEmailTemplate($emailTemplate);
+                $emailTemplate->setUser($user);
+                $this->emailService->sendTransactionalEmail($user, $emailTemplate);
                 //user notifications default
                 $this->userService->initUserNotifications($user->getId());
                 return new ActionResult(true, $user);

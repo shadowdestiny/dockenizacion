@@ -13,9 +13,6 @@ use Money\Currency;
 use Money\Money;
 use Phalcon\Validation\Message;
 
-/** WARNING: THIS CONTROLLER HAS BEEN CLONED FROM THE USERACCESS CONTROLLER JUST SO ALESSIO CAN WORK ON THE DESIGN
- *  THE FUNCTIONALITY IS NOT THE REAL ONE
- */
 
 class CartController extends PublicSiteControllerBase{
 
@@ -66,17 +63,17 @@ class CartController extends PublicSiteControllerBase{
             $total_price = count($play_config_decode->euroMillionsLines->bets)
                 * $play_config_decode->drawDays * $bet_price_value_currency->getAmount() *  $play_config_decode->frequency / 10000;
         } else {
-            $msg = 'Error trying get data';
+            $this->response->redirect('/play');
         }
 
         $currency_symbol = $this->currencyService->getSymbol($bet_price_value_currency,$user->getBalance()->getCurrency());
-        $symbol_position = $this->currencyService->getSymbolPosition($user->getBalance()->getCurrency(),$user->getUserCurrency());
-
+        $locale = $this->request->getBestLanguage();
+        $symbol_position = $this->currencyService->getSymbolPosition($locale,$user->getUserCurrency());
         return $this->view->setVars([
             'total' => !empty($total_price) ? $total_price : 0,
             'form_errors' => $form_errors,
             'currency_symbol' => $currency_symbol,
-            'symbol_position' => $symbol_position,
+            'symbol_position' => ($symbol_position === 0) ? false : true,
             'fee_below' => $fee_below->getAmount() / 100,
             'fee_charge' => $fee_charge->getAmount() / 100,
             'single_bet_price' => $bet_price_value_currency->getAmount() / 10000,
@@ -209,7 +206,7 @@ class CartController extends PublicSiteControllerBase{
                 if (!$this->authService->check([
                     'email'    => $this->request->getPost('email'),
                     'password' => $this->request->getPost('password'),
-                    'remember' => $this->request->getPost('remember'),
+                    false,
                 ], 'string')
                 ) {
                     $errors[] = 'Email/password combination not valid';

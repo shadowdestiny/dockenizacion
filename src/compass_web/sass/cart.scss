@@ -77,11 +77,9 @@
 .order{
   .box-wallet .txt{font-size:$basic-size!important; margin:0 0 0 8px; float:right; cursor:pointer;}
   .checkbox{float:right; position:relative; top:4px;}
-  .combo.input{
-    background:#fff; width:140px; padding:5px 8px; 
-    -webkit-appearance:none; -webkit-border-radius:0; height:1%; /* Fix Safari */
-  }
-  .combo.currency{padding:0 9px;}
+/*  .combo.input{
+    -webkit-appearance:none; -webkit-border-radius:0; height:1%;
+  }*/  /* Fix Safari */
   .txt-fee{font-weight:700;}
   .txt-fee, .desc, .detail, .summary{font-size:$basic-size;}
   .change, .add-funds, .txt-currency{font-size:$small;}
@@ -93,16 +91,15 @@
     a{text-decoration:none;}
     a:hover, a:focus{text-decoration:underline!important;}
   }
-  .val{display:inline-block; min-width:80px; text-align:right;}
+  .val{display:inline-block; min-width:80px; text-align:right; margin-left:10px;}
   .row{border-top:1px solid $grey-lighter; padding:10px;}
   .sub-txt{margin:0 0 .5em; text-transform:uppercase; text-align:left;}
   .desc{font-weight:700; float:left; width:70px;}
   .change{margin-left:15px; display:inline-block;}
   .type{width:200px; text-align:left; font-style:italic;}
   .summary{font-weight:700; float:right;}
-  .add-funds{/*float:right;*/}
   .add-funds:hover, .add-funds:focus{text-decoration:underline!important;}
-  .box-funds{float:right; text-align:right;}
+  .box-funds{float:right; text-align:right; position:relative; top:-1px;}
   .box-total{
     color:$purple; border-top:2px solid $purple; padding:8px 10px;
     .total{
@@ -136,11 +133,9 @@
     }
   }
   .box-bottom .btn{min-width:180px; text-align:center;}
-  .box-charge{
-    position:relative;
-    .label{float:left; font-size:$small; font-style:italic; font-weight:normal; margin:0 10px 0 0; line-height:30px; width:auto;}
-    .box-combo{float:left;}
-  }
+  .box-charge{position:relative;}
+  .form-currency .currency{right:-9px;}
+  .new{margin-left:5px;}
 }
 
 .payment{ /* Inside ORDER area*/
@@ -164,11 +159,12 @@
   h2.h4{margin-bottom:.3em;}
   .textarea{width:100%; font-size:$basic-size; height:180px; margin-bottom:.5em;}
   .submit{float:right; right:0;}
-  .small-margin{margin-bottom:.5em;}
+  .small-margin, .sub-title{margin-bottom:.5em;}
+  .title{margin-bottom:7px;}
   .bg-ticket{
     background:url(../img/cart/ticket.png) no-repeat; font-family:$mono; width:100%; width:340px; max-height:350px;  box-shadow:3px 3px 3px 0 #999; transform:rotate(5deg);
     position:absolute; top:-15px; left:20px;  text-align:center;
-    .title{font-weight:700; font-size:$h3;}
+    .title{font-weight:700; font-size:$h3; margin:0;}
   }
   .results{
     padding:10px 20px; overflow:auto; max-height:350px;
@@ -184,6 +180,7 @@
   .box-basic .cols{margin:0;}
   .txt-logo{color:$purple; font-weight:700; font-size:$h3; text-align:left; margin:.5em 0;}
   .txt-col{padding-right:20px;}
+  .note{border:1px solid $purple; padding:5px 10px;}
 }
 
 .fail{
@@ -284,7 +281,8 @@
 }
 .order{
   .box-charge .label{width:100%; line-height:normal;}
-  .add-funds{float:left;}
+  .add-funds{float:none;}
+  .box-funds{text-align:left;}
 }
 }
 
@@ -298,7 +296,6 @@
     .desc{display:none;}
     .tweak{float:none;}
     .box-funds{margin-top:5px; float:left;}
-
     .box-wallet .txt{font-size:$small!important;}
   }
 }

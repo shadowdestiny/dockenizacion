@@ -9,11 +9,22 @@ use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\forms\ResetPasswordForm;
+use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
 use EuroMillions\web\services\card_payment_providers\FakeCardPaymentProvider;
+use EuroMillions\web\services\card_payment_providers\payxpert\PayXpertConfig;
+use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentProvider;
+use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
+use EuroMillions\web\services\WalletService;
+use EuroMillions\web\vo\CardHolderName;
+use EuroMillions\web\vo\CardNumber;
+use EuroMillions\web\vo\CreditCard;
+use EuroMillions\web\vo\CVV;
 use EuroMillions\web\vo\dto\PlayConfigDTO;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\UserNotificationsDTO;
 use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\ExpiryDate;
 use EuroMillions\web\vo\NotificationType;
 use EuroMillions\web\vo\UserId;
 use Money\Money;
@@ -183,7 +194,13 @@ class AccountController extends PublicSiteControllerBase
         $credit_card_form = new CreditCardForm();
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $form_errors = $this->getErrorsArray();
-        $funds_value = $this->request->getPost('funds-value');
+        $funds_value = (int) $this->request->getPost('funds-value');
+        $card_number = $this->request->getPost('card-number');
+        $card_holder_name = $this->request->getPost('card-holder');
+        $year = $this->request->getPost('year');
+        $month = $this->request->getPost('month');
+        $cvv = $this->request->getPost('card-cvv');
+
         $errors = [];
         $msg = '';
 
@@ -199,18 +216,22 @@ class AccountController extends PublicSiteControllerBase
                     $form_errors[$field] = ' error';
                 }
             }else {
-                /** @var UserId $user_id */
                 $user_id = $this->authService->getCurrentUser();
                 /** User $user */
-                $user = $this->userService->getUser($user_id);
+                $user = $this->userService->getUser($user_id->getId());
                 if(null != $user ){
-                    $this->userService->
-                    /** @var ActionResult $result */
-                    $result = $this->userService->recharge($user, new FakeCardPaymentProvider(), new Money($funds_value, $user->getUserCurrency()));
+                    $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($month.'/'.$year), new CVV($cvv));
+                    $wallet_service = $this->domainServiceFactory->getWalletService();
+
+                    /** @var PaymentProviderFactory $paymentProviderFactory */
+                    $paymentProviderFactory = $this->di->get('paymentProviderFactory');
+                    $config_payment = $this->di->get('config')['payxpert'];
+                    $payXpertCardPaymentStrategy = $paymentProviderFactory->getCreditCardPaymentProvider(new PayXpertCardPaymentStrategy($config_payment));
+                    $result = $wallet_service->rechargeWithCreditCard($payXpertCardPaymentStrategy, $card, $user, new Money($funds_value * 100, $user->getUserCurrency()));
                     if($result->success()) {
-                        $msg = 'Your balance was update with a value: ' . $result->getValues() / 100;
+                        $msg = 'Your balance was update. Your current balance is: ' . $user->getBalance()->getAmount() / 100 . ' ' . $user->getBalance()->getCurrency()->getName();
                     } else {
-                        $errors[] = $result->getValues();
+                        $errors[] = 'An error occurred. The response with our payment provider was: ' . $result->returnValues()->errorMessage;
                     }
                 }
             }
@@ -221,10 +242,9 @@ class AccountController extends PublicSiteControllerBase
             'errors' => $errors,
             'credit_card_form' => $credit_card_form,
             'msg' => $msg,
-            'show_form_add_fund' => true,
-            'show_box_basic' => false,
+            'show_form_add_fund' => false,
+            'show_box_basic' => true,
         ]);
-
     }
 
     public function emailAction()
@@ -319,7 +339,49 @@ class AccountController extends PublicSiteControllerBase
 
     }
 
-    private function getMyACcountForm(UserId $userId)
+    public function resetPasswordAction()
+    {
+        $errors = [];
+        $form_errors = [];
+        $msg = false;
+        $token = $this->request->getPost('token');
+        $myaccount_passwordchange_form = new ResetPasswordForm();
+        if($this->request->isPost()) {
+            if ($myaccount_passwordchange_form->isValid($this->request->getPost()) == false) {
+                $messages = $myaccount_passwordchange_form->getMessages(true);
+                foreach ($messages as $field => $field_messages) {
+                    $errors[] = $field_messages[0]->getMessage();
+                    $form_errors[$field] = ' error';
+                }
+            }else {
+                $new_password = $this->request->getPost('new-password');
+                $user_result = $this->userService->getUserByToken($token);
+                //$result_same_password = $this->authService->samePassword($user,$this->request->getPost('old-password'));
+                //if($result_same_password->success()) {
+                if($user_result->success()) {
+                    $result = $this->authService->updatePassword($user_result->getValues(), $new_password);
+                    if ($result->success()) {
+                        $msg = true;
+                    } else {
+                        $errors [] = $result->errorMessage();
+                    }
+                } else {
+                    $erros[] = 'Token is not valid';
+                }
+            }
+        }
+
+        $this->view->pick('recovery/index');
+        return $this->view->setVars([
+            'currency_list' => [],
+            'token' => $token,
+            'message' => $msg,
+            'errors'        => $errors,
+        ]);
+
+    }
+
+    private function getMyACcountForm($userId)
     {
         $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
         $countries = $geoService->countryList();

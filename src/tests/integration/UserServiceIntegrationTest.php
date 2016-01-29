@@ -78,31 +78,6 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
 
 
     /**
-     * method recharge
-     * when called
-     * should increaseUserBalanaceAndReturnNewBalanceValue
-     * @dataProvider
-     */
-    public function test_recharge_called_increaseUserBalanaceAndReturnNewBalanceValue()
-    {
-        $expected = 306005;
-        $userRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS.'User');
-        $email = 'algarrobo@currojimenez.com';
-        /** @var User $user */
-        $user = $userRepository->getByEmail($email);
-        $paymentMethod = $this->getInterfaceWebDouble('ICardPaymentProvider')->reveal();
-        $amount = new Money(6000, new Currency('EUR'));
-        $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
-        $paymentProvider_double->charge($paymentMethod,$amount)->willReturn(true);
-        $sut = $this->getSut($paymentProvider_double);
-        $sut->recharge($user,$paymentMethod,$amount);
-        $this->entityManager->detach($user);
-        $user = $userRepository->getByEmail($email);
-        $actual = $user->getBalance()->getAmount();
-        $this->assertEquals($expected,$actual);
-    }
-
-    /**
      * method getMyActivePlays
      * when called
      * should returnArrayWithPlayConfigs

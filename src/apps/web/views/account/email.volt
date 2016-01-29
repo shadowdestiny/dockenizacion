@@ -22,7 +22,7 @@
             var code = evt.keyCode || evt.which;
             var chr = String.fromCharCode(code);
             var pattern = /^[0-9]/;
-            if( code == 8 || code == 83) {
+            if( code == 8 || code == 83 || code == 37 || code == 38 || code == 39 || code == 40) {
             } else {
                 if(!pattern.test(chr)) {
                     evt.preventDefault();

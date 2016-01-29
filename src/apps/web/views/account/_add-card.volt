@@ -1,4 +1,4 @@
-{#{% if msg %}
+{% if msg %}
     <div class="box success">
         <span class="ico- ico"></span>
         <span class="txt">{{ msg }}</span>
@@ -9,7 +9,7 @@
         <span class="ico-warning ico"></span>
         <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
     </div>
-{% endif %}#}
+{% endif %}
 
 <div class="wrap">
     {% if component.where == 'account' %} 
@@ -78,6 +78,10 @@
                 <option>2019</option>
                 <option>2020</option>
                 <option>2021</option>
+                <option>2022</option>
+                <option>2023</option>
+                <option>2024</option>
+                <option>2025</option>
             </select>
         </div>
         <div class="left cvv">
@@ -103,7 +107,7 @@
             </div>
             <div class="col6 second">
                 <h2 class="h3 yellow">{{ language.translate("Add funds to your wallet") }}</h2>
-                <div class="balance"><strong class="purple">{{ language.translate("Wallet balance:") }}</strong> <span class="value">&euro; 20.00</span></div>
+                <div class="balance"><strong class="purple">{{ language.translate("Wallet balance:") }}</strong> <span class="value">{{ user_balance }}</span></div>
                 <div class="box-wallet overview">
                     <span class="symbol">&euro;</span>
                         {{ credit_card_form.render('funds-value', {'class':'input'~form_errors['funds-value']}) }}

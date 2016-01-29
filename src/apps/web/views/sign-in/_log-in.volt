@@ -4,8 +4,8 @@
         <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
     </div>
 {% endif %}
-{{ form(url_signin) }}
-    {% if  which_form == 'up' %}
+<form action="{{ url_signin }}" name="form_notifications" id="form-email-settings" method="post" class="form-currency">
+    {% if which_form == 'up' %}
         {% set form_errors['email'] = '' %}
         {% set form_errors['password'] = '' %}
     {% endif %}
@@ -34,4 +34,4 @@
     
     <div class="box-extra{% if signIn.myClass == 'cart' %} hidden{% endif %}"><span class="txt">{{ language.translate("Don't you have an account?") }}</span> <a class="btn gwy" href="javascript:void(0)">{{ language.translate("Sign up") }}</a></div>
     
-{{ endform() }}
+</form>

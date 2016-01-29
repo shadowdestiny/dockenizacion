@@ -65,7 +65,33 @@ class DateTimeUtilUnitTest extends UnitTestBase
         $time_now = new \DateTime('2016-01-22 11:31:00');
         $actual = $sut->getTimeRemainingToCloseDraw($time_to_close_draw, $time_now);
     }
-    
+
+    /**
+     * method restMinutesToCloseDraw
+     * when called
+     * should returnRemainMinutesRound
+     * @dataProvider getMinutesFromTimeClose
+     */
+    public function test_restMinutesToCloseDraw_called_returnRemainMinutesRound($date_time_close, $expected)
+    {
+        $sut = $this->getSut();
+        $now = new \DateTime('2016-01-27 10:00:00');
+        $time_close = new \DateTime($date_time_close);
+        $actual = $sut->restMinutesToCloseDraw($time_close,$now);
+        $this->assertEquals($expected,$actual);
+    }
+
+    public function getMinutesFromTimeClose()
+    {
+        return array(
+            array('2016-01-27 10:15:00', 15),
+            array('2016-01-27 10:17:00', 15),
+            array('2016-01-27 10:20:00', 20),
+            array('2016-01-27 10:03:00', 5),
+            array('2016-01-27 10:00:00', 0),
+        );
+    }
+
 
     private function getSut()
     {

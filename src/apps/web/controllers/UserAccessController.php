@@ -5,6 +5,7 @@ use Captcha\Captcha;
 use EuroMillions\web\components\ReCaptchaWrapper;
 use EuroMillions\web\forms\ForgotPasswordForm;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
+use EuroMillions\web\forms\ResetPasswordForm;
 use EuroMillions\web\forms\SignInForm;
 use EuroMillions\web\forms\SignUpForm;
 use EuroMillions\web\services\AuthService;
@@ -68,6 +69,7 @@ class UserAccessController extends ControllerBase
             'signinform'  => $sign_in_form,
             'signupform'  => $sign_up_form,
             'errors'      => $errors,
+            'currency_list' => [],
             'form_errors' => $form_errors,
         ]);
     }
@@ -115,6 +117,7 @@ class UserAccessController extends ControllerBase
             'signinform'  => $sign_in_form,
             'signupform'  => $sign_up_form,
             'errors'      => $errors,
+            'currency_list' => [],
             'form_errors' => $form_errors,
         ]);
     }
@@ -160,6 +163,7 @@ class UserAccessController extends ControllerBase
         ]);
 
     }
+
 
     public function validateAction($token)
     {
@@ -215,30 +219,27 @@ class UserAccessController extends ControllerBase
             'forgot_password_form' => $forgot_password_form,
             'captcha'              => $captcha->html(),
             'errors'               => $errors,
+            'currency_list'        => [],
             'message'              => $message,
         ]);
     }
 
     public function passwordResetAction($token)
     {
-        $result = $this->authService->resetPassword($token);
+       $result = $this->authService->resetPassword($token);
         if ($result->success()) {
             $message = 'Your password was reset!';
+            $this->view->pick('recovery/index');
+            return $this->view->setVars([
+                'currency_list' => [],
+                'token' => $token,
+                'message' => false,
+                'errors'        => [],
+            ]);
         } else {
-            $message = 'Sorry, the token you used is no longer valid.';
+            //EMTD redirect
+            //$message = 'Sorry, the token you used is no longer valid.';
         }
-
-
-        $this->view->pick('recovery/index');
-        return $this->view->setVars([
-            'user_currency'  => [],
-            'user_balance_raw'  => [],
-            'symbol' => [],
-            'name' => '',
-            'user_balance' => [],
-            'currencies' => []
-        ]);
-
     }
 
 

@@ -1,5 +1,7 @@
 {% extends "main.volt" %}
+{##}
 {% block template_css %}<link rel="stylesheet" href="/w/css/home.css">{% endblock %}
+
 {% block bodyClass %}home{% endblock %}
 
 {% block header %}
@@ -53,9 +55,11 @@ $(function(){
 {% endblock %}
 
 {% block modal %}
+{% if show_modal_winning %}
 <a href="/account/wallet" id="win" class="modal win">
 	<span class="btn-box"><span class="btn blue">{{ language.translate("View the prize") }}</span></span>
 </a>
+{% endif %}
 {% endblock %}
 
 {% block body %}
@@ -68,6 +72,7 @@ $(function(){
 						<h1 class="h2">{{ language.translate("Estimated Euromillions Jackpot") }}</h1>
 						{% set extraClass='{"boxvalueClass": "yellow","currencyClass":"","valueClass":""}'|json_decode %}
 						{% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
+						
 						<span class="btn white try animate infi">{{ language.translate("Try your luck") }} <svg class="ico v-arrow-right3"><use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use></svg></span>
 					</div>
 					<svg class="vector"><use xlink:href="/w/svg/index.svg#emblem"></use></svg>
@@ -162,9 +167,9 @@ $(function(){
                                             {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
                                             {% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
 											<div class="box-btn">
-												<a href="/play" class="btn blue expand">{{ language.translate('I feel lucky') }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
+												<a href="/play?random" class="btn blue expand">{{ language.translate('I feel lucky') }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
 
-												<a href="/play?random" class="btn red expand">{{ language.translate('Pick your numbers') }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
+												<a href="/play" class="btn red expand">{{ language.translate('Pick your numbers') }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
 											</div>
 										</div>
 										<div class="col6 center box-vector">

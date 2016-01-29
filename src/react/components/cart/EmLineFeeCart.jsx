@@ -21,6 +21,7 @@ var EmLineFeeCart = new React.createClass({
         } else {
             this.setState( {show_addfund : true} );
         }
+        this.props.callbackHandleClickAdd(show_add_fund);
 
     },
 

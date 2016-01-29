@@ -161,12 +161,12 @@ var EuroMillionsLine = React.createClass({
         var linenumber = this.props.lineNumber;
         var numbers_length = this.state.selectedNumbers.numbers.length;
         var stars_length = this.state.selectedNumbers.stars.length;
+
         if(numbers_length === 0 && stars_length === 0) {
             this.state.show_btn_clear = false;
         } else {
             this.state.show_btn_clear = true;
         }
-
         for (var i = 1; i <= 50; i = i + j) {
             var row = [];
             for (var j = 0; j < this.props.numberPerLine; j++) {
@@ -200,8 +200,9 @@ var EuroMillionsLine = React.createClass({
         for(var c = 0; c < alphabet.length; c++) {
             num_char_line = alphabet.charAt(linenumber)
             if( !num_char_line ) {
-                var new_pos = linenumber - alphabet.length;
-                num_char_line = alphabet.charAt(new_pos) +""+ alphabet.charAt(new_pos);
+                var cur_pos = (linenumber - alphabet.length);
+                var new_pos = (linenumber - alphabet.length) +2;
+                num_char_line = alphabet.charAt(cur_pos) +""+ alphabet.charAt(new_pos);
             }
         }
 

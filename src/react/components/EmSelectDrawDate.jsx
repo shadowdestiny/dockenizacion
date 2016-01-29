@@ -34,7 +34,7 @@ var EmSelectDrawDate = React.createClass({
         return (
             <div className="col2">
                 <label className="label">First Draw
-                    <div data-for="select-draw-date" className="wrap" data-tip="First draw">
+                    <div data-for="select-draw-date" className="wrap" data-tip="When do you want to start to play the first draw?">
                         <svg className="ico v-question-mark"><use xlinkHref="/w/svg/icon.svg#v-question-mark"></use></svg>
                     </div>
                 </label>

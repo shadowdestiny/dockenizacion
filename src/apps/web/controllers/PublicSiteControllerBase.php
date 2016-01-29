@@ -36,6 +36,7 @@ class PublicSiteControllerBase extends ControllerBase
     /** @var  UserPreferencesService */
     protected $userPreferencesService;
 
+
     public function initialize(LotteriesDataService $lotteriesDataService = null, LanguageService $languageService = null, CurrencyService $currencyService = null, UserService $userService = null, AuthService $authService= null, UserPreferencesService $userPreferencesService = null)
     {
         parent::initialize();
@@ -45,6 +46,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->userService = $userService ? $userService : $this->domainServiceFactory->getUserService();
         $this->authService = $authService ? $authService : $this->domainServiceFactory->getAuthService();
         $this->userPreferencesService = $userPreferencesService ? $userPreferencesService : $this->domainServiceFactory->getUserPreferencesService();
+
     }
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
@@ -88,6 +90,7 @@ class PublicSiteControllerBase extends ControllerBase
         }
         $this->view->setVar('current_currency', $current_currency->getName());
         $this->view->setVar('user_currency', $user_currency);
+        $this->view->setVar('user_currency_code', $current_currency->getName());
         $this->view->setVar('user_balance', $user_balance);
         $this->view->setVar('user_balance_raw', $user_balance_raw);
     }
@@ -147,18 +150,22 @@ class PublicSiteControllerBase extends ControllerBase
         //Vars draw closing modal
         $dateUtil = new DateTimeUtil();
         $lottery_date_time = $this->domainServiceFactory->getLotteriesDataService()->getNextDateDrawByLottery('EuroMillions');
-        //$lottery_date_time = new \DateTime('2016-01-25 11:35:00');
+        //$lottery_date_time = new \DateTime('2016-01-27 10:25:00');
         $time_to_remain = $dateUtil->getTimeRemainingToCloseDraw($lottery_date_time);
+        if($time_to_remain) {
+            $minutes_to_close = $dateUtil->restMinutesToCloseDraw($lottery_date_time);
+        }
         $last_minute = $dateUtil->isLastMinuteToDraw($lottery_date_time);
         $this->view->setVar('time_to_remain_draw', $time_to_remain);
         $this->view->setVar('last_minute', $last_minute);
         $this->view->setVar('draw_date', $lottery_date_time->format('Y-m-d H:i:s'));
         $this->view->setVar('timeout_to_closing_modal', 30 * 60 * 1000);
+        $this->view->setVar('minutes_to_close', !empty($minutes_to_close) ? $minutes_to_close : '');
 //        $this->view->setVar('interval_show_closing_modal',30000);
 //        $this->view->setVar('phrase_show_closing_modal', 'Today\’s draw is closed, you will play for the next');
     }
 
-    //EMTD i don't know for the moment if modal can be showed form anywhere or home page only.
+    //EMTD i don't know for the moment if modal can be showed anywhere or home page only.
     private function setVarWinningModal()
     {
         $is_logged = $this->authService->isLogged();
@@ -171,13 +178,13 @@ class PublicSiteControllerBase extends ControllerBase
                 $user->setShowModalWinning(false);
                 $result = $this->userService->updateUser($user);
                 if(!$result->success()) {
-
                 }
             } else {
                 $this->view->setVar('show_modal_winning', false);
             }
+        } else {
+            $this->view->setVar('show_modal_winning', false);
         }
-
     }
 
 }

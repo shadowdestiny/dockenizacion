@@ -2,7 +2,29 @@
 {% block template_css %}
     <link rel="stylesheet" href="/w/css/cart.css">
 {% endblock %}
-{% block template_scripts %}{% endblock %}
+
+{% block template_scripts %}
+<script>
+    var size = checkSize();
+    function swap(myVar){
+        $(myVar).click(function(event){
+            event.preventDefault();
+            $(".col4, .col8").toggle();
+        });
+    }
+    if(size >= 3) {
+        $(function(){
+            var which_form = '<?php echo $which_form;?>';
+            if(which_form == 'in') {
+                $(".col8").hide();
+            } else {
+                $(".col4").hide();
+            }
+            swap(".col4 .box-extra a, .col8 .box-extra a");
+        });
+    }
+</script>
+{% endblock %}
 {% block bodyClass %}cart profile minimal sign-in{% endblock %}
 
 {% block header %}

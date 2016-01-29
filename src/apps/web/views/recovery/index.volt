@@ -2,7 +2,6 @@
 {% block template_css %}{% endblock %}
 {% block bodyClass %}recovery minimal{% endblock %}
 
-{% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
 {% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}
 
 {% block template_css %}
@@ -20,30 +19,37 @@
 {% endblock %}
 
 {% block body %}
+{{ form('account/resetPassword') }}
 <main id="content">
     <div class="wrapper cl">
-
         <div class="box-basic small content">
             <h1 class="h1 title res">{{ language.translate("Recovery Password") }}</h1>
             <p>{{ language.translate("Insert your new password") }}</p>
-            <div class="box error">
-                <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
-                <span class="txt">*Error message*</span>
-            </div>
-            
+            {% if message %}
+                <div class="box success">
+                    <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>
+                    <div class="txt">Your password was reset correctly. Please go to <a href="/sign-in"> log in</a>. Good luck!</div>
+                </div>
+            {% endif %}
+            {% if errors %}
+                <div class="box error">
+                    <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
+                    <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
+                </div>
+            {% endif %}
             <label for="new-password" class="label">{{ language.translate("New password") }} <span class="asterisk">*</span></label>
-            <input class="input" id="new-password" placeholder="{{ language.translate('New password') }}">
+            <input class="input" type="password" name="new-password" id="new-password" placeholder="{{ language.translate('New password') }}">
 
             <label for="confirm-password" class="label">{{ language.translate("Confirm password") }} <span class="asterisk">*</span></label>
-            <input class="input" id="confirm-password" placeholder="{{ language.translate('Confirm password') }}">
-
+            <input class="input" name="confirm-password" type="password" id="confirm-password" placeholder="{{ language.translate('Confirm password') }}">
+            <input type="hidden" value="{{ token }}" name="token" />
             <label for="submitpass" class="btn big blue submit">
                 {{ language.translate('Update password') }} <input type="submit" class="hidden2" id="submitpass">
             </label>
         </div>
     </div>
 </main>
-
+{{ endform() }}
 
 {% endblock %}
 

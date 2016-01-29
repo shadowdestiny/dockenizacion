@@ -65,6 +65,8 @@ var PlayPage = React.createClass({
         var storage = this.state.storage;
         var lines = this.state.lines;
         var default_lines = this.state.lines_default;
+
+
         if( storage != null ) {
             if(lines.length == 0) {
                 for(let i=0; i< default_lines;i++) {
@@ -87,7 +89,6 @@ var PlayPage = React.createClass({
                 }
             }
         }
-
         var show_tooltip_lines = (this.checkBetsConfirmed() || lines.length <= default_lines) ? false : true;
         this.setState( { show_tooltip_lines : show_tooltip_lines, lines_default : default_lines, lines: lines, count_lines : lines.length -1 });
         this.updatePrice();
@@ -297,6 +298,7 @@ var PlayPage = React.createClass({
             numberEuroMillionsLine = this.state.count_lines ;
         }
         var random_all = this.state.random_all;
+
         elem.push(<EuroMillionsMultipleEmLines add_storage={this.addLinesInStorage} clear_all={this.state.clear_all} callback={this.handleOfBetsLine} random_all={random_all} numberEuroMillionsLine={numberEuroMillionsLine} key="1"/>);
         elem.push(<EuroMillionsBoxAction show_tooltip={this.state.show_tooltip_lines}  mouse_over_btn={this.mouseOverBtnAddLines}  add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} show_clear_all={this.state.show_clear_all} clear_all_btn={this.handlerClearAll} key="2"/>)
 

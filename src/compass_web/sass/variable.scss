@@ -77,7 +77,6 @@ $small:.75em;
 
 /* ANIMATION */
 %anim{@include transition(all .5s ease-in-out);}
-%pulseRight{-webkit-animation-name:pulseRight; animation-name:pulseRight;}
 
 /* COLUMNS */
 %cols{position:relative; margin-bottom:2em; display:table; width:100%;}

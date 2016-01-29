@@ -3,7 +3,7 @@
 	<div class="div-currency">
 		<ul class="no-li">
             {% for currency in currencies %}
-				{% if currency.name != user_currency['name'] %}
+				{% if currency.code != user_currency_code %}
 					<li><a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">{{ currency.code }} &nbsp; {{ currency.name }}</a></li>
 				{% endif %}
             {% endfor %}
@@ -26,6 +26,6 @@
 </li>
 {% if user_logged is empty %}
 <li class="li-sign">
-    <a class="link" href="/sign-in">{{ language.translate('Sign up') }}</a>
+    <a class="link" href="/sign-up">{{ language.translate('Sign up') }}</a>
 </li>
 {% endif %}
