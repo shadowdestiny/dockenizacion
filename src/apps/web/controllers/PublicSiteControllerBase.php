@@ -182,6 +182,8 @@ class PublicSiteControllerBase extends ControllerBase
             } else {
                 $this->view->setVar('show_modal_winning', false);
             }
+        } else {
+            $this->view->setVar('show_modal_winning', false);
         }
     }
 
