@@ -89,6 +89,16 @@ class UserService
         return $this->userRepository->find($userId->id());
     }
 
+    public function getUserByToken($token)
+    {
+        $user = $this->userRepository->getByToken($token);
+        if(null != $user) {
+            return new ActionResult(true, $user);
+        } else {
+            return new ActionResult(false);
+        }
+    }
+
     public function updateUser(User $user)
     {
         try{

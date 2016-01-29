@@ -10,6 +10,7 @@ use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\forms\ResetPasswordForm;
 use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
 use EuroMillions\web\services\card_payment_providers\FakeCardPaymentProvider;
 use EuroMillions\web\services\card_payment_providers\payxpert\PayXpertConfig;
@@ -328,6 +329,48 @@ class AccountController extends PublicSiteControllerBase
             'message' => (is_object($errors) && $errors->count() > 0) ? '' : $message,
            // 'errors' => $error,
             'list_notifications' => $list_notifications,
+        ]);
+
+    }
+
+    public function resetPasswordAction()
+    {
+        $errors = [];
+        $form_errors = [];
+        $msg = false;
+        $token = $this->request->getPost('token');
+        $myaccount_passwordchange_form = new ResetPasswordForm();
+        if($this->request->isPost()) {
+            if ($myaccount_passwordchange_form->isValid($this->request->getPost()) == false) {
+                $messages = $myaccount_passwordchange_form->getMessages(true);
+                foreach ($messages as $field => $field_messages) {
+                    $errors[] = $field_messages[0]->getMessage();
+                    $form_errors[$field] = ' error';
+                }
+            }else {
+                $new_password = $this->request->getPost('new-password');
+                $user_result = $this->userService->getUserByToken($token);
+                //$result_same_password = $this->authService->samePassword($user,$this->request->getPost('old-password'));
+                //if($result_same_password->success()) {
+                if($user_result->success()) {
+                    $result = $this->authService->updatePassword($user_result->getValues(), $new_password);
+                    if ($result->success()) {
+                        $msg = true;
+                    } else {
+                        $errors [] = $result->errorMessage();
+                    }
+                } else {
+                    $erros[] = 'Token is not valid';
+                }
+            }
+        }
+
+        $this->view->pick('recovery/index');
+        return $this->view->setVars([
+            'currency_list' => [],
+            'token' => $token,
+            'message' => $msg,
+            'errors'        => $errors,
         ]);
 
     }
