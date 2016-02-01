@@ -15,6 +15,7 @@ use EuroMillions\web\vo\UserId;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
 use tests\helpers\builders\UserBuilder;
+use tests\helpers\mothers\EmailMother;
 use tests\helpers\mothers\UserMother;
 
 class AuthServiceUnitTest extends UnitTestBase
@@ -351,9 +352,8 @@ class AuthServiceUnitTest extends UnitTestBase
     {
         $this->markTestSkipped();
         $this->expectFlushInEntityManager();
-        $emailTemplate = new EmailTemplate();
         $lotteriesDataService = $this->getServiceDouble('LotteriesDataService');
-        $welcome_email_template = new WelcomeEmailTemplate($emailTemplate, $lotteriesDataService->reveal());
+        $welcome_email_template = EmailMother::aWelcomeEmailTemplate($lotteriesDataService->reveal());
         $credentials = $this->getRegisterCredentials();
         $user = UserMother::aJustRegisteredUser($this->hasher_double->reveal())->build();
         $this->userRepository_double->getByEmail(UserBuilder::DEFAULT_EMAIL)->willReturn(null);

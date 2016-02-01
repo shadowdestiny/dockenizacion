@@ -191,37 +191,52 @@ $(function(){
 
     var timeout_warning = '';
     var finish_countdown_warning_close_draw = function () {
+        $('.ending').show();
         return $('.ending').countdown(draw_date).
         on('update.countdown', function (event) {
-            $(this).html(event.strftime('%-Ss'));
+            $(this).html("The draw will close in " +  event.strftime('%-Ss'));
         }).on('finish.countdown', function (event) {
             $(this).html('Today’s draw is closed, you will play for the next');
             setTimeout(function () {
                 $('.ending').hide();
             }, 30000);
-
         });
     };
 
     $('.ending').hide();
     var is_remain_time = typeof remain_time == 'undefined' ? false : remain_time;
-    if (is_remain_time) {
+
+    console.log('remain time: ' + is_remain_time);
+    console.log('minutes to close: ' + minutes_to_close);
+
+
+    if (is_remain_time && minutes_to_close > 0) {
         $('.ending').show();
-        $('.ending').text('The draw will close in '+ minutes_to_close +' minutes.')
+        $('.ending').text('The draw will close in ' + minutes_to_close + ' minutes.')
         setTimeout(function () {
             $('.ending').hide();
         }, 30000);
+
         var minutes_value = minutes_to_close;
         timeout_warning = setTimeout(function () {
+            console.log('time warning');
             setInterval(function () {
                 minutes_value = minutes_value - parseInt(5);
-                $('.ending').show();
-                $('.ending').text('The draw will close in '+ minutes_value +' minutes.');
-                setTimeout(function () {
-                    $('.ending').hide();
-                }, 30000);
-            }, 300000);
+                if(minutes_value > 0 ) {
+                    $('.ending').show();
+                    $('.ending').text('The draw will close in '+ minutes_value +' minutes.');
+                    setTimeout(function () {
+                        $('.ending').hide();
+                    }, 10000);
+                } else {
+                    console.log('pasa');
+                    clearTimeout(timeout_warning);
+                    finish_countdown_warning_close_draw();
+                }
+            }, 30000);
         }, 60000);
+
+        timeout_warning;
     }
     var is_last_minute = typeof last_minute == 'undefined' ? false : last_minute;
     if (is_last_minute) {

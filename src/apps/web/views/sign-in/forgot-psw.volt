@@ -18,7 +18,7 @@
 
                 <p>{{ language.translate("We'll email your a link to a page where you can easily create a new password.") }}</p>
 
-                {{ form('/forgotPassword') }}
+                {{ form('/userAccess/forgotPassword') }}
                     {%if message %}
                         <div class="box success">
                             <svg class="ico v-success"><use xlink:href="/w/svg/icon.svg#v-success"></use></svg>
@@ -46,7 +46,7 @@
     #}
                     <div class="cl">
                         <input id="go" type="submit" class="hidden2" />
-                        <label for="go" class="submit btn big blue">{{ language.translate("Save Password") }}<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
+                        <label for="go" class="submit btn big blue">{{ language.translate("Retrieve Password") }}<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
                     </div>
                 {{ endform() }}
             </div>

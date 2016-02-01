@@ -19,7 +19,7 @@
 {% endblock %}
 
 {% block body %}
-{{ form('account/resetPassword') }}
+{{ form('/account/resetPassword') }}
 <main id="content">
     <div class="wrapper cl">
         <div class="box-basic small content">

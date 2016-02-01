@@ -23,6 +23,7 @@ var EmAddFund = new React.createClass({
         var pattern = /^[0-9\.]+$/;
         var chr = String.fromCharCode(event.which);
         if(!pattern.test(chr)){
+            console.log('pasa5');
             event.preventDefault();
         }
     },
@@ -30,16 +31,21 @@ var EmAddFund = new React.createClass({
     handleKeyUp : function (event)
     {
         var value_charge = event.target.value;
-        //if( value_charge.charAt(0) === '.') {
-        //    value_charge = value_charge.substring(0);
-        //    console.log(value_charge);
-        //}
+        var code = event.keyCode || event.which;
         var pattern = /^[0-9]+(\.\d{1,2})?$/i;
         var b = pattern.test(value_charge);
-        if(!isNaN(value_charge) && b) {
-            this.props.keyup_callback(parseFloat(value_charge).toFixed(2));
+        if(!isNaN(value_charge) && b )  {
+            if( code == 8 || code == 83 || code == 37 || code == 38 || code == 39 || code == 40 || code == 110) {
+            } else {
+                this.props.keyup_callback(parseFloat(value_charge).toFixed(2));
+            }
         } else {
-            this.props.keyup_callback(0.00);
+            if( code == 8 || code == 83 || code == 37 || code == 38 || code == 39 || code == 40 || code == 110) {
+                console.log('pasa3');
+            } else {
+                console.log('pasa4');
+                this.props.keyup_callback(0.00);
+            }
         }
     },
 
