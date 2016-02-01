@@ -66,7 +66,7 @@ img.right{margin:0 0 15px 10px;}
 [class^="v-"], [class*=" v-"]{display:inline-block; fill:currentcolor; height:1em; width:1em;}
 
 /* FORM ELEMENTS */
-.input, .select, .textarea{font-family:$basic-font; padding:8px; background:$yellow-lighter; border:1px solid $grey;}
+.input, .select, .textarea, .btn{font-family:$basic-font; padding:8px; background:$yellow-lighter; border:1px solid $grey;}
 .input:hover, .textarea:hover, .select:hover{border:1px solid #000;}
 .input:focus, .textarea:focus{transition:background-color .3s,color .3s,border .3s, box-shadow .2s; box-shadow:0 4px 4px #bbb inset!important; border:1px solid $black!important; background:#fff;}
 .input.error, .select.error{border:2px solid $red!important;}
@@ -117,7 +117,7 @@ label.submit{cursor:pointer;}
 
 /* BUTTONS */
 .btn{
-  transition:background-color .3s,color .3s,border .3s, box-shadow .1s; display:inline-block; padding:5px 12px; text-decoration:none; font-size:$basic-size; border-radius:5px; font-weight:700; border:1px solid #777; color:#fff; background:#aaa; text-shadow:0 1px 3px rgba(0, 0, 0, .4);
+  transition:background-color .3s,color .3s,border .3s, box-shadow .1s; display:inline-block; padding:5px 12px; text-decoration:none; font-size:$basic-size; border-radius:5px; font-weight:700; border:1px solid #777; color:#fff; background:#aaa; text-shadow:0 1px 3px rgba(0, 0, 0, .4); cursor:pointer;
   @include background-image(linear-gradient(#cccccc, #777777));
 }
 .btn .ico{position:relative; top:2px;}
@@ -206,12 +206,12 @@ label.submit{cursor:pointer;}
     > .btn:last-child{border-radius:0 5px 5px 0;}
 }
 
-
 /* COMBO INPUT (for Currency) */
+/*
 .box-combo{display:table;}
-.combo.currency{display:table-cell; background:$grey-lighter; border-radius:5px 0 0 5px; font-weight:bold; border:1px solid $grey-light; border-right:0; vertical-align:middle; white-space:nowrap; line-height:1;}
-.combo.input{display:table-cell; border-color:$grey-light; border-left:0; }
-
+.box-combo > .currency{display:table-cell; background:$grey-lighter; border-radius:5px 0 0 5px; font-weight:bold; border:1px solid $grey-light; border-right:0; vertical-align:middle; white-space:nowrap; line-height:1;}
+.box-combo > .input{display:table-cell; border-color:$grey-light; border-left:0; }
+*/
 
 /* MENU HAMBURGER */
 .menu-ham{

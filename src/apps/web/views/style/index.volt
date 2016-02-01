@@ -29,7 +29,8 @@
                         <li><a href="#columns">Columns</a></li>
                         <li><a href="#type">Typography</a></li>
                         <li><a href="#color">Color</a></li>
-                        <li><a href="#btn">Buttons &amp; Inputs</a></li>
+                        <li><a href="#btn">Buttons</a></li>
+                        <li><a href="#nav-input">Inputs</a></li>
                         <li><a href="#svg">Svg</a></li>
                         <li><a href="#icons">Icons</a></li>
                         <li><a href="#img">Images</a></li>
@@ -661,7 +662,7 @@
 
                     <section>
                         <a name="btn"></a>
-                        <h1 class="title h2">Buttons &amp; Inputs</h1>
+                        <h1 class="title h2">Buttons</h1>
 
                         <div class="content">
                             <h2 class="h3">BUTTONS</h2>
@@ -711,6 +712,31 @@
                                     </div>
                                 </div>
                                 <div class="col6">
+                                    <p><strong>Example of possible HTML type of buttons:</strong></p>
+                                    <a href="javascript:void(0);" class="btn">Link Button</a>
+                                    <label class="btn">
+                                        <span class="txt">Label Button</span>
+                                        <input type="hidden">
+                                    </label>
+                                    <button type="submit" clasS="btn">Real Button</button>
+
+<pre class="brush: html">
+    <a href="javascript:void(0);" class="btn">Link Button</a>
+    <label class="btn">
+        <span class="txt">Label</span>
+        <input type="hidden">
+    </label>
+    <button type="submit" clasS="btn">Real Button</button>
+</pre>
+
+
+                                    <p class="res"><strong>Accessibility Concerns</strong></p>
+                                    <ul class="list" style="margin:10px 0 15px 15px;">
+                                        <li>If it navigates, it is a link. Use link markup with a valid hypertext reference (and add: role="button" to the link)</li>
+                                        <li>If it triggers an action, it is a button. Use a BUTTON element</li>
+                                    </ul>
+
+                                    <hr class="hr">
                                     <p><strong>Combo Buttons</strong> are buttons that can be bonded together looking like a multiple button with various kind of options, here an example:</p>
 
                                     <div class="combo">
@@ -731,13 +757,22 @@
 
                                 </div>
                             </div>
+                        </div>
+                    </section>
 
-                            <hr class="hr">
+                    <section>
+                        <a name="nav-input"></a>
+                        <h1 class="title h2">Buttons</h1>
+
+                        <div class="content">
 
                             <h2 class="h3">INPUTS</h2>
                             <p>bla bla bla</p>
+                            <form class="form-currency">
+                                <div class="currency">&euro;</div>
+                                <input type="text" class="input insert">                           
+                            </form>
 
-                            * combo currency in order *
                         </div>
                     </section>
 
