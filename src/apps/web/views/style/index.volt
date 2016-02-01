@@ -30,7 +30,7 @@
                         <li><a href="#type">Typography</a></li>
                         <li><a href="#color">Color</a></li>
                         <li><a href="#btn">Buttons</a></li>
-                        <li><a href="#nav-input">Inputs</a></li>
+                        <li><a href="#nav-forms">Forms</a></li>
                         <li><a href="#svg">Svg</a></li>
                         <li><a href="#icons">Icons</a></li>
                         <li><a href="#img">Images</a></li>
@@ -761,17 +761,33 @@
                     </section>
 
                     <section>
-                        <a name="nav-input"></a>
-                        <h1 class="title h2">Buttons</h1>
+                        <a name="nav-forms"></a>
+                        <h1 class="title h2">Forms</h1>
 
                         <div class="content">
+                            <p>All the elements of the forms have a light yellow colour, to be more visible on the white background of the website. Some elements have directly being applied</p>
 
-                            <h2 class="h3">INPUTS</h2>
-                            <p>bla bla bla</p>
-                            <form class="form-currency">
-                                <div class="currency">&euro;</div>
-                                <input type="text" class="input insert">                           
-                            </form>
+                            <div class="cols">
+                                <div class="col6">
+
+                                    Input text
+                                    <input type="text" class="input">
+                                    Textarea
+                                    <textarea class="textarea"></textarea>
+                                    <input type="checkbox"> Checkbox
+
+                                </div>
+                                <div class="col6">
+                                    <h2 class="h3">Currency input field</h2>
+                                    <form class="form-currency"><div class="currency">&euro;</div><input type="text" class="input insert"></form>
+<br>
+<pre class="brush: html">
+<form class="form-currency">
+    <div class="currency">&euro;</div>
+    <input type="text" class="input insert">                           
+</form>
+</pre>
+                                </div>
 
                         </div>
                     </section>
@@ -805,6 +821,13 @@
 
                         <p>info box</p>
                     </section>
+  <section>
+    <h1 class="title h2">Things to do</h1>
+    <ul class="list">
+        <li>Fix all the buttons</li>
+        <li>Fix the automatic width of the inputs by adding a simple class</li>
+    </ul>
+  </section>                    
 
                     *tabs*
                     *react tooltip*
