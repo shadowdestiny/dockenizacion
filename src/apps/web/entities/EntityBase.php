@@ -8,11 +8,12 @@ class EntityBase
     /**
      * @param array $attributes
      * @return $this
+     * @throws BadEntityInitializationException
      */
     public function initialize($attributes)
     {
         foreach ($attributes as $key => $value) {
-            if ($key == 'id') {
+            if ($key === 'id') {
                 $this->$key = $value;
             } else {
                 $field_name = implode('', array_map('ucfirst', explode('_', $key)));

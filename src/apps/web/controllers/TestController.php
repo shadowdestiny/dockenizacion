@@ -60,5 +60,11 @@ class TestController extends PublicSiteControllerBase
         var_dump($request->getScheme());
     }
 
+    public function urlAction()
+    {
+        $this->noRender();
+        var_dump($this->router->getRewriteUri());
+    }
+
 }
 

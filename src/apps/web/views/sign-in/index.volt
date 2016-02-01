@@ -51,7 +51,7 @@ $(function(){
                     <span class="bg-or"><span class="or">{{ language.translate("or") }}</span></span>
                 </div>
                 #}
-                {% set url_signin = '/userAccess/signIn' %}
+                {% set url_signin = '/sign-in' %}
                 {% include "sign-in/_log-in.volt" %}
             </div>
 
@@ -60,7 +60,7 @@ $(function(){
                     <span class="line"></span>
                     <span class="line-txt">{{ language.translate("Sign up") }}</span>
                 </h1>
-                {% set url_signup = '/userAccess/signUp' %}
+                {% set url_signup = '/sign-up' %}
                 {% include "sign-in/_sign-up.volt" %}
             </div>
 

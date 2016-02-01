@@ -16,9 +16,6 @@
     {{ signupform.render('password', {'class':'input'~form_errors['password']}) }}
     {{ signupform.render('confirm_password', {'class':'input'~form_errors['confirm_password']}) }}
     {{ signupform.render('country', {'class':'select'~form_errors['country']}) }}
-    {{ signinform.render('controller', ['value': controller]) }}
-    {{ signinform.render('action', ['value': action]) }}
-    {{ signinform.render('params', ['value': params]) }}
 
     <div class="cl">
         <input id="goSignUp" type="submit" class="hidden2" />

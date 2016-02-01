@@ -36,7 +36,7 @@
                 <li><a href="/account/transaction" data-transition="slide" data-direction="reverse">{{ language.translate("Transactions") }}</a></li>
                 <li><a href="/account/email" data-transition="slide" data-direction="reverse">{{ language.translate("Email Settings") }}</a></li>
                 <li><a href="/account/password" data-transition="slide" data-direction="reverse">{{ language.translate("Change Password") }}</a></li>
-                <li><a href="/userAccess/logout" data-transition="slide" data-direction="reverse">{{ language.translate("Sign out") }}</a></li>
+                <li><a href="/logout" data-transition="slide" data-direction="reverse">{{ language.translate("Sign out") }}</a></li>
             </ul>
         </div> 
 

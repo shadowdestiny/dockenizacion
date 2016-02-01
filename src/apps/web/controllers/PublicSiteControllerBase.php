@@ -65,8 +65,8 @@ class PublicSiteControllerBase extends ControllerBase
             'currency',
             'user-settings'
         ];
-        if(!in_array($dispatcher->getControllerName(),$controller_not_referer)) {
-            $this->session->set('original_referer',$dispatcher->getControllerName().'/'.$dispatcher->getActionName());
+        if(!in_array($dispatcher->getControllerName(),$controller_not_referer, false)) {
+            $this->session->set('original_referer','/'.$dispatcher->getControllerName().'/'.$dispatcher->getActionName());
         }
     }
 

@@ -18,7 +18,7 @@
 
                 <p>{{ language.translate("We'll email your a link to a page where you can easily create a new password.") }}</p>
 
-                {{ form('userAccess/forgotPassword') }}
+                {{ form('/forgotPassword') }}
                     {%if message %}
                         <div class="box success">
                             <svg class="ico v-success"><use xlink:href="/w/svg/icon.svg#v-success"></use></svg>
