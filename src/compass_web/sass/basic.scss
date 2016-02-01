@@ -343,9 +343,10 @@ body, .submit{font-family:$basic-font;}
   position:absolute; z-index:1; background:#fff; width:101%; border:1px solid $yellow; border-top:0;
   margin:-1px 0 0 -1px; border-radius:0 0 5px 5px;
   li{float:none; border:0; border-bottom:1px solid $yellow; text-align:left;}
+  li:last-child{border-bottom:0;}
   a{padding:10px 7px; border:0; font-size:$basic-size!important;}
   a:hover .ico{color:#fff;}
-  .ico{float:right; margin:3px -2px 0 0; color:$yellow-dark;}
+  .ico{float:right; margin:4px -2px 0 0; color:$yellow-dark;}
 }
 
 .main-foot{border-top:5px solid $yellow; background:#fff; text-align:left; padding-top:10px;}
