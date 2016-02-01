@@ -20,7 +20,7 @@
                 {{ form('/userAccess/forgotPassword') }}
                     {%if message %}
                         <div class="box success">
-                            <svg class="ico v-success"><use xlink:href="/w/svg/icon.svg#v-success"></use></svg>
+                            <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>
                             <span class="txt">{{ message }}</span>
                         </div>
                     {% endif %}
