@@ -2,13 +2,12 @@
 {% block template_css %}<link rel="stylesheet" href="/w/css/sign-in.css">{% endblock %}
 {% block bodyClass %}forgot-psw minimal{% endblock %}
 
-{% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}
 
 {% block body %}
 <main id="content">
     <div class="wrapper">
         <div class="col-left">
-            <img class="v-logo vector" alt="Euromillions" src="/w/svg/logo.svg">
+            {% include "_elements/logo.volt" %}
         </div>
         <div class="col-right">
             <div class="box-basic small">
