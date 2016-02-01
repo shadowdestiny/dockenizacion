@@ -361,7 +361,6 @@ class AuthServiceUnitTest extends UnitTestBase
         $this->storageStrategy_double->setCurrentUserId(Argument::type($this->getVOToArgument('UserId')))->shouldBeCalled();
         $this->urlManager_double->get(Argument::type('string'))->willReturn('http://localhost/validate/441a9e42f0e3c769a6112b56a04b6');
         $this->emailService_double->sendTransactionalEmail($user, $welcome_email_template)->shouldBeCalled();
-
         $sut = $this->getSut();
         $actual = $sut->register($credentials);
         $expected = new ActionResult(true, $user);

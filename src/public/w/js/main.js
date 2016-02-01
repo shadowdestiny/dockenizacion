@@ -211,7 +211,7 @@ $(function(){
         setTimeout(function () {
             $('.ending').hide();
         }, 30000);
-        var minutes_value = minute_to_close;
+        var minutes_value = minutes_to_close;
         timeout_warning = setTimeout(function () {
             setInterval(function () {
                 minutes_value = minutes_value - parseInt(5);

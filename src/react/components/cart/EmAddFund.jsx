@@ -20,7 +20,7 @@ var EmAddFund = new React.createClass({
 
     handleKeyPress : function (event)
     {
-        var pattern = /^[0-9]+$/;
+        var pattern = /^[0-9\.]+$/;
         var chr = String.fromCharCode(event.which);
         if(!pattern.test(chr)){
             event.preventDefault();
@@ -29,15 +29,15 @@ var EmAddFund = new React.createClass({
 
     handleKeyUp : function (event)
     {
-        //var charge_value = document.getElementById('charge').value;
-        //var pattern = /^[0-9.]+$/;
-        //if(!pattern.test(charge_value)) {
-        //    event.preventDefault();
+        var value_charge = event.target.value;
+        //if( value_charge.charAt(0) === '.') {
+        //    value_charge = value_charge.substring(0);
+        //    console.log(value_charge);
         //}
-        var pattern = /[0-9]+(\.\d{1,2})?$/i;
-        var b = pattern.test(event.target.value);
-        if(!isNaN(event.target.value) && b) {
-            this.props.keyup_callback(parseFloat(event.target.value).toFixed(2));
+        var pattern = /^[0-9]+(\.\d{1,2})?$/i;
+        var b = pattern.test(value_charge);
+        if(!isNaN(value_charge) && b) {
+            this.props.keyup_callback(parseFloat(value_charge).toFixed(2));
         } else {
             this.props.keyup_callback(0.00);
         }
