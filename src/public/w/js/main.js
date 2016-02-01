@@ -207,7 +207,7 @@ $(function(){
     var is_remain_time = typeof remain_time == 'undefined' ? false : remain_time;
     if (is_remain_time) {
         $('.ending').show();
-        $('.ending').text('The draw will close in '+ minutes_to_close +' minutes.')
+        $('.ending').text('The draw will close in '+ minutes_to_close +' minutes')
         setTimeout(function () {
             $('.ending').hide();
         }, 30000);
