@@ -3,11 +3,15 @@
 .box-left{background:#fff; border:1px solid $yellow; border-right:0; border-radius:10px 0 0 10px;}
 .box-right{background:url(../img/home/bg-coloured.jpg) no-repeat; border-radius:0 10px 10px 0;}
 
+.emblem, .emblem-bg{position:absolute; right:-5px;}
+.emblem{width:35%; height:215px; top:-20px; z-index:2;}
+.emblem-bg{width:35%; height:227px; top:-23px; z-index:1; stroke:$yellow-dark; stroke-width:5;}
 .box-estimated{
   background:url(../img/home/bg-euro.jpg) no-repeat; padding:20px 0 13px 20px; border-radius:10px 0 0 0; background-size:cover;
   .try{position:relative;} /* Fix Safari problem*/
 }
-.box-estimated .vector{position:absolute; top:-20px; right:-5px; width:35%; height:215px;}
+
+.box-estimated .vector{}
 .box-estimated .content{width:68%;}
 .box-estimated .h2{@extend %stroke1; margin-bottom:15px;}
 .box-value.yellow{@extend %stroke2; margin-bottom:15px;}
