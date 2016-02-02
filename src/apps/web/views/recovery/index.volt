@@ -2,8 +2,6 @@
 {% block template_css %}{% endblock %}
 {% block bodyClass %}recovery minimal{% endblock %}
 
-{% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}
-
 {% block template_css %}
 <style>
 .title{padding-bottom:10px;}

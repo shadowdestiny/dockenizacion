@@ -66,7 +66,7 @@ img.right{margin:0 0 15px 10px;}
 [class^="v-"], [class*=" v-"]{display:inline-block; fill:currentcolor; height:1em; width:1em;}
 
 /* FORM ELEMENTS */
-.input, .select, .textarea{font-family:$basic-font; padding:8px; background:$yellow-lighter; border:1px solid $grey;}
+.input, .select, .textarea, .btn{font-family:$basic-font; padding:8px; background:$yellow-lighter; border:1px solid $grey;}
 .input:hover, .textarea:hover, .select:hover{border:1px solid #000;}
 .input:focus, .textarea:focus{transition:background-color .3s,color .3s,border .3s, box-shadow .2s; box-shadow:0 4px 4px #bbb inset!important; border:1px solid $black!important; background:#fff;}
 .input.error, .select.error{border:2px solid $red!important;}
@@ -117,7 +117,7 @@ label.submit{cursor:pointer;}
 
 /* BUTTONS */
 .btn{
-  transition:background-color .3s,color .3s,border .3s, box-shadow .1s; display:inline-block; padding:5px 12px; text-decoration:none; font-size:$basic-size; border-radius:5px; font-weight:700; border:1px solid #777; color:#fff; background:#aaa; text-shadow:0 1px 3px rgba(0, 0, 0, .4);
+  transition:background-color .3s,color .3s,border .3s, box-shadow .1s; display:inline-block; padding:5px 12px; text-decoration:none; font-size:$basic-size; border-radius:5px; font-weight:700; border:1px solid #777; color:#fff; background:#aaa; text-shadow:0 1px 3px rgba(0, 0, 0, .4); cursor:pointer;
   @include background-image(linear-gradient(#cccccc, #777777));
 }
 .btn .ico{position:relative; top:2px;}
@@ -196,9 +196,22 @@ label.submit{cursor:pointer;}
 .gwy.active, .ywy.active, .gwy.active:active, .ywy.active:active
 {background:$yellow!important; color:#fff!important; border:1px solid $yellow-darker!important; box-shadow:none!important;}
 
+/*** COMBO: using multiple elements to look like one element ***/
+
+/* COMBO BUTTONS */
+.combo{
+    > .btn{border-radius:0; border-right:0 solid #eee;}
+    > .btn:hover:not(:last-child), > .btn:focus:not(:last-child), > .btn:active:not(:last-child){border-right:0 solid transparent!important;}
+    > .btn:first-child{border-radius:5px 0 0 5px;} 
+    > .btn:last-child{border-radius:0 5px 5px 0;}
+}
+
+/* COMBO INPUT (for Currency) */
+/*
 .box-combo{display:table;}
-.combo.currency{display:table-cell; background:$grey-lighter; border-radius:5px 0 0 5px; font-weight:bold; border:1px solid $grey-light; border-right:0; vertical-align:middle; white-space:nowrap; line-height:1;}
-.combo.input{display:table-cell; border-color:$grey-light; border-left:0; }
+.box-combo > .currency{display:table-cell; background:$grey-lighter; border-radius:5px 0 0 5px; font-weight:bold; border:1px solid $grey-light; border-right:0; vertical-align:middle; white-space:nowrap; line-height:1;}
+.box-combo > .input{display:table-cell; border-color:$grey-light; border-left:0; }
+*/
 
 /* MENU HAMBURGER */
 .menu-ham{
@@ -285,7 +298,7 @@ body, .submit{font-family:$basic-font;}
 /* PAGE LAYOUT */
 .wrapper{max-width:1180px; margin:auto; position:relative; min-width:235px;}
 .logo{float:left; margin:7px 0 0;}
-.minimal .logo{margin-bottom:4px;}
+.minimal .logo{margin-bottom:4px; float:none;}
 .v-logo{height:100%; width:274px;}
 .main-foot .logo{width:200px; margin:0;}
 
@@ -343,9 +356,10 @@ body, .submit{font-family:$basic-font;}
   position:absolute; z-index:1; background:#fff; width:101%; border:1px solid $yellow; border-top:0;
   margin:-1px 0 0 -1px; border-radius:0 0 5px 5px;
   li{float:none; border:0; border-bottom:1px solid $yellow; text-align:left;}
+  li:last-child{border-bottom:0;}
   a{padding:10px 7px; border:0; font-size:$basic-size!important;}
   a:hover .ico{color:#fff;}
-  .ico{float:right; margin:3px -2px 0 0; color:$yellow-dark;}
+  .ico{float:right; margin:4px -2px 0 0; color:$yellow-dark;}
 }
 
 .main-foot{border-top:5px solid $yellow; background:#fff; text-align:left; padding-top:10px;}
@@ -398,7 +412,7 @@ body, .submit{font-family:$basic-font;}
 /* Hide Text but keep it SEO friendly */
 .social .txt, .partner .txt{position:absolute; left:-9999px; top:-9999px;} 
 
-.ending{position:fixed; bottom:0; left:25px; background:$purple; color:#fff; padding:20px; text-shadow:0 1px 3px rgba(0, 0, 0, .7); margin:auto; z-index:11; font-weight:bold; border-radius:5px 5px 0 0;}
+.ending{position:fixed; bottom:0; left:25px; background:$purple; color:#fff; padding:10px 15px; text-shadow:0 1px 3px rgba(0, 0, 0, .7); margin:auto; z-index:11; font-weight:bold; border-radius:5px 5px 0 0;}
 
 /* RETINA ONLY */
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx){

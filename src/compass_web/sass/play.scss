@@ -76,31 +76,6 @@ $gap3:15px; /* Responsive design 3 column */
 	}
 }
 
-/*** DO NOT DELETE COMBO BUTTON STYLE ***/
-/*   
-
-.line .v-m{font-size:130%; top:2px;}
-
-.combo .col6:first-child .btn{
-	border-radius:5px 0 0 5px; border-right:1px solid #eee;
-} 
-
-.combo .col6:last-child .btn{border-radius:0 5px 5px 0; border-left:1px solid $grey;}
-
-.combo .col6:first-child .gwy{
-  border-right:1px solid transparent;
-  &:hover, &:focus{border-right:1px solid $purple;} 
-}
-
-.combo .col6:last-child .gwy{
-  border-left:1px solid $grey-lighter;
-  &:hover, &:focus{border-left:1px solid $purple;}
-}
-.combo .gwy.active{
-	border:1px solid $yellow!important; color:#fff; background:$yellow;
-	&:hover, &:focus{border:1px solid $yellow-darker!important;}
-}
-*/ 
 .line .numbers{padding:6px 8px 0; margin-right:-$gap2;}
 .line .numbers li, .line .stars li{border-right:$gap2 solid transparent;}
 .line .numbers .cols{margin:0 0 $gap2;}

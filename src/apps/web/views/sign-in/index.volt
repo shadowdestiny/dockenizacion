@@ -14,14 +14,12 @@ function swap(myVar){
 $(function(){
     swap(".log-in .box-extra a, .sign-up .box-extra a");
 });
-</script>
 
 {% if which_form == 'up' %}
-<script>
-        $(".sign-up").show()
-        $(".log-in").hide();
-</Script>
+    $(".sign-up").show()
+    $(".log-in").hide();
 {% endif %}
+</script>
 {% endblock %}
 
 {% block body %}

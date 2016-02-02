@@ -34,14 +34,14 @@ class Password extends StringLiteral
     private function assertHasLowercaseChars($string)
     {
         if (preg_match('/[a-z]/', $string) !== 1) {
-            throw new \InvalidArgumentException(get_class($this) . ' must have lowercase characters');
+            throw new \InvalidArgumentException(get_class($this) . ' must have a lowercase letter');
         }
     }
 
     private function assertHasUppercaseChars($string)
     {
         if (preg_match('/[A-Z]/', $string) !== 1) {
-            throw new \InvalidArgumentException(get_class($this) . ' must have uppercase characters');
+            throw new \InvalidArgumentException(get_class($this) . ' must have an uppercase letter');
         }
     }
 

@@ -30,6 +30,7 @@
                         <li><a href="#type">Typography</a></li>
                         <li><a href="#color">Color</a></li>
                         <li><a href="#btn">Buttons</a></li>
+                        <li><a href="#nav-input">Inputs</a></li>
                         <li><a href="#svg">Svg</a></li>
                         <li><a href="#icons">Icons</a></li>
                         <li><a href="#img">Images</a></li>
@@ -483,8 +484,7 @@
                                         <p>$basic-font 14px</p>
                                         <p class="small-txt">$small 12px</p>
                                     </pre>
-                                    <br><br>
-                                    <p>
+                                    <p  style="margin-top:10px;">
                                         Every title (a part from .h0) has a predefined margin-bottom set to 1em.<br>
                                         In the case that you need to reset margin <strong>Use class .res to reset margin.</strong>
                                         <br>Example:
@@ -494,7 +494,6 @@
                                     </pre>
                                 </div>
                             </div>
-
 
                             <hr class="hr">
 
@@ -516,6 +515,7 @@
                                         <li>in hendrerit in vulputate velit esse molestie consequat</li>
                                         <li>vel illum dolore eu feugiat nulla facilisis at</li>
                                     </ul>
+
                                 </div>
                                 <div class="col6">
                                     <pre class="brush: html">
@@ -547,6 +547,10 @@
                             <p>Those colors are usued for a variety of things, mainly for backgrounds, gradient backgrounds, border colored lines and colored text</p>
 
                             <div class="cl">
+                                <div class="bg-color blk" style="background:#fff;">
+                                    #fff  
+                                    <br>no variable for White
+                                </div>
                                 <div class="bg-color grey-lighter2 blk">
                                     $grey-lighter
                                     <br>#ddd
@@ -660,29 +664,116 @@
                         <a name="btn"></a>
                         <h1 class="title h2">Buttons</h1>
 
-                        <p>some content explanation</p>
-                        
-                        <div class="content box-btn">
-                            <a href="javascript:void(0);" class="btn">.btn</a>
-                            <a href="javascript:void(0);" class="btn big">.btn.big</a>
-                            <br><br>
-                            <a href="javascript:void(0);" class="btn blue">.blue</a>
-                            <a href="javascript:void(0);" class="btn red">.red</a>
-                            <a href="javascript:void(0);" class="btn green">.green</a>
-                            <a href="javascript:void(0);" class="btn purple">.purple</a>
-                            <br><br>
-                            <a href="javascript:void(0);" class="btn gwy">.gwy</a>
-                            <a href="javascript:void(0);" class="btn gwp">.gwp</a>
-                            <a href="javascript:void(0);" class="btn ywy">.ywy</a>
-                            <br><br>
-                            <a href="javascript:void(0);" class="btn gwr">.gwr</a>
-                            <a href="javascript:void(0);" class="btn gwg">.gwg</a>
-                            <a href="javascript:void(0);" class="btn bwb">.bwb</a>
-                            <a href="javascript:void(0);" class="btn rwr">.rwr</a>
-                        </div>
+                        <div class="content">
+                            <h2 class="h3">BUTTONS</h2>
+                            <div class="cols res">
+                                <div class="col6">
+                                    <p>They can be used easily by combining a series of classes with specific use, the most important one to define that an element is a button is <strong>.btn</strong> Most importantly any element can be used to make it look like a button in exactly same style (a link or an input or a span element). You can decide to set a specific width or by default they wrap it up around the length of the word used.</p>
+                                </div>
+                                <div class="col6">
+                                    <p>
+                                        <strong>Hierarchy of importance:</strong> Buttons have a coloure coded inexplicit level of importance across the website, based on their colors.
+                                    </p>
+                                </div>
+                            </div>
 
-                        * Combo buttons *
-                        * combo currency in order *
+                            <hr class="hr">
+
+                            <div class="cols">
+                                <div class="col6">
+                                    <p><strong>Simple Buttons</strong> those are buttons without any coloured style.</p>
+                                    <div class="box-btn">
+                                        <a href="javascript:void(0);" class="btn">.btn</a>
+                                        <a href="javascript:void(0);" class="btn big">.btn.big</a>
+                                        <br><br>
+                                        <p>
+                                            <strong>Colored buttons</strong> those are the basic colored buttons.
+                                        </p>
+                                        <a href="javascript:void(0);" class="btn white">.white</a>
+                                        <a href="javascript:void(0);" class="btn blue">.blue</a>
+                                        <a href="javascript:void(0);" class="btn red">.red</a>
+                                        <a href="javascript:void(0);" class="btn green">.green</a>
+                                        <a href="javascript:void(0);" class="btn purple">.purple</a>
+                                        <br><br>
+                                        <p>
+                                            <strong>.gwy</strong> means: Grey (Border), White (Background), Yellow (Text); and so the other similar buttons they have the same kind of structure and having in common just the grey border and the white background.
+                                        </p>
+                                        <a href="javascript:void(0);" class="btn gwy">.gwy</a>
+                                        <a href="javascript:void(0);" class="btn gwp">.gwp</a>
+                                        <a href="javascript:void(0);" class="btn gwr">.gwr</a>
+                                        <br><br>
+                                        <p>
+                                             <strong>.ywy</strong> means: Yellow (Border), White (Background), Yellow (Text); and the others have similar style based on one type of color that match border and text color.
+                                        </p>
+                                        <a href="javascript:void(0);" class="btn ywy">.ywy</a>
+                                        <a href="javascript:void(0);" class="btn gwg">.gwg</a>
+                                        <a href="javascript:void(0);" class="btn bwb">.bwb</a>
+                                        <a href="javascript:void(0);" class="btn rwr">.rwr</a>
+                                    </div>
+                                </div>
+                                <div class="col6">
+                                    <p><strong>Example of possible HTML type of buttons:</strong></p>
+                                    <a href="javascript:void(0);" class="btn">Link Button</a>
+                                    <label class="btn">
+                                        <span class="txt">Label Button</span>
+                                        <input type="hidden">
+                                    </label>
+                                    <button type="submit" clasS="btn">Real Button</button>
+
+<pre class="brush: html">
+    <a href="javascript:void(0);" class="btn">Link Button</a>
+    <label class="btn">
+        <span class="txt">Label</span>
+        <input type="hidden">
+    </label>
+    <button type="submit" clasS="btn">Real Button</button>
+</pre>
+
+
+                                    <p class="res"><strong>Accessibility Concerns</strong></p>
+                                    <ul class="list" style="margin:10px 0 15px 15px;">
+                                        <li>If it navigates, it is a link. Use link markup with a valid hypertext reference (and add: role="button" to the link)</li>
+                                        <li>If it triggers an action, it is a button. Use a BUTTON element</li>
+                                    </ul>
+
+                                    <hr class="hr">
+                                    <p><strong>Combo Buttons</strong> are buttons that can be bonded together looking like a multiple button with various kind of options, here an example:</p>
+
+                                    <div class="combo">
+                                        <a href="javascript:void(0);" class="btn red">left</a><a href="javascript:void(0);" class="btn red">center</a><a href="javascript:void(0);" class="btn red">center</a><a href="javascript:void(0);" class="btn red">right</a>
+                                    </div>
+                                    <br>
+
+        
+                                    <pre class="brush: html"><div class="combo">
+    <a href="javascript:void(0);" class="btn red">left</a>
+    <a href="javascript:void(0);" class="btn red">center</a>
+    <a href="javascript:void(0);" class="btn red">center</a>
+    <a href="javascript:void(0);" class="btn red">right</a>
+</div>
+                                    </pre>
+                                    <br>
+                                    <p><strong>Note:</strong> ui-link is being added by jquery mobile UI, please ignore that class value</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <a name="nav-input"></a>
+                        <h1 class="title h2">Buttons</h1>
+
+                        <div class="content">
+
+                            <h2 class="h3">INPUTS</h2>
+                            <p>bla bla bla</p>
+                            <form class="form-currency">
+                                <div class="currency">&euro;</div>
+                                <input type="text" class="input insert">                           
+                            </form>
+
+                        </div>
                     </section>
 
                     <section>
