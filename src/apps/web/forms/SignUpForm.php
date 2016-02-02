@@ -12,6 +12,7 @@ use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Validation\Validator\Identical;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email as EmailValidator;
+use Phalcon\Validation\Validator\StringLength;
 
 class SignUpForm extends Form
 {
@@ -55,6 +56,18 @@ class SignUpForm extends Form
         $password->addValidator(new PasswordValidator([
             'message' => 'The password should have at least one number, a lowercase and uppercase character.'
         ]));
+
+
+        $password->addValidator(new StringLength(array(
+            'field' => 'password',
+            'max' => 8,
+            'min' => 8,
+            'messageMaximum' => 'Your password should be at composed by 8 characters.',
+            'messageMinimum' => 'Your password should be at composed by 8 characters.'
+        )));
+
+
+
         $this->add($password);
         $password_confirm = new Password('confirm_password', array(
             'placeholder' => 'Confirm Password'
@@ -62,6 +75,16 @@ class SignUpForm extends Form
         $password_confirm->addValidator(new PresenceOf(array(
             'message' => 'The password confirmation is required'
         )));
+
+        $password_confirm->addValidator(new StringLength(array(
+            'field' => 'confirm_password',
+            'max' => 8,
+            'min' => 8,
+            'messageMaximum' => 'Your password should be at composed by 8 characters.',
+            'messageMinimum' => 'Your password should be at composed by 8 characters.'
+        )));
+
+
         $this->add($password_confirm);
         // Remember
 

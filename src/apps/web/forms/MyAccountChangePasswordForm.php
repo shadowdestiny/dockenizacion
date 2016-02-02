@@ -9,6 +9,7 @@ use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\StringLength;
 
 class MyAccountChangePasswordForm extends Form
 {
@@ -35,16 +36,36 @@ class MyAccountChangePasswordForm extends Form
                 'message' => 'Passwords don\'t match'
             ]
         ));
+
+        $password->addValidator(new StringLength(array(
+            'field' => 'new-password',
+            'max' => 8,
+            'min' => 8,
+            'messageMaximum' => 'Your password should be at composed by 8 characters.',
+            'messageMinimum' => 'Your password should be at composed by 8 characters.'
+        )));
+
+
         $password->addValidator(new PasswordValidator([
-            'message' => 'The password should have a number, a lowercase and an uppercase character and should be at composed at least by 6 characters.'
+            'message' => 'The password should have a number, a lowercase and an uppercase character.'
         ]));
         $this->add($password);
         $password_confirm = new Password('confirm-password', array(
             'placeholder' => 'Confirm Password'
         ));
+
+        $password_confirm->addValidator(new StringLength(array(
+            'field' => 'confirm-password',
+            'max' => 8,
+            'min' => 8,
+            'messageMaximum' => 'Your password should be at composed by 8 characters.',
+            'messageMinimum' => 'Your password should be at composed by 8 characters.'
+        )));
+
         $password_confirm->addValidator(new PresenceOf(array(
             'message' => 'The password confirmation is required'
         )));
+
         $this->add($password_confirm);
     }
 }
