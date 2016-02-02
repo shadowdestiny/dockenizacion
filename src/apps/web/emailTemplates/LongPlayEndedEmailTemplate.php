@@ -9,8 +9,7 @@ class LongPlayEndedEmailTemplate extends EmailTemplateDecorator
 
     public function loadVars()
     {
-        $jackpot = $this->lotteriesDataService->getNextJackpot('EuroMillions');
-
+        $data = $this->emailTemplateDataStrategy->getData();
         $vars = [
             'template' => 'long-play-is-ended',
             'subject' => 'Your long play is ended',
@@ -18,7 +17,7 @@ class LongPlayEndedEmailTemplate extends EmailTemplateDecorator
                 [
                     [
                         'name'    => 'jackpot',
-                        'content' => number_format((float) $jackpot->getAmount() / 100,2,".",",")
+                        'content' => number_format((float) $data['jackpot_amount']->getAmount() / 100,2,".",",")
                     ],
                     [
                         'name'    => 'url_play',

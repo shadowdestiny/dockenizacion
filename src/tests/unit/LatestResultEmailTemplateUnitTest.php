@@ -6,6 +6,7 @@ namespace tests\unit;
 
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\LatestResultsEmailTemplate;
+use EuroMillions\web\services\email_templates_strategies\DataLotteryEmailTemplateStrategy;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -40,7 +41,9 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
         $this->lotteriesDataService->getLastResult('EuroMillions')->willReturn($draw_result);
         $this->lotteriesDataService->getLastJackpot('EuroMillions')->willReturn(new Money(10000,new Currency('EUR')));
         $this->lotteriesDataService->getLastDrawDate('EuroMillions')->willReturn($date_draw);
-        $sut = new LatestResultsEmailTemplate($emailTemplate,$this->lotteriesDataService->reveal());
+        $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions')->willReturn(new \DateTime('2016-02-02 20:00:00'));
+        $this->lotteriesDataService->getNextJackpot('EuroMillions')->willReturn(new Money(10000,new Currency('EUR')));
+        $sut = new LatestResultsEmailTemplate($emailTemplate,new DataLotteryEmailTemplateStrategy($this->lotteriesDataService->reveal()));
         $sut->setBreakDownList('');
         $actual = $sut->loadVars();
         $this->assertEquals($expected,$actual);
