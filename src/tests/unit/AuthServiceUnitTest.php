@@ -156,6 +156,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $this->userRepository_double->add($user)->shouldBeCalled();
         $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush($user)->shouldNotBeCalled();
+        $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any(Argument::any()))->shouldBeCalled();
         $this->stubEntityManager($entityManager_stub);
         $actual = $sut->updatePassword($user,$password);
         $this->assertEquals($expected,$actual);

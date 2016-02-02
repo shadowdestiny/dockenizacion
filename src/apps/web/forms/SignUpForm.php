@@ -62,8 +62,8 @@ class SignUpForm extends Form
             'field' => 'password',
             'max' => 8,
             'min' => 8,
-            'messageMaximum' => 'Your password should be at composed by 8 characters.',
-            'messageMinimum' => 'Your password should be at composed by 8 characters.'
+            'messageMaximum' => 'Your password should be at composed by eight letters.',
+            'messageMinimum' => 'Your password should be at composed by eight letters.'
         )));
 
 
@@ -80,8 +80,8 @@ class SignUpForm extends Form
             'field' => 'confirm_password',
             'max' => 8,
             'min' => 8,
-            'messageMaximum' => 'Your password should be at composed by 8 characters.',
-            'messageMinimum' => 'Your password should be at composed by 8 characters.'
+            'messageMaximum' => 'Your password should be at composed by eight letters.',
+            'messageMinimum' => 'Your password should be at composed by eight letters.'
         )));
 
 

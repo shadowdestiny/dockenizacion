@@ -38,8 +38,8 @@ class ResetPasswordForm extends Form
             'field' => 'new-password',
             'max' => 8,
             'min' => 8,
-            'messageMaximum' => 'Your password should be at composed by 8 characters.',
-            'messageMinimum' => 'Your password should be at composed by 8 characters.'
+            'messageMaximum' => 'Your password should be at composed by eight letters.',
+            'messageMinimum' => 'Your password should be at composed by eight letters.'
         )));
 
 
@@ -55,8 +55,8 @@ class ResetPasswordForm extends Form
             'field' => 'confirm-password',
             'max' => 8,
             'min' => 8,
-            'messageMaximum' => 'Your password should be at composed by 8 characters.',
-            'messageMinimum' => 'Your password should be at composed by 8 characters.'
+            'messageMaximum' => 'Your password should be at composed by eight letters.',
+            'messageMinimum' => 'Your password should be at composed by eight letters.'
         )));
 
         $this->add($password_confirm);

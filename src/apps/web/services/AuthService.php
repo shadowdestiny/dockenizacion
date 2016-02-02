@@ -8,6 +8,7 @@ use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\web\components\PhpassWrapper;
 use EuroMillions\web\components\RandomPasswordGenerator;
 use EuroMillions\web\emailTemplates\EmailTemplate;
+use EuroMillions\web\emailTemplates\ResetPasswordEmailTemplate;
 use EuroMillions\web\emailTemplates\WelcomeEmailTemplate;
 use EuroMillions\web\entities\GuestUser;
 use EuroMillions\web\entities\User;
@@ -246,7 +247,7 @@ class AuthService
      */
     private function getPasswordResetUrl(User $user)
     {
-        return new Url($this->urlManager->get('/passwordReset/' . $this->getEmailValidationToken(new Email($user->getEmail()->toNative()))));
+        return new Url($this->urlManager->get('/userAccess/passwordReset/' . $this->getEmailValidationToken(new Email($user->getEmail()->toNative()))));
     }
 
     public function tryLoginWithRemember()
@@ -297,6 +298,7 @@ class AuthService
             $user->setPassword($password);
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
+            $this->emailService->sendTransactionalEmail($user, new ResetPasswordEmailTemplate(new EmailTemplate()));
             return new ActionResult(true, 'Your password was changed correctly');
         } catch (\Exception $e) {
             return new ActionResult(false);

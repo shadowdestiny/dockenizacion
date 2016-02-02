@@ -57,6 +57,10 @@ class CartController extends PublicSiteControllerBase{
         $fee_charge = $this->currencyService->convert(new Money(self::$_config_vars['fee_charge'],new Currency(self::$_config_vars['fee_charge_currency'])), $user->getUserCurrency());
         $wallet_balance = $this->currencyService->convert($user->getBalance(),$user->getUserCurrency());
         if($result->success()) {
+            //EMTD check this redirect
+            if(!$result->getValues()->success()) {
+                $this->response->redirect('/play');
+            }
             /** @var ActionResult $play_config_json */
             $play_config_json = $result->getValues();
             $play_config_decode = json_decode($play_config_json->getValues());

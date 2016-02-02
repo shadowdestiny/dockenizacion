@@ -190,57 +190,97 @@ $(function(){
     }
 
     var timeout_warning = '';
-    var finish_countdown_warning_close_draw = function () {
-        $('.ending').show();
+    var finish_countdown_warning_close_draw = function (interval_warning_close) {
+        window.clearInterval(interval_warning_close);
         return $('.ending').countdown(draw_date).
         on('update.countdown', function (event) {
+            $('.ending').fadeIn(fade_value);
             $(this).html("The draw will close in " +  event.strftime('%-Ss'));
         }).on('finish.countdown', function (event) {
             $(this).html('Today’s draw is closed, you will play for the next');
             setTimeout(function () {
-                $('.ending').hide();
+                $('.ending').fadeOut(fade_value);
             }, 30000);
         });
     };
 
-    $('.ending').hide();
-    var is_remain_time = typeof remain_time == 'undefined' ? false : remain_time;
-
-    console.log('remain time: ' + is_remain_time);
-    console.log('minutes to close: ' + minutes_to_close);
-
-
-    if (is_remain_time && minutes_to_close > 0) {
-        $('.ending').show();
-        $('.ending').text('The draw will close in ' + minutes_to_close + ' minutes.')
-        setTimeout(function () {
-            $('.ending').hide();
-        }, 30000);
-
-        var minutes_value = minutes_to_close;
-        timeout_warning = setTimeout(function () {
-            console.log('time warning');
-            setInterval(function () {
-                minutes_value = minutes_value - parseInt(5);
-                if(minutes_value > 0 ) {
-                    $('.ending').show();
-                    $('.ending').text('The draw will close in '+ minutes_value +' minutes.');
-                    setTimeout(function () {
-                        $('.ending').hide();
-                    }, 10000);
-                } else {
-                    console.log('pasa');
-                    clearTimeout(timeout_warning);
-                    finish_countdown_warning_close_draw();
-                }
-            }, 30000);
-        }, 60000);
-
-        timeout_warning;
+    if(typeof draw_date == 'undefined') {
+        draw_date = new Date();
     }
+    if(typeof remain_time == 'undefined') {
+        remain_time = false;
+    }
+
+    $('.ending').hide();
+    var now_date = new Date().getMinutes();
+    var draw_date_minutes = (new Date(draw_date).getMinutes() == 0) ? 60 : new Date(draw_date).getMinutes();
+    var minutes_value =  draw_date_minutes - now_date;
+    var interval_warning_close = null;
+   // var is_remain_time = remain_time == "" ? false : remain_time;
+    var fade_value = 800;
+    var interval_warning = 100000;
+
+    if (remain_time && minutes_value > 1) {
+        if(minutes_value > 5) {
+            $('.ending').text('The draw will close in ' + minutes_to_close + ' minutes')
+        } else {
+            interval_warning = 30000;
+            $('.ending').text('The draw will close in ' + minutes_value + ' minutes')
+        }
+        $('.ending').fadeIn(fade_value);
+        setTimeout(function(){
+            $('.ending').fadeOut(fade_value);
+        },30000);
+
+        interval_warning_close = setInterval(function(){
+            minutes_value =  getMinutes();
+            if(minutes_value > 5) {
+                console.log('pasa2');
+                var minutes = minutes_value - parseInt(5);
+                $('.ending').text('The draw will close in '+ minutes_to_close +' minutes');
+                $('.ending').fadeIn(fade_value);
+                setTimeout(function(){
+                    if(getMinutes() < 1 ) {
+                        console.log('pasa3');
+                        finish_countdown_warning_close_draw(interval_warning_close);
+                    }
+                    $('.ending').fadeOut(fade_value);
+                },3000);
+            } else if(minutes_value > 1){
+                interval_warning = 30000;
+                console.log('pasa4');
+                $('.ending').text('The draw will close in '+ minutes_value +' minutes');
+                $('.ending').fadeIn();
+                setTimeout(function(){
+                    if(getMinutes() < 1 ) {
+                        console.log('pasa5');
+                        finish_countdown_warning_close_draw(interval_warning_close);
+                    }
+                    $('.ending').fadeOut();
+                },3000);
+            } else {
+                console.log('pasa6');
+                finish_countdown_warning_close_draw(interval_warning_close);
+            }
+        },interval_warning);
+    } else {
+      ///  last_minute = true;
+        finish_countdown_warning_close_draw(interval_warning_close);
+    }
+
+
     var is_last_minute = typeof last_minute == 'undefined' ? false : last_minute;
     if (is_last_minute) {
-        clearTimeout(timeout_warning);
-        finish_countdown_warning_close_draw();
+        console.log('pasa7');
+        finish_countdown_warning_close_draw(interval_warning_close);
     }
+
+    function getMinutes()
+    {
+        now_date = new Date().getMinutes();
+        draw_date_minutes = (new Date(draw_date).getMinutes() == 0) ? 60 : new Date(draw_date).getMinutes();
+        return draw_date_minutes - now_date;
+    }
+
+
 });
