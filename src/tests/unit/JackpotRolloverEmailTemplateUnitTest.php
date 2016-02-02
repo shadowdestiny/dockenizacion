@@ -6,6 +6,8 @@ namespace tests\unit;
 
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\JackpotRolloverEmailTemplate;
+use EuroMillions\web\services\email_templates_strategies\DataLotteryEmailTemplateStrategy;
+use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
 use Money\Currency;
 use Money\Money;
 use tests\base\UnitTestBase;
@@ -33,7 +35,9 @@ class JackpotRolloverEmailTemplateUnitTest extends UnitTestBase
         $emailTemplate = new EmailTemplate();
         $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions')->willReturn(new \DateTime());
         $this->lotteriesDataService->getNextJackpot('EuroMillions')->willReturn(new Money(10000,new Currency('EUR')));
-        $sut = new JackpotRolloverEmailTemplate($emailTemplate,$this->lotteriesDataService->reveal());
+        $this->lotteriesDataService->getLastResult('EuroMillions')->shouldBeCalled();
+        $this->lotteriesDataService->getLastDrawDate('EuroMillions')->shouldBeCalled();
+        $sut = new JackpotRolloverEmailTemplate($emailTemplate, new DataLotteryEmailTemplateStrategy($this->lotteriesDataService->reveal()) );
         $actual = $sut->loadVars();
         $this->assertEquals($expected,$actual);
 

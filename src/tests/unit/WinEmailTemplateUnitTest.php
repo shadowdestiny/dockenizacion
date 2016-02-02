@@ -9,6 +9,7 @@ use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\WinEmailTemplate;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\UserId;
@@ -39,7 +40,7 @@ class WinEmailTemplateUnitTest extends UnitTestBase
         $expected = $this->getArrayContentTemplate();
         $result_amount = new Money(10000, new Currency('EUR'));
         $emailTemplate = new EmailTemplate();
-        $sut = new WinEmailTemplate($emailTemplate,$this->lotteriesDataService->reveal());
+        $sut = new WinEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
         $sut->setUser($this->getUser());
         $sut->setResultAmount($result_amount);
         $actual = $sut->loadVars();

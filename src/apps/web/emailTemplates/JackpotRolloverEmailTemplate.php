@@ -8,11 +8,12 @@ class JackpotRolloverEmailTemplate extends EmailTemplateDecorator
 
     public function loadVars()
     {
-        $next_draw_day = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions');
-        $time_config = $this->domainServiceFactory->getServiceFactory()->getDI()->get('globalConfig')['retry_validation_time'];
-        $draw_day_format_one = $next_draw_day->format('l');
-        $draw_day_format_two = $next_draw_day->format('j F Y');
-        $jackpot_amount = $this->lotteriesDataService->getNextJackpot('EuroMillions');
+        $data = $this->emailTemplateDataStrategy->getData();
+
+        $time_config = $data['time_close'];
+        $draw_day_format_one = $data['draw_day_format_one'];
+        $draw_day_format_two = $data['draw_day_format_two'];
+        $jackpot_amount = $data['jackpot_amount'];
 
         $vars = [
             'template' => 'jackpot-rollover',
@@ -33,7 +34,7 @@ class JackpotRolloverEmailTemplate extends EmailTemplateDecorator
                     ],
                     [
                         'name'    => 'time_closed',
-                        'content' => $time_config['time'] . ' CET'
+                        'content' => $time_config . ' CET'
                     ],
                     [
                         'name'    => 'url_play',

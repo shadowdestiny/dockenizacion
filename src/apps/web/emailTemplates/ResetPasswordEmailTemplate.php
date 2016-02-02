@@ -4,8 +4,11 @@
 namespace EuroMillions\web\emailTemplates;
 
 
+use EuroMillions\web\services\LotteriesDataService;
+
 class ResetPasswordEmailTemplate extends EmailTemplateDecorator
 {
+
 
     public function loadVars()
     {

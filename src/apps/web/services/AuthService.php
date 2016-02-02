@@ -18,6 +18,7 @@ use EuroMillions\web\interfaces\IPasswordHasher;
 use EuroMillions\shared\config\interfaces\IUrlManager;
 use EuroMillions\web\interfaces\IUser;
 use EuroMillions\web\repositories\UserRepository;
+use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Password;
 use EuroMillions\shared\vo\results\ActionResult;
@@ -157,7 +158,7 @@ class AuthService
                 $this->logService->logRegistration($user);
                 $url = $this->getValidationUrl($user);
                 $emailTemplate = new EmailTemplate();
-                $emailTemplate = new WelcomeEmailTemplate($emailTemplate);
+                $emailTemplate = new WelcomeEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
                 $emailTemplate->setUser($user);
                 $this->emailService->sendTransactionalEmail($user, $emailTemplate);
                 //user notifications default
@@ -298,7 +299,7 @@ class AuthService
             $user->setPassword($password);
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
-            $this->emailService->sendTransactionalEmail($user, new ResetPasswordEmailTemplate(new EmailTemplate()));
+            $this->emailService->sendTransactionalEmail($user, new ResetPasswordEmailTemplate(new EmailTemplate(), new NullEmailTemplateDataStrategy()));
             return new ActionResult(true, 'Your password was changed correctly');
         } catch (\Exception $e) {
             return new ActionResult(false);

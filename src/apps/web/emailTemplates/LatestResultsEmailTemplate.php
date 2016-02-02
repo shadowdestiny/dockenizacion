@@ -13,12 +13,14 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
 
     public function loadVars()
     {
-        /** @var EuroMillionsLine $draw_result */
-        $draw_result = $this->lotteriesDataService->getLastResult('EuroMillions');
-        $jackpot = $this->lotteriesDataService->getLastJackpot('EuroMillions');
-        $last_draw_date = $this->lotteriesDataService->getLastDrawDate('EuroMillions')->format('j F Y');
+
+        $data = $this->emailTemplateDataStrategy->getData();
+        $draw_result = $data['draw_result'];
+        $jackpot = $data['jackpot_amount'];
+        $last_draw_date = $data['last_draw_date'];
 
         $amount = number_format((float) $jackpot->getAmount() / 100,2,".",",");
+
         $vars = [
             'template' => 'latest-results',
             'subject' => 'Latest results',
@@ -34,7 +36,7 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
                     ],
                     [
                         'name'    => 'draw_date',
-                        'content' => $last_draw_date
+                        'content' => $last_draw_date->format('j F Y')
                     ],
                     [
                         'name'    => 'regular_numbers',

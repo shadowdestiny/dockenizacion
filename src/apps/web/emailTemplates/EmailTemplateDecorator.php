@@ -4,8 +4,10 @@
 namespace EuroMillions\web\emailTemplates;
 
 
+use EuroMillions\web\interfaces\EmailTemplateDataStrategy;
+use EuroMillions\web\interfaces\IEmailTemplateDataStrategy;
 use EuroMillions\web\services\DomainServiceFactory;
-use EuroMillions\web\services\LotteriesDataService;
+
 
 abstract class EmailTemplateDecorator implements IEmailTemplate
 {
@@ -14,17 +16,16 @@ abstract class EmailTemplateDecorator implements IEmailTemplate
 
     protected $config;
 
-    protected $lotteriesDataService;
+    protected $emailTemplateDataStrategy;
 
     /** @var DomainServiceFactory $domainServiceFactory*/
     protected $domainServiceFactory;
 
-    public function __construct(IEmailTemplate $emailTemplate, LotteriesDataService $lotteriesDataService = null)
+    public function __construct(IEmailTemplate $emailTemplate, EmailTemplateDataStrategy $emailTemplateDataStrategy)
     {
         $this->emailTemplate = $emailTemplate;
-        $this->domainServiceFactory = \Phalcon\Di::getDefault()->get('domainServiceFactory');
-        $this->config = $this->domainServiceFactory->getServiceFactory()->getDI()->get('config');
-        $this->lotteriesDataService = ($lotteriesDataService != null) ? $lotteriesDataService : $this->domainServiceFactory->getLotteriesDataService();
+        $this->emailTemplateDataStrategy = $emailTemplateDataStrategy;
+        $this->config = \Phalcon\Di::getDefault()->get('domainServiceFactory')->getServiceFactory()->getDI()->get('config');
     }
 
     abstract public function loadVars();

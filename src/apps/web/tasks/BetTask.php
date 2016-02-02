@@ -15,6 +15,7 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\exceptions\InvalidBalanceException;
 use EuroMillions\web\services\DomainServiceFactory;
+use EuroMillions\web\services\email_templates_strategies\DataLotteryEmailTemplateStrategy;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\PlayService;
@@ -58,7 +59,7 @@ class BetTask extends TaskBase
         $lotteryName = 'EuroMillions';
         $result_euromillions_draw = $this->lotteriesDataService->getNextDrawByLottery($lotteryName);
         $emailTemplate = new EmailTemplate();
-        $emailTemplate = new LowBalanceEmailTemplate($emailTemplate);
+        $emailTemplate = new LowBalanceEmailTemplate($emailTemplate, new DataLotteryEmailTemplateStrategy());
 
         if($result_euromillions_draw->success()){
             /** @var EuroMillionsDraw $euromillions_draw */
@@ -139,7 +140,7 @@ class BetTask extends TaskBase
         }
 
         $emailTemplate = new EmailTemplate();
-        $emailTemplate = new LongPlayEndedEmailTemplate($emailTemplate);
+        $emailTemplate = new LongPlayEndedEmailTemplate($emailTemplate, new DataLotteryEmailTemplateStrategy());
         /** @var ActionResult $result_play_config */
         $result_play_config = $this->playService->getPlayConfigWithLongEnded($today);
         if($result_play_config->success()) {
