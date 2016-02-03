@@ -154,6 +154,7 @@ var CartPage = new React.createClass({
             price = this.updatePriceWithoutWallet(price,wallet_balance,fee_below,fee);
             this.state.new_balance = parseFloat(this.props.wallet_balance);
         }
+
         var price_and_symbol = this.props.symbol_position ? parseFloat(price).toFixed(2) + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + parseFloat(price).toFixed(2);
         this.setState({ total : price_and_symbol });
     },
@@ -199,6 +200,7 @@ var CartPage = new React.createClass({
               //  total_default = parseFloat(total_default) + parseFloat(this.props.fee_charge);
             // }
             wallet_component = <EmWallet currency_symbol={this.props.currency_symbol}
+                                         symbol_position={this.props.symbol_position}
                                          checked_callback={this.handleCheckedWallet}
                                          show_checked={this.state.checked_wallet}
                                          total_price={total_default}
@@ -207,7 +209,8 @@ var CartPage = new React.createClass({
         }
         var txt_button_payment = this.state.checked_wallet ? 'Buy now' : 'Continue to payment';
         var symbol_price_balance = this.props.symbol_position ? this.props.wallet_balance + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + this.props.wallet_balance;
-        var old_balance_and_new_balance = <span className="value"> <span className='old'>{symbol_price_balance}</span><span className='new'>{this.props.currency_symbol} {this.state.new_balance}</span> </span>;
+        var symbol_price_new_balance = this.props.symbol_position ? this.state.new_balance + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + this.state.new_balance;
+        var old_balance_and_new_balance = <span className="value"> <span className='old'>{symbol_price_balance}</span><span className='new'>{symbol_price_new_balance}</span> </span>;
         if(!this.state.checked_wallet) {
             symbol_price_balance = this.props.symbol_position ? this.state.new_balance + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + this.state.new_balance;
             old_balance_and_new_balance = <span className="value"> <span className="current">{symbol_price_balance}</span> </span>;
@@ -239,6 +242,7 @@ var CartPage = new React.createClass({
 
 module.exports = CartPage;
 var show_fee_line = false;
+console.log('Symbol position: ' + symbol_position);
 ReactDOM.render(<CartPage total={total_price} symbol_position={symbol_position} price_below_fee={price_below_fee} fee_charge={fee_charge} currency_symbol={currency_symbol} play_list={play_list} wallet_balance={wallet_balance} single_bet_price={single_bet_price} show_fee_line={show_fee_line}/>,
     document.getElementById('cart-order'));
 
