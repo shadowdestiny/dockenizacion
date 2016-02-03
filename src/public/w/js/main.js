@@ -268,8 +268,9 @@ $(function(){
             }
         },interval_warning);
     }
-
+console.log(last_minute);
     var is_last_minute = typeof last_minute == 'undefined' ? false : last_minute;
+    console.log(is_last_minute);
     if (is_last_minute) {
         finish_countdown_warning_close_draw(interval_warning_close);
     }

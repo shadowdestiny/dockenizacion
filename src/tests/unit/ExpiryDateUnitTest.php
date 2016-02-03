@@ -17,7 +17,7 @@ class ExpiryDateUnitTest extends UnitTestCase
      */
     public function test___construct_calledWithExpiredDate_calledWithExpiredDate_throw($badExpiryDate)
     {
-        $this->setExpectedException('\EuroMillions\web\exceptions\InvalidExpirationDateException', 'The expiration date is not valid. Format should be mm/yyyy');
+        $this->setExpectedException('\EuroMillions\web\exceptions\InvalidExpirationDateException', 'The expiration date is not valid.');
         new ExpiryDate($badExpiryDate);
     }
 

@@ -56,7 +56,7 @@ class CreditCardForm extends Form
             )),
             new StringLength(array(
                 'min' => 3,
-                'max' => 3
+                'max' => 4
             ))
         ));
         $this->add($card_cvv);

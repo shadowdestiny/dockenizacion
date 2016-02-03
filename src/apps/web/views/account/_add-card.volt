@@ -57,7 +57,7 @@
             <label class="label block">
                 {{ language.translate("Expiration date") }} <span class="asterisk">*</span>
             </label>
-            <select class="select month" name="month">
+            <select class="select month {{ form_errors['month'] }}" name="month">
                 <option>01</option>
                 <option>02</option>
                 <option>03</option>
