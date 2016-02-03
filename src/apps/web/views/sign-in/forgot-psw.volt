@@ -28,7 +28,7 @@
                     {% if errors %}
                         <div class="box error">
                             <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
-                            <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
+                            <div class="txt"><ul class="no-li">{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul></div>
                         </div>
                     {%  endif %}
 

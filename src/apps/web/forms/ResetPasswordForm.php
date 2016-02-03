@@ -38,8 +38,8 @@ class ResetPasswordForm extends Form
             'field' => 'new-password',
             'max' => 8,
             'min' => 8,
-            'messageMaximum' => 'Your password should be at composed by eight letters.',
-            'messageMinimum' => 'Your password should be at composed by eight letters.'
+            'messageMaximum' => 'Your password should be composed at least by eight letters.',
+            'messageMinimum' => 'Your password should be composed at least by eight letters.'
         )));
 
 
@@ -48,15 +48,15 @@ class ResetPasswordForm extends Form
             'placeholder' => 'Confirm Password'
         ));
         $password_confirm->addValidator(new PresenceOf(array(
-            'message' => 'The password confirmation is required'
+            'message' => 'Confirm Password is required'
         )));
 
         $password_confirm->addValidator(new StringLength(array(
             'field' => 'confirm-password',
             'max' => 8,
             'min' => 8,
-            'messageMaximum' => 'Your password should be at composed by eight letters.',
-            'messageMinimum' => 'Your password should be at composed by eight letters.'
+            'messageMaximum' => 'Your password should be composed at least by eight letters.',
+            'messageMinimum' => 'Your password should be composed at least by eight letters.'
         )));
 
         $this->add($password_confirm);

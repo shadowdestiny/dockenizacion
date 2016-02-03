@@ -317,7 +317,7 @@ class AuthService
             $this->emailService->sendPasswordResetMail($user, $this->getPasswordResetUrl($user));
             return new ActionResult(true, 'An email has been sent to your email, please check it to create a new password.');
         } else {
-            return new ActionResult(false, 'The Email inserted doesn\'t exist, please verify that you have inserted the correct email address.');
+            return new ActionResult(false, 'The email doesn\'t exist, please verify that you have inserted the correct email address.');
         }
     }
 
