@@ -4,9 +4,9 @@
 namespace EuroMillions\web\services\email_templates_strategies;
 
 
-use EuroMillions\web\interfaces\EmailTemplateDataStrategy;
+use EuroMillions\web\interfaces\IEmailTemplateDataStrategy;
 
-class NullEmailTemplateDataStrategy implements EmailTemplateDataStrategy
+class NullEmailTemplateDataStrategy implements IEmailTemplateDataStrategy
 {
 
     public function __construct()
@@ -14,7 +14,7 @@ class NullEmailTemplateDataStrategy implements EmailTemplateDataStrategy
 
     }
 
-    public function getData()
+    public function getData(IEmailTemplateDataStrategy $strategy = null)
     {
         return null;
     }
