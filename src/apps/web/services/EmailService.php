@@ -38,7 +38,8 @@ class EmailService
             'Reset your password',
             'Reset your password',
             'We have received a request to reset your password. If you didn\'t make the request, just ignore this email.<br>You can reset your password using this link: <a href="'.$url->toNative().'">Click here to reset your password</a>
-                <br><br>or copy and paste this url in your browser: '.$url->toNative()
+                <br><br>or copy and paste this url in your browser: '.$url->toNative(),
+            'Generate new password'
         );
     }
 
@@ -149,7 +150,7 @@ EOF;
      * @param $subtitle
      * @param $content
      */
-    private function sendMailToUser(User $user, $title, $subtitle, $content)
+    private function sendMailToUser(User $user, $title, $subtitle, $content, $subject = 'Confirm your email')
     {
         $this->mailServiceApi->send(
             $this->mailConfig['from_name'],
@@ -161,7 +162,7 @@ EOF;
                     'type'  => 'to',
                 ]
             ],
-            'Confirm your email',
+            $subject,
             '',
             [
                 [

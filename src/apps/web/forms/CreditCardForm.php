@@ -24,7 +24,6 @@ class CreditCardForm extends Form
                 'message' => 'Credit Card number is required'
             )),
             new Numericality(array(
-
             )),
             new CreditCard(array())
         ));
@@ -57,7 +56,7 @@ class CreditCardForm extends Form
             )),
             new StringLength(array(
                 'min' => 3,
-                'max' => 3
+                'max' => 4
             ))
         ));
         $this->add($card_cvv);

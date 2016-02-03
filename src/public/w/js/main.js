@@ -215,11 +215,16 @@ $(function(){
     var now_date = new Date().getMinutes();
 
     var draw_date_minutes = new Date(draw_date).getMinutes();
+    draw_date_minutes = draw_date_minutes == 0 ? 60 : draw_date_minutes;
     var minutes_value =  draw_date_minutes - now_date;
+    if(draw_date_minutes < now_date) {
+        now_date = 60 - now_date;
+        minutes_value = draw_date_minutes + now_date;
+    }
     var interval_warning_close = null;
    // var is_remain_time = remain_time == "" ? false : remain_time;
     var fade_value = 800;
-    var interval_warning = 100000;
+    var interval_warning = 300000;
 
     if (remain_time && minutes_value > 1) {
         if(minutes_value > 5) {
@@ -236,6 +241,7 @@ $(function(){
         interval_warning_close = setInterval(function(){
             minutes_value =  getMinutes();
             if(minutes_value > 5) {
+                minutes_to_close = minutes_to_close - 5;
                 $('.ending').text('The draw will close in '+ minutes_to_close +' minutes');
                 $('.ending').fadeIn();
                 setTimeout(function(){
@@ -247,7 +253,7 @@ $(function(){
             } else if(minutes_value > 1){
                 $('.ending').text('The draw will close in '+ minutes_value +' minutes');
                 $('.ending').fadeIn();
-                console.log('pasa');
+                console.log('pasa2');
                 setTimeout(function(){
                     if(getMinutes() < 1 ) {
                         console.log('pasa5');
@@ -257,18 +263,14 @@ $(function(){
                 },3000);
                 interval_warning_close = setInterval(interval_warning_close, 45000);
             } else {
+                console.log('pasa3');
                 finish_countdown_warning_close_draw(interval_warning_close);
             }
         },interval_warning);
-    } else {
-
-      //  console.log('pasa55');
-      ///  last_minute = true;
-     //   finish_countdown_warning_close_draw(interval_warning_close);
     }
-
-
+console.log(last_minute);
     var is_last_minute = typeof last_minute == 'undefined' ? false : last_minute;
+    console.log(is_last_minute);
     if (is_last_minute) {
         finish_countdown_warning_close_draw(interval_warning_close);
     }

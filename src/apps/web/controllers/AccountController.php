@@ -220,18 +220,22 @@ class AccountController extends PublicSiteControllerBase
                 /** User $user */
                 $user = $this->userService->getUser($user_id->getId());
                 if(null != $user ){
-                    $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($month.'/'.$year), new CVV($cvv));
-                    $wallet_service = $this->domainServiceFactory->getWalletService();
-
-                    /** @var PaymentProviderFactory $paymentProviderFactory */
-                    $paymentProviderFactory = $this->di->get('paymentProviderFactory');
-                    $config_payment = $this->di->get('config')['payxpert'];
-                    $payXpertCardPaymentStrategy = $paymentProviderFactory->getCreditCardPaymentProvider(new PayXpertCardPaymentStrategy($config_payment));
-                    $result = $wallet_service->rechargeWithCreditCard($payXpertCardPaymentStrategy, $card, $user, new Money($funds_value * 100, $user->getUserCurrency()));
-                    if($result->success()) {
-                        $msg = 'Your balance was update. Your current balance is: ' . $user->getBalance()->getAmount() / 100 . ' ' . $user->getBalance()->getCurrency()->getName();
-                    } else {
-                        $errors[] = 'An error occurred. The response with our payment provider was: ' . $result->returnValues()->errorMessage;
+                    try {
+                        $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($month.'/'.$year), new CVV($cvv));
+                        $wallet_service = $this->domainServiceFactory->getWalletService();
+                        /** @var PaymentProviderFactory $paymentProviderFactory */
+                        $paymentProviderFactory = $this->di->get('paymentProviderFactory');
+                        $config_payment = $this->di->get('config')['payxpert'];
+                        $payXpertCardPaymentStrategy = $paymentProviderFactory->getCreditCardPaymentProvider(new PayXpertCardPaymentStrategy($config_payment));
+                        $result = $wallet_service->rechargeWithCreditCard($payXpertCardPaymentStrategy, $card, $user, new Money($funds_value * 100, $user->getUserCurrency()));
+                        if($result->success()) {
+                            $msg = 'Your balance is been updated. You have now: ' . $user->getBalance()->getAmount() / 100 . ' ' . $user->getBalance()->getCurrency()->getName();
+                        } else {
+                            $errors[] = 'An error occurred. The response with our payment provider was: ' . $result->returnValues()->errorMessage;
+                        }
+                    } catch (\Exception $e ) {
+                        $errors[] = $e->getMessage();
+                        $form_errors['month'] = ' error';
                     }
                 }
             }
@@ -242,8 +246,8 @@ class AccountController extends PublicSiteControllerBase
             'errors' => $errors,
             'credit_card_form' => $credit_card_form,
             'msg' => $msg,
-            'show_form_add_fund' => false,
-            'show_box_basic' => true,
+            'show_form_add_fund' => true,
+            'show_box_basic' => false,
         ]);
     }
 
@@ -417,6 +421,7 @@ class AccountController extends PublicSiteControllerBase
             'card-holder' => '',
             'card-cvv' => '',
             'funds-value' => '',
+            'month' => ''
         ];
         return $form_errors;
     }

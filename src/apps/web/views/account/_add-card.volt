@@ -57,7 +57,7 @@
             <label class="label block">
                 {{ language.translate("Expiration date") }} <span class="asterisk">*</span>
             </label>
-            <select class="select month" name="month">
+            <select class="select month {{ form_errors['month'] }}" name="month">
                 <option>01</option>
                 <option>02</option>
                 <option>03</option>
@@ -107,7 +107,7 @@
             </div>
             <div class="col6 second">
                 <h2 class="h3 yellow">{{ language.translate("Add funds to your wallet") }}</h2>
-                <div class="balance"><strong class="purple">{{ language.translate("Wallet balance:") }}</strong> <span class="value">{{ user_balance }}</span></div>
+                <div class="balance"><strong class="purple">{{ language.translate("Current Wallet balance:") }}</strong> <span class="value">{{ user_balance }}</span></div>
                 <div class="box-wallet overview">
                     <span class="currency">&euro;</span>{{ credit_card_form.render('funds-value', {'class':'insert input'~form_errors['funds-value']}) }}
                     <label class="label btn green">
