@@ -363,9 +363,6 @@ class EmailTestController extends PublicSiteControllerBase
             $url = new Url('http://localhost:8080/user-access/passwordReset/3c44633d83a5780f5bac7dcc6eccb0ab');
             $this->domainServiceFactory->getServiceFactory()->getEmailService(null, self::$config)->sendPasswordResetMail($this->user, $url);
         } else if ($nameTemplate == 'send-new-password') {
-            $passwordGenerator = new RandomPasswordGenerator(new NullPasswordHasher());
-            $password = $passwordGenerator->getPassword();
-            $this->domainServiceFactory->getServiceFactory()->getEmailService(null, self::$config)->sendNewPasswordMail($this->user, $password);
         } else {
             $this->domainServiceFactory->getServiceFactory()->getEmailService(null, self::$config)->sendTransactionalEmail($this->user, $emailTemplate);
         }
