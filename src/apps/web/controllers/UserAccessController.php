@@ -196,7 +196,7 @@ class UserAccessController extends ControllerBase
 
         if ($this->request->isPost()) {
             if ($forgot_password_form->isValid($this->request->getPost()) == false) {
-                $errors[] = 'Invalid email';
+                $errors[] = 'You have inserted something that doesn\'t look like an  email.';
             } else {
 
                     $email = $this->request->getPost('email');
@@ -209,7 +209,7 @@ class UserAccessController extends ControllerBase
                     if($result->success() && $reCaptchaResult){
                         $message = $result->getValues();
                     } else {
-                        if(empty($reCaptchaResult)) $errors[] = 'You are a robot';
+                        if(empty($reCaptchaResult)) $errors[] = 'You are a robot... or you forgot to check the Captcha verification.';
                         $errors[] = $result->errorMessage();
                     }
             }

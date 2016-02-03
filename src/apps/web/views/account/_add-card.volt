@@ -7,7 +7,7 @@
 {% if errors %}
     <div class="box error">
         <span class="ico-warning ico"></span>
-        <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
+        <div class="txt"><ul class="no-li">{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul></div>
     </div>
 {% endif %}
 
@@ -109,8 +109,7 @@
                 <h2 class="h3 yellow">{{ language.translate("Add funds to your wallet") }}</h2>
                 <div class="balance"><strong class="purple">{{ language.translate("Wallet balance:") }}</strong> <span class="value">{{ user_balance }}</span></div>
                 <div class="box-wallet overview">
-                    <span class="symbol">&euro;</span>
-                        {{ credit_card_form.render('funds-value', {'class':'input'~form_errors['funds-value']}) }}
+                    <span class="currency">&euro;</span>{{ credit_card_form.render('funds-value', {'class':'insert input'~form_errors['funds-value']}) }}
                     <label class="label btn green">
                         {{ language.translate("Add funds to your wallet") }}
                         <input type="submit" class="hidden">

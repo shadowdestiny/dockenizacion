@@ -62,8 +62,8 @@ class SignUpForm extends Form
             'field' => 'password',
             'max' => 8,
             'min' => 8,
-            'messageMaximum' => 'Your password should be at composed by eight letters.',
-            'messageMinimum' => 'Your password should be at composed by eight letters.'
+            'messageMaximum' => 'Your password should be composed at least by eight letters.',
+            'messageMinimum' => 'Your password should be composed at least by eight letters.'
         )));
 
 
@@ -73,15 +73,15 @@ class SignUpForm extends Form
             'placeholder' => 'Confirm Password'
         ));
         $password_confirm->addValidator(new PresenceOf(array(
-            'message' => 'The password confirmation is required'
+            'message' => 'Confirm Password is required'
         )));
 
         $password_confirm->addValidator(new StringLength(array(
             'field' => 'confirm_password',
             'max' => 8,
             'min' => 8,
-            'messageMaximum' => 'Your password should be at composed by eight letters.',
-            'messageMinimum' => 'Your password should be at composed by eight letters.'
+            'messageMaximum' => 'Your password should be composed at least by eight letters.',
+            'messageMinimum' => 'Your password should be composed at least by eight letters.'
         )));
 
 

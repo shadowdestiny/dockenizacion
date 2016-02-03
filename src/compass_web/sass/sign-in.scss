@@ -20,7 +20,7 @@
 #main-page, .ui-content, #content{height:100%;}
 #content{padding-top:0!important; transform-style:preserve-3d;} /* Preserve is used because of translateY*/
 .sign-in .terms{text-align:center;}
-.sign-in .wrapper, .forgot-psw .wrapper{max-width:1000px; position:relative; top:30%; transform:translateY(-30%);}
+.sign-in .wrapper, .forgot-psw .wrapper, .recovery .wrapper{max-width:1000px; position:relative; top:30%; transform:translateY(-30%);}
 .col-left, .col-right{float:left;}
 .col-left{width:50%; margin-right:5%;}
 .col-right{width:40%;}
@@ -45,6 +45,12 @@
 	.ul{margin-left:1em;}
 }
 
+.recovery{
+	.title{padding-bottom:10px;}
+	.box-basic .label, .box-basic .input, .btn{width:100%;}
+	.btn.big{margin-top:10px; text-align:center;}
+}
+
 @media only screen and (max-width:1050px){ /*Not standard size*/
 	.sign-in .wrapper{max-width:800px;}
 	.col-left{width:45%;}
@@ -59,7 +65,7 @@
 
 /* Small Devices, Tablets */
 @media only screen and (max-width:768px){
-.sign-in .wrapper, .forgot-psw .wrapper{max-width:100%; top:0; transform:translateY(0);}
+.sign-in .wrapper, .forgot-psw .wrapper, .recovery .wrapper{max-width:100%; top:0; transform:translateY(0);}
 .col-left, .col-right{width:100%; float:none;}
 .col-right .box-basic{padding:15px 25px;}
 .v-logo{margin:10px 0; max-height:40px;}
