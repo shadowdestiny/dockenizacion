@@ -20,15 +20,18 @@ var EmAddFund = new React.createClass({
 
     handleKeyUp : function (event)
     {
-        var value_charge = event.target.value;
+        var value_charge = event.target.value
         var code = event.keyCode || event.which;
         var pattern = /^[0-9]+(\.\d{1,2})?$/i;
         var b = pattern.test(value_charge);
-        if(!isNaN(value_charge) && b )  {
-                this.props.keyup_callback(parseFloat(value_charge).toFixed(2));
+        if( b ) {
+            this.props.keyup_callback(parseFloat(value_charge).toFixed(2));
+        } else if(!isNaN(value_charge)) {
+            this.props.keyup_callback(parseFloat(value_charge).toFixed(2));
         } else {
-                this.props.keyup_callback(0.00);
+            this.props.keyup_callback(0.00);
         }
+
     },
 
     updateValue: function(e) {
@@ -55,11 +58,19 @@ var EmAddFund = new React.createClass({
     handleFocus : function (e) {
         e.preventDefault();
         if(e.target.value != "") {
-            this.setState({
-                value: parseFloat(e.target.value).toFixed(2)
-            });
-
+            var _value = parseFloat(e.target.value).toFixed(2);
+            var pattern = /^[0\.]+$/;
+            if(pattern.test(_value)) {
+                _value = "";
+            }
+        } else {
+            _value = "";
         }
+        this.setState({
+            value: _value
+        });
+
+
     },
 
     isNumber : function(value) {
@@ -77,7 +88,7 @@ var EmAddFund = new React.createClass({
             <div className="box-charge cl">
                 <div className="form-currency">
                     <span className="currency">{this.props.currency_symbol}</span>
-                    <input autoFocus id="charge"  className="input insert"  value={_value}
+                    <input autoFocus id="charge" className="input insert"  value={_value}
                            onKeyPress={this.handleKeyPress}
                            onClick={this.handleClick}
                            onChange={this.updateValue}
