@@ -19,10 +19,10 @@ class MyAccountWalletAddFunds extends Form
         ));
         $card_number->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The card number is required'
+                'message' => 'Credit Card number is required'
             )),
             new CreditCard(array(
-                'message' => 'The credit card number is invalid'
+                'message' => 'Credit Card number is invalid'
             ))
         ));
         $this->add($card_number);
@@ -32,7 +32,7 @@ class MyAccountWalletAddFunds extends Form
         ));
         $card_holder->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The card name holder is required'
+                'message' => 'Full Name of the Credit Card holder is required'
             ))
         ));
         $this->add($card_holder);
@@ -42,7 +42,7 @@ class MyAccountWalletAddFunds extends Form
         ));
         $card_cvv->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The cvv number is required'
+                'message' => 'CVV number is required'
             ))
         ));
         $this->add($card_cvv);
