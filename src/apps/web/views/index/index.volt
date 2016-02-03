@@ -75,8 +75,10 @@ $(function(){
 						
 						<span class="btn white try animate infi">{{ language.translate("Try your luck") }} <svg class="ico v-arrow-right3"><use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use></svg></span>
 					</div>
-					<svg class="vector emblem-bg"><use xlink:href="/w/svg/index.svg#emblem-bg"></use></svg>
-					<svg class="vector emblem"><use xlink:href="/w/svg/index.svg#emblem"></use></svg>
+					<div class="box-emblem">
+						<svg class="vector emblem"><use xlink:href="/w/svg/index.svg#emblem"></use></svg>
+						<svg class="vector emblem-bg"><use xlink:href="/w/svg/index.svg#emblem-bg"></use></svg>
+					</div>
 				</a>
 				<div class="box-how">
 					<div class="bg-yellow">

@@ -3,15 +3,15 @@
 .box-left{background:#fff; border:1px solid $yellow; border-right:0; border-radius:10px 0 0 10px;}
 .box-right{background:url(../img/home/bg-coloured.jpg) no-repeat; border-radius:0 10px 10px 0;}
 
-.emblem, .emblem-bg{position:absolute; right:-5px;}
-.emblem{width:35%; height:215px; top:-20px; z-index:2;}
-.emblem-bg{width:35%; height:227px; top:-23px; z-index:1; stroke:$yellow-dark; stroke-width:5;}
+.box-emblem{position:absolute; right:-5px; width:205px; height:227px; top:0px; top:-23px; z-index:1;}
+.emblem, .emblem-bg{}
+.emblem{position:absolute; height:215px; top:3px;}
+.emblem-bg{height:227px; stroke:$yellow-dark; stroke-width:5;}
 .box-estimated{
   background:url(../img/home/bg-euro.jpg) no-repeat; padding:20px 0 13px 20px; border-radius:10px 0 0 0; background-size:cover;
   .try{position:relative;} /* Fix Safari problem*/
 }
 
-.box-estimated .vector{}
 .box-estimated .content{width:68%;}
 .box-estimated .h2{@extend %stroke1; margin-bottom:15px;}
 .box-value.yellow{@extend %stroke2; margin-bottom:15px;}
@@ -163,7 +163,9 @@
 
 /* Large Devices, Wide Screens */
 @media only screen and (max-width: 1200px){
-.box-estimated .vector{top:25px; height:150px; right:-8px;}
+.box-emblem{right:-8px;}
+.emblem{top:25px; height:150px;}
+.emblem-bg{margin-top:23px; height:158px;}
 .box-estimated h1{font-size:1.2em;}
 .outbound{width:430px; height:430px; border:15px solid #fff;}
 .outbound:hover, .outbound:focus{border-width:13px;}
@@ -187,7 +189,7 @@
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 992px){
 .box-result .content{width:100%; margin:0;}
-.box-result .woman, .box-estimated .vector, .box-play .awards, .box-how .sub-txt, .box-play .ball
+.box-result .woman, .box-emblem, .box-play .awards, .box-how .sub-txt, .box-play .ball
 {display:none!important;}
 .box-prize .box-vector{position:absolute; height:0; width:0; overflow:hidden;} /* Vector disappear if I don't use this hiding technique */
 .outbound{width:330px; height:330px; border:10px solid #fff;}
