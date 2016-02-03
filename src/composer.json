@@ -4,10 +4,10 @@
     "phpunit/dbunit": "^1.4",
     "phalcon/devtools": "dev-master",
     "antonienko/php-template-previewer": "0.2.*",
-    "snowair/phalcon-debugbar": "^1.1",
-    "phalcon/incubator": "dev-master"
+    "snowair/phalcon-debugbar": "^1.1"
   },
   "require": {
+    "phalcon/incubator": "dev-master",
     "doctrine/orm": "2.5.*",
     "symfony/yaml": "*",
     "robmorgan/phinx": "*",
