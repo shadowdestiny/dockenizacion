@@ -229,7 +229,7 @@ class AccountController extends PublicSiteControllerBase
                     $payXpertCardPaymentStrategy = $paymentProviderFactory->getCreditCardPaymentProvider(new PayXpertCardPaymentStrategy($config_payment));
                     $result = $wallet_service->rechargeWithCreditCard($payXpertCardPaymentStrategy, $card, $user, new Money($funds_value * 100, $user->getUserCurrency()));
                     if($result->success()) {
-                        $msg = 'Your balance was update. Your current balance is: ' . $user->getBalance()->getAmount() / 100 . ' ' . $user->getBalance()->getCurrency()->getName();
+                        $msg = 'Your balance is been updated. You have now: ' . $user->getBalance()->getAmount() / 100 . ' ' . $user->getBalance()->getCurrency()->getName();
                     } else {
                         $errors[] = 'An error occurred. The response with our payment provider was: ' . $result->returnValues()->errorMessage;
                     }

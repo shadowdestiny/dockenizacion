@@ -85,14 +85,14 @@ $(function(){
 
                 {% if msg %}
                     <div class="box success">
-                        <span class="ico- ico"></span>
+                        <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"/></svg>
                         <span class="txt">{{ msg }}</span>
                     </div>
                 {% endif %}
                 {% if errors %}
                     <div class="box error">
-                        <span class="ico-warning ico"></span>
-                        <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
+                        <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"/></svg>
+                        <div class="txt"><ul class="no-li">{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul></div>
                     </div>
                 {% endif %}
 

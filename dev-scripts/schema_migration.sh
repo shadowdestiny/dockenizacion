@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 environment="$1"
 echo "executing schema migration on $1"
-if [ "$environment" == "dev" ]; then
+if [ "$environment" == "devel" ]; then
     cd /var/www
     now=$(date)
     echo "$now: Schema migration executed" >> /vagrant/dev-logs/migration.log
-    vendor/bin/phinx migrate --configuration="phinx_schema.yml" -e dev
+    vendor/bin/phinx migrate --configuration="phinx_schema.yml" -e devel
 elif [ "$environment" == "shippable" ]; then
     echo "migrating..."
     cd src/

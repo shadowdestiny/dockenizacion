@@ -1,12 +1,12 @@
 {% if msg %}
     <div class="box success">
-        <span class="ico- ico"></span>
+        <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"/></svg>
         <span class="txt">{{ msg }}</span>
     </div>
 {% endif %}
 {% if errors %}
     <div class="box error">
-        <span class="ico-warning ico"></span>
+        <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"/></svg>
         <div class="txt"><ul class="no-li">{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul></div>
     </div>
 {% endif %}
@@ -107,7 +107,7 @@
             </div>
             <div class="col6 second">
                 <h2 class="h3 yellow">{{ language.translate("Add funds to your wallet") }}</h2>
-                <div class="balance"><strong class="purple">{{ language.translate("Wallet balance:") }}</strong> <span class="value">{{ user_balance }}</span></div>
+                <div class="balance"><strong class="purple">{{ language.translate("Current Wallet balance:") }}</strong> <span class="value">{{ user_balance }}</span></div>
                 <div class="box-wallet overview">
                     <span class="currency">&euro;</span>{{ credit_card_form.render('funds-value', {'class':'insert input'~form_errors['funds-value']}) }}
                     <label class="label btn green">
@@ -117,7 +117,7 @@
                 </div>
                 <div class="notes">
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                    <span class="txt">{{ language.translate("Fee of &euro; 0.35 will be charged for transfers of small amount") }}</span>
+                    <span class="txt">{{ language.translate("Fee of &euro; 0.35 will be charged for transfers less than &euro; 12.00") }}</span>
                 </div>
             </div>
         </div>
