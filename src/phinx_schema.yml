@@ -4,7 +4,7 @@ paths:
 environments:
     default_migration_table: phinxlog
     default_database: development
-    dev:
+    devel:
         adapter: mysql
         host: 127.0.0.1
         name: euromillions

@@ -16,7 +16,7 @@ e "Watching react files"
 npm run watch &
 
 e "Executing migrations"
-. /vagrant/dev-scripts/schema_and_data_migration.sh dev
+. /vagrant/dev-scripts/schema_and_data_migration.sh devel
 
 
 e "Updating jackpot and results"
