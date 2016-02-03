@@ -1,7 +1,5 @@
 {% extends "main.volt" %}
-{% block template_css %}
-    <link rel="stylesheet" href="/w/css/account.css">
-{% endblock %}
+{% block template_css %}<link rel="stylesheet" href="/w/css/account.css">{% endblock %}
 {% block bodyClass %}wallet{% endblock %}
 
 {% block template_scripts %}
@@ -116,7 +114,7 @@ $(function(){
                     </div>
                 </div>
             </div>
-            <form class="{%if show_form_add_fund == false %}hidden{% endif %} box-add-card {#{% if which_form != 'edit' and which_form%}hidden{% endif %}#}" method="post" action="/account/addFunds{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
+            <form class="{%if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency {#{% if which_form != 'edit' and which_form%}hidden{% endif %}#}" method="post" action="/account/addFunds{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
                 {% set component='{"where": "account"}'|json_decode %}
                 {% include "account/_add-card.volt" %}
             </form>
@@ -281,9 +279,9 @@ $(function(){
                         <span class="purple">{{ language.translate("Winnings:") }}</span> &euro; 500.00 
                     </div>
 
-                    <form class="right">
-                        <span class="symbol">&euro;</span>
-                        <input class="input" type="text" placeholder="{{ language.translate('Insert an amount')}}">
+                    <form class="right form-currency">
+                        <span class="currency">&euro;</span>
+                        <input class="input insert" type="text" placeholder="{{ language.translate('Insert an amount')}}">
                         <label class="label submit btn blue" for="withdraw">
                             {{ language.translate("Convert winnings") }}
                             <input id="withdraw" type="submit" class="hidden">
