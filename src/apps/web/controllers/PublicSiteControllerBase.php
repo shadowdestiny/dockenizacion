@@ -82,13 +82,21 @@ class PublicSiteControllerBase extends ControllerBase
         $current_currency = $this->userPreferencesService->getCurrency();
         $is_logged = $this->authService->isLogged();
         $user = $this->authService->getCurrentUser();
-        if($is_logged){
+
+        if($is_logged) {
+            $user = $this->userService->getUser($user->getId());
+            $currency = $this->userPreferencesService->getCurrency();
+            if($user->getUserCurrency()->getName() != $currency->getName() ) {
+                $this->userPreferencesService->setCurrency($user->getUserCurrency());
+                $user_currency = $this->userPreferencesService->getMyCurrencyNameAndSymbol();
+            }
             $user_balance = $this->userService->getBalanceWithUserCurrencyConvert($this->authService->getCurrentUser()->getId(), $this->userPreferencesService->getCurrency());
             $user_balance_raw = $this->currencyService->convert($user->getBalance(),$this->userPreferencesService->getCurrency())->getAmount();
         }else{
             $user_balance = '';
             $user_balance_raw = '';
         }
+
         $this->view->setVar('current_currency', $current_currency->getName());
         $this->view->setVar('user_currency', $user_currency);
         $this->view->setVar('user_currency_code', $current_currency->getName());
