@@ -1,6 +1,6 @@
 {% extends "main.volt" %}
 {% block template_css %}<link rel="stylesheet" href="/w/css/sign-in.css">{% endblock %}
-{% block bodyClass %}forgot-psw minimal{% endblock %}
+{% block bodyClass %}forgot-psw no-nav{% endblock %}
 
 
 {% block body %}

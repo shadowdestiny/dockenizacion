@@ -298,7 +298,8 @@ body, .submit{font-family:$basic-font;}
 /* PAGE LAYOUT */
 .wrapper{max-width:1180px; margin:auto; position:relative; min-width:235px;}
 .logo{float:left; margin:7px 0 0;}
-.minimal .logo{margin-bottom:4px; float:none;}
+.minimal .logo{margin-bottom:4px;}
+.no-nav .logo{float:none;}
 .v-logo{height:100%; width:274px;}
 .main-foot .logo{width:200px; margin:0;}
 
