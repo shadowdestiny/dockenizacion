@@ -23,14 +23,13 @@ class LatestResultsDataEmailTemplateStrategy implements IEmailTemplateDataStrate
     public function getData(IEmailTemplateDataStrategy $strategy = null)
     {
         try {
-
             $draw_result = $this->lotteriesDataService->getLastResult('EuroMillions');
             $last_draw_date = $this->lotteriesDataService->getLastDrawDate('EuroMillions');
 
             return [
                 'draw_result' => $draw_result,
                 'last_draw_date' => $last_draw_date,
-                'jackpot_amount' => $strategy->getData()['jackpot_amount']
+                'jackpot_amount' => $strategy->getData(new JackpotDataEmailTemplateStrategy($this->lotteriesDataService))['jackpot_amount']
             ];
 
         } catch (\Exception $e) {

@@ -4,12 +4,18 @@
 namespace EuroMillions\web\emailTemplates;
 
 
+use EuroMillions\web\interfaces\IEmailTemplateDataStrategy;
+use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
+
 class LongPlayEndedEmailTemplate extends EmailTemplateDecorator
 {
 
-    public function loadVars()
+    public function loadVars(IEmailTemplateDataStrategy $strategy = null)
     {
-        $data = $this->emailTemplateDataStrategy->getData();
+
+        $strategy = $strategy ? $strategy : new JackpotDataEmailTemplateStrategy();
+        $data = $this->emailTemplateDataStrategy->getData($strategy);
+
         $vars = [
             'template' => 'long-play-is-ended',
             'subject' => 'Your long play is ended',
