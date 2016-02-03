@@ -245,9 +245,9 @@ $(function(){
                     $('.ending').fadeOut(fade_value);
                 },3000);
             } else if(minutes_value > 1){
-                interval_warning = 30000;
                 $('.ending').text('The draw will close in '+ minutes_value +' minutes');
                 $('.ending').fadeIn();
+                console.log('pasa');
                 setTimeout(function(){
                     if(getMinutes() < 1 ) {
                         console.log('pasa5');
@@ -255,6 +255,7 @@ $(function(){
                     }
                     $('.ending').fadeOut();
                 },3000);
+                interval_warning_close = setInterval(interval_warning_close, 45000);
             } else {
                 finish_countdown_warning_close_draw(interval_warning_close);
             }

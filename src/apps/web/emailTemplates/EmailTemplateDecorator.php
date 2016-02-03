@@ -4,7 +4,6 @@
 namespace EuroMillions\web\emailTemplates;
 
 
-use EuroMillions\web\interfaces\EmailTemplateDataStrategy;
 use EuroMillions\web\interfaces\IEmailTemplateDataStrategy;
 use EuroMillions\web\services\DomainServiceFactory;
 
@@ -21,7 +20,7 @@ abstract class EmailTemplateDecorator implements IEmailTemplate
     /** @var DomainServiceFactory $domainServiceFactory*/
     protected $domainServiceFactory;
 
-    public function __construct(IEmailTemplate $emailTemplate, EmailTemplateDataStrategy $emailTemplateDataStrategy)
+    public function __construct(IEmailTemplate $emailTemplate, IEmailTemplateDataStrategy $emailTemplateDataStrategy)
     {
         $this->emailTemplate = $emailTemplate;
         $this->emailTemplateDataStrategy = $emailTemplateDataStrategy;

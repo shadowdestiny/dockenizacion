@@ -6,7 +6,10 @@ namespace tests\unit;
 
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\LatestResultsEmailTemplate;
-use EuroMillions\web\services\email_templates_strategies\DataLotteryEmailTemplateStrategy;
+use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
+use EuroMillions\web\services\email_templates_strategies\LatestResultsDataEmailTemplateStrategy;
+use EuroMillions\web\services\email_templates_strategies\LongPlayEndedDataEmailTemplateStrategy;
+use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -16,12 +19,12 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
 {
 
 
-    protected $lotteriesDataService;
+    protected $lotteriesDataService_double;
 
     public function setUp()
     {
         parent::setUp();
-        $this->lotteriesDataService = $this->getServiceDouble('LotteriesDataService');
+        $this->lotteriesDataService_double = $this->getServiceDouble('LotteriesDataService');
     }
 
     /**
@@ -38,14 +41,18 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
         $draw_result['regular_numbers'] = $regular_numbers;
         $draw_result['lucky_numbers'] = $lucky_numbers;
         $date_draw = new \DateTime();
-        $this->lotteriesDataService->getLastResult('EuroMillions')->willReturn($draw_result);
-        $this->lotteriesDataService->getLastJackpot('EuroMillions')->willReturn(new Money(10000,new Currency('EUR')));
-        $this->lotteriesDataService->getLastDrawDate('EuroMillions')->willReturn($date_draw);
-        $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions')->willReturn(new \DateTime('2016-02-02 20:00:00'));
-        $this->lotteriesDataService->getNextJackpot('EuroMillions')->willReturn(new Money(10000,new Currency('EUR')));
-        $sut = new LatestResultsEmailTemplate($emailTemplate,new DataLotteryEmailTemplateStrategy($this->lotteriesDataService->reveal()));
+        $this->lotteriesDataService_double->getLastResult('EuroMillions')->willReturn($draw_result);
+        $this->lotteriesDataService_double->getLastDrawDate('EuroMillions')->willReturn($date_draw);
+        $emailDataStrategy_double = $this->getInterfaceWebDouble('IEmailTemplateDataStrategy');
+        $data = [
+          'draw_result' => $draw_result,
+          'jackpot_amount' => new Money(10000,new Currency('EUR')),
+          'last_draw_date' => $date_draw
+        ];
+        $emailDataStrategy_double->getData($emailDataStrategy_double->reveal())->willReturn($data);
+        $sut = new LatestResultsEmailTemplate($emailTemplate, $emailDataStrategy_double->reveal());
         $sut->setBreakDownList('');
-        $actual = $sut->loadVars();
+        $actual = $sut->loadVars($emailDataStrategy_double->reveal());
         $this->assertEquals($expected,$actual);
     }
 
