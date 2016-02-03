@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\Common\Cache\ApcCache;
 use EuroMillions\shared\components\PhalconRedisWrapper;
+use EuroMillions\web\entities\SiteConfig;
 use EuroMillions\web\services\DomainServiceFactory;
 use EuroMillions\web\services\ServiceFactory;
 use Phalcon\Cache\Frontend\Data;
@@ -42,6 +43,7 @@ abstract class BootstrapStrategyBase
         $di->set('environmentDetector', $environment_detector);
         $di->set('config', $config, true);
         $di->set('entityManager', $this->configDoctrine($config), true);
+        $di->set('siteConfig', $this->siteConfig($this->configDoctrine($config)),true);
         $di->set('redisCache', $this->configRedis($config), true);
        // $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
         return $di;
@@ -106,6 +108,12 @@ abstract class BootstrapStrategyBase
     protected function configGlobalConfig()
     {
         return new Ini($this->globalConfigPath . 'config.ini');
+    }
+
+    protected function siteConfig(EntityManager $entityManager)
+    {
+        $siteConfig = $entityManager->getRepository('EuroMillions\web\entities\SiteConfig');
+        return $siteConfig->findAll();
     }
 
     abstract protected function getConfigFileName(EnvironmentDetector $em);

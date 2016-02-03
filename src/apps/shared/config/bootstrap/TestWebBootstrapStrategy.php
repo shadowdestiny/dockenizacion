@@ -58,6 +58,11 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
         }
     }
 
+    protected function siteConfig()
+    {
+
+    }
+
     protected function getConfigFileName(EnvironmentDetector $em)
     {
         return $em->get().'_test_config.ini';
