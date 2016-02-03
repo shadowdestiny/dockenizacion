@@ -36,11 +36,12 @@ $(function(){
 </script>
 #}
 <script>
-    var remain_time = '<?php echo !empty($time_to_remain_draw) ? $time_to_remain_draw : ""; ?>';
+    var remain_time = '<?php echo $time_to_remain_draw; ?>';
     var time_out_closing_modal = '<?php echo !empty($timeout_to_closing_modal) ? $timeout_to_closing_modal : "";?>';
     var minutes_to_close = '<?php echo !empty($minutes_to_close) ? (int) $minutes_to_close : "";?>';
-    var last_minute = '<?php echo !empty($last_minute) ? $last_minute : ""; ?>';
+    var last_minute = '<?php echo $last_minute; ?>';
     var draw_date = '<?php echo !empty($draw_date) ? $draw_date : ""; ?>';
+
 </script>
 
 <script src="/w/js/vendor/svg4everybody.min.js"></script>

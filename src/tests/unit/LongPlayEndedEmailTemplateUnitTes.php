@@ -6,6 +6,7 @@ namespace tests\unit;
 
 use EuroMillions\web\emailTemplates\LongPlayEndedEmailTemplate;
 use EuroMillions\web\emailTemplates\EmailTemplate;
+use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use Money\Currency;
 use Money\Money;
 use tests\base\UnitTestBase;
@@ -32,7 +33,8 @@ class LongPlayEndedEmailTemplateUnitTest extends UnitTestBase
         $expected = $this->getArrayContentTemplate();
         $emailTemplate = new EmailTemplate();
         $this->lotteriesDataService->getNextJackpot('EuroMillions')->willReturn(new Money(10000, new Currency('EUR')));
-        $sut = new LongPlayEndedEmailTemplate($emailTemplate,$this->lotteriesDataService->reveal());
+        $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions')->willReturn(new \DateTime());
+        $sut = new LongPlayEndedEmailTemplate($emailTemplate,new JackpotDataEmailTemplateStrategy($this->lotteriesDataService->reveal()));
         $actual = $sut->loadVars();
         $this->assertEquals($expected,$actual);
     }
@@ -52,7 +54,7 @@ class LongPlayEndedEmailTemplateUnitTest extends UnitTestBase
                     ],
                     [
                         'name'    => 'url_play',
-                        'content' => 'localhost:8080/play'
+                        'content' => 'localhost:443/play'
                     ]
                 ]
         ];

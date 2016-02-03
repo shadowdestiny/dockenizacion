@@ -18,12 +18,16 @@
 	{% set class_balance="hidden" %}
 {% endif %}
 
-<li class="{{class_balance }} balance">
-	<a class="link" href="javascript:void(0);">{{ language.translate('Balance') }}: {{ user_balance }}</a>
+<li class="balance {{class_balance }}">
+	<a class="link" href="/account/wallet/">{{ language.translate('Balance') }}: {{ user_balance }}</a>
 </li>
+{# EMTD - CART link functionality incompleted and hidden for first release
+
 <li class="li-cart">
 	<a class="link" href="/cart"><svg class="ico v-cart"><use xlink:href="/w/svg/icon.svg#v-cart"></use></svg> {{ language.translate('Cart') }}</a>
 </li>
+#}
+
 {% if user_logged is empty %}
 <li class="li-sign">
     <a class="link" href="/sign-up">{{ language.translate('Sign up') }}</a>

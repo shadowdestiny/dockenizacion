@@ -18,6 +18,26 @@ class WelcomeEmailTemplate extends EmailTemplateDecorator
                 [
                     'name' => 'user_name',
                     'content' => $this->user->getName()
+                ],
+                [
+                    'name' => 'howToPlay',
+                    'content' => $this->config->domain['url'] . '/help'
+                ],
+                [
+                    'name' => 'numbers',
+                    'content' => $this->config->domain['url'] . '/numbers'
+                ],
+                [
+                    'name' => 'subscribe',
+                    'content' => $this->config->domain['url'] . '/numbers'
+                ],
+                [
+                    'name' => 'faq',
+                    'content' => $this->config->domain['url'] . '/faq'
+                ],
+                [
+                    'name' => 'contact',
+                    'content' => 'mailto:support@euromillions.com'
                 ]
             ]
         ];

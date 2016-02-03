@@ -30,10 +30,11 @@
                         <li><a href="#type">Typography</a></li>
                         <li><a href="#color">Color</a></li>
                         <li><a href="#btn">Buttons</a></li>
+                        <li><a href="#nav-forms">Forms Elements</a></li>
                         <li><a href="#svg">Svg</a></li>
                         <li><a href="#icons">Icons</a></li>
                         <li><a href="#img">Images</a></li>
-                        <li><a href="#info">Info</a></li>
+                        <li><a href="#info">Info Box</a></li>
                     </ul>
                 </div>
                 <div class="col10">
@@ -483,8 +484,7 @@
                                         <p>$basic-font 14px</p>
                                         <p class="small-txt">$small 12px</p>
                                     </pre>
-                                    <br><br>
-                                    <p>
+                                    <p  style="margin-top:10px;">
                                         Every title (a part from .h0) has a predefined margin-bottom set to 1em.<br>
                                         In the case that you need to reset margin <strong>Use class .res to reset margin.</strong>
                                         <br>Example:
@@ -494,7 +494,6 @@
                                     </pre>
                                 </div>
                             </div>
-
 
                             <hr class="hr">
 
@@ -516,6 +515,7 @@
                                         <li>in hendrerit in vulputate velit esse molestie consequat</li>
                                         <li>vel illum dolore eu feugiat nulla facilisis at</li>
                                     </ul>
+
                                 </div>
                                 <div class="col6">
                                     <pre class="brush: html">
@@ -539,7 +539,7 @@
                         </div>
                     </section>
 
-                    <section>
+                    <section class="box-color">
                         <a name="color"></a>
                         <h1 class="title h2">Color</h1>
 
@@ -547,6 +547,10 @@
                             <p>Those colors are usued for a variety of things, mainly for backgrounds, gradient backgrounds, border colored lines and colored text</p>
 
                             <div class="cl">
+                                <div class="bg-color blk" style="background:#fff;">
+                                    #fff  
+                                    <br>no variable for White
+                                </div>
                                 <div class="bg-color grey-lighter2 blk">
                                     $grey-lighter
                                     <br>#ddd
@@ -660,69 +664,452 @@
                         <a name="btn"></a>
                         <h1 class="title h2">Buttons</h1>
 
-                        <p>some content explanation</p>
-                        
-                        <div class="content box-btn">
-                            <a href="javascript:void(0);" class="btn">.btn</a>
-                            <a href="javascript:void(0);" class="btn big">.btn.big</a>
-                            <br><br>
-                            <a href="javascript:void(0);" class="btn blue">.blue</a>
-                            <a href="javascript:void(0);" class="btn red">.red</a>
-                            <a href="javascript:void(0);" class="btn green">.green</a>
-                            <a href="javascript:void(0);" class="btn purple">.purple</a>
-                            <br><br>
-                            <a href="javascript:void(0);" class="btn gwy">.gwy</a>
-                            <a href="javascript:void(0);" class="btn gwp">.gwp</a>
-                            <a href="javascript:void(0);" class="btn ywy">.ywy</a>
-                            <br><br>
-                            <a href="javascript:void(0);" class="btn gwr">.gwr</a>
-                            <a href="javascript:void(0);" class="btn gwg">.gwg</a>
-                            <a href="javascript:void(0);" class="btn bwb">.bwb</a>
-                            <a href="javascript:void(0);" class="btn rwr">.rwr</a>
-                        </div>
+                        <div class="content">
+                            <h2 class="h3">Button use guideline</h2>
+                            <p>
+                                Buttons have a coloure coded inexplicit level of importance across the website, based on their colors. <strong>Big</strong>buttons are used for reinforce importance in the action (buttons on homepage that lead you to Play; button Add to Cart; button that finalise the cart process). <strong>Blue</strong> is our primary colors in actions. <strong>Red</strong> is for delete, remove, clearing or any action that has a removing inpact on the action. <strong>Green</strong> is to differentiate when there are other blue buttons in a page that we want to give a positive feedback in doing this action for the user (widthraw winning money). The buttons with <strong>white backgrounds</strong> are used for secondary actions. <strong>Grey or basic</strong> buttons are used for simple navigation actions like "go back".
+                            </p>
 
-                        * Combo buttons *
-                        * combo currency in order *
+                            <hr class="hr">
+
+                            <div class="cols">
+                                <div class="col6">
+                                    <p>They can be used easily by combining a series of classes with specific use, the most important one to define that an element is a button is <strong>.btn</strong> Most importantly any element can be used to make it look like a button in exactly same style (a link or an input or a span element). You can decide to set a specific width or by default they wrap it up around the length of the word used. Here some examples:</p>
+
+                                    <p><strong>Simple Buttons</strong> those are buttons without any coloured style.</p>
+                                    <div class="box-btn">
+                                        <a href="javascript:void(0);" class="btn">.btn</a>
+                                        <a href="javascript:void(0);" class="btn big">.btn.big</a>
+                                        <br><br>
+                                        <p>
+                                            <strong>Colored buttons</strong> those are the basic colored buttons.
+                                        </p>
+                                        <a href="javascript:void(0);" class="btn white">.white</a>
+                                        <a href="javascript:void(0);" class="btn blue">.blue</a>
+                                        <a href="javascript:void(0);" class="btn red">.red</a>
+                                        <a href="javascript:void(0);" class="btn green">.green</a>
+                                        <a href="javascript:void(0);" class="btn purple">.purple</a>
+                                        <br><br>
+                                        <p><strong>How to use it:</strong> combine .btn with the class of the style that you want to add.</p>
+<pre class="brush: html">
+class="btn white"
+class="btn blue"
+class="btn red"
+class="btn green"
+class="btn purple"
+</pre>
+
+                                        <br><br>
+                                        <p>
+                                            <strong>.gwy</strong> means: Grey (Border), White (Background), Yellow (Text); and so the other similar buttons they have the same kind of structure and having in common just the grey border and the white background.
+                                        </p>
+                                        <a href="javascript:void(0);" class="btn gwy">.gwy</a>
+                                        <a href="javascript:void(0);" class="btn gwp">.gwp</a>
+                                        <a href="javascript:void(0);" class="btn gwr">.gwr</a>
+                                        <br><br>
+                                        <p>
+                                             <strong>.ywy</strong> means: Yellow (Border), White (Background), Yellow (Text); and the others have similar style based on one type of color that match border and text color.
+                                        </p>
+                                        <a href="javascript:void(0);" class="btn ywy">.ywy</a>
+                                        <a href="javascript:void(0);" class="btn gwg">.gwg</a>
+                                        <a href="javascript:void(0);" class="btn bwb">.bwb</a>
+                                        <a href="javascript:void(0);" class="btn rwr">.rwr</a>
+                                    </div>
+                                </div>
+                                <div class="col6">
+                                    <p><strong>Example of possible HTML type of buttons:</strong></p>
+                                    <a href="javascript:void(0);" class="btn">Link Button</a>
+                                    <label class="btn">
+                                        <span class="txt">Label Button</span>
+                                        <input type="hidden">
+                                    </label>
+                                    <button type="submit" clasS="btn">Real Button</button>
+
+<pre class="brush: html">
+    <a href="javascript:void(0);" class="btn">Link Button</a>
+    <label class="btn">
+        <span class="txt">Label</span>
+        <input type="hidden">
+    </label>
+    <button type="submit" clasS="btn">Real Button</button>
+</pre>
+
+
+                                    <p class="res"><strong>Accessibility Concerns</strong></p>
+                                    <ul class="list" style="margin:10px 0 15px 15px;">
+                                        <li>If it navigates, it is a link. Use link markup with a valid hypertext reference (and add: role="button" to the link)</li>
+                                        <li>If it triggers an action, it is a button. Use a BUTTON element</li>
+                                    </ul>
+
+                                    <hr class="hr">
+                                    <p><strong>Combo Buttons</strong> are buttons that can be bonded together looking like a multiple button with various kind of options, here an example:</p>
+
+                                    <div class="combo">
+                                        <a href="javascript:void(0);" class="btn red">left</a><a href="javascript:void(0);" class="btn red">center</a><a href="javascript:void(0);" class="btn red">center</a><a href="javascript:void(0);" class="btn red">right</a>
+                                    </div>
+                                    <br>
+
+        
+                                    <pre class="brush: html"><div class="combo">
+    <a href="javascript:void(0);" class="btn red">left</a>
+    <a href="javascript:void(0);" class="btn red">center</a>
+    <a href="javascript:void(0);" class="btn red">center</a>
+    <a href="javascript:void(0);" class="btn red">right</a>
+</div>
+                                    </pre>
+                                    <br>
+                                    <p><strong>Note:</strong> ui-link is being added by jquery mobile UI, please ignore that class value</p>
+
+                                </div>
+                            </div>
+                        </div>
                     </section>
 
                     <section>
+                        <a name="nav-forms"></a>
+                        <h1 class="title h2">Forms Elements (*TO DO*)</h1>
+
+                        <div class="content">
+                            <p>All the elements of the forms have a light yellow colour, to be more visible on the white background of the website. Some elements have directly being applied</p>
+
+                            <div class="cols">
+                                <div class="col6">
+
+                                    Input text
+                                    <input type="text" class="input">
+                                    Textarea
+                                    <textarea class="textarea"></textarea>
+                                    <input type="checkbox"> Checkbox
+
+                                </div>
+                                <div class="col6">
+                                    <h2 class="h3">Currency input field</h2>
+                                    <form class="form-currency"><div class="currency">&euro;</div><input type="text" class="input insert"></form>
+<br>
+<pre class="brush: html">
+<form class="form-currency">
+    <div class="currency">&euro;</div>
+    <input type="text" class="input insert">                           
+</form>
+</pre>
+                                </div>
+
+                        </div>
+                    </section>
+
+                    <section class="box-svg">
                         <a name="svg"></a>
                         <h1 class="title h2">SVG</h1>
 
-                        <p>some content explanation</p>
+                        <div class="content">
+                            <p>We are using SVG mainly because with the responsive design approach is better to have some graphical elements that can scale and still remain visually appealing. Images require more bandwidth and handling to create different size quality, when SVG can be manipulated with CSS (size and colors for example).</p>
+
+                            <div class="cols">
+                                <div class="col6">
+                                    <p>The main technique used with SVG called <strong>Stacking</strong>, is inspired to the Sprites technique used with images to reduce Http Requests loading time.</p>
+
+                                    <div class="border1">
+                                        <p><strong>Note:</strong> If you want to read more about Stacking here some links of interest:</p>
+                                        <ul class="no-li">
+                                            <li><a href="https://hofmannsven.com/2013/laboratory/svg-stacking/">https://hofmannsven.com/2013/laboratory/svg-stacking/</a></li>
+                                            <li><a href="http://simurai.com/blog/2012/04/02/svg-stacks/">http://simurai.com/blog/2012/04/02/svg-stacks/</a></li>
+                                            <li><a href="https://css-tricks.com/svg-fragment-identifiers-work/">https://css-tricks.com/svg-fragment-identifiers-work/</a></li>
+                                            <li><a href="https://24ways.org/2014/an-overview-of-svg-sprite-creation-techniques/">https://24ways.org/2014/an-overview-of-svg-sprite-creation-techniques/</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <p>We are separating the vectors in there are three kind of type for the stacking: Monochromatic (Icons), Coloured and vectors with transparent Shadows.</p>
+                                </div>
+                                <div class="col6">
+                                    <p>Once the SVG is saved from Adobe Illustrator (<a href="http://creativedroplets.com/export-svg-for-the-web-with-illustrator-cc/">more info on how to save on the right format</a>) we need to clean the SVG from not important code. <a href="https://sarasoueidan.com/blog/svgo-tools/">SVGO</a> is the tool to use for this cleaning, there is a <a href="https://jakearchibald.github.io/svgomg/">version online</a> and a version that can be download from <a href="https://github.com/svg/svgo">github</a> and used locally.</p>
+                                    <div class="cols res">
+                                        <div class="col5">
+                                            <br><br><br>
+                                            <p align="right">Settings for SVGO for a better compression ---></p>
+                                        </div>
+                                        <div class="col7" align="center">
+                                            <div class="settings"><img src="/w/img/style/setting-svg.jpg" alt="settings"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p></p>
+
+                           .ico difference .vector and .logo
+
+                        </div>
                     </section>
 
                     <section>
                         <a name="icons"></a>
                         <h1 class="title h2">Icons</h1>
 
-                        <p>some content explanation</p>
+                        <div class="content">
+                            <p>Icons are monochromatic vector symbols used across the website. You can resize by using two type of methods:Defining with and height in px (recommended method) or using font-size (not recommended). All the icons used and not used are loaded in a signle file <strong>icon.svg</strong>. <strong>Green marks</strong> on the icons, are icons that are used in the website. <strong>Orange marks</strong> are icons that should be used soon. <strong>Unmarked</strong> are things that might need to be removed.</p>
+
+                            <p>When you try to insert an SVG Icon (add always an ".ico" class and the "v-" prefix with the name of the vector used, so that we could point and make some modifications to those specific icons or all the icons through CSS) always point as href at "/w/svg/icon.svg" and than add "#myNameSvg" to the end. If you are inserting a new icon, be sure to insert that inside the "icon.svg" file correctly.</p>
+<pre class="brush: html">
+    <svg class="ico v-clover"><use xlink:href="/w/svg/icon.svg#v-clover"/></svg>
+</pre>
+<br>
+                            <div class="cols box-icons res">
+                                <div class="col4">
+                                    <ul class="no-li">
+                                        <li class="green">
+                                            <svg class="ico v-clover"><use xlink:href="/w/svg/icon.svg#v-clover"/></svg><span class="txt"> v-clover</span>
+                                        </li>
+                                        <li class="green">
+                                            <svg class="ico v-star"><use xlink:href="/w/svg/icon.svg#v-star"/></svg><span class="txt"> v-star</span>
+                                        </li>
+                                        <li class="orange">
+                                            <svg class="ico v-opened25"><use xlink:href="/w/svg/icon.svg#v-opened25"/></svg><span class="txt"> v-opened25</span>
+                                        </li>
+                                        <li class="green">
+                                            <svg class="ico v-lotto-ticket"><use xlink:href="/w/svg/icon.svg#v-lotto-ticket"/></svg><span class="txt"> v-lotto-ticket</span>
+                                        </li>
+                                        <li class="green">
+                                            <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"/></svg><span class="txt"> v-arrow-right</span>
+                                        </li>
+                                        <li class="green">
+                                            <svg class="ico v-arrow-right3"><use xlink:href="/w/svg/icon.svg#v-arrow-right3"/></svg><span class="txt"> v-arrow-right3</span>
+                                        </li>
+                                        <li class="orange">
+                                            <svg class="ico v-pencil"><use xlink:href="/w/svg/icon.svg#v-pencil"/></svg><span class="txt"> v-pencil</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-coin-dollar"><use xlink:href="/w/svg/icon.svg#v-coin-dollar"/></svg><span class="txt"> v-coin-dollar</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-mobile2"><use xlink:href="/w/svg/icon.svg#v-mobile2"/></svg><span class="txt"> v-mobile2</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-bubble2"><use xlink:href="/w/svg/icon.svg#v-bubble2"/></svg><span class="txt"> v-bubble2</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-quotes-right"><use xlink:href="/w/svg/icon.svg#v-quotes-right"/></svg><span class="txt"> v-quotes-right</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-key"><use xlink:href="/w/svg/icon.svg#v-key"/></svg><span class="txt"> v-key</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-menu"><use xlink:href="/w/svg/icon.svg#v-menu"/></svg><span class="txt"> v-menu</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-eye"><use xlink:href="/w/svg/icon.svg#v-eye"/></svg><span class="txt"> v-eye</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-star-full"><use xlink:href="/w/svg/icon.svg#v-star-full"/></svg><span class="txt"> v-star-full</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-sad"><use xlink:href="/w/svg/icon.svg#v-sad"/></svg><span class="txt"> v-sad</span>
+                                        </li>
+                                        <li class="green">
+                                            <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"/></svg><span class="txt"> v-info</span>
+                                        </li>
+                                        <li class="green">
+                                            <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"/></svg><span class="txt"> v-checkmark</span>
+                                        </li>
+                                        <li class="green">
+                                            <svg class="ico v-arrow-up2"><use xlink:href="/w/svg/icon.svg#v-arrow-up2"/></svg><span class="txt"> v-arrow-up2</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-arrow-left2"><use xlink:href="/w/svg/icon.svg#v-arrow-left2"/></svg><span class="txt"> v-arrow-left2</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-circle-down"><use xlink:href="/w/svg/icon.svg#v-circle-down"/></svg><span class="txt"> v-circle-down</span>
+                                        </li>
+                                        <li class="green">
+                                            <svg class="ico v-facebook"><use xlink:href="/w/svg/icon.svg#v-facebook"/></svg><span class="txt"> v-facebook</span>
+                                        </li>
+                                        <li class="green">
+                                            <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"/></svg><span class="txt"> v-warning</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col4">
+                                    <ul class="no-li">
+                                        <li class="green">
+                                            <svg class="ico v-question-mark"><use xlink:href="/w/svg/icon.svg#v-question-mark"/></svg><span class="txt"> v-question-mark</span>
+                                        </li>
+                                        <li class="orange">
+                                            <svg class="ico v-m"><use xlink:href="/w/svg/icon.svg#v-m"/></svg><span class="txt"> v-m</span>
+                                        </li>
+                                        <li class="orange">
+                                            <svg class="ico v-multimedia"><use xlink:href="/w/svg/icon.svg#v-multimedia"/></svg><span class="txt"> v-multimedia</span>
+                                        </li>
+                                        <li class="orange">
+                                            <svg class="ico v-cart"><use xlink:href="/w/svg/icon.svg#v-cart"/></svg><span class="txt"> v-cart</span>
+                                        </li>
+                                        <li class="green">
+                                            <svg class="ico v-triangle-down"><use xlink:href="/w/svg/icon.svg#v-triangle-down"/></svg><span class="txt"> v-triangle-down</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-play"><use xlink:href="/w/svg/icon.svg#v-play"/></svg><span class="txt"> v-play</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-coin-euro"><use xlink:href="/w/svg/icon.svg#v-coin-euro"/></svg><span class="txt"> v-coin-euro</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-clock"><use xlink:href="/w/svg/icon.svg#v-clock"/></svg><span class="txt"> v-clock</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-tablet"><use xlink:href="/w/svg/icon.svg#v-tablet"/></svg><span class="txt"> v-tablet</span>
+                                        </li>
+                                        <li class="green">
+                                            <svg class="ico v-user"><use xlink:href="/w/svg/icon.svg#v-user"/></svg><span class="txt"> v-user</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-spinner"><use xlink:href="/w/svg/icon.svg#v-spinner"/></svg><span class="txt"> v-spinner</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-cog"><use xlink:href="/w/svg/icon.svg#v-cog"/></svg><span class="txt"> v-cog</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-earth"><use xlink:href="/w/svg/icon.svg#v-earth"/></svg><span class="txt"> v-earth</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-eye-blocked"><use xlink:href="/w/svg/icon.svg#v-eye-blocked"/></svg><span class="txt"> v-eye-blocked</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-heart"><use xlink:href="/w/svg/icon.svg#v-heart"/></svg><span class="txt"> v-heart</span>
+                                        </li>
+                                        <li class="green">
+                                            <svg class="ico v-plus"><use xlink:href="/w/svg/icon.svg#v-plus"/></svg><span class="txt"> v-plus</span>
+                                        </li>
+                                        <li class="green">
+                                            <svg class="ico v-cancel-circle"><use xlink:href="/w/svg/icon.svg#v-cancel-circle"/></svg><span class="txt"> v-cancel-circle</span>
+                                        </li>
+                                        <li class="green">
+                                            <svg class="ico v-exit"><use xlink:href="/w/svg/icon.svg#v-exit"/></svg><span class="txt"> v-exit</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-arrow-right2"><use xlink:href="/w/svg/icon.svg#v-arrow-right2"/></svg><span class="txt"> v-arrow-right2</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-circle-up"><use xlink:href="/w/svg/icon.svg#v-circle-up"/></svg><span class="txt"> v-circle-up</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-circle-left"><use xlink:href="/w/svg/icon.svg#v-circle-left"/></svg><span class="txt"> v-circle-left</span>
+                                        </li>
+                                        <li class="green">
+                                            <svg class="ico v-twitter"><use xlink:href="/w/svg/icon.svg#v-twitter"/></svg><span class="txt"> v-twitter</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col4">
+                                    <ul class="no-li">
+                                        <li class="green">
+                                            <svg class="ico v-star-out"><use xlink:href="/w/svg/icon.svg#v-star-out"/></svg><span class="txt"> v-star-out</span>
+                                        </li>
+                                        <li class="orange">
+                                            <svg class="ico v-email64"><use xlink:href="/w/svg/icon.svg#v-email64"/></svg><span class="txt"> v-email64</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-pull-down"><use xlink:href="/w/svg/icon.svg#v-pull-down"/></svg><span class="txt"> v-pull-down</span>
+                                        </li>
+                                        <li class="green">
+                                            <svg class="ico v-hourglass"><use xlink:href="/w/svg/icon.svg#v-hourglass"/></svg><span class="txt"> v-hourglass</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-triangle-up"><use xlink:href="/w/svg/icon.svg#v-triangle-up"/></svg><span class="txt"> v-triangle-up</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-bullhorn"><use xlink:href="/w/svg/icon.svg#v-bullhorn"/></svg><span class="txt"> v-bullhorn</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-coin-pound"><use xlink:href="/w/svg/icon.svg#v-coin-pound"/></svg><span class="txt"> v-coin-pound</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-display"><use xlink:href="/w/svg/icon.svg#v-display"/></svg><span class="txt"> v-display</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-bubble"><use xlink:href="/w/svg/icon.svg#v-bubble"/></svg><span class="txt"> v-bubble</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-quotes-left"><use xlink:href="/w/svg/icon.svg#v-quotes-left"/></svg><span class="txt"> v-quotes-left</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-search"><use xlink:href="/w/svg/icon.svg#v-search"/></svg><span class="txt"> v-search</span>
+                                        </li>
+                                        <li class="orange">
+                                            <svg class="ico v-bin"><use xlink:href="/w/svg/icon.svg#v-bin"/></svg><span class="txt"> v-bin</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-flag"><use xlink:href="/w/svg/icon.svg#v-flag"/></svg><span class="txt"> v-flag</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-star-empty"><use xlink:href="/w/svg/icon.svg#v-star-empty"/></svg><span class="txt"> v-star-empty</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-smile"><use xlink:href="/w/svg/icon.svg#v-smile"/></svg><span class="txt"> v-smile</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-minus"><use xlink:href="/w/svg/icon.svg#v-minus"/></svg><span class="txt"> v-minus</span>
+                                        </li>
+                                        <li class="green">
+                                            <svg class="ico v-cross"><use xlink:href="/w/svg/icon.svg#v-cross"/></svg><span class="txt"> v-cross</span>
+                                        </li>
+                                        <li class="green">
+                                            <svg class="ico v-shuffle"><use xlink:href="/w/svg/icon.svg#v-shuffle"/></svg><span class="txt"> v-shuffle</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-arrow-down2"><use xlink:href="/w/svg/icon.svg#v-arrow-down2"/></svg><span class="txt"> v-arrow-down2</span>
+                                        </li>
+                                        <li>
+                                            <svg class="ico v-circle-right"><use xlink:href="/w/svg/icon.svg#v-circle-right"/></svg><span class="txt"> v-circle-right</span>
+                                        </li>
+                                        <li class="green">
+                                            <svg class="ico v-google-plus"><use xlink:href="/w/svg/icon.svg#v-google-plus"/></svg><span class="txt"> v-google-plus</span>
+                                        </li>
+                                        <li class="orange">
+                                            <svg class="ico v-wordpress"><use xlink:href="/w/svg/icon.svg#v-wordpress"/></svg><span class="txt"> v-wordpress</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </section>
 
                     <section>
                         <a name="img"></a>
                         <h1 class="title h2">Images</h1>
+                        <div class="content">
 
-                        <p>responsive images, css images as well</p>
+                            <p>responsive images, css images as well</p>
 
-                        <p>sprites</p>
+                            <p>sprites</p>
+                        </div>
                     </section>
 
                     <section>
                         <a name="info"></a>
                         <h1 class="title h2">Info Box</h1>
-
-                        <p>info box</p>
+                        <div class="content">
+                            <p>info box</p>
+                        </div>
                     </section>
+
 
                     *tabs*
                     *react tooltip*
                     *modal*
-                    *currency style*
 
+                  <section>
+                    <h1 class="title h2">Things to do</h1>
+                    <ul class="list">
+                        <li>Adjust the .list when we have bullet points</li>
+                        <li>Fix all the buttons (mantein one style of button and one for navigation links)</li>
+                        <li>Fix the automatic width of the inputs by adding a simple class</li>
+                        <li>Try to reduce the amount of SVG elements used.</li>
+                        <li>Renaming icons with v- prefix (removing v- prefix in something)</li>
+                        <li>Remove icons not used</li>
+                        <li>Store the font Open Sants on our server and test if it is faster to load</li>
+                        <li>Remove all the margin-bottom from paragraphs with ".res"</li>
+                        <li>Box-basic and wrapper size, is there a way to reduce the html? or size?</li>
+                    </ul>
+                  </section>                    
 
-<br>                    [Remove all the margin-bottom from paragraphs with ".res"]
-<br>                    [Box-basic and wrapper size, is there a way to reduce the html? or size?]
                 </div>
             </div>
         </div>

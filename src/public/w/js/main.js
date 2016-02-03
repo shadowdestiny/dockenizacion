@@ -190,42 +190,95 @@ $(function(){
     }
 
     var timeout_warning = '';
-    var finish_countdown_warning_close_draw = function () {
+    var finish_countdown_warning_close_draw = function (interval_warning_close) {
+        window.clearInterval(interval_warning_close);
         return $('.ending').countdown(draw_date).
         on('update.countdown', function (event) {
-            $(this).html(event.strftime('%-Ss'));
+            $('.ending').fadeIn(fade_value);
+            $(this).html("The draw will close in " +  event.strftime('%-Ss'));
         }).on('finish.countdown', function (event) {
             $(this).html('Today’s draw is closed, you will play for the next');
             setTimeout(function () {
-                $('.ending').hide();
+                $('.ending').fadeOut(fade_value);
             }, 30000);
-
         });
     };
 
-    $('.ending').hide();
-    var is_remain_time = typeof remain_time == 'undefined' ? false : remain_time;
-    if (is_remain_time) {
-        $('.ending').show();
-        $('.ending').text('The draw will close in '+ minutes_to_close +' minutes.')
-        setTimeout(function () {
-            $('.ending').hide();
-        }, 30000);
-        var minutes_value = minute_to_close;
-        timeout_warning = setTimeout(function () {
-            setInterval(function () {
-                minutes_value = minutes_value - parseInt(5);
-                $('.ending').show();
-                $('.ending').text('The draw will close in '+ minutes_value +' minutes.');
-                setTimeout(function () {
-                    $('.ending').hide();
-                }, 30000);
-            }, 300000);
-        }, 60000);
+    if(typeof draw_date == 'undefined') {
+        draw_date = new Date();
     }
+    if(typeof remain_time == 'undefined') {
+        remain_time = false;
+    }
+
+    $('.ending').hide();
+    var now_date = new Date().getMinutes();
+
+    var draw_date_minutes = new Date(draw_date).getMinutes();
+    var minutes_value =  draw_date_minutes - now_date;
+    var interval_warning_close = null;
+   // var is_remain_time = remain_time == "" ? false : remain_time;
+    var fade_value = 800;
+    var interval_warning = 100000;
+
+    if (remain_time && minutes_value > 1) {
+        if(minutes_value > 5) {
+            $('.ending').text('The draw will close in ' + minutes_to_close + ' minutes')
+        } else {
+            interval_warning = 30000;
+            $('.ending').text('The draw will close in ' + minutes_value + ' minutes')
+        }
+        $('.ending').fadeIn(fade_value);
+        setTimeout(function(){
+            $('.ending').fadeOut(fade_value);
+        },30000);
+
+        interval_warning_close = setInterval(function(){
+            minutes_value =  getMinutes();
+            if(minutes_value > 5) {
+                $('.ending').text('The draw will close in '+ minutes_to_close +' minutes');
+                $('.ending').fadeIn();
+                setTimeout(function(){
+                    if(getMinutes() < 1 ) {
+                        finish_countdown_warning_close_draw(interval_warning_close);
+                    }
+                    $('.ending').fadeOut(fade_value);
+                },3000);
+            } else if(minutes_value > 1){
+                $('.ending').text('The draw will close in '+ minutes_value +' minutes');
+                $('.ending').fadeIn();
+                console.log('pasa');
+                setTimeout(function(){
+                    if(getMinutes() < 1 ) {
+                        console.log('pasa5');
+                        finish_countdown_warning_close_draw(interval_warning_close);
+                    }
+                    $('.ending').fadeOut();
+                },3000);
+                interval_warning_close = setInterval(interval_warning_close, 45000);
+            } else {
+                finish_countdown_warning_close_draw(interval_warning_close);
+            }
+        },interval_warning);
+    } else {
+
+      //  console.log('pasa55');
+      ///  last_minute = true;
+     //   finish_countdown_warning_close_draw(interval_warning_close);
+    }
+
+
     var is_last_minute = typeof last_minute == 'undefined' ? false : last_minute;
     if (is_last_minute) {
-        clearTimeout(timeout_warning);
-        finish_countdown_warning_close_draw();
+        finish_countdown_warning_close_draw(interval_warning_close);
     }
+
+    function getMinutes()
+    {
+        now_date = new Date().getMinutes();
+        draw_date_minutes = (new Date(draw_date).getMinutes() == 0) ? 60 : new Date(draw_date).getMinutes();
+        return draw_date_minutes - now_date;
+    }
+
+
 });

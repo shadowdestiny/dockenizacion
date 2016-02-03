@@ -7,10 +7,12 @@ namespace EuroMillions\web\forms;
 
 use EuroMillions\web\components\PasswordValidator;
 use Phalcon\Forms\Element\Password;
+use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\StringLength;
 
-class ResetPasswordForm extends RedirectableFormBase
+class ResetPasswordForm extends Form
 {
 
     public function initialize($entity = null, $options = null)
@@ -28,8 +30,19 @@ class ResetPasswordForm extends RedirectableFormBase
             ]
         ));
         $password->addValidator(new PasswordValidator([
-            'message' => 'The password should have a number, a lowercase and an uppercase character and should be at composed at least by 6 characters.'
+            'message' => 'The password should have a number, a lowercase and an uppercase character.'
         ]));
+
+
+        $password->addValidator(new StringLength(array(
+            'field' => 'new-password',
+            'max' => 8,
+            'min' => 8,
+            'messageMaximum' => 'Your password should be at composed by eight letters.',
+            'messageMinimum' => 'Your password should be at composed by eight letters.'
+        )));
+
+
         $this->add($password);
         $password_confirm = new Password('confirm-password', array(
             'placeholder' => 'Confirm Password'
@@ -37,8 +50,17 @@ class ResetPasswordForm extends RedirectableFormBase
         $password_confirm->addValidator(new PresenceOf(array(
             'message' => 'The password confirmation is required'
         )));
+
+        $password_confirm->addValidator(new StringLength(array(
+            'field' => 'confirm-password',
+            'max' => 8,
+            'min' => 8,
+            'messageMaximum' => 'Your password should be at composed by eight letters.',
+            'messageMinimum' => 'Your password should be at composed by eight letters.'
+        )));
+
         $this->add($password_confirm);
-        parent::initialize();
+
     }
 
 }

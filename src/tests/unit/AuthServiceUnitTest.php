@@ -15,6 +15,7 @@ use EuroMillions\web\vo\UserId;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
 use tests\helpers\builders\UserBuilder;
+use tests\helpers\mothers\EmailMother;
 use tests\helpers\mothers\UserMother;
 
 class AuthServiceUnitTest extends UnitTestBase
@@ -152,9 +153,11 @@ class AuthServiceUnitTest extends UnitTestBase
         $sut = $this->getSut();
         $user = $this->getNewUser();
         $password = 'passworD01';
+        $email = EmailMother::aResetPasswordEmailTemplate();
         $this->userRepository_double->add($user)->shouldBeCalled();
         $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush($user)->shouldNotBeCalled();
+        $this->emailService_double->sendTransactionalEmail(Argument::any(),$email)->shouldBeCalled();
         $this->stubEntityManager($entityManager_stub);
         $actual = $sut->updatePassword($user,$password);
         $this->assertEquals($expected,$actual);
@@ -351,9 +354,8 @@ class AuthServiceUnitTest extends UnitTestBase
     {
         $this->markTestSkipped();
         $this->expectFlushInEntityManager();
-        $emailTemplate = new EmailTemplate();
         $lotteriesDataService = $this->getServiceDouble('LotteriesDataService');
-        $welcome_email_template = new WelcomeEmailTemplate($emailTemplate, $lotteriesDataService->reveal());
+        $welcome_email_template = EmailMother::aWelcomeEmailTemplate($lotteriesDataService->reveal());
         $credentials = $this->getRegisterCredentials();
         $user = UserMother::aJustRegisteredUser($this->hasher_double->reveal())->build();
         $this->userRepository_double->getByEmail(UserBuilder::DEFAULT_EMAIL)->willReturn(null);
@@ -361,7 +363,6 @@ class AuthServiceUnitTest extends UnitTestBase
         $this->storageStrategy_double->setCurrentUserId(Argument::type($this->getVOToArgument('UserId')))->shouldBeCalled();
         $this->urlManager_double->get(Argument::type('string'))->willReturn('http://localhost/validate/441a9e42f0e3c769a6112b56a04b6');
         $this->emailService_double->sendTransactionalEmail($user, $welcome_email_template)->shouldBeCalled();
-
         $sut = $this->getSut();
         $actual = $sut->register($credentials);
         $expected = new ActionResult(true, $user);

@@ -1,8 +1,6 @@
 {% extends "main.volt" %}
 {% block template_css %}{% endblock %}
-{% block bodyClass %}recovery minimal{% endblock %}
-
-{% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}
+{% block bodyClass %}recovery no-nav{% endblock %}
 
 {% block template_css %}
 <style>
@@ -19,7 +17,7 @@
 {% endblock %}
 
 {% block body %}
-{{ form('account/resetPassword') }}
+{{ form('/account/resetPassword') }}
 <main id="content">
     <div class="wrapper cl">
         <div class="box-basic small content">

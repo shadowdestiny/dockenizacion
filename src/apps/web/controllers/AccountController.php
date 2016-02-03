@@ -361,6 +361,7 @@ class AccountController extends PublicSiteControllerBase
                 if($user_result->success()) {
                     $result = $this->authService->updatePassword($user_result->getValues(), $new_password);
                     if ($result->success()) {
+                        $this->response->redirect('/sign-in');
                         $msg = true;
                     } else {
                         $errors [] = $result->errorMessage();

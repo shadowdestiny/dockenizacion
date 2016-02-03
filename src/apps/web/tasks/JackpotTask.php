@@ -4,6 +4,7 @@ namespace EuroMillions\web\tasks;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\JackpotRolloverEmailTemplate;
 use EuroMillions\web\entities\UserNotifications;
+use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\UserService;
@@ -48,7 +49,7 @@ class JackpotTask extends TaskBase
 
         $jackpot_amount = $this->lotteriesDataService->getNextJackpot('EuroMillions');
         $emailTemplate = new EmailTemplate();
-        $emailTemplate = new JackpotRolloverEmailTemplate($emailTemplate);
+        $emailTemplate = new JackpotRolloverEmailTemplate($emailTemplate, new JackpotDataEmailTemplateStrategy());
         /** @var ActionResult $result */
         $result = $this->userService->getActiveNotificationsTypeJackpot();
 

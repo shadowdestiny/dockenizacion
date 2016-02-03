@@ -7,6 +7,8 @@ namespace EuroMillions\web\tasks;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\WinEmailTemplate;
 use EuroMillions\web\services\DomainServiceFactory;
+use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
+use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\PriceCheckoutService;
@@ -55,7 +57,7 @@ class PriceCheckoutTask extends TaskBase
                     $user = $play_config_and_count[0]->getUser();
                     $this->priceCheckoutService->reChargeAmountAwardedToUser($user,$result_amount);
                     $emailTemplate = new EmailTemplate();
-                    $emailTemplate = new WinEmailTemplate($emailTemplate);
+                    $emailTemplate = new WinEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
                     $emailTemplate->setUser($user);
                     $emailTemplate->setResultAmount($result_amount);
                     if($result_amount->getAmount() > $threshold_price) {

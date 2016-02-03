@@ -8,7 +8,7 @@ var EuroMillionsBoxBottomAction = React.createClass({
     addToCart : function () {
         var params = '';
         this.props.lines.forEach(function(bet,i){
-            if(bet.numbers.length > 0 && bet.stars.length > 0 ) {
+            if(bet.numbers.length == 5 && bet.stars.length == 2 ) {
                 params += 'bet['+i+']='+ bet.numbers +","+ bet.stars + '&';
             }
         });

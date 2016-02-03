@@ -13,6 +13,11 @@ use EuroMillions\web\emailTemplates\LongPlayEndedEmailTemplate;
 use EuroMillions\web\emailTemplates\LowBalanceEmailTemplate;
 use EuroMillions\web\emailTemplates\WinEmailTemplate;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
+use EuroMillions\web\services\email_templates_strategies\LatestResultsDataEmailTemplateStrategy;
+use EuroMillions\web\services\email_templates_strategies\LongPlayEndedDataEmailTemplateStrategy;
+use EuroMillions\web\services\email_templates_strategies\LowBalanceDataEmailTemplateStrategy;
+use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDataDTO;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\Email;
@@ -80,7 +85,7 @@ class EmailTestController extends PublicSiteControllerBase
                 $draw = $this->lotteriesDataService->getBreakDownDrawByDate('EuroMillions',new \DateTime());
                 $break_down_list = null;
                 if($draw->success()){
-                    $break_down_list = new EuroMillionsDrawBreakDownDTO($draw->getValues());
+                    $break_down_list = new EuroMillionsDrawBreakDownDTO($draw->getValues()->getBreakDown());
                 }
                 $emailTemplate->setBreakDownList($break_down_list);
             }
@@ -116,22 +121,22 @@ class EmailTestController extends PublicSiteControllerBase
 
         switch($template){
             case 'jackpot-rollover':
-                $instance = new JackpotRolloverEmailTemplate($emailTemplate);
+                $instance = new JackpotRolloverEmailTemplate($emailTemplate, new JackpotDataEmailTemplateStrategy());
                 break;
             case 'latest-results':
-                $instance = new LatestResultsEmailTemplate($emailTemplate);
+                $instance = new LatestResultsEmailTemplate($emailTemplate, new LatestResultsDataEmailTemplateStrategy());
                 break;
             case 'low-balance':
-                $instance = new LowBalanceEmailTemplate($emailTemplate);
+                $instance = new LowBalanceEmailTemplate($emailTemplate, new LowBalanceDataEmailTemplateStrategy());
                 break;
             case 'long-play-is-ended':
-                $instance = new LongPlayEndedEmailTemplate($emailTemplate);
+                $instance = new LongPlayEndedEmailTemplate($emailTemplate, new LongPlayEndedDataEmailTemplateStrategy());
                 break;
             case 'win-email':
-                $instance = new WinEmailTemplate($emailTemplate);
+                $instance = new WinEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
                 break;
             case 'win-email-above-1500':
-                $instance = new WinEmailTemplate($emailTemplate);
+                $instance = new WinEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
                 break;
         }
         return $instance;

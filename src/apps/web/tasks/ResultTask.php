@@ -10,6 +10,7 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\DomainServiceFactory;
+use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\PlayService;
@@ -83,7 +84,7 @@ class ResultTask extends TaskBase
         }
 
         $emailTemplate = new EmailTemplate();
-        $emailTemplate = new LatestResultsEmailTemplate($emailTemplate);
+        $emailTemplate = new LatestResultsEmailTemplate($emailTemplate, new JackpotDataEmailTemplateStrategy());
        // $emailTemplate->setBreakDownList($break_down_list);
 
         $result_play_config = $this->playService->getPlaysConfigToBet($today);

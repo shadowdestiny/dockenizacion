@@ -1,4 +1,4 @@
-{{ form('account/password') }}
+{{ form('/account/password') }}
     {% if msg %}
         <div class="box success">
             <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>
@@ -31,7 +31,7 @@
                 <div class="box info">
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                     <span class="txt">
-                        {{ language.translate("Use a long password made up of numbers, uppercase and lowercase letters. The longer your password is, the harder it is to guess. So make your password long to help keep your information safe.") }}
+                        {{ language.translate("Use a long password (at least 8 letters) made up of numbers, uppercase and lowercase letters. The longer your password is, the harder it is to guess. So make your password long to help keep your information safe.") }}
                     </span>
                 </div>
             </div>
