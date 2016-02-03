@@ -185,7 +185,7 @@ $(function(){
     if($.cookie('EM-law') && first_page){ //First time visitor, load cookies
         $('.box-cookies').remove();
     }
-    if(!$.cookie('lastSeen')) {
+    if(!$.cookie('lastSeen')){
         $.cookie('lastSeen', new Date().valueOf());
     }
 
@@ -204,10 +204,10 @@ $(function(){
         });
     };
 
-    if(typeof draw_date == 'undefined') {
+    if(typeof draw_date == 'undefined'){
         draw_date = new Date();
     }
-    if(typeof remain_time == 'undefined') {
+    if(typeof remain_time == 'undefined'){
         remain_time = false;
     }
 
@@ -226,10 +226,10 @@ $(function(){
     var fade_value = 800;
     var interval_warning = 300000;
 
-    if (remain_time && minutes_value > 1) {
-        if(minutes_value > 5) {
+    if(remain_time && minutes_value > 1){
+        if(minutes_value > 5){
             $('.ending').text('The draw will close in ' + minutes_to_close + ' minutes')
-        } else {
+        }else{
             interval_warning = 30000;
             $('.ending').text('The draw will close in ' + minutes_value + ' minutes')
         }
@@ -250,7 +250,7 @@ $(function(){
                     }
                     $('.ending').fadeOut(fade_value);
                 },3000);
-            } else if(minutes_value > 1){
+            }else if(minutes_value > 1){
                 $('.ending').text('The draw will close in '+ minutes_value +' minutes');
                 $('.ending').fadeIn();
                 console.log('pasa2');
@@ -262,7 +262,7 @@ $(function(){
                     $('.ending').fadeOut();
                 },3000);
                 interval_warning_close = setInterval(interval_warning_close, 45000);
-            } else {
+            }else{
                 console.log('pasa3');
                 finish_countdown_warning_close_draw(interval_warning_close);
             }
@@ -270,17 +270,14 @@ $(function(){
     }
 
     var is_last_minute = typeof last_minute == 'undefined' ? false : last_minute;
-
-    if (is_last_minute) {
+    console.log(is_last_minute);
+    if(is_last_minute){
         finish_countdown_warning_close_draw(interval_warning_close);
     }
 
-    function getMinutes()
-    {
+    function getMinutes(){
         now_date = new Date().getMinutes();
         draw_date_minutes = (new Date(draw_date).getMinutes() == 0) ? 60 : new Date(draw_date).getMinutes();
         return draw_date_minutes - now_date;
     }
-
-
 });
