@@ -315,9 +315,9 @@ class AuthService
         $user = $this->userRepository->getByEmail($email->toNative());
         if (!empty($user)) {
             $this->emailService->sendPasswordResetMail($user, $this->getPasswordResetUrl($user));
-            return new ActionResult(true, 'Email sent');
+            return new ActionResult(true, 'An email has been sent to your email, please check it to create a new password.');
         } else {
-            return new ActionResult(false, 'Email doesn\'t exist');
+            return new ActionResult(false, 'The Email inserted doesn\'t exist, please verify that you have inserted the correct email address.');
         }
     }
 

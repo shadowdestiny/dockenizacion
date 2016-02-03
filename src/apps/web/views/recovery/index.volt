@@ -1,6 +1,6 @@
 {% extends "main.volt" %}
 {% block template_css %}{% endblock %}
-{% block bodyClass %}recovery minimal{% endblock %}
+{% block bodyClass %}recovery no-nav{% endblock %}
 
 {% block template_css %}
 <style>
