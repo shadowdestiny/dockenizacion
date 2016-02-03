@@ -21,7 +21,7 @@ class CreditCardForm extends Form
         ));
         $card_number->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The card number is required'
+                'message' => 'Credit Card number is required'
             )),
             new Numericality(array(
 
@@ -39,7 +39,7 @@ class CreditCardForm extends Form
         ));
         $card_holder->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The card name holder is required'
+                'message' => 'Full Name of the Credit Card holder is required'
             ))
         ));
         $this->add($card_holder);
@@ -50,7 +50,7 @@ class CreditCardForm extends Form
         ));
         $card_cvv->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The cvv number is required'
+                'message' => 'CVV number is required'
             )),
             new Numericality(array(
 
