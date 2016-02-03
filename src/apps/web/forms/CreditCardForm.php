@@ -24,7 +24,6 @@ class CreditCardForm extends Form
                 'message' => 'The card number is required'
             )),
             new Numericality(array(
-
             )),
             new CreditCard(array())
         ));
