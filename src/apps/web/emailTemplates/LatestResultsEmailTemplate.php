@@ -5,7 +5,7 @@ namespace EuroMillions\web\emailTemplates;
 
 use EuroMillions\web\interfaces\IEmailTemplateDataStrategy;
 use EuroMillions\web\services\email_templates_strategies\LongPlayEndedDataEmailTemplateStrategy;
-use EuroMillions\web\services\LotteriesDataService;
+
 
 class LatestResultsEmailTemplate extends EmailTemplateDecorator
 {

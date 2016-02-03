@@ -8,6 +8,7 @@ use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplat
 use EuroMillions\web\services\email_templates_strategies\LatestResultsDataEmailTemplateStrategy;
 use EuroMillions\web\vo\EuroMillionsLine;
 use Money\Money;
+use Prophecy\Argument;
 use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\UnitTestBase;
 
@@ -41,7 +42,9 @@ class LatestResultsDataEmailTemplateStrategyUnitTest extends UnitTestBase
             'last_draw_date' => $last_draw
         ];
         $sut = $this->getSut();
-        $actual = $sut->getData(new JackpotDataEmailTemplateStrategy($this->lotteriesDataService_double->reveal()));
+        $emailTemplateDataStrategy_double = $this->getInterfaceWebDouble('IEmailTemplateDataStrategy');
+        $emailTemplateDataStrategy_double->getData(Argument::type('EuroMillions\web\interfaces\IEmailTemplateDataStrategy'))->willReturn([]);
+        $actual = $sut->getData(new LatestResultsDataEmailTemplateStrategy($this->lotteriesDataService_double->reveal()));
         $this->assertEquals($expected, $actual);
 
     }
