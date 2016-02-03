@@ -201,6 +201,10 @@ class AuthService
                 $this->storageStrategy->setCurrentUserId($userId);
                 $this->logService->logRegistration($user);
                 $this->userService->initUserNotifications($user->getId());
+                $emailTemplate = new EmailTemplate();
+                $emailTemplate = new WelcomeEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
+                $emailTemplate->setUser($user);
+                $this->emailService->sendTransactionalEmail($user, $emailTemplate);
                 return new ActionResult(true, $user);
             } else {
                 return new ActionResult(false, 'Error getting an user');
