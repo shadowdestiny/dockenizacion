@@ -2,7 +2,12 @@
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 <script src="/w/js/vendor/jquery-1.11.3.min.js"></script>
+<!--[if IE 9]>
 <script src="/w/js/vendor/jquery.placeholder.min.js"></script>
+<script>
+$(function(){$('input, textarea').placeholder();});
+</script>
+<![endif]-->
 <script src="/w/js/vendor/jquery.cookie.js"></script>
 <script src="/w/js/vendor/jquery.countdown.min.js"></script>
 <script src="/w/js/vendor/picturefill.min.js" async></script>
@@ -24,9 +29,6 @@ var isEdge = !isIE && !!window.StyleMedia;  // Edge 20+
 var isChrome = !!window.chrome && !!window.chrome.webstore; // Chrome 1+
 var isBlink = (isChrome || isOpera) && !!window.CSS; // Blink engine detection
 
-$(function(){
-    $('input, textarea').placeholder();
-});
 // SVG rendering for include svg for IE9+ 
 if(isIE || isEdge){
 //    alert("isIE= "+isIE)

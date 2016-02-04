@@ -176,7 +176,7 @@ $(function(){
 											</div>
 										</div>
 										<div class="col6 center box-vector">
-											<svg class="vector"><use xlink:href="/w/svg/index.svg#lotto-game"></use></svg>
+											<svg class="vector"><use xlink:href="/w/svg/icon.svg#logo-shadow"></use></svg>
 										</div>
 									</div>
 								</div>
@@ -213,7 +213,7 @@ $(function(){
 						</div>
 						<div class="col6">
 							<span class="gold-pile">
-								<img class="vector" src="/w/svg/home/logo-shadow.svg" alt="">
+								<svg class="vector"><use xlink:href="/w/svg/icon.svg#logo-shadow"></use></svg>
 								<a href="/play" class="btn blue">{{ language.translate("Start playing, Win millions") }}</a>
 							</span>
 						</div>
