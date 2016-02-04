@@ -117,7 +117,7 @@
                 </div>
                 <div class="notes">
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                    <span class="txt">{{ language.translate("Fee of &euro; 0.35 will be charged for transfers less than &euro; 12.00") }}</span>
+                    <span class="txt">{{ language.translate("Fee of")}} {{  fee }} {{ language.translate("will be charged for transfers less than ") }} {{ fee_to_limit }}</span>
                 </div>
             </div>
         </div>

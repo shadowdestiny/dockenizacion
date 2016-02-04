@@ -4,29 +4,26 @@
 namespace EuroMillions\web\controllers;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
-use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\forms\ResetPasswordForm;
 use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
-use EuroMillions\web\services\card_payment_providers\FakeCardPaymentProvider;
-use EuroMillions\web\services\card_payment_providers\payxpert\PayXpertConfig;
-use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentProvider;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
-use EuroMillions\web\services\WalletService;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CVV;
 use EuroMillions\web\vo\dto\PlayConfigDTO;
+use EuroMillions\web\vo\dto\SiteConfigDTO;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\UserNotificationsDTO;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\ExpiryDate;
 use EuroMillions\web\vo\NotificationType;
-use EuroMillions\web\vo\UserId;
+use Money\Currency;
 use Money\Money;
 use Phalcon\Di;
 use Phalcon\Forms\Element\Text;
@@ -178,6 +175,22 @@ class AccountController extends PublicSiteControllerBase
         $credit_card_form = new CreditCardForm();
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $form_errors = $this->getErrorsArray();
+
+        /** @var ArrayCollection $siteConfig */
+        $siteConfig = $this->di->get('siteConfig');
+
+        $fee_site_config_dto = new SiteConfigDTO($siteConfig[0]);
+        $fee_to_limit_config_dto = new SiteConfigDTO($siteConfig[1]);
+        $fee_value = new Money((int) $fee_site_config_dto->value, new Currency('EUR'));
+        $fee_to_limit_value = new Money((int) $fee_to_limit_config_dto->value, new Currency('EUR'));
+        $user_id = $this->authService->getCurrentUser();
+        $user = $this->userService->getUser($user_id->getId());
+        $fee_value_convert = $this->currencyService->convert($fee_value ,$user->getUserCurrency());
+        $fee_to_limit_value_convert = $this->currencyService->convert($fee_to_limit_value ,$user->getUserCurrency());
+        $currency_symbol = $this->currencyService->getSymbol($fee_value_convert,$user->getBalance()->getCurrency());
+        $locale = $this->request->getBestLanguage();
+        $symbol_position = $this->currencyService->getSymbolPosition($locale,$user->getUserCurrency());
+
         return $this->view->setVars([
             'which_form' => 'wallet',
             'form_errors' => $form_errors,
@@ -185,7 +198,9 @@ class AccountController extends PublicSiteControllerBase
             'msg' => [],
             'credit_card_form' => $credit_card_form,
             'show_form_add_fund' => false,
-            'show_box_basic' => true
+            'show_box_basic' => true,
+            'fee' => $symbol_position ? $fee_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_value_convert->getAmount() /100,
+            'fee_to_limit' => $symbol_position ? $fee_to_limit_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_to_limit_value_convert->getAmount() /100,
         ]);
     }
 
