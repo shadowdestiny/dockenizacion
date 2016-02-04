@@ -43,7 +43,7 @@ abstract class BootstrapStrategyBase
         $di->set('environmentDetector', $environment_detector);
         $di->set('config', $config, true);
         $di->set('entityManager', $this->configDoctrine($config), true);
-        $di->set('siteConfig', $this->siteConfig($this->configDoctrine($config)),true);
+        $di->set('siteConfig', $this->siteConfig( $this->configDoctrine($config)),true);
         $di->set('redisCache', $this->configRedis($config), true);
        // $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
         return $di;
@@ -112,7 +112,7 @@ abstract class BootstrapStrategyBase
 
     protected function siteConfig(EntityManager $entityManager)
     {
-        $siteConfig = $entityManager->getRepository('EuroMillions\web\entities\SiteConfig');
+        $siteConfig =  $entityManager->getRepository('EuroMillions\web\entities\SiteConfig');
         return $siteConfig->findAll();
     }
 

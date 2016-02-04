@@ -66,6 +66,7 @@ class PublicSiteControllerBase extends ControllerBase
             'user-settings',
             'account'
         ];
+
         if(!in_array($dispatcher->getControllerName(),$controller_not_referer, false)) {
             $this->session->set('original_referer','/'.$dispatcher->getControllerName().'/'.$dispatcher->getActionName());
         }

@@ -28,6 +28,7 @@ use EuroMillions\web\vo\ExpiryDate;
 use EuroMillions\web\vo\NotificationType;
 use EuroMillions\web\vo\UserId;
 use Money\Money;
+use Phalcon\Di;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\PresenceOf;
@@ -108,7 +109,7 @@ class AccountController extends PublicSiteControllerBase
                     $errors[] = $field_messages[0]->getMessage();
                     $form_errors[$field] = ' error';
                 }
-            }else {
+            } else {
                 $result_same_password = $this->authService->samePassword($user,$this->request->getPost('old-password'));
                 if($result_same_password->success()) {
                     $result = $this->authService->updatePassword($user, $this->request->getPost('new-password'));
@@ -177,7 +178,6 @@ class AccountController extends PublicSiteControllerBase
         $credit_card_form = new CreditCardForm();
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $form_errors = $this->getErrorsArray();
-
         return $this->view->setVars([
             'which_form' => 'wallet',
             'form_errors' => $form_errors,
@@ -365,7 +365,7 @@ class AccountController extends PublicSiteControllerBase
                 if($user_result->success()) {
                     $result = $this->authService->updatePassword($user_result->getValues(), $new_password);
                     if ($result->success()) {
-                        $this->response->redirect('/sign-in');
+                        //this->response->redirect('/sign-in');
                         $msg = true;
                     } else {
                         $errors [] = $result->errorMessage();

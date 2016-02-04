@@ -228,7 +228,7 @@ class UserAccessController extends ControllerBase
     {
        $result = $this->authService->resetPassword($token);
         if ($result->success()) {
-            $message = 'Your password was reset!';
+            //$message = 'Your password was reset!';
             $this->view->pick('recovery/index');
             return $this->view->setVars([
                 'currency_list' => [],
@@ -241,6 +241,8 @@ class UserAccessController extends ControllerBase
             //$message = 'Sorry, the token you used is no longer valid.';
         }
     }
+
+
 
 
     /**
