@@ -206,8 +206,7 @@ $(function(){
 					<div class="cols top">
 						<div class="col6">
 							<div class="title-em cl">
-								<img class="vector best" src="/w/svg/home/best-choice.svg" alt="Best Choice Guarantee">
-								<img class="lazy vector text" src="/w/svg/home/em-golden.svg" alt="Euromillions">
+								<img class="vector text" src="/w/svg/home/em-golden.svg" alt="Euromillions">
 								<h3 class="title">{{ language.translate("Fast, Convenient &amp; Secure") }}</h3>
 							</div>
 						</div>
