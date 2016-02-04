@@ -31,6 +31,7 @@ use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation;
 use Phalcon\Validation\Message;
+use Phalcon\Validation\Validator\Regex;
 
 class AccountController extends PublicSiteControllerBase
 {
@@ -177,19 +178,10 @@ class AccountController extends PublicSiteControllerBase
         $form_errors = $this->getErrorsArray();
 
         /** @var ArrayCollection $siteConfig */
-        $siteConfig = $this->di->get('siteConfig');
-
-        $fee_site_config_dto = new SiteConfigDTO($siteConfig[0]);
-        $fee_to_limit_config_dto = new SiteConfigDTO($siteConfig[1]);
-        $fee_value = new Money((int) $fee_site_config_dto->value, new Currency('EUR'));
-        $fee_to_limit_value = new Money((int) $fee_to_limit_config_dto->value, new Currency('EUR'));
-        $user_id = $this->authService->getCurrentUser();
-        $user = $this->userService->getUser($user_id->getId());
-        $fee_value_convert = $this->currencyService->convert($fee_value ,$user->getUserCurrency());
-        $fee_to_limit_value_convert = $this->currencyService->convert($fee_to_limit_value ,$user->getUserCurrency());
-        $currency_symbol = $this->currencyService->getSymbol($fee_value_convert,$user->getBalance()->getCurrency());
-        $locale = $this->request->getBestLanguage();
-        $symbol_position = $this->currencyService->getSymbolPosition($locale,$user->getUserCurrency());
+        list($fee_value_convert,
+            $fee_to_limit_value_convert,
+            $currency_symbol,
+            $symbol_position) = $this->getSiteConfigVars();
 
         return $this->view->setVars([
             'which_form' => 'wallet',
@@ -255,12 +247,20 @@ class AccountController extends PublicSiteControllerBase
                 }
             }
         }
+        list($fee_value_convert,
+            $fee_to_limit_value_convert,
+            $currency_symbol,
+            $symbol_position) = $this->getSiteConfigVars();
+
+
         $this->view->pick('/account/wallet');
         return $this->view->setVars([
             'form_errors' => $form_errors,
             'errors' => $errors,
             'credit_card_form' => $credit_card_form,
             'msg' => $msg,
+            'fee' => $symbol_position ? $fee_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_value_convert->getAmount() /100,
+            'fee_to_limit' => $symbol_position ? $fee_to_limit_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_to_limit_value_convert->getAmount() /100,
             'show_form_add_fund' => true,
             'show_box_basic' => false,
         ]);
@@ -450,9 +450,35 @@ class AccountController extends PublicSiteControllerBase
         $fund_value->addValidators(array(
             new PresenceOf(array(
                 'message' => 'A value is required to add funds'
+            )),
+            new Regex(array(
+                'message' => 'Please, the format is:',
+                'pattern' => '/^[1-9]{0,18}(?:\\.[0-9]{1,2})?$/'
             ))
         ));
-       $form->add($fund_value);
+
+        $form->add($fund_value);
         return $form;
+    }
+
+    /**
+     * @return array
+     */
+    private function getSiteConfigVars()
+    {
+        /** @var ArrayCollection $siteConfig */
+        $siteConfig = $this->di->get('siteConfig');
+        $fee_site_config_dto = new SiteConfigDTO($siteConfig[0]);
+        $fee_to_limit_config_dto = new SiteConfigDTO($siteConfig[1]);
+        $fee_value = new Money((int)$fee_site_config_dto->value, new Currency('EUR'));
+        $fee_to_limit_value = new Money((int)$fee_to_limit_config_dto->value, new Currency('EUR'));
+        $user_id = $this->authService->getCurrentUser();
+        $user = $this->userService->getUser($user_id->getId());
+        $fee_value_convert = $this->currencyService->convert($fee_value, $user->getUserCurrency());
+        $fee_to_limit_value_convert = $this->currencyService->convert($fee_to_limit_value, $user->getUserCurrency());
+        $currency_symbol = $this->currencyService->getSymbol($fee_value_convert, $user->getBalance()->getCurrency());
+        $locale = $this->request->getBestLanguage();
+        $symbol_position = $this->currencyService->getSymbolPosition($locale, $user->getUserCurrency());
+        return array($fee_value_convert, $fee_to_limit_value_convert, $currency_symbol, $symbol_position);
     }
 }

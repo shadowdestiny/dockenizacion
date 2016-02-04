@@ -233,6 +233,11 @@ class CartController extends PublicSiteControllerBase{
     }
 
 
+    public function paymentAction()
+    {
+
+    }
+
 
 
     public function validateAction($token)
