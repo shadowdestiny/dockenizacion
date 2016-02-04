@@ -4,35 +4,34 @@
 namespace EuroMillions\web\controllers;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
-use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\forms\ResetPasswordForm;
 use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
-use EuroMillions\web\services\card_payment_providers\FakeCardPaymentProvider;
-use EuroMillions\web\services\card_payment_providers\payxpert\PayXpertConfig;
-use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentProvider;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
-use EuroMillions\web\services\WalletService;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CVV;
 use EuroMillions\web\vo\dto\PlayConfigDTO;
+use EuroMillions\web\vo\dto\SiteConfigDTO;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\UserNotificationsDTO;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\ExpiryDate;
 use EuroMillions\web\vo\NotificationType;
-use EuroMillions\web\vo\UserId;
+use Money\Currency;
 use Money\Money;
+use Phalcon\Di;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation;
 use Phalcon\Validation\Message;
+use Phalcon\Validation\Validator\Regex;
 
 class AccountController extends PublicSiteControllerBase
 {
@@ -108,7 +107,7 @@ class AccountController extends PublicSiteControllerBase
                     $errors[] = $field_messages[0]->getMessage();
                     $form_errors[$field] = ' error';
                 }
-            }else {
+            } else {
                 $result_same_password = $this->authService->samePassword($user,$this->request->getPost('old-password'));
                 if($result_same_password->success()) {
                     $result = $this->authService->updatePassword($user, $this->request->getPost('new-password'));
@@ -178,6 +177,12 @@ class AccountController extends PublicSiteControllerBase
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $form_errors = $this->getErrorsArray();
 
+        /** @var ArrayCollection $siteConfig */
+        list($fee_value_convert,
+            $fee_to_limit_value_convert,
+            $currency_symbol,
+            $symbol_position) = $this->getSiteConfigVars();
+
         return $this->view->setVars([
             'which_form' => 'wallet',
             'form_errors' => $form_errors,
@@ -185,7 +190,9 @@ class AccountController extends PublicSiteControllerBase
             'msg' => [],
             'credit_card_form' => $credit_card_form,
             'show_form_add_fund' => false,
-            'show_box_basic' => true
+            'show_box_basic' => true,
+            'fee' => $symbol_position ? $fee_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_value_convert->getAmount() /100,
+            'fee_to_limit' => $symbol_position ? $fee_to_limit_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_to_limit_value_convert->getAmount() /100,
         ]);
     }
 
@@ -240,12 +247,20 @@ class AccountController extends PublicSiteControllerBase
                 }
             }
         }
+        list($fee_value_convert,
+            $fee_to_limit_value_convert,
+            $currency_symbol,
+            $symbol_position) = $this->getSiteConfigVars();
+
+
         $this->view->pick('/account/wallet');
         return $this->view->setVars([
             'form_errors' => $form_errors,
             'errors' => $errors,
             'credit_card_form' => $credit_card_form,
             'msg' => $msg,
+            'fee' => $symbol_position ? $fee_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_value_convert->getAmount() /100,
+            'fee_to_limit' => $symbol_position ? $fee_to_limit_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_to_limit_value_convert->getAmount() /100,
             'show_form_add_fund' => true,
             'show_box_basic' => false,
         ]);
@@ -365,7 +380,7 @@ class AccountController extends PublicSiteControllerBase
                 if($user_result->success()) {
                     $result = $this->authService->updatePassword($user_result->getValues(), $new_password);
                     if ($result->success()) {
-                        $this->response->redirect('/sign-in');
+                        //this->response->redirect('/sign-in');
                         $msg = true;
                     } else {
                         $errors [] = $result->errorMessage();
@@ -435,9 +450,35 @@ class AccountController extends PublicSiteControllerBase
         $fund_value->addValidators(array(
             new PresenceOf(array(
                 'message' => 'A value is required to add funds'
+            )),
+            new Regex(array(
+                'message' => 'Please, the format is:',
+                'pattern' => '/^[1-9]{0,18}(?:\\.[0-9]{1,2})?$/'
             ))
         ));
-       $form->add($fund_value);
+
+        $form->add($fund_value);
         return $form;
+    }
+
+    /**
+     * @return array
+     */
+    private function getSiteConfigVars()
+    {
+        /** @var ArrayCollection $siteConfig */
+        $siteConfig = $this->di->get('siteConfig');
+        $fee_site_config_dto = new SiteConfigDTO($siteConfig[0]);
+        $fee_to_limit_config_dto = new SiteConfigDTO($siteConfig[1]);
+        $fee_value = new Money((int)$fee_site_config_dto->value, new Currency('EUR'));
+        $fee_to_limit_value = new Money((int)$fee_to_limit_config_dto->value, new Currency('EUR'));
+        $user_id = $this->authService->getCurrentUser();
+        $user = $this->userService->getUser($user_id->getId());
+        $fee_value_convert = $this->currencyService->convert($fee_value, $user->getUserCurrency());
+        $fee_to_limit_value_convert = $this->currencyService->convert($fee_to_limit_value, $user->getUserCurrency());
+        $currency_symbol = $this->currencyService->getSymbol($fee_value_convert, $user->getBalance()->getCurrency());
+        $locale = $this->request->getBestLanguage();
+        $symbol_position = $this->currencyService->getSymbolPosition($locale, $user->getUserCurrency());
+        return array($fee_value_convert, $fee_to_limit_value_convert, $currency_symbol, $symbol_position);
     }
 }

@@ -2,6 +2,7 @@
 namespace EuroMillions\shared\config\bootstrap;
 
 use Doctrine\Common\Cache\RedisCache;
+use Doctrine\Common\Collections\ArrayCollection;
 use EuroMillions\shared\components\EnvironmentDetector;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
@@ -15,6 +16,7 @@ use Phalcon\Config;
 use Phalcon\Config\Adapter\Ini;
 use Phalcon\Crypt;
 use Phalcon\Di;
+use Phalcon\Mvc\Collection;
 use Redis;
 
 abstract class BootstrapStrategyBase
@@ -43,7 +45,7 @@ abstract class BootstrapStrategyBase
         $di->set('environmentDetector', $environment_detector);
         $di->set('config', $config, true);
         $di->set('entityManager', $this->configDoctrine($config), true);
-        $di->set('siteConfig', $this->siteConfig($this->configDoctrine($config)),true);
+        $di->set('siteConfig', $this->siteConfig( $this->configDoctrine($config)),true);
         $di->set('redisCache', $this->configRedis($config), true);
        // $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
         return $di;
@@ -112,8 +114,16 @@ abstract class BootstrapStrategyBase
 
     protected function siteConfig(EntityManager $entityManager)
     {
-        $siteConfig = $entityManager->getRepository('EuroMillions\web\entities\SiteConfig');
-        return $siteConfig->findAll();
+        $siteConfig =  $entityManager->getRepository('EuroMillions\web\entities\SiteConfig');
+
+        $result = $entityManager->createQuery(
+                "SELECT s from {$siteConfig->getClassName()} s"
+            )
+            ->useResultCache(true)
+            ->getResult();
+
+        //if we use findAll can't do caching
+        return new ArrayCollection($result);
     }
 
     abstract protected function getConfigFileName(EnvironmentDetector $em);

@@ -213,7 +213,6 @@ $(function(){
 
     $('.ending').hide();
     var now_date = new Date().getMinutes();
-
     var draw_date_minutes = new Date(draw_date).getMinutes();
     draw_date_minutes = draw_date_minutes == 0 ? 60 : draw_date_minutes;
     var minutes_value =  draw_date_minutes - now_date;
@@ -270,7 +269,6 @@ $(function(){
     }
 
     var is_last_minute = typeof last_minute == 'undefined' ? false : last_minute;
-    console.log(is_last_minute);
     if(is_last_minute){
         finish_countdown_warning_close_draw(interval_warning_close);
     }
