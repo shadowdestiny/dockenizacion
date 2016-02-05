@@ -452,7 +452,7 @@ class AccountController extends PublicSiteControllerBase
                 'message' => 'A value is required to add funds'
             )),
             new Regex(array(
-                'message' => 'Please, the format is:',
+                'message' => 'The value in Add funds is not valid. It must be composed of only numbers without decimals or symbols.',
                 'pattern' => '/^[1-9]{0,18}(?:\\.[0-9]{1,2})?$/'
             ))
         ));
