@@ -3,18 +3,18 @@
     <link rel="stylesheet" href="/w/css/cart.css">
 {% endblock %}
 {% block template_scripts %}
-    {% set play_configs = play_config_list %}
     <script>
-
-        var play_list = '<?php echo $play_configs ?>';
-        var wallet_balance = '<?php echo $wallet_balance ?>';
-        var total_price = parseFloat('<?php echo $total?>');
-        var single_bet_price = '<?php echo number_format($single_bet_price, 2,".",",") ?>';
+        var play_list = '<?php echo $order->getLines(); ?>';
+        var wallet_balance = '<?php echo $order->getWalletBalance(); ?>';
+        var total_price = parseFloat('<?php echo $order->getTotal(); ?>');
+        var single_bet_price = '<?php echo number_format($order->getSingleBetPrice(), 2,".",",") ?>';
         var currency_symbol = '<?php echo empty($currency_symbol) ? $current_currency : $currency_symbol;?>';
-        var price_below_fee = '<?php echo number_format($fee_below,2,".",","); ?>';
-        var fee_charge = '<?php echo number_format($fee_charge,2,".",","); ?>';
+        var price_below_fee = '<?php echo number_format($order->getFeeLimit(),2,".",","); ?>';
+        var fee_charge = '<?php echo number_format($order->getFee(),2,".",","); ?>';
         var symbol_position = '<?php echo $symbol_position ?>';
+        var draw_days = '<?php echo $order->getDrawDays(); ?>';
 
+        console.log(total_price);
     </script>
     <script src="/w/js/react/cart.js"></script>
 {% endblock %}

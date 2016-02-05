@@ -7,6 +7,8 @@ var EmLineOrder = new React.createClass({
     render : function ()
     {
 
+        var numbers = this.props.numbers.split(',');
+        var stars = this.props.stars.split(',');
         var char_line = 'ABCDEFGHIJKLMNOPQRSTVWXYZ'.charAt(this.props.line);
         return (
             <div className="row cl">
@@ -16,12 +18,12 @@ var EmLineOrder = new React.createClass({
                 <div className="detail">
                     <ol className="no-li num">
                         {
-                            this.props.numbers.map(function(number,i) {
+                            numbers.map(function(number,i) {
                                 return <li key={i}>{number}</li>
                             })
                         }
                         {
-                            this.props.stars.map(function(star,i) {
+                            stars.map(function(star,i) {
                                 return <li className="yellow" key={i}>{star}</li>
                             })
                         }

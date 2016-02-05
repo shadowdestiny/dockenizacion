@@ -26,7 +26,7 @@ var CartPage = new React.createClass({
 
     componentDidMount : function()
     {
-        var price = parseFloat(this.props.single_bet_price * this.state.playConfigList.euroMillionsLines.bets.length );
+        var price = parseFloat(this.props.single_bet_price * this.state.playConfigList.bets.length );
         var wallet_balance = parseFloat(this.props.wallet_balance);
         var fee = this.props.price_below_fee;
         if(wallet_balance == 0 && price > parseFloat(fee)) {
@@ -37,7 +37,7 @@ var CartPage = new React.createClass({
 
     componentWillMount : function()
     {
-        var price = parseFloat(this.props.single_bet_price * this.state.playConfigList.euroMillionsLines.bets.length );
+        var price = parseFloat(this.props.single_bet_price * this.state.playConfigList.bets.length );
         if(parseFloat(this.props.wallet_balance) > price) {
             this.setState({ show_all_fee : false, checked_wallet : true });
         }
@@ -46,12 +46,12 @@ var CartPage = new React.createClass({
     handleChangeDrawDuration : function (value)
     {
         var params = '';
-        this.state.playConfigList.euroMillionsLines.bets.forEach(function(bet,i){
+        this.state.playConfigList.bets.forEach(function(bet,i){
              params += 'bet['+i+']='+bet.regular+","+bet.lucky +'&';
         });
-        var draw_days = this.state.playConfigList.drawDays;
+        var draw_days = this.state.playConfigList.drawDays; //EMTD
         var frequency = value;
-        var start_draw = this.state.playConfigList.startDrawDate;
+        var start_draw = this.state.playConfigList.startDrawDate; //EMTD
         params += 'draw_days='+draw_days+'&frequency='+frequency+'&start_draw='+start_draw;
         globalFunctions.playCart(params);
     },
@@ -164,11 +164,13 @@ var CartPage = new React.createClass({
         var _playConfigList = this.state.playConfigList;
         var _euroMillionsLine = [];
 
-        var price_and_symbol_order_line = this.props.symbol_position ? (this.props.single_bet_price * this.state.playConfigList.drawDays).toFixed(2) + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + (this.props.single_bet_price * this.state.playConfigList.drawDays).toFixed(2);
+        //EMTD
+        var price_and_symbol_order_line = this.props.symbol_position ? (this.props.single_bet_price * this.props.draw_days).toFixed(2) + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + (this.props.single_bet_price * this.props.draw_days).toFixed(2);
 
-        for (let i=0; i< _playConfigList.euroMillionsLines.bets.length; i++) {
-            var numbers = _playConfigList.euroMillionsLines.bets[i].regular;
-            var stars = _playConfigList.euroMillionsLines.bets[i].lucky;
+        for (let i=0; i< _playConfigList.bets.length; i++) {
+            var numbers = _playConfigList.bets[i].regular;
+            var stars = _playConfigList.bets[i].lucky;
+
             _euroMillionsLine.push(<EmLineOrderCart
                                                     line={i}
                                                     key={i}
@@ -242,8 +244,8 @@ var CartPage = new React.createClass({
 
 module.exports = CartPage;
 var show_fee_line = false;
-console.log('Symbol position: ' + symbol_position);
-ReactDOM.render(<CartPage total={total_price} symbol_position={symbol_position} price_below_fee={price_below_fee} fee_charge={fee_charge} currency_symbol={currency_symbol} play_list={play_list} wallet_balance={wallet_balance} single_bet_price={single_bet_price} show_fee_line={show_fee_line}/>,
+
+ReactDOM.render(<CartPage total={total_price} symbol_position={symbol_position} draw_days={draw_days} price_below_fee={price_below_fee} fee_charge={fee_charge} currency_symbol={currency_symbol} play_list={play_list} wallet_balance={wallet_balance} single_bet_price={single_bet_price} show_fee_line={show_fee_line}/>,
     document.getElementById('cart-order'));
 
 
