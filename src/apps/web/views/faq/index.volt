@@ -54,7 +54,7 @@
 #}
 
                     <li><a href="#n11">{{ language.translate("How can I participate in a future draw?") }}</a></li>
-                    <li><a href="#n12">{{ language.translate("Can I play only when the Jackpot Prize reach a specific ammount?") }}</a></li>
+                    <li><a href="#n12">{{ language.translate("Can I play only when the Jackpot Prize reach a specific amount?") }}</a></li>
                     <li><a href="#n13">{{ language.translate("How do I make a bet with multiple numbers in a line?") }}</a></li>
                 </ul>
 
@@ -159,7 +159,7 @@
                 {% include "faq/back-top.volt" %}
 
                 <a id="n12"></a>
-                <h3 class="h3">{{ language.translate("Can I play only when the Jackpot Prize reach a specific ammount?") }}</h3>
+                <h3 class="h3">{{ language.translate("Can I play only when the Jackpot Prize reach a specific amount?") }}</h3>
                 <p>{{ language.translate('Yes, you can by clicking on Advance Play in the <a href="%link%">Play Page</a>',['link':url("play")]) }}</p> 
                 {% include "faq/back-top.volt" %}
   
@@ -231,7 +231,7 @@
 
                 <a id="n25"></a>
                 <h3 class="h3">{{ language.translate("How do I edit or delete a Subscription?") }}</h3>
-                <p>{{ language.translate('In the <a href="%link%">Games area</a> section of your player account you can find all your active bets. In there you can easily modify duration, numbers and ammount of partecipating bets per draw.',['link':url("account/games")]) }}</p>
+                <p>{{ language.translate('In the <a href="%link%">Games area</a> section of your player account you can find all your active bets. In there you can easily modify duration, numbers and amount of partecipating bets per draw.',['link':url("account/games")]) }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <a id="n26"></a>
