@@ -30,10 +30,11 @@
             <div class="cols">
                 <div class="col6">
         {% endif %}
-            <label class="label" for="add-card-number">
-                {{ language.translate("Card Number") }} <span class="asterisk">*</span>
-            </label>
-                    {{ credit_card_form.render('card-number', {'class':'input'~form_errors['card-number']}) }}
+        <label class="label" for="add-card-number">
+            {{ language.translate("Card Number") }} <span class="asterisk">*</span>
+        </label>
+        {{ credit_card_form.render('card-number', {'class':'input'~form_errors['card-number'], "placeholder":"0000000000000000"}) }}
+
         {% if component.where == 'cart' %}
                 </div>
                 <div class="col6">
@@ -41,7 +42,8 @@
         <label class="label" for="add-card-name">
             {{ language.translate("Full Name on Card") }} <span class="asterisk">*</span>
         </label>
-                    {{ credit_card_form.render('card-holder', {'class':'input'~form_errors['card-holder']}) }}
+        {{ credit_card_form.render('card-holder', {'class':'input'~form_errors['card-holder'], "placeholder":"Antonio García Carrión"}) }}
+        
         {% if component.where == 'cart' %}
                 </div>
             </div>

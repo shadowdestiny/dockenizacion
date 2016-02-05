@@ -76,8 +76,8 @@ $(function(){
 						<span class="btn white try animate infi">{{ language.translate("Try your luck") }} <svg class="ico v-arrow-right3"><use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use></svg></span>
 					</div>
 					<div class="box-emblem">
-						<svg class="vector emblem"><use xlink:href="/w/svg/index.svg#emblem"></use></svg>
-						<svg class="vector emblem-bg"><use xlink:href="/w/svg/index.svg#emblem-bg"></use></svg>
+						<svg class="vector emblem"><use xlink:href="/w/svg/icon.svg#emblem"></use></svg>
+						<svg class="vector emblem-bg"><use xlink:href="/w/svg/icon.svg#emblem-bg"></use></svg>
 					</div>
 				</a>
 				<div class="box-how">
@@ -86,21 +86,21 @@ $(function(){
 					</div>
 					<ul class="no-li cl">
 						<li>
-							<svg class="vector"><use xlink:href="/w/svg/index.svg#lottery-ticket"></use></svg>
+							<svg class="vector"><use xlink:href="/w/svg/icon.svg#lottery-ticket"></use></svg>
 							<div class="box-txt">
 								<h2 class="h3"><span class="grey">1.</span> {{ language.translate("play")|upper }}</h2>
 								<p class="sub-txt">{{ language.translate("Choose <em>PLAY NOW</em> or <em>QuickPlay</em>") }}</p>
 							</div>
 						</li>
 						<li>
-							<svg class="vector"><use xlink:href="/w/svg/index.svg#monitor"></use></svg>
+							<svg class="vector"><use xlink:href="/w/svg/icon.svg#monitor"></use></svg>
 							<div class="box-txt">
 								<h2 class="h3"><span class="grey">2.</span> {{ language.translate("pick")|upper }}</h2>
 								<p class="sub-txt">{{ language.translate("Pick 5+2 Lucky Stars or <em>QuickPick</em>") }}</p>
 							</div>
 						</li>
 						<li>
-							<svg class="vector"><use xlink:href="/w/svg/index.svg#winner-cup"></use></svg>
+							<svg class="vector"><use xlink:href="/w/svg/icon.svg#winner-cup"></use></svg>
 							<div class="box-txt">
 								<h2 class="h3"><span class="grey">3.</span> {{ language.translate("win")|upper }}</h2>
 								<p class="sub-txt">{{ language.translate("Check results and cash your winnings") }}</p>
@@ -206,7 +206,10 @@ $(function(){
 					<div class="cols top">
 						<div class="col6">
 							<div class="title-em cl">
-								<img class="vector text" src="/w/svg/home/em-golden.svg" alt="Euromillions">
+								<svg class="vector text">
+									<use xlink:href="/w/svg/icon.svg#em-golden"></use>
+									<use xlink:href="/w/svg/icon.svg#em-golden" x="2" y="2" transform="scale(1.1)"></use>
+								</svg>
 								<h3 class="title">{{ language.translate("Fast, Convenient &amp; Secure") }}</h3>
 							</div>
 						</div>

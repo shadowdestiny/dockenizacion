@@ -445,7 +445,7 @@ class AccountController extends PublicSiteControllerBase
     {
 
         $fund_value = new Text('funds-value', array(
-            'placeholder' => 'Insert an ammount'
+            'placeholder' => 'Insert an amount'
         ));
         $fund_value->addValidators(array(
             new PresenceOf(array(
