@@ -45,7 +45,6 @@ var EmWallet = new React.createClass({
         var wallet_value = (this.state.checked) ? wallet : 0;
         var disabled_value = (this.state.checked) ? 'summary val' : 'summary val disabled';
         var operand_value = (this.state.checked) ? ' - ' : ' ';
-
         var total_value = this.props.symbol_position ? operand_value + ' ' + wallet_value.toFixed(2) + ' ' + this.props.currency_symbol : this.props.currency_symbol  + ' ' + operand_value + ' ' + wallet_value.toFixed(2);
 
         return (

@@ -1,9 +1,6 @@
 {% extends "main.volt" %}
-{##}
 {% block template_css %}<link rel="stylesheet" href="/w/css/home.css">{% endblock %}
-
 {% block bodyClass %}home{% endblock %}
-
 {% block header %}
 <a id="top"></a>
 {% set activeNav='{"myClass": ""}'|json_decode %} {# It need to be empty #}
@@ -13,7 +10,6 @@
 {% block template_scripts %}
 <script>
 var checkWinSize = 0;
-
 function checkWin(){
 	var temp = checkWinSize;
 	if($(".media").width() > 1){
@@ -49,7 +45,6 @@ $(function(){
 	var date =  '{{ date_to_draw }}'; //   '2016-01-15 14:00:00';
 	var finish_text = "{{ language.translate('Draw closed') }}";
 	var count  = count_down(element,html_formatted,html_formatted_offset,date,finish_text,null);
-
 });
 </script>
 {% endblock %}
@@ -76,8 +71,8 @@ $(function(){
 						<span class="btn white try animate infi">{{ language.translate("Try your luck") }} <svg class="ico v-arrow-right3"><use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use></svg></span>
 					</div>
 					<div class="box-emblem">
-						<svg class="vector emblem"><use xlink:href="/w/svg/index.svg#emblem"></use></svg>
-						<svg class="vector emblem-bg"><use xlink:href="/w/svg/index.svg#emblem-bg"></use></svg>
+						<svg class="vector emblem"><use xlink:href="/w/svg/icon.svg#emblem"></use></svg>
+						<svg class="vector emblem-bg"><use xlink:href="/w/svg/icon.svg#emblem-bg"></use></svg>
 					</div>
 				</a>
 				<div class="box-how">
@@ -86,21 +81,21 @@ $(function(){
 					</div>
 					<ul class="no-li cl">
 						<li>
-							<svg class="vector"><use xlink:href="/w/svg/index.svg#lottery-ticket"></use></svg>
+							<svg class="vector"><use xlink:href="/w/svg/icon.svg#lottery-ticket"></use></svg>
 							<div class="box-txt">
 								<h2 class="h3"><span class="grey">1.</span> {{ language.translate("play")|upper }}</h2>
 								<p class="sub-txt">{{ language.translate("Choose <em>PLAY NOW</em> or <em>QuickPlay</em>") }}</p>
 							</div>
 						</li>
 						<li>
-							<svg class="vector"><use xlink:href="/w/svg/index.svg#monitor"></use></svg>
+							<svg class="vector"><use xlink:href="/w/svg/icon.svg#monitor"></use></svg>
 							<div class="box-txt">
 								<h2 class="h3"><span class="grey">2.</span> {{ language.translate("pick")|upper }}</h2>
 								<p class="sub-txt">{{ language.translate("Pick 5+2 Lucky Stars or <em>QuickPick</em>") }}</p>
 							</div>
 						</li>
 						<li>
-							<svg class="vector"><use xlink:href="/w/svg/index.svg#winner-cup"></use></svg>
+							<svg class="vector"><use xlink:href="/w/svg/icon.svg#winner-cup"></use></svg>
 							<div class="box-txt">
 								<h2 class="h3"><span class="grey">3.</span> {{ language.translate("win")|upper }}</h2>
 								<p class="sub-txt">{{ language.translate("Check results and cash your winnings") }}</p>
@@ -170,13 +165,13 @@ $(function(){
                                             {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
                                             {% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
 											<div class="box-btn">
-												<a href="/play?random" class="btn blue expand">{{ language.translate('I feel lucky') }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
+												<a href="/play?random" class="btn blue expand">{{ language.translate('I feel lucky, QuickPlay') }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
 
 												<a href="/play" class="btn red expand">{{ language.translate('Pick your numbers') }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
 											</div>
 										</div>
 										<div class="col6 center box-vector">
-											<svg class="vector"><use xlink:href="/w/svg/index.svg#lotto-game"></use></svg>
+											<svg class="vector"><use xlink:href="/w/svg/icon.svg#logo-shadow"></use></svg>
 										</div>
 									</div>
 								</div>
@@ -206,14 +201,15 @@ $(function(){
 					<div class="cols top">
 						<div class="col6">
 							<div class="title-em cl">
-								<img class="vector best" src="/w/svg/home/best-choice.svg" alt="Best Choice Guarantee">
-								<img class="lazy vector text" src="/w/svg/home/em-golden.svg" alt="Euromillions">
+								<svg class="vector text">
+									<use xlink:href="/w/svg/icon.svg#em-golden"></use>
+								</svg>
 								<h3 class="title">{{ language.translate("Fast, Convenient &amp; Secure") }}</h3>
 							</div>
 						</div>
 						<div class="col6">
 							<span class="gold-pile">
-								<img class="vector" src="/w/svg/home/logo-shadow.svg" alt="">
+								<svg class="vector"><use xlink:href="/w/svg/icon.svg#logo-shadow"></use></svg>
 								<a href="/play" class="btn blue">{{ language.translate("Start playing, Win millions") }}</a>
 							</span>
 						</div>

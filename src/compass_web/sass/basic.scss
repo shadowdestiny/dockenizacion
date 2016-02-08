@@ -250,7 +250,6 @@ label.submit{cursor:pointer;}
 
 $var1-pulseRight:0,0;
 $var2-pulseRight:20px,0;
-
 @-webkit-keyframes pulseRight{
   0%{-webkit-transform:translate($var1-pulseRight); transform:translate($var1-pulseRight);}
   50%{-webkit-transform:translate($var2-pulseRight); transform:translate($var2-pulseRight);}
@@ -297,11 +296,11 @@ body, .submit{font-family:$basic-font;}
 
 /* PAGE LAYOUT */
 .wrapper{max-width:1180px; margin:auto; position:relative; min-width:235px;}
-.logo{float:left; margin:7px 0 0;}
+.logo{float:left; margin:5px 0 0;}
 .minimal .logo{margin-bottom:4px;}
 .no-nav .logo{float:none;}
-.v-logo{height:100%; width:274px;}
-.main-foot .logo{width:200px; margin:0;}
+.v-logo{height:60px; width:285px;}
+.main-foot .v-logo{width:200px; margin:0;}
 
 .top-nav{
   position:relative; min-height:28px; background:#ae5279; z-index:10;

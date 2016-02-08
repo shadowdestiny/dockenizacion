@@ -100,7 +100,7 @@
 .box-prize .btn{margin-bottom:10px;}
 .box-prize{
   .box-vector{width:220px; height:160px;}
-  .vector{width:75%; margin:auto; max-width:220px; position:relative;}
+  .vector{width:75%; margin:10px auto 0; max-width:130px; position:relative;}
 }
 
 .informative{
@@ -127,11 +127,10 @@
   .title{font-size:$h2; font-weight:700; position:relative; left:5px; color:#fff;}
   .gold-pile{display:block; width:412px; height:189px; background:url(../img/home/gold-pile.png) no-repeat center center; margin:5px auto 0; text-align:center;
     .btn{display:block; width:250px; margin:auto;}
-    .vector{width:115px; margin-bottom:-18px; max-height:148px;}
+    .vector{width:115px; margin-bottom:-34px; max-height:148px;}
   }
   .title-em{margin:45px 0 0 45px;}
-  .best{width:138px; height:120px; float:left; margin:-18px 10px 0 0;}
-  .text{height:50px; width:358px;}
+  .text{height:50px; width:358px; margin-left:7px;}
   .bg-white{background:#fff; border:1px solid $yellow; border-top:0; border-radius:0 0 5px 5px;}
   .cols{padding:20px 0;}
 }
@@ -178,7 +177,6 @@
   .vector{max-width:180px;}
 }
 .who-we-are{
-  .best{width:110px;}
   .text{width:330px}
   .cols{padding:0;}
   .title-em{margin:45px 0 0 30px;}
@@ -209,8 +207,7 @@
 .notes .right, .notes .left{float:none;}
 .notes .left{margin-bottom:5px;}
 .who-we-are{
-  .best{width:80px; height:82px;}
-  .text{width:230px; height:30px; margin:0 -20px -5px 0;}
+  .text{width:230px; height:30px; margin:0 0 -5px -5px;}
   .title{font-size:$h4;}
   .cols{padding:0;}
   .gold-pile{

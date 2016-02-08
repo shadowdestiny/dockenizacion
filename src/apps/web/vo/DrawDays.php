@@ -34,6 +34,11 @@ class DrawDays implements Comparable
         return false;
     }
 
+    public function value()
+    {
+        return $this->draw_days;
+    }
+
 
 
 }

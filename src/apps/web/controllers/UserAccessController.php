@@ -70,6 +70,11 @@ class UserAccessController extends ControllerBase
             'signupform'  => $sign_up_form,
             'errors'      => $errors,
             'currency_list' => [],
+            'time_to_remain_draw' => false,
+            'last_minute' => false,
+            'draw_date' => '',
+            'timeout_to_closing_modal' => 30 * 60 * 1000,
+            'minutes_to_close' => false,             
             'form_errors' => $form_errors,
         ]);
     }
@@ -118,6 +123,11 @@ class UserAccessController extends ControllerBase
             'signupform'  => $sign_up_form,
             'errors'      => $errors,
             'currency_list' => [],
+            'time_to_remain_draw' => false,
+            'last_minute' => false,
+            'draw_date' => '',
+            'timeout_to_closing_modal' => 30 * 60 * 1000,
+            'minutes_to_close' => false,             
             'form_errors' => $form_errors,
         ]);
     }
@@ -228,7 +238,7 @@ class UserAccessController extends ControllerBase
     {
        $result = $this->authService->resetPassword($token);
         if ($result->success()) {
-            $message = 'Your password was reset!';
+            //$message = 'Your password was reset!';
             $this->view->pick('recovery/index');
             return $this->view->setVars([
                 'currency_list' => [],
@@ -241,6 +251,8 @@ class UserAccessController extends ControllerBase
             //$message = 'Sorry, the token you used is no longer valid.';
         }
     }
+
+
 
 
     /**

@@ -6,8 +6,12 @@ use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\forms\MyAccountForm;
 use EuroMillions\web\forms\SignInForm;
 use EuroMillions\web\forms\SignUpForm;
+use EuroMillions\web\vo\dto\OrderDTO;
+use EuroMillions\web\vo\dto\SiteConfigDTO;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\vo\Order;
+use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
@@ -16,73 +20,43 @@ use Phalcon\Validation\Message;
 
 class CartController extends PublicSiteControllerBase{
 
-    //EMTD should we create an entity to load config global data system?
-    private static $_config_vars = [
-        'fee_below' => 1200,
-        'fee_below_currency' => 'EUR',
-        'fee_charge' => 35,
-        'fee_charge_currency' => 'EUR'
-    ];
-
-
     public function orderAction(){
+
         $user_id = $this->request->get('user');
         /** @var UserId $currenct_user_id */
         $current_user_id = $this->authService->getCurrentUser()->getId();
         $credit_card_form = new CreditCardForm();
         $form_errors = $this->getErrorsArray();
 
-        // for the moment user_id is a guest_user
-        $result = false;
         if(!empty($user_id)) {
-            $user = new User();
-            $user->setId(new UserId($user_id));
-            $result_guest_user = $this->domainServiceFactory->getPlayService()->getPlaysFromTemporarilyStorage($user);
-            if($result_guest_user->success()) {
-               $json_play = $this->domainServiceFactory->getPlayService()->getPlaysFromTemporarilyStorage($user);
-               $this->domainServiceFactory->getPlayService()->savePlayFromJson($json_play->getValues()->getValues(),$current_user_id);
-                $user = $this->userService->getUser($current_user_id);
-                $result = $this->domainServiceFactory->getPlayService()->getPlaysFromTemporarilyStorage($user);
-            }
+            $result = $this->domainServiceFactory->getPlayService()->getPlaysFromGuestUserAndSwitchUser(new UserId($user_id),$current_user_id);
+            $user = $this->userService->getUser($current_user_id);
         } else {
             /** @var User $user */
             $user = $this->userService->getUser($current_user_id);
             $result = $this->domainServiceFactory->getPlayService()->getPlaysFromTemporarilyStorage($user);
         }
-        //EMTD: @rmrbest move to a service method to get total price
-        $price_single_bet = $this->lotteriesDataService->getSingleBetPriceByLottery('EuroMillions');
-        $play_config_json = '';
-        $bet_price_value_currency = $this->currencyService->convert($price_single_bet,$user->getUserCurrency());
-        $fee_below = $this->currencyService->convert(new Money(self::$_config_vars['fee_below'],new Currency(self::$_config_vars['fee_below_currency'])), $user->getUserCurrency());
-        $fee_charge = $this->currencyService->convert(new Money(self::$_config_vars['fee_charge'],new Currency(self::$_config_vars['fee_charge_currency'])), $user->getUserCurrency());
-        $wallet_balance = $this->currencyService->convert($user->getBalance(),$user->getUserCurrency());
-        if($result->success()) {
-            //EMTD check this redirect
-            if(!$result->getValues()->success()) {
-                $this->response->redirect('/play');
-            }
-            /** @var ActionResult $play_config_json */
-            $play_config_json = $result->getValues();
-            $play_config_decode = json_decode($play_config_json->getValues());
-            $total_price = count($play_config_decode->euroMillionsLines->bets)
-                * $play_config_decode->drawDays * $bet_price_value_currency->getAmount() *  $play_config_decode->frequency / 10000;
-        } else {
+        if(!$result->success()) {
             $this->response->redirect('/play');
+            return false;
         }
 
-        $currency_symbol = $this->currencyService->getSymbol($bet_price_value_currency,$user->getBalance()->getCurrency());
+        list($fee,$fee_limit) = $this->getFees();
+        $single_bet_price = $this->domainServiceFactory->getLotteriesDataService()->getSingleBetPriceByLottery('EuroMillions');
+        $order = new Order($result->returnValues(),$single_bet_price, $fee, $fee_limit); // order created
+        list($currency_symbol,$bet_price_value_currency, $wallet_balance,$total_price_currency) = $this->getVarsToOrderView($order, $user, $single_bet_price);
         $locale = $this->request->getBestLanguage();
-        $symbol_position = $this->currencyService->getSymbolPosition($locale,$user->getUserCurrency());
+        $symbol_position = $this->currencyService->getSymbolPosition($locale,$order->getPlayConfig()->getUser()->getUserCurrency());
+        $order_dto = new OrderDTO($order);
+        $order_dto->setSingleBetPrice($bet_price_value_currency);
+        $order_dto->setWalletBalance($wallet_balance);
+        $order_dto->setTotal($total_price_currency);
+
         return $this->view->setVars([
-            'total' => !empty($total_price) ? $total_price : 0,
+            'order' => $order_dto,
             'form_errors' => $form_errors,
             'currency_symbol' => $currency_symbol,
             'symbol_position' => ($symbol_position === 0) ? false : true,
-            'fee_below' => $fee_below->getAmount() / 100,
-            'fee_charge' => $fee_charge->getAmount() / 100,
-            'single_bet_price' => $bet_price_value_currency->getAmount() / 10000,
-            'wallet_balance' => $wallet_balance->getAmount() / 100,
-            'play_config_list' => $play_config_json->getValues(),
             'message' => (!empty($msg)) ? $msg : '',
             'errors' => [],
             'msg' => [],
@@ -233,6 +207,28 @@ class CartController extends PublicSiteControllerBase{
     }
 
 
+    public function paymentAction()
+    {
+        $credit_card_form = new CreditCardForm();
+        $form_errors = $this->getErrorsArray();
+        $funds_value = (int) $this->request->getPost('funds-value');
+        $card_number = $this->request->getPost('card-number');
+        $card_holder_name = $this->request->getPost('card-holder');
+        $year = $this->request->getPost('year');
+        $month = $this->request->getPost('month');
+        $cvv = $this->request->getPost('card-cvv');
+
+
+
+
+
+
+
+
+
+
+    }
+
 
 
     public function validateAction($token)
@@ -318,6 +314,39 @@ class CartController extends PublicSiteControllerBase{
         }
         sort($countries);
         return $myaccount_form;
+    }
+
+    /**
+     *
+     */
+    private function getFees()
+    {
+        $siteConfig = $this->di->get('siteConfig');
+        $fee_site_config_dto = new SiteConfigDTO($siteConfig[0]);
+        $fee_to_limit_config_dto = new SiteConfigDTO($siteConfig[1]);
+        $fee_value = new Money((int)$fee_site_config_dto->value, new Currency('EUR'));
+        $fee_to_limit_value = new Money((int)$fee_to_limit_config_dto->value, new Currency('EUR'));
+
+        return [$fee_value,$fee_to_limit_value];
+    }
+
+    /**
+     * @param $order
+     * @param $user
+     * @param $single_bet_price
+     * @return array
+     * @throws \Exception
+     */
+    private function getVarsToOrderView(Order $order)
+    {
+        $user_currency = $order->getPlayConfig()->getUser()->getUserCurrency();
+        $total_price = $this->domainServiceFactory->getPlayService()->getTotalPriceFromPlay($order->getPlayConfig(), $order->getSingleBetPrice());
+        $total_price_currency = $this->currencyService->convert($total_price, $user_currency);
+        $currency_symbol = $this->currencyService->getSymbol($total_price_currency, $order->getPlayConfig()->getUser()->getBalance()->getCurrency());
+        $bet_price_value_currency = $this->currencyService->convert($order->getSingleBetPrice(),$user_currency)->getAmount() / 10000;
+        $wallet_balance = $this->currencyService->convert($order->getPlayConfig()->getUser()->getBalance(),$order->getPlayConfig()->getUser()->getUserCurrency())->getAmount() / 100;
+        $total_price_currency = $this->currencyService->convert($order->getTotal(),$order->getPlayConfig()->getUser()->getUserCurrency())->getAmount() / 10000;
+        return array($currency_symbol,$bet_price_value_currency, $wallet_balance,$total_price_currency);
     }
 
 }

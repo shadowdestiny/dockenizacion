@@ -1,3 +1,26 @@
+{% block template_scripts %}
+<script>
+
+$(function(){
+    $('#funds-value').on('keyup',function(e) {
+        ///^\D+(\.\D\D?)?$/
+        var regex = /^\d+(\.\d{0,2})?$/g;
+        if (!regex.test(this.value)) {
+            this.value = '';
+        }
+    });
+
+    $('#funds-value').on('blur', function(e) {
+        alert('alert');
+        $(this).val($(this).val().toFixed(2));
+    });
+})
+
+</script>
+
+{% endblock %}
+
+
 {% if msg %}
     <div class="box success">
         <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"/></svg>
@@ -30,10 +53,11 @@
             <div class="cols">
                 <div class="col6">
         {% endif %}
-            <label class="label" for="add-card-number">
-                {{ language.translate("Card Number") }} <span class="asterisk">*</span>
-            </label>
-                    {{ credit_card_form.render('card-number', {'class':'input'~form_errors['card-number']}) }}
+        <label class="label" for="add-card-number">
+            {{ language.translate("Card Number") }} <span class="asterisk">*</span>
+        </label>
+        {{ credit_card_form.render('card-number', {'class':'input'~form_errors['card-number'], "placeholder":"0000000000000000"}) }}
+
         {% if component.where == 'cart' %}
                 </div>
                 <div class="col6">
@@ -41,7 +65,8 @@
         <label class="label" for="add-card-name">
             {{ language.translate("Full Name on Card") }} <span class="asterisk">*</span>
         </label>
-                    {{ credit_card_form.render('card-holder', {'class':'input'~form_errors['card-holder']}) }}
+        {{ credit_card_form.render('card-holder', {'class':'input'~form_errors['card-holder'], "placeholder":"Antonio García Carrión"}) }}
+        
         {% if component.where == 'cart' %}
                 </div>
             </div>
@@ -57,32 +82,10 @@
             <label class="label block">
                 {{ language.translate("Expiration date") }} <span class="asterisk">*</span>
             </label>
-            <select class="select month {{ form_errors['month'] }}" name="month">
-                <option>01</option>
-                <option>02</option>
-                <option>03</option>
-                <option>04</option>
-                <option>05</option>
-                <option>06</option>
-                <option>07</option>
-                <option>08</option>
-                <option>09</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-            </select>
-            <select class="select year" name="year">
-                <option>2016</option>
-                <option>2017</option>
-                <option>2018</option>
-                <option>2019</option>
-                <option>2020</option>
-                <option>2021</option>
-                <option>2022</option>
-                <option>2023</option>
-                <option>2024</option>
-                <option>2025</option>
-            </select>
+
+        {{ credit_card_form.render('expiry-date', {'class':''~form_errors['expiry-date']}) }}
+
+
         </div>
         <div class="left cvv">
             <label class="label block" for="cvv">
@@ -91,6 +94,7 @@
             </label>
             {{ credit_card_form.render('card-cvv', {'class':'input'~form_errors['card-cvv']}) }}
         </div>
+        {{ credit_card_form.render('csrf', ['value': security.getSessionToken()]) }}
     </div>
 
     {% if component.where == 'cart' %}
@@ -117,7 +121,7 @@
                 </div>
                 <div class="notes">
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                    <span class="txt">{{ language.translate("Fee of &euro; 0.35 will be charged for transfers less than &euro; 12.00") }}</span>
+                    <span class="txt">{{ language.translate("Fee of")}} {{  fee }} {{ language.translate("will be charged for transfers less than ") }} {{ fee_to_limit }}</span>
                 </div>
             </div>
         </div>

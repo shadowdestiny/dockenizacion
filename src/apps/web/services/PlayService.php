@@ -22,6 +22,8 @@ use EuroMillions\web\vo\CastilloTicketId;
 use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\UserId;
+use Money\Currency;
+use Money\Money;
 
 class PlayService
 {
@@ -58,40 +60,93 @@ class PlayService
         $this->playStorageStrategy = $playStorageStrategy;
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
         $this->logValidationRepository = $entityManager->getRepository('EuroMillions\web\entities\LogValidationApi');
+
     }
+
+
+
+    public function getPlaysFromGuestUserAndSwitchUser(UserId $user_id, UserId $current_user_id)
+    {
+
+        /** @var User $user */
+        $user = $this->userRepository->find($user_id->id());
+        if( null == $user ) {
+            return new ActionResult(false);
+        }
+
+        try{
+            /** @var ActionResult $result_save_playstorage */
+            $result_save_playstorage = $this->playStorageStrategy->findByKey($user_id);
+            if($result_save_playstorage->success()) {
+                $this->playStorageStrategy->save($result_save_playstorage->returnValues(),$current_user_id);
+                $result_save_playstorage = $this->playStorageStrategy->findByKey($current_user_id);
+                if($result_save_playstorage->success()) {
+                    $form_decode = json_decode($result_save_playstorage->getValues());
+                    $bets = [];
+                    foreach($form_decode->euroMillionsLines->bets as $bet) {
+                        $bets[] = $bet;
+                    }
+                    $playConfig = new PlayConfig();
+                    $playConfig->formToEntity($user,$result_save_playstorage->getValues(),$bets);
+                    return new ActionResult(true,$playConfig);
+                } else {
+                    return new ActionResult(false);
+                }
+            } else {
+                return new ActionResult(false);
+            }
+        } catch ( \Exception $e ) {
+            return new ActionResult(false);
+        }
+    }
+
+    //EMTD pass Order VO instead stdClass
+    public function getTotalPriceFromPlay(PlayConfig $playConfig, Money $single_bet_price)
+    {
+        try{
+            $lines = $playConfig->getLine();
+            $total =  count($lines)
+            * $playConfig->getDrawDays()->value() * $single_bet_price->getAmount() * $playConfig->getFrequency();
+
+            return new Money((int) $total, new Currency('EUR'));
+        } catch ( \Exception $e ) {
+            throw new \Exception('Error calculating total price');
+        }
+    }
+
 
     /**
      * @param User $user
      * @return ActionResult
      */
-    public function play(User $user)
+    public function play(User $user )
     {
-        //EMTD previously should check amount or userservice deduct amount about his balance
-   //     if($user->getBalance()->getAmount() > 0){
-        try {
-            /** @var ActionResult $temporalForm */
-            $temporalForm = $this->playStorageStrategy->findByKey($user->getId()->id());
-            //EMTD @rmrbest If the findByKey method returns an ActionResult object, why do you check empty instead of success?
-            if(empty($temporalForm)){
-                return new ActionResult(false,'The search key doesn\'t exist');
-            }
-            $form_decode = json_decode($temporalForm->getValues());
-            foreach($form_decode->euroMillionsLines->bets as $bet) {
-                $playConfig = new PlayConfig();
-                $playConfig->formToEntity($user,$temporalForm->getValues(),$bet);
-                $this->playConfigRepository->add($playConfig);
-                $this->entityManager->flush();
-                //Remove play storage
-                $result = $this->playStorageStrategy->delete($user->getId()->id());
-            }
-            if(!empty($result)){
-                return new ActionResult(true);
-            }else{
-                return new ActionResult(false);
-            }
-        } catch(\Exception $e){
-            return new ActionResult(false, 'An exception occurred while created play');
-        }
+//        //EMTD previously should check amount or userservice deduct amount about his balance
+//      //  if($user->getBalance()->getAmount() > 0){
+//        try {
+//            /** @var ActionResult $temporal_form_result */
+//            $temporal_form_result = $this->playStorageStrategy->findByKey($user->getId()->id());
+//            if(!$temporal_form_result->success()){
+//                return new ActionResult(false,'The search key doesn\'t exist');
+//            }
+//            $form_decode = json_decode($temporal_form_result->getValues());
+//            foreach($form_decode->euroMillionsLines->bets as $bet) {
+//                $playConfig = new PlayConfig();
+//                $playConfig->formToEntity($user,$temporal_form_result->getValues(),$bet);
+//                $this->playConfigRepository->add($playConfig);
+//                $this->entityManager->flush();
+//                //Remove play storage
+//                $result = $this->playStorageStrategy->delete($user->getId()->id());
+//            }
+//            if(!empty($result)){
+//                return new ActionResult(true);
+//            }else{
+//                return new ActionResult(false);
+//            }
+//        } catch(\Exception $e){
+//            return new ActionResult(false, 'An exception occurred while created play');
+//            //EMTD send a warning to admin
+//        }
 //        } else {
 //            return new ActionResult(false);
 //        }
@@ -162,11 +217,17 @@ class PlayService
     public function getPlaysFromTemporarilyStorage(User $user)
     {
         try {
+            /** @var ActionResult $result */
             $result = $this->playStorageStrategy->findByKey($user->getId()->id());
-            if(!empty($result)) {
-                //Remove play storage
-               // $this->playStorageStrategy->delete($user->getId()->id());
-                return new ActionResult(true,$result);
+            if($result->success()) {
+                $form_decode = json_decode($result->returnValues());
+                $bets = [];
+                foreach($form_decode->euroMillionsLines->bets as $bet) {
+                    $bets[] = $bet;
+                }
+                $playConfig = new PlayConfig();
+                $playConfig->formToEntity($user,$result->getValues(),$bets);
+                return new ActionResult(true,$playConfig);
             } else {
                 return new ActionResult(false);
             }

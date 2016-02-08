@@ -4,35 +4,37 @@
 namespace EuroMillions\web\controllers;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\CreditCardForm;
+use EuroMillions\web\forms\elements\CreditCardExpiryDateElement;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
-use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\forms\ResetPasswordForm;
+use EuroMillions\web\forms\validators\CreditCardExpiryDateValidator;
 use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
-use EuroMillions\web\services\card_payment_providers\FakeCardPaymentProvider;
-use EuroMillions\web\services\card_payment_providers\payxpert\PayXpertConfig;
-use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentProvider;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
-use EuroMillions\web\services\WalletService;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CVV;
 use EuroMillions\web\vo\dto\PlayConfigDTO;
+use EuroMillions\web\vo\dto\SiteConfigDTO;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\UserNotificationsDTO;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\ExpiryDate;
 use EuroMillions\web\vo\NotificationType;
-use EuroMillions\web\vo\UserId;
+use Money\Currency;
 use Money\Money;
+use Phalcon\Di;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Form;
+use Phalcon\Validation\Validator\Numericality;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation;
 use Phalcon\Validation\Message;
+use Phalcon\Validation\Validator\Regex;
 
 class AccountController extends PublicSiteControllerBase
 {
@@ -108,7 +110,7 @@ class AccountController extends PublicSiteControllerBase
                     $errors[] = $field_messages[0]->getMessage();
                     $form_errors[$field] = ' error';
                 }
-            }else {
+            } else {
                 $result_same_password = $this->authService->samePassword($user,$this->request->getPost('old-password'));
                 if($result_same_password->success()) {
                     $result = $this->authService->updatePassword($user, $this->request->getPost('new-password'));
@@ -178,6 +180,13 @@ class AccountController extends PublicSiteControllerBase
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $form_errors = $this->getErrorsArray();
 
+
+        /** @var ArrayCollection $siteConfig */
+        list($fee_value_convert,
+            $fee_to_limit_value_convert,
+            $currency_symbol,
+            $symbol_position) = $this->getSiteConfigVars();
+
         return $this->view->setVars([
             'which_form' => 'wallet',
             'form_errors' => $form_errors,
@@ -185,7 +194,9 @@ class AccountController extends PublicSiteControllerBase
             'msg' => [],
             'credit_card_form' => $credit_card_form,
             'show_form_add_fund' => false,
-            'show_box_basic' => true
+            'show_box_basic' => true,
+            'fee' => $symbol_position ? $fee_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_value_convert->getAmount() /100,
+            'fee_to_limit' => $symbol_position ? $fee_to_limit_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_to_limit_value_convert->getAmount() /100,
         ]);
     }
 
@@ -197,24 +208,34 @@ class AccountController extends PublicSiteControllerBase
         $funds_value = (int) $this->request->getPost('funds-value');
         $card_number = $this->request->getPost('card-number');
         $card_holder_name = $this->request->getPost('card-holder');
-        $year = $this->request->getPost('year');
         $month = $this->request->getPost('month');
+        $year = $this->request->getPost('year');
         $cvv = $this->request->getPost('card-cvv');
 
         $errors = [];
         $msg = '';
 
         if($this->request->isPost()) {
+
+            $expiry_date = new CreditCardExpiryDateElement('expiry-date');
+            $expiry_date->setAttribute('value',$month.'/'.$year);
+            $expiry_date->addValidator(new CreditCardExpiryDateValidator());
+
+            $credit_card_form->add($expiry_date);
+
             if ($credit_card_form->isValid($this->request->getPost()) == false) {
                 $messages = $credit_card_form->getMessages(true);
+
                 /**
                  * @var string $field
                  * @var Message\Group $field_messages
                  */
+                //check date
                 foreach ($messages as $field => $field_messages) {
                     $errors[] = $field_messages[0]->getMessage();
                     $form_errors[$field] = ' error';
                 }
+
             }else {
                 $user_id = $this->authService->getCurrentUser();
                 /** User $user */
@@ -227,9 +248,13 @@ class AccountController extends PublicSiteControllerBase
                         $paymentProviderFactory = $this->di->get('paymentProviderFactory');
                         $config_payment = $this->di->get('config')['payxpert'];
                         $payXpertCardPaymentStrategy = $paymentProviderFactory->getCreditCardPaymentProvider(new PayXpertCardPaymentStrategy($config_payment));
-                        $result = $wallet_service->rechargeWithCreditCard($payXpertCardPaymentStrategy, $card, $user, new Money($funds_value * 100, $user->getUserCurrency()));
+                        //convert currency to EUR
+                        $currency_euros_to_payment = $this->currencyService->convert(new Money($funds_value * 100, $user->getUserCurrency()), new Currency('EUR'));
+                        $result = $wallet_service->rechargeWithCreditCard($payXpertCardPaymentStrategy, $card, $user, $currency_euros_to_payment);
                         if($result->success()) {
-                            $msg = 'Your balance is been updated. You have now: ' . $user->getBalance()->getAmount() / 100 . ' ' . $user->getBalance()->getCurrency()->getName();
+                            $converted_currency = $this->currencyService->convert($user->getBalance(), $user->getUserCurrency());
+                            $msg = 'Your balance is been updated. You have now: ' . number_format($converted_currency->getAmount() / 100,2,'.',',') . ' ' . $user->getUserCurrency()->getName();
+                            $credit_card_form->clear();
                         } else {
                             $errors[] = 'An error occurred. The response with our payment provider was: ' . $result->returnValues()->errorMessage;
                         }
@@ -240,12 +265,26 @@ class AccountController extends PublicSiteControllerBase
                 }
             }
         }
+
+        list($fee_value_convert,
+             $fee_to_limit_value_convert,
+             $currency_symbol,
+             $symbol_position) = $this->getSiteConfigVars();
+
+        if(isset($form_errors['month'])) {
+            $form_errors['expiry-date'] = ' error';
+        }
+
         $this->view->pick('/account/wallet');
         return $this->view->setVars([
             'form_errors' => $form_errors,
             'errors' => $errors,
+            'month_selected' => $month,
+            'year_selected' => $year,
             'credit_card_form' => $credit_card_form,
             'msg' => $msg,
+            'fee' => $symbol_position ? $fee_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_value_convert->getAmount() /100,
+            'fee_to_limit' => $symbol_position ? $fee_to_limit_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_to_limit_value_convert->getAmount() /100,
             'show_form_add_fund' => true,
             'show_box_basic' => false,
         ]);
@@ -365,7 +404,7 @@ class AccountController extends PublicSiteControllerBase
                 if($user_result->success()) {
                     $result = $this->authService->updatePassword($user_result->getValues(), $new_password);
                     if ($result->success()) {
-                        $this->response->redirect('/sign-in');
+                        //this->response->redirect('/sign-in');
                         $msg = true;
                     } else {
                         $errors [] = $result->errorMessage();
@@ -411,6 +450,18 @@ class AccountController extends PublicSiteControllerBase
         return $messages;
     }
 
+
+    private function validationExpiryDate()
+    {
+        $validation = new Validation();
+        $messages = [];
+        $month = $this->request->getPost('month');
+        $year = $this->request->getPost('year');
+
+        $test = new CreditCardExpiryDateValidator();
+        $result = $test->validate($validation,$month.'/'.$year);
+    }
+
     /**
      * @return array
      */
@@ -421,7 +472,7 @@ class AccountController extends PublicSiteControllerBase
             'card-holder' => '',
             'card-cvv' => '',
             'funds-value' => '',
-            'month' => ''
+            'expiry-date' => ''
         ];
         return $form_errors;
     }
@@ -430,14 +481,43 @@ class AccountController extends PublicSiteControllerBase
     {
 
         $fund_value = new Text('funds-value', array(
-            'placeholder' => 'Insert an ammount'
+            'placeholder' => 'Insert an amount'
         ));
         $fund_value->addValidators(array(
             new PresenceOf(array(
                 'message' => 'A value is required to add funds'
+            )),
+            new Numericality(array(
+            )),
+            new Regex(array(
+                'message' => 'The value in Add funds is not valid. It must be composed of only numbers without decimals or symbols.',
+                'pattern' => '/^[\d]{1,8}([\.|\,]\d{1,2})?$/'
+
             ))
         ));
-       $form->add($fund_value);
+
+        $form->add($fund_value);
         return $form;
+    }
+
+    /**
+     * @return array
+     */
+    private function getSiteConfigVars()
+    {
+        /** @var ArrayCollection $siteConfig */
+        $siteConfig = $this->di->get('siteConfig');
+        $fee_site_config_dto = new SiteConfigDTO($siteConfig[0]);
+        $fee_to_limit_config_dto = new SiteConfigDTO($siteConfig[1]);
+        $fee_value = new Money((int)$fee_site_config_dto->value, new Currency('EUR'));
+        $fee_to_limit_value = new Money((int)$fee_to_limit_config_dto->value, new Currency('EUR'));
+        $user_id = $this->authService->getCurrentUser();
+        $user = $this->userService->getUser($user_id->getId());
+        $fee_value_convert = $this->currencyService->convert($fee_value, $user->getUserCurrency());
+        $fee_to_limit_value_convert = $this->currencyService->convert($fee_to_limit_value, $user->getUserCurrency());
+        $currency_symbol = $this->currencyService->getSymbol($fee_value_convert, $user->getBalance()->getCurrency());
+        $locale = $this->request->getBestLanguage();
+        $symbol_position = $this->currencyService->getSymbolPosition($locale, $user->getUserCurrency());
+        return array($fee_value_convert, $fee_to_limit_value_convert, $currency_symbol, $symbol_position);
     }
 }

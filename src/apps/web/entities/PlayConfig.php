@@ -39,6 +39,25 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm
 
     protected $threshold;
 
+    protected $frequency;
+
+
+    /**
+     * @return mixed
+     */
+    public function getFrequency()
+    {
+        return $this->frequency;
+    }
+
+    /**
+     * @param mixed $frequency
+     */
+    public function setFrequency($frequency)
+    {
+        $this->frequency = $frequency;
+    }
+
     /**
      * @return mixed
      */
@@ -142,7 +161,7 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm
     }
 
 
-    public function formToEntity(User $user, $json, $bet)
+    public function formToEntity(User $user, $json, $bets)
     {
         $formPlay = null;
         try{
@@ -151,21 +170,35 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm
                 throw new Exception('Error converting object to array from storage');
             }
             $this->setUser($user);
-            $regular_numbers = [];
-            $lucky_numbers = [];
-            foreach ($bet->regular as $number) {
-                $regular_numbers[] = new EuroMillionsRegularNumber($number);
+            $euroMillionsLine = [];
+
+            foreach($bets as $bet) {
+                $regular_numbers = [];
+                $lucky_numbers = [];
+                foreach ($bet->regular as $number) {
+                    $regular_numbers[] = new EuroMillionsRegularNumber($number);
+                }
+
+                foreach ($bet->lucky as $number) {
+                    $lucky_numbers[] = new EuroMillionsLuckyNumber((int) $number);
+                }
+                $euroMillionsLine[] = new EuroMillionsLine($regular_numbers,$lucky_numbers);
             }
-            foreach ($bet->lucky as $number) {
-                $lucky_numbers[] = new EuroMillionsLuckyNumber((int) $number);
-            }
-            $this->setLine(new EuroMillionsLine($regular_numbers,$lucky_numbers));
+
+            $this->setLine($euroMillionsLine);
             $this->setActive(true);
             $this->setDrawDays(new DrawDays($formPlay['drawDays']));
             $this->setStartDrawDate(new \DateTime($formPlay['startDrawDate']));
             $this->setLastDrawDate(new \DateTime($formPlay['lastDrawDate']));
+            $this->setFrequency((int) $formPlay['frequency']);
+
         }catch(Exception $e){
             throw new Exception($e);
         }
+    }
+
+    public function toJson()
+    {
+        return json_encode(get_object_vars($this));
     }
 }
