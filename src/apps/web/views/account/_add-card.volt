@@ -1,26 +1,3 @@
-{% block template_scripts %}
-<script>
-
-$(function(){
-    $('#funds-value').on('keyup',function(e) {
-        ///^\D+(\.\D\D?)?$/
-        var regex = /^\d+(\.\d{0,2})?$/g;
-        if (!regex.test(this.value)) {
-            this.value = '';
-        }
-    });
-
-    $('#funds-value').on('blur', function(e) {
-        alert('alert');
-        $(this).val($(this).val().toFixed(2));
-    });
-})
-
-</script>
-
-{% endblock %}
-
-
 {% if msg %}
     <div class="box success">
         <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"/></svg>
@@ -113,7 +90,7 @@ $(function(){
                 <h2 class="h3 yellow">{{ language.translate("Add funds to your wallet") }}</h2>
                 <div class="div-balance"><strong class="purple">{{ language.translate("Current Wallet balance:") }}</strong> <span class="value">{{ user_balance }}</span></div>
                 <div class="box-wallet overview">
-                    <span class="currency">&euro;</span>{{ credit_card_form.render('funds-value', {'class':'insert input'~form_errors['funds-value']}) }}
+                    <span class="currency">{{ symbol }} </span>{{ credit_card_form.render('funds-value', {'class':'insert input'~form_errors['funds-value']}) }}
                     <label class="label btn green">
                         {{ language.translate("Add funds to your wallet") }}
                         <input type="submit" class="hidden">

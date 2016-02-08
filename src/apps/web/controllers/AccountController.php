@@ -276,11 +276,13 @@ class AccountController extends PublicSiteControllerBase
         }
 
         $this->view->pick('/account/wallet');
+        $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
         return $this->view->setVars([
             'form_errors' => $form_errors,
             'errors' => $errors,
             'month_selected' => $month,
             'year_selected' => $year,
+            'symbol' => $symbol,
             'credit_card_form' => $credit_card_form,
             'msg' => $msg,
             'fee' => $symbol_position ? $fee_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_value_convert->getAmount() /100,
