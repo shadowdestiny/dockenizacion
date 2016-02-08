@@ -1,11 +1,8 @@
 @import "variable";
 .modal{display:none;}
-
 .modal.basic{padding:20px; box-shadow:1px 1px 3px rgba(0,0,0,.35); background-color:#fff; border-radius:5px; font-size:$h4;}
-
 .modal.win{
   position:relative; display:block; width:900px; height:300px; border-radius:5px; background:url(../img/win/win.jpg) no-repeat;
-
   /* Because of JQ Mobile */
   .btn-box{position:absolute; right:35px; bottom:25px; display:inline-block;}
 }
