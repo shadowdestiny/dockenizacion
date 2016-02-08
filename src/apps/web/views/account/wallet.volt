@@ -31,6 +31,29 @@ function checkRadio(id){
     });
 }
 
+
+$('#funds-value').on('keyup',function(e) {
+    ///^\D+(\.\D\D?)?$/
+    var regex = /^\d+(\.\d{0,2})?$/g;
+});
+
+$('#funds-value').on('keypress',function(e) {
+    var pattern = /^[0-9\.]+$/;
+    var chr = String.fromCharCode(event.which);
+    if(!pattern.test(chr)){
+        event.preventDefault();
+    }
+});
+
+$('#funds-value').on('blur', function(e) {
+    var value = e.target.value;
+    if(value == "" || typeof value == 'undefined' ) {
+        $(this).val("");
+    } else {
+        $(this).val(parseFloat(value).toFixed(2));
+    }
+});
+
 $(function(){
     btnShowHide('.btn.add-funds', '.box-add-card, .back', '.overview-wallet'); // Add funds
     btnShowHide('.btn.withdraw', '.box-bank, .back', '.overview-wallet'); // Withdraw winnings

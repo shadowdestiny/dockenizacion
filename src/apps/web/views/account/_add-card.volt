@@ -1,17 +1,3 @@
-{% block template_scripts %}
-<script>
-    $('#funds-value').on('keyup',function(e) {
-        ///^\D+(\.\D\D?)?$/
-        var regex = /^\d+(\.\d{0,2})?$/g;
-        if (!regex.test(this.value)) {
-            this.value = '';
-        }
-    });
-</script>
-
-{% endblock %}
-
-
 {% if msg %}
     <div class="box success">
         <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"/></svg>
@@ -73,32 +59,10 @@
             <label class="label block">
                 {{ language.translate("Expiration date") }} <span class="asterisk">*</span>
             </label>
-            <select class="select month {{ form_errors['month'] }}" name="month">
-                <option>01</option>
-                <option>02</option>
-                <option>03</option>
-                <option>04</option>
-                <option>05</option>
-                <option>06</option>
-                <option>07</option>
-                <option>08</option>
-                <option>09</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-            </select>
-            <select class="select year" name="year">
-                <option>2016</option>
-                <option>2017</option>
-                <option>2018</option>
-                <option>2019</option>
-                <option>2020</option>
-                <option>2021</option>
-                <option>2022</option>
-                <option>2023</option>
-                <option>2024</option>
-                <option>2025</option>
-            </select>
+
+        {{ credit_card_form.render('expiry-date', {'class':''~form_errors['expiry-date']}) }}
+
+
         </div>
         <div class="left cvv">
             <label class="label block" for="cvv">
@@ -107,6 +71,7 @@
             </label>
             {{ credit_card_form.render('card-cvv', {'class':'input'~form_errors['card-cvv']}) }}
         </div>
+        {{ credit_card_form.render('csrf', ['value': security.getSessionToken()]) }}
     </div>
 
     {% if component.where == 'cart' %}
@@ -125,7 +90,7 @@
                 <h2 class="h3 yellow">{{ language.translate("Add funds to your wallet") }}</h2>
                 <div class="div-balance"><strong class="purple">{{ language.translate("Current Wallet balance:") }}</strong> <span class="value">{{ user_balance }}</span></div>
                 <div class="box-wallet overview">
-                    <span class="currency">&euro;</span>{{ credit_card_form.render('funds-value', {'class':'insert input'~form_errors['funds-value']}) }}
+                    <span class="currency">{{ symbol }} </span>{{ credit_card_form.render('funds-value', {'class':'insert input'~form_errors['funds-value']}) }}
                     <label class="label btn green">
                         {{ language.translate("Add funds to your wallet") }}
                         <input type="submit" class="hidden">

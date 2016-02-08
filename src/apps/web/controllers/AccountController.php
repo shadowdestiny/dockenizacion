@@ -7,9 +7,11 @@ namespace EuroMillions\web\controllers;
 use Doctrine\Common\Collections\ArrayCollection;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\CreditCardForm;
+use EuroMillions\web\forms\elements\CreditCardExpiryDateElement;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
 use EuroMillions\web\forms\ResetPasswordForm;
+use EuroMillions\web\forms\validators\CreditCardExpiryDateValidator;
 use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\vo\CardHolderName;
@@ -28,6 +30,7 @@ use Money\Money;
 use Phalcon\Di;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Form;
+use Phalcon\Validation\Validator\Numericality;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation;
 use Phalcon\Validation\Message;
@@ -177,6 +180,7 @@ class AccountController extends PublicSiteControllerBase
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $form_errors = $this->getErrorsArray();
 
+
         /** @var ArrayCollection $siteConfig */
         list($fee_value_convert,
             $fee_to_limit_value_convert,
@@ -204,24 +208,34 @@ class AccountController extends PublicSiteControllerBase
         $funds_value = (int) $this->request->getPost('funds-value');
         $card_number = $this->request->getPost('card-number');
         $card_holder_name = $this->request->getPost('card-holder');
-        $year = $this->request->getPost('year');
         $month = $this->request->getPost('month');
+        $year = $this->request->getPost('year');
         $cvv = $this->request->getPost('card-cvv');
 
         $errors = [];
         $msg = '';
 
         if($this->request->isPost()) {
+
+            $expiry_date = new CreditCardExpiryDateElement('expiry-date');
+            $expiry_date->setAttribute('value',$month.'/'.$year);
+            $expiry_date->addValidator(new CreditCardExpiryDateValidator());
+
+            $credit_card_form->add($expiry_date);
+
             if ($credit_card_form->isValid($this->request->getPost()) == false) {
                 $messages = $credit_card_form->getMessages(true);
+
                 /**
                  * @var string $field
                  * @var Message\Group $field_messages
                  */
+                //check date
                 foreach ($messages as $field => $field_messages) {
                     $errors[] = $field_messages[0]->getMessage();
                     $form_errors[$field] = ' error';
                 }
+
             }else {
                 $user_id = $this->authService->getCurrentUser();
                 /** User $user */
@@ -234,9 +248,13 @@ class AccountController extends PublicSiteControllerBase
                         $paymentProviderFactory = $this->di->get('paymentProviderFactory');
                         $config_payment = $this->di->get('config')['payxpert'];
                         $payXpertCardPaymentStrategy = $paymentProviderFactory->getCreditCardPaymentProvider(new PayXpertCardPaymentStrategy($config_payment));
-                        $result = $wallet_service->rechargeWithCreditCard($payXpertCardPaymentStrategy, $card, $user, new Money($funds_value * 100, $user->getUserCurrency()));
+                        //convert currency to EUR
+                        $currency_euros_to_payment = $this->currencyService->convert(new Money($funds_value * 100, $user->getUserCurrency()), new Currency('EUR'));
+                        $result = $wallet_service->rechargeWithCreditCard($payXpertCardPaymentStrategy, $card, $user, $currency_euros_to_payment);
                         if($result->success()) {
-                            $msg = 'Your balance is been updated. You have now: ' . $user->getBalance()->getAmount() / 100 . ' ' . $user->getBalance()->getCurrency()->getName();
+                            $converted_currency = $this->currencyService->convert($user->getBalance(), $user->getUserCurrency());
+                            $msg = 'Your balance is been updated. You have now: ' . number_format($converted_currency->getAmount() / 100,2,'.',',') . ' ' . $user->getUserCurrency()->getName();
+                            $credit_card_form->clear();
                         } else {
                             $errors[] = 'An error occurred. The response with our payment provider was: ' . $result->returnValues()->errorMessage;
                         }
@@ -247,16 +265,24 @@ class AccountController extends PublicSiteControllerBase
                 }
             }
         }
-        list($fee_value_convert,
-            $fee_to_limit_value_convert,
-            $currency_symbol,
-            $symbol_position) = $this->getSiteConfigVars();
 
+        list($fee_value_convert,
+             $fee_to_limit_value_convert,
+             $currency_symbol,
+             $symbol_position) = $this->getSiteConfigVars();
+
+        if(isset($form_errors['month'])) {
+            $form_errors['expiry-date'] = ' error';
+        }
 
         $this->view->pick('/account/wallet');
+        $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
         return $this->view->setVars([
             'form_errors' => $form_errors,
             'errors' => $errors,
+            'month_selected' => $month,
+            'year_selected' => $year,
+            'symbol' => $symbol,
             'credit_card_form' => $credit_card_form,
             'msg' => $msg,
             'fee' => $symbol_position ? $fee_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_value_convert->getAmount() /100,
@@ -426,6 +452,18 @@ class AccountController extends PublicSiteControllerBase
         return $messages;
     }
 
+
+    private function validationExpiryDate()
+    {
+        $validation = new Validation();
+        $messages = [];
+        $month = $this->request->getPost('month');
+        $year = $this->request->getPost('year');
+
+        $test = new CreditCardExpiryDateValidator();
+        $result = $test->validate($validation,$month.'/'.$year);
+    }
+
     /**
      * @return array
      */
@@ -436,7 +474,7 @@ class AccountController extends PublicSiteControllerBase
             'card-holder' => '',
             'card-cvv' => '',
             'funds-value' => '',
-            'month' => ''
+            'expiry-date' => ''
         ];
         return $form_errors;
     }
@@ -451,9 +489,12 @@ class AccountController extends PublicSiteControllerBase
             new PresenceOf(array(
                 'message' => 'A value is required to add funds'
             )),
+            new Numericality(array(
+            )),
             new Regex(array(
                 'message' => 'The value in Add funds is not valid. It must be composed of only numbers without decimals or symbols.',
-                'pattern' => '/^[1-9]{0,18}(?:\\.[0-9]{1,2})?$/'
+                'pattern' => '/^[\d]{1,8}([\.|\,]\d{1,2})?$/'
+
             ))
         ));
 
