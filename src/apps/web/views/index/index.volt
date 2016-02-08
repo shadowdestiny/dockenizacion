@@ -1,9 +1,6 @@
 {% extends "main.volt" %}
-{##}
 {% block template_css %}<link rel="stylesheet" href="/w/css/home.css">{% endblock %}
-
 {% block bodyClass %}home{% endblock %}
-
 {% block header %}
 <a id="top"></a>
 {% set activeNav='{"myClass": ""}'|json_decode %} {# It need to be empty #}
@@ -13,7 +10,6 @@
 {% block template_scripts %}
 <script>
 var checkWinSize = 0;
-
 function checkWin(){
 	var temp = checkWinSize;
 	if($(".media").width() > 1){
@@ -49,7 +45,6 @@ $(function(){
 	var date =  '{{ date_to_draw }}'; //   '2016-01-15 14:00:00';
 	var finish_text = "{{ language.translate('Draw closed') }}";
 	var count  = count_down(element,html_formatted,html_formatted_offset,date,finish_text,null);
-
 });
 </script>
 {% endblock %}
@@ -170,7 +165,7 @@ $(function(){
                                             {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
                                             {% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
 											<div class="box-btn">
-												<a href="/play?random" class="btn blue expand">{{ language.translate('I feel lucky') }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
+												<a href="/play?random" class="btn blue expand">{{ language.translate('I feel lucky, QuickPlay') }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
 
 												<a href="/play" class="btn red expand">{{ language.translate('Pick your numbers') }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
 											</div>
@@ -208,7 +203,6 @@ $(function(){
 							<div class="title-em cl">
 								<svg class="vector text">
 									<use xlink:href="/w/svg/icon.svg#em-golden"></use>
-									<use xlink:href="/w/svg/icon.svg#em-golden" x="2" y="2" transform="scale(1.1)"></use>
 								</svg>
 								<h3 class="title">{{ language.translate("Fast, Convenient &amp; Secure") }}</h3>
 							</div>
