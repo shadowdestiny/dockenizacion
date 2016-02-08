@@ -94,6 +94,7 @@ $(function(){
             </label>
             {{ credit_card_form.render('card-cvv', {'class':'input'~form_errors['card-cvv']}) }}
         </div>
+        {{ credit_card_form.render('csrf', ['value': security.getSessionToken()]) }}
     </div>
 
     {% if component.where == 'cart' %}
