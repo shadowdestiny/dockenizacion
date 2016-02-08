@@ -250,7 +250,6 @@ label.submit{cursor:pointer;}
 
 $var1-pulseRight:0,0;
 $var2-pulseRight:20px,0;
-
 @-webkit-keyframes pulseRight{
   0%{-webkit-transform:translate($var1-pulseRight); transform:translate($var1-pulseRight);}
   50%{-webkit-transform:translate($var2-pulseRight); transform:translate($var2-pulseRight);}
@@ -300,7 +299,7 @@ body, .submit{font-family:$basic-font;}
 .logo{float:left; margin:5px 0 0;}
 .minimal .logo{margin-bottom:4px;}
 .no-nav .logo{float:none;}
-.v-logo{height:60px; width:274px;}
+.v-logo{height:60px; width:285px;}
 .main-foot .v-logo{width:200px; margin:0;}
 
 .top-nav{
