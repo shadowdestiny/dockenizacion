@@ -1,3 +1,17 @@
+{% block template_scripts %}
+<script>
+    $('#funds-value').on('keyup',function(e) {
+        ///^\D+(\.\D\D?)?$/
+        var regex = /^\d+(\.\d{0,2})?$/g;
+        if (!regex.test(this.value)) {
+            this.value = '';
+        }
+    });
+</script>
+
+{% endblock %}
+
+
 {% if msg %}
     <div class="box success">
         <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"/></svg>
