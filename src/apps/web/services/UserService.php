@@ -305,4 +305,13 @@ class UserService
         }
     }
 
+    public function chargeFeeFromWallet( Money $amount, Money $fee_limit, Money $fee )
+    {
+        if( $amount->getAmount() < $fee_limit->getAmount() ) {
+            return new ActionResult(true,$amount->add($fee));
+        } else {
+            return new ActionResult(false,$amount);
+        }
+    }
+
 }

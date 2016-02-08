@@ -4,7 +4,6 @@
 namespace EuroMillions\web\forms;
 
 
-use EuroMillions\web\forms\elements\CreditCardExpiryDateElement;
 use EuroMillions\web\forms\validators\CreditCardExpiryDateValidator;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Select;
@@ -22,7 +21,8 @@ class CreditCardForm extends Form
     {
         $card_number = new Text('card-number', array(
             'placeholder' => '',
-            'autocomplete' => 'off'
+            'autocomplete' => 'off',
+
         ));
         $card_number->addValidators(array(
             new PresenceOf(array(
@@ -30,7 +30,9 @@ class CreditCardForm extends Form
             )),
             new Numericality(array(
             )),
-            new CreditCard(array())
+            new CreditCard(array(
+                'message' => 'Card Number insert is not valid. Verify that the number doesn\'t have any space or symbols in between and try again.'
+            ))
         ));
 
 
@@ -67,14 +69,19 @@ class CreditCardForm extends Form
         $this->add($card_cvv);
 
 
-        $expiry_date = new CreditCardExpiryDateElement('expiry-date', [
-            new PresenceOf([
-                'message' => 'A expiry date is required.'
-            ]),
-            new CreditCardExpiryDateValidator([
-            ])
-        ]);
+        $expiry_date = new Text('expiry-date', [
+            'placeholder' => 'mm/yyyy',
+            'autocomplete' => 'off'
+        ] );
 
+        $expiry_date->addValidators(array(
+            new PresenceOf(array(
+                'message' => ''
+            )),
+            new CreditCardExpiryDateValidator(array(
+
+            ))
+        ));
         $this->add($expiry_date);
 
         $csrf = new Hidden('csrf');

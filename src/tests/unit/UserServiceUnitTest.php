@@ -383,6 +383,22 @@ class UserServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
+    /**
+     * method chargeFeeFromWallet
+     * when calledWithProperData
+     * should incrementValueWithChargeValueConfiguredInSystem
+     */
+    public function test_chargeFeeFromWallet_calledWithProperData_incrementValueWithChargeValueConfiguredInSystem()
+    {
+        $fee = new Money(35, new Currency('EUR'));
+        $fee_limit = new Money(12000, new Currency('EUR'));
+        $amount = new Money(1000, new Currency('EUR'));
+        $expected = new ActionResult(true,$amount->add($fee));
+        $sut = $this->getSut();
+        $actual = $sut->chargeFeeFromWallet($amount, $fee_limit, $fee );
+        $this->assertEquals($expected, $actual);
+    }
+
 
     private function getNotifications()
     {

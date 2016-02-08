@@ -187,14 +187,18 @@ class AccountController extends PublicSiteControllerBase
             $currency_symbol,
             $symbol_position) = $this->getSiteConfigVars();
 
+        $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
+
         return $this->view->setVars([
             'which_form' => 'wallet',
             'form_errors' => $form_errors,
             'errors' => [],
             'msg' => [],
+            'symbol' => $symbol,
             'credit_card_form' => $credit_card_form,
             'show_form_add_fund' => false,
             'show_box_basic' => true,
+            'fee_to_limit_value' => $fee_to_limit_value_convert->getAmount() / 100,
             'fee' => $symbol_position ? $fee_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_value_convert->getAmount() /100,
             'fee_to_limit' => $symbol_position ? $fee_to_limit_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_to_limit_value_convert->getAmount() /100,
         ]);
@@ -208,24 +212,15 @@ class AccountController extends PublicSiteControllerBase
         $funds_value = (int) $this->request->getPost('funds-value');
         $card_number = $this->request->getPost('card-number');
         $card_holder_name = $this->request->getPost('card-holder');
-        $month = $this->request->getPost('month');
-        $year = $this->request->getPost('year');
+        $expiry_date = $this->request->getPost('expiry-date');
         $cvv = $this->request->getPost('card-cvv');
 
         $errors = [];
         $msg = '';
 
         if($this->request->isPost()) {
-
-            $expiry_date = new CreditCardExpiryDateElement('expiry-date');
-            $expiry_date->setAttribute('value',$month.'/'.$year);
-            $expiry_date->addValidator(new CreditCardExpiryDateValidator());
-
-            $credit_card_form->add($expiry_date);
-
             if ($credit_card_form->isValid($this->request->getPost()) == false) {
                 $messages = $credit_card_form->getMessages(true);
-
                 /**
                  * @var string $field
                  * @var Message\Group $field_messages
@@ -235,14 +230,13 @@ class AccountController extends PublicSiteControllerBase
                     $errors[] = $field_messages[0]->getMessage();
                     $form_errors[$field] = ' error';
                 }
-
             }else {
                 $user_id = $this->authService->getCurrentUser();
                 /** User $user */
                 $user = $this->userService->getUser($user_id->getId());
                 if(null != $user ){
                     try {
-                        $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($month.'/'.$year), new CVV($cvv));
+                        $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($expiry_date), new CVV($cvv));
                         $wallet_service = $this->domainServiceFactory->getWalletService();
                         /** @var PaymentProviderFactory $paymentProviderFactory */
                         $paymentProviderFactory = $this->di->get('paymentProviderFactory');
@@ -250,10 +244,23 @@ class AccountController extends PublicSiteControllerBase
                         $payXpertCardPaymentStrategy = $paymentProviderFactory->getCreditCardPaymentProvider(new PayXpertCardPaymentStrategy($config_payment));
                         //convert currency to EUR
                         $currency_euros_to_payment = $this->currencyService->convert(new Money($funds_value * 100, $user->getUserCurrency()), new Currency('EUR'));
+
+                        //check if we should apply fee
+                        list( $fee_to_limit_value,
+                              $fee_value,
+                              $currency_symbol,
+                              $symbol_position) = $this->getSiteConfigVars();
+
+                        $result_amount_with_fee = $this->userService->chargeFeeFromWallet($currency_euros_to_payment, $fee_to_limit_value, $fee_value);
+
+                        if($result_amount_with_fee->success()) {
+                            $currency_euros_to_payment = $result_amount_with_fee->getValues();
+                            $msg = 'We have add you a charge. ';
+                        }
                         $result = $wallet_service->rechargeWithCreditCard($payXpertCardPaymentStrategy, $card, $user, $currency_euros_to_payment);
                         if($result->success()) {
                             $converted_currency = $this->currencyService->convert($user->getBalance(), $user->getUserCurrency());
-                            $msg = 'Your balance is been updated. You have now: ' . number_format($converted_currency->getAmount() / 100,2,'.',',') . ' ' . $user->getUserCurrency()->getName();
+                            $msg .= 'Your balance is been updated. You have now: ' . number_format($converted_currency->getAmount() / 100,2,'.',',') . ' ' . $user->getUserCurrency()->getName();
                             $credit_card_form->clear();
                         } else {
                             $errors[] = 'An error occurred. The response with our payment provider was: ' . $result->returnValues()->errorMessage;
@@ -271,20 +278,16 @@ class AccountController extends PublicSiteControllerBase
              $currency_symbol,
              $symbol_position) = $this->getSiteConfigVars();
 
-        if(isset($form_errors['month'])) {
-            $form_errors['expiry-date'] = ' error';
-        }
-
         $this->view->pick('/account/wallet');
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
+
         return $this->view->setVars([
             'form_errors' => $form_errors,
             'errors' => $errors,
-            'month_selected' => $month,
-            'year_selected' => $year,
-            'symbol' => $symbol,
+            'symbol' => (empty($symbol)) ? $user->getUserCurrency()->getName() : $symbol,
             'credit_card_form' => $credit_card_form,
             'msg' => $msg,
+            'fee_to_limit_value' => $fee_to_limit_value_convert->getAmount() / 100,
             'fee' => $symbol_position ? $fee_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_value_convert->getAmount() /100,
             'fee_to_limit' => $symbol_position ? $fee_to_limit_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_to_limit_value_convert->getAmount() /100,
             'show_form_add_fund' => true,
@@ -483,11 +486,13 @@ class AccountController extends PublicSiteControllerBase
     {
 
         $fund_value = new Text('funds-value', array(
-            'placeholder' => 'Insert an amount'
+            'placeholder' => 'Insert an amount',
+            'autocomplete' => 'off'
         ));
         $fund_value->addValidators(array(
             new PresenceOf(array(
                 'message' => 'A value is required to add funds'
+
             )),
             new Numericality(array(
             )),
@@ -521,5 +526,16 @@ class AccountController extends PublicSiteControllerBase
         $locale = $this->request->getBestLanguage();
         $symbol_position = $this->currencyService->getSymbolPosition($locale, $user->getUserCurrency());
         return array($fee_value_convert, $fee_to_limit_value_convert, $currency_symbol, $symbol_position);
+    }
+
+    /**
+     * @return array
+     */
+    private function getFeesValues()
+    {
+        $siteConfig = $this->di->get('siteConfig');
+        $fee_value = new Money((int)$siteConfig[0]->getValue(), new Currency('EUR'));
+        $fee_to_limit_value = new Money((int)$siteConfig[1]->getValue(), new Currency('EUR'));
+        return array($fee_value, $fee_to_limit_value);
     }
 }
