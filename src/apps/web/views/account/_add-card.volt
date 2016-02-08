@@ -1,5 +1,7 @@
 {% block template_scripts %}
 <script>
+
+$(function(){
     $('#funds-value').on('keyup',function(e) {
         ///^\D+(\.\D\D?)?$/
         var regex = /^\d+(\.\d{0,2})?$/g;
@@ -7,6 +9,13 @@
             this.value = '';
         }
     });
+
+    $('#funds-value').on('blur', function(e) {
+        alert('alert');
+        $(this).val($(this).val().toFixed(2));
+    });
+})
+
 </script>
 
 {% endblock %}
@@ -73,32 +82,10 @@
             <label class="label block">
                 {{ language.translate("Expiration date") }} <span class="asterisk">*</span>
             </label>
-            <select class="select month {{ form_errors['month'] }}" name="month">
-                <option>01</option>
-                <option>02</option>
-                <option>03</option>
-                <option>04</option>
-                <option>05</option>
-                <option>06</option>
-                <option>07</option>
-                <option>08</option>
-                <option>09</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-            </select>
-            <select class="select year" name="year">
-                <option>2016</option>
-                <option>2017</option>
-                <option>2018</option>
-                <option>2019</option>
-                <option>2020</option>
-                <option>2021</option>
-                <option>2022</option>
-                <option>2023</option>
-                <option>2024</option>
-                <option>2025</option>
-            </select>
+
+        {{ credit_card_form.render('expiry-date', {'class':''~form_errors['expiry-date']}) }}
+
+
         </div>
         <div class="left cvv">
             <label class="label block" for="cvv">
