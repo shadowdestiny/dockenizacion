@@ -45,9 +45,16 @@ class DateTimeUtil
     public function getTimeRemainingToCloseDraw( \DateTime $time_close_draw )
     {
         $now = new \DateTime();
-        $barrier_time = $time_close_draw->getTimestamp() - 1800;
-        //$barrier_time = strtotime($time_close_draw->format('Y-m-d H:i:s') . ' -30 minutes' );
-        return ($now->getTimestamp() > $barrier_time);
+        $one_day = date( "w", $time_close_draw->getTimestamp());
+        $two_day = date( "w", $now->getTimestamp());
+
+        if( $one_day == $two_day ) {
+            $barrier_time = $time_close_draw->getTimestamp() - 1800;
+            //$barrier_time = strtotime($time_close_draw->format('Y-m-d H:i:s') . ' -30 minutes' );
+            return ($now->getTimestamp() > $barrier_time);
+        }
+
+        return false;
     }
 
     public function restMinutesToCloseDraw( \DateTime $time_close_draw, \DateTime $now = null )

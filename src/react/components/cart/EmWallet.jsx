@@ -47,7 +47,6 @@ var EmWallet = new React.createClass({
         var operand_value = (this.state.checked) ? ' - ' : ' ';
         var total_value = this.props.symbol_position ? operand_value + ' ' + wallet_value.toFixed(2) + ' ' + this.props.currency_symbol : this.props.currency_symbol  + ' ' + operand_value + ' ' + wallet_value.toFixed(2);
 
-        console.log(total_value);
         return (
             <div className="row cl">
                 <div className={disabled_value}>{total_value}</div>
