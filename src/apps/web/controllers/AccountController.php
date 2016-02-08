@@ -178,6 +178,8 @@ class AccountController extends PublicSiteControllerBase
     {
         $credit_card_form = new CreditCardForm();
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
+        $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
+
         $form_errors = $this->getErrorsArray();
 
 
@@ -192,6 +194,7 @@ class AccountController extends PublicSiteControllerBase
             'form_errors' => $form_errors,
             'errors' => [],
             'msg' => [],
+            'symbol' => $symbol,
             'credit_card_form' => $credit_card_form,
             'show_form_add_fund' => false,
             'show_box_basic' => true,

@@ -171,10 +171,16 @@ $(function(){
 											</div>
 										</div>
 										<div class="col6 center box-vector">
-{#											<svg class="vector"><use xlink:href="/w/svg/icon.svg#logo-shadow"></use></svg>
-#}											<svg class="vector" viewBox="-1.6 38 90 100" transform="scale(4.2)">
-												<filter id="shadow" height="130%"><feGaussianBlur in="SourceAlpha" stdDeviation="1"/><feOffset dx=".5" dy="1" result="offsetblur"/><feComponentTransfer><feFuncA type="linear" slope=".5"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+											<svg class="vector" viewBox="-1.6 38 90 100" transform="scale(4.2)">
 												<use xlink:href="/w/svg/icon.svg#logo" style="filter:url(#shadow)"></use>
+												<filter id="shadow" height="130%">
+													<feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
+													<feOffset dx=".5" dy="1" result="offsetblur"/>
+													<feComponentTransfer>
+														<feFuncA type="linear" slope=".5"/>
+													</feComponentTransfer>
+												</filter>
+												<use xlink:href="/w/svg/icon.svg#logo"></use>
 											</svg>
 										</div>
 									</div>
@@ -213,21 +219,10 @@ $(function(){
 						</div>
 						<div class="col6">
 							<span class="gold-pile">
-{##}
-								<svg class="vector"><use xlink:href="/w/svg/icon.svg#logo-shadow"></use></svg>
-
-											<svg class="vector" viewBox="-1.6 38 90 100" transform="scale(4.2)">
-												<use xlink:href="/w/svg/icon.svg#logo" style="filter:url(#shadow2)"></use>
-												<filter id="shadow2" height="130%">
-													<feOffset in="SourceAlpha" dx=".5" dy="1" />
-													<feGaussianBlur stdDeviation="1" result="blur2"/>
-													<feComponentTransfer><feFuncA type="linear" slope=".5"/></feComponentTransfer>
-													<feMerge>
-														<feMergeNode in="blur2"/>
-														<feMergeNode in="SourceGraphic"/>
-													</feMerge>
-												</filter>
-											</svg>
+								<svg class="vector" viewBox="-1.6 39.3 110 100" transform="scale(4.2)">
+									<use xlink:href="/w/svg/icon.svg#logo" style="filter:url(#shadow)"></use> {# Filter shadow used already, no need of duplicate #}
+									<use xlink:href="/w/svg/icon.svg#logo"></use>
+								</svg>
 								<a href="/play" class="btn blue">{{ language.translate("Start playing, Win millions") }}</a>
 							</span>
 						</div>
