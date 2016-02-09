@@ -6,6 +6,7 @@
     {% include "_elements/header.volt" %}
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
+{% block template_scripts %}<script src="/w/js/mobileFix.js"></script>{% endblock %}
 {% block body %}
 <main id="content">
     <div class="bg">

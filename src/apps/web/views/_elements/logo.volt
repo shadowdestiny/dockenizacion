@@ -1,1 +1,1 @@
-<a href="/" class="logo" title="Go to Homepage"><svg alt="Euromillions" class="v-logo vector"><use xlink:href="/w/svg/icon.svg#logo"></a>
+<a href="/" class="logo" title="Go to Homepage"><img class="v-logo vector" src="/w/svg/logo.svg" alt="Euromillions logo"></a>

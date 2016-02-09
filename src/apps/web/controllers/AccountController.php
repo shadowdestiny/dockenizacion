@@ -178,6 +178,8 @@ class AccountController extends PublicSiteControllerBase
     {
         $credit_card_form = new CreditCardForm();
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
+        $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
+
         $form_errors = $this->getErrorsArray();
 
 
@@ -491,15 +493,14 @@ class AccountController extends PublicSiteControllerBase
         ));
         $fund_value->addValidators(array(
             new PresenceOf(array(
-                'message' => 'A value is required to add funds'
-
+                'message' => 'Insert the amount that you want to add to your funds xxx.'
             )),
             new Numericality(array(
+                'message' => 'Insert the amount that you want to add to your funds.'
             )),
             new Regex(array(
                 'message' => 'The value in Add funds is not valid. It must be composed of only numbers without decimals or symbols.',
                 'pattern' => '/^[\d]{1,8}([\.|\,]\d{1,2})?$/'
-
             ))
         ));
 

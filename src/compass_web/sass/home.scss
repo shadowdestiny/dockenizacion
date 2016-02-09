@@ -100,7 +100,7 @@
 .box-prize .btn{margin-bottom:10px;}
 .box-prize{
   .box-vector{width:220px; height:160px;}
-  .vector{width:75%; margin:10px auto 0; max-width:130px; position:relative;}
+  .vector{margin:10px auto 0; max-width:140px; max-height:140px; overflow:hidden; position:relative;}
 }
 
 .informative{
@@ -127,7 +127,7 @@
   .title{font-size:$h2; font-weight:700; position:relative; left:5px; color:#fff;}
   .gold-pile{display:block; width:412px; height:189px; background:url(../img/home/gold-pile.png) no-repeat center center; margin:5px auto 0; text-align:center;
     .btn{display:block; width:250px; margin:auto;}
-    .vector{width:115px; margin-bottom:-34px; max-height:148px;}
+    .vector{width:115px; margin:10px 0 -20px; max-height:148px; pointer-events:none;}
   }
   .title-em{margin:45px 0 0 45px;}
   .text{height:50px; width:358px; margin-left:7px;}

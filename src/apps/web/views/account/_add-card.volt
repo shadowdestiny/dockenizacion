@@ -23,7 +23,7 @@
             <div class="cols">
                 <div class="col6">
         {% endif %}
-        <label class="label" for="add-card-number">
+        <label class="label" for="card-number">
             {{ language.translate("Card Number") }} <span class="asterisk">*</span>
         </label>
         {{ credit_card_form.render('card-number', {'class':'input'~form_errors['card-number'], "placeholder":"0000000000000000"}) }}
@@ -32,7 +32,7 @@
                 </div>
                 <div class="col6">
         {% endif %}
-        <label class="label" for="add-card-name">
+        <label class="label" for="card-holder">
             {{ language.translate("Full Name on Card") }} <span class="asterisk">*</span>
         </label>
         {{ credit_card_form.render('card-holder', {'class':'input'~form_errors['card-holder'], "placeholder":"Antonio García Carrión"}) }}
@@ -47,22 +47,19 @@
         <div class="cols">
     {% endif %}
 
-    <div class="col6 cl card-detail">
+    <div class="{% if component.where == 'cart' %}col6 {% endif %}cl card-detail">
         <div class="left margin">
-            <label class="label block">
+            <label class="label block" for="expiry-date">
                 {{ language.translate("Expiration date") }} <span class="asterisk">*</span>
             </label>
-
-        {{ credit_card_form.render('expiry-date', { 'class':'input'~form_errors['expiry-date']}) }}
-
-
+            {{ credit_card_form.render('expiry-date', { 'class':'input date'~form_errors['expiry-date']}) }}
         </div>
         <div class="left cvv">
-            <label class="label block" for="cvv">
+            <label class="label" for="card-cvv">
                 {{ language.translate("CVV") }} <span class="asterisk">*</span>
                 <svg class="ico v-question-mark"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
             </label>
-            {{ credit_card_form.render('card-cvv', {'class':'input'~form_errors['card-cvv']}) }}
+            {{ credit_card_form.render('card-cvv', {'class':'input'~form_errors['card-cvv'], "placeholder":"000"}) }}
         </div>
         {{ credit_card_form.render('csrf', ['value': security.getSessionToken()]) }}
     </div>

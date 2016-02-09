@@ -8,6 +8,7 @@
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}
+<script src="/w/js/mobileFix.js"></script>
 <script>
 var checkWinSize = 0;
 function checkWin(){
@@ -171,7 +172,21 @@ $(function(){
 											</div>
 										</div>
 										<div class="col6 center box-vector">
-											<svg class="vector"><use xlink:href="/w/svg/icon.svg#logo-shadow"></use></svg>
+											{#
+											<img class="v-logo vector" src="/w/svg/logo.svg" alt="Euromillions logo">
+#}
+
+											<svg class="vector" viewBox="-10 150 100 100">
+												<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)" style="filter:url(#shadow)"></use>
+												<filter id="shadow" height="130%">
+													<feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
+													<feOffset dx=".5" dy="1" result="offsetblur"/>
+													<feComponentTransfer>
+														<feFuncA type="linear" slope=".5"/>
+													</feComponentTransfer>
+												</filter>
+												<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)" x="0" y="0"></use>
+											</svg>
 										</div>
 									</div>
 								</div>
@@ -209,7 +224,12 @@ $(function(){
 						</div>
 						<div class="col6">
 							<span class="gold-pile">
-								<svg class="vector"><use xlink:href="/w/svg/icon.svg#logo-shadow"></use></svg>
+{#
+								<svg class="vector" viewBox="-1.6 39.3 110 100" transform="scale(4.2)">
+									<use xlink:href="/w/svg/icon.svg#logo" style="filter:url(#shadow)"></use> 
+									<use xlink:href="/w/svg/icon.svg#logo"></use>
+								</svg>
+#}
 								<a href="/play" class="btn blue">{{ language.translate("Start playing, Win millions") }}</a>
 							</span>
 						</div>

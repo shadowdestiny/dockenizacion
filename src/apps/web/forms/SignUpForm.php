@@ -45,12 +45,12 @@ class SignUpForm extends Form
             'placeholder' => 'Password'
         ));
         $password->addValidator(new PresenceOf(array(
-            'message' => 'The password is required'
+            'message' => 'Password is a required field.'
         )));
         $password->addValidator(new Confirmation(
             [
                 'with' => 'confirm_password',
-                'message' => 'Passwords don\'t match'
+                'message' => 'Passwords inserted don\'t match.'
             ]
         ));
         $password->addValidator(new PasswordValidator([
@@ -71,7 +71,7 @@ class SignUpForm extends Form
             'placeholder' => 'Confirm Password'
         ));
         $password_confirm->addValidator(new PresenceOf(array(
-            'message' => 'Confirm Password is required'
+            'message' => 'Confirm Password is a required field.'
         )));
 
 

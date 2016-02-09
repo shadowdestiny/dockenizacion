@@ -1,7 +1,6 @@
 {% extends "main.volt" %}
-{% block template_css %}<link rel="stylesheet" href="/w/css/sign-in.css">{% endblock %}
 {% block bodyClass %}sign-in minimal{% endblock %}
-
+{% block template_css %}<link rel="stylesheet" href="/w/css/sign-in.css">{% endblock %}
 {% block template_scripts %}
 <script>
 function swap(myVar){
@@ -10,20 +9,16 @@ function swap(myVar){
         $(".log-in, .sign-up").toggle();
     });
 }
-
-$(function(){
-    swap(".log-in .box-extra a, .sign-up .box-extra a");
-});
-
+$(function(){swap(".log-in .box-extra a, .sign-up .box-extra a");});
 {% if which_form == 'up' %}
     $(".sign-up").show()
     $(".log-in").hide();
 {% endif %}
 </script>
 {% endblock %}
+{% block mobileNav %}{% endblock %} {# Remove mobile navigation #}
 
 {% block body %}
-
 {% set signIn='{"myClass": "sign-in"}'|json_decode %}
 
 <main id="content" style="padding-top:40px;">

@@ -26,16 +26,14 @@ class CreditCardForm extends Form
         ));
         $card_number->addValidators(array(
             new PresenceOf(array(
-                'message' => 'Credit Card number is required'
+                'message' => 'Insert a Credit Card number.'
             )),
             new Numericality(array(
             )),
             new CreditCard(array(
-                'message' => 'Card Number insert is not valid. Verify that the number doesn\'t have any space or symbols in between and try again.'
+                'message' => 'The Credit Card number inserted is not valid. Verify that the number doesn\'t have any space or symbols in between and try again.'
             ))
         ));
-
-
 
         $this->add($card_number);
 
@@ -45,7 +43,7 @@ class CreditCardForm extends Form
         ));
         $card_holder->addValidators(array(
             new PresenceOf(array(
-                'message' => 'Full Name of the Credit Card holder is required'
+                'message' => 'Insert the full name of the Credit Card holder.'
             ))
         ));
         $this->add($card_holder);
@@ -56,7 +54,7 @@ class CreditCardForm extends Form
         ));
         $card_cvv->addValidators(array(
             new PresenceOf(array(
-                'message' => 'CVV number is required'
+                'message' => 'Insert a CVV number.'
             )),
             new Numericality(array(
 

@@ -1,7 +1,7 @@
 {% extends "main.volt" %}
-{% block template_css %}<link rel="stylesheet" href="/w/css/sign-in.css">{% endblock %}
 {% block bodyClass %}forgot-psw no-nav{% endblock %}
-
+{% block template_css %}<link rel="stylesheet" href="/w/css/sign-in.css">{% endblock %}
+{% block mobileNav %}{% endblock %} {# Remove mobile navigation #}
 
 {% block body %}
 <main id="content">
@@ -12,11 +12,8 @@
         <div class="col-right">
             <div class="box-basic small">
                 <h1 class="h2 title">{{ language.translate("Password recovery") }}</h1>
-
                 <p>{{ language.translate("Enter the email address associated with your Euromillions.com account, then click the button.") }}</p>
-
                 <p>{{ language.translate("We'll email your a link to a page where you can easily create a new password.") }}</p>
-
                 {{ form('/userAccess/forgotPassword') }}
                     {%if message %}
                         <div class="box success">

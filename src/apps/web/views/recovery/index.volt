@@ -1,19 +1,17 @@
 {% extends "main.volt" %}
 {% block bodyClass %}recovery no-nav{% endblock %}
 {% block template_css %}<link rel="stylesheet" href="/w/css/sign-in.css">{% endblock %}
-
 {% block template_scripts %}
 <script>
-    var message = {{ message }};
-    if(message) {
-        $('form, .h2.title').hide();
-        $('.login-link').show();
-        $('.login-link').on('click', function(){
-            window.location = '/sign-in';
-        });
-    }
+var message = {{ message }};
+if(message){
+    $('form, .h2.title').hide();
+    $('.login-link').show();
+    $('.login-link').on('click', function(){window.location = '/sign-in';});
+}
 </script>
 {% endblock %}
+{% block mobileNav %}{% endblock %} {# Remove mobile navigation #}
 
 {% block body %}
 <main id="content">
@@ -22,13 +20,12 @@
             {% include "_elements/logo.volt" %}
         </div>
         <div class="col-right">
-
             <div class="box-basic small">
                 <h1 class="h2 title res">{{ language.translate("Generate a new Password") }}</h1>
                 {% if message %}
                     <div class="box success">
                         <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>
-                        <div class="txt">Your password was reset correctly. Please go to <a href="/sign-in"> log in</a>. Good luck!</div>
+                        <div class="txt">{{ language.translate('Your password has been updated.')}}</div>
                     </div>
                 {% endif %}
                 {% if errors %}
@@ -49,14 +46,10 @@
                         {{ language.translate('Update password') }} <input type="submit" class="hidden2" id="submitpass">
                     </label>
                 {{ endform() }}
-                <label class="btn big blue submit login-link" style="display: none">
-                    {{ language.translate('Login') }} <a class="a-login-link" href="/sign-in"></a>
-                </label>
-
+                <a style="display:none" class="btn big blue login-link" href="/sign-in">{{ language.translate('Continue and Log in ') }}</a>
             </div>
         </div>
     </div>
 </main>
-
 {% endblock %}
 

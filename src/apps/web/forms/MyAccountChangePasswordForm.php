@@ -17,10 +17,10 @@ class MyAccountChangePasswordForm extends Form
     public function initialize($entity = null, $options = null)
     {
         $old_password = new Password('old-password', array(
-            'placeholder' => 'Old password'
+            'placeholder' => 'Old password.'
         ));
         $old_password->addValidator(new PresenceOf(array(
-            'message' => 'The password is required'
+            'message' => 'Password is a required field.'
         )));
         $this->add($old_password);
 
@@ -28,12 +28,12 @@ class MyAccountChangePasswordForm extends Form
             'placeholder' => 'Password'
         ));
         $password->addValidator(new PresenceOf(array(
-            'message' => 'The password is required'
+            'message' => 'Password is a required field.'
         )));
         $password->addValidator(new Confirmation(
             [
                 'with' => 'confirm-password',
-                'message' => 'Passwords don\'t match'
+                'message' => 'Passwords inserted don\'t match.'
             ]
         ));
 
@@ -47,7 +47,7 @@ class MyAccountChangePasswordForm extends Form
 
 
         $password->addValidator(new PasswordValidator([
-            'message' => 'The password should have a number, a lowercase and an uppercase character.'
+            'message' => 'The password should be composed by a number, a lowercase and an uppercase character.'
         ]));
         $this->add($password);
         $password_confirm = new Password('confirm-password', array(
@@ -63,7 +63,7 @@ class MyAccountChangePasswordForm extends Form
         )));
 
         $password_confirm->addValidator(new PresenceOf(array(
-            'message' => 'Confirm Password is required'
+            'message' => 'Confirm Password is a required field.'
         )));
 
         $this->add($password_confirm);

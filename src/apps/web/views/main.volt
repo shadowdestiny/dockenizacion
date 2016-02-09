@@ -9,8 +9,7 @@
 
         {# FONTS  #}
         <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700'>
-
-
+        <script src="/w/js/vendor/jquery-1.11.3.min.js"></script>
     </head>
 
 	<body class="{% block bodyClass %}{% endblock %}">
@@ -26,25 +25,29 @@
         </div>
 
         {# EDTD To remove SUBNAV when not connected as account #}
-        <div data-role="page" id="nav-account">
-            <ul class="no-li" data-role="listview">
-                <li><a href="/account" data-transition="slide" data-direction="reverse">{{ language.translate("Account") }}</a></li>
-                <li><a href="/account/games" data-transition="slide" data-direction="reverse">{{ language.translate("Games") }}</a></li>
-                <li><a href="/account/wallet" data-transition="slide" data-direction="reverse">{{ language.translate("Wallet") }}</a></li>
-                <li><a href="/account/transaction" data-transition="slide" data-direction="reverse">{{ language.translate("Transactions") }}</a></li>
-                <li><a href="/account/email" data-transition="slide" data-direction="reverse">{{ language.translate("Email Settings") }}</a></li>
-                <li><a href="/account/password" data-transition="slide" data-direction="reverse">{{ language.translate("Change Password") }}</a></li>
-                <li><a href="/logout" data-transition="slide" data-direction="reverse">{{ language.translate("Sign out") }}</a></li>
-            </ul>
-        </div> 
+        {% block mobileNav %}
+            {% if user_logged %}
+                <div data-role="page" id="nav-account">
+                    <ul class="no-li" data-role="listview">
+                        <li><a href="/account" data-transition="slide" data-direction="reverse">{{ language.translate("Account") }}</a></li>
+                        <li><a href="/account/games" data-transition="slide" data-direction="reverse">{{ language.translate("Games") }}</a></li>
+                        <li><a href="/account/wallet" data-transition="slide" data-direction="reverse">{{ language.translate("Wallet") }}</a></li>
+                        <li><a href="/account/transaction" data-transition="slide" data-direction="reverse">{{ language.translate("Transactions") }}</a></li>
+                        <li><a href="/account/email" data-transition="slide" data-direction="reverse">{{ language.translate("Email Settings") }}</a></li>
+                        <li><a href="/account/password" data-transition="slide" data-direction="reverse">{{ language.translate("Change Password") }}</a></li>
+                        <li><a href="/logout" data-transition="slide" data-direction="reverse">{{ language.translate("Sign out") }}</a></li>
+                    </ul>
+                </div>
+            {% endif %}
 
-        <div data-role="page" id="language">
-            <ul class="no-li" data-role="listview">
-                {% for currency in currency_list %}
-                    <li><a href="#main-page" onclick="globalFunctions.setCurrency('{{ currency.code }}')" data-transition="slide" data-direction="reverse">{{ currency.name }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
+            <div data-role="page" id="language">
+                <ul class="no-li" data-role="listview">
+                    {% for currency in currency_list %}
+                        <li><a href="#main-page" onclick="globalFunctions.setCurrency('{{ currency.code }}')" data-transition="slide" data-direction="reverse">{{ currency.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endblock %}
 
         <div class="ending">
             {{ language.translate("The draw will close in 30 minutes.") }}
