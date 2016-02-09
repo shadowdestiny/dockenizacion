@@ -20,16 +20,20 @@ class CreditCardExpiryDateValidator extends Validator implements ValidatorInterf
      */
     public function validate(\Phalcon\Validation $validation, $attribute)
     {
-        $month = $validation->getValue('month');
-        $year = $validation->getValue('year');
-        $now = new \DateTime();
 
-        if ((int)$month < 1 || (int)$month > 12 || strlen($year) !== 4|| strlen($month) !== 2 ) {
-            $validation->appendMessage(new Message('The expiration date is not valid.'));
-        }
-        $expires = \DateTime::createFromFormat('mY', $month . $year);
-        if ($expires < $now) {
-            $validation->appendMessage(new Message('The expiration date is not valid. Expired'));
+        $now =new \DateTime();
+        $date = explode('/', $validation->getValue($attribute));
+
+        if (count($date) > 1) {
+            if ((int)$date[0] < 1 || (int)$date[0] > 12 || strlen($date[1]) !== 4|| strlen($date[0]) !== 2 ) {
+                $validation->appendMessage(new Message('The expiration date is not valid.'));
+            }
+            $expires = \DateTime::createFromFormat('mY', $date[0] . $date[1]);
+            if ($expires < $now) {
+                $validation->appendMessage(new Message('The expiration date is not valid. Expired'));
+            }
+        } else {
+            $validation->appendMessage(new Message('The expiration date is not valid. Format should be mm/yyyy'));
         }
     }
 

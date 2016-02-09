@@ -60,7 +60,7 @@
                 {{ language.translate("Expiration date") }} <span class="asterisk">*</span>
             </label>
 
-        {{ credit_card_form.render('expiry-date', {'class':''~form_errors['expiry-date']}) }}
+        {{ credit_card_form.render('expiry-date', { 'class':'input'~form_errors['expiry-date']}) }}
 
 
         </div>

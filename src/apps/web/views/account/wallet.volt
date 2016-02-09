@@ -4,6 +4,9 @@
 
 {% block template_scripts %}
 <script>
+
+var fee_limit = '<?php echo $fee_to_limit_value; ?>';
+
 function deleteLnk(id){
     $(id).click(function(e){
         if($(this).closest('tr').hasClass('active')){
@@ -32,9 +35,19 @@ function checkRadio(id){
 }
 
 
+function show_fee_text(value) {
+
+    if (parseFloat(value) > parseFloat(fee_limit)) {
+        $('.notes').hide();
+    } else {
+        $('.notes').show();
+    }
+}
 $('#funds-value').on('keyup',function(e) {
     ///^\D+(\.\D\D?)?$/
     var regex = /^\d+(\.\d{0,2})?$/g;
+    var value = e.target.value;
+    show_fee_text(value);
 });
 
 $('#funds-value').on('keypress',function(e) {
@@ -49,9 +62,11 @@ $('#funds-value').on('blur', function(e) {
     var value = e.target.value;
     if(value == "" || typeof value == 'undefined' ) {
         $(this).val("");
+        value = 0;
     } else {
         $(this).val(parseFloat(value).toFixed(2));
     }
+    show_fee_text(value);
 });
 
 $(function(){
