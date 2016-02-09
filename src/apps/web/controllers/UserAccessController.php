@@ -206,7 +206,7 @@ class UserAccessController extends ControllerBase
 
         if ($this->request->isPost()) {
             if ($forgot_password_form->isValid($this->request->getPost()) == false) {
-                $errors[] = 'You have inserted something that doesn\'t look like an  email.';
+                $errors[] = 'Invalid email address. Please verify what you have inserted and try again.';
             } else {
 
                     $email = $this->request->getPost('email');

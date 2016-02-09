@@ -101,12 +101,12 @@ class MyAccountForm extends Form
             'placeholder' => 'Password'
         ));
         $password->addValidator(new PresenceOf(array(
-            'message' => 'The password is required'
+            'message' => 'Password is a required field.'
         )));
         $password->addValidator(new Confirmation(
             [
                 'with' => 'confirm_password',
-                'message' => 'Passwords don\'t match'
+                'message' => 'Passwords inserted don\'t match.'
             ]
         ));
         $password->addValidator(new PasswordValidator([

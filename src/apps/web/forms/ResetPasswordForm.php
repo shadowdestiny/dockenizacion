@@ -21,24 +21,24 @@ class ResetPasswordForm extends Form
             'placeholder' => 'Password'
         ));
         $password->addValidator(new PresenceOf(array(
-            'message' => 'The password is required'
+            'message' => 'Password is a required field.'
         )));
         $password->addValidator(new Confirmation(
             [
                 'with' => 'confirm-password',
-                'message' => 'Passwords don\'t match'
+                'message' => 'Passwords inserted don\'t match.'
             ]
         ));
         $password->addValidator(new PasswordValidator([
-            'message' => 'The password should have a number, a lowercase and an uppercase character.'
+            'message' => 'The password should be composed by a number, a lowercase and an uppercase character.'
         ]));
 
 
         $password->addValidator(new StringLength(array(
             'field' => 'new-password',
             'min' => 8,
-            'messageMaximum' => 'Your password should be composed at least by eight letters.',
-            'messageMinimum' => 'Your password should be composed at least by eight letters.'
+            'messageMaximum' => 'Your password should be composed by at least by eight letters.',
+            'messageMinimum' => 'Your password should be composed by at least by eight letters.'
         )));
 
 
@@ -47,7 +47,7 @@ class ResetPasswordForm extends Form
             'placeholder' => 'Confirm Password'
         ));
         $password_confirm->addValidator(new PresenceOf(array(
-            'message' => 'Confirm Password is required'
+            'message' => 'Confirm Password is a required field.'
         )));
 
         $this->add($password_confirm);

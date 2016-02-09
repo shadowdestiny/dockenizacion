@@ -33,7 +33,7 @@ class SignInForm extends Form
             'placeholder' => 'Password'
         ));
         $password->addValidator(new PresenceOf(array(
-            'message' => 'The password is required'
+            'message' => 'Password is a required field.'
         )));
         $this->add($password);
         // Remember
