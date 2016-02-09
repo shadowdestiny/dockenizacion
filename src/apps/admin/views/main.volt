@@ -27,10 +27,8 @@
     </head>
 
     <body class="{% block bodyClass %}{% endblock %}">
-       
         {% block header %}{% endblock %}
         {% block body %}{% endblock %}
         {% block footer %}{% endblock %}
-
     </body>
 </html>
