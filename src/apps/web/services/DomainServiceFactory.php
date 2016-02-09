@@ -8,6 +8,7 @@ use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\web\interfaces\ILanguageStrategy;
 use EuroMillions\web\repositories\LanguageRepository;
+use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
 use EuroMillions\web\services\external_apis\RedisCurrencyApiCache;
 use EuroMillions\web\services\external_apis\YahooCurrencyApi;
@@ -108,6 +109,13 @@ class DomainServiceFactory
         $playStorageStrategy = $playStorageStrategy ?: new RedisPlayStorageStrategy($this->serviceFactory->getDI()->get('redisCache'));
         $orderStorageStrategy = $orderStorageStrategy ?: new RedisOrderStorageStrategy($this->serviceFactory->getDI()->get('redisCache'));
         return new PlayService($this->entityManager, $lotteriesDataService, $playStorageStrategy, $orderStorageStrategy);
+    }
+
+    public function getCartService( IPlayStorageStrategy $orderStorageStrategy = null)
+    {
+        $orderStorageStrategy ?: new RedisOrderStorageStrategy($this->serviceFactory->getDI()->get('redisCache'));
+        return new CartService($this->entityManager, $orderStorageStrategy);
+
     }
 
     public function getPriceCheckoutService(LotteriesDataService $lotteriesDataService = null)

@@ -123,8 +123,24 @@ class PlayService
      * @param User $user
      * @return ActionResult
      */
-    public function play(User $user )
+    public function play( User $user_id )
     {
+        // get playconfig from order
+        // get pay configuration from order
+        // charge credit card or wallet
+        // validate against castillo
+
+//        $order = $this->getOrderFromStorage();
+//        $pay = $order->payConfig;
+//        $play = $order->playConfig;
+//        if($play->nextDraw()) {
+//            if (!$user->enoughFunds() || $user->addedFunds())
+//                $credit_car_servide->charge();
+//            }
+//            $castillo->validate();
+//        }
+
+
 //        //EMTD previously should check amount or userservice deduct amount about his balance
 //      //  if($user->getBalance()->getAmount() > 0){
 //        try {
@@ -281,53 +297,4 @@ class PlayService
         }
     }
 
-    public function saveOrderToStorage(Order $order)
-    {
-        $user_id = $order->getPlayConfig()->getUser()->getId();
-        if( null !== $user_id ) {
-            /** @var ActionResult $result */
-            $result = $this->orderStorageStrategy->save($order->toJsonData(), $user_id);
-            if( $result->success() ) {
-                return $result;
-            } else {
-                return new ActionResult(false);
-            }
-        }
-    }
-
-    public function getOrderFromStorage(UserId $user_id)
-    {
-        try {
-            /** @var ActionResult $result */
-            $result = $this->orderStorageStrategy->findByKey($user_id);
-            if($result->success()) {
-                $json = json_decode($result->returnValues());
-                if( NULL == $json ) {
-                    return new ActionResult(false);
-                }
-                /** @var User $user */
-                $user = $this->userRepository->find(['id' => $user_id]);
-                if( null !== $user ) {
-                    $bets = [];
-                    foreach($json->play_config->euromillions_line as $bet) {
-                        $bets[] = $bet;
-                    }
-                    $playConfig = new PlayConfig();
-                    $playConfig->formToEntity($user, json_encode($json->play_config), $bets);
-                    $fee = new Money((int) $json->fee, new Currency('EUR'));
-                    $fee_limit = new Money((int) $json->fee_limit, new Currency('EUR'));
-                    $single_bet_price = new Money((int) $json->single_bet_price, new Currency('EUR'));
-                    $order = new Order($playConfig,$single_bet_price, $fee, $fee_limit);//order created
-                    if( null !== $order ) {
-                        return new ActionResult(true, $order);
-                    }
-                }
-            } else {
-                return new ActionResult(false, 'Order doesn\'t exist');
-            }
-        } catch ( \RedisException $r ) {
-            return new ActionResult(false, $r->getMessage());
-        }
-
-    }
 }

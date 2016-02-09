@@ -4,6 +4,7 @@
 {% endblock %}
 {% block template_scripts %}
     <script>
+        //vars to cart.jsx
         var play_list = '<?php echo $order->getLines(); ?>';
         var wallet_balance = '<?php echo $order->getWalletBalance(); ?>';
         var total_price = parseFloat('<?php echo $order->getTotal(); ?>');
@@ -21,7 +22,6 @@
                     total_price_in_credit_card_form = total;
                 }
         )
-
         $(function(){
             $('.buy').on('click',function(){
                 var value = $(this).data('btn');
@@ -32,11 +32,31 @@
             })
             $('.submit.big.green').on('click', function() {
 
+                var charge = 0;
+                if(document.getElementById('charge') != null) {
+                    charge = document.getElementById('charge').value;
+                }
+                var card_number = document.getElementById('card-number').value;
+                var card_holder = document.getElementById('card-holder').value;
+                var expiry_date = document.getElementById('expiry-date').value;
+                var card_cvv = document.getElementById('card-cvv').value;
+                //send token
+                var params = 'charge='+charge+'&cardnumber='+card_number+'&cardholder='+card_holder+'&expirydate='+expiry_date+'&cardcvv='+card_cvv;
+                $.ajax({
+                    url: '/cart/payment',
+                    data: params,
+                    type: 'POST',
+                    success: function(json) {
+//                        if(json.result = 'OK') {
+//                            location.href = json.url;
+//                        }
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        //EMTD manage errrors
+                    },
+                });
             });
-
         });
-
-
     </script>
     <script src="/w/js/react/cart.js"></script>
 {% endblock %}

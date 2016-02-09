@@ -6,10 +6,17 @@ use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\forms\MyAccountForm;
 use EuroMillions\web\forms\SignInForm;
 use EuroMillions\web\forms\SignUpForm;
+use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
+use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
+use EuroMillions\web\vo\CardHolderName;
+use EuroMillions\web\vo\CardNumber;
+use EuroMillions\web\vo\CreditCard;
+use EuroMillions\web\vo\CVV;
 use EuroMillions\web\vo\dto\OrderDTO;
 use EuroMillions\web\vo\dto\SiteConfigDTO;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\vo\ExpiryDate;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\web\vo\UserId;
@@ -28,13 +35,15 @@ class CartController extends PublicSiteControllerBase{
         $credit_card_form = new CreditCardForm();
         $form_errors = $this->getErrorsArray();
 
+        $play_service = $this->domainServiceFactory->getPlayService();
+
         if(!empty($user_id)) {
-            $result = $this->domainServiceFactory->getPlayService()->getPlaysFromGuestUserAndSwitchUser(new UserId($user_id),$current_user_id);
+            $result = $play_service->getPlaysFromGuestUserAndSwitchUser(new UserId($user_id),$current_user_id);
             $user = $this->userService->getUser($current_user_id);
         } else {
             /** @var User $user */
             $user = $this->userService->getUser($current_user_id);
-            $result = $this->domainServiceFactory->getPlayService()->getPlaysFromTemporarilyStorage($user);
+            $result = $play_service->getPlaysFromTemporarilyStorage($user);
         }
         if(!$result->success()) {
             $this->response->redirect('/play');
@@ -45,7 +54,7 @@ class CartController extends PublicSiteControllerBase{
         $single_bet_price = $this->domainServiceFactory->getLotteriesDataService()->getSingleBetPriceByLottery('EuroMillions');
         $order = new Order($result->returnValues(),$single_bet_price, $fee, $fee_limit); // order created
         //save order in storage
-        $result_save_order = $this->domainServiceFactory->getPlayService()->saveOrderToStorage($order);
+        $result_save_order = $play_service->saveOrderToStorage($order);
         if(!$result_save_order->success()) {
             //EMTD redirect with error message
         }
@@ -214,24 +223,49 @@ class CartController extends PublicSiteControllerBase{
 
     public function paymentAction()
     {
+
         $credit_card_form = new CreditCardForm();
         $form_errors = $this->getErrorsArray();
-        $funds_value = (int) $this->request->getPost('funds-value');
-        $card_number = $this->request->getPost('card-number');
-        $card_holder_name = $this->request->getPost('card-holder');
-        $year = $this->request->getPost('year');
-        $month = $this->request->getPost('month');
-        $cvv = $this->request->getPost('card-cvv');
-        $expiry_date = $this->request->getPost('expiry-date');
+        $funds_value = (int) $this->request->getPost('charge');
+        $card_number = $this->request->getPost('cardnumber');
+        $card_holder_name = $this->request->getPost('cardholder');
+        $expiry_date = $this->request->getPost('expirydate');
+        $cvv = $this->request->getPost('cardcvv');
 
+
+        if($this->request->isPost()) {
+            if ($credit_card_form->isValid($this->request->getPost()) == false) {
+                $messages = $credit_card_form->getMessages(true);
+                /**
+                 * @var string $field
+                 * @var Message\Group $field_messages
+                 */
+                //check date
+                foreach ($messages as $field => $field_messages) {
+                    $errors[] = $field_messages[0]->getMessage();
+                    $form_errors[$field] = ' error';
+                }
+            }else {
+                $user_id = $this->authService->getCurrentUser();
+                /** User $user */
+                $user = $this->userService->getUser($user_id->getId());
+                if(null != $user ){
+                    try {
+                        $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($expiry_date), new CVV($cvv));
+
+
+                    } catch (\Exception $e ) {
+                        $errors[] = $e->getMessage();
+                        $form_errors['month'] = ' error';
+                    }
+                }
+            }
+        }
 
         $this->view->pick('cart/profile');
         return $this->view->setVars([
             'which_form'  => 'in',
         ]);
-
-
-
     }
 
 
