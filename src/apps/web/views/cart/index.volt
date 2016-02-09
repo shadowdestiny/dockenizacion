@@ -6,6 +6,7 @@
 {% block template_scripts %}
     {% include "sign-in/_sign-in-js.volt" %}
 {% endblock %}
+
 {% block bodyClass %}cart minimal{% endblock %}
 
 {% block header %}

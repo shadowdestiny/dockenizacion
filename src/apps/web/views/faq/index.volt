@@ -13,9 +13,11 @@
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}
-    //EMTD we use this function as workaround from jquery mobile to anchor link via url
+    <script src="/w/js/mobileFix.js"></script>
+
+    {# EMTD we use this function as workaround from jquery mobile to anchor link via url #}
     <script>
-        $(function() {
+        $(function(){
             var hash = window.location.hash;
             $(document.body).animate({
                 'scrollTop':   $('#'+hash.split('#')[1]).offset().top

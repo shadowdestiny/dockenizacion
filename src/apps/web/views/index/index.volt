@@ -8,6 +8,7 @@
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}
+<script src="/w/js/mobileFix.js"></script>
 <script>
 var checkWinSize = 0;
 function checkWin(){

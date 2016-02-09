@@ -3,20 +3,20 @@
     <link rel="stylesheet" href="/w/css/cart.css">
 {% endblock %}
 {% block template_scripts %}
-    <script>
-        var play_list = '<?php echo $order->getLines(); ?>';
-        var wallet_balance = '<?php echo $order->getWalletBalance(); ?>';
-        var total_price = parseFloat('<?php echo $order->getTotal(); ?>');
-        var single_bet_price = '<?php echo number_format($order->getSingleBetPrice(), 2,".",",") ?>';
-        var currency_symbol = '<?php echo empty($currency_symbol) ? $current_currency : $currency_symbol;?>';
-        var price_below_fee = '<?php echo number_format($order->getFeeLimit(),2,".",","); ?>';
-        var fee_charge = '<?php echo number_format($order->getFee(),2,".",","); ?>';
-        var symbol_position = '<?php echo $symbol_position ?>';
-        var draw_days = '<?php echo $order->getDrawDays(); ?>';
-
-        console.log(total_price);
-    </script>
-    <script src="/w/js/react/cart.js"></script>
+<script src="/w/js/mobileFix.js"></script>
+<script>
+    var play_list = '<?php echo $order->getLines(); ?>';
+    var wallet_balance = '<?php echo $order->getWalletBalance(); ?>';
+    var total_price = parseFloat('<?php echo $order->getTotal(); ?>');
+    var single_bet_price = '<?php echo number_format($order->getSingleBetPrice(), 2,".",",") ?>';
+    var currency_symbol = '<?php echo empty($currency_symbol) ? $current_currency : $currency_symbol;?>';
+    var price_below_fee = '<?php echo number_format($order->getFeeLimit(),2,".",","); ?>';
+    var fee_charge = '<?php echo number_format($order->getFee(),2,".",","); ?>';
+    var symbol_position = '<?php echo $symbol_position ?>';
+    var draw_days = '<?php echo $order->getDrawDays(); ?>';
+    console.log(total_price);
+</script>
+<script src="/w/js/react/cart.js"></script>
 {% endblock %}
 {% block bodyClass %}cart order minimal{% endblock %}
 {% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}

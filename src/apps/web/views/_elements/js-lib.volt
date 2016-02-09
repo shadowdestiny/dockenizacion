@@ -1,19 +1,17 @@
 <!--[if lt IE 9]>
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-<script src="/w/js/vendor/jquery-1.11.3.min.js"></script>
 <!--[if IE 9]>
 <script src="/w/js/vendor/jquery.placeholder.min.js"></script>
 <script>
 $(function(){$('input, textarea').placeholder();});
 </script>
 <![endif]-->
-<script src="/w/js/vendor/svgxuse.min.js" defer async></script>
+<script src="/w/js/vendor/svgxuse.min.js" defer async></script> {# Render SVG for IE and problematic browsers #} 
 <script src="/w/js/vendor/jquery.cookie.js"></script>
 <script src="/w/js/vendor/jquery.countdown.min.js"></script>
 <script src="/w/js/vendor/picturefill.min.js" async></script>
 <script src="/w/js/vendor/easyModal.min.js"></script>
-
 
 <script>
 $(document).bind("mobileinit", function(){
@@ -47,5 +45,4 @@ var last_minute = '<?php echo isset($last_minute) ?  $last_minute : ""; ?>';
 var draw_date = '<?php echo !empty($draw_date) ? $draw_date : ""; ?>';
 </script>
 <script src="/w/js/vendor/jquery.mobile.custom.min.js"></script>
-
 <script src="/w/js/main.js"></script>

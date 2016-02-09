@@ -1,10 +1,9 @@
 {% extends "main.volt" %}
 {% block template_css %}<link rel="stylesheet" href="/w/css/account.css">{% endblock %}
 {% block bodyClass %}wallet{% endblock %}
-
 {% block template_scripts %}
+<script src="/w/js/mobileFix.js"></script>
 <script>
-
 var fee_limit = '<?php echo $fee_to_limit_value; ?>';
 
 function deleteLnk(id){
@@ -33,8 +32,6 @@ function checkRadio(id){
         }
     });
 }
-
-
 function show_fee_text(value) {
 
     if (parseFloat(value) > parseFloat(fee_limit)) {

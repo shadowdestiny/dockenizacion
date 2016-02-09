@@ -1,12 +1,11 @@
 {% extends "main.volt" %}
-{% block template_css %}
-    <link rel="stylesheet" href="/w/css/cart.css">
-{% endblock %}
+{% block template_css %}<link rel="stylesheet" href="/w/css/cart.css">{% endblock %}
 {% block template_scripts %}{% endblock %}
 {% block bodyClass %}cart success minimal{% endblock %}
 
 {% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
 {% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}
+{% block template_scripts %}<script src="/w/js/mobileFix.js"></script>{% endblock %}
 
 {% block body %}
 <main id="content">
