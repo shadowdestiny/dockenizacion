@@ -493,15 +493,14 @@ class AccountController extends PublicSiteControllerBase
         ));
         $fund_value->addValidators(array(
             new PresenceOf(array(
-                'message' => 'Insert the amount that you want to add to your funds.'
-
+                'message' => 'Insert the amount that you want to add to your funds xxx.'
             )),
             new Numericality(array(
+                'message' => 'Insert the amount that you want to add to your funds.'
             )),
             new Regex(array(
                 'message' => 'The value in Add funds is not valid. It must be composed of only numbers without decimals or symbols.',
                 'pattern' => '/^[\d]{1,8}([\.|\,]\d{1,2})?$/'
-
             ))
         ));
 

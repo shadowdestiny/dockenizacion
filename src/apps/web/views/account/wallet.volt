@@ -49,9 +49,9 @@ $('#funds-value').on('keyup',function(e) {
 
 $('#funds-value').on('keypress',function(e) {
     var pattern = /^[0-9\.]+$/;
-    var chr = String.fromCharCode(event.which);
+    var chr = String.fromCharCode(e.which);
     if(!pattern.test(chr)){
-        event.preventDefault();
+        e.preventDefault();
     }
 });
 
