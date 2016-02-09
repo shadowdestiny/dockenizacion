@@ -19,6 +19,7 @@ use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\services\external_apis\LotteryValidationCastilloApi;
 use EuroMillions\web\vo\CastilloCypherKey;
 use EuroMillions\web\vo\CastilloTicketId;
+use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\UserId;
@@ -45,12 +46,14 @@ class PlayService
 
     private $playStorageStrategy;
 
+    private $orderStorageStrategy;
+
     private $userRepository;
 
     private $logValidationRepository;
 
 
-    public function __construct(EntityManager $entityManager, LotteriesDataService $lotteriesDataService, IPlayStorageStrategy $playStorageStrategy )
+    public function __construct(EntityManager $entityManager, LotteriesDataService $lotteriesDataService, IPlayStorageStrategy $playStorageStrategy, IPlayStorageStrategy $orderStorageStrategy )
     {
         $this->entityManager = $entityManager;
         $this->playConfigRepository = $entityManager->getRepository('EuroMillions\web\entities\PlayConfig');
@@ -58,6 +61,7 @@ class PlayService
         $this->lotteryRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Lottery');
         $this->lotteriesDataService = $lotteriesDataService;
         $this->playStorageStrategy = $playStorageStrategy;
+        $this->orderStorageStrategy = $orderStorageStrategy;
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
         $this->logValidationRepository = $entityManager->getRepository('EuroMillions\web\entities\LogValidationApi');
 
@@ -234,7 +238,6 @@ class PlayService
         } catch ( \RedisException $r) {
             return new ActionResult(false, $r->getMessage());
         }
-
     }
 
     public function savePlayFromJson($json, UserId $userId)
@@ -276,5 +279,55 @@ class PlayService
         }else {
             return new ActionResult(false);
         }
+    }
+
+    public function saveOrderToStorage(Order $order)
+    {
+        $user_id = $order->getPlayConfig()->getUser()->getId();
+        if( null !== $user_id ) {
+            /** @var ActionResult $result */
+            $result = $this->orderStorageStrategy->save($order->toJsonData(), $user_id);
+            if( $result->success() ) {
+                return $result;
+            } else {
+                return new ActionResult(false);
+            }
+        }
+    }
+
+    public function getOrderFromStorage(UserId $user_id)
+    {
+        try {
+            /** @var ActionResult $result */
+            $result = $this->orderStorageStrategy->findByKey($user_id);
+            if($result->success()) {
+                $json = json_decode($result->returnValues());
+                if( NULL == $json ) {
+                    return new ActionResult(false);
+                }
+                /** @var User $user */
+                $user = $this->userRepository->find(['id' => $user_id]);
+                if( null !== $user ) {
+                    $bets = [];
+                    foreach($json->play_config->euromillions_line as $bet) {
+                        $bets[] = $bet;
+                    }
+                    $playConfig = new PlayConfig();
+                    $playConfig->formToEntity($user, json_encode($json->play_config), $bets);
+                    $fee = new Money((int) $json->fee, new Currency('EUR'));
+                    $fee_limit = new Money((int) $json->fee_limit, new Currency('EUR'));
+                    $single_bet_price = new Money((int) $json->single_bet_price, new Currency('EUR'));
+                    $order = new Order($playConfig,$single_bet_price, $fee, $fee_limit);//order created
+                    if( null !== $order ) {
+                        return new ActionResult(true, $order);
+                    }
+                }
+            } else {
+                return new ActionResult(false, 'Order doesn\'t exist');
+            }
+        } catch ( \RedisException $r ) {
+            return new ActionResult(false, $r->getMessage());
+        }
+
     }
 }

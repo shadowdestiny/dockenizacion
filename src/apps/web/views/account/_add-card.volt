@@ -16,13 +16,6 @@
         <div class="cols fix-margin">
             <div class="col6 first">
     {% endif %}
-
-    {% if component.where == 'cart' %} 
-        <div class="h1 res info">
-            Total to be paid &euro; 12.10
-        </div>
-    {% endif %}
-
     <h2 class="h3 yellow">{{ language.translate("Enter your credit card details") }}</h2>
 
     <div class="card-info">
@@ -74,7 +67,7 @@
     {% if component.where == 'cart' %}
             <div class="cl col6">
                 <label class="btn submit big green right" for="new-card">
-                    {{ language.translate(" Pay &amp; Play your numbers") }}
+                    {{ language.translate("Pay {total_value}") }}
                     <input id="new-card" type="submit" class="hidden2">
                 </label>
             </div>

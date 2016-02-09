@@ -6,6 +6,11 @@ var EmTotalCart = new React.createClass({
 
     displayName: 'EmTotalCart',
 
+
+    componentWillReceiveProps : function(newProps) {
+        $(document).trigger("totalPriceEvent", [ newProps.total_price ]);
+    },
+
     render : function ()
     {
         return (

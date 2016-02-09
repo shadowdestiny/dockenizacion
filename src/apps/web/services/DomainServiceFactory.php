@@ -11,6 +11,7 @@ use EuroMillions\web\repositories\LanguageRepository;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
 use EuroMillions\web\services\external_apis\RedisCurrencyApiCache;
 use EuroMillions\web\services\external_apis\YahooCurrencyApi;
+use EuroMillions\web\services\play_strategies\RedisOrderStorageStrategy;
 use EuroMillions\web\services\play_strategies\RedisPlayStorageStrategy;
 use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\services\preferences_strategies\WebUserPreferencesStorageStrategy;
@@ -101,11 +102,12 @@ class DomainServiceFactory
         return new AuthService($this->entityManager, $passwordHasher, $storageStrategy, $urlManager, $logService, $emailService, $userService);
     }
 
-    public function getPlayService(LotteriesDataService $lotteriesDataService = null, IPlayStorageStrategy $playStorageStrategy = null)
+    public function getPlayService(LotteriesDataService $lotteriesDataService = null, IPlayStorageStrategy $playStorageStrategy = null, IPlayStorageStrategy $orderStorageStrategy = null)
     {
         $lotteriesDataService = $lotteriesDataService ?: new LotteriesDataService($this->entityManager, new LotteryApisFactory());
         $playStorageStrategy = $playStorageStrategy ?: new RedisPlayStorageStrategy($this->serviceFactory->getDI()->get('redisCache'));
-         return new PlayService($this->entityManager, $lotteriesDataService, $playStorageStrategy);
+        $orderStorageStrategy = $orderStorageStrategy ?: new RedisOrderStorageStrategy($this->serviceFactory->getDI()->get('redisCache'));
+        return new PlayService($this->entityManager, $lotteriesDataService, $playStorageStrategy, $orderStorageStrategy);
     }
 
     public function getPriceCheckoutService(LotteriesDataService $lotteriesDataService = null)

@@ -15,7 +15,7 @@ use Money\Money;
 use Money\UnknownCurrencyException;
 use Rhumsaa\Uuid\Uuid;
 
-class User extends EntityBase implements IEntity, IUser
+class User extends EntityBase implements IEntity, IUser, \JsonSerializable
 {
     /** @var  Uuid */
     protected $id;
@@ -31,25 +31,19 @@ class User extends EntityBase implements IEntity, IUser
     protected $wallet;
     /** @var  MoneyCurrency */
     protected $user_currency;
-
     protected $country;
     protected $validated;
     /** @var  ValidationToken */
     protected $validationToken;
-
     private $paymentMethod;
-
     private $playConfig;
-
     protected $street;
     protected $zip;
     protected $city;
     protected $phone_number;
     protected $jackpot_reminder;
     protected $threshold;
-
     protected $userNotification;
-
     protected $show_modal_winning;
 
     /**
@@ -381,4 +375,29 @@ class User extends EntityBase implements IEntity, IUser
         $this->show_modal_winning = $show_modal_winning;
     }
 
+    public function toJsonData()
+    {
+        return json_encode($this);
+    }
+
+    public function toArray()
+    {
+        return [
+            "id" => $this->getId()->id()
+        ];
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId()->id(),
+        ];
+    }
 }

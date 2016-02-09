@@ -44,6 +44,11 @@ class CartController extends PublicSiteControllerBase{
         list($fee,$fee_limit) = $this->getFees();
         $single_bet_price = $this->domainServiceFactory->getLotteriesDataService()->getSingleBetPriceByLottery('EuroMillions');
         $order = new Order($result->returnValues(),$single_bet_price, $fee, $fee_limit); // order created
+        //save order in storage
+        $result_save_order = $this->domainServiceFactory->getPlayService()->saveOrderToStorage($order);
+        if(!$result_save_order->success()) {
+            //EMTD redirect with error message
+        }
         list($currency_symbol,$bet_price_value_currency, $wallet_balance,$total_price_currency) = $this->getVarsToOrderView($order, $user, $single_bet_price);
         $locale = $this->request->getBestLanguage();
         $symbol_position = $this->currencyService->getSymbolPosition($locale,$order->getPlayConfig()->getUser()->getUserCurrency());
@@ -217,13 +222,13 @@ class CartController extends PublicSiteControllerBase{
         $year = $this->request->getPost('year');
         $month = $this->request->getPost('month');
         $cvv = $this->request->getPost('card-cvv');
+        $expiry_date = $this->request->getPost('expiry-date');
 
 
-
-
-
-
-
+        $this->view->pick('cart/profile');
+        return $this->view->setVars([
+            'which_form'  => 'in',
+        ]);
 
 
 
@@ -274,6 +279,7 @@ class CartController extends PublicSiteControllerBase{
             'card-number' => '',
             'card-holder' => '',
             'card-cvv' => '',
+            'expiry-date' => '',
 
         ];
         return $form_errors;

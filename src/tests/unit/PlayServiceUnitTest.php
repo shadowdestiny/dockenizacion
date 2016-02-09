@@ -22,6 +22,7 @@ use Prophecy\Argument;
 use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\LotteryValidationCastilloRelatedTest;
 use tests\base\UnitTestBase;
+use tests\helpers\mothers\OrderMother;
 use tests\helpers\mothers\UserMother;
 
 class PlayServiceUnitTest extends UnitTestBase
@@ -41,6 +42,8 @@ class PlayServiceUnitTest extends UnitTestBase
     private $betRepository_double;
 
     private $playStorageStrategy_double;
+
+    private $orderStorageStrategy_double;
 
     private $userRepository_double;
 
@@ -69,6 +72,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->betRepository_double = $this->getRepositoryDouble('BetRepository');
         $this->lotteryDrawRepository_double = $this->getRepositoryDouble('EuroMillions\web\entities\Lottery');
         $this->playStorageStrategy_double = $this->getInterfaceWebDouble('IPlayStorageStrategy');
+        $this->orderStorageStrategy_double = $this->getInterfaceWebDouble('IPlayStorageStrategy');
         $this->userRepository_double = $this->getRepositoryDouble('UserRepository');
         $this->logValidationApi_double = $this->getRepositoryDouble('LogValidationApiRepository');
         $this->authService_double = $this->getServiceDouble('AuthService');
@@ -419,6 +423,75 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
+    /**
+     * method saveOrderToStorage
+     * when called
+     * should returnActionResultTrue
+     */
+    public function test_saveOrderToStorage_called_returnActionResultTrue()
+    {
+        $expected = new ActionResult(true);
+        $order = OrderMother::aJustOrder()->build();
+        $user_id = $order->getPlayConfig()->getUser()->getId();
+        $this->orderStorageStrategy_double->save($order->toJsonData(), $user_id)->willReturn(new ActionResult(true));
+        $sut = $this->getSut();
+        $actual = $sut->saveOrderToStorage($order);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method getOrderFromStorage
+     * when calledPassingAKeyValid
+     * should returnActionResultTrueWithOrder
+     */
+    public function test_getOrderFromStorage_calledPassingAKeyValid_returnActionResultTrueWithOrder()
+    {
+        $order = OrderMother::aJustOrder()->build();
+        $expected = new ActionResult(true, $order);
+        $order_json = '{"total":5035,"fee":35,"fee_limit":12000,"single_bet_price":2500,"num_lines":2,"play_config":{"id":null,"drawDays":2,"startDrawDate":"2016-02-05 00:00:00","lastDrawDate":"2016-02-05 00:00:00","frequency":1,"euromillions_line":[{"regular":[3,8,11,16,44],"lucky":[3,5]},{"regular":[6,17,37,38,48],"lucky":[1,5]}],"user":{"id":"9098299B-14AC-4124-8DB0-19571EDABE55"}}}';
+        $user_id = $this->getUser()->getId()->id();
+        $user = UserMother::aUserWith50Eur()->build();
+        $this->orderStorageStrategy_double->findByKey($user_id)->willReturn(new ActionResult(true,$order_json));
+        $this->userRepository_double->find(['id' => $this->getUser()->getId()])->willReturn($user);
+        $sut = $this->getSut();
+        $actual = $sut->getOrderFromStorage($user_id);
+        $this->assertEquals($expected, $actual);
+    }
+
+
+    /**
+     * method getOrderFromStorage
+     * when calledWithAKeyValidButOrderNoExist
+     * should returnActionResultFalseWithErrorMessage
+     */
+    public function test_getOrderFromStorage_calledWithAKeyValidButOrderNoExist_returnActionResultFalseWithErrorMessage()
+    {
+        $expected = new ActionResult(false, 'Order doesn\'t exist');
+        $user_id = $this->getUser()->getId()->id();
+        $user = UserMother::aUserWith50Eur()->build();
+        $this->orderStorageStrategy_double->findByKey($user_id)->willReturn(new ActionResult(false));
+        $this->userRepository_double->find(['id' => $this->getUser()->getId()])->willReturn($user);
+        $sut = $this->getSut();
+        $actual = $sut->getOrderFromStorage($user_id);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method getOrderFromStorage
+     * when calledWithAKEyValidButJsonIsMalFormed
+     * should returnActionResultFalse
+     */
+    public function test_getOrderFromStorage_calledWithAKEyValidButJsonIsMalFormed_returnActionResultFalse()
+    {
+        $expected = new ActionResult(false);
+        $user_id = $this->getUser()->getId()->id();
+        $user = UserMother::aUserWith50Eur()->build();
+        $this->orderStorageStrategy_double->findByKey($user_id)->willReturn(new ActionResult(true,NULL));
+        $this->userRepository_double->find(['id' => $this->getUser()->getId()])->willReturn($user);
+        $sut = $this->getSut();
+        $actual = $sut->getOrderFromStorage($user_id);
+        $this->assertEquals($expected,$actual);
+    }
 
     private function exerciseTemporarilyStorePlay($expected)
     {
@@ -432,7 +505,8 @@ class PlayServiceUnitTest extends UnitTestBase
 
     private function getSut(){
         $sut = $this->getDomainServiceFactory()->getPlayService($this->lotteryDataService_double->reveal(),
-                                                                $this->playStorageStrategy_double->reveal()
+                                                                $this->playStorageStrategy_double->reveal(),
+                                                                $this->orderStorageStrategy_double->reveal()
                                                                 );
         return $sut;
     }

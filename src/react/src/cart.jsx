@@ -35,6 +35,13 @@ var CartPage = new React.createClass({
        this.handleUpdatePrice();
     },
 
+    statics: {
+        getTotal: function(total) {
+            return total;
+        }
+    },
+
+
     componentWillMount : function()
     {
         var price = parseFloat(this.props.single_bet_price * this.state.playConfigList.bets.length );
@@ -42,20 +49,6 @@ var CartPage = new React.createClass({
             this.setState({ show_all_fee : false, checked_wallet : true });
         }
     },
-
-    handleChangeDrawDuration : function (value)
-    {
-        var params = '';
-        this.state.playConfigList.bets.forEach(function(bet,i){
-             params += 'bet['+i+']='+bet.regular+","+bet.lucky +'&';
-        });
-        var draw_days = this.state.playConfigList.drawDays; //EMTD
-        var frequency = value;
-        var start_draw = this.state.playConfigList.startDrawDate; //EMTD
-        params += 'draw_days='+draw_days+'&frequency='+frequency+'&start_draw='+start_draw;
-        globalFunctions.playCart(params);
-    },
-
 
     isNumber : function(value) {
         return typeof value === 'number' && isFinite(value) && !isNaN(value)
@@ -163,7 +156,7 @@ var CartPage = new React.createClass({
     {
         var _playConfigList = this.state.playConfigList;
         var _euroMillionsLine = [];
-
+        var class_button_payment = 'btn blue big buy';
         //EMTD
         var price_and_symbol_order_line = this.props.symbol_position ? (this.props.single_bet_price * this.props.draw_days).toFixed(2) + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + (this.props.single_bet_price * this.props.draw_days).toFixed(2);
 
@@ -209,7 +202,18 @@ var CartPage = new React.createClass({
                                          wallet_balance={parseFloat(this.props.wallet_balance).toFixed(2)}
                 />;
         }
-        var txt_button_payment = this.state.checked_wallet ? 'Buy now' : 'Continue to payment';
+        var txt_button_payment = '';
+        var href_payment = '';
+        var data_btn = '';
+        if(this.state.checked_wallet) {
+            txt_button_payment = 'Buy now';
+            href_payment = '/cart/paymentWallet';
+            data_btn = 'wallet';
+        } else {
+            txt_button_payment = 'Continue to payment';
+            href_payment = 'javascript:void(0)';
+            data_btn = 'no-wallet';
+        }
         var symbol_price_balance = this.props.symbol_position ? this.props.wallet_balance + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + this.props.wallet_balance;
         var symbol_price_new_balance = this.props.symbol_position ? this.state.new_balance + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + this.state.new_balance;
         var old_balance_and_new_balance = <span className="value"> <span className='old'>{symbol_price_balance}</span><span className='new'>{symbol_price_new_balance}</span> </span>;
@@ -235,7 +239,7 @@ var CartPage = new React.createClass({
                 </div>
                 <EmTotalCart total_price={this.state.total} />
                 <div className="box-bottom cl">
-                    <a href="javascript:void(0)" className="btn blue big buy">{txt_button_payment}</a>
+                    <a href={href_payment} data-btn={data_btn} className={class_button_payment}>{txt_button_payment}</a>
                 </div>
             </div>
         )
