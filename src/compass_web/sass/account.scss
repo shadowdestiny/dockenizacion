@@ -89,7 +89,8 @@
     .box-balance{margin-right:-15px;}
     .notes{
         color:$grey; margin-top:6px;
-        .txt{font-size:$small; line-height:120%; margin-left:25px; display:block;} 
+        .txt{font-size:$small; line-height:120%; margin-left:25px; display:block;}
+        .txt + .txt{margin-top:5px;}
         .ico{float:left; font-size:$h4; margin:0 3px;} 
     }
     .cvv .ico{position:relative; font-size:$h4;}

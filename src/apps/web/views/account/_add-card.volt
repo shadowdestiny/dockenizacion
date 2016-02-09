@@ -59,7 +59,7 @@
             <label class="label block" for="expiry-date">
                 {{ language.translate("Expiration date") }} <span class="asterisk">*</span>
             </label>
-            {{ credit_card_form.render('expiry-date', { 'class':'input date'~form_errors['expiry-date']}) }}
+            {{ credit_card_form.render('expiry-date', { 'class':'input date'~form_errors['expiry-date'], "maxlength":"7"}) }}
         </div>
         <div class="left cvv">
             <label class="label" for="card-cvv">
@@ -86,17 +86,21 @@
             <div class="col6 second">
                 <h2 class="h3 yellow">{{ language.translate("Add funds to your wallet") }}</h2>
                 <div class="div-balance"><strong class="purple">{{ language.translate("Current Wallet balance:") }}</strong> <span class="value">{{ user_balance }}</span></div>
+
                 <div class="box-wallet overview">
-                    <span class="currency">{{ symbol }} </span>{{ credit_card_form.render('funds-value', {'class':'insert input'~form_errors['funds-value']}) }}
+                    <span class="currency">{{ symbol }}</span> {{ credit_card_form.render('funds-value', {'class':'insert input'~form_errors['funds-value']}) }}
                     <label class="label btn green">
                         {{ language.translate("Add funds to your wallet") }}
                         <input type="submit" class="hidden">
                     </label>
                 </div>
-                <div class="notes">
+
+                <div class="notes cl">
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                     <span class="txt">{{ language.translate("Fee of")}} {{  fee }} {{ language.translate("will be charged for transfers less than ") }} {{ fee_to_limit }}</span>
+                    <span class="txt">{{ language.translate("Currencies are just informative, transactions are charged in Euros.")}}</span>
                 </div>
+
             </div>
         </div>
     {% endif %}
