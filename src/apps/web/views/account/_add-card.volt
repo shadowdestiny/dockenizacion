@@ -59,13 +59,10 @@
             <label class="label block">
                 {{ language.translate("Expiration date") }} <span class="asterisk">*</span>
             </label>
-
-        {{ credit_card_form.render('expiry-date', { 'class':'input'~form_errors['expiry-date']}) }}
-
-
+            {{ credit_card_form.render('expiry-date', { 'class':'input'~form_errors['expiry-date']}) }}
         </div>
         <div class="left cvv">
-            <label class="label block" for="cvv">
+            <label class="label" for="cvv">
                 {{ language.translate("CVV") }} <span class="asterisk">*</span>
                 <svg class="ico v-question-mark"><use xlink:href="/w/svg/icon.svg#v-question-mark"></use></svg>
             </label>

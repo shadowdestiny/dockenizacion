@@ -493,7 +493,7 @@ class AccountController extends PublicSiteControllerBase
         ));
         $fund_value->addValidators(array(
             new PresenceOf(array(
-                'message' => 'A value is required to add funds'
+                'message' => 'Insert the amount that you want to add to your funds.'
 
             )),
             new Numericality(array(
