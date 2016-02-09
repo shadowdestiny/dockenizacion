@@ -104,7 +104,7 @@ $(function(){
 						</li>
 					</ul>
 					<div class="center">
-						<a href="/play" class="btn big blue">{{ language.translate("Start to Play") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
+						<a href="/play" class="btn big blue">{{ language.translate("Dream Big and start to Play") }}</a>
 					</div>
 				</div>
 				<a href="/numbers" class="box-result no-lnk">
@@ -146,7 +146,6 @@ $(function(){
 									<span class="ball"></span>
 								</div>
 							</div>
-
 							<ul class="no-li awards">
 								<li class="best-price"><span class="txt">{{ language.translate('Best price') }}</span></li>
 								<li class="risk-free"><span class="txt">{{ language.translate('Risk free') }}</span></li>
@@ -161,7 +160,7 @@ $(function(){
 							<div class="bg">
 								<div class="content">
 									<div class="cols">
-										<div class="col6">
+										<div class="col7">
 											<h1 class="h2">{{ language.translate('1st Prize') }}</h1>
                                             {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
                                             {% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
@@ -171,21 +170,11 @@ $(function(){
 												<a href="/play" class="btn red expand">{{ language.translate('Pick your numbers') }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a>
 											</div>
 										</div>
-										<div class="col6 center box-vector">
-											{#
-											<img class="v-logo vector" src="/w/svg/logo.svg" alt="Euromillions logo">
-#}
-
+										<div class="col5 center box-vector">
 											<svg class="vector" viewBox="-10 150 100 100">
 												<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)" style="filter:url(#shadow)"></use>
-												<filter id="shadow" height="130%">
-													<feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
-													<feOffset dx=".5" dy="1" result="offsetblur"/>
-													<feComponentTransfer>
-														<feFuncA type="linear" slope=".5"/>
-													</feComponentTransfer>
-												</filter>
-												<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)" x="0" y="0"></use>
+												<filter id="shadow" height="130%"><feGaussianBlur in="SourceAlpha" stdDeviation="1"/><feOffset dx=".5" dy="1" result="offsetblur"/><feComponentTransfer><feFuncA type="linear" slope=".5"/></feComponentTransfer></filter>
+												<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)"></use>
 											</svg>
 										</div>
 									</div>
@@ -218,18 +207,17 @@ $(function(){
 							<div class="title-em cl">
 								<svg class="vector text">
 									<use xlink:href="/w/svg/icon.svg#em-golden"></use>
+									<linearGradient id="c" gradientUnits="userSpaceOnUse" x1="7.87" y1="17.069" x2="7.87" y2="1.085" gradientTransform="matrix(1 0 0 -1 -.015 18.646)"><stop offset="0" stop-color="#FEFCF6"/><stop offset="1" stop-color="#F1D86E"/></linearGradient> {# Chrome want this #}
 								</svg>
 								<h3 class="title">{{ language.translate("Fast, Convenient &amp; Secure") }}</h3>
 							</div>
 						</div>
 						<div class="col6">
 							<span class="gold-pile">
-{#
-								<svg class="vector" viewBox="-1.6 39.3 110 100" transform="scale(4.2)">
-									<use xlink:href="/w/svg/icon.svg#logo" style="filter:url(#shadow)"></use> 
-									<use xlink:href="/w/svg/icon.svg#logo"></use>
+								<svg class="vector" viewBox="-10 150 100 100">
+									<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)" style="filter:url(#shadow)"></use>
+									<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)"></use>
 								</svg>
-#}
 								<a href="/play" class="btn blue">{{ language.translate("Start playing, Win millions") }}</a>
 							</span>
 						</div>

@@ -174,7 +174,6 @@
 .box-estimated .value.maxChar{font-size:3.175em;}
 .box-prize{
   .value.maxChar{font-size:1.675em;}
-  .vector{max-width:180px;}
 }
 .who-we-are{
   .text{width:330px}
@@ -197,17 +196,19 @@
 .box-play .content{margin-top:85px;}
 .box-play .box-ball{margin-top:10px;}
 .box-play .btn{left:0; font-size:$h2;}
-.box-prize{margin:-35px auto 0;}
-.box-prize .col6{width:100%; margin:0;}
-.box-prize .notes{font-size:90%;}
-.box-prize .content .content{margin:10px;}
+.box-prize{
+  margin:-35px auto 0;
+  .cols > div{width:100%; margin:0;}
+  .notes{font-size:90%;}
+  .content .content{margin:10px;}
+}
 .box-how .vector{height:100px;}
 .box-estimated h1{line-height:115%;}
 .box-estimated .content{width:100%;}
 .notes .right, .notes .left{float:none;}
 .notes .left{margin-bottom:5px;}
 .who-we-are{
-  .text{width:230px; height:30px; margin:0 0 -5px -5px;}
+  .text{width:230px; height:30px; margin:0 0 -3px 0;}
   .title{font-size:$h4;}
   .cols{padding:0;}
   .gold-pile{
@@ -240,7 +241,6 @@
   .btn{max-width:220px;}
   .box-vector{display:none;}
   .box-value{margin-bottom:.5em;}
-  .col6{width:50%; float:left; margin:0!important;}
 }
 .who-we-are{
   margin:0;
@@ -279,7 +279,7 @@
 .outbound{width:290px; height:290px; border-width:5px;}
 .outbound:hover, .outbound:focus{border-width:5px;}
 .box-play .btn{font-size:$h4;}
-.box-prize .col6{width:100%; float:none; margin-bottom:0!important;}
+.box-prize .cols > div{width:100%; float:none; margin-bottom:0!important;}
 .phrase{font-size:$h3;}
 }
  
