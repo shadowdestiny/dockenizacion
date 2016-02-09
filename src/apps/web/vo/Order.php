@@ -8,7 +8,7 @@ use EuroMillions\web\entities\PlayConfig;
 use Money\Currency;
 use Money\Money;
 
-class Order
+class Order implements \JsonSerializable
 {
 
     /** @var  Money $total */
@@ -145,6 +145,34 @@ class Order
         $this->total = ($this->fee_limit->getAmount() > $this->total->getAmount()) ? $this->total->add($this->fee) : $this->total;
     }
 
+    public function toJsonData()
+    {
+        return json_encode($this);
+    }
+
+    public function fromJsonToData($json)
+    {
+        var_dump($json);
+    }
 
 
+    /**
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize()
+    {
+         return [
+            'total' => $this->total->getAmount(),
+            'fee' => $this->fee->getAmount(),
+            'fee_limit' => $this->fee_limit->getAmount(),
+            'single_bet_price' => $this->single_bet_price->getAmount(),
+            'num_lines' => $this->num_lines,
+            'play_config' => $this->play_config->toArray()
+        ];
+
+    }
 }

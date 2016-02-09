@@ -13,8 +13,30 @@
         var fee_charge = '<?php echo number_format($order->getFee(),2,".",","); ?>';
         var symbol_position = '<?php echo $symbol_position ?>';
         var draw_days = '<?php echo $order->getDrawDays(); ?>';
+        var show_order_cart = true;
+        var total_price_in_credit_card_form = 0;
 
-        console.log(total_price);
+        $(document).on("totalPriceEvent",{total: 0},
+                function(e, total) {
+                    total_price_in_credit_card_form = total;
+                }
+        )
+
+        $(function(){
+            $('.buy').on('click',function(){
+                var value = $(this).data('btn');
+                if(value == 'no-wallet') {
+                    $('.submit.big.green').text('Pay ' + total_price_in_credit_card_form);
+                    $('.payment').show();
+                }
+            })
+            $('.submit.big.green').on('click', function() {
+
+            });
+
+        });
+
+
     </script>
     <script src="/w/js/react/cart.js"></script>
 {% endblock %}
@@ -43,7 +65,7 @@
                 {#</div>#}
 
                 <div id="cart-order"></div>
-                <div class="payment">
+                <div class="payment hidden">
                     {% set component='{"where": "cart"}'|json_decode %}
                     {% include "account/_add-card.volt" %}
                 </div>

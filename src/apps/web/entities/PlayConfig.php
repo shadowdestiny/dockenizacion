@@ -14,7 +14,7 @@ use EuroMillions\web\vo\EuroMillionsRegularNumber;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
 
-class PlayConfig extends EntityBase implements IEntity,IEMForm
+class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
 {
 
     protected $id;
@@ -197,8 +197,43 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm
         }
     }
 
-    public function toJson()
+    public function toJsonData()
     {
-        return json_encode(get_object_vars($this));
+        return json_encode($this, JSON_UNESCAPED_UNICODE);
+    }
+
+    public function toArray()
+    {
+        return $arr = $this->jsonSerialize();
+
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    function jsonSerialize()
+    {
+
+        $lines = [];
+        if(count($this->line) > 0) {
+            /** @var EuroMillionsLine $line */
+            foreach($this->line as $line) {
+                $lines[] = $line->toJsonData();
+            }
+        }
+
+        return [
+            'id' => $this->id,
+            'drawDays' => $this->draw_days,
+            'startDrawDate' => $this->startDrawDate->format('Y-m-d H:i:s'),
+            'lastDrawDate' => $this->lastDrawDate->format('Y-m-d H:i:s'),
+            'frequency' => $this->frequency,
+            'euromillions_line' => $lines,
+            'user' => ['id' => (string) $this->user->getId()->id()]
+        ];
     }
 }

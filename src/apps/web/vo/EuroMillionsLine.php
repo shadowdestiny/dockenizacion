@@ -126,4 +126,12 @@ class EuroMillionsLine
         return $lucky;
     }
 
+    public function toJsonData()
+    {
+        return [
+            'regular' => $this->getRegularNumbersArray(),
+            'lucky' => $this->getLuckyNumbersArray()
+        ];
+    }
+
 }
