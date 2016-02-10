@@ -60,8 +60,10 @@
 .outbound:hover, .outbound:focus{top:10px; border-width:18px;}
 .box-play{position:relative; top:-115px; text-align:center;}
 .box-play .txt{position:absolute; left:-9999px; top:-9999px;}
-.win-millions{margin-top:-46px; text-align:center;}
-.win-millions .pic{margin:auto; width:417px;}
+.win-millions{
+  margin-top:-46px; text-align:center;
+  .vector{height:68px; width:83%; margin-top:33px}
+}
 .box-play .h2{text-shadow:0 0 1px rgba(0, 0, 0, .5);}
 .box-play .content{margin-top:125px; color:#fff;}
 .box-play .ico{position:relative; top:2px;}
@@ -168,7 +170,6 @@
 .box-estimated h1{font-size:1.2em;}
 .outbound{width:430px; height:430px; border:15px solid #fff;}
 .outbound:hover, .outbound:focus{border-width:13px;}
-.win-millions .pic{width:350px;}
 .box-play{top:-90px;}
 .box-play .content{margin-top:95px;}
 .box-estimated .value.maxChar{font-size:3.175em;}
@@ -192,7 +193,6 @@
 .outbound{width:330px; height:330px; border:10px solid #fff;}
 .outbound:hover, .outbound:focus{border-width:13px;}
 .win-millions{margin-top:-35px;}
-.win-millions .pic{width:280px;}
 .box-play .content{margin-top:85px;}
 .box-play .box-ball{margin-top:10px;}
 .box-play .btn{left:0; font-size:$h2;}

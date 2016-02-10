@@ -133,12 +133,10 @@ $(function(){
 						<div class="content">
 							<p class="h2">{{ language.translate('for only %priceValue% &euro;',['priceValue':2,35]) }}</p>
 							<div class="win-millions">
-								<picture class="pic">
-									<!--[if IE 9]><video style="display: none;"><![endif]-->
-									<source media="(max-width: 768px)" srcset="/w/img/home/win-millions-sm.png">
-									<!--[if IE 9]></video><![endif]-->
-									<img src="w/img/home/win-millions.png" srcset="/w/img/home/win-millions.png, /w/img/home/win-millions@2x.png 1.5x" alt="{{ language.translate('Win Millions') }}">
-								</picture>
+								<svg class="vector win-millions">
+									<use xlink:href="/w/svg/icon.svg#win-millions" style="filter:url(#shadow)"></use>
+									<use xlink:href="/w/svg/icon.svg#win-millions"></use>
+								</svg>
 							</div>
 							<div class="box-ball">
 								<div class="btn big purple">
