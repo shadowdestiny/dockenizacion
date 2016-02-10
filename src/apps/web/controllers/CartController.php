@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\forms\MyAccountForm;
@@ -25,7 +26,8 @@ use Money\Money;
 use Phalcon\Validation\Message;
 
 
-class CartController extends PublicSiteControllerBase{
+class CartController extends PublicSiteControllerBase
+{
 
     public function orderAction(){
 
@@ -36,6 +38,7 @@ class CartController extends PublicSiteControllerBase{
         $form_errors = $this->getErrorsArray();
 
         $play_service = $this->domainServiceFactory->getPlayService();
+        $cart_service = $this->domainServiceFactory->getCartService();
 
         if(!empty($user_id)) {
             $result = $play_service->getPlaysFromGuestUserAndSwitchUser(new UserId($user_id),$current_user_id);
@@ -52,19 +55,11 @@ class CartController extends PublicSiteControllerBase{
 
         list($fee,$fee_limit) = $this->getFees();
         $single_bet_price = $this->domainServiceFactory->getLotteriesDataService()->getSingleBetPriceByLottery('EuroMillions');
-        $order = new Order($result->returnValues(),$single_bet_price, $fee, $fee_limit); // order created
-        //save order in storage
-        $result_save_order = $play_service->saveOrderToStorage($order);
-        if(!$result_save_order->success()) {
-            //EMTD redirect with error message
-        }
-        list($currency_symbol,$bet_price_value_currency, $wallet_balance,$total_price_currency) = $this->getVarsToOrderView($order, $user, $single_bet_price);
+        /** @var PlayConfig $play_config */
+        $play_config = $result->returnValues();
+      //  list($currency_symbol,$bet_price_value_currency, $wallet_balance,$total_price_currency) = $this->getVarsToOrderView($order, $user, $single_bet_price);
         $locale = $this->request->getBestLanguage();
-        $symbol_position = $this->currencyService->getSymbolPosition($locale,$order->getPlayConfig()->getUser()->getUserCurrency());
-        $order_dto = new OrderDTO($order);
-        $order_dto->setSingleBetPrice($bet_price_value_currency);
-        $order_dto->setWalletBalance($wallet_balance);
-        $order_dto->setTotal($total_price_currency);
+        $symbol_position = $this->currencyService->getSymbolPosition($locale,$play_config->getUser()->getUserCurrency());
 
         return $this->view->setVars([
             'order' => $order_dto,
@@ -89,30 +84,6 @@ class CartController extends PublicSiteControllerBase{
         $sign_up_form = $this->getSignUpForm();
         list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
 
-//        if ($this->request->isPost()) {
-//            if ($sign_in_form->isValid($this->request->getPost()) == false) {
-//                $messages = $sign_in_form->getMessages(true);
-//                /**
-//                 * @var string $field
-//                 * @var Message\Group $field_messages
-//                 */
-//                foreach ($messages as $field => $field_messages) {
-//                    $errors[] = $field_messages[0]->getMessage();
-//                    $form_errors[$field] = ' error';
-//                }
-//            } else {
-//                if (!$this->authService->check([
-//                    'email'    => $this->request->getPost('email'),
-//                    'password' => $this->request->getPost('password'),
-//                    'remember' => $this->request->getPost('remember'),
-//                ], 'string')
-//                ) {
-//                    $errors[] = 'Email/password combination not valid';
-//                } else {
-//                    return $this->response->redirect("$controller/$action".implode('/',$params));
-//                }
-//            }
-//        }
         $this->view->pick('cart/index');
         return $this->view->setVars([
             'which_form'  => 'in',
@@ -231,7 +202,7 @@ class CartController extends PublicSiteControllerBase{
         $card_holder_name = $this->request->getPost('cardholder');
         $expiry_date = $this->request->getPost('expirydate');
         $cvv = $this->request->getPost('cardcvv');
-
+        $play_service = $this->domainServiceFactory->getPlayService();
 
         if($this->request->isPost()) {
             if ($credit_card_form->isValid($this->request->getPost()) == false) {
@@ -252,8 +223,8 @@ class CartController extends PublicSiteControllerBase{
                 if(null != $user ){
                     try {
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($expiry_date), new CVV($cvv));
-
-
+                        $amount = new Money((int)$funds_value, new Currency('EUR'));
+                        $play_service->play($user_id,$card,$amount);
                     } catch (\Exception $e ) {
                         $errors[] = $e->getMessage();
                         $form_errors['month'] = ' error';

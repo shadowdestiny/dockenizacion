@@ -80,8 +80,6 @@ class LotteriesDataService
     public function getLastDrawDate($lotteryName, $today = null)
     {
         if (!$today) {
-
-
             $today = new \DateTime();
         }
         return $this->lotteryRepository->findOneby(['name' => $lotteryName])->getLastDrawDate($today);

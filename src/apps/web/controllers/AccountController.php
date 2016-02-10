@@ -206,8 +206,13 @@ class AccountController extends PublicSiteControllerBase
         ]);
     }
 
+
+    //EMTD
     public function addFundsAction()
     {
+
+
+
         $credit_card_form = new CreditCardForm();
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $form_errors = $this->getErrorsArray();
@@ -246,7 +251,6 @@ class AccountController extends PublicSiteControllerBase
                         $payXpertCardPaymentStrategy = $paymentProviderFactory->getCreditCardPaymentProvider(new PayXpertCardPaymentStrategy($config_payment));
                         //convert currency to EUR
                         $currency_euros_to_payment = $this->currencyService->convert(new Money($funds_value * 100, $user->getUserCurrency()), new Currency('EUR'));
-
                         //check if we should apply fee
                         list( $fee_to_limit_value,
                               $fee_value,
@@ -517,15 +521,22 @@ class AccountController extends PublicSiteControllerBase
         $siteConfig = $this->di->get('siteConfig');
         $fee_site_config_dto = new SiteConfigDTO($siteConfig[0]);
         $fee_to_limit_config_dto = new SiteConfigDTO($siteConfig[1]);
+
+
         $fee_value = new Money((int)$fee_site_config_dto->value, new Currency('EUR'));
         $fee_to_limit_value = new Money((int)$fee_to_limit_config_dto->value, new Currency('EUR'));
+
+
         $user_id = $this->authService->getCurrentUser();
         $user = $this->userService->getUser($user_id->getId());
         $fee_value_convert = $this->currencyService->convert($fee_value, $user->getUserCurrency());
         $fee_to_limit_value_convert = $this->currencyService->convert($fee_to_limit_value, $user->getUserCurrency());
         $currency_symbol = $this->currencyService->getSymbol($fee_value_convert, $user->getBalance()->getCurrency());
+
         $locale = $this->request->getBestLanguage();
         $symbol_position = $this->currencyService->getSymbolPosition($locale, $user->getUserCurrency());
+
+
         return array($fee_value_convert, $fee_to_limit_value_convert, $currency_symbol, $symbol_position);
     }
 

@@ -11,6 +11,7 @@ use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\vo\CastilloBetId;
+use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
@@ -22,6 +23,7 @@ use Prophecy\Argument;
 use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\LotteryValidationCastilloRelatedTest;
 use tests\base\UnitTestBase;
+use tests\helpers\mothers\CreditCardMother;
 use tests\helpers\mothers\OrderMother;
 use tests\helpers\mothers\UserMother;
 
@@ -53,6 +55,8 @@ class PlayServiceUnitTest extends UnitTestBase
 
     private $logValidationApi_double;
 
+    private $cartService_double;
+
     protected function getEntityManagerStubExtraMappings()
     {
         return [
@@ -77,6 +81,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->logValidationApi_double = $this->getRepositoryDouble('LogValidationApiRepository');
         $this->authService_double = $this->getServiceDouble('AuthService');
         $this->lotteryValidation_double = $this->prophesize('EuroMillions\web\services\external_apis\LotteryValidationCastilloApi');
+        $this->cartService_double = $this->getServiceDouble('CartService');
         parent::setUp();
     }
 
@@ -383,7 +388,6 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_play_calledWithAUserWithOrderWithABetForNextDraw_getPayConfigurationFromOrder()
     {
-
     }
 
     /**
@@ -393,6 +397,18 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_play_calledWithAUserWithOrderWithABetForNextDraw_chargeCreditCardWhenTheresNotEnoughFundsOnWallet()
     {
+        $user = UserMother::aUserWith50Eur()->build();
+        $userId = $user->getId();
+        $credit_card = CreditCardMother::aValidCreditCard();
+        $order = OrderMother::aJustOrder()->build();
+        $play_config = $order->getPlayConfig();
+        $this->orderStorageStrategy_double->findByKey($userId)->willReturn($order->toJsonData());
+        $this->cartService_double->get($userId)->willReturn($order);
+        $this->lotteryDataService_double->getNextDateDrawByLottery('EuroMillions')->willReturn(new \DateTime('2016-02-09 20:00:00'));
+
+        $funds = new Money(0, new Currency('EUR'));
+        $sut = $this->getSut();
+        $actual = $sut->play($userId,$credit_card,$funds);
 
     }
 

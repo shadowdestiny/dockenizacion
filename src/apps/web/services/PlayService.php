@@ -19,6 +19,7 @@ use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\services\external_apis\LotteryValidationCastilloApi;
 use EuroMillions\web\vo\CastilloCypherKey;
 use EuroMillions\web\vo\CastilloTicketId;
+use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\shared\vo\results\ActionResult;
@@ -64,7 +65,6 @@ class PlayService
         $this->orderStorageStrategy = $orderStorageStrategy;
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
         $this->logValidationRepository = $entityManager->getRepository('EuroMillions\web\entities\LogValidationApi');
-
     }
 
 
@@ -123,8 +123,9 @@ class PlayService
      * @param User $user
      * @return ActionResult
      */
-    public function play( User $user_id )
+    public function play( User $user_id, Money $funds = null, CreditCard $card = null)
     {
+
         // get playconfig from order
         // get pay configuration from order
         // charge credit card or wallet

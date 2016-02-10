@@ -111,11 +111,11 @@ class DomainServiceFactory
         return new PlayService($this->entityManager, $lotteriesDataService, $playStorageStrategy, $orderStorageStrategy);
     }
 
-    public function getCartService( IPlayStorageStrategy $orderStorageStrategy = null)
+    public function getCartService( IPlayStorageStrategy $orderStorageStrategy = null )
     {
-        $orderStorageStrategy ?: new RedisOrderStorageStrategy($this->serviceFactory->getDI()->get('redisCache'));
-        return new CartService($this->entityManager, $orderStorageStrategy);
+        $orderStorageStrategy = $orderStorageStrategy ?: new RedisOrderStorageStrategy($this->serviceFactory->getDI()->get('redisCache'));
 
+        return new CartService($this->entityManager, $orderStorageStrategy);
     }
 
     public function getPriceCheckoutService(LotteriesDataService $lotteriesDataService = null)

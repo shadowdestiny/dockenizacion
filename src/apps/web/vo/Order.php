@@ -23,6 +23,8 @@ class Order implements \JsonSerializable
     private $single_bet_price;
     private $num_lines;
     private $state;
+    private $is_charge_fee;
+    private $funds_amount;
 
 
     public function __construct(PlayConfig $play_config, Money $single_bet_price, Money $fee, Money $fee_limit)
@@ -31,12 +33,17 @@ class Order implements \JsonSerializable
         $this->single_bet_price = $single_bet_price;
         $this->fee = $fee;
         $this->fee_limit = $fee_limit;
+        $this->is_charge_fee = false;
+        $this->funds_amount = new Money(0, new Currency('EUR'));
         $this->initialize();
     }
 
     public function addFunds( Money $amount )
     {
         $this->total = $this->total->add($amount);
+        if( $this->total->getAmount() > $this->fee_limit->getAmount() ) {
+            $this->is_charge_fee = false;
+        }
     }
 
     /**
@@ -137,24 +144,41 @@ class Order implements \JsonSerializable
         $this->state = $state;
     }
 
+    public function is_charged_fee()
+    {
+        return $this->is_charge_fee;
+    }
+
+
+
+    public function isNextDraw( \DateTime $draw_date )
+    {
+        $play_config = $this->getPlayConfig();
+        $start_draw_day_number = date('N',$play_config->getStartDrawDate()->getTimeStamp());
+        $draw_date_day_number = date('N', $draw_date->getTimestamp());
+        $draw_days = $play_config->getDrawDays();
+        if(strpos($draw_days,$draw_date_day_number) !== false && $start_draw_day_number == $draw_date_day_number ) {
+            return true;
+        }
+        return false;
+    }
+
+
     private function initialize()
     {
         $this->num_lines = count($this->play_config->getLine());
         $this->total = new Money(1,new Currency('EUR'));
         $this->total = $this->total->multiply($this->num_lines)->multiply((int) $this->play_config->getDrawDays()->value())->multiply((int) $this->single_bet_price->getAmount())->multiply($this->play_config->getFrequency());
-        $this->total = ($this->fee_limit->getAmount() > $this->total->getAmount()) ? $this->total->add($this->fee) : $this->total;
+        if( $this->fee_limit->getAmount() > $this->total->getAmount() ) {
+            $this->total = $this->total->add($this->fee);
+            $this->is_charge_fee = true;
+        }
     }
 
     public function toJsonData()
     {
         return json_encode($this);
     }
-
-    public function fromJsonToData($json)
-    {
-        var_dump($json);
-    }
-
 
     /**
      * Specify data which should be serialized to JSON
