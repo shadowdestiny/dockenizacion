@@ -7,7 +7,7 @@
 $(function(){$('input, textarea').placeholder();});
 </script>
 <![endif]-->
-<script src="/w/js/vendor/svgxuse.min.js" defer async></script> {# Render SVG for IE and problematic browsers #} 
+<script src="/w/js/vendor/svgxuse.min.js" async></script> {# Render SVG for IE and problematic browsers #} 
 <script src="/w/js/vendor/jquery.cookie.js"></script>
 <script src="/w/js/vendor/jquery.countdown.min.js"></script>
 <script src="/w/js/vendor/picturefill.min.js" async></script>

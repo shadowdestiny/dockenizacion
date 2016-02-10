@@ -107,7 +107,7 @@ class PublicSiteControllerBase extends ControllerBase
 
     private function setNavValues()
     {
-        $is_logged = $this->authService->isLogged();
+        $is_logged = $this->authService->isLogged();        
         if ($is_logged) {
             /** @var User $user */
             $user = $this->authService->getCurrentUser();

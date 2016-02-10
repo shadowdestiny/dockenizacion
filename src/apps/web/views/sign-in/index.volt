@@ -24,7 +24,7 @@ $(function(){swap(".log-in .box-extra a, .sign-up .box-extra a");});
 <main id="content" style="padding-top:40px;">
     <div class="wrapper cl">
         <div class="col-left">
-            <a href="/" title="{{ language.translate('Go to homepage')}}"><img class="v-logo vector" alt="Euromillions" src="/w/svg/logo.svg"></a>
+            {% include "_elements/logo.volt" %}
         </div>
         <div class="col-right">
             <div class="box-basic log-in">
