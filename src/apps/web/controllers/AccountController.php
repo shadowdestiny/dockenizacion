@@ -5,6 +5,7 @@ namespace EuroMillions\web\controllers;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
+use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\forms\elements\CreditCardExpiryDateElement;
@@ -14,6 +15,8 @@ use EuroMillions\web\forms\ResetPasswordForm;
 use EuroMillions\web\forms\validators\CreditCardExpiryDateValidator;
 use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
+use EuroMillions\web\services\CurrencyService;
+use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
@@ -36,9 +39,16 @@ use Phalcon\Validation;
 use Phalcon\Validation\Message;
 use Phalcon\Validation\Validator\Regex;
 
-class AccountController extends PublicSiteControllerBase
+class AccountController extends ControllerBase
 {
+    private $siteConfigService;
+    private $currencyService;
+    public function initialize(SiteConfigService $siteConfigService = null, CurrencyService $currencyService = null)
+    {
+        $this->siteConfigService = $siteConfigService ?: new SiteConfigService($this->di->get('entityManager'));
+        //EMTD $this->currencyService = $currencyService ?: new CurrencyService($this->di->get('entityManager'));
 
+    }
     public function TransactionAction(){}
 
     public function indexAction()
@@ -188,6 +198,10 @@ class AccountController extends PublicSiteControllerBase
             $fee_to_limit_value_convert,
             $currency_symbol,
             $symbol_position) = $this->getSiteConfigVars();
+
+        $fee_value_convert = $this->siteConfigService->get('fee');
+        $currency_symbol = ;
+
 
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
 
@@ -513,20 +527,20 @@ class AccountController extends PublicSiteControllerBase
      */
     private function getSiteConfigVars()
     {
-        /** @var ArrayCollection $siteConfig */
-        $siteConfig = $this->di->get('siteConfig');
-        $fee_site_config_dto = new SiteConfigDTO($siteConfig[0]);
-        $fee_to_limit_config_dto = new SiteConfigDTO($siteConfig[1]);
-        $fee_value = new Money((int)$fee_site_config_dto->value, new Currency('EUR'));
-        $fee_to_limit_value = new Money((int)$fee_to_limit_config_dto->value, new Currency('EUR'));
-        $user_id = $this->authService->getCurrentUser();
-        $user = $this->userService->getUser($user_id->getId());
-        $fee_value_convert = $this->currencyService->convert($fee_value, $user->getUserCurrency());
-        $fee_to_limit_value_convert = $this->currencyService->convert($fee_to_limit_value, $user->getUserCurrency());
-        $currency_symbol = $this->currencyService->getSymbol($fee_value_convert, $user->getBalance()->getCurrency());
-        $locale = $this->request->getBestLanguage();
-        $symbol_position = $this->currencyService->getSymbolPosition($locale, $user->getUserCurrency());
-        return array($fee_value_convert, $fee_to_limit_value_convert, $currency_symbol, $symbol_position);
+//        /** @var ArrayCollection $siteConfig */
+//        $siteConfig = $this->di->get('siteConfig');
+//        $fee_site_config_dto = new SiteConfigDTO($siteConfig[0]);
+//        $fee_to_limit_config_dto = new SiteConfigDTO($siteConfig[1]);
+//        $fee_value = new Money((int)$fee_site_config_dto->value, new Currency('EUR'));
+//        $fee_to_limit_value = new Money((int)$fee_to_limit_config_dto->value, new Currency('EUR'));
+//        $user_id = $this->authService->getCurrentUser();
+//        $user = $this->userService->getUser($user_id->getId());
+//        $fee_value_convert = $this->currencyService->convert($fee_value, $user->getUserCurrency());
+//        $fee_to_limit_value_convert = $this->currencyService->convert($fee_to_limit_value, $user->getUserCurrency());
+//        $currency_symbol = $this->currencyService->getSymbol($fee_value_convert, $user->getBalance()->getCurrency());
+//        $locale = $this->request->getBestLanguage();
+//        $symbol_position = $this->currencyService->getSymbolPosition($locale, $user->getUserCurrency());
+//        return array($fee_value_convert, $fee_to_limit_value_convert, $currency_symbol, $symbol_position);
     }
 
     /**
