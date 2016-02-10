@@ -51,7 +51,6 @@
         <div class="ending">
             {{ language.translate("The draw will close in 30 minutes.") }}
         </div>
-        <script src="/w/js/vendor/jquery-1.11.3.min.js"></script>
         {% include "_elements/js-lib.volt" %} {# JS libraries #}
         {% block template_scripts %}{% endblock %}  {# Inject unique js #}
     </body>

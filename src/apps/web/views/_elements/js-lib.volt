@@ -1,6 +1,7 @@
 <!--[if lt IE 9]>
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+<script src="/w/js/vendor/jquery-1.11.3.min.js"></script>
 <!--[if IE 9]>
 <script src="/w/js/vendor/jquery.placeholder.min.js"></script>
 <script>
@@ -12,7 +13,6 @@ $(function(){$('input, textarea').placeholder();});
 <script src="/w/js/vendor/jquery.countdown.min.js"></script>
 <script src="/w/js/vendor/picturefill.min.js" async></script>
 <script src="/w/js/vendor/easyModal.min.js"></script>
-
 <script>
 $(document).bind("mobileinit", function(){
     $.mobile.ajaxEnabled=false;
