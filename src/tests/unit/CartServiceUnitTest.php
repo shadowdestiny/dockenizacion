@@ -57,7 +57,7 @@ class CartServiceUnitTest extends UnitTestBase
     {
         $order = OrderMother::aJustOrder()->build();
         $expected = new ActionResult(true, $order);
-        $order_json = '{"total":5035,"fee":35,"fee_limit":12000,"single_bet_price":2500,"num_lines":2,"play_config":{"id":null,"drawDays":2,"startDrawDate":"2016-02-05 00:00:00","lastDrawDate":"2016-02-05 00:00:00","frequency":1,"euromillions_line":[{"regular":[3,8,11,16,44],"lucky":[3,5]},{"regular":[6,17,37,38,48],"lucky":[1,5]}],"user":{"id":"9098299B-14AC-4124-8DB0-19571EDABE55"}}}';
+        $order_json = '{"total":5035,"fee":35,"fee_limit":12000,"single_bet_price":2500,"num_lines":2,"play_config":{"id":null,"drawDays":5,"startDrawDate":"2016-02-05 00:00:00","lastDrawDate":"2016-02-05 00:00:00","frequency":1,"euromillions_line":[{"regular":[3,8,11,16,44],"lucky":[3,5]},{"regular":[6,17,37,38,48],"lucky":[1,5]}],"user":{"id":"9098299B-14AC-4124-8DB0-19571EDABE55"}}}';
         $user = UserMother::aUserWith50Eur()->build();
         $user_id = $user->getId();
         $this->orderStorageStrategy_double->findByKey($user_id)->willReturn(new ActionResult(true,$order_json));

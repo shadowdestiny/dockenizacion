@@ -8,6 +8,8 @@ use Doctrine\ORM\Tools\Setup;
 use Doctrine\Common\Cache\ApcCache;
 use EuroMillions\shared\components\PhalconRedisWrapper;
 use EuroMillions\shared\services\SiteConfigService;
+use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
+use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\DomainServiceFactory;
 use EuroMillions\web\services\ServiceFactory;
 use Phalcon\Cache\Frontend\Data;
@@ -44,9 +46,10 @@ abstract class BootstrapStrategyBase
         $di->set('environmentDetector', $environment_detector);
         $di->set('config', $config, true);
         $di->set('entityManager', $this->configDoctrine($config), true);
-        $di->set('siteConfig', $this->siteConfig( $this->configDoctrine($config)),true);
         $di->set('redisCache', $this->configRedis($config), true);
-       // $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
+        $di->set('siteConfig', $this->siteConfig( $this->configDoctrine($config), $di),true);
+        $di->set('paymentProviderFactory', $this->configPaymentProvider($di), true);
+        // $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
         return $di;
     }
 
@@ -106,12 +109,20 @@ abstract class BootstrapStrategyBase
         return new Ini($this->configPath.$this->getConfigFileName($em));
     }
 
+    protected function configPaymentProvider(Di $di)
+    {
+        $paymentProviderFactory = new PaymentProviderFactory();
+        $config_payment = $di->get('config')['payxpert'];
+        return $paymentProviderFactory->getCreditCardPaymentProvider(new PayXpertCardPaymentStrategy($config_payment));
+    }
+
+
     protected function configGlobalConfig()
     {
         return new Ini($this->globalConfigPath . 'config.ini');
     }
 
-    protected function siteConfig(EntityManager $entityManager)
+    protected function siteConfig(EntityManager $entityManager, $di)
     {
         return new SiteConfigService($entityManager);
     }

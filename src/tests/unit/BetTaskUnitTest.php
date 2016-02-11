@@ -20,6 +20,9 @@ use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\UnitTestBase;
 use tests\helpers\mothers\UserMother;
 
+
+
+//EMTD change bet to betservice_double and call to validate method
 class BetTaskUnitTest extends UnitTestBase
 {
 

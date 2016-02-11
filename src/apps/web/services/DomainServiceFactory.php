@@ -3,12 +3,14 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\components\EmTranslationAdapter;
+use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\ICurrencyApi;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\web\interfaces\ILanguageStrategy;
 use EuroMillions\web\repositories\LanguageRepository;
 use EuroMillions\web\repositories\UserRepository;
+use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
 use EuroMillions\web\services\external_apis\RedisCurrencyApiCache;
 use EuroMillions\web\services\external_apis\YahooCurrencyApi;
@@ -103,12 +105,28 @@ class DomainServiceFactory
         return new AuthService($this->entityManager, $passwordHasher, $storageStrategy, $urlManager, $logService, $emailService, $userService);
     }
 
-    public function getPlayService(LotteriesDataService $lotteriesDataService = null, IPlayStorageStrategy $playStorageStrategy = null, IPlayStorageStrategy $orderStorageStrategy = null)
+    public function getPlayService(LotteriesDataService $lotteriesDataService = null,
+                                   IPlayStorageStrategy $playStorageStrategy = null,
+                                   IPlayStorageStrategy $orderStorageStrategy = null,
+                                   CartService $cartService = null,
+                                   WalletService $walletService = null,
+                                   ICardPaymentProvider $payXpertCardPaymentStrategy = null,
+                                   BetService $betService = null)
     {
         $lotteriesDataService = $lotteriesDataService ?: new LotteriesDataService($this->entityManager, new LotteryApisFactory());
         $playStorageStrategy = $playStorageStrategy ?: new RedisPlayStorageStrategy($this->serviceFactory->getDI()->get('redisCache'));
         $orderStorageStrategy = $orderStorageStrategy ?: new RedisOrderStorageStrategy($this->serviceFactory->getDI()->get('redisCache'));
-        return new PlayService($this->entityManager, $lotteriesDataService, $playStorageStrategy, $orderStorageStrategy);
+        $cartService = $cartService ?: new CartService($this->entityManager, $orderStorageStrategy);
+        $walletService = $walletService ?: new WalletService($this->entityManager, $this->getCurrencyService());
+        $payXpertCardPaymentStrategy = $payXpertCardPaymentStrategy ?: $this->serviceFactory->getDI()->get('paymentProviderFactory');
+        $betService = $betService ?: new BetService($this->entityManager, $this->getLotteriesDataService());
+        return new PlayService($this->entityManager, $lotteriesDataService, $playStorageStrategy, $orderStorageStrategy, $cartService, $walletService,$payXpertCardPaymentStrategy, $betService);
+    }
+
+    public function getBetService(LotteriesDataService $lotteriesDataService = null)
+    {
+        $lotteriesDataService = $lotteriesDataService ?: new LotteriesDataService($this->entityManager, new LotteryApisFactory());
+        return new BetService($this->entityManager, $lotteriesDataService);
     }
 
     public function getCartService( IPlayStorageStrategy $orderStorageStrategy = null )

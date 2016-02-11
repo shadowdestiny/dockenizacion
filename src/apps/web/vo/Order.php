@@ -23,8 +23,9 @@ class Order implements \JsonSerializable
     private $single_bet_price;
     private $num_lines;
     private $state;
-    private $is_charge_fee;
     private $funds_amount;
+    /** @var  CreditCardCharge $credit_card_charge */
+    private $credit_card_charge;
 
 
     public function __construct(PlayConfig $play_config, Money $single_bet_price, Money $fee, Money $fee_limit)
@@ -33,17 +34,22 @@ class Order implements \JsonSerializable
         $this->single_bet_price = $single_bet_price;
         $this->fee = $fee;
         $this->fee_limit = $fee_limit;
-        $this->is_charge_fee = false;
         $this->funds_amount = new Money(0, new Currency('EUR'));
         $this->initialize();
     }
 
-    public function addFunds( Money $amount )
+
+    public function getCreditCardCharge()
     {
-        $this->total = $this->total->add($amount);
-        if( $this->total->getAmount() > $this->fee_limit->getAmount() ) {
-            $this->is_charge_fee = false;
+        return $this->credit_card_charge;
+    }
+
+    public function addFunds( Money $amount = null )
+    {
+        if( $amount == null ) {
+            $amount = new Money(0, new Currency('EUR'));
         }
+        $this->credit_card_charge = new CreditCardCharge($this->total->add($amount), $this->fee, $this->fee_limit);
     }
 
     /**
@@ -51,7 +57,12 @@ class Order implements \JsonSerializable
      */
     public function getTotal()
     {
-        return $this->total;
+        return $this->credit_card_charge->getFinalAmount();
+    }
+
+    public function getTotalFromUser()
+    {
+        return $this->credit_card_charge->getNetAmount();
     }
 
 
@@ -146,9 +157,8 @@ class Order implements \JsonSerializable
 
     public function is_charged_fee()
     {
-        return $this->is_charge_fee;
+        return $this->credit_card_charge->getIsChargeFee();
     }
-
 
 
     public function isNextDraw( \DateTime $draw_date )
@@ -157,7 +167,7 @@ class Order implements \JsonSerializable
         $start_draw_day_number = date('N',$play_config->getStartDrawDate()->getTimeStamp());
         $draw_date_day_number = date('N', $draw_date->getTimestamp());
         $draw_days = $play_config->getDrawDays();
-        if(strpos($draw_days,$draw_date_day_number) !== false && $start_draw_day_number == $draw_date_day_number ) {
+        if(strpos($draw_days->value(),$draw_date_day_number) !== false && $start_draw_day_number == $draw_date_day_number ) {
             return true;
         }
         return false;
@@ -168,11 +178,8 @@ class Order implements \JsonSerializable
     {
         $this->num_lines = count($this->play_config->getLine());
         $this->total = new Money(1,new Currency('EUR'));
-        $this->total = $this->total->multiply($this->num_lines)->multiply((int) $this->play_config->getDrawDays()->value())->multiply((int) $this->single_bet_price->getAmount())->multiply($this->play_config->getFrequency());
-        if( $this->fee_limit->getAmount() > $this->total->getAmount() ) {
-            $this->total = $this->total->add($this->fee);
-            $this->is_charge_fee = true;
-        }
+        $this->total = $this->total->multiply($this->num_lines)->multiply((int) $this->play_config->getDrawDays()->value_len())->multiply((int) $this->single_bet_price->getAmount())->multiply($this->play_config->getFrequency());
+        $this->credit_card_charge = new CreditCardCharge($this->total,$this->fee,$this->fee_limit);
     }
 
     public function toJsonData()

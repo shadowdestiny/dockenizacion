@@ -17,7 +17,7 @@ class OrderBuilder
     const DEFAULT_FEE_LIMIT_VALUE = 12000;
     const DEFAULT_SINGLE_BET_PRICE = 2500;
 
-    const DEFAULT_JSON_PLAY = '{"drawDays":"2","startDrawDate":"05 Feb 2016","lastDrawDate":"2016-02-05 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[3,8,11,16,44],"lucky":[3,5]},{"regular":[6,17,37,38,48],"lucky":[1,5]}]},"numbers":null,"threshold":null,"num_weeks":0}';
+    const DEFAULT_JSON_PLAY = '{"drawDays":"5","startDrawDate":"05 Feb 2016","lastDrawDate":"2016-02-05 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[3,8,11,16,44],"lucky":[3,5]},{"regular":[6,17,37,38,48],"lucky":[1,5]}]},"numbers":null,"threshold":null,"num_weeks":0}';
 
     protected $playConfig;
     /** @var  Money $fee */

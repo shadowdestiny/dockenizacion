@@ -6,6 +6,7 @@ use EuroMillions\web\interfaces\ICypherStrategy;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\CastilloCypherKey;
 use EuroMillions\web\vo\CastilloTicketId;
+use EuroMillions\web\vo\EuroMillionsLine;
 use Phalcon\Http\Client\Provider\Curl;
 
 class LotteryValidationCastilloApi
@@ -23,7 +24,8 @@ class LotteryValidationCastilloApi
                                 ICypherStrategy $cypher,
                                 CastilloCypherKey $castilloKey = null,
                                 CastilloTicketId $castilloTicketId = null,
-                                \DateTime $date_next_draw)
+                                \DateTime $date_next_draw,
+                                EuroMillionsLine $line)
     {
         if (null === $castilloKey) {
             $castilloKey = CastilloCypherKey::create();
@@ -32,8 +34,8 @@ class LotteryValidationCastilloApi
             $castilloTicketId = CastilloTicketId::create();
         }
 
-        $regular_numbers = $bet->getPlayConfig()->getLine()->getRegularNumbersArray();
-        $lucky_numbers = $bet->getPlayConfig()->getLine()->getLuckyNumbersArray();
+        $regular_numbers = $line->getRegularNumbersArray();
+        $lucky_numbers = $line->getLuckyNumbersArray();
         $content = "<?xml version='1.0' encoding='UTF-8'?><ticket type='6' date='" . $date_next_draw->format('ymd') . "' bets='1' price='2'><id>" . $castilloTicketId->id() . "</id><combination>";
         foreach ($regular_numbers as $number) {
             $content .= "<number>{$number}</number>";

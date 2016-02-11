@@ -30,9 +30,10 @@ class AccountControllerUnitTest extends UnitTestBase
     public function test_addFundsAction_formNotPosted_showForm()
     {
 
-        $this->checkViewVarsContain('credit_card_form', new CreditCardForm());
-        $sut = new AccountController();
-        $actual = $sut->addFundsAction();
+        $this->markTestIncomplete('Create this test -> addFundsAction from AccountController');
+     //   $this->checkViewVarsContain('credit_card_form', new CreditCardForm());
+      //  $sut = new AccountController();
+//        $actual = $sut->addFundsAction();
 
 //        $this->checkViewVarsContain();
 //        $this->checkViewVarsContain();

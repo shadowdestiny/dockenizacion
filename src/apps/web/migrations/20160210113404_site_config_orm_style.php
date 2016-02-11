@@ -27,7 +27,7 @@ class SiteConfigOrmStyle extends AbstractMigration
      */
     public function change()
     {
-        $this->execute('drop table site_config');
+        $this->execute('drop table IF EXISTS site_config');
         $this->execute('CREATE TABLE site_config (id INT UNSIGNED AUTO_INCREMENT NOT NULL, fee VARCHAR(255) DEFAULT NULL, fee_to_limit VARCHAR(255) DEFAULT NULL, default_currency_name VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;');
     }
 }

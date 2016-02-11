@@ -39,6 +39,9 @@ class DrawDays implements Comparable
         return $this->draw_days;
     }
 
-
+    public function value_len()
+    {
+        return strlen($this->draw_days);
+    }
 
 }
