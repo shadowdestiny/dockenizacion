@@ -53,5 +53,9 @@
         </div>
         {% include "_elements/js-lib.volt" %} {# JS libraries #}
         {% block template_scripts %}{% endblock %}  {# Inject unique js #}
+        <script>
+        {% block template_scripts_code %}{% endblock %}  {# Inject unique js inside <script> tag #}
+        </script>
+        {% block template_scripts_after %}{% endblock %}
     </body>
 </html>

@@ -12,7 +12,8 @@
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}
 <script src="/w/js/mobileFix.min.js"></script>
-<script>
+{% endblock %}
+{% block template_scripts_code %}
 $(function(){
 	var html_formatted_offset = [];
 	$('.countdown .dots').eq(2).hide();
@@ -37,7 +38,6 @@ $(function(){
 	var finish_text = "<div class='closed'>{{ language.translate('The Draw is closed') }}</div>";
 	count_down(element,html_formatted,html_formatted_offset, date,finish_text, finish_action);
 });
-</script>
 {% endblock %}
 {% block body %}
 <main id="content">

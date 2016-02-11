@@ -1,8 +1,7 @@
 {% extends "main.volt" %}
 {% block bodyClass %}sign-in minimal{% endblock %}
 {% block template_css %}<link rel="stylesheet" href="/w/css/sign-in.css">{% endblock %}
-{% block template_scripts %}
-<script>
+{% block template_scripts_code %}
 function swap(myVar){
     $(myVar).click(function(event){
         event.preventDefault();
@@ -14,7 +13,6 @@ $(function(){swap(".log-in .box-extra a, .sign-up .box-extra a");});
     $(".sign-up").show()
     $(".log-in").hide();
 {% endif %}
-</script>
 {% endblock %}
 {% block mobileNav %}{% endblock %} {# Remove mobile navigation #}
 

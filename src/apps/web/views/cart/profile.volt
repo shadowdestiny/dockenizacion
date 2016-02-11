@@ -3,8 +3,7 @@
     <link rel="stylesheet" href="/w/css/cart.css">
 {% endblock %}
 
-{% block template_scripts %}
-<script>
+{% block template_scripts_code %}
     var size = checkSize();
     function swap(myVar){
         $(myVar).click(function(event){
@@ -23,7 +22,6 @@
             swap(".col4 .box-extra a, .col8 .box-extra a");
         });
     }
-</script>
 {% endblock %}
 {% block bodyClass %}cart profile minimal sign-in{% endblock %}
 

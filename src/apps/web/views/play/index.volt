@@ -1,10 +1,9 @@
 {% extends "main.volt" %}
-{% block template_css %}
-<link rel="stylesheet" href="/w/css/play.css">
-{% endblock %}
+{% block template_css %}<link rel="stylesheet" href="/w/css/play.css">{% endblock %}
 {% block template_scripts %}
 <script src="/w/js/mobileFix.min.js"></script>
-<script>
+{% endblock %}
+{% block template_scripts_code %}
 	var ajaxFunctions = {
 		playCart : function (params){
 			$.ajax({
@@ -18,7 +17,7 @@
 					}
 				},
 				error:function (xhr, status, errorThrown){
-					//EMTD manage errrors
+					{# //EMTD manage errors #}
 				},
 			});
 		}
@@ -28,9 +27,11 @@
 	var price_bet = {{ single_bet_price }};
 	var currency_symbol = '<?php echo $currency_symbol ?>';
 	var automatic_random = '<?php echo $automatic_random; ?>';
-</script>
+{% endblock %}
+{% block template_scripts_after %}
 <script src="/w/js/react/play.js"></script>
 {% endblock %}
+
 {% block bodyClass %}play{% endblock %}
 
 {% block header %}

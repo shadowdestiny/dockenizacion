@@ -3,7 +3,8 @@
 {% block bodyClass %}wallet{% endblock %}
 {% block template_scripts %}
 <script src="/w/js/mobileFix.js"></script>
-<script>
+{% endblock %}
+{% block template_scripts_code %}
 var fee_limit = '<?php echo $fee_to_limit_value; ?>';
 
 function deleteLnk(id){
@@ -22,8 +23,8 @@ function checkRadio(id){
         if($(this).hasClass("active")){
             //do nothing
         }else{
-            if($(e.target).closest('a').length){ // click a link or link's child
-                // Do nothing
+            if($(e.target).closest('a').length){ {# // click a link or link's child #}
+                {# // Do nothing #}
             }else{
                 $(this).siblings("tr").removeClass("active");
                 $(this).addClass("active");
@@ -67,14 +68,13 @@ $('#funds-value').on('blur', function(e) {
 });
 
 $(function(){
-    btnShowHide('.btn.add-funds', '.box-add-card, .back', '.overview-wallet'); // Add funds
-    btnShowHide('.btn.withdraw', '.box-bank, .back', '.overview-wallet'); // Withdraw winnings
+    btnShowHide('.btn.add-funds', '.box-add-card, .back', '.overview-wallet'); {# // Add funds #}
+    btnShowHide('.btn.withdraw', '.box-bank, .back', '.overview-wallet'); {# // Withdraw winnings #}
     btnShowHide('.btn.convert', '.box-convert, .back', '.overview-wallet');
-    btnShowHide('.back', '.overview-wallet', '.back, .box-bank, .box-add-card, .box-convert'); // Back button
+    btnShowHide('.back', '.overview-wallet', '.back, .box-bank, .box-add-card, .box-convert'); {# // Back button #}
     checkRadio("#card-list tr, #bank-list tr");
     deleteLnk("#card-list .action a, #bank-list .action a");
 });
-</script>
 {% endblock %} 
 
 {% block header %}

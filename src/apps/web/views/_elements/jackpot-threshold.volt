@@ -1,6 +1,5 @@
 {# This element has his own SCSS file #}
-{% block template_scripts %}
-<script>
+{% block template_scripts_code %}
 function resetSelect(){
     var mySelect = $(".threshold option:selected").text();
     $(".box-threshold .select-txt").text(mySelect)
@@ -33,7 +32,7 @@ function toggleSelect(){
 
 function checkOption(){
     $(".threshold").change(function(){
-        if($(this).val() == 'choose'){ // if you want to specify the jackpot threshold
+        if($(this).val() == 'choose'){ {# // if you want to specify the jackpot threshold #}
             $(".input-value").show();
             $(this).hide();
             $(".box-threshold .styled-select").hide()
@@ -46,8 +45,6 @@ $(function(){
     toggleSelect()
     checkOption()
 });
-/**/
-</script>
 {% endblock %}
 
 <div class="box-threshold cl">

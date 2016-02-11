@@ -1,15 +1,13 @@
 {% extends "main.volt" %}
 {% block bodyClass %}recovery no-nav{% endblock %}
 {% block template_css %}<link rel="stylesheet" href="/w/css/sign-in.css">{% endblock %}
-{% block template_scripts %}
-<script>
+{% block template_scripts_code %}
 var message = {{ message }};
 if(message){
     $('form, .h2.title').hide();
     $('.login-link').show();
     $('.login-link').on('click', function(){window.location = '/sign-in';});
 }
-</script>
 {% endblock %}
 {% block mobileNav %}{% endblock %} {# Remove mobile navigation #}
 
