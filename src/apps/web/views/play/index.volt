@@ -44,7 +44,6 @@
 	<div class="wrapper">
 		<header class="bg-top cl">
 			<h1 class="h3 draw">{{ language.translate("Choose 5 numbers &amp; 2 stars to play") }}</h1>
-
 			<span class="h1 jackpot">
 				Jackpot
 				{% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
