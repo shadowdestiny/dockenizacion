@@ -9,7 +9,6 @@
 
         {# FONTS  #}
         <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700'>
-        <script src="/w/js/vendor/jquery-1.11.3.min.js"></script>
     </head>
 
 	<body class="{% block bodyClass %}{% endblock %}">
@@ -52,8 +51,11 @@
         <div class="ending">
             {{ language.translate("The draw will close in 30 minutes.") }}
         </div>
-
         {% include "_elements/js-lib.volt" %} {# JS libraries #}
         {% block template_scripts %}{% endblock %}  {# Inject unique js #}
+        <script>
+        {% block template_scripts_code %}{% endblock %}  {# Inject unique js inside <script> tag #}
+        </script>
+        {% block template_scripts_after %}{% endblock %}
     </body>
 </html>

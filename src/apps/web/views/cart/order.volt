@@ -1,10 +1,7 @@
 {% extends "main.volt" %}
-{% block template_css %}
-    <link rel="stylesheet" href="/w/css/cart.css">
-{% endblock %}
-{% block template_scripts %}
-    <script>
-        //vars to cart.jsx
+{% block template_css %}<link rel="stylesheet" href="/w/css/cart.css">{% endblock %}
+{% block template_scripts_code %}
+        {# //vars to cart.jsx #}
         var play_list = '<?php echo $order->getLines(); ?>';
         var wallet_balance = '<?php echo $order->getWalletBalance(); ?>';
         var total_price = parseFloat('<?php echo $order->getTotal(); ?>');
@@ -47,19 +44,20 @@
                     data: params,
                     type: 'POST',
                     success: function(json) {
-//                        if(json.result = 'OK') {
+{# //                        if(json.result = 'OK') {
 //                            location.href = json.url;
 //                        }
+#}
                     },
                     error: function (xhr, status, errorThrown) {
-                        //EMTD manage errrors
+                        {# EMTD manage errrors #}
                     },
                 });
             });
         });
-    </script>
-    <script src="/w/js/react/cart.js"></script>
 {% endblock %}
+{% block template_scripts_after %}<script src="/w/js/react/cart.js"></script>{% endblock %}
+
 {% block bodyClass %}cart order minimal{% endblock %}
 {% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
 {% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}

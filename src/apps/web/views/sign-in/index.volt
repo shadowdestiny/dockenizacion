@@ -1,8 +1,7 @@
 {% extends "main.volt" %}
 {% block bodyClass %}sign-in minimal{% endblock %}
 {% block template_css %}<link rel="stylesheet" href="/w/css/sign-in.css">{% endblock %}
-{% block template_scripts %}
-<script>
+{% block template_scripts_code %}
 function swap(myVar){
     $(myVar).click(function(event){
         event.preventDefault();
@@ -14,7 +13,6 @@ $(function(){swap(".log-in .box-extra a, .sign-up .box-extra a");});
     $(".sign-up").show()
     $(".log-in").hide();
 {% endif %}
-</script>
 {% endblock %}
 {% block mobileNav %}{% endblock %} {# Remove mobile navigation #}
 
@@ -24,7 +22,7 @@ $(function(){swap(".log-in .box-extra a, .sign-up .box-extra a");});
 <main id="content" style="padding-top:40px;">
     <div class="wrapper cl">
         <div class="col-left">
-            <a href="/" title="{{ language.translate('Go to homepage')}}"><img class="v-logo vector" alt="Euromillions" src="/w/svg/logo.svg"></a>
+            {% include "_elements/logo.volt" %}
         </div>
         <div class="col-right">
             <div class="box-basic log-in">

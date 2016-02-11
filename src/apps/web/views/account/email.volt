@@ -11,8 +11,9 @@
 {% endblock %}
 
 {% block template_scripts %}
-    <script src="/w/js/mobileFix.js"></script>
-    <script>
+    <script src="/w/js/mobileFix.min.js"></script>
+{% endblock %}
+{% block template_scripts_code %}
         $('#form-email-settings').on('submit',function(){
             var value = $('#amount-threshold').val().replace(/^0+/, '');
             $('#amount-threshold').val(value);
@@ -35,7 +36,6 @@
                $(this).removeClass('error');
            }
         });
-    </script>
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 

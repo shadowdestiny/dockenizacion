@@ -1,4 +1,4 @@
-<script>var myLogged = {{ user_logged }};</script> {# This value is used in mobileFix.js #}
+<script>var myLogged = '<?php echo $user_logged; ?>'</script> {# This value is used in mobileFix.js #}
 <div class="mobile">
 	{% include "_elements/cookies.volt" %}
 </div>

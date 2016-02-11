@@ -4,7 +4,7 @@
     {% set activeNav='{"myClass": ""}'|json_decode %}
     {% include "_elements/header.volt" %}
 {% endblock %}
-{% block template_scripts %}<script src="/w/js/mobileFix.js"></script>{% endblock %}
+{% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script>{% endblock %}
 
 {% block template_css %}
 <style>

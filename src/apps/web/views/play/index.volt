@@ -1,10 +1,9 @@
 {% extends "main.volt" %}
-{% block template_css %}
-<link rel="stylesheet" href="/w/css/play.css">
-{% endblock %}
+{% block template_css %}<link rel="stylesheet" href="/w/css/play.css">{% endblock %}
 {% block template_scripts %}
-<script src="/w/js/mobileFix.js"></script>
-<script>
+<script src="/w/js/mobileFix.min.js"></script>
+{% endblock %}
+{% block template_scripts_code %}
 	var ajaxFunctions = {
 		playCart : function (params){
 			$.ajax({
@@ -18,7 +17,7 @@
 					}
 				},
 				error:function (xhr, status, errorThrown){
-					//EMTD manage errrors
+					{# //EMTD manage errors #}
 				},
 			});
 		}
@@ -28,9 +27,11 @@
 	var price_bet = {{ single_bet_price }};
 	var currency_symbol = '<?php echo $currency_symbol ?>';
 	var automatic_random = '<?php echo $automatic_random; ?>';
-</script>
+{% endblock %}
+{% block template_scripts_after %}
 <script src="/w/js/react/play.js"></script>
 {% endblock %}
+
 {% block bodyClass %}play{% endblock %}
 
 {% block header %}
@@ -44,7 +45,6 @@
 	<div class="wrapper">
 		<header class="bg-top cl">
 			<h1 class="h3 draw">{{ language.translate("Choose 5 numbers &amp; 2 stars to play") }}</h1>
-
 			<span class="h1 jackpot">
 				Jackpot
 				{% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}

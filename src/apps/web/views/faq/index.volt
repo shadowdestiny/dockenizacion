@@ -13,17 +13,16 @@
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}
-    <script src="/w/js/mobileFix.js"></script>
-
+    <script src="/w/js/mobileFix.min.js"></script>
+{% endblock %}
+{% block template_scripts_code %}
     {# EMTD we use this function as workaround from jquery mobile to anchor link via url #}
-    <script>
-        $(function(){
-            var hash = window.location.hash;
-            $(document.body).animate({
-                'scrollTop':   $('#'+hash.split('#')[1]).offset().top
-            }, 100);
-        });
-    </script>
+    $(function(){
+        var hash = window.location.hash;
+        $(document.body).animate({
+            'scrollTop':   $('#'+hash.split('#')[1]).offset().top
+        }, 100);
+    });
 {% endblock %}
 {% block body %}
 
