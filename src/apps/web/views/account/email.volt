@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block template_scripts %}
-    <script src="/w/js/mobileFix.js"></script>
+    <script src="/w/js/mobileFix.min.js"></script>
     <script>
         $('#form-email-settings').on('submit',function(){
             var value = $('#amount-threshold').val().replace(/^0+/, '');

@@ -11,7 +11,7 @@
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}
-<script src="/w/js/mobileFix.js"></script>
+<script src="/w/js/mobileFix.min.js"></script>
 <script>
 $(function(){
 	var html_formatted_offset = [];

@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="/w/css/play.css">
 {% endblock %}
 {% block template_scripts %}
-<script src="/w/js/mobileFix.js"></script>
+<script src="/w/js/mobileFix.min.js"></script>
 <script>
 	var ajaxFunctions = {
 		playCart : function (params){

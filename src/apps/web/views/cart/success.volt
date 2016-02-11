@@ -5,7 +5,7 @@
 
 {% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
 {% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}
-{% block template_scripts %}<script src="/w/js/mobileFix.js"></script>{% endblock %}
+{% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script>{% endblock %}
 
 {% block body %}
 <main id="content">

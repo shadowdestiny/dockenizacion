@@ -13,7 +13,7 @@
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}
-    <script src="/w/js/mobileFix.js"></script>
+    <script src="/w/js/mobileFix.min.js"></script>
 
     {# EMTD we use this function as workaround from jquery mobile to anchor link via url #}
     <script>
