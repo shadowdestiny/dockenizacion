@@ -104,7 +104,7 @@ $(function(){
 						</li>
 					</ul>
 					<div class="center">
-						<a href="/play" class="btn big blue">{{ language.translate("Dream Big and start to Play") }}</a>
+						<a href="/play" class="btn big blue">{{ language.translate("Start to Play with us") }}</a>
 					</div>
 				</div>
 				<a href="/numbers" class="box-result no-lnk">

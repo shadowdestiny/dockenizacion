@@ -8,13 +8,7 @@
     <entity name="EuroMillions\web\entities\SiteConfig" table="site_config"
             repository-class="EuroMillions\web\repositories\SiteConfigRepository">
 
-        <id name="id" type="integer">
-            <generator strategy="IDENTITY"/>
-            <options>
-                <option name="unsigned">true</option>
-            </options>
-        </id>
-        <field name="name" type="string" nullable="true"/>
+        <id name="name" type="string"/>
         <field name="value" type="string" nullable="true"/>
         <field name="description" type="string" nullable="true"/>
 

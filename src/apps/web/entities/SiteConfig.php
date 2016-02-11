@@ -3,25 +3,13 @@
 
 namespace EuroMillions\web\entities;
 
-
-use EuroMillions\web\interfaces\IEntity;
-
-class SiteConfig extends EntityBase implements IEntity
+class SiteConfig extends EntityBase
 {
-
-    protected $id;
-
     protected $name;
 
     protected $value;
 
     protected $description;
-
-
-    public function getId()
-    {
-        // TODO: Implement getId() method.
-    }
 
     /**
      * @return mixed
