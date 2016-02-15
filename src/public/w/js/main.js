@@ -105,6 +105,23 @@ function count_down(element,
         });
      //visit: http://hilios.github.io/jQuery.countdown to formatted html result
 }
+
+var varSize = 0
+function checkSize(){
+    if($(".media").width() == "1"){         // max-width: 1200px
+        varSize = 1;
+    }else if($(".media").width() == "2"){   // max-width: 992px)
+        varSize = 2;
+    }else if($(".media").width() == "3"){   // max-width: 768px
+        varSize = 3;
+    }else if($(".media").width() == "4"){   // max-width: 480px
+        varSize = 4;
+    }else if($(".media").width() == "5"){   // max-width: 320px
+        varSize = 5;
+    }
+    return varSize;
+}
+
 $(function(){
     selectFix();
     try{
@@ -219,4 +236,7 @@ $(function(){
         draw_date_minutes = (new Date(draw_date).getMinutes() == 0) ? 60 : new Date(draw_date).getMinutes();
         return draw_date_minutes - now_date;
     }
+
+    checkSize();
+    $(window).resize(checkSize);
 });
