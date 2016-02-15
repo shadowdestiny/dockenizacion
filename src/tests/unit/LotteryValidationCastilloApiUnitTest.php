@@ -121,7 +121,7 @@ class LotteryValidationCastilloApiUnitTest extends UnitTestBase
         $date_ticket = new \DateTime('2015-10-04');
         $cypher_method = $this->cypher_double->reveal();
         $castillo_id = $this->castilloTicketId_double->reveal();
-        $actual = $sut->validateBet($bet, $cypher_method, $castilloCypherKey,$castillo_id,$date_ticket);
+        $actual = $sut->validateBet($bet, $cypher_method, $castilloCypherKey,$castillo_id,$date_ticket, $bet->getPlayConfig()->getLine());
         return $actual;
     }
 

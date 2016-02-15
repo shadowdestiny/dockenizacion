@@ -3,60 +3,61 @@
 
 namespace EuroMillions\web\entities;
 
+
 class SiteConfig extends EntityBase
 {
-    protected $name;
-
-    protected $value;
-
-    protected $description;
-
-    /**
-     * @return mixed
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param mixed $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
+    protected $id;
+    protected $fee;
+    protected $fee_to_limit;
+    protected $default_currency;
 
     /**
      * @return mixed
      */
-    public function getValue()
+    public function getDefaultCurrency()
     {
-        return $this->value;
+        return $this->default_currency;
     }
 
     /**
-     * @param mixed $value
+     * @param mixed $default_currency
      */
-    public function setValue($value)
+    public function setDefaultCurrency($default_currency)
     {
-        $this->value = $value;
+        $this->default_currency = $default_currency;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getFee()
+    {
+        return $this->fee;
+    }
+
+    /**
+     * @param mixed $fee
+     */
+    public function setFee($fee)
+    {
+        $this->fee = $fee;
     }
 
     /**
      * @return mixed
      */
-    public function getDescription()
+    public function getFeeToLimit()
     {
-        return $this->description;
+        return $this->fee_to_limit;
     }
 
     /**
-     * @param mixed $description
+     * @param mixed $fee_to_limit
      */
-    public function setDescription($description)
+    public function setFeeToLimit($fee_to_limit)
     {
-        $this->description = $description;
+        $this->fee_to_limit = $fee_to_limit;
     }
 
 }

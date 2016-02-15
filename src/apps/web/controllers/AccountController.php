@@ -13,13 +13,16 @@ use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
 use EuroMillions\web\forms\ResetPasswordForm;
 use EuroMillions\web\forms\validators\CreditCardExpiryDateValidator;
+use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
+use EuroMillions\web\services\card_payment_providers\ICreditCardStrategy;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
+use EuroMillions\web\vo\CreditCardCharge;
 use EuroMillions\web\vo\CVV;
 use EuroMillions\web\vo\dto\PlayConfigDTO;
 use EuroMillions\web\vo\dto\SiteConfigDTO;
@@ -39,16 +42,9 @@ use Phalcon\Validation;
 use Phalcon\Validation\Message;
 use Phalcon\Validation\Validator\Regex;
 
-class AccountController extends ControllerBase
+class AccountController extends PublicSiteControllerBase
 {
-    private $siteConfigService;
-    private $currencyService;
-    public function initialize(SiteConfigService $siteConfigService = null, CurrencyService $currencyService = null)
-    {
-        $this->siteConfigService = $siteConfigService ?: new SiteConfigService($this->di->get('entityManager'));
-        //EMTD $this->currencyService = $currencyService ?: new CurrencyService($this->di->get('entityManager'));
 
-    }
     public function TransactionAction(){}
 
     public function indexAction()
@@ -188,21 +184,14 @@ class AccountController extends ControllerBase
     {
         $credit_card_form = new CreditCardForm();
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
-        $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
-
+        $locale = $this->request->getBestLanguage();
         $form_errors = $this->getErrorsArray();
-
-
-        /** @var ArrayCollection $siteConfig */
-        list($fee_value_convert,
-            $fee_to_limit_value_convert,
-            $currency_symbol,
-            $symbol_position) = $this->getSiteConfigVars();
-
-        $fee_value_convert = $this->siteConfigService->get('fee');
-        $currency_symbol = ;
-
-
+        $user_id = $this->authService->getCurrentUser();
+        /** @var User $user */
+        $user = $this->userService->getUser($user_id->getId());
+        $fee_value_with_currency = $this->siteConfigService->getFeeFormatMoney($user->getUserCurrency(),$locale);
+        $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeLimitFormatMoney($user->getUserCurrency(), $locale);
+        $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue()->getAmount() / 1000;
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
 
         return $this->view->setVars([
@@ -214,14 +203,15 @@ class AccountController extends ControllerBase
             'credit_card_form' => $credit_card_form,
             'show_form_add_fund' => false,
             'show_box_basic' => true,
-            'fee_to_limit_value' => $fee_to_limit_value_convert->getAmount() / 100,
-            'fee' => $symbol_position ? $fee_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_value_convert->getAmount() /100,
-            'fee_to_limit' => $symbol_position ? $fee_to_limit_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_to_limit_value_convert->getAmount() /100,
+            'fee_to_limit_value' => $fee_to_limit_value,
+            'fee' => $fee_value_with_currency,
+            'fee_to_limit' => $fee_to_limit_value_with_currency
         ]);
     }
 
     public function addFundsAction()
     {
+
         $credit_card_form = new CreditCardForm();
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $form_errors = $this->getErrorsArray();
@@ -230,7 +220,9 @@ class AccountController extends ControllerBase
         $card_holder_name = $this->request->getPost('card-holder');
         $expiry_date = $this->request->getPost('expiry-date');
         $cvv = $this->request->getPost('card-cvv');
-
+        $user_id = $this->authService->getCurrentUser();
+        /** User $user */
+        $user = $this->userService->getUser($user_id->getId());
         $errors = [];
         $msg = '';
 
@@ -247,33 +239,17 @@ class AccountController extends ControllerBase
                     $form_errors[$field] = ' error';
                 }
             }else {
-                $user_id = $this->authService->getCurrentUser();
-                /** User $user */
-                $user = $this->userService->getUser($user_id->getId());
                 if(null != $user ){
                     try {
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($expiry_date), new CVV($cvv));
                         $wallet_service = $this->domainServiceFactory->getWalletService();
-                        /** @var PaymentProviderFactory $paymentProviderFactory */
-                        $paymentProviderFactory = $this->di->get('paymentProviderFactory');
-                        $config_payment = $this->di->get('config')['payxpert'];
-                        $payXpertCardPaymentStrategy = $paymentProviderFactory->getCreditCardPaymentProvider(new PayXpertCardPaymentStrategy($config_payment));
-                        //convert currency to EUR
+                        /** @var ICardPaymentProvider $payXpertCardPaymentStrategy */
+                        $payXpertCardPaymentStrategy = $this->di->get('paymentProviderFactory');
                         $currency_euros_to_payment = $this->currencyService->convert(new Money($funds_value * 100, $user->getUserCurrency()), new Currency('EUR'));
-
-                        //check if we should apply fee
-                        list( $fee_to_limit_value,
-                              $fee_value,
-                              $currency_symbol,
-                              $symbol_position) = $this->getSiteConfigVars();
-
-                        $result_amount_with_fee = $this->userService->chargeFeeFromWallet($currency_euros_to_payment, $fee_to_limit_value, $fee_value);
-
-                        if($result_amount_with_fee->success()) {
-                            $currency_euros_to_payment = $result_amount_with_fee->getValues();
-                            $msg = 'We have add you a charge. ';
-                        }
-                        $result = $wallet_service->rechargeWithCreditCard($payXpertCardPaymentStrategy, $card, $user, $currency_euros_to_payment);
+                        $fee_value = $this->siteConfigService->getFee();
+                        $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue();
+                        $credit_card_charge = new CreditCardCharge($currency_euros_to_payment,$fee_value,$fee_to_limit_value);
+                        $result = $wallet_service->rechargeWithCreditCard($payXpertCardPaymentStrategy, $card, $user, $credit_card_charge);
                         if($result->success()) {
                             $converted_currency = $this->currencyService->convert($user->getBalance(), $user->getUserCurrency());
                             $msg .= 'Your balance is been updated. You have now: ' . number_format($converted_currency->getAmount() / 100,2,'.',',') . ' ' . $user->getUserCurrency()->getName();
@@ -289,13 +265,12 @@ class AccountController extends ControllerBase
             }
         }
 
-        list($fee_value_convert,
-             $fee_to_limit_value_convert,
-             $currency_symbol,
-             $symbol_position) = $this->getSiteConfigVars();
-
-        $this->view->pick('/account/wallet');
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
+        $locale = $this->request->getBestLanguage();
+        $fee_value_with_currency = $this->siteConfigService->getFeeFormatMoney($user->getUserCurrency(), $locale);
+        $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeLimitFormatMoney($user->getUserCurrency(), $locale);
+        $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue()->getAmount() / 1000;
+        $this->view->pick('/account/wallet');
 
         return $this->view->setVars([
             'form_errors' => $form_errors,
@@ -303,9 +278,9 @@ class AccountController extends ControllerBase
             'symbol' => (empty($symbol)) ? $user->getUserCurrency()->getName() : $symbol,
             'credit_card_form' => $credit_card_form,
             'msg' => $msg,
-            'fee_to_limit_value' => $fee_to_limit_value_convert->getAmount() / 100,
-            'fee' => $symbol_position ? $fee_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_value_convert->getAmount() /100,
-            'fee_to_limit' => $symbol_position ? $fee_to_limit_value_convert->getAmount() / 100 . ' ' . $currency_symbol : $currency_symbol . ' ' . $fee_to_limit_value_convert->getAmount() /100,
+            'fee_to_limit_value' => $fee_to_limit_value,
+            'fee' => $fee_value_with_currency,
+            'fee_to_limit' => $fee_to_limit_value_with_currency,
             'show_form_add_fund' => true,
             'show_box_basic' => false,
         ]);
@@ -471,18 +446,6 @@ class AccountController extends ControllerBase
         return $messages;
     }
 
-
-    private function validationExpiryDate()
-    {
-        $validation = new Validation();
-        $messages = [];
-        $month = $this->request->getPost('month');
-        $year = $this->request->getPost('year');
-
-        $test = new CreditCardExpiryDateValidator();
-        $result = $test->validate($validation,$month.'/'.$year);
-    }
-
     /**
      * @return array
      */
@@ -522,35 +485,4 @@ class AccountController extends ControllerBase
         return $form;
     }
 
-    /**
-     * @return array
-     */
-    private function getSiteConfigVars()
-    {
-//        /** @var ArrayCollection $siteConfig */
-//        $siteConfig = $this->di->get('siteConfig');
-//        $fee_site_config_dto = new SiteConfigDTO($siteConfig[0]);
-//        $fee_to_limit_config_dto = new SiteConfigDTO($siteConfig[1]);
-//        $fee_value = new Money((int)$fee_site_config_dto->value, new Currency('EUR'));
-//        $fee_to_limit_value = new Money((int)$fee_to_limit_config_dto->value, new Currency('EUR'));
-//        $user_id = $this->authService->getCurrentUser();
-//        $user = $this->userService->getUser($user_id->getId());
-//        $fee_value_convert = $this->currencyService->convert($fee_value, $user->getUserCurrency());
-//        $fee_to_limit_value_convert = $this->currencyService->convert($fee_to_limit_value, $user->getUserCurrency());
-//        $currency_symbol = $this->currencyService->getSymbol($fee_value_convert, $user->getBalance()->getCurrency());
-//        $locale = $this->request->getBestLanguage();
-//        $symbol_position = $this->currencyService->getSymbolPosition($locale, $user->getUserCurrency());
-//        return array($fee_value_convert, $fee_to_limit_value_convert, $currency_symbol, $symbol_position);
-    }
-
-    /**
-     * @return array
-     */
-    private function getFeesValues()
-    {
-        $siteConfig = $this->di->get('siteConfig');
-        $fee_value = new Money((int)$siteConfig[0]->getValue(), new Currency('EUR'));
-        $fee_to_limit_value = new Money((int)$siteConfig[1]->getValue(), new Currency('EUR'));
-        return array($fee_value, $fee_to_limit_value);
-    }
 }

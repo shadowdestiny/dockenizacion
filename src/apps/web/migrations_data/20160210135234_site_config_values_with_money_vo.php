@@ -2,7 +2,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class SiteConfigNameAsKey extends AbstractMigration
+class SiteConfigValuesWithMoneyVo extends AbstractMigration
 {
     /**
      * Change Method.
@@ -27,8 +27,6 @@ class SiteConfigNameAsKey extends AbstractMigration
      */
     public function change()
     {
-        $this->execute('ALTER TABLE site_config DROP PRIMARY KEY');
-        $this->execute('ALTER TABLE site_config ADD id INT UNSIGNED AUTO_INCREMENT NOT NULL, CHANGE name name VARCHAR(255) DEFAULT NULL');
-        $this->execute('ALTER TABLE site_config ADD PRIMARY KEY (id)');
+        $this->execute('INSERT INTO site_config (id, fee_amount, fee_currency_name, fee_to_limit_amount, fee_to_limit_currency_name, default_currency_name) VALUES ("1","35", "EUR", "12000","EUR", "EUR");');
     }
 }

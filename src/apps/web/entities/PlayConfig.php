@@ -5,6 +5,7 @@ namespace EuroMillions\web\entities;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\interfaces\IEntity;
 use EuroMillions\web\interfaces\IEMForm;
 use EuroMillions\web\vo\DrawDays;
@@ -42,6 +43,88 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
     protected $frequency;
 
 
+    public function __construct()
+    {
+        $this->bet = new ArrayCollection();
+    }
+
+
+    public function formToEntity(User $user, $json, $bets)
+    {
+        $formPlay = null;
+        try{
+            $formPlay = json_decode($json,TRUE);
+            if(!is_array($formPlay) || empty($formPlay)){
+                throw new Exception('Error converting object to array from storage');
+            }
+            $this->setUser($user);
+            $euroMillionsLine = [];
+
+            foreach($bets as $bet) {
+                $regular_numbers = [];
+                $lucky_numbers = [];
+                foreach ($bet->regular as $number) {
+                    $regular_numbers[] = new EuroMillionsRegularNumber($number);
+                }
+
+                foreach ($bet->lucky as $number) {
+                    $lucky_numbers[] = new EuroMillionsLuckyNumber((int) $number);
+                }
+                $euroMillionsLine[] = new EuroMillionsLine($regular_numbers,$lucky_numbers);
+            }
+
+            $this->setLine($euroMillionsLine);
+            $this->setActive(true);
+            $this->setDrawDays(new DrawDays($formPlay['drawDays']));
+            $this->setStartDrawDate(new \DateTime($formPlay['startDrawDate']));
+            $this->setLastDrawDate(new \DateTime($formPlay['lastDrawDate']));
+            $this->setFrequency((int) $formPlay['frequency']);
+
+        }catch(Exception $e){
+            throw new Exception($e);
+        }
+    }
+
+    public function toJsonData()
+    {
+        return json_encode($this, JSON_UNESCAPED_UNICODE);
+    }
+
+    public function toArray()
+    {
+        return $arr = $this->jsonSerialize();
+
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    function jsonSerialize()
+    {
+
+        $lines = [];
+        if(count($this->line) > 0) {
+            /** @var EuroMillionsLine $line */
+            foreach($this->line as $line) {
+                $lines[] = $line->toJsonData();
+            }
+        }
+
+        return [
+            'id' => $this->id,
+            'drawDays' => $this->draw_days,
+            'startDrawDate' => $this->startDrawDate->format('Y-m-d H:i:s'),
+            'lastDrawDate' => $this->lastDrawDate->format('Y-m-d H:i:s'),
+            'frequency' => $this->frequency,
+            'euromillions_line' => $lines,
+            'user' => ['id' => (string) $this->user->getId()->id()]
+        ];
+    }
+
     /**
      * @return mixed
      */
@@ -72,11 +155,6 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
     public function setThreshold($threshold)
     {
         $this->threshold = $threshold;
-    }
-
-    public function __construct()
-    {
-        $this->bet = new ArrayCollection();
     }
 
     public function setId($id)
@@ -160,80 +238,4 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
         return $this->bet;
     }
 
-
-    public function formToEntity(User $user, $json, $bets)
-    {
-        $formPlay = null;
-        try{
-            $formPlay = json_decode($json,TRUE);
-            if(!is_array($formPlay) || empty($formPlay)){
-                throw new Exception('Error converting object to array from storage');
-            }
-            $this->setUser($user);
-            $euroMillionsLine = [];
-
-            foreach($bets as $bet) {
-                $regular_numbers = [];
-                $lucky_numbers = [];
-                foreach ($bet->regular as $number) {
-                    $regular_numbers[] = new EuroMillionsRegularNumber($number);
-                }
-
-                foreach ($bet->lucky as $number) {
-                    $lucky_numbers[] = new EuroMillionsLuckyNumber((int) $number);
-                }
-                $euroMillionsLine[] = new EuroMillionsLine($regular_numbers,$lucky_numbers);
-            }
-
-            $this->setLine($euroMillionsLine);
-            $this->setActive(true);
-            $this->setDrawDays(new DrawDays($formPlay['drawDays']));
-            $this->setStartDrawDate(new \DateTime($formPlay['startDrawDate']));
-            $this->setLastDrawDate(new \DateTime($formPlay['lastDrawDate']));
-            $this->setFrequency((int) $formPlay['frequency']);
-
-        }catch(Exception $e){
-            throw new Exception($e);
-        }
-    }
-
-    public function toJsonData()
-    {
-        return json_encode($this, JSON_UNESCAPED_UNICODE);
-    }
-
-    public function toArray()
-    {
-        return $arr = $this->jsonSerialize();
-
-    }
-
-    /**
-     * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
-     * @since 5.4.0
-     */
-    function jsonSerialize()
-    {
-
-        $lines = [];
-        if(count($this->line) > 0) {
-            /** @var EuroMillionsLine $line */
-            foreach($this->line as $line) {
-                $lines[] = $line->toJsonData();
-            }
-        }
-
-        return [
-            'id' => $this->id,
-            'drawDays' => $this->draw_days,
-            'startDrawDate' => $this->startDrawDate->format('Y-m-d H:i:s'),
-            'lastDrawDate' => $this->lastDrawDate->format('Y-m-d H:i:s'),
-            'frequency' => $this->frequency,
-            'euromillions_line' => $lines,
-            'user' => ['id' => (string) $this->user->getId()->id()]
-        ];
-    }
 }

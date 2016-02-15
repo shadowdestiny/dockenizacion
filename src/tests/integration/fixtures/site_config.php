@@ -2,19 +2,11 @@
 return [
     'site_config' => [
         [
-            'name'   => 'config1',
-            'value' => 'el valor de la config1',
-            'description' => 'esta es la config 1',
-        ],
-        [
-            'name'   => 'config2',
-            'value' => 'el valor de la config2',
-            'description' => 'esta es la config 2',
-        ],
-        [
-            'name'   => 'config3',
-            'value' => 'el valor de la config3',
-            'description' => 'esta es la config 3',
+            'fee_amount'   => 35,
+            'fee_currency_name' => 'EUR',
+            'fee_to_limit_amount' => 12000,
+            'fee_to_limit_currency_name' => 'EUR',
+            'default_currency_name' => 'EUR',
         ],
     ]
 ];

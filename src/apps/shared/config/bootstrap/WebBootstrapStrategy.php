@@ -9,6 +9,7 @@ use EuroMillions\shared\components\PhalconSessionWrapper;
 use EuroMillions\shared\components\PhalconUrlWrapper;
 use EuroMillions\shared\config\interfaces\IBootstrapStrategy;
 use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
+use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\DomainServiceFactory;
 use EuroMillions\web\services\ServiceFactory;
 use Phalcon;
@@ -54,7 +55,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         //$di->set('language', $this->configLanguage($di), true);
         $di->set('url', $this->configUrl($di), true);
         $di->set('response', $this->configResponse(), true);
-        $di->set('paymentProviderFactory', $this->configPaymentProviderFactory(), true);
 
         //$this->ownDependency($di);
         //$di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
@@ -298,10 +298,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         return new DomainAdminServiceFactory($di);
     }
 
-    protected function configPaymentProviderFactory()
-    {
-        return new PaymentProviderFactory();
-    }
 
     protected function ownDependency(Phalcon\Mvc\Application $application)
     {

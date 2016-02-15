@@ -8,9 +8,14 @@
     <entity name="EuroMillions\web\entities\SiteConfig" table="site_config"
             repository-class="EuroMillions\web\repositories\SiteConfigRepository">
 
-        <id name="name" type="string"/>
-        <field name="value" type="string" nullable="true"/>
-        <field name="description" type="string" nullable="true"/>
-
+        <id name="id" type="integer">
+            <generator strategy="IDENTITY"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+        <embedded name="fee" class="Money\Money" use-column-prefix="true" />
+        <embedded name="fee_to_limit" class="Money\Money" use-column-prefix="true" />
+        <embedded name="default_currency" class="Money\Currency" use-column-prefix="true" />
     </entity>
 </doctrine-mapping>

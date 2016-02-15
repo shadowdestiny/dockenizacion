@@ -13,12 +13,15 @@ use EuroMillions\web\entities\LogValidationApi;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\exceptions\InvalidBalanceException;
+use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\repositories\BetRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
+use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\external_apis\LotteryValidationCastilloApi;
 use EuroMillions\web\vo\CastilloCypherKey;
 use EuroMillions\web\vo\CastilloTicketId;
+use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\shared\vo\results\ActionResult;
@@ -52,8 +55,23 @@ class PlayService
 
     private $logValidationRepository;
 
+    /** @var CartService $cartService*/
+    private $cartService;
+    /** @var  WalletService $walletService */
+    private $walletService;
+    /** @var  PayXpertCardPaymentStrategy $payXpertCardPaymentStrategy */
+    private $payXpertCardPaymentStrategy;
+    /** @var  BetService $betService */
+    private $betService;
 
-    public function __construct(EntityManager $entityManager, LotteriesDataService $lotteriesDataService, IPlayStorageStrategy $playStorageStrategy, IPlayStorageStrategy $orderStorageStrategy )
+    public function __construct(EntityManager $entityManager,
+                                LotteriesDataService $lotteriesDataService,
+                                IPlayStorageStrategy $playStorageStrategy,
+                                IPlayStorageStrategy $orderStorageStrategy,
+                                CartService $cartService,
+                                WalletService $walletService,
+                                ICardPaymentProvider $payXpertCardPaymentStrategy,
+                                BetService $betService)
     {
         $this->entityManager = $entityManager;
         $this->playConfigRepository = $entityManager->getRepository('EuroMillions\web\entities\PlayConfig');
@@ -64,6 +82,10 @@ class PlayService
         $this->orderStorageStrategy = $orderStorageStrategy;
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
         $this->logValidationRepository = $entityManager->getRepository('EuroMillions\web\entities\LogValidationApi');
+        $this->cartService = $cartService;
+        $this->walletService = $walletService;
+        $this->betService = $betService;
+        $this->payXpertCardPaymentStrategy = $payXpertCardPaymentStrategy;
 
     }
 
@@ -123,53 +145,39 @@ class PlayService
      * @param User $user
      * @return ActionResult
      */
-    public function play( User $user_id )
+    public function play( UserId $user_id, Money $funds = null, CreditCard $credit_card = null)
     {
-        // get playconfig from order
-        // get pay configuration from order
-        // charge credit card or wallet
-        // validate against castillo
-
-//        $order = $this->getOrderFromStorage();
-//        $pay = $order->payConfig;
-//        $play = $order->playConfig;
-//        if($play->nextDraw()) {
-//            if (!$user->enoughFunds() || $user->addedFunds())
-//                $credit_car_servide->charge();
-//            }
-//            $castillo->validate();
-//        }
-
-
-//        //EMTD previously should check amount or userservice deduct amount about his balance
-//      //  if($user->getBalance()->getAmount() > 0){
-//        try {
-//            /** @var ActionResult $temporal_form_result */
-//            $temporal_form_result = $this->playStorageStrategy->findByKey($user->getId()->id());
-//            if(!$temporal_form_result->success()){
-//                return new ActionResult(false,'The search key doesn\'t exist');
-//            }
-//            $form_decode = json_decode($temporal_form_result->getValues());
-//            foreach($form_decode->euroMillionsLines->bets as $bet) {
-//                $playConfig = new PlayConfig();
-//                $playConfig->formToEntity($user,$temporal_form_result->getValues(),$bet);
-//                $this->playConfigRepository->add($playConfig);
-//                $this->entityManager->flush();
-//                //Remove play storage
-//                $result = $this->playStorageStrategy->delete($user->getId()->id());
-//            }
-//            if(!empty($result)){
-//                return new ActionResult(true);
-//            }else{
-//                return new ActionResult(false);
-//            }
-//        } catch(\Exception $e){
-//            return new ActionResult(false, 'An exception occurred while created play');
-//            //EMTD send a warning to admin
-//        }
-//        } else {
-//            return new ActionResult(false);
-//        }
+        if($user_id) {
+            try{
+                /** @var User $user */
+                $user = $this->userRepository->find(['id' => $user_id]);
+                $result_order = $this->cartService->get($user_id);
+                if( $result_order->success() ) {
+                    /** @var Order $order */
+                    $order = $result_order->getValues();
+                    $order->addFunds($funds);
+                    $draw = $this->lotteriesDataService->getNextDrawByLottery('EuroMillions');
+                    if( null != $credit_card ) {
+                        $result_payment = $this->walletService->rechargeWithCreditCard($this->payXpertCardPaymentStrategy,$credit_card, $user, $order->getCreditCardCharge());
+                    } else {
+                        $user->getBalance()->subtract($order->getCreditCardCharge()->getFinalAmount());
+                        $result_payment = new ActionResult(true);
+                    }
+                    if($order->isNextDraw($draw->getValues()->getDrawDate()) && $result_payment->success()){
+                        $result_validation = $this->betService->validation($order->getPlayConfig(), $draw->getValues());
+                        if($result_validation->success()) {
+                            return new ActionResult(true);
+                        } else {
+                            return new ActionResult(false, $result_validation->errorMessage());
+                        }
+                    }
+                } else {
+                    //error
+                }
+            } catch ( \Exception $e ) {
+                //error
+            }
+        }
     }
 
     /**
@@ -181,57 +189,7 @@ class PlayService
      */
     public function bet(PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw, \DateTime $today = null, LotteryValidationCastilloApi $lotteryValidation = null)
     {
-        if (!$today) {
-            $today = new \DateTime();
-        }
 
-        if(!$lotteryValidation) {
-            $lotteryValidation = new LotteryValidationCastilloApi();
-        }
-        /** @var User $user */
-        $user = $this->userRepository->find($playConfig->getUser()->getId()->id());
-        $single_bet_price = $euroMillionsDraw->getLottery()->getSingleBetPrice();
-        if($user->getBalance()->getAmount() > $single_bet_price->getAmount()) {
-            $dateNextDraw = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions', $today);
-            $result = $this->betRepository->getBetsByDrawDate($dateNextDraw);
-            if(!empty($result)){
-                return new ActionResult(true);
-            }else{
-                try{
-                    $bet = new Bet($playConfig,$euroMillionsDraw);
-                    $castillo_key = CastilloCypherKey::create();
-                    $castillo_ticket = CastilloTicketId::create();
-                    $bet->setCastilloBet($castillo_ticket);
-                    $result_validation = $lotteryValidation->validateBet($bet,new CypherCastillo3DES(),$castillo_key,$castillo_ticket,$dateNextDraw);
-                    $log_api_reponse = new LogValidationApi();
-                    $log_api_reponse->initialize([
-                        'id_provider' => 1,
-                        'id_ticket' => $lotteryValidation->getXmlResponse()->id,
-                        'status' => $lotteryValidation->getXmlResponse()->status,
-                        'response' => $lotteryValidation->getXmlResponse(),
-                        'received' => new \DateTime()
-                    ]);
-
-                    $this->logValidationRepository->add($log_api_reponse);
-                    $this->entityManager->flush($log_api_reponse);
-                    if($result_validation->success()) {
-                        $this->betRepository->add($bet);
-                        $user->payPreservingWinnings($single_bet_price);
-                        $this->userRepository->add($user);
-                        $playConfig->setActive(false);
-                        $this->playConfigRepository->add($playConfig);
-                        $this->entityManager->flush();
-                        return new ActionResult(true);
-                    } else{
-                        return new ActionResult(false, $result_validation->errorMessage());
-                    }
-                }catch(\Exception $e) {
-                    return new ActionResult(false);
-                }
-            }
-        } else {
-            throw new InvalidBalanceException();
-        }
     }
 
     public function getPlaysFromTemporarilyStorage(User $user)
