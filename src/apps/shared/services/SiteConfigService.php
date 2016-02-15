@@ -23,8 +23,10 @@ class SiteConfigService
         $result = $entityManager->createQuery(
             "SELECT s from {$site_config_repository->getClassName()} s"
         )
-            ->useResultCache(true)
+            ->useResultCache(true, 300, 'SiteConfig')
             ->getResult();
+
+        //EMTD Un-hardcode the expiration and id values. This config table may be used in the future for the configuration values of the different white labels.
 
         /** @var SiteConfig $config */
         $this->configEntity = $result[0];
