@@ -239,4 +239,16 @@ $(function(){
 
     checkSize();
     $(window).resize(checkSize);
+
+    /* Hide Currency after tapping on mobile */
+    $('html').on('touchstart', function(e){
+        if($('.div-currency').is(":visible")){
+            $('.div-currency').hide();
+        }else{
+            $('.div-currency').show();
+        }
+    })
+    $(".div-currency").on('touchstart',function(e){
+        e.stopPropagation();
+    });
 });
