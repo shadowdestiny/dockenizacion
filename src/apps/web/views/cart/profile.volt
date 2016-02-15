@@ -1,7 +1,5 @@
 {% extends "main.volt" %}
-{% block template_css %}
-    <link rel="stylesheet" href="/w/css/cart.css">
-{% endblock %}
+{% block template_css %}<link rel="stylesheet" href="/w/css/cart.css">{% endblock %}
 
 {% block template_scripts_code %}
     var size = checkSize();
@@ -11,10 +9,10 @@
             $(".col4, .col8").toggle();
         });
     }
-    if(size >= 3) {
+    if(size >= 3){
         $(function(){
             var which_form = '<?php echo $which_form;?>';
-            if(which_form == 'in') {
+            if(which_form == 'in'){
                 $(".col8").hide();
             } else {
                 $(".col4").hide();
@@ -36,7 +34,6 @@
 
 <main id="content">
     <div class="wrapper">
-
         <div class="what-user">
             <div class="cols">
                 <div class="col4">
