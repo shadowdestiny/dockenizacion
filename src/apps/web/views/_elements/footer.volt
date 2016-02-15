@@ -22,17 +22,22 @@
 				</ul>
 			</div>
 			<div class="col20per">
-				<strong>Your Account</strong>
+				<strong>{{ language.translate('Your Account')}}</strong>
 				<ul>
-					<li><a href="/sign-in">{{ language.translate('Sign in') }}</a></li>
-					<li><a href="/account/games">{{ language.translate('My Games') }}</a></li>
-					<li><a href="/account/wallet">{{ language.translate('Transactions') }}</a></li>
-					<li><a href="/account/wallet">{{ language.translate('Deposit Funds') }}</a></li>
-					<li><a href="/account/wallet">{{ language.translate('Withdraw winnings') }}</a></li>
+					{% if user_logged %}
+						<li><a href="/account/games">{{ language.translate('My Games') }}</a></li>
+						<li><a href="/account/wallet">{{ language.translate('Transactions') }}</a></li>
+						<li><a href="/account/wallet">{{ language.translate('Deposit Funds') }}</a></li>
+						<li><a href="/account/wallet">{{ language.translate('Withdraw winnings') }}</a></li>
+ 						<li><a href="/logout">{{ language.translate("Sign out") }}</a></li>
+					{% else %}
+						<li><a href="/sign-in">{{ language.translate('Log in') }}</a></li>
+						<li><a href="/sign-up">{{ language.translate('Sign up') }}</a></li>
+					{% endif %}
 				</ul>
 			</div>
 			<div class="col20per">
-				<strong>Help</strong>
+				<strong>{{ language.translate('Help')}}</strong>
 				<ul>
 					<li><a href="/help">{{ language.translate('How to Play') }}</a></li>
 					<li><a href="/faq">{{ language.translate('Frequently Asked Questions') }}</a></li>
@@ -41,7 +46,7 @@
 				</ul>
 			</div>
 			<div class="col20per">
-				<strong>About</strong>
+				<strong>{{ language.translate('About')}}</strong>
 				<ul>
 					<li><a href="">{{ language.translate('News') }}</a></li>
 					<li><a href="/index#about-us">{{ language.translate('About us') }}</a></li>
