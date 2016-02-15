@@ -173,6 +173,7 @@ $(function(){
 												<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)" style="filter:url(#shadow)"></use>
 												<filter id="shadow" height="130%"><feGaussianBlur in="SourceAlpha" stdDeviation="1"/><feOffset dx=".5" dy="1" result="offsetblur"/><feComponentTransfer><feFuncA type="linear" slope=".5"/></feComponentTransfer></filter>
 												<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)"></use>
+												<linearGradient id="d" gradientUnits="userSpaceOnUse" x1="16.777" y1="-135.945" x2="16.777" y2="-161.627" gradientTransform="translate(21.248 882.618) scale(4.104)"><stop offset="0" stop-color="#FFD936"/><stop offset="1" stop-color="#FFF"/></linearGradient>{# Chrome need this; And it is referring shadow to another element in the page, I inserted here to avoid duplication and be Validator compliant #}
 											</svg>
 										</div>
 									</div>

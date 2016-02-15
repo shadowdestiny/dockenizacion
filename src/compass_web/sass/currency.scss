@@ -1,0 +1,31 @@
+@import "variable";
+
+/* Euro is default value and is not inserted in here */
+
+.aud{} /* Australian Dollar */   /* Symbol */
+.blr{} /* Belarusian Ruble */ 
+.bgn{} /* Bulgarian Lev */
+.cad{} /* Canadian Dollar */     /* Symbol */
+.dkk{} /* Danish Krone */
+.eur{} /* European Euro */       /* Symbol */
+.gbp{} /* Pound Sterling */
+.chr{} /* Swiss Franc */
+.usd{} /* American Dollar */     /* Symbol */
+
+/* A bit Problematic */
+.cny{} /* Chinese Yuan */        /* Symbol */
+.ron{} /* Romanian Leu */
+.zar{} /* South African Rand */
+.sek{} /* Swedish Krone */
+
+/* Problematic currencies */
+.cop{} /* Colombian Peso */
+.inr{} /* Indian Rupee */
+.jpy{} /* Japanese Yen */        /* Symbol */
+.rub{} /* Russian Ruble */
+.thb{} /* Thai Baht */           /* Symbol */
+
+.home.cur-txt .box-value .currency{font-size:$h3;}
+.home.cur1 .box-value .value{font-size:$h0-2;}
+.home.cur2 .box-value .value{font-size:$h0-3;}
+.home.cur2 .box-prize .value{font-size:$h1;}
