@@ -1,5 +1,5 @@
 <li class="li-currency">
-	<a class="link" href="javascript:void(0);">{{ user_currency['symbol'] }} &nbsp; {{ user_currency['name'] }} <svg class="ico v-triangle-down"><use xlink:href="/w/svg/icon.svg#v-triangle-down"></use></svg></a>
+	<a class="link myCur" href="javascript:void(0);">{{ user_currency['symbol'] }} &nbsp; {{ user_currency['name'] }} <svg class="ico v-triangle-down"><use xlink:href="/w/svg/icon.svg#v-triangle-down"></use></svg></a>
 	<div class="div-currency">
 		<ul class="no-li">
             {% for currency in currencies %}

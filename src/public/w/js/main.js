@@ -245,10 +245,13 @@ $(function(){
         if($('.div-currency').is(":visible")){
             $('.div-currency').hide();
         }else{
-            $('.div-currency').show();
+            if(e.target.className.split(" ")[1] == "myCur"){
+                $('.div-currency').show();
+            };
         }
     })
     $(".div-currency").on('touchstart',function(e){
         e.stopPropagation();
     });
+
 });
