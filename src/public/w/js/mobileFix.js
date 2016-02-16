@@ -1,4 +1,3 @@
-var varSize = 0
 var mobile = 0;
 var navUrl = [];
 
@@ -8,21 +7,6 @@ function menu(id, target){
     }, function(){
         $(target).hide();
     });
-}
-
-function checkSize(){
-    if($(".media").width() == "1"){         // max-width: 1200px
-        varSize = 1;
-    }else if($(".media").width() == "2"){   // max-width: 992px)
-        varSize = 2;
-    }else if($(".media").width() == "3"){   // max-width: 768px
-        varSize = 3;
-    }else if($(".media").width() == "4"){   // max-width: 480px
-        varSize = 4;
-    }else if($(".media").width() == "5"){   // max-width: 320px
-        varSize = 5;
-    }
-    return varSize;
 }
 
 function navValue(){
@@ -58,8 +42,6 @@ function navValue(){
     }
 }
 $(function(){
-    checkSize();
     navValue();
-    $(window).resize(checkSize);
     $(window).resize(navValue);
 });

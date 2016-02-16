@@ -51,6 +51,15 @@
         <div class="ending">
             {{ language.translate("The draw will close in 30 minutes.") }}
         </div>
+
+        <svg>
+            {# Chrome need this #}
+            {# White gradient logo #}
+            <linearGradient id="d" gradientUnits="userSpaceOnUse" x1="16.777" y1="-135.945" x2="16.777" y2="-161.627" gradientTransform="translate(21.248 882.618) scale(4.104)"><stop offset="0" stop-color="#FFD936"/><stop offset="1" stop-color="#FFF"/></linearGradient>
+            {# Shadow to any svg #}
+            <linearGradient id="e" gradientUnits="userSpaceOnUse" x1="31.034" y1="2.99" x2="31.034" y2="53.503"><stop offset="0" stop-color="#FEFAEC"/><stop offset="1" stop-color="#F1D86F"/></linearGradient>
+        </svg>
+
         {% include "_elements/js-lib.volt" %} {# JS libraries #}
         {% block template_scripts %}{% endblock %}  {# Inject unique js #}
         <script>

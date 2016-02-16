@@ -13,13 +13,16 @@
     {{ signupform.render('name', {'class':'input'~form_errors['name']}) }}
     {{ signupform.render('surname', {'class':'input'~form_errors['surname']}) }}
     {{ signupform.render('email', {'class':'input'~form_errors['email']}) }}
+    <div class="info-psw cl">
+        <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"/></svg>
+        <span class="txt">{{ language.translate("Password must be at least 8 letters long.<br>Composed at least with 1 uppercase and number.") }}</span>
+    </div>
     {{ signupform.render('password', {'class':'input'~form_errors['password']}) }}
     {{ signupform.render('confirm_password', {'class':'input'~form_errors['confirm_password']}) }}
     {{ signupform.render('country', {'class':'select'~form_errors['country']}) }}
 
     <div class="cl">
         <input id="goSignUp" type="submit" class="hidden2" />
-        
         {% if signIn.myClass == 'sign-in' %}
             <label for="goSignUp" class="submit btn big blue">{{ language.translate("Connect to a secure server") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
         {% elseif signIn.myClass == 'cart' %}

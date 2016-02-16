@@ -24,7 +24,7 @@
                 <h1 class="h1 title yellow">{{ language.translate("Account") }}</h1>
                 <h2 class="h3 yellow">{{ language.translate("User detail") }}</h2>
 
-                {{ form('account/index') }}
+                {{ form('/account/index') }}
                     {% if msg %}
                         <div class="box success">
                             <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>
@@ -44,16 +44,16 @@
                             </div>
                             <div class="col6">
                                 <label class="label" for="street">{{ language.translate("Street address") }}</label>
-                                {{ myaccount.render('street', {'class':'input'}) }}
+                                {{ myaccount.render('street', {'class':'input',"id":"street"}) }}
 
                                 <label class="label" for="po">{{ language.translate("ZIP / Postal code") }}</label>
-                                {{ myaccount.render('zip', {'class':'input'}) }}
+                                {{ myaccount.render('zip', {'class':'input',"id":"po"}) }}
 
                                 <label class="label" for="city">{{ language.translate("City") }}</label>
-                                {{ myaccount.render('city', {'class':'input'}) }}
+                                {{ myaccount.render('city', {'class':'input',"id":"city"}) }}
 
                                 <label class="label" for="phone">{{ language.translate("Phone Number") }}</label>
-                                {{ myaccount.render('phone_number', {'class':'input'}) }}
+                                {{ myaccount.render('phone_number', {'class':'input',"id":"phone"}) }}
                             </div>
                         </div>
                         <div class="cols gap" style="margin-bottom:0;"> {# temporary inline style to remove the gap with #}
