@@ -26,10 +26,7 @@ $(function(){swap(".log-in .box-extra a, .sign-up .box-extra a");});
         </div>
         <div class="col-right">
             <div class="box-basic log-in">
-                <h1 class="h1 title">
-                    <span class="line"></span>
-                    <span class="line-txt">{{ language.translate("Log in") }}</span>
-                </h1>
+                <h1 class="h1 title">{{ language.translate("Log in") }}</h1>
 
                 {# DO NOT DELETE - Facebook connect
                 <div class="connect">
@@ -47,10 +44,7 @@ $(function(){swap(".log-in .box-extra a, .sign-up .box-extra a");});
             </div>
 
             <div class="box-basic sign-up hidden">
-                <h1 class="h1 title">
-                    <span class="line"></span>
-                    <span class="line-txt">{{ language.translate("Sign up") }}</span>
-                </h1>
+                <h1 class="h1 title">{{ language.translate("Sign up") }}</h1>
                 {% set url_signup = '/sign-up' %}
                 {% include "sign-in/_sign-up.volt" %}
             </div>
@@ -59,9 +53,7 @@ $(function(){swap(".log-in .box-extra a, .sign-up .box-extra a");});
                 {{ language.translate("By signing in you agree to our") }} <a href="/legal/index">{{ language.translate("Terms &amp; Conditions") }}</a>
                 <br>{{ language.translate("and that you are 18+ years old.") }}
             </div>
-
         </div>
-
     </div>
 </main>
 {% endblock %}

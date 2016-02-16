@@ -24,7 +24,6 @@
     
     <div class="cl">
         <input id="go" type="submit" class="hidden2" />
-
         {% if signIn.myClass == 'sign-in' %}
             <label for="go" class="submit btn big blue">{{ language.translate("Log in to a secure server") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
         {% elseif signIn.myClass == 'cart' %}
@@ -33,5 +32,4 @@
     </div>
     
     <div class="box-extra{% if signIn.myClass == 'cart' %} hidden{% endif %}"><span class="txt">{{ language.translate("Don't you have an account?") }}</span> <a class="btn gwy" href="javascript:void(0)">{{ language.translate("Sign up") }}</a></div>
-    
 </form>
