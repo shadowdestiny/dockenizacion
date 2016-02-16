@@ -116,9 +116,11 @@ $gap3:15px; /* Responsive design 3 column */
 .active.add-cart .separator{border-color:$purple-dark; transition:border .2s}
 .active.add-cart:hover, .active.add-cart:hover .separator, .active.add-cart:focus, .active.add-cart:focus .separator{background:$purple-dark; color:#fff; border-color:$black;}
 .active.add-cart:active .separator{border-color:$black;}
-.advanced{
-.v-cross, .v-clover{font-size:16px; position:relative; top:3px; margin-left:7px;}	
-} 
+.box-bottom{
+	.reset{font-weight:normal;}
+	.v-clover{font-size:16px; position:relative; top:3px; margin-left:7px;}
+ 	.v-cross{margin-left:7px;}
+}
 .gap{padding:0 10px;}
 .separator{position:absolute; top:0; border-right:1px solid $grey; display:inline-block; width:1px; height:40px;}
 
