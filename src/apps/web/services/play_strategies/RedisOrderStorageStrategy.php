@@ -62,7 +62,17 @@ class RedisOrderStorageStrategy implements IPlayStorageStrategy
 
     public function delete($key = '')
     {
-        // TODO: Implement delete() method.
+        if(empty($key)){
+            return new ActionResult(false,'Invalid key');
+        }else{
+            try{
+                $this->storage->delete(self::$key.$key);
+                return new ActionResult(true);
+            }catch(RedisException $e){
+                return new ActionResult(false,'An exception ocurred while delete key');
+            }
+        }
+
     }
 
     private function getNameKey(UserId $userId)

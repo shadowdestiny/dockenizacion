@@ -4,7 +4,6 @@
 namespace EuroMillions\web\components;
 
 
-use DateTimeZone;
 use Phalcon\Di;
 
 class DateTimeUtil
@@ -67,6 +66,12 @@ class DateTimeUtil
         $precision = 60 * 5;
         $round = ( round ( $rest /  $precision) * $precision );
         return date('i',$round);
+    }
+
+    public function getCountDownNextDraw( \DateTime $date_next_draw )
+    {
+        $remain = $date_next_draw->diff(new \DateTime());
+        return $remain->d . ' days and ' . $remain->h . ' hours';
     }
 
     public function isLastMinuteToDraw( \DateTime $time_close_draw )

@@ -2,15 +2,17 @@
 {% block template_css %}<link rel="stylesheet" href="/w/css/cart.css">{% endblock %}
 {% block template_scripts_code %}
         {# //vars to cart.jsx #}
-        var play_list = '<?php echo $order->getLines(); ?>';
-        var wallet_balance = '<?php echo $order->getWalletBalance(); ?>';
-        var total_price = parseFloat('<?php echo $order->getTotal(); ?>');
-        var single_bet_price = '<?php echo number_format($order->getSingleBetPrice(), 2,".",",") ?>';
+        var play_list = '<?php echo $order->lines; ?>';
+        var checked_wallet = '<?php echo empty($checked_wallet) ? false : true; ?>';
+        var show_form_credit_card = '<?php echo $show_form_credit_card; ?>';
+        var wallet_balance = '<?php echo $wallet_balance; ?>';
+        var total_price ='<?php echo $total_price ?>';
+        var single_bet_price = '<?php echo number_format($order->single_bet_price->getAmount() /100, 2,".",",") ?>';
         var currency_symbol = '<?php echo empty($currency_symbol) ? $current_currency : $currency_symbol;?>';
-        var price_below_fee = '<?php echo number_format($order->getFeeLimit(),2,".",","); ?>';
-        var fee_charge = '<?php echo number_format($order->getFee(),2,".",","); ?>';
+        var price_below_fee = '<?php echo number_format($fee_limit,2,".",","); ?>';
+        var fee_charge = '<?php echo number_format($fee,2,".",","); ?>';
         var symbol_position = '<?php echo $symbol_position ?>';
-        var draw_days = '<?php echo $order->getDrawDays(); ?>';
+        var draw_days = '<?php echo $order->drawDays; ?>';
         var show_order_cart = true;
         var total_price_in_credit_card_form = 0;
 
@@ -25,35 +27,14 @@
                 if(value == 'no-wallet') {
                     $('.submit.big.green').text('Pay ' + total_price_in_credit_card_form);
                     $('.payment').show();
+                } else {
+                    $('.payment').hide();
                 }
             })
-            $('.submit.big.green').on('click', function() {
-
-                var charge = 0;
-                if(document.getElementById('charge') != null) {
-                    charge = document.getElementById('charge').value;
-                }
-                var card_number = document.getElementById('card-number').value;
-                var card_holder = document.getElementById('card-holder').value;
-                var expiry_date = document.getElementById('expiry-date').value;
-                var card_cvv = document.getElementById('card-cvv').value;
-                //send token
-                var params = 'charge='+charge+'&cardnumber='+card_number+'&cardholder='+card_holder+'&expirydate='+expiry_date+'&cardcvv='+card_cvv;
-                $.ajax({
-                    url: '/cart/payment',
-                    data: params,
-                    type: 'POST',
-                    success: function(json) {
-{# //                        if(json.result = 'OK') {
-//                            location.href = json.url;
-//                        }
-#}
-                    },
-                    error: function (xhr, status, errorThrown) {
-                        {# EMTD manage errrors #}
-                    },
-                });
-            });
+            if(show_form_credit_card) {
+                $('.submit.big.green').text('Pay ' + total_price_in_credit_card_form);
+                $('.payment').show();
+            }
         });
 {% endblock %}
 {% block template_scripts_after %}<script src="/w/js/react/cart.js"></script>{% endblock %}
@@ -84,8 +65,10 @@
 
                 <div id="cart-order"></div>
                 <div class="payment hidden">
-                    {% set component='{"where": "cart"}'|json_decode %}
-                    {% include "account/_add-card.volt" %}
+                    <form class="box-add-card form-currency {#{% if which_form != 'edit' and which_form%}hidden{% endif %}#}" method="post" action="/cart/payment{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
+                        {% set component='{"where": "cart"}'|json_decode %}
+                        {% include "account/_add-card.volt" %}
+                    </form>
                 </div>
 
             </div>

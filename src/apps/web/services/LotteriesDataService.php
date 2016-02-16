@@ -145,13 +145,14 @@ class LotteriesDataService
         }
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         if(!empty($lottery)){
-            $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery,$now);
+            $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery,$lottery->getNextDrawDate($now));
             if(!empty($euroMillionsDraw)){
                 return new ActionResult(true,$euroMillionsDraw);
             }else{
                 return new ActionResult(false);
             }
         }
+        return new ActionResult(false);
     }
 
     public function getLotteryConfigByName($lotteryName)

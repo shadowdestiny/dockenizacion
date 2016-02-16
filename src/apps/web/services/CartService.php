@@ -32,7 +32,7 @@ class CartService
 
     public function store( Order $order )
     {
-        $user_id = $order->getPlayConfig()->getUser()->getId();
+        $user_id = $order->getPlayConfig()[0]->getUser()->getId();
         if( null !== $user_id ) {
             /** @var ActionResult $result */
             $result = $this->orderStorageStrategy->save($order->toJsonData(), $user_id);
@@ -42,6 +42,7 @@ class CartService
                 return new ActionResult(false);
             }
         }
+        return new ActionResult(false);
     }
 
     public function get( UserId $user_id )
@@ -58,15 +59,15 @@ class CartService
                 $user = $this->userRepository->find(['id' => $user_id]);
                 if( null !== $user ) {
                     $bets = [];
-                    foreach($json->play_config->euromillions_line as $bet) {
-                        $bets[] = $bet;
+                    foreach($json->play_config as $bet) {
+                        $playConfig = new PlayConfig();
+                        $playConfig->formToEntity($user,$bet,$bet->euromillions_line);
+                        $bets[] = $playConfig;
                     }
-                    $playConfig = new PlayConfig();
-                    $playConfig->formToEntity($user, json_encode($json->play_config), $bets);
                     $fee = new Money((int) $json->fee, new Currency('EUR'));
                     $fee_limit = new Money((int) $json->fee_limit, new Currency('EUR'));
                     $single_bet_price = new Money((int) $json->single_bet_price, new Currency('EUR'));
-                    $order = new Order($playConfig,$single_bet_price, $fee, $fee_limit);//order created
+                    $order = new Order($bets,$single_bet_price, $fee, $fee_limit);//order created
                     if( null !== $order ) {
                         return new ActionResult(true, $order);
                     }
@@ -77,5 +78,7 @@ class CartService
         } catch ( \RedisException $r ) {
             return new ActionResult(false, $r->getMessage());
         }
+        return new ActionResult(false);
     }
+
 }

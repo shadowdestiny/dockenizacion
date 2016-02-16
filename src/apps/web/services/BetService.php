@@ -70,31 +70,28 @@ class BetService
                     $castillo_key = CastilloCypherKey::create();
                     $castillo_ticket = CastilloTicketId::create();
                     $bet->setCastilloBet($castillo_ticket);
-                    foreach($bet->getPlayConfig()->getLine() as $line) {
-                        $result_validation = $lotteryValidation->validateBet($bet,new CypherCastillo3DES(),$castillo_key,$castillo_ticket,$dateNextDraw, $line);
-                        $log_api_reponse = new LogValidationApi();
-                        $log_api_reponse->initialize([
-                            'id_provider' => 1,
-                            'id_ticket' => $lotteryValidation->getXmlResponse()->id,
-                            'status' => $lotteryValidation->getXmlResponse()->status,
-                            'response' => $lotteryValidation->getXmlResponse(),
-                            'received' => new \DateTime()
-                        ]);
-
-                        $this->logValidationRepository->add($log_api_reponse);
-                        $this->entityManager->flush($log_api_reponse);
-
-                        if($result_validation->success()) {
-                            $this->betRepository->add($bet);
-                            $user->payPreservingWinnings($single_bet_price);
-                            $this->userRepository->add($user);
-                            $playConfig->setActive(false);
-                            $this->playConfigRepository->add($playConfig);
-                            $this->entityManager->flush();
-                            return new ActionResult(true);
-                        } else{
-                            return new ActionResult(false, $result_validation->errorMessage());
-                        }
+                    $result_validation = $lotteryValidation->validateBet($bet,new CypherCastillo3DES(),$castillo_key,$castillo_ticket,$dateNextDraw, $bet->getPlayConfig()->getLine());
+                    $log_api_reponse = new LogValidationApi();
+                    $log_api_reponse->initialize([
+                        'id_provider' => 1,
+                        'id_ticket' => $lotteryValidation->getXmlResponse()->id,
+                        'status' => $lotteryValidation->getXmlResponse()->status,
+                        'response' => $lotteryValidation->getXmlResponse(),
+                        'received' => new \DateTime()
+                    ]);
+                    $this->logValidationRepository->add($log_api_reponse);
+                    $this->entityManager->flush($log_api_reponse);
+                    if($result_validation->success()) {
+                        $this->betRepository->add($bet);
+                        $this->entityManager->flush();
+                        $user->payPreservingWinnings($single_bet_price);
+                        $this->userRepository->add($user);
+                        $playConfig->setActive(false);
+                        $this->playConfigRepository->add($playConfig);
+                        $this->entityManager->flush();
+                        return new ActionResult(true);
+                    } else{
+                        return new ActionResult(false, $result_validation->errorMessage());
                     }
                 }catch(\Exception $e) {
                     return new ActionResult(false);

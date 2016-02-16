@@ -27,7 +27,7 @@ class OrderUnitTest extends UnitTestBase
     {
         $sut = $this->getSut();
         $actual = $sut->getNumLines();
-        $this->assertEquals(2,$actual);
+        $this->assertEquals(4,$actual);
     }
 
 
@@ -39,10 +39,11 @@ class OrderUnitTest extends UnitTestBase
     public function test_getTotal_called_returnMoneyWithTotalCharged()
     {
         $sut = $this->getSut();
-        $expected = new Money(5000, new Currency('EUR'));
+        $expected = new Money(1000, new Currency('EUR'));
         $actual = $sut->getTotalFromUser();
         $this->assertEquals($expected, $actual);
     }
+
 
     /**
      * method getTotal
@@ -52,7 +53,7 @@ class OrderUnitTest extends UnitTestBase
     public function test_getTotal_totalLessThanFeeLimit_addFeeToTotal()
     {
         $sut = $this->getSut();
-        $expected = new Money(5035, new Currency('EUR'));
+        $expected = new Money(1035, new Currency('EUR'));
         $actual = $sut->getTotal();
         $this->assertEquals($expected,$actual);
     }
@@ -65,7 +66,7 @@ class OrderUnitTest extends UnitTestBase
      */
     public function test_addFunds_called_returnTotalWithFundsAdded()
     {
-        $expected = new Money(5135, new Currency('EUR'));
+        $expected = new Money(1135, new Currency('EUR'));
         $sut = $this->getSut();
         $sut->addFunds(new Money(100,new Currency('EUR')));
         $actual = $sut->getTotal();
@@ -80,7 +81,7 @@ class OrderUnitTest extends UnitTestBase
     public function test_addFunds_calledWithAmountGreaterThanFeeLimit_chargeFeeMethodReturnFalse()
     {
         $sut = $this->getSut();
-        $sut->addFunds(new Money(10000,new Currency('EUR')));
+        $sut->addFunds(new Money(12000,new Currency('EUR')));
         $actual = $sut->is_charged_fee();
         $this->assertEquals(false,$actual);
     }
@@ -107,9 +108,9 @@ class OrderUnitTest extends UnitTestBase
     {
         $order = OrderMother::aJustOrder()->build();
         $play_config = $order->getPlayConfig();
-        $play_config->setStartDrawDate(new \DateTime('2016-02-09 10:00:00'));
-        $play_config->setDrawDays(new DrawDays(25));
-        $play_config->setLastDrawDate(new \DateTime('2016-02-09 22:00:00'));
+        $play_config[0]->setStartDrawDate(new \DateTime('2016-02-09 10:00:00'));
+        $play_config[0]->setDrawDays(new DrawDays(25));
+        $play_config[0]->setLastDrawDate(new \DateTime('2016-02-09 22:00:00'));
         $draw_date = new \DateTime('2016-02-09 20:00:00');
         $actual = $order->isNextDraw($draw_date);
         $this->assertEquals(true,$actual);
@@ -125,9 +126,9 @@ class OrderUnitTest extends UnitTestBase
     {
         $order = OrderMother::aJustOrder()->build();
         $play_config = $order->getPlayConfig();
-        $play_config->setStartDrawDate(new \DateTime('2016-02-10 10:00:00'));
-        $play_config->setDrawDays(new DrawDays(5));
-        $play_config->setLastDrawDate(new \DateTime('2016-02-09 22:00:00'));
+        $play_config[0]->setStartDrawDate(new \DateTime('2016-02-10 10:00:00'));
+        $play_config[0]->setDrawDays(new DrawDays(5));
+        $play_config[0]->setLastDrawDate(new \DateTime('2016-02-09 22:00:00'));
         $draw_date = new \DateTime('2016-02-09 20:00:00');
         $actual = $order->isNextDraw($draw_date);
         $this->assertEquals(false,$actual);
@@ -139,21 +140,20 @@ class OrderUnitTest extends UnitTestBase
      */
     private function getSut()
     {
-        $string_json = '{"drawDays":"1","startDrawDate":"05 Feb 2016","lastDrawDate":"2016-02-05 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[3,8,11,16,44],"lucky":[3,5]},{"regular":[6,17,37,38,48],"lucky":[1,5]}]},"numbers":null,"threshold":null,"num_weeks":0}';
+        $string_json = '{"play_config":[{"drawDays":"2","startDrawDate":"16 Feb 2016","lastDrawDate":"2016-02-16 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[16,18,20,21,32],"lucky":[4,8]}]},"numbers":null,"threshold":null,"num_weeks":0},{"drawDays":"2","startDrawDate":"16 Feb 2016","lastDrawDate":"2016-02-16 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[3,22,23,30,44],"lucky":[7,9]}]},"numbers":null,"threshold":null,"num_weeks":0},{"drawDays":"2","startDrawDate":"16 Feb 2016","lastDrawDate":"2016-02-16 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[31,37,39,44,47],"lucky":[4,10]}]},"numbers":null,"threshold":null,"num_weeks":0},{"drawDays":"2","startDrawDate":"16 Feb 2016","lastDrawDate":"2016-02-16 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[25,31,33,38,47],"lucky":[2,6]}]},"numbers":null,"threshold":null,"num_weeks":0}]}';
+        $user = UserMother::aUserWith500Eur()->build();
         $form_decode = json_decode($string_json);
         $bets = [];
-        foreach($form_decode->euroMillionsLines->bets as $bet) {
-            $bets[] = $bet;
+        foreach($form_decode->play_config as $bet) {
+            $playConfig = new PlayConfig();
+            $playConfig->formToEntity($user,$bet,$bet->euroMillionsLines);
+            $bets[] = $playConfig;
         }
-        $user = UserMother::aUserWith500Eur()->build();
-        $playConfig = new PlayConfig();
-        $playConfig->formToEntity($user,$string_json,$bets);
 
-        $single_bet_price = new Money(2500, new Currency('EUR'));
+        $single_bet_price = new Money(250, new Currency('EUR'));
         $fee = new Money(35, new Currency('EUR'));
         $fee_limit = new Money(12000, new Currency('EUR'));
-        $sut = new Order($playConfig, $single_bet_price, $fee, $fee_limit);
-
+        $sut = new Order($bets, $single_bet_price, $fee, $fee_limit);
         return $sut;
     }
 

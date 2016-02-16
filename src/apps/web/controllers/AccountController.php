@@ -4,28 +4,18 @@
 namespace EuroMillions\web\controllers;
 
 
-use Doctrine\Common\Collections\ArrayCollection;
-use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\CreditCardForm;
-use EuroMillions\web\forms\elements\CreditCardExpiryDateElement;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
 use EuroMillions\web\forms\ResetPasswordForm;
-use EuroMillions\web\forms\validators\CreditCardExpiryDateValidator;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
-use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
-use EuroMillions\web\services\card_payment_providers\ICreditCardStrategy;
-use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
-use EuroMillions\web\services\CurrencyService;
-use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CreditCardCharge;
 use EuroMillions\web\vo\CVV;
 use EuroMillions\web\vo\dto\PlayConfigDTO;
-use EuroMillions\web\vo\dto\SiteConfigDTO;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\UserNotificationsDTO;
 use EuroMillions\web\vo\Email;
@@ -270,8 +260,8 @@ class AccountController extends PublicSiteControllerBase
         $fee_value_with_currency = $this->siteConfigService->getFeeFormatMoney($user->getUserCurrency(), $locale);
         $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeLimitFormatMoney($user->getUserCurrency(), $locale);
         $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue()->getAmount() / 1000;
-        $this->view->pick('/account/wallet');
 
+        $this->view->pick('/account/wallet');
         return $this->view->setVars([
             'form_errors' => $form_errors,
             'errors' => $errors,

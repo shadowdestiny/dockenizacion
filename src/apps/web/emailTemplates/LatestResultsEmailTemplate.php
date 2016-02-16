@@ -4,7 +4,7 @@
 namespace EuroMillions\web\emailTemplates;
 
 use EuroMillions\web\interfaces\IEmailTemplateDataStrategy;
-use EuroMillions\web\services\email_templates_strategies\LongPlayEndedDataEmailTemplateStrategy;
+use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 
 
 class LatestResultsEmailTemplate extends EmailTemplateDecorator
@@ -14,7 +14,7 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
 
     public function loadVars(IEmailTemplateDataStrategy $strategy = null)
     {
-        $strategy = $strategy ? $strategy : new LongPlayEndedDataEmailTemplateStrategy();
+        $strategy = $strategy ? $strategy : new JackpotDataEmailTemplateStrategy();
         $data = $this->emailTemplateDataStrategy->getData($strategy);
         $draw_result = $data['draw_result'];
         $jackpot = $data['jackpot_amount'];

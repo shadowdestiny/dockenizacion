@@ -6,7 +6,6 @@ namespace EuroMillions\web\vo\dto;
 
 use EuroMillions\web\interfaces\IDto;
 use EuroMillions\web\vo\dto\base\DTOBase;
-use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\Order;
 
 class OrderDTO extends DTOBase implements IDto
@@ -37,15 +36,15 @@ class OrderDTO extends DTOBase implements IDto
 
     public function exChangeObject()
     {
-        $this->total = ($this->order->getTotal()) ? $this->order->getTotal()->getAmount() / 10000 : 0;
+        $this->total = ($this->order->getTotal()) ? $this->order->getTotal()->getAmount() / 100 : 0;
         $this->fee_limit = $this->order->getFeeLimit()->getAmount() / 100;
         $this->fee = $this->order->getFee()->getAmount() / 100;
-        $this->single_bet_price = $this->order->getSingleBetPrice()->getAmount() / 10000;
-        $this->wallet_balance = $this->order->getPlayConfig()->getUser()->getBalance()->getAmount() / 100;
+        $this->single_bet_price = $this->order->getSingleBetPrice()->getAmount() / 100;
+        $this->wallet_balance = $this->order->getPlayConfig()[0]->getUser()->getBalance()->getAmount() / 100;
         $this->lines = $this->euroMillionsLinesToJson();
-        $this->startDrawDate = $this->order->getPlayConfig()->getStartDrawDate();
-        $this->lastDrawDate = $this->order->getPlayConfig()->getLastDrawDate();
-        $this->drawDays = $this->order->getPlayConfig()->getDrawDays()->value();
+        $this->startDrawDate = $this->order->getPlayConfig()[0]->getStartDrawDate();
+        $this->lastDrawDate = $this->order->getPlayConfig()[0]->getLastDrawDate();
+        $this->drawDays = $this->order->getPlayConfig()[0]->getDrawDays()->value();
     }
 
     /**
@@ -213,15 +212,12 @@ class OrderDTO extends DTOBase implements IDto
 
     private function euroMillionsLinesToJson()
     {
-        $lines = $this->order->getPlayConfig()->getLine();
-        if( null == $lines ) {
-            return [];
-        }
         $euromillionsLines = [];
-        /** @var EuroMillionsLine $line */
-        foreach($lines as $k => $line) {
-            $euromillionsLines['bets'][$k]['regular'] = $line->getRegularNumbers();
-            $euromillionsLines['bets'][$k]['lucky'] = $line->getLuckyNumbers();
+        if( is_array($this->order->getPlayConfig()) ) {
+            foreach($this->order->getPlayConfig() as $k => $play_config) {
+                $euromillionsLines['bets'][$k]['regular'] = $play_config->getLine()->getRegularNumbers();
+                $euromillionsLines['bets'][$k]['lucky'] = $play_config->getLine()->getLuckyNumbers();
+            }
         }
         return json_encode($euromillionsLines);
     }

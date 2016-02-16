@@ -11,7 +11,6 @@ use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\vo\CastilloBetId;
-use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
@@ -23,7 +22,6 @@ use Prophecy\Argument;
 use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\LotteryValidationCastilloRelatedTest;
 use tests\base\UnitTestBase;
-use tests\helpers\mothers\CreditCardChargeMother;
 use tests\helpers\mothers\CreditCardMother;
 use tests\helpers\mothers\OrderMother;
 use tests\helpers\mothers\UserMother;
@@ -174,7 +172,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_getPlaysFromTemporarilyStorage_calledAndPassKeyValid_returnServiceActionResultTrueWithProperlyData()
     {
-        $string_json = '{"drawDays":"1","startDrawDate":"05 Feb 2016","lastDrawDate":"2016-02-05 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[3,8,11,16,44],"lucky":[3,5]},{"regular":[6,17,37,38,48],"lucky":[1,5]}]},"numbers":null,"threshold":null,"num_weeks":0}';
+        $string_json = '{"play_config":[{"drawDays":"2","startDrawDate":"16 Feb 2016","lastDrawDate":"2016-02-16 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[16,18,20,21,32],"lucky":[4,8]}]},"numbers":null,"threshold":null,"num_weeks":0},{"drawDays":"2","startDrawDate":"16 Feb 2016","lastDrawDate":"2016-02-16 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[3,22,23,30,44],"lucky":[7,9]}]},"numbers":null,"threshold":null,"num_weeks":0},{"drawDays":"2","startDrawDate":"16 Feb 2016","lastDrawDate":"2016-02-16 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[31,37,39,44,47],"lucky":[4,10]}]},"numbers":null,"threshold":null,"num_weeks":0},{"drawDays":"2","startDrawDate":"16 Feb 2016","lastDrawDate":"2016-02-16 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[25,31,33,38,47],"lucky":[2,6]}]},"numbers":null,"threshold":null,"num_weeks":0}]}';
         $play_config = $this->exercisePlayConfigFromJson($string_json);
         $expected = new ActionResult(true,$play_config);
         $user = $this->getUser();
@@ -297,9 +295,12 @@ class PlayServiceUnitTest extends UnitTestBase
         $credit_card = CreditCardMother::aValidCreditCard();
         $this->exercisePlayWallet($user, $order, $credit_card);
         $this->betService_double->validation(Argument::any(),Argument::any())->willReturn(new ActionResult(true));
+        $entityManager_double = $this->getEntityManagerDouble();
+        $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
+        $entityManager_double->flush(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
         $sut = $this->getSut();
         $actual = $sut->play($user->getId(),null,$credit_card);
-        $this->assertEquals(new ActionResult(true),$actual);
+        $this->assertEquals(new ActionResult(true, $order),$actual);
     }
 
     /**
@@ -313,10 +314,13 @@ class PlayServiceUnitTest extends UnitTestBase
         $funds_amount_to_charged = new Money(2000, new Currency('EUR'));
         $order = OrderMother::aJustOrder()->build();
         $order->addFunds($funds_amount_to_charged);
-        $expected = new ActionResult(true);
+        $expected = new ActionResult(true, $order);
         $credit_card = CreditCardMother::aValidCreditCard();
         $this->exercisePlayWallet($user, $order, $credit_card);
         $this->betService_double->validation(Argument::any(),Argument::any())->willReturn(new ActionResult(true));
+        $entityManager_double = $this->getEntityManagerDouble();
+        $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
+        $entityManager_double->flush(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
         $sut = $this->getSut();
         $actual = $sut->play($user->getId(), $funds_amount_to_charged, $credit_card);
         $this->assertEquals($expected, $actual);
@@ -329,9 +333,9 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_play_calledWithAUserWithOrderWithABetForNextDraw_notChargeCreditCardWhenTheresEnoughFundsOnWalletAndNotAddedFunds()
     {
-        $user = UserMother::aUserWith50Eur()->build();
+        $user = UserMother::aUserWith500Eur()->build();
         $order = OrderMother::aJustOrder()->build();
-        $expected = new ActionResult(true);
+        $expected = new ActionResult(true, $order);
         $userId = $user->getId();
         list($play_config, $euromillions_draw) = $this->getPlayConfigAndEuroMillionsDraw();
         $euromillions_draw->setDrawDate(new \DateTime('2016-02-05 20:00:00'));
@@ -339,7 +343,12 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->orderStorageStrategy_double->findByKey($user->getId())->willReturn($order->toJsonData());
         $this->cartService_double->get($user->getId())->willReturn(new ActionResult(true, $order));
         $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true, $euromillions_draw));
+        $entityManager_double = $this->getEntityManagerDouble();
+        $this->userRepository_double->add($user)->shouldBeCalled();
+        $entityManager_double->flush(Argument::any())->shouldBeCalled();
         $this->betService_double->validation(Argument::any(),Argument::any())->willReturn(new ActionResult(true));
+        $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
+        $entityManager_double->flush(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
         $sut = $this->getSut();
         $actual = $sut->play($userId);
         $this->assertEquals($expected,$actual);
@@ -356,9 +365,12 @@ class PlayServiceUnitTest extends UnitTestBase
         $order = OrderMother::aJustOrder()->build();
         $credit_card = CreditCardMother::aValidCreditCard();
         $this->exercisePlayWallet($user,$order,$credit_card);
-        $expected = new ActionResult(true);
+        $expected = new ActionResult(true, $order);
         $sut = $this->getSut();
         $this->betService_double->validation(Argument::any(),Argument::any())->willReturn(new ActionResult(true));
+        $entityManager_double = $this->getEntityManagerDouble();
+        $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalledTimes(4);
+        $entityManager_double->flush(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
         $actual = $sut->play($user->getId(),null, $credit_card);
         $this->assertEquals($expected,$actual);
     }
@@ -376,10 +388,13 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->exercisePlayWallet($user,$order,$credit_card);
         $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
         $this->lotteryDataService_double->getNextDateDrawByLottery('EuroMillions', Argument::any())->willReturn(new \DateTime('2016-10-04'));
+        $entityManager_double = $this->getEntityManagerDouble();
+        $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalledTimes(4);
+        $entityManager_double->flush(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
         $this->betService_double->validation(Argument::any(),Argument::any())->willReturn(new ActionResult(false));
         $sut = $this->getSut();
         $actual = $sut->play($user->getId(),null, $credit_card);
-        $this->assertEquals(new ActionResult(false),$actual);
+        $this->assertEquals(new ActionResult(true,$order),$actual);
     }
 
     /**
@@ -403,13 +418,39 @@ class PlayServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method removeStorePlay
+     * when calledPassingAValidUserId
+     * should removePlayFromStorage
+     */
+    public function test_removeStorePlay_calledPassingAValidUserId_removePlayFromStorage()
+    {
+        $user = UserMother::aJustRegisteredUser()->build();
+        $this->playStorageStrategy_double->delete($user->getId())->shouldBeCalled();
+        $sut = $this->getSut();
+        $sut->removeStorePlay($user->getId());
+    }
+
+    /**
+     * method removeStoreOrder
+     * when calledPassingAValidUserID
+     * should removeOrderFromStorage
+     */
+    public function test_removeStoreOrder_calledPassingAValidUserID_removeOrderFromStorage()
+    {
+        $user = UserMother::aJustRegisteredUser()->build();
+        $this->orderStorageStrategy_double->delete($user->getId())->shouldBeCalled();
+        $sut = $this->getSut();
+        $sut->removeStoreOrder($user->getId());
+    }
+
+    /**
      * method getPlaysFromGuestUserAndSwitchUser
      * when called
      * should returnActionResultTrueWithPlaysGuestUser
      */
     public function test_getPlaysFromGuestUserAndSwitchUser_called_returnActionResultTrueWithPlaysGuestUser()
     {
-        $string_json = '{"drawDays":"1","startDrawDate":"05 Feb 2016","lastDrawDate":"2016-02-05 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[3,8,11,16,44],"lucky":[3,5]},{"regular":[6,17,37,38,48],"lucky":[1,5]}]},"numbers":null,"threshold":null,"num_weeks":0}';
+        $string_json = '{"play_config":[{"drawDays":"2","startDrawDate":"16 Feb 2016","lastDrawDate":"2016-02-16 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[16,18,20,21,32],"lucky":[4,8]}]},"numbers":null,"threshold":null,"num_weeks":0},{"drawDays":"2","startDrawDate":"16 Feb 2016","lastDrawDate":"2016-02-16 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[3,22,23,30,44],"lucky":[7,9]}]},"numbers":null,"threshold":null,"num_weeks":0},{"drawDays":"2","startDrawDate":"16 Feb 2016","lastDrawDate":"2016-02-16 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[31,37,39,44,47],"lucky":[4,10]}]},"numbers":null,"threshold":null,"num_weeks":0},{"drawDays":"2","startDrawDate":"16 Feb 2016","lastDrawDate":"2016-02-16 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[25,31,33,38,47],"lucky":[2,6]}]},"numbers":null,"threshold":null,"num_weeks":0}]}';
         $play_config = $this->exercisePlayConfigFromJson($string_json);
         $expected = new ActionResult(true,$play_config);
         $user_id = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
@@ -420,23 +461,6 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->playStorageStrategy_double->findByKey($current_user_id)->willReturn(new ActionResult(true,$string_json));
         $sut = $this->getSut();
         $actual = $sut->getPlaysFromGuestUserAndSwitchUser($user_id, $current_user_id);
-        $this->assertEquals($expected,$actual);
-    }
-
-    /**
-     * method getTotalPriceFromPlay
-     * when called
-     * should returnActionResultTrueWithTotalPriceFromPlay
-     */
-    public function test_getTotalPriceFromPlay_called_returnActionResultTrueWithTotalPriceFromPlay()
-    {
-        $string_json = '{"drawDays":"1","startDrawDate":"05 Feb 2016","lastDrawDate":"2016-02-05 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[3,8,11,16,44],"lucky":[3,5]},{"regular":[6,17,37,38,48],"lucky":[1,5]}]},"numbers":null,"threshold":null,"num_weeks":0}';
-        $expected = new Money(5000, new Currency('EUR'));
-        $play_config = $this->exercisePlayConfigFromJson($string_json);
-        $single_bet_price = new Money(2500, new Currency('EUR'));
-        $this->lotteryDataService_double->getSingleBetPriceByLottery('EuroMillions')->willReturn($single_bet_price);
-        $sut = $this->getSut();
-        $actual = $sut->getTotalPriceFromPlay($play_config,$single_bet_price);
         $this->assertEquals($expected,$actual);
     }
 
@@ -532,18 +556,6 @@ class PlayServiceUnitTest extends UnitTestBase
         return $playConfig;
     }
 
-    /**
-     * @param $expected
-     * @return array
-     */
-    private function exerciseValidationBet($expected)
-    {
-        list($playConfig, $euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
-        $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
-        $this->lotteryDataService_double->getNextDateDrawByLottery('EuroMillions', Argument::any())->willReturn(new \DateTime('2016-10-04'));
-        $this->callValidationApi($expected);
-        return array($playConfig, $euroMillionsDraw);
-    }
 
     /**
      * @param $string_json
@@ -552,12 +564,12 @@ class PlayServiceUnitTest extends UnitTestBase
     {
         $form_decode = json_decode($string_json);
         $bets = [];
-        foreach($form_decode->euroMillionsLines->bets as $bet) {
-            $bets[] = $bet;
+        foreach($form_decode->play_config as $bet) {
+            $playConfig = new PlayConfig();
+            $playConfig->formToEntity($this->getUser(),$bet,$bet->euroMillionsLines);
+            $bets[] = $playConfig;
         }
-        $playConfig = new PlayConfig();
-        $playConfig->formToEntity($this->getUser(),$string_json,$bets);
-        return $playConfig;
+        return $bets;
     }
 
     /**
@@ -589,15 +601,5 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true, $euromillions_draw));
     }
 
-    private function exercisePayAndValidation()
-    {
-        $this->logValidationApi_double->add(Argument::type($this->getEntitiesToArgument('LogValidationApi')))->shouldBeCalled();
-        $entityManager_stub = $this->getEntityManagerDouble();
-        $entityManager_stub->flush(Argument::type($this->getEntitiesToArgument('LogValidationApi')))->shouldNotBeCalled();
-        $this->logValidationApi_double->add(Argument::any())->shouldBeCalled();
-        $entityManager_stub->flush(Argument::any())->shouldBeCalled();
-        $this->userRepository_double->add(Argument::type('EuroMillions\web\entities\User'))->shouldBeCalled();
-        $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
-        $entityManager_stub->flush()->shouldBeCalled();
-    }
+
 }

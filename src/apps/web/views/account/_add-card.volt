@@ -66,9 +66,9 @@
 
     {% if component.where == 'cart' %}
             <div class="cl col6">
+                <input id="new-card" type="submit" class="hidden2">
                 <label class="btn submit big green right" for="new-card">
                     {{ language.translate("Pay {total_value}") }}
-                    <input id="new-card" type="submit" class="hidden2">
                 </label>
             </div>
         </div>

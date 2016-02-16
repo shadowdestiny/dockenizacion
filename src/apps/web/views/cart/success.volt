@@ -24,7 +24,7 @@
 
                     <div class="countdown">
                         <span class="h4">{{ language.translate("Countdown to the next draw:") }}</span>
-                        <span class="purple">{{ language.translate("3 Days 05:29") }}</span>
+                        <span class="purple">{{ countdown_next_draw }}</span>
                     </div>
 
                     <p>{{ language.translate('We just sent your an email with a resume of the number played, or if you wish you can always <a href="javascript:void(0);">print this ticket</a>') }}</p>
@@ -43,21 +43,26 @@
                     <div class="bg-ticket">
                         <div class="results">
                             *******************************<br>
-                            <span class="title">{{ language.translate("Jackpot &euro; 100,000,000") }}</span>
+                            <span class="title">{{ user_currency['symbol'] }}{{ jackpot | number_format(0, ',', '.')}}</span>
                             <br>*******************************
                             <br>
-                            <ul class="no-li num">
-                                <li>A</li><li>04</li><li>14</li><li>21</li><li>36</li><li>38</li><li class="yellow">07</li><li class="yellow">10</li>
-                            </ul>
-                            <ul class="no-li num">
-                                <li>B</li><li>05</li><li>17</li><li>19</li><li>31</li><li>45</li><li class="yellow">03</li><li class="yellow">04</li><li class="yellow">09</li>
-                            </ul>
-                            <ul class="no-li num">
-                                <li>C</li><li>02</li><li>12</li><li>17</li><li>19</li><li>27</li><li>36</li><li>42</li><li>44</li><li class="yellow">05</li><li class="yellow">11</li>
-                            </ul>
+                            {%  set lines = order.lines|json_decode %}
+                            {%  for numbers in lines.bets %}
+                                <?php $regular_arr = explode(',', $numbers->regular);
+                                      $lucky_arr = explode(',', $numbers->lucky);
+                                ?>
+                                <ul class="no-li num">
+                                    {% for regular_number in regular_arr %}
+                                        <li>{{ regular_number }}</li>
+                                    {% endfor %}
+                                    {% for lucky_number in lucky_arr %}
+                                        <li class="yellow">{{ lucky_number }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endfor %}
                             <br>===============================
                             <br><em class="luck">{{ language.translate("Good luck for your draw on")}}
-                            <br>Wed 09th Sep 2015</em>
+                            <br>{{ start_draw_date_format }}</em>
                             <br>===============================
                             <br><div class="txt-logo">EuroMillions.com</div>
                         </div>

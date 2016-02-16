@@ -10,7 +10,6 @@ use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
-use EuroMillions\web\services\BetService;
 use EuroMillions\web\vo\EuroMillionsLine;
 use Money\Currency;
 use Money\Money;
@@ -239,7 +238,7 @@ class BetServiceUnitTest extends UnitTestBase
         $playConfig = new PlayConfig();
         $playConfig->initialize([
                 'user' => $user,
-                'line' => [$euroMillionsLine]
+                'line' => $euroMillionsLine
             ]
         );
         return [$playConfig,$euroMillionsDraw];
