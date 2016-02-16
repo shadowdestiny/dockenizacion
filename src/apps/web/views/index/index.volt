@@ -136,7 +136,6 @@ $(function(){
 								<svg class="vector win-millions">
 									<use xlink:href="/w/svg/icon.svg#win-millions" style="filter:url(#shadow)"></use>
 									<use xlink:href="/w/svg/icon.svg#win-millions"></use>
-									<linearGradient id="e" gradientUnits="userSpaceOnUse" x1="31.034" y1="2.99" x2="31.034" y2="53.503"><stop offset="0" stop-color="#FEFAEC"/><stop offset="1" stop-color="#F1D86F"/></linearGradient>{# Chrome wants this #}
 								</svg>
 							</div>
 							<div class="box-ball">
