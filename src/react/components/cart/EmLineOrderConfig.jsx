@@ -56,16 +56,10 @@ var EmLineOrderConfig = new React.createClass({
         return (
             <div className="row cl">
                 <div className="box-detail">
-                    <div className="desc">
-                        Draw
-                    </div>
-                    <div className="detail">
-                        {text_weeks}
-                    </div>
+                    <div className="desc">Draw</div>
+                    <div className="detail">{text_weeks}</div>
                 </div>
-                <div className="quantity">
-                    x10
-                </div>
+                <div className="quantity">x10</div>
             </div>
         )
     }
