@@ -6,8 +6,9 @@ namespace tests\unit;
 
 use EuroMillions\web\vo\CardNumber;
 use Phalcon\Test\UnitTestCase;
+use tests\base\UnitTestBase;
 
-class CardNumberUnitTest extends UnitTestCase //EMTD @rmrbest You are extending the wrong class. We should extend UnitTestBase. Check it everywhere please.
+class CardNumberUnitTest extends UnitTestBase
 {
 
     /**
