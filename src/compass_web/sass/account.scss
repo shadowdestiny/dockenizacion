@@ -84,6 +84,8 @@
     .fix-margin{
         h2{margin-bottom:.5em;}
     }
+    .box-balance .txt{float:left;}
+    .box-btn{float:right;}
     .v-question-mark{position:relative; top:2px; font-size:$h4;}
     .div-balance{margin-bottom:10px;}
     .notes{
@@ -223,6 +225,8 @@
         /*margin-bottom:15px;*/
         .right{float:none;}
     }
+    .box-balance .txt{float:none;}
+    .box-btn{float:none; text-align:right;}
 }
 }
 
@@ -246,11 +250,9 @@
         .btn{margin:10px 0 0 34px;}
     }
     .box-balance{
-        .right{float:none;}
         a{width:100%; text-align:center;}
-        .btn.add-funds{margin-bottom:10px;}
-        .txt{font-size:$basic-size; margin:0;}
-        .withdraw{margin:10px 0;}
+        .txt{font-size:$basic-size; margin:0 0 10px;}
+        .withdraw{margin:10px 0 0;}
     }
 /*    .box-details{margin-bottom:15px;}*/
 }

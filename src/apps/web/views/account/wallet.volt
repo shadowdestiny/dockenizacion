@@ -127,17 +127,18 @@ $(function(){
 
                 <div class="box-balance">
                     <div class="border cl">
-                        <a href="javascript:void(0)" class="right btn big blue add-funds">{{ language.translate("Add funds of your wallet") }}</a>
-
                         <div class="txt">{{ language.translate("Your current balance:") }} <span class="value">{{ user_balance }}</span></div>
+                        <div class="box-btn">
+                            <a href="javascript:void(0)" class="btn big blue add-funds">{{ language.translate("Add funds of your wallet") }}</a>
+                        </div>
                     </div>
                     <br>
                     <div class="border cl">
-                        <div class="right">
+                        <div class="txt">{{ language.translate("Your winnings:")}} <span class="value">&euro; 20.00</span></div>
+                        <div class="box-btn">
                             <a href="javascript:void(0)" class="btn big blue convert">{{ language.translate("Convert winnings into your wallet")}}</a>
                             <a href="javascript:void(0)" class="btn big green withdraw">{{ language.translate("Withdraw winnings") }}</a>
                         </div>
-                        <div class="txt">{{ language.translate("Your winnings:")}} <span class="value">&euro; 20.00</span></div>
                     </div>
                 </div>
             </div>
