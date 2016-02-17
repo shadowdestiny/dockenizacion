@@ -388,6 +388,14 @@ class CartController extends PublicSiteControllerBase
 
         return $this->view->setVars([
             'order'            => $play_config_dto,
+            'config'           => json_encode(
+                                        [
+                                            'duration' => $play_config_dto->duration,
+                                            'frequency' => $play_config_dto->frequency,
+                                            'draw_days' => $play_config_dto->drawDays,
+                                            'startDrawDate' => $play_config_dto->startDrawDate
+                                        ]
+                                    ),
             'wallet_balance'   => $wallet_balance->getAmount() / 100,
             'total_price'      => $total_price->getAmount() / 100,
             'form_errors'      => $form_errors,

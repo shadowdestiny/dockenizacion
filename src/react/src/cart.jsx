@@ -148,7 +148,7 @@ var CartPage = new React.createClass({
             price = this.updatePriceWithoutWallet(price,wallet_balance,fee_below,fee);
             this.state.new_balance = parseFloat(this.props.wallet_balance);
         }
-
+        $(document).trigger("totalPriceEvent", [ parseFloat(price).toFixed(2) ]);
         var price_and_symbol = this.props.symbol_position ? parseFloat(price).toFixed(2) + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + parseFloat(price).toFixed(2);
         this.setState({ total : price_and_symbol });
     },
@@ -230,7 +230,7 @@ var CartPage = new React.createClass({
                     <h2 className="h4 sub-txt">Order Summary</h2>
                 </div>
                 <div className="box-order">
-                    <EmLineOrderConfig playConfig={_playConfigList} duration={this.handleChangeDrawDuration}/>
+                    <EmLineOrderConfig config={this.props.config} playConfig={_playConfigList} duration={this.handleChangeDrawDuration}/>
                     {_euroMillionsLine}
                     {line_fee_component}
                     {wallet_component}
@@ -247,7 +247,8 @@ var CartPage = new React.createClass({
 module.exports = CartPage;
 var show_fee_line = false;
 
-ReactDOM.render(<CartPage total={total_price} checked_wallet={checked_wallet} symbol_position={symbol_position} draw_days={draw_days} price_below_fee={price_below_fee} fee_charge={fee_charge} currency_symbol={currency_symbol} play_list={play_list} wallet_balance={wallet_balance} single_bet_price={single_bet_price} show_fee_line={show_fee_line}/>,
+
+ReactDOM.render(<CartPage total={total_price} config={config} checked_wallet={checked_wallet} symbol_position={symbol_position} draw_days={draw_days} price_below_fee={price_below_fee} fee_charge={fee_charge} currency_symbol={currency_symbol} play_list={play_list} wallet_balance={wallet_balance} single_bet_price={single_bet_price} show_fee_line={show_fee_line}/>,
     document.getElementById('cart-order'));
 
 

@@ -41,6 +41,8 @@ class PlayConfigDTO extends DTOBase implements IDto
 
     public $single_bet_price;
 
+    public $frequency;
+
 
 
 
@@ -67,7 +69,9 @@ class PlayConfigDTO extends DTOBase implements IDto
 //        }
         $this->drawDays = $this->playConfig[0]->getDrawDays()->value_len();
         $this->lines = $this->euroMillionsLinesToJson();
-        $this->duration = $this->getFormatDuration();
+        $this->duration_format = $this->getFormatDuration();
+        $this->duration = $this->duration();
+        $this->frequency = $this->playConfig[0]->getFrequency();
         $this->user = $this->playConfig[0]->getUser();
         $this->wallet_balance_user = $this->playConfig[0]->getUser()->getBalance();
         $result_total = count($this->playConfig) * $this->playConfig[0]->getDrawDays()->value_len() * ($this->single_bet_price->getAmount() / 100) * $this->playConfig[0]->getFrequency();
@@ -121,6 +125,13 @@ class PlayConfigDTO extends DTOBase implements IDto
         }
 
         return $duration;
+    }
+
+    private function duration()
+    {
+        $last = $this->playConfig[0]->getLastDrawDate();
+        $start = $this->playConfig[0]->getStartDrawDate();
+        return $last->format("W") - $start->format("W");
     }
 
 }

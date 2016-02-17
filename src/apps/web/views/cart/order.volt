@@ -2,6 +2,7 @@
 {% block template_css %}<link rel="stylesheet" href="/w/css/cart.css">{% endblock %}
 {% block template_scripts_code %}
         {# //vars to cart.jsx #}
+        var config = '<?php echo $config; ?>';
         var play_list = '<?php echo $order->lines; ?>';
         var checked_wallet = '<?php echo empty($checked_wallet) ? false : true; ?>';
         var show_form_credit_card = '<?php echo $show_form_credit_card; ?>';
@@ -18,6 +19,7 @@
 
         $(document).on("totalPriceEvent",{total: 0},
                 function(e, total) {
+                    $('.submit.big.green').text('Pay ' + total);
                     total_price_in_credit_card_form = total;
                 }
         )
