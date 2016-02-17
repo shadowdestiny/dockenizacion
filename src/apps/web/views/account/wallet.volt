@@ -95,6 +95,15 @@ $(function(){
             </div>
             <h1 class="h1 title yellow">{{ language.translate("Wallet") }}</h1>
 
+            <div class="box info">
+                <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
+                <div class="txt">
+                   <strong>{{ language.translate("Congratulations you just won &euro; XXX") }}</strong><br>
+                    {{ language.translate("We have sent you an email with further instructions to collect your prize.
+                    For any questions please contact us at") }} <a href="mailto:support@euromillions.com">support@euromillions.com</a> 
+                </div>
+            </div>
+
             <div class="{%if show_box_basic == false %}hidden{% endif %} overview-wallet">
                 {#<div class="info box box-congrats">
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
