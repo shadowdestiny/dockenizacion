@@ -59,7 +59,10 @@ var EmLineOrderConfig = new React.createClass({
                     <div className="desc">Draw</div>
                     <div className="detail">{text_weeks}</div>
                 </div>
-                <div className="quantity">x10</div>
+                <div className="quantity">
+                    <span className="txt">Draws</span>
+                    <span className="val">x10</span>
+                </div>
             </div>
         )
     }

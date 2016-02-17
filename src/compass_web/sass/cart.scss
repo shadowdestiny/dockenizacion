@@ -91,7 +91,10 @@
     a{text-decoration:none;}
     a:hover, a:focus{text-decoration:underline!important;}
   }
-  .quantity{float:right; font-weight:700;}
+  .quantity{
+    float:right;
+    .val{font-weight:700;}
+  }
   .val{display:inline-block; min-width:80px; text-align:right; margin-left:10px;}
   .row{border-top:1px solid $grey-lighter; padding:10px;}
   .sub-txt{margin:0 0 .5em; text-transform:uppercase; text-align:left;}
@@ -109,7 +112,7 @@
     }
   }
   .pre-total{
-     color:$grey; border-top:2px solid $grey-light;
+     color:$grey; border-top:1px solid $grey-light;
     .total{font-size:$basic-size;}
   }
   .box-total{

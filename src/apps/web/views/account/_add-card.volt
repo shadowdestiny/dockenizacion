@@ -16,7 +16,7 @@
         <div class="cols fix-margin">
             <div class="col6 first">
     {% endif %}
-    <h2 class="h3 yellow">{{ language.translate("Enter your credit card details") }}</h2>
+    <h2 class="h2 yellow">{{ language.translate("Enter your credit card details") }}</h2>
 
     <div class="card-info">
         {% if component.where == 'cart' %}
