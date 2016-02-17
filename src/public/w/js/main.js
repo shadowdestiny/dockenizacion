@@ -47,6 +47,7 @@ function btnShowHide(button, show, hide){
 function selectFix(){ // Style the "Select"
     if('querySelector' in document && 'addEventListener' in window){
         // check query selector is recognised by the browser IE9+
+
         var obj = $('.mySelect');
 /*
         if(typeof $(obj).attr("disabled") == "undefined" || $(obj).attr("disabled") == "disabled"){
@@ -121,21 +122,6 @@ function checkSize(){
     return varSize;
 }
 
-function menu(id, target){
-    $(id).hover(function(event){
-        $(target).show();
-    }, function(){
-        $(target).hide();
-    });
-}
-
-function navCurrency(){
-    if(varSize < 3){
-        menu(".li-currency", ".div-currency");
-    }
-}
-
-
 $(function(){
     selectFix();
     try{
@@ -187,8 +173,8 @@ $(function(){
     $('.ending').hide();
     var now_date = new Date().getMinutes();
     var draw_date_minutes = new Date(draw_date).getMinutes();
-    draw_date_minutes = draw_date_minutes == 0 ? 60 : draw_date_minutes;   
-    var minutes_value =  draw_date_minutes - now_date;
+    draw_date_minutes = draw_date_minutes == 0 ? 60 : draw_date_minutes;
+    var minutes_value =  minutes_to_close;
     if(draw_date_minutes < now_date) {
         now_date = 60 - now_date;
         minutes_value = draw_date_minutes + now_date;
@@ -211,6 +197,7 @@ $(function(){
 
         interval_warning_close = setInterval(function(){
             minutes_value =  getMinutes();
+            console.log('minutes value: ' + minutes_value);
             if(minutes_value > 5) {
                 minutes_to_close = minutes_to_close - 5;
                 console.log('pasa y los minutos son: ' + minutes_to_close);
@@ -255,9 +242,6 @@ $(function(){
     checkSize();
     $(window).resize(checkSize);
 
-    navCurrency();
-    $(window).resize(navCurrency);
-
     /* Hide Currency after tapping on mobile */
     $('html').on('touchstart', function(e){
         if($('.div-currency').is(":visible")){
@@ -271,6 +255,5 @@ $(function(){
     $(".div-currency").on('touchstart',function(e){
         e.stopPropagation();
     });
-
 
 });

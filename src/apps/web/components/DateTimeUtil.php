@@ -61,11 +61,9 @@ class DateTimeUtil
         if( $now == null ) {
             $now = new \DateTime();
         }
-        $barrier_time = $time_close_draw->getTimestamp();
+        $barrier_time = $time_close_draw->getTimestamp() - 1800;
         $rest = $barrier_time - $now->getTimestamp();
-        $precision = 60 * 5;
-        $round = ( round ( $rest /  $precision) * $precision );
-        return date('i',$round);
+        return $rest / 60;
     }
 
     public function getCountDownNextDraw( \DateTime $date_next_draw )
