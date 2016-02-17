@@ -41,6 +41,7 @@ class PlayService
 
     private $lotteryRepository;
 
+    /** @var IPlayStorageStrategy */
     private $playStorageStrategy;
 
     private $orderStorageStrategy;
@@ -88,7 +89,7 @@ class PlayService
     public function getPlaysFromGuestUserAndSwitchUser(UserId $user_id, UserId $current_user_id)
     {
         /** @var User $user */
-        $user = $this->userRepository->find($user_id->id());
+        $user = $this->userRepository->find($current_user_id);
         if( null == $user ) {
             return new ActionResult(false);
         }
