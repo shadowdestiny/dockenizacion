@@ -48,15 +48,11 @@ var EmLineFeeCart = new React.createClass({
         }
         return (
             <div className="row cl">
-                <div className="txt-fee">
-                    {show_fee_text}
-                </div>
-                <div className="right tweak">
-                    <div className="summary val">{fee_value}</div>
-                    <div className="box-funds cl">
-                        <a className="add-funds" onClick={this.handleClick} href="javascript:void(0)">Add Funds to avoid charges</a>
-                        {addFundComponent}
-                    </div>
+                <div className="txt-fee">{show_fee_text}</div>
+                <div className="summary val">{fee_value}</div>
+                <div className="box-funds cl">
+                    <a className="add-funds" onClick={this.handleClick} href="javascript:void(0)">Add Funds to avoid charges</a>
+                    {addFundComponent}
                 </div>
             </div>
         )
