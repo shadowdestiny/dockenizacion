@@ -136,6 +136,7 @@ class AccountController extends PublicSiteControllerBase
     {
         $user = $this->authService->getCurrentUser();
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteriesDataService->getNextJackpot('EuroMillions'));
+        $single_bet_price = $this->domainServiceFactory->getLotteriesDataService()->getSingleBetPriceByLottery('EuroMillions');
         $myGames = null;
         $playConfigActivesDTOCollection = [];
         $playConfigInactivesDTOCollection = [];
@@ -145,17 +146,13 @@ class AccountController extends PublicSiteControllerBase
         if(!empty($user)){
             $myGamesActives = $this->userService->getMyActivePlays($user->getId());
             if($myGamesActives->success()){
-                foreach($myGamesActives->getValues() as $game){
-                    $playConfigActivesDTOCollection[] = new PlayConfigDTO($game);
-                }
+                $playConfigActivesDTOCollection[] = new PlayConfigDTO($myGamesActives->getValues(), $single_bet_price);
             }else{
                 $message_actives = $myGamesActives->errorMessage();
             }
             $myGamesInactives = $this->userService->getMyInactivePlays($user->getId());
             if($myGamesInactives->success()){
-                foreach($myGamesInactives->getValues() as $myGamesInactives){
-                    $playConfigInactivesDTOCollection[] = new PlayConfigDTO($myGamesInactives);
-                }
+                $playConfigInactivesDTOCollection[] = new PlayConfigDTO($myGamesInactives->getValues(), $single_bet_price);
             }else{
                 $message_inactives = $myGamesInactives->errorMessage();
             }
@@ -231,6 +228,7 @@ class AccountController extends PublicSiteControllerBase
             }else {
                 if(null != $user ){
                     try {
+                        $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($expiry_date), new CVV($cvv));
                         $wallet_service = $this->domainServiceFactory->getWalletService();
                         /** @var ICardPaymentProvider $payXpertCardPaymentStrategy */
@@ -241,8 +239,13 @@ class AccountController extends PublicSiteControllerBase
                         $credit_card_charge = new CreditCardCharge($currency_euros_to_payment,$fee_value,$fee_to_limit_value);
                         $result = $wallet_service->rechargeWithCreditCard($payXpertCardPaymentStrategy, $card, $user, $credit_card_charge);
                         if($result->success()) {
-                            $converted_currency = $this->currencyService->convert($user->getBalance(), $user->getUserCurrency());
-                            $msg .= 'Your balance is been updated. You have now: ' . number_format($converted_currency->getAmount() / 100,2,'.',',') . ' ' . $user->getUserCurrency()->getName();
+                            $converted_net_amount_currency = $this->currencyService->convert($credit_card_charge->getNetAmount(), $user->getUserCurrency());
+                            $converted_fee_value_currency = $this->currencyService->convert($fee_value, $user->getUserCurrency());
+                            $converted_feelimit_value_currency = $this->currencyService->convert($fee_to_limit_value, $user->getUserCurrency());
+                            $msg .= 'We added ' . $symbol . ' '  . number_format($converted_net_amount_currency->getAmount() / 100,2,'.',',');
+                            if($credit_card_charge->getIsChargeFee()) {
+                                $msg .= ', and charged you an additional '. $symbol . ' ' . number_format($converted_fee_value_currency->getAmount() / 100,2,'.',',') .' because it is transfer below ' . $symbol . ' ' . number_format($converted_feelimit_value_currency->getAmount() / 1000,2,'.',',');
+                            }
                             $credit_card_form->clear();
                         } else {
                             $errors[] = 'An error occurred. The response with our payment provider was: ' . $result->returnValues()->errorMessage;
@@ -255,7 +258,6 @@ class AccountController extends PublicSiteControllerBase
             }
         }
 
-        $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
         $locale = $this->request->getBestLanguage();
         $fee_value_with_currency = $this->siteConfigService->getFeeFormatMoney($user->getUserCurrency(), $locale);
         $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeLimitFormatMoney($user->getUserCurrency(), $locale);
