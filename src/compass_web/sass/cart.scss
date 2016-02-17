@@ -100,7 +100,6 @@
   .summary{font-weight:700; float:right;}
   .add-funds:hover, .add-funds:focus{text-decoration:underline!important;}
   .box-funds{clear:both; /*float:right; text-align:right;  top:-1px; position:relative;*/}
-  .box-charge{padding-top:5px;}
   .box-total{
     color:$purple; border-top:2px solid $purple; padding:8px 10px;
     .total{
@@ -134,7 +133,7 @@
     }
   }
   .box-bottom .btn{min-width:180px; text-align:center;}
-  .box-charge{float:right; position:relative;}
+  .box-charge{padding-top:5px; float:right; position:relative;}
   .new{margin-left:5px;}
 }
 
@@ -280,9 +279,11 @@
   .submit, .form{width:100%;}
 }
 .order{
+  .box-charge{float:none;}
   .box-charge .label{width:100%; line-height:normal;}
   .add-funds{float:none;}
   .box-funds{text-align:left;}
+  .form-currency{display:block; float:right;}
 }
 }
 
