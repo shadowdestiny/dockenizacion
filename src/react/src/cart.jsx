@@ -231,9 +231,19 @@ var CartPage = new React.createClass({
                 </div>
                 <div className="box-order">
                     {_euroMillionsLine}
+                    <EmLineOrderConfig config={this.props.config} playConfig={_playConfigList} duration={this.handleChangeDrawDuration}/>
+                    <div className="pre-total cl">
+                        <div className="total">
+                            <div className="txt">
+                                Total
+                            </div>
+                            <div className="val">
+                                &euro; 20.50
+                            </div>
+                        </div>
+                    </div>
                     {line_fee_component}
                     {wallet_component}
-                    <EmLineOrderConfig config={this.props.config} playConfig={_playConfigList} duration={this.handleChangeDrawDuration}/>
                 </div>
                 <EmTotalCart total_price={this.state.total} />
                 <div className="box-bottom cl">
