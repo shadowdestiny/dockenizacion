@@ -35,8 +35,9 @@ function checkRadio(id){
 }
 function show_fee_text(value){
     if (parseFloat(value) > parseFloat(fee_limit)){
-        $('.txt').text('No extra fee applied.');
+        $('.notes span.txt:first').text('No extra fee applied.');
     }else{
+        $('.notes span.txt:first').text($('.notes span.txt:first').data('txt'));
         $('.notes').show();
     }
 }
