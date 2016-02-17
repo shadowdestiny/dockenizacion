@@ -96,7 +96,7 @@
     }
     .cvv .ico{position:relative; font-size:$h4;}
     .box-wallet{
-        left:-20px;
+        /*left:-20px;*/
         .value{font-weight:700; display:inline-block;}
         .input{border-radius:3px;}
         .value + .value{margin:0 0 20px 20px;}
@@ -218,7 +218,9 @@
 .wallet{
     .info.special .txt{width:398px;}
     .box-wallet.overview{
-        .input{width:100%!important; margin-bottom:10px;}
+/*        text-align:center;*/
+        .input{/*margin:0 auto 10px;*/ margin-bottom:10px;}
+/*        .input{width:100%!important; margin-bottom:10px;}*/
         .btn{width:100%; text-align:center;}
     }
     .wrap-value{
