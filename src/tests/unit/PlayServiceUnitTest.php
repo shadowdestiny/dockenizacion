@@ -455,7 +455,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $expected = new ActionResult(true,$play_config);
         $user_id = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
         $current_user_id = UserId::create();
-        $this->userRepository_double->find($user_id->id())->willReturn($this->getUser());
+        $this->userRepository_double->find($current_user_id)->willReturn($this->getUser());
         $this->playStorageStrategy_double->findByKey($user_id->id())->willReturn(new ActionResult(true,$string_json));
         $this->playStorageStrategy_double->save($string_json,$current_user_id)->shouldBeCalled();
         $this->playStorageStrategy_double->findByKey($current_user_id)->willReturn(new ActionResult(true,$string_json));

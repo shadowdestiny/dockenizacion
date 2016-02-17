@@ -47,7 +47,6 @@ function btnShowHide(button, show, hide){
 function selectFix(){ // Style the "Select"
     if('querySelector' in document && 'addEventListener' in window){
         // check query selector is recognised by the browser IE9+
-        var value;
         var obj = $('.mySelect');
 /*
         if(typeof $(obj).attr("disabled") == "undefined" || $(obj).attr("disabled") == "disabled"){
@@ -167,7 +166,7 @@ $(function(){
         draw_date = new Date();
     }
     if(typeof remain_time == 'undefined'){
-        remain_time = false;
+        remain_time = 1;
     }
 
     $('.ending').hide();
@@ -182,8 +181,8 @@ $(function(){
     var interval_warning_close = null;
    // var is_remain_time = remain_time == "" ? false : remain_time;
     var fade_value = 800;
-    var interval_warning = 300000;
-    if(remain_time && minutes_value > 1){
+    var interval_warning = 270000;
+    if(remain_time == 1 && minutes_value > 1){
         if(minutes_value > 5){
             $('.ending').text('The draw will close in ' + minutes_to_close + ' minutes')
         }else{
@@ -199,6 +198,7 @@ $(function(){
             minutes_value =  getMinutes();
             if(minutes_value > 5) {
                 minutes_to_close = minutes_to_close - 5;
+                console.log('pasa y los minutos son: ' + minutes_to_close);
                 $('.ending').text('The draw will close in '+ minutes_to_close +' minutes');
                 $('.ending').fadeIn();
                 setTimeout(function(){
@@ -210,24 +210,24 @@ $(function(){
             }else if(minutes_value > 1){
                 $('.ending').text('The draw will close in '+ minutes_value +' minutes');
                 $('.ending').fadeIn();
-                console.log('pasa2');
                 setTimeout(function(){
                     if(getMinutes() < 1 ) {
-                        console.log('pasa5');
+                        console.log('pasa3');
                         finish_countdown_warning_close_draw(interval_warning_close);
                     }
                     $('.ending').fadeOut();
                 },3000);
+                console.log('pasa4');
                 interval_warning_close = setInterval(interval_warning_close, 45000);
             }else{
-                console.log('pasa3');
+
                 finish_countdown_warning_close_draw(interval_warning_close);
             }
         },interval_warning);
     }
 
     var is_last_minute = typeof last_minute == 'undefined' ? false : last_minute;
-    if(is_last_minute){
+    if(is_last_minute && remain_time == 1){
         finish_countdown_warning_close_draw(interval_warning_close);
     }
 

@@ -50,7 +50,7 @@ class DateTimeUtil
         if( $one_day == $two_day ) {
             $barrier_time = $time_close_draw->getTimestamp() - 1800;
             //$barrier_time = strtotime($time_close_draw->format('Y-m-d H:i:s') . ' -30 minutes' );
-            return ($now->getTimestamp() > $barrier_time);
+            return ($barrier_time > $now->getTimestamp());
         }
 
         return false;
