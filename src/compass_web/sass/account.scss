@@ -86,7 +86,6 @@
     }
     .v-question-mark{position:relative; top:2px; font-size:$h4;}
     .div-balance{margin-bottom:10px;}
-    .box-balance{margin-right:-15px;}
     .notes{
         color:$grey; margin-top:6px;
         .txt{font-size:$small; line-height:120%; margin-left:25px; display:block;}
@@ -216,11 +215,6 @@
 @media only screen and (max-width:1200px){
 .wallet{
     .info.special .txt{width:398px;}
-    .box-balance{
-        a{width:100%; text-align:center;}
-        .btn.add-funds{margin-bottom:10px;}
-        .col7, .col5{width:50%;}
-    }
     .box-wallet.overview{
         .input{width:100%!important; margin-bottom:10px;}
         .btn{width:100%; text-align:center;}
@@ -251,7 +245,13 @@
         .txt{width:430px;}
         .btn{margin:10px 0 0 34px;}
     }
-    .box-balance .txt{font-size:$basic-size; margin:0 0 5px;}
+    .box-balance{
+        .right{float:none;}
+        a{width:100%; text-align:center;}
+        .btn.add-funds{margin-bottom:10px;}
+        .txt{font-size:$basic-size; margin:0;}
+        .withdraw{margin:10px 0;}
+    }
 /*    .box-details{margin-bottom:15px;}*/
 }
 .box-details form.right{float:left;}
