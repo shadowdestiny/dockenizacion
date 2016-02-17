@@ -373,7 +373,7 @@ class AccountController extends PublicSiteControllerBase
     public function resetPasswordAction()
     {
         $errors = [];
-        $form_errors = [];
+        $form_errors = $this->getErrorsArray();
         $msg = false;
         $token = $this->request->getPost('token');
         $myaccount_passwordchange_form = new ResetPasswordForm();
@@ -381,14 +381,14 @@ class AccountController extends PublicSiteControllerBase
             if ($myaccount_passwordchange_form->isValid($this->request->getPost()) == false) {
                 $messages = $myaccount_passwordchange_form->getMessages(true);
                 foreach ($messages as $field => $field_messages) {
-                    $errors[] = $field_messages[0]->getMessage();
+                        foreach ( $field_messages as $message ) {
+                            $errors[] = $message->getMessage();
+                        }
                     $form_errors[$field] = ' error';
                 }
             }else {
                 $new_password = $this->request->getPost('new-password');
                 $user_result = $this->userService->getUserByToken($token);
-                //$result_same_password = $this->authService->samePassword($user,$this->request->getPost('old-password'));
-                //if($result_same_password->success()) {
                 if($user_result->success()) {
                     $result = $this->authService->updatePassword($user_result->getValues(), $new_password);
                     if ($result->success()) {
@@ -408,7 +408,9 @@ class AccountController extends PublicSiteControllerBase
             'currency_list' => [],
             'token' => $token,
             'message' => $msg,
-            'errors'        => $errors,
+            'errors'  => $errors,
+            'reset_password_form' => $myaccount_passwordchange_form,
+            'form_errors' => $form_errors
         ]);
 
     }
@@ -448,7 +450,9 @@ class AccountController extends PublicSiteControllerBase
             'card-holder' => '',
             'card-cvv' => '',
             'funds-value' => '',
-            'expiry-date' => ''
+            'expiry-date' => '',
+            'new-password' => '',
+            'confirm-password' => ''
         ];
         return $form_errors;
     }

@@ -35,10 +35,9 @@ if(message){
                 {{ form('/account/resetPassword') }}
                     <p>{{ language.translate("Insert your new password") }}</p>
                     <label for="new-password" class="label">{{ language.translate("New password") }} <span class="asterisk">*</span></label>
-                    <input class="input" type="password" name="new-password" id="new-password" placeholder="{{ language.translate('New password') }}">
-
+                    {{ reset_password_form.render('new-password', {'class':'input'~form_errors['new-password']}) }}
                     <label for="confirm-password" class="label">{{ language.translate("Confirm password") }} <span class="asterisk">*</span></label>
-                    <input class="input" name="confirm-password" type="password" id="confirm-password" placeholder="{{ language.translate('Confirm password') }}">
+                    {{ reset_password_form.render('confirm-password', {'class':'input'~form_errors['confirm-password']}) }}
                     <input type="hidden" value="{{ token }}" name="token" />
                     <label for="submitpass" class="btn big blue submit">
                         {{ language.translate('Update password') }} <input type="submit" class="hidden2" id="submitpass">
