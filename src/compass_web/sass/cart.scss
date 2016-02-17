@@ -147,6 +147,7 @@
   .box-bottom .btn{min-width:180px; text-align:center;}
   .box-charge{padding-top:5px; float:right; position:relative;}
   .new{margin-left:5px;}
+  .hr{margin:15px -15px 5px}
 }
 
 .payment{ /* Inside ORDER area*/
@@ -161,8 +162,9 @@
     &:first-child{padding-left:0px;}
     &:last-child{padding-right:0px;}
   }
-  .submit{margin-top:18px; width:100%;  text-align:center;}
+  .submit{margin-top:177px; width:100%;  text-align:center;}
   .info{color:$purple; font-weight:700;}
+  h2{margin-bottom:10px;}
 }
 
 .success{

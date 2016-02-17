@@ -1,4 +1,7 @@
 <div class="wrap">
+    {% if component.where == 'cart' %}
+        <hr class="hr yellow">
+    {% endif %}
     {% if component.where == 'account' %} 
         {% if msg %}
             <div class="box success">
@@ -33,36 +36,23 @@
         {% endif %}
     {% endif %}
 
-    <div class="card-info">
-        {% if component.where == 'cart' %}
-            <div class="cols">
-                <div class="col6">
-        {% endif %}
-        <label class="label" for="card-number">
-            {{ language.translate("Card Number") }} <span class="asterisk">*</span>
-        </label>
-        {{ credit_card_form.render('card-number', {'class':'input'~form_errors['card-number'], "placeholder":"0000000000000000"}) }}
-
-        {% if component.where == 'cart' %}
-                </div>
-                <div class="col6">
-        {% endif %}
-        <label class="label" for="card-holder">
-            {{ language.translate("Full Name on Card") }} <span class="asterisk">*</span>
-        </label>
-        {{ credit_card_form.render('card-holder', {'class':'input'~form_errors['card-holder'], "placeholder":"Antonio García Carrión"}) }}
-        
-        {% if component.where == 'cart' %}
-                </div>
-            </div>
-        {% endif %}
-    </div>
-
+  
     {% if component.where == 'cart' %}
         <div class="cols">
+            <div class="col6">
     {% endif %}
 
-    <div class="{% if component.where == 'cart' %}col6 {% endif %}cl card-detail">
+    <label class="label" for="card-number">
+        {{ language.translate("Card Number") }} <span class="asterisk">*</span>
+    </label>
+    {{ credit_card_form.render('card-number', {'class':'input'~form_errors['card-number'], "placeholder":"0000000000000000"}) }}
+
+    <label class="label" for="card-holder">
+        {{ language.translate("Full Name on Card") }} <span class="asterisk">*</span>
+    </label>
+    {{ credit_card_form.render('card-holder', {'class':'input'~form_errors['card-holder'], "placeholder":"Antonio García Carrión"}) }}
+
+    <div class="cl card-detail">
         <div class="left margin">
             <label class="label block" for="expiry-date">
                 {{ language.translate("Expiration date") }} <span class="asterisk">*</span>
@@ -80,12 +70,14 @@
     </div>
 
     {% if component.where == 'cart' %}
-            <div class="cl col6">
-                <input id="new-card" type="submit" class="hidden2">
-                <label class="btn submit big green right" for="new-card">
-                    {{ language.translate("Pay {total_value}") }}
-                </label>
-            </div>
+                </div>
+                    <div class="cl col6">
+                        <input id="new-card" type="submit" class="hidden2">
+                        <label class="btn submit big green right" for="new-card">
+                            {{ language.translate("Pay {total_value}") }}
+                        </label>
+                    </div>
+                </div>
         </div>
     {% endif %}
 
