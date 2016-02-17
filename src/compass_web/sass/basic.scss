@@ -439,7 +439,7 @@ body, .submit{font-family:$basic-font;}
  /*body{border:10px solid #ff0;} /* YELLOW */
 .media{width:2px}
 .wrapper{max-width:768px;}
-.logo{width:250px;}
+.header .v-logo{width:250px; height:54px;}
 .main-nav a{padding:10px 12px; min-height:62px;}
 .main-nav .subnav a{min-height:inherit;} 
 .box-links .col20per{padding:0 10px;}
@@ -508,6 +508,7 @@ body, .submit{font-family:$basic-font;}
 }
 .minimal .main-foot .txt{text-align:center;}
 .ending{left:0; right:0; border-radius:0; padding:10px; font-size:90%;}
+.header .v-logo{width:200px; height:40px;}
 } /* End Media query */
 
 

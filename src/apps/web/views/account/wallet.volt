@@ -33,22 +33,21 @@ function checkRadio(id){
         }
     });
 }
-function show_fee_text(value) {
-
-    if (parseFloat(value) > parseFloat(fee_limit)) {
+function show_fee_text(value){
+    if (parseFloat(value) > parseFloat(fee_limit)){
         $('.notes').hide();
-    } else {
+    }else{
         $('.notes').show();
     }
 }
-$('#funds-value').on('keyup',function(e) {
-    ///^\D+(\.\D\D?)?$/
+$('#funds-value').on('keyup',function(e){
+    {# /^\D+(\.\D\D?)?$/ #}
     var regex = /^\d+(\.\d{0,2})?$/g;
     var value = e.target.value;
     show_fee_text(value);
 });
 
-$('#funds-value').on('keypress',function(e) {
+$('#funds-value').on('keypress',function(e){
     var pattern = /^[0-9\.]+$/;
     var chr = String.fromCharCode(e.which);
     if(!pattern.test(chr)){
@@ -56,12 +55,12 @@ $('#funds-value').on('keypress',function(e) {
     }
 });
 
-$('#funds-value').on('blur', function(e) {
+$('#funds-value').on('blur', function(e){
     var value = e.target.value;
-    if(value == "" || typeof value == 'undefined' ) {
+    if(value == "" || typeof value == 'undefined'){
         $(this).val("");
         value = 0;
-    } else {
+    }else{
         $(this).val(parseFloat(value).toFixed(2));
     }
     show_fee_text(value);
@@ -84,11 +83,6 @@ $(function(){
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
-{#
-
-    * NO DATA & DATA: VARIOUS COMBINATIONS IN THIS CODE, CHECK THE GRAPHICS (no bank account set up, no credit card set up, winning infobox) *
-#}
-
 <main id="content">
     <div class="wrapper">
         <div class="nav box-basic">
@@ -132,19 +126,18 @@ $(function(){
                 {% endif %}
 
                 <div class="box-balance">
-                    <div class="cols res">
-                        <div class="col5">
-                            <div class="border">
-                                <div class="txt">{{ language.translate("Your current balance:") }} <span class="value">{{ user_balance }}</span></div>
-                                <a href="javascript:void(0)" class="btn blue add-funds">{{ language.translate("Add funds of your wallet") }}</a>
-                            </div>
+                    <div class="border cl">
+                        <div class="txt">{{ language.translate("Your current balance:") }} <span class="value">{{ user_balance }}</span></div>
+                        <div class="box-btn">
+                            <a href="javascript:void(0)" class="btn big blue add-funds">{{ language.translate("Add funds of your wallet") }}</a>
                         </div>
-                        <div class="col7">
-                            <div class="border">
-                                <div class="txt">{{ language.translate("Your winnings:")}} <span class="value">&euro; 20.00</span></div>
-                                <a href="javascript:void(0)" class="btn blue convert">{{ language.translate("Convert winnings into your wallet")}}</a>
-                                <a href="javascript:void(0)" class="btn green withdraw">{{ language.translate("Withdraw winnings") }}</a>
-                            </div>
+                    </div>
+                    <br>
+                    <div class="border cl">
+                        <div class="txt">{{ language.translate("Your winnings:")}} <span class="value">&euro; 20.00</span></div>
+                        <div class="box-btn">
+                            <a href="javascript:void(0)" class="btn big blue convert">{{ language.translate("Convert winnings into your wallet")}}</a>
+                            <a href="javascript:void(0)" class="btn big green withdraw">{{ language.translate("Withdraw winnings") }}</a>
                         </div>
                     </div>
                 </div>
