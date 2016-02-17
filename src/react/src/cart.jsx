@@ -230,10 +230,10 @@ var CartPage = new React.createClass({
                     <h2 className="h4 sub-txt">Order Summary</h2>
                 </div>
                 <div className="box-order">
-                    <EmLineOrderConfig config={this.props.config} playConfig={_playConfigList} duration={this.handleChangeDrawDuration}/>
                     {_euroMillionsLine}
                     {line_fee_component}
                     {wallet_component}
+                    <EmLineOrderConfig config={this.props.config} playConfig={_playConfigList} duration={this.handleChangeDrawDuration}/>
                 </div>
                 <EmTotalCart total_price={this.state.total} />
                 <div className="box-bottom cl">
