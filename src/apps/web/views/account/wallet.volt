@@ -75,8 +75,8 @@ $(function(){
     checkRadio("#card-list tr, #bank-list tr");
     deleteLnk("#card-list .action a, #bank-list .action a");
 });
-{% endblock %} 
-
+{% endblock %}
+{% block template_scripts_after %}<script src="/w/js/react/tooltip.js"></script>{% endblock %}
 {% block header %}
     {% set activeNav='{"myClass": "account"}'|json_decode %}
     {% include "_elements/header.volt" %}
