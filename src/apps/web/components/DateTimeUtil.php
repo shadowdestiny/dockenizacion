@@ -49,10 +49,10 @@ class DateTimeUtil
 
         if( $one_day == $two_day ) {
             $barrier_time = $time_close_draw->getTimestamp() - 1800;
+
             //$barrier_time = strtotime($time_close_draw->format('Y-m-d H:i:s') . ' -30 minutes' );
             return ($barrier_time > $now->getTimestamp());
         }
-
         return false;
     }
 
@@ -63,7 +63,11 @@ class DateTimeUtil
         }
         $barrier_time = $time_close_draw->getTimestamp() - 1800;
         $rest = $barrier_time - $now->getTimestamp();
-        return $rest / 60;
+        $minutes = $rest / 60;
+        if( $minutes > 5 ) {
+
+        }
+        return $minutes;
     }
 
     public function getCountDownNextDraw( \DateTime $date_next_draw )

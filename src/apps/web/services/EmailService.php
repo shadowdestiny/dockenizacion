@@ -27,7 +27,8 @@ class EmailService
             'We need you to validate your email.',
             'Thank you for registering an account with us. Please valudate the email address you regitered with by clicking on the link below:<br>
             <a href="' . $url->toNative() . '">Click this link to validate your registration</a>
-            <br><br>or copy and paste this url in your browser:<br><span style="font-size:12px;">'.$url->toNative().'</span>'
+            <br><br>or copy and paste this url in your browser:<br><span style="font-size:12px;">'.$url->toNative().'</span>',
+            'Validate your email'
         );
     }
 
@@ -39,7 +40,7 @@ class EmailService
             'Reset your password',
             'We have received a request to reset your password. If you didn\'t make the request, just ignore this email.<br>You can reset your password using this link: <a href="'.$url->toNative().'">Click here to reset your password</a>
                 <br><br>or copy and paste this url in your browser: '.$url->toNative(),
-            'Generate new password'
+            'Reset your password'
         );
     }
 
@@ -50,7 +51,8 @@ class EmailService
             'Your New password',
             'Your New password',
             'We have created a new password for you:<br><strong>'.$password->toNative().'</strong>
-            <br><br>You can change and personalize your password later, by accessing "Change Password" in "Your Account" area.'
+            <br><br>You can change and personalize your password later, by accessing "Change Password" in "Your Account" area.',
+            'Your New password'
         );
     }
 

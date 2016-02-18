@@ -172,7 +172,7 @@ class PublicSiteControllerBase extends ControllerBase
         //Vars draw closing modal
         $dateUtil = new DateTimeUtil();
         $lottery_date_time = $this->domainServiceFactory->getLotteriesDataService()->getNextDateDrawByLottery('EuroMillions');
-        $lottery_date_time = new \DateTime('2016-02-17 16:45:00');
+        $lottery_date_time = new \DateTime('2016-02-18 10:25:00');
         $time_to_remain = $dateUtil->getTimeRemainingToCloseDraw($lottery_date_time);
         if($time_to_remain) {
             $minutes_to_close = $dateUtil->restMinutesToCloseDraw($lottery_date_time);
@@ -180,7 +180,7 @@ class PublicSiteControllerBase extends ControllerBase
         $last_minute = $dateUtil->isLastMinuteToDraw($lottery_date_time);
         $this->view->setVar('time_to_remain_draw', $time_to_remain);
         $this->view->setVar('last_minute', $last_minute);
-        $this->view->setVar('draw_date', $lottery_date_time->format('Y-m-d H:i:s'));
+        $this->view->setVar('draw_date', date('Y-m-d H:i:s',$lottery_date_time->getTimestamp() - 1800));
         $this->view->setVar('timeout_to_closing_modal', 30 * 60 * 1000);
         $this->view->setVar('minutes_to_close', !empty($minutes_to_close) ? $minutes_to_close : '');
     }
