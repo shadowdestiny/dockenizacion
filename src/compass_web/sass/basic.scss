@@ -330,7 +330,7 @@ body, .submit{font-family:$basic-font;}
 .main-nav li{float:left; border-right:1px solid $yellow; position:relative;}
 .main-nav li:last-child{margin:0;}
 .main-nav .v-cart{display:inline-block; color:$black; margin-top:4px;}
-.main-nav a{display:block; padding:13px 20px; transition:background .2s ease, color .15s ease;}
+.main-nav a{display:block; padding:13px 20px; transition:background .2s ease, color .15s ease; min-height:69px; /*min-height to fix tablet*/}
 .main-nav > span{display:block;}
 .main-nav .link{font-size:75%; text-decoration:none!important;}
 .main-nav .txt{position:relative; top:-2px; font-size:85%; font-weight:700; color:#000;}
@@ -349,16 +349,15 @@ body, .submit{font-family:$basic-font;}
   .li-your-account:hover > a, .li-your-account:hover .txt{color:#fff;}
 }
 .main-nav a:hover .v-cart, .main-nav .active .v-cart, .main-nav .active .link, .main-nav .active .txt, .main-nav a:hover, .main-nav a:hover .txt{color:#fff;}
-
 .main-nav .txt, .main-nav .v-cart{transition:color .1s ease;}
 .main-nav li:hover{border-right:1px solid transparent;}
 .main-nav .active:hover{border-right:0 solid transparent;} /* erase yellow border */
 .main-nav .subnav{
   position:absolute; z-index:1; background:#fff; width:101%; border:1px solid $yellow; border-top:0;
-  margin:-1px 0 0 -1px; border-radius:0 0 5px 5px;
+  margin:0 0 0 -1px; border-radius:0 0 5px 5px;
   li{float:none; border:0; border-bottom:1px solid $yellow; text-align:left;}
   li:last-child{border-bottom:0;}
-  a{padding:10px 7px; border:0; font-size:$basic-size!important;}
+  a{padding:10px 7px; border:0; font-size:$basic-size!important; min-height:40px; /*min-height to fix tablet*/}
   a:hover .ico{color:#fff;}
   .ico{float:right; margin:4px -2px 0 0; color:$yellow-dark;}
 }
@@ -474,7 +473,7 @@ body, .submit{font-family:$basic-font;}
 .logo-social li{margin-left:40px;}
 .logo-social li:first-child{margin-left:0;}
 .btn.big{font-size:$h4;}
-.logo{margin-top:6px; width:205px;}
+.logo{margin-top:6px; width:200px;}
 #language a{text-decoration:none;}
 .nav.mobile, #nav-account, #language{
   border-bottom:1px solid $purple;
