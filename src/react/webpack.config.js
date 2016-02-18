@@ -16,7 +16,8 @@ if (env == 'build') {
 var config = {
     entry: {
        play : './src/play.jsx',
-       cart : './src/cart.jsx'
+       cart : './src/cart.jsx',
+       tooltip : './src/tooltip.jsx',
     },
     devtool: 'source-map',
     output: {

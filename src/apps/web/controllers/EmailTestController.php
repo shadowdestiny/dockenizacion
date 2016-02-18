@@ -11,6 +11,7 @@ use EuroMillions\web\emailTemplates\JackpotRolloverEmailTemplate;
 use EuroMillions\web\emailTemplates\LatestResultsEmailTemplate;
 use EuroMillions\web\emailTemplates\LongPlayEndedEmailTemplate;
 use EuroMillions\web\emailTemplates\LowBalanceEmailTemplate;
+use EuroMillions\web\emailTemplates\WelcomeEmailTemplate;
 use EuroMillions\web\emailTemplates\WinEmailTemplate;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
@@ -49,7 +50,8 @@ class EmailTestController extends PublicSiteControllerBase
         'win-email-above-1500',
         'register',
         'send-password-request',
-        'send-new-password'
+        'send-new-password',
+        'welcome',
     ];
 
 
@@ -138,6 +140,11 @@ class EmailTestController extends PublicSiteControllerBase
             case 'win-email-above-1500':
                 $instance = new WinEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
                 break;
+            case 'welcome':
+                $instance = new WelcomeEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
+                $instance->setUser($this->getNewUser());
+                break;
+
         }
         return $instance;
     }

@@ -10,6 +10,7 @@
         <option value="register">register</option>
         <option value="send-password-request">send-password-request</option>
         <option value="send-new-password">send-new-password</option>
+        <option value="welcome">welcome</option>
         <option value="all"><strong>send them all</strong></option>
     </select>
     <input type="submit" value="Send!"/>
