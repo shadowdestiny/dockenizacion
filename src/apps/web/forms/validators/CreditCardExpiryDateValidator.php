@@ -29,7 +29,7 @@ class CreditCardExpiryDateValidator extends Validator implements ValidatorInterf
             }
             $expires = \DateTime::createFromFormat('mY', $date[0] . $date[1]);
             if ($expires < $now) {
-                $validation->appendMessage(new Message('The expiration date is not valid. Expired'));
+                $validation->appendMessage(new Message('The expiration date is expired.'));
             }
             $now_future = strtotime(date('Y', $now->getTimestamp()) . '+10 years');
             if((int) $date[1] > (int) date('Y',$now_future) ) {

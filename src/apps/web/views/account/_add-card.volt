@@ -1,4 +1,3 @@
-<div class="wrap">
     {% if component.where == 'cart' %}
         <hr class="hr yellow">
     {% endif %}
@@ -15,7 +14,11 @@
                 <div class="txt"><ul class="no-li">{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul></div>
             </div>
         {% endif %}
+    {% endif %}
 
+    <div class="wrap">
+
+    {% if component.where == 'account' %} 
         <div class="cols fix-margin">
             <div class="col6 first">
     {% endif %}
@@ -35,7 +38,6 @@
             </div>
         {% endif %}
     {% endif %}
-
   
     {% if component.where == 'cart' %}
         <div class="cols">
@@ -70,14 +72,14 @@
     </div>
 
     {% if component.where == 'cart' %}
+            </div>
+                <div class="cl col6">
+                    <input id="new-card" type="submit" class="hidden2">
+                    <label class="btn submit big green right" for="new-card">
+                        {{ language.translate("Pay {total_value}") }}
+                    </label>
                 </div>
-                    <div class="cl col6">
-                        <input id="new-card" type="submit" class="hidden2">
-                        <label class="btn submit big green right" for="new-card">
-                            {{ language.translate("Pay {total_value}") }}
-                        </label>
-                    </div>
-                </div>
+            </div>
         </div>
     {% endif %}
 
