@@ -122,6 +122,20 @@ function checkSize(){
     return varSize;
 }
 
+function menu(id, target){
+    $(id).hover(function(event){
+        $(target).show();
+    }, function(){
+        $(target).hide();
+    });
+}
+
+function navCurrency(){
+    if(varSize < 3){
+        menu(".li-currency", ".div-currency");
+    }
+}
+
 
 $(function(){
     selectFix();
@@ -238,6 +252,9 @@ $(function(){
 
     checkSize();
     $(window).resize(checkSize);
+
+    navCurrency();
+    $(window).resize(navCurrency);
 
     /* Hide Currency after tapping on mobile */
     $('html').on('touchstart', function(e){
