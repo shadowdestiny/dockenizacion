@@ -18,7 +18,7 @@ class LongPlayEndedEmailTemplate extends EmailTemplateDecorator
 
         $vars = [
             'template' => 'long-play-is-ended',
-            'subject' => 'Your long play is ended',
+            'subject' => 'Your play has ended',
             'vars' =>
                 [
                     [

@@ -326,7 +326,7 @@ body, .submit{font-family:$basic-font;}
 }
 
 .head{position:relative; z-index:9; border-bottom:5px solid $yellow; background:#fff;}
-.main-nav{float:right; margin-bottom:-1px; border-left:1px solid $yellow;}
+.main-nav{float:right; margin-bottom:-2px; border-left:1px solid $yellow;}
 .main-nav li{float:left; border-right:1px solid $yellow; position:relative;}
 .main-nav li:last-child{margin:0;}
 .main-nav .v-cart{display:inline-block; color:$black; margin-top:4px;}
