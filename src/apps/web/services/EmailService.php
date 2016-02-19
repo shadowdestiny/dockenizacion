@@ -154,6 +154,7 @@ EOF;
      */
     private function sendMailToUser(User $user, $title, $subtitle, $content, $subject = 'Confirm your email')
     {
+
         $this->mailServiceApi->send(
             $this->mailConfig['from_name'],
             $this->mailConfig['from_address'],
@@ -168,7 +169,7 @@ EOF;
             '',
             [
                 [
-                    'name'    => 'title',
+                    'name'    => 'simpletitle',
                     'content' => $title
                 ],
                 [
