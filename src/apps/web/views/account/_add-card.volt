@@ -106,7 +106,7 @@
             </div>
         </div>
     {% endif %}
-</div>
+
 
 
 <input id="id_payment" name="id_payment" value="{#{{ payment_method.id_payment }}#}" type="hidden"/>
