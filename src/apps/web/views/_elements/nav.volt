@@ -41,6 +41,7 @@
             <li><a href="/account/password">{{ language.translate("Change Password") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
             <li><a href="/logout">{{ language.translate("Sign out") }} <svg class="ico v-exit"><use xlink:href="/w/svg/icon.svg#v-exit"></use></svg></a></li>
         </ul>
+
     {% endif %}
 </li>
 <li class="li-help{% if activeNav.myClass == 'help' %} active{% endif %}">

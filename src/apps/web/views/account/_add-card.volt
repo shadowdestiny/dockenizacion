@@ -1,4 +1,3 @@
-<div class="wrap">
     {% if component.where == 'cart' %}
         <hr class="hr yellow">
     {% endif %}
@@ -15,7 +14,11 @@
                 <div class="txt"><ul class="no-li">{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul></div>
             </div>
         {% endif %}
+    {% endif %}
 
+    <div class="wrap">
+
+    {% if component.where == 'account' %} 
         <div class="cols fix-margin">
             <div class="col6 first">
     {% endif %}
@@ -35,7 +38,6 @@
             </div>
         {% endif %}
     {% endif %}
-
   
     {% if component.where == 'cart' %}
         <div class="cols">
@@ -62,7 +64,7 @@
         <div class="left cvv">
             <label class="label" for="card-cvv">
                 {{ language.translate("CVV") }} <span class="asterisk">*</span>
-                <span class="tooltip" data-message="Test2" data-class="v-question-mark ico" data-ico="v-question-mark"></span>
+                <span class="tooltip" data-message="The Card Code Verification is a 3 digit number (Mastercard and Visa)<br> or 4 digit (American Express) that can be located on your card" data-class="v-question-mark ico" data-ico="v-question-mark"></span>
             </label>
             {{ credit_card_form.render('card-cvv', {'class':'input'~form_errors['card-cvv'], "placeholder":"000"}) }}
         </div>
@@ -70,14 +72,14 @@
     </div>
 
     {% if component.where == 'cart' %}
+            </div>
+                <div class="cl col6">
+                    <input id="new-card" type="submit" class="hidden2">
+                    <label class="btn submit big green right" for="new-card">
+                        {{ language.translate("Pay {total_value}") }}
+                    </label>
                 </div>
-                    <div class="cl col6">
-                        <input id="new-card" type="submit" class="hidden2">
-                        <label class="btn submit big green right" for="new-card">
-                            {{ language.translate("Pay {total_value}") }}
-                        </label>
-                    </div>
-                </div>
+            </div>
         </div>
     {% endif %}
 

@@ -25,7 +25,7 @@ class ExpiryDate extends StringLiteral
             }
             $expires = \DateTime::createFromFormat('mY', $date[0] . $date[1]);
             if ($expires < $now) {
-                throw new InvalidExpirationDateException('The expiration date is not valid. Expired');
+                throw new InvalidExpirationDateException('The expiration date is expired.');
             }
             $this->expiry_date = $expiryDate;
             $this->month = $date[0];
