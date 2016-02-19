@@ -2,7 +2,6 @@
 namespace tests\integration\shared;
 
 use EuroMillions\shared\services\SiteConfigService;
-use EuroMillions\web\entities\Currency;
 use EuroMillions\web\entities\SiteConfig;
 use Money\Money;
 use tests\base\DatabaseIntegrationTestBase;
@@ -90,7 +89,7 @@ class SiteConfigServiceIntegrationTest extends DatabaseIntegrationTestBase
      */
     public function test_getFeeLimitFormatMoney_called_returnProperValueWithFormatCurrency()
     {
-        $expected = '$ 8';
+        $expected = '$ 80';
         $sut = new SiteConfigService($this->entityManager, $this->currencyService_dobule->reveal());
         $amount = new Money(12000, new \Money\Currency('EUR'));
         $converted_value = new Money(8000, new \Money\Currency('EUR'));

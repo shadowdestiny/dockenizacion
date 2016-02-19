@@ -48,11 +48,16 @@ $('#funds-value').on('keyup',function(e){
     show_fee_text(value);
 });
 
-$('#funds-value').on('keypress',function(e){
+$('#funds-value,#card-cvv,#card-number').on('keypress',function(e){
     var pattern = /^[0-9\.]+$/;
-    var chr = String.fromCharCode(e.which);
+    var codeFF = e.keyCode;
+    var code = e.which
+    var chr = String.fromCharCode(code);
+    if(codeFF == 8 || codeFF == 37 || codeFF == 38 || codeFF == 39 || codeFF == 40 ) {
+        return true;
+    }
     if(!pattern.test(chr)){
-        e.preventDefault();
+            e.preventDefault();
     }
 });
 

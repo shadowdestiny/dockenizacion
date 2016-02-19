@@ -28,6 +28,9 @@ class CreditCardForm extends Form
             new PresenceOf(array(
                 'message' => 'Insert a Credit Card number.'
             )),
+            new StringLength(array(
+               'max' => 16
+            )),
             new Numericality(array(
             )),
             new CreditCard(array(
@@ -74,7 +77,7 @@ class CreditCardForm extends Form
 
         $expiry_date->addValidators(array(
             new PresenceOf(array(
-                'message' => ''
+                'message' => 'Insert an expiry date valid.'
             )),
             new CreditCardExpiryDateValidator(array(
 
@@ -87,6 +90,7 @@ class CreditCardForm extends Form
             'value'   => $this->security->getSessionToken(),
             'message' => 'Cross scripting protection. Reload the page.'
         )));
+        $csrf->clear();
         $this->add($csrf);
     }
 }

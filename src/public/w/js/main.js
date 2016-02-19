@@ -165,7 +165,6 @@ $(function(){
 
     var timeout_warning = '';
     var finish_countdown_warning_close_draw = function (interval_warning_close) {
-        console.log('finish countdown');
         window.clearInterval(interval_warning_close);
         return $('.ending').countdown(draw_date).
         on('update.countdown', function (event) {
@@ -195,6 +194,7 @@ $(function(){
     var fade_value = 800;
     var interval_warning = 300000;
     var timeout_first_warning = 30000;
+
     if(remain_time == 1 && minutes_value >= 1 && minutes_value < 30){
         if (minutes_value > 1 && minutes_value <= 5){
             interval_warning = 30000;
@@ -202,7 +202,12 @@ $(function(){
             interval_warning = 5000;
             timeout_first_warning = 10000;
         }
-        $('.ending').text('The draw will close in ' + minutes_value + ' minutes')
+        if(minutes_value < 2 ) {
+            interval_warning = 2000;
+            $('.ending').text('The draw will close in ' + minutes_value + ' minute')
+        } else {
+            $('.ending').text('The draw will close in ' + minutes_to_close_rounded + ' minutes')
+        }
         $('.ending').fadeIn(fade_value);
         setTimeout(function(){
             $('.ending').fadeOut(fade_value);
@@ -211,14 +216,17 @@ $(function(){
             minutes_value =  getMinutes();
             if(!first_load) {
                 if(minutes_value > 6) {
+                    minutes_value = minutes_to_close_rounded - 5;
                     var minutes_to_close = minutes_value - 5;
                     interval_warning_close = logic_warning_interval(minutes_to_close, finish_countdown_warning_close_draw, interval_warning_close, interval_warning);
-                }else if(minutes_value > 1){
+                }else if(minutes_value > 2){
+                    if(minutes_value < 1) {
+                        finish_countdown_warning_close_draw(interval_warning_close);
+                    }
                     interval_warning = 35000;
                     if(minutes_value > 2 ) interval_warning = 60000;
                     interval_warning_close = logic_warning_interval(minutes_value, finish_countdown_warning_close_draw, interval_warning_close, interval_warning);
                 }else if(minutes_value <= 1) {
-
                     finish_countdown_warning_close_draw(interval_warning_close);
                 }
             }
@@ -231,7 +239,8 @@ $(function(){
 
 
     function logic_warning_interval(minutes_value, finish_countdown_warning_close_draw, interval_warning_close,timeout_interval) {
-        $('.ending').text('The draw will close in ' + minutes_value + ' minutes');
+        var minutes_literal = (minutes_value == 1) ? ' minute' : ' minutes';
+        $('.ending').text('The draw will close in ' + minutes_value + minutes_literal);
         $('.ending').fadeIn();
         setTimeout(function () {
             if (getMinutes() < 1) {

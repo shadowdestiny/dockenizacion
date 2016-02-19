@@ -28,11 +28,11 @@ class WinEmailTemplate extends EmailTemplateDecorator
                     ],
                     [
                         'name'    => 'url_play',
-                        'content' => $this->config->domain['url'] . 'play'
+                        'content' => $this->config . '/play'
                     ],
                     [
                         'name'    => 'url_account',
-                        'content' => $this->config->domain['url'] . 'account/wallet'
+                        'content' => $this->config . '/account/wallet'
                     ]
                 ]
         ];

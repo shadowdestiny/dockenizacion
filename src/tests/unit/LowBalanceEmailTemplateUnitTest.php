@@ -6,7 +6,6 @@ namespace tests\unit;
 
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\LowBalanceEmailTemplate;
-use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -77,7 +76,7 @@ class LowBalanceEmailTemplateUnitTest extends UnitTestBase
                     ],
                     [
                         'name' => 'url_add_funds',
-                        'content' => 'localhost:443/account/wallet'
+                        'content' => 'https://localhost/account/wallet'
                     ]
                 ]
         ];

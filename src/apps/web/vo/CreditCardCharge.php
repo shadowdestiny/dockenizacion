@@ -24,7 +24,7 @@ class CreditCardCharge
 
     public function getFinalAmount()
     {
-        if( $this->amount->getAmount() < $this->fee_to_limit->getAmount() ) {
+        if( (int) $this->amount->getAmount() < (int) $this->fee_to_limit->getAmount() ) {
             $this->is_charge_fee = true;
             return $this->amount->add($this->fee);
         } else {
