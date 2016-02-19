@@ -339,7 +339,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $existing_mail = 'antonio.hernandez@panamedia.net';
         $this->userRepository_double->getByEmail($existing_mail)->willReturn(new User());
         $credentials = $this->getRegisterCredentials($existing_mail);
-        $expected = new ActionResult(false, 'Email already registered');
+        $expected = new ActionResult(false, 'Email already registered. Try to use a different email.');
         $sut = $this->getSut();
         $actual = $sut->register($credentials);
         $this->assertEquals($expected, $actual);

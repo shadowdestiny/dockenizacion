@@ -77,15 +77,16 @@ label.submit{cursor:pointer;}
 .select{padding-top:6px;}
 .form-currency{
   .currency{position:relative; top:1px; right:-9px; font-weight:700; color:$yellow-dark; display:inline-block; width:0; z-index:1; font-size:16px;}
-  .insert{width:178px!important; padding:5px 8px 6px 23px;}
+  .insert{width:190px!important; padding:5px 8px 6px 23px;}
 }
 
 /* TOOLTIP */
-.type-light{border:2px solid $yellow; padding:6px 10px!important;}
+.type-light{font-weight:normal; border:2px solid $yellow; padding:6px 10px!important;}
 .type-light.place-top:after{border-top:8px solid $yellow!important; bottom:-8px!important;}
 .type-light.place-bottom:after{border-bottom:8px solid $yellow!important; top:-8px!important;}
 .type-light.place-right:after{border-right:8px solid $yellow!important; left:-8px!important;}
 .type-light.place-left:after{border-left:8px solid $yellow!important; right:-8px!important;}
+.__react_component_tooltip.show{opacity:1!important;}
 
 /* INFO BOX */
 .box{text-align:left; padding:10px; border-radius:5px; font-weight:700; margin-bottom:1em;}
@@ -298,7 +299,6 @@ body, .submit{font-family:$basic-font;}
 .wrapper{max-width:1180px; margin:auto; position:relative; min-width:235px;}
 .logo{float:left; margin:5px 0 0;}
 .minimal .logo{margin-bottom:4px;}
-.no-nav .logo{float:none;}
 .v-logo{height:60px; width:285px;}
 .main-foot .v-logo{width:200px; margin:0;}
 
@@ -325,11 +325,11 @@ body, .submit{font-family:$basic-font;}
 }
 
 .head{position:relative; z-index:9; border-bottom:5px solid $yellow; background:#fff;}
-.main-nav{float:right; margin-bottom:-1px; border-left:1px solid $yellow;}
+.main-nav{float:right; margin-bottom:-2px; border-left:1px solid $yellow;}
 .main-nav li{float:left; border-right:1px solid $yellow; position:relative;}
 .main-nav li:last-child{margin:0;}
 .main-nav .v-cart{display:inline-block; color:$black; margin-top:4px;}
-.main-nav a{display:block; padding:13px 20px; transition:background .2s ease, color .15s ease;}
+.main-nav a{display:block; padding:13px 20px; transition:background .2s ease, color .15s ease; min-height:69px; /*min-height to fix tablet*/}
 .main-nav > span{display:block;}
 .main-nav .link{font-size:75%; text-decoration:none!important;}
 .main-nav .txt{position:relative; top:-2px; font-size:85%; font-weight:700; color:#000;}
@@ -348,16 +348,15 @@ body, .submit{font-family:$basic-font;}
   .li-your-account:hover > a, .li-your-account:hover .txt{color:#fff;}
 }
 .main-nav a:hover .v-cart, .main-nav .active .v-cart, .main-nav .active .link, .main-nav .active .txt, .main-nav a:hover, .main-nav a:hover .txt{color:#fff;}
-
 .main-nav .txt, .main-nav .v-cart{transition:color .1s ease;}
 .main-nav li:hover{border-right:1px solid transparent;}
 .main-nav .active:hover{border-right:0 solid transparent;} /* erase yellow border */
 .main-nav .subnav{
   position:absolute; z-index:1; background:#fff; width:101%; border:1px solid $yellow; border-top:0;
-  margin:-1px 0 0 -1px; border-radius:0 0 5px 5px;
+  margin:0 0 0 -1px; border-radius:0 0 5px 5px;
   li{float:none; border:0; border-bottom:1px solid $yellow; text-align:left;}
   li:last-child{border-bottom:0;}
-  a{padding:10px 7px; border:0; font-size:$basic-size!important;}
+  a{padding:10px 7px; border:0; font-size:$basic-size!important; min-height:40px; /*min-height to fix tablet*/}
   a:hover .ico{color:#fff;}
   .ico{float:right; margin:4px -2px 0 0; color:$yellow-dark;}
 }
@@ -439,7 +438,7 @@ body, .submit{font-family:$basic-font;}
  /*body{border:10px solid #ff0;} /* YELLOW */
 .media{width:2px}
 .wrapper{max-width:768px;}
-.logo{width:250px;}
+.header .v-logo{width:250px; height:54px;}
 .main-nav a{padding:10px 12px; min-height:62px;}
 .main-nav .subnav a{min-height:inherit;} 
 .box-links .col20per{padding:0 10px;}
@@ -473,7 +472,7 @@ body, .submit{font-family:$basic-font;}
 .logo-social li{margin-left:40px;}
 .logo-social li:first-child{margin-left:0;}
 .btn.big{font-size:$h4;}
-.logo{margin-top:6px; width:205px;}
+.logo{margin-top:6px; width:200px;}
 #language a{text-decoration:none;}
 .nav.mobile, #nav-account, #language{
   border-bottom:1px solid $purple;
@@ -508,6 +507,7 @@ body, .submit{font-family:$basic-font;}
 }
 .minimal .main-foot .txt{text-align:center;}
 .ending{left:0; right:0; border-radius:0; padding:10px; font-size:90%;}
+.header .v-logo{width:200px; height:40px;}
 } /* End Media query */
 
 

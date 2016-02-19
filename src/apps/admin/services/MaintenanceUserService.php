@@ -60,24 +60,21 @@ class MaintenanceUserService
         }
     }
 
-    public function updateUserData(array $user_data)
+    public function updateUserData(\Phalcon\Http\Request $request)
     {
-
         try {
             /** @var User $user */
-            $user = $this->userRepository->getByEmail($user_data['email']);
-
-            $user->setName($user_data['name']);
-            $user->setSurname($user_data['surname']);
-            $user->setEmail($user_data['email']);
-            $user->setCountry($user_data['country']);
-            $user->setStreet($user_data['street']);
-            $user->setZip($user_data['zip']);
-            $user->setCity($user_data['city']);
-            $user->setPhoneNumber($user_data['phone_number']);
+            $user = $this->userRepository->getByEmail($request->getPost('email'));
+            $user->setName($request->getPost('name'));
+            $user->setSurname($request->getPost('surname'));
+            $user->setEmail($request->getPost('email'));
+            $user->setCountry($request->getPost('country'));
+            $user->setStreet($request->getPost('street'));
+            $user->setZip($request->getPost('zip'));
+            $user->setCity($request->getPost('city'));
+            $user->setPhoneNumber($request->getPost('phone_number'));
             //EMTD refactor this to use the wallet $user->setBalance(new Money($user_data['balance'], new Currency('EUR')));
-
-            $this->userRepository->add($user);
+           $this->userRepository->add($user);
             $this->entityManager->flush($user);
             return new ActionResult(true, $user);
         } catch (\Exception $e) {

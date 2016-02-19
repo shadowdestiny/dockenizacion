@@ -1,6 +1,5 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var EuroMillionsLine = require('../components/EmLine.js');
 var EuroMillionsBoxAction = require('../components/EmBoxActionPlay.jsx');
 var EuroMillionsMultipleEmLines = require('../components/EmMultipleEmLines.jsx');
 var EuroMillionsBoxBottomAction = require('../components/EmBoxBottomAction.jsx');
@@ -20,6 +19,7 @@ var PlayPage = React.createClass({
             numWeek : 1,
             show_tooltip_lines : false,
             playDays : 1,
+            draw_day_play: 2,
             duration : 1,
             date_play : this.props.date_play,
             numBets : 0,
@@ -167,7 +167,7 @@ var PlayPage = React.createClass({
         }
     },
 
-    handlerAddLines : function(event)
+    handlerAddLines : function()
     {
         var show_tooltip = this.state.show_tooltip_lines;
         var current_lines = this.state.lines;
@@ -235,10 +235,12 @@ var PlayPage = React.createClass({
                 {text : '2 weeks (Draws: 4)' , value : 2},
                 {text : '4 weeks (Draws: 8)' , value : 4},
                 {text : '8 weeks (Draws: 16)' , value : 8},
-                {text : '52 weeks (Draws: 104)' , value : 52},
+                {text : '52 weeks (Draws: 104)' , value : 52}
             ];
         }
+
         this.setState( { playDays : length_value_day,
+                         draw_day_play : value,
                          draw_dates : draw_dates,
                          draw_duration : options_draw_duration});
         this.updatePrice();
@@ -256,7 +258,7 @@ var PlayPage = React.createClass({
         //this.updatePrice();
     },
 
-    handleClickAdvancedPlay : function (value)
+    handleClickAdvancedPlay : function ()
     {
         var show_block_config = (!this.state.show_block_config);
         this.setState( {
@@ -300,14 +302,14 @@ var PlayPage = React.createClass({
         var random_all = this.state.random_all;
 
         elem.push(<EuroMillionsMultipleEmLines add_storage={this.addLinesInStorage} clear_all={this.state.clear_all} callback={this.handleOfBetsLine} random_all={random_all} numberEuroMillionsLine={numberEuroMillionsLine} key="1"/>);
-        elem.push(<EuroMillionsBoxAction show_tooltip={this.state.show_tooltip_lines}  mouse_over_btn={this.mouseOverBtnAddLines}  add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} show_clear_all={this.state.show_clear_all} clear_all_btn={this.handlerClearAll} key="2"/>)
+        elem.push(<EuroMillionsBoxAction show_tooltip={this.state.show_tooltip_lines}  mouse_over_btn={this.mouseOverBtnAddLines}  add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} show_clear_all={this.state.show_clear_all} clear_all_btn={this.handlerClearAll} key="2"/>);
 
         return (
             <div onTouchStart={this.handleTouchStart}>
                 {elem}
                 <div className="box-bottom">
                     <div className="wrap">
-                        <EuroMillionsBoxBottomAction currency_symbol={this.props.currency_symbol} click_advanced_play={this.handleClickAdvancedPlay} date_play={this.state.date_play} duration={this.state.duration} play_days={this.state.playDays}  lines={this.state.storage}  price={this.state.price}/>
+                        <EuroMillionsBoxBottomAction draw_day_play={this.state.draw_day_play} currency_symbol={this.props.currency_symbol} click_advanced_play={this.handleClickAdvancedPlay} date_play={this.state.date_play} duration={this.state.duration} play_days={this.state.playDays}  lines={this.state.storage}  price={this.state.price}/>
                         <EmConfigPlayBlock draw_dates={this.state.draw_dates} date_play={this.handleChangeDate} draw_duration={this.state.draw_duration} duration={this.handleChangeDuration} play_days={this.handleChangeDraw} show={this.state.show_block_config}/>
                     </div>
                 </div>
@@ -323,7 +325,7 @@ var options_draw_duration = [
     {text : '2 weeks (Draws: 2)' , value : 2},
     {text : '4 weeks (Draws: 4)' , value : 4},
     {text : '8 weeks (Draws: 8)' , value : 8},
-    {text : '52 weeks (Draws: 52)' , value : 52},
+    {text : '52 weeks (Draws: 52)' , value : 52}
 ];
 
 ReactDOM.render(<PlayPage currency_symbol={currency_symbol} automatic_random={automatic_random}  lines_default={5} date_play={""+draw_dates[0]} draw_duration={options_draw_duration} draw_dates={draw_dates}/>, document.getElementById('gameplay'));

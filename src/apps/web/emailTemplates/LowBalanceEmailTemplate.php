@@ -38,7 +38,7 @@ class LowBalanceEmailTemplate extends EmailTemplateDecorator
                     ],
                     [
                         'name' => 'url_add_funds',
-                        'content' => $this->config->domain['url'] . 'account/wallet'
+                        'content' => $this->config . '/account/wallet'
                     ]
                 ]
         ];

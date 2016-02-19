@@ -7,7 +7,7 @@ var EmWallet = new React.createClass({
     getInitialState : function ()
     {
         return {
-            checked : true
+            checked : this.props.show_checked
         }
     },
 
@@ -16,7 +16,7 @@ var EmWallet = new React.createClass({
 
     },
 
-    handleClickLabel : function (e)
+    handleClickLabel : function ()
     {
         var is_checked = this.state.checked;
         var active = is_checked ? false : true;
@@ -27,12 +27,7 @@ var EmWallet = new React.createClass({
 
     handleChange : function (event)
     {
-        var active;
-        if(event.target.checked) {
-            active = true;
-        } else {
-            active = false;
-        }
+        var active = event.target.checked;
         this.setState({ checked : active});
         this.props.checked_callback(active);
     },

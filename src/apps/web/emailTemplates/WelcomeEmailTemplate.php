@@ -21,19 +21,19 @@ class WelcomeEmailTemplate extends EmailTemplateDecorator
                 ],
                 [
                     'name' => 'howToPlay',
-                    'content' => $this->config->domain['url'] . '/help'
+                    'content' => $this->config . '/help'
                 ],
                 [
                     'name' => 'numbers',
-                    'content' => $this->config->domain['url'] . '/numbers'
+                    'content' => $this->config . '/numbers'
                 ],
                 [
                     'name' => 'subscribe',
-                    'content' => $this->config->domain['url'] . '/numbers'
+                    'content' => $this->config . '/numbers'
                 ],
                 [
                     'name' => 'faq',
-                    'content' => $this->config->domain['url'] . '/faq'
+                    'content' => $this->config . '/faq'
                 ],
                 [
                     'name' => 'contact',

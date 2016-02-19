@@ -5,7 +5,6 @@ use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\vo\UserId;
 use Money\Currency;
-use Money\Money;
 
 class PlayController extends PublicSiteControllerBase
 {
@@ -36,7 +35,7 @@ class PlayController extends PublicSiteControllerBase
             'play_dates' => $play_dates,
             'next_draw' => $dayOfWeek,
             'currency_symbol' => $currency_symbol,
-            'single_bet_price' => $single_bet_price_currency->getAmount() /10000,
+            'single_bet_price' => $single_bet_price_currency->getAmount() /100,
             'automatic_random' => isset($automatic_random) ? true : false,
         ]);
     }

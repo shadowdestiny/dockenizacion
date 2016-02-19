@@ -47,7 +47,7 @@ function btnShowHide(button, show, hide){
 function selectFix(){ // Style the "Select"
     if('querySelector' in document && 'addEventListener' in window){
         // check query selector is recognised by the browser IE9+
-        var value;
+
         var obj = $('.mySelect');
 /*
         if(typeof $(obj).attr("disabled") == "undefined" || $(obj).attr("disabled") == "disabled"){
@@ -105,6 +105,38 @@ function count_down(element,
         });
      //visit: http://hilios.github.io/jQuery.countdown to formatted html result
 }
+
+var varSize = 0
+function checkSize(){
+    if($(".media").width() == "1"){         // max-width: 1200px
+        varSize = 1;
+    }else if($(".media").width() == "2"){   // max-width: 992px)
+        varSize = 2;
+    }else if($(".media").width() == "3"){   // max-width: 768px
+        varSize = 3;
+    }else if($(".media").width() == "4"){   // max-width: 480px
+        varSize = 4;
+    }else if($(".media").width() == "5"){   // max-width: 320px
+        varSize = 5;
+    }
+    return varSize;
+}
+
+function menu(id, target){
+    $(id).hover(function(event){
+        $(target).show();
+    }, function(){
+        $(target).hide();
+    });
+}
+
+function navCurrency(){
+    if(varSize < 3){
+        menu(".li-currency", ".div-currency");
+    }
+}
+
+
 $(function(){
     selectFix();
     try{
@@ -150,73 +182,101 @@ $(function(){
         draw_date = new Date();
     }
     if(typeof remain_time == 'undefined'){
-        remain_time = false;
+        remain_time = 1;
     }
 
     $('.ending').hide();
     var now_date = new Date().getMinutes();
     var draw_date_minutes = new Date(draw_date).getMinutes();
-    draw_date_minutes = draw_date_minutes == 0 ? 60 : draw_date_minutes;   
-    var minutes_value =  draw_date_minutes - now_date;
-    if(draw_date_minutes < now_date) {
-        now_date = 60 - now_date;
-        minutes_value = draw_date_minutes + now_date;
-    }
+    var minutes_value =  minutes_to_close;
     var interval_warning_close = null;
-   // var is_remain_time = remain_time == "" ? false : remain_time;
+    var first_load = true;
     var fade_value = 800;
     var interval_warning = 300000;
-    if(remain_time && minutes_value > 1){
-        if(minutes_value > 5){
-            $('.ending').text('The draw will close in ' + minutes_to_close + ' minutes')
-        }else{
+    var timeout_first_warning = 30000;
+
+    if(remain_time == 1 && minutes_value >= 1 && minutes_value < 30){
+        if (minutes_value > 1 && minutes_value <= 5){
             interval_warning = 30000;
-            $('.ending').text('The draw will close in ' + minutes_value + ' minutes')
+        }else if (minutes_value == 1){
+            interval_warning = 5000;
+            timeout_first_warning = 10000;
+        }
+        if(minutes_value < 2 ) {
+            interval_warning = 2000;
+            $('.ending').text('The draw will close in ' + minutes_value + ' minute')
+        } else {
+            $('.ending').text('The draw will close in ' + minutes_to_close_rounded + ' minutes')
         }
         $('.ending').fadeIn(fade_value);
         setTimeout(function(){
             $('.ending').fadeOut(fade_value);
-        },30000);
-
+        },timeout_first_warning);
         interval_warning_close = setInterval(function(){
             minutes_value =  getMinutes();
-            if(minutes_value > 5) {
-                minutes_to_close = minutes_to_close - 5;
-                $('.ending').text('The draw will close in '+ minutes_to_close +' minutes');
-                $('.ending').fadeIn();
-                setTimeout(function(){
-                    if(getMinutes() < 1 ) {
+            if(!first_load) {
+                if(minutes_value > 6) {
+                    minutes_value = minutes_to_close_rounded - 5;
+                    var minutes_to_close = minutes_value - 5;
+                    interval_warning_close = logic_warning_interval(minutes_to_close, finish_countdown_warning_close_draw, interval_warning_close, interval_warning);
+                }else if(minutes_value > 2){
+                    if(minutes_value < 1) {
                         finish_countdown_warning_close_draw(interval_warning_close);
                     }
-                    $('.ending').fadeOut(fade_value);
-                },3000);
-            }else if(minutes_value > 1){
-                $('.ending').text('The draw will close in '+ minutes_value +' minutes');
-                $('.ending').fadeIn();
-                console.log('pasa2');
-                setTimeout(function(){
-                    if(getMinutes() < 1 ) {
-                        console.log('pasa5');
-                        finish_countdown_warning_close_draw(interval_warning_close);
-                    }
-                    $('.ending').fadeOut();
-                },3000);
-                interval_warning_close = setInterval(interval_warning_close, 45000);
-            }else{
-                console.log('pasa3');
-                finish_countdown_warning_close_draw(interval_warning_close);
+                    interval_warning = 35000;
+                    if(minutes_value > 2 ) interval_warning = 60000;
+                    interval_warning_close = logic_warning_interval(minutes_value, finish_countdown_warning_close_draw, interval_warning_close, interval_warning);
+                }else if(minutes_value <= 1) {
+                    finish_countdown_warning_close_draw(interval_warning_close);
+                }
             }
+            first_load = false;
         },interval_warning);
     }
-
-    var is_last_minute = typeof last_minute == 'undefined' ? false : last_minute;
-    if(is_last_minute){
+    if(minutes_value < 1){
         finish_countdown_warning_close_draw(interval_warning_close);
     }
+
+
+    function logic_warning_interval(minutes_value, finish_countdown_warning_close_draw, interval_warning_close,timeout_interval) {
+        var minutes_literal = (minutes_value == 1) ? ' minute' : ' minutes';
+        $('.ending').text('The draw will close in ' + minutes_value + minutes_literal);
+        $('.ending').fadeIn();
+        setTimeout(function () {
+            if (getMinutes() < 1) {
+                finish_countdown_warning_close_draw(interval_warning_close);
+            }
+            $('.ending').fadeOut();
+        }, 3000);
+        interval_warning_close = setInterval(interval_warning_close, timeout_interval);
+        return interval_warning_close;
+    }
+
 
     function getMinutes(){
         now_date = new Date().getMinutes();
         draw_date_minutes = (new Date(draw_date).getMinutes() == 0) ? 60 : new Date(draw_date).getMinutes();
         return draw_date_minutes - now_date;
     }
+
+    checkSize();
+    $(window).resize(checkSize);
+
+    navCurrency();
+    $(window).resize(navCurrency);
+
+    /* Hide Currency after tapping on mobile */
+    $('html').on('touchstart', function(e){
+        if($('.div-currency').is(":visible")){
+            $('.div-currency').hide();
+        }else{
+            if(e.target.className.split(" ")[1] == "myCur"){
+                $('.div-currency').show();
+            };
+        }
+    })
+    $(".div-currency").on('touchstart',function(e){
+        e.stopPropagation();
+    });
+
 });

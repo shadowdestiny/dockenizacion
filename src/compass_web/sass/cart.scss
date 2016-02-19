@@ -81,7 +81,7 @@
     -webkit-appearance:none; -webkit-border-radius:0; height:1%;
   }*/  /* Fix Safari */
   .txt-fee{font-weight:700;}
-  .txt-fee, .desc, .detail, .summary{font-size:$basic-size;}
+  .txt-fee, .desc, .detail, .summary, .quantity{font-size:$basic-size;}
   .change, .add-funds, .txt-currency{font-size:$small;}
   .txt-fee, .detail, .type{float:left;}
   .change{position:relative; top:-2px;}
@@ -91,6 +91,10 @@
     a{text-decoration:none;}
     a:hover, a:focus{text-decoration:underline!important;}
   }
+  .quantity{
+    float:right;
+    .val{font-weight:700;}
+  }
   .val{display:inline-block; min-width:80px; text-align:right; margin-left:10px;}
   .row{border-top:1px solid $grey-lighter; padding:10px;}
   .sub-txt{margin:0 0 .5em; text-transform:uppercase; text-align:left;}
@@ -99,13 +103,21 @@
   .type{width:200px; text-align:left; font-style:italic;}
   .summary{font-weight:700; float:right;}
   .add-funds:hover, .add-funds:focus{text-decoration:underline!important;}
-  .box-funds{float:right; text-align:right; position:relative; top:-1px;}
-  .box-total{
-    color:$purple; border-top:2px solid $purple; padding:8px 10px;
+  .box-funds{clear:both; /*float:right; text-align:right;  top:-1px; position:relative;*/}
+  .box-total, .pre-total{
+    padding:8px 10px;
     .total{
-      float:right; font-weight:700; font-size:$h3;
+      float:right; font-weight:700;
       .txt{display:inline-block;}
     }
+  }
+  .pre-total{
+     color:$grey; border-top:1px solid $grey-light;
+    .total{font-size:$basic-size;}
+  }
+  .box-total{
+    color:$purple; border-top:2px solid $purple;
+    .total{font-size:$h3;}
   }
   .box-order{
     a{
@@ -133,8 +145,9 @@
     }
   }
   .box-bottom .btn{min-width:180px; text-align:center;}
-  .box-charge{position:relative;}
+  .box-charge{padding-top:5px; float:right; position:relative;}
   .new{margin-left:5px;}
+  .hr{margin:15px -15px 5px}
 }
 
 .payment{ /* Inside ORDER area*/
@@ -149,8 +162,9 @@
     &:first-child{padding-left:0px;}
     &:last-child{padding-right:0px;}
   }
-  .submit{margin-top:18px; width:100%;  text-align:center;}
+  .submit{margin-top:177px; width:100%;  text-align:center;}
   .info{color:$purple; font-weight:700;}
+  h2{margin-bottom:10px;}
 }
 
 .success{
@@ -279,10 +293,13 @@
   .submit, .form{width:100%;}
 }
 .order{
+  .box-charge{float:none;}
   .box-charge .label{width:100%; line-height:normal;}
   .add-funds{float:none;}
   .box-funds{text-align:left;}
 }
+/*.order.account .form-currency{display:block; float:right;}*/
+
 }
 
 @media only screen and (max-width:420px){ /*Not standard size */

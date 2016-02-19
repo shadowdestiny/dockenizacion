@@ -28,7 +28,7 @@ class Order implements \JsonSerializable
     private $credit_card_charge;
 
 
-    public function __construct(PlayConfig $play_config, Money $single_bet_price, Money $fee, Money $fee_limit)
+    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit)
     {
         $this->play_config = $play_config;
         $this->single_bet_price = $single_bet_price;
@@ -164,9 +164,9 @@ class Order implements \JsonSerializable
     public function isNextDraw( \DateTime $draw_date )
     {
         $play_config = $this->getPlayConfig();
-        $start_draw_day_number = date('N',$play_config->getStartDrawDate()->getTimeStamp());
+        $start_draw_day_number = date('N',$play_config[0]->getStartDrawDate()->getTimeStamp());
         $draw_date_day_number = date('N', $draw_date->getTimestamp());
-        $draw_days = $play_config->getDrawDays();
+        $draw_days = $play_config[0]->getDrawDays();
         if(strpos($draw_days->value(),$draw_date_day_number) !== false && $start_draw_day_number == $draw_date_day_number ) {
             return true;
         }
@@ -176,9 +176,9 @@ class Order implements \JsonSerializable
 
     private function initialize()
     {
-        $this->num_lines = count($this->play_config->getLine());
+        $this->num_lines = count($this->play_config);
         $this->total = new Money(1,new Currency('EUR'));
-        $this->total = $this->total->multiply($this->num_lines)->multiply((int) $this->play_config->getDrawDays()->value_len())->multiply((int) $this->single_bet_price->getAmount())->multiply($this->play_config->getFrequency());
+        $this->total = $this->total->multiply($this->num_lines)->multiply((int) $this->play_config[0]->getDrawDays()->value_len())->multiply((int) $this->single_bet_price->getAmount())->multiply($this->play_config[0]->getFrequency());
         $this->credit_card_charge = new CreditCardCharge($this->total,$this->fee,$this->fee_limit);
     }
 
@@ -196,13 +196,20 @@ class Order implements \JsonSerializable
      */
     public function jsonSerialize()
     {
+
+         $bets = [];
+        /** @var PlayConfig $play */
+        foreach($this->play_config as $play) {
+            $bets[] = $play->toArray();
+         }
+
          return [
             'total' => $this->total->getAmount(),
             'fee' => $this->fee->getAmount(),
             'fee_limit' => $this->fee_limit->getAmount(),
             'single_bet_price' => $this->single_bet_price->getAmount(),
             'num_lines' => $this->num_lines,
-            'play_config' => $this->play_config->toArray()
+            'play_config' => $bets
         ];
 
     }

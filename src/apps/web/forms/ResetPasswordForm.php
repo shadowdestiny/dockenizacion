@@ -18,7 +18,7 @@ class ResetPasswordForm extends Form
     public function initialize($entity = null, $options = null)
     {
         $password = new Password('new-password', array(
-            'placeholder' => 'Password'
+            'placeholder' => 'New password'
         ));
         $password->addValidator(new PresenceOf(array(
             'message' => 'Password is a required field.'

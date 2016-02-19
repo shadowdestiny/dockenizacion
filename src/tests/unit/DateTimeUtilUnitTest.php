@@ -84,11 +84,11 @@ class DateTimeUtilUnitTest extends UnitTestBase
     public function getMinutesFromTimeClose()
     {
         return array(
-            array('2016-01-27 10:15:00', 15),
-            array('2016-01-27 10:17:00', 15),
-            array('2016-01-27 10:20:00', 20),
-            array('2016-01-27 10:03:00', 5),
-            array('2016-01-27 10:00:00', 0),
+            array('2016-01-27 10:35:00', 5),
+            array('2016-01-27 10:40:00', 10),
+            array('2016-01-27 10:32:00', 2),
+            array('2016-01-27 10:45:00', 15),
+            array('2016-01-27 10:31:00', 1),
         );
     }
 

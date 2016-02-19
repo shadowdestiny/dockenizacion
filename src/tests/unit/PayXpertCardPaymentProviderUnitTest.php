@@ -7,6 +7,7 @@ use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
+use tests\helpers\mothers\CreditCardChargeMother;
 use tests\helpers\mothers\CreditCardMother;
 
 class PayXpertCardPaymentProviderUnitTest extends UnitTestBase
@@ -47,7 +48,7 @@ class PayXpertCardPaymentProviderUnitTest extends UnitTestBase
      * @param $errorCode
      * @param $errorMessage
      */
-    private function exerciseAndAssertCharge($creditCard, $success, $errorCode, $errorMessage)
+    private function exerciseAndAssertCharge($creditCard, $success, $errorCode, $errorMessage, $currency = 'EUR')
     {
         $expected_result = (object) [
             'errorCode' => $errorCode,
@@ -57,7 +58,6 @@ class PayXpertCardPaymentProviderUnitTest extends UnitTestBase
         $originator_name = 'dlsfklds';
         $originator_id = '111';
         $amount = '3000';
-        $currency = 'EUR';
         $money = new Money((int)$amount, new Currency($currency));
         $gateway = $this->prophesize('\EuroMillions\web\services\card_payment_providers\payxpert\GatewayClientWrapper');
         $transaction = $this->prophesize('\EuroMillions\web\services\card_payment_providers\payxpert\GatewayTransactionWrapper');

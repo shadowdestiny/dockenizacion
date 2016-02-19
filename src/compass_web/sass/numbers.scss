@@ -1,6 +1,5 @@
 @import "variable";
 @import "_elements/balls";
-
 .title{margin-bottom:.5em; color:$yellow-dark;}
 .wrap{
     margin-right:-20px;
@@ -16,7 +15,6 @@
   @include background-image(linear-gradient(#fff,$grey-light));
 }
 .star-ball{background:url("../img/sprite.png") no-repeat; background-position:-190px -40px; width:15px; height:15px;}
-
 .box-results{
     border:1px solid $yellow; border-radius:5px; text-align:center;
     @include background-image(linear-gradient(#ffffff, #f2f2f2)); 

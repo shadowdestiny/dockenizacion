@@ -4,7 +4,6 @@
 namespace EuroMillions\web\components;
 
 
-use DateTimeZone;
 use Phalcon\Di;
 
 class DateTimeUtil
@@ -50,23 +49,32 @@ class DateTimeUtil
 
         if( $one_day == $two_day ) {
             $barrier_time = $time_close_draw->getTimestamp() - 1800;
-            //$barrier_time = strtotime($time_close_draw->format('Y-m-d H:i:s') . ' -30 minutes' );
-            return ($now->getTimestamp() > $barrier_time);
-        }
 
+            //$barrier_time = strtotime($time_close_draw->format('Y-m-d H:i:s') . ' -30 minutes' );
+            return ($barrier_time > $now->getTimestamp());
+        }
         return false;
     }
 
-    public function restMinutesToCloseDraw( \DateTime $time_close_draw, \DateTime $now = null )
+    public function restMinutesToCloseDraw( \DateTime $time_close_draw, \DateTime $now = null , $rounded = false)
     {
         if( $now == null ) {
             $now = new \DateTime();
         }
-        $barrier_time = $time_close_draw->getTimestamp();
+        $barrier_time = $time_close_draw->getTimestamp() - 1800;
         $rest = $barrier_time - $now->getTimestamp();
-        $precision = 60 * 5;
-        $round = ( round ( $rest /  $precision) * $precision );
-        return date('i',$round);
+        if($rounded) {
+            $precision = 60 * 5;
+            $round = ( round ( $rest /  $precision) * $precision );
+            return date('i',$round);
+        }
+        return $rest / 60;
+    }
+
+    public function getCountDownNextDraw( \DateTime $date_next_draw )
+    {
+        $remain = $date_next_draw->diff(new \DateTime());
+        return $remain->d . ' days and ' . $remain->h . ' hours';
     }
 
     public function isLastMinuteToDraw( \DateTime $time_close_draw )

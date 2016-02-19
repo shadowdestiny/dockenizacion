@@ -1,8 +1,6 @@
 <?php
 namespace EuroMillions\web\tasks;
 
-use EuroMillions\web\components\logger\Adapter\Sms as SmsAdapter;
-use EuroMillions\web\components\TextMagicSmsWrapper;
 use EuroMillions\web\emailTemplates\LatestResultsEmailTemplate;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\entities\PlayConfig;
@@ -11,6 +9,7 @@ use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\DomainServiceFactory;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
+
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\PlayService;

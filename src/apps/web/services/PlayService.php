@@ -6,27 +6,21 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 
-use EuroMillions\web\components\CypherCastillo3DES;
-use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\EuroMillionsDraw;
-use EuroMillions\web\entities\LogValidationApi;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
-use EuroMillions\web\exceptions\InvalidBalanceException;
+
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\repositories\BetRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\external_apis\LotteryValidationCastilloApi;
-use EuroMillions\web\vo\CastilloCypherKey;
-use EuroMillions\web\vo\CastilloTicketId;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\UserId;
-use Money\Currency;
 use Money\Money;
 
 class PlayService
@@ -47,6 +41,7 @@ class PlayService
 
     private $lotteryRepository;
 
+    /** @var IPlayStorageStrategy */
     private $playStorageStrategy;
 
     private $orderStorageStrategy;
@@ -93,13 +88,11 @@ class PlayService
 
     public function getPlaysFromGuestUserAndSwitchUser(UserId $user_id, UserId $current_user_id)
     {
-
         /** @var User $user */
-        $user = $this->userRepository->find($user_id->id());
+        $user = $this->userRepository->find($current_user_id);
         if( null == $user ) {
             return new ActionResult(false);
         }
-
         try{
             /** @var ActionResult $result_save_playstorage */
             $result_save_playstorage = $this->playStorageStrategy->findByKey($user_id);
@@ -109,12 +102,12 @@ class PlayService
                 if($result_save_playstorage->success()) {
                     $form_decode = json_decode($result_save_playstorage->getValues());
                     $bets = [];
-                    foreach($form_decode->euroMillionsLines->bets as $bet) {
-                        $bets[] = $bet;
+                    foreach($form_decode->play_config as $bet) {
+                        $playConfig = new PlayConfig();
+                        $playConfig->formToEntity($user,$bet,$bet->euroMillionsLines);
+                        $bets[] = $playConfig;
                     }
-                    $playConfig = new PlayConfig();
-                    $playConfig->formToEntity($user,$result_save_playstorage->getValues(),$bets);
-                    return new ActionResult(true,$playConfig);
+                    return new ActionResult(true,$bets);
                 } else {
                     return new ActionResult(false);
                 }
@@ -123,20 +116,6 @@ class PlayService
             }
         } catch ( \Exception $e ) {
             return new ActionResult(false);
-        }
-    }
-
-    //EMTD pass Order VO instead stdClass
-    public function getTotalPriceFromPlay(PlayConfig $playConfig, Money $single_bet_price)
-    {
-        try{
-            $lines = $playConfig->getLine();
-            $total =  count($lines)
-            * $playConfig->getDrawDays()->value() * $single_bet_price->getAmount() * $playConfig->getFrequency();
-
-            return new Money((int) $total, new Currency('EUR'));
-        } catch ( \Exception $e ) {
-            throw new \Exception('Error calculating total price');
         }
     }
 
@@ -160,24 +139,39 @@ class PlayService
                     if( null != $credit_card ) {
                         $result_payment = $this->walletService->rechargeWithCreditCard($this->payXpertCardPaymentStrategy,$credit_card, $user, $order->getCreditCardCharge());
                     } else {
-                        $user->getBalance()->subtract($order->getCreditCardCharge()->getFinalAmount());
-                        $result_payment = new ActionResult(true);
+                        $wallet = $user->getWallet();
+                        $wallet->payPreservingWinnings($order->getCreditCardCharge()->getNetAmount());
+                        $user->setWallet($wallet);
+                        $this->userRepository->add($user);
+                        $this->entityManager->flush();
+                        $result_payment = new ActionResult(true,$order);
                     }
-                    if($order->isNextDraw($draw->getValues()->getDrawDate()) && $result_payment->success()){
-                        $result_validation = $this->betService->validation($order->getPlayConfig(), $draw->getValues());
-                        if($result_validation->success()) {
-                            return new ActionResult(true);
-                        } else {
-                            return new ActionResult(false, $result_validation->errorMessage());
+                    if( count($order->getPlayConfig()) > 0 ) {
+                        foreach( $order->getPlayConfig() as $play_config ) {
+                            $this->playConfigRepository->add($play_config);
+                            $this->entityManager->flush($play_config);
                         }
+                    }
+
+                    if($order->isNextDraw($draw->getValues()->getDrawDate()) && $result_payment->success()){
+                        foreach( $order->getPlayConfig() as $play_config ) {
+                            $result_validation = $this->betService->validation($play_config, $draw->getValues());
+                            if(!$result_validation->success()) {
+                                return new ActionResult(false, $result_validation->errorMessage());
+                            }
+                        }
+                        return new ActionResult(true,$order);
+                    } else {
+                        return new ActionResult($result_payment->success(), $order);
                     }
                 } else {
                     //error
                 }
             } catch ( \Exception $e ) {
-                //error
+
             }
         }
+        return new ActionResult(false);
     }
 
     /**
@@ -200,12 +194,12 @@ class PlayService
             if($result->success()) {
                 $form_decode = json_decode($result->returnValues());
                 $bets = [];
-                foreach($form_decode->euroMillionsLines->bets as $bet) {
-                    $bets[] = $bet;
+                foreach($form_decode->play_config as $bet) {
+                    $playConfig = new PlayConfig();
+                    $playConfig->formToEntity($user,$bet,$bet->euroMillionsLines);
+                    $bets[] = $playConfig;
                 }
-                $playConfig = new PlayConfig();
-                $playConfig->formToEntity($user,$result->getValues(),$bets);
-                return new ActionResult(true,$playConfig);
+                return new ActionResult(true,$bets);
             } else {
                 return new ActionResult(false);
             }
@@ -252,6 +246,20 @@ class PlayService
             return new ActionResult(true,$result);
         }else {
             return new ActionResult(false);
+        }
+    }
+
+    public function removeStorePlay( UserId $user_id )
+    {
+        if( null != $user_id ) {
+            $this->playStorageStrategy->delete($user_id);
+        }
+    }
+
+    public function removeStoreOrder( UserId $user_id )
+    {
+        if( null != $user_id ) {
+            $this->orderStorageStrategy->delete($user_id);
         }
     }
 

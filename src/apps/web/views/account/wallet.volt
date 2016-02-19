@@ -33,35 +33,40 @@ function checkRadio(id){
         }
     });
 }
-function show_fee_text(value) {
-
-    if (parseFloat(value) > parseFloat(fee_limit)) {
-        $('.notes').hide();
-    } else {
+function show_fee_text(value){
+    if (parseFloat(value) > parseFloat(fee_limit)){
+        $('.notes span.txt:first').text('No extra fee applied.');
+    }else{
+        $('.notes span.txt:first').text($('.notes span.txt:first').data('txt'));
         $('.notes').show();
     }
 }
-$('#funds-value').on('keyup',function(e) {
-    ///^\D+(\.\D\D?)?$/
+$('#funds-value').on('keyup',function(e){
+    {# /^\D+(\.\D\D?)?$/ #}
     var regex = /^\d+(\.\d{0,2})?$/g;
     var value = e.target.value;
     show_fee_text(value);
 });
 
-$('#funds-value').on('keypress',function(e) {
+$('#funds-value,#card-cvv,#card-number').on('keypress',function(e){
     var pattern = /^[0-9\.]+$/;
-    var chr = String.fromCharCode(e.which);
+    var codeFF = e.keyCode;
+    var code = e.which
+    var chr = String.fromCharCode(code);
+    if(codeFF == 8 || codeFF == 37 || codeFF == 38 || codeFF == 39 || codeFF == 40 ) {
+        return true;
+    }
     if(!pattern.test(chr)){
-        e.preventDefault();
+            e.preventDefault();
     }
 });
 
-$('#funds-value').on('blur', function(e) {
+$('#funds-value').on('blur', function(e){
     var value = e.target.value;
-    if(value == "" || typeof value == 'undefined' ) {
+    if(value == "" || typeof value == 'undefined'){
         $(this).val("");
         value = 0;
-    } else {
+    }else{
         $(this).val(parseFloat(value).toFixed(2));
     }
     show_fee_text(value);
@@ -75,8 +80,8 @@ $(function(){
     checkRadio("#card-list tr, #bank-list tr");
     deleteLnk("#card-list .action a, #bank-list .action a");
 });
-{% endblock %} 
-
+{% endblock %}
+{% block template_scripts_after %}<script src="/w/js/react/tooltip.js"></script>{% endblock %}
 {% block header %}
     {% set activeNav='{"myClass": "account"}'|json_decode %}
     {% include "_elements/header.volt" %}
@@ -84,11 +89,6 @@ $(function(){
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
-{#
-
-    * NO DATA & DATA: VARIOUS COMBINATIONS IN THIS CODE, CHECK THE GRAPHICS (no bank account set up, no credit card set up, winning infobox) *
-#}
-
 <main id="content">
     <div class="wrapper">
         <div class="nav box-basic">
@@ -100,6 +100,15 @@ $(function(){
                 <a class="btn" href="javascript:void(0);">Go Back</a>
             </div>
             <h1 class="h1 title yellow">{{ language.translate("Wallet") }}</h1>
+
+            <div class="box info">
+                <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
+                <div class="txt">
+                   <strong>{{ language.translate("Congratulations you just won &euro; XXX") }}</strong><br>
+                    {{ language.translate("We have sent you an email with further instructions to collect your prize.
+                    For any questions please contact us at") }} <a href="mailto:support@euromillions.com">support@euromillions.com</a> 
+                </div>
+            </div>
 
             <div class="{%if show_box_basic == false %}hidden{% endif %} overview-wallet">
                 {#<div class="info box box-congrats">
@@ -132,19 +141,18 @@ $(function(){
                 {% endif %}
 
                 <div class="box-balance">
-                    <div class="cols res">
-                        <div class="col5">
-                            <div class="border">
-                                <div class="txt">{{ language.translate("Your current balance:") }} <span class="value">{{ user_balance }}</span></div>
-                                <a href="javascript:void(0)" class="btn blue add-funds">{{ language.translate("Add funds of your wallet") }}</a>
-                            </div>
+                    <div class="border cl">
+                        <div class="txt">{{ language.translate("Your current balance:") }} <span class="value">{{ user_balance }}</span></div>
+                        <div class="box-btn">
+                            <a href="javascript:void(0)" class="btn big blue add-funds">{{ language.translate("Add funds of your wallet") }}</a>
                         </div>
-                        <div class="col7">
-                            <div class="border">
-                                <div class="txt">{{ language.translate("Your winnings:")}} <span class="value">&euro; 20.00</span></div>
-                                <a href="javascript:void(0)" class="btn blue convert">{{ language.translate("Convert winnings into your wallet")}}</a>
-                                <a href="javascript:void(0)" class="btn green withdraw">{{ language.translate("Withdraw winnings") }}</a>
-                            </div>
+                    </div>
+                    <br>
+                    <div class="border cl">
+                        <div class="txt">{{ language.translate("Your winnings:")}} <span class="value">&euro; 20.00</span></div>
+                        <div class="box-btn">
+                            <a href="javascript:void(0)" class="btn big blue convert">{{ language.translate("Convert winnings into your wallet")}}</a>
+                            <a href="javascript:void(0)" class="btn big green withdraw">{{ language.translate("Withdraw winnings") }}</a>
                         </div>
                     </div>
                 </div>

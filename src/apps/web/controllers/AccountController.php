@@ -4,28 +4,18 @@
 namespace EuroMillions\web\controllers;
 
 
-use Doctrine\Common\Collections\ArrayCollection;
-use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\CreditCardForm;
-use EuroMillions\web\forms\elements\CreditCardExpiryDateElement;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
 use EuroMillions\web\forms\ResetPasswordForm;
-use EuroMillions\web\forms\validators\CreditCardExpiryDateValidator;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
-use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
-use EuroMillions\web\services\card_payment_providers\ICreditCardStrategy;
-use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
-use EuroMillions\web\services\CurrencyService;
-use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CreditCardCharge;
 use EuroMillions\web\vo\CVV;
 use EuroMillions\web\vo\dto\PlayConfigDTO;
-use EuroMillions\web\vo\dto\SiteConfigDTO;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\UserNotificationsDTO;
 use EuroMillions\web\vo\Email;
@@ -146,6 +136,7 @@ class AccountController extends PublicSiteControllerBase
     {
         $user = $this->authService->getCurrentUser();
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteriesDataService->getNextJackpot('EuroMillions'));
+        $single_bet_price = $this->domainServiceFactory->getLotteriesDataService()->getSingleBetPriceByLottery('EuroMillions');
         $myGames = null;
         $playConfigActivesDTOCollection = [];
         $playConfigInactivesDTOCollection = [];
@@ -155,17 +146,13 @@ class AccountController extends PublicSiteControllerBase
         if(!empty($user)){
             $myGamesActives = $this->userService->getMyActivePlays($user->getId());
             if($myGamesActives->success()){
-                foreach($myGamesActives->getValues() as $game){
-                    $playConfigActivesDTOCollection[] = new PlayConfigDTO($game);
-                }
+                $playConfigActivesDTOCollection[] = new PlayConfigDTO($myGamesActives->getValues(), $single_bet_price);
             }else{
                 $message_actives = $myGamesActives->errorMessage();
             }
             $myGamesInactives = $this->userService->getMyInactivePlays($user->getId());
             if($myGamesInactives->success()){
-                foreach($myGamesInactives->getValues() as $myGamesInactives){
-                    $playConfigInactivesDTOCollection[] = new PlayConfigDTO($myGamesInactives);
-                }
+                $playConfigInactivesDTOCollection[] = new PlayConfigDTO($myGamesInactives->getValues(), $single_bet_price);
             }else{
                 $message_inactives = $myGamesInactives->errorMessage();
             }
@@ -189,7 +176,8 @@ class AccountController extends PublicSiteControllerBase
         $user_id = $this->authService->getCurrentUser();
         /** @var User $user */
         $user = $this->userService->getUser($user_id->getId());
-        $fee_value_with_currency = $this->siteConfigService->getFeeFormatMoney($user->getUserCurrency(),$locale);
+
+        $fee_value_with_currency = $this->siteConfigService->getFeeFormatMoney($user->getUserCurrency(), $locale);
         $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeLimitFormatMoney($user->getUserCurrency(), $locale);
         $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue()->getAmount() / 1000;
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
@@ -225,6 +213,7 @@ class AccountController extends PublicSiteControllerBase
         $user = $this->userService->getUser($user_id->getId());
         $errors = [];
         $msg = '';
+        $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
 
         if($this->request->isPost()) {
             if ($credit_card_form->isValid($this->request->getPost()) == false) {
@@ -251,8 +240,14 @@ class AccountController extends PublicSiteControllerBase
                         $credit_card_charge = new CreditCardCharge($currency_euros_to_payment,$fee_value,$fee_to_limit_value);
                         $result = $wallet_service->rechargeWithCreditCard($payXpertCardPaymentStrategy, $card, $user, $credit_card_charge);
                         if($result->success()) {
-                            $converted_currency = $this->currencyService->convert($user->getBalance(), $user->getUserCurrency());
-                            $msg .= 'Your balance is been updated. You have now: ' . number_format($converted_currency->getAmount() / 100,2,'.',',') . ' ' . $user->getUserCurrency()->getName();
+                            $converted_net_amount_currency = $this->currencyService->convert($credit_card_charge->getNetAmount(), $user->getUserCurrency());
+                            $converted_fee_value_currency = $this->currencyService->convert($fee_value, $user->getUserCurrency());
+                            $converted_feelimit_value_currency = $this->currencyService->convert($fee_to_limit_value, $user->getUserCurrency());
+                            $msg .= 'We added ' . $symbol . ' '  . number_format($converted_net_amount_currency->getAmount() / 100,2,'.',',');
+
+                            if($credit_card_charge->getIsChargeFee()) {
+                                $msg .= ', and charged you an additional '. $symbol . ' ' . number_format($converted_fee_value_currency->getAmount() / 100,2,'.',',') .' because it is a transfer below ' . $symbol . ' ' . number_format($converted_feelimit_value_currency->getAmount() / 1000,2,'.',',');
+                            }
                             $credit_card_form->clear();
                         } else {
                             $errors[] = 'An error occurred. The response with our payment provider was: ' . $result->returnValues()->errorMessage;
@@ -265,13 +260,13 @@ class AccountController extends PublicSiteControllerBase
             }
         }
 
-        $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
         $locale = $this->request->getBestLanguage();
+        if($user->getUserCurrency() == 'CHF') $locale = 'fr_FR';
         $fee_value_with_currency = $this->siteConfigService->getFeeFormatMoney($user->getUserCurrency(), $locale);
         $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeLimitFormatMoney($user->getUserCurrency(), $locale);
         $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue()->getAmount() / 1000;
-        $this->view->pick('/account/wallet');
 
+        $this->view->pick('/account/wallet');
         return $this->view->setVars([
             'form_errors' => $form_errors,
             'errors' => $errors,
@@ -381,7 +376,7 @@ class AccountController extends PublicSiteControllerBase
     public function resetPasswordAction()
     {
         $errors = [];
-        $form_errors = [];
+        $form_errors = $this->getErrorsArray();
         $msg = false;
         $token = $this->request->getPost('token');
         $myaccount_passwordchange_form = new ResetPasswordForm();
@@ -389,14 +384,14 @@ class AccountController extends PublicSiteControllerBase
             if ($myaccount_passwordchange_form->isValid($this->request->getPost()) == false) {
                 $messages = $myaccount_passwordchange_form->getMessages(true);
                 foreach ($messages as $field => $field_messages) {
-                    $errors[] = $field_messages[0]->getMessage();
+                        foreach ( $field_messages as $message ) {
+                            $errors[] = $message->getMessage();
+                        }
                     $form_errors[$field] = ' error';
                 }
             }else {
                 $new_password = $this->request->getPost('new-password');
                 $user_result = $this->userService->getUserByToken($token);
-                //$result_same_password = $this->authService->samePassword($user,$this->request->getPost('old-password'));
-                //if($result_same_password->success()) {
                 if($user_result->success()) {
                     $result = $this->authService->updatePassword($user_result->getValues(), $new_password);
                     if ($result->success()) {
@@ -416,7 +411,9 @@ class AccountController extends PublicSiteControllerBase
             'currency_list' => [],
             'token' => $token,
             'message' => $msg,
-            'errors'        => $errors,
+            'errors'  => $errors,
+            'reset_password_form' => $myaccount_passwordchange_form,
+            'form_errors' => $form_errors
         ]);
 
     }
@@ -456,7 +453,9 @@ class AccountController extends PublicSiteControllerBase
             'card-holder' => '',
             'card-cvv' => '',
             'funds-value' => '',
-            'expiry-date' => ''
+            'expiry-date' => '',
+            'new-password' => '',
+            'confirm-password' => ''
         ];
         return $form_errors;
     }
@@ -470,7 +469,7 @@ class AccountController extends PublicSiteControllerBase
         ));
         $fund_value->addValidators(array(
             new PresenceOf(array(
-                'message' => 'Insert the amount that you want to add to your funds xxx.'
+                'message' => 'Insert the amount that you want to add to your funds.'
             )),
             new Numericality(array(
                 'message' => 'Insert the amount that you want to add to your funds.'

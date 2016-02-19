@@ -30,7 +30,8 @@ class PayXpertCardPaymentProviderFunctionalTest extends DatabaseIntegrationTestB
             CreditCardMother::aValidCreditCard(),
             true,
             "000",
-            "Transaction successfully completed"
+            "Transaction successfully completed",
+            new Currency('EUR')
         );
     }
 
@@ -45,7 +46,24 @@ class PayXpertCardPaymentProviderFunctionalTest extends DatabaseIntegrationTestB
             CreditCardMother::anInvalidCreditCard(),
             false,
             "004",
-            "Invalid card"
+            "Invalid card",
+            new Currency('EUR')
+        );
+    }
+
+    /**
+     * method charge
+     * when gatewayReturnKoResultIncorrectCurrency
+     * should returnResultFalseWithGatewayErrorMessage
+     */
+    public function test_charge_gatewayReturnKoResultIncorrectCurrency_returnResultFalseWithGatewayErrorMessage()
+    {
+        $this->exerciseAndAssertCharge(
+            CreditCardMother::aValidCreditCard(),
+            false,
+            '916',
+            'No terminal defined for current currency and card type',
+            new Currency('RUB')
         );
     }
 
@@ -53,10 +71,10 @@ class PayXpertCardPaymentProviderFunctionalTest extends DatabaseIntegrationTestB
      * @param $card
      * @return \EuroMillions\shared\vo\results\PaymentProviderResult
      */
-    private function exerciseCharge($card)
+    private function exerciseCharge($card, Currency $currency)
     {
         $sut = new PayXpertCardPaymentProvider(new PayXpertConfig('103893', 'Panam Test Site', '5}G,,5[L.A~*&/{h'));
-        return $sut->charge(new Money(10000, new Currency('EUR')), $card);
+        return $sut->charge(new Money(10000, $currency), $card);
     }
 
     /**
@@ -64,10 +82,11 @@ class PayXpertCardPaymentProviderFunctionalTest extends DatabaseIntegrationTestB
      * @param $success
      * @param $error_code
      * @param $error_message
+     * @param Currency $currency
      */
-    private function exerciseAndAssertCharge($card, $success, $error_code, $error_message)
+    private function exerciseAndAssertCharge($card, $success, $error_code, $error_message, Currency $currency )
     {
-        $actual = $this->exerciseCharge($card);
+        $actual = $this->exerciseCharge($card, $currency);
         $this->assertEquals($success, $actual->success());
         $this->assertEquals($error_code, $actual->returnValues()->errorCode);
         $this->assertEquals($error_message, $actual->returnValues()->errorMessage);

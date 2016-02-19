@@ -25,7 +25,7 @@
 .col-left{width:50%; margin-right:5%;}
 .col-right{width:40%;}
 
-.v-logo{max-height:90px; height:1%; margin:100px auto 0; width:100%;}
+.v-logo{max-height:90px; height:1%; margin:0 auto; width:100%;}
 .title{position:relative; margin-bottom:10px; text-transform:uppercase;}
 
 .box-extra{
@@ -50,18 +50,25 @@
 	.box-basic .label, .box-basic .input, .btn{width:100%;}
 	.btn.big{margin-top:10px; text-align:center;}
 }
+.sign-in, .forgot-psw{
+	.logo{margin-top:100px;}
+	.v-logo{width:380px;}
+}
 
 @media only screen and (max-width:1050px){ /*Not standard size*/
 	.sign-in .wrapper{max-width:800px;}
 	.col-left{width:45%;}
 	.col-right{width:50%;}
+	.sign-in .v-logo{width:300px;}
 }
 
 @media only screen and (max-width:850px){ /*Not standard size*/
 	.sign-in .wrapper{max-width:700px;}
 	.col-left{width:40%;}
 	.col-right{width:55%;}
+	.sign-in .v-logo{width:250px;}
 }
+
 
 /* Small Devices, Tablets */
 @media only screen and (max-width:768px){
@@ -69,7 +76,11 @@
 .col-left, .col-right{width:100%; float:none;}
 .col-right .box-basic{padding:15px 25px;}
 .v-logo{margin:10px 0; max-height:40px;}
-
+.col-left{
+	height:60px; text-align:center;
+	.logo{margin:0 auto; width:100%;}
+}
+/*.sign-in .col-left{display:none;}*/
 
 #content, .main-foot, body{background:$yellow-lighter;}
 .generate-psw .box-basic{

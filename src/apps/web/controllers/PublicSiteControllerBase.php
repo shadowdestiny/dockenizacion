@@ -1,10 +1,12 @@
 <?php
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\entities\Language;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\AuthService;
+use EuroMillions\web\services\CartService;
 use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\LanguageService;
 use Doctrine\ORM\EntityManager;
@@ -35,9 +37,14 @@ class PublicSiteControllerBase extends ControllerBase
     protected $authService;
     /** @var  UserPreferencesService */
     protected $userPreferencesService;
+    /** @var  SiteConfigService $siteConfigService */
+    protected $siteConfigService;
+
+    /** @var  CartService $cartService */
+    protected $cartService;
 
 
-    public function initialize(LotteriesDataService $lotteriesDataService = null, LanguageService $languageService = null, CurrencyService $currencyService = null, UserService $userService = null, AuthService $authService= null, UserPreferencesService $userPreferencesService = null)
+    public function initialize(LotteriesDataService $lotteriesDataService = null, LanguageService $languageService = null, CurrencyService $currencyService = null, UserService $userService = null, AuthService $authService= null, UserPreferencesService $userPreferencesService = null, SiteConfigService $siteConfigService = null, CartService $cartService = null )
     {
         parent::initialize();
         $this->lotteriesDataService = $lotteriesDataService ? $lotteriesDataService : $this->domainServiceFactory->getLotteriesDataService();
@@ -46,7 +53,8 @@ class PublicSiteControllerBase extends ControllerBase
         $this->userService = $userService ? $userService : $this->domainServiceFactory->getUserService();
         $this->authService = $authService ? $authService : $this->domainServiceFactory->getAuthService();
         $this->userPreferencesService = $userPreferencesService ? $userPreferencesService : $this->domainServiceFactory->getUserPreferencesService();
-
+        $this->siteConfigService = $siteConfigService ?: new SiteConfigService($this->di->get('entityManager'), $this->currencyService);
+        $this->cartService = $cartService ?: $this->domainServiceFactory->getCartService();
     }
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
@@ -103,6 +111,10 @@ class PublicSiteControllerBase extends ControllerBase
         $this->view->setVar('user_currency_code', $current_currency->getName());
         $this->view->setVar('user_balance', $user_balance);
         $this->view->setVar('user_balance_raw', $user_balance_raw);
+        $this->view->setVar('jackpot', $this->userPreferencesService->getJackpotInMyCurrency($this->lotteriesDataService->getNextJackpot('EuroMillions'))->getAmount() / 100);
+        $date_time_util = new DateTimeUtil();
+        $date_next_draw = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions');
+        $this->view->setVar('countdown_next_draw', $date_time_util->getCountDownNextDraw($date_next_draw));
     }
 
     private function setNavValues()
@@ -160,20 +172,19 @@ class PublicSiteControllerBase extends ControllerBase
         //Vars draw closing modal
         $dateUtil = new DateTimeUtil();
         $lottery_date_time = $this->domainServiceFactory->getLotteriesDataService()->getNextDateDrawByLottery('EuroMillions');
-     //   $lottery_date_time = new \DateTime('2016-02-09 10:20:00');
+        $lottery_date_time = new \DateTime('2016-02-18 18:40:00');
         $time_to_remain = $dateUtil->getTimeRemainingToCloseDraw($lottery_date_time);
         if($time_to_remain) {
             $minutes_to_close = $dateUtil->restMinutesToCloseDraw($lottery_date_time);
+            $minutes_to_close_rounded = $dateUtil->restMinutesToCloseDraw($lottery_date_time,null,true);
         }
-
         $last_minute = $dateUtil->isLastMinuteToDraw($lottery_date_time);
         $this->view->setVar('time_to_remain_draw', $time_to_remain);
+        $this->view->setVar('minutes_to_close_rounded', (int) $minutes_to_close_rounded);
         $this->view->setVar('last_minute', $last_minute);
-        $this->view->setVar('draw_date', $lottery_date_time->format('Y-m-d H:i:s'));
+        $this->view->setVar('draw_date', date('Y-m-d H:i:s',$lottery_date_time->getTimestamp() - 1800));
         $this->view->setVar('timeout_to_closing_modal', 30 * 60 * 1000);
         $this->view->setVar('minutes_to_close', !empty($minutes_to_close) ? $minutes_to_close : '');
-//        $this->view->setVar('interval_show_closing_modal',30000);
-//        $this->view->setVar('phrase_show_closing_modal', 'Today\’s draw is closed, you will play for the next');
     }
 
     //EMTD i don't know for the moment if modal can be showed anywhere or home page only.

@@ -4,13 +4,12 @@
 namespace EuroMillions\web\controllers;
 
 
-use EuroMillions\web\components\NullPasswordHasher;
-use EuroMillions\web\components\RandomPasswordGenerator;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\JackpotRolloverEmailTemplate;
 use EuroMillions\web\emailTemplates\LatestResultsEmailTemplate;
 use EuroMillions\web\emailTemplates\LongPlayEndedEmailTemplate;
 use EuroMillions\web\emailTemplates\LowBalanceEmailTemplate;
+use EuroMillions\web\emailTemplates\WelcomeEmailTemplate;
 use EuroMillions\web\emailTemplates\WinEmailTemplate;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
@@ -18,11 +17,8 @@ use EuroMillions\web\services\email_templates_strategies\LatestResultsDataEmailT
 use EuroMillions\web\services\email_templates_strategies\LongPlayEndedDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\LowBalanceDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
-use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDataDTO;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\Email;
-use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
-use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\Url;
 use EuroMillions\web\vo\UserId;
 use Money\Currency;
@@ -49,7 +45,8 @@ class EmailTestController extends PublicSiteControllerBase
         'win-email-above-1500',
         'register',
         'send-password-request',
-        'send-new-password'
+        'send-new-password',
+        'welcome',
     ];
 
 
@@ -138,6 +135,11 @@ class EmailTestController extends PublicSiteControllerBase
             case 'win-email-above-1500':
                 $instance = new WinEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
                 break;
+            case 'welcome':
+                $instance = new WelcomeEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
+                $instance->setUser($this->getNewUser('raul.mesa@panamedia.net'));
+                break;
+
         }
         return $instance;
     }
@@ -173,7 +175,7 @@ class EmailTestController extends PublicSiteControllerBase
             $this->domainServiceFactory->getServiceFactory()->getEmailService(null, self::$config)->sendRegistrationMail($this->user, $url);
         } else if ($nameTemplate == 'send-password-request') {
             $url = new Url('http://localhost:8080/user-access/passwordReset/3c44633d83a5780f5bac7dcc6eccb0ab');
-            $this->domainServiceFactory->getServiceFactory()->getEmailService(null, self::$config)->sendPasswordResetMail($this->user, $url);
+          //  $this->domainServiceFactory->getServiceFactory()->getEmailService(null, self::$config)->sendPasswordResetMail($this->user, $url);
         } else if ($nameTemplate == 'send-new-password') {
             //
         } else {

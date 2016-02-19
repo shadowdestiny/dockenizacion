@@ -6,6 +6,7 @@ namespace EuroMillions\web\emailTemplates;
 
 use EuroMillions\web\interfaces\IEmailTemplateDataStrategy;
 use EuroMillions\web\services\DomainServiceFactory;
+use Phalcon\Mvc\Url;
 
 
 abstract class EmailTemplateDecorator implements IEmailTemplate
@@ -24,7 +25,9 @@ abstract class EmailTemplateDecorator implements IEmailTemplate
     {
         $this->emailTemplate = $emailTemplate;
         $this->emailTemplateDataStrategy = $emailTemplateDataStrategy;
-        $this->config = \Phalcon\Di::getDefault()->get('domainServiceFactory')->getServiceFactory()->getDI()->get('config');
+        /** @var Url $url */
+        $url = \Phalcon\Di::getDefault()->get('domainServiceFactory')->getServiceFactory()->getDI()->get('url');
+        $this->config = $url->getBaseUri();
     }
 
     abstract public function loadVars();

@@ -5,7 +5,6 @@ namespace EuroMillions\web\entities;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
-use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\interfaces\IEntity;
 use EuroMillions\web\interfaces\IEMForm;
 use EuroMillions\web\vo\DrawDays;
@@ -53,32 +52,37 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
     {
         $formPlay = null;
         try{
-            $formPlay = json_decode($json,TRUE);
-            if(!is_array($formPlay) || empty($formPlay)){
+            $formPlay = $json;
+            if(empty($formPlay)){
                 throw new Exception('Error converting object to array from storage');
             }
             $this->setUser($user);
-            $euroMillionsLine = [];
-
+            $euroMillionsLine = null;
             foreach($bets as $bet) {
                 $regular_numbers = [];
                 $lucky_numbers = [];
-                foreach ($bet->regular as $number) {
+
+                if(is_array($bet)) {
+                    $regular = $bet[0]->regular;
+                    $lucky = $bet[0]->lucky;
+                } else {
+                    $regular = $bet->regular;
+                    $lucky = $bet->lucky;
+                }
+                foreach ($regular as $number) {
                     $regular_numbers[] = new EuroMillionsRegularNumber($number);
                 }
-
-                foreach ($bet->lucky as $number) {
+                foreach ($lucky as $number) {
                     $lucky_numbers[] = new EuroMillionsLuckyNumber((int) $number);
                 }
-                $euroMillionsLine[] = new EuroMillionsLine($regular_numbers,$lucky_numbers);
+                $euroMillionsLine = new EuroMillionsLine($regular_numbers,$lucky_numbers);
             }
-
             $this->setLine($euroMillionsLine);
             $this->setActive(true);
-            $this->setDrawDays(new DrawDays($formPlay['drawDays']));
-            $this->setStartDrawDate(new \DateTime($formPlay['startDrawDate']));
-            $this->setLastDrawDate(new \DateTime($formPlay['lastDrawDate']));
-            $this->setFrequency((int) $formPlay['frequency']);
+            $this->setDrawDays(new DrawDays($formPlay->drawDays));
+            $this->setStartDrawDate(new \DateTime($formPlay->startDrawDate));
+            $this->setLastDrawDate(new \DateTime($formPlay->lastDrawDate));
+            $this->setFrequency((int) $formPlay->frequency);
 
         }catch(Exception $e){
             throw new Exception($e);
@@ -92,8 +96,7 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
 
     public function toArray()
     {
-        return $arr = $this->jsonSerialize();
-
+        return $this->jsonSerialize();
     }
 
     /**
@@ -108,15 +111,12 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
 
         $lines = [];
         if(count($this->line) > 0) {
-            /** @var EuroMillionsLine $line */
-            foreach($this->line as $line) {
-                $lines[] = $line->toJsonData();
-            }
+                $lines[] = $this->line->toJsonData();
         }
 
         return [
             'id' => $this->id,
-            'drawDays' => $this->draw_days,
+            'drawDays' => $this->draw_days->value(),
             'startDrawDate' => $this->startDrawDate->format('Y-m-d H:i:s'),
             'lastDrawDate' => $this->lastDrawDate->format('Y-m-d H:i:s'),
             'frequency' => $this->frequency,

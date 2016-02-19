@@ -12,12 +12,14 @@ var EuroMillionsBoxBottomAction = React.createClass({
                 params += 'bet['+i+']='+ bet.numbers +","+ bet.stars + '&';
             }
         });
+
         var draw_days = this.props.play_days;
+        var draw_day_play = this.props.draw_day_play;
         var frequency = this.props.duration;
         var start_draw = String(this.props.date_play).split('#')[0];
 
 
-        params += 'draw_days='+draw_days+'&frequency='+frequency+'&start_draw='+start_draw;
+        params += 'draw_days='+draw_days+'&frequency='+frequency+'&start_draw='+start_draw+'&draw_day_play='+draw_day_play;
         ajaxFunctions.playCart(params);
     },
 
@@ -36,7 +38,7 @@ var EuroMillionsBoxBottomAction = React.createClass({
 
         )
     }
-})
+});
 
 
 module.exports = EuroMillionsBoxBottomAction;

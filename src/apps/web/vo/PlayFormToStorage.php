@@ -43,12 +43,13 @@ class PlayFormToStorage extends EMForm
                                             'lucky'   => $lines->getLuckyNumbersArray()
             ];
         }
-        return json_encode(get_object_vars($this));
+        return get_object_vars($this);
     }
 
     public static function className()
     {
         return get_class();
     }
+
 
 }
