@@ -69,7 +69,7 @@ class SiteConfigService
     public function getFeeLimitFormatMoney( Currency $user_currency, $locale)
     {
         list($value_currency_convert, $symbol_position, $symbol) = $this->getCurrenciesVar($user_currency, $locale,  $this->configEntity->getFeeToLimit());
-        return ($symbol_position) ? $value_currency_convert->getAmount() / 1000 . ' ' . $symbol : $symbol . ' ' . $value_currency_convert->getAmount() / 1000;
+        return ($symbol_position) ? $value_currency_convert->getAmount() / 100 . ' ' . $symbol : $symbol . ' ' . $value_currency_convert->getAmount() / 100;
     }
 
     /**

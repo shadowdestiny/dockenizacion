@@ -27,7 +27,7 @@ class LongPlayEndedEmailTemplate extends EmailTemplateDecorator
                     ],
                     [
                         'name'    => 'url_play',
-                        'content' => $this->config->domain['url'] . 'play'
+                        'content' => $this->config . '/play'
                     ]
                 ]
         ];

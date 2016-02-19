@@ -236,7 +236,9 @@ class UserAccessController extends ControllerBase
 
     public function passwordResetAction($token)
     {
-       $result = $this->authService->resetPassword($token);
+        $result = $this->authService->resetPassword($token);
+        $form_errors = $this->getErrorsArray();
+        $myaccount_passwordchange_form = new ResetPasswordForm();
         if ($result->success()) {
             //$message = 'Your password was reset!';
             $this->view->pick('recovery/index');
@@ -245,6 +247,8 @@ class UserAccessController extends ControllerBase
                 'token' => $token,
                 'message' => false,
                 'errors'        => [],
+                'reset_password_form' => $myaccount_passwordchange_form,
+                'form_errors' => $form_errors,
             ]);
         } else {
             //EMTD redirect
@@ -283,27 +287,12 @@ class UserAccessController extends ControllerBase
             'card-number' => '',
             'card-holder' => '',
             'card-cvv' => '',
+            'new-password' => '',
+            'confirm-password' => ''
 
         ];
         return $form_errors;
     }
 
-    /**
-     * @param $paramsFromPreviousAction
-     * @return array
-     */
-    private function getPreviousParams($paramsFromPreviousAction)
-    {
-        if ($this->request->isPost()) {
-            $controller = $this->request->getPost('controller');
-            $action = $this->request->getPost('action');
-            $params = json_decode($this->request->getPost('params'));
-            return array($controller, $action, $params);
-        } else {
-            $controller = $this->dispatcher->getPreviousControllerName();
-            $action = $this->dispatcher->getPreviousActionName();
-            $params = $paramsFromPreviousAction;
-            return array($controller, $action, $params);
-        }
-    }
+
 }

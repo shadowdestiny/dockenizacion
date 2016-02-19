@@ -99,7 +99,7 @@
 
                 <div class="notes cl">
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                    <span class="txt" data-txt='{{ language.translate("Fee of")}} {{  fee }} {{ language.translate("will be charged for transfers less than ") }} {{ fee_to_limit }}' >{{ language.translate("Fee of")}} {{  fee }} {{ language.translate("will be charged for transfers less than ") }} {{ fee_to_limit }}</span>
+                    <span class="txt" data-txt='{{ language.translate("Fee of")}}  {{ fee }} {{ language.translate("will be charged for transfers less than ") }}{{ symbol }} {{ fee_to_limit }}' >{{ language.translate("Fee of")}} {{  fee }} {{ language.translate("will be charged for transfers less than ") }} {{ fee_to_limit }}</span>
                     <span class="txt">{{ language.translate("Currencies are just informative, transactions are charged in Euros.")}}</span>
                 </div>
 

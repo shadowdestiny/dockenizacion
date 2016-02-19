@@ -56,18 +56,19 @@ class DateTimeUtil
         return false;
     }
 
-    public function restMinutesToCloseDraw( \DateTime $time_close_draw, \DateTime $now = null )
+    public function restMinutesToCloseDraw( \DateTime $time_close_draw, \DateTime $now = null , $rounded = false)
     {
         if( $now == null ) {
             $now = new \DateTime();
         }
         $barrier_time = $time_close_draw->getTimestamp() - 1800;
         $rest = $barrier_time - $now->getTimestamp();
-        $minutes = $rest / 60;
-        if( $minutes > 5 ) {
-
+        if($rounded) {
+            $precision = 60 * 5;
+            $round = ( round ( $rest /  $precision) * $precision );
+            return date('i',$round);
         }
-        return $minutes;
+        return $rest / 60;
     }
 
     public function getCountDownNextDraw( \DateTime $date_next_draw )

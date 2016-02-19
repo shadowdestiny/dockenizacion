@@ -176,7 +176,8 @@ class AccountController extends PublicSiteControllerBase
         $user_id = $this->authService->getCurrentUser();
         /** @var User $user */
         $user = $this->userService->getUser($user_id->getId());
-        $fee_value_with_currency = $this->siteConfigService->getFeeFormatMoney($user->getUserCurrency(),$locale);
+
+        $fee_value_with_currency = $this->siteConfigService->getFeeFormatMoney($user->getUserCurrency(), $locale);
         $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeLimitFormatMoney($user->getUserCurrency(), $locale);
         $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue()->getAmount() / 1000;
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
@@ -212,6 +213,7 @@ class AccountController extends PublicSiteControllerBase
         $user = $this->userService->getUser($user_id->getId());
         $errors = [];
         $msg = '';
+        $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
 
         if($this->request->isPost()) {
             if ($credit_card_form->isValid($this->request->getPost()) == false) {
@@ -228,7 +230,6 @@ class AccountController extends PublicSiteControllerBase
             }else {
                 if(null != $user ){
                     try {
-                        $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($expiry_date), new CVV($cvv));
                         $wallet_service = $this->domainServiceFactory->getWalletService();
                         /** @var ICardPaymentProvider $payXpertCardPaymentStrategy */
@@ -243,6 +244,7 @@ class AccountController extends PublicSiteControllerBase
                             $converted_fee_value_currency = $this->currencyService->convert($fee_value, $user->getUserCurrency());
                             $converted_feelimit_value_currency = $this->currencyService->convert($fee_to_limit_value, $user->getUserCurrency());
                             $msg .= 'We added ' . $symbol . ' '  . number_format($converted_net_amount_currency->getAmount() / 100,2,'.',',');
+
                             if($credit_card_charge->getIsChargeFee()) {
                                 $msg .= ', and charged you an additional '. $symbol . ' ' . number_format($converted_fee_value_currency->getAmount() / 100,2,'.',',') .' because it is a transfer below ' . $symbol . ' ' . number_format($converted_feelimit_value_currency->getAmount() / 1000,2,'.',',');
                             }
@@ -259,6 +261,7 @@ class AccountController extends PublicSiteControllerBase
         }
 
         $locale = $this->request->getBestLanguage();
+        if($user->getUserCurrency() == 'CHF') $locale = 'fr_FR';
         $fee_value_with_currency = $this->siteConfigService->getFeeFormatMoney($user->getUserCurrency(), $locale);
         $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeLimitFormatMoney($user->getUserCurrency(), $locale);
         $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue()->getAmount() / 1000;
