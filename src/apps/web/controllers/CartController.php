@@ -151,7 +151,7 @@ class CartController extends PublicSiteControllerBase
                     false,
                 ], 'string')
                 ) {
-                    $errors[] = 'Email/password combination not valid';
+                    $errors[] = 'Incorrect email or password.';
                 } else {
                     return $this->response->redirect('/cart/order?user='.$userId->getId());
                 }

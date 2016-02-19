@@ -55,8 +55,8 @@ class UserAccessController extends ControllerBase
                     'password' => $this->request->getPost('password'),
                     'remember' => $this->request->getPost('remember'),
                 ], 'string')
-                ) {
-                    $errors[] = 'Email/password combination not valid';
+                ) {                    
+                    $errors[] = 'Incorrect email or password.';
                 } else {
                     return $this->response->redirect($url_redirect);
                 }
