@@ -1,5 +1,5 @@
 {% extends "main.volt" %}
-{% block bodyClass %}recovery no-nav{% endblock %}
+{% block bodyClass %}recovery minimal{% endblock %}
 {% block template_css %}<link rel="stylesheet" href="/w/css/sign-in.css">{% endblock %}
 {% block template_scripts_code %}
 var message = {{ message }};
@@ -12,8 +12,8 @@ if(message){
 {% block mobileNav %}{% endblock %} {# Remove mobile navigation #}
 
 {% block body %}
-<main id="content">
-    <div class="wrapper">
+<main id="content" style="padding-top:40px;">
+    <div class="wrapper cl">
         <div class="col-left">
             {% include "_elements/logo.volt" %}
         </div>
