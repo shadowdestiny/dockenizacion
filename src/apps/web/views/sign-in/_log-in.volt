@@ -4,7 +4,7 @@
         <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
     </div>
 {% endif %}
-<form action="{{ url_signin }}" name="form_notifications" id="form-email-settings" method="post" class="form-currency">
+<form action="{{ url_signin }}" name="form_notifications" id="form-email-settings" method="post">
     {% if which_form == 'up' %}
         {% set form_errors['email'] = '' %}
         {% set form_errors['password'] = '' %}
