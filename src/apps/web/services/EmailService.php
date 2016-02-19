@@ -37,7 +37,7 @@ class EmailService
         $this->sendMailToUser(
             $user,
             'Reset your password',
-            'Generate a new password and reset the old one,'
+            'Generate a new password and reset the old one',
             'We have received a request to reset your password. If you didn\'t make the request, just ignore this email.<br>You can reset your password using this link: <a href="'.$url->toNative().'">Click here to reset your password</a>
                 <br><br>or copy and paste this url in your browser: '.$url->toNative(),
             'Reset your password'
