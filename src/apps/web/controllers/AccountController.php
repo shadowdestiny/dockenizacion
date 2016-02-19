@@ -261,7 +261,6 @@ class AccountController extends PublicSiteControllerBase
         }
 
         $locale = $this->request->getBestLanguage();
-        if($user->getUserCurrency() == 'CHF') $locale = 'fr_FR';
         $fee_value_with_currency = $this->siteConfigService->getFeeFormatMoney($user->getUserCurrency(), $locale);
         $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeLimitFormatMoney($user->getUserCurrency(), $locale);
         $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue()->getAmount() / 1000;

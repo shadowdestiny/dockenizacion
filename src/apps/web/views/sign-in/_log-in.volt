@@ -5,12 +5,8 @@
     </div>
 {% endif %}
 <form action="{{ url_signin }}" name="form_notifications" id="form-email-settings" method="post">
-    {% if which_form == 'up' %}
-        {% set form_errors['email'] = '' %}
-        {% set form_errors['password'] = '' %}
-    {% endif %}
-    {{ signinform.render('email', {'class':'input'~form_errors['email']}) }}
-    {{ signinform.render('password', {'class':'input'~form_errors['password']}) }}
+    {{ signinform.render('email', {'class':'input'~form_errors_login['email']}) }}
+    {{ signinform.render('password', {'class':'input'~form_errors_login['password']}) }}
     {{ signinform.render('csrf', ['value': security.getSessionToken()]) }}
     <div class="cl reduce">
         <label class="label left" for="remember">

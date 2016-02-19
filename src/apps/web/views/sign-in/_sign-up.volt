@@ -5,10 +5,6 @@
     </div>
 {% endif %}
 <form action="{{ url_signup }}" name="form_notifications" id="form-email-settings" method="post">
-    {% if  which_form == 'in' %}
-        {% set form_errors['email'] = '' %}
-        {% set form_errors['password'] = '' %}
-    {% endif %}
 
     {{ signupform.render('name', {'class':'input'~form_errors['name']}) }}
     {{ signupform.render('surname', {'class':'input'~form_errors['surname']}) }}

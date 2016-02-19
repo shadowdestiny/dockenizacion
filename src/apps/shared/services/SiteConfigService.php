@@ -82,6 +82,7 @@ class SiteConfigService
         $value_currency_convert = $this->currencyService->convert($value, $user_currency);
         $symbol_position = $this->currencyService->getSymbolPosition($locale, $user_currency);
         $symbol = $this->currencyService->getSymbol($value, $locale);
+
         return array($value_currency_convert, $symbol_position, $symbol);
     }
 

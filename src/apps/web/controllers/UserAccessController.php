@@ -70,12 +70,13 @@ class UserAccessController extends ControllerBase
             'signupform'  => $sign_up_form,
             'errors'      => $errors,
             'currency_list' => [],
+            'form_errors_login' => $form_errors,
             'time_to_remain_draw' => false,
             'last_minute' => false,
             'draw_date' => '',
             'timeout_to_closing_modal' => 30 * 60 * 1000,
             'minutes_to_close' => false,             
-            'form_errors' => $form_errors,
+            'form_errors' => $this->getErrorsArray(),
         ]);
     }
 
@@ -122,6 +123,7 @@ class UserAccessController extends ControllerBase
             'signinform'  => $sign_in_form,
             'signupform'  => $sign_up_form,
             'errors'      => $errors,
+            'form_errors_login' => $this->getErrorsArray(),
             'currency_list' => [],
             'time_to_remain_draw' => false,
             'last_minute' => false,

@@ -110,10 +110,12 @@ class CartController extends PublicSiteControllerBase
                 }
             }
         }
+
         $this->view->pick('cart/profile');
         return $this->view->setVars([
             'which_form'  => 'up',
             'signinform'  => $sign_in_form,
+            'form_errors_login' => $this->getErrorsArray(),
             'signupform'  => $sign_up_form,
             'errors'      => $errors,
             'form_errors' => $form_errors,
@@ -162,7 +164,8 @@ class CartController extends PublicSiteControllerBase
             'signinform'  => $sign_in_form,
             'signupform'  => $sign_up_form,
             'errors'      => $errors,
-            'form_errors' => $form_errors,
+            'form_errors' => $this->getErrorsArray(),
+            'form_errors_login' => $form_errors,
             'controller' => $controller,
             'action' => $action,
             'params' => json_encode($params),

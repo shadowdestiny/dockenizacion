@@ -59,9 +59,11 @@ class SignUpForm extends Form
         $password = new Password('password', array(
             'placeholder' => 'Password'
         ));
+
         $password->addValidator(new PresenceOf(array(
             'message' => 'Password is a required field.'
         )));
+
         $password->addValidator(new Confirmation(
             [
                 'with' => 'confirm_password',
