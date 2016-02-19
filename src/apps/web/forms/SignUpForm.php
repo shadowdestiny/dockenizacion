@@ -21,11 +21,25 @@ class SignUpForm extends Form
         $name = new Text('name', [
             'placeholder' => 'Name'
         ]);
+
+        $name->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'The name is required'
+            )),
+        ));
+
         $this->add($name);
 
         $surname = new Text('surname', [
             'placeholder' => 'Surname'
         ]);
+
+        $surname->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'The surname is required'
+            )),
+        ));
+
         $this->add($surname);
 
         $email = new Email('email', array(
@@ -39,6 +53,7 @@ class SignUpForm extends Form
                 'message' => 'Not a valid email'
             ]),
         ));
+
         $this->add($email);
 
         $password = new Password('password', array(
@@ -86,6 +101,13 @@ class SignUpForm extends Form
                 'emptyText' => 'Select your country',
             ]
         );
+
+        $country->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'The country is required'
+            )),
+        ));
+
         $this->add($country);
 
         $csrf = new Hidden('csrf');

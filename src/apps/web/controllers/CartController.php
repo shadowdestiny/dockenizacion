@@ -86,12 +86,11 @@ class CartController extends PublicSiteControllerBase
         $sign_up_form = $this->getSignUpForm();
         list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
         $sign_in_form = new SignInForm();
-        $myaccount_form = $this->getMyACcountForm();
+        //$myaccount_form = $this->getMyACcountForm();
         $form_errors = $this->getErrorsArray();
         if($this->request->isPost()) {
-            if ($myaccount_form->isValid($this->request->getPost()) == false) {
-                $messages = $myaccount_form->getMessages(true);
-
+            if ($sign_up_form->isValid($this->request->getPost()) == false) {
+                $messages = $sign_up_form->getMessages(true);
                 foreach ($messages as $field => $field_messages) {
                     $errors[] = $field_messages[0]->getMessage();
                     $form_errors[$field] = ' error';
