@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4daaa18d891da2da0e1325d39b85bbe5",
-    "content-hash": "cbdb962e112cd144bf375e5d8a82966a",
+    "hash": "ceeffcaf29801fbe063ce5e2bc9f2fe9",
+    "content-hash": "cdb654c6faec7310fd33ddb03cdf2150",
     "packages": [
         {
             "name": "alcohol/iso4217",
@@ -933,16 +933,16 @@
         },
         {
             "name": "mathiasverraes/money",
-            "version": "1.2.1",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moneyphp/money.git",
-                "reference": "b9e258119041fed20e4704f72e3ebb94ed10bea2"
+                "reference": "1926c54143da8eec322ae4985014cd73a98b0792"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moneyphp/money/zipball/b9e258119041fed20e4704f72e3ebb94ed10bea2",
-                "reference": "b9e258119041fed20e4704f72e3ebb94ed10bea2",
+                "url": "https://api.github.com/repos/moneyphp/money/zipball/1926c54143da8eec322ae4985014cd73a98b0792",
+                "reference": "1926c54143da8eec322ae4985014cd73a98b0792",
                 "shasum": ""
             },
             "require": {
@@ -984,7 +984,7 @@
                 "Value Object",
                 "money"
             ],
-            "time": "2014-10-07 12:54:10"
+            "time": "2016-01-16 22:03:46"
         },
         {
             "name": "mledoze/countries",
