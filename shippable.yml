@@ -34,7 +34,7 @@ script:
  - src/vendor/bin/phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage --configuration src/tests/phpunit.xml --testsuite=unit+integration
  - cd src/react;npm test
 
- after_success :
+after_success :
  - curl --data "environment=staging&version=master" http://62.57.159.66:3000/deploy/
 
 notifications:
