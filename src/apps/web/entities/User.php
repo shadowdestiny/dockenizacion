@@ -45,6 +45,25 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     protected $threshold;
     protected $userNotification;
     protected $show_modal_winning;
+    protected $winning_above;
+
+    /**
+     * @return mixed
+     */
+    public function getWinningAbove()
+    {
+        return $this->winning_above;
+    }
+
+    /**
+     * @param mixed $winning_above
+     */
+    public function setWinningAbove($winning_above)
+    {
+        $this->winning_above = $winning_above;
+    }
+
+
 
     /**
      * @return ArrayCollection
