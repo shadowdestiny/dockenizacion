@@ -20,7 +20,8 @@ var CartPage = new React.createClass({
             new_balance: 0,
             fund_value : 0,
             show_fee_value : true,
-            total : 0
+            total : 0,
+            pre_total : 0
         }
     },
 
@@ -75,6 +76,11 @@ var CartPage = new React.createClass({
         if(value) $('.payment').hide();
         this.state.checked_wallet = value;
         this.handleUpdatePrice();
+    },
+
+    handlePreTotal : function (value)
+    {
+        this.state.pre_total = parseFloat(value * this.props.single_bet_price * this.state.playConfigList.bets.length).toFixed(2);
     },
 
     handleClickAdd : function (value)
@@ -159,7 +165,7 @@ var CartPage = new React.createClass({
         var _euroMillionsLine = [];
         var class_button_payment = 'btn blue big buy';
         //EMTD
-        var price_and_symbol_order_line = this.props.symbol_position ? (this.props.single_bet_price * this.props.draw_days).toFixed(2) + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + (this.props.single_bet_price * this.props.draw_days).toFixed(2);
+        var price_and_symbol_order_line = this.props.symbol_position ? parseFloat(this.props.single_bet_price).toFixed(2) + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + parseFloat(this.props.single_bet_price).toFixed(2);
 
         for (let i=0; i< _playConfigList.bets.length; i++) {
             var numbers = _playConfigList.bets[i].regular;
@@ -211,6 +217,7 @@ var CartPage = new React.createClass({
             data_btn = 'no-wallet';
         }
 
+        var pre_total_symbol = this.props.symbol_position ? this.state.pre_total + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + this.state.pre_total;
         //EMTD when we have more time, change this vars with var received from server.
         var symbol_price_balance = this.props.symbol_position ? this.props.wallet_balance + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + this.props.wallet_balance;
         var symbol_price_new_balance = this.props.symbol_position ? this.state.new_balance + ' ' + this.props.currency_symbol : this.props.currency_symbol + ' ' + this.state.new_balance;
@@ -231,14 +238,14 @@ var CartPage = new React.createClass({
                 </div>
                 <div className="box-order">
                     {_euroMillionsLine}
-                    <EmLineOrderConfig config={this.props.config} playConfig={_playConfigList} duration={this.handleChangeDrawDuration}/>
+                    <EmLineOrderConfig config={this.props.config} playConfig={_playConfigList} pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration}/>
                     <div className="pre-total cl">
                         <div className="total">
                             <div className="txt">
                                 Total
                             </div>
                             <div className="val">
-                                &euro; 20.50
+                                 {pre_total_symbol}
                             </div>
                         </div>
                     </div>

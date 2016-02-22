@@ -20,6 +20,12 @@ var EmLineOrderConfig = new React.createClass({
         }
     },
 
+    handlePreTotal : function(days, weeks)
+    {
+        var value = days * weeks;
+        this.props.pre_total(value);
+    },
+
     handleChange : function (event)
     {
         this.props.duration(event.target.value);
@@ -30,10 +36,10 @@ var EmLineOrderConfig = new React.createClass({
 
         var config = JSON.parse(this.props.config);
         var date_since = config.startDrawDate;
-        var num_weeks = config.duration;
+        var num_weeks = config.duration > 0 ? config.duration : 1;
         var draw_days = config.draw_days;
         var text_weeks = '';//num_weeks > 0 ? 'for ' + num_weeks : '';// + (num_weeks > 1) ? ' weeks' : 'week' : '';
-
+        this.handlePreTotal(draw_days,num_weeks);
 
         var date = new Date(date_since);
         var day = '';
@@ -43,9 +49,9 @@ var EmLineOrderConfig = new React.createClass({
             day = 'Friday';
         }
 
-        if(draw_days == 1 && num_weeks == 0) {
+        if(draw_days == 1 && num_weeks == 1) {
             text_weeks = ' On ' + day + ' ' + date_since;
-        } else if ( draw_days > 1 && num_weeks == 0) {
+        } else if ( draw_days > 1 && num_weeks == 1) {
             text_weeks = 'Tuesday & Friday, since ' + date_since + ' for 1 week';
         } else if ( draw_days == 1 && num_weeks > 0) {
             text_weeks = 'Every ' + day +', since ' + date_since + ' for ' + num_weeks + ' weeks';
@@ -61,9 +67,10 @@ var EmLineOrderConfig = new React.createClass({
                 </div>
                 <div className="quantity">
                     <span className="txt">Draws</span>
-                    <span className="val">x10</span>
+                    <span className="val">x{num_weeks * draw_days}</span>
                 </div>
             </div>
+
         )
     }
 
