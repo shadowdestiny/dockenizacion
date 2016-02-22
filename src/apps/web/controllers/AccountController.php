@@ -177,9 +177,9 @@ class AccountController extends PublicSiteControllerBase
         /** @var User $user */
         $user = $this->userService->getUser($user_id->getId());
 
-        $fee_value_with_currency = $this->siteConfigService->getFeeFormatMoney($user->getUserCurrency(), $locale);
-        $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeLimitFormatMoney($user->getUserCurrency(), $locale);
-        $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue()->getAmount() / 1000;
+        $fee_value_with_currency = $this->siteConfigService->getFeeValueWithCurrencyConverted($user->getUserCurrency());
+        $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeToLimitValueWithCurrencyConverted($user->getUserCurrency());
+        $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue()->getAmount() / 100;
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
         $amount_winning = $user->getWinningAbove();
         $this->userService->resetWonAbove($user);
@@ -195,8 +195,8 @@ class AccountController extends PublicSiteControllerBase
             'show_winning_copy' => ($amount_winning != null ) ? $amount_winning->getAmount() / 100 : 0,
             'show_box_basic' => true,
             'fee_to_limit_value' => $fee_to_limit_value,
-            'fee' => $fee_value_with_currency,
-            'fee_to_limit' => $fee_to_limit_value_with_currency
+            'fee' => $symbol . ' ' . $fee_value_with_currency->getAmount() / 100,
+            'fee_to_limit' => $symbol . ' ' . $fee_to_limit_value_with_currency->getAmount() / 100
         ]);
     }
 
@@ -264,8 +264,8 @@ class AccountController extends PublicSiteControllerBase
         }
 
         $locale = $this->request->getBestLanguage();
-        $fee_value_with_currency = $this->siteConfigService->getFeeFormatMoney($user->getUserCurrency(), $locale);
-        $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeLimitFormatMoney($user->getUserCurrency(), $locale);
+        $fee_value_with_currency = $this->siteConfigService->getFeeValueWithCurrencyConverted($user->getUserCurrency());
+        $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeToLimitValueWithCurrencyConverted($user->getUserCurrency());
         $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue()->getAmount() / 1000;
 
 
@@ -277,9 +277,10 @@ class AccountController extends PublicSiteControllerBase
             'credit_card_form' => $credit_card_form,
             'msg' => $msg,
             'fee_to_limit_value' => $fee_to_limit_value,
-            'fee' => $fee_value_with_currency,
-            'fee_to_limit' => $fee_to_limit_value_with_currency,
+            'fee' => $symbol . ' ' . $fee_value_with_currency->getAmount() / 100,
+            'fee_to_limit' => $symbol . ' ' . $fee_to_limit_value_with_currency->getAmount() / 100,
             'show_form_add_fund' => true,
+            'show_winning_copy' => 0,
             'show_box_basic' => false,
         ]);
     }

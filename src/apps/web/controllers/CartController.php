@@ -401,7 +401,7 @@ class CartController extends PublicSiteControllerBase
             'wallet_balance'   => $wallet_balance->getAmount() / 100,
             'total_price'      => $total_price->getAmount() / 100,
             'form_errors'      => $form_errors,
-            'fee_limit'        => $fee_to_limit_value->getAmount() / 1000,
+            'fee_limit'        => $fee_to_limit_value->getAmount() / 100,
             'fee'              => $fee_value->getAmount() / 100,
             'currency_symbol'  => $currency_symbol,
             'symbol_position'  => ($symbol_position === 0) ? false : true,
