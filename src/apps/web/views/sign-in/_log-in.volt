@@ -4,13 +4,9 @@
         <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
     </div>
 {% endif %}
-<form action="{{ url_signin }}" name="form_notifications" id="form-email-settings" method="post" class="form-currency">
-    {% if which_form == 'up' %}
-        {% set form_errors['email'] = '' %}
-        {% set form_errors['password'] = '' %}
-    {% endif %}
-    {{ signinform.render('email', {'class':'input'~form_errors['email']}) }}
-    {{ signinform.render('password', {'class':'input'~form_errors['password']}) }}
+<form action="{{ url_signin }}" name="form_notifications" id="form-email-settings" method="post">
+    {{ signinform.render('email', {'class':'input'~form_errors_login['email']}) }}
+    {{ signinform.render('password', {'class':'input'~form_errors_login['password']}) }}
     {{ signinform.render('csrf', ['value': security.getSessionToken()]) }}
     <div class="cl reduce">
         <label class="label left" for="remember">

@@ -271,11 +271,11 @@ class AuthService
         $user = $this->userRepository->getByToken($token);
         if (!empty($user)) {
             try {
-                $passwordGenerator = new RandomPasswordGenerator(new NullPasswordHasher());
-                $password = $passwordGenerator->getPassword();
-                $this->emailService->sendNewPasswordMail($user, $password);
-                $user->setPassword(new Password($password->toNative(), new PhpassWrapper()));
-                $this->entityManager->flush($user);
+//                $passwordGenerator = new RandomPasswordGenerator(new NullPasswordHasher());
+//                $password = $passwordGenerator->getPassword();
+//                $this->emailService->sendNewPasswordMail($user, $password);
+//                $user->setPassword(new Password($password->toNative(), new PhpassWrapper()));
+//                $this->entityManager->flush($user);
                 return new ActionResult(true, 'Email sent');
             } catch (Exception $e) {
                 return new ActionResult(false, '');

@@ -13,12 +13,13 @@ use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\PriceCheckoutService;
 use EuroMillions\web\services\ServiceFactory;
+use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use Money\Money;
 
 class PriceCheckoutTask extends TaskBase
 {
-    const EMAIL_ABOVE = 1500*100;
+    const EMAIL_ABOVE = 2500*100;
 
     /** @var  PriceCheckoutService */
     private $priceCheckoutService;
@@ -26,15 +27,19 @@ class PriceCheckoutTask extends TaskBase
     /** @var  LotteriesDataService */
     private $lotteriesDataService;
 
+    /** @var  UserService  */
+    private $userService;
+
     /** @var  EmailService */
     private $emailService;
 
-    public function initialize(PriceCheckoutService $priceCheckoutService = null, LotteriesDataService $lotteriesDataService = null, EmailService $emailService = null)
+    public function initialize(PriceCheckoutService $priceCheckoutService = null, LotteriesDataService $lotteriesDataService = null, EmailService $emailService = null, UserService $userService = null)
     {
         $domainFactory = new DomainServiceFactory($this->getDI(), new ServiceFactory($this->getDI()));
         $this->priceCheckoutService = $priceCheckoutService ? $this->priceCheckoutService = $priceCheckoutService : $domainFactory->getPriceCheckoutService();
         ($lotteriesDataService) ? $this->lotteriesDataService = $lotteriesDataService : $this->lotteriesDataService = $domainFactory->getLotteriesDataService();
         ($emailService) ? $this->emailService = $emailService : $this->emailService = $domainFactory->getServiceFactory()->getEmailService();
+        ($userService) ? $this->userService = $userService : $domainFactory->getUserService();
         parent::initialize();
     }
 
@@ -61,6 +66,7 @@ class PriceCheckoutTask extends TaskBase
                     $emailTemplate->setUser($user);
                     $emailTemplate->setResultAmount($result_amount);
                     if($result_amount->getAmount() > $threshold_price) {
+                        $this->userService->userWonAbove($user, $result_amount);
                         $this->emailService->sendTransactionalEmail($user,$emailTemplate);
                     } else {
                         $this->emailService->sendTransactionalEmail($user,$emailTemplate);

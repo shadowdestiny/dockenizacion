@@ -31,12 +31,15 @@
                 <option name="default">0</option>
             </options>
         </field>
+
         <embedded name="password" class="EuroMillions\web\vo\Password" use-column-prefix="false"/>
         <embedded name="email" class="EuroMillions\web\vo\Email" use-column-prefix="false"/>
         <embedded name="rememberToken" class="EuroMillions\web\vo\RememberToken" use-column-prefix="false"/>
         <embedded name="validationToken" class="EuroMillions\web\vo\ValidationToken" use-column-prefix="false"/>
         <embedded name="wallet" class="EuroMillions\shared\vo\Wallet" use-column-prefix="true" />
         <embedded name="user_currency" class="Money\Currency" use-column-prefix="true" />
+        <embedded name="winning_above" class="Money\Money" use-column-prefix="true" />
+
         <one-to-many target-entity="EuroMillions\web\entities\PlayConfig" mapped-by="play_config"
                      field="playConfig">
         </one-to-many>

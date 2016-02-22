@@ -177,10 +177,12 @@ class AccountController extends PublicSiteControllerBase
         /** @var User $user */
         $user = $this->userService->getUser($user_id->getId());
 
-        $fee_value_with_currency = $this->siteConfigService->getFeeFormatMoney($user->getUserCurrency(), $locale);
-        $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeLimitFormatMoney($user->getUserCurrency(), $locale);
-        $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue()->getAmount() / 1000;
+        $fee_value_with_currency = $this->siteConfigService->getFeeValueWithCurrencyConverted($user->getUserCurrency());
+        $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeToLimitValueWithCurrencyConverted($user->getUserCurrency());
+        $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue()->getAmount() / 100;
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
+        $amount_winning = $user->getWinningAbove();
+        $this->userService->resetWonAbove($user);
 
         return $this->view->setVars([
             'which_form' => 'wallet',
@@ -190,10 +192,11 @@ class AccountController extends PublicSiteControllerBase
             'symbol' => $symbol,
             'credit_card_form' => $credit_card_form,
             'show_form_add_fund' => false,
+            'show_winning_copy' => ($amount_winning != null ) ? $amount_winning->getAmount() / 100 : 0,
             'show_box_basic' => true,
             'fee_to_limit_value' => $fee_to_limit_value,
-            'fee' => $fee_value_with_currency,
-            'fee_to_limit' => $fee_to_limit_value_with_currency
+            'fee' => $symbol . ' ' . $fee_value_with_currency->getAmount() / 100,
+            'fee_to_limit' => $symbol . ' ' . $fee_to_limit_value_with_currency->getAmount() / 100
         ]);
     }
 
@@ -261,10 +264,10 @@ class AccountController extends PublicSiteControllerBase
         }
 
         $locale = $this->request->getBestLanguage();
-        if($user->getUserCurrency() == 'CHF') $locale = 'fr_FR';
-        $fee_value_with_currency = $this->siteConfigService->getFeeFormatMoney($user->getUserCurrency(), $locale);
-        $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeLimitFormatMoney($user->getUserCurrency(), $locale);
+        $fee_value_with_currency = $this->siteConfigService->getFeeValueWithCurrencyConverted($user->getUserCurrency());
+        $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeToLimitValueWithCurrencyConverted($user->getUserCurrency());
         $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue()->getAmount() / 1000;
+
 
         $this->view->pick('/account/wallet');
         return $this->view->setVars([
@@ -274,9 +277,10 @@ class AccountController extends PublicSiteControllerBase
             'credit_card_form' => $credit_card_form,
             'msg' => $msg,
             'fee_to_limit_value' => $fee_to_limit_value,
-            'fee' => $fee_value_with_currency,
-            'fee_to_limit' => $fee_to_limit_value_with_currency,
+            'fee' => $symbol . ' ' . $fee_value_with_currency->getAmount() / 100,
+            'fee_to_limit' => $symbol . ' ' . $fee_to_limit_value_with_currency->getAmount() / 100,
             'show_form_add_fund' => true,
+            'show_winning_copy' => 0,
             'show_box_basic' => false,
         ]);
     }
@@ -377,7 +381,7 @@ class AccountController extends PublicSiteControllerBase
     {
         $errors = [];
         $form_errors = $this->getErrorsArray();
-        $msg = false;
+        $msg = 0;
         $token = $this->request->getPost('token');
         $myaccount_passwordchange_form = new ResetPasswordForm();
         if($this->request->isPost()) {
@@ -396,7 +400,7 @@ class AccountController extends PublicSiteControllerBase
                     $result = $this->authService->updatePassword($user_result->getValues(), $new_password);
                     if ($result->success()) {
                         //this->response->redirect('/sign-in');
-                        $msg = true;
+                        $msg = 1;
                     } else {
                         $errors [] = $result->errorMessage();
                     }

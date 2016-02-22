@@ -1,37 +1,32 @@
 {% extends "main.volt" %}
 {% block template_css %}<link rel="stylesheet" href="/w/css/cart.css">{% endblock %}
-
 {% block template_scripts_code %}
-    var size = checkSize();
-    function swap(myVar){
-        $(myVar).click(function(event){
-            event.preventDefault();
-            $(".col4, .col8").toggle();
-        });
-    }
-    if(size >= 3){
-        $(function(){
-            var which_form = '<?php echo $which_form;?>';
-            if(which_form == 'in'){
-                $(".col8").hide();
-            } else {
-                $(".col4").hide();
-            }
-            swap(".col4 .box-extra a, .col8 .box-extra a");
-        });
-    }
+var size = checkSize();
+function swap(myVar){
+    $(myVar).click(function(event){
+        event.preventDefault();
+        $(".col4, .col8").toggle();
+    });
+}
+if(size >= 3){
+    $(function(){
+        var which_form = '<?php echo $which_form;?>';
+        if(which_form == 'in'){
+            $(".col8").hide();
+        } else {
+            $(".col4").hide();
+        }
+        swap(".col4 .box-extra a, .col8 .box-extra a");
+    });
+}
 {% endblock %}
 {% block bodyClass %}cart profile minimal sign-in{% endblock %}
 
-{% block header %}
-    {% include "_elements/minimal-header.volt" %}
-{% endblock %}
+{% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
 {% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}
 
 {% block body %}
-
 {% set signIn='{"myClass": "cart"}'|json_decode %}
-
 <main id="content">
     <div class="wrapper">
         <div class="what-user">
@@ -59,19 +54,8 @@
                             </div>
                             {% set url_signup = '/cart/profile' %}
                             {% include "sign-in/_sign-up.volt" %}
-{#
-                            <p>
-                                {{ language.translate("It is necessary to register to be able to finalize the play and to claim the prize in case of winning.") }}
-                            </p>
-                            <div class="cl">
-                                <input id="register" type="submit" class="hidden2" />
-                                <label for="register" class="submit btn big blue">{{ language.translate("Create account &amp; Play") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
-                            </div>
-#}
                         </div>
-
                     </div>
-
                 </div>
             </div>
 
@@ -81,39 +65,6 @@
             </div>
 
         </div>
-
-{#
-        <div class="box-basic medium content">
-            <h1 class="h1 title yellow">{{ language.translate("Your Profile") }}</h1>
-            <form action="/cart/profile" method="post">
-                <div class="fields cl">
-                    {% if errors %}
-                    <div class="box error">
-                        {% for error in errors %}
-                            <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
-                            <span class="txt">{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-                    <p>{{ language.translate("We need your information in order to proceed to payment.") }}</p>
-                    {% set activePsw='{"myClass": "no"}'|json_decode %}
-                    {% include "account/_user-detail.volt" %}
-                </div>
-                <div class="cl">
-                    <label class="btn blue big right submit">
-                        {{ language.translate("Save and proceed to Checkout") }} 
-                        <input type="submit" class="hidden2">
-                    </label>
-                </div>
-
-                <!-- Temporary commented (Credit Card details)
-                <hr class="hr yellow">
-                {% set component='{"where": "cart"}'|json_decode %}
-                {% include "account/_add-card.volt" %}
-                -->
-            </form>
-        </div>
-#}
     </div>
 </main>
 {% endblock %}

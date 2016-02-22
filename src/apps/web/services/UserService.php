@@ -314,4 +314,37 @@ class UserService
         }
     }
 
+    public function userWonAbove( User $user, Money $money )
+    {
+        if(null == $user) {
+            return new ActionResult(false,new Money(0,$user->getUserCurrency()));
+        }
+        if( $money->getAmount() < 250000 ) {
+            return new ActionResult(false,new Money(0,$user->getUserCurrency()));
+        }
+        try {
+            $user->setWinningAbove($money);
+            $this->userRepository->add($user);
+            $this->entityManager->flush($user);
+            return new ActionResult(true, $money);
+        } catch( \Exception $e ) {
+            return new ActionResult(false,new Money(0,$user->getUserCurrency()));
+        }
+    }
+
+    public function resetWonAbove( User $user ) {
+
+        if(null == $user) {
+            return new ActionResult(false,new Money(0,$user->getUserCurrency()));
+        }
+        try {
+            $user->setWinningAbove(new Money(0, $user->getUserCurrency()));
+            $this->userRepository->add($user);
+            $this->entityManager->flush($user);
+        } catch ( \Exception $e ) {
+
+        }
+
+    }
+
 }

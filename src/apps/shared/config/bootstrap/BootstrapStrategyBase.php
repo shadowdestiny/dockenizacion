@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\Common\Cache\ApcCache;
 use EuroMillions\shared\components\PhalconRedisWrapper;
+use EuroMillions\shared\components\PhalconUrlWrapper;
 use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
@@ -49,6 +50,7 @@ abstract class BootstrapStrategyBase
         $di->set('redisCache', $this->configRedis($config), true);
         $di->set('siteConfig', $this->siteConfig( $this->configDoctrine($config), $di),true);
         $di->set('paymentProviderFactory', $this->configPaymentProvider($di), true);
+
         // $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
         return $di;
     }
@@ -121,6 +123,7 @@ abstract class BootstrapStrategyBase
     {
         return new Ini($this->globalConfigPath . 'config.ini');
     }
+
 
     protected function siteConfig(EntityManager $entityManager, $di)
     {

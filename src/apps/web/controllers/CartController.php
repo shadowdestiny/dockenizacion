@@ -86,12 +86,11 @@ class CartController extends PublicSiteControllerBase
         $sign_up_form = $this->getSignUpForm();
         list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
         $sign_in_form = new SignInForm();
-        $myaccount_form = $this->getMyACcountForm();
+        //$myaccount_form = $this->getMyACcountForm();
         $form_errors = $this->getErrorsArray();
         if($this->request->isPost()) {
-            if ($myaccount_form->isValid($this->request->getPost()) == false) {
-                $messages = $myaccount_form->getMessages(true);
-
+            if ($sign_up_form->isValid($this->request->getPost()) == false) {
+                $messages = $sign_up_form->getMessages(true);
                 foreach ($messages as $field => $field_messages) {
                     $errors[] = $field_messages[0]->getMessage();
                     $form_errors[$field] = ' error';
@@ -111,10 +110,12 @@ class CartController extends PublicSiteControllerBase
                 }
             }
         }
+
         $this->view->pick('cart/profile');
         return $this->view->setVars([
             'which_form'  => 'up',
             'signinform'  => $sign_in_form,
+            'form_errors_login' => $this->getErrorsArray(),
             'signupform'  => $sign_up_form,
             'errors'      => $errors,
             'form_errors' => $form_errors,
@@ -151,7 +152,7 @@ class CartController extends PublicSiteControllerBase
                     false,
                 ], 'string')
                 ) {
-                    $errors[] = 'Email/password combination not valid';
+                    $errors[] = 'Incorrect email or password.';
                 } else {
                     return $this->response->redirect('/cart/order?user='.$userId->getId());
                 }
@@ -163,7 +164,8 @@ class CartController extends PublicSiteControllerBase
             'signinform'  => $sign_in_form,
             'signupform'  => $sign_up_form,
             'errors'      => $errors,
-            'form_errors' => $form_errors,
+            'form_errors' => $this->getErrorsArray(),
+            'form_errors_login' => $form_errors,
             'controller' => $controller,
             'action' => $action,
             'params' => json_encode($params),
@@ -399,7 +401,7 @@ class CartController extends PublicSiteControllerBase
             'wallet_balance'   => $wallet_balance->getAmount() / 100,
             'total_price'      => $total_price->getAmount() / 100,
             'form_errors'      => $form_errors,
-            'fee_limit'        => $fee_to_limit_value->getAmount() / 1000,
+            'fee_limit'        => $fee_to_limit_value->getAmount() / 100,
             'fee'              => $fee_value->getAmount() / 100,
             'currency_symbol'  => $currency_symbol,
             'symbol_position'  => ($symbol_position === 0) ? false : true,

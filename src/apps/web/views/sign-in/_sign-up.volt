@@ -4,11 +4,7 @@
         <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
     </div>
 {% endif %}
-<form action="{{ url_signup }}" name="form_notifications" id="form-email-settings" method="post" class="form-currency">
-    {% if  which_form == 'in' %}
-        {% set form_errors['email'] = '' %}
-        {% set form_errors['password'] = '' %}
-    {% endif %}
+<form action="{{ url_signup }}" name="form_notifications" id="form-email-settings" method="post">
 
     {{ signupform.render('name', {'class':'input'~form_errors['name']}) }}
     {{ signupform.render('surname', {'class':'input'~form_errors['surname']}) }}

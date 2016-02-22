@@ -45,6 +45,8 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
 
     private $emailService_double;
 
+    private $userService_double;
+
     protected function getEntityManagerStubExtraMappings()
     {
         return [
@@ -63,6 +65,7 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
         $this->priceCheckoutService_double = $this->getServiceDouble('PriceCheckoutService');
         $this->betRepository_double = $this->getRepositoryDouble('BetRepository');
         $this->emailService_double = $this->getServiceDouble('EmailService');
+        $this->userService_double = $this->getServiceDouble('UserService');
         parent::setUp();
     }
 
@@ -82,7 +85,7 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
         $this->lotteryDataService_double->getBreakDownDrawByDate($lottery_name,$today)->willReturn(new ActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())));
         $this->priceCheckoutService_double->reChargeAmountAwardedToUser($user,Argument::any())->willReturn(new ActionResult(true))->shouldBeCalledTimes(2);
         $sut = new PriceCheckoutTask();
-        $sut->initialize($this->priceCheckoutService_double->reveal(), $this->lotteryDataService_double->reveal());
+        $sut->initialize($this->priceCheckoutService_double->reveal(), $this->lotteryDataService_double->reveal(),null, $this->userService_double->reveal());
         $sut->checkoutAction($today);
     }
 
@@ -99,10 +102,11 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
         $result_awarded = $this->getPlayConfigsAwarded();
         $this->priceCheckoutService_double->playConfigsWithBetsAwarded($today)->willReturn(new ActionResult(true,$result_awarded));
         $this->lotteryDataService_double->getBreakDownDrawByDate($lottery_name,$today)->willReturn(new ActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())));
-        $this->priceCheckoutService_double->reChargeAmountAwardedToUser($user,Argument::any())->willReturn(new ActionResult(true))->shouldBeCalledTimes(2);
+        $this->priceCheckoutService_double->reChargeAmountAwardedToUser($user,Argument::type('Money\Money'))->willReturn(new ActionResult(true))->shouldBeCalledTimes(2);
+        $this->userService_double->userWonAbove($user, Argument::type('Money\Money'))->shouldBeCalled();
         $this->emailService_double->sendTransactionalEmail($user,Argument::type('EuroMillions\web\emailTemplates\IEmailTemplate'))->shouldBeCalled();
         $sut = new PriceCheckoutTask();
-        $sut->initialize($this->priceCheckoutService_double->reveal(), $this->lotteryDataService_double->reveal(), $this->emailService_double->reveal());
+        $sut->initialize($this->priceCheckoutService_double->reveal(), $this->lotteryDataService_double->reveal(), $this->emailService_double->reveal(), $this->userService_double->reveal());
         $sut->checkoutAction($today);
     }
 
@@ -167,6 +171,7 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
                 'email'    => new Email('raul.mesa@panamedia.net'),
                 'password' => new Password('passworD01', new NullPasswordHasher()),
                 'validated' => false,
+                'user_currency' => new Currency('EUR'),
                 'wallet' => new Wallet(new Money(5000,new Currency('EUR'))),
                 'validation_token' => '33e4e6a08f82abb38566fc3bb8e8ef0d'
             ]
