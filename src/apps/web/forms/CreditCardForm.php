@@ -29,7 +29,8 @@ class CreditCardForm extends Form
                 'message' => 'Insert a Credit Card number.'
             )),
             new StringLength(array(
-               'max' => 16
+                'min' => 16,
+                'max' => 16
             )),
             new Numericality(array(
             )),

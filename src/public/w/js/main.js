@@ -211,18 +211,23 @@ $(function(){
     var first_load = true;
     var fade_value = 800;
     var interval_warning = 300000;
-    var timeout_first_warning = 30000;
+    var timeout_first_warning = 10000;
 
     if(remain_time == 1 && minutes_value >= 1 && minutes_value < 30){
+        console.log(minutes_value);
         if (minutes_value > 1 && minutes_value <= 5){
+            console.log('init1 ' + minutes_value);
             interval_warning = 30000;
         }else if (minutes_value == 1){
+            console.log('init2 ' + minutes_value);
             interval_warning = 5000;
             timeout_first_warning = 10000;
         }
         if(minutes_value < 2 ) {
+            console.log('init3 ' + minutes_value);
             interval_warning = 2000;
-            $('.ending').text('The draw will close in ' + minutes_value + ' minute')
+            minutes_value = 2;
+            $('.ending').text('The draw will close in about ' + minutes_value + ' minutes')
         } else {
             $('.ending').text('The draw will close in ' + minutes_to_close_rounded + ' minutes')
         }
@@ -231,23 +236,34 @@ $(function(){
             $('.ending').fadeOut(fade_value);
         },timeout_first_warning);
         interval_warning_close = setInterval(function(){
+            console.log('execute');
+            console.log('first_load = ' + first_load);
             minutes_value =  getMinutes();
-            if(!first_load) {
+           // if(!first_load) {
+                console.log('pasa');
+                console.log(minutes_value);
                 if(minutes_value > 6) {
-                    minutes_value = minutes_to_close_rounded - 5;
-                    var minutes_to_close = minutes_value - 5;
+                    console.log(">6 " + minutes_value);
+                    var minutes_to_close = minutes_to_close_rounded - 5;
                     interval_warning_close = logic_warning_interval(minutes_to_close, finish_countdown_warning_close_draw, interval_warning_close, interval_warning);
                 }else if(minutes_value > 2){
+                    console.log(">2 " + minutes_value);
                     if(minutes_value < 1) {
+                        console.log("<21 " + minutes_value)
                         finish_countdown_warning_close_draw(interval_warning_close);
                     }
                     interval_warning = 35000;
-                    if(minutes_value > 2 ) interval_warning = 60000;
+                    if(minutes_value > 2 ){
+                        console.log(">22 " + minutes_value);
+                        interval_warning = 60000;
+                    }
                     interval_warning_close = logic_warning_interval(minutes_value, finish_countdown_warning_close_draw, interval_warning_close, interval_warning);
                 }else if(minutes_value <= 1) {
+                    console.log("<= 1" + minutes_value);
                     finish_countdown_warning_close_draw(interval_warning_close);
                 }
-            }
+         //   }
+            console.log('first load to false');
             first_load = false;
         },interval_warning);
     }

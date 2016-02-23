@@ -21,11 +21,6 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
         ];
     }
 
-    public function setUp()
-    {
-        parent::setUp('EuroMillionsDraw');
-    }
-
     /**
      * method getLastJackpot
      * when called
@@ -102,4 +97,8 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
         $this->assertGreaterThanOrEqual(1,$actual);
     }
 
+    protected function getEntity()
+    {
+        return 'EuroMillionsDraw';
+    }
 }

@@ -17,15 +17,15 @@ class TranslationDetailRepositoryIntegrationTest extends RepositoryIntegrationTe
         ];
     }
 
-    public function setUp()
-    {
-        parent::setUp('TranslationDetail');
-    }
-
     public function test_getTranslation_calledWithNonExistingKey_returnKey()
     {
         $key = 'non_existing_key';
         $actual = $this->sut->getTranslation('en', $key);
         $this->assertEquals($key, $actual);
+    }
+
+    protected function getEntity()
+    {
+        return 'TranslationDetail';
     }
 }
