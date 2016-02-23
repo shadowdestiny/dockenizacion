@@ -133,7 +133,7 @@ class AuthService
     public function register(array $credentials)
     {
         if ($this->userRepository->getByEmail($credentials['email'])) {
-            return new ActionResult(false, 'Email already registered. Try to use a different email.');
+            return new ActionResult(false, 'Email already registered. Try to use a different email. Or have you <a href="user-access/forgotPassword">forgot your password?</a>');
         }
         $user = new User();
         $email = new Email($credentials['email']);
