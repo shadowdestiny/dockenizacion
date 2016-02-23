@@ -10,7 +10,7 @@ use EuroMillions\web\vo\UserId;
 use tests\base\RedisIntegrationTestBase;
 use tests\helpers\mothers\OrderMother;
 
-class RedisOrderStorageStrategyIntegration extends RedisIntegrationTestBase
+class RedisOrderStorageStrategyIntegrationTest extends RedisIntegrationTestBase
 {
 
     /** @var  RedisPlayStorageStrategy */
@@ -39,7 +39,6 @@ class RedisOrderStorageStrategyIntegration extends RedisIntegrationTestBase
         $this->sut->save($order->toJsonData(), $this->userId);
         $expected = $order->toJsonData();
         $actual = $this->sut->findByKey($this->userId);
-        var_dump($actual->getValues());
         $this->assertEquals($expected,$actual->getValues());
     }
 
