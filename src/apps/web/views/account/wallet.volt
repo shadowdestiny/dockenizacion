@@ -50,6 +50,9 @@ $('#funds-value').on('keyup',function(e){
 
 $('#funds-value,#card-cvv,#card-number').on('keypress',function(e){
     var pattern = /^[0-9\.]+$/;
+    if(e.target.id == 'card-cvv') {
+        pattern = /^[0-9]+$/;
+    }
     var codeFF = e.keyCode;
     var code = e.which
     var chr = String.fromCharCode(code);
@@ -105,7 +108,7 @@ $(function(){
             <div class="box info">
                 <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                 <div class="txt">
-                   <strong class="straight">{{ language.translate("Congratulations!!! You just won ") }}{{ show_winning_copy | number_format(0,',','.') }}</strong><br>
+                   <strong class="straight">{{ language.translate("Congratulations!!! You just won ") }}{{ symbol }} {{ show_winning_copy | number_format(0,',','.') }}</strong><br>
                     {{ language.translate("We have sent you an email with further instructions to collect your prize.
                     For any questions please contact us at") }} <a href="mailto:support@euromillions.com">support@euromillions.com</a> 
                 </div>

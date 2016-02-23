@@ -59,19 +59,29 @@ var EmLineOrderConfig = new React.createClass({
             text_weeks = 'Tuesday & Friday, since ' + date_since + ' for ' + num_weeks + ' weeks';
         }
 
-        return (
-            <div className="row cl">
-                <div className="box-detail">
-                    <div className="desc">Draw</div>
-                    <div className="detail">{text_weeks}</div>
+        if(draw_days == 1 && num_weeks == 1) {
+            return (
+                <div className="row cl">
+                    <div className="box-detail">
+                        <div className="desc">Draw</div>
+                        <div className="detail">{text_weeks}</div>
+                    </div>
                 </div>
-                <div className="quantity">
-                    <span className="txt">Draws</span>
-                    <span className="val">x{num_weeks * draw_days}</span>
+            )
+        } else {
+            return (
+                <div className="row cl">
+                    <div className="box-detail">
+                        <div className="desc">Draw</div>
+                        <div className="detail">{text_weeks}</div>
+                    </div>
+                    <div className="quantity">
+                        <span className="txt">Draws</span> <span className="val">x{num_weeks * draw_days}</span>
+                    </div>
                 </div>
-            </div>
 
-        )
+            )
+        }
     }
 
 });

@@ -59,7 +59,7 @@ class PlayConfigDTO extends DTOBase implements IDto
         $last = $this->playConfig[0]->getLastDrawDate();
         $start = $this->playConfig[0]->getStartDrawDate();
         $this->lastDrawDate = $last->format('Y-m-d');
-        $this->startDrawDate = $start->format('Y-m-d');
+        $this->startDrawDate = $start->format('Y M j');
         $this->lines = $this->euroMillionsLinesToJson();
         $this->regular_numbers = [];
         $this->lucky_numbers = [];

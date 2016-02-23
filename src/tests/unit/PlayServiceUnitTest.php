@@ -107,23 +107,6 @@ class PlayServiceUnitTest extends UnitTestBase
 
     /**
      * method play
-     * when calledWithUserWithoutBalance
-     * should returnServiceActionResultFalse
-     */
-    public function test_play_calledWithUserWithoutBalance_returnServiceActionResultFalse()
-    {
-        $this->markTestSkipped();
-        $user = UserMother::aUserWithNoMoney()->build();
-        $sut = $this->getSut();
-        $entityManager_stub = $this->getEntityManagerDouble();
-        $entityManager_stub->flush(Argument::any())->shouldNotBeCalled();
-        $this->stubEntityManager($entityManager_stub);
-        $actual = $sut->play($user);
-        $this->assertEquals(false,$actual->success());
-    }
-
-    /**
-     * method play
      * when calledAndPlayIsStored
      * should removeKeyAndReturnServiceActionResultTrue
      */
@@ -143,23 +126,6 @@ class PlayServiceUnitTest extends UnitTestBase
     {
         $expected = new ActionResult(false);
         $actual = $this->exerciseTemporarilyStorePlay($expected);
-        $this->assertEquals($expected,$actual);
-    }
-
-
-    /**
-     * method play
-     * when calledAndPassKeyInvalidToSearchInStorage
-     * should returnServiceActionResultFalse
-     */
-    public function test_play_calledAndPassKeyInvalidToSearchInStorage_returnServiceActionResultFalse()
-    {
-        $this->markTestSkipped();
-        $expected = new ActionResult(false,'The search key doesn\'t exist');
-        $user = $this->getUser();
-        $sut = $this->getSut();
-        $this->playStorageStrategy_double->findByKey($user->getId()->id())->willReturn(null);
-        $actual = $sut->play($user);
         $this->assertEquals($expected,$actual);
     }
 
@@ -267,21 +233,6 @@ class PlayServiceUnitTest extends UnitTestBase
     }
 
 
-    /**
-     * method play
-     * when calledWithAUserWithOrderWithABetForNextDraw
-     * should getPayConfigurationFromOrder
-     */
-    public function test_play_calledWithAUserWithOrderWithABetForNextDraw_getPayConfigurationFromOrder()
-    {
-        $this->markTestSkipped();
-        $user = UserMother::aUserWith50Eur()->build();
-        $order = OrderMother::aJustOrder()->build();
-        $this->orderStorageStrategy_double->findByKey($user->getId())->willReturn($order->toJsonData());
-        $this->cartService_double->get($user->getId())->willReturn(new ActionResult(true));
-        $sut = $this->getSut();
-        $sut->play($user->getId());
-    }
 
     /**
      * method play
