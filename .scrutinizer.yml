@@ -8,8 +8,8 @@ build_failure_conditions:
     - 'project.metric("scrutinizer.quality", < 6)' # Code Quality Rating drops below 6
     - 'project.metric("scrutinizer.test_coverage", < 0.45)' # Code Coverage drops below 45%
 
-    # Code Coverage decreased from previous inspection by more than 1%
-    - 'project.metric_change("scrutinizer.test_coverage", < -0.01)'
+    # Code Coverage decreased from previous inspection by more than 0.5%
+    - 'project.metric_change("scrutinizer.test_coverage", < -0.005)'
 checks:
   php:
     verify_property_names: true
