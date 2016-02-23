@@ -50,7 +50,7 @@ class CliBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $di = parent::dependencyInjector();
         $di->set('router', $this->configRouter(), true);
         $di->set('dispatcher', $this->configDispatcher(), true);
-        $di->set('url', $this->configUrl($di), true);
+        $di->set('url', $this->configUrl(), true);
         $this->shareTheseServices($di);
         return $di;
     }
@@ -72,7 +72,7 @@ class CliBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         return $em->get().'_'.self::CONFIG_FILENAME;
     }
 
-    protected function configUrl(Di $di)
+    protected function configUrl()
     {
         $url = new PhalconUrlWrapper();
         $url->setBaseUri('https://localhost:4433');
