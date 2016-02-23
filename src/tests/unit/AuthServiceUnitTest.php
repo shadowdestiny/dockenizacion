@@ -332,9 +332,9 @@ class AuthServiceUnitTest extends UnitTestBase
     /**
      * method register
      * when calledWithExistingEmail
-     * should returnProperErrorMessage
+     * should returnNotSuccess
      */
-    public function test_register_calledWithExistingEmail_returnProperErrorMessage()
+    public function test_register_calledWithExistingEmail_returnNotSuccess()
     {
         $existing_mail = 'antonio.hernandez@panamedia.net';
         $this->userRepository_double->getByEmail($existing_mail)->willReturn(new User());
@@ -342,7 +342,7 @@ class AuthServiceUnitTest extends UnitTestBase
         $expected = new ActionResult(false, 'Email already registered. Try to use a different email. Or have you <a href="user-access/forgotPassword">forgot your password?</a>');
         $sut = $this->getSut();
         $actual = $sut->register($credentials);
-        $this->assertEquals($expected, $actual);
+        $this->assertFalse($actual->success());
     }
 
     /**
