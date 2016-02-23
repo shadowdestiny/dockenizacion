@@ -74,7 +74,7 @@ checks:
     no_debug_code: true
     no_commented_out_code: true
     naming_conventions:
-        local_variable: '^[a-z][a-zA-Z0-9]*$'
+        local_variable: '^[a-z][a-zA-Z0-9_]*$'
         abstract_class_name: ^Abstract|Factory$
         utility_class_name: 'Utils?$'
         constant_name: '^[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*$'
