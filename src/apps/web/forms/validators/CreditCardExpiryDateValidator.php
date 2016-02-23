@@ -36,7 +36,7 @@ class CreditCardExpiryDateValidator extends Validator implements ValidatorInterf
                 $validation->appendMessage(new Message('The expiration date is not valid.'));
             }
         } else {
-            $validation->appendMessage(new Message('The expiration date is not valid. Format should be mm/yyyy'));
+            $validation->appendMessage(new Message('The expiration date is not valid. Format should be "mm/yyyy".'));
         }
     }
 

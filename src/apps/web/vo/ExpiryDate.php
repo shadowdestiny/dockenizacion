@@ -31,7 +31,7 @@ class ExpiryDate extends StringLiteral
             $this->month = $date[0];
             $this->year = $date[1];
         } else {
-            throw new InvalidExpirationDateException('The expiration date is not valid. Format should be mm/yyyy');
+            throw new InvalidExpirationDateException('The expiration date is not valid. Format should be "mm/yyyy".');
         }
         parent::__construct($expiryDate);
     }

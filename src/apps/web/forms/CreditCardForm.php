@@ -34,7 +34,7 @@ class CreditCardForm extends Form
             new Numericality(array(
             )),
             new CreditCard(array(
-                'message' => 'The Credit Card number inserted is not valid. Verify that the number doesn\'t have any space or symbols in between and try again.'
+                'message' => 'The Credit Card number inserted is not valid.'
             ))
         ));
 
