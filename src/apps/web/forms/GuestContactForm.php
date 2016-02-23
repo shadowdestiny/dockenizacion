@@ -23,10 +23,10 @@ class GuestContactForm extends Form
         ));
         $username->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The email is required'
+                'message' => 'The email is required.'
             )),
             new EmailValidator([
-                'message' => 'Not a valid email'
+                'message' => 'Not a valid email.'
             ]),
         ));
         $this->add($username);
@@ -41,7 +41,7 @@ class GuestContactForm extends Form
         ]);
         $content->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The content is required'
+                'message' => 'The content is required.'
             )),
         ));
         $this->add($content);
@@ -51,7 +51,7 @@ class GuestContactForm extends Form
             $options['topics'],
             [
                 'useEmpty' => true,
-                'emptyText' => 'Please select an option',
+                'emptyText' => 'Please select an option.',
 
             ]
         );

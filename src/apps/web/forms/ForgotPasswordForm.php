@@ -18,10 +18,10 @@ class ForgotPasswordForm extends Form
         ));
         $email->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The email is required'
+                'message' => 'The email is required.'
             )),
             new EmailValidator([
-                'message' => 'Not a valid email'
+                'message' => 'Not a valid email.'
             ]),
         ));
 
