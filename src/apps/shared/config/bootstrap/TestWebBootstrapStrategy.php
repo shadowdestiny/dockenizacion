@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\shared\config\bootstrap;
 
+use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\components\EnvironmentDetector;
 use EuroMillions\shared\components\PhalconUrlWrapper;
 use EuroMillions\web\services\DomainServiceFactory;
@@ -58,9 +59,8 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
         }
     }
 
-    protected function siteConfig()
+    protected function siteConfig(EntityManager $entityManager, $di)
     {
-
     }
 
     protected function getConfigFileName(EnvironmentDetector $em)
