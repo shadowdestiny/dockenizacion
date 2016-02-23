@@ -16,7 +16,6 @@ var Tooltip = new React.createClass({
                 <svg className={this.props.class}><use xlinkHref={xlink}></use></svg>
                 {react_tooltip}
             </span>
-
         )
 
     }

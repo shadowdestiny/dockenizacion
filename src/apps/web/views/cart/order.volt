@@ -29,13 +29,20 @@ $(function(){
         if(value == 'no-wallet') {
             $('.submit.big.green').text('Pay ' + total_price_in_credit_card_form);
             $('.payment').show();
+            $('.box-bottom').hide();
+            var $root = $('html, body');
+            $root.animate({
+                scrollTop: $('#card-number').offset().top
+            }, 500);
+            $('#card-number').focus();
         } else {
             $('.payment').hide();
         }
     })
     if(show_form_credit_card) {
-        $('.submit.big.green').text('Pay ' + total_price_in_credit_card_form);
+        $('.box-bottom').hide();
         $('.payment').show();
+        $('#card-number').focus();
     }
 });
 {% endblock %}

@@ -193,9 +193,10 @@ class CartController extends PublicSiteControllerBase
 
 
         if($this->request->isGet()) {
+            $order_view = true;
             $charge = $this->request->get('charge');
             $user = $this->userService->getUser($user_id);
-            if(null != $user ){
+            if(null != $user && isset($charge)){
                 try {
                     $card = null;
                     $amount = new Money((int) $charge, new Currency('EUR'));
@@ -220,6 +221,7 @@ class CartController extends PublicSiteControllerBase
         }
 
         if($this->request->isPost()) {
+            $order_view = false;
             if ($credit_card_form->isValid($this->request->getPost()) == false ) {
                 $messages = $credit_card_form->getMessages(true);
                 /**
@@ -260,7 +262,7 @@ class CartController extends PublicSiteControllerBase
         }
 
         $this->view->pick('/cart/order');
-        return $this->dataOrderView($user, $result, $form_errors, $msg, $credit_card_form, $errors, false);
+        return $this->dataOrderView($user, $result, $form_errors, $msg, $credit_card_form, $errors, $order_view);
     }
 
 
@@ -382,7 +384,7 @@ class CartController extends PublicSiteControllerBase
         $play_config_collection = $result->returnValues();
         $play_config_dto = new PlayConfigDTO($play_config_collection, $single_bet_price_currency);
         $wallet_balance = $this->currencyService->convert($play_config_dto->wallet_balance_user, $user_currency);
-        $checked_wallet = $wallet_balance->getAmount() > 0;
+        $checked_wallet = $order_view;
         //convert to user currency
         $total_price = $this->currencyService->convert($play_config_dto->play_config_total_amount, $user_currency);
         $symbol_position = $this->currencyService->getSymbolPosition($locale, $user_currency);

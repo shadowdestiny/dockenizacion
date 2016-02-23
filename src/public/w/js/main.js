@@ -8,6 +8,7 @@ var globalFunctions = {
             dataType: "json",
             success: function(json) {
                 if(json.result = 'OK') {
+
                     location.href = location.href.split('#')[0];
                 }
             },
@@ -104,6 +105,23 @@ function count_down(element,
             finish_action();
         });
      //visit: http://hilios.github.io/jQuery.countdown to formatted html result
+}
+
+window.addEventListener('orientationchange', handleOrientation, false);
+
+var orientation = 0;
+function handleOrientation() {
+    if (orientation == 0) {
+
+    }else if (orientation == 90 ) {
+        show_forms_sign();
+    }
+    else if (orientation == -90) {
+    }
+    else if (orientation == 180) {
+        alert("180");
+        hide_forms_sign();
+    }
 }
 
 var varSize = 0

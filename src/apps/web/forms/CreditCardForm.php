@@ -47,7 +47,10 @@ class CreditCardForm extends Form
         $card_holder->addValidators(array(
             new PresenceOf(array(
                 'message' => 'Insert the full name of the Credit Card holder.'
-            ))
+            )),
+            new StringLength(array(
+                'min' => 5
+            )),
         ));
         $this->add($card_holder);
 

@@ -8,17 +8,30 @@ function swap(myVar){
         $(".col4, .col8").toggle();
     });
 }
-if(size >= 3){
-    $(function(){
-        var which_form = '<?php echo $which_form;?>';
-        if(which_form == 'in'){
-            $(".col8").hide();
-        } else {
-            $(".col4").hide();
-        }
-        swap(".col4 .box-extra a, .col8 .box-extra a");
-    });
+
+
+function hide_forms_sign() {
+    var which_form = '<?php echo $which_form;?>';
+    if(which_form == 'in'){
+        $(".col8").hide();
+    } else {
+        $(".col4").hide();
+    }
+    swap(".col4 .box-extra a, .col8 .box-extra a");
 }
+function show_forms_sign() {
+    if(size >= 1) {
+        $(".col8").show();
+        $(".col4").show();
+    }
+}
+
+$(function(){
+    if(size >= 3){
+        hide_forms_sign();
+    }
+});
+
 {% endblock %}
 {% block bodyClass %}cart profile minimal sign-in{% endblock %}
 
