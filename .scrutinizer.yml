@@ -26,27 +26,33 @@ filter:
     - src/tests/*
     - src/vendor/*
 build:
-  container: antonienko/phalcon2-ci:v1.2.3
-  dependencies:
-    override:
-      - '/etc/init.d/mysql start & > /dev/null'
-      - 'redis-server &'
-      - 'composer install --prefer-source --no-interaction --working-dir=src'
-      - 'cd src/react'
-      - 'npm install'
-      - 'cd ../..'
-  project_setup:
-    override:
-      - 'mysql -e "create database if not exists euromillions_test"'
-      - 'dev-scripts/schema_migration.sh scrutinizer'
+  environment:
+    php:
+      version: "5.6.16"
+      ini:
+        'date.timezone': 'UTC'
+    redis: true
 
-  tests:
-    override:
-      -
-        command: src/vendor/bin/phpunit --log-junit shippable/testresults/junit.xml --coverage-clover=coverage.clover --configuration src/tests/phpunit.xml --testsuite=unit+integration
-        coverage:
-          file: coverage.clover
-          format: php-clover
+  dependencies:
+    before:
+      - git clone -q --depth=1 https://github.com/phalcon/cphalcon.git -b master
+      - cd cphalcon/ext; export CFLAGS="-g3 -O1 -fno-delete-null-pointer-checks -Wall"; phpize && ./configure --enable-phalcon && make -j4 && sudo make install && sed -i '$ a \\n[Phalcon]\nextension=phalcon.so\n'  /home/scrutinizer/.phpenv/versions/5.6.16/etc/php.ini
+      - composer install --no-interaction --working-dir=src
+      - cd src/react
+      - npm install
+      - cd ../..
+  #project_setup:
+  #  override:
+  #    - 'mysql -e "create database if not exists euromillions_test"'
+  #    - 'dev-scripts/schema_migration.sh scrutinizer'
+
+#  tests:
+#    override:
+#      -
+#        command: src/vendor/bin/phpunit --log-junit shippable/testresults/junit.xml --coverage-clover=coverage.clover --configuration src/tests/phpunit.xml --testsuite=unit+integration
+#        coverage:
+#          file: coverage.clover
+#          format: php-clover
 
 
 
