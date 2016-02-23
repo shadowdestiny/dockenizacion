@@ -35,8 +35,6 @@ use Phalcon\Validation\Validator\Regex;
 class AccountController extends PublicSiteControllerBase
 {
 
-    public function TransactionAction(){}
-
     public function indexAction()
     {
         $errors = [];
@@ -85,6 +83,8 @@ class AccountController extends PublicSiteControllerBase
             'password_change' => $myaccount_passwordchange_form
         ]);
     }
+
+    public function transactionAction(){}
 
     public function passwordAction()
     {
