@@ -16,10 +16,6 @@ class LanguageRepositoryIntegrationTest extends RepositoryIntegrationTestBase
         ];
     }
 
-    public function setUp()
-    {
-        parent::setUp('Language');
-    }
 
     public function test_getActiveLanguages_called_returnProperResults()
     {
@@ -47,4 +43,9 @@ class LanguageRepositoryIntegrationTest extends RepositoryIntegrationTestBase
         $this->assertEquals($expected, $actual);
     }
 
+
+    protected function getEntity()
+    {
+        return 'Language';
+    }
 }
