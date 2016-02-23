@@ -87,6 +87,8 @@ label.submit{cursor:pointer;}
 .type-light.place-right:after{border-right:8px solid $yellow!important; left:-8px!important;}
 .type-light.place-left:after{border-left:8px solid $yellow!important; right:-8px!important;}
 .__react_component_tooltip.show{opacity:1!important;}
+.cvv .tooltip .__react_component_tooltip{max-width:320px!important;}
+
 
 /* INFO BOX */
 .box{text-align:left; padding:10px; border-radius:5px; font-weight:700; margin-bottom:1em;}
