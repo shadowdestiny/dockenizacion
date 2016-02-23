@@ -27,7 +27,7 @@ class MyAccountForm extends Form
         $this->add($name);
         $name->addValidators([
             new PresenceOf([
-                'message' => 'The name is required'
+                'message' => 'The name is required.'
             ]),
         ]);
 
@@ -37,7 +37,7 @@ class MyAccountForm extends Form
         $this->add($surname);
         $surname->addValidators([
             new PresenceOf([
-                'message' => 'The surname is required'
+                'message' => 'The surname is required.'
             ]),
         ]);
 
@@ -48,10 +48,10 @@ class MyAccountForm extends Form
         ));
         $email->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The email is required'
+                'message' => 'The email is required.'
             )),
             new EmailValidator([
-                'message' => 'Not a valid email'
+                'message' => 'Not a valid email.'
             ]),
         ));
         $this->add($email);
@@ -117,7 +117,7 @@ class MyAccountForm extends Form
             'placeholder' => 'Confirm Password'
         ));
         $password_confirm->addValidator(new PresenceOf(array(
-            'message' => 'The password confirmation is required'
+            'message' => 'The password confirmation is required.'
         )));
         $this->add($password_confirm);
     }
