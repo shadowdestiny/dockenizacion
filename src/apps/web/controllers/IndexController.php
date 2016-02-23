@@ -23,7 +23,10 @@ class IndexController  extends PublicSiteControllerBase
     public function notfoundAction(\Exception $exception = null)
     {
         $this->noRender();
-        echo 'ERROR 404: ' . $exception->getMessage();
+        echo 'ERROR 404: ';
+        if (null !==$exception) {
+            echo $exception->getMessage();
+        }
     }
 }
 
