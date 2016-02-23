@@ -1,5 +1,6 @@
 build_failure_conditions:
-    - 'elements.rating(<= D).exists'               # No classes/methods with a rating of D or worse
+    - 'elements.rating(<= D).new.exists'
+    - 'elements.rating(<= F).exists'
 
     - 'issues.label("coding-style").new.count > 5' # More than 5 new coding style issues.
     - 'issues.severity(>= MAJOR).new.exists'       # New issues of major or higher severity
@@ -132,6 +133,7 @@ filter:
   excluded_paths:
     - src/tests/*
     - src/vendor/*
+    - src/apps/web/controllers/TestController.php
 build:
   environment:
     variables:

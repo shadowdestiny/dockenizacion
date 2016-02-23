@@ -1,8 +1,5 @@
 <?php
-
-
 namespace EuroMillions\web\repositories;
-
 
 use EuroMillions\web\vo\UserId;
 
@@ -74,8 +71,8 @@ class PlayConfigRepository extends RepositoryBase
             ->createQuery(
                 'SELECT p'
                 . ' FROM ' . $this->getEntityName() . ' p'
-                . ' WHERE p.user = :user_id AND p.active = ' . $active . '')
-            ->setParameters(['user_id' => $userId->id()])
+                . ' WHERE p.user = :user_id AND p.active = :active')
+            ->setParameters(['user_id' => $userId->id(), 'active' => $active])
             ->getResult();
 
         return $result;
