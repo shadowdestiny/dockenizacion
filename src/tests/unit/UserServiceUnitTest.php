@@ -102,27 +102,6 @@ class UserServiceUnitTest extends UnitTestBase
         $this->assertInstanceOf('antonienko\MoneyFormatter\MoneyFormatter',$actual);
     }
 
-    /**
-     * method recharge
-     * when calledAndPaymentProviderSuccess
-     * should returnServiceResultActionTrue
-     */
-    public function test_recharge_calledAndPaymentProviderSuccess_returnServiceResultActionTrue()
-    {
-        $this->markTestSkipped();
-        $user = $this->getUser();
-        $paymentMethod = $this->getInterfaceWebDouble('ICardPaymentProvider')->reveal();
-        $amount = new Money(5000, new Currency('EUR'));
-        $this->paymentProviderService_double->charge($paymentMethod,$amount)->willReturn(true);
-        $this->userRepository_double->add($user);
-        $entityManager_stub = $this->getEntityManagerDouble();
-        $entityManager_stub->flush($user)->shouldNotBeCalled();
-        $this->stubEntityManager($entityManager_stub);
-        $sut = $this->getSut();
-        $actual = $sut->recharge($user, $paymentMethod, $amount);
-        $this->assertTrue($actual->success());
-    }
-
 
     /**
      * method getMyPlays

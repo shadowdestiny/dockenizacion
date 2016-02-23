@@ -81,7 +81,6 @@ class CurrencyServiceUnitTest extends UnitTestBase
      */
     public function test_getSymbolPosition_calledWithIncorrectSymbol_throwException()
     {
-        $this->markTestSkipped();
         $this->setExpectedException('\Exception');
         $currency = new Currency('TEST');
         $locale = new Currency('TEST');

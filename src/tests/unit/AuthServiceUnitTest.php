@@ -7,6 +7,7 @@ use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\WelcomeEmailTemplate;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\AuthService;
+use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\RememberToken;
@@ -352,12 +353,11 @@ class AuthServiceUnitTest extends UnitTestBase
      */
     public function test_register_calledWithProperCredentials_storeNewUserAndLoginAndReturnOk()
     {
-        $this->markTestSkipped();
         $this->expectFlushInEntityManager();
-        $lotteriesDataService = $this->getServiceDouble('LotteriesDataService');
-        $welcome_email_template = EmailMother::aWelcomeEmailTemplate($lotteriesDataService->reveal());
+        $welcome_email_template = EmailMother::aWelcomeEmailTemplate();
         $credentials = $this->getRegisterCredentials();
         $user = UserMother::aJustRegisteredUser($this->hasher_double->reveal())->build();
+        $welcome_email_template->setUser($user);
         $this->userRepository_double->getByEmail(UserBuilder::DEFAULT_EMAIL)->willReturn(null);
         $this->userRepository_double->add($user)->shouldBeCalled();
         $this->storageStrategy_double->setCurrentUserId(Argument::type($this->getVOToArgument('UserId')))->shouldBeCalled();
