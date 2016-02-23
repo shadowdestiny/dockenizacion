@@ -3,7 +3,6 @@
 /* Euro is default value and is not inserted in here */
 
 /* .aud{}  Australian Dollar */   /* Symbol */
-/* .blr{}  Belarusian Ruble */ 
 /* .bgn{}  Bulgarian Lev */
 /* .cad{}  Canadian Dollar */     /* Symbol */
 /* .dkk{}  Danish Krone */
@@ -19,18 +18,18 @@
 /* .sek{}  Swedish Krone */
 
 /* Problematic currencies */
+/* .byr{}  Belarusian Ruble */ 
 /* .cop{}  Colombian Peso */
 /* .inr{}  Indian Rupee */
 /* .jpy{}  Japanese Yen */        /* Symbol */
 /* .rub{}  Russian Ruble */
 /* .thb{}  Thai Baht */           /* Symbol */
 
+
 .home.cur-txt .box-value .currency{font-size:$h3;}
-.home.cur1 .box-value .value{font-size:$h0-2;}
+.home.cur1 .box-value .value, .numbers.cur1 .box-value .value{font-size:$h0-2;}
 .home.cur2 .box-value .value{font-size:$h0-3;}
-.home.cur2 .box-prize .value{font-size:$h1;}
+.home.cur2 .box-prize .value, .numbers.cur2 .box-value .value{font-size:$h1;}
 
 .wallet.cur-txt .box-wallet .insert, .cart.cur-txt .box-funds .insert{padding:5px 8px 6px 46px}
 .numbers.cur-txt .box-value .currency{font-size:$h3; top:-3px;}
-.numbers.cur1 .box-value .value{font-size:$h0-2;}
-.numbers.cur2 .box-value .value{font-size:$h1;}
