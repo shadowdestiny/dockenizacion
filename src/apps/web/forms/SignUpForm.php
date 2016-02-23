@@ -24,7 +24,7 @@ class SignUpForm extends Form
 
         $name->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The name is required'
+                'message' => 'The name is required.'
             )),
         ));
 
@@ -36,7 +36,7 @@ class SignUpForm extends Form
 
         $surname->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The surname is required'
+                'message' => 'The surname is required.'
             )),
         ));
 
@@ -47,10 +47,10 @@ class SignUpForm extends Form
         ));
         $email->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The email is required'
+                'message' => 'The email is required.'
             )),
             new EmailValidator([
-                'message' => 'Not a valid email'
+                'message' => 'Not a valid email.'
             ]),
         ));
 
@@ -100,13 +100,13 @@ class SignUpForm extends Form
             $options['countries'],
             [
                 'useEmpty' => true,
-                'emptyText' => 'Select your country',
+                'emptyText' => 'Select your country of residence.',
             ]
         );
 
         $country->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The country is required'
+                'message' => 'The country is required.'
             )),
         ));
 

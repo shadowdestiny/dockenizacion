@@ -87,13 +87,18 @@ label.submit{cursor:pointer;}
 .type-light.place-right:after{border-right:8px solid $yellow!important; left:-8px!important;}
 .type-light.place-left:after{border-left:8px solid $yellow!important; right:-8px!important;}
 .__react_component_tooltip.show{opacity:1!important;}
+.cvv .tooltip .__react_component_tooltip{max-width:320px!important;}
+
 
 /* INFO BOX */
 .box{text-align:left; padding:10px; border-radius:5px; font-weight:700; margin-bottom:1em;}
 .box .ico{width:30px; float:left;}
 .box .v-checkmark{margin-top:2px;}
 .box .txt{display:block; font-size:$h4; margin:0 0 0 34px!important;}
-.box.error{border:1px solid $red; background:$bg-red; color:$red; font-size:$h4;}
+.box.error{
+  border:1px solid $red; background:$bg-red; color:$red; font-size:$h4;
+  a{color:$link;}
+}
 .box.error .v-warning{font-size:21px;}
 .box.success{border:1px solid $green-dark; background:$bg-green; color:$green-dark;}
 .box.info{
