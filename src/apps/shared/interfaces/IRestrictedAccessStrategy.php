@@ -5,5 +5,10 @@ use Phalcon\Http\Request;
 
 interface IRestrictedAccessStrategy
 {
+    /**
+     * @param Request $request
+     * @param RestrictedAccessConfig $restrictedAccessConfig
+     * @return bool
+     */
     public function isRestricted(Request $request, RestrictedAccessConfig $restrictedAccessConfig);
 }

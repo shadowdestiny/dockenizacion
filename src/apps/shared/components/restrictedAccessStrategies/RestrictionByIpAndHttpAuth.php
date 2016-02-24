@@ -11,11 +11,7 @@ class RestrictionByIpAndHttpAuth implements IRestrictedAccessStrategy
         $byIp = new RestrictionByIp();
         if ($byIp->isRestricted($request, $restrictedAccessConfig)) {
             $byAuth = new RestrictionByHttpAuth();
-            if ($byAuth->isRestricted($request, $restrictedAccessConfig)) {
-                return true;
-            } else {
-                return false;
-            }
+            return $byAuth->isRestricted($request, $restrictedAccessConfig);
         } else {
             return false;
         }

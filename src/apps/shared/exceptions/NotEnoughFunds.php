@@ -1,5 +1,4 @@
 <?php
 namespace EuroMillions\shared\exceptions;
 
-class NotEnoughFunds extends \LogicException
-{}
+class NotEnoughFunds extends \LogicException {}
