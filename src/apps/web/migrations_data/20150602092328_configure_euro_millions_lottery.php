@@ -1,4 +1,4 @@
-<?php
+<?php namespace EuroMillions\web\migrations_data;
 
 use Phinx\Migration\AbstractMigration;
 
