@@ -28,7 +28,7 @@ checks:
     too_many_arguments: true
     switch_fallthrough_commented: true
     sql_injection_vulnerabilities: true
-    single_namespace_per_use: true
+    single_namespace_per_use: false
     simplify_boolean_return: true
     side_effects_or_types: true
     security_vulnerabilities: true
