@@ -1,4 +1,4 @@
-<?php namespace EuroMillions\web\migrations_data;
+<?php
 include_once('TranslationMigrationBase.php');
 class TranslatedStrings extends \EuroMillions\migrations_data\TranslationMigrationBase
 {
