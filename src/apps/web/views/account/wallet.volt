@@ -64,6 +64,13 @@ $('#funds-value,#card-cvv,#card-number').on('keypress',function(e){
     }
 });
 
+$('.btn.add-funds').on('click',function(){
+    $('.box.error').show();
+});
+$('.back').on('click',function(){
+    $('.box.error').hide();
+});
+
 $('#funds-value').on('blur', function(e){
     var value = e.target.value;
     if(value == "" || typeof value == 'undefined'){

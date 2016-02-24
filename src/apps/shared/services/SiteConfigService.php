@@ -62,14 +62,14 @@ class SiteConfigService
 
     public function getFeeFormatMoney( Currency $user_currency, $locale)
     {
-        list($value_currency_convert, $symbol_position, $symbol) = $this->getCurrenciesVar($user_currency, $locale,  $this->configEntity->getFee());
-        return ($symbol_position) ? $value_currency_convert->getAmount() / 100 . ' ' . $symbol : $symbol . ' ' . $value_currency_convert->getAmount() / 100;
+        list($value) = $this->getCurrenciesVar($user_currency, $locale,  $this->configEntity->getFee());
+        return $value;
     }
 
     public function getFeeLimitFormatMoney( Currency $user_currency, $locale)
     {
-        list($value_currency_convert, $symbol_position, $symbol) = $this->getCurrenciesVar($user_currency, $locale,  $this->configEntity->getFeeToLimit());
-        return ($symbol_position) ? $value_currency_convert->getAmount() / 100 . ' ' . $symbol : $symbol . ' ' . $value_currency_convert->getAmount() / 100;
+        list($value) = $this->getCurrenciesVar($user_currency, $locale,  $this->configEntity->getFeeToLimit());
+        return $value;
     }
 
     /**
@@ -80,10 +80,8 @@ class SiteConfigService
     private function getCurrenciesVar(Currency $user_currency, $locale, Money $value)
     {
         $value_currency_convert = $this->currencyService->convert($value, $user_currency);
-        $symbol_position = $this->currencyService->getSymbolPosition($locale, $user_currency);
-        $symbol = $this->currencyService->getSymbol($value, $locale);
-
-        return array($value_currency_convert, $symbol_position, $symbol);
+        $value = $this->currencyService->toString($value_currency_convert, $locale);
+        return array($value);
     }
 
 
