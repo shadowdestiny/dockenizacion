@@ -384,7 +384,7 @@ class CartController extends PublicSiteControllerBase
         $play_config_collection = $result->returnValues();
         $play_config_dto = new PlayConfigDTO($play_config_collection, $single_bet_price_currency);
         $wallet_balance = $this->currencyService->convert($play_config_dto->wallet_balance_user, $user_currency);
-        $checked_wallet = $order_view;
+        $checked_wallet = $wallet_balance->getAmount() > 0 ? true : false;
         //convert to user currency
         $total_price = $this->currencyService->convert($play_config_dto->play_config_total_amount, $user_currency);
         $symbol_position = $this->currencyService->getSymbolPosition($locale, $user_currency);

@@ -30,7 +30,8 @@ class CreditCardForm extends Form
             )),
             new StringLength(array(
                 'min' => 16,
-                'max' => 16
+                'max' => 16,
+                'message' => 'The Credit Card must be composed of exactly 16 characters long.'
             )),
             new Numericality(array(
             )),
@@ -50,7 +51,8 @@ class CreditCardForm extends Form
                 'message' => 'Insert the full name of the Credit Card holder.'
             )),
             new StringLength(array(
-                'min' => 5
+                'min' => 5,
+                'message' => 'Full name is too short, please add your full Name as written on the credit card.'
             )),
         ));
         $this->add($card_holder);
@@ -59,6 +61,7 @@ class CreditCardForm extends Form
             'placeholder' => '',
             'autocomplete' => 'off'
         ));
+
         $card_cvv->addValidators(array(
             new PresenceOf(array(
                 'message' => 'Insert a CVV number.'
@@ -68,11 +71,11 @@ class CreditCardForm extends Form
             )),
             new StringLength(array(
                 'min' => 3,
-                'max' => 4
+                'max' => 4,
+                'message' => 'The CVV must be in between 3 and 4 characters long.'
             ))
         ));
         $this->add($card_cvv);
-
 
         $expiry_date = new Text('expiry-date', [
             'placeholder' => 'mm/yyyy',
