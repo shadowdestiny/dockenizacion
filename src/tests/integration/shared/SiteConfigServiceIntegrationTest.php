@@ -73,7 +73,7 @@ class SiteConfigServiceIntegrationTest extends DatabaseIntegrationTestBase
      */
     public function test_getFormatFeeMoney_called_returnProperValueWithFormatCurrency()
     {
-        $expected = '$ 0.15';
+        $expected = '$0.15';
         $sut = new SiteConfigService($this->entityManager, $this->currencyService_dobule->reveal());
         $amount = new Money(35, new \Money\Currency('EUR'));
         $converted_value = new Money(15, new \Money\Currency('EUR'));
@@ -89,7 +89,7 @@ class SiteConfigServiceIntegrationTest extends DatabaseIntegrationTestBase
      */
     public function test_getFeeLimitFormatMoney_called_returnProperValueWithFormatCurrency()
     {
-        $expected = '$ 80';
+        $expected = '$80';
         $sut = new SiteConfigService($this->entityManager, $this->currencyService_dobule->reveal());
         $amount = new Money(12000, new \Money\Currency('EUR'));
         $converted_value = new Money(8000, new \Money\Currency('EUR'));
@@ -106,8 +106,7 @@ class SiteConfigServiceIntegrationTest extends DatabaseIntegrationTestBase
         $user_currency = new \Money\Currency('USD');
         $this->currencyService_dobule->convert($amount, $user_currency)->willReturn($value_converted);
         $locale = 'en_US';
-        $this->currencyService_dobule->getSymbol($amount, $locale)->willReturn('$');
-        $this->currencyService_dobule->getSymbolPosition($locale, $user_currency)->willReturn(0);
+        $this->currencyService_dobule->toString($value_converted, $locale)->willReturn('$'.$value_converted->getAmount()/100);
         return array($user_currency, $locale);
     }
 
