@@ -66,5 +66,12 @@
         {% block template_scripts_code %}{% endblock %}  {# Inject unique js inside <script> tag #}
         </script>
         {% block template_scripts_after %}{% endblock %}
+        {% block modal %}
+            {% if show_modal_winning %}
+                <a href="/account/wallet" id="win" class="modal win">
+                    <span class="btn-box"><span class="btn blue">{{ language.translate("View the prize") }}</span></span>
+                </a>
+            {% endif %}
+        {% endblock %}
     </body>
 </html>

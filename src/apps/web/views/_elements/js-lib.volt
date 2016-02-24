@@ -38,6 +38,8 @@ var minutes_to_close = '<?php echo !empty($minutes_to_close) ? (int) $minutes_to
 var minutes_to_close_rounded = '<?php echo !empty($minutes_to_close_rounded) ? (int) $minutes_to_close_rounded : ""; ?>';
 var last_minute = '<?php echo isset($last_minute) ?  $last_minute : ""; ?>';
 var draw_date = '<?php echo !empty($draw_date) ? $draw_date : ""; ?>';
+var show_modal = '<?php echo !empty($show_modal_winning) ? 1 : 0; ?>';
+
 </script>
 <script src="/w/js/vendor/jquery.mobile.custom.min.js"></script>
 <script src="/w/js/main.js"></script>

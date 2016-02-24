@@ -34,7 +34,7 @@ function checkRadio(id){
     });
 }
 function show_fee_text(value){
-    if (parseFloat(value) > parseFloat(fee_limit)){
+    if (parseFloat(value) >= parseFloat(fee_limit)){
         $('.notes span.txt:first').text('No extra fee applied.');
     }else{
         $('.notes span.txt:first').text($('.notes span.txt:first').data('txt'));
@@ -66,9 +66,11 @@ $('#funds-value,#card-cvv,#card-number').on('keypress',function(e){
 
 $('.btn.add-funds').on('click',function(){
     $('.box.error').show();
+    $('.box.success').show();
 });
 $('.back').on('click',function(){
     $('.box.error').hide();
+    $('.box.success').hide();
 });
 
 $('#funds-value').on('blur', function(e){
