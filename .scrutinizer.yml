@@ -78,7 +78,7 @@ checks:
         abstract_class_name: ^Abstract|Factory$
         utility_class_name: 'Utils?$'
         constant_name: '^[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*$'
-        property_name: '^[a-z][a-zA-Z0-9]*$'
+        property_name: '^[a-z][a-zA-Z0-9_]*$'
         method_name: '^(?:[a-z]|__)[a-zA-Z0-9]*$'
         parameter_name: '^[a-z][a-zA-Z0-9]*$'
         interface_name: '^[A-Z][a-zA-Z0-9]*Interface$'
@@ -134,6 +134,7 @@ filter:
     - src/tests/*
     - src/vendor/*
     - src/apps/web/controllers/TestController.php
+    - src/apps/web/services/card_payment_providers/payxpert/GatewayClient.php
 build:
   environment:
     variables:
