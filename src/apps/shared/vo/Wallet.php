@@ -19,8 +19,8 @@ class Wallet
     }
 
     /**
-     * @param int $uploaded
-     * @param int $winnings
+     * @param int|null $uploaded
+     * @param int|null $winnings
      * @throws InvalidArgumentException
      * @throws UnknownCurrencyException
      * @return Wallet
@@ -73,7 +73,7 @@ class Wallet
 
     public function withdraw(Money $amount)
     {
-
+        //EMTD to be developed
     }
 
     /**
@@ -93,7 +93,7 @@ class Wallet
     }
 
     /**
-     * @param Money $amount
+     * @param Money|null $amount
      * @return Money
      * @throws InvalidArgumentException
      * @throws UnknownCurrencyException
