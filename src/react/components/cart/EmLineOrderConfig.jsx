@@ -36,7 +36,7 @@ var EmLineOrderConfig = new React.createClass({
 
         var config = JSON.parse(this.props.config);
         var date_since = config.startDrawDate;
-        var num_weeks = config.duration > 0 ? config.duration : 1;
+        var num_weeks = config.frequency > 0 ? config.frequency : 1;
         var draw_days = config.draw_days;
         var text_weeks = '';//num_weeks > 0 ? 'for ' + num_weeks : '';// + (num_weeks > 1) ? ' weeks' : 'week' : '';
         this.handlePreTotal(draw_days,num_weeks);
@@ -49,13 +49,14 @@ var EmLineOrderConfig = new React.createClass({
             day = 'Friday';
         }
 
+
         if(draw_days == 1 && num_weeks == 1) {
             text_weeks = ' On ' + day + ' ' + date_since;
         } else if ( draw_days > 1 && num_weeks == 1) {
             text_weeks = 'Tuesday & Friday, since ' + date_since + ' for 1 week';
-        } else if ( draw_days == 1 && num_weeks > 0) {
+        } else if ( draw_days == 1 && num_weeks > 1) {
             text_weeks = 'Every ' + day +', since ' + date_since + ' for ' + num_weeks + ' weeks';
-        } else if ( draw_days > 1 && num_weeks > 0) {
+        } else if ( draw_days > 1 && num_weeks > 1) {
             text_weeks = 'Tuesday & Friday, since ' + date_since + ' for ' + num_weeks + ' weeks';
         }
 

@@ -155,7 +155,20 @@ function navCurrency(){
 }
 
 
+
+
 $(function(){
+    if(show_modal == 1) {
+        $("#win").easyModal({
+            top:100,
+            autoOpen:true,
+            overlayOpacity:0.7,
+            overlayColor:"#000",
+            transitionIn:'animated fadeIn',
+            transitionOut:'animated fadeOut'
+        });
+    }
+
     selectFix();
     try{
         document.createEvent('TouchEvent');

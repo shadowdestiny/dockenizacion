@@ -2,11 +2,11 @@ build_failure_conditions:
     - 'elements.rating(<= D).new.exists'
     - 'elements.rating(<= F).exists'
 
-    - 'issues.label("coding-style").new.count > 5' # More than 5 new coding style issues.
-    - 'issues.severity(>= MAJOR).new.exists'       # New issues of major or higher severity
+    - 'issues.new.count > 5'
+    - 'issues.severity(>= MAJOR).new.exists'
 
-    - 'project.metric("scrutinizer.quality", < 6)' # Code Quality Rating drops below 6
-    - 'project.metric("scrutinizer.test_coverage", < 0.45)' # Code Coverage drops below 45%
+    - 'project.metric("scrutinizer.quality", < 8.75)'
+    - 'project.metric("scrutinizer.test_coverage", < 0.46)' # Code Coverage drops below 45%
 
     # Code Coverage decreased from previous inspection by more than 0.5%
     - 'project.metric_change("scrutinizer.test_coverage", < -0.005)'
@@ -75,7 +75,6 @@ checks:
     no_commented_out_code: true
     naming_conventions:
         local_variable: '^[a-z][a-zA-Z0-9_]*$'
-        abstract_class_name: ^Abstract|Base$
         utility_class_name: 'Utils?$'
         constant_name: '^[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*$'
         property_name: '^[a-z][a-zA-Z0-9_]*$'

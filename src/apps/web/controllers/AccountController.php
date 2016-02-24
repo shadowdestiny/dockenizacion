@@ -246,7 +246,7 @@ class AccountController extends PublicSiteControllerBase
                             $converted_net_amount_currency = $this->currencyService->convert($credit_card_charge->getNetAmount(), $user->getUserCurrency());
                             $converted_fee_value_currency = $this->currencyService->convert($fee_value, $user->getUserCurrency());
                             $converted_feelimit_value_currency = $this->currencyService->convert($fee_to_limit_value, $user->getUserCurrency());
-                            $msg .= 'We added ' . $symbol . ' '  . number_format($converted_net_amount_currency->getAmount() / 100,2,'.',',');
+                            $msg .= 'We added ' . $symbol . ' '  . number_format($converted_net_amount_currency->getAmount() / 100,2,'.',',') . ' to your Wallet Balance';
 
                             if($credit_card_charge->getIsChargeFee()) {
                                 $msg .= ', and charged you an additional '. $symbol . ' ' . number_format($converted_fee_value_currency->getAmount() / 100,2,'.',',') .' because it is a transfer below ' . $symbol . ' ' . number_format($converted_feelimit_value_currency->getAmount() / 100,2,'.',',');
