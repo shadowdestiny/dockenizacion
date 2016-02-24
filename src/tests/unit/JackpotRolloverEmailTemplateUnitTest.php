@@ -49,7 +49,7 @@ class JackpotRolloverEmailTemplateUnitTest extends UnitTestBase
 
         return $vars = [
             'template'=> 'jackpot-rollover',
-            'subject' => 'Jackpot',
+            'subject' => 'The Jackpot has reached your threshold',
             'vars' =>
                 [
                     [
