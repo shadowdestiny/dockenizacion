@@ -177,8 +177,8 @@ class AccountController extends PublicSiteControllerBase
         /** @var User $user */
         $user = $this->userService->getUser($user_id->getId());
 
-        $fee_value_with_currency = $this->siteConfigService->getFeeValueWithCurrencyConverted($user->getUserCurrency());
-        $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeToLimitValueWithCurrencyConverted($user->getUserCurrency());
+        $fee_value_with_currency = $this->siteConfigService->getFeeFormatMoney($user->getUserCurrency(), $this->userPreferencesService->getCurrency());
+        $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeLimitFormatMoney($user->getUserCurrency(), $this->userPreferencesService->getCurrency());
         $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue()->getAmount() / 100;
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
         $amount_winning = $user->getWinningAbove();
@@ -195,8 +195,8 @@ class AccountController extends PublicSiteControllerBase
             'show_winning_copy' => ($amount_winning != null ) ? $amount_winning->getAmount() / 100 : 0,
             'show_box_basic' => true,
             'fee_to_limit_value' => $fee_to_limit_value,
-            'fee' => $symbol . ' ' . $fee_value_with_currency->getAmount() / 100,
-            'fee_to_limit' => $symbol . ' ' . $fee_to_limit_value_with_currency->getAmount() / 100
+            'fee' => $fee_value_with_currency,
+            'fee_to_limit' => $fee_to_limit_value_with_currency
         ]);
     }
 
