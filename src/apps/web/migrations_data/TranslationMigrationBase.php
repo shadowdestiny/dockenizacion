@@ -3,8 +3,9 @@ namespace EuroMillions\migrations_data;
 
 use Phinx\Migration\AbstractMigration;
 
-class TranslationMigrationBase extends AbstractMigration
+abstract class TranslationMigrationBase extends AbstractMigration
 {
+    protected $translation_tree;
     protected function insertTranslationTree()
     {
         foreach ($this->translation_tree as $language => $data) {
