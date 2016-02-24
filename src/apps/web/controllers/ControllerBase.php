@@ -8,9 +8,13 @@ use EuroMillions\shared\vo\HttpUser;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\AuthService;
 use EuroMillions\web\services\DomainServiceFactory;
+use Phalcon\Http\Response\CookiesInterface;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\View;
 
+/**
+ * @property CookiesInterface $cookies
+ */
 class ControllerBase extends Controller
 {
     /** @var  DomainServiceFactory */
@@ -27,7 +31,7 @@ class ControllerBase extends Controller
     }
 
     /**
-     * @param AuthService $authServicePlay
+     * @param AuthService $authService
      * @return User
      */
     protected function forceLogin(AuthService $authService)

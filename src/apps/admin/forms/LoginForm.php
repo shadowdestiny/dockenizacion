@@ -1,9 +1,5 @@
 <?php
-
-
 namespace EuroMillions\admin\forms;
-
-
 
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Password;

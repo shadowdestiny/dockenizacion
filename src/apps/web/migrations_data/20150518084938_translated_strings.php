@@ -1,8 +1,8 @@
-<?php namespace EuroMillions\web\migrations_data;
+<?php
 include_once('TranslationMigrationBase.php');
 class TranslatedStrings extends \EuroMillions\migrations_data\TranslationMigrationBase
 {
-    protected $translation_tree = [
+    public $translation_tree = [
         'en' => [
             'en'             => 'English',
             'es'             => 'Spanish',

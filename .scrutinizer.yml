@@ -2,11 +2,11 @@ build_failure_conditions:
     - 'elements.rating(<= D).new.exists'
     - 'elements.rating(<= F).exists'
 
-    - 'issues.label("coding-style").new.count > 5' # More than 5 new coding style issues.
-    - 'issues.severity(>= MAJOR).new.exists'       # New issues of major or higher severity
+    - 'issues.new.count > 5'
+    - 'issues.severity(>= MAJOR).new.exists'
 
-    - 'project.metric("scrutinizer.quality", < 6)' # Code Quality Rating drops below 6
-    - 'project.metric("scrutinizer.test_coverage", < 0.45)' # Code Coverage drops below 45%
+    - 'project.metric("scrutinizer.quality", < 8.75)'
+    - 'project.metric("scrutinizer.test_coverage", < 0.46)' # Code Coverage drops below 45%
 
     # Code Coverage decreased from previous inspection by more than 0.5%
     - 'project.metric_change("scrutinizer.test_coverage", < -0.005)'
@@ -28,7 +28,7 @@ checks:
     too_many_arguments: true
     switch_fallthrough_commented: true
     sql_injection_vulnerabilities: true
-    single_namespace_per_use: true
+    single_namespace_per_use: false
     simplify_boolean_return: true
     side_effects_or_types: true
     security_vulnerabilities: true
@@ -75,13 +75,12 @@ checks:
     no_commented_out_code: true
     naming_conventions:
         local_variable: '^[a-z][a-zA-Z0-9_]*$'
-        abstract_class_name: ^Abstract|Factory$
         utility_class_name: 'Utils?$'
         constant_name: '^[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*$'
         property_name: '^[a-z][a-zA-Z0-9_]*$'
         method_name: '^(?:[a-z]|__)[a-zA-Z0-9]*$'
         parameter_name: '^[a-z][a-zA-Z0-9]*$'
-        interface_name: '^[A-Z][a-zA-Z0-9]*Interface$'
+        interface_name: '^I[A-Z][a-zA-Z0-9]*$'
         type_name: '^[A-Z][a-zA-Z0-9]*$'
         exception_name: '^[A-Z][a-zA-Z0-9]*Exception$'
         isser_method_name: '^(?:is|has|should|may|supports)'

@@ -6,6 +6,7 @@ use EuroMillions\web\interfaces\IValueObject;
 
 class StringLiteral extends ValueObject
 {
+    /** @var string */
     protected $value;
 
     public function __construct($value)
@@ -26,6 +27,9 @@ class StringLiteral extends ValueObject
         return new static(func_get_arg(0));
     }
 
+    /**
+     * @return string
+     */
     public function toNative()
     {
         return $this->value;
@@ -43,6 +47,6 @@ class StringLiteral extends ValueObject
 
     public function isEmpty()
     {
-        return \strlen($this->toNative()) == 0;
+        return $this->toNative() === '';
     }
 }

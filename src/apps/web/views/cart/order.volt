@@ -62,7 +62,10 @@ $('#card-cvv,#card-number').on('keypress',function(e){
     }
 });
 {% endblock %}
-{% block template_scripts_after %}<script src="/w/js/react/cart.js"></script>{% endblock %}
+{% block template_scripts_after %}
+    <script src="/w/js/react/cart.js"></script>
+    <script src="/w/js/react/tooltip.js"></script>
+{% endblock %}
 
 {% block bodyClass %}cart order minimal{% endblock %}
 {% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}

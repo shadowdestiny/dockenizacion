@@ -1,5 +1,5 @@
-<?php namespace EuroMillions\web\migrations;
-namespace EuroMillions\web\migrations;
+<?php
+
 
 use Phinx\Migration\AbstractMigration;
 

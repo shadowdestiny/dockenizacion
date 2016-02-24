@@ -194,6 +194,4 @@ class PaginationWidget extends \Phalcon\Mvc\User\Component {
         $this->_options = array_merge($this->getDefaultOptions(), (array)$options);
         return $this;
     }
-
 }
-?>
