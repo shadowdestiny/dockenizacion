@@ -108,18 +108,23 @@ function count_down(element,
 }
 
 window.addEventListener('orientationchange', handleOrientation, false);
+window.addEventListener('resize', handleOrientation, false);
 
 var orientation = 0;
 function handleOrientation() {
-    if (orientation == 0) {
+    if (window.innerHeight > window.innerWidth) {
+        show_forms_sign();
+    } else {
+        hide_forms_sign();
+    }
 
+    if (orientation == 0) {
     }else if (orientation == 90 ) {
+        alert('90');
         show_forms_sign();
     }
-    else if (orientation == -90) {
-    }
     else if (orientation == 180) {
-        alert("180");
+        alert('180');
         hide_forms_sign();
     }
 }
@@ -262,18 +267,15 @@ $(function(){
                 var minutes_to_close = minutes_value - 5;
                 interval_warning_close = logic_warning_interval(minutes_to_close, finish_countdown_warning_close_draw, interval_warning_close, interval_warning);
             }else if(minutes_value > 2){
-                console.log('line 241');
                 if(minutes_value < 1) {
                     finish_countdown_warning_close_draw(interval_warning_close);
                 }
                 interval_warning = 35000;
                 if(minutes_value > 2 ){
                     interval_warning = 60000;
-                    console.log('line 248');
                 }
                 interval_warning_close = logic_warning_interval(minutes_value, finish_countdown_warning_close_draw, interval_warning_close, interval_warning);
             }else if(minutes_value <= 1) {
-                console.log('line 252');
                 finish_countdown_warning_close_draw(interval_warning_close);
             }
         }

@@ -11,6 +11,7 @@ function swap(myVar){
 
 
 function hide_forms_sign() {
+    alert(size);
     var which_form = '<?php echo $which_form;?>';
     if(which_form == 'in'){
         $(".col8").hide();
@@ -23,6 +24,9 @@ function show_forms_sign() {
     if(size >= 1) {
         $(".col8").show();
         $(".col4").show();
+    }
+    if(size >= 3){
+        hide_forms_sign();
     }
 }
 

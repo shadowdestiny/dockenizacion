@@ -117,7 +117,7 @@ $(function(){
             <div class="box info">
                 <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                 <div class="txt">
-                   <strong class="straight">{{ language.translate("Congratulations!!! You just won ") }}{{ symbol }} {{ show_winning_copy | number_format(0,',','.') }}</strong><br>
+                   <strong class="straight">{{ language.translate("Congratulations!!! You just won ") }}{{ symbol }} {{ show_winning_copy | number_format(0,'.',',') }}</strong><br>
                     {{ language.translate("We have sent you an email with further instructions to collect your prize.
                     For any questions please contact us at") }} <a href="mailto:support@euromillions.com">support@euromillions.com</a> 
                 </div>
