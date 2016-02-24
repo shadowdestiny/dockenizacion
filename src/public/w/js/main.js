@@ -229,9 +229,8 @@ $(function(){
     var first_load = true;
     var fade_value = 800;
     var interval_warning = 300000;
-    var timeout_first_warning = 30000;
+    var timeout_first_warning = 8000;
 
-    console.log(minutes_value);
     if(remain_time == 1 && minutes_value >= 1 && minutes_value < 30){
         if (minutes_value > 1 && minutes_value <= 5){
             interval_warning = 30000;
@@ -241,9 +240,9 @@ $(function(){
         }
         if(minutes_value < 2 ) {
             interval_warning = 2000;
-            $('.ending').text('The draw will close in ' + minutes_value + ' minute')
+            $('.ending').text('The draw will close in about ' + minutes_value + ' minute')
         } else {
-            $('.ending').text('The draw will close in ' + minutes_to_close_rounded + ' minutes')
+            $('.ending').text('The draw will close in about ' + minutes_to_close_rounded + ' minutes')
         }
         $('.ending').fadeIn(fade_value);
         setTimeout(function(){
@@ -285,7 +284,7 @@ $(function(){
 
     function logic_warning_interval(minutes_value, finish_countdown_warning_close_draw, interval_warning_close,timeout_interval) {
         var minutes_literal = (minutes_value == 1) ? ' minute' : ' minutes';
-        $('.ending').text('The draw will close in ' + minutes_value + minutes_literal);
+        $('.ending').text('The draw will close in about ' + minutes_value + minutes_literal);
         $('.ending').fadeIn();
         setTimeout(function () {
             if (getMinutes() < 1) {

@@ -17,7 +17,7 @@ class JackpotRolloverEmailTemplate extends EmailTemplateDecorator
 
         $vars = [
             'template' => 'jackpot-rollover',
-            'subject' => 'Jackpot',
+            'subject' => 'The Jackpot has reached your threshold',
             'vars' =>
                 [
                     [
