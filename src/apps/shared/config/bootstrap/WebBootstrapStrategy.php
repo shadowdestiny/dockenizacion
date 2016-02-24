@@ -8,8 +8,6 @@ use EuroMillions\shared\components\PhalconRequestWrapper;
 use EuroMillions\shared\components\PhalconSessionWrapper;
 use EuroMillions\shared\components\PhalconUrlWrapper;
 use EuroMillions\shared\config\interfaces\IBootstrapStrategy;
-use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
-use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\DomainServiceFactory;
 use EuroMillions\web\services\ServiceFactory;
 use Phalcon;
@@ -71,13 +69,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         (new Phalcon\Debug())->listen();
         $application = new Phalcon\Mvc\Application($di);
         $application->registerModules([
-            'web' => [
+            'web'   => [
                 'className' => 'EuroMillions\web\Module',
-                'path' => '../apps/web/Module.php',
+                'path'      => '../apps/web/Module.php',
             ],
             'admin' => [
                 'className' => 'EuroMillions\admin\Module',
-                'path' => '../apps/admin/Module.php',
+                'path'      => '../apps/admin/Module.php',
             ]
         ]);
         $this->ownDependency($application);
@@ -92,7 +90,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $view = new Phalcon\Mvc\View();
         $compiled_path = $this->assetsPath . 'compiled_templates/';
         $view->setViewsDir($this->appPath . 'web/views/');
-        if($module == 'admin') {
+        if ($module == 'admin') {
             $view->setViewsDir($this->appPath . 'admin/views/');
         }
         $view->registerEngines(array(
@@ -119,7 +117,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             //The controller exists but the action not
             if ($event->getType() == 'beforeNotFoundAction') {
                 $dispatcher->forward(array(
-                    'module' => 'web',
+                    'module'     => 'web',
                     'controller' => 'index',
                     'action'     => 'notfound'
                 ));
@@ -130,7 +128,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                     case Phalcon\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
                     case Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
                         $dispatcher->forward(array(
-                            'module' => 'web',
+                            'module'     => 'web',
                             'controller' => 'index',
                             'action'     => 'notfound',
                             'params'     => array($exception)
@@ -153,22 +151,22 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
         $router->setDefaultModule('web');
         $router->add('/admin/:controller/:action/:params', array(
-            'module' => 'admin',
+            'module'     => 'admin',
             'controller' => 1,
-            'action' => 2,
-            'params' => 3,
+            'action'     => 2,
+            'params'     => 3,
         ));
 
         $router->add('/admin/:controller(/?)', array(
-            'module' => 'admin',
+            'module'     => 'admin',
             'controller' => 1,
-            'action' => 'index',
+            'action'     => 'index',
         ));
 
         $router->add('/admin(/?)', array(
-            'module' => 'admin',
+            'module'     => 'admin',
             'controller' => 'index',
-            'action' => 'index',
+            'action'     => 'index',
         ));
 
         $router->notFound(array(
@@ -246,7 +244,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     protected function getConfigFileName(EnvironmentDetector $em)
     {
-        return $em->get().'_'.self::CONFIG_FILENAME;
+        return $em->get() . '_' . self::CONFIG_FILENAME;
     }
 
     protected function configLanguage(Di $di)
@@ -279,7 +277,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     protected function configUrl(Di $di)
     {
         $url = new PhalconUrlWrapper();
-        $url->setBaseUri('https://'.$_SERVER['HTTP_HOST']);
+        $url->setBaseUri('https://' . $_SERVER['HTTP_HOST']);
         return $url;
     }
 
@@ -290,7 +288,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     protected function configDomainServiceFactory(Di $di)
     {
-       return new DomainServiceFactory($di, new ServiceFactory($di));
+        return new DomainServiceFactory($di, new ServiceFactory($di));
     }
 
     protected function configDomainAdminServiceFactory(Di $di)
@@ -303,9 +301,9 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     {
         $di = $application->getDI();
         $eventsManager = new Phalcon\Events\Manager();
-        $eventsManager->attach('application:beforeStartModule',function($event, $application) use($di){
+        $eventsManager->attach('application:beforeStartModule', function ($event, $application) use ($di) {
             $module_name = $event->getData();
-            if($module_name == 'web'){
+            if ($module_name == 'web') {
                 $web_module = $application->getModule($module_name);
                 /** @var ModuleDefinitionInterface $object */
                 $object = $di->get($web_module['className']);
@@ -314,11 +312,11 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 $di->set('view', $this->configView($module_name), true);
                 $object->registerServices($di);
             }
-            if($module_name == 'admin'){
+            if ($module_name == 'admin') {
                 $admin_module = $application->getModule($module_name);
                 $di->set('view', $this->configView($module_name), true);
                 $object = $di->get($admin_module['className']);
-                $di->set('domainAdminServiceFactory',$this->configDomainAdminServiceFactory($di),true);
+                $di->set('domainAdminServiceFactory', $this->configDomainAdminServiceFactory($di), true);
                 $object->registerServices($di);
             }
         });

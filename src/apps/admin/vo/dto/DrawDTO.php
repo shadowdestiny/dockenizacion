@@ -8,8 +8,6 @@ use EuroMillions\admin\interfaces\IDto;
 use EuroMillions\admin\vo\dto\base\DTOBase;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
-use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
-use EuroMillions\web\vo\EuroMillionsDrawBreakDownData;
 
 class DrawDTO extends DTOBase implements IDto
 {
@@ -124,7 +122,7 @@ class DrawDTO extends DTOBase implements IDto
 
     public function toArray()
     {
-        return $array = json_decode(json_encode($this),TRUE);
+        return json_decode(json_encode($this),TRUE);
     }
 
     /**

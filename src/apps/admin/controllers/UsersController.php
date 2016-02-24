@@ -7,7 +7,6 @@ use EuroMillions\admin\services\MaintenanceUserService;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\admin\vo\dto\UserDTO;
 use EuroMillions\web\entities\User;
-use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\UserId;
 
 class UsersController extends AdminControllerBase
@@ -72,10 +71,11 @@ class UsersController extends AdminControllerBase
             $result = $this->maintenanceUserService->updateUserData($this->request);
             $this->noRender();
             if($result->success()) {
-                $result = $this->maintenanceUserService->listAllUsers();
+                $result_list = $this->maintenanceUserService->listAllUsers();
                 $list_users_dto = [];
-                if($result->success()){
-                    foreach($result->getValues() as $user) {
+                if($result_list->success()){
+                    $values = $result_list->getValues();
+                    foreach($values as $user) {
                         $list_users_dto[] = new UserDTO($user);
                     }
                     echo json_encode(['result' => 'OK',
@@ -84,7 +84,7 @@ class UsersController extends AdminControllerBase
                     );
                 } else{
                     echo json_encode(['result' => 'KO',
-                                      'value'=> $result->errorMessage()
+                                      'value'=> $result_list->errorMessage()
                                       ]
                     );
                 }
@@ -97,10 +97,4 @@ class UsersController extends AdminControllerBase
             }
         }
    }
-
-    public function deleteAction($id)
-    {
-
-    }
-
 }

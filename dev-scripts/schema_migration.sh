@@ -6,12 +6,9 @@ if [ "$environment" == "devel" ]; then
     now=$(date)
     echo "$now: Schema migration executed" >> /vagrant/dev-logs/migration.log
     vendor/bin/phinx migrate --configuration="phinx_schema.yml" -e devel
-elif [ "$environment" == "shippable" ]; then
-    echo "migrating..."
+elif [ "$environment" == "shippable" ] || [ "$environment" == "scrutinizer" ]; then
     cd src/
     vendor/bin/phinx migrate --configuration="phinx_schema.yml" -e shippable
-fi
-if [ "$environment" == "shippable" ]; then
     cd ..
 fi
 echo "finish migration"

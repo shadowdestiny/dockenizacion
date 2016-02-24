@@ -1,6 +1,5 @@
 <?php
 namespace EuroMillions\web\controllers;
-use EuroMillions\web\components\DateTimeUtil;
 use Phalcon\Di;
 
 class IndexController  extends PublicSiteControllerBase
@@ -21,11 +20,13 @@ class IndexController  extends PublicSiteControllerBase
 
     }
 
-    public function notfoundAction($exception = null)
+    public function notfoundAction(\Exception $exception = null)
     {
         $this->noRender();
-        echo "ERROR 404";
-        var_dump($exception);
+        echo 'ERROR 404: ';
+        if (null !==$exception) {
+            echo $exception->getMessage();
+        }
     }
 }
 
