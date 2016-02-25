@@ -115,6 +115,11 @@ class PublicSiteControllerBase extends ControllerBase
         $date_time_util = new DateTimeUtil();
         $date_next_draw = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions');
         $this->view->setVar('countdown_next_draw', $date_time_util->getCountDownNextDraw($date_next_draw));
+        $single_bet_price = $this->domainServiceFactory->getLotteriesDataService()->getSingleBetPriceByLottery('EuroMillions');
+        $single_bet_price_currency = $this->currencyService->convert($single_bet_price, $current_currency);
+        $symbol_position = $this->currencyService->getSymbolPosition($current_currency, $single_bet_price_currency->getCurrency());
+        $bet_with_currency = number_format($single_bet_price_currency->getAmount() / 100,2,'.',',');
+        $this->view->setVar('bet_price', $symbol_position ? $bet_with_currency . ' ' . $user_currency['symbol'] : $user_currency['symbol'] . ' ' . $bet_with_currency);
     }
 
     private function setNavValues()
@@ -172,12 +177,12 @@ class PublicSiteControllerBase extends ControllerBase
         //Vars draw closing modal
         $dateUtil = new DateTimeUtil();
         $lottery_date_time = $this->domainServiceFactory->getLotteriesDataService()->getNextDateDrawByLottery('EuroMillions');
-        $lottery_date_time = new \DateTime('2016-02-24 16:45:00');
+        $lottery_date_time = new \DateTime('2016-02-24 18:00:00');
         $time_to_remain = $dateUtil->getTimeRemainingToCloseDraw($lottery_date_time);
         if($time_to_remain) {
             $minutes_to_close = $dateUtil->restMinutesToCloseDraw($lottery_date_time);
-            $minutes_to_close_rounded = $dateUtil->restMinutesToCloseDraw($lottery_date_time,null,true);
         }
+        $minutes_to_close_rounded = $dateUtil->restMinutesToCloseDraw($lottery_date_time,null,true);
         $last_minute = $dateUtil->isLastMinuteToDraw($lottery_date_time);
         $this->view->setVar('time_to_remain_draw', $time_to_remain);
         $this->view->setVar('minutes_to_close_rounded', (int) $minutes_to_close_rounded);

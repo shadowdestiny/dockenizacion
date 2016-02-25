@@ -53,7 +53,6 @@ class CurrencyService
         }catch(\Exception $e) {
             return 1;
         }
-
     }
 
     public function getActiveCurrenciesCodeAndNames()

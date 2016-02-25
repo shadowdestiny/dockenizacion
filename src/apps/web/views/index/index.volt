@@ -114,7 +114,7 @@ $(function(){
 				<div class="box-play">
 					<a href="/play" class="outbound">
 						<div class="content">
-							<p class="h2">{{ language.translate('for only %priceValue% &euro;',['priceValue':2,35]) }}</p>
+							<p class="h2">{{ language.translate('for only ') }} {{ bet_price }}</p>
 							<div class="win-millions">
 								<svg class="vector win-millions">
 									<use xlink:href="/w/svg/icon.svg#win-millions" style="filter:url(#shadow)"></use>

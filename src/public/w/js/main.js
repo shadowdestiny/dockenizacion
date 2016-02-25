@@ -112,19 +112,13 @@ window.addEventListener('resize', handleOrientation, false);
 
 var orientation = 0;
 function handleOrientation() {
-    if (window.innerHeight > window.innerWidth) {
-        show_forms_sign();
-    } else {
-        hide_forms_sign();
-    }
-
     if (orientation == 0) {
+        hide_forms_sign();
     }else if (orientation == 90 ) {
-        alert('90');
         show_forms_sign();
-    }
-    else if (orientation == 180) {
-        alert('180');
+    }else if( orientation == -90 ) {
+        show_forms_sign();
+    } else if (orientation == 180) {
         hide_forms_sign();
     }
 }
@@ -228,10 +222,11 @@ $(function(){
     var interval_warning_close = null;
     var first_load = true;
     var fade_value = 800;
-    var interval_warning = 300000;
+    var interval_warning = 200000;
     var timeout_first_warning = 8000;
 
     if(remain_time == 1 && minutes_value >= 1 && minutes_value < 30){
+        minutes_to_close_rounded = isNaN(minutes_to_close_rounded) || minutes_to_close_rounded == 0 ? minutes_value : minutes_to_close_rounded;
         if (minutes_value > 1 && minutes_value <= 5){
             interval_warning = 30000;
         }else if (minutes_value == 1){
@@ -249,6 +244,7 @@ $(function(){
             $('.ending').fadeOut(fade_value);
         },timeout_first_warning);
         interval();
+
         setInterval(interval,interval_warning);
     }
 
@@ -262,18 +258,17 @@ $(function(){
         var minutes_value =  getMinutes();
         if(!first_load) {
             if(minutes_value > 6) {
-                minutes_value = minutes_to_close_rounded - 5;
-                var minutes_to_close = minutes_value - 5;
+                //minutes_value = minutes_to_close_rounded - 5;
+                var minutes_to_close = minutes_to_close_rounded - 5;
                 interval_warning_close = logic_warning_interval(minutes_to_close, finish_countdown_warning_close_draw, interval_warning_close, interval_warning);
-            }else if(minutes_value > 2){
+                setInterval(interval,interval_warning);
+            }else if(minutes_value >= 2){
                 if(minutes_value < 1) {
                     finish_countdown_warning_close_draw(interval_warning_close);
                 }
-                interval_warning = 35000;
-                if(minutes_value > 2 ){
-                    interval_warning = 60000;
-                }
+                interval_warning = 50000;
                 interval_warning_close = logic_warning_interval(minutes_value, finish_countdown_warning_close_draw, interval_warning_close, interval_warning);
+                setInterval(interval,interval_warning);
             }else if(minutes_value <= 1) {
                 finish_countdown_warning_close_draw(interval_warning_close);
             }

@@ -9,21 +9,20 @@ function swap(myVar){
     });
 }
 
-
 function hide_forms_sign() {
-    alert(size);
     var which_form = '<?php echo $which_form;?>';
     if(which_form == 'in'){
         $(".col8").hide();
     } else {
         $(".col4").hide();
     }
-    swap(".col4 .box-extra a, .col8 .box-extra a");
+    //swap(".col4 .box-extra a, .col8 .box-extra a");
 }
 function show_forms_sign() {
     if(size >= 1) {
-        $(".col8").show();
         $(".col4").show();
+        $(".col8").show();
+        swap(".col4 .box-extra a, .col8 .box-extra a");
     }
     if(size >= 3){
         hide_forms_sign();
