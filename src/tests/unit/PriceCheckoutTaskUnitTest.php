@@ -7,9 +7,13 @@ namespace tests\unit;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shared\config\Namespaces;
+use EuroMillions\web\emailTemplates\EmailTemplate;
+use EuroMillions\web\emailTemplates\WinEmailAboveTemplate;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
+use EuroMillions\web\services\email_templates_strategies\WinEmailAboveDataEmailTemplateStrategy;
 use EuroMillions\web\tasks\PriceCheckoutTask;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
@@ -91,10 +95,10 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
 
     /**
      * method checkout
-     * when calledAndAmountAwardedIsMoreThan1500
+     * when calledAndAmountAwardedIsMoreThan2500
      * should sendEmailToUserReminder
      */
-    public function test_checkout_calledAndAmountAwardedIsMoreThan1500_sendEmailToUserReminder()
+    public function test_checkout_calledAndAmountAwardedIsMoreThan2500_sendEmailToUserReminder()
     {
         $today = new \DateTime('2015-10-06');
         $lottery_name = 'EuroMillions';
@@ -104,7 +108,7 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
         $this->lotteryDataService_double->getBreakDownDrawByDate($lottery_name,$today)->willReturn(new ActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())));
         $this->priceCheckoutService_double->reChargeAmountAwardedToUser($user,Argument::type('Money\Money'))->willReturn(new ActionResult(true))->shouldBeCalledTimes(2);
         $this->userService_double->userWonAbove($user, Argument::type('Money\Money'))->shouldBeCalled();
-        $this->emailService_double->sendTransactionalEmail($user,Argument::type('EuroMillions\web\emailTemplates\IEmailTemplate'))->shouldBeCalled();
+        $this->emailService_double->sendTransactionalEmail(Argument::type('EuroMillions\web\entities\User'), Argument::type('EuroMillions\web\emailTemplates\IEmailTemplate'))->shouldBeCalled();
         $sut = new PriceCheckoutTask();
         $sut->initialize($this->priceCheckoutService_double->reveal(), $this->lotteryDataService_double->reveal(), $this->emailService_double->reveal(), $this->userService_double->reveal());
         $sut->checkoutAction($today);
@@ -154,6 +158,18 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
                 $playConfig2,4,2
             ]
         ];
+    }
+
+    private function prepareSendEmail()
+    {
+
+        $emailTemplateDataStrategy_double = $this->getInterfaceWebDouble('IEmailTemplateDataStrategy');
+        $data = [
+            'amount_converted' => '$2'
+        ];
+        $emailTemplateDataStrategy_double->getData()->willReturn($data);
+        $user_currency = new Currency('USD');
+        $expected_result = new Money(1, new Currency('USD'));
     }
 
     /**
