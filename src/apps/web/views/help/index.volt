@@ -20,7 +20,7 @@
                         <h2 class="h3 purple">{{ language.translate("How to play") }}</h2>
                     </div>
                     <div class="wrap">
-                        <p class="txt">{{ language.translate("Playing Euromillions on Euromillions.com costs only &euro; 2.35 (&pound; 1.65) per play, the best price available on the Internet.") }}</p>
+                        <p class="txt">{{ language.translate("Playing Euromillions on Euromillions.com costs only %bet_price% (%bet_price_pound%) per play, the best price available on the Internet.",['bet_price':bet_price,'bet_price_pound':bet_price_pound]) }}</p>
 
                         <ol class="ul-help no-li cl">
                             <li>

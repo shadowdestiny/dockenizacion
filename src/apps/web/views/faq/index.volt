@@ -195,7 +195,7 @@
 
                 <a id="n18"></a>
                 <h3 class="h3">{{ language.translate("How much does a Euromillions ticket cost?") }}</h3>
-                <p>{{ language.translate('<a href="%link%">Playing Euromillions</a> costs &euro; %price_bet% / &pound; 1.65 per play. This is the best price available on the Internet.',['link':url("play"), 'price_bet': price_bet  ]) }}</p>
+                <p>{{ language.translate('<a href="%link%">Playing Euromillions</a> costs %bet_price% / %bet_price_pound% per play. This is the best price available on the Internet.',['link':url("play"), 'bet_price': bet_price,'bet_price_pound' : bet_price_pound]) }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <a id="n19"></a>

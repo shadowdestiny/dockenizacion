@@ -14,6 +14,7 @@ use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\UserPreferencesService;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\dto\CurrencyDTO;
+use Money\Currency;
 use Phalcon\Di;
 use Phalcon\Mvc\View;
 
@@ -115,11 +116,15 @@ class PublicSiteControllerBase extends ControllerBase
         $date_time_util = new DateTimeUtil();
         $date_next_draw = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions');
         $this->view->setVar('countdown_next_draw', $date_time_util->getCountDownNextDraw($date_next_draw));
+
+        //EMTD create a method helper to set this vars
         $single_bet_price = $this->domainServiceFactory->getLotteriesDataService()->getSingleBetPriceByLottery('EuroMillions');
         $single_bet_price_currency = $this->currencyService->convert($single_bet_price, $current_currency);
-        $symbol_position = $this->currencyService->getSymbolPosition($current_currency, $single_bet_price_currency->getCurrency());
-        $bet_with_currency = number_format($single_bet_price_currency->getAmount() / 100,2,'.',',');
-        $this->view->setVar('bet_price', $symbol_position ? $bet_with_currency . ' ' . $user_currency['symbol'] : $user_currency['symbol'] . ' ' . $bet_with_currency);
+        $bet_value = $this->currencyService->toString($single_bet_price_currency,$current_currency);
+        $single_bet_price_currency_gbp = $this->currencyService->convert($single_bet_price, new Currency('GBP'));
+        $bet_value_pound = $this->currencyService->toString($single_bet_price_currency_gbp,new Currency('GBP'));
+        $this->view->setVar('bet_price', $bet_value);
+        $this->view->setVar('bet_price_pound', $bet_value_pound);
     }
 
     private function setNavValues()
