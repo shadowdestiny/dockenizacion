@@ -5,6 +5,7 @@ namespace EuroMillions\web\controllers;
 
 
 use EuroMillions\web\emailTemplates\EmailTemplate;
+use EuroMillions\web\emailTemplates\EmailTemplateDecorator;
 use EuroMillions\web\emailTemplates\JackpotRolloverEmailTemplate;
 use EuroMillions\web\emailTemplates\LatestResultsEmailTemplate;
 use EuroMillions\web\emailTemplates\LongPlayEndedEmailTemplate;
@@ -110,7 +111,7 @@ class EmailTestController extends PublicSiteControllerBase
     /**
      * @param $template
      * @param $user
-     * @return string
+     * @return EmailTemplateDecorator
      */
     private function getInstanceDecorator($template)
     {
