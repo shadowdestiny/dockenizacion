@@ -40,6 +40,9 @@ class PriceCheckoutService
     /** @var  UserService */
     private $userService;
 
+    /** @var CurrencyService  */
+    private $currencyService;
+
     /** @var  EmailService */
     private $emailService;
 

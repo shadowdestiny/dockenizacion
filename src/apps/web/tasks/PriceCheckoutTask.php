@@ -4,22 +4,15 @@
 namespace EuroMillions\web\tasks;
 
 
-use EuroMillions\web\emailTemplates\EmailTemplate;
-use EuroMillions\web\emailTemplates\WinEmailAboveTemplate;
-use EuroMillions\web\emailTemplates\WinEmailTemplate;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\DomainServiceFactory;
-use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
-use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
-use EuroMillions\web\services\email_templates_strategies\WinEmailAboveDataEmailTemplateStrategy;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\PriceCheckoutService;
 use EuroMillions\web\services\ServiceFactory;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
-use Money\Currency;
 use Money\Money;
 
 class PriceCheckoutTask extends TaskBase

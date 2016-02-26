@@ -5,8 +5,6 @@ namespace EuroMillions\web\emailTemplates;
 
 
 use EuroMillions\web\entities\User;
-use EuroMillions\web\interfaces\IEmailTemplateDataStrategy;
-use EuroMillions\web\services\email_templates_strategies\WinEmailAboveDataEmailTemplateStrategy;
 
 
 class WinEmailAboveTemplate extends EmailTemplateDecorator

@@ -22,7 +22,6 @@ class WinEmailAboveDataEmailTemplateStrategy implements IEmailTemplateDataStrate
 
     public function getData(IEmailTemplateDataStrategy $strategy = null)
     {
-
         try {
             $amount_converted = $this->currencyService->convert($this->amount,$this->user_currency);
             $amount_symbol = $this->currencyService->toString($amount_converted,$this->user_currency);

@@ -10,7 +10,6 @@ function swap(myVar){
        // $(".what-user .col4, .what-user .col8").toggle();
         var elem = $(this).parent().parent().parent().parent().parent();
         var isActive = elem.hasClass('active');
-        console.log('isActive: ' + isActive);
         if(isActive){
             $(".what-user .col4").addClass("active").css('display','block');
             $(".what-user .col8").removeClass("active").hide();
@@ -18,19 +17,25 @@ function swap(myVar){
             $(".what-user .col8").addClass("active").css('display','block');
             $(".what-user .col4").removeClass("active").hide();
         }
-    console.log("test")
     });
 }
 
 function hide_forms_sign() {
     var size = checkSize();
+    console.log(size);
     if(size >= 3){
         if(which_form == 'in'){
-            $(".what-user .col8").hide();
+            console.log('pasa1');
+            $(".what-user .col4").addClass('active');
+            $(".what-user .col8").removeClass("active").hide();
+            //$(".what-user .col8").hide();
         } else {
-            $(".what-user .col4").hide();
+            //$(".what-user .col4").hide();
+            $(".what-user .col8").addClass('active').hide();
+            $(".what-user .col4").removeClass("active");
         }
     } else {
+
         $(".what-user .col4,.what-user .col8").css('display','table-cell');
         $(".what-user .col8").addClass("active");
         $(".what-user .col4").removeClass("active");
@@ -48,9 +53,8 @@ function show_forms_sign() {
 $(function(){
         hide_forms_sign();
         $(window).resize(hide_forms_sign);
-    swap(".what-user .box-extra a");
-
-    });
+        swap(".what-user .box-extra a");
+});
 
 {% endblock %}
 {% block bodyClass %}cart profile minimal sign-in{% endblock %}

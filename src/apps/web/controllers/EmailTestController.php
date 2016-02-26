@@ -10,6 +10,7 @@ use EuroMillions\web\emailTemplates\LatestResultsEmailTemplate;
 use EuroMillions\web\emailTemplates\LongPlayEndedEmailTemplate;
 use EuroMillions\web\emailTemplates\LowBalanceEmailTemplate;
 use EuroMillions\web\emailTemplates\WelcomeEmailTemplate;
+use EuroMillions\web\emailTemplates\WinEmailAboveTemplate;
 use EuroMillions\web\emailTemplates\WinEmailTemplate;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
@@ -17,6 +18,7 @@ use EuroMillions\web\services\email_templates_strategies\LatestResultsDataEmailT
 use EuroMillions\web\services\email_templates_strategies\LongPlayEndedDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\LowBalanceDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
+use EuroMillions\web\services\email_templates_strategies\WinEmailAboveDataEmailTemplateStrategy;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Url;
@@ -133,7 +135,12 @@ class EmailTestController extends PublicSiteControllerBase
                 $instance = new WinEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
                 break;
             case 'win-email-above-1500':
-                $instance = new WinEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
+                $winEmailAboveDataEmailTemplateStrategy = new WinEmailAboveDataEmailTemplateStrategy();
+                $winEmailAboveDataEmailTemplateStrategy->amount = new Money(100000, new Currency('EUR'));
+                $winEmailAboveDataEmailTemplateStrategy->user_currency = new Currency('USD');
+                $instance = new WinEmailAboveTemplate($emailTemplate, $winEmailAboveDataEmailTemplateStrategy);
+                $instance->setUser($this->getNewUser('raul.mesa@panamedia.net'));
+                $instance->setResultAmount(new Money(100000, new Currency('EUR')));
                 break;
             case 'welcome':
                 $instance = new WelcomeEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
