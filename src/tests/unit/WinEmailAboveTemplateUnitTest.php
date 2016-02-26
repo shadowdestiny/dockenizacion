@@ -39,6 +39,7 @@ class WinEmailAboveTemplateUnitTest extends UnitTestBase
         $result_amount = new Money(10000, new Currency('EUR'));
         $emailTemplate = new EmailTemplate();
         $user = UserMother::aUserWith50Eur()->build();
+        $user->setUserCurrency(new Currency('USD'));
         $emailTemplateDataStrategy_double = $this->getInterfaceWebDouble('IEmailTemplateDataStrategy');
         $data = [
             'amount_converted' => '$2'
@@ -55,6 +56,8 @@ class WinEmailAboveTemplateUnitTest extends UnitTestBase
         $actual = $sut->loadVars($emailTemplateDataStrategy_double->reveal());
         $this->assertEquals($expected,$actual);
     }
+
+
 
     private function getArrayContentTemplate()
     {

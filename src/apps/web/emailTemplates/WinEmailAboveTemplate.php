@@ -33,12 +33,16 @@ class WinEmailAboveTemplate extends EmailTemplateDecorator
                         'name'    => 'winning',
                         'content' => number_format((float) $this->result_amount->getAmount() / 100,2,".",",")
                     ],
-                    [
-                        'name' => 'amount_converted',
-                        'content' => $data['amount_converted']
-                    ]
                 ]
         ];
+
+        if( $this->user->getUserCurrency()->getName() != 'EUR' ) {
+            $vars['vars'][] = [
+                'name' => 'amount_converted',
+                'content' => $data['amount_converted']
+            ];
+        }
+
         return $vars;
     }
 
