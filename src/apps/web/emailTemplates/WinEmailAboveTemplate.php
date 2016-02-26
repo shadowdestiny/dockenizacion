@@ -17,10 +17,10 @@ class WinEmailAboveTemplate extends EmailTemplateDecorator
 
     protected $result_amount;
 
-    public function loadVars(IEmailTemplateDataStrategy $strategy = null)
+    public function loadVars()
     {
-        $strategy = $strategy ? $strategy : new WinEmailAboveDataEmailTemplateStrategy($this->result_amount, $this->user->getBalance()->getCurrency());
-        $data = $this->emailTemplateDataStrategy->getData($strategy);
+
+        $data = $this->emailTemplateDataStrategy->getData();
 
         $vars = [
             'template' => 'win-email-above-1500',

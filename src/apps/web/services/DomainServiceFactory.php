@@ -136,10 +136,16 @@ class DomainServiceFactory
         return new CartService($this->entityManager, $orderStorageStrategy);
     }
 
-    public function getPriceCheckoutService(LotteriesDataService $lotteriesDataService = null)
+    public function getPriceCheckoutService(LotteriesDataService $lotteriesDataService = null,
+                                            CurrencyService $currencyService = null,
+                                            UserService $userService = null,
+                                            EmailService $emailService = null)
     {
         $lotteriesDataService = $lotteriesDataService ?: new LotteriesDataService($this->entityManager, new LotteryApisFactory());
-        return new PriceCheckoutService($this->entityManager, $lotteriesDataService);
+        $currencyService = $currencyService ?: $this->getCurrencyService();
+        $userService = $userService ?: $this->getUserService();
+        $emailService = $emailService ?: $this->serviceFactory->getEmailService();
+        return new PriceCheckoutService($this->entityManager, $lotteriesDataService,$currencyService,$userService,$emailService);
     }
 
     public function getCurrencyService(ICurrencyApi $currencyApi = null)

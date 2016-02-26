@@ -17,6 +17,7 @@ use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
+use Prophecy\Argument;
 use tests\base\EuroMillionsResultRelatedTest;
 use tests\base\UnitTestBase;
 
@@ -43,6 +44,10 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
 
     private $emailService_double;
 
+    private $currencyService_double;
+
+    private $userService_double;
+
 
     protected function getEntityManagerStubExtraMappings()
     {
@@ -65,6 +70,8 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
         $this->userRepository_double = $this->getRepositoryDouble('UserRepository');
         $this->authService_double = $this->getServiceDouble('AuthService');
         $this->emailService_double = $this->getServiceDouble('EmailService');
+        $this->currencyService_double = $this->getServiceDouble('CurrencyService');
+        $this->userService_double = $this->getServiceDouble('UserService');
         parent::setUp();
     }
 
@@ -113,6 +120,7 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
         $this->userRepository_double->add($user);
         $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush($user)->shouldNotBeCalled();
+        $this->emailService_double->sendTransactionalEmail(Argument::type('EuroMillions\web\entities\User'), Argument::type('EuroMillions\web\emailTemplates\IEmailTemplate'))->shouldBeCalled();
         $this->stubEntityManager($entityManager_stub);
         $sut = $this->getSut();
         $actual = $sut->reChargeAmountAwardedToUser($user,$amount_awarded);
@@ -140,7 +148,7 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
 
 
     private function getSut(){
-        $sut = $this->getDomainServiceFactory()->getPriceCheckoutService($this->lotteryDataService_double->reveal());
+        $sut = $this->getDomainServiceFactory()->getPriceCheckoutService($this->lotteryDataService_double->reveal(), $this->currencyService_double->reveal(), $this->userService_double->reveal(), $this->emailService_double->reveal());
         return $sut;
     }
 

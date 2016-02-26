@@ -107,8 +107,9 @@ function count_down(element,
     //visit: http://hilios.github.io/jQuery.countdown to formatted html result
 }
 
-window.addEventListener('orientationchange', handleOrientation, false);
-window.addEventListener('resize', handleOrientation, false);
+//window.addEventListener('orientationchange', handleOrientation, false);
+//window.addEventListener('resize', handleOrientation, false);
+//window.addEventListener('resize', handleOrientation, false);
 
 var orientation = 0;
 function handleOrientation() {
@@ -136,6 +137,8 @@ function checkSize(){
     }else if($(".media").width() == "5"){   // max-width: 320px
         varSize = 5;
     }
+
+    console.log('Size: ' + varSize);
     return varSize;
 }
 
