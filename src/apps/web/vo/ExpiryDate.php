@@ -21,7 +21,7 @@ class ExpiryDate extends StringLiteral
 
         if (count($date) > 1) {
             if ((int)$date[0] < 1 || (int)$date[0] > 12 || strlen($date[1]) !== 4|| strlen($date[0]) !== 2 ) {
-                throw new InvalidExpirationDateException('The expiration date is not valid. Format should be "mm/yyyy".');
+                throw new InvalidExpirationDateException('The expiration date is not valid.');
             }
             $expires = \DateTime::createFromFormat('mY', $date[0] . $date[1]);
             if ($expires < $now) {
