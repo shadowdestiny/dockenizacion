@@ -204,7 +204,7 @@ $(function(){
             $('.ending').fadeIn(fade_value);
             $(this).html("The draw will close in " +  event.strftime('%-Ss'));
         }).on('finish.countdown', function (event) {
-            $(this).html('Today’s draw is closed, you will play for the next');
+            $(this).html('Today’s draw is closed, you will play for the next one.');
             setTimeout(function () {
                 $('.ending').fadeOut(fade_value);
             }, 30000);
