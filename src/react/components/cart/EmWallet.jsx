@@ -44,6 +44,8 @@ var EmWallet = new React.createClass({
 
         return (
             <div className="row cl">
+xxx
+
                 <div className={disabled_value}>{total_value}</div>
                 <div className="box-wallet cl">
                     <label onClick={this.handleClickLabel} className="txt">Pay with your Wallet balance</label>
