@@ -74,8 +74,8 @@ class PlayConfigDTO extends DTOBase implements IDto
         $this->frequency = $this->playConfig[0]->getFrequency();
         $this->user = $this->playConfig[0]->getUser();
         $this->wallet_balance_user = $this->playConfig[0]->getUser()->getBalance();
-        $result_total = count($this->playConfig) * $this->playConfig[0]->getDrawDays()->value_len() * ($this->single_bet_price->getAmount() / 100) * $this->playConfig[0]->getFrequency();
-        $this->play_config_total_amount = new Money(str_replace('.','',number_format($result_total,2,'.',',')) * 1, new Currency('EUR'));
+        $result_total = count($this->playConfig) * $this->playConfig[0]->getDrawDays()->value_len() * ($this->single_bet_price->getAmount()) * $this->playConfig[0]->getFrequency();
+        $this->play_config_total_amount = new Money((int) str_replace('.','',$result_total), new Currency('EUR')) ;
     }
 
     public function toArray()

@@ -17,6 +17,8 @@ var draw_days = '<?php echo $order->drawDays; ?>';
 var show_order_cart = true;
 var total_price_in_credit_card_form = 0;
 
+
+
 $(document).on("totalPriceEvent",{total: 0},
         function(e, total) {
             $('.submit.big.green').text('Pay ' + total);
