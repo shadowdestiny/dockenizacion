@@ -834,9 +834,61 @@ class="btn purple"
                                 </div>
                             </div>
 
+                            <ul class="no-li svg-img cl">
+                                <li>
+                                    <svg class="vector"><use xlink:href="/w/svg/icon.svg#logo"/></svg>
+                                    <div>icon.svg#logo</div>
+                                </li>
+                                <li>
+                                    <svg viewBox="-10 150 100 100" class="vector">
+                                        <use style="filter:url(#shadow)" transform="scale(4)" xlink:href="/w/svg/icon.svg#logo"/>
+                                        <filter height="130%" id="shadow"><feGaussianBlur stdDeviation="1" in="SourceAlpha"/><feOffset result="offsetblur" dy="1" dx=".5"/><feComponentTransfer><feFuncA slope=".5" type="linear"/></feComponentTransfer></filter>
+                                        <use transform="scale(4)" xlink:href="/w/svg/icon.svg#logo"/>
+                                        <linearGradient gradientTransform="translate(21.248 882.618) scale(4.104)" y2="-161.627" x2="16.777" y1="-135.945" x1="16.777" gradientUnits="userSpaceOnUse" id="d"><stop stop-color="#FFD936" offset="0"/><stop stop-color="#FFF" offset="1"/></linearGradient>
+                                    </svg>
+                                    <div>icon.svg#logo + shadow *EXPLAIN viewbox*</div>
+                                </li>
+                                <li>
+                                    <svg class="vector"><use xlink:href="/w/svg/icon.svg#emblem"/></svg>
+                                    <div>icon.svg#emblem</div>
+                                </li>
+                                <li class="black">
+                                    <svg class="vector"><use xlink:href="/w/svg/icon.svg#emblem-bg"/></svg>
+                                    <div>icon.svg#emblem-bg</div>
+                                </li>
+                                <li>
+                                    <svg class="vector"><use xlink:href="/w/svg/icon.svg#lottery-ticket"/></svg>
+                                    <div>icon.svg#lottery-ticket</div>
+                                </li>
+                                <li>
+                                    <svg class="vector"><use xlink:href="/w/svg/icon.svg#monitor"/></svg>
+                                    <div>icon.svg#monitor</div>
+                                </li>
+                                <li>
+                                    <svg class="vector"><use xlink:href="/w/svg/icon.svg#winner-cup"/></svg>
+                                    <div>icon.svg#winner-cup</div>
+                                </li>
+                                <li>
+                                    <svg class="vector"><use xlink:href="/w/svg/number.svg#crown"/></svg>
+                                    <div>icon.svg#crown</div>
+                                </li>
+                                <li>
+                                    <svg class="vector"><use xlink:href="/w/svg/number.svg#laurel"/></svg>
+                                    <div>icon.svg#laurel</div>
+                                </li>
+                            </ul>
+
+                            insert code
+
+
+                            <pre class="brush: html">
+                                <svg class="vector"><use xlink:href="/w/svg/icon.svg#emblem"/></svg>
+                            </pre>
+
                             <p></p>
 
                            .ico difference .vector and .logo
+
 
                         </div>
                     </section>
