@@ -219,10 +219,6 @@ var CartPage = new React.createClass({
         return (
             <div>
                 <div className="box-top cl">
-                    <div className="balance">
-                        <span className="txt">Your Wallet balance:</span>
-                        {old_balance_and_new_balance}
-                    </div>
                     <h2 className="h4 sub-txt">Order Summary</h2>
                 </div>
                 <div className="box-order">
@@ -237,6 +233,10 @@ var CartPage = new React.createClass({
                                  {pre_total_symbol}
                             </div>
                         </div>
+                    </div>
+                    <div className="balance">
+                        <span className="txt">Balance:</span>
+                        {old_balance_and_new_balance}
                     </div>
                     {line_fee_component}
                     {wallet_component}
