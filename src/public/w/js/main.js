@@ -45,6 +45,8 @@ function btnShowHide(button, show, hide){
     });
 }
 
+
+
 function selectFix(){ // Style the "Select"
     if('querySelector' in document && 'addEventListener' in window){
         // check query selector is recognised by the browser IE9+
@@ -246,11 +248,9 @@ $(function(){
         setTimeout(function(){
             $('.ending').fadeOut(fade_value);
         },timeout_first_warning);
-        interval();
 
-        setInterval(interval,interval_warning);
+        var idInterval = setInterval(interval,interval_warning);
     }
-
 
     if(minutes_value < 1){
         finish_countdown_warning_close_draw(interval_warning_close);
@@ -260,12 +260,13 @@ $(function(){
     function interval() {
         var minutes_value =  getMinutes();
         if(!first_load) {
-            if(minutes_value > 6) {
-                //minutes_value = minutes_to_close_rounded - 5;
+            if(minutes_value >= 6) {
                 var minutes_to_close = minutes_to_close_rounded - 5;
-                interval_warning_close = logic_warning_interval(minutes_to_close, finish_countdown_warning_close_draw, interval_warning_close, interval_warning);
+                interval_warning_close = logic_warning_interval(minutes_to_close, finish_countdown_warning_close_draw, idInterval, interval_warning);
                 setInterval(interval,interval_warning);
+                window.clearInterval(idInterval);
             }else if(minutes_value >= 2){
+                window.clearInterval(idInterval);
                 if(minutes_value < 1) {
                     finish_countdown_warning_close_draw(interval_warning_close);
                 }
@@ -290,7 +291,6 @@ $(function(){
             }
             $('.ending').fadeOut();
         }, 3000);
-        interval_warning_close = setInterval(interval_warning_close, timeout_interval);
         return interval_warning_close;
     }
 
@@ -319,6 +319,30 @@ $(function(){
     })
     $(".div-currency").on('touchstart',function(e){
         e.stopPropagation();
+    });
+
+
+    $('#funds-value').on('keyup',function(e){
+        var regex = /^\d+(\.\d{0,2})?$/g;
+        var value = e.target.value;
+        show_fee_text(value);
+    });
+
+    $('#funds-value,#card-cvv,#card-number').on('keypress',function(e){
+
+        var pattern = /^[0-9\.]+$/;
+        if(e.target.id == 'card-cvv' || e.target.id == 'card-number' ) {
+            pattern = /^[0-9]+$/;
+        }
+        var codeFF = e.keyCode;
+        var code = e.which
+        var chr = String.fromCharCode(code);
+        if(codeFF == 8 || codeFF == 37 || codeFF == 38 || codeFF == 39 || codeFF == 40 ) {
+            return true;
+        }
+        if(!pattern.test(chr)){
+            e.preventDefault();
+        }
     });
 
 });

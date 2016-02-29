@@ -196,7 +196,7 @@ class CartController extends PublicSiteControllerBase
             $order_view = true;
             $charge = $this->request->get('charge');
             $user = $this->userService->getUser($user_id);
-            if(null != $user && isset($charge)){
+            if( null != $user && isset($charge) ){
                 try {
                     $card = null;
                     $amount = new Money((int) $charge, new Currency('EUR'));
@@ -251,6 +251,8 @@ class CartController extends PublicSiteControllerBase
                                'start_draw_date_format' => date('D j M Y',$order_dto->getStartDrawDate()->getTimestamp())
                             ]);
                         } else {
+                            $play_service->removeStorePlay($user_id);
+                            $play_service->removeStoreOrder($user_id);
                             $this->response->redirect('/cart/fail');
                             return false;
                         }
@@ -352,6 +354,9 @@ class CartController extends PublicSiteControllerBase
         return $myaccount_form;
     }
 
+
+
+    //EMTD refactor this function shit
     /**
      * @param $user
      * @param $result
@@ -379,12 +384,12 @@ class CartController extends PublicSiteControllerBase
             $order = new Order($result->returnValues(),$single_bet_price, $fee_value, $fee_to_limit_value); // order created
             $this->cartService->store($order);
         }
-        $single_bet_price_currency = $this->currencyService->convert($single_bet_price, $user_currency);
         /** @var PlayConfig[] $play_config */
         $play_config_collection = $result->returnValues();
-        $play_config_dto = new PlayConfigDTO($play_config_collection, $single_bet_price_currency);
+        $play_config_dto = new PlayConfigDTO($play_config_collection, $single_bet_price);
         $wallet_balance = $this->currencyService->convert($play_config_dto->wallet_balance_user, $user_currency);
         $checked_wallet = $wallet_balance->getAmount() > 0 ? true : false;
+        $play_config_dto->single_bet_price_converted = $this->currencyService->convert($play_config_dto->single_bet_price, $user_currency);
         //convert to user currency
         $total_price = $this->currencyService->convert($play_config_dto->play_config_total_amount, $user_currency);
         $symbol_position = $this->currencyService->getSymbolPosition($locale, $user_currency);
