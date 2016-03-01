@@ -41,6 +41,8 @@ class PlayConfigDTO extends DTOBase implements IDto
 
     public $single_bet_price;
 
+    public $single_bet_price_converted;
+
     public $frequency;
 
 

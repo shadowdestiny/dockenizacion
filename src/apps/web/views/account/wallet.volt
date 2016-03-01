@@ -18,6 +18,7 @@ function deleteLnk(id){
         }
     });
 }
+
 function checkRadio(id){
     $(id).click(function(e){
         if($(this).hasClass("active")){
@@ -33,6 +34,7 @@ function checkRadio(id){
         }
     });
 }
+
 function show_fee_text(value){
     if (parseFloat(value) >= parseFloat(fee_limit)){
         $('.notes span.txt:first').text('No extra fee applied.');
@@ -41,28 +43,7 @@ function show_fee_text(value){
         $('.notes').show();
     }
 }
-$('#funds-value').on('keyup',function(e){
-    {# /^\D+(\.\D\D?)?$/ #}
-    var regex = /^\d+(\.\d{0,2})?$/g;
-    var value = e.target.value;
-    show_fee_text(value);
-});
 
-$('#funds-value,#card-cvv,#card-number').on('keypress',function(e){
-    var pattern = /^[0-9\.]+$/;
-    if(e.target.id == 'card-cvv') {
-        pattern = /^[0-9]+$/;
-    }
-    var codeFF = e.keyCode;
-    var code = e.which
-    var chr = String.fromCharCode(code);
-    if(codeFF == 8 || codeFF == 37 || codeFF == 38 || codeFF == 39 || codeFF == 40 ) {
-        return true;
-    }
-    if(!pattern.test(chr)){
-            e.preventDefault();
-    }
-});
 
 $('.btn.add-funds').on('click',function(){
     $('.box.error').show();
