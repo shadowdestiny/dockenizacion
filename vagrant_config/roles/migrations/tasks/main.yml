@@ -1,0 +1,3 @@
+---
+- name: execute migrations
+  shell: /vagrant/dev-scripts/schema_and_data_migration.sh devel

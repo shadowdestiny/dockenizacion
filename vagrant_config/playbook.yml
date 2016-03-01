@@ -1,0 +1,19 @@
+---
+- name: Provision tasks with root privileges
+  hosts: localhost
+  become: yes
+  become_user: root
+  vars:
+    - config_files_path: /vagrant/vagrant_config/
+    - xdebug_config_file: 20-xdebug.ini
+  roles:
+    - environment_variables
+    - php_dependencies
+    - cli_utils
+    - bootstrap_containers
+    - migrations
+    - crons
+#  tasks:
+#    - name: debug
+#      debug: msg="hola"
+

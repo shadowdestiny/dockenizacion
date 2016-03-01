@@ -1,0 +1,2 @@
+---
+#- composer: command="install" working_dir="{{ code_folder }}" no_dev="yes" ignore_platform_reqs="yes"
