@@ -7,41 +7,38 @@ var which_form = '<?php echo $which_form;?>';
 function swap(myVar){
     $(myVar).click(function(event){
         event.preventDefault();
-       // $(".what-user .col4, .what-user .col8").toggle();
         var elem = $(this).parent().parent().parent().parent().parent();
         var isActive = elem.hasClass('active');
         if(isActive){
             $(".what-user .col4").addClass("active").css('display','block');
             $(".what-user .col8").removeClass("active").hide();
-        } else {
+            which_form = 'in';
+        }else{
             $(".what-user .col8").addClass("active").css('display','block');
             $(".what-user .col4").removeClass("active").hide();
+            which_form = 'up';
         }
     });
 }
 
-function hide_forms_sign() {
+function hide_forms_sign(){
     var size = checkSize();
-    console.log(size);
     if(size >= 3){
         if(which_form == 'in'){
-            console.log('pasa1');
-            $(".what-user .col4").addClass('active');
+            $(".what-user .col4").addClass('active').css('display','block');
             $(".what-user .col8").removeClass("active").hide();
-            //$(".what-user .col8").hide();
-        } else {
-            //$(".what-user .col4").hide();
-            $(".what-user .col8").addClass('active').hide();
-            $(".what-user .col4").removeClass("active");
+        }else{
+            $(".what-user .col8").addClass('active').css('display','block');
+            $(".what-user .col4").removeClass("active").hide();
         }
-    } else {
-
+    }else{
         $(".what-user .col4,.what-user .col8").css('display','table-cell');
         $(".what-user .col8").addClass("active");
         $(".what-user .col4").removeClass("active");
+        which_form = 'up';
     }
 }
-function show_forms_sign() {
+function show_forms_sign(){
     if(size >= 1) {
         $(".what-user .col4,.what-user .col8").css('display','table-cell');
     }
@@ -51,9 +48,9 @@ function show_forms_sign() {
 }
 
 $(function(){
-        hide_forms_sign();
-        $(window).resize(hide_forms_sign);
-        swap(".what-user .box-extra a");
+    hide_forms_sign();
+    $(window).resize(hide_forms_sign);
+    swap(".what-user .box-extra a");
 });
 
 {% endblock %}
