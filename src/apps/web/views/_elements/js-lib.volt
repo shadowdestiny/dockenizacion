@@ -11,6 +11,7 @@
 <script src="/w/js/vendor/jquery.countdown.min.js"></script>
 <script src="/w/js/vendor/picturefill.min.js"></script>
 <script src="/w/js/vendor/easyModal.min.js"></script>
+<script src="/w/js/vendor/accounting.min.js"></script>
 <script>
 $(document).bind("mobileinit", function(){
     $.mobile.ajaxEnabled=false;

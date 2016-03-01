@@ -87,7 +87,7 @@ var CartPage = new React.createClass({
 
     handlePreTotal : function (value)
     {
-        this.state.pre_total = parseFloat(value * this.props.single_bet_price * this.state.playConfigList.bets.length).toFixed(2);
+        this.state.pre_total = accounting.formatMoney((value * this.props.single_bet_price * this.state.playConfigList.bets.length), ' ' + this.props.currency_symbol, 2);
     },
 
     handleClickAdd : function (value)
@@ -129,7 +129,7 @@ var CartPage = new React.createClass({
 
     handleUpdatePrice : function()
     {
-        var price = parseFloat(this.props.total).toFixed(2);
+        var price = this.props.total;
         if(this.state.checked_wallet) {
             price = this.updatePriceWithCheckedWallet();
             this.state.new_balance = Wallet.getNewWalletBalance();
@@ -204,12 +204,11 @@ var CartPage = new React.createClass({
         }
         var wallet_component = null;
         if(parseFloat(this.props.wallet_balance) > 0) {
-            var total_default = parseFloat(Wallet.wallet).toFixed(2)
             wallet_component = <EmWallet currency_symbol={this.props.currency_symbol}
                                          symbol_position={this.props.symbol_position}
                                          checked_callback={this.handleCheckedWallet}
                                          show_checked={this.state.checked_wallet}
-                                         total_price={total_default}
+                                         total_price={this.state.pre_total}
                                          old_new_balance={old_balance_and_new_balance}
                                          wallet_balance={parseFloat(this.props.wallet_balance).toFixed(2)}
             />;
@@ -257,7 +256,7 @@ var CurrencyFormat = {
     currency_symbol : '',
 
     getCurrencyFormatted : function() {
-        return CurrencyFormat.symbol_position ? parseFloat(CurrencyFormat.value).toFixed(2) + ' ' + CurrencyFormat.currency_symbol : CurrencyFormat.currency_symbol + ' ' + parseFloat(CurrencyFormat.value).toFixed(2);
+        return accounting.formatMoney( CurrencyFormat.value, CurrencyFormat.currency_symbol, 2 );
     }
 };
 
@@ -274,9 +273,9 @@ var LogicCart = {
 
     payWithWallet : function () {
         var totalWithWallet = Wallet.getTotalWhenPayed(LogicCart.total);
-        if( parseFloat(LogicCart.fee_limit) > parseFloat(totalWithWallet) ) {
+        if( accounting.unformat(LogicCart.fee_limit) > accounting.unformat(totalWithWallet) ) {
             LogicCart.total = Funds.getTotalWhenFundsAreInserted(totalWithWallet);
-            if( parseFloat(LogicCart.total).toFixed(2) < parseFloat(LogicCart.fee_limit).toFixed(2) ) {
+            if( accounting.unformat(LogicCart.total) < accounting.unformat(LogicCart.fee_limit) ) {
                 LogicCart.total = Fee.checkFeeWithWallet(LogicCart.total);
                 if(Fee.applied) {
                     LogicCart.show_fee_text = true;
@@ -298,9 +297,9 @@ var LogicCart = {
     },
 
     payWithNoWallet : function () {
-        if( parseFloat(LogicCart.fee_limit) > parseFloat(LogicCart.total) ) {
+        if( accounting.unformat(LogicCart.fee_limit)  > accounting.unformat(LogicCart.total)) {
             LogicCart.total = Funds.getTotalWhenFundsAreInserted(LogicCart.total);
-            if( parseFloat(LogicCart.total) < parseFloat(LogicCart.fee_limit) ) {
+            if( accounting.unformat(LogicCart.total) < accounting.unformat(LogicCart.fee_limit) ) {
                 LogicCart.total = Fee.getTotalWithFee(LogicCart.total);
                 LogicCart.show_all_fee = true;
                 LogicCart.show_fee_value = true;
@@ -320,8 +319,8 @@ var Wallet = {
     wallet : 0,
 
     getTotalWhenPayed : function (total) {
-        Wallet.wallet = parseFloat(Wallet.total_balance) > parseFloat(total) ? total : Wallet.total_balance;
-        if( parseFloat(Wallet.wallet) >= parseFloat(total) ) {
+        Wallet.wallet = accounting.unformat(Wallet.total_balance) > accounting.unformat(total) ? total : Wallet.total_balance;
+        if( accounting.unformat(Wallet.wallet) >= accounting.unformat(total) ) {
             return ((parseFloat(Wallet.wallet) - parseFloat(total))).toFixed(2);
         } else {
             return ((parseFloat(total) - parseFloat(Wallet.wallet)).toFixed(2)) ;
@@ -337,7 +336,7 @@ var Wallet = {
 var Funds = {
     funds_value : 0,
     getTotalWhenFundsAreInserted : function(value) {
-        if ( parseInt(Funds.funds_value) > 0 ) {
+        if ( accounting.unformat(Funds.funds_value) > 0 ) {
             return (parseFloat(Funds.funds_value) + parseFloat(value)).toFixed(2);
         }
         return value;
@@ -353,7 +352,7 @@ var Fee = {
     applied : true,
 
     checkFeeWithWallet : function (value) {
-        if( parseFloat(value) >= parseFloat(LogicCart.fee_limit) ) {
+        if( accounting.unformat(value) >= accounting.unformat(LogicCart.fee_limit) ) {
             Fee.applied = false;
             return parseFloat(value).toFixed(2);
         } else {
@@ -363,12 +362,11 @@ var Fee = {
     },
 
     getTotalWithFee : function(value) {
-        return ((parseFloat(Fee.fee_value) + parseFloat(value)).toFixed(2));
+        return ((accounting.formatMoney(( accounting.unformat(Fee.fee_value)  + accounting.unformat(value)),CurrencyFormat.currency_symbol,2)));
     }
 };
 
 
-console.log('total price ' + total_price);
 
 ReactDOM.render(<CartPage total={total_price} config={config} checked_wallet={checked_wallet} symbol_position={symbol_position} draw_days={draw_days} price_below_fee={price_below_fee} fee_charge={fee_charge} currency_symbol={currency_symbol} play_list={play_list} wallet_balance={wallet_balance} single_bet_price={single_bet_price} show_fee_line={show_fee_line}/>,
     document.getElementById('cart-order'));
