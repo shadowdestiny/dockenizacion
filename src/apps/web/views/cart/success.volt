@@ -55,10 +55,10 @@
                                 <ul class="no-li num">
                                     <li><?php echo $chars[$i];?></li>
                                     {% for regular_number in regular_arr %}
-                                        <li>{{ regular_number }}</li>
+                                        <li><?php echo sprintf("%02s", $regular_number);?></li>
                                     {% endfor %}
                                     {% for lucky_number in lucky_arr %}
-                                        <li class="yellow">{{ lucky_number }}</li>
+                                        <li class="yellow"><?php echo sprintf("%02s", $lucky_number);?></li>
                                     {% endfor %}
                                 </ul>
                             {% endfor %}
