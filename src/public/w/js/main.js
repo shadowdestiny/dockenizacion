@@ -1,18 +1,17 @@
 /* Initialise variables */
 
 var globalFunctions = {
-    setCurrency : function (value) {
+    setCurrency : function (value){
         $.ajax({
             url: '/ajax/user-settings/setCurrency/'+value,
             type: 'GET',
             dataType: "json",
-            success: function(json) {
-                if(json.result = 'OK') {
-
+            success: function(json){
+                if(json.result = 'OK'){
                     location.href = location.href.split('#')[0];
                 }
             },
-            error: function (xhr, status, errorThrown) {
+            error: function (xhr, status, errorThrown){
                 alert( "Sorry, there was a problem!" );
                 console.log( "Error: " + errorThrown );
                 console.log( "Status: " + status );
@@ -20,7 +19,7 @@ var globalFunctions = {
             },
         });
     },
-    playCart : function (params) {
+    playCart : function (params){
         $.ajax({
             url: '/ajax/play-temporarily/temporarilyCart/',
             data: params,
@@ -31,7 +30,7 @@ var globalFunctions = {
                     location.href = json.url;
                 }
             },
-            error: function (xhr, status, errorThrown) {
+            error: function (xhr, status, errorThrown){
                 //EMTD manage errrors
             },
         });
@@ -58,8 +57,8 @@ function selectFix(){ // Style the "Select"
          */
         $('.mySelect option:selected').each(function(k){
             var content = $(this).text();
-            $('.select-txt').each(function(index, el) {
-                if(index == k) {
+            $('.select-txt').each(function(index, el){
+                if(index == k){
                     $(this).text(content);
                 }
             });
@@ -69,8 +68,8 @@ function selectFix(){ // Style the "Select"
         $('.mySelect').each(function(k){
             $(this).on('change',function(){
                 var content = $('option:selected',this).text();
-                $('.select-txt').each(function(index, el) {
-                    if(index == k) {
+                $('.select-txt').each(function(index, el){
+                    if(index == k){
                         $(this).text(content);
                     }
                 });
@@ -83,10 +82,8 @@ function count_down(element,
                     html_formatted,
                     html_formatted_offset,
                     date,
-                    finish_text,finish_action) {
-
-    return element.countdown(date).
-    on('update.countdown', function(event){
+                    finish_text,finish_action){
+    return element.countdown(date).on('update.countdown', function(event){
         if(event.offset.days == 0) {
             $(this).html(event.strftime(html_formatted_offset[0]));
         }
@@ -107,23 +104,6 @@ function count_down(element,
     //visit: http://hilios.github.io/jQuery.countdown to formatted html result
 }
 
-//window.addEventListener('orientationchange', handleOrientation, false);
-//window.addEventListener('resize', handleOrientation, false);
-//window.addEventListener('resize', handleOrientation, false);
-
-var orientation = 0;
-function handleOrientation() {
-    if (orientation == 0) {
-        hide_forms_sign();
-    }else if (orientation == 90 ) {
-        show_forms_sign();
-    }else if( orientation == -90 ) {
-        show_forms_sign();
-    } else if (orientation == 180) {
-        hide_forms_sign();
-    }
-}
-
 var varSize = 0
 function checkSize(){
     if($(".media").width() == "1"){         // max-width: 1200px
@@ -137,8 +117,6 @@ function checkSize(){
     }else if($(".media").width() == "5"){   // max-width: 320px
         varSize = 5;
     }
-
-    console.log('Size: ' + varSize);
     return varSize;
 }
 
@@ -155,9 +133,6 @@ function navCurrency(){
         menu(".li-currency", ".div-currency");
     }
 }
-
-
-
 
 $(function(){
     if(show_modal == 1) {
@@ -180,9 +155,7 @@ $(function(){
         //var attachFastClick = Origami.fastclick;
         FastClick.attach(document.body); // It removes the delay of 300ms on mobile browsers because of double tap
         //attachFastClick(document.body);
-    }catch(e){
-
-    }
+    }catch(e){}
 
     $(".menu-ham").click(function(){
         $(this).toggleClass('expanded').siblings('ul').slideToggle().toggleClass('open');
@@ -251,41 +224,37 @@ $(function(){
         setInterval(interval,interval_warning);
     }
 
-
     if(minutes_value < 1){
         finish_countdown_warning_close_draw(interval_warning_close);
     }
 
-
-    function interval() {
-        var minutes_value =  getMinutes();
-        if(!first_load) {
-            if(minutes_value > 6) {
-                //minutes_value = minutes_to_close_rounded - 5;
+    function interval(){
+        var minutes_value = getMinutes();
+        if(!first_load){
+            if(minutes_value > 6){
                 var minutes_to_close = minutes_to_close_rounded - 5;
                 interval_warning_close = logic_warning_interval(minutes_to_close, finish_countdown_warning_close_draw, interval_warning_close, interval_warning);
                 setInterval(interval,interval_warning);
             }else if(minutes_value >= 2){
-                if(minutes_value < 1) {
+                if(minutes_value < 1){
                     finish_countdown_warning_close_draw(interval_warning_close);
                 }
                 interval_warning = 50000;
                 interval_warning_close = logic_warning_interval(minutes_value, finish_countdown_warning_close_draw, interval_warning_close, interval_warning);
                 setInterval(interval,interval_warning);
-            }else if(minutes_value <= 1) {
+            }else if(minutes_value <= 1){
                 finish_countdown_warning_close_draw(interval_warning_close);
             }
         }
         first_load = false;
     }
 
-
-    function logic_warning_interval(minutes_value, finish_countdown_warning_close_draw, interval_warning_close,timeout_interval) {
+    function logic_warning_interval(minutes_value, finish_countdown_warning_close_draw, interval_warning_close,timeout_interval){
         var minutes_literal = (minutes_value == 1) ? ' minute' : ' minutes';
         $('.ending').text('The draw will close in about ' + minutes_value + minutes_literal);
         $('.ending').fadeIn();
-        setTimeout(function () {
-            if (getMinutes() < 1) {
+        setTimeout(function(){
+            if (getMinutes() < 1){
                 finish_countdown_warning_close_draw(interval_warning_close);
             }
             $('.ending').fadeOut();
