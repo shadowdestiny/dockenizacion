@@ -114,7 +114,7 @@ $(function(){
 				<div class="box-play">
 					<a href="/play" class="outbound">
 						<div class="content">
-							<p class="h2">{{ language.translate('for only %priceValue% &euro;',['priceValue':2,35]) }}</p>
+							<p class="h2">{{ language.translate('for only ') }} {{ bet_price }}</p>
 							<div class="win-millions">
 								<svg class="vector win-millions">
 									<use xlink:href="/w/svg/icon.svg#win-millions" style="filter:url(#shadow)"></use>
@@ -213,8 +213,8 @@ $(function(){
 							<p>{{ language.translate("Regular players rarely exceed two minutes to validate their euromillions tickets on our website. At Euromillions.com, you just have to choose your favourite numbers, sit back, and relax. We do all the nerve-wracking, waiting, and checking the results for you. Shortly after the draw, you will receive an email notification detailing the latest results, and if you have won, the winnings will automatically be credited to your player account.") }}</p>
 
 							<h3 class="li-title">{{ language.translate("Convenient") }}</h3>
-							<p>{{ language.translate("You will find your played tickets, latest euromillions results, and customer support at the same place. At only &euro; 2.35 (&pound; 1.65) per play, we offer the best price available on the Internet. Your winnings are commission free and will remain so forever.
-							It doesn’t matter where you live – we are a regulated operator and our services are available worldwide. If you win big, our team of professionals will be at your assistance to make sure you receive your winnings quickly and safely.") }}</p>
+							<p>{{ language.translate("You will find your played tickets, latest euromillions results, and customer support at the same place. At only %bet_price% (%bet_price_pound%) per play, we offer the best price available on the Internet. Your winnings are commission free and will remain so forever.
+							It doesn’t matter where you live – we are a regulated operator and our services are available worldwide. If you win big, our team of professionals will be at your assistance to make sure you receive your winnings quickly and safely.", ['bet_price': bet_price ,'bet_price_pound': bet_price_pound] ) }}</p>
 
 							<h3 class="li-title">{{ language.translate("Secure") }}</h3>
 							<p>{{ language.translate("Euromillions.com is a fully licensed lottery operator. We are customer-centric and constantly endeavour to improve our performance to meet and exceed the demands of our customers. Our partnerships with top financial institutions and certification companies ensure your optimum safety when playing on our website supporting 256-bit SSL encryption.") }}</p>

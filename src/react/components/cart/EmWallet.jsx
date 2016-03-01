@@ -34,16 +34,23 @@ var EmWallet = new React.createClass({
 
     render : function ()
     {
-        var wallet_balance = (this.state.checked) ? parseFloat(this.props.wallet_balance) : 0;
-        var total_price = parseFloat(this.props.total_price);
+        var wallet_balance = (this.state.checked) ? this.props.wallet_balance : 0;
+        var total_price = this.props.total_price;
         var wallet = (wallet_balance > total_price) ? total_price : wallet_balance;
         var wallet_value = (this.state.checked) ? wallet : 0;
         var disabled_value = (this.state.checked) ? 'summary val' : 'summary val disabled';
         var operand_value = (this.state.checked) ? ' - ' : ' ';
-        var total_value = this.props.symbol_position ? operand_value + ' ' + wallet_value.toFixed(2) + ' ' + this.props.currency_symbol : this.props.currency_symbol  + ' ' + operand_value + ' ' + wallet_value.toFixed(2);
+
+        console.log(total_price);
+        var value = accounting.formatMoney(wallet_value, this.props.currency_symbol, 2);
+        var total_value = this.props.symbol_position ? operand_value + ' ' + value  :  operand_value + ' ' + value;
 
         return (
             <div className="row cl">
+                <div className="balance">
+                    <span className="txt">Balance:</span>
+                    {this.props.old_new_balance}
+                </div>
                 <div className={disabled_value}>{total_value}</div>
                 <div className="box-wallet cl">
                     <label onClick={this.handleClickLabel} className="txt">Pay with your Wallet balance</label>

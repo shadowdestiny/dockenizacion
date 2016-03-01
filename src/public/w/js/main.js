@@ -1,18 +1,17 @@
 /* Initialise variables */
 
 var globalFunctions = {
-    setCurrency : function (value) {
+    setCurrency : function (value){
         $.ajax({
             url: '/ajax/user-settings/setCurrency/'+value,
             type: 'GET',
             dataType: "json",
-            success: function(json) {
-                if(json.result = 'OK') {
-
+            success: function(json){
+                if(json.result = 'OK'){
                     location.href = location.href.split('#')[0];
                 }
             },
-            error: function (xhr, status, errorThrown) {
+            error: function (xhr, status, errorThrown){
                 alert( "Sorry, there was a problem!" );
                 console.log( "Error: " + errorThrown );
                 console.log( "Status: " + status );
@@ -20,7 +19,7 @@ var globalFunctions = {
             },
         });
     },
-    playCart : function (params) {
+    playCart : function (params){
         $.ajax({
             url: '/ajax/play-temporarily/temporarilyCart/',
             data: params,
@@ -31,7 +30,7 @@ var globalFunctions = {
                     location.href = json.url;
                 }
             },
-            error: function (xhr, status, errorThrown) {
+            error: function (xhr, status, errorThrown){
                 //EMTD manage errrors
             },
         });
@@ -44,6 +43,8 @@ function btnShowHide(button, show, hide){
         $(hide).hide();
     });
 }
+
+
 
 function selectFix(){ // Style the "Select"
     if('querySelector' in document && 'addEventListener' in window){
@@ -58,8 +59,8 @@ function selectFix(){ // Style the "Select"
          */
         $('.mySelect option:selected').each(function(k){
             var content = $(this).text();
-            $('.select-txt').each(function(index, el) {
-                if(index == k) {
+            $('.select-txt').each(function(index, el){
+                if(index == k){
                     $(this).text(content);
                 }
             });
@@ -69,8 +70,8 @@ function selectFix(){ // Style the "Select"
         $('.mySelect').each(function(k){
             $(this).on('change',function(){
                 var content = $('option:selected',this).text();
-                $('.select-txt').each(function(index, el) {
-                    if(index == k) {
+                $('.select-txt').each(function(index, el){
+                    if(index == k){
                         $(this).text(content);
                     }
                 });
@@ -83,10 +84,8 @@ function count_down(element,
                     html_formatted,
                     html_formatted_offset,
                     date,
-                    finish_text,finish_action) {
-
-    return element.countdown(date).
-    on('update.countdown', function(event){
+                    finish_text,finish_action){
+    return element.countdown(date).on('update.countdown', function(event){
         if(event.offset.days == 0) {
             $(this).html(event.strftime(html_formatted_offset[0]));
         }
@@ -105,23 +104,6 @@ function count_down(element,
         finish_action();
     });
     //visit: http://hilios.github.io/jQuery.countdown to formatted html result
-}
-
-window.addEventListener('orientationchange', handleOrientation, false);
-
-var orientation = 0;
-function handleOrientation() {
-    if (orientation == 0) {
-
-    }else if (orientation == 90 ) {
-        show_forms_sign();
-    }
-    else if (orientation == -90) {
-    }
-    else if (orientation == 180) {
-        alert("180");
-        hide_forms_sign();
-    }
 }
 
 var varSize = 0
@@ -154,9 +136,6 @@ function navCurrency(){
     }
 }
 
-
-
-
 $(function(){
     if(show_modal == 1) {
         $("#win").easyModal({
@@ -178,9 +157,7 @@ $(function(){
         //var attachFastClick = Origami.fastclick;
         FastClick.attach(document.body); // It removes the delay of 300ms on mobile browsers because of double tap
         //attachFastClick(document.body);
-    }catch(e){
-
-    }
+    }catch(e){}
 
     $(".menu-ham").click(function(){
         $(this).toggleClass('expanded').siblings('ul').slideToggle().toggleClass('open');
@@ -202,7 +179,7 @@ $(function(){
             $('.ending').fadeIn(fade_value);
             $(this).html("The draw will close in " +  event.strftime('%-Ss'));
         }).on('finish.countdown', function (event) {
-            $(this).html('Today’s draw is closed, you will play for the next');
+            $(this).html('Today’s draw is closed, you will play for the next one.');
             setTimeout(function () {
                 $('.ending').fadeOut(fade_value);
             }, 30000);
@@ -223,11 +200,11 @@ $(function(){
     var interval_warning_close = null;
     var first_load = true;
     var fade_value = 800;
-    var interval_warning = 300000;
-    var timeout_first_warning = 30000;
+    var interval_warning = 200000;
+    var timeout_first_warning = 8000;
 
-    console.log(minutes_value);
     if(remain_time == 1 && minutes_value >= 1 && minutes_value < 30){
+        minutes_to_close_rounded = isNaN(minutes_to_close_rounded) || minutes_to_close_rounded == 0 ? minutes_value : minutes_to_close_rounded;
         if (minutes_value > 1 && minutes_value <= 5){
             interval_warning = 30000;
         }else if (minutes_value == 1){
@@ -236,62 +213,55 @@ $(function(){
         }
         if(minutes_value < 2 ) {
             interval_warning = 2000;
-            $('.ending').text('The draw will close in ' + minutes_value + ' minute')
+            $('.ending').text('The draw will close in about ' + minutes_value + ' minute')
         } else {
-            $('.ending').text('The draw will close in ' + minutes_to_close_rounded + ' minutes')
+            $('.ending').text('The draw will close in about ' + minutes_to_close_rounded + ' minutes')
         }
         $('.ending').fadeIn(fade_value);
         setTimeout(function(){
             $('.ending').fadeOut(fade_value);
         },timeout_first_warning);
-        interval();
-        setInterval(interval,interval_warning);
-    }
 
+        var idInterval = setInterval(interval,interval_warning);
+    }
 
     if(minutes_value < 1){
         finish_countdown_warning_close_draw(interval_warning_close);
     }
 
-
-    function interval() {
+    function interval(){
         var minutes_value =  getMinutes();
-        if(!first_load) {
-            if(minutes_value > 6) {
-                minutes_value = minutes_to_close_rounded - 5;
-                var minutes_to_close = minutes_value - 5;
-                interval_warning_close = logic_warning_interval(minutes_to_close, finish_countdown_warning_close_draw, interval_warning_close, interval_warning);
-            }else if(minutes_value > 2){
-                console.log('line 241');
-                if(minutes_value < 1) {
+        if(!first_load){
+            if(minutes_value >= 6){
+                var minutes_to_close = minutes_to_close_rounded - 5;
+                interval_warning_close = logic_warning_interval(minutes_to_close, finish_countdown_warning_close_draw, idInterval, interval_warning);
+                setInterval(interval,interval_warning);
+                window.clearInterval(idInterval);
+            }else if(minutes_value >= 2){
+                window.clearInterval(idInterval);
+                if(minutes_value < 1){
                     finish_countdown_warning_close_draw(interval_warning_close);
                 }
-                interval_warning = 35000;
-                if(minutes_value > 2 ){
-                    interval_warning = 60000;
-                    console.log('line 248');
-                }
+                interval_warning = 50000;
                 interval_warning_close = logic_warning_interval(minutes_value, finish_countdown_warning_close_draw, interval_warning_close, interval_warning);
-            }else if(minutes_value <= 1) {
-                console.log('line 252');
+                setInterval(interval,interval_warning);
+            }else if(minutes_value <= 1){
                 finish_countdown_warning_close_draw(interval_warning_close);
             }
         }
         first_load = false;
     }
 
-
-    function logic_warning_interval(minutes_value, finish_countdown_warning_close_draw, interval_warning_close,timeout_interval) {
+    function logic_warning_interval(minutes_value, finish_countdown_warning_close_draw, interval_warning_close,timeout_interval){
         var minutes_literal = (minutes_value == 1) ? ' minute' : ' minutes';
-        $('.ending').text('The draw will close in ' + minutes_value + minutes_literal);
+        $('.ending').text('The draw will close in about ' + minutes_value + minutes_literal);
         $('.ending').fadeIn();
-        setTimeout(function () {
-            if (getMinutes() < 1) {
+        setTimeout(function(){
+            if (getMinutes() < 1){
                 finish_countdown_warning_close_draw(interval_warning_close);
             }
             $('.ending').fadeOut();
         }, 3000);
-        interval_warning_close = setInterval(interval_warning_close, timeout_interval);
         return interval_warning_close;
     }
 
@@ -320,6 +290,30 @@ $(function(){
     })
     $(".div-currency").on('touchstart',function(e){
         e.stopPropagation();
+    });
+
+
+    $('#funds-value').on('keyup',function(e){
+        var regex = /^\d+(\.\d{0,2})?$/g;
+        var value = e.target.value;
+        show_fee_text(value);
+    });
+
+    $('#funds-value,#card-cvv,#card-number').on('keypress',function(e){
+
+        var pattern = /^[0-9\.]+$/;
+        if(e.target.id == 'card-cvv' || e.target.id == 'card-number' ) {
+            pattern = /^[0-9]+$/;
+        }
+        var codeFF = e.keyCode;
+        var code = e.which
+        var chr = String.fromCharCode(code);
+        if(codeFF == 8 || codeFF == 37 || codeFF == 38 || codeFF == 39 || codeFF == 40 ) {
+            return true;
+        }
+        if(!pattern.test(chr)){
+            e.preventDefault();
+        }
     });
 
 });

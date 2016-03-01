@@ -4,11 +4,9 @@
 namespace EuroMillions\web\tasks;
 
 
-use EuroMillions\web\emailTemplates\EmailTemplate;
-use EuroMillions\web\emailTemplates\WinEmailTemplate;
+use EuroMillions\web\entities\User;
+use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\DomainServiceFactory;
-use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
-use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\PriceCheckoutService;
@@ -33,13 +31,17 @@ class PriceCheckoutTask extends TaskBase
     /** @var  EmailService */
     private $emailService;
 
-    public function initialize(PriceCheckoutService $priceCheckoutService = null, LotteriesDataService $lotteriesDataService = null, EmailService $emailService = null, UserService $userService = null)
+    /** @var  CurrencyService */
+    private $currencyService;
+
+    public function initialize(PriceCheckoutService $priceCheckoutService = null, LotteriesDataService $lotteriesDataService = null, EmailService $emailService = null, UserService $userService = null, CurrencyService $currencyService = null)
     {
         $domainFactory = new DomainServiceFactory($this->getDI(), new ServiceFactory($this->getDI()));
         $this->priceCheckoutService = $priceCheckoutService ? $this->priceCheckoutService = $priceCheckoutService : $domainFactory->getPriceCheckoutService();
         ($lotteriesDataService) ? $this->lotteriesDataService = $lotteriesDataService : $this->lotteriesDataService = $domainFactory->getLotteriesDataService();
         ($emailService) ? $this->emailService = $emailService : $this->emailService = $domainFactory->getServiceFactory()->getEmailService();
         ($userService) ? $this->userService = $userService : $domainFactory->getUserService();
+        ($currencyService) ? $this->currencyService = $currencyService : $domainFactory->getCurrencyService();
         parent::initialize();
     }
 
@@ -47,8 +49,6 @@ class PriceCheckoutTask extends TaskBase
     {
         if(!$today) $today = new \DateTime();
         $lottery_name = 'EuroMillions';
-        $config = $this->di->get('config');
-        $threshold_price = (int) $config->threshold_above['value'] * 100;
         $play_configs_result_awarded = $this->priceCheckoutService->playConfigsWithBetsAwarded($today);
         //get breakdown
         $result_breakdown = $this->lotteriesDataService->getBreakDownDrawByDate($lottery_name,$today);
@@ -59,18 +59,9 @@ class PriceCheckoutTask extends TaskBase
                 /** @var Money $result_amount */
                 $result_amount = $euromillions_breakDown->getAwardFromCategory($play_config_and_count[1],$play_config_and_count[2]);
                 if($result_amount->getAmount() > 0) {
+                    /** @var User $user */
                     $user = $play_config_and_count[0]->getUser();
                     $this->priceCheckoutService->reChargeAmountAwardedToUser($user,$result_amount);
-                    $emailTemplate = new EmailTemplate();
-                    $emailTemplate = new WinEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
-                    $emailTemplate->setUser($user);
-                    $emailTemplate->setResultAmount($result_amount);
-                    if($result_amount->getAmount() > $threshold_price) {
-                        $this->userService->userWonAbove($user, $result_amount);
-                        $this->emailService->sendTransactionalEmail($user,$emailTemplate);
-                    } else {
-                        $this->emailService->sendTransactionalEmail($user,$emailTemplate);
-                    }
                 }
             }
         }

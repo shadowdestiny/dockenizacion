@@ -1,35 +1,56 @@
 {% extends "main.volt" %}
 {% block template_css %}<link rel="stylesheet" href="/w/css/cart.css">{% endblock %}
 {% block template_scripts_code %}
-var size = checkSize();
+
+var which_form = '<?php echo $which_form;?>';
+
 function swap(myVar){
     $(myVar).click(function(event){
         event.preventDefault();
-        $(".col4, .col8").toggle();
+        var elem = $(this).parent().parent().parent().parent().parent();
+        var isActive = elem.hasClass('active');
+        if(isActive){
+            $(".what-user .col4").addClass("active").css('display','block');
+            $(".what-user .col8").removeClass("active").hide();
+            which_form = 'in';
+        }else{
+            $(".what-user .col8").addClass("active").css('display','block');
+            $(".what-user .col4").removeClass("active").hide();
+            which_form = 'up';
+        }
     });
 }
 
-
-function hide_forms_sign() {
-    var which_form = '<?php echo $which_form;?>';
-    if(which_form == 'in'){
-        $(".col8").hide();
-    } else {
-        $(".col4").hide();
+function hide_forms_sign(){
+    var size = checkSize();
+    if(size >= 3){
+        if(which_form == 'in'){
+            $(".what-user .col4").addClass('active').css('display','block');
+            $(".what-user .col8").removeClass("active").hide();
+        }else{
+            $(".what-user .col8").addClass('active').css('display','block');
+            $(".what-user .col4").removeClass("active").hide();
+        }
+    }else{
+        $(".what-user .col4,.what-user .col8").css('display','table-cell');
+        $(".what-user .col8").addClass("active");
+        $(".what-user .col4").removeClass("active");
+        which_form = 'up';
     }
-    swap(".col4 .box-extra a, .col8 .box-extra a");
 }
-function show_forms_sign() {
+function show_forms_sign(){
     if(size >= 1) {
-        $(".col8").show();
-        $(".col4").show();
+        $(".what-user .col4,.what-user .col8").css('display','table-cell');
+    }
+    if(size >= 3){
+       hide_forms_sign();
     }
 }
 
 $(function(){
-    if(size >= 3){
-        hide_forms_sign();
-    }
+    hide_forms_sign();
+    $(window).resize(hide_forms_sign);
+    swap(".what-user .box-extra a");
 });
 
 {% endblock %}
@@ -57,7 +78,7 @@ $(function(){
                         {% include "sign-in/_log-in.volt" %}
                     </div>
                 </div>
-                <div class="col8">
+                <div class="col8 active">
                     <div class="box-basic sign-in">
                         <div class="info">
                             <div class="txt1">{{ language.translate("New to Euromillion?") }}</div>

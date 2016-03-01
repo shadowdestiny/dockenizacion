@@ -11,6 +11,7 @@
 <script src="/w/js/vendor/jquery.countdown.min.js"></script>
 <script src="/w/js/vendor/picturefill.min.js"></script>
 <script src="/w/js/vendor/easyModal.min.js"></script>
+<script src="/w/js/vendor/accounting.min.js"></script>
 <script>
 $(document).bind("mobileinit", function(){
     $.mobile.ajaxEnabled=false;
@@ -35,7 +36,7 @@ var isOpera=!!window.opr&&!!opr.addons||!!window.opera||navigator.userAgent.inde
 var remain_time = '<?php echo empty($time_to_remain_draw) ? 0 : 1; ?>';
 var time_out_closing_modal = '<?php echo !empty($timeout_to_closing_modal) ? $timeout_to_closing_modal : "";?>';
 var minutes_to_close = '<?php echo !empty($minutes_to_close) ? (int) $minutes_to_close : "";?>';
-var minutes_to_close_rounded = '<?php echo !empty($minutes_to_close_rounded) ? (int) $minutes_to_close_rounded : ""; ?>';
+var minutes_to_close_rounded = '<?php echo isset($minutes_to_close_rounded) ? (int) $minutes_to_close_rounded : 0;?>';
 var last_minute = '<?php echo isset($last_minute) ?  $last_minute : ""; ?>';
 var draw_date = '<?php echo !empty($draw_date) ? $draw_date : ""; ?>';
 var show_modal = '<?php echo !empty($show_modal_winning) ? 1 : 0; ?>';

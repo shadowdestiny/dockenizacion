@@ -12,6 +12,7 @@
     .cvv{width:65px; float:left;}
     .margin{margin-right:20px;}
     .title{line-height:100%;}
+  .box-basic{margin:0 auto 380px;}
 }
 .profile{
   .wrap .cols{margin-bottom:0;}
@@ -137,7 +138,7 @@
   .my-right{margin-top:65px;}
   .mySelect{width:auto; padding:3px;}
   #content .balance{
-     float:right; margin-right:10px;
+     float:left; margin-right:10px;
     .txt{font-size:$small; position:relative; top:-2px;}
     .value{
       font-size:$basic-size; font-weight:700; color:$green;

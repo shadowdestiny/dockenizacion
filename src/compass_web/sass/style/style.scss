@@ -86,6 +86,11 @@ section{border:1px solid $grey; background:#f3f3f3;  border-radius:5px; text-ali
     .settings{overflow:auto; width:300px; height:200px;  display:block; margin:auto;}
 }
 
+.svg-img li{background:#fff; width:200px; height:200px; padding:20px; border:1px solid #ccc; float:left;}
+.svg-img svg{width:100%;}
+.svg-img .black{background:#000;}
+.svg-img div{text-align:center;}
+
 @media only screen and (max-width:1200px){
 .content > .cols > .col6{float:none; width:100%; display:block;}
 }

@@ -14,6 +14,7 @@ use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\UserPreferencesService;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\dto\CurrencyDTO;
+use Money\Currency;
 use Phalcon\Di;
 use Phalcon\Mvc\View;
 
@@ -115,6 +116,15 @@ class PublicSiteControllerBase extends ControllerBase
         $date_time_util = new DateTimeUtil();
         $date_next_draw = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions');
         $this->view->setVar('countdown_next_draw', $date_time_util->getCountDownNextDraw($date_next_draw));
+
+        //EMTD create a method helper to set this vars
+        $single_bet_price = $this->domainServiceFactory->getLotteriesDataService()->getSingleBetPriceByLottery('EuroMillions');
+        $single_bet_price_currency = $this->currencyService->convert($single_bet_price, $current_currency);
+        $bet_value = $this->currencyService->toString($single_bet_price_currency,$current_currency);
+        $single_bet_price_currency_gbp = $this->currencyService->convert($single_bet_price, new Currency('GBP'));
+        $bet_value_pound = $this->currencyService->toString($single_bet_price_currency_gbp,new Currency('GBP'));
+        $this->view->setVar('bet_price', $bet_value);
+        $this->view->setVar('bet_price_pound', $bet_value_pound);
     }
 
     private function setNavValues()
@@ -172,12 +182,12 @@ class PublicSiteControllerBase extends ControllerBase
         //Vars draw closing modal
         $dateUtil = new DateTimeUtil();
         $lottery_date_time = $this->domainServiceFactory->getLotteriesDataService()->getNextDateDrawByLottery('EuroMillions');
-        $lottery_date_time = new \DateTime('2016-02-24 11:10:00');
+        $lottery_date_time = new \DateTime('2016-02-29 19:02:00');
         $time_to_remain = $dateUtil->getTimeRemainingToCloseDraw($lottery_date_time);
         if($time_to_remain) {
             $minutes_to_close = $dateUtil->restMinutesToCloseDraw($lottery_date_time);
-            $minutes_to_close_rounded = $dateUtil->restMinutesToCloseDraw($lottery_date_time,null,true);
         }
+        $minutes_to_close_rounded = $dateUtil->restMinutesToCloseDraw($lottery_date_time,null,true);
         $last_minute = $dateUtil->isLastMinuteToDraw($lottery_date_time);
         $this->view->setVar('time_to_remain_draw', $time_to_remain);
         $this->view->setVar('minutes_to_close_rounded', (int) $minutes_to_close_rounded);

@@ -22,6 +22,7 @@ class CreditCardForm extends Form
         $card_number = new Text('card-number', array(
             'placeholder' => '',
             'autocomplete' => 'off',
+            'maxlength' => 16
 
         ));
         $card_number->addValidators(array(

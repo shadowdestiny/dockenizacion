@@ -37,7 +37,6 @@ class JackpotRolloverEmailTemplateUnitTest extends UnitTestBase
         $sut = new JackpotRolloverEmailTemplate($emailTemplate, new JackpotDataEmailTemplateStrategy($this->lotteriesDataService->reveal()) );
         $actual = $sut->loadVars();
         $this->assertEquals($expected,$actual);
-
     }
 
     private function getArrayContentTemplateJackpot()
