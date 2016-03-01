@@ -70,7 +70,7 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
                     $lucky = $bet->lucky;
                 }
                 foreach ($regular as $number) {
-                    $regular_numbers[] = new EuroMillionsRegularNumber($number);
+                    $regular_numbers[] = new EuroMillionsRegularNumber( (int) $number);
                 }
                 foreach ($lucky as $number) {
                     $lucky_numbers[] = new EuroMillionsLuckyNumber((int) $number);

@@ -103,7 +103,7 @@ class EuroMillionsLine
         foreach ($properties as $property) {
             $name = $property->getName();
             if (substr($name, 0, 7) === 'regular') {
-                $numbers[] = $this->$name;
+                $numbers[] = sprintf("%02s", $this->$name);
             }
         }
         return $numbers;
@@ -120,7 +120,7 @@ class EuroMillionsLine
         foreach ($properties as $property) {
             $name = $property->getName();
             if (substr($name, 0, 5) === 'lucky') {
-                $lucky[] = $this->$name;
+                $lucky[] = sprintf("%02s", $this->$name);
             }
         }
         return $lucky;

@@ -71,10 +71,34 @@ class DateTimeUtil
         return $rest / 60;
     }
 
-    public function getCountDownNextDraw( \DateTime $date_next_draw )
+    public function getCountDownNextDraw( \DateTime $date_next_draw, \DateTime $now = null )
     {
-        $remain = $date_next_draw->diff(new \DateTime());
-        return $remain->d . ' days and ' . $remain->h . ' hours';
+        if( null == $now ) {
+            $now = new \DateTime();
+        }
+        $message = '';
+        $remain = $date_next_draw->diff($now);
+        if($remain->d) {
+            if((int) $remain->d > 1) {
+                $message .= $remain->d . ' days and ';
+            } else {
+                $message .= $remain->d . ' day and ';
+            }
+        }
+        if($remain->h) {
+            if((int) $remain->h > 1) {
+                $message .= $remain->h . ' hours';
+            } else {
+                $message .= $remain->h . ' hour';
+            }
+        } else if ($remain->i) {
+            if((int) $remain->i > 1) {
+                $message .= $remain->i . ' minutes';
+            } else {
+                $message .= $remain->i . ' minute';
+            }
+        }
+        return $message;
     }
 
     public function isLastMinuteToDraw( \DateTime $time_close_draw )
