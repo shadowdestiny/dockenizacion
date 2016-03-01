@@ -231,28 +231,27 @@ $(function(){
 
     function interval(){
         var minutes_value =  getMinutes();
-        if(!first_load){
-            console.log('minutes: ' + minutes_value);
+       // if(!first_load){
             if(minutes_value >= 6){
-                console.log('pasa1');
                 var minutes_to_close = minutes_to_close_rounded - 5;
                 interval_warning_close = logic_warning_interval(minutes_to_close, finish_countdown_warning_close_draw, idInterval, interval_warning);
                 setInterval(interval,interval_warning);
                 window.clearInterval(idInterval);
             }else if(minutes_value >= 2){
-                console.log('pasa2');
                 window.clearInterval(idInterval);
                 if(minutes_value < 1){
                     finish_countdown_warning_close_draw(interval_warning_close);
                 }
-                interval_warning = 50000;
+                interval_warning = 40000;
+                if(minutes_value > 1 && minutes_value <= 2) {
+                    interval_warning = 20000;
+                }
                 interval_warning_close = logic_warning_interval(minutes_value, finish_countdown_warning_close_draw, interval_warning_close, interval_warning);
                 setInterval(interval,interval_warning);
             }else if(minutes_value <= 1){
-                console.log('pasa3');
                 finish_countdown_warning_close_draw(interval_warning_close);
             }
-        }
+       // }
         first_load = false;
     }
 
