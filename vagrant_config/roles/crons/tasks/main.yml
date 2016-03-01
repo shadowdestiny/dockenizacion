@@ -1,0 +1,6 @@
+---
+- name: execute crons for updating jackpots and results
+  shell: >
+    php /var/www/apps/cli.php jackpot updatePrevious;
+    php /var/www/apps/cli.php result update;
+    php /var/www/apps/cli.php jackpot update;

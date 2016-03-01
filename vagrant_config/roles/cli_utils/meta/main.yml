@@ -1,0 +1,5 @@
+---
+dependencies:
+  - T2L.composer
+  - laggyluke.nodejs
+  - angstwad.docker_ubuntu

@@ -1,0 +1,11 @@
+---
+- name: Install Php libs
+  apt: name=php5-cli,php5-dev,php5-xdebug,php5-mysql,php-apc,php5-redis,php5-intl,php5-curl,php5-mcrypt state=present
+- name: Install libfontconfig
+  apt: name=libfontconfig state=present
+- name: Copy xdebug configuration
+  copy: src={{ config_files_path }}{{ xdebug_config_file }} dest=/etc/php5/mods-available
+- name: Enable xdebug php module
+  file: src=/etc/php5/mods-available/{{ xdebug_config_file }} dest=/etc/php5/cli/conf.d/{{ xdebug_config_file }} state=link
+- name: Enable mcrypt php module
+  file: src=/etc/php5/mods-available/mcrypt.ini dest=/etc/php5/cli/conf.d/20-mcrypt.ini state=link

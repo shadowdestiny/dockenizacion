@@ -1,0 +1,7 @@
+---
+- name: Installing git and mysql clients from repository
+  apt: name=git,mysql-client-5.6 state=present
+- name: Install composer libraries
+  composer: command="install" working_dir="/var/www"
+- name: Set softlink for doctrine command line utilities
+  file: src=/var/www/vendor/bin/doctrine dest=/usr/local/bin/doctrine state=link mode="u+x,g+x,o+x"

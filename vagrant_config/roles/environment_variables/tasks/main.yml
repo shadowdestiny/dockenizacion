@@ -1,0 +1,5 @@
+---
+- name: Adding the euromillions environment information to the profile file
+  become: yes
+  become_user: root
+  lineinfile: dest=/etc/profile line='export EM_ENV=vagrant' state=present
