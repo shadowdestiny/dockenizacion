@@ -206,6 +206,7 @@ var PlayPage = React.createClass({
 
     handleChangeDraw : function (value)
     {
+
         var length_value_day = 0;
         switch(value) {
             case 'Friday':
@@ -243,6 +244,7 @@ var PlayPage = React.createClass({
                          draw_day_play : value,
                          draw_dates : draw_dates,
                          draw_duration : options_draw_duration});
+
         this.updatePrice();
     },
 
@@ -310,7 +312,7 @@ var PlayPage = React.createClass({
                 <div className="box-bottom">
                     <div className="wrap">
                         <EuroMillionsBoxBottomAction draw_day_play={this.state.draw_day_play} currency_symbol={this.props.currency_symbol} click_advanced_play={this.handleClickAdvancedPlay} date_play={this.state.date_play} duration={this.state.duration} play_days={this.state.playDays}  lines={this.state.storage}  price={this.state.price}/>
-                        <EmConfigPlayBlock draw_dates={this.state.draw_dates} date_play={this.handleChangeDate} draw_duration={this.state.draw_duration} duration={this.handleChangeDuration} play_days={this.handleChangeDraw} show={this.state.show_block_config}/>
+                        <EmConfigPlayBlock draw_dates={this.state.draw_dates} date_play={this.handleChangeDate} current_duration_value={this.state.duration} draw_duration={this.state.draw_duration} duration={this.handleChangeDuration} play_days={this.handleChangeDraw} show={this.state.show_block_config}/>
                     </div>
                 </div>
             </div>

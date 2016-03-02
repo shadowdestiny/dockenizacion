@@ -14,7 +14,6 @@ use EuroMillions\web\emailTemplates\WelcomeEmailTemplate;
 use EuroMillions\web\emailTemplates\WinEmailAboveTemplate;
 use EuroMillions\web\emailTemplates\WinEmailTemplate;
 use EuroMillions\web\entities\User;
-use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\LatestResultsDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\LongPlayEndedDataEmailTemplateStrategy;
