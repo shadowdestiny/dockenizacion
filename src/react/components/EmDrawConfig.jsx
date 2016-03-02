@@ -16,21 +16,28 @@ var EuroMillionsDrawConfig = new React.createClass({
 
         var elem = [];
         var options_draw_dates = [];
-
+        var draw_days_selected = this.props.draw_days_selected;
         this.props.draw_dates.forEach(function(obj,i){
             var obj_split = String(obj).split('#');
-            options_draw_dates.push({text : obj_split[0], value : obj_split[0]});
+            if(draw_days_selected == obj_split[1]) {
+                options_draw_dates.push({text : obj_split[0], value : obj_split[0]});
+            }
+            if(draw_days_selected == 25) {
+                options_draw_dates.push({text : obj_split[0], value : obj_split[0]});
+            }
         });
+
+        var default_text_date = ""+options_draw_dates[0].text;
+        var default_value_date = ""+options_draw_dates[0].text;
+
 
         var default_value_draw = 'Tuesday';
         var default_text_draw = 'Tuesday';
 
-        var default_value_date = ""+options_draw_dates[0].value;
-        var default_text_date = ""+options_draw_dates[0].text;
-
         var duration_value = this.props.current_duration_value;
         var default_value_duration = ""+this.props.draw_duration[0].value;
         var default_text_duration = ""+this.props.draw_duration[0].text;
+
         this.props.draw_duration.forEach(function(obj,i){
             if(obj.value == duration_value) {
                default_value_duration = ""+obj.value;

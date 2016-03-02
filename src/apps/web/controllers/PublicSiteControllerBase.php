@@ -54,8 +54,8 @@ class PublicSiteControllerBase extends ControllerBase
         $this->userService = $userService ? $userService : $this->domainServiceFactory->getUserService();
         $this->authService = $authService ? $authService : $this->domainServiceFactory->getAuthService();
         $this->userPreferencesService = $userPreferencesService ? $userPreferencesService : $this->domainServiceFactory->getUserPreferencesService();
-        $this->siteConfigService = $siteConfigService ?: new SiteConfigService($this->di->get('entityManager'), $this->currencyService);
-        $this->cartService = $cartService ?: $this->domainServiceFactory->getCartService();
+        $this->siteConfigService = $siteConfigService ? $siteConfigService : new SiteConfigService($this->di->get('entityManager'), $this->currencyService);
+        $this->cartService = $cartService ? $cartService : $this->domainServiceFactory->getCartService();
     }
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
@@ -86,7 +86,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->authService->tryLoginWithRemember();
     }
 
-    private function setTopNavValues()
+    public function setTopNavValues()
     {
         $user_currency = $this->userPreferencesService->getMyCurrencyNameAndSymbol();
         $current_currency = $this->userPreferencesService->getCurrency();
@@ -182,8 +182,9 @@ class PublicSiteControllerBase extends ControllerBase
         //Vars draw closing modal
         $dateUtil = new DateTimeUtil();
         $lottery_date_time = $this->domainServiceFactory->getLotteriesDataService()->getNextDateDrawByLottery('EuroMillions');
-        $lottery_date_time = new \DateTime('2016-03-02 12:45:00');
+       // $lottery_date_time = new \DateTime('2016-03-02 12:45:00');
         $time_to_remain = $dateUtil->getTimeRemainingToCloseDraw($lottery_date_time);
+
         if($time_to_remain) {
             $minutes_to_close = $dateUtil->restMinutesToCloseDraw($lottery_date_time);
         }
