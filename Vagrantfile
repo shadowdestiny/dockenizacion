@@ -17,9 +17,6 @@ Vagrant.configure(2) do |config|
         ansible.playbook    = "/vagrant/vagrant_config/playbook.yml"
         ansible.install     = true
     end
-#    config.vm.provision "shell", path: "vagrant_config/provision.sh", privileged: false
-#    config.vm.provision "shell", path: "vagrant_config/docker-compose.sh", run: "always", privileged: true
-#    config.vm.provision "shell", path: "vagrant_config/bootstrap.sh", run: "always", privileged: false
     config.vm.network "forwarded_port", guest: 80, host: 8080
     config.vm.network "forwarded_port", guest: 443, host: 4433
     config.vm.network "forwarded_port", guest: 3306, host: 33060
