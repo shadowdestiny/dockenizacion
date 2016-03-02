@@ -27,6 +27,7 @@ class SiteConfig extends AbstractMigration
      */
     public function change()
     {
+        $this->execute("drop table if EXISTS site_config");
         $this->execute('CREATE TABLE site_config (id INT UNSIGNED AUTO_INCREMENT NOT NULL, name VARCHAR(255) DEFAULT NULL, value VARCHAR(255) DEFAULT NULL, description VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;');
     }
 }

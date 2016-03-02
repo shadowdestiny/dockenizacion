@@ -92,6 +92,31 @@ class DateTimeUtilUnitTest extends UnitTestBase
         );
     }
 
+    /**
+     * method getCountDownNextDraw
+     * when called
+     * should returnStringWithCountDownProperlyFormat
+     * @dataProvider getCountDownCases
+     */
+    public function test_getCountDownNextDraw_called_returnStringWithCountDownProperlyFormat($next_draw_date,$expected)
+    {
+        $sut = $this->getSut();
+        $date_next_draw = new \DateTime($next_draw_date);
+        $now = new \DateTime('2016-03-01 15:00:00');
+        $actual = $sut->getCountDownNextDraw($date_next_draw, $now);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function getCountDownCases()
+    {
+        return [
+            ['2016-03-01 20:00:00', '5 hours'],
+            ['2016-03-02 20:00:00', '1 day and 5 hours'],
+            ['2016-03-01 15:05:00', '5 minutes'],
+            ['2016-03-01 15:01:00', '1 minute'],
+            ['2016-03-03 20:00:00', '2 days and 5 hours'],
+        ];
+    }
 
     private function getSut()
     {

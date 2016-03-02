@@ -26,13 +26,13 @@ class DateTimeUtil
         return (int) date('w',$date_time->getTimestamp());
     }
 
-    public function checkOpenTicket($time_to_retry = null)
+    public function checkOpenTicket($timeToRestry = null)
     {
-        if(!$time_to_retry) $time_to_retry = strtotime('now');
+        if(!$timeToRestry) $timeToRestry = strtotime('now');
         $time_config = $this->di->get('globalConfig')['retry_validation_time'];
         $date_today = new \DateTime();
         $limit_time = strtotime($date_today->format('Y/m/d '. $time_config['time']));
-        return ($time_to_retry < $limit_time);
+        return ($timeToRestry < $limit_time);
     }
 
     public function getNumWeeksBetweenDates( \DateTime $date_ini, \DateTime $date_end )
@@ -41,14 +41,14 @@ class DateTimeUtil
         return intval( $interval->days / 7 );
     }
 
-    public function getTimeRemainingToCloseDraw( \DateTime $time_close_draw )
+    public function getTimeRemainingToCloseDraw( \DateTime $timeCloseDraw )
     {
         $now = new \DateTime();
-        $one_day = date( "w", $time_close_draw->getTimestamp());
+        $one_day = date( "w", $timeCloseDraw->getTimestamp());
         $two_day = date( "w", $now->getTimestamp());
 
         if( $one_day == $two_day ) {
-            $barrier_time = $time_close_draw->getTimestamp() - 1800;
+            $barrier_time = $timeCloseDraw->getTimestamp() - 1800;
 
             //$barrier_time = strtotime($time_close_draw->format('Y-m-d H:i:s') . ' -30 minutes' );
             return ($barrier_time > $now->getTimestamp());
@@ -56,12 +56,12 @@ class DateTimeUtil
         return false;
     }
 
-    public function restMinutesToCloseDraw( \DateTime $time_close_draw, \DateTime $now = null , $rounded = false)
+    public function restMinutesToCloseDraw( \DateTime $timeToCloseDraw, \DateTime $now = null , $rounded = false)
     {
         if( $now == null ) {
             $now = new \DateTime();
         }
-        $barrier_time = $time_close_draw->getTimestamp() - 1800;
+        $barrier_time = $timeToCloseDraw->getTimestamp() - 1800;
         $rest = $barrier_time - $now->getTimestamp();
         if($rounded) {
             $precision = 60 * 5;
@@ -71,16 +71,45 @@ class DateTimeUtil
         return $rest / 60;
     }
 
-    public function getCountDownNextDraw( \DateTime $date_next_draw )
+    public function getCountDownNextDraw( \DateTime $dateNextDraw, \DateTime $now = null )
     {
-        $remain = $date_next_draw->diff(new \DateTime());
-        return $remain->d . ' days and ' . $remain->h . ' hours';
+        if( null == $now ) {
+            $now = new \DateTime();
+        }
+
+        $remain = $dateNextDraw->diff($now);
+
+        $create_day_message = function(\DateInterval $remain) {
+            $message = '';
+            if($remain->d) {
+                $message .= $remain->d > 1 ? $remain->d . ' days and ' : $remain->d . ' day and ';
+            }
+            return $message;
+        };
+
+        $create_hour_message = function(\DateInterval $remain) {
+            $message = '';
+            if($remain->h) {
+                $message .= $remain->h > 1 ? $remain->h . ' hours' : $remain->h . ' hour';
+            }
+            return $message;
+        };
+
+        $create_minutes_message = function(\DateInterval $remain) {
+            $message = '';
+            if($remain->i) {
+                $message .= $remain->i > 1 ? $remain->i . ' minutes' : $remain->i . ' minute';
+            }
+            return $message;
+        };
+
+        return $create_day_message($remain) . $create_hour_message($remain) . $create_minutes_message($remain);
     }
 
-    public function isLastMinuteToDraw( \DateTime $time_close_draw )
+    public function isLastMinuteToDraw( \DateTime $timeCloseDraw )
     {
         $now = new \DateTime();
-        $last_minute = $time_close_draw->getTimestamp() - 60;
+        $last_minute = $timeCloseDraw->getTimestamp() - 60;
         //$last_minute  = strtotime($time_close_draw->format('Y-m-d H:i:s') . ' -1 minute' );
         return ($now->getTimestamp() > $last_minute);
     }

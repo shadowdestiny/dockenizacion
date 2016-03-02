@@ -31,7 +31,7 @@ var CartPage = new React.createClass({
         var price = parseFloat(this.props.single_bet_price * this.state.playConfigList.bets.length );
         var wallet_balance = parseFloat(this.props.wallet_balance);
         var fee = this.props.price_below_fee;
-        if(wallet_balance == 0 && price > parseFloat(fee)) {
+        if( wallet_balance == 0 && accounting.unformat(price) > accounting.unformat(fee)) {
             this.setState({ show_all_fee : false, checked_wallet : this.state.checked_wallet });
         }
         this.handleUpdatePrice();
@@ -119,8 +119,9 @@ var CartPage = new React.createClass({
         Funds.funds_value = isNaN(this.state.fund_value) ? 0 : this.state.fund_value;
         Fee.fee_value = this.props.fee_charge;
         Wallet.total_balance = this.props.wallet_balance;
-        Wallet.isChecked = true;
+        //Wallet.isChecked = true;
         LogicCart.payWithNoWallet();
+
         this.state.show_all_fee = LogicCart.show_all_fee;
         this.state.show_fee_text = LogicCart.show_fee_text;
         this.state.show_fee_value = LogicCart.show_fee_value;
@@ -180,7 +181,7 @@ var CartPage = new React.createClass({
         var txt_button_payment = '';
         var href_payment = '';
         var data_btn = '';
-        if( (this.state.checked_wallet && parseFloat(LogicCart.total) > 0) || parseFloat(LogicCart.total) > 0 ) {
+        if( (this.state.checked_wallet && accounting.unformat(LogicCart.total) > 0) || accounting.unformat(LogicCart.total) > 0 ) {
             txt_button_payment = 'Continue to payment';
             href_payment = 'javascript:void(0)';
             data_btn = 'no-wallet';
@@ -272,10 +273,11 @@ var LogicCart = {
     show_fee_text : false,
 
     payWithWallet : function () {
+        var current_total = LogicCart.total;
         var totalWithWallet = Wallet.getTotalWhenPayed(LogicCart.total);
         if( accounting.unformat(LogicCart.fee_limit) > accounting.unformat(totalWithWallet) ) {
             LogicCart.total = Funds.getTotalWhenFundsAreInserted(totalWithWallet);
-            if( accounting.unformat(LogicCart.total) < accounting.unformat(LogicCart.fee_limit) ) {
+            if( accounting.unformat(current_total) < accounting.unformat(LogicCart.fee_limit) ) {
                 LogicCart.total = Fee.checkFeeWithWallet(LogicCart.total);
                 if(Fee.applied) {
                     LogicCart.show_fee_text = true;
@@ -287,7 +289,7 @@ var LogicCart = {
                     LogicCart.show_all_fee = true;
                 }
             } else {
-                LogicCart.show_all_fee = true;
+                LogicCart.show_all_fee = false;
                 LogicCart.show_fee_value = false;
                 LogicCart.show_fee_text = false;
             }
@@ -321,9 +323,9 @@ var Wallet = {
     getTotalWhenPayed : function (total) {
         Wallet.wallet = accounting.unformat(Wallet.total_balance) > accounting.unformat(total) ? total : Wallet.total_balance;
         if( accounting.unformat(Wallet.wallet) >= accounting.unformat(total) ) {
-            return ((parseFloat(Wallet.wallet) - parseFloat(total))).toFixed(2);
+            return (accounting.unformat(Wallet.wallet) - accounting.unformat(total));
         } else {
-            return ((parseFloat(total) - parseFloat(Wallet.wallet)).toFixed(2)) ;
+            return ((accounting.unformat(total) - accounting.unformat(Wallet.wallet)));
         }
     },
 
