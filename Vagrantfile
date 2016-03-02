@@ -3,7 +3,7 @@ Vagrant.configure(2) do |config|
         v.memory = 2048
         v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
     end
-    config.vm.box = "ubuntu/wily64"
+    config.vm.box = "ubuntu/vivid64"
 
     config.vm.provision "shell", inline: <<-SCRIPT
         sudo apt-get install python-software-properties

@@ -172,8 +172,8 @@ $(function(){
     }
 
     var timeout_warning = '';
-    var finish_countdown_warning_close_draw = function (interval_warning_close) {
-        window.clearInterval(interval_warning_close);
+    var finish_countdown_warning_close_draw = function (idInterval) {
+        window.clearInterval(idInterval);
         return $('.ending').countdown(draw_date).
         on('update.countdown', function (event) {
             $('.ending').fadeIn(fade_value);
@@ -200,9 +200,9 @@ $(function(){
     var interval_warning_close = null;
     var first_load = true;
     var fade_value = 800;
-    var interval_warning = 200000;
+    var interval_warning = 300000;
     var timeout_first_warning = 8000;
-
+    var idInterval ='';
     if(remain_time == 1 && minutes_value >= 1 && minutes_value < 30){
         minutes_to_close_rounded = isNaN(minutes_to_close_rounded) || minutes_to_close_rounded == 0 ? minutes_value : minutes_to_close_rounded;
         if (minutes_value > 1 && minutes_value <= 5){
@@ -212,8 +212,9 @@ $(function(){
             timeout_first_warning = 10000;
         }
         if(minutes_value < 2 ) {
-            interval_warning = 2000;
-            $('.ending').text('The draw will close in about ' + minutes_value + ' minute')
+            interval_warning = 30000;
+            minutes_value = 2;
+            $('.ending').text('The draw will close in less than ' + minutes_value + ' minutes')
         } else {
             $('.ending').text('The draw will close in about ' + minutes_to_close_rounded + ' minutes')
         }
@@ -222,7 +223,7 @@ $(function(){
             $('.ending').fadeOut(fade_value);
         },timeout_first_warning);
 
-        var idInterval = setInterval(interval,interval_warning);
+        idInterval = setInterval(interval,interval_warning);
     }
 
     if(minutes_value < 1){
@@ -231,25 +232,29 @@ $(function(){
 
     function interval(){
         var minutes_value =  getMinutes();
+        console.log('minutes value: ' + minutes_value);
        // if(!first_load){
             if(minutes_value >= 6){
+                console.log('pasa1');
                 var minutes_to_close = minutes_to_close_rounded - 5;
                 interval_warning_close = logic_warning_interval(minutes_to_close, finish_countdown_warning_close_draw, idInterval, interval_warning);
-                setInterval(interval,interval_warning);
-                window.clearInterval(idInterval);
+                idInterval = setInterval(interval,interval_warning);
+                //window.clearInterval(idInterval);
             }else if(minutes_value >= 2){
-                window.clearInterval(idInterval);
+                console.log('pasa2');
+                //window.clearInterval(idInterval);
                 if(minutes_value < 1){
-                    finish_countdown_warning_close_draw(interval_warning_close);
+                    finish_countdown_warning_close_draw(idInterval);
                 }
-                interval_warning = 40000;
-                if(minutes_value > 1 && minutes_value <= 2) {
-                    interval_warning = 20000;
+                interval_warning = 60000;
+                if(minutes_value <= 2) {
+                    interval_warning = 30000;
                 }
                 interval_warning_close = logic_warning_interval(minutes_value, finish_countdown_warning_close_draw, interval_warning_close, interval_warning);
-                setInterval(interval,interval_warning);
+                idInterval = setInterval(interval,interval_warning);
             }else if(minutes_value <= 1){
-                finish_countdown_warning_close_draw(interval_warning_close);
+                console.log('pasa3');
+                finish_countdown_warning_close_draw(idInterval);
             }
        // }
         first_load = false;
@@ -257,11 +262,15 @@ $(function(){
 
     function logic_warning_interval(minutes_value, finish_countdown_warning_close_draw, interval_warning_close,timeout_interval){
         var minutes_literal = (minutes_value == 1) ? ' minute' : ' minutes';
-        $('.ending').text('The draw will close in about ' + minutes_value + minutes_literal);
+        var message = 'The draw will close in about ';
+        if(minutes_value <= 5 ) {
+            message = 'The draw will close in less than '
+        }
+        $('.ending').text(message + minutes_value + minutes_literal);
         $('.ending').fadeIn();
         setTimeout(function(){
             if (getMinutes() < 1){
-                finish_countdown_warning_close_draw(interval_warning_close);
+                finish_countdown_warning_close_draw(idInterval);
             }
             $('.ending').fadeOut();
         }, 3000);
