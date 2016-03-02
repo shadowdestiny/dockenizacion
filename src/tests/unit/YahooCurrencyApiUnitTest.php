@@ -1,6 +1,7 @@
 <?php
 namespace tests\unit;
 
+use EuroMillions\web\exceptions\ExternalServiceErrorException;
 use EuroMillions\web\services\external_apis\YahooCurrencyApi;
 use Money\Currency;
 use Money\CurrencyPair;
@@ -13,6 +14,7 @@ class YahooCurrencyApiUnitTest extends UnitTestBase
     const RESULT = '{"query":{"count":2,"created":"2015-06-22T13:57:48Z","lang":"en-US","diagnostics":{"url":[{"execution-start-time":"0","execution-stop-time":"3","execution-time":"3","content":"http://www.datatables.org/yahoo/finance/yahoo.finance.xchange.xml"},{"execution-start-time":"8","execution-stop-time":"11","execution-time":"3","content":"http://download.finance.yahoo.com/d/quotes.csv?s=EURGBP=X&f=snl1d1t1ab"},{"execution-start-time":"8","execution-stop-time":"12","execution-time":"4","content":"http://download.finance.yahoo.com/d/quotes.csv?s=EURUSD=X&f=snl1d1t1ab"}],"publiclyCallable":"true","cache":[{"execution-start-time":"7","execution-stop-time":"7","execution-time":"0","method":"GET","type":"MEMCACHED","content":"5372a187be7ec34f4e273188d21b0c77"},{"execution-start-time":"7","execution-stop-time":"7","execution-time":"0","method":"GET","type":"MEMCACHED","content":"ed2f4f98393df635b3389b9c25265749"}],"query":[{"execution-start-time":"7","execution-stop-time":"11","execution-time":"4","content":"select * from csv where url=\'http://download.finance.yahoo.com/d/quotes.csv?s=EURGBP=X&f=snl1d1t1ab\' and columns=\'Symbol,Name,Rate,Date,Time,Ask,Bid\'"},{"execution-start-time":"7","execution-stop-time":"12","execution-time":"5","content":"select * from csv where url=\'http://download.finance.yahoo.com/d/quotes.csv?s=EURUSD=X&f=snl1d1t1ab\' and columns=\'Symbol,Name,Rate,Date,Time,Ask,Bid\'"}],"javascript":[{"execution-start-time":"6","execution-stop-time":"11","execution-time":"5","instructions-used":"30662","table-name":"yahoo.finance.xchange"},{"execution-start-time":"6","execution-stop-time":"12","execution-time":"6","instructions-used":"37324","table-name":"yahoo.finance.xchange"}],"user-time":"13","service-time":"10","build-version":"0.2.154"},"results":{"rate":[{"id":"EURUSD","Name":"EUR/USD","Rate":"1.1373","Date":"6/22/2015","Time":"2:57pm","Ask":"1.1374","Bid":"1.1373"},{"id":"EURGBP","Name":"EUR/GBP","Rate":"0.7183","Date":"6/22/2015","Time":"2:57pm","Ask":"0.7183","Bid":"0.7182"}]}}}';
     const RESULT_ONE_CURRENCY = '{"query":{"count":1,"created":"2015-07-21T11:04:41Z","lang":"en-US","diagnostics":{"url":[{"execution-start-time":"0","execution-stop-time":"3","execution-time":"3","content":"http://www.datatables.org/yahoo/finance/yahoo.finance.xchange.xml"},{"execution-start-time":"7","execution-stop-time":"11","execution-time":"4","content":"http://download.finance.yahoo.com/d/quotes.csv?s=EURUSD=X&f=snl1d1t1ab"}],"publiclyCallable":"true","cache":{"execution-start-time":"6","execution-stop-time":"6","execution-time":"0","method":"GET","type":"MEMCACHED","content":"5372a187be7ec34f4e273188d21b0c77"},"query":{"execution-start-time":"6","execution-stop-time":"11","execution-time":"5","content":"select * from csv where url=\'http://download.finance.yahoo.com/d/quotes.csv?s=EURUSD=X&f=snl1d1t1ab\' and columns=\'Symbol,Name,Rate,Date,Time,Ask,Bid\'"},"javascript":{"execution-start-time":"5","execution-stop-time":"12","execution-time":"6","instructions-used":"18664","table-name":"yahoo.finance.xchange"},"user-time":"12","service-time":"7","build-version":"0.2.154"},"results":{"rate":{"id":"EURUSD","Name":"EUR/USD","Rate":"1.0861","Date":"7/21/2015","Time":"12:04pm","Ask":"1.0862","Bid":"1.0860"}}}}';
     const URL_FETCH_USD_COP_GBP = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22EURUSD%22%2C%22EURCOP%22%2C%22EURGBP%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=';
+    const RESULT_ERROR = '{"error":{"lang":"en-US","diagnostics":{"url":{"execution-start-time":"1","execution-stop-time":"4","execution-time":"3","http-status-code":"502","http-status-message":"Connection refused","content":"http://www.datatables.org/yahoo/finance/yahoo.finance.xchange.xml"}},"description":"No definition found for Table yahoo.finance.xchange"}}';
 
     private $currencyApiCache_double;
     private $curlWrapper_double;
@@ -196,7 +198,25 @@ class YahooCurrencyApiUnitTest extends UnitTestBase
     {
         $this->setExpectedException('\InvalidArgumentException');
         $sut = $this->getSut();
-        $actual = $sut->getRate(new Currency('EUR'),new Currency('EUR'));
+        $sut->getRate(new Currency('EUR'),new Currency('EUR'));
+    }
+
+    /**
+     * method getRate
+     * when calledWithACurrencyNotInCacheAndRefreshFails
+     * should throw
+     */
+    public function test_getRate_calledWithACurrencyNotInCacheAndRefreshFails_throw()
+    {
+        $this->setCacheContentForConversionRate('EUR', 'USD', null);
+        $this->setCacheContentsForRatesToFetch(null);
+        $this->curlWrapper_double->get(Argument::any())->willReturn($this->getResponse(self::RESULT_ERROR));
+        $this->iDontCareAboutCallsToCurrencyApiCache();
+
+        $sut = $this->getSut();
+        $this->expectException(ExternalServiceErrorException::class);
+        $this->expectExceptionMessage('No definition found for Table yahoo.finance.xchange');
+        $sut->getRate(new Currency('EUR'), new Currency('USD'));
     }
 
 
@@ -224,8 +244,7 @@ class YahooCurrencyApiUnitTest extends UnitTestBase
      */
     private function getResponse($result = self::RESULT)
     {
-        $response = new CurlResponse($result);
-        return $response;
+        return new CurlResponse($result);
     }
 
     /**

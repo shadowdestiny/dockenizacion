@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\web\services\external_apis;
 
+use EuroMillions\web\exceptions\ExternalServiceErrorException;
 use EuroMillions\web\interfaces\ICurrencyApi;
 use EuroMillions\web\interfaces\ICurrencyApiCacheStrategy;
 use Money\Currency;
@@ -22,6 +23,7 @@ class YahooCurrencyApi implements ICurrencyApi
      * @param Currency $currencyFrom
      * @param Currency $currencyTo
      * @return CurrencyPair
+     * @throws \InvalidArgumentException|ExternalServiceErrorException
      */
     public function getRate(Currency $currencyFrom, Currency $currencyTo)
     {
@@ -35,6 +37,12 @@ class YahooCurrencyApi implements ICurrencyApi
         return $currency_pair;
     }
 
+    /**
+     * @param $currencyFromCode
+     * @param $currencyToCode
+     * @throws ExternalServiceErrorException
+     * @return CurrencyPair|null
+     */
     protected function refreshRates($currencyFromCode, $currencyToCode)
     {
         $conversions = $this->cache->getConversionRatesToFetch();
@@ -58,6 +66,10 @@ class YahooCurrencyApi implements ICurrencyApi
         $url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20({$currencies_string})&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
         $response = $this->curl->get($url);
         $rates = json_decode($response->body);
+
+        if (isset($rates->error)) {
+            throw new ExternalServiceErrorException($rates->error->description);
+        }
 
         $result = null;
         $results_to_iterate = is_array($rates->query->results->rate) ? $rates->query->results->rate : $rates->query->results;
