@@ -14,6 +14,7 @@ use EuroMillions\web\emailTemplates\WelcomeEmailTemplate;
 use EuroMillions\web\emailTemplates\WinEmailAboveTemplate;
 use EuroMillions\web\emailTemplates\WinEmailTemplate;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\LatestResultsDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\LongPlayEndedDataEmailTemplateStrategy;
@@ -78,8 +79,9 @@ class EmailTestController extends PublicSiteControllerBase
         } else {
             $emailTemplate = $this->getInstanceDecorator($template);
             if($emailTemplate instanceof WinEmailTemplate) {
-                $emailTemplate->setUser($this->user);
-                $emailTemplate->setResultAmount(new Money(10000000, new Currency('EUR')));
+                $emailTemplate->setUser($this->getNewUser('raul.mesa@panamedia.net'));
+                $emailTemplate->getUser()->setUserCurrency(new Currency('USD'));
+                $emailTemplate->setResultAmount(new Money(5000, new Currency('EUR')));
             }
             if($emailTemplate instanceof LatestResultsEmailTemplate) {
                 $draw = $this->lotteriesDataService->getBreakDownDrawByDate('EuroMillions',new \DateTime());
@@ -133,7 +135,10 @@ class EmailTestController extends PublicSiteControllerBase
                 $instance = new LongPlayEndedEmailTemplate($emailTemplate, new LongPlayEndedDataEmailTemplateStrategy());
                 break;
             case 'win-email':
-                $instance = new WinEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
+                $winEmailAboveDataEmailTemplateStrategy = new WinEmailAboveDataEmailTemplateStrategy();
+                $winEmailAboveDataEmailTemplateStrategy->amount = new Money(5000, new Currency('EUR'));
+                $winEmailAboveDataEmailTemplateStrategy->user_currency = new Currency('USD');
+                $instance = new WinEmailTemplate($emailTemplate, $winEmailAboveDataEmailTemplateStrategy);
                 break;
             case 'win-email-above-1500':
                 $winEmailAboveDataEmailTemplateStrategy = new WinEmailAboveDataEmailTemplateStrategy();
@@ -141,6 +146,7 @@ class EmailTestController extends PublicSiteControllerBase
                 $winEmailAboveDataEmailTemplateStrategy->user_currency = new Currency('USD');
                 $instance = new WinEmailAboveTemplate($emailTemplate, $winEmailAboveDataEmailTemplateStrategy);
                 $instance->setUser($this->getNewUser('raul.mesa@panamedia.net'));
+                $instance->getUser()->setUserCurrency(new Currency('USD'));
                 $instance->setResultAmount(new Money(100000, new Currency('EUR')));
                 break;
             case 'welcome':

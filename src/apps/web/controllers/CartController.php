@@ -42,6 +42,10 @@ class CartController extends PublicSiteControllerBase
         } else {
             /** @var User $user */
             $user = $this->userService->getUser($current_user_id);
+            if(!$user) {
+                $this->response->redirect('/play');
+                return false;
+            }
             $result = $play_service->getPlaysFromTemporarilyStorage($user);
         }
 

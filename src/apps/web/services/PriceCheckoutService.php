@@ -91,7 +91,7 @@ class PriceCheckoutService
                 $this->userRespository->add($user);
                 $this->entityManager->flush($user);
                 $emailBaseTemplate = new EmailTemplate();
-                $emailTemplate = new WinEmailTemplate($emailBaseTemplate, new NullEmailTemplateDataStrategy());
+                $emailTemplate = new WinEmailTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($this->currencyService));
                 $emailTemplate->setUser($user);
                 $emailTemplate->setResultAmount($amount);
                 if($amount->greaterThanOrEqual($threshold_price)) {
