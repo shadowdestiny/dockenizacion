@@ -5,11 +5,7 @@ var ReactTooltip = require("react-tooltip");
 var PlayPage = React.createClass({
     handleCheck: function (event) {
         var active;
-        if(event.target.checked) {
-            active = true;
-        } else {
-            active = false;
-        }
+        active = event.target.checked;
         this.setState({
             thresholdActive: active
         });

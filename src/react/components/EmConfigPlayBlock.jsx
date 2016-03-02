@@ -4,12 +4,30 @@ var EmDrawConfig = require('../components/EmDrawConfig.jsx');
 
 var EmConfigPlayBlock = new React.createClass({
 
+    displayName : 'ConfigPlayBlock',
+
+
+    getInitialState: function () {
+        return {
+            show_block: this.props.show,
+        }
+    },
+
     getDefaultProps: function() {
         return {
             date_play : 0,
             duration : 1,
             play_days : 1
         }
+    },
+
+    componentWillUpdate : function(nextProps,nextState) {
+        this.state.show_block = nextProps.show;
+    },
+
+    handleClickClose : function() {
+        var isShowed = this.state.show_block ? false : true;
+        this.setState({ show_block : isShowed });
     },
 
     render : function () {
@@ -30,13 +48,13 @@ var EmConfigPlayBlock = new React.createClass({
             {text: 'Friday' , value : '5'}
         ];
 
-        if(!this.props.show) {
+        if(!this.state.show_block) {
             return null;
         } else {
             return (
                 <div className="advanced-play">
                     <hr className="hr yellow" />
-                    <a href="javascript:void(0);" className="close"><svg className="ico v-cancel-circle"><use xlinkHref="/w/svg/icon.svg#v-cancel-circle"></use></svg>
+                    <a href="javascript:void(0);" onClick={this.handleClickClose} className="close"><svg className="ico v-cancel-circle"><use xlinkHref="/w/svg/icon.svg#v-cancel-circle"></use></svg>
                     </a>
                     <div className="cols">
                         <EmDrawConfig  draw_days_selected={this.props.draw_days_selected} current_duration_value={this.props.current_duration_value} draw_dates={this.props.draw_dates} date_play={this.props.date_play} draw_duration={this.props.draw_duration} duration={this.props.duration} play_days={this.props.play_days}  options={options_draw_days} customValue={custom_value}/>
