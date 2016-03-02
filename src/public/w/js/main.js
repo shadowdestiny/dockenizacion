@@ -206,7 +206,7 @@ $(function(){
     if(remain_time == 1 && minutes_value >= 1 && minutes_value < 30){
         minutes_to_close_rounded = isNaN(minutes_to_close_rounded) || minutes_to_close_rounded == 0 ? minutes_value : minutes_to_close_rounded;
         if (minutes_value > 1 && minutes_value <= 5){
-            interval_warning = 30000;
+            interval_warning = 60000;
         }else if (minutes_value == 1){
             interval_warning = 5000;
             timeout_first_warning = 10000;
@@ -232,28 +232,24 @@ $(function(){
 
     function interval(){
         var minutes_value =  getMinutes();
-        console.log('minutes value: ' + minutes_value);
        // if(!first_load){
             if(minutes_value >= 6){
-                console.log('pasa1');
                 var minutes_to_close = minutes_to_close_rounded - 5;
                 interval_warning_close = logic_warning_interval(minutes_to_close, finish_countdown_warning_close_draw, idInterval, interval_warning);
                 idInterval = setInterval(interval,interval_warning);
                 //window.clearInterval(idInterval);
             }else if(minutes_value >= 2){
-                console.log('pasa2');
                 //window.clearInterval(idInterval);
                 if(minutes_value < 1){
                     finish_countdown_warning_close_draw(idInterval);
                 }
                 interval_warning = 60000;
                 if(minutes_value <= 2) {
-                    interval_warning = 30000;
+                    interval_warning = 35000;
                 }
                 interval_warning_close = logic_warning_interval(minutes_value, finish_countdown_warning_close_draw, interval_warning_close, interval_warning);
                 idInterval = setInterval(interval,interval_warning);
             }else if(minutes_value <= 1){
-                console.log('pasa3');
                 finish_countdown_warning_close_draw(idInterval);
             }
        // }

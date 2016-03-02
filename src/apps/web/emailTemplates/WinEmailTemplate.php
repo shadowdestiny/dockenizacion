@@ -4,15 +4,21 @@
 namespace EuroMillions\web\emailTemplates;
 
 
+use EuroMillions\web\entities\User;
+
 class WinEmailTemplate extends EmailTemplateDecorator
 {
 
+    /** @var  User */
     protected $user;
 
     protected $result_amount;
 
     public function loadVars()
     {
+
+        $data = $this->emailTemplateDataStrategy->getData();
+
         $vars = [
             'template' => 'win-email',
             'subject' => 'Congratulations',
@@ -36,6 +42,15 @@ class WinEmailTemplate extends EmailTemplateDecorator
                     ]
                 ]
         ];
+
+
+        if( $this->user->getUserCurrency()->getName() != 'EUR' ) {
+            $vars['vars'][] = [
+                'name' => 'amount_converted',
+                'content' => $data['amount_converted']
+            ];
+        }
+
         return $vars;
     }
 
