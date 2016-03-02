@@ -86,14 +86,14 @@ class PublicSiteControllerBase extends ControllerBase
         $this->authService->tryLoginWithRemember();
     }
 
-    private function setTopNavValues()
+    protected function setTopNavValues()
     {
         $user_currency = $this->userPreferencesService->getMyCurrencyNameAndSymbol();
         $current_currency = $this->userPreferencesService->getCurrency();
         $is_logged = $this->authService->isLogged();
-        $user = $this->authService->getCurrentUser();
 
         if($is_logged) {
+            $user = $this->authService->getCurrentUser();
             $user = $this->userService->getUser($user->getId());
             $currency = $this->userPreferencesService->getCurrency();
             if($user->getUserCurrency()->getName() != $currency->getName() ) {
@@ -118,11 +118,11 @@ class PublicSiteControllerBase extends ControllerBase
         $this->view->setVar('countdown_next_draw', $date_time_util->getCountDownNextDraw($date_next_draw));
 
         //EMTD create a method helper to set this vars
-        $single_bet_price = $this->domainServiceFactory->getLotteriesDataService()->getSingleBetPriceByLottery('EuroMillions');
+        $single_bet_price = $this->lotteriesDataService->getSingleBetPriceByLottery('EuroMillions');
         $single_bet_price_currency = $this->currencyService->convert($single_bet_price, $current_currency);
         $bet_value = $this->currencyService->toString($single_bet_price_currency,$current_currency);
         $single_bet_price_currency_gbp = $this->currencyService->convert($single_bet_price, new Currency('GBP'));
-        $bet_value_pound = $this->currencyService->toString($single_bet_price_currency_gbp,new Currency('GBP'));
+        $bet_value_pound = $this->currencyService->toString($single_bet_price_currency_gbp, new Currency('GBP'));
         $this->view->setVar('bet_price', $bet_value);
         $this->view->setVar('bet_price_pound', $bet_value_pound);
     }
