@@ -13,6 +13,11 @@ trait TestHelperTrait
         return $this->prophesize(Namespaces::SERVICES_NS . $serviceName);
     }
 
+    protected function getSharedServiceDouble($serviceName)
+    {
+        return $this->prophesize(Namespaces::SERVICES_SHARED_NS . $serviceName);
+    }
+
     protected function getRepositoryDouble($repositoryName)
     {
         return $this->prophesize(Namespaces::REPOSITORIES_NS . $repositoryName);

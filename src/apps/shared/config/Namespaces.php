@@ -12,4 +12,5 @@ class Namespaces
     const COMPONENTS_NS = 'EuroMillions\web\components\\';
     const VALUEOBJECTS_NS = 'EuroMillions\web\vo\\';
     const RESULTOBJECTS_NS = 'EuroMillions\shared\vo\results\\';
+    const SERVICES_SHARED_NS = 'EuroMillions\shared\services\\';
 }
