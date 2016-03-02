@@ -25,11 +25,18 @@ var EuroMillionsDrawConfig = new React.createClass({
         var default_value_draw = 'Tuesday';
         var default_text_draw = 'Tuesday';
 
-        var default_value_date = ""+options_draw_dates[0].text;
+        var default_value_date = ""+options_draw_dates[0].value;
         var default_text_date = ""+options_draw_dates[0].text;
 
+        var duration_value = this.props.current_duration_value;
         var default_value_duration = ""+this.props.draw_duration[0].value;
         var default_text_duration = ""+this.props.draw_duration[0].text;
+        this.props.draw_duration.forEach(function(obj,i){
+            if(obj.value == duration_value) {
+               default_value_duration = ""+obj.value;
+               default_text_duration = ""+obj.text;
+            }
+        });
 
         var options_draw_days = [
             {text: 'Tuesday & Friday' , value : '2,5'},
