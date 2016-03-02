@@ -183,6 +183,9 @@ $(function(){
             setTimeout(function () {
                 $('.ending').fadeOut(fade_value);
             }, 30000);
+            var interval_id = window.setInterval("", 9999);
+            for (var i = 1; i < interval_id; i++)
+                window.clearInterval(i);
         });
     };
 
