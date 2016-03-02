@@ -2,6 +2,7 @@
 namespace tests\unit;
 
 use EuroMillions\shared\config\Namespaces;
+use EuroMillions\web\exceptions\ExternalServiceErrorException;
 use EuroMillions\web\services\DomainServiceFactory;
 use EuroMillions\web\services\ServiceFactory;
 use EuroMillions\shared\vo\results\ActionResult;
@@ -58,6 +59,21 @@ class CurrencyServiceUnitTest extends UnitTestBase
         $expected = new Money(20, $currency);
         $actual = $sut->convert($expected, $currency);
         $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method convert
+     * when apiThrowsException
+     * should throw
+     */
+    public function test_convert_apiThrowsException_throw()
+    {
+        $exception_to_throw = new ExternalServiceErrorException();
+        $this->yahooCurrencyApi_double->getRate('EUR', 'USD')->willThrow($exception_to_throw);
+        $sut = $this->getSut();
+        $this->expectException(ExternalServiceErrorException::class);
+        $sut->convert(new Money(20, new Currency('EUR')), new Currency('USD'));
+
     }
 
     /**

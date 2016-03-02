@@ -2,24 +2,9 @@
 cp githooks/* .git/hooks
 #
 while read -r line; do
-    if [[ $line == "vagrant_config/"* ]] || [[ $line == "Vagrantfile" ]]
+    if [[ $line == "vagrant_config/"* ]] || [[ $line == "Vagrantfile" ]] || [[ $line == "docker/"* ]] || [[ $line == "src/apps/web/migrations/"* ]] || if [[ $line == "src/apps/web/migrations_data/"* ]]
     then
-        vagrant reload --provision
-    fi
-    if [[ $line == "docker/"* ]]
-    then
-        sudo docker-compose -f /vagrant/docker/docker-compose.yml stop
-        sudo docker-compose -f /vagrant/docker/docker-compose.yml rm -f
-        sudo docker-compose -f /vagrant/docker/docker-compose.yml build --no-cache
-        sudo docker-compose -f /vagrant/docker/docker-compose.yml up
-    fi
-    if [[ $line == "src/apps/web/migrations/"* ]]
-    then
-        vagrant reload
-    fi
-    if [[ $line == "src/apps/web/migrations_data/"* ]]
-    then
-        vagrant reload
+        vagrant provision
     fi
 
     if [[ $line == "composer.json" ]]
