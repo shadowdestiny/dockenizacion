@@ -2,6 +2,6 @@
 - name: installing dos2unix (windows fix)
   apt: dos2unix state=present
 - name: modify ending lines of files (windows fix)
-  shell: dos2unix /vagrant/dev-scripts/schema_and_data_migration.sh
+  shell: name=dos2unix /vagrant/dev-scripts/schema_and_data_migration.sh
 - name: execute migrations
   shell: /vagrant/dev-scripts/schema_and_data_migration.sh devel
