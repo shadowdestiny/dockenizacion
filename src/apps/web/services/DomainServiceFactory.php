@@ -9,8 +9,7 @@ use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\web\interfaces\ILanguageStrategy;
 use EuroMillions\web\repositories\LanguageRepository;
-use EuroMillions\web\repositories\UserRepository;
-use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
+use EuroMillions\web\repositories\TranslationDetailRepository;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
 use EuroMillions\web\services\external_apis\RedisCurrencyApiCache;
 use EuroMillions\web\services\external_apis\YahooCurrencyApi;
@@ -27,10 +26,10 @@ use EuroMillions\web\interfaces\IPasswordHasher;
 use EuroMillions\shared\config\interfaces\IUrlManager;
 
 
-
 class DomainServiceFactory
 {
     const ENTITIES_NS = 'EuroMillions\web\entities\\';
+    /** @var EntityManager */
     private $entityManager;
     private $serviceFactory;
 
@@ -42,56 +41,60 @@ class DomainServiceFactory
 
     public function getWalletService(EntityManager $entityManager = null)
     {
-        $entityManager = $entityManager ? $entityManager : $this->entityManager;
+        $entityManager = $entityManager ?: $this->entityManager;
         return new WalletService($entityManager);
     }
 
     public function getLotteriesDataService(EntityManager $entityManager = null, LotteryApisFactory $lotteryApisFactory = null)
     {
-        $entityManager = $entityManager ? $entityManager : $this->entityManager;
-        $lotteryApisFactory = $lotteryApisFactory ? $lotteryApisFactory : new LotteryApisFactory();
+        $entityManager = $entityManager ?: $this->entityManager;
+        $lotteryApisFactory = $lotteryApisFactory ?: new LotteryApisFactory();
         return new LotteriesDataService($entityManager, $lotteryApisFactory);
     }
 
     public function getLanguageService(ILanguageStrategy $languageStrategy = null, LanguageRepository $languageRepository = null, EmTranslationAdapter $translationAdapter = null)
     {
         $languageStrategy = $languageStrategy ?: new WebLanguageStrategy($this->serviceFactory->getDI()->get('session'), $this->serviceFactory->getDI()->get('request'));
-        $languageRepository = $languageRepository ? $languageRepository :$this->getRepository('Language');
-        $translationAdapter = $translationAdapter ? $translationAdapter : new EmTranslationAdapter($languageStrategy->get(), $this->getRepository('TranslationDetail'));
+        /** @var LanguageRepository $languageRepository */
+        $languageRepository = $languageRepository ?: $this->getRepository('Language');
+        /** @var TranslationDetailRepository $translation_detail_repository */
+        $translation_detail_repository = $this->getRepository('TranslationDetail');
+        $translationAdapter = $translationAdapter ?: new EmTranslationAdapter($languageStrategy->get(), $translation_detail_repository);
         return new LanguageService($languageStrategy, $languageRepository, $translationAdapter);
     }
 
     /**
      * @param CurrencyService|null $currencyService
-     * @param EmailService $emailService
-     * @param PaymentProviderService $paymentProviderService
+     * @param EmailService|null $emailService
+     * @param PaymentProviderService|null $paymentProviderService
      * @return UserService
      */
     public function getUserService(CurrencyService $currencyService = null,
                                    EmailService $emailService = null,
                                    PaymentProviderService $paymentProviderService = null
-                                   )
+    )
     {
-        $currencyService = $currencyService ? $currencyService : $this->getCurrencyService();
-        $emailService = $emailService ? $emailService : $this->serviceFactory->getEmailService();
-        $paymentProviderService = $paymentProviderService ? $paymentProviderService : new PaymentProviderService();
+        $currencyService = $currencyService ?: $this->getCurrencyService();
+        $emailService = $emailService ?: $this->serviceFactory->getEmailService();
+        $paymentProviderService = $paymentProviderService ?: new PaymentProviderService();
         return new UserService($currencyService, $emailService, $paymentProviderService, $this->entityManager);
     }
 
     public function getUserPreferencesService(CurrencyService $currencyService = null,
                                               IUsersPreferencesStorageStrategy $preferencesStrategy = null)
     {
-        $currencyService = $currencyService ? $currencyService : $this->getCurrencyService();
-        $preferencesStrategy = $preferencesStrategy ? $preferencesStrategy : new WebUserPreferencesStorageStrategy($this->serviceFactory->getDI()->get('session'), $this->serviceFactory->getDI()->get('cookies'));
+        $currencyService = $currencyService ?: $this->getCurrencyService();
+        $preferencesStrategy = $preferencesStrategy ?: new WebUserPreferencesStorageStrategy($this->serviceFactory->getDI()->get('session'), $this->serviceFactory->getDI()->get('cookies'));
         return new UserPreferencesService($currencyService, $preferencesStrategy);
     }
 
     /**
-     * @param IPasswordHasher $passwordHasher
-     * @param IAuthStorageStrategy $storageStrategy
-     * @param IUrlManager $urlManager
-     * @param LogService $logService
-     * @param EmailService $emailService
+     * @param IPasswordHasher|null $passwordHasher
+     * @param IAuthStorageStrategy|null $storageStrategy
+     * @param IUrlManager|null $urlManager
+     * @param LogService|null $logService
+     * @param EmailService|null $emailService
+     * @param UserService|null $userService
      * @return AuthService
      */
     public function getAuthService(IPasswordHasher $passwordHasher = null, IAuthStorageStrategy $storageStrategy = null, IUrlManager $urlManager = null, LogService $logService = null, EmailService $emailService = null, UserService $userService = null)
@@ -113,14 +116,14 @@ class DomainServiceFactory
                                    ICardPaymentProvider $payXpertCardPaymentStrategy = null,
                                    BetService $betService = null)
     {
-        $lotteriesDataService = $lotteriesDataService ? $lotteriesDataService : new LotteriesDataService($this->entityManager, new LotteryApisFactory());
-        $playStorageStrategy = $playStorageStrategy ? $playStorageStrategy : new RedisPlayStorageStrategy($this->serviceFactory->getDI()->get('redisCache'));
-        $orderStorageStrategy = $orderStorageStrategy ? $orderStorageStrategy : new RedisOrderStorageStrategy($this->serviceFactory->getDI()->get('redisCache'));
-        $cartService = $cartService ? $cartService : new CartService($this->entityManager, $orderStorageStrategy);
-        $walletService = $walletService ? $walletService : new WalletService($this->entityManager, $this->getCurrencyService());
-        $payXpertCardPaymentStrategy = $payXpertCardPaymentStrategy ? $payXpertCardPaymentStrategy : $this->serviceFactory->getDI()->get('paymentProviderFactory');
-        $betService = $betService ? $betService : new BetService($this->entityManager, $this->getLotteriesDataService());
-        return new PlayService($this->entityManager, $lotteriesDataService, $playStorageStrategy, $orderStorageStrategy, $cartService, $walletService,$payXpertCardPaymentStrategy, $betService);
+        $lotteriesDataService = $lotteriesDataService ?: new LotteriesDataService($this->entityManager, new LotteryApisFactory());
+        $playStorageStrategy = $playStorageStrategy ?: new RedisPlayStorageStrategy($this->serviceFactory->getDI()->get('redisCache'));
+        $orderStorageStrategy = $orderStorageStrategy ?: new RedisOrderStorageStrategy($this->serviceFactory->getDI()->get('redisCache'));
+        $cartService = $cartService ?: new CartService($this->entityManager, $orderStorageStrategy);
+        $walletService = $walletService ?: new WalletService($this->entityManager, $this->getCurrencyService());
+        $payXpertCardPaymentStrategy = $payXpertCardPaymentStrategy ?: $this->serviceFactory->getDI()->get('paymentProviderFactory');
+        $betService = $betService ?: new BetService($this->entityManager, $this->getLotteriesDataService());
+        return new PlayService($this->entityManager, $lotteriesDataService, $playStorageStrategy, $orderStorageStrategy, $cartService, $walletService, $payXpertCardPaymentStrategy, $betService);
     }
 
     public function getBetService(LotteriesDataService $lotteriesDataService = null)
@@ -129,7 +132,7 @@ class DomainServiceFactory
         return new BetService($this->entityManager, $lotteriesDataService);
     }
 
-    public function getCartService( IPlayStorageStrategy $orderStorageStrategy = null )
+    public function getCartService(IPlayStorageStrategy $orderStorageStrategy = null)
     {
         $orderStorageStrategy = $orderStorageStrategy ?: new RedisOrderStorageStrategy($this->serviceFactory->getDI()->get('redisCache'));
 
@@ -145,7 +148,7 @@ class DomainServiceFactory
         $currencyService = $currencyService ?: $this->getCurrencyService();
         $userService = $userService ?: $this->getUserService();
         $emailService = $emailService ?: $this->serviceFactory->getEmailService();
-        return new PriceCheckoutService($this->entityManager, $lotteriesDataService,$currencyService,$userService,$emailService);
+        return new PriceCheckoutService($this->entityManager, $lotteriesDataService, $currencyService, $userService, $emailService);
     }
 
     public function getCurrencyService(ICurrencyApi $currencyApi = null)
