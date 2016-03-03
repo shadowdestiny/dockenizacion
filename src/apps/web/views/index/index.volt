@@ -6,6 +6,7 @@
 {% set activeNav='{"myClass": ""}'|json_decode %} {# It need to be empty #}
 {% include "_elements/header.volt" %}
 {% endblock %}
+{% block font %}<link href='https://fonts.googleapis.com/css?family=Signika:700' rel='stylesheet' type='text/css'>{% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}
 <script src="/w/js/mobileFix.min.js"></script>
@@ -39,10 +40,41 @@ $(function(){
 });
 {% endblock %}
 
-
-
 {% block body %}
 <main id="content">
+	<div class="large wrapper">
+		<div class="banner">
+			<div class="box-jackpot">
+				<div class="info">Euromillion Jackpot</div>
+				<div class="jackpot">
+					<span class="currency">&euro;</span>
+					<span class="value">125.000.000</span>
+					<svg class="value">
+					    <defs>
+							<filter id="shadow" height="130%"><feGaussianBlur in="SourceAlpha" stdDeviation="2"/><feOffset dx=".5" dy="1" result="offsetblur"/><feComponentTransfer><feFuncA type="linear" slope=".5"/></feComponentTransfer></filter>
+							<linearGradient id="e" x1="0%" y1="0%" x2="0%" y2="90%">
+								<stop offset="0%"  style="stop-color:#fdf7e0; stop-opacity:1"/>
+								<stop offset="90%" style="stop-color:#f1d973; stop-opacity:1"/>
+							</linearGradient>
+						</defs>
+						<text x="0" y="90" font-size="110" letter-spacing="-1" style="filter:url(#shadow)">125.000.000</text>
+					  	<text x="0" y="90" font-size="110" fill="url(#e)" letter-spacing="-1">125.000.000</text>
+					</svg>
+				</div>
+			</div>
+			<div class="btn-box">
+				<a href="#" class="btn red huge">Play Now</a>
+				<div class="for-only">For only &euro; 2.50</div>
+			</div>
+			<div class="txt">For a very small amount, you might change your life forever.</div>
+			<div class="best-price">
+				<picture class="pic">
+					<img src="/w/img/home/best-price.png" srcset="/w/img/home/best-price@2x.png 1.5x" alt="{{ language.translate('Best Price Guarantee') }}">
+				</picture>
+			</div>
+		</div>
+	</div>
+
 	<div class="wrapper">
 		<div class="cols">
 			<div class="col6 box-left">
