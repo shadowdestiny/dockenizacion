@@ -47,23 +47,33 @@ $(function(){
 			<div class="box-jackpot">
 				<div class="info">Euromillion Jackpot</div>
 				<div class="jackpot">
-					<span class="currency">&euro;</span>
-					<span class="value">125.000.000</span>
 					<svg class="value">
 					    <defs>
-							<filter id="shadow" height="130%"><feGaussianBlur in="SourceAlpha" stdDeviation="2"/><feOffset dx=".5" dy="1" result="offsetblur"/><feComponentTransfer><feFuncA type="linear" slope=".5"/></feComponentTransfer></filter>
-							<linearGradient id="e" x1="0%" y1="0%" x2="0%" y2="90%">
-								<stop offset="0%"  style="stop-color:#fdf7e0; stop-opacity:1"/>
-								<stop offset="90%" style="stop-color:#f1d973; stop-opacity:1"/>
+							<linearGradient id="e" x1="0" y1="0" x2="0" y2="1">
+								<stop offset="30%"  stop-color="#fdf7e0"/>
+								<stop offset="70%" stop-color="#f1d973"/>
 							</linearGradient>
+							<filter id="shadow" height="130%">
+								<feOffset in="SourceAlpha" dx=".5" dy="1" result="myGauss"/>
+								<feGaussianBlur in="myGauss" stdDeviation="2" result="myBlur" />
+							    <feBlend in="SourceGraphic" in2="myBlur"/>
+							</filter>
 						</defs>
-						<text x="0" y="90" font-size="110" letter-spacing="-1" style="filter:url(#shadow)">125.000.000</text>
-					  	<text x="0" y="90" font-size="110" fill="url(#e)" letter-spacing="-1">125.000.000</text>
+						<g letter-spacing="-2">
+							<g filter="url(#shadow)">
+								<text font-size="60" x="0" y="90">&euro;</text>
+							  	<text font-size="105" x="45" y="90">125.000.000</text>
+							</g>
+							<g>
+								<text fill="url(#e)" font-size="60" x="0" y="90">&euro;</text>
+							  	<text fill="url(#e)" font-size="105" x="45" y="90">125.000.000</text>
+							</g>
+						</g>
 					</svg>
 				</div>
 			</div>
 			<div class="btn-box">
-				<a href="#" class="btn red huge">Play Now</a>
+				<a href="/play" class="btn red huge">Play Now</a>
 				<div class="for-only">For only &euro; 2.50</div>
 			</div>
 			<div class="txt">For a very small amount, you might change your life forever.</div>
@@ -71,6 +81,57 @@ $(function(){
 				<picture class="pic">
 					<img src="/w/img/home/best-price.png" srcset="/w/img/home/best-price@2x.png 1.5x" alt="{{ language.translate('Best Price Guarantee') }}">
 				</picture>
+			</div>
+		</div>
+	</div>
+
+	<div class="wrapper">
+		<div class="partners cl">
+			<div class="list">
+				<svg class="laurel first"><use xlink:href="/w/svg/number.svg#laurel"/></svg>
+				<ul class="no-li cl">
+					<li>xxx</li>
+					<li>xxx</li>
+					<li>xxx</li>
+					<li>xxx</li>
+					<li>xxx</li>
+					<li>xxx</li>
+				</ul>
+				<svg class="laurel last"><use xlink:href="/w/svg/number.svg#laurel"/></svg>
+			</div>
+		</div>
+
+		<div class="box-extra">
+			<div class="cols">
+				<div class="col6">
+					<div class="box-basic box-quick-play ball">
+						<div class="content">
+							<h1 class="h2">Don't know what to play?</h1>
+							<p>Use lucky generated numbers crafted just for you</p>
+							<a href="/play?random" class="btn blue big wide">I feel lucky</a>
+						</div>
+					</div>
+				</div>
+				<div class="col6">
+					<div class="box-basic box-result">
+						<div class="cols">
+							<div class="col8 content">
+								<h1 class="h2">{{ language.translate('Euromillions Results') }}</h1>
+								<p>{{ language.translate('Draw of') }} {{ last_draw_date }} </p>
+								<ul class="no-li inline numbers small">
+	                                {% for regular_number in euromillions_results["regular_numbers"] %}
+									    <li>{{ regular_number }}</li>
+	                                {% endfor %}
+	                                {% for lucky_number in euromillions_results["lucky_numbers"] %}
+									    <li class="star">{{ lucky_number }}</li>
+	                                {% endfor %}
+								</ul>
+								<a href="/numbers" class="lnk animate infi"><span class="txt">{{ language.translate('Results &amp; Prizes') }}</span> <svg class="ico v-arrow-right3"><use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use></svg></a>
+							</div>
+							<div class="col4 woman">&nbsp;</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
