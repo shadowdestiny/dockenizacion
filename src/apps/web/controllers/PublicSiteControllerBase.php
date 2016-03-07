@@ -57,9 +57,9 @@ class PublicSiteControllerBase extends ControllerBase
         $this->userService = $userService ?: $this->domainServiceFactory->getUserService();
         $this->authService = $authService ?: $this->domainServiceFactory->getAuthService();
         $this->userPreferencesService = $userPreferencesService ?: $this->domainServiceFactory->getUserPreferencesService();
-        $this->siteConfigService = $siteConfigService ?: new SiteConfigService($this->di->get('entityManager'), $this->currencyConversionService);
         $this->cartService = $cartService ?: $this->domainServiceFactory->getCartService();
         $this->currencyConversionService = $currencyConversionService ?: $this->domainServiceFactory->getCurrencyConversionService();
+        $this->siteConfigService = $siteConfigService ?: new SiteConfigService($this->di->get('entityManager'), $this->currencyConversionService);
     }
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
