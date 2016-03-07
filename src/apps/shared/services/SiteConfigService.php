@@ -73,7 +73,7 @@ class SiteConfigService
      * @param Currency $user_currency
      * @param string $locale
      * @param Money $value
-     * @return \string[]
+     * @return string[]
      */
     private function getCurrenciesVar(Currency $user_currency, $locale, Money $value)
     {
