@@ -4,6 +4,7 @@ namespace EuroMillions\web\services;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\exceptions\BadSiteConfiguration;
 use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
@@ -17,7 +18,7 @@ class LotteriesDataService
 {
     /** @var  LotteryDrawRepository */
     protected $lotteryDrawRepository;
-    /** @var  LotteryRepository*/
+    /** @var  LotteryRepository */
     protected $lotteryRepository;
     protected $apisFactory;
     protected $entityManager;
@@ -47,9 +48,9 @@ class LotteriesDataService
         if (!$draw) {
             $draw = new EuroMillionsDraw();
             $draw->initialize([
-                'draw_date'  => $next_draw_date,
-                'jackpot'    => $jackpot,
-                'lottery'    => $lottery
+                'draw_date' => $next_draw_date,
+                'jackpot'   => $jackpot,
+                'lottery'   => $lottery
             ]);
         } else {
             $draw->setJackpot($jackpot);
@@ -63,16 +64,16 @@ class LotteriesDataService
         if (!$now) {
             $now = new \DateTime();
         }
-        try{
+        try {
             /** @var Lottery $lottery */
             $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
             $result_api = $this->apisFactory->resultApi($lottery, $curlWrapper);
             $last_draw_date = $lottery->getLastDrawDate($now);
             $result = $result_api->getResultForDate($lotteryName, $last_draw_date->format('Y-m-d'));
-            $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' =>$last_draw_date]);
+            $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $last_draw_date]);
             $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
             $this->entityManager->flush();
-        } catch ( \Exception $e ) {
+        } catch (\Exception $e) {
             throw new \Exception('Error updating results');
         }
     }
@@ -100,8 +101,8 @@ class LotteriesDataService
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         /** @var EuroMillionsLine $lottery_result */
         $lottery_result = $this->lotteryDrawRepository->getLastResult($lottery);
-        $result['regular_numbers'] = explode(',',$lottery_result->getRegularNumbers());
-        $result['lucky_numbers'] = explode(',',$lottery_result->getLuckyNumbers());
+        $result['regular_numbers'] = explode(',', $lottery_result->getRegularNumbers());
+        $result['lucky_numbers'] = explode(',', $lottery_result->getLuckyNumbers());
         return $result;
     }
 
@@ -123,32 +124,30 @@ class LotteriesDataService
         }
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
-        $nextDrawDate = $lottery->getNextDrawDate($now);
-        return $nextDrawDate;
+        return $lottery->getNextDrawDate($now);
     }
 
-    public function getRecurrentDrawDates($lotteryName, $iteration = 5,\DateTime $now = null)
+    public function getRecurrentDrawDates($lotteryName, $iteration = 5, \DateTime $now = null)
     {
-        if(!$now) {
+        if (!$now) {
             $now = new \DateTime();
         }
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
-        $recurrentDrawDates = $lottery->getRecurringIntervalDrawDate($iteration,$now);
-        return $recurrentDrawDates;
+        return $lottery->getRecurringIntervalDrawDate($iteration, $now);
     }
 
     public function getNextDrawByLottery($lotteryName, $now = null)
     {
-        if(!$now){
+        if (!$now) {
             $now = new \DateTime();
         }
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
-        if(!empty($lottery)){
-            $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery,$lottery->getNextDrawDate($now));
-            if(!empty($euroMillionsDraw)){
-                return new ActionResult(true,$euroMillionsDraw);
-            }else{
+        if (!empty($lottery)) {
+            $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($now));
+            if (!empty($euroMillionsDraw)) {
+                return new ActionResult(true, $euroMillionsDraw);
+            } else {
                 return new ActionResult(false);
             }
         }
@@ -159,26 +158,27 @@ class LotteriesDataService
     {
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
-        if(!empty($lottery)){
+        if (!empty($lottery)) {
             return new ActionResult(true, $lottery);
-        }else{
-            return new ActionResult(false,'Lottery unknown');
+        } else {
+            return new ActionResult(false, 'Lottery unknown');
         }
     }
 
     public function getBreakDownDrawByDate($lotteryName, \DateTime $now = null)
     {
+        //EMTD @rmrbest Why there's a $now parameter if it's not used?
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
-        if(!empty($lottery)){
+        if (!empty($lottery)) {
             /** @var EuroMillionsDrawBreakDown $emBreakDownData */
             $emBreakDownData = $this->lotteryDrawRepository->getBreakDownData($lottery);
-            if(!empty($emBreakDownData)){
+            if (!empty($emBreakDownData)) {
                 return new ActionResult(true, $emBreakDownData);
-            }else{
+            } else {
                 return new ActionResult(false);
             }
-        }else{
+        } else {
             return new ActionResult(false);
         }
     }
@@ -193,13 +193,14 @@ class LotteriesDataService
         $result_api = $this->apisFactory->resultApi($lottery, $curlWrapper);
         $last_draw_date = $lottery->getLastDrawDate($now);
         $result = $result_api->getResultBreakDownForDate($lotteryName, $last_draw_date->format('Y-m-d'));
-        $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' =>$last_draw_date]);
+        $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $last_draw_date]);
         $draw->createBreakDown($result);
         $this->entityManager->flush();
     }
 
-    public function lastBreakDown($lotteryName, \DateTime $now = null) {
-        if(!$now) {
+    public function lastBreakDown($lotteryName, \DateTime $now = null)
+    {
+        if (!$now) {
             $now = new \DateTime();
         }
         /** @var Lottery $lottery */
@@ -207,9 +208,9 @@ class LotteriesDataService
         $last_draw_date = $lottery->getLastDrawDate($now);
         /** @var EuroMillionsDraw $draw */
         $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lotteryName, 'draw_date' => $last_draw_date]);
-        if(!empty($draw)) {
-            return new ActionResult(true,$draw);
-        }else{
+        if (!empty($draw)) {
+            return new ActionResult(true, $draw);
+        } else {
             return new ActionResult(false);
         }
     }
@@ -218,10 +219,10 @@ class LotteriesDataService
     {
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
-        if(!empty($lottery)) {
+        if (!empty($lottery)) {
             return $lottery->getSingleBetPrice();
-        }else{
-            return new ActionResult(false);
+        } else {
+            throw new BadSiteConfiguration('The lottery '.$lotteryName.' is not properly configured');
         }
     }
 

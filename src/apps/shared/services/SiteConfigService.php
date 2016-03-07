@@ -71,8 +71,9 @@ class SiteConfigService
 
     /**
      * @param Currency $user_currency
-     * @param $locale
-     * @return array
+     * @param string $locale
+     * @param Money $value
+     * @return \string[]
      */
     private function getCurrenciesVar(Currency $user_currency, $locale, Money $value)
     {
@@ -80,6 +81,4 @@ class SiteConfigService
         $value = $this->currencyConversionService->toString($value_currency_convert, $locale);
         return array($value);
     }
-
-
 }

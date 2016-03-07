@@ -440,19 +440,18 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     /**
      * method getSingleBetPriceByLottery
      * when calledWithoutSingleBetPrice
-     * should returnActionResultFalse
+     * should throw
      */
     public function test_getSingleBetPriceByLottery_calledWithoutSingleBetPrice_returnActionResultFalse()
     {
-        $expected = new ActionResult(false);
+        $this->expectException(\RuntimeException::class);
         $lotteryName = 'EuroMillions';
         $this->lotteryRepositoryDouble->expects($this->any())
             ->method('findOneBy')
             ->will($this->returnValue(null));
 
         $sut = $this->getSut();
-        $actual = $sut->getSingleBetPriceByLottery($lotteryName);
-        $this->assertEquals($expected,$actual);
+        $sut->getSingleBetPriceByLottery($lotteryName);
     }
 
     /**

@@ -31,6 +31,11 @@ class CurrencyConversionService
         return $pair->convert($from);
     }
 
+    /**
+     * @param Money $money
+     * @param string $locale
+     * @return string
+     */
     public function toString(Money $money, $locale)
     {
         $money_formatter = new MoneyFormatter();
