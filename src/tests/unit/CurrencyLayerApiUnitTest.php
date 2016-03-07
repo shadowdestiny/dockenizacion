@@ -2,6 +2,7 @@
 namespace tests\unit;
 
 use EuroMillions\web\services\external_apis\CurrencyConversion\CurrencyLayerApi;
+use Phalcon\Http\Client\Response;
 use Prophecy\Argument;
 use tests\base\UnitTestBase;
 
@@ -57,9 +58,9 @@ class CurrencyLayerApiUnitTest extends UnitTestBase
             'USD' => ['CAD', 'EUR']
         ]);
         $this->cache_double->setConversionFromBase(self::CUR_FROM, self::CUR_TO)->shouldBeCalled();
-        $this->curl_double->get(self::API_URL.'?access_key='.self::API_KEY.'&source=EUR&currencies=USD,GBP,COP')->willReturn(self::RESULT_OK1);
-        $this->curl_double->get(self::API_URL.'?access_key='.self::API_KEY.'&source=GBP&currencies=AUD,INR')->willReturn(self::RESULT_OK2);
-        $this->curl_double->get(self::API_URL.'?access_key='.self::API_KEY.'&source=USD&currencies=CAD,EUR')->willReturn(self::RESULT_OK3);
+        $this->curl_double->get(self::API_URL.'?access_key='.self::API_KEY.'&source=EUR&currencies=USD,GBP,COP')->willReturn($this->getResponseObject(self::RESULT_OK1));
+        $this->curl_double->get(self::API_URL.'?access_key='.self::API_KEY.'&source=GBP&currencies=AUD,INR')->willReturn($this->getResponseObject(self::RESULT_OK2));
+        $this->curl_double->get(self::API_URL.'?access_key='.self::API_KEY.'&source=USD&currencies=CAD,EUR')->willReturn($this->getResponseObject(self::RESULT_OK3));
         $this->cache_double->setRate('EUR', 'USD', 1)->shouldBeCalled();
         $this->cache_double->setRate('EUR', 'GBP', 2)->shouldBeCalled();
         $this->cache_double->setRate('EUR', 'COP', 3)->shouldBeCalled();
@@ -84,5 +85,12 @@ class CurrencyLayerApiUnitTest extends UnitTestBase
     {
         $sut = $this->getSut();
         return $sut->getRate(self::CUR_FROM, self::CUR_TO);
+    }
+
+    private function getResponseObject($result)
+    {
+        $response = new Response();
+        $response->body = $result;
+        return $response;
     }
 }

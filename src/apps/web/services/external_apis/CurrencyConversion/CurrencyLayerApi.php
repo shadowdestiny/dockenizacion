@@ -28,7 +28,7 @@ class CurrencyLayerApi implements IXchangeGetter
             foreach( $conversions_to_fetch as $base => $conversions) {
                 $currencies_to = implode(',', $conversions);
                 $url = 'https://apilayer.net/api/live?access_key=' . $this->apiKey . '&source=' . $base . '&currencies=' . $currencies_to;
-                $new_conversions = json_decode($this->curl->get($url));
+                $new_conversions = json_decode($this->curl->get($url)->body);
                 foreach($new_conversions->quotes as $key => $value) {
                     $to = substr($key, 3, 3);
                     $this->cache->setRate($base, $to, (float)$value);
