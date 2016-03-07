@@ -44,7 +44,7 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
 
     private $emailService_double;
 
-    private $currencyService_double;
+    private $currencyConversionService_double;
 
     private $userService_double;
 
@@ -70,7 +70,7 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
         $this->userRepository_double = $this->getRepositoryDouble('UserRepository');
         $this->authService_double = $this->getServiceDouble('AuthService');
         $this->emailService_double = $this->getServiceDouble('EmailService');
-        $this->currencyService_double = $this->getServiceDouble('CurrencyService');
+        $this->currencyConversionService_double = $this->getServiceDouble('CurrencyConversionService');
         $this->userService_double = $this->getServiceDouble('UserService');
         parent::setUp();
     }
@@ -148,7 +148,7 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
 
 
     private function getSut(){
-        $sut = $this->getDomainServiceFactory()->getPriceCheckoutService($this->lotteryDataService_double->reveal(), $this->currencyService_double->reveal(), $this->userService_double->reveal(), $this->emailService_double->reveal());
+        $sut = $this->getDomainServiceFactory()->getPriceCheckoutService($this->lotteryDataService_double->reveal(), $this->currencyConversionService_double->reveal(), $this->userService_double->reveal(), $this->emailService_double->reveal());
         return $sut;
     }
 

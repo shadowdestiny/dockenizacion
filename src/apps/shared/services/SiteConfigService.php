@@ -3,9 +3,7 @@ namespace EuroMillions\shared\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\entities\SiteConfig;
-use EuroMillions\web\services\CurrencyService;
-use EuroMillions\web\services\external_apis\NullCurrencyApiCache;
-use EuroMillions\web\services\external_apis\YahooCurrencyApi;
+use EuroMillions\web\services\CurrencyConversionService;
 use Money\Currency;
 use Money\Money;
 
@@ -14,9 +12,9 @@ class SiteConfigService
     /** @var  SiteConfig $configEntity */
     protected $configEntity;
 
-    private $currencyService;
+    private $currencyConversionService;
 
-    public function __construct(EntityManager $entityManager, CurrencyService $currencyService = null)
+    public function __construct(EntityManager $entityManager, CurrencyConversionService $currencyConversionService)
     {
         $site_config_repository = $entityManager->getRepository('EuroMillions\web\entities\SiteConfig');
 
@@ -30,8 +28,7 @@ class SiteConfigService
 
         /** @var SiteConfig $config */
         $this->configEntity = $result[0];
-        $this->currencyService = $currencyService ?: new CurrencyService(new YahooCurrencyApi(new NullCurrencyApiCache()), $entityManager);
-        $this->currencyService = $currencyService;
+        $this->currencyConversionService = $currencyConversionService;
     }
 
     /**
@@ -44,12 +41,12 @@ class SiteConfigService
 
     public function getFeeValueWithCurrencyConverted( Currency $user_currency )
     {
-        return $this->currencyService->convert($this->configEntity->getFee(), $user_currency);
+        return $this->currencyConversionService->convert($this->configEntity->getFee(), $user_currency);
     }
 
     public function getFeeToLimitValueWithCurrencyConverted( Currency $user_currency )
     {
-        return $this->currencyService->convert($this->configEntity->getFeeToLimit(), $user_currency);
+        return $this->currencyConversionService->convert($this->configEntity->getFeeToLimit(), $user_currency);
     }
 
     /**
@@ -79,8 +76,8 @@ class SiteConfigService
      */
     private function getCurrenciesVar(Currency $user_currency, $locale, Money $value)
     {
-        $value_currency_convert = $this->currencyService->convert($value, $user_currency);
-        $value = $this->currencyService->toString($value_currency_convert, $locale);
+        $value_currency_convert = $this->currencyConversionService->convert($value, $user_currency);
+        $value = $this->currencyConversionService->toString($value_currency_convert, $locale);
         return array($value);
     }
 

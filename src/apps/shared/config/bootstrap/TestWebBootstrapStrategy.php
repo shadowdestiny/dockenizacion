@@ -4,12 +4,11 @@ namespace EuroMillions\shared\config\bootstrap;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\components\EnvironmentDetector;
 use EuroMillions\shared\components\PhalconUrlWrapper;
-use EuroMillions\web\services\DomainServiceFactory;
-use EuroMillions\web\services\ServiceFactory;
+use EuroMillions\web\services\factories\DomainServiceFactory;
+use EuroMillions\web\services\factories\ServiceFactory;
 use Phalcon;
 use Phalcon\Config\Adapter\Ini;
 use Phalcon\Di;
-use tests\base\UnitTestBase;
 
 class TestWebBootstrapStrategy extends WebBootstrapStrategy
 {
@@ -73,7 +72,7 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
         return new DomainServiceFactory($di, new ServiceFactory($di));
     }
 
-    protected function configUrl(Di $di)
+    protected function configUrl()
     {
         $url = new PhalconUrlWrapper();
         $url->setBaseUri('https://localhost');

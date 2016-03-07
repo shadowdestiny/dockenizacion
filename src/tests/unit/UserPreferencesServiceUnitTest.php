@@ -10,7 +10,7 @@ use tests\base\UnitTestBase;
 class UserPreferencesServiceUnitTest extends UnitTestBase
 {
     private $userRepository_double;
-    private $currencyService_double;
+    private $currencyConversionService_double;
     private $storageStrategy_double;
     private $emailService_double;
     private $paymentProviderService_double;
@@ -30,7 +30,7 @@ class UserPreferencesServiceUnitTest extends UnitTestBase
     public function setUp()
     {
         $this->userRepository_double = $this->getRepositoryDouble('UserRepository');
-        $this->currencyService_double = $this->getServiceDouble('CurrencyService');
+        $this->currencyConversionService_double = $this->getServiceDouble('CurrencyConversionService');
         $this->storageStrategy_double = $this->getInterfaceWebDouble('IUsersPreferencesStorageStrategy');
         $this->emailService_double = $this->getServiceDouble('EmailService');
         $this->paymentProviderService_double = $this->getServiceDouble('PaymentProviderService');
@@ -93,11 +93,11 @@ class UserPreferencesServiceUnitTest extends UnitTestBase
 
 
     /**
-     * @return \EuroMillions\services\UserService
+     * @return \EuroMillions\web\services\UserService
      */
     protected function getSut()
     {
-        $sut = $this->getDomainServiceFactory()->getUserPreferencesService($this->currencyService_double->reveal(),
+        $sut = $this->getDomainServiceFactory()->getUserPreferencesService($this->currencyConversionService_double->reveal(),
                                                                 $this->storageStrategy_double->reveal());
         return $sut;
     }

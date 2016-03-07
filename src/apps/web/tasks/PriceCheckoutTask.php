@@ -5,13 +5,11 @@ namespace EuroMillions\web\tasks;
 
 
 use EuroMillions\web\entities\User;
-use EuroMillions\web\services\CurrencyService;
-use EuroMillions\web\services\DomainServiceFactory;
+use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\PriceCheckoutService;
-use EuroMillions\web\services\ServiceFactory;
-use EuroMillions\web\services\UserService;
+use EuroMillions\web\services\factories\ServiceFactory;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use Money\Money;
 
@@ -25,29 +23,19 @@ class PriceCheckoutTask extends TaskBase
     /** @var  LotteriesDataService */
     private $lotteriesDataService;
 
-    /** @var  UserService  */
-    private $userService;
-
-    /** @var  EmailService */
-    private $emailService;
-
-    /** @var  CurrencyService */
-    private $currencyService;
-
-    public function initialize(PriceCheckoutService $priceCheckoutService = null, LotteriesDataService $lotteriesDataService = null, EmailService $emailService = null, UserService $userService = null, CurrencyService $currencyService = null)
+    public function initialize(PriceCheckoutService $priceCheckoutService = null, LotteriesDataService $lotteriesDataService = null, EmailService $emailService = null)
     {
         $domainFactory = new DomainServiceFactory($this->getDI(), new ServiceFactory($this->getDI()));
         $this->priceCheckoutService = $priceCheckoutService ? $this->priceCheckoutService = $priceCheckoutService : $domainFactory->getPriceCheckoutService();
-        ($lotteriesDataService) ? $this->lotteriesDataService = $lotteriesDataService : $this->lotteriesDataService = $domainFactory->getLotteriesDataService();
-        ($emailService) ? $this->emailService = $emailService : $this->emailService = $domainFactory->getServiceFactory()->getEmailService();
-        ($userService) ? $this->userService = $userService : $domainFactory->getUserService();
-        ($currencyService) ? $this->currencyService = $currencyService : $domainFactory->getCurrencyService();
+        $this->lotteriesDataService = $lotteriesDataService?: $this->lotteriesDataService = $domainFactory->getLotteriesDataService();
         parent::initialize();
     }
 
     public function checkoutAction(\DateTime $today = null)
     {
-        if(!$today) $today = new \DateTime();
+        if(!$today) {
+            $today = new \DateTime();
+        }
         $lottery_name = 'EuroMillions';
         $play_configs_result_awarded = $this->priceCheckoutService->playConfigsWithBetsAwarded($today);
         //get breakdown

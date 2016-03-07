@@ -40,7 +40,7 @@ class PriceCheckoutService
     private $userService;
 
     /** @var CurrencyService  */
-    private $currencyService;
+    private $currencyConversionService;
 
     /** @var  EmailService */
     private $emailService;
@@ -50,7 +50,7 @@ class PriceCheckoutService
 
     public function __construct(EntityManager $entityManager,
                                 LotteriesDataService $lotteriesDataService,
-                                CurrencyService $currencyService,
+                                CurrencyConversionService $currencyConversionService,
                                 UserService $userService,
                                 EmailService $emailService)
     {
@@ -60,7 +60,7 @@ class PriceCheckoutService
         $this->userRespository = $entityManager->getRepository('EuroMillions\web\entities\User');
         $this->lotteriesDataService = $lotteriesDataService;
         $this->di = \Phalcon\Di\FactoryDefault::getDefault();
-        $this->currencyService = $currencyService;
+        $this->currencyConversionService = $currencyConversionService;
         $this->userService = $userService;
         $this->emailService = $emailService;
     }
@@ -90,12 +90,12 @@ class PriceCheckoutService
                 $this->userRespository->add($user);
                 $this->entityManager->flush($user);
                 $emailBaseTemplate = new EmailTemplate();
-                $emailTemplate = new WinEmailTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($this->currencyService));
+                $emailTemplate = new WinEmailTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($this->currencyConversionService));
                 $emailTemplate->setUser($user);
                 $emailTemplate->setResultAmount($amount);
                 if($amount->greaterThanOrEqual($threshold_price)) {
                     $this->userService->userWonAbove($user, $amount);
-                    $emailTemplate = new WinEmailAboveTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($this->currencyService));
+                    $emailTemplate = new WinEmailAboveTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($this->currencyConversionService));
                     $emailTemplate->setUser($user);
                     $emailTemplate->setResultAmount($amount);
                     $this->emailService->sendTransactionalEmail($user,$emailTemplate);

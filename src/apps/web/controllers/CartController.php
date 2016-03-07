@@ -340,26 +340,6 @@ class CartController extends PublicSiteControllerBase
         }
     }
 
-    private function getMyACcountForm($userId = null)
-    {
-        $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
-        $countries = $geoService->countryList();
-        $countries = array_combine(range(1, count($countries)), array_values($countries));
-        if( $userId == null ) {
-            $myaccount_form = new MyAccountForm(null,['countries' => $countries]);
-            $myaccount_form->addPasswordElement();
-        } else {
-            /** @var User $user */
-            $user = $this->userService->getUser($userId->getId());
-            $user_dto = new UserDTO($user);
-            $myaccount_form = new MyAccountForm($user_dto,['countries' => $countries]);
-        }
-        sort($countries);
-        return $myaccount_form;
-    }
-
-
-
     //EMTD refactor this function shit
     /**
      * @param $user
@@ -391,13 +371,13 @@ class CartController extends PublicSiteControllerBase
         /** @var PlayConfig[] $play_config */
         $play_config_collection = $result->returnValues();
         $play_config_dto = new PlayConfigDTO($play_config_collection, $single_bet_price);
-        $wallet_balance = $this->currencyService->convert($play_config_dto->wallet_balance_user, $user_currency);
+        $wallet_balance = $this->currencyConversionService->convert($play_config_dto->wallet_balance_user, $user_currency);
         $checked_wallet = $wallet_balance->getAmount() > 0 ? true : false;
-        $play_config_dto->single_bet_price_converted = $this->currencyService->convert($play_config_dto->single_bet_price, $user_currency);
+        $play_config_dto->single_bet_price_converted = $this->currencyConversionService->convert($play_config_dto->single_bet_price, $user_currency);
         //convert to user currency
-        $total_price = $this->currencyService->convert($play_config_dto->play_config_total_amount, $user_currency);
-        $symbol_position = $this->currencyService->getSymbolPosition($locale, $user_currency);
-        $currency_symbol = $this->currencyService->getSymbol($wallet_balance, $locale);
+        $total_price = $this->currencyConversionService->convert($play_config_dto->play_config_total_amount, $user_currency);
+        $symbol_position = $this->currencyConversionService->getSymbolPosition($locale, $user_currency);
+        $currency_symbol = $this->currencyConversionService->getSymbol($wallet_balance, $locale);
 
         return $this->view->setVars([
             'order'            => $play_config_dto,

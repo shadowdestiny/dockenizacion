@@ -5,7 +5,7 @@ namespace EuroMillions\web\emailTemplates;
 
 
 use EuroMillions\web\interfaces\IEmailTemplateDataStrategy;
-use EuroMillions\web\services\DomainServiceFactory;
+use EuroMillions\web\services\factories\DomainServiceFactory;
 use Phalcon\Mvc\Url;
 
 

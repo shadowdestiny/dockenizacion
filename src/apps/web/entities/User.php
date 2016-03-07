@@ -419,4 +419,9 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
             'id' => $this->getId()->id(),
         ];
     }
+
+    public function getLocale()
+    {
+        return 'en_GB';
+    }
 }

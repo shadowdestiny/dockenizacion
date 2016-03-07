@@ -5,8 +5,8 @@ namespace EuroMillions\shared\config\bootstrap;
 
 
 use EuroMillions\admin\services\DomainAdminServiceFactory;
-use EuroMillions\web\services\DomainServiceFactory;
-use EuroMillions\web\services\ServiceFactory;
+use EuroMillions\web\services\factories\DomainServiceFactory;
+use EuroMillions\web\services\factories\ServiceFactory;
 use Phalcon\Di;
 
 trait BootstrapBehaviourShared

@@ -3,7 +3,7 @@ namespace tests\integration;
 
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\LoggerFactory;
-use EuroMillions\web\services\ServiceFactory;
+use EuroMillions\web\services\factories\ServiceFactory;
 use EuroMillions\web\vo\UserId;
 use tests\base\FileIntegrationTestBase;
 

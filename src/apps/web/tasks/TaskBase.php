@@ -1,7 +1,7 @@
 <?php
 namespace EuroMillions\web\tasks;
 
-use EuroMillions\web\services\DomainServiceFactory;
+use EuroMillions\web\services\factories\DomainServiceFactory;
 use Phalcon\Cli\Task;
 
 class TaskBase extends Task

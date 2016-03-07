@@ -171,7 +171,6 @@ class AccountController extends PublicSiteControllerBase
     {
         $credit_card_form = new CreditCardForm();
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
-        $locale = $this->request->getBestLanguage();
         $form_errors = $this->getErrorsArray();
         $user_id = $this->authService->getCurrentUser();
         /** @var User $user */
@@ -237,15 +236,15 @@ class AccountController extends PublicSiteControllerBase
                         $wallet_service = $this->domainServiceFactory->getWalletService();
                         /** @var ICardPaymentProvider $payXpertCardPaymentStrategy */
                         $payXpertCardPaymentStrategy = $this->di->get('paymentProviderFactory');
-                        $currency_euros_to_payment = $this->currencyService->convert(new Money($funds_value * 100, $user->getUserCurrency()), new Currency('EUR'));
+                        $currency_euros_to_payment = $this->currencyConversionService->convert(new Money($funds_value * 100, $user->getUserCurrency()), new Currency('EUR'));
                         $fee_value = $this->siteConfigService->getFee();
                         $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue();
                         $credit_card_charge = new CreditCardCharge($currency_euros_to_payment,$fee_value,$fee_to_limit_value);
                         $result = $wallet_service->rechargeWithCreditCard($payXpertCardPaymentStrategy, $card, $user, $credit_card_charge);
                         if($result->success()) {
-                            $converted_net_amount_currency = $this->currencyService->convert($credit_card_charge->getNetAmount(), $user->getUserCurrency());
-                            $converted_fee_value_currency = $this->currencyService->convert($fee_value, $user->getUserCurrency());
-                            $converted_feelimit_value_currency = $this->currencyService->convert($fee_to_limit_value, $user->getUserCurrency());
+                            $converted_net_amount_currency = $this->currencyConversionService->convert($credit_card_charge->getNetAmount(), $user->getUserCurrency());
+                            $converted_fee_value_currency = $this->currencyConversionService->convert($fee_value, $user->getUserCurrency());
+                            $converted_feelimit_value_currency = $this->currencyConversionService->convert($fee_to_limit_value, $user->getUserCurrency());
                             $msg .= 'We added ' . $symbol . ' '  . number_format($converted_net_amount_currency->getAmount() / 100,2,'.',',') . ' to your Wallet Balance';
 
                             if($credit_card_charge->getIsChargeFee()) {
@@ -263,7 +262,6 @@ class AccountController extends PublicSiteControllerBase
             }
         }
 
-        $locale = $this->request->getBestLanguage();
         $fee_value_with_currency = $this->siteConfigService->getFeeFormatMoney($user->getUserCurrency(), $this->userPreferencesService->getCurrency());
         $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeLimitFormatMoney($user->getUserCurrency(), $this->userPreferencesService->getCurrency());
         $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue()->getAmount() / 1000;

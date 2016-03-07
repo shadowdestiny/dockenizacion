@@ -13,7 +13,7 @@ use tests\base\UnitTestBase;
 class WinEmailAboveDataEmailTemplateStrategyUnitTest extends UnitTestBase
 {
 
-    protected $currencyService_double;
+    protected $currencyConversionService_double;
     protected $amount;
     protected $user_currency;
 
@@ -21,7 +21,7 @@ class WinEmailAboveDataEmailTemplateStrategyUnitTest extends UnitTestBase
     {
         $this->user_currency = new Currency('USD');
         $this->amount = new Money(2, new Currency('EUR'));
-        $this->currencyService_double = $this->getServiceDouble('CurrencyService');
+        $this->currencyConversionService_double = $this->getServiceDouble('CurrencyConversionService');
         parent::setUp();
     }
 
@@ -38,8 +38,8 @@ class WinEmailAboveDataEmailTemplateStrategyUnitTest extends UnitTestBase
         $sut = $this->getSut();
         $sut->user_currency = $user_currency;
         $sut->amount = $expected_result;
-        $this->currencyService_double->convert($expected_result,$user_currency)->willReturn($expected_result);
-        $this->currencyService_double->toString($expected_result, $user_currency)->willReturn('$2');
+        $this->currencyConversionService_double->convert($expected_result,$user_currency)->willReturn($expected_result);
+        $this->currencyConversionService_double->toString($expected_result, $user_currency)->willReturn('$2');
         $expected = [
             'amount_converted' => '$2',
         ];
@@ -50,7 +50,7 @@ class WinEmailAboveDataEmailTemplateStrategyUnitTest extends UnitTestBase
 
     private function getSut()
     {
-        return new WinEmailAboveDataEmailTemplateStrategy($this->currencyService_double->reveal());
+        return new WinEmailAboveDataEmailTemplateStrategy($this->currencyConversionService_double->reveal());
     }
 
 

@@ -10,12 +10,12 @@ use Money\Money;
 class UserPreferencesService
 {
     private $storageStrategy;
-    private $currencyService;
+    private $currencyConversionService;
 
-    public function __construct(CurrencyService $currencyService, IUsersPreferencesStorageStrategy $storageStrategy)
+    public function __construct(CurrencyConversionService $currencyConversionService, IUsersPreferencesStorageStrategy $storageStrategy)
     {
         $this->storageStrategy = $storageStrategy;
-        $this->currencyService = $currencyService;
+        $this->currencyConversionService = $currencyConversionService;
     }
 
     public function setCurrency(Currency $currency)
@@ -38,7 +38,7 @@ class UserPreferencesService
      */
     public function getJackpotInMyCurrency(Money $jackpot)
     {
-        return $this->currencyService->convert($jackpot, $this->storageStrategy->getCurrency());
+        return $this->currencyConversionService->convert($jackpot, $this->storageStrategy->getCurrency());
     }
 
     public function getMyCurrencyNameAndSymbol()

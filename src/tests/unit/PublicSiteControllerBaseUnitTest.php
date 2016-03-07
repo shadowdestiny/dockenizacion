@@ -24,23 +24,15 @@ class PublicSiteControllerBaseToTest extends PublicSiteControllerBase
 
 class PublicSiteControllerBaseUnitTest extends ControllerUnitTestBase
 {
-
-
     protected $lotteriesDataService_double;
-
     protected $languageService_double;
-
     protected $currencyService_double;
-
     protected $userService_double;
-
     protected $authService_double;
-
     protected $userPreferencesService_double;
-
     protected $siteConfigService_double;
-
     protected $cartService_double;
+    protected $currencyConversionService_double;
 
 
     public function setUp()
@@ -53,6 +45,7 @@ class PublicSiteControllerBaseUnitTest extends ControllerUnitTestBase
         $this->userPreferencesService_double = $this->getServiceDouble('UserPreferencesService');
         $this->siteConfigService_double = $this->getSharedServiceDouble('SiteConfigService');
         $this->cartService_double = $this->getServiceDouble('CartService');
+        $this->currencyConversionService_double = $this->getServiceDouble('CurrencyConversionService');
         parent::setUp();
     }
 
@@ -80,10 +73,10 @@ class PublicSiteControllerBaseUnitTest extends ControllerUnitTestBase
         $this->userPreferencesService_double->getJackpotInMyCurrency($jackpot)->willReturn($jackpot);
         $this->lotteriesDataService_double->getNextDateDrawByLottery('EuroMillions')->willReturn(new \DateTime()); //I don't care about this, I won't check the countdown
         $this->lotteriesDataService_double->getSingleBetPriceByLottery('EuroMillions')->willReturn($bet_price);
-        $this->currencyService_double->convert($bet_price, $current_currency)->willReturn($bet_price);
-        $this->currencyService_double->toString($bet_price, $current_currency)->willReturn($bet_price_to_string);
-        $this->currencyService_double->convert($bet_price, $pound_currency)->willReturn($bet_price_pound);
-        $this->currencyService_double->toString($bet_price_pound, $pound_currency)->willReturn($bet_price_pound_to_string);
+        $this->currencyConversionService_double->convert($bet_price, $current_currency)->willReturn($bet_price);
+        $this->currencyConversionService_double->toString($bet_price, $current_currency)->willReturn($bet_price_to_string);
+        $this->currencyConversionService_double->convert($bet_price, $pound_currency)->willReturn($bet_price_pound);
+        $this->currencyConversionService_double->toString($bet_price_pound, $pound_currency)->willReturn($bet_price_pound_to_string);
 
         $user_balance = $user_balance_raw = '';
 
@@ -108,7 +101,8 @@ class PublicSiteControllerBaseUnitTest extends ControllerUnitTestBase
             $this->authService_double->reveal(),
             $this->userPreferencesService_double->reveal(),
             $this->siteConfigService_double->reveal(),
-            $this->cartService_double->reveal()
+            $this->cartService_double->reveal(),
+            $this->currencyConversionService_double->reveal()
         );
         $sut->setTopNavValuesToTest();
     }

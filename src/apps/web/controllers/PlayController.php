@@ -20,13 +20,13 @@ class PlayController extends PublicSiteControllerBase
 
         if(!$this->authService->isLogged()) {
             $user_currency = $this->userPreferencesService->getCurrency();
-            $single_bet_price_currency  = $this->currencyService->convert($single_bet_price, $user_currency);
+            $single_bet_price_currency  = $this->currencyConversionService->convert($single_bet_price, $user_currency);
         } else {
             /** @var UserId $currenct_user_id */
             $current_user_id = $this->authService->getCurrentUser()->getId();
             /** @var User $user */
             $user = $this->userService->getUser($current_user_id);
-            $single_bet_price_currency  = $this->currencyService->convert($single_bet_price, new Currency($user->getUserCurrency()->getName()));
+            $single_bet_price_currency  = $this->currencyConversionService->convert($single_bet_price, new Currency($user->getUserCurrency()->getName()));
         }
         $currency_symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
 

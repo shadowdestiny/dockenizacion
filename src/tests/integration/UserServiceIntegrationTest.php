@@ -3,14 +3,12 @@ namespace tests\integration;
 
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\User;
-use EuroMillions\web\vo\UserId;
-use Money\Currency;
-use Money\Money;
 use tests\base\DatabaseIntegrationTestBase;
 
 class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
 {
-
+    protected $currencyConversionService_double;
+    protected $paymentProvider_double;
     /**
      * Child classes must implement this method. Return empty array if no fixtures are needed
      * @return array
@@ -27,21 +25,11 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         ];
     }
 
-    /**
-     * method getBalance
-     * when called
-     * should returnProperBalance
-     * @dataProvider getUserIdsAndExpectedBalances
-     * @param $uuid
-     * @param $expected
-     */
-    public function test_getBalance_called_returnProperBalance($uuid, $expected)
+    public function setUp()
     {
-        $userId = new UserId($uuid);
-        $dsf = $this->getDomainServiceFactory();
-        $sut = $dsf->getUserService();
-        $actual = $sut->getBalance($userId, 'en_US');
-        $this->assertEquals($expected, $actual);
+        parent::setUp();
+        $this->currencyConversionService_double = $this->getServiceDouble('CurrencyConversionService');
+        $this->paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
     }
 
     public function getUserIdsAndExpectedBalances()
@@ -51,23 +39,6 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         ];
     }
 
-    /**
-     * method getBalanceWithUserCurrencyConvert
-     * when called
-     * should returnProperBalanceWithCurrencyConverted
-     * @dataProvider getUserIdsAndExpectedBalancesAndCurrency
-     * @param $uuid
-     * @param $expected
-     */
-    public function test_getBalanceWithUserCurrencyConvert_called_returnProperBalanceWithCurrencyConverted($uuid, $expected)
-    {
-        $userId = new UserId($uuid);
-        $dsf = $this->getDomainServiceFactory();
-        $sut = $dsf->getUserService();
-        $actual = $sut->getBalanceWithUserCurrencyConvert($userId,new Currency('EUR'));
-        $this->assertEquals($expected,$actual);
-
-    }
 
     public function getUserIdsAndExpectedBalancesAndCurrency()
     {
@@ -87,8 +58,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         $this->markTestIncomplete('Redo the test: look at the next one as an example');
         $user = $this->getUser();
         $expected = 1;
-        $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
-        $sut = $this->getSut($paymentProvider_double);
+        $sut = $this->getSut();
         $actual = count($sut->getMyActivePlays($user->getId())->getValues());
         $this->assertEquals($expected,$actual);
     }
@@ -102,8 +72,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
     {
         $user = $this->getUser();
         $expected_play_config_id = 4;
-        $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
-        $sut = $this->getSut($paymentProvider_double);
+        $sut = $this->getSut();
         $result = $sut->getMyInactivePlays($user->getId());
         $play_configs = $result->getValues();
         $this->assertTrue($result->success(), 'The result should have success');
@@ -124,8 +93,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         $userRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS.'User');
         /** @var User $user */
         $user = $userRepository->getByEmail($email);
-        $paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
-        $sut = $this->getSut($paymentProvider_double);
+        $sut = $this->getSut();
         $actual = count($sut->getActiveNotificationsByUser($user)->getValues());
         $this->assertEquals($expected,$actual);
     }
@@ -138,15 +106,16 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         return $userRepository->getByEmail($email);
     }
 
-
-
     /**
-     * @param $paymentProvider_double
      * @return \EuroMillions\web\services\UserService
      */
-    protected function getSut($paymentProvider_double)
+    protected function getSut()
     {
-        $sut = $this->getDomainServiceFactory()->getUserService(null, null, $paymentProvider_double->reveal());
+        $sut = $this->getDomainServiceFactory()->getUserService(
+            $this->currencyConversionService_double->reveal(),
+            null,
+            $this->paymentProvider_double->reveal()
+        );
         return $sut;
     }
 
