@@ -3,22 +3,28 @@ var EmCustomizableSelect = require('../components/EmCustomizableSelect.jsx');
 var ReactTooltip = require("react-tooltip");
 
 var PlayPage = React.createClass({
-    handleCheck: function (event) {
-        var active;
-        if(event.target.checked) {
-            active = true;
-        } else {
-            active = false;
-        }
-        this.setState({
-            thresholdActive: active
-        });
-    },
 
     getInitialState: function(){
         return ({
             thresholdActive: false,
         });
+    },
+
+    handleCheck: function (event) {
+        var active;
+        active = event.target.checked;
+        this.setState({
+            thresholdActive: active
+        });
+        this.props.callback_threshold(active);
+    },
+
+    handleClickLabel : function ()
+    {
+        var is_checked = this.state.thresholdActive;
+        var active = is_checked ? false : true;
+        this.setState({ thresholdActive : active});
+        this.props.callback_threshold(active);
     },
 
     render: function(){
@@ -28,8 +34,8 @@ var PlayPage = React.createClass({
                 <label className="label" htmlFor="threshold">Jackpot Threshold<div data-for="threshold-tip" data-tip="Set the condition when you want to play or to be informed automatically. Thresholds are calculated only in Euro." className="wrap"><svg className="ico v-question-mark"><use xlinkHref="/w/svg/icon.svg#v-question-mark"></use></svg></div>
                 </label>
                 <div className="box-threshold cl">
-                    <input type="checkbox" className="checkbox" id="threshold" onChange={this.handleCheck}/>
-                    <EmCustomizableSelect {...this.props} active={this.state.thresholdActive}/>
+                    <input type="checkbox" className="checkbox" id="threshold" checked={this.state.thresholdActive} onChange={this.handleCheck}/>
+                    <EmCustomizableSelect {...this.props} label_callback={this.handleClickLabel} active={this.state.thresholdActive}/>
                 </div>
                 {react_tooltip}
             </div>

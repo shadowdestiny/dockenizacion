@@ -186,7 +186,7 @@ class PublicSiteControllerBase extends ControllerBase
         //Vars draw closing modal
         $dateUtil = new DateTimeUtil();
         $lottery_date_time = $this->domainServiceFactory->getLotteriesDataService()->getNextDateDrawByLottery('EuroMillions');
-       // $lottery_date_time = new \DateTime('2016-03-02 12:45:00');
+        //$lottery_date_time = new \DateTime('2016-03-02 16:45:00');
         $time_to_remain = $dateUtil->getTimeRemainingToCloseDraw($lottery_date_time);
 
         if($time_to_remain) {
