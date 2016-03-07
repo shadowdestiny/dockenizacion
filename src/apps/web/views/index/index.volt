@@ -61,12 +61,12 @@ $(function(){
 						</defs>
 						<g letter-spacing="-2">
 							<g filter="url(#shadow)">
-								<text font-size="60" x="0" y="90">&euro;</text>
-							  	<text font-size="105" x="45" y="90">125.000.000</text>
+								<text class="mycur" x="0" y="90">&euro;</text>
+							  	<text class="mytxt" x="45" y="90">125.000.000</text>
 							</g>
 							<g>
-								<text fill="url(#e)" font-size="60" x="0" y="90">&euro;</text>
-							  	<text fill="url(#e)" font-size="105" x="45" y="90">125.000.000</text>
+								<text class="mycur" fill="url(#e)" x="0" y="90">&euro;</text>
+							  	<text class="mytxt" fill="url(#e)" x="45" y="90">125.000.000</text>
 							</g>
 						</g>
 					</svg>
@@ -88,16 +88,15 @@ $(function(){
 	<div class="wrapper">
 		<div class="partners cl">
 			<div class="list">
-				<svg class="laurel first"><use xlink:href="/w/svg/number.svg#laurel"/></svg>
+				<svg class="laurel first"><use xlink:href="/w/svg/icon.svg#laurel"/></svg>
 				<ul class="no-li cl">
-					<li>xxx</li>
-					<li>xxx</li>
-					<li>xxx</li>
-					<li>xxx</li>
-					<li>xxx</li>
-					<li>xxx</li>
+					<li><svg class="v-visa vector"><use xlink:href="/w/svg/icon.svg#visa"/></svg></li>
+					<li><svg class="v-mastercard vector"><use xlink:href="/w/svg/icon.svg#mastercard"/></svg></li>
+					<li><svg class="v-gambleaware vector"><use xlink:href="/w/svg/icon.svg#gambleaware"/></svg></li>
+					<li><svg class="v-geotrust vector"><use xlink:href="/w/svg/icon.svg#geotrust"/></svg></li>
+					<li><svg class="v-shield vector"><use xlink:href="/w/svg/icon.svg#shield"/></svg> <span class="txt">Secure<br>Encryption</span></li>
 				</ul>
-				<svg class="laurel last"><use xlink:href="/w/svg/number.svg#laurel"/></svg>
+				<svg class="laurel last"><use xlink:href="/w/svg/icon.svg#laurel"/></svg>
 			</div>
 		</div>
 

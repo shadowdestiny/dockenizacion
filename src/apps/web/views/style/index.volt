@@ -870,10 +870,10 @@ class="btn purple"
                                 </li>
                                 <li>
                                     <svg class="vector"><use xlink:href="/w/svg/number.svg#crown"/></svg>
-                                    <div>icon.svg#crown</div>
+                                    <div>number.svg#crown</div>
                                 </li>
                                 <li>
-                                    <svg class="vector"><use xlink:href="/w/svg/number.svg#laurel"/></svg>
+                                    <svg class="vector"><use xlink:href="/w/svg/icon.svg#laurel"/></svg>
                                     <div>icon.svg#laurel</div>
                                 </li>
                             </ul>

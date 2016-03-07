@@ -164,7 +164,7 @@
 }
 
 .banner{
-  position:relative; color:#fff; font-weight:bold; height:350px; border-radius:5px; box-shadow:0 0 15px 6px rgba(100, 100, 100, 0.3); background:url(../img/home/bg-banner.jpg) no-repeat; margin:20px auto 40px;
+  position:relative; color:#fff; font-weight:bold; height:350px; border-radius:5px; box-shadow:0 0 15px 6px rgba(100, 100, 100, 0.3); background:url(../img/home/bg-banner.jpg) no-repeat center center; margin:20px auto 0;
   > div{position:absolute; line-height:100%;}
   .info{font-size:30px; margin-left:53px; margin-bottom:10px;}
   .value{width:650px; height:110px;}
@@ -173,13 +173,25 @@
   .for-only{font-size:15px; margin-top:10px; text-align:center;}
   .for-only, .box-jackpot{text-shadow:0 0 3px #000;}
   .best-price{display:block; right:25px; bottom:20px;}
+  .mycur{font-size:60px;}
+  .mytxt{font-size:105px;}
 }
 .box-jackpot{margin-left:155px; margin-top:50px;}
-.laurel{position:relative; filter:grayscale(100%); width:30px; height:58px;}
-.laurel.first{transform:rotateY(-180deg);}
+.laurel{position:relative; width:30px; height:58px;}
+.laurel.first{transform:rotateY(-180deg) rotate(15deg);}
+.laurel.last{transform:rotate(15deg);}
 .partners{
-  margin-bottom:35px; text-align:center;
+  margin:50px auto 45px; text-align:center;
+  li{opacity:.8;}
+  li, .laurel{margin:0 10px; filter:grayscale(100%);}
+  .vector{height:50px;}
   .no-li, li, .laurel{display:inline-block; vertical-align:middle;}
+  .v-gambleaware{width:170px;}
+  .v-geotrust{width:118px;}
+  .v-visa{width:50px;}
+  .v-mastercard{width:64px;}
+  .v-shield{width:25px;}
+  .txt{display:inline-block; text-align:left; font-size:14px; font-weight:bold; text-transform:uppercase; line-height:16px; top:-12px; position:relative; margin-left:3px; color:#777;}
 }
 .list{margin:auto;}
 
@@ -200,11 +212,36 @@
   .bg-quality{background-image:url(../img/home/bg-quality@2x.jpg); background-size:494px 493px;}
   .bg-hope{background-image:url(../img/home/bg-hope@2x.jpg); background-size:589px 604px;}
   .bg-win{background-image:url(../img/home/bg-win@2x.jpg); background-size:490px 584px;}
-  .banner{background:url(../img/home/bg-banner@2x.jpg) no-repeat; background-size:1042px 350px;}
+  .banner{background-image:url(../img/home/bg-banner@2x.jpg); background-size:1042px 350px;}
+  .box-basic.ball{background-image:#fff url(../img/home/bg-ball@2x.jpg); background-size:195px 200px;}
+}
+
+
+.head{border:10px solid #0ff;}
+
+@media only screen and (max-width: 1460px){
+.head{border:10px solid #f0f;} 
+.large.wrapper{width:1180px;}
+.banner{
+  .btn-box{left:890px;}
+  .box-jackpot{margin-left:45px;}
+}
 }
 
 /* Large Devices, Wide Screens */
 @media only screen and (max-width: 1200px){
+.head{border:10px solid #f00;}  
+
+.large.wrapper{width:990px;}
+.banner{
+  .btn-box{left:785px;}
+  .box-jackpot{margin-left:35px;}
+  .value{font-size:50px;}
+  .mycur{font-size:50px;}
+  .mytxt{font-size:90px;}
+  .huge{padding:20px 22px;}
+}
+
 .box-emblem{right:-8px;}
 .emblem{top:25px; height:150px;}
 .emblem-bg{margin-top:23px; height:158px;}
@@ -227,6 +264,24 @@
  
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 992px){
+.head{border:10px solid #ff0;}
+.large.wrapper{width:768px;}
+.banner{
+  background-position:0 0;
+  .btn-box{left:auto; position:relative; top:auto; text-align:center; width:100%;}
+  .box-jackpot{position:relative; margin:0; padding-top:30px; width:100%; text-align:center;}
+  .value{width:565px}
+  .info{margin:0;}
+  .txt{font-size:20px; top:300px;}
+  .for-only, .btn.red{display:inline-block;}
+/*
+  .jackpot{margin-left:0;}
+  .value{font-size:50px;}
+  .mycur{font-size:50px;}
+  .mytxt{font-size:90px;}
+  .huge{padding:20px 22px;}*/
+}  
+
 .box-extra .content{width:100%; margin:0;}
 .box-result .woman, .box-emblem, .box-play .awards, .box-how .sub-txt, .box-play .ball
 {display:none!important;}
