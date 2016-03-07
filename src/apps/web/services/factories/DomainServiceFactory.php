@@ -81,7 +81,7 @@ class DomainServiceFactory
     }
 
     /**
-     * @param CurrencyConversionService|CurrencyService|null $currencyConversionService
+     * @param CurrencyConversionService|null $currencyConversionService
      * @param EmailService|null $emailService
      * @param PaymentProviderService|null $paymentProviderService
      * @return UserService

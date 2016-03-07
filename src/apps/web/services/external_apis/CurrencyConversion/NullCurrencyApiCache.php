@@ -9,7 +9,7 @@ class NullCurrencyApiCache implements ICurrencyApiCacheStrategy
     /**
      * @param string $from
      * @param string $to
-     * @return float
+     * @return null
      */
     public function getRate($from, $to)
     {
@@ -17,8 +17,7 @@ class NullCurrencyApiCache implements ICurrencyApiCacheStrategy
     }
 
     /**
-     * @param string $base
-     * @param string $to
+     * @inheritdoc
      */
     public function setConversionFromBase($base, $to)
     {
@@ -34,9 +33,7 @@ class NullCurrencyApiCache implements ICurrencyApiCacheStrategy
     }
 
     /**
-     * @param string $from
-     * @param string $to
-     * @param float $rate
+     * @inheritdoc
      */
     public function setRate($from, $to, $rate)
     {

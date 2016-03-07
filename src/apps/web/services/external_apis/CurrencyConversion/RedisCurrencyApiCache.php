@@ -52,9 +52,9 @@ class RedisCurrencyApiCache implements ICurrencyApiCacheStrategy
             $conversions[$base] = [];
         }
         if (!in_array($to, $conversions[$base], true)) {
-            $conversions[$base][] =  $to;
+            $conversions[$base][] = $to;
         }
-        $this->cache->save(self::RATES_TO_FETCH_KEY, $conversions);
+        $this->cache->save(self::RATES_TO_FETCH_KEY, json_encode($conversions));
     }
 
     /**
@@ -62,11 +62,12 @@ class RedisCurrencyApiCache implements ICurrencyApiCacheStrategy
      */
     public function getConversionsToFetch()
     {
-        return $this->cache->get(self::RATES_TO_FETCH_KEY) ?: [];
+        $conversions = $this->cache->get(self::RATES_TO_FETCH_KEY);
+        return $conversions ? json_decode($conversions) : [];
     }
 
     public static function getRateKey($from, $to)
     {
-        return 'CurrencyApi_rateFrom_'.$from.'_to_'.$to;
+        return 'CurrencyApi_rateFrom_' . $from . '_to_' . $to;
     }
 }

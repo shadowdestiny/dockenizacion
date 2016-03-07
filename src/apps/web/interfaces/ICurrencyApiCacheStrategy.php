@@ -13,6 +13,7 @@ interface ICurrencyApiCacheStrategy
     /**
      * @param string $base
      * @param string $to
+     * @return void
      */
     public function setConversionFromBase($base, $to);
 
@@ -25,6 +26,7 @@ interface ICurrencyApiCacheStrategy
      * @param string $from
      * @param string $to
      * @param float $rate
+     * @return void
      */
     public function setRate($from, $to, $rate);
 }

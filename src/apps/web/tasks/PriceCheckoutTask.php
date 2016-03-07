@@ -6,7 +6,6 @@ namespace EuroMillions\web\tasks;
 
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\factories\DomainServiceFactory;
-use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\PriceCheckoutService;
 use EuroMillions\web\services\factories\ServiceFactory;
@@ -23,7 +22,7 @@ class PriceCheckoutTask extends TaskBase
     /** @var  LotteriesDataService */
     private $lotteriesDataService;
 
-    public function initialize(PriceCheckoutService $priceCheckoutService = null, LotteriesDataService $lotteriesDataService = null, EmailService $emailService = null)
+    public function initialize(PriceCheckoutService $priceCheckoutService = null, LotteriesDataService $lotteriesDataService = null)
     {
         $domainFactory = new DomainServiceFactory($this->getDI(), new ServiceFactory($this->getDI()));
         $this->priceCheckoutService = $priceCheckoutService ? $this->priceCheckoutService = $priceCheckoutService : $domainFactory->getPriceCheckoutService();
