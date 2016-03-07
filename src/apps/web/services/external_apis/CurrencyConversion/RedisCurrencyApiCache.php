@@ -63,7 +63,7 @@ class RedisCurrencyApiCache implements ICurrencyApiCacheStrategy
     public function getConversionsToFetch()
     {
         $conversions = $this->cache->get(self::RATES_TO_FETCH_KEY);
-        return $conversions ? json_decode($conversions) : [];
+        return $conversions ? json_decode($conversions, true) : [];
     }
 
     public static function getRateKey($from, $to)
