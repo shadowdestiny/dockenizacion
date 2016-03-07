@@ -126,7 +126,9 @@ abstract class BootstrapStrategyBase
 
     protected function siteConfig(EntityManager $entityManager,Di $di)
     {
-        return new SiteConfigService($entityManager, $di->get('domainServiceFactory')->getCurrencyConversionService());
+        //EMTD revisar esto, no me gusta
+        $domainServiceFactory = new DomainServiceFactory($di, new ServiceFactory($di));
+        return new SiteConfigService($entityManager,$domainServiceFactory->getCurrencyConversionService());
     }
 
     abstract protected function getConfigFileName(EnvironmentDetector $em);
