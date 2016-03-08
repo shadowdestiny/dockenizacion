@@ -186,6 +186,7 @@ class AccountController extends PublicSiteControllerBase
         return $this->view->setVars([
             'which_form' => 'wallet',
             'form_errors' => $form_errors,
+            'user' => new UserDTO($user),
             'errors' => [],
             'msg' => [],
             'symbol' => $symbol,

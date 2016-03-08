@@ -18,7 +18,6 @@ var EuroMillionsBoxBottomAction = React.createClass({
         var frequency = this.props.duration;
         var start_draw = String(this.props.date_play).split('#')[0];
 
-
         params += 'draw_days='+draw_days+'&frequency='+frequency+'&start_draw='+start_draw+'&draw_day_play='+draw_day_play;
         ajaxFunctions.playCart(params);
     },
@@ -26,9 +25,9 @@ var EuroMillionsBoxBottomAction = React.createClass({
 
     render : function () {
         var elem = [];
-        elem.push(<EuroMillionsAdvancedPlayBtn click_advanced_play={this.props.click_advanced_play} key="1"/>);
-        elem.push(<EuroMillionsAddToCart currency_symbol={this.props.currency_symbol} price={this.props.price} onBtnAddToCartClick={this.addToCart} key="2"/>);
 
+        elem.push(<EuroMillionsAdvancedPlayBtn reset={this.props.reset} config_changed={this.props.config_changed} click_advanced_play={this.props.click_advanced_play} key="1"/>);
+        elem.push(<EuroMillionsAddToCart currency_symbol={this.props.currency_symbol} price={this.props.price} onBtnAddToCartClick={this.addToCart} key="2"/>);
         return (
         <div className="cl">
             <div className="right">
