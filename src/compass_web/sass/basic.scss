@@ -468,8 +468,11 @@ body, .submit{font-family:$basic-font;}
 .media{width:3px}
 .wrapper{max-width:100%;}
 .main-foot{border:0; text-align:center;}
-.main-foot .logo{width:150px; margin:10px auto 0; float:none; display:block;}
-.main-foot .social{clear:both; float:none; margin-bottom:20px;}
+.main-foot .logo{
+  margin:0 auto; float:none; display:block;
+  .vector{width:150px;}
+}
+.main-foot .social{clear:both; float:none; margin-bottom:10px;}
 .main-foot .info .cols{margin-bottom:0;}
 .main-foot .col20per{width:50%; float:left; margin-bottom:1.5em; padding:0;}
 .main-foot .box-links{margin-top:0;}

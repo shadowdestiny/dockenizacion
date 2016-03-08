@@ -38,7 +38,7 @@
 
 .try .ico{position:relative; top:2px; margin:0 0 0 10px;}
 
-.box-result{padding:0;}
+.box-result{padding:0; overflow:hidden;}
 .box-result .cols{margin:0;}
 .box-result .woman{background:url(../img/home/bg-result.jpg) no-repeat center center;}
 .box-result .lnk{text-decoration:none; display:inline-block; font-size:$basic-size;}
@@ -53,8 +53,7 @@
 }
 .box-result .numbers.small .star{background:url(../img/sprite.png) no-repeat -150px -70px; text-indent:-.05em;}
 
-
-.box-extra{margin-bottom:400px;}
+.box-extra{margin-bottom:3em;}
 .box-extra h1{margin:0;}
 .box-extra .box-basic{padding:0; min-height:179px;}
 .box-extra .cols{margin-bottom:0;}
@@ -62,7 +61,6 @@
 .box-extra > .cols > div:first-child{left:-10px;}
 .box-extra > .cols > div:last-child{right:-10px;}
 .box-extra .content{padding:20px;}
-
 
 .box-quick-play{
   text-align:right;
@@ -216,11 +214,7 @@
   .box-basic.ball{background-image:#fff url(../img/home/bg-ball@2x.jpg); background-size:195px 200px;}
 }
 
-
-.head{border:10px solid #0ff;}
-
 @media only screen and (max-width: 1460px){
-.head{border:10px solid #f0f;} 
 .large.wrapper{width:1180px;}
 .banner{
   .btn-box{left:890px;}
@@ -230,8 +224,6 @@
 
 /* Large Devices, Wide Screens */
 @media only screen and (max-width: 1200px){
-.head{border:10px solid #f00;}  
-
 .large.wrapper{width:990px;}
 .banner{
   .btn-box{left:785px;}
@@ -260,29 +252,31 @@
   .title-em{margin:45px 0 0 30px;}
 }
 .bg-quality, .bg-win{background-size:400px;}
+.box-result .woman{background-size:cover; background-position:0 center;}
+.box-extra .content{padding:20px 15px;}
+.box-basic.ball{background-position:-63px -20px;}
 }
- 
+
 /* Medium Devices, Desktops */
-@media only screen and (max-width: 992px){
-.head{border:10px solid #ff0;}
+@media only screen and (max-width:992px){
 .large.wrapper{width:768px;}
 .banner{
-  background-position:0 0;
-  .btn-box{left:auto; position:relative; top:auto; text-align:center; width:100%;}
+  background-position:0 center; height:300px;
+  .btn-box{left:auto; position:relative; top:10px; text-align:center; width:100%;}
   .box-jackpot{position:relative; margin:0; padding-top:30px; width:100%; text-align:center;}
   .value{width:565px}
   .info{margin:0;}
-  .txt{font-size:20px; top:300px;}
+  .txt{font-size:20px; position:relative; top:35px;}
+  .for-only{margin-left:10px; font-size:16px;}
   .for-only, .btn.red{display:inline-block;}
-/*
-  .jackpot{margin-left:0;}
-  .value{font-size:50px;}
-  .mycur{font-size:50px;}
-  .mytxt{font-size:90px;}
-  .huge{padding:20px 22px;}*/
-}  
+  .best-price{display:none;}
+}
+.box-basic.ball{background-image:none;}
+.box-quick-play h1{margin-top:10px;}
 
-.box-extra .content{width:100%; margin:0;}
+.box-extra{
+  .content{width:100%; margin:0; text-align:center;}
+}
 .box-result .woman, .box-emblem, .box-play .awards, .box-how .sub-txt, .box-play .ball
 {display:none!important;}
 .box-prize .box-vector{position:absolute; height:0; width:0; overflow:hidden;} /* Vector disappear if I don't use this hiding technique */
@@ -317,7 +311,31 @@
 }
 
 /* Small Devices, Tablets */
-@media only screen and (max-width: 768px){
+@media only screen and (max-width:768px){
+.partners{
+  margin:0 auto; padding:5px 10px 0; background:$grey-lighter2;
+  .laurel{display:none;}
+  .v-gambleaware{width:140px;}
+  .v-geotrust{width:93px;}
+  .v-visa{width:28px;}
+  .v-mastercard{width:39px;}
+  .v-shield{width:20px;}
+  .txt{font-size:11px; line-height:14px; top:-14px;}
+}
+.large.wrapper{margin-bottom:0!important; width:100%!important;}
+.banner{
+  box-shadow:none; border-radius:0; margin-top:0;
+  .txt{font-size:18px;}
+}
+.btn.huge{font-size:22px; padding:15px;}
+.box-extra{
+  margin-bottom:0;
+  > .cols > div{margin:0; padding:0;}
+  > .cols > div:first-child{left:0;}
+  > .cols > div:last-child{right:0;}
+}
+.box-result{border-top:0;}
+
 /*.box-prize .box-vector{position:relative; height:auto; width:auto; overflow:visible;} /* Make vector back visible */
 .box-estimated{
   border-radius:0; padding:20px 0;
@@ -364,19 +382,67 @@
 }
 .outbound:hover, .outbound:focus{top:0;}
 }
-@media only screen and (max-width: 530px){
-.box-prize .btn{max-width:100%;}
+
+@media only screen and (max-width:600px){
+.banner{
+  .mytxt{font-size:70px;}
+  .value{width:450px;}
+  .btn-box{top:0;}
+  .txt{font-size:16px; line-height:22px; width:85%; margin:auto; top:15px;}
+}
 }
 
+@media only screen and (min-width:531px){
+.banner .value{
+  .normal{display:block;}
+  .small{display:none;}
+}
+.partners li{margin:0 5px;}
+}
+
+@media only screen and (max-width:530px){
+.banner{
+  height:260px;
+  .value{
+    width:320px; height:65px;
+    .normal{display:none;}
+    .small{display:block;}
+  }
+  .info{font-size:24px;}
+  .mytxt, .mycur{font-size:46px;}
+  .mycur{margin-right:0;}
+  .btn-box{margin-top:10px;}
+  .txt{top:20px;}
+}
+.partners{display:none;}
+}
 
 /* Extra Small Devices, Phones */
-@media only screen and (max-width: 480px){
+@media only screen and (max-width:480px){
 .box-how li:after, br.mobile{display:none!important;}
 .outbound{width:290px; height:290px; border-width:5px;}
 .outbound:hover, .outbound:focus{border-width:5px;}
 .box-play .btn{font-size:$h4;}
 .box-prize .cols > div{width:100%; float:none; margin-bottom:0!important;}
 .phrase{font-size:$h3;}
+.box-extra .h2{font-size:$h3;}
+.box-extra .box-basic{min-height:auto;}
+.box-quick-play .content{padding:20px;}
+.banner{
+  background-position:0 -60px;
+  .info{font-size:20px;}
+  .txt{font-size:14px; line-height:20px;}
+  .for-only{font-size:14px;}
+}
+}
+
+
+@media only screen and (max-width:360px){
+.banner{
+  .value{width:280px;}
+  .mytxt, .mycur{font-size:38px;}
+  .txt{font-size:14px; text-shadow:0 0 2px rgba(255,255,255,.8);}
+}
 }
  
 /* Custom, iPhone Retina */
@@ -384,4 +450,5 @@
 .box-how li{width:100%; margin:0 0 10px; text-align:center;}
 .box-how .vector, .box-play, .box-how li:after{display:none;}
 .box-how li:first-child .vector{display:block!important;}
+.box-result .numbers{margin:0 auto 1em; width:80%;}
 }

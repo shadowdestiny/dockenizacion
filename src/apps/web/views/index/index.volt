@@ -59,7 +59,7 @@ $(function(){
 							    <feBlend in="SourceGraphic" in2="myBlur"/>
 							</filter>
 						</defs>
-						<g letter-spacing="-2">
+						<g class="normal">
 							<g filter="url(#shadow)">
 								<text class="mycur" x="0" y="90">&euro;</text>
 							  	<text class="mytxt" x="45" y="90">125.000.000</text>
@@ -67,6 +67,16 @@ $(function(){
 							<g>
 								<text class="mycur" fill="url(#e)" x="0" y="90">&euro;</text>
 							  	<text class="mytxt" fill="url(#e)" x="45" y="90">125.000.000</text>
+							</g>
+						</g>
+						<g class="small">
+							<g filter="url(#shadow)">
+								<text class="mycur" x="10" y="50">&euro;</text>
+							  	<text class="mytxt" x="45" y="50">125.000.000</text>
+							</g>
+							<g>
+								<text class="mycur" fill="url(#e)" x="10" y="50">&euro;</text>
+							  	<text class="mytxt" fill="url(#e)" x="45" y="50">125.000.000</text>
 							</g>
 						</g>
 					</svg>
@@ -133,9 +143,7 @@ $(function(){
 				</div>
 			</div>
 		</div>
-	</div>
-
-	<div class="wrapper">
+{#
 		<div class="cols">
 			<div class="col6 box-left">
 				<a href="/play" class="box-estimated no-lnk">
@@ -248,7 +256,7 @@ $(function(){
 												<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)" style="filter:url(#shadow)"></use>
 												<filter id="shadow" height="130%"><feGaussianBlur in="SourceAlpha" stdDeviation="1"/><feOffset dx=".5" dy="1" result="offsetblur"/><feComponentTransfer><feFuncA type="linear" slope=".5"/></feComponentTransfer></filter>
 												<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)"></use>
-												<linearGradient id="d" gradientUnits="userSpaceOnUse" x1="16.777" y1="-135.945" x2="16.777" y2="-161.627" gradientTransform="translate(21.248 882.618) scale(4.104)"><stop offset="0" stop-color="#FFD936"/><stop offset="1" stop-color="#FFF"/></linearGradient>{# Chrome need this; And it is referring shadow to another element in the page, I inserted here to avoid duplication and be Validator compliant #}
+												<linearGradient id="d" gradientUnits="userSpaceOnUse" x1="16.777" y1="-135.945" x2="16.777" y2="-161.627" gradientTransform="translate(21.248 882.618) scale(4.104)"><stop offset="0" stop-color="#FFD936"/><stop offset="1" stop-color="#FFF"/></linearGradient>
 											</svg>
 										</div>
 									</div>
@@ -272,7 +280,7 @@ $(function(){
 
 			</div>
 		</div>
-
+#}
 		<div class="informative">
 			<div class="who-we-are">
 				<div class="start-playing">
