@@ -6,7 +6,7 @@
  * Time: 10:22
  */
 
-namespace tests\base;
+namespace EuroMillions\tests\base;
 
 use Doctrine\ORM\EntityManager;
 use Phalcon\DI;

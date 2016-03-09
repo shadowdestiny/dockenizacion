@@ -1,14 +1,14 @@
 <?php
 
 
-namespace tests\integration;
+namespace EuroMillions\tests\integration;
 
 
 use EuroMillions\web\services\play_strategies\RedisOrderStorageStrategy;
 use EuroMillions\web\services\play_strategies\RedisPlayStorageStrategy;
 use EuroMillions\web\vo\UserId;
-use tests\base\RedisIntegrationTestBase;
-use tests\helpers\mothers\OrderMother;
+use EuroMillions\tests\base\RedisIntegrationTestBase;
+use EuroMillions\tests\helpers\mothers\OrderMother;
 
 class RedisOrderStorageStrategyIntegrationTest extends RedisIntegrationTestBase
 {

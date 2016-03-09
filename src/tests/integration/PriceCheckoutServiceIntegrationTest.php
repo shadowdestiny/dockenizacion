@@ -1,14 +1,14 @@
 <?php
 
 
-namespace tests\integration;
+namespace EuroMillions\tests\integration;
 
 
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\User;
 use Money\Currency;
 use Money\Money;
-use tests\base\DatabaseIntegrationTestBase;
+use EuroMillions\tests\base\DatabaseIntegrationTestBase;
 
 class PriceCheckoutServiceIntegrationTest extends DatabaseIntegrationTestBase
 {

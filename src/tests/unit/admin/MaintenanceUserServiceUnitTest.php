@@ -1,7 +1,7 @@
 <?php
 
 
-namespace tests\unit\admin;
+namespace EuroMillions\tests\unit\admin;
 
 
 use EuroMillions\shared\config\Namespaces;
@@ -14,8 +14,8 @@ use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
-use tests\base\PhalconDiRelatedTest;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\PhalconDiRelatedTest;
+use EuroMillions\tests\base\UnitTestBase;
 
 class MaintenanceUserServiceUnitTest extends UnitTestBase
 
@@ -134,8 +134,7 @@ class MaintenanceUserServiceUnitTest extends UnitTestBase
     {
         $this->userRepository_double->findAll()->willReturn($listUsers);
         $sut = $this->getSut();
-        $actual = $sut->listAllUsers();
-        return $actual;
+        return $sut->listAllUsers();
     }
 
 }

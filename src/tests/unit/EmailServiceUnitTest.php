@@ -1,11 +1,11 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\entities\User;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Url;
 use Prophecy\Argument;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class EmailServiceUnitTest extends UnitTestBase
 {
@@ -46,7 +46,7 @@ class EmailServiceUnitTest extends UnitTestBase
     }
 
     /**
-     * @return \EuroMillions\services\EmailService
+     * @return \EuroMillions\web\services\EmailService
      */
     private function getSut()
     {
@@ -78,20 +78,5 @@ class EmailServiceUnitTest extends UnitTestBase
         $url = new Url($url_address);
         $this->mailServiceApi_double->send(Argument::type('string'), Argument::type('string'), Argument::type('array'), Argument::type('string'), '', Argument::type('array'), [], Argument::type('string'), [])->shouldBeCalled();
         return array($user, $url);
-    }
-
-    /**
-     * @return array
-     */
-    private function getExpectedRecipientData()
-    {
-        $expected_recipient_data = [
-            [
-                'email' => 'a@a.com',
-                'name'  => 'Hernández, Antonio',
-                'type'  => 'to'
-            ]
-        ];
-        return $expected_recipient_data;
     }
 }

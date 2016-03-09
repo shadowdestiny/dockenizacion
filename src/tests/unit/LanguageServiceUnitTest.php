@@ -1,11 +1,11 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\entities\Language;
 use EuroMillions\web\services\LanguageService;
 use Phalcon\Di;
 use Prophecy\Argument;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class LanguageServiceUnitTest extends UnitTestBase
 {

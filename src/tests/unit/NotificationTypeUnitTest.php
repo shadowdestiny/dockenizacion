@@ -1,11 +1,11 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\web\vo\NotificationType;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class NotificationTypeUnitTest extends UnitTestBase
 {
@@ -33,6 +33,6 @@ class NotificationTypeUnitTest extends UnitTestBase
         $this->setExpectedException('EuroMillions\web\exceptions\InvalidNotificationException');
         $type = NotificationType::NOTIFICATION_THRESHOLD;
         $expected = 'afsafa';
-        $sut = new NotificationType($type,$expected);
+        new NotificationType($type,$expected);
     }
 }

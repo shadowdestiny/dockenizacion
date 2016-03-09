@@ -1,5 +1,5 @@
 <?php
-namespace tests\base;
+namespace EuroMillions\tests\base;
 
 trait LotteryDotIeEuromillionsRelatedTest
 {

@@ -1,5 +1,5 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\NullPasswordHasher;
@@ -21,8 +21,8 @@ use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
-use tests\base\UnitTestBase;
-use tests\helpers\mothers\UserMother;
+use EuroMillions\tests\base\UnitTestBase;
+use EuroMillions\tests\helpers\mothers\UserMother;
 
 
 class UserServiceUnitTest extends UnitTestBase

@@ -1,5 +1,5 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\services\factories\DomainServiceFactory;
@@ -7,7 +7,7 @@ use EuroMillions\web\services\factories\ServiceFactory;
 use EuroMillions\shared\vo\results\ActionResult;
 use Money\Currency;
 use Prophecy\Argument;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class CurrencyServiceUnitTest extends UnitTestBase
 {

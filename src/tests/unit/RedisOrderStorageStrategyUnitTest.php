@@ -1,15 +1,15 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\services\play_strategies\RedisOrderStorageStrategy;
 use EuroMillions\web\vo\UserId;
 use RedisException;
-use tests\base\UnitTestBase;
-use tests\helpers\mothers\OrderMother;
+use EuroMillions\tests\base\UnitTestBase;
+use EuroMillions\tests\helpers\mothers\OrderMother;
 
 class RedisOrderStorageStrategyUnitTest extends UnitTestBase
 {

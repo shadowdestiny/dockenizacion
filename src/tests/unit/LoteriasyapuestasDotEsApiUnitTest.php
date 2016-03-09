@@ -1,11 +1,11 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\services\external_apis\LoteriasyapuestasDotEsApi;
 use Money\Currency;
 use Money\Money;
-use tests\base\LoteriasyapuestasDotEsRelatedTest;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\LoteriasyapuestasDotEsRelatedTest;
+use EuroMillions\tests\base\UnitTestBase;
 
 class LoteriasyapuestasDotEsApiUnitTest extends UnitTestBase
 {

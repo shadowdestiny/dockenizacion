@@ -1,7 +1,7 @@
 <?php
 
 
-namespace tests\base;
+namespace EuroMillions\tests\base;
 
 
 use EuroMillions\web\vo\EuroMillionsLine;
@@ -14,6 +14,7 @@ trait EuroMillionsResultRelatedTest {
 
     protected function getRegularNumbers(array $numbers)
     {
+        $result = [];
         foreach ($numbers as $number) {
             $result[] = new EuroMillionsRegularNumber($number);
         }
@@ -21,6 +22,7 @@ trait EuroMillionsResultRelatedTest {
     }
     protected function getLuckyNumbers(array $numbers)
     {
+        $result = [];
         foreach ($numbers as $number) {
             $result[] = new EuroMillionsLuckyNumber($number);
         }

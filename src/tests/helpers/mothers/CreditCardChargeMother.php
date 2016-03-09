@@ -1,7 +1,7 @@
 <?php
 
 
-namespace tests\helpers\mothers;
+namespace EuroMillions\tests\helpers\mothers;
 
 use EuroMillions\web\vo\CreditCardCharge;
 use Money\Currency;

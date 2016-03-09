@@ -1,7 +1,7 @@
 <?php
 
 
-namespace tests\unit\shared\vo;
+namespace EuroMillions\tests\unit\shared\vo;
 
 
 use EuroMillions\web\entities\PlayConfig;
@@ -9,9 +9,9 @@ use EuroMillions\web\vo\DrawDays;
 use EuroMillions\web\vo\Order;
 use Money\Currency;
 use Money\Money;
-use tests\base\UnitTestBase;
-use tests\helpers\mothers\OrderMother;
-use tests\helpers\mothers\UserMother;
+use EuroMillions\tests\base\UnitTestBase;
+use EuroMillions\tests\helpers\mothers\OrderMother;
+use EuroMillions\tests\helpers\mothers\UserMother;
 
 class OrderUnitTest extends UnitTestBase
 {
@@ -153,8 +153,7 @@ class OrderUnitTest extends UnitTestBase
         $single_bet_price = new Money(250, new Currency('EUR'));
         $fee = new Money(35, new Currency('EUR'));
         $fee_limit = new Money(12000, new Currency('EUR'));
-        $sut = new Order($bets, $single_bet_price, $fee, $fee_limit);
-        return $sut;
+        return new Order($bets, $single_bet_price, $fee, $fee_limit);
     }
 
 

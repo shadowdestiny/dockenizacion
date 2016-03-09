@@ -1,12 +1,12 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\entities\GuestUser;
 use EuroMillions\web\services\auth_strategies\WebAuthStorageStrategy;
 use EuroMillions\web\vo\UserId;
 use Phalcon\Http\Cookie;
 use Prophecy\Argument;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class WebAuthStorageStrategyUnitTest extends UnitTestBase
 {
@@ -133,13 +133,12 @@ class WebAuthStorageStrategyUnitTest extends UnitTestBase
     }
 
     /**
-     * @return \EuroMillions\interfaces\IUser
+     * @return \EuroMillions\web\interfaces\IUser
      */
     protected function exerciseGetCurrentUserId()
     {
         $sut = $this->getSut();
-        $actual = $sut->getCurrentUserId();
-        return $actual;
+        return $sut->getCurrentUserId();
     }
 
     /**

@@ -1,9 +1,9 @@
 <?php
-namespace tests\integration;
+namespace EuroMillions\tests\integration;
 
 use EuroMillions\web\components\EmTranslationAdapter;
 use Phalcon\Di;
-use tests\base\DatabaseIntegrationTestBase;
+use EuroMillions\tests\base\DatabaseIntegrationTestBase;
 
 class EmTranslationAdapterIntegrationTest extends DatabaseIntegrationTestBase
 {

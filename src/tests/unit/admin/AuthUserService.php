@@ -1,12 +1,12 @@
 <?php
 
 
-namespace tests\unit\admin;
+namespace EuroMillions\tests\unit\admin;
 
 use EuroMillions\shared\vo\results\ActionResult;
 use Prophecy\Argument;
-use tests\base\PhalconDiRelatedTest;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\PhalconDiRelatedTest;
+use EuroMillions\tests\base\UnitTestBase;
 
 class AuthUserService extends UnitTestBase
 {

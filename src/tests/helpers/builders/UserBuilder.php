@@ -1,5 +1,5 @@
 <?php
-namespace tests\helpers\builders;
+namespace EuroMillions\tests\helpers\builders;
 
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\Md5EmailValidationToken;

@@ -1,7 +1,7 @@
 <?php
-namespace tests\base;
+namespace EuroMillions\tests\base;
 
-use tests\unit\utils\CurlResponse;
+use EuroMillions\tests\unit\utils\CurlResponse;
 
 trait LoteriasyapuestasDotEsRelatedTest
 {

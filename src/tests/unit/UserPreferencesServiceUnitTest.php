@@ -1,10 +1,10 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\shared\config\Namespaces;
 use Money\Currency;
 use Prophecy\Argument;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 
 class UserPreferencesServiceUnitTest extends UnitTestBase

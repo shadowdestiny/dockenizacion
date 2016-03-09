@@ -1,9 +1,9 @@
 <?php
-namespace tests\integration;
+namespace EuroMillions\tests\integration;
 
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\factories\ServiceFactory;
-use tests\base\DatabaseIntegrationTestBase;
+use EuroMillions\tests\base\DatabaseIntegrationTestBase;
 
 class DomainServiceFactoryIntegrationTest extends DatabaseIntegrationTestBase
 {

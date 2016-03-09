@@ -1,11 +1,11 @@
 <?php
-namespace tests\integration;
+namespace EuroMillions\tests\integration;
 
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\repositories\UserRepository;
-use tests\base\DatabaseIntegrationTestBase;
+use EuroMillions\tests\base\DatabaseIntegrationTestBase;
 
 class AuthServiceIntegrationTest extends DatabaseIntegrationTestBase
 {

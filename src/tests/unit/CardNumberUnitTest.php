@@ -1,12 +1,11 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\web\vo\CardNumber;
-use Phalcon\Test\UnitTestCase;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class CardNumberUnitTest extends UnitTestBase
 {

@@ -1,5 +1,5 @@
 <?php
-namespace tests\unit\utils;
+namespace EuroMillions\tests\unit\utils;
 
 class CurlResponse
 {

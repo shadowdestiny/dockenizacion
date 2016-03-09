@@ -44,7 +44,7 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
         if (!$this->isUnitTest) {
             return parent::configDoctrine($appConfig);
         } else {
-            $utbase = new \tests\base\UnitTestBase();
+            $utbase = new \EuroMillions\tests\base\UnitTestBase();
             return $utbase->prophesizeEntityManager()->reveal();
         }
     }

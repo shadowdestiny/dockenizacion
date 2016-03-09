@@ -1,11 +1,11 @@
 <?php
-namespace tests\integration;
+namespace EuroMillions\tests\integration;
 
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\LoggerFactory;
 use EuroMillions\web\services\factories\ServiceFactory;
 use EuroMillions\web\vo\UserId;
-use tests\base\FileIntegrationTestBase;
+use EuroMillions\tests\base\FileIntegrationTestBase;
 
 class LogServiceIntegrationTest extends FileIntegrationTestBase
 {

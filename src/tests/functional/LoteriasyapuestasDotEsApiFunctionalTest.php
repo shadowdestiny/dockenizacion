@@ -1,11 +1,11 @@
 <?php
-namespace tests\functional;
+namespace EuroMillions\tests\functional;
 
 use Doctrine\ORM\EntityManager;
-use EuroMillions\entities\Lottery;
-use EuroMillions\services\external_apis\LoteriasyapuestasDotEsApi;
+use EuroMillions\web\entities\Lottery;
+use EuroMillions\web\services\external_apis\LoteriasyapuestasDotEsApi;
 use Phalcon\Di;
-use tests\base\DatabaseIntegrationTestBase;
+use EuroMillions\tests\base\DatabaseIntegrationTestBase;
 
 class LoteriasyapuestasDotEsApiFunctionalTest extends DatabaseIntegrationTestBase
 {

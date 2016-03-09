@@ -1,10 +1,10 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\vo\EuroMillionsLine;
-use tests\base\EuroMillionsResultRelatedTest;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\EuroMillionsResultRelatedTest;
+use EuroMillions\tests\base\UnitTestBase;
 
 class EuroMillionsDrawUnitTest extends UnitTestBase
 {

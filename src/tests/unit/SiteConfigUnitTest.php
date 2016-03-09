@@ -1,10 +1,10 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class SiteConfigUnitTest extends UnitTestBase
 {

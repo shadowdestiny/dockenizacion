@@ -1,11 +1,11 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\services\CurrencyConversionService;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class CurrencyConversionServiceUnitTest extends UnitTestBase
 {

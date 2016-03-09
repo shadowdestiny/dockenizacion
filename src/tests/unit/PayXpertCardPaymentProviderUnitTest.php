@@ -1,14 +1,13 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\services\card_payment_providers\payxpert\PayXpertConfig;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentProvider;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
-use tests\base\UnitTestBase;
-use tests\helpers\mothers\CreditCardChargeMother;
-use tests\helpers\mothers\CreditCardMother;
+use EuroMillions\tests\base\UnitTestBase;
+use EuroMillions\tests\helpers\mothers\CreditCardMother;
 
 class PayXpertCardPaymentProviderUnitTest extends UnitTestBase
 {
