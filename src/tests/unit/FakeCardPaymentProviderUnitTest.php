@@ -1,5 +1,5 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 use EuroMillions\web\services\card_payment_providers\FakeCardPaymentProvider;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\CardHolderName;
@@ -9,7 +9,7 @@ use EuroMillions\web\vo\CVV;
 use EuroMillions\web\vo\ExpiryDate;
 use Money\Currency;
 use Money\Money;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class FakeCardPaymentProviderUnitTest extends UnitTestBase
 {

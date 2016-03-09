@@ -1,7 +1,7 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\shared\vo\Wallet;
@@ -23,7 +23,7 @@ use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class ResultTaskUnitTest extends UnitTestBase
 {

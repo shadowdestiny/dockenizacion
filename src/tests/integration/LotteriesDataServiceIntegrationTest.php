@@ -1,5 +1,5 @@
 <?php
-namespace tests\integration;
+namespace EuroMillions\tests\integration;
 
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\EuroMillionsDraw;
@@ -10,9 +10,9 @@ use EuroMillions\web\vo\EuroMillionsLine;
 use Money\Currency;
 use Money\Money;
 use Phalcon\Di;
-use tests\base\EuroMillionsResultRelatedTest;
-use tests\base\DatabaseIntegrationTestBase;
-use tests\base\LoteriasyapuestasDotEsRelatedTest;
+use EuroMillions\tests\base\EuroMillionsResultRelatedTest;
+use EuroMillions\tests\base\DatabaseIntegrationTestBase;
+use EuroMillions\tests\base\LoteriasyapuestasDotEsRelatedTest;
 
 class LotteriesDataServiceIntegrationTest extends DatabaseIntegrationTestBase
 {

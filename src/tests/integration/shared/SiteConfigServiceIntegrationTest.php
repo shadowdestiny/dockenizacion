@@ -1,11 +1,11 @@
 <?php
-namespace tests\integration\shared;
+namespace EuroMillions\tests\integration\shared;
 
 use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\entities\SiteConfig;
 use Money\Currency;
 use Money\Money;
-use tests\base\DatabaseIntegrationTestBase;
+use EuroMillions\tests\base\DatabaseIntegrationTestBase;
 
 class SiteConfigServiceSpy extends SiteConfigService
 {

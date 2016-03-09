@@ -1,14 +1,14 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\shared\vo\results\ActionResult;
-use tests\base\UnitTestBase;
-use tests\helpers\mothers\OrderMother;
-use tests\helpers\mothers\UserMother;
+use EuroMillions\tests\base\UnitTestBase;
+use EuroMillions\tests\helpers\mothers\OrderMother;
+use EuroMillions\tests\helpers\mothers\UserMother;
 
 class CartServiceUnitTest extends UnitTestBase
 {

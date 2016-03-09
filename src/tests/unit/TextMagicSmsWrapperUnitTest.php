@@ -1,11 +1,11 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\web\components\TextMagicSmsWrapper;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 use TextMagicSMS\Exception\LowBalanceException;
 use TextMagicSMS\Exception\WrongPhoneFormatException;
 

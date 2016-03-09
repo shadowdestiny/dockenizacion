@@ -1,10 +1,10 @@
 <?php
 
 
-namespace tests\integration;
+namespace EuroMillions\tests\integration;
 
 
-use tests\base\TranslationMigrationIntegrationTestBase;
+use EuroMillions\tests\base\TranslationMigrationIntegrationTestBase;
 
 class TranslatedStringsIntegrationTest extends TranslationMigrationIntegrationTestBase
 {

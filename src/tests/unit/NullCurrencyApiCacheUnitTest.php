@@ -1,8 +1,8 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\services\external_apis\CurrencyConversion\NullCurrencyApiCache;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class NullCurrencyApiCacheUnitTest extends UnitTestBase
 {

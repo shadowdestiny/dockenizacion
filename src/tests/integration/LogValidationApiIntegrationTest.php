@@ -1,12 +1,12 @@
 <?php
 
 
-namespace tests\integration;
+namespace EuroMillions\tests\integration;
 
 
 use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\LogValidationApi;
-use tests\base\DatabaseIntegrationTestBase;
+use EuroMillions\tests\base\DatabaseIntegrationTestBase;
 
 class LogValidationApiIntegrationTest extends DatabaseIntegrationTestBase
 {

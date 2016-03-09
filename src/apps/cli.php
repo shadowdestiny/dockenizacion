@@ -1,7 +1,6 @@
 <?php
 error_reporting(E_ALL);
 
-use EuroMillions\shared\config\bootstrap\CliLoader;
 use EuroMillions\shared\config\bootstrap\CliBootstrapStrategy;
 
 
@@ -12,10 +11,7 @@ $config_path = $app_path . 'shared/config/';
 $config_path_web = $app_path . 'web/config';
 
 require_once $app_path.'../vendor/autoload.php';
-require_once($config_path.'bootstrap/CliLoader.php');
 try {
-    $loader = new CliLoader($app_path, $tests_path);
-    $loader->register();
 
     $bootstrap = new \EuroMillions\shared\config\bootstrap\Bootstrap(new CliBootstrapStrategy(
         $argv, $global_config_path , $config_path, 'cliconfig.ini'

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\shared\config\Namespaces;
@@ -19,12 +19,12 @@ use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
-use tests\base\EuroMillionsResultRelatedTest;
-use tests\base\LotteryValidationCastilloRelatedTest;
-use tests\base\UnitTestBase;
-use tests\helpers\mothers\CreditCardMother;
-use tests\helpers\mothers\OrderMother;
-use tests\helpers\mothers\UserMother;
+use EuroMillions\tests\base\EuroMillionsResultRelatedTest;
+use EuroMillions\tests\base\LotteryValidationCastilloRelatedTest;
+use EuroMillions\tests\base\UnitTestBase;
+use EuroMillions\tests\helpers\mothers\CreditCardMother;
+use EuroMillions\tests\helpers\mothers\OrderMother;
+use EuroMillions\tests\helpers\mothers\UserMother;
 
 class PlayServiceUnitTest extends UnitTestBase
 {
@@ -521,18 +521,6 @@ class PlayServiceUnitTest extends UnitTestBase
             $bets[] = $playConfig;
         }
         return $bets;
-    }
-
-    /**
-     * @param $expected
-     */
-    private function callValidationApi($expected)
-    {
-        $this->lotteryValidation_double->validateBet(Argument::type($this->getEntitiesToArgument('Bet')),
-            Argument::type($this->getInterfacesToArgument('ICypherStrategy')),
-            Argument::type($this->getVOToArgument('CastilloCypherKey')),
-            Argument::type($this->getVOToArgument('CastilloTicketId')),
-            Argument::type('\DateTime'),Argument::type($this->getVOToArgument('EuroMillionsLine')))->willReturn(new ActionResult($expected));
     }
 
     /**

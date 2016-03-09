@@ -1,14 +1,14 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\web\controllers\PublicSiteControllerBase;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
-use tests\base\ControllerUnitTestBase;
+use EuroMillions\tests\base\ControllerUnitTestBase;
 
 
 class PublicSiteControllerBaseToTest extends PublicSiteControllerBase

@@ -1,19 +1,15 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shared\config\Namespaces;
-use EuroMillions\web\emailTemplates\EmailTemplate;
-use EuroMillions\web\emailTemplates\WinEmailAboveTemplate;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
-use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
-use EuroMillions\web\services\email_templates_strategies\WinEmailAboveDataEmailTemplateStrategy;
 use EuroMillions\web\tasks\PriceCheckoutTask;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
@@ -24,8 +20,8 @@ use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
-use tests\base\EuroMillionsResultRelatedTest;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\EuroMillionsResultRelatedTest;
+use EuroMillions\tests\base\UnitTestBase;
 
 class PriceCheckoutTaskUnitTest extends UnitTestBase
 {
@@ -92,7 +88,7 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
         $this->lotteryDataService_double->getBreakDownDrawByDate($lottery_name,$today)->willReturn(new ActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())));
         $this->priceCheckoutService_double->reChargeAmountAwardedToUser($user,Argument::any())->willReturn(new ActionResult(true))->shouldBeCalledTimes(2);
         $sut = new PriceCheckoutTask();
-        $sut->initialize($this->priceCheckoutService_double->reveal(), $this->lotteryDataService_double->reveal(),null, $this->userService_double->reveal(), $this->currencyService_double->reveal());
+        $sut->initialize($this->priceCheckoutService_double->reveal(), $this->lotteryDataService_double->reveal());
         $sut->checkoutAction($today);
     }
 
@@ -111,16 +107,9 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
         $this->lotteryDataService_double->getBreakDownDrawByDate($lottery_name,$today)->willReturn(new ActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())));
         $this->priceCheckoutService_double->reChargeAmountAwardedToUser($user,Argument::type('Money\Money'))->willReturn(new ActionResult(true))->shouldBeCalledTimes(2);
         $sut = new PriceCheckoutTask();
-        $sut->initialize($this->priceCheckoutService_double->reveal(), $this->lotteryDataService_double->reveal(), $this->emailService_double->reveal(), $this->userService_double->reveal(), $this->currencyService_double->reveal());
+        $sut->initialize($this->priceCheckoutService_double->reveal(), $this->lotteryDataService_double->reveal());
         $sut->checkoutAction($today);
     }
-
-
-    private function getSut(){
-        $sut = $this->getDomainServiceFactory();
-        return $sut;
-    }
-
 
     private function getPlayConfigsAwarded()
     {
@@ -162,10 +151,9 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
     }
 
     /**
-     * @param string $currency
      * @return User
      */
-    private function getUser($currency = 'EUR')
+    private function getUser()
     {
         $user = new User();
         $user->initialize(

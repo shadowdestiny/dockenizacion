@@ -1,8 +1,8 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class EuroMillionsResultNumberUnitTest extends UnitTestBase
 {
@@ -58,6 +58,7 @@ class EuroMillionsResultNumberUnitTest extends UnitTestBase
 
     public function getProperNumbers()
     {
+        $result = [];
         for($i=1; $i<=50; $i++) {
             $result[] = [$i];
         }

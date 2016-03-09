@@ -1,23 +1,20 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shared\config\Namespaces;
-use EuroMillions\web\emailTemplates\EmailTemplate;
-use EuroMillions\web\emailTemplates\WelcomeEmailTemplate;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\AuthService;
-use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\RememberToken;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\UserId;
 use Prophecy\Argument;
-use tests\base\UnitTestBase;
-use tests\helpers\builders\UserBuilder;
-use tests\helpers\mothers\EmailMother;
-use tests\helpers\mothers\UserMother;
+use EuroMillions\tests\base\UnitTestBase;
+use EuroMillions\tests\helpers\builders\UserBuilder;
+use EuroMillions\tests\helpers\mothers\EmailMother;
+use EuroMillions\tests\helpers\mothers\UserMother;
 
 class AuthServiceUnitTest extends UnitTestBase
 {
@@ -340,7 +337,6 @@ class AuthServiceUnitTest extends UnitTestBase
         $existing_mail = 'antonio.hernandez@panamedia.net';
         $this->userRepository_double->getByEmail($existing_mail)->willReturn(new User());
         $credentials = $this->getRegisterCredentials($existing_mail);
-        $expected = new ActionResult(false, 'Email already registered. Try to use a different email. Or have you <a href="user-access/forgotPassword">forgot your password?</a>');
         $sut = $this->getSut();
         $actual = $sut->register($credentials);
         $this->assertFalse($actual->success());

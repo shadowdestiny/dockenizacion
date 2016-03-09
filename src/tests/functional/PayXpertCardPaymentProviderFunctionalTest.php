@@ -1,12 +1,12 @@
 <?php
-namespace tests\functional;
+namespace EuroMillions\tests\functional;
 
 use EuroMillions\web\services\card_payment_providers\payxpert\PayXpertConfig;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentProvider;
 use Money\Currency;
 use Money\Money;
-use tests\base\DatabaseIntegrationTestBase;
-use tests\helpers\mothers\CreditCardMother;
+use EuroMillions\tests\base\DatabaseIntegrationTestBase;
+use EuroMillions\tests\helpers\mothers\CreditCardMother;
 
 class PayXpertCardPaymentProviderFunctionalTest extends DatabaseIntegrationTestBase
 {

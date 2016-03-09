@@ -1,7 +1,7 @@
 <?php
 
 
-namespace tests\base;
+namespace EuroMillions\tests\base;
 
 
 use EuroMillions\admin\services\DomainAdminServiceFactory;

@@ -1,11 +1,11 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\web\vo\CastilloCypherKey;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class CastilloCypherKeyUnitTest extends UnitTestBase
 {

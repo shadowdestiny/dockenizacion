@@ -1,14 +1,14 @@
 <?php
 
 
-namespace tests\helpers\builders;
+namespace EuroMillions\tests\helpers\builders;
 
 
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\vo\Order;
 use Money\Currency;
 use Money\Money;
-use tests\helpers\mothers\UserMother;
+use EuroMillions\tests\helpers\mothers\UserMother;
 
 class OrderBuilder
 {

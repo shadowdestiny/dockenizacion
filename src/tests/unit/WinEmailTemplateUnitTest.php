@@ -1,7 +1,7 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\shared\vo\Wallet;
@@ -15,7 +15,7 @@ use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 
 class WinEmailTemplateUnitTest extends UnitTestBase

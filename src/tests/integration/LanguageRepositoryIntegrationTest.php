@@ -1,8 +1,8 @@
 <?php
-namespace tests\integration;
+namespace EuroMillions\tests\integration;
 
 use EuroMillions\web\entities\Language;
-use tests\base\RepositoryIntegrationTestBase;
+use EuroMillions\tests\base\RepositoryIntegrationTestBase;
 
 class LanguageRepositoryIntegrationTest extends RepositoryIntegrationTestBase
 {

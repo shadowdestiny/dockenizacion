@@ -1,14 +1,14 @@
 <?php
 
 
-namespace tests\integration;
+namespace EuroMillions\tests\integration;
 
 
 use EuroMillions\web\services\play_strategies\RedisPlayStorageStrategy;
 use EuroMillions\web\vo\UserId;
 use Phalcon\Di;
-use tests\base\EuroMillionsResultRelatedTest;
-use tests\base\RedisIntegrationTestBase;
+use EuroMillions\tests\base\EuroMillionsResultRelatedTest;
+use EuroMillions\tests\base\RedisIntegrationTestBase;
 
 class RedisPlayStorageStrategyIntegrationTest extends RedisIntegrationTestBase
 {

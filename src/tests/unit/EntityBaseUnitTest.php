@@ -1,10 +1,10 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\entities\EntityBase;
 use EuroMillions\web\entities\Language;
 use EuroMillions\web\entities\Lottery;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class EntityBaseUnitTest extends UnitTestBase
 {

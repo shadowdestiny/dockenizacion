@@ -1,10 +1,10 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
 use EuroMillions\web\vo\EuroMillionsLine;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class EuroMillionsResultUnitTest extends UnitTestBase
 {
@@ -102,6 +102,7 @@ class EuroMillionsResultUnitTest extends UnitTestBase
 
     public function getRegularNumbers(array $regular_numbers)
     {
+        $result = [];
         foreach ($regular_numbers as $number) {
             $result[] = new EuroMillionsRegularNumber($number);
         }
@@ -109,6 +110,7 @@ class EuroMillionsResultUnitTest extends UnitTestBase
     }
     public function getLuckyNumbers(array $lucky_numbers)
     {
+        $result = [];
         foreach ($lucky_numbers as $number) {
             $result[] = new EuroMillionsLuckyNumber($number);
         }

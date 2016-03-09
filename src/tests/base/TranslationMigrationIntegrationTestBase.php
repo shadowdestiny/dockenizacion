@@ -1,7 +1,7 @@
 <?php
 
 
-namespace tests\base;
+namespace EuroMillions\tests\base;
 
 use Phalcon\Di;
 use Phalcon\Loader;

@@ -1,5 +1,5 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\vo\NullPortNumber;
 use EuroMillions\web\vo\NullQueryString;
@@ -8,7 +8,7 @@ use EuroMillions\web\vo\PortNumber;
 use EuroMillions\web\vo\QueryString;
 use EuroMillions\web\vo\SchemeName;
 use EuroMillions\web\vo\Url;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class UrlUnitTest extends UnitTestBase
 {

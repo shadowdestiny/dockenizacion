@@ -1,5 +1,5 @@
 <?php
-namespace tests\integration;
+namespace EuroMillions\tests\integration;
 
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\NullPasswordHasher;
@@ -10,7 +10,7 @@ use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Password;
 use Money\Currency;
 use Money\Money;
-use tests\base\DatabaseIntegrationTestBase;
+use EuroMillions\tests\base\DatabaseIntegrationTestBase;
 
 class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
 {

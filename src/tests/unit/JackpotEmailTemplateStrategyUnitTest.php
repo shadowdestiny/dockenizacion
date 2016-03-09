@@ -1,14 +1,14 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\vo\EuroMillionsLine;
 use Money\Money;
-use tests\base\EuroMillionsResultRelatedTest;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\EuroMillionsResultRelatedTest;
+use EuroMillions\tests\base\UnitTestBase;
 
 class JackpotEmailTemplateStrategyUnitTest extends UnitTestBase
 {

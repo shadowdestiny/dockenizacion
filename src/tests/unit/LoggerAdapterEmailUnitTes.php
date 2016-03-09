@@ -1,13 +1,13 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\web\components\Logger\Adapter\Email as EmailAdapter;
 use Phalcon\Logger;
 use Prophecy\Argument;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class LoggerAdapterEmailUnitTest extends UnitTestBase
 {

@@ -1,11 +1,11 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\web\components\DateTimeUtil;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class DateTimeUtilUnitTest extends UnitTestBase
 {
@@ -62,8 +62,7 @@ class DateTimeUtilUnitTest extends UnitTestBase
     {
         $sut = $this->getSut();
         $time_to_close_draw = new \DateTime('2016-01-22 12:00:00');
-        $time_now = new \DateTime('2016-01-22 11:31:00');
-        $actual = $sut->getTimeRemainingToCloseDraw($time_to_close_draw, $time_now);
+        $sut->getTimeRemainingToCloseDraw($time_to_close_draw);
     }
 
     /**

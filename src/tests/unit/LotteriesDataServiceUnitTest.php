@@ -1,5 +1,5 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\EuroMillionsDraw;
@@ -11,8 +11,8 @@ use EuroMillions\shared\vo\results\ActionResult;
 use Money\Currency;
 use Money\Money;
 use Phalcon\Di;
-use tests\base\EuroMillionsResultRelatedTest;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\EuroMillionsResultRelatedTest;
+use EuroMillions\tests\base\UnitTestBase;
 
 class LotteriesDataServiceUnitTest extends UnitTestBase
 {
@@ -444,7 +444,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
      */
     public function test_getSingleBetPriceByLottery_calledWithoutSingleBetPrice_returnActionResultFalse()
     {
-        $this->expectException(\RuntimeException::class);
+        $this->setExpectedException('RuntimeException');
         $lotteryName = 'EuroMillions';
         $this->lotteryRepositoryDouble->expects($this->any())
             ->method('findOneBy')

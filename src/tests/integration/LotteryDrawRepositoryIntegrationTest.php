@@ -1,12 +1,12 @@
 <?php
-namespace tests\integration;
+namespace EuroMillions\tests\integration;
 
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\vo\EuroMillionsLine;
 use Money\Currency;
 use Money\Money;
-use tests\base\RepositoryIntegrationTestBase;
+use EuroMillions\tests\base\RepositoryIntegrationTestBase;
 
 class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
 {

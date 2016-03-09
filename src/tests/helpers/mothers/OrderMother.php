@@ -1,10 +1,10 @@
 <?php
 
 
-namespace tests\helpers\mothers;
+namespace EuroMillions\tests\helpers\mothers;
 
 
-use tests\helpers\builders\OrderBuilder;
+use EuroMillions\tests\helpers\builders\OrderBuilder;
 
 class OrderMother
 {
@@ -17,8 +17,7 @@ class OrderMother
 
     private static function getInitializedOrder()
     {
-        $order = OrderBuilder::anOrder();
-        return $order;
+        return OrderBuilder::anOrder();
     }
 
 

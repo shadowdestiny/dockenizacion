@@ -1,5 +1,5 @@
 <?php
-namespace tests\base;
+namespace EuroMillions\tests\base;
 
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\Language;
@@ -28,8 +28,8 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->stubDiService('entityManager', $this->addMappingsToEntityManager()->reveal());
-        $this->stubDiService('redisCache', $this->prophesize('\Phalcon\Cache\Backend\Redis')->reveal());
+        $this->stubDIService('entityManager', $this->addMappingsToEntityManager()->reveal());
+        $this->stubDIService('redisCache', $this->prophesize('\Phalcon\Cache\Backend\Redis')->reveal());
     }
     protected function restoreDI()
     {

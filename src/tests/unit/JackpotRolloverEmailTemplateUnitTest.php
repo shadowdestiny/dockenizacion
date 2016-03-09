@@ -1,7 +1,7 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\web\emailTemplates\EmailTemplate;
@@ -9,7 +9,7 @@ use EuroMillions\web\emailTemplates\JackpotRolloverEmailTemplate;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use Money\Currency;
 use Money\Money;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class JackpotRolloverEmailTemplateUnitTest extends UnitTestBase
 {

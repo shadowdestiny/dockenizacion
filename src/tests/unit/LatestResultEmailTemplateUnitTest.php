@@ -1,19 +1,15 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\LatestResultsEmailTemplate;
-use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
-use EuroMillions\web\services\email_templates_strategies\LatestResultsDataEmailTemplateStrategy;
-use EuroMillions\web\services\email_templates_strategies\LongPlayEndedDataEmailTemplateStrategy;
-use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class LatestResultEmailTemplateUnitTest extends UnitTestBase
 {
