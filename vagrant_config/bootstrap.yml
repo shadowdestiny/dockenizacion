@@ -1,0 +1,12 @@
+---
+- name: Bootstrap containers and data
+  hosts: localhost
+  become: yes
+  become_user: root
+  vars:
+    - config_files_path: /vagrant/vagrant_config/
+    - xdebug_config_file: 20-xdebug.ini
+  roles:
+    - bootstrap_containers
+    - migrations
+    - crons

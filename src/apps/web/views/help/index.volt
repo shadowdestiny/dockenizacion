@@ -13,6 +13,15 @@
 <main id="content">
     <div class="wrapper">
         <div class="cols">
+            <div class="col8">
+                <h1 class="h1 title yellow">{{ language.translate("Help: How to play") }}</h1>
+            </div>
+            <div class="col4">
+            
+            </div>
+        </div>
+{#
+        <div class="cols">
             <div class="col7">
                 <div class="box-basic">
                     <div class="bg">
@@ -60,6 +69,7 @@
                 </picture>
             </div>
         </div>
+#}
     </div>
 </main>
 
