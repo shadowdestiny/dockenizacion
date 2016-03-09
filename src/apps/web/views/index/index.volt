@@ -39,13 +39,12 @@ $(function(){
 	var count  = count_down(element,html_formatted,html_formatted_offset,date,finish_text,null);
 });
 {% endblock %}
-
 {% block body %}
 <main id="content">
 	<div class="large wrapper">
 		<div class="banner">
 			<div class="box-jackpot">
-				<div class="info">Euromillion Jackpot</div>
+				<div class="info">{{ language.translate("Euromillion Jackpot") }}</div>
 				<div class="jackpot">
 					<svg class="value">
 					    <defs>
@@ -83,13 +82,13 @@ $(function(){
 				</div>
 			</div>
 			<div class="btn-box">
-				<a href="/play" class="btn red huge">Play Now</a>
-				<div class="for-only">For only &euro; 2.50</div>
+				<a href="/play" class="btn red huge">{{ language.translate("Play Now") }}</a>
+				<div class="for-only">{{ language.translate("For only")}} &euro; 2.50</div>
 			</div>
-			<div class="txt">For a very small amount, you might change your life forever.</div>
+			<div class="txt">{{ language.translate("For a very small amount, you might change your life forever.") }}</div>
 			<div class="best-price">
 				<picture class="pic">
-					<img src="/w/img/home/best-price.png" srcset="/w/img/home/best-price@2x.png 1.5x" alt="{{ language.translate('Best Price Guarantee') }}">
+					<img width="60" height="59" src="/w/img/home/best-price.png" srcset="/w/img/home/best-price@2x.png 1.5x" alt="{{ language.translate('Best Price Guarantee') }}">
 				</picture>
 			</div>
 		</div>
@@ -98,15 +97,18 @@ $(function(){
 	<div class="wrapper">
 		<div class="partners cl">
 			<div class="list">
-				<svg class="laurel first"><use xlink:href="/w/svg/icon.svg#laurel"/></svg>
+				<svg class="laurel first">
+					<filter id="mygray"><feColorMatrix values="0" type="saturate"/></filter><style>.greyed{@media all and (-ms-high-contrast:none), (-ms-high-contrast: active){filter:url(#mygray);}}{# ie10 require it #+ csshack 10+#}</style>
+					<use class="greyed" xlink:href="/w/svg/icon.svg#laurel"/>
+				</svg>
 				<ul class="no-li cl">
-					<li><svg class="v-visa vector"><use xlink:href="/w/svg/icon.svg#visa"/></svg></li>
-					<li><svg class="v-mastercard vector"><use xlink:href="/w/svg/icon.svg#mastercard"/></svg></li>
-					<li><svg class="v-gambleaware vector"><use xlink:href="/w/svg/icon.svg#gambleaware"/></svg></li>
-					<li><svg class="v-geotrust vector"><use xlink:href="/w/svg/icon.svg#geotrust"/></svg></li>
-					<li><svg class="v-shield vector"><use xlink:href="/w/svg/icon.svg#shield"/></svg> <span class="txt">Secure<br>Encryption</span></li>
+					<li><svg class="v-visa vector"><use class="greyed" xlink:href="/w/svg/icon.svg#visa"/></svg></li>
+					<li><svg class="v-mastercard vector"><use class="greyed" xlink:href="/w/svg/icon.svg#mastercard"/></svg></li>
+					<li><svg class="v-gambleaware vector"><use class="greyed" xlink:href="/w/svg/icon.svg#gambleaware"/></svg></li>
+					<li><svg class="v-geotrust vector"><use class="greyed" xlink:href="/w/svg/icon.svg#geotrust"/></svg></li>
+					<li><svg class="v-shield vector"><use class="greyed" xlink:href="/w/svg/icon.svg#shield"/></svg> <span class="txt">{{ language.translate('Secure<br>Encryption')}}</span></li>
 				</ul>
-				<svg class="laurel last"><use xlink:href="/w/svg/icon.svg#laurel"/></svg>
+				<svg class="laurel last"><use class="greyed" xlink:href="/w/svg/icon.svg#laurel"/></svg>
 			</div>
 		</div>
 
@@ -115,9 +117,9 @@ $(function(){
 				<div class="col6">
 					<div class="box-basic box-quick-play ball">
 						<div class="content">
-							<h1 class="h2">Don't know what to play?</h1>
-							<p>Use lucky generated numbers crafted just for you</p>
-							<a href="/play?random" class="btn blue big wide">I feel lucky</a>
+							<h1 class="h2">{{ language.translate("Don't know what to play?") }}</h1>
+							<p>{{ language.translate("Use lucky generated numbers crafted just for you") }}</p>
+							<a href="/play?random" class="btn blue big wide">{{ language.translate("I feel lucky") }}</a>
 						</div>
 					</div>
 				</div>

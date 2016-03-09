@@ -181,7 +181,11 @@
 .partners{
   margin:50px auto 45px; text-align:center;
   li{opacity:.8;}
-  li, .laurel{margin:0 10px; filter:grayscale(100%);}
+  li, .laurel{margin:0 10px; 
+    filter:gray(); /*IE6-9*/
+    -webkit-filter:grayscale(1); /*Chrome*/ 
+    filter:grayscale(1); /* future-proof */
+  }
   .vector{height:50px;}
   .no-li, li, .laurel{display:inline-block; vertical-align:middle;}
   .v-gambleaware{width:170px;}
@@ -210,7 +214,7 @@
   .bg-quality{background-image:url(../img/home/bg-quality@2x.jpg); background-size:494px 493px;}
   .bg-hope{background-image:url(../img/home/bg-hope@2x.jpg); background-size:589px 604px;}
   .bg-win{background-image:url(../img/home/bg-win@2x.jpg); background-size:490px 584px;}
-  .banner{background-image:url(../img/home/bg-banner@2x.jpg); background-size:1042px 350px;}
+  .banner{background-image:url(../img/home/bg-banner@2x.jpg); background-size:1402px 350px;}
   .box-basic.ball{background-image:#fff url(../img/home/bg-ball@2x.jpg); background-size:195px 200px;}
 }
 
