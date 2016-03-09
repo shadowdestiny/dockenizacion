@@ -1,7 +1,7 @@
 <?php
 
 
-namespace tests\integration;
+namespace EuroMillions\tests\integration;
 
 
 use EuroMillions\shared\vo\results\PaymentProviderResult;
@@ -9,9 +9,9 @@ use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\entities\User;
 use Money\Currency;
 use Money\Money;
-use tests\base\DatabaseIntegrationTestBase;
-use tests\helpers\mothers\CreditCardChargeMother;
-use tests\helpers\mothers\CreditCardMother;
+use EuroMillions\tests\base\DatabaseIntegrationTestBase;
+use EuroMillions\tests\helpers\mothers\CreditCardChargeMother;
+use EuroMillions\tests\helpers\mothers\CreditCardMother;
 
 class WalletServiceIntegrationTest extends DatabaseIntegrationTestBase
 {

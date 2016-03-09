@@ -7,7 +7,6 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\Common\Cache\ApcCache;
 use EuroMillions\shared\components\PhalconRedisWrapper;
-use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\factories\DomainServiceFactory;
@@ -47,7 +46,6 @@ abstract class BootstrapStrategyBase
         $di->set('config', $config, true);
         $di->set('entityManager', $this->configDoctrine($config), true);
         $di->set('redisCache', $this->configRedis($config), true);
-        $di->set('siteConfig', $this->siteConfig( $this->configDoctrine($config), $di),true);
         $di->set('paymentProviderFactory', $this->configPaymentProvider($di), true);
 
         // $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
@@ -121,14 +119,6 @@ abstract class BootstrapStrategyBase
     protected function configGlobalConfig()
     {
         return new Ini($this->globalConfigPath . 'config.ini');
-    }
-
-
-    protected function siteConfig(EntityManager $entityManager,Di $di)
-    {
-        //EMTD revisar esto, no me gusta
-        $domainServiceFactory = new DomainServiceFactory($di, new ServiceFactory($di));
-        return new SiteConfigService($entityManager,$domainServiceFactory->getCurrencyConversionService());
     }
 
     abstract protected function getConfigFileName(EnvironmentDetector $em);

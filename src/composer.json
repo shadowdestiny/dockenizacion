@@ -1,10 +1,11 @@
 {
   "require-dev": {
-    "phpunit/phpunit": "^5.1",
+    "phpunit/phpunit": "^4.8",
     "phpunit/dbunit": "^1.4",
     "phalcon/devtools": "dev-master",
     "antonienko/php-template-previewer": "0.2.*",
-    "snowair/phalcon-debugbar": "^1.1"
+    "snowair/phalcon-debugbar": "^1.1",
+    "codeception/codeception": "^2.1"
   },
   "require": {
     "phalcon/incubator": "dev-master",
@@ -22,5 +23,11 @@
     "beberlei/assert": "^2.4",
     "recaptcha/php5": "^2.0",
     "textmagic/smsphp": "dev-master"
+  },
+  "autoload" : {
+    "psr-4": {
+      "EuroMillions\\": "apps/",
+      "EuroMillions\\tests\\" : "tests/"
+    }
   }
 }

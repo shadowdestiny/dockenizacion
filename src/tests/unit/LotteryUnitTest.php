@@ -1,9 +1,9 @@
 <?php
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\entities\Lottery;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class LotteryUnitTest extends UnitTestBase
 {

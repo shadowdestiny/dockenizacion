@@ -1,5 +1,5 @@
 <?php
-namespace tests\base;
+namespace EuroMillions\tests\base;
 
 use EuroMillions\shared\config\bootstrap\Bootstrap;
 use EuroMillions\shared\config\bootstrap\TestWebBootstrapStrategy;

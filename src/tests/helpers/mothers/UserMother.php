@@ -1,5 +1,5 @@
 <?php
-namespace tests\helpers\mothers;
+namespace EuroMillions\tests\helpers\mothers;
 
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\NullPasswordHasher;
@@ -8,7 +8,7 @@ use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
-use tests\helpers\builders\UserBuilder;
+use EuroMillions\tests\helpers\builders\UserBuilder;
 
 class UserMother
 {

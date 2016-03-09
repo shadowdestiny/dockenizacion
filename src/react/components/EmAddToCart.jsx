@@ -4,7 +4,6 @@ var EuroMillionsAddToCart = new React.createClass({
 
     propTypes: {
         onBtnAddToCartClick : React.PropTypes.func.isRequired,
-
     },
     render : function () {
 

@@ -1,14 +1,14 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\web\services\email_templates_strategies\WinEmailAboveDataEmailTemplateStrategy;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class WinEmailAboveDataEmailTemplateStrategyUnitTest extends UnitTestBase
 {

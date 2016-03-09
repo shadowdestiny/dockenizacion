@@ -1,14 +1,13 @@
 <?php
 
 
-namespace tests\helpers\mothers;
+namespace EuroMillions\tests\helpers\mothers;
 
 
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\ResetPasswordEmailTemplate;
 use EuroMillions\web\emailTemplates\WelcomeEmailTemplate;
 use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
-use EuroMillions\web\services\LotteriesDataService;
 
 class EmailMother
 {

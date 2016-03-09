@@ -35,7 +35,7 @@
 
     </testsuites>
     <listeners>
-        <listener class="tests\base\TestListener" file="./base/TestListener.php" />
+        <listener class="EuroMillions\tests\base\TestListener" file="./base/TestListener.php" />
     </listeners>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">

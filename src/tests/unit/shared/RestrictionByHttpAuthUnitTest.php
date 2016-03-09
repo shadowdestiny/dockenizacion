@@ -1,7 +1,7 @@
 <?php
-namespace tests\unit\shared;
+namespace EuroMillions\tests\unit\shared;
 
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class RestrictionByHttpAuthUnitTest extends UnitTestBase 
 {

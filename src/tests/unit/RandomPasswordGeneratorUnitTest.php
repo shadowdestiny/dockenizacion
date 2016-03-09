@@ -1,7 +1,7 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\web\components\NullPasswordHasher;

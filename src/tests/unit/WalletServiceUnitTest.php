@@ -1,15 +1,15 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
-use tests\helpers\mothers\CreditCardChargeMother;
-use tests\helpers\mothers\CreditCardMother;
-use tests\base\UnitTestBase;
-use tests\helpers\mothers\UserMother;
+use EuroMillions\tests\helpers\mothers\CreditCardChargeMother;
+use EuroMillions\tests\helpers\mothers\CreditCardMother;
+use EuroMillions\tests\base\UnitTestBase;
+use EuroMillions\tests\helpers\mothers\UserMother;
 
 class WalletServiceUnitTest extends UnitTestBase
 {

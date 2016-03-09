@@ -1,7 +1,7 @@
 <?php
-namespace tests\functional;
+namespace EuroMillions\tests\functional;
 
-use tests\base\DatabaseIntegrationTestBase;
+use EuroMillions\tests\base\DatabaseIntegrationTestBase;
 
 class CurrencyLayerApiFunctionalTest extends DatabaseIntegrationTestBase
 {

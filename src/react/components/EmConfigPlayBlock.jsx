@@ -22,27 +22,35 @@ var EmConfigPlayBlock = new React.createClass({
         }
     },
 
-    handleVisibility : function(value)
+
+    componentWillReceiveProps : function(nextProps) {
+        if(nextProps.reset_config) {
+            this.setState({ show_config : true });
+        }
+    },
+
+
+    handleThreshold : function(value)
     {
+        this.props.update_threshold();
         this.setState( {
             show_config : value ? false : true
         })
     },
-
-    componentWillReceiveProps: function (nextProps) {
-
-        if(!nextProps.show && !this.state.show_block) {
-            this.state.show_block = true;
-        }else if(nextProps.show && this.state.show_block) {
-            this.state.show_block = false;
-        } else {
-            this.state.show_block = nextProps.show;
-        }
-    },
-
+    //
+    //componentWillReceiveProps: function (nextProps) {
+    //
+    //    if(!nextProps.show && !this.state.show_block) {
+    //        this.state.show_block = true;
+    //    }else if(nextProps.show && this.state.show_block) {
+    //        this.state.show_block = false;
+    //    } else {
+    //        this.state.show_block = nextProps.show;
+    //    }
+    //},
+    //
     handleClickClose : function() {
-        var isShowed = this.state.show_block ? false : true;
-        this.setState({ show_block : isShowed });
+
     },
 
     render : function () {
@@ -58,22 +66,23 @@ var EmConfigPlayBlock = new React.createClass({
             {text: 'Choose threshold', value: custom_value}
         ];
         var options_draw_days = [
-            {text: 'Tuesday & Friday' , value : '2,5'},
+            {text: 'Tuesday & Friday' , value : '25'},
             {text: 'Tuesday', value : '2'},
             {text: 'Friday' , value : '5'}
         ];
 
-        if(!this.state.show_block) {
+
+        if(!this.props.show) {
             return null;
         } else {
             return (
                 <div className="advanced-play">
                     <hr className="hr yellow" />
-                    <a href="javascript:void(0);" onClick={this.handleClickClose} className="close"><svg className="ico v-cancel-circle"><use xlinkHref="/w/svg/icon.svg#v-cancel-circle"></use></svg>
+                    <a href="javascript:void(0);" onClick={this.props.reset} className="close"><svg className="ico v-cancel-circle"><use xlinkHref="/w/svg/icon.svg#v-cancel-circle"></use></svg>
                     </a>
                     <div className="cols">
-                        <EmDrawConfig show_config={this.state.show_config} draw_days_selected={this.props.draw_days_selected} current_duration_value={this.props.current_duration_value} draw_dates={this.props.draw_dates} date_play={this.props.date_play} draw_duration={this.props.draw_duration} duration={this.props.duration} play_days={this.props.play_days}  options={options_draw_days} customValue={custom_value}/>
-                        <ThresholdPlay callback_threshold={this.handleVisibility} options={options} customValue={custom_value} defaultValue={default_value} defaultText={default_text}/>
+                        <EmDrawConfig active={this.state.show_config} draw_days_selected={this.props.draw_days_selected} current_duration_value={this.props.current_duration_value} draw_dates={this.props.draw_dates} date_play={this.props.date_play} draw_duration={this.props.draw_duration} duration={this.props.duration} play_days={this.props.play_days}  options={options_draw_days} customValue={custom_value}/>
+                        <ThresholdPlay active={this.state.show_config} callback_threshold={this.handleThreshold} options={options} customValue={custom_value} defaultValue={default_value} defaultText={default_text}/>
                     </div>
                 </div>
             )

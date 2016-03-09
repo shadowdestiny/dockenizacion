@@ -34,6 +34,7 @@ class PlayController extends PublicSiteControllerBase
             'jackpot_value' => $jackpot->getAmount()/100,
             'play_dates' => $play_dates,
             'next_draw' => $dayOfWeek,
+            'next_draw_format' => $draw->format('l j M G:i'),
             'currency_symbol' => $currency_symbol,
             'single_bet_price' => $single_bet_price_currency->getAmount() /100,
             'automatic_random' => isset($automatic_random) ? true : false,

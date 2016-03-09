@@ -1,9 +1,9 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\entities\User;
 use Money\Currency;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class UserUnitTest extends UnitTestBase
 {

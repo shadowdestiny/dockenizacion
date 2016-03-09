@@ -1,7 +1,7 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 use EuroMillions\web\vo\base\Real;
-use tests\base\ValueObjectUnitTestBase;
+use EuroMillions\tests\base\ValueObjectUnitTestBase;
 
 class RealUnitTest extends ValueObjectUnitTestBase
 {

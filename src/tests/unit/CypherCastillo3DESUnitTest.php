@@ -1,11 +1,11 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
-use tests\base\LotteryValidationCastilloRelatedTest;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\LotteryValidationCastilloRelatedTest;
+use EuroMillions\tests\base\UnitTestBase;
 
 class CypherCastillo3DESUnitTest extends UnitTestBase
 {

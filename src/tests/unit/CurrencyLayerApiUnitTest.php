@@ -1,10 +1,10 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\services\external_apis\CurrencyConversion\CurrencyLayerApi;
 use Phalcon\Http\Client\Response;
 use Prophecy\Argument;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class CurrencyLayerApiUnitTest extends UnitTestBase
 {

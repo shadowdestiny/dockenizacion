@@ -1,7 +1,7 @@
 <?php
-namespace tests\integration;
+namespace EuroMillions\tests\integration;
 
-use tests\base\RepositoryIntegrationTestBase;
+use EuroMillions\tests\base\RepositoryIntegrationTestBase;
 
 class TranslationDetailRepositoryIntegrationTest extends RepositoryIntegrationTestBase
 {

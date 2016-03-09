@@ -1,7 +1,7 @@
 <?php
 
 
-namespace tests\functional;
+namespace EuroMillions\tests\functional;
 
 
 use EuroMillions\web\components\CypherCastillo3DES;
@@ -12,8 +12,8 @@ use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\CastilloBetId;
 use EuroMillions\web\vo\CastilloCypherKey;
 use EuroMillions\web\vo\CastilloTicketId;
-use tests\base\DatabaseIntegrationTestBase;
-use tests\base\LotteryValidationCastilloRelatedTest;
+use EuroMillions\tests\base\DatabaseIntegrationTestBase;
+use EuroMillions\tests\base\LotteryValidationCastilloRelatedTest;
 
 class LotteryValidationCastilloApiFunctionalTest extends DatabaseIntegrationTestBase
 {

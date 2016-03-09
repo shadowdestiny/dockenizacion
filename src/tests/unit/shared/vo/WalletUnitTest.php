@@ -1,8 +1,8 @@
 <?php
-namespace tests\unit\shared\vo;
+namespace EuroMillions\tests\unit\shared\vo;
 
 use Phalcon\Loader;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 use EuroMillions\shared\vo\Wallet;
 use Money\Currency;
 use Money\Money;

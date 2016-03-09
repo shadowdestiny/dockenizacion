@@ -1,7 +1,7 @@
 <?php
 
 
-namespace tests\base;
+namespace EuroMillions\tests\base;
 
 use EuroMillions\shared\config\Namespaces;
 use Prophecy\Prophecy\ObjectProphecy;

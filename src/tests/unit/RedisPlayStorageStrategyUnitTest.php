@@ -1,7 +1,7 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\shared\vo\Wallet;
@@ -16,8 +16,8 @@ use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
 use RedisException;
-use tests\base\EuroMillionsResultRelatedTest;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\EuroMillionsResultRelatedTest;
+use EuroMillions\tests\base\UnitTestBase;
 
 class RedisPlayStorageStrategyUnitTest extends UnitTestBase
 {

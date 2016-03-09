@@ -1,13 +1,13 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use Money\Currency;
 use Money\Money;
-use tests\base\UnitTestBase;
-use tests\helpers\mothers\CreditCardChargeMother;
+use EuroMillions\tests\base\UnitTestBase;
+use EuroMillions\tests\helpers\mothers\CreditCardChargeMother;
 
 class CreditCardChargeUnitTest extends UnitTestBase
 {

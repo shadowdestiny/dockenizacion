@@ -1,7 +1,7 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\web\emailTemplates\EmailTemplate;
@@ -9,8 +9,8 @@ use EuroMillions\web\emailTemplates\WinEmailAboveTemplate;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
-use tests\base\UnitTestBase;
-use tests\helpers\mothers\UserMother;
+use EuroMillions\tests\base\UnitTestBase;
+use EuroMillions\tests\helpers\mothers\UserMother;
 
 class WinEmailAboveTemplateUnitTest extends UnitTestBase
 {

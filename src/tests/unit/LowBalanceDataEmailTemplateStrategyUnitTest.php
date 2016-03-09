@@ -1,15 +1,15 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\LowBalanceDataEmailTemplateStrategy;
 use EuroMillions\web\vo\EuroMillionsLine;
 use Money\Money;
-use tests\base\EuroMillionsResultRelatedTest;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\EuroMillionsResultRelatedTest;
+use EuroMillions\tests\base\UnitTestBase;
 
 class LowBalanceDataEmailTemplateStrategyUnitTest extends UnitTestBase
 {
@@ -64,7 +64,6 @@ class LowBalanceDataEmailTemplateStrategyUnitTest extends UnitTestBase
         $next_draw = new \DateTime('2016-02-02 20:00:00');
         $last_draw = new \DateTime('2016-01-29 20:00:00');
         $this->lotteriesDataService_double->getNextDateDrawByLottery('EuroMillions')->willReturn($next_draw);
-        $time_config = '19:00';
         $draw_day_format_one = $next_draw->format('l');
         $draw_day_format_two = $next_draw->format('j F Y');
         $money = new Money(1000, new \Money\Currency('EUR'));

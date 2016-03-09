@@ -1,9 +1,9 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class LotteryApisFactoryUnitTest extends UnitTestBase
 {

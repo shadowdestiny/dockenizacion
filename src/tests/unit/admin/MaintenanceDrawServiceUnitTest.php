@@ -1,7 +1,7 @@
 <?php
 
 
-namespace tests\unit\admin;
+namespace EuroMillions\tests\unit\admin;
 
 
 use EuroMillions\shared\vo\results\ActionResult;
@@ -10,8 +10,8 @@ use EuroMillions\web\entities\EuroMillionsDraw;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
-use tests\base\PhalconDiRelatedTest;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\PhalconDiRelatedTest;
+use EuroMillions\tests\base\UnitTestBase;
 
 class MaintenanceDrawServiceUnitTest extends UnitTestBase
 {

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace tests\integration;
+namespace EuroMillions\tests\integration;
 
 
 use EuroMillions\web\entities\PlayConfig;
@@ -9,8 +9,8 @@ use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\vo\DrawDays;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\UserId;
-use tests\base\DatabaseIntegrationTestBase;
-use tests\base\EuroMillionsResultRelatedTest;
+use EuroMillions\tests\base\DatabaseIntegrationTestBase;
+use EuroMillions\tests\base\EuroMillionsResultRelatedTest;
 
 class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
 {

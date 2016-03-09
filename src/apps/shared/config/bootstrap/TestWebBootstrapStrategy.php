@@ -39,12 +39,16 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
         DI::setDefault($di);
     }
 
+    /**
+     * @param Ini $appConfig
+     * @return EntityManager
+     */
     protected function configDoctrine(Ini $appConfig)
     {
         if (!$this->isUnitTest) {
             return parent::configDoctrine($appConfig);
         } else {
-            $utbase = new \tests\base\UnitTestBase();
+            $utbase = new \EuroMillions\tests\base\UnitTestBase();
             return $utbase->prophesizeEntityManager()->reveal();
         }
     }
@@ -56,10 +60,6 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
         } else {
             return 'en';
         }
-    }
-
-    protected function siteConfig(EntityManager $entityManager, $di)
-    {
     }
 
     protected function getConfigFileName(EnvironmentDetector $em)

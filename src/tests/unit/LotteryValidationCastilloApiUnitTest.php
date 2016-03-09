@@ -1,16 +1,16 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\web\services\external_apis\LotteryValidationCastilloApi;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\CastilloCypherKey;
 use Prophecy\Argument;
-use tests\base\LotteryValidationCastilloRelatedTest;
-use tests\base\UnitTestBase;
-use tests\unit\utils\CurlResponse;
+use EuroMillions\tests\base\LotteryValidationCastilloRelatedTest;
+use EuroMillions\tests\base\UnitTestBase;
+use EuroMillions\tests\unit\utils\CurlResponse;
 
 class LotteryValidationCastilloApiUnitTest extends UnitTestBase
 {

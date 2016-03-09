@@ -5,18 +5,12 @@
     </div>
 {% endif %}
 <form action="{{ url_signup }}" name="form_notifications" id="form-email-settings" method="post">
-
     {{ signupform.render('name', {'class':'input'~form_errors['name']}) }}
     {{ signupform.render('surname', {'class':'input'~form_errors['surname']}) }}
     {{ signupform.render('email', {'class':'input'~form_errors['email']}) }}
-    <div class="info-psw cl">
-        <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"/></svg>
-        <span class="txt">{{ language.translate("Password must be at least 8 letters long.<br>Composed at least with 1 uppercase and number.") }}</span>
-    </div>
-    {{ signupform.render('password', {'class':'input'~form_errors['password']}) }}
+    <span class="tooltip" data-tip="tooltip" data-class="{{ 'input'~form_errors['password'] }}" data-place="left" data-type="input" data-event="click" data-message="{{ language.translate('Password must be at least 8 letters long. Composed at least with 1 uppercase and number.') }}" ></span>
     {{ signupform.render('confirm_password', {'class':'input'~form_errors['confirm_password']}) }}
     {{ signupform.render('country', {'class':'select'~form_errors['country']}) }}
-
     <div class="cl">
         <input id="goSignUp" type="submit" class="hidden2" />
         {% if signIn.myClass == 'sign-in' %}

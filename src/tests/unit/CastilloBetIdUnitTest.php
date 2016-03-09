@@ -1,11 +1,11 @@
 <?php
 
 
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\web\vo\CastilloBetId;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class CastilloBetIdUnitTest extends UnitTestBase
 {

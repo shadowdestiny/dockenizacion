@@ -1,11 +1,11 @@
 <?php
-namespace tests\unit;
+namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\services\preferences_strategies\WebUserPreferencesStorageStrategy;
 use Money\Currency;
 use Phalcon\Http\Cookie;
 use Prophecy\Argument;
-use tests\base\UnitTestBase;
+use EuroMillions\tests\base\UnitTestBase;
 
 class WebUserPreferencesStorageStrategyUnitTest extends UnitTestBase
 {
@@ -69,13 +69,12 @@ class WebUserPreferencesStorageStrategyUnitTest extends UnitTestBase
     }
 
     /**
-     * @return \EuroMillions\interfaces\IUser
+     * @return \EuroMillions\web\interfaces\IUser
      */
     protected function exerciseGetCurrentUser()
     {
         $sut = $this->getSut();
-        $actual = $sut->getCurrentUser();
-        return $actual;
+        return $sut->getCurrentUser();
     }
 
     /**
