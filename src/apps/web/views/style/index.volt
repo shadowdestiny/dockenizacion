@@ -926,7 +926,7 @@ class="btn purple"
                                         <li class="green">
                                             <svg class="ico v-arrow-right3"><use xlink:href="/w/svg/icon.svg#v-arrow-right3"/></svg><span class="txt"> v-arrow-right3</span>
                                         </li>
-                                        <li class="orange">
+                                        <li class="green">
                                             <svg class="ico v-pencil"><use xlink:href="/w/svg/icon.svg#v-pencil"/></svg><span class="txt"> v-pencil</span>
                                         </li>
                                         <li>
@@ -990,7 +990,7 @@ class="btn purple"
                                         <li class="orange">
                                             <svg class="ico v-multimedia"><use xlink:href="/w/svg/icon.svg#v-multimedia"/></svg><span class="txt"> v-multimedia</span>
                                         </li>
-                                        <li class="orange">
+                                        <li class="green">
                                             <svg class="ico v-cart"><use xlink:href="/w/svg/icon.svg#v-cart"/></svg><span class="txt"> v-cart</span>
                                         </li>
                                         <li class="green">
@@ -1002,7 +1002,7 @@ class="btn purple"
                                         <li>
                                             <svg class="ico v-coin-euro"><use xlink:href="/w/svg/icon.svg#v-coin-euro"/></svg><span class="txt"> v-coin-euro</span>
                                         </li>
-                                        <li>
+                                        <li class="green">
                                             <svg class="ico v-clock"><use xlink:href="/w/svg/icon.svg#v-clock"/></svg><span class="txt"> v-clock</span>
                                         </li>
                                         <li>
@@ -1054,7 +1054,7 @@ class="btn purple"
                                         <li class="green">
                                             <svg class="ico v-star-out"><use xlink:href="/w/svg/icon.svg#v-star-out"/></svg><span class="txt"> v-star-out</span>
                                         </li>
-                                        <li class="orange">
+                                        <li class="green">
                                             <svg class="ico v-email64"><use xlink:href="/w/svg/icon.svg#v-email64"/></svg><span class="txt"> v-email64</span>
                                         </li>
                                         <li>
