@@ -3,6 +3,7 @@ namespace EuroMillions\shared\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\entities\SiteConfig;
+use EuroMillions\web\repositories\SiteConfigRepository;
 use EuroMillions\web\services\CurrencyConversionService;
 use Money\Currency;
 use Money\Money;
@@ -16,15 +17,10 @@ class SiteConfigService
 
     public function __construct(EntityManager $entityManager, CurrencyConversionService $currencyConversionService)
     {
+        /** @var SiteConfigRepository $site_config_repository */
         $site_config_repository = $entityManager->getRepository('EuroMillions\web\entities\SiteConfig');
 
-        $result = $entityManager->createQuery(
-            "SELECT s from {$site_config_repository->getClassName()} s"
-        )
-            ->useResultCache(true, 300, 'SiteConfig')
-            ->getResult();
-
-        //EMTD Un-hardcode the expiration and id values. This config table may be used in the future for the configuration values of the different white labels.
+        $result = $site_config_repository->getSiteConfig();
 
         /** @var SiteConfig $config */
         $this->configEntity = $result[0];
@@ -81,4 +77,6 @@ class SiteConfigService
         $value = $this->currencyConversionService->toString($value_currency_convert, $locale);
         return array($value);
     }
+
+
 }
