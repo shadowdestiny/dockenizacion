@@ -90,7 +90,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $view = new Phalcon\Mvc\View();
         $compiled_path = $this->assetsPath . 'compiled_templates/';
         $view->setViewsDir($this->appPath . 'web/views/');
-        if ($module == 'admin') {
+        if ($module === 'admin') {
             $view->setViewsDir($this->appPath . 'admin/views/');
         }
         $view->registerEngines(array(
@@ -115,7 +115,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $eventsManager = new Phalcon\Events\Manager();
         $eventsManager->attach("dispatch", function (Event $event, Phalcon\Mvc\Dispatcher $dispatcher, \Exception $exception = null) {
             //The controller exists but the action not
-            if ($event->getType() == 'beforeNotFoundAction') {
+            if ($event->getType() === 'beforeNotFoundAction') {
                 $dispatcher->forward(array(
                     'module'     => 'web',
                     'controller' => 'index',
@@ -123,7 +123,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 ));
                 return false;
             }
-            if ($event->getType() == 'beforeException') {
+            if ($event->getType() === 'beforeException') {
                 switch ($exception->getCode()) {
                     case Phalcon\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
                     case Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
@@ -247,6 +247,10 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         return $em->get() . '_' . self::CONFIG_FILENAME;
     }
 
+    /**
+     * @param Di $di
+     * @return \EuroMillions\web\services\LanguageService
+     */
     protected function configLanguage(Di $di)
     {
         /** @var DomainServiceFactory $dsf */
@@ -303,7 +307,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $eventsManager = new Phalcon\Events\Manager();
         $eventsManager->attach('application:beforeStartModule', function ($event, $application) use ($di) {
             $module_name = $event->getData();
-            if ($module_name == 'web') {
+            if ($module_name === 'web') {
                 $web_module = $application->getModule($module_name);
                 /** @var ModuleDefinitionInterface $object */
                 $object = $di->get($web_module['className']);
@@ -312,7 +316,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 $di->set('view', $this->configView($module_name), true);
                 $object->registerServices($di);
             }
-            if ($module_name == 'admin') {
+            if ($module_name === 'admin') {
                 $admin_module = $application->getModule($module_name);
                 $di->set('view', $this->configView($module_name), true);
                 $object = $di->get($admin_module['className']);
