@@ -38,9 +38,8 @@
 
 .try .ico{position:relative; top:2px; margin:0 0 0 10px;}
 
-.box-result h1{margin-bottom:0;}
+.box-result{padding:0; overflow:hidden;}
 .box-result .cols{margin:0;}
-.box-result .content{padding:20px;}
 .box-result .woman{background:url(../img/home/bg-result.jpg) no-repeat center center;}
 .box-result .lnk{text-decoration:none; display:inline-block; font-size:$basic-size;}
 .box-result .lnk:hover .txt{text-decoration:underline; color:$hover;}
@@ -53,6 +52,22 @@
   letter-spacing:0.05em; font-size:$h4;
 }
 .box-result .numbers.small .star{background:url(../img/sprite.png) no-repeat -150px -70px; text-indent:-.05em;}
+
+.box-extra{margin-bottom:3em;}
+.box-extra h1{margin:0;}
+.box-extra .box-basic{padding:0; min-height:179px;}
+.box-extra .cols{margin-bottom:0;}
+.box-extra > .cols > div{padding:0 10px;}
+.box-extra > .cols > div:first-child{left:-10px;}
+.box-extra > .cols > div:last-child{right:-10px;}
+.box-extra .content{padding:20px;}
+
+.box-quick-play{
+  text-align:right;
+  h1{margin:15px 0 5px;}
+  .btn{margin-bottom:5px;}
+}
+.box-basic.ball{background:#fff url(../img/home/bg-ball.jpg) no-repeat 0 -20px;}
 
 .outbound{
     display:block; position:relative; width:475px; height:475px; margin:auto; text-decoration:none; border:15px solid #fff; border-radius:100%; box-shadow:0px 5px 20px 5px rgba(0,0,0,0.4); background:url(../img/home/bg-win-millions.jpg) no-repeat center center; overflow:hidden; top:0;
@@ -142,6 +157,45 @@
 
 /*Not Mobile, old safari don't handle well animations*/
 
+.huge{font-size:30px; padding:22px 40px; box-shadow:inset 0 0 4px rgba(255,255,255,.5);
+  font-family:'Signika', $basic-font; text-shadow:0 0 5px rgba(0,0,0,.7);
+}
+
+.banner{
+  position:relative; color:#fff; font-weight:bold; height:350px; border-radius:5px; box-shadow:0 0 15px 6px rgba(100, 100, 100, 0.3); background:url(../img/home/bg-banner.jpg) no-repeat center center; margin:20px auto 0;
+  > div{position:absolute; line-height:100%;}
+  .info{font-size:30px; margin-left:53px; margin-bottom:10px;}
+  .value{width:650px; height:110px;}
+  .txt{top:285px; width:100%; text-align:center; font-size:26px; color:$black; text-shadow:0 0 3px #fff;}
+  .btn-box{left:1000px; top:102px;}
+  .for-only{font-size:15px; margin-top:10px; text-align:center;}
+  .for-only, .box-jackpot{text-shadow:0 0 3px #000;}
+  .best-price{display:block; right:25px; bottom:20px;}
+  .mycur{font-size:60px;}
+  .mytxt{font-size:105px;}
+}
+.box-jackpot{margin-left:155px; margin-top:50px;}
+.laurel{position:relative; width:30px; height:58px;}
+.laurel.first{transform:rotateY(-180deg) rotate(15deg);}
+.laurel.last{transform:rotate(15deg);}
+.partners{
+  margin:50px auto 45px; text-align:center;
+  li{opacity:.8;}
+  li, .laurel{margin:0 10px; 
+    filter:gray(); /*IE6-9*/
+    -webkit-filter:grayscale(1); /*Chrome*/ 
+    filter:grayscale(1); /* future-proof */
+  }
+  .vector{height:50px;}
+  .no-li, li, .laurel{display:inline-block; vertical-align:middle;}
+  .v-gambleaware{width:170px;}
+  .v-geotrust{width:118px;}
+  .v-visa{width:50px;}
+  .v-mastercard{width:64px;}
+  .v-shield{width:25px;}
+  .txt{display:inline-block; text-align:left; font-size:14px; font-weight:bold; text-transform:uppercase; line-height:16px; top:-12px; position:relative; margin-left:3px; color:#777;}
+}
+.list{margin:auto;}
 
 @media only screen and (min-width:769px){
 .box-estimated:hover .try, .box-result:hover .lnk{-webkit-animation-name:pulseRight; animation-name:pulseRight!important;}
@@ -160,10 +214,30 @@
   .bg-quality{background-image:url(../img/home/bg-quality@2x.jpg); background-size:494px 493px;}
   .bg-hope{background-image:url(../img/home/bg-hope@2x.jpg); background-size:589px 604px;}
   .bg-win{background-image:url(../img/home/bg-win@2x.jpg); background-size:490px 584px;}
+  .banner{background-image:url(../img/home/bg-banner@2x.jpg); background-size:1402px 350px;}
+  .box-basic.ball{background-image:#fff url(../img/home/bg-ball@2x.jpg); background-size:195px 200px;}
+}
+
+@media only screen and (max-width: 1460px){
+.large.wrapper{width:1180px;}
+.banner{
+  .btn-box{left:890px;}
+  .box-jackpot{margin-left:45px;}
+}
 }
 
 /* Large Devices, Wide Screens */
 @media only screen and (max-width: 1200px){
+.large.wrapper{width:990px;}
+.banner{
+  .btn-box{left:785px;}
+  .box-jackpot{margin-left:35px;}
+  .value{font-size:50px;}
+  .mycur{font-size:50px;}
+  .mytxt{font-size:90px;}
+  .huge{padding:20px 22px;}
+}
+
 .box-emblem{right:-8px;}
 .emblem{top:25px; height:150px;}
 .emblem-bg{margin-top:23px; height:158px;}
@@ -182,11 +256,31 @@
   .title-em{margin:45px 0 0 30px;}
 }
 .bg-quality, .bg-win{background-size:400px;}
+.box-result .woman{background-size:cover; background-position:0 center;}
+.box-extra .content{padding:20px 15px;}
+.box-basic.ball{background-position:-63px -20px;}
 }
- 
+
 /* Medium Devices, Desktops */
-@media only screen and (max-width: 992px){
-.box-result .content{width:100%; margin:0;}
+@media only screen and (max-width:992px){
+.large.wrapper{width:768px;}
+.banner{
+  background-position:0 center; height:300px;
+  .btn-box{left:auto; position:relative; top:10px; text-align:center; width:100%;}
+  .box-jackpot{position:relative; margin:0; padding-top:30px; width:100%; text-align:center;}
+  .value{width:565px}
+  .info{margin:0;}
+  .txt{font-size:20px; position:relative; top:35px;}
+  .for-only{margin-left:10px; font-size:16px;}
+  .for-only, .btn.red{display:inline-block;}
+  .best-price{display:none;}
+}
+.box-basic.ball{background-image:none;}
+.box-quick-play h1{margin-top:10px;}
+
+.box-extra{
+  .content{width:100%; margin:0; text-align:center;}
+}
 .box-result .woman, .box-emblem, .box-play .awards, .box-how .sub-txt, .box-play .ball
 {display:none!important;}
 .box-prize .box-vector{position:absolute; height:0; width:0; overflow:hidden;} /* Vector disappear if I don't use this hiding technique */
@@ -221,14 +315,38 @@
 }
 
 /* Small Devices, Tablets */
-@media only screen and (max-width: 768px){
+@media only screen and (max-width:768px){
+.partners{
+  margin:0 auto; padding:5px 10px 0; background:$grey-lighter2;
+  .laurel{display:none;}
+  .v-gambleaware{width:140px;}
+  .v-geotrust{width:93px;}
+  .v-visa{width:28px;}
+  .v-mastercard{width:39px;}
+  .v-shield{width:20px;}
+  .txt{font-size:11px; line-height:14px; top:-14px;}
+}
+.large.wrapper{margin-bottom:0!important; width:100%!important;}
+.banner{
+  box-shadow:none; border-radius:0; margin-top:0;
+  .txt{font-size:18px;}
+}
+.btn.huge{font-size:22px; padding:15px;}
+.box-extra{
+  margin-bottom:0;
+  > .cols > div{margin:0; padding:0;}
+  > .cols > div:first-child{left:0;}
+  > .cols > div:last-child{right:0;}
+}
+.box-result{border-top:0;}
+
 /*.box-prize .box-vector{position:relative; height:auto; width:auto; overflow:visible;} /* Make vector back visible */
 .box-estimated{
   border-radius:0; padding:20px 0;
   .currency{font-size:$h2;}
   .value{font-size:$h1;}
 }
-.box-result .content{padding:20px 0 0;}
+.box-extra .content{padding:20px 0 0;}
 
 #content .wrapper{margin-bottom:2em;}
 #content .box-left, #content .box-right{margin:0; border-radius:0;}
@@ -268,19 +386,67 @@
 }
 .outbound:hover, .outbound:focus{top:0;}
 }
-@media only screen and (max-width: 530px){
-.box-prize .btn{max-width:100%;}
+
+@media only screen and (max-width:600px){
+.banner{
+  .mytxt{font-size:70px;}
+  .value{width:450px;}
+  .btn-box{top:0;}
+  .txt{font-size:16px; line-height:22px; width:85%; margin:auto; top:15px;}
+}
 }
 
+@media only screen and (min-width:531px){
+.banner .value{
+  .normal{display:block;}
+  .small{display:none;}
+}
+.partners li{margin:0 5px;}
+}
+
+@media only screen and (max-width:530px){
+.banner{
+  height:260px;
+  .value{
+    width:320px; height:65px;
+    .normal{display:none;}
+    .small{display:block;}
+  }
+  .info{font-size:24px;}
+  .mytxt, .mycur{font-size:46px;}
+  .mycur{margin-right:0;}
+  .btn-box{margin-top:10px;}
+  .txt{top:20px;}
+}
+.partners{display:none;}
+}
 
 /* Extra Small Devices, Phones */
-@media only screen and (max-width: 480px){
+@media only screen and (max-width:480px){
 .box-how li:after, br.mobile{display:none!important;}
 .outbound{width:290px; height:290px; border-width:5px;}
 .outbound:hover, .outbound:focus{border-width:5px;}
 .box-play .btn{font-size:$h4;}
 .box-prize .cols > div{width:100%; float:none; margin-bottom:0!important;}
 .phrase{font-size:$h3;}
+.box-extra .h2{font-size:$h3;}
+.box-extra .box-basic{min-height:auto;}
+.box-quick-play .content{padding:20px;}
+.banner{
+  background-position:0 -60px;
+  .info{font-size:20px;}
+  .txt{font-size:14px; line-height:20px;}
+  .for-only{font-size:14px;}
+}
+}
+
+
+@media only screen and (max-width:360px){
+.banner{
+  .value{width:280px;}
+  .mytxt, .mycur{font-size:38px;}
+  .txt{font-size:14px; text-shadow:0 0 2px rgba(255,255,255,.8);}
+}
 }
  
 /* Custom, iPhone Retina */
@@ -288,4 +454,5 @@
 .box-how li{width:100%; margin:0 0 10px; text-align:center;}
 .box-how .vector, .box-play, .box-how li:after{display:none;}
 .box-how li:first-child .vector{display:block!important;}
+.box-result .numbers{margin:0 auto 1em; width:80%;}
 }

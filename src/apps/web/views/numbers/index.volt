@@ -74,10 +74,10 @@ $(function(){
 					<div class="col4">
 						<div class="box-estimated">
 							<div class="laurel first">
-								<svg class="vector"><use xlink:href="/w/svg/number.svg#laurel"></use></svg>
+								<svg class="vector"><use xlink:href="/w/svg/icon.svg#laurel"></use></svg>
 							</div>
 							<div class="laurel last">
-								<svg class="vector"><use xlink:href="/w/svg/number.svg#laurel"></use></svg>
+								<svg class="vector"><use xlink:href="/w/svg/icon.svg#laurel"></use></svg>
 							</div>
 							<div class="bg">
 								<a href="/play" class="content">

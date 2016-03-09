@@ -6,6 +6,7 @@
 {% set activeNav='{"myClass": ""}'|json_decode %} {# It need to be empty #}
 {% include "_elements/header.volt" %}
 {% endblock %}
+{% block font %}<link href='https://fonts.googleapis.com/css?family=Signika:700' rel='stylesheet' type='text/css'>{% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}
 <script src="/w/js/mobileFix.min.js"></script>
@@ -38,12 +39,113 @@ $(function(){
 	var count  = count_down(element,html_formatted,html_formatted_offset,date,finish_text,null);
 });
 {% endblock %}
-
-
-
 {% block body %}
 <main id="content">
+	<div class="large wrapper">
+		<div class="banner">
+			<div class="box-jackpot">
+				<div class="info">{{ language.translate("Euromillion Jackpot") }}</div>
+				<div class="jackpot">
+					<svg class="value">
+					    <defs>
+							<linearGradient id="e" x1="0" y1="0" x2="0" y2="1">
+								<stop offset="30%"  stop-color="#fdf7e0"/>
+								<stop offset="70%" stop-color="#f1d973"/>
+							</linearGradient>
+							<filter id="shadow" height="130%">
+								<feOffset in="SourceAlpha" dx=".5" dy="1" result="myGauss"/>
+								<feGaussianBlur in="myGauss" stdDeviation="2" result="myBlur" />
+							    <feBlend in="SourceGraphic" in2="myBlur"/>
+							</filter>
+						</defs>
+						<g class="normal">
+							<g filter="url(#shadow)">
+								<text class="mycur" x="0" y="90">&euro;</text>
+							  	<text class="mytxt" x="45" y="90">125.000.000</text>
+							</g>
+							<g>
+								<text class="mycur" fill="url(#e)" x="0" y="90">&euro;</text>
+							  	<text class="mytxt" fill="url(#e)" x="45" y="90">125.000.000</text>
+							</g>
+						</g>
+						<g class="small">
+							<g filter="url(#shadow)">
+								<text class="mycur" x="10" y="50">&euro;</text>
+							  	<text class="mytxt" x="45" y="50">125.000.000</text>
+							</g>
+							<g>
+								<text class="mycur" fill="url(#e)" x="10" y="50">&euro;</text>
+							  	<text class="mytxt" fill="url(#e)" x="45" y="50">125.000.000</text>
+							</g>
+						</g>
+					</svg>
+				</div>
+			</div>
+			<div class="btn-box">
+				<a href="/play" class="btn red huge">{{ language.translate("Play Now") }}</a>
+				<div class="for-only">{{ language.translate("For only")}} &euro; 2.50</div>
+			</div>
+			<div class="txt">{{ language.translate("For a very small amount, you might change your life forever.") }}</div>
+			<div class="best-price">
+				<picture class="pic">
+					<img width="60" height="59" src="/w/img/home/best-price.png" srcset="/w/img/home/best-price@2x.png 1.5x" alt="{{ language.translate('Best Price Guarantee') }}">
+				</picture>
+			</div>
+		</div>
+	</div>
+
 	<div class="wrapper">
+		<div class="partners cl">
+			<div class="list">
+				<svg class="laurel first">
+					<filter id="mygray"><feColorMatrix values="0" type="saturate"/></filter><style>.greyed{@media all and (-ms-high-contrast:none), (-ms-high-contrast: active){filter:url(#mygray);}}{# ie10 require it #+ csshack 10+#}</style>
+					<use class="greyed" xlink:href="/w/svg/icon.svg#laurel"/>
+				</svg>
+				<ul class="no-li cl">
+					<li><svg class="v-visa vector"><use class="greyed" xlink:href="/w/svg/icon.svg#visa"/></svg></li>
+					<li><svg class="v-mastercard vector"><use class="greyed" xlink:href="/w/svg/icon.svg#mastercard"/></svg></li>
+					<li><svg class="v-gambleaware vector"><use class="greyed" xlink:href="/w/svg/icon.svg#gambleaware"/></svg></li>
+					<li><svg class="v-geotrust vector"><use class="greyed" xlink:href="/w/svg/icon.svg#geotrust"/></svg></li>
+					<li><svg class="v-shield vector"><use class="greyed" xlink:href="/w/svg/icon.svg#shield"/></svg> <span class="txt">{{ language.translate('Secure<br>Encryption')}}</span></li>
+				</ul>
+				<svg class="laurel last"><use class="greyed" xlink:href="/w/svg/icon.svg#laurel"/></svg>
+			</div>
+		</div>
+
+		<div class="box-extra">
+			<div class="cols">
+				<div class="col6">
+					<div class="box-basic box-quick-play ball">
+						<div class="content">
+							<h1 class="h2">{{ language.translate("Don't know what to play?") }}</h1>
+							<p>{{ language.translate("Use lucky generated numbers crafted just for you") }}</p>
+							<a href="/play?random" class="btn blue big wide">{{ language.translate("I feel lucky") }}</a>
+						</div>
+					</div>
+				</div>
+				<div class="col6">
+					<div class="box-basic box-result">
+						<div class="cols">
+							<div class="col8 content">
+								<h1 class="h2">{{ language.translate('Euromillions Results') }}</h1>
+								<p>{{ language.translate('Draw of') }} {{ last_draw_date }} </p>
+								<ul class="no-li inline numbers small">
+	                                {% for regular_number in euromillions_results["regular_numbers"] %}
+									    <li>{{ regular_number }}</li>
+	                                {% endfor %}
+	                                {% for lucky_number in euromillions_results["lucky_numbers"] %}
+									    <li class="star">{{ lucky_number }}</li>
+	                                {% endfor %}
+								</ul>
+								<a href="/numbers" class="lnk animate infi"><span class="txt">{{ language.translate('Results &amp; Prizes') }}</span> <svg class="ico v-arrow-right3"><use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use></svg></a>
+							</div>
+							<div class="col4 woman">&nbsp;</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+{#
 		<div class="cols">
 			<div class="col6 box-left">
 				<a href="/play" class="box-estimated no-lnk">
@@ -156,7 +258,7 @@ $(function(){
 												<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)" style="filter:url(#shadow)"></use>
 												<filter id="shadow" height="130%"><feGaussianBlur in="SourceAlpha" stdDeviation="1"/><feOffset dx=".5" dy="1" result="offsetblur"/><feComponentTransfer><feFuncA type="linear" slope=".5"/></feComponentTransfer></filter>
 												<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)"></use>
-												<linearGradient id="d" gradientUnits="userSpaceOnUse" x1="16.777" y1="-135.945" x2="16.777" y2="-161.627" gradientTransform="translate(21.248 882.618) scale(4.104)"><stop offset="0" stop-color="#FFD936"/><stop offset="1" stop-color="#FFF"/></linearGradient>{# Chrome need this; And it is referring shadow to another element in the page, I inserted here to avoid duplication and be Validator compliant #}
+												<linearGradient id="d" gradientUnits="userSpaceOnUse" x1="16.777" y1="-135.945" x2="16.777" y2="-161.627" gradientTransform="translate(21.248 882.618) scale(4.104)"><stop offset="0" stop-color="#FFD936"/><stop offset="1" stop-color="#FFF"/></linearGradient>
 											</svg>
 										</div>
 									</div>
@@ -180,7 +282,7 @@ $(function(){
 
 			</div>
 		</div>
-
+#}
 		<div class="informative">
 			<div class="who-we-are">
 				<div class="start-playing">
