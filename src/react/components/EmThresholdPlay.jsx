@@ -10,6 +10,12 @@ var PlayPage = React.createClass({
         });
     },
 
+    componentWillReceiveProps : function(nextProps) {
+      if(nextProps.active) {
+          this.setState( { thresholdActive : false } );
+      }
+    },
+
     handleCheck: function (event) {
         var active;
         active = event.target.checked;

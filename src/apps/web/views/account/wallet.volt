@@ -46,12 +46,10 @@ function show_fee_text(value){
 
 
 $('.btn.add-funds').on('click',function(){
-    $('.box.error').show();
-    $('.box.success').show();
+    $('.box.error,  .box.success').show();
 });
 $('.back').on('click',function(){
-    $('.box.error').hide();
-    $('.box.success').hide();
+    $('.box.error, .box.success').hide();
 });
 
 $('#funds-value').on('blur', function(e){
@@ -105,7 +103,7 @@ $(function(){
             </div>
             {% endif %}
             <div class="{%if show_box_basic == false %}hidden{% endif %} overview-wallet">
-                {#<div class="info box box-congrats">
+                 {#<div class="info box box-congrats">
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                     <span class="txt"><span class="congrats">{{ language.translate("Congratulations! You have won € 89.30") }}</span>
                         {{ language.translate("") }}
@@ -151,11 +149,10 @@ $(function(){
                     </div>
                 </div>
             </div>
-            <form class="{%if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency {#{% if which_form != 'edit' and which_form%}hidden{% endif %}#}" method="post" action="/account/addFunds{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
+            <form class="{%if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency" method="post" action="/account/addFunds">
                 {% set component='{"where": "account"}'|json_decode %}
                 {% include "account/_add-card.volt" %}
             </form>
-
             <div class="box-bank hidden">
                 *With data*
 
@@ -163,39 +160,39 @@ $(function(){
                 <div class="box-details {#{% if which_form == 'edit' %} hidden {% endif %}#}">
                     <table id="bank-list" class="table ui-responsive">
                         <thead>
-                            <tr>
-                                <th class="bank">{{ language.translate("Bank name") }}</th>
-                                <th class="id">{{ language.translate("Identification") }}</th>
-                                <th class="expire">{{ language.translate("Account Owner") }}</th>
-                                <th class="action">{{ language.translate("Action") }}</th>
-                            </tr>
+                        <tr>
+                            <th class="bank">{{ language.translate("Bank name") }}</th>
+                            <th class="id">{{ language.translate("Identification") }}</th>
+                            <th class="expire">{{ language.translate("Account Owner") }}</th>
+                            <th class="action">{{ language.translate("Action") }}</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr class="active">
-                                <td class="bank">
-                                    <input name="cardRadio" checked="checked" type="radio" class="radio" data-role="none">
-                                    Santander
-                                </td>
-                                <td class="id">GR 0110 1250 0000 0001 2300 695</td>
-                                <td class="expire">Mario Rossi</td>
-                                <td class="action">
-                                    <a href="javascript:void(0);">{{ language.translate("Edit") }}</a>
-                                </td>
-                                <td class="action">
-                                    <a href="javascript:void(0);">{{ language.translate("Delete") }}</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="bank">
-                                    <input name="cardRadio" type="radio" class="radio" data-role="none">
-                                    Santander
-                                </td>
-                                <td class="id">GR 0110 1250 0000 0001 2300 695</td>
-                                <td class="expire">Mario Rossi</td>
-                                <td class="action">
-                                    <a href="javascript:void(0);">{{ language.translate("Delete") }}</a>
-                                </td>
-                            </tr>
+                        <tr class="active">
+                            <td class="bank">
+                                <input name="cardRadio" checked="checked" type="radio" class="radio" data-role="none">
+                                Santander
+                            </td>
+                            <td class="id">GR 0110 1250 0000 0001 2300 695</td>
+                            <td class="expire">Mario Rossi</td>
+                            <td class="action">
+                                <a href="javascript:void(0);">{{ language.translate("Edit") }}</a>
+                            </td>
+                            <td class="action">
+                                <a href="javascript:void(0);">{{ language.translate("Delete") }}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bank">
+                                <input name="cardRadio" type="radio" class="radio" data-role="none">
+                                Santander
+                            </td>
+                            <td class="id">GR 0110 1250 0000 0001 2300 695</td>
+                            <td class="expire">Mario Rossi</td>
+                            <td class="action">
+                                <a href="javascript:void(0);">{{ language.translate("Delete") }}</a>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
 
@@ -203,17 +200,17 @@ $(function(){
                         <a href="javascript:void(0);" class="new-bank btn gwy">{{ language.translate("Add a new Bank account") }}</a>
                     </div>
 
-                *NO data*
+                    *NO data*
                     <div class="info box special">
                         <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                         <span class="txt">{{ language.translate("Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.") }}</span>
-                        <a href="javascript:void(0)" class="new-bank btn gwy">{{ language.translate("Add a new Bank Account") }}</a>                
+                        <a href="javascript:void(0)" class="new-bank btn gwy">{{ language.translate("Add a new Bank Account") }}</a>
                     </div>
 
-                *Show always with or without DATA*
+                    *Show always with or without DATA*
                     <div class="cl box-wallet">
                         <div class="value">
-                            <span class="purple">{{ language.translate("Wallet balance:") }}</span> &euro; 500.00 
+                            <span class="purple">{{ language.translate("Wallet balance:") }}</span> &euro; 500.00
                         </div>
 
                         <form class="right form-currency">
@@ -236,12 +233,12 @@ $(function(){
                                 <label class="label" for="add-bank-user">
                                     {{ language.translate("Name") }} <span class="asterisk">*</span> <span class="subtxt">({{ language.translate("bank account holder name") }}</span>
                                 </label>
-                                <input id="add-bank-user" class="input" type="text">
+                                <input id="add-bank-user" value="{{ user.name }}" class="input" type="text">
 
                                 <label class="label" for="add-bank-user-surname">
                                     {{ language.translate("Surname") }} <span class="asterisk">*</span> <span class="subtxt">({{ language.translate("bank account holder") }})</span>
                                 </label>
-                                <input id="add-bank-surname" class="input" type="text">
+                                <input id="add-bank-surname" value="{{ user.surname }}" class="input" type="text">
 
                                 <label class="label" for="add-bank-name">
                                     {{ language.translate("Bank Name") }} <span class="asterisk">*</span>
@@ -250,7 +247,7 @@ $(function(){
 
                                 <label class="label" for="add-bank-iban">
                                     {{ language.translate("IBAN or Bank account") }} <span class="asterisk">*</span>
-                               </label>
+                                </label>
                                 <input id="add-bank-iban" class="input" type="text">
 
                                 <label class="label" for="add-bank-bic">
@@ -259,8 +256,8 @@ $(function(){
                                 <input id="add-bank-bic" class="input" type="text" disabled>
                             </div>
                             <div class="col6">
-                               <label class="label" for="add-bank-country">
-                                    {{ language.translate("Country of residence") }} <span class="asterisk">*</span> 
+                                <label class="label" for="add-bank-country">
+                                    {{ language.translate("Country of residence") }} <span class="asterisk">*</span>
                                 </label>
                                 <select id="add-bank-country" class="select">
                                     <option>{{ language.translate("Select your country") }}</option>
@@ -272,22 +269,22 @@ $(function(){
                                 <label class="label" for="add-bank-address">
                                     {{ language.translate("Address") }} <span class="asterisk">*</span>
                                 </label>
-                                <input id="add-bank-address" class="input" type="text">
+                                <input id="add-bank-address" value="{{ user.street }}" class="input" type="text">
 
                                 <label class="label" for="add-bank-city">
                                     {{ language.translate("City") }} <span class="asterisk">*</span>
                                 </label>
-                                <input id="add-bank-city" class="input" type="text">
+                                <input id="add-bank-city" value="{{ user.city }}" class="input" type="text">
 
                                 <label class="label" for="add-bank-postal">
                                     {{ language.translate("Postal Code") }} <span class="asterisk">*</span>
                                 </label>
-                                <input id="add-bank-postal" class="input" type="text">
+                                <input id="add-bank-postal" value="{{ user.zip }}" class="input" type="text">
 
                                 <label class="label" for="add-bank-phone">
                                     {{ language.translate("Phone number") }} <span class="asterisk">*</span>
                                 </label>
-                                <input id="add-bank-phone" class="input" type="text">
+                                <input id="add-bank-phone" value="{{ user.phone_number }}" class="input" type="text">
                             </div>
                         </div>
                     </div>
@@ -313,7 +310,7 @@ $(function(){
                     </div>
 
                     <div class="value">
-                        <span class="purple">{{ language.translate("Winnings:") }}</span> &euro; 500.00 
+                        <span class="purple">{{ language.translate("Winnings:") }}</span> &euro; 500.00
                     </div>
 
                     <form class="right form-currency">
@@ -330,3 +327,4 @@ $(function(){
     </div>
 </main>
 {% endblock %}
+

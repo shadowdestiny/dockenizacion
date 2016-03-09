@@ -10,9 +10,6 @@
     - environment_variables
     - php_dependencies
     - cli_utils
-    - bootstrap_containers
-    - migrations
-    - crons
 #  tasks:
 #    - name: debug
 #      debug: msg="hola"
