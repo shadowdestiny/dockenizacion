@@ -41,7 +41,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     public function dependencyInjector()
     {
         $di = parent::dependencyInjector();
-//        $di->set('view', $this->configView(), true);
         $di->set('dispatcher', $this->configDispatcher(), true);
         $di->set('router', $this->configRouter(), true);
         $di->set('tag', $this->configTag(), true);
@@ -50,13 +49,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $di->set('request', $this->configRequest(), false);
         $di->set('cookies', $this->configCookies(), true);
         $di->set('session', $this->configSession(), true);
-        //$di->set('language', $this->configLanguage($di), true);
         $di->set('url', $this->configUrl(), true);
         $di->set('response', $this->configResponse(), true);
-
-        //$this->ownDependency($di);
-        //$di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
-
         return $di;
     }
 
@@ -103,6 +97,9 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 ));
                 $compiler = $volt->getCompiler();
                 $compiler->addFilter('number_format', 'number_format');
+                $compiler->addFunction('currency_css', function($currency) {
+                   return '\EuroMillions\web\components\ViewHelper::getBodyCssForCurrency('.$currency.');';
+                });
                 return $volt;
             }
         ));
