@@ -1,6 +1,6 @@
 {
   "require-dev": {
-    "phpunit/phpunit": "^5.1",
+    "phpunit/phpunit": "^4.8",
     "phpunit/dbunit": "^1.4",
     "phalcon/devtools": "dev-master",
     "antonienko/php-template-previewer": "0.2.*",
