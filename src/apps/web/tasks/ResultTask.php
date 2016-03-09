@@ -7,27 +7,22 @@ use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\services\CurrencyService;
-use EuroMillions\web\services\DomainServiceFactory;
-use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
+use EuroMillions\web\services\factories\DomainServiceFactory;
 
 use EuroMillions\web\services\email_templates_strategies\LatestResultsDataEmailTemplateStrategy;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\PlayService;
-use EuroMillions\web\services\ServiceFactory;
+use EuroMillions\web\services\factories\ServiceFactory;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\NotificationType;
-use Money\Currency;
-use Money\Money;
 use Phalcon\Di;
 use Phalcon\Logger;
 
 class ResultTask extends TaskBase
 {
-
-
     /** @var  LotteriesDataService */
     private $lotteriesDataService;
 
@@ -120,21 +115,4 @@ class ResultTask extends TaskBase
             }
         }
     }
-
-    //EMTD convert in service instead?
-    private function convertCurrency($break_downs, Currency $user_currency = null)
-    {
-
-        if(empty($user_currency)){
-            $user_currency = $this->userService->getCurrency();
-        }
-        $break_down_array = $break_downs->toArray();
-        foreach($break_down_array as $k => $name) {
-            $new_currency_prize = $this->currencyService->convert(new Money((int) $break_down_array[$k]['lottery_prize'], new Currency('EUR')), $user_currency);
-            $break_down_array[$k]['lottery_prize'] = $new_currency_prize->getAmount() / 10000;
-            $break_down_array[$k]['currency'] = $new_currency_prize->getCurrency();
-        }
-        return $break_downs;
-    }
-
 }

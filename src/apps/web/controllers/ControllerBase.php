@@ -7,7 +7,7 @@ use EuroMillions\shared\components\RestrictedAccess;
 use EuroMillions\shared\vo\HttpUser;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\AuthService;
-use EuroMillions\web\services\DomainServiceFactory;
+use EuroMillions\web\services\factories\DomainServiceFactory;
 use Phalcon\Http\Response\CookiesInterface;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\View;

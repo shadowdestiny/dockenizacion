@@ -5,7 +5,7 @@ namespace tests\base;
 
 
 use EuroMillions\admin\services\DomainAdminServiceFactory;
-use EuroMillions\web\services\DomainServiceFactory;
+use EuroMillions\web\services\factories\DomainServiceFactory;
 use Phalcon\Di;
 
 trait PhalconDiRelatedTest {

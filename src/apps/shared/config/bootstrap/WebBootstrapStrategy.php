@@ -8,8 +8,8 @@ use EuroMillions\shared\components\PhalconRequestWrapper;
 use EuroMillions\shared\components\PhalconSessionWrapper;
 use EuroMillions\shared\components\PhalconUrlWrapper;
 use EuroMillions\shared\config\interfaces\IBootstrapStrategy;
-use EuroMillions\web\services\DomainServiceFactory;
-use EuroMillions\web\services\ServiceFactory;
+use EuroMillions\web\services\factories\DomainServiceFactory;
+use EuroMillions\web\services\factories\ServiceFactory;
 use Phalcon;
 use Phalcon\Di;
 use Phalcon\Events\Event;
@@ -51,7 +51,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $di->set('cookies', $this->configCookies(), true);
         $di->set('session', $this->configSession(), true);
         //$di->set('language', $this->configLanguage($di), true);
-        $di->set('url', $this->configUrl($di), true);
+        $di->set('url', $this->configUrl(), true);
         $di->set('response', $this->configResponse(), true);
 
         //$this->ownDependency($di);
@@ -274,7 +274,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     }
 
 
-    protected function configUrl(Di $di)
+    protected function configUrl()
     {
         $url = new PhalconUrlWrapper();
         $url->setBaseUri('https://' . $_SERVER['HTTP_HOST']);

@@ -16,7 +16,7 @@ var EmSelect = React.createClass({
             classSelect: 'threshold mySelect',
             disabled: 'false',
             hidden: 'false',
-            useTextAsValue : 'false'
+            useTextAsValue : false
         };
     },
     getInitialState: function () {

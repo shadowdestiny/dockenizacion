@@ -22,7 +22,6 @@ var EmWallet = new React.createClass({
         var active = is_checked ? false : true;
         this.setState({ checked : active});
         this.props.checked_callback(active);
-
     },
 
     handleChange : function (event)
@@ -41,7 +40,6 @@ var EmWallet = new React.createClass({
         var disabled_value = (this.state.checked) ? 'summary val' : 'summary val disabled';
         var operand_value = (this.state.checked) ? ' - ' : ' ';
 
-        console.log(total_price);
         var value = accounting.formatMoney(wallet_value, this.props.currency_symbol, 2);
         var total_value = this.props.symbol_position ? operand_value + ' ' + value  :  operand_value + ' ' + value;
 

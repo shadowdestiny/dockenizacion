@@ -7,6 +7,7 @@ use EuroMillions\web\entities\Language;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\AuthService;
 use EuroMillions\web\services\CartService;
+use EuroMillions\web\services\CurrencyConversionService;
 use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\LanguageService;
 use Doctrine\ORM\EntityManager;
@@ -43,19 +44,22 @@ class PublicSiteControllerBase extends ControllerBase
 
     /** @var  CartService $cartService */
     protected $cartService;
+    /** @var  CurrencyConversionService */
+    protected $currencyConversionService;
 
 
-    public function initialize(LotteriesDataService $lotteriesDataService = null, LanguageService $languageService = null, CurrencyService $currencyService = null, UserService $userService = null, AuthService $authService= null, UserPreferencesService $userPreferencesService = null, SiteConfigService $siteConfigService = null, CartService $cartService = null )
+    public function initialize(LotteriesDataService $lotteriesDataService = null, LanguageService $languageService = null, CurrencyService $currencyService = null, UserService $userService = null, AuthService $authService= null, UserPreferencesService $userPreferencesService = null, SiteConfigService $siteConfigService = null, CartService $cartService = null, CurrencyConversionService $currencyConversionService = null )
     {
         parent::initialize();
-        $this->lotteriesDataService = $lotteriesDataService ? $lotteriesDataService : $this->domainServiceFactory->getLotteriesDataService();
-        $this->languageService = $languageService ? $languageService : $this->language; //from DI
-        $this->currencyService = $currencyService ? $currencyService : $this->domainServiceFactory->getCurrencyService();
-        $this->userService = $userService ? $userService : $this->domainServiceFactory->getUserService();
-        $this->authService = $authService ? $authService : $this->domainServiceFactory->getAuthService();
-        $this->userPreferencesService = $userPreferencesService ? $userPreferencesService : $this->domainServiceFactory->getUserPreferencesService();
-        $this->siteConfigService = $siteConfigService ? $siteConfigService : new SiteConfigService($this->di->get('entityManager'), $this->currencyService);
-        $this->cartService = $cartService ? $cartService : $this->domainServiceFactory->getCartService();
+        $this->lotteriesDataService = $lotteriesDataService ?: $this->domainServiceFactory->getLotteriesDataService();
+        $this->languageService = $languageService ?: $this->language; //from DI
+        $this->currencyService = $currencyService ?: $this->domainServiceFactory->getCurrencyService();
+        $this->userService = $userService ?: $this->domainServiceFactory->getUserService();
+        $this->authService = $authService ?: $this->domainServiceFactory->getAuthService();
+        $this->userPreferencesService = $userPreferencesService ?: $this->domainServiceFactory->getUserPreferencesService();
+        $this->cartService = $cartService ?: $this->domainServiceFactory->getCartService();
+        $this->currencyConversionService = $currencyConversionService ?: $this->domainServiceFactory->getCurrencyConversionService();
+        $this->siteConfigService = $siteConfigService ?: new SiteConfigService($this->di->get('entityManager'), $this->currencyConversionService);
     }
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
@@ -101,7 +105,7 @@ class PublicSiteControllerBase extends ControllerBase
                 $user_currency = $this->userPreferencesService->getMyCurrencyNameAndSymbol();
             }
             $user_balance = $this->userService->getBalanceWithUserCurrencyConvert($this->authService->getCurrentUser()->getId(), $this->userPreferencesService->getCurrency());
-            $user_balance_raw = $this->currencyService->convert($user->getBalance(),$this->userPreferencesService->getCurrency())->getAmount();
+            $user_balance_raw = $this->currencyConversionService->convert($user->getBalance(),$this->userPreferencesService->getCurrency())->getAmount();
         }else{
             $user_balance = '';
             $user_balance_raw = '';
@@ -119,10 +123,10 @@ class PublicSiteControllerBase extends ControllerBase
 
         //EMTD create a method helper to set this vars
         $single_bet_price = $this->lotteriesDataService->getSingleBetPriceByLottery('EuroMillions');
-        $single_bet_price_currency = $this->currencyService->convert($single_bet_price, $current_currency);
-        $bet_value = $this->currencyService->toString($single_bet_price_currency,$current_currency);
-        $single_bet_price_currency_gbp = $this->currencyService->convert($single_bet_price, new Currency('GBP'));
-        $bet_value_pound = $this->currencyService->toString($single_bet_price_currency_gbp, new Currency('GBP'));
+        $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $current_currency);
+        $bet_value = $this->currencyConversionService->toString($single_bet_price_currency,$current_currency);
+        $single_bet_price_currency_gbp = $this->currencyConversionService->convert($single_bet_price, new Currency('GBP'));
+        $bet_value_pound = $this->currencyConversionService->toString($single_bet_price_currency_gbp, new Currency('GBP'));
         $this->view->setVar('bet_price', $bet_value);
         $this->view->setVar('bet_price_pound', $bet_value_pound);
     }
@@ -182,7 +186,7 @@ class PublicSiteControllerBase extends ControllerBase
         //Vars draw closing modal
         $dateUtil = new DateTimeUtil();
         $lottery_date_time = $this->domainServiceFactory->getLotteriesDataService()->getNextDateDrawByLottery('EuroMillions');
-       // $lottery_date_time = new \DateTime('2016-03-02 12:45:00');
+        //$lottery_date_time = new \DateTime('2016-03-02 16:45:00');
         $time_to_remain = $dateUtil->getTimeRemainingToCloseDraw($lottery_date_time);
 
         if($time_to_remain) {

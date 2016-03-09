@@ -1,13 +1,13 @@
 <?php
 namespace tests\integration;
 
-use EuroMillions\web\services\DomainServiceFactory;
-use EuroMillions\web\services\ServiceFactory;
+use EuroMillions\web\services\factories\DomainServiceFactory;
+use EuroMillions\web\services\factories\ServiceFactory;
 use tests\base\DatabaseIntegrationTestBase;
 
 class DomainServiceFactoryIntegrationTest extends DatabaseIntegrationTestBase
 {
-    private $className = 'EuroMillions\web\services\DomainServiceFactory';
+    private $className = 'EuroMillions\web\services\factories\DomainServiceFactory';
     /** @var  DomainServiceFactory */
     private $sut;
 

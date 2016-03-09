@@ -1,33 +1,32 @@
 <?php
 namespace EuroMillions\web\interfaces;
 
-use Money\Currency;
-use Money\CurrencyPair;
-
 interface ICurrencyApiCacheStrategy
 {
     /**
-     * @param array $currencies
+     * @param string $from
+     * @param string $to
+     * @return float
      */
-    public function setConversionRatesToFetch(array $currencies);
+    public function getRate($from, $to);
+
+    /**
+     * @param string $base
+     * @param string $to
+     * @return void
+     */
+    public function setConversionFromBase($base, $to);
 
     /**
      * @return array
      */
-    public function getConversionRatesToFetch();
-
-    /**
-     * @param Currency $fromCurrency
-     * @param Currency $toCurrency
-     * @return CurrencyPair
-     */
-    public function getConversionRateFor(Currency $fromCurrency, Currency $toCurrency);
-
-    public function setConversionRate(CurrencyPair $currencyPair);
+    public function getConversionsToFetch();
 
     /**
      * @param string $from
      * @param string $to
+     * @param float $rate
+     * @return void
      */
-    public function addConversionRateToFetch($from, $to);
+    public function setRate($from, $to, $rate);
 }

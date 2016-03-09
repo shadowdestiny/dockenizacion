@@ -1,22 +1,38 @@
 <?php
-namespace EuroMillions\web\services;
+namespace EuroMillions\web\services\factories;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
-use EuroMillions\web\interfaces\ICurrencyApi;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\interfaces\IUsersPreferencesStorageStrategy;
 use EuroMillions\web\interfaces\ILanguageStrategy;
+use EuroMillions\web\interfaces\IXchangeGetter;
 use EuroMillions\web\repositories\LanguageRepository;
 use EuroMillions\web\repositories\TranslationDetailRepository;
+use EuroMillions\web\services\AuthService;
+use EuroMillions\web\services\BetService;
+use EuroMillions\web\services\CartService;
+use EuroMillions\web\services\CurrencyConversionService;
+use EuroMillions\web\services\CurrencyService;
+use EuroMillions\web\services\EmailService;
+use EuroMillions\web\services\external_apis\CurrencyConversion\CurrencyLayerApi;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
-use EuroMillions\web\services\external_apis\RedisCurrencyApiCache;
-use EuroMillions\web\services\external_apis\YahooCurrencyApi;
+use EuroMillions\web\services\external_apis\CurrencyConversion\RedisCurrencyApiCache;
+use EuroMillions\web\services\LanguageService;
+use EuroMillions\web\services\LogService;
+use EuroMillions\web\services\LotteriesDataService;
+use EuroMillions\web\services\PaymentProviderService;
 use EuroMillions\web\services\play_strategies\RedisOrderStorageStrategy;
 use EuroMillions\web\services\play_strategies\RedisPlayStorageStrategy;
+use EuroMillions\web\services\PlayService;
 use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\services\preferences_strategies\WebUserPreferencesStorageStrategy;
+use EuroMillions\web\services\PriceCheckoutService;
+use EuroMillions\web\services\UserPreferencesService;
+use EuroMillions\web\services\UserService;
+use EuroMillions\web\services\WalletService;
+use Phalcon\Cache\Backend\Redis;
 use Phalcon\Di;
 use Phalcon\DiInterface;
 use EuroMillions\web\services\auth_strategies\WebAuthStorageStrategy;
@@ -24,6 +40,7 @@ use EuroMillions\web\components\PhpassWrapper;
 use EuroMillions\web\interfaces\IAuthStorageStrategy;
 use EuroMillions\web\interfaces\IPasswordHasher;
 use EuroMillions\shared\config\interfaces\IUrlManager;
+use Phalcon\Http\Client\Provider\Curl;
 
 
 class DomainServiceFactory
@@ -64,28 +81,28 @@ class DomainServiceFactory
     }
 
     /**
-     * @param CurrencyService|null $currencyService
+     * @param CurrencyConversionService|null $currencyConversionService
      * @param EmailService|null $emailService
      * @param PaymentProviderService|null $paymentProviderService
      * @return UserService
      */
-    public function getUserService(CurrencyService $currencyService = null,
+    public function getUserService(CurrencyConversionService $currencyConversionService = null,
                                    EmailService $emailService = null,
                                    PaymentProviderService $paymentProviderService = null
     )
     {
-        $currencyService = $currencyService ?: $this->getCurrencyService();
+        $currencyConversionService = $currencyConversionService ?: $this->getCurrencyConversionService();
         $emailService = $emailService ?: $this->serviceFactory->getEmailService();
         $paymentProviderService = $paymentProviderService ?: new PaymentProviderService();
-        return new UserService($currencyService, $emailService, $paymentProviderService, $this->entityManager);
+        return new UserService($currencyConversionService, $emailService, $paymentProviderService, $this->entityManager);
     }
 
-    public function getUserPreferencesService(CurrencyService $currencyService = null,
+    public function getUserPreferencesService(CurrencyConversionService $currencyConversionService = null,
                                               IUsersPreferencesStorageStrategy $preferencesStrategy = null)
     {
-        $currencyService = $currencyService ?: $this->getCurrencyService();
+        $currencyConversionService = $currencyConversionService ?: $this->getCurrencyConversionService();
         $preferencesStrategy = $preferencesStrategy ?: new WebUserPreferencesStorageStrategy($this->serviceFactory->getDI()->get('session'), $this->serviceFactory->getDI()->get('cookies'));
-        return new UserPreferencesService($currencyService, $preferencesStrategy);
+        return new UserPreferencesService($currencyConversionService, $preferencesStrategy);
     }
 
     /**
@@ -140,21 +157,33 @@ class DomainServiceFactory
     }
 
     public function getPriceCheckoutService(LotteriesDataService $lotteriesDataService = null,
-                                            CurrencyService $currencyService = null,
+                                            CurrencyConversionService $currencyConversionService = null,
                                             UserService $userService = null,
                                             EmailService $emailService = null)
     {
         $lotteriesDataService = $lotteriesDataService ?: new LotteriesDataService($this->entityManager, new LotteryApisFactory());
-        $currencyService = $currencyService ?: $this->getCurrencyService();
+        $currencyConversionService = $currencyConversionService ?: $this->getCurrencyConversionService();
         $userService = $userService ?: $this->getUserService();
         $emailService = $emailService ?: $this->serviceFactory->getEmailService();
-        return new PriceCheckoutService($this->entityManager, $lotteriesDataService, $currencyService, $userService, $emailService);
+        return new PriceCheckoutService($this->entityManager, $lotteriesDataService, $currencyConversionService, $userService, $emailService);
     }
 
-    public function getCurrencyService(ICurrencyApi $currencyApi = null)
+    public function getCurrencyService()
     {
-        $currencyApi = $currencyApi ?: new YahooCurrencyApi(new RedisCurrencyApiCache($this->serviceFactory->getDI()->get('redisCache')));
-        return new CurrencyService($currencyApi, $this->entityManager);
+        return new CurrencyService($this->entityManager);
+    }
+
+    public function getCurrencyConversionService(IXchangeGetter $api = null)
+    {
+        /** @var Redis $redis_cache */
+        $redis_cache = $this->serviceFactory->getDI()->get('redisCache');
+        $api = $api ?:
+            new CurrencyLayerApi(
+                '802187a0471a2c43f41b1ff3f777d26c',
+                new Curl(),
+                new RedisCurrencyApiCache($redis_cache)
+        );
+        return new CurrencyConversionService($api);
     }
 
     private function getRepository($entity)

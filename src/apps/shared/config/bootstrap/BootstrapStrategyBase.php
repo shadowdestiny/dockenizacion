@@ -7,12 +7,11 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\Common\Cache\ApcCache;
 use EuroMillions\shared\components\PhalconRedisWrapper;
-use EuroMillions\shared\components\PhalconUrlWrapper;
 use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
-use EuroMillions\web\services\DomainServiceFactory;
-use EuroMillions\web\services\ServiceFactory;
+use EuroMillions\web\services\factories\DomainServiceFactory;
+use EuroMillions\web\services\factories\ServiceFactory;
 use Phalcon\Cache\Frontend\Data;
 use Phalcon\Config;
 use Phalcon\Config\Adapter\Ini;
@@ -125,9 +124,11 @@ abstract class BootstrapStrategyBase
     }
 
 
-    protected function siteConfig(EntityManager $entityManager, $di)
+    protected function siteConfig(EntityManager $entityManager,Di $di)
     {
-        return new SiteConfigService($entityManager);
+        //EMTD revisar esto, no me gusta
+        $domainServiceFactory = new DomainServiceFactory($di, new ServiceFactory($di));
+        return new SiteConfigService($entityManager,$domainServiceFactory->getCurrencyConversionService());
     }
 
     abstract protected function getConfigFileName(EnvironmentDetector $em);

@@ -5,7 +5,6 @@ use Doctrine\ORM\EntityManager;
 use EuroMillions\web\entities\Notification;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\UserNotifications;
-use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\repositories\NotificationRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserNotificationsRepository;
@@ -25,9 +24,9 @@ class UserService
      */
     private $userRepository;
     /**
-     * @var CurrencyService
+     * @var CurrencyConversionService
      */
-    private $currencyService;
+    private $currencyConversionService;
     /**
      * @var EmailService
      */
@@ -50,14 +49,14 @@ class UserService
     /** @var NotificationRepository */
     private $notificationRepository;
 
-    public function __construct(CurrencyService $currencyService,
+    public function __construct(CurrencyConversionService $currencyConversionService,
                                 EmailService $emailService,
                                 PaymentProviderService $paymentProviderService,
                                 EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
-        $this->currencyService = $currencyService;
+        $this->currencyConversionService = $currencyConversionService;
         $this->emailService = $emailService;
         $this->paymentProviderService = $paymentProviderService;
         $this->playRepository = $entityManager->getRepository('EuroMillions\web\entities\PlayConfig');
@@ -65,19 +64,12 @@ class UserService
         $this->notificationRepository = $entityManager->getRepository('EuroMillions\web\entities\Notification');
     }
 
-    public function getBalance(UserId $userId, $locale)
+    public function getBalanceWithUserCurrencyConvert(UserId $userId, Currency $userCurrency)
     {
         /** @var User $user */
         $user = $this->userRepository->find($userId->id());
-        return $this->currencyService->toString($user->getBalance(), $locale);
-    }
-
-    public function getBalanceWithUserCurrencyConvert(UserId $userId, $locale)
-    {
-        /** @var User $user */
-        $user = $this->userRepository->find($userId->id());
-        $money_convert = $this->currencyService->convert($user->getBalance(), $locale);
-        return $this->currencyService->toString($money_convert, $locale);
+        $money_convert = $this->currencyConversionService->convert($user->getBalance(), $userCurrency);
+        return $this->currencyConversionService->toString($money_convert, $user->getLocale());
     }
 
     /**

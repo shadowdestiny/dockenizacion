@@ -1,58 +1,19 @@
 <?php
 namespace EuroMillions\web\services;
 
-use antonienko\MoneyFormatter\MoneyFormatter;
 use Doctrine\ORM\EntityManager;
-use EuroMillions\web\interfaces\ICurrencyApi;
 use EuroMillions\web\repositories\CurrencyRepository;
 use EuroMillions\shared\vo\results\ActionResult;
 use Money\Currency;
-use Money\Money;
 
 class CurrencyService
 {
-
-    private $currencyApi;
-
     /** @var CurrencyRepository */
     private $currencyRepository;
 
-    public function __construct(ICurrencyApi $currencyApi, EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->currencyApi = $currencyApi;
         $this->currencyRepository = $entityManager->getRepository('EuroMillions\web\entities\Currency');
-    }
-
-    public function convert(Money $from,Currency $to)
-    {
-        if( $from->getCurrency()->equals($to) ) {
-            return $from;
-        }
-       
-        $currency_pair = $this->currencyApi->getRate($from->getCurrency(), $to);
-        return $currency_pair->convert($from);
-    }
-
-    public function toString(Money $money, $locale)
-    {
-        $money_formatter = new MoneyFormatter();
-        return $money_formatter->toStringByLocale($locale, $money);
-    }
-
-    public function getSymbol(Money $money, $locale)
-    {
-        $money_formatter = new MoneyFormatter();
-        return $money_formatter->getSymbol($locale, $money);
-    }
-
-    public function getSymbolPosition($locale, Currency $currency)
-    {
-        $money_formatter = new MoneyFormatter();
-        try {
-            return $money_formatter->getSymbolPosition($locale, $currency);
-        }catch(\Exception $e) {
-            return 1;
-        }
     }
 
     public function getActiveCurrenciesCodeAndNames()
@@ -90,7 +51,6 @@ class CurrencyService
 
     public function getCurrenciesMostImportant($limit = 6)
     {
-        /** @var Currency $collection */
         $collection = $this->currencyRepository->findBy([],['order' => 'ASC'],$limit);
         if(count($collection)) {
             return new ActionResult(true,$collection);

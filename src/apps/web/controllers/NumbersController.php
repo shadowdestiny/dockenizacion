@@ -43,7 +43,7 @@ class NumbersController extends PublicSiteControllerBase
         $user_currency = $this->userPreferencesService->getCurrency();
         if(!empty($break_downs)) {
             foreach($break_downs as &$breakDown) {
-                $breakDown['lottery_prize'] = $this->currencyService->convert(new Money((int) $breakDown['lottery_prize'], new Currency('EUR')), $user_currency)->getAmount() / 10000;
+                $breakDown['lottery_prize'] = $this->currencyConversionService->convert(new Money((int) $breakDown['lottery_prize'], new Currency('EUR')), $user_currency)->getAmount() / 10000;
             }
         }
         return $break_downs;

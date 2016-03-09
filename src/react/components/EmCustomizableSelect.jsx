@@ -30,11 +30,26 @@ var EmCustomizableSelect = React.createClass({
             }
         );
     },
+
+    handleClickLabel : function ()
+    {
+        this.props.label_callback();
+    },
+
+    handleKeyPress : function (event)
+    {
+        var pattern = /^[0-9\.]+$/;
+        var chr = String.fromCharCode(event.which);
+        if(!pattern.test(chr)){
+            event.preventDefault();
+        }
+    },
+
     render: function () {
         var disabled = !this.props.active;
         var input = this.state.hideSelect ?
             <span className="input-value">
-                <input type="text" value={this.state.inputValue} onChange={this.handleInputChange} placeholder="Insert numeric value"/>
+                <input type="text" onKeyPress={this.handleKeyPress} value={this.state.inputValue} onChange={this.handleInputChange} placeholder="Insert numeric value"/>
             </span>
             : null;
         var select = this.state.hideSelect ?
@@ -48,7 +63,7 @@ var EmCustomizableSelect = React.createClass({
 
         return (
             <div className="details">
-                <span className="txt">When Jackpot reach</span>
+                <label onClick={this.handleClickLabel} className="txt">When Jackpot reach</label>
                 {input}
                 {select}
             </div>

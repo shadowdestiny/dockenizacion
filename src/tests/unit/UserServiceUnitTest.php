@@ -1,7 +1,6 @@
 <?php
 namespace tests\unit;
 
-use antonienko\MoneyFormatter\MoneyFormatter;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shared\config\Namespaces;
@@ -10,16 +9,11 @@ use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\services\UserService;
-use EuroMillions\web\vo\CardHolderName;
-use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\ContactFormInfo;
-use EuroMillions\web\vo\CreditCard;
-use EuroMillions\web\vo\CVV;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
-use EuroMillions\web\vo\ExpiryDate;
 use EuroMillions\web\vo\NotificationType;
 use EuroMillions\web\vo\Password;
 use EuroMillions\shared\vo\results\ActionResult;
@@ -34,7 +28,7 @@ use tests\helpers\mothers\UserMother;
 class UserServiceUnitTest extends UnitTestBase
 {
     private $userRepository_double;
-    private $currencyService_double;
+    private $currencyConversionService_double;
     private $storageStrategy_double;
     private $emailService_double;
     private $paymentProviderService_double;
@@ -57,7 +51,7 @@ class UserServiceUnitTest extends UnitTestBase
     public function setUp()
     {
         $this->userRepository_double = $this->getRepositoryDouble('UserRepository');
-        $this->currencyService_double = $this->getServiceDouble('CurrencyService');
+        $this->currencyConversionService_double = $this->getServiceDouble('CurrencyConversionService');
         $this->storageStrategy_double = $this->getInterfaceWebDouble('IUsersPreferencesStorageStrategy');
         $this->emailService_double = $this->getServiceDouble('EmailService');
         $this->paymentProviderService_double = $this->getServiceDouble('PaymentProviderService');
@@ -88,20 +82,30 @@ class UserServiceUnitTest extends UnitTestBase
     }
 
     /**
-     * method getBalance
+     * method getBalanceWithUserCurrencyConvert
      * when called
-     * should returnBalanceByUser
+     * should returnProperBalanceWithCurrencyConverted
      */
-    public function test_getBalance_called_returnBalanceByUser()
+    public function test_getBalanceWithUserCurrencyConvert_called_returnProperBalanceWithCurrencyConverted()
     {
-        $user = $this->getUser();
-        $this->userRepository_double->find(Argument::any())->willReturn($user);
-        $this->currencyService_double->toString($user->getBalance(), 'es_ES')->willReturn(new MoneyFormatter());
-        $sut = $this->getSut();
-        $actual = $sut->getBalance($user->getId(), 'es_ES');
-        $this->assertInstanceOf('antonienko\MoneyFormatter\MoneyFormatter',$actual);
-    }
+        $user = UserMother::aUserWith50Eur()->build();
+        $user_currency = new Currency('USD');
+        $money_converted = new Money(4500, new Currency('USD'));
+        $expected = 'muchos miles de dólares';
 
+        $this->userRepository_double->find(Argument::any())->willReturn($user);
+
+        $this->currencyConversionService_double->convert(
+            new Money(5000, new Currency('EUR')),
+            $user_currency
+        )->willReturn($money_converted);
+
+        $this->currencyConversionService_double->toString($money_converted, $user->getLocale())->willReturn($expected);
+
+        $sut = $this->getSut();
+        $actual = $sut->getBalanceWithUserCurrencyConvert($user->getId(), $user_currency);
+        $this->assertEquals($expected, $actual);
+    }
 
     /**
      * method getMyPlays
@@ -484,7 +488,7 @@ class UserServiceUnitTest extends UnitTestBase
      */
     protected function getSut()
     {
-        $sut = $this->getDomainServiceFactory()->getUserService($this->currencyService_double->reveal(),
+        $sut = $this->getDomainServiceFactory()->getUserService($this->currencyConversionService_double->reveal(),
                                                                 $this->emailService_double->reveal(),
                                                                 $this->paymentProviderService_double->reveal());
         return $sut;

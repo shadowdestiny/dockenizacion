@@ -260,11 +260,11 @@ var PlayPage = React.createClass({
         //this.updatePrice();
     },
 
-    handleClickAdvancedPlay : function ()
+    handleClickAdvancedPlay : function (event)
     {
-        var show_block_config = (!this.state.show_block_config);
+        var click_show = this.state.show_block_config;
         this.setState( {
-            show_block_config : show_block_config
+            show_block_config : click_show ? false : true
         });
     },
 
