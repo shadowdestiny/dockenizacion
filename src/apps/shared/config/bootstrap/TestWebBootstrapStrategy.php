@@ -39,6 +39,10 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
         DI::setDefault($di);
     }
 
+    /**
+     * @param Ini $appConfig
+     * @return EntityManager
+     */
     protected function configDoctrine(Ini $appConfig)
     {
         if (!$this->isUnitTest) {
