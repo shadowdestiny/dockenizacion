@@ -65,13 +65,12 @@
             <div class="left cvv">
                 <label class="label" for="card-cvv">
                     {{ language.translate("CVV") }} <span class="asterisk">*</span>
-                    <span class="tooltip" data-message="{{ language.translate('The Card Code Verification is a 3 digit number (Mastercard and Visa) or 4 digit (American Express) that can be located on your card.') }}" data-class="v-question-mark ico" data-ico="v-question-mark"></span>
+                    <span class="tooltip" data-type="span" data-place="top" data-event="click" data-message="{{ language.translate('The Card Code Verification is a 3 digit number (Mastercard and Visa) or 4 digit (American Express) that can be located on your card.') }}" data-class="v-question-mark ico" data-ico="v-question-mark"></span>
                 </label>
                 {{ credit_card_form.render('card-cvv', {'class':'input'~form_errors['card-cvv'], "placeholder":"000"}) }}
             </div>
             {{ credit_card_form.render('csrf', ['value': security.getSessionToken()]) }}
         </div>
-                    #}
 
         {% if component.where == 'cart' %}
                     </div>

@@ -1,2 +1,2 @@
-30 * * * * php /var/www/apps/cli.php jackpot update
-35 * * * * php /var/www/apps/cli.php result update
+5 * * * * php /var/www/apps/cli.php jackpot update > /tmp/jackpot.txt
+10 * * * * php /var/www/apps/cli.php result update > /tmp/result.txt

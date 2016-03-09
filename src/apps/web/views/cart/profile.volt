@@ -54,6 +54,7 @@ $(function(){
 });
 
 {% endblock %}
+{% block template_scripts_after %}<script src="/w/js/react/tooltip.js"></script>{% endblock %}
 {% block bodyClass %}cart profile minimal sign-in{% endblock %}
 
 {% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
