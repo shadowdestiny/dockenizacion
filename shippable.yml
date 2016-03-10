@@ -19,7 +19,7 @@ install:
   - cd react
   - npm install
   - cd ../..
-  - mysql -e 'create database if not exists euromillions_test;'
+  - mysql -e 'drop database if exists euromillions_test;create database euromillions_test;'
 
 services:
   - redis
