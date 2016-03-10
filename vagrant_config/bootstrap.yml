@@ -6,6 +6,7 @@
   vars:
     - config_files_path: /vagrant/vagrant_config/
     - xdebug_config_file: 20-xdebug.ini
+    - webserver_container_name: develweb
   roles:
     - bootstrap_containers
     - migrations

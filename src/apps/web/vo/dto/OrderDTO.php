@@ -22,6 +22,7 @@ class OrderDTO extends DTOBase implements IDto
     public $startDrawDate;
     public $lastDrawDate;
     public $drawDays;
+    public $frequency;
 
     public function __construct(Order $order)
     {
@@ -45,6 +46,7 @@ class OrderDTO extends DTOBase implements IDto
         $this->startDrawDate = $this->order->getPlayConfig()[0]->getStartDrawDate();
         $this->lastDrawDate = $this->order->getPlayConfig()[0]->getLastDrawDate();
         $this->drawDays = $this->order->getPlayConfig()[0]->getDrawDays()->value();
+        $this->frequency = (int) $this->order->getPlayConfig()[0]->getFrequency();
     }
 
     /**

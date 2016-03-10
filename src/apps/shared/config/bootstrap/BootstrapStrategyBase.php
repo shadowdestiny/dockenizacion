@@ -49,7 +49,6 @@ abstract class BootstrapStrategyBase
         $di->set('redisCache', $this->configRedis($config), true);
         $di->set('siteConfig', $this->siteConfig( $this->configDoctrine($config), $di),true);
         $di->set('paymentProviderFactory', $this->configPaymentProvider($di), true);
-
         // $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
         return $di;
     }

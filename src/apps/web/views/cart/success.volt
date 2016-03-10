@@ -16,12 +16,12 @@
                     <h1 class="h1 title yellow">{{ language.translate("Thanks for your order") }}</h1>
                     <h2 class="h2 sub-title purple">{{ language.translate("You just completed your payment") }}</h2>
 
-
+                    {% if order.frequency > 1 %}
                     <p class="note">
                         <strong>{{ language.translate("NOTE") }}</strong><br>
                         {{ language.translate("For long durations plays of your numbers a portion of your payment we'll be added directly on your Wallet Balance to be used to pay the future Draws.") }}
                     </p>
-
+                    {% endif %}
                     <div class="countdown">
                         <span class="h4">{{ language.translate("Countdown to the next draw:") }}</span>
                         <span class="purple">{{ countdown_next_draw }}</span>
