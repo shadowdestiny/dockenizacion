@@ -29,7 +29,7 @@ class CurrencyDTO extends DTOBase implements IDto
     public function exChangeObject()
     {
         $this->symbol = $this->currency->getSymbol();
-        $this->code = $this->currency->getCode()->getName();
+        $this->code = $this->currency->getCode();
         $this->name = $this->currency->getName();
     }
 

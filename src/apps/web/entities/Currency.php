@@ -3,24 +3,21 @@
 
 namespace EuroMillions\web\entities;
 
+use antonienko\MoneyFormatter\MoneyFormatter;
 use EuroMillions\web\interfaces\IEntity;
+use Money\Currency as MoneyCurrency;
 
 class Currency extends EntityBase implements IEntity
 {
 
-    protected $id;
-
     protected $code;
-
-    protected $symbol;
-
     protected $name;
 
     protected $order;
 
     public function getId()
     {
-
+        return $this->getCode();
     }
 
     /**
@@ -44,15 +41,8 @@ class Currency extends EntityBase implements IEntity
      */
     public function getSymbol()
     {
-        return $this->symbol;
-    }
-
-    /**
-     * @param mixed $symbol
-     */
-    public function setSymbol($symbol)
-    {
-        $this->symbol = $symbol;
+        $mf = new MoneyFormatter();
+        return $mf->getSymbolFromCurrency('en_GB', new MoneyCurrency($this->getCode()));
     }
 
     /**

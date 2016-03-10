@@ -19,7 +19,7 @@ class CurrencyService
     public function getActiveCurrenciesCodeAndNames()
     {
         /** @var Currency $collection */
-        $collection = $this->currencyRepository->findBy([],[ 'code.name' => 'ASC']);
+        $collection = $this->currencyRepository->findBy([],[ 'code' => 'ASC']);
         if(null !==$collection) {
             return new ActionResult(true,$collection);
         } else {
