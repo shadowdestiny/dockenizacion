@@ -15,7 +15,7 @@ $(function(){swap(".log-in .box-extra a, .sign-up .box-extra a");});
 {% endif %}
 {% endblock %}
 {% block template_scripts_after %}<script src="/w/js/react/tooltip.js"></script>{% endblock %}
-{% block mobileNav %}{% endblock %} {# Remove mobile navigation #}
+
 {% block body %}
 {% set signIn='{"myClass": "sign-in"}'|json_decode %}
 
