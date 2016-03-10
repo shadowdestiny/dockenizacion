@@ -27,22 +27,22 @@ class InitialSchema extends AbstractMigration
      */
     public function change()
     {
-        $this->execute('CREATE TABLE IF NOT EXISTS euromillions.phinxlog (`version` bigint(20) NOT NULL,`migration_name` varchar(100) DEFAULT NULL,`start_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,`end_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,PRIMARY KEY (`version`)) ENGINE=InnoDB DEFAULT CHARSET=utf8');
-        $this->execute('DELETE FROM euromillions.phinxlog;');
-        $this->execute('DROP TABLE IF EXISTS euromillions.users_notifications;');
-        $this->execute('DROP TABLE IF EXISTS euromillions.translation_details;');
-        $this->execute('DROP TABLE IF EXISTS euromillions.bets;');
-        $this->execute('DROP TABLE IF EXISTS euromillions.play_configs;');
-        $this->execute('DROP TABLE IF EXISTS euromillions.euromillions_draws;');
-        $this->execute('DROP TABLE IF EXISTS euromillions.users;');
-        $this->execute('DROP TABLE IF EXISTS euromillions.translations;');
-        $this->execute('DROP TABLE IF EXISTS euromillions.notifications;');
-        $this->execute('DROP TABLE IF EXISTS euromillions.lotteries;');
-        $this->execute('DROP TABLE IF EXISTS euromillions.languages;');
-        $this->execute('DROP TABLE IF EXISTS euromillions.site_config;');
-        $this->execute('DROP TABLE IF EXISTS euromillions.log_validation_api;');
-        $this->execute('DROP TABLE IF EXISTS euromillions.guest_users;');
-        $this->execute('DROP TABLE IF EXISTS euromillions.currencies;');
+        $this->execute('CREATE TABLE IF NOT EXISTS phinxlog (`version` bigint(20) NOT NULL,`migration_name` varchar(100) DEFAULT NULL,`start_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,`end_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,PRIMARY KEY (`version`)) ENGINE=InnoDB DEFAULT CHARSET=utf8');
+        $this->execute('DELETE FROM phinxlog;');
+        $this->execute('DROP TABLE IF EXISTS users_notifications;');
+        $this->execute('DROP TABLE IF EXISTS translation_details;');
+        $this->execute('DROP TABLE IF EXISTS bets;');
+        $this->execute('DROP TABLE IF EXISTS play_configs;');
+        $this->execute('DROP TABLE IF EXISTS euromillions_draws;');
+        $this->execute('DROP TABLE IF EXISTS users;');
+        $this->execute('DROP TABLE IF EXISTS translations;');
+        $this->execute('DROP TABLE IF EXISTS notifications;');
+        $this->execute('DROP TABLE IF EXISTS lotteries;');
+        $this->execute('DROP TABLE IF EXISTS languages;');
+        $this->execute('DROP TABLE IF EXISTS site_config;');
+        $this->execute('DROP TABLE IF EXISTS log_validation_api;');
+        $this->execute('DROP TABLE IF EXISTS guest_users;');
+        $this->execute('DROP TABLE IF EXISTS currencies;');
 
         $this->execute('CREATE TABLE bets (id INT UNSIGNED AUTO_INCREMENT NOT NULL, euromillions_draw_id INT UNSIGNED DEFAULT NULL, play_config_id INT UNSIGNED DEFAULT NULL, castillo_bet_id INT DEFAULT NULL, INDEX IDX_7C28752BC9AECF8 (euromillions_draw_id), INDEX IDX_7C28752B13C82ADE (play_config_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;');
         $this->execute('CREATE TABLE currencies (code VARCHAR(3) NOT NULL, name VARCHAR(255) DEFAULT NULL, `order` INT DEFAULT NULL, PRIMARY KEY(code)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;');
