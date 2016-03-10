@@ -135,6 +135,7 @@ filter:
     - src/apps/web/controllers/TestController.php
     - src/apps/web/services/card_payment_providers/payxpert/GatewayClient.php
     - src/apps/web/services/factories/*
+    - src/apps/web/migrations*
 build:
   environment:
     variables:

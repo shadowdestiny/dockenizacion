@@ -37,7 +37,7 @@ class Currency extends EntityBase implements IEntity
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getSymbol()
     {
