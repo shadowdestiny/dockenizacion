@@ -35,7 +35,7 @@ var EmWallet = new React.createClass({
     {
         var wallet_balance = (this.state.checked) ? this.props.wallet_balance : 0;
         var total_price = this.props.total_price;
-        var wallet = (wallet_balance > total_price) ? total_price : wallet_balance;
+        var wallet = (accounting.unformat(wallet_balance) > accounting.unformat(total_price)) ? total_price : wallet_balance;
         var wallet_value = (this.state.checked) ? wallet : 0;
         var disabled_value = (this.state.checked) ? 'summary val' : 'summary val disabled';
         var operand_value = (this.state.checked) ? ' - ' : ' ';
