@@ -41,7 +41,5 @@ class RestrictionByHttpAuth implements IRestrictedAccessStrategy
     {
         $this->response->setRawHeader('WWW-Authenticate: Basic realm="euromillions.com"');
         $this->response->setRawHeader('HTTP/1.0 401 Unauthorized');
-//        header('WWW-Authenticate: Basic realm="euromillions.com"');
-//        header('HTTP/1.0 401 Unauthorized');
     }
 }
