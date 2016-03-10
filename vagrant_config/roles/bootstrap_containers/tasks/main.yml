@@ -37,11 +37,11 @@
   docker_image:
     name: develweb
     path: /vagrant/src/docker/devel-web
-    state: present
+    state: build
 
 - name: start web container
   docker:
-    name: develweb
+    name: "{{webserver_container_name}}"
     image: develweb
     state: reloaded
     ports:
