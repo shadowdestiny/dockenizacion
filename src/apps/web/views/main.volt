@@ -12,7 +12,7 @@
         {% block font %}{% endblock %}
     </head>
 
-	<body class="{% if user_currency['symbol']|length > 1 %}cur-txt {% endif %}{{ currency_css(user_currency_code) }}{% block bodyClass %}{% endblock %}">
+	<body class="{% if user_currency is defined %}{% if user_currency['symbol']|length > 1 %}cur-txt {% endif %}{{ currency_css(user_currency_code) }}{% endif %}{% block bodyClass %}{% endblock %}">
         {% block modal %}{% endblock %}
 
         <div data-role="page" id="main-page">
