@@ -27,6 +27,11 @@ class InitialSchema extends AbstractMigration
      */
     public function change()
     {
+        if ($this->adapter->getOption('name') === "euromillions") {
+            $this->execute('DROP DATABASE IF EXISTS euromillions');
+            $this->execute('CREATE DATABASE euromillions');
+            $this->execute('USE euromillions');
+        }
         $this->execute('CREATE TABLE IF NOT EXISTS phinxlog (`version` bigint(20) NOT NULL,`migration_name` varchar(100) DEFAULT NULL,`start_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,`end_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,PRIMARY KEY (`version`)) ENGINE=InnoDB DEFAULT CHARSET=utf8');
         $this->execute('DELETE FROM phinxlog;');
         $this->execute('DROP TABLE IF EXISTS users_notifications;');
