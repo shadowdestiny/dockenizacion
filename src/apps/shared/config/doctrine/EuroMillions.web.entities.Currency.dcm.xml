@@ -8,17 +8,8 @@
     <entity name="EuroMillions\web\entities\Currency" table="currencies"
             repository-class="EuroMillions\web\repositories\CurrencyRepository">
 
-        <id name="id" type="integer">
-            <generator strategy="IDENTITY"/>
-            <options>
-                <option name="unsigned">true</option>
-            </options>
-        </id>
-
-        <field name="symbol" type="string" nullable="true"/>
+        <id name="code" type="string" length="3"/>
         <field name="name" type="string" nullable="true"/>
         <field name="order" type="integer" nullable="true"/>
-        <embedded name="code" class="Money\Currency"/>
-
     </entity>
 </doctrine-mapping>

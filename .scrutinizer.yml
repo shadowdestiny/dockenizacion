@@ -1,12 +1,11 @@
 build_failure_conditions:
     - 'elements.rating(<= D).new.exists'
-    - 'elements.rating(<= F).exists'
 
     - 'issues.new.count > 5'
     - 'issues.severity(>= MAJOR).new.exists'
 
-    - 'project.metric("scrutinizer.quality", < 8.75)'
-    - 'project.metric("scrutinizer.test_coverage", < 0.46)' # Code Coverage drops below 45%
+    - 'project.metric("scrutinizer.quality", < 8.90)'
+    - 'project.metric("scrutinizer.test_coverage", < 0.47)' # Code Coverage drops below 45%
 
     # Code Coverage decreased from previous inspection by more than 0.5%
     - 'project.metric_change("scrutinizer.test_coverage", < -0.005)'
@@ -136,6 +135,7 @@ filter:
     - src/apps/web/controllers/TestController.php
     - src/apps/web/services/card_payment_providers/payxpert/GatewayClient.php
     - src/apps/web/services/factories/*
+    - src/apps/web/migrations*
 build:
   environment:
     variables:

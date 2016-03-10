@@ -27,6 +27,6 @@ class DolarAcronim extends AbstractMigration
      */
     public function change()
     {
-        $this->execute("UPDATE currencies SET name = 'US Dollar' WHERE code_name='USD'");
+        $this->execute("UPDATE currencies SET name = 'US Dollar' WHERE code='USD'");
     }
 }

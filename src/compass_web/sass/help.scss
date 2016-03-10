@@ -1,33 +1,55 @@
 @import "variable";
 .help{
-   .title{margin:0;}
-   .li-title{font-weight:700; margin-bottom:5px;} 
-   .ul-help{
-        margin-right:-15px;
-        li{margin-bottom:1em; float:left; width:50%; border-right:15px solid transparent; font-size:$basic-size;}
-        li:nth-child(odd){clear:both;}
-    }
-    .wrap{margin:15px 60px 0 20px;}
-    .img-help{
-        position:absolute; top:25px; left:-50px;  line-height:0; width:110%;
-        img{border:3px solid $purple; border-radius:50%;}
-    }
-    .bg{background:url(../img/help/bg-help.jpg) no-repeat; background-size:cover; width:100%; padding:15px 20px; height:100px; border-radius:5px 5px 0 0;}
+    .title{margin-bottom:.4em;}
     .box-basic{
-        padding:0;
-        .txt{font-size:$h3; line-height:1.3em;}
+        padding:0; margin-bottom:2em; overflow:hidden;
+        .pic{margin:20px 0;}
+        .cols{margin:0;}
     }
+    .li-title{font-weight:700; margin-bottom:5px;} 
+    .sub-txt{font-size:$h3; line-height:$h2;}
+    .pic .img{width:100%;}
+}
+.box-faq, .box-how-to{padding:15px 20px;}
+.box-faq .title{margin-top:50px;}
+.ul-help{
+    li{position:relative; margin-bottom:1.5em; line-height:$h2;}
+    .content{margin-left:100px; vertical-align:middle;  line-height:24px;}
+    div.ico{width:75%; height:75%; color:$purple; width:28px; height:100%; margin:auto;}
+    .btn{padding:2px 8px; font-size:12px; margin:-2px 3px; font-weight:normal;}
+    .box-ico{position:absolute; top:0; bottom:0; margin:auto; left:13px; height:30%; background:$grey-lighter2; width:60px; height:60px; border-radius:50%; text-align:center;}
+    .box-ico .ico{width:25px; height:100%; color:$purple;}
+    .content .ico{width:20px; font-size:14px;}
+    .purple, .gwp{font-weight:bold;}
+}
+.box-faq{background:$grey-lighter2;}
+.questions{
+    a{text-decoration:none; margin-bottom:3px; display:inline-block; font-size:$basic-size;}
+    a:hover, a:focus{text-decoration:underline;}
+    h3{margin:15px 0 5px;}
 }
 
-
 @media only screen and (max-width:992px){
-.help .ul-help li{float:none; width:100%;}
+.ul-help{
+    .box-ico{left:0;}
+    .content{margin-left:80px;}
+}
 }
 
 @media only screen and (max-width:768px){
 .help{
-    .img-help{top:0; margin:0; left:0; position:relative; margin:auto; width:80%;}
     .wrap{margin:15px 20px 0 20px;}
-    .box-basic{border-bottom:0; margin-bottom:0!important;}
+    .box-basic{
+        border:0; margin-bottom:0!important;
+        > .cols{padding:20px;}
+    }
 }
+.ul-help .content{text-align:left;}
+.box-how-to{padding:0; margin-bottom:0!important;}
+.box-faq{display:none!important;}
+}
+
+@media only screen and (max-width:480px){
+.box-ico{display:none;}
+.ul-help .content{margin:0;}
 }

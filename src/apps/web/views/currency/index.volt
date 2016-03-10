@@ -44,7 +44,7 @@
             <h1 class="h2">{{ language.translate("Choose your currency") }}</h1>
             <ul class="no-li list cl">
             {% for currency in currency_list %}
-                <li><a data-enhance=false href="/ajax/user-settings/setCurrencyReload/{{currency.code}}" class="{% if currency.code == current_currency %} active {% endif %}"><span class="curr">{{ currency.code }}</span> <span class="name">{{ currency.name }}</span></a></li>
+                <li><a data-enhance=false href="/ajax/user-settings/setCurrencyReload/{{currency.code}}" class="{% if currency.code == current_currency %} active {% endif %}"><span class="curr">{{ currency.code }} {% if currency.code != currency.symbol %}{{ currency.symbol }}{% endif %}</span> <span class="name">{{ currency.name }}</span></a></li>
             {% endfor %}
             </ul>
         </div>

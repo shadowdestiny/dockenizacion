@@ -27,6 +27,6 @@ class ChangeBlRuCurrencyAcronim extends AbstractMigration
      */
     public function change()
     {
-        $this->execute("UPDATE currencies SET code_name = 'BYR' WHERE code_name='BLR'");
+        $this->execute("UPDATE currencies SET code = 'BYR' WHERE code='BLR'");
     }
 }
