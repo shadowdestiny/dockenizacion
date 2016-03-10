@@ -5,9 +5,8 @@ build_failure_conditions:
     - 'issues.severity(>= MAJOR).new.exists'
 
     - 'project.metric("scrutinizer.quality", < 8.90)'
-    - 'project.metric("scrutinizer.test_coverage", < 0.47)' # Code Coverage drops below 45%
+    - 'project.metric("scrutinizer.test_coverage", < 0.47)'
 
-    # Code Coverage decreased from previous inspection by more than 0.5%
     - 'project.metric_change("scrutinizer.test_coverage", < -0.005)'
 checks:
   php:

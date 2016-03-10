@@ -18,7 +18,6 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         return [
             'users',
             'languages',
-            'payment_methods',
             'play_configs',
             'notifications',
             'users_notifications'
