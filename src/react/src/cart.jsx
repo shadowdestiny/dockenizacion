@@ -277,7 +277,8 @@ var LogicCart = {
         var totalWithWallet = Wallet.getTotalWhenPayed(LogicCart.total);
         if( accounting.unformat(LogicCart.fee_limit) > accounting.unformat(totalWithWallet) ) {
             LogicCart.total = Funds.getTotalWhenFundsAreInserted(totalWithWallet);
-            if( accounting.unformat(current_total) < accounting.unformat(LogicCart.fee_limit) ) {
+            if( accounting.unformat(current_total) < accounting.unformat(LogicCart.fee_limit) &&
+                accounting.unformat(totalWithWallet) > 0 ) {
                 LogicCart.total = Fee.checkFeeWithWallet(LogicCart.total);
                 if(Fee.applied) {
                     LogicCart.show_fee_text = true;
