@@ -27,16 +27,11 @@ var Tooltip = new React.createClass({
             )
         }
         if(this.props.type == 'input') {
-            //ETMD for the moment the style inline is hard coded. Next step pass style via props.
-            var spanStyle = {
-                float : 'left',
-                width : '48.5%'
-            };
             return (
-                    <span style={spanStyle}>
-                    <input data-for="tooltip" data-offset="{'top': 0, 'left': 0}" data-event={this.props.event} data-place={this.props.place} type="password" id="password" name="password" className={this.props.class} placeholder="Password" data-tip={this.props.message}/>
-                        {react_tooltip}
-                    </span>
+                <span className="spanTooltip">
+                    <input data-for="tooltip" data-event={this.props.event} data-place="top" type="password" id="password" name="password" className={this.props.class} placeholder="Password" data-tip={this.props.message}/>
+                    {react_tooltip}
+                </span>
             )
         }
     }

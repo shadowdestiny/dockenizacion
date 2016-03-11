@@ -21,7 +21,7 @@
             <div class="box-basic content">
                 <h1 class="h1 title">{{ language.translate("Games") }}</h1>
 
-                {% if my_games_actives is empty or my_games_inactives is empty %}
+                {% if my_games_actives is empty %}
                     <div class="box info">
                         <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                         <span class="txt">
@@ -60,9 +60,9 @@
                             <th class="numbers">
                                 {{ language.translate("Numbers <span class='desktop'>played</span>") }}
                             </th>
-                            <th class="action">
-                                {{ language.translate("Actions") }}
-                            </th>
+                            {#<th class="action">#}
+                                {#{{ language.translate("Actions") }}#}
+                            {#</th>#}
                         </thead>
                         <tbody>
                             {% for game in my_games_actives %}
@@ -96,10 +96,10 @@
                                             <span class="num star">11</span>
                                         </div>
                                     </td>
-                                    <td class="action">
+                                    {#<td class="action">
                                         <a href="javascript:void(0);" class="btn blue">Edit <svg class="ico v-pencil"><use xlink:href="/w/svg/icon.svg#v-pencil"></use></svg></a>
                                         <a href="javascript:void(0);" class="btn red">Delete <svg class="ico v-cross"><use xlink:href="/w/svg/icon.svg#v-cross"></use></svg></a>
-                                    </td>
+                                    </td>#}
                                 </tr>
                             {% endfor %}
                         </tbody>

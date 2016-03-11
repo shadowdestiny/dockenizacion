@@ -152,8 +152,8 @@ class PlayService
                             $this->entityManager->flush($play_config);
                         }
                     }
-
-                    if($order->isNextDraw($draw->getValues()->getDrawDate()) && $result_payment->success()){
+                    if($order->isNextDraw($draw->getValues()->getDrawDate()) &&
+                        $result_payment->success()){
                         foreach( $order->getPlayConfig() as $play_config ) {
                             $result_validation = $this->betService->validation($play_config, $draw->getValues());
                             if(!$result_validation->success()) {

@@ -37,7 +37,6 @@ class UserAccessController extends ControllerBase
 
         $url_redirect = $this->session->get('original_referer');
 
-
         if ($this->request->isPost()) {
             if ($sign_in_form->isValid($this->request->getPost()) === false) {
                 $messages = $sign_in_form->getMessages(true);
@@ -64,6 +63,7 @@ class UserAccessController extends ControllerBase
         }
 
         $this->view->pick('sign-in/index');
+
         return $this->view->setVars([
             'which_form'  => 'in',
             'signinform'  => $sign_in_form,

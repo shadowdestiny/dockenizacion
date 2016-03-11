@@ -125,7 +125,6 @@ class PlayConfigDTO extends DTOBase implements IDto
             default:
                 break;
         }
-
         return $duration;
     }
 
@@ -133,7 +132,7 @@ class PlayConfigDTO extends DTOBase implements IDto
     {
         $last = $this->playConfig[0]->getLastDrawDate();
         $start = $this->playConfig[0]->getStartDrawDate();
-        return $last->format("W") - $start->format("W");
+        return $last->format("W") - $start->format("W") == 0 ? 1 : $last->format("W") - $start->format("W");
     }
 
 }

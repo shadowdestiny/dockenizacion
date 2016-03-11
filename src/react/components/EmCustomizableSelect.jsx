@@ -5,7 +5,7 @@ var EmCustomizableSelect = React.createClass({
     getInitialState: function () {
         return {
             hideSelect: false,
-            inputValue: '85000000'
+            inputValue: '75000000'
         }
     },
     componentWillReceiveProps: function (nextProps) {

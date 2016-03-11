@@ -55,6 +55,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
      */
     public function test_getMyActivePlays_called_returnArrayWithPlayConfigs()
     {
+        //EMTD hacer este test primero para mañana 11/03/2016
         $this->markTestIncomplete('Redo the test: look at the next one as an example');
         $user = $this->getUser();
         $expected = 1;
