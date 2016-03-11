@@ -487,8 +487,7 @@ class AuthServiceUnitTest extends UnitTestBase
      */
     private function getSut()
     {
-        $dsf = $this->getDomainServiceFactory();
-        $sut = $dsf->getAuthService($this->hasher_double->reveal(), $this->storageStrategy_double->reveal(), $this->urlManager_double->reveal(), $this->logService_double->reveal(), $this->emailService_double->reveal(), $this->userService_double->reveal());
+        $sut = new AuthService($this->getEntityManagerRevealed(), $this->hasher_double->reveal(), $this->storageStrategy_double->reveal(), $this->urlManager_double->reveal(), $this->logService_double->reveal(), $this->emailService_double->reveal(), $this->userService_double->reveal());
         return $sut;
     }
 

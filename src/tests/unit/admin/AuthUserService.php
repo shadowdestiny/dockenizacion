@@ -3,12 +3,13 @@
 
 namespace EuroMillions\tests\unit\admin;
 
+use EuroMillions\admin\services\AuthUserService;
 use EuroMillions\shared\vo\results\ActionResult;
 use Prophecy\Argument;
 use EuroMillions\tests\base\PhalconDiRelatedTest;
 use EuroMillions\tests\base\UnitTestBase;
 
-class AuthUserService extends UnitTestBase
+class AuthUserServiceUnitTest extends UnitTestBase
 {
 
     use PhalconDiRelatedTest;
@@ -59,7 +60,7 @@ class AuthUserService extends UnitTestBase
 
     private function getSut()
     {
-        return $this->getDomainAdminServiceFactory()->getAuthUserService($this->storageStrategy_double->reveal());
+        return new AuthUserService($this->storageStrategy_double->reveal());
     }
 
     /**

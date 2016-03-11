@@ -10,6 +10,7 @@ use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\services\PriceCheckoutService;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\Password;
@@ -148,8 +149,13 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
 
 
     private function getSut(){
-        $sut = $this->getDomainServiceFactory()->getPriceCheckoutService($this->lotteryDataService_double->reveal(), $this->currencyConversionService_double->reveal(), $this->userService_double->reveal(), $this->emailService_double->reveal());
-        return $sut;
+        return new PriceCheckoutService(
+            $this->getEntityManagerRevealed(),
+            $this->lotteryDataService_double->reveal(),
+            $this->currencyConversionService_double->reveal(),
+            $this->userService_double->reveal(),
+            $this->emailService_double->reveal()
+        );
     }
 
     private function getPlayConfigsAwarded()

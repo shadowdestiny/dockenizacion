@@ -4,6 +4,7 @@ namespace EuroMillions\tests\integration;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\User;
 use EuroMillions\tests\base\DatabaseIntegrationTestBase;
+use EuroMillions\web\services\UserService;
 
 class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
 {
@@ -110,12 +111,12 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
      */
     protected function getSut()
     {
-        $sut = $this->getDomainServiceFactory()->getUserService(
+        return new UserService(
             $this->currencyConversionService_double->reveal(),
-            null,
-            $this->paymentProvider_double->reveal()
+            $this->getServiceDouble('EmailService')->reveal(),
+            $this->getServiceDouble('PaymentProviderService')->reveal(),
+            $this->entityManager
         );
-        return $sut;
     }
 
 

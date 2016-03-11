@@ -1,13 +1,10 @@
 <?php
-
-
 namespace EuroMillions\tests\unit;
 
-
+use EuroMillions\tests\base\UnitTestBase;
 use EuroMillions\web\vo\ExpiryDate;
-use Phalcon\Test\UnitTestCase;
 
-class ExpiryDateUnitTest extends UnitTestCase
+class ExpiryDateUnitTest extends UnitTestBase
 {
     /**
      * method __construct

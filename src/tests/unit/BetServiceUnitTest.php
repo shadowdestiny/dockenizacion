@@ -10,6 +10,7 @@ use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
+use EuroMillions\web\services\BetService;
 use EuroMillions\web\vo\EuroMillionsLine;
 use Money\Currency;
 use Money\Money;
@@ -212,8 +213,10 @@ class BetServiceUnitTest extends UnitTestBase
 
     private function getSut()
     {
-        $sut = $this->getDomainServiceFactory()->getBetService($this->lotteryDataService_double->reveal());
-        return $sut;
+        return new BetService(
+            $this->getEntityManagerRevealed(),
+            $this->lotteryDataService_double->reveal()
+        );
     }
 
     private function getPlayConfigAndEuroMillionsDraw()

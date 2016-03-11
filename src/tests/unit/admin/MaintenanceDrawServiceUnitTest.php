@@ -4,6 +4,7 @@
 namespace EuroMillions\tests\unit\admin;
 
 
+use EuroMillions\admin\services\MaintenanceDrawService;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\EuroMillionsDraw;
@@ -69,9 +70,11 @@ class MaintenanceDrawServiceUnitTest extends UnitTestBase
      * method updaLastResult
      * when called
      * should returnActionResultFalse
+     * @group active
      */
     public function test_updaLastResult_called_returnActionResultFalse()
     {
+        //$this->markTestSkipped();
         $regular_numbers = [1,2,3,4,5];
         $lucky_numbers = [1,2];
         $id_draw = 1;
@@ -124,6 +127,6 @@ class MaintenanceDrawServiceUnitTest extends UnitTestBase
 
     private function getSut()
     {
-        return $sut = $this->getDomainAdminServiceFactory()->getMaintenanceDrawService();
+        return new MaintenanceDrawService($this->getEntityManagerRevealed());
     }
 }

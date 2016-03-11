@@ -4,6 +4,7 @@
 namespace EuroMillions\tests\unit\admin;
 
 
+use EuroMillions\admin\services\MaintenanceUserService;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\NullPasswordHasher;
@@ -102,7 +103,7 @@ class MaintenanceUserServiceUnitTest extends UnitTestBase
 
     private function getSut()
     {
-        return $sut = $this->getDomainAdminServiceFactory()->getMaintenanceUserService();
+        return new MaintenanceUserService($this->getEntityManagerRevealed());
     }
 
     /**

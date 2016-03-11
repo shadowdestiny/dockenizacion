@@ -2,6 +2,7 @@
 namespace EuroMillions\tests\unit;
 
 use EuroMillions\shared\config\Namespaces;
+use EuroMillions\web\services\UserPreferencesService;
 use Money\Currency;
 use Prophecy\Argument;
 use EuroMillions\tests\base\UnitTestBase;
@@ -20,9 +21,9 @@ class UserPreferencesServiceUnitTest extends UnitTestBase
     protected function getEntityManagerStubExtraMappings()
     {
         return [
-            Namespaces::ENTITIES_NS . 'User' => $this->userRepository_double,
+            Namespaces::ENTITIES_NS . 'User'          => $this->userRepository_double,
             Namespaces::ENTITIES_NS . 'PaymentMethod' => $this->paymentMethodRepository_double,
-            Namespaces::ENTITIES_NS . 'PlayConfig' => $this->playRepository_double,
+            Namespaces::ENTITIES_NS . 'PlayConfig'    => $this->playRepository_double,
 
         ];
     }
@@ -91,14 +92,14 @@ class UserPreferencesServiceUnitTest extends UnitTestBase
     }
 
 
-
     /**
      * @return \EuroMillions\web\services\UserService
      */
     protected function getSut()
     {
-        $sut = $this->getDomainServiceFactory()->getUserPreferencesService($this->currencyConversionService_double->reveal(),
-                                                                $this->storageStrategy_double->reveal());
-        return $sut;
+        return new UserPreferencesService(
+            $this->currencyConversionService_double->reveal(),
+            $this->storageStrategy_double->reveal()
+        );
     }
 }

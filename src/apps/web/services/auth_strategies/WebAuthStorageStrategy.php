@@ -3,8 +3,8 @@ namespace EuroMillions\web\services\auth_strategies;
 
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IAuthStorageStrategy;
-use EuroMillions\shared\config\interfaces\ICookieManager;
-use EuroMillions\shared\config\interfaces\ISession;
+use EuroMillions\shared\interfaces\ICookieManager;
+use EuroMillions\shared\interfaces\ISession;
 use EuroMillions\web\vo\UserId;
 use Phalcon\Http\Cookie;
 

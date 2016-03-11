@@ -6,7 +6,7 @@
  * Time: 12:56
  */
 
-namespace EuroMillions\shared\config\interfaces;
+namespace EuroMillions\shared\interfaces;
 
 use Phalcon\Di;
 

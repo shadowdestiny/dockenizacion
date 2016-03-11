@@ -4,11 +4,11 @@
 namespace EuroMillions\tests\unit;
 
 
+use EuroMillions\tests\base\UnitTestBase;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\web\components\RandomPasswordGenerator;
-use Phalcon\Test\UnitTestCase;
 
-class RandomPasswordGeneratorUnitTest extends UnitTestCase
+class RandomPasswordGeneratorUnitTest extends UnitTestBase
 {
 
     /**

@@ -97,6 +97,11 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
         return [];
     }
 
+    protected function getEntityManagerRevealed()
+    {
+        return $this->getDi()->get('entityManager');
+    }
+
     protected function getEntityManagerDouble()
     {
         return $this->getDi()->get('entityManager')->getProphecy();

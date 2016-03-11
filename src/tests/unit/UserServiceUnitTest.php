@@ -40,11 +40,11 @@ class UserServiceUnitTest extends UnitTestBase
     protected function getEntityManagerStubExtraMappings()
     {
         return [
-            Namespaces::ENTITIES_NS . 'User' => $this->userRepository_double,
-            Namespaces::ENTITIES_NS . 'PaymentMethod' => $this->paymentMethodRepository_double,
-            Namespaces::ENTITIES_NS . 'PlayConfig' => $this->playRepository_double,
+            Namespaces::ENTITIES_NS . 'User'              => $this->userRepository_double,
+            Namespaces::ENTITIES_NS . 'PaymentMethod'     => $this->paymentMethodRepository_double,
+            Namespaces::ENTITIES_NS . 'PlayConfig'        => $this->playRepository_double,
             Namespaces::ENTITIES_NS . 'UserNotifications' => $this->userNotificationsRepository_double,
-            Namespaces::ENTITIES_NS . 'Notification' => $this->notificationsRepository_double,
+            Namespaces::ENTITIES_NS . 'Notification'      => $this->notificationsRepository_double,
         ];
     }
 
@@ -72,9 +72,9 @@ class UserServiceUnitTest extends UnitTestBase
         $sut = $this->getSut();
         $actual = $sut->contactRequest(
             new ContactFormInfo(new Email('raul.mesa@panamedia.net'),
-            'Raul Mesa Ros',
-            'I have a problem',
-            'Playing the game'
+                'Raul Mesa Ros',
+                'I have a problem',
+                'Playing the game'
             )
         );
         $this->assertInstanceOf($this->getResultObject('ActionResult'), $actual);
@@ -115,12 +115,12 @@ class UserServiceUnitTest extends UnitTestBase
     public function test_getMyPlays_called_returnServiceActionResultTrueWithProperData()
     {
         $playConfig = $this->getPlayConfig();
-        $expected = new ActionResult(true,$playConfig);
+        $expected = new ActionResult(true, $playConfig);
         $sut = $this->getSut();
         $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
         $this->playRepository_double->getActivePlayConfigsByUser($userId)->willReturn($playConfig);
         $actual = $sut->getMyActivePlays($userId);
-        $this->assertEquals($expected,$actual);
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -130,12 +130,12 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_getMyPlays_calledWithUserIDValid_returnServiceActionResultFalseWithEmtpyValue()
     {
-        $expected = new ActionResult(false,'You don\'t have games');
+        $expected = new ActionResult(false, 'You don\'t have games');
         $sut = $this->getSut();
         $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
         $this->playRepository_double->getActivePlayConfigsByUser($userId)->willReturn(null);
         $actual = $sut->getMyActivePlays($userId);
-        $this->assertEquals($expected,$actual);
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -145,7 +145,7 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_updateUserData_called_returnServiceActionResultTrue()
     {
-        $expected = new ActionResult(true,'Your data was update');
+        $expected = new ActionResult(true, 'Your data was update');
         $credentials = [
             'name'             => 'Raul',
             'surname'          => 'Mesa',
@@ -166,7 +166,7 @@ class UserServiceUnitTest extends UnitTestBase
         $entityManager_stub->flush(Argument::any())->shouldBeCalled();
         $sut = $this->getSut();
         $actual = $sut->updateUserData($credentials);
-        $this->assertEquals($expected,$actual);
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -176,7 +176,7 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_updateUserDate_called_throrExceptionAndReturnServiceActionResultFalse()
     {
-        $expected = new ActionResult(false,'Sorry, try it later');
+        $expected = new ActionResult(false, 'Sorry, try it later');
         $credentials = [
             'name'             => 'Raul',
             'surname'          => 'Mesa',
@@ -197,7 +197,7 @@ class UserServiceUnitTest extends UnitTestBase
         $entityManager_stub->flush(Argument::any())->willThrow('Exception');
         $sut = $this->getSut();
         $actual = $sut->updateUserData($credentials);
-        $this->assertEquals($expected,$actual);
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -208,11 +208,11 @@ class UserServiceUnitTest extends UnitTestBase
     public function test_getAllUsersWithJackpotReminder_called_returnServiceActionResultTrueWithProperData()
     {
         $user = [$this->getUser()];
-        $expected = new ActionResult(true,$user);
+        $expected = new ActionResult(true, $user);
         $this->userRepository_double->getUsersWithJackpotReminder()->willReturn($user);
         $sut = $this->getSut();
         $actual = $sut->getAllUsersWithJackpotReminder();
-        $this->assertEquals($expected,$actual);
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -226,7 +226,7 @@ class UserServiceUnitTest extends UnitTestBase
         $this->userRepository_double->getUsersWithJackpotReminder()->willReturn(null);
         $sut = $this->getSut();
         $actual = $sut->getAllUsersWithJackpotReminder();
-        $this->assertEquals($expected,$actual);
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -238,7 +238,7 @@ class UserServiceUnitTest extends UnitTestBase
     {
         $expected = true;
         $actual = $this->exerciseGetNotifications($expected);
-        $this->assertEquals($expected,$actual->success());
+        $this->assertEquals($expected, $actual->success());
     }
 
     /**
@@ -250,7 +250,7 @@ class UserServiceUnitTest extends UnitTestBase
     {
         $expected = false;
         $actual = $this->exerciseGetNotifications($expected);
-        $this->assertEquals($expected,$actual->success());
+        $this->assertEquals($expected, $actual->success());
     }
 
     /**
@@ -262,7 +262,7 @@ class UserServiceUnitTest extends UnitTestBase
     {
         $expected = true;
         $user = $this->getUser();
-        $notificationType = new NotificationType(4,true);
+        $notificationType = new NotificationType(4, true);
         $notification = $this->getNotifications()[0];
         $active = true;
         $user_notification = $this->getUserNoticiation();
@@ -272,8 +272,8 @@ class UserServiceUnitTest extends UnitTestBase
         $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush($user_notification)->shouldBeCalled();
         $sut = $this->getSut();
-        $actual = $sut->updateEmailNotification($notificationType,$user,$active);
-        $this->assertEquals($expected,$actual->success());
+        $actual = $sut->updateEmailNotification($notificationType, $user, $active);
+        $this->assertEquals($expected, $actual->success());
     }
 
 
@@ -307,7 +307,7 @@ class UserServiceUnitTest extends UnitTestBase
         $entityManager_stub->flush(Argument::type('EuroMillions\web\entities\UserNotifications'))->shouldBeCalled();
         $sut = $this->getSut();
         $actual = $sut->initUserNotifications($userId);
-        $this->assertEquals($expected,$actual);
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -322,7 +322,7 @@ class UserServiceUnitTest extends UnitTestBase
         $entityManager_stub->flush(Argument::type('EuroMillions\web\entities\UserNotifications'))->willThrow('Exception');
         $sut = $this->getSut();
         $actual = $sut->initUserNotifications($userId);
-        $this->assertEquals($expected,$actual);
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -332,9 +332,9 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_getActiveNotificationsByType_called_returnActionResultTrueWithCollection()
     {
-        $expected = new ActionResult(true,$this->getNotifications());
+        $expected = new ActionResult(true, $this->getNotifications());
         $actual = $this->exerciseNotifications($this->getNotifications());
-        $this->assertEquals($expected,$actual);
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -346,7 +346,7 @@ class UserServiceUnitTest extends UnitTestBase
     {
         $expected = new ActionResult(false);
         $actual = $this->exerciseNotifications(false);
-        $this->assertEquals($expected,$actual);
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -364,7 +364,7 @@ class UserServiceUnitTest extends UnitTestBase
         $entityManager_stub->flush(Argument::type('EuroMillions\web\entities\User'))->shouldBeCalled();
         $sut = $this->getSut();
         $actual = $sut->updateCurrency($user, $currency);
-        $this->assertEquals($expected,$actual);
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -377,9 +377,9 @@ class UserServiceUnitTest extends UnitTestBase
         $fee = new Money(35, new Currency('EUR'));
         $fee_limit = new Money(12000, new Currency('EUR'));
         $amount = new Money(1000, new Currency('EUR'));
-        $expected = new ActionResult(true,$amount->add($fee));
+        $expected = new ActionResult(true, $amount->add($fee));
         $sut = $this->getSut();
-        $actual = $sut->chargeFeeFromWallet($amount, $fee_limit, $fee );
+        $actual = $sut->chargeFeeFromWallet($amount, $fee_limit, $fee);
         $this->assertEquals($expected, $actual);
     }
 
@@ -397,7 +397,7 @@ class UserServiceUnitTest extends UnitTestBase
         $entityManager_stub->flush(Argument::type('EuroMillions\web\entities\User'))->shouldBeCalled();
         $sut = $this->getSut();
         $actual = $sut->userWonAbove($user, $money);
-        $this->assertEquals($money,$actual->getValues());
+        $this->assertEquals($money, $actual->getValues());
     }
 
     /**
@@ -408,11 +408,11 @@ class UserServiceUnitTest extends UnitTestBase
     public function test_userWonAbove_calledWithAmountLessLimit_returnActionResultFalseWith0Money()
     {
         $user = UserMother::aUserWith50Eur()->build();
-        $expected = new ActionResult(false, new Money(0,$user->getUserCurrency()));
+        $expected = new ActionResult(false, new Money(0, $user->getUserCurrency()));
         $money = new Money(100000, new Currency('EUR'));
         $sut = $this->getSut();
         $actual = $sut->userWonAbove($user, $money);
-        $this->assertEquals($expected,$actual);
+        $this->assertEquals($expected, $actual);
     }
 
 
@@ -420,7 +420,7 @@ class UserServiceUnitTest extends UnitTestBase
     {
         $notification = new Notification();
         $notification->initialize([
-            'id' => 1,
+            'id'          => 1,
             'description' => 'Test description'
         ]);
 
@@ -453,13 +453,13 @@ class UserServiceUnitTest extends UnitTestBase
         $user = new User();
         $user->initialize(
             [
-                'id' => new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'),
-                'name'     => 'test',
-                'surname'  => 'test01',
-                'email'    => new Email('raul.mesa@panamedia.net'),
-                'password' => new Password('passworD01', new NullPasswordHasher()),
-                'validated' => false,
-                'wallet' => new Wallet(new Money(5000,new Currency($currency))),
+                'id'               => new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'),
+                'name'             => 'test',
+                'surname'          => 'test01',
+                'email'            => new Email('raul.mesa@panamedia.net'),
+                'password'         => new Password('passworD01', new NullPasswordHasher()),
+                'validated'        => false,
+                'wallet'           => new Wallet(new Money(5000, new Currency($currency))),
                 'validation_token' => '33e4e6a08f82abb38566fc3bb8e8ef0d'
             ]
         );
@@ -470,12 +470,12 @@ class UserServiceUnitTest extends UnitTestBase
     {
 
         $user_notification = new UserNotifications();
-        $notificationType = new NotificationType(4,true);
+        $notificationType = new NotificationType(4, true);
         $user_notification->initialize(
             [
-                'id' => 4,
-                'user'     => '03bef482-89eb-11e5-ad54-0242ac110002',
-                'active'  => 1,
+                'id'           => 4,
+                'user'         => '03bef482-89eb-11e5-ad54-0242ac110002',
+                'active'       => 1,
                 'notification' => $notificationType
             ]
         );
@@ -488,10 +488,12 @@ class UserServiceUnitTest extends UnitTestBase
      */
     protected function getSut()
     {
-        $sut = $this->getDomainServiceFactory()->getUserService($this->currencyConversionService_double->reveal(),
-                                                                $this->emailService_double->reveal(),
-                                                                $this->paymentProviderService_double->reveal());
-        return $sut;
+        return new UserService(
+            $this->currencyConversionService_double->reveal(),
+            $this->emailService_double->reveal(),
+            $this->paymentProviderService_double->reveal(),
+            $this->getEntityManagerRevealed()
+        );
     }
 
     /**
@@ -516,14 +518,14 @@ class UserServiceUnitTest extends UnitTestBase
      * @param array $return
      * @return ActionResult
      */
-    protected function exerciseGetPaymentMethod($expected,$return = [], $userId = '9098299B-14AC-4124-8DB0-19571EDABE55')
+    protected function exerciseGetPaymentMethod($expected, $return = [], $userId = '9098299B-14AC-4124-8DB0-19571EDABE55')
     {
         $userId = new UserId($userId);
         $user = $this->getUser();
         $this->userRepository_double->find($userId)->willReturn($user);
         $this->paymentMethodRepository_double->getPaymentMethodsByUser($user)->willReturn($return);
         $actual = $this->getSut()->getPaymentMethods($userId);
-        $this->assertEquals($expected,$actual);
+        $this->assertEquals($expected, $actual);
     }
 
     protected function getRegularNumbers(array $numbers)
@@ -534,6 +536,7 @@ class UserServiceUnitTest extends UnitTestBase
         }
         return $result;
     }
+
     protected function getLuckyNumbers(array $numbers)
     {
         $result = [];

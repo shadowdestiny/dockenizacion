@@ -3,7 +3,7 @@ namespace EuroMillions\tests\integration;
 
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\LoggerFactory;
-use EuroMillions\web\services\factories\ServiceFactory;
+use EuroMillions\web\services\LogService;
 use EuroMillions\web\vo\UserId;
 use EuroMillions\tests\base\FileIntegrationTestBase;
 
@@ -37,8 +37,7 @@ class LogServiceIntegrationTest extends FileIntegrationTestBase
 
     private function exercise($method, $params)
     {
-        $sf = new ServiceFactory($this->getDi());
-        $sut = $sf->getLogService(new LoggerFactory($this->sandboxPath));
+        $sut = new LogService(new LoggerFactory($this->sandboxPath));
         $sut->$method(...$params);
     }
 
