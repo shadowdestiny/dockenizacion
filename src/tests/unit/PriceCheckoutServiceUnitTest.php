@@ -10,6 +10,7 @@ use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\services\PriceCheckoutService;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\Password;
@@ -118,10 +119,8 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
         $amount_awarded = new Money(5000, new Currency('EUR'));
         $user = $this->getUser();
         $this->userRepository_double->add($user);
-        $entityManager_stub = $this->getEntityManagerDouble();
-        $entityManager_stub->flush($user)->shouldNotBeCalled();
         $this->emailService_double->sendTransactionalEmail(Argument::type('EuroMillions\web\entities\User'), Argument::type('EuroMillions\web\emailTemplates\IEmailTemplate'))->shouldBeCalled();
-        $this->stubEntityManager($entityManager_stub);
+        $this->iDontCareAboutFlush();
         $sut = $this->getSut();
         $actual = $sut->reChargeAmountAwardedToUser($user,$amount_awarded);
         $this->assertEquals($expected,$actual);
@@ -148,8 +147,13 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
 
 
     private function getSut(){
-        $sut = $this->getDomainServiceFactory()->getPriceCheckoutService($this->lotteryDataService_double->reveal(), $this->currencyConversionService_double->reveal(), $this->userService_double->reveal(), $this->emailService_double->reveal());
-        return $sut;
+        return new PriceCheckoutService(
+            $this->getEntityManagerRevealed(),
+            $this->lotteryDataService_double->reveal(),
+            $this->currencyConversionService_double->reveal(),
+            $this->userService_double->reveal(),
+            $this->emailService_double->reveal()
+        );
     }
 
     private function getPlayConfigsAwarded()

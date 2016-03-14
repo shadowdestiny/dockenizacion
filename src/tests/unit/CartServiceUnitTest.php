@@ -9,6 +9,7 @@ use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\tests\base\UnitTestBase;
 use EuroMillions\tests\helpers\mothers\OrderMother;
 use EuroMillions\tests\helpers\mothers\UserMother;
+use EuroMillions\web\services\CartService;
 
 class CartServiceUnitTest extends UnitTestBase
 {
@@ -103,8 +104,10 @@ class CartServiceUnitTest extends UnitTestBase
 
     private function getSut()
     {
-        $sut = $this->getDomainServiceFactory()->getCartService($this->orderStorageStrategy_double->reveal());
-        return $sut;
+        return new CartService(
+            $this->getEntityManagerRevealed(),
+            $this->orderStorageStrategy_double->reveal()
+        );
     }
 
 

@@ -7,7 +7,7 @@ use EuroMillions\shared\components\PhalconCookiesWrapper;
 use EuroMillions\shared\components\PhalconRequestWrapper;
 use EuroMillions\shared\components\PhalconSessionWrapper;
 use EuroMillions\shared\components\PhalconUrlWrapper;
-use EuroMillions\shared\config\interfaces\IBootstrapStrategy;
+use EuroMillions\shared\interfaces\IBootstrapStrategy;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\factories\ServiceFactory;
 use Phalcon;

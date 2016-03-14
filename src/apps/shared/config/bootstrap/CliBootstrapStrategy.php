@@ -3,7 +3,7 @@ namespace EuroMillions\shared\config\bootstrap;
 
 use EuroMillions\shared\components\EnvironmentDetector;
 use EuroMillions\shared\components\PhalconUrlWrapper;
-use EuroMillions\shared\config\interfaces\IBootstrapStrategy;
+use EuroMillions\shared\interfaces\IBootstrapStrategy;
 use Phalcon\Cli\Console as ConsoleApp;
 use Phalcon\Cli\Dispatcher;
 use Phalcon\Cli\Router;

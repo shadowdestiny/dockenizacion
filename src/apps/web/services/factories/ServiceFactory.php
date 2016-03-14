@@ -7,7 +7,6 @@ use EuroMillions\web\services\LoggerFactory;
 use EuroMillions\web\services\LogService;
 use Phalcon\DiInterface;
 use EuroMillions\web\components\MandrillWrapper;
-use EuroMillions\web\interfaces\IMailServiceApi;
 
 class ServiceFactory
 {
@@ -19,27 +18,29 @@ class ServiceFactory
         $this->di = $di;
     }
 
-    /**
-     * @return GeoService
-     */
     public function getGeoService()
     {
         return new GeoService();
     }
 
-    public function getLogService(LoggerFactory $loggerFactory = null)
+    public function getLogService()
     {
-        $loggerFactory = $loggerFactory ?: new LoggerFactory($this->di->get('globalConfig')['log']['file_logs_path']);
-        return new LogService($loggerFactory);
+        return new LogService(
+            new LoggerFactory(
+                $this->di->get('globalConfig')['log']['file_logs_path']
+            )
+        );
     }
 
 
-    public function getEmailService(IMailServiceApi $mailServiceApi = null, $config = null)
+    public function getEmailService()
     {
-        $config = $config ?: $this->di->get('globalConfig')['mail'];
+        $config = $this->di->get('globalConfig')['mail'];
         $api_key = $config['mandrill_api_key'];
-        $mailServiceApi = $mailServiceApi ?: new MandrillWrapper($api_key);
-        return new EmailService($mailServiceApi, $config);
+        return new EmailService(
+            new MandrillWrapper($api_key),
+            $this->di->get('globalConfig')['mail']
+        );
     }
 
 

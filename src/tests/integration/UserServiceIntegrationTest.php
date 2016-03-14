@@ -4,6 +4,7 @@ namespace EuroMillions\tests\integration;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\User;
 use EuroMillions\tests\base\DatabaseIntegrationTestBase;
+use EuroMillions\web\services\UserService;
 
 class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
 {
@@ -54,6 +55,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
      */
     public function test_getMyActivePlays_called_returnArrayWithPlayConfigs()
     {
+        //EMTD hacer este test primero para mañana 11/03/2016
         $this->markTestIncomplete('Redo the test: look at the next one as an example');
         $user = $this->getUser();
         $expected = 1;
@@ -110,12 +112,12 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
      */
     protected function getSut()
     {
-        $sut = $this->getDomainServiceFactory()->getUserService(
+        return new UserService(
             $this->currencyConversionService_double->reveal(),
-            null,
-            $this->paymentProvider_double->reveal()
+            $this->getServiceDouble('EmailService')->reveal(),
+            $this->getServiceDouble('PaymentProviderService')->reveal(),
+            $this->entityManager
         );
-        return $sut;
     }
 
 

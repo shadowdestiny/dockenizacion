@@ -2,16 +2,13 @@
 namespace EuroMillions\tests\unit;
 
 use EuroMillions\shared\config\Namespaces;
-use EuroMillions\web\services\factories\DomainServiceFactory;
-use EuroMillions\web\services\factories\ServiceFactory;
-use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\services\CurrencyService;
 use Money\Currency;
 use Prophecy\Argument;
 use EuroMillions\tests\base\UnitTestBase;
 
 class CurrencyServiceUnitTest extends UnitTestBase
 {
-    private $factory;
     private $yahooCurrencyApi_double;
     private $currencyRepository_double;
 
@@ -25,7 +22,6 @@ class CurrencyServiceUnitTest extends UnitTestBase
 
     public function setUp()
     {
-        $this->factory = new DomainServiceFactory($this->getDi(), new ServiceFactory($this->getDi()));
         $this->yahooCurrencyApi_double = $this->getServiceDouble('external_apis\YahooCurrencyApi');
         $this->currencyRepository_double = $this->getRepositoryDouble('CurrencyRepository');
         parent::setUp();
@@ -50,7 +46,6 @@ class CurrencyServiceUnitTest extends UnitTestBase
      */
     protected function getSut()
     {
-        $sut = $this->factory->getCurrencyService($this->yahooCurrencyApi_double->reveal());
-        return $sut;
+        return new CurrencyService($this->getEntityManagerRevealed());
     }
 }
