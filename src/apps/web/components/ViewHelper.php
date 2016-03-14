@@ -3,8 +3,8 @@ namespace EuroMillions\web\components;
 
 class ViewHelper
 {
-    const MILD_CURRENCIES = 'CNY,RON,ZAR,SEK';
-    const SEVERE_CURRENCIES = 'COP,INR,JPY,RUB,THB';
+    const MILD_CURRENCIES = 'CNY,RON,ZAR,SEK,ARS,BOB,BRL,GEL,HKD,ILS,MDL,MXN,MYR,NOK,PEN,PLN,QAR,TRY,UAH,VEF';
+    const SEVERE_CURRENCIES = 'COP,INR,JPY,RUB,THB,ALL,CLP,CZK,HUF,IDR,ISK,KES,KRW,KZT,LBP,MKD,NGN,PHP,PKR,PYG,RSD';
 
     public static function getBodyCssForCurrency($currencyCode)
     {
