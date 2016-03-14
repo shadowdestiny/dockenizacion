@@ -46,6 +46,7 @@ class CastilloBetIdUnitTest extends UnitTestBase
     public function test_create_called_returnNewCastilloBetIdDifferent()
     {
         $expected = CastilloBetId::create();
+        usleep(1);
         $actual = CastilloBetId::create();
         $this->assertNotEquals($expected->id(),$actual->id());
     }

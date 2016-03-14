@@ -119,10 +119,8 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
         $amount_awarded = new Money(5000, new Currency('EUR'));
         $user = $this->getUser();
         $this->userRepository_double->add($user);
-        $entityManager_stub = $this->getEntityManagerDouble();
-        $entityManager_stub->flush($user)->shouldNotBeCalled();
         $this->emailService_double->sendTransactionalEmail(Argument::type('EuroMillions\web\entities\User'), Argument::type('EuroMillions\web\emailTemplates\IEmailTemplate'))->shouldBeCalled();
-        $this->stubEntityManager($entityManager_stub);
+        $this->iDontCareAboutFlush();
         $sut = $this->getSut();
         $actual = $sut->reChargeAmountAwardedToUser($user,$amount_awarded);
         $this->assertEquals($expected,$actual);

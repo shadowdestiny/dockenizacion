@@ -70,7 +70,7 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
 
     private function addMappingsToEntityManager()
     {
-        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub = $this->prophesizeEntityManager();
         $mappings = $this->getEntityManagerStubMappings();
         foreach ($mappings as $entity_name => $repository_double) {
             $entityManager_stub
@@ -145,6 +145,13 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
     public function prophesizeEntityManager()
     {
         return $this->prophesize('\Doctrine\ORM\EntityManager');
+    }
+
+    protected function iDontCareAboutFlush()
+    {
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->flush(Argument::any())->willReturn(null);
+        $this->stubEntityManager($entityManager_stub);
     }
 
 }

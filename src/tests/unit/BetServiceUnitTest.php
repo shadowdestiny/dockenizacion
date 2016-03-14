@@ -70,17 +70,15 @@ class BetServiceUnitTest extends UnitTestBase
     {
         $expected = new ActionResult(true);
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
-        $entityManager_stub = $this->getEntityManagerDouble();
         $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
         $this->lotteryDataService_double->getNextDateDrawByLottery('EuroMillions', new \DateTime('2015-09-16 00:00:00'))->willReturn(new \DateTime());
         $this->betRepository_double->getBetsByDrawDate(new \DateTime())->willReturn(null);
         $this->callValidationApi(true);
         $this->lotteryValidation_double->getXmlResponse()->willReturn(new \SimpleXMLElement(self::$content_with_ok_result));
         $this->logValidationApi_double->add(Argument::type($this->getEntitiesToArgument('LogValidationApi')))->shouldBeCalled();
-        $entityManager_stub->flush(Argument::type($this->getEntitiesToArgument('LogValidationApi')))->shouldNotBeCalled();
         $this->betRepository_double->add(Argument::any())->willReturn(true);
         $this->userRepository_double->add(Argument::any())->willReturn(true);
-        $entityManager_stub->flush()->shouldNotBeCalled();
+        $this->iDontCareAboutFlush();
         $sut = $this->getSut();
         $actual = $sut->validation($playConfig,$euroMillionsDraw, new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
         $this->assertEquals($expected,$actual);
@@ -95,17 +93,15 @@ class BetServiceUnitTest extends UnitTestBase
     {
         $expected = new ActionResult(true);
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
-        $entityManager_stub = $this->getEntityManagerDouble();
         $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
         $this->lotteryDataService_double->getNextDateDrawByLottery('EuroMillions', new \DateTime('2015-09-16 00:00:00'))->willReturn(new \DateTime());
         $this->betRepository_double->getBetsByDrawDate(new \DateTime())->willReturn(null);
         $this->callValidationApi(true);
         $this->lotteryValidation_double->getXmlResponse()->willReturn(new \SimpleXMLElement(self::$content_with_ok_result));
         $this->logValidationApi_double->add(Argument::type($this->getEntitiesToArgument('LogValidationApi')))->shouldBeCalled();
-        $entityManager_stub->flush(Argument::type($this->getEntitiesToArgument('LogValidationApi')))->shouldNotBeCalled();
         $this->betRepository_double->add(Argument::any())->willReturn(true);
         $this->userRepository_double->add(Argument::any())->willReturn(true);
-        $entityManager_stub->flush()->shouldNotBeCalled();
+        $this->iDontCareAboutFlush();
         $sut = $this->getSut();
         $actual = $sut->validation($playConfig,$euroMillionsDraw, new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
         $this->assertEquals($expected,$actual);
@@ -144,13 +140,11 @@ class BetServiceUnitTest extends UnitTestBase
     {
         $expected = new ActionResult(true);
         list($playConfig, $euroMillionsDraw) = $this->exerciseValidationBet($expected);
-        $entityManager_stub = $this->getEntityManagerDouble();
         $this->userRepository_double->add(Argument::any())->willReturn(true);
         $this->lotteryValidation_double->getXmlResponse()->willReturn(new \SimpleXMLElement(self::$content_with_ok_result));
         $this->logValidationApi_double->add(Argument::type($this->getEntitiesToArgument('LogValidationApi')))->shouldBeCalled();
-        $entityManager_stub->flush(Argument::type($this->getEntitiesToArgument('LogValidationApi')))->shouldNotBeCalled();
         $this->logValidationApi_double->add(Argument::any())->shouldBeCalled();
-        $entityManager_stub->flush()->shouldBeCalled();
+        $this->iDontCareAboutFlush();
         $sut = $this->getSut();
         $actual = $sut->validation($playConfig,$euroMillionsDraw, new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
         $this->assertEquals($expected,$actual);
