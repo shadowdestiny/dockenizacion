@@ -212,6 +212,7 @@ class CartController extends PublicSiteControllerBase
                         $order_dto = new OrderDTO($result->getValues());
                         return $this->view->setVars([
                             'order' => $order_dto,
+                            'user' => new UserDTO($user),
                             'start_draw_date_format' => date('D j M Y',$order_dto->getStartDrawDate()->getTimestamp())
                         ]);
                     } else {
@@ -252,6 +253,7 @@ class CartController extends PublicSiteControllerBase
                             $order_dto = new OrderDTO($result->getValues());
                             return $this->view->setVars([
                                'order' => $order_dto,
+                               'user' => new UserDTO($user),
                                'start_draw_date_format' => date('D j M Y',$order_dto->getStartDrawDate()->getTimestamp())
                             ]);
                         } else {

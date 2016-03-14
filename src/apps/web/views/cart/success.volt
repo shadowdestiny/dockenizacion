@@ -19,7 +19,7 @@
                     {% if order.frequency > 1 %}
                     <p class="note">
                         <strong>{{ language.translate("NOTE") }}</strong><br>
-                        {{ language.translate("For long durations plays of your numbers a portion of your payment we'll be added directly on your Wallet Balance to be used to pay the future Draws.") }}
+                        {{ language.translate("We have just charged you for your first participation and the remaining of your payment is in your account balance. For your convenience, future participations will be charged directly from your account balance before the draw.") }}
                     </p>
                     {% endif %}
                     <div class="countdown">
@@ -30,7 +30,7 @@
                     <p>{{ language.translate('We just sent your an email with a resume of the number played, or if you wish you can always <a href="javascript:void(0);">print this ticket</a>') }}</p>
 
                     <h2 class="h4">{{ language.translate("In case of winning") }}</h2>
-                    <p>{{ language.translate("We'll contact you at <em>email@email.com</em> be sure to add our email <em>support@euromillion.com</em> to your address book to avoid spam filters.") }}</p>
+                    <p>{{ language.translate("We'll contact you at <em>%useremail%</em> be sure to add our email <em>support@euromillion.com</em> to your address book to avoid spam filters.",['useremail' : user.email]) }}</p>
 
                     <h2 class="h4">{{ language.translate("What would you do with your winnings?") }}</h2>
                     <p class="small-margin">{{ language.translate("We are very curious to know what makes you play and what are your dreams of victory. We would be very happy to hear from you and inspire us with your story and experience of playing the lottery.")}}</p>

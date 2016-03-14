@@ -137,6 +137,7 @@ $gap3:15px; /* Responsive design 3 column */
 }
 .wrap-threshold{
 	position:relative; padding:5px 15px 10px; background:$grey-lighter2; border-radius:0 0 5px 0;
+	.txt, .checkbox{cursor:pointer;}
 }
 
 /* Large Devices, Wide Screens */

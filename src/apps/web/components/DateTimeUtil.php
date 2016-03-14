@@ -90,7 +90,7 @@ class DateTimeUtil
         $create_hour_message = function(\DateInterval $remain) {
             $message = '';
             if($remain->h) {
-                $message .= $remain->h > 1 ? $remain->h . ' hours' : $remain->h . ' hour';
+                $message .= $remain->h > 1 ? $remain->h . ' hours ' : $remain->h . ' hour';
             }
             return $message;
         };
@@ -98,7 +98,7 @@ class DateTimeUtil
         $create_minutes_message = function(\DateInterval $remain) {
             $message = '';
             if($remain->i) {
-                $message .= $remain->i > 1 ? $remain->i . ' minutes' : $remain->i . ' minute';
+                $message .= $remain->i > 1 ? $remain->i . ' minutes ' : $remain->i . ' minute';
             }
             return $message;
         };

@@ -1,5 +1,7 @@
 @import "variable";
 
+/*CSS ACROSS THE WEBSITE CURRENCY CHANGE*/
+
 /* Euro is default value and is not inserted in here */
 
 /* .aud{}  Australian Dollar */   /* Symbol */
@@ -10,12 +12,37 @@
 /* .gbp{}  Pound Sterling */
 /* .chr{}  Swiss Franc */
 /* .usd{}  American Dollar */     /* Symbol */
+/* --------------------------- */
+/* azn      Azerbaijani Manat */
+/* bam      Bosnia_Herzegovina Mark */
+/* bgn      Bulgarian Lev */
+/* nzd      New Zealand Dollar */  /*Symbol */
+/* sgd      singapore dollar */
+
 
 /* A bit Problematic */
 /* .cny{}  Chinese Yuan */        /* Symbol */
 /* .ron{}  Romanian Leu */
 /* .zar{}  South African Rand */
 /* .sek{}  Swedish Krone */
+/* --------------------------- */
+/* ARS     Argentine Peso */
+/* BOB     BOLIVIAN BOLIVIANO */
+/* BRL     BRAZILIAN REAL  */     /* SYMBOL */
+/* GEL     GEORGIAN LARI  */
+/* HKD     HONG KONG DOLLAR */    /* SYMBOL */
+/* ILS     ISRAELI NEW SHEQEL */  /* SYMBOL */
+/* MDL      MOLDOVAN LEU */
+/* MXN      MEXICAN PESO */
+/* MYR      MALAYSIAN RINGGIT */
+/* NOK      NORWEGIAN KRONE */
+/* PEN      PERUVIAN NUEVO SOL */
+/* PLN      POLISH ZLOTY */
+/* QAR      QATARI RIAL */
+/* TRY      TURKISH LIRA */
+/* UAH      UKRAINIAN HRYVNIA */ /*<---- the worst*/
+/* VEF      VENEZUELAN BOLIVAR */
+
 
 /* Problematic currencies */
 /* .byr{}  Belarusian Ruble */ 
@@ -24,7 +51,23 @@
 /* .jpy{}  Japanese Yen */        /* Symbol */
 /* .rub{}  Russian Ruble */
 /* .thb{}  Thai Baht */           /* Symbol */
-
+/* --------------------------- */
+/* ALL      ALBANIAN LEK        */ 
+/* CLP      CHILEAN PESO        */
+/* CZK      CZECH REPUBLIC KORUNA */ 
+/* HUF      HUNGARIAN FORINT */
+/* IDR      INDONESIAN RUPIAH */ /*<------------- SUPER PROBLEM */
+/* ISK      ICELANDIC KRONA */
+/* KES      KENYAN SHILLING */
+/* KRW      SOUTH KOREAN WON */   /* SYMBOL */
+/* KZT      KAZAKHSTANI TENGE */
+/* LBP      LEBANESE POUND */
+/* MKD      MACEDONIAN DENAR */
+/* NGN      NIGERIAN NAIRA */
+/* PHP      PHILIPPINE PESO */
+/* PKR      PAKISTANI RUPEE */
+/* PYG      PARAGUAYAN GUARANI */
+/* RSD      SERBIAN DINAR */
 
 .home.cur-txt .box-value .currency{font-size:$h3;}
 .home.cur1 .box-value .value, .numbers.cur1 .box-value .value{font-size:$h0-2;}

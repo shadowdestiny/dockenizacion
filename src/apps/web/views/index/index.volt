@@ -58,24 +58,24 @@ $(function(){
 							    <feBlend in="SourceGraphic" in2="myBlur"/>
 							</filter>
 						</defs>
-						<g class="normal">
+						<g class="normal"> {# Code used when is desktop #}
 							<g filter="url(#shadow)">
-								<text class="mycur" x="0" y="90">&euro;</text>
-							  	<text class="mytxt" x="45" y="90">125.000.000</text>
+								<text class="mycur" x="0" y="90">{{ user_currency['symbol'] }}</text>
+							  	<text class="mytxt" x="45" y="90">{{ jackpot_value | number_format(0, ',', '.')}}</text>
 							</g>
 							<g>
-								<text class="mycur" fill="url(#e)" x="0" y="90">&euro;</text>
-							  	<text class="mytxt" fill="url(#e)" x="45" y="90">125.000.000</text>
+								<text class="mycur" fill="url(#e)" x="0" y="90">{{ user_currency['symbol'] }}</text>
+							  	<text class="mytxt" fill="url(#e)" x="45" y="90">{{ jackpot_value | number_format(0, ',', '.')}}</text>
 							</g>
 						</g>
-						<g class="small">
+						<g class="small"> {# Code used when is mobile #}
 							<g filter="url(#shadow)">
-								<text class="mycur" x="10" y="50">&euro;</text>
-							  	<text class="mytxt" x="45" y="50">125.000.000</text>
+								<text class="mycur" x="10" y="50">{{ user_currency['symbol'] }}</text>
+							  	<text class="mytxt" x="45" y="50">{{ jackpot_value | number_format(0, ',', '.')}}</text>
 							</g>
 							<g>
-								<text class="mycur" fill="url(#e)" x="10" y="50">&euro;</text>
-							  	<text class="mytxt" fill="url(#e)" x="45" y="50">125.000.000</text>
+								<text class="mycur" fill="url(#e)" x="10" y="50">{{ user_currency['symbol'] }}</text>
+							  	<text class="mytxt" fill="url(#e)" x="45" y="50">{{ jackpot_value | number_format(0, ',', '.')}}</text>
 							</g>
 						</g>
 					</svg>
@@ -83,7 +83,7 @@ $(function(){
 			</div>
 			<div class="btn-box">
 				<a href="/play" class="btn red huge">{{ language.translate("Play Now") }}</a>
-				<div class="for-only">{{ language.translate("For only")}} &euro; 2.50</div>
+				<div class="for-only">{{ language.translate("For only")}} {{ bet_price }}</div>
 			</div>
 			<div class="txt">{{ language.translate("For a very small amount, you might change your life forever.") }}</div>
 			<div class="best-price">
