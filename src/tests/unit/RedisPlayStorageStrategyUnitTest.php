@@ -34,7 +34,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
 
     public function setUp()
     {
-        $this->redis_double = $this->getInterfaceWebDouble('IRedis');
+        $this->redis_double = $this->prophesize('\Redis');
         $this->authService_double = $this->getServiceDouble('AuthService');
         $this->userId = UserId::create();
         parent::setUp();
@@ -50,7 +50,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
         $expected = new ActionResult(true);
         $sut = $this->getSut();
         $playFormToStorage = $this->getPlayFormToStorage();
-        $this->redis_double->save(Argument::any(),Argument::any())->shouldBeCalled();
+        $this->redis_double->set(Argument::any(),Argument::any())->shouldBeCalled();
         $actual = $sut->saveAll($playFormToStorage, $this->userId);
         $this->assertEquals($expected,$actual);
     }
@@ -166,7 +166,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
         $expected = new ActionResult(false,'Unable to save data in storage');
         $sut = $this->getSut();
         $playFormToStorage = $this->getPlayFormToStorage();
-        $this->redis_double->save(Argument::any(),Argument::any())->willThrow(new RedisException('Unable to save data in storage'));
+        $this->redis_double->set(Argument::any(),Argument::any())->willThrow(new RedisException('Unable to save data in storage'));
         $actual = $sut->saveAll($playFormToStorage,$this->userId);
         $this->assertEquals($expected,$actual);
     }

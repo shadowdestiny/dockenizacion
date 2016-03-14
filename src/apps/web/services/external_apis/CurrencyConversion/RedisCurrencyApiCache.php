@@ -2,7 +2,7 @@
 namespace EuroMillions\web\services\external_apis\CurrencyConversion;
 
 use EuroMillions\web\interfaces\ICurrencyApiCacheStrategy;
-use Phalcon\Cache\Backend\Redis;
+use Redis;
 
 class RedisCurrencyApiCache implements ICurrencyApiCacheStrategy
 {
@@ -23,7 +23,7 @@ class RedisCurrencyApiCache implements ICurrencyApiCacheStrategy
     public function setRate($from, $to, $rate)
     {
         $key = $this->getRateKey($from, $to);
-        $this->cache->save($key, $rate);
+        $this->cache->set($key, $rate);
     }
 
     /**
@@ -34,7 +34,11 @@ class RedisCurrencyApiCache implements ICurrencyApiCacheStrategy
     public function getRate($from, $to)
     {
         $key = $this->getRateKey($from, $to);
-        return $this->cache->get($key);
+        $result = $this->cache->get($key);
+        if ($result === false) {
+            return null;
+        }
+        return $result;
 
     }
 
@@ -54,7 +58,7 @@ class RedisCurrencyApiCache implements ICurrencyApiCacheStrategy
         if (!in_array($to, $conversions[$base], true)) {
             $conversions[$base][] = $to;
         }
-        $this->cache->save(self::RATES_TO_FETCH_KEY, json_encode($conversions));
+        $this->cache->set(self::RATES_TO_FETCH_KEY, json_encode($conversions));
     }
 
     /**

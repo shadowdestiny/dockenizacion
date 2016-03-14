@@ -9,6 +9,7 @@ use EuroMillions\web\services\factories\ServiceFactory;
 use Phalcon;
 use Phalcon\Config\Adapter\Ini;
 use Phalcon\Di;
+use Redis;
 
 class TestWebBootstrapStrategy extends WebBootstrapStrategy
 {
@@ -43,10 +44,10 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
      * @param Ini $appConfig
      * @return EntityManager
      */
-    protected function configDoctrine(Ini $appConfig)
+    protected function configDoctrine(Ini $appConfig, Redis $redis)
     {
         if (!$this->isUnitTest) {
-            return parent::configDoctrine($appConfig);
+            return parent::configDoctrine($appConfig, $redis);
         } else {
             $utbase = new \EuroMillions\tests\base\UnitTestBase();
             return $utbase->prophesizeEntityManager()->reveal();

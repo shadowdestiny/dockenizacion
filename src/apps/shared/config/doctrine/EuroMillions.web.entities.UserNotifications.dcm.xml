@@ -23,7 +23,7 @@
 
         <embedded name="type" class="EuroMillions\web\vo\NotificationType"/>
 
-        <many-to-one field="user" target-entity="EuroMillions\web\entities\User" >
+        <many-to-one field="user" target-entity="EuroMillions\web\entities\User"  >
             <join-column name="user_id" referenced-column-name="id" />
         </many-to-one>
 

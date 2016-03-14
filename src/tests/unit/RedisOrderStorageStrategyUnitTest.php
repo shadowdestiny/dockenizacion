@@ -24,7 +24,7 @@ class RedisOrderStorageStrategyUnitTest extends UnitTestBase
 
     public function setUp()
     {
-        $this->redis_double = $this->getInterfaceWebDouble('IRedis');
+        $this->redis_double = $this->prophesize('\Redis');
         $this->authService_double = $this->getServiceDouble('AuthService');
         $this->userId = UserId::create();
         parent::setUp();
@@ -41,7 +41,7 @@ class RedisOrderStorageStrategyUnitTest extends UnitTestBase
         $expected = new ActionResult(true);
         $order = OrderMother::aJustOrder()->build();
         $sut = $this->getSut();
-        $this->redis_double->save(self::EMLINE_FETCH_KEY.$this->userId, $order->toJsonData())->shouldBeCalled();
+        $this->redis_double->set(self::EMLINE_FETCH_KEY.$this->userId, $order->toJsonData())->shouldBeCalled();
         $actual = $sut->save($order->toJsonData(),$this->userId);
         $this->assertEquals($expected,$actual);
     }
@@ -55,7 +55,7 @@ class RedisOrderStorageStrategyUnitTest extends UnitTestBase
     {
         $expected = new ActionResult(false,'Unable to save data in storage');
         $order = OrderMother::aJustOrder()->build();
-        $this->redis_double->save(self::EMLINE_FETCH_KEY.$this->userId, $order->toJsonData())->willThrow(new RedisException('Unable to save data in storage'));
+        $this->redis_double->set(self::EMLINE_FETCH_KEY.$this->userId, $order->toJsonData())->willThrow(new RedisException('Unable to save data in storage'));
         $sut = $this->getSut();
         $actual = $sut->save($order->toJsonData(), $this->userId);
         $this->assertEquals($expected,$actual);

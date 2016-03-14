@@ -5,24 +5,24 @@ namespace EuroMillions\web\services\play_strategies;
 
 
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
-use EuroMillions\web\interfaces\IRedis;
 use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\UserId;
 use RedisException;
+use Redis;
 
 class RedisPlayStorageStrategy implements IPlayStorageStrategy
 {
 
-    /** @var  IRedis $storage */
+    /** @var  Redis $storage */
     protected $storage;
 
     protected static $key = 'PlayStore_EMLINES:';
 
     /**
-     * @param IRedis $storage
+     * @param Redis $storage
      */
-    public function __construct(IRedis $storage)
+    public function __construct(Redis $storage)
     {
         $this->storage = $storage;
     }
@@ -30,7 +30,7 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
     public function save($json, UserId $userId)
     {
         try{
-            $this->storage->save($this->getNameKey($userId), $json);
+            $this->storage->set($this->getNameKey($userId), $json);
             return new ActionResult(true);
         }catch(RedisException $e){
             return new ActionResult(false,'Unable to save data in storage');
@@ -40,7 +40,7 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
     public function saveAll(PlayFormToStorage $data, UserId $userId)
     {
         try{
-            $this->storage->save($this->getNameKey($userId), $data->toJson());
+            $this->storage->set($this->getNameKey($userId), $data->toJson());
             return new ActionResult(true);
         }catch(RedisException $e){
             return new ActionResult(false,'Unable to save data in storage');
