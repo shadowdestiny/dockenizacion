@@ -22,33 +22,19 @@ var EmConfigPlayBlock = new React.createClass({
         }
     },
 
-
     componentWillReceiveProps : function(nextProps) {
         if(nextProps.reset_config) {
-            this.setState({ show_config : true });
+            this.setState({show_config: true});
+        } else {
+            this.setState({show_config: nextProps.show_config});
         }
     },
 
-
     handleThreshold : function(value)
     {
-        this.props.update_threshold();
-        this.setState( {
-            show_config : value ? false : true
-        })
+        this.props.update_threshold(value);
     },
-    //
-    //componentWillReceiveProps: function (nextProps) {
-    //
-    //    if(!nextProps.show && !this.state.show_block) {
-    //        this.state.show_block = true;
-    //    }else if(nextProps.show && this.state.show_block) {
-    //        this.state.show_block = false;
-    //    } else {
-    //        this.state.show_block = nextProps.show;
-    //    }
-    //},
-    //
+
     handleClickClose : function() {
 
     },
@@ -65,12 +51,6 @@ var EmConfigPlayBlock = new React.createClass({
             {text: '100 millions €', value: '100'},
             {text: 'Choose threshold', value: custom_value}
         ];
-        var options_draw_days = [
-            {text: 'Tuesday & Friday' , value : '25'},
-            {text: 'Tuesday', value : '2'},
-            {text: 'Friday' , value : '5'}
-        ];
-
 
         if(!this.props.show) {
             return null;
@@ -81,7 +61,7 @@ var EmConfigPlayBlock = new React.createClass({
                     <a href="javascript:void(0);" onClick={this.props.reset} className="close"><svg className="ico v-cancel-circle"><use xlinkHref="/w/svg/icon.svg#v-cancel-circle"></use></svg>
                     </a>
                     <div className="cols">
-                        <EmDrawConfig active={this.state.show_config} draw_days_selected={this.props.draw_days_selected} current_duration_value={this.props.current_duration_value} draw_dates={this.props.draw_dates} date_play={this.props.date_play} draw_duration={this.props.draw_duration} duration={this.props.duration} play_days={this.props.play_days}  options={options_draw_days} customValue={custom_value}/>
+                        <EmDrawConfig active={this.state.show_config} draw_days_selected={this.props.draw_days_selected} current_duration_value={this.props.current_duration_value} draw_dates={this.props.draw_dates} date_play={this.props.date_play} draw_duration={this.props.draw_duration} duration={this.props.duration} play_days={this.props.play_days}  customValue={custom_value}/>
                         <ThresholdPlay active={this.state.show_config} callback_threshold={this.handleThreshold} options={options} customValue={custom_value} defaultValue={default_value} defaultText={default_text}/>
                     </div>
                 </div>

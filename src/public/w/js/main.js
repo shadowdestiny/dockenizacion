@@ -173,7 +173,6 @@ $(function(){
 
     var timeout_warning = '';
     var finish_countdown_warning_close_draw = function (idInterval) {
-        console.log('pasa');
         window.clearInterval(idInterval);
         return $('.ending').countdown(draw_date).
         on('update.countdown', function (event) {
@@ -208,14 +207,19 @@ $(function(){
     var timeout_first_warning = 8000;
     var idInterval ='';
 
-    if(remain_time == 1 && minutes_value >= 1 && minutes_value < 30){
+    console.log(remain_time);
+    console.log(minutes_value);
+
+
+    if(remain_time == 1 && minutes_value > 1 && minutes_value < 30){
         minutes_to_close_rounded = isNaN(minutes_to_close_rounded) || minutes_to_close_rounded == 0 ? minutes_value : minutes_to_close_rounded;
-        if (minutes_value > 1 && minutes_value <= 5){
+        if (minutes_value > 1 && minutes_value <= 5) {
             interval_warning = 60000;
-        }else if (minutes_value == 1){
+        } else if (minutes_value == 1){
             interval_warning = 5000;
             timeout_first_warning = 10000;
         }
+
         if(minutes_value < 2 ) {
             interval_warning = 30000;
             minutes_value = 2;
@@ -256,8 +260,8 @@ $(function(){
        // }
         first_load = false;
     }
+    if( minutes_value < 1 && !isNaN(minutes_value)){
 
-    if( minutes_value < 1 && isNaN(minutes_value)){
         finish_countdown_warning_close_draw(interval_warning_close);
     }
 

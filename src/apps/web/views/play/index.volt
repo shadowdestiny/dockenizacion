@@ -26,8 +26,10 @@
 	var draw_dates = <?php echo $dates_draw ?>;
 	var next_draw_format = '<?php echo $next_draw_format ?>';
 	var price_bet = {{ single_bet_price }};
+	var next_draw = <?php echo $next_draw; ?>;
 	var currency_symbol = '<?php echo $currency_symbol ?>';
 	var automatic_random = '<?php echo $automatic_random; ?>';
+
 {% endblock %}
 {% block template_scripts_after %}
 <script src="/w/js/react/play.js"></script>

@@ -257,7 +257,7 @@ var CurrencyFormat = {
     currency_symbol : '',
 
     getCurrencyFormatted : function() {
-        return accounting.formatMoney( CurrencyFormat.value, CurrencyFormat.currency_symbol, 2 );
+        return accounting.formatMoney( CurrencyFormat.value, CurrencyFormat.currency_symbol + " ", 2 );
     }
 };
 
@@ -365,7 +365,7 @@ var Fee = {
     },
 
     getTotalWithFee : function(value) {
-        return ((accounting.formatMoney(( accounting.unformat(Fee.fee_value)  + accounting.unformat(value)),CurrencyFormat.currency_symbol,2)));
+        return ((accounting.formatMoney(( accounting.unformat(Fee.fee_value)  + accounting.unformat(value)),CurrencyFormat.currency_symbol + " ",2)));
     }
 };
 
