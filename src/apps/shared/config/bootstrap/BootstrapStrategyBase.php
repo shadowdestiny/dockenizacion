@@ -6,12 +6,10 @@ use EuroMillions\shared\components\EnvironmentDetector;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\Common\Cache\ApcCache;
-use EuroMillions\shared\components\PhalconRedisWrapper;
 use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\factories\ServiceFactory;
-use Phalcon\Cache\Frontend\Data;
 use Phalcon\Config;
 use Phalcon\Config\Adapter\Ini;
 use Phalcon\Crypt;
@@ -44,8 +42,9 @@ abstract class BootstrapStrategyBase
         $di->set('globalConfig', $global_config, true);
         $di->set('environmentDetector', $environment_detector);
         $di->set('config', $config, true);
-        $di->set('entityManager', $this->configDoctrine($config), true);
-        $di->set('redisCache', $this->configRedis($config), true);
+        $redis = $this->configRedis($config);
+        $di->set('redisCache', $redis, true);
+        $di->set('entityManager', $this->configDoctrine($config, $redis), true);
         $di->set('paymentProviderFactory', $this->configPaymentProvider($di), true);
         // $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
         return $di;
@@ -65,12 +64,13 @@ abstract class BootstrapStrategyBase
 
     protected function configRedis(Ini $appConfig)
     {
-        $frontend = new Data(['lifetime'=> $appConfig['lifetime_cache']['redis']]);
-        return new PhalconRedisWrapper($frontend, ['host'=>$appConfig['redis']['host'], 'prefix'=>$appConfig['redis']['prefix']]);
-        //return new PhalconRedis($frontend, ['host'=>$appConfig['redis']['host'], 'prefix'=>$appConfig['redis']['prefix']]);
+        $redis = new Redis();
+        $redis->connect($appConfig['redis']['host']);
+        $redis->setOption(Redis::OPT_PREFIX, $appConfig['redis']['prefix']);
+        return $redis;
     }
 
-    protected function configDoctrine(Ini $appConfig)
+    protected function configDoctrine(Ini $appConfig, Redis $redis)
     {
         $is_dev_mode = true; //EMDEPLOY hay que pasarlo por configuración. Quizá con el nuevo detector de environment
 
@@ -78,11 +78,9 @@ abstract class BootstrapStrategyBase
         $config->setQueryCacheImpl(new ApcCache());
         $config->setMetadataCacheImpl(new ApcCache());
 
-        $redis = new Redis();
-        $redis->connect($appConfig['redis']['host']);
         $redis_cache = new RedisCache();
         $redis_cache->setRedis($redis);
-        $redis_cache->setNamespace('doctrine_'.$appConfig['redis']['prefix']);
+        $redis_cache->setNamespace('_PHCRtest_doctrine_'.$appConfig['redis']['prefix']);
         $config->setResultCacheImpl($redis_cache);
         $conn = [
             'host'     => $appConfig['database']['host'],

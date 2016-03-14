@@ -85,7 +85,7 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         /** @var Password $hashed_pass */
         $hashed_pass = $user->getPassword();
         $this->sut->add($user);
-        $this->entityManager->flush();
+        $this->entityManager->flush($user);
         $actual = $this->entityManager
             ->createQuery(
                 'SELECT u'

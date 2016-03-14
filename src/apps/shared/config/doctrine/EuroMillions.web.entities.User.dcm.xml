@@ -40,12 +40,7 @@
         <embedded name="user_currency" class="Money\Currency" use-column-prefix="true" />
         <embedded name="winning_above" class="Money\Money" use-column-prefix="true" />
 
-        <one-to-many target-entity="EuroMillions\web\entities\PlayConfig" mapped-by="play_config"
-                     field="playConfig">
-        </one-to-many>
-
-        <one-to-many target-entity="EuroMillions\web\entities\UserNotifications" mapped-by="user_notification"
-                     field="userNotification">
+        <one-to-many target-entity="EuroMillions\web\entities\PlayConfig" mapped-by="user" field="playConfig">
         </one-to-many>
 
     </entity>

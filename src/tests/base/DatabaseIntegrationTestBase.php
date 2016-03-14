@@ -9,6 +9,7 @@
 namespace EuroMillions\tests\base;
 
 use Doctrine\ORM\EntityManager;
+use PDO;
 use Phalcon\DI;
 use PHPUnit_Extensions_Database_DataSet_ArrayDataSet;
 use PHPUnit_Extensions_Database_DB_IDatabaseConnection;
@@ -22,6 +23,8 @@ abstract class DatabaseIntegrationTestBase extends \PHPUnit_Extensions_Database_
     protected $pdo;
     /** @var  EntityManager */
     protected $entityManager;
+    /** @var  \Redis */
+    protected $cache;
     /**
      * Returns the test database connection.
      *
@@ -64,6 +67,7 @@ abstract class DatabaseIntegrationTestBase extends \PHPUnit_Extensions_Database_
         parent::setUp();
         $conn->query("set foreign_key_checks=1");
         $this->entityManager = Di::getDefault()->get('entityManager');
+        $this->cache = Di::getDefault()->get('redisCache');
     }
     protected function tearDown()
     {
@@ -74,12 +78,22 @@ abstract class DatabaseIntegrationTestBase extends \PHPUnit_Extensions_Database_
             throw new \LogicException("Transaction opened and not closed");
         }
         $fixtures = $this->getFixtures();
-        $conn = $this->getPDO();
-        $conn->query("set foreign_key_checks=0");
+        $conn->exec("set foreign_key_checks=0");
         foreach ($fixtures as $fixture) {
-            $conn->exec("TRUNCATE $fixture");
+            if ($conn->exec("TRUNCATE $fixture") === false) {
+                $this->fail('Couldn\'t truncate table '.$fixture);
+            }
         }
-        $conn->query("set foreign_key_checks=1");
+        $tables = $conn->query("SELECT DISTINCT TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='euromillions_test';");
+        $tables = $tables->fetchAll(PDO::FETCH_COLUMN, 0);
+        foreach($tables as $table) {
+            $count = $conn->query('SELECT * FROM '.$table.' LIMIT 1');
+            if ($count->rowCount()) {
+                $this->fail('There are records left on table: '.$table);
+            }
+        }
+        $conn->exec("set foreign_key_checks=1");
+        $this->cache->flushAll();
     }
     /**
      * Child classes must implement this method. Return empty array if no fixtures are needed

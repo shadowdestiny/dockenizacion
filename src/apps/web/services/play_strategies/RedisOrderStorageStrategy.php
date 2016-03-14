@@ -7,25 +7,22 @@ namespace EuroMillions\web\services\play_strategies;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\exceptions\UnsupportedOperationException;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
-use EuroMillions\web\interfaces\IRedis;
 use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\web\vo\UserId;
 use RedisException;
+use Redis;
 
 
 class RedisOrderStorageStrategy implements IPlayStorageStrategy
 {
 
 
-    /** @var  IRedis $storage */
+    /** @var  Redis $storage */
     protected $storage;
 
     protected static $key = 'PlayStore_EMORDER:';
 
-    /**
-     * @param IRedis $storage
-     */
-    public function __construct(IRedis $storage)
+    public function __construct(Redis $storage)
     {
         $this->storage = $storage;
     }
@@ -34,7 +31,7 @@ class RedisOrderStorageStrategy implements IPlayStorageStrategy
     public function save($json, UserId $userId)
     {
         try{
-            $this->storage->save($this->getNameKey($userId), $json);
+            $this->storage->set($this->getNameKey($userId), $json);
             return new ActionResult(true);
         }catch(RedisException $e){
             return new ActionResult(false,'Unable to save data in storage');

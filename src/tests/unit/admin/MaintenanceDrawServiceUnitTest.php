@@ -70,7 +70,6 @@ class MaintenanceDrawServiceUnitTest extends UnitTestBase
      * method updaLastResult
      * when called
      * should returnActionResultFalse
-     * @group active
      */
     public function test_updaLastResult_called_returnActionResultFalse()
     {

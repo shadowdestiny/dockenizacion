@@ -26,8 +26,7 @@
         <one-to-many target-entity="EuroMillions\web\entities\Bet" mapped-by="bet"
                      field="bet">
         </one-to-many>
-        <many-to-one target-entity="EuroMillions\web\entities\User" inversed-by="user"
-                     field="user">
+        <many-to-one target-entity="EuroMillions\web\entities\User" inversed-by="playConfig" field="user">
         </many-to-one>
 
     </entity>
