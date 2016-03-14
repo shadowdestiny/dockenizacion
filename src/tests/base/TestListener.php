@@ -24,7 +24,7 @@ class TestListener extends \PHPUnit_Framework_BaseTestListener
             if ($environment === 'vagrant') {
                 $command = "mysqldump -h {$config->database->host} -u {$config->database->username} -p{$config->database->password} -d {$config->database->original_db_name} 2>/dev/null | mysql -h {$config->database->host} -u {$config->database->username} -p{$config->database->password} -D{$config->database->dbname} 2>/dev/null";
                 exec($command);
-                $command = '/vagrant/dev-scripts/schema_migration.sh dev';
+                $command = '/vagrant/dev-scripts/schema_migration.sh devel';
                 exec($command);
             }
         } else {

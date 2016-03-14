@@ -6,6 +6,7 @@ namespace EuroMillions\tests\integration;
 
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\services\PriceCheckoutService;
 use Money\Currency;
 use Money\Money;
 use EuroMillions\tests\base\DatabaseIntegrationTestBase;
@@ -40,7 +41,13 @@ class PriceCheckoutServiceIntegrationTest extends DatabaseIntegrationTestBase
         /** @var User $user */
         $user = $userRepository->getByEmail($email);
         $amount = new Money(6000, new Currency('EUR'));
-        $sut = $this->getDomainServiceFactory()->getPriceCheckoutService(); //EMTD Aquí faltan por inyectar stubs para la API
+        $sut = new PriceCheckoutService(
+            $this->entityManager,
+            $this->getServiceDouble('LotteriesDataService')->reveal(),
+            $this->getServiceDouble('CurrencyConversionService')->reveal(),
+            $this->getServiceDouble('UserService')->reveal(),
+            $this->getServiceDouble('EmailService')->reveal()
+        );
         $sut->reChargeAmountAwardedToUser($user,$amount);
         $this->entityManager->detach($user);
         $user = $userRepository->getByEmail($email);

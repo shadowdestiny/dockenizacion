@@ -7,6 +7,7 @@ namespace EuroMillions\tests\integration;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\services\WalletService;
 use Money\Currency;
 use Money\Money;
 use EuroMillions\tests\base\DatabaseIntegrationTestBase;
@@ -43,7 +44,7 @@ class WalletServiceIntegrationTest extends DatabaseIntegrationTestBase
         $credit_card_charge = CreditCardChargeMother::aValidCreditCardChargeWithAmountInParam($amount);
         $payment_provider_stub = $this->getInterfaceWebDouble('ICardPaymentProvider');
         $payment_provider_stub->charge($credit_card_charge->getFinalAmount(), $credit_card)->willReturn(new PaymentProviderResult(true));
-        $sut = $this->getDomainServiceFactory()->getWalletService($this->entityManager);
+        $sut = new WalletService($this->entityManager);
         $sut->rechargeWithCreditCard($payment_provider_stub->reveal(), $credit_card, $user, $credit_card_charge);
 
         $this->entityManager->detach($user);

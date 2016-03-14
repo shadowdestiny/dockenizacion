@@ -2,11 +2,9 @@
 namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\shared\interfaces\IUrlManager;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\Md5EmailValidationToken;
-use EuroMillions\web\components\NullPasswordHasher;
-use EuroMillions\web\components\PhpassWrapper;
-use EuroMillions\web\components\RandomPasswordGenerator;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\ResetPasswordEmailTemplate;
 use EuroMillions\web\emailTemplates\WelcomeEmailTemplate;
@@ -15,7 +13,6 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IAuthStorageStrategy;
 use EuroMillions\web\interfaces\IEmailValidationToken;
 use EuroMillions\web\interfaces\IPasswordHasher;
-use EuroMillions\shared\config\interfaces\IUrlManager;
 use EuroMillions\web\interfaces\IUser;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;

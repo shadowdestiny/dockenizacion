@@ -1,7 +1,7 @@
 <?php
 
 
-namespace EuroMillions\shared\config\interfaces;
+namespace EuroMillions\shared\interfaces;
 
 
 interface ISession

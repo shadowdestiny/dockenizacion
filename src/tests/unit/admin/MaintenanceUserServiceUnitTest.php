@@ -4,6 +4,7 @@
 namespace EuroMillions\tests\unit\admin;
 
 
+use EuroMillions\admin\services\MaintenanceUserService;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\NullPasswordHasher;
@@ -73,9 +74,7 @@ class MaintenanceUserServiceUnitTest extends UnitTestBase
         $amount = new Money(5000, new Currency('EUR'));
         $this->userRepository_double->find($user->getId())->willReturn($user);
         $this->userRepository_double->add($user);
-        $entityManager_stub = $this->getEntityManagerDouble();
-        $entityManager_stub->flush()->shouldNotBeCalled();
-        $this->stubEntityManager($entityManager_stub);
+        $this->iDontCareAboutFlush();
         $sut = $this->getSut();
         $actual = $sut->updateBalance(new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'), $amount);
         $this->assertTrue($actual->success());
@@ -102,7 +101,7 @@ class MaintenanceUserServiceUnitTest extends UnitTestBase
 
     private function getSut()
     {
-        return $sut = $this->getDomainAdminServiceFactory()->getMaintenanceUserService();
+        return new MaintenanceUserService($this->getEntityManagerRevealed());
     }
 
     /**

@@ -142,10 +142,10 @@ class AuthServiceUnitTest extends UnitTestBase
 
     /**
      * method updatePassword
-     * when called
+     * when calledWithoutErrors
      * should returnServiceActionResultTrue
      */
-    public function test_updatePassword_called_returnServiceActionResultTrue()
+    public function test_updatePassword_calledWithoutErrors_returnServiceActionResultTrue()
     {
         $expected = new ActionResult(true,'Your password was changed correctly');
         $sut = $this->getSut();
@@ -153,10 +153,8 @@ class AuthServiceUnitTest extends UnitTestBase
         $password = 'passworD01';
         $email = EmailMother::aResetPasswordEmailTemplate();
         $this->userRepository_double->add($user)->shouldBeCalled();
-        $entityManager_stub = $this->getEntityManagerDouble();
-        $entityManager_stub->flush($user)->shouldNotBeCalled();
+        $this->iDontCareAboutFlush();
         $this->emailService_double->sendTransactionalEmail(Argument::any(),$email)->shouldBeCalled();
-        $this->stubEntityManager($entityManager_stub);
         $actual = $sut->updatePassword($user,$password);
         $this->assertEquals($expected,$actual);
     }
@@ -487,8 +485,7 @@ class AuthServiceUnitTest extends UnitTestBase
      */
     private function getSut()
     {
-        $dsf = $this->getDomainServiceFactory();
-        $sut = $dsf->getAuthService($this->hasher_double->reveal(), $this->storageStrategy_double->reveal(), $this->urlManager_double->reveal(), $this->logService_double->reveal(), $this->emailService_double->reveal(), $this->userService_double->reveal());
+        $sut = new AuthService($this->getEntityManagerRevealed(), $this->hasher_double->reveal(), $this->storageStrategy_double->reveal(), $this->urlManager_double->reveal(), $this->logService_double->reveal(), $this->emailService_double->reveal(), $this->userService_double->reveal());
         return $sut;
     }
 
@@ -647,4 +644,5 @@ class AuthServiceUnitTest extends UnitTestBase
         $actual = $sut->validateEmailToken($token, $emailValidationTokenGenerator->reveal());
         return $actual;
     }
+
 }

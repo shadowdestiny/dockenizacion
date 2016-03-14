@@ -2,6 +2,7 @@
 namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\entities\User;
+use EuroMillions\web\services\EmailService;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Url;
 use Prophecy\Argument;
@@ -26,6 +27,7 @@ class EmailServiceUnitTest extends UnitTestBase
      */
     public function test_sendRegistrationEmail_called_sendProperArgumentsToMailService()
     {
+        $this->markTestSkipped('Hay que revisar si y como se está enviando el registration email, y si este test sigue teniendo sentido');
         list($user, $url) = $this->exerciseEmail();
         $this->authService_double->getValidationUrl($user)->willReturn($url);
         $sut = $this->getSut();
@@ -50,8 +52,10 @@ class EmailServiceUnitTest extends UnitTestBase
      */
     private function getSut()
     {
-        $sut = $this->getDomainServiceFactory()->getServiceFactory()->getEmailService($this->mailServiceApi_double->reveal());
-        return $sut;
+        return new EmailService(
+            $this->mailServiceApi_double->reveal(),
+            $this->getDi()->get('globalConfig')['mail']
+        );
     }
 
     /**

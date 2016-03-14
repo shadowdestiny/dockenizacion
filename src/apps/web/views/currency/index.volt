@@ -8,7 +8,8 @@
 .currency .list li{float:left; margin:0 2% 1em 0; width:18%;}
 .currency .list .active{background:#AE5279; color:#fff; border:1px solid #710045;}
 .currency .list .active:hover{cursor:default; background:#AE5279; border:1px solid #710045;}
-.currency .curr{display:inline-block; width:100px; font-size:125%; font-weight:bold;}
+.currency .list .symbol{float:right;}
+.currency .curr{display:inline-block; width:100%; font-size:125%; font-weight:bold;}
 .currency .name{display:block;}
 
 @media only screen and (max-width:992px){
@@ -44,7 +45,14 @@
             <h1 class="h2">{{ language.translate("Choose your currency") }}</h1>
             <ul class="no-li list cl">
             {% for currency in currency_list %}
-                <li><a data-enhance=false href="/ajax/user-settings/setCurrencyReload/{{currency.code}}" class="{% if currency.code == current_currency %} active {% endif %}"><span class="curr">{{ currency.code }} {% if currency.code != currency.symbol %}{{ currency.symbol }}{% endif %}</span> <span class="name">{{ currency.name }}</span></a></li>
+                <li><a data-enhance=false href="/ajax/user-settings/setCurrencyReload/{{currency.code}}" class="{% if currency.code == current_currency %} active {% endif %}">
+                    <span class="curr">{{ currency.code }} 
+                        {% if currency.code != currency.symbol %}
+                            <span class="symbol">{{ currency.symbol }}</span>
+                        {% endif %}
+                    </span>
+                    <span class="name">{{ currency.name }}</span>
+                </a></li>
             {% endfor %}
             </ul>
         </div>

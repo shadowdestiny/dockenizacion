@@ -7,26 +7,22 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CreditCardCharge;
-use Money\Money;
 
 class WalletService
 {
     private $entityManager;
 
-    private $currencyService;
-
-    public function __construct(EntityManager $entityManager, CurrencyService $currencyService = null )
+    public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->currencyService = $currencyService;
     }
 
     /**
      * @param ICardPaymentProvider $provider
      * @param CreditCard $card
      * @param User $user
-     * @param Money $amount
-     * @returns IResult
+     * @param CreditCardCharge $creditCardCharge
+     * @return IResult
      */
     public function rechargeWithCreditCard(ICardPaymentProvider $provider, CreditCard $card, User $user, CreditCardCharge $creditCardCharge)
     {
