@@ -19,7 +19,7 @@
                     {% if order.frequency > 1 %}
                     <p class="note">
                         <strong>{{ language.translate("NOTE") }}</strong><br>
-                        {{ language.translate("For long durations plays of your numbers a portion of your payment we'll be added directly on your Wallet Balance to be used to pay the future Draws.") }}
+                        {{ language.translate("We have just charged you for your first participation and the remaining of your payment is in your account balance. For your convenience, future participations will be charged directly from your account balance before the draw.") }}
                     </p>
                     {% endif %}
                     <div class="countdown">
