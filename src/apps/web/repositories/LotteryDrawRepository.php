@@ -62,6 +62,7 @@ class LotteryDrawRepository extends EntityRepository
             ->setParameters(['lottery_name' => $lottery->getName(), 'date' => $draw_date->format("Y-m-d")])
             ->useResultCache(true)
             ->getResult();
+
         return $result[0]->getResult();
     }
 
