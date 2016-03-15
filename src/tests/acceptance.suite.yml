@@ -4,3 +4,10 @@ modules:
     - PhpBrowser:
         url: https://localhost
     - \Helper\Acceptance
+coverage:
+  enabled: false
+#  remote: true
+#  remote_context_options:
+#    ssl:
+#      verify_peer: false
+#      verify_peer_name: false
