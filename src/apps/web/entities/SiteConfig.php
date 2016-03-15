@@ -1,8 +1,8 @@
 <?php
-
-
 namespace EuroMillions\web\entities;
 
+use Money\Currency as MoneyCurrency;
+use Money\Money;
 
 class SiteConfig extends EntityBase
 {
@@ -12,24 +12,21 @@ class SiteConfig extends EntityBase
     protected $default_currency;
 
     /**
-     * @return mixed
+     * @return MoneyCurrency
      */
     public function getDefaultCurrency()
     {
         return $this->default_currency;
     }
 
-    /**
-     * @param mixed $default_currency
-     */
-    public function setDefaultCurrency($default_currency)
+    public function setDefaultCurrency(MoneyCurrency $default_currency)
     {
         $this->default_currency = $default_currency;
     }
 
 
     /**
-     * @return mixed
+     * @return Money
      */
     public function getFee()
     {
@@ -37,7 +34,7 @@ class SiteConfig extends EntityBase
     }
 
     /**
-     * @param mixed $fee
+     * @param Money $fee
      */
     public function setFee($fee)
     {
@@ -45,7 +42,7 @@ class SiteConfig extends EntityBase
     }
 
     /**
-     * @return mixed
+     * @return Money
      */
     public function getFeeToLimit()
     {
@@ -53,7 +50,7 @@ class SiteConfig extends EntityBase
     }
 
     /**
-     * @param mixed $fee_to_limit
+     * @param Money $fee_to_limit
      */
     public function setFeeToLimit($fee_to_limit)
     {

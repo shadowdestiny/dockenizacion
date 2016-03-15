@@ -1,5 +1,5 @@
 <?php
-define('TEST_SUITE', 'integration');
+define('TEST_SUITE', 'functional');
 use EuroMillions\shared\components\EnvironmentDetector;
 use Phalcon\Di;
 

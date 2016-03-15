@@ -5,10 +5,10 @@ namespace EuroMillions\web\services\play_strategies;
 
 use EuroMillions\web\exceptions\UnsupportedOperationException;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
-use EuroMillions\web\interfaces\ISession;
 use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\UserId;
+use Phalcon\Session\AdapterInterface;
 
 class SessionPlayStorageStrategy implements IPlayStorageStrategy
 {
@@ -17,7 +17,7 @@ class SessionPlayStorageStrategy implements IPlayStorageStrategy
 
     private $session;
 
-    public function __construct(ISession $session)
+    public function __construct(AdapterInterface $session)
     {
         $this->session = $session;
     }

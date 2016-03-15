@@ -23,6 +23,6 @@ class Bootstrap
     public function execute()
     {
         error_reporting($this->di->get('globalConfig')->php->error_reporting_level);
-        $this->strategy->execute($this->di);
+        return $this->strategy->execute($this->di);
     }
 }

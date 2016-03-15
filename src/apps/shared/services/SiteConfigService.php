@@ -5,7 +5,7 @@ use Doctrine\ORM\EntityManager;
 use EuroMillions\web\entities\SiteConfig;
 use EuroMillions\web\repositories\SiteConfigRepository;
 use EuroMillions\web\services\CurrencyConversionService;
-use Money\Currency;
+use Money\Currency as MoneyCurrency;
 use Money\Money;
 
 class SiteConfigService
@@ -22,8 +22,17 @@ class SiteConfigService
 
         $result = $site_config_repository->getSiteConfig();
 
-        /** @var SiteConfig $config */
-        $this->configEntity = $result[0];
+        if (count($result)) {
+            $this->configEntity = $result[0];
+        } else {
+            $this->configEntity = new SiteConfig();
+            $this->configEntity->initialize([
+                'id' => '1',
+                'fee' => new Money(35, new MoneyCurrency('EUR')),
+                'fee_to_limit' => new Money(1200, new MoneyCurrency('EUR')),
+                'default_currency' => new MoneyCurrency('EUR'),
+            ]); //EMTD esto tendrá que ser sacado a un fichero de configuración más adelante (sobre todo al llegar a marcas blancas)
+        }
         $this->currencyConversionService = $currencyConversionService;
     }
 
@@ -35,12 +44,12 @@ class SiteConfigService
         return $this->configEntity->getFee();
     }
 
-    public function getFeeValueWithCurrencyConverted( Currency $user_currency )
+    public function getFeeValueWithCurrencyConverted( MoneyCurrency $user_currency )
     {
         return $this->currencyConversionService->convert($this->configEntity->getFee(), $user_currency);
     }
 
-    public function getFeeToLimitValueWithCurrencyConverted( Currency $user_currency )
+    public function getFeeToLimitValueWithCurrencyConverted( MoneyCurrency $user_currency )
     {
         return $this->currencyConversionService->convert($this->configEntity->getFeeToLimit(), $user_currency);
     }
@@ -53,25 +62,25 @@ class SiteConfigService
         return $this->configEntity->getFeeToLimit();
     }
 
-    public function getFeeFormatMoney( Currency $user_currency, $locale)
+    public function getFeeFormatMoney( MoneyCurrency $user_currency, $locale)
     {
         list($value) = $this->getCurrenciesVar($user_currency, $locale,  $this->configEntity->getFee());
         return $value;
     }
 
-    public function getFeeLimitFormatMoney( Currency $user_currency, $locale)
+    public function getFeeLimitFormatMoney( MoneyCurrency $user_currency, $locale)
     {
         list($value) = $this->getCurrenciesVar($user_currency, $locale,  $this->configEntity->getFeeToLimit());
         return $value;
     }
 
     /**
-     * @param Currency $user_currency
+     * @param MoneyCurrency $user_currency
      * @param string $locale
      * @param Money $value
      * @return string[]
      */
-    private function getCurrenciesVar(Currency $user_currency, $locale, Money $value)
+    private function getCurrenciesVar(MoneyCurrency $user_currency, $locale, Money $value)
     {
         $value_currency_convert = $this->currencyConversionService->convert($value, $user_currency);
         $value = $this->currencyConversionService->toString($value_currency_convert, $locale);

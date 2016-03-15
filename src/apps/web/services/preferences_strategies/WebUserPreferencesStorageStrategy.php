@@ -3,9 +3,9 @@ namespace EuroMillions\web\services\preferences_strategies;
 
 use EuroMillions\shared\interfaces\ICookieManager;
 use EuroMillions\web\interfaces\IUsersPreferencesStorageStrategy;
-use EuroMillions\shared\interfaces\ISession;
 use Money\Currency;
 use Phalcon\Http\Cookie;
+use Phalcon\Session\AdapterInterface;
 
 class WebUserPreferencesStorageStrategy implements IUsersPreferencesStorageStrategy
 {
@@ -14,7 +14,7 @@ class WebUserPreferencesStorageStrategy implements IUsersPreferencesStorageStrat
 
     const CURRENCY_VAR = 'EM_currency';
 
-    public function __construct(ISession $session, ICookieManager $cookieManager)
+    public function __construct(AdapterInterface $session, ICookieManager $cookieManager)
     {
         $this->session = $session;
         $this->cookieManager = $cookieManager;

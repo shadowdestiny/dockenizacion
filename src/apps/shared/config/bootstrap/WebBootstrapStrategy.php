@@ -62,17 +62,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         error_reporting($config->application['errorReporting']);
         (new Phalcon\Debug())->listen();
         $application = new Phalcon\Mvc\Application($di);
-        $application->registerModules([
-            'web'   => [
-                'className' => 'EuroMillions\web\Module',
-                'path'      => '../apps/web/Module.php',
-            ],
-            'admin' => [
-                'className' => 'EuroMillions\admin\Module',
-                'path'      => '../apps/admin/Module.php',
-            ]
-        ]);
-        $this->ownDependency($application);
+        $this->configureModules($application);
         // CONFIGURE DEBUGBAR
 //        $di['app'] = $application;
 //        (new ServiceProvider(APP_PATH . 'config/debugbar.php'))->start();
@@ -322,6 +312,24 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             }
         });
         $application->setEventsManager($eventsManager);
+    }
+
+    /**
+     * @param $application
+     */
+    protected function configureModules($application)
+    {
+        $application->registerModules([
+            'web'   => [
+                'className' => 'EuroMillions\web\Module',
+                'path'      => '../apps/web/Module.php',
+            ],
+            'admin' => [
+                'className' => 'EuroMillions\admin\Module',
+                'path'      => '../apps/admin/Module.php',
+            ]
+        ]);
+        $this->ownDependency($application);
     }
 
 }

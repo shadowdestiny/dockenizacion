@@ -3,7 +3,7 @@ namespace EuroMillions\web\services\preferences_strategies;
 
 use EuroMillions\web\interfaces\ILanguageStrategy;
 use EuroMillions\shared\interfaces\IRequest;
-use EuroMillions\shared\interfaces\ISession;
+use Phalcon\Session\AdapterInterface;
 
 class WebLanguageStrategy implements ILanguageStrategy
 {
@@ -12,7 +12,7 @@ class WebLanguageStrategy implements ILanguageStrategy
 
     const LANGUAGE_VAR = 'EM_language';
 
-    public function __construct(ISession $session, IRequest $request)
+    public function __construct(AdapterInterface $session, IRequest $request)
     {
         $this->session = $session;
         $this->request = $request;

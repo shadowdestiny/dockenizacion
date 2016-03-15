@@ -15,9 +15,9 @@ extensions:
 modules:
     config:
         Db:
-            dsn: ''
-            user: ''
-            password: ''
+            dsn: 'mysql:host=127.0.0.1;dbname=euromillions_test'
+            user: 'root'
+            password: 'tpl9'
             dump: tests/_data/dump.sql
 coverage:
   enabled: true
