@@ -34,7 +34,7 @@ abstract class DatabaseIntegrationTestBase extends \PHPUnit_Extensions_Database_
     {
         if (empty($this->connection)) {
             $config = DI::getDefault()->get('config');
-            $pdo = new \PDO("mysql:dbname={$config->database->dbname};host={$config->database->host}", $config->database->username, $config->database->password);
+            $pdo = new \PDO("mysql:dbname={$config->database->dbname};host={$config->database->host};charset=utf8", $config->database->username, $config->database->password);
             $this->connection = $this->createDefaultDBConnection($pdo, $config->database->dbname);
         }
         return $this->connection;
