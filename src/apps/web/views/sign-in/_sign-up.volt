@@ -8,7 +8,7 @@
     {{ signupform.render('name', {'class':'input'~form_errors['name']}) }}
     {{ signupform.render('surname', {'class':'input'~form_errors['surname']}) }}
     {{ signupform.render('email', {'class':'input'~form_errors['email']}) }}
-    <span class="tooltip" data-tip="tooltip" data-class="{{ 'input'~form_errors['password'] }}" data-place="left" data-type="input" data-event="click" data-message="{{ language.translate('Password must be at least 8 letters long. Composed at least with 1 uppercase and number.') }}" ></span>
+    <span class="tooltip" data-tip="tooltip" data-class="{{ 'input'~form_errors['password'] }}" data-place="top" data-type="input" data-event="focus" data-message="{{ language.translate('Password must be at least 8 letters long. Composed at least with 1 uppercase and number.') }}" ></span>
     {{ signupform.render('confirm_password', {'class':'input'~form_errors['confirm_password']}) }}
     {{ signupform.render('country', {'class':'select'~form_errors['country']}) }}
     <div class="cl">

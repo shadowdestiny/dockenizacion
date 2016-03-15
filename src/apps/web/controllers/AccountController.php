@@ -5,6 +5,7 @@ namespace EuroMillions\web\controllers;
 
 
 use EuroMillions\web\entities\User;
+use EuroMillions\web\forms\BankAccountForm;
 use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
@@ -170,11 +171,16 @@ class AccountController extends PublicSiteControllerBase
     public function walletAction()
     {
         $credit_card_form = new CreditCardForm();
+        $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
+        $countries = $geoService->countryList();
+        sort($countries);
+        $countries = array_combine(range(1, count($countries)), array_values($countries));
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $form_errors = $this->getErrorsArray();
         $user_id = $this->authService->getCurrentUser();
         /** @var User $user */
         $user = $this->userService->getUser($user_id->getId());
+        $bank_account_form = new BankAccountForm($user, ['countries' => $countries] );
 
         $fee_value_with_currency = $this->siteConfigService->getFeeFormatMoney($user->getUserCurrency(), $this->userPreferencesService->getCurrency());
         $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeLimitFormatMoney($user->getUserCurrency(), $this->userPreferencesService->getCurrency());
@@ -186,6 +192,7 @@ class AccountController extends PublicSiteControllerBase
         return $this->view->setVars([
             'which_form' => 'wallet',
             'form_errors' => $form_errors,
+            'bank_account_form' => $bank_account_form,
             'user' => new UserDTO($user),
             'errors' => [],
             'msg' => [],
@@ -458,7 +465,14 @@ class AccountController extends PublicSiteControllerBase
             'funds-value' => '',
             'expiry-date' => '',
             'new-password' => '',
-            'confirm-password' => ''
+            'confirm-password' => '',
+            'name' => '',
+            'surname' => '',
+            'street' => '',
+            'zip' => '',
+            'city' => '',
+            'country' => '',
+            'phone_number' => ''
         ];
         return $form_errors;
     }
