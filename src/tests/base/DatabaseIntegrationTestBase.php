@@ -87,9 +87,11 @@ abstract class DatabaseIntegrationTestBase extends \PHPUnit_Extensions_Database_
         $tables = $conn->query("SELECT DISTINCT TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='euromillions_test';");
         $tables = $tables->fetchAll(PDO::FETCH_COLUMN, 0);
         foreach($tables as $table) {
-            $count = $conn->query('SELECT * FROM '.$table.' LIMIT 1');
-            if ($count->rowCount()) {
-                $this->fail('There are records left on table: '.$table);
+            if ($table !== 'phinxlog') {
+                $count = $conn->query('SELECT * FROM '.$table.' LIMIT 1');
+                if ($count->rowCount()) {
+                    $this->fail('There are records left on table: '.$table);
+                }
             }
         }
         $conn->exec("set foreign_key_checks=1");
@@ -105,7 +107,7 @@ abstract class DatabaseIntegrationTestBase extends \PHPUnit_Extensions_Database_
     {
         $result = array();
         foreach ($fixtures as $fixture_file) {
-            $fixture_content = include(TESTS_PATH . '/integration/fixtures/' . $fixture_file . '.php');
+            $fixture_content = include(TESTS_PATH . 'integration/fixtures/' . $fixture_file . '.php');
             foreach ($fixture_content as $table => $values)
                 $result[$table] = $values;
         }

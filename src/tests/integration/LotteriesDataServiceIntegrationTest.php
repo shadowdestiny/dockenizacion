@@ -61,15 +61,14 @@ class LotteriesDataServiceIntegrationTest extends DatabaseIntegrationTestBase
     public function test_updateLastDrawResult_calledWithProperDate_createFieldInDatabase()
     {
         $lottery_name = 'EuroMillions';
-        $date = '2015-06-05';
+        $date = '2015-06-02';
         $now = $date . ' 22:45:00';
 
         $curlWrapper_stub = $this->getCurlWrapperWithResultRssResponse();
 
         $sut = new LotteriesDataService($this->entityManager, new LotteryApisFactory());
         $sut->updateLastDrawResult($lottery_name, new \DateTime($now), $curlWrapper_stub);
-
-        $expected = new EuroMillionsLine($this->getRegularNumbers([2,7,8,45,48]),$this->getLuckyNumbers([1,9]));
+        $expected = new EuroMillionsLine($this->getRegularNumbers([7,23,29,37,41]),$this->getLuckyNumbers([1,8]));
 
         $euromillions_draw = $this->getDrawFromDatabase($lottery_name, new \DateTime($date));
         $actual_result = $euromillions_draw->getResult();

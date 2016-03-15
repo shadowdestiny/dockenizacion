@@ -85,6 +85,21 @@ return [
             'result_lucky_number_one' => 1,
             'result_lucky_number_two' => 8,
         ],
+        [
+            'id'   => 8,
+            'draw_date' => '2015-06-02',
+            'jackpot_amount' => 10000000000,
+            'lottery_id' => 1,
+            'jackpot_currency_name' => 'EUR',
+            'result_regular_number_one' => null,
+            'result_regular_number_two' => null,
+            'result_regular_number_three' => null,
+            'result_regular_number_four' => null,
+            'result_regular_number_five' => null,
+            'result_lucky_number_one' => null,
+            'result_lucky_number_two' => null,
+        ],
+
 
     ]
 ];
