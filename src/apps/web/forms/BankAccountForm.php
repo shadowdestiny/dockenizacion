@@ -4,7 +4,7 @@
 namespace EuroMillions\web\forms;
 
 
-use Phalcon\Forms\Element\Email;
+use EuroMillions\web\entities\User;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
@@ -16,7 +16,7 @@ use Phalcon\Validation\Validator\PresenceOf;
 class BankAccountForm extends Form
 {
 
-    public function initialize($entity = null, $options = null)
+    public function initialize(User $entity, $options = null)
     {
         $name = new Text('name', [
             'placeholder' => 'Name'

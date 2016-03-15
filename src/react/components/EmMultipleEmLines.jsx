@@ -19,6 +19,8 @@ var EuroMillionsMultipleEmLines = React.createClass({
                     <EuroMillionsLine clear_all={this.props.clear_all} random={random} addLineInStorage={this.props.add_storage} storage={this.state.storage[i]} callback={this.props.callback} numberPerLine="5" key={i} lineNumber={i}/>
             );
         }
+        var date2 = new Date();
+        console.log(date2.getTime());
         return (
             <div className="box-lines cl" id="box-lines">
                 {em_lines}

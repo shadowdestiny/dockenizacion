@@ -12,15 +12,9 @@ var Tooltip = new React.createClass({
         });
     },
 
-    componentDidMount : function () {
-        let node = ReactDOM.findDOMNode(this).getBoundingClientRect();
-        console.log(node);
-    },
-
-
 
     render : function (){
-        var react_tooltip = <ReactTooltip type="light" id='tooltip'/>;
+        var react_tooltip = <ReactTooltip effect="solid" type="light" id='tooltip'/>;
         var xlink = "/w/svg/icon.svg#" +this.props.ico;
 
         if(this.props.type == 'span') {
@@ -34,7 +28,7 @@ var Tooltip = new React.createClass({
         if(this.props.type == 'input') {
             return (
                 <span className="spanTooltip">
-                    <input data-for="tooltip" data-offset="{'top': 78, 'left': 260}" data-event={this.props.event} data-place="top" type="password" id="password" name="password" className={this.props.class} placeholder="Password" data-tip={this.props.message}/>
+                    <input data-for="tooltip" data-event={this.props.event} data-place={this.props.place} type="password" id="password" name="password" className={this.props.class} placeholder="Password" data-tip={this.props.message}/>
                     {react_tooltip}
                 </span>
             )
