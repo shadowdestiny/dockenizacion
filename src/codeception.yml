@@ -19,3 +19,23 @@ modules:
             user: ''
             password: ''
             dump: tests/_data/dump.sql
+coverage:
+  enabled: true
+  whitelist:
+    include:
+      - apps/*.php
+    exclude:
+      - apps/cli.php
+      - apps/admin/Module.php
+      - apps/web/Module.php
+      - apps/web/migrations/*
+      - apps/web/migrations_data
+      - apps/config
+      - apps/admin/interfaces
+      - apps/web/interfaces
+      - apps/admin/views
+      - apps/web/views
+      - apps/web/assets
+      - apps/web/templateHelpers
+      - apps/shared/config
+      - apps/shared/interfaces

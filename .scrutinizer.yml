@@ -165,7 +165,11 @@ build:
 
   tests:
     override:
-      - command: src/vendor/bin/phpunit --coverage-clover=coverage.clover --configuration src/tests/phpunit.xml --testsuite=unit+integration
+      - command: src/vendor/bin/codecept run --coverage --coverage-xml
         coverage:
-          file: coverage.clover
+          file: src/tests/_output/coverage.xml
           format: php-clover
+#      - command: src/vendor/bin/phpunit --coverage-clover=coverage.clover --configuration src/tests/phpunit.xml --testsuite=unit+integration
+#        coverage:
+#          file: coverage.clover
+#          format: php-clover
