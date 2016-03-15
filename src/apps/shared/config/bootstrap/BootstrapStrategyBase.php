@@ -87,8 +87,7 @@ abstract class BootstrapStrategyBase
             'driver'   => 'pdo_mysql',
             'user'     => $appConfig['database']['username'],
             'password' => $appConfig['database']['password'],
-            'dbname'   => $appConfig['database']['dbname'],
-            'charset'  => 'utf8'
+            'dbname'   => $appConfig['database']['dbname']
         ];
         $em = EntityManager::create($conn, $config);
         $platform = $em->getConnection()->getDatabasePlatform();
