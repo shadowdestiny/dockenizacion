@@ -1,11 +1,11 @@
 <?php
 namespace EuroMillions\shared\config\bootstrap;
 
+use Doctrine\Common\Cache\ApcuCache;
 use Doctrine\Common\Cache\RedisCache;
 use EuroMillions\shared\components\EnvironmentDetector;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
-use Doctrine\Common\Cache\ApcCache;
 use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\factories\DomainServiceFactory;
@@ -75,8 +75,8 @@ abstract class BootstrapStrategyBase
         $is_dev_mode = true; //EMDEPLOY hay que pasarlo por configuración. Quizá con el nuevo detector de environment
 
         $config = Setup::createXMLMetadataConfiguration(array($this->configPath . 'doctrine'), $is_dev_mode);
-        $config->setQueryCacheImpl(new ApcCache());
-        $config->setMetadataCacheImpl(new ApcCache());
+        $config->setQueryCacheImpl(new ApcuCache());
+        $config->setMetadataCacheImpl(new ApcuCache());
 
         $redis_cache = new RedisCache();
         $redis_cache->setRedis($redis);
