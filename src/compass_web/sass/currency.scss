@@ -69,10 +69,49 @@
 /* PYG      PARAGUAYAN GUARANI */
 /* RSD      SERBIAN DINAR */
 
+/*
 .home.cur-txt .box-value .currency{font-size:$h3;}
 .home.cur1 .box-value .value, .numbers.cur1 .box-value .value{font-size:$h0-2;}
 .home.cur2 .box-value .value{font-size:$h0-3;}
-.home.cur2 .box-prize .value, .numbers.cur2 .box-value .value{font-size:$h1;}
+.home.cur2 .box-prize .value, .numbers.cur2 .box-value .value{font-size:$h1;}*/
+
+.home.cur-txt{
+/*    .mytxt{transform:translate(70px, 92px);}*/
+    .mycur{font-size:32px;}
+    .banner .info{margin-left:73px;}
+}
+
+@media only screen and (max-width: 1200px){
+.home.cur-txt{/*
+    .mytxt{transform:translate(70px, 82px);}
+    .mycur{transform:translate(0, 82px);}*/
+}
+}
+
+
+@media only screen and (max-width:992px){
+.home.cur-txt{/*
+    .mytxt{transform:translate(70px, 92px);}
+    .mycur{transform:translate(0, 92px);}*/
+    .banner .info{margin-left:0;}
+    .group{transform:translate(50%, 50%); text-anchor:middle;}
+}
+
+}
+
+@media only screen and (min-width:531px){
+.banner .value{
+    .normal{display:block;}
+    .small{display:none;}
+}
+}
+
+@media only screen and (max-width:530px){
+.banner .value{
+    .normal{display:none;}
+    .small{display:block;}
+}
+}
 
 .wallet.cur-txt .box-wallet .insert, .cart.cur-txt .box-funds .insert{padding:5px 8px 6px 46px}
 .numbers.cur-txt .box-value .currency{font-size:$h3; top:-3px;}
