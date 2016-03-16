@@ -13,12 +13,12 @@ class CreditCard
     private $cvv;
 
 
-    public function __construct(CardHolderName $cardHolderName, CardNumber $cardNumber, ExpiryDate $expiryDate, CVV $cvv)
+    public function __construct($post)
     {
-        $this->cardHolderName = $cardHolderName;
-        $this->cardNumber = $cardNumber;
-        $this->expiryDate = $expiryDate;
-        $this->cvv = $cvv;
+        $this->cardHolderName = new CardHolderName($post('card-holder'));
+        $this->cardNumber = new CardNumber($post('card-number'));
+        $this->expiryDate = new ExpiryDate($post('expiry-date'));
+        $this->cvv = new CVV($post('card-cvv'));
     }
 
     public function cardHolderName()

@@ -204,22 +204,17 @@ class AccountController extends PublicSiteControllerBase
 
     public function addFundsAction()
     {
-
         $credit_card_form = new CreditCardForm();
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $form_errors = $this->getErrorsArray();
-        $funds_value = (int) $this->request->getPost('funds-value');
-        $card_number = $this->request->getPost('card-number');
-        $card_holder_name = $this->request->getPost('card-holder');
-        $expiry_date = $this->request->getPost('expiry-date');
-        $cvv = $this->request->getPost('card-cvv');
         $user_id = $this->authService->getCurrentUser();
         /** User $user */
         $user = $this->userService->getUser($user_id->getId());
+        $site_config_dto = $this->siteConfigService->getSiteConfigDTO($user->getUserCurrency(), $user->getLocale());
+        $wallet_dto = $this->domainServiceFactory->getWalletService()->getWalletDTO($user);
         $errors = [];
         $msg = '';
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
-
         if($this->request->isPost()) {
             if ($credit_card_form->isValid($this->request->getPost()) == false) {
                 $messages = $credit_card_form->getMessages(true);
@@ -235,23 +230,18 @@ class AccountController extends PublicSiteControllerBase
             }else {
                 if(null != $user ){
                     try {
-                        $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($expiry_date), new CVV($cvv));
+                        $card = new CreditCard($this->request->getPost());
                         $wallet_service = $this->domainServiceFactory->getWalletService();
                         /** @var ICardPaymentProvider $payXpertCardPaymentStrategy */
                         $payXpertCardPaymentStrategy = $this->di->get('paymentProviderFactory');
-                        $currency_euros_to_payment = $this->currencyConversionService->convert(new Money($funds_value * 100, $user->getUserCurrency()), new Currency('EUR'));
-                        $fee_value = $this->siteConfigService->getFee();
-                        $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue();
-                        $credit_card_charge = new CreditCardCharge($currency_euros_to_payment,$fee_value,$fee_to_limit_value);
+                        $currency_euros_to_payment = $this->currencyConversionService->convert(new Money((int) $this->request->getPost('funds-value') * 100, $user->getUserCurrency()), new Currency('EUR'));
+                        $credit_card_charge = new CreditCardCharge($currency_euros_to_payment,$this->siteConfigService->getFee(),$this->siteConfigService->getFeeToLimitValue());
                         $result = $wallet_service->rechargeWithCreditCard($payXpertCardPaymentStrategy, $card, $user, $credit_card_charge);
                         if($result->success()) {
                             $converted_net_amount_currency = $this->currencyConversionService->convert($credit_card_charge->getNetAmount(), $user->getUserCurrency());
-                            $converted_fee_value_currency = $this->currencyConversionService->convert($fee_value, $user->getUserCurrency());
-                            $converted_feelimit_value_currency = $this->currencyConversionService->convert($fee_to_limit_value, $user->getUserCurrency());
                             $msg .= 'We added ' . $symbol . ' '  . number_format($converted_net_amount_currency->getAmount() / 100,2,'.',',') . ' to your Wallet Balance';
-
                             if($credit_card_charge->getIsChargeFee()) {
-                                $msg .= ', and charged you an additional '. $symbol . ' ' . number_format($converted_fee_value_currency->getAmount() / 100,2,'.',',') .' because it is a transfer below ' . $symbol . ' ' . number_format($converted_feelimit_value_currency->getAmount() / 100,2,'.',',');
+                                $msg .= ', and charged you an additional '. $site_config_dto->fee .' because it is a transfer below ' . $site_config_dto->feeLimit;
                             }
                             $credit_card_form->clear();
                         } else {
@@ -264,12 +254,6 @@ class AccountController extends PublicSiteControllerBase
                 }
             }
         }
-
-        $fee_value_with_currency = $this->siteConfigService->getFeeFormatMoney($user->getUserCurrency(), $this->userPreferencesService->getCurrency());
-        $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeLimitFormatMoney($user->getUserCurrency(), $this->userPreferencesService->getCurrency());
-        $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue()->getAmount() / 1000;
-
-
         $this->view->pick('/account/wallet');
         return $this->view->setVars([
             'form_errors' => $form_errors,
@@ -277,9 +261,8 @@ class AccountController extends PublicSiteControllerBase
             'symbol' => (empty($symbol)) ? $user->getUserCurrency()->getName() : $symbol,
             'credit_card_form' => $credit_card_form,
             'msg' => $msg,
-            'fee_to_limit_value' => $fee_to_limit_value,
-            'fee' => $fee_value_with_currency,
-            'fee_to_limit' => $fee_to_limit_value_with_currency,
+            'site_config' => $site_config_dto,
+            'wallet' => $wallet_dto,
             'show_form_add_fund' => true,
             'show_winning_copy' => 0,
             'show_box_basic' => false,
