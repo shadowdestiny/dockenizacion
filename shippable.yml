@@ -11,7 +11,7 @@ services:
   - redis
 
 pre_ci_boot:
-  image_name: antonienko/phalcon-ci
+  image_name: antonienko/phalcon2-ci
   image_tab: v1.2.3
   pull: true
 
