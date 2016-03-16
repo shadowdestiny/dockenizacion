@@ -36,15 +36,17 @@ use Phalcon\Validation\Validator\Regex;
 class AccountController extends PublicSiteControllerBase
 {
 
+    /**
+     * @return \Phalcon\Mvc\View
+     */
     public function indexAction()
     {
         $errors = [];
         $form_errors = [];
-        $msg = '';
+        $msg = null;
         $userId = $this->authService->getCurrentUser();
         $myaccount_form = $this->getMyACcountForm($userId);
         $myaccount_passwordchange_form = new MyAccountChangePasswordForm();
-        //$form_errors = $this->getErrorsArray();
         if($this->request->isPost()) {
             if ($myaccount_form->isValid($this->request->getPost()) == false) {
                 $messages = $myaccount_form->getMessages(true);
@@ -87,11 +89,14 @@ class AccountController extends PublicSiteControllerBase
 
     public function transactionAction(){}
 
+    /**
+     * @return \Phalcon\Mvc\View
+     */
     public function passwordAction()
     {
         $errors = [];
+        $msg = null;
         $form_errors = [];
-        $msg = '';
         $userId = $this->authService->getCurrentUser();
         $user = $this->userService->getUser($userId->getId());
         $myaccount_form = $this->getMyACcountForm($userId);
@@ -133,6 +138,9 @@ class AccountController extends PublicSiteControllerBase
 
     }
 
+    /**
+     * @return \Phalcon\Mvc\View
+     */
     public function gamesAction()
     {
         $user = $this->authService->getCurrentUser();
@@ -168,6 +176,9 @@ class AccountController extends PublicSiteControllerBase
         ]);
     }
 
+    /**
+     * @return \Phalcon\Mvc\View
+     */
     public function walletAction()
     {
         $credit_card_form = new CreditCardForm();
@@ -202,11 +213,19 @@ class AccountController extends PublicSiteControllerBase
         ]);
     }
 
+    /**
+     * @return \Phalcon\Mvc\View
+     */
     public function addFundsAction()
     {
         $credit_card_form = new CreditCardForm();
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $form_errors = $this->getErrorsArray();
+        $funds_value = (int) $this->request->getPost('funds-value');
+        $card_number = $this->request->getPost('card-number');
+        $card_holder_name = $this->request->getPost('card-holder');
+        $expiry_date = $this->request->getPost('expiry-date');
+        $cvv = $this->request->getPost('card-cvv');
         $user_id = $this->authService->getCurrentUser();
         /** User $user */
         $user = $this->userService->getUser($user_id->getId());
@@ -230,11 +249,11 @@ class AccountController extends PublicSiteControllerBase
             }else {
                 if(null != $user ){
                     try {
-                        $card = new CreditCard($this->request->getPost());
+                        $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($expiry_date), new CVV($cvv));
                         $wallet_service = $this->domainServiceFactory->getWalletService();
                         /** @var ICardPaymentProvider $payXpertCardPaymentStrategy */
                         $payXpertCardPaymentStrategy = $this->di->get('paymentProviderFactory');
-                        $currency_euros_to_payment = $this->currencyConversionService->convert(new Money((int) $this->request->getPost('funds-value') * 100, $user->getUserCurrency()), new Currency('EUR'));
+                        $currency_euros_to_payment = $this->currencyConversionService->convert(new Money($funds_value * 100, $user->getUserCurrency()), new Currency('EUR'));
                         $credit_card_charge = new CreditCardCharge($currency_euros_to_payment,$this->siteConfigService->getFee(),$this->siteConfigService->getFeeToLimitValue());
                         $result = $wallet_service->rechargeWithCreditCard($payXpertCardPaymentStrategy, $card, $user, $credit_card_charge);
                         if($result->success()) {
@@ -262,13 +281,16 @@ class AccountController extends PublicSiteControllerBase
             'credit_card_form' => $credit_card_form,
             'msg' => $msg,
             'site_config' => $site_config_dto,
-            'wallet' => $wallet_dto,
             'show_form_add_fund' => true,
             'show_winning_copy' => 0,
+            'wallet' => $wallet_dto,
             'show_box_basic' => false,
         ]);
     }
 
+    /**
+     * @return \Phalcon\Mvc\View
+     */
     public function emailAction()
     {
         $userId = $this->authService->getCurrentUser();
@@ -293,6 +315,9 @@ class AccountController extends PublicSiteControllerBase
         ]);
     }
 
+    /**
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface|\Phalcon\Mvc\View
+     */
     public function editEmailAction()
     {
         if(!$this->request->isPost()) {
@@ -361,6 +386,9 @@ class AccountController extends PublicSiteControllerBase
 
     }
 
+    /**
+     * @return \Phalcon\Mvc\View
+     */
     public function resetPasswordAction()
     {
         $errors = [];
