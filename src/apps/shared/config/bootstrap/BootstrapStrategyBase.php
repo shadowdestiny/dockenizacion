@@ -88,6 +88,7 @@ abstract class BootstrapStrategyBase
             'user'     => $appConfig['database']['username'],
             'password' => $appConfig['database']['password'],
             'dbname'   => $appConfig['database']['dbname'],
+            'charset'  => 'utf8'
         ];
         $em = EntityManager::create($conn, $config);
         $platform = $em->getConnection()->getDatabasePlatform();

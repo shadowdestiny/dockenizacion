@@ -6,14 +6,16 @@ use EuroMillions\web\entities\SiteConfig;
 use EuroMillions\web\repositories\SiteConfigRepository;
 use EuroMillions\web\services\CurrencyConversionService;
 use Money\Currency as MoneyCurrency;
+use EuroMillions\web\vo\dto\SiteConfigDTO;
 use Money\Money;
 
 class SiteConfigService
 {
     /** @var  SiteConfig $configEntity */
     protected $configEntity;
-
     private $currencyConversionService;
+    /** @var SiteConfigRepository $siteConfigRepository */
+    private $siteConfigRepository;
 
     public function __construct(EntityManager $entityManager, CurrencyConversionService $currencyConversionService)
     {
@@ -73,6 +75,16 @@ class SiteConfigService
         list($value) = $this->getCurrenciesVar($user_currency, $locale,  $this->configEntity->getFeeToLimit());
         return $value;
     }
+
+    public function getSiteConfigDTO( Currency $currency, $locale )
+    {
+        $fee_to_limit_convert = $this->currencyConversionService->convert($this->configEntity->getFeeToLimit(), $currency);
+        $amount_fee_to_limit = $this->currencyConversionService->toString($fee_to_limit_convert , $locale);
+        $fee_convert = $this->currencyConversionService->convert($this->configEntity->getFee(), $currency);
+        $amount_fee = $this->currencyConversionService->toString($fee_convert, $locale);
+        return new SiteConfigDTO($amount_fee_to_limit, $amount_fee);
+    }
+
 
     /**
      * @param MoneyCurrency $user_currency
