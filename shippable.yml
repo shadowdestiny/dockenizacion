@@ -31,10 +31,11 @@ build:
   on_success:
     - curl --data "environment=staging&version=master" http://62.57.159.66:3000/deploy/
 
-notifications:
-  email:
-    recipients:
-      - antonio.hernandez@panamedia.net
-      - raul.mesa@panamedia.net
-    on_success: change
-    on_failure: always
+integrations:
+  notifications:
+    - integrationName: email
+      type: email
+      recipients:
+        - antonio.hernandez@panamedia.net
+        - raul.mesa@panamedia.net
+      on_failure: true
