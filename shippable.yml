@@ -31,6 +31,11 @@ build:
   on_success:
     - curl --data "environment=staging&version=master" http://62.57.159.66:3000/deploy/
 
+pre_ci_boot:
+  image_name: antonienko/phalcon-ci
+  image_tab: v1.2.3
+  pull: true
+
 integrations:
   notifications:
     - integrationName: email
