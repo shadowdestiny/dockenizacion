@@ -5,14 +5,10 @@ use EuroMillions\shared\config\Namespaces;
 use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\tests\base\UnitTestBase;
 use EuroMillions\web\entities\SiteConfig;
-use EuroMillions\web\repositories\SiteConfigRepository;
-use EuroMillions\web\vo\dto\SiteConfigDTO;
 use Prophecy\Argument;
-use EuroMillions\web\repositories\SiteConfigRepository;
 use EuroMillions\web\vo\dto\SiteConfigDTO;
 use Money\Currency;
 use Money\Money;
-use Prophecy\Argument;
 
 class SiteConfigServiceToTest extends SiteConfigService
 {

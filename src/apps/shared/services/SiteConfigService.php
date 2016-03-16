@@ -14,8 +14,6 @@ class SiteConfigService
     /** @var  SiteConfig $configEntity */
     protected $configEntity;
     private $currencyConversionService;
-    /** @var SiteConfigRepository $siteConfigRepository */
-    private $siteConfigRepository;
 
     public function __construct(EntityManager $entityManager, CurrencyConversionService $currencyConversionService)
     {
@@ -76,7 +74,7 @@ class SiteConfigService
         return $value;
     }
 
-    public function getSiteConfigDTO( Currency $currency, $locale )
+    public function getSiteConfigDTO( MoneyCurrency $currency, $locale )
     {
         $fee_to_limit_convert = $this->currencyConversionService->convert($this->configEntity->getFeeToLimit(), $currency);
         $amount_fee_to_limit = $this->currencyConversionService->toString($fee_to_limit_convert , $locale);
