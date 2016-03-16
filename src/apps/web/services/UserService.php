@@ -314,6 +314,7 @@ class UserService
         if( $money->getAmount() < 250000 ) {
             return new ActionResult(false,new Money(0,$user->getUserCurrency()));
         }
+
         try {
             $user->setWinningAbove($money);
             $this->userRepository->add($user);

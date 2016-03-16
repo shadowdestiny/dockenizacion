@@ -33,6 +33,6 @@ class CurrencyConversionServiceUnitTest extends UnitTestBase
         $actual = $sut->convert(new Money($amount, new Currency($from_currency_name)), new Currency($to_currency_name));
         $expected = new Money(132, new Currency($to_currency_name));
         self::assertEquals($expected, $actual);
-
     }
+
 }

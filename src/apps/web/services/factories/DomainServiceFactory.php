@@ -48,7 +48,9 @@ class DomainServiceFactory
 
     public function getWalletService()
     {
-        return new WalletService($this->entityManager);
+        return new WalletService($this->entityManager,
+                                 $this->getCurrencyConversionService()
+            );
     }
 
     public function getLotteriesDataService()

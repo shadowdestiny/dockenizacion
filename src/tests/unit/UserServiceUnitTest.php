@@ -10,6 +10,7 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\ContactFormInfo;
+use EuroMillions\web\vo\dto\WalletDTO;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
@@ -385,6 +386,22 @@ class UserServiceUnitTest extends UnitTestBase
 
     /**
      * method userWonAbove
+     * when calledWithAmountLessLimit
+     * should returnActionResultFalseWith0Money
+     */
+    public function test_userWonAbove_calledWithAmountLessLimit_returnActionResultFalseWith0Money()
+    {
+        $user = UserMother::aUserWith50Eur()->build();
+        $expected = new ActionResult(false, new Money(0, $user->getUserCurrency()));
+        $money = new Money(100000, new Currency('EUR'));
+        $sut = $this->getSut();
+        $actual = $sut->userWonAbove($user, $money);
+        $this->assertEquals($expected, $actual);
+    }
+
+
+    /**
+     * method userWonAbove
      * when called
      * should updateUserRowAndReturnValueWon
      */
@@ -398,21 +415,6 @@ class UserServiceUnitTest extends UnitTestBase
         $sut = $this->getSut();
         $actual = $sut->userWonAbove($user, $money);
         $this->assertEquals($money, $actual->getValues());
-    }
-
-    /**
-     * method userWonAbove
-     * when calledWithAmountLessLimit
-     * should returnActionResultFalseWith0Money
-     */
-    public function test_userWonAbove_calledWithAmountLessLimit_returnActionResultFalseWith0Money()
-    {
-        $user = UserMother::aUserWith50Eur()->build();
-        $expected = new ActionResult(false, new Money(0, $user->getUserCurrency()));
-        $money = new Money(100000, new Currency('EUR'));
-        $sut = $this->getSut();
-        $actual = $sut->userWonAbove($user, $money);
-        $this->assertEquals($expected, $actual);
     }
 
 

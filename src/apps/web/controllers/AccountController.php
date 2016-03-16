@@ -186,7 +186,7 @@ class AccountController extends PublicSiteControllerBase
         $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeLimitFormatMoney($user->getUserCurrency(), $this->userPreferencesService->getCurrency());
         $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue()->getAmount() / 100;
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
-        $amount_winning = $user->getWinningAbove();
+        $wallet_dto = $this->domainServiceFactory->getWalletService()->getWalletDTO($user);
         $this->userService->resetWonAbove($user);
 
         return $this->view->setVars([
@@ -199,7 +199,7 @@ class AccountController extends PublicSiteControllerBase
             'symbol' => $symbol,
             'credit_card_form' => $credit_card_form,
             'show_form_add_fund' => false,
-            'show_winning_copy' => ($amount_winning != null ) ? $amount_winning->getAmount() / 100 : 0,
+            'wallet' => $wallet_dto,
             'show_box_basic' => true,
             'fee_to_limit_value' => $fee_to_limit_value,
             'fee' => $fee_value_with_currency,
