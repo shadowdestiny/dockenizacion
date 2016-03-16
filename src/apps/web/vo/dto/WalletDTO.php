@@ -17,7 +17,7 @@ class WalletDTO
         $this->wallet_balance_amount = $balance;
         $this->wallet_uploaded_amount = $uploaded;
         $this->wallet_winning_amount = $winnings;
-        $this->current_winnings = strpos($current_winnings, '0') == 3 ? null : $current_winnings;
+        $this->current_winnings = mb_strpos($current_winnings, '0') == 1 ? null : $current_winnings;
     }
 
     /**

@@ -5,6 +5,7 @@ use Doctrine\ORM\EntityManager;
 use EuroMillions\web\entities\SiteConfig;
 use EuroMillions\web\repositories\SiteConfigRepository;
 use EuroMillions\web\services\CurrencyConversionService;
+use EuroMillions\web\vo\dto\SiteConfigDTO;
 use Money\Currency;
 use Money\Money;
 
@@ -12,16 +13,15 @@ class SiteConfigService
 {
     /** @var  SiteConfig $configEntity */
     protected $configEntity;
-
     private $currencyConversionService;
+    /** @var SiteConfigRepository $siteConfigRepository */
+    private $siteConfigRepository;
 
     public function __construct(EntityManager $entityManager, CurrencyConversionService $currencyConversionService)
     {
         /** @var SiteConfigRepository $site_config_repository */
-        $site_config_repository = $entityManager->getRepository('EuroMillions\web\entities\SiteConfig');
-
-        $result = $site_config_repository->getSiteConfig();
-
+        $this->siteConfigRepository = $entityManager->getRepository('EuroMillions\web\entities\SiteConfig');
+        $result = $this->siteConfigRepository->getSiteConfig();
         /** @var SiteConfig $config */
         $this->configEntity = $result[0];
         $this->currencyConversionService = $currencyConversionService;
@@ -64,6 +64,16 @@ class SiteConfigService
         list($value) = $this->getCurrenciesVar($user_currency, $locale,  $this->configEntity->getFeeToLimit());
         return $value;
     }
+
+    public function getSiteConfigDTO( Currency $currency, $locale )
+    {
+        $fee_to_limit_convert = $this->currencyConversionService->convert($this->configEntity->getFeeToLimit(), $currency);
+        $amount_fee_to_limit = $this->currencyConversionService->toString($fee_to_limit_convert , $locale);
+        $fee_convert = $this->currencyConversionService->convert($this->configEntity->getFee(), $currency);
+        $amount_fee = $this->currencyConversionService->toString($fee_convert, $locale);
+        return new SiteConfigDTO($amount_fee_to_limit, $amount_fee);
+    }
+
 
     /**
      * @param Currency $user_currency

@@ -7,12 +7,12 @@ namespace EuroMillions\web\vo\dto;
 class SiteConfigDTO
 {
 
-    public $fee_limit;
+    public $feeLimit;
     public $fee;
 
-    public function __construct( $fee_limit, $fee )
+    public function __construct( $feeLimit, $fee )
     {
-        $this->fee_limit = $fee_limit;
+        $this->feeLimit = $feeLimit;
         $this->fee = $fee;
     }
 

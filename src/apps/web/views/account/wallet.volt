@@ -5,7 +5,7 @@
 <script src="/w/js/mobileFix.js"></script>
 {% endblock %}
 {% block template_scripts_code %}
-var fee_limit = '<?php echo $fee_to_limit_value; ?>';
+
 
 function deleteLnk(id){
     $(id).click(function(e){

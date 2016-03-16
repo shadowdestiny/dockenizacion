@@ -181,10 +181,7 @@ class AccountController extends PublicSiteControllerBase
         /** @var User $user */
         $user = $this->userService->getUser($user_id->getId());
         $bank_account_form = new BankAccountForm($user, ['countries' => $countries] );
-
-        $fee_value_with_currency = $this->siteConfigService->getFeeFormatMoney($user->getUserCurrency(), $this->userPreferencesService->getCurrency());
-        $fee_to_limit_value_with_currency = $this->siteConfigService->getFeeLimitFormatMoney($user->getUserCurrency(), $this->userPreferencesService->getCurrency());
-        $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValue()->getAmount() / 100;
+        $site_config_dto = $this->siteConfigService->getSiteConfigDTO($user->getUserCurrency(), $user->getLocale());
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
         $wallet_dto = $this->domainServiceFactory->getWalletService()->getWalletDTO($user);
         $this->userService->resetWonAbove($user);
@@ -201,9 +198,7 @@ class AccountController extends PublicSiteControllerBase
             'show_form_add_fund' => false,
             'wallet' => $wallet_dto,
             'show_box_basic' => true,
-            'fee_to_limit_value' => $fee_to_limit_value,
-            'fee' => $fee_value_with_currency,
-            'fee_to_limit' => $fee_to_limit_value_with_currency
+            'site_config' => $site_config_dto
         ]);
     }
 
