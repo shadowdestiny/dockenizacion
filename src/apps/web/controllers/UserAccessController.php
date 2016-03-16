@@ -134,47 +134,48 @@ class UserAccessController extends ControllerBase
         ]);
     }
 
-    public function updatePasswordAction()
-    {
-        $errors = [];
-        $form_errors = [];
-        $msg = '';
-        $userId = $this->authService->getCurrentUser();
-        $user = $this->userService->getUser($userId->getId());
-        $myaccount_form = $this->getMyACcountForm($userId);
-        $myaccount_passwordchange_form = new MyAccountChangePasswordForm();
-        if($this->request->isPost()) {
-            if ($myaccount_passwordchange_form->isValid($this->request->getPost()) == false) {
-                $messages = $myaccount_passwordchange_form->getMessages(true);
-                foreach ($messages as $field => $field_messages) {
-                    $errors[] = $field_messages[0]->getMessage();
-                    $form_errors[$field] = ' error';
-                }
-            }else {
-                $result_same_password = $this->authService->samePassword($user,$this->request->getPost('old-password'));
-                if($result_same_password->success()) {
-                    $result = $this->authService->updatePassword($user, $this->request->getPost('new-password'));
-                    if ($result->success()) {
-                        $msg = $result->getValues();
-                    } else {
-                        $errors [] = $result->errorMessage();
-                    }
-                }else{
-                    $errors[] = $result_same_password->errorMessage();
-                }
-            }
-        }
-
-        return $this->view->setVars([
-            'form_errors' => !empty($form_errors) ? $form_errors : [],
-            'which_form'  => 'password',
-            'errors' => $errors,
-            'msg' => !empty($msg) ? $msg : '',
-            'myaccount' => $myaccount_form,
-            'password_change' => $myaccount_passwordchange_form
-        ]);
-
-    }
+    //EMTD 2016-03-16 code commented. If no problem exit, remove it.
+//    public function updatePasswordAction()
+//    {
+//        $errors = [];
+//        $form_errors = [];
+//        $msg = '';
+//        $userId = $this->authService->getCurrentUser();
+//        $user = $this->userService->getUser($userId->getId());
+//        $myaccount_form = $this->getMyACcountForm($userId);
+//        $myaccount_passwordchange_form = new MyAccountChangePasswordForm();
+//        if($this->request->isPost()) {
+//            if ($myaccount_passwordchange_form->isValid($this->request->getPost()) == false) {
+//                $messages = $myaccount_passwordchange_form->getMessages(true);
+//                foreach ($messages as $field => $field_messages) {
+//                    $errors[] = $field_messages[0]->getMessage();
+//                    $form_errors[$field] = ' error';
+//                }
+//            }else {
+//                $result_same_password = $this->authService->samePassword($user,$this->request->getPost('old-password'));
+//                if($result_same_password->success()) {
+//                    $result = $this->authService->updatePassword($user, $this->request->getPost('new-password'));
+//                    if ($result->success()) {
+//                        $msg = $result->getValues();
+//                    } else {
+//                        $errors [] = $result->errorMessage();
+//                    }
+//                }else{
+//                    $errors[] = $result_same_password->errorMessage();
+//                }
+//            }
+//        }
+//
+//        return $this->view->setVars([
+//            'form_errors' => !empty($form_errors) ? $form_errors : [],
+//            'which_form'  => 'password',
+//            'errors' => $errors,
+//            'msg' => !empty($msg) ? $msg : '',
+//            'myaccount' => $myaccount_form,
+//            'password_change' => $myaccount_passwordchange_form
+//        ]);
+//
+//    }
 
 
     public function validateAction($token)
