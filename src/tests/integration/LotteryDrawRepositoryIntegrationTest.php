@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\tests\integration;
 
+use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\vo\EuroMillionsLine;
@@ -49,15 +50,40 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
      */
     public function test_getNextJackpot_called_returnNextJackpotOfSelectedLottery($date, $lotteryName, $expectedJackpot)
     {
-        $actual = $this->sut->getNextJackpot($lotteryName, new \DateTime($date));
+        $actual = $this->sut->getNextJackpot($this->getLotteryInstance($lotteryName), new \DateTime($date));
         $this->assertEquals(new Money($expectedJackpot, new Currency('EUR')), $actual);
     }
 
     public function getLotteryAndExpectedNextJackpot()
     {
         return [
-            ['2015-05-22 22:00:00', 'EuroMillions', 10000000000],
-            ['2015-05-19 22:00:00', 'EuroMillions', 415034000]
+            ['2015-05-12 22:00:00', 'EuroMillions', 10344500],
+            ['2015-05-15 22:00:00', 'EuroMillions', 19394845825200],
+            ['2015-05-16 22:00:00', 'EuroMillions', 19394845825200],
+            ['2015-05-19 17:00:00', 'EuroMillions', 19394845825200],
+            ['2015-05-22 17:00:00', 'EuroMillions', 415034000]
+        ];
+    }
+
+    /**
+     * method getNextJackpot
+     * when calledAndThereIsNotNextDrawWithProperDate
+     * should throwException
+     * @dataProvider getBadLotteryDatesForNextJackpot
+     */
+    public function test_getNextJackpot_calledAndThereIsNotNextDrawWithProperDate_throwException($date)
+    {
+        $this->setExpectedException('EuroMillions\web\exceptions\DataMissingException');
+        $this->sut->getNextJackpot($this->getLotteryInstance('EuroMillions'), new \DateTime($date));
+    }
+
+    public function getBadLotteryDatesForNextJackpot()
+    {
+        return [
+            ['2015-05-22 22:00:00'], //There's a next draw, but not the correct one
+            ['2015-05-23 22:00:00'],
+            ['2005-05-22 22:00:00'],
+            ['2128-01-22 10:00:00']
         ];
     }
 
@@ -71,7 +97,7 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
     {
         /** @var EuroMillionsLine $actual */
         $lottery = (new Lottery())->initialize([
-             'name' => 'EuroMillions',
+            'name'      => 'EuroMillions',
             'frequency' => 'w0100100',
             'draw_time' => '20:00:00',
         ]);
@@ -89,17 +115,23 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
     {
         /** @var EuroMillionsLine $actual */
         $lottery = (new Lottery())->initialize([
-            'name' => 'EuroMillions',
+            'name'      => 'EuroMillions',
             'frequency' => 'w0100100',
             'draw_time' => '20:00:00',
         ]);
         $date = new \DateTime('2015-10-02 12:00:00');
-        $actual = count($this->sut->getNextDraw($lottery,$date));
-        $this->assertGreaterThanOrEqual(1,$actual);
+        $actual = count($this->sut->getNextDraw($lottery, $date));
+        $this->assertGreaterThanOrEqual(1, $actual);
     }
 
     protected function getEntity()
     {
         return 'EuroMillionsDraw';
+    }
+
+    private function getLotteryInstance($lotteryName)
+    {
+        $lottery_repository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS.'Lottery');
+        return $lottery_repository->findOneBy(['name'=> $lotteryName]);
     }
 }

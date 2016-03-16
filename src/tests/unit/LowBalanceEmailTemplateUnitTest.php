@@ -14,12 +14,12 @@ use EuroMillions\tests\base\UnitTestBase;
 class LowBalanceEmailTemplateUnitTest extends UnitTestBase
 {
 
-    protected $lotteriesDataService;
+    protected $lotteryService;
 
     public function setUp()
     {
         parent::setUp();
-        $this->lotteriesDataService = $this->getServiceDouble('LotteriesDataService');
+        $this->lotteryService = $this->getServiceDouble('LotteryService');
     }
 
     /**
@@ -31,8 +31,8 @@ class LowBalanceEmailTemplateUnitTest extends UnitTestBase
     {
         $expected = $this->getArrayContentTemplate();
         $emailTemplate = new EmailTemplate();
-        $this->lotteriesDataService->getNextJackpot('EuroMillions')->willReturn(new Money(10000,new Currency('EUR')));
-        $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions')->willReturn(new \DateTime());
+        $this->lotteryService->getNextJackpot('EuroMillions')->willReturn(new Money(10000,new Currency('EUR')));
+        $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->willReturn(new \DateTime());
 
 
         $next_draw_day = new \DateTime();

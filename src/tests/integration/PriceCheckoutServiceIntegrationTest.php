@@ -42,11 +42,7 @@ class PriceCheckoutServiceIntegrationTest extends DatabaseIntegrationTestBase
         $user = $userRepository->getByEmail($email);
         $amount = new Money(6000, new Currency('EUR'));
         $sut = new PriceCheckoutService(
-            $this->entityManager,
-            $this->getServiceDouble('LotteriesDataService')->reveal(),
-            $this->getServiceDouble('CurrencyConversionService')->reveal(),
-            $this->getServiceDouble('UserService')->reveal(),
-            $this->getServiceDouble('EmailService')->reveal()
+            $this->entityManager, $this->getServiceDouble('CurrencyConversionService')->reveal(), $this->getServiceDouble('UserService')->reveal(), $this->getServiceDouble('EmailService')->reveal()
         );
         $sut->reChargeAmountAwardedToUser($user,$amount);
         $this->entityManager->detach($user);

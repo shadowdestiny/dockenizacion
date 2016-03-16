@@ -21,7 +21,8 @@ class JackpotTaskUnitTest extends UnitTestBase
 
     private $lotteryDrawRepository_double;
 
-    private $lotteryDataService_double;
+    private $lotteriesDataService_double;
+    private $lotteryService_double;
 
     private $emailService_double;
 
@@ -39,7 +40,8 @@ class JackpotTaskUnitTest extends UnitTestBase
 
     public function setUp()
     {
-        $this->lotteryDataService_double = $this->getServiceDouble('LotteriesDataService');
+        $this->lotteriesDataService_double = $this->getServiceDouble('LotteriesDataService');
+        $this->lotteryService_double = $this->getServiceDouble('LotteryService');
         $this->userService_double = $this->getServiceDouble('UserService');
         $this->emailService_double = $this->getServiceDouble('EmailService');
         parent::setUp();
@@ -54,10 +56,10 @@ class JackpotTaskUnitTest extends UnitTestBase
     {
         $today = new \DateTime('2015-06-12 10:37:08');
         $lottery_name = 'EuroMillions';
-        $this->lotteryDataService_double->getLastDrawDate($lottery_name,$today)->willReturn(new \DateTime('2015-06-09 20:00:00'));
-        $this->lotteryDataService_double->updateNextDrawJackpot($lottery_name,new \DateTime('2015-06-09 19:59:00'))->shouldBeCalled();
+        $this->lotteryService_double->getLastDrawDate($lottery_name,$today)->willReturn(new \DateTime('2015-06-09 20:00:00'));
+        $this->lotteriesDataService_double->updateNextDrawJackpot($lottery_name,new \DateTime('2015-06-09 19:59:00'))->shouldBeCalled();
         $sut = new JackpotTask();
-        $sut->initialize($this->lotteryDataService_double->reveal(),$this->userService_double->reveal(), $this->emailService_double->reveal());
+        $sut->initialize($this->lotteriesDataService_double->reveal(),$this->lotteryService_double->reveal(),$this->userService_double->reveal(), $this->emailService_double->reveal());
         $sut->updatePreviousAction($today);
     }
 
@@ -71,13 +73,13 @@ class JackpotTaskUnitTest extends UnitTestBase
         $lottery_name = 'EuroMillions';
         $notifications = [$this->getUserNotifications()];
         $jackpot_amount = new Money(40000000, new Currency('EUR'));
-        $this->lotteryDataService_double->getNextDateDrawByLottery($lottery_name)->willReturn(new \DateTime());
-        $this->lotteryDataService_double->getNextJackpot($lottery_name)->willReturn($jackpot_amount);
+        $this->lotteryService_double->getNextDateDrawByLottery($lottery_name)->willReturn(new \DateTime());
+        $this->lotteryService_double->getNextJackpot($lottery_name)->willReturn($jackpot_amount);
         $this->userService_double->getActiveNotificationsTypeJackpot()->willReturn(new ActionResult(true,$notifications));
         $this->userService_double->getUser($this->getUser()->getId())->willReturn($this->getUser());
         $this->emailService_double->sendTransactionalEmail(Argument::type($this->getEntitiesToArgument('User')), Argument::type('EuroMillions\web\emailTemplates\IEmailTemplate'))->shouldBeCalledTimes(1);
         $sut = new JackpotTask();
-        $sut->initialize($this->lotteryDataService_double->reveal(),$this->userService_double->reveal(), $this->emailService_double->reveal());
+        $sut->initialize($this->lotteriesDataService_double->reveal(),$this->lotteryService_double->reveal(),$this->userService_double->reveal(), $this->emailService_double->reveal());
         $sut->reminderJackpotAction();
     }
 

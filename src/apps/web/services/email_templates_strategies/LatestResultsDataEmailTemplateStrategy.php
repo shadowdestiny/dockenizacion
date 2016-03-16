@@ -5,31 +5,31 @@ namespace EuroMillions\web\services\email_templates_strategies;
 
 
 use EuroMillions\web\interfaces\IEmailTemplateDataStrategy;
-use EuroMillions\web\services\LotteriesDataService;
+use EuroMillions\web\services\LotteryService;
 
 class LatestResultsDataEmailTemplateStrategy implements IEmailTemplateDataStrategy
 {
 
-    protected $lotteriesDataService;
+    protected $lotteryService;
 
     protected $time_config;
 
-    public function __construct(LotteriesDataService $lotteriesDataService = null)
+    public function __construct(LotteryService $lotteryService = null)
     {
-        $this->lotteriesDataService = ($lotteriesDataService != null) ? $lotteriesDataService : \Phalcon\Di::getDefault()->get('domainServiceFactory')->getLotteriesDataService();
+        $this->lotteryService = ($lotteryService != null) ? $lotteryService : \Phalcon\Di::getDefault()->get('domainServiceFactory')->getLotteriesDataService();
         $this->time_config = \Phalcon\Di::getDefault()->get('globalConfig')['retry_validation_time'];
     }
 
     public function getData(IEmailTemplateDataStrategy $strategy = null)
     {
         try {
-            $draw_result = $this->lotteriesDataService->getLastResult('EuroMillions');
-            $last_draw_date = $this->lotteriesDataService->getLastDrawDate('EuroMillions');
+            $draw_result = $this->lotteryService->getLastResult('EuroMillions');
+            $last_draw_date = $this->lotteryService->getLastDrawDate('EuroMillions');
 
             return [
                 'draw_result' => $draw_result,
                 'last_draw_date' => $last_draw_date,
-                'jackpot_amount' => $strategy->getData(new JackpotDataEmailTemplateStrategy($this->lotteriesDataService))['jackpot_amount']
+                'jackpot_amount' => $strategy->getData(new JackpotDataEmailTemplateStrategy($this->lotteryService))['jackpot_amount']
             ];
 
         } catch (\Exception $e) {

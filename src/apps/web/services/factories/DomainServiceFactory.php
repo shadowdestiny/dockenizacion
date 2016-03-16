@@ -15,6 +15,7 @@ use EuroMillions\web\services\external_apis\LotteryApisFactory;
 use EuroMillions\web\services\external_apis\CurrencyConversion\RedisCurrencyApiCache;
 use EuroMillions\web\services\LanguageService;
 use EuroMillions\web\services\LotteriesDataService;
+use EuroMillions\web\services\LotteryService;
 use EuroMillions\web\services\PaymentProviderService;
 use EuroMillions\web\services\play_strategies\RedisOrderStorageStrategy;
 use EuroMillions\web\services\play_strategies\RedisPlayStorageStrategy;
@@ -25,7 +26,6 @@ use EuroMillions\web\services\PriceCheckoutService;
 use EuroMillions\web\services\UserPreferencesService;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\services\WalletService;
-use Phalcon\Cache\Backend\Redis;
 use Phalcon\Di;
 use Phalcon\DiInterface;
 use EuroMillions\web\services\auth_strategies\WebAuthStorageStrategy;
@@ -54,9 +54,13 @@ class DomainServiceFactory
     public function getLotteriesDataService()
     {
         return new LotteriesDataService(
-            $this->entityManager,
-            new LotteryApisFactory()
+            $this->entityManager, new LotteryApisFactory()
         );
+    }
+
+    public function getLotteryService()
+    {
+        return new LotteryService($this->entityManager, $this->getLotteriesDataService());
     }
 
     public function getLanguageService()
@@ -115,7 +119,7 @@ class DomainServiceFactory
     {
         return new PlayService(
             $this->entityManager,
-            $this->getLotteriesDataService(),
+            $this->getLotteryService(),
             new RedisPlayStorageStrategy(
                 $this->serviceFactory->getDI()->get('redisCache')
             ),
@@ -133,7 +137,7 @@ class DomainServiceFactory
     {
         return new BetService(
             $this->entityManager,
-            new LotteriesDataService($this->entityManager, new LotteryApisFactory())
+            $this->getLotteryService()
         );
     }
 
@@ -148,11 +152,7 @@ class DomainServiceFactory
     public function getPriceCheckoutService()
     {
         return new PriceCheckoutService(
-            $this->entityManager,
-            $this->getLotteriesDataService(),
-            $this->getCurrencyConversionService(),
-            $this->getUserService(),
-            $this->serviceFactory->getEmailService()
+            $this->entityManager, $this->getCurrencyConversionService(), $this->getUserService(), $this->serviceFactory->getEmailService()
         );
     }
 
@@ -163,7 +163,6 @@ class DomainServiceFactory
 
     public function getCurrencyConversionService()
     {
-        /** @var Redis $redis_cache */
         $redis_cache = $this->serviceFactory->getDI()->get('redisCache');
         return new CurrencyConversionService(
             new CurrencyLayerApi(

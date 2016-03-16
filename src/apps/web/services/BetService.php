@@ -1,8 +1,5 @@
 <?php
-
-
 namespace EuroMillions\web\services;
-
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\vo\results\ActionResult;
@@ -20,10 +17,10 @@ use EuroMillions\web\vo\CastilloTicketId;
 
 class BetService
 {
-
     private $entityManager;
 
-    private $lotteriesDataService;
+    /** @var LotteryService */
+    private $lotteryService;
 
 
     private $userRepository;
@@ -36,10 +33,10 @@ class BetService
     private $playConfigRepository;
 
 
-    public function __construct(EntityManager $entityManager, LotteriesDataService $lotteriesDataService)
+    public function __construct(EntityManager $entityManager, LotteryService $lotteryService)
     {
         $this->entityManager = $entityManager;
-        $this->lotteriesDataService = $lotteriesDataService;
+        $this->lotteryService = $lotteryService;
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
         $this->betRepository = $entityManager->getRepository('EuroMillions\web\entities\Bet');
         $this->logValidationRepository = $entityManager->getRepository('EuroMillions\web\entities\LogValidationApi');
@@ -60,7 +57,7 @@ class BetService
         $user = $this->userRepository->find($playConfig->getUser()->getId()->id());
         $single_bet_price = $euroMillionsDraw->getLottery()->getSingleBetPrice();
         if($user->getBalance()->getAmount() > $single_bet_price->getAmount()) {
-            $dateNextDraw = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions', $today);
+            $dateNextDraw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions', $today);
             $result = $this->betRepository->getBetsByDrawDate($dateNextDraw);
             if(!empty($result)){
                 return new ActionResult(true);

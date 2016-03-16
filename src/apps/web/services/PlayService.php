@@ -1,8 +1,5 @@
 <?php
-
-
 namespace EuroMillions\web\services;
-
 
 use Doctrine\ORM\EntityManager;
 
@@ -33,8 +30,8 @@ class PlayService
      */
     private $playConfigRepository;
 
-    /** @var  LotteriesDataService */
-    private $lotteriesDataService;
+    /** @var  LotteryService */
+    private $lotteryService;
 
     /** @var  BetRepository */
     private $betRepository;
@@ -60,7 +57,7 @@ class PlayService
     private $betService;
 
     public function __construct(EntityManager $entityManager,
-                                LotteriesDataService $lotteriesDataService,
+                                LotteryService $lotteryService,
                                 IPlayStorageStrategy $playStorageStrategy,
                                 IPlayStorageStrategy $orderStorageStrategy,
                                 CartService $cartService,
@@ -72,7 +69,7 @@ class PlayService
         $this->playConfigRepository = $entityManager->getRepository('EuroMillions\web\entities\PlayConfig');
         $this->betRepository = $entityManager->getRepository('EuroMillions\web\entities\Bet');
         $this->lotteryRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Lottery');
-        $this->lotteriesDataService = $lotteriesDataService;
+        $this->lotteryService = $lotteryService;
         $this->playStorageStrategy = $playStorageStrategy;
         $this->orderStorageStrategy = $orderStorageStrategy;
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
@@ -81,6 +78,7 @@ class PlayService
         $this->walletService = $walletService;
         $this->betService = $betService;
         $this->payXpertCardPaymentStrategy = $payXpertCardPaymentStrategy;
+        // EMTD: @rmrbest tantas dependencias dan tufillo a que necesita refactorizar.
 
     }
 
@@ -135,7 +133,7 @@ class PlayService
                     /** @var Order $order */
                     $order = $result_order->getValues();
                     $order->addFunds($funds);
-                    $draw = $this->lotteriesDataService->getNextDrawByLottery('EuroMillions');
+                    $draw = $this->lotteryService->getNextDrawByLottery('EuroMillions');
                     if( null != $credit_card ) {
                         $result_payment = $this->walletService->rechargeWithCreditCard($this->payXpertCardPaymentStrategy,$credit_card, $user, $order->getCreditCardCharge());
                     } else {

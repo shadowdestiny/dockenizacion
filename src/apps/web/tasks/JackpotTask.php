@@ -7,6 +7,7 @@ use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteriesDataService;
+use EuroMillions\web\services\LotteryService;
 use EuroMillions\web\services\UserService;
 use EuroMillions\shared\vo\results\ActionResult;
 use Phalcon\Di;
@@ -15,17 +16,20 @@ class JackpotTask extends TaskBase
 {
     /** @var  LotteriesDataService */
     protected $lotteriesDataService;
+    /** @var  LotteryService */
+    protected $lotteryService;
     /** @var  UserService */
     protected $userService;
     /** @var  EmailService */
     protected $emailService;
 
-    public function initialize(LotteriesDataService $lotteriesDataService = null, UserService $userService = null, EmailService $emailService = null)
+    public function initialize(LotteriesDataService $lotteriesDataService = null, LotteryService $lotteryService = null, UserService $userService = null, EmailService $emailService = null)
     {
         parent::initialize();
-        $this->lotteriesDataService = $lotteriesDataService ? $lotteriesDataService : $this->domainServiceFactory->getLotteriesDataService();
-        $this->userService = $userService ? $userService : $this->domainServiceFactory->getUserService();
-        $this->emailService = $emailService ? $emailService : $this->domainServiceFactory->getServiceFactory()->getEmailService();
+        $this->lotteriesDataService = $lotteriesDataService ?: $this->domainServiceFactory->getLotteriesDataService();
+        $this->userService = $userService ?: $this->domainServiceFactory->getUserService();
+        $this->emailService = $emailService ?: $this->domainServiceFactory->getServiceFactory()->getEmailService();
+        $this->lotteryService = $lotteryService ?: $this->domainServiceFactory->getLotteryService();
     }
 
     public function updateAction()
@@ -40,14 +44,14 @@ class JackpotTask extends TaskBase
         }
 
         /** @var \DateTime $date */
-        $date = $this->lotteriesDataService->getLastDrawDate('EuroMillions', $today);
+        $date = $this->lotteryService->getLastDrawDate('EuroMillions', $today);
         $this->lotteriesDataService->updateNextDrawJackpot('EuroMillions', $date->sub(new \DateInterval('PT1M')));
     }
 
     public function reminderJackpotAction()
     {
 
-        $jackpot_amount = $this->lotteriesDataService->getNextJackpot('EuroMillions');
+        $jackpot_amount = $this->lotteryService->getNextJackpot('EuroMillions');
         $emailTemplate = new EmailTemplate();
         $emailTemplate = new JackpotRolloverEmailTemplate($emailTemplate, new JackpotDataEmailTemplateStrategy());
         /** @var ActionResult $result */

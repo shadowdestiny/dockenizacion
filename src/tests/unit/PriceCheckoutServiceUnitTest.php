@@ -148,11 +148,7 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
 
     private function getSut(){
         return new PriceCheckoutService(
-            $this->getEntityManagerRevealed(),
-            $this->lotteryDataService_double->reveal(),
-            $this->currencyConversionService_double->reveal(),
-            $this->userService_double->reveal(),
-            $this->emailService_double->reveal()
+            $this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal(), $this->userService_double->reveal(), $this->emailService_double->reveal()
         );
     }
 

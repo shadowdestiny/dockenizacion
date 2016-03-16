@@ -24,7 +24,7 @@ class PublicSiteControllerBaseToTest extends PublicSiteControllerBase
 
 class PublicSiteControllerBaseUnitTest extends ControllerUnitTestBase
 {
-    protected $lotteriesDataService_double;
+    protected $lotteriyService_double;
     protected $languageService_double;
     protected $currencyService_double;
     protected $userService_double;
@@ -37,7 +37,7 @@ class PublicSiteControllerBaseUnitTest extends ControllerUnitTestBase
 
     public function setUp()
     {
-        $this->lotteriesDataService_double = $this->getServiceDouble('LotteriesDataService');
+        $this->lotteriyService_double = $this->getServiceDouble('LotteryService');
         $this->languageService_double = $this->getServiceDouble('LanguageService');
         $this->currencyService_double = $this->getServiceDouble('CurrencyService');
         $this->userService_double = $this->getServiceDouble('UserService');
@@ -69,10 +69,10 @@ class PublicSiteControllerBaseUnitTest extends ControllerUnitTestBase
         $this->userPreferencesService_double->getMyCurrencyNameAndSymbol()->willReturn($user_currency);
         $this->userPreferencesService_double->getCurrency()->willReturn($current_currency);
         $this->authService_double->isLogged()->willReturn(false);
-        $this->lotteriesDataService_double->getNextJackpot('EuroMillions')->willReturn($jackpot);
+        $this->lotteriyService_double->getNextJackpot('EuroMillions')->willReturn($jackpot);
         $this->userPreferencesService_double->getJackpotInMyCurrency($jackpot)->willReturn($jackpot);
-        $this->lotteriesDataService_double->getNextDateDrawByLottery('EuroMillions')->willReturn(new \DateTime()); //I don't care about this, I won't check the countdown
-        $this->lotteriesDataService_double->getSingleBetPriceByLottery('EuroMillions')->willReturn($bet_price);
+        $this->lotteriyService_double->getNextDateDrawByLottery('EuroMillions')->willReturn(new \DateTime()); //I don't care about this, I won't check the countdown
+        $this->lotteriyService_double->getSingleBetPriceByLottery('EuroMillions')->willReturn($bet_price);
         $this->currencyConversionService_double->convert($bet_price, $current_currency)->willReturn($bet_price);
         $this->currencyConversionService_double->toString($bet_price, $current_currency)->willReturn($bet_price_to_string);
         $this->currencyConversionService_double->convert($bet_price, $pound_currency)->willReturn($bet_price_pound);
@@ -94,7 +94,7 @@ class PublicSiteControllerBaseUnitTest extends ControllerUnitTestBase
 
         $sut = new PublicSiteControllerBaseToTest();
         $sut->initialize(
-            $this->lotteriesDataService_double->reveal(),
+            $this->lotteriyService_double->reveal(),
             $this->languageService_double->reveal(),
             $this->currencyService_double->reveal(),
             $this->userService_double->reveal(),

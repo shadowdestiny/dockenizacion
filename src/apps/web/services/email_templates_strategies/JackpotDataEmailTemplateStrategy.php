@@ -4,7 +4,7 @@
 namespace EuroMillions\web\services\email_templates_strategies;
 
 use EuroMillions\web\interfaces\IEmailTemplateDataStrategy;
-use EuroMillions\web\services\LotteriesDataService;
+use EuroMillions\web\services\LotteryService;
 
 class JackpotDataEmailTemplateStrategy implements IEmailTemplateDataStrategy
 {
@@ -13,9 +13,9 @@ class JackpotDataEmailTemplateStrategy implements IEmailTemplateDataStrategy
 
     protected $time_config;
 
-    public function __construct(LotteriesDataService $lotteriesDataService = null)
+    public function __construct(LotteryService $lotteryService = null)
     {
-        $this->lotteriesDataService = ($lotteriesDataService != null) ? $lotteriesDataService : \Phalcon\Di::getDefault()->get('domainServiceFactory')->getLotteriesDataService();
+        $this->lotteriesDataService = ($lotteryService != null) ? $lotteryService : \Phalcon\Di::getDefault()->get('domainServiceFactory')->getLotteriesDataService();
         $this->time_config = \Phalcon\Di::getDefault()->get('globalConfig')['retry_validation_time'];
     }
 

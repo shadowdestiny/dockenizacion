@@ -136,7 +136,7 @@ class AccountController extends PublicSiteControllerBase
     public function gamesAction()
     {
         $user = $this->authService->getCurrentUser();
-        $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteriesDataService->getNextJackpot('EuroMillions'));
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions'));
         $single_bet_price = $this->domainServiceFactory->getLotteriesDataService()->getSingleBetPriceByLottery('EuroMillions');
         $myGames = null;
         $playConfigActivesDTOCollection = [];

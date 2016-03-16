@@ -16,16 +16,16 @@ class NumbersController extends PublicSiteControllerBase
     {
         $lotteryName = 'EuroMillions';
         $now = new \DateTime();
-        $draw_result = $this->lotteriesDataService->getBreakDownDrawByDate($lotteryName,$now);
-        $date_next_draw = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions');
-        $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteriesDataService->getNextJackpot('EuroMillions'));
+        $draw_result = $this->lotteryService->getBreakDownDrawByDate($lotteryName,$now);
+        $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions'));
         if($draw_result->success()) {
             $breakDownDTO = new EuroMillionsDrawBreakDownDTO($draw_result->getValues()->getBreakDown());
             $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
         }
-        $last_result = $this->lotteriesDataService->getLastResult($lotteryName);
+        $last_result = $this->lotteryService->getLastResult($lotteryName);
         $currency_symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol();
-        $last_draw_date = $this->lotteriesDataService->getLastDrawDate($lotteryName);
+        $last_draw_date = $this->lotteryService->getLastDrawDate($lotteryName);
 
         return $this->view->setVars([
             'break_downs' => !empty($break_down_list) ? $break_down_list : '',

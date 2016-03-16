@@ -17,7 +17,7 @@ use EuroMillions\web\exceptions\InvalidBalanceException;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\EmailService;
-use EuroMillions\web\services\LotteriesDataService;
+use EuroMillions\web\services\LotteryService;
 use EuroMillions\web\services\PlayService;
 use EuroMillions\web\services\factories\ServiceFactory;
 use EuroMillions\web\services\UserService;
@@ -26,8 +26,8 @@ use EuroMillions\web\vo\NotificationType;
 
 class BetTask extends TaskBase
 {
-    /** @var  LotteriesDataService */
-    private $lotteriesDataService;
+    /** @var  LotteryService */
+    private $lotteryService;
 
     /** @var  PlayService */
     private $playService;
@@ -38,11 +38,12 @@ class BetTask extends TaskBase
     /** @var  UserService */
     private $userService;
 
-    public function initialize(LotteriesDataService $lotteriesDataService = null, PlayService $playService= null, EmailService $emailService = null, UserService $userService = null)
+    public function initialize(LotteryService $lotteryService = null, PlayService $playService= null, EmailService $emailService = null, UserService $userService = null)
     {
         parent::initialize();
         $domainFactory = new DomainServiceFactory($this->getDI(),new ServiceFactory($this->getDI()));
-        ($lotteriesDataService) ? $this->lotteriesDataService = $lotteriesDataService : $this->lotteriesDataService = $domainFactory->getLotteriesDataService();
+        $this->lotteryService = $lotteryService ?: $domainFactory->getLotteryService();
+        ($lotteryService) ? $this->lotteryService = $lotteryService : $this->lotteryService = $domainFactory->getLotteriesDataService();
         ($playService) ? $this->playService = $playService : $this->playService = $domainFactory->getPlayService();
         ($emailService) ? $this->emailService = $emailService : $this->emailService = $domainFactory->getServiceFactory()->getEmailService();
         $this->userService = $userService ? $userService : $this->domainServiceFactory->getUserService();
@@ -57,7 +58,7 @@ class BetTask extends TaskBase
         $dateUtil = new DateTimeUtil();
         $is_check_time = $dateUtil->checkOpenTicket($time_to_retry);
         $lotteryName = 'EuroMillions';
-        $result_euromillions_draw = $this->lotteriesDataService->getNextDrawByLottery($lotteryName);
+        $result_euromillions_draw = $this->lotteryService->getNextDrawByLottery($lotteryName);
         $emailTemplate = new EmailTemplate();
         $emailTemplate = new LowBalanceEmailTemplate($emailTemplate, new JackpotDataEmailTemplateStrategy());
 

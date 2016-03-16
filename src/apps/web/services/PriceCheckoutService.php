@@ -27,9 +27,6 @@ class PriceCheckoutService
      */
     private $playConfigRepository;
 
-    /** @var  LotteriesDataService */
-    private $lotteriesDataService;
-
     /** @var  BetRepository */
     private $betRepository;
 
@@ -48,17 +45,12 @@ class PriceCheckoutService
     private $di;
 
 
-    public function __construct(EntityManager $entityManager,
-                                LotteriesDataService $lotteriesDataService,
-                                CurrencyConversionService $currencyConversionService,
-                                UserService $userService,
-                                EmailService $emailService)
+    public function __construct(EntityManager $entityManager, CurrencyConversionService $currencyConversionService, UserService $userService, EmailService $emailService)
     {
         $this->entityManager = $entityManager;
         $this->playConfigRepository = $entityManager->getRepository('EuroMillions\web\entities\PlayConfig');
         $this->betRepository = $entityManager->getRepository('EuroMillions\web\entities\Bet');
         $this->userRespository = $entityManager->getRepository('EuroMillions\web\entities\User');
-        $this->lotteriesDataService = $lotteriesDataService;
         $this->di = \Phalcon\Di\FactoryDefault::getDefault();
         $this->currencyConversionService = $currencyConversionService;
         $this->userService = $userService;

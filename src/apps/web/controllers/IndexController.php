@@ -6,12 +6,12 @@ class IndexController  extends PublicSiteControllerBase
 {
     public function indexAction()
     {
-        $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteriesDataService->getNextJackpot('EuroMillions'));
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions'));
         $this->view->setVar('jackpot_value', $jackpot->getAmount()/100);
-        $time_till_next_draw = $this->lotteriesDataService->getTimeToNextDraw('EuroMillions');
-        $date_next_draw = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions');
-        $last_draw_date = $this->lotteriesDataService->getLastDrawDate('EuroMillions');
-        $this->view->setVar('euromillions_results', $this->lotteriesDataService->getLastResult('EuroMillions'));
+        $time_till_next_draw = $this->lotteryService->getTimeToNextDraw('EuroMillions');
+        $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
+        $last_draw_date = $this->lotteryService->getLastDrawDate('EuroMillions');
+        $this->view->setVar('euromillions_results', $this->lotteryService->getLastResult('EuroMillions'));
         $this->view->setVar('days_till_next_draw', $time_till_next_draw->d);
         $this->view->setVar('hours_till_next_draw', $time_till_next_draw->h);
         $this->view->setVar('minutes_till_next_draw', $time_till_next_draw->i);

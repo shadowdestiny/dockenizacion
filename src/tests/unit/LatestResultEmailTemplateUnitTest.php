@@ -15,12 +15,12 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
 {
 
 
-    protected $lotteriesDataService_double;
+    protected $lotteryService_double;
 
     public function setUp()
     {
         parent::setUp();
-        $this->lotteriesDataService_double = $this->getServiceDouble('LotteriesDataService');
+        $this->lotteryService_double = $this->getServiceDouble('LotteryService');
     }
 
     /**
@@ -37,8 +37,8 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
         $draw_result['regular_numbers'] = $regular_numbers;
         $draw_result['lucky_numbers'] = $lucky_numbers;
         $date_draw = new \DateTime();
-        $this->lotteriesDataService_double->getLastResult('EuroMillions')->willReturn($draw_result);
-        $this->lotteriesDataService_double->getLastDrawDate('EuroMillions')->willReturn($date_draw);
+        $this->lotteryService_double->getLastResult('EuroMillions')->willReturn($draw_result);
+        $this->lotteryService_double->getLastDrawDate('EuroMillions')->willReturn($date_draw);
         $emailDataStrategy_double = $this->getInterfaceWebDouble('IEmailTemplateDataStrategy');
         $data = [
           'draw_result' => $draw_result,
