@@ -169,7 +169,7 @@ build:
         coverage:
           file: coverage.clover
           format: php-clover
-  deployment:
-    - branch: master
-      commands:
-        - curl --data "environment=staging&version=master" http://62.57.159.66:3000/deploy/
+#  deployment:
+#    - branch: master
+#      commands:
+#        - curl --data "environment=staging&version=master" http://62.57.159.66:3000/deploy/

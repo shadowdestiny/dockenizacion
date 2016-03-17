@@ -13,4 +13,4 @@ while read -r line; do
     fi
 done <<< $(eval "git diff --name-only HEAD@{1} HEAD")
 
-vagrant ssh -c "/vagrant/dev-scripts/schema_and_data_migration.sh dev"
+vagrant ssh -c "/vagrant/dev-scripts/schema_and_data_migration.sh devel"
