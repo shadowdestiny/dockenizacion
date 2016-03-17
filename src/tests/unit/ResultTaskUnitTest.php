@@ -16,7 +16,7 @@ use EuroMillions\web\tasks\ResultTask;
 use EuroMillions\web\vo\DrawDays;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
-use EuroMillions\web\vo\NotificationType;
+use EuroMillions\web\vo\NotificationValue;
 use EuroMillions\web\vo\Password;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\UserId;
@@ -82,7 +82,7 @@ class ResultTaskUnitTest extends UnitTestBase
         $draw_result['regular_numbers'] = [];
         $draw_result['lucky_numbers'] = [];
         $play_config_list = $this->getPlayConfigList();
-        $notificationType = new NotificationType(4,0);
+        $notificationType = new NotificationValue(4,0);
         $euromillionsDraw = new EuroMillionsDraw();
         $euromillionsDraw->setBreakDown(new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw()));
         $this->lotteriesDataService_double->updateLastDrawResult('EuroMillions')->shouldBeCalled();

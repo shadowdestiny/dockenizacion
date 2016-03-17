@@ -4,7 +4,7 @@
 namespace EuroMillions\tests\unit;
 
 
-use EuroMillions\web\vo\NotificationType;
+use EuroMillions\web\vo\NotificationValue;
 use EuroMillions\tests\base\UnitTestBase;
 
 class NotificationTypeUnitTest extends UnitTestBase
@@ -17,9 +17,9 @@ class NotificationTypeUnitTest extends UnitTestBase
      */
     public function test___construct_called_createProperObject()
     {
-        $type = NotificationType::NOTIFICATION_THRESHOLD;
+        $type = NotificationValue::NOTIFICATION_THRESHOLD;
         $expected = 1500000;
-        $sut = new NotificationType($type,$expected);
+        $sut = new NotificationValue($type,$expected);
         $this->assertEquals($expected,$sut->getValue());
     }
 
@@ -31,8 +31,8 @@ class NotificationTypeUnitTest extends UnitTestBase
     public function test___construct_called_throwNewException()
     {
         $this->setExpectedException('EuroMillions\web\exceptions\InvalidNotificationException');
-        $type = NotificationType::NOTIFICATION_THRESHOLD;
+        $type = NotificationValue::NOTIFICATION_THRESHOLD;
         $expected = 'afsafa';
-        new NotificationType($type,$expected);
+        new NotificationValue($type,$expected);
     }
 }

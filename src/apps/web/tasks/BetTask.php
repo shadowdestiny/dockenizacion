@@ -22,7 +22,7 @@ use EuroMillions\web\services\PlayService;
 use EuroMillions\web\services\factories\ServiceFactory;
 use EuroMillions\web\services\UserService;
 use EuroMillions\shared\vo\results\ActionResult;
-use EuroMillions\web\vo\NotificationType;
+use EuroMillions\web\vo\NotificationValue;
 
 class BetTask extends TaskBase
 {
@@ -100,7 +100,7 @@ class BetTask extends TaskBase
                                 if( empty($user_id) || $user_id != $play_config->getUser()->getId()->id() ) {
                                     $user = $this->userService->getUser($play_config->getUser()->getId());
                                     $user_id = $play_config->getUser()->getId()->id();
-                                    $user_notifications_result = $this->userService->getActiveNotificationsByUserAndType($user, NotificationType::NOTIFICATION_NOT_ENOUGH_FUNDS);
+                                    $user_notifications_result = $this->userService->getActiveNotificationsByUserAndType($user, NotificationValue::NOTIFICATION_NOT_ENOUGH_FUNDS);
                                     if( $user_notifications_result->success() ) {
                                         /** @var UserNotifications $user_notification */
                                         $users_notifications = $user_notifications_result->getValues();
@@ -160,7 +160,7 @@ class BetTask extends TaskBase
     private function sendEmailAutoPlay(PlayConfig $playConfig, IEmailTemplate $emailTemplate)
     {
         $user = $this->userService->getUser($playConfig->getUser()->getId());
-        $user_notifications_result = $this->userService->getActiveNotificationsByUserAndType($user, NotificationType::NOTIFICATION_LAST_DRAW);
+        $user_notifications_result = $this->userService->getActiveNotificationsByUserAndType($user, NotificationValue::NOTIFICATION_LAST_DRAW);
         if($user_notifications_result->success()) {
             /** @var UserNotifications $user_notification */
             $users_notifications = $user_notifications_result->getValues();

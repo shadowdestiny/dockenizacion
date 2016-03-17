@@ -16,7 +16,7 @@ use EuroMillions\web\services\PlayService;
 use EuroMillions\web\services\factories\ServiceFactory;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
-use EuroMillions\web\vo\NotificationType;
+use EuroMillions\web\vo\NotificationValue;
 use Phalcon\Di;
 use Phalcon\Logger;
 
@@ -86,7 +86,7 @@ class ResultTask extends TaskBase
                 $user = $this->userService->getUser($play_config->getUser()->getId());
                 $emailTemplate->setBreakDownList($break_down_list/*$this->convertCurrency($break_down_list,$user->getBalance()->getCurrency())*/);
                 //$break_down_list->convertCurrency($user->getBalance()->getCurrency());
-                $user_notifications_result = $this->userService->getActiveNotificationsByUserAndType($user, NotificationType::NOTIFICATION_RESULT_DRAW);
+                $user_notifications_result = $this->userService->getActiveNotificationsByUserAndType($user, NotificationValue::NOTIFICATION_RESULT_DRAW);
                 if($user_notifications_result->success()) {
                     /** @var UserNotifications[] $user_notifications */
                     $user_notifications = $user_notifications_result->getValues();
@@ -99,7 +99,7 @@ class ResultTask extends TaskBase
             }
         }
 
-        $user_notifications_result = $this->userService->getActiveNotificationsByType(NotificationType::NOTIFICATION_RESULT_DRAW);
+        $user_notifications_result = $this->userService->getActiveNotificationsByType(NotificationValue::NOTIFICATION_RESULT_DRAW);
         if($user_notifications_result->success()) {
             $users_notifications = $user_notifications_result->getValues();
             foreach($users_notifications as $user_notification) {

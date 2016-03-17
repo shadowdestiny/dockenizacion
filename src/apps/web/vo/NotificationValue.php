@@ -7,7 +7,7 @@ namespace EuroMillions\web\vo;
 use EuroMillions\web\exceptions\InvalidNotificationException;
 
 
-class NotificationType
+class NotificationValue
 {
 
     const NOTIFICATION_THRESHOLD = 1;
