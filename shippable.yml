@@ -23,6 +23,7 @@ build:
 #    - cd react
 #    - npm install
 #    - cd ../..
+    - cd ..
     - mysql -e 'drop database if exists euromillions_test;create database euromillions_test;'
     - mkdir -p shippable/codecoverage
     - mkdir -p shippable/testresults
