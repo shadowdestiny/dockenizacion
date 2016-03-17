@@ -318,7 +318,10 @@ body, .submit{font-family:$basic-font;}
   .v-arrow-right3{position:relative; top:1px; margin-left:3px; font-size:75%;}
 }
 
-.ul-top-nav > li{float:right;}
+.ul-top-nav > li{
+  float:right;
+  .myCur{min-width:165px;}
+}
 .ul-top-nav > li:before{display:block; content:"\00b7"; color:#fff; float:right; line-height:28px; margin-right:-2px;} // &middot;  
 .ul-top-nav > li:first-child:before{display:none;}
 .ul-top-nav > li > a{display:block; color:#fff; padding:0 15px; line-height:28px;}
