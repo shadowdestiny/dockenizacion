@@ -21,6 +21,7 @@
 
         <div data-role="page" id="main-page">
             {% block header %}{% endblock %}
+
             <div data-role="content">
                 {% block body %}{% endblock %}
             </div>
