@@ -31,7 +31,6 @@
 }
 .box-basic.ball{background:#fff url(../img/home/bg-ball.jpg) no-repeat 0 -20px;}
 
-
 .informative{
   .li-title{font-weight:700; font-size:$h2; margin-bottom:.5em;}
   .h1{margin-bottom:.3em;}
@@ -91,7 +90,6 @@
   margin:50px auto 45px; text-align:center;
   li{opacity:.8;}
   li, .laurel{margin:0 10px; 
-    filter:gray(); /*IE6-9*/
     -webkit-filter:grayscale(1); /*Chrome*/ 
     filter:grayscale(1); /* future-proof */
   }
@@ -136,7 +134,6 @@
   .huge{padding:20px 22px;}
   .info{margin:0 0 0 48px;}
 }
-
 
 .who-we-are{
   .text{width:330px}
@@ -298,6 +295,5 @@ br.mobile{display:none!important;}
 @media only screen and (max-width: 320px){
 .box-result .numbers{margin:0 auto 1em; width:80%;}
 }
-
 
 @import "_currency/home"; /*It need to stay at the bottom*/
