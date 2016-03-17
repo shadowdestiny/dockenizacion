@@ -10,6 +10,9 @@ use Phalcon\Exception;
 
 class EuroMillionsDrawBreakDown
 {
+
+    CONST NUMBER_OF_CATEGORIES = 13;
+
     protected $breakdown;
 
     protected $category_one;
@@ -46,6 +49,9 @@ class EuroMillionsDrawBreakDown
     {
         if(!is_array($breakdown)){
             throw new \InvalidArgumentException("");
+        }
+        if(count($breakdown[0]) < self::NUMBER_OF_CATEGORIES) {
+            throw new \LengthException('Incorrect categories length from collection');
         }
         $this->breakdown = $breakdown;
         $this->loadBreakDownData();
@@ -299,7 +305,5 @@ class EuroMillionsDrawBreakDown
             20 => 'category_thirteen'
        ];
     }
-
-
 
 }
