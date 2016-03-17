@@ -10,12 +10,12 @@ env:
 services:
   - redis
 
-pre_ci_boot:
-  image_name: antonienko/phalcon2-ci
-  image_tab: v1.2.3
-  pull: true
-
 build:
+  pre_ci_boot:
+    image_name: antonienko/phalcon2-ci
+    image_tab: v1.2.3
+    pull: true
+
   ci:
     - composer config -g github-oauth.github.com $MY_GITHUB_TOKEN
     - /etc/init.d/mysql start & > /dev/null
