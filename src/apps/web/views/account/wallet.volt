@@ -1,12 +1,10 @@
 {% extends "main.volt" %}
 {% block template_css %}<link rel="stylesheet" href="/w/css/account.css">{% endblock %}
-{% block bodyClass %}wallet{% endblock %}
+{% block bodyClass %}balance{% endblock %}
 {% block template_scripts %}
 <script src="/w/js/mobileFix.js"></script>
 {% endblock %}
 {% block template_scripts_code %}
-
-
 function deleteLnk(id){
     $(id).click(function(e){
         if($(this).closest('tr').hasClass('active')){
@@ -136,14 +134,14 @@ $(function(){
                     <div class="border cl">
                         <div class="txt">{{ language.translate("Your current balance:") }} <span class="value">{{ user_balance }}</span></div>
                         <div class="box-btn">
-                            <a href="javascript:void(0)" class="btn big blue add-funds">{{ language.translate("Add funds of your wallet") }}</a>
+                            <a href="javascript:void(0)" class="btn big blue add-funds">{{ language.translate("Add funds of your balance") }}</a>
                         </div>
                     </div>
                     <br>
                     <div class="border cl">
                         <div class="txt">{{ language.translate("Your winnings:")}} <span class="value">&euro; 20.00</span></div>
                         <div class="box-btn">
-                            <a href="javascript:void(0)" class="btn big blue convert">{{ language.translate("Convert winnings into your wallet")}}</a>
+                            <a href="javascript:void(0)" class="btn big blue convert">{{ language.translate("Convert winnings into your balance")}}</a>
                             <a href="javascript:void(0)" class="btn big green withdraw">{{ language.translate("Withdraw winnings") }}</a>
                         </div>
                     </div>
@@ -289,7 +287,7 @@ $(function(){
             </div>
 
             <div class="box-convert hidden">
-                <h2 class="h3 yellow">{{ language.translate("Convert your winnings into your wallet") }}</h2>
+                <h2 class="h3 yellow">{{ language.translate("Convert your winnings into your account") }}</h2>
                 <div class="info box">
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                     <span class="txt">{{ language.translate("Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.") }}</span>

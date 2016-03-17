@@ -1,7 +1,7 @@
 <ul class="no-li">
     <li><a {% if activeSubnav.myClass == "account" %}class="active"{% endif %} href="/account">{{ language.translate("Account") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
     <li><a {% if activeSubnav.myClass == "games" %}class="active"{% endif %} href="/account/games">{{ language.translate("Games") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
-    <li><a {% if activeSubnav.myClass == "wallet" %}class="active"{% endif %} href="/account/wallet">{{ language.translate("Balance") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
+    <li><a {% if activeSubnav.myClass == "balance" %}class="active"{% endif %} href="/account/wallet">{{ language.translate("Balance") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
     <li><a {% if activeSubnav.myClass == "transaction" %}class="active"{% endif %} href="/account/transaction">{{ language.translate("Transaction") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
 
 {# Messages features are not included in the first release, so we hide it.

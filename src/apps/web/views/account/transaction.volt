@@ -33,7 +33,7 @@
                             <th class="date">{{ language.translate("Date")}}</th>
                             <th class="type">{{ language.translate("Transaction")}}</th>
                             <th class="movement">{{ language.translate("Movement")}}</th>
-                            <th class="wallet">{{ language.translate("Wallet")}}</th>
+                            <th class="wallet">{{ language.translate("Balance")}}</th>
                             <th class="winnings">{{ language.translate("Winnings")}}</th>
                         </tr>
                     </thead>
