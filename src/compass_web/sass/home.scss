@@ -1,43 +1,5 @@
 @import "variable";
 
-.box-left{background:#fff; border:1px solid $yellow; border-right:0; border-radius:10px 0 0 10px;}
-.box-right{background:url(../img/home/bg-coloured.jpg) no-repeat; border-radius:0 10px 10px 0;}
-
-.box-emblem{position:absolute; right:-5px; width:205px; height:227px; top:0px; top:-23px; z-index:1;}
-.emblem, .emblem-bg{}
-.emblem{position:absolute; height:215px; top:3px;}
-.emblem-bg{height:227px; stroke:$yellow-dark; stroke-width:5;}
-.box-estimated{
-  background:url(../img/home/bg-euro.jpg) no-repeat; padding:20px 0 13px 20px; border-radius:10px 0 0 0; background-size:cover;
-  .try{position:relative;} /* Fix Safari problem*/
-}
-
-.box-estimated .content{width:68%;}
-.box-estimated .h2{@extend %stroke1; margin-bottom:15px;}
-.box-value.yellow{@extend %stroke2; margin-bottom:15px;}
-.box-value{display:block;}
-.box-value span{display:inline-block; line-height:100%;}
-.box-value .currency{font-size:$h1; vertical-align:middle; margin-right:5px;}   /*16x1.875 = 30px*/
-.box-value .value{font-size:$h0; font-weight:700; vertical-align:middle;}      /*16x3.375 = 54px*/
-
-.box-how{border-bottom:1px solid $yellow; padding-bottom:25px;}
-.box-how ul{padding:20px 20px 0; text-align:center; margin-bottom:1em;}
-.box-how li{width:28%; float:left; margin-right:8%; position:relative;}
-.box-how li:after{ /*Including a grey arrow*/
-    content:""; position:absolute; top:60px; right:-20%; z-index:1; display:block; fill:$grey-light; height:20px; width:12px;background:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDE5IDMyIj48cGF0aCBmaWxsPSIjYmJiIiBkPSJNMi40MSAzMmMtLjY5IDAtMS4yNjMtLjIzLTEuNzItLjgwMy0uOTItLjkxOC0uOTItMi41MjMuMTE0LTMuNDRMMTMuMTkgMTUuOTQuODA1IDQuMTI4Qy0uMTE0IDMuMjEtLjIyOCAxLjcxOC42OS42ODggMS42MDYtLjIzMyAzLjA5Ny0uMzQ2IDQuMTMuNTdsMTQuMjIyIDEzLjUzNGMuNDYuNDYuODAzIDEuMTQ3LjgwMyAxLjcycy0uMjMgMS4yNjItLjgwMyAxLjcyTDQuMTMgMzEuMzFjLS40Ni40NTgtMS4xNDcuNjg3LTEuNzIuNjg3eiIvPjwvc3ZnPg==) no-repeat center center;
-}
-.box-how li:last-child{margin-right:0;}
-.box-how li:last-child:after{display:none;}
-.box-how p{margin-bottom:0;}
-.box-how .vector{width:90%; margin:0 auto 10px; display:block; height:120px;} 
-.box-how .box-txt h2{margin-bottom:5px;}
-.box-how .ico{margin-left:5px;}
-
-.bg-yellow{background:$yellow; color:#fff; padding:10px 20px;} 
-.bg-yellow > h1{margin:0;}
-
-.try .ico{position:relative; top:2px; margin:0 0 0 10px;}
-
 .box-result{padding:0; overflow:hidden;}
 .box-result .cols{margin:0;}
 .box-result .woman{background:url(../img/home/bg-result.jpg) no-repeat center center;}
@@ -69,57 +31,6 @@
 }
 .box-basic.ball{background:#fff url(../img/home/bg-ball.jpg) no-repeat 0 -20px;}
 
-.outbound{
-    display:block; position:relative; width:475px; height:475px; margin:auto; text-decoration:none; border:15px solid #fff; border-radius:100%; box-shadow:0px 5px 20px 5px rgba(0,0,0,0.4); background:url(../img/home/bg-win-millions.jpg) no-repeat center center; overflow:hidden; top:0;
-}
-.outbound:hover, .outbound:focus{top:10px; border-width:18px;}
-.box-play{position:relative; top:-115px; text-align:center;}
-.box-play .txt{position:absolute; left:-9999px; top:-9999px;}
-.win-millions{
-  margin-top:-46px; text-align:center;
-  .vector{height:68px; width:83%; margin-top:33px}
-}
-.box-play .h2{text-shadow:0 0 1px rgba(0, 0, 0, .5);}
-.box-play .content{margin-top:125px; color:#fff;}
-.box-play .ico{position:relative; top:2px;}
-.box-play .awards li, .box-play .ball{background:url(../img/sprite.png) no-repeat;}
-.box-play .awards{margin-top:25px;}
-.box-play .awards li{display:inline-block; width:67px; height:67px;}
-.box-play .awards li:first-child{margin-right:25px;}
-.box-play .awards .best-price{background-position:0 -150px;}
-.box-play .awards .risk-free{background-position:-75px -150px;}
-.box-play .box-ball{
-  position:relative; margin-top:25px;
-  .info{position:relative; top:-2px;}
-}
-.box-play .btn{position:relative; left:-25px; font-size:160%; line-height:100%;}
-.box-play .ball{position:absolute; display:block; top:-25px; right:-90px; display:block; width:101px; height:99px; background-position:-150px -110px;}
-
-.box-prize{
-    position:relative; width:85%; background:#fff; margin:-75px auto 0; border-radius:10px; 
-    border:1px solid transparent; /*This border fix a rendering incongruence */
-}
-.box-prize:before{
-  content:""; position:absolute; z-index:-1;  bottom:0; width:100%; height:100%; border-radius:10px;
-  box-shadow:0 5px 5px 0 rgba(0,0,0,0.4); 
-}
-
-.box-prize h1{margin-bottom:.3em;}
-.box-prize .cols{margin-bottom:0;}
-.box-prize .content{margin:10px;}
-.box-prize .content .content{margin-right:0;}
-.box-prize .bg{background:url(../img/pattern/01.png) repeat; overflow:hidden; color:#fff;} 
-.box-prize .bg2{@include background-image(linear-gradient(to right top, $purple, $purple-darker));} /* I had to insert a second BG div because mixing @include doesn't work well with multiple background */
-.box-prize .value, .box-prize .currency{font-size:$h1; margin-bottom:5px;}
-.box-prize .box-value{margin:0 0 1em;}
-.box-prize .notes{font-weight:700; margin-top:10px; font-size:$basic-size; color:$grey;}
-.box-prize .notes .ico{position:relative; top:1px;}
-.box-prize .btn{margin-bottom:10px;}
-.box-prize{
-  .box-vector{width:220px; height:160px;}
-  .vector{margin:10px auto 0; max-width:140px; max-height:140px; overflow:hidden; position:relative;}
-}
-
 .informative{
   .li-title{font-weight:700; font-size:$h2; margin-bottom:.5em;}
   .h1{margin-bottom:.3em;}
@@ -131,6 +42,7 @@
     .btn:hover{color:$btn-blue; background:#fff; border:1px solid $btn-blue; text-shadow:0 0 0 transparent;}
   }
   .box-basic{margin-bottom:2em; padding:0;}
+  .box-txt{margin:0 20px;}
   .box-txt.r{padding:15px 20px 10px 0;}
   .box-txt.l{padding:15px 20px 10px;}
 }
@@ -181,7 +93,6 @@
   margin:50px auto 45px; text-align:center;
   li{opacity:.8;}
   li, .laurel{margin:0 10px; 
-    filter:gray(); /*IE6-9*/
     -webkit-filter:grayscale(1); /*Chrome*/ 
     filter:grayscale(1); /* future-proof */
   }
@@ -197,19 +108,12 @@
 .list{margin:auto;}
 
 @media only screen and (min-width:769px){
-.box-estimated:hover .try, .box-result:hover .lnk{-webkit-animation-name:pulseRight; animation-name:pulseRight!important;}
-.outbound{transition:top .3s, border .3s;}
-.box-play .ball{transition:transform .5s ease;}
-.box-ball .btn:hover .ball{@include transform(rotate(25deg));}
+.box-result:hover .lnk{-webkit-animation-name:pulseRight; animation-name:pulseRight!important;}
 }
 
 /*Retina only */
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx){
-    .box-estimated{background-image:url(../img/home/bg-euro@2x.jpg); background-size:600px 171px;}
     .box-result .woman{background-image:url(../img/home/bg-result@2x.jpg); background-size:168px 189px;}
-    .outbound{background-image:url(../img/home/bg-win-millions@2x.jpg); background-size:445px 445px;}
-    .box-play .awards li, .box-play .ball{background-image:url(../img/sprite@2x.png); background-size:270px 220px;}
-     .box-right{background-image:url(../img/home/bg-coloured@2x.jpg); background-size:600px 716px;}
   .bg-quality{background-image:url(../img/home/bg-quality@2x.jpg); background-size:494px 493px;}
   .bg-hope{background-image:url(../img/home/bg-hope@2x.jpg); background-size:589px 604px;}
   .bg-win{background-image:url(../img/home/bg-win@2x.jpg); background-size:490px 584px;}
@@ -234,18 +138,6 @@
   .info{margin:0 0 0 48px;}
 }
 
-.box-emblem{right:-8px;}
-.emblem{top:25px; height:150px;}
-.emblem-bg{margin-top:23px; height:158px;}
-.box-estimated h1{font-size:1.2em;}
-.outbound{width:430px; height:430px; border:15px solid #fff;}
-.outbound:hover, .outbound:focus{border-width:13px;}
-.box-play{top:-90px;}
-.box-play .content{margin-top:95px;}
-.box-estimated .value.maxChar{font-size:3.175em;}
-.box-prize{
-  .value.maxChar{font-size:1.675em;}
-}
 .who-we-are{
   .text{width:330px}
   .cols{padding:0;}
@@ -279,26 +171,8 @@
 .box-extra{
   .content{width:100%; margin:0; text-align:center;}
 }
-.box-result .woman, .box-emblem, .box-play .awards, .box-how .sub-txt, .box-play .ball
-{display:none!important;}
-.box-prize .box-vector{position:absolute; height:0; width:0; overflow:hidden;} /* Vector disappear if I don't use this hiding technique */
-.outbound{width:330px; height:330px; border:10px solid #fff;}
-.outbound:hover, .outbound:focus{border-width:13px;}
-.win-millions{margin-top:-35px;}
-.box-play .content{margin-top:85px;}
-.box-play .box-ball{margin-top:10px;}
-.box-play .btn{left:0; font-size:$h2;}
-.box-prize{
-  margin:-35px auto 0;
-  .cols > div{width:100%; margin:0;}
-  .notes{font-size:90%;}
-  .content .content{margin:10px;}
-}
-.box-how .vector{height:100px;}
-.box-estimated h1{line-height:115%;}
-.box-estimated .content{width:100%;}
-.notes .right, .notes .left{float:none;}
-.notes .left{margin-bottom:5px;}
+.box-result .woman{display:none!important;}
+
 .who-we-are{
   .text{width:230px; height:30px; margin:0 0 -3px 0;}
   .title{font-size:$h4;}
@@ -340,26 +214,9 @@
 }
 .box-result{border-top:0;}
 
-/*.box-prize .box-vector{position:relative; height:auto; width:auto; overflow:visible;} /* Make vector back visible */
-.box-estimated{
-  border-radius:0; padding:20px 0;
-  .currency{font-size:$h2;}
-  .value{font-size:$h1;}
-}
 .box-extra .content{padding:20px 0 0;}
 
 #content .wrapper{margin-bottom:2em;}
-#content .box-left, #content .box-right{margin:0; border-radius:0;}
-#content .box-left{border-width:10px;}
-#content .box-right{background-size:cover; overflow:hidden;}
-.box-how .sub-txt, .box-prize .box-vector{display:block;}
-.box-play{top:0; margin-top:20px;}
-.box-prize{
-  margin:20px auto; width:90%;
-  .btn{max-width:220px;}
-  .box-vector{display:none;}
-  .box-value{margin-bottom:.5em;}
-}
 .who-we-are{
   margin:0;
   .top{border-radius:0;}
@@ -369,7 +226,6 @@
 }
 
 .informative{
-  .box-txt{margin:0 20px; padding:0!important;}
   .box-action{
     padding:15px 20px 20px;
     @include background-image(linear-gradient(#ffffff, #fff8da));
@@ -384,7 +240,6 @@
     .cols{padding:0 20px;}
   }
 }
-.outbound:hover, .outbound:focus{top:0;}
 }
 
 @media only screen and (max-width:600px){
@@ -407,7 +262,6 @@
   .small.n3{display:none;}
   .small.n4{display:block;}
   .info{font-size:24px; margin-top:0;}
-  .mytxt, .mycur{font-size:50px;}
   .btn-box{margin-top:10px;}
   .txt{top:20px;}
 }
@@ -416,11 +270,7 @@
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width:480px){
-.box-how li:after, br.mobile{display:none!important;}
-.outbound{width:290px; height:290px; border-width:5px;}
-.outbound:hover, .outbound:focus{border-width:5px;}
-.box-play .btn{font-size:$h4;}
-.box-prize .cols > div{width:100%; float:none; margin-bottom:0!important;}
+br.mobile{display:none!important;}
 .phrase{font-size:$h3;}
 .box-extra .h2{font-size:$h3;}
 .box-extra .box-basic{min-height:auto;}
@@ -445,11 +295,7 @@
  
 /* Custom, iPhone Retina */
 @media only screen and (max-width: 320px){
-.box-how li{width:100%; margin:0 0 10px; text-align:center;}
-.box-how .vector, .box-play, .box-how li:after{display:none;}
-.box-how li:first-child .vector{display:block!important;}
 .box-result .numbers{margin:0 auto 1em; width:80%;}
 }
-
 
 @import "_currency/home"; /*It need to stay at the bottom*/

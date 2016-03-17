@@ -45,7 +45,7 @@
                 <file>../apps/admin/Module.php</file>
                 <file>../apps/web/Module.php</file>
                 <directory>../apps/web/migrations</directory>
-                <directory>../apps/web/migrations_data</directory>
+                <directory>../apps/web/seeds</directory>
                 <directory>../apps/config</directory>
                 <directory>../apps/admin/interfaces</directory>
                 <directory>../apps/web/interfaces</directory>
