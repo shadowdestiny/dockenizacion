@@ -128,8 +128,12 @@ body.numbers{
             margin-bottom:20px;
             .currency, .value{font-size:$h2;}
         }
+        .bg{min-height:232px;}
     }
-    .box-results .grey{position:absolute; left:13px; margin-top:-13px;}
+    .box-results{
+        min-height:234px;
+        .grey{position:absolute; left:13px; margin-top:-13px;}
+    }
     .td-star-numbers{min-width:71px;}
     body.numbers .crown{left:0px; top:-85px; width:45px;}
 }
