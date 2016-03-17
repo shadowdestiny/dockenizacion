@@ -86,7 +86,7 @@ $('#card-cvv,#card-number').on('keypress',function(e){
 
             {#<div class="box-top cl">#}
                 {#&#123;&#35;<div class="balance">&#35;&#125;#}
-                    {#&#123;&#35;<span class="txt">{{ language.translate("Your current wallet balance:") }}</span>&#35;&#125;#}
+                    {#&#123;&#35;<span class="txt">{{ language.translate("Your current account balance:") }}</span>&#35;&#125;#}
                     {#&#123;&#35;<span class="value"><span class="old"><?php echo $currency_symbol ?> <?php echo $wallet_balance ?>.00</span> <span class="new"><?php echo $currency_symbol ?> 14.05</span></span>&#35;&#125;#}
                 {#&#123;&#35;</div>&#35;&#125;#}
 

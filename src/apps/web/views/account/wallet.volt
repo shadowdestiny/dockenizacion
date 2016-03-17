@@ -90,7 +90,7 @@ $(function(){
             <div class="{%if show_box_basic == true %}hidden{% endif %} right back cl">
                 <a class="btn" href="javascript:void(0);">Go Back</a>
             </div>
-            <h1 class="h1 title yellow">{{ language.translate("Wallet") }}</h1>
+            <h1 class="h1 title yellow">{{ language.translate("Balance") }}</h1>
 
             {% if wallet.current_winnings %}
             <div class="box info">
@@ -210,7 +210,7 @@ $(function(){
                     *Show always with or without DATA*
                     <div class="cl box-wallet">
                         <div class="value">
-                            <span class="purple">{{ language.translate("Wallet balance:") }}</span> &euro; 500.00
+                            <span class="purple">{{ language.translate("Account balance:") }}</span> &euro; 500.00
                         </div>
 
                         <form class="right form-currency">
@@ -297,7 +297,7 @@ $(function(){
 
                 <div class="cl box-wallet wrap-value">
                     <div class="value">
-                        <span class="purple">{{ language.translate("Wallet balance:") }}</span> {{ user_balance }}
+                        <span class="purple">{{ language.translate("Account balance:") }}</span> {{ user_balance }}
                     </div>
 
                     <div class="value">

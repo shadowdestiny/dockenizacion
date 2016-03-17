@@ -88,7 +88,7 @@
             </div>
             <div class="col6 second">
                 <h2 class="h3 yellow margin">{{ language.translate("Add funds to your wallet") }}</h2>
-                <div class="div-balance"><strong class="purple">{{ language.translate("Current Wallet balance:") }}</strong> <span class="value">{{ user_balance }}</span></div>
+                <div class="div-balance"><strong class="purple">{{ language.translate("Current Account balance:") }}</strong> <span class="value">{{ user_balance }}</span></div>
 
                 <div class="box-wallet overview">
                     <span class="currency">{{ symbol }}</span>{{ credit_card_form.render('funds-value', {'class':'insert input'~form_errors['funds-value']}) }}
