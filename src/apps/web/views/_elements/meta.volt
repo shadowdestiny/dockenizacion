@@ -6,5 +6,7 @@
 <meta name="author" content="Name Company">
 <meta name="format-detection" content="telephone=no"> {# Remove hyperlink on IOS numbers #}
 
-{# EMTD - Change .ico #}
-<link rel="shortcut icon" href="/w/images/specialicon.ico" type="image/x-icon">
+{# EMTD - make .ico #}
+{#
+<link rel="shortcut icon" href="/w/img/specialicon.ico" type="image/x-icon">
+#}

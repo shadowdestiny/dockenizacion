@@ -121,6 +121,12 @@ EMTD TO clean this code from VARIABLE
 @media only screen and (max-width:992px){
 /*    .head{border:10px solid #000!important;} */
 .box-jackpot{position:relative; margin:0; padding-top:30px; padding-left:0; width:100%; text-align:center;}
+
+.banner{
+  .info{margin-bottom:10px;}
+  .value{margin-bottom:0;}
+}
+
 .jl-11, .jl-13, .jl-14, .jl-15, .jl-17{
     .box-jackpot{padding-left:0;}
 }
@@ -172,6 +178,7 @@ EMTD TO clean this code from VARIABLE
     .mycur{font-size:40px;}
     .mytxt{font-size:65px;}
 }
+.jl-10 .banner .btn-box{margin:0;}
 .jl-11 .banner .mytxt{font-size:55px}
 .jl-12, .jl-13{
     .banner .mytxt{font-size:52px}
@@ -182,12 +189,13 @@ EMTD TO clean this code from VARIABLE
 }
 
 @media only screen and (max-width:480px){
-  /*  .head{border:10px solid #00f!important;}*/
+/*   .head{border:10px solid #00f!important;}*/
 .banner{
   .value{width:330px; margin-top:0;}
   .mycur{font-size:30px;}
   .mytxt{font-size:55px;}
 }
+.jl-10 .banner .btn-box{margin:10px 0 0;}
 .jl-11 .banner .mytxt{font-size:45px}
 .jl-12, .jl-13{
     .banner .mytxt{font-size:40px}
