@@ -1,7 +1,10 @@
 {% extends "main.volt" %}
 {% block template_css %}<link rel="stylesheet" href="/w/css/cart.css">{% endblock %}
 {% block template_scripts %}{% endblock %}
-{% block bodyClass %}cart success minimal{% endblock %}
+{% block bodyClass %}
+cart success minimal
+{% include "_elements/jlength.volt" %}
+{% endblock %}
 
 {% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
 {% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}

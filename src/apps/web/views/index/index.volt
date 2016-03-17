@@ -1,6 +1,11 @@
 {% extends "main.volt" %}
 {% block template_css %}<link rel="stylesheet" href="/w/css/home.css">{% endblock %}
-{% block bodyClass %}home{% endblock %}
+
+{% block bodyClass %}
+home
+{% include "_elements/jlength.volt" %}
+{% endblock %}
+
 {% block header %}
 <a id="top"></a>
 {% set activeNav='{"myClass": ""}'|json_decode %} {# It need to be empty #}

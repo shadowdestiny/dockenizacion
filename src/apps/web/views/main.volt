@@ -12,11 +12,7 @@
         {% block font %}{% endblock %}
     </head>
 
-    {% set jlength = jackpot_value | number_format(0, ',', '.')|length %} {# Check length of the jackpot #}
-
-	<body class="{% if user_currency is defined %}{% if user_currency['symbol']|length > 1 %}cur-txt {% endif %}{{ currency_css(user_currency_code) }}{% endif %}
-        {% block bodyClass %}{% endblock %}
-        {% if jlength <= 10 %}jl-10 {% endif %}{% if jlength == 11 %}jl-11 {% endif %}{% if jlength == 12 %}jl-12 {% endif %}{% if jlength == 13 %}jl-13 {% endif %}{% if jlength == 14 %}jl-14 {% endif %}{% if jlength == 15 %}jl-15 {% endif %}{% if jlength == 16 %}jl-16 {% endif %}{% if jlength == 17 %}jl-17 {% endif %}">
+	<body class="{% if user_currency is defined %}{% if user_currency['symbol']|length > 1 %}cur-txt {% endif %}{{ currency_css(user_currency_code) }}{% endif %} {% block bodyClass %}{% endblock %}">
         {% block modal %}{% endblock %}
 
         <div data-role="page" id="main-page">
