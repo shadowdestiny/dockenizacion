@@ -5,7 +5,6 @@ namespace EuroMillions\web\forms;
 
 use Phalcon\Forms\Element\Email;
 use Phalcon\Forms\Form;
-use Phalcon\Validation\Validator\Identical;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email as EmailValidator;
 

@@ -13,6 +13,9 @@ class PasswordController extends PublicSiteControllerBase
 {
 
 
+    /**
+     * @return \Phalcon\Mvc\View
+     */
     public function resetAction()
     {
         $errors = [];
@@ -25,6 +28,7 @@ class PasswordController extends PublicSiteControllerBase
 
         if($this->request->isPost()) {
             if ($myaccount_passwordchange_form->isValid($this->request->getPost()) === false) {
+
                 $messages = $myaccount_passwordchange_form->getMessages(true);
                 /**
                  * @var  $field
@@ -35,16 +39,18 @@ class PasswordController extends PublicSiteControllerBase
                     $form_errors[$field] = ' error';
                 }
             } else {
-                $result_same_password = $this->authService->samePassword($user,$this->request->getPost('old-password'));
-                if($result_same_password->success()) {
-                    $result = $this->authService->updatePassword($user, $this->request->getPost('new-password'));
-                    if ($result->success()) {
-                        $msg = $result->getValues();
-                    } else {
-                        $errors [] = $result->errorMessage();
+                if(null != $user) {
+                    $result_same_password = $this->authService->samePassword($user,$this->request->getPost('old-password'));
+                    if($result_same_password->success()) {
+                        $result = $this->authService->updatePassword($user, $this->request->getPost('new-password'));
+                        if ($result->success()) {
+                            $msg = $result->getValues();
+                        } else {
+                            $errors [] = $result->errorMessage();
+                        }
+                    }else{
+                        $errors[] = $result_same_password->errorMessage();
                     }
-                }else{
-                    $errors[] = $result_same_password->errorMessage();
                 }
             }
         }
@@ -68,7 +74,7 @@ class PasswordController extends PublicSiteControllerBase
         sort($countries);
         $countries = array_combine(range(1, count($countries)), array_values($countries));
         $user = $this->userService->getUser($userId->getId());
-        $user_dto = new UserDTO($user);
+        $user_dto = $user ? new UserDTO($user) : null;
         return new MyAccountForm($user_dto,['countries' => $countries]);
     }
 

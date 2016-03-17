@@ -16,8 +16,7 @@ use EuroMillions\web\services\UserPreferencesService;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\dto\CurrencyDTO;
 use Money\Currency;
-use Phalcon\Di;
-use Phalcon\Mvc\View;
+
 
 /**
  * Class PublicSiteControllerBase
@@ -186,7 +185,7 @@ class PublicSiteControllerBase extends ControllerBase
         //Vars draw closing modal
         $dateUtil = new DateTimeUtil();
         //EMTD @rmrbest OJO NO TE DEJES ESTO
-        $lottery_date_time = $this->domainServiceFactory->getLotteriesDataService()->getNextDateDrawByLottery('EuroMillions');
+       // $lottery_date_time = $this->domainServiceFactory->getLotteriesDataService()->getNextDateDrawByLottery('EuroMillions');
         $lottery_date_time = new \DateTime('2016-03-16 10:50:00');
         $time_to_remain = $dateUtil->getTimeRemainingToCloseDraw($lottery_date_time);
         if($time_to_remain) {

@@ -11,22 +11,30 @@
 .currency .list .symbol{float:right;}
 .currency .curr{display:inline-block; width:100%; font-size:125%; font-weight:bold;}
 .currency .name{display:block;}
+.boxBAM .name{font-size:13px;}
+.info-txt{color:#aaa; font-style:italic; font-size:0.75em; margin-bottom:1em;}
+.h2{margin:0;}
 
-@media only screen and (max-width:992px){
-    .currency .list a{min-height:74px;}
+@media only screen and (max-width:1200px){
+.currency .list a{min-height:74px;}
 }
 @media only screen and (max-width:768px){
     .currency .list li{width:31%;}
     .currency .list a{min-height:auto;}
 }
 
-@media only screen and (max-width:500px){/*Not standard size*/
+@media only screen and (max-width:624px){
     .currency .list a{min-height:74px;}
-}        
+}
 
 @media only screen and (max-width:480px){
     .currency .list li{width:48%; text-align:left;}
 }
+
+@media only screen and (max-width:334px){
+    .boxBAM .name{font-size:12px;}
+}
+
 </style>
 {% endblock %}
 {% block bodyClass %}currency{% endblock %}
@@ -43,6 +51,7 @@
     <div class="wrapper">
         <div class="box-basic">
             <h1 class="h2">{{ language.translate("Choose your currency") }}</h1>
+            <div class="info-txt">Currencies are just informative, transactions are charged in Euros.</div>
             <ul class="no-li list cl">
             {% for currency in currency_list %}
                 <li class="box{{ currency.code }}"><a data-enhance=false href="/ajax/user-settings/setCurrencyReload/{{currency.code}}" {% if currency.code == current_currency %}  class="active" {% endif %}>

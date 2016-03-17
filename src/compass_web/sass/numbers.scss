@@ -172,3 +172,4 @@ body.numbers{
     .td-ball, .td-star-ball, .td-winners, .td-prize, .td-payout{font-size:$basic-size;}
 }
  
+@import "_currency/numbers"; /*It need to stay at the bottom*/

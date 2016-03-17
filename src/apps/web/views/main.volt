@@ -12,7 +12,11 @@
         {% block font %}{% endblock %}
     </head>
 
-	<body class="{% if user_currency is defined %}{% if user_currency['symbol']|length > 1 %}cur-txt {% endif %}{{ currency_css(user_currency_code) }}{% endif %}{% block bodyClass %}{% endblock %}">
+    {% set jlength = jackpot_value | number_format(0, ',', '.')|length %} {# Check length of the jackpot #}
+
+	<body class="{% if user_currency is defined %}{% if user_currency['symbol']|length > 1 %}cur-txt {% endif %}{{ currency_css(user_currency_code) }}{% endif %}
+        {% block bodyClass %}{% endblock %}
+        {% if jlength <= 10 %}jl-10 {% endif %}{% if jlength == 11 %}jl-11 {% endif %}{% if jlength == 12 %}jl-12 {% endif %}{% if jlength == 13 %}jl-13 {% endif %}{% if jlength == 14 %}jl-14 {% endif %}{% if jlength == 15 %}jl-15 {% endif %}{% if jlength == 16 %}jl-16 {% endif %}{% if jlength == 17 %}jl-17 {% endif %}">
         {% block modal %}{% endblock %}
 
         <div data-role="page" id="main-page">
@@ -31,7 +35,7 @@
                     <ul class="no-li" data-role="listview">
                         <li><a href="/account" data-transition="slide" data-direction="reverse">{{ language.translate("Account") }}</a></li>
                         <li><a href="/account/games" data-transition="slide" data-direction="reverse">{{ language.translate("Games") }}</a></li>
-                        <li><a href="/account/wallet" data-transition="slide" data-direction="reverse">{{ language.translate("Wallet") }}</a></li>
+                        <li><a href="/account/wallet" data-transition="slide" data-direction="reverse">{{ language.translate("Balance") }}</a></li>
                         <li><a href="/account/transaction" data-transition="slide" data-direction="reverse">{{ language.translate("Transactions") }}</a></li>
                         <li><a href="/account/email" data-transition="slide" data-direction="reverse">{{ language.translate("Email Settings") }}</a></li>
                         <li><a href="/account/password" data-transition="slide" data-direction="reverse">{{ language.translate("Change Password") }}</a></li>
