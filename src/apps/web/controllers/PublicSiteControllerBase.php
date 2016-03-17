@@ -11,13 +11,12 @@ use EuroMillions\web\services\CurrencyConversionService;
 use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\LanguageService;
 use Doctrine\ORM\EntityManager;
-use EuroMillions\web\services\LotteriesDataService;
+use EuroMillions\web\services\LotteryService;
 use EuroMillions\web\services\UserPreferencesService;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\dto\CurrencyDTO;
 use Money\Currency;
-use Phalcon\Di;
-use Phalcon\Mvc\View;
+
 
 /**
  * Class PublicSiteControllerBase
@@ -27,8 +26,8 @@ use Phalcon\Mvc\View;
  */
 class PublicSiteControllerBase extends ControllerBase
 {
-    /** @var LotteriesDataService */
-    protected $lotteriesDataService;
+    /** @var LotteryService */
+    protected $lotteryService;
     /** @var  LanguageService */
     protected $languageService;
     /** @var  CurrencyService */
@@ -48,10 +47,10 @@ class PublicSiteControllerBase extends ControllerBase
     protected $currencyConversionService;
 
 
-    public function initialize(LotteriesDataService $lotteriesDataService = null, LanguageService $languageService = null, CurrencyService $currencyService = null, UserService $userService = null, AuthService $authService= null, UserPreferencesService $userPreferencesService = null, SiteConfigService $siteConfigService = null, CartService $cartService = null, CurrencyConversionService $currencyConversionService = null )
+    public function initialize(LotteryService $lotteryService = null, LanguageService $languageService = null, CurrencyService $currencyService = null, UserService $userService = null, AuthService $authService= null, UserPreferencesService $userPreferencesService = null, SiteConfigService $siteConfigService = null, CartService $cartService = null, CurrencyConversionService $currencyConversionService = null )
     {
         parent::initialize();
-        $this->lotteriesDataService = $lotteriesDataService ?: $this->domainServiceFactory->getLotteriesDataService();
+        $this->lotteryService = $lotteryService ?: $this->domainServiceFactory->getLotteryService();
         $this->languageService = $languageService ?: $this->language; //from DI
         $this->currencyService = $currencyService ?: $this->domainServiceFactory->getCurrencyService();
         $this->userService = $userService ?: $this->domainServiceFactory->getUserService();
@@ -116,13 +115,13 @@ class PublicSiteControllerBase extends ControllerBase
         $this->view->setVar('user_currency_code', $current_currency->getName());
         $this->view->setVar('user_balance', $user_balance);
         $this->view->setVar('user_balance_raw', $user_balance_raw);
-        $this->view->setVar('jackpot', $this->userPreferencesService->getJackpotInMyCurrency($this->lotteriesDataService->getNextJackpot('EuroMillions'))->getAmount() / 100);
+        $this->view->setVar('jackpot', $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions'))->getAmount() / 100);
         $date_time_util = new DateTimeUtil();
-        $date_next_draw = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions');
+        $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
         $this->view->setVar('countdown_next_draw', $date_time_util->getCountDownNextDraw($date_next_draw));
 
         //EMTD create a method helper to set this vars
-        $single_bet_price = $this->lotteriesDataService->getSingleBetPriceByLottery('EuroMillions');
+        $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
         $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $current_currency);
         $bet_value = $this->currencyConversionService->toString($single_bet_price_currency,$current_currency);
         $single_bet_price_currency_gbp = $this->currencyConversionService->convert($single_bet_price, new Currency('GBP'));
@@ -185,8 +184,9 @@ class PublicSiteControllerBase extends ControllerBase
     {
         //Vars draw closing modal
         $dateUtil = new DateTimeUtil();
-        $lottery_date_time = $this->domainServiceFactory->getLotteriesDataService()->getNextDateDrawByLottery('EuroMillions');
-        $lottery_date_time = new \DateTime('2016-03-14 17:27:00');
+        //EMTD @rmrbest OJO NO TE DEJES ESTO
+       // $lottery_date_time = $this->domainServiceFactory->getLotteriesDataService()->getNextDateDrawByLottery('EuroMillions');
+        $lottery_date_time = new \DateTime('2016-03-16 10:50:00');
         $time_to_remain = $dateUtil->getTimeRemainingToCloseDraw($lottery_date_time);
         if($time_to_remain) {
             $minutes_to_close = $dateUtil->restMinutesToCloseDraw($lottery_date_time);

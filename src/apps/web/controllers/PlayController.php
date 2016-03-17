@@ -10,12 +10,12 @@ class PlayController extends PublicSiteControllerBase
 {
     public function indexAction()
     {
-        $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteriesDataService->getNextJackpot('EuroMillions'));
-        $play_dates = $this->lotteriesDataService->getRecurrentDrawDates('EuroMillions');
-        $draw = $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions');
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions'));
+        $play_dates = $this->lotteryService->getRecurrentDrawDates('EuroMillions');
+        $draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
         $date_time_util = new DateTimeUtil();
         $dayOfWeek = $date_time_util->getDayOfWeek($draw);
-        $single_bet_price = $this->lotteriesDataService->getSingleBetPriceByLottery('EuroMillions');
+        $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
         $automatic_random = $this->request->get('random');
 
         if(!$this->authService->isLogged()) {

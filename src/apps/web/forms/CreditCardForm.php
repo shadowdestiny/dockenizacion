@@ -6,7 +6,6 @@ namespace EuroMillions\web\forms;
 
 use EuroMillions\web\forms\validators\CreditCardExpiryDateValidator;
 use Phalcon\Forms\Element\Hidden;
-use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\CreditCard;

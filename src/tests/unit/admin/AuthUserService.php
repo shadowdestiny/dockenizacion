@@ -18,7 +18,7 @@ class AuthUserServiceUnitTest extends UnitTestBase
 
     public function setUp()
     {
-        $this->storageStrategy_double = $this->getInterfaceDouble('ISession');
+        $this->storageStrategy_double = $this->prophesize('\Phalcon\Session\AdapterInterface');
         parent::setUp();
     }
 

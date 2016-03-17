@@ -53,6 +53,7 @@ var EuroMillionsDrawConfig = new React.createClass({
         var default_text_draw = this.getNameDayFromNumber(draw_days_selected);
 
         var duration_value = this.props.current_duration_value;
+
         var default_value_duration = ""+this.props.draw_duration[0].value;
         var default_text_duration = ""+this.props.draw_duration[0].text;
 
@@ -64,22 +65,20 @@ var EuroMillionsDrawConfig = new React.createClass({
         });
 
         var options_draw_days = [
+            {text: 'Tuesday & Friday' , value : 25},
             {text: 'Tuesday', value : 2},
             {text: 'Friday' , value : 5},
-            {text: 'Tuesday & Friday' , value : 25}
         ];
 
-        var draw_days_collection_order_by = [];
+
         options_draw_days.forEach(function(obj,i){
             if(obj.value == draw_days_selected) {
-                draw_days_collection_order_by.push( { text : obj.text, value : obj.value});
-                delete options_draw_days[i];
+                default_value_draw = ""+obj.value;
+                default_text_draw = ""+obj.text;
             }
         });
 
-        var new_array_days = draw_days_collection_order_by.concat(options_draw_days);
-
-        elem.push(<EmSelectDraw play_days={this.props.play_days} defaultValue={default_value_draw} defaultText={default_text_draw} options={new_array_days} {...this.props} active={this.state.selectdrawactive} key="1"/>)
+        elem.push(<EmSelectDraw play_days={this.props.play_days} defaultValue={default_value_draw} defaultText={default_text_draw} options={options_draw_days} {...this.props} active={this.state.selectdrawactive} key="1"/>)
         elem.push(<EmSelectDrawDate change_date={this.props.date_play} defaultValue={default_value_date} defaultText={default_text_date} options={options_draw_dates} active={this.state.selectdrawactive} key="2"/>)
         elem.push(<EmSelectDrawDuration change_duration={this.props.duration} defaultValue={default_value_duration} defaultText={default_text_duration} options={this.props.draw_duration} active={this.state.selectdrawactive} key="3"/>)
         return (

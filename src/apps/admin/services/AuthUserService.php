@@ -5,8 +5,8 @@ namespace EuroMillions\admin\services;
 
 
 use EuroMillions\shared\vo\results\ActionResult;
-use EuroMillions\shared\interfaces\ISession;
 use Phalcon\Config;
+use Phalcon\Session\AdapterInterface;
 
 class AuthUserService
 {
@@ -17,7 +17,7 @@ class AuthUserService
 
     protected $session;
 
-    public function __construct(ISession $session)
+    public function __construct(AdapterInterface $session)
     {
         $this->session = $session;
     }

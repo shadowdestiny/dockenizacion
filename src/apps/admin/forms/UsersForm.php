@@ -135,7 +135,6 @@ class UsersForm extends Form
         )));
 
         $this->add($csrf);
-        parent::initialize();
     }
 
 

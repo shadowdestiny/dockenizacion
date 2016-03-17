@@ -4,6 +4,7 @@ namespace EuroMillions\tests\unit;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\services\WalletService;
+use EuroMillions\web\vo\dto\WalletDTO;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -14,6 +15,17 @@ use EuroMillions\tests\helpers\mothers\UserMother;
 
 class WalletServiceUnitTest extends UnitTestBase
 {
+
+
+    private $currencyConversionService_double;
+
+
+    public function setUp()
+    {
+        $this->currencyConversionService_double = $this->getServiceDouble('CurrencyConversionService');
+        parent::setUp();
+    }
+
     /**
      * method rechargeWithCreditCard
      * when providerRejectsCharge
@@ -59,6 +71,39 @@ class WalletServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method getWalletDTO
+     * when called
+     * should returnProperWalletDTO
+     */
+    public function test_getWalletDTO_called_returnProperWalletDTO()
+    {
+        $user = UserMother::aUserWith50Eur()->build();
+        $user->setWinningAbove(new Money(10000, new Currency('EUR')));
+        $uploaded = new Money(1000, new Currency('EUR'));
+        $uploaded_string = '€ 10.00';
+        $expected = new WalletDTO($uploaded_string,$uploaded_string,$uploaded_string,$uploaded_string);
+        $this->exerciseConvert($uploaded, $user, $uploaded_string);
+        $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal());
+        $actual = $sut->getWalletDTO($user);
+        $this->assertInstanceOf('EuroMillions\web\vo\dto\WalletDTO', $actual);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method getWalletDTO
+     * when called
+     * should returnNull
+     */
+    public function test_getWalletDTO_called_returnNull()
+    {
+        $user = UserMother::aUserWith50Eur()->build();
+        $user->setWinningAbove(new Money(10000, new Currency('EUR')));
+        $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal());
+        $actual = $sut->getWalletDTO($user);
+        $this->assertNull($actual);
+    }
+
+    /**
      * @param $expected_wallet_amount
      * @param $payment_provider_result
      */
@@ -70,11 +115,28 @@ class WalletServiceUnitTest extends UnitTestBase
         $card_payment_provider->charge(Argument::any(), Argument::any())->willReturn(new PaymentProviderResult($payment_provider_result));
         $credit_card = CreditCardMother::aValidCreditCard();
         $credit_card_charge = CreditCardChargeMother::aValidCreditCardChargeWithAmountInParam($amount);
-        $sut = new WalletService($this->getEntityManagerRevealed());
+        $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal());
         $actual = $sut->rechargeWithCreditCard($card_payment_provider->reveal(), $credit_card, $user, $credit_card_charge);
         $this->assertInstanceOf('EuroMillions\shared\interfaces\IResult', $actual);
         $this->assertEquals($payment_provider_result, $actual->success());
         $this->assertEquals($expected_wallet, $user->getWallet());
+    }
+
+    /**
+     * @param $uploaded
+     * @param $user
+     * @param $uploaded_string
+     */
+    private function exerciseConvert($uploaded, $user, $uploaded_string)
+    {
+        $this->currencyConversionService_double->convert(Argument::any(), Argument::any())->willReturn($uploaded);
+        $this->currencyConversionService_double->toString($uploaded, $user->getLocale())->willReturn($uploaded_string);
+        $this->currencyConversionService_double->convert(Argument::any(), Argument::any())->willReturn($uploaded);
+        $this->currencyConversionService_double->toString($uploaded, $user->getLocale())->willReturn($uploaded_string);
+        $this->currencyConversionService_double->convert(Argument::any(), Argument::any())->willReturn($uploaded);
+        $this->currencyConversionService_double->toString($uploaded, $user->getLocale())->willReturn($uploaded_string);
+        $this->currencyConversionService_double->convert(Argument::any(), Argument::any())->willReturn($uploaded);
+        $this->currencyConversionService_double->toString($uploaded, $user->getLocale())->willReturn($uploaded_string);
     }
 
 }

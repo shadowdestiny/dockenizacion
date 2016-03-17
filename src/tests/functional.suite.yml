@@ -1,0 +1,10 @@
+class_name: FunctionalTester
+modules:
+    enabled:
+        - Db:
+        - Doctrine2:
+            connection_callback: ['EntityManagerFetcher', 'get']
+        - Phalcon2:
+            bootstrap: 'public/index-test.php'
+            cleanup: false
+        - \Helper\Functional

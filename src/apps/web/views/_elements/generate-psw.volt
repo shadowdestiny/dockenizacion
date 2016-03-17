@@ -1,4 +1,4 @@
-{{ form('/account/password') }}
+{{ form('/password/reset') }}
     {% if msg %}
         <div class="box success">
             <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>

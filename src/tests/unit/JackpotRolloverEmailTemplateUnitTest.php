@@ -14,12 +14,12 @@ use EuroMillions\tests\base\UnitTestBase;
 class JackpotRolloverEmailTemplateUnitTest extends UnitTestBase
 {
 
-    protected $lotteriesDataService;
+    protected $lotteryService;
 
     public function setUp()
     {
         parent::setUp();
-        $this->lotteriesDataService = $this->getServiceDouble('LotteriesDataService');
+        $this->lotteryService = $this->getServiceDouble('LotteryService');
     }
 
 
@@ -32,9 +32,9 @@ class JackpotRolloverEmailTemplateUnitTest extends UnitTestBase
     {
         $expected = $this->getArrayContentTemplateJackpot();
         $emailTemplate = new EmailTemplate();
-        $this->lotteriesDataService->getNextDateDrawByLottery('EuroMillions')->willReturn(new \DateTime());
-        $this->lotteriesDataService->getNextJackpot('EuroMillions')->willReturn(new Money(10000,new Currency('EUR')));
-        $sut = new JackpotRolloverEmailTemplate($emailTemplate, new JackpotDataEmailTemplateStrategy($this->lotteriesDataService->reveal()) );
+        $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->willReturn(new \DateTime());
+        $this->lotteryService->getNextJackpot('EuroMillions')->willReturn(new Money(10000,new Currency('EUR')));
+        $sut = new JackpotRolloverEmailTemplate($emailTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService->reveal()) );
         $actual = $sut->loadVars();
         $this->assertEquals($expected,$actual);
     }

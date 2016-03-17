@@ -14,13 +14,12 @@ var Tooltip = new React.createClass({
 
 
     render : function (){
-
-        var react_tooltip = <ReactTooltip type="light" id='tooltip'/>;
+        var react_tooltip = <ReactTooltip effect="solid" type="light" id='tooltip'/>;
         var xlink = "/w/svg/icon.svg#" +this.props.ico;
 
         if(this.props.type == 'span') {
             return (
-                <span data-for="tooltip" data-place={this.props.place} data-tip={this.props.message}>
+                <span data-for="tooltip"  data-place={this.props.place} data-tip={this.props.message}>
                     <svg className={this.props.class}><use xlinkHref={xlink}></use></svg>
                         {react_tooltip}
                 </span>
@@ -29,7 +28,7 @@ var Tooltip = new React.createClass({
         if(this.props.type == 'input') {
             return (
                 <span className="spanTooltip">
-                    <input data-for="tooltip" data-event={this.props.event} data-place="top" type="password" id="password" name="password" className={this.props.class} placeholder="Password" data-tip={this.props.message}/>
+                    <input data-for="tooltip" data-event={this.props.event} data-place={this.props.place} type="password" id="password" name="password" className={this.props.class} placeholder="Password" data-tip={this.props.message}/>
                     {react_tooltip}
                 </span>
             )

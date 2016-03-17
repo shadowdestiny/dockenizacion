@@ -5,7 +5,7 @@
 <script src="/w/js/mobileFix.js"></script>
 {% endblock %}
 {% block template_scripts_code %}
-var fee_limit = '<?php echo $fee_to_limit_value; ?>';
+
 
 function deleteLnk(id){
     $(id).click(function(e){
@@ -92,11 +92,11 @@ $(function(){
             </div>
             <h1 class="h1 title yellow">{{ language.translate("Wallet") }}</h1>
 
-            {% if show_winning_copy > 0 %}
+            {% if wallet.current_winnings %}
             <div class="box info">
                 <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                 <div class="txt">
-                   <strong class="straight">{{ language.translate("Congratulations!!! You just won ") }}{{ symbol }} {{ show_winning_copy | number_format(0,',','.') }}</strong><br>
+                   <strong class="straight">{{ language.translate("Congratulations!!! You just won ") }}{{ wallet.current_winnings }}</strong><br>
                     {{ language.translate("We have sent you an email with further instructions to collect your prize.
                     For any questions please contact us at") }} <a href="mailto:support@euromillions.com">support@euromillions.com</a> 
                 </div>
@@ -233,13 +233,12 @@ $(function(){
                                 <label class="label" for="add-bank-user">
                                     {{ language.translate("Name") }} <span class="asterisk">*</span> <span class="subtxt">({{ language.translate("bank account holder name") }}</span>
                                 </label>
-                                <input id="add-bank-user" value="{{ user.name }}" class="input" type="text">
+                                {{ bank_account_form.render('name', {'class':'input'~form_errors['name']}) }}
 
                                 <label class="label" for="add-bank-user-surname">
                                     {{ language.translate("Surname") }} <span class="asterisk">*</span> <span class="subtxt">({{ language.translate("bank account holder") }})</span>
                                 </label>
-                                <input id="add-bank-surname" value="{{ user.surname }}" class="input" type="text">
-
+                                {{ bank_account_form.render('surname', {'class':'input'~form_errors['surname']}) }}
                                 <label class="label" for="add-bank-name">
                                     {{ language.translate("Bank Name") }} <span class="asterisk">*</span>
                                 </label>
@@ -259,32 +258,24 @@ $(function(){
                                 <label class="label" for="add-bank-country">
                                     {{ language.translate("Country of residence") }} <span class="asterisk">*</span>
                                 </label>
-                                <select id="add-bank-country" class="select">
-                                    <option>{{ language.translate("Select your country") }}</option>
-                                    <option>{{ language.translate("France")}}</option>
-                                    <option>{{ language.translate("Italy") }}</option>
-                                    <option>{{ language.translate("Spain")}}</option>
-                                </select>
+                                {{ bank_account_form.render('country', {'class':'select'~form_errors['country']}) }}
 
                                 <label class="label" for="add-bank-address">
                                     {{ language.translate("Address") }} <span class="asterisk">*</span>
                                 </label>
-                                <input id="add-bank-address" value="{{ user.street }}" class="input" type="text">
-
+                                {{ bank_account_form.render('street', {'class':'input'~form_errors['street']}) }}
                                 <label class="label" for="add-bank-city">
                                     {{ language.translate("City") }} <span class="asterisk">*</span>
                                 </label>
-                                <input id="add-bank-city" value="{{ user.city }}" class="input" type="text">
-
+                                {{ bank_account_form.render('city', {'class':'input'~form_errors['city']}) }}
                                 <label class="label" for="add-bank-postal">
                                     {{ language.translate("Postal Code") }} <span class="asterisk">*</span>
                                 </label>
-                                <input id="add-bank-postal" value="{{ user.zip }}" class="input" type="text">
-
+                                {{ bank_account_form.render('zip', {'class':'input'~form_errors['zip']}) }}
                                 <label class="label" for="add-bank-phone">
                                     {{ language.translate("Phone number") }} <span class="asterisk">*</span>
                                 </label>
-                                <input id="add-bank-phone" value="{{ user.phone_number }}" class="input" type="text">
+                                {{ bank_account_form.render('phone_number', {'class':'input'~form_errors['phone_number']}) }}
                             </div>
                         </div>
                     </div>

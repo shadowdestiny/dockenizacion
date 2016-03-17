@@ -62,7 +62,7 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
 
     public function setUp()
     {
-        $this->lotteryDataService_double = $this->getServiceDouble('LotteriesDataService');
+        $this->lotteryDataService_double = $this->getServiceDouble('LotteryService');
         $this->playService_double = $this->getServiceDouble('PlayService');
         $this->priceCheckoutService_double = $this->getServiceDouble('PriceCheckoutService');
         $this->betRepository_double = $this->getRepositoryDouble('BetRepository');

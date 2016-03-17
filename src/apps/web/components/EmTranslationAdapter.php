@@ -2,7 +2,6 @@
 namespace EuroMillions\web\components;
 
 use EuroMillions\web\repositories\TranslationDetailRepository;
-use Doctrine\ORM\EntityManager;
 use Phalcon\Translate\Adapter;
 
 class EmTranslationAdapter extends Adapter

@@ -16,7 +16,6 @@ use EuroMillions\web\services\PlayService;
 use EuroMillions\web\services\factories\ServiceFactory;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
-use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\NotificationType;
 use Phalcon\Di;
 use Phalcon\Logger;
@@ -66,17 +65,13 @@ class ResultTask extends TaskBase
 //        $logger->setLogLevel(Logger::ERROR);
         try{
             $this->lotteriesDataService->updateLastDrawResult('EuroMillions');
-            $this->lotteriesDataService->updateLastBreakDown('EuroMillions');
+            $draw = $this->lotteriesDataService->updateLastBreakDown('EuroMillions');
         } catch( \Exception $e ) {
 //            $logger->error($e->getMessage());
         }
 
-        /** @var EuroMillionsDrawBreakDown $emBreakDownData */
-        $draw = $this->lotteriesDataService->getBreakDownDrawByDate('EuroMillions',$today);
         $breakdown_list = null;
-        if($draw->success()){
-            $break_down_list = new EuroMillionsDrawBreakDownDTO($draw->getValues()->getBreakDown());
-        }
+        $break_down_list = new EuroMillionsDrawBreakDownDTO($draw->getBreakDown());
 
         $emailTemplate = new EmailTemplate();
         $emailTemplate = new LatestResultsEmailTemplate($emailTemplate, new LatestResultsDataEmailTemplateStrategy());

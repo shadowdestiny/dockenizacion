@@ -39,7 +39,7 @@ class PlayServiceUnitTest extends UnitTestBase
 
     private $lotteryDrawRepository_double;
 
-    private $lotteryDataService_double;
+    private $lotteryService_double;
 
     private $betRepository_double;
 
@@ -78,7 +78,7 @@ class PlayServiceUnitTest extends UnitTestBase
     public function setUp()
     {
         $this->playConfigRepository_double = $this->getRepositoryDouble('PlayConfigRepository');
-        $this->lotteryDataService_double = $this->getServiceDouble('LotteriesDataService');
+        $this->lotteryService_double = $this->getServiceDouble('LotteryService');
         $this->betRepository_double = $this->getRepositoryDouble('BetRepository');
         $this->lotteryDrawRepository_double = $this->getRepositoryDouble('EuroMillions\web\entities\Lottery');
         $this->playStorageStrategy_double = $this->getInterfaceWebDouble('IPlayStorageStrategy');
@@ -292,7 +292,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->userRepository_double->find(['id' => $user->getId()])->willReturn($user);
         $this->orderStorageStrategy_double->findByKey($user->getId())->willReturn($order->toJsonData());
         $this->cartService_double->get($user->getId())->willReturn(new ActionResult(true, $order));
-        $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true, $euromillions_draw));
+        $this->lotteryService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true, $euromillions_draw));
         $entityManager_double = $this->getEntityManagerDouble();
         $this->userRepository_double->add($user)->shouldBeCalled();
         $entityManager_double->flush(Argument::any())->shouldBeCalled();
@@ -337,7 +337,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $credit_card = CreditCardMother::aValidCreditCard();
         $this->exercisePlayWallet($user, $order, $credit_card);
         $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
-        $this->lotteryDataService_double->getNextDateDrawByLottery('EuroMillions', Argument::any())->willReturn(new \DateTime('2016-10-04'));
+        $this->lotteryService_double->getNextDateDrawByLottery('EuroMillions', Argument::any())->willReturn(new \DateTime('2016-10-04'));
         $entityManager_double = $this->getEntityManagerDouble();
         $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalledTimes(4);
         $entityManager_double->flush(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
@@ -429,7 +429,7 @@ class PlayServiceUnitTest extends UnitTestBase
     {
         return new PlayService(
             $this->getEntityManagerRevealed(),
-            $this->lotteryDataService_double->reveal(),
+            $this->lotteryService_double->reveal(),
             $this->playStorageStrategy_double->reveal(),
             $this->orderStorageStrategy_double->reveal(),
             $this->cartService_double->reveal(),
@@ -538,7 +538,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->orderStorageStrategy_double->findByKey($user->getId())->willReturn($order->toJsonData());
         $this->cartService_double->get($user->getId())->willReturn(new ActionResult(true, $order));
         $this->walletService_double->rechargeWithCreditCard($this->card_payment_provider->reveal(), $credit_card, $user, $order->getCreditCardCharge())->willReturn(new ActionResult(true));
-        $this->lotteryDataService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true, $euromillions_draw));
+        $this->lotteryService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true, $euromillions_draw));
     }
 
 

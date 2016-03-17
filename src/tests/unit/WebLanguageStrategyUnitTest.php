@@ -12,7 +12,7 @@ class WebLanguageStrategyUnitTest extends UnitTestBase
     public function setUp()
     {
         parent::setUp();
-        $this->session_double = $this->getInterfaceDouble('ISession');
+        $this->session_double = $this->prophesize('\Phalcon\Session\AdapterInterface');
         $this->request_double = $this->getInterfaceDouble('IRequest');
     }
 

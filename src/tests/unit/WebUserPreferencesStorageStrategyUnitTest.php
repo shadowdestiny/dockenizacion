@@ -14,7 +14,7 @@ class WebUserPreferencesStorageStrategyUnitTest extends UnitTestBase
     public function setUp()
     {
         parent::setUp();
-        $this->session_double = $this->getInterfaceDouble('ISession');
+        $this->session_double = $this->prophesize('\Phalcon\Session\AdapterInterface');
         $this->cookieManager_double = $this->getInterfaceDouble('ICookieManager');
     }
 
