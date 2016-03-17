@@ -326,7 +326,7 @@ body, .submit{font-family:$basic-font;}
 {background:#fff; color:#ae5279;}
 .li-currency{position:relative;}
 .div-currency{
-  position:absolute; width:100%; display:none; z-index:1; right:0; text-align:left; font-size:$basic-size; background:#fff; border:1px solid $yellow; border-top:0; border-radius:0 0 5px 5px; /*overflow-y:auto; height:260px; min-width:202px;*/
+  position:absolute; width:100%; min-width:180px; display:none; z-index:1; right:0; text-align:left; font-size:$basic-size; background:#fff; border:1px solid $yellow; border-top:0; border-radius:0 0 5px 5px; /*overflow-y:auto; height:260px; min-width:202px;*/
   li{border-bottom:1px solid $yellow;}
   li:last-child{border-bottom:0;}
   a{display:block; padding:8px 10px;}
