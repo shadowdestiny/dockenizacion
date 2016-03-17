@@ -179,14 +179,11 @@ class BetTaskUnitTest extends UnitTestBase
      */
     public function test_longTermNotificationAction_calledThreeDaysBeforeLastDrawFromMySuscription_sendEmailNotification()
     {
+
         $today = new \DateTime('2015-12-04 00:00:00');
         $result_play_config = $this->getPlayConfigList($this->getUser());
-        $user = $this->getUser();
         $this->playService_double->getPlayConfigWithLongEnded($today)->willReturn($result_play_config);
-        $this->userService_double->getUser(new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'))->willReturn($user);
-        $this->lotteryService_double->getNextJackpot('EuroMillions')->willReturn(new Money(10000,new Currency('EUR')));
-        $this->lotteryService_double->getNextDateDrawByLottery('EuroMillions')->willReturn(new \DateTime());
-        $this->emailService_double->sendTransactionalEmail(Argument::type('EuroMillions\web\entities\User'), Argument::type('EuroMillions\web\emailTemplates\IEmailTemplate'))->shouldBeCalledTimes(4);
+        $this->userService_double->checkLongTermAndSendNotification($result_play_config->getValues(),$today)->shouldBeCalled();
         $sut = new BetTask();
         $sut->initialize($this->lotteryService_double->reveal(), $this->playService_double->reveal(),$this->emailService_double->reveal(), $this->userService_double->reveal());
         $sut->longTermNotificationAction($today);

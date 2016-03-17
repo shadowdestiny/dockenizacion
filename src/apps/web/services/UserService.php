@@ -2,13 +2,17 @@
 namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\web\emailTemplates\EmailTemplate;
+use EuroMillions\web\emailTemplates\LongPlayEndedEmailTemplate;
 use EuroMillions\web\entities\Notification;
+use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\repositories\NotificationRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserNotificationsRepository;
 use EuroMillions\web\repositories\UserRepository;
+use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\vo\ContactFormInfo;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\NotificationValue;
@@ -338,6 +342,21 @@ class UserService
 
         }
 
+    }
+
+    public function checkLongTermAndSendNotification( array $playConfigList, \DateTime $today = null )
+    {
+        /** @var PlayConfig[] $playConfigList */
+        foreach($playConfigList as $play_config) {
+            $day_last_draw = $play_config->getLastDrawDate()->getTimestamp();
+            if($today->getTimestamp() > $day_last_draw ) {
+                /** @var User $user */
+                $user = $this->userRepository->find($play_config->getUser()->getId());
+                $emailTemplate = new EmailTemplate();
+                $emailTemplate = new LongPlayEndedEmailTemplate($emailTemplate, new JackpotDataEmailTemplateStrategy());
+                $this->emailService->sendTransactionalEmail($user,$emailTemplate);
+            }
+        }
     }
 
 }

@@ -91,7 +91,6 @@ class LotteriesDataService
         $result = $result_api->getResultBreakDownForDate($lotteryName, $last_draw_date->format('Y-m-d'));
         /** @var EuroMillionsDraw $draw */
         $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $last_draw_date]);
-        var_dump($result);
         $draw->createBreakDown($result);
         $this->entityManager->flush();
         return $draw;

@@ -3,15 +3,16 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 
+use EuroMillions\web\emailTemplates\EmailTemplate;
+use EuroMillions\web\emailTemplates\LongPlayEndedEmailTemplate;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
-
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
-use EuroMillions\web\repositories\BetRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
+use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\external_apis\LotteryValidationCastilloApi;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\Order;
@@ -33,19 +34,12 @@ class PlayService
     /** @var  LotteryService */
     private $lotteryService;
 
-    /** @var  BetRepository */
-    private $betRepository;
-
-    private $lotteryRepository;
-
     /** @var IPlayStorageStrategy */
     private $playStorageStrategy;
 
     private $orderStorageStrategy;
 
     private $userRepository;
-
-    private $logValidationRepository;
 
     /** @var CartService $cartService*/
     private $cartService;
@@ -67,13 +61,10 @@ class PlayService
     {
         $this->entityManager = $entityManager;
         $this->playConfigRepository = $entityManager->getRepository('EuroMillions\web\entities\PlayConfig');
-        $this->betRepository = $entityManager->getRepository('EuroMillions\web\entities\Bet');
-        $this->lotteryRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Lottery');
         $this->lotteryService = $lotteryService;
         $this->playStorageStrategy = $playStorageStrategy;
         $this->orderStorageStrategy = $orderStorageStrategy;
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
-        $this->logValidationRepository = $entityManager->getRepository('EuroMillions\web\entities\LogValidationApi');
         $this->cartService = $cartService;
         $this->walletService = $walletService;
         $this->betService = $betService;
@@ -168,6 +159,7 @@ class PlayService
         }
         return new ActionResult(false);
     }
+
 
     /**
      * @param PlayConfig $playConfig
