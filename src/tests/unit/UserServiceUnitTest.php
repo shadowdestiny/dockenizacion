@@ -15,7 +15,7 @@ use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
-use EuroMillions\web\vo\NotificationType;
+use EuroMillions\web\vo\NotificationValue;
 use EuroMillions\web\vo\Password;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\UserId;
@@ -263,7 +263,7 @@ class UserServiceUnitTest extends UnitTestBase
     {
         $expected = true;
         $user = $this->getUser();
-        $notificationType = new NotificationType(4, true);
+        $notificationType = new NotificationValue(4, true);
         $notification = $this->getNotifications()[0];
         $active = true;
         $user_notification = $this->getUserNoticiation();
@@ -472,7 +472,7 @@ class UserServiceUnitTest extends UnitTestBase
     {
 
         $user_notification = new UserNotifications();
-        $notificationType = new NotificationType(4, true);
+        $notificationType = new NotificationValue(4, true);
         $user_notification->initialize(
             [
                 'id'           => 4,
@@ -578,11 +578,11 @@ class UserServiceUnitTest extends UnitTestBase
     private function exerciseNotifications($return)
     {
         $this->userNotificationsRepository_double->findBy(['active'       => true,
-                                                           'notification' => NotificationType::NOTIFICATION_LAST_DRAW
+                                                           'notification' => NotificationValue::NOTIFICATION_LAST_DRAW
 
         ])->willReturn($return);
         $sut = $this->getSut();
-        $actual = $sut->getActiveNotificationsByType(NotificationType::NOTIFICATION_LAST_DRAW);
+        $actual = $sut->getActiveNotificationsByType(NotificationValue::NOTIFICATION_LAST_DRAW);
         return $actual;
     }
 

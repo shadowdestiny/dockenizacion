@@ -10,7 +10,7 @@ use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\exceptions\InvalidBalanceException;
 use EuroMillions\web\tasks\BetTask;
 use EuroMillions\web\vo\DrawDays;
-use EuroMillions\web\vo\NotificationType;
+use EuroMillions\web\vo\NotificationValue;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\UserId;
 use Money\Currency;
@@ -349,7 +349,7 @@ class BetTaskUnitTest extends UnitTestBase
         $notification = new Notification();
         $notification->setDescription('Test');
         $userNotifications->setNotification($notification);
-        $notificationType = new NotificationType(1,3500000);
+        $notificationType = new NotificationValue(1,3500000);
         $userNotifications->setConfigValue($notificationType);
         $userNotifications->setActive(true);
         return $userNotifications;

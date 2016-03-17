@@ -21,7 +21,7 @@ use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\UserNotificationsDTO;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\ExpiryDate;
-use EuroMillions\web\vo\NotificationType;
+use EuroMillions\web\vo\NotificationValue;
 use Money\Currency;
 use Money\Money;
 use Phalcon\Di;
@@ -356,24 +356,24 @@ class AccountController extends PublicSiteControllerBase
         $list_notifications = [];
         try {
             if($reach_notification) {
-                $notificationType = new NotificationType(NotificationType::NOTIFICATION_THRESHOLD, $config_value_threshold);
+                $notificationType = new NotificationValue(NotificationValue::NOTIFICATION_THRESHOLD, $config_value_threshold);
                 $reach_notification = true;
                 if(empty($config_value_threshold)) {
                     $reach_notification = false;
                 }
                 $this->userService->updateEmailNotification($notificationType,$user,$reach_notification);
             } else {
-                $notificationType = new NotificationType(NotificationType::NOTIFICATION_THRESHOLD,null);
+                $notificationType = new NotificationValue(NotificationValue::NOTIFICATION_THRESHOLD,null);
                 $this->userService->updateEmailNotification($notificationType,$user,false);
             }
             //Reach notification
-            $notificationType = new NotificationType(NotificationType::NOTIFICATION_NOT_ENOUGH_FUNDS,'');
+            $notificationType = new NotificationValue(NotificationValue::NOTIFICATION_NOT_ENOUGH_FUNDS,'');
 
             $this->userService->updateEmailNotification($notificationType,$user,$auto_play_funds);
-            $notificationType = new NotificationType(NotificationType::NOTIFICATION_LAST_DRAW,'');
+            $notificationType = new NotificationValue(NotificationValue::NOTIFICATION_LAST_DRAW,'');
 
             $this->userService->updateEmailNotification($notificationType,$user,$auto_play_lastdraw);
-            $notificationType = new NotificationType(NotificationType::NOTIFICATION_RESULT_DRAW,$config_value_results);
+            $notificationType = new NotificationValue(NotificationValue::NOTIFICATION_RESULT_DRAW,$config_value_results);
 
             $this->userService->updateEmailNotification($notificationType,$user,$results_draw);
             $message = 'Your new email settings are saved';

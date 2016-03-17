@@ -11,7 +11,7 @@ use EuroMillions\web\repositories\UserNotificationsRepository;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\vo\ContactFormInfo;
 use EuroMillions\shared\vo\results\ActionResult;
-use EuroMillions\web\vo\NotificationType;
+use EuroMillions\web\vo\NotificationValue;
 use EuroMillions\web\vo\UserId;
 use Exception;
 use Money\Currency;
@@ -194,7 +194,7 @@ class UserService
         }
     }
 
-   public function updateEmailNotification(NotificationType $notificationType, User $user,$active)
+   public function updateEmailNotification(NotificationValue $notificationType, User $user, $active)
    {
 
        /** @var Notification $notification */
@@ -266,8 +266,8 @@ class UserService
                     /** @var UserNotifications $user_notifications */
                     $user_notifications = new UserNotifications();
                     $user_notifications->setUser($user);
-                    ($notification->getNotificationType() == NotificationType::NOTIFICATION_THRESHOLD) ? $user_notifications->setActive(false) : $user_notifications->setActive(true);
-                    if($notification->getNotificationType() == NotificationType::NOTIFICATION_RESULT_DRAW) {
+                    ($notification->getNotificationType() == NotificationValue::NOTIFICATION_THRESHOLD) ? $user_notifications->setActive(false) : $user_notifications->setActive(true);
+                    if($notification->getNotificationType() == NotificationValue::NOTIFICATION_RESULT_DRAW) {
                         $user_notifications->setConfigValue(false);
                     }
                     $user_notifications->setNotification($notification);

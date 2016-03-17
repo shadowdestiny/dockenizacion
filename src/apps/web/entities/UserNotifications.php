@@ -4,7 +4,7 @@
 namespace EuroMillions\web\entities;
 
 use EuroMillions\web\interfaces\IEntity;
-use EuroMillions\web\vo\NotificationType;
+use EuroMillions\web\vo\NotificationValue;
 
 class UserNotifications extends EntityBase implements IEntity
 {
@@ -14,7 +14,7 @@ class UserNotifications extends EntityBase implements IEntity
 
     protected $active;
 
-    /** @var  NotificationType */
+    /** @var  NotificationValue */
     protected $type;
 
     protected $notification;

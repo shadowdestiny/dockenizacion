@@ -287,7 +287,7 @@ class UserAccessController extends ControllerBase
             'surname'          => '',
             'confirm_password' => '',
             'country'          => '',
-            'card-number' => '',
+            'card- number' => '',
             'card-holder' => '',
             'card-cvv' => '',
             'new-password' => '',

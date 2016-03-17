@@ -6,7 +6,7 @@ use EuroMillions\web\entities\Notification;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\tasks\JackpotTask;
-use EuroMillions\web\vo\NotificationType;
+use EuroMillions\web\vo\NotificationValue;
 use EuroMillions\shared\vo\results\ActionResult;
 use Money\Currency;
 use Money\Money;
@@ -99,7 +99,7 @@ class JackpotTaskUnitTest extends UnitTestBase
         $notification = new Notification();
         $notification->setDescription('Test');
         $userNotifications->setNotification($notification);
-        $notificationType = new NotificationType(1,3500000);
+        $notificationType = new NotificationValue(1,3500000);
         $userNotifications->setConfigValue($notificationType);
         $userNotifications->setActive(true);
         return $userNotifications;
