@@ -3,7 +3,10 @@
 	<link rel="stylesheet" href="/w/css/numbers.css">
 	<!--[if IE 9]><style>.laurel{display:none;}</style><![endif]-->
 {% endblock %}
-{% block bodyClass %}numbers{% endblock %}
+{% block bodyClass %}
+numbers
+{% include "_elements/jlength.volt" %}
+{% endblock %}
 
 {% block header %}
     {% set activeNav='{"myClass": "numbers"}'|json_decode %}

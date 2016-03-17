@@ -162,19 +162,18 @@
 }
 
 .banner{
-  position:relative; color:#fff; font-weight:bold; height:350px; border-radius:5px; box-shadow:0 0 15px 6px rgba(100, 100, 100, 0.3); background:url(../img/home/bg-banner.jpg) no-repeat center center; margin:20px auto 0;
-  > div{position:absolute; line-height:100%;}
-  .info{font-size:30px; margin-left:53px; margin-bottom:10px;}
-  .value{width:650px; height:110px;}
+  position:relative; color:#fff; font-weight:bold; height:350px; border-radius:5px; box-shadow:0 0 15px 6px rgba(100, 100, 100, 0.3); background:url(../img/home/bg-banner.jpg) no-repeat center center; margin:20px auto 0; line-height:100%;
+  .box-jackpot, .btn-box, .txt, .best-price{position:absolute;}
+  .jackpot{width:100%;}
+  .info{font-size:30px; margin-left:50px; margin-bottom:10px;}
+  .normal{display:block;}
+  .small{display:none;}
   .txt{top:285px; width:100%; text-align:center; font-size:26px; color:$black; text-shadow:0 0 3px #fff;}
   .btn-box{left:1000px; top:102px;}
   .for-only{font-size:15px; margin-top:10px; text-align:center;}
   .for-only, .box-jackpot{text-shadow:0 0 3px #000;}
   .best-price{display:block; right:25px; bottom:20px;}
-  .mycur{font-size:60px;}
-  .mytxt{font-size:105px;}
 }
-.box-jackpot{margin-left:155px; margin-top:50px;}
 .laurel{position:relative; width:30px; height:58px;}
 .laurel.first{transform:rotateY(-180deg) rotate(15deg);}
 .laurel.last{transform:rotate(15deg);}
@@ -222,7 +221,7 @@
 .large.wrapper{width:1180px;}
 .banner{
   .btn-box{left:890px;}
-  .box-jackpot{margin-left:45px;}
+  .value{width:630px;}
 }
 }
 
@@ -231,11 +230,8 @@
 .large.wrapper{width:990px;}
 .banner{
   .btn-box{left:785px;}
-  .box-jackpot{margin-left:35px;}
-  .value{font-size:50px;}
-  .mycur{font-size:50px;}
-  .mytxt{font-size:90px;}
   .huge{padding:20px 22px;}
+  .info{margin:0 0 0 48px;}
 }
 
 .box-emblem{right:-8px;}
@@ -266,14 +262,16 @@
 .large.wrapper{width:768px;}
 .banner{
   background-position:0 center; height:300px;
+  .normal{display:none;}
+  .small.n1{display:block;}
+  .box-jackpot, .btn-box, .txt{position:relative;}
+  .value{text-align:center; width:720px; height:100px; margin-bottom:10px;}
   .btn-box{left:auto; position:relative; top:10px; text-align:center; width:100%;}
-  .box-jackpot{position:relative; margin:0; padding-top:30px; width:100%; text-align:center;}
-  .value{width:565px}
-  .info{margin:0;}
   .txt{font-size:20px; position:relative; top:35px;}
   .for-only{margin-left:10px; font-size:16px;}
   .for-only, .btn.red{display:inline-block;}
   .best-price{display:none;}
+  .info{margin:0;}
 }
 .box-basic.ball{background-image:none;}
 .box-quick-play h1{margin-top:10px;}
@@ -329,6 +327,8 @@
 .large.wrapper{margin-bottom:0!important; width:100%!important;}
 .banner{
   box-shadow:none; border-radius:0; margin-top:0;
+  .small.n1{display:none;}
+  .small.n2{display:block;}
   .txt{font-size:18px;}
 }
 .btn.huge{font-size:22px; padding:15px;}
@@ -389,32 +389,25 @@
 
 @media only screen and (max-width:600px){
 .banner{
-  .mytxt{font-size:70px;}
-  .value{width:450px;}
+  .small.n2{display:none;}
+  .small.n3{display:block;}
   .btn-box{top:0;}
+  .info{margin-top:10px;}
   .txt{font-size:16px; line-height:22px; width:85%; margin:auto; top:15px;}
 }
 }
 
 @media only screen and (min-width:531px){
-.banner .value{
-  .normal{display:block;}
-  .small{display:none;}
-}
 .partners li{margin:0 5px;}
 }
 
 @media only screen and (max-width:530px){
 .banner{
   height:260px;
-  .value{
-    width:320px; height:65px;
-    .normal{display:none;}
-    .small{display:block;}
-  }
-  .info{font-size:24px;}
-  .mytxt, .mycur{font-size:46px;}
-  .mycur{margin-right:0;}
+  .small.n3{display:none;}
+  .small.n4{display:block;}
+  .info{font-size:24px; margin-top:0;}
+  .mytxt, .mycur{font-size:50px;}
   .btn-box{margin-top:10px;}
   .txt{top:20px;}
 }
@@ -434,6 +427,8 @@
 .box-quick-play .content{padding:20px;}
 .banner{
   background-position:0 -60px;
+  .small.n4{display:none;}
+  .small.n5{display:block;}
   .info{font-size:20px;}
   .txt{font-size:14px; line-height:20px;}
   .for-only{font-size:14px;}
@@ -442,8 +437,8 @@
 
 @media only screen and (max-width:360px){
 .banner{
-  .value{width:280px;}
-  .mytxt, .mycur{font-size:38px;}
+  .small.n5{display:none;}
+  .small.n6{display:block;}
   .txt{font-size:14px; text-shadow:0 0 2px rgba(255,255,255,.8);}
 }
 }
@@ -455,3 +450,6 @@
 .box-how li:first-child .vector{display:block!important;}
 .box-result .numbers{margin:0 auto 1em; width:80%;}
 }
+
+
+@import "_currency/home"; /*It need to stay at the bottom*/

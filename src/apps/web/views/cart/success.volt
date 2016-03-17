@@ -1,7 +1,10 @@
 {% extends "main.volt" %}
 {% block template_css %}<link rel="stylesheet" href="/w/css/cart.css">{% endblock %}
 {% block template_scripts %}{% endblock %}
-{% block bodyClass %}cart success minimal{% endblock %}
+{% block bodyClass %}
+cart success minimal
+{% include "_elements/jlength.volt" %}
+{% endblock %}
 
 {% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
 {% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}
@@ -18,8 +21,8 @@
 
                     {% if order.frequency > 1 %}
                     <p class="note">
-                        <strong>{{ language.translate("NOTE") }}</strong><br>
-                        {{ language.translate("We have just charged you for your first participation and the remaining of your payment is in your account balance. For your convenience, future participations will be charged directly from your account balance before the draw.") }}
+                        <strong class="b">{{ language.translate("NOTE") }}</strong>
+                        <span class="txt">{{ language.translate("We have just charged you for your first participation and the remaining of your payment is in your account balance. For your convenience, future participations will be charged directly from your account balance before the draw.") }}</span>
                     </p>
                     {% endif %}
                     <div class="countdown">

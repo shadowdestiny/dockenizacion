@@ -32,7 +32,7 @@
         <ul class="subnav hidden">
             <li><a href="/account">{{ language.translate("Account") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
             <li><a href="/account/games">{{ language.translate("Games") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
-            <li><a href="/account/wallet">{{ language.translate("Wallet") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
+            <li><a href="/account/wallet">{{ language.translate("Balance") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
             <li><a href="/account/transaction">{{ language.translate("Transaction") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
 {#
             <li><a href="/account/messages">{{ language.translate("Messages") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
@@ -41,7 +41,6 @@
             <li><a href="/account/password">{{ language.translate("Change Password") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
             <li><a href="/logout">{{ language.translate("Sign out") }} <svg class="ico v-exit"><use xlink:href="/w/svg/icon.svg#v-exit"></use></svg></a></li>
         </ul>
-
     {% endif %}
 </li>
 <li class="li-help{% if activeNav.myClass == 'help' %} active{% endif %}">

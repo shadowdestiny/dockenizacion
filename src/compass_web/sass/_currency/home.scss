@@ -1,0 +1,216 @@
+@import "variable";
+
+/*CSS ACROSS THE WEBSITE CURRENCY CHANGE*/
+
+/* Euro is default value and is not inserted in here */
+
+/* .aud{}  Australian Dollar */   /* Symbol */
+/* .bgn{}  Bulgarian Lev */
+/* .cad{}  Canadian Dollar */     /* Symbol */
+/* .dkk{}  Danish Krone */
+/* .eur{}  European Euro */       /* Symbol */
+/* .gbp{}  Pound Sterling */
+/* .chf{}  Swiss Franc */
+/* .usd{}  American Dollar */     /* Symbol */
+/* --------------------------- */
+/* azn      Azerbaijani Manat */
+/* bam      Bosnia_Herzegovina Mark */
+/* bgn      Bulgarian Lev */
+/* nzd      New Zealand Dollar */  /*Symbol */
+/* sgd      singapore dollar */
+
+
+/* A bit Problematic */
+/* .cny{}  Chinese Yuan */        /* Symbol */
+/* .ron{}  Romanian Leu */
+/* .zar{}  South African Rand */
+/* .sek{}  Swedish Krone */
+/* --------------------------- */
+/* ARS     Argentine Peso */
+/* BOB     BOLIVIAN BOLIVIANO */
+/* BRL     BRAZILIAN REAL  */     /* SYMBOL */
+/* GEL     GEORGIAN LARI  */
+/* HKD     HONG KONG DOLLAR */    /* SYMBOL */
+/* ILS     ISRAELI NEW SHEQEL */  /* SYMBOL */
+/* MXN      MEXICAN PESO */
+/* MYR      MALAYSIAN RINGGIT */
+/* NOK      NORWEGIAN KRONE */
+/* PEN      PERUVIAN NUEVO SOL */
+/* PLN      POLISH ZLOTY */
+/* QAR      QATARI RIAL */
+/* TRY      TURKISH LIRA */
+/* UAH      UKRAINIAN HRYVNIA */ /*<---- the worst*/
+/* VEF      VENEZUELAN BOLIVAR */
+
+
+/* Problematic currencies */
+/* .byr{}  Belarusian Ruble */  /*<------------- SUPER PROBLEM */
+/* .cop{}  Colombian Peso */
+/* .inr{}  Indian Rupee */
+/* .jpy{}  Japanese Yen */        /* Symbol */
+/* .rub{}  Russian Ruble */
+/* .thb{}  Thai Baht */           /* Symbol */
+/* --------------------------- */
+/* ALL      ALBANIAN LEK        */ 
+/* CLP      CHILEAN PESO        */
+/* CZK      CZECH REPUBLIC KORUNA */ 
+/* HUF      HUNGARIAN FORINT */
+/* IDR      INDONESIAN RUPIAH */ 
+/* ISK      ICELANDIC KRONA */
+/* KES      KENYAN SHILLING */
+/* KRW      SOUTH KOREAN WON */   /* SYMBOL */
+/* KZT      KAZAKHSTANI TENGE */
+/* LBP      LEBANESE POUND */
+/* MDL      MOLDOVAN LEU */
+/* MKD      MACEDONIAN DENAR */
+/* NGN      NIGERIAN NAIRA */
+/* PHP      PHILIPPINE PESO */
+/* PKR      PAKISTANI RUPEE */
+/* PYG      PARAGUAYAN GUARANI */
+/* RSD      SERBIAN DINAR */
+
+/*
+
+EMTD TO clean this code from VARIABLE 
+.home.cur-txt .box-value .currency{font-size:$h3;}
+.home.cur1 .box-value .value, .numbers.cur1 .box-value .value{font-size:$h0-2;}
+.home.cur2 .box-value .value{font-size:$h0-3;}
+.home.cur2 .box-prize .value, .numbers.cur2 .box-value .value{font-size:$h1;}*/
+
+
+.value{height:115px; width:670px;}
+.box-jackpot{width:100%; padding-left:155px; margin-top:50px;}
+.banner{
+  .mycur{font-size:60px;}
+  .mytxt{font-size:100px;}
+}
+.cur-txt .banner{
+    .mycur{font-size:32px;}
+    .info{margin-left:80px;}
+}
+.jl-11 .banner .mytxt{font-size:90px;}  /* When I have symbol */
+.jl-13 .banner .mytxt{font-size:82px;}
+.jl-14 .banner .mytxt{font-size:74px;}
+.jl-15 .banner .mytxt{font-size:70px;}
+.jl-15, .jl-16, .jl-17{
+    .banner .value{margin-top:-10px;}
+}
+.jl-17 .banner .mytxt{font-size:68px;}
+
+@media only screen and (max-width:1460px){
+.box-jackpot{padding-left:80px;}
+.jl-15 .banner .mytxt{font-size:68px;}
+.jl-17{
+    .box-jackpot{padding-left:40px;}
+    .banner .mytxt{font-size:64px;}
+}
+}
+
+@media only screen and (max-width:1200px){
+/*    .head{border:10px solid #0f0!important;} */
+
+.box-jackpot{padding-left:70px;}
+.jl-11,.jl-13, .jl-14, .jl-15, .jl-17{
+    .box-jackpot{padding-left:30px;}
+}
+.jl-13 .banner .mytxt{font-size:78px;}
+.jl-17 .banner .mytxt{font-size:60px;}
+}
+
+
+@media only screen and (max-width:992px){
+/*    .head{border:10px solid #000!important;} */
+.box-jackpot{position:relative; margin:0; padding-top:30px; padding-left:0; width:100%; text-align:center;}
+.jl-11, .jl-13, .jl-14, .jl-15, .jl-17{
+    .box-jackpot{padding-left:0;}
+}
+.jl-17 .banner .mytxt{font-size:60px;}
+.cur-txt .banner .info{margin-left:0;}
+}
+
+@media only screen and (max-width:768px){
+/*    .head{border:10px solid #ff0!important;}*/
+.banner{
+  .mycur{font-size:60px;}
+  .mytxt{font-size:90px;}
+  .value{width:560px;}
+}
+.jl-11, .jl-12, .jl-13{
+    .banner .mytxt{font-size:70px}
+}
+.jl-14 .banner .mytxt{font-size:68px;}
+.jl-15 .banner .mytxt{font-size:61px;}
+.jl-17{
+    .banner{
+        .value{margin-top:0;}
+        .mytxt{font-size:55px;}
+    }
+}
+.cur-txt .banner .mycur{font-size:28px;}
+}
+
+@media only screen and (max-width:600px){
+/*    .head{border:10px solid #f00!important;}*/
+.banner{
+  .value{height:90px; width:480px; margin:0 0 15px;}
+  .mycur{font-size:50px;}
+  .mytxt{font-size:80px;}
+}
+.jl-11 .banner .mytxt{font-size:70px}
+.jl-12, .jl-13{
+    .banner .mytxt{font-size:62px}
+}
+.jl-14 .banner .mytxt{font-size:58px;}
+.jl-15 .banner .mytxt{font-size:52px;}
+.jl-17 .banner .mytxt{font-size:48px;}
+}
+
+@media only screen and (max-width:530px){
+/*    .head{border:10px solid #f0f!important;}*/
+.banner{
+    .value{height:70px; width:420px; margin:10px 0 0 0;}
+    .mycur{font-size:40px;}
+    .mytxt{font-size:65px;}
+}
+.jl-11 .banner .mytxt{font-size:55px}
+.jl-12, .jl-13{
+    .banner .mytxt{font-size:52px}
+}
+.jl-14 .banner .mytxt{font-size:50px;}
+.jl-15 .banner .mytxt{font-size:45px;}
+.jl-17 .banner .mytxt{font-size:40px;}
+}
+
+@media only screen and (max-width:480px){
+  /*  .head{border:10px solid #00f!important;}*/
+.banner{
+  .value{width:330px; margin-top:0;}
+  .mycur{font-size:30px;}
+  .mytxt{font-size:55px;}
+}
+.jl-11 .banner .mytxt{font-size:45px}
+.jl-12, .jl-13{
+    .banner .mytxt{font-size:40px}
+}
+.jl-14 .banner .mytxt{font-size:39px;}
+.jl-15 .banner .mytxt{font-size:36px;}
+.jl-17 .banner .mytxt{font-size:32px;}
+.cur-txt .banner .mycur{font-size:20px;}
+}
+
+@media only screen and (max-width:360px){
+/*    .head{border:10px solid #0ff!important;}*/
+.banner{
+    .value{height:60px; width:270px;}
+    .mycur{font-size:30px;}
+    .mytxt{font-size:45px;}
+}
+.jl-11 .banner .mytxt{font-size:36px}
+.jl-12, .jl-13{
+    .banner .mytxt{font-size:30px}
+}
+.jl-14 .banner .mytxt{font-size:32px;}
+.jl-15 .banner .mytxt{font-size:29px;}
+.jl-17 .banner .mytxt{font-size:26px;}
+.cur-txt .banner .mycur{font-size:15px;}
+}

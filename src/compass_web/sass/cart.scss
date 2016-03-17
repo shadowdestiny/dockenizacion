@@ -194,7 +194,11 @@
   .box-basic .cols{margin:0;}
   .txt-logo{color:$purple; font-weight:700; font-size:$h3; text-align:left; margin:.5em 0;}
   .txt-col{padding-right:20px;}
-  .note{border:1px solid $purple; padding:5px 10px;}
+  .note{
+    border:2px solid $yellow; padding:10px;
+    .b{display:block; margin-bottom:5px;}
+    .txt{font-style:italic;}
+  }
 }
 
 .fail{
@@ -328,3 +332,6 @@
     .buy{float:none;}
   }
 }
+
+
+@import "_currency/cart"; /*It need to stay at the bottom*/
