@@ -527,7 +527,7 @@ body, .submit{font-family:$basic-font;}
 @media only screen and (max-width:480px){
 /*body{border:2px solid #00f;} /* BLUE*/
 .media{width:4px}
-.box-estimated .h2{line-height:1.3em}
+/*.box-estimated .h2{line-height:1.3em}*/
 .box-cookies{
   line-height:135%;
   .lnk{display:block;}
@@ -539,5 +539,5 @@ body, .submit{font-family:$basic-font;}
 @media only screen and (max-width:320px){
 /*body{border:2px solid #f00;} /* RED */
 .media{width:5px}
-.box-how .grey{display:none;}
+/*.box-how .grey{display:none;}*/
 }
