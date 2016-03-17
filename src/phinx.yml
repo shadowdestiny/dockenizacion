@@ -1,5 +1,5 @@
 paths:
-    migrations: %%PHINX_CONFIG_DIR%%/apps/web/migrations_data
+    migrations: %%PHINX_CONFIG_DIR%%/apps/web/migrations
     seeds: %%PHINX_CONFIG_DIR%%/apps/web/seeds
 
 environments:
@@ -27,7 +27,7 @@ environments:
         adapter: mysql
         host: localhost
         name: euromillions_test
-        user: shippable
+        user: root
         pass: ''
         port: 3306
         charset: utf8
@@ -36,7 +36,7 @@ environments:
         adapter: mysql
         host: localhost
         name: euromillions_test
-        user: shippable
+        user: root
         pass: ''
         port: 3306
         charset: utf8
