@@ -11,22 +11,28 @@
 .currency .list .symbol{float:right;}
 .currency .curr{display:inline-block; width:100%; font-size:125%; font-weight:bold;}
 .currency .name{display:block;}
+.boxBAM .name{font-size:13px;}
 
-@media only screen and (max-width:992px){
-    .currency .list a{min-height:74px;}
+@media only screen and (max-width:1200px){
+.currency .list a{min-height:74px;}
 }
 @media only screen and (max-width:768px){
     .currency .list li{width:31%;}
     .currency .list a{min-height:auto;}
 }
 
-@media only screen and (max-width:500px){/*Not standard size*/
+@media only screen and (max-width:624px){
     .currency .list a{min-height:74px;}
-}        
+}
 
 @media only screen and (max-width:480px){
     .currency .list li{width:48%; text-align:left;}
 }
+
+@media only screen and (max-width:334px){
+    .boxBAM .name{font-size:12px;}
+}
+
 </style>
 {% endblock %}
 {% block bodyClass %}currency{% endblock %}
