@@ -365,7 +365,7 @@ class CartController extends PublicSiteControllerBase
         $user_currency = $user->getUserCurrency();
         $fee_value = $this->siteConfigService->getFeeValueWithCurrencyConverted($user_currency);
         $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValueWithCurrencyConverted($user_currency);
-        $single_bet_price = $this->domainServiceFactory->getLotteriesDataService()->getSingleBetPriceByLottery('EuroMillions');
+        $single_bet_price = $this->domainServiceFactory->getLotteryService()->getSingleBetPriceByLottery('EuroMillions');
         if($order_view) {
             $order = new Order($result->returnValues(),$single_bet_price, $fee_value, $fee_to_limit_value); // order created
             $this->cartService->store($order);

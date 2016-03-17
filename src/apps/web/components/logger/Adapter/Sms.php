@@ -5,7 +5,6 @@ namespace EuroMillions\web\components\logger\Adapter;
 
 
 use EuroMillions\web\interfaces\ISmsServiceApi;
-use Phalcon\Config;
 
 class Sms extends \Phalcon\Logger\Adapter implements \Phalcon\Logger\AdapterInterface
 {

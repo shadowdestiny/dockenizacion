@@ -2,7 +2,6 @@
 
 namespace EuroMillions\shared\components\widgets;
 
-use Phalcon\Mvc\View;
 use Phalcon\Mvc\View\Simple as ViewSimple;
 use Phalcon\Mvc\ViewInterface;
 

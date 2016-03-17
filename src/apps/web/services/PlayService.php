@@ -79,10 +79,7 @@ class PlayService
         $this->betService = $betService;
         $this->payXpertCardPaymentStrategy = $payXpertCardPaymentStrategy;
         // EMTD: @rmrbest tantas dependencias dan tufillo a que necesita refactorizar.
-
     }
-
-
 
     public function getPlaysFromGuestUserAndSwitchUser(UserId $user_id, UserId $current_user_id)
     {

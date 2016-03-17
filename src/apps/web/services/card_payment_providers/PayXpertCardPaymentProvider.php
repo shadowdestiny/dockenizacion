@@ -1,6 +1,6 @@
 <?php
 namespace EuroMillions\web\services\card_payment_providers;
-use EuroMillions\shared\vo\results\ActionResult;
+
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\services\card_payment_providers\payxpert\GatewayClientWrapper;
