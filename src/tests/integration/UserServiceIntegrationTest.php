@@ -20,8 +20,8 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
             'users',
             'languages',
             'play_configs',
-            'notifications',
-            'users_notifications'
+            'notifications_type',
+            'user_notifications'
         ];
     }
 
