@@ -7,15 +7,13 @@ env:
   global:
     - EM_ENV=shippable
     - secure: CHiPakQ4GGugHwOXftmgB/FhJSQww0mH9ch0rWGBiF4D+c5fTJDUcJ90O8KOXLJA0NcAwd5LII74YJVRfg5de4+02LXZi9Mg7Aj2Zhmm/eN7TXGDNBBep+fpVabQYRZ3u39ZZ50mygWNsx0Vk64dOABnTCHVWMETMnMJcUnovwHeQWXTkbi1XZlFQ+6q/3cpv1OzDJDopQi34oGADstWVWTkS+jS9xtZvWNS/PXjBb0wKJXQcB7dzJ5bpcaEzQ/AFw21ydKHfeYFl5YLb7mIhJ/G8VOr3XsQMQcO60ZWUnbea0bkuo0tS+sQtD0xFZp8j7TldAzJ6mCP8/pm1m9rSA==
-services:
-  - redis
-
-pre_ci_boot:
-  image_name: antonienko/phalcon2-ci
-  image_tab: v1.2.3
-  pull: true
 
 build:
+  pre_ci_boot:
+    image_name: antonienko/phalcon2-ci
+    image_tab: v1.2.3
+    pull: true
+
   ci:
     - composer config -g github-oauth.github.com $MY_GITHUB_TOKEN
     - /etc/init.d/mysql start & > /dev/null
