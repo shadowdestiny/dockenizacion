@@ -339,12 +339,12 @@ class UserService
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
         } catch ( \Exception $e ) {
-
+            return new ActionResult(false);
         }
 
     }
 
-    public function checkLongTermAndSendNotification( array $playConfigList, \DateTime $today = null )
+    public function checkLongTermAndSendNotification( array $playConfigList, \DateTime $today)
     {
         /** @var PlayConfig[] $playConfigList */
         foreach($playConfigList as $play_config) {

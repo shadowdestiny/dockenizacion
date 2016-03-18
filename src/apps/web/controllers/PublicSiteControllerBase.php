@@ -119,7 +119,6 @@ class PublicSiteControllerBase extends ControllerBase
         $date_time_util = new DateTimeUtil();
         $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
         $this->view->setVar('countdown_next_draw', $date_time_util->getCountDownNextDraw($date_next_draw));
-
         //EMTD create a method helper to set this vars
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
         $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $current_currency);
