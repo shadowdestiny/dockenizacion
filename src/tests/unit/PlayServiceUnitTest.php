@@ -296,8 +296,6 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->cartService_double->get($user->getId())->willReturn(new ActionResult(true, $order));
         $this->lotteryService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true, $euromillions_draw));
         $entityManager_double = $this->getEntityManagerDouble();
-        $this->userRepository_double->add($user)->shouldBeCalled();
-        $entityManager_double->flush(Argument::any())->shouldBeCalled();
         $this->betService_double->validation(Argument::any(), Argument::any())->willReturn(new ActionResult(true));
         $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
         $entityManager_double->flush(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();

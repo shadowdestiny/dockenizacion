@@ -116,7 +116,7 @@ class BetServiceUnitTest extends UnitTestBase
      */
     public function test_bet_calledWhenABetForNextDrawYetExists_returnServiceActionResultTrueButNotCreateNewBet()
     {
-
+        $this->markTestSkipped('A lo mejor no tiene sentido en este momento');
         $expected = new ActionResult(true);
         $today = new \DateTime('2015-09-16 00:00:00');
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();

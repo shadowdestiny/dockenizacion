@@ -5,6 +5,7 @@ var EmLineOrderConfig = require('../components/cart/EmLineOrderConfig.jsx');
 var EmTotalCart = require('../components/cart/EmTotalCart.jsx');
 var EmLineFeeCart = require('../components/cart/EmLineFeeCart.jsx');
 var EmWallet = require('../components/cart/EmWallet.jsx');
+var EmBtnPayment = require('../components/cart/EmBtnPayment.jsx');
 
 var CartPage = new React.createClass({
 
@@ -67,6 +68,7 @@ var CartPage = new React.createClass({
         } else {
           //  this.setState( {show_fee_text : true });
         }
+        Funds.funds_value = this.state.fund_value;
         this.handleUpdatePrice();
     },
 
@@ -87,7 +89,10 @@ var CartPage = new React.createClass({
 
     handlePreTotal : function (value)
     {
-        this.state.pre_total = accounting.formatMoney((value * this.props.single_bet_price * this.state.playConfigList.bets.length), ' ' + this.props.currency_symbol, 2);
+        this.state.pre_total = parseFloat(value * this.props.single_bet_price * this.state.playConfigList.bets.length).toFixed(2);
+        //console.log(PreTotal.getPreTotal(total));
+        //this.state.pre_total = PreTotal.getPreTotal(total);
+        //this.state.pre_total = PreTotal.getPreTotal(accounting.formatMoney((value * this.props.single_bet_price * this.state.playConfigList.bets.length), ' ' + this.props.currency_symbol, 2));
     },
 
     handleClickAdd : function (value)
@@ -101,6 +106,7 @@ var CartPage = new React.createClass({
     updatePriceWithCheckedWallet : function () {
         LogicCart.total = this.props.total;
         LogicCart.fee_limit = this.props.price_below_fee;
+        LogicCart.pre_total = this.state.pre_total;
         Funds.funds_value = isNaN(this.state.fund_value) ? 0 : this.state.fund_value;
         Fee.fee_value = this.props.fee_charge;
         Wallet.total_balance = this.props.wallet_balance;
@@ -109,6 +115,7 @@ var CartPage = new React.createClass({
         this.state.show_all_fee = LogicCart.show_all_fee;
         this.state.show_fee_text = LogicCart.show_fee_text;
         this.state.show_fee_value = LogicCart.show_fee_value;
+        this.state.pre_total = LogicCart.pre_total;
         return LogicCart.total;
     },
 
@@ -116,15 +123,15 @@ var CartPage = new React.createClass({
     updatePriceWithoutWallet : function () {
         LogicCart.total = this.props.total;
         LogicCart.fee_limit = this.props.price_below_fee;
+        LogicCart.pre_total = this.state.pre_total;
         Funds.funds_value = isNaN(this.state.fund_value) ? 0 : this.state.fund_value;
         Fee.fee_value = this.props.fee_charge;
         Wallet.total_balance = this.props.wallet_balance;
-        //Wallet.isChecked = true;
         LogicCart.payWithNoWallet();
-
         this.state.show_all_fee = LogicCart.show_all_fee;
         this.state.show_fee_text = LogicCart.show_fee_text;
         this.state.show_fee_value = LogicCart.show_fee_value;
+        this.state.pre_total = LogicCart.pre_total;
         return LogicCart.total;
     },
 
@@ -181,14 +188,17 @@ var CartPage = new React.createClass({
         var txt_button_payment = '';
         var href_payment = '';
         var data_btn = '';
+        var price_txt_btn = '';
         if( (this.state.checked_wallet && accounting.unformat(LogicCart.total) > 0) || accounting.unformat(LogicCart.total) > 0 ) {
             txt_button_payment = 'Continue to payment';
+            price_txt_btn = this.state.total;
             href_payment = 'javascript:void(0)';
             data_btn = 'no-wallet';
         } else {
             txt_button_payment = 'Buy now';
             href_payment = '/cart/payment?method=wallet&charge='+this.state.fund_value;
             data_btn = 'wallet';
+            price_txt_btn = this.state.total;
         }
         CurrencyFormat.value = this.state.pre_total;
         var pre_total_symbol = CurrencyFormat.getCurrencyFormatted();
@@ -203,6 +213,7 @@ var CartPage = new React.createClass({
             symbol_price_balance = CurrencyFormat.getCurrencyFormatted();
             old_balance_and_new_balance = <span className="value"> <span className="current">{symbol_price_balance}</span> </span>;
         }
+
         var wallet_component = null;
         if(parseFloat(this.props.wallet_balance) > 0) {
             wallet_component = <EmWallet currency_symbol={this.props.currency_symbol}
@@ -215,7 +226,6 @@ var CartPage = new React.createClass({
             />;
         }
 
-
         return (
             <div>
                 <div className="box-top cl">
@@ -224,23 +234,11 @@ var CartPage = new React.createClass({
                 <div className="box-order">
                     {_euroMillionsLine}
                     <EmLineOrderConfig config={this.props.config} playConfig={_playConfigList} pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration}/>
-                    <div className="pre-total cl">
-                        <div className="total">
-                            <div className="txt">
-                                Total
-                            </div>
-                            <div className="val">
-                                 {pre_total_symbol}
-                            </div>
-                        </div>
-                    </div>
                     {line_fee_component}
-                    {wallet_component}
                 </div>
-                <EmTotalCart total_price={this.state.total} />
-                <div className="box-bottom cl">
-                    <a href={href_payment} data-btn={data_btn} className={class_button_payment}>{txt_button_payment}</a>
-                </div>
+                <EmTotalCart total_price={pre_total_symbol} />
+                {wallet_component}
+                <EmBtnPayment  href={href_payment} databtn={data_btn} price={price_txt_btn} classBtn={class_button_payment} text={txt_button_payment}/>
             </div>
         )
     }
@@ -265,27 +263,32 @@ var CurrencyFormat = {
 
 var LogicCart = {
     total : 0,
+    pre_total : 0,
     fee_limit : 0,
     isPayWithWallet : false,
     fundsValue : 0,
-    show_all_fee : false,
-    show_fee_value : false,
-    show_fee_text : false,
+    show_all_fee : true,
+    show_fee_value : true,
+    show_fee_text : true,
 
     payWithWallet : function () {
         var current_total = LogicCart.total;
+        var pre_total = LogicCart.pre_total;
         var totalWithWallet = Wallet.getTotalWhenPayed(LogicCart.total);
         if( accounting.unformat(LogicCart.fee_limit) > accounting.unformat(totalWithWallet) ) {
             LogicCart.total = Funds.getTotalWhenFundsAreInserted(totalWithWallet);
-            if( accounting.unformat(current_total) < accounting.unformat(LogicCart.fee_limit) &&
+            pre_total = Funds.getTotalWhenFundsAreInserted(LogicCart.pre_total);
+
+            if( accounting.unformat(LogicCart.total) < accounting.unformat(LogicCart.fee_limit) &&
                 accounting.unformat(totalWithWallet) > 0 ) {
+                LogicCart.pre_total = Fee.checkFeeWithWallet(pre_total);
                 LogicCart.total = Fee.checkFeeWithWallet(LogicCart.total);
                 if(Fee.applied) {
                     LogicCart.show_fee_text = true;
                     LogicCart.show_fee_value = true;
                     LogicCart.show_all_fee = true;
                 } else {
-                    LogicCart.show_fee_text = false;
+                    LogicCart.show_fee_text = true;
                     LogicCart.show_fee_value = false;
                     LogicCart.show_all_fee = true;
                 }
@@ -300,9 +303,12 @@ var LogicCart = {
     },
 
     payWithNoWallet : function () {
+        var pre_total = LogicCart.pre_total;
         if( accounting.unformat(LogicCart.fee_limit)  > accounting.unformat(LogicCart.total)) {
+            LogicCart.pre_total = Funds.getTotalWhenFundsAreInserted(pre_total);
             LogicCart.total = Funds.getTotalWhenFundsAreInserted(LogicCart.total);
             if( accounting.unformat(LogicCart.total) < accounting.unformat(LogicCart.fee_limit) ) {
+                LogicCart.pre_total = Fee.getTotalWithFee(LogicCart.pre_total);
                 LogicCart.total = Fee.getTotalWithFee(LogicCart.total);
                 LogicCart.show_all_fee = true;
                 LogicCart.show_fee_value = true;
@@ -310,8 +316,12 @@ var LogicCart = {
             } else {
                 LogicCart.show_all_fee = true;
                 LogicCart.show_fee_value = false;
-                LogicCart.show_fee_text = false;
+                LogicCart.show_fee_text = true;
             }
+        } else {
+            LogicCart.show_all_fee = true;
+            LogicCart.show_fee_value = false;
+            LogicCart.show_fee_text = false;
         }
     }
 };
@@ -335,6 +345,8 @@ var Wallet = {
     }
 
 };
+
+
 
 var Funds = {
     funds_value : 0,

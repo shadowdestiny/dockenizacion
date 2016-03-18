@@ -20,7 +20,6 @@ var EuroMillionsMultipleEmLines = React.createClass({
             );
         }
         var date2 = new Date();
-        console.log(date2.getTime());
         return (
             <div className="box-lines cl" id="box-lines">
                 {em_lines}
