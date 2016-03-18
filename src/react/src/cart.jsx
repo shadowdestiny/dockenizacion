@@ -107,6 +107,7 @@ var CartPage = new React.createClass({
         LogicCart.total = this.props.total;
         LogicCart.fee_limit = this.props.price_below_fee;
         LogicCart.pre_total = this.state.pre_total;
+        console.log(this.state.fund_value);
         Funds.funds_value = isNaN(this.state.fund_value) ? 0 : this.state.fund_value;
         Fee.fee_value = this.props.fee_charge;
         Wallet.total_balance = this.props.wallet_balance;
@@ -124,6 +125,7 @@ var CartPage = new React.createClass({
         LogicCart.total = this.props.total;
         LogicCart.fee_limit = this.props.price_below_fee;
         LogicCart.pre_total = this.state.pre_total;
+        console.log(this.state.fund_value);
         Funds.funds_value = isNaN(this.state.fund_value) ? 0 : this.state.fund_value;
         Fee.fee_value = this.props.fee_charge;
         Wallet.total_balance = this.props.wallet_balance;
@@ -278,8 +280,7 @@ var LogicCart = {
         if( accounting.unformat(LogicCart.fee_limit) > accounting.unformat(totalWithWallet) ) {
             LogicCart.total = Funds.getTotalWhenFundsAreInserted(totalWithWallet);
             pre_total = Funds.getTotalWhenFundsAreInserted(LogicCart.pre_total);
-
-            if( accounting.unformat(LogicCart.total) < accounting.unformat(LogicCart.fee_limit) &&
+            if( accounting.unformat(current_total) < accounting.unformat(LogicCart.fee_limit) &&
                 accounting.unformat(totalWithWallet) > 0 ) {
                 LogicCart.pre_total = Fee.checkFeeWithWallet(pre_total);
                 LogicCart.total = Fee.checkFeeWithWallet(LogicCart.total);
@@ -293,9 +294,9 @@ var LogicCart = {
                     LogicCart.show_all_fee = true;
                 }
             } else {
-                LogicCart.show_all_fee = false;
-                LogicCart.show_fee_value = false;
-                LogicCart.show_fee_text = false;
+                LogicCart.show_all_fee = true;
+                LogicCart.show_fee_value = true;
+                LogicCart.show_fee_text = true;
             }
         } else {
             LogicCart.total = Wallet.getTotalWhenPayed(LogicCart.total);
