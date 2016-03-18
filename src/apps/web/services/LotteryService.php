@@ -11,7 +11,6 @@ use EuroMillions\web\exceptions\DataMissingException;
 use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\vo\EuroMillionsLine;
-use EuroMillionsDrawBreakDown;
 use Money\Money;
 
 class LotteryService
@@ -58,12 +57,16 @@ class LotteryService
     public function getLastResult($lotteryName)
     {
         /** @var Lottery $lottery */
-        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
-        /** @var EuroMillionsLine $lottery_result */
-        $lottery_result = $this->lotteryDrawRepository->getLastResult($lottery);
-        $result['regular_numbers'] = explode(',', $lottery_result->getRegularNumbers());
-        $result['lucky_numbers'] = explode(',', $lottery_result->getLuckyNumbers());
-        return $result;
+        $lottery = $this->lotteryRepository->getLotteryByName($lotteryName);
+        try {
+            /** @var EuroMillionsLine $lottery_result */
+            $lottery_result = $this->lotteryDrawRepository->getLastResult($lottery);
+            $result['regular_numbers'] = explode(',', $lottery_result->getRegularNumbers());
+            $result['lucky_numbers'] = explode(',', $lottery_result->getLuckyNumbers());
+            return $result;
+        } catch (DataMissingException $e) {
+            return $this->lotteriesDataService->updateLastDrawResult($lotteryName);
+        }
     }
 
     public function getTimeToNextDraw($lotteryName, \DateTime $now = null)
@@ -102,6 +105,7 @@ class LotteryService
         if (!$now) {
             $now = new \DateTime();
         }
+        /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         if (null !== $lottery) {
             $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($now));
@@ -165,7 +169,6 @@ class LotteryService
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         if (null !== $lottery) {
-            /** @var EuroMillionsDrawBreakDown $emBreakDownData */
             $emBreakDownData = $this->lotteryDrawRepository->getBreakDownData($lottery);
             if (null !== $emBreakDownData) {
                 return new ActionResult(true, $emBreakDownData);

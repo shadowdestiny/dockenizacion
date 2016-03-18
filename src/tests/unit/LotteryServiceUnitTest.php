@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\tests\unit;
 
+use EuroMillions\tests\helpers\mothers\EuroMillionsLineMother;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\exceptions\DataMissingException;
 use EuroMillions\web\services\LotteryService;
@@ -122,7 +123,7 @@ class LotteryServiceUnitTest extends UnitTestBase
      */
     public function test_getLastResult_called_returnArrayWithContentsOfRepositoryREsult()
     {
-        $this->lotteryRepositoryDouble->findOneBy(Argument::any())->willReturn(new Lottery());
+        $this->lotteryRepositoryDouble->getLotteryByName(Argument::any())->willReturn(new Lottery());
         $expected = [
             'regular_numbers' => [1,2,3,4,5],
             'lucky_numbers' => [7,8],
@@ -134,6 +135,24 @@ class LotteryServiceUnitTest extends UnitTestBase
         $sut = $this->getSut();
         $actual = $sut->getLastResult('EuroMillions');
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * method getLastResult
+     * when calledWithoutResultInDataBase
+     * should tryAndGetLastResultFromApi
+     */
+    public function test_getLastResult_calledWithoutResultInDataBase_tryAndGetLastResultFromApi()
+    {
+        $lottery_name = 'EuroMillions';
+        $lottery = new Lottery();
+        $expected = EuroMillionsLineMother::anEuroMillionsLine();
+        $this->lotteryRepositoryDouble->getLotteryByName($lottery_name)->willReturn($lottery);
+        $this->lotteryDrawRepositoryDouble->getLastResult($lottery)->willThrow(new DataMissingException());
+        $this->lotteriesDataServiceDouble->updateLastDrawResult($lottery_name)->shouldBeCalled()->willReturn($expected);
+        $sut = $this->getSut();
+        $actual = $sut->getLastResult($lottery_name);
+        self::assertEquals($expected, $actual);
     }
 
     public function getTimesAndExpectedDiffs()

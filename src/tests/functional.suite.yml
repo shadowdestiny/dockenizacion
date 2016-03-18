@@ -2,8 +2,15 @@ class_name: FunctionalTester
 modules:
     enabled:
         - Db:
+            cleanup: true
         - Doctrine2:
             connection_callback: ['EntityManagerFetcher', 'get']
+            cleanup: false
+        - Redis:
+            host: localhost
+            port: 6379
+            database: 0
+            cleanup: true
         - Phalcon2:
             bootstrap: 'public/index-test.php'
             cleanup: false

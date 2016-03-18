@@ -66,9 +66,11 @@ class LotteriesDataService
             $result_api = $this->apisFactory->resultApi($lottery);
             $last_draw_date = $lottery->getLastDrawDate($now);
             $result = $result_api->getResultForDate($lotteryName, $last_draw_date->format('Y-m-d'));
+            /** @var EuroMillionsDraw $draw */
             $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $last_draw_date]);
             $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
             $this->entityManager->flush();
+            return $draw->getResult();
         } catch (\Exception $e) {
             throw new \Exception('Error updating results');
         }
