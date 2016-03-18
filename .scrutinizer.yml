@@ -165,7 +165,7 @@ build:
 
   tests:
     override:
-      - command: src/vendor/bin/codecept run --skip acceptance --coverage --coverage-xml
+      - command: src/vendor/bin/codecept run --config=src --skip acceptance --coverage --coverage-xml
         coverage:
           file: tests/_output/coverage.xml
           format: php-clover
