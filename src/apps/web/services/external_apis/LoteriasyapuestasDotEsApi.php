@@ -78,7 +78,6 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
     /**
      * @param $lotteryName
      * @param $date
-     * return @array
      * @return array
      */
     public function getResultBreakDownForDate($lotteryName, $date)

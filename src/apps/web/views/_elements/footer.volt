@@ -81,7 +81,14 @@
 					{{ language.translate('Material Copyright &copy; 2011 Euromillions.com
 					<br>Euromillions is the trademark of Services aux Loteries en Europe') }}
 				</div>
-				<div class="col8 partner">
+				<div class="col8 box-partner">
+					<ul class="no-li inline">
+						<li><a href="http://www.visaeurope.com/"><svg class="v-visa vector"><use xlink:href="/w/svg/icon.svg#visa"/></svg></a></li>
+						<li><a href="http://www.mastercard.com/eur/"><svg class="v-mastercard vector"><use xlink:href="/w/svg/icon.svg#mastercard"/></svg></a></li>
+						<li><a href="http://www.gambleaware.co.uk/"><svg class="v-gambleaware vector"><use xlink:href="/w/svg/icon.svg#gambleaware"/></svg></a></li>
+						<li><a href="http://www.geotrust.com/"><svg class="v-geotrust vector"><use xlink:href="/w/svg/icon.svg#geotrust"/></svg></a></li>
+					</ul>
+					{#
 					<ul class="no-li inline">
 						<li><a href="https://www.mastercard.com/eur/" class="sprite card mastercard"><span class="txt">Mastercard</span></a></li>
 						<li><a href="https://www.visaeurope.com/" class="sprite card visa"><span class="txt">Visa</span></a></li>
@@ -89,6 +96,7 @@
 						<li class="fix-margin"><a href="http://www.gambleaware.co.uk/" class="sprite gambleaddict"><span class="txt">Gamble Addict</span></a></li>
 						<li><a href="https://www.geotrust.com/" class="sprite geotrust"><span class="txt">GeoTrust</span></a></li>
 					</ul>
+					#}
 				</div>
 			</div>
 		</div>

@@ -139,21 +139,10 @@ class BetTask extends TaskBase
         if(!$today) {
             $today = new \DateTime();
         }
-
-        $emailTemplate = new EmailTemplate();
-        $emailTemplate = new LongPlayEndedEmailTemplate($emailTemplate, new JackpotDataEmailTemplateStrategy());
         /** @var ActionResult $result_play_config */
         $result_play_config = $this->playService->getPlayConfigWithLongEnded($today);
         if($result_play_config->success()) {
-            /** @var PlayConfig[] $play_config_list */
-            $play_config_list = $result_play_config->getValues();
-            foreach($play_config_list as $play_config) {
-                $day_last_draw = $play_config->getLastDrawDate()->getTimestamp();
-                if($today->getTimestamp() > $day_last_draw ) {
-                    $user = $this->userService->getUser($play_config->getUser()->getId());
-                    $this->emailService->sendTransactionalEmail($user,$emailTemplate);
-                }
-            }
+            $this->userService->checkLongTermAndSendNotification($result_play_config->getValues(),$today);
         }
     }
 

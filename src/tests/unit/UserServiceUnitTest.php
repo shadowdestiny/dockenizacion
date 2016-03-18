@@ -4,6 +4,8 @@ namespace EuroMillions\tests\unit;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shared\config\Namespaces;
+use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\Notification;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
@@ -416,6 +418,54 @@ class UserServiceUnitTest extends UnitTestBase
         $actual = $sut->userWonAbove($user, $money);
         $this->assertEquals($money, $actual->getValues());
     }
+
+    /**
+     * method checkLongTermAndSendNotification
+     * when userDontHaveLongTerm
+     * should sendEmailNotification
+     */
+    public function test_checkLongTermAndSendNotification_userDontHaveLongTerm_sendEmailNotification()
+    {
+
+        $now = new \DateTime('2016-03-18 20:00:00');
+        list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
+        $user = $this->getUser();
+        $this->userRepository_double->find($user->getId())->willReturn($user);
+        $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
+        $sut = $this->getSut();
+        $sut->checkLongTermAndSendNotification([$playConfig], $now);
+    }
+
+    private function getPlayConfigAndEuroMillionsDraw()
+    {
+        $user = $this->getUser();
+        $regular_numbers = [1, 2, 3, 4, 5];
+        $lucky_numbers = [5, 8];
+        $euroMillionsDraw = new EuroMillionsDraw();
+        $euroMillionsLine = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),
+            $this->getLuckyNumbers($lucky_numbers));
+        $euroMillionsDraw->createResult($regular_numbers, $lucky_numbers);
+        $lottery = new Lottery();
+        $lottery->initialize([
+            'id'               => 1,
+            'name'             => 'EuroMillions',
+            'active'           => 1,
+            'frequency'        => 'freq',
+            'draw_time'        => 'draw',
+            'single_bet_price' => new Money(23500, new Currency('EUR')),
+        ]);
+        $euroMillionsDraw->setLottery($lottery);
+        $playConfig = new PlayConfig();
+        $playConfig->initialize([
+                'user' => $user,
+                'line' => [$euroMillionsLine],
+                'startDrawDate' => new \DateTime('2016-03-16 20:00:00'),
+                'lastDrawDate' => new \DateTime('2016-03-16 20:00:00')
+            ]
+        );
+        return [$playConfig, $euroMillionsDraw];
+    }
+
 
 
     private function getNotifications()

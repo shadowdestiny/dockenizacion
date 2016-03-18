@@ -89,55 +89,6 @@ class AccountController extends PublicSiteControllerBase
 
     public function transactionAction(){}
 
-    //EMTD 2016-03-16 code commented. If no problem exit, remove it.
-//    /**
-//     * @return \Phalcon\Mvc\View
-//     */
-//    public function passwordAction()
-//    {
-//        $errors = [];
-//        $msg = null;
-//        $form_errors = [];
-//        $userId = $this->authService->getCurrentUser();
-//        $user = $this->userService->getUser($userId->getId());
-//        $myaccount_form = $this->getMyACcountForm($userId);
-//        $myaccount_passwordchange_form = new MyAccountChangePasswordForm();
-//        if($this->request->isPost()) {
-//            if ($myaccount_passwordchange_form->isValid($this->request->getPost()) === false) {
-//                $messages = $myaccount_passwordchange_form->getMessages(true);
-//                /**
-//                 * @var  $field
-//                 * @var Message[] $field_messages
-//                 */
-//                foreach ($messages as $field => $field_messages) {
-//                    $errors[] = $field_messages[0]->getMessage();
-//                    $form_errors[$field] = ' error';
-//                }
-//            } else {
-//                $result_same_password = $this->authService->samePassword($user,$this->request->getPost('old-password'));
-//                if($result_same_password->success()) {
-//                    $result = $this->authService->updatePassword($user, $this->request->getPost('new-password'));
-//                    if ($result->success()) {
-//                        $msg = $result->getValues();
-//                    } else {
-//                        $errors [] = $result->errorMessage();
-//                    }
-//                }else{
-//                    $errors[] = $result_same_password->errorMessage();
-//                }
-//            }
-//        }
-//        //$this->view->pick('account/index');
-//        return $this->view->setVars([
-//            'form_errors' => $form_errors,
-//            'which_form'  => 'password',
-//            'errors' => $errors,
-//            'msg' => $msg,
-//            'myaccount' => $myaccount_form,
-//            'password_change' => $myaccount_passwordchange_form
-//        ]);
-//
-//    }
 
     public function passwordAction()
     {
