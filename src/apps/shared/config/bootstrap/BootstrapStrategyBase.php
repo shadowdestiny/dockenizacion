@@ -80,7 +80,7 @@ abstract class BootstrapStrategyBase
 
         $redis_cache = new RedisCache();
         $redis_cache->setRedis($redis);
-        $redis_cache->setNamespace('_PHCRtest_doctrine_'.$appConfig['redis']['prefix']);
+        $redis_cache->setNamespace($appConfig['redis']['prefix']);
         $config->setResultCacheImpl($redis_cache);
         $conn = [
             'host'     => $appConfig['database']['host'],
