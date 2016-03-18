@@ -4,6 +4,7 @@ namespace EuroMillions\web\services;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\exceptions\DataMissingException;
 use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
@@ -41,12 +42,7 @@ class LotteriesDataService
         /** @var EuroMillionsDraw $draw */
         $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $next_draw_date]);
         if (!$draw) {
-            $draw = new EuroMillionsDraw();
-            $draw->initialize([
-                'draw_date' => $next_draw_date,
-                'jackpot'   => $jackpot,
-                'lottery'   => $lottery
-            ]);
+            $draw = $this->createDraw($next_draw_date, $jackpot, $lottery);
         } else {
             $draw->setJackpot($jackpot);
         }
@@ -66,8 +62,12 @@ class LotteriesDataService
             $result_api = $this->apisFactory->resultApi($lottery);
             $last_draw_date = $lottery->getLastDrawDate($now);
             $result = $result_api->getResultForDate($lotteryName, $last_draw_date->format('Y-m-d'));
-            /** @var EuroMillionsDraw $draw */
-            $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $last_draw_date]);
+            try {
+                /** @var EuroMillionsDraw $draw */
+                $draw = $this->lotteryDrawRepository->getLastDraw($lottery);
+            } catch (DataMissingException $e) {
+                $draw = $this->createDraw($last_draw_date, null, $lottery);
+            }
             $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
             $this->entityManager->flush();
             return $draw->getResult();
@@ -95,6 +95,23 @@ class LotteriesDataService
         $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $last_draw_date]);
         $draw->createBreakDown($result);
         $this->entityManager->flush();
+        return $draw;
+    }
+
+    /**
+     * @param $next_draw_date
+     * @param $jackpot
+     * @param $lottery
+     * @return EuroMillionsDraw
+     */
+    protected function createDraw($next_draw_date, $jackpot, $lottery)
+    {
+        $draw = new EuroMillionsDraw();
+        $draw->initialize([
+            'draw_date' => $next_draw_date,
+            'jackpot'   => $jackpot,
+            'lottery'   => $lottery
+        ]);
         return $draw;
     }
 

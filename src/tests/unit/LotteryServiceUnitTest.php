@@ -146,10 +146,12 @@ class LotteryServiceUnitTest extends UnitTestBase
     {
         $lottery_name = 'EuroMillions';
         $lottery = new Lottery();
-        $expected = EuroMillionsLineMother::anEuroMillionsLine();
+        $line = EuroMillionsLineMother::anEuroMillionsLine();
+        $expected['regular_numbers'] = [1,2,3,4,5];
+        $expected['lucky_numbers'] = [1,2];
         $this->lotteryRepositoryDouble->getLotteryByName($lottery_name)->willReturn($lottery);
         $this->lotteryDrawRepositoryDouble->getLastResult($lottery)->willThrow(new DataMissingException());
-        $this->lotteriesDataServiceDouble->updateLastDrawResult($lottery_name)->shouldBeCalled()->willReturn($expected);
+        $this->lotteriesDataServiceDouble->updateLastDrawResult($lottery_name)->shouldBeCalled()->willReturn($line);
         $sut = $this->getSut();
         $actual = $sut->getLastResult($lottery_name);
         self::assertEquals($expected, $actual);

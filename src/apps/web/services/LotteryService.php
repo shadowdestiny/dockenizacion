@@ -61,12 +61,12 @@ class LotteryService
         try {
             /** @var EuroMillionsLine $lottery_result */
             $lottery_result = $this->lotteryDrawRepository->getLastResult($lottery);
-            $result['regular_numbers'] = explode(',', $lottery_result->getRegularNumbers());
-            $result['lucky_numbers'] = explode(',', $lottery_result->getLuckyNumbers());
-            return $result;
         } catch (DataMissingException $e) {
-            return $this->lotteriesDataService->updateLastDrawResult($lotteryName);
+            $lottery_result = $this->lotteriesDataService->updateLastDrawResult($lotteryName);
         }
+        $result['regular_numbers'] = explode(',', $lottery_result->getRegularNumbers());
+        $result['lucky_numbers'] = explode(',', $lottery_result->getLuckyNumbers());
+        return $result;
     }
 
     public function getTimeToNextDraw($lotteryName, \DateTime $now = null)

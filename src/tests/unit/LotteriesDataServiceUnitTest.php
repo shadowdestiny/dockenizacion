@@ -101,7 +101,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
         $this->apiFactoryDouble->resultApi(Argument::any())->willReturn($api_mock->reveal());
 
         $euroMillionsDraw_stub = $this->getEntityDouble('EuroMillionsDraw');
-        $this->lotteryDrawRepositoryDouble->findOneBy(Argument::any())->willReturn($euroMillionsDraw_stub->reveal());
+        $this->lotteryDrawRepositoryDouble->getLastDraw(Argument::any())->willReturn($euroMillionsDraw_stub->reveal());
 
 
         $api_mock->getResultForDate($lottery_name, '2015-06-09')->willReturn(['regular_numbers'=>[], 'lucky_numbers'=>[]]);
