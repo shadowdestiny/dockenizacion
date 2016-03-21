@@ -74,6 +74,8 @@
 
         {% if component.where == 'cart' %}
                     </div>
+                    <input type="hidden" name="paywallet" id="paywallet" value=""/>
+                    <input type="hidden" name="funds" id="funds" value=""/>
                     <div class="cl col6">
                         <input id="new-card" type="submit" class="hidden2">
                         <label class="btn submit big green right" for="new-card">

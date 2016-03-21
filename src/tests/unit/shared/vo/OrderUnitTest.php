@@ -119,6 +119,25 @@ class OrderUnitTest extends UnitTestBase
 
     /**
      * method hasNextDraw
+     * when called
+     * should returFalse
+     */
+    public function test_hasNextDraw_called_returTrue()
+    {
+        $order = OrderMother::aJustOrder()->build();
+        $play_config = $order->getPlayConfig();
+        $play_config[0]->setStartDrawDate(new \DateTime('2016-04-05 10:00:00'));
+        $play_config[0]->setDrawDays(new DrawDays(25));
+        $play_config[0]->setLastDrawDate(new \DateTime('2016-02-09 22:00:00'));
+        $draw_date = new \DateTime('2016-03-23 20:00:00');
+        $actual = $order->isNextDraw($draw_date);
+        $this->assertEquals(false,$actual);
+
+    }
+
+
+    /**
+     * method hasNextDraw
      * when calledWithnvalidDate
      * should returnFalse
      */

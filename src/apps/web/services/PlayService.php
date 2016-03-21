@@ -9,6 +9,7 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\repositories\PlayConfigRepository;
+use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\external_apis\LotteryValidationCastilloApi;
 use EuroMillions\web\vo\CreditCard;
@@ -36,6 +37,7 @@ class PlayService
 
     private $orderStorageStrategy;
 
+    /** @var UserRepository $userRepository  */
     private $userRepository;
 
     /** @var CartService $cartService*/
@@ -104,10 +106,13 @@ class PlayService
 
 
     /**
-     * @param User $user
+     * @param UserId $user_id
+     * @param Money $funds
+     * @param CreditCard $credit_card
+     * @param bool $withAccountBalance
      * @return ActionResult
      */
-    public function play( UserId $user_id, Money $funds = null, CreditCard $credit_card = null)
+    public function play( UserId $user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false)
     {
         if($user_id) {
             try{
@@ -117,6 +122,7 @@ class PlayService
                 if( $result_order->success() ) {
                     /** @var Order $order */
                     $order = $result_order->getValues();
+                    $order->setIsCheckedWalletBalance($withAccountBalance);
                     $order->addFunds($funds);
                     $draw = $this->lotteryService->getNextDrawByLottery('EuroMillions');
                     if( null != $credit_card ) {
@@ -124,14 +130,16 @@ class PlayService
                     } else {
                         $result_payment = new ActionResult(true,$order);
                     }
+
                     if( count($order->getPlayConfig()) > 0 ) {
+                        /** @var PlayConfig $play_config */
                         foreach( $order->getPlayConfig() as $play_config ) {
                             $this->playConfigRepository->add($play_config);
                             $this->entityManager->flush($play_config);
                         }
                     }
-                    if($order->isNextDraw($draw->getValues()->getDrawDate()) &&
-                        $result_payment->success()){
+                    //if($order->isNextDraw($draw->getValues()->getDrawDate())){
+                    if( $result_payment->success() ) {
                         foreach( $order->getPlayConfig() as $play_config ) {
                             $result_validation = $this->betService->validation($play_config, $draw->getValues());
                             if(!$result_validation->success()) {
@@ -146,7 +154,6 @@ class PlayService
                     //error
                 }
             } catch ( \Exception $e ) {
-
             }
         }
         return new ActionResult(false);

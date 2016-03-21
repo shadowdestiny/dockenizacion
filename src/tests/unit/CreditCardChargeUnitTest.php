@@ -38,4 +38,14 @@ class CreditCardChargeUnitTest extends UnitTestBase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * method 
+     * when 
+     * should 
+     */
+    public function test___()
+    {
+        
+    }
+
 }

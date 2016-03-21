@@ -30,6 +30,7 @@ class Order implements \JsonSerializable
     private $isCheckedWalletBalance;
 
 
+
     public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit)
     {
         $this->play_config = $play_config;
@@ -52,7 +53,15 @@ class Order implements \JsonSerializable
         if( $amount == null ) {
             $amount = new Money(0, new Currency('EUR'));
         }
-        $this->credit_card_charge = new CreditCardCharge($this->total->add($amount), $this->fee, $this->fee_limit);
+
+//        if($this->isCheckedWalletBalance) {
+//            $sumFunds = new Money($this->total->add($amount)->getAmount(), new Currency('EUR'));
+//            $total = $sumFunds->subtract($this->total);
+//        } else {
+//            $total = $this->total->add($amount);
+//        }
+        $total = $this->total->add($amount);
+        $this->credit_card_charge = new CreditCardCharge($total, $this->fee, $this->fee_limit);
     }
 
     /**
@@ -68,6 +77,10 @@ class Order implements \JsonSerializable
         return $this->credit_card_charge->getNetAmount();
     }
 
+    public function totalOriginal()
+    {
+        return $this->total;
+    }
 
     /**
      * @return PlayConfig
@@ -167,13 +180,11 @@ class Order implements \JsonSerializable
     public function isNextDraw( \DateTime $draw_date )
     {
         $play_config = $this->getPlayConfig();
-        $start_draw_day_number = date('N',$play_config[0]->getStartDrawDate()->getTimeStamp());
-        $draw_date_day_number = date('N', $draw_date->getTimestamp());
-        $draw_days = $play_config[0]->getDrawDays();
-        if(strpos($draw_days->value(),$draw_date_day_number) !== false && $start_draw_day_number == $draw_date_day_number ) {
+        if($play_config[0]->getStartDrawDate()->getTimeStamp() > $draw_date->getTimestamp() ) {
+            return false;
+        } else {
             return true;
         }
-        return false;
     }
 
 
@@ -189,6 +200,23 @@ class Order implements \JsonSerializable
     {
         return json_encode($this);
     }
+
+    /**
+     * @return boolean
+     */
+    public function isIsCheckedWalletBalance()
+    {
+        return $this->isCheckedWalletBalance;
+    }
+
+    /**
+     * @param boolean $isCheckedWalletBalance
+     */
+    public function setIsCheckedWalletBalance($isCheckedWalletBalance)
+    {
+        $this->isCheckedWalletBalance = $isCheckedWalletBalance;
+    }
+
 
     /**
      * Specify data which should be serialized to JSON

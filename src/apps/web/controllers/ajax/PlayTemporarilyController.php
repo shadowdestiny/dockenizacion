@@ -42,18 +42,6 @@ class PlayTemporarilyController extends AjaxControllerBase
         $playService = $this->domainServiceFactory->getPlayService();
         $current_user = $authService->getCurrentUser();
         $result = $playService->savePlayFromJson(json_encode($playFormToStorage_collection),$current_user->getId());
-//        $playFormToStorage = new PlayFormToStorage();
-//        $playFormToStorage->startDrawDate = $startDrawDate;
-//        $playFormToStorage->frequency = $frequency;
-//        $playFormToStorage->lastDrawDate = $lastDrawDate->getLastDrawDate();
-//        $playFormToStorage->drawDays = $draw_day_play;
-//        $playFormToStorage->euroMillionsLines = $this->create($bets);
-//        $playFormToStorage->threshold = $threshold;
-//        $playFormToStorage->num_weeks = $date_time_util->getNumWeeksBetweenDates(new \DateTime($startDrawDate),new \DateTime($lastDrawDate->getLastDrawDate()));
-//
-//        $playService = $this->domainServiceFactory->getPlayService();
-//        $current_user = $authService->getCurrentUser();
-//        $result = $playService->temporarilyStorePlay($playFormToStorage,$current_user->getId());
         if($result->success()) {
             echo json_encode(['result'=>'OK', 'url' => '/cart/profile']);
         } else {

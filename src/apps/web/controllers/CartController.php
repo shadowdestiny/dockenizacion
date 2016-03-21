@@ -181,11 +181,12 @@ class CartController extends PublicSiteControllerBase
     {
         $credit_card_form = new CreditCardForm();
         $form_errors = $this->getErrorsArray();
-        $funds_value = (int) $this->request->getPost('charge');
+        $funds_value = $this->request->getPost('funds');
         $card_number = $this->request->getPost('card-number');
         $card_holder_name = $this->request->getPost('card-holder');
         $expiry_date = $this->request->getPost('expiry-date');
         $cvv = $this->request->getPost('card-cvv');
+        $payWallet = $this->request->getPost('paywallet') == 'false' ? false : true;
         $play_service = $this->domainServiceFactory->getPlayService();
         $errors = [];
         /** @var UserId $currenct_user_id */
@@ -204,19 +205,12 @@ class CartController extends PublicSiteControllerBase
                 try {
                     $card = null;
                     $amount = new Money((int) $charge, new Currency('EUR'));
-                    $result = $play_service->play($user_id,$amount, $card);
+                    $result = $play_service->play($user_id,$amount, $card,true);
                     if($result->success()) {
-                        $play_service->removeStorePlay($user_id);
-                        $play_service->removeStoreOrder($user_id);
-                        $this->view->pick('/cart/success');
-                        $order_dto = new OrderDTO($result->getValues());
-                        return $this->view->setVars([
-                            'order' => $order_dto,
-                            'user' => new UserDTO($user),
-                            'start_draw_date_format' => date('D j M Y',$order_dto->getStartDrawDate()->getTimestamp())
-                        ]);
+                        $this->response->redirect('/result/success');
+                        return false;
                     } else {
-                        $this->response->redirect('/cart/fail');
+                        $this->response->redirect('/result/failure');
                         return false;
                     }
                 } catch (\Exception $e ) {
@@ -244,22 +238,13 @@ class CartController extends PublicSiteControllerBase
                 if(null != $user ){
                     try {
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($expiry_date), new CVV($cvv));
-                        $amount = new Money((int)$funds_value, new Currency('EUR'));
-                        $result = $play_service->play($user_id,$amount, $card);
+                        $amount = new Money((int) str_replace('.','',$funds_value), new Currency('EUR'));
+                        $result = $play_service->play($user_id,$amount, $card,$payWallet);
                         if($result->success()) {
-                            $play_service->removeStorePlay($user_id);
-                            $play_service->removeStoreOrder($user_id);
-                            $this->view->pick('/cart/success');
-                            $order_dto = new OrderDTO($result->getValues());
-                            return $this->view->setVars([
-                               'order' => $order_dto,
-                               'user' => new UserDTO($user),
-                               'start_draw_date_format' => date('D j M Y',$order_dto->getStartDrawDate()->getTimestamp())
-                            ]);
+                            $this->response->redirect('/result/success');
+                            return false;
                         } else {
-                            $play_service->removeStorePlay($user_id);
-                            $play_service->removeStoreOrder($user_id);
-                            $this->response->redirect('/cart/fail');
+                            $this->response->redirect('/result/failure');
                             return false;
                         }
                     } catch (\Exception $e ) {

@@ -253,6 +253,7 @@ var PlayPage = React.createClass({
         this.setState( { playDays : length_value_day,
                          draw_day_play : value,
                          config_changed : true,
+                         date_play : draw_dates[0],
                          draw_dates : draw_dates,
                          draw_duration : options_draw_duration});
 

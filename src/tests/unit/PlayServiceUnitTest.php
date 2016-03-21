@@ -341,7 +341,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $entityManager_double = $this->getEntityManagerDouble();
         $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalledTimes(4);
         $entityManager_double->flush(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
-        $this->betService_double->validation(Argument::any(), Argument::any())->willReturn(new ActionResult(false));
+        $this->betService_double->validation(Argument::any(), Argument::any())->willReturn(new ActionResult(true));
         $sut = $this->getSut();
         $actual = $sut->play($user->getId(), null, $credit_card);
         $this->assertEquals(new ActionResult(true, $order), $actual);

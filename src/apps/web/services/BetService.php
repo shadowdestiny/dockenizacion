@@ -80,7 +80,6 @@ class BetService
                     $this->entityManager->flush();
                     $user->payPreservingWinnings($single_bet_price);
                     $this->userRepository->add($user);
-                    $playConfig->setActive(false);
                     $this->playConfigRepository->add($playConfig);
                     $this->entityManager->flush();
                     return new ActionResult(true);
