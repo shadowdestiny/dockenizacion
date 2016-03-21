@@ -167,7 +167,7 @@ build:
     override:
       - command: cd src;vendor/bin/codecept run --config=codeception_scrutinizer.yml --skip acceptance --coverage --coverage-xml
         coverage:
-          file: tests/_output/coverage.xml
+          file: src/tests/_output/coverage.xml
           format: php-clover
 
 #      - command: src/vendor/bin/phpunit --coverage-clover=coverage.clover --configuration src/tests/phpunit.xml --testsuite=unit+integration
