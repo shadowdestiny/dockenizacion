@@ -30,6 +30,7 @@ class DateTimeUtilUnitTest extends UnitTestBase
      */
     public function test_checkOpenTicket_calledWithTimeToRetryGreatherThanTimeLimit_returnFalse()
     {
+        $this->markTestIncomplete('Hay que rehacer la funcionalidad: Se tiene que tener en cuenta el día del sorteo, no solo la hora, y para ello hay que inyectar la lotería');
         $expected = false;
         $time_to_retry = '1458355313';
         $sut = $this->getSut();
