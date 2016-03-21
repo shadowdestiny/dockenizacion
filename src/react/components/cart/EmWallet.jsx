@@ -42,13 +42,13 @@ var EmWallet = new React.createClass({
 
         var value = accounting.formatMoney(wallet_value, this.props.currency_symbol, 2);
         var total_value = this.props.symbol_position ? operand_value + ' ' + value  :  operand_value + ' ' + value;
+        //<div className="balance">
+        //    <span className="txt">Balance:</span>
+        //    {this.props.old_new_balance}
+        //</div>
 
         return (
             <div className="row cl">
-                <div className="balance">
-                    <span className="txt">Balance:</span>
-                    {this.props.old_new_balance}
-                </div>
                 <div className={disabled_value}>{total_value}</div>
                 <div className="box-wallet cl">
                     <label onClick={this.handleClickLabel} className="txt">Pay with your Account balance</label>

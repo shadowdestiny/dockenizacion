@@ -3,8 +3,6 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 
-use EuroMillions\web\emailTemplates\EmailTemplate;
-use EuroMillions\web\emailTemplates\LongPlayEndedEmailTemplate;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
@@ -12,7 +10,6 @@ use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
-use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\external_apis\LotteryValidationCastilloApi;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\Order;
@@ -125,11 +122,6 @@ class PlayService
                     if( null != $credit_card ) {
                         $result_payment = $this->walletService->rechargeWithCreditCard($this->payXpertCardPaymentStrategy,$credit_card, $user, $order->getCreditCardCharge());
                     } else {
-                        $wallet = $user->getWallet();
-                        $wallet->payPreservingWinnings($order->getCreditCardCharge()->getNetAmount());
-                        $user->setWallet($wallet);
-                        $this->userRepository->add($user);
-                        $this->entityManager->flush();
                         $result_payment = new ActionResult(true,$order);
                     }
                     if( count($order->getPlayConfig()) > 0 ) {
