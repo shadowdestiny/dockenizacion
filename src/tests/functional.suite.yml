@@ -15,3 +15,4 @@ modules:
             bootstrap: 'public/index-test.php'
             cleanup: false
         - \Helper\Functional
+        - Asserts

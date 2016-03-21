@@ -12,6 +12,7 @@ class EntityManagerFetcher
 {
     public static function get()
     {
+        include __DIR__.'/../public/index-test.php';
         return DI::getDefault()->get('entityManager');
     }
 }
