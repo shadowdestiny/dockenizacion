@@ -13,7 +13,7 @@ class Functional extends \Codeception\Module
     {
         $di = DI::getDefault();
         $environment = $di->get('environmentDetector')->get();
-        $command = '/vagrant/dev-scripts/run_seed.sh '.$environment;
+        $command = __DIR__.'/../../../vendor/bin/phinx seed:run --configuration="'.__DIR__.'/../../../phinx.yml" -e '.$environment;
         exec($command);
     }
 }
