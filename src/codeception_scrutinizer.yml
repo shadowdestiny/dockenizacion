@@ -1,0 +1,41 @@
+actor: Tester
+paths:
+    tests: tests
+    log: tests/_output
+    data: tests/_data
+    support: tests/_support
+    envs: tests/_envs
+settings:
+    bootstrap: _bootstrap.php
+    colors: true
+    memory_limit: 1024M
+extensions:
+    enabled:
+        - Codeception\Extension\RunFailed
+modules:
+    config:
+        Db:
+            dsn: 'mysql:host=127.0.0.1;dbname=euromillions_test'
+            user: 'root'
+            password: ''
+            dump: tests/_data/dump.sql
+coverage:
+  enabled: true
+  whitelist:
+    include:
+      - apps/*.php
+    exclude:
+      - apps/cli.php
+      - apps/admin/interfaces/*
+      - apps/admin/Module.php
+      - apps/admin/views/*
+      - apps/shared/config/*
+      - apps/shared/interfaces/*
+      - apps/web/assets/*
+      - apps/web/interfaces/*
+      - apps/web/migrations/*
+      - apps/web/Module.php
+      - apps/web/seeds/*
+      - apps/web/tasks/DoctrineTask.php
+      - apps/web/templateHelpers/*
+      - apps/web/views/*
