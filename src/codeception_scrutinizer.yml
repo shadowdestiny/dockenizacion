@@ -26,16 +26,16 @@ coverage:
       - apps/*.php
     exclude:
       - apps/cli.php
+      - apps/admin/interfaces/*
       - apps/admin/Module.php
-      - apps/web/Module.php
+      - apps/admin/views/*
+      - apps/shared/config/*
+      - apps/shared/interfaces/*
+      - apps/web/assets/*
+      - apps/web/interfaces/*
       - apps/web/migrations/*
-      - apps/web/migrations_data
-      - apps/config
-      - apps/admin/interfaces
-      - apps/web/interfaces
-      - apps/admin/views
-      - apps/web/views
-      - apps/web/assets
-      - apps/web/templateHelpers
-      - apps/shared/config
-      - apps/shared/interfaces
+      - apps/web/Module.php
+      - apps/web/seeds/*
+      - apps/web/tasks/DoctrineTask.php
+      - apps/web/templateHelpers/*
+      - apps/web/views/*
