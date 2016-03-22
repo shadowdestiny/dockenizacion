@@ -70,6 +70,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
      */
     public function test_getMyInactivePlays_called_returnArrayWithInactivePlayConfigs()
     {
+        $this->markTestIncomplete('Configurar id de user como value object');
         $user = $this->getUser();
         $expected_play_config_id = 4;
         $sut = $this->getSut();

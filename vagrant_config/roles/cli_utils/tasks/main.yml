@@ -5,3 +5,13 @@
   composer: command="install" working_dir="/var/www" no_dev=no
 - name: Set softlink for doctrine command line utilities
   file: src=/var/www/vendor/bin/doctrine dest=/usr/local/bin/doctrine state=link mode="u+x,g+x,o+x"
+- name: Update npm
+  shell: npm update -g npm
+- name: Npm install
+  shell: npm install
+  args:
+    chdir: /var/www/react
+- name: Npm watch
+  shell: npm run watch &
+  args:
+    chdir: /var/www/react

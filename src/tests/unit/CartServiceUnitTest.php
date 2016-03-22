@@ -77,7 +77,7 @@ class CartServiceUnitTest extends UnitTestBase
     {
         $expected = new ActionResult(false, 'Order doesn\'t exist');
         $user = UserMother::aUserWith50Eur()->build();
-        $user_id = $user->getId()->id();
+        $user_id = $user->getId();
         $this->orderStorageStrategy_double->findByKey($user_id)->willReturn(new ActionResult(false));
         $this->userRepository_double->find(['id' => $user_id])->willReturn($user);
         $sut = $this->getSut();
@@ -94,7 +94,7 @@ class CartServiceUnitTest extends UnitTestBase
     {
         $expected = new ActionResult(false);
         $user = UserMother::aUserWith50Eur()->build();
-        $user_id = $user->getId()->id();
+        $user_id = $user->getId();
         $this->orderStorageStrategy_double->findByKey($user_id)->willReturn(new ActionResult(true,NULL));
         $this->userRepository_double->find(['id' => $user_id])->willReturn($user);
         $sut = $this->getSut();

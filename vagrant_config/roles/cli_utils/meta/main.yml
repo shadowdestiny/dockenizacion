@@ -1,5 +1,5 @@
 ---
 dependencies:
   - T2L.composer
-  - laggyluke.nodejs
+  - martinmicunda.nodejs
   - angstwad.docker_ubuntu

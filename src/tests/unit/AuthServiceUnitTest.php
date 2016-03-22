@@ -343,23 +343,62 @@ class AuthServiceUnitTest extends UnitTestBase
     /**
      * method register
      * when calledWithProperCredentials
-     * should storeNewUserAndLoginAndReturnOk
+     * should sendWelcomeEmailToRegisteredUser
      */
-    public function test_register_calledWithProperCredentials_storeNewUserAndLoginAndReturnOk()
+    public function test_register_calledWithProperCredentials_sendWelcomeEmailToRegisteredUser()
     {
-        $this->expectFlushInEntityManager();
-        $welcome_email_template = EmailMother::aWelcomeEmailTemplate();
-        $credentials = $this->getRegisterCredentials();
-        $user = UserMother::aJustRegisteredUser($this->hasher_double->reveal())->build();
-        $welcome_email_template->setUser($user);
-        $this->userRepository_double->getByEmail(UserBuilder::DEFAULT_EMAIL)->willReturn(null);
-        $this->userRepository_double->add($user)->shouldBeCalled();
-        $this->storageStrategy_double->setCurrentUserId(Argument::type($this->getVOToArgument('UserId')))->shouldBeCalled();
-        $this->urlManager_double->get(Argument::type('string'))->willReturn('http://localhost/validate/441a9e42f0e3c769a6112b56a04b6');
-        $this->emailService_double->sendTransactionalEmail($user, $welcome_email_template)->shouldBeCalled();
+        $credentials = $this->prepareGoodRegistration();
+        $registered_user = UserMother::anAlreadyRegisteredUser()->build();
+        $this->userRepository_double->register($credentials, $this->hasher_double->reveal(), Argument::type('EuroMillions\web\interfaces\IEmailValidationToken'))->willReturn($registered_user);
+        $this->emailService_double->sendWelcomeEmail($registered_user, $this->urlManager_double->reveal())->shouldBeCalled();
+        $sut = $this->getSut();
+        $sut->register($credentials);
+    }
+
+    /**
+     * method register
+     * when registrationFails
+     * should returnNotSuccess
+     */
+    public function test_register_registrationFails_returnNotSuccess()
+    {
+        $credentials = $this->prepareGoodRegistration();
+        $this->userRepository_double->register($credentials)->willThrow('\Exception');
         $sut = $this->getSut();
         $actual = $sut->register($credentials);
-        $expected = new ActionResult(true, $user);
+        $this->assertFalse($actual->success());
+    }
+
+    /**
+     * method register
+     * when registrationIsSuccessful
+     * should setUserNotifications
+     */
+    public function test_register_registrationIsSuccessful_setUserNotifications()
+
+    {
+        $credentials = $this->prepareGoodRegistration();
+        $registered_user = UserMother::anAlreadyRegisteredUser()->build();
+        $user_id = $registered_user->getId();
+        $this->userRepository_double->register($credentials, $this->hasher_double->reveal(), Argument::type('EuroMillions\web\interfaces\IEmailValidationToken'))->willReturn($registered_user);
+        $this->userService_double->initUserNotifications($user_id)->shouldBeCalled();
+        $sut = $this->getSut();
+        $sut->register($credentials);
+    }
+
+    /**
+     * method register
+     * when everythingGoesOk
+     * should returnSuccessWithUser
+     */
+    public function test_register_everythingGoesOk_returnSuccessWithUser()
+    {
+        $credentials = $this->prepareGoodRegistration();
+        $registered_user = UserMother::anAlreadyRegisteredUser()->build();
+        $this->userRepository_double->register($credentials, $this->hasher_double->reveal(), Argument::type('EuroMillions\web\interfaces\IEmailValidationToken'))->willReturn($registered_user);
+        $sut = $this->getSut();
+        $actual = $sut->register($credentials);
+        $expected = new ActionResult(true, $registered_user);
         $this->assertEquals($expected, $actual);
     }
 
@@ -643,6 +682,16 @@ class AuthServiceUnitTest extends UnitTestBase
         $sut = $this->getSut();
         $actual = $sut->validateEmailToken($token, $emailValidationTokenGenerator->reveal());
         return $actual;
+    }
+
+    /**
+     * @return array
+     */
+    private function prepareGoodRegistration()
+    {
+        $non_existing_mail = UserBuilder::DEFAULT_EMAIL;
+        $this->userRepository_double->getByEmail($non_existing_mail)->willReturn(null);
+        return $this->getRegisterCredentials();
     }
 
 }

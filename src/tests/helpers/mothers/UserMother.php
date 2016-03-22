@@ -20,6 +20,11 @@ class UserMother
         return self::getInitializedUser($hasher);
     }
 
+    public static function anAlreadyRegisteredUser()
+    {
+        return self::aUserWithNoMoney();
+    }
+
     public static function aUserWith50Eur()
     {
         return self::getInitializedUser()

@@ -13,11 +13,9 @@ use EuroMillions\web\vo\ValidationToken;
 use Money\Currency as MoneyCurrency;
 use Money\Money;
 use Money\UnknownCurrencyException;
-use Rhumsaa\Uuid\Uuid;
 
 class User extends EntityBase implements IEntity, IUser, \JsonSerializable
 {
-    /** @var  Uuid */
     protected $id;
     protected $name;
     protected $surname;
@@ -169,7 +167,7 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
 
     public function setId(UserId $id)
     {
-        $this->id = (string)$id;
+        $this->id = $id;
     }
 
     /**
@@ -177,7 +175,7 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
      */
     public function getId()
     {
-        return new UserId($this->id);
+        return $this->id;
     }
 
     /**

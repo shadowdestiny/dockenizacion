@@ -88,6 +88,12 @@ class UserBuilder
         return $this;
     }
 
+    public function withName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
     /**
      * @param Money $threshold
      * @return UserBuilder

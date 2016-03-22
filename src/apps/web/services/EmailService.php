@@ -1,11 +1,14 @@
 <?php
 namespace EuroMillions\web\services;
 
+use EuroMillions\shared\interfaces\IUrlManager;
+use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\IEmailTemplate;
+use EuroMillions\web\emailTemplates\WelcomeEmailTemplate;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IMailServiceApi;
+use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
 use EuroMillions\web\vo\ContactFormInfo;
-use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\Url;
 
 class EmailService
@@ -17,6 +20,16 @@ class EmailService
     {
         $this->mailServiceApi = $mailServiceApi;
         $this->mailConfig = $mailConfig;
+    }
+
+    public function sendWelcomeEmail(User $user, IUrlManager $urlManager)
+    {
+        // EMTD @rmrbest falta test. Hazlo conmigo como ejercicio. La url ya no se estaba utilizando, pero la he conservado. Veremos si es necesaria.
+        $url =  new Url($urlManager->get('/userAccess/passwordReset/' . $user->getValidationToken()));
+        $emailTemplate = new EmailTemplate();
+        $emailTemplate = new WelcomeEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
+        $emailTemplate->setUser($user);
+        $this->sendTransactionalEmail($user, $emailTemplate);
     }
 
     public function sendRegistrationMail(User $user, Url $url)

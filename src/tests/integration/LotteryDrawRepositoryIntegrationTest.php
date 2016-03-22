@@ -100,7 +100,6 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
      * method getLastResult
      * when called
      * should returnProperValue
-     * @group active
      */
     public function test_getLastResult_called_returnProperValue()
     {

@@ -5,6 +5,7 @@ use Rhumsaa\Uuid\Uuid;
 
 class UserId
 {
+    /** @var string */
     private $id;
 
     public function __construct($anId)

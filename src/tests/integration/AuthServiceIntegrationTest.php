@@ -6,7 +6,9 @@ use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\tests\base\DatabaseIntegrationTestBase;
+use EuroMillions\web\services\auth_strategies\WebAuthStorageStrategy;
 use EuroMillions\web\services\AuthService;
+use EuroMillions\web\vo\UserId;
 
 class AuthServiceIntegrationTest extends DatabaseIntegrationTestBase
 {
@@ -36,7 +38,9 @@ class AuthServiceIntegrationTest extends DatabaseIntegrationTestBase
      */
     public function test_register_calledWithProperCredentials_storeUserOnDatabase()
     {
-        $this->markTestSkipped('Raul, arréglalo cuando esté listo lo del mail de validación');
+        $this->markTestIncomplete('Hay que acabar este test');
+        $new_user_id = UserId::create();
+        $_SESSION[WebAuthStorageStrategy::CURRENT_USER_VAR] = $new_user_id->id();
         $credentials = [
             'name'             => 'Antonio',
             'surname'          => 'Hernández',
@@ -49,6 +53,7 @@ class AuthServiceIntegrationTest extends DatabaseIntegrationTestBase
         $sut = $this->getSut();
         $sut->register($credentials);
         $actual = $this->userRepository->getByEmail('antonio@panamedia.net');
+        $this->assertEquals($new_user_id, $actual->getId());
         $this->assertNotNull($actual);
     }
 

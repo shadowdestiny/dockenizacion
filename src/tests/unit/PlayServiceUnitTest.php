@@ -374,7 +374,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_removeStorePlay_calledPassingAValidUserId_removePlayFromStorage()
     {
-        $user = UserMother::aJustRegisteredUser()->build();
+        $user = UserMother::anAlreadyRegisteredUser()->build();
         $this->playStorageStrategy_double->delete($user->getId())->shouldBeCalled();
         $sut = $this->getSut();
         $sut->removeStorePlay($user->getId());
@@ -387,7 +387,7 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_removeStoreOrder_calledPassingAValidUserID_removeOrderFromStorage()
     {
-        $user = UserMother::aJustRegisteredUser()->build();
+        $user = UserMother::anAlreadyRegisteredUser()->build();
         $this->orderStorageStrategy_double->delete($user->getId())->shouldBeCalled();
         $sut = $this->getSut();
         $sut->removeStoreOrder($user->getId());

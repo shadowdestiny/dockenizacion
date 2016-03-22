@@ -23,7 +23,6 @@ use EuroMillions\web\vo\Url;
 use EuroMillions\web\vo\UserId;
 use EuroMillions\web\vo\ValidationToken;
 use Money\Currency;
-use Symfony\Component\Config\Definition\Exception\Exception;
 
 class AuthService
 {
@@ -132,64 +131,38 @@ class AuthService
         if ($this->userRepository->getByEmail($credentials['email'])) {
             return new ActionResult(false, 'Email already registered. Try to use a different email. Or have you <a href="user-access/forgotPassword">forgot your password?</a>');
         }
-        $user = new User();
-        $email = new Email($credentials['email']);
-        $user->initialize([
-            'name'             => $credentials['name'],
-            'surname'          => $credentials['surname'],
-            'email'            => $email,
-            'password'         => new Password($credentials['password'], $this->passwordHasher),
-            'country'          => $credentials['country'],
-            'wallet'           => new Wallet(),
-            'validated'        => 0,
-            'validation_token' => $this->getEmailValidationToken($email),
-            'user_currency'    => new Currency('EUR')
-        ]);
-
-        $this->userRepository->add($user);
-
         try {
-            $this->entityManager->flush();
-            if (null !== $user->getId()) {
-                $this->storageStrategy->setCurrentUserId($user->getId());
-                $this->logService->logRegistration($user);
-                $url = $this->getValidationUrl($user);
-                $emailTemplate = new EmailTemplate();
-                $emailTemplate = new WelcomeEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
-                $emailTemplate->setUser($user);
-                $this->emailService->sendTransactionalEmail($user, $emailTemplate);
-                //user notifications default
-                $this->userService->initUserNotifications($user->getId());
-                return new ActionResult(true, $user);
-            } else {
-                return new ActionResult(false, 'Error getting an user');
-            }
-        } catch (Exception $e) {
-            return new ActionResult(false, 'An error ocurred saving an user');
+            $user = $this->userRepository->register($credentials, $this->passwordHasher, new Md5EmailValidationToken());
+        } catch (\Exception $e) {
+            return new ActionResult(false, $e);
         }
+        $this->emailService->sendWelcomeEmail($user, $this->urlManager);
+        $this->userService->initUserNotifications($user->getId());
+        return new ActionResult(true, $user);
     }
 
     public function registerFromCheckout(array $credentials, UserId $userId)
     {
+        //EMTD @rmrbest Hay que refactorizar esta también. Hazlo junto conmigo como ejercicio.
         if (!$this->getCurrentUser() instanceof GuestUser) {
             return new ActionResult(false, 'Error getting user');
         }
         if ($this->userRepository->getByEmail($credentials['email'])) {
             return new ActionResult(false, 'Email already registered. Try to use a different email.');
         }
-        try{
+        try {
             $user = new User();
             $email = new Email($credentials['email']);
             $user->initialize([
-                'name'     => $credentials['name'],
-                'surname'  => $credentials['surname'],
-                'email'    => $email,
-                'password' => new Password($credentials['password'], $this->passwordHasher),
-                'country'  => $credentials['country'],
-                'wallet'  => new Wallet(),
-                'validated' => 0,
+                'name'             => $credentials['name'],
+                'surname'          => $credentials['surname'],
+                'email'            => $email,
+                'password'         => new Password($credentials['password'], $this->passwordHasher),
+                'country'          => $credentials['country'],
+                'wallet'           => new Wallet(),
+                'validated'        => 0,
                 'validation_token' => $this->getEmailValidationToken($email),
-                'user_currency' => new Currency('EUR')
+                'user_currency'    => new Currency('EUR')
             ]);
             $user->setId($userId);
             $this->userRepository->addWithId($user);
@@ -206,8 +179,8 @@ class AuthService
             } else {
                 return new ActionResult(false, 'Error getting an user');
             }
-        } catch(\Exception $e) {
-            return new ActionResult(false,$e->getMessage());
+        } catch (\Exception $e) {
+            return new ActionResult(false, $e->getMessage());
         }
     }
 
@@ -232,15 +205,6 @@ class AuthService
         } else {
             return new ActionResult(false, "The token is invalid");
         }
-    }
-
-    /**
-     * @param User $user
-     * @return Url
-     */
-    private function getValidationUrl(User $user)
-    {
-        return new Url($this->urlManager->get('/validate/' . $this->getEmailValidationToken(new Email($user->getEmail()->toNative()))));
     }
 
     /**
@@ -274,7 +238,7 @@ class AuthService
 //                $user->setPassword(new Password($password->toNative(), new PhpassWrapper()));
 //                $this->entityManager->flush($user);
                 return new ActionResult(true, 'Email sent');
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 return new ActionResult(false, '');
             }
 
