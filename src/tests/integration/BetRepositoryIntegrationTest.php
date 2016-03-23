@@ -4,18 +4,8 @@
 namespace EuroMillions\tests\integration;
 
 
-use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\web\entities\Bet;
-use EuroMillions\web\entities\EuroMillionsDraw;
-use EuroMillions\web\entities\PlayConfig;
-use EuroMillions\web\entities\User;
 use EuroMillions\web\repositories\BetRepository;
-use EuroMillions\web\vo\Email;
-use EuroMillions\web\vo\EuroMillionsLine;
-use EuroMillions\web\vo\Password;
-use EuroMillions\web\vo\UserId;
-use Money\Currency;
-use Money\Money;
 use EuroMillions\tests\base\DatabaseIntegrationTestBase;
 use EuroMillions\tests\base\EuroMillionsResultRelatedTest;
 

@@ -16,7 +16,6 @@ use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\shared\vo\results\ActionResult;
-use EuroMillions\web\vo\UserId;
 use Money\Money;
 
 class PlayService
@@ -71,7 +70,7 @@ class PlayService
         // EMTD: @rmrbest tantas dependencias dan tufillo a que necesita refactorizar.
     }
 
-    public function getPlaysFromGuestUserAndSwitchUser(UserId $user_id, UserId $current_user_id)
+    public function getPlaysFromGuestUserAndSwitchUser($user_id, $current_user_id)
     {
         /** @var User $user */
         $user = $this->userRepository->find($current_user_id);
@@ -106,13 +105,13 @@ class PlayService
 
 
     /**
-     * @param UserId $user_id
+     * @param $user_id
      * @param Money $funds
      * @param CreditCard $credit_card
      * @param bool $withAccountBalance
      * @return ActionResult
      */
-    public function play( UserId $user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false)
+    public function play( $user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false)
     {
         if($user_id) {
             try{
@@ -176,7 +175,7 @@ class PlayService
     {
         try {
             /** @var ActionResult $result */
-            $result = $this->playStorageStrategy->findByKey($user->getId()->id());
+            $result = $this->playStorageStrategy->findByKey($user->getId());
             if($result->success()) {
                 $form_decode = json_decode($result->returnValues());
                 $bets = [];
@@ -194,7 +193,7 @@ class PlayService
         }
     }
 
-    public function savePlayFromJson($json, UserId $userId)
+    public function savePlayFromJson($json, $userId)
     {
         $result = $this->playStorageStrategy->save($json,$userId);
         if($result->success()){
@@ -205,9 +204,9 @@ class PlayService
     }
 
 
-    public function temporarilyStorePlay(PlayFormToStorage $playForm,UserId $userId)
+    public function temporarilyStorePlay(PlayFormToStorage $playForm, $userId)
     {
-        $result = $this->playStorageStrategy->saveAll($playForm,$userId);
+        $result = $this->playStorageStrategy->saveAll($playForm, $userId);
         if($result->success()){
             return new ActionResult(true);
         }else{
@@ -235,14 +234,14 @@ class PlayService
         }
     }
 
-    public function removeStorePlay( UserId $user_id )
+    public function removeStorePlay( $user_id )
     {
         if( null != $user_id ) {
             $this->playStorageStrategy->delete($user_id);
         }
     }
 
-    public function removeStoreOrder( UserId $user_id )
+    public function removeStoreOrder( $user_id )
     {
         if( null != $user_id ) {
             $this->orderStorageStrategy->delete($user_id);

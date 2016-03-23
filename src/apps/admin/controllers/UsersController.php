@@ -7,7 +7,6 @@ use EuroMillions\admin\services\MaintenanceUserService;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\admin\vo\dto\UserDTO;
 use EuroMillions\web\entities\User;
-use EuroMillions\web\vo\UserId;
 
 class UsersController extends AdminControllerBase
 {
@@ -48,7 +47,7 @@ class UsersController extends AdminControllerBase
     {
         $id = $this->request->get('id');
         /** @var ActionResult $result */
-        $result = $this->maintenanceUserService->getUser(new UserId($id));
+        $result = $this->maintenanceUserService->getUser($id);
         $this->noRender();
         if($result->success()){
             /** @var UserDTO $user */

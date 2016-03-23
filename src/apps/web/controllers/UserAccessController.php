@@ -4,7 +4,6 @@ namespace EuroMillions\web\controllers;
 use Captcha\Captcha;
 use EuroMillions\web\components\ReCaptchaWrapper;
 use EuroMillions\web\forms\ForgotPasswordForm;
-use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\ResetPasswordForm;
 use EuroMillions\web\forms\SignInForm;
 use EuroMillions\web\forms\SignUpForm;
@@ -134,50 +133,6 @@ class UserAccessController extends ControllerBase
         ]);
     }
 
-    //EMTD 2016-03-16 code commented. If no problem exit, remove it.
-//    public function updatePasswordAction()
-//    {
-//        $errors = [];
-//        $form_errors = [];
-//        $msg = '';
-//        $userId = $this->authService->getCurrentUser();
-//        $user = $this->userService->getUser($userId->getId());
-//        $myaccount_form = $this->getMyACcountForm($userId);
-//        $myaccount_passwordchange_form = new MyAccountChangePasswordForm();
-//        if($this->request->isPost()) {
-//            if ($myaccount_passwordchange_form->isValid($this->request->getPost()) == false) {
-//                $messages = $myaccount_passwordchange_form->getMessages(true);
-//                foreach ($messages as $field => $field_messages) {
-//                    $errors[] = $field_messages[0]->getMessage();
-//                    $form_errors[$field] = ' error';
-//                }
-//            }else {
-//                $result_same_password = $this->authService->samePassword($user,$this->request->getPost('old-password'));
-//                if($result_same_password->success()) {
-//                    $result = $this->authService->updatePassword($user, $this->request->getPost('new-password'));
-//                    if ($result->success()) {
-//                        $msg = $result->getValues();
-//                    } else {
-//                        $errors [] = $result->errorMessage();
-//                    }
-//                }else{
-//                    $errors[] = $result_same_password->errorMessage();
-//                }
-//            }
-//        }
-//
-//        return $this->view->setVars([
-//            'form_errors' => !empty($form_errors) ? $form_errors : [],
-//            'which_form'  => 'password',
-//            'errors' => $errors,
-//            'msg' => !empty($msg) ? $msg : '',
-//            'myaccount' => $myaccount_form,
-//            'password_change' => $myaccount_passwordchange_form
-//        ]);
-//
-//    }
-
-
     public function validateAction($token)
     {
         $result = $this->authService->validateEmailToken($token);
@@ -198,8 +153,9 @@ class UserAccessController extends ControllerBase
 
     public function forgotPasswordAction()
     {
-        $errors = null;
+        $errors = [];
         $forgot_password_form = new ForgotPasswordForm();
+        $message = '';
 
         //get captcha instance
         $config = $this->di->get('globalConfig')['recaptcha'];
@@ -271,8 +227,7 @@ class UserAccessController extends ControllerBase
         sort($countries);
         //key+1, select element from phalcon need index 0 to set empty value
         $countries = array_combine(range(1, count($countries)), array_values($countries));
-        $sign_up_form = new SignUpForm(null, ['countries' => $countries]);
-        return $sign_up_form;
+        return new SignUpForm(null, ['countries' => $countries]);
     }
 
     /**

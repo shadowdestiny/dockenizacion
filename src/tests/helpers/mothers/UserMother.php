@@ -5,7 +5,6 @@ use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\web\interfaces\IPasswordHasher;
 use EuroMillions\web\vo\Password;
-use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use EuroMillions\tests\helpers\builders\UserBuilder;
@@ -13,7 +12,8 @@ use EuroMillions\tests\helpers\builders\UserBuilder;
 class UserMother
 {
     /**
-     * @returns UserBuilder
+     * @param IPasswordHasher $hasher
+     * @return UserBuilder
      */
     public static function aJustRegisteredUser(IPasswordHasher $hasher = null)
     {
@@ -28,21 +28,21 @@ class UserMother
     public static function aUserWith50Eur()
     {
         return self::getInitializedUser()
-            ->withId(new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'))
+            ->withId('9098299B-14AC-4124-8DB0-19571EDABE55')
             ->withWallet(self::getWallet(5000));
     }
 
     public static function aUserWith500Eur()
     {
         return self::getInitializedUser()
-            ->withId(new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'))
+            ->withId('9098299B-14AC-4124-8DB0-19571EDABE55')
             ->withWallet(self::getWallet(50000));
     }
 
     public static function aUserWithNoMoney()
     {
         return self::getInitializedUser()
-            ->withId(new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'));
+            ->withId('9098299B-14AC-4124-8DB0-19571EDABE55');
     }
 
     /**

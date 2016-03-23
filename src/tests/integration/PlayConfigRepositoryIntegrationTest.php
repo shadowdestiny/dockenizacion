@@ -8,7 +8,6 @@ use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\vo\DrawDays;
 use EuroMillions\web\vo\EuroMillionsLine;
-use EuroMillions\web\vo\UserId;
 use EuroMillions\tests\base\DatabaseIntegrationTestBase;
 use EuroMillions\tests\base\EuroMillionsResultRelatedTest;
 
@@ -78,7 +77,7 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     public function test_getPlayConfigsByUser_called_returnProperResult()
     {
         $date = new \DateTime('2015-09-20 00:00:00');
-        $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE56');
+        $userId = '9098299B-14AC-4124-8DB0-19571EDABE56';
         $expected = [2];
         $actual = $this->sut->getPlayConfigsByUserAndDate($userId,$date);
         $this->assertEquals($expected,$this->getIdsFromArrayOfObjects($actual));

@@ -4,19 +4,15 @@ namespace EuroMillions\web\controllers;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\CreditCardForm;
-use EuroMillions\web\forms\MyAccountForm;
 use EuroMillions\web\forms\SignInForm;
 use EuroMillions\web\forms\SignUpForm;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CVV;
-use EuroMillions\web\vo\dto\OrderDTO;
 use EuroMillions\web\vo\dto\PlayConfigDTO;
-use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\ExpiryDate;
 use EuroMillions\web\vo\Order;
-use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use Phalcon\Validation\Message;
@@ -28,7 +24,6 @@ class CartController extends PublicSiteControllerBase
     public function orderAction(){
 
         $user_id = $this->request->get('user');
-        /** @var UserId $currenct_user_id */
         $current_user_id = $this->authService->getCurrentUser()->getId();
         $credit_card_form = new CreditCardForm();
         $form_errors = $this->getErrorsArray();
@@ -37,7 +32,7 @@ class CartController extends PublicSiteControllerBase
         $errors = [];
 
         if(!empty($user_id)) {
-            $result = $play_service->getPlaysFromGuestUserAndSwitchUser(new UserId($user_id),$current_user_id);
+            $result = $play_service->getPlaysFromGuestUserAndSwitchUser($user_id,$current_user_id);
             $user = $this->userService->getUser($current_user_id);
         } else {
             /** @var User $user */
@@ -158,7 +153,7 @@ class CartController extends PublicSiteControllerBase
                 ) {
                     $errors[] = 'Incorrect email or password.';
                 } else {
-                    return $this->response->redirect('/cart/order?user='.$userId->getId());
+                    return $this->response->redirect('/cart/order?user='.$userId);
                 }
             }
         }
@@ -189,7 +184,6 @@ class CartController extends PublicSiteControllerBase
         $payWallet = $this->request->getPost('paywallet') == 'false' ? false : true;
         $play_service = $this->domainServiceFactory->getPlayService();
         $errors = [];
-        /** @var UserId $currenct_user_id */
         $user_id = $this->authService->getCurrentUser()->getId();
         /** @var User $user */
         $user = $this->userService->getUser($user_id);

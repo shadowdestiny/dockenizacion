@@ -10,7 +10,6 @@ use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\vo\Order;
-use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 
@@ -45,7 +44,7 @@ class CartService
         return new ActionResult(false);
     }
 
-    public function get( UserId $user_id )
+    public function get( $user_id )
     {
         try {
             /** @var ActionResult $result */

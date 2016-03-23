@@ -54,7 +54,7 @@ class BetService
             $lotteryValidation = new LotteryValidationCastilloApi();
         }
         /** @var User $user */
-        $user = $this->userRepository->find($playConfig->getUser()->getId()->id());
+        $user = $this->userRepository->find($playConfig->getUser()->getId());
         $single_bet_price = $euroMillionsDraw->getLottery()->getSingleBetPrice();
         if($user->getBalance()->getAmount() > $single_bet_price->getAmount()) {
             $dateNextDraw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions', $today);

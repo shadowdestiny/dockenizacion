@@ -8,7 +8,6 @@ use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\repositories\UserRepository;
-use EuroMillions\web\vo\UserId;
 use Money\Money;
 
 
@@ -37,7 +36,7 @@ class MaintenanceUserService
         }
     }
 
-    public function updateBalance(UserId $userId, Money $amount)
+    public function updateBalance($userId, Money $amount)
     {
         /** @var User $user */
         $user = $this->userRepository->find($userId);
@@ -50,7 +49,7 @@ class MaintenanceUserService
         }
     }
 
-    public function getUser(UserId $userId)
+    public function getUser($userId)
     {
         $user = $this->userRepository->findBy(['id' => $userId]);
         if (null !== $user) {

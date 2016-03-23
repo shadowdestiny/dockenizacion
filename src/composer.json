@@ -14,7 +14,7 @@
     "robmorgan/phinx": "*",
     "antonienko/positive-modulus" : "1.*",
     "mathiasverraes/money" : "1.3.*",
-    "ramsey/uuid": "^2.8",
+    "ramsey/uuid": "^3.0",
     "hautelook/phpass": "^0.3.4",
     "alcohol/iso4217": "~2.0",
     "antonienko/money-formatter": ">=1.4",
@@ -22,7 +22,8 @@
     "mandrill/mandrill": "1.0.*",
     "beberlei/assert": "^2.4",
     "recaptcha/php5": "^2.0",
-    "textmagic/smsphp": "dev-master"
+    "textmagic/smsphp": "dev-master",
+    "ramsey/uuid-doctrine": "dev-master"
   },
   "autoload" : {
     "psr-4": {

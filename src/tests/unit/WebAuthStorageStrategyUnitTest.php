@@ -1,12 +1,13 @@
 <?php
 namespace EuroMillions\tests\unit;
 
+use EuroMillions\web\components\UserId;
 use EuroMillions\web\entities\GuestUser;
 use EuroMillions\web\services\auth_strategies\WebAuthStorageStrategy;
-use EuroMillions\web\vo\UserId;
 use Phalcon\Http\Cookie;
 use Prophecy\Argument;
 use EuroMillions\tests\base\UnitTestBase;
+use Ramsey\Uuid\Uuid;
 
 class WebAuthStorageStrategyUnitTest extends UnitTestBase
 {
@@ -28,7 +29,7 @@ class WebAuthStorageStrategyUnitTest extends UnitTestBase
     public function test_getCurrentUser_calledWithUserInSession_returnUserInSession()
     {
         $expected = UserId::create();
-        $this->session_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn($expected->id());
+        $this->session_double->get(WebAuthStorageStrategy::CURRENT_USER_VAR)->willReturn($expected);
         $actual = $this->exerciseGetCurrentUserId();
         $this->assertEquals($expected, $actual);
     }
@@ -63,7 +64,7 @@ class WebAuthStorageStrategyUnitTest extends UnitTestBase
         $this->session_double->set(Argument::any(), Argument::any())->willReturn(null);
         $this->cookieManager_double->set(Argument::any(),Argument::any(),Argument::any())->willReturn(null);
         $actual = $this->exerciseGetCurrentUserId();
-        $this->assertInstanceOf($this->getVOToArgument('UserId'), $actual);
+        $this->assertTrue(Uuid::isValid($actual));
 
     }
 
@@ -104,8 +105,8 @@ class WebAuthStorageStrategyUnitTest extends UnitTestBase
     public function test_setCurrentUser_calledWithProperUser_setUserInSession()
     {
         $user_id = UserId::create();
-        $this->session_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, $user_id->id())->shouldBeCalled();
-        $this->cookieManager_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, $user_id->id(), Argument::that($this->getGuestExpirationCallback()))->shouldBeCalled();
+        $this->session_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, $user_id)->shouldBeCalled();
+        $this->cookieManager_double->set(WebAuthStorageStrategy::CURRENT_USER_VAR, $user_id, Argument::that($this->getGuestExpirationCallback()))->shouldBeCalled();
         $this->exerciseSetCurrentUser($user_id);
     }
 

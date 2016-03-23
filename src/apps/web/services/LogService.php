@@ -53,6 +53,6 @@ class LogService
     private function logUserAuthAction(IUser $user, $action)
     {
         $logger = $this->getLogger('userAuth');
-        $logger->info(json_encode(['action' => $action, 'user' => $user->getId()->id()]));
+        $logger->info(json_encode(['action' => $action, 'user' => $user->getId()]));
     }
 }

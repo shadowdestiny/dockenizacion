@@ -20,7 +20,6 @@ use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Password;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\Url;
-use EuroMillions\web\vo\UserId;
 use EuroMillions\web\vo\ValidationToken;
 use Money\Currency;
 
@@ -69,11 +68,6 @@ class AuthService
         return $user;
     }
 
-    public function setCurrentUser(User $user)
-    {
-        $this->storageStrategy->setCurrentUserId($user->getId());
-    }
-
     public function logout()
     {
         $this->logService->logOut($this->getCurrentUser());
@@ -94,7 +88,7 @@ class AuthService
         }
         $password_match = $this->passwordHasher->checkPassword($credentials['password'], $user->getPassword()->toNative());
         if ($password_match) {
-            $this->setCurrentUser($user);
+            $this->storageStrategy->setCurrentUserId($user->getId());
             if ($credentials['remember']) {
                 $user->setRememberToken($agentIdentificationString);
                 $this->storageStrategy->storeRemember($user);
@@ -141,7 +135,7 @@ class AuthService
         return new ActionResult(true, $user);
     }
 
-    public function registerFromCheckout(array $credentials, UserId $userId)
+    public function registerFromCheckout(array $credentials, $userId)
     {
         //EMTD @rmrbest Hay que refactorizar esta también. Hazlo junto conmigo como ejercicio.
         if (!$this->getCurrentUser() instanceof GuestUser) {

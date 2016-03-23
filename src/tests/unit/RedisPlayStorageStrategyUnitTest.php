@@ -6,12 +6,12 @@ namespace EuroMillions\tests\unit;
 
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\NullPasswordHasher;
+use EuroMillions\web\components\UserId;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\play_strategies\RedisPlayStorageStrategy;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Password;
 use EuroMillions\shared\vo\results\ActionResult;
-use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -65,8 +65,8 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
         $expected = new ActionResult(true, $this->getEuroMillionsLines());
         $user = $this->getUser();
         $sut = $this->getSut();
-        $this->redis_double->get(self::EMLINE_FETCH_KEY.$user->getId()->id())->willReturn($this->getEuroMillionsLines());
-        $actual = $sut->findByKey($user->getId()->id());
+        $this->redis_double->get(self::EMLINE_FETCH_KEY.$user->getId())->willReturn($this->getEuroMillionsLines());
+        $actual = $sut->findByKey($user->getId());
         $this->assertEquals($expected,$actual);
     }
 
@@ -78,7 +78,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     public function test_findByKey_keyNotFoundInRedisStore_returnServiceActionResultFalse()
     {
         $expected = new ActionResult(false,'Key not found');
-        $userId = $this->getUser()->getId()->id();
+        $userId = $this->getUser()->getId();
         $sut = $this->getSut();
         $this->redis_double->get(self::EMLINE_FETCH_KEY.$userId)->willReturn(null);
         $actual = $sut->findByKey($userId);
@@ -94,7 +94,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     public function test_remove_called_removeEuroMillionsLineArrayFromRedisStorage()
     {
         $sut = $this->getSut();
-        $userId = $this->getUser()->getId()->id();
+        $userId = $this->getUser()->getId();
         $this->redis_double->delete(self::EMLINE_FETCH_KEY.$userId)->shouldBeCalled();
         $sut->delete($userId);
     }
@@ -120,7 +120,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     public function test_remove_calledWithValidKey_returnServiceActionResultTrue()
     {
         $expected = new ActionResult(true);
-        $userId = $this->getUser()->getId()->id();
+        $userId = $this->getUser()->getId();
         $sut = $this->getSut();
         $actual  = $sut->delete($userId);
         $this->assertEquals($expected,$actual);
@@ -135,7 +135,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     {
         $expected = new ActionResult(false,'An exception ocurred while delete key');
         $sut = $this->getSut();
-        $userId = $this->getUser()->getId()->id();
+        $userId = $this->getUser()->getId();
         $this->redis_double->delete(self::EMLINE_FETCH_KEY.$userId)->willThrow(new RedisException('An exception ocurred while delete key'));
         $actual = $sut->delete($userId);
         $this->assertEquals($expected,$actual);
@@ -150,7 +150,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
     {
         $expected = new ActionResult(false,'An error ocurred while find key');
         $sut = $this->getSut();
-        $userId = $this->getUser()->getId()->id();
+        $userId = $this->getUser()->getId();
         $this->redis_double->get(self::EMLINE_FETCH_KEY.$userId)->willThrow(new RedisException('An error ocurred while find key'));
         $actual = $sut->findByKey($userId);
         $this->assertEquals($expected,$actual);
@@ -186,7 +186,7 @@ class RedisPlayStorageStrategyUnitTest extends UnitTestBase
         $user = new User();
         $user->initialize(
             [
-                'id' => new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'),
+                'id' => '9098299B-14AC-4124-8DB0-19571EDABE55',
                 'name'     => 'test',
                 'surname'  => 'test01',
                 'email'    => new Email('raul.mesa@panamedia.net'),

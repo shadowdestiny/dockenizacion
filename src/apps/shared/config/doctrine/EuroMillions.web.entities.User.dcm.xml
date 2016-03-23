@@ -6,8 +6,9 @@
     https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <entity name="EuroMillions\web\entities\User" table="users" repository-class="EuroMillions\web\repositories\UserRepository">
-        <id name="id">
-            <generator strategy="UUID"/>
+        <id name="id" type="uuid">
+            <generator strategy="CUSTOM"/>
+            <custom-id-generator class="Ramsey\Uuid\Doctrine\UuidGenerator"/>
         </id>
         <field name="name" type="string"/>
         <field name="surname" type="string"/>

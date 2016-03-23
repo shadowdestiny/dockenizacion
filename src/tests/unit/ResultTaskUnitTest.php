@@ -19,7 +19,6 @@ use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\NotificationValue;
 use EuroMillions\web\vo\Password;
 use EuroMillions\shared\vo\results\ActionResult;
-use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -88,7 +87,7 @@ class ResultTaskUnitTest extends UnitTestBase
         $this->lotteriesDataService_double->updateLastDrawResult('EuroMillions')->shouldBeCalled();
         $this->lotteriesDataService_double->updateLastBreakDown('EuroMillions')->shouldBeCalled();
         $this->playService_double->getPlaysConfigToBet($today)->willReturn($play_config_list);
-        $this->userService_double->getUser(new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'))->willReturn($this->getUser());
+        $this->userService_double->getUser('9098299B-14AC-4124-8DB0-19571EDABE55')->willReturn($this->getUser());
         $this->userService_double->getActiveNotificationsByUserAndType(Argument::any(),Argument::any())->willReturn(new ActionResult(true,$this->getUserNotifications($notificationType)));
         $this->emailService_double->sendTransactionalEmail($this->getUser(),Argument::type('EuroMillions\web\emailTemplates\IEmailTemplate'))->shouldBeCalledTimes(4);
         $this->userService_double->getActiveNotificationsByType(Argument::any())->willReturn(new ActionResult(true,$this->getUserNotifications($notificationType)));
@@ -159,7 +158,7 @@ class ResultTaskUnitTest extends UnitTestBase
         $user = new User();
         $user->initialize(
             [
-                'id' => new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'),
+                'id' => '9098299B-14AC-4124-8DB0-19571EDABE55',
                 'name'     => 'test',
                 'surname'  => 'test01',
                 'email'    => new Email('raul.mesa@panamedia.net'),

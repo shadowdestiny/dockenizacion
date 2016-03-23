@@ -3,6 +3,7 @@ namespace EuroMillions\shared\config\bootstrap;
 
 use Doctrine\Common\Cache\ApcuCache;
 use Doctrine\Common\Cache\RedisCache;
+use Doctrine\DBAL\Types\Type;
 use EuroMillions\shared\components\EnvironmentDetector;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
@@ -74,6 +75,7 @@ abstract class BootstrapStrategyBase
     {
         $is_dev_mode = true; //EMDEPLOY hay que pasarlo por configuración. Quizá con el nuevo detector de environment
 
+
         $config = Setup::createXMLMetadataConfiguration(array($this->configPath . 'doctrine'), $is_dev_mode);
         $config->setQueryCacheImpl(new ApcuCache());
         $config->setMetadataCacheImpl(new ApcuCache());
@@ -91,8 +93,12 @@ abstract class BootstrapStrategyBase
             'charset'  => 'utf8'
         ];
         $em = EntityManager::create($conn, $config);
+        if (!Type::hasType('uuid')) {
+            Type::addType('uuid', 'Ramsey\Uuid\Doctrine\UuidType');
+        }
         $platform = $em->getConnection()->getDatabasePlatform();
         $platform->registerDoctrineTypeMapping('enum', 'string');
+        $platform->registerDoctrineTypeMapping('uuid', 'uuid');
         return $em;
     }
 

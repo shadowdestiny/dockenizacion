@@ -3,7 +3,6 @@ namespace EuroMillions\web\controllers;
 
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\entities\User;
-use EuroMillions\web\vo\UserId;
 use Money\Currency;
 
 class PlayController extends PublicSiteControllerBase
@@ -22,7 +21,6 @@ class PlayController extends PublicSiteControllerBase
             $user_currency = $this->userPreferencesService->getCurrency();
             $single_bet_price_currency  = $this->currencyConversionService->convert($single_bet_price, $user_currency);
         } else {
-            /** @var UserId $currenct_user_id */
             $current_user_id = $this->authService->getCurrentUser()->getId();
             /** @var User $user */
             $user = $this->userService->getUser($current_user_id);

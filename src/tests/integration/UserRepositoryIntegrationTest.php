@@ -2,6 +2,8 @@
 namespace EuroMillions\tests\integration;
 
 use EuroMillions\shared\vo\Wallet;
+use EuroMillions\tests\helpers\builders\UserBuilder;
+use EuroMillions\web\components\Md5EmailValidationToken;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\web\components\PhpassWrapper;
 use EuroMillions\web\entities\User;
@@ -11,6 +13,7 @@ use EuroMillions\web\vo\Password;
 use Money\Currency;
 use Money\Money;
 use EuroMillions\tests\base\DatabaseIntegrationTestBase;
+use Ramsey\Uuid\Uuid;
 
 class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
 {
@@ -41,7 +44,6 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $email = 'hola@hola.com';
         $hasher = new NullPasswordHasher();
         list($user, $actual) = $this->exerciseAdd($password, $hasher, $email);
-
         $this->assertEquals($user, $actual);
     }
 
@@ -55,9 +57,8 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $password = 'passworD01';
         $email = 'hola@hola.com';
         $hasher = new PhpassWrapper();
-        /** @var User $actual */
-        list($user, $actual) = $this->exerciseAdd($password, $hasher, $email);
-        $this->assertTrue($hasher->checkPassword($password, $actual->getPassword()->toNative()));
+        $user_and_actual = $this->exerciseAdd($password, $hasher, $email);
+        $this->assertTrue($hasher->checkPassword($password, $user_and_actual[1]->getPassword()->toNative()));
     }
 
     /**
@@ -71,15 +72,14 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         /** @var UserRepository $sut */
         $user = new User();
         $user->initialize([
-            'id'       => $this->sut->nextIdentity(),
-            'name'     => 'nombre',
-            'surname'  => 'apellido',
-            'country'  => 'pais',
-            'password' => new Password($password, $hasher),
-            'email'    => new Email($email),
-            'wallet'  => new Wallet(new Money(3000, new Currency('EUR'))),
-            'validated' => 0,
-            'jackpot_reminder' => 0,
+            'name'               => 'nombre',
+            'surname'            => 'apellido',
+            'country'            => 'pais',
+            'password'           => new Password($password, $hasher),
+            'email'              => new Email($email),
+            'wallet'             => new Wallet(new Money(3000, new Currency('EUR'))),
+            'validated'          => 0,
+            'jackpot_reminder'   => 0,
             'show_modal_winning' => 0
         ]);
         /** @var Password $hashed_pass */
@@ -141,6 +141,28 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $this->assertNull($actual);
     }
 
-
+    /**
+     * method register
+     * when calledWithProperCredentials
+     * should addUserToDb
+     */
+    public function test_register_calledWithProperCredentials_addUserToDb()
+    {
+        $credentials = [
+            'email'    => UserBuilder::DEFAULT_EMAIL,
+            'name'     => UserBuilder::DEFAULT_NAME,
+            'surname'  => UserBuilder::DEFAULT_SURNAME,
+            'password' => UserBuilder::DEFAULT_PASSWORD,
+            'country'  => UserBuilder::DEFAULT_COUNTRY,
+        ];
+        $user = $this->sut->register($credentials, new NullPasswordHasher(), new Md5EmailValidationToken());
+        $this->entityManager->detach($user);
+        $actual = $this->sut->getByEmail(UserBuilder::DEFAULT_EMAIL);
+        $this->assertEquals(UserBuilder::DEFAULT_NAME, $actual->getName());
+        $this->assertEquals(UserBuilder::DEFAULT_SURNAME, $actual->getSurname());
+        $this->assertEquals(UserBuilder::DEFAULT_PASSWORD, $actual->getPassword());
+        $this->assertEquals(UserBuilder::DEFAULT_COUNTRY, $actual->getCountry());
+        $this->assertTrue(Uuid::isValid($actual->getId()));
+    }
 
 }

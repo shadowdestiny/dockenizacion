@@ -4,8 +4,8 @@
 namespace EuroMillions\tests\integration;
 
 
+use EuroMillions\web\components\UserId;
 use EuroMillions\web\services\play_strategies\RedisPlayStorageStrategy;
-use EuroMillions\web\vo\UserId;
 use Phalcon\Di;
 use EuroMillions\tests\base\EuroMillionsResultRelatedTest;
 use EuroMillions\tests\base\RedisIntegrationTestBase;
@@ -39,7 +39,7 @@ class RedisPlayStorageStrategyIntegrationTest extends RedisIntegrationTestBase
         $playFormStorage = $this->getPlayFormToStorage();
         $this->sut->saveAll($playFormStorage,$this->userId);
         $expected = $this->getPlayFormToStorage()->toJson();
-        $actual = $this->sut->findByKey($this->userId->id());
+        $actual = $this->sut->findByKey($this->userId);
         $this->assertEquals($expected,$actual->getValues());
     }
 

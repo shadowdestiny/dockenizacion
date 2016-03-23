@@ -7,7 +7,6 @@ use EuroMillions\web\exceptions\UnsupportedOperationException;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\shared\vo\results\ActionResult;
-use EuroMillions\web\vo\UserId;
 use Phalcon\Session\AdapterInterface;
 
 class SessionPlayStorageStrategy implements IPlayStorageStrategy
@@ -22,7 +21,7 @@ class SessionPlayStorageStrategy implements IPlayStorageStrategy
         $this->session = $session;
     }
 
-    public function saveAll(PlayFormToStorage $data, UserId $userId)
+    public function saveAll(PlayFormToStorage $data, $userId)
     {
         $this->session->set(self::CURRENT_EMLINE_VAR, $data->toJson());
     }
@@ -50,7 +49,7 @@ class SessionPlayStorageStrategy implements IPlayStorageStrategy
         $this->session->destroy();
     }
 
-    public function save($json, UserId $userId)
+    public function save($json, $userId)
     {
         throw new UnsupportedOperationException();
     }

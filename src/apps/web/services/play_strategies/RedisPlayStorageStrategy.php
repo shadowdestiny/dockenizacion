@@ -7,7 +7,6 @@ namespace EuroMillions\web\services\play_strategies;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\shared\vo\results\ActionResult;
-use EuroMillions\web\vo\UserId;
 use RedisException;
 use Redis;
 
@@ -27,7 +26,7 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
         $this->storage = $storage;
     }
 
-    public function save($json, UserId $userId)
+    public function save($json, $userId)
     {
         try{
             $this->storage->set($this->getNameKey($userId), $json);
@@ -37,7 +36,7 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
         }
     }
 
-    public function saveAll(PlayFormToStorage $data, UserId $userId)
+    public function saveAll(PlayFormToStorage $data, $userId)
     {
         try{
             $this->storage->set($this->getNameKey($userId), $data->toJson());
@@ -75,8 +74,8 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
         }
     }
 
-    private function getNameKey(UserId $userId)
+    private function getNameKey($userId)
     {
-        return "PlayStore_EMLINES:" . $userId->id();
+        return "PlayStore_EMLINES:" . $userId;
     }
 }

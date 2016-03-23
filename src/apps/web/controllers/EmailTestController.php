@@ -23,7 +23,6 @@ use EuroMillions\web\services\email_templates_strategies\WinEmailAboveDataEmailT
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Url;
-use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 
@@ -161,7 +160,7 @@ class EmailTestController extends PublicSiteControllerBase
     {
         $user = new User();
         if(empty($userEmail)) {
-            $user = $this->userService->getUser(new UserId('832063cb-a559-11e5-b358-0242ac110002'));
+            $user = $this->userService->getUser('832063cb-a559-11e5-b358-0242ac110002');
         } else {
             $user->initialize(
                 [

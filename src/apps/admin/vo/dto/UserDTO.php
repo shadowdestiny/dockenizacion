@@ -33,7 +33,7 @@ class UserDTO extends DTOBase implements IDto
 
     public function exChangeObject()
     {
-        $this->id = $this->user->getId()->id();
+        $this->id = $this->user->getId();
         $this->name = $this->user->getName();
         $this->surname = ($this->user->getSurname()) ? $this->user->getSurname() : '';
         $this->email = $this->user->getEmail()->toNative();

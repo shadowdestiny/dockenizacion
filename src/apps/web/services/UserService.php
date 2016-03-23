@@ -16,7 +16,6 @@ use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplat
 use EuroMillions\web\vo\ContactFormInfo;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\NotificationValue;
-use EuroMillions\web\vo\UserId;
 use Exception;
 use Money\Currency;
 use Money\Money;
@@ -68,21 +67,21 @@ class UserService
         $this->notificationRepository = $entityManager->getRepository('EuroMillions\web\entities\Notification');
     }
 
-    public function getBalanceWithUserCurrencyConvert(UserId $userId, Currency $userCurrency)
+    public function getBalanceWithUserCurrencyConvert($userId, Currency $userCurrency)
     {
         /** @var User $user */
-        $user = $this->userRepository->find($userId->id());
+        $user = $this->userRepository->find($userId);
         $money_convert = $this->currencyConversionService->convert($user->getBalance(), $userCurrency);
         return $this->currencyConversionService->toString($money_convert, $user->getLocale());
     }
 
     /**
-     * @param UserId $userId
+     * @param $userId
      * @return User
      */
-    public function getUser(UserId $userId)
+    public function getUser($userId)
     {
-        return $this->userRepository->find($userId->id());
+        return $this->userRepository->find($userId);
     }
 
     public function getUserByToken($token)
@@ -127,7 +126,7 @@ class UserService
 
 
 
-    public function getMyActivePlays(UserId $userId)
+    public function getMyActivePlays($userId)
     {
         if(!empty($userId)){
             /** @var array $result */
@@ -141,7 +140,7 @@ class UserService
         }
     }
 
-    public function getMyInactivePlays(UserId $userId)
+    public function getMyInactivePlays($userId)
     {
         if(!empty($userId)){
             /** @var array $result */
@@ -258,10 +257,10 @@ class UserService
         }
     }
 
-    public function initUserNotifications(UserId $userId)
+    public function initUserNotifications($userId)
     {
         /** @var User $user */
-        $user = $this->userRepository->find($userId->id());
+        $user = $this->userRepository->find($userId);
         if(!empty($user)) {
             try{
                 /** @var Notification[] $notifications */

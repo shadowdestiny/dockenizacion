@@ -1,10 +1,9 @@
 <?php
 namespace EuroMillions\tests\integration;
 
-use EuroMillions\web\entities\User;
+use EuroMillions\tests\helpers\mothers\UserMother;
 use EuroMillions\web\services\LoggerFactory;
 use EuroMillions\web\services\LogService;
-use EuroMillions\web\vo\UserId;
 use EuroMillions\tests\base\FileIntegrationTestBase;
 
 class LogServiceIntegrationTest extends FileIntegrationTestBase
@@ -43,8 +42,6 @@ class LogServiceIntegrationTest extends FileIntegrationTestBase
 
     private function getUserWithId()
     {
-        $user = new User();
-        $user->setId(UserId::create());
-        return $user;
+        return UserMother::anAlreadyRegisteredUser()->build();
     }
 }

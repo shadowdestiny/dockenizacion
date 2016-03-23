@@ -4,9 +4,9 @@
 namespace EuroMillions\tests\integration;
 
 
+use EuroMillions\web\components\UserId;
 use EuroMillions\web\services\play_strategies\RedisOrderStorageStrategy;
 use EuroMillions\web\services\play_strategies\RedisPlayStorageStrategy;
-use EuroMillions\web\vo\UserId;
 use EuroMillions\tests\base\RedisIntegrationTestBase;
 use EuroMillions\tests\helpers\mothers\OrderMother;
 

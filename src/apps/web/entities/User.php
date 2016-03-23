@@ -8,7 +8,6 @@ use EuroMillions\web\interfaces\IUser;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\RememberToken;
-use EuroMillions\web\vo\UserId;
 use EuroMillions\web\vo\ValidationToken;
 use Money\Currency as MoneyCurrency;
 use Money\Money;
@@ -165,14 +164,6 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
         $this->country = $country;
     }
 
-    public function setId(UserId $id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return UserId
-     */
     public function getId()
     {
         return $this->id;
@@ -400,7 +391,7 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     public function toArray()
     {
         return [
-            "id" => $this->getId()->id()
+            "id" => $this->getId()
         ];
     }
 
@@ -414,7 +405,7 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'id' => $this->getId()->id(),
+            'id' => $this->getId(),
         ];
     }
 

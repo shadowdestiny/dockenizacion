@@ -22,7 +22,7 @@ class PasswordController extends PublicSiteControllerBase
         $msg = null;
         $form_errors = [];
         $userId = $this->authService->getCurrentUser();
-        $user = $this->userService->getUser($userId->getId());
+        $user = $this->userService->getUser($userId);
         $myaccount_form = $this->getMyACcountForm($userId);
         $myaccount_passwordchange_form = new MyAccountChangePasswordForm();
 
@@ -73,7 +73,7 @@ class PasswordController extends PublicSiteControllerBase
         $countries = $geoService->countryList();
         sort($countries);
         $countries = array_combine(range(1, count($countries)), array_values($countries));
-        $user = $this->userService->getUser($userId->getId());
+        $user = $this->userService->getUser($userId);
         $user_dto = $user ? new UserDTO($user) : null;
         return new MyAccountForm($user_dto,['countries' => $countries]);
     }

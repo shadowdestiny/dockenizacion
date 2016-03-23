@@ -7,7 +7,6 @@ use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Password;
-use EuroMillions\web\vo\UserId;
 use EuroMillions\web\vo\ValidationToken;
 use Money\Currency;
 use Money\Money;
@@ -59,10 +58,10 @@ class UserBuilder
     }
 
     /**
-     * @param UserId $id
+     * @param string $id
      * @return UserBuilder
      */
-    public function withId(UserId $id)
+    public function withId($id)
     {
         $this->id = $id;
         return $this;

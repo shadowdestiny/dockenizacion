@@ -1,17 +1,14 @@
 <?php
 namespace EuroMillions\web\repositories;
 
-use EuroMillions\web\vo\UserId;
-
 class PlayConfigRepository extends RepositoryBase
 {
-
-    public function getActivePlayConfigsByUser(UserId $userId)
+    public function getActivePlayConfigsByUser($userId)
     {
         return $this->getPlayConfigsByUser($userId, '1');
     }
 
-    public function getInactivePlayConfigsByUser(UserId $userId)
+    public function getInactivePlayConfigsByUser($userId)
     {
         return $this->getPlayConfigsByUser($userId, '0');
     }
@@ -46,14 +43,14 @@ class PlayConfigRepository extends RepositoryBase
     }
 
 
-    public function getPlayConfigsByUserAndDate(UserId $userId, \DateTime $day)
+    public function getPlayConfigsByUserAndDate($userId, \DateTime $day)
     {
         $result = $this->getEntityManager()
             ->createQuery(
                 'SELECT p'
                 . ' FROM ' . $this->getEntityName() . ' p'
                 . ' WHERE p.user = :user_id AND p.active = 1 AND :day BETWEEN p.startDrawDate and p.lastDrawDate ')
-            ->setParameters(['user_id' => $userId->id(),'day' => $day])
+            ->setParameters(['user_id' => $userId,'day' => $day])
             ->getResult();
 
         return $result;
@@ -61,18 +58,18 @@ class PlayConfigRepository extends RepositoryBase
 
 
     /**
-     * @param UserId $userId
+     * @param $userId
      * @param $active
      * @return array
      */
-    protected function getPlayConfigsByUser(UserId $userId, $active)
+    protected function getPlayConfigsByUser($userId, $active)
     {
         $result = $this->getEntityManager()
             ->createQuery(
                 'SELECT p'
                 . ' FROM ' . $this->getEntityName() . ' p'
                 . ' WHERE p.user = :user_id AND p.active = :active')
-            ->setParameters(['user_id' => $userId->id(), 'active' => $active])
+            ->setParameters(['user_id' => $userId, 'active' => $active])
             ->getResult();
 
         return $result;

@@ -12,7 +12,6 @@ use EuroMillions\web\tasks\BetTask;
 use EuroMillions\web\vo\DrawDays;
 use EuroMillions\web\vo\NotificationValue;
 use EuroMillions\shared\vo\results\ActionResult;
-use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;

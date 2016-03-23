@@ -8,7 +8,6 @@ use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\exceptions\UnsupportedOperationException;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\vo\PlayFormToStorage;
-use EuroMillions\web\vo\UserId;
 use RedisException;
 use Redis;
 
@@ -28,7 +27,7 @@ class RedisOrderStorageStrategy implements IPlayStorageStrategy
     }
 
 
-    public function save($json, UserId $userId)
+    public function save($json, $userId)
     {
         try{
             $this->storage->set($this->getNameKey($userId), $json);
@@ -38,7 +37,7 @@ class RedisOrderStorageStrategy implements IPlayStorageStrategy
         }
     }
 
-    public function saveAll(PlayFormToStorage $data, UserId $userId)
+    public function saveAll(PlayFormToStorage $data, $userId)
     {
         throw new UnsupportedOperationException();
     }
@@ -72,8 +71,8 @@ class RedisOrderStorageStrategy implements IPlayStorageStrategy
 
     }
 
-    private function getNameKey(UserId $userId)
+    private function getNameKey($userId)
     {
-        return self::$key . $userId->id();
+        return self::$key . $userId;
     }
 }

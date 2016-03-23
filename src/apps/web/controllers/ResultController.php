@@ -7,14 +7,12 @@ namespace EuroMillions\web\controllers;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\vo\dto\OrderDTO;
 use EuroMillions\web\vo\dto\UserDTO;
-use EuroMillions\web\vo\UserId;
 
 class ResultController extends PublicSiteControllerBase
 {
 
     public function successAction()
     {
-        /** @var UserId $currenct_user_id */
         $user_id = $this->authService->getCurrentUser()->getId();
         /** @var User $user */
         $user = $this->userService->getUser($user_id);
@@ -33,7 +31,6 @@ class ResultController extends PublicSiteControllerBase
 
     public function failureAction()
     {
-        /** @var UserId $currenct_user_id */
         $user_id = $this->authService->getCurrentUser()->getId();
         $play_service = $this->domainServiceFactory->getPlayService();
         $play_service->removeStorePlay($user_id);

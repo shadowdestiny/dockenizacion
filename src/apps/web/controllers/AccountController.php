@@ -292,7 +292,7 @@ class AccountController extends PublicSiteControllerBase
         }
         $userId = $this->authService->getCurrentUser();
         /** @var User $user */
-        $user = $this->userService->getUser($userId->getId());
+        $user = $this->userService->getUser($userId);
 
         //EMTD we should refactor it this part
         $reach_notification = ($this->request->getPost('jackpot_reach') == 'on') ? true : false;
@@ -407,7 +407,7 @@ class AccountController extends PublicSiteControllerBase
         $countries = $geoService->countryList();
         sort($countries);
         $countries = array_combine(range(1, count($countries)), array_values($countries));
-        $user = $this->userService->getUser($userId->getId());
+        $user = $this->userService->getUser($userId);
         $user_dto = new UserDTO($user);
         return new MyAccountForm($user_dto,['countries' => $countries]);
     }

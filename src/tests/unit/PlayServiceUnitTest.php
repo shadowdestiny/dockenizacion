@@ -5,6 +5,7 @@ namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\shared\config\Namespaces;
+use EuroMillions\web\components\UserId;
 use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
@@ -16,7 +17,6 @@ use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
 use EuroMillions\shared\vo\results\ActionResult;
-use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -143,7 +143,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $expected = new ActionResult(true, $play_config);
         $user = $this->getUser();
         $sut = $this->getSut();
-        $this->playStorageStrategy_double->findByKey($user->getId()->id())->willReturn(new ActionResult(true, $string_json));
+        $this->playStorageStrategy_double->findByKey($user->getId())->willReturn(new ActionResult(true, $string_json));
         $actual = $sut->getPlaysFromTemporarilyStorage($user);
         $this->assertEquals($expected, $actual);
     }
@@ -403,10 +403,10 @@ class PlayServiceUnitTest extends UnitTestBase
         $string_json = '{"play_config":[{"drawDays":"2","startDrawDate":"16 Feb 2016","lastDrawDate":"2016-02-16 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[16,18,20,21,32],"lucky":[4,8]}]},"numbers":null,"threshold":null,"num_weeks":0},{"drawDays":"2","startDrawDate":"16 Feb 2016","lastDrawDate":"2016-02-16 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[3,22,23,30,44],"lucky":[7,9]}]},"numbers":null,"threshold":null,"num_weeks":0},{"drawDays":"2","startDrawDate":"16 Feb 2016","lastDrawDate":"2016-02-16 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[31,37,39,44,47],"lucky":[4,10]}]},"numbers":null,"threshold":null,"num_weeks":0},{"drawDays":"2","startDrawDate":"16 Feb 2016","lastDrawDate":"2016-02-16 00:00:00","frequency":"1","amount":null,"regular_numbers":null,"lucky_numbers":null,"euroMillionsLines":{"bets":[{"regular":[25,31,33,38,47],"lucky":[2,6]}]},"numbers":null,"threshold":null,"num_weeks":0}]}';
         $play_config = $this->exercisePlayConfigFromJson($string_json);
         $expected = new ActionResult(true, $play_config);
-        $user_id = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
+        $user_id = '9098299B-14AC-4124-8DB0-19571EDABE55';
         $current_user_id = UserId::create();
         $this->userRepository_double->find($current_user_id)->willReturn($this->getUser());
-        $this->playStorageStrategy_double->findByKey($user_id->id())->willReturn(new ActionResult(true, $string_json));
+        $this->playStorageStrategy_double->findByKey($user_id)->willReturn(new ActionResult(true, $string_json));
         $this->playStorageStrategy_double->save($string_json, $current_user_id)->shouldBeCalled();
         $this->playStorageStrategy_double->findByKey($current_user_id)->willReturn(new ActionResult(true, $string_json));
         $sut = $this->getSut();

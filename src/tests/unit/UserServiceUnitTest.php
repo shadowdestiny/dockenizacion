@@ -12,7 +12,6 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\ContactFormInfo;
-use EuroMillions\web\vo\dto\WalletDTO;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
@@ -20,7 +19,6 @@ use EuroMillions\web\vo\EuroMillionsRegularNumber;
 use EuroMillions\web\vo\NotificationValue;
 use EuroMillions\web\vo\Password;
 use EuroMillions\shared\vo\results\ActionResult;
-use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -120,7 +118,7 @@ class UserServiceUnitTest extends UnitTestBase
         $playConfig = $this->getPlayConfig();
         $expected = new ActionResult(true, $playConfig);
         $sut = $this->getSut();
-        $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
+        $userId = '9098299B-14AC-4124-8DB0-19571EDABE55';
         $this->playRepository_double->getActivePlayConfigsByUser($userId)->willReturn($playConfig);
         $actual = $sut->getMyActivePlays($userId);
         $this->assertEquals($expected, $actual);
@@ -135,7 +133,7 @@ class UserServiceUnitTest extends UnitTestBase
     {
         $expected = new ActionResult(false, 'You don\'t have games');
         $sut = $this->getSut();
-        $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
+        $userId = '9098299B-14AC-4124-8DB0-19571EDABE55';
         $this->playRepository_double->getActivePlayConfigsByUser($userId)->willReturn(null);
         $actual = $sut->getMyActivePlays($userId);
         $this->assertEquals($expected, $actual);
@@ -301,9 +299,9 @@ class UserServiceUnitTest extends UnitTestBase
     public function test_initUserNotifications_called_createUserNotificationsDefaultAndReturnActionResultTrue()
     {
         $expected = new ActionResult(true);
-        $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
+        $userId = '9098299B-14AC-4124-8DB0-19571EDABE55';
 
-        $this->userRepository_double->find($userId->id())->willReturn(true);
+        $this->userRepository_double->find($userId)->willReturn(true);
         $this->notificationsRepository_double->findAll()->willReturn($this->getNotifications());
         $this->userNotificationsRepository_double->add(Argument::type('EuroMillions\web\entities\UserNotifications'))->shouldBeCalled();
         $entityManager_stub = $this->getEntityManagerDouble();
@@ -505,7 +503,7 @@ class UserServiceUnitTest extends UnitTestBase
         $user = new User();
         $user->initialize(
             [
-                'id'               => new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'),
+                'id'               => '9098299B-14AC-4124-8DB0-19571EDABE55',
                 'name'             => 'test',
                 'surname'          => 'test01',
                 'email'            => new Email('raul.mesa@panamedia.net'),
@@ -572,7 +570,6 @@ class UserServiceUnitTest extends UnitTestBase
      */
     protected function exerciseGetPaymentMethod($expected, $return = [], $userId = '9098299B-14AC-4124-8DB0-19571EDABE55')
     {
-        $userId = new UserId($userId);
         $user = $this->getUser();
         $this->userRepository_double->find($userId)->willReturn($user);
         $this->paymentMethodRepository_double->getPaymentMethodsByUser($user)->willReturn($return);
@@ -614,8 +611,8 @@ class UserServiceUnitTest extends UnitTestBase
      */
     private function exerciseUserNotifications($expected)
     {
-        $userId = new UserId('9098299B-14AC-4124-8DB0-19571EDABE55');
-        $this->userRepository_double->find($userId->id())->willReturn(true);
+        $userId = '9098299B-14AC-4124-8DB0-19571EDABE55';
+        $this->userRepository_double->find($userId)->willReturn(true);
         $this->notificationsRepository_double->findAll()->willReturn($this->getNotifications());
         $this->userNotificationsRepository_double->add(Argument::any())->shouldBeCalled();
         $entityManager_stub = $this->getEntityManagerDouble();

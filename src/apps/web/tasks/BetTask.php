@@ -7,7 +7,6 @@ namespace EuroMillions\web\tasks;
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\IEmailTemplate;
-use EuroMillions\web\emailTemplates\LongPlayEndedEmailTemplate;
 use EuroMillions\web\emailTemplates\LowBalanceEmailTemplate;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\PlayConfig;
@@ -90,16 +89,16 @@ class BetTask extends TaskBase
                                     $this->playService->bet($play_config, $euromillions_draw);
                                     $this->sendEmailAutoPlay($play_config,$emailTemplate);
                                 }
-                                if(!empty($user_id) && $user_id != $play_config->getUser()->getId()->id()){
+                                if(!empty($user_id) && $user_id != $play_config->getUser()->getId()){
                                     $user_id = '';
                                     /** @var ActionResult $result_bet */
                                     $this->playService->bet($play_config, $euromillions_draw);
                                     $this->sendEmailAutoPlay($play_config,$emailTemplate);
                                 }
                             } catch( InvalidBalanceException $e ) {
-                                if( empty($user_id) || $user_id != $play_config->getUser()->getId()->id() ) {
+                                if( empty($user_id) || $user_id != $play_config->getUser()->getId() ) {
                                     $user = $this->userService->getUser($play_config->getUser()->getId());
-                                    $user_id = $play_config->getUser()->getId()->id();
+                                    $user_id = $play_config->getUser()->getId();
                                     $user_notifications_result = $this->userService->getActiveNotificationsByUserAndType($user, NotificationValue::NOTIFICATION_NOT_ENOUGH_FUNDS);
                                     if( $user_notifications_result->success() ) {
                                         /** @var UserNotifications $user_notification */
@@ -124,10 +123,10 @@ class BetTask extends TaskBase
                 $play_config_list = $result_play_configs->getValues();
                 /** @var PlayConfig[] $play_config */
                 foreach($play_config_list as $play_config) {
-                    if(empty($user_id) || $user_id != $play_config->getUser()->getId()->id()){
+                    if(empty($user_id) || $user_id != $play_config->getUser()->getId()){
                         $user = $this->userService->getUser($play_config->getUser()->getId());
                         $this->emailService->sendTransactionalEmail($user,$emailTemplate);
-                        $user_id = $user->getId()->id();
+                        $user_id = $user->getId();
                     }
                 }
             }

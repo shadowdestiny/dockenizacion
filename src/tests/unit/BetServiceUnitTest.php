@@ -10,6 +10,7 @@ use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
+use EuroMillions\web\entities\User;
 use EuroMillions\web\services\BetService;
 use EuroMillions\web\vo\EuroMillionsLine;
 use Money\Currency;
@@ -19,7 +20,6 @@ use EuroMillions\tests\base\EuroMillionsResultRelatedTest;
 use EuroMillions\tests\base\LotteryValidationCastilloRelatedTest;
 use EuroMillions\tests\base\UnitTestBase;
 use EuroMillions\tests\helpers\mothers\UserMother;
-use User;
 
 class BetServiceUnitTest extends UnitTestBase
 {
@@ -175,7 +175,7 @@ class BetServiceUnitTest extends UnitTestBase
     {
         $user = UserMother::aUserWithNoMoney()->build();
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
-        $this->userRepository_double->find($user->getId()->id())->willReturn($user);
+        $this->userRepository_double->find($user->getId())->willReturn($user);
         $this->setExpectedException('EuroMillions\web\exceptions\InvalidBalanceException');
         $sut = $this->getSut();
         $sut->validation($playConfig,$euroMillionsDraw,new \DateTime());

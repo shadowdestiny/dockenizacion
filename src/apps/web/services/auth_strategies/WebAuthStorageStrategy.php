@@ -1,10 +1,10 @@
 <?php
 namespace EuroMillions\web\services\auth_strategies;
 
+use EuroMillions\web\components\UserId;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IAuthStorageStrategy;
 use EuroMillions\shared\interfaces\ICookieManager;
-use EuroMillions\web\vo\UserId;
 use Phalcon\Http\Cookie;
 use Phalcon\Session\AdapterInterface;
 
@@ -26,7 +26,7 @@ class WebAuthStorageStrategy implements IAuthStorageStrategy
     }
 
     /**
-     * @return UserId
+     * @return string
      */
     public function getCurrentUserId()
     {
@@ -43,19 +43,19 @@ class WebAuthStorageStrategy implements IAuthStorageStrategy
             if (!$id) {
                 $user_id = UserId::create();
             } else {
-                $user_id = new UserId($id);
+                $user_id = $id;
             }
             $this->setCurrentUserId($user_id);
         } else {
-            $user_id = new UserId($id);
+            $user_id = $id;
         }
         return $user_id;
     }
 
-    public function setCurrentUserId(UserId $userId)
+    public function setCurrentUserId($userId)
     {
-        $this->session->set(self::CURRENT_USER_VAR, $userId->id());
-        $this->cookieManager->set(self::CURRENT_USER_VAR, $userId->id(), time()+self::GUEST_USER_EXPIRATION);
+        $this->session->set(self::CURRENT_USER_VAR, (string)$userId);
+        $this->cookieManager->set(self::CURRENT_USER_VAR, (string)$userId, time()+self::GUEST_USER_EXPIRATION);
     }
 
     public function removeCurrentUser()
@@ -68,7 +68,7 @@ class WebAuthStorageStrategy implements IAuthStorageStrategy
 
     public function storeRemember(User $user)
     {
-        $this->cookieManager->set(self::REMEMBER_USERID_VAR, $user->getId()->id(), time()+self::REMEMBER_ME_EXPIRATION);
+        $this->cookieManager->set(self::REMEMBER_USERID_VAR, $user->getId(), time()+self::REMEMBER_ME_EXPIRATION);
         $this->cookieManager->set(self::REMEMBER_TOKEN_VAR, $user->getRememberToken()->toNative(), time()+self::REMEMBER_ME_EXPIRATION);
     }
 

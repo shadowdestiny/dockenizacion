@@ -12,7 +12,6 @@ use EuroMillions\web\entities\User;
 use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Password;
-use EuroMillions\web\vo\UserId;
 use Money\Currency;
 use Money\Money;
 use EuroMillions\tests\base\UnitTestBase;
@@ -85,7 +84,7 @@ class WinEmailTemplateUnitTest extends UnitTestBase
         $user = new User();
         $user->initialize(
             [
-                'id'               => new UserId('9098299B-14AC-4124-8DB0-19571EDABE55'),
+                'id'               => '9098299B-14AC-4124-8DB0-19571EDABE55',
                 'name'             => 'test',
                 'surname'          => 'test01',
                 'email'            => new Email('raul.mesa@panamedia.net'),
