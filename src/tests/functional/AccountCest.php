@@ -24,7 +24,10 @@ class AccountCest
     {
     }
 
-    // tests
+    /**
+     * @param FunctionalTester $I
+     * @incomplete Fix registration first
+     */
     public function seeUserName(FunctionalTester $I)
     {
         $I->canSee('Hello. '.$this->userName);
