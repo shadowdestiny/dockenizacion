@@ -13,6 +13,9 @@ class GuestUser extends EntityBase implements IEntity,IUser
         $this->id = $id;
     }
 
+    /**
+     * @return string
+     */
     public function getId()
     {
         return $this->id;

@@ -10,7 +10,7 @@ use EuroMillions\web\vo\dto\base\DTOBase;
 
 class UserDTO extends DTOBase implements IDto
 {
-
+/** EMTD @rmrbest Why there are 2 UserDTO objects? (web and shared). Please, leave only one. */
     /** @var User $user */
     private $user;
 

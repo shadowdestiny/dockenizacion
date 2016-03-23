@@ -81,6 +81,7 @@ class UserService
      */
     public function getUser($userId)
     {
+        //EMTD Si no hay user, deberíamos lanzar LogicException. Siempre debería haber user cuando llamamos a esta función.
         return $this->userRepository->find($userId);
     }
 

@@ -14,11 +14,18 @@ interface IPlayStorageStrategy
 
     /**
      * @param PlayFormToStorage $data
-     * @param $userId
+     * @param string $userId
      * @return ActionResult
      */
     public function saveAll(PlayFormToStorage $data, $userId);
+
+    /**
+     * @param string $key
+     * @return ActionResult
+     */
     public function findByKey($key);
+
+    /** @return void */
     public function delete($key = '');
 
 }

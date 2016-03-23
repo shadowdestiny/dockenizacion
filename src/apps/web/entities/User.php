@@ -144,6 +144,9 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
         $this->country = $country;
     }
 
+    /**
+     * @return string
+     */
     public function getId()
     {
         return $this->id;

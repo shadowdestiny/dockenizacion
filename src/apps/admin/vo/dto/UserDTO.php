@@ -114,6 +114,9 @@ class UserDTO extends DTOBase implements IDto
         $this->zip = $zip;
     }
 
+    /**
+     * @return string
+     */
     public function getId()
     {
         return $this->id;
