@@ -32,7 +32,6 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     protected $validated;
     /** @var  ValidationToken */
     protected $validationToken;
-    private $paymentMethod;
     private $playConfig;
     protected $street;
     protected $zip;
@@ -58,24 +57,6 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     public function setWinningAbove($winning_above)
     {
         $this->winning_above = $winning_above;
-    }
-
-
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getPaymentMethod()
-    {
-        return $this->paymentMethod;
-    }
-
-    /**
-     * @param ArrayCollection $paymentMethod
-     */
-    public function setPaymentMethod($paymentMethod)
-    {
-        $this->paymentMethod = $paymentMethod;
     }
 
     /**
@@ -111,7 +92,6 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     }
 
     public function __construct(){
-        $this->paymentMethod = new ArrayCollection();
         $this->playConfig = new ArrayCollection();
         $this->userNotification = new ArrayCollection();
     }

@@ -75,7 +75,7 @@ class UserRepository extends RepositoryBase
             'user_currency'    => new Currency('EUR')
         ]);
         $this->add($user);
-        $this->getEntityManager()->flush();
+        $this->getEntityManager()->flush($user);
         return $user;
     }
 
