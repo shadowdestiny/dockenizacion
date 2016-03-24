@@ -82,7 +82,7 @@ class BetTask extends TaskBase
                 $result_bet = null;
                 foreach($play_config_list as $play_config) {
                     if( $play_config->getDrawDays()->compareTo($dateUtil->getDayOfWeek($euromillions_draw->getDrawDate())) ) {
-                        if( empty( $play_config->getUser()->getThreshold() ) ){
+                        if( empty( $play_config->getThreshold() ) ){ //EMTD @rmrbest GetThreshold en el usuario no tenía sentido porque no está definido en la entidad User, sino en PlayConfig. ¿¿Esto había funcionado alguna vez??
                             try{
                                 if(empty($user_id)){
                                     /** @var ActionResult $result_bet */
@@ -121,11 +121,11 @@ class BetTask extends TaskBase
             } catch( \Exception $e ) {
                 $user_id = '';
                 $play_config_list = $result_play_configs->getValues();
-                /** @var PlayConfig[] $play_config */
+                /** @var PlayConfig[] $play_config_list */
                 foreach($play_config_list as $play_config) {
                     if(empty($user_id) || $user_id != $play_config->getUser()->getId()){
                         $user = $this->userService->getUser($play_config->getUser()->getId());
-                        $this->emailService->sendTransactionalEmail($user,$emailTemplate);
+                        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
                         $user_id = $user->getId();
                     }
                 }

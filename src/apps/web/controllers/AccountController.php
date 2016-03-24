@@ -44,8 +44,8 @@ class AccountController extends PublicSiteControllerBase
         $errors = [];
         $form_errors = [];
         $msg = null;
-        $userId = $this->authService->getCurrentUser();
-        $myaccount_form = $this->getMyACcountForm($userId);
+        $user = $this->authService->getCurrentUser();
+        $myaccount_form = $this->getMyACcountForm($user->getId());
         $myaccount_passwordchange_form = new MyAccountChangePasswordForm();
         if($this->request->isPost()) {
             if ($myaccount_form->isValid($this->request->getPost()) == false) {
@@ -401,6 +401,10 @@ class AccountController extends PublicSiteControllerBase
 
     }
 
+    /**
+     * @param string $userId
+     * @return MyAccountForm
+     */
     private function getMyACcountForm($userId)
     {
         $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();

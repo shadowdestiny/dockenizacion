@@ -2,12 +2,13 @@
 namespace EuroMillions\shared\vo;
 
 use EuroMillions\shared\exceptions\NotEnoughFunds;
+use EuroMillions\shared\interfaces\IArraySerializable;
 use Money\Money;
 use Money\Currency;
 use Money\InvalidArgumentException;
 use Money\UnknownCurrencyException;
 
-class Wallet
+class Wallet implements IArraySerializable
 {
     private $uploaded;
     private $winnings;
@@ -109,5 +110,16 @@ class Wallet
     private static function getEuros($amount)
     {
         return new Money($amount, new Currency('EUR'));
+    }
+
+    /** @return array */
+    public function toArray()
+    {
+        return [
+            'wallet_uploaded_amount' => $this->getUploaded()->getAmount(),
+            'wallet_uploaded_currency_name' => $this->getUploaded()->getCurrency()->getName(),
+            'wallet_winnings_amount' => $this->getUploaded()->getAmount(),
+            'wallet_winnings_currency_name' => $this->getUploaded()->getCurrency()->getName(),
+        ];
     }
 }

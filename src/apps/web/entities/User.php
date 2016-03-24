@@ -295,22 +295,6 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     }
 
     /**
-     * @return Money
-     */
-    public function getThreshold()
-    {
-        return $this->threshold;
-    }
-
-    /**
-     * @param mixed $threshold
-     */
-    public function setThreshold($threshold)
-    {
-        $this->threshold = $threshold;
-    }
-
-    /**
      * @return MoneyCurrency
      * @throws UnknownCurrencyException
      */
@@ -369,13 +353,6 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     public function toJsonData()
     {
         return json_encode($this);
-    }
-
-    public function toArray()
-    {
-        return [
-            "id" => $this->getId()
-        ];
     }
 
     /**

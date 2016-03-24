@@ -76,7 +76,7 @@ class UserService
     }
 
     /**
-     * @param $userId
+     * @param string $userId
      * @return User
      */
     public function getUser($userId)

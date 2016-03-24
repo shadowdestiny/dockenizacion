@@ -23,7 +23,7 @@
     "beberlei/assert": "^2.4",
     "recaptcha/php5": "^2.0",
     "textmagic/smsphp": "dev-master",
-    "ramsey/uuid-doctrine": "dev-master"
+    "ramsey/uuid-doctrine": "^1.2"
   },
   "autoload" : {
     "psr-4": {

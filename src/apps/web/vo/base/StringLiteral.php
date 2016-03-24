@@ -1,10 +1,13 @@
 <?php
 namespace EuroMillions\web\vo\base;
 
+use EuroMillions\shared\helpers\StringHelper;
+use EuroMillions\shared\interfaces\IArraySerializable;
 use EuroMillions\web\exceptions\InvalidNativeArgumentException;
 use EuroMillions\web\interfaces\IValueObject;
+use ReflectionClass;
 
-class StringLiteral extends ValueObject
+class StringLiteral extends ValueObject implements IArraySerializable
 {
     /** @var string */
     protected $value;
@@ -48,5 +51,12 @@ class StringLiteral extends ValueObject
     public function isEmpty()
     {
         return $this->toNative() === '';
+    }
+
+    /** @return array */
+    public function toArray()
+    {
+        $key = StringHelper::fromCamelCaseToUnderscore((new ReflectionClass($this))->getShortName());
+        return [$key => $this->value];
     }
 }

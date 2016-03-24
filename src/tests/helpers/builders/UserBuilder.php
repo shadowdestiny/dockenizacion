@@ -9,7 +9,6 @@ use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\ValidationToken;
 use Money\Currency;
-use Money\Money;
 
 class UserBuilder
 {
@@ -25,22 +24,16 @@ class UserBuilder
     private $surname = self::DEFAULT_SURNAME;
     private $email;
     private $password;
-//    private $rememberToken;
-//    private $balance;
     private $user_currency;
     private $country = self::DEFAULT_COUNTRY;
     private $wallet;
     private $validated = self::DEFAULT_VALIDATED;
     private $validationToken;
- //   private $paymentMethod;
     private $street;
     private $zip;
     private $city;
     private $phone_number;
     private $jackpot_reminder;
-    private $threshold;
-  //  private $playConfig;
- //   private $userNotification;
 
 
     public static function aUser()
@@ -90,16 +83,6 @@ class UserBuilder
     public function withName($name)
     {
         $this->name = $name;
-        return $this;
-    }
-
-    /**
-     * @param Money $threshold
-     * @return UserBuilder
-     */
-    public function withThreshold(Money $threshold)
-    {
-        $this->threshold = $threshold;
         return $this;
     }
 

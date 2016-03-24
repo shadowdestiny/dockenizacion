@@ -13,10 +13,9 @@ class AccountCest
     {
         $user = UserMother::anAlreadyRegisteredUser()->withName(self::USER_NAME)->build();
         $this->userName = $user->getName();
-        $user_id1 = $user->getId();
-        $user_id = $user_id1;
+        $user_id = $user->getId();
+        $I->haveInDatabase('users', $user->toArray());
         $I->haveInSession('EM_current_user', $user_id);
-        $I->persistEntity($user);
         $I->amOnPage('/account');
     }
 
@@ -26,7 +25,6 @@ class AccountCest
 
     /**
      * @param FunctionalTester $I
-     * @incomplete Fix registration first
      */
     public function seeUserName(FunctionalTester $I)
     {
