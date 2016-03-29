@@ -51,7 +51,7 @@ class EuroMillionsDrawBreakDown
             throw new \InvalidArgumentException("");
         }
 
-        if(count($breakdown[0]) < self::NUMBER_OF_CATEGORIES) {
+        if(count($breakdown) < self::NUMBER_OF_CATEGORIES) {
             throw new \LengthException('Incorrect categories length from collection');
         }
         $this->breakdown = $breakdown;

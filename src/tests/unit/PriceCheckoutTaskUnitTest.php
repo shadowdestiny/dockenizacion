@@ -174,7 +174,6 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
     protected function getBreakDownDataDraw()
     {
         return [
-            [
                 'category_one' => ['5 + 2', '000', '0'],
                 'category_two' => ['5 + 1', '2939257', '9'],
                 'category_three' => ['5 + 0', '8817797', '10'],
@@ -188,7 +187,6 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
                 'category_eleven' => ['1 + 2', '998', '358.960'],
                 'category_twelve' => ['2 + 1', '852', '1.138.617'],
                 'category_thirteen' => ['2 + 0', '415', '2.390.942'],
-            ]
         ];
     }
 

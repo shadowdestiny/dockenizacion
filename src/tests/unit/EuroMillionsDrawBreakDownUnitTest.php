@@ -46,7 +46,7 @@ class EuroMillionsDrawBreakDownUnitTest extends UnitTestBase
     public function test___construct_passBreakDownArrayWithCountLessThanThirteen_throwLengthException()
     {
         $this->setExpectedException('\LengthException', 'Incorrect categories length from collection');
-        $result = $this->getBreakDownResult()[0];
+        $result = $this->getBreakDownResult();
         unset($result['category_one']);
         $sut = $this->getSut([0 => $result]);
     }
@@ -97,7 +97,7 @@ class EuroMillionsDrawBreakDownUnitTest extends UnitTestBase
     private function getBreakDownResult()
     {
         return [
-            [
+
                 'category_one' => ['5 + 2', new Money(str_replace('.','','0.00')*100, new Currency('EUR')), '0'],
                 'category_two' => ['5 + 1', new Money(str_replace('.','','293.926.57')*100, new Currency('EUR')), '9'],
                 'category_three' => ['5 + 0', new Money(str_replace('.','','88.177.97')*100, new Currency('EUR')), '10'],
@@ -111,7 +111,7 @@ class EuroMillionsDrawBreakDownUnitTest extends UnitTestBase
                 'category_eleven' => ['1 + 2', new Money(str_replace('.','','9.98')*100, new Currency('EUR')), '358.960'],
                 'category_twelve' => ['2 + 1', new Money(str_replace('.','','8.52')*100, new Currency('EUR')), '1.138.617'],
                 'category_thirteen' => ['2 + 0', new Money(str_replace('.','','4.15')*100, new Currency('EUR')), '2.390.942'],
-            ]
+
         ];
     }
 
