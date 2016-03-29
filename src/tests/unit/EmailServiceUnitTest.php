@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\tests\unit;
 
+use EuroMillions\shared\components\PhalconUrlWrapper;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\vo\Email;
@@ -32,6 +33,18 @@ class EmailServiceUnitTest extends UnitTestBase
         $this->authService_double->getValidationUrl($user)->willReturn($url);
         $sut = $this->getSut();
         $sut->sendRegistrationMail($user, $url);
+    }
+
+    /**
+     * method sendWelcomeEmail
+     * when called
+     * should sendProperEmailTemplate
+     */
+    public function test_sendWelcomeEmail_called_sendProperEmailTemplate()
+    {
+        list($user, $url) = $this->exerciseEmail();
+        $sut = $this->getSut();
+        $sut->sendWelcomeEmail($user,new PhalconUrlWrapper());
     }
 
     /**

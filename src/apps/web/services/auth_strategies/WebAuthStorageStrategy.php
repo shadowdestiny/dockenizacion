@@ -31,7 +31,6 @@ class WebAuthStorageStrategy implements IAuthStorageStrategy
     public function getCurrentUserId()
     {
         $id = $this->session->get(self::CURRENT_USER_VAR);
-
         if(!$id) {
             /** @var Cookie $cookie */
             $cookie = $this->cookieManager->get(self::CURRENT_USER_VAR);

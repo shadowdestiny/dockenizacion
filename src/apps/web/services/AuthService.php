@@ -5,6 +5,7 @@ use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\interfaces\IUrlManager;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\Md5EmailValidationToken;
+use EuroMillions\web\components\UserId;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\ResetPasswordEmailTemplate;
 use EuroMillions\web\emailTemplates\WelcomeEmailTemplate;
@@ -137,45 +138,25 @@ class AuthService
 
     public function registerFromCheckout(array $credentials, $userId)
     {
-        //EMTD @rmrbest Hay que refactorizar esta también. Hazlo junto conmigo como ejercicio.
         if (!$this->getCurrentUser() instanceof GuestUser) {
             return new ActionResult(false, 'Error getting user');
         }
         if ($this->userRepository->getByEmail($credentials['email'])) {
-            return new ActionResult(false, 'Email already registered. Try to use a different email.');
+            return new ActionResult(false, 'Email already registered. Try to use a different email. Or have you <a href="user-access/forgotPassword">forgot your password?</a>');
         }
         try {
-            $user = new User();
-            $email = new Email($credentials['email']);
-            $user->initialize([
-                'name'             => $credentials['name'],
-                'surname'          => $credentials['surname'],
-                'email'            => $email,
-                'password'         => new Password($credentials['password'], $this->passwordHasher),
-                'country'          => $credentials['country'],
-                'wallet'           => new Wallet(),
-                'validated'        => 0,
-                'validation_token' => $this->getEmailValidationToken($email),
-                'user_currency'    => new Currency('EUR')
-            ]);
-            $user->setId($userId);
-            $this->userRepository->addWithId($user);
-            $this->entityManager->flush();
+            $user = $this->userRepository->registerFromCheckout($credentials, $userId, $this->passwordHasher, new Md5EmailValidationToken());
             if (null !== $user->getId()) {
                 $this->storageStrategy->setCurrentUserId($userId);
-                $this->logService->logRegistration($user);
-                $this->userService->initUserNotifications($user->getId());
-                $emailTemplate = new EmailTemplate();
-                $emailTemplate = new WelcomeEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
-                $emailTemplate->setUser($user);
-                $this->emailService->sendTransactionalEmail($user, $emailTemplate);
-                return new ActionResult(true, $user);
             } else {
                 return new ActionResult(false, 'Error getting an user');
             }
         } catch (\Exception $e) {
             return new ActionResult(false, $e->getMessage());
         }
+        $this->emailService->sendWelcomeEmail($user, $this->urlManager);
+        $this->userService->initUserNotifications($user->getId());
+        return new ActionResult(true, $user);
     }
 
     private function getEmailValidationToken(Email $email, IEmailValidationToken $emailValidationTokenGenerator = null)

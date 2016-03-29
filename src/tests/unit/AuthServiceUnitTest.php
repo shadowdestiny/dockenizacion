@@ -408,48 +408,36 @@ class AuthServiceUnitTest extends UnitTestBase
      */
     public function test_registerFromCheckout_calledWithProperData_storeNewUserAndReturnOk()
     {
-        $this->markTestIncomplete('Para cuando realizamos el refactoring');
-        $this->expectFlushInEntityManager();
+        $credentials = $this->prepareGoodRegistration();
+        $registered_user = UserMother::aJustRegisteredUser();
         $user_id = UserId::create();
-        $user = UserMother::aJustRegisteredUser($this->hasher_double->reveal());
-        $user_build_entity = $user->withId($user_id)->build();
-        $expected = new ActionResult(true,$user_build_entity);
-        $credentials = $this->getRegisterCredentials();
-        $this->storageStrategy_double->getCurrentUserId()->willReturn($user_id);
-        $this->userRepository_double->find($user_id)->willReturn(null);
-        $this->userRepository_double->getByEmail($credentials['email'])->willReturn(null);
-        $this->userRepository_double->addWithId($user_build_entity)->shouldBeCalled();
+        $registered_user->withId($user_id->toString());
+        $this->storageStrategy_double->getCurrentUserId()->willReturn(Argument::type('EuroMillions\web\entities\GuestUser'));
+        $this->userRepository_double->find(Argument::any())->willReturn(false);
+        $this->userRepository_double->registerFromCheckout($credentials, $user_id, $this->hasher_double->reveal(), Argument::type('EuroMillions\web\interfaces\IEmailValidationToken'))->willReturn($registered_user->build());
         $this->storageStrategy_double->setCurrentUserId($user_id)->shouldBeCalled();
         $sut = $this->getSut();
         $actual = $sut->registerFromCheckout($credentials,$user_id);
+        $expected = new ActionResult(true,$registered_user->build());
         $this->assertEquals($expected,$actual);
     }
 
     /**
      * method registerFromCheckout
-     * when calledWithProperData
-     * should returnUserEntityWithUserIdPassedAsParameter
+     * when calledWithInvalidUser
+     * should returnActionResultFalse
      */
-    public function test_registerFromCheckout_calledWithProperData_returnUserEntityWithUserIdPassedAsParameter()
+    public function test_registerFromCheckout_calledWithInvalidUser_returnActionResultFalse()
     {
-        $this->markTestIncomplete('Para cuando realizamos el refactoring');
-        $this->expectFlushInEntityManager();
+        $credentials = $this->prepareGoodRegistration();
         $user_id = UserId::create();
-        $user = UserMother::aJustRegisteredUser($this->hasher_double->reveal());
-        $user_build_entity = $user->build();
-        $expected = $user_id;
-        $credentials = $this->getRegisterCredentials();
-        $user_build_entity->setId($user_id);
-        $this->storageStrategy_double->getCurrentUserId()->willReturn($user_id);
-        $this->userRepository_double->find($user_id)->willReturn(null);
-        $this->userRepository_double->getByEmail($credentials['email'])->willReturn(null);
-        $this->userRepository_double->addWithId($user_build_entity)->shouldBeCalled();
-        $this->storageStrategy_double->setCurrentUserId($user_id)->shouldBeCalled();
+        $this->storageStrategy_double->getCurrentUserId()->willReturn(Argument::type('EuroMillions\web\entities\User'));
+        $this->userRepository_double->find(Argument::any())->willReturn(UserMother::aJustRegisteredUser()->build());
         $sut = $this->getSut();
         $actual = $sut->registerFromCheckout($credentials,$user_id);
-        $this->assertEquals($expected,$actual->getValues()->getId());
+        $expected = new ActionResult(false,'Error getting user');
+        $this->assertEquals($expected,$actual);
     }
-
 
     /**
      * method validateEmailToken
