@@ -26,13 +26,17 @@ class DateTimeUtil
         return (int) date('w',$date_time->getTimestamp());
     }
 
-    public function checkOpenTicket($timeToRestry = null)
+    public function checkOpenTicket($timeToRetry = null)
     {
-        if(!$timeToRestry) $timeToRestry = strtotime('now');
+        if (!$timeToRetry) {
+            $date_today = new \DateTime();
+        } else {
+            $date_today = new \DateTime();
+            $date_today->setTimestamp($timeToRetry);
+        }
         $time_config = $this->di->get('globalConfig')['retry_validation_time'];
-        $date_today = new \DateTime();
         $limit_time = strtotime($date_today->format('Y/m/d '. $time_config['time']));
-        return ($timeToRestry < $limit_time);
+        return ($timeToRetry < $limit_time);
     }
 
     public function getNumWeeksBetweenDates( \DateTime $date_ini, \DateTime $date_end )
@@ -46,10 +50,8 @@ class DateTimeUtil
         $now = new \DateTime();
         $one_day = date( "w", $timeCloseDraw->getTimestamp());
         $two_day = date( "w", $now->getTimestamp());
-
         if( $one_day == $two_day ) {
             $barrier_time = $timeCloseDraw->getTimestamp() - 1800;
-
             //$barrier_time = strtotime($time_close_draw->format('Y-m-d H:i:s') . ' -30 minutes' );
             return ($barrier_time > $now->getTimestamp());
         }

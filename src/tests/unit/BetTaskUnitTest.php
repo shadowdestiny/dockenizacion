@@ -213,7 +213,7 @@ class BetTaskUnitTest extends UnitTestBase
      */
     public function test_createBetAction_calledPassedTimeLimit_sendEmailToInformAboutProblemsValidation()
     {
-        $time_to_retry = 1745880600;
+        $time_to_retry = 1458686313;
         $euroMillionsDraw = $this->getEuroMillionsDraw('2015-10-09');
         $this->lotteryService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true,$euroMillionsDraw));
         $play_config_list = $this->getPlayConfigList($this->getUser());
