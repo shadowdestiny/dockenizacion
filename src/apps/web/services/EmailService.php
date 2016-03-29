@@ -24,8 +24,7 @@ class EmailService
 
     public function sendWelcomeEmail(User $user, IUrlManager $urlManager)
     {
-        // EMTD @rmrbest falta test. Hazlo conmigo como ejercicio. La url ya no se estaba utilizando, pero la he conservado. Veremos si es necesaria.
-        $url =  new Url($urlManager->get('/userAccess/passwordReset/' . $user->getValidationToken()));
+        //$url =  new Url($urlManager->get('/userAccess/passwordReset/' . $user->getValidationToken()));
         $emailTemplate = new EmailTemplate();
         $emailTemplate = new WelcomeEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
         $emailTemplate->setUser($user);

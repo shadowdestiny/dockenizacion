@@ -3,9 +3,11 @@ namespace EuroMillions\tests\integration;
 
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\tests\helpers\builders\UserBuilder;
+use EuroMillions\tests\helpers\mothers\UserMother;
 use EuroMillions\web\components\Md5EmailValidationToken;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\web\components\PhpassWrapper;
+use EuroMillions\web\components\UserId;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\vo\Email;
@@ -164,5 +166,33 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $this->assertEquals(UserBuilder::DEFAULT_COUNTRY, $actual->getCountry());
         $this->assertTrue(Uuid::isValid($actual->getId()));
     }
+
+    /**
+     * method registerFromCheckout
+     * when calledWithProperCredentials
+     * should addUserToDb
+     */
+    public function test_registerFromCheckout_calledWithProperCredentials_addUserToDb()
+    {
+        $userId = UserId::create();
+        $credentials = [
+            'email'    => UserBuilder::DEFAULT_EMAIL,
+            'name'     => UserBuilder::DEFAULT_NAME,
+            'surname'  => UserBuilder::DEFAULT_SURNAME,
+            'password' => UserBuilder::DEFAULT_PASSWORD,
+            'country'  => UserBuilder::DEFAULT_COUNTRY,
+        ];
+        $user = $this->sut->registerFromCheckout($credentials, $userId , new NullPasswordHasher(), new Md5EmailValidationToken());
+        $this->entityManager->detach($user);
+        $actual = $this->sut->getByEmail(UserBuilder::DEFAULT_EMAIL);
+        $this->assertEquals(UserBuilder::DEFAULT_NAME, $actual->getName());
+        $this->assertEquals(UserBuilder::DEFAULT_SURNAME, $actual->getSurname());
+        $this->assertEquals(UserBuilder::DEFAULT_PASSWORD, $actual->getPassword());
+        $this->assertEquals(UserBuilder::DEFAULT_COUNTRY, $actual->getCountry());
+        $this->assertEquals($userId, $actual->getId());
+        $this->assertTrue(Uuid::isValid($userId));
+    }
+
+
 
 }

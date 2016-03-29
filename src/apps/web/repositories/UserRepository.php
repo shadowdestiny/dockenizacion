@@ -2,6 +2,7 @@
 namespace EuroMillions\web\repositories;
 
 use EuroMillions\shared\vo\Wallet;
+use EuroMillions\web\components\UserId;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IEmailValidationToken;
 use EuroMillions\web\interfaces\IPasswordHasher;
@@ -9,6 +10,7 @@ use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\ValidationToken;
 use Money\Currency;
+use Ramsey\Uuid\Uuid;
 
 class UserRepository extends RepositoryBase
 {
@@ -74,6 +76,29 @@ class UserRepository extends RepositoryBase
             'validation_token' => new ValidationToken($email, $validationTokenGenerator),
             'user_currency'    => new Currency('EUR')
         ]);
+        $this->add($user);
+        $this->getEntityManager()->flush($user);
+        return $user;
+    }
+
+    public function registerFromCheckout(array $credentials, $userId , IPasswordHasher $passwordHasher, IEmailValidationToken $validationTokenGenerator)
+    {
+        $user = new User();
+        $email = new Email($credentials['email']);
+        $user->initialize([
+            'id'               => $userId,
+            'name'             => $credentials['name'],
+            'surname'          => $credentials['surname'],
+            'email'            => $email,
+            'password'         => new Password($credentials['password'], $passwordHasher),
+            'country'          => $credentials['country'],
+            'wallet'           => new Wallet(),
+            'validated'        => 0,
+            'validation_token' => new ValidationToken($email, $validationTokenGenerator),
+            'user_currency'    => new Currency('EUR')
+        ]);
+
+        $this->addWithId($user);
         $this->add($user);
         $this->getEntityManager()->flush($user);
         return $user;
