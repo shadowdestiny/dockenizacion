@@ -18,7 +18,7 @@ class JackpotTaskCest
     public function jackpotIsUpdatedTest(FunctionalTester $I)
     {
         $I->wantTo('Update the Jackpot for next draw');
-        $I->runShellCommand('php /var/www/apps/cli-test.php jackpot update');
+        $I->runShellCommand('php '.__DIR__.'/../../apps/cli-test.php jackpot update');
         $I->expect('There\'s one record in the draws table');
         $I->canSeeNumRecords(1, 'euromillions_draws');
         $I->expect('The Jackpot amount is greater than the minimum amount for the lottery');
