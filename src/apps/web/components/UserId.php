@@ -9,4 +9,9 @@ class UserId
     {
         return Uuid::uuid4();
     }
+
+    public static function isValid($id)
+    {
+        return Uuid::isValid($id);
+    }
 }
