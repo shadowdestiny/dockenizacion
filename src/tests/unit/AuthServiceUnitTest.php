@@ -431,8 +431,8 @@ class AuthServiceUnitTest extends UnitTestBase
     {
         $credentials = $this->prepareGoodRegistration();
         $user_id = UserId::create();
-        $this->storageStrategy_double->getCurrentUserId()->willReturn(Argument::type('EuroMillions\web\entities\User'));
-        $this->userRepository_double->find(Argument::any())->willReturn(UserMother::aJustRegisteredUser()->build());
+        $this->storageStrategy_double->getCurrentUserId()->willReturn($user_id);
+        $this->userRepository_double->find($user_id)->willReturn(UserMother::anAlreadyRegisteredUser()->build());
         $sut = $this->getSut();
         $actual = $sut->registerFromCheckout($credentials,$user_id);
         $expected = new ActionResult(false,'Error getting user');

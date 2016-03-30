@@ -140,7 +140,8 @@ class AuthService
 
     public function registerFromCheckout(array $credentials, $userId)
     {
-        if (!$this->getCurrentUser() instanceof GuestUser) {
+        $current_user = $this->getCurrentUser();
+        if (!is_a($current_user, 'EuroMillions\web\entities\GuestUser', false)) {
             return new ActionResult(false, 'Error getting user');
         }
         if ($this->userRepository->getByEmail($credentials['email'])) {
