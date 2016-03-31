@@ -49,7 +49,7 @@ return [
             'password' => '$2a$08$faBV.38OiCvVoJ7lIzj5.euwlPw2UCdKEuOMj2W1i90ljN/I2L9fG', //passworD01
             'email' => 'algarrobo3@currojimenez.com',
             'remember_token' => 'skldjskl',
-            'wallet_uploaded_amount' => 3000,
+            'wallet_uploaded_amount' => 0,
             'wallet_uploaded_currency_name' => 'EUR',
             'wallet_winnings_amount' => 0,
             'wallet_winnings_currency_name' => 'EUR',

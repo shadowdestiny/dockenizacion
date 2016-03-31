@@ -6,7 +6,7 @@
     https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <embeddable name="EuroMillions\web\vo\DrawDays">
-        <field name="draw_days" type="integer" nullable="true" column="config" />
+        <field name="days" type="integer" nullable="true" column="config" />
     </embeddable>
 
 </doctrine-mapping>

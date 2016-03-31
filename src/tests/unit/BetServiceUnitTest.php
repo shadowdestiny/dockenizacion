@@ -80,7 +80,7 @@ class BetServiceUnitTest extends UnitTestBase
         $this->userRepository_double->add(Argument::any())->willReturn(true);
         $this->iDontCareAboutFlush();
         $sut = $this->getSut();
-        $actual = $sut->validation($playConfig,$euroMillionsDraw, new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
+        $actual = $sut->validation($playConfig,$euroMillionsDraw,new \DateTime(), new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
         $this->assertEquals($expected,$actual);
     }
 
@@ -103,7 +103,7 @@ class BetServiceUnitTest extends UnitTestBase
         $this->userRepository_double->add(Argument::any())->willReturn(true);
         $this->iDontCareAboutFlush();
         $sut = $this->getSut();
-        $actual = $sut->validation($playConfig,$euroMillionsDraw, new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
+        $actual = $sut->validation($playConfig,$euroMillionsDraw, new \DateTime(), new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
         $this->assertEquals($expected,$actual);
     }
 
@@ -122,11 +122,10 @@ class BetServiceUnitTest extends UnitTestBase
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $bet = new Bet($playConfig,$euroMillionsDraw);
         $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
-        $this->lotteryService_double->getNextDateDrawByLottery('EuroMillions',$today)->willReturn(new \DateTime('2015-09-18 00:00:00'));
         $this->betRepository_double->getBetsByDrawDate(Argument::any())->willReturn($bet);
         $this->betRepository_double->add(Argument::any())->shouldNotBeCalled();
         $sut = $this->getSut();
-        $actual = $sut->validation($playConfig,$euroMillionsDraw, $today);
+        $actual = $sut->validation($playConfig,$euroMillionsDraw, new \DateTime('2015-09-18 00:00:00'), $today);
         $this->assertEquals($expected,$actual);
     }
 
@@ -146,7 +145,7 @@ class BetServiceUnitTest extends UnitTestBase
         $this->logValidationApi_double->add(Argument::any())->shouldBeCalled();
         $this->iDontCareAboutFlush();
         $sut = $this->getSut();
-        $actual = $sut->validation($playConfig,$euroMillionsDraw, new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
+        $actual = $sut->validation($playConfig,$euroMillionsDraw, new \DateTime(), new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
         $this->assertEquals($expected,$actual);
     }
 
@@ -161,7 +160,7 @@ class BetServiceUnitTest extends UnitTestBase
         $expected = new ActionResult(false);
         list($playConfig, $euroMillionsDraw) = $this->exerciseValidationBet($expected);
         $sut = $this->getSut();
-        $actual = $sut->validation($playConfig,$euroMillionsDraw, new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
+        $actual = $sut->validation($playConfig,$euroMillionsDraw, new \DateTime(), new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
         $this->assertEquals($expected,$actual);
 
     }
@@ -192,7 +191,6 @@ class BetServiceUnitTest extends UnitTestBase
         $expected = new ActionResult(false);
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
-        $this->lotteryService_double->getNextDateDrawByLottery('EuroMillions', new \DateTime('2015-09-16 00:00:00'))->willReturn(new \DateTime());
         $this->betRepository_double->getBetsByDrawDate(new \DateTime())->willReturn(null);
         $this->callValidationApi(true);
         $this->betRepository_double->add(Argument::any())->willReturn(true);
@@ -200,7 +198,7 @@ class BetServiceUnitTest extends UnitTestBase
         $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush()->shouldNotBeCalled();
         $sut = $this->getSut();
-        $actual = $sut->validation($playConfig,$euroMillionsDraw, new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
+        $actual = $sut->validation($playConfig,$euroMillionsDraw, new \DateTime(), new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
         $this->assertEquals($expected,$actual);
     }
 

@@ -19,10 +19,6 @@ class BetService
 {
     private $entityManager;
 
-    /** @var LotteryService */
-    private $lotteryService;
-
-
     private $userRepository;
 
     /** @var  BetRepository */
@@ -33,10 +29,9 @@ class BetService
     private $playConfigRepository;
 
 
-    public function __construct(EntityManager $entityManager, LotteryService $lotteryService)
+    public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->lotteryService = $lotteryService;
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
         $this->betRepository = $entityManager->getRepository('EuroMillions\web\entities\Bet');
         $this->logValidationRepository = $entityManager->getRepository('EuroMillions\web\entities\LogValidationApi');
@@ -44,7 +39,7 @@ class BetService
     }
 
 
-    public function validation(PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw, \DateTime $today = null, LotteryValidationCastilloApi $lotteryValidation = null)
+    public function validation(PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw, \DateTime $dateNextDraw, \DateTime $today = null, LotteryValidationCastilloApi $lotteryValidation = null)
     {
         if (!$today) {
             $today = new \DateTime();
@@ -57,7 +52,6 @@ class BetService
         $user = $this->userRepository->find($playConfig->getUser()->getId());
         $single_bet_price = $euroMillionsDraw->getLottery()->getSingleBetPrice();
         if($user->getBalance()->getAmount() > $single_bet_price->getAmount()) {
-            $dateNextDraw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions', $today);
             $result = $this->betRepository->getBetsByDrawDate($dateNextDraw);
             try{
                 $bet = new Bet($playConfig,$euroMillionsDraw);

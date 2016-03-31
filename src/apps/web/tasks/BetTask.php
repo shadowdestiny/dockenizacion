@@ -48,14 +48,26 @@ class BetTask extends TaskBase
         $this->userService = $userService ? $userService : $this->domainServiceFactory->getUserService();
     }
 
+
+    public function placeBets()
+    {
+        //Llamamos a LotteryService::getLotteriesOrderedByNextDrawDate
+        //foreach lotteries
+        //LotteryService::placeBetsForNextDraw(Lottery)
+        //endforeach
+    }
+
+
+
     public function createBetAction(\DateTime $today = null, $time_to_retry = null)
     {
         if (!$today) {
             $today = new \DateTime();
         }
-
         $dateUtil = new DateTimeUtil();
         $is_check_time = $dateUtil->checkOpenTicket($time_to_retry);
+
+
         $lotteryName = 'EuroMillions';
         $result_euromillions_draw = $this->lotteryService->getNextDrawByLottery($lotteryName);
         $emailTemplate = new EmailTemplate();

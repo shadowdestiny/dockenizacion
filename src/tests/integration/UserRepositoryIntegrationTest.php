@@ -8,6 +8,7 @@ use EuroMillions\web\components\Md5EmailValidationToken;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\web\components\PhpassWrapper;
 use EuroMillions\web\components\UserId;
+use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\vo\Email;
@@ -25,7 +26,8 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     protected function getFixtures()
     {
         return [
-            'users'
+            'users',
+            'play_configs'
         ];
     }
 
@@ -193,6 +195,30 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $this->assertTrue(Uuid::isValid($userId));
     }
 
+    /**
+     * method getUserPlayConfigsActives
+     * when called
+     * should returnPlayConfigsCollectionActivesFromUser
+     */
+    public function test_getUserPlayConfigsActives_called_returnPlayConfigsCollectionActivesFromUser()
+    {
+        $ids = [1,2,6];
+        $actual = $this->sut->getUserPlayConfigsActives();
+        $this->assertEquals($ids,$this->getIdsFromArrayOfObjects($actual));
+    }
+
+
+    /**
+     * method getUsersWithPlayConfigOrderByLottery
+     * when called
+     * should returnProperData
+     */
+    public function test_getUsersWithPlayConfigOrderByLottery_called_returnProperData()
+    {
+        $ids = ['9098299B-14AC-4124-8DB0-19571EDABE55','9098299B-14AC-4124-8DB0-19571EDABE56','9098299B-14AC-4124-8DB0-19571EDABE59'];
+        $actual = $this->sut->getUsersWithPlayConfigsOrderByLottery();
+        $this->assertEquals($ids,$this->getIdsFromArrayOfObjects($actual));
+    }
 
 
 }

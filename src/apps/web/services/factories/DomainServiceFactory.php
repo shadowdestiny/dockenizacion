@@ -62,7 +62,12 @@ class DomainServiceFactory
 
     public function getLotteryService()
     {
-        return new LotteryService($this->entityManager, $this->getLotteriesDataService());
+        return new LotteryService($this->entityManager,
+                                  $this->getLotteriesDataService(),
+                                  $this->getUserService(),
+                                  $this->getBetService(),
+                                  $this->getServiceFactory()->getEmailService()
+            );
     }
 
     public function getLanguageService()
@@ -138,8 +143,7 @@ class DomainServiceFactory
     public function getBetService()
     {
         return new BetService(
-            $this->entityManager,
-            $this->getLotteryService()
+            $this->entityManager
         );
     }
 

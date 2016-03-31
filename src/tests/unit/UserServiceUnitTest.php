@@ -434,6 +434,76 @@ class UserServiceUnitTest extends UnitTestBase
         $sut->checkLongTermAndSendNotification([$playConfig], $now);
     }
 
+    /**
+     * method checkEnoughAmountForNextDraw
+     * when called
+     * should returnActionResultTrue
+     */
+    public function test_checkEnoughAmountForNextDraw_called_returnActionResultTrue()
+    {
+        $user = $this->getUser();
+        $date = new \DateTime('2016-03-29');
+        $lottery = new Lottery();
+        $lottery->setSingleBetPrice(new Money(250, new Currency('EUR')));
+        $this->userRepository_double->find($user->getId())->willReturn($user);
+        $this->playRepository_double->getTotalByUserAndPlayForNextDraw($user->getId(),$date)->willReturn(2);
+        $sut = $this->getSut();
+        $actual = $sut->checkEnoughAmountForNextDraw($user->getId(),$lottery,$date);
+        $expected = new ActionResult(true);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method checkEnoughAmountForNextDraw
+     * when called
+     * should returnActionResultFalse
+     */
+    public function test_checkEnoughAmountForNextDraw_called_returnActionResultFalse()
+    {
+        $user = $this->getUser();
+        $user->setWallet(new Wallet(new Money(0, new Currency('EUR'))));
+        $date = new \DateTime('2016-03-29');
+        $lottery = new Lottery();
+        $lottery->setSingleBetPrice(new Money(250, new Currency('EUR')));
+        $this->userRepository_double->find($user->getId())->willReturn($user);
+        $this->playRepository_double->getTotalByUserAndPlayForNextDraw($user->getId(),$date)->willReturn(2);
+        $sut = $this->getSut();
+        $actual = $sut->checkEnoughAmountForNextDraw($user->getId(),$lottery,$date);
+        $expected = new ActionResult(false);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method getPriceForNextDraw
+     * when called
+     * should returnTotalPriceForNextDraw
+     */
+    public function test_getPriceForNextDraw_called_returnTotalPriceForNextDraw()
+    {
+        list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
+        $lottery = new Lottery();
+        $lottery->setSingleBetPrice(new Money(250, new Currency('EUR')));
+        $sut = $this->getSut();
+        $actual = $sut->getPriceForNextDraw($lottery, [$playConfig,$playConfig,$playConfig]);
+        $expected = new Money(750,new Currency('EUR'));
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method getUsersWithPlayConfigsForNextDraw
+     * when called
+     * should returnUsersWithPlayConfigForNextDraw
+     */
+    public function test_getUsersWithPlayConfigsForNextDraw_called_returnUsersWithPlayConfigForNextDraw()
+    {
+        $lottery = $this->getPrepareLottery();
+        $sut = $this->getSut();
+        $actual = $sut->getUsersWithPlayConfigsForNextDraw($lottery);
+
+    }
+
+
+
     private function getPlayConfigAndEuroMillionsDraw()
     {
         $user = $this->getUser();
@@ -631,6 +701,22 @@ class UserServiceUnitTest extends UnitTestBase
         $sut = $this->getSut();
         $actual = $sut->getActiveNotificationsByType(NotificationValue::NOTIFICATION_LAST_DRAW);
         return $actual;
+    }
+
+    private function getPrepareLottery()
+    {
+        $lottery = new Lottery();
+        $lottery->initialize([
+            'id'               => 1,
+            'name'             => 'EuroMillions',
+            'active'           => 1,
+            'frequency'        => 'freq',
+            'draw_time'        => 'draw',
+            'single_bet_price' => new Money(23500, new Currency('EUR')),
+        ]);
+
+        return $lottery;
+
     }
 
 }

@@ -1,7 +1,10 @@
 <?php
 namespace EuroMillions\tests\unit;
 
+
 use EuroMillions\tests\helpers\mothers\EuroMillionsLineMother;
+use EuroMillions\tests\helpers\mothers\PlayConfigMother;
+use EuroMillions\tests\helpers\mothers\UserMother;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\exceptions\DataMissingException;
 use EuroMillions\web\services\LotteryService;
@@ -23,6 +26,10 @@ class LotteryServiceUnitTest extends UnitTestBase
     protected $lotteryRepositoryDouble;
     protected $entityManagerDouble;
     protected $lotteriesDataServiceDouble;
+    protected $userServiceDouble;
+    protected $betService_double;
+    protected $emailService_double;
+
 
     public function setUp()
     {
@@ -31,6 +38,10 @@ class LotteryServiceUnitTest extends UnitTestBase
         $this->lotteryRepositoryDouble = $this->getRepositoryDouble('LotteryRepository');
         $this->entityManagerDouble = $this->getEntityManagerDouble();
         $this->lotteriesDataServiceDouble = $this->getServiceDouble('LotteriesDataService');
+        $this->userServiceDouble = $this->getServiceDouble('UserService');
+        $this->betService_double = $this->getServiceDouble('BetService');
+        $this->emailService_double = $this->getServiceDouble('EmailService');
+
     }
 
     /**
@@ -360,6 +371,40 @@ class LotteryServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method placeBetForNextDraw
+     * when called
+     * should createBetForNextDraw
+     */
+    public function test_placeBetForNextDraw_called_createBetForNextDraw()
+    {
+        $this->markTestSkipped('Comprobar si hay que eliminar');
+        $lottery = $this->prepareLotteryEntity('EuroMillions');
+        $date = new \DateTime('2015-09-22');
+
+        $user = UserMother::aUserWith50Eur()->build();
+
+        $valid_play_config1 = PlayConfigMother::aPlayConfig()->withUser($user->getId())->withId(1)->build();
+        $valid_play_config2 = PlayConfigMother::aPlayConfig()->withUser($user->getId())->withId(2)->build();
+        $invalid_play_config1 = PlayConfigMother::aPlayConfig()->withUser($user->build())->withId(3)->withNoActive()->build();
+
+        $playConfig = [
+            $valid_play_config1,
+            $invalid_play_config1,
+            $valid_play_config2
+        ];
+
+        $users = [
+            $user->withPlayConfigsCollection($playConfig)->build(),
+        ];
+        $this->userServiceDouble->getUsersWithPlayConfigsForNextDraw($lottery)->willReturn($users);
+
+        $this->userServiceDouble->getPriceForNextDraw($lottery, [$valid_play_config1, $valid_play_config2])->shouldBeCalled();
+
+        $sut = $this->getSut();
+        $actual = $sut->placeBetForNextDraw($lottery,$date);
+    }
+
+    /**
      * @param $lottery_name
      * @return Lottery
      */
@@ -416,6 +461,11 @@ class LotteryServiceUnitTest extends UnitTestBase
     {
         $this->entityManagerDouble->getRepository('EuroMillions\web\entities\EuroMillionsDraw')->willReturn($this->lotteryDrawRepositoryDouble->reveal());
         $this->entityManagerDouble->getRepository('EuroMillions\web\entities\Lottery')->willReturn($this->lotteryRepositoryDouble->reveal());
-        return new LotteryService($this->entityManagerDouble->reveal(), $this->lotteriesDataServiceDouble->reveal());
+        return new LotteryService($this->entityManagerDouble->reveal(),
+                                  $this->lotteriesDataServiceDouble->reveal(),
+                                  $this->userServiceDouble->reveal(),
+                                  $this->betService_double->reveal(),
+                                  $this->emailService_double->reveal()
+                                );
     }
 }

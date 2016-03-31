@@ -51,7 +51,6 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
             $this->getLuckyNumbers($lucky_numbers));
 
         list($expected, $actual) = $this->exerciseAdd($user, $euroMillionsLine);
-
         $this->assertEquals($expected, $actual);
     }
 
@@ -69,6 +68,7 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $this->assertEquals($expected,$this->getIdsFromArrayOfObjects($actual));
     }
 
+
     /**
      * method getPlayConfigsByUser
      * when called
@@ -78,7 +78,7 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     {
         $date = new \DateTime('2015-09-20 00:00:00');
         $userId = '9098299B-14AC-4124-8DB0-19571EDABE56';
-        $expected = [2];
+        $expected = [2,5];
         $actual = $this->sut->getPlayConfigsByUserAndDate($userId,$date);
         $this->assertEquals($expected,$this->getIdsFromArrayOfObjects($actual));
     }
@@ -87,11 +87,25 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     public function getDateAndExpectedIds()
     {
         return [
-            ['2015-10-05',[3]],
+            ['2015-10-06',[3]],
             ['2015-09-22',[1,2]],
             ['2001-09-01',[]]
         ];
     }
+
+    /**
+     * method getTotalByUserAndPlayForNextDraw
+     * when called
+     * should returnTotalAmountByUser
+     */
+    public function test_getTotalByUserAndPlayForNextDraw_called_returnTotalAmountByUser()
+    {
+        $userId = '9098299B-14AC-4124-8DB0-19571EDABE56';
+        $date = new \DateTime('2015-09-22 00:00:00');
+        $actual = $this->sut->getTotalByUserAndPlayForNextDraw($userId, $date);
+        $this->assertEquals(2,$actual);
+    }
+
 
     private function exerciseAdd($user,$euroMillionsLine)
     {

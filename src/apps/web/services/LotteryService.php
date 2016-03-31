@@ -1,11 +1,13 @@
 <?php
 namespace EuroMillions\web\services;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
+use EuroMillions\web\entities\User;
 use EuroMillions\web\exceptions\BadSiteConfiguration;
 use EuroMillions\web\exceptions\DataMissingException;
 use EuroMillions\web\repositories\LotteryDrawRepository;
@@ -23,13 +25,26 @@ class LotteryService
     private $lotteryRepository;
     /** @var LotteriesDataService */
     private $lotteriesDataService;
+    /** @var  UserService $userService */
+    private $userService;
+    /** @var  BetService $betService */
+    private $betService;
+    /** @var EmailService $emailService */
+    private $emailService;
 
-    public function __construct(EntityManager $entityManager, LotteriesDataService $lotteriesDataService)
+    public function __construct(EntityManager $entityManager,
+                                LotteriesDataService $lotteriesDataService,
+                                UserService $userService,
+                                BetService $betService,
+                                EmailService $emailService)
     {
         $this->entityManager = $entityManager;
         $this->lotteryDrawRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS . 'EuroMillionsDraw');
         $this->lotteryRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS . 'Lottery');
         $this->lotteriesDataService = $lotteriesDataService;
+        $this->emailService = $emailService;
+        $this->userService = $userService;
+        $this->betService = $betService;
     }
 
     public function getLastDrawDate($lotteryName, \DateTime $today = null)
@@ -177,6 +192,32 @@ class LotteryService
             }
         } else {
             return new ActionResult(false);
+        }
+    }
+
+    public function placeBetForNextDraw(Lottery $lottery, \DateTime $dateNextDraw = null)
+    {
+        $users = $this->userService->getUsersWithPlayConfigsForNextDraw($lottery);
+        if( null != $users ) {
+            /** @var User $user */
+            foreach( $users as $user ) {
+                /** @var ArrayCollection $playconfigsFiltered */
+                $nextDrawDate = $lottery->getNextDrawDate($dateNextDraw);
+                $playconfigsFiltered = $user->getPlayConfigsFilteredForNextDraw($nextDrawDate);
+                if( count($playconfigsFiltered) > 0 ) {
+                    //EMTD get playconfigsFiltered as array
+                    $playconfigsFilteredToArray = $playconfigsFiltered->toArray();
+                    $price = $this->userService->getPriceForNextDraw($lottery, $playconfigsFilteredToArray);
+                    if( $price->getAmount() < $user->getBalance()->getAmount() ) {
+                        $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($dateNextDraw));
+                        foreach( $playconfigsFilteredToArray as $playConfig ) {
+                            $this->betService->validation($playConfig, $euroMillionsDraw, $nextDrawDate);
+                        }
+                    } else {
+                        $this->emailService->sendLowBalanceEmail($user);
+                    }
+                }
+            }
         }
     }
 

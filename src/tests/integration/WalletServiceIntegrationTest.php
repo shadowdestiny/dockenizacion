@@ -36,7 +36,7 @@ class WalletServiceIntegrationTest extends DatabaseIntegrationTestBase
     public function test_rechargeWithCreditCard_chargeIsAllowed_persistProperAmountInUserWallet()
     {
         $amount = new Money(2000, new Currency('EUR'));
-        $expected_wallet = Wallet::create(5000, 0);
+        $expected_wallet = Wallet::create(2000, 0);
         $user_repository = $this->entityManager->getRepository('EuroMillions\web\entities\User');
         /** @var User $user */
         $user = $user_repository->find('9098299B-14AC-4124-8DB0-19571EDABE59');

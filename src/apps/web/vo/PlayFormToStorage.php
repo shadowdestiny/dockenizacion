@@ -32,6 +32,7 @@ class PlayFormToStorage extends EMForm
 
     public $num_weeks;
 
+
     public function toJson()
     {
         /** @var EuroMillionsLine[] $arr_lines */

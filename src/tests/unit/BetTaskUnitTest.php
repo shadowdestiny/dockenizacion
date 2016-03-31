@@ -68,28 +68,6 @@ class BetTaskUnitTest extends UnitTestBase
         parent::setUp();
     }
 
-    /**
-     * method createBet
-     * when called
-     * should callPlayServiceBetOncePerEachEuromillionsDraw
-     * @dataProvider getDatesAndPlayConfigsForCreateBet
-     */
-    public function test_createBet_called_callPlayServiceBetOncePerEachEuromillionsDraw($today, $callTimes, $lotteryDrawDate)
-    {
-        $euroMillionsDraw = $this->getEuroMillionsDraw($lotteryDrawDate);
-        $this->lotteryService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true,$euroMillionsDraw));
-        $play_config_list = $this->getPlayConfigList($this->getUser());
-        $this->playService_double->getPlaysConfigToBet($euroMillionsDraw->getDrawDate())->willReturn($play_config_list);
-        $this->playService_double->bet(Argument::type('EuroMillions\web\entities\PlayConfig'), $euroMillionsDraw)->shouldBeCalledTimes($callTimes);
-        $this->userService_double->getUser(Argument::any())->willReturn($this->getUser());
-        $this->userService_double->getActiveNotificationsByUserAndType(Argument::any(),Argument::any())->willReturn(new ActionResult(true,$this->getUserNotifications()));
-        $this->lotteryService_double->getNextJackpot('EuroMillions')->willReturn(new Money(10000,new Currency('EUR')));
-        $this->lotteryService_double->getNextDateDrawByLottery('EuroMillions')->willReturn(new \DateTime());
-        $sut = new BetTask();
-        $sut->initialize($this->lotteryService_double->reveal(), $this->playService_double->reveal(), $this->emailService_double->reveal(), $this->userService_double->reveal());
-        $today = new \DateTime($today);
-        $sut->createBetAction($today, $this->time_to_retry);
-     }
 
     public function getDatesAndPlayConfigsForCreateBet()
     {
@@ -99,77 +77,7 @@ class BetTaskUnitTest extends UnitTestBase
         ];
     }
 
-    /**
-     * method createBet
-     * when called
-     * should sendProperArgumentsToEachCallOfPlayServiceBet
-     */
-    public function test_createBet_called_sendProperArgumentsToEachCallOfPlayServiceBet()
-    {
-        $euroMillionsDraw = $this->getEuroMillionsDraw('2015-10-09');
-        $this->lotteryService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true,$euroMillionsDraw));
-        $play_config_list = $this->getPlayConfigList($this->getUser());
-        $this->playService_double->getPlaysConfigToBet($euroMillionsDraw->getDrawDate())->willReturn($play_config_list);
-        $play_config = $this->getPlayConfigList($this->getUser());
 
-        /** @var array $play_config_values */
-        $play_config_values = $play_config->getValues();
-        $this->playService_double->bet($play_config_values[0], $euroMillionsDraw)->shouldBeCalled();
-        $this->playService_double->bet($play_config_values[1], $euroMillionsDraw)->shouldBeCalled();
-        $this->playService_double->bet($play_config_values[2], $euroMillionsDraw)->shouldBeCalled();
-
-        $this->userService_double->getUser(Argument::any())->willReturn($this->getUser());
-        $this->userService_double->getActiveNotificationsByUserAndType(Argument::any(),Argument::any())->willReturn(new ActionResult(true,$this->getUserNotifications()));
-
-        $sut = new BetTask();
-        $sut->initialize($this->lotteryService_double->reveal(), $this->playService_double->reveal(),$this->emailService_double->reveal(), $this->userService_double->reveal());
-        $today = new \DateTime('2015-10-07');
-        $sut->createBetAction($today, $this->time_to_retry);
-    }
-
-    /**
-     * method createBet
-     * when calledWithValidUserButWithLowBalance
-     * should sendEmailWithEmptyBalance
-     */
-    public function test_createBet_calledWithValidUserButWithLowBalance_sendEmailWithEmptyBalance()
-    {
-        $euroMillionsDraw = $this->getEuroMillionsDraw('2015-10-16');
-
-        $this->lotteryService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true,$euroMillionsDraw));
-        $play_config_list = $this->getPlayConfigList($this->getUser());
-        $this->playService_double->getPlaysConfigToBet($euroMillionsDraw->getDrawDate())->willReturn($play_config_list);
-        $this->playService_double->bet(Argument::type('EuroMillions\web\entities\PlayConfig'), $euroMillionsDraw)->shouldBeCalledTimes(1);
-        $this->playService_double->bet(Argument::type('EuroMillions\web\entities\PlayConfig'), $euroMillionsDraw)->willThrow(new InvalidBalanceException());
-        $this->userService_double->getUser(Argument::any())->willReturn($this->getUser());
-        $this->userService_double->getActiveNotificationsByUserAndType(Argument::any(),Argument::any())->willReturn(new ActionResult(true,[$this->getUserNotifications()]));
-        $this->lotteryService_double->getNextJackpot('EuroMillions')->willReturn(new Money(10000,new Currency('EUR')));
-        $this->lotteryService_double->getNextDateDrawByLottery('EuroMillions')->willReturn(new \DateTime());
-        $this->emailService_double->sendTransactionalEmail(Argument::type('EuroMillions\web\entities\User'),Argument::type('EuroMillions\web\emailTemplates\IEmailTemplate'))->shouldBeCalledTimes(1);
-        $sut = new BetTask();
-        $sut->initialize($this->lotteryService_double->reveal(),
-            $this->playService_double->reveal(),$this->emailService_double->reveal(), $this->userService_double->reveal());
-        $today = new \DateTime('2015-10-07');
-        $sut->createBetAction($today, $this->time_to_retry);
-    }
-
-
-    /**
-     * method createBetAction
-     * when calledWithValidData
-     * should returnServiceActionResultFalseWithoutResult
-     */
-    public function test_createBetAction_calledWithValidData_returnServiceActionResultFalseWithoutResult()
-    {
-        $euroMillionsDraw = $this->getEuroMillionsDraw('2015-10-09');
-        $this->lotteryService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true,$euroMillionsDraw));
-        $this->playService_double->getPlaysConfigToBet($euroMillionsDraw->getDrawDate())->willReturn(new ActionResult(false));
-        $this->playService_double->bet(Argument::any(),Argument::any())->shouldNotBeCalled();
-        $sut = new BetTask();
-        $sut->initialize($this->lotteryService_double->reveal(), $this->playService_double->reveal(),$this->emailService_double->reveal(), $this->userService_double->reveal());
-        $today = new \DateTime('2015-10-07');
-        $sut->createBetAction($today, $this->time_to_retry);
-    }
 
     /**
      * method longTermNotificationAction
@@ -188,66 +96,6 @@ class BetTaskUnitTest extends UnitTestBase
         $sut->longTermNotificationAction($today);
     }
 
-    /**
-     * method createBetAction
-     * when calledWithTimeLessThanNow
-     * should createBetOrRetryCreateBet
-     */
-    public function test_createBetAction_calledWithTimeLessThanNow_createBetOrRetryCreateBet()
-    {
-
-        $this->prepareCheckValidation();
-        $this->playService_double->bet(Argument::any(),Argument::any())->shouldBeCalled();
-        $this->userService_double->getUser(Argument::any())->willReturn($this->getUser());
-        $this->userService_double->getActiveNotificationsByUserAndType(Argument::any(),Argument::any())->willReturn(new ActionResult(true,$this->getUserNotifications()));
-        $sut = new BetTask();
-        $sut->initialize($this->lotteryService_double->reveal(), $this->playService_double->reveal(),$this->emailService_double->reveal(), $this->userService_double->reveal());
-        $today = new \DateTime('2015-10-07');
-        $sut->createBetAction($today,$this->time_to_retry);
-    }
-
-    /**
-     * method createBetAction
-     * when calledPassedTimeLimit
-     * should sendEmailToInformAboutProblemsValidation
-     */
-    public function test_createBetAction_calledPassedTimeLimit_sendEmailToInformAboutProblemsValidation()
-    {
-        $time_to_retry = 1458686313;
-        $euroMillionsDraw = $this->getEuroMillionsDraw('2015-10-09');
-        $this->lotteryService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true,$euroMillionsDraw));
-        $play_config_list = $this->getPlayConfigList($this->getUser());
-        $this->playService_double->getPlaysConfigToBet($euroMillionsDraw->getDrawDate())->willReturn($play_config_list);
-        $this->playService_double->bet(Argument::any(),Argument::any())->shouldNotBeCalled();
-        $this->userService_double->getUser(Argument::any())->willReturn($this->getUser());
-        $this->lotteryService_double->getNextJackpot('EuroMillions')->willReturn(new Money(10000,new Currency('EUR')));
-        $this->lotteryService_double->getNextDateDrawByLottery('EuroMillions')->willReturn(new \DateTime());
-        $this->emailService_double->sendTransactionalEmail($this->getUser(),Argument::type('EuroMillions\web\emailTemplates\IEmailTemplate'))->shouldBeCalled();
-        $sut = new BetTask();
-        $sut->initialize($this->lotteryService_double->reveal(), $this->playService_double->reveal(),$this->emailService_double->reveal(), $this->userService_double->reveal());
-        $today = new \DateTime('2015-10-07');
-        $sut->createBetAction($today,$time_to_retry);
-    }
-
-
-    /**
-     * method createBetAction
-     * when jackpotDrawIsgreatherThanJackpotConfigUser
-     * should createBet
-     */
-    public function test_createBetAction_jackpotDrawIsgreatherThanJackpotConfigUser_createBet()
-    {
-        $this->markTestIncomplete('Para cuando se refactorice');
-        $euroMillionsDraw = $this->getEuroMillionsDraw('2015-11-20');
-        $this->lotteryService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true,$euroMillionsDraw));
-        $play_config_list = $this->getPlayConfigList($this->getUserTwo());
-        $this->playService_double->getPlaysConfigToBet($euroMillionsDraw->getDrawDate())->willReturn($play_config_list);
-        $this->playService_double->bet(Argument::any(),Argument::any())->shouldBeCalled();
-        $sut = new BetTask();
-        $sut->initialize($this->lotteryService_double->reveal(), $this->playService_double->reveal(),$this->emailService_double->reveal(), $this->userService_double->reveal());
-        $today = new \DateTime('2015-11-20');
-        $sut->createBetAction($today,$this->time_to_retry);
-    }
 
     private function getUser()
     {
