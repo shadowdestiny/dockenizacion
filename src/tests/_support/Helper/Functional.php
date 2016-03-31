@@ -11,7 +11,7 @@ class Functional extends \Codeception\Module
 {
     public function _before(TestCase $test)
     {
-        $di = DI::getDefault();
+        $di = Di::getDefault();
         $environment = $di->get('environmentDetector')->get();
         $command = __DIR__.'/../../../vendor/bin/phinx seed:run --configuration="'.__DIR__.'/../../../phinx.yml" -e '.$environment;
         exec($command);

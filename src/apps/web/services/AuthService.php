@@ -3,12 +3,10 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\interfaces\IUrlManager;
-use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\Md5EmailValidationToken;
 use EuroMillions\web\components\UserId;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\ResetPasswordEmailTemplate;
-use EuroMillions\web\emailTemplates\WelcomeEmailTemplate;
 use EuroMillions\web\entities\GuestUser;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IAuthStorageStrategy;
@@ -22,7 +20,6 @@ use EuroMillions\web\vo\Password;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\Url;
 use EuroMillions\web\vo\ValidationToken;
-use Money\Currency;
 
 class AuthService
 {
@@ -60,8 +57,13 @@ class AuthService
      */
     public function getCurrentUser()
     {
+        $user = null;
         $user_id = $this->storageStrategy->getCurrentUserId();
-        $user = $this->userRepository->find($user_id);
+        if (UserId::isValid($user_id)) {
+            $user = $this->userRepository->find($user_id);
+        } else {
+            $user_id = UserId::create();
+        }
         if (!$user) {
             $user = new GuestUser();
             $user->setId($user_id);
@@ -138,7 +140,8 @@ class AuthService
 
     public function registerFromCheckout(array $credentials, $userId)
     {
-        if (!$this->getCurrentUser() instanceof GuestUser) {
+        $current_user = $this->getCurrentUser();
+        if (!is_a($current_user, 'EuroMillions\web\entities\GuestUser', false)) {
             return new ActionResult(false, 'Error getting user');
         }
         if ($this->userRepository->getByEmail($credentials['email'])) {

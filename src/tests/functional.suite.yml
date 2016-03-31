@@ -14,5 +14,6 @@ modules:
         - Phalcon2:
             bootstrap: 'public/index-test.php'
             cleanup: false
+        - Cli
         - \Helper\Functional
         - Asserts

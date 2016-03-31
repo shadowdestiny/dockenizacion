@@ -2,7 +2,6 @@
 use EuroMillions\tests\helpers\mothers\UserMother;
 /**
  * Class AccountCest
- * @group active
  */
 class AccountCest
 {
