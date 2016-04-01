@@ -27,7 +27,7 @@ class ServiceFactory
     {
         return new LogService(
             new LoggerFactory(
-                $this->di->get('globalConfig')['log']['file_logs_path']
+                $this->di->get('config')['log']['file_logs_path']
             )
         );
     }
