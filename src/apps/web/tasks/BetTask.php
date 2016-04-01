@@ -51,99 +51,12 @@ class BetTask extends TaskBase
 
     public function placeBets()
     {
-        //Llamamos a LotteryService::getLotteriesOrderedByNextDrawDate
-        //foreach lotteries
-        //LotteryService::placeBetsForNextDraw(Lottery)
-        //endforeach
-    }
-
-
-
-    public function createBetAction(\DateTime $today = null, $time_to_retry = null)
-    {
-        if (!$today) {
-            $today = new \DateTime();
-        }
-        $dateUtil = new DateTimeUtil();
-        $is_check_time = $dateUtil->checkOpenTicket($time_to_retry);
-
-
-        $lotteryName = 'EuroMillions';
-        $result_euromillions_draw = $this->lotteryService->getNextDrawByLottery($lotteryName);
-        $emailTemplate = new EmailTemplate();
-        $emailTemplate = new LowBalanceEmailTemplate($emailTemplate, new JackpotDataEmailTemplateStrategy());
-
-        if($result_euromillions_draw->success()){
-            /** @var EuroMillionsDraw $euromillions_draw */
-            $euromillions_draw = $result_euromillions_draw->getValues();
-            $result_play_configs = $this->playService->getPlaysConfigToBet($result_euromillions_draw->getValues()->getDrawDate());
-        } else {
-            $result_play_configs = new ActionResult(false);
-        }
-
-        if($result_play_configs->success()){
-            try{
-                if(empty($is_check_time)) {
-                    throw new \Exception('');
-                }
-                /** @var PlayConfig[] $play_config_list */
-                $play_config_list = $result_play_configs->getValues();
-                /** @var User $user */
-                $user = null;
-                $user_id = '';
-                $result_bet = null;
-                foreach($play_config_list as $play_config) {
-                    if( $play_config->getDrawDays()->compareTo($dateUtil->getDayOfWeek($euromillions_draw->getDrawDate())) ) {
-                        if( empty( $play_config->getThreshold() ) ){ //EMTD @rmrbest GetThreshold en el usuario no tenía sentido porque no está definido en la entidad User, sino en PlayConfig. ¿¿Esto había funcionado alguna vez??
-                            try{
-                                if(empty($user_id)){
-                                    /** @var ActionResult $result_bet */
-                                    $this->playService->bet($play_config, $euromillions_draw);
-                                    $this->sendEmailAutoPlay($play_config,$emailTemplate);
-                                }
-                                if(!empty($user_id) && $user_id != $play_config->getUser()->getId()){
-                                    $user_id = '';
-                                    /** @var ActionResult $result_bet */
-                                    $this->playService->bet($play_config, $euromillions_draw);
-                                    $this->sendEmailAutoPlay($play_config,$emailTemplate);
-                                }
-                            } catch( InvalidBalanceException $e ) {
-                                if( empty($user_id) || $user_id != $play_config->getUser()->getId() ) {
-                                    $user = $this->userService->getUser($play_config->getUser()->getId());
-                                    $user_id = $play_config->getUser()->getId();
-                                    $user_notifications_result = $this->userService->getActiveNotificationsByUserAndType($user, NotificationValue::NOTIFICATION_NOT_ENOUGH_FUNDS);
-                                    if( $user_notifications_result->success() ) {
-                                        /** @var UserNotifications $user_notification */
-                                        $users_notifications = $user_notifications_result->getValues();
-                                        foreach($users_notifications as $user_notification) {
-                                            if($user_notification->getActive()) {
-                                                $this->emailService->sendTransactionalEmail($user, $emailTemplate);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            if( $euromillions_draw->getJackpot()->getAmount() >= $play_config->getThreshold() ) {
-                                $this->playService->bet($play_config, $euromillions_draw);
-                            }
-                        }
-                    }
-                }
-            } catch( \Exception $e ) {
-                $user_id = '';
-                $play_config_list = $result_play_configs->getValues();
-                /** @var PlayConfig[] $play_config_list */
-                foreach($play_config_list as $play_config) {
-                    if(empty($user_id) || $user_id != $play_config->getUser()->getId()){
-                        $user = $this->userService->getUser($play_config->getUser()->getId());
-                        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
-                        $user_id = $user->getId();
-                    }
-                }
-            }
+        $lotteries = $this->lotteryService->getLotteriesOrderedByNextDrawDate();
+        foreach( $lotteries as $lottery ) {
+            $this->lotteryService->placeBetForNextDraw($lottery);
         }
     }
+
 
     public function longTermNotificationAction(\DateTime $today = null)
     {

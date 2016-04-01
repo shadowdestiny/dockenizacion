@@ -221,5 +221,11 @@ class LotteryService
         }
     }
 
+    public function getLotteriesOrderedByNextDrawDate()
+    {
+        $lotteries = $this->lotteryRepository->findBy(['draw' => 'ASC']);
+        return count($lotteries) > 0 ? $lotteries : [];
+    }
+
 
 }

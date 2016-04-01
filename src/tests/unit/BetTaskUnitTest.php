@@ -3,6 +3,7 @@ namespace EuroMillions\tests\unit;
 
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\Notification;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
@@ -78,6 +79,20 @@ class BetTaskUnitTest extends UnitTestBase
     }
 
 
+    /**
+     * method placeBets
+     * when called
+     * should callPlaceBet
+     */
+    public function test_placeBets_called_callPlaceBet()
+    {
+        $lottery = $this->prepareLotteryEntity('EuroMillions');
+        $this->lotteryService_double->getLotteriesOrderedByNextDrawDate()->willReturn([$lottery]);
+        $this->lotteryService_double->placeBetForNextDraw($lottery)->shouldBeCalled();
+        $sut = new BetTask();
+        $sut->initialize($this->lotteryService_double->reveal(), $this->playService_double->reveal(),$this->emailService_double->reveal(), $this->userService_double->reveal());
+        $sut->placeBets();
+    }
 
     /**
      * method longTermNotificationAction
@@ -113,7 +128,23 @@ class BetTaskUnitTest extends UnitTestBase
             ->build();
     }
 
-
+    /**
+     * @param $lottery_name
+     * @return Lottery
+     */
+    protected function prepareLotteryEntity($lottery_name)
+    {
+        $lottery = new Lottery();
+        $lottery->initialize([
+            'id'        => 1,
+            'name'      => $lottery_name,
+            'active'    => 1,
+            'frequency' => 'w0100100',
+            'draw_time' => '20:00:00',
+            'single_bet_price' => new Money(250, new Currency('EUR')),
+        ]);
+        return $lottery;
+    }
 
     /**
      * @param $attributes
