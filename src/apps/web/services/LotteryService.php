@@ -47,6 +47,11 @@ class LotteryService
         $this->betService = $betService;
     }
 
+    /**
+     * @param $lotteryName
+     * @param \DateTime|null $today
+     * @return \DateTime
+     */
     public function getLastDrawDate($lotteryName, \DateTime $today = null)
     {
         if (!$today) {
@@ -178,7 +183,7 @@ class LotteryService
         return $this->lotteryDrawRepository->getLastJackpot($lotteryName);
     }
 
-    public function getBreakDownDrawByDate($lotteryName, \DateTime $now = null)
+    public function getBreakDownDrawByDate($lotteryName)
     {
         //EMTD @rmrbest Why there's a $now parameter if it's not used?
         /** @var Lottery $lottery */

@@ -302,9 +302,9 @@ class UserService
         }
     }
 
-    public function chargeFeeFromWallet( Money $amount, Money $fee_limit, Money $fee )
+    public function chargeFeeFromWallet(Money $amount, Money $feeLimit, Money $fee )
     {
-        if( $amount->getAmount() < $fee_limit->getAmount() ) {
+        if( $amount->getAmount() < $feeLimit->getAmount() ) {
             return new ActionResult(true,$amount->add($fee));
         } else {
             return new ActionResult(false,$amount);
@@ -376,7 +376,7 @@ class UserService
     }
 
 
-    public function getUsersWithPlayConfigsForNextDraw(Lottery $lottery)
+    public function getUsersWithPlayConfigsForNextDraw()
     {
         return $this->userRepository->getUsersWithPlayConfigsOrderByLottery();
     }

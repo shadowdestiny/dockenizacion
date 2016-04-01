@@ -196,6 +196,9 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
         $this->active = $active;
     }
 
+    /**
+     * @return bool
+     */
     public function getActive()
     {
         return $this->active;
@@ -216,6 +219,9 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
         $this->startDrawDate = $startDrawDate;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getStartDrawDate()
     {
         return $this->startDrawDate;
@@ -226,6 +232,9 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
         $this->lastDrawDate = $lastDrawDate;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getLastDrawDate()
     {
         return $this->lastDrawDate;
