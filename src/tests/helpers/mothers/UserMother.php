@@ -3,6 +3,7 @@ namespace EuroMillions\tests\helpers\mothers;
 
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\NullPasswordHasher;
+use EuroMillions\web\components\PhpassWrapper;
 use EuroMillions\web\interfaces\IPasswordHasher;
 use EuroMillions\web\vo\Password;
 use Money\Currency;
@@ -24,25 +25,33 @@ class UserMother
     {
         return self::aUserWithNoMoney();
     }
+    
+    public static function aRegisteredUserWithEncryptedPassword()
+    {
+        return self::getInitializedUser(new PhpassWrapper())
+            ->withId(UserBuilder::DEFAULT_ID)
+            ->withName(UserBuilder::DEFAULT_NAME)
+            ->withEmail(UserBuilder::DEFAULT_EMAIL);
+    }
 
     public static function aUserWith50Eur()
     {
         return self::getInitializedUser()
-            ->withId('9098299B-14AC-4124-8DB0-19571EDABE55')
+            ->withId(UserBuilder::DEFAULT_ID)
             ->withWallet(self::getWallet(5000));
     }
 
     public static function aUserWith500Eur()
     {
         return self::getInitializedUser()
-            ->withId('9098299B-14AC-4124-8DB0-19571EDABE55')
+            ->withId(UserBuilder::DEFAULT_ID)
             ->withWallet(self::getWallet(50000));
     }
 
     public static function aUserWithNoMoney()
     {
         return self::getInitializedUser()
-            ->withId('9098299B-14AC-4124-8DB0-19571EDABE55');
+            ->withId(UserBuilder::DEFAULT_ID);
     }
 
     /**

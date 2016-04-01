@@ -13,6 +13,7 @@ use Money\Currency;
 
 class UserBuilder
 {
+    const DEFAULT_ID = '9098299B-14AC-4124-8DB0-19571EDABE55';
     const DEFAULT_NAME = 'Antonio';
     const DEFAULT_SURNAME = 'Hernández';
     const DEFAULT_EMAIL = 'nonexisting@email.com';
@@ -86,6 +87,12 @@ class UserBuilder
     public function withName($name)
     {
         $this->name = $name;
+        return $this;
+    }
+
+    public function withEmail($email)
+    {
+        $this->email= $email;
         return $this;
     }
 
