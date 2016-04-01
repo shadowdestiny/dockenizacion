@@ -47,7 +47,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $di->set('escaper', $this->configEscaper(), true);
         $di->set('security', $this->configSecurity(), true);
         $di->set('request', $this->configRequest(), false);
-        $di->set('cookies', $this->configCookies(), true);
+        $di->set('cookies', $this->configCookies($di->get('environmentDetector')), true);
         $di->set('session', $this->configSession(), true);
         $di->set('url', $this->configUrl(), true);
         $di->set('response', $this->configResponse(), true);
@@ -257,9 +257,9 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         return new PhalconRequestWrapper();
     }
 
-    protected function configCookies()
+    protected function configCookies(EnvironmentDetector $ed)
     {
-        $wrapper = new PhalconCookiesWrapper();
+        $wrapper = new PhalconCookiesWrapper($ed);
         $wrapper->useEncryption(true);
         return $wrapper;
     }

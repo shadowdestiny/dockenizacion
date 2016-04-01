@@ -44,6 +44,10 @@ class AccountController extends PublicSiteControllerBase
         $errors = [];
         $form_errors = [];
         $msg = null;
+        if (!$this->authService->isLogged()) {
+            $this->view->disable();
+            return $this->response->redirect('/sign-in');
+        }
         $user = $this->authService->getCurrentUser();
         $myaccount_form = $this->getMyACcountForm($user->getId());
         $myaccount_passwordchange_form = new MyAccountChangePasswordForm();
