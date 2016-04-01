@@ -29,6 +29,7 @@ class LotteryServiceUnitTest extends UnitTestBase
     protected $userServiceDouble;
     protected $betService_double;
     protected $emailService_double;
+    protected $userNotoificationsService_double;
 
 
     public function setUp()
@@ -41,7 +42,7 @@ class LotteryServiceUnitTest extends UnitTestBase
         $this->userServiceDouble = $this->getServiceDouble('UserService');
         $this->betService_double = $this->getServiceDouble('BetService');
         $this->emailService_double = $this->getServiceDouble('EmailService');
-
+        $this->userNotoificationsService_double = $this->getServiceDouble('UserNotificationsService');
     }
 
     /**
@@ -465,7 +466,8 @@ class LotteryServiceUnitTest extends UnitTestBase
                                   $this->lotteriesDataServiceDouble->reveal(),
                                   $this->userServiceDouble->reveal(),
                                   $this->betService_double->reveal(),
-                                  $this->emailService_double->reveal()
+                                  $this->emailService_double->reveal(),
+                                  $this->userNotoificationsService_double->reveal()
                                 );
     }
 }

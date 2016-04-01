@@ -23,6 +23,7 @@ use EuroMillions\web\services\PlayService;
 use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\services\preferences_strategies\WebUserPreferencesStorageStrategy;
 use EuroMillions\web\services\PriceCheckoutService;
+use EuroMillions\web\services\UserNotificationsService;
 use EuroMillions\web\services\UserPreferencesService;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\services\WalletService;
@@ -66,7 +67,8 @@ class DomainServiceFactory
                                   $this->getLotteriesDataService(),
                                   $this->getUserService(),
                                   $this->getBetService(),
-                                  $this->getServiceFactory()->getEmailService()
+                                  $this->getServiceFactory()->getEmailService(),
+                                  $this->getUserNotificationsService()
             );
     }
 
@@ -176,6 +178,14 @@ class DomainServiceFactory
                 new Curl(),
                 new RedisCurrencyApiCache($redis_cache)
             )
+        );
+    }
+
+    public function getUserNotificationsService()
+    {
+        return new UserNotificationsService(
+            $this->entityManager,
+            $this->getUserService()
         );
     }
 

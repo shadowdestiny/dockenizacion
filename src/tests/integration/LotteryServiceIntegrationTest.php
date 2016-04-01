@@ -24,6 +24,7 @@ class LotteryServiceIntegrationTest extends DatabaseIntegrationTestBase
     protected $userService_double;
     protected $betService_double;
     protected $emailService_double;
+    protected $userNotificationsService_double;
 
     /**
      * Child classes must implement this method. Return empty array if no fixtures are needed
@@ -49,6 +50,7 @@ class LotteryServiceIntegrationTest extends DatabaseIntegrationTestBase
         $this->lotteryDrawRepository_double = $this->getRepositoryDouble('LotteryDrawRepository');
         $this->betService_double = $this->getServiceDouble('BetService');
         $this->emailService_double = $this->getServiceDouble('EmailService');
+        $this->userNotificationsService_double = $this->getServiceDouble('UserNotificationsService');
     }
 
     /**
@@ -89,7 +91,8 @@ class LotteryServiceIntegrationTest extends DatabaseIntegrationTestBase
                                   $this->lotteriesDataService_double->reveal(),
                                   $this->userService_double->reveal(),
                                   $this->betService_double->reveal(),
-                                  $this->emailService_double->reveal()
+                                  $this->emailService_double->reveal(),
+                                  $this->userNotificationsService_double->reveal()
         );
 
         return $sut;
@@ -153,6 +156,7 @@ class LotteryServiceIntegrationTest extends DatabaseIntegrationTestBase
         $priceUserOne = new Money((int)$lottery->getSingleBetPrice()->getAmount() * count($playConfigsFilteredUserOne), new Currency('EUR'));
         $this->userService_double->getUsersWithPlayConfigsForNextDraw($lottery)->willReturn($users);
         $this->userService_double->getPriceForNextDraw($lottery, $playConfigsFilteredUserOne->toArray())->willReturn($priceUserOne);
+        $this->userNotificationsService_double->hasNotificationActive(Argument::any(),$user)->willReturn(true);
         $this->emailService_double->sendLowBalanceEmail($user)->shouldBeCalled();
     }
 
