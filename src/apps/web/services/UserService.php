@@ -4,6 +4,7 @@ namespace EuroMillions\web\services;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\LongPlayEndedEmailTemplate;
+use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\Notification;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
@@ -301,9 +302,9 @@ class UserService
         }
     }
 
-    public function chargeFeeFromWallet( Money $amount, Money $fee_limit, Money $fee )
+    public function chargeFeeFromWallet(Money $amount, Money $feeLimit, Money $fee )
     {
-        if( $amount->getAmount() < $fee_limit->getAmount() ) {
+        if( $amount->getAmount() < $feeLimit->getAmount() ) {
             return new ActionResult(true,$amount->add($fee));
         } else {
             return new ActionResult(false,$amount);
@@ -359,4 +360,40 @@ class UserService
         }
     }
 
+    public function checkEnoughAmountForNextDraw( $userId, Lottery $lottery, \DateTime $date)
+    {
+        /** @var User $user */
+        $user = $this->userRepository->find($userId);
+        if( $user ) {
+            $totalPlayForNextDraw = $this->playRepository->getTotalByUserAndPlayForNextDraw($userId, $date);
+            if( $totalPlayForNextDraw > 0 ) {
+                $total = $user->getBalance()->getAmount() >= $totalPlayForNextDraw * $lottery->getSingleBetPrice()->getAmount();
+                return $total ? new ActionResult(true) : new ActionResult(false);
+            }
+            return new ActionResult(false);
+        }
+        return new ActionResult(false);
+    }
+
+
+    public function getUsersWithPlayConfigsForNextDraw()
+    {
+        return $this->userRepository->getUsersWithPlayConfigsOrderByLottery();
+    }
+
+    /**
+     * @param Lottery $lottery
+     * @param array $playconfigs
+     * @return Money
+     */
+    public function getPriceForNextDraw(Lottery $lottery, array $playconfigs)
+    {
+        $price = new Money(0,new Currency('EUR'));
+        /** @var PlayConfig $playconfig */
+        foreach($playconfigs as $playconfig) {
+            $amount = new Money((int) ($playconfig->numBets() * $lottery->getSingleBetPrice()->getAmount()),new Currency('EUR'));
+            $price = $price->add($amount);
+        }
+        return $price;
+    }
 }

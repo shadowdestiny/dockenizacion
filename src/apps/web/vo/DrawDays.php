@@ -13,20 +13,20 @@ class DrawDays implements Comparable
 
     const TUESDAY = 2;
 
-    private $draw_days;
+    public $days;
 
 
     public function __construct($value)
     {
         $arr_days = str_split($value);
         foreach($arr_days as $day){
-            $this->draw_days .= $day;
+            $this->days .= $day;
         }
     }
 
     public function compareTo($value)
     {
-        foreach(str_split($this->draw_days) as $day){
+        foreach(str_split($this->days) as $day){
             if($value == $day){
                 return true;
             }
@@ -36,12 +36,12 @@ class DrawDays implements Comparable
 
     public function value()
     {
-        return $this->draw_days;
+        return $this->days;
     }
 
     public function value_len()
     {
-        return strlen($this->draw_days);
+        return strlen($this->days);
     }
 
 }

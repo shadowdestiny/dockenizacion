@@ -4,9 +4,11 @@ namespace EuroMillions\web\services;
 use EuroMillions\shared\interfaces\IUrlManager;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\IEmailTemplate;
+use EuroMillions\web\emailTemplates\LowBalanceEmailTemplate;
 use EuroMillions\web\emailTemplates\WelcomeEmailTemplate;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IMailServiceApi;
+use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
 use EuroMillions\web\vo\ContactFormInfo;
 use EuroMillions\web\vo\Url;
@@ -29,6 +31,13 @@ class EmailService
         $emailTemplate = new WelcomeEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
         $emailTemplate->setUser($user);
         $this->sendTransactionalEmail($user, $emailTemplate);
+    }
+
+    public function sendLowBalanceEmail(User $user)
+    {
+        $emailTemplate = new EmailTemplate();
+        $emailTemplate = new LowBalanceEmailTemplate($emailTemplate, new JackpotDataEmailTemplateStrategy());
+        $this->sendTransactionalEmail($user,$emailTemplate);
     }
 
     public function sendRegistrationMail(User $user, Url $url)

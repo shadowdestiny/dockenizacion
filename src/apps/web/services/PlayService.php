@@ -113,8 +113,10 @@ class PlayService
      */
     public function play( $user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false)
     {
+
         if($user_id) {
             try{
+                $lottery = $this->lotteryService->getLotteryConfigByName('EuroMillions');
                 /** @var User $user */
                 $user = $this->userRepository->find(['id' => $user_id]);
                 $result_order = $this->cartService->get($user_id);
@@ -131,8 +133,10 @@ class PlayService
                     }
 
                     if( count($order->getPlayConfig()) > 0 ) {
+                        //EMTD be careful now, set explicity lottery, but it should come inform on playconfig entity
                         /** @var PlayConfig $play_config */
                         foreach( $order->getPlayConfig() as $play_config ) {
+                            $play_config->setLottery($lottery);
                             $this->playConfigRepository->add($play_config);
                             $this->entityManager->flush($play_config);
                         }
@@ -140,7 +144,7 @@ class PlayService
                     //if($order->isNextDraw($draw->getValues()->getDrawDate())){
                     if( $result_payment->success() ) {
                         foreach( $order->getPlayConfig() as $play_config ) {
-                            $result_validation = $this->betService->validation($play_config, $draw->getValues());
+                            $result_validation = $this->betService->validation($play_config, $draw->getValues(),$lottery->getNextDrawDate());
                             if(!$result_validation->success()) {
                                 return new ActionResult(false, $result_validation->errorMessage());
                             }
@@ -158,18 +162,6 @@ class PlayService
         return new ActionResult(false);
     }
 
-
-    /**
-     * @param PlayConfig $playConfig
-     * @param EuroMillionsDraw $euroMillionsDraw
-     * @param \DateTime $today
-     * @param LotteryValidationCastilloApi $lotteryValidation
-     * @return ActionResult
-     */
-    public function bet(PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw, \DateTime $today = null, LotteryValidationCastilloApi $lotteryValidation = null)
-    {
-
-    }
 
     public function getPlaysFromTemporarilyStorage(User $user)
     {

@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\tests\helpers\builders;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\Md5EmailValidationToken;
 use EuroMillions\web\components\NullPasswordHasher;
@@ -34,6 +35,7 @@ class UserBuilder
     private $city;
     private $phone_number;
     private $jackpot_reminder;
+    private $playConfig;
 
 
     public static function aUser()
@@ -46,6 +48,7 @@ class UserBuilder
         $this->email = new Email(self::DEFAULT_EMAIL);
         $this->password = new Password(self::DEFAULT_PASSWORD, new NullPasswordHasher());
         $this->wallet = new Wallet();
+        $this->playConfig = new ArrayCollection();
         $this->validationToken = new ValidationToken($this->email, new Md5EmailValidationToken());
         $this->user_currency = new Currency(self::DEFAULT_USER_CURRENCY);
     }
@@ -83,6 +86,16 @@ class UserBuilder
     public function withName($name)
     {
         $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @param array $playConfigMother
+     * @return $this
+     */
+    public function withPlayConfigsCollection(array $playConfigMother)
+    {
+        $this->playConfig = new ArrayCollection($playConfigMother);
         return $this;
     }
 

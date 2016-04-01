@@ -5,6 +5,7 @@ namespace EuroMillions\web\controllers\ajax;
 
 
 use EuroMillions\web\components\DateTimeUtil;
+use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
@@ -26,8 +27,9 @@ class PlayTemporarilyController extends AjaxControllerBase
         $lastDrawDate = new LastDrawDate($startDrawDate,$frequency);
         $date_time_util = new DateTimeUtil();
         $result = null;
-
+        $lotteryService = $this->domainServiceFactory->getLotteryService();
         $playFormToStorage_collection = [];
+
         foreach($bets as $bet) {
             $playFormToStorage = new PlayFormToStorage();
             $playFormToStorage->startDrawDate = $startDrawDate;
@@ -39,6 +41,7 @@ class PlayTemporarilyController extends AjaxControllerBase
             $playFormToStorage->num_weeks = $date_time_util->getNumWeeksBetweenDates(new \DateTime($startDrawDate),new \DateTime($lastDrawDate->getLastDrawDate()));
             $playFormToStorage_collection['play_config'][] = $playFormToStorage->toJson();
         }
+
         $playService = $this->domainServiceFactory->getPlayService();
         $current_user = $authService->getCurrentUser();
         $result = $playService->savePlayFromJson(json_encode($playFormToStorage_collection),$current_user->getId());

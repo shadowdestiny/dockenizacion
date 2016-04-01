@@ -19,4 +19,7 @@ class UserUnitTest extends UnitTestBase
         $expected = new Currency('EUR');
         $this->assertEquals($expected, $actual);
     }
+
+
+
 }

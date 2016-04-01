@@ -29,7 +29,8 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
 
     protected $play_config;
 
-    protected $draw_days;
+    /** @var  DrawDays  */
+    protected $days;
 
     protected $startDrawDate;
 
@@ -40,6 +41,8 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
     protected $threshold;
 
     protected $frequency;
+
+    protected $lottery;
 
 
     public function __construct()
@@ -79,7 +82,7 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
             }
             $this->setLine($euroMillionsLine);
             $this->setActive(true);
-            $this->setDrawDays(new DrawDays($formPlay->drawDays));
+            $this->setDays(new DrawDays($formPlay->drawDays));
             $this->setStartDrawDate(new \DateTime($formPlay->startDrawDate));
             $this->setLastDrawDate(new \DateTime($formPlay->lastDrawDate));
             $this->setFrequency((int) $formPlay->frequency);
@@ -116,7 +119,7 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
 
         return [
             'id' => $this->id,
-            'drawDays' => $this->draw_days->value(),
+            'drawDays' => $this->days->value(),
             'startDrawDate' => $this->startDrawDate->format('Y-m-d H:i:s'),
             'lastDrawDate' => $this->lastDrawDate->format('Y-m-d H:i:s'),
             'frequency' => $this->frequency,
@@ -193,6 +196,9 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
         $this->active = $active;
     }
 
+    /**
+     * @return bool
+     */
     public function getActive()
     {
         return $this->active;
@@ -200,12 +206,12 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
 
     public function setDrawDays($draw_days)
     {
-        $this->draw_days = $draw_days;
+        $this->days = $draw_days;
     }
 
     public function getDrawDays()
     {
-        return $this->draw_days;
+        return $this->days;
     }
 
     public function setStartDrawDate($startDrawDate)
@@ -213,6 +219,9 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
         $this->startDrawDate = $startDrawDate;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getStartDrawDate()
     {
         return $this->startDrawDate;
@@ -223,6 +232,9 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
         $this->lastDrawDate = $lastDrawDate;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getLastDrawDate()
     {
         return $this->lastDrawDate;
@@ -238,4 +250,33 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
         return $this->bet;
     }
 
+    /**
+     * @return DrawDays
+     */
+    public function getDays()
+    {
+        return $this->days;
+    }
+
+    public function setDays(DrawDays $days)
+    {
+        $this->days = $days;
+    }
+
+    public function numBets()
+    {
+        return 1;
+    }
+    /**
+     * @return Lottery
+     */
+    public function getLottery()
+    {
+        return $this->lottery;
+    }
+
+    public function setLottery($lottery)
+    {
+        $this->lottery = $lottery;
+    }
 }

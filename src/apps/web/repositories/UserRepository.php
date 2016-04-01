@@ -3,9 +3,11 @@ namespace EuroMillions\web\repositories;
 
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\UserId;
+use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IEmailValidationToken;
 use EuroMillions\web\interfaces\IPasswordHasher;
+use EuroMillions\web\vo\DrawDays;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\ValidationToken;
@@ -103,5 +105,33 @@ class UserRepository extends RepositoryBase
         $this->getEntityManager()->flush($user);
         return $user;
     }
+
+    public function getUserPlayConfigsActives()
+    {
+        $entityName = 'EuroMillions\web\entities\PlayConfig';
+        $result = $this->getEntityManager()
+            ->createQuery(
+                "SELECT p FROM {$entityName} p WHERE p.active = 1"
+                . ' group by p.user'
+            )
+            ->getResult();
+        return $result;
+    }
+
+    public function getUsersWithPlayConfigsOrderByLottery()
+    {
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT u'
+                . ' FROM ' . $this->getEntityName() . ' u JOIN u.playConfig p WITH u.id=p.user AND p.active = 1'
+//                . ' WHERE p.days.days LIKE :draw_days AND :day > p.startDrawDate AND  :day < p.lastDrawDate '
+//                . ' OR (:day = p.startDrawDate AND :day = p.lastDrawDate)'
+                . ' GROUP BY p.user'
+                . ' ORDER BY p.lottery,p.user')
+            ->getResult();
+
+        return $result;
+    }
+
 
 }
