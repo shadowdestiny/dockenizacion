@@ -2,7 +2,6 @@
 
 /**
  * Class JackpotTaskCest
- * @group active
  */
 class JackpotTaskCest
 {

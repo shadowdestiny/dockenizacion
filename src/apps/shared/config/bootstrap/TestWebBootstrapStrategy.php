@@ -36,8 +36,8 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
 
     public function execute(Di $di)
     {
-        DI::reset();
-        DI::setDefault($di);
+        Di::reset();
+        Di::setDefault($di);
         $app = new Phalcon\Mvc\Application($di);
         $this->configureModules($app);
         return $app;

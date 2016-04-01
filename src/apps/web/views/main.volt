@@ -26,7 +26,7 @@
 
         {# EDTD To remove SUBNAV when not connected as account #}
         {% block mobileNav %}
-            {% if user_logged %}
+            {% if user_logged is defined and user_logged %}
                 <div data-role="page" id="nav-account">
                     <ul class="no-li" data-role="listview">
                         <li><a href="/account" data-transition="slide" data-direction="reverse">{{ language.translate("Account") }}</a></li>
@@ -68,7 +68,7 @@
         </script>
         {% block template_scripts_after %}{% endblock %}
         {% block modal %}
-            {% if show_modal_winning %}
+            {% if show_modal_winning is defined and show_modal_winning %}
                 <script>
                     $(function(){
                         var checkWinSize = 0;
