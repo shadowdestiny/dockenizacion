@@ -4,17 +4,10 @@
 namespace EuroMillions\web\tasks;
 
 
-use EuroMillions\web\components\DateTimeUtil;
-use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\IEmailTemplate;
-use EuroMillions\web\emailTemplates\LowBalanceEmailTemplate;
-use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\PlayConfig;
-use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\UserNotifications;
-use EuroMillions\web\exceptions\InvalidBalanceException;
 use EuroMillions\web\services\factories\DomainServiceFactory;
-use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteryService;
 use EuroMillions\web\services\PlayService;
@@ -67,21 +60,6 @@ class BetTask extends TaskBase
         $result_play_config = $this->playService->getPlayConfigWithLongEnded($today);
         if($result_play_config->success()) {
             $this->userService->checkLongTermAndSendNotification($result_play_config->getValues(),$today);
-        }
-    }
-
-    private function sendEmailAutoPlay(PlayConfig $playConfig, IEmailTemplate $emailTemplate)
-    {
-        $user = $this->userService->getUser($playConfig->getUser()->getId());
-        $user_notifications_result = $this->userService->getActiveNotificationsByUserAndType($user, NotificationValue::NOTIFICATION_LAST_DRAW);
-        if($user_notifications_result->success()) {
-            /** @var UserNotifications $user_notification */
-            $users_notifications = $user_notifications_result->getValues();
-            foreach($users_notifications as $user_notification) {
-                if ($user_notification->getActive()) {
-                    $this->emailService->sendTransactionalEmail($user, $emailTemplate);
-                }
-            }
         }
     }
 }

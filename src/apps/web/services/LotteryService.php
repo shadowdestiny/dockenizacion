@@ -12,6 +12,7 @@ use EuroMillions\web\exceptions\BadSiteConfiguration;
 use EuroMillions\web\exceptions\DataMissingException;
 use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
+use EuroMillions\web\services\user_notifications_strategies\UserNotificationAutoPlayNoFunds;
 use EuroMillions\web\vo\EuroMillionsLine;
 use Money\Money;
 
@@ -31,12 +32,15 @@ class LotteryService
     private $betService;
     /** @var EmailService $emailService */
     private $emailService;
+    /** @var  UserNotificationsService $userNotificationsService */
+    private $userNotificationsService;
 
     public function __construct(EntityManager $entityManager,
                                 LotteriesDataService $lotteriesDataService,
                                 UserService $userService,
                                 BetService $betService,
-                                EmailService $emailService)
+                                EmailService $emailService,
+                                UserNotificationsService $userNotificationsService)
     {
         $this->entityManager = $entityManager;
         $this->lotteryDrawRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS . 'EuroMillionsDraw');
@@ -45,6 +49,7 @@ class LotteryService
         $this->emailService = $emailService;
         $this->userService = $userService;
         $this->betService = $betService;
+        $this->userNotificationsService = $userNotificationsService;
     }
 
     /**
@@ -205,9 +210,9 @@ class LotteryService
         $users = $this->userService->getUsersWithPlayConfigsForNextDraw($lottery);
         if( null != $users ) {
             /** @var User $user */
+            $nextDrawDate = $lottery->getNextDrawDate($dateNextDraw);
             foreach( $users as $user ) {
                 /** @var ArrayCollection $playconfigsFiltered */
-                $nextDrawDate = $lottery->getNextDrawDate($dateNextDraw);
                 $playconfigsFiltered = $user->getPlayConfigsFilteredForNextDraw($nextDrawDate);
                 if( count($playconfigsFiltered) > 0 ) {
                     //EMTD get playconfigsFiltered as array
@@ -219,7 +224,11 @@ class LotteryService
                             $this->betService->validation($playConfig, $euroMillionsDraw, $nextDrawDate);
                         }
                     } else {
-                        $this->emailService->sendLowBalanceEmail($user);
+                        $userNotificationAutoPlayNoFunds = new UserNotificationAutoPlayNoFunds($this->userService);
+                        $hasNotification = $this->userNotificationsService->hasNotificationActive($userNotificationAutoPlayNoFunds, $user);
+                        if($hasNotification) {
+                            $this->emailService->sendLowBalanceEmail($user);
+                        }
                     }
                 }
             }

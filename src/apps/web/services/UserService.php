@@ -233,6 +233,8 @@ class UserService
                                                                          ]);
         if(!empty($user_notifications)) {
             return new ActionResult(true,$user_notifications);
+        } else {
+            return new ActionResult(false);
         }
     }
 
@@ -244,6 +246,8 @@ class UserService
         ]);
         if(!empty($user_notifications)) {
             return new ActionResult(true,$user_notifications);
+        }else {
+            return new ActionResult(false,$user_notifications);
         }
     }
 
@@ -284,6 +288,7 @@ class UserService
                 return new ActionResult(false);
             }
         }
+        return new ActionResult(false);
     }
 
     public function updateCurrency(User $user, Currency $new_currency)
@@ -342,7 +347,7 @@ class UserService
         } catch ( \Exception $e ) {
             return new ActionResult(false);
         }
-
+        return new ActionResult(true);
     }
 
     public function checkLongTermAndSendNotification( array $playConfigList, \DateTime $today)
