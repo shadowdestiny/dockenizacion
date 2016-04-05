@@ -38,7 +38,6 @@ class AccountCest
     /**
      * @param FunctionalTester $I
      * @param \Page\Login $loginPage
-     * @group active
      */
     public function seeAccountPageAfterLogin(FunctionalTester $I, \Page\Login $loginPage)
     {

@@ -2,10 +2,13 @@
 namespace EuroMillions\web\vo;
 
 
+use EuroMillions\shared\helpers\StringHelper;
+use EuroMillions\shared\interfaces\IArraySerializable;
+use ReflectionClass;
 use ReflectionObject;
 use ReflectionProperty;
 
-class EuroMillionsLine
+class EuroMillionsLine implements IArraySerializable
 {
     const NUM_REGULAR_NUMBERS = 5;
     const NUM_LUCKY_NUMBERS = 2;
@@ -134,4 +137,17 @@ class EuroMillionsLine
         ];
     }
 
+    /** @return array */
+    public function toArray()
+    {
+        $properties = [];
+        $reflect = new ReflectionClass($this);
+        $props = $reflect->getProperties( ReflectionProperty::IS_PROTECTED | ReflectionProperty::IS_PRIVATE );
+        foreach($props as $prop) {
+            $property_name = $reflect->getProperty($prop->getName());
+            $property_name->setAccessible(true);
+            $properties[$property_name->getName()] = $property_name->getValue($this);
+        }
+        return $properties;
+    }
 }

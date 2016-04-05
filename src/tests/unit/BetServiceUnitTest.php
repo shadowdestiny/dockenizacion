@@ -71,8 +71,9 @@ class BetServiceUnitTest extends UnitTestBase
         $expected = new ActionResult(true);
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
-        $this->lotteryService_double->getNextDateDrawByLottery('EuroMillions', new \DateTime('2015-09-16 00:00:00'))->willReturn(new \DateTime());
-        $this->betRepository_double->getBetsByDrawDate(new \DateTime())->willReturn(null);
+        $date = new \DateTime();
+        $this->lotteryService_double->getNextDateDrawByLottery('EuroMillions', new \DateTime('2015-09-16 00:00:00'))->willReturn($date);
+        $this->betRepository_double->getBetsByDrawDate($date)->willReturn(null);
         $this->callValidationApi(true);
         $this->lotteryValidation_double->getXmlResponse()->willReturn(new \SimpleXMLElement(self::$content_with_ok_result));
         $this->logValidationApi_double->add(Argument::type($this->getEntitiesToArgument('LogValidationApi')))->shouldBeCalled();
@@ -80,7 +81,7 @@ class BetServiceUnitTest extends UnitTestBase
         $this->userRepository_double->add(Argument::any())->willReturn(true);
         $this->iDontCareAboutFlush();
         $sut = $this->getSut();
-        $actual = $sut->validation($playConfig,$euroMillionsDraw,new \DateTime(), new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
+        $actual = $sut->validation($playConfig,$euroMillionsDraw,$date, new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
         $this->assertEquals($expected,$actual);
     }
 

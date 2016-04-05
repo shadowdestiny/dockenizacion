@@ -120,4 +120,5 @@ class EntityBaseUnitTest extends UnitTestBase
         ];
         $this->assertEquals($expected, $user->toArray());
     }
+
 }

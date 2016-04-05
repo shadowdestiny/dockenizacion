@@ -3,10 +3,6 @@
 
 namespace EuroMillions\web\tasks;
 
-
-use EuroMillions\web\emailTemplates\IEmailTemplate;
-use EuroMillions\web\entities\PlayConfig;
-use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteryService;
@@ -14,7 +10,7 @@ use EuroMillions\web\services\PlayService;
 use EuroMillions\web\services\factories\ServiceFactory;
 use EuroMillions\web\services\UserService;
 use EuroMillions\shared\vo\results\ActionResult;
-use EuroMillions\web\vo\NotificationValue;
+
 
 class BetTask extends TaskBase
 {
@@ -35,18 +31,22 @@ class BetTask extends TaskBase
         parent::initialize();
         $domainFactory = new DomainServiceFactory($this->getDI(),new ServiceFactory($this->getDI()));
         $this->lotteryService = $lotteryService ?: $domainFactory->getLotteryService();
-        ($lotteryService) ? $this->lotteryService = $lotteryService : $this->lotteryService = $domainFactory->getLotteriesDataService();
         ($playService) ? $this->playService = $playService : $this->playService = $domainFactory->getPlayService();
         ($emailService) ? $this->emailService = $emailService : $this->emailService = $domainFactory->getServiceFactory()->getEmailService();
         $this->userService = $userService ? $userService : $this->domainServiceFactory->getUserService();
     }
 
 
-    public function placeBets()
+    public function placeBetsAction( $args = null )
     {
+        if(!$args) {
+            $date = new \DateTime();
+        } else {
+            $date = new \DateTime($args[0]);
+        }
         $lotteries = $this->lotteryService->getLotteriesOrderedByNextDrawDate();
         foreach( $lotteries as $lottery ) {
-            $this->lotteryService->placeBetForNextDraw($lottery);
+            $this->lotteryService->placeBetForNextDraw($lottery, $date);
         }
     }
 

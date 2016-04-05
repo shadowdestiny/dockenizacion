@@ -87,11 +87,22 @@ class BetTaskUnitTest extends UnitTestBase
     public function test_placeBets_called_callPlaceBet()
     {
         $lottery = $this->prepareLotteryEntity('EuroMillions');
+        $args[0] = '2016-04-05';
         $this->lotteryService_double->getLotteriesOrderedByNextDrawDate()->willReturn([$lottery]);
-        $this->lotteryService_double->placeBetForNextDraw($lottery)->shouldBeCalled();
+        $this->lotteryService_double->placeBetForNextDraw($lottery,new \DateTime($args[0]))->shouldBeCalled();
         $sut = new BetTask();
         $sut->initialize($this->lotteryService_double->reveal(), $this->playService_double->reveal(),$this->emailService_double->reveal(), $this->userService_double->reveal());
-        $sut->placeBets();
+        $sut->placeBetsAction($args);
+    }
+
+    /**
+     * method placeBets
+     * when calledBeforeCloseTime
+     * should callPlaceBet
+     */
+    public function test_placeBets_calledBeforeCloseTime_callPlaceBet()
+    {
+
     }
 
     /**

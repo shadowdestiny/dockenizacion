@@ -4,9 +4,12 @@
 namespace EuroMillions\web\vo;
 
 
+use EuroMillions\shared\helpers\StringHelper;
+use EuroMillions\shared\interfaces\IArraySerializable;
 use EuroMillions\web\interfaces\Comparable;
+use ReflectionClass;
 
-class DrawDays implements Comparable
+class DrawDays implements Comparable, IArraySerializable
 {
 
     const FRIDAY = 5;
@@ -44,4 +47,10 @@ class DrawDays implements Comparable
         return strlen($this->days);
     }
 
+    /** @return array */
+    public function toArray()
+    {
+        $key = StringHelper::fromCamelCaseToUnderscore((new ReflectionClass($this))->getShortName());
+        return [$key => $this->value()];
+    }
 }

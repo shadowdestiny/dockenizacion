@@ -34,6 +34,7 @@ class DateTimeUtil
             $date_today = new \DateTime();
             $date_today->setTimestamp($timeToRetry);
         }
+
         $time_config = $this->di->get('globalConfig')['retry_validation_time'];
         $limit_time = strtotime($date_today->format('Y/m/d '. $time_config['time']));
         return ($timeToRetry < $limit_time);
