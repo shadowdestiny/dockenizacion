@@ -43,7 +43,8 @@ class SignUpForm extends Form
         $this->add($surname);
 
         $email = new Email('email', array(
-            'placeholder' => 'Email'
+            'placeholder' => 'Email',
+            'id' => 'email-sign-up'
         ));
         $email->addValidators(array(
             new PresenceOf(array(
@@ -57,7 +58,8 @@ class SignUpForm extends Form
         $this->add($email);
 
         $password = new Password('password', array(
-            'placeholder' => 'Password'
+            'placeholder' => 'Password',
+            'id' => 'password-sign-up'
         ));
 
         $password->addValidator(new PresenceOf(array(

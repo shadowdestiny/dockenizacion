@@ -7,7 +7,6 @@ use EuroMillions\tests\helpers\mothers\UserMother;
 class AccountCest
 {
     private $userId;
-    private $userEmail;
     private $userName;
 
     public function _before(FunctionalTester $I)
@@ -16,7 +15,7 @@ class AccountCest
         $this->userName = $user->getName();
         $this->userId = $user->getId();
         $I->haveInDatabase('users', $user->toArray());
-   }
+    }
 
     public function _after(FunctionalTester $I)
     {
@@ -33,17 +32,42 @@ class AccountCest
         $I->haveInSession('EM_current_user', $this->userId);
         $I->amOnPage('/account');
         $I->canSee('Hello. '.$this->userName);
+        $I->canSee('User detail');
     }
 
     /**
      * @param FunctionalTester $I
      * @param \Page\Login $loginPage
-     * @group active
      */
     public function seeAccountPageAfterLogin(FunctionalTester $I, \Page\Login $loginPage)
     {
         $loginPage->login(UserBuilder::DEFAULT_EMAIL, UserBuilder::DEFAULT_PASSWORD);
         $I->amOnPage('/account');
         $I->canSee('Hello. '.$this->userName);
+    }
+
+    /**
+     * @param FunctionalTester $I
+     * @param \Page\SignUp $signUpPage
+     * @param \Page\Login $loginPage
+     * @group active
+     */
+    public function seeAccountPageAfterSignUp(FunctionalTester $I, \Page\SignUp $signUpPage, \Page\Login $loginPage)
+    {
+        $email = 'nuevoemail@email.com';
+        $password = 'Nuevopassword01';
+        $nombre = 'Nuevo nombre';
+        $signUpPage->signUp(
+            $nombre,
+            'Nuevo apellido',
+            $email,
+            $password,
+            $password,
+            UserBuilder::DEFAULT_COUNTRY
+        );
+        $I->canSeeNumRecords(1, 'users', ['email' => $email]);
+        $loginPage->login($email, $password);
+        $I->amOnPage('/account');
+        $I->canSee('Hello. '.$nombre);
     }
 }

@@ -4,7 +4,7 @@
         <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
     </div>
 {% endif %}
-<form action="{{ url_signin }}" name="form_notifications" id="form-email-settings" method="post">
+<form action="{{ url_signin }}" name="form_notifications" id="sign-in-form" method="post">
     {{ signinform.render('email', {'class':'input'~form_errors_login['email']}) }}
     {{ signinform.render('password', {'class':'input'~form_errors_login['password']}) }}
     {{ signinform.render('csrf', ['value': security.getSessionToken()]) }}

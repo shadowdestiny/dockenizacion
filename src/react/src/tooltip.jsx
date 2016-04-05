@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var ReactTooltip = require("react-tooltip")
+var ReactTooltip = require("react-tooltip");
 
 
 var Tooltip = new React.createClass({
@@ -22,14 +22,6 @@ var Tooltip = new React.createClass({
                 <span data-for="tooltip"  data-place={this.props.place} data-tip={this.props.message}>
                     <svg className={this.props.class}><use xlinkHref={xlink}></use></svg>
                         {react_tooltip}
-                </span>
-            )
-        }
-        if(this.props.type == 'input') {
-            return (
-                <span className="spanTooltip">
-                    <input data-for="tooltip" data-event={this.props.event} data-place={this.props.place} type="password" id="password" name="password" className={this.props.class} placeholder="Password" data-tip={this.props.message}/>
-                    {react_tooltip}
                 </span>
             )
         }
