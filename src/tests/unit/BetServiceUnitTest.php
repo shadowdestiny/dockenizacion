@@ -193,14 +193,15 @@ class BetServiceUnitTest extends UnitTestBase
         $expected = new ActionResult(false);
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $this->userRepository_double->find(Argument::any())->willReturn($this->getUser());
-        $this->betRepository_double->getBetsByDrawDate(new \DateTime())->willReturn(null);
+        $date = new \DateTime();
+        $this->betRepository_double->getBetsByDrawDate($date)->willReturn(null);
         $this->callValidationApi(true);
         $this->betRepository_double->add(Argument::any())->willReturn(true);
         $this->userRepository_double->add($this->getUser())->willThrow(new \Exception());
         $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush()->shouldNotBeCalled();
         $sut = $this->getSut();
-        $actual = $sut->validation($playConfig,$euroMillionsDraw, new \DateTime(), new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
+        $actual = $sut->validation($playConfig,$euroMillionsDraw, $date, new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
         $this->assertEquals($expected,$actual);
     }
 
