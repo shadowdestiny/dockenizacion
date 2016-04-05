@@ -6,6 +6,7 @@ namespace EuroMillions\tests\helpers\builders;
 
 use EuroMillions\web\entities\PlayConfig;
 
+use EuroMillions\web\entities\User;
 use EuroMillions\web\vo\DrawDays;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
@@ -14,7 +15,7 @@ use EuroMillions\web\vo\EuroMillionsRegularNumber;
 class PlayConfigBuilder
 {
     protected $id;
-    protected $user_id;
+    protected $user;
     protected $line;
     protected $days;
     protected $startDrawDate;
@@ -38,9 +39,9 @@ class PlayConfigBuilder
         return new PlayConfigBuilder();
     }
 
-    public function withUser( $userId )
+    public function withUser( User $user )
     {
-        $this->user_id = $userId;
+        $this->user = $user;
         return $this;
     }
 
@@ -99,6 +100,11 @@ class PlayConfigBuilder
         $playConfig = new PlayConfig();
         $playConfig->initialize(get_object_vars($this));
         return $playConfig;
+    }
+
+    public function toArray()
+    {
+        return $this->build()->toArrayParent();
     }
 
 

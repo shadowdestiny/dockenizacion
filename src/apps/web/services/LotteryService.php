@@ -235,10 +235,20 @@ class LotteryService
         }
     }
 
-    public function getLotteriesOrderedByNextDrawDate()
+    public function getLotteriesOrderedByNextDrawDate( \DateTime $now = null )
     {
-        $lotteries = $this->lotteryRepository->findBy(['draw' => 'ASC']);
-        return count($lotteries) > 0 ? $lotteries : [];
+        if(!$now) {
+            $now = new \DateTime();
+        }
+        $new_array = [];
+        $lotteries = $this->lotteryRepository->findAll();
+        /** @var Lottery $lottery */
+        foreach($lotteries as $lottery) {
+            $next_draw = $lottery->getNextDrawDate($now);
+            $new_array[$next_draw->format('Y-m-d H:i:s')] = $lottery;
+        }
+        ksort($new_array);
+        return count($new_array) > 0 ? $new_array : [];
     }
 
 

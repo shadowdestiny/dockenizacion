@@ -406,6 +406,39 @@ class LotteryServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method getLotteriesOrderedByNextDrawDate
+     * when called
+     * should returnLotteriesOrderedProperty
+     */
+    public function test_getLotteriesOrderedByNextDrawDate_called_returnLotteriesOrderedProperty()
+    {
+        $lottery = new Lottery();
+        $lottery->initialize([
+            'id'        => 1,
+            'name'      => 'EuroMillions',
+            'active'    => 1,
+            'frequency' => 'w0100100',
+            'draw_time' => '20:00:00'
+        ]);
+        $lotteryOne = new Lottery();
+        $lotteryOne->initialize([
+            'id'        => 1,
+            'name'      => 'Bonoloto',
+            'active'    => 1,
+            'frequency' => 'w1111110',
+            'draw_time' => '20:00:00'
+        ]);
+        $this->lotteryRepositoryDouble->findAll()->willReturn([$lottery,$lotteryOne]);
+        $sut = $this->getSut();
+        $actual = $sut->getLotteriesOrderedByNextDrawDate(new \DateTime('2015-09-21'));
+        $expected = [
+            '2015-09-21 20:00:00' => $lotteryOne,
+            '2015-09-22 20:00:00' => $lottery
+        ];
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
      * @param $lottery_name
      * @return Lottery
      */

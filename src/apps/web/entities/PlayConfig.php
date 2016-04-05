@@ -102,6 +102,11 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
         return $this->jsonSerialize();
     }
 
+    public function toArrayParent()
+    {
+        return parent::toArray();
+    }
+
     /**
      * Specify data which should be serialized to JSON
      * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
