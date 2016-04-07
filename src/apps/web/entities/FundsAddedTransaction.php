@@ -4,10 +4,14 @@
 namespace EuroMillions\web\entities;
 
 
-class FundsAddedTransaction extends Transaction
+use EuroMillions\web\interfaces\ITransactionData;
+
+class FundsAddedTransaction extends Transaction implements ITransactionData
 {
 
     protected $data;
+    protected $hasFee;
+    protected $amountAdded;
 
     /**
      * @return mixed
@@ -23,5 +27,17 @@ class FundsAddedTransaction extends Transaction
     public function setData($data)
     {
         $this->data = $data;
+    }
+
+    public function toString()
+    {
+        // TODO: Implement toString() method.
+    }
+
+    public function fromString()
+    {
+        list($fee,$amount) = explode('#',$this->toString());
+        $this->hasFee = $fee;
+        $this->amountAdded = $amount;
     }
 }

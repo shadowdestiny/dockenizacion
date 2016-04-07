@@ -4,9 +4,14 @@
 namespace EuroMillions\web\entities;
 
 
-class AutomaticPurchaseTransaction extends Transaction
+use EuroMillions\web\interfaces\ITransactionData;
+
+class AutomaticPurchaseTransaction extends Transaction implements ITransactionData
 {
     protected $data;
+    protected $lotteryId;
+    protected $numBets;
+
 
     /**
      * @return mixed
@@ -22,5 +27,15 @@ class AutomaticPurchaseTransaction extends Transaction
     public function setData($data)
     {
         $this->data = $data;
+    }
+
+    public function toString()
+    {
+        return $this->data;
+    }
+
+    public function fromString()
+    {
+
     }
 }
