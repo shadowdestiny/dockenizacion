@@ -95,7 +95,7 @@ abstract class DatabaseIntegrationTestBase extends \PHPUnit_Extensions_Database_
             }
         }
         $conn->exec("set foreign_key_checks=1");
-        $this->cache->flushAll();
+//        $this->cache->flushAll();
     }
     /**
      * Child classes must implement this method. Return empty array if no fixtures are needed
