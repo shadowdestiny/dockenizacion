@@ -59,7 +59,7 @@ class TransactionIntegrationTest extends DatabaseIntegrationTestBase
         $this->entityManager->persist($user);
         $this->entityManager->persist($transactionType);
         $this->transactionRepository->add($transactionType);
-        $this->entityManager->flush();
+        $this->entityManager->flush($transactionType);
         $actual = $this->entityManager
             ->createQuery(
                 'SELECT t'
