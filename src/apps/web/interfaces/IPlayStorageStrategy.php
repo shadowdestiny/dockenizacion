@@ -10,6 +10,7 @@ use EuroMillions\web\vo\PlayFormToStorage;
 
 interface IPlayStorageStrategy
 {
+    /** @return ActionResult */
     public function save($json, $userId);
 
     /**
