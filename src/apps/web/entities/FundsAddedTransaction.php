@@ -9,30 +9,13 @@ use EuroMillions\web\interfaces\ITransactionData;
 class FundsAddedTransaction extends Transaction implements ITransactionData
 {
 
-    protected $data;
     protected $hasFee;
     protected $amountAdded;
 
 
-    /**
-     * @return mixed
-     */
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    /**
-     * @param mixed $data
-     */
-    public function setData($data)
-    {
-        $this->data = $data;
-    }
-
     public function toString()
     {
-        // TODO: Implement toString() method.
+        return $this->data;
     }
 
     public function fromString()
@@ -40,5 +23,41 @@ class FundsAddedTransaction extends Transaction implements ITransactionData
         list($fee,$amount) = explode('#',$this->toString());
         $this->hasFee = $fee;
         $this->amountAdded = $amount;
+        return $this;
     }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getHasFee()
+    {
+        return $this->hasFee;
+    }
+
+    /**
+     * @param mixed $hasFee
+     */
+    public function setHasFee($hasFee)
+    {
+        $this->hasFee = $hasFee;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAmountAdded()
+    {
+        return $this->amountAdded;
+    }
+
+    /**
+     * @param mixed $amountAdded
+     */
+    public function setAmountAdded($amountAdded)
+    {
+        $this->amountAdded = $amountAdded;
+    }
+
 }

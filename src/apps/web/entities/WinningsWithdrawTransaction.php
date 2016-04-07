@@ -8,31 +8,12 @@ use EuroMillions\web\interfaces\ITransactionData;
 
 class WinningsWithdrawTransaction extends Transaction implements ITransactionData
 {
-
-    protected $data;
     protected $amountWithdrawed;
     protected $accountBankId;
 
-    /**
-     * @return mixed
-     */
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    /**
-     * @param mixed $data
-     */
-    public function setData($data)
-    {
-        $this->data = $data;
-    }
-
-
     public function toString()
     {
-        // TODO: Implement toString() method.
+        return $this->data;
     }
 
     public function fromString()
@@ -42,4 +23,5 @@ class WinningsWithdrawTransaction extends Transaction implements ITransactionDat
         $this->accountBankId = $accountBankId;
         return $this;
     }
+
 }
