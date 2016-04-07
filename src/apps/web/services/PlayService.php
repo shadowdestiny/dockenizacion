@@ -3,7 +3,6 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 
-use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
@@ -11,7 +10,6 @@ use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
-use EuroMillions\web\services\external_apis\LotteryValidationCastilloApi;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\PlayFormToStorage;
@@ -78,13 +76,13 @@ class PlayService
             return new ActionResult(false);
         }
         try{
-            /** @var ActionResult $result_save_playstorage */
-            $result_save_playstorage = $this->playStorageStrategy->findByKey($user_id);
-            if($result_save_playstorage->success()) {
-                $this->playStorageStrategy->save($result_save_playstorage->returnValues(),$current_user_id);
+            /** @var ActionResult $result_find_playstorage */
+            $result_find_playstorage = $this->playStorageStrategy->findByKey($user_id);
+            if($result_find_playstorage->success()) {
+                $this->playStorageStrategy->save($result_find_playstorage->returnValues(),$current_user_id);
                 $result_save_playstorage = $this->playStorageStrategy->findByKey($current_user_id);
                 if($result_save_playstorage->success()) {
-                    $form_decode = json_decode($result_save_playstorage->getValues());
+                    $form_decode = json_decode($result_find_playstorage->getValues());
                     $bets = [];
                     foreach($form_decode->play_config as $bet) {
                         $playConfig = new PlayConfig();
@@ -141,7 +139,6 @@ class PlayService
                             $this->entityManager->flush($play_config);
                         }
                     }
-                    //if($order->isNextDraw($draw->getValues()->getDrawDate())){
                     if( $result_payment->success() ) {
                         foreach( $order->getPlayConfig() as $play_config ) {
                             $result_validation = $this->betService->validation($play_config, $draw->getValues(),$lottery->getNextDrawDate());

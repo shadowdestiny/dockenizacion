@@ -171,20 +171,10 @@ class Order implements \JsonSerializable
         $this->state = $state;
     }
 
-    public function is_charged_fee()
-    {
-        return $this->credit_card_charge->getIsChargeFee();
-    }
-
-
     public function isNextDraw( \DateTime $draw_date )
     {
         $play_config = $this->getPlayConfig();
-        if($play_config[0]->getStartDrawDate()->getTimestamp() > $draw_date->getTimestamp() ) {
-            return false;
-        } else {
-            return true;
-        }
+        return $play_config[0]->getStartDrawDate()->getTimestamp() <= $draw_date->getTimestamp();
     }
 
 
