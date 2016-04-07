@@ -12,13 +12,7 @@ class FaqController extends PublicSiteControllerBase
     {
         $config = $this->di->get('config');
         /** @var ActionResult $result */
-        $result = $this->lotteryService->getLotteryConfigByName('EuroMillions');
-
-        $lottery = null;
-        if($result->success()) {
-            /** @var Lottery $lottery*/
-            $lottery = $result->getValues();
-        }
+        $lottery = $this->lotteryService->getLotteryConfigByName('EuroMillions');
 
         return $this->view->setVars([
             'price_bet' => (!empty($lottery)) ? $lottery->getSingleBetPrice()->getAmount() / 10000 : "",

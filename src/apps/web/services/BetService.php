@@ -48,6 +48,7 @@ class BetService
         if(!$lotteryValidation) {
             $lotteryValidation = new LotteryValidationCastilloApi();
         }
+
         /** @var User $user */
         $user = $this->userRepository->find($playConfig->getUser()->getId());
         $single_bet_price = $euroMillionsDraw->getLottery()->getSingleBetPrice();

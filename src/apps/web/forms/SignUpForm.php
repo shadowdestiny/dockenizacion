@@ -84,7 +84,6 @@ class SignUpForm extends Form
         )));
 
 
-
         $this->add($password);
         $password_confirm = new Password('confirm_password', array(
             'placeholder' => 'Confirm Password'

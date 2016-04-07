@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="EuroMillions\web\entities\Transaction" table="transactions"
+            repository-class="EuroMillions\web\repositories\TransactionRepository" inheritance-type="SINGLE_TABLE" >
+
+
+        <discriminator-column name="entity_type" type="string" />
+        <discriminator-map>
+            <discriminator-mapping value="ticket_purchase" class="EuroMillions\web\entities\TicketPurchaseTransaction" />
+            <discriminator-mapping value="automatic_purchase" class="EuroMillions\web\entities\AutomaticPurchaseTransaction" />
+            <discriminator-mapping value="funds_added" class="EuroMillions\web\entities\FundsAddedTransaction" />
+            <discriminator-mapping value="winnings_received" class="EuroMillions\web\entities\WinningsReceivedTransaction" />
+            <discriminator-mapping value="winnings_converted_funds" class="EuroMillions\web\entities\WinningsConvertedFundsTransaction" />
+            <discriminator-mapping value="winnings_withdraw" class="EuroMillions\web\entities\WinningsWithdrawTransaction" />
+            <discriminator-mapping value="refund" class="EuroMillions\web\entities\RefundTransaction" />
+            <discriminator-mapping value="bonus" class="EuroMillions\web\entities\BonusTransaction" />
+        </discriminator-map>
+
+        <id name="id" type="integer">
+            <generator strategy="IDENTITY"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="date" type="date" nullable="true" column="date"/>
+        <embedded name="wallet_before" class="EuroMillions\shared\vo\Wallet" use-column-prefix="true" />
+        <embedded name="wallet_after" class="EuroMillions\shared\vo\Wallet" use-column-prefix="true" />
+        <many-to-one target-entity="EuroMillions\web\entities\User" inversed-by="playConfig" field="user">
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

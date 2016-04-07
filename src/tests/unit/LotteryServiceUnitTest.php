@@ -216,7 +216,7 @@ class LotteryServiceUnitTest extends UnitTestBase
             'draw_time' => '20:00:00'
         ]);
 
-        $expected = new ActionResult(true,$lottery);
+        $expected = $lottery;
         $this->lotteryRepositoryDouble->findOneBy(Argument::any())->willReturn($lottery);
 
         $sut = $this->getSut();
@@ -459,7 +459,6 @@ class LotteryServiceUnitTest extends UnitTestBase
     protected function getBreakDownDataDraw()
     {
         return [
-
                         'category_one' => ['5 + 2', '000', '0'],
                         'category_two' => ['5 + 1', '29392657', '9'],
                         'category_three' => ['5 + 0', '8817797', '10'],
