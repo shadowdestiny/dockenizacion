@@ -136,7 +136,7 @@ class PlayService
                         //EMTD be careful now, set explicity lottery, but it should come inform on playconfig entity
                         /** @var PlayConfig $play_config */
                         foreach( $order->getPlayConfig() as $play_config ) {
-                            $play_config->setLottery($lottery);
+                            //$play_config->setLottery($lottery);
                             $this->playConfigRepository->add($play_config);
                             $this->entityManager->flush($play_config);
                         }
@@ -157,6 +157,7 @@ class PlayService
                     //error
                 }
             } catch ( \Exception $e ) {
+
             }
         }
         return new ActionResult(false);

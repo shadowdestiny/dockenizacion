@@ -148,7 +148,7 @@ class LotteryService
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         if (null !== $lottery) {
-            return new ActionResult(true, $lottery);
+           return $lottery;
         } else {
             return new ActionResult(false, 'Lottery unknown');
         }
