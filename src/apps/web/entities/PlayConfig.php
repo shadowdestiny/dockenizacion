@@ -32,8 +32,10 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
     /** @var  DrawDays  */
     protected $days;
 
+    /** @var  \DateTime */
     protected $startDrawDate;
 
+    /** @var  \DateTime */
     protected $lastDrawDate;
 
     protected $active;
@@ -97,16 +99,6 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
         return json_encode($this, JSON_UNESCAPED_UNICODE);
     }
 
-    public function toArray()
-    {
-        return $this->jsonSerialize();
-    }
-
-    public function toArrayParent()
-    {
-        return parent::toArray();
-    }
-
     /**
      * Specify data which should be serialized to JSON
      * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
@@ -118,7 +110,7 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
     {
 
         $lines = [];
-        if(count($this->line) > 0) {
+        if( null !== $this->line) {
                 $lines[] = $this->line->toJsonData();
         }
 

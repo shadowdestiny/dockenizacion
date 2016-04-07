@@ -88,8 +88,7 @@ class PlayConfigBuilder
         foreach ($luck as $lucky_number) {
             $lucky_numbers[] = new EuroMillionsLuckyNumber($lucky_number);
         }
-        $line = new EuroMillionsLine($regular_numbers, $lucky_numbers);
-        return $line;
+        return new EuroMillionsLine($regular_numbers, $lucky_numbers);
     }
 
     /**
@@ -104,7 +103,7 @@ class PlayConfigBuilder
 
     public function toArray()
     {
-        return $this->build()->toArrayParent();
+        return $this->build()->toArray();
     }
 
 

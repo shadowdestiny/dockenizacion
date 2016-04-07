@@ -13,7 +13,7 @@ class Order implements \JsonSerializable
 
     /** @var  Money $total */
     private $total;
-    /** @var PlayConfig $play_config */
+    /** @var PlayConfig[] $play_config */
     private $play_config;
     /** @var  Money $fee */
     private $fee;
@@ -83,7 +83,7 @@ class Order implements \JsonSerializable
     }
 
     /**
-     * @return PlayConfig
+     * @return PlayConfig[]
      */
     public function getPlayConfig()
     {
@@ -180,7 +180,7 @@ class Order implements \JsonSerializable
     public function isNextDraw( \DateTime $draw_date )
     {
         $play_config = $this->getPlayConfig();
-        if($play_config[0]->getStartDrawDate()->getTimeStamp() > $draw_date->getTimestamp() ) {
+        if($play_config[0]->getStartDrawDate()->getTimestamp() > $draw_date->getTimestamp() ) {
             return false;
         } else {
             return true;
@@ -231,7 +231,7 @@ class Order implements \JsonSerializable
          $bets = [];
         /** @var PlayConfig $play */
         foreach($this->play_config as $play) {
-            $bets[] = $play->toArray();
+            $bets[] = $play->jsonSerialize();
          }
 
          return [
