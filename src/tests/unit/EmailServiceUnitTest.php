@@ -67,7 +67,7 @@ class EmailServiceUnitTest extends UnitTestBase
     {
         return new EmailService(
             $this->mailServiceApi_double->reveal(),
-            $this->getDi()->get('globalConfig')['mail']
+            $this->getDi()->get('config')['mail']
         );
     }
 

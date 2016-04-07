@@ -35,7 +35,7 @@ class ServiceFactory
 
     public function getEmailService()
     {
-        $config = $this->di->get('globalConfig')['mail'];
+        $config = $this->di->get('config')['mail'];
         $api_key = $config['mandrill_api_key'];
         return new EmailService(
             new MandrillWrapper($api_key),
