@@ -12,7 +12,9 @@ class TicketPurchaseTransaction extends Transaction implements ITransactionData
     protected $data;
     protected $lotteryId;
     protected $numBets;
-    protected $payWithWallet;
+    protected $amountWithWallet;
+    protected $amountWithCreditCard;
+    protected $feeApplied;
 
 
     /**
@@ -39,9 +41,17 @@ class TicketPurchaseTransaction extends Transaction implements ITransactionData
 
     public function fromString()
     {
-        list($lotteryId,$numBets,$payWithWallet) = explode('#',$this->toString());
+        list($lotteryId,
+             $numBets,
+             $amountWithWallet,
+             $amountWithCreditCard,
+             $feeApplied) = explode('#',$this->toString());
+
         $this->lotteryId = $lotteryId;
         $this->numBets = $numBets;
-        $this->payWithWallet = $payWithWallet;
+        $this->amountWithWallet = $amountWithWallet;
+        $this->amountWithCreditCard = $amountWithCreditCard;
+        $this->feeApplied = $feeApplied;
+        return $this;
     }
 }

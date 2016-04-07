@@ -13,6 +13,7 @@ class FundsAddedTransaction extends Transaction implements ITransactionData
     protected $hasFee;
     protected $amountAdded;
 
+
     /**
      * @return mixed
      */

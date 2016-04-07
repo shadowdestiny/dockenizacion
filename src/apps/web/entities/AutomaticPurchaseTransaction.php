@@ -12,7 +12,6 @@ class AutomaticPurchaseTransaction extends Transaction implements ITransactionDa
     protected $lotteryId;
     protected $numBets;
 
-
     /**
      * @return mixed
      */
@@ -36,6 +35,9 @@ class AutomaticPurchaseTransaction extends Transaction implements ITransactionDa
 
     public function fromString()
     {
-
+        list($lotteryId, $numBets) = explode('#', $this->data);
+        $this->lotteryId = $lotteryId;
+        $this->numBets = $numBets;
+        return $this;
     }
 }

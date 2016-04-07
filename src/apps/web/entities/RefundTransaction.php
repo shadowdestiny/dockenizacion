@@ -4,10 +4,13 @@
 namespace EuroMillions\web\entities;
 
 
-class RefundTransaction extends Transaction
+use EuroMillions\web\interfaces\ITransactionData;
+
+class RefundTransaction extends Transaction implements ITransactionData
 {
 
     protected $data;
+    protected $amountRefunded;
 
     /**
      * @return mixed
@@ -23,5 +26,16 @@ class RefundTransaction extends Transaction
     public function setData($data)
     {
         $this->data = $data;
+    }
+
+    public function toString()
+    {
+        // TODO: Implement toString() method.
+    }
+
+    public function fromString()
+    {
+        $this->amountRefunded = $this->data;
+        return $this;
     }
 }

@@ -36,6 +36,7 @@ use Phalcon\Validation\Validator\Regex;
 class AccountController extends PublicSiteControllerBase
 {
 
+
     /**
      * @return \Phalcon\Mvc\View
      */
