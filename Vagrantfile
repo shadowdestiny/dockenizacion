@@ -3,9 +3,10 @@ Vagrant.configure(2) do |config|
         v.memory = 2048
         v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
     end
-    config.vm.box = "ubuntu/vivid64"
+    config.vm.box = "ubuntu/wily64"
 
     config.vm.provision "shell", inline: <<-SCRIPT
+        sudo apt-get autoremove
         sudo apt-get install python-software-properties
         sudo apt-get update
         sudo apt-get install python-pip python-dev -y
@@ -15,12 +16,22 @@ Vagrant.configure(2) do |config|
 
     config.vm.provision "ansible_local" do |ansible|
         ansible.playbook    = "/vagrant/vagrant_config/provision.yml"
-        ansible.install     = true
     end
 
     config.vm.provision "ansible_local", run: "always" do |ansible|
         ansible.playbook    = "/vagrant/vagrant_config/bootstrap.yml"
-        ansible.install     = true
+    end
+
+    config.vm.provision "ansible_local", run: "always" do |ansible|
+        ansible.provisioning_path   = "/vagrant/src/config_tpl"
+        ansible.playbook            = "create_config.yml"
+        ansible.extra_vars          = "vars/vagrant_environment_var.yml"
+    end
+
+    config.vm.provision "ansible_local", run: "always" do |ansible|
+        ansible.provisioning_path   = "/vagrant/src/config_tpl"
+        ansible.playbook            = "create_config.yml"
+        ansible.extra_vars          = "vars/development_environment_var.yml"
     end
 
     config.vm.network "forwarded_port", guest: 80, host: 8080

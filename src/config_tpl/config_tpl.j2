@@ -1,0 +1,77 @@
+[application]
+error_reporting = {{ error_reporting }}
+display_errors = {{ display_errors }}
+display_startup_errors = {{ display_startup_errors }}
+
+[database]
+adapter = {{ database_adapter }}
+host = {{ database_host }}
+username = {{ database_user }}
+password = {{ database_pass }}
+dbname = {{ database_name }}
+original_db_name = {{ original_database_name }}
+
+[domain]
+url = {{ domain_url }}
+
+[environment]
+var_name = {{ environment_var_name }}
+
+[redis]
+host = {{ redis_host }}
+prefix = {{ redis_prefix }}
+
+[default_cache_lifetime]
+redis = {{ redis_cache_lifetime }}
+
+[lifetime_cache]
+redis = {{ redis_cache_lifetime }}
+
+[mail]
+from_name = {{ email_from_name }}
+from_address = {{ email_from_address }}
+mandrill_api_key = {{ mandrill_api_key }}
+
+[log]
+file_logs_path = {{ file_logs_path }}
+
+[recaptcha]
+public_key = {{ recaptcha_public_key }}
+private_key = {{ recaptcha_private_key }}
+
+[ips]
+ips = {{ ips }}
+
+[retry_validation_time]
+time = {{ euromillions_retry_validation_time }}
+
+[threshold_value_reminder]
+threshold = {{ threshold_value_reminder }}
+
+[threshold_above]
+value = {{ threshold_above }}
+
+[admin_credentials]
+user = {{ admin_user }}
+pass = {{ admin_pass }}
+
+[email_support]
+email = {{ support_email_address }}
+
+[payxpert]
+originator_id = {{ payxpert_originator_id }}
+originator_name = {{ payxpert_originator_name }}
+api_key = {{ payxpert_api_key }}
+
+[sms]
+username = {{ sms_user }}
+password = {{ sms_pass }}
+number = {{ sms_number }}
+
+[mobile_alert]
+number = {{ sms_number }}
+
+[restricted_access]
+allowed_ips = {{ restricted_access_ips }}
+user = {{ restricted_access_user }}
+pass = {{ restricted_access_pass }}

@@ -22,8 +22,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     protected $assetsPath;
 
-    const CONFIG_FILENAME = 'web_config.ini';
-
     public function __construct($appPath, $globalConfigPath, $configPath, $assetsPath)
     {
         $this->appPath = $appPath;
@@ -59,7 +57,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $config = $di->get('config');
         ini_set('display_errors', $config->application['displayErrors']);
         ini_set('display_startup_errors', $config->application['displayStartupErrors']);
-        error_reporting($config->application['errorReporting']);
+        error_reporting($config->application['error_reporting']);
         (new Phalcon\Debug())->listen();
         $application = new Phalcon\Mvc\Application($di);
         $this->configureModules($application);
@@ -227,11 +225,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     protected function configSecurity()
     {
         return new Phalcon\Security();
-    }
-
-    protected function getConfigFileName(EnvironmentDetector $em)
-    {
-        return $em->get() . '_' . self::CONFIG_FILENAME;
     }
 
     /**

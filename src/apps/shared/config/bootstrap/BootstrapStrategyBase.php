@@ -22,6 +22,7 @@ abstract class BootstrapStrategyBase
 {
     protected $configPath;
     private $globalConfigPath;
+    const CONFIG_FILENAME = 'config.ini';
 
     public function __construct($globalConfigPath, $configPath)
     {
@@ -124,5 +125,9 @@ abstract class BootstrapStrategyBase
         return new Ini($this->globalConfigPath . 'config.ini');
     }
 
-    abstract protected function getConfigFileName(EnvironmentDetector $em);
+    protected function getConfigFileName(EnvironmentDetector $em)
+    {
+        return $em->get().'_'.self::CONFIG_FILENAME;
+    }
+
 }

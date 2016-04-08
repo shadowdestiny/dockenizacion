@@ -1,0 +1,13 @@
+---
+- name: Create config files
+  hosts: localhost
+  become: yes
+  become_user: root
+  tasks:
+    - name: include variables for environment
+      include_vars: vars/{{ item }}.yml
+      with_items:
+        - default_vars
+        - "{{ env }}_vars"
+    - name: create template for environment
+      template: src=config_tpl.j2 dest=../apps/shared/config/{{ env }}_config.ini owner=www-data mode=0644

@@ -13,7 +13,9 @@ use Phalcon;
 
 class Bootstrap
 {
-    protected $di;
+    private $di;
+    private $strategy;
+
     public function __construct(IBootstrapStrategy $strategy)
     {
         $this->strategy = $strategy;
@@ -22,7 +24,7 @@ class Bootstrap
 
     public function execute()
     {
-        error_reporting($this->di->get('globalConfig')->php->error_reporting_level);
+        error_reporting($this->di->get('config')->application->error_reporting);
         return $this->strategy->execute($this->di);
     }
 }

@@ -66,10 +66,10 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
         }
     }
 
-    protected function getConfigFileName(EnvironmentDetector $em)
-    {
-        return $em->get().'_test_config.ini';
-    }
+//    protected function getConfigFileName(EnvironmentDetector $em)
+//    {
+//        return $em->get().'_test_config.ini';
+//    }
 
     protected function configDomainServiceFactory(Di $di)
     {

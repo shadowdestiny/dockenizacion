@@ -10,7 +10,3 @@
     - environment_variables
     - php_dependencies
     - cli_utils
-#  tasks:
-#    - name: debug
-#      debug: msg="hola"
-
