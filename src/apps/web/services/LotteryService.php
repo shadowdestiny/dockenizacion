@@ -190,7 +190,6 @@ class LotteryService
 
     public function getBreakDownDrawByDate($lotteryName)
     {
-        //EMTD @rmrbest Why there's a $now parameter if it's not used?
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         if (null !== $lottery) {

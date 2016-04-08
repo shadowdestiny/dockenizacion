@@ -21,8 +21,8 @@ class Login
 
     public function login($email, $password)
     {
-        $I = $this->tester;
 
+        $I = $this->tester;
         $I->amOnPage(self::$URL);
         $I->fillField(self::$emailField, $email);
         $I->fillField(self::$passwordField, $password);
@@ -39,8 +39,5 @@ class Login
     {
         return static::$URL.$param;
     }
-
-
-
 
 }

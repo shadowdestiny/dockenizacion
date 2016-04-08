@@ -21,6 +21,10 @@ class AccountCest
     {
     }
 
+    /**
+     * @param FunctionalTester $I
+     * @group active
+     */
     public function redirectToLoginIfNotLoggedIn(FunctionalTester $I)
     {
         $I->amOnPage('/account');
@@ -69,5 +73,37 @@ class AccountCest
         $loginPage->login($email, $password);
         $I->amOnPage('/account');
         $I->canSee('Hello. '.$nombre);
+    }
+
+
+    /**
+     * @param FunctionalTester $I
+     * @group active
+     */
+    public function seeAccountMyGames( FunctionalTester $I )
+    {
+
+        $I->haveInDatabase('play_configs', [
+            'id'                        => 1,
+            'user_id'                   => '9098299B-14AC-4124-8DB0-19571EDABE55',
+            'active'                    => 1,
+            'start_draw_date'           => '2016-04-08',
+            'last_draw_date'            => '2016-04-08',
+            'threshold_amount'          => 0,
+            'threshold_currency_name'   => '',
+            'line_regular_number_one'   => '2',
+            'line_regular_number_two'   => '3',
+            'line_regular_number_three' => '4',
+            'line_regular_number_four'  => '5',
+            'line_regular_number_five'  => '6',
+            'line_lucky_number_one'     => '1',
+            'line_lucky_number_two'     => '2',
+            'config'                    => 5
+        ]);
+
+        $I->haveInSession('EM_current_user', $this->userId);
+        $I->amOnPage('/account/games');
+        $I->canSee('Present Games');
+        $I->seeNumberOfElements('table.present tr', 1);
     }
 }

@@ -4,24 +4,24 @@
 namespace EuroMillions\web\entities;
 
 
-class WinningsWithdrawTransaction extends Transaction
+use EuroMillions\web\interfaces\ITransactionData;
+
+class WinningsWithdrawTransaction extends Transaction implements ITransactionData
 {
+    protected $amountWithdrawed;
+    protected $accountBankId;
 
-    protected $data;
-
-    /**
-     * @return mixed
-     */
-    public function getData()
+    public function toString()
     {
         return $this->data;
     }
 
-    /**
-     * @param mixed $data
-     */
-    public function setData($data)
+    public function fromString()
     {
-        $this->data = $data;
+        list($amountWithdrawed, $accountBankId) = explode('#',$this->data);
+        $this->amountWithdrawed = $amountWithdrawed;
+        $this->accountBankId = $accountBankId;
+        return $this;
     }
+
 }

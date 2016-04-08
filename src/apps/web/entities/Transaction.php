@@ -10,6 +10,7 @@ abstract class Transaction extends EntityBase
 {
 
     protected $id;
+    protected $data;
     protected $date;
     protected $wallet_before;
     protected $wallet_after;
@@ -110,6 +111,22 @@ abstract class Transaction extends EntityBase
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param mixed $data
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
     }
 
 }

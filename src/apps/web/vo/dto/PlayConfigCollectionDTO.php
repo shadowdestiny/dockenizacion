@@ -12,7 +12,7 @@ use EuroMillions\web\vo\EuroMillionsLine;
 use Money\Currency;
 use Money\Money;
 
-class PlayConfigDTO extends DTOBase implements IDto
+class PlayConfigCollectionDTO extends DTOBase implements IDto
 {
 
     private $playConfig;
@@ -45,6 +45,8 @@ class PlayConfigDTO extends DTOBase implements IDto
 
     public $frequency;
 
+    public $numPlayConfigs;
+
 
 
 
@@ -52,12 +54,12 @@ class PlayConfigDTO extends DTOBase implements IDto
     {
         $this->playConfig = $playConfig;
         $this->single_bet_price = $single_bet_price ?: $single_bet_price;
+        $this->numPlayConfigs = count($playConfig) -1;
         $this->exChangeObject();
     }
 
     public function exChangeObject()
     {
-
         $last = $this->playConfig[0]->getLastDrawDate();
         $start = $this->playConfig[0]->getStartDrawDate();
         $this->lastDrawDate = $last->format('Y-m-d');
@@ -65,10 +67,6 @@ class PlayConfigDTO extends DTOBase implements IDto
         $this->lines = $this->euroMillionsLinesToJson();
         $this->regular_numbers = [];
         $this->lucky_numbers = [];
-//        } else {
-//            $this->regular_numbers = str_replace(',',' ', $this->playConfig->getLine()[0]->getRegularNumbers());
-//            $this->lucky_numbers = str_replace(',',' ', $this->playConfig->getLine()[0]->getLuckyNumbers());
-//        }
         $this->drawDays = $this->playConfig[0]->getDrawDays()->value_len();
         $this->lines = $this->euroMillionsLinesToJson();
         $this->duration_format = $this->getFormatDuration();
@@ -78,6 +76,27 @@ class PlayConfigDTO extends DTOBase implements IDto
         $this->wallet_balance_user = $this->playConfig[0]->getUser()->getBalance();
         $result_total = count($this->playConfig) * $this->playConfig[0]->getDrawDays()->value_len() * ($this->single_bet_price->getAmount()) * $this->playConfig[0]->getFrequency();
         $this->play_config_total_amount = new Money((int) str_replace('.','',$result_total), new Currency('EUR')) ;
+    }
+
+    public function get($key)
+    {
+        $last = $this->playConfig[$key]->getLastDrawDate();
+        $start = $this->playConfig[$key]->getStartDrawDate();
+        $this->lastDrawDate = $last->format('Y-m-d');
+        $this->startDrawDate = $start->format('Y M j');
+        $this->lines = $this->euroMillionsLine($key);
+        $this->regular_numbers = [];
+        $this->lucky_numbers = [];
+        $this->drawDays = $this->playConfig[$key]->getDrawDays()->value_len();
+        $this->lines = $this->euroMillionsLine($key);
+        $this->duration_format = $this->getFormatDuration();
+        $this->duration = $this->duration();
+        $this->frequency = $this->playConfig[$key]->getFrequency();
+        $this->user = $this->playConfig[$key]->getUser();
+        $this->wallet_balance_user = $this->playConfig[$key]->getUser()->getBalance();
+        $result_total = count($this->playConfig) * $this->playConfig[$key]->getDrawDays()->value_len() * ($this->single_bet_price->getAmount()) * $this->playConfig[$key]->getFrequency();
+        $this->play_config_total_amount = new Money((int) str_replace('.','',$result_total), new Currency('EUR')) ;
+        return $this;
     }
 
     public function toArray()
@@ -95,6 +114,14 @@ class PlayConfigDTO extends DTOBase implements IDto
             }
         }
         return json_encode($euromillionsLines);
+    }
+
+    private function euroMillionsLine($key)
+    {
+        $euromillionsLines = [];
+        $euromillionsLines['bets']['regular'] = $this->playConfig[$key]->getLine()->getRegularNumbers();
+        $euromillionsLines['bets']['lucky'] = $this->playConfig[$key]->getLine()->getLuckyNumbers();
+        return $euromillionsLines;
     }
 
     private function getFormatDuration()

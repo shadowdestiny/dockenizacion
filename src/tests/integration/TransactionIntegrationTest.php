@@ -8,6 +8,7 @@ use EuroMillions\shared\vo\Wallet;
 use EuroMillions\tests\base\DatabaseIntegrationTestBase;
 use EuroMillions\tests\helpers\mothers\UserMother;
 use EuroMillions\web\entities\BetTransaction;
+use EuroMillions\web\entities\FundsAddedTransaction;
 use EuroMillions\web\entities\TicketPurchaseTransaction;
 use EuroMillions\web\repositories\TransactionRepository;
 
@@ -38,11 +39,11 @@ class TransactionIntegrationTest extends DatabaseIntegrationTestBase
 
 
     /**
-     * method test
+     * method ticketPurchaseTransaction
      * when called
-     * should creat
+     * should createNewRecord
      */
-    public function test_test_called_creat()
+    public function test_ticketPurchaseTransaction_called_createNewRecord()
     {
         $transactionString = '5#4';
         $date = new \DateTime();
@@ -65,9 +66,63 @@ class TransactionIntegrationTest extends DatabaseIntegrationTestBase
                 'SELECT t'
                 . ' FROM \EuroMillions\web\entities\Transaction t')
             ->getResult();
-        $this->assertCount(2,$actual);
+        $this->assertCount(4,$actual);
     }
 
+    /**
+     * method fromString
+     * when called
+     * should returnEntityWithProperlyDataSetting
+     */
+    public function test_fromString_called_returnEntityWithProperlyDataSetting()
+    {
+        $actual = $this->entityManager
+            ->createQuery(
+                'SELECT t'
+                . ' FROM \EuroMillions\web\entities\Transaction t')
+            ->getResult();
+
+        $this->assertEquals('2000',$actual[1]->fromString()->getAmountAdded());
+        $this->assertEquals('1',$actual[1]->fromString()->getHasFee());
+    }
+
+    /**
+     * method fromString
+     * when called
+     * should throwException
+     */
+    public function test_fromString_called_throwException()
+    {
+        $this->setExpectedException('\Exception','Invalid data format');
+
+        $actual = $this->entityManager
+            ->createQuery(
+                'SELECT t'
+                . ' FROM \EuroMillions\web\entities\Transaction t')
+            ->getResult();
+
+        $actual[0]->fromString();
+    }
+
+    /**
+     * method fromString
+     * when called
+     * should returnEntityWithProperlyData
+     */
+    public function test_fromString_called_returnEntityWithProperlyData()
+    {
+        $actual = $this->entityManager
+            ->createQuery(
+                'SELECT t'
+                . ' FROM \EuroMillions\web\entities\Transaction t')
+            ->getResult();
+
+        $this->assertEquals(1,$actual[2]->fromString()->getLotteryId());
+        $this->assertEquals(4,$actual[2]->fromString()->getNumBets());
+        $this->assertEquals(0,$actual[2]->fromString()->getAmountWithWallet());
+        $this->assertEquals(2000,$actual[2]->fromString()->getAmountWithCreditCard());
+        $this->assertEquals(0,$actual[2]->fromString()->getFeeApplied());
+    }
 
     /**
      * method getToString

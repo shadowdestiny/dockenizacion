@@ -10,7 +10,7 @@ use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CVV;
-use EuroMillions\web\vo\dto\PlayConfigDTO;
+use EuroMillions\web\vo\dto\PlayConfigCollectionDTO;
 use EuroMillions\web\vo\ExpiryDate;
 use EuroMillions\web\vo\Order;
 use Money\Currency;
@@ -351,7 +351,7 @@ class CartController extends PublicSiteControllerBase
         }
         /** @var PlayConfig[] $play_config */
         $play_config_collection = $result->returnValues();
-        $play_config_dto = new PlayConfigDTO($play_config_collection, $single_bet_price);
+        $play_config_dto = new PlayConfigCollectionDTO($play_config_collection, $single_bet_price);
         $wallet_balance = $this->currencyConversionService->convert($play_config_dto->wallet_balance_user, $user_currency);
         $checked_wallet = $wallet_balance->getAmount() > 0 ? true : false;
         $play_config_dto->single_bet_price_converted = $this->currencyConversionService->convert($play_config_dto->single_bet_price, $user_currency);

@@ -4,24 +4,23 @@
 namespace EuroMillions\web\entities;
 
 
-class WinningsConvertedFundsTransaction extends Transaction
+use EuroMillions\web\interfaces\ITransactionData;
+
+class WinningsConvertedFundsTransaction extends Transaction implements ITransactionData
 {
 
-    protected $data;
+    protected $amountConverted;
 
-    /**
-     * @return mixed
-     */
-    public function getData()
+
+    public function toString()
     {
         return $this->data;
     }
 
-    /**
-     * @param mixed $data
-     */
-    public function setData($data)
+    public function fromString()
     {
-        $this->data = $data;
+        $this->amountConverted = $this->data;
+        return $this;
     }
+
 }
