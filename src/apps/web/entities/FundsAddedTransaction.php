@@ -15,12 +15,12 @@ class FundsAddedTransaction extends Transaction implements ITransactionData
 
     public function toString()
     {
-        return $this->data;
+        $this->data = $this->getHasFee().'#'.$this->getAmountAdded();
     }
 
     public function fromString()
     {
-        list($fee,$amount) = explode('#',$this->toString());
+        list($fee,$amount) = explode('#',$this->data);
         $this->hasFee = $fee;
         $this->amountAdded = $amount;
         return $this;

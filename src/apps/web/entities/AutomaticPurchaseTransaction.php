@@ -11,7 +11,7 @@ class AutomaticPurchaseTransaction extends PurchaseTransaction implements ITrans
 
     public function toString()
     {
-        return $this->data;
+        $this->data = $this->getLotteryId().'#'.$this->getNumBets();
     }
 
     public function fromString()

@@ -65,18 +65,20 @@
                             {#</th>#}
                         </thead>
                         <tbody>
-                            {% for game in my_games_actives %}
+                            {% for index in 0..my_games_actives.numPlayConfigs %}
+                                <?php $game = $my_games_actives->get($index); ?>
                                 <tr>
                                     <td class="date">
                                         <div class="myCol">
                                             <strong>{{ language.translate("Euromillions") }}</strong>
-                                            {{ game.startDrawDate }}
+                                            <?php $startDrawDate = $game->startDrawDate;?>
+                                            <?php $duration = $game->duration;?>
+                                            {{ startDrawDate }}
                                         </div>
                                     </td>
                                     <td class="duration">
                                         <div class="myCol">
-                                            <strong>{{ game.duration }}</strong>
-                                            (8 {{ language.translate("draws") }})
+                                            <strong>{{ duration }}</strong>
                                         </div>
                                     </td>
                                     <td class="numbers">
@@ -87,13 +89,14 @@
                                                 {{ game.regular_numbers }} 
                                                 <span class="star">{{ game.lucky_numbers }}</span>
                                             #}
-                                            <span class="num">1</span>
-                                            <span class="num">2</span>
-                                            <span class="num">30</span>
-                                            <span class="num">37</span>
-                                            <span class="num">49</span>
-                                            <span class="num star">7</span>
-                                            <span class="num star">11</span>
+                                            <?php $regular = explode(',', $game->lines['bets']['regular']);?>
+                                            <?php $lucky = explode(',', $game->lines['bets']['lucky']);?>
+                                            {% for regular_number in regular  %}
+                                                <span class="num">{{ regular_number }}</span>
+                                            {% endfor %}
+                                            {% for lucky_number in lucky  %}
+                                                <span class="num star">{{ lucky_number }}</span>
+                                            {% endfor %}
                                         </div>
                                     </td>
                                     {#<td class="action">

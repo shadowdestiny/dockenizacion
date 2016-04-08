@@ -13,7 +13,7 @@ class RefundTransaction extends Transaction implements ITransactionData
 
     public function toString()
     {
-        return $this->data;
+        $this->data = $this->amountRefunded;
     }
 
     public function fromString()

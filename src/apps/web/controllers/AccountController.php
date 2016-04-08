@@ -4,6 +4,7 @@
 namespace EuroMillions\web\controllers;
 
 
+use EuroMillions\web\entities\GuestUser;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\BankAccountForm;
 use EuroMillions\web\forms\CreditCardForm;
@@ -11,12 +12,13 @@ use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
 use EuroMillions\web\forms\ResetPasswordForm;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
+use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CreditCardCharge;
 use EuroMillions\web\vo\CVV;
-use EuroMillions\web\vo\dto\PlayConfigDTO;
+use EuroMillions\web\vo\dto\PlayConfigCollectionDTO;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\UserNotificationsDTO;
 use EuroMillions\web\vo\Email;
@@ -36,6 +38,16 @@ use Phalcon\Validation\Validator\Regex;
 class AccountController extends PublicSiteControllerBase
 {
 
+    public function beforeExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
+    {
+        /** @var DomainServiceFactory $domainServiceFactory */
+        $domainServiceFactory = $dispatcher->getDI()->get('domainServiceFactory');
+        $user_id = $domainServiceFactory->getAuthService()->getCurrentUser();
+        if($user_id instanceof GuestUser) {
+            $this->response->redirect('/');
+            return false;
+        }
+    }
 
     /**
      * @return \Phalcon\Mvc\View
@@ -119,7 +131,6 @@ class AccountController extends PublicSiteControllerBase
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions'));
         $single_bet_price = $this->domainServiceFactory->getLotteryService()->getSingleBetPriceByLottery('EuroMillions');
         $myGames = null;
-        $playConfigActivesDTOCollection = [];
         $playConfigInactivesDTOCollection = [];
         $message_actives = '';
         $message_inactives = '';
@@ -127,20 +138,21 @@ class AccountController extends PublicSiteControllerBase
         if(!empty($user)){
             $myGamesActives = $this->userService->getMyActivePlays($user->getId());
             if($myGamesActives->success()){
-                $playConfigActivesDTOCollection[] = new PlayConfigDTO($myGamesActives->getValues(), $single_bet_price);
+                $myGames = $myGamesActives->getValues();
+                $playConfigDTO = new PlayConfigCollectionDTO($myGames, $single_bet_price);
             }else{
                 $message_actives = $myGamesActives->errorMessage();
             }
             $myGamesInactives = $this->userService->getMyInactivePlays($user->getId());
             if($myGamesInactives->success()){
-                $playConfigInactivesDTOCollection[] = new PlayConfigDTO($myGamesInactives->getValues(), $single_bet_price);
+                $playConfigInactivesDTOCollection[] = new PlayConfigCollectionDTO($myGamesInactives->getValues(), $single_bet_price);
             }else{
                 $message_inactives = $myGamesInactives->errorMessage();
             }
         }
         $this->view->pick('account/games');
         return $this->view->setVars([
-            'my_games_actives' => $playConfigActivesDTOCollection,
+            'my_games_actives' => $playConfigDTO,
             'my_games_inactives' => $playConfigInactivesDTOCollection,
             'jackpot_value' => $jackpot->getAmount()/100,
             'message_actives' => $message_actives,

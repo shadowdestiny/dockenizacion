@@ -95,10 +95,13 @@ class PlayConfigRepository extends RepositoryBase
             ->createQuery(
                 'SELECT p'
                 . ' FROM ' . $this->getEntityName() . ' p'
-                . ' WHERE p.user = :user_id AND p.active = :active')
+                . ' WHERE p.user = :user_id AND p.active = :active '
+                . ' GROUP BY p.line.regular_number_one,'
+                . ' p.line.regular_number_two,p.line.regular_number_three, '
+                . ' p.line.regular_number_four,p.line.regular_number_five, '
+                . ' p.line.lucky_number_one, p.line.lucky_number_two ')
             ->setParameters(['user_id' => $userId, 'active' => $active])
             ->getResult();
-
         return $result;
     }
 
@@ -108,7 +111,10 @@ class PlayConfigRepository extends RepositoryBase
             ->createQuery(
                 'SELECT p'
                 . ' FROM ' . $this->getEntityName() . ' p INNER JOIN p.user u'
-                . ' WHERE p.active = 1 GROUP BY u.id')
+                . ' WHERE p.active = 1 GROUP BY u.line_regular_number_one, '
+                . ' u.line_regular_number_two,u.line_regular_number_three, '
+                . ' u.line_regular_number_four,u.line_regular_number_five, '
+                . ' u.line_lucky_number_one, u.line_lucky_number_two')
             ->getResult();
         return $result;
     }

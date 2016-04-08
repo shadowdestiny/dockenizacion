@@ -94,12 +94,9 @@ class TicketPurchaseTransaction extends PurchaseTransaction implements ITransact
         $this->numBets = $numBets;
     }
 
-
-
-
     public function toString()
     {
-        return $this->data;
+        $this->data = $this->lotteryId.'#'.$this->numBets.'#'.$this->amountWithWallet.'#'.$this->amountWithCreditCard.'#'.$this->feeApplied;
     }
 
     public function fromString()
@@ -110,7 +107,7 @@ class TicketPurchaseTransaction extends PurchaseTransaction implements ITransact
                 $numBets,
                 $amountWithWallet,
                 $amountWithCreditCard,
-                $feeApplied) = explode('#',$this->toString());
+                $feeApplied) = explode('#',$this->data);
 
             $this->lotteryId = $lotteryId;
             $this->numBets = $numBets;
