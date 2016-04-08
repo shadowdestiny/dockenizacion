@@ -44,7 +44,7 @@ class AccountController extends PublicSiteControllerBase
         $domainServiceFactory = $dispatcher->getDI()->get('domainServiceFactory');
         $user_id = $domainServiceFactory->getAuthService()->getCurrentUser();
         if($user_id instanceof GuestUser) {
-            $this->response->redirect('/');
+            $this->response->redirect('/sign-in');
             return false;
         }
     }
