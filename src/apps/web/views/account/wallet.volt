@@ -139,7 +139,7 @@ $(function(){
                     </div>
                     <br>
                     <div class="border cl">
-                        <div class="txt">{{ language.translate("Your winnings:")}} <span class="value">&euro; 20.00</span></div>
+                        <div class="txt">{{ language.translate("Your winnings:")}} <span class="value">{{ wallet.wallet_winning_amount }}</span></div>
                         <div class="box-btn">
                             <a href="javascript:void(0)" class="btn big blue convert">{{ language.translate("Convert winnings into your balance")}}</a>
                             <a href="javascript:void(0)" class="btn big green withdraw">{{ language.translate("Withdraw winnings") }}</a>

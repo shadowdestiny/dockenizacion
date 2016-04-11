@@ -294,15 +294,21 @@ var LogicCart = {
                     LogicCart.show_all_fee = true;
                 }
             } else {
-                LogicCart.pre_total = Funds.getTotalWhenFundsAreInserted(LogicCart.pre_total);
-                if(accounting.unformat(LogicCart.pre_total) > accounting.unformat(Wallet.wallet)) {
+                if( Funds.funds_value > 0 ) {
                     LogicCart.show_all_fee = true;
-                    LogicCart.show_fee_value = true;
-                    LogicCart.show_fee_text = true;
-                } else {
-                    LogicCart.show_all_fee = false;
                     LogicCart.show_fee_value = false;
                     LogicCart.show_fee_text = false;
+                } else {
+                    LogicCart.pre_total = Funds.getTotalWhenFundsAreInserted(LogicCart.pre_total);
+                    if(accounting.unformat(LogicCart.pre_total) > accounting.unformat(Wallet.wallet)) {
+                        LogicCart.show_all_fee = true;
+                        LogicCart.show_fee_value = true;
+                        LogicCart.show_fee_text = true;
+                    } else {
+                        LogicCart.show_all_fee = false;
+                        LogicCart.show_fee_value = false;
+                        LogicCart.show_fee_text = false;
+                    }
                 }
             }
         } else {
