@@ -13,6 +13,7 @@ use EuroMillions\web\services\factories\ServiceFactory;
 use Phalcon;
 use Phalcon\Di;
 use Phalcon\Events\Event;
+use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\ModuleDefinitionInterface;
 
 
@@ -39,7 +40,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     public function dependencyInjector()
     {
         $di = parent::dependencyInjector();
-        $di->set('dispatcher', $this->configDispatcher(), true);
         $di->set('router', $this->configRouter(), true);
         $di->set('tag', $this->configTag(), true);
         $di->set('escaper', $this->configEscaper(), true);
@@ -85,8 +85,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 ));
                 $compiler = $volt->getCompiler();
                 $compiler->addFilter('number_format', 'number_format');
-                $compiler->addFunction('currency_css', function($currency) {
-                   return '\EuroMillions\web\components\ViewHelper::getBodyCssForCurrency('.$currency.');';
+                $compiler->addFunction('currency_css', function ($currency) {
+                    return '\EuroMillions\web\components\ViewHelper::getBodyCssForCurrency(' . $currency . ');';
                 });
                 return $volt;
             }
@@ -95,7 +95,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     }
 
 
-    protected function configDispatcher()
+    protected function configDispatcher($moduleName)
     {
         $eventsManager = new Phalcon\Events\Manager();
         $eventsManager->attach("dispatch", function (Event $event, Phalcon\Mvc\Dispatcher $dispatcher, \Exception $exception = null) {
@@ -126,7 +126,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
         $dispatcher = new Phalcon\Mvc\Dispatcher();
         $dispatcher->setEventsManager($eventsManager);
-        $dispatcher->setDefaultNamespace('EuroMillions\web\controllers');
+        $dispatcher->setDefaultNamespace('EuroMillions\\' . $moduleName . '\controllers');
         return $dispatcher;
     }
 
@@ -288,24 +288,18 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $eventsManager->attach('application:beforeStartModule', function ($event, $application) use ($di) {
             $module_name = $event->getData();
             if ($module_name === 'web') {
-                $web_module = $application->getModule($module_name);
-                /** @var ModuleDefinitionInterface $object */
-                $object = $di->get($web_module['className']);
                 $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
                 $di->set('language', $this->configLanguage($di), true);
-                $di->set('view', $this->configView($module_name), true);
-                $object->registerServices($di);
             }
             if ($module_name === 'admin') {
-                $admin_module = $application->getModule($module_name);
-                $di->set('view', $this->configView($module_name), true);
-                $object = $di->get($admin_module['className']);
                 $di->set('domainAdminServiceFactory', $this->configDomainAdminServiceFactory($di), true);
-                $object->registerServices($di);
             }
+            $di->set('view', $this->configView($module_name), true);
+            $di->set('dispatcher', $this->configDispatcher($module_name));
         });
         $application->setEventsManager($eventsManager);
     }
+
 
     /**
      * @param $application

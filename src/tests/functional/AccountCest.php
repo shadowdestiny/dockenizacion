@@ -21,10 +21,6 @@ class AccountCest
     {
     }
 
-    /**
-     * @param FunctionalTester $I
-     * @group active
-     */
     public function redirectToLoginIfNotLoggedIn(FunctionalTester $I)
     {
         $I->amOnPage('/account');
@@ -50,12 +46,6 @@ class AccountCest
         $I->canSee('Hello. '.$this->userName);
     }
 
-    /**
-     * @param FunctionalTester $I
-     * @param \Page\SignUp $signUpPage
-     * @param \Page\Login $loginPage
-     * @group active
-     */
     public function seeAccountPageAfterSignUp(FunctionalTester $I, \Page\SignUp $signUpPage, \Page\Login $loginPage)
     {
         $email = 'nuevoemail@email.com';
@@ -76,10 +66,6 @@ class AccountCest
     }
 
 
-    /**
-     * @param FunctionalTester $I
-     * @group active
-     */
     public function seeAccountMyGames( FunctionalTester $I )
     {
 
