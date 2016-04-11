@@ -8,6 +8,9 @@ use Phalcon\Loader;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\ModuleDefinitionInterface;
 use Phalcon\Mvc\View;
+use Phalcon\Events\Event;
+use Phalcon\Events\Manager;
+
 
 class Module implements ModuleDefinitionInterface
 {
@@ -37,7 +40,34 @@ class Module implements ModuleDefinitionInterface
     {
 
         $dependencyInjector->set('dispatcher', function () {
+            $eventsManager = new Manager();
+            $eventsManager->attach("dispatch", function (Event $event, Dispatcher $dispatcher, \Exception $exception = null) {
+                //The controller exists but the action not
+                if ($event->getType() === 'beforeNotFoundAction') {
+                    $dispatcher->forward(array(
+                        'module'     => 'web',
+                        'controller' => 'index',
+                        'action'     => 'notfound'
+                    ));
+                    return false;
+                }
+                if ($event->getType() === 'beforeException') {
+                    switch ($exception->getCode()) {
+                        case Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
+                        case Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
+                            $dispatcher->forward(array(
+                                'module'     => 'web',
+                                'controller' => 'index',
+                                'action'     => 'notfound',
+                                'params'     => array($exception)
+                            ));
+                            return false;
+                    }
+                }
+                return true;
+            });
             $dispatcher = new Dispatcher();
+            $dispatcher->setEventsManager($eventsManager);
             $dispatcher->setDefaultNamespace('EuroMillions\web\controllers');
             return $dispatcher;
         });

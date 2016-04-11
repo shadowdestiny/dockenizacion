@@ -86,43 +86,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
         return $view;
     }
-
-
-    protected function configDispatcher($moduleName)
-    {
-        $eventsManager = new Phalcon\Events\Manager();
-        $eventsManager->attach("dispatch", function (Event $event, Phalcon\Mvc\Dispatcher $dispatcher, \Exception $exception = null) {
-            //The controller exists but the action not
-            if ($event->getType() === 'beforeNotFoundAction') {
-                $dispatcher->forward(array(
-                    'module'     => 'web',
-                    'controller' => 'index',
-                    'action'     => 'notfound'
-                ));
-                return false;
-            }
-            if ($event->getType() === 'beforeException') {
-                switch ($exception->getCode()) {
-                    case Phalcon\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
-                    case Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
-                        $dispatcher->forward(array(
-                            'module'     => 'web',
-                            'controller' => 'index',
-                            'action'     => 'notfound',
-                            'params'     => array($exception)
-                        ));
-                        return false;
-                }
-            }
-            return true;
-        });
-
-        $dispatcher = new Phalcon\Mvc\Dispatcher();
-        $dispatcher->setEventsManager($eventsManager);
-        $dispatcher->setDefaultNamespace('EuroMillions\\' . $moduleName . '\controllers');
-        return $dispatcher;
-    }
-
+    
     protected function configRouter()
     {
         $router = new Phalcon\Mvc\Router();
