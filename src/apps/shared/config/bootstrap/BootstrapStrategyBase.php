@@ -21,27 +21,23 @@ use Redis;
 abstract class BootstrapStrategyBase
 {
     protected $configPath;
-    private $globalConfigPath;
     const CONFIG_FILENAME = 'config.ini';
 
-    public function __construct($globalConfigPath, $configPath)
+    public function __construct($configPath)
     {
         $this->configPath = $configPath;
-        $this->globalConfigPath = $globalConfigPath;
     }
 
     public function dependencyInjector()
     {
         $di = new Di();
-        $global_config = $this->configGlobalConfig();
-        $environment_detector = $this->configEnvironmentDetector($global_config);
+        $environment_detector = $this->configEnvironmentDetector();
         if (!$environment_detector->isEnvSet()) {
             $environment_detector->setDefault();
         }
         $config = $this->configConfig($environment_detector);
         $di->set('crypt', $this->configCrypt(), true);
         $di->set('configPath', function() {return $this->configPath;}, true);
-        $di->set('globalConfig', $global_config, true);
         $di->set('environmentDetector', $environment_detector);
         $di->set('config', $config, true);
         $redis = $this->configRedis($config);
@@ -102,10 +98,9 @@ abstract class BootstrapStrategyBase
         return $em;
     }
 
-    protected function configEnvironmentDetector(Ini $globalConfig)
+    protected function configEnvironmentDetector()
     {
-        $var_name = $globalConfig['environment']['var_name'];
-        return new EnvironmentDetector($var_name);
+        return new EnvironmentDetector();
     }
 
     protected function configConfig(EnvironmentDetector $em) {
@@ -117,12 +112,6 @@ abstract class BootstrapStrategyBase
         $paymentProviderFactory = new PaymentProviderFactory();
         $config_payment = $di->get('config')['payxpert'];
         return $paymentProviderFactory->getCreditCardPaymentProvider(new PayXpertCardPaymentStrategy($config_payment));
-    }
-
-
-    protected function configGlobalConfig()
-    {
-        return new Ini($this->globalConfigPath . 'config.ini');
     }
 
     protected function getConfigFileName(EnvironmentDetector $em)

@@ -17,10 +17,10 @@ class CliBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     protected $commandLineArguments;
     protected $config;
 
-    public function __construct($commandLineArguments, $globalConfigPath, $configPath)
+    public function __construct($commandLineArguments, $configPath)
     {
         $this->commandLineArguments = $commandLineArguments;
-        parent::__construct($globalConfigPath, $configPath);
+        parent::__construct($configPath);
     }
 
     public function execute(Di $di)

@@ -18,11 +18,11 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
     protected $isUnitTest;
     protected $testsPath;
 
-    public function __construct($isUnitTest, $appPath, $globalConfigPath, $configPath, $assetsPath, $testsPath)
+    public function __construct($isUnitTest, $appPath, $configPath, $assetsPath, $testsPath)
     {
         $this->testsPath = $testsPath;
         $this->isUnitTest = $isUnitTest;
-        parent::__construct($appPath, $globalConfigPath, $configPath, $assetsPath);
+        parent::__construct($appPath, $configPath, $assetsPath);
     }
 
     public function dependencyInjector()

@@ -22,11 +22,11 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     protected $assetsPath;
 
-    public function __construct($appPath, $globalConfigPath, $configPath, $assetsPath)
+    public function __construct($appPath, $configPath, $assetsPath)
     {
         $this->appPath = $appPath;
         $this->assetsPath = $assetsPath;
-        parent::__construct($globalConfigPath, $configPath);
+        parent::__construct($configPath);
 
     }
 

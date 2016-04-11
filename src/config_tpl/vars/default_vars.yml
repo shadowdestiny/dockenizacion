@@ -12,8 +12,6 @@ original_database_name: euromillions
 
 domain_url: localhost:443/
 
-environment_var_name: EM_ENV
-
 redis_host: redis
 redis_prefix: ''
 redis_cache_lifetime: 1800
@@ -30,7 +28,7 @@ recaptcha_private_key: '6LcDSwwTAAAAACxn_ZdCdBJGUHigvsfmKMg334kB'
 
 ips: '192.168.1.102,10.0.2.15,10.0.2.2,62.57.159.66'
 
-euromillions_retry_validation_time: 19:00
+euromillions_retry_validation_time: '19:00'
 
 threshold_value_reminder: 2500
 threshold_above: 2500
