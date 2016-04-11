@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 
-use EuroMillions\shared\config\bootstrap\TestCliBootstrapStrategy;
+use EuroMillions\shared\config\bootstrap\CliBootstrapStrategy;
 
 $app_path = __DIR__.'/';
 $global_config_path = $app_path.'../global_config/';
@@ -12,7 +12,7 @@ $config_path_web = $app_path . 'web/config';
 require_once $app_path.'../vendor/autoload.php';
 try {
 
-    $bootstrap = new EuroMillions\shared\config\bootstrap\Bootstrap(new TestCliBootstrapStrategy(
+    $bootstrap = new EuroMillions\shared\config\bootstrap\Bootstrap(new CliBootstrapStrategy(
         $argv, $global_config_path , $config_path
     ));
     $bootstrap->execute();
