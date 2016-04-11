@@ -13,23 +13,21 @@ use Redis;
 
 class TestWebBootstrapStrategy extends WebBootstrapStrategy
 {
-    use BootstrapBehaviourShared;
 
     protected $isUnitTest;
     protected $testsPath;
 
-    public function __construct($isUnitTest, $appPath, $globalConfigPath, $configPath, $assetsPath, $testsPath)
+    public function __construct($isUnitTest, $appPath, $configPath, $assetsPath, $testsPath)
     {
         $this->testsPath = $testsPath;
         $this->isUnitTest = $isUnitTest;
-        parent::__construct($appPath, $globalConfigPath, $configPath, $assetsPath);
+        parent::__construct($appPath, $configPath, $assetsPath);
     }
 
     public function dependencyInjector()
     {
         $di = parent::dependencyInjector();
         $di->set('testsPath', function() {return $this->testsPath;}, true);
-        $this->shareTheseServices($di);
         return $di;
     }
 
@@ -39,7 +37,7 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
         Di::reset();
         Di::setDefault($di);
         $app = new Phalcon\Mvc\Application($di);
-        $this->configureModules($app);
+        $this->configureModules($app, $di);
         return $app;
     }
 
@@ -64,11 +62,6 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
         } else {
             return 'en';
         }
-    }
-
-    protected function getConfigFileName(EnvironmentDetector $em)
-    {
-        return $em->get().'_test_config.ini';
     }
 
     protected function configDomainServiceFactory(Di $di)

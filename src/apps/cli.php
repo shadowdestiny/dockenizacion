@@ -13,7 +13,7 @@ require_once $app_path.'../vendor/autoload.php';
 try {
 
     $bootstrap = new EuroMillions\shared\config\bootstrap\Bootstrap(new CliBootstrapStrategy(
-        $argv, $global_config_path , $config_path
+        $argv, $config_path
     ));
     $bootstrap->execute();
 } catch (\Phalcon\Exception $e) {

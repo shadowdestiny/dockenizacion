@@ -13,6 +13,7 @@ use EuroMillions\web\services\factories\ServiceFactory;
 use Phalcon;
 use Phalcon\Di;
 use Phalcon\Events\Event;
+use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\ModuleDefinitionInterface;
 
 
@@ -22,13 +23,11 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     protected $assetsPath;
 
-    const CONFIG_FILENAME = 'web_config.ini';
-
-    public function __construct($appPath, $globalConfigPath, $configPath, $assetsPath)
+    public function __construct($appPath, $configPath, $assetsPath)
     {
         $this->appPath = $appPath;
         $this->assetsPath = $assetsPath;
-        parent::__construct($globalConfigPath, $configPath);
+        parent::__construct($configPath);
 
     }
 
@@ -41,7 +40,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     public function dependencyInjector()
     {
         $di = parent::dependencyInjector();
-        $di->set('dispatcher', $this->configDispatcher(), true);
         $di->set('router', $this->configRouter(), true);
         $di->set('tag', $this->configTag(), true);
         $di->set('escaper', $this->configEscaper(), true);
@@ -56,16 +54,9 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     public function execute(Di $di)
     {
-        $config = $di->get('config');
-        ini_set('display_errors', $config->application['displayErrors']);
-        ini_set('display_startup_errors', $config->application['displayStartupErrors']);
-        error_reporting($config->application['errorReporting']);
         (new Phalcon\Debug())->listen();
         $application = new Phalcon\Mvc\Application($di);
-        $this->configureModules($application);
-        // CONFIGURE DEBUGBAR
-//        $di['app'] = $application;
-//        (new ServiceProvider(APP_PATH . 'config/debugbar.php'))->start();
+        $this->configureModules($application, $di);
         echo $application->handle()->getContent();
     }
 
@@ -87,51 +78,15 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 ));
                 $compiler = $volt->getCompiler();
                 $compiler->addFilter('number_format', 'number_format');
-                $compiler->addFunction('currency_css', function($currency) {
-                   return '\EuroMillions\web\components\ViewHelper::getBodyCssForCurrency('.$currency.');';
+                $compiler->addFunction('currency_css', function ($currency) {
+                    return '\EuroMillions\web\components\ViewHelper::getBodyCssForCurrency(' . $currency . ');';
                 });
                 return $volt;
             }
         ));
         return $view;
     }
-
-
-    protected function configDispatcher()
-    {
-        $eventsManager = new Phalcon\Events\Manager();
-        $eventsManager->attach("dispatch", function (Event $event, Phalcon\Mvc\Dispatcher $dispatcher, \Exception $exception = null) {
-            //The controller exists but the action not
-            if ($event->getType() === 'beforeNotFoundAction') {
-                $dispatcher->forward(array(
-                    'module'     => 'web',
-                    'controller' => 'index',
-                    'action'     => 'notfound'
-                ));
-                return false;
-            }
-            if ($event->getType() === 'beforeException') {
-                switch ($exception->getCode()) {
-                    case Phalcon\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
-                    case Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
-                        $dispatcher->forward(array(
-                            'module'     => 'web',
-                            'controller' => 'index',
-                            'action'     => 'notfound',
-                            'params'     => array($exception)
-                        ));
-                        return false;
-                }
-            }
-            return true;
-        });
-
-        $dispatcher = new Phalcon\Mvc\Dispatcher();
-        $dispatcher->setEventsManager($eventsManager);
-        $dispatcher->setDefaultNamespace('EuroMillions\web\controllers');
-        return $dispatcher;
-    }
-
+    
     protected function configRouter()
     {
         $router = new Phalcon\Mvc\Router();
@@ -229,11 +184,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         return new Phalcon\Security();
     }
 
-    protected function getConfigFileName(EnvironmentDetector $em)
-    {
-        return $em->get() . '_' . self::CONFIG_FILENAME;
-    }
-
     /**
      * @param Di $di
      * @return \EuroMillions\web\services\LanguageService
@@ -287,9 +237,21 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         return new DomainAdminServiceFactory($di);
     }
 
-
-    protected function ownDependency(Phalcon\Mvc\Application $application)
+    /**
+     * @param $application
+     */
+    protected function configureModules(Phalcon\Mvc\Application $application)
     {
+        $application->registerModules([
+            'web'   => [
+                'className' => 'EuroMillions\web\Module',
+                'path'      => '../apps/web/Module.php',
+            ],
+            'admin' => [
+                'className' => 'EuroMillions\admin\Module',
+                'path'      => '../apps/admin/Module.php',
+            ]
+        ]);
         $di = $application->getDI();
         $eventsManager = new Phalcon\Events\Manager();
         $eventsManager->attach('application:beforeStartModule', function ($event, $application) use ($di) {
@@ -311,25 +273,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 $object->registerServices($di);
             }
         });
-        $application->setEventsManager($eventsManager);
-    }
-
-    /**
-     * @param $application
-     */
-    protected function configureModules($application)
-    {
-        $application->registerModules([
-            'web'   => [
-                'className' => 'EuroMillions\web\Module',
-                'path'      => '../apps/web/Module.php',
-            ],
-            'admin' => [
-                'className' => 'EuroMillions\admin\Module',
-                'path'      => '../apps/admin/Module.php',
-            ]
-        ]);
-        $this->ownDependency($application);
-    }
+        $application->setEventsManager($eventsManager);    }
 
 }

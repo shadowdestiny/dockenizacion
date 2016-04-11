@@ -8,4 +8,6 @@
 - name: Enable xdebug php module
   file: src=/etc/php5/mods-available/{{ xdebug_config_file }} dest=/etc/php5/cli/conf.d/{{ xdebug_config_file }} state=link
 - name: Enable mcrypt php module
-  file: src=/etc/php5/mods-available/mcrypt.ini dest=/etc/php5/cli/conf.d/20-mcrypt.ini state=link
+  shell: php5enmod mcrypt
+- name: Enable phalcon module
+  shell: php5enmod phalcon

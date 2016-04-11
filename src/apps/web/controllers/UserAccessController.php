@@ -158,7 +158,7 @@ class UserAccessController extends ControllerBase
         $message = '';
 
         //get captcha instance
-        $config = $this->di->get('globalConfig')['recaptcha'];
+        $config = $this->di->get('config')['recaptcha'];
         $captcha = new ReCaptchaWrapper(new Captcha());
         $captcha->getCaptcha()->setPublicKey($config['public_key']);
         $captcha->getCaptcha()->setPrivateKey($config['private_key']);

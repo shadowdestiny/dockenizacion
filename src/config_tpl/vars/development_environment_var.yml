@@ -1,0 +1,3 @@
+---
+env: development
+# https://github.com/mitchellh/vagrant/issues/6726

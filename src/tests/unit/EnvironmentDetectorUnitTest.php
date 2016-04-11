@@ -6,8 +6,6 @@ use EuroMillions\tests\base\UnitTestBase;
 
 class EnvironmentDetectorUnitTest extends UnitTestBase
 {
-    const VAR_NAME = 'VAR_NAME';
-
     const EXPECTED_EXCEPTION = '\EuroMillions\shared\config\exceptions\EnvironmentNotSetException';
 
     /** @var  EnvironmentDetector */
@@ -15,20 +13,14 @@ class EnvironmentDetectorUnitTest extends UnitTestBase
 
     public function setUp()
     {
-        $this->sut = new EnvironmentDetector(self::VAR_NAME);
+        $this->sut = new EnvironmentDetector();
         parent::setUp();
     }
 
     public function tearDown()
     {
-        putenv(self::VAR_NAME);
+        putenv(EnvironmentDetector::ENVIRONMENT_VARNAME);
         parent::tearDown();
-    }
-
-    public function test_get_calledWithEnvironmentNotSet_throw()
-    {
-        $this->setExpectedException(self::EXPECTED_EXCEPTION, 'Environment variable not set');
-        $this->sut->get();
     }
 
     public function test_get_calledWithEnvironmentSet_returnSameValue()
@@ -53,7 +45,7 @@ class EnvironmentDetectorUnitTest extends UnitTestBase
     {
         $expected = EnvironmentDetector::DEFAULT_ENV;
         $this->sut->setDefault();
-        $actual = getenv(self::VAR_NAME);
+        $actual = getenv(EnvironmentDetector::ENVIRONMENT_VARNAME);
         $this->assertEquals($expected, $actual);
     }
 
@@ -96,6 +88,6 @@ class EnvironmentDetectorUnitTest extends UnitTestBase
      */
     protected function setEnvironment($env)
     {
-        putenv(self::VAR_NAME . '=' . $env);
+        putenv(EnvironmentDetector::ENVIRONMENT_VARNAME . '=' . $env);
     }
 }

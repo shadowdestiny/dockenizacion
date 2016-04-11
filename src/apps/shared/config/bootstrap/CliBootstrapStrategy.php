@@ -1,7 +1,6 @@
 <?php
 namespace EuroMillions\shared\config\bootstrap;
 
-use EuroMillions\shared\components\EnvironmentDetector;
 use EuroMillions\shared\components\PhalconUrlWrapper;
 use EuroMillions\shared\interfaces\IBootstrapStrategy;
 use Phalcon\Cli\Console as ConsoleApp;
@@ -12,17 +11,13 @@ use Phalcon\Di;
 
 class CliBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapStrategy
 {
-    use BootstrapBehaviourShared;
-
     protected $commandLineArguments;
     protected $config;
 
-    const CONFIG_FILENAME = 'cli_config.ini';
-
-    public function __construct($commandLineArguments, $globalConfigPath, $configPath)
+    public function __construct($commandLineArguments, $configPath)
     {
         $this->commandLineArguments = $commandLineArguments;
-        parent::__construct($globalConfigPath, $configPath);
+        parent::__construct($configPath);
     }
 
     public function execute(Di $di)
@@ -51,7 +46,6 @@ class CliBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $di->set('router', $this->configRouter(), true);
         $di->set('dispatcher', $this->configDispatcher(), true);
         $di->set('url', $this->configUrl(), true);
-        $this->shareTheseServices($di);
         return $di;
     }
 
@@ -65,11 +59,6 @@ class CliBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $dispatcher = new Dispatcher();
         $dispatcher->setDefaultNamespace('EuroMillions\web\tasks');
         return $dispatcher;
-    }
-
-    protected function getConfigFileName(EnvironmentDetector $em)
-    {
-        return $em->get().'_'.self::CONFIG_FILENAME;
     }
 
     protected function configUrl()

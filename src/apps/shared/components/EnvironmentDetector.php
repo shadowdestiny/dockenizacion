@@ -7,13 +7,14 @@ use EuroMillions\shared\config\exceptions\EnvironmentNotSetException;
 class EnvironmentDetector
 {
     protected $var_name;
-
+    
+    const ENVIRONMENT_VARNAME = 'EM_ENV';
     const DEFAULT_ENV = 'vagrant';
     private $valid_environments;
 
-    public function __construct($varName)
+    public function __construct()
     {
-        $this->var_name = $varName;
+        $this->var_name = self::ENVIRONMENT_VARNAME;
         $this->valid_environments = [
             'scrutinizer',
             'shippable',

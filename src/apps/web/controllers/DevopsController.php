@@ -18,7 +18,7 @@ class DevopsController extends ControllerBase
      */
     public function beforeExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
-        $config = $dispatcher->getDI()->get('globalConfig')['ips'];
+        $config = $dispatcher->getDI()->get('config')['ips'];
         $ipClient = $this->request->getClientAddress();
         if(!in_array($ipClient,explode(',',$config['ips']))){
             $this->response->redirect('/');

@@ -17,7 +17,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 try {
     $bootstrap = new Bootstrap(new \EuroMillions\shared\config\bootstrap\WebBootstrapStrategy(
-        $app_path, $global_config_path, $config_path, $app_path . 'web/assets/', $tests_path, 'config.ini'
+        $app_path, $config_path, $app_path . 'web/assets/', $tests_path, 'config.ini'
     ));
     $bootstrap->execute();
 } catch (\Exception $e) {
