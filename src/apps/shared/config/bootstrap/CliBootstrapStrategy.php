@@ -1,7 +1,6 @@
 <?php
 namespace EuroMillions\shared\config\bootstrap;
 
-use EuroMillions\shared\components\EnvironmentDetector;
 use EuroMillions\shared\components\PhalconUrlWrapper;
 use EuroMillions\shared\interfaces\IBootstrapStrategy;
 use Phalcon\Cli\Console as ConsoleApp;
@@ -12,8 +11,6 @@ use Phalcon\Di;
 
 class CliBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapStrategy
 {
-    use BootstrapBehaviourShared;
-
     protected $commandLineArguments;
     protected $config;
 
@@ -49,7 +46,6 @@ class CliBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $di->set('router', $this->configRouter(), true);
         $di->set('dispatcher', $this->configDispatcher(), true);
         $di->set('url', $this->configUrl(), true);
-        $this->shareTheseServices($di);
         return $di;
     }
 

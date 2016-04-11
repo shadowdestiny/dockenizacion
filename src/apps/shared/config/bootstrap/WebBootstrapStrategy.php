@@ -54,10 +54,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
 
     public function execute(Di $di)
     {
-        $config = $di->get('config');
-        ini_set('display_errors', $config->application['displayErrors']);
-        ini_set('display_startup_errors', $config->application['displayStartupErrors']);
-        error_reporting($config->application['error_reporting']);
         (new Phalcon\Debug())->listen();
         $application = new Phalcon\Mvc\Application($di);
         $this->configureModules($application, $di);
@@ -277,21 +273,42 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         return new DomainAdminServiceFactory($di);
     }
 
-    protected function configureModules(Phalcon\Mvc\Application $application, Di $di)
+    /**
+     * @param $application
+     */
+    protected function configureModules(Phalcon\Mvc\Application $application)
     {
         $application->registerModules([
-            'web' => function () use ($di) {
+            'web'   => [
+                'className' => 'EuroMillions\web\Module',
+                'path'      => '../apps/web/Module.php',
+            ],
+            'admin' => [
+                'className' => 'EuroMillions\admin\Module',
+                'path'      => '../apps/admin/Module.php',
+            ]
+        ]);
+        $di = $application->getDI();
+        $eventsManager = new Phalcon\Events\Manager();
+        $eventsManager->attach('application:beforeStartModule', function ($event, $application) use ($di) {
+            $module_name = $event->getData();
+            if ($module_name === 'web') {
+                $web_module = $application->getModule($module_name);
+                /** @var ModuleDefinitionInterface $object */
+                $object = $di->get($web_module['className']);
                 $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
                 $di->set('language', $this->configLanguage($di), true);
-                $di->set('view', $this->configView('web'), true);
-                $di->set('dispatcher', $this->configDispatcher('web'));
-            },
-            'admin' => function () use ($di) {
-                $di->set('domainAdminServiceFactory', $this->configDomainAdminServiceFactory($di), true);
-                $di->set('view', $this->configView('admin'), true);
-                $di->set('dispatcher', $this->configDispatcher('admin'));
+                $di->set('view', $this->configView($module_name), true);
+                $object->registerServices($di);
             }
-        ]);
-    }
+            if ($module_name === 'admin') {
+                $admin_module = $application->getModule($module_name);
+                $di->set('view', $this->configView($module_name), true);
+                $object = $di->get($admin_module['className']);
+                $di->set('domainAdminServiceFactory', $this->configDomainAdminServiceFactory($di), true);
+                $object->registerServices($di);
+            }
+        });
+        $application->setEventsManager($eventsManager);    }
 
 }

@@ -4,6 +4,7 @@ namespace EuroMillions\shared\config\bootstrap;
 use Doctrine\Common\Cache\ApcuCache;
 use Doctrine\Common\Cache\RedisCache;
 use Doctrine\DBAL\Types\Type;
+use EuroMillions\admin\services\DomainAdminServiceFactory;
 use EuroMillions\shared\components\EnvironmentDetector;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
@@ -44,8 +45,21 @@ abstract class BootstrapStrategyBase
         $di->set('redisCache', $redis, true);
         $di->set('entityManager', $this->configDoctrine($config, $redis), true);
         $di->set('paymentProviderFactory', $this->configPaymentProvider($di), true);
+        $di->set('domainServiceFactory', $this->setDomainServiceFactory($di), true);
+        $di->set('domainAdminServiceFactory', $this->setDomainAdminServiceFactory($di),true);
+       
         return $di;
     }
+    private function setDomainServiceFactory($di)
+    {
+        return new DomainServiceFactory($di, new ServiceFactory($di));
+    }
+
+    private function setDomainAdminServiceFactory($di)
+    {
+        return new DomainAdminServiceFactory($di);
+    }
+
 
     protected function configCrypt()
     {

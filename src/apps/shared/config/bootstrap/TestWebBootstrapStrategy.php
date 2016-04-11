@@ -13,7 +13,6 @@ use Redis;
 
 class TestWebBootstrapStrategy extends WebBootstrapStrategy
 {
-    use BootstrapBehaviourShared;
 
     protected $isUnitTest;
     protected $testsPath;
@@ -29,7 +28,6 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
     {
         $di = parent::dependencyInjector();
         $di->set('testsPath', function() {return $this->testsPath;}, true);
-        $this->shareTheseServices($di);
         return $di;
     }
 
