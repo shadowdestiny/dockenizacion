@@ -60,10 +60,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         error_reporting($config->application['error_reporting']);
         (new Phalcon\Debug())->listen();
         $application = new Phalcon\Mvc\Application($di);
-        $this->configureModules($application);
-        // CONFIGURE DEBUGBAR
-//        $di['app'] = $application;
-//        (new ServiceProvider(APP_PATH . 'config/debugbar.php'))->start();
+        $this->configureModules($application, $di);
         echo $application->handle()->getContent();
     }
 
@@ -280,43 +277,21 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         return new DomainAdminServiceFactory($di);
     }
 
-
-    protected function ownDependency(Phalcon\Mvc\Application $application)
-    {
-        $di = $application->getDI();
-        $eventsManager = new Phalcon\Events\Manager();
-        $eventsManager->attach('application:beforeStartModule', function ($event, $application) use ($di) {
-            $module_name = $event->getData();
-            if ($module_name === 'web') {
-                $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
-                $di->set('language', $this->configLanguage($di), true);
-            }
-            if ($module_name === 'admin') {
-                $di->set('domainAdminServiceFactory', $this->configDomainAdminServiceFactory($di), true);
-            }
-            $di->set('view', $this->configView($module_name), true);
-            $di->set('dispatcher', $this->configDispatcher($module_name));
-        });
-        $application->setEventsManager($eventsManager);
-    }
-
-
-    /**
-     * @param $application
-     */
-    protected function configureModules($application)
+    protected function configureModules(Phalcon\Mvc\Application $application, Di $di)
     {
         $application->registerModules([
-            'web'   => [
-                'className' => 'EuroMillions\web\Module',
-                'path'      => '../apps/web/Module.php',
-            ],
-            'admin' => [
-                'className' => 'EuroMillions\admin\Module',
-                'path'      => '../apps/admin/Module.php',
-            ]
+            'web' => function () use ($di) {
+                $di->set('domainServiceFactory', $this->configDomainServiceFactory($di), true);
+                $di->set('language', $this->configLanguage($di), true);
+                $di->set('view', $this->configView('web'), true);
+                $di->set('dispatcher', $this->configDispatcher('web'));
+            },
+            'admin' => function () use ($di) {
+                $di->set('domainAdminServiceFactory', $this->configDomainAdminServiceFactory($di), true);
+                $di->set('view', $this->configView('admin'), true);
+                $di->set('dispatcher', $this->configDispatcher('admin'));
+            }
         ]);
-        $this->ownDependency($application);
     }
 
 }

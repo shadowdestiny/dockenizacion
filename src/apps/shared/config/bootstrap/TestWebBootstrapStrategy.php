@@ -39,7 +39,7 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
         Di::reset();
         Di::setDefault($di);
         $app = new Phalcon\Mvc\Application($di);
-        $this->configureModules($app);
+        $this->configureModules($app, $di);
         return $app;
     }
 
@@ -65,11 +65,6 @@ class TestWebBootstrapStrategy extends WebBootstrapStrategy
             return 'en';
         }
     }
-
-//    protected function getConfigFileName(EnvironmentDetector $em)
-//    {
-//        return $em->get().'_test_config.ini';
-//    }
 
     protected function configDomainServiceFactory(Di $di)
     {
