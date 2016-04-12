@@ -37,7 +37,6 @@ abstract class BootstrapStrategyBase
             $environment_detector->setDefault();
         }
         $config = $this->configConfig($environment_detector);
-        var_dump($config);die(-1);
         $di->set('crypt', $this->configCrypt(), true);
         $di->set('configPath', function() {return $this->configPath;}, true);
         $di->set('environmentDetector', $environment_detector);
@@ -103,6 +102,7 @@ abstract class BootstrapStrategyBase
             'dbname'   => $appConfig['database']['dbname'],
             'charset'  => 'utf8'
         ];
+        var_dump($conn);
         $em = EntityManager::create($conn, $config);
         if (!Type::hasType('uuid')) {
             Type::addType('uuid', 'Ramsey\Uuid\Doctrine\UuidType');
