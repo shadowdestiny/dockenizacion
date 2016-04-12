@@ -104,6 +104,7 @@ abstract class BootstrapStrategyBase
         ];
         var_dump($appConfig['application']['env']);
         var_dump($conn);
+        throw \Exception('Quiero ver el stack trace');
         $em = EntityManager::create($conn, $config);
         if (!Type::hasType('uuid')) {
             Type::addType('uuid', 'Ramsey\Uuid\Doctrine\UuidType');
