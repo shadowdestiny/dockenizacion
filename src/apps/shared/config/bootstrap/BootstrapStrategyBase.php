@@ -94,6 +94,8 @@ abstract class BootstrapStrategyBase
         $redis_cache->setRedis($redis);
         $redis_cache->setNamespace($appConfig['redis']['prefix']);
         $config->setResultCacheImpl($redis_cache);
+        var_dump($appConfig);
+        die();
         $conn = [
             'host'     => $appConfig['database']['host'],
             'driver'   => 'pdo_mysql',
