@@ -9,6 +9,7 @@ use EuroMillions\tests\base\UnitTestBase;
 use EuroMillions\tests\helpers\mothers\UserMother;
 use EuroMillions\web\services\TransactionService;
 use EuroMillions\web\vo\enum\TransactionType;
+use Prophecy\Argument;
 
 class TransactionServiceUnitTest extends UnitTestBase
 {
@@ -35,6 +36,8 @@ class TransactionServiceUnitTest extends UnitTestBase
         $user_id = UserMother::aUserWith500Eur()->build()->getId();
         $now = new \DateTime();
         $sut = $this->getSut();
+        $this->entityManagerDouble->persist(Argument::type($class))->shouldBeCalled();
+        $this->entityManagerDouble->flush()->shouldBeCalled();
         $actual = $sut->storeTransaction($type, $data, $user_id, $now);
         $expected = new ActionResult($expected);
         $this->assertInstanceOf($class,$actual->getValues());
