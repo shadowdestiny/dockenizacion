@@ -123,4 +123,11 @@ class Wallet implements IArraySerializable
             'wallet_winnings_currency_name' => $this->getUploaded()->getCurrency()->getName(),
         ];
     }
+
+    public function equals(Wallet $wallet)
+    {
+        return
+               $this->uploaded->getAmount() === $wallet->uploaded->getAmount() &&
+               $this->winnings->getAmount() === $wallet->winnings->getAmount();
+    }
 }

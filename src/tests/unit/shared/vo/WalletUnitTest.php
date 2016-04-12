@@ -204,6 +204,19 @@ class WalletUnitTest extends UnitTestBase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * method equal
+     * when called
+     * should returnTrue
+     */
+    public function test_equal_called_returnTrue()
+    {
+        $wallet = new Wallet();
+        $actual = new Wallet();
+        $sut = $actual->equals($wallet);
+        $this->assertTrue($sut);
+    }
+
     private function getMoney($amount)
     {
         return new Money($amount, new Currency('EUR'));
