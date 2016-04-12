@@ -15,7 +15,7 @@ class JackpotDataEmailTemplateStrategy implements IEmailTemplateDataStrategy
 
     public function __construct(LotteryService $lotteryService = null)
     {
-        $this->lotteriesDataService = ($lotteryService != null) ? $lotteryService : \Phalcon\Di::getDefault()->get('domainServiceFactory')->getLotteriesDataService();
+        $this->lotteriesDataService = ($lotteryService != null) ? $lotteryService : \Phalcon\Di::getDefault()->get('domainServiceFactory')->getLotteryService();
         $this->time_config = \Phalcon\Di::getDefault()->get('config')['retry_validation_time'];
     }
 
