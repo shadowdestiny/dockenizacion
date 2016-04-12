@@ -33,9 +33,7 @@ abstract class BootstrapStrategyBase
     {
         $di = new Di();
         $environment_detector = $this->configEnvironmentDetector();
-        var_dump('seteando default???');
         if (!$environment_detector->isEnvSet()) {
-            var_dump('default ssí');
             $environment_detector->setDefault();
         }
         $config = $this->configConfig($environment_detector);
@@ -104,9 +102,6 @@ abstract class BootstrapStrategyBase
             'dbname'   => $appConfig['database']['dbname'],
             'charset'  => 'utf8'
         ];
-        var_dump($appConfig['application']['env']);
-        var_dump($conn);
-        throw new \Exception('Quiero ver el stack trace');
         $em = EntityManager::create($conn, $config);
         if (!Type::hasType('uuid')) {
             Type::addType('uuid', 'Ramsey\Uuid\Doctrine\UuidType');
