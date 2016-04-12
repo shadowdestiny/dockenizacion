@@ -64,8 +64,7 @@ class ControllerBase extends Controller
     private function checkRestrictedAccess()
     {
         $config = $this->di->get('config');
-
-        if (!empty($config->restricted_access)) {
+        if ($config->restricted_access->activated !== '0') {
             $ra_config = new RestrictedAccessConfig([
                 'allowedIps'      => $config->restricted_access->allowed_ips,
                 'allowedHttpUser' => new HttpUser(

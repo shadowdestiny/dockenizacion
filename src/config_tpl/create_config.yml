@@ -8,6 +8,39 @@
       include_vars: vars/{{ item }}.yml
       with_items:
         - default_vars
-        - "{{ env }}_vars"
+        - vagrant_vars
     - name: create template for environment
-      template: src=config_tpl.j2 dest=../apps/shared/config/{{ env }}_config.ini owner=www-data mode=0644
+      template: src=config_tpl.j2 dest=../apps/shared/config/vagrant_config.ini owner=www-data mode=0644
+
+    - name: include variables for environment
+      include_vars: vars/{{ item }}.yml
+      with_items:
+        - default_vars
+        - development_vars
+    - name: create template for environment
+      template: src=config_tpl.j2 dest=../apps/shared/config/development_config.ini owner=www-data mode=0644
+
+    - name: include variables for environment
+      include_vars: vars/{{ item }}.yml
+      with_items:
+        - default_vars
+        - shippable_vars
+    - name: create template for environment
+      template: src=config_tpl.j2 dest=../apps/shared/config/shippable_config.ini owner=www-data mode=0644
+
+    - name: include variables for environment
+      include_vars: vars/{{ item }}.yml
+      with_items:
+        - default_vars
+        - scrutinizer_vars
+    - name: create template for environment
+      template: src=config_tpl.j2 dest=../apps/shared/config/scrutinizer_config.ini owner=www-data mode=0644
+
+    - name: include variables for environment
+      include_vars: vars/{{ item }}.yml
+      with_items:
+        - default_vars
+        - staging_vars
+    - name: create template for environment
+      template: src=config_tpl.j2 dest=../apps/shared/config/staging_config.ini owner=www-data mode=0644
+### This should be taken out to a parametrized role

@@ -4,4 +4,5 @@ display_startup_errors: 1
 
 domain_url: beta.euromillions.com/
 
+restricted_access_activated: 1
 restricted_access_ips: 62.57.159.66,10.0.2.2

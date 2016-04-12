@@ -25,13 +25,6 @@ Vagrant.configure(2) do |config|
     config.vm.provision "ansible_local", run: "always" do |ansible|
         ansible.provisioning_path   = "/vagrant/src/config_tpl"
         ansible.playbook            = "create_config.yml"
-        ansible.extra_vars          = "vars/vagrant_environment_var.yml"
-    end
-
-    config.vm.provision "ansible_local", run: "always" do |ansible|
-        ansible.provisioning_path   = "/vagrant/src/config_tpl"
-        ansible.playbook            = "create_config.yml"
-        ansible.extra_vars          = "vars/development_environment_var.yml"
     end
 
     config.vm.network "forwarded_port", guest: 80, host: 8080
