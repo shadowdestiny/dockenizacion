@@ -102,6 +102,7 @@ abstract class BootstrapStrategyBase
             'dbname'   => $appConfig['database']['dbname'],
             'charset'  => 'utf8'
         ];
+        var_dump($appConfig['application']['env']);
         var_dump($conn);
         $em = EntityManager::create($conn, $config);
         if (!Type::hasType('uuid')) {
