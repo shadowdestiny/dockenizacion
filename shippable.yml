@@ -27,7 +27,6 @@ build:
     - mysql -e 'drop database if exists euromillions_test;create database euromillions_test;'
     - mkdir -p shippable/codecoverage
     - mkdir -p shippable/testresults
-    - cp -f src/apps/shared/config/shippable_test_config.ini src/apps/shared/config/config.ini
     - dev-scripts/schema_migration.sh shippable
     - src/vendor/bin/phpunit --log-junit shippable/testresults/junit.xml --configuration src/tests/phpunit.xml --testsuite=unit+integration
 #    - cd src/react;npm test
