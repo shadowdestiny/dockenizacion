@@ -33,7 +33,9 @@ abstract class BootstrapStrategyBase
     {
         $di = new Di();
         $environment_detector = $this->configEnvironmentDetector();
+        var_dump('seteando default???');
         if (!$environment_detector->isEnvSet()) {
+            var_dump('default ssí');
             $environment_detector->setDefault();
         }
         $config = $this->configConfig($environment_detector);
