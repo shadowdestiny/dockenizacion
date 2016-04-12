@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * Class HomepageCest
  * @group active
@@ -31,7 +32,6 @@ class HomepageCest
     public function jackpotDisplayed(FunctionalTester $I)
     {
         $I->wantTo('Be informed of the jackpot');
-
         $jackpot = $I->grabTextFrom('.jackpot .mytxt');
         $jackpot_number = (int)str_replace('.','', $jackpot);
         $I->expect('The Jackpot would be greather or equal than 15M euros');

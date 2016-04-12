@@ -65,6 +65,7 @@ class Wallet implements IArraySerializable
         } else {
             $this->uploaded = $this->uploaded->subtract($amount);
         }
+
     }
 
     public function getBalance()

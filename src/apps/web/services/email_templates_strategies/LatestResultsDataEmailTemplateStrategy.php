@@ -16,7 +16,7 @@ class LatestResultsDataEmailTemplateStrategy implements IEmailTemplateDataStrate
 
     public function __construct(LotteryService $lotteryService = null)
     {
-        $this->lotteryService = ($lotteryService != null) ? $lotteryService : \Phalcon\Di::getDefault()->get('domainServiceFactory')->getLotteriesDataService();
+        $this->lotteryService = ($lotteryService != null) ? $lotteryService : \Phalcon\Di::getDefault()->get('domainServiceFactory')->getLotteryService();
         $this->time_config = \Phalcon\Di::getDefault()->get('config')['retry_validation_time'];
     }
 

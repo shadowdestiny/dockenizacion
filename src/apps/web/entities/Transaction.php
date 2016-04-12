@@ -66,7 +66,7 @@ abstract class Transaction extends EntityBase
     }
 
     /**
-     * @return mixed
+     * @return Wallet
      */
     public function getWalletBefore()
     {
@@ -76,7 +76,7 @@ abstract class Transaction extends EntityBase
     /**
      * @param mixed $wallet_before
      */
-    public function setWalletBefore($wallet_before)
+    public function setWalletBefore(Wallet $wallet_before)
     {
         $this->wallet_before = $wallet_before;
     }
@@ -92,7 +92,7 @@ abstract class Transaction extends EntityBase
     /**
      * @param mixed $wallet_after
      */
-    public function setWalletAfter($wallet_after)
+    public function setWalletAfter(Wallet $wallet_after)
     {
         $this->wallet_after = $wallet_after;
     }
