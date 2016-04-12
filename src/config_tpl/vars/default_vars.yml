@@ -5,8 +5,8 @@ display_startup_errors: '1'
 
 database_adapter: 'Mysql'
 database_host: 'mysql'
-database_user: 'root'
-database_pass: 'tpl9'
+database_user: ''
+database_pass: ''
 database_name: 'euromillions'
 original_database_name: 'euromillions'
 

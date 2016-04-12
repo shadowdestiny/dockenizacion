@@ -4,5 +4,8 @@ display_startup_errors: '1'
 
 domain_url: 'beta.euromillions.com/'
 
+database_user: 'root'
+database_pass: 'tpl9'
+
 restricted_access_activated: '1'
 restricted_access_ips: '62.57.159.66,10.0.2.2,81.38.164.109'

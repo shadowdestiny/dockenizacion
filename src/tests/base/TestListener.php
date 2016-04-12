@@ -16,7 +16,7 @@ class TestListener extends \PHPUnit_Framework_BaseTestListener
             strpos($suite->getName(),"tests\\functional") !== false
         ) {
             $bootstrap = new Bootstrap(new TestWebBootstrapStrategy(false, APP_PATH, APP_PATH . 'shared/config/', APP_PATH . 'assets/', TESTS_PATH));
-            $di = DI::getDefault();
+            $di = Di::getDefault();
             $config = $di->get('config');
             /** @var EnvironmentDetector $ed */
             $environment = $di->get('environmentDetector')->get();

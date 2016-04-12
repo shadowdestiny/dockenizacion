@@ -4,6 +4,7 @@ display_startup_errors: '1'
 
 database_host: 'localhost'
 database_name: 'euromillions_test'
+database_user: 'root'
 database_pass: ''
 
 redis_host: 'localhost'

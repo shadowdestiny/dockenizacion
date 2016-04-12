@@ -4,6 +4,8 @@ display_startup_errors: '1'
 
 database_host: '127.0.0.1'
 database_name: 'euromillions_test'
+database_user: 'root'
+database_pass: 'tpl9'
 
 redis_host: '127.0.0.1'
 redis_prefix: 'test_'
