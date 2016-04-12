@@ -53,7 +53,7 @@ class JackpotTask extends TaskBase
 
         $jackpot_amount = $this->lotteryService->getNextJackpot('EuroMillions');
         $emailTemplate = new EmailTemplate();
-        $emailTemplate = new JackpotRolloverEmailTemplate($emailTemplate, new JackpotDataEmailTemplateStrategy());
+        $emailTemplate = new JackpotRolloverEmailTemplate($emailTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
         /** @var ActionResult $result */
         $result = $this->userService->getActiveNotificationsTypeJackpot();
 

@@ -424,6 +424,7 @@ class UserServiceUnitTest extends UnitTestBase
      */
     public function test_checkLongTermAndSendNotification_userDontHaveLongTerm_sendEmailNotification()
     {
+        $this->markTestIncomplete('Raul, aquí falta alguna inyección o algo, porque estás haciendo un new JackpotDataEamailTemplateStrategy que depende de LotteryService');
 
         $now = new \DateTime('2016-03-18 20:00:00');
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
