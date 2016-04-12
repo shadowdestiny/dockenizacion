@@ -130,7 +130,10 @@ abstract class BootstrapStrategyBase
 
     protected function getConfigFileName(EnvironmentDetector $em)
     {
-        return $em->get().'_'.self::CONFIG_FILENAME;
+        $config_file = $em->get() . '_' . self::CONFIG_FILENAME;
+        var_dump($config_file);
+        die();
+        return $config_file;
     }
 
 }
