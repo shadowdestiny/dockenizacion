@@ -1,9 +1,9 @@
 ---
-display_errors: 1
-display_startup_errors: 1
+display_errors: '1'
+display_startup_errors: '1'
 
-database_host: 127.0.0.1
-database_name: euromillions_test
+database_host: '127.0.0.1'
+database_name: 'euromillions_test'
 
-redis_host: 127.0.0.1
+redis_host: '127.0.0.1'
 redis_prefix: 'test_'

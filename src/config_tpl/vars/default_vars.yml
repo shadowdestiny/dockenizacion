@@ -1,27 +1,27 @@
 ---
-error_reporting: E_ALL
-display_errors: 1
-display_startup_errors: 1
+error_reporting: 'E_ALL'
+display_errors: '1'
+display_startup_errors: '1'
 
-database_adapter: Mysql
-database_host: mysql
-database_user: root
-database_pass: tpl9
-database_name: euromillions
-original_database_name: euromillions
+database_adapter: 'Mysql'
+database_host: 'mysql'
+database_user: 'root'
+database_pass: 'tpl9'
+database_name: 'euromillions'
+original_database_name: 'euromillions'
 
-domain_url: localhost:443/
+domain_url: 'localhost:443/'
 
-redis_host: redis
+redis_host: 'redis'
 redis_prefix: ''
-redis_cache_lifetime: 1800
+redis_cache_lifetime: '1800'
 
-email_from_name: Euromillions.com
-email_from_address: noreply@euromillions.com
-mandrill_api_key: M6JTvgED9KLYXqkEs8S2tQ
-support_email_address: support@euromillions.com
+email_from_name: 'Euromillions.com'
+email_from_address: 'noreply@euromillions.com'
+mandrill_api_key: 'M6JTvgED9KLYXqkEs8S2tQ'
+support_email_address: 'support@euromillions.com'
 
-file_logs_path: /var/www/logs/
+file_logs_path: '/var/www/logs/'
 
 recaptcha_public_key: '6LcDSwwTAAAAABKLpEJyJOhXPoDCOr13Oh_lgf1b'
 recaptcha_private_key: '6LcDSwwTAAAAACxn_ZdCdBJGUHigvsfmKMg334kB'
@@ -30,21 +30,21 @@ ips: '192.168.1.102,10.0.2.15,10.0.2.2,62.57.159.66'
 
 euromillions_retry_validation_time: '19:00'
 
-threshold_value_reminder: 2500
-threshold_above: 2500
+threshold_value_reminder: '2500'
+threshold_above: '2500'
 
-admin_user: admin
-admin_pass: euromillions
+admin_user: 'admin'
+admin_pass: 'euromillions'
 
-payxpert_originator_id: 103893
-payxpert_originator_name: Panam Test Site
+payxpert_originator_id: '103893'
+payxpert_originator_name: 'Panam Test Site'
 payxpert_api_key: "'5}G,,5[L.A~*&/{h'"
 
-sms_user: raulmesa
-sms_pass: UVWsnyJz3q
-sms_number: 34626966592
+sms_user: 'raulmesa'
+sms_pass: 'UVWsnyJz3q'
+sms_number: '34626966592'
 
-restricted_access_activated: 0
-restricted_access_ips: 192.168.1.10,192.168.1.11,10.0.2.2,172.17.0.1
-restricted_access_user: beta
-restricted_access_pass: 4cce5B3t4Eur0
+restricted_access_activated: '0'
+restricted_access_ips: '192.168.1.10,192.168.1.11,10.0.2.2,172.17.0.1'
+restricted_access_user: 'beta'
+restricted_access_pass: '4cce5B3t4Eur0'
