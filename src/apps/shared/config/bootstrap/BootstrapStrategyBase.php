@@ -98,10 +98,13 @@ abstract class BootstrapStrategyBase
             'host'     => $appConfig['database']['host'],
             'driver'   => 'pdo_mysql',
             'user'     => $appConfig['database']['username'],
-            'password' => $appConfig['database']['password'],
             'dbname'   => $appConfig['database']['dbname'],
             'charset'  => 'utf8'
         ];
+        if ('' !== $appConfig['database']['password']) {
+            $conn['password'] = $appConfig['database']['password'];
+        }
+
         $em = EntityManager::create($conn, $config);
         if (!Type::hasType('uuid')) {
             Type::addType('uuid', 'Ramsey\Uuid\Doctrine\UuidType');
