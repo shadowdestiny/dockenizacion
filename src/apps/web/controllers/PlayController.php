@@ -29,7 +29,7 @@ class PlayController extends PublicSiteControllerBase
         $currency_symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
 
         return $this->view->setVars([
-            'jackpot_value' => $jackpot->getAmount()/100,
+            'jackpot_value' => $jackpot,
             'play_dates' => $play_dates,
             'next_draw' => $dayOfWeek,
             'next_draw_format' => $draw->format('l j M G:i'),

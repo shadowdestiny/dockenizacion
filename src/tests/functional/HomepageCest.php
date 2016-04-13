@@ -14,7 +14,6 @@ class HomepageCest
 
     public function _after(FunctionalTester $I)
     {
-        var_dump('hola');
     }
 
     public function seePage(FunctionalTester $I)

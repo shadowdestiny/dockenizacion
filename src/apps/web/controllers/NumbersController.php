@@ -30,7 +30,7 @@ class NumbersController extends PublicSiteControllerBase
         return $this->view->setVars([
             'break_downs' => !empty($break_down_list) ? $break_down_list : '',
             'id_draw' => !empty($draw_result) ? $draw_result->getValues()->getId() : '',
-            'jackpot_value' => $jackpot->getAmount()/100,
+            'jackpot_value' => $jackpot,
             'last_result' => $last_result,
             'date_draw' => $date_next_draw->format('Y-m-d H:i:s'),
             'last_draw_date' => $last_draw_date->format('D, d M Y'),

@@ -18,11 +18,13 @@ class WalletServiceUnitTest extends UnitTestBase
 
 
     private $currencyConversionService_double;
+    private $transactionService_double;
 
 
     public function setUp()
     {
         $this->currencyConversionService_double = $this->getServiceDouble('CurrencyConversionService');
+        $this->transactionService_double = $this->getServiceDouble('TransactionService');
         parent::setUp();
     }
 
@@ -83,7 +85,7 @@ class WalletServiceUnitTest extends UnitTestBase
         $uploaded_string = '€ 10.00';
         $expected = new WalletDTO($uploaded_string,$uploaded_string,$uploaded_string,$uploaded_string);
         $this->exerciseConvert($uploaded, $user, $uploaded_string);
-        $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal());
+        $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal(),$this->transactionService_double->reveal());
         $actual = $sut->getWalletDTO($user);
         $this->assertInstanceOf('EuroMillions\web\vo\dto\WalletDTO', $actual);
         $this->assertEquals($expected,$actual);
@@ -98,7 +100,7 @@ class WalletServiceUnitTest extends UnitTestBase
     {
         $user = UserMother::aUserWith50Eur()->build();
         $user->setWinningAbove(new Money(10000, new Currency('EUR')));
-        $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal());
+        $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal(),$this->transactionService_double->reveal());
         $actual = $sut->getWalletDTO($user);
         $this->assertNull($actual);
     }
@@ -115,7 +117,7 @@ class WalletServiceUnitTest extends UnitTestBase
         $card_payment_provider->charge(Argument::any(), Argument::any())->willReturn(new PaymentProviderResult($payment_provider_result));
         $credit_card = CreditCardMother::aValidCreditCard();
         $credit_card_charge = CreditCardChargeMother::aValidCreditCardChargeWithAmountInParam($amount);
-        $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal());
+        $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal(), $this->transactionService_double->reveal());
         $actual = $sut->rechargeWithCreditCard($card_payment_provider->reveal(), $credit_card, $user, $credit_card_charge);
         $this->assertInstanceOf('EuroMillions\shared\interfaces\IResult', $actual);
         $this->assertEquals($payment_provider_result, $actual->success());

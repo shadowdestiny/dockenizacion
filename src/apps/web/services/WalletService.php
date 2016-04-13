@@ -27,7 +27,10 @@ class WalletService
      * @param CreditCardCharge $creditCardCharge
      * @return IResult
      */
-    public function rechargeWithCreditCard(ICardPaymentProvider $provider, CreditCard $card, User $user, CreditCardCharge $creditCardCharge)
+    public function rechargeWithCreditCard(ICardPaymentProvider $provider,
+                                           CreditCard $card,
+                                           User $user,
+                                           CreditCardCharge $creditCardCharge)
     {
         $amount = $creditCardCharge->getFinalAmount();
         $payment_result = $provider->charge($amount, $card);

@@ -21,7 +21,10 @@ class TransactionService
     }
 
 
-    public function storeTransaction( $transactionType , array $data, $userId, \DateTime $now = null)
+    public function storeTransaction( $transactionType ,
+                                      array $data,
+                                      $userId,
+                                      \DateTime $now = null)
     {
         if( null == $now ) {
             $now = new \DateTime();

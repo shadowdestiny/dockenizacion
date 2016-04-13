@@ -9,6 +9,7 @@ use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\exceptions\DataMissingException;
 use EuroMillions\web\services\LotteryService;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
+use EuroMillions\web\vo\EuroMillionsJackpot;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\shared\vo\results\ActionResult;
 use Money\Currency;
@@ -347,7 +348,7 @@ class LotteryServiceUnitTest extends UnitTestBase
         $lottery_name = 'EuroMillions';
         $lottery = new Lottery();
         $this->lotteryRepositoryDouble->getLotteryByName($lottery_name)->willReturn($lottery);
-        $expected = new Money(10392490428902, new Currency('EUR'));
+        $expected = EuroMillionsJackpot::fromAmountIncludingDecimals(10392490428902);
         $this->lotteryDrawRepositoryDouble->getNextJackpot($lottery)->willReturn($expected);
         $sut = $this->getSut();
         $actual = $sut->getNextJackpot($lottery_name);
@@ -361,7 +362,7 @@ class LotteryServiceUnitTest extends UnitTestBase
      */
     public function test_getNextJackpot_dataMissingExceptionIsRaised_tryToUpdateNextJackpotAndReturnJackpot()
     {
-        $expected = new Money(10392490428902, new Currency('EUR'));
+        $expected = EuroMillionsJackpot::fromAmountIncludingDecimals(10392490428902);
         $lottery_name = 'EuroMillions';
         $this->lotteryRepositoryDouble->getLotteryByName($lottery_name)->willReturn(new Lottery());
         $this->lotteryDrawRepositoryDouble->getNextJackpot(Argument::any())->willThrow(new DataMissingException());

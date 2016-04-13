@@ -35,86 +35,86 @@ home
 							    <feBlend in="SourceGraphic" in2="myBlur"/>
 							</filter>
 						</defs>
-
+						{% set jackpot_val =  jackpot_value  %}
  						<g class="normal"> 
 							<text filter="url(#shadow)">
-								<tspan class="mycur" y="90">{{ user_currency['symbol'] }}</tspan>
-								<tspan class="mytxt" dx="10px" y="90">{{ jackpot_value | number_format(0, ',', '.')}}</tspan>
+								<tspan class="mycur" y="90"></tspan>
+								<tspan class="mytxt" dx="10px" y="90">{{ jackpot_val }}</tspan>
 							</text>
 							<text fill="url(#e)">
-								<tspan class="mycur" y="90">{{ user_currency['symbol'] }}</tspan>
-								<tspan class="mytxt" dx="10px" y="90">{{ jackpot_value | number_format(0, ',', '.')}}</tspan>
+								<tspan class="mycur" y="90"></tspan>
+								<tspan class="mytxt" dx="10px" y="90">{{ jackpot_val }}</tspan>
 							</text>
 						</g>
 						<g class="small n1" transform="translate(360)">
 							<g text-anchor="middle" x="0">
 								<text filter="url(#shadow)" y="80">
-									<tspan class="mycur">{{ user_currency['symbol'] }}</tspan>
-									<tspan class="mytxt" dx="10px">{{ jackpot_value | number_format(0, ',', '.')}}</tspan>
+									<tspan class="mycur"></tspan>
+									<tspan class="mytxt" dx="10px">{{ jackpot_val }}</tspan>
 								</text>
 								<text  fill="url(#e)" y="80">
-									<tspan class="mycur">{{ user_currency['symbol'] }}</tspan>
-									<tspan class="mytxt" dx="10px">{{ jackpot_value | number_format(0, ',', '.')}}</tspan>
+									<tspan class="mycur"></tspan>
+									<tspan class="mytxt" dx="10px">{{ jackpot_val }}</tspan>
 								</text>
 							</g>
 						</g>
 						<g class="small n2" transform="translate(280)">
 							<g text-anchor="middle" x="0">
 								<text filter="url(#shadow)" y="80">
-									<tspan class="mycur">{{ user_currency['symbol'] }}</tspan>
-									<tspan class="mytxt" dx="10px">{{ jackpot_value | number_format(0, ',', '.')}}</tspan>
+									<tspan class="mycur"></tspan>
+									<tspan class="mytxt" dx="10px">{{ jackpot_val}}</tspan>
 								</text>
 								<text fill="url(#e)" y="80">
-									<tspan class="mycur">{{ user_currency['symbol'] }}</tspan>
-									<tspan class="mytxt" dx="10px">{{ jackpot_value | number_format(0, ',', '.')}}</tspan>
+									<tspan class="mycur"></tspan>
+									<tspan class="mytxt" dx="10px">{{ jackpot_val }}</tspan>
 								</text>
 							</g>
 						</g>
 						<g class="small n3" transform="translate(240)">
 							<g text-anchor="middle" x="0">
 								<text filter="url(#shadow)" y="70">
-									<tspan class="mycur">{{ user_currency['symbol'] }}</tspan>
-									<tspan class="mytxt">{{ jackpot_value | number_format(0, ',', '.')}}</tspan>
+									<tspan class="mycur"></tspan>
+									<tspan class="mytxt">{{ jackpot_val }}</tspan>
 								</text>
 								<text fill="url(#e)" y="70">
-									<tspan class="mycur">{{ user_currency['symbol'] }}</tspan>
-									<tspan class="mytxt">{{ jackpot_value | number_format(0, ',', '.')}}</tspan>
+									<tspan class="mycur"></tspan>
+									<tspan class="mytxt">{{ jackpot_val }}</tspan>
 								</text>
 							</g>
 						</g>
 						<g class="small n4" transform="translate(210)">
 							<g text-anchor="middle" x="0">
 								<text filter="url(#shadow)" y="50">
-									<tspan class="mycur">{{ user_currency['symbol'] }}</tspan>
-									<tspan class="mytxt">{{ jackpot_value | number_format(0, ',', '.')}}</tspan>
+									<tspan class="mycur"></tspan>
+									<tspan class="mytxt">{{ jackpot_val }}</tspan>
 								</text>
 								<text  fill="url(#e)" y="50">
-									<tspan class="mycur">{{ user_currency['symbol'] }}</tspan>
-									<tspan class="mytxt">{{ jackpot_value | number_format(0, ',', '.')}}</tspan>
+									<tspan class="mycur"></tspan>
+									<tspan class="mytxt">{{ jackpot_val }}</tspan>
 								</text>
 							</g>
 						</g>
 						<g class="small n5" transform="translate(165)">
 							<g text-anchor="middle" x="0">
 								<text filter="url(#shadow)" y="50">
-									<tspan class="mycur">{{ user_currency['symbol'] }}</tspan>
-									<tspan class="mytxt">{{ jackpot_value | number_format(0, ',', '.')}}</tspan>
+									<tspan class="mycur"></tspan>
+									<tspan class="mytxt">{{ jackpot_val }}</tspan>
 								</text>
 								<text  fill="url(#e)" y="50">
-									<tspan class="mycur">{{ user_currency['symbol'] }}</tspan>
-									<tspan class="mytxt">{{ jackpot_value | number_format(0, ',', '.')}}</tspan>
+									<tspan class="mycur"></tspan>
+									<tspan class="mytxt">{{ jackpot_val }}</tspan>
 								</text>
 							</g>
 						</g>
 						<g class="small n6" transform="translate(135)">
 							<g text-anchor="middle" x="0">
 								<text filter="url(#shadow)" y="45">
-									<tspan class="mycur">{{ user_currency['symbol'] }}</tspan>
-									<tspan class="mytxt">{{ jackpot_value | number_format(0, ',', '.')}}</tspan>
+									<tspan class="mycur"></tspan>
+									<tspan class="mytxt">{{ jackpot_val }}</tspan>
 								</text>
 								<text fill="url(#e)" y="45">
-									<tspan class="mycur">{{ user_currency['symbol'] }}</tspan>
-									<tspan class="mytxt">{{ jackpot_value | number_format(0, ',', '.')}}</tspan>
+									<tspan class="mycur"></tspan>
+									<tspan class="mytxt">{{ jackpot_val }}</tspan>
 								</text>
 							</g>
 						</g>

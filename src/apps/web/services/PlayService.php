@@ -140,6 +140,7 @@ class PlayService
                         }
                     }
                     if( $result_payment->success() ) {
+
                         foreach( $order->getPlayConfig() as $play_config ) {
                             $result_validation = $this->betService->validation($play_config, $draw->getValues(),$lottery->getNextDrawDate());
                             if(!$result_validation->success()) {

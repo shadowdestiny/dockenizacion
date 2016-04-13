@@ -10,6 +10,7 @@ use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\exceptions\BadSiteConfiguration;
 use EuroMillions\web\exceptions\DataMissingException;
+use EuroMillions\web\interfaces\IJackpot;
 use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationAutoPlayNoFunds;
@@ -67,15 +68,22 @@ class LotteryService
 
     /**
      * @param $lotteryName
-     * @return Money
+     * @return IJackpot
      */
     public function getNextJackpot($lotteryName)
     {
         $lottery = $this->lotteryRepository->getLotteryByName($lotteryName);
+        $jackpot_object = 'EuroMillions\web\vo\\'.$lotteryName.'Jackpot';
         try {
-            return $this->lotteryDrawRepository->getNextJackpot($lottery);
+            $next_jackpot = $this->lotteryDrawRepository->getNextJackpot($lottery);
+            return $jackpot_object::fromAmountIncludingDecimals($next_jackpot->getAmount());
         } catch (DataMissingException $e) {
-            return $this->lotteriesDataService->updateNextDrawJackpot($lotteryName);
+            try {
+                $next_jackpot = $this->lotteriesDataService->updateNextDrawJackpot($lotteryName);
+                return $jackpot_object::fromAmountIncludingDecimals($next_jackpot->getAmount());
+            } catch ( DataMissingException $e ) {
+                return $jackpot_object::fromAmountIncludingDecimals(null);
+            }
         }
     }
 
