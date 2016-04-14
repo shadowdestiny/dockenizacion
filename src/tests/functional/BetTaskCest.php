@@ -59,6 +59,18 @@ class BetTaskCest
             'wallet_winnings_currency_name' => 'EUR',
         ]);
 
+        $I->haveInDatabase('lotteries',[
+            'id' => 1,
+            'name' => 'EuroMillions',
+            'active' => 1,
+            'frequency' => 'w0100100',
+            'jackpot_api' => 'LoteriasyapuestasDotEs',
+            'result_api' => 'LoteriasyapuestasDotEs',
+            'draw_time' => '20:00:00',
+            'single_bet_price_amount' => 250,
+            'single_bet_price_currency_name' => 'EUR'
+        ]);
+
         $I->haveInDatabase('play_configs', [
             'id'                        => 1,
             'user_id'                   => '9098299B-14AC-4124-8DB0-19571EDABE59',
@@ -74,7 +86,8 @@ class BetTaskCest
             'line_regular_number_five'  => '6',
             'line_lucky_number_one'     => '1',
             'line_lucky_number_two'     => '2',
-            'config'                    => 2
+            'config'                    => 2,
+            'lottery_id'                => 1,
         ]);
 
         // $I->haveInDatabase('play_configs',$play_config_to_bet->toArray());

@@ -3,8 +3,10 @@ namespace EuroMillions\tests\unit;
 
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\shared\vo\results\PaymentProviderResult;
+use EuroMillions\tests\helpers\mothers\PlayConfigMother;
 use EuroMillions\web\services\WalletService;
 use EuroMillions\web\vo\dto\WalletDTO;
+use EuroMillions\web\vo\enum\TransactionType;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -103,6 +105,29 @@ class WalletServiceUnitTest extends UnitTestBase
         $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal(),$this->transactionService_double->reveal());
         $actual = $sut->getWalletDTO($user);
         $this->assertNull($actual);
+    }
+
+    /**
+     * method payWithWallet
+     * when called
+     * should 
+     */
+    public function test_rechargeWithWallet_called_()
+    {
+        $user = UserMother::aUserWith50Eur()->build();
+        $expected_wallet = Wallet::create(4750);
+        $playConfig = PlayConfigMother::aPlayConfig()->build();
+        $data = [
+            'lottery_id' => $playConfig->getLottery()->getId(),
+            'numBets' => $playConfig->getId()
+        ];
+        $date = new \DateTime();
+        $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal(),$this->transactionService_double->reveal());
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->flush($user)->shouldBeCalled();
+        $this->transactionService_double->storeTransaction(TransactionType::AUTOMATIC_PURCHASE,$data,$user->getId(), $date)->shouldBeCalled();
+        $sut->payWithWallet($user,$playConfig);
+        $this->assertEquals($expected_wallet, $user->getWallet());
     }
 
     /**

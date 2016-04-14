@@ -23,6 +23,7 @@ use EuroMillions\web\services\PlayService;
 use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\services\preferences_strategies\WebUserPreferencesStorageStrategy;
 use EuroMillions\web\services\PriceCheckoutService;
+use EuroMillions\web\services\TransactionService;
 use EuroMillions\web\services\UserNotificationsService;
 use EuroMillions\web\services\UserPreferencesService;
 use EuroMillions\web\services\UserService;
@@ -50,7 +51,8 @@ class DomainServiceFactory
     public function getWalletService()
     {
         return new WalletService($this->entityManager,
-                                 $this->getCurrencyConversionService()
+                                 $this->getCurrencyConversionService(),
+                                 $this->getTransactionService()
             );
     }
 
@@ -68,7 +70,8 @@ class DomainServiceFactory
                                   $this->getUserService(),
                                   $this->getBetService(),
                                   $this->getServiceFactory()->getEmailService(),
-                                  $this->getUserNotificationsService()
+                                  $this->getUserNotificationsService(),
+                                  $this->getWalletService()
             );
     }
 
@@ -167,6 +170,11 @@ class DomainServiceFactory
     public function getCurrencyService()
     {
         return new CurrencyService($this->entityManager);
+    }
+
+    public function getTransactionService()
+    {
+        return new TransactionService($this->entityManager);
     }
 
     public function getCurrencyConversionService()

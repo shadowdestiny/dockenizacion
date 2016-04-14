@@ -3,21 +3,25 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\interfaces\IResult;
+use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CreditCardCharge;
 use EuroMillions\web\vo\dto\WalletDTO;
+use EuroMillions\web\vo\enum\TransactionType;
 
 class WalletService
 {
     private $entityManager;
     private $currencyConversionService;
+    private $transactionService;
 
-    public function __construct(EntityManager $entityManager, CurrencyConversionService $currencyConversionService)
+    public function __construct(EntityManager $entityManager, CurrencyConversionService $currencyConversionService, TransactionService $transactionService)
     {
         $this->entityManager = $entityManager;
         $this->currencyConversionService = $currencyConversionService;
+        $this->transactionService = $transactionService;
     }
 
     /**
@@ -43,6 +47,22 @@ class WalletService
             }
         }
         return $payment_result;
+    }
+
+    public function payWithWallet(User $user, PlayConfig $playConfig)
+    {
+        $data = [
+            'lottery_id' => $playConfig->getLottery()->getId(),
+            'numBets' => $playConfig->getId()
+        ];
+        try {
+            $user->payPreservingWinnings($playConfig->getLottery()->getSingleBetPrice());
+            $this->entityManager->flush($user);
+            $date = new \DateTime();
+            $this->transactionService->storeTransaction(TransactionType::AUTOMATIC_PURCHASE,$data,$user->getId(),$date);
+        } catch ( \Exception $e ) {
+            //EMTD Log and warn the admin
+        }
     }
 
     public function getWalletDTO( User $user )

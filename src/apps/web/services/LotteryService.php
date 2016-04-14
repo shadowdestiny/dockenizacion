@@ -15,7 +15,6 @@ use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationAutoPlayNoFunds;
 use EuroMillions\web\vo\EuroMillionsLine;
-use Money\Money;
 
 class LotteryService
 {
@@ -35,13 +34,17 @@ class LotteryService
     private $emailService;
     /** @var  UserNotificationsService $userNotificationsService */
     private $userNotificationsService;
+    /** @var WalletService $walletService */
+    private $walletService;
 
     public function __construct(EntityManager $entityManager,
                                 LotteriesDataService $lotteriesDataService,
                                 UserService $userService,
                                 BetService $betService,
                                 EmailService $emailService,
-                                UserNotificationsService $userNotificationsService)
+                                UserNotificationsService $userNotificationsService,
+                                WalletService $walletService
+                                )
     {
         $this->entityManager = $entityManager;
         $this->lotteryDrawRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS . 'EuroMillionsDraw');
@@ -51,6 +54,7 @@ class LotteryService
         $this->userService = $userService;
         $this->betService = $betService;
         $this->userNotificationsService = $userNotificationsService;
+        $this->walletService = $walletService;
     }
 
     /**
@@ -228,7 +232,10 @@ class LotteryService
                     if( $price->getAmount() < $user->getBalance()->getAmount() ) {
                         $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($dateNextDraw));
                         foreach( $playconfigsFilteredToArray as $playConfig ) {
-                            $this->betService->validation($playConfig, $euroMillionsDraw, $nextDrawDate);
+                            $result = $this->betService->validation($playConfig, $euroMillionsDraw, $nextDrawDate);
+                            if($result->success()) {
+                                $this->walletService->payWithWallet($user,$playConfig);
+                            }
                         }
                     } else {
                         $userNotificationAutoPlayNoFunds = new UserNotificationAutoPlayNoFunds($this->userService);

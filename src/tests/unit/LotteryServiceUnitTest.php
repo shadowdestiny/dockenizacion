@@ -31,6 +31,7 @@ class LotteryServiceUnitTest extends UnitTestBase
     protected $betService_double;
     protected $emailService_double;
     protected $userNotoificationsService_double;
+    protected $walletService_double;
 
 
     public function setUp()
@@ -44,6 +45,7 @@ class LotteryServiceUnitTest extends UnitTestBase
         $this->betService_double = $this->getServiceDouble('BetService');
         $this->emailService_double = $this->getServiceDouble('EmailService');
         $this->userNotoificationsService_double = $this->getServiceDouble('UserNotificationsService');
+        $this->walletService_double = $this->getServiceDouble('WalletService');
     }
 
     /**
@@ -398,8 +400,8 @@ class LotteryServiceUnitTest extends UnitTestBase
         $users = [
             $user->withPlayConfigsCollection($playConfig)->build(),
         ];
-        $this->userServiceDouble->getUsersWithPlayConfigsForNextDraw($lottery)->willReturn($users);
 
+        $this->userServiceDouble->getUsersWithPlayConfigsForNextDraw($lottery)->willReturn($users);
         $this->userServiceDouble->getPriceForNextDraw($lottery, [$valid_play_config1, $valid_play_config2])->shouldBeCalled();
 
         $sut = $this->getSut();
@@ -500,7 +502,8 @@ class LotteryServiceUnitTest extends UnitTestBase
                                   $this->userServiceDouble->reveal(),
                                   $this->betService_double->reveal(),
                                   $this->emailService_double->reveal(),
-                                  $this->userNotoificationsService_double->reveal()
+                                  $this->userNotoificationsService_double->reveal(),
+                                  $this->walletService_double->reveal()
                                 );
     }
 }
