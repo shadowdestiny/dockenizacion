@@ -4,6 +4,7 @@
 namespace EuroMillions\tests\integration;
 
 
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\tests\base\DatabaseIntegrationTestBase;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
@@ -25,6 +26,7 @@ class LotteryServiceIntegrationTest extends DatabaseIntegrationTestBase
     protected $betService_double;
     protected $emailService_double;
     protected $userNotificationsService_double;
+    protected $walletService_double;
 
     /**
      * Child classes must implement this method. Return empty array if no fixtures are needed
@@ -51,6 +53,7 @@ class LotteryServiceIntegrationTest extends DatabaseIntegrationTestBase
         $this->betService_double = $this->getServiceDouble('BetService');
         $this->emailService_double = $this->getServiceDouble('EmailService');
         $this->userNotificationsService_double = $this->getServiceDouble('UserNotificationsService');
+        $this->walletService_double = $this->getServiceDouble('WalletService');
     }
 
     /**
@@ -92,7 +95,8 @@ class LotteryServiceIntegrationTest extends DatabaseIntegrationTestBase
                                   $this->userService_double->reveal(),
                                   $this->betService_double->reveal(),
                                   $this->emailService_double->reveal(),
-                                  $this->userNotificationsService_double->reveal()
+                                  $this->userNotificationsService_double->reveal(),
+                                  $this->walletService_double->reveal()
         );
 
         return $sut;
@@ -139,9 +143,9 @@ class LotteryServiceIntegrationTest extends DatabaseIntegrationTestBase
         $this->userService_double->getUsersWithPlayConfigsForNextDraw($lottery)->willReturn($users);
         $this->userService_double->getPriceForNextDraw($lottery, $playConfigsFilteredUserOne->toArray())->willReturn($priceUserOne);
         $this->userService_double->getPriceForNextDraw($lottery, $playConfigsFilteredUserTwo->toArray())->willReturn($priceUserTwo);
-        $this->betService_double->validation($playConfigsFilteredUserOne->toArray()[0], Argument::type('EuroMillions\web\entities\EuroMillionsDraw'), Argument::any())->shouldBeCalled();
-        $this->betService_double->validation($playConfigsFilteredUserTwo->toArray()[0], Argument::type('EuroMillions\web\entities\EuroMillionsDraw'), Argument::any())->shouldBeCalled();
-        $this->betService_double->validation($playConfigsFilteredUserTwo->toArray()[1], Argument::type('EuroMillions\web\entities\EuroMillionsDraw'), Argument::any())->shouldBeCalled();
+        $this->betService_double->validation($playConfigsFilteredUserOne->toArray()[0], Argument::type('EuroMillions\web\entities\EuroMillionsDraw'), Argument::any())->willReturn(new ActionResult(true));
+        $this->betService_double->validation($playConfigsFilteredUserTwo->toArray()[0], Argument::type('EuroMillions\web\entities\EuroMillionsDraw'), Argument::any())->willReturn(new ActionResult(true));
+        $this->betService_double->validation($playConfigsFilteredUserTwo->toArray()[1], Argument::type('EuroMillions\web\entities\EuroMillionsDraw'), Argument::any())->willReturn(new ActionResult(true));
     }
 
     private function preparePlaceBetNoFundsUser($lottery,$date)

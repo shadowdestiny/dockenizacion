@@ -154,7 +154,7 @@ class AccountController extends PublicSiteControllerBase
         return $this->view->setVars([
             'my_games_actives' => $playConfigDTO,
             'my_games_inactives' => $playConfigInactivesDTOCollection,
-            'jackpot_value' => $jackpot->getAmount()/100,
+            'jackpot_value' => $jackpot,
             'message_actives' => $message_actives,
             'message_inactives' => $message_inactives
         ]);

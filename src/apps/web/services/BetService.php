@@ -73,12 +73,12 @@ class BetService
                 if($result_validation->success()) {
                     $this->betRepository->add($bet);
                     $this->entityManager->flush();
-                    $user->payPreservingWinnings($single_bet_price);
+                    $user->payPreservingWinnings($single_bet_price); //EMTD call walletservice
                     $this->userRepository->add($user);
                     $this->playConfigRepository->add($playConfig);
                     $this->entityManager->flush();
                     return new ActionResult(true);
-                } else{
+                } else {
                     return new ActionResult(false, $result_validation->errorMessage());
                 }
             }catch(\Exception $e) {

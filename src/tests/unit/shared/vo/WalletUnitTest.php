@@ -40,6 +40,30 @@ class WalletUnitTest extends UnitTestBase
     }
 
     /**
+     * method upload
+     * when called
+     * should returnANewInstanceFromWallet
+     */
+    public function test_upload_called_returnAnewInstanceFromWallet()
+    {
+        $sut = Wallet::create(100000,0);
+        $actual = $sut->upload(new Money(2000,new Currency('EUR')));
+        $this->assertFalse($actual === $sut);
+    }
+
+    /**
+     * method award
+     * when called
+     * should returnANewInstanceFromWallet
+     */
+    public function test_award_called_returnANewInstanceFromWallet()
+    {
+        $sut = Wallet::create(100000,0);
+        $actual = $sut->award(new Money(2000,new Currency('EUR')));
+        $this->assertFalse($actual === $sut);
+    }
+
+    /**
      * method award
      * when called
      * should addAmountToWinnings

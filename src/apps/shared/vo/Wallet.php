@@ -34,23 +34,13 @@ class Wallet implements IArraySerializable
     public function upload(Money $amount)
     {
         $this->uploaded = $this->uploaded->add($amount);
+        return new self($this->uploaded,$this->winnings);
     }
 
     public function award(Money $amount)
     {
         $this->winnings = $this->winnings->add($amount);
-    }
-
-    /**
-     * @param Money $amount
-     * @throws NotEnoughFunds
-     */
-    public function payPreservingWinnings(Money $amount)
-    {
-        if($this->uploaded->lessThan($amount)) {
-            throw new NotEnoughFunds();
-        }
-        $this->uploaded = $this->uploaded->subtract($amount);
+        return new self($this->uploaded,$this->winnings);
     }
 
     public function payUsingWinnings(Money $amount)
@@ -65,7 +55,21 @@ class Wallet implements IArraySerializable
         } else {
             $this->uploaded = $this->uploaded->subtract($amount);
         }
+        return new self($this->uploaded,$this->winnings);
+    }
 
+    /**
+     * @param Money $amount
+     * @return static
+     * @throws NotEnoughFunds
+     */
+    public function payPreservingWinnings(Money $amount)
+    {
+        if($this->uploaded->lessThan($amount)) {
+            throw new NotEnoughFunds();
+        }
+        $this->uploaded = $this->uploaded->subtract($amount);
+        return new self($this->uploaded,$this->winnings);
     }
 
     public function getBalance()

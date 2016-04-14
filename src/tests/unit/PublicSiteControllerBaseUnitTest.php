@@ -5,6 +5,7 @@ namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\web\controllers\PublicSiteControllerBase;
+use EuroMillions\web\vo\EuroMillionsJackpot;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -59,7 +60,7 @@ class PublicSiteControllerBaseUnitTest extends ControllerUnitTestBase
         $user_currency = ['symbol' => '€', 'name' => 'Euro'];
         $current_currency_name = 'EUR';
         $current_currency = new Currency($current_currency_name);
-        $jackpot = new Money(1500000000, $current_currency);
+        $jackpot = EuroMillionsJackpot::fromAmountIncludingDecimals(15000000);
         $bet_price = new Money(250, $current_currency);
         $pound_currency = new Currency('GBP');
         $bet_price_pound = new Money(150, $pound_currency);
@@ -70,7 +71,7 @@ class PublicSiteControllerBaseUnitTest extends ControllerUnitTestBase
         $this->userPreferencesService_double->getCurrency()->willReturn($current_currency);
         $this->authService_double->isLogged()->willReturn(false);
         $this->lotteriyService_double->getNextJackpot('EuroMillions')->willReturn($jackpot);
-        $this->userPreferencesService_double->getJackpotInMyCurrency($jackpot)->willReturn($jackpot);
+        $this->userPreferencesService_double->getJackpotInMyCurrency($jackpot)->willReturn((int) $jackpot->getAmount());
         $this->lotteriyService_double->getNextDateDrawByLottery('EuroMillions')->willReturn(new \DateTime()); //I don't care about this, I won't check the countdown
         $this->lotteriyService_double->getSingleBetPriceByLottery('EuroMillions')->willReturn($bet_price);
         $this->currencyConversionService_double->convert($bet_price, $current_currency)->willReturn($bet_price);

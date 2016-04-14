@@ -4,6 +4,7 @@
 namespace EuroMillions\tests\helpers\builders;
 
 
+use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
 
 use EuroMillions\web\entities\User;
@@ -11,6 +12,8 @@ use EuroMillions\web\vo\DrawDays;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
+use Money\Currency;
+use Money\Money;
 
 class PlayConfigBuilder
 {
@@ -23,6 +26,7 @@ class PlayConfigBuilder
     protected $active;
     protected $threshold;
     protected $frequency;
+    protected $lottery;
 
 
     public function __construct()
@@ -32,6 +36,7 @@ class PlayConfigBuilder
         $this->startDrawDate = new \DateTime('2015-09-10');
         $this->lastDrawDate = new \DateTime('2015-09-30');
         $this->active = 1;
+        $this->lottery = $this->getLottery();
     }
 
     public static function aPlayConfig()
@@ -89,6 +94,20 @@ class PlayConfigBuilder
             $lucky_numbers[] = new EuroMillionsLuckyNumber($lucky_number);
         }
         return new EuroMillionsLine($regular_numbers, $lucky_numbers);
+    }
+
+    private function getLottery()
+    {
+        $lottery = new Lottery();
+        $lottery->initialize([
+            'id'        => 1,
+            'name'      => 'EuroMillions',
+            'active'    => 1,
+            'frequency' => 'w0100100',
+            'draw_time' => '20:00:00',
+            'single_bet_price' => new Money( 250, new Currency('EUR')),
+        ]);
+        return $lottery;
     }
 
     /**

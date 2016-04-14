@@ -3,6 +3,7 @@ namespace EuroMillions\web\services;
 
 use Alcohol\ISO4217;
 use antonienko\MoneyFormatter\MoneyFormatter;
+use EuroMillions\web\interfaces\IJackpot;
 use EuroMillions\web\interfaces\IUsersPreferencesStorageStrategy;
 use Money\Currency;
 use Money\Money;
@@ -33,12 +34,17 @@ class UserPreferencesService
     }
 
     /**
-     * @param Money $jackpot
-     * @return Money
+     * @return string
      */
-    public function getJackpotInMyCurrency(Money $jackpot)
+    public function getJackpotInMyCurrency(IJackpot $jackpot, $locale = 'en_US')
     {
-        return $this->currencyConversionService->convert($jackpot, $this->storageStrategy->getCurrency());
+        if ($jackpot->isValid()) {
+            $amount = $this->currencyConversionService->convert(new Money((int)$jackpot->getAmount(), new Currency($jackpot->getCurrency())), $this->storageStrategy->getCurrency());
+            $moneyFormatter = new MoneyFormatter();
+            return $moneyFormatter->toStringByLocale($locale, $amount);
+        } else {
+            return $jackpot->getAmount();
+        }
     }
 
     public function getMyCurrencyNameAndSymbol()
