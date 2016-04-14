@@ -195,28 +195,6 @@ class WalletUnitTest extends UnitTestBase
     }
 
     /**
-     * method widthdraw
-     * when called
-     * should substractAmountFromWinnings
-     */
-    public function test_widthdraw_called_substractAmountFromWinnings()
-    {
-        $this->markTestIncomplete();
-
-    }
-
-    /**
-     * method withdraw
-     * when calledWithouthEnoughFunds
-     * should throw
-     */
-    public function test_withdraw_calledWithouthEnoughFunds_throw()
-    {
-        $this->markTestIncomplete();
-
-    }
-
-    /**
      * method create
      * when called
      * should createProperWalletObject

@@ -111,46 +111,6 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     }
 
     /**
-     * method updateLastBreakDown
-     * when calledWithPreviousDateThanNow
-     * should persistDataInExistDrawAndDraw
-     */
-    public function test_updateLastBreakDown_calledWithPreviousDateThanNow_persistDataInExistDrawAndReturnDraw()
-    {
-        $this->markTestIncomplete("Hay que rehacer este test, para que tenga en cuenta que debe devolver el draw CON la información del breakdown incluida");
-        $lottery_name = 'EuroMillions';
-
-        $this->prepareLotteryEntity($lottery_name);
-
-        $api_mock = $this->prophesize('EuroMillions\web\services\external_apis\LoteriasyapuestasDotEsApi');
-
-        $this->apiFactoryDouble->resultApi(Argument::any())->willReturn($api_mock->reveal());
-
-        $euroMillionsDraw_stub = $this->getEntityDouble('EuroMillionsDraw');
-        $this->lotteryDrawRepositoryDouble->findOneBy(Argument::any())->willReturn($euroMillionsDraw_stub->reveal());
-
-        $breakDown = ['category_one'      => [],
-                      'category_two'      => [],
-                      'category_three'    => [],
-                      'category_four'     => [],
-                      'category_five'     => [],
-                      'category_six'      => [],
-                      'category_seven'    => [],
-                      'category_eight'    => [],
-                      'category_nine'     => [],
-                      'category_ten'      => [],
-                      'category_eleven'   => [],
-                      'category_twelve'   => [],
-                      'category_thirteen' => []
-        ];
-        $api_mock->getResultBreakDownForDate($lottery_name, '2015-09-22')->willReturn($this->returnValue($breakDown));
-        $this->entityManagerDouble->flush()->willReturn();
-        $sut = $this->getSut();
-        $actual = $sut->updateLastBreakDown($lottery_name, new \DateTime('2015-09-25'));
-        $this->assertEquals($euroMillionsDraw_stub, $actual);
-    }
-
-    /**
      * @param $lottery_name
      * @return Lottery
      */

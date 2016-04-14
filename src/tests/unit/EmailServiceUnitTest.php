@@ -22,20 +22,6 @@ class EmailServiceUnitTest extends UnitTestBase
     }
 
     /**
-     * method sendRegistrationEmail
-     * when called
-     * should sendProperArgumentsToMailService
-     */
-    public function test_sendRegistrationEmail_called_sendProperArgumentsToMailService()
-    {
-        $this->markTestSkipped('Hay que revisar si y como se está enviando el registration email, y si este test sigue teniendo sentido');
-        list($user, $url) = $this->exerciseEmail();
-        $this->authService_double->getValidationUrl($user)->willReturn($url);
-        $sut = $this->getSut();
-        $sut->sendRegistrationMail($user, $url);
-    }
-
-    /**
      * method sendWelcomeEmail
      * when called
      * should sendProperEmailTemplate
