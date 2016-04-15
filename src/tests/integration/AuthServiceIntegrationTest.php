@@ -3,11 +3,9 @@ namespace EuroMillions\tests\integration;
 
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shared\config\Namespaces;
-use EuroMillions\web\components\UserId;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\tests\base\DatabaseIntegrationTestBase;
-use EuroMillions\web\services\auth_strategies\WebAuthStorageStrategy;
 use EuroMillions\web\services\AuthService;
 
 class AuthServiceIntegrationTest extends DatabaseIntegrationTestBase
@@ -30,31 +28,6 @@ class AuthServiceIntegrationTest extends DatabaseIntegrationTestBase
     {
         parent::setUp();
         $this->userRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS.'User');
-    }
-    /**
-     * method register
-     * when calledWithProperCredentials
-     * should storeUserOnDatabase
-     */
-    public function test_register_calledWithProperCredentials_storeUserOnDatabase()
-    {
-        $this->markTestIncomplete('Hay que acabar este test');
-        $new_user_id = UserId::create();
-        $_SESSION[WebAuthStorageStrategy::CURRENT_USER_VAR] = $new_user_id;
-        $credentials = [
-            'name'             => 'Antonio',
-            'surname'          => 'Hernández',
-            'email'            => 'antonio@panamedia.net',
-            'password'         => 'passWord01',
-            'confirm_password' => 'passWord01',
-            'country'          => 'Spain',
-            'jackpot_reminder'  => 0,
-        ];
-        $sut = $this->getSut();
-        $sut->register($credentials);
-        $actual = $this->userRepository->getByEmail('antonio@panamedia.net');
-        $this->assertEquals($new_user_id, $actual->getId());
-        $this->assertNotNull($actual);
     }
 
     /**

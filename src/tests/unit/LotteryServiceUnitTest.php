@@ -3,8 +3,6 @@ namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\tests\helpers\mothers\EuroMillionsLineMother;
-use EuroMillions\tests\helpers\mothers\PlayConfigMother;
-use EuroMillions\tests\helpers\mothers\UserMother;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\exceptions\DataMissingException;
 use EuroMillions\web\services\LotteryService;
@@ -255,7 +253,7 @@ class LotteryServiceUnitTest extends UnitTestBase
         $this->lotteryDrawRepositoryDouble->getBreakDownData(Argument::any())->willReturn($expected);
 
         $sut = $this->getSut();
-        $actual = $sut->getBreakDownDrawByDate('EuroMillions', new \DateTime("2015-06-06 20:00:00"));
+        $actual = $sut->getBreakDownDrawByDate('EuroMillions');
         $this->assertEquals($expected,$actual->getValues());
     }
 
@@ -272,7 +270,7 @@ class LotteryServiceUnitTest extends UnitTestBase
         $this->lotteryDrawRepositoryDouble->getBreakDownData(Argument::any())->willReturn(null);
 
         $sut = $this->getSut();
-        $actual = $sut->getBreakDownDrawByDate('EuroMillions', new \DateTime());
+        $actual = $sut->getBreakDownDrawByDate('EuroMillions');
         $this->assertEquals($expected,$actual);
     }
 
@@ -372,40 +370,6 @@ class LotteryServiceUnitTest extends UnitTestBase
         $sut = $this->getSut();
         $actual = $sut->getNextJackpot($lottery_name);
         self::assertEquals($expected, $actual);
-    }
-
-    /**
-     * method placeBetForNextDraw
-     * when called
-     * should createBetForNextDraw
-     */
-    public function test_placeBetForNextDraw_called_createBetForNextDraw()
-    {
-        $this->markTestSkipped('Comprobar si hay que eliminar');
-        $lottery = $this->prepareLotteryEntity('EuroMillions');
-        $date = new \DateTime('2015-09-22');
-
-        $user = UserMother::aUserWith50Eur()->build();
-
-        $valid_play_config1 = PlayConfigMother::aPlayConfig()->withUser($user->getId())->withId(1)->build();
-        $valid_play_config2 = PlayConfigMother::aPlayConfig()->withUser($user->getId())->withId(2)->build();
-        $invalid_play_config1 = PlayConfigMother::aPlayConfig()->withUser($user->build())->withId(3)->withNoActive()->build();
-
-        $playConfig = [
-            $valid_play_config1,
-            $invalid_play_config1,
-            $valid_play_config2
-        ];
-
-        $users = [
-            $user->withPlayConfigsCollection($playConfig)->build(),
-        ];
-
-        $this->userServiceDouble->getUsersWithPlayConfigsForNextDraw($lottery)->willReturn($users);
-        $this->userServiceDouble->getPriceForNextDraw($lottery, [$valid_play_config1, $valid_play_config2])->shouldBeCalled();
-
-        $sut = $this->getSut();
-        $actual = $sut->placeBetForNextDraw($lottery,$date);
     }
 
     /**
