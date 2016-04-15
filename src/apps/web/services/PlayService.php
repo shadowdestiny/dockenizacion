@@ -11,6 +11,7 @@ use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\vo\CreditCard;
+use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\shared\vo\results\ActionResult;
@@ -87,6 +88,7 @@ class PlayService
                     foreach($form_decode->play_config as $bet) {
                         $playConfig = new PlayConfig();
                         $playConfig->formToEntity($user,$bet,$bet->euroMillionsLines);
+                        $playConfig->setLottery($this->getLottery());
                         $bets[] = $playConfig;
                     }
                     return new ActionResult(true,$bets);
@@ -134,18 +136,26 @@ class PlayService
                         //EMTD be careful now, set explicity lottery, but it should come inform on playconfig entity
                         /** @var PlayConfig $play_config */
                         foreach( $order->getPlayConfig() as $play_config ) {
-                            //$play_config->setLottery($lottery);
+                            $play_config->setLottery($lottery);
                             $this->playConfigRepository->add($play_config);
                             $this->entityManager->flush($play_config);
                         }
                     }
-                    if( $result_payment->success() ) {
 
+                    if( $result_payment->success() ) {
                         foreach( $order->getPlayConfig() as $play_config ) {
                             $result_validation = $this->betService->validation($play_config, $draw->getValues(),$lottery->getNextDrawDate());
                             if(!$result_validation->success()) {
                                 return new ActionResult(false, $result_validation->errorMessage());
                             }
+                            $dataTransaction = [
+                                'lottery_id' => 1,
+                                'numBets' => count($order->getPlayConfig()),
+                                'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
+                                'amountWithWallet' => $lottery->getSingleBetPrice()->getAmount(),
+                                'amountWithCreditCard' => 0
+                            ];
+                            $this->walletService->payWithWallet($user,$play_config, TransactionType::TICKET_PURCHASE,$dataTransaction);
                         }
                         return new ActionResult(true,$order);
                     } else {
@@ -155,7 +165,6 @@ class PlayService
                     //error
                 }
             } catch ( \Exception $e ) {
-
             }
         }
         return new ActionResult(false);
@@ -173,6 +182,7 @@ class PlayService
                 foreach($form_decode->play_config as $bet) {
                     $playConfig = new PlayConfig();
                     $playConfig->formToEntity($user,$bet,$bet->euroMillionsLines);
+                    $playConfig->setLottery($this->getLottery());
                     $bets[] = $playConfig;
                 }
                 return new ActionResult(true,$bets);
@@ -237,6 +247,12 @@ class PlayService
         if( null != $user_id ) {
             $this->orderStorageStrategy->delete($user_id);
         }
+    }
+
+    //EMTD workaround, now only once lottery we have. In the future should pass lottery as param
+    private function getLottery()
+    {
+        return $this->lotteryService->getLotteryConfigByName('EuroMillions');
     }
 
 }

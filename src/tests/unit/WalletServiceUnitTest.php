@@ -125,8 +125,8 @@ class WalletServiceUnitTest extends UnitTestBase
         $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal(),$this->transactionService_double->reveal());
         $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush($user)->shouldBeCalled();
-        $this->transactionService_double->storeTransaction(TransactionType::AUTOMATIC_PURCHASE,$data,$user->getId(), $date)->shouldBeCalled();
-        $sut->payWithWallet($user,$playConfig);
+        $this->transactionService_double->storeTransaction(TransactionType::AUTOMATIC_PURCHASE,$data,$user, $user->getWallet(),$user->getWallet(), $date)->shouldBeCalled();
+        $sut->payWithWallet($user,$playConfig, TransactionType::AUTOMATIC_PURCHASE,$data);
         $this->assertEquals($expected_wallet, $user->getWallet());
     }
 

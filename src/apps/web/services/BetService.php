@@ -48,11 +48,10 @@ class BetService
         if(!$lotteryValidation) {
             $lotteryValidation = new LotteryValidationCastilloApi();
         }
-
         /** @var User $user */
         $user = $this->userRepository->find($playConfig->getUser()->getId());
         $single_bet_price = $euroMillionsDraw->getLottery()->getSingleBetPrice();
-        if($user->getBalance()->getAmount() > $single_bet_price->getAmount()) {
+        if($user->getBalance()->getAmount() >= $single_bet_price->getAmount()) {
             $result = $this->betRepository->getBetsByDrawDate($dateNextDraw);
             try{
                 $bet = new Bet($playConfig,$euroMillionsDraw);
@@ -73,8 +72,6 @@ class BetService
                 if($result_validation->success()) {
                     $this->betRepository->add($bet);
                     $this->entityManager->flush();
-                    $user->payPreservingWinnings($single_bet_price); //EMTD call walletservice
-                    $this->userRepository->add($user);
                     $this->playConfigRepository->add($playConfig);
                     $this->entityManager->flush();
                     return new ActionResult(true);

@@ -4,6 +4,7 @@
 namespace EuroMillions\tests\integration;
 
 
+
 use EuroMillions\shared\vo\results\PaymentProviderResult;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\entities\User;
@@ -25,6 +26,7 @@ class WalletServiceIntegrationTest extends DatabaseIntegrationTestBase
     {
         return [
             'users',
+            'play_configs'
         ];
     }
 
@@ -46,9 +48,7 @@ class WalletServiceIntegrationTest extends DatabaseIntegrationTestBase
         $payment_provider_stub->charge($credit_card_charge->getFinalAmount(), $credit_card)->willReturn(new PaymentProviderResult(true));
         $sut = new WalletService($this->entityManager, $this->getServiceDouble('CurrencyConversionService')->reveal(), $this->getServiceDouble('TransactionService')->reveal());
         $sut->rechargeWithCreditCard($payment_provider_stub->reveal(), $credit_card, $user, $credit_card_charge);
-
         $this->entityManager->detach($user);
-
         $actual_user = $user_repository->find('9098299B-14AC-4124-8DB0-19571EDABE59');
         $this->assertEquals($expected_wallet, $actual_user->getWallet());
     }

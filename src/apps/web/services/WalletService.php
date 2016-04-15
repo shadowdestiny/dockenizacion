@@ -39,9 +39,20 @@ class WalletService
         $amount = $creditCardCharge->getFinalAmount();
         $payment_result = $provider->charge($amount, $card);
         if ($payment_result->success()) {
+            $walletBefore = $user->getWallet();
             $user->reChargeWallet($creditCardCharge->getNetAmount());
             try {
-                $this->entityManager->flush($user);
+                $this->entityManager->persist($user);
+                $this->entityManager->flush();
+                $dataTransaction = [
+                    'lottery_id' => 1,
+                    'numBets' => count($user->getPlayConfig()),
+                    'feeApplied' => $creditCardCharge->getIsChargeFee(),
+                    'amountWithWallet' => 0,
+                    'amountWithCreditCard' => $creditCardCharge->getFinalAmount()->getAmount()
+                ];
+                $date = new \DateTime();
+                $this->transactionService->storeTransaction(TransactionType::TICKET_PURCHASE,$dataTransaction,$user,$walletBefore,$user->getWallet(),$date);
             } catch (\Exception $e) {
                 //EMTD Log and warn the admin
             }
@@ -49,17 +60,14 @@ class WalletService
         return $payment_result;
     }
 
-    public function payWithWallet(User $user, PlayConfig $playConfig)
+    public function payWithWallet(User $user, PlayConfig $playConfig, $transactionType, $data )
     {
-        $data = [
-            'lottery_id' => $playConfig->getLottery()->getId(),
-            'numBets' => $playConfig->getId()
-        ];
         try {
+            $walletBefore = $user->getWallet();
             $user->payPreservingWinnings($playConfig->getLottery()->getSingleBetPrice());
             $this->entityManager->flush($user);
             $date = new \DateTime();
-            $this->transactionService->storeTransaction(TransactionType::AUTOMATIC_PURCHASE,$data,$user->getId(),$date);
+            $this->transactionService->storeTransaction($transactionType,$data,$user,$walletBefore,$user->getWallet(),$date);
         } catch ( \Exception $e ) {
             //EMTD Log and warn the admin
         }

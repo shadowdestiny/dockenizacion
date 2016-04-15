@@ -108,7 +108,6 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
      */
     public function jsonSerialize()
     {
-
         $lines = [];
         if( null !== $this->line) {
                 $lines[] = $this->line->toJsonData();

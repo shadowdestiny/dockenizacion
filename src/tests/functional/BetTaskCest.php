@@ -26,6 +26,7 @@ class BetTaskCest
     }
 
     /**
+     * @group active
      * @param FunctionalTester $I
      */
     public function betsAreCreatedTest(FunctionalTester $I, \Page\Login $loginPage)
@@ -39,9 +40,22 @@ class BetTaskCest
         $play_config_to_no_bet->setLastDrawDate(new \DateTime('2015-04-25'));
 
 
+        $I->haveInDatabase('lotteries',[
+            'id' => 2,
+            'name' => 'EuroMillions2',
+            'active' => 1,
+            'frequency' => 'w0100100',
+            'jackpot_api' => 'LoteriasyapuestasDotEs',
+            'result_api' => 'LoteriasyapuestasDotEs',
+            'draw_time' => '20:00:00',
+            'single_bet_price_amount' => 250,
+            'single_bet_price_currency_name' => 'EUR'
+        ]);
+
+
         $I->haveInDatabase('euromillions_draws', [
             'id'         => 1,
-            'lottery_id' => 1,
+            'lottery_id' => 2,
             'draw_date'  => '2020-04-07',
         ]);
 
@@ -57,18 +71,6 @@ class BetTaskCest
             'wallet_uploaded_currency_name' => 'EUR',
             'wallet_winnings_amount'        => 0,
             'wallet_winnings_currency_name' => 'EUR',
-        ]);
-
-        $I->haveInDatabase('lotteries',[
-            'id' => 1,
-            'name' => 'EuroMillions',
-            'active' => 1,
-            'frequency' => 'w0100100',
-            'jackpot_api' => 'LoteriasyapuestasDotEs',
-            'result_api' => 'LoteriasyapuestasDotEs',
-            'draw_time' => '20:00:00',
-            'single_bet_price_amount' => 250,
-            'single_bet_price_currency_name' => 'EUR'
         ]);
 
         $I->haveInDatabase('play_configs', [
@@ -87,7 +89,7 @@ class BetTaskCest
             'line_lucky_number_one'     => '1',
             'line_lucky_number_two'     => '2',
             'config'                    => 2,
-            'lottery_id'                => 1,
+            'lottery_id'                => 2,
         ]);
 
         // $I->haveInDatabase('play_configs',$play_config_to_bet->toArray());

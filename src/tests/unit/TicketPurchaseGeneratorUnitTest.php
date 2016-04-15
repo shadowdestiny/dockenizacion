@@ -25,6 +25,7 @@ class TicketPurchaseGeneratorUnitTest extends UnitTestBase
             'amountWithWallet' => 2000,
             'amountWithCreditCard' => 0,
             'feeApplied' => 0
+
         ];
         $expected = new TicketPurchaseTransaction();
         $expected->setLotteryId($data['lottery_id']);
@@ -32,6 +33,7 @@ class TicketPurchaseGeneratorUnitTest extends UnitTestBase
         $expected->setAmountWithWallet($data['amountWithWallet']);
         $expected->setAmountWithCreditCard($data['amountWithCreditCard']);
         $expected->setFeeApplied($data['feeApplied']);
+        $expected->setData('1#3#2000#0#0');
         $sut = new TicketPurchaseGenerator();
         $actual = $sut->build($data);
         $this->assertEquals($expected,$actual);

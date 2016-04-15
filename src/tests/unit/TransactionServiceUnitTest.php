@@ -33,12 +33,12 @@ class TransactionServiceUnitTest extends UnitTestBase
      */
     public function test_storeTransaction_called_createProperlyTransaction($data,$type,$class, $expected)
     {
-        $user_id = UserMother::aUserWith500Eur()->build()->getId();
+        $user = UserMother::aUserWith500Eur()->build();
         $now = new \DateTime();
         $sut = $this->getSut();
         $this->entityManagerDouble->persist(Argument::type($class))->shouldBeCalled();
         $this->entityManagerDouble->flush()->shouldBeCalled();
-        $actual = $sut->storeTransaction($type, $data, $user_id, $now);
+        $actual = $sut->storeTransaction($type, $data, $user , $user->getWallet(), $user->getWallet(), $now);
         $expected = new ActionResult($expected);
         $this->assertInstanceOf($class,$actual->getValues());
         $this->assertEquals($expected->success(),$actual->success());
@@ -77,10 +77,10 @@ class TransactionServiceUnitTest extends UnitTestBase
             'lottery_id' => 1,
             'numBets' => 3,
         ];
-        $user_id = UserMother::aUserWith500Eur()->build()->getId();
+        $user = UserMother::aUserWith500Eur()->build();
         $now = new \DateTime();
         $sut = $this->getSut();
-        $actual = $sut->storeTransaction(TransactionType::TICKET_PURCHASE, $data, $user_id, $now);
+        $actual = $sut->storeTransaction(TransactionType::TICKET_PURCHASE, $data, $user, $user->getWallet(), $user->getWallet(), $now);
         $expected = new ActionResult(false);
         $this->assertEquals($expected,$actual);
     }

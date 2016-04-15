@@ -16,6 +16,7 @@ class AutomaticPurchaseGenerator implements ITransactionGeneratorStrategy
         try {
             $ticketPurchaseTransaction->setLotteryId($data['lottery_id']);
             $ticketPurchaseTransaction->setNumBets($data['numBets']);
+            $ticketPurchaseTransaction->toString();
         } catch( \Exception $e ) {
             throw new \Exception('Invalid argument to build entity');
         }

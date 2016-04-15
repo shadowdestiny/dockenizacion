@@ -23,10 +23,10 @@
         <embedded name="threshold" class="Money\Money" use-column-prefix="true" />
         <embedded name="line" class="EuroMillions\web\vo\EuroMillionsLine"/>
         <embedded name="days" class="EuroMillions\web\vo\DrawDays" use-column-prefix="false"/>
-        <one-to-one target-entity="EuroMillions\web\entities\Lottery" field="lottery" inversed-by="lottery"/>
         <one-to-many target-entity="EuroMillions\web\entities\Bet" mapped-by="bet"
                      field="bet">
         </one-to-many>
+        <many-to-one target-entity="EuroMillions\web\entities\Lottery" field="lottery" inversed-by="lottery"/>
         <many-to-one target-entity="EuroMillions\web\entities\User" inversed-by="playConfig" field="user">
         </many-to-one>
     </entity>

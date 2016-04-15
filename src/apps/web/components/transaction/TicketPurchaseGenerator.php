@@ -19,6 +19,7 @@ class TicketPurchaseGenerator implements ITransactionGeneratorStrategy
             $ticketPurchaseTransaction->setAmountWithWallet($data['amountWithWallet']);
             $ticketPurchaseTransaction->setAmountWithCreditCard($data['amountWithCreditCard']);
             $ticketPurchaseTransaction->setFeeApplied($data['feeApplied']);
+            $ticketPurchaseTransaction->toString();
         } catch( \Exception $e ) {
             throw new \Exception('Invalid argument to build entity');
         }

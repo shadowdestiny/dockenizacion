@@ -14,6 +14,7 @@ use EuroMillions\web\interfaces\IJackpot;
 use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationAutoPlayNoFunds;
+use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\EuroMillionsLine;
 
 class LotteryService
@@ -234,7 +235,11 @@ class LotteryService
                         foreach( $playconfigsFilteredToArray as $playConfig ) {
                             $result = $this->betService->validation($playConfig, $euroMillionsDraw, $nextDrawDate);
                             if($result->success()) {
-                                $this->walletService->payWithWallet($user,$playConfig);
+                                $dataTransaction = [
+                                    'lottery_id' => 1,
+                                    'numBets' => $playConfig->getId(),
+                                ];
+                                $this->walletService->payWithWallet($user,$playConfig,TransactionType::AUTOMATIC_PURCHASE,$dataTransaction);
                             }
                         }
                     } else {
