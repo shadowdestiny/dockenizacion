@@ -1,7 +1,7 @@
 <?php
 namespace EuroMillions\shared\interfaces;
 
-interface ICookieManager 
+interface ICookieManager
 {
     public function get($cookieName);
     public function set($cookieName, $value, $expiration = null);
