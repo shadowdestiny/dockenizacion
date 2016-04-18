@@ -40,7 +40,7 @@ class WalletService
         $payment_result = $provider->charge($amount, $card);
         if ($payment_result->success()) {
             $walletBefore = $user->getWallet();
-            $user->reChargeWallet($creditCardCharge->getNetAmount());
+            $walletAfter = $user->reChargeWallet($creditCardCharge->getNetAmount());
             try {
                 $this->entityManager->persist($user);
                 $this->entityManager->flush($user);
@@ -52,7 +52,7 @@ class WalletService
                     'amountWithCreditCard' => $creditCardCharge->getFinalAmount()->getAmount(),
                     'user' => $user,
                     'walletBefore' => $walletBefore,
-                    'walletAfter' => $user->getWallet(),
+                    'walletAfter' => $walletAfter,
                     'now' => new \DateTime()
                 ];
                 $this->transactionService->storeTransaction(TransactionType::TICKET_PURCHASE,$dataTransaction);
@@ -67,11 +67,11 @@ class WalletService
     {
         try {
             $walletBefore = $user->getWallet();
-            $user->payPreservingWinnings($playConfig->getLottery()->getSingleBetPrice());
+            $walletAfter = $user->payPreservingWinnings($playConfig->getLottery()->getSingleBetPrice());
             $this->entityManager->flush($user);
             $data['now'] = new \DateTime();
             $data['walletBefore'] = $walletBefore;
-            $data['walletAfter'] = $user->getWallet();
+            $data['walletAfter'] = $walletAfter;
             $data['user'] = $user;
             $this->transactionService->storeTransaction($transactionType,$data);
         } catch ( \Exception $e ) {

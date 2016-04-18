@@ -19,6 +19,7 @@ use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CreditCardCharge;
 use EuroMillions\web\vo\CVV;
 use EuroMillions\web\vo\dto\PlayConfigCollectionDTO;
+use EuroMillions\web\vo\dto\TransactionDTO;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\UserNotificationsDTO;
 use EuroMillions\web\vo\Email;
@@ -104,7 +105,18 @@ class AccountController extends PublicSiteControllerBase
         ]);
     }
 
-    public function transactionAction(){}
+    public function transactionAction()
+    {
+        $userId = $this->authService->getCurrentUser();
+        $result = $this->transactionService->getTransactionsByUser($userId);
+        $transactionDtoCollection = [];
+        foreach($result as $transaction) {
+            $transactionDtoCollection[] = new TransactionDTO($transaction);
+        }
+        return $this->view->setVars([
+            'transactionCollection' => $transactionDtoCollection
+        ]);
+    }
 
 
     public function passwordAction()

@@ -12,6 +12,7 @@ use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\LanguageService;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\services\LotteryService;
+use EuroMillions\web\services\TransactionService;
 use EuroMillions\web\services\UserPreferencesService;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\dto\CurrencyDTO;
@@ -45,9 +46,20 @@ class PublicSiteControllerBase extends ControllerBase
     protected $cartService;
     /** @var  CurrencyConversionService */
     protected $currencyConversionService;
+    /** @var  TransactionService */
+    protected $transactionService;
 
 
-    public function initialize(LotteryService $lotteryService = null, LanguageService $languageService = null, CurrencyService $currencyService = null, UserService $userService = null, AuthService $authService= null, UserPreferencesService $userPreferencesService = null, SiteConfigService $siteConfigService = null, CartService $cartService = null, CurrencyConversionService $currencyConversionService = null )
+    public function initialize(LotteryService $lotteryService = null,
+                               LanguageService $languageService = null,
+                               CurrencyService $currencyService = null,
+                               UserService $userService = null,
+                               AuthService $authService= null,
+                               UserPreferencesService $userPreferencesService = null,
+                               SiteConfigService $siteConfigService = null,
+                               CartService $cartService = null,
+                               CurrencyConversionService $currencyConversionService = null,
+                               TransactionService $transactionService = null)
     {
         parent::initialize();
         $this->lotteryService = $lotteryService ?: $this->domainServiceFactory->getLotteryService();
@@ -59,6 +71,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->cartService = $cartService ?: $this->domainServiceFactory->getCartService();
         $this->currencyConversionService = $currencyConversionService ?: $this->domainServiceFactory->getCurrencyConversionService();
         $this->siteConfigService = $siteConfigService ?: new SiteConfigService($this->di->get('entityManager'), $this->currencyConversionService);
+        $this->transactionService = $transactionService ?: new TransactionService($this->di->get('entityManager'));
     }
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
