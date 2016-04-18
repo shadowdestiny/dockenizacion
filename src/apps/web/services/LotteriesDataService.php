@@ -10,6 +10,8 @@ use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
+use Money\Currency;
+use Money\Money;
 
 class LotteriesDataService
 {
@@ -50,7 +52,17 @@ class LotteriesDataService
             $this->entityManager->persist($draw);
             $this->entityManager->flush();
         } catch ( ValidDateRangeException $e ) {
-            throw new DataMissingException();
+            $jackpot = new Money(15000000, new Currency('EUR'));
+            $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lottery, 'draw_date' => $next_draw_date]);
+            if (!$draw) {
+                $draw = $this->createDraw($next_draw_date, $jackpot, $lottery);
+            } else {
+                $draw->setJackpot($jackpot);
+            }
+            $this->entityManager->persist($draw);
+            $this->entityManager->flush();
+            //throw new DataMissingException();
+            return $jackpot;
         }
         return $jackpot;
     }
@@ -73,6 +85,7 @@ class LotteriesDataService
                 $draw = $this->createDraw($last_draw_date, null, $lottery);
             }
             $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
+            $this->entityManager->persist($draw);
             $this->entityManager->flush();
             return $draw->getResult();
         } catch (\Exception $e) {

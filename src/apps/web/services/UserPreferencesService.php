@@ -34,6 +34,8 @@ class UserPreferencesService
     }
 
     /**
+     * @param IJackpot $jackpot
+     * @param string $locale
      * @return string
      */
     public function getJackpotInMyCurrency(IJackpot $jackpot, $locale = 'en_US')

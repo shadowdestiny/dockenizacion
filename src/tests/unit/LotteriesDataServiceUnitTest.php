@@ -105,6 +105,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
 
 
         $api_mock->getResultForDate($lottery_name, '2015-06-09')->willReturn(['regular_numbers'=>[], 'lucky_numbers'=>[]]);
+        $this->entityManagerDouble->persist($euroMillionsDraw_stub)->shouldBeCalled();
         $this->entityManagerDouble->flush()->willReturn();
         $sut = $this->getSut();
         $sut->updateLastDrawResult($lottery_name, new \DateTime('2015-06-10'));

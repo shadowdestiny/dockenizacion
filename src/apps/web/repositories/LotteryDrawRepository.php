@@ -123,9 +123,7 @@ class LotteryDrawRepository extends EntityRepository
     public function getLastDraw(Lottery $lottery, \DateTime $date = null)
     {
         $date = $date ?: new \DateTime();
-
         $draw_date = $lottery->getLastDrawDate($date);
-
         $result = $this->findOneBy(['draw_date' => $draw_date, 'lottery' => $lottery->getId()]);
         if (!count($result)) {
             throw new DataMissingException('Cannot find last draw on database.');
