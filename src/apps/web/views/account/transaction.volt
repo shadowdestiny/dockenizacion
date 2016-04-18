@@ -22,10 +22,10 @@
             <div class="box-basic content">
                 <h1 class="h1 title">{{ language.translate("Transaction") }}</h1>
 
-                {#<div class="box success">#}
-                    {#<svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>#}
-                    {#<span class="txt">{{ language.translate("Transaction successful.")}} <span class="info">{{ language.translate("You just added &euro; 300 to your balance.")}}</span></span> #}
-                {#</div>#}
+                <div class="box success">
+                    <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>
+                    <span class="txt">{{ language.translate("Transaction successful.")}} <span class="info">{{ language.translate("You just added &euro; 300 to your balance.")}}</span></span>
+                </div>
 
                 <table class="cl table ui-responsive" data-role="table" data-mode="reflow">
                     <thead>
@@ -38,6 +38,7 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         {% for transaction in transactionCollection %}
                             <tr>
                                 <td class="date">{{ transaction.date }}</td>
@@ -49,8 +50,8 @@
                         {% endfor %}
                     </tbody>
                 </table>
-
-                {% include "account/_paging.volt" %}
+                {{ paginator_view }}
+                {#{% include "account/_paging.volt" %}#}
             </div>
         </div>
     </main>

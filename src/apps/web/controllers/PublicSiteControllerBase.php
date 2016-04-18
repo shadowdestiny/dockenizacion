@@ -17,6 +17,7 @@ use EuroMillions\web\services\UserPreferencesService;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\dto\CurrencyDTO;
 use Money\Currency;
+use Phalcon\Paginator\Adapter\NativeArray as PaginatorArray;
 
 
 /**
@@ -233,6 +234,18 @@ class PublicSiteControllerBase extends ControllerBase
         } else {
             $this->view->setVar('show_modal_winning', false);
         }
+    }
+
+    protected function getPaginatorAsArray(array $collection, $limit, $currentPage)
+    {
+        $paginator = new PaginatorArray(
+            [
+                'data' => $collection,
+                'limit' => $limit,
+                'page'  => $currentPage,
+            ]
+        );
+        return $paginator;
     }
 
 }

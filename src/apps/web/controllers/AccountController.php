@@ -4,6 +4,7 @@
 namespace EuroMillions\web\controllers;
 
 
+use EuroMillions\shared\components\widgets\PaginationWidget;
 use EuroMillions\web\entities\GuestUser;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\BankAccountForm;
@@ -113,8 +114,15 @@ class AccountController extends PublicSiteControllerBase
         foreach($result as $transaction) {
             $transactionDtoCollection[] = new TransactionDTO($transaction);
         }
+
+        $page = (!empty($this->request->getPost('page'))) ? $this->request->getPost('page') : 1;
+        $paginator = $this->getPaginatorAsArray($transactionDtoCollection,5,$page);
+        /** @var \Phalcon\Mvc\ViewInterface $paginator_view */
+        $paginator_view = (new PaginationWidget($paginator, $this->request->getQuery()))->render();
+
         return $this->view->setVars([
-            'transactionCollection' => $transactionDtoCollection
+            'transactionCollection' => $transactionDtoCollection,
+            'paginator_view' => $paginator_view
         ]);
     }
 
