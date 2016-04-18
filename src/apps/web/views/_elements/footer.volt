@@ -18,7 +18,6 @@
 					<li><a href="/numbers">{{ language.translate('Latest Results') }}</a></li>
 					<li><a href="/numbers">{{ language.translate('Last %number% Drawings', ['number': 25]) }}</a></li>
 					<li><a href="/numbers">{{ language.translate('Draw History') }}</a></li>
-					<li><a href="javascript:void(0);">{{ language.translate('Unclaimed Prizes') }}</a></li>
 				</ul>
 			</div>
 			<div class="col20per">
