@@ -141,7 +141,6 @@ $(function(){
                     <div class="border cl">
                         <div class="txt">{{ language.translate("Your winnings:")}} <span class="value">{{ wallet.wallet_winning_amount }}</span></div>
                         <div class="box-btn">
-                            <a href="javascript:void(0)" class="btn big blue convert">{{ language.translate("Convert winnings into your balance")}}</a>
                             <a href="javascript:void(0)" class="btn big green withdraw">{{ language.translate("Withdraw winnings") }}</a>
                         </div>
                     </div>
@@ -284,33 +283,6 @@ $(function(){
                         </label>
                     </div>
                 </form>
-            </div>
-
-            <div class="box-convert hidden">
-                <h2 class="h3 yellow">{{ language.translate("Convert your winnings into your account") }}</h2>
-                <div class="info box">
-                    <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                    <span class="txt">{{ language.translate("Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.") }}</span>
-                </div>
-
-                <div class="cl box-wallet wrap-value">
-                    <div class="value">
-                        <span class="purple">{{ language.translate("Account balance:") }}</span> {{ user_balance }}
-                    </div>
-
-                    <div class="value">
-                        <span class="purple">{{ language.translate("Winnings:") }}</span> &euro; 500.00
-                    </div>
-
-                    <form class="right form-currency">
-                        <span class="currency">&euro;</span>
-                        <input class="input insert" type="text" placeholder="{{ language.translate('Insert an amount')}}">
-                        <label class="label submit btn blue" for="withdraw">
-                            {{ language.translate("Convert winnings") }}
-                            <input id="withdraw" type="submit" class="hidden">
-                        </label>
-                    </form>
-                </div>
             </div>
         </div>
     </div>
