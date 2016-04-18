@@ -112,13 +112,14 @@ class AccountController extends PublicSiteControllerBase
             $transactionDtoCollection[] = new TransactionDTO($transaction);
         }
 
-        $page = (!empty($this->request->getPost('page'))) ? $this->request->getPost('page') : 1;
-        $paginator = $this->getPaginatorAsArray($transactionDtoCollection,5,$page);
+        $page = (!empty($this->request->get('page'))) ? $this->request->get('page') : 1;
+        $paginator = $this->getPaginatorAsArray($transactionDtoCollection,10,$page);
         /** @var \Phalcon\Mvc\ViewInterface $paginator_view */
         $paginator_view = (new PaginationWidget($paginator, $this->request->getQuery()))->render();
 
         return $this->view->setVars([
-            'transactionCollection' => $transactionDtoCollection,
+            'transactionCollection' => $paginator->getPaginate()->items,
+            'page' => $page,
             'paginator_view' => $paginator_view
         ]);
     }

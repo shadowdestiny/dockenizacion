@@ -1,6 +1,7 @@
 {% extends "main.volt" %}
 {% block template_css %}
     <link rel="stylesheet" href="/w/css/account.css">
+    <link rel="stylesheet" href="/a/css/pagination.css">
 {% endblock %}
 {% block bodyClass %}transaction{% endblock %}
 
@@ -22,10 +23,10 @@
             <div class="box-basic content">
                 <h1 class="h1 title">{{ language.translate("Transaction") }}</h1>
 
-                <div class="box success">
-                    <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>
-                    <span class="txt">{{ language.translate("Transaction successful.")}} <span class="info">{{ language.translate("You just added &euro; 300 to your balance.")}}</span></span>
-                </div>
+                {#<div class="box success">#}
+                    {#<svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>#}
+                    {#<span class="txt">{{ language.translate("Transaction successful.")}} <span class="info">{{ language.translate("You just added &euro; 300 to your balance.")}}</span></span>#}
+                {#</div>#}
 
                 <table class="cl table ui-responsive" data-role="table" data-mode="reflow">
                     <thead>
