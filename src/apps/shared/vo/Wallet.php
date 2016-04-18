@@ -31,71 +31,45 @@ class Wallet implements IArraySerializable
         return new Wallet(self::getEuros((int)$uploaded), self::getEuros((int)$winnings));
     }
 
+    public function getBalance()
+    {
+        return $this->uploaded->add($this->winnings);
+    }
+
+    /**
+     * @return Money
+     */
+    public function getWithdrawable()
+    {
+        return $this->winnings;
+    }
+
     public function upload(Money $amount)
     {
-        $this->uploaded = $this->uploaded->add($amount);
-        return new self($this->uploaded,$this->winnings);
+        return new self($this->uploaded->add($amount), $this->winnings);
     }
 
     public function award(Money $amount)
     {
-        $this->winnings = $this->winnings->add($amount);
-        return new self($this->uploaded,$this->winnings);
+        return new self($this->uploaded, $this->winnings->add($amount));
     }
 
-    public function payUsingWinnings(Money $amount)
+    public function pay(Money $amount)
     {
         if ($amount->greaterThan($this->uploaded->add($this->winnings))) {
             throw new NotEnoughFunds();
         }
         if ($amount->greaterThan($this->uploaded)) {
             $to_subtract_from_winnings = $amount->subtract($this->uploaded);
-            $this->uploaded = $this->initializeAmount(null);
-            $this->winnings = $this->winnings->subtract($to_subtract_from_winnings);
+            return new self($this->initializeAmount(null), $this->winnings->subtract($to_subtract_from_winnings));
         } else {
-            $this->uploaded = $this->uploaded->subtract($amount);
+            return new self($this->uploaded->subtract($amount), $this->winnings);
         }
-        return new self($this->uploaded,$this->winnings);
-    }
-
-    /**
-     * @param Money $amount
-     * @return static
-     * @throws NotEnoughFunds
-     */
-    public function payPreservingWinnings(Money $amount)
-    {
-        if($this->uploaded->lessThan($amount)) {
-            throw new NotEnoughFunds();
-        }
-        $this->uploaded = $this->uploaded->subtract($amount);
-        return new self($this->uploaded,$this->winnings);
-    }
-
-    public function getBalance()
-    {
-        return $this->uploaded->add($this->winnings);
     }
 
     public function withdraw(Money $amount)
     {
         //EMTD to be developed
-    }
-
-    /**
-     * @return Money
-     */
-    public function getUploaded()
-    {
-        return $this->uploaded;
-    }
-
-    /**
-     * @return Money
-     */
-    public function getWinnings()
-    {
-        return $this->winnings;
     }
 
     /**
@@ -121,9 +95,9 @@ class Wallet implements IArraySerializable
     public function toArray()
     {
         return [
-            'wallet_uploaded_amount' => $this->getUploaded()->getAmount(),
+            'wallet_uploaded_amount'        => $this->getUploaded()->getAmount(),
             'wallet_uploaded_currency_name' => $this->getUploaded()->getCurrency()->getName(),
-            'wallet_winnings_amount' => $this->getUploaded()->getAmount(),
+            'wallet_winnings_amount'        => $this->getUploaded()->getAmount(),
             'wallet_winnings_currency_name' => $this->getUploaded()->getCurrency()->getName(),
         ];
     }
@@ -131,7 +105,26 @@ class Wallet implements IArraySerializable
     public function equals(Wallet $wallet)
     {
         return
-               $this->uploaded->getAmount() === $wallet->uploaded->getAmount() &&
-               $this->winnings->getAmount() === $wallet->winnings->getAmount();
+            $this->uploaded->getAmount() === $wallet->uploaded->getAmount() &&
+            $this->winnings->getAmount() === $wallet->winnings->getAmount();
     }
+
+    /**
+     * @return Money
+     * @deprecated No debería utilizarse desde fuera. Se queda para los tests.
+     */
+    public function getUploaded()
+    {
+        return $this->uploaded;
+    }
+
+    /**
+     * @return Money
+     * @deprecated No debería utilizarse desde fuera. Se queda para los tests.
+     */
+    public function getWinnings()
+    {
+        return $this->winnings;
+    }
+
 }

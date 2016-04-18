@@ -315,19 +315,19 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
         $this->user_currency = $user_currency;
     }
 
-    public function payPreservingWinnings(Money $amount)
+    public function pay(Money $amount)
     {
-        $this->wallet->payPreservingWinnings($amount);
+        $this->wallet = $this->wallet->pay($amount);
     }
 
     public function awardPrize(Money $amount)
     {
-        $this->wallet->award($amount);
+        $this->wallet = $this->wallet->award($amount);
     }
 
     public function reChargeWallet(Money $amount)
     {
-        $this->wallet->upload($amount);
+        $this->wallet = $this->wallet->upload($amount);
     }
 
     /**

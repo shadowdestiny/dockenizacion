@@ -64,7 +64,7 @@ class WalletService
     {
         try {
             $walletBefore = $user->getWallet();
-            $user->payPreservingWinnings($playConfig->getLottery()->getSingleBetPrice());
+            $user->pay($playConfig->getLottery()->getSingleBetPrice());
             $this->entityManager->flush($user);
             $date = new \DateTime();
             $this->transactionService->storeTransaction($transactionType,$data,$user,$walletBefore,$user->getWallet(),$date);

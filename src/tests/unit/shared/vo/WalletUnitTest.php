@@ -14,69 +14,41 @@ class WalletUnitTest extends UnitTestBase
     /**
      * method upload
      * when called
-     * should addAmountToUploaded
+     * should returnNewObjectWithNewUploadedAmount
      * @dataProvider getUploadAndAwardTestCasesData
      */
-    public function test_upload_called_addAmountToUploaded($uploaded, $winnings, $amount)
+    public function test_upload_called_returnNewObjectWithNewUploadedAmount($uploaded, $winnings, $amountToUpload)
     {
-        list($uploadedInWallet, $winningsInWallet, $amountToUpload) = $this->getMoneyObjects($uploaded, $winnings, $amount);
-        $expected_uploaded = $uploadedInWallet->add($amountToUpload);
-        $expected_winnings = $winningsInWallet;
-        $method = 'upload';
-        $this->exercise($method, $uploadedInWallet, $winningsInWallet, $amountToUpload, $expected_uploaded, $expected_winnings);
-    }
-
-    /**
-     * method upload
-     * when walledIsNotInitialized
-     * should setAmountAsUpload
-     */
-    public function test_upload_walledIsNotInitialized_setAmountAsUpload()
-    {
-        $sut = new Wallet();
-        $amount = $this->getMoney(10);
-        $sut->upload($amount);
-        $this->assertEquals($amount, $sut->getUploaded());
-    }
-
-    /**
-     * method upload
-     * when called
-     * should returnANewInstanceFromWallet
-     */
-    public function test_upload_called_returnAnewInstanceFromWallet()
-    {
-        $sut = Wallet::create(100000,0);
-        $actual = $sut->upload(new Money(2000,new Currency('EUR')));
-        $this->assertFalse($actual === $sut);
+        list($uploadedInWallet, $winningsInWallet, $amountUploadedToWallet) = $this->getMoneyObjects($uploaded, $winnings, $amountToUpload);
+        $sut = new Wallet($uploadedInWallet, $winningsInWallet);
+        $actual = $sut->upload($amountUploadedToWallet);
+        $expected_withdrawable = $winnings;
+        $expected_balance = $uploaded + $winnings + $amountToUpload;
+        $expected_sut_withdrawable = $winnings;
+        $expected_sut_balance = $uploaded + $winnings;
+        $this->assertWalletValuesFromActualAndSut($actual, $sut, $expected_balance, $expected_withdrawable, $expected_sut_balance, $expected_sut_withdrawable);
     }
 
     /**
      * method award
      * when called
-     * should returnANewInstanceFromWallet
-     */
-    public function test_award_called_returnANewInstanceFromWallet()
-    {
-        $sut = Wallet::create(100000,0);
-        $actual = $sut->award(new Money(2000,new Currency('EUR')));
-        $this->assertFalse($actual === $sut);
-    }
-
-    /**
-     * method award
-     * when called
-     * should addAmountToWinnings
+     * should returnNewObjectWithNewAwardAmount
      * @dataProvider getUploadAndAwardTestCasesData
      */
-    public function test_award_called_addAmountToWinnings($uploaded, $winnings, $amount)
+    public function test_award_called_returnNewObjectWithNewAwardAmount($uploaded, $winnings, $amountToAward)
     {
-        list($uploadedInWallet, $winningsInWallet, $amountToAward) = $this->getMoneyObjects($uploaded, $winnings, $amount);
-        $expected_uploaded = $uploadedInWallet;
-        $expected_winnings = $winningsInWallet->add($amountToAward);
-        $method = 'award';
-        $this->exercise($method, $uploadedInWallet, $winningsInWallet, $amountToAward, $expected_uploaded, $expected_winnings);
+        list($uploadedInWallet, $winningsInWallet, $amountAwardedToWallet) = $this->getMoneyObjects($uploaded, $winnings, $amountToAward);
+        $sut = new Wallet($uploadedInWallet, $winningsInWallet);
+        $actual = $sut->award($amountAwardedToWallet);
+        $expected_withdrawable = $winnings+$amountToAward;
+        $expected_balance = $uploaded + $winnings + $amountToAward;
+        $expected_sut_withdrawable = $winnings;
+        $expected_sut_balance = $uploaded + $winnings;
+        $this->assertWalletValuesFromActualAndSut(
+            $actual, $sut, $expected_balance, $expected_withdrawable, $expected_sut_balance, $expected_sut_withdrawable
+        );
     }
+
 
     public function getUploadAndAwardTestCasesData()
     {
@@ -90,85 +62,42 @@ class WalletUnitTest extends UnitTestBase
         ];
     }
 
-
     /**
-     * method payPreservingWinnings
-     * when calledWithEnoughFunds
-     * should substractFundsFromUploadedButNotFromWinnings
-     * @dataProvider getAmountsForPayPreservingWinnings
-     * @param $uploaded
-     * @param $winnings
-     * @param $payment
-     * @param $expected
+     * method pay
+     * when called
+     * should substractFirstFromNonWidthdrawableAndThenFromWithdrable
+     * @dataProvider getInitialBalancesAndPayments
      */
-    public function test_payPreservingWinnings_calledWithEnoughFunds_substractFundsFromUploadedButNotFromWinnings($uploaded, $winnings, $payment, $expected)
+    public function test_pay_called_substractFirstFromNonWidthdrawableAndThenFromWithdrable($uploaded, $winnings, $amountToPay, $balanceLeft, $widtdrawableLeft)
     {
-        $sut = $this->exercisePayPreservingWinnings($uploaded, $winnings, $payment);
-        $this->assertEquals($this->getMoney($expected), $sut->getUploaded());
-        $this->assertEquals($this->getMoney($winnings), $sut->getWinnings());
+        list ($uploadedInWallet, $winningsInWallet, $amountPayed) = $this->getMoneyObjects($uploaded, $winnings, $amountToPay);
+        $sut = new Wallet($uploadedInWallet, $winningsInWallet);
+        $actual = $sut->pay($amountPayed);
+        $this->assertWalletValuesFromActualAndSut($actual, $sut, $balanceLeft, $widtdrawableLeft, $uploaded+$winnings, $winnings);
     }
 
-    public function getAmountsForPayPreservingWinnings()
+    public function getInitialBalancesAndPayments()
     {
+        // uploaded, winnings, amount to pay, balance, withdrawable
         return [
-            [4000, 2500, 3500, 500],
-            [4000, 2500, 4000, 0],
+            [50, 0, 10, 40, 0],
+            [40, 100, 20, 120, 100],
+            [20, 100, 30, 90, 90],
+            [0, 140, 50, 90, 90],
         ];
     }
 
     /**
-     * method payPreservingWinnings
+     * method pay
      * when calledWithouthEnoughFunds
      * should throw
      */
-    public function test_payPreservingWinnings_calledWithouthEnoughFunds_throw()
+    public function test_pay_calledWithouthEnoughFunds_throw()
     {
         $uploaded = 200;
         $winnings = 400;
         $this->setExpectedException(self::NOT_ENOUGH_FUNDS_EXCEPTION);
-        $sut = $this->exercisePayPreservingWinnings($uploaded, $winnings, 500);
-        $this->assertEquals($this->getMoney($uploaded), $sut->getUploaded());
-        $this->assertEquals($this->getMoney($winnings), $sut->getWinnings());
-    }
-
-    /**
-     * method payUsingWinnigs
-     * when calledWithEnoughFunds
-     * should substractFundsFromUploadedFirstAndThenFromWinnings
-     * @dataProvider getAmountsForPayUsingWinnings
-     */
-    public function test_payUsingWinnigs_calledWithEnoughFunds_substractFundsFromUploadedFirstAndThenFromWinnings($uploaded, $winnings, $payment, $expectedUploaded, $expectedWinnings)
-    {
-        $sut = $this->exercisePayUsingWinnings($uploaded, $winnings, $payment);
-        $this->assertEquals($this->getMoney($expectedUploaded), $sut->getUploaded());
-        $this->assertEquals($this->getMoney($expectedWinnings), $sut->getWinnings());
-    }
-
-    public function getAmountsForPayUsingWinnings()
-    {
-        return [
-            [4000, 2500, 3500, 500, 2500],
-            [4000, 2500, 4000, 0, 2500],
-            [4000, 2500, 4500, 0, 2000],
-            [4000, 2500, 6500, 0, 0],
-            [0, 2500, 2300, 0, 200],
-        ];
-    }
-
-    /**
-     * method payUsingWinnings
-     * when calledWithouthEnoughFunds
-     * should throw
-     */
-    public function test_payUsingWinnings_calledWithouthEnoughFunds_throw()
-    {
-        $uploaded = 400;
-        $winnings = 600;
-        $payment = 1001;
-        $this->setExpectedException(self::NOT_ENOUGH_FUNDS_EXCEPTION);
-        $sut = $this->exercisePayUsingWinnings($uploaded, $winnings, $payment);
-        $this->assertEquals($this->getMoney($uploaded), $sut->getUploaded());
-        $this->assertEquals($this->getMoney($winnings), $sut->getWinnings());
+        $this->exercisePay($uploaded, $winnings, 700);
     }
 
     /**
@@ -208,36 +137,22 @@ class WalletUnitTest extends UnitTestBase
 
     /**
      * method equal
-     * when called
+     * when calledOnObjectsWithSameValues
      * should returnTrue
      */
     public function test_equal_called_returnTrue()
     {
-        $wallet = new Wallet();
-        $actual = new Wallet();
-        $sut = $actual->equals($wallet);
-        $this->assertTrue($sut);
+        $wallet = new Wallet($this->getMoney(40), $this->getMoney(30));
+        $wallet2 = (new Wallet($this->getMoney(30), $this->getMoney(10)))
+            ->upload($this->getMoney(20))
+            ->award($this->getMoney(20))
+            ->pay($this->getMoney(10));
+        $this->assertTrue($wallet->equals($wallet2));
     }
 
     private function getMoney($amount)
     {
         return new Money($amount, new Currency('EUR'));
-    }
-
-    /**
-     * @param $method
-     * @param $uploadedInWallet
-     * @param $winningsInWallet
-     * @param $amountToUpload
-     * @param $expectedUploaded
-     * @param $expectedWinnings
-     */
-    private function exercise($method, $uploadedInWallet, $winningsInWallet, $amountToUpload, $expectedUploaded, $expectedWinnings)
-    {
-        $sut = new Wallet($uploadedInWallet, $winningsInWallet);
-        $sut->$method($amountToUpload);
-        $this->assertEquals($expectedUploaded, $sut->getUploaded());
-        $this->assertEquals($expectedWinnings, $sut->getWinnings());
     }
 
     /**
@@ -259,29 +174,29 @@ class WalletUnitTest extends UnitTestBase
      * @param $winnings
      * @param $payment
      * @return Wallet
+     * @internal param $method
      */
-    private function exercisePayPreservingWinnings($uploaded, $winnings, $payment)
+    private function exercisePay($uploaded, $winnings, $payment)
     {
-        return $this->exercisePay($uploaded, $winnings, $payment, 'payPreservingWinnings');
-    }
-
-    private function exercisePayUsingWinnings($uploaded, $winnings, $payment)
-    {
-        return $this->exercisePay($uploaded, $winnings, $payment, 'payUsingWinnings');
+        $sut = new Wallet($this->getMoney($uploaded), $this->getMoney($winnings));
+        return $sut->pay($this->getMoney($payment));
     }
 
     /**
-     * @param $uploaded
-     * @param $winnings
-     * @param $payment
-     * @param $method
-     * @return Wallet
+     * @param $actual
+     * @param $sut
+     * @param $expected_balance
+     * @param $expected_withdrawable
+     * @param $expected_sut_balance
+     * @param $expected_sut_withdrawable
      */
-    private function exercisePay($uploaded, $winnings, $payment, $method)
+    private function assertWalletValuesFromActualAndSut($actual, $sut, $expected_balance, $expected_withdrawable, $expected_sut_balance, $expected_sut_withdrawable)
     {
-        $sut = new Wallet($this->getMoney($uploaded), $this->getMoney($winnings));
-        $sut->$method($this->getMoney($payment));
-        return $sut;
+        self::assertEquals($expected_balance, $actual->getBalance()->getAmount());
+        self::assertEquals($expected_withdrawable, $actual->getWithdrawable()->getAmount());
+        self::assertEquals($expected_sut_balance, $sut->getBalance()->getAmount());
+        self::assertEquals($expected_sut_withdrawable, $sut->getWithdrawable()->getAmount());
+        self::assertNotSame($actual, $sut);
     }
 
 }
