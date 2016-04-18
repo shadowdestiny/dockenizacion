@@ -44,6 +44,9 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     protected $userNotification;
     protected $show_modal_winning;
     protected $winning_above;
+    protected $bank_name;
+    protected $bank_account;
+    protected $bank_swift;
 
 
     public function __construct(){
@@ -377,6 +380,55 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     {
         return 'en_GB';
     }
+
+    /**
+     * @return mixed
+     */
+    public function getBankName()
+    {
+        return $this->bank_name;
+    }
+
+    /**
+     * @param mixed $bank_name
+     */
+    public function setBankName($bank_name)
+    {
+        $this->bank_name = $bank_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBankAccount()
+    {
+        return $this->bank_account;
+    }
+
+    /**
+     * @param mixed $bank_account
+     */
+    public function setBankAccount($bank_account)
+    {
+        $this->bank_account = $bank_account;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBankSwift()
+    {
+        return $this->bank_swift;
+    }
+
+    /**
+     * @param mixed $bank_swift
+     */
+    public function setBankSwift($bank_swift)
+    {
+        $this->bank_swift = $bank_swift;
+    }
+
 
     /**
      * @param \DateTime $date

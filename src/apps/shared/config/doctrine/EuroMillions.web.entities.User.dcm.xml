@@ -32,6 +32,9 @@
                 <option name="default">0</option>
             </options>
         </field>
+        <field name="bank_name" type="string" nullable="true" />
+        <field name="bank_account" type="string" nullable="true" />
+        <field name="bank_swift" type="string" nullable="true" />
 
         <embedded name="password" class="EuroMillions\web\vo\Password" use-column-prefix="false"/>
         <embedded name="email" class="EuroMillions\web\vo\Email" use-column-prefix="false"/>
