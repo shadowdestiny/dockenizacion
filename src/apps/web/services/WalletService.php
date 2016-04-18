@@ -43,16 +43,19 @@ class WalletService
             $user->reChargeWallet($creditCardCharge->getNetAmount());
             try {
                 $this->entityManager->persist($user);
-                $this->entityManager->flush();
+                $this->entityManager->flush($user);
                 $dataTransaction = [
                     'lottery_id' => 1,
                     'numBets' => count($user->getPlayConfig()),
                     'feeApplied' => $creditCardCharge->getIsChargeFee(),
                     'amountWithWallet' => 0,
-                    'amountWithCreditCard' => $creditCardCharge->getFinalAmount()->getAmount()
+                    'amountWithCreditCard' => $creditCardCharge->getFinalAmount()->getAmount(),
+                    'user' => $user,
+                    'walletBefore' => $walletBefore,
+                    'walletAfter' => $user->getWallet(),
+                    'now' => new \DateTime()
                 ];
-                $date = new \DateTime();
-                $this->transactionService->storeTransaction(TransactionType::TICKET_PURCHASE,$dataTransaction,$user,$walletBefore,$user->getWallet(),$date);
+                $this->transactionService->storeTransaction(TransactionType::TICKET_PURCHASE,$dataTransaction);
             } catch (\Exception $e) {
                 //EMTD Log and warn the admin
             }
@@ -66,8 +69,11 @@ class WalletService
             $walletBefore = $user->getWallet();
             $user->payPreservingWinnings($playConfig->getLottery()->getSingleBetPrice());
             $this->entityManager->flush($user);
-            $date = new \DateTime();
-            $this->transactionService->storeTransaction($transactionType,$data,$user,$walletBefore,$user->getWallet(),$date);
+            $data['now'] = new \DateTime();
+            $data['walletBefore'] = $walletBefore;
+            $data['walletAfter'] = $user->getWallet();
+            $data['user'] = $user;
+            $this->transactionService->storeTransaction($transactionType,$data);
         } catch ( \Exception $e ) {
             //EMTD Log and warn the admin
         }

@@ -15,7 +15,7 @@ use Money\Money;
 use Prophecy\Argument;
 use EuroMillions\tests\base\UnitTestBase;
 
-class ResultTaskUnitTest extends UnitTestBase
+class ResultTaskUnitTest
 {
 
     private $playConfigRepository_double;
@@ -38,26 +38,26 @@ class ResultTaskUnitTest extends UnitTestBase
 
     private $currencyService_double;
 
-    protected function getEntityManagerStubExtraMappings()
-    {
-        return [
-            Namespaces::ENTITIES_NS . 'PlayConfig' => $this->playConfigRepository_double,
-            Namespaces::ENTITIES_NS . 'EuroMillionsDraw' => $this->euroMillionsDrawRepository_double,
-            Namespaces::ENTITIES_NS . 'Lottery' => $this->lotteryDrawRepository_double,
-            Namespaces::ENTITIES_NS . 'Bet' => $this->betRepository_double,
-            Namespaces::ENTITIES_NS . 'User' => $this->userRepository_double,
-        ];
-    }
-
-    public function setUp()
-    {
-        $this->lotteriesDataService_double = $this->getServiceDouble('LotteriesDataService');
-        $this->playService_double = $this->getServiceDouble('PlayService');
-        $this->emailService_double = $this->getServiceDouble('EmailService');
-        $this->userService_double = $this->getServiceDouble('UserService');
-        $this->currencyService_double = $this->getServiceDouble('CurrencyService');
-        parent::setUp();
-    }
+//    protected function getEntityManagerStubExtraMappings()
+//    {
+//        return [
+//            Namespaces::ENTITIES_NS . 'PlayConfig' => $this->playConfigRepository_double,
+//            Namespaces::ENTITIES_NS . 'EuroMillionsDraw' => $this->euroMillionsDrawRepository_double,
+//            Namespaces::ENTITIES_NS . 'Lottery' => $this->lotteryDrawRepository_double,
+//            Namespaces::ENTITIES_NS . 'Bet' => $this->betRepository_double,
+//            Namespaces::ENTITIES_NS . 'User' => $this->userRepository_double,
+//        ];
+//    }
+//
+//    public function setUp()
+//    {
+//        $this->lotteriesDataService_double = $this->getServiceDouble('LotteriesDataService');
+//        $this->playService_double = $this->getServiceDouble('PlayService');
+//        $this->emailService_double = $this->getServiceDouble('EmailService');
+//        $this->userService_double = $this->getServiceDouble('UserService');
+//        $this->currencyService_double = $this->getServiceDouble('CurrencyService');
+//        parent::setUp();
+//    }
     
 
     /**

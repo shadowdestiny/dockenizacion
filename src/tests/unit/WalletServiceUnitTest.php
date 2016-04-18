@@ -119,13 +119,16 @@ class WalletServiceUnitTest extends UnitTestBase
         $playConfig = PlayConfigMother::aPlayConfig()->build();
         $data = [
             'lottery_id' => $playConfig->getLottery()->getId(),
-            'numBets' => $playConfig->getId()
+            'numBets' => $playConfig->getId(),
+            'user' => $user,
+            'now' => new \DateTime(),
+            'walletBefore' => $user->getWallet(),
+            'walletAfter' => $user->getWallet(),
         ];
-        $date = new \DateTime();
         $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal(),$this->transactionService_double->reveal());
         $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush($user)->shouldBeCalled();
-        $this->transactionService_double->storeTransaction(TransactionType::AUTOMATIC_PURCHASE,$data,$user, $user->getWallet(),$user->getWallet(), $date)->shouldBeCalled();
+        $this->transactionService_double->storeTransaction(TransactionType::AUTOMATIC_PURCHASE,$data)->shouldBeCalled();
         $sut->payWithWallet($user,$playConfig, TransactionType::AUTOMATIC_PURCHASE,$data);
         $this->assertEquals($expected_wallet, $user->getWallet());
     }

@@ -24,24 +24,16 @@ class TransactionService
 
 
     public function storeTransaction( $transactionType ,
-                                      array $data,
-                                      User $user,
-                                      Wallet $walletBefore,
-                                      Wallet $walletAfter,
-                                      \DateTime $now = null)
+                                      array $data)
     {
-        if( null == $now ) {
-            $now = new \DateTime();
+        if( null == $data['now'] ) {
+            $data['now'] = new \DateTime();
         }
         list($partOne,$partTwo) = explode('_',$transactionType);
         $class = 'EuroMillions\web\components\transaction\\'.ucfirst($partOne).ucfirst($partTwo).'Generator';
         try {
             /** @var Transaction $entity */
             $entity = $class::build($data);
-            $entity->setUser($user);
-            $entity->setDate($now);
-            $entity->setWalletBefore($walletBefore);
-            $entity->setWalletAfter($walletAfter);
             $this->entityManager->persist($entity);
             $this->entityManager->flush();
         } catch ( \Exception $e ) {

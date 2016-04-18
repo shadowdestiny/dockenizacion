@@ -33,12 +33,10 @@ class TransactionServiceUnitTest extends UnitTestBase
      */
     public function test_storeTransaction_called_createProperlyTransaction($data,$type,$class, $expected)
     {
-        $user = UserMother::aUserWith500Eur()->build();
-        $now = new \DateTime();
         $sut = $this->getSut();
         $this->entityManagerDouble->persist(Argument::type($class))->shouldBeCalled();
         $this->entityManagerDouble->flush()->shouldBeCalled();
-        $actual = $sut->storeTransaction($type, $data, $user , $user->getWallet(), $user->getWallet(), $now);
+        $actual = $sut->storeTransaction($type, $data);
         $expected = new ActionResult($expected);
         $this->assertInstanceOf($class,$actual->getValues());
         $this->assertEquals($expected->success(),$actual->success());
@@ -46,17 +44,30 @@ class TransactionServiceUnitTest extends UnitTestBase
 
     public function getTransactionTypeAndExpected()
     {
+        $user = UserMother::aUserWith500Eur()->build();
+        $now = new \DateTime();
+        $wallet_before = $user->getWallet();
+        $wallet_after = $user->getWallet();
+
         $dataManual = [
             'lottery_id' => 1,
             'numBets' => 3,
             'amountWithWallet' => 2000,
             'amountWithCreditCard' => 0,
-            'feeApplied' => 0
+            'feeApplied' => 0,
+            'user' => $user,
+            'walletBefore' => $wallet_before,
+            'walletAfter' => $wallet_after,
+            'now' => $now
         ];
 
         $dataAutomatic = [
             'lottery_id' => 1,
             'numBets' => 3,
+            'user' => $user,
+            'walletBefore' => $wallet_before,
+            'walletAfter' => $wallet_after,
+            'now' => $now
         ];
 
         return [
@@ -73,9 +84,19 @@ class TransactionServiceUnitTest extends UnitTestBase
      */
     public function test_storeTransaction_called_returnActionResultFalse()
     {
+        $user = UserMother::aUserWith500Eur()->build();
+        $now = new \DateTime();
+        $wallet_before = $user->getWallet();
+        $wallet_after = $user->getWallet();
+
         $data = [
             'lottery_id' => 1,
             'numBets' => 3,
+            'user' => $user,
+            'walletBefore' => $wallet_before,
+            'walletAfter' => $wallet_after,
+            'now' => $now
+
         ];
         $user = UserMother::aUserWith500Eur()->build();
         $now = new \DateTime();
