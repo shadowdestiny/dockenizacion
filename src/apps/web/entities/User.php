@@ -39,14 +39,14 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     protected $zip;
     protected $city;
     protected $phone_number;
-    protected $jackpot_reminder;
+    protected $jackpotReminder;
     protected $threshold;
     protected $userNotification;
     protected $show_modal_winning;
     protected $winning_above;
-    protected $bank_name;
-    protected $bank_account;
-    protected $bank_swift;
+    protected $bankName;
+    protected $bankAccount;
+    protected $bankSwift;
 
 
     public function __construct(){
@@ -290,15 +290,15 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
      */
     public function getJackpotReminder()
     {
-        return $this->jackpot_reminder;
+        return $this->jackpotReminder;
     }
 
     /**
-     * @param mixed $jackpot_reminder
+     * @param mixed $jackpotReminder
      */
-    public function setJackpotReminder($jackpot_reminder)
+    public function setJackpotReminder($jackpotReminder)
     {
-        $this->jackpot_reminder = $jackpot_reminder;
+        $this->jackpotReminder = $jackpotReminder;
     }
 
     /**
@@ -386,15 +386,15 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
      */
     public function getBankName()
     {
-        return $this->bank_name;
+        return $this->bankName;
     }
 
     /**
-     * @param mixed $bank_name
+     * @param mixed $bankName
      */
-    public function setBankName($bank_name)
+    public function setBankName($bankName)
     {
-        $this->bank_name = $bank_name;
+        $this->bankName = $bankName;
     }
 
     /**
@@ -402,15 +402,15 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
      */
     public function getBankAccount()
     {
-        return $this->bank_account;
+        return $this->bankAccount;
     }
 
     /**
-     * @param mixed $bank_account
+     * @param mixed $bankAccount
      */
-    public function setBankAccount($bank_account)
+    public function setBankAccount($bankAccount)
     {
-        $this->bank_account = $bank_account;
+        $this->bankAccount = $bankAccount;
     }
 
     /**
@@ -418,15 +418,15 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
      */
     public function getBankSwift()
     {
-        return $this->bank_swift;
+        return $this->bankSwift;
     }
 
     /**
-     * @param mixed $bank_swift
+     * @param mixed $bankSwift
      */
-    public function setBankSwift($bank_swift)
+    public function setBankSwift($bankSwift)
     {
-        $this->bank_swift = $bank_swift;
+        $this->bankSwift = $bankSwift;
     }
 
 
