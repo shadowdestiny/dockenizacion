@@ -23,7 +23,6 @@ use EuroMillions\web\vo\dto\PlayConfigCollectionDTO;
 use EuroMillions\web\vo\dto\TransactionDTO;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\UserNotificationsDTO;
-use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\ExpiryDate;
 use EuroMillions\web\vo\NotificationValue;
 use Money\Currency;
@@ -81,8 +80,6 @@ class AccountController extends PublicSiteControllerBase
                 $result = $this->userService->updateUserData([
                     'name'     => $this->request->getPost('name'),
                     'surname'  => $this->request->getPost('surname'),
-                    'email'    => new Email($this->request->getPost('email')),
-                    'country'  => $this->request->getPost('country'),
                     'street'   => $this->request->getPost('street'),
                     'zip'      => (int) $this->request->getPost('zip'),
                     'city'     => $this->request->getPost('city'),
@@ -332,10 +329,10 @@ class AccountController extends PublicSiteControllerBase
         $user = $this->userService->getUser($userId);
 
         //EMTD we should refactor it this part
-        $reach_notification = ($this->request->getPost('jackpot_reach') == 'on') ? true : false;
-        $auto_play_funds = ($this->request->getPost('autoplay_funds') == 'on') ? true: false;
-        $auto_play_lastdraw = ($this->request->getPost('autoplay_lastdraw') == 'on') ? true: false;
-        $results_draw = ($this->request->getPost('results') == 'on') ? true : false;
+        $reach_notification = ($this->request->getPost('jackpot_reach') === 'on');
+        $auto_play_funds = ($this->request->getPost('autoplay_funds') === 'on');
+        $auto_play_lastdraw = ($this->request->getPost('autoplay_lastdraw') === 'on');
+        $results_draw = ($this->request->getPost('results') === 'on');
         $config_value_threshold = $this->request->getPost('config_value_jackpot_reach');
         $config_value_results = $this->request->getPost('config_value_results');
 
@@ -368,7 +365,7 @@ class AccountController extends PublicSiteControllerBase
         } catch(\Exception $e) {
             $error[] = $e->getMessage();
         } finally {
-            $result = $this->userService->getActiveNotificationsByUser($userId);
+            $result = $this->userService->getActiveNotificationsByUser($user);
             if($result->success()) {
                 $notifications_collection = $result->getValues();
                 foreach($notifications_collection as $notifications) {
@@ -457,7 +454,7 @@ class AccountController extends PublicSiteControllerBase
     {
         $validation = new Validation();
         $messages = [];
-        if($this->request->getPost('jackpot_reach') == 'on') {
+        if($this->request->getPost('jackpot_reach') === 'on') {
             $validation->add('config_value_jackpot_reach',
                 new Validation\Validator\Numericality([
                    'message' => 'Error. You can insert only a numeric value, symbols and letters are not allowed.'
@@ -495,7 +492,6 @@ class AccountController extends PublicSiteControllerBase
     {
 
         $fund_value = new Text('funds-value', array(
-            'placeholder' => 'Insert an amount',
             'autocomplete' => 'off'
         ));
         $fund_value->addValidators(array(
