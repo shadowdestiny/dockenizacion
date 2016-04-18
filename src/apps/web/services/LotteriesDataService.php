@@ -73,6 +73,7 @@ class LotteriesDataService
                 $draw = $this->createDraw($last_draw_date, null, $lottery);
             }
             $draw->createResult($result['regular_numbers'], $result['lucky_numbers']);
+            $this->entityManager->persist($draw);
             $this->entityManager->flush();
             return $draw->getResult();
         } catch (\Exception $e) {

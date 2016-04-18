@@ -27,6 +27,27 @@ class LoteriasyapuestasDotEsApiFunctionalTest extends DatabaseIntegrationTestBas
         $this->assertGreaterThanOrEqual(1500000000, $actual->getAmount());
     }
 
+
+    /**
+     * method getResultForDate
+     * when called
+     * should returnsResultsForDate
+     */
+    public function test_getResultForDate_called_returnsResultsForDate()
+    {
+        /** @var EntityManager $entity_manager */
+        $entity_manager = DI::getDefault()->get('entityManager');
+        $lottery_repository = $entity_manager->getRepository($this->getEntitiesToArgument('Lottery'));
+        /** @var Lottery $lottery */
+        $lottery = $lottery_repository->findOneBy(['name'=>'EuroMillions']);
+        $sut = new LoteriasyapuestasDotEsApi();
+        $actual = $sut->getResultForDate($lottery->getName(), $lottery->getLastDrawDate()->format("Y-m-d"));
+        $this->assertArrayHasKey('regular_numbers',$actual);
+        $this->assertArrayHasKey('lucky_numbers',$actual);
+    }
+
+
+
     /**
      * Child classes must implement this method. Return empty array if no fixtures are needed
      * @return array
