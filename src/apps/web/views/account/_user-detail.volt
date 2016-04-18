@@ -9,10 +9,10 @@
     </li>
     <li>
         <label class="label" for="email">{{ language.translate("Email") }} <span class="asterisk">*</span></label>
-        {{ myaccount.render('email', {'class':'input'}) }}
+        {{ myaccount.render('email', {'class':'input','disabled':'disabled'}) }}
     </li>
     <li>
         <label class="label" for="country">{{ language.translate("Country of residence") }} <span class="asterisk">*</span></label>
-        {{ myaccount.render('country', {'class':'select'}) }}
+        {{ myaccount.render('country', {'class':'select','disabled':'disabled'}) }}
     </li>
 </ul>

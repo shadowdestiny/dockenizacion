@@ -212,7 +212,7 @@ $(function(){
 
                         <form class="right form-currency">
                             <span class="currency">&euro;</span>
-                            <input class="input insert" type="text" placeholder="{{ language.translate('Insert an amount') }}">
+                            <input class="input insert" type="text"/>
                             <label class="label submit btn blue" for="withdraw">
                                 {{ language.translate("Withdraw winnings") }}
                                 <input id="withdraw" type="submit" class="hidden">
