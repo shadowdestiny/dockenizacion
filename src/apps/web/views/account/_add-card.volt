@@ -48,12 +48,12 @@
         <label class="label" for="card-number">
             {{ language.translate("Card Number") }} <span class="asterisk">*</span>
         </label>
-        {{ credit_card_form.render('card-number', {'class':'input'~form_errors['card-number'], "placeholder":"0000000000000000"}) }}
+        {{ credit_card_form.render('card-number', {'class':'input'~form_errors['card-number']}) }}
 
         <label class="label" for="card-holder">
             {{ language.translate("Full Name on Card") }} <span class="asterisk">*</span>
         </label>
-        {{ credit_card_form.render('card-holder', {'class':'input'~form_errors['card-holder'], "placeholder":"Antonio García Carrión"}) }}
+        {{ credit_card_form.render('card-holder', {'class':'input'~form_errors['card-holder']}) }}
 
         <div class="cl card-detail">
             <div class="left margin">
@@ -67,7 +67,7 @@
                     {{ language.translate("CVV") }} <span class="asterisk">*</span>
                     <span class="tooltip" data-type="span" data-place="top" data-event="click" data-message="{{ language.translate('The Card Code Verification is a 3 digit number (Mastercard and Visa) or 4 digit (American Express) that can be located on your card.') }}" data-class="v-question-mark ico" data-ico="v-question-mark"></span>
                 </label>
-                {{ credit_card_form.render('card-cvv', {'class':'input'~form_errors['card-cvv'], "placeholder":"000"}) }}
+                {{ credit_card_form.render('card-cvv', {'class':'input'~form_errors['card-cvv']}) }}
             </div>
             {{ credit_card_form.render('csrf', ['value': security.getSessionToken()]) }}
         </div>
