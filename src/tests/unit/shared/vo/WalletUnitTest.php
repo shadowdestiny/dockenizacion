@@ -150,6 +150,36 @@ class WalletUnitTest extends UnitTestBase
         $this->assertTrue($wallet->equals($wallet2));
     }
 
+    /**
+     * method withdraw
+     * when called
+     * should substractFromWinningsAndBalance
+     */
+    public function test_withdraw_called_substractFromWinningsAndBalance()
+    {
+        $uploaded = new Money(3000,new Currency('EUR'));
+        $winnings = new Money(4000,new Currency('EUR'));
+        $withdraw_amount = new Money(2600, new Currency('EUR'));
+        $expected = new Wallet($this->getMoney(3000), $this->getMoney(1400));
+        $wallet = new Wallet($uploaded,$winnings);
+        $actual = $wallet->withdraw($withdraw_amount);
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method withdraw
+     * when calledWithAmountLessThanMinium
+     * should throwNotEnoughFunds
+     */
+    public function test_withdraw_calledWithAmountLessThanMinium_throwNotEnoughFunds()
+    {
+        $this->setExpectedException(self::NOT_ENOUGH_FUNDS_EXCEPTION);
+        $wallet = new Wallet();
+        $amount = new Money(2400, new Currency('EUR'));
+        $wallet->withdraw($amount);
+    }
+
+
     private function getMoney($amount)
     {
         return new Money($amount, new Currency('EUR'));

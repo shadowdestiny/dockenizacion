@@ -12,6 +12,7 @@ class Wallet implements IArraySerializable
 {
     private $uploaded;
     private $winnings;
+    CONST MIN_AMOUNT_TO_WITHDRAW = 2500;
 
     public function __construct(Money $uploaded = null, Money $winnings = null)
     {
@@ -69,7 +70,14 @@ class Wallet implements IArraySerializable
 
     public function withdraw(Money $amount)
     {
-        //EMTD to be developed
+        $minAmountToWithdraw = new Money(self::MIN_AMOUNT_TO_WITHDRAW, new Currency('EUR'));
+        if( $amount->lessThan($minAmountToWithdraw) ) {
+            throw new NotEnoughFunds();
+        }
+        if( $amount->lessThan($this->winnings) ) {
+            $substract_from_winnings = $this->winnings->subtract($amount);
+            return new self($this->uploaded,$substract_from_winnings);
+        }
     }
 
     /**
