@@ -7,6 +7,7 @@ use EuroMillions\shared\config\Namespaces;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
+use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\exceptions\BadSiteConfiguration;
 use EuroMillions\web\exceptions\DataMissingException;
@@ -15,6 +16,7 @@ use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationAutoPlayNoFunds;
 use EuroMillions\web\vo\enum\TransactionType;
+use EuroMillions\web\vo\EuroMillionsJackpot;
 use EuroMillions\web\vo\EuroMillionsLine;
 
 class LotteryService
@@ -78,6 +80,7 @@ class LotteryService
     public function getNextJackpot($lotteryName)
     {
         $lottery = $this->lotteryRepository->getLotteryByName($lotteryName);
+        /** @var EuroMillionsJackpot $jackpot_object */
         $jackpot_object = 'EuroMillions\web\vo\\'.$lotteryName.'Jackpot';
         try {
             $next_jackpot = $this->lotteryDrawRepository->getNextJackpot($lottery);
@@ -201,12 +204,12 @@ class LotteryService
         return $this->lotteryDrawRepository->getLastJackpot($lotteryName);
     }
 
-    public function getBreakDownDrawByDate($lotteryName)
+    public function getBreakDownDrawByDate($lotteryName, \DateTime $today)
     {
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         if (null !== $lottery) {
-            $emBreakDownData = $this->lotteryDrawRepository->getBreakDownData($lottery);
+            $emBreakDownData = $this->lotteryDrawRepository->getBreakDownData($lottery, $today);
             if (null !== $emBreakDownData) {
                 return new ActionResult(true, $emBreakDownData);
             } else {
@@ -219,7 +222,7 @@ class LotteryService
 
     public function placeBetForNextDraw(Lottery $lottery, \DateTime $dateNextDraw = null)
     {
-        $users = $this->userService->getUsersWithPlayConfigsForNextDraw($lottery);
+        $users = $this->userService->getUsersWithPlayConfigsForNextDraw();
         if( null != $users ) {
             /** @var User $user */
             $nextDrawDate = $lottery->getNextDrawDate($dateNextDraw);
@@ -232,6 +235,7 @@ class LotteryService
                     $price = $this->userService->getPriceForNextDraw($lottery, $playconfigsFilteredToArray);
                     if( $price->getAmount() < $user->getBalance()->getAmount() ) {
                         $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($dateNextDraw));
+                        /** @var PlayConfig $playConfig */
                         foreach( $playconfigsFilteredToArray as $playConfig ) {
                             $result = $this->betService->validation($playConfig, $euroMillionsDraw, $nextDrawDate);
                             if($result->success()) {

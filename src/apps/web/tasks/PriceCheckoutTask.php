@@ -23,7 +23,7 @@ class PriceCheckoutTask extends TaskBase
     {
         $domainFactory = new DomainServiceFactory($this->getDI(), new ServiceFactory($this->getDI()));
         $this->priceCheckoutService = $priceCheckoutService ? $this->priceCheckoutService = $priceCheckoutService : $domainFactory->getPriceCheckoutService();
-        $this->lotteryService = $lotteryService ?: $this->lotteryService = $domainFactory->getLotteriesDataService();
+        $this->lotteryService = $lotteryService ?: $this->lotteryService = $domainFactory->getLotteryService();
         parent::initialize();
     }
 

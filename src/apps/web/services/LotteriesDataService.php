@@ -9,7 +9,6 @@ use EuroMillions\web\exceptions\ValidDateRangeException;
 use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
-use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use Money\Currency;
 use Money\Money;
 
@@ -36,10 +35,10 @@ class LotteriesDataService
             $now = new \DateTime();
         }
 
+        /** @var Lottery $lottery */
+        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        $next_draw_date = $lottery->getNextDrawDate($now);
         try {
-            /** @var Lottery $lottery */
-            $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
-            $next_draw_date = $lottery->getNextDrawDate($now);
             $jackpot_api = $this->apisFactory->jackpotApi($lottery);
             $jackpot = $jackpot_api->getJackpotForDate($lotteryName, $next_draw_date->format("Y-m-d"));
             /** @var EuroMillionsDraw $draw */
@@ -96,7 +95,7 @@ class LotteriesDataService
     /**
      * @param $lotteryName
      * @param \DateTime|null $now
-     * @return EuroMillionsDrawBreakDown
+     * @return EuroMillionsDraw
      */
     public function updateLastBreakDown($lotteryName, \DateTime $now = null)
     {
