@@ -71,6 +71,18 @@ class AuthService
         return $user;
     }
 
+    /**
+     * @return User
+     */
+    public function getLoggedUser()
+    {
+        if ($this->isLogged()) {
+            return $this->getCurrentUser();
+        } else {
+            throw new \EuroMillions\shared\exceptions\AccessNotAllowedForGuests('Restricted area');
+        }
+    }
+
     public function logout()
     {
         $this->logService->logOut($this->getCurrentUser());
