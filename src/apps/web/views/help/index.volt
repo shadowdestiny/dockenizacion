@@ -55,7 +55,7 @@
                                 <svg class="ico v-cart"><use xlink:href="/w/svg/icon.svg#v-cart"></use></svg>
                             </div>
                             <div class="content">
-                                <h3 class="li-title">{{ language.translate("Add to Cart") }}</h3>
+                                <h3 class="li-title">{{ language.translate("Next") }}</h3>
                                 {{ language.translate('Once happy with your choice of numbers click on')}} <div class='sample btn purple'><div class="gap"></div>{{ language.translate("Add to Cart") }}</div> {{ language.translate('where you will be guided through the payment process.') }}
                             </div>
                         </li>
