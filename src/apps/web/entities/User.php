@@ -39,11 +39,16 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     protected $zip;
     protected $city;
     protected $phone_number;
-    protected $jackpot_reminder;
+    protected $jackpotReminder;
     protected $threshold;
     protected $userNotification;
     protected $show_modal_winning;
     protected $winning_above;
+    protected $bankName;
+    protected $bankAccount;
+    protected $bankSwift;
+    protected $bankUserName;
+    protected $bankSurname;
 
 
     public function __construct(){
@@ -287,15 +292,15 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
      */
     public function getJackpotReminder()
     {
-        return $this->jackpot_reminder;
+        return $this->jackpotReminder;
     }
 
     /**
-     * @param mixed $jackpot_reminder
+     * @param mixed $jackpotReminder
      */
-    public function setJackpotReminder($jackpot_reminder)
+    public function setJackpotReminder($jackpotReminder)
     {
-        $this->jackpot_reminder = $jackpot_reminder;
+        $this->jackpotReminder = $jackpotReminder;
     }
 
     /**
@@ -377,6 +382,87 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     {
         return 'en_GB';
     }
+
+    /**
+     * @return mixed
+     */
+    public function getBankName()
+    {
+        return $this->bankName;
+    }
+
+    /**
+     * @param mixed $bankName
+     */
+    public function setBankName($bankName)
+    {
+        $this->bankName = $bankName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBankAccount()
+    {
+        return $this->bankAccount;
+    }
+
+    /**
+     * @param mixed $bankAccount
+     */
+    public function setBankAccount($bankAccount)
+    {
+        $this->bankAccount = $bankAccount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBankSwift()
+    {
+        return $this->bankSwift;
+    }
+
+    /**
+     * @param mixed $bankSwift
+     */
+    public function setBankSwift($bankSwift)
+    {
+        $this->bankSwift = $bankSwift;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBankUserName()
+    {
+        return $this->bankUserName;
+    }
+
+    /**
+     * @param mixed $bankUserName
+     */
+    public function setBankUserName($bankUserName)
+    {
+        $this->bankUserName = $bankUserName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBankSurname()
+    {
+        return $this->bankSurname;
+    }
+
+    /**
+     * @param mixed $bankSurname
+     */
+    public function setBankSurname($bankSurname)
+    {
+        $this->bankSurname = $bankSurname;
+    }
+
 
     /**
      * @param \DateTime $date

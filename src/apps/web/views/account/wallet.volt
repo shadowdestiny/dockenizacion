@@ -239,17 +239,15 @@ $(function(){
                                 <label class="label" for="add-bank-name">
                                     {{ language.translate("Bank Name") }} <span class="asterisk">*</span>
                                 </label>
-                                <input id="add-bank-name" class="input" type="text">
-
+                                {{ bank_account_form.render('bank-name', {'class':'input'~form_errors['bank-name']}) }}
                                 <label class="label" for="add-bank-iban">
                                     {{ language.translate("IBAN or Bank account") }} <span class="asterisk">*</span>
                                 </label>
-                                <input id="add-bank-iban" class="input" type="text">
-
+                                {{ bank_account_form.render('bank-account', {'class':'input'~form_errors['bank-account']}) }}
                                 <label class="label" for="add-bank-bic">
                                     {{ language.translate("BIC or SWIFT") }} <span class="asterisk">*</span>
                                 </label>
-                                <input id="add-bank-bic" class="input" type="text" disabled>
+                                {{ bank_account_form.render('bank-swift', {'class':'input'~form_errors['bank-swift']}) }}
                             </div>
                             <div class="col6">
                                 <label class="label" for="add-bank-country">

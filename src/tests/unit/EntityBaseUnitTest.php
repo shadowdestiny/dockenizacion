@@ -87,7 +87,12 @@ class EntityBaseUnitTest extends UnitTestBase
         $expected->zip = $user->getZip();
         $expected->city = $user->getCity();
         $expected->password = $user->getPassword();
-
+        $expected->jackpotReminder = null;
+        $expected->bankAccount = null;
+        $expected->bankName = null;
+        $expected->bankSwift = null;
+        $expected->bankUserName = null;
+        $expected->bankSurname = null;
         $this->assertEquals($expected, $user->toValueObject());
     }
 
@@ -113,10 +118,16 @@ class EntityBaseUnitTest extends UnitTestBase
             'wallet_winnings_currency_name' => $user->getWallet()->getWinnings()->getCurrency()->getName(),
             'country'                       => $user->getCountry(),
             'validated'                     => $user->getValidated(),
-            'validation_token'               => $user->getValidationToken()->toNative(),
+            'validation_token'               => $user->getValidationToken(),
             'street'                        => $user->getStreet(),
             'zip'                           => $user->getZip(),
             'city'                          => $user->getCity(),
+            'jackpot_reminder'               => null,
+            'bank_name'                      => null,
+            'bank_account'                   => null,
+            'bank_swift'                     => null,
+            'bank_user_name'                  => null,
+            'bank_surname'                   => null
         ];
         $this->assertEquals($expected, $user->toArray());
     }

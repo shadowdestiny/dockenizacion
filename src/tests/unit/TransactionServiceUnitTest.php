@@ -4,6 +4,7 @@
 namespace tests\unit;
 
 
+use EuroMillions\shared\config\Namespaces;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\tests\base\UnitTestBase;
 use EuroMillions\tests\helpers\mothers\UserMother;
@@ -17,11 +18,19 @@ class TransactionServiceUnitTest extends UnitTestBase
     private $entityManagerDouble;
     private $transactionsRepository_double;
 
+
+    protected function getEntityManagerStubExtraMappings()
+    {
+        return [
+            Namespaces::ENTITIES_NS . 'Transaction'       => $this->transactionsRepository_double,
+        ];
+    }
+
     public function setUp()
     {
         parent::setUp();
         $this->entityManagerDouble = $this->getEntityManagerDouble();
-        $this->transactionsRepository_double = $this->getRepositoryDouble('TransactionRepository');
+        $this->transactionsRepository_double = $this->getRepositoryDouble('EuroMillions\web\entities\Transaction');
     }
 
 

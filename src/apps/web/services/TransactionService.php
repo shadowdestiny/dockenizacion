@@ -20,6 +20,7 @@ class TransactionService
     public function __construct( EntityManager $entityManager )
     {
         $this->entityManager = $entityManager;
+        $this->transactionRepository = $entityManager->getRepository('EuroMillions\web\entities\Transaction');
     }
 
 
@@ -40,5 +41,14 @@ class TransactionService
             return new ActionResult(false);
         }
         return new ActionResult(true, $entity);
+    }
+
+    public function getTransactionsByUser( $userId )
+    {
+        $result = $this->transactionRepository->findBy(['user' => $userId ]);
+        if( null != $result ) {
+            return $result;
+        }
+        return [];
     }
 }

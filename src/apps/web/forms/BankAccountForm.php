@@ -42,6 +42,33 @@ class BankAccountForm extends Form
 
         $this->add($surname);
 
+        $bankName = new Text('bank-name', [
+        ]);
+        $bankName->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'The bank name is required.'
+            )),
+        ));
+        $this->add($bankName);
+
+        $bankAccount = new Text('bank-account', [
+        ]);
+        $bankAccount->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'The bank account is required.'
+            )),
+        ));
+        $this->add($bankAccount);
+
+        $bankSwift = new Text('bank-swift', [
+        ]);
+        $bankSwift->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'The bank swift is required.'
+            )),
+        ));
+        $this->add($bankSwift);
+
 
         $street = new Text('street', [
             'placeholder' => 'Street'
@@ -61,8 +88,6 @@ class BankAccountForm extends Form
             'placeholder' => 'Phone number'
         ]);
         $this->add($phone_number);
-
-
 
         $country = new Select(
             'country',

@@ -135,6 +135,34 @@ class WalletServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method withDraw
+     * when called
+     * should substractFromWinningsAndStoreTransaction
+     */
+    public function test_withDraw_called_substractFromWinningsAndStoreTransaction()
+    {
+        $user = UserMother::aUserWith50Eur()->build();
+        $user->setWallet(Wallet::create(3000,4000));
+        $withdraw_amount = new Money(2600, new Currency('EUR'));
+        $data = [
+            'accountBankId' => 1,
+            'amountWithdrawed' => $withdraw_amount->getAmount(),
+            'state' => 'pending',
+            'user' => $user,
+            'now' => new \DateTime(),
+            'walletBefore' => $user->getWallet(),
+            'walletAfter' => $user->getWallet(),
+        ];
+        $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal(),$this->transactionService_double->reveal());
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->persist($user)->shouldBeCalled();
+        $entityManager_stub->flush()->shouldBeCalled();
+        $this->transactionService_double->storeTransaction(TransactionType::WINNINGS_WITHDRAW,$data)->shouldBeCalled();
+        $sut->withDraw($user, $withdraw_amount);
+        //$this->assertEquals($expected_wallet, $user->getWallet());
+    }
+
+    /**
      * @param $expected_wallet_amount
      * @param $payment_provider_result
      */

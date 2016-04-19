@@ -32,7 +32,7 @@ class HomepageCest
     {
         $I->wantTo('Be informed of the jackpot');
         $jackpot = $I->grabTextFrom('.jackpot .mytxt');
-        $jackpot_number = (int)str_replace('.','', $jackpot);
+        $jackpot_number = (int)str_replace(['.',',','€'],'', $jackpot);
         $I->expect('The Jackpot would be greather or equal than 15M euros');
         $I->assertGreaterThanOrEqual(15000000, $jackpot_number);
     }

@@ -4,6 +4,7 @@
 namespace EuroMillions\web\controllers;
 
 
+use EuroMillions\shared\components\widgets\PaginationWidget;
 use EuroMillions\web\entities\GuestUser;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\BankAccountForm;
@@ -19,6 +20,7 @@ use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CreditCardCharge;
 use EuroMillions\web\vo\CVV;
 use EuroMillions\web\vo\dto\PlayConfigCollectionDTO;
+use EuroMillions\web\vo\dto\TransactionDTO;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\UserNotificationsDTO;
 use EuroMillions\web\vo\ExpiryDate;
@@ -101,7 +103,26 @@ class AccountController extends PublicSiteControllerBase
         ]);
     }
 
-    public function transactionAction(){}
+    public function transactionAction()
+    {
+        $userId = $this->authService->getCurrentUser();
+        $result = $this->transactionService->getTransactionsByUser($userId);
+        $transactionDtoCollection = [];
+        foreach($result as $transaction) {
+            $transactionDtoCollection[] = new TransactionDTO($transaction);
+        }
+
+        $page = (!empty($this->request->get('page'))) ? $this->request->get('page') : 1;
+        $paginator = $this->getPaginatorAsArray($transactionDtoCollection,10,$page);
+        /** @var \Phalcon\Mvc\ViewInterface $paginator_view */
+        $paginator_view = (new PaginationWidget($paginator, $this->request->getQuery()))->render();
+
+        return $this->view->setVars([
+            'transactionCollection' => $paginator->getPaginate()->items,
+            'page' => $page,
+            'paginator_view' => $paginator_view
+        ]);
+    }
 
 
     public function passwordAction()
@@ -463,7 +484,10 @@ class AccountController extends PublicSiteControllerBase
             'zip' => '',
             'city' => '',
             'country' => '',
-            'phone_number' => ''
+            'phone_number' => '',
+            'bank-name' => '',
+            'bank-account' => '',
+            'bank-swift' => ''
         ];
         return $form_errors;
     }
