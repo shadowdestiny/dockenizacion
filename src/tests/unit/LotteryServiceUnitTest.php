@@ -250,10 +250,12 @@ class LotteryServiceUnitTest extends UnitTestBase
         $expected = new ActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw()));
         $this->lotteryRepositoryDouble->findOneBy(Argument::any())->willReturn(new Lottery());
 
-        $this->lotteryDrawRepositoryDouble->getBreakDownData(Argument::any())->willReturn($expected);
+        $date = new \DateTime('2016-01-01');
+
+        $this->lotteryDrawRepositoryDouble->getBreakDownData(Argument::any(), $date)->willReturn($expected);
 
         $sut = $this->getSut();
-        $actual = $sut->getBreakDownDrawByDate('EuroMillions');
+        $actual = $sut->getBreakDownDrawByDate('EuroMillions', $date);
         $this->assertEquals($expected,$actual->getValues());
     }
 
@@ -267,10 +269,12 @@ class LotteryServiceUnitTest extends UnitTestBase
         $expected = new ActionResult(false);
         $this->lotteryRepositoryDouble->findOneBy(Argument::any())->willReturn(new Lottery());
 
-        $this->lotteryDrawRepositoryDouble->getBreakDownData(Argument::any())->willReturn(null);
+        $date = new \DateTime('2016-01-01');
+
+        $this->lotteryDrawRepositoryDouble->getBreakDownData(Argument::any(), $date)->willReturn(null);
 
         $sut = $this->getSut();
-        $actual = $sut->getBreakDownDrawByDate('EuroMillions');
+        $actual = $sut->getBreakDownDrawByDate('EuroMillions', $date);
         $this->assertEquals($expected,$actual);
     }
 

@@ -79,6 +79,11 @@ class LotteryDrawRepository extends EntityRepository
         return $result[0]->getResult();
     }
 
+    /**
+     * @param Lottery $lottery
+     * @param \DateTime|null $date
+     * @return EuroMillionsDraw|array
+     */
     public function getNextDraw(Lottery $lottery, \DateTime $date = null)
     {
         if (!$date) {
