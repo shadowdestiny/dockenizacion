@@ -175,7 +175,7 @@ class DomainServiceFactory
 
     public function getTransactionService()
     {
-        return new TransactionService($this->entityManager);
+        return new TransactionService($this->entityManager, $this->getCurrencyConversionService());
     }
 
     public function getCurrencyConversionService()

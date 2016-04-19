@@ -9,6 +9,8 @@ use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\vo\dto\TransactionDTO;
+use Money\Currency;
 
 
 class TransactionService
@@ -16,11 +18,13 @@ class TransactionService
 
     protected $entityManager;
     protected $transactionRepository;
+    protected $currencyConversionService;
 
-    public function __construct( EntityManager $entityManager )
+    public function __construct( EntityManager $entityManager, CurrencyConversionService $currencyConversionService )
     {
         $this->entityManager = $entityManager;
         $this->transactionRepository = $entityManager->getRepository('EuroMillions\web\entities\Transaction');
+        $this->currencyConversionService = $currencyConversionService;
     }
 
 
@@ -43,11 +47,23 @@ class TransactionService
         return new ActionResult(true, $entity);
     }
 
-    public function getTransactionsByUser( $userId )
+    public function getTransactionsDTOByUser( User $user )
     {
-        $result = $this->transactionRepository->findBy(['user' => $userId ]);
+        $result = $this->transactionRepository->findBy(['user' => $user->getId() ]);
         if( null != $result ) {
-            return $result;
+            $transactionDtoCollection = [];
+            /** @var Transaction $transaction */
+            foreach($result as $transaction) {
+                $transactionDTO = new TransactionDTO($transaction);
+                $movement = $this->currencyConversionService->convert($transactionDTO->movement, new Currency('EUR'));
+                $balance = $this->currencyConversionService->convert($transactionDTO->balance, new Currency('EUR'));
+                $winnings = $this->currencyConversionService->convert($transactionDTO->winnings, new Currency('EUR'));
+                $transactionDTO->movement = $this->currencyConversionService->toString($movement, $user->getLocale());
+                $transactionDTO->balance = $this->currencyConversionService->toString($balance, $user->getLocale());
+                $transactionDTO->winnings = $this->currencyConversionService->toString($winnings, $user->getLocale());
+                $transactionDtoCollection[] = $transactionDTO;
+            }
+            return $transactionDtoCollection;
         }
         return [];
     }

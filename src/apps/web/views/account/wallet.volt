@@ -49,6 +49,43 @@ $('.btn.add-funds').on('click',function(){
 $('.back').on('click',function(){
     $('.box.error, .box.success').hide();
 });
+$('#form-withdraw').on('submit',function(){
+    if($('label.submit').hasClass('gray')) {
+        return false;
+    }
+});
+
+    $('#card-cvv,#card-number').on('keypress',function(e){
+    var pattern = /^[0-9\.]+$/;
+    if(e.target.id == 'card-cvv') {
+    pattern = /^[0-9]+$/;
+    }
+    var codeFF = e.keyCode;
+    var code = e.which
+    var chr = String.fromCharCode(code);
+    if(codeFF == 8 || codeFF == 37 || codeFF == 38 || codeFF == 39 || codeFF == 40 ) {
+    return true;
+    }
+    if(!pattern.test(chr)){
+    e.preventDefault();
+    }
+    });
+var has_enough_winnings = '<?php echo empty($has_enough_winning_balance) ? false : true; ?>'
+    console.log(has_enough_winnings);
+$('#funds_value').on('keyup',function(e){
+    if($(this).val() >= 25 && has_enough_winnings) {
+        $('label.submit').removeClass('gray').addClass('green');
+    }
+});
+
+$('#funds_value').on('keypress',function(e){
+    var pattern = /^[0-9\.]+$/;
+    var code = e.which
+    var chr = String.fromCharCode(code);
+    if(!pattern.test(chr)){
+        e.preventDefault();
+    }
+});
 
 $('#funds-value').on('blur', function(e){
     var value = e.target.value;
@@ -84,6 +121,7 @@ $(function(){
            {% set activeSubnav='{"myClass": "wallet"}'|json_decode %}
            {% include "account/_nav.volt" %}
         </div>
+
         <div class="box-basic content">
             <div class="{%if show_box_basic == true %}hidden{% endif %} right back cl">
                 <a class="btn" href="javascript:void(0);">Go Back</a>
@@ -110,7 +148,7 @@ $(function(){
 
                 <div class="info box box-congrats">
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                    <span class="txt"><span class="congrats">{{ language.translate("Congratulations! You have won &euro; 5,500.70") }}</span> 
+                    <span class="txtTransaction"><span class="congrats">{{ language.translate("Congratulations! You have won &euro; 5,500.70") }}</span>
 {#
                     {{ language.translate("To transfer your big winnings into your bank account we required the following informations: 1) your full name, 2) passport or ID card, 3) a current residence address, 4) a telephone number and 5) your bank account details.<br> Please send us everything by email to <a href='mailto:support@euromillions.com?subject=I won the lottery'>support@euromillions.com</a>, we will soon get in contact with you.")}}
 #}
@@ -150,10 +188,24 @@ $(function(){
                 {% set component='{"where": "account"}'|json_decode %}
                 {% include "account/_add-card.volt" %}
             </form>
-            <div class="box-bank hidden">
+            <div class="box-bank {% if which_form != 'withdraw' %}hidden{% endif %}">
+                {% if msg %}
+                    <div class="box success">
+                        <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"/></svg>
+                        <span class="txt">{{ msg }}</span>
+                    </div>
+                {% endif %}
+
+                {% if errors %}
+                    <div class="box error">
+                        <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"/></svg>
+                        <div class="txt"><ul class="no-li">{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul></div>
+                    </div>
+                {% endif %}
+
                 <h2 class="h3 yellow">{{ language.translate("Withdraw your winnings") }}</h2>
 
-                <form action="/account/withdraw" method="post" class="box-add-bank">
+                <form action="/account/withdraw" method="post" id="form-withdraw" class="box-add-bank">
                     <div class="box-details {#{% if which_form == 'edit' %} hidden {% endif %}#}">
                         <div class="cl box-wallet">
                             <div class="value">
@@ -164,12 +216,17 @@ $(function(){
                                 <span class="purple">{{ language.translate("Withdrawable:") }}</span> {{ wallet.wallet_winning_amount }} ({{ wallet.winnings }})
                             </div>
                             <br>
-                            <span class="subtxt grey-lighter">{{ language.translate("Currencies are just informative, withdrawals must be made in Euros") }}</span>
+                            <div class="value">
+                                <span class="subtxt grey-lighter">{{ language.translate("Minimum Withdrawal is €25") }}</span>
+                            </div>
                             <br>
+                            <div class="value">
+                                <span class="subtxt grey-lighter">{{ language.translate("Currencies are just informative, withdrawals must be made in Euros") }}</span>
+                            </div>
                             <br>
                             <div class="right form-currency cl">
                                 <span class="currency">&euro;</span>
-                                <input class="input insert" placeholder="Insert an amount" id="funds-value" name="funds_value" type="text"/>
+                                {{ bank_account_form.render('funds_value', {'class':'input'~form_errors['funds_value']}) }}
                             </div>
                         </div>
                     </div>
@@ -226,7 +283,7 @@ $(function(){
                         </div>
                     </div>
                     <div class="cl">
-                        <label class="label submit btn green" for="new-bank">
+                        <label class="label submit btn gray" style="cursor:default" for="new-bank">
                             {{ language.translate("Request Withdrawal") }}
                             <input id="new-bank" type="submit" class="hidden">
                         </label>

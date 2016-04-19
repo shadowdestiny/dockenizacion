@@ -10,6 +10,7 @@ use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\Identical;
+use Phalcon\Validation\Validator\Numericality;
 use Phalcon\Validation\Validator\PresenceOf;
 
 
@@ -88,6 +89,21 @@ class BankAccountForm extends Form
             'placeholder' => 'Phone number'
         ]);
         $this->add($phone_number);
+
+        $amount = new Text('funds_value', [
+            'placeholder' => 'Insert an amount'
+        ]);
+
+        $amount->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'Insert an amount > 25.'
+            )),
+            new Numericality(array(
+            )),
+        ));
+
+        $this->add($amount);
+
 
         $country = new Select(
             'country',

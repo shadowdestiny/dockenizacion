@@ -85,7 +85,11 @@ class WalletService
     {
         try{
             $walletBefore = $user->getWallet();
-            $user->setWallet($user->getWallet()->withdraw($amount));
+            $newWallet = $user->getWallet()->withdraw($amount);
+            if(null == $newWallet) {
+                throw new \Exception('You don\'t have enough winning amount to complete transaction');
+            }
+            $user->setWallet($newWallet);
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             $data = [];
@@ -98,7 +102,7 @@ class WalletService
             $data['state'] = 'pending';
             $this->transactionService->storeTransaction(TransactionType::WINNINGS_WITHDRAW, $data);
         } catch ( \Exception $e ) {
-            return new ActionResult(false);
+            return new ActionResult(false, $e->getMessage());
             //EMTD Log and warn the admin
         }
         return new ActionResult(true);
