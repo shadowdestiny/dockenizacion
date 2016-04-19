@@ -12,17 +12,8 @@ class TicketPurchaseGenerator implements ITransactionGeneratorStrategy
 
     public static function build(array $data)
     {
-        $ticketPurchaseTransaction = new TicketPurchaseTransaction();
         try {
-            $ticketPurchaseTransaction->setLotteryId($data['lottery_id']);
-            $ticketPurchaseTransaction->setNumBets($data['numBets']);
-            $ticketPurchaseTransaction->setAmountWithWallet($data['amountWithWallet']);
-            $ticketPurchaseTransaction->setAmountWithCreditCard($data['amountWithCreditCard']);
-            $ticketPurchaseTransaction->setFeeApplied($data['feeApplied']);
-            $ticketPurchaseTransaction->setWalletBefore($data['walletBefore']);
-            $ticketPurchaseTransaction->setWalletAfter($data['walletAfter']);
-            $ticketPurchaseTransaction->setDate($data['now']);
-            $ticketPurchaseTransaction->setUser($data['user']);
+            $ticketPurchaseTransaction = new TicketPurchaseTransaction($data);
             $ticketPurchaseTransaction->toString();
         } catch( \Exception $e ) {
             throw new \Exception('Invalid argument to build entity');

@@ -88,6 +88,8 @@ class WalletServiceUnitTest extends UnitTestBase
         $expected = new WalletDTO($uploaded_string,$uploaded_string,$uploaded_string,$uploaded_string);
         $this->exerciseConvert($uploaded, $user, $uploaded_string);
         $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal(),$this->transactionService_double->reveal());
+        $this->currencyConversionService_double->toString($user->getWallet()->getBalance(),$user->getLocale())->shouldBeCalled();
+        $this->currencyConversionService_double->toString($user->getWallet()->getWinnings(),$user->getLocale())->shouldBeCalled();
         $actual = $sut->getWalletDTO($user);
         $this->assertInstanceOf('EuroMillions\web\vo\dto\WalletDTO', $actual);
         $this->assertEquals($expected,$actual);

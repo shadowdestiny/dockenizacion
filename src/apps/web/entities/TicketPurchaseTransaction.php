@@ -14,6 +14,20 @@ class TicketPurchaseTransaction extends PurchaseTransaction implements ITransact
     protected $amountWithCreditCard;
     protected $feeApplied;
 
+
+    public function __construct(array $data)
+    {
+        $this->setLotteryId($data['lottery_id']);
+        $this->setNumBets($data['numBets']);
+        $this->setAmountWithWallet($data['amountWithWallet']);
+        $this->setAmountWithCreditCard($data['amountWithCreditCard']);
+        $this->setFeeApplied($data['feeApplied']);
+        $this->setWalletBefore($data['walletBefore']);
+        $this->setWalletAfter($data['walletAfter']);
+        $this->setDate($data['now']);
+        $this->setUser($data['user']);
+    }
+
     /**
      * @return mixed
      */

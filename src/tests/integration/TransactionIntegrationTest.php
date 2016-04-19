@@ -49,7 +49,20 @@ class TransactionIntegrationTest extends DatabaseIntegrationTestBase
         $date = new \DateTime();
         $user = UserMother::aJustRegisteredUser()->build();
 
-        $transactionType = new TicketPurchaseTransaction();
+        $now = new \DateTime();
+        $data = [
+            'lottery_id' => 1,
+            'numBets' => 3,
+            'amountWithWallet' => 2000,
+            'amountWithCreditCard' => 0,
+            'feeApplied' => 0,
+            'user' => $user,
+            'walletBefore' => $user->getWallet(),
+            'walletAfter' => $user->getWallet(),
+            'now' => $now
+        ];
+
+        $transactionType = new TicketPurchaseTransaction($data);
         $transactionType->setDate($date);
         $transactionType->setData($transactionString);
         $transactionType->setEntityType('ticket_purchase');
