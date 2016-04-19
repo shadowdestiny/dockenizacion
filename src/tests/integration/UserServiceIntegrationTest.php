@@ -10,6 +10,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
 {
     protected $currencyConversionService_double;
     protected $paymentProvider_double;
+    protected $walletService_double;
     /**
      * Child classes must implement this method. Return empty array if no fixtures are needed
      * @return array
@@ -30,6 +31,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
         parent::setUp();
         $this->currencyConversionService_double = $this->getServiceDouble('CurrencyConversionService');
         $this->paymentProvider_double = $this->getServiceDouble('PaymentProviderService');
+        $this->walletService_double = $this->getServiceDouble('WalletService');
     }
 
     public function getUserIdsAndExpectedBalances()
@@ -116,6 +118,7 @@ class UserServiceIntegrationTest extends DatabaseIntegrationTestBase
             $this->currencyConversionService_double->reveal(),
             $this->getServiceDouble('EmailService')->reveal(),
             $this->getServiceDouble('PaymentProviderService')->reveal(),
+            $this->walletService_double->reveal(),
             $this->entityManager
         );
     }

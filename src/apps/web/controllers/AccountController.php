@@ -105,12 +105,8 @@ class AccountController extends PublicSiteControllerBase
 
     public function transactionAction()
     {
-        $userId = $this->authService->getCurrentUser();
-        $result = $this->transactionService->getTransactionsByUser($userId);
-        $transactionDtoCollection = [];
-        foreach($result as $transaction) {
-            $transactionDtoCollection[] = new TransactionDTO($transaction);
-        }
+        $user = $this->authService->getCurrentUser();
+        $transactionDtoCollection = $this->transactionService->getTransactionsDTOByUser( $user );
 
         $page = (!empty($this->request->get('page'))) ? $this->request->get('page') : 1;
         $paginator = $this->getPaginatorAsArray($transactionDtoCollection,10,$page);
@@ -217,6 +213,64 @@ class AccountController extends PublicSiteControllerBase
 
     public function withDrawAction()
     {
+        $user_id = $this->authService->getCurrentUser();
+        $form_errors = $this->getErrorsArray();
+        /** @var User $user */
+        $user = $this->userService->getUser($user_id->getId());
+        $credit_card_form = new CreditCardForm();
+        $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
+        $countries = $geoService->countryList();
+        sort($countries);
+        $countries = array_combine(range(1, count($countries)), array_values($countries));
+        $credit_card_form = $this->appendElementToAForm($credit_card_form);
+        $bank_account_form = new BankAccountForm($user, ['countries' => $countries] );
+        $wallet_dto = $this->domainServiceFactory->getWalletService()->getWalletDTO($user);
+        $site_config_dto = $this->siteConfigService->getSiteConfigDTO($user->getUserCurrency(), $user->getLocale());
+        $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
+
+        if($this->request->isPost()) {
+            if ($bank_account_form->isValid($this->request->getPost()) == false) {
+                $messages = $bank_account_form->getMessages(true);
+                /**
+                 * @var string $field
+                 * @var Message\Group $field_messages
+                 */
+                foreach ($messages as $field => $field_messages) {
+                    $errors[] = $field_messages[0]->getMessage();
+                    $form_errors[$field] = ' error';
+                }
+            }else {
+                $result = $this->userService->createWithDraw($user, [
+                     'bank-name' => $this->request->getPost('bank-name'),
+                     'bank-account' => $this->request->getPost('bank-account'),
+                     'bank-swift' => $this->request->getPost('bank-swift'),
+                     'amount' => $this->request->getPost('funds_value')
+                ]);
+
+                if($result->success()){
+                    $msg = $result->getValues();
+                }else{
+                    $errors[] = $result->errorMessage();
+                }
+            }
+        }
+        $this->view->pick('account/wallet');
+        var_dump(($user->getWallet()->getWinnings()->greaterThan(new Money(2500, new Currency('EUR')))));die();
+        return $this->view->setVars([
+            'which_form' => 'withdraw',
+            'form_errors' => $form_errors,
+            'bank_account_form' => $bank_account_form,
+            'user' => new UserDTO($user),
+            'errors' => $errors,
+            'msg' => [],
+            'symbol' => $symbol,
+            'credit_card_form' => $credit_card_form,
+            'show_form_add_fund' => false,
+            'wallet' => $wallet_dto,
+            'has_enough_winning_balance' => ($user->getWallet()->getWinnings()->greaterThan(new Money(2500, new Currency('EUR')))) ? true : false,
+            'show_box_basic' => false,
+            'site_config' => $site_config_dto
+        ]);
 
     }
 
@@ -492,7 +546,8 @@ class AccountController extends PublicSiteControllerBase
             'phone_number' => '',
             'bank-name' => '',
             'bank-account' => '',
-            'bank-swift' => ''
+            'bank-swift' => '',
+            'funds_value' => ''
         ];
         return $form_errors;
     }

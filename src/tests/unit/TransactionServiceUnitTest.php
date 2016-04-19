@@ -17,6 +17,8 @@ class TransactionServiceUnitTest extends UnitTestBase
 
     private $entityManagerDouble;
     private $transactionsRepository_double;
+    private $currencyConversionService_double;
+
 
 
     protected function getEntityManagerStubExtraMappings()
@@ -31,6 +33,7 @@ class TransactionServiceUnitTest extends UnitTestBase
         parent::setUp();
         $this->entityManagerDouble = $this->getEntityManagerDouble();
         $this->transactionsRepository_double = $this->getRepositoryDouble('EuroMillions\web\entities\Transaction');
+        $this->currencyConversionService_double = $this->getServiceDouble('CurrencyConversionService');
     }
 
 
@@ -118,6 +121,6 @@ class TransactionServiceUnitTest extends UnitTestBase
 
     private function getSut()
     {
-        return new TransactionService($this->entityManagerDouble->reveal());
+        return new TransactionService($this->entityManagerDouble->reveal(), $this->currencyConversionService_double->reveal());
     }
 }

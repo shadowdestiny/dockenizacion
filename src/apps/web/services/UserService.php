@@ -53,9 +53,13 @@ class UserService
     /** @var NotificationRepository */
     private $notificationRepository;
 
+    /** @var  WalletService */
+    private $walletService;
+
     public function __construct(CurrencyConversionService $currencyConversionService,
                                 EmailService $emailService,
                                 PaymentProviderService $paymentProviderService,
+                                WalletService $walletService,
                                 EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
@@ -66,6 +70,7 @@ class UserService
         $this->playRepository = $entityManager->getRepository('EuroMillions\web\entities\PlayConfig');
         $this->userNotificationsRepository = $entityManager->getRepository('EuroMillions\web\entities\UserNotifications');
         $this->notificationRepository = $entityManager->getRepository('EuroMillions\web\entities\Notification');
+        $this->walletService = $walletService;
     }
 
     public function getBalanceWithUserCurrencyConvert($userId, Currency $userCurrency)
@@ -400,5 +405,21 @@ class UserService
             $price = $price->add($amount);
         }
         return $price;
+    }
+
+    public function createWithDraw( User $user, array $data )
+    {
+        try {
+            $user->setBankAccount($data['bank-account']);
+            $user->setBankName($data['bank-name']);
+            $user->setBankSwift($data['bank-swift']);
+            $this->entityManager->persist($user);
+            $this->entityManager->flush($user);
+            $amount = new Money((int) $data['amount'] * 100, new Currency('EUR'));
+            $this->walletService->withDraw( $user, $amount);
+        } catch ( \Exception $e ) {
+            return new ActionResult(false);
+        }
+        return new ActionResult(true);
     }
 }
