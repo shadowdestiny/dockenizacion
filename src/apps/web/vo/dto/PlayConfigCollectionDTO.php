@@ -49,7 +49,7 @@ class PlayConfigCollectionDTO extends DTOBase implements IDto
     public $numPlayConfigs;
 
 
-
+/// EMTD @rmrbest Why there's no unit test over this class? For example, drawDays is declared as DrawDays type, but then you assign an integer to it... WTF?
 
     public function __construct(array $playConfig, Money $single_bet_price)
     {
