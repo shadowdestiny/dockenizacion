@@ -2,7 +2,6 @@
 
 namespace EuroMillions\web\vo\dto;
 
-
 class WalletDTO
 {
 
@@ -10,6 +9,8 @@ class WalletDTO
     public $wallet_uploaded_amount;
     public $wallet_winning_amount;
     public $current_winnings;
+    public $balance;
+    public $winnings;
 
 
     public function __construct( $balance, $uploaded, $winnings, $current_winnings )
@@ -51,5 +52,38 @@ class WalletDTO
     {
         return $this->current_winnings;
     }
+
+    /**
+     * @return float
+     */
+    public function getBalance()
+    {
+        return $this->balance;
+    }
+
+    /**
+     * @param float $balance
+     */
+    public function setBalance($balance)
+    {
+        $this->balance = $balance;
+    }
+
+    /**
+     * @return float
+     */
+    public function getWinnings()
+    {
+        return $this->winnings;
+    }
+
+    /**
+     * @param float $winnings
+     */
+    public function setWinnings($winnings)
+    {
+        $this->winnings = $winnings;
+    }
+
 
 }
