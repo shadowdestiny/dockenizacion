@@ -10,6 +10,7 @@ use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CreditCardCharge;
 use EuroMillions\web\vo\dto\WalletDTO;
 use EuroMillions\web\vo\enum\TransactionType;
+use Money\Money;
 
 class WalletService
 {
@@ -74,6 +75,26 @@ class WalletService
             $data['walletAfter'] = $user->getWallet();
             $data['user'] = $user;
             $this->transactionService->storeTransaction($transactionType,$data);
+        } catch ( \Exception $e ) {
+            //EMTD Log and warn the admin
+        }
+    }
+
+    public function withDraw( User $user, Money $amount )
+    {
+        try{
+            $walletBefore = $user->getWallet();
+            $user->getWallet()->withdraw($amount);
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+            $data['now'] = new \DateTime();
+            $data['walletBefore'] = $walletBefore;
+            $data['walletAfter'] = $user->getWallet();
+            $data['user'] = $user;
+            $data['accountBankId'] = '1';
+            $data['amountWithdrawed'] = $amount->getAmount();
+            $data['state'] = 'pending';
+            $this->transactionService->storeTransaction(TransactionType::WINNINGS_WITHDRAW, $data);
         } catch ( \Exception $e ) {
             //EMTD Log and warn the admin
         }

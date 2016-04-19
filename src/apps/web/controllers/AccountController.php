@@ -484,7 +484,10 @@ class AccountController extends PublicSiteControllerBase
             'zip' => '',
             'city' => '',
             'country' => '',
-            'phone_number' => ''
+            'phone_number' => '',
+            'bank-name' => '',
+            'bank-account' => '',
+            'bank-swift' => ''
         ];
         return $form_errors;
     }

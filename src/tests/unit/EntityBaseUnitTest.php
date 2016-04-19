@@ -91,7 +91,8 @@ class EntityBaseUnitTest extends UnitTestBase
         $expected->bankAccount = null;
         $expected->bankName = null;
         $expected->bankSwift = null;
-
+        $expected->bankUserName = null;
+        $expected->bankSurname = null;
         $this->assertEquals($expected, $user->toValueObject());
     }
 
@@ -124,7 +125,9 @@ class EntityBaseUnitTest extends UnitTestBase
             'jackpot_reminder'               => null,
             'bank_name'                      => null,
             'bank_account'                   => null,
-            'bank_swift'                     => null
+            'bank_swift'                     => null,
+            'bank_user_name'                  => null,
+            'bank_surname'                   => null
         ];
         $this->assertEquals($expected, $user->toArray());
     }

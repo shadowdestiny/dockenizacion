@@ -47,6 +47,8 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     protected $bankName;
     protected $bankAccount;
     protected $bankSwift;
+    protected $bankUserName;
+    protected $bankSurname;
 
 
     public function __construct(){
@@ -427,6 +429,38 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     public function setBankSwift($bankSwift)
     {
         $this->bankSwift = $bankSwift;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBankUserName()
+    {
+        return $this->bankUserName;
+    }
+
+    /**
+     * @param mixed $bankUserName
+     */
+    public function setBankUserName($bankUserName)
+    {
+        $this->bankUserName = $bankUserName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBankSurname()
+    {
+        return $this->bankSurname;
+    }
+
+    /**
+     * @param mixed $bankSurname
+     */
+    public function setBankSurname($bankSurname)
+    {
+        $this->bankSurname = $bankSurname;
     }
 
 
