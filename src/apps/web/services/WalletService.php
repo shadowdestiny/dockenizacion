@@ -3,6 +3,7 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\interfaces\IResult;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
@@ -84,7 +85,7 @@ class WalletService
     {
         try{
             $walletBefore = $user->getWallet();
-            $user->getWallet()->withdraw($amount);
+            $user->setWallet($user->getWallet()->withdraw($amount));
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             $data = [];
@@ -97,8 +98,10 @@ class WalletService
             $data['state'] = 'pending';
             $this->transactionService->storeTransaction(TransactionType::WINNINGS_WITHDRAW, $data);
         } catch ( \Exception $e ) {
+            return new ActionResult(false);
             //EMTD Log and warn the admin
         }
+        return new ActionResult(true);
     }
 
     public function getWalletDTO( User $user )

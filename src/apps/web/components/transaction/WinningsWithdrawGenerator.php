@@ -7,7 +7,7 @@ namespace EuroMillions\web\components\transaction;
 use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\web\interfaces\ITransactionGeneratorStrategy;
 
-class WinningsWithdraw implements ITransactionGeneratorStrategy
+class WinningsWithdrawGenerator implements ITransactionGeneratorStrategy
 {
 
     public static function build(array $data)

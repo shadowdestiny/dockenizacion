@@ -153,7 +153,7 @@ $(function(){
             <div class="box-bank hidden">
                 <h2 class="h3 yellow">{{ language.translate("Withdraw your winnings") }}</h2>
 
-                <form class="box-add-bank">
+                <form action="/account/withdraw" method="post" class="box-add-bank">
                     <div class="box-details {#{% if which_form == 'edit' %} hidden {% endif %}#}">
                         <div class="cl box-wallet">
                             <div class="value">

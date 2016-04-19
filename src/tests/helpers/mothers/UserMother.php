@@ -48,6 +48,13 @@ class UserMother
             ->withWallet(self::getWallet(50000));
     }
 
+    public static function aUserWith40EurWinnings()
+    {
+        return self::getInitializedUser()
+            ->withId(UserBuilder::DEFAULT_ID)
+            ->withWallet(self::getWallet(3000));
+    }
+
     public static function aUserWithNoMoney()
     {
         return self::getInitializedUser()

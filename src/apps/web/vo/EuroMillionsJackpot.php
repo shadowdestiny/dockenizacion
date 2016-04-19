@@ -46,6 +46,6 @@ class EuroMillionsJackpot implements IJackpot
 
     public function toString()
     {
-
+        return $this->amount;
     }
 }

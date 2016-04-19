@@ -37,6 +37,7 @@ class UserServiceUnitTest extends UnitTestBase
     private $playRepository_double;
     private $userNotificationsRepository_double;
     private $notificationsRepository_double;
+    private $walletService_double;
 
     protected function getEntityManagerStubExtraMappings()
     {
@@ -60,6 +61,7 @@ class UserServiceUnitTest extends UnitTestBase
         $this->playRepository_double = $this->getRepositoryDouble('PlayConfigRepository');
         $this->userNotificationsRepository_double = $this->getRepositoryDouble('UserNotificationsRepository');
         $this->notificationsRepository_double = $this->getRepositoryDouble('NotificationRepository');
+        $this->walletService_double = $this->getServiceDouble('WalletService');
         parent::setUp();
     }
 
@@ -503,6 +505,31 @@ class UserServiceUnitTest extends UnitTestBase
 
     }
 
+    /**
+     * method createWithDraw
+     * when called
+     * should returnActionResultTrue
+     */
+    public function test_createWithDraw_called_returnActionResultTrue()
+    {
+        $user = UserMother::aUserWith40EurWinnings()->build();
+        $amount = new Money(3000, new Currency('EUR'));
+        $data = [
+            'bank-account' => 'test',
+            'bank-name' => 'test1',
+            'bank-swift' => '123456',
+            'amount' => '30'
+        ];
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->persist($user)->shouldBeCalled();
+        $entityManager_stub->flush($user)->shouldBeCalled();
+        $this->walletService_double->withDraw($user,$amount)->shouldBeCalled();
+        $sut = $this->getSut();
+        $expected = new ActionResult(true);
+        $actual = $sut->createWithDraw( $user, $data );
+        $this->assertEquals($expected,$actual);
+    }
+
 
 
     private function getPlayConfigAndEuroMillionsDraw()
@@ -613,6 +640,7 @@ class UserServiceUnitTest extends UnitTestBase
             $this->currencyConversionService_double->reveal(),
             $this->emailService_double->reveal(),
             $this->paymentProviderService_double->reveal(),
+            $this->walletService_double->reveal(),
             $this->getEntityManagerRevealed()
         );
     }

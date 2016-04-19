@@ -217,7 +217,40 @@ class AccountController extends PublicSiteControllerBase
 
     public function withDrawAction()
     {
+        $user_id = $this->authService->getCurrentUser();
+        /** @var User $user */
+        $user = $this->userService->getUser($user_id->getId());
+        $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
+        $countries = $geoService->countryList();
+        sort($countries);
+        $countries = array_combine(range(1, count($countries)), array_values($countries));
+        $bank_account_form = new BankAccountForm($user, ['countries' => $countries] );
 
+        if($this->request->isPost()) {
+            if ($bank_account_form->isValid($this->request->getPost()) == false) {
+                $messages = $bank_account_form->getMessages(true);
+                /**
+                 * @var string $field
+                 * @var Message\Group $field_messages
+                 */
+                foreach ($messages as $field => $field_messages) {
+                    $errors[] = $field_messages[0]->getMessage();
+                    $form_errors[$field] = ' error';
+                }
+            }else {
+                $result = $this->userService->createWithDraw($user, [
+                     'bank-name' => $this->request->getPost('bank-name'),
+                     'bank-account' => $this->request->getPost('bank-account'),
+                     'bank-swift' => $this->request->getPost('bank-swift'),
+                     'amount' => $this->request->getPost('funds_value')
+                ]);
+                if($result->success()){
+                    $msg = $result->getValues();
+                }else{
+                    $errors [] = $result->errorMessage();
+                }
+            }
+        }
     }
 
     /**

@@ -98,6 +98,7 @@ class DomainServiceFactory
             $this->getCurrencyConversionService(),
             $this->serviceFactory->getEmailService(),
             new PaymentProviderService(),
+            $this->getWalletService(),
             $this->entityManager
         );
     }
