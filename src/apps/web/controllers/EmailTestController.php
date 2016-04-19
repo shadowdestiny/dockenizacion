@@ -187,7 +187,7 @@ class EmailTestController extends PublicSiteControllerBase
             $this->domainServiceFactory->getServiceFactory()->getEmailService(null, self::$config)->sendRegistrationMail($this->user, $url);
         } else if ($nameTemplate == 'send-password-request') {
             $url = new Url('http://localhost:8080/user-access/passwordReset/3c44633d83a5780f5bac7dcc6eccb0ab');
-          //  $this->domainServiceFactory->getServiceFactory()->getEmailService(null, self::$config)->sendPasswordResetMail($this->user, $url);
+            $this->domainServiceFactory->getServiceFactory()->getEmailService(null, self::$config)->sendPasswordResetMail($this->user, $url);
         } else if ($nameTemplate == 'send-new-password') {
             //
         } else {

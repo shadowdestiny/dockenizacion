@@ -87,6 +87,7 @@ class WalletService
             $user->getWallet()->withdraw($amount);
             $this->entityManager->persist($user);
             $this->entityManager->flush();
+            $data = [];
             $data['now'] = new \DateTime();
             $data['walletBefore'] = $walletBefore;
             $data['walletAfter'] = $user->getWallet();

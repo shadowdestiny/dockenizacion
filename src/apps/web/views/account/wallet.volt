@@ -151,77 +151,28 @@ $(function(){
                 {% include "account/_add-card.volt" %}
             </form>
             <div class="box-bank hidden">
-                *With data*
-
-                <h2 class="h3 yellow">{{ language.translate("Withdraw winnings") }}</h2>
-                <div class="box-details {#{% if which_form == 'edit' %} hidden {% endif %}#}">
-                    <table id="bank-list" class="table ui-responsive">
-                        <thead>
-                        <tr>
-                            <th class="bank">{{ language.translate("Bank name") }}</th>
-                            <th class="id">{{ language.translate("Identification") }}</th>
-                            <th class="expire">{{ language.translate("Account Owner") }}</th>
-                            <th class="action">{{ language.translate("Action") }}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr class="active">
-                            <td class="bank">
-                                <input name="cardRadio" checked="checked" type="radio" class="radio" data-role="none">
-                                Santander
-                            </td>
-                            <td class="id">GR 0110 1250 0000 0001 2300 695</td>
-                            <td class="expire">Mario Rossi</td>
-                            <td class="action">
-                                <a href="javascript:void(0);">{{ language.translate("Edit") }}</a>
-                            </td>
-                            <td class="action">
-                                <a href="javascript:void(0);">{{ language.translate("Delete") }}</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="bank">
-                                <input name="cardRadio" type="radio" class="radio" data-role="none">
-                                Santander
-                            </td>
-                            <td class="id">GR 0110 1250 0000 0001 2300 695</td>
-                            <td class="expire">Mario Rossi</td>
-                            <td class="action">
-                                <a href="javascript:void(0);">{{ language.translate("Delete") }}</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="cl margin">
-                        <a href="javascript:void(0);" class="new-bank btn gwy">{{ language.translate("Add a new Bank account") }}</a>
-                    </div>
-
-                    *NO data*
-                    <div class="info box special">
-                        <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                        <span class="txt">{{ language.translate("Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.") }}</span>
-                        <a href="javascript:void(0)" class="new-bank btn gwy">{{ language.translate("Add a new Bank Account") }}</a>
-                    </div>
-
-                    *Show always with or without DATA*
-                    <div class="cl box-wallet">
-                        <div class="value">
-                            <span class="purple">{{ language.translate("Account balance:") }}</span> &euro; 500.00
-                        </div>
-
-                        <form class="right form-currency">
-                            <span class="currency">&euro;</span>
-                            <input class="input insert" type="text"/>
-                            <label class="label submit btn blue" for="withdraw">
-                                {{ language.translate("Withdraw winnings") }}
-                                <input id="withdraw" type="submit" class="hidden">
-                            </label>
-                        </form>
-                    </div>
-                </div>
+                <h2 class="h3 yellow">{{ language.translate("Withdraw your winnings") }}</h2>
 
                 <form class="box-add-bank">
+                    <div class="box-details {#{% if which_form == 'edit' %} hidden {% endif %}#}">
+                        <div class="cl box-wallet">
+                            <div class="value">
+                                <span class="purple">{{ language.translate("Account balance:") }}</span> {{ wallet.wallet_balance_amount }}
+                            </div>
+                            <br>
+                            <div class="left value">
+                                <span class="purple">{{ language.translate("Withdrawable:") }}</span> {{ wallet.wallet_winning_amount }}
+                            </div>
+                            <br>
+                            <span class="subtxt grey-lighter">{{ language.translate("Currencies are just informative, withdrawals must be made in Euros") }}</span>
+                            <br>
+                            <br>
+                            <div class="right form-currency cl">
+                                <span class="currency">&euro;</span>
+                                <input class="input insert" placeholder="Insert an amount" name="withdraw_amount" type="text"/>
+                            </div>
+                        </div>
+                    </div>
                     <h2 class="h3 yellow">{{ language.translate("Bank account details") }}</h2>
 
                     <div class="wrap">
@@ -276,7 +227,7 @@ $(function(){
                     </div>
                     <div class="cl">
                         <label class="label submit btn green" for="new-bank">
-                            {{ language.translate("Add your Bank Account") }}
+                            {{ language.translate("Request Withdrawal") }}
                             <input id="new-bank" type="submit" class="hidden">
                         </label>
                     </div>

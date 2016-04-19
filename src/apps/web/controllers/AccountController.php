@@ -215,6 +215,11 @@ class AccountController extends PublicSiteControllerBase
         ]);
     }
 
+    public function withDrawAction()
+    {
+
+    }
+
     /**
      * @return \Phalcon\Mvc\View
      */
