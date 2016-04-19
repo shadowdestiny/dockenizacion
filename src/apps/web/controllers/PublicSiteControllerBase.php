@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\shared\helpers\PaginatedControllerTrait;
 use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\entities\Language;
@@ -17,7 +18,6 @@ use EuroMillions\web\services\UserPreferencesService;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\dto\CurrencyDTO;
 use Money\Currency;
-use Phalcon\Paginator\Adapter\NativeArray as PaginatorArray;
 
 
 /**
@@ -28,6 +28,9 @@ use Phalcon\Paginator\Adapter\NativeArray as PaginatorArray;
  */
 class PublicSiteControllerBase extends ControllerBase
 {
+
+    use PaginatedControllerTrait;
+
     /** @var LotteryService */
     protected $lotteryService;
     /** @var  LanguageService */
@@ -197,8 +200,6 @@ class PublicSiteControllerBase extends ControllerBase
     {
         //Vars draw closing modal
         $dateUtil = new DateTimeUtil();
-        //EMTD @rmrbest OJO NO TE DEJES ESTO
-       // $lottery_date_time = $this->domainServiceFactory->getLotteriesDataService()->getNextDateDrawByLottery('EuroMillions');
         $lottery_date_time = new \DateTime('2016-03-16 10:50:00');
         $time_to_remain = $dateUtil->getTimeRemainingToCloseDraw($lottery_date_time);
         if($time_to_remain) {
@@ -225,9 +226,7 @@ class PublicSiteControllerBase extends ControllerBase
             if($user->getShowModalWinning()) {
                 $this->view->setVar('show_modal_winning', true);
                 $user->setShowModalWinning(false);
-                $result = $this->userService->updateUser($user);
-                if(!$result->success()) {
-                }
+                $this->userService->updateUser($user);
             } else {
                 $this->view->setVar('show_modal_winning', false);
             }
@@ -236,16 +235,5 @@ class PublicSiteControllerBase extends ControllerBase
         }
     }
 
-    protected function getPaginatorAsArray(array $collection, $limit, $currentPage)
-    {
-        $paginator = new PaginatorArray(
-            [
-                'data' => $collection,
-                'limit' => $limit,
-                'page'  => $currentPage,
-            ]
-        );
-        return $paginator;
-    }
-
+ 
 }

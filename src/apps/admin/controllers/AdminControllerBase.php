@@ -5,13 +5,13 @@ namespace EuroMillions\admin\controllers;
 
 
 use EuroMillions\admin\services\DomainAdminServiceFactory;
+use EuroMillions\shared\helpers\PaginatedControllerTrait;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\View;
-use Phalcon\Paginator\Adapter\NativeArray as PaginatorArray;
 
 class AdminControllerBase extends Controller
 {
-
+    use PaginatedControllerTrait;
     /** @var  DomainAdminServiceFactory */
     protected $domainAdminServiceFactory;
 
@@ -24,26 +24,12 @@ class AdminControllerBase extends Controller
     {
         $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
     }
-    //EMTD discomment to protect session
-/*    public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
+
+    public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
         $auth_user_service = $this->domainAdminServiceFactory->getAuthUserService();
-        if($dispatcher->getControllerName() != 'login') {
-            if(!$auth_user_service->check_session()->success()){
-                return $this->response->redirect('admin/login/index');
-            }
+        if($dispatcher->getControllerName() !== 'login' && !$auth_user_service->check_session()->success()) {
+            return $this->response->redirect('/admin/login/index');
         }
-    }*/
-
-    protected function getPaginatorAsArray(array $collection, $limit, $currentPage)
-    {
-        $paginator = new PaginatorArray(
-                [
-                    'data' => $collection,
-                    'limit' => $limit,
-                    'page'  => $currentPage,
-                ]
-         );
-        return $paginator;
     }
 }
