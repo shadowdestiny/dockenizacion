@@ -61,13 +61,12 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
                 $item_date = "$year-$month-$day";
                 if ($item_date == $date) {
                     preg_match('/<b>([0-9]{2}) - ([0-9]{2}) - ([0-9]{2}) - ([0-9]{2}) - ([0-9]{2})<\/b> .* <b>([0-9]{2}) - ([0-9]{2})<\/b>/', $item->description, $result_matches);
+                    $convert_to_integers = function($n) {
+                          return intval($n, 10);
+                    };
                     $result = [];
-                    for($i=1; $i<=5; $i++) {
-                        $result['regular_numbers'][] = intval($result_matches[$i], 10);
-                    }
-                    for ($i=6; $i<=7; $i++) {
-                        $result['lucky_numbers'][] = intval($result_matches[$i],10);
-                    }
+                    $result['regular_numbers'] = array_map($convert_to_integers, array_slice($result_matches, 1, 5, false));
+                    $result['lucky_numbers'] = array_map($convert_to_integers, array_slice($result_matches, 6, 2, false));
                     return $result;
                 }
             }
@@ -95,8 +94,7 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
                 $item_date = "$year-$month-$day";
                 if ($item_date == $date) {
                     preg_match_all('/<td[^>]*>(.*?)<\/td>/', $xml->channel->item->description, $matches);
-                    $result = $this->sanetizeArrayResults(array_chunk($matches[1],4));
-                    return $result;
+                    return $this->sanetizeArrayResults(array_chunk($matches[1],4));
                 }
             }
         }
