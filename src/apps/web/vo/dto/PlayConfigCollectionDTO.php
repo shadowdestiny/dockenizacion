@@ -4,6 +4,7 @@
 namespace EuroMillions\web\vo\dto;
 
 
+use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IDto;
 use EuroMillions\web\vo\DrawDays;
@@ -14,7 +15,7 @@ use Money\Money;
 
 class PlayConfigCollectionDTO extends DTOBase implements IDto
 {
-
+    /** @var PlayConfig[] */
     private $playConfig;
 
     public $regular_numbers;
@@ -48,12 +49,12 @@ class PlayConfigCollectionDTO extends DTOBase implements IDto
     public $numPlayConfigs;
 
 
+/// EMTD @rmrbest Why there's no unit test over this class? For example, drawDays is declared as DrawDays type, but then you assign an integer to it... WTF?
 
-
-    public function __construct(array $playConfig, Money $single_bet_price = null)
+    public function __construct(array $playConfig, Money $single_bet_price)
     {
         $this->playConfig = $playConfig;
-        $this->single_bet_price = $single_bet_price ?: $single_bet_price;
+        $this->single_bet_price = $single_bet_price;
         $this->numPlayConfigs = count($playConfig) -1;
         $this->exChangeObject();
     }

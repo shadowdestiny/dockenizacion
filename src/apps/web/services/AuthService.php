@@ -71,6 +71,18 @@ class AuthService
         return $user;
     }
 
+    /**
+     * @return User
+     */
+    public function getLoggedUser()
+    {
+        if ($this->isLogged()) {
+            return $this->getCurrentUser();
+        } else {
+            throw new \EuroMillions\shared\exceptions\AccessNotAllowedForGuests('Restricted area');
+        }
+    }
+
     public function logout()
     {
         $this->logService->logOut($this->getCurrentUser());
@@ -126,7 +138,7 @@ class AuthService
     public function register(array $credentials)
     {
         if ($this->userRepository->getByEmail($credentials['email'])) {
-            return new ActionResult(false, 'Email already registered. Try to use a different email. Or have you <a href="user-access/forgotPassword">forgot your password?</a>');
+            return new ActionResult(false, 'Email already registered. Try to use a different email. Or have you <a href="/user-access/forgotPassword">forgot your password?</a>');
         }
         try {
             $user = $this->userRepository->register($credentials, $this->passwordHasher, new Md5EmailValidationToken());
@@ -145,7 +157,7 @@ class AuthService
             return new ActionResult(false, 'Error getting user');
         }
         if ($this->userRepository->getByEmail($credentials['email'])) {
-            return new ActionResult(false, 'Email already registered. Try to use a different email. Or have you <a href="user-access/forgotPassword">forgot your password?</a>');
+            return new ActionResult(false, 'Email already registered. Try to use a different email. Or have you <a href="/user-access/forgotPassword">forgot your password?</a>');
         }
         try {
             $user = $this->userRepository->registerFromCheckout($credentials, $userId, $this->passwordHasher, new Md5EmailValidationToken());
@@ -165,7 +177,7 @@ class AuthService
     private function getEmailValidationToken(Email $email, IEmailValidationToken $emailValidationTokenGenerator = null)
     {
         $emailValidationTokenGenerator = $this->getEmailValidationTokenGenerator($emailValidationTokenGenerator);
-        return $validationToken = new ValidationToken($email, $emailValidationTokenGenerator);
+        return new ValidationToken($email, $emailValidationTokenGenerator);
     }
 
     public function validateEmailToken($token, IEmailValidationToken $emailValidationTokenGenerator = null)
@@ -235,10 +247,10 @@ class AuthService
         }
     }
 
-    public function updatePassword(User $user, $new_password)
+    public function updatePassword(User $user, $newPassword)
     {
         try {
-            $password = new Password($new_password, $this->passwordHasher);
+            $password = new Password($newPassword, $this->passwordHasher);
             $user->setPassword($password);
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
@@ -276,85 +288,4 @@ class AuthService
         }
         return $emailValidationTokenGenerator;
     }
-
-
-//    /**
-//     * Check if the session has a remember me cookie
-//     *
-//     * @return boolean
-//     */
-//    public function hasRememberMe()
-//    {
-//        return $this->cookies->has('RMU');
-//    }
-
-//    /**
-//     * Returns the current identity
-//     *
-//     * @return array
-//     */
-//    public function getIdentity()
-//    {
-//        return $this->session->get(self::SESSION_VAR_NAME);
-//    }
-//    /**
-//     * Returns the current identity
-//     *
-//     * @return string
-//     */
-//    public function getName()
-//    {
-//        $identity = $this->session->get(self::SESSION_VAR_NAME);
-//        return $identity['name'];
-//    }
-//    /**
-//     * Removes the user identity information from session
-//     */
-//    public function remove()
-//    {
-//        if ($this->cookies->has('RMU')) {
-//            $this->cookies->get('RMU')->delete();
-//        }
-//        if ($this->cookies->has('RMT')) {
-//            $this->cookies->get('RMT')->delete();
-//        }
-//        $this->session->remove(self::SESSION_VAR_NAME);
-//    }
-//    /**
-//     * Auths the user by his/her id
-//     *
-//     * @param int $id
-//     */
-//    public function authUserById($id)
-//    {
-//        $user = $this->usersQueryDAO->getById($id);
-//        $this->session->set(self::SESSION_VAR_NAME, array(
-//            'id'   => $user->id,
-//            'name' => $user->name,
-//        ));
-//    }
-//    /**
-//     * Get the entity related to user in the active identity
-//     * @return User
-//     */
-//    public function getUser()
-//    {
-//        $identity = $this->session->get(self::SESSION_VAR_NAME);
-//        if (isset($identity['id'])) {
-//            $user = $this->usersQueryDAO->getById($identity['id']);
-//            return $user;
-//        }
-//        return false;
-//    }
-//    /**
-//     * @param User $user
-//     * @param $user_agent
-//     * @return string
-//     */
-//    private function getToken(User $user, $user_agent)
-//    {
-//        $token = md5($user->username . $user->password . $user_agent);
-//        return $token;
-//    }
-//}
 }

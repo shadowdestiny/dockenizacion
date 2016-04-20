@@ -54,6 +54,10 @@ class CartController extends PublicSiteControllerBase
     public function successAction(){}
     public function failAction(){}
 
+    /**
+     * @param null $paramsFromPreviousAction
+     * @return \Phalcon\Mvc\View
+     */
     public function indexAction($paramsFromPreviousAction = null)
     {
         $errors = null;
@@ -75,6 +79,10 @@ class CartController extends PublicSiteControllerBase
         ]);
     }
 
+    /**
+     * @param null $paramsFromPreviousAction
+     * @return \Phalcon\Mvc\View
+     */
     public function profileAction($paramsFromPreviousAction = null)
     {
         $errors = [];
@@ -85,11 +93,14 @@ class CartController extends PublicSiteControllerBase
         $sign_up_form = $this->getSignUpForm();
         list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
         $sign_in_form = new SignInForm();
-        //$myaccount_form = $this->getMyACcountForm();
         $form_errors = $this->getErrorsArray();
         if($this->request->isPost()) {
-            if ($sign_up_form->isValid($this->request->getPost()) == false) {
+            if ($sign_up_form->isValid($this->request->getPost()) === false) {
                 $messages = $sign_up_form->getMessages(true);
+                /**
+                 * @var string $field
+                 * @var Message\Group $field_messages
+                 */
                 foreach ($messages as $field => $field_messages) {
                     $errors[] = $field_messages[0]->getMessage();
                     $form_errors[$field] = ' error';
@@ -124,17 +135,21 @@ class CartController extends PublicSiteControllerBase
         ]);
     }
 
+    /**
+     * @param null $paramsFromPreviousAction
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface|\Phalcon\Mvc\View
+     */
     public function loginAction($paramsFromPreviousAction = null)
     {
         $errors = [];
         $sign_in_form = new SignInForm();
         $form_errors = $this->getErrorsArray();
         $sign_up_form = $this->getSignUpForm();
-        $userId = $this->authService->getCurrentUser();
+        $user = $this->authService->getCurrentUser();
         list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
 
         if ($this->request->isPost()) {
-            if ($sign_in_form->isValid($this->request->getPost()) == false) {
+            if ($sign_in_form->isValid($this->request->getPost()) === false) {
                 $messages = $sign_in_form->getMessages(true);
                 /**
                  * @var string $field
@@ -153,7 +168,7 @@ class CartController extends PublicSiteControllerBase
                 ) {
                     $errors[] = 'Incorrect email or password.';
                 } else {
-                    return $this->response->redirect('/cart/order?user='.$userId);
+                    return $this->response->redirect('/cart/order?user='.$user->getId());
                 }
             }
         }
@@ -181,7 +196,7 @@ class CartController extends PublicSiteControllerBase
         $card_holder_name = $this->request->getPost('card-holder');
         $expiry_date = $this->request->getPost('expiry-date');
         $cvv = $this->request->getPost('card-cvv');
-        $payWallet = $this->request->getPost('paywallet') == 'false' ? false : true;
+        $payWallet = $this->request->getPost('paywallet') !== 'false';
         $play_service = $this->domainServiceFactory->getPlayService();
         $errors = [];
         $user_id = $this->authService->getCurrentUser()->getId();
@@ -191,8 +206,8 @@ class CartController extends PublicSiteControllerBase
         $msg = '';
 
 
+        $order_view = true;
         if($this->request->isGet()) {
-            $order_view = true;
             $charge = $this->request->get('charge');
             $user = $this->userService->getUser($user_id);
             if( null != $user && isset($charge) ){
@@ -325,18 +340,18 @@ class CartController extends PublicSiteControllerBase
     /**
      * @param $user
      * @param $result
-     * @param $form_errors
+     * @param $formErrors
      * @param $msg
-     * @param $credit_card_form
+     * @param $creditCardForm
      * @return \Phalcon\Mvc\View
      */
     private function dataOrderView($user,
                                    $result,
-                                   $form_errors,
+                                   $formErrors,
                                    $msg,
-                                   $credit_card_form,
+                                   $creditCardForm,
                                    $errors,
-                                   $order_view = true)
+                                   $orderView = true)
     {
 
 
@@ -345,7 +360,7 @@ class CartController extends PublicSiteControllerBase
         $fee_value = $this->siteConfigService->getFeeValueWithCurrencyConverted($user_currency);
         $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValueWithCurrencyConverted($user_currency);
         $single_bet_price = $this->domainServiceFactory->getLotteryService()->getSingleBetPriceByLottery('EuroMillions');
-        if($order_view) {
+        if($orderView) {
             $order = new Order($result->returnValues(),$single_bet_price, $fee_value, $fee_to_limit_value); // order created
             $this->cartService->store($order);
         }
@@ -372,7 +387,7 @@ class CartController extends PublicSiteControllerBase
                                     ),
             'wallet_balance'   => $wallet_balance->getAmount() / 100,
             'total_price'      => $total_price->getAmount() / 100,
-            'form_errors'      => $form_errors,
+            'form_errors'      => $formErrors,
             'fee_limit'        => $fee_to_limit_value->getAmount() / 100,
             'fee'              => $fee_value->getAmount() / 100,
             'currency_symbol'  => $currency_symbol,
@@ -382,7 +397,7 @@ class CartController extends PublicSiteControllerBase
             'show_form_credit_card' => (!empty($errors)) ? true : false,
             'msg'              => [],
             'checked_wallet'   => $checked_wallet,
-            'credit_card_form' => $credit_card_form
+            'credit_card_form' => $creditCardForm
         ]);
     }
 

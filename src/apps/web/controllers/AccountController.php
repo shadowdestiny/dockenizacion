@@ -46,6 +46,8 @@ class AccountController extends PublicSiteControllerBase
         if($user_id instanceof GuestUser) {
             $this->response->redirect('/sign-in');
             return false;
+        } else {
+            return true;
         }
     }
 
@@ -104,7 +106,7 @@ class AccountController extends PublicSiteControllerBase
 
     public function transactionAction()
     {
-        $user = $this->authService->getCurrentUser();
+        $user = $this->authService->getLoggedUser();
         $transactionDtoCollection = $this->transactionService->getTransactionsDTOByUser( $user );
 
         $page = (!empty($this->request->get('page'))) ? $this->request->get('page') : 1;
@@ -140,28 +142,27 @@ class AccountController extends PublicSiteControllerBase
      */
     public function gamesAction()
     {
-        $user = $this->authService->getCurrentUser();
+        $user = $this->authService->getLoggedUser();
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions'));
         $single_bet_price = $this->domainServiceFactory->getLotteryService()->getSingleBetPriceByLottery('EuroMillions');
         $myGames = null;
         $playConfigInactivesDTOCollection = [];
         $message_actives = '';
         $message_inactives = '';
+        $playConfigDTO = null;
 
-        if(!empty($user)){
-            $myGamesActives = $this->userService->getMyActivePlays($user->getId());
-            if($myGamesActives->success()){
-                $myGames = $myGamesActives->getValues();
-                $playConfigDTO = new PlayConfigCollectionDTO($myGames, $single_bet_price);
-            }else{
-                $message_actives = $myGamesActives->errorMessage();
-            }
-            $myGamesInactives = $this->userService->getMyInactivePlays($user->getId());
-            if($myGamesInactives->success()){
-                $playConfigInactivesDTOCollection[] = new PlayConfigCollectionDTO($myGamesInactives->getValues(), $single_bet_price);
-            }else{
-                $message_inactives = $myGamesInactives->errorMessage();
-            }
+        $myGamesActives = $this->userService->getMyActivePlays($user->getId());
+        if($myGamesActives->success()){
+            $myGames = $myGamesActives->getValues();
+            $playConfigDTO = new PlayConfigCollectionDTO($myGames, $single_bet_price);
+        }else{
+            $message_actives = $myGamesActives->errorMessage();
+        }
+        $myGamesInactives = $this->userService->getMyInactivePlays($user->getId());
+        if($myGamesInactives->success()){
+            $playConfigInactivesDTOCollection[] = new PlayConfigCollectionDTO($myGamesInactives->getValues(), $single_bet_price);
+        }else{
+            $message_inactives = $myGamesInactives->errorMessage();
         }
         $this->view->pick('account/games');
         return $this->view->setVars([
@@ -209,6 +210,7 @@ class AccountController extends PublicSiteControllerBase
 
     public function withDrawAction()
     {
+        // EMTD @rmrbest: There are so many issues in this method, that it looks incompleted... even a var_dump with a die
         $user_id = $this->authService->getCurrentUser();
         $form_errors = $this->getErrorsArray();
         /** @var User $user */

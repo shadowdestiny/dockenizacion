@@ -45,7 +45,7 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
     /**
      * @param string $lotteryName
      * @param string $date
-     * @return array
+     * @return array[]
      */
     public function getResultForDate($lotteryName, $date)
     {
@@ -61,13 +61,12 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
                 $item_date = "$year-$month-$day";
                 if ($item_date == $date) {
                     preg_match('/<b>([0-9]{2}) - ([0-9]{2}) - ([0-9]{2}) - ([0-9]{2}) - ([0-9]{2})<\/b> .* <b>([0-9]{2}) - ([0-9]{2})<\/b>/', $item->description, $result_matches);
+                    $convert_to_integers = function($n) {
+                          return intval($n, 10);
+                    };
                     $result = [];
-                    for($i=1; $i<=5; $i++) {
-                        $result['regular_numbers'][] = intval($result_matches[$i], 10);
-                    }
-                    for ($i=6; $i<=7; $i++) {
-                        $result['lucky_numbers'][] = intval($result_matches[$i],10);
-                    }
+                    $result['regular_numbers'] = array_map($convert_to_integers, array_slice($result_matches, 1, 5, false));
+                    $result['lucky_numbers'] = array_map($convert_to_integers, array_slice($result_matches, 6, 2, false));
                     return $result;
                 }
             }
@@ -95,8 +94,7 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
                 $item_date = "$year-$month-$day";
                 if ($item_date == $date) {
                     preg_match_all('/<td[^>]*>(.*?)<\/td>/', $xml->channel->item->description, $matches);
-                    $result = $this->sanetizeArrayResults(array_chunk($matches[1],4));
-                    return $result;
+                    return $this->sanetizeArrayResults(array_chunk($matches[1],4));
                 }
             }
         }
@@ -147,33 +145,21 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
 
     private function translateMonth($string)
     {
-        switch ($string) {
-            case 'enero':
-                return '01';
-            case 'febrero':
-                return '02';
-            case 'marzo':
-                return '03';
-            case 'abril':
-                return '04';
-            case 'mayo':
-                return '05';
-            case 'junio':
-                return '06';
-            case 'julio':
-                return '07';
-            case 'agosto':
-                return '08';
-            case 'septiembre':
-                return '09';
-            case 'octubre':
-                return '10';
-            case 'noviembre':
-                return '11';
-            case 'diciembre':
-                return '12';
-            default:
-                return ''; //throw instead?
-        }
+        $translation_array = [
+            'enero' => '01',
+            'febrero' => '02',
+            'marzo' => '03',
+            'abril' => '04',
+            'mayo' => '05',
+            'junio' => '06',
+            'julio' => '07',
+            'agosto' => '08',
+            'septiembre' => '09',
+            'octubre' => '10',
+            'noviembre' => '11',
+            'diciembre' => '12',
+
+        ];
+        return $translation_array[$string];
     }
 }

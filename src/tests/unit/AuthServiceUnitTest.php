@@ -258,6 +258,34 @@ class AuthServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method getLoggedUser
+     * when called
+     * should returnUserInstanceWhenUserIsLogged
+     */
+    public function test_getLoggedUser_called_returnUserInstanceWhenUserIsLogged()
+    {
+        $expected = UserMother::anAlreadyRegisteredUser()->build();
+        $this->storageStrategy_double->getCurrentUserId()->willReturn($expected->getId());
+        $this->userRepository_double->find($expected->getId())->willReturn($expected);
+        $sut = $this->getSut();
+        $actual = $sut->getLoggedUser();
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * method getLoggedUser
+     * when calledWithoutAnUserLogged
+     * should throw
+     */
+    public function test_getLoggedUser_calledWithoutAnUserLogged_throw()
+    {
+        $this->setExpectedException('EuroMillions\shared\exceptions\AccessNotAllowedForGuests');
+        $this->storageStrategy_double->getCurrentUserId()->willReturn(null);
+        $sut = $this->getSut();
+        $sut->getLoggedUser();
+    }
+
+    /**
      * method isLogged
      * when called
      * should returnFalseIfCurrentUserIsGuestUserAndTrueIfCurrentUserIsUser
