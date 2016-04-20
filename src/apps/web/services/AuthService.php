@@ -138,7 +138,7 @@ class AuthService
     public function register(array $credentials)
     {
         if ($this->userRepository->getByEmail($credentials['email'])) {
-            return new ActionResult(false, 'Email already registered. Try to use a different email. Or have you <a href="user-access/forgotPassword">forgot your password?</a>');
+            return new ActionResult(false, 'Email already registered. Try to use a different email. Or have you <a href="/user-access/forgotPassword">forgot your password?</a>');
         }
         try {
             $user = $this->userRepository->register($credentials, $this->passwordHasher, new Md5EmailValidationToken());
@@ -157,7 +157,7 @@ class AuthService
             return new ActionResult(false, 'Error getting user');
         }
         if ($this->userRepository->getByEmail($credentials['email'])) {
-            return new ActionResult(false, 'Email already registered. Try to use a different email. Or have you <a href="user-access/forgotPassword">forgot your password?</a>');
+            return new ActionResult(false, 'Email already registered. Try to use a different email. Or have you <a href="/user-access/forgotPassword">forgot your password?</a>');
         }
         try {
             $user = $this->userRepository->registerFromCheckout($credentials, $userId, $this->passwordHasher, new Md5EmailValidationToken());
@@ -177,7 +177,7 @@ class AuthService
     private function getEmailValidationToken(Email $email, IEmailValidationToken $emailValidationTokenGenerator = null)
     {
         $emailValidationTokenGenerator = $this->getEmailValidationTokenGenerator($emailValidationTokenGenerator);
-        return $validationToken = new ValidationToken($email, $emailValidationTokenGenerator);
+        return new ValidationToken($email, $emailValidationTokenGenerator);
     }
 
     public function validateEmailToken($token, IEmailValidationToken $emailValidationTokenGenerator = null)
@@ -247,10 +247,10 @@ class AuthService
         }
     }
 
-    public function updatePassword(User $user, $new_password)
+    public function updatePassword(User $user, $newPassword)
     {
         try {
-            $password = new Password($new_password, $this->passwordHasher);
+            $password = new Password($newPassword, $this->passwordHasher);
             $user->setPassword($password);
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
