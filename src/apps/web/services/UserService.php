@@ -418,8 +418,8 @@ class UserService
             $amount = new Money((int) $data['amount'] * 100, new Currency('EUR'));
             $this->walletService->withDraw( $user, $amount);
         } catch ( \Exception $e ) {
-            return new ActionResult(false);
+            return new ActionResult(false,'Sorry it was a problem. Please try again');
         }
-        return new ActionResult(true);
+        return new ActionResult(true,'Your transaction was created correctly.');
     }
 }

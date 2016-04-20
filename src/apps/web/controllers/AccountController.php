@@ -219,7 +219,6 @@ class AccountController extends PublicSiteControllerBase
         $countries = $this->getCountries();
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $bank_account_form = new BankAccountForm($user, ['countries' => $countries] );
-        $wallet_dto = $this->domainServiceFactory->getWalletService()->getWalletDTO($user);
         $site_config_dto = $this->siteConfigService->getSiteConfigDTO($user->getUserCurrency(), $user->getLocale());
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
 
@@ -241,22 +240,24 @@ class AccountController extends PublicSiteControllerBase
                      'bank-swift' => $this->request->getPost('bank-swift'),
                      'amount' => $this->request->getPost('funds_value')
                 ]);
-
                 if($result->success()){
+                    $user = $this->userService->getUser($user_id->getId());
                     $msg = $result->getValues();
                 }else{
                     $errors[] = $result->errorMessage();
                 }
             }
         }
+
+        $wallet_dto = $this->domainServiceFactory->getWalletService()->getWalletDTO($user);
         $this->view->pick('account/wallet');
         return $this->view->setVars([
             'which_form' => 'withdraw',
             'form_errors' => $form_errors,
             'bank_account_form' => $bank_account_form,
             'user' => new UserDTO($user),
-            'errors' => $errors,
-            'msg' => [],
+            'errors' => empty($errors) ? [] : $errors,
+            'msg' => empty($msg) ? '' : $msg,
             'symbol' => $symbol,
             'credit_card_form' => $credit_card_form,
             'show_form_add_fund' => false,
