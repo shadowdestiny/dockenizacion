@@ -2,6 +2,9 @@
 
 namespace EuroMillions\web\vo\dto;
 
+use Money\Currency;
+use Money\Money;
+
 class WalletDTO
 {
 
@@ -11,6 +14,8 @@ class WalletDTO
     public $current_winnings;
     public $balance;
     public $winnings;
+    public $hasEnoughWinnings;
+    private $limitWithdrawWinning;
 
 
     public function __construct( $balance, $uploaded, $winnings, $current_winnings )
@@ -19,6 +24,7 @@ class WalletDTO
         $this->wallet_uploaded_amount = $uploaded;
         $this->wallet_winning_amount = $winnings;
         $this->current_winnings = mb_strpos($current_winnings, '0') == 1 ? null : $current_winnings;
+        $this->limitWithdrawWinning = new Money((int) 2500, new Currency('EUR'));
     }
 
     /**
@@ -85,5 +91,17 @@ class WalletDTO
         $this->winnings = $winnings;
     }
 
+    public function hasEnoughWinningsBalance( Money $amount )
+    {
+        $this->hasEnoughWinnings = $amount->greaterThan($this->limitWithdrawWinning);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHasEnoughWinnings()
+    {
+        return $this->hasEnoughWinnings;
+    }
 
 }

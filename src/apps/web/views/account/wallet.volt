@@ -70,11 +70,12 @@ $('#form-withdraw').on('submit',function(){
     e.preventDefault();
     }
     });
-var has_enough_winnings = '<?php echo empty($has_enough_winning_balance) ? false : true; ?>'
-    console.log(has_enough_winnings);
+var has_enough_winnings = '{{ wallet.hasEnoughWinnings }}'
 $('#funds_value').on('keyup',function(e){
     if($(this).val() >= 25 && has_enough_winnings) {
         $('label.submit').removeClass('gray').addClass('green');
+    } else {
+        $('label.submit').removeClass('green').addClass('gray');
     }
 });
 

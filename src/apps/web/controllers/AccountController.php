@@ -20,7 +20,6 @@ use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CreditCardCharge;
 use EuroMillions\web\vo\CVV;
 use EuroMillions\web\vo\dto\PlayConfigCollectionDTO;
-use EuroMillions\web\vo\dto\TransactionDTO;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\UserNotificationsDTO;
 use EuroMillions\web\vo\ExpiryDate;
@@ -180,10 +179,7 @@ class AccountController extends PublicSiteControllerBase
     public function walletAction()
     {
         $credit_card_form = new CreditCardForm();
-        $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
-        $countries = $geoService->countryList();
-        sort($countries);
-        $countries = array_combine(range(1, count($countries)), array_values($countries));
+        $countries = $this->getCountries();
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $form_errors = $this->getErrorsArray();
         $user_id = $this->authService->getCurrentUser();
@@ -218,10 +214,7 @@ class AccountController extends PublicSiteControllerBase
         /** @var User $user */
         $user = $this->userService->getUser($user_id->getId());
         $credit_card_form = new CreditCardForm();
-        $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
-        $countries = $geoService->countryList();
-        sort($countries);
-        $countries = array_combine(range(1, count($countries)), array_values($countries));
+        $countries = $this->getCountries();
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $bank_account_form = new BankAccountForm($user, ['countries' => $countries] );
         $wallet_dto = $this->domainServiceFactory->getWalletService()->getWalletDTO($user);
@@ -255,7 +248,6 @@ class AccountController extends PublicSiteControllerBase
             }
         }
         $this->view->pick('account/wallet');
-        var_dump(($user->getWallet()->getWinnings()->greaterThan(new Money(2500, new Currency('EUR')))));die();
         return $this->view->setVars([
             'which_form' => 'withdraw',
             'form_errors' => $form_errors,
@@ -267,7 +259,6 @@ class AccountController extends PublicSiteControllerBase
             'credit_card_form' => $credit_card_form,
             'show_form_add_fund' => false,
             'wallet' => $wallet_dto,
-            'has_enough_winning_balance' => ($user->getWallet()->getWinnings()->greaterThan(new Money(2500, new Currency('EUR')))) ? true : false,
             'show_box_basic' => false,
             'site_config' => $site_config_dto
         ]);
@@ -501,10 +492,7 @@ class AccountController extends PublicSiteControllerBase
      */
     private function getMyACcountForm($userId)
     {
-        $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
-        $countries = $geoService->countryList();
-        sort($countries);
-        $countries = array_combine(range(1, count($countries)), array_values($countries));
+        $countries = $this->getCountries();
         $user = $this->userService->getUser($userId);
         $user_dto = new UserDTO($user);
         return new MyAccountForm($user_dto,['countries' => $countries]);
@@ -573,6 +561,18 @@ class AccountController extends PublicSiteControllerBase
 
         $form->add($fund_value);
         return $form;
+    }
+
+    /**
+     * @return array
+     */
+    private function getCountries()
+    {
+        $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
+        $countries = $geoService->countryList();
+        sort($countries);
+        $countries = array_combine(range(1, count($countries)), array_values($countries));
+        return $countries;
     }
 
 }
