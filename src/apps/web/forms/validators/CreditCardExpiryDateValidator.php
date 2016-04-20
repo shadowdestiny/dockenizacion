@@ -3,41 +3,56 @@
 
 namespace EuroMillions\web\forms\validators;
 
-
+use Phalcon\Validation;
 use Phalcon\Validation\Message;
 use Phalcon\Validation\Validator;
-use Phalcon\Validation\ValidatorInterface;
 
-class CreditCardExpiryDateValidator extends Validator implements ValidatorInterface
+class CreditCardExpiryDateValidator extends Validator
 {
 
-    /**
-     * Executes the validation
-     *
-     * @param mixed $validation
-     * @param string $attribute
-     * @return bool
-     */
-    public function validate(\Phalcon\Validation $validation, $attribute)
+    public function validate(Validation $validation, $attribute, \DateTime $now = null)
     {
+        $today = $now ?: new \DateTime();
+        
+        $what = $this->getOption('what');
+        $with = $this->getOption('with');
+        return $this->$what($validation, $validation->getValue($attribute), $validation->getValue($with), $today);
+    }
 
-        $now =new \DateTime();
-        $date = explode('/', $validation->getValue($attribute));
-        if (count($date) > 1) {
-            if ((int)$date[0] < 1 || (int)$date[0] > 12 || strlen($date[1]) !== 4 || strlen($date[0]) !== 2 ) {
-                $validation->appendMessage(new Message('The expiration date is not valid.'));
-            }
-            $expires = \DateTime::createFromFormat('mY', $date[0] . $date[1]);
-            if ($expires < $now) {
-                $validation->appendMessage(new Message('The expiration date is expired.'));
-            }
-            $now_future = strtotime(date('Y', $now->getTimestamp()) . '+10 years');
-            if((int) $date[1] > (int) date('Y',$now_future) ) {
-                $validation->appendMessage(new Message('The expiration date is not valid.'));
-            }
-        } else {
-            $validation->appendMessage(new Message('The expiration date is not valid. Format should be "mm/yyyy".'));
+    private function month(Validation $validation, $month, $year, $today)
+    {
+        return
+            $this->validateValueBetween($validation, $month, 1, 12, 'month')
+            &&
+            $this->validateExpiryDate($validation, $month, $year, $today);
+    }
+
+    private function year(Validation $validation, $year, $month, $today)
+    {
+        return
+            $this->validateValueBetween($validation, $year, 0, 99, 'year')
+            &&
+            $this->validateExpiryDate($validation, $month, $year, $today);
+    }
+
+    private function validateValueBetween(Validation $validation, $valueString, $min, $max, $name)
+    {
+        $value = (int)$valueString;
+        if (!is_numeric($valueString) || $value < $min || $value > $max) {
+            $validation->appendMessage(new Message('The '.$name.' is not valid'));
+            return false;
         }
+        return true;
+    }
+
+    private function validateExpiryDate(Validation $validation, $month, $year, $today)
+    {
+        $expires = \DateTime::createFromFormat('my', $month.$year);
+        if ($expires < $today) {
+            $validation->appendMessage(new Message('The card is expired.'));
+            return false;
+        }
+        return true;
     }
 
 }
