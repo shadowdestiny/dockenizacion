@@ -93,7 +93,7 @@ class CreditCardForm extends Form
         ));
         $this->add($expiry_date_month);
 
-        $expiry_date_year = new Text('expiry-date-month', [
+        $expiry_date_year = new Text('expiry-date-year', [
             'placeholder' => 'yy',
             'autocomplete' => 'off'
         ] );

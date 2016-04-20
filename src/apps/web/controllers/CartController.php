@@ -194,7 +194,8 @@ class CartController extends PublicSiteControllerBase
         $funds_value = $this->request->getPost('funds');
         $card_number = $this->request->getPost('card-number');
         $card_holder_name = $this->request->getPost('card-holder');
-        $expiry_date = $this->request->getPost('expiry-date');
+        $expiry_date_month = $this->request->getPost('expiry-date-month');
+        $expiry_date_year = $this->request->getPost('expiry-date-year');
         $cvv = $this->request->getPost('card-cvv');
         $payWallet = $this->request->getPost('paywallet') !== 'false';
         $play_service = $this->domainServiceFactory->getPlayService();
@@ -246,7 +247,7 @@ class CartController extends PublicSiteControllerBase
                 $user = $this->userService->getUser($user_id);
                 if(null != $user ){
                     try {
-                        $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($expiry_date), new CVV($cvv));
+                        $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($expiry_date_month.'/'.$expiry_date_year), new CVV($cvv));
                         $amount = new Money((int) str_replace('.','',$funds_value), new Currency('EUR'));
                         $result = $play_service->play($user_id,$amount, $card,$payWallet);
                         if($result->success()) {
@@ -311,7 +312,8 @@ class CartController extends PublicSiteControllerBase
             'card-number' => '',
             'card-holder' => '',
             'card-cvv' => '',
-            'expiry-date' => '',
+            'expiry-date-month' => '',
+            'expiry-date-year' => '',
 
         ];
         return $form_errors;
