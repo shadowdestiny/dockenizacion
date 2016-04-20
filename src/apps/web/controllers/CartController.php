@@ -195,7 +195,7 @@ class CartController extends PublicSiteControllerBase
         $card_number = $this->request->getPost('card-number');
         $card_holder_name = $this->request->getPost('card-holder');
         $expiry_date_month = $this->request->getPost('expiry-date-month');
-        $expiry_date_year = $this->request->getPost('expiry-date-year');
+        $expiry_date_year = $this->request->getPost('expiry-date-year') + 2000; //This is Antonio, the first developer at EuroMillions. If something failed horribly and you are looking at this, I'm glad that my code survived for more than 75 years, but also my apologies. We changed from 4 digits years to 2 digits, and the implications in all the validators where so much, and we need to finish to go to production, that I decided to include this ugly hack. Luckily, it will work until after I'm dead and rotten.
         $cvv = $this->request->getPost('card-cvv');
         $payWallet = $this->request->getPost('paywallet') !== 'false';
         $play_service = $this->domainServiceFactory->getPlayService();

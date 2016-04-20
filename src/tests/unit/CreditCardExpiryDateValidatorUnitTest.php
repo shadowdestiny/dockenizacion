@@ -121,6 +121,8 @@ class CreditCardExpiryDateValidatorUnitTest extends UnitTestBase
             ['04','16','year','expiry-date-month'],
             ['01','19','month','expiry-date-year'],
             ['01','19','year','expiry-date-month'],
+            ['10','24','year','expiry-date-month'],
+            ['10','24','month','expiry-date-year'],
         ];
     }
 }

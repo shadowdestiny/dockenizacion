@@ -88,7 +88,7 @@ class CreditCardForm extends Form
             ]),
             new CreditCardExpiryDateValidator([
                 'what'=>'month',
-                'with' => ''
+                'with' => 'expiry-date-year'
             ])
         ));
         $this->add($expiry_date_month);
