@@ -126,6 +126,7 @@ class WalletService
                 $winnings = $this->currencyConversionService->toString($wallet->getWinnings(), $user->getLocale());
                 $wallet_dto->setBalance($balance);
                 $wallet_dto->setWinnings($winnings);
+                $wallet_dto->hasEnoughWinningsBalance($wallet->getWinnings());
                 return $wallet_dto;
             } catch ( \Exception $e ) {
                 return null;

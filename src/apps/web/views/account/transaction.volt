@@ -35,7 +35,6 @@
                             <th class="type">{{ language.translate("Transaction")}}</th>
                             <th class="movement">{{ language.translate("Movement")}}</th>
                             <th class="wallet">{{ language.translate("Balance")}}</th>
-                            <th class="winnings">{{ language.translate("Winnings")}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,7 +45,6 @@
                                 <td class="type">{{ transaction.transactionName }}</td>
                                 <td class="movement">{{ transaction.movement }}</td>
                                 <td class="wallet">{{ transaction.balance }}</td>
-                                <td class="winnings">{{ transaction.winnings }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

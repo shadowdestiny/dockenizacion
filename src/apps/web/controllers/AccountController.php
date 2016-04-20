@@ -180,10 +180,7 @@ class AccountController extends PublicSiteControllerBase
     public function walletAction()
     {
         $credit_card_form = new CreditCardForm();
-        $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
-        $countries = $geoService->countryList();
-        sort($countries);
-        $countries = array_combine(range(1, count($countries)), array_values($countries));
+        $countries = $this->getCountries();
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $form_errors = $this->getErrorsArray();
         $user_id = $this->authService->getCurrentUser();
@@ -219,13 +216,9 @@ class AccountController extends PublicSiteControllerBase
         /** @var User $user */
         $user = $this->userService->getUser($user_id->getId());
         $credit_card_form = new CreditCardForm();
-        $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
-        $countries = $geoService->countryList();
-        sort($countries);
-        $countries = array_combine(range(1, count($countries)), array_values($countries));
+        $countries = $this->getCountries();
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $bank_account_form = new BankAccountForm($user, ['countries' => $countries] );
-        $wallet_dto = $this->domainServiceFactory->getWalletService()->getWalletDTO($user);
         $site_config_dto = $this->siteConfigService->getSiteConfigDTO($user->getUserCurrency(), $user->getLocale());
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
 
@@ -247,28 +240,28 @@ class AccountController extends PublicSiteControllerBase
                      'bank-swift' => $this->request->getPost('bank-swift'),
                      'amount' => $this->request->getPost('funds_value')
                 ]);
-
                 if($result->success()){
+                    $user = $this->userService->getUser($user_id->getId());
                     $msg = $result->getValues();
                 }else{
                     $errors[] = $result->errorMessage();
                 }
             }
         }
+
+        $wallet_dto = $this->domainServiceFactory->getWalletService()->getWalletDTO($user);
         $this->view->pick('account/wallet');
-        var_dump(($user->getWallet()->getWinnings()->greaterThan(new Money(2500, new Currency('EUR')))));die();
         return $this->view->setVars([
             'which_form' => 'withdraw',
             'form_errors' => $form_errors,
             'bank_account_form' => $bank_account_form,
             'user' => new UserDTO($user),
-            'errors' => $errors,
-            'msg' => [],
+            'errors' => empty($errors) ? [] : $errors,
+            'msg' => empty($msg) ? '' : $msg,
             'symbol' => $symbol,
             'credit_card_form' => $credit_card_form,
             'show_form_add_fund' => false,
             'wallet' => $wallet_dto,
-            'has_enough_winning_balance' => ($user->getWallet()->getWinnings()->greaterThan(new Money(2500, new Currency('EUR')))) ? true : false,
             'show_box_basic' => false,
             'site_config' => $site_config_dto
         ]);
@@ -503,10 +496,7 @@ class AccountController extends PublicSiteControllerBase
      */
     private function getMyACcountForm($userId)
     {
-        $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
-        $countries = $geoService->countryList();
-        sort($countries);
-        $countries = array_combine(range(1, count($countries)), array_values($countries));
+        $countries = $this->getCountries();
         $user = $this->userService->getUser($userId);
         $user_dto = new UserDTO($user);
         return new MyAccountForm($user_dto,['countries' => $countries]);
@@ -576,6 +566,18 @@ class AccountController extends PublicSiteControllerBase
 
         $form->add($fund_value);
         return $form;
+    }
+
+    /**
+     * @return array
+     */
+    private function getCountries()
+    {
+        $geoService = $this->domainServiceFactory->getServiceFactory()->getGeoService();
+        $countries = $geoService->countryList();
+        sort($countries);
+        $countries = array_combine(range(1, count($countries)), array_values($countries));
+        return $countries;
     }
 
 }
