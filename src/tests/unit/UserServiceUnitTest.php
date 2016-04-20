@@ -525,7 +525,7 @@ class UserServiceUnitTest extends UnitTestBase
         $entityManager_stub->flush($user)->shouldBeCalled();
         $this->walletService_double->withDraw($user,$amount)->shouldBeCalled();
         $sut = $this->getSut();
-        $expected = new ActionResult(true);
+        $expected = new ActionResult(true,'Your transaction was created correctly.');
         $actual = $sut->createWithDraw( $user, $data );
         $this->assertEquals($expected,$actual);
     }

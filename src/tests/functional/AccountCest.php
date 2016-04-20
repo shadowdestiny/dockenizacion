@@ -93,11 +93,17 @@ class AccountCest
         $I->seeNumberOfElements('table.present tr', 1);
     }
 
+//    /**
+//     * @group active
+//     * @param FunctionalTester $I
+//     */
 //    public function seeCorrectlyMessageWhenIDoWithdraw( FunctionalTester $I )
 //    {
 //        $I->haveInSession('EM_current_user', $this->userId);
 //        $I->amOnPage('/account/wallet');
-//        $I->canSee('')
+//        $I->fillField('funds_value', 25);
+//        $I->click('Request Withdrawal');
+//        $I->canSee('Your transaction was created correctly.');
 //
 //    }
 }
