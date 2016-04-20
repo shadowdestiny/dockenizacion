@@ -145,33 +145,21 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
 
     private function translateMonth($string)
     {
-        switch ($string) {
-            case 'enero':
-                return '01';
-            case 'febrero':
-                return '02';
-            case 'marzo':
-                return '03';
-            case 'abril':
-                return '04';
-            case 'mayo':
-                return '05';
-            case 'junio':
-                return '06';
-            case 'julio':
-                return '07';
-            case 'agosto':
-                return '08';
-            case 'septiembre':
-                return '09';
-            case 'octubre':
-                return '10';
-            case 'noviembre':
-                return '11';
-            case 'diciembre':
-                return '12';
-            default:
-                return ''; //throw instead?
-        }
+        $translation_array = [
+            'enero' => '01',
+            'febrero' => '02',
+            'marzo' => '03',
+            'abril' => '04',
+            'mayo' => '05',
+            'junio' => '06',
+            'julio' => '07',
+            'agosto' => '08',
+            'septiembre' => '09',
+            'octubre' => '10',
+            'noviembre' => '11',
+            'diciembre' => '12',
+
+        ];
+        return $translation_array[$string];
     }
 }
