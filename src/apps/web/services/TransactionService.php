@@ -58,7 +58,7 @@ class TransactionService
                 $movement = $this->currencyConversionService->convert($transactionDTO->movement, new Currency('EUR'));
                 $balance = $this->currencyConversionService->convert($transactionDTO->balance, new Currency('EUR'));
                 $winnings = $this->currencyConversionService->convert($transactionDTO->winnings, new Currency('EUR'));
-                $transactionDTO->movement = $this->currencyConversionService->toString($movement, $user->getLocale());
+                $transactionDTO->movement = $transactionDTO->formatMovement($this->currencyConversionService->toString($movement, $user->getLocale()));
                 $transactionDTO->balance = $this->currencyConversionService->toString($balance, $user->getLocale());
                 $transactionDTO->winnings = $this->currencyConversionService->toString($winnings, $user->getLocale());
                 $transactionDtoCollection[] = $transactionDTO;

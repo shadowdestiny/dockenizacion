@@ -57,5 +57,15 @@ class TransactionDTO extends DTOBase implements IDto
         }
     }
 
+    public function formatMovement( $amount )
+    {
+        if( $this->transaction instanceof WinningsWithdrawTransaction )
+        {
+            return '-' . $amount;
+        }
+
+        return $amount;
+    }
+
 
 }
