@@ -21,7 +21,6 @@ var EmSelectDrawDate = React.createClass({
     render: function () {
 
         var disabled = !this.props.active;
-        var react_tooltip = <ReactTooltip type="light" id='select-draw-date'/>;
 
         var select = <EmSelect
             options={this.props.options}
@@ -31,15 +30,18 @@ var EmSelectDrawDate = React.createClass({
             useTextAsValue={false}
             disabled={disabled}/>;
 
+        var divStyle = {
+            display : 'inline-block',
+            margin: '2px'
+        }
         return (
-            <div className="col2">
-                <label className="label">First Draw
-                    <div data-for="select-draw-date" className="wrap" data-tip="When do you want to start to play the first draw?">
-                        <svg className="ico v-question-mark"><use xlinkHref="/w/svg/icon.svg#v-question-mark"></use></svg>
-                    </div>
-                </label>
-                {select}
-                {react_tooltip}
+            <div>
+                <div style={divStyle}>
+                    Buy for Draw
+                </div>
+                <div style={divStyle}>
+                    {select}
+                </div>
             </div>
         )
     }

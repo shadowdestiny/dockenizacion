@@ -131,7 +131,7 @@ class LotteryService
         return $lottery->getNextDrawDate($now);
     }
 
-    public function getRecurrentDrawDates($lotteryName, $iteration = 5, \DateTime $now = null)
+    public function getRecurrentDrawDates($lotteryName, $iteration = 12, \DateTime $now = null)
     {
         if (!$now) {
             $now = new \DateTime();

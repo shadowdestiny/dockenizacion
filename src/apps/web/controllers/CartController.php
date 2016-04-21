@@ -338,7 +338,7 @@ class CartController extends PublicSiteControllerBase
         }
     }
 
-    //EMTD refactor this function shit
+    //EMTD refactor this function, shit!!
     /**
      * @param $user
      * @param $result
