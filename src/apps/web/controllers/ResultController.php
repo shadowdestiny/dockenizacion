@@ -16,12 +16,9 @@ class ResultController extends PublicSiteControllerBase
         $user_id = $this->authService->getCurrentUser()->getId();
         /** @var User $user */
         $user = $this->userService->getUser($user_id);
-        //$play_service = $this->domainServiceFactory->getPlayService();
         $result_order = $this->cartService->get($user_id);
-//        $play_service->removeStorePlay($user_id);
-//        $play_service->removeStoreOrder($user_id);
-        $this->view->pick('/cart/success');
         $order_dto = new OrderDTO($result_order->getValues());
+        $this->view->pick('/cart/success');
         return $this->view->setVars([
             'order' => $order_dto,
             'user' => new UserDTO($user),
