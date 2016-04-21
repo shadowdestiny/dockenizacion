@@ -373,9 +373,10 @@ class CartController extends PublicSiteControllerBase
         $checked_wallet = $wallet_balance->getAmount() > 0 ? true : false;
         $play_config_dto->single_bet_price_converted = $this->currencyConversionService->convert($play_config_dto->single_bet_price, $user_currency);
         //convert to user currency
-        $total_price = $this->currencyConversionService->convert($play_config_dto->play_config_total_amount, $user_currency);
+        $total_price = $this->currencyConversionService->convert($play_config_dto->single_bet_price, $user_currency)->getAmount() * $play_config_dto->numPlayConfigs;
         $symbol_position = $this->currencyConversionService->getSymbolPosition($locale, $user_currency);
         $currency_symbol = $this->currencyConversionService->getSymbol($wallet_balance, $locale);
+        $ratio = $this->currencyConversionService->getRatio($play_config_dto->single_bet_price, $user_currency);
 
         return $this->view->setVars([
             'order'            => $play_config_dto,
@@ -388,8 +389,9 @@ class CartController extends PublicSiteControllerBase
                                         ]
                                     ),
             'wallet_balance'   => $wallet_balance->getAmount() / 100,
-            'total_price'      => $total_price->getAmount() / 100,
+            'total_price'      => $total_price / 100,
             'form_errors'      => $formErrors,
+            'ratio'            => $ratio,
             'fee_limit'        => $fee_to_limit_value->getAmount() / 100,
             'fee'              => $fee_value->getAmount() / 100,
             'currency_symbol'  => $currency_symbol,

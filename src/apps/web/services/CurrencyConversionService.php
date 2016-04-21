@@ -31,6 +31,14 @@ class CurrencyConversionService
         return $pair->convert($from);
     }
 
+    public function getRatio(Money $from, Currency $toCurrency)
+    {
+        $from_currency = $from->getCurrency();
+        $rate = $this->api->getRate($from_currency->getName(), $toCurrency->getName());
+        $pair = new CurrencyPair($from_currency, $toCurrency, $rate);
+        return $pair->getRatio();
+    }
+
     /**
      * @param Money $money
      * @param string $locale

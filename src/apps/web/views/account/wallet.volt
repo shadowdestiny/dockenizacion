@@ -88,6 +88,13 @@ $('#funds_value').on('keypress',function(e){
     }
 });
 
+$('#funds-value').on('keyup',function(){
+    var value = $(this).val();
+    $('.value.charge').text('{{ symbol }}' + value);
+    var convert = parseFloat(value).toFixed(2)/parseFloat(<?php echo $ratio; ?>).toFixed(2);
+    $('.value.convert').text('(€' + parseFloat(convert).toFixed(2)+ ')');
+});
+
 $('#funds-value').on('blur', function(e){
     var value = e.target.value;
     if(value == "" || typeof value == 'undefined'){

@@ -8,7 +8,7 @@ var EmTotalCart = new React.createClass({
 
 
     componentWillReceiveProps : function(newProps) {
-        $(document).trigger("totalPriceEvent", [ newProps.pricetopay ]);
+        $(document).trigger("totalPriceEvent", [ newProps.pricetopay, newProps.funds ]);
     },
 
     render : function ()

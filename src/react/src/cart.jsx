@@ -147,7 +147,7 @@ var CartPage = new React.createClass({
             this.state.new_balance = parseFloat(this.props.wallet_balance);
         }
 
-        $(document).trigger("totalPriceEvent", [ parseFloat(price).toFixed(2) ]);
+        $(document).trigger("totalPriceEvent", [ parseFloat(price).toFixed(2), Funds.funds_value ]);
         CurrencyFormat.value = price;
         var price_and_symbol = CurrencyFormat.getCurrencyFormatted();
         this.setState({ total : price_and_symbol });
@@ -238,7 +238,7 @@ var CartPage = new React.createClass({
                     <EmLineOrderConfig config={this.props.config} playConfig={_playConfigList} pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration}/>
                     {line_fee_component}
                 </div>
-                <EmTotalCart pricetopay={this.state.total} total_price={pre_total_symbol} />
+                <EmTotalCart pricetopay={this.state.total} funds={Funds.funds_value} total_price={pre_total_symbol} />
                 {wallet_component}
                 <EmBtnPayment  href={href_payment} databtn={data_btn} price={price_txt_btn} classBtn={class_button_payment} text={txt_button_payment}/>
             </div>

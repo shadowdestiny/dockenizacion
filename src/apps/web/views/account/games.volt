@@ -69,7 +69,7 @@
                             {#</th>#}
                         </thead>
                         <tbody>
-                            {% for index in 0..my_games_actives.numPlayConfigs %}
+                            {% for index in 0..my_games_actives.numPlayConfigs-1 %}
                                 <?php $game = $my_games_actives->get($index); ?>
                                 <tr>
                                     <td class="date">

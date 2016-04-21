@@ -55,7 +55,7 @@ class PlayConfigCollectionDTO extends DTOBase implements IDto
     {
         $this->playConfig = $playConfig;
         $this->single_bet_price = $single_bet_price;
-        $this->numPlayConfigs = count($playConfig) -1;
+        $this->numPlayConfigs = count($playConfig);
         $this->exChangeObject();
     }
 
