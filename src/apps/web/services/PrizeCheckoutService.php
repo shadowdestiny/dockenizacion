@@ -17,7 +17,7 @@ use EuroMillions\web\services\email_templates_strategies\WinEmailAboveDataEmailT
 use Money\Currency;
 use Money\Money;
 
-class PriceCheckoutService
+class PrizeCheckoutService
 {
 
     private $entityManager;

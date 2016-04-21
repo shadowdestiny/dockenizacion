@@ -6,12 +6,12 @@ namespace EuroMillions\tests\integration;
 
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\User;
-use EuroMillions\web\services\PriceCheckoutService;
+use EuroMillions\web\services\PrizeCheckoutService;
 use Money\Currency;
 use Money\Money;
 use EuroMillions\tests\base\DatabaseIntegrationTestBase;
 
-class PriceCheckoutServiceIntegrationTest extends DatabaseIntegrationTestBase
+class PrizeCheckoutServiceIntegrationTest extends DatabaseIntegrationTestBase
 {
 
     /**
@@ -41,7 +41,7 @@ class PriceCheckoutServiceIntegrationTest extends DatabaseIntegrationTestBase
         /** @var User $user */
         $user = $userRepository->getByEmail($email);
         $amount = new Money(6000, new Currency('EUR'));
-        $sut = new PriceCheckoutService(
+        $sut = new PrizeCheckoutService(
             $this->entityManager, $this->getServiceDouble('CurrencyConversionService')->reveal(), $this->getServiceDouble('UserService')->reveal(), $this->getServiceDouble('EmailService')->reveal()
         );
         $sut->reChargeAmountAwardedToUser($user,$amount);
