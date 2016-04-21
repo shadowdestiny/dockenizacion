@@ -63,6 +63,11 @@ class TransactionDTO extends DTOBase implements IDto
         {
             return '-' . $amount;
         }
+        if( $this->transaction instanceof TicketPurchaseTransaction )
+        {
+            return '-' . $amount;
+        }
+
 
         return $amount;
     }

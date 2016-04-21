@@ -43,7 +43,7 @@
                             <tr>
                                 <td class="date">{{ transaction.date }}</td>
                                 <td class="type">{{ transaction.transactionName }}</td>
-                                <td class="movement" {% if transaction.transactionName == 'Winning Withdraw'%}style="color:#c22"{% endif %}>
+                                <td class="movement" {% if transaction.transactionName == 'Winning Withdraw' or transaction.transactionName == 'Ticket Purchase' %}style="color:#c22"{% endif %}>
                                     {{ transaction.movement }}
                                 </td>
                                 <td class="wallet">{{ transaction.balance }}</td>
