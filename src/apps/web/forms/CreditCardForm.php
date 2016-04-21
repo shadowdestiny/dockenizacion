@@ -77,20 +77,37 @@ class CreditCardForm extends Form
         ));
         $this->add($card_cvv);
 
-        $expiry_date = new Text('expiry-date', [
-            'placeholder' => 'mm/yyyy',
+        $expiry_date_month = new Text('expiry-date-month', [
+            'placeholder' => 'mm',
             'autocomplete' => 'off'
         ] );
 
-        $expiry_date->addValidators(array(
-            new PresenceOf(array(
+        $expiry_date_month->addValidators(array(
+            new PresenceOf([
                 'message' => 'Insert an expiry date valid.'
-            )),
-            new CreditCardExpiryDateValidator(array(
-
-            ))
+            ]),
+            new CreditCardExpiryDateValidator([
+                'what'=>'month',
+                'with' => 'expiry-date-year'
+            ])
         ));
-        $this->add($expiry_date);
+        $this->add($expiry_date_month);
+
+        $expiry_date_year = new Text('expiry-date-year', [
+            'placeholder' => 'yy',
+            'autocomplete' => 'off'
+        ] );
+
+        $expiry_date_year->addValidators(array(
+            new PresenceOf([
+                'message' => 'Insert an expiry date valid.'
+            ]),
+            new CreditCardExpiryDateValidator([
+                'what'=>'year',
+                'with' => 'expiry-date-month'
+            ])
+        ));
+        $this->add($expiry_date_year);
 
         $csrf = new Hidden('csrf');
         $csrf->addValidator(new Identical(array(

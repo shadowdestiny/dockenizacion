@@ -277,7 +277,8 @@ class AccountController extends PublicSiteControllerBase
         $funds_value = (int) $this->request->getPost('funds-value');
         $card_number = $this->request->getPost('card-number');
         $card_holder_name = $this->request->getPost('card-holder');
-        $expiry_date = $this->request->getPost('expiry-date');
+        $expiry_date_month = $this->request->getPost('expiry-date-month');
+        $expiry_date_year = $this->request->getPost('expiry-date-year');
         $cvv = $this->request->getPost('card-cvv');
         $user_id = $this->authService->getCurrentUser();
         /** User $user */
@@ -302,7 +303,7 @@ class AccountController extends PublicSiteControllerBase
             }else {
                 if(null != $user ){
                     try {
-                        $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($expiry_date), new CVV($cvv));
+                        $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($expiry_date_month.'/'.$expiry_date_year), new CVV($cvv));
                         $wallet_service = $this->domainServiceFactory->getWalletService();
                         /** @var ICardPaymentProvider $payXpertCardPaymentStrategy */
                         $payXpertCardPaymentStrategy = $this->di->get('paymentProviderFactory');
@@ -523,7 +524,8 @@ class AccountController extends PublicSiteControllerBase
             'card-holder' => '',
             'card-cvv' => '',
             'funds-value' => '',
-            'expiry-date' => '',
+            'expiry-date-month' => '',
+            'expiry-date-year' => '',
             'new-password' => '',
             'confirm-password' => '',
             'name' => '',
