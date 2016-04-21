@@ -22,6 +22,10 @@ class UserDTO extends DTOBase implements IDto
     public $street;
     public $phone_number;
     public $country;
+    public $bankName;
+    public $bankAccount;
+    public $bankSwift;
+
 
     public function __construct(User $user)
     {
@@ -39,6 +43,10 @@ class UserDTO extends DTOBase implements IDto
         $this->street = $this->user->getStreet();
         $this->phone_number = $this->user->getPhoneNumber();
         $this->country = $this->user->getCountry();
+        $this->bankName = $this->user->getBankName();
+        $this->bankAccount = $this->user->getBankAccount();
+        $this->bankSwift = $this->user->getBankSwift();
+
     }
 
     public function toArray()

@@ -2,6 +2,8 @@
 namespace EuroMillions\admin\services;
 
 use EuroMillions\shared\components\PhalconSessionWrapper;
+use EuroMillions\web\services\CurrencyConversionService;
+use EuroMillions\web\services\factories\DomainServiceFactory;
 use Phalcon\DiInterface;
 
 class DomainAdminServiceFactory
@@ -28,5 +30,11 @@ class DomainAdminServiceFactory
     {
         return new MaintenanceDrawService($this->entityManager);
     }
+
+    public function getMaintenanceWithdrawService()
+    {
+        return new MaintenanceWithdrawService($this->entityManager);
+    }
+
 
 }

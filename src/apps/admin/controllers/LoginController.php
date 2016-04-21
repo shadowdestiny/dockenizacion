@@ -10,11 +10,11 @@ class LoginController extends AdminControllerBase
 {
     public function indexAction($paramsFromPreviousAction = null)
     {
+
         $auth_user_service = $this->domainAdminServiceFactory->getAuthUserService();
         $errors = [];
         $sign_in_form = new LoginForm();
         list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
-
         if ($this->request->isPost()) {
             if ($sign_in_form->isValid($this->request->getPost()) == false) {
                 $messages = $sign_in_form->getMessages(true);

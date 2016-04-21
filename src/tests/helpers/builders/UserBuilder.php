@@ -10,6 +10,7 @@ use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\ValidationToken;
 use Money\Currency;
+use Money\Money;
 
 class UserBuilder
 {
@@ -37,6 +38,8 @@ class UserBuilder
     private $phone_number;
     private $jackpot_reminder;
     private $playConfig;
+    private $winning_above;
+
 
 
     public static function aUser()
@@ -52,6 +55,7 @@ class UserBuilder
         $this->playConfig = new ArrayCollection();
         $this->validationToken = new ValidationToken($this->email, new Md5EmailValidationToken());
         $this->user_currency = new Currency(self::DEFAULT_USER_CURRENCY);
+        $this->winning_above = new Money((int) 0, new Currency(self::DEFAULT_USER_CURRENCY));
     }
 
     /**

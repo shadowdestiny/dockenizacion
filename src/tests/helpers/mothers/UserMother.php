@@ -61,6 +61,13 @@ class UserMother
             ->withId(UserBuilder::DEFAULT_ID);
     }
 
+    public static function aUserWithCurrency()
+    {
+        return self::getInitializedUser()
+            ->withCurrency(new Currency('EUR'));
+    }
+
+
     /**
      * @param IPasswordHasher $hasher
      * @return UserBuilder

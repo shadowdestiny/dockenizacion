@@ -46,7 +46,7 @@ cart success minimal
                     <div class="bg-ticket">
                         <div class="results">
                             *******************************<br>
-                            <span class="title">{{ user_currency['symbol'] }}{{ jackpot | number_format(0, ',', '.')}}</span>
+                            <span class="title">{{ jackpot }}</span>
                             <br>*******************************
                             <br>
                             {%  set lines = order.lines|json_decode %}

@@ -12,4 +12,9 @@ class StringHelper
         }
         return implode('_', $ret);
     }
+
+    public static function fromUnderscoreToCamelCase($input)
+    {
+        return str_replace('_', '', ucwords($input, '_'));
+    }
 }

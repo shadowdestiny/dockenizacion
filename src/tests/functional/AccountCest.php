@@ -14,7 +14,8 @@ class AccountCest
         $user = UserMother::aRegisteredUserWithEncryptedPassword()->build();
         $this->userName = $user->getName();
         $this->userId = $user->getId();
-        $I->haveInDatabase('users', $user->toArray());
+        $data = $user->toArray();
+        $I->haveInDatabase('users', $data);
     }
 
     public function _after(FunctionalTester $I)
@@ -99,11 +100,11 @@ class AccountCest
 //     */
 //    public function seeCorrectlyMessageWhenIDoWithdraw( FunctionalTester $I )
 //    {
+//        //$user = UserMother::aUserWith40EurWinnings()->build();
 //        $I->haveInSession('EM_current_user', $this->userId);
 //        $I->amOnPage('/account/wallet');
-//        $I->fillField('funds_value', 25);
-//        $I->click('Request Withdrawal');
-//        $I->canSee('Your transaction was created correctly.');
+//        $I->click('.withdraw');
+//        $I->canSee('Withdraw your winnings');
 //
 //    }
 }

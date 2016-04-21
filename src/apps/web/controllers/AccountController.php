@@ -183,9 +183,7 @@ class AccountController extends PublicSiteControllerBase
         $countries = $this->getCountries();
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $form_errors = $this->getErrorsArray();
-        $user_id = $this->authService->getCurrentUser();
-        /** @var User $user */
-        $user = $this->userService->getUser($user_id->getId());
+        $user = $this->authService->getLoggedUser();
         $bank_account_form = new BankAccountForm($user, ['countries' => $countries] );
         $site_config_dto = $this->siteConfigService->getSiteConfigDTO($user->getUserCurrency(), $user->getLocale());
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
