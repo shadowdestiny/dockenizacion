@@ -188,7 +188,7 @@ class AccountController extends PublicSiteControllerBase
         $site_config_dto = $this->siteConfigService->getSiteConfigDTO($user->getUserCurrency(), $user->getLocale());
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
         $wallet_dto = $this->domainServiceFactory->getWalletService()->getWalletDTO($user);
-        $ratio = $this->currencyConversionService->getRatio(new Money(0, new Currency('EUR')), $user->getUserCurrency());
+        $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user->getUserCurrency());
         $this->userService->resetWonAbove($user);
 
         return $this->view->setVars([

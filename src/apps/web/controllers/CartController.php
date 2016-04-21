@@ -376,7 +376,7 @@ class CartController extends PublicSiteControllerBase
         $total_price = $this->currencyConversionService->convert($play_config_dto->single_bet_price, $user_currency)->getAmount() * $play_config_dto->numPlayConfigs;
         $symbol_position = $this->currencyConversionService->getSymbolPosition($locale, $user_currency);
         $currency_symbol = $this->currencyConversionService->getSymbol($wallet_balance, $locale);
-        $ratio = $this->currencyConversionService->getRatio($play_config_dto->single_bet_price, $user_currency);
+        $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user_currency);
 
         return $this->view->setVars([
             'order'            => $play_config_dto,

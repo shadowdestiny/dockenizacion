@@ -31,11 +31,10 @@ class CurrencyConversionService
         return $pair->convert($from);
     }
 
-    public function getRatio(Money $from, Currency $toCurrency)
+    public function getRatio(Currency $from, Currency $toCurrency)
     {
-        $from_currency = $from->getCurrency();
-        $rate = $this->api->getRate($from_currency->getName(), $toCurrency->getName());
-        $pair = new CurrencyPair($from_currency, $toCurrency, $rate);
+        $rate = $this->api->getRate($from->getName(), $toCurrency->getName());
+        $pair = new CurrencyPair($from, $toCurrency, $rate);
         return $pair->getRatio();
     }
 
