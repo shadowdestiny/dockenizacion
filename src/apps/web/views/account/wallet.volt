@@ -227,7 +227,7 @@ $(function(){
                             <br>
                             <div class="right form-currency cl">
                                 <span class="currency">&euro;</span>
-                                {{ bank_account_form.render('funds_value', {'class':'input'~form_errors['funds_value']}) }}
+                                {{ bank_account_form.render('funds_value', {'class':'withdraw_amount input'~form_errors['funds_value']}) }}
                             </div>
                         </div>
                     </div>

@@ -6,6 +6,8 @@ use EuroMillions\web\entities\EntityBase;
 use EuroMillions\web\entities\Language;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\tests\base\UnitTestBase;
+use Money\Currency;
+use Money\Money;
 
 class EntityBaseUnitTest extends UnitTestBase
 {
@@ -84,10 +86,14 @@ class EntityBaseUnitTest extends UnitTestBase
         $expected->validated = $user->getValidated();
         $expected->validationToken = $user->getValidationToken();
         $expected->street = $user->getStreet();
+        $expected->user_currency = $user->getUserCurrency();
         $expected->zip = $user->getZip();
         $expected->city = $user->getCity();
         $expected->password = $user->getPassword();
         $expected->jackpotReminder = null;
+        $expected->phone_number = null;
+        $expected->show_modal_winning = null;
+        $expected->winning_above = new Money((int) 0, new Currency('EUR'));
         $expected->bankAccount = null;
         $expected->bankName = null;
         $expected->bankSwift = null;
@@ -127,7 +133,13 @@ class EntityBaseUnitTest extends UnitTestBase
             'bank_account'                   => null,
             'bank_swift'                     => null,
             'bank_user_name'                  => null,
-            'bank_surname'                   => null
+            'bank_surname'                   => null,
+            'phone_number'                   => null,
+            'show_modal_winning'             => null,
+            'user_currency_name'             => 'EUR',
+            'winning_above_amount'           => 0,
+            'winning_above_currency_name'           => 'EUR',
+
         ];
         $this->assertEquals($expected, $user->toArray());
     }

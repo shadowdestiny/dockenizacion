@@ -79,7 +79,7 @@ class TransactionIntegrationTest extends DatabaseIntegrationTestBase
                 'SELECT t'
                 . ' FROM \EuroMillions\web\entities\Transaction t')
             ->getResult();
-        $this->assertCount(4,$actual);
+        $this->assertCount(6,$actual);
     }
 
     /**
@@ -151,6 +151,25 @@ class TransactionIntegrationTest extends DatabaseIntegrationTestBase
             ->getResult();
 
         $this->assertInstanceOf('EuroMillions\web\entities\TicketPurchaseTransaction',$actual[0]);
+
+    }
+
+    /**
+     * method getTransactionByType
+     * when called
+     * should returnCollectionWithRowsFromTransactionType
+     */
+    public function test_getTransactionByType_called_returnCollectionWithRowsFromTransactionType()
+    {
+        $class = 'EuroMillions\web\entities\WinningsWithdrawTransaction';
+        $actual = $this->entityManager
+            ->createQuery(
+                'SELECT t'
+                . ' FROM \EuroMillions\web\entities\Transaction t '
+                . ' where t INSTANCE OF '.$class )
+            ->getResult();
+
+        $this->assertEquals(2,count($actual));
 
     }
     

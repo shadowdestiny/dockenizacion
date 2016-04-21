@@ -21,7 +21,7 @@
     <div class="container">
         <div class="row">
             <div class="module module-login span4 offset4">
-                {{ form('admin/login/index') }}
+                {{ form('/admin/login/index') }}
                     <div class="module-head">
                         <h3>Log In</h3>
                     </div>

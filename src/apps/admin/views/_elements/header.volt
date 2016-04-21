@@ -20,6 +20,7 @@
                             <li><a href="/admin">Admin users</a></li>
                             <li><a href="/admin/users">Users</a></li>
                             <li><a href="/admin/draws">Draws &amp; Jackpot</a></li>
+                            <li><a href="/admin/withdraws">Manage Withdrawals</a></li>
                         </ul>
                     </li>
                     <li class=" dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">

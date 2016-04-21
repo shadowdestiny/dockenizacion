@@ -43,6 +43,7 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     protected $threshold;
     protected $userNotification;
     protected $show_modal_winning;
+    /** @var  Money */
     protected $winning_above;
     protected $bankName;
     protected $bankAccount;
@@ -55,7 +56,6 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
         $this->playConfig = new ArrayCollection();
         $this->userNotification = new ArrayCollection();
     }
-
 
     /**
      * @return mixed

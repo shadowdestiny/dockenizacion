@@ -15,6 +15,7 @@ class TransactionDTO extends DTOBase implements IDto
 {
 
     protected $transaction;
+    public $id;
     public $date;
     public $transactionName;
     public $movement;
@@ -23,6 +24,7 @@ class TransactionDTO extends DTOBase implements IDto
 
     public function __construct(Transaction $transaction)
     {
+        $transaction->fromString();
         $this->transaction = $transaction;
         $this->exChangeObject();
     }
@@ -34,6 +36,7 @@ class TransactionDTO extends DTOBase implements IDto
 
     public function exChangeObject()
     {
+        $this->id = $this->transaction->getId();
         $this->date = $this->transaction->getDate()->format('Y-m-d H:i:s');
         $this->transactionName = $this->getEntityType($this->transaction);
         $this->movement = $this->transaction->getWalletBefore()->getBalance()->subtract($this->transaction->getWalletAfter()->getBalance());
