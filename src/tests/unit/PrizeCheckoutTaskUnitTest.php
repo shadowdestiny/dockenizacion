@@ -10,7 +10,7 @@ use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
-use EuroMillions\web\tasks\PriceCheckoutTask;
+use EuroMillions\web\tasks\PrizeCheckoutTask;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsLine;
@@ -22,7 +22,7 @@ use Prophecy\Argument;
 use EuroMillions\tests\base\EuroMillionsResultRelatedTest;
 use EuroMillions\tests\base\UnitTestBase;
 
-class PriceCheckoutTaskUnitTest extends UnitTestBase
+class PrizeCheckoutTaskUnitTest extends UnitTestBase
 {
     use EuroMillionsResultRelatedTest;
 
@@ -40,7 +40,7 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
 
     private $playService_double;
 
-    private $priceCheckoutService_double;
+    private $PrizeCheckoutService_double;
 
     private $emailService_double;
 
@@ -63,7 +63,7 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
     {
         $this->lotteryDataService_double = $this->getServiceDouble('LotteryService');
         $this->playService_double = $this->getServiceDouble('PlayService');
-        $this->priceCheckoutService_double = $this->getServiceDouble('PriceCheckoutService');
+        $this->PrizeCheckoutService_double = $this->getServiceDouble('PrizeCheckoutService');
         $this->betRepository_double = $this->getRepositoryDouble('BetRepository');
         $this->emailService_double = $this->getServiceDouble('EmailService');
         $this->userService_double = $this->getServiceDouble('UserService');
@@ -75,19 +75,19 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
     /**
      * method checkout
      * when called
-     * should callchargeAmountAwardedToUserFromPriceCheckoutServiceOnceEachPlayConfigAwarded
+     * should callchargeAmountAwardedToUserFromPrizeCheckoutServiceOnceEachPlayConfigAwarded
      */
-    public function test_checkout_called_callchargeAmountAwardedToUserFromPriceCheckoutServiceOnceEachPlayConfigAwarded()
+    public function test_checkout_called_callchargeAmountAwardedToUserFromPrizeCheckoutServiceOnceEachPlayConfigAwarded()
     {
         $today = new \DateTime('2015-10-06');
         $lottery_name = 'EuroMillions';
         $user = $this->getUser();
         $result_awarded = $this->getPlayConfigsAwarded();
-        $this->priceCheckoutService_double->playConfigsWithBetsAwarded($today)->willReturn(new ActionResult(true,$result_awarded));
+        $this->PrizeCheckoutService_double->playConfigsWithBetsAwarded($today)->willReturn(new ActionResult(true,$result_awarded));
         $this->lotteryDataService_double->getBreakDownDrawByDate($lottery_name,$today)->willReturn(new ActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())));
-        $this->priceCheckoutService_double->reChargeAmountAwardedToUser($user,Argument::any())->willReturn(new ActionResult(true))->shouldBeCalledTimes(2);
-        $sut = new PriceCheckoutTask();
-        $sut->initialize($this->priceCheckoutService_double->reveal(), $this->lotteryDataService_double->reveal());
+        $this->PrizeCheckoutService_double->reChargeAmountAwardedToUser($user,Argument::any())->willReturn(new ActionResult(true))->shouldBeCalledTimes(2);
+        $sut = new PrizeCheckoutTask();
+        $sut->initialize($this->PrizeCheckoutService_double->reveal(), $this->lotteryDataService_double->reveal());
         $sut->checkoutAction($today);
     }
 
@@ -102,11 +102,11 @@ class PriceCheckoutTaskUnitTest extends UnitTestBase
         $lottery_name = 'EuroMillions';
         $user = $this->getUser();
         $result_awarded = $this->getPlayConfigsAwarded();
-        $this->priceCheckoutService_double->playConfigsWithBetsAwarded($today)->willReturn(new ActionResult(true,$result_awarded));
+        $this->PrizeCheckoutService_double->playConfigsWithBetsAwarded($today)->willReturn(new ActionResult(true,$result_awarded));
         $this->lotteryDataService_double->getBreakDownDrawByDate($lottery_name,$today)->willReturn(new ActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())));
-        $this->priceCheckoutService_double->reChargeAmountAwardedToUser($user,Argument::type('Money\Money'))->willReturn(new ActionResult(true))->shouldBeCalledTimes(2);
-        $sut = new PriceCheckoutTask();
-        $sut->initialize($this->priceCheckoutService_double->reveal(), $this->lotteryDataService_double->reveal());
+        $this->PrizeCheckoutService_double->reChargeAmountAwardedToUser($user,Argument::type('Money\Money'))->willReturn(new ActionResult(true))->shouldBeCalledTimes(2);
+        $sut = new PrizeCheckoutTask();
+        $sut->initialize($this->PrizeCheckoutService_double->reveal(), $this->lotteryDataService_double->reveal());
         $sut->checkoutAction($today);
     }
 

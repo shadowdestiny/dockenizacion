@@ -22,7 +22,7 @@ use EuroMillions\web\services\play_strategies\RedisPlayStorageStrategy;
 use EuroMillions\web\services\PlayService;
 use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\services\preferences_strategies\WebUserPreferencesStorageStrategy;
-use EuroMillions\web\services\PriceCheckoutService;
+use EuroMillions\web\services\PrizeCheckoutService;
 use EuroMillions\web\services\TransactionService;
 use EuroMillions\web\services\UserNotificationsService;
 use EuroMillions\web\services\UserPreferencesService;
@@ -161,9 +161,9 @@ class DomainServiceFactory
         );
     }
 
-    public function getPriceCheckoutService()
+    public function getPrizeCheckoutService()
     {
-        return new PriceCheckoutService(
+        return new PrizeCheckoutService(
             $this->entityManager, $this->getCurrencyConversionService(), $this->getUserService(), $this->serviceFactory->getEmailService()
         );
     }

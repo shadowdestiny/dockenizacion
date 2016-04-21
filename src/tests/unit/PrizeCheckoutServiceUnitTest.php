@@ -10,7 +10,7 @@ use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
-use EuroMillions\web\services\PriceCheckoutService;
+use EuroMillions\web\services\PrizeCheckoutService;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\Password;
@@ -21,7 +21,7 @@ use Prophecy\Argument;
 use EuroMillions\tests\base\EuroMillionsResultRelatedTest;
 use EuroMillions\tests\base\UnitTestBase;
 
-class PriceCheckoutServiceUnitTest extends UnitTestBase
+class PrizeCheckoutServiceUnitTest extends UnitTestBase
 {
 
     use EuroMillionsResultRelatedTest;
@@ -146,7 +146,7 @@ class PriceCheckoutServiceUnitTest extends UnitTestBase
 
 
     private function getSut(){
-        return new PriceCheckoutService(
+        return new PrizeCheckoutService(
             $this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal(), $this->userService_double->reveal(), $this->emailService_double->reveal()
         );
     }
