@@ -52,11 +52,15 @@
                     <table class="present cl table ui-responsive" data-role="table" data-mode="reflow">
                         <thead>
                             <th class="date">
-                                {{ language.translate("Game <span class='desktop'>played</span>") }}
+                                {{ language.translate("Lottery") }}
                             </th>
-                            <th class="when">
-                                {{ language.translate("Duration") }}
+                            <th class="date">
+                                {{ language.translate("Draw date") }}
                             </th>
+
+                            {#<th class="when">#}
+                                {#{{ language.translate("Duration") }}#}
+                            {#</th>#}
                             <th class="numbers">
                                 {{ language.translate("Numbers <span class='desktop'>played</span>") }}
                             </th>
@@ -65,7 +69,7 @@
                             {#</th>#}
                         </thead>
                         <tbody>
-                            {% for index in 0..my_games_actives.numPlayConfigs %}
+                            {% for index in 0..my_games_actives.numPlayConfigs-1 %}
                                 <?php $game = $my_games_actives->get($index); ?>
                                 <tr>
                                     <td class="date">
@@ -73,14 +77,16 @@
                                             <strong>{{ language.translate("Euromillions") }}</strong>
                                             <?php $startDrawDate = $game->startDrawDate;?>
                                             <?php $duration = $game->duration;?>
-                                            {{ startDrawDate }}
                                         </div>
                                     </td>
-                                    <td class="duration">
-                                        <div class="myCol">
-                                            <strong>{{ duration }}</strong>
-                                        </div>
+                                    <td>
+                                        {{ startDrawDate }}
                                     </td>
+                                    {#<td class="duration">#}
+                                        {#<div class="myCol">#}
+                                            {#<strong>{{ duration }}</strong>#}
+                                        {#</div>#}
+                                    {#</td>#}
                                     <td class="numbers">
                                         <div class="myCol">
                                             {#

@@ -17,7 +17,7 @@ use Phalcon\Validation\Validator\PresenceOf;
 class BankAccountForm extends Form
 {
 
-    public function initialize(User $entity, $options = null)
+    public function initialize($entity, $options = null)
     {
         $name = new Text('name', [
             'placeholder' => 'Name'
@@ -90,7 +90,7 @@ class BankAccountForm extends Form
         ]);
         $this->add($phone_number);
 
-        $amount = new Text('funds_value', [
+        $amount = new Text('amount', [
             'placeholder' => 'Insert an amount'
         ]);
 
@@ -101,7 +101,7 @@ class BankAccountForm extends Form
             new Numericality(array(
             )),
         ));
-
+        $amount->clear();
         $this->add($amount);
 
 

@@ -63,7 +63,7 @@ class AccountController extends PublicSiteControllerBase
             $this->view->disable();
             return $this->response->redirect('/sign-in');
         }
-        $user = $this->authService->getCurrentUser();
+        $user = $this->authService->getLoggedUser();
         $myaccount_form = $this->getMyACcountForm($user->getId());
         $myaccount_passwordchange_form = new MyAccountChangePasswordForm();
         if($this->request->isPost()) {
@@ -85,7 +85,7 @@ class AccountController extends PublicSiteControllerBase
                     'zip'      => (int) $this->request->getPost('zip'),
                     'city'     => $this->request->getPost('city'),
                     'phone_number' =>(int) $this->request->getPost('phone_number')
-                ]);
+                ], $user->getEmail());
                 if($result->success()){
                     $msg = $result->getValues();
                 }else{
@@ -188,6 +188,7 @@ class AccountController extends PublicSiteControllerBase
         $site_config_dto = $this->siteConfigService->getSiteConfigDTO($user->getUserCurrency(), $user->getLocale());
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
         $wallet_dto = $this->domainServiceFactory->getWalletService()->getWalletDTO($user);
+        $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user->getUserCurrency());
         $this->userService->resetWonAbove($user);
 
         return $this->view->setVars([
@@ -195,6 +196,7 @@ class AccountController extends PublicSiteControllerBase
             'form_errors' => $form_errors,
             'bank_account_form' => $bank_account_form,
             'user' => new UserDTO($user),
+            'ratio' => $ratio,
             'errors' => [],
             'msg' => [],
             'symbol' => $symbol,
@@ -208,7 +210,6 @@ class AccountController extends PublicSiteControllerBase
 
     public function withDrawAction()
     {
-        // EMTD @rmrbest: There are so many issues in this method, that it looks incompleted... even a var_dump with a die
         $user_id = $this->authService->getCurrentUser();
         $form_errors = $this->getErrorsArray();
         /** @var User $user */
@@ -219,6 +220,7 @@ class AccountController extends PublicSiteControllerBase
         $bank_account_form = new BankAccountForm($user, ['countries' => $countries] );
         $site_config_dto = $this->siteConfigService->getSiteConfigDTO($user->getUserCurrency(), $user->getLocale());
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
+        $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user->getUserCurrency());
 
         if($this->request->isPost()) {
             if ($bank_account_form->isValid($this->request->getPost()) == false) {
@@ -240,27 +242,30 @@ class AccountController extends PublicSiteControllerBase
                 ]);
                 if($result->success()){
                     $user = $this->userService->getUser($user_id->getId());
+                    $bank_account_form = new BankAccountForm($user, ['countries' => $countries] );
+                    $entity = $bank_account_form->getEntity();
+                    $entity->amount = '';
                     $msg = $result->getValues();
                 }else{
                     $errors[] = $result->errorMessage();
                 }
             }
         }
-
         $wallet_dto = $this->domainServiceFactory->getWalletService()->getWalletDTO($user);
         $this->view->pick('account/wallet');
         return $this->view->setVars([
-            'which_form' => 'withdraw',
+            'which_form' => 'wallet',
             'form_errors' => $form_errors,
             'bank_account_form' => $bank_account_form,
             'user' => new UserDTO($user),
             'errors' => empty($errors) ? [] : $errors,
             'msg' => empty($msg) ? '' : $msg,
             'symbol' => $symbol,
+            'ratio' => $ratio,
             'credit_card_form' => $credit_card_form,
             'show_form_add_fund' => false,
             'wallet' => $wallet_dto,
-            'show_box_basic' => false,
+            'show_box_basic' => true,
             'site_config' => $site_config_dto
         ]);
 
@@ -303,7 +308,7 @@ class AccountController extends PublicSiteControllerBase
             }else {
                 if(null != $user ){
                     try {
-                        $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($expiry_date_month.'/'.$expiry_date_year), new CVV($cvv));
+                        $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($expiry_date_month.'/'.'20'.$expiry_date_year), new CVV($cvv));
                         $wallet_service = $this->domainServiceFactory->getWalletService();
                         /** @var ICardPaymentProvider $payXpertCardPaymentStrategy */
                         $payXpertCardPaymentStrategy = $this->di->get('paymentProviderFactory');
@@ -538,7 +543,7 @@ class AccountController extends PublicSiteControllerBase
             'bank-name' => '',
             'bank-account' => '',
             'bank-swift' => '',
-            'funds_value' => ''
+            'amount' => ''
         ];
         return $form_errors;
     }

@@ -57,13 +57,15 @@ class WalletService
                     'walletAfter' => $user->getWallet(),
                     'now' => new \DateTime()
                 ];
-                $this->transactionService->storeTransaction(TransactionType::TICKET_PURCHASE,$dataTransaction);
+                $this->transactionService->storeTransaction(TransactionType::FUNDS_ADDED,$dataTransaction);
             } catch (\Exception $e) {
                 //EMTD Log and warn the admin
             }
         }
         return $payment_result;
     }
+
+
 
     public function payWithWallet(User $user, PlayConfig $playConfig, $transactionType, $data )
     {

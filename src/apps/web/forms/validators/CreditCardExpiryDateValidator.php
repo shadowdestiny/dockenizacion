@@ -13,7 +13,7 @@ class CreditCardExpiryDateValidator extends Validator
     public function validate(Validation $validation, $attribute, \DateTime $now = null)
     {
         $today = $now ?: new \DateTime();
-        
+
         $what = $this->getOption('what');
         $with = $this->getOption('with');
         return $this->$what($validation, $validation->getValue($attribute), $validation->getValue($with), $today);

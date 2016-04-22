@@ -88,7 +88,7 @@
                             <div class="row-fluid">
                                 <div class="span6">
                                     <label for="update-date">Date</label>
-                                    <input id="update-date" name="date" class="input" type="text" value="24 Apr 2015">
+                                    <input id="update-date" name="date" class="input" readonly type="text" value="24 Apr 2015">
                                     <label for="update-value">Jackpot Value</label>
                                     <span class="value">&euro;</span> <input id="update-value" name="jackpot" class="input in-value" type="text" value="5.035.400,20">
                                 </div>

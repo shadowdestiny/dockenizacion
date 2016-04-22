@@ -329,11 +329,11 @@ class LotteryServiceUnitTest extends UnitTestBase
         $now = new \DateTime('2015-11-25');
 
         $expected = [
-            ['0'=> '27 Nov 2015#5'],
-            ['0'=> '01 Dec 2015#2'],
-            ['0' => '04 Dec 2015#5'],
-            ['0' => '08 Dec 2015#2'],
-            ['0' => '11 Dec 2015#5']
+            ['0'=> 'Friday 27 November#5'],
+            ['0'=> 'Tuesday 01 December#2'],
+            ['0' => 'Friday 04 December#5'],
+            ['0' => 'Tuesday 08 December#2'],
+            ['0' => 'Friday 11 December#5'],
         ];
         $this->lotteryRepositoryDouble->findOneBy(['name' => 'EuroMillions'])->willReturn($lottery);
 

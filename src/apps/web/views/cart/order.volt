@@ -16,14 +16,29 @@
     var draw_days = '<?php echo $order->drawDays; ?>';
     var show_order_cart = true;
     var total_price_in_credit_card_form = 0;
+    var ratio = '<?php echo $ratio; ?>'
+    var total_in_eur = 0;
 
 
-    $(document).on("totalPriceEvent",{total: 0},
-    function(e, total) {
-    total_price_in_credit_card_form = 0;
-    $('.submit.big.green').text('Pay ' + total);
-    total_price_in_credit_card_form = total;
-    }
+
+    $(document).on("totalPriceEvent",{total: 0, param2: 0},function(e, total, param2) {
+            var total_text = '';
+            if(currency_symbol !== '€') {
+                var rest_total_from_funds = accounting.unformat(total.slice(1)) - accounting.unformat(param2);
+                var total_eur = accounting.unformat(rest_total_from_funds)/accounting.unformat(ratio);
+
+                console.log('total eur ' + accounting.toFixed(total_eur,2));
+                console.log('param2 ' + accounting.toFixed(param2,2));
+                var total_convert =  accounting.unformat(total_eur) + accounting.unformat(param2);//parseFloat(parseFloat(total_eur).toFixed(2) + parseFloat(param2).toFixed(2));
+                var t = accounting.toFixed(total_convert,2)
+                total_text = '(€'+t+')';
+            }
+            total_price_in_credit_card_form = 0;
+            $('.submit.big.green').text('');
+            console.log('pasa ' + total_text);
+            $('.submit.big.green').text('Pay ' + total + total_text);
+                total_price_in_credit_card_form = total;
+            }
     )
 
 
@@ -31,8 +46,12 @@
         $('.buy').on('click',function(){
             var value = $(this).data('btn');
             if(value == 'no-wallet') {
-                console.log(total_price_in_credit_card_form);
-                $('.submit.big.green').text('Pay ' + total_price_in_credit_card_form);
+                var total_text = '';
+                if(currency_symbol !== '€'){
+                    var total =  parseFloat(total_price_in_credit_card_form.slice(1)).toFixed(2)/parseFloat(ratio).toFixed(2);
+                    total_text = '(€'+parseFloat(total).toFixed(2)+')';
+                }
+                $('.submit.big.green').text('Pay ' + total_price_in_credit_card_form + total_text);
                 $('.payment').show();
                 $('.box-bottom').hide();
                 var $root = $('html, body');

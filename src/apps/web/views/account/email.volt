@@ -70,6 +70,7 @@
                          {# EMTD - We shouldn't do something about when notification is empty? Alessio #}
                         {% else %}
                             {% for i,notification in list_notifications %}
+                                {% if notification.id != 2 and notification.id != 3 %}
                                 <li>
                                     <label for="check{{ i }}">
                                         <input id="check{{ i }}" data-type="{{ notification.notification.notification_type }}" name="{{ notification.name }}" data-value="{{ notification.config_value }}" data-id="{{ notification.id }}" class="checkbox" type="checkbox" {% if notification.active == true %} checked="checked" {% endif %} data-role="none">
@@ -87,6 +88,7 @@
                                         <input name="config_value_{{ notification.name }}" id="amount-threshold" placeholder="{{ language.translate('Insert an amount') }}" type="text" value="{{ notification.config_value }}" class="input insert{% if error_form %}error{% endif %}"/>
                                     {% endif %}
                                 </li>
+                                {% endif %}
                             {% endfor %}
                         {% endif %}
                     </ul>

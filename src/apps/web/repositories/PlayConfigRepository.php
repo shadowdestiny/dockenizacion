@@ -99,7 +99,8 @@ class PlayConfigRepository extends RepositoryBase
                 . ' GROUP BY p.line.regular_number_one,'
                 . ' p.line.regular_number_two,p.line.regular_number_three, '
                 . ' p.line.regular_number_four,p.line.regular_number_five, '
-                . ' p.line.lucky_number_one, p.line.lucky_number_two ')
+                . ' p.line.lucky_number_one, p.line.lucky_number_two '
+                . ' ORDER BY p.startDrawDate DESC')
             ->setParameters(['user_id' => $userId, 'active' => $active])
             ->getResult();
         return $result;
