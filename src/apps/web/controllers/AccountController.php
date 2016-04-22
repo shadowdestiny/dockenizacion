@@ -306,7 +306,6 @@ class AccountController extends PublicSiteControllerBase
                     $errors[] = $field_messages[0]->getMessage();
                     $form_errors[$field] = ' error';
                 }
-                var_dump($errors);die();
             }else {
                 if(null != $user ){
                     try {
