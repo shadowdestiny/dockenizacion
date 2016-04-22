@@ -16,6 +16,7 @@ use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\vo\ContactFormInfo;
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\NotificationValue;
 use Exception;
 use Money\Currency;
@@ -161,13 +162,13 @@ class UserService
         }
     }
 
-    public function updateUserData(array $user_data)
+    public function updateUserData(array $user_data, Email $email)
     {
-        $user = $this->userRepository->getByEmail($user_data['email']);
+        $user = $this->userRepository->getByEmail($email->toNative());
 
         $user->setName($user_data['name']);
         $user->setSurname($user_data['surname']);
-        $user->setEmail($user_data['email']);
+        $user->setEmail($user->getEmail());
         $user->setCountry($user_data['country']);
         $user->setStreet($user_data['street']);
         $user->setZip($user_data['zip']);

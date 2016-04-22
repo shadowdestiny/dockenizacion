@@ -30,7 +30,7 @@ class CreditCardExpiryDateValidator extends Validator
     private function year(Validation $validation, $year, $month, $today)
     {
         return
-            $this->validateValueBetween($validation, $year, 0, 99, 'year')
+            $this->validateValueBetween($validation, $year, 2015, 9999, 'year')
             &&
             $this->validateExpiryDate($validation, $month, $year, $today);
     }
@@ -38,7 +38,7 @@ class CreditCardExpiryDateValidator extends Validator
     private function validateValueBetween(Validation $validation, $valueString, $min, $max, $name)
     {
         $value = (int)$valueString;
-        if (!is_numeric($valueString) || $value < $min || $value > $max) {
+        if (!is_numeric($valueString) || $value < $min || $value > $max ) {
             $validation->appendMessage(new Message('The '.$name.' is not valid'));
             return false;
         }
@@ -47,7 +47,7 @@ class CreditCardExpiryDateValidator extends Validator
 
     private function validateExpiryDate(Validation $validation, $month, $year, $today)
     {
-        $expires = \DateTime::createFromFormat('my', $month.$year);
+        $expires = \DateTime::createFromFormat('mY', $month.$year);
         if ($expires < $today) {
             $validation->appendMessage(new Message('The card is expired.'));
             return false;

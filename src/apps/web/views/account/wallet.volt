@@ -71,7 +71,7 @@ $('#form-withdraw').on('submit',function(){
     }
     });
 var has_enough_winnings = '{{ wallet.hasEnoughWinnings }}'
-$('#funds_value').on('keyup',function(e){
+$('#amount').on('keyup',function(e){
     if($(this).val() >= 25 && has_enough_winnings) {
         $('label.submit').removeClass('gray').addClass('green');
     } else {
@@ -79,7 +79,7 @@ $('#funds_value').on('keyup',function(e){
     }
 });
 
-$('#funds_value').on('keypress',function(e){
+$('#amount').on('keypress',function(e){
     var pattern = /^[0-9\.]+$/;
     var code = e.which
     var chr = String.fromCharCode(code);
@@ -234,7 +234,7 @@ $(function(){
                             <br>
                             <div class="right form-currency cl">
                                 <span class="currency">&euro;</span>
-                                {{ bank_account_form.render('funds_value', {'class':'withdraw_amount input insert'~form_errors['funds_value']}) }}
+                                {{ bank_account_form.render('amount', {'class':'withdraw_amount input insert'~form_errors['amount']}) }}
                             </div>
                         </div>
                     </div>

@@ -168,7 +168,7 @@ class UserServiceUnitTest extends UnitTestBase
         $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush(Argument::any())->shouldBeCalled();
         $sut = $this->getSut();
-        $actual = $sut->updateUserData($credentials);
+        $actual = $sut->updateUserData($credentials, new Email($credentials['email']));
         $this->assertEquals($expected, $actual);
     }
 
@@ -199,7 +199,7 @@ class UserServiceUnitTest extends UnitTestBase
         $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush(Argument::any())->willThrow('Exception');
         $sut = $this->getSut();
-        $actual = $sut->updateUserData($credentials);
+        $actual = $sut->updateUserData($credentials,new Email($credentials['email']));
         $this->assertEquals($expected, $actual);
     }
 
