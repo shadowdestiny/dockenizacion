@@ -90,9 +90,15 @@ $('#amount').on('keypress',function(e){
 
 $('#funds-value').on('keyup',function(){
     var value = $(this).val();
-    $('.value.charge').text('{{ symbol }}' + value);
-    var convert = parseFloat(value).toFixed(2)/parseFloat(<?php echo $ratio; ?>).toFixed(2);
-    $('.value.convert').text('(€' + parseFloat(convert).toFixed(2)+ ')');
+    if(value == '') value = 0.00;
+    if( '{{ symbol }}' !== '€'){
+        $('.charge').show();
+        $('.value.charge').text('{{ symbol }}' + parseFloat(value).toFixed(2));
+        var convert = parseFloat(value).toFixed(2)/parseFloat(<?php echo $ratio; ?>).toFixed(2);
+        $('.value.convert').text('(€' + parseFloat(convert).toFixed(2)+ ')');
+    } else {
+        $('.value.charge').text('{{ symbol }}' + parseFloat(value).toFixed(2));
+    }
 });
 
 $('#funds-value').on('blur', function(e){

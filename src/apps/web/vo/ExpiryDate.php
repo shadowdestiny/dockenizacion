@@ -19,6 +19,7 @@ class ExpiryDate extends StringLiteral
         $now = $now ?: new \DateTime();
         $date = explode('/', $expiryDate);
         if (count($date) > 1) {
+          //  $date[1] = '20'.$date[1];
             if ((int)$date[0] < 1 || (int)$date[0] > 12 || strlen($date[1]) !== 4|| strlen($date[0]) !== 2 ) {
                 throw new InvalidExpirationDateException('The expiration date is not valid.');
             }

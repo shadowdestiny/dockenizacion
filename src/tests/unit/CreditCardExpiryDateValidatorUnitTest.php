@@ -90,10 +90,10 @@ class CreditCardExpiryDateValidatorUnitTest extends UnitTestBase
     public function getCorrectButExpiredDates()
     {
         return [
-            ['01', '2016', 'month', 'expiry-date-year'],
-            ['01', '2016', 'year', 'expiry-date-month'],
-            ['10', '2015', 'month', 'expiry-date-year'],
-            ['10', '2015', 'year', 'expiry-date-month'],
+            ['01', '16', 'month', 'expiry-date-year'],
+            ['01', '16', 'year', 'expiry-date-month'],
+            ['10', '15', 'month', 'expiry-date-year'],
+            ['10', '15', 'year', 'expiry-date-month'],
         ];
     }
 
@@ -117,12 +117,12 @@ class CreditCardExpiryDateValidatorUnitTest extends UnitTestBase
     public function getCorrectExpiryDates()
     {
         return [
-            ['04','2016','month','expiry-date-year'],
-            ['04','2016','year','expiry-date-month'],
-            ['01','2019','month','expiry-date-year'],
-            ['01','2019','year','expiry-date-month'],
-            ['10','2024','year','expiry-date-month'],
-            ['10','2024','month','expiry-date-year'],
+            ['04','16','month','expiry-date-year'],
+            ['04','16','year','expiry-date-month'],
+            ['01','19','month','expiry-date-year'],
+            ['01','19','year','expiry-date-month'],
+            ['10','24','year','expiry-date-month'],
+            ['10','24','month','expiry-date-year'],
         ];
     }
 }

@@ -24,13 +24,18 @@
     $(document).on("totalPriceEvent",{total: 0, param2: 0},function(e, total, param2) {
             var total_text = '';
             if(currency_symbol !== '€') {
-                var rest_total_from_funds = parseFloat(total.slice(1)).toFixed(2) - parseFloat(param2).toFixed(2);
-                var total_eur = parseFloat(parseFloat(rest_total_from_funds).toFixed(2)/parseFloat(ratio).toFixed(2)).toFixed(2);
+                var rest_total_from_funds = accounting.unformat(total.slice(1)) - accounting.unformat(param2);
+                var total_eur = accounting.unformat(rest_total_from_funds)/accounting.unformat(ratio);
+
+                console.log('total eur ' + accounting.toFixed(total_eur,2));
+                console.log('param2 ' + accounting.toFixed(param2,2));
                 var total_convert =  accounting.unformat(total_eur) + accounting.unformat(param2);//parseFloat(parseFloat(total_eur).toFixed(2) + parseFloat(param2).toFixed(2));
-                total_text = '(€'+total_convert+')';
+                var t = accounting.toFixed(total_convert,2)
+                total_text = '(€'+t+')';
             }
             total_price_in_credit_card_form = 0;
             $('.submit.big.green').text('');
+            console.log('pasa ' + total_text);
             $('.submit.big.green').text('Pay ' + total + total_text);
                 total_price_in_credit_card_form = total;
             }
