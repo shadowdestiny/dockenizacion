@@ -387,39 +387,6 @@ class UserServiceUnitTest extends UnitTestBase
     }
 
     /**
-     * method userWonAbove
-     * when calledWithAmountLessLimit
-     * should returnActionResultFalseWith0Money
-     */
-    public function test_userWonAbove_calledWithAmountLessLimit_returnActionResultFalseWith0Money()
-    {
-        $user = UserMother::aUserWith50Eur()->build();
-        $expected = new ActionResult(false, new Money(0, $user->getUserCurrency()));
-        $money = new Money(100000, new Currency('EUR'));
-        $sut = $this->getSut();
-        $actual = $sut->userWonAbove($user, $money);
-        $this->assertEquals($expected, $actual);
-    }
-
-
-    /**
-     * method userWonAbove
-     * when called
-     * should updateUserRowAndReturnValueWon
-     */
-    public function test_userWonAbove_called_updateUserRowAndReturnValueWon()
-    {
-        $user = UserMother::aUserWith50Eur()->build();
-        $money = new Money(300000, new Currency('EUR'));
-        $this->userRepository_double->add($user)->shouldBeCalled();
-        $entityManager_stub = $this->getEntityManagerDouble();
-        $entityManager_stub->flush(Argument::type('EuroMillions\web\entities\User'))->shouldBeCalled();
-        $sut = $this->getSut();
-        $actual = $sut->userWonAbove($user, $money);
-        $this->assertEquals($money, $actual->getValues());
-    }
-
-    /**
      * method checkLongTermAndSendNotification
      * when userDontHaveLongTerm
      * should sendEmailNotification

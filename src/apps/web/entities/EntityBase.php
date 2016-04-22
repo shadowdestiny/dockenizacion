@@ -2,8 +2,15 @@
 namespace EuroMillions\web\entities;
 
 use EuroMillions\shared\helpers\StringHelper;
-use EuroMillions\shared\interfaces\IArraySerializable;
+use EuroMillions\web\entities\toArrayStrategies\CurrencyObjectToArrayStrategy;
+use EuroMillions\web\entities\toArrayStrategies\DateTimeObjectToArrayStrategy;
+use EuroMillions\web\entities\toArrayStrategies\EntityToArrayStrategy;
+use EuroMillions\web\entities\toArrayStrategies\MoneyObjectToArrayStrategy;
+use EuroMillions\web\entities\toArrayStrategies\NonObjectToArrayStrategy;
+use EuroMillions\web\entities\toArrayStrategies\StringLiteralToArrayStrategy;
+use EuroMillions\web\entities\toArrayStrategies\ValueObjectToArrayStrategy;
 use EuroMillions\web\exceptions\BadEntityInitializationException;
+use EuroMillions\web\interfaces\IToArrayStrategy;
 use Money\Currency;
 use Money\Money;
 
@@ -47,43 +54,37 @@ class EntityBase
 
     public function toArray()
     {
-        $object_as_array = (array) $this->toValueObject();
-        foreach($object_as_array as $property => $value) {
-            if (is_object($value)) {
-                $namespace = get_class($value);
-                if(strpos($namespace,'vo') !== false ) {
-                    /** @var IArraySerializable $value */
-                    unset($object_as_array[$property]);
-                    $object_as_array = array_merge($object_as_array, $value->toArray());
-                } else {
-                    $property_cache = $property;
-                    unset($object_as_array[$property]);
-                    $object_as_array = array_merge($object_as_array, $this->getStringValueFromObject($value,$property_cache));
-                }
-            }
-            $property_with_underscores = StringHelper::fromCamelCaseToUnderscore($property);
-            if ($property !== $property_with_underscores) {
-                unset($object_as_array[$property]);
-                $object_as_array[$property_with_underscores] = $value;
-            }
+        $object_as_array = (array)$this->toValueObject();
+        foreach ($object_as_array as $property => $value) {
+            $strategy = $this->getStrategy($value);
+            unset($object_as_array[$property]);
+            $object_as_array = array_merge($object_as_array, $strategy->getArray($property, $value));
         }
-
         return $object_as_array;
     }
 
-    //EMTD remove this method and create a strategy pattern
-    protected function getStringValueFromObject($value, $property)
+    /**
+     * @param $value
+     * @return IToArrayStrategy
+     */
+    private function getStrategy($value)
     {
-        if($value instanceof Currency) {
-            return [
-                'user_currency_name' => $value->getName()
-            ];
-        }
-        if($value instanceof Money) {
-            return [
-                $property.'_amount' => $value->getAmount(),
-                $property.'_currency_name' => $value->getCurrency()->getName()
-            ];
+        if (!is_object($value)) {
+            return new NonObjectToArrayStrategy();
+        } elseif (is_a($value, get_class())) {
+            return new EntityToArrayStrategy();
+        } elseif (strpos(get_class($value), 'vo') !== false) {
+            if (is_a($value, 'EuroMillions\web\vo\base\StringLiteral')) {
+                return new StringLiteralToArrayStrategy();
+            } else {
+                return new ValueObjectToArrayStrategy();
+            }
+        } elseif (is_a($value, 'Money\Currency')) {
+            return new CurrencyObjectToArrayStrategy();
+        } elseif (is_a($value, 'Money\Money')) {
+            return new MoneyObjectToArrayStrategy();
+        } elseif (is_a($value, 'DateTime')) {
+            return new DateTimeObjectToArrayStrategy();
         }
     }
 }

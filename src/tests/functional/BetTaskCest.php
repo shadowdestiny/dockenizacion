@@ -1,7 +1,4 @@
 <?php
-
-
-use EuroMillions\tests\helpers\builders\UserBuilder;
 use EuroMillions\tests\helpers\mothers\PlayConfigMother;
 use EuroMillions\tests\helpers\mothers\UserMother;
 
@@ -26,10 +23,9 @@ class BetTaskCest
     }
 
     /**
-     * @group active
      * @param FunctionalTester $I
      */
-    public function betsAreCreatedTest(FunctionalTester $I, \Page\Login $loginPage)
+    public function betsAreCreatedTest(FunctionalTester $I)
     {
 
         $user = UserMother::aUserWith50Eur()->build();

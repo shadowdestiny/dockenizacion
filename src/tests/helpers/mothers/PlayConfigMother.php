@@ -11,12 +11,17 @@ class PlayConfigMother
 
     public static function aPlayConfig()
     {
-        return self::getInitializedPlayConfig();
+        return PlayConfigBuilder::aPlayConfig();
     }
 
-    private static function getInitializedPlayConfig()
+    /**
+     * @param $user
+     * @return PlayConfigBuilder
+     */
+    public static function aPlayConfigSetForUser($user)
     {
-        return PlayConfigBuilder::aPlayConfig();
+        return PlayConfigBuilder::aPlayConfig()
+            ->withUser($user);
     }
 
 }

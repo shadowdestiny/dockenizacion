@@ -328,6 +328,7 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     public function awardPrize(Money $amount)
     {
         $this->wallet = $this->wallet->award($amount);
+        $this->setShowModalWinning(true);
     }
 
     public function reChargeWallet(Money $amount)

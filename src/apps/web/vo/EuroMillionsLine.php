@@ -1,8 +1,6 @@
 <?php
 namespace EuroMillions\web\vo;
 
-
-use EuroMillions\shared\helpers\StringHelper;
 use EuroMillions\shared\interfaces\IArraySerializable;
 use ReflectionClass;
 use ReflectionObject;
@@ -142,7 +140,7 @@ class EuroMillionsLine implements IArraySerializable
     {
         $properties = [];
         $reflect = new ReflectionClass($this);
-        $props = $reflect->getProperties( ReflectionProperty::IS_PROTECTED | ReflectionProperty::IS_PRIVATE );
+        $props = $reflect->getProperties( ReflectionProperty::IS_PROTECTED);
         foreach($props as $prop) {
             $property_name = $reflect->getProperty($prop->getName());
             $property_name->setAccessible(true);

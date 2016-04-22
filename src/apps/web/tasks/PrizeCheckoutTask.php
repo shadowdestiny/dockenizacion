@@ -45,7 +45,7 @@ class PrizeCheckoutTask extends TaskBase
                 if ($result_amount->getAmount() > 0) {
                     /** @var User $user */
                     $user = $play_config_and_count[0]->getUser();
-                    $this->PrizeCheckoutService->reChargeAmountAwardedToUser($user, $result_amount);
+                    $this->PrizeCheckoutService->awardUser($user, $result_amount);
                 }
             }
         }

@@ -44,7 +44,7 @@ class PrizeCheckoutServiceIntegrationTest extends DatabaseIntegrationTestBase
         $sut = new PrizeCheckoutService(
             $this->entityManager, $this->getServiceDouble('CurrencyConversionService')->reveal(), $this->getServiceDouble('UserService')->reveal(), $this->getServiceDouble('EmailService')->reveal()
         );
-        $sut->reChargeAmountAwardedToUser($user,$amount);
+        $sut->awardUser($user,$amount);
         $this->entityManager->detach($user);
         $user = $userRepository->getByEmail($email);
         $actual = $user->getBalance()->getAmount();

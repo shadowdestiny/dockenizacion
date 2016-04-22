@@ -3,7 +3,6 @@
 
 /**
  * Class HomepageCest
- * @group active
  */
 class HomepageCest
 {

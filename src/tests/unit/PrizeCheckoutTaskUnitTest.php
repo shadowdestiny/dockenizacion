@@ -85,7 +85,7 @@ class PrizeCheckoutTaskUnitTest extends UnitTestBase
         $result_awarded = $this->getPlayConfigsAwarded();
         $this->PrizeCheckoutService_double->playConfigsWithBetsAwarded($today)->willReturn(new ActionResult(true,$result_awarded));
         $this->lotteryDataService_double->getBreakDownDrawByDate($lottery_name,$today)->willReturn(new ActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())));
-        $this->PrizeCheckoutService_double->reChargeAmountAwardedToUser($user,Argument::any())->willReturn(new ActionResult(true))->shouldBeCalledTimes(2);
+        $this->PrizeCheckoutService_double->awardUser($user,Argument::any())->willReturn(new ActionResult(true))->shouldBeCalledTimes(2);
         $sut = new PrizeCheckoutTask();
         $sut->initialize($this->PrizeCheckoutService_double->reveal(), $this->lotteryDataService_double->reveal());
         $sut->checkoutAction($today);
@@ -104,7 +104,7 @@ class PrizeCheckoutTaskUnitTest extends UnitTestBase
         $result_awarded = $this->getPlayConfigsAwarded();
         $this->PrizeCheckoutService_double->playConfigsWithBetsAwarded($today)->willReturn(new ActionResult(true,$result_awarded));
         $this->lotteryDataService_double->getBreakDownDrawByDate($lottery_name,$today)->willReturn(new ActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())));
-        $this->PrizeCheckoutService_double->reChargeAmountAwardedToUser($user,Argument::type('Money\Money'))->willReturn(new ActionResult(true))->shouldBeCalledTimes(2);
+        $this->PrizeCheckoutService_double->awardUser($user,Argument::type('Money\Money'))->willReturn(new ActionResult(true))->shouldBeCalledTimes(2);
         $sut = new PrizeCheckoutTask();
         $sut->initialize($this->PrizeCheckoutService_double->reveal(), $this->lotteryDataService_double->reveal());
         $sut->checkoutAction($today);
