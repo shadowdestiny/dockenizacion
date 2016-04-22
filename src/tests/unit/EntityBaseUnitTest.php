@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\tests\unit;
 
+use EuroMillions\tests\helpers\mothers\PlayConfigMother;
 use EuroMillions\tests\helpers\mothers\UserMother;
 use EuroMillions\web\entities\EntityBase;
 use EuroMillions\web\entities\Language;
@@ -93,7 +94,7 @@ class EntityBaseUnitTest extends UnitTestBase
         $expected->jackpotReminder = null;
         $expected->phone_number = null;
         $expected->show_modal_winning = null;
-        $expected->winning_above = new Money((int) 0, new Currency('EUR'));
+        $expected->winning_above = new Money((int)0, new Currency('EUR'));
         $expected->bankAccount = null;
         $expected->bankName = null;
         $expected->bankSwift = null;
@@ -117,31 +118,61 @@ class EntityBaseUnitTest extends UnitTestBase
             'surname'                       => $user->getSurname(),
             'password'                      => $user->getPassword()->toNative(),
             'email'                         => $user->getEmail()->toNative(),
-            'remember_token'                 => null,
+            'remember_token'                => null,
             'wallet_uploaded_amount'        => $user->getWallet()->getUploaded()->getAmount(),
             'wallet_uploaded_currency_name' => $user->getWallet()->getUploaded()->getCurrency()->getName(),
             'wallet_winnings_amount'        => $user->getWallet()->getWinnings()->getAmount(),
             'wallet_winnings_currency_name' => $user->getWallet()->getWinnings()->getCurrency()->getName(),
             'country'                       => $user->getCountry(),
             'validated'                     => $user->getValidated(),
-            'validation_token'               => $user->getValidationToken(),
+            'validation_token'              => $user->getValidationToken(),
             'street'                        => $user->getStreet(),
             'zip'                           => $user->getZip(),
             'city'                          => $user->getCity(),
-            'jackpot_reminder'               => null,
-            'bank_name'                      => null,
-            'bank_account'                   => null,
-            'bank_swift'                     => null,
-            'bank_user_name'                  => null,
-            'bank_surname'                   => null,
-            'phone_number'                   => null,
-            'show_modal_winning'             => null,
-            'user_currency_name'             => 'EUR',
-            'winning_above_amount'           => 0,
-            'winning_above_currency_name'           => 'EUR',
+            'jackpot_reminder'              => null,
+            'bank_name'                     => null,
+            'bank_account'                  => null,
+            'bank_swift'                    => null,
+            'bank_user_name'                => null,
+            'bank_surname'                  => null,
+            'phone_number'                  => null,
+            'show_modal_winning'            => null,
+            'user_currency_name'            => 'EUR',
+            'winning_above_amount'          => 0,
+            'winning_above_currency_name'   => 'EUR',
 
         ];
         $this->assertEquals($expected, $user->toArray());
+    }
+
+    /**
+     * method toArray
+     * when calledWithEntitiesInTheMainEntity
+     * should returnProperObjectWithSubEntitiesIds
+     */
+    public function test_toArray_calledWithEntitiesInTheMainEntity_returnProperObjectWithSubEntitiesIds()
+    {
+        $user = UserMother::anAlreadyRegisteredUser()->build();
+        $play_config = PlayConfigMother::aPlayConfigSetForUser($user)->withId(1)->build();
+        $expected = [
+            'id'                        => 1,
+            'user_id'                   => '9098299B-14AC-4124-8DB0-19571EDABE55',
+            'line_regular_number_one'   => 7,
+            'line_regular_number_two'   => 15,
+            'line_regular_number_three' => 16,
+            'line_regular_number_four'  => 17,
+            'line_regular_number_five'  => 22,
+            'line_lucky_number_one'     => 1,
+            'line_lucky_number_two'     => 7,
+            'start_draw_date'           => "2015-09-10 00:00:00.000000",
+            'last_draw_date'            => "2015-09-30 00:00:00.000000",
+            'days_draw_days'            => '2',
+            'active'                    => 1,
+            'threshold'                 => null,
+            'frequency'                 => null,
+            'lottery_id'                => 1
+        ];
+        $this->assertEquals($expected, $play_config->toArray());
     }
 
 }

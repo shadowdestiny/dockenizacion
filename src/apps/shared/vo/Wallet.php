@@ -103,10 +103,10 @@ class Wallet implements IArraySerializable
     public function toArray()
     {
         return [
-            'wallet_uploaded_amount'        => $this->getUploaded()->getAmount(),
-            'wallet_uploaded_currency_name' => $this->getUploaded()->getCurrency()->getName(),
-            'wallet_winnings_amount'        => $this->getUploaded()->getAmount(),
-            'wallet_winnings_currency_name' => $this->getUploaded()->getCurrency()->getName(),
+            'uploaded_amount'        => $this->getUploaded()->getAmount(),
+            'uploaded_currency_name' => $this->getUploaded()->getCurrency()->getName(),
+            'winnings_amount'        => $this->getUploaded()->getAmount(),
+            'winnings_currency_name' => $this->getUploaded()->getCurrency()->getName(),
         ];
     }
 

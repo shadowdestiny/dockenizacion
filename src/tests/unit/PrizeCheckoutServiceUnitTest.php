@@ -121,7 +121,7 @@ class PrizeCheckoutServiceUnitTest extends UnitTestBase
         $this->emailService_double->sendTransactionalEmail(Argument::type('EuroMillions\web\entities\User'), Argument::type('EuroMillions\web\emailTemplates\IEmailTemplate'))->shouldBeCalled();
         $this->iDontCareAboutFlush();
         $sut = $this->getSut();
-        $actual = $sut->reChargeAmountAwardedToUser($user,$amount_awarded);
+        $actual = $sut->awardUser($user,$amount_awarded);
         $this->assertEquals($expected,$actual);
     }
 
@@ -139,7 +139,7 @@ class PrizeCheckoutServiceUnitTest extends UnitTestBase
         $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush($user)->willThrow(new \Exception('Error'));
         $sut = $this->getSut();
-        $actual = $sut->reChargeAmountAwardedToUser($user,$amount_awarded);
+        $actual = $sut->awardUser($user,$amount_awarded);
         $this->assertEquals($expected,$actual);
     }
 

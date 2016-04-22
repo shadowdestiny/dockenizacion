@@ -1,6 +1,5 @@
 <?php
 use EuroMillions\tests\helpers\builders\UserBuilder;
-use EuroMillions\tests\helpers\mothers\UserMother;
 /**
  * Class AccountCest
  */
@@ -11,11 +10,9 @@ class AccountCest
 
     public function _before(FunctionalTester $I)
     {
-        $user = UserMother::aRegisteredUserWithEncryptedPassword()->build();
+        $user = $I->setRegisteredUser();
         $this->userName = $user->getName();
         $this->userId = $user->getId();
-        $data = $user->toArray();
-        $I->haveInDatabase('users', $data);
     }
 
     public function _after(FunctionalTester $I)

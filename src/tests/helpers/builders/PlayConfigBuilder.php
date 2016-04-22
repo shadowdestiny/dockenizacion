@@ -27,7 +27,10 @@ class PlayConfigBuilder
     protected $threshold;
     protected $frequency;
     protected $lottery;
+    
+    const REGULAR_NUMBERS = [7, 16, 17, 22, 15];
 
+    const LUCKY_NUMBERS = [7, 1];
 
     public function __construct()
     {
@@ -49,7 +52,7 @@ class PlayConfigBuilder
         $this->user = $user;
         return $this;
     }
-
+    
     public function withId( $id )
     {
         $this->id = $id;
@@ -83,12 +86,12 @@ class PlayConfigBuilder
 
     private function getLine()
     {
-        $reg = [7, 16, 17, 22, 15];
+        $reg = self::REGULAR_NUMBERS;
         $regular_numbers = [];
         foreach ($reg as $regular_number) {
             $regular_numbers[] = new EuroMillionsRegularNumber($regular_number);
         }
-        $luck = [7, 1];
+        $luck = self::LUCKY_NUMBERS;
         $lucky_numbers = [];
         foreach ($luck as $lucky_number) {
             $lucky_numbers[] = new EuroMillionsLuckyNumber($lucky_number);
