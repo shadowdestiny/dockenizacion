@@ -8,10 +8,11 @@ class ValueObjectToArrayStrategy implements IToArrayStrategy
     /**
      * @param $property
      * @param $value
-     * @return array
+     * @return array<string,string>
      */
     public function getArray($property, $value)
     {
+        $result = [];
         $vo_array = $value->toArray();
         foreach ($vo_array as $key => $item) {
             $result[$property.'_'.$key] = $item;

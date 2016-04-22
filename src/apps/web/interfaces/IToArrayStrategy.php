@@ -6,7 +6,7 @@ interface IToArrayStrategy
     /**
      * @param $property
      * @param $value
-     * @return array
+     * @return array<string,string>
      */
     public function getArray($property, $value);
 }

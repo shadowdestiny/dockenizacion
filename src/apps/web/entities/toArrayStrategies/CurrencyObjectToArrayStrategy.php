@@ -10,7 +10,7 @@ class CurrencyObjectToArrayStrategy implements IToArrayStrategy
     /**
      * @param $property
      * @param Currency $value
-     * @return array
+     * @return array<string,string>
      */
     public function getArray($property, $value)
     {

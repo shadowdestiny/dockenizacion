@@ -10,7 +10,7 @@ class EntityToArrayStrategy implements IToArrayStrategy
     /**
      * @param $property
      * @param IEntity $value
-     * @return array
+     * @return array<string,string>
      */
     public function getArray($property, $value)
     {

@@ -8,8 +8,8 @@ class DateTimeObjectToArrayStrategy implements IToArrayStrategy
 {
     /**
      * @param $property
-     * @param $value
-     * @return array
+     * @param \DateTime $value
+     * @return array<string,string>
      */
     public function getArray($property, $value)
     {
