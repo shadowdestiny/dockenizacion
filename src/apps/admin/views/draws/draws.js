@@ -70,8 +70,8 @@ var ajaxFunctions = {
                     $.each(model.value.break_down,function(i,v){
                         $tr += '<tr>';
                         $tr += '<td class="match"><strong>'+ v.name+ '</strong></td>';
-                        $tr += '<td class="prize"><span class="value">&euro;</span> <input type="text" class="input" value="'+ v.lottery_prize+'"></td>';
-                        $tr += '<td class="winners"><input type="text" class="input" value="'+v.winners+'"></td>';
+                        $tr += '<td class="prize"><span class="value">&euro;</span> <input type="numeric" class="input" value="'+ v.lottery_prize+'"></td>';
+                        $tr += '<td class="winners"><input type="numeric" class="input" value="'+v.winners+'"></td>';
                         $tr += '</tr>';
                     });
                     $('.table-breakdown tbody').html('');

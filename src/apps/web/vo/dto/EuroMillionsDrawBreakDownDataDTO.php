@@ -23,6 +23,8 @@ class EuroMillionsDrawBreakDownDataDTO extends DTOBase implements IDto
 
     public $winners;
 
+    public $winners_formatted;
+
     public $numbers_corrected;
 
     public $stars_corrected;
@@ -137,6 +139,11 @@ class EuroMillionsDrawBreakDownDataDTO extends DTOBase implements IDto
     public function toJson()
     {
         return json_encode(json_decode(json_encode($this),TRUE));
+    }
+
+    public function getWinnersWithFormat()
+    {
+        $this->winners_formatted = str_replace(',','',trim($this->euroMillionsDrawBreakDownDataDTO->getWinners()));
     }
 
 }

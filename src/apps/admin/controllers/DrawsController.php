@@ -17,7 +17,7 @@ class DrawsController extends AdminControllerBase
     /** @var  MaintenanceDrawService */
     private $maintenanceDrawService;
 
-    CONST LIMIT = 1;
+    CONST LIMIT = 10;
 
     public function initialize()
     {

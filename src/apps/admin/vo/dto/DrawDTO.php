@@ -118,6 +118,7 @@ class DrawDTO extends DTOBase implements IDto
         $this->regular_numbers = $this->draw->getResult()->getRegularNumbersArray();
         $this->lucky_numbers = $this->draw->getResult()->getLuckyNumbersArray();
         $this->setBreakDown();
+
     }
 
     public function toArray()
@@ -136,6 +137,21 @@ class DrawDTO extends DTOBase implements IDto
     private function setBreakDown()
     {
         $this->break_down = new EuroMillionsDrawBreakDownDTO($this->draw->getBreakDown());
+    }
+
+    private function sanetizeWinnersBreakDown()
+    {
+        $this->break_down->category_one->winners = str_replace('.','',$this->break_down->category_one->winners);
+        $this->break_down->category_two->winners = str_replace('.','',$this->break_down->category_two->winners);
+        $this->break_down->category_three->winners = str_replace('.','',$this->break_down->category_three->winners);
+        $this->break_down->category_four->winners = str_replace('.','',$this->break_down->category_four->winners);
+        $this->break_down->category_five->winners = str_replace('.','',$this->break_down->category_five->winners);
+        $this->break_down->category_six->winners = str_replace('.','',$this->break_down->category_six->winners);
+        $this->break_down->category_seven->winners = str_replace('.','',$this->break_down->category_seven->winners);
+        $this->break_down->category_eight->winners = str_replace('.','',$this->break_down->category_eight->winners);
+        $this->break_down->category_nine->winners = str_replace('.','',$this->break_down->category_nine->winners);
+        $this->break_down->category_ten->winners = str_replace('.','',$this->break_down->category_ten->winners);
+        $this->break_down->category_eleven->winners = str_replace('.','',$this->break_down->category_elven->winners);
     }
 
 }
