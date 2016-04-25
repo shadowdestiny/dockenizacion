@@ -27,12 +27,11 @@
                 var rest_total_from_funds = accounting.unformat(total.slice(1)) - accounting.unformat(param2);
                 var total_eur = accounting.unformat(rest_total_from_funds)/accounting.unformat(ratio);
                 var total_convert =  accounting.unformat(total_eur) + accounting.unformat(param2);//parseFloat(parseFloat(total_eur).toFixed(2) + parseFloat(param2).toFixed(2));
-                var t = accounting.toFixed(total_convert,2)
-                total_text = '(€'+t+')';
+                var convert = accounting.toFixed(total_convert,2)
+                total_text = '(€'+convert+')';
             }
             total_price_in_credit_card_form = 0;
             $('.submit.big.green').text('');
-            console.log('pasa ' + total_text);
             $('.submit.big.green').text('Pay ' + total + total_text);
                 total_price_in_credit_card_form = total;
             }
@@ -45,8 +44,10 @@
             if(value == 'no-wallet') {
                 var total_text = '';
                 if(currency_symbol !== '€'){
-                    var total =  parseFloat(total_price_in_credit_card_form.slice(1)).toFixed(2)/parseFloat(ratio).toFixed(2);
-                    total_text = '(€'+parseFloat(total).toFixed(2)+')';
+                    var total_price = accounting.unformat(total_price_in_credit_card_form.slice(1));
+                    var total_convert =  accounting.unformat(total_price) / accounting.unformat(ratio);//parseFloat(parseFloat(total_eur).toFixed(2) + parseFloat(param2).toFixed(2));
+                   // var total =  parseFloat(total_price_in_credit_card_form.slice(1)).toFixed(2)/parseFloat(ratio).toFixed(2);
+                    total_text = '(€'+parseFloat(total_convert).toFixed(2)+')';
                 }
                 $('.submit.big.green').text('Pay ' + total_price_in_credit_card_form + total_text);
                 $('.payment').show();
