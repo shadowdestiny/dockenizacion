@@ -85,7 +85,7 @@
                                                     <a href="/admin//withdraws/update?id={{ withdraw.id }}&state=rejected" class="btn-danger btn">Rejected</a>
                                                     <a href="/admin//withdraws/update?id={{ withdraw.id }}&state=failed" class="btn btn-primary">Failed</a>
                                                 {% else %}
-                                                    <a href="javascript:void(0)" class="btn btn-primary">Pending</a>
+                                                    <a href="/admin/withdraws/update?id={{ withdraw.id }}&state=pending" class="btn btn-primary">Pending</a>
                                                 {% endif %}
                                             </td>
                                         </tr>

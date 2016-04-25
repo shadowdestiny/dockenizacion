@@ -26,9 +26,6 @@
             if(currency_symbol !== '€') {
                 var rest_total_from_funds = accounting.unformat(total.slice(1)) - accounting.unformat(param2);
                 var total_eur = accounting.unformat(rest_total_from_funds)/accounting.unformat(ratio);
-
-                console.log('total eur ' + accounting.toFixed(total_eur,2));
-                console.log('param2 ' + accounting.toFixed(param2,2));
                 var total_convert =  accounting.unformat(total_eur) + accounting.unformat(param2);//parseFloat(parseFloat(total_eur).toFixed(2) + parseFloat(param2).toFixed(2));
                 var t = accounting.toFixed(total_convert,2)
                 total_text = '(€'+t+')';
