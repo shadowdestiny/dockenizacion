@@ -16,7 +16,7 @@ class NumbersController extends PublicSiteControllerBase
     {
         $lotteryName = 'EuroMillions';
         $now = new \DateTime();
-        $draw_result = $this->lotteryService->getBreakDownDrawByDate($lotteryName,$now);
+        $draw_result = $this->lotteryService->getDrawWithBreakDownByDate($lotteryName,$now);
         $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions'));
         if($draw_result->success()) {

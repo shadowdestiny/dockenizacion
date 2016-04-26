@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\Criteria;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\interfaces\IEntity;
 use EuroMillions\web\interfaces\IUser;
-use EuroMillions\web\vo\DrawDays;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\RememberToken;
@@ -471,9 +470,7 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
      */
     public function getPlayConfigsFilteredForNextDraw( \DateTime $date )
     {
-        $drawDay = new DrawDays(date('w', $date->getTimestamp()));
         $criteria = Criteria::create()->where(Criteria::expr()->eq('active',1))
-            ->andWhere(Criteria::expr()->contains('days.days',$drawDay->value()))
             ->andWhere(Criteria::expr()->lt('startDrawDate',$date))
             ->andWhere(Criteria::expr()->gt('lastDrawDate',$date))
             ->orWhere(Criteria::expr()->eq('startDrawDate',$date))

@@ -68,4 +68,14 @@ class EuroMillionsDrawBreakDownData
         $this->winners = $winners;
     }
 
+    public function toArray()
+    {
+        return [
+            'name' => $this->getName(),
+            'winners' => $this->getWinners(),
+            'lottery_prize_amount' => $this->getLotteryPrize()->getAmount(),
+            'lottery_prize_currency_name' => $this->getLotteryPrize()->getCurrency()->getName()
+        ];
+    }
+
 }

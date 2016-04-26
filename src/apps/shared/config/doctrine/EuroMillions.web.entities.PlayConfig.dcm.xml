@@ -20,9 +20,7 @@
         <field name="lastDrawDate" type="date" nullable="true" column="last_draw_date"/>
         <field name="frequency" type="integer" nullable="true" column="frequency"/>
 
-        <embedded name="threshold" class="Money\Money" use-column-prefix="true" />
         <embedded name="line" class="EuroMillions\web\vo\EuroMillionsLine"/>
-        <embedded name="days" class="EuroMillions\web\vo\DrawDays" use-column-prefix="false"/>
         <one-to-many target-entity="EuroMillions\web\entities\Bet" mapped-by="bet"
                      field="bet">
         </one-to-many>

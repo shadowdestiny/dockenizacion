@@ -1,7 +1,10 @@
 <?php
 
 
+use EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother;
+use EuroMillions\tests\helpers\mothers\EuroMillionsLineMother;
 use EuroMillions\tests\helpers\mothers\PlayConfigMother;
+use EuroMillions\web\entities\Bet;
 
 class PrizeCheckoutTaskCest
 {
@@ -11,23 +14,33 @@ class PrizeCheckoutTaskCest
 
     public function _after(FunctionalTester $I)
     {
+        
     }
 
     /**
      * @param FunctionalTester $I
      * @group active
      */
-    public function winnersAreAwarded(FunctionalTester $I, $scenario)
+    public function winnersAreAwarded(FunctionalTester $I)
     {
-        $scenario->skip();
         /** @var \EuroMillions\web\entities\User $user */
         $user = $I->setRegisteredUser();
-        $playConfig = PlayConfigMother::aPlayConfigSetForUser($user)->build();
-        $play_config_array = $playConfig->toArray();
-        $I->haveInDatabase('play_configs', $play_config_array);
+        $playConfig = PlayConfigMother::aPlayConfigSetForUser($user)
+            ->withLine(EuroMillionsLineMother::anEuroMillionsLine())
+            ->withStartDrawDate(new DateTime('2016-01-01'))
+            ->withLastDrawDate(new DateTime('2016-05-01'))
+            ->build();
+        $I->haveInDatabase('play_configs', $playConfig->toArray());
+        $draw = EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()->build();
+        $draw_array = $draw->toArray();
+        $I->haveInDatabase('euromillions_draws', $draw_array);
+        $bet = new Bet($playConfig, $draw);
+        $bet_array = $bet->toArray();
+        $I->haveInDatabase('bets', $bet_array);
 
-        $I->runShellCommand('php '.__DIR__.'/../../apps/cli-test.php prizeCheckout update');
+        $I->runShellCommand('php '.__DIR__.'/../../apps/cli-test.php prizeCheckout checkout 2016-04-23');
 
-        $I->seeInDatabase('user', ['id' => $user->getId(), 'show_modal_winning' => 1]);
+        $I->canSeeInDatabase('users', ['id' => $user->getId(), 'show_modal_winning' => 1]);
     }
 }
+

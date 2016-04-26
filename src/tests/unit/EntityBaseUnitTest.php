@@ -166,13 +166,10 @@ class EntityBaseUnitTest extends UnitTestBase
             'line_lucky_number_two'     => 7,
             'start_draw_date'           => "2015-09-10 00:00:00.000000",
             'last_draw_date'            => "2015-09-30 00:00:00.000000",
-            'days_draw_days'            => '2',
             'active'                    => 1,
-            'threshold'                 => null,
             'frequency'                 => null,
             'lottery_id'                => 1
         ];
         $this->assertEquals($expected, $play_config->toArray());
     }
-
 }

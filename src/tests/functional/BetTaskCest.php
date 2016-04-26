@@ -75,8 +75,6 @@ class BetTaskCest
             'active'                    => 1,
             'start_draw_date'           => '2020-04-01',
             'last_draw_date'            => '2020-04-30',
-            'threshold_amount'          => 0,
-            'threshold_currency_name'   => '',
             'line_regular_number_one'   => '2',
             'line_regular_number_two'   => '3',
             'line_regular_number_three' => '4',
@@ -84,7 +82,6 @@ class BetTaskCest
             'line_regular_number_five'  => '6',
             'line_lucky_number_one'     => '1',
             'line_lucky_number_two'     => '2',
-            'config'                    => 2,
             'lottery_id'                => 2,
         ]);
 

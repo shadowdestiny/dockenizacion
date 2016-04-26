@@ -68,14 +68,13 @@ class PlayConfigCollectionDTO extends DTOBase implements IDto
         $this->lines = $this->euroMillionsLinesToJson();
         $this->regular_numbers = [];
         $this->lucky_numbers = [];
-        $this->drawDays = $this->playConfig[0]->getDrawDays()->value_len();
         $this->lines = $this->euroMillionsLinesToJson();
         $this->duration_format = $this->getFormatDuration();
         $this->duration = $this->duration();
         $this->frequency = $this->playConfig[0]->getFrequency();
         $this->user = $this->playConfig[0]->getUser();
         $this->wallet_balance_user = $this->playConfig[0]->getUser()->getBalance();
-        $result_total = count($this->playConfig) * $this->playConfig[0]->getDrawDays()->value_len() * ($this->single_bet_price->getAmount()) * $this->playConfig[0]->getFrequency();
+        $result_total = count($this->playConfig) * ($this->single_bet_price->getAmount()) * $this->playConfig[0]->getFrequency();
         $this->play_config_total_amount = new Money((int) str_replace('.','',$result_total), new Currency('EUR')) ;
     }
 
@@ -88,14 +87,13 @@ class PlayConfigCollectionDTO extends DTOBase implements IDto
         $this->lines = $this->euroMillionsLine($key);
         $this->regular_numbers = [];
         $this->lucky_numbers = [];
-        $this->drawDays = $this->playConfig[$key]->getDrawDays()->value_len();
         $this->lines = $this->euroMillionsLine($key);
         $this->duration_format = $this->getFormatDuration();
         $this->duration = $this->duration();
         $this->frequency = $this->playConfig[$key]->getFrequency();
         $this->user = $this->playConfig[$key]->getUser();
         $this->wallet_balance_user = $this->playConfig[$key]->getUser()->getBalance();
-        $result_total = count($this->playConfig) * $this->playConfig[$key]->getDrawDays()->value_len() * ($this->single_bet_price->getAmount()) * $this->playConfig[$key]->getFrequency();
+        $result_total = count($this->playConfig) * ($this->single_bet_price->getAmount()) * $this->playConfig[$key]->getFrequency();
         $this->play_config_total_amount = new Money((int) str_replace('.','',$result_total), new Currency('EUR')) ;
         return $this;
     }

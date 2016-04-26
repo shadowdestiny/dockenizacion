@@ -8,9 +8,7 @@ use EuroMillions\web\entities\Notification;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\UserNotifications;
-use EuroMillions\web\exceptions\InvalidBalanceException;
 use EuroMillions\web\tasks\BetTask;
-use EuroMillions\web\vo\DrawDays;
 use EuroMillions\web\vo\NotificationValue;
 use EuroMillions\shared\vo\results\ActionResult;
 use Money\Currency;
@@ -130,16 +128,6 @@ class BetTaskUnitTest extends UnitTestBase
     }
 
     /**
-     * @param string $currency
-     * @return User
-     */
-    private function getUserTwo($currency = 'EUR')
-    {
-        return UserMother::aUserWith50Eur()
-            ->build();
-    }
-
-    /**
      * @param $lottery_name
      * @return Lottery
      */
@@ -168,25 +156,6 @@ class BetTaskUnitTest extends UnitTestBase
         return $play_config1;
     }
 
-    private function prepareCheckValidation()
-    {
-        $euroMillionsDraw = $this->getEuroMillionsDraw('2015-10-09');
-        $this->lotteryService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true, $euroMillionsDraw));
-        $play_config_list = $this->getPlayConfigList($this->getUser());
-        $this->playService_double->getPlaysConfigToBet($euroMillionsDraw->getDrawDate())->willReturn($play_config_list);
-    }
-
-    private function getEuroMillionsDraw($lotteryDrawDate)
-    {
-        $regular_numbers = [1, 2, 3, 4, 5];
-        $lucky_numbers = [5, 8];
-        $euroMillionsDraw = new EuroMillionsDraw();
-        $euroMillionsDraw->setDrawDate((new \DateTime($lotteryDrawDate)));
-        $euroMillionsDraw->setJackpot(new Money(1000000, new Currency('EUR')));
-        $euroMillionsDraw->createResult($regular_numbers, $lucky_numbers);
-        return $euroMillionsDraw;
-    }
-
 
     private function getPlayConfigList($user)
     {
@@ -196,28 +165,24 @@ class BetTaskUnitTest extends UnitTestBase
                 'active'        => 1,
                 'startDrawDate' => new \DateTime('2015-10-05'),
                 'lastDrawDate'  => new \DateTime('2015-12-03'),
-                'draw_days'     => new DrawDays('25'),
                 'user'          => $user
             ],
             [
                 'active'        => 1,
                 'startDrawDate' => new \DateTime('2015-10-05'),
                 'lastDrawDate'  => new \DateTime('2015-12-03'),
-                'draw_days'     => new DrawDays('5'),
                 'user'          => $user
             ],
             [
                 'active'        => 1,
                 'startDrawDate' => new \DateTime('2015-10-07'),
                 'lastDrawDate'  => new \DateTime('2015-12-03'),
-                'draw_days'     => new DrawDays('5'),
                 'user'          => $user
             ],
             [
                 'active'        => 1,
                 'startDrawDate' => new \DateTime('2015-10-05'),
                 'lastDrawDate'  => new \DateTime('2015-12-03'),
-                'draw_days'     => new DrawDays('2'),
                 'user'          => $user
             ]
         ];

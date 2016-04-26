@@ -255,7 +255,7 @@ class LotteryServiceUnitTest extends UnitTestBase
         $this->lotteryDrawRepositoryDouble->getBreakDownData(Argument::any(), $date)->willReturn($expected);
 
         $sut = $this->getSut();
-        $actual = $sut->getBreakDownDrawByDate('EuroMillions', $date);
+        $actual = $sut->getDrawWithBreakDownByDate('EuroMillions', $date);
         $this->assertEquals($expected,$actual->getValues());
     }
 
@@ -274,7 +274,7 @@ class LotteryServiceUnitTest extends UnitTestBase
         $this->lotteryDrawRepositoryDouble->getBreakDownData(Argument::any(), $date)->willReturn(null);
 
         $sut = $this->getSut();
-        $actual = $sut->getBreakDownDrawByDate('EuroMillions', $date);
+        $actual = $sut->getDrawWithBreakDownByDate('EuroMillions', $date);
         $this->assertEquals($expected,$actual);
     }
 

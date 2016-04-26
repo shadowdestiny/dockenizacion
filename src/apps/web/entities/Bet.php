@@ -29,6 +29,7 @@ class Bet extends EntityBase implements IEntity
     {
         return $this->id;
     }
+
     public function setPlayConfig($playConfig)
     {
         $this->play_config=$playConfig;
@@ -69,4 +70,12 @@ class Bet extends EntityBase implements IEntity
         $this->castillo_bet = $castillo_bet;
     }
 
+    public function toArray()
+    {
+        $parent_array = parent::toArray();
+        if (null === $this->castillo_bet) {
+            unset ($parent_array['castillo_bet']);
+        }
+        return $parent_array;
+    }
 }

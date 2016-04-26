@@ -20,11 +20,9 @@ class PlayConfigBuilder
     protected $id;
     protected $user;
     protected $line;
-    protected $days;
     protected $startDrawDate;
     protected $lastDrawDate;
     protected $active;
-    protected $threshold;
     protected $frequency;
     protected $lottery;
     
@@ -34,8 +32,8 @@ class PlayConfigBuilder
 
     public function __construct()
     {
+        $this->id = 1;
         $this->line = $this->getLine();
-        $this->days = new DrawDays(2);
         $this->startDrawDate = new \DateTime('2015-09-10');
         $this->lastDrawDate = new \DateTime('2015-09-30');
         $this->active = 1;
@@ -83,20 +81,23 @@ class PlayConfigBuilder
         return $this;
     }
 
+    public function withLineFromArrays(array $regularNumbers, array $luckyNumbers)
+    {
+        $this->line = $this->createLineFromArrays($regularNumbers, $luckyNumbers);
+        return $this;
+    }
+
+    public function withLine(EuroMillionsLine $line)
+    {
+        $this->line = $line;
+        return $this;
+    }
 
     private function getLine()
     {
         $reg = self::REGULAR_NUMBERS;
-        $regular_numbers = [];
-        foreach ($reg as $regular_number) {
-            $regular_numbers[] = new EuroMillionsRegularNumber($regular_number);
-        }
         $luck = self::LUCKY_NUMBERS;
-        $lucky_numbers = [];
-        foreach ($luck as $lucky_number) {
-            $lucky_numbers[] = new EuroMillionsLuckyNumber($lucky_number);
-        }
-        return new EuroMillionsLine($regular_numbers, $lucky_numbers);
+        return $this->createLineFromArrays($reg, $luck);
     }
 
     private function getLottery()
@@ -126,6 +127,24 @@ class PlayConfigBuilder
     public function toArray()
     {
         return $this->build()->toArray();
+    }
+
+    /**
+     * @param $reg
+     * @param $luck
+     * @return EuroMillionsLine
+     */
+    private function createLineFromArrays($reg, $luck)
+    {
+        $regular_numbers = [];
+        foreach ($reg as $regular_number) {
+            $regular_numbers[] = new EuroMillionsRegularNumber($regular_number);
+        }
+        $lucky_numbers = [];
+        foreach ($luck as $lucky_number) {
+            $lucky_numbers[] = new EuroMillionsLuckyNumber($lucky_number);
+        }
+        return new EuroMillionsLine($regular_numbers, $lucky_numbers);
     }
 
 

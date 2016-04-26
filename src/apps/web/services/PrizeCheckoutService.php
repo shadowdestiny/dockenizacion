@@ -63,7 +63,7 @@ class PrizeCheckoutService
             $date = new \DateTime();
         }
         $result_awarded = $this->betRepository->getCheckResult($date->format('Y-m-d'));
-        if(!empty($result_awarded)){
+        if(count($result_awarded)){
             return new ActionResult(true,$result_awarded);
         }else{
             return new ActionResult(false);
@@ -104,7 +104,7 @@ class PrizeCheckoutService
     private function sendSmallWinEmail(User $user, Money $amount)
     {
         $emailBaseTemplate = new EmailTemplate();
-        $emailTemplate = new WinEmailTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($this->currencyConversionService));
+        $emailTemplate = new WinEmailTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
         $emailTemplate->setUser($user);
         $emailTemplate->setResultAmount($amount);
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
@@ -117,7 +117,7 @@ class PrizeCheckoutService
     private function sendBigWinEmail(User $user, Money $amount)
     {
         $emailBaseTemplate = new EmailTemplate();
-        $emailTemplate = new WinEmailAboveTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($this->currencyConversionService));
+        $emailTemplate = new WinEmailAboveTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
         $emailTemplate->setUser($user);
         $emailTemplate->setResultAmount($amount);
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);

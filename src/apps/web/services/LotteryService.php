@@ -204,7 +204,7 @@ class LotteryService
         return $this->lotteryDrawRepository->getLastJackpot($lotteryName);
     }
 
-    public function getBreakDownDrawByDate($lotteryName, \DateTime $today)
+    public function getDrawWithBreakDownByDate($lotteryName, \DateTime $today)
     {
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);

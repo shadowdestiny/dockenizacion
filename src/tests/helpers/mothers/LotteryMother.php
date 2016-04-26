@@ -12,6 +12,7 @@ class LotteryMother
     {
         $lottery = new Lottery();
         $lottery->initialize([
+            'id'        => 1,
             'name'      => 'EuroMillions',
             'frequency' => 'w0100100',
             'draw_time' => '20:00:00',

@@ -4,9 +4,9 @@
 namespace EuroMillions\web\vo;
 
 
+use EuroMillions\shared\helpers\StringHelper;
 use Money\Currency;
 use Money\Money;
-use Phalcon\Exception;
 
 class EuroMillionsDrawBreakDown
 {
@@ -305,6 +305,23 @@ class EuroMillionsDrawBreakDown
             21 => 'category_twelve',
             20 => 'category_thirteen'
        ];
+    }
+
+    public function toArray()
+    {
+        $categories = $this->structureOfCombinations();
+        $result = [];
+        foreach($categories as $category)
+        {
+            $method = 'get'.StringHelper::fromUnderscoreToCamelCase($category);
+            $data = $this->$method()->toArray();
+            $data_prefixed = [];
+            foreach ($data as $key => $value) {
+                $data_prefixed[$category.'_'.$key] = $value;
+            }
+            $result = array_merge($result, $data_prefixed);
+        }
+        return $result;
     }
 
 }

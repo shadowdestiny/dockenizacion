@@ -14,30 +14,12 @@ class EuroMillionsDraw extends EntityBase implements IEntity
     protected $draw_date;
     /** @var  Money $jackpot */
     protected $jackpot;
-
-    protected $published;
     /** @var  Lottery */
     protected $lottery;
     /** @var  EuroMillionsLine */
     protected $result;
     /** @var  EuroMillionsDrawBreakDown */
     protected $break_down;
-
-    /**
-     * @return mixed
-     */
-    public function getPublished()
-    {
-        return $this->published;
-    }
-
-    /**
-     * @param mixed $published
-     */
-    public function setPublished($published)
-    {
-        $this->published = $published;
-    }
 
     /**
      * @return mixed
