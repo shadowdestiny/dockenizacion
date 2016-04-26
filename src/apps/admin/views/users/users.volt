@@ -81,11 +81,16 @@
                                         <strong>Wallet:</strong> &euro; {{ user.balance }}
                                         <br><strong>Winning:</strong> &euro; 0
                                     </td>
-                                    <td class="action">
-                                        <a href="javascript:void(0)" class="btn btn-danger">Delete</a>
-                                        <a href="#" class="btn btn-success">View Transactions</a>
-                                        <a href="javascript:void(0)" data-id="{{ user.id }}" class="btn btn-primary">Edit</a>
+                                    <td>
+                                        Amount € <input type="numeric" name="amount"/>
+                                        <br>
+                                        Reason <textarea type="text" name="reason" />
                                     </td>
+                                    {#<td class="action">#}
+                                        {#<a href="javascript:void(0)" class="btn btn-danger">Delete</a>#}
+                                        {#<a href="#" class="btn btn-success">View Transactions</a>#}
+                                        {#<a href="javascript:void(0)" data-id="{{ user.id }}" class="btn btn-primary">Edit</a>#}
+                                    {#</td>#}
                                 </tr>
                             {% endfor %}
                         {% endif %}

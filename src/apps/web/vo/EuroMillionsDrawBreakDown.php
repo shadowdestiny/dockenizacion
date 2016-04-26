@@ -271,9 +271,7 @@ class EuroMillionsDrawBreakDown
                     if (($breakDown[1] instanceof Money)) {
                         $money = $breakDown[1];
                     } else {
-
                         if(!is_numeric($breakDown[1])) {
-                            var_dump(__LINE__);die();
                             throw new \Exception();
                         }
                         $value = intval(str_replace(',', '', $breakDown[1]));
