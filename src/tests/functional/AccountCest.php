@@ -73,8 +73,6 @@ class AccountCest
             'active'                    => 1,
             'start_draw_date'           => '2016-04-08',
             'last_draw_date'            => '2016-04-08',
-            'threshold_amount'          => 0,
-            'threshold_currency_name'   => '',
             'line_regular_number_one'   => '2',
             'line_regular_number_two'   => '3',
             'line_regular_number_three' => '4',
@@ -82,7 +80,6 @@ class AccountCest
             'line_regular_number_five'  => '6',
             'line_lucky_number_one'     => '1',
             'line_lucky_number_two'     => '2',
-            'config'                    => 5
         ]);
 
         $I->haveInSession('EM_current_user', $this->userId);

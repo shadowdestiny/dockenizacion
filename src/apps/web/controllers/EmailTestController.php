@@ -82,7 +82,7 @@ class EmailTestController extends PublicSiteControllerBase
                 $emailTemplate->setResultAmount(new Money(5000, new Currency('EUR')));
             }
             if($emailTemplate instanceof LatestResultsEmailTemplate) {
-                $draw = $this->lotteryService->getBreakDownDrawByDate('EuroMillions',new \DateTime());
+                $draw = $this->lotteryService->getDrawWithBreakDownByDate('EuroMillions',new \DateTime());
                 $break_down_list = null;
                 if($draw->success()){
                     $break_down_list = new EuroMillionsDrawBreakDownDTO($draw->getValues()->getBreakDown());
@@ -133,15 +133,11 @@ class EmailTestController extends PublicSiteControllerBase
                 $instance = new LongPlayEndedEmailTemplate($emailTemplate, new LongPlayEndedDataEmailTemplateStrategy());
                 break;
             case 'win-email':
-                $winEmailAboveDataEmailTemplateStrategy = new WinEmailAboveDataEmailTemplateStrategy();
-                $winEmailAboveDataEmailTemplateStrategy->amount = new Money(5000, new Currency('EUR'));
-                $winEmailAboveDataEmailTemplateStrategy->user_currency = new Currency('USD');
+                $winEmailAboveDataEmailTemplateStrategy = new WinEmailAboveDataEmailTemplateStrategy(new Money(5000, new Currency('EUR')), new Currency('USD'));
                 $instance = new WinEmailTemplate($emailTemplate, $winEmailAboveDataEmailTemplateStrategy);
                 break;
             case 'win-email-above-1500':
-                $winEmailAboveDataEmailTemplateStrategy = new WinEmailAboveDataEmailTemplateStrategy();
-                $winEmailAboveDataEmailTemplateStrategy->amount = new Money(100000, new Currency('EUR'));
-                $winEmailAboveDataEmailTemplateStrategy->user_currency = new Currency('USD');
+                $winEmailAboveDataEmailTemplateStrategy = new WinEmailAboveDataEmailTemplateStrategy(new Money(100000, new Currency('EUR')), new Currency('USD'));
                 $instance = new WinEmailAboveTemplate($emailTemplate, $winEmailAboveDataEmailTemplateStrategy);
                 $instance->setUser($this->getNewUser('raul.mesa@panamedia.net'));
                 $instance->getUser()->setUserCurrency(new Currency('USD'));

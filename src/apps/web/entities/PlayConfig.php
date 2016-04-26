@@ -7,7 +7,6 @@ namespace EuroMillions\web\entities;
 use Doctrine\Common\Collections\ArrayCollection;
 use EuroMillions\web\interfaces\IEntity;
 use EuroMillions\web\interfaces\IEMForm;
-use EuroMillions\web\vo\DrawDays;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
@@ -27,11 +26,6 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
     /** @var  EuroMillionsLine */
     protected $line;
 
-    protected $play_config;
-
-    /** @var  DrawDays  */
-    protected $days;
-
     /** @var  \DateTime */
     protected $startDrawDate;
 
@@ -39,8 +33,6 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
     protected $lastDrawDate;
 
     protected $active;
-
-    protected $threshold;
 
     protected $frequency;
 
@@ -84,7 +76,6 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
             }
             $this->setLine($euroMillionsLine);
             $this->setActive(true);
-            $this->setDays(new DrawDays($formPlay->drawDays));
             $this->setStartDrawDate(new \DateTime($formPlay->startDrawDate));
             $this->setLastDrawDate(new \DateTime($formPlay->lastDrawDate));
             $this->setFrequency((int) $formPlay->frequency);
@@ -115,7 +106,6 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
 
         return [
             'id' => $this->id,
-            'drawDays' => $this->days->value(),
             'startDrawDate' => $this->startDrawDate->format('Y-m-d H:i:s'),
             'lastDrawDate' => $this->lastDrawDate->format('Y-m-d H:i:s'),
             'frequency' => $this->frequency,
@@ -138,22 +128,6 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
     public function setFrequency($frequency)
     {
         $this->frequency = $frequency;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getThreshold()
-    {
-        return $this->threshold;
-    }
-
-    /**
-     * @param mixed $threshold
-     */
-    public function setThreshold($threshold)
-    {
-        $this->threshold = $threshold;
     }
 
     public function setId($id)
@@ -200,16 +174,6 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
         return $this->active;
     }
 
-    public function setDrawDays($draw_days)
-    {
-        $this->days = $draw_days;
-    }
-
-    public function getDrawDays()
-    {
-        return $this->days;
-    }
-
     public function setStartDrawDate($startDrawDate)
     {
         $this->startDrawDate = $startDrawDate;
@@ -244,19 +208,6 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
     public function getBet()
     {
         return $this->bet;
-    }
-
-    /**
-     * @return DrawDays
-     */
-    public function getDays()
-    {
-        return $this->days;
-    }
-
-    public function setDays(DrawDays $days)
-    {
-        $this->days = $days;
     }
 
     public function numBets()

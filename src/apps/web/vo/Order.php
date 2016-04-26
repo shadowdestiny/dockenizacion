@@ -182,7 +182,7 @@ class Order implements \JsonSerializable
     {
         $this->num_lines = count($this->play_config);
         $this->total = new Money(1,new Currency('EUR'));
-        $this->total = $this->total->multiply($this->num_lines)->multiply((int) $this->play_config[0]->getDrawDays()->value_len())->multiply((int) $this->single_bet_price->getAmount())->multiply($this->play_config[0]->getFrequency());
+        $this->total = $this->total->multiply($this->num_lines)->multiply((int) $this->single_bet_price->getAmount())->multiply($this->play_config[0]->getFrequency());
         $this->credit_card_charge = new CreditCardCharge($this->total,$this->fee,$this->fee_limit);
     }
 

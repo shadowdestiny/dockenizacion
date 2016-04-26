@@ -34,5 +34,4 @@ class CastilloBetId
     {
         return $this->id;
     }
-
 }

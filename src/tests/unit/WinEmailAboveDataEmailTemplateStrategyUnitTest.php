@@ -34,24 +34,17 @@ class WinEmailAboveDataEmailTemplateStrategyUnitTest extends UnitTestBase
     {
 
         $user_currency = new Currency('USD');
-        $expected_result = new Money(1, new Currency('USD'));
-        $sut = $this->getSut();
-        $sut->user_currency = $user_currency;
-        $sut->amount = $expected_result;
-        $this->currencyConversionService_double->convert($expected_result,$user_currency)->willReturn($expected_result);
-        $this->currencyConversionService_double->toString($expected_result, $user_currency)->willReturn('$2');
+        $amount = new Money(10, new Currency('EUR'));
+        $expected_result = new Money(2, new Currency('USD'));
+        $expected_conversion_with_symbol = '$2';
+        $this->currencyConversionService_double->convert($amount,$user_currency)->willReturn($expected_result);
+        $this->currencyConversionService_double->toString($expected_result, $user_currency)->willReturn($expected_conversion_with_symbol);
         $expected = [
-            'amount_converted' => '$2',
+            'amount_converted' => $expected_conversion_with_symbol,
         ];
+        $sut = new WinEmailAboveDataEmailTemplateStrategy($amount, $user_currency, $this->currencyConversionService_double->reveal());
         $actual = $sut->getData();
         $this->assertEquals($expected, $actual);
 
     }
-
-    private function getSut()
-    {
-        return new WinEmailAboveDataEmailTemplateStrategy($this->currencyConversionService_double->reveal());
-    }
-
-
 }

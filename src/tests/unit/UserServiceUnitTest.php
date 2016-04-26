@@ -553,7 +553,6 @@ class UserServiceUnitTest extends UnitTestBase
         $playConfig->setUser($this->getUser());
         $playConfig->setLine($euroMillionsLine);
         $playConfig->setActive(true);
-        $playConfig->setDrawDays(2);
 
         return $playConfig;
     }
