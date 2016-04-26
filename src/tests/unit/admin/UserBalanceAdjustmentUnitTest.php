@@ -34,64 +34,62 @@ class UserBalanceAdjustmentUnitTest extends UnitTestBase
     }
 
     /**
-     * method deductUserBalance
-     * when called
-     * should deductAmountFromUserBalance
-     */
-    public function test_deductUserBalance_called_deductAmountFromUserBalance()
-    {
-        $expected = new Money(4000, new Currency('EUR'));
-        $actual = $this->prepareDataToAdjustmentBalance(5000,'','deductUserBalance');
-        $this->assertEquals($expected->getAmount(),$actual->getBalance()->getAmount());
-    }
-
-    /**
-     * method increaseUserBalance
-     * when called
-     * should increaseAmountFromUserBalance
-     */
-    public function test_increaseUserBalance_called_increaseAmountFromUserBalance()
-    {
-        $expected = new Money(6000, new Currency('EUR'));
-        $actual = $this->prepareDataToAdjustmentBalance(5000,'','increaseUserBalance');
-        $this->assertEquals($expected->getAmount(), $actual->getBalance()->getAmount());
-    }
-
-    /**
-     * method createAdjustmentBalance
+     * method __construct
      * when calledPassingAnAmountNegative
      * should deductUserBalance
      */
-    public function test_createAdjustmentBalance_calledPassingAnAmountNegative_deductUserBalance()
+    public function test___construct_calledPassingAnAmountNegative_deductUserBalance()
     {
         $expected = new Money(4000, new Currency('EUR'));
-        $actual = $this->prepareDataToAdjustmentBalance(5000,'-','createAdjustmentBalance');
+        $actual = $this->prepareDataToAdjustmentBalance(5000,'-');
         $this->assertEquals($expected->getAmount(),$actual->getBalance()->getAmount());
     }
 
     /**
-     * method createdAdjustmentBalance
+     * method __construct
      * when calledPassingAnAmountPositive
      * should increaseUserBalance
      */
-    public function test_createdAdjustmentBalance_calledPassingAnAmountPositive_increaseUserBalance()
+    public function test___construct_calledPassingAnAmountPositive_increaseUserBalance()
     {
         $expected = new Money(6000, new Currency('EUR'));
-        $actual = $this->prepareDataToAdjustmentBalance(5000,'','createAdjustmentBalance');
+        $actual = $this->prepareDataToAdjustmentBalance(5000,'');
         $this->assertEquals($expected->getAmount(),$actual->getBalance()->getAmount());
-
     }
 
-    private function prepareDataToAdjustmentBalance($amountBalance, $operand = '', $method)
+    /**
+     * method __construct
+     * when calledWithWithdrawableTrueAndAmountPositive
+     * should increaseWinningUserBalance
+     */
+    public function test___construct_calledWithWithdrawableTrueAndAmountPositive_increaseWinningUserBalance()
     {
-        $wallet = Wallet::create($amountBalance,0);
+        $expected = new Money(4000, new Currency('EUR'));
+        $actual = $this->prepareDataToAdjustmentBalance(5000,'',1,3000);
+        $this->assertEquals($expected,$actual->getWithdrawable());
+    }
+
+    /**
+     * method __construct
+     * when calledWithWithdrawableTrueAndAmountNegative
+     * should decreaseWinningsUserBalance
+     */
+    public function test___construct_calledWithWithdrawableTrueAndAmountNegative_decreaseWinningsUserBalance()
+    {
+        $expected = new Money(500, new Currency('EUR'));
+        $actual = $this->prepareDataToAdjustmentBalance(5000,'-',1,3000,'2500');
+        $this->assertEquals($expected,$actual->getWithdrawable());
+    }
+
+    private function prepareDataToAdjustmentBalance($amountBalance, $operand = '', $withdrawable = 0, $winningAmount = 0,$amount = '1000')
+    {
+        $wallet = Wallet::create($amountBalance, $winningAmount);
         $data = [
-            'amount' => $operand.'1000',
-            'withdrawable' => 0,
+            'amount' => $operand.$amount,
+            'withdrawable' => $withdrawable,
             'reason' => 'Error with update balance'
         ];
         $sut = new UserBalanceAdjustment($wallet, $data);
-        $sut->$method();
         $actual = $sut->getWallet();
         return $actual;
     }

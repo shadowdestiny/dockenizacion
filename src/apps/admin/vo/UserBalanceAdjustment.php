@@ -44,24 +44,44 @@ class UserBalanceAdjustment
         $this->amount = new Money( (int) $data['amount'], new Currency('EUR') );
         $this->isWithdrawable = $data['withdrawable'];
         $this->reason = $data['reason'];
+        $this->createAdjustmentBalance();
     }
 
-    public function deductUserBalance()
+    private function deductUserBalance()
     {
         $this->wallet = $this->wallet->pay($this->amount);
     }
 
-    public function increaseUserBalance()
+    private function increaseUserBalance()
     {
         $this->wallet = $this->wallet->upload($this->amount);
     }
 
-    public function createAdjustmentBalance()
+    private function adjustmentBalance()
     {
         if($this->isDeduct) {
             $this->deductUserBalance();
         } else {
             $this->increaseUserBalance();
+        }
+    }
+
+    private function withdrawableUserBalance()
+    {
+        if($this->isDeduct) {
+            $this->wallet = $this->wallet->withdraw($this->amount);
+        } else {
+            $this->wallet = $this->wallet->award($this->amount);
+        }
+
+    }
+
+    public function createAdjustmentBalance()
+    {
+        if($this->isWithdrawable) {
+            $this->withdrawableUserBalance();
+        } else {
+            $this->adjustmentBalance();
         }
     }
 
