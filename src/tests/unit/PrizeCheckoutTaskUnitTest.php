@@ -10,7 +10,7 @@ use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
-use EuroMillions\web\tasks\PrizeCheckoutTask;
+use EuroMillions\web\tasks\AwardprizesTask;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsLine;
@@ -89,7 +89,7 @@ class PrizeCheckoutTaskUnitTest extends UnitTestBase
         $this->lotteryService_double->getDrawWithBreakDownByDate($lottery_name,$today)->willReturn(new ActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())));
         $this->PrizeCheckoutService_double->awardUser($user,Argument::any())->willReturn(new ActionResult(true))->shouldBeCalledTimes(2);
         $this->lotteryService_double->getLastDrawDate($lottery_name, $today)->willReturn($today);
-        $sut = new PrizeCheckoutTask();
+        $sut = new AwardprizesTask();
         $sut->initialize($this->PrizeCheckoutService_double->reveal(), $this->lotteryService_double->reveal());
         $sut->checkoutAction([$date]);
     }
@@ -111,7 +111,7 @@ class PrizeCheckoutTaskUnitTest extends UnitTestBase
         $this->lotteryService_double->getDrawWithBreakDownByDate($lottery_name,$today)->willReturn(new ActionResult(true,new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())));
         $this->PrizeCheckoutService_double->awardUser($user,Argument::type('Money\Money'))->willReturn(new ActionResult(true))->shouldBeCalledTimes(2);
         $this->lotteryService_double->getLastDrawDate($lottery_name, $today)->willReturn($today);
-        $sut = new PrizeCheckoutTask();
+        $sut = new AwardprizesTask();
         $sut->initialize($this->PrizeCheckoutService_double->reveal(), $this->lotteryService_double->reveal());
         $sut->checkoutAction([$date]);
     }

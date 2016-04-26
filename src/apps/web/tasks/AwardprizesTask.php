@@ -9,7 +9,7 @@ use EuroMillions\web\services\factories\ServiceFactory;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use Money\Money;
 
-class PrizeCheckoutTask extends TaskBase
+class AwardprizesTask extends TaskBase
 {
     const EMAIL_ABOVE = 2500 * 100;
 

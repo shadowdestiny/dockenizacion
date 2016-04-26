@@ -6,7 +6,7 @@ use EuroMillions\tests\helpers\mothers\EuroMillionsLineMother;
 use EuroMillions\tests\helpers\mothers\PlayConfigMother;
 use EuroMillions\web\entities\Bet;
 
-class PrizeCheckoutTaskCest
+class AwardprizesTaskCest
 {
     public function _before(FunctionalTester $I)
     {
@@ -38,7 +38,7 @@ class PrizeCheckoutTaskCest
         $bet_array = $bet->toArray();
         $I->haveInDatabase('bets', $bet_array);
 
-        $I->runShellCommand('php '.__DIR__.'/../../apps/cli-test.php prizeCheckout checkout 2016-04-23');
+        $I->runShellCommand('php '.__DIR__.'/../../apps/cli-test.php awardprizes checkout 2016-04-23');
 
         $I->canSeeInDatabase('users', ['id' => $user->getId(), 'show_modal_winning' => 1]);
     }

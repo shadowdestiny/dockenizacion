@@ -45,7 +45,6 @@ class OrderDTO extends DTOBase implements IDto
         $this->lines = $this->euroMillionsLinesToJson();
         $this->startDrawDate = $this->order->getPlayConfig()[0]->getStartDrawDate();
         $this->lastDrawDate = $this->order->getPlayConfig()[0]->getLastDrawDate();
-        $this->drawDays = $this->order->getPlayConfig()[0]->getDrawDays()->value();
         $this->frequency = (int) $this->order->getPlayConfig()[0]->getFrequency();
     }
 
@@ -176,23 +175,6 @@ class OrderDTO extends DTOBase implements IDto
     {
         $this->startDrawDate = $startDrawDate;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getDrawDays()
-    {
-        return $this->drawDays;
-    }
-
-    /**
-     * @param mixed $drawDays
-     */
-    public function setDrawDays($drawDays)
-    {
-        $this->drawDays = $drawDays;
-    }
-
 
     /**
      * @return mixed
