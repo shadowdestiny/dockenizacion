@@ -17,7 +17,7 @@ class DrawsController extends AdminControllerBase
     /** @var  MaintenanceDrawService */
     private $maintenanceDrawService;
 
-    CONST LIMIT = 1;
+    CONST LIMIT = 10;
 
     public function initialize()
     {
@@ -54,12 +54,8 @@ class DrawsController extends AdminControllerBase
         $result = $this->maintenanceDrawService->getDrawById($id);
         $page  = $this->request->getPost('page');
         if($result->success()) {
-            /** @var DrawDTO $draw_dto */
-            $draw_dto = new DrawDTO($result->getValues());
-            $draw_dto->setRegularNumbers(implode(',',$draw_dto->getRegularNumbers()));
-            $draw_dto->setLuckyNumbers(implode(',',$draw_dto->getLuckyNumbers()));
             echo json_encode(['result'=> 'OK',
-                              'value' =>$draw_dto->toArray(),
+                              'value' => $result->getValues(),
                               'page'  => $page
             ]);
         }else{
@@ -74,9 +70,17 @@ class DrawsController extends AdminControllerBase
     {
         $this->noRender();
         $id_draw_to_edit = $this->request->getPost('id_draw');
+        $numbers = $this->request->getPost('numbers');
+        $stars = $this->request->getPost('stars');
         if(!empty($id_draw_to_edit)){
-            $regular_numbers = array_map('intval', explode(',', $this->request->getPost('numbers')));
-            $lucky_numbers = array_map('intval', explode(',', $this->request->getPost('stars')));
+
+            if(!empty($numbers) && !empty($stars)) {
+                $regular_numbers = array_map('intval', explode(',', $numbers));
+                $lucky_numbers = array_map('intval', explode(',', $stars));
+            } else {
+                $regular_numbers = [];
+                $lucky_numbers = [];
+            }
             $jackpot_value = new Money((int) $this->request->getPost('jackpot')*100, new Currency('EUR'));
             /** @var ActionResult $result */
             $result = $this->maintenanceDrawService->updateLastResult($regular_numbers,$lucky_numbers,$jackpot_value,$id_draw_to_edit);
@@ -102,6 +106,35 @@ class DrawsController extends AdminControllerBase
                                   'page'   => $page
                 ]);
             }
+        }
+    }
+
+    public function editBreakDownAction()
+    {
+        $this->noRender();
+        $idDraw = $this->request->getPost('id_draw');
+        $break_down = $this->request->getPost('breakdown');
+        try {
+            $this->maintenanceDrawService->storeBreakDown($break_down,$idDraw);
+            $page = (!empty($this->request->getPost('page'))) ? $this->request->getPost('page') : 1;
+            $result_draws = $this->maintenanceDrawService->getAllDrawsByLottery('EuroMillions');
+            $list_draws_dto = [];
+            if($result_draws->success()){
+                /** @var EuroMillionsDraw $draw */
+                foreach($result_draws->getValues() as $draw) {
+                    $list_draws_dto[] = new DrawDTO($draw);
+                }
+                $paginator = $this->getPaginatorAsArray($list_draws_dto,self::LIMIT,$page);
+                echo json_encode(['result' => 'OK',
+                                  'value'  => $paginator->getPaginate()->items,
+                                  'page'   => $page
+                ]);
+            }
+        } catch (\Exception $e) {
+            echo json_encode(['result' => 'KO',
+                              'value'  => $paginator->getPaginate()->items,
+                              'page'   => $page
+            ]);
         }
     }
 
@@ -138,11 +171,6 @@ class DrawsController extends AdminControllerBase
                         'result' => 'KO'
             ]);
         }
-    }
-
-    public function editBreakDownAction()
-    {
-
     }
 
 }

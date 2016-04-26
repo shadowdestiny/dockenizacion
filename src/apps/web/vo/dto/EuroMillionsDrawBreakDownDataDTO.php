@@ -23,14 +23,19 @@ class EuroMillionsDrawBreakDownDataDTO extends DTOBase implements IDto
 
     public $winners;
 
+    public $winners_formatted;
+
     public $numbers_corrected;
 
     public $stars_corrected;
+
+    public $nameCategory;
 
 
     public function __construct(EuroMillionsDrawBreakDownData $euroMillionsDrawBreakDownDataDTO)
     {
         $this->euroMillionsDrawBreakDownDataDTO = $euroMillionsDrawBreakDownDataDTO;
+
         $this->exchangeObject();
     }
 
@@ -126,6 +131,7 @@ class EuroMillionsDrawBreakDownDataDTO extends DTOBase implements IDto
             $this->setNumbersCorrected((int) $corrected[0]);
             $this->setStarsCorrected((int) $corrected[1]);
         }
+        $this->setNameCategory('');
     }
 
     public function toArray()
@@ -137,6 +143,48 @@ class EuroMillionsDrawBreakDownDataDTO extends DTOBase implements IDto
     public function toJson()
     {
         return json_encode(json_decode(json_encode($this),TRUE));
+    }
+
+    public function getWinnersWithFormat()
+    {
+        $this->winners_formatted = str_replace(',','',trim($this->euroMillionsDrawBreakDownDataDTO->getWinners()));
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNameCategory()
+    {
+        return $this->nameCategory;
+    }
+
+    /**
+     * @param mixed $nameCategory
+     */
+    public function setNameCategory($nameCategory)
+    {
+        $this->nameCategory = $nameCategory;
+    }
+
+
+    private function nameCategory($key)
+    {
+        $categories =  [
+            52 => 'category_one',
+            51 => 'category_two',
+            50 => 'category_three',
+            42 => 'category_four',
+            41 => 'category_five',
+            40 => 'category_six',
+            32 => 'category_seven',
+            22 => 'category_eight',
+            31 => 'category_nine',
+            30 => 'category_ten',
+            12 => 'category_eleven',
+            21 => 'category_twelve',
+            20 => 'category_thirteen'
+        ];
+        return $categories[preg_replace('/\s+/', '', str_replace('+','',$key))];
     }
 
 }

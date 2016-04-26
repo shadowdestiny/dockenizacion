@@ -25,6 +25,7 @@ class RestrictionByHttpAuth implements IRestrictedAccessStrategy
         $user_auth = $request->getBasicAuth();
         if (empty($user_auth)) {
             $this->askForAuth();
+            $this->response->send();
             $this->exitProcessWrapper->finish();
         } else {
             if ($user_auth['username'] == $restrictedAccessConfig->getAllowedHttpUser()->getUsername() &&

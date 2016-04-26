@@ -8,6 +8,7 @@ use EuroMillions\admin\interfaces\IDto;
 use EuroMillions\admin\vo\dto\base\DTOBase;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
+use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 
 class DrawDTO extends DTOBase implements IDto
 {
@@ -17,9 +18,11 @@ class DrawDTO extends DTOBase implements IDto
     public $id;
 
     public $draw_date;
+    public $draw_date_formatted;
     public $jackpot;
     public $regular_numbers;
     public $lucky_numbers;
+    public $category_name;
 
     public $break_down;
 
@@ -114,6 +117,7 @@ class DrawDTO extends DTOBase implements IDto
     {
         $this->id = $this->draw->getId();
         $this->draw_date  = $this->draw->getDrawDate()->format('j M Y');
+        $this->draw_date_formatted = $this->draw->getDrawDate()->format('Y-m-d');
         $this->jackpot = $this->draw->getJackpot()->getAmount() /100;
         $this->regular_numbers = $this->draw->getResult()->getRegularNumbersArray();
         $this->lucky_numbers = $this->draw->getResult()->getLuckyNumbersArray();
@@ -126,7 +130,7 @@ class DrawDTO extends DTOBase implements IDto
     }
 
     /**
-     * @return mixed
+     * @return EuroMillionsDrawBreakDown
      */
     public function getBreakDown()
     {
@@ -136,6 +140,39 @@ class DrawDTO extends DTOBase implements IDto
     private function setBreakDown()
     {
         $this->break_down = new EuroMillionsDrawBreakDownDTO($this->draw->getBreakDown());
+    }
+
+    public function sanetizeWinnersBreakDown()
+    {
+        $this->break_down->category_one->winners = str_replace('.','',$this->break_down->category_one->winners);
+        $this->break_down->category_two->winners = str_replace('.','',$this->break_down->category_two->winners);
+        $this->break_down->category_three->winners = str_replace('.','',$this->break_down->category_three->winners);
+        $this->break_down->category_four->winners = str_replace('.','',$this->break_down->category_four->winners);
+        $this->break_down->category_five->winners = str_replace('.','',$this->break_down->category_five->winners);
+        $this->break_down->category_six->winners = str_replace('.','',$this->break_down->category_six->winners);
+        $this->break_down->category_seven->winners = str_replace('.','',$this->break_down->category_seven->winners);
+        $this->break_down->category_eight->winners = str_replace('.','',$this->break_down->category_eight->winners);
+        $this->break_down->category_nine->winners = str_replace('.','',$this->break_down->category_nine->winners);
+        $this->break_down->category_ten->winners = str_replace('.','',$this->break_down->category_ten->winners);
+        $this->break_down->category_eleven->winners = str_replace('.','',$this->break_down->category_eleven->winners);
+        $this->break_down->category_twelve->winners = str_replace('.','',$this->break_down->category_twelve->winners);
+        $this->break_down->category_thirteen->winners = str_replace('.','',$this->break_down->category_thirteen->winners);
+    }
+
+    public function checkResultAndCleanValuesIfAreEmpty()
+    {
+        foreach(explode(',',$this->regular_numbers) as $regular_number) {
+            if( $regular_number == null ) {
+                $this->regular_numbers = [];
+                break;
+            }
+        }
+        foreach(explode(',',$this->lucky_numbers) as $lucky_number) {
+            if( $lucky_number == null ) {
+                $this->lucky_numbers = [];
+                break;
+            }
+        }
     }
 
 }

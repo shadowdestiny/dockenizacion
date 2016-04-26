@@ -108,6 +108,7 @@
                         </form>
 
                         <h3 class="sub-title purple">Prize breakdown</h3>
+                        <form method="post" class="cl form-breakdown">
                         <table class="table table-breakdown">
                             <thead>
                                 <tr class="special">
@@ -134,10 +135,10 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="cl box-action">
-                            <a href="javascript:void(0)" class="left btn btn-danger">Cancel</a>
-                            <input type="submit" value="Save" class="right btn btn-primary">
-                        </div>
+                            <div class="cl box-action">
+                                <a href="javascript:void(0)" class="left btn btn-danger">Cancel</a>
+                                <input type="submit" value="Save" class="right btn submitbreakdown btn-primary">
+                            </div>
                     </form>
                     </div>
                 </div>

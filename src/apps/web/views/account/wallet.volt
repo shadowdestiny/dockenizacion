@@ -223,11 +223,11 @@ $(function(){
                     <div class="box-details {#{% if which_form == 'edit' %} hidden {% endif %}#}">
                         <div class="cl box-wallet">
                             <div class="value">
-                                <span class="purple">{{ language.translate("Account balance:") }}</span> {{ wallet.wallet_balance_amount }} ({{ wallet.balance }})
+                                <span class="purple">{{ language.translate("Account balance:") }}</span> {{ wallet.wallet_balance_amount }} {% if symbol != '€' %} ({{ wallet.balance }}) {% endif %}
                             </div>
                             <br>
                             <div class="left value">
-                                <span class="purple">{{ language.translate("Withdrawable:") }}</span> {{ wallet.wallet_winning_amount }} ({{ wallet.winnings }})
+                                <span class="purple">{{ language.translate("Withdrawable:") }}</span> {{ wallet.wallet_winning_amount }} {% if symbol != '€' %} ({{ wallet.winnings }}) {% endif %}
                             </div>
                             <br>
                             <div class="value">

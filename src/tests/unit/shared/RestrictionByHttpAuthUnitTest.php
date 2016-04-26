@@ -34,6 +34,7 @@ class RestrictionByHttpAuthUnitTest extends UnitTestBase
     {
         $this->request_double->getBasicAuth()->willReturn(false);
         $this->response_double->setRawHeader(Argument::any())->shouldBeCalledTimes(2);
+        $this->response_double->send()->shouldBeCalled();
         $this->exitProcessWrapper_double->finish()->shouldBeCalled();
         $sut = $this->getSut();
         $sut->isRestricted($this->request_double->reveal(), $this->restrictedAccessConfig_double->reveal());
