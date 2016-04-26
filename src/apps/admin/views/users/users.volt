@@ -63,7 +63,7 @@
                                 </td>
                             </tr>
                         {% else %}
-                            {%  for user in users %}
+                            {%  for i,user in users %}
                                 <tr>
                                     <td class="name">{{ user.name}}</td>
                                     <td class="surname">{{ user.surname }}</td>
@@ -82,9 +82,14 @@
                                         <br><strong>Winning:</strong> &euro; 0
                                     </td>
                                     <td>
-                                        Amount € <input type="numeric" name="amount"/>
-                                        <br>
-                                        Reason <textarea type="text" name="reason" />
+                                        <form method="post" name="form{{ user.id }}" action="/admin/users/updateBalance">
+                                            Amount € <input maxlength="12" type="numeric" name="amount" id="amount"/>
+                                            Withdrawable? <input type="checkbox" name="withdrawable">
+                                            <br><br>
+                                            Reason <textarea maxlength="200" style="margin-left: 12px" type="text" name="reason" ></textarea>
+                                            <a href="#" onclick="$(this).closest('form').submit()" class="btn btn-primary">Adjust Balance</a>
+                                            <input type="hidden" name="user_id" value="{{ user.id }}"/>
+                                        </form>
                                     </td>
                                     {#<td class="action">#}
                                         {#<a href="javascript:void(0)" class="btn btn-danger">Delete</a>#}

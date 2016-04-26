@@ -83,4 +83,14 @@ $(function(){
         $('.crud-user').hide('fast');
         $('.box-user-data').show();
     })
+
+    $(document).on('keypress','input',function(e){
+        var pattern = /^[0-9\\,]+$/;
+        var code = e.which
+        var chr = String.fromCharCode(code);
+        if(!pattern.test(chr)){
+            e.preventDefault();
+        }
+    });
+
 });
