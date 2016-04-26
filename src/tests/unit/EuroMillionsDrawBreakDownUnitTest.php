@@ -32,6 +32,7 @@ class EuroMillionsDrawBreakDownUnitTest extends UnitTestBase
         $euroMillionsDrawBreakDownData->setLotteryPrize(new Money(0, new Currency('EUR')));
         $euroMillionsDrawBreakDownData->setWinners('0');
         $euroMillionsDrawBreakDownData->setName('5 + 2');
+        $euroMillionsDrawBreakDownData->setCategoryName('category_one');
         $expected = $euroMillionsDrawBreakDownData;
         $sut = $this->getSut($this->getBreakDownResult());
         $actual = $sut->getCategoryOne();

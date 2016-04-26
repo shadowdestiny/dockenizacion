@@ -266,17 +266,29 @@ class EuroMillionsDrawBreakDown
 
         foreach($collection as $key => $breakDown){
             $nameMethod = 'set'.str_replace("_","",ucwords($key,'_'));
-            if(is_array($breakDown)){
-                $money = ($breakDown[1] instanceof Money) ? $breakDown[1] : new Money(str_replace('.','',$breakDown[1])*100,new Currency('EUR'));
-                try{
+            try{
+                if(is_array($breakDown)) {
+                    if (($breakDown[1] instanceof Money)) {
+                        $money = $breakDown[1];
+                    } else {
+
+                        if(!is_numeric($breakDown[1])) {
+                            var_dump(__LINE__);die();
+                            throw new \Exception();
+                        }
+                        $value = intval(str_replace(',', '', $breakDown[1]));
+                        $money = new Money($value, new Currency('EUR'));
+                    }
                     $euroMillionsDrawBreakDown = new EuroMillionsDrawBreakDownData();
                     $euroMillionsDrawBreakDown->setName($breakDown[0]);
                     $euroMillionsDrawBreakDown->setLotteryPrize($money);
                     $euroMillionsDrawBreakDown->setWinners($breakDown[2]);
+                    $euroMillionsDrawBreakDown->setCategoryName($key);
                     $this->$nameMethod($euroMillionsDrawBreakDown);
-                }catch(\Exception $e){
-                    throw new \Exception($e->getMessage());
                 }
+            }catch(\Exception $e){
+                var_dump(__LINE__);die();
+                throw new \Exception($e->getMessage());
             }
         }
     }

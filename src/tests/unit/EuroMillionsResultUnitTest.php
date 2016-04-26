@@ -8,24 +8,38 @@ use EuroMillions\tests\base\UnitTestBase;
 
 class EuroMillionsResultUnitTest extends UnitTestBase
 {
+//    /**
+//     * method construct
+//     * when calledWithWrongNumberOfRegularNumbersOrLuckyNumbers
+//     * should throw
+//     * @dataProvider getWrongNumberOfNumbers
+//     */
+//    public function test_construct_calledWithWrongNumberOfRegularNumbersOrLuckyNumbers_throw($regular_numbers, $lucky_numbers)
+//    {
+//        $this->setExpectedException('\InvalidArgumentException', "An EuroMillions result should have 5 regular numbers and 2 lucky numbers");
+//        $this->exerciseConstruct($regular_numbers, $lucky_numbers);
+//    }
+//
+//    public function getWrongNumberOfNumbers()
+//    {
+//        return [
+//            [[1,2,3,4,5,6],[1,2]],
+//            [[1,2,3,4,5],[1,2,3]],
+//        ];
+//    }
+
     /**
      * method construct
-     * when calledWithWrongNumberOfRegularNumbersOrLuckyNumbers
-     * should throw
-     * @dataProvider getWrongNumberOfNumbers
+     * when calledWithNumersAndStarsEmpty
+     * should returnNullValuesInProperties
      */
-    public function test_construct_calledWithWrongNumberOfRegularNumbersOrLuckyNumbers_throw($regular_numbers, $lucky_numbers)
+    public function test_construct_calledWithNumersAndStarsEmpty_returnNullValuesInProperties()
     {
-        $this->setExpectedException('\InvalidArgumentException', "An EuroMillions result should have 5 regular numbers and 2 lucky numbers");
-        $this->exerciseConstruct($regular_numbers, $lucky_numbers);
-    }
-
-    public function getWrongNumberOfNumbers()
-    {
-        return [
-            [[1,2,3,4,5,6],[1,2]],
-            [[1,2,3,4,5],[1,2,3]],
-        ];
+        $regular_numbers = [];
+        $lucky_numbers = [];
+        $sut = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),$this->getLuckyNumbers($lucky_numbers));
+        $this->assertEquals([null,null,null,null,null],$sut->getRegularNumbersArray());
+        $this->assertEquals([null,null],$sut->getLuckyNumbersArray());
     }
 
     /**

@@ -30,9 +30,9 @@ class EuroMillionsLine implements IArraySerializable
      */
     public function __construct(array $regular_numbers, array $lucky_numbers)
     {
-        if (count($regular_numbers) != self::NUM_REGULAR_NUMBERS || count($lucky_numbers) != self::NUM_LUCKY_NUMBERS ){
-            throw new \InvalidArgumentException("An EuroMillions result should have ".self::NUM_REGULAR_NUMBERS." regular numbers and ".self::NUM_LUCKY_NUMBERS." lucky numbers");
-        }
+//        if (count($regular_numbers) != self::NUM_REGULAR_NUMBERS || count($lucky_numbers) != self::NUM_LUCKY_NUMBERS ){
+//            throw new \InvalidArgumentException("An EuroMillions result should have ".self::NUM_REGULAR_NUMBERS." regular numbers and ".self::NUM_LUCKY_NUMBERS." lucky numbers");
+//        }
         if ($this->checkTypeAndRepeated($regular_numbers, 'EuroMillionsRegularNumber') || $this->checkTypeAndRepeated($lucky_numbers, 'EuroMillionsLuckyNumber')) {
             throw new \InvalidArgumentException("The result numbers cannot have duplicates");
         }
@@ -40,9 +40,14 @@ class EuroMillionsLine implements IArraySerializable
             return $elem->getNumber();
         };
 
-        $this->regular_numbers = implode(',',array_map($callback, $regular_numbers));
-        $this->lucky_numbers = implode(',',array_map($callback, $lucky_numbers));
-        $this->setPropertiesValues($regular_numbers, $lucky_numbers);
+        if(empty($regular_numbers) || empty($lucky_numbers)) {
+            $this->regular_numbers = [];
+            $this->lucky_numbers = [];
+        } else {
+            $this->regular_numbers = implode(',',array_map($callback, $regular_numbers));
+            $this->lucky_numbers = implode(',',array_map($callback, $lucky_numbers));
+            $this->setPropertiesValues($regular_numbers, $lucky_numbers);
+        }
     }
 
     private function setPropertiesValues(array $regular_numbers, array $lucky_numbers)
