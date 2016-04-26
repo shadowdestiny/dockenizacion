@@ -285,7 +285,6 @@ class EuroMillionsDrawBreakDown
                     $this->$nameMethod($euroMillionsDrawBreakDown);
                 }
             }catch(\Exception $e){
-                var_dump(__LINE__);die();
                 throw new \Exception($e->getMessage());
             }
         }
