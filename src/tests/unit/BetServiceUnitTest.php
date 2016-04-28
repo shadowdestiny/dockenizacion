@@ -12,6 +12,7 @@ use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\BetService;
+use EuroMillions\web\services\external_apis\LotteryValidationCastilloApi;
 use EuroMillions\web\vo\EuroMillionsLine;
 use Money\Currency;
 use Money\Money;
@@ -56,7 +57,7 @@ class BetServiceUnitTest extends UnitTestBase
         $this->betRepository_double = $this->getRepositoryDouble('BetRepository');
         $this->userRepository_double = $this->getRepositoryDouble('UserRepository');
         $this->logValidationApi_double = $this->getRepositoryDouble('LogValidationApiRepository');
-        $this->lotteryValidation_double = $this->prophesize('EuroMillions\web\services\external_apis\LotteryValidationCastilloApi');
+        $this->lotteryValidation_double = $this->prophesize(LotteryValidationCastilloApi::class);
         parent::setUp();
     }
 

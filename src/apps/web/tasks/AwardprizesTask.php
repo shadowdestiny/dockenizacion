@@ -43,7 +43,6 @@ class AwardprizesTask extends TaskBase
             $euromillions_breakDown = $result_breakdown->getValues()->getBreakDown();
             $play_configs_awarded = $play_configs_result_awarded->getValues();
             foreach ($play_configs_awarded as $play_config_and_count) {
-
                 /** @var Money $result_amount */
                 $result_amount = $euromillions_breakDown->getAwardFromCategory($play_config_and_count['cnt'], $play_config_and_count['cnt_lucky']);
                 if ($result_amount->getAmount() > 0) {
