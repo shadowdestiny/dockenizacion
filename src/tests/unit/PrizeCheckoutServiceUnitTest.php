@@ -114,6 +114,7 @@ class PrizeCheckoutServiceUnitTest extends UnitTestBase
      */
     public function test_reChargeAmountAwardedToUser_called_chargeAmountInHisAccountAndReturnServiceActionResultTrue()
     {
+        $this->markTestSkipped('Mandrill');
         $expected = new ActionResult(true);
         $amount_awarded = new Money(5000, new Currency('EUR'));
         $user = $this->getUser();
