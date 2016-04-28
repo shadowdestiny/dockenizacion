@@ -79,9 +79,9 @@ class PrizeCheckoutService
             $user->awardPrize($amount);
             if($amount->greaterThanOrEqual($threshold_price)) {
                 $user->setWinningAbove($amount);
-                $this->sendBigWinEmail($user, $amount);
+//EMTD                $this->sendBigWinEmail($user, $amount);
             } else {
-                $this->sendSmallWinEmail($user, $amount);
+//EMTD                $this->sendSmallWinEmail($user, $amount);
             }
             $this->storeAwardTransaction();
             $this->userRepository->add($user);
