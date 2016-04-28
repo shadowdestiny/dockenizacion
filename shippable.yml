@@ -36,7 +36,7 @@ build:
   after_success:
     - BUILD_NUMBER=$(date +'%Y%m%d_%H%M%S').$RANDOM
     - git tag -a v1-$BUILD_NUMBER -m "v1-$BUILD_NUMBER"
-    - git push --tags origin
+    - git push origin v1-$BUILD_NUMBER
 
 integrations:
   notifications:
