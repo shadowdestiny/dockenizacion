@@ -176,7 +176,7 @@ $(function(){
         var params = $('.form-breakdown').serialize();
         ajaxFunctions.editBreakDown(params);
     });
-    $('.form-draw .btn-danger').on('click',function(){
+    $('.form-draw,.form-breakdown .btn-danger').on('click',function(){
         $('.crud-draw').hide('fast');
         $('.box-draw-data').show();
     });
