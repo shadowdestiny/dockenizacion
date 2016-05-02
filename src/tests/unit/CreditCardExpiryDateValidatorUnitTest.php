@@ -117,8 +117,8 @@ class CreditCardExpiryDateValidatorUnitTest extends UnitTestBase
     public function getCorrectExpiryDates()
     {
         return [
-            ['04','16','month','expiry-date-year'],
-            ['04','16','year','expiry-date-month'],
+            ['04','17','month','expiry-date-year'],
+            ['04','17','year','expiry-date-month'],
             ['01','19','month','expiry-date-year'],
             ['01','19','year','expiry-date-month'],
             ['10','24','year','expiry-date-month'],
