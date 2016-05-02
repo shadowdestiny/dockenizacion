@@ -49,3 +49,14 @@ environments:
         pass: 'tpl9'
         port: 3306
         charset: utf8
+
+    production:
+        adapter: mysql
+        host: mysql
+        name: euromillions
+        user: root
+        pass: 'tpl9'
+        port: 3306
+        charset: utf8
+
+
