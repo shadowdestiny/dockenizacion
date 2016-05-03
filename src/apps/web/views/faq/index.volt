@@ -42,22 +42,19 @@
                     <li><a href="#n06">{{ language.translate("When the Draw results are released?") }}</a></li>
                     <li><a href="#n07">{{ language.translate("What is the Prize Breakdown?") }}</a></li>
                     <li><a href="#n08">{{ language.translate("What is the minimum guaranteed jackpot?") }}</a></li>
-                </ul>
-
-                <h2 class="h3">{{ language.translate("Euromillions Advanced Play") }}</h2>
-                <ul class="no-li">
-                    <li><a href="#n09">{{ language.translate("What is a Superdraw?") }}</a></li>
-
-                    <li><a href="#n10">{{ language.translate("What is a Long Play?") }}</a></li> 
-
-{#
-                    <li><a href="#n07">{{ language.translate("What is a Subscription?") }}</a></li> 
-#}
-
-                    <li><a href="#n11">{{ language.translate("How can I participate in a future draw?") }}</a></li>
-                    <li><a href="#n12">{{ language.translate("Can I play only when the Jackpot Prize reach a specific amount?") }}</a></li>
+                     <li><a href="#n09">{{ language.translate("What is a Superdraw?") }}</a></li>
+                     <li><a href="#n11">{{ language.translate("How can I participate in a future draw?") }}</a></li>
                     <li><a href="#n13">{{ language.translate("How do I make a bet with multiple numbers in a line?") }}</a></li>
                 </ul>
+
+{#
+                <h2 class="h3">{{ language.translate("Euromillions Advanced Play") }}</h2>
+                <ul class="no-li">
+                    <li><a href="#n10">{{ language.translate("What is a Long Play?") }}</a></li> 
+                    <li><a href="#n07">{{ language.translate("What is a Subscription?") }}</a></li> 
+                    <li><a href="#n12">{{ language.translate("Can I play only when the Jackpot Prize reach a specific amount?") }}</a></li>
+                </ul>
+#}
 
                <h2 class="h3">{{ language.translate("Winnings") }}</h2>
                 <ul class="no-li">
@@ -80,7 +77,7 @@
                 <ul class="no-li">
                     <li><a href="#n23">{{ language.translate("What should I do if I am experiencing technical problems?") }}</a></li>
                     <li><a href="#n24">{{ language.translate("I have forgotten my password and I cannot login. What do I do?") }}</a></li>
-                    <li><a href="#n25">{{ language.translate("How do I edit or delete a Subscription?") }}</a></li>
+{#                    <li><a href="#n25">{{ language.translate("How do I edit or delete a Subscription?") }}</a></li> #}
                     <li><a href="#n26">{{ language.translate("How I can disable emails notifications?") }}</a></li>
                 </ul>
 
@@ -96,7 +93,7 @@
 
                 <a id="n01"></a>
                 <h3 class="h3">{{ language.translate("What is the Euromillions lottery?") }}</h3>
-                <p>{{ language.translate('Euromillions is the biggest european transnational lottery featuring a minimum 15 million euro jackpot every Tuesday and Friday. The jackpot can rollover until it reaches 190 million euro if there are no winners.') }}</p>
+                <p>{{ language.translate('Euromillions is the biggest European transnational lottery featuring a minimum 15 million euro jackpot every Tuesday and Friday. The jackpot can rollover until it reaches 190 million euro if there are no winners.') }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <a id="n02"></a>
@@ -109,12 +106,12 @@
                 <a id="n03"></a>
                 <h3 class="h3">{{ language.translate("How do I play?") }}</h3>
 
-                <p>{{ language.translate('Information regarding how to play Euromillions is available in detail on <a href="%link%">How to play</a>.',['link':url("help")]) }}</p> 
+                <p>{{ language.translate('Information regarding how to play Euromillions is available in detail on <a href="/help">How to play</a>.') }}</p> 
                 {% include "faq/back-top.volt" %}
 
                 <a id="n04"></a>
                 <h3 class="h3">{{ language.translate("What time is the draw?") }}</h3>
-                <p>{{ language.translate('<a href="%link%">Euromillions draws</a> take place on Tuesday and Friday evenings at approximately %draw_time% CET.',['link':url("play"), 'draw_time':draw_time]) }}</p>
+                <p>{{ language.translate('<a href="/play">Euromillions draws</a> take place on Tuesday and Friday evenings at approximately 20:00 CET.') }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <a id="n05"></a>
@@ -134,40 +131,43 @@
 
                 <a id="n08"></a>
                 <h3 class="h3">{{ language.translate('What is the minimum guaranteed jackpot?')}}</h3>
-                <p>{{ language.translate('The minimum guaranteed jackpot is &euro; 15 million. It can rollover until &euro; 190 million.') }}</p>
+                <p>{{ language.translate('The minimum guaranteed jackpot is &euro;15 million. It can rollover until &euro;190 million.') }}</p>
                 {% include "faq/back-top.volt" %}
-
-                <h2 class="h2 yellow">{{ language.translate("Euromillions Advanced Play") }}</h2>
-
+                
                 <a id="n09"></a>
                 <h3 class="h3">{{ language.translate("What is a Superdraw?") }}</h3>
                 <p>{{ language.translate('A Euromillions Superdraw is a special draw which typically features a guaranteed &euro; 100 million jackpot whether or not the Euromillions jackpot was won in the preceding draw. They usually occur once or twice a year in celebration of a special event or to mark changes in the lottery however, they can happen at any time. Similarly to a normal Euromillions draw, if no one matches the 5 main numbers and two lucky stars, the jackpot is rolled over to the next draw.') }}</p>
                 {% include "faq/back-top.volt" %}
 
+                <a id="n11"></a>
+                <h3 class="h3">{{ language.translate("How can I participate in a future draw?") }}</h3>
+                <p>{{ language.translate('Yes, you can purchase a play for a future Euromillions draw by using the Buy for Draw option under your lines on the <a href="/play">Play Page</a>. You can buy a ticket for up to 12 draws in advance.') }}</p>
+                {% include "faq/back-top.volt" %}
+
+                <a id="n13"></a>
+                <h3 class="h3">{{ language.translate("How do I make a bet with multiple numbers in a line?") }}</h3>
+                <p>{{ language.translate('At the moment of launching our new improved version of Euromillions.com, we are not supporting this feature. In the close future we are commited to introduce multiple bets for your convenience.') }}</p>
+                {% include "faq/back-top.volt" %}
+
+{#
+                <h2 class="h2 yellow">{{ language.translate("Euromillions Advanced Play") }}</h2>
+
                 <a id="n10"></a>
                 <h3 class="h3">{{ language.translate("What is a Long Play?") }}</h3>
                 <p>{{ language.translate('A Long Play is a recurring ticket. You can participate in the coming weeks without repeating the payment process. Do not worry, we will send you an email notification when your Long Play comes to an end. Remember, that you can opt again for a Long Play or a Subscription without any kind of commitment.')}}</p> 
                 {% include "faq/back-top.volt" %}
-{#
+
                 <a id="n07"></a>
                 <h3 class="h3">{{ language.translate("What is a Subscription?") }}</h3>
                 <p>{{ language.translate('A subscription comprises a recurring ticket, which ensures that you never miss a lottery draw. Subscription are without commitment and you can stop it any time.',['link':url("play")]) }}</p> 
-                {% include "faq/back-top.volt" %}
-#}
-                <a id="n11"></a>
-                <h3 class="h3">{{ language.translate("How can I participate in a future draw?") }}</h3>
-                <p>{{ language.translate('Yes, you can purchase a play for a future Euromillions draw by clicking on Advance Play in the <a href="%link%">Play Page</a>, and selecting the numbers of draws you would like your ticket(s) to participate in or by selecting a future date on which you would like to play.',['link':url("play")]) }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <a id="n12"></a>
                 <h3 class="h3">{{ language.translate("Can I play only when the Jackpot Prize reach a specific amount?") }}</h3>
                 <p>{{ language.translate('Yes, you can by clicking on Advance Play in the <a href="%link%">Play Page</a>',['link':url("play")]) }}</p> 
                 {% include "faq/back-top.volt" %}
-  
-                <a id="n13"></a>
-                <h3 class="h3">{{ language.translate("How do I make a bet with multiple numbers in a line?") }}</h3>
-                <p>{{ language.translate("At the moment of launching our new improved version of Euromillions.com, we are not supporting this feature. In the close future we are commited to introduce multiple bets for your convenience.") }}</p>
-                {% include "faq/back-top.volt" %}
+#}  
+               
 
                 <h2 class="h2 yellow">{{ language.translate("Winnings") }}</h2>
 
@@ -182,8 +182,8 @@
                 {% include "faq/back-top.volt" %}
 
                 <a id="n16"></a>
-                <h3 class="h3">{{ language.translate("Are winnings on the Euromillions taxable?") }}</h3>
-                <p>{{ language.translate('Most countries do not tax winnings. We advice you to check if in your country of residence gambling is taxable.') }}</p>
+                <h3 class="h3">{{ language.translate("Are Euromillions winnings taxable?") }}</h3>
+                <p>{{ language.translate('Most countries do not tax winnings. We advise you to check whether gambling is taxable in your country of residence.') }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <a id="n17"></a>
@@ -195,7 +195,7 @@
 
                 <a id="n18"></a>
                 <h3 class="h3">{{ language.translate("How much does a Euromillions ticket cost?") }}</h3>
-                <p>{{ language.translate('<a href="%link%">Playing Euromillions</a> costs %bet_price% / %bet_price_pound% per play. This is the best price available on the Internet.',['link':url("play"), 'bet_price': bet_price,'bet_price_pound' : bet_price_pound]) }}</p>
+                <p>{{ language.translate('<a href="/play">Playing Euromillions</a> costs %bet_price% / %bet_price_pound% per play. This is the best price available on the Internet.',['bet_price': bet_price,'bet_price_pound' : bet_price_pound]) }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <a id="n19"></a>
@@ -210,12 +210,12 @@
 
                 <a id="n21"></a>
                 <h3 class="h3">{{ language.translate("Does the Euromillions have jackpot cap?") }}</h3>
-                <p>{{ language.translate('The jackpot can rollover until a &euro; 190 million jackpot cap is reached. A 190 million Euro jackpot can remain only two consecutive draws and if there is no jackpot winner the big prize will cascade down to the following prize tier that features a winner.') }}</p>
+                <p>{{ language.translate('The jackpot can rollover until a &euro;190 million jackpot cap is reached. A &euro;190 million jackpot can remain only two consecutive draws and if there is no jackpot winner the big prize will cascade down to the following prize tier that features a winner.') }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <a id="n22"></a>
                 <h3 class="h3">{{ language.translate("How do I track my past played games?") }}</h3>
-                <p>{{ language.translate('In the <a href="%link%">Games area</a> section of your player account you can find a summary of all your past games. If you wish from this area you can try your luck with your previous played numbers.',['link':url("account/games")]) }}</p>
+                <p>{{ language.translate('In the <a href="/account/games">Games area</a> section of your player account you can find a summary of all your past games.') }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <h2 class="h2 yellow">{{ language.translate("Troubleshootings") }}</h2>
@@ -227,24 +227,26 @@
 
                 <a id="n24"></a>
                 <h3 class="h3">{{ language.translate("I have forgotten my password and I cannot login. What do I do?") }}</h3>
-                <p>{{ language.translate('If you have forgotten your password you can <a href="%link%">easily reset it</a>. If your account has all ready been blocked please contact our customer support to resolve the problem. <a href="mailto:%email_support%">%email_support%</a>',['link':url("reset"),'email_support':email_support]) }}</p> {# EMTD - Insert reset link #}
+                <p>{{ language.translate('If you have forgotten your password you can <a href="/account/password">easily reset it</a>. If your account has all ready been blocked please contact our customer support to resolve the problem. <a href="mailto:%email_support%">%email_support%</a>',['email_support':email_support]) }}</p>
                 {% include "faq/back-top.volt" %}
 
+{#
                 <a id="n25"></a>
                 <h3 class="h3">{{ language.translate("How do I edit or delete a Subscription?") }}</h3>
                 <p>{{ language.translate('In the <a href="%link%">Games area</a> section of your player account you can find all your active bets. In there you can easily modify duration, numbers and amount of partecipating bets per draw.',['link':url("account/games")]) }}</p>
                 {% include "faq/back-top.volt" %}
+#}
 
                 <a id="n26"></a>
                 <h3 class="h3">{{ language.translate("How I can disable emails notifications?") }}</h3>
-                <p>{{ language.translate('In the <a href="%link%">Email Settings area</a> section of your player you can easily configure your email notifications preferences.',['link':url("account/email")]) }}</p>
+                <p>{{ language.translate('In the <a href="/account/email">Email Settings area</a> section of your player you can easily configure your email notifications preferences.')}}</p>
                 {% include "faq/back-top.volt" %}
 
                 <h2 class="h2 yellow">{{ language.translate("Legal") }}</h2>
 
                 <a id="n27"></a>
                 <h3 class="h3">{{ language.translate("Can I play Euromillions from any country?") }}</h3>
-                <p>{{ language.translate('Yes, We are a Fully licensed gambling operator. Anyone from around the world can play through Euromillions.com on the condition that gambling is not prohibited in their country of residence.') }}</p>
+                <p>{{ language.translate('Yes. Anyone from around the world can play through Euromillions.com on the condition that playing a foreign lottery not prohibited in their country of residence.') }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <a id="n28"></a>
