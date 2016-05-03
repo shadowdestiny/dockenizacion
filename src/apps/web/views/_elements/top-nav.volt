@@ -32,4 +32,9 @@
 <li class="li-sign">
     <a class="link" href="/sign-up">{{ language.translate('Sign up') }}</a>
 </li>
+{% else %}
+<li class="li-sign">
+    <a class="link" href="/account/wallet">{{ language.translate('Deposit') }}</a>
+</li>
+
 {% endif %}
