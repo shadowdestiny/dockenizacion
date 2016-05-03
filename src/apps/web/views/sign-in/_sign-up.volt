@@ -15,7 +15,7 @@
     <div class="cl">
         <input id="goSignUp" type="submit" class="hidden2" />
         {% if signIn.myClass == 'sign-in' %}
-            <label for="goSignUp" class="submit btn big blue">{{ language.translate("Connect to a secure server") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
+            <label for="goSignUp" class="submit btn big blue">{{ language.translate("Create your account") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
         {% elseif signIn.myClass == 'cart' %}
             <label for="goSignUp" class="submit btn big blue">{{ language.translate("Create account &amp; Play") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
         {% endif %}
