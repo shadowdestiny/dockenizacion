@@ -2,7 +2,7 @@
     <a href="/play">
         <span class="link desktop">{{ language.translate("Win top prizes") }}</span>
         <br class="br">
-        <span class="txt">{{ language.translate("Play Games") }}</span>
+        <span class="txt">{{ language.translate("Play") }}</span>
     </a>
 </li>
 <li class="li-numbers{% if activeNav.myClass == 'numbers' %} active{% endif %}">
@@ -31,9 +31,9 @@
         {# EDTD To remove SUBNAV when not connected as account #}
         <ul class="subnav hidden">
             <li><a href="/account">{{ language.translate("Account") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
-            <li><a href="/account/games">{{ language.translate("Games") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
+            <li><a href="/account/games">{{ language.translate("Tickets") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
             <li><a href="/account/wallet">{{ language.translate("Balance") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
-            <li><a href="/account/transaction">{{ language.translate("Transaction") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
+            <li><a href="/account/transaction">{{ language.translate("Transactions") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
 {#
             <li><a href="/account/messages">{{ language.translate("Messages") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
 #}

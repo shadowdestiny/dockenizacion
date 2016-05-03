@@ -125,7 +125,7 @@ home
 				<a href="/play" class="btn red huge">{{ language.translate("Play Now") }}</a>
 				<div class="for-only">{{ language.translate("For only")}} {{ bet_price }}</div>
 			</div>
-			<div class="txt">{{ language.translate("For a very small amount, you might change your life forever.") }}</div>
+			<div class="txt">{{ language.translate("Come play with us and change your life forever.") }}</div>
 			<div class="best-price">
 				<picture class="pic">
 					<img width="60" height="59" src="/w/img/home/best-price.png" srcset="/w/img/home/best-price@2x.png 1.5x" alt="{{ language.translate('Best Price Guarantee') }}">
@@ -158,8 +158,8 @@ home
 					<div class="box-basic box-quick-play ball">
 						<div class="content">
 							<h1 class="h2">{{ language.translate("Don't know what to play?") }}</h1>
-							<p>{{ language.translate("Use lucky generated numbers crafted just for you") }}</p>
-							<a href="/play?random" class="btn blue big wide">{{ language.translate("I feel lucky") }}</a>
+							<p>{{ language.translate("Use our Lucky Number Generator") }}</p>
+							<a href="/play?random" class="btn blue big wide">{{ language.translate("I Feel Lucky") }}</a>
 						</div>
 					</div>
 				</div>
@@ -249,7 +249,7 @@ home
 					<div class="col6 bg-hope"></div>
 				</div>
 				<div class="box-action">
-					<span class="h2 phrase">{{ language.translate("For a very small amount of money") }}<br class="mobile"> {{ language.translate("you might change your life.") }}</span>
+					<span class="h2 phrase">{{ language.translate("For a very small amount ") }}<br class="mobile"> {{ language.translate("you might change your life forever.") }}</span>
 					<a href="/play" class="btn big blue">{{ language.translate("Beat the odds, Play the Lotto") }}</a>
 				</div>
 			</div>

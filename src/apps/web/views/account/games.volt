@@ -19,7 +19,7 @@
                 {% include "account/_nav.volt" %}
             </div>
             <div class="box-basic content">
-                <h1 class="h1 title">{{ language.translate("Games") }}</h1>
+                <h1 class="h1 title">{{ language.translate("Tickets") }}</h1>
 
                 {% if my_games_actives is empty %}
                     <div class="box info">
@@ -48,7 +48,7 @@
                 {% if my_games_actives is empty %}
 
                 {% else %}
-                    <h2 class="h3">{{ language.translate("Present Games") }}</h2>
+                    <h2 class="h3">{{ language.translate("My Tickets") }}</h2>
                     <table class="present cl table ui-responsive" data-role="table" data-mode="reflow">
                         <thead>
                             <th class="date">
