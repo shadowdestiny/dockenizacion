@@ -37,19 +37,19 @@
             <p>{{ language.translate("Our website utilizes cookies to keep certain settings or preferences of the website so when the user returns, the settings make sure the website acts or looks the same.") }}</p> 
             
             <h2 class="h3">{{ language.translate("Security") }}</h2>
-            <p>{{ language.translate("This website takes every precaution to protect users' information. When users submit sensitive information on the website, their information is protected both online and off-line. When the site requests sensitive information, that information is encrypted and protected with SSL 128 bit.Access to user information is only granted to staff members who need the information to perform a specific job.") }}</p>
+            <p>{{ language.translate("This website takes every precaution to protect users' information. When users submit sensitive information on the website, their information is protected both online and off-line. When the site requests sensitive information, that information is encrypted and protected with SSL 128 bit. Access to user information is only granted to staff members who need the information to perform a specific job.") }}</p>
 
             <h2 class="h3">{{ language.translate("Site and Service Updates") }}</h2>
-            <p>{{ language.translate("Every now and than, we e-mail website and service announcements to our registered users.") }}</p>
+            <p>{{ language.translate("Every now and then, we e-mail website and service announcements to our registered users.") }}</p>
 
             <h2 class="h3">{{ language.translate("Notification system") }}</h2>
-            <p>{{ language.translate("We supply an e-mail based notification system to our users. Each notification service can be activated or discontinued at any time in the user's player account.") }}</p>
+            <p>{{ language.translate("We offer an e-mail based notification system to our users. Each notification service can be activated or discontinued at any time in the user's player account.") }}</p>
 
             <h2 class="h3">{{ language.translate("Correction/Updating Personal Information</h2>
             <p>Our registered customers can access and update their provided information in their player account. If a user wishes to completely suspend and remove the account, our customer service will help.") }}</p>
 
             <h2 class="h3">{{ language.translate("Notification of Changes") }}</h2>
-            <p>{{ language.translate("If we decide to change our privacy policy, we will post those changes on this webpage so our users are always aware of what information we collect, how we use it, and under what circumstances, if any, we disclose it. If at any point we decide to use personally identifiable information in a different manner than stated at the time it was collected, we will notify our customers per email. Users will have a choice as to whether or not we use their information in this different manner. We will use information in accordance with the privacy policy under which the information was collected. During the purchase process, before the payment, customers always have to accept the most up to date Terms and Conditions.") }}</p>
+            <p>{{ language.translate("If we decide to change our privacy policy, we will post those changes on this webpage so our users are always aware of what information we collect, how we use it, and under what circumstances, if any, we disclose it. If at any point we decide to use personally identifiable information in a different manner than stated at the time it was collected, we will notify our customers by email. Users will have a choice as to whether or not we use their information in this different manner. We will use information in accordance with the privacy policy under which the information was collected. During the purchase process, before the payment, customers always have to accept the most up to date Terms and Conditions.") }}</p>
 
             <h2 class="h3">{{ language.translate("Legal Disclaimer") }}</h2>
             <p>{{ language.translate("Though we make every effort to preserve your privacy, we may need to disclose personal information when required by law wherein we have a good-faith belief that such action is necessary to comply with a current judicial proceeding, a court order or legal process demanded by our 

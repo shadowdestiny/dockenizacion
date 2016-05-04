@@ -2,7 +2,7 @@
 	<div class="wrapper">
 		<div class="cols box-links">
 			<div class="col20per">
-				<strong>{{ language.translate('Play Games') }}</strong>
+				<strong>{{ language.translate('Play') }}</strong>
 				<ul>
 					<li><a href="javascript:void(0);">{{ language.translate('EuroMillions') }}</a></li>
 {# Future links
@@ -16,15 +16,13 @@
 				<strong>{{ language.translate('Winning Numbers') }}</strong>
 				<ul>
 					<li><a href="/numbers">{{ language.translate('Latest Results') }}</a></li>
-					<li><a href="/numbers">{{ language.translate('Last %number% Drawings', ['number': 25]) }}</a></li>
-					<li><a href="/numbers">{{ language.translate('Draw History') }}</a></li>
 				</ul>
 			</div>
 			<div class="col20per">
 				<strong>{{ language.translate('Your Account')}}</strong>
 				<ul>
 					{% if user_logged %}
-						<li><a href="/account/games">{{ language.translate('My Games') }}</a></li>
+						<li><a href="/account/games">{{ language.translate('My Tickets') }}</a></li>
 						<li><a href="/account/wallet">{{ language.translate('Transactions') }}</a></li>
 						<li><a href="/account/wallet">{{ language.translate('Deposit Funds') }}</a></li>
 						<li><a href="/account/wallet">{{ language.translate('Withdraw winnings') }}</a></li>

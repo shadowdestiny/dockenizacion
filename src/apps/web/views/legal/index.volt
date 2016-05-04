@@ -51,11 +51,11 @@
 
             <p>{{ language.translate("<strong>Ticket</strong> means the online ticket that is filled out on the Euromillions.com website. Tickets are made of a set of Fields.") }}</p>
 
-            <p>{{ language.translate("<strong>Ticket ID</strong> means a unique identification number given to a Ticket that is sent into play. It is available for review under the My Bets menu.") }}</p>
+ {#           <p>{{ language.translate("<strong>Ticket ID</strong> means a unique identification number given to a Ticket that is sent into play. It is available for review under the My Bets menu.") }}</p> #}
 
-            <p>{{ language.translate("<strong>Transaction ID</strong> means a unique identifier of a payment. It is available for review under the My Transactions menu.") }}</p>
+{#             <p>{{ language.translate("<strong>Transaction ID</strong> means a unique identifier of a payment. It is available for review under the My Transactions menu.") }}</p> #}
 
-            <p>{{ language.translate('<strong>Valid Ticket</strong> means a paid Ticket that has received a valid Ticket ID and has the status of "Paid, Valid".')}}</p> 
+{#             <p>{{ language.translate('<strong>Valid Ticket</strong> means a paid Ticket that has received a valid Ticket ID and has the status of "Paid, Valid".')}}</p> #}
 
             <p>{{ language.translate("<strong>Winning Numbers</strong> means a set of numbers of the certain game, drawn on a given day and published in a final manner by the official lottery operator.") }}</p>
 
@@ -197,10 +197,10 @@
                 <div class="gap">
                     <p>
                         <span class="n">4.1</span>
-                        <span class="txt">{{ language.translate("Registration is required to use the services of the Euromillions.com website. Registration is free and performed with two steps.") }}</span>
+                        <span class="txt">{{ language.translate("Registration is free and required to use the services of the Euromillions.com website. Participants must ensure that their data is true, and must inform Euromillions.com immediately of any change in the data supplied by them during registration, including changes in their credit card or bank account data, by modifying their own accounts on this website.") }}</span>
                     </p>
 
-                    <div class="gap">
+{#                    <div class="gap">
                         <p>
                             <span class="n">4.1.1</span>
                             <span class="txt">{{ language.translate("The first step is to complete the registration form with valid data. Participants must ensure that their data are true, and must inform Euromillions.com immediately of any change in the data supplied by them during registration, including changes in their credit card or bank account data, by modifying their own accounts on this website.") }}</span>
@@ -210,7 +210,7 @@
                             <span class="n">4.1.2</span>
                             <span class="txt">{{ language.translate("The second step is confirmation, which is performed by clicking a confirmation link sent to the registrant via e-mail to the e-mail address provided in the first step.") }}</span>
                         </p>
-                    </div>
+                    </div> #}
 
                     <p>
                         <span class="n">4.2</span>
@@ -387,25 +387,25 @@
 
                         <p>
                             <span class="n">7.3.2</span>
-                            <span class="txt">{{ language.translate("From time to time, mostly but not limited to, prior to the official lottery draws as per their rules, the Euromillions.com website might block the Tickets for a short period of time. Along with and during the time of such blocking, the Euromillions.com website stops providing Transaction and Ticket IDs for the currently upcoming draw or offers the possibility to send the Tickets to play for the very next upcoming draw.") }}</span>
+                            <span class="txt">{{ language.translate("From time to time, mostly but not limited to, prior to the official lottery draws as per their rules, the Euromillions.com website might block the Tickets for a short period of time. Along with and during the time of such blocking, the Euromillions.com website stops providing its services for the currently upcoming draw or offers the possibility to send the Tickets to play for the very next upcoming draw.") }}</span>
                         </p>
 
-                        <p>
+{#                      <p>
                             <span class="n">7.3.3</span>
                             <span class="txt">{{ language.translate('When a participant sends the Ticket(s) into play, the transaction gets a unique Transaction ID, with a "Not Paid" Status and gets forwarded for payment. From this moment on, the transaction is available for review under the My Transactions menu.')}}</span>
+                        </p> #}
+
+                       <p>
+                            <span class="n">7.3.3</span>
+                            <span class="txt">{{ language.translate('In case of an unsuccessful payment, the Transaction status under the My Transactions menu will be classed as "Payment Failed", the Tickets included in that transaction will not be processed further on, and will not participate in any draws. These Tickets will not be shown on the Tickets page, as they never got paid.') }}</span>
                         </p>
 
                         <p>
                             <span class="n">7.3.4</span>
-                            <span class="txt">{{ language.translate('In case of an unsuccessful payment, the Transaction status under the My Transactions menu will be updated to "Payment Failed", the Tickets included in that transaction will not be processed further on, and will not participate in any draws. These Tickets will not be shown under the My Previous Tickets menu, as they never got paid.') }}</span>
-                        </p>
-
-                        <p>
-                            <span class="n">7.3.5</span>
                             <span class="txt">{{ language.translate("In case of a successful payment:") }}</span>
                         </p>
 
-                        <div class="gap">
+{#                        <div class="gap">
                             <p>
                                 <span class="n">a.</span>
                                 <span class="txt">{{ language.translate('The Status of the transaction gets updated to "Paid" under the My Transactions menu;') }}</span>
@@ -420,37 +420,37 @@
                                 <span class="n">c.</span>
                                 <span class="txt">{{ language.translate('A "Transaction Notification"')}} {{ language.translate("confirmation email will be sent out to the participants' email, separately for each game, containing a unique Ticket ID for each Ticket, and all the played numbers and their settings.") }}</span>
                             </p>
-                        </div>
+                        </div> #}
 
                         <div class="gap">
-                            <p>
-                                <span class="n">7.3.5.1</span>
+{#                             <p>
+                                <span class="n">7.3.4.1</span>
                                 <span class="txt">{{ language.translate("The participant has the responsibility to preserve the Ticket ID, and to present it to the Euromillions.com website upon its request. The Euromillions.com website reserves the right to reject all claims, including but not limited to winnings, if the participant is not able to present at least the valid Ticket ID and draw date. A Ticket ID and draw date are considered valid if the data completely match with the Euromillions.com website's records along with the Identification and Payment data of the user. In case of disputes, the Euromillions.com website's records are considered the official and valid records.") }}</span>
-                            </p>
+                            </p> #}
 
                             <p>
-                                <span class="n">7.3.5.2</span>
+                                <span class="n">7.3.4.1</span>
                                 <span class="txt">{{ language.translate("The payment for the Tickets is performed either by debiting the participants’ player account balance or by charging the participants credit card by the Euromillions.com website's payment processor. Payments and purchases are final and cannot be cancelled or refunded as they will be forwarded along in the placement flow.") }}</span>
                             </p>
 
                             <p>
-                                <span class="n">7.3.5.3</span>
+                                <span class="n">7.3.4.2</span>
                                 <span class="txt">{{ language.translate('Only Tickets with the Transaction status of "Paid" will be processed further on.') }}</span>
                             </p>
 
                             <p>
-                                <span class="n">7.3.5.4</span>
-                                <span class="txt">{{ language.translate('After a successful placement, the Status of the Ticket under the My Bets menu will be changed to "Paid, Valid". A Ticket that for any reason, including but not limited to technical malfunctioning, technical failure, human error, risk assessment filtering, potential fraud filtering, external forces or anything else, does not get successfully placed, will receive a Status of "Refunded"') }}' {{ language.translate("and the payment will be automatically reimbursed to the Participant's player account, and will not entitle the participant who filled out the Ticket any rights, including but not limited to appeal against the cause or its consequences.") }}</span>
+                                <span class="n">7.3.4.3</span>
+                                <span class="txt">{{ language.translate("A Ticket that for any reason, including but not limited to technical malfunctioning, technical failure, human error, risk assessment filtering, potential fraud filtering, external forces or anything else, does not get successfully placed, will be automatically reimbursed to the Participant's player account, and will not entitle the participant who filled out the Ticket any rights, including but not limited to appeal against the cause or its consequences.") }}</span>
                             </p>
 
                             <p>
-                                <span class="n">7.3.5.5</span>
-                                <span class="txt">{{ language.translate('The Euromillions.com website and its system is entitled to retroactively cancel and recall a Ticket, even with the Status of "Paid, Valid", if it is found by Euromillions.com that the placement for the Ticket has not been fully settled for any reason, including but not limited to technical malfunctioning, technical failure, human error, risk assessment filtering, potential fraud filtering, external forces, or any other reason. In such an event, the Ticket will be considered as having been invalid from the start and will get the status of "Recalled".') }}</span>
+                                <span class="n">7.3.4.4</span>
+                                <span class="txt">{{ language.translate('The Euromillions.com website and its system is entitled to retroactively cancel and recall a Ticket, if it is found by Euromillions.com that the placement for the Ticket has not been fully settled for any reason, including but not limited to technical malfunctioning, technical failure, human error, risk assessment filtering, potential fraud filtering, external forces, or any other reason. In such an event, the Ticket will be considered as having been invalid from the start and will be considered recalled.') }}</span>
                             </p>
 
                             <p>
-                                <span class="n">7.3.5.6</span>
-                                <span class="txt">{{ language.translate('Immediately after the winning numbers, the number of winners, and the winning sums in each of the official lottery draws will be published by the official operator of the lottery draw (the "Official Results"), the Euromillions.com website will conduct a comprehensive examination of all Valid Tickets. The Euromillions.com website will examine whether, amongst the Valid Tickets, there are selections that entitle a participant or any participants to prizes. Winning Tickets under the My Bets menu will get a Status of "Participated, Won"; and non-winning Tickets will get a Status of "Participated".')}}</span>
+                                <span class="n">7.3.4.5</span>
+                                <span class="txt">{{ language.translate('Immediately after the winning numbers, the number of winners, and the winning sums in each of the official lottery draws will be published by the official operator of the lottery draw (the "Official Results"), the Euromillions.com website will conduct a comprehensive examination of all Valid Tickets. The Euromillions.com website will examine whether, amongst the Valid Tickets, there are selections that entitle a participant or any participants to prizes.')}}</span>
                             </p>
                         </div>
                     </div>
@@ -490,7 +490,7 @@
 
                         <p>
                             <span class="n">7.5.2</span>
-                            <span class="txt">{{ language.translate("In the event that a Valid Ticket includes a winning selection or selections that entitle a prize up to the amount the official lottery operator does not require personal identification, the Euromillions.com website will transfer the winning sum to the Participant's player account shortly after the publication of the results on the Euromillions.com website. The Participant can withdraw the winning sum at any time. An optional notification e-mail is sent to the Participant, containing the details of the deposited amount.") }}</span>
+                            <span class="txt">{{ language.translate("In the event that a validated bet includes a winning selection or selections that entitle a prize up to the amount the official lottery operator does not require personal identification, the Euromillions.com website will transfer the winning sum to the Participant's player account shortly after the publication of the results on the Euromillions.com website. The Participant can withdraw the winning sum at any time as long as the amount of winnings or the accumulated amount of winnings is equal or higher than €25. An optional notification e-mail is sent to the Participant, containing the details of the deposited amount.") }}</span>
                         </p>
 
                         <p class="gap">
@@ -500,7 +500,7 @@
 
                         <p>
                             <span class="n">7.5.3</span>
-                            <span class="txt">{{ language.translate("When a Valid Ticket includes a winning selection or selections that entitle a prize above the amount for which the official lottery operator requires personal identification of the winner, e.g.: the Jackpot, or the second prize, Euromillions.com will have the right to choose the manner of the prize collection through:") }}</span>
+                            <span class="txt">{{ language.translate("When a validated bet includes a winning selection or selections that entitle a prize above the amount for which the official lottery operator requires personal identification of the winner, e.g.: the Jackpot, or the second prize, Euromillions.com will have the right to choose the manner of the prize collection through:") }}</span>
                         </p>
 
                         <div class="gap">
@@ -723,7 +723,7 @@
 
                     <p>
                         <span class="n">11.2</span>
-                        <span class="txt">{{ language.translate("The Euromillions.com website does and will, to the best of its ability, prevent any malfunctioning in the Euromillions.com website's operations and activity. However, in any event of a technical failure in the Euromillions.com website's operating or computer system, human error or external force, that as a result thereof, for example, an offline ticket, has not been purchased, or confusion regarding the transfer of the selection that was marked on a Valid Ticket, the Euromillions.com website will be entitled to cancel any Valid Ticket, concerning which the malfunctioning has occurred. In such an event, the responsibility of the Euromillions.com website and/or its operator and/or owner and/or anyone else who has acted on their behalf or for them will be limited only to the participation fees sum that was paid to the Euromillions.com website by the participant for the Valid Ticket.") }}</span>
+                        <span class="txt">{{ language.translate("The Euromillions.com website does and will, to the best of its ability, prevent any malfunctioning in the Euromillions.com website's operations and activity. However, in any event of a technical failure in the Euromillions.com website's operating or computer system, human error or external force, that as a result thereof, for example, an offline ticket, has not been purchased, or confusion regarding the transfer of the selection that was marked on a validated bet, the Euromillions.com website will be entitled to cancel any validated bet, concerning which the malfunctioning has occurred. In such an event, the responsibility of the Euromillions.com website and/or its operator and/or owner and/or anyone else who has acted on their behalf or for them will be limited only to the participation fees sum that was paid to the Euromillions.com website by the participant for the validated bet.") }}</span>
                     </p>
 
                     <p>

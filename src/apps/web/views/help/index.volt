@@ -38,16 +38,16 @@
                             </div>
                             <div class="content">
                                 <h3 class="li-title">{{ language.translate("Play slips") }}</h3>
-                                {{ language.translate("(Optional) There are 6 lines per play slip (or less if you access from a mobile device). To play further lines, click on") }} <div class='sample btn gwg'>{{ language.translate("Add more lines") }} <svg class="ico v-shuffle"><use xlink:href="/w/svg/icon.svg#v-shuffle"/></svg></div> {{ language.translate("whereby more play slips will appear.") }}
+                                {{ language.translate("There are 6 lines per play slip (or less if you access from a mobile device). To play further lines, click on") }} <div class='sample btn gwg'>{{ language.translate("Add more lines") }} <svg class="ico v-shuffle"><use xlink:href="/w/svg/icon.svg#v-shuffle"/></svg></div> {{ language.translate("whereby more play slips will appear.") }}
                             </div>
                         </li>
-                        <li class="duration cl">
+                       <li class="duration cl">
                            <div class="box-ico">
                                 <svg class="ico v-clock"><use xlink:href="/w/svg/icon.svg#v-clock"></use></svg>
                             </div>
                             <div class="content">
-                                <h3 class="li-title">{{ language.translate("Set a duration") }}</h3>
-                                {{ language.translate("(Optional) In")}} <div class='sample btn gwp'>{{ language.translate("Advanced Play") }} <svg class="ico v-clover"><use xlink:href="/w/svg/icon.svg#v-clover"/></svg></div> {{ language.translate("select the days in which you would like your ticket to participate (Tuesday or Friday or both) and the number of draws you would like them to participate in. You can play up to 52 weeks (104 draws) in advance or opt for a subscription.") }}
+                                <h3 class="li-title">{{ language.translate("Select a draw") }}</h3>
+                                {{ language.translate("You can buy a ticket for up to 12 draws in advance. Do this using the Buy for Draw option under your selected lines.") }}
                             </div>
                         </li>
                         <li class="cart cl">
@@ -56,7 +56,7 @@
                             </div>
                             <div class="content">
                                 <h3 class="li-title">{{ language.translate("Next") }}</h3>
-                                {{ language.translate('Once happy with your choice of numbers click on')}} <div class='sample btn purple'><div class="gap"></div>{{ language.translate("Add to Cart") }}</div> {{ language.translate('where you will be guided through the payment process.') }}
+                                {{ language.translate('Once happy with your choice of numbers click on')}} <div class='sample btn purple'><div class="gap"></div>{{ language.translate("Next") }}</div> {{ language.translate('where you will be guided through the payment process.') }}
                             </div>
                         </li>
                         <li class="confirm cl">
@@ -65,7 +65,7 @@
                             </div>
                             <div class="content">
                                 <h3 class="li-title">{{ language.translate("Order Confirmation") }}</h3>
-                                {{ language.translate("On completion of payment you will receive a message on the website confirming that the numbers you have played and the draws you have entered. Any running games that you have played are as well accessible anytime in your player account.") }}
+                                {{ language.translate("On completion of payment you will receive a message on the website confirming that the numbers you have played and the draws you have entered. You can see all the lines and tickets you have purchased at any time in your player account.") }}
                             </div>
                         </li>
                         <li class="notify cl">
@@ -93,17 +93,18 @@
                             <li><a href="/faq#n06">{{ language.translate("When the Draw results are released?") }}</a></li>
                             <li><a href="/faq#n07">{{ language.translate("What is the Prize Breakdown?") }}</a></li>
                             <li><a href="/faq#n08">{{ language.translate("What is the minimum guaranteed jackpot?") }}</a></li>
-                        </ul>
-
-                        <h3 class="h4">{{ language.translate("Euromillions Advanced Play") }}</h2>
-                        <ul class="no-li">
                             <li><a href="/faq#n09">{{ language.translate("What is a Superdraw?") }}</a></li>
-                            <li><a href="/faq#n10">{{ language.translate("What is a Long Play?") }}</a></li> 
                             <li><a href="/faq#n11">{{ language.translate("How can I participate in a future draw?") }}</a></li>
-                            <li><a href="/faq#n12">{{ language.translate("Can I play only when the Jackpot Prize reach a specific amount?") }}</a></li>
                             <li><a href="/faq#n13">{{ language.translate("How do I make a bet with multiple numbers in a line?") }}</a></li>
                         </ul>
 
+{#
+                        <h3 class="h4">{{ language.translate("Euromillions Advanced Play") }}</h2>
+                        <ul class="no-li">    
+                            <li><a href="/faq#n10">{{ language.translate("What is a Long Play?") }}</a></li> 
+                            <li><a href="/faq#n12">{{ language.translate("Can I play only when the Jackpot Prize reach a specific amount?") }}</a></li>   
+                        </ul>
+#}
                        <h3 class="h4">{{ language.translate("Winnings") }}</h2>
                         <ul class="no-li">
                             <li><a href="/faq#n14">{{ language.translate("How do I know if I have won a prize?") }}</a></li>
@@ -125,7 +126,7 @@
                         <ul class="no-li">
                             <li><a href="/faq#n23">{{ language.translate("What should I do if I am experiencing technical problems?") }}</a></li>
                             <li><a href="/faq#n24">{{ language.translate("I have forgotten my password and I cannot login. What do I do?") }}</a></li>
-                            <li><a href="/faq#n25">{{ language.translate("How do I edit or delete a Subscription?") }}</a></li>
+{#                            <li><a href="/faq#n25">{{ language.translate("How do I edit or delete a Subscription?") }}</a></li> #}
                             <li><a href="/faq#n26">{{ language.translate("How I can disable emails notifications?") }}</a></li>
                         </ul>
 
