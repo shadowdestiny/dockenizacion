@@ -2,15 +2,36 @@
 - name: start database container
   docker:
     name: develdbmaster
-    image: percona:5.6
+    image: rmrbest/percona
     state: reloaded
     ports:
       - "3306:3306"
     volumes:
       - /home/vagrant/mysqldata:/var/lib/mysql
     env:
+      REPLICATION: true
+      REPLICATION_NODE: 1
+      REPLICATION_SLAVE_USER: slave_db1
+      REPLITACION_SLAVE_PASSWORD: euromillions
       MYSQL_ROOT_PASSWORD: tpl9
       MYSQL_DATABASE: euromillions
+
+- name: start database slave container
+  docker:
+    name: develdbslave
+    image: rmrbest/percona
+    state: reloaded
+    volumes:
+      - /home/vagrant/mysqldata_slave:/var/lib/mysql
+    env:
+      REPLICATION: true
+      REPLICATION_NODE: 2
+      REPLICATION_SLAVE_USER: slave_db1
+      REPLITACION_SLAVE_PASSWORD: euromillions
+      MYSQL_ROOT_PASSWORD: tpl9
+      MYSQL_DATABASE: euromillions
+    links:
+      - develdbmaster:mysql
 
 - name: start compass web container
   docker:
@@ -58,4 +79,4 @@
       EM_ENV: development
 
 - name: initialize test database
-  shell:  mysql -h 127.0.0.1 -u root -ptpl9 -e 'CREATE DATABASE IF NOT EXISTS euromillions_test'
+  shell:  mysql -h 127.0.0.1 -u root -ptpl9 --port=3306 -e 'CREATE DATABASE IF NOT EXISTS euromillions_test'
