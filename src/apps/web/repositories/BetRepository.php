@@ -42,12 +42,12 @@ class BetRepository extends RepositoryBase
         $rsm = new ResultSetMapping;
         $rsm->addEntityResult('EuroMillions\web\entities\PlayConfig', 'p');
         $rsm->addFieldResult('p','id','id');
-        $rsm->addMetaResult('p','user_id','user_id');
+        $rsm->addMetaResult('p','userId','user_id', true);
         $rsm->addScalarResult('cnt','cnt');
         $rsm->addScalarResult('cnt_lucky','cnt_lucky');
 
         $result = $this->getEntityManager()
-            ->createNativeQuery("SELECT p.id,p.user_id,
+            ->createNativeQuery("SELECT p.id,p.user_id as userId,
                       (IF(p.line_regular_number_one IN (e.result_regular_number_one,
                                                     e.result_regular_number_two,
                                                     e.result_regular_number_three,
@@ -90,7 +90,6 @@ class BetRepository extends RepositoryBase
                 OR (cnt=2 and cnt_lucky=0);", $rsm);
 
         $result->setParameter(1,$date);
-
         return $result->getResult();
 
     }

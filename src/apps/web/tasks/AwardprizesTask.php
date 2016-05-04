@@ -48,7 +48,9 @@ class AwardprizesTask extends TaskBase
                 if ($result_amount->getAmount() > 0) {
                     /** @var User $user */
                     $user = $play_config_and_count[0]->getUser();
-                    $this->PrizeCheckoutService->awardUser($user, $result_amount);
+                    if(!empty($user)) {
+                        $this->PrizeCheckoutService->awardUser($user, $result_amount);
+                    }
                 }
             }
         }
