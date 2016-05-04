@@ -10,4 +10,5 @@
   roles:
     - bootstrap_containers
     - migrations
+    - replication
     - crons

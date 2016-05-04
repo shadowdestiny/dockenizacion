@@ -1,0 +1,8 @@
+- name: execute replication config in master
+  shell: docker exec -i develdbmaster bash -l -c config_replication
+
+- name: execute replication config in slave
+  shell: docker exec -i develdbslave bash -l -c config_replication
+
+- name: restart slave percona with new configuration
+  shell: docker restart develdbslave
