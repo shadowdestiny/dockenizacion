@@ -15,11 +15,11 @@ class PhalconCookiesWrapper extends Cookies implements ICookieManager
 
     public function get($cookieName)
     {
-        return parent::get($this->environmentPrefix.$cookieName);
+        return parent::get($cookieName);
     }
     public function set($cookieName, $value = null, $expiration = 0, $path = "/", $secure = null, $domain = null, $httpOnly = null)
     {
-        parent::set($this->environmentPrefix.$cookieName, $value, $expiration, $path, $secure, $domain, $httpOnly);
+        parent::set($cookieName, $value, $expiration, $path, $secure, $domain, $httpOnly);
     }
     public function delete($cookieName)
     {
