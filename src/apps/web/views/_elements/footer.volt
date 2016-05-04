@@ -4,7 +4,7 @@
 			<div class="col20per">
 				<strong>{{ language.translate('Play') }}</strong>
 				<ul>
-					<li><a href="javascript:void(0);">{{ language.translate('EuroMillions') }}</a></li>
+					<li><a href="/play">{{ language.translate('EuroMillions') }}</a></li>
 {# Future links
 					<li><a href="javascript:void(0);">EuroJackpot</a></li>
 					<li><a href="javascript:void(0);">MegaMillions</a></li>
