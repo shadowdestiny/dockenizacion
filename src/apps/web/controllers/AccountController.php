@@ -238,7 +238,7 @@ class AccountController extends PublicSiteControllerBase
                      'bank-name' => $this->request->getPost('bank-name'),
                      'bank-account' => $this->request->getPost('bank-account'),
                      'bank-swift' => $this->request->getPost('bank-swift'),
-                     'amount' => $this->request->getPost('funds_value')
+                     'amount' => $this->request->getPost('amount')
                 ]);
                 if($result->success()){
                     $user = $this->userService->getUser($user_id->getId());
