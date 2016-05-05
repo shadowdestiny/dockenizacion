@@ -243,10 +243,11 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_play_calledWithAUserWithOrderWithABetForNextDraw_chargeCreditCardWhenTheresNotEnoughFundsOnWallet()
     {
+        $draw_date = new \DateTime('2016-02-16 20:00:00');
         $user = UserMother::aUserWith50Eur()->build();
         $order = OrderMother::aJustOrder()->build();
         $credit_card = CreditCardMother::aValidCreditCard();
-        $this->exercisePlayWallet($user, $order, $credit_card);
+        $this->exercisePlayWallet($user, $order, $credit_card,$draw_date);
         $this->betService_double->validation(Argument::any(), Argument::any(),Argument::any())->willReturn(new ActionResult(true));
         $entityManager_double = $this->getEntityManagerDouble();
         $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
@@ -264,13 +265,14 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_play_calledWithAUserWithOrderWithABetForNextDraw_chargeCreditCardWhenTheresAddedFunds()
     {
+        $draw_date = new \DateTime('2016-02-16 20:00:00');
         $user = UserMother::aUserWith50Eur()->build();
         $funds_amount_to_charged = new Money(2000, new Currency('EUR'));
         $order = OrderMother::aJustOrder()->build();
         $order->addFunds($funds_amount_to_charged);
         $expected = new ActionResult(true, $order);
         $credit_card = CreditCardMother::aValidCreditCard();
-        $this->exercisePlayWallet($user, $order, $credit_card);
+        $this->exercisePlayWallet($user, $order, $credit_card,$draw_date);
         $this->betService_double->validation(Argument::any(), Argument::any(), Argument::any())->willReturn(new ActionResult(true));
         $entityManager_double = $this->getEntityManagerDouble();
         $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
@@ -316,10 +318,11 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_play_calledWithABetForNextDraw_validateAgainstCastillo()
     {
+        $draw_date = new \DateTime('2016-02-16 20:00:00');
         $user = UserMother::aUserWith50Eur()->build();
         $order = OrderMother::aJustOrder()->build();
         $credit_card = CreditCardMother::aValidCreditCard();
-        $this->exercisePlayWallet($user, $order, $credit_card);
+        $this->exercisePlayWallet($user, $order, $credit_card,$draw_date);
         $expected = new ActionResult(true, $order);
         $sut = $this->getSut();
         $this->betService_double->validation(Argument::any(), Argument::any(),Argument::any())->willReturn(new ActionResult(true));
@@ -338,11 +341,12 @@ class PlayServiceUnitTest extends UnitTestBase
      */
     public function test_play_calledWithoutBetsForNextDraw_notValidateAgainstCastillo()
     {
-        $this->markTestSkipped('Check this test');
+        $this->markTestSkipped('error en este test');
+        $draw_date = new \DateTime('2016-02-05 20:00:00');
         $user = UserMother::aUserWith50Eur()->build();
         $order = OrderMother::aJustOrder()->build();
         $credit_card = CreditCardMother::aValidCreditCard();
-        $this->exercisePlayWallet($user, $order, $credit_card);
+        $this->exercisePlayWallet($user, $order, $credit_card, $draw_date);
         $entityManager_double = $this->getEntityManagerDouble();
         $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalledTimes(4);
         $entityManager_double->flush(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
@@ -542,12 +546,12 @@ class PlayServiceUnitTest extends UnitTestBase
      * @param $order
      * @param $credit_card
      */
-    private function exercisePlayWallet($user, $order, $credit_card)
+    private function exercisePlayWallet($user, $order, $credit_card, $draw_date)
     {
         /** @var EuroMillionsDraw $euromillions_draw */
         list($play_config, $euromillions_draw) = $this->getPlayConfigAndEuroMillionsDraw();
         $lottery = $this->prepareLotteryEntity('EuroMillions');
-        $euromillions_draw->setDrawDate(new \DateTime('2016-02-05 20:00:00'));
+        $euromillions_draw->setDrawDate($draw_date);
         $this->lotteryService_double->getLotteryConfigByName('EuroMillions')->willReturn($lottery);
         $this->userRepository_double->find(['id' => $user->getId()])->willReturn($user);
         $this->orderStorageStrategy_double->findByKey($user->getId())->willReturn($order->toJsonData());

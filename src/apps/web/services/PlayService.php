@@ -142,7 +142,8 @@ class PlayService
                         }
                     }
 
-                    if( $result_payment->success() ) {
+                    $orderIsToNextDraw = $order->isNextDraw($draw->getValues()->getDrawDate());
+                    if( $result_payment->success() && $orderIsToNextDraw) {
                         foreach( $order->getPlayConfig() as $play_config ) {
                             $result_validation = $this->betService->validation($play_config, $draw->getValues(),$lottery->getNextDrawDate());
                             if(!$result_validation->success()) {
