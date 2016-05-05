@@ -64,7 +64,10 @@ class AccountCest
         $I->canSee('Hello. '.$nombre);
     }
 
-
+    /**
+     * @param FunctionalTester $I
+     * @group active
+     */
     public function seeAccountMyGames( FunctionalTester $I )
     {
 
@@ -85,7 +88,7 @@ class AccountCest
 
         $I->haveInSession('EM_current_user', $this->userId);
         $I->amOnPage('/account/games');
-        $I->canSee('Present Games');
+        $I->canSee('My Tickets');
         $I->seeNumberOfElements('table.present tr', 1);
     }
 
