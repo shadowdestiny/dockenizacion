@@ -5,6 +5,7 @@ namespace EuroMillions\web\vo\dto;
 
 
 use EuroMillions\web\entities\AutomaticPurchaseTransaction;
+use EuroMillions\web\entities\DepositTransaction;
 use EuroMillions\web\entities\TicketPurchaseTransaction;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\entities\WinningsWithdrawTransaction;
@@ -39,7 +40,7 @@ class TransactionDTO extends DTOBase implements IDto
         $this->id = $this->transaction->getId();
         $this->date = $this->transaction->getDate()->format('Y-m-d H:i:s');
         $this->transactionName = $this->getEntityType($this->transaction);
-        $this->movement = $this->transaction->getWalletBefore()->getBalance()->subtract($this->transaction->getWalletAfter()->getBalance());
+        $this->movement = $this->transaction->getWalletAfter()->getBalance()->subtract($this->transaction->getWalletBefore()->getBalance());
         $this->balance = $this->transaction->getWalletAfter()->getBalance();
         $this->winnings = $this->transaction->getWalletAfter()->getWinnings();
     }
@@ -55,20 +56,18 @@ class TransactionDTO extends DTOBase implements IDto
         if($transactionType instanceof WinningsWithdrawTransaction ) {
             return 'Winning Withdraw';
         }
+        if($transactionType instanceof DepositTransaction ) {
+            return 'Deposit';
+        }
+
     }
 
     public function formatMovement( $amount )
     {
-        if( $this->transaction instanceof WinningsWithdrawTransaction )
+        if( $this->transaction instanceof DepositTransaction )
         {
-            return '-' . $amount;
+            return '+' . $amount;
         }
-        if( $this->transaction instanceof TicketPurchaseTransaction )
-        {
-            return '-' . $amount;
-        }
-
-
         return $amount;
     }
 
