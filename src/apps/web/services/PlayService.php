@@ -127,7 +127,7 @@ class PlayService
                     $order->addFunds($funds);
                     $draw = $this->lotteryService->getNextDrawByLottery('EuroMillions');
                     if( null != $credit_card ) {
-                        $result_payment = $this->walletService->rechargeWithCreditCard($this->payXpertCardPaymentStrategy,$credit_card, $user, $order->getCreditCardCharge());
+                        $result_payment = $this->walletService->payWithCreditCard($this->payXpertCardPaymentStrategy,$credit_card, $user, $order->getCreditCardCharge());
                     } else {
                         $result_payment = new ActionResult(true,$order);
                     }
