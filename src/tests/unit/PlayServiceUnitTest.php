@@ -556,7 +556,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->userRepository_double->find(['id' => $user->getId()])->willReturn($user);
         $this->orderStorageStrategy_double->findByKey($user->getId())->willReturn($order->toJsonData());
         $this->cartService_double->get($user->getId())->willReturn(new ActionResult(true, $order));
-        $this->walletService_double->rechargeWithCreditCard($this->card_payment_provider->reveal(), $credit_card, $user, $order->getCreditCardCharge())->willReturn(new ActionResult(true));
+        $this->walletService_double->payWithCreditCard($this->card_payment_provider->reveal(), $credit_card, $user, $order->getCreditCardCharge())->willReturn(new ActionResult(true));
         $this->lotteryService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true, $euromillions_draw));
     }
 

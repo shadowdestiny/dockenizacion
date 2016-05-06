@@ -38,8 +38,35 @@ class WalletService
                                            User $user,
                                            CreditCardCharge $creditCardCharge)
     {
-        $amount = $creditCardCharge->getFinalAmount();
-        $payment_result = $provider->charge($amount, $card);
+
+        $payment_result = $this->pay($provider,$card,$creditCardCharge);
+        if ($payment_result->success()) {
+            $user->reChargeWallet($creditCardCharge->getNetAmount());
+            try {
+                $this->entityManager->persist($user);
+                $this->entityManager->flush($user);
+                //EMTD add funds transaction
+            } catch (\Exception $e) {
+                //EMTD Log and warn the admin
+            }
+        }
+        return $payment_result;
+    }
+
+    /**
+     * @param ICardPaymentProvider $provider
+     * @param CreditCard $card
+     * @param User $user
+     * @param CreditCardCharge $creditCardCharge
+     * @return IResult
+     */
+    public function payWithCreditCard(ICardPaymentProvider $provider,
+                                           CreditCard $card,
+                                           User $user,
+                                           CreditCardCharge $creditCardCharge)
+    {
+
+        $payment_result = $this->pay($provider,$card,$creditCardCharge);
         if ($payment_result->success()) {
             $walletBefore = $user->getWallet();
             $user->reChargeWallet($creditCardCharge->getNetAmount());
@@ -57,7 +84,7 @@ class WalletService
                     'walletAfter' => $user->getWallet(),
                     'now' => new \DateTime()
                 ];
-                $this->transactionService->storeTransaction(TransactionType::FUNDS_ADDED,$dataTransaction);
+                $this->transactionService->storeTransaction(TransactionType::TICKET_PURCHASE,$dataTransaction);
             } catch (\Exception $e) {
                 //EMTD Log and warn the admin
             }
@@ -65,6 +92,12 @@ class WalletService
         return $payment_result;
     }
 
+
+    public function pay(ICardPaymentProvider $provider,CreditCard $card,CreditCardCharge $creditCardCharge)
+    {
+        $amount = $creditCardCharge->getFinalAmount();
+        return $provider->charge($amount, $card);
+    }
 
 
     public function payWithWallet(User $user, PlayConfig $playConfig, $transactionType, $data )
