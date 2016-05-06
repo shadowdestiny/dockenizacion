@@ -18,11 +18,13 @@
 
 - name: start database slave container
   docker:
-    name: develdbslave
+    name: "{{database_slave_name}}"
     image: rmrbest/percona
     state: reloaded
     volumes:
       - /home/vagrant/mysqldata_slave:/var/lib/mysql
+      - /home/vagrant/backup_slave:/opt/backups
+      - /var/www/global_config/:/var/www/global_config/
     env:
       REPLICATION: true
       REPLICATION_NODE: 2
