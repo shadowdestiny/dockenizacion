@@ -100,6 +100,7 @@ class EntityBaseUnitTest extends UnitTestBase
         $expected->bankSwift = null;
         $expected->bankUserName = null;
         $expected->bankSurname = null;
+        $expected->created = null;
         $this->assertEquals($expected, $user->toValueObject());
     }
 
@@ -140,7 +141,7 @@ class EntityBaseUnitTest extends UnitTestBase
             'user_currency_name'            => 'EUR',
             'winning_above_amount'          => 0,
             'winning_above_currency_name'   => 'EUR',
-
+            'created' => null,
         ];
         $this->assertEquals($expected, $user->toArray());
     }
