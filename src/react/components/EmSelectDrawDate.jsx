@@ -34,13 +34,16 @@ var EmSelectDrawDate = React.createClass({
             display : 'inline-block',
             margin: '2px'
         }
+        var labelStyle = {
+            color : '#333'
+        }
         return (
             <div>
                 <div style={divStyle}>
-                    Buy for Draw
+                    Buy for Draw:
                 </div>
                 <div style={divStyle}>
-                    {select}
+                    <label style={labelStyle}>{this.props.defaultText}</label>
                 </div>
             </div>
         )
