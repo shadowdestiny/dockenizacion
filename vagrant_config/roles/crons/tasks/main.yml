@@ -8,4 +8,4 @@
 
 - name: configure cron backup on slave database
   shell: >
-    docker exec {{database_slave_name}} crontab /var/www/global_config/cron_backup.txt
+      docker exec {{database_slave_name}} crontab /var/www/global_config/cron_backup.txt

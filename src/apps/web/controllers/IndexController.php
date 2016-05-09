@@ -21,7 +21,7 @@ class IndexController  extends PublicSiteControllerBase
 
     }
 
-    public function notfoundAction(\Exception $exception = null)
+    public function notfoundAction()
     {
         $this->response->redirect('/error/page404');
     }
