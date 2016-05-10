@@ -95,6 +95,60 @@ class AccountCest
         $I->seeNumberOfElements('table.present tr', 1);
     }
 
+    /**
+     * @param FunctionalTester $I
+     */
+    public function seeTransactionWinningWhenWinningLessThan2500( FunctionalTester $I )
+    {
+        $I->haveInDatabase('transactions', [
+            'id'    => 1,
+            'user_id'   => '9098299B-14AC-4124-8DB0-19571EDABE55',
+            'date'  => '2016-05-10 13:59:06',
+            'wallet_before_uploaded_amount'    => '0',
+            'wallet_before_uploaded_currency_name' => 'EUR',
+            'wallet_before_winnings_amount'   => '3000',
+            'wallet_before_winnings_currency_name'  => 'EUR',
+            'wallet_after_uploaded_amount' => '0',
+            'wallet_after_uploaded_currency_name'  => 'EUR',
+            'wallet_after_winnings_amount'  => '4000',
+            'wallet_after_winnings_currency_name'   => 'EUR',
+            'entity_type'     => 'winnings_received',
+            'data' => '1#1#1000#'
+        ]);
+        $I->haveInSession('EM_current_user', $this->userId);
+        $I->amOnPage('/account/transaction');
+        $I->canSee('Transaction');
+        $I->seeNumberOfElements('table tbody tr', 1);
+    }
+
+    /**
+     * @param FunctionalTester $I
+     * @group active
+     */
+    public function dontSeeTransactionWinningWhenWinningIsGreaterThan2500( FunctionalTester $I )
+    {
+        $I->haveInDatabase('transactions', [
+            'id'    => 1,
+            'user_id'   => '9098299B-14AC-4124-8DB0-19571EDABE55',
+            'date'  => '2016-05-10 13:59:06',
+            'wallet_before_uploaded_amount'    => '0',
+            'wallet_before_uploaded_currency_name' => 'EUR',
+            'wallet_before_winnings_amount'   => '15909900',
+            'wallet_before_winnings_currency_name'  => 'EUR',
+            'wallet_after_uploaded_amount' => '0',
+            'wallet_after_uploaded_currency_name'  => 'EUR',
+            'wallet_after_winnings_amount'  => '15909650',
+            'wallet_after_winnings_currency_name'   => 'EUR',
+            'entity_type'     => 'big_winning',
+            'data' => '1#1#15909650#pending'
+        ]);
+
+        $I->haveInSession('EM_current_user', $this->userId);
+        $I->amOnPage('/account/transaction');
+        $I->canSee('Transaction');
+        $I->seeNumberOfElements('table tbody tr', 0);
+    }
+
 //    /**
 //     * @group active
 //     * @param FunctionalTester $I

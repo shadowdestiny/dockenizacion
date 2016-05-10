@@ -40,17 +40,18 @@ class BetRepository extends RepositoryBase
     public function getCheckResult($date)
     {
         $rsm = new ResultSetMapping;
-        $rsm->addEntityResult('EuroMillions\web\entities\PlayConfig', 'p');
         $rsm->addEntityResult('EuroMillions\web\entities\Bet', 'b');
+        $rsm->addMetaResult('b','bet','id', true);
+        $rsm->addEntityResult('EuroMillions\web\entities\PlayConfig', 'p');
         $rsm->addFieldResult('p','id','id');
-        $rsm->addFieldResult('b','bet','id');
+        $rsm->addMetaResult('p','userId','user_id');
         $rsm->addMetaResult('b','draw','euromillions_draw_id', true);
-        $rsm->addMetaResult('p','userId','user_id', true);
+        $rsm->addMetaResult('b','play','play_config_id', true);
         $rsm->addScalarResult('cnt','cnt');
         $rsm->addScalarResult('cnt_lucky','cnt_lucky');
 
         $result = $this->getEntityManager()
-            ->createNativeQuery("SELECT p.id,b.id as bet, b.euromillions_draw_id as draw, p.user_id as userId,
+            ->createNativeQuery("SELECT p.id, p.user_id as userId, b.play_config_id as play, b.id as bet, b.euromillions_draw_id as draw,
                       (IF(p.line_regular_number_one IN (e.result_regular_number_one,
                                                     e.result_regular_number_two,
                                                     e.result_regular_number_three,

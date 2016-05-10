@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\web\tasks;
 
+use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\LotteryService;
@@ -42,14 +43,12 @@ class AwardprizesTask extends TaskBase
             /** @var EuroMillionsDrawBreakDown $euromillions_breakDown */
             $euromillions_breakDown = $result_breakdown->getValues()->getBreakDown();
             $play_configs_awarded = $play_configs_result_awarded->getValues();
-            foreach ($play_configs_awarded as $play_config_and_count) {
-                /** @var Money $result_amount */
-                $result_amount = $euromillions_breakDown->getAwardFromCategory($play_config_and_count['cnt'], $play_config_and_count['cnt_lucky']);
-                if ($result_amount->getAmount() > 0) {
-                    /** @var User $user */
-                    $user = $play_config_and_count[0]->getUser();
-                    if(!empty($user)) {
-                        $this->PrizeCheckoutService->awardUser($user, $result_amount);
+            foreach ($play_configs_awarded as $k => $play_config_and_count) {
+                if( isset($play_config_and_count['cnt']) && isset($play_config_and_count['cnt_lucky'])) {
+                    /** @var Money $result_amount */
+                    $result_amount = $euromillions_breakDown->getAwardFromCategory($play_config_and_count['cnt'], $play_config_and_count['cnt_lucky']);
+                    if ($result_amount->getAmount() > 0) {
+                            $this->PrizeCheckoutService->awardUser($play_config_and_count[0],$result_amount);
                     }
                 }
             }

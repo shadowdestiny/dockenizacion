@@ -8,12 +8,14 @@ use Doctrine\ORM\EntityManager;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\WinEmailAboveTemplate;
 use EuroMillions\web\emailTemplates\WinEmailTemplate;
+use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\repositories\BetRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\services\email_templates_strategies\WinEmailAboveDataEmailTemplateStrategy;
+use EuroMillions\web\vo\enum\TransactionType;
 use Money\Currency;
 use Money\Money;
 
@@ -42,10 +44,13 @@ class PrizeCheckoutService
     /** @var  EmailService */
     private $emailService;
 
+    /** @var  TransactionService */
+    private $transactionService;
+
     private $di;
 
 
-    public function __construct(EntityManager $entityManager, CurrencyConversionService $currencyConversionService, UserService $userService, EmailService $emailService)
+    public function __construct(EntityManager $entityManager, CurrencyConversionService $currencyConversionService, UserService $userService, EmailService $emailService, TransactionService $transactionService)
     {
         $this->entityManager = $entityManager;
         $this->playConfigRepository = $entityManager->getRepository('EuroMillions\web\entities\PlayConfig');
@@ -55,6 +60,7 @@ class PrizeCheckoutService
         $this->currencyConversionService = $currencyConversionService;
         $this->userService = $userService;
         $this->emailService = $emailService;
+        $this->transactionService = $transactionService;
     }
 
     public function playConfigsWithBetsAwarded(\DateTime $date)
@@ -70,31 +76,53 @@ class PrizeCheckoutService
         }
     }
 
-    public function awardUser(User $user, Money $amount)
+    public function awardUser(Bet $bet, Money $amount)
     {
         $config = $this->di->get('config');
         $threshold_price = new Money((int) $config->threshold_above['value'] * 100, new Currency('EUR'));
-
+        /** @var User $user */
+        $user = $bet->getPlayConfig()->getUser();
         try{
-            $user->awardPrize($amount);
+            //EMTD WinningVO to avoid this logic
+            $data= $this->prepareDataToTransaction($bet,$amount);
             if($amount->greaterThanOrEqual($threshold_price)) {
                 $user->setWinningAbove($amount);
-//EMTD                $this->sendBigWinEmail($user, $amount);
+                $user->setShowModalWinning(1);
+                $this->storeAwardTransaction($data, TransactionType::BIG_WINNING);
+                $this->sendBigWinEmail($user, $amount);
+
             } else {
-//EMTD                $this->sendSmallWinEmail($user, $amount);
+                $user->awardPrize($amount);
+                $data['wallet_after'] = $user->getWallet();
+                $data['state'] = '';
+                $this->storeAwardTransaction($data, TransactionType::WINNINGS_RECEIVED);
+                $this->sendSmallWinEmail($user, $amount);
             }
-            $this->storeAwardTransaction();
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
-            return new ActionResult(true);
+            return new ActionResult(true,$user);
         }catch(\Exception $e){
             return new ActionResult(false);
         }
     }
 
-    private function storeAwardTransaction()
+    private function storeAwardTransaction(array $data, $transactionType)
     {
-        
+        $this->transactionService->storeTransaction($transactionType,$data);
+    }
+
+    private function prepareDataToTransaction(Bet $bet, Money $amount)
+    {
+        return [
+            'draw_id' => $bet->getEuroMillionsDraw()->getId(),
+            'bet_id'  => $bet->getId(),
+            'amount'  => $amount->getAmount(),
+            'user'    => $bet->getPlayConfig()->getUser(),
+            'walletBefore' => $bet->getPlayConfig()->getUser()->getWallet(),
+            'walletAfter' => $bet->getPlayConfig()->getUser()->getWallet(),
+            'state'       => 'pending',
+            'now'         => new \DateTime()
+        ];
     }
 
     /**
@@ -107,7 +135,7 @@ class PrizeCheckoutService
         $emailTemplate = new WinEmailTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
         $emailTemplate->setUser($user);
         $emailTemplate->setResultAmount($amount);
-        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
+    //    $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 
     /**
@@ -120,7 +148,7 @@ class PrizeCheckoutService
         $emailTemplate = new WinEmailAboveTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
         $emailTemplate->setUser($user);
         $emailTemplate->setResultAmount($amount);
-        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
+    //    $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 
 

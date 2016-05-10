@@ -7,6 +7,7 @@ namespace EuroMillions\tests\unit;
 use EuroMillions\tests\base\UnitTestBase;
 use EuroMillions\tests\helpers\mothers\UserMother;
 use EuroMillions\web\components\transaction\BigWinGenerator;
+use EuroMillions\web\components\transaction\BigWinningGenerator;
 use EuroMillions\web\entities\BigWinTransaction;
 
 class BigWinGeneratorUnitTest extends UnitTestBase
@@ -37,7 +38,7 @@ class BigWinGeneratorUnitTest extends UnitTestBase
 
         $expected = new BigWinTransaction($data);
         $expected->toString();
-        $sut = new BigWinGenerator();
+        $sut = new BigWinningGenerator();
         $actual = $sut->build($data);
         $this->assertEquals($expected->getBetId(),$actual->getBetId());
         $this->assertEquals($expected->getDrawId(),$actual->getDrawId());
@@ -57,7 +58,7 @@ class BigWinGeneratorUnitTest extends UnitTestBase
             'numBets' => 3,
         ];
         $this->setExpectedException('\Exception');
-        $sut = new BigWinGenerator();
+        $sut = new BigWinningGenerator();
         $sut->build($data);
     }
 

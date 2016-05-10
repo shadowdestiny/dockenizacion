@@ -7,7 +7,7 @@ namespace EuroMillions\web\components\transaction;
 use EuroMillions\web\entities\BigWinTransaction;
 use EuroMillions\web\interfaces\ITransactionGeneratorStrategy;
 
-class BigWinGenerator implements ITransactionGeneratorStrategy
+class BigWinningGenerator implements ITransactionGeneratorStrategy
 {
 
     public static function build(array $data)
