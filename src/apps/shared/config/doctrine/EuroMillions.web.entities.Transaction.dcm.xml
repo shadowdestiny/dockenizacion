@@ -18,6 +18,7 @@
             <discriminator-mapping value="winnings_converted_funds" class="EuroMillions\web\entities\WinningsConvertedFundsTransaction" />
             <discriminator-mapping value="winnings_withdraw" class="EuroMillions\web\entities\WinningsWithdrawTransaction" />
             <discriminator-mapping value="refund" class="EuroMillions\web\entities\RefundTransaction" />
+            <discriminator-mapping value="deposit" class="EuroMillions\web\entities\DepositTransaction" />
             <discriminator-mapping value="bonus" class="EuroMillions\web\entities\BonusTransaction" />
         </discriminator-map>
 

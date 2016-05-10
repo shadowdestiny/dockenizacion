@@ -2,7 +2,7 @@
   shell: docker exec -i develdbmaster bash -l -c config_replication
 
 - name: execute replication config in slave
-  shell: docker exec -i develdbslave bash -l -c config_replication
+  shell: docker exec -i {{database_slave_name}} bash -l -c config_replication
 
-- name: restart slave percona with new configuration
-  shell: docker restart develdbslave
+- name: restart slave percona with new configurationT
+  shell: docker restart {{database_slave_name}}

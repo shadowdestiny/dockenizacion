@@ -21,6 +21,8 @@ class TransactionType
 
     const REFUND = 'refund';
 
+    const DEPOSIT = 'deposit';
+
     const BONUS = 'bonus';
 
 }

@@ -84,7 +84,7 @@ class WalletService
                     'walletAfter' => $user->getWallet(),
                     'now' => new \DateTime()
                 ];
-                $this->transactionService->storeTransaction(TransactionType::TICKET_PURCHASE,$dataTransaction);
+                $this->transactionService->storeTransaction(TransactionType::DEPOSIT,$dataTransaction);
             } catch (\Exception $e) {
                 //EMTD Log and warn the admin
             }

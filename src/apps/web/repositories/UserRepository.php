@@ -76,7 +76,8 @@ class UserRepository extends RepositoryBase
             'wallet'           => new Wallet(),
             'validated'        => 0,
             'validation_token' => new ValidationToken($email, $validationTokenGenerator),
-            'user_currency'    => new Currency('EUR')
+            'user_currency'    => new Currency('EUR'),
+            'created'          => new \DateTime()
         ]);
         $this->add($user);
         $this->getEntityManager()->flush($user);

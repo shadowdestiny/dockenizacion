@@ -5,3 +5,7 @@
     docker exec {{webserver_container_name}} php /var/www/apps/cli.php result update;
     docker exec {{webserver_container_name}} php /var/www/apps/cli.php jackpot update;
     docker exec {{webserver_container_name}} crontab /var/www/global_config/crontab.txt
+
+- name: configure cron backup on slave database
+  shell: >
+      docker exec {{database_slave_name}} crontab /var/www/global_config/cron_backup.txt

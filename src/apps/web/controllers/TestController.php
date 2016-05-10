@@ -3,6 +3,7 @@ namespace EuroMillions\web\controllers;
 
 use EuroMillions\web\components\UserId;
 use EuroMillions\web\entities\Bet;
+use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\tasks\AwardprizesTask;
 use EuroMillions\web\vo\EuroMillionsLine;
@@ -21,12 +22,13 @@ class TestController extends PublicSiteControllerBase
         var_dump($as->getCurrentUser());
     }
 
-    public function markUserAsWinnerAction($userId)
+    public function markUserAsWinnerAction($userId, $balls, $stars)
     {
         $lotteryService = $this->domainServiceFactory->getLotteryService();
         $userService = $this->domainServiceFactory->getUserService();
         $user = $userService->getUser(Uuid::fromString($userId));
         $draw_date = $lotteryService->getLastDrawDate('EuroMillions');
+        /** @var EuroMillionsDraw $draw */
         $draw = $this->lotteryService->getDrawWithBreakDownByDate('EuroMillions', new \DateTime)->getValues();
         /** @var EuroMillionsLine $line */
         $line = $draw->getResult();
@@ -34,16 +36,11 @@ class TestController extends PublicSiteControllerBase
         $lucky_numbers = $line->getLuckyNumbersArray();
         $new_regular_numbers = [];
         $new_lucky_numbers = [];
-        foreach ($regular_numbers as $value) {
-            $new_regular_numbers[] = new EuroMillionsRegularNumber($value);
-        }
-        foreach ($lucky_numbers as $value) {
-            $new_lucky_numbers[] = new EuroMillionsLuckyNumber($value);
-        }
-        $new_regular_numbers[0] = new EuroMillionsRegularNumber(1);//we try to make the user winner, but no the biggest because usually the biggest prize can have no winners
-        $new_regular_numbers[1] = new EuroMillionsRegularNumber(2);
+        $new_regular_numbers = $this->getNumbers($regular_numbers,$balls,$new_regular_numbers);
+        $new_lucky_numbers = $this->getStars($lucky_numbers,$stars,$new_lucky_numbers);
 
         $new_line = new EuroMillionsLine($new_regular_numbers, $new_lucky_numbers);
+
         $play_config = new PlayConfig;
         $play_config->setActive(true);
         $play_config->setStartDrawDate($draw_date);
@@ -60,7 +57,41 @@ class TestController extends PublicSiteControllerBase
         $task->initialize();
         $task->checkoutAction();
         $this->noRender();
-        echo 'OK '. $userId;
+        echo 'OK ' . $userId;
+    }
+
+    private function getNumbers(array $regular_numbers, $balls, &$new_regular_numbers)
+    {
+        try{
+            foreach ($regular_numbers as $value) {
+                $new_regular_numbers[] = new EuroMillionsRegularNumber($value);
+            }
+            $count_balls = 5 - (int) $balls;
+            for ($i = 1; $i <= $count_balls; $i++) {
+                $num = rand(1,50);
+                $new_regular_numbers[$i] = new EuroMillionsRegularNumber($num);
+            }
+        } catch(\Exception $e) {
+            $this->getNumbers($regular_numbers,$balls,$new_regular_numbers);
+        }
+        return $new_regular_numbers;
+    }
+
+    private function getStars(array $lucky_numbers, $stars, &$new_lucky_numbers)
+    {
+        try {
+            foreach ($lucky_numbers as $value) {
+                $new_lucky_numbers[] = new EuroMillionsLuckyNumber($value);
+            }
+            $count_stars = 2 - (int)$stars;
+            for ($i = 1; $i <= $count_stars; $i++) {
+                $num = rand(1,11);
+                $new_lucky_numbers[$i] = new EuroMillionsLuckyNumber($num);
+            }
+        } catch(\Exception $e) {
+            $this->getStars($lucky_numbers,$stars,$new_lucky_numbers);
+        }
+        return $new_lucky_numbers;
     }
 
     public function reactAction()

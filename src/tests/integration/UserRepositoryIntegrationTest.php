@@ -152,12 +152,14 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
      */
     public function test_register_calledWithProperCredentials_addUserToDb()
     {
+        $createdOn = new \DateTime();
         $credentials = [
             'email'    => UserBuilder::DEFAULT_EMAIL,
             'name'     => UserBuilder::DEFAULT_NAME,
             'surname'  => UserBuilder::DEFAULT_SURNAME,
             'password' => UserBuilder::DEFAULT_PASSWORD,
             'country'  => UserBuilder::DEFAULT_COUNTRY,
+            'created'  => $createdOn
         ];
         $user = $this->sut->register($credentials, new NullPasswordHasher(), new Md5EmailValidationToken());
         $this->entityManager->detach($user);
@@ -166,6 +168,7 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $this->assertEquals(UserBuilder::DEFAULT_SURNAME, $actual->getSurname());
         $this->assertEquals(UserBuilder::DEFAULT_PASSWORD, $actual->getPassword());
         $this->assertEquals(UserBuilder::DEFAULT_COUNTRY, $actual->getCountry());
+        $this->assertEquals($createdOn,$actual->getCreated());
         $this->assertTrue(Uuid::isValid($actual->getId()));
     }
 

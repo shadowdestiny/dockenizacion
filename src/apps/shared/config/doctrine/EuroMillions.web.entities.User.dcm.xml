@@ -37,6 +37,7 @@
         <field name="bankName" column="bank_name" type="string" nullable="true" />
         <field name="bankAccount" column="bank_account" type="string" nullable="true" />
         <field name="bankSwift" column="bank_swift" type="string" nullable="true" />
+        <field name="created" column="created" type="datetime" nullable="true"/>
 
         <embedded name="password" class="EuroMillions\web\vo\Password" use-column-prefix="false"/>
         <embedded name="email" class="EuroMillions\web\vo\Email" use-column-prefix="false"/>
