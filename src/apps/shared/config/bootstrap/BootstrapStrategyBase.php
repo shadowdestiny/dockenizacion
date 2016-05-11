@@ -92,7 +92,7 @@ abstract class BootstrapStrategyBase
 
         $redis_cache = new RedisCache();
         $redis_cache->setRedis($redis);
-        $redis_cache->setNamespace($appConfig['redis']['prefix']);
+        $redis_cache->setNamespace('result_');
         $config->setResultCacheImpl($redis_cache);
         $conn = [
             'host'     => $appConfig['database']['host'],
