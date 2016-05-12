@@ -7,6 +7,7 @@ namespace EuroMillions\web\services;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\shared\vo\Wallet;
+use EuroMillions\web\entities\BigWinTransaction;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\vo\dto\TransactionDTO;
@@ -54,6 +55,7 @@ class TransactionService
             $transactionDtoCollection = [];
             /** @var Transaction $transaction */
             foreach($result as $transaction) {
+                if($transaction instanceof BigWinTransaction) continue;
                 $transactionDTO = new TransactionDTO($transaction);
                 $movement = $this->currencyConversionService->convert($transactionDTO->movement, new Currency('EUR'));
                 $balance = $this->currencyConversionService->convert($transactionDTO->balance, new Currency('EUR'));

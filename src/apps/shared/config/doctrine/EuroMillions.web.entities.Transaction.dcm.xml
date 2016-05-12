@@ -20,6 +20,7 @@
             <discriminator-mapping value="refund" class="EuroMillions\web\entities\RefundTransaction" />
             <discriminator-mapping value="deposit" class="EuroMillions\web\entities\DepositTransaction" />
             <discriminator-mapping value="bonus" class="EuroMillions\web\entities\BonusTransaction" />
+            <discriminator-mapping value="big_winning" class="EuroMillions\web\entities\BigWinTransaction" />
         </discriminator-map>
 
         <id name="id" type="integer">

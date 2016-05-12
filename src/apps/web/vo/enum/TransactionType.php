@@ -25,4 +25,7 @@ class TransactionType
 
     const BONUS = 'bonus';
 
+    const BIG_WINNING = 'big_winning';
+
+
 }

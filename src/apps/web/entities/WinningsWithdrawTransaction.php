@@ -71,7 +71,6 @@ class WinningsWithdrawTransaction extends Transaction implements ITransactionDat
         $this->amountWithdrawed = $amountWithdrawed;
         $this->accountBankId = $accountBankId;
         $this->state = $state;
-
         return $this;
     }
 

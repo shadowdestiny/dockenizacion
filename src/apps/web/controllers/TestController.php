@@ -36,8 +36,10 @@ class TestController extends PublicSiteControllerBase
         $lucky_numbers = $line->getLuckyNumbersArray();
         $new_regular_numbers = [];
         $new_lucky_numbers = [];
+
         $new_regular_numbers = $this->getNumbers($regular_numbers,$balls,$new_regular_numbers);
         $new_lucky_numbers = $this->getStars($lucky_numbers,$stars,$new_lucky_numbers);
+
 
         $new_line = new EuroMillionsLine($new_regular_numbers, $new_lucky_numbers);
 

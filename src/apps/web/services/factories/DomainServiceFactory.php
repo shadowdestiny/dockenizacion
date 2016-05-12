@@ -164,7 +164,11 @@ class DomainServiceFactory
     public function getPrizeCheckoutService()
     {
         return new PrizeCheckoutService(
-            $this->entityManager, $this->getCurrencyConversionService(), $this->getUserService(), $this->serviceFactory->getEmailService()
+            $this->entityManager,
+            $this->getCurrencyConversionService(),
+            $this->getUserService(),
+            $this->serviceFactory->getEmailService(),
+            $this->getTransactionService()
         );
     }
 
