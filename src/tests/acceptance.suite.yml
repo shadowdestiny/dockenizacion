@@ -1,0 +1,12 @@
+class_name: AcceptanceTester
+modules:
+    enabled:
+        - WebDriver:
+            url: 'https://dev.euromillions.com'
+            browser: phantomjs
+            http_proxy: 'localhost'
+            http_proxy_port: '8787'
+            capabilities:
+              webStorageEnabled: true
+              acceptSslCerts: true
+        - \Helper\Acceptance

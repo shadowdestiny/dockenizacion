@@ -14,6 +14,10 @@ modules:
         - Phalcon2:
             bootstrap: 'public/index-test.php'
             cleanup: false
+#        - WebDriver:
+#            url: 'https://localhost:8080'
+#            browser: phantomjs
+#            http_proxy: direct
         - Cli
         - \Helper\Functional
         - Asserts

@@ -14,7 +14,7 @@
             <span class="txt">{{ language.translate("Stay signed in") }}</span>
         </label>
         <div class="right forgot-psw">
-            <a href="/user-access/forgotPassword">{{ language.translate("Forgot password?") }}</a>
+            <a href="/forgotPassword">{{ language.translate("Forgot password?") }}</a>
         </div>
     </div>
     

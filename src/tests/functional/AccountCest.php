@@ -22,7 +22,6 @@ class AccountCest
 
     public function redirectToLoginIfNotLoggedIn(FunctionalTester $I, $scenario)
     {
-        $scenario->incomplete('For this moment doesn\'t works');
         $I->amOnPage('/account');
         $I->seeCurrentUrlMatches('/^\/sign-in/');
     }
@@ -41,7 +40,6 @@ class AccountCest
      */
     public function seeAccountPageAfterLogin(FunctionalTester $I, $scenario, \Page\Login $loginPage)
     {
-        $scenario->incomplete('For this moment doesn\'t works');
         $loginPage->login(UserBuilder::DEFAULT_EMAIL, UserBuilder::DEFAULT_PASSWORD);
         $I->amOnPage('/account');
         $I->canSee('Hello. '.$this->userName);
