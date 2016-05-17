@@ -275,7 +275,7 @@ $(function(){
                                 <label class="label" for="add-bank-country">
                                     {{ language.translate("Country of residence") }} <span class="asterisk">*</span>
                                 </label>
-                                {{ bank_account_form.render('country', {'class':'select'~form_errors['country']}) }}
+                                {{ bank_account_form.render('country', {'disabled':'disabled','class':'select'~form_errors['country']}) }}
 
                                 <label class="label" for="add-bank-address">
                                     {{ language.translate("Address") }} <span class="asterisk">*</span>
