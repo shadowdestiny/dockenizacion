@@ -15,7 +15,10 @@ use EuroMillions\web\interfaces\IJackpot;
 use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationAutoPlayNoFunds;
+use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
+use EuroMillions\web\vo\dto\EuroMillionsDrawDTO;
 use EuroMillions\web\vo\enum\TransactionType;
+use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsJackpot;
 use EuroMillions\web\vo\EuroMillionsLine;
 
@@ -157,6 +160,29 @@ class LotteryService
             }
         }
         return new ActionResult(false);
+    }
+
+    public function getDrawsDTO($lotteryName, $limit = 13)
+    {
+        /** @var Lottery $lottery */
+        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        if (null !== $lottery) {
+            try {
+                $euroMillionsDraws = $this->lotteryDrawRepository->getDraws($lottery);
+                $euroMillionsDrawsDTO = [];
+                /** @var EuroMillionsDraw[] $euroMillionsDraws */
+                foreach($euroMillionsDraws as $euroMillionsDraw) {
+                    $euromillionsBreakDownDataDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
+                    $euroMillionsDrawDTO = new EuroMillionsDrawDTO($euromillionsBreakDownDataDTO,$euroMillionsDraw);
+                    $euroMillionsDrawsDTO[] = $euroMillionsDrawDTO;
+                }
+                return new ActionResult(true,$euroMillionsDrawsDTO);
+            } catch ( DataMissingException $e) {
+                return new ActionResult(false);
+            }
+        }
+        return new ActionResult(false);
+
     }
 
     public function getLotteryConfigByName($lotteryName)
