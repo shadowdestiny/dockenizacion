@@ -145,7 +145,7 @@ class AuthService
         } catch (\Exception $e) {
             return new ActionResult(false, $e);
         }
-        $this->emailService->sendWelcomeEmail($user, $this->urlManager);
+        //$this->emailService->sendWelcomeEmail($user, $this->urlManager);
         $this->userService->initUserNotifications($user->getId());
         return new ActionResult(true, $user);
     }
@@ -169,7 +169,7 @@ class AuthService
         } catch (\Exception $e) {
             return new ActionResult(false, $e->getMessage());
         }
-        $this->emailService->sendWelcomeEmail($user, $this->urlManager);
+       // $this->emailService->sendWelcomeEmail($user, $this->urlManager);
         $this->userService->initUserNotifications($user->getId());
         return new ActionResult(true, $user);
     }
