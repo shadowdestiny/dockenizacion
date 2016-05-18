@@ -32,8 +32,9 @@ class NumbersController extends PublicSiteControllerBase
             'jackpot_value' =>$this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions')),
             'last_result' => ['regular_numbers' => $euroMillionsDraw->regularNumbersArray, 'lucky_numbers' => $euroMillionsDraw->luckyNumbersArray ],
             'date_draw' =>  $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->format('Y-m-d H:i:s'),
-            'last_draw_date' => $euroMillionsDraw->drawDate->format('D, d M Y'),
-            'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol']
+            'last_draw_date' => $euroMillionsDraw->drawDate,
+            'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
+            'list_draws' => $result->getValues(),
         ]);
     }
 

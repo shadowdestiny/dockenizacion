@@ -196,6 +196,20 @@ $(function(){
 				</div>
 				<div class="cols bottom">
 					<div class="col8">
+						<table style="border-collapse: collapse;" class="table2">
+							<tbody>
+						{% for i,draw in list_draws %}
+							<div data-lazy-widget="gplus_{{ i }}" class="g-plusone" data-annotation="inline" data-width="300"></div>
+							<div id="gplus_{{ i }}">
+								<!--<tr border="1" style="display:block;height: 200px;border:1px solid #efc048;">
+									<td style="padding:7px 12px;text-align:left;line-height:1.5em;">{{ draw.drawDate }}</td>
+									<td style="padding:7px 12px;font-weight:700">{{ draw.regularNumbers }}</td>
+									<td style="padding:7px 12px;">{{ draw.luckyNumbers }}</td>
+								</tr>-->
+							</div>
+						{%  endfor %}
+							</tbody>
+						</table>
 						<div class="prev-results">
 							<span class="txt">{{ language.translate("Previous results") }}</span>
 							<select class="select">
