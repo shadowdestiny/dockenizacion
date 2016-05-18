@@ -40,7 +40,7 @@
 
                             {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
                             {% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
-                            <span class="btn blue big" >{{ language.translate("Play now") }}</span>
+                            <span class="btn blue big" >{{ language.translate("PLAY NOW") }}</span>
                         </div>
                     </a>
                 {% endif %}

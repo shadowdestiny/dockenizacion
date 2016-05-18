@@ -21,7 +21,7 @@ home
 	<div class="large wrapper">
 		<div class="banner">
 			<div class="box-jackpot">
-				<div class="info">{{ language.translate("Euromillion Jackpot") }}</div>
+				<div class="info">{{ language.translate("EuroMillions Jackpot") }}</div>
 				<div class="jackpot">
 					<svg class="value">
 					    <defs>
@@ -122,10 +122,10 @@ home
 				</div>
 			</div>
 			<div class="btn-box">
-				<a href="/play" class="btn red huge">{{ language.translate("Play Now") }}</a>
+				<a href="/play" class="btn red huge">{{ language.translate("PLAY NOW") }}</a>
 				<div class="for-only">{{ language.translate("For only")}} {{ bet_price }}</div>
 			</div>
-			<div class="txt">{{ language.translate("Come play with us and change your life forever.") }}</div>
+			<div class="txt">{{ language.translate("Join the Club. Become our next EuroMillionaire!") }}</div>
 			<div class="best-price">
 				<picture class="pic">
 					<img width="60" height="59" src="/w/img/home/best-price.png" srcset="/w/img/home/best-price@2x.png 1.5x" alt="{{ language.translate('Best Price Guarantee') }}">
@@ -159,7 +159,7 @@ home
 						<div class="content">
 							<h1 class="h2">{{ language.translate("Don't know what to play?") }}</h1>
 							<p>{{ language.translate("Use our Lucky Number Generator") }}</p>
-							<a href="/play?random" class="btn blue big wide">{{ language.translate("I Feel Lucky") }}</a>
+							<a href="/play?random" class="btn blue big wide">{{ language.translate("I Feel Lucky!") }}</a>
 						</div>
 					</div>
 				</div>
@@ -168,7 +168,7 @@ home
 						<div class="cols">
 							<div class="col8 content">
 								<h1 class="h2">{{ language.translate('Euromillions Results') }}</h1>
-								<p>{{ language.translate('Draw of') }} {{ last_draw_date }} </p>
+								<p>{{ language.translate('Numbers from') }} {{ last_draw_date }} </p>
 								<ul class="no-li inline numbers small">
 	                                {% for regular_number in euromillions_results["regular_numbers"] %}
 									    <li>{{ regular_number }}</li>
@@ -225,7 +225,7 @@ home
 						</div>
 					</div>
 					<div class="box-action">
-						<span class="h2 phrase">{{ language.translate("Millions of people play the Euromillion lottery everyday.") }}</span>
+						<span class="h2 phrase">{{ language.translate("Millions of people play EuroMillions everyday") }}</span>
 						<a href="/play" class="btn big blue">{{ language.translate("Play anytime, anywhere") }}</a>
 					</div>
 				</div>
@@ -249,8 +249,8 @@ home
 					<div class="col6 bg-hope"></div>
 				</div>
 				<div class="box-action">
-					<span class="h2 phrase">{{ language.translate("For a very small amount ") }}<br class="mobile"> {{ language.translate("you might change your life forever.") }}</span>
-					<a href="/play" class="btn big blue">{{ language.translate("Beat the odds, Play the Lotto") }}</a>
+				<span class="h2 phrase">{{ language.translate("If you're not in, you can't Win!") }}</span>	
+				<a href="/play" class="btn big blue">{{ language.translate("Beat the odds, Play the Lotto") }}</a>
 				</div>
 			</div>
 
@@ -284,8 +284,8 @@ home
 					</div>
 				</div>
 				<div class="box-action">
-					<span class="h2 phrase">{{ language.translate("Winning starts by saying to yourself,") }}<br class="mobile"> {{ language.translate('"One day I’m going to win."')}}</span>
-					<a href="/play"  class="btn big blue">{{ language.translate("Play. Dare to dream. Win.") }}</a>
+					<span class="h2 phrase">{{ language.translate("Play today and  ") }}<br class="mobile"> {{ language.translate("change your life forever") }}</span>
+					<a href="/play"  class="btn big blue">{{ language.translate("Play. Dream. Win.") }}</a>
 				</div>
 			</div>
 
