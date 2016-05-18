@@ -13,6 +13,7 @@ Vagrant.configure(2) do |config|
           python-paramiko \
           python-httplib2 \
           python-crypto sshpass
+          build-essential
           dpkg -i /tmp/ansible.deb
           rm -f /tmp/ansible.deb
         ansible-galaxy install -r /vagrant/vagrant_config/requirements.yml --ignore-errors
