@@ -24,7 +24,7 @@ class HomepageCest
     public function playButton(FunctionalTester $I)
     {
         $I->wantTo('Be able to play');
-        $I->canSeeLink('Play Now', '/play');
+        $I->canSeeLink('PLAY NOW', '/play');
     }
 
     public function jackpotDisplayed(FunctionalTester $I)
@@ -39,7 +39,7 @@ class HomepageCest
     public function goToPlayPage(FunctionalTester $I)
     {
         $I->wantTo('Go to the play page');
-        $I->click('Play Now');
+        $I->click('PLAY NOW');
         $I->canSee('Choose 5 numbers & 2 stars to play');
     }
 }

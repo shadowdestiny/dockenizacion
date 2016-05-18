@@ -38,7 +38,7 @@ cart success minimal
                     {#<h2 class="h4">{{ language.translate("What would you do with your winnings?") }}</h2>
                     <p class="small-margin">{{ language.translate("We are very curious to know what makes you play and what are your dreams of victory. We would be very happy to hear from you and inspire us with your story and experience of playing the lottery.")}}</p>
                     <form novalidate class="form">
-                        <textarea class="textarea" placeholder="{{ language.translate('What makes you play? What would you do if you won the big Euromillion jackpot?')}}"></textarea>
+                        <textarea class="textarea" placeholder="{{ language.translate('What makes you play? What would you do if you won the big Euromillions jackpot?')}}"></textarea>
                         <input type="submit" class="btn blue submit" value="{{ language.translate('Share with us') }}">
                     </form>#}
                 </div>
