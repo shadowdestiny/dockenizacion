@@ -5,6 +5,7 @@ namespace EuroMillions\web\controllers;
 
 
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
+use EuroMillions\web\vo\dto\EuroMillionsDrawDTO;
 use Money\Currency;
 use Money\Money;
 
@@ -16,25 +17,24 @@ class NumbersController extends PublicSiteControllerBase
     {
         $lotteryName = 'EuroMillions';
         $now = new \DateTime();
-        $draw_result = $this->lotteryService->getDrawWithBreakDownByDate($lotteryName,$now);
-        $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
-        $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions'));
-        if($draw_result->success()) {
-            $breakDownDTO = new EuroMillionsDrawBreakDownDTO($draw_result->getValues()->getBreakDown());
-            $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
+        $result = $this->lotteryService->getDrawsDTO($lotteryName);
+        if(!$result->success()) {
+            return $this->view->setVars([
+               'error' => $result->errorMessage()
+            ]);
         }
-        $last_result = $this->lotteryService->getLastResult($lotteryName);
-        $currency_symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol();
-        $last_draw_date = $this->lotteryService->getLastDrawDate($lotteryName);
-
+        /** @var EuroMillionsDrawDTO $euroMillionsDraw */
+        $euroMillionsDraw = $result->getValues()[1];
+        $break_down_list = $this->convertCurrency($euroMillionsDraw->euroMillionsDrawBreakDownDTO->toArray());
         return $this->view->setVars([
             'break_downs' => !empty($break_down_list) ? $break_down_list : '',
-            'id_draw' => !empty($draw_result) ? $draw_result->getValues()->getId() : '',
-            'jackpot_value' => $jackpot,
-            'last_result' => $last_result,
-            'date_draw' => $date_next_draw->format('Y-m-d H:i:s'),
-            'last_draw_date' => $last_draw_date->format('D, d M Y'),
-            'symbol' => $currency_symbol['symbol']
+            'id_draw' => $euroMillionsDraw->id,
+            'jackpot_value' =>$this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions')),
+            'last_result' => ['regular_numbers' => $euroMillionsDraw->regularNumbersArray, 'lucky_numbers' => $euroMillionsDraw->luckyNumbersArray ],
+            'date_draw' =>  $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->format('Y-m-d H:i:s'),
+            'last_draw_date' => $euroMillionsDraw->drawDate,
+            'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
+            'list_draws' => $result->getValues(),
         ]);
     }
 

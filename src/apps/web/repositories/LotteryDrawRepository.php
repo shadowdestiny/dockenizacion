@@ -125,6 +125,26 @@ class LotteryDrawRepository extends EntityRepository
         return $result[0];
     }
 
+    public function getDraws(Lottery $lottery, $limit = 13)
+    {
+        /** @var EuroMillionsDraw[] $result */
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT ld'
+                . ' FROM ' . $this->getEntityName() . ' ld JOIN ld.lottery l'
+                . ' WHERE l.name = :lottery_name ORDER BY ld.draw_date DESC')
+            ->setMaxResults($limit)
+
+            ->setParameters(['lottery_name' => $lottery->getName()])
+            ->useResultCache(true)
+            ->getResult();
+        if (!count($result)) {
+            throw new DataMissingException('Couldn\'t find the results in the database');
+        }
+
+        return $result;
+    }
+
     public function getLastDraw(Lottery $lottery, \DateTime $date = null)
     {
         $date = $date ?: new \DateTime();

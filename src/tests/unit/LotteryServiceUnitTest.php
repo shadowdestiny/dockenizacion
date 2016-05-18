@@ -3,6 +3,7 @@ namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\tests\helpers\mothers\EuroMillionsLineMother;
+use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\exceptions\DataMissingException;
 use EuroMillions\web\services\LotteryService;
@@ -410,6 +411,41 @@ class LotteryServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method getDrawsDTO
+     * when calledWithProperData
+     * should returnCollectionFromEuroMillionsDrawsDTO
+     */
+    public function test_getDrawsDTO_calledWithProperData_returnCollectionFromEuroMillionsDrawsDTO()
+    {
+        list($lottery, $collectionEuroMillionsDraw) = $this->prepareToGetDraws();
+        $this->lotteryRepositoryDouble->findOneBy(['name' => 'EuroMillions'])->willReturn($lottery);
+        $this->lotteryDrawRepositoryDouble->getDraws($lottery)->willReturn($collectionEuroMillionsDraw);
+        $sut = $this->getSut();
+        $actual = $sut->getDrawsDTO('EuroMillions');
+        $this->assertEquals(2,count($actual->getValues()));
+        $this->assertEquals(true, $actual->success());
+        $this->assertInstanceOf('EuroMillions\web\vo\dto\EuroMillionsDrawDTO',$actual->getValues()[0]);
+    }
+
+    /**
+     * method getDrawsDTO
+     * when called
+     * should returnActionResultFalse
+     */
+    public function test_getDrawsDTO_called_returnActionResultFalse()
+    {
+        list($lottery, $collectionEuroMillionsDraw) = $this->prepareToGetDraws();
+        $this->lotteryRepositoryDouble->findOneBy(['name' => 'EuroMillions'])->willReturn($lottery);
+        $this->lotteryDrawRepositoryDouble->getDraws($lottery)->willThrow(new DataMissingException());
+        $expected = new ActionResult(false);
+        $sut = $this->getSut();
+        $actual = $sut->getDrawsDTO('EuroMillions');
+        $this->assertEquals($expected,$actual);
+    }
+
+
+
+    /**
      * @param $lottery_name
      * @return Lottery
      */
@@ -473,5 +509,42 @@ class LotteryServiceUnitTest extends UnitTestBase
                                   $this->userNotoificationsService_double->reveal(),
                                   $this->walletService_double->reveal()
                                 );
+    }
+
+    /**
+     * @return array
+     */
+    private function prepareToGetDraws()
+    {
+        $lottery = new Lottery();
+        $lottery->initialize([
+            'id'        => 1,
+            'name'      => 'EuroMillions',
+            'active'    => 1,
+            'frequency' => 'w0100100',
+            'draw_time' => '20:00:00'
+        ]);
+        $euro_millions_result = new EuroMillionsLine($this->getRegularNumbers([1, 2, 3, 4, 5]), $this->getLuckyNumbers([7, 8]));
+        $euroMillionsDraw = new EuroMillionsDraw();
+        $euroMillionsDraw->initialize([
+            'id'         => 4,
+            'draw_date'  => new \DateTime('2015-05-22'),
+            'jackpot'    => new Money(415034000, new Currency('EUR')),
+            'lottery'    => $lottery,
+            'result'     => $euro_millions_result,
+            'break_down' => new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())
+        ]);
+        $euroMillionsDrawTwo = new EuroMillionsDraw();
+        $euroMillionsDrawTwo->initialize([
+            'id'         => 5,
+            'draw_date'  => new \DateTime('2015-05-26'),
+            'jackpot'    => new Money(415034000, new Currency('EUR')),
+            'lottery'    => $lottery,
+            'result'     => $euro_millions_result,
+            'break_down' => new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw())
+        ]);
+
+        $collectionEuroMillionsDraw = [$euroMillionsDraw, $euroMillionsDrawTwo];
+        return array($lottery, $collectionEuroMillionsDraw);
     }
 }
