@@ -6,6 +6,7 @@ Vagrant.configure(2) do |config|
     config.vm.box = "ubuntu/wily64"
 
     config.vm.provision "shell", inline: <<-SCRIPT
+        sudo apt-get update
         sudo wget https://launchpad.net/~ansible/+archive/ubuntu/ansible-1.9/+files/ansible_1.9.4-1ppa~trusty_all.deb -O /tmp/ansible.deb
         sudo apt-get install -y python-support \
           python-jinja2 \
