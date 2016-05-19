@@ -2,7 +2,7 @@ class_name: AcceptanceTester
 modules:
     enabled:
         - WebDriver:
-            url: 'https://dev.euromillions.com'
+            url: 'https://172.17.0.1'
             browser: phantomjs
             http_proxy: 'localhost'
             http_proxy_port: '8090'

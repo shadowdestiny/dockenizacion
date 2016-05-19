@@ -3,8 +3,11 @@
 class HomeCest
 {
 
+    private $zap;
+
     public function _before(AcceptanceTester $I)
     {
+
         sleep(3);
         $I->amOnPage('/');
     }
@@ -15,6 +18,7 @@ class HomeCest
 
     /**
      * @param AcceptanceTester $I
+     * @group active
      */
     public function seePage(AcceptanceTester $I)
     {

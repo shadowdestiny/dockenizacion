@@ -47,7 +47,7 @@ class PrizeCheckoutServiceIntegrationTest extends DatabaseIntegrationTestBase
         $email = 'algarrobo@currojimenez.com';
         /** @var User $user */
         $user = $userRepository->getByEmail($email);
-        $amount = new Money(6000, new Currency('EUR'));
+        $amount = new Money(600000, new Currency('EUR'));
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $bet = new Bet($playConfig,$euroMillionsDraw);
         $sut = new PrizeCheckoutService(
@@ -57,7 +57,7 @@ class PrizeCheckoutServiceIntegrationTest extends DatabaseIntegrationTestBase
                                         $this->getServiceDouble('EmailService')->reveal(),
                                         $this->getServiceDouble('TransactionService')->reveal()
         );
-        $sut->awardUser($bet,$amount);
+        $sut->awardUser($bet,$user->getId(), $amount);
         $this->entityManager->detach($user);
         $user = $userRepository->getByEmail($email);
         $actual = $user->getBalance()->getAmount();
