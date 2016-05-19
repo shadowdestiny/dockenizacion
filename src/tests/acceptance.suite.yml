@@ -9,4 +9,5 @@ modules:
             capabilities:
               webStorageEnabled: true
               acceptSslCerts: true
+        - Asserts
         - \Helper\Acceptance

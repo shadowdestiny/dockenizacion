@@ -7,3 +7,5 @@ RUN locale-gen es_ES.UTF-8
 RUN locale-gen en_US.UTF-8
 RUN locale-gen en_GB.UTF-8
 
+ADD ./30-phalcon.ini /etc/php5/mods-available
+RUN php5enmod 30-phalcon

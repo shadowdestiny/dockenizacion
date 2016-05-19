@@ -1,5 +1,5 @@
 ---
-#- src: sarrubia.phalcon
+- src: sarrubia.phalcon
 - src: martinmicunda.nodejs
 - src: angstwad.docker_ubuntu
 - src: T2L.composer

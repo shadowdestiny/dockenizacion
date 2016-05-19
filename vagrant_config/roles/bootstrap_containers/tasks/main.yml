@@ -79,6 +79,12 @@
       - develredis:redis
     env:
       EM_ENV: development
+- name: PhantomJs and ZAP security
+  docker:
+    name: phantomJsZAP
+    image: rmrbest/phantomjs-zap
+    ports:
+      - "4444:4444"
 
 - name: initialize test database
   shell:  mysql -h 127.0.0.1 -u root -ptpl9 --port=3306 -e 'CREATE DATABASE IF NOT EXISTS euromillions_test'

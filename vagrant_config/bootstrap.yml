@@ -5,7 +5,7 @@
   become_user: root
   vars:
     - config_files_path: /vagrant/vagrant_config/
-    - xdebug_config_file: 20-xdebug.ini
+    - xdebug_config_file: 20-xdebug.iniI
     - webserver_container_name: develweb
     - database_slave_name: develdbslave
   roles:
