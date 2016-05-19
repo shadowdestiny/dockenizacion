@@ -5,7 +5,7 @@ modules:
             url: 'https://dev.euromillions.com'
             browser: phantomjs
             http_proxy: 'localhost'
-            http_proxy_port: '8787'
+            http_proxy_port: '8090'
             capabilities:
               webStorageEnabled: true
               acceptSslCerts: true

@@ -22,7 +22,7 @@
         </many-to-one>
 
         <many-to-one target-entity="EuroMillions\web\entities\PlayConfig" inversed-by="playConfig"
-                     field="play_config">
+                     field="playConfig">
         </many-to-one>
 
     </entity>

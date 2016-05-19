@@ -15,7 +15,6 @@ class HomeCest
 
     /**
      * @param AcceptanceTester $I
-     * @group active
      */
     public function seePage(AcceptanceTester $I)
     {

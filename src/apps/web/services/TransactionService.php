@@ -50,7 +50,7 @@ class TransactionService
 
     public function getTransactionsDTOByUser( User $user )
     {
-        $result = $this->transactionRepository->findBy(['user' => $user->getId() ],['date' => 'DESC']);
+        $result = $this->transactionRepository->findBy(['user' => $user->getId() ],['id' => 'DESC']);
         if( null != $result ) {
             $transactionDtoCollection = [];
             /** @var Transaction $transaction */

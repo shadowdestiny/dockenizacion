@@ -19,6 +19,7 @@ class EuroMillionsDrawDTO extends DTOBase implements IDto
     public $luckyNumbersArray;
     public $jackpot;
     public $drawDate;
+    public $drawDateParam;
     public $euroMillionsDrawBreakDownDTO;
 
 
@@ -38,8 +39,9 @@ class EuroMillionsDrawDTO extends DTOBase implements IDto
         $this->luckyNumbers = $this->euroMillionsDraw->getResult()->getLuckyNumbers();
         $this->luckyNumbersArray = $this->euroMillionsDraw->getResult()->getLuckyNumbersArray();
         $this->jackpot = $this->euroMillionsDraw->getJackpot()->getAmount();
-        $this->drawDate = $this->euroMillionsDraw->getDrawDate();
-        $this->drawDate = $this->drawDate->format('D, d M Y');
+        $date = $this->euroMillionsDraw->getDrawDate();
+        $this->drawDate = $date->format('D, d M Y');
+        $this->drawDateParam = $date->format('Y-m-d');
     }
 
     public function toArray()

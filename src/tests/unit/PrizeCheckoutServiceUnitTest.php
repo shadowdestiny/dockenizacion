@@ -5,6 +5,7 @@ namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\shared\vo\Wallet;
+use EuroMillions\tests\helpers\mothers\UserMother;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\Bet;
@@ -140,13 +141,18 @@ class PrizeCheckoutServiceUnitTest extends UnitTestBase
     public function test_awardUser_calledWithAmountLess2500_increaseUserBalance()
     {
         $bet = $this->prepareAwardUserData();
-        $amount = new Money(2300, new Currency('EUR'));
+        $user = UserMother::aUserWith50Eur()->build();
+        $amount = new Money(230000, new Currency('EUR'));
+        $this->userRepository_double->find($user->getId())->willReturn($user);
         $this->transactionService->storeTransaction(Argument::any(),Argument::any())->shouldBeCalled();
       //  $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
-        $this->iDontCareAboutFlush();
+        $this->userRepository_double->add($user)->shouldBeCalled();
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->flush($user)->shouldBeCalled();
+        //$this->iDontCareAboutFlush();
         $sut = $this->getSut();
         $expected = new Money(7300,new Currency('EUR'));
-        $actual = $sut->awardUser($bet, $amount);
+        $actual = $sut->awardUser($bet, $user->getId(), $amount);
         $this->assertEquals($expected,$actual->getValues()->getBalance());
     }
 
@@ -158,13 +164,17 @@ class PrizeCheckoutServiceUnitTest extends UnitTestBase
     public function test_awardUser_calledWithAmountGreaterThan2500_userBalanceNoIncrease()
     {
         $bet = $this->prepareAwardUserData();
-        $amount = new Money(400000, new Currency('EUR'));
+        $user = $this->getUser();
+        $amount = new Money(40000000, new Currency('EUR'));
+        $this->userRepository_double->find($user->getId())->willReturn($user);
         $this->transactionService->storeTransaction(Argument::any(),Argument::any())->shouldBeCalled();
        // $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
-        $this->iDontCareAboutFlush();
+        $this->userRepository_double->add($user)->shouldBeCalled();
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->flush($user)->shouldBeCalled();
         $sut = $this->getSut();
         $expected = new Money(5000,new Currency('EUR'));
-        $actual = $sut->awardUser($bet, $amount);
+        $actual = $sut->awardUser($bet, $user->getId(), $amount);
         $this->assertEquals($expected,$actual->getValues()->getBalance());
     }
 
@@ -186,7 +196,7 @@ class PrizeCheckoutServiceUnitTest extends UnitTestBase
         $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush($user)->willThrow(new \Exception('Error'));
         $sut = $this->getSut();
-        $actual = $sut->awardUser($bet,$amount_awarded);
+        $actual = $sut->awardUser($bet, $user->getId(),$amount_awarded);
         $this->assertEquals($expected,$actual);
     }
 

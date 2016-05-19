@@ -11,7 +11,7 @@ class Bet extends EntityBase implements IEntity
 {
     protected $id;
 
-    protected $play_config;
+    protected $playConfig;
 
     protected $euromillionsDraw;
 
@@ -21,7 +21,7 @@ class Bet extends EntityBase implements IEntity
 
     public function __construct(PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw)
     {
-        $this->play_config = $playConfig;
+        $this->playConfig = $playConfig;
         $this->euromillionsDraw = $euroMillionsDraw;
     }
 
@@ -32,7 +32,7 @@ class Bet extends EntityBase implements IEntity
 
     public function setPlayConfig($playConfig)
     {
-        $this->play_config=$playConfig;
+        $this->playConfig=$playConfig;
     }
 
     /**
@@ -40,7 +40,7 @@ class Bet extends EntityBase implements IEntity
      */
     public function getPlayConfig()
     {
-        return $this->play_config;
+        return $this->playConfig;
     }
 
     public function setEuroMillionsDraw($euromillionsDraw)
@@ -73,6 +73,8 @@ class Bet extends EntityBase implements IEntity
     public function toArray()
     {
         $parent_array = parent::toArray();
+        $parent_array['playConfig_id'] = $parent_array['play_config_id'];
+        unset($parent_array['play_config_id']);
         if (null === $this->castillo_bet) {
             unset ($parent_array['castillo_bet']);
         }

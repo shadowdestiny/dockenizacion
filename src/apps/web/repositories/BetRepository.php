@@ -42,16 +42,20 @@ class BetRepository extends RepositoryBase
         $rsm = new ResultSetMapping;
         $rsm->addEntityResult('EuroMillions\web\entities\Bet', 'b');
         $rsm->addMetaResult('b','bet','id', true);
-        $rsm->addEntityResult('EuroMillions\web\entities\PlayConfig', 'p');
-        $rsm->addFieldResult('p','id','id');
-        $rsm->addMetaResult('p','userId','user_id');
         $rsm->addMetaResult('b','draw','euromillions_draw_id', true);
-        $rsm->addMetaResult('b','play','play_config_id', true);
+        $rsm->addMetaResult('b','playConfig','playConfig_id',true);
+        $rsm->addEntityResult('EuroMillions\web\entities\PlayConfig', 'p');
+        //$rsm->addEntityResult('EuroMillions\web\entities\User', 'u');
+       // $rsm->addJoinedEntityResult('EuroMillions\web\entities\PlayConfig','p','b','playConfig');
+//        $rsm->addJoinedEntityResult('EuroMillions\web\entities\User','u','p','user');
+        $rsm->addFieldResult('p','id','id');
+//        $rsm->addFieldResult('u','userId','id');
+        $rsm->addScalarResult('userId','userId');
         $rsm->addScalarResult('cnt','cnt');
         $rsm->addScalarResult('cnt_lucky','cnt_lucky');
 
         $result = $this->getEntityManager()
-            ->createNativeQuery("SELECT p.id, p.user_id as userId, b.play_config_id as play, b.id as bet, b.euromillions_draw_id as draw,
+            ->createNativeQuery("SELECT p.id, u.id as userId, b.playConfig_id as playConfig, b.id as bet, b.euromillions_draw_id as draw,
                       (IF(p.line_regular_number_one IN (e.result_regular_number_one,
                                                     e.result_regular_number_two,
                                                     e.result_regular_number_three,
@@ -83,9 +87,10 @@ class BetRepository extends RepositoryBase
                         IF(p.line_lucky_number_two IN (e.result_lucky_number_one,
                                                     e.result_lucky_number_two), 1, 0)
                      ) as cnt_lucky
-                from play_configs p
-                INNER JOIN bets b ON b.play_config_id=p.id
+                from bets b
+                INNER JOIN play_configs p ON b.playConfig_id=p.id
                 INNER JOIN euromillions_draws e on e.id=b.euromillions_draw_id
+                INNER JOIN users u ON u.id = p.user_id
                 WHERE p.active=1 and e.draw_date = ?
                 having (cnt=5 and cnt_lucky=2) OR (cnt=5 and cnt_lucky=1) OR (cnt=5 and cnt_lucky=0)
                 OR (cnt=4 and cnt_lucky=2) OR (cnt=4 and cnt_lucky=1) OR (cnt=4 and cnt_lucky=0)

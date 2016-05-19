@@ -292,8 +292,8 @@ class EuroMillionsDrawBreakDown
 
     private function mappingAward($cnt_number,$cnt_lucky)
     {
-        $name_method = $this->structureOfCombinations()[$cnt_number.$cnt_lucky];
-        return $this->$name_method->getLotteryPrize();
+        $name_property = $this->structureOfCombinations()[$cnt_number.$cnt_lucky];
+        return $this->$name_property->getLotteryPrize();
     }
 
 

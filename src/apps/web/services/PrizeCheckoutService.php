@@ -5,6 +5,7 @@ namespace EuroMillions\web\services;
 
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\WinEmailAboveTemplate;
 use EuroMillions\web\emailTemplates\WinEmailTemplate;
@@ -76,24 +77,25 @@ class PrizeCheckoutService
         }
     }
 
-    public function awardUser(Bet $bet, Money $amount)
+    public function awardUser(Bet $bet, $userId, Money $amount)
     {
         $config = $this->di->get('config');
         $threshold_price = new Money((int) $config->threshold_above['value'] * 100, new Currency('EUR'));
         /** @var User $user */
-        $user = $bet->getPlayConfig()->getUser();
+        $user = $this->userRepository->find($userId);
         try{
             //EMTD WinningVO to avoid this logic
-            $data= $this->prepareDataToTransaction($bet,$amount);
+            $data= $this->prepareDataToTransaction($bet,$user,$amount);
+            $current_amount = $amount->getAmount() / 100;
+            $amount = new Money((int) $current_amount, new Currency('EUR'));
             if($amount->greaterThanOrEqual($threshold_price)) {
                 $user->setWinningAbove($amount);
                 $user->setShowModalWinning(1);
                 $this->storeAwardTransaction($data, TransactionType::BIG_WINNING);
                 $this->sendBigWinEmail($user, $amount);
-
             } else {
                 $user->awardPrize($amount);
-                $data['wallet_after'] = $user->getWallet();
+                $data['walletAfter'] = $user->getWallet();
                 $data['state'] = '';
                 $this->storeAwardTransaction($data, TransactionType::WINNINGS_RECEIVED);
                 $this->sendSmallWinEmail($user, $amount);
@@ -111,15 +113,15 @@ class PrizeCheckoutService
         $this->transactionService->storeTransaction($transactionType,$data);
     }
 
-    private function prepareDataToTransaction(Bet $bet, Money $amount)
+    private function prepareDataToTransaction(Bet $bet, User $user, Money $amount)
     {
         return [
             'draw_id' => $bet->getEuroMillionsDraw()->getId(),
             'bet_id'  => $bet->getId(),
             'amount'  => $amount->getAmount(),
-            'user'    => $bet->getPlayConfig()->getUser(),
-            'walletBefore' => $bet->getPlayConfig()->getUser()->getWallet(),
-            'walletAfter' => $bet->getPlayConfig()->getUser()->getWallet(),
+            'user'    => $user,
+            'walletBefore' => $user->getWallet(),
+            'walletAfter' => $user->getWallet(),
             'state'       => 'pending',
             'now'         => new \DateTime()
         ];

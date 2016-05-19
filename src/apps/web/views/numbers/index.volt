@@ -200,13 +200,15 @@ $(function(){
 							<tbody>
 						{% for i,draw in list_draws %}
 							<div data-lazy-widget="gplus_{{ i }}" class="g-plusone" data-annotation="inline" data-width="300"></div>
-							<div id="gplus_{{ i }}">
-								<!--<tr border="1" style="display:block;height: 200px;border:1px solid #efc048;">
-									<td style="padding:7px 12px;text-align:left;line-height:1.5em;">{{ draw.drawDate }}</td>
-									<td style="padding:7px 12px;font-weight:700">{{ draw.regularNumbers }}</td>
-									<td style="padding:7px 12px;">{{ draw.luckyNumbers }}</td>
-								</tr>-->
-							</div>
+							<a href="/numbers?date={{ draw.drawDateParam }}">
+								<div id="gplus_{{ i }}">
+									<!--<tr border="1" style="display:block;height: 200px;border:1px solid #efc048;">
+										<td style="padding:7px 12px;text-align:left;line-height:1.5em;">{{ draw.drawDate }}</td>
+										<td style="padding:7px 12px;font-weight:700">{{ draw.regularNumbers }}</td>
+										<td style="padding:7px 12px;">{{ draw.luckyNumbers }}</td>
+									</tr>-->
+								</div>
+							</a>
 						{%  endfor %}
 							</tbody>
 						</table>

@@ -9,6 +9,7 @@ use EuroMillions\web\entities\BigWinTransaction;
 use EuroMillions\web\entities\DepositTransaction;
 use EuroMillions\web\entities\TicketPurchaseTransaction;
 use EuroMillions\web\entities\Transaction;
+use EuroMillions\web\entities\WinningsReceivedTransaction;
 use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\web\interfaces\IDto;
 use EuroMillions\web\vo\dto\base\DTOBase;
@@ -63,7 +64,9 @@ class TransactionDTO extends DTOBase implements IDto
         if($transactionType instanceof BigWinTransaction ) {
             return 'Big Winning';
         }
-
+        if($transactionType instanceof WinningsReceivedTransaction ) {
+            return 'Winnings Received';
+        }
 
     }
 

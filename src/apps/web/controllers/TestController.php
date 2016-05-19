@@ -59,6 +59,9 @@ class TestController extends PublicSiteControllerBase
         $task->initialize();
         $task->checkoutAction();
         $this->noRender();
+        $this->entityManager->remove($bet);
+        $this->entityManager->remove($play_config);
+        $this->entityManager->flush();
         echo 'OK ' . $userId;
     }
 
