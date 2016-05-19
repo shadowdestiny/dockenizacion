@@ -14,7 +14,7 @@
                 <h1 class="h2 title">{{ language.translate("Password recovery") }}</h1>
                 <p>{{ language.translate("Enter the email address associated with your Euromillions.com account, then click the button.") }}</p>
                 <p>{{ language.translate("We'll email your a link to a page where you can easily create a new password.") }}</p>
-                {{ form('/userAccess/forgotPassword') }}
+                {{ form('/user-access/forgotPassword') }}
                     {%if message %}
                         <div class="box success">
                             <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>

@@ -255,10 +255,10 @@ class AuthService
             $user->setPassword($password);
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
-            $this->emailService->sendTransactionalEmail($user, new ResetPasswordEmailTemplate(new EmailTemplate(), new NullEmailTemplateDataStrategy()));
+            //$this->emailService->sendTransactionalEmail($user, new ResetPasswordEmailTemplate(new EmailTemplate(), new NullEmailTemplateDataStrategy()));
             return new ActionResult(true, 'Your password was changed correctly');
         } catch (\Exception $e) {
-            return new ActionResult(false);
+            return new ActionResult(false, 'It was a problem updating your password. Please try again later.');
         }
     }
 
