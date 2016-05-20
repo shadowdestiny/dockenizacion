@@ -254,7 +254,7 @@ class AccountController extends PublicSiteControllerBase
         $wallet_dto = $this->domainServiceFactory->getWalletService()->getWalletDTO($user);
         $this->view->pick('account/wallet');
         return $this->view->setVars([
-            'which_form' => 'wallet',
+            'which_form' => 'withdraw',
             'form_errors' => $form_errors,
             'bank_account_form' => $bank_account_form,
             'user' => new UserDTO($user),
@@ -286,13 +286,17 @@ class AccountController extends PublicSiteControllerBase
         $expiry_date_year = $this->request->getPost('expiry-date-year');
         $cvv = $this->request->getPost('card-cvv');
         $user_id = $this->authService->getCurrentUser();
+        $countries = $this->getCountries();
         /** User $user */
         $user = $this->userService->getUser($user_id->getId());
+        $bank_account_form = new BankAccountForm($user, ['countries' => $countries] );
         $site_config_dto = $this->siteConfigService->getSiteConfigDTO($user->getUserCurrency(), $user->getLocale());
         $wallet_dto = $this->domainServiceFactory->getWalletService()->getWalletDTO($user);
         $errors = [];
         $msg = '';
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
+        $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user->getUserCurrency());
+
         if($this->request->isPost()) {
             if ($credit_card_form->isValid($this->request->getPost()) == false) {
                 $messages = $credit_card_form->getMessages(true);
@@ -332,13 +336,17 @@ class AccountController extends PublicSiteControllerBase
                 }
             }
         }
+
         $this->view->pick('/account/wallet');
         return $this->view->setVars([
+            'which_form' => 'wallet',
             'form_errors' => $form_errors,
             'errors' => $errors,
             'symbol' => (empty($symbol)) ? $user->getUserCurrency()->getName() : $symbol,
             'credit_card_form' => $credit_card_form,
             'msg' => $msg,
+            'ratio' => $ratio,
+            'bank_account_form' => $bank_account_form,
             'site_config' => $site_config_dto,
             'show_form_add_fund' => true,
             'show_winning_copy' => 0,
