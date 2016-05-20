@@ -97,7 +97,6 @@
 
 {% block bodyClass %}cart order minimal{% endblock %}
 {% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
-{% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}
 
 {% block body %}
     {#  Hide this content until we have multiple numbers
