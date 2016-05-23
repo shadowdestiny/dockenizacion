@@ -20,7 +20,11 @@ class AccountCest
 
     }
 
-    public function redirectToLoginIfNotLoggedIn(FunctionalTester $I, $scenario)
+    /**
+     * @param FunctionalTester $I
+     * @group active
+     */
+    public function redirectToLoginIfNotLoggedIn(FunctionalTester $I)
     {
         $I->amOnPage('/account');
         $I->seeCurrentUrlMatches('/^\/sign-in/');

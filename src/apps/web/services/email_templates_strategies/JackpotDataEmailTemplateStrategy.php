@@ -28,7 +28,7 @@ class JackpotDataEmailTemplateStrategy implements IEmailTemplateDataStrategy
             $draw_day_format_two = $next_draw_day->format('j F Y');
             $jackpot_amount = $this->lotteriesDataService->getNextJackpot('EuroMillions');
 
-            return [
+            return  [
                'jackpot_amount' => $jackpot_amount,
                'draw_day_format_one' => $draw_day_format_one,
                'draw_day_format_two' => $draw_day_format_two,

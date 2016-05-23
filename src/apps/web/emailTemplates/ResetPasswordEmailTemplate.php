@@ -8,7 +8,7 @@ class ResetPasswordEmailTemplate extends EmailTemplateDecorator
     public function loadVars()
     {
         $vars = [
-            'template' => 'simple',
+            'template' => '625282',
             'subject' => 'Your password in Euromillions.com has been changed',
             'vars' =>
                 [

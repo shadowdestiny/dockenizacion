@@ -30,4 +30,8 @@ class EmailTemplate implements IEmailTemplate
     }
 
 
+    public function loadVarsAsObject(array $vars = null)
+    {
+
+    }
 }

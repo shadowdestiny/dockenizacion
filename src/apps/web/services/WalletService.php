@@ -136,11 +136,11 @@ class WalletService
             $data['amountWithdrawed'] = $amount->getAmount();
             $data['state'] = 'pending';
             $this->transactionService->storeTransaction(TransactionType::WINNINGS_WITHDRAW, $data);
+            return new ActionResult(true);
         } catch ( \Exception $e ) {
             return new ActionResult(false, $e->getMessage());
             //EMTD Log and warn the admin
         }
-        return new ActionResult(true);
     }
 
     public function getWalletDTO( User $user )

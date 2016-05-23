@@ -16,12 +16,12 @@ class JackpotRolloverEmailTemplate extends EmailTemplateDecorator
         $jackpot_amount = $data['jackpot_amount'];
 
         $vars = [
-            'template' => 'jackpot-rollover',
+            'template' => '625301',
             'subject' => 'The Jackpot has reached your threshold',
             'vars' =>
                 [
                     [
-                        'name'    => 'jackpot',
+                        'name'    => 'current_jackpot',
                         'content' => number_format((float) $jackpot_amount->getAmount() / 100,2,".",",")
                     ],
                     [

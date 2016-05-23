@@ -9,4 +9,5 @@ interface IEmailTemplate
     public function loadHeader();
     public function loadVars();
     public function loadFooter();
+    public function loadVarsAsObject();
 }

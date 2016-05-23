@@ -12,7 +12,7 @@ class WelcomeEmailTemplate extends EmailTemplateDecorator
     public function loadVars()
     {
         $vars = [
-            'template' => 'welcome',
+            'template' => '623001',
             'subject' => 'Welcome to Euromillions.com',
             'vars' => [
                 [
@@ -44,6 +44,7 @@ class WelcomeEmailTemplate extends EmailTemplateDecorator
 
         return $vars;
     }
+
 
     /**
      * @return mixed

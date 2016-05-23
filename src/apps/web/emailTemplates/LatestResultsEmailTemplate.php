@@ -6,6 +6,8 @@ namespace EuroMillions\web\emailTemplates;
 use EuroMillions\web\interfaces\IEmailTemplateDataStrategy;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\LatestResultsDataEmailTemplateStrategy;
+use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
+use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 
 
 class LatestResultsEmailTemplate extends EmailTemplateDecorator
@@ -22,15 +24,14 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
         $last_draw_date = $data['last_draw_date'];
 
         $amount = number_format((float) $jackpot->getAmount() / 100,2,".",",");
-
         $vars = [
-            'template' => 'latest-results',
+            'template' => '624601',
             'subject' => 'Latest results',
             'vars' =>
                 [
                     [
                         'name'    => 'breakdown',
-                        'content' => $this->break_down_list
+                        'content' => $this->getBreakDownList()
                     ],
                     [
                         'name'    => 'jackpot',
@@ -55,7 +56,7 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
     }
 
     /**
-     * @return mixed
+     * @return EuroMillionsDrawBreakDownDTO
      */
     public function getBreakDownList()
     {
