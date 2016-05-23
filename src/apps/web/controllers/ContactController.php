@@ -43,7 +43,7 @@ class ContactController extends PublicSiteControllerBase
                     $form_errors[$field] = ' error';
                 }
             } else {
-                if($user) {
+                if($user instanceof User) {
                     $email = $user->getEmail()->toNative();
                     $fullName = $user->getName() . ' ' . $user->getSurname();
                 }
