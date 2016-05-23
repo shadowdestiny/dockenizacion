@@ -37,7 +37,7 @@ class ServiceFactory
     public function getEmailService()
     {
         $config = $this->di->get('config')['mail'];
-        $api_key = $config['email_api_key'];
+        $api_key = $config['api_key'];
         return new EmailService(
             new PostMarkWrapper($api_key),
             $this->di->get('config')['mail']
