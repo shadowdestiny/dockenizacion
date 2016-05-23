@@ -72,7 +72,7 @@
 /*
 
 EMTD TO clean this code from VARIABLE 
-.home.cur-txt .box-value .currency{font-size:$h3;}
+.home.cur-txt .box-value .currency{font-size:$h3;} 
 .home.cur1 .box-value .value, .numbers.cur1 .box-value .value{font-size:$h0-2;}
 .home.cur2 .box-value .value{font-size:$h0-3;}
 .home.cur2 .box-prize .value, .numbers.cur2 .box-value .value{font-size:$h1;}*/
@@ -91,18 +91,18 @@ EMTD TO clean this code from VARIABLE
 .jl-11 .banner .mytxt{font-size:90px;}  /* When I have symbol */
 .jl-13 .banner .mytxt{font-size:82px;}
 .jl-14 .banner .mytxt{font-size:74px;}
-.jl-15 .banner .mytxt{font-size:70px;}
+.jl-15 .banner .mytxt{font-size:65px;}
 .jl-15, .jl-16, .jl-17{
     .banner .value{margin-top:-10px;}
 }
-.jl-17 .banner .mytxt{font-size:68px;}
+.jl-17 .banner .mytxt{font-size:56px;}
 
 @media only screen and (max-width:1460px){
 .box-jackpot{padding-left:80px;}
-.jl-15 .banner .mytxt{font-size:68px;}
+.jl-15 .banner .mytxt{font-size:65px;}
 .jl-17{
     .box-jackpot{padding-left:40px;}
-    .banner .mytxt{font-size:64px;}
+    .banner .mytxt{font-size:56px;}
 }
 }
 
