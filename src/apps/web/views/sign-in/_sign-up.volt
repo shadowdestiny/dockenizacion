@@ -23,3 +23,10 @@
 
     <div class="box-extra{% if signIn.myClass == 'cart' %} hidden{% endif %}"><span class="txt">{{ language.translate("Do you have an account?") }}</span> <a class="btn gwy" href="javascript:void(0)">{{ language.translate("Log in") }}</a></div>
 </form>
+
+<script>
+	document.getElementById("goSignUp").addEventListener("click", function(){
+	        ga('set', 'page', '/sign-up-attempted');
+                ga('send', 'pageview');
+	});
+</script>

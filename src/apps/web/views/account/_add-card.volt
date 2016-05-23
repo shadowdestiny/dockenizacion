@@ -3,19 +3,38 @@
         <hr class="hr yellow">
     {% endif %}
 
+
     {% if component.where == 'account' %}
         {% if msg %}
             <div class="box success">
                 <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"/></svg>
                 <span class="txt">{{ msg }}</span>
             </div>
+
+
+	<script src="/w/js/vendor/ganalytics.min.js"> </script>
+	<script>
+                ga('set', 'page', '/account/addFunds-success');
+                ga('send', 'pageview');
+	</script>
+
         {% endif %}
         {% if errors %}
             <div class="box error">
                 <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"/></svg>
                 <div class="txt"><ul class="no-li">{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul></div>
             </div>
+
+	<script src="/w/js/vendor/ganalytics.min.js"> </script>
+	<script>
+                ga('set', 'page', '/account/addFunds-fail');
+                ga('send', 'pageview');
+	</script>
+
+
         {% endif %}
+
+
     {% endif %}
 
     <div class="wrap">
