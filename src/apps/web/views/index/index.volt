@@ -15,6 +15,16 @@ home
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}
 <script src="/w/js/mobileFix.min.js"></script>
+
+<script>
+	var l = document.createElement("a");
+	l.href = document.referrer
+	if (l.pathname == '/sign-up'){
+		ga('set', 'page', '/sign-up/landing');
+                ga('send', 'pageview');
+	}	
+</script>
+
 {% endblock %}
 {% block body %}
 <main id="content">

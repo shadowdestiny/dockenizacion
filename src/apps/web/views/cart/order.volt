@@ -93,6 +93,14 @@
 {% block template_scripts_after %}
     <script src="/w/js/react/cart.js"></script>
     <script src="/w/js/react/tooltip.js"></script>
+    <script>
+	var l = document.createElement("a");
+	l.href = document.referrer
+	if (l.pathname == '/cart/profile'){
+        ga('set', 'page', '/sign-up/order-landing');
+                ga('send', 'pageview');
+        }
+    </script>
 {% endblock %}
 
 {% block bodyClass %}cart order minimal{% endblock %}
