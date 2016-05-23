@@ -21,6 +21,7 @@
 
 
 
+
     $(document).on("totalPriceEvent",{total: 0, param2: 0},function(e, total, param2) {
             var total_text = '';
             if(currency_symbol !== '€') {
