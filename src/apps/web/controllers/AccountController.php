@@ -265,7 +265,7 @@ class AccountController extends PublicSiteControllerBase
             'credit_card_form' => $credit_card_form,
             'show_form_add_fund' => false,
             'wallet' => $wallet_dto,
-            'show_box_basic' => true,
+            'show_box_basic' => false,
             'site_config' => $site_config_dto
         ]);
 

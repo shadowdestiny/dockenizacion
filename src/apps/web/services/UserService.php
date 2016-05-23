@@ -398,10 +398,13 @@ class UserService
             $this->entityManager->persist($user);
             $this->entityManager->flush($user);
             $amount = new Money((int) $data['amount'] * 100, new Currency('EUR'));
-            $this->walletService->withDraw( $user, $amount);
+            $result = $this->walletService->withDraw( $user, $amount);
+            if($result->success()){
+                return new ActionResult(true,'Your transaction was created correctly.');
+            }
+            return new ActionResult(false,'Sorry, your transaction was a problem. Please, ensure you that you have amount');
         } catch ( \Exception $e ) {
             return new ActionResult(false,'Sorry it was a problem. Please try again');
         }
-        return new ActionResult(true,'Your transaction was created correctly.');
     }
 }

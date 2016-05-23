@@ -114,12 +114,6 @@ class BankAccountForm extends Form
             ]
         );
 
-        $country->addValidators(array(
-            new PresenceOf(array(
-                'message' => 'The country is required.'
-            )),
-        ));
-
         $this->add($country);
 
         $csrf = new Hidden('csrf');
