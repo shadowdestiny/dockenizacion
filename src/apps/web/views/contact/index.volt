@@ -24,7 +24,7 @@
 
             <p>{{ language.translate("What can we help you with?") }}</p>
 
-            {{  form('contact') }}
+            {{  form('/contact') }}
                 {% if message %}
                     <div class="box {{ class }}">
                         <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>

@@ -28,7 +28,7 @@ class WelcomeEmailTemplateUnitTest extends UnitTestBase
         $obj->subscribe = '/numbers';
         $obj->faq = '/faq';
         $obj->contact = 'mailto:support@euromillions.com';
-        $obj->breakdown = json_encode([['test' => 'test', 'test2' => 'test2']]);
+        $obj->breakdown = [['test' => 'test','test2' => 'test2']];
 
         $expected = $obj;
         $sut = new WelcomeEmailTemplate(new EmailTemplate(), new NullEmailTemplateDataStrategy());

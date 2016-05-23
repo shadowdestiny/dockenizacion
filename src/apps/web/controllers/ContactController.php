@@ -37,6 +37,7 @@ class ContactController extends PublicSiteControllerBase
                 $contactRequest_result = $this->userService->contactRequest($contactFormInfo);
                 if($contactRequest_result->success())
                 {
+                    $guestContactForm->clear();
                     $message = $contactRequest_result->getValues();
                     $class = ' success';
                 }else{
