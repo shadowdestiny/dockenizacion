@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\web\services\factories;
 
+use EuroMillions\web\components\PostMarkWrapper;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\GeoService;
 use EuroMillions\web\services\LoggerFactory;
@@ -36,9 +37,9 @@ class ServiceFactory
     public function getEmailService()
     {
         $config = $this->di->get('config')['mail'];
-        $api_key = $config['mandrill_api_key'];
+        $api_key = $config['email_api_key'];
         return new EmailService(
-            new MandrillWrapper($api_key),
+            new PostMarkWrapper($api_key),
             $this->di->get('config')['mail']
         );
     }

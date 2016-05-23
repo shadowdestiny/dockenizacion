@@ -47,12 +47,12 @@ class JackpotRolloverEmailTemplateUnitTest extends UnitTestBase
         $draw_day_format_two = $next_draw_day->format('j F Y');
 
         return $vars = [
-            'template'=> 'jackpot-rollover',
+            'template'=> '625301',
             'subject' => 'The Jackpot has reached your threshold',
             'vars' =>
                 [
                     [
-                        'name'    => 'jackpot',
+                        'name'    => 'current_jackpot',
                         'content' => number_format((float) $jackpot_amount->getAmount() / 100,2,".",",")
                     ],
                     [

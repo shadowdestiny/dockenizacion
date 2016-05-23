@@ -40,6 +40,7 @@ class EmailServiceUnitTest extends UnitTestBase
      */
     public function test_sendPasswordResetMail_called_sendProperArgumentsToMailService()
     {
+        $this->markTestSkipped('Modificar cuando utilicemos PostMark');
         list($user, $url) = $this->exerciseEmail();
         $this->authService_double->getPasswordResetUrl($user)->willReturn($url);
         $sut = $this->getSut();
@@ -76,10 +77,12 @@ class EmailServiceUnitTest extends UnitTestBase
      */
     protected function exerciseEmail()
     {
+
         $user = $this->getUser();
         $url_address = 'http://www.lasdfslsdklhfa.cat';
         $url = new Url($url_address);
-        $this->mailServiceApi_double->send(Argument::type('string'), Argument::type('string'), Argument::type('array'), Argument::type('string'), '', Argument::type('array'), [], Argument::type('string'), [])->shouldBeCalled();
+        //$this->mailServiceApi_double->send(Argument::type('string'), Argument::type('string'), Argument::type('array'), Argument::type('string'), '', Argument::type('array'), [], Argument::type('string'), [])->shouldBeCalled();
+        $this->mailServiceApi_double->sendPostMarkEmail(Argument::type('string'), Argument::type('stdClass'), true, Argument::type('string'), Argument::type('string'))->shouldBeCalled();
         return array($user, $url);
     }
 }

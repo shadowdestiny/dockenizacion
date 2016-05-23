@@ -145,7 +145,7 @@ class AuthService
         } catch (\Exception $e) {
             return new ActionResult(false, $e);
         }
-        //$this->emailService->sendWelcomeEmail($user, $this->urlManager);
+        $this->emailService->sendWelcomeEmail($user, $this->urlManager);
         $this->userService->initUserNotifications($user->getId());
         $this->storageStrategy->setCurrentUserId($user->getId());
         return new ActionResult(true, $user);
@@ -170,7 +170,7 @@ class AuthService
         } catch (\Exception $e) {
             return new ActionResult(false, $e->getMessage());
         }
-       // $this->emailService->sendWelcomeEmail($user, $this->urlManager);
+        $this->emailService->sendWelcomeEmail($user, $this->urlManager);
         $this->userService->initUserNotifications($user->getId());
         return new ActionResult(true, $user);
     }
@@ -255,7 +255,7 @@ class AuthService
             $user->setPassword($password);
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
-            //$this->emailService->sendTransactionalEmail($user, new ResetPasswordEmailTemplate(new EmailTemplate(), new NullEmailTemplateDataStrategy()));
+            $this->emailService->sendTransactionalEmail($user, new ResetPasswordEmailTemplate(new EmailTemplate(), new NullEmailTemplateDataStrategy()));
             return new ActionResult(true, 'Your password was changed correctly');
         } catch (\Exception $e) {
             return new ActionResult(false, 'It was a problem updating your password. Please try again later.');

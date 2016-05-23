@@ -138,12 +138,14 @@ EOF;
 
     public function sendTransactionalEmail(User $user, IEmailTemplate $emailTemplate)
     {
-        $this->sendTransactional($user, $emailTemplate);
+        $this->sendTransactionalPostMark($user, $emailTemplate);
     }
 
 
     private function sendTransactional(User $user, IEmailTemplate $emailTemplate)
     {
+
+        //$this->postMark->sendEmailWithTemplate($from,$to,$templateId,$templateModel,$inlineCss,$tag,$trackOpens,$replyTo,$cc,$bcc,$headers,$attachments);
         $vars = $emailTemplate->loadVars();
         $vars['vars'][] = $emailTemplate->loadHeader();
         $vars['vars'][] = $emailTemplate->loadFooter();
@@ -167,6 +169,34 @@ EOF;
             []
         );
 
+    }
+
+    private function sendTransactionalPostMark( User $user, IEmailTemplate $emailTemplate )
+    {
+//        $templateId,
+//        $templateModel,
+//        $inlineCss = true,
+//        $from,
+//        $to,
+//        $cc = null,
+//        $bcc = null,
+//        $tag = null,
+//        $replyTo = null,
+//        $headers = null,
+//        $trackOpens = true,
+//        $attachments = null
+
+        $vars = $emailTemplate->loadVars();
+        $templateModel = $emailTemplate->loadVarsAsObject();
+        $vars['vars'][] = $emailTemplate->loadHeader();
+        $vars['vars'][] = $emailTemplate->loadFooter();
+        $this->mailServiceApi->sendPostMarkEmail(
+            $vars['template'],
+            $templateModel,
+            true,
+            $this->mailConfig['from_address'],
+            $user->getEmail()->toNative()
+        );
     }
 
     /**
@@ -209,6 +239,8 @@ EOF;
             []
         );
     }
+
+
 
 
     /**

@@ -1,9 +1,13 @@
 <?php
+
+
 namespace EuroMillions\web\interfaces;
 
-interface IMailServiceApi
+
+interface IMailServicePostMarkAPI
 {
-    public function sendPostMarkEmail(
+
+    public function sendEmailFromPostMark(
         $templateId,
         $templateModel,
         $inlineCss = null,
@@ -17,17 +21,4 @@ interface IMailServiceApi
         $trackOpens = null,
         $attachments = null
     );
-
-    public function send(
-        $fromName,
-        $fromEmail,
-        array $to,
-        $subject,
-        $html,
-        array $globalVars,
-        array $recipientVars,
-        $templateName = null,
-        array $templateVars = null
-    );
-
 }

@@ -36,4 +36,19 @@ abstract class EmailTemplateDecorator implements IEmailTemplate
 
     abstract public function loadFooter();
 
+    public function loadVarsAsObject( array $vars = null)
+    {
+        if(!$vars) {
+            $vars = $this->loadVars()['vars'];
+        }
+        $obj = new \stdClass();
+        foreach($vars as $var) {
+            if(is_array($var['content'])) {
+                $var['content'] = json_encode($var['content']);
+            }
+            $obj->{$var['name']} = $var['content'];
+        }
+        return $obj;
+    }
+
 }
