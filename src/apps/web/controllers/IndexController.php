@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\web\components\ViewHelper;
 use Phalcon\Di;
 
 class IndexController  extends PublicSiteControllerBase
@@ -9,7 +10,7 @@ class IndexController  extends PublicSiteControllerBase
     {
 
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions'));
-        $this->view->setVar('jackpot_value', $jackpot);
+        $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
         $time_till_next_draw = $this->lotteryService->getTimeToNextDraw('EuroMillions');
         $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
         $last_draw_date = $this->lotteryService->getLastDrawDate('EuroMillions');

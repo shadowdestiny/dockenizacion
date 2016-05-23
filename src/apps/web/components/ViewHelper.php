@@ -18,4 +18,9 @@ class ViewHelper
             return '';
         }
     }
+
+    public static function formatJackpotNoCents($amount)
+    {
+        return substr($amount, 0, strpos($amount, "."));
+    }
 }
