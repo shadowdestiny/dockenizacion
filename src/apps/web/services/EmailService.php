@@ -257,7 +257,7 @@ EOF;
                 $this->mailConfig['from_address'],
                 [
                     [
-                        'email' => 'rmrbest@gmail.com',
+                        'email' => 'no-reply@euromillions.com',
                         'name'  => 'Contact',
                         'type'  => 'to',
                     ]

@@ -124,6 +124,9 @@ class UserService
      */
     public function contactRequest(ContactFormInfo $contactFormInfo)
     {
+        if(empty($contactFormInfo->getContent())) {
+            return new ActionResult(false,'Sorry, you should insert a content');
+        }
         try{
             $this->emailService->sendContactRequest($contactFormInfo);
             return new ActionResult(true,'We have received your request!');

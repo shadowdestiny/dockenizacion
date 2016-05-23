@@ -34,11 +34,17 @@ class GuestContactForm extends Form
         $fullname = new Text('fullname', [
             'placeholder' => 'Full Name'
         ]);
+        $fullname->addValidators([
+            new PresenceOf([
+                'message' => 'Full name is required'
+            ])
+        ]);
         $this->add($fullname);
 
         $content = new TextArea('message', [
-            'placeholder' => 'Insert your messag here'
+            'placeholder' => 'Insert your message here'
         ]);
+
         $content->addValidators(array(
             new PresenceOf(array(
                 'message' => 'The content is required.'

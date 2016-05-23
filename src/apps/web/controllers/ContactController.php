@@ -1,16 +1,23 @@
 <?php
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\GuestContactForm;
 use EuroMillions\web\vo\ContactFormInfo;
 use EuroMillions\web\vo\Email;
+use Phalcon\Forms\Element\Text;
 
 class ContactController extends PublicSiteControllerBase
 {
 
     public function indexAction()
     {
-
+        $errors = [];
+        $form_errors = $this->getErrorsArray();
+        $email = $this->request->getPost('email');
+        $fullName = $this->request->getPost('fullname');
+        $content = $this->request->getPost('message');
+        $topic   = $this->request->getPost('topic');
         //EMTD: move topics like dynamic data
         $topics = [1 => 'Playing the game',
                    2 => 'Password, Email and Log in',
@@ -18,21 +25,28 @@ class ContactController extends PublicSiteControllerBase
                    4 => 'Bank and Credit card',
                    5 => 'Other kind of questions'
         ];
-
         $guestContactForm = new GuestContactForm(null, [
                 'topics' => $topics
             ]
         );
-
+        /** @var User $user */
+        $user = $this->authService->getCurrentUser();
         if ($this->request->isPost()) {
-            if ($guestContactForm->isValid($this->request->getPost()) == false) {
-                //
+            if ($guestContactForm->isValid($this->request->getPost()) == false && !$user) {
+                $messages = $guestContactForm->getMessages(true);
+                /**
+                 * @var string $field
+                 * @var Message\Group $field_messages
+                 */
+                foreach ($messages as $field => $field_messages) {
+                    $errors[] = $field_messages[0]->getMessage();
+                    $form_errors[$field] = ' error';
+                }
             } else {
-                $email = $this->request->getPost('email');
-                $fullName = $this->request->getPost('fullname');
-                $content = $this->request->getPost('message');
-                $topic   = $this->request->getPost('topic');
-
+                if($user) {
+                    $email = $user->getEmail()->toNative();
+                    $fullName = $user->getName() . ' ' . $user->getSurname();
+                }
                 $contactFormInfo  = new ContactFormInfo(new Email($email), $fullName, $content, $topic);
                 $contactRequest_result = $this->userService->contactRequest($contactFormInfo);
                 if($contactRequest_result->success())
@@ -41,17 +55,32 @@ class ContactController extends PublicSiteControllerBase
                     $message = $contactRequest_result->getValues();
                     $class = ' success';
                 }else{
-                    $message = $contactRequest_result->errorMessage();
+                    $errors[] = $contactRequest_result->errorMessage();
                     $class = ' error';
                 }
             }
         }
         $this->view->pick('contact/index');
         return $this->view->setVars([
+            'form_errors' => $form_errors,
+            'errors' => $errors,
             'guestContactForm'  => $guestContactForm,
             'message'     => $message,
             'class'       => $class,
         ]);
 
+    }
+
+    /**
+     * @return array
+     */
+    private function getErrorsArray()
+    {
+        $form_errors = [
+            'fullname' => '',
+            'email' => '',
+            'message' => ''
+        ];
+        return $form_errors;
     }
 }
