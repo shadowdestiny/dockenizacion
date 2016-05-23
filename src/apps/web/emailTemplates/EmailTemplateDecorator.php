@@ -44,7 +44,7 @@ abstract class EmailTemplateDecorator implements IEmailTemplate
         $obj = new \stdClass();
         foreach($vars as $var) {
             if(is_array($var['content'])) {
-                $var['content'] = json_encode($var['content']);
+                //$var['content'] = $var['content'];
             }
             $obj->{$var['name']} = $var['content'];
         }

@@ -36,7 +36,7 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
         $lucky_numbers = [5, 8];
         $draw_result['regular_numbers'] = $regular_numbers;
         $draw_result['lucky_numbers'] = $lucky_numbers;
-        $date_draw = new \DateTime('2016-05-20');
+        $date_draw = new \DateTime('2016-05-23');
         $this->lotteryService_double->getLastResult('EuroMillions')->willReturn($draw_result);
         $this->lotteryService_double->getLastDrawDate('EuroMillions')->willReturn($date_draw);
         $emailDataStrategy_double = $this->getInterfaceWebDouble('IEmailTemplateDataStrategy');
@@ -65,7 +65,7 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
         $lucky_numbers = [5, 8];
         $draw_result['regular_numbers'] = $regular_numbers;
         $draw_result['lucky_numbers'] = $lucky_numbers;
-        $date_draw = new \DateTime('2016-05-20');
+        $date_draw = new \DateTime('2016-05-23');
         $emailTemplate = new EmailTemplate();
         $emailDataStrategy_double = $this->getInterfaceWebDouble('IEmailTemplateDataStrategy');
         $data = [
@@ -76,9 +76,9 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
 
         $obj = new \stdClass();
         $obj->jackpot = '100.00';
-        $obj->draw_date = '20 May 2016';
-        $obj->regular_numbers = json_encode($regular_numbers);
-        $obj->lucky_numbers = json_encode($lucky_numbers);
+        $obj->draw_date = '23 May 2016';
+        $obj->regular_numbers = $regular_numbers;
+        $obj->lucky_numbers = $lucky_numbers;
         $obj->breakdown = '';//json_encode([['test' => 'test', 'test2' => 'test2']]);
 
         $emailDataStrategy_double->getData($emailDataStrategy_double->reveal())->willReturn($data);
@@ -97,7 +97,7 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
         $draw_result['regular_numbers'] = $regular_numbers;
         $draw_result['lucky_numbers'] = $lucky_numbers;
         $jackpot  = new Money(10000,new Currency('EUR'));
-        $next_draw_day = new \DateTime('2016-05-20');
+        $next_draw_day = new \DateTime('2016-05-23');
         $last_draw_date = $next_draw_day->format('j F Y');
 
         //vars email template
