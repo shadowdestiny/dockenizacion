@@ -6,7 +6,7 @@
   vars:
     - config_files_path: /vagrant/vagrant_config/
     - xdebug_config_file: 20-xdebug.ini
-    - phalcon_config_file: 30-phalcon.ini
+#    - phalcon_config_file: 30-phalcon.ini
   roles:
     - environment_variables
     - php_dependencies
