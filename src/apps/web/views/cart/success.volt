@@ -46,7 +46,7 @@ cart success minimal
                     <div class="bg-ticket">
                         <div class="results">
                             *******************************<br>
-                            <span class="title">{{ jackpot }}</span>
+                            <span class="title">{{ jackpot_value }}</span>
                             <br>*******************************
                             <br>
                             {%  set lines = order.lines|json_decode %}
