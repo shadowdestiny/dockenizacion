@@ -71,6 +71,7 @@ class ContactController extends PublicSiteControllerBase
 
     }
 
+
     /**
      * @return array
      */
