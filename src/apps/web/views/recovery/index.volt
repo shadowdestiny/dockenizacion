@@ -32,7 +32,7 @@ if(message){
                         <div class="txt"><ul class="no-li">{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul></div>
                     </div>
                 {% endif %}
-                {{ form('/account/resetPassword') }}
+                {{ form('/password/resetPassword') }}
                     <p>{{ language.translate("Insert your new password") }}</p>
                     <label for="new-password" class="label">{{ language.translate("New password") }} <span class="asterisk">*</span></label>
                     {{ reset_password_form.render('new-password', {'class':'input'~form_errors['new-password']}) }}

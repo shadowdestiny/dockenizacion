@@ -45,6 +45,8 @@ abstract class EmailTemplateDecorator implements IEmailTemplate
         foreach($vars as $var) {
             $obj->{$var['name']} = $var['content'];
         }
+        $header = $this->emailTemplate->loadHeader();
+        $obj->date_header = $header['content'];
         return $obj;
     }
 

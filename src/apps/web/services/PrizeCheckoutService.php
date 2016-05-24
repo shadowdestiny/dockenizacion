@@ -77,12 +77,12 @@ class PrizeCheckoutService
         }
     }
 
-    public function awardUser(Bet $bet, $userId, Money $amount, array $countBalls)
+    public function awardUser(Bet $bet, Money $amount, array $scalarValues)
     {
         $config = $this->di->get('config');
         $threshold_price = new Money((int) $config->threshold_above['value'] * 100, new Currency('EUR'));
         /** @var User $user */
-        $user = $this->userRepository->find($userId);
+        $user = $this->userRepository->find($scalarValues['userId']);
         try{
             //EMTD WinningVO to avoid this logic
             $data= $this->prepareDataToTransaction($bet,$user,$amount);
@@ -92,13 +92,13 @@ class PrizeCheckoutService
                 $user->setWinningAbove($amount);
                 $user->setShowModalWinning(1);
                 $this->storeAwardTransaction($data, TransactionType::BIG_WINNING);
-                $this->sendBigWinEmail($user, $amount, $bet, $countBalls);
+                $this->sendBigWinEmail($user, $amount,$scalarValues);
             } else {
                 $user->awardPrize($amount);
                 $data['walletAfter'] = $user->getWallet();
                 $data['state'] = '';
                 $this->storeAwardTransaction($data, TransactionType::WINNINGS_RECEIVED);
-                $this->sendSmallWinEmail($user, $amount, $bet, $countBalls);
+                $this->sendSmallWinEmail($user, $amount,$scalarValues);
             }
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
@@ -131,16 +131,18 @@ class PrizeCheckoutService
      * @param User $user
      * @param Money $amount
      * @param Bet $bet
-     * @param array $countBalls
+     * @param array $scalarValues
+     * @internal param array $countBalls
      */
-    private function sendSmallWinEmail(User $user, Money $amount, Bet $bet, array $countBalls)
+    private function sendSmallWinEmail(User $user, Money $amount, array $scalarValues)
     {
+        $playConfig = $this->playConfigRepository->find($scalarValues['playConfigId']);
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new WinEmailTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
-        $numLine= $bet->getPlayConfig()->getLine()->getRegularNumbers() . '( ' . $bet->getPlayConfig()->getLine()->getLuckyNumbers() . ' )';
+        $numLine= $playConfig->getLine()->getRegularNumbers() . '( ' . $playConfig->getLine()->getLuckyNumbers() . ' )';
         $emailTemplate->setWinningLine($numLine);
-        $emailTemplate->setNummBalls($countBalls['cnt']);
-        $emailTemplate->setStarBalls($countBalls['cnt_lucky']);
+        $emailTemplate->setNummBalls($scalarValues['matches']['cnt']);
+        $emailTemplate->setStarBalls($scalarValues['matches']['cnt_lucky']);
         $emailTemplate->setUser($user);
         $emailTemplate->setResultAmount($amount);
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
@@ -150,16 +152,18 @@ class PrizeCheckoutService
      * @param User $user
      * @param Money $amount
      * @param Bet $bet
-     * @param array $countBalls
+     * @param array $scalarValues
+     * @internal param array $countBalls
      */
-    private function sendBigWinEmail(User $user, Money $amount, Bet $bet, array $countBalls)
+    private function sendBigWinEmail(User $user, Money $amount, array $scalarValues)
     {
+        $playConfig = $this->playConfigRepository->find((int) $scalarValues['playConfigId']);
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new WinEmailAboveTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
-        $numLine= $bet->getPlayConfig()->getLine()->getRegularNumbers() . '( ' . $bet->getPlayConfig()->getLine()->getLuckyNumbers() . ' )';
+        $numLine= $playConfig->getLine()->getRegularNumbers() . '( ' . $playConfig->getLine()->getLuckyNumbers() . ' )';
         $emailTemplate->setWinningLine($numLine);
-        $emailTemplate->setNummBalls($countBalls['cnt']);
-        $emailTemplate->setStarBalls($countBalls['cnt_lucky']);
+        $emailTemplate->setNummBalls($scalarValues['matches']['cnt']);
+        $emailTemplate->setStarBalls($scalarValues['matches']['cnt_lucky']);
         $emailTemplate->setUser($user);
         $emailTemplate->setResultAmount($amount);
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);

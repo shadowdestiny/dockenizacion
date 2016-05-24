@@ -44,8 +44,13 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
         $emailDataStrategy_double = $this->getInterfaceWebDouble('IEmailTemplateDataStrategy');
         $data = [
           'draw_result' => $draw_result,
-          'jackpot_amount' => new Money(10000,new Currency('EUR')),
-          'last_draw_date' => $date_draw
+          'jackpot_amount' => '100.00',
+          'last_draw_date' => $date_draw,
+          'draw_day_format_one' => '',
+          'draw_day_format_two' => '',
+          'break_down' => '',
+          'regular_numbers' => '',
+          'lucky_numbers' => ''
         ];
         $emailDataStrategy_double->getData($emailDataStrategy_double->reveal())->willReturn($data);
         $sut = new LatestResultsEmailTemplate($emailTemplate, $emailDataStrategy_double->reveal());
@@ -80,15 +85,17 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
         ];
 
         $obj = new \stdClass();
-        $obj->jackpot = '100.00';
         $obj->draw_date = '23 May 2016';
         $obj->regular_numbers = $this->mapNumbers($regular_numbers);
         $obj->lucky_numbers = $this->mapNumbers($lucky_numbers);
         $obj->breakdown = $this->getBreakDownList($break_down_list);
+        $obj->draw_day_format_one = '';
+        $obj->draw_day_format_two = '';
+        $obj->jackpot_amount = '100.00';
+        $obj->date_header = '24 May 2016';
+
         $emailDataStrategy_double->getData($emailDataStrategy_double->reveal())->willReturn($data);
         $sut = new LatestResultsEmailTemplate($emailTemplate, $emailDataStrategy_double->reveal());
-
-
         $expected = $obj;
         $actual = $sut->loadVarsAsObject($propArray['vars']);
         $this->assertEquals($expected,$actual);
@@ -115,7 +122,7 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
                         'content' => $breakDown
                     ],
                     [
-                        'name'    => 'jackpot',
+                        'name'    => 'jackpot_amount',
                         'content' => number_format((float) $jackpot->getAmount() / 100,2,".",",")
                     ],
                     [
@@ -129,7 +136,15 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
                     [
                         'name'    => 'lucky_numbers',
                         'content' => $this->mapNumbers($draw_result['lucky_numbers'])
-                    ]
+                    ],
+                    [
+                        'name'    => 'draw_day_format_one',
+                        'content' => ''
+                    ],
+                    [
+                        'name'    => 'draw_day_format_two',
+                        'content' => ''
+                    ],
                 ]
         ];
 

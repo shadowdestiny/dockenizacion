@@ -51,6 +51,7 @@ class BetRepository extends RepositoryBase
         $rsm->addFieldResult('p','id','id');
 //        $rsm->addFieldResult('u','userId','id');
         $rsm->addScalarResult('userId','userId');
+        $rsm->addScalarResult('playConfig','playConfig');
         $rsm->addScalarResult('cnt','cnt');
         $rsm->addScalarResult('cnt_lucky','cnt_lucky');
 

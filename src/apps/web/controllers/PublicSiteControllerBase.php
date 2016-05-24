@@ -93,7 +93,8 @@ class PublicSiteControllerBase extends ControllerBase
             'user-access',
             'currency',
             'user-settings',
-            'account'
+            'account',
+            'password'
         ];
 
         if(!in_array($dispatcher->getControllerName(),$controller_not_referer, false)) {

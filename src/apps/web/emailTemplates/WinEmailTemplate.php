@@ -5,6 +5,8 @@ namespace EuroMillions\web\emailTemplates;
 
 
 use EuroMillions\web\entities\User;
+use EuroMillions\web\interfaces\IEmailTemplateDataStrategy;
+use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 
 class WinEmailTemplate extends EmailTemplateDecorator
 {
@@ -20,11 +22,10 @@ class WinEmailTemplate extends EmailTemplateDecorator
 
     protected $starBalls;
 
-    public function loadVars()
+    public function loadVars(IEmailTemplateDataStrategy $strategy = null)
     {
-
-        $data = $this->emailTemplateDataStrategy->getData();
-
+        $strategy = $strategy ? $strategy : new JackpotDataEmailTemplateStrategy();
+        $data = $strategy->getData();
         $vars = [
             'template' => '625142',
             'subject' => 'Congratulations',
@@ -39,7 +40,7 @@ class WinEmailTemplate extends EmailTemplateDecorator
                         'content' => $this->getNummBalls()
                     ],
                     [
-                        'name' => 'star_balls',
+                        'name' => 'num_stars',
                         'content' => $this->getStarBalls()
                     ],
                     [
@@ -57,18 +58,29 @@ class WinEmailTemplate extends EmailTemplateDecorator
                     [
                         'name'    => 'url_account',
                         'content' => $this->config . '/account/wallet'
-                    ]
+                    ],
+                    [
+                        'name' => 'draw_day_format_one',
+                        'content' => $data['draw_day_format_one']
+                    ],
+                    [
+                        'name' => 'draw_day_format_two',
+                        'content' => $data['draw_day_format_two']
+                    ],
+                    [
+                        'name' => 'jackpot_amount',
+                        'content' => $data['jackpot_amount']
+                    ],
                 ]
         ];
 
-
+        $data = $this->emailTemplateDataStrategy->getData($strategy);
         if( $this->user->getUserCurrency()->getName() != 'EUR' ) {
             $vars['vars'][] = [
                 'name' => 'amount_converted',
                 'content' => $data['amount_converted']
             ];
         }
-
         return $vars;
     }
 

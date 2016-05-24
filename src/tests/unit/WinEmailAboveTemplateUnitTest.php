@@ -77,7 +77,7 @@ class WinEmailAboveTemplateUnitTest extends UnitTestBase
                         'content' => '1'
                     ],
                     [
-                        'name'    => 'star_balls',
+                        'name'    => 'num_stars',
                         'content' => '2'
                     ],
                     [

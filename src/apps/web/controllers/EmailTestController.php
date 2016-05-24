@@ -158,7 +158,7 @@ class EmailTestController extends PublicSiteControllerBase
                 $instance->setResultAmount(new Money(100000, new Currency('EUR')));
                 break;
             case 'welcome':
-                $instance = new WelcomeEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
+                $instance = new WelcomeEmailTemplate($emailTemplate, new JackpotDataEmailTemplateStrategy());
                 $instance->setUser($this->getNewUser('raul.mesa@panamedia.net'));
                 break;
 

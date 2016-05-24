@@ -3,10 +3,12 @@ namespace EuroMillions\web\services;
 
 use EuroMillions\shared\interfaces\IUrlManager;
 use EuroMillions\web\emailTemplates\EmailTemplate;
+use EuroMillions\web\emailTemplates\ForgotPasswordEmailTemplate;
 use EuroMillions\web\emailTemplates\IEmailTemplate;
 use EuroMillions\web\emailTemplates\LowBalanceEmailTemplate;
 use EuroMillions\web\emailTemplates\WelcomeEmailTemplate;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\interfaces\IEmailTemplateDataStrategy;
 use EuroMillions\web\interfaces\IMailServiceApi;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
@@ -24,11 +26,12 @@ class EmailService
         $this->mailConfig = $mailConfig;
     }
 
-    public function sendWelcomeEmail(User $user, IUrlManager $urlManager)
+    public function sendWelcomeEmail(User $user, IUrlManager $urlManager, IEmailTemplateDataStrategy $strategy = null)
     {
+        $strategy = $strategy ? $strategy : new JackpotDataEmailTemplateStrategy();
         //$url =  new Url($urlManager->get('/userAccess/passwordReset/' . $user->getValidationToken()));
         $emailTemplate = new EmailTemplate();
-        $emailTemplate = new WelcomeEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
+        $emailTemplate = new WelcomeEmailTemplate($emailTemplate, $strategy);
         $emailTemplate->setUser($user);
         $this->sendTransactionalEmail($user, $emailTemplate);
     }
@@ -55,14 +58,10 @@ class EmailService
 
     public function sendPasswordResetMail(User $user, Url $url)
     {
-        $this->sendMailToUser(
-            $user,
-            'Reset your password',
-            'Generate a new password and reset the old one',
-            'We have received a request to reset your password. If you didn\'t make the request, just ignore this email.<br>You can reset your password using this link: <a href="'.$url->toNative().'">Click here to reset your password</a>
-                <br><br>or copy and paste this url in your browser: '.$url->toNative(),
-            'Reset your password'
-        );
+        $emailTemplate = new EmailTemplate();
+        $emailTemplate = new ForgotPasswordEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
+        $emailTemplate->setUrl($url);
+        $this->sendTransactionalEmail($user, $emailTemplate);
     }
 
 /* We shouldn't use anymore this code.
@@ -173,19 +172,6 @@ EOF;
 
     private function sendTransactionalPostMark( User $user, IEmailTemplate $emailTemplate )
     {
-//        $templateId,
-//        $templateModel,
-//        $inlineCss = true,
-//        $from,
-//        $to,
-//        $cc = null,
-//        $bcc = null,
-//        $tag = null,
-//        $replyTo = null,
-//        $headers = null,
-//        $trackOpens = true,
-//        $attachments = null
-
         $vars = $emailTemplate->loadVars();
         $templateModel = $emailTemplate->loadVarsAsObject();
         $vars['vars'][] = $emailTemplate->loadHeader();

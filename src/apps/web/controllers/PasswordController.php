@@ -6,6 +6,7 @@ namespace EuroMillions\web\controllers;
 
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
+use EuroMillions\web\forms\ResetPasswordForm;
 use EuroMillions\web\vo\dto\UserDTO;
 use Phalcon\Validation\Message;
 
@@ -76,6 +77,66 @@ class PasswordController extends PublicSiteControllerBase
         $user = $this->userService->getUser($userId);
         $user_dto = $user ? new UserDTO($user) : null;
         return new MyAccountForm($user_dto,['countries' => $countries]);
+    }
+
+    /**
+     * @return \Phalcon\Mvc\View
+     */
+    public function resetPasswordAction()
+    {
+        $errors = [];
+        $form_errors = $this->getErrorsArray();
+        $msg = 0;
+        $token = $this->request->getPost('token');
+        $myaccount_passwordchange_form = new ResetPasswordForm();
+        if($this->request->isPost()) {
+            if ($myaccount_passwordchange_form->isValid($this->request->getPost()) == false) {
+                $messages = $myaccount_passwordchange_form->getMessages(true);
+                foreach ($messages as $field => $field_messages) {
+                    foreach ( $field_messages as $message ) {
+                        $errors[] = $message->getMessage();
+                    }
+                    $form_errors[$field] = ' error';
+                }
+            }else {
+                $new_password = $this->request->getPost('new-password');
+                $user_result = $this->userService->getUserByToken($token);
+                if($user_result->success()) {
+                    $result = $this->authService->updatePassword($user_result->getValues(), $new_password);
+                    if ($result->success()) {
+                        //this->response->redirect('/sign-in');
+                        $msg = 1;
+                    } else {
+                        $errors [] = $result->errorMessage();
+                    }
+                } else {
+                    $erros[] = 'Token is not valid';
+                }
+            }
+        }
+
+        $this->view->pick('recovery/index');
+        return $this->view->setVars([
+            'currency_list' => [],
+            'token' => $token,
+            'message' => $msg,
+            'errors'  => $errors,
+            'reset_password_form' => $myaccount_passwordchange_form,
+            'form_errors' => $form_errors
+        ]);
+
+    }
+
+    /**
+     * @return array
+     */
+    private function getErrorsArray()
+    {
+        $form_errors = [
+            'new-password' => '',
+            'confirm-password' => '',
+        ];
+        return $form_errors;
     }
 
 

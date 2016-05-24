@@ -33,7 +33,7 @@ class JackpotRolloverEmailTemplate extends EmailTemplateDecorator
                     ],
                     [
                         'name'    => 'current_jackpot',
-                        'content' => number_format((float) $jackpot_amount->getAmount() / 100,2,".",",")
+                        'content' => $jackpot_amount
                     ],
                     [
                         'name'    => 'draw_day_format_one',

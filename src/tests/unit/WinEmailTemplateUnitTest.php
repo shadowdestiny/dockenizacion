@@ -39,13 +39,21 @@ class WinEmailTemplateUnitTest extends UnitTestBase
         $expected = $this->getArrayContentTemplate();
         $result_amount = new Money(10000, new Currency('EUR'));
         $emailTemplate = new EmailTemplate();
-        $sut = new WinEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
+        $emailDataStrategy_double = $this->getInterfaceWebDouble('IEmailTemplateDataStrategy');
+        $data = [
+            'draw_day_format_one' => '',
+            'draw_day_format_two' => '',
+            'jackpot_amount' => ''
+        ];
+        $emailDataStrategy_double->getData($emailDataStrategy_double->reveal())->willReturn($data);
+        $emailDataStrategy_double->getData()->willReturn($data);
+        $sut = new WinEmailTemplate($emailTemplate, $emailDataStrategy_double->reveal());
         $sut->setUser($this->getUser());
         $sut->setResultAmount($result_amount);
         $sut->setWinningLine('1,2,3,4,5 (1,2)');
         $sut->setNummBalls(1);
         $sut->setStarBalls(2);
-        $actual = $sut->loadVars();
+        $actual = $sut->loadVars($emailDataStrategy_double->reveal());
         $this->assertEquals($expected,$actual);
     }
 
@@ -65,7 +73,7 @@ class WinEmailTemplateUnitTest extends UnitTestBase
                         'content' => '1'
                     ],
                     [
-                        'name'    => 'star_balls',
+                        'name'    => 'num_stars',
                         'content' => '2'
                     ],
                     [
@@ -83,7 +91,20 @@ class WinEmailTemplateUnitTest extends UnitTestBase
                     [
                         'name'    => 'url_account',
                         'content' => 'https://localhost/account/wallet'
-                    ]
+                    ],
+                    [
+                        'name' => 'draw_day_format_one',
+                        'content' => ''
+                    ],
+                    [
+                        'name' => 'draw_day_format_two',
+                        'content' => ''
+                    ],
+                    [
+                        'name' => 'jackpot_amount',
+                        'content' => ''
+                    ],
+
                 ]
         ];
 
