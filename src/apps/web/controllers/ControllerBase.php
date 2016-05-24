@@ -58,7 +58,7 @@ class ControllerBase extends Controller
         }
 
         $this->checkRestrictedAccess();
-
+        $this->insertGoogleAnalyticsCodeViaEnvironment();
     }
 
     private function checkRestrictedAccess()
@@ -77,5 +77,14 @@ class ControllerBase extends Controller
                 exit();
             }
         }
+    }
+
+    private function insertGoogleAnalyticsCodeViaEnvironment()
+    {
+        $environment = $this->di->get('environmentDetector');
+        if( $environment->get() == 'staging' ) {
+            $this->view->setVar('ga_code', '');
+        }
+
     }
 }

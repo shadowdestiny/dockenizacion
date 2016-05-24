@@ -4,8 +4,11 @@
 namespace EuroMillions\tests\unit;
 
 
+use antonienko\MoneyFormatter\MoneyFormatter;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\LatestResultsEmailTemplate;
+use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
+use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -30,7 +33,6 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
      */
     public function test_loadVars_called_returnArrayWithProperData()
     {
-        $expected = $this->getArrayContentTemplate();
         $emailTemplate = new EmailTemplate();
         $regular_numbers = [1, 2, 3, 4, 5];
         $lucky_numbers = [5, 8];
@@ -47,7 +49,9 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
         ];
         $emailDataStrategy_double->getData($emailDataStrategy_double->reveal())->willReturn($data);
         $sut = new LatestResultsEmailTemplate($emailTemplate, $emailDataStrategy_double->reveal());
-        $sut->setBreakDownList('');
+        $break_down_list = new EuroMillionsDrawBreakDownDTO(new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw()));
+        $sut->setBreakDownList($break_down_list);
+        $expected = $this->getArrayContentTemplate($this->getBreakDownList($break_down_list));
         $actual = $sut->loadVars($emailDataStrategy_double->reveal());
         $this->assertEquals($expected,$actual);
     }
@@ -59,7 +63,8 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
      */
     public function test_loadVarsAsObject_called_returnProperProperties()
     {
-        $propArray = $this->getArrayContentTemplate();
+        $break_down_list = new EuroMillionsDrawBreakDownDTO(new EuroMillionsDrawBreakDown($this->getBreakDownDataDraw()));
+        $propArray = $this->getArrayContentTemplate($this->getBreakDownList($break_down_list));
 
         $regular_numbers = [1, 2, 3, 4, 5];
         $lucky_numbers = [5, 8];
@@ -77,10 +82,9 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
         $obj = new \stdClass();
         $obj->jackpot = '100.00';
         $obj->draw_date = '23 May 2016';
-        $obj->regular_numbers = $regular_numbers;
-        $obj->lucky_numbers = $lucky_numbers;
-        $obj->breakdown = '';//json_encode([['test' => 'test', 'test2' => 'test2']]);
-
+        $obj->regular_numbers = $this->mapNumbers($regular_numbers);
+        $obj->lucky_numbers = $this->mapNumbers($lucky_numbers);
+        $obj->breakdown = $this->getBreakDownList($break_down_list);
         $emailDataStrategy_double->getData($emailDataStrategy_double->reveal())->willReturn($data);
         $sut = new LatestResultsEmailTemplate($emailTemplate, $emailDataStrategy_double->reveal());
 
@@ -90,7 +94,7 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
-    private function getArrayContentTemplate()
+    private function getArrayContentTemplate($breakDown)
     {
         $regular_numbers = [1, 2, 3, 4, 5];
         $lucky_numbers = [5, 8];
@@ -108,7 +112,7 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
                 [
                     [
                         'name'    => 'breakdown',
-                        'content' => ''
+                        'content' => $breakDown
                     ],
                     [
                         'name'    => 'jackpot',
@@ -120,16 +124,88 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
                     ],
                     [
                         'name'    => 'regular_numbers',
-                        'content' => $draw_result['regular_numbers']
+                        'content' => $this->mapNumbers($draw_result['regular_numbers'])
                     ],
                     [
                         'name'    => 'lucky_numbers',
-                        'content' => $draw_result['lucky_numbers']
+                        'content' => $this->mapNumbers($draw_result['lucky_numbers'])
                     ]
                 ]
         ];
 
         return $vars;
+    }
+
+    /**
+     */
+    public function getBreakDownList($break_down)
+    {
+        $euromillionsBreakDownDTO = $break_down;
+        $moneyFormatter = new MoneyFormatter();
+       // return $moneyFormatter->toStringByLocale('en_US', new Money((int) $amount, new Currency('EUR')));
+        $break = [
+            [
+                'ball5' => '1',
+                'star2' => '1',
+                'winners' => $euromillionsBreakDownDTO->category_one->winners,
+                'lottery_prize' => $moneyFormatter->toStringByLocale('en_US',new Money((int) $euromillionsBreakDownDTO->category_one->lottery_prize, new Currency('EUR')))
+            ],
+            [
+                'ball5' => '1',
+                'star1' => '1',
+                'winners' => $euromillionsBreakDownDTO->category_two->winners,
+                'lottery_prize' => $moneyFormatter->toStringByLocale('en_US',new Money((int) $euromillionsBreakDownDTO->category_two->lottery_prize, new Currency('EUR')))
+            ],
+            [
+                'ball4' => '1',
+                'star2' => '1',
+                'winners' => $euromillionsBreakDownDTO->category_three->winners,
+                'lottery_prize' => $moneyFormatter->toStringByLocale('en_US',new Money((int) $euromillionsBreakDownDTO->category_three->lottery_prize, new Currency('EUR')))
+            ],
+            [
+                'ball4' => '1',
+                'star1' => '1',
+                'winners' => $euromillionsBreakDownDTO->category_four->winners,
+                'lottery_prize' => $moneyFormatter->toStringByLocale('en_US',new Money((int) $euromillionsBreakDownDTO->category_four->lottery_prize, new Currency('EUR')))
+            ],
+            [
+                'ball4' => '1',
+                'star0' => '1',
+                'winners' => $euromillionsBreakDownDTO->category_five->winners,
+                'lottery_prize' => $moneyFormatter->toStringByLocale('en_US',new Money((int) $euromillionsBreakDownDTO->category_five->lottery_prize, new Currency('EUR')))
+            ],
+        ];
+
+        return $break;
+    }
+
+    public function mapNumbers(array $numbers)
+    {
+        $numbersToEmail = [];
+
+        foreach($numbers as $number) {
+            $numbersToEmail[]['number'] = (int) $number;
+        }
+        return $numbersToEmail;
+    }
+
+    protected function getBreakDownDataDraw()
+    {
+        return [
+                'category_one' => ['5 + 2', '189080000', '0'],
+                'category_two' => ['5 + 1', '2939257', '9'],
+                'category_three' => ['5 + 0', '8817797', '10'],
+                'category_four' => ['4 + 2', '668015', '66'],
+                'category_five' => ['4 + 1', '27516', '1.402'],
+                'category_six' => ['4 + 0', '13149', '2.934'],
+                'category_seven' => ['3 + 2', '6087', '4.527'],
+                'category_eight' => ['2 + 2', '1893', '66.973'],
+                'category_nine' => ['3 + 1', '1673', '72.488'],
+                'category_ten' => ['3 + 0', '1341', '152.009'],
+                'category_eleven' => ['1 + 2', '998', '358.960'],
+                'category_twelve' => ['2 + 1', '852', '1.138.617'],
+                'category_thirteen' => ['2 + 0', '415', '2.390.942'],
+        ];
     }
 
 }

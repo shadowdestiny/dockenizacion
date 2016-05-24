@@ -3,11 +3,12 @@
 
 namespace EuroMillions\web\emailTemplates;
 
+use antonienko\MoneyFormatter\MoneyFormatter;
 use EuroMillions\web\interfaces\IEmailTemplateDataStrategy;
-use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\LatestResultsDataEmailTemplateStrategy;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
-use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
+use Money\Currency;
+use Money\Money;
 
 
 class LatestResultsEmailTemplate extends EmailTemplateDecorator
@@ -43,11 +44,11 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
                     ],
                     [
                         'name'    => 'regular_numbers',
-                        'content' => $draw_result['regular_numbers']
+                        'content' => $this->mapNumbers($draw_result['regular_numbers'])
                     ],
                     [
                         'name'    => 'lucky_numbers',
-                        'content' => $draw_result['lucky_numbers']
+                        'content' => $this->mapNumbers($draw_result['lucky_numbers'])
                     ],
                 ]
         ];
@@ -60,7 +61,65 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
      */
     public function getBreakDownList()
     {
-        return $this->break_down_list;
+        $euromillionsBreakDownDTO = $this->break_down_list;
+        $break = [
+            [
+                'ball5' => '1',
+                'star2' => '1',
+                'winners' => $euromillionsBreakDownDTO->category_one->winners,
+                'lottery_prize' => $this->currencyConversionAndFormatted($euromillionsBreakDownDTO->category_one->lottery_prize)
+            ],
+            [
+                'ball5' => '1',
+                'star1' => '1',
+                'winners' => $euromillionsBreakDownDTO->category_two->winners,
+                'lottery_prize' => $this->currencyConversionAndFormatted($euromillionsBreakDownDTO->category_two->lottery_prize)
+            ],
+            [
+                'ball4' => '1',
+                'star2' => '1',
+                'winners' => $euromillionsBreakDownDTO->category_three->winners,
+                'lottery_prize' => $this->currencyConversionAndFormatted($euromillionsBreakDownDTO->category_three->lottery_prize)
+            ],
+            [
+                'ball4' => '1',
+                'star1' => '1',
+                'winners' => $euromillionsBreakDownDTO->category_four->winners,
+                'lottery_prize' => $this->currencyConversionAndFormatted($euromillionsBreakDownDTO->category_four->lottery_prize)
+            ],
+            [
+                'ball4' => '1',
+                'star0' => '1',
+                'winners' => $euromillionsBreakDownDTO->category_five->winners,
+                'lottery_prize' => $this->currencyConversionAndFormatted($euromillionsBreakDownDTO->category_five->lottery_prize)
+            ],
+        ];
+
+        return $break;
+    }
+
+    public function mapNumbers(array $numbers)
+    {
+        $numbersToEmail = [];
+
+        foreach($numbers as $number) {
+            $numbersToEmail[]['number'] = (int) $number;
+        }
+        return $numbersToEmail;
+    }
+
+    private function currencyConversionAndFormatted( $amount)
+    {
+//        $currencyConversion = \Phalcon\Di::getDefault()->get('domainServiceFactory')
+//            ->getCurrencyConversionService();
+//
+//        $amountConverted = $currencyConversion->convert(
+//                                                    new Money((int) $amount, new Currency('EUR')),
+//                                                    new Currency('EUR')
+//        );
+
+        $moneyFormatter = new MoneyFormatter();
+        return $moneyFormatter->toStringByLocale('en_US', new Money((int) $amount, new Currency('EUR')));
     }
 
     /**
