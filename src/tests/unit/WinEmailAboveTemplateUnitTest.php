@@ -52,6 +52,9 @@ class WinEmailAboveTemplateUnitTest extends UnitTestBase
         $sut = new WinEmailAboveTemplate($emailTemplate, $emailTemplateDataStrategy_double->reveal());
         $sut->setResultAmount($result_amount);
         $sut->setUser($user);
+        $sut->setWinningLine('1,2,3,4,5 (1,2)');
+        $sut->setNummBalls(1);
+        $sut->setStarBalls(2);
         $actual = $sut->loadVars();
         $this->assertEquals($expected,$actual);
     }
@@ -61,10 +64,22 @@ class WinEmailAboveTemplateUnitTest extends UnitTestBase
     private function getArrayContentTemplate()
     {
         $vars = [
-            'template' => 'win-email-above-1500',
+            'template' => '625167',
             'subject' => 'Congratulations',
             'vars' =>
                 [
+                    [
+                        'name'    => 'winning_line',
+                        'content' => '1,2,3,4,5 (1,2)'
+                    ],
+                    [
+                        'name'    => 'num_balls',
+                        'content' => '1'
+                    ],
+                    [
+                        'name'    => 'star_balls',
+                        'content' => '2'
+                    ],
                     [
                         'name'    => 'user_name',
                         'content' => 'Antonio'

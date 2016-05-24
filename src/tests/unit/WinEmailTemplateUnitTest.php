@@ -42,6 +42,9 @@ class WinEmailTemplateUnitTest extends UnitTestBase
         $sut = new WinEmailTemplate($emailTemplate, new NullEmailTemplateDataStrategy());
         $sut->setUser($this->getUser());
         $sut->setResultAmount($result_amount);
+        $sut->setWinningLine('1,2,3,4,5 (1,2)');
+        $sut->setNummBalls(1);
+        $sut->setStarBalls(2);
         $actual = $sut->loadVars();
         $this->assertEquals($expected,$actual);
     }
@@ -49,10 +52,22 @@ class WinEmailTemplateUnitTest extends UnitTestBase
     private function getArrayContentTemplate()
     {
         $vars = [
-            'template' => 'win-email',
+            'template' => '625142',
             'subject' => 'Congratulations',
             'vars' =>
                 [
+                    [
+                        'name'    => 'winning_line',
+                        'content' => '1,2,3,4,5 (1,2)'
+                    ],
+                    [
+                        'name'    => 'num_balls',
+                        'content' => '1'
+                    ],
+                    [
+                        'name'    => 'star_balls',
+                        'content' => '2'
+                    ],
                     [
                         'name'    => 'user_name',
                         'content' => 'test'

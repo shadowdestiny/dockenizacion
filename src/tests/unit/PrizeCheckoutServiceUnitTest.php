@@ -129,7 +129,7 @@ class PrizeCheckoutServiceUnitTest extends UnitTestBase
         $this->emailService_double->sendTransactionalEmail(Argument::type('EuroMillions\web\entities\User'), Argument::type('EuroMillions\web\emailTemplates\IEmailTemplate'))->shouldBeCalled();
         $this->iDontCareAboutFlush();
         $sut = $this->getSut();
-        $actual = $sut->awardUser($user,$amount_awarded);
+        $actual = $sut->awardUser($user,$amount_awarded,$this->getMatchesCountNumbers());
         $this->assertEquals($expected,$actual);
     }
 
@@ -145,14 +145,14 @@ class PrizeCheckoutServiceUnitTest extends UnitTestBase
         $amount = new Money(230000, new Currency('EUR'));
         $this->userRepository_double->find($user->getId())->willReturn($user);
         $this->transactionService->storeTransaction(Argument::any(),Argument::any())->shouldBeCalled();
-      //  $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
+        $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
         $this->userRepository_double->add($user)->shouldBeCalled();
         $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush($user)->shouldBeCalled();
         //$this->iDontCareAboutFlush();
         $sut = $this->getSut();
         $expected = new Money(7300,new Currency('EUR'));
-        $actual = $sut->awardUser($bet, $user->getId(), $amount);
+        $actual = $sut->awardUser($bet, $user->getId(), $amount, $this->getMatchesCountNumbers());
         $this->assertEquals($expected,$actual->getValues()->getBalance());
     }
 
@@ -168,13 +168,13 @@ class PrizeCheckoutServiceUnitTest extends UnitTestBase
         $amount = new Money(40000000, new Currency('EUR'));
         $this->userRepository_double->find($user->getId())->willReturn($user);
         $this->transactionService->storeTransaction(Argument::any(),Argument::any())->shouldBeCalled();
-       // $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
+        $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
         $this->userRepository_double->add($user)->shouldBeCalled();
         $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush($user)->shouldBeCalled();
         $sut = $this->getSut();
         $expected = new Money(5000,new Currency('EUR'));
-        $actual = $sut->awardUser($bet, $user->getId(), $amount);
+        $actual = $sut->awardUser($bet, $user->getId(), $amount, $this->getMatchesCountNumbers());
         $this->assertEquals($expected,$actual->getValues()->getBalance());
     }
 
@@ -196,7 +196,7 @@ class PrizeCheckoutServiceUnitTest extends UnitTestBase
         $entityManager_stub = $this->getEntityManagerDouble();
         $entityManager_stub->flush($user)->willThrow(new \Exception('Error'));
         $sut = $this->getSut();
-        $actual = $sut->awardUser($bet, $user->getId(),$amount_awarded);
+        $actual = $sut->awardUser($bet, $user->getId(),$amount_awarded, $this->getMatchesCountNumbers());
         $this->assertEquals($expected,$actual);
     }
 
@@ -311,5 +311,13 @@ class PrizeCheckoutServiceUnitTest extends UnitTestBase
         list($playConfig, $euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
         $bet = new Bet($playConfig, $euroMillionsDraw);
         return $bet;
+    }
+
+    /**
+     * @return array
+     */
+    private function getMatchesCountNumbers()
+    {
+        return ['cnt' => 1,'cnt_lucky' => 2];
     }
 }

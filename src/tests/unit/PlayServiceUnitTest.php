@@ -64,6 +64,8 @@ class PlayServiceUnitTest extends UnitTestBase
 
     private $betService_double;
 
+    private $emailService_double;
+
     protected function getEntityManagerStubExtraMappings()
     {
         return [
@@ -92,6 +94,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->walletService_double = $this->getServiceDouble('WalletService');
         $this->card_payment_provider = $this->getInterfaceWebDouble('ICardPaymentProvider');
         $this->betService_double = $this->getServiceDouble('BetService');
+        $this->emailService_double = $this->getServiceDouble('EmailService');
         parent::setUp();
     }
 
@@ -253,6 +256,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
         $entityManager_double->flush(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
         $this->walletService_double->payWithWallet($user,Argument::type('EuroMillions\web\entities\PlayConfig'), TransactionType::TICKET_PURCHASE, Argument::type('array'))->shouldBeCalled();
+        $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
         $sut = $this->getSut();
         $actual = $sut->play($user->getId(), null, $credit_card);
         $this->assertEquals(new ActionResult(true, $order), $actual);
@@ -278,6 +282,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
         $entityManager_double->flush(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
         $this->walletService_double->payWithWallet($user,Argument::type('EuroMillions\web\entities\PlayConfig'), TransactionType::TICKET_PURCHASE,Argument::type('array'))->shouldBeCalled();
+        $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
         $sut = $this->getSut();
         $actual = $sut->play($user->getId(), $funds_amount_to_charged, $credit_card);
         $this->assertEquals($expected, $actual);
@@ -330,6 +335,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalledTimes(4);
         $entityManager_double->flush(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
         $this->walletService_double->payWithWallet($user,Argument::type('EuroMillions\web\entities\PlayConfig'), TransactionType::TICKET_PURCHASE, Argument::type('array'))->shouldBeCalled();
+        $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
         $actual = $sut->play($user->getId(), null, $credit_card);
         $this->assertEquals($expected, $actual);
     }
@@ -351,6 +357,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalledTimes(4);
         $entityManager_double->flush(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
         $this->betService_double->validation(Argument::any(), Argument::any(), Argument::any())->willReturn(new ActionResult(true));
+        $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
         $dataTransaction = [
             'lottery_id' => 1,
             'numBets' => count($user->getPlayConfig()),
@@ -452,7 +459,8 @@ class PlayServiceUnitTest extends UnitTestBase
             $this->cartService_double->reveal(),
             $this->walletService_double->reveal(),
             $this->card_payment_provider->reveal(),
-            $this->betService_double->reveal()
+            $this->betService_double->reveal(),
+            $this->emailService_double->reveal()
         );
     }
 

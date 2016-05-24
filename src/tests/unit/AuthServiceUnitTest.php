@@ -374,7 +374,6 @@ class AuthServiceUnitTest extends UnitTestBase
      */
     public function test_register_calledWithProperCredentials_sendWelcomeEmailToRegisteredUser()
     {
-        $this->markTestSkipped('Cuidado!!!! Descomentar linea en produccion cuando se solucione proveedor de envíos de emails');
         $credentials = $this->prepareGoodRegistration();
         $registered_user = UserMother::anAlreadyRegisteredUser()->build();
         $this->userRepository_double->register($credentials, $this->hasher_double->reveal(), Argument::type('EuroMillions\web\interfaces\IEmailValidationToken'))->willReturn($registered_user);

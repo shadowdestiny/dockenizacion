@@ -142,7 +142,8 @@ class DomainServiceFactory
             $this->getCartService(),
             $this->getWalletService(),
             $this->serviceFactory->getDI()->get('paymentProviderFactory'),
-            $this->getBetService()
+            $this->getBetService(),
+            $this->serviceFactory->getEmailService()
         );
     }
 

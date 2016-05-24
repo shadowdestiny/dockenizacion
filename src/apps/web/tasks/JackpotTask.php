@@ -64,6 +64,8 @@ class JackpotTask extends TaskBase
                 if($user_notification->getActive()) {
                     if($jackpot_amount->getAmount() >= $user_notification->getConfigValue()->getValue()) {
                         $user = $this->userService->getUser($user_notification->getUser()->getId());
+                        $emailTemplate->setUser($user);
+                        $emailTemplate->setThresholdAmount($user_notification->getConfigValue()->getValue());
                         $this->emailService->sendTransactionalEmail($user,$emailTemplate);
                     }
                 }

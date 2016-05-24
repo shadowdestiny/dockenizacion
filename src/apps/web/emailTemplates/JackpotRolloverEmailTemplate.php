@@ -6,6 +6,9 @@ namespace EuroMillions\web\emailTemplates;
 class JackpotRolloverEmailTemplate extends EmailTemplateDecorator
 {
 
+    protected $user;
+    protected $threshold_amount;
+
     public function loadVars()
     {
         $data = $this->emailTemplateDataStrategy->getData();
@@ -20,6 +23,14 @@ class JackpotRolloverEmailTemplate extends EmailTemplateDecorator
             'subject' => 'The Jackpot has reached your threshold',
             'vars' =>
                 [
+                    [
+                        'name' => 'user_name',
+                        'content' => $this->user->getName()
+                    ],
+                    [
+                        'name' => 'player_alert_threshold',
+                        'content' => number_format((float) $this->getThresholdAmount() / 100,2,".",",")
+                    ],
                     [
                         'name'    => 'current_jackpot',
                         'content' => number_format((float) $jackpot_amount->getAmount() / 100,2,".",",")
@@ -45,6 +56,23 @@ class JackpotRolloverEmailTemplate extends EmailTemplateDecorator
         return $vars;
     }
 
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
     public function loadHeader()
     {
         return $this->emailTemplate->loadHeader();
@@ -53,5 +81,21 @@ class JackpotRolloverEmailTemplate extends EmailTemplateDecorator
     public function loadFooter()
     {
         return $this->emailTemplate->loadFooter();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getThresholdAmount()
+    {
+        return $this->threshold_amount;
+    }
+
+    /**
+     * @param mixed $threshold_amount
+     */
+    public function setThresholdAmount($threshold_amount)
+    {
+        $this->threshold_amount = $threshold_amount;
     }
 }
