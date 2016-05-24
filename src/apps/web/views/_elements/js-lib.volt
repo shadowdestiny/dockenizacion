@@ -5,9 +5,12 @@
 <script src="/w/js/vendor/picturefill.min.js"></script>
 <script src="/w/js/vendor/easyModal.min.js"></script>
 <script src="/w/js/vendor/accounting.min.js"></script>
-<script src="/w/js/vendor/ganalytics.min.js"></script>
 <script src="/w/js/vendor/jquery.lazyloadxt.min.js"></script>
 <script src="/w/js/vendor/jquery.lazyloadxt.widget.js"></script>
+{%  if ga_code is defined %}
+<script src="/w/js/vendor/ganalytics.min.js"></script>
+{% endif %}
+
 
 <script>
 $(document).bind("mobileinit", function(){

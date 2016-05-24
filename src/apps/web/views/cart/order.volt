@@ -94,14 +94,17 @@
 {% block template_scripts_after %}
     <script src="/w/js/react/cart.js"></script>
     <script src="/w/js/react/tooltip.js"></script>
-    <script>
+
+{%  if ga_code is defined %}
+<script>
 	var l = document.createElement("a");
 	l.href = document.referrer
 	if (l.pathname == '/cart/profile'){
         ga('set', 'page', '/sign-up/order-landing');
                 ga('send', 'pageview');
         }
-    </script>
+</script>
+{% endif %}
 {% endblock %}
 
 {% block bodyClass %}cart order minimal{% endblock %}

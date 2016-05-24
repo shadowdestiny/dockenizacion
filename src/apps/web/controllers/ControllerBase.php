@@ -83,7 +83,7 @@ class ControllerBase extends Controller
     protected function insertGoogleAnalyticsCodeViaEnvironment()
     {
         $environment = $this->di->get('environmentDetector');
-        if( $environment->get() == 'development' ) {
+        if( $environment->get() == 'staging' ) {
             $this->view->setVar('ga_code', $environment->get());
         }
     }
