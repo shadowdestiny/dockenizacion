@@ -43,6 +43,10 @@ class AccountController extends PublicSiteControllerBase
         /** @var DomainServiceFactory $domainServiceFactory */
         $domainServiceFactory = $dispatcher->getDI()->get('domainServiceFactory');
         $user_id = $domainServiceFactory->getAuthService()->getCurrentUser();
+        $environment = $this->di->get('environmentDetector');
+        if( $environment->get() == 'development' ) {
+            $this->view->setVar('ga_code', $environment->get());
+        }
         if($user_id instanceof GuestUser) {
             $this->response->redirect('/sign-in');
             return false;

@@ -23,4 +23,5 @@ class ViewHelper
     {
         return substr($amount, 0, strpos($amount, "."));
     }
+
 }

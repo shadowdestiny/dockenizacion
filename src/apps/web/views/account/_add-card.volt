@@ -11,12 +11,13 @@
                 <span class="txt">{{ msg }}</span>
             </div>
 
-
+    {%  if ga_code is defined %}
 	<script src="/w/js/vendor/ganalytics.min.js"> </script>
 	<script>
                 ga('set', 'page', '/account/addFunds-success');
                 ga('send', 'pageview');
 	</script>
+    {% endif %}
 
         {% endif %}
         {% if errors %}

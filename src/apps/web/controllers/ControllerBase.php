@@ -12,6 +12,7 @@ use Phalcon\Http\Response\CookiesInterface;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\View;
 
+
 /**
  * @property CookiesInterface $cookies
  */
@@ -82,9 +83,8 @@ class ControllerBase extends Controller
     private function insertGoogleAnalyticsCodeViaEnvironment()
     {
         $environment = $this->di->get('environmentDetector');
-        if( $environment->get() == 'staging' ) {
-            $this->view->setVar('ga_code', '');
+        if( $environment->get() == 'development' ) {
+            $this->view->setVar('ga_code', $environment->get());
         }
-
     }
 }
