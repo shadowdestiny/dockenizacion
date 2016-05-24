@@ -14,16 +14,34 @@ class WinEmailTemplate extends EmailTemplateDecorator
 
     protected $result_amount;
 
+    protected $winningLine;
+
+    protected $nummBalls;
+
+    protected $starBalls;
+
     public function loadVars()
     {
 
         $data = $this->emailTemplateDataStrategy->getData();
 
         $vars = [
-            'template' => 'win-email',
+            'template' => '625142',
             'subject' => 'Congratulations',
             'vars' =>
                 [
+                    [
+                        'name' => 'winning_line',
+                        'content' => $this->getWinningLine(),
+                    ],
+                    [
+                        'name' => 'num_balls',
+                        'content' => $this->getNummBalls()
+                    ],
+                    [
+                        'name' => 'star_balls',
+                        'content' => $this->getStarBalls()
+                    ],
                     [
                         'name'    => 'user_name',
                         'content' => $this->user->getName()
@@ -94,6 +112,54 @@ class WinEmailTemplate extends EmailTemplateDecorator
     public function loadFooter()
     {
         return $this->emailTemplate->loadFooter();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWinningLine()
+    {
+        return $this->winningLine;
+    }
+
+    /**
+     * @param mixed $winningLine
+     */
+    public function setWinningLine($winningLine)
+    {
+        $this->winningLine = $winningLine;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNummBalls()
+    {
+        return $this->nummBalls;
+    }
+
+    /**
+     * @param mixed $nummBalls
+     */
+    public function setNummBalls($nummBalls)
+    {
+        $this->nummBalls = $nummBalls;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStarBalls()
+    {
+        return $this->starBalls;
+    }
+
+    /**
+     * @param mixed $starBalls
+     */
+    public function setStarBalls($starBalls)
+    {
+        $this->starBalls = $starBalls;
     }
 
 }

@@ -70,6 +70,9 @@ class EmailTestController extends PublicSiteControllerBase
                 $emailTemplate = $this->getInstanceDecorator($nameTemplate);
                 if($emailTemplate instanceof WinEmailTemplate) {
                     $emailTemplate->setUser($this->user);
+                    $emailTemplate->setWinningLine('1,2,3,4,5 (1,11)');
+                    $emailTemplate->setStarBalls(2);
+                    $emailTemplate->setNummBalls(3);
                     $emailTemplate->setResultAmount(new Money(10000000, new Currency('EUR')));
                 }
                 $this->sendEmail($nameTemplate, $url, $emailTemplate);
@@ -79,6 +82,9 @@ class EmailTestController extends PublicSiteControllerBase
             if($emailTemplate instanceof WinEmailTemplate) {
                 $emailTemplate->setUser($this->getNewUser('raul.mesa@panamedia.net'));
                 $emailTemplate->getUser()->setUserCurrency(new Currency('USD'));
+                $emailTemplate->setWinningLine('1,2,3,4,5 (1,11)');
+                $emailTemplate->setStarBalls(2);
+                $emailTemplate->setNummBalls(3);
                 $emailTemplate->setResultAmount(new Money(5000, new Currency('EUR')));
             }
             if($emailTemplate instanceof LatestResultsEmailTemplate) {
@@ -122,6 +128,8 @@ class EmailTestController extends PublicSiteControllerBase
         switch($template){
             case 'jackpot-rollover':
                 $instance = new JackpotRolloverEmailTemplate($emailTemplate, new JackpotDataEmailTemplateStrategy());
+                $instance->setUser($this->getNewUser('raul.mesa@panamedia.net'));
+                $instance->getUser()->setUserCurrency(new Currency('USD'));
                 break;
             case 'latest-results':
                 $instance = new LatestResultsEmailTemplate($emailTemplate, new LatestResultsDataEmailTemplateStrategy());
@@ -135,12 +143,18 @@ class EmailTestController extends PublicSiteControllerBase
             case 'win-email':
                 $winEmailAboveDataEmailTemplateStrategy = new WinEmailAboveDataEmailTemplateStrategy(new Money(5000, new Currency('EUR')), new Currency('USD'));
                 $instance = new WinEmailTemplate($emailTemplate, $winEmailAboveDataEmailTemplateStrategy);
+                $instance->setWinningLine('1,2,3,4,5 (1,11)');
+                $instance->setStarBalls('2');
+                $instance->setNummBalls('3');
                 break;
             case 'win-email-above-1500':
                 $winEmailAboveDataEmailTemplateStrategy = new WinEmailAboveDataEmailTemplateStrategy(new Money(100000, new Currency('EUR')), new Currency('USD'));
                 $instance = new WinEmailAboveTemplate($emailTemplate, $winEmailAboveDataEmailTemplateStrategy);
                 $instance->setUser($this->getNewUser('raul.mesa@panamedia.net'));
                 $instance->getUser()->setUserCurrency(new Currency('USD'));
+                $instance->setWinningLine('1,2,3,4,5 (1,11)');
+                $instance->setStarBalls('2');
+                $instance->setNummBalls('3');
                 $instance->setResultAmount(new Money(100000, new Currency('EUR')));
                 break;
             case 'welcome':

@@ -57,7 +57,7 @@ class PrizeCheckoutServiceIntegrationTest extends DatabaseIntegrationTestBase
                                         $this->getServiceDouble('EmailService')->reveal(),
                                         $this->getServiceDouble('TransactionService')->reveal()
         );
-        $sut->awardUser($bet,$user->getId(), $amount);
+        $sut->awardUser($bet,$user->getId(), $amount, ['cnt' => 1, 'cnt_lucky' => 2]);
         $this->entityManager->detach($user);
         $user = $userRepository->getByEmail($email);
         $actual = $user->getBalance()->getAmount();

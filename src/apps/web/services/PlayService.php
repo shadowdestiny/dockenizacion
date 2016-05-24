@@ -3,6 +3,8 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 
+use EuroMillions\web\emailTemplates\EmailTemplate;
+use EuroMillions\web\emailTemplates\PurchaseConfirmationEmailTemplate;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
@@ -10,6 +12,7 @@ use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
+use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
@@ -46,7 +49,11 @@ class PlayService
     private $payXpertCardPaymentStrategy;
     /** @var  BetService $betService */
     private $betService;
+    /** @var  EmailService $emailService */
+    private $emailService;
 
+
+    //EMTD refactor this class: a lot of dependencies
     public function __construct(EntityManager $entityManager,
                                 LotteryService $lotteryService,
                                 IPlayStorageStrategy $playStorageStrategy,
@@ -54,7 +61,8 @@ class PlayService
                                 CartService $cartService,
                                 WalletService $walletService,
                                 ICardPaymentProvider $payXpertCardPaymentStrategy,
-                                BetService $betService)
+                                BetService $betService,
+                                EmailService $emailService)
     {
         $this->entityManager = $entityManager;
         $this->playConfigRepository = $entityManager->getRepository('EuroMillions\web\entities\PlayConfig');
@@ -66,7 +74,7 @@ class PlayService
         $this->walletService = $walletService;
         $this->betService = $betService;
         $this->payXpertCardPaymentStrategy = $payXpertCardPaymentStrategy;
-        // EMTD: @rmrbest tantas dependencias dan tufillo a que necesita refactorizar.
+        $this->emailService = $emailService;
     }
 
     public function getPlaysFromGuestUserAndSwitchUser($user_id, $current_user_id)
@@ -158,6 +166,7 @@ class PlayService
                             ];
                             $this->walletService->payWithWallet($user,$play_config, TransactionType::TICKET_PURCHASE,$dataTransaction);
                         }
+                        $this->sendEmailPurchase($user,$order->getPlayConfig());
                         return new ActionResult(true,$order);
                     } else {
                         return new ActionResult($result_payment->success(), $order);
@@ -255,5 +264,15 @@ class PlayService
     {
         return $this->lotteryService->getLotteryConfigByName('EuroMillions');
     }
+
+    private function sendEmailPurchase(User $user, $orderLines)
+    {
+        $emailBaseTemplate = new EmailTemplate();
+        $emailTemplate = new PurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
+        $emailTemplate->setLine($orderLines);
+        $emailTemplate->setUser($user);
+        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
+    }
+
 
 }

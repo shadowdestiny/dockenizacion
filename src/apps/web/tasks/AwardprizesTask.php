@@ -47,8 +47,9 @@ class AwardprizesTask extends TaskBase
                 if( isset($play_config_and_count['cnt']) && isset($play_config_and_count['cnt_lucky'])) {
                     /** @var Money $result_amount */
                     $result_amount = $euromillions_breakDown->getAwardFromCategory($play_config_and_count['cnt'], $play_config_and_count['cnt_lucky']);
+                    $count_balls = [$play_config_and_count['cnt'], $play_config_and_count['cnt_lucky']];
                     if ($result_amount->getAmount() > 0) {
-                            $this->PrizeCheckoutService->awardUser($play_config_and_count[0], $play_config_and_count['userId'], $result_amount);
+                            $this->PrizeCheckoutService->awardUser($play_config_and_count[0], $play_config_and_count['userId'], $result_amount, $count_balls);
                     }
                 }
             }
