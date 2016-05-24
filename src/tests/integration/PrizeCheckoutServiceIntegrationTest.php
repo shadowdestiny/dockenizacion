@@ -57,7 +57,7 @@ class PrizeCheckoutServiceIntegrationTest extends DatabaseIntegrationTestBase
                                         $this->getServiceDouble('EmailService')->reveal(),
                                         $this->getServiceDouble('TransactionService')->reveal()
         );
-        $sut->awardUser($bet,$user->getId(), $amount, ['cnt' => 1, 'cnt_lucky' => 2]);
+        $sut->awardUser($bet,$amount, $this->getScalarValues());
         $this->entityManager->detach($user);
         $user = $userRepository->getByEmail($email);
         $actual = $user->getBalance()->getAmount();
@@ -113,5 +113,20 @@ class PrizeCheckoutServiceIntegrationTest extends DatabaseIntegrationTestBase
         return $result;
     }
 
+    /**
+     * @return array
+     */
+    private function getScalarValues()
+    {
+        $userRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS.'User');
+        $email = 'algarrobo@currojimenez.com';
+        /** @var User $user */
+        $user = $userRepository->getByEmail($email);
+        return [
+            'matches' => ['cnt' => 1, 'cnt_lucky' => 2],
+            'userId'  => $user->getId(),
+            'playConfigId' => 1
+        ];
+    }
 
 }
