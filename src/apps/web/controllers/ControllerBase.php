@@ -80,7 +80,7 @@ class ControllerBase extends Controller
         }
     }
 
-    private function insertGoogleAnalyticsCodeViaEnvironment()
+    protected function insertGoogleAnalyticsCodeViaEnvironment()
     {
         $environment = $this->di->get('environmentDetector');
         if( $environment->get() == 'development' ) {
