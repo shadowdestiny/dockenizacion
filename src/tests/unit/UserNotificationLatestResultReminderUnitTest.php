@@ -77,7 +77,7 @@ class UserNotificationLatestResultReminderUnitTest extends UnitTestBase
             'configValue' => $configValue,
         ]);
         $this->userService_double->getActiveNotificationsByUserAndType($user, NotificationValue::NOTIFICATION_RESULT_DRAW)
-            ->willReturn(new ActionResult($returnAction, $userNotification));
+            ->willReturn(new ActionResult($returnAction, [$userNotification]));
         return $user;
     }
 

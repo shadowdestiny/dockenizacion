@@ -29,6 +29,6 @@ class UserNotificationResultsStrategy implements IUserNotificationStrategy
         }
         /** @var UserNotifications $userNotification */
         $userNotification = $userNotificationResult->getValues();
-        return $userNotification->getConfigValue();
+        return $userNotification[0]->getConfigValue();
     }
 }

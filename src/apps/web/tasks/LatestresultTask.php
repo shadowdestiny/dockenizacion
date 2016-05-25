@@ -9,23 +9,19 @@ use EuroMillions\web\emailTemplates\LatestResultsEmailTemplate;
 use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\User;
-use EuroMillions\web\entities\UserNotifications;
 use EuroMillions\web\interfaces\IEmailTemplateDataStrategy;
 use EuroMillions\web\services\BetService;
-use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\email_templates_strategies\LatestResultsDataEmailTemplateStrategy;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\factories\ServiceFactory;
-use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\LotteryService;
-use EuroMillions\web\services\PlayService;
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationResultsStrategy;
 use EuroMillions\web\services\UserNotificationsService;
 use EuroMillions\web\services\UserService;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 
-class LatestResultReminderTask extends TaskBase
+class LatestresultTask extends TaskBase
 {
 
     /** @var  LotteryService */
@@ -59,19 +55,24 @@ class LatestResultReminderTask extends TaskBase
     }
 
 
-    public function resultsReminderWhenPlayedAction( IEmailTemplateDataStrategy $IEmailTemplateDataStrategy = null)
+    public function resultsReminderWhenPlayedAction( $args = null, IEmailTemplateDataStrategy $IEmailTemplateDataStrategy = null)
     {
+        if(null != $args) {
+            $drawDate = new \DateTime($args[0]);
+        } else {
+            /** @var EuroMillionsDraw $draw */
+            $drawDate = $this->lotteryService->getLastDrawDate('EuroMillions');
+        }
         if($IEmailTemplateDataStrategy == null ) {
             $IEmailTemplateDataStrategy = new LatestResultsDataEmailTemplateStrategy();
         }
-        /** @var EuroMillionsDraw $draw */
-        $draw = $this->lotteryService->getLastDrawDate('EuroMillions');
-        $break_down_list = new EuroMillionsDrawBreakDownDTO($draw->getBreakDown());
+        $draw = $this->lotteryService->getDrawWithBreakDownByDate('EuroMillions',$drawDate);
+        $break_down_list = new EuroMillionsDrawBreakDownDTO($draw->getValues()->getBreakDown());
         $emailTemplate = new EmailTemplate();
         $emailTemplate = new LatestResultsEmailTemplate($emailTemplate, $IEmailTemplateDataStrategy);
         $emailTemplate->setBreakDownList($break_down_list);
         $notificationResultsStrategy = new UserNotificationResultsStrategy($this->userService);
-        $result = $this->betService->getBetsPlayedLastDraw($draw->getDrawDate());
+        $result = $this->betService->getBetsPlayedLastDraw($drawDate);
         if (null != $result) {
             /** @var Bet $bet */
             foreach ($result as $bet) {

@@ -5,13 +5,14 @@ namespace EuroMillions\tests\unit;
 
 
 use EuroMillions\shared\config\Namespaces;
+use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\tests\base\UnitTestBase;
 use EuroMillions\tests\helpers\mothers\UserMother;
 use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
-use EuroMillions\web\tasks\LatestResultReminderTask;
+use EuroMillions\web\tasks\LatestresultTask;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsLine;
@@ -64,16 +65,18 @@ class LatestResultReminderTaskUnitTest extends UnitTestBase
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw($user);
         $bet = new Bet($playConfig,$euroMillionsDraw);
         $emailDataStrategy_double = $this->getInterfaceWebDouble('IEmailTemplateDataStrategy');
-        $this->lotteryService_double->getLastDrawDate('EuroMillions')->willReturn($euroMillionsDraw);
+        $date = new \DateTime();
+        $this->lotteryService_double->getLastDrawDate('EuroMillions')->willReturn($date);
+        $this->lotteryService_double->getDrawWithBreakDownByDate('EuroMillions',$date)->willReturn(new ActionResult(true,$euroMillionsDraw));
         $this->betService_double->getBetsPlayedLastDraw($euroMillionsDraw->getDrawDate())->willReturn([$bet]);
         $this->userNotificationService_double->hasNotificationActive(Argument::any(),Argument::any())->willReturn(0);
         $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
         $this->userService_double->getAllUsers()->willReturn([$user]);
         $this->userNotificationService_double->hasNotificationActive(Argument::any(),Argument::any())->willReturn(1);
         $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
-        $sut = new LatestResultReminderTask();
+        $sut = new LatestresultTask();
         $sut->initialize($this->lotteryService_double->reveal(), $this->emailService_double->reveal(),$this->userService_double->reveal(), $this->betService_double->reveal(), $this->userNotificationService_double->reveal());
-        $sut->resultsReminderWhenPlayedAction($emailDataStrategy_double->reveal());
+        $sut->resultsReminderWhenPlayedAction(null,$emailDataStrategy_double->reveal());
     }
 
     /**
@@ -87,16 +90,18 @@ class LatestResultReminderTaskUnitTest extends UnitTestBase
         list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw($user);
         $bet = new Bet($playConfig,$euroMillionsDraw);
         $emailDataStrategy_double = $this->getInterfaceWebDouble('IEmailTemplateDataStrategy');
-        $this->lotteryService_double->getLastDrawDate('EuroMillions')->willReturn($euroMillionsDraw);
+        $date = new \DateTime();
+        $this->lotteryService_double->getLastDrawDate('EuroMillions')->willReturn($date);
+        $this->lotteryService_double->getDrawWithBreakDownByDate('EuroMillions',$date)->willReturn(new ActionResult(true,$euroMillionsDraw));
         $this->betService_double->getBetsPlayedLastDraw($euroMillionsDraw->getDrawDate())->willReturn([$bet]);
         $this->userNotificationService_double->hasNotificationActive(Argument::any(),Argument::any())->willReturn(null);
         $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldNotBeCalled();
         $this->userService_double->getAllUsers()->willReturn([$user]);
         $this->userNotificationService_double->hasNotificationActive(Argument::any(),Argument::any())->willReturn(null);
         $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldNotBeCalled();
-        $sut = new LatestResultReminderTask();
+        $sut = new LatestresultTask();
         $sut->initialize($this->lotteryService_double->reveal(), $this->emailService_double->reveal(),$this->userService_double->reveal(), $this->betService_double->reveal(), $this->userNotificationService_double->reveal());
-        $sut->resultsReminderWhenPlayedAction($emailDataStrategy_double->reveal());
+        $sut->resultsReminderWhenPlayedAction(null,$emailDataStrategy_double->reveal());
 
     }
 
