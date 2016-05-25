@@ -21,17 +21,19 @@
 
         {% endif %}
         {% if errors %}
+
             <div class="box error">
                 <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"/></svg>
                 <div class="txt"><ul class="no-li">{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul></div>
             </div>
 
+    {%  if ga_code is defined %}	
 	<script src="/w/js/vendor/ganalytics.min.js"> </script>
 	<script>
                 ga('set', 'page', '/account/addFunds-fail');
                 ga('send', 'pageview');
 	</script>
-
+    {% endif %}
 
         {% endif %}
 

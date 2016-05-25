@@ -16,6 +16,8 @@ home
 {% block template_scripts %}
 <script src="/w/js/mobileFix.min.js"></script>
 
+{%  if ga_code is defined %}
+
 <script>
 	var l = document.createElement("a");
 	l.href = document.referrer
@@ -24,6 +26,8 @@ home
                 ga('send', 'pageview');
 	}	
 </script>
+{% endif %}
+
 
 {% endblock %}
 {% block body %}
