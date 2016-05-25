@@ -206,6 +206,34 @@ class BetServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
+    /**
+     * method getBetsPlayedLastDraw
+     * when called
+     * should returnProperData
+     */
+    public function test_getBetsPlayedLastDraw_called_returnProperData()
+    {
+        $date = new \DateTime('2015-10-02');
+        list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
+        $bet = new Bet($playConfig,$euroMillionsDraw);
+        $this->betRepository_double->getBetsPlayedLastDraw($date)->willReturn([$bet]);
+        $sut = $this->getSut();
+        $actual = $sut->getBetsPlayedLastDraw($date);
+        $this->assertEquals([$bet],$actual);
+    }
+
+    /**
+     * method getBetsPlayedLastDraw
+     * when calledWithInvalidDate
+     * should returnNull
+     */
+    public function test_getBetsPlayedLastDraw_calledWithInvalidDate_returnNull()
+    {
+        $this->betRepository_double->getBetsPlayedLastDraw(null)->willReturn([]);
+        $sut = $this->getSut();
+        $actual = $sut->getBetsPlayedLastDraw(new \DateTime());
+        $this->assertNull($actual);
+    }
 
     private function getSut()
     {

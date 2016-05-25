@@ -41,7 +41,7 @@ class AwardprizesTaskCest
         $bet_array = $bet->toArray();
         $I->haveInDatabase('bets', $bet_array);
         $I->runShellCommand('php '.__DIR__.'/../../apps/cli-test.php awardprizes checkout 2016-04-23');
-       // $I->seeInShellOutput('i dont know');
+        //$I->seeInShellOutput('i dont know');
         $I->canSeeInDatabase('users', ['id' => $user->getId(), 'show_modal_winning' => 1]);
         $I->canSeeInDatabase('transactions',['user_id' => $user->getId(),'entity_type' => 'big_winning']);
     }

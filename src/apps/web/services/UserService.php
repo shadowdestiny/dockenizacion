@@ -92,6 +92,11 @@ class UserService
         return $this->userRepository->find($userId);
     }
 
+    public function getAllUsers()
+    {
+        return $this->userRepository->findAll();
+    }
+
     public function getUserByToken($token)
     {
         $user = $this->userRepository->getByToken($token);

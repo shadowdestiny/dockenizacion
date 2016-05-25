@@ -48,6 +48,18 @@ class BetRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $this->assertEquals($bet,$actual);
     }
 
+    /**
+     * method getBetsPlayedLastDraw
+     * when calledWithADateLastDraw
+     * should returnProperResult
+     */
+    public function test_getBetsPlayedLastDraw_calledWithADateLastDraw_returnProperResult()
+    {
+        $actual = $this->sut->getBetsPlayedLastDraw(new \DateTime('2015-10-02'));
+        $this->assertEquals(3, $actual[0]->getId());
+        $this->assertEquals(1, count($actual));
+    }
+
     private function exerciseAdd()
     {
         $euroMillionsDraw = $this->entityManager->find($this->getEntitiesToArgument('EuroMillionsDraw'), 2);
@@ -64,4 +76,5 @@ class BetRepositoryIntegrationTest extends DatabaseIntegrationTestBase
             ->getResult()[0];
         return array($bet, $actual);
     }
+
 }

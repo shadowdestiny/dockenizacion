@@ -72,6 +72,7 @@ class BetService
                 if($result_validation->success()) {
                     $this->betRepository->add($bet);
                     $this->entityManager->flush();
+                    $playConfig->setActive(0);
                     $this->playConfigRepository->add($playConfig);
                     $this->entityManager->flush();
                     return new ActionResult(true);
@@ -83,6 +84,19 @@ class BetService
             }
         } else {
             throw new InvalidBalanceException();
+        }
+    }
+
+    public function getBetsPlayedLastDraw( \DateTime $dateLastDraw )
+    {
+        try {
+            $result = $this->betRepository->getBetsPlayedLastDraw($dateLastDraw);
+            if( count($result) > 0 ) {
+                return $result;
+            }
+            return null;
+        } catch ( \Exception $e) {
+            return null;
         }
     }
 

@@ -28,10 +28,26 @@ class BetRepository extends RepositoryBase
         $result = $this->getEntityManager()
             ->createQuery(
                 'SELECT b'
-                . ' FROM ' . $this->getEntityName() . ' b INNER JOIN b.play_config p'
+                . ' FROM ' . $this->getEntityName() . ' b INNER JOIN b.playConfig p'
                 . ' WHERE b.play_config = :play_config_id'
                 . ' GROUP BY p.user')
             ->setParameters(['play_config_id' => $playConfig->getId()])
+            ->getResult();
+
+        return $result;
+    }
+
+    public function getBetsPlayedLastDraw( \DateTime $dateLastDraw )
+    {
+
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT b'
+                . ' FROM ' . $this->getEntityName() . ' b JOIN b.playConfig p'
+                . ' JOIN b.euromillionsDraw e'
+                . ' WHERE p.active = 0 AND e.draw_date = :date'
+                . ' GROUP BY p.user')
+            ->setParameters(['date' => $dateLastDraw->format('Y-m-d')])
             ->getResult();
 
         return $result;

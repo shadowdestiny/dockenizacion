@@ -15,6 +15,7 @@ use EuroMillions\web\interfaces\IJackpot;
 use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationAutoPlayNoFunds;
+use EuroMillions\web\services\user_notifications_strategies\UserNotificationResultsStrategy;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use EuroMillions\web\vo\dto\EuroMillionsDrawDTO;
 use EuroMillions\web\vo\enum\TransactionType;

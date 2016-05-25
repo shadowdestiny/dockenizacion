@@ -46,6 +46,20 @@ return [
             'line_lucky_number_two' => 7,
         ],
         [
+            'id'   => '7',
+            'user_id' => '9098299B-14AC-4124-8DB0-19571EDABE56',
+            'active' => 0,
+            'start_draw_date' => '2015-10-01 00:00:00',
+            'last_draw_date' => '2015-10-10 00:00:00',
+            'line_regular_number_one' => 11,
+            'line_regular_number_two' => 12,
+            'line_regular_number_three' => 13,
+            'line_regular_number_four' => 14,
+            'line_regular_number_five' => 15,
+            'line_lucky_number_one' => 1,
+            'line_lucky_number_two' => 7,
+        ],
+        [
             'id'   => '4',
             'user_id' => '9098299B-14AC-4124-8DB0-19571EDABE55',
             'active' => 0,
@@ -88,5 +102,20 @@ return [
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 7,
         ],
+        [
+            'id'   => '8',
+            'user_id' => '9098299B-14AC-4124-8DB0-19571EDABE56',
+            'active' => 0,
+            'start_draw_date' => '2015-10-01 00:00:00',
+            'last_draw_date' => '2015-10-10 00:00:00',
+            'line_regular_number_one' => 11,
+            'line_regular_number_two' => 12,
+            'line_regular_number_three' => 13,
+            'line_regular_number_four' => 14,
+            'line_regular_number_five' => 15,
+            'line_lucky_number_one' => 1,
+            'line_lucky_number_two' => 7,
+        ],
+
     ]
 ];
