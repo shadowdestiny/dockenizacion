@@ -10,7 +10,7 @@
         <span class="link desktop">{{ language.translate("Winning") }}</span>
         <br class="br">
 		<span class="txt">
-			<span class="desktop">{{ language.translate("Numbers") }}</span>
+			<span class="desktop">{{ language.translate("Results") }}</span>
 			<span class="mobile">{{ language.translate("Results") }}</span>
 		</span>
     </a>
