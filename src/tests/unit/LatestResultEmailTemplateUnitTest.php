@@ -83,7 +83,7 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
             'jackpot_amount' => new Money(10000,new Currency('EUR')),
             'last_draw_date' => $date_draw
         ];
-
+        $date = new \DateTime();
         $obj = new \stdClass();
         $obj->draw_date = '23 May 2016';
         $obj->regular_numbers = $this->mapNumbers($regular_numbers);
@@ -92,7 +92,7 @@ class LatestResultEmailTemplateUnitTest extends UnitTestBase
         $obj->draw_day_format_one = '';
         $obj->draw_day_format_two = '';
         $obj->jackpot_amount = '100.00';
-        $obj->date_header = '24 May 2016';
+        $obj->date_header = $date->format('j M Y');
 
         $emailDataStrategy_double->getData($emailDataStrategy_double->reveal())->willReturn($data);
         $sut = new LatestResultsEmailTemplate($emailTemplate, $emailDataStrategy_double->reveal());

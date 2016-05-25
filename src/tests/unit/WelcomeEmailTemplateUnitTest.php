@@ -21,6 +21,7 @@ class WelcomeEmailTemplateUnitTest extends UnitTestBase
     {
 
         $propArray = $this->getLoadVarsAsArray();
+        $date = new \DateTime();
         $obj = new \stdClass();
         $obj->user_name = 'testing';
         $obj->howToPlay = '/help';
@@ -29,7 +30,7 @@ class WelcomeEmailTemplateUnitTest extends UnitTestBase
         $obj->faq = '/faq';
         $obj->contact = 'mailto:support@euromillions.com';
         $obj->breakdown = [['test' => 'test','test2' => 'test2']];
-        $obj->date_header = '24 May 2016';
+        $obj->date_header = $date->format('j M Y');
         $expected = $obj;
         $sut = new WelcomeEmailTemplate(new EmailTemplate(), new NullEmailTemplateDataStrategy());
         $actual = $sut->loadVarsAsObject($propArray['vars']);

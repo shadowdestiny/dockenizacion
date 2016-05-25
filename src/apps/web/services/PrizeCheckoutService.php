@@ -10,6 +10,7 @@ use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\WinEmailAboveTemplate;
 use EuroMillions\web\emailTemplates\WinEmailTemplate;
 use EuroMillions\web\entities\Bet;
+use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\repositories\BetRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
@@ -157,6 +158,7 @@ class PrizeCheckoutService
      */
     private function sendBigWinEmail(User $user, Money $amount, array $scalarValues)
     {
+        /** @var PlayConfig $playConfig */
         $playConfig = $this->playConfigRepository->find((int) $scalarValues['playConfigId']);
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new WinEmailAboveTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
