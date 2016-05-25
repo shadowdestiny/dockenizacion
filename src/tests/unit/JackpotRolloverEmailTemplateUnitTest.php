@@ -38,7 +38,7 @@ class JackpotRolloverEmailTemplateUnitTest extends UnitTestBase
         $expected = $this->getArrayContentTemplateJackpot();
         $emailTemplate = new EmailTemplate();
         $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->willReturn(new \DateTime());
-        $this->lotteryService->getNextJackpot('EuroMillions')->willReturn(new Money(10000,new Currency('EUR')));
+        $this->lotteryService->getNextJackpot('EuroMillions')->willReturn(new Money((int) 10000, new Currency('EUR')));
         $sut = new JackpotRolloverEmailTemplate($emailTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService->reveal()) );
         $sut->setUser($this->getUser());
         $sut->setThresholdAmount(1000000);
@@ -49,7 +49,7 @@ class JackpotRolloverEmailTemplateUnitTest extends UnitTestBase
     private function getArrayContentTemplateJackpot()
     {
         $next_draw_day = new \DateTime();
-        $jackpot_amount = new Money(10000, new Currency('EUR'));
+        $jackpot_amount = '€100';
         $draw_day_format_one = $next_draw_day->format('l');
         $draw_day_format_two = $next_draw_day->format('j F Y');
 
@@ -68,7 +68,7 @@ class JackpotRolloverEmailTemplateUnitTest extends UnitTestBase
                     ],
                     [
                         'name'    => 'current_jackpot',
-                        'content' => number_format((float) $jackpot_amount->getAmount() / 100,2,".",",")
+                        'content' => $jackpot_amount
                     ],
                     [
                         'name'    => 'draw_day_format_one',

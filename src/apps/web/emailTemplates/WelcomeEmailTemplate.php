@@ -3,7 +3,6 @@
 
 namespace EuroMillions\web\emailTemplates;
 
-
 class WelcomeEmailTemplate extends EmailTemplateDecorator
 {
 
@@ -11,6 +10,7 @@ class WelcomeEmailTemplate extends EmailTemplateDecorator
 
     public function loadVars()
     {
+        $data = $this->emailTemplateDataStrategy->getData();
         $vars = [
             'template' => '623001',
             'subject' => 'Welcome to Euromillions.com',
@@ -38,7 +38,19 @@ class WelcomeEmailTemplate extends EmailTemplateDecorator
                 [
                     'name' => 'contact',
                     'content' => 'mailto:support@euromillions.com'
-                ]
+                ],
+                [
+                    'name' => 'draw_day_format_one',
+                    'content' => $data['draw_day_format_one']
+                ],
+                [
+                    'name' => 'draw_day_format_two',
+                    'content' => $data['draw_day_format_two']
+                ],
+                [
+                    'name' => 'jackpot_amount',
+                    'content' => $data['jackpot_amount']
+                ],
             ]
         ];
 
@@ -65,7 +77,7 @@ class WelcomeEmailTemplate extends EmailTemplateDecorator
 
     public function loadHeader()
     {
-        // TODO: Implement loadHeader() method.
+        return $this->emailTemplate->loadHeader();
     }
 
     public function loadFooter()

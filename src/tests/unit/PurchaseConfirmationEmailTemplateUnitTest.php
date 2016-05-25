@@ -67,7 +67,7 @@ class PurchaseConfirmationEmailTemplateUnitTest extends UnitTestBase
                         'content' => ''
                     ],
                     [
-                        'name' => 'draw_day_format_one',
+                        'name' => 'draw_day_format_two',
                         'content' => ''
                     ]
                 ]
@@ -75,6 +75,7 @@ class PurchaseConfirmationEmailTemplateUnitTest extends UnitTestBase
 
         return $vars;
     }
+
 
     /**
      * @return mixed

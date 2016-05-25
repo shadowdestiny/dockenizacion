@@ -40,7 +40,7 @@ class WinEmailAboveTemplate extends EmailTemplateDecorator
                         'content' => $this->getNummBalls()
                     ],
                     [
-                        'name' => 'star_balls',
+                        'name' => 'num_stars',
                         'content' => $this->getStarBalls()
                     ],
                     [

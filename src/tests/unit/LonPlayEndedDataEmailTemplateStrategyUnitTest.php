@@ -7,6 +7,7 @@ namespace EuroMillions\tests\unit;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\LongPlayEndedDataEmailTemplateStrategy;
 use EuroMillions\web\vo\EuroMillionsLine;
+use Money\Currency;
 use Money\Money;
 use EuroMillions\tests\base\EuroMillionsResultRelatedTest;
 use EuroMillions\tests\base\UnitTestBase;
@@ -54,9 +55,10 @@ class LonPlayEndedDataEmailTemplateStrategyUnitTest extends UnitTestBase
     {
         $next_draw = new \DateTime('2016-02-02 20:00:00');
         $last_draw = new \DateTime('2016-01-29 20:00:00');
-        $money = new Money(1000, new \Money\Currency('EUR'));
+        $amount = new Money((int) 1000, new Currency('EUR'));
+        $money = '€10';
         $this->lotteryService_double->getNextDateDrawByLottery('EuroMillions')->willReturn($next_draw);
-        $this->lotteryService_double->getNextJackpot('EuroMillions')->willReturn($money);
+        $this->lotteryService_double->getNextJackpot('EuroMillions')->willReturn($amount);
         $regular_numbers = [1, 2, 3, 4, 5];
         $lucky_numbers = [1, 2];
         $euroMillionsLine = new EuroMillionsLine($this->getRegularNumbers($regular_numbers),

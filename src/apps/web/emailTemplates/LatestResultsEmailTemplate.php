@@ -5,6 +5,7 @@ namespace EuroMillions\web\emailTemplates;
 
 use antonienko\MoneyFormatter\MoneyFormatter;
 use EuroMillions\web\interfaces\IEmailTemplateDataStrategy;
+use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\LatestResultsDataEmailTemplateStrategy;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use Money\Currency;
@@ -24,7 +25,6 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
         $jackpot = $data['jackpot_amount'];
         $last_draw_date = $data['last_draw_date'];
 
-        $amount = number_format((float) $jackpot->getAmount() / 100,2,".",",");
         $vars = [
             'template' => '624601',
             'subject' => 'Latest results',
@@ -35,8 +35,8 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
                         'content' => $this->getBreakDownList()
                     ],
                     [
-                        'name'    => 'jackpot',
-                        'content' => $amount
+                        'name'    => 'jackpot_amount',
+                        'content' => $jackpot
                     ],
                     [
                         'name'    => 'draw_date',
@@ -49,6 +49,14 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
                     [
                         'name'    => 'lucky_numbers',
                         'content' => $this->mapNumbers($draw_result['lucky_numbers'])
+                    ],
+                    [
+                        'name' => 'draw_day_format_one',
+                        'content' => $data['draw_day_format_one']
+                    ],
+                    [
+                        'name' => 'draw_day_format_two',
+                        'content' => $data['draw_day_format_two']
                     ],
                 ]
         ];
@@ -110,14 +118,6 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
 
     private function currencyConversionAndFormatted( $amount)
     {
-//        $currencyConversion = \Phalcon\Di::getDefault()->get('domainServiceFactory')
-//            ->getCurrencyConversionService();
-//
-//        $amountConverted = $currencyConversion->convert(
-//                                                    new Money((int) $amount, new Currency('EUR')),
-//                                                    new Currency('EUR')
-//        );
-
         $moneyFormatter = new MoneyFormatter();
         return $moneyFormatter->toStringByLocale('en_US', new Money((int) $amount, new Currency('EUR')));
     }

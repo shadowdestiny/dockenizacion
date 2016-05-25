@@ -6,6 +6,7 @@ namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\services\email_templates_strategies\LatestResultsDataEmailTemplateStrategy;
 use EuroMillions\web\vo\EuroMillionsLine;
+use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
 use EuroMillions\tests\base\EuroMillionsResultRelatedTest;
@@ -38,7 +39,9 @@ class LatestResultsDataEmailTemplateStrategyUnitTest extends UnitTestBase
         $expected = [
             'jackpot_amount' => $money,
             'draw_result' => $result_draw,
-            'last_draw_date' => $last_draw
+            'last_draw_date' => $last_draw,
+            'draw_day_format_one' => 'Tuesday',
+            'draw_day_format_two' => '2 February 2016'
         ];
         $sut = $this->getSut();
         $emailTemplateDataStrategy_double = $this->getInterfaceWebDouble('IEmailTemplateDataStrategy');
@@ -60,9 +63,10 @@ class LatestResultsDataEmailTemplateStrategyUnitTest extends UnitTestBase
     {
         $next_draw = new \DateTime('2016-02-02 20:00:00');
         $last_draw = new \DateTime('2016-01-29 20:00:00');
-        $money = new Money(1000, new \Money\Currency('EUR'));
+        $amount = new Money((int) 1000, new Currency('EUR'));
+        $money = '€10';
         $this->lotteryService_double->getNextDateDrawByLottery('EuroMillions')->willReturn($next_draw);
-        $this->lotteryService_double->getNextJackpot('EuroMillions')->willReturn($money);
+        $this->lotteryService_double->getNextJackpot('EuroMillions')->willReturn($amount);
         $regular_numbers = [1, 2, 3, 4, 5];
         $lucky_numbers = [1, 2];
 

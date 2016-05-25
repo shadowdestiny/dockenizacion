@@ -36,8 +36,8 @@ class PurchaseConfirmationEmailTemplate extends EmailTemplateDecorator
                         'content' => $data['draw_day_format_one']
                     ],
                     [
-                        'name' => 'draw_day_format_one',
-                        'content' => $data['draw_day_format_one']
+                        'name' => 'draw_day_format_two',
+                        'content' => $data['draw_day_format_two']
                     ]
                 ]
         ];

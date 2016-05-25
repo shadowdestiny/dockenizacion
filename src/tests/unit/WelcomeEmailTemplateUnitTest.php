@@ -29,7 +29,7 @@ class WelcomeEmailTemplateUnitTest extends UnitTestBase
         $obj->faq = '/faq';
         $obj->contact = 'mailto:support@euromillions.com';
         $obj->breakdown = [['test' => 'test','test2' => 'test2']];
-
+        $obj->date_header = '24 May 2016';
         $expected = $obj;
         $sut = new WelcomeEmailTemplate(new EmailTemplate(), new NullEmailTemplateDataStrategy());
         $actual = $sut->loadVarsAsObject($propArray['vars']);

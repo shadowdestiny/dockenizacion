@@ -29,8 +29,9 @@ class EmailServiceUnitTest extends UnitTestBase
     public function test_sendWelcomeEmail_called_sendProperEmailTemplate()
     {
         list($user, $url) = $this->exerciseEmail();
+        $emailDataStrategy_double = $this->getInterfaceWebDouble('IEmailTemplateDataStrategy');
         $sut = $this->getSut();
-        $sut->sendWelcomeEmail($user,new PhalconUrlWrapper());
+        $sut->sendWelcomeEmail($user,new PhalconUrlWrapper(), $emailDataStrategy_double->reveal());
     }
 
     /**
@@ -81,7 +82,6 @@ class EmailServiceUnitTest extends UnitTestBase
         $user = $this->getUser();
         $url_address = 'http://www.lasdfslsdklhfa.cat';
         $url = new Url($url_address);
-        //$this->mailServiceApi_double->send(Argument::type('string'), Argument::type('string'), Argument::type('array'), Argument::type('string'), '', Argument::type('array'), [], Argument::type('string'), [])->shouldBeCalled();
         $this->mailServiceApi_double->sendPostMarkEmail(Argument::type('string'), Argument::type('stdClass'), true, Argument::type('string'), Argument::type('string'))->shouldBeCalled();
         return array($user, $url);
     }
