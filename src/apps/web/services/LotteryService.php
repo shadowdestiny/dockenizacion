@@ -5,6 +5,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\emailTemplates\EmailTemplate;
+use EuroMillions\web\emailTemplates\IEmailTemplate;
+use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
@@ -299,6 +302,30 @@ class LotteryService
         }
         ksort($new_array);
         return count($new_array) > 0 ? $new_array : [];
+    }
+
+    public function sendResultLotteryToUsersWithBets( $result, IEmailTemplate $emailTemplate) {
+        $notificationResultsStrategy = new UserNotificationResultsStrategy($this->userService);
+        /** @var Bet $bet */
+        foreach ($result as $bet) {
+            $user = $bet->getPlayConfig()->getUser();
+            $hasNotification = $this->userNotificationsService->hasNotificationActive($notificationResultsStrategy, $user);
+            if ($hasNotification === 0) {
+                $this->emailService->sendTransactionalEmail($user, $emailTemplate);
+            }
+        }
+    }
+
+    public function sendResultLotteryToUsers( array $users, IEmailTemplate $emailTemplate )
+    {
+        $notificationResultsStrategy = new UserNotificationResultsStrategy($this->userService);
+        /** @var User $user */
+        foreach($users as $user) {
+            $hasNotification = $this->userNotificationsService->hasNotificationActive($notificationResultsStrategy, $user);
+            if ($hasNotification === 1) {
+                $this->emailService->sendTransactionalEmail($user, $emailTemplate);
+            }
+        }
     }
 
 
