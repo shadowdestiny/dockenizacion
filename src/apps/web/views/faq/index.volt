@@ -111,7 +111,7 @@
 
                 <a id="n04"></a>
                 <h3 class="h3">{{ language.translate("What time is the draw?") }}</h3>
-                <p>{{ language.translate('<a href="/play">Euromillions draws</a> take place on Tuesday and Friday evenings at approximately 20:00 CET.') }}</p>
+                <p>{{ language.translate('<a href="/euromillions/play">Euromillions draws</a> take place on Tuesday and Friday evenings at approximately 20:00 CET.') }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <a id="n05"></a>
@@ -121,12 +121,12 @@
 
                 <a id="n06"></a>
                 <h3 class="h3">{{ language.translate("When the Draw results are released?") }}</h3>
-                <p>{{ language.translate('The latest <a href="/numbers">Euromillions results</a> are revealed approximately an hour following the draw 22:30 CET. A full breakdown of prizes is released another hour later 23:30 CET. However, in the event of a large jackpot the processing and verification of the latest results can take up until midnight to finalise. You can get the latest Euromillions results on our results page.') }}</p>
+                <p>{{ language.translate('The latest <a href="/euromillions/results">Euromillions results</a> are revealed approximately an hour following the draw 22:30 CET. A full breakdown of prizes is released another hour later 23:30 CET. However, in the event of a large jackpot the processing and verification of the latest results can take up until midnight to finalise. You can get the latest Euromillions results on our results page.') }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <a id="n07"></a>
                 <h3 class="h3">{{ language.translate("What is the Prize Breakdown?") }}</h3>
-                <p>{{ language.translate('The Euromillions lottery has a total of 13 prize tiers. The prize breakdown shows you the amount of winnings per prize tier. You can see in <a href="/numbers">our results</a> an example of prize breakdown.') }}</p>
+                <p>{{ language.translate('The Euromillions lottery has a total of 13 prize tiers. The prize breakdown shows you the amount of winnings per prize tier. You can see in <a href="/euromillions/results">our results</a> an example of prize breakdown.') }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <a id="n08"></a>
@@ -141,7 +141,7 @@
 
                 <a id="n11"></a>
                 <h3 class="h3">{{ language.translate("How can I participate in a future draw?") }}</h3>
-                <p>{{ language.translate('Yes, you can purchase a play for a future Euromillions draw by using the Buy for Draw option under your lines on the <a href="/play">Play Page</a>. You can buy a ticket for up to 12 draws in advance.') }}</p>
+                <p>{{ language.translate('Yes, you can purchase a play for a future Euromillions draw by using the Buy for Draw option under your lines on the <a href="/euromillions/play">Play Page</a>. You can buy a ticket for up to 12 draws in advance.') }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <a id="n13"></a>
@@ -195,7 +195,7 @@
 
                 <a id="n18"></a>
                 <h3 class="h3">{{ language.translate("How much does a Euromillions ticket cost?") }}</h3>
-                <p>{{ language.translate('<a href="/play">Playing Euromillions</a> costs %bet_price% / %bet_price_pound% per play. This is the best price available on the Internet.',['bet_price': bet_price,'bet_price_pound' : bet_price_pound]) }}</p>
+                <p>{{ language.translate('<a href="/euromillions/play">Playing Euromillions</a> costs %bet_price% / %bet_price_pound% per play. This is the best price available on the Internet.',['bet_price': bet_price,'bet_price_pound' : bet_price_pound]) }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <a id="n19"></a>
@@ -215,7 +215,7 @@
 
                 <a id="n22"></a>
                 <h3 class="h3">{{ language.translate("How do I track my past played games?") }}</h3>
-                <p>{{ language.translate('In the <a href="/account/games">Games area</a> section of your player account you can find a summary of all your past games.') }}</p>
+                <p>{{ language.translate('In the <a href="/account/games">Tickets area</a> section of your player account you can find a summary of all your past games.') }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <h2 class="h2 yellow">{{ language.translate("Troubleshootings") }}</h2>
