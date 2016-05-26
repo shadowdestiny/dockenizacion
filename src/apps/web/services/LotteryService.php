@@ -172,7 +172,7 @@ class LotteryService
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         if (null !== $lottery) {
             try {
-                $euroMillionsDraws = $this->lotteryDrawRepository->getDraws($lottery);
+                $euroMillionsDraws = $this->lotteryDrawRepository->getDraws($lottery, $limit);
                 $euroMillionsDrawsDTO = [];
                 /** @var EuroMillionsDraw[] $euroMillionsDraws */
                 foreach($euroMillionsDraws as $euroMillionsDraw) {
@@ -234,20 +234,15 @@ class LotteryService
         return $this->lotteryDrawRepository->getLastJackpot($lotteryName);
     }
 
+    public function getLastDrawWithBreakDownByDate($lotteryName, \DateTime $today)
+    {
+        return $this->getBreakDown($lotteryName, $today,'getLastBreakDownData');
+    }
+
     public function getDrawWithBreakDownByDate($lotteryName, \DateTime $today)
     {
-        /** @var Lottery $lottery */
-        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
-        if (null !== $lottery) {
-            $emBreakDownData = $this->lotteryDrawRepository->getBreakDownData($lottery, $today);
-            if (null !== $emBreakDownData) {
-                return new ActionResult(true, $emBreakDownData);
-            } else {
-                return new ActionResult(false);
-            }
-        } else {
-            return new ActionResult(false);
-        }
+        return $this->getBreakDown($lotteryName, $today,'getBreakDownData');
+
     }
 
     public function placeBetForNextDraw(Lottery $lottery, \DateTime $dateNextDraw = null)
@@ -325,6 +320,28 @@ class LotteryService
             if ($hasNotification === 1) {
                 $this->emailService->sendTransactionalEmail($user, $emailTemplate);
             }
+        }
+    }
+
+    /**
+     * @param $lotteryName
+     * @param \DateTime $today
+     * @param $method
+     * @return ActionResult
+     */
+    private function getBreakDown($lotteryName, \DateTime $today, $method)
+    {
+        /** @var Lottery $lottery */
+        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        if (null !== $lottery) {
+            $emBreakDownData = $this->lotteryDrawRepository->$method($lottery, $today);
+            if (null !== $emBreakDownData) {
+                return new ActionResult(true, $emBreakDownData);
+            } else {
+                return new ActionResult(false);
+            }
+        } else {
+            return new ActionResult(false);
         }
     }
 

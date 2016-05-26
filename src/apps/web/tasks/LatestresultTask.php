@@ -48,7 +48,7 @@ class LatestresultTask extends TaskBase
         if($IEmailTemplateDataStrategy == null ) {
             $IEmailTemplateDataStrategy = new LatestResultsDataEmailTemplateStrategy();
         }
-        $draw = $this->lotteryService->getDrawWithBreakDownByDate('EuroMillions',$drawDate);
+        $draw = $this->lotteryService->getLastDrawWithBreakDownByDate('EuroMillions',$drawDate);
         $break_down_list = new EuroMillionsDrawBreakDownDTO($draw->getValues()->getBreakDown());
         $emailTemplate = new EmailTemplate();
         $emailTemplate = new LatestResultsEmailTemplate($emailTemplate, $IEmailTemplateDataStrategy);

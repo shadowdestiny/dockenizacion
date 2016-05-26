@@ -38,7 +38,7 @@ class AwardprizesTask extends TaskBase
         $draw_date = $this->lotteryService->getLastDrawDate($lottery_name, $today);
         $play_configs_result_awarded = $this->PrizeCheckoutService->playConfigsWithBetsAwarded($draw_date);
         //get breakdown
-        $result_breakdown = $this->lotteryService->getDrawWithBreakDownByDate($lottery_name, $today);
+        $result_breakdown = $this->lotteryService->getLastDrawWithBreakDownByDate($lottery_name, $today);
         if ($result_breakdown->success() && $play_configs_result_awarded->success()) {
             /** @var EuroMillionsDrawBreakDown $euromillions_breakDown */
             $euromillions_breakDown = $result_breakdown->getValues()->getBreakDown();

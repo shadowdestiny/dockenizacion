@@ -130,8 +130,7 @@ $(function(){
 										<th class="td-ball">{{ language.translate("Ball") }}</th>
 										<th class="td-star-ball">{{ language.translate("Star Ball") }}</th>
 										<th class="td-winners">{{ language.translate("Winners") }}</th>
-										<th class="td-prize">{{ language.translate("Prize pool") }}</th>
-										<th class="td-payout">{{ language.translate("Payout") }}</th>
+										<th class="td-prize">{{ language.translate("Prize") }}</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -152,7 +151,6 @@ $(function(){
 												</td>
 												<td class="td-winners">{{ break_downs[name]['winners'] }}</td>
 												<td class="td-prize">{{ symbol }} {{ break_downs[name]['lottery_prize'] | number_format(2, '.', ',') }}</td>
-												<td class="td-payout">-</td>
 											{% endif %}
 										</tr>
 									{% endfor %}
@@ -162,63 +160,40 @@ $(function(){
 					</div>
 					<div class="col4">
 						<div class="box-history">
-							<div class="box-basic">
-								<div class="pad">
-									<h1 class="h2 purple">{{ language.translate("Past Winning Numbers") }}</h1>
-								</div>
-								<table id="history-numbers" class="ui-responsive table2" data-role="table" data-mode="reflow">
-									<thead>
-										<tr>
-											<th class="td-date">{{ language.translate("Date") }}</th>
-											<th class="td-ball-numbers">{{ language.translate("Ball") }} <span class="ball"></span></th>
-											<th class="td-star-numbers">
-												{{ language.translate("Star") }}
-												<span class="star-ball"></span>
-											</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td class="td-date">07 JUL 2015</td>
-											<td class="td-ball-numbers">01 02 03 04 05</td>
-											<td class="td-star-numbers">01 02</td>
-										</tr>
-										<tr>
-											<td class="td-date">07 JUL 2015</td>
-											<td class="td-ball-numbers">01 02 03 04 05</td>
-											<td class="td-star-numbers">01 02</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
 						</div>
 					</div>
 				</div>
 				<div class="cols bottom">
 					<div class="col8">
-						<table style="border-collapse: collapse;" class="table2">
-							<tbody>
-						{% for i,draw in list_draws %}
-							<div data-lazy-widget="gplus_{{ i }}" class="g-plusone" data-annotation="inline" data-width="300"></div>
-							<a href="/numbers?date={{ draw.drawDateParam }}">
-								<div id="gplus_{{ i }}">
-									<!--<tr border="1" style="display:block;height: 200px;border:1px solid #efc048;">
-										<td style="padding:7px 12px;text-align:left;line-height:1.5em;">{{ draw.drawDate }}</td>
-										<td style="padding:7px 12px;font-weight:700">{{ draw.regularNumbers }}</td>
-										<td style="padding:7px 12px;">{{ draw.luckyNumbers }}</td>
-									</tr>-->
-								</div>
-							</a>
-						{%  endfor %}
-							</tbody>
-						</table>
-						<div class="prev-results">
-							<span class="txt">{{ language.translate("Previous results") }}</span>
-							<select class="select">
-								<option>07 August 2015 - {{ language.translate("Draw") }} 116</option>
-								<option>04 August 2015 - {{ language.translate("Draw") }} 115</option>
-								<option>01 August 2015 - {{ language.translate("Draw") }} 114</option>
-							</select>
+
+						<div class="box-basic">
+							<div class="pad">
+								<h1 class="h2 purple">{{ language.translate("Past Winning Numbers") }}</h1>
+							</div>
+							<table id="history-numbers" class="ui-responsive table2" data-role="table" data-mode="reflow">
+								<thead>
+								<tr>
+									<th class="td-date">{{ language.translate("Date") }}</th>
+									<th class="td-ball-numbers">{{ language.translate("Ball") }} <span class="ball"></span></th>
+									<th class="td-star-numbers">
+										{{ language.translate("Star") }}
+										<span class="star-ball"></span>
+									</th>
+								</tr>
+								</thead>
+								<tbody>
+								{% for i,draw in list_draws %}
+										<tr style="cursor: pointer" onclick="document.location='/{{ lottery }}/results/past-results/{{ draw.drawDateParam }}'">
+												<td class="td-date">{{ draw.drawDate }}</td>
+												<td class="td-ball-numbers">{{ draw.regularNumbers }}</td>
+												<td class="td-star-numbers">{{ draw.luckyNumbers }}</td>
+										</tr>
+								{%  endfor %}
+								</tbody>
+							</table>
+							<div class="box-action">
+								<a href="/euromillions/results/past-results" class="btn  green big wide ui-link">Show more past results</a>
+							</div>
 						</div>
 					</div>
 					<div class="col4">{# nothing here #}</div>

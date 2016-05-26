@@ -29,7 +29,7 @@ class TestController extends PublicSiteControllerBase
         $user = $userService->getUser(Uuid::fromString($userId));
         $draw_date = $lotteryService->getLastDrawDate('EuroMillions');
         /** @var EuroMillionsDraw $draw */
-        $draw = $this->lotteryService->getDrawWithBreakDownByDate('EuroMillions', new \DateTime)->getValues();
+        $draw = $this->lotteryService->getLastDrawWithBreakDownByDate('EuroMillions', new \DateTime)->getValues();
         /** @var EuroMillionsLine $line */
         $line = $draw->getResult();
         $regular_numbers = $line->getRegularNumbersArray();

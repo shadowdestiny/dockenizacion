@@ -253,10 +253,10 @@ class LotteryServiceUnitTest extends UnitTestBase
 
         $date = new \DateTime('2016-01-01');
 
-        $this->lotteryDrawRepositoryDouble->getBreakDownData(Argument::any(), $date)->willReturn($expected);
+        $this->lotteryDrawRepositoryDouble->getLastBreakDownData(Argument::any(), $date)->willReturn($expected);
 
         $sut = $this->getSut();
-        $actual = $sut->getDrawWithBreakDownByDate('EuroMillions', $date);
+        $actual = $sut->getLastDrawWithBreakDownByDate('EuroMillions', $date);
         $this->assertEquals($expected,$actual->getValues());
     }
 
@@ -272,10 +272,10 @@ class LotteryServiceUnitTest extends UnitTestBase
 
         $date = new \DateTime('2016-01-01');
 
-        $this->lotteryDrawRepositoryDouble->getBreakDownData(Argument::any(), $date)->willReturn(null);
+        $this->lotteryDrawRepositoryDouble->getLastBreakDownData(Argument::any(), $date)->willReturn(null);
 
         $sut = $this->getSut();
-        $actual = $sut->getDrawWithBreakDownByDate('EuroMillions', $date);
+        $actual = $sut->getLastDrawWithBreakDownByDate('EuroMillions', $date);
         $this->assertEquals($expected,$actual);
     }
 
@@ -419,7 +419,7 @@ class LotteryServiceUnitTest extends UnitTestBase
     {
         list($lottery, $collectionEuroMillionsDraw) = $this->prepareToGetDraws();
         $this->lotteryRepositoryDouble->findOneBy(['name' => 'EuroMillions'])->willReturn($lottery);
-        $this->lotteryDrawRepositoryDouble->getDraws($lottery)->willReturn($collectionEuroMillionsDraw);
+        $this->lotteryDrawRepositoryDouble->getDraws($lottery,13)->willReturn($collectionEuroMillionsDraw);
         $sut = $this->getSut();
         $actual = $sut->getDrawsDTO('EuroMillions');
         $this->assertEquals(2,count($actual->getValues()));
@@ -436,7 +436,7 @@ class LotteryServiceUnitTest extends UnitTestBase
     {
         list($lottery, $collectionEuroMillionsDraw) = $this->prepareToGetDraws();
         $this->lotteryRepositoryDouble->findOneBy(['name' => 'EuroMillions'])->willReturn($lottery);
-        $this->lotteryDrawRepositoryDouble->getDraws($lottery)->willThrow(new DataMissingException());
+        $this->lotteryDrawRepositoryDouble->getDraws($lottery,13)->willThrow(new DataMissingException());
         $expected = new ActionResult(false);
         $sut = $this->getSut();
         $actual = $sut->getDrawsDTO('EuroMillions');

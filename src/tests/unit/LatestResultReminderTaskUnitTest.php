@@ -67,7 +67,7 @@ class LatestResultReminderTaskUnitTest extends UnitTestBase
         $emailDataStrategy_double = $this->getInterfaceWebDouble('IEmailTemplateDataStrategy');
         $date = new \DateTime();
         $this->lotteryService_double->getLastDrawDate('EuroMillions')->willReturn($date);
-        $this->lotteryService_double->getDrawWithBreakDownByDate('EuroMillions',$date)->willReturn(new ActionResult(true,$euroMillionsDraw));
+        $this->lotteryService_double->getLastDrawWithBreakDownByDate('EuroMillions',$date)->willReturn(new ActionResult(true,$euroMillionsDraw));
         $this->betService_double->getBetsPlayedLastDraw($euroMillionsDraw->getDrawDate())->willReturn([$bet]);
         $this->lotteryService_double->sendResultLotteryToUsersWithBets(Argument::any(),Argument::any())->shouldBeCalled();
         $this->userService_double->getAllUsers()->willReturn([$user]);
@@ -90,7 +90,7 @@ class LatestResultReminderTaskUnitTest extends UnitTestBase
         $emailDataStrategy_double = $this->getInterfaceWebDouble('IEmailTemplateDataStrategy');
         $date = new \DateTime();
         $this->lotteryService_double->getLastDrawDate('EuroMillions')->willReturn($date);
-        $this->lotteryService_double->getDrawWithBreakDownByDate('EuroMillions',$date)->willReturn(new ActionResult(true,$euroMillionsDraw));
+        $this->lotteryService_double->getLastDrawWithBreakDownByDate('EuroMillions',$date)->willReturn(new ActionResult(true,$euroMillionsDraw));
         $this->betService_double->getBetsPlayedLastDraw($euroMillionsDraw->getDrawDate())->willReturn(null);
         $this->lotteryService_double->sendResultLotteryToUsersWithBets(Argument::any(),Argument::any())->shouldNotBeCalled();
         $this->userService_double->getAllUsers()->willReturn([$user]);

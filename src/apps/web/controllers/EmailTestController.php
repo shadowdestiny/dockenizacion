@@ -88,7 +88,7 @@ class EmailTestController extends PublicSiteControllerBase
                 $emailTemplate->setResultAmount(new Money(5000, new Currency('EUR')));
             }
             if($emailTemplate instanceof LatestResultsEmailTemplate) {
-                $draw = $this->lotteryService->getDrawWithBreakDownByDate('EuroMillions',new \DateTime());
+                $draw = $this->lotteryService->getLastDrawWithBreakDownByDate('EuroMillions',new \DateTime());
                 $break_down_list = null;
                 if($draw->success()){
                     $break_down_list = new EuroMillionsDrawBreakDownDTO($draw->getValues()->getBreakDown());
