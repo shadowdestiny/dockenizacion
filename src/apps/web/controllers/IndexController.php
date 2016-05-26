@@ -8,7 +8,6 @@ class IndexController  extends PublicSiteControllerBase
 {
     public function indexAction()
     {
-
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions'));
         $this->view->setVar('jackpot_value', ViewHelper::formatJackpotNoCents($jackpot));
         $time_till_next_draw = $this->lotteryService->getTimeToNextDraw('EuroMillions');
@@ -20,7 +19,7 @@ class IndexController  extends PublicSiteControllerBase
         $this->view->setVar('minutes_till_next_draw', $time_till_next_draw->i);
         $this->view->setVar('date_to_draw', $date_next_draw->format('Y-m-d H:i:s'));
         $this->view->setVar('last_draw_date', $last_draw_date->format('l, F j, Y'));
-
+        $this->tag->appendTitle('Play EuroMillions ' . $date_next_draw->format('d-m-Y') . ' ( ' .ViewHelper::formatJackpotNoCents($jackpot) . ' )');
     }
 
     public function notfoundAction()
