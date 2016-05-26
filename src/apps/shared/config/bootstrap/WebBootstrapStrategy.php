@@ -89,8 +89,9 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     protected function configRouter()
     {
         $router = new Phalcon\Mvc\Router();
-
         $router->setDefaultModule('web');
+
+
         $router->add('/admin/:controller/:action/:params', array(
             'module'     => 'admin',
             'controller' => 1,
@@ -115,10 +116,17 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             "controller" => "index",
             "action"     => "notfound"
         ));
+
         $router->add("/", array(
             "module"     => "web",
             'controller' => 'index',
-            'action'     => 'index'
+            'action'     => 'index',
+        ));
+        $router->add("/{lottery:(euromillions)+}/play", array(
+            "module"     => "web",
+            "lottery"    => 1,
+            'controller' => 'play',
+            'action'     => 'index',
         ));
         $router->add("/sign-in", array(
             "module"     => "web",
@@ -151,6 +159,61 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action'     => 'passwordReset'
         ));
 
+        $router->add("/{lottery:(euromillions)+}/cart/profile", array(
+            "module"     => "web",
+            'lottery'    => 1,
+            'controller' => 'cart',
+            'action'     => 'profile'
+        ));
+
+        $router->add("/{lottery:(euromillions)+}/cart/order", array(
+            "module"     => "web",
+            'lottery'    => 1,
+            'controller' => 'cart',
+            'action'     => 'order'
+        ));
+
+        $router->add("/{lottery:(euromillions)+}/cart/payment", array(
+            "module"     => "web",
+            'lottery'    => 1,
+            'controller' => 'cart',
+            'action'     => 'payment',
+        ));
+
+        $router->add("/{lottery:(euromillions)+}/cart/login", array(
+            "module"     => "web",
+            'lottery'    => 1,
+            'controller' => 'cart',
+            'action'     => 'login',
+        ));
+
+        $router->add("/{lottery:(euromillions)+}/result/:action", array(
+            "module"     => "web",
+            'lottery'    => 1,
+            'controller' => 'result',
+            'action'     => 2
+        ));
+
+        $router->add("/{lottery:(euromillions)+}/help", array(
+            "module"     => "web",
+            'lottery'    => 1,
+            'controller' => 'help',
+            'action'     => 'index'
+        ));
+        $router->add("/{lottery:(euromillions)+}/faq", array(
+            "module"     => "web",
+            'lottery'    => 1,
+            'controller' => 'faq',
+            'action'     => 'index'
+        ));
+
+        $router->add("/{lottery:(euromillions)+}/results", array(
+            "module"     => "web",
+            'lottery'    => 1,
+            'controller' => 'numbers',
+            'action'     => 'index'
+        ));
+
         $router->add('/ajax/:controller/:action/:params', array(
             "module"     => "web",
             'namespace'  => 'EuroMillions\web\controllers\ajax',
@@ -159,11 +222,11 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'params'     => 3,
         ));
 
-        $router->setDefaults(array(
-            "module"     => "web",
-            'controller' => 'index',
-            'action'     => 'index'
-        ));
+//        $router->setDefaults(array(
+//            "module"     => "web",
+//            'controller' => 'index',
+//            'action'     => 'index'
+//        ));
         $router->removeExtraSlashes(true);
         return $router;
     }

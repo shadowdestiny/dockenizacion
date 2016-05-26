@@ -75,7 +75,7 @@ $(function(){
                                 <div class="line-txt">{{ language.translate("Log in") }}</div>
                             </div>
                         </div>
-                        {% set url_signin = '/cart/login' %}
+                        {% set url_signin = '/euromillions/cart/login' %}
                         {% include "sign-in/_log-in.volt" %}
                     </div>
                 </div>
@@ -87,7 +87,7 @@ $(function(){
                                 <div class="line-sep"></div>
                                 <div class="line-txt">{{ language.translate("Sign Up") }}</div>
                             </div>
-                            {% set url_signup = '/cart/profile' %}
+                            {% set url_signup = '/euromillions/cart/profile' %}
                             {% include "sign-in/_sign-up.volt" %}
                         </div>
                     </div>

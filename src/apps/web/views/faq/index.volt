@@ -106,7 +106,7 @@
                 <a id="n03"></a>
                 <h3 class="h3">{{ language.translate("How do I play?") }}</h3>
 
-                <p>{{ language.translate('Information regarding how to play Euromillions is available in detail on <a href="/help">How to play</a>.') }}</p> 
+                <p>{{ language.translate('Information regarding how to play Euromillions is available in detail on <a href="/euromillions/help">How to play</a>.') }}</p>
                 {% include "faq/back-top.volt" %}
 
                 <a id="n04"></a>

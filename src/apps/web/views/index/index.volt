@@ -136,7 +136,7 @@ home
 				</div>
 			</div>
 			<div class="btn-box">
-				<a href="/play" class="btn red huge">{{ language.translate("PLAY NOW") }}</a>
+				<a href="/{{ lottery }}/play" class="btn red huge">{{ language.translate("PLAY NOW") }}</a>
 				<div class="for-only">{{ language.translate("For only")}} {{ bet_price }}</div>
 			</div>
 			<div class="txt">{{ language.translate("Join the Club. Become our next EuroMillionaire!") }}</div>
@@ -173,7 +173,7 @@ home
 						<div class="content">
 							<h1 class="h2">{{ language.translate("Don't know what to play?") }}</h1>
 							<p>{{ language.translate("Use our Lucky Number Generator") }}</p>
-							<a href="/play?random" class="btn blue big wide">{{ language.translate("I Feel Lucky!") }}</a>
+							<a href="/{{ lottery }}/play?random" class="btn blue big wide">{{ language.translate("I Feel Lucky!") }}</a>
 						</div>
 					</div>
 				</div>
@@ -191,7 +191,7 @@ home
 									    <li class="star">{{ lucky_number }}</li>
 	                                {% endfor %}
 								</ul>
-								<a href="/numbers" class="lnk animate infi"><span class="txt">{{ language.translate('Results &amp; Prizes') }}</span> <svg class="ico v-arrow-right3"><use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use></svg></a>
+								<a href="/{{ lottery }}/results" class="lnk animate infi"><span class="txt">{{ language.translate('Results &amp; Prizes') }}</span> <svg class="ico v-arrow-right3"><use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use></svg></a>
 							</div>
 							<div class="col4 woman">&nbsp;</div>
 						</div>
@@ -218,7 +218,7 @@ home
 									<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)" style="filter:url(#shadow)"></use>
 									<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)"></use>
 								</svg>
-								<a href="/play" class="btn blue">{{ language.translate("Start playing, Win millions") }}</a>
+								<a href="/{{ lottery }}/play" class="btn blue">{{ language.translate("Start playing, Win millions") }}</a>
 							</span>
 						</div>
 					</div>
@@ -240,7 +240,7 @@ home
 					</div>
 					<div class="box-action">
 						<span class="h2 phrase">{{ language.translate("Millions of people play EuroMillions everyday") }}</span>
-						<a href="/play" class="btn big blue">{{ language.translate("Play anytime, anywhere") }}</a>
+						<a href="{{ lottery }}/play" class="btn big blue">{{ language.translate("Play anytime, anywhere") }}</a>
 					</div>
 				</div>
 			</div>
@@ -264,7 +264,7 @@ home
 				</div>
 				<div class="box-action">
 				<span class="h2 phrase">{{ language.translate("If you're not in, you can't Win!") }}</span>	
-				<a href="/play" class="btn big blue">{{ language.translate("Beat the odds, Play the Lotto") }}</a>
+				<a href="{{ lottery }}/play" class="btn big blue">{{ language.translate("Beat the odds, Play the Lotto") }}</a>
 				</div>
 			</div>
 
@@ -299,7 +299,7 @@ home
 				</div>
 				<div class="box-action">
 					<span class="h2 phrase">{{ language.translate("Play today and  ") }}<br class="mobile"> {{ language.translate("change your life forever") }}</span>
-					<a href="/play"  class="btn big blue">{{ language.translate("Play. Dream. Win.") }}</a>
+					<a href="{{ lottery }}/play"  class="btn big blue">{{ language.translate("Play. Dream. Win.") }}</a>
 				</div>
 			</div>
 

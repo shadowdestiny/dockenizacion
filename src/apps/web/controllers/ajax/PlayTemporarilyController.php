@@ -27,7 +27,6 @@ class PlayTemporarilyController extends AjaxControllerBase
         $lastDrawDate = new LastDrawDate($startDrawDate,$frequency);
         $date_time_util = new DateTimeUtil();
         $result = null;
-        $lotteryService = $this->domainServiceFactory->getLotteryService();
         $playFormToStorage_collection = [];
 
         foreach($bets as $bet) {
@@ -46,7 +45,7 @@ class PlayTemporarilyController extends AjaxControllerBase
         $current_user = $authService->getCurrentUser();
         $result = $playService->savePlayFromJson(json_encode($playFormToStorage_collection),$current_user->getId());
         if($result->success()) {
-            echo json_encode(['result'=>'OK', 'url' => '/cart/profile']);
+            echo json_encode(['result'=>'OK', 'url' => '/euromillions/cart/profile']);
         } else {
             echo json_encode(['result'=> $result->errorMessage()]);
         }

@@ -132,7 +132,7 @@
 
                 <div id="cart-order"></div>
                 <div class="payment hidden">
-                    <form class="box-add-card form-currency {#{% if which_form != 'edit' and which_form%}hidden{% endif %}#}" method="post" action="/cart/payment{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
+                    <form class="box-add-card form-currency {#{% if which_form != 'edit' and which_form%}hidden{% endif %}#}" method="post" action="/euromillions/cart/payment{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
                         {% set component='{"where": "cart"}'|json_decode %}
                         {% include "account/_add-card.volt" %}
                     </form>

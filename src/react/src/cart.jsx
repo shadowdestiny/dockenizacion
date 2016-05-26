@@ -198,7 +198,7 @@ var CartPage = new React.createClass({
             data_btn = 'no-wallet';
         } else {
             txt_button_payment = 'Buy now';
-            href_payment = '/cart/payment?method=wallet&charge='+this.state.fund_value;
+            href_payment = '/euromillions/cart/payment?method=wallet&charge='+this.state.fund_value;
             data_btn = 'wallet';
             price_txt_btn = this.state.total;
         }

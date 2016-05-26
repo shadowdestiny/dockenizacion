@@ -53,6 +53,8 @@ class PublicSiteControllerBase extends ControllerBase
     /** @var  TransactionService */
     protected $transactionService;
 
+    protected $lottery;
+
 
     public function initialize(LotteryService $lotteryService = null,
                                LanguageService $languageService = null,
@@ -76,6 +78,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->currencyConversionService = $currencyConversionService ?: $this->domainServiceFactory->getCurrencyConversionService();
         $this->siteConfigService = $siteConfigService ?: new SiteConfigService($this->di->get('entityManager'), $this->currencyConversionService);
         $this->transactionService = $transactionService ?: new TransactionService($this->di->get('entityManager'), $this->currencyConversionService);
+        $this->lottery = !isset($this->router->getParams()['lottery']) ? 'euromillions' : $this->router->getParams()['lottery'];
     }
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
@@ -129,7 +132,7 @@ class PublicSiteControllerBase extends ControllerBase
             $user_balance = '';
             $user_balance_raw = '';
         }
-
+        $this->view->setVar('lottery', $this->lottery);
         $this->view->setVar('current_currency', $current_currency->getName());
         $this->view->setVar('user_currency', $user_currency);
         $this->view->setVar('user_currency_code', $current_currency->getName());

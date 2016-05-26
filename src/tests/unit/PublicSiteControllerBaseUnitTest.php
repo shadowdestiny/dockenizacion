@@ -91,6 +91,7 @@ class PublicSiteControllerBaseUnitTest extends ControllerUnitTestBase
             'countdown_next_draw' => Argument::any(),
             'bet_price' => $bet_price_to_string,
             'bet_price_pound' => $bet_price_pound_to_string,
+            'lottery' => 'euromillions'
         ]);
 
         $sut = new PublicSiteControllerBaseToTest();

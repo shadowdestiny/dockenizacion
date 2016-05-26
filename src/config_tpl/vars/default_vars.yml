@@ -17,8 +17,8 @@ redis_prefix: ''
 redis_cache_lifetime: '1800'
 
 email_from_name: 'Euromillions.com'
-email_from_address: 'noreply@euromillions.com'
-mandrill_api_key: 'M6JTvgED9KLYXqkEs8S2tQ'
+email_from_address: 'support@euromillions.com'
+api_key: '5277b850-aad8-40bb-8378-3be4f65ee38b '
 support_email_address: 'support@euromillions.com'
 
 file_logs_path: '/var/www/logs/'

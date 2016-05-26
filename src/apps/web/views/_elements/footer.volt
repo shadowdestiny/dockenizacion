@@ -4,7 +4,7 @@
 			<div class="col20per">
 				<strong>{{ language.translate('Play') }}</strong>
 				<ul>
-					<li><a href="/play">{{ language.translate('EuroMillions') }}</a></li>
+					<li><a href="/{{ lottery }}/play">{{ language.translate('EuroMillions') }}</a></li>
 {# Future links
 					<li><a href="javascript:void(0);">EuroJackpot</a></li>
 					<li><a href="javascript:void(0);">MegaMillions</a></li>
@@ -15,7 +15,7 @@
 			<div class="col20per">
 				<strong>{{ language.translate('Winning Numbers') }}</strong>
 				<ul>
-					<li><a href="/numbers">{{ language.translate('Latest Results') }}</a></li>
+					<li><a href="/{{ lottery }}/results">{{ language.translate('Latest Results') }}</a></li>
 				</ul>
 			</div>
 			<div class="col20per">
@@ -36,8 +36,8 @@
 			<div class="col20per">
 				<strong>{{ language.translate('Help')}}</strong>
 				<ul>
-					<li><a href="/help">{{ language.translate('How to Play') }}</a></li>
-					<li><a href="/faq">{{ language.translate('Frequently Asked Questions') }}</a></li>
+					<li><a href="/{{ lottery }}/help">{{ language.translate('How to Play') }}</a></li>
+					<li><a href="/{{ lottery }}/faq">{{ language.translate('Frequently Asked Questions') }}</a></li>
 					<li><a href="">{{ language.translate('Player Protection') }}</a></li>
 					<li><a href="/contact/">{{ language.translate('Contact us') }}</a></li>
 				</ul>

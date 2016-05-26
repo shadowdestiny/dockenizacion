@@ -38,14 +38,14 @@ class CartController extends PublicSiteControllerBase
             /** @var User $user */
             $user = $this->userService->getUser($current_user_id);
             if(!$user) {
-                $this->response->redirect('/play');
+                $this->response->redirect('/'.$this->lottery.'/play');
                 return false;
             }
             $result = $play_service->getPlaysFromTemporarilyStorage($user);
         }
 
         if(!$result->success()) {
-            $this->response->redirect('/play');
+            $this->response->redirect('/'.$this->lottery.'/play');
             return false;
         }
         return $this->dataOrderView($user, $result, $form_errors, $msg, $credit_card_form, $errors);
@@ -88,7 +88,7 @@ class CartController extends PublicSiteControllerBase
         $errors = [];
         $user = $this->authService->getCurrentUser();
         if($user instanceof User) {
-            $this->response->redirect('/cart/order');
+            $this->response->redirect('/'.$this->lottery.'/cart/order');
         }
         $sign_up_form = $this->getSignUpForm();
         list($controller, $action, $params) = $this->getPreviousParams($paramsFromPreviousAction);
@@ -114,7 +114,7 @@ class CartController extends PublicSiteControllerBase
                     'country'  => $this->request->getPost('country'),
                 ], $user->getId());
                 if($result->success()){
-                    $this->response->redirect('/cart/order');
+                    $this->response->redirect('/'.$this->lottery.'/cart/order');
                 }else{
                     $errors [] = $result->errorMessage();
                 }
@@ -168,7 +168,7 @@ class CartController extends PublicSiteControllerBase
                 ) {
                     $errors[] = 'Incorrect email or password.';
                 } else {
-                    return $this->response->redirect('/cart/order?user='.$user->getId());
+                    return $this->response->redirect('/'.$this->lottery.'/cart/order?user='.$user->getId());
                 }
             }
         }
@@ -217,10 +217,10 @@ class CartController extends PublicSiteControllerBase
                     $amount = new Money((int) $charge, new Currency('EUR'));
                     $result = $play_service->play($user_id,$amount, $card,true);
                     if($result->success()) {
-                        $this->response->redirect('/result/success');
+                        $this->response->redirect('/'.$this->lottery.'/result/success');
                         return false;
                     } else {
-                        $this->response->redirect('/result/failure');
+                        $this->response->redirect('/'.$this->lottery.'/result/failure');
                         return false;
                     }
                 } catch (\Exception $e ) {
@@ -251,10 +251,10 @@ class CartController extends PublicSiteControllerBase
                         $amount = new Money((int) str_replace('.','',$funds_value), new Currency('EUR'));
                         $result = $play_service->play($user_id,$amount, $card,$payWallet);
                         if($result->success()) {
-                            $this->response->redirect('/result/success');
+                            $this->response->redirect('/'.$this->lottery.'/result/success');
                             return false;
                         } else {
-                            $this->response->redirect('/result/failure');
+                            $this->response->redirect('/'.$this->lottery.'/result/failure');
                             return false;
                         }
                     } catch (\Exception $e ) {
