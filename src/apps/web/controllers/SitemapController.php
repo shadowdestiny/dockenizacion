@@ -38,8 +38,7 @@ class SitemapController extends ControllerBase
         $urlset->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
         $urlset->setAttribute('xsi:schemaLocation', 'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd');
         $url = new Url();
-        $baseUri = $url->getBaseUri();
-
+        $baseUri = 'https://' . $_SERVER['HTTP_HOST'] .'/';
         //EMTD when will have more lotteries we should have notice for iterate over them
         $links = array(
             $this->lottery.'/results',
@@ -68,7 +67,6 @@ class SitemapController extends ControllerBase
             $url->appendChild($sitemap->createElement('loc', $href));
             $url->appendChild($sitemap->createElement('changefreq', 'daily')); //Hourly, daily, weekly etc.
             $url->appendChild($sitemap->createElement('priority', '0.5'));     //1, 0.7, 0.5 ...
-
             $urlset->appendChild($url);
         }
 
