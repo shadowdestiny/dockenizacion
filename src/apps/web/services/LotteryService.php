@@ -168,6 +168,7 @@ class LotteryService
 
     public function getDrawsDTO($lotteryName, $limit = 13)
     {
+
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         if (null !== $lottery) {

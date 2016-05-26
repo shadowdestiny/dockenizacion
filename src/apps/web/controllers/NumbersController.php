@@ -44,7 +44,7 @@ class NumbersController extends PublicSiteControllerBase
     public function pastListAction()
     {
         $lotteryName = 'EuroMillions';
-        $result = $this->lotteryService->getDrawsDTO($lotteryName, 300);
+        $result = $this->lotteryService->getDrawsDTO($lotteryName, 1000);
         if(!$result->success()) {
             return $this->view->setVars([
                 'error' => $result->errorMessage()
