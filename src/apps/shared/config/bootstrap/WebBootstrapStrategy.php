@@ -292,6 +292,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'params'     => 3,
         ));
 
+        $router->add("/sitemap", array(
+            "module"     => "web",
+            'controller' => 'sitemap',
+            'action'     => 'index'
+        ));
+
+
 //        $router->setDefaults(array(
 //            "module"     => "web",
 //            'controller' => 'index',

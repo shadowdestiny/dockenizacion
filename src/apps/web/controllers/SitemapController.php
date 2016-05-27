@@ -4,6 +4,12 @@
 namespace EuroMillions\web\controllers;
 
 
+use Doctrine\ORM\EntityManager;
+use EuroMillions\shared\config\Namespaces;
+use EuroMillions\web\entities\Article;
+use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\repositories\ArticleRepository;
+use EuroMillions\web\repositories\LotteryDrawRepository;
 use Phalcon\Http\Response;
 use Phalcon\Mvc\Url;
 
@@ -11,12 +17,21 @@ class SitemapController extends ControllerBase
 {
 
     protected $lottery;
+    /** @var LotteryDrawRepository */
+    private $lotteryDrawRepository;
+    /** @var  ArticleRepository */
+    private $articleRespository;
 
     public function initialize()
     {
         //for big files, to be on the safe side
         set_time_limit(0);
         $this->lottery = 'euromillions';
+        $di = \Phalcon\Di::getDefault();
+        /** @var EntityManager entityManager */
+        $entityManager = $di->get('entityManager');
+        $this->lotteryDrawRepository = $entityManager->getRepository(Namespaces::ENTITIES_NS . 'EuroMillionsDraw');
+        $this->articleRespository = $entityManager->getRepository(Namespaces::ENTITIES_NS . 'Article');
     }
 
     public function indexAction()
@@ -42,6 +57,7 @@ class SitemapController extends ControllerBase
         //EMTD when will have more lotteries we should have notice for iterate over them
         $links = array(
             $this->lottery.'/results',
+            $this->lottery.'/results/past-results',
             $this->lottery.'/play',
             $this->lottery.'/help',
             $this->lottery.'/faq',
@@ -52,6 +68,25 @@ class SitemapController extends ControllerBase
             'legal/cookies',
             'legal/privacy',
         );
+        /** @var EuroMillionsDraw $lotteryDraw */
+        foreach($this->lotteryDrawRepository->findAll() as $lotteryDraw) {
+            $links[] = $this->lottery.'/results/past-results/'.$lotteryDraw->getDrawDate()->format('Y-m-d');
+        }
+        /** @var Article $article */
+        foreach($this->articleRespository->findAll() as $article) {
+            if($article->getId() == 1) {
+                $links[] = $this->lottery.'/article/discover_your_odds_of_winning_the_euromillions';
+            }
+            if($article->getId() == 2) {
+                $links[] = $this->lottery.'/article/euromillions_rules';
+            }
+            if($article->getId() == 3) {
+                $links[] = $this->lottery.'/article/euromillions_history';
+            }
+            if($article->getId() == 4) {
+                $links[] = $this->lottery.'/article/euromillions_prize_structure';
+            }
+        }
 
         $modifiedAt = new \DateTime();
         $modifiedAt->setTimezone(new \DateTimeZone('UTC'));
