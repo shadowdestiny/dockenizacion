@@ -232,6 +232,32 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'params'      => 2
         ));
 
+        $router->add("/{lottery:(euromillions)+}/article/discover_your_odds_of_winning_the_euromillions", array(
+            "module"     => "web",
+            'lottery'    => 1,
+            'controller' => 'article',
+            'action'     => 'discover'
+        ));
+        $router->add("/{lottery:(euromillions)+}/article/euromillions_rules", array(
+            "module"     => "web",
+            'lottery'    => 1,
+            'controller' => 'article',
+            'action'     => 'rules'
+        ));
+        $router->add("/{lottery:(euromillions)+}/article/euromillions_history", array(
+            "module"     => "web",
+            'lottery'    => 1,
+            'controller' => 'article',
+            'action'     => 'history'
+        ));
+        $router->add("/{lottery:(euromillions)+}/article/euromillions_prize_structure", array(
+            "module"     => "web",
+            'lottery'    => 1,
+            'controller' => 'article',
+            'action'     => 'prize'
+        ));
+
+
         $router->add("/{lottery:(euromillions)+}/results/past-results", array(
             "module"     => "web",
             'lottery'    => 1,
