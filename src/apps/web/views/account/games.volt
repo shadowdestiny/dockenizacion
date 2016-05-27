@@ -25,11 +25,11 @@
                     <div class="box info">
                         <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                         <span class="txt">
-                            {{ language.translate("You didn't play any games yet.") }} <a href="/play">{{ language.translate("Play now and start to win.") }}</a>
+                            {{ language.translate("You didn't play any games yet.") }} <a href="/{{ lottery }}/play">{{ language.translate("Play now and start to win.") }}</a>
                         </span>
                     </div>
 
-                    <a href="/play" class="no-data img">
+                    <a href="/{{ lottery }}/play" class="no-data img">
                         <div class="txt">
                             <span class="h1">
                                 {{ language.translate("Dream to Win<br>

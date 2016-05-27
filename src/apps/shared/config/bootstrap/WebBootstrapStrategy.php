@@ -88,10 +88,19 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     
     protected function configRouter()
     {
-        $router = new Phalcon\Mvc\Router();
+        $router = new Phalcon\Mvc\Router(false);
         $router->setDefaultModule('web');
 
 
+
+        $router->add(
+            "/:controller/:action",
+            array(
+                'module' => 'web',
+                "controller" => 1,
+                "action"     => 2
+            )
+        );
         $router->add('/admin/:controller/:action/:params', array(
             'module'     => 'admin',
             'controller' => 1,
@@ -116,6 +125,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             "controller" => "index",
             "action"     => "notfound"
         ));
+
+        $router->add("/ error/page404", array(
+            "module"     => "web",
+            'controller' => 'error',
+            'action'     => 'page404',
+        ));
+
 
         $router->add("/", array(
             "module"     => "web",
@@ -185,6 +201,20 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'lottery'    => 1,
             'controller' => 'cart',
             'action'     => 'login',
+        ));
+
+        $router->add("/{lottery:(euromillions)+}/result/success", array(
+            "module"     => "web",
+            'lottery'    => 1,
+            'controller' => 'result',
+            'action'     => 'success',
+        ));
+
+        $router->add("/{lottery:(euromillions)+}/result/failure", array(
+            "module"     => "web",
+            'lottery'    => 1,
+            'controller' => 'result',
+            'action'     => 'failure',
         ));
 
         $router->add("/{lottery:(euromillions)+}/results/:action", array(

@@ -72,7 +72,6 @@ class BetService
                 if($result_validation->success()) {
                     $this->betRepository->add($bet);
                     $this->entityManager->flush();
-                    $playConfig->setActive(0);
                     $this->playConfigRepository->add($playConfig);
                     $this->entityManager->flush();
                     return new ActionResult(true);
