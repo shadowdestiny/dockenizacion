@@ -36,16 +36,11 @@ class SitemapController extends ControllerBase
 
     public function indexAction()
     {
-
         $response = new Response();
-
         $expireDate = new \DateTime();
         $expireDate->modify('+1 day');
-
         $response->setExpires($expireDate);
-
         $response->setHeader('Content-Type', "application/xml; charset=UTF-8");
-
         $sitemap = new \DOMDocument("1.0", "UTF-8");
 
         $urlset = $sitemap->createElement('urlset');
@@ -74,16 +69,17 @@ class SitemapController extends ControllerBase
         }
         /** @var Article $article */
         foreach($this->articleRespository->findAll() as $article) {
-            if($article->getId() == 1) {
+
+            if((int) $article->getId() == 1) {
                 $links[] = $this->lottery.'/article/discover_your_odds_of_winning_the_euromillions';
             }
-            if($article->getId() == 2) {
+            if($article->getId() === 2) {
                 $links[] = $this->lottery.'/article/euromillions_rules';
             }
-            if($article->getId() == 3) {
+            if($article->getId() === 3) {
                 $links[] = $this->lottery.'/article/euromillions_history';
             }
-            if($article->getId() == 4) {
+            if($article->getId() === 4) {
                 $links[] = $this->lottery.'/article/euromillions_prize_structure';
             }
         }
