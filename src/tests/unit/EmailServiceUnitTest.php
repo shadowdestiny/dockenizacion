@@ -48,6 +48,7 @@ class EmailServiceUnitTest extends UnitTestBase
         $sut->sendPasswordResetMail($user, $url);
     }
 
+
     /**
      * @return \EuroMillions\web\services\EmailService
      */

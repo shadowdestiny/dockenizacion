@@ -305,6 +305,11 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action'     => 'index'
         ));
 
+        $router->add("/contact", array(
+            "module"     => "web",
+            'controller' => 'contact',
+            'action'     => 'index'
+        ));
 
 //        $router->setDefaults(array(
 //            "module"     => "web",

@@ -83,16 +83,39 @@ class EmailService
      */
     public function sendContactRequest(ContactFormInfo $contactFormInfo)
     {
-        $content = <<<EOF
-        New contact request from: {$contactFormInfo->getFullName()} ({$contactFormInfo->getEmail()})
+        $vars = [
+            'template' => '625282',
+            'subject' => 'Your password in Euromillions.com has been changed',
+            'vars' =>
+                [
+                    [
+                        'name'    => 'main',
+                        'content' => 'New contact request from:'.$contactFormInfo->getFullName() . ' ' . $contactFormInfo->getEmail() .'
         <br>
-        Content: {$contactFormInfo->getContent()}
-EOF;
-        $this->sendMailToContactService(
-            'Contact request',
-            $contactFormInfo->getTopic(),
-            $content
+        Content:  '. $contactFormInfo->getContent() .''
+                    ],
+                ]
+        ];
+        $obj = new \stdClass();
+        foreach($vars['vars'] as $var) {
+            $obj->{$var['name']} = $var['content'];
+        }
+
+        $this->mailServiceApi->sendPostMarkEmail(
+            $vars['template'],
+            $obj,
+            true,
+            $this->mailConfig['from_address'],
+            $this->mailConfig['from_address']
         );
+
+//        $content = <<<EOF
+//EOF;
+//        $this->sendMailToContactService(
+//            'Contact request',
+//            $contactFormInfo->getTopic(),
+//            $content
+//        );
     }
 
     public function sendLog($name, $type, $message, $time)
