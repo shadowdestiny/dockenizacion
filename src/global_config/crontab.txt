@@ -1,2 +1,4 @@
 30 * * * * php /var/www/apps/cli.php jackpot update
 35 * * * * php /var/www/apps/cli.php result update
+30 00 * * 2,5 php /var/www/apps/cli.php latestresult resultsReminderWhenPlayed
+00 10 * * 2,5 php /var/www/apps/cli.php jackpot reminderJackpot

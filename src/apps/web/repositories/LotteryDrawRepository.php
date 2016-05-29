@@ -109,8 +109,7 @@ class LotteryDrawRepository extends EntityRepository
         if (!$date) {
             $date = new \DateTime();
         }
-        $draw_date = $lottery->getLastDrawDate($date);
-        return $this->getBreakDown($lottery, $draw_date);
+        return $this->getBreakDown($lottery, $date);
 
 
     }

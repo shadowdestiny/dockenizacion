@@ -318,7 +318,7 @@ class LotteryService
         /** @var User $user */
         foreach($users as $user) {
             $hasNotification = $this->userNotificationsService->hasNotificationActive($notificationResultsStrategy, $user);
-            if ($hasNotification === 1) {
+            if ($hasNotification->getValue() == 1) {
                 $this->emailService->sendTransactionalEmail($user, $emailTemplate);
             }
         }

@@ -17,7 +17,7 @@ class NumbersController extends PublicSiteControllerBase
     {
         $date = $this->request->get('date');
         $lotteryName = 'EuroMillions';
-        $date = empty($date) ? new \DateTime() : new \DateTime($date);
+        $date = empty($date) ? $this->lotteryService->getLastDrawDate('EuroMillions') : new \DateTime($date);
         $result = $this->lotteryService->getDrawsDTO($lotteryName);
         $draw_result = $this->lotteryService->getLastDrawWithBreakDownByDate($lotteryName,$date);
         if(!$result->success()) {
