@@ -158,7 +158,7 @@
                                 </table>
                             </div>
                             <div class="cols bottom">
-                                <a href="/euromillions/results/past-results" class="btn  green big wide ui-link">Back to Results List</a>
+                                <a href="/euromillions/results/draw-history-page" class="btn  green big wide ui-link">Back to Results List</a>
                             </div>
                         </div>
                         <div class="col4">
