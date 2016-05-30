@@ -49,9 +49,9 @@
             </div>
         {% endblock %}
 
-        <div class="ending">
-            {{ language.translate("The draw will close in 30 minutes.") }}
-        </div>
+        {#<div class="ending">#}
+            {#{{ language.translate("The draw will close in 30 minutes.") }}#}
+        {#</div>#}
 
         <svg>
             {# Chrome need this #}
