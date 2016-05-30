@@ -2,6 +2,7 @@
 namespace EuroMillions\web\controllers;
 
 use EuroMillions\web\components\DateTimeUtil;
+use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
 use Money\Currency;
 
@@ -27,6 +28,7 @@ class PlayController extends PublicSiteControllerBase
             $single_bet_price_currency  = $this->currencyConversionService->convert($single_bet_price, new Currency($user->getUserCurrency()->getName()));
         }
         $currency_symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
+        $this->tag->prependTitle('Play Euromillions - Jackpot: ' . ViewHelper::formatJackpotNoCents($jackpot) );
 
         return $this->view->setVars([
             'jackpot_value' => $jackpot,

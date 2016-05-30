@@ -24,7 +24,7 @@ class ControllerBase extends Controller
     public function initialize()
     {
         $this->domainServiceFactory = $this->di->get('domainServiceFactory');
-        $this->tag->prependTitle('EuroMillions.com | ');
+        $this->tag->setTitle(' | EuroMillions.com');
     }
 
     protected function noRender()

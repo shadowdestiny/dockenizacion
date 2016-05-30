@@ -29,6 +29,9 @@ class NumbersController extends PublicSiteControllerBase
         $euroMillionsDraw = $draw_result->getValues();
         $breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
+
+        $this->tag->prependTitle('EuroMillions Results of ' . $date->format('l, d/m/Y'));
+
         return $this->view->setVars([
             'break_downs' => !empty($break_down_list) ? $break_down_list : '',
             'id_draw' => $euroMillionsDraw->getId(),
