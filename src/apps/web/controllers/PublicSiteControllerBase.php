@@ -101,7 +101,7 @@ class PublicSiteControllerBase extends ControllerBase
         ];
 
         if(!in_array($dispatcher->getControllerName(),$controller_not_referer, false)) {
-            $this->session->set('original_referer','/'.$dispatcher->getControllerName().'/'.$dispatcher->getActionName());
+            $this->session->set('original_referer',$this->router->getRewriteUri());
         }
         //To avoid clickjacking, add it in ngnix configuration
         $this->response->setHeader('X-Frame-Options','SAMEORIGIN');
