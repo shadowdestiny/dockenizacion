@@ -3,7 +3,7 @@
 
 namespace EuroMillions\web\controllers;
 
-
+use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use Money\Currency;
@@ -30,7 +30,8 @@ class NumbersController extends PublicSiteControllerBase
         $breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
 
-        $this->tag->prependTitle('EuroMillions Results of ' . $date->format('l, d/m/Y'));
+        $this->tag->prependTitle('Euromillions Results & Winning Numbers');
+	MetaDescriptionTag::setDescription('Check the EuroMillions results and prize breakdown. Follow each EuroMillions draw and find out if you are the fortunate winner of a big jackpot prize!'); 
 
         return $this->view->setVars([
             'break_downs' => !empty($break_down_list) ? $break_down_list : '',
@@ -53,6 +54,9 @@ class NumbersController extends PublicSiteControllerBase
                 'error' => $result->errorMessage()
             ]);
         }
+
+	$this->tag->prependTitle('EuroMillions Draw History');
+	MetaDescriptionTag::setDescription('Find the results and prize breakdown of any draw since in EuroMillions Lottery History!');
 
         $this->view->pick('/numbers/past');
         return $this->view->setVars([
@@ -77,6 +81,9 @@ class NumbersController extends PublicSiteControllerBase
         $euroMillionsDraw = $draw_result->getValues();
         $breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
+
+	$this->tag->prependTitle('EuroMillions Results of ' . $date->format('l, d/m/Y'));
+	MetaDescriptionTag::setDescription('Check the latest EuroMillions results and prize breakdown and find out if you are the fortunate winner of a big lottery jackpot prize!');
 
         $this->view->pick('/numbers/past-draw');
         return $this->view->setVars([

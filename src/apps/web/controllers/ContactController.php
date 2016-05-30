@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\GuestContactForm;
 use EuroMillions\web\vo\ContactFormInfo;
@@ -61,6 +62,10 @@ class ContactController extends PublicSiteControllerBase
             }
         }
         $this->view->pick('contact/index');
+
+	$this->tag->prependTitle('Contact Us');
+	MetaDescriptionTag::setDescription('Contact the official EuroMillions.com. We are always happy to answer your questions.');
+
         return $this->view->setVars([
             'form_errors' => $form_errors,
             'errors' => $errors,
