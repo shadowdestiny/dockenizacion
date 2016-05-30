@@ -1,6 +1,6 @@
-30 * * * * php /var/www/apps/cli.php jackpot update
-35 * * * * php /var/www/apps/cli.php result update
+30 * * * * /usr/bin/php /var/www/apps/cli.php jackpot update
+35 * * * * /usr/bin/php /var/www/apps/cli.php result update
 */5 * * * * /usr/bin/php /var/www/apps/cli.php latestresult resultsReminderWhenPlayed > /tmp/any_name.log  2>&1
-*/6 * * * * /usr/bin/php /var/www/apps/cli.php jackpot reminderJackpot > /tmp/any_name.log  2>&1
+*/6 * * * * /usr/bin/php /var/www/apps/cli.php jackpot reminderJackpot > /tmp/any_name2.log  2>&1
 #30 00 * * 2,5 php /var/www/apps/cli.php latestresult resultsReminderWhenPlayed
 #00 10 * * 2,5 php /var/www/apps/cli.php jackpot reminderJackpot

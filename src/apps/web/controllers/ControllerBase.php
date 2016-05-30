@@ -5,6 +5,7 @@ use EuroMillions\shared\dto\RestrictedAccessConfig;
 use EuroMillions\shared\components\restrictedAccessStrategies\RestrictionByIpAndHttpAuth;
 use EuroMillions\shared\components\RestrictedAccess;
 use EuroMillions\shared\vo\HttpUser;
+use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\AuthService;
 use EuroMillions\web\services\factories\DomainServiceFactory;
@@ -20,6 +21,8 @@ class ControllerBase extends Controller
 {
     /** @var  DomainServiceFactory */
     protected $domainServiceFactory;
+
+    protected $metaTag;
 
     public function initialize()
     {

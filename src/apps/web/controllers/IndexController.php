@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\components\ViewHelper;
 use Phalcon\Di;
 
@@ -20,6 +21,7 @@ class IndexController  extends PublicSiteControllerBase
         $this->view->setVar('date_to_draw', $date_next_draw->format('Y-m-d H:i:s'));
         $this->view->setVar('last_draw_date', $last_draw_date->format('l, F j, Y'));
         $this->tag->prependTitle('Play Euromillions & Check the Results');
+        MetaDescriptionTag::setDescription('Play EuroMillions online at the best price on the official website of EuroMillions.com! Play and check Euro millions results of Europe\'s biggest lottery.');
     }
 
     public function notfoundAction()
