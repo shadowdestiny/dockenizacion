@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
@@ -29,6 +30,7 @@ class PlayController extends PublicSiteControllerBase
         }
         $currency_symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
         $this->tag->prependTitle('Play Euromillions - Jackpot: ' . ViewHelper::formatJackpotNoCents($jackpot) );
+	MetaDescriptionTag::setDescription('Play the EuroMillions Lottery worldwide on the official website of EuroMillions.com and become our next EuroMillionaire!');
 
         return $this->view->setVars([
             'jackpot_value' => $jackpot,
