@@ -56,7 +56,7 @@ class LatestResultReminderTaskCest
         $I->haveInDatabase('euromillions_draws', $draw->toArray());
         $I->haveInDatabase('play_configs', $playConfig->toArray());
         $I->wantTo('Send email reminder with results');
-        $I->runShellCommand('php '.__DIR__.'/../../apps/cli-test.php latestresult resultsReminderWhenPlayed 2016-04-23');
+        $I->runShellCommand('php '.__DIR__.'/../../apps/cli-test.php latestresult resultsReminderWhenPlayed 2016-04-22');
     }
 
 }

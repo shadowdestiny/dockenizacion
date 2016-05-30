@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\web\tasks;
 
+use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\factories\DomainServiceFactory;
@@ -30,15 +31,17 @@ class AwardprizesTask extends TaskBase
 
     public function checkoutAction($args = 'now')
     {
-        $today = new \DateTime($args[0]);
-        if (!$today) {
-            $today = new \DateTime();
+
+        if(null != $args) {
+            $drawDate = new \DateTime($args[0]);
+        } else {
+            /** @var EuroMillionsDraw $draw */
+            $drawDate = $this->lotteryService->getLastDrawDate('EuroMillions');
         }
         $lottery_name = 'EuroMillions';
-        $draw_date = $this->lotteryService->getLastDrawDate($lottery_name, $today);
-        $play_configs_result_awarded = $this->PrizeCheckoutService->playConfigsWithBetsAwarded($draw_date);
+        $play_configs_result_awarded = $this->PrizeCheckoutService->playConfigsWithBetsAwarded($drawDate);
         //get breakdown
-        $result_breakdown = $this->lotteryService->getLastDrawWithBreakDownByDate($lottery_name, $today);
+        $result_breakdown = $this->lotteryService->getLastDrawWithBreakDownByDate($lottery_name, $drawDate);
         if ($result_breakdown->success() && $play_configs_result_awarded->success()) {
             /** @var EuroMillionsDrawBreakDown $euromillions_breakDown */
             $euromillions_breakDown = $result_breakdown->getValues()->getBreakDown();
