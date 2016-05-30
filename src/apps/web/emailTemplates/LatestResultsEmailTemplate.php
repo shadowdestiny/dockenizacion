@@ -35,7 +35,7 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
                         'content' => $this->getBreakDownList()
                     ],
                     [
-                        'name'    => 'jackpot',
+                        'name'    => 'jackpot_amount',
                         'content' => $jackpot
                     ],
                     [
