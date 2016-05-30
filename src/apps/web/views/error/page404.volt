@@ -36,12 +36,12 @@
         <div class="wrapper">
             <h2 class="h1 title2">{{ language.translate("Or maybe you were looking for") }}</h2>
             <ul class="no-li cl h3">
-                <li><a href="/play">{{ language.translate("Playing the Lottery") }}</a></li>
-                <li><a href="/numbers">{{ language.translate("Draw History") }}</a></li>
-                <li><a href="/faq">{{ language.translate("Asking for help") }}</a></li>
-                <li><a href="/help">{{ language.translate("How to Play Lotto") }}</a></li>
-                <li><a href="/index#about-us">{{ language.translate("About Euromillions") }}</a></li>
-                <li><a href="/contact">{{ language.translate("Contact us") }}</a></li>
+                <li><a href="/{{ lottery }}/play">{{ language.translate("Playing the Lottery") }}</a></li>
+                <li><a href="/{{ lottery }}/numbers">{{ language.translate("Draw History") }}</a></li>
+                <li><a href="/{{ lottery }}/faq">{{ language.translate("Asking for help") }}</a></li>
+                <li><a href="/{{ lottery }}/help">{{ language.translate("How to Play Lotto") }}</a></li>
+                <li><a href="/{{ lottery }}/index#about-us">{{ language.translate("About Euromillions") }}</a></li>
+                <li><a href="/{{ lottery }}/contact">{{ language.translate("Contact us") }}</a></li>
             </ul>
         </div>
     </div>
