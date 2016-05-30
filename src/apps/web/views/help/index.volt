@@ -85,17 +85,17 @@
                     <div class="questions">
                         <h3 class="h4">{{ language.translate("Euromillions Basics") }}</h2>
                         <ul class="no-li">
-                            <li><a href="/faq#n01">{{ language.translate("What is the Euromillions lottery?") }}</a></li>
-                            <li><a href="/faq#n02">{{ language.translate("What is Euromillions.com?") }}</a></li>
-                            <li><a href="/faq#n03">{{ language.translate("How do I play?") }}</a></li>
-                            <li><a href="/faq#n04">{{ language.translate("What time is the draw?") }}</a></li>
-                            <li><a href="/faq#n05">{{ language.translate("How do I know that I won?") }}</a></li> 
-                            <li><a href="/faq#n06">{{ language.translate("When the Draw results are released?") }}</a></li>
-                            <li><a href="/faq#n07">{{ language.translate("What is the Prize Breakdown?") }}</a></li>
-                            <li><a href="/faq#n08">{{ language.translate("What is the minimum guaranteed jackpot?") }}</a></li>
-                            <li><a href="/faq#n09">{{ language.translate("What is a Superdraw?") }}</a></li>
-                            <li><a href="/faq#n11">{{ language.translate("How can I participate in a future draw?") }}</a></li>
-                            <li><a href="/faq#n13">{{ language.translate("How do I make a bet with multiple numbers in a line?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n01">{{ language.translate("What is the Euromillions lottery?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n02">{{ language.translate("What is Euromillions.com?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n03">{{ language.translate("How do I play?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n04">{{ language.translate("What time is the draw?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n05">{{ language.translate("How do I know that I won?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n06">{{ language.translate("When the Draw results are released?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n07">{{ language.translate("What is the Prize Breakdown?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n08">{{ language.translate("What is the minimum guaranteed jackpot?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n09">{{ language.translate("What is a Superdraw?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n11">{{ language.translate("How can I participate in a future draw?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n13">{{ language.translate("How do I make a bet with multiple numbers in a line?") }}</a></li>
                         </ul>
 
 {#
@@ -107,33 +107,33 @@
 #}
                        <h3 class="h4">{{ language.translate("Winnings") }}</h2>
                         <ul class="no-li">
-                            <li><a href="/faq#n14">{{ language.translate("How do I know if I have won a prize?") }}</a></li>
-                            <li><a href="/faq#n15">{{ language.translate("How do I claim a prize?") }}</a></li>
-                            <li><a href="/faq#n16">{{ language.translate("Are winnings on the Euromillions taxable?") }}</a></li>
-                            <li><a href="/faq#n17">{{ language.translate("What are the odds of winning?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n14">{{ language.translate("How do I know if I have won a prize?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n15">{{ language.translate("How do I claim a prize?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n16">{{ language.translate("Are winnings on the Euromillions taxable?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n17">{{ language.translate("What are the odds of winning?") }}</a></li>
                         </ul>
 
                         <h3 class="h4">{{ language.translate("Account and Billings") }}</h2>
                         <ul class="no-li">
-                            <li><a href="/faq#n18">{{ language.translate("How much does a Euromillions ticket cost?") }}</a></li>
-                            <li><a href="/faq#n19">{{ language.translate("What payment options and currency are accepted?") }}</a></li>
-                            <li><a href="/faq#n20">{{ language.translate("What time do ticket sales close?") }}</a></li>
-                            <li><a href="/faq#n21">{{ language.translate("Does the Euromillions have a jackpot cap?") }}</a></li> 
-                            <li><a href="/faq#n22">{{ language.translate("How do I track my past played games?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n18">{{ language.translate("How much does a Euromillions ticket cost?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n19">{{ language.translate("What payment options and currency are accepted?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n20">{{ language.translate("What time do ticket sales close?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n21">{{ language.translate("Does the Euromillions have a jackpot cap?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n22">{{ language.translate("How do I track my past played games?") }}</a></li>
                         </ul>
 
                         <h3 class="h4">{{ language.translate("Troubleshootings") }}</h2>
                         <ul class="no-li">
-                            <li><a href="/faq#n23">{{ language.translate("What should I do if I am experiencing technical problems?") }}</a></li>
-                            <li><a href="/faq#n24">{{ language.translate("I have forgotten my password and I cannot login. What do I do?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n23">{{ language.translate("What should I do if I am experiencing technical problems?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n24">{{ language.translate("I have forgotten my password and I cannot login. What do I do?") }}</a></li>
 {#                            <li><a href="/faq#n25">{{ language.translate("How do I edit or delete a Subscription?") }}</a></li> #}
-                            <li><a href="/faq#n26">{{ language.translate("How I can disable emails notifications?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n26">{{ language.translate("How I can disable emails notifications?") }}</a></li>
                         </ul>
 
                         <h3 class="h4">{{ language.translate("Legal") }}</h2>
                         <ul class="no-li">
-                            <li><a href="/faq#n27">{{ language.translate("Can I play on Euromillions from any country") }}</a></li>
-                            <li><a href="/faq#n28">{{ language.translate("Is there a minimum age limit for playing?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n27">{{ language.translate("Can I play on Euromillions from any country") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n28">{{ language.translate("Is there a minimum age limit for playing?") }}</a></li>
                         </ul>
                     </div>
                 </div>
