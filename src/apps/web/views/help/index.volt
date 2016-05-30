@@ -29,7 +29,7 @@
                             </div>
                             <div class="content">
                                 <h3 class="li-title">{{ language.translate("Choose your numbers") }}</h3>
-                                {{ language.translate("Complete a Euromillions play slip by selecting <em>five</em> main numbers from 1 to 45 and <em>two</em> Lucky Stars from 1 to 11. Alternatively, click on") }} <div class='sample btn gwy'><svg class="ico v-shuffle"><use xlink:href="/w/svg/icon.svg#v-shuffle"/></svg></div> or <div class='sample btn bwb'>{{ language.translate("Randomize all lines") }} <svg class="ico v-shuffle"><use xlink:href="/w/svg/icon.svg#v-shuffle"/></svg></div> {{ language.translate("to generate a random selection of numbers.") }}
+                                {{ language.translate("Complete a Euromillions play slip by selecting <em>five</em> main numbers from 1 to 50 and <em>two</em> Lucky Stars from 1 to 11. Alternatively, click on") }} <div class='sample btn gwy'><svg class="ico v-shuffle"><use xlink:href="/w/svg/icon.svg#v-shuffle"/></svg></div> or <div class='sample btn bwb'>{{ language.translate("Randomize all lines") }} <svg class="ico v-shuffle"><use xlink:href="/w/svg/icon.svg#v-shuffle"/></svg></div> {{ language.translate("to generate a random selection of numbers.") }}
                             </div>
                         </li>
                         <li class="slip cl">
@@ -38,16 +38,7 @@
                             </div>
                             <div class="content">
                                 <h3 class="li-title">{{ language.translate("Play slips") }}</h3>
-                                {{ language.translate("There are 6 lines per play slip (or less if you access from a mobile device). To play further lines, click on") }} <div class='sample btn gwg'>{{ language.translate("Add more lines") }} <svg class="ico v-shuffle"><use xlink:href="/w/svg/icon.svg#v-shuffle"/></svg></div> {{ language.translate("whereby more play slips will appear.") }}
-                            </div>
-                        </li>
-                       <li class="duration cl">
-                           <div class="box-ico">
-                                <svg class="ico v-clock"><use xlink:href="/w/svg/icon.svg#v-clock"></use></svg>
-                            </div>
-                            <div class="content">
-                                <h3 class="li-title">{{ language.translate("Select a draw") }}</h3>
-                                {{ language.translate("You can buy a ticket for up to 12 draws in advance. Do this using the Buy for Draw option under your selected lines.") }}
+                                {{ language.translate("There are 6 lines per play slip on standard PC or laptop screens (or less if you access from a smaller screen, mobile or tablet). To add more lines, click on") }} <div class='sample btn gwg'>{{ language.translate("Add more lines") }} <svg class="ico v-shuffle"><use xlink:href="/w/svg/icon.svg#v-shuffle"/></svg></div> {{ language.translate("whereby more play slips will appear.") }}
                             </div>
                         </li>
                         <li class="cart cl">
@@ -65,7 +56,7 @@
                             </div>
                             <div class="content">
                                 <h3 class="li-title">{{ language.translate("Order Confirmation") }}</h3>
-                                {{ language.translate("On completion of payment you will receive a message on the website confirming that the numbers you have played and the draws you have entered. You can see all the lines and tickets you have purchased at any time in your player account.") }}
+                                {{ language.translate("On completion of payment you will receive a message on the website confirming that the numbers you have played and the draw you have entered. You can see all the lines and tickets you have purchased at any time in your player account.") }}
                             </div>
                         </li>
                         <li class="notify cl">
@@ -157,7 +148,7 @@
                             </li>
                             <li>
                                 <h3 class="li-title">{{ language.translate("2. Play Slip") }}</h3>
-                                {{ language.translate("There are 6 lines per play slip (or less if you access from a mobile device). To play further lines, click on “add additional lines” whereby more play slips will appear.") }}
+                                {{ language.translate('There are 6 lines per play slip o n standard PC or laptop screens (or less if you access from a smaller screen, mobile or tablet). To add more lines, click on “add additional lines” whereby more play slips will appear.') }}
                             </li>
                             <li>
                                  <h3 class="li-title">{{ language.translate("3. Duration") }}</h3>

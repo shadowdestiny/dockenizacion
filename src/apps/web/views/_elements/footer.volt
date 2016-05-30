@@ -16,6 +16,7 @@
 				<strong>{{ language.translate('Winning Numbers') }}</strong>
 				<ul>
 					<li><a href="/{{ lottery }}/results">{{ language.translate('Latest Results') }}</a></li>
+					<li><a href="/{{ lottery }}/results/draw-history-page">{{ language.translate('Draw History') }}</a></li>
 				</ul>
 			</div>
 			<div class="col20per">
@@ -38,7 +39,6 @@
 				<ul>
 					<li><a href="/{{ lottery }}/help">{{ language.translate('How to Play') }}</a></li>
 					<li><a href="/{{ lottery }}/faq">{{ language.translate('Frequently Asked Questions') }}</a></li>
-					<li><a href="">{{ language.translate('Player Protection') }}</a></li>
 					<li><a href="/contact/">{{ language.translate('Contact us') }}</a></li>
 				</ul>
 			</div>
