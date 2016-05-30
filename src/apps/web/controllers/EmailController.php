@@ -26,7 +26,7 @@ use EuroMillions\web\vo\Url;
 use Money\Currency;
 use Money\Money;
 
-class EmailTestController extends PublicSiteControllerBase
+class EmailController extends PublicSiteControllerBase
 {
 
     /** @var  User  */
@@ -54,12 +54,11 @@ class EmailTestController extends PublicSiteControllerBase
 
     public function indexAction()
     {
-
+        $this->view->pick('email-test/index');
     }
 
     public function sendAction()
     {
-
         $userEmail = $this->request->getPost('user-email');
         $template = $this->request->getPost('template');
         if(!empty($userEmail))
