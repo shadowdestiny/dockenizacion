@@ -140,7 +140,7 @@ class PlayService
                         $result_payment = new ActionResult(true,$order);
                     }
 
-                    if( count($order->getPlayConfig()) > 0 ) {
+                    if( count($order->getPlayConfig()) > 0  && $result_payment->success()) {
                         //EMTD be careful now, set explicity lottery, but it should come inform on playconfig entity
                         /** @var PlayConfig $play_config */
                         foreach( $order->getPlayConfig() as $play_config ) {
