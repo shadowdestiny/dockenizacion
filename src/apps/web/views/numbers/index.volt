@@ -183,7 +183,7 @@ $(function(){
 								</thead>
 								<tbody>
 								{% for i,draw in list_draws %}
-										<tr style="cursor: pointer" onclick="document.location='/{{ lottery }}/results/past-results/{{ draw.drawDateParam }}'">
+										<tr style="cursor: pointer" onclick="document.location='/{{ lottery }}/results/draw-history-page/{{ draw.drawDateParam }}'">
 												<td class="td-date">{{ draw.drawDate }}</td>
 												<td class="td-ball-numbers">{{ draw.regularNumbers }}</td>
 												<td class="td-star-numbers">{{ draw.luckyNumbers }}</td>
@@ -192,7 +192,7 @@ $(function(){
 								</tbody>
 							</table>
 							<div class="box-action">
-								<a href="/euromillions/results/past-results" class="btn  green big wide ui-link">Show more past results</a>
+								<a href="/euromillions/results/draw-history-page" class="btn  green big wide ui-link">Show more past results</a>
 							</div>
 						</div>
 					</div>

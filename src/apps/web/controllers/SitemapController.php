@@ -52,7 +52,7 @@ class SitemapController extends ControllerBase
         //EMTD when will have more lotteries we should have notice for iterate over them
         $links = array(
             $this->lottery.'/results',
-            $this->lottery.'/results/past-results',
+            $this->lottery.'/results/draw-history-page',
             $this->lottery.'/play',
             $this->lottery.'/help',
             $this->lottery.'/faq',
@@ -65,7 +65,7 @@ class SitemapController extends ControllerBase
         );
         /** @var EuroMillionsDraw $lotteryDraw */
         foreach($this->lotteryDrawRepository->findAll() as $lotteryDraw) {
-            $links[] = $this->lottery.'/results/past-results/'.$lotteryDraw->getDrawDate()->format('Y-m-d');
+            $links[] = $this->lottery.'/results/draw-history-page/'.$lotteryDraw->getDrawDate()->format('Y-m-d');
         }
         /** @var Article $article */
         foreach($this->articleRespository->findAll() as $article) {

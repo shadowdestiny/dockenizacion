@@ -68,7 +68,7 @@
                                     </thead>
                                     <tbody>
                                     {% for i,draw in list_draws %}
-                                        <tr style="cursor: pointer" onclick="document.location='/{{ lottery }}/results/past-results/{{ draw.drawDateParam }}'">
+                                        <tr style="cursor: pointer" onclick="document.location='/{{ lottery }}/results/draw-history-page/{{ draw.drawDateParam }}'">
                                             <td class="td-date">{{ draw.drawDate }}</td>
                                             <td class="td-ball-numbers">{{ draw.regularNumbers }}</td>
                                             <td class="td-star-numbers">{{ draw.luckyNumbers }}</td>

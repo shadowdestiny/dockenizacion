@@ -231,7 +231,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action'     => 2
         ));
 
-        $router->add("/{lottery:(euromillions)+}/results/past-results/:params", array(
+        $router->add("/{lottery:(euromillions)+}/results/draw-history-page/:params", array(
             "module"     => "web",
             'lottery'    => 1,
             'controller' => 'numbers',
@@ -264,8 +264,29 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action'     => 'prize'
         ));
 
+        $router->add("/{lottery:(euromillions)+}/news", array(
+            "module"     => "web",
+            'lottery'    => 1,
+            'controller' => 'news',
+            'action'     => 'index'
+        ));
 
-        $router->add("/{lottery:(euromillions)+}/results/past-results", array(
+        $router->add("/{lottery:(euromillions)+}/es", array(
+            "module"     => "web",
+            'lottery'    => 1,
+            'controller' => 'news',
+            'action'     => 'es'
+        ));
+
+        $router->add("/{lottery:(euromillions)+}/de", array(
+            "module"     => "web",
+            'lottery'    => 1,
+            'controller' => 'news',
+            'action'     => 'de'
+        ));
+
+
+        $router->add("/{lottery:(euromillions)+}/results/draw-history-page", array(
             "module"     => "web",
             'lottery'    => 1,
             'controller' => 'numbers',
