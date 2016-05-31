@@ -190,7 +190,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $router->add("/forgotPassword", array(
             "module"     => "web",
             'controller' => 'user-access',
-            'action'     => 'passwordReset'
+            'action'     => 'forgotPassword'
         ));
 
         $router->add("/{lottery:(euromillions)+}/cart/profile", array(

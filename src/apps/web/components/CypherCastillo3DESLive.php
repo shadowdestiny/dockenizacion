@@ -55,11 +55,6 @@ class CypherCastillo3DESLive implements ICypherStrategy
             $clear_data = str_replace(str_repeat(chr(8), 8), '', $clear_data);
             $clear_data = str_replace(chr(0), '', $clear_data);
 
-            if($key == 0){
-                var_dump($clear_data);
-            }
-
-
             return ($clear_data);
         }
 
