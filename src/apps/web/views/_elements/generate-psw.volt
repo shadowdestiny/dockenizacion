@@ -31,7 +31,7 @@
                 <div class="box info">
                     <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                     <span class="txt">
-                        {{ language.translate("Use a long password (at least 8 letters) made up of numbers, uppercase and lowercase letters. The longer your password is, the harder it is to guess. So make your password long to help keep your information safe.") }}
+                        {{ language.translate("Use a long password of at least 6 characters. Ideally it should  made up of numbers, uppercase and lowercase letters. The longer your password is, the harder it is to guess. So make your password long to help keep your information safe.") }}
                     </span>
                 </div>
             </div>
