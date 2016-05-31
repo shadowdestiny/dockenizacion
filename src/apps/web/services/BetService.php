@@ -4,6 +4,7 @@ namespace EuroMillions\web\services;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\components\CypherCastillo3DES;
+use EuroMillions\web\components\CypherCastillo3DESLive;
 use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\LogValidationApi;
@@ -52,13 +53,14 @@ class BetService
         $user = $this->userRepository->find($playConfig->getUser()->getId());
         $single_bet_price = $euroMillionsDraw->getLottery()->getSingleBetPrice();
         if($user->getBalance()->getAmount() >= $single_bet_price->getAmount()) {
-            $result = $this->betRepository->getBetsByDrawDate($dateNextDraw);
+            $di = \Phalcon\Di::getDefault();
+            $cypher = $di->get('environmentDetector') != 'production' ? new CypherCastillo3DES() : new CypherCastillo3DESLive();
             try{
                 $bet = new Bet($playConfig,$euroMillionsDraw);
                 $castillo_key = CastilloCypherKey::create();
                 $castillo_ticket = CastilloTicketId::create();
                 $bet->setCastilloBet($castillo_ticket);
-                $result_validation = $lotteryValidation->validateBet($bet,new CypherCastillo3DES(),$castillo_key,$castillo_ticket,$dateNextDraw, $bet->getPlayConfig()->getLine());
+                $result_validation = $lotteryValidation->validateBet($bet,$cypher,$castillo_key,$castillo_ticket,$dateNextDraw, $bet->getPlayConfig()->getLine());
                 $log_api_reponse = new LogValidationApi();
                 $log_api_reponse->initialize([
                     'id_provider' => 1,
