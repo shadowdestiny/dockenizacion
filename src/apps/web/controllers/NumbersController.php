@@ -4,6 +4,7 @@
 namespace EuroMillions\web\controllers;
 
 use EuroMillions\web\components\tags\MetaDescriptionTag;
+use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use Money\Currency;
@@ -36,7 +37,7 @@ class NumbersController extends PublicSiteControllerBase
         return $this->view->setVars([
             'break_downs' => !empty($break_down_list) ? $break_down_list : '',
             'id_draw' => $euroMillionsDraw->getId(),
-            'jackpot_value' =>$this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions')),
+            'jackpot_value' => ViewHelper::formatJackpotNoCents($this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions'))),
             'last_result' => ['regular_numbers' => $euroMillionsDraw->getResult()->getRegularNumbersArray(), 'lucky_numbers' => $euroMillionsDraw->getResult()->getLuckyNumbersArray() ],
             'date_draw' =>  $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->format('Y-m-d H:i:s'),
             'last_draw_date' => $euroMillionsDraw->getDrawDate()->format('D, d M Y'),
