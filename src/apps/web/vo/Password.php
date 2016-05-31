@@ -21,27 +21,6 @@ class Password extends StringLiteral
         parent::__construct($this->passwordHasher->hashPassword($value));
     }
 
-    private function assertHasNumbers($string)
-    {
-        if (preg_match('/[0-9]/', $string) !== 1) {
-            throw new \InvalidArgumentException(get_class($this) . ' must have numbers');
-        }
-    }
-
-    private function assertHasLowercaseChars($string)
-    {
-        if (preg_match('/[a-z]/', $string) !== 1) {
-            throw new \InvalidArgumentException(get_class($this) . ' must have a lowercase letter');
-        }
-    }
-
-    private function assertHasUppercaseChars($string)
-    {
-        if (preg_match('/[A-Z]/', $string) !== 1) {
-            throw new \InvalidArgumentException(get_class($this) . ' must have an uppercase letter');
-        }
-    }
-
     /**
      * @param Password $password
      * @return bool

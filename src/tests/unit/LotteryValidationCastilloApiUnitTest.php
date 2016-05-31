@@ -45,6 +45,8 @@ class LotteryValidationCastilloApiUnitTest extends UnitTestBase
         $this->curlWrapper_double->post('https://www.loteriacastillo.com/euromillions/')->shouldBeCalled();
         $this->curlWrapper_double->setOption(CURLOPT_SSL_VERIFYPEER,0)->shouldBeCalled();
         $this->curlWrapper_double->setOption(CURLOPT_POSTFIELDS,$xml)->shouldBeCalled();
+        $this->curlWrapper_double->setOption(CURLOPT_RETURNTRANSFER,1)->shouldBeCalled();
+        $this->curlWrapper_double->setOption(CURLOPT_POST,1)->shouldBeCalled();
         $this->exerciseValidate($bet,$castilloCypherKey);
     }
 
@@ -100,6 +102,9 @@ class LotteryValidationCastilloApiUnitTest extends UnitTestBase
         $this->curlWrapper_double->post('https://www.loteriacastillo.com/euromillions/')->shouldBeCalled();
         $this->curlWrapper_double->setOption(CURLOPT_SSL_VERIFYPEER,0)->shouldBeCalled();
         $this->curlWrapper_double->setOption(CURLOPT_POSTFIELDS,$xml)->shouldBeCalled();
+        $this->curlWrapper_double->setOption(CURLOPT_RETURNTRANSFER,1)->shouldBeCalled();
+        $this->curlWrapper_double->setOption(CURLOPT_POST,1)->shouldBeCalled();
+
         $this->exerciseValidate($bet,$castilloCypherKey);
 
     }
@@ -129,6 +134,9 @@ class LotteryValidationCastilloApiUnitTest extends UnitTestBase
     {
         $this->curlWrapper_double->setOption(CURLOPT_POSTFIELDS, Argument::type('string'))->willReturn(null);
         $this->curlWrapper_double->setOption(CURLOPT_SSL_VERIFYPEER, 0)->willReturn(null);
+        $this->curlWrapper_double->setOption(CURLOPT_RETURNTRANSFER,1)->willReturn(null);
+        $this->curlWrapper_double->setOption(CURLOPT_POST,1)->willReturn(null);
+
     }
 
     /**

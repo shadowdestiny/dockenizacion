@@ -54,6 +54,12 @@ class CypherCastillo3DESLive implements ICypherStrategy
             mcrypt_module_close($td);
             $clear_data = str_replace(str_repeat(chr(8), 8), '', $clear_data);
             $clear_data = str_replace(chr(0), '', $clear_data);
+
+            if($key == 0){
+                var_dump($clear_data);
+            }
+
+
             return ($clear_data);
         }
 
@@ -68,19 +74,17 @@ class CypherCastillo3DESLive implements ICypherStrategy
 
     private function getKeys($key)
     {
-        $dia_keys = [];
-        $dia_keys[0] = bin2hex('Kjsnk29JKDl2+adMJSD323as');
-        $dia_keys[1] = bin2hex('aDD7732hjkd.W!VklIOniUw5');
-        $dia_keys[2] = bin2hex('m&hhrekKNvGOs=i8r4-O?:Ba');
-        $dia_keys[3] = bin2hex('.MCrgrFZYB42ZFnw_d?g4OdD');
-        $dia_keys[4] = bin2hex('fdUdAV?F*:DN7mzd66+CNt.O');
-        $dia_keys[5] = bin2hex('es5D/a8/h2?Tf5329dS3,Pcp');
-        $dia_keys[6] = bin2hex('qTw0o9-/Zgd3.q8MkBqq/:Qm');
-        $dia_keys[7] = bin2hex('dDA+PpzO-rK52gx;0gMny?Ny');
-        $dia_keys[8] = bin2hex('gb=aD/N=ICp.e8xDA1dgRcRF');
-        $dia_keys[9] = bin2hex('lMkIprsq%Rr=DC*zP6whtQe9');
-
-        return $dia_keys[$key];
+        $keys[0] = '4b6a736e6b32394a4b446c322b61644d4a53443332336173';
+        $keys[1] = '61444437373332686a6b642e5721566b6c494f6e69557735';
+        $keys[2] = '6d26686872656b4b4e76474f733d693872342d4f3f3a4261';
+        $keys[3] = '2e4d43726772465a594234325a466e775f643f67344f6444';
+        $keys[4] = '6664556441563f462a3a444e376d7a6436362b434e742e4f';
+        $keys[5] = '657335442f61382f68323f5466353332396453332c506370';
+        $keys[6] = '715477306f392d2f5a6764332e71384d6b4271712f3a516d';
+        $keys[7] = '6444412b50707a4f2d724b353267783b30674d6e793f4e79';
+        $keys[8] = '67623d61442f4e3d4943702e653878444131646752635246';
+        $keys[9] = '6c4d6b49707273712552723d44432a7a5036776874516539';
+        return $keys[$key];
     }
 
 

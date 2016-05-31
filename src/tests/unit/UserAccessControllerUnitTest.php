@@ -40,7 +40,7 @@ class UserAccessControllerControllerBaseUnitTest extends UnitTestBase
         $request_stub->getPost(Argument::type('string'))->willReturn(null);
         $this->stubDiService('request', $request_stub->reveal());
         $this->authService_stub->register(Argument::any())->shouldNotBeCalled();
-        $this->checkViewVarsContain('errors', ['The password should have at least one number, a lowercase and uppercase character.']);
+        $this->checkViewVarsContain('errors', ['Your password should be composed of at least six characters.']);
         $this->geoService_stub->countryList()->willReturn(array('Spain'));
         $sut = $this->getSut();
         $sut->signUpAction();
@@ -49,10 +49,10 @@ class UserAccessControllerControllerBaseUnitTest extends UnitTestBase
     public function getWrongPasswords()
     {
         return [
-            ['wrong password'],
-            ['wrong01'],
-            ['WRONG01'],
-            ['W R 01']
+            ['1234'],
+            ['1'],
+            ['W'],
+            ['Wro']
         ];
     }
 
