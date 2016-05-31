@@ -29,6 +29,9 @@ class Order implements \JsonSerializable
     /** @var bool $isCheckedWalletBalance */
     private $isCheckedWalletBalance;
 
+    /** @var  Money  */
+    private $amountWallet;
+
 
 
     public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit)
@@ -60,6 +63,7 @@ class Order implements \JsonSerializable
 //        } else {
 //            $total = $this->total->add($amount);
 //        }
+        $this->funds_amount = $amount;
         $total = $this->total->add($amount);
         $this->credit_card_charge = new CreditCardCharge($total, $this->fee, $this->fee_limit);
     }
@@ -233,5 +237,22 @@ class Order implements \JsonSerializable
             'play_config' => $bets
         ];
 
+    }
+
+    /**
+     * @param Money $amountWallet
+     */
+    public function setAmountWallet($amountWallet)
+    {
+        if($this->isCheckedWalletBalance) {
+            $this->amountWallet = $amountWallet;
+            if($this->amountWallet->greaterThan($this->total)) {
+                $this->amountWallet = $this->total;
+            }
+            $total = $this->total->subtract($this->amountWallet)->add($this->funds_amount);
+            $this->credit_card_charge = new CreditCardCharge($total, $this->fee, $this->fee_limit);
+        } else {
+            $this->amountWallet = new Money(0,new Currency('EUR'));
+        }
     }
 }

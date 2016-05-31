@@ -56,6 +56,37 @@ class OrderUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
+    /**
+     * method getTotal
+     * when payIsMix
+     * should restWalletToTotalAndReturnNewCreditCardCharge
+     */
+    public function test_getTotal_payIsMix_restWalletToTotalAndReturnNewCreditCardCharge()
+    {
+        $sut = $this->getSut();
+        $sut->setIsCheckedWalletBalance(true);
+        $sut->setAmountWallet(new Money(1500,new Currency('EUR')));
+        $expected = new Money(35, new Currency('EUR'));
+        $actual = $sut->getTotal();
+        $this->assertEquals($expected,$actual);
+    }
+
+    /**
+     * method getTotal
+     * when playWithWalletAndAddFunds
+     * should returnCreditChargeWithProperTotal
+     */
+    public function test_getTotal_playWithWalletAndAddFunds_returnCreditChargeWithProperTotal()
+    {
+        $sut = $this->getSut();
+        $sut->setIsCheckedWalletBalance(true);
+        $sut->addFunds(new Money(500, new Currency('EUR')));
+        $sut->setAmountWallet(new Money(1500,new Currency('EUR')));
+        $expected = new Money(535, new Currency('EUR'));
+        $actual = $sut->getTotal();
+        $this->assertEquals($expected,$actual);
+    }
+
 
     /**
      * method addFunds

@@ -54,7 +54,8 @@ class LotteryValidationCastilloApi
 
         $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYPEER, 0);
         $this->curlWrapper->setOption(CURLOPT_POSTFIELDS, $xml);
-
+//        $this->curlWrapper->setOption(CURLOPT_CONNECTTIMEOUT, 0);
+//        $this->curlWrapper->setOption(CURLOPT_TIMEOUT, 30);
         $result = $this->curlWrapper->post('https://www.loteriacastillo.com/euromillions/');
         $xml_response = simplexml_load_string($result->body);
         $xml_uncyphered_string = $cypher->decrypt((string)$xml_response->operation->content, (string)$xml_response->operation->attributes()['key']);
@@ -62,7 +63,6 @@ class LotteryValidationCastilloApi
 
         //set xml_uncypherd to be visible from outside.
         $this->xml_response = $xml_uncyphered;
-
         if ($xml_uncyphered->status == 'OK') {
             return new ActionResult(true);
         } else {
