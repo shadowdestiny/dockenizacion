@@ -83,7 +83,7 @@ $(function(){
 								<svg class="vector"><use xlink:href="/w/svg/icon.svg#laurel"></use></svg>
 							</div>
 							<div class="bg">
-								<a href="/play" class="content">
+								<a href="/{{ lottery }}/play" class="content">
 									<h1 class="h3">{{ language.translate("Estimated jackpot") }}</h1>
 
 									{% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
