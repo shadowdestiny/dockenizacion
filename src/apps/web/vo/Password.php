@@ -18,9 +18,6 @@ class Password extends StringLiteral
         Assertion::notEmpty($value);
         Assertion::minLength($value, self::MIN_LENGTH);
         Assertion::regex($value, self::FORMAT);
-        $this->assertHasNumbers($value);
-        $this->assertHasLowercaseChars($value);
-        $this->assertHasUppercaseChars($value);
         parent::__construct($this->passwordHasher->hashPassword($value));
     }
 

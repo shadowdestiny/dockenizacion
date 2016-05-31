@@ -1,7 +1,6 @@
 <?php
 namespace EuroMillions\web\forms;
 
-use EuroMillions\web\components\PasswordValidator;
 use Phalcon\Forms\Element\Email;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Password;
@@ -72,15 +71,12 @@ class SignUpForm extends Form
                 'message' => 'Passwords inserted don\'t match.'
             ]
         ));
-        $password->addValidator(new PasswordValidator([
-            'message' => 'The password should have at least one number, a lowercase and uppercase character.'
-        ]));
 
 
         $password->addValidator(new StringLength(array(
             'field' => 'password',
-            'min' => 8,
-            'messageMinimum' => 'Your password should be composed at least by eight letters.'
+            'min' => 6,
+            'messageMinimum' => 'Your password should be composed of at least six characters.'
         )));
 
 

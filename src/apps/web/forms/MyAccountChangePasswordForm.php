@@ -39,9 +39,9 @@ class MyAccountChangePasswordForm extends Form
 
         $password->addValidator(new StringLength(array(
             'field' => 'new-password',
-            'min' => 8,
-            'messageMaximum' => 'Your password should be composed at least by eight letters.',
-            'messageMinimum' => 'Your password should be composed at least by eight letters.'
+            'min' => 6,
+            'messageMaximum' => 'Your password should be composed at least by six letters.',
+            'messageMinimum' => 'Your password should be composed at least by six letters.'
         )));
 
 
@@ -55,9 +55,9 @@ class MyAccountChangePasswordForm extends Form
 
         $password_confirm->addValidator(new StringLength(array(
             'field' => 'confirm-password',
-            'min' => 8,
-            'messageMaximum' => 'Your password should be composed at least by eight letters.',
-            'messageMinimum' => 'Your password should be composed at least by eight letters.'
+            'min' => 6,
+            'messageMaximum' => 'Your password should be composed at least by six letters.',
+            'messageMinimum' => 'Your password should be composed at least by six letters.'
         )));
 
         $password_confirm->addValidator(new PresenceOf(array(

@@ -10,7 +10,7 @@
     {{ signupform.render('email', {'class':'input'~form_errors['email']}) }}
     {{ signupform.render('password', {'class':'input'~form_errors['password']}) }}
     {{ signupform.render('confirm_password', {'class':'input'~form_errors['confirm_password']}) }}
-    <p class="small-txt"><svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg> Password must be at least 8 letters long. Composed at least with 1 uppercase and number.</p>
+    <p class="small-txt"><svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg> Password must be at least 6 characters long.</p>
     {{ signupform.render('country', {'class':'select'~form_errors['country']}) }}
     <div class="cl">
         <input id="goSignUp" type="submit" class="hidden2" />
