@@ -69,6 +69,7 @@ class CypherCastillo3DESLive implements ICypherStrategy
 
     private function getKeys($key)
     {
+        $keys = [];
         $keys[0] = '4b6a736e6b32394a4b446c322b61644d4a53443332336173';
         $keys[1] = '61444437373332686a6b642e5721566b6c494f6e69557735';
         $keys[2] = '6d26686872656b4b4e76474f733d693872342d4f3f3a4261';

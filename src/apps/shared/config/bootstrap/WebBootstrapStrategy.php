@@ -182,10 +182,11 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'controller' => 'user-access',
             'action'     => 'validate'
         ));
-        $router->add("/passwordReset", array(
+        $router->add("/passwordReset/:params", array(
             "module"     => "web",
             'controller' => 'user-access',
-            'action'     => 'passwordReset'
+            'action'     => 'passwordReset',
+            'params'     => 1
         ));
         $router->add("/forgotPassword", array(
             "module"     => "web",

@@ -167,11 +167,9 @@ class UserAccessController extends ControllerBase
             if ($forgot_password_form->isValid($this->request->getPost()) == false) {
                 $errors[] = 'Invalid email address. Please verify what you have inserted and try again.';
             } else {
-
                     $email = $this->request->getPost('email');
                     $reCaptchaResult = $captcha->check()->isValid();
                     $result = new ActionResult(false);
-
                     if(!empty($email) && !empty($reCaptchaResult)){
                         $result = $this->authService->forgotPassword(new Email($email));
                     }

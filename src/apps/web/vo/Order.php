@@ -57,12 +57,6 @@ class Order implements \JsonSerializable
             $amount = new Money(0, new Currency('EUR'));
         }
 
-//        if($this->isCheckedWalletBalance) {
-//            $sumFunds = new Money($this->total->add($amount)->getAmount(), new Currency('EUR'));
-//            $total = $sumFunds->subtract($this->total);
-//        } else {
-//            $total = $this->total->add($amount);
-//        }
         $this->funds_amount = $amount;
         $total = $this->total->add($amount);
         $this->credit_card_charge = new CreditCardCharge($total, $this->fee, $this->fee_limit);
