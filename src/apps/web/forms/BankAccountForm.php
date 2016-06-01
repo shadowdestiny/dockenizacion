@@ -74,20 +74,43 @@ class BankAccountForm extends Form
         $street = new Text('street', [
             'placeholder' => 'Street'
         ]);
+        $street->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'Your street address is required.'
+            )),
+        ));
         $this->add($street);
 
 
         $zip = new Text('zip', [
             'placeholder' => 'Zip Code'
         ]);
-        $this->add($zip);
-        $city = new Text('city', [
+        $zip->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'Your zip code is required.'
+            )),
+        ));
+	$this->add($zip);
+        
+	$city = new Text('city', [
             'placeholder' => 'City'
         ]);
-        $this->add($city);
-        $phone_number = new Text('phone_number', [
+        $city->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'Your city is required.'
+            )),
+        ));
+	$this->add($city);
+        
+	
+	$phone_number = new Text('phone_number', [
             'placeholder' => 'Phone number'
         ]);
+	$phone_number->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'Your phone number required.'
+            )),
+        ));
         $this->add($phone_number);
 
         $amount = new Text('amount', [
