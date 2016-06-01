@@ -62,6 +62,7 @@ class UserAccessController extends ControllerBase
         }
 
         $this->view->pick('sign-in/index');
+	$this->tag->prependTitle('Sign In');
 
         return $this->view->setVars([
             'which_form'  => 'in',
@@ -117,6 +118,7 @@ class UserAccessController extends ControllerBase
         }
 
         $this->view->pick('sign-in/index');
+	$this->tag->prependTitle('Sign Up');
         return $this->view->setVars([
             'which_form'  => 'up',
             'signinform'  => $sign_in_form,

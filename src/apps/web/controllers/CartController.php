@@ -122,6 +122,7 @@ class CartController extends PublicSiteControllerBase
         }
 
         $this->view->pick('cart/profile');
+	$this->tag->prependTitle('Log In or Sign Up');
         return $this->view->setVars([
             'which_form'  => 'up',
             'signinform'  => $sign_in_form,
@@ -380,7 +381,7 @@ class CartController extends PublicSiteControllerBase
         $symbol_position = $this->currencyConversionService->getSymbolPosition($locale, $user_currency);
         $currency_symbol = $this->currencyConversionService->getSymbol($wallet_balance, $locale);
         $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user_currency);
-
+	$this->tag->prependTitle('Review and Buy');
         return $this->view->setVars([
             'order'            => $play_config_dto,
             'config'           => json_encode(
