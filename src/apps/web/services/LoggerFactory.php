@@ -8,6 +8,8 @@ class LoggerFactory
 {
     const AUTHLOG = 'auth.log';
 
+    const ACCOUNTLOG = 'account.log';
+
     private $fileLogsPath;
 
     public function __construct($fileLogsPath)
@@ -26,5 +28,10 @@ class LoggerFactory
     public function userAuth()
     {
         return new PhalconFileJsonLogger($this->fileLogsPath.self::AUTHLOG);
+    }
+
+    public function userAccount()
+    {
+        return new PhalconFileJsonLogger($this->fileLogsPath.self::ACCOUNTLOG);
     }
 }

@@ -38,6 +38,7 @@ class UserServiceUnitTest extends UnitTestBase
     private $userNotificationsRepository_double;
     private $notificationsRepository_double;
     private $walletService_double;
+    private $logService_double;
 
     protected function getEntityManagerStubExtraMappings()
     {
@@ -62,6 +63,7 @@ class UserServiceUnitTest extends UnitTestBase
         $this->userNotificationsRepository_double = $this->getRepositoryDouble('UserNotificationsRepository');
         $this->notificationsRepository_double = $this->getRepositoryDouble('NotificationRepository');
         $this->walletService_double = $this->getServiceDouble('WalletService');
+        $this->logService_double = $this->getServiceDouble('LogService');
         parent::setUp();
     }
 
@@ -607,7 +609,8 @@ class UserServiceUnitTest extends UnitTestBase
             $this->emailService_double->reveal(),
             $this->paymentProviderService_double->reveal(),
             $this->walletService_double->reveal(),
-            $this->getEntityManagerRevealed()
+            $this->getEntityManagerRevealed(),
+            $this->logService_double->reveal()
         );
     }
 

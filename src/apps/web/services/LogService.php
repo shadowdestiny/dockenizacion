@@ -36,6 +36,16 @@ class LogService
         $this->logUserAuthAction($user, 'registration');
     }
 
+    public function error($msg, $action)
+    {
+        $logger = $this->getLogger('userAuth');
+        $logger->error(json_encode(['action' => $action, 'message' => $msg]));
+    }
+
+    public function logUpdateAccountDetails(IUser $user)
+    {
+        $this->logUserAccountAction($user, 'update');
+    }
 
     private function getLogger($logName)
     {
@@ -55,4 +65,16 @@ class LogService
         $logger = $this->getLogger('userAuth');
         $logger->info(json_encode(['action' => $action, 'user' => $user->getId()]));
     }
+
+
+    /**
+     * @param IUser $user
+     * @param $action
+     */
+    private function logUserAccountAction(IUser $user, $action)
+    {
+        $logger = $this->getLogger('userAccount');
+        $logger->info(json_encode( ['action' => $action, 'user' => $user->getId() ]));
+    }
+
 }

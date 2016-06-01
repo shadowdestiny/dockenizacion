@@ -14,6 +14,9 @@ use EuroMillions\web\services\external_apis\CurrencyConversion\CurrencyLayerApi;
 use EuroMillions\web\services\external_apis\LotteryApisFactory;
 use EuroMillions\web\services\external_apis\CurrencyConversion\RedisCurrencyApiCache;
 use EuroMillions\web\services\LanguageService;
+use EuroMillions\web\services\LoggedAuthServiceNullStrategy;
+use EuroMillions\web\services\LoggedAuthServiceStrategy;
+use EuroMillions\web\services\LoggedUserServiceStrategy;
 use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\LotteryService;
 use EuroMillions\web\services\PaymentProviderService;
@@ -94,12 +97,13 @@ class DomainServiceFactory
 
     public function getUserService()
     {
-        return new UserService(
+        return new LoggedUserServiceStrategy(
             $this->getCurrencyConversionService(),
             $this->serviceFactory->getEmailService(),
             new PaymentProviderService(),
             $this->getWalletService(),
-            $this->entityManager
+            $this->entityManager,
+            $this->serviceFactory->getLogService()
         );
     }
 
@@ -116,7 +120,7 @@ class DomainServiceFactory
 
     public function getAuthService()
     {
-        return new AuthService(
+        return new LoggedAuthServiceStrategy(
             $this->entityManager,
             new PhpassWrapper(),
             new WebAuthStorageStrategy(

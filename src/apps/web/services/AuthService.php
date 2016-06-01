@@ -27,14 +27,14 @@ class AuthService
     /** @var EntityManager */
     private $entityManager;
     /** @var UserRepository */
-    private $userRepository;
+    protected $userRepository;
     private $passwordHasher;
     /** @var IAuthStorageStrategy */
     private $storageStrategy;
     /** @var IUrlManager */
     private $urlManager;
     /** @var LogService */
-    private $logService;
+    protected $logService;
     /** @var EmailService */
     private $emailService;
     /** @var  UserService */
@@ -85,7 +85,6 @@ class AuthService
 
     public function logout()
     {
-        $this->logService->logOut($this->getCurrentUser());
         $this->storageStrategy->removeCurrentUser();
     }
 
@@ -99,6 +98,7 @@ class AuthService
     {
         $user = $this->userRepository->getByEmail($credentials['email']);
         if (!$user) {
+            $this->log('User not found ['.$credentials['email'].']', 'check');
             return false;
         }
         $password_match = $this->passwordHasher->checkPassword($credentials['password'], $user->getPassword()->toNative());
@@ -109,7 +109,6 @@ class AuthService
                 $this->storageStrategy->storeRemember($user);
                 $this->entityManager->flush();
             }
-            $this->logService->logIn($user);
         }
         return $password_match;
     }
@@ -138,11 +137,13 @@ class AuthService
     public function register(array $credentials)
     {
         if ($this->userRepository->getByEmail($credentials['email'])) {
+            $this->log('Email already registered. Try to use a different email. ['.$credentials['email'].']', 'register');
             return new ActionResult(false, 'Email already registered. Try to use a different email. Or have you <a href="/user-access/forgotPassword">forgot your password?</a>');
         }
         try {
             $user = $this->userRepository->register($credentials, $this->passwordHasher, new Md5EmailValidationToken());
         } catch (\Exception $e) {
+            $this->log($e->getMessage(),'register');
             return new ActionResult(false, $e);
         }
         $this->emailService->sendWelcomeEmail($user, $this->urlManager);
@@ -288,5 +289,11 @@ class AuthService
             $emailValidationTokenGenerator = new Md5EmailValidationToken();
         }
         return $emailValidationTokenGenerator;
+    }
+
+    protected function log($message, $action) {
+        if(method_exists($this,'logError')) {
+            $this->logError($message, $action);
+        }
     }
 }

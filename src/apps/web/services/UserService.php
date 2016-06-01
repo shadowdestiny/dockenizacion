@@ -27,7 +27,7 @@ class UserService
     /**
      * @var UserRepository
      */
-    private $userRepository;
+    protected $userRepository;
     /**
      * @var CurrencyConversionService
      */
@@ -57,11 +57,16 @@ class UserService
     /** @var  WalletService */
     private $walletService;
 
+    /** @var LogService */
+    protected $logService;
+
+
     public function __construct(CurrencyConversionService $currencyConversionService,
                                 EmailService $emailService,
                                 PaymentProviderService $paymentProviderService,
                                 WalletService $walletService,
-                                EntityManager $entityManager)
+                                EntityManager $entityManager,
+                                LogService $logService)
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
@@ -72,6 +77,7 @@ class UserService
         $this->userNotificationsRepository = $entityManager->getRepository('EuroMillions\web\entities\UserNotifications');
         $this->notificationRepository = $entityManager->getRepository('EuroMillions\web\entities\Notification');
         $this->walletService = $walletService;
+        $this->logService = $logService;
     }
 
     public function getBalanceWithUserCurrencyConvert($userId, Currency $userCurrency)

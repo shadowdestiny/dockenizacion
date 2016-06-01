@@ -7,7 +7,6 @@ use EuroMillions\web\services\GeoService;
 use EuroMillions\web\services\LoggerFactory;
 use EuroMillions\web\services\LogService;
 use Phalcon\DiInterface;
-use EuroMillions\web\components\MandrillWrapper;
 
 class ServiceFactory
 {
