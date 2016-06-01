@@ -40,8 +40,8 @@
                 <li><a href="/{{ lottery }}/numbers">{{ language.translate("Draw History") }}</a></li>
                 <li><a href="/{{ lottery }}/faq">{{ language.translate("Asking for help") }}</a></li>
                 <li><a href="/{{ lottery }}/help">{{ language.translate("How to Play Lotto") }}</a></li>
-                <li><a href="/{{ lottery }}/index#about-us">{{ language.translate("About Euromillions") }}</a></li>
-                <li><a href="/{{ lottery }}/contact">{{ language.translate("Contact us") }}</a></li>
+                <li><a href="/#about-us">{{ language.translate("About Euromillions") }}</a></li>
+                <li><a href="/contact">{{ language.translate("Contact us") }}</a></li>
             </ul>
         </div>
     </div>
