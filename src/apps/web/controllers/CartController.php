@@ -203,6 +203,10 @@ class CartController extends PublicSiteControllerBase
         $user_id = $this->authService->getCurrentUser()->getId();
         /** @var User $user */
         $user = $this->userService->getUser($user_id);
+        if( null == $user ) {
+            $this->response->redirect('/'.$this->lottery.'/cart/profile');
+            return false;
+        }
         $result = $play_service->getPlaysFromTemporarilyStorage($user);
         $msg = '';
 
