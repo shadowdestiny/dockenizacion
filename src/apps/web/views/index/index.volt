@@ -27,9 +27,18 @@ home
 	}	
 </script>
 {% endif %}
-
-
 {% endblock %}
+
+{% block template_scripts_code %}
+    {# EMTD we use this function as workaround from jquery mobile to anchor link via url #}
+    $(function(){
+        var hash = window.location.hash;
+        $(document.body).animate({
+            'scrollTop':   $('#'+hash.split('#')[1]).offset().top
+        }, 100);
+    });
+{% endblock %}
+
 {% block body %}
 <main id="content">
 	<div class="large wrapper">
@@ -275,7 +284,7 @@ home
 					<div class="col6 bg-win"></div>
 					<div class="col6 box-txt r">
 						<a id="about-us"></a>
-						<h2 class="h1 yellow">{{ language.translate("About us") }}</h2>
+						<h2  class="h1 yellow">{{ language.translate("About us") }}</h2>
 						<h3 class="li-title">{{ language.translate("What we do") }}</h3>
 						<p>{{ language.translate("Euromillions.com is the first lottery based website built to work on every device and every screen size, no matter how large or small. Mobile or desktop, we will always offer you the best user experience.") }}</p>
 
