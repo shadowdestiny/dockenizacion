@@ -115,7 +115,8 @@ class AccountController extends PublicSiteControllerBase
         $paginator = $this->getPaginatorAsArray($transactionDtoCollection,10,$page);
         /** @var \Phalcon\Mvc\ViewInterface $paginator_view */
         $paginator_view = (new PaginationWidget($paginator, $this->request->getQuery()))->render();
-
+	
+	$this->tag->prependTitle('Transaction History');
         return $this->view->setVars([
             'transactionCollection' => $paginator->getPaginate()->items,
             'page' => $page,
@@ -168,6 +169,7 @@ class AccountController extends PublicSiteControllerBase
             $message_inactives = $myGamesInactives->errorMessage();
         }
         $this->view->pick('account/games');
+	$this->tag->prependTitle('My Tickets');
         return $this->view->setVars([
             'my_games_actives' => $playConfigDTO,
             'my_games_inactives' => $playConfigInactivesDTOCollection,

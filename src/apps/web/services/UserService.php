@@ -414,7 +414,7 @@ class UserService
             $amount = new Money((int) $data['amount'] * 100, new Currency('EUR'));
             $result = $this->walletService->withDraw( $user, $amount);
             if($result->success()){
-                return new ActionResult(true,'Your transaction was created correctly.');
+                return new ActionResult(true,'Your withdrawal request has been made. We will keep you updated on its progress');
             }
             return new ActionResult(false,'Sorry, your transaction was a problem. Please, ensure you that you have amount');
         } catch ( \Exception $e ) {
