@@ -20,7 +20,6 @@
     "alcohol/iso4217": "~2.0",
     "antonienko/money-formatter": ">=1.4",
     "antonienko/mledoze-countries-phpwrapper": "dev-master",
-    "mandrill/mandrill": "1.0.*",
     "beberlei/assert": "^2.4",
     "recaptcha/php5": "^2.0",
     "textmagic/smsphp": "dev-master",

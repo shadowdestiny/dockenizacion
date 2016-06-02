@@ -15,3 +15,15 @@
   shell: npm run watch &
   args:
     chdir: /var/www/react
+
+- name: Get GeoIP IPv4 database
+  shell: wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+  shell: gzip -d GeoIP.dat.gz
+  args:
+    chdir: /var/www/data/geoipdatabase
+
+- name: Get GeoIP IPv6 database
+  shell: wget http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
+  shell: gzip -d GeoIPv6.dat.gz
+  args:
+    chdir: /var/www/data/geoipdatabase

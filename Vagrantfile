@@ -13,6 +13,7 @@ Vagrant.configure(2) do |config|
           python-yaml \
           python-paramiko \
           python-httplib2 \
+          gzip \
           python-crypto sshpass
           build-essential
           dpkg -i /tmp/ansible.deb

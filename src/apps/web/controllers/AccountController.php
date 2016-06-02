@@ -11,7 +11,6 @@ use EuroMillions\web\forms\BankAccountForm;
 use EuroMillions\web\forms\CreditCardForm;
 use EuroMillions\web\forms\MyAccountChangePasswordForm;
 use EuroMillions\web\forms\MyAccountForm;
-use EuroMillions\web\forms\ResetPasswordForm;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\vo\CardHolderName;
@@ -302,7 +301,7 @@ class AccountController extends PublicSiteControllerBase
         $msg = '';
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
         $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user->getUserCurrency());
-	$this->tag->prependTitle('Make a Deposit');
+	    $this->tag->prependTitle('Make a Deposit');
 
         if($this->request->isPost()) {
             if ($credit_card_form->isValid($this->request->getPost()) == false) {
