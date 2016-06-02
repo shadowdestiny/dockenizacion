@@ -86,6 +86,7 @@ class LotteryService
      */
     public function getNextJackpot($lotteryName)
     {
+        /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->getLotteryByName($lotteryName);
         /** @var EuroMillionsJackpot $jackpot_object */
         $jackpot_object = 'EuroMillions\web\vo\\'.$lotteryName.'Jackpot';
@@ -106,6 +107,7 @@ class LotteryService
     {
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->getLotteryByName($lotteryName);
+        $result = [];
         try {
             /** @var EuroMillionsLine $lottery_result */
             $lottery_result = $this->lotteryDrawRepository->getLastResult($lottery);
@@ -156,6 +158,7 @@ class LotteryService
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         if (null !== $lottery) {
+            /** @var EuroMillionsDraw[] $euroMillionsDraw */
             $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($now));
             if (null !== $euroMillionsDraw) {
                 return new ActionResult(true, $euroMillionsDraw);
@@ -260,6 +263,7 @@ class LotteryService
                     $playconfigsFilteredToArray = $playconfigsFiltered->toArray();
                     $price = $this->userService->getPriceForNextDraw($lottery, $playconfigsFilteredToArray);
                     if( $price->getAmount() < $user->getBalance()->getAmount() ) {
+                        /** @var EuroMillionsDraw $euroMillionsDraw */
                         $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($dateNextDraw));
                         /** @var PlayConfig $playConfig */
                         foreach( $playconfigsFilteredToArray as $playConfig ) {
