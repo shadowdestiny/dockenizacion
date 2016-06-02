@@ -95,6 +95,7 @@ class AccountController extends PublicSiteControllerBase
             }
         }
         $this->view->pick('account/index');
+	$this->tag->prependTitle('Account Details');
         return $this->view->setVars([
             'form_errors' => $form_errors,
             'which_form'  => 'index',
@@ -114,7 +115,8 @@ class AccountController extends PublicSiteControllerBase
         $paginator = $this->getPaginatorAsArray($transactionDtoCollection,10,$page);
         /** @var \Phalcon\Mvc\ViewInterface $paginator_view */
         $paginator_view = (new PaginationWidget($paginator, $this->request->getQuery()))->render();
-
+	
+	$this->tag->prependTitle('Transaction History');
         return $this->view->setVars([
             'transactionCollection' => $paginator->getPaginate()->items,
             'page' => $page,
@@ -128,6 +130,7 @@ class AccountController extends PublicSiteControllerBase
         $userId = $this->authService->getCurrentUser();
         $myaccount_form = $this->getMyACcountForm($userId);
         $myaccount_passwordchange_form = new MyAccountChangePasswordForm();
+	$this->tag->prependTitle('Change Password');
         return $this->view->setVars([
             'form_errors' => [],
             'which_form'  => 'password',
@@ -166,6 +169,7 @@ class AccountController extends PublicSiteControllerBase
             $message_inactives = $myGamesInactives->errorMessage();
         }
         $this->view->pick('account/games');
+	$this->tag->prependTitle('My Tickets');
         return $this->view->setVars([
             'my_games_actives' => $playConfigDTO,
             'my_games_inactives' => $playConfigInactivesDTOCollection,
@@ -191,7 +195,7 @@ class AccountController extends PublicSiteControllerBase
         $wallet_dto = $this->domainServiceFactory->getWalletService()->getWalletDTO($user);
         $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user->getUserCurrency());
         $this->userService->resetWonAbove($user);
-
+	$this->tag->prependTitle('My Balance');
         return $this->view->setVars([
             'which_form' => 'wallet',
             'form_errors' => $form_errors,
@@ -254,6 +258,7 @@ class AccountController extends PublicSiteControllerBase
         }
         $wallet_dto = $this->domainServiceFactory->getWalletService()->getWalletDTO($user);
         $this->view->pick('account/wallet');
+	$this->tag->prependTitle('Request a Withdrawal');
         return $this->view->setVars([
             'which_form' => 'withdraw',
             'form_errors' => $form_errors,
@@ -297,6 +302,7 @@ class AccountController extends PublicSiteControllerBase
         $msg = '';
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
         $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user->getUserCurrency());
+	$this->tag->prependTitle('Make a Deposit');
 
         if($this->request->isPost()) {
             if ($credit_card_form->isValid($this->request->getPost()) == false) {
@@ -375,6 +381,7 @@ class AccountController extends PublicSiteControllerBase
             $error_msg = 'An error occurred';
         }
         $this->view->pick('account/email');
+	$this->tag->prependTitle('Email Settings');
         return $this->view->setVars([
             'error' => $error_msg,
             'error_form' => [],
