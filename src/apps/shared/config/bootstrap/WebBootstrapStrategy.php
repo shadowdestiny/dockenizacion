@@ -201,19 +201,27 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action'     => 'profile'
         ));
 
-        $router->add("/{lottery:(euromillions)+}/cart/order", array(
+        $router->add("/{lottery:(euromillions)+}/order", array(
             "module"     => "web",
             'lottery'    => 1,
-            'controller' => 'cart',
+            'controller' => 'order',
             'action'     => 'order'
         ));
 
-        $router->add("/{lottery:(euromillions)+}/cart/payment", array(
+        $router->add("/{lottery:(euromillions)+}/payment/payment(.*?)", array(
             "module"     => "web",
             'lottery'    => 1,
-            'controller' => 'cart',
+            'controller' => 'payment',
             'action'     => 'payment',
         ));
+
+        $router->add("/{lottery:(euromillions)+}/payment", array(
+            "module"     => "web",
+            'lottery'    => 1,
+            'controller' => 'payment',
+            'action'     => 'payment',
+        ));
+
 
         $router->add("/{lottery:(euromillions)+}/cart/login", array(
             "module"     => "web",
