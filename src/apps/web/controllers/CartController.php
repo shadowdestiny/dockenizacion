@@ -220,13 +220,7 @@ class CartController extends PublicSiteControllerBase
                     $card = null;
                     $amount = new Money((int) $charge, new Currency('EUR'));
                     $result = $play_service->play($user_id,$amount, $card,true);
-                    if($result->success()) {
-                        $this->response->redirect('/'.$this->lottery.'/result/success');
-                        return false;
-                    } else {
-                        $this->response->redirect('/'.$this->lottery.'/result/failure');
-                        return false;
-                    }
+                    return $this->playResult($result);
                 } catch (\Exception $e ) {
                     $errors[] = $e->getMessage();
                 }
@@ -254,13 +248,7 @@ class CartController extends PublicSiteControllerBase
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($expiry_date_month.'/'.$expiry_date_year), new CVV($cvv));
                         $amount = new Money((int) str_replace('.','',$funds_value), new Currency('EUR'));
                         $result = $play_service->play($user_id,$amount, $card,$payWallet);
-                        if($result->success()) {
-                            $this->response->redirect('/'.$this->lottery.'/result/success');
-                            return false;
-                        } else {
-                            $this->response->redirect('/'.$this->lottery.'/result/failure');
-                            return false;
-                        }
+                        return $this->playResult($result);
                     } catch (\Exception $e ) {
                         $errors[] = $e->getMessage();
                     }
@@ -406,6 +394,17 @@ class CartController extends PublicSiteControllerBase
             'checked_wallet'   => $checked_wallet,
             'credit_card_form' => $creditCardForm
         ]);
+    }
+
+    private function playResult($result)
+    {
+        if($result->success()) {
+            $this->response->redirect('/'.$this->lottery.'/result/success');
+            return false;
+        } else {
+            $this->response->redirect('/'.$this->lottery.'/result/failure');
+            return false;
+        }
     }
 
 }
