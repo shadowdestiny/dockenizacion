@@ -332,6 +332,12 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'params'     => 3,
         ));
 
+        $router->add("/currency", array (
+            "module"     => "web",
+            'controller' => 'currency',
+            'action'     => 'index'
+        ));
+
         $router->add("/sitemap", array(
             "module"     => "web",
             'controller' => 'sitemap',
