@@ -21,8 +21,7 @@ build:
     - cd src
     - composer install --prefer-source --no-interaction
     - apt-get -y install wget
-    - wget -nc http://geolite.maxmind.com/download/geoip/database/GeoIP.dat.gz
-    - wget -nc http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
+    - wget -nc http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
 #    - cd react
 #    - npm install
 #    - cd ../..
