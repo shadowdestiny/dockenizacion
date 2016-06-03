@@ -20,11 +20,12 @@ build:
     - redis-server &
     - cd src
     - composer install --prefer-source --no-interaction
+    - apt-get install wget gzip
+    - wget -nc http://geolite.maxmind.com/download/geoip/database/GeoIP.dat.gz
+    - wget -nc http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
 #    - cd react
 #    - npm install
 #    - cd ../..
-    - wget -nc http://geolite.maxmind.com/download/geoip/database/GeoIP.dat.gz
-    - wget -nc http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
     - gzip -fd GeoIP.dat.gz
     - cd ..
     - mysql -e 'drop database if exists euromillions_test;create database euromillions_test;'
