@@ -20,12 +20,13 @@
     "alcohol/iso4217": "~2.0",
     "antonienko/money-formatter": ">=1.4",
     "antonienko/mledoze-countries-phpwrapper": "dev-master",
+    "mandrill/mandrill": "1.0.*",
     "beberlei/assert": "^2.4",
     "recaptcha/php5": "^2.0",
     "textmagic/smsphp": "dev-master",
     "ramsey/uuid-doctrine": "^1.2",
     "wildbit/postmark-php": "dev-master",
-    "geoip2/geoip2": "~2.0"
+    "geoip/geoip": "~1.16"
   },
   "autoload" : {
     "psr-4": {

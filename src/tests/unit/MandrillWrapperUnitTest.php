@@ -13,6 +13,7 @@ class MandrillWrapperUnitTest extends UnitTestBase
      */
     public function test_send_called_passProperParamsToMandrill()
     {
+        $this->markTestSkipped('we use Postmark provider');
         $template_name = 'template name';
         $template_vars = ['template', 'vars'];
         list($from_name, $from_email, $to, $subject, $html, $global_vars, $recipient_vars, $api_key, $message) = $this->getMessageArray();
@@ -33,6 +34,7 @@ class MandrillWrapperUnitTest extends UnitTestBase
      */
     public function test_send_calledWithoutTemplate_callSendMethod()
     {
+        $this->markTestSkipped('we use Postmark provider');
         list($from_name, $from_email, $to, $subject, $html, $global_vars, $recipient_vars, $api_key, $message) = $this->getMessageArray();
         list($mandrill_double_revelation, $messages_double) = $this->getMessagesDouble();
         $messages_double->send($message)->shouldBeCalled();

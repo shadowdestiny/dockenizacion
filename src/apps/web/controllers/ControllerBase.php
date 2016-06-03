@@ -5,6 +5,7 @@ use EuroMillions\shared\dto\RestrictedAccessConfig;
 use EuroMillions\shared\components\restrictedAccessStrategies\RestrictionByIpAndHttpAuth;
 use EuroMillions\shared\components\RestrictedAccess;
 use EuroMillions\shared\vo\HttpUser;
+use EuroMillions\web\components\MaxMindWrapper;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\AuthService;
@@ -61,7 +62,7 @@ class ControllerBase extends Controller
         if (empty($this->cookies->has('EM-law')) && $dispatcher->getControllerName() != 'index') {
             $this->cookies->set('EM-law', 'accepted', time() + 15 * 86400);
         }
-
+        $this->checkBannedCountry();
         $this->checkRestrictedAccess();
         $this->insertGoogleAnalyticsCodeViaEnvironment();
     }
@@ -91,4 +92,14 @@ class ControllerBase extends Controller
             $this->view->setVar('ga_code', $environment->get());
         }
     }
+
+    protected function checkBannedCountry()
+    {
+        $config = $this->di->get('config');
+        $geoip = new MaxMindWrapper($config->geoip->database_files_path);
+        if($geoip->isIpForbidden($this->request->getClientAddress())) {
+            $this->view->pick('/landings/restricted');
+        }
+    }
 }
+

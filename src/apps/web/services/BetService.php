@@ -54,7 +54,7 @@ class BetService
         $single_bet_price = $euroMillionsDraw->getLottery()->getSingleBetPrice();
         if($user->getBalance()->getAmount() >= $single_bet_price->getAmount()) {
             $di = \Phalcon\Di::getDefault();
-            $cypher = $di->get('environmentDetector') != 'production' ? new CypherCastillo3DES() : new CypherCastillo3DESLive();
+            $cypher = new CypherCastillo3DESLive();//$di->get('environmentDetector') != 'production' ? new CypherCastillo3DES() : new CypherCastillo3DESLive();
             try{
                 $bet = new Bet($playConfig,$euroMillionsDraw);
                 $castillo_key = CastilloCypherKey::create();

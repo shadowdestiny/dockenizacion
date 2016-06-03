@@ -1,6 +1,6 @@
 ---
 - name: Installing git and mysql clients from repository
-  apt: name=git,mysql-client-5.6 state=present
+  apt: name=gzip,git,mysql-client-5.6 state=present
 - name: Install composer libraries
   composer: command="install" working_dir="/var/www" no_dev=no
 - name: Set softlink for doctrine command line utilities
@@ -17,13 +17,21 @@
     chdir: /var/www/react
 
 - name: Get GeoIP IPv4 database
-  shell: wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
-  shell: gzip -d GeoIP.dat.gz
+  shell: wget -nc http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
   args:
     chdir: /var/www/data/geoipdatabase
 
 - name: Get GeoIP IPv6 database
-  shell: wget http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
-  shell: gzip -d GeoIPv6.dat.gz
+  shell: wget -nc http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
+  args:
+    chdir: /var/www/data/geoipdatabase
+
+- name: Uncompress geoip database
+  shell: gzip -fd GeoIP.dat.gz
+  args:
+    chdir: /var/www/data/geoipdatabase
+
+- name: Uncompress geoip database
+  shell: gzip -fd GeoIPv6.dat.gz
   args:
     chdir: /var/www/data/geoipdatabase
