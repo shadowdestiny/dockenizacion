@@ -11,6 +11,6 @@ database_pass: ''
 redis_host: 'localhost'
 redis_prefix: ''
 
-file_databasegeoip_path: '/geoip'
+file_databasegeoip_path: ''
 
 
