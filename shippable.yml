@@ -49,6 +49,5 @@ integrations:
     - integrationName: email
       type: email
       recipients:
-        - antonio.hernandez@panamedia.net
         - raul.mesa@panamedia.net
       on_failure: true
