@@ -48,3 +48,5 @@ restricted_access_activated: '0'
 restricted_access_ips: '192.168.1.10,192.168.1.11,10.0.2.2,172.17.0.1'
 restricted_access_user: 'beta'
 restricted_access_pass: '4cce5B3t4Eur0'
+
+file_databasegeoip_path: '/var/www/data/geoipdatabase'
