@@ -20,7 +20,7 @@ build:
     - redis-server &
     - cd src
     - composer install --prefer-source --no-interaction
-    - apt-get install wget gzip
+    - apt-get -y install wget
     - wget -nc http://geolite.maxmind.com/download/geoip/database/GeoIP.dat.gz
     - wget -nc http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
 #    - cd react
