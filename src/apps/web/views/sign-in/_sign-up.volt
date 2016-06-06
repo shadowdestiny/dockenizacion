@@ -25,10 +25,5 @@
 </form>
 
 {%  if ga_code is defined %}
-<script>
-	document.getElementById("goSignUp").addEventListener("click", function(){
-	        ga('set', 'page', '/sign-up-attempted');
-                ga('send', 'pageview');
-	});
-</script>
+<script src="/w/js/GASignUpAttempt.js"></script>
 {% endif %}

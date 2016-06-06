@@ -37,12 +37,7 @@
                 1) IF THERE IS A MESSAGE USE THIS SCRIPT OTHERWISE HIDE THE SCRIPT 
                 2) Decide if inject as ajax the message or print all the messages visible and show/hide with JS
             #}
-            <script>
-            $(function(){
-                 btnShowHide('.msg-1', '.single-msg, .back', '.box-messages');
-                 btnShowHide('.back', '.box-messages', '.single-msg, .back');
-            });
-            </script>
+            <script src="/w/js/btnMsgHide.js"></script>
 
             <div class="box-messages">
                 <table class="table ui-responsive" data-role="table" data-mode="reflow">
