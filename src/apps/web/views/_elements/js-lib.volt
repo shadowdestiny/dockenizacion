@@ -41,4 +41,9 @@ var draw_date = '<?php echo !empty($draw_date) ? $draw_date : ""; ?>';
 var show_modal = '<?php echo !empty($show_modal_winning) ? 1 : 0; ?>';
 </script>
 <script src="/w/js/vendor/jquery.mobile.custom.min.js"></script>
+<!--start PROD imports
+<script src="/w/js/main.min.js"></script>
+<!--end PROD imports-->
+<!--start DEV imports -->
 <script src="/w/js/main.js"></script>
+<!-- end DEV imports-->

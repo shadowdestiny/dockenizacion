@@ -33,3 +33,5 @@ ansible/roles/external/*
 /src/public/w/js/react/*
 !/src/public/w/js/react/README.md
 /src/react/npm-debug.log*
+/src/public/w/js/*min.js
+/src/grunt/node_modules
