@@ -70,11 +70,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         $view->registerEngines(array(
             ".volt" => function ($view, $di) use ($compiled_path) {
                 $volt = new Phalcon\Mvc\View\Engine\Volt($view, $di);
-                $volt->setOptions(array(
-                    "compiledPath"      => $compiled_path,
-                    "compiledExtension" => ".compiled",
-                    "compileAlways"     => true, //EMDEPLOY en producción debería ser false y stat
-                ));
+                $volt->setOptions($this->voltConfigByEnvironment($compiled_path));
                 $compiler = $volt->getCompiler();
                 $compiler->addFilter('number_format', 'number_format');
                 $compiler->addFunction('currency_css', function ($currency) {
@@ -471,4 +467,25 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         });
         $application->setEventsManager($eventsManager);    }
 
+
+    protected function voltConfigByEnvironment($compiled_path)
+    {
+        $di = parent::dependencyInjector();
+        $environment = $di->get('environmentDetector');
+        if( $environment->get() !== 'development' || $environment->get() !== 'vagrant') {
+            return  [
+                "compiledPath"      => $compiled_path,
+                "compiledExtension" => ".compiled",
+                "compileAlways"     => false,
+                "stat"              => false
+            ];
+        } else {
+            return [
+                "compiledPath"      => $compiled_path,
+                "compiledExtension" => ".compiled",
+                "compileAlways"     => true,
+            ];
+        }
+
+    }
 }
