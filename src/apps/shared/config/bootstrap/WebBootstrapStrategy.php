@@ -477,7 +477,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 "compiledPath"      => $compiled_path,
                 "compiledExtension" => ".compiled",
                 "compileAlways"     => false,
-                "stat"              => false
             ];
         } else {
             return [
