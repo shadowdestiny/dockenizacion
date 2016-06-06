@@ -96,14 +96,7 @@
     <script src="/w/js/react/tooltip.js"></script>
 
 {%  if ga_code is defined %}
-<script>
-	var l = document.createElement("a");
-	l.href = document.referrer
-	if (l.pathname == '/cart/profile'){
-        ga('set', 'page', '/sign-up/order-landing');
-                ga('send', 'pageview');
-        }
-</script>
+<script src="/w/js/GASignUpOrder.js"></script>
 {% endif %}
 {% endblock %}
 

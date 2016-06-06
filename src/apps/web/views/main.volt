@@ -69,19 +69,7 @@
         {% block template_scripts_after %}{% endblock %}
         {% block modal %}
             {% if show_modal_winning is defined and show_modal_winning %}
-                <script>
-                    $(function(){
-                        var checkWinSize = 0;
-                        function checkWin(){
-                            var temp = checkWinSize;
-                            checkWinSize = ($(".media").width() > 1) ? 1 : 0;
-                            if(checkWinSize != temp){
-                                $("#win[style]").removeAttr("style").addClass("fix-modal");
-                            }
-                        }
-                        $(window).resize(checkWin);
-                    });
-                </script>
+                <script src="/w/js/CheckWin.js"></script>
                 <a href="/account/wallet" id="win" class="modal win">
                     <span class="btn-box"><span class="btn blue">{{ language.translate("View the prize") }}</span></span>
                 </a>
