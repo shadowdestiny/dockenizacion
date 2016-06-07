@@ -17,7 +17,12 @@ home
 <script src="/w/js/mobileFix.min.js"></script>
 
 {%  if ga_code is defined %}
+<!--start PROD imports
+<script src="/w/js/dist/GASignUpLanding.min.js"></script>
+end PROD imports-->
+<!--start DEV imports-->
 <script src="/w/js/GASignUpLanding.js"></script>
+<!--end DEV imports-->
 {% endif %}
 {% endblock %}
 

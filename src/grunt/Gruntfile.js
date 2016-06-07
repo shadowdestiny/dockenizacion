@@ -30,7 +30,12 @@ module.exports = function(grunt) {
         uglify: {
             minify: {
                 files: {
-                    '../public/w/js/main.min.js': '../public/w/js/main.js'
+                    '../public/w/js/dist/main.min.js': '../public/w/js/main.js',
+                    '../public/w/js/dist/btnMsgHide.min.js': '../public/w/js/btnMsgHide.js',
+                    '../public/w/js/dist/CheckWin.min.js': '../public/w/js/CheckWin.js',
+                    '../public/w/js/dist/GASignUpAttempt.min.js': '../public/w/js/GASignUpAttempt.js',
+                    '../public/w/js/dist/GASignUpLanding.min.js': '../public/w/js/GASignUpLanding.js',
+                    '../public/w/js/dist/GASignUpOrder.min.js': '../public/w/js/GASignUpOrder.js',
                 }
             }
         },

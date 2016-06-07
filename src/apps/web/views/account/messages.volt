@@ -33,11 +33,12 @@
 
     * WITH MESSAGE <br> *
 
-            {# EMTD 
-                1) IF THERE IS A MESSAGE USE THIS SCRIPT OTHERWISE HIDE THE SCRIPT 
-                2) Decide if inject as ajax the message or print all the messages visible and show/hide with JS
-            #}
+            <!--start PROD imports
+            <script src="/w/js/dist/btnMsgHide.min.js"></script>
+            end PROD imports-->
+            <!--start DEV imports-->
             <script src="/w/js/btnMsgHide.js"></script>
+            <!--end DEV imports-->
 
             <div class="box-messages">
                 <table class="table ui-responsive" data-role="table" data-mode="reflow">

@@ -25,5 +25,10 @@
 </form>
 
 {%  if ga_code is defined %}
+<!--start PROD imports
+<script src="/w/js/dist/GASignUpAttempt.min.js"></script>
+end PROD imports-->
+<!--start DEV imports-->
 <script src="/w/js/GASignUpAttempt.js"></script>
+<!--end DEV imports-->
 {% endif %}

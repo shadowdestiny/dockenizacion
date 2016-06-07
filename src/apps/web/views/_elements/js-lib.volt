@@ -7,16 +7,16 @@
 <script src="/w/js/vendor/accounting.min.js"></script>
 <script src="/w/js/vendor/jquery.lazyloadxt.min.js"></script>
 <script src="/w/js/vendor/jquery.lazyloadxt.widget.js"></script>
+<script src="/w/js/vendor/jquery.mobile.custom.min.js"></script>
+
+<!--start PROD imports
+<script src="/w/js/dist/main.min.js"></script>
+<script src="/w/js/dist/mobileInit.min.js"></script>
 {%  if ga_code is defined %}
 <script src="/w/js/vendor/ganalytics.min.js"></script>
 {% endif %}
-
-
-<script src="/w/js/mobileInit.js"></script>
-<script src="/w/js/vendor/jquery.mobile.custom.min.js"></script>
-<!--start PROD imports
-<script src="/w/js/main.min.js"></script>
 <!--end PROD imports-->
 <!--start DEV imports -->
+<script src="/w/js/mobileInit.js"></script>
 <script src="/w/js/main.js"></script>
-<!-- end DEV imports-->
+<!--end DEV imports-->

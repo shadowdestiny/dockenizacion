@@ -69,7 +69,12 @@
         {% block template_scripts_after %}{% endblock %}
         {% block modal %}
             {% if show_modal_winning is defined and show_modal_winning %}
+                <!--start PROD imports
+                <script src="/w/js/dist/CheckWin.min.js"></script>
+                end PROD imports-->
+                <!--start DEV imports-->
                 <script src="/w/js/CheckWin.js"></script>
+                <!--end DEV imports-->
                 <a href="/account/wallet" id="win" class="modal win">
                     <span class="btn-box"><span class="btn blue">{{ language.translate("View the prize") }}</span></span>
                 </a>
