@@ -15,7 +15,6 @@ home
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}
 <script src="/w/js/mobileFix.min.js"></script>
-
 {%  if ga_code is defined %}
 <!--start PROD imports
 <script src="/w/js/dist/GASignUpLanding.min.js"></script>
