@@ -125,7 +125,7 @@ class LotteryService
             $now = new \DateTime();
         }
         /** @var Lottery $lottery */
-        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        $lottery = $this->getLotteryByName($lotteryName);
         $next_draw_date = $lottery->getNextDrawDate($now);
         return $now->diff($next_draw_date);
     }
@@ -136,7 +136,7 @@ class LotteryService
             $now = new \DateTime();
         }
         /** @var Lottery $lottery */
-        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        $lottery = $this->getLotteryByName($lotteryName);
         return $lottery->getNextDrawDate($now);
     }
 
@@ -145,8 +145,8 @@ class LotteryService
         if (!$now) {
             $now = new \DateTime();
         }
-        /** @var Lottery $lottery */
-        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        $lottery = $this->getLotteryByName($lotteryName);
+
         return $lottery->getRecurringIntervalDrawDate($iteration, $now);
     }
 
@@ -156,7 +156,7 @@ class LotteryService
             $now = new \DateTime();
         }
         /** @var Lottery $lottery */
-        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        $lottery = $this->getLotteryByName($lotteryName);
         if (null !== $lottery) {
             /** @var EuroMillionsDraw[] $euroMillionsDraw */
             $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($now));
@@ -173,7 +173,7 @@ class LotteryService
     {
 
         /** @var Lottery $lottery */
-        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        $lottery = $this->getLotteryByName($lotteryName);
         if (null !== $lottery) {
             try {
                 $euroMillionsDraws = $this->lotteryDrawRepository->getDraws($lottery, $limit);
@@ -196,7 +196,7 @@ class LotteryService
     public function getLotteryConfigByName($lotteryName)
     {
         /** @var Lottery $lottery */
-        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        $lottery = $this->getLotteryByName($lotteryName);
         if (null !== $lottery) {
            return $lottery;
         } else {
@@ -210,7 +210,7 @@ class LotteryService
             $now = new \DateTime();
         }
         /** @var Lottery $lottery */
-        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        $lottery = $this->getLotteryByName($lotteryName);
         $last_draw_date = $lottery->getLastDrawDate($now);
         /** @var EuroMillionsDraw $draw */
         $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lotteryName, 'draw_date' => $last_draw_date]);
@@ -224,7 +224,7 @@ class LotteryService
     public function getSingleBetPriceByLottery($lotteryName)
     {
         /** @var Lottery $lottery */
-        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        $lottery = $this->getLotteryByName($lotteryName);
         if (null !== $lottery) {
             return $lottery->getSingleBetPrice();
         } else {
@@ -337,7 +337,7 @@ class LotteryService
     private function getBreakDown($lotteryName, \DateTime $today, $method)
     {
         /** @var Lottery $lottery */
-        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        $lottery = $this->getLotteryByName($lotteryName);
         if (null !== $lottery) {
             $emBreakDownData = $this->lotteryDrawRepository->$method($lottery, $today);
             if (null !== $emBreakDownData) {
@@ -348,6 +348,17 @@ class LotteryService
         } else {
             return new ActionResult(false);
         }
+    }
+
+    /**
+     * @param $lotteryName
+     * @return Lottery
+     */
+    private function getLotteryByName($lotteryName)
+    {
+        /** @var Lottery $lottery */
+        $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+        return $lottery;
     }
 
 
