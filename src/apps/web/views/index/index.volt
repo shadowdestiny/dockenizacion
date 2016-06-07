@@ -30,8 +30,11 @@ end PROD imports-->
     {# EMTD we use this function as workaround from jquery mobile to anchor link via url #}
     $(function(){
         var hash = window.location.hash;
+		var elem = hash.split('#')[1];
+		console.log(elem);
+		var scrollTop = typeof elem == 'undefined' ? 0 : $('#'+hash.split('#')[1]).offset().top;
         $(document.body).animate({
-            'scrollTop':   $('#'+hash.split('#')[1]).offset().top
+            'scrollTop': scrollTop
         }, 100);
     });
 {% endblock %}
