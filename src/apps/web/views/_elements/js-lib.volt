@@ -15,7 +15,7 @@
 {%  if ga_code is defined %}
 <script src="/w/js/vendor/ganalytics.min.js"></script>
 {% endif %}
-<!--end PROD imports-->
+end PROD imports-->
 <!--start DEV imports -->
 <script src="/w/js/mobileInit.js"></script>
 <script src="/w/js/main.js"></script>
