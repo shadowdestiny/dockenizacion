@@ -47,6 +47,11 @@ class LogService
         $this->logUserAccountAction($user, 'update');
     }
 
+    public function logChangeCurrency(IUser $user, $currency)
+    {
+        $this->logUserAccountAction($user, 'updateCurrency_withCurrency'.$currency);
+    }
+
     private function getLogger($logName)
     {
         if(empty($this->logs[$logName])) {
