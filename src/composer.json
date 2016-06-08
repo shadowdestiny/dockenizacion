@@ -5,6 +5,7 @@
     "phalcon/devtools": "dev-master",
     "antonienko/php-template-previewer": "0.2.*",
     "snowair/phalcon-debugbar": "^1.1",
+    "predis/predis": "^1.0",
     "codeception/codeception": "^2.1",
     "zaproxy/php-owasp-zap-v2": "2.4.*@beta"
   },
