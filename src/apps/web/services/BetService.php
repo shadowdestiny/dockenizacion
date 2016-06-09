@@ -67,7 +67,8 @@ class BetService
                     'id_ticket' => $lotteryValidation->getXmlResponse()->id,
                     'status' => $lotteryValidation->getXmlResponse()->status,
                     'response' => $lotteryValidation->getXmlResponse(),
-                    'received' => new \DateTime()
+                    'received' => new \DateTime(),
+                    'playConfig' => $playConfig
                 ]);
                 $this->logValidationRepository->add($log_api_reponse);
                 $this->entityManager->flush($log_api_reponse);

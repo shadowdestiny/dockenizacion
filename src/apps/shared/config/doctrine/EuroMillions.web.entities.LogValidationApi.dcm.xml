@@ -20,6 +20,9 @@
         <field name="response" type="text"/>
         <field name="received" type="datetime"/>
         <field name="id_ticket" type="integer"/>
+        <many-to-one target-entity="EuroMillions\web\entities\PlayConfig" inversed-by="playConfig"
+                     field="playConfig">
+        </many-to-one>
 
     </entity>
 </doctrine-mapping>

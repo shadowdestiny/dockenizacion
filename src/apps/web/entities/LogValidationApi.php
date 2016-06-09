@@ -21,6 +21,9 @@ class LogValidationApi extends EntityBase implements IEntity
 
     protected $received;
 
+    /** @var  PlayConfig */
+    protected $playConfig;
+
 
     public function setId($id)
     {
@@ -111,6 +114,22 @@ class LogValidationApi extends EntityBase implements IEntity
     public function setReceived($received)
     {
         $this->received = $received;
+    }
+
+    /**
+     * @return PlayConfig
+     */
+    public function getPlayConfig()
+    {
+        return $this->playConfig;
+    }
+
+    /**
+     * @param PlayConfig $playConfig
+     */
+    public function setPlayConfig($playConfig)
+    {
+        $this->playConfig = $playConfig;
     }
 
 }
