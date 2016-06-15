@@ -12,7 +12,11 @@ class LoggedAuthServiceStrategy extends AuthService implements IAuthLoggerStrate
     public function check($credentials, $agentIdentificationString)
     {
         $user = $this->userRepository->getByEmail($credentials['email']);
-        $this->logService->logIn($user);
+        if(!empty($user)) {
+            $this->logService->logIn($user);
+        } else {
+            //EMTD logService error
+        }
         return parent::check($credentials, $agentIdentificationString);
     }
 
