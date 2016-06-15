@@ -43,7 +43,7 @@
                     <li><a href="#n07">{{ language.translate("What is the Prize Breakdown?") }}</a></li>
                     <li><a href="#n08">{{ language.translate("What is the minimum guaranteed jackpot?") }}</a></li>
                      <li><a href="#n09">{{ language.translate("What is a Superdraw?") }}</a></li>
-                     <li><a href="#n11">{{ language.translate("How can I participate in a future draw?") }}</a></li>
+{#                   <li><a href="#n11">{{ language.translate("How can I participate in a future draw?") }}</a></li>  #}
                     <li><a href="#n13">{{ language.translate("How do I make a bet with multiple numbers in a line?") }}</a></li>
                 </ul>
 
@@ -139,10 +139,12 @@
                 <p>{{ language.translate('A Euromillions Superdraw is a special draw which typically features a guaranteed &euro; 100 million jackpot whether or not the Euromillions jackpot was won in the preceding draw. They usually occur once or twice a year in celebration of a special event or to mark changes in the lottery however, they can happen at any time. Similarly to a normal Euromillions draw, if no one matches the 5 main numbers and two lucky stars, the jackpot is rolled over to the next draw.') }}</p>
                 {% include "faq/back-top.volt" %}
 
+{#
                 <a id="n11"></a>
                 <h3 class="h3">{{ language.translate("How can I participate in a future draw?") }}</h3>
                 <p>{{ language.translate('Yes, you can purchase a play for a future Euromillions draw by using the Buy for Draw option under your lines on the <a href="/euromillions/play">Play Page</a>. You can buy a ticket for up to 12 draws in advance.') }}</p>
                 {% include "faq/back-top.volt" %}
+#}
 
                 <a id="n13"></a>
                 <h3 class="h3">{{ language.translate("How do I make a bet with multiple numbers in a line?") }}</h3>
