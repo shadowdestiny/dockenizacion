@@ -60,6 +60,20 @@ class BetRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $this->assertEquals(1, count($actual));
     }
 
+    /**
+     * method getMatchNumbers
+     * when called
+     * should returnResultWithMatchNumbers
+     */
+    public function test_getMatchNumbers_called_returnResultWithMatchNumbers()
+    {
+        $actual = $this->sut->getMatchNumbers(new \DateTime('2015-05-12'), '9098299B-14AC-4124-8DB0-19571EDABE55');
+        $expected = ['userId' => '9098299B-14AC-4124-8DB0-19571EDABE55', 'number_one' => '11','number_two' => '20','numbre_three' => '22', 'number_four' => '29','number_five' => '0','lucky_one' => '1', 'lucky_two' => 0];
+        $this->assertEquals(sort($expected),sort($actual[0]));
+
+    }
+
+
     private function exerciseAdd()
     {
         $euroMillionsDraw = $this->entityManager->find($this->getEntitiesToArgument('EuroMillionsDraw'), 2);
