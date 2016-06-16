@@ -14,8 +14,7 @@ class Matcher extends EntityBase implements IEntity, IUser, \JsonSerializable
 
     protected $id;
     protected $drawDate;
-    protected $balls;
-    protected $stars;
+    protected $idTicket;
     protected $prize;
 
     /**
@@ -55,38 +54,6 @@ class Matcher extends EntityBase implements IEntity, IUser, \JsonSerializable
     /**
      * @return mixed
      */
-    public function getBalls()
-    {
-        return $this->balls;
-    }
-
-    /**
-     * @param mixed $balls
-     */
-    public function setBalls($balls)
-    {
-        $this->balls = $balls;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getStars()
-    {
-        return $this->stars;
-    }
-
-    /**
-     * @param mixed $stars
-     */
-    public function setStars($stars)
-    {
-        $this->stars = $stars;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getPrize()
     {
         return $this->prize;
@@ -98,6 +65,22 @@ class Matcher extends EntityBase implements IEntity, IUser, \JsonSerializable
     public function setPrize($prize)
     {
         $this->prize = $prize;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdTicket()
+    {
+        return $this->idTicket;
+    }
+
+    /**
+     * @param mixed $idTicket
+     */
+    public function setIdTicket($idTicket)
+    {
+        $this->idTicket = $idTicket;
     }
 
 

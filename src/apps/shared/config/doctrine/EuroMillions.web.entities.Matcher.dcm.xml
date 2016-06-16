@@ -13,8 +13,7 @@
             </options>
         </id>
         <field name="drawDate" type="date"/>
-        <field name="balls" type="integer"/>
-        <field name="stars" type="integer"/>
+        <field name="idTicket" type="integer" column="id_ticket"/>
         <embedded name="prize" class="Money\Money"/>
     </entity>
 </doctrine-mapping>
