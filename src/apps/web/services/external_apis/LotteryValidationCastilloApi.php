@@ -46,12 +46,12 @@ class LotteryValidationCastilloApi
         $content .= "</combination></ticket>";
         $idsession = $bet->getCastilloBet()->id();
         $key = $castilloKey->key();
+
         $content_cyphered = $cypher->encrypt($key, $content);
         $signature = $cypher->getSignature($content_cyphered);
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?><message><operation id="' . $idsession . '" key="' . $key . '" type="1"><content>' . $content_cyphered . '</content></operation>';
         $xml .= '<signature>' . $signature . '</signature></message>';
-
         $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYPEER, 0);
         $this->curlWrapper->setOption(CURLOPT_POSTFIELDS, $xml);
         $this->curlWrapper->setOption(CURLOPT_RETURNTRANSFER, 1);

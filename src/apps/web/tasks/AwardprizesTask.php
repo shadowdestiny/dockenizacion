@@ -57,6 +57,7 @@ class AwardprizesTask extends TaskBase
                     ];
                     if ($result_amount->getAmount() > 0) {
                             $this->PrizeCheckoutService->awardUser($play_config_and_count[0], $result_amount, $scalarValues);
+
                     }
                 }
             }

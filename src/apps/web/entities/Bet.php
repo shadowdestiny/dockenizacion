@@ -19,6 +19,12 @@ class Bet extends EntityBase implements IEntity
 
     protected $castillo_bet;
 
+    protected $matchNumbers;
+
+    protected $matchStars;
+
+    protected $prize;
+
     public function __construct(PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw)
     {
         $this->playConfig = $playConfig;
@@ -79,5 +85,53 @@ class Bet extends EntityBase implements IEntity
             unset ($parent_array['castillo_bet']);
         }
         return $parent_array;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMatchNumbers()
+    {
+        return $this->matchNumbers;
+    }
+
+    /**
+     * @param mixed $matchNumbers
+     */
+    public function setMatchNumbers($matchNumbers)
+    {
+        $this->matchNumbers = $matchNumbers;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMatchStars()
+    {
+        return $this->matchStars;
+    }
+
+    /**
+     * @param mixed $matchStars
+     */
+    public function setMatchStars($matchStars)
+    {
+        $this->matchStars = $matchStars;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrize()
+    {
+        return $this->prize;
+    }
+
+    /**
+     * @param mixed $prize
+     */
+    public function setPrize($prize)
+    {
+        $this->prize = $prize;
     }
 }

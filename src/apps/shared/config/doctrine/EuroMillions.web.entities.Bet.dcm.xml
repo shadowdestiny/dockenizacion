@@ -15,6 +15,10 @@
             </options>
         </id>
 
+        <field name="matchNumbers" type="string" column="match_numbers" nullable="true"/>
+        <field name="matchStars" type="string" column="match_stars" nullable="true"/>
+
+        <embedded name="prize" class="Money\Money" use-column-prefix="true" />
         <embedded name="castillo_bet" class="EuroMillions\web\vo\CastilloBetId"/>
 
         <many-to-one field="euromillionsDraw" target-entity="EuroMillions\web\entities\EuroMillionsDraw" >
