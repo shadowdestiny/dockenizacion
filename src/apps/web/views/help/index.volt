@@ -85,7 +85,7 @@
                             <li><a href="/{{ lottery }}/faq#n07">{{ language.translate("What is the Prize Breakdown?") }}</a></li>
                             <li><a href="/{{ lottery }}/faq#n08">{{ language.translate("What is the minimum guaranteed jackpot?") }}</a></li>
                             <li><a href="/{{ lottery }}/faq#n09">{{ language.translate("What is a Superdraw?") }}</a></li>
-                            <li><a href="/{{ lottery }}/faq#n11">{{ language.translate("How can I participate in a future draw?") }}</a></li>
+{#                          <li><a href="/{{ lottery }}/faq#n11">{{ language.translate("How can I participate in a future draw?") }}</a></li> #}
                             <li><a href="/{{ lottery }}/faq#n13">{{ language.translate("How do I make a bet with multiple numbers in a line?") }}</a></li>
                         </ul>
 
