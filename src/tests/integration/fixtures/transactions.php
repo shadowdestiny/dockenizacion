@@ -42,7 +42,7 @@ return [
             'wallet_after_winnings_amount' => 0,
             'wallet_after_winnings_currency_name' => 0,
             'entity_type' => 'ticket_purchase',
-            'data' => '1#4#0#2000#0'
+            'data' => '1#4#0#2000#0#1,2'
         ],
         [
             'user_id' => '9098299B-14AC-4124-8DB0-19571EDABE55',

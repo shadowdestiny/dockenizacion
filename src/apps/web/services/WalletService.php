@@ -100,21 +100,25 @@ class WalletService
     }
 
 
-    public function payWithWallet(User $user, PlayConfig $playConfig, $transactionType, $data )
+    public function payWithWallet(User $user, PlayConfig $playConfig )
     {
         try {
-            $walletBefore = $user->getWallet();
             $user->pay($playConfig->getLottery()->getSingleBetPrice());
             $this->entityManager->flush($user);
-            $data['now'] = new \DateTime();
-            $data['walletBefore'] = $walletBefore;
-            $data['walletAfter'] = $user->getWallet();
-            $data['user'] = $user;
-            $this->transactionService->storeTransaction($transactionType,$data);
         } catch ( \Exception $e ) {
             //EMTD Log and warn the admin
         }
     }
+
+    public function purchaseTransactionGrouped(User $user, $transactionType, $data)
+    {
+        $data['now'] = new \DateTime();
+        $data['walletAfter'] = $user->getWallet();
+        $data['user'] = $user;
+        $this->transactionService->storeTransaction($transactionType,$data);
+
+    }
+
 
     public function withDraw( User $user, Money $amount )
     {

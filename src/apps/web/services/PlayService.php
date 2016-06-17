@@ -150,23 +150,27 @@ class PlayService
                             $this->entityManager->flush($play_config);
                         }
                     }
-
                     $orderIsToNextDraw = $order->isNextDraw($draw->getValues()->getDrawDate());
                     if( $result_payment->success() && $orderIsToNextDraw) {
+                        $walletBefore = $user->getWallet();
                         foreach( $order->getPlayConfig() as $play_config ) {
                             $result_validation = $this->betService->validation($play_config, $draw->getValues(),$lottery->getNextDrawDate());
                             if(!$result_validation->success()) {
                                 return new ActionResult(false, $result_validation->errorMessage());
                             }
-                            $dataTransaction = [
-                                'lottery_id' => 1,
-                                'numBets' => count($order->getPlayConfig()),
-                                'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
-                                'amountWithWallet' => $lottery->getSingleBetPrice()->getAmount(),
-                                'amountWithCreditCard' => 0
-                            ];
-                            $this->walletService->payWithWallet($user,$play_config, TransactionType::TICKET_PURCHASE,$dataTransaction);
+                            $this->walletService->payWithWallet($user,$play_config);
                         }
+                        $dataTransaction = [
+                            'lottery_id' => 1,
+                            'numBets' => count($order->getPlayConfig()),
+                            'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
+                            'amountWithWallet' => $lottery->getSingleBetPrice()->multiply(count($order->getPlayConfig()))->getAmount(),
+                            'walletBefore' => $walletBefore,
+                            'amountWithCreditCard' => 0,
+                            'playConfigs' => array_map(function($val){return $val->getId();}, $order->getPlayConfig())
+                        ];
+
+                        $this->walletService->purchaseTransactionGrouped($user,TransactionType::TICKET_PURCHASE,$dataTransaction);
                         $this->sendEmailPurchase($user,$order->getPlayConfig());
                         return new ActionResult(true,$order);
                     } else {

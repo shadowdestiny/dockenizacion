@@ -47,6 +47,12 @@ class OrderBuilder
         return $this;
     }
 
+    public function withPlayConfigWithIds()
+    {
+        $this->playConfig = $this->getPlayConfigWithIds();
+        return $this;
+    }
+
 
     private function getPlayConfig()
     {
@@ -59,6 +65,21 @@ class OrderBuilder
             $bets[] = $playConfig;
         }
         return $bets;
+    }
+
+    private function getPlayConfigWithIds()
+    {
+        $user = UserMother::aUserWith50Eur()->build();
+        $form_decode = json_decode(self::DEFAULT_JSON_PLAY);
+        $bets = [];
+        foreach($form_decode->play_config as $bet) {
+            $playConfig = new PlayConfig();
+            $playConfig->formToEntity($user,$bet,$bet->euroMillionsLines);
+            $bets[] = $playConfig;
+            $playConfig->setId(rand(1,9000));
+        }
+        return $bets;
+
     }
 
     /**

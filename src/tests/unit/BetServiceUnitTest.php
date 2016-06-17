@@ -80,6 +80,8 @@ class BetServiceUnitTest extends UnitTestBase
         $this->logValidationApi_double->add(Argument::type($this->getEntitiesToArgument('LogValidationApi')))->shouldBeCalled();
         $this->betRepository_double->add(Argument::any())->willReturn(true);
         $this->userRepository_double->add(Argument::any())->willReturn(true);
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->persist(Argument::any())->shouldBeCalled();
         $this->iDontCareAboutFlush();
         $sut = $this->getSut();
         $actual = $sut->validation($playConfig,$euroMillionsDraw,$date, new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
@@ -104,6 +106,8 @@ class BetServiceUnitTest extends UnitTestBase
         $this->logValidationApi_double->add(Argument::type($this->getEntitiesToArgument('LogValidationApi')))->shouldBeCalled();
         $this->betRepository_double->add(Argument::any())->willReturn(true);
         $this->userRepository_double->add(Argument::any())->willReturn(true);
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->persist(Argument::any())->shouldBeCalled();
         $this->iDontCareAboutFlush();
         $sut = $this->getSut();
         $actual = $sut->validation($playConfig,$euroMillionsDraw, $date, new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());
@@ -146,6 +150,8 @@ class BetServiceUnitTest extends UnitTestBase
         $this->lotteryValidation_double->getXmlResponse()->willReturn(new \SimpleXMLElement(self::$content_with_ok_result));
         $this->logValidationApi_double->add(Argument::type($this->getEntitiesToArgument('LogValidationApi')))->shouldBeCalled();
         $this->logValidationApi_double->add(Argument::any())->shouldBeCalled();
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->persist(Argument::any())->shouldBeCalled();
         $this->iDontCareAboutFlush();
         $sut = $this->getSut();
         $actual = $sut->validation($playConfig,$euroMillionsDraw, new \DateTime(), new \DateTime('2015-09-16 00:00:00'), $this->lotteryValidation_double->reveal());

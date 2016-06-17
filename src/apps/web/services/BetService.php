@@ -70,8 +70,9 @@ class BetService
                     'received' => new \DateTime(),
                     'bet' => $bet
                 ]);
+                $this->entityManager->persist($bet);
                 $this->logValidationRepository->add($log_api_reponse);
-                $this->entityManager->flush($log_api_reponse);
+                $this->entityManager->flush();
                 if($result_validation->success()) {
                     $this->betRepository->add($bet);
                     $this->entityManager->flush();

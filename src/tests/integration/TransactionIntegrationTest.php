@@ -59,7 +59,8 @@ class TransactionIntegrationTest extends DatabaseIntegrationTestBase
             'user' => $user,
             'walletBefore' => $user->getWallet(),
             'walletAfter' => $user->getWallet(),
-            'now' => $now
+            'now' => $now,
+            'playConfigs' => [1,2]
         ];
 
         $transactionType = new TicketPurchaseTransaction($data);
@@ -135,6 +136,7 @@ class TransactionIntegrationTest extends DatabaseIntegrationTestBase
         $this->assertEquals(0,$actual[2]->fromString()->getAmountWithWallet());
         $this->assertEquals(2000,$actual[2]->fromString()->getAmountWithCreditCard());
         $this->assertEquals(0,$actual[2]->fromString()->getFeeApplied());
+        $this->assertEquals([1,2],$actual[2]->fromString()->getPlayConfigs());
     }
 
     /**

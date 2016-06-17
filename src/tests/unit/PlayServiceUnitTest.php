@@ -255,7 +255,8 @@ class PlayServiceUnitTest extends UnitTestBase
         $entityManager_double = $this->getEntityManagerDouble();
         $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
         $entityManager_double->flush(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
-        $this->walletService_double->payWithWallet($user,Argument::type('EuroMillions\web\entities\PlayConfig'), TransactionType::TICKET_PURCHASE, Argument::type('array'))->shouldBeCalled();
+        $this->walletService_double->payWithWallet($user,Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
+        $this->walletService_double->purchaseTransactionGrouped($user,TransactionType::TICKET_PURCHASE,Argument::type('array'))->shouldBeCalled();
         $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
         $sut = $this->getSut();
         $actual = $sut->play($user->getId(), null, $credit_card);
@@ -281,7 +282,8 @@ class PlayServiceUnitTest extends UnitTestBase
         $entityManager_double = $this->getEntityManagerDouble();
         $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
         $entityManager_double->flush(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
-        $this->walletService_double->payWithWallet($user,Argument::type('EuroMillions\web\entities\PlayConfig'), TransactionType::TICKET_PURCHASE,Argument::type('array'))->shouldBeCalled();
+        $this->walletService_double->payWithWallet($user,Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
+        $this->walletService_double->purchaseTransactionGrouped($user,TransactionType::TICKET_PURCHASE,Argument::type('array'))->shouldBeCalled();
         $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
         $sut = $this->getSut();
         $actual = $sut->play($user->getId(), $funds_amount_to_charged, $credit_card);
@@ -334,39 +336,37 @@ class PlayServiceUnitTest extends UnitTestBase
         $entityManager_double = $this->getEntityManagerDouble();
         $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalledTimes(4);
         $entityManager_double->flush(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
-        $this->walletService_double->payWithWallet($user,Argument::type('EuroMillions\web\entities\PlayConfig'), TransactionType::TICKET_PURCHASE, Argument::type('array'))->shouldBeCalled();
+        $this->walletService_double->payWithWallet($user,Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
+        $this->walletService_double->purchaseTransactionGrouped($user,TransactionType::TICKET_PURCHASE,Argument::type('array'))->shouldBeCalled();
         $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
         $actual = $sut->play($user->getId(), null, $credit_card);
         $this->assertEquals($expected, $actual);
     }
 
+
     /**
      * method play
-     * when calledWithoutBetsForNextDraw
-     * should notValidateAgainstCastillo
+     * when called
+     * should createPruchaseTransactionGrouped
      */
-    public function test_play_calledWithoutBetsForNextDraw_notValidateAgainstCastillo()
+    public function test_play_called_createPruchaseTransactionGrouped()
     {
-        $this->markTestSkipped('error en este test');
-        $draw_date = new \DateTime('2016-02-05 20:00:00');
+        $draw_date = new \DateTime('2016-02-16 20:00:00');
         $user = UserMother::aUserWith50Eur()->build();
         $order = OrderMother::aJustOrder()->build();
         $credit_card = CreditCardMother::aValidCreditCard();
-        $this->exercisePlayWallet($user, $order, $credit_card, $draw_date);
-        $entityManager_double = $this->getEntityManagerDouble();
-        $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalledTimes(4);
-        $entityManager_double->flush(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
-        $this->betService_double->validation(Argument::any(), Argument::any(), Argument::any())->willReturn(new ActionResult(true));
-        $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
-        $dataTransaction = [
-            'lottery_id' => 1,
-            'numBets' => count($user->getPlayConfig()),
-            'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee()
-        ];
-        //$this->walletService_double->payWithWallet($user,Argument::type('EuroMillions\web\entities\PlayConfig'), TransactionType::TICKET_PURCHASE, TransactionType::TICKET_PURCHASE, $dataTransaction)->shouldBeCalled();
+        $this->exercisePlayWallet($user, $order, $credit_card,$draw_date);
+        $expected = new ActionResult(true, $order);
         $sut = $this->getSut();
+        $this->betService_double->validation(Argument::any(), Argument::any(),Argument::any())->willReturn(new ActionResult(true));
+        $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalledTimes(4);
+        $this->iDontCareAboutFlush();
+        $this->walletService_double->payWithWallet($user,Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
+        $this->walletService_double->purchaseTransactionGrouped($user,TransactionType::TICKET_PURCHASE,Argument::type('array'))->shouldBeCalled();
+        $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
         $actual = $sut->play($user->getId(), null, $credit_card);
-        $this->assertEquals(new ActionResult(true, $order), $actual);
+        $this->assertEquals($expected, $actual);
+
     }
 
     /**

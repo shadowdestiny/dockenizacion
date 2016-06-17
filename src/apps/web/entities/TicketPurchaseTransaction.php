@@ -26,6 +26,7 @@ class TicketPurchaseTransaction extends PurchaseTransaction implements ITransact
         $this->setWalletAfter($data['walletAfter']);
         $this->setDate($data['now']);
         $this->setUser($data['user']);
+        $this->setPlayConfigs($data['playConfigs']);
     }
 
     /**
@@ -110,7 +111,7 @@ class TicketPurchaseTransaction extends PurchaseTransaction implements ITransact
 
     public function toString()
     {
-        $this->data = $this->lotteryId.'#'.$this->numBets.'#'.$this->amountWithWallet.'#'.$this->amountWithCreditCard.'#'.$this->feeApplied;
+        $this->data = $this->lotteryId.'#'.$this->numBets.'#'.$this->amountWithWallet.'#'.$this->amountWithCreditCard.'#'.$this->feeApplied.'#'.implode(',',$this->playConfigs);
     }
 
     public function fromString()
@@ -121,13 +122,14 @@ class TicketPurchaseTransaction extends PurchaseTransaction implements ITransact
                 $numBets,
                 $amountWithWallet,
                 $amountWithCreditCard,
-                $feeApplied) = explode('#',$this->data);
+                $feeApplied,$playConfigs) = explode('#',$this->data);
 
             $this->lotteryId = $lotteryId;
             $this->numBets = $numBets;
             $this->amountWithWallet = $amountWithWallet;
             $this->amountWithCreditCard = $amountWithCreditCard;
             $this->feeApplied = $feeApplied;
+            $this->playConfigs = explode(',',$playConfigs);
 
         } catch ( \Exception $e ) {
             throw new BadEntityInitializationException('Invalid data format');

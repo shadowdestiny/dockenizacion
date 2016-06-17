@@ -84,7 +84,8 @@ class MaintenanceWithdrawServiceTest extends UnitTestBase
             'walletBefore' => Wallet::create(),
             'walletAfter' => Wallet::create(),
             'now' => '',
-            'user' => ''
+            'user' => '',
+            'playConfigs' => [1,2]
         ];
         $transaction = new TicketPurchaseTransaction($data);
         $sut = $this->getSut();

@@ -116,7 +116,6 @@ class WalletServiceUnitTest extends UnitTestBase
      */
     public function test_rechargeWithWallet_called_()
     {
-        $this->markTestSkipped('Raul, te marco este como saltado porque me falla al cambiar lo del wallet, pero tiene que ver con las transacciones. Soluciónalo tú por favor.');
         $user = UserMother::aUserWith50Eur()->build();
         $expected_wallet = Wallet::create(4750);
         $playConfig = PlayConfigMother::aPlayConfig()->build();
@@ -129,11 +128,20 @@ class WalletServiceUnitTest extends UnitTestBase
             'walletAfter' => $user->getWallet(),
         ];
         $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal(),$this->transactionService_double->reveal());
-        $entityManager_stub = $this->getEntityManagerDouble();
-        $entityManager_stub->flush($user)->shouldBeCalled();
-        $this->transactionService_double->storeTransaction(TransactionType::AUTOMATIC_PURCHASE,$data)->shouldBeCalled();
-        $sut->payWithWallet($user,$playConfig, TransactionType::AUTOMATIC_PURCHASE,$data);
+        $this->iDontCareAboutFlush();
+        $sut->payWithWallet($user,$playConfig);
         $this->assertEquals($expected_wallet, $user->getWallet());
+    }
+
+
+    /**
+     * method purchaseTransactionGrouped
+     * when called
+     * should callStoreTransactionMethodAndCreateIT
+     */
+    public function test_purchaseTransactionGrouped_called_callStoreTransactionMethodAndCreateIT()
+    {
+
     }
 
     /**
