@@ -31,6 +31,11 @@ class Bet extends EntityBase implements IEntity
         $this->euromillionsDraw = $euroMillionsDraw;
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
     public function getId()
     {
         return $this->id;

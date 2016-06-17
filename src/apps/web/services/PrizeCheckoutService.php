@@ -109,6 +109,22 @@ class PrizeCheckoutService
         }
     }
 
+
+    public function matchNumbersUser(Bet $bet, array $scalarValues, \DateTime $drawDate)
+    {
+        try {
+            $match = $this->betRepository->getMatchNumbers($drawDate, $scalarValues['userId']);
+            /** @var Bet $currentBet */
+            $currentBet = $this->betRepository->findOneBy(['id' => $bet->getId()]);
+            $currentBet->setMatchNumbers($match['numbers']);
+            $currentBet->setMatchStars($match['stars']);
+            $this->entityManager->detach($currentBet);
+            $this->betRepository->add($currentBet);
+            $this->entityManager->flush();
+        } catch (\Exception $e) {
+        }
+    }
+
     private function storeAwardTransaction(array $data, $transactionType)
     {
         $this->transactionService->storeTransaction($transactionType,$data);

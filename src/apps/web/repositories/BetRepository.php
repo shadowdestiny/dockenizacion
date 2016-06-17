@@ -123,7 +123,6 @@ class BetRepository extends RepositoryBase
     public function getMatchNumbers(\DateTime $date, $userId )
     {
         $rsm = new ResultSetMapping;
-        $rsm->addScalarResult('userId','userId');
         $rsm->addScalarResult('number_one','number_one');
         $rsm->addScalarResult('number_two','number_two');
         $rsm->addScalarResult('number_three','number_three');
@@ -173,6 +172,10 @@ class BetRepository extends RepositoryBase
         $result->setParameter(1,$userId);
         $result->setParameter(2,$userId);
         $result->setParameter(3,$date->format('Y-m-d'));
-        return $result->getResult();
+        $scalarResult = $result->getResult();
+        return [
+            'numbers' => implode(',', array_slice($scalarResult[0],0,5)),
+            'stars' => implode(',', array_slice($scalarResult[0],5,6))
+        ];
     }
 }

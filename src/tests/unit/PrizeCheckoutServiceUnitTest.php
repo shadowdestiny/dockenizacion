@@ -205,6 +205,29 @@ class PrizeCheckoutServiceUnitTest extends UnitTestBase
     }
 
 
+    /**
+     * method matchNumbersUser
+     * when called
+     * should updateBetEntityWithMatchNumbers
+     */
+    public function test_matchNumbersUser_called_updateBetEntityWithMatchNumbers()
+    {
+        $sut = $this->getSut();
+        $date = new \DateTime();
+        list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
+        $bet = new Bet($playConfig,$euroMillionsDraw);
+        $result = ['numbers' => '11,20,22,29,0',
+                   'stars' => '1,0'
+        ];
+        $this->betRepository_double->getMatchNumbers($date,$this->getScalarValues()['userId'])->willReturn($result);
+        $this->betRepository_double->findOneBy(['id'=>$bet->getId()])->willReturn($bet);
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->detach($bet)->shouldBeCalled();
+        $this->betRepository_double->add($bet)->shouldBeCalled();
+        $this->iDontCareAboutFlush();
+        $sut->matchNumbersUser($bet,$this->getScalarValues(), $date);
+    }
+
 
     private function getSut(){
         return new PrizeCheckoutService(

@@ -68,8 +68,10 @@ class BetRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     public function test_getMatchNumbers_called_returnResultWithMatchNumbers()
     {
         $actual = $this->sut->getMatchNumbers(new \DateTime('2015-05-12'), '9098299B-14AC-4124-8DB0-19571EDABE55');
-        $expected = ['userId' => '9098299B-14AC-4124-8DB0-19571EDABE55', 'number_one' => '11','number_two' => '20','numbre_three' => '22', 'number_four' => '29','number_five' => '0','lucky_one' => '1', 'lucky_two' => 0];
-        $this->assertEquals(sort($expected),sort($actual[0]));
+        $expected = ['numbers' => '11,20,22,29,0',
+                     'stars' => '1,0'
+                    ];
+        $this->assertEquals($expected,$actual);
 
     }
 
