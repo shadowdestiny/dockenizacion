@@ -64,13 +64,12 @@ class BetService
                 $log_api_reponse = new LogValidationApi();
                 $log_api_reponse->initialize([
                     'id_provider' => 1,
-                    'id_ticket' => (int) $lotteryValidation->getXmlResponse()->id,
+                    'id_ticket' => $lotteryValidation->getXmlResponse()->id,
                     'status' => $lotteryValidation->getXmlResponse()->status,
                     'response' => $lotteryValidation->getXmlResponse(),
                     'received' => new \DateTime(),
                     'bet' => $bet
                 ]);
-                $this->entityManager->detach($log_api_reponse);
                 $this->entityManager->persist($bet);
                 $this->logValidationRepository->add($log_api_reponse);
                 $this->entityManager->flush();
