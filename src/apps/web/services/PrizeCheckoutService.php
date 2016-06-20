@@ -110,7 +110,7 @@ class PrizeCheckoutService
     }
 
 
-    public function matchNumbersUser(Bet $bet, array $scalarValues, \DateTime $drawDate)
+    public function matchNumbersUser(Bet $bet, array $scalarValues, \DateTime $drawDate, Money $amount)
     {
         try {
             $match = $this->betRepository->getMatchNumbers($drawDate, $scalarValues['userId']);
@@ -118,6 +118,7 @@ class PrizeCheckoutService
             $currentBet = $this->betRepository->findOneBy(['id' => $bet->getId()]);
             $currentBet->setMatchNumbers($match['numbers']);
             $currentBet->setMatchStars($match['stars']);
+            $currentBet->setPrize($amount);
             $this->entityManager->detach($currentBet);
             $this->betRepository->add($currentBet);
             $this->entityManager->flush();

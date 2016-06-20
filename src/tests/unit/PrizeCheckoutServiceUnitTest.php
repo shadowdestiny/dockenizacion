@@ -225,7 +225,7 @@ class PrizeCheckoutServiceUnitTest extends UnitTestBase
         $entityManager_stub->detach($bet)->shouldBeCalled();
         $this->betRepository_double->add($bet)->shouldBeCalled();
         $this->iDontCareAboutFlush();
-        $sut->matchNumbersUser($bet,$this->getScalarValues(), $date);
+        $sut->matchNumbersUser($bet,$this->getScalarValues(), $date, new Money((int) 1 ,new Currency('EUR')));
     }
 
 
