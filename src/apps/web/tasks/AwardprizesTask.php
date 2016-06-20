@@ -32,7 +32,7 @@ class AwardprizesTask extends TaskBase
     public function checkoutAction($args = 'now')
     {
         $today = new \DateTime($args[0]);
-        if($today) {
+        if(!$today) {
             $today = new \DateTime();
         }
         $drawDate = $this->lotteryService->getLastDrawDate('EuroMillions',$today);
