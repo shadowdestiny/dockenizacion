@@ -31,12 +31,11 @@ class AwardprizesTask extends TaskBase
 
     public function checkoutAction($args = 'now')
     {
-        if(null != $args) {
-            $drawDate = new \DateTime($args[0]);
-        } else {
-            /** @var EuroMillionsDraw $draw */
-            $drawDate = $this->lotteryService->getLastDrawDate('EuroMillions');
+        $today = new \DateTime($args[0]);
+        if($today) {
+            $today = new \DateTime();
         }
+        $drawDate = $this->lotteryService->getLastDrawDate('EuroMillions',$today);
         $lottery_name = 'EuroMillions';
         $play_configs_result_awarded = $this->PrizeCheckoutService->playConfigsWithBetsAwarded($drawDate);
         //get breakdown

@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\web\controllers;
 
+use Doctrine\ORM\Query\ResultSetMapping;
 use EuroMillions\web\components\UserId;
 use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\EuroMillionsDraw;
@@ -55,14 +56,20 @@ class TestController extends PublicSiteControllerBase
         $betRepository = $this->entityManager->getRepository(Bet::class);
         $betRepository->add($bet);
         $this->entityManager->flush();
-
         $task = new AwardprizesTask();
         $task->initialize();
         $task->checkoutAction();
         $this->noRender();
-        $this->entityManager->remove($bet);
-        $this->entityManager->remove($play_config);
-        $this->entityManager->flush();
+        try {
+            $connection = $this->entityManager->getConnection();
+            $connection->query('set FOREIGN_KEY_CHECKS=0');
+            $this->entityManager->remove($play_config);
+            $this->entityManager->remove($bet);
+            $this->entityManager->flush();
+            $connection->query('set FOREIGN_KEY_CHECKS=1');
+        } catch(\Exception $e) {
+            echo $e->getMessage();
+        }
         echo 'OK ' . $userId;
     }
 
