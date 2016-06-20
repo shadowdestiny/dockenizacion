@@ -31,7 +31,6 @@ class AwardprizesTask extends TaskBase
 
     public function checkoutAction($args = 'now')
     {
-
         if(null != $args) {
             $drawDate = new \DateTime($args[0]);
         } else {
@@ -42,6 +41,7 @@ class AwardprizesTask extends TaskBase
         $play_configs_result_awarded = $this->PrizeCheckoutService->playConfigsWithBetsAwarded($drawDate);
         //get breakdown
         $result_breakdown = $this->lotteryService->getLastDrawWithBreakDownByDate($lottery_name, $drawDate);
+
         if ($result_breakdown->success() && $play_configs_result_awarded->success()) {
             /** @var EuroMillionsDrawBreakDown $euromillions_breakDown */
             $euromillions_breakDown = $result_breakdown->getValues()->getBreakDown();

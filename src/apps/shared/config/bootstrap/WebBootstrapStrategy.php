@@ -97,6 +97,16 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 "action"     => 2
             )
         );
+
+        $router->add("/test/markUserAsWinner/(.*)/([0-9])/([0-9])", array(
+            "module"     => "web",
+            'controller' => 'test',
+            'action'     => 'markUserAsWinner',
+            'userId'     => 1,
+            'balls'     => 2,
+            'stars'     => 3,
+        ));
+
         $router->add('/admin/:controller/:action/:params', array(
             'module'     => 'admin',
             'controller' => 1,
@@ -189,6 +199,8 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'controller' => 'user-access',
             'action'     => 'forgotPassword'
         ));
+
+
 
         $router->add("/{lottery:(euromillions)+}/cart/profile", array(
             "module"     => "web",

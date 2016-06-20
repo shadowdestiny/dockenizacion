@@ -29,7 +29,7 @@ class TestController extends PublicSiteControllerBase
         $user = $userService->getUser(Uuid::fromString($userId));
         $draw_date = $lotteryService->getLastDrawDate('EuroMillions');
         /** @var EuroMillionsDraw $draw */
-        $draw = $this->lotteryService->getLastDrawWithBreakDownByDate('EuroMillions', new \DateTime)->getValues();
+        $draw = $this->lotteryService->getLastDrawWithBreakDownByDate('EuroMillions', $draw_date)->getValues();
         /** @var EuroMillionsLine $line */
         $line = $draw->getResult();
         $regular_numbers = $line->getRegularNumbersArray();
@@ -55,6 +55,7 @@ class TestController extends PublicSiteControllerBase
         $betRepository = $this->entityManager->getRepository(Bet::class);
         $betRepository->add($bet);
         $this->entityManager->flush();
+
         $task = new AwardprizesTask();
         $task->initialize();
         $task->checkoutAction();
