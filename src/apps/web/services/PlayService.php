@@ -180,7 +180,7 @@ class PlayService
                     //error
                 }
             } catch ( \Exception $e ) {
-                var_dump($e->getMessage());die();
+
             }
         }
         return new ActionResult(false);
