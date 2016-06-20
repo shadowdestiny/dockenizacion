@@ -194,7 +194,8 @@ class AccountController extends PublicSiteControllerBase
         $wallet_dto = $this->domainServiceFactory->getWalletService()->getWalletDTO($user);
         $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user->getUserCurrency());
         $this->userService->resetWonAbove($user);
-	$this->tag->prependTitle('My Balance');
+	    $this->tag->prependTitle('My Balance');
+
         return $this->view->setVars([
             'which_form' => 'wallet',
             'form_errors' => $form_errors,

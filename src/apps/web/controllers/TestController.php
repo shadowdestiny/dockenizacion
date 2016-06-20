@@ -63,8 +63,8 @@ class TestController extends PublicSiteControllerBase
         try {
             $connection = $this->entityManager->getConnection();
             $connection->query('set FOREIGN_KEY_CHECKS=0');
-            $this->entityManager->remove($play_config);
-            $this->entityManager->remove($bet);
+            //$this->entityManager->remove($play_config);
+            //$this->entityManager->remove($bet);
             $this->entityManager->flush();
             $connection->query('set FOREIGN_KEY_CHECKS=1');
         } catch(\Exception $e) {
