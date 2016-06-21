@@ -16,7 +16,7 @@
         <field name="drawDate" type="date"/>
         <field name="matchStatus" type="string" length="10" nullable="true"/>
         <field name="matchID" type="bigint" column="matchID" nullable="true"/>
-        <field name="matchDate" type="datetime" column="matchDate"/>
+        <field name="matchDate" type="datetime" column="matchDate" nullable="true"/>
         <embedded name="prize" class="Money\Money"/>
         <many-to-one target-entity="EuroMillions\web\entities\LogValidationApi" field="providerBetId">
             <join-column name="providerBetId" referenced-column-name="id_ticket" nullable="true"/>
