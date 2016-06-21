@@ -2,7 +2,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class MatcherEntityChanges extends AbstractMigration
+class MatcherTable extends AbstractMigration
 {
     /**
      * Change Method.
@@ -27,11 +27,8 @@ class MatcherEntityChanges extends AbstractMigration
      */
     public function change()
     {
-        $this->execute('ALTER TABLE matcher ADD matchSide VARCHAR(1) NOT NULL, ADD matchStatus VARCHAR(10) NOT NULL, ADD matchID BIGINT NOT NULL, ADD matchDate DATETIME NOT NULL, ADD providerBetId BIGINT DEFAULT NULL, ADD userId CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:uuid)\', DROP id_ticket;
+        $this->execute('CREATE TABLE matcher (id INT UNSIGNED AUTO_INCREMENT NOT NULL, matchSide VARCHAR(1) DEFAULT NULL, drawDate DATE NOT NULL, matchStatus VARCHAR(10) DEFAULT NULL, matchID BIGINT DEFAULT NULL, matchDate DATETIME NOT NULL, prize_amount BIGINT DEFAULT NULL, prize_currency_name VARCHAR(255) DEFAULT NULL, providerBetId BIGINT DEFAULT NULL, userId CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:uuid)\', INDEX IDX_7121252C68D879E3 (providerBetId), INDEX IDX_7121252C64B64DCC (userId), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;
                         ALTER TABLE matcher ADD CONSTRAINT FK_7121252C68D879E3 FOREIGN KEY (providerBetId) REFERENCES log_validation_api (id_ticket);
-                        ALTER TABLE matcher ADD CONSTRAINT FK_7121252C64B64DCC FOREIGN KEY (userId) REFERENCES users (id);
-                        CREATE INDEX IDX_7121252C68D879E3 ON matcher (providerBetId);
-                        CREATE INDEX IDX_7121252C64B64DCC ON matcher (userId);
-        ');
+                        ALTER TABLE matcher ADD CONSTRAINT FK_7121252C64B64DCC FOREIGN KEY (userId) REFERENCES users (id);');
     }
 }

@@ -12,17 +12,17 @@
                 <option name="unsigned">true</option>
             </options>
         </id>
-        <field name="matchSide" type="string" length="1"/>
+        <field name="matchSide" type="string" length="1" nullable="true"/>
         <field name="drawDate" type="date"/>
-        <field name="matchStatus" type="string" length="10"/>
-        <field name="matchID" type="bigint" column="matchID"/>
+        <field name="matchStatus" type="string" length="10" nullable="true"/>
+        <field name="matchID" type="bigint" column="matchID" nullable="true"/>
         <field name="matchDate" type="datetime" column="matchDate"/>
         <embedded name="prize" class="Money\Money"/>
         <many-to-one target-entity="EuroMillions\web\entities\LogValidationApi" field="providerBetId">
-            <join-column name="providerBetId" referenced-column-name="id_ticket"/>
+            <join-column name="providerBetId" referenced-column-name="id_ticket" nullable="true"/>
         </many-to-one>
-        <many-to-one target-entity="EuroMillions\web\entities\User" field="userId">
-            <join-column name="userId" referenced-column-name="id"/>
+        <many-to-one target-entity="EuroMillions\web\entities\User" field="userId" >
+            <join-column name="userId" referenced-column-name="id" nullable="true"/>
         </many-to-one>
     </entity>
 </doctrine-mapping>
