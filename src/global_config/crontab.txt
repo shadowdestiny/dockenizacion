@@ -1,4 +1,4 @@
-30 * * * * /usr/bin/php /var/www/apps/cli.php jackpot update
-35 * * * * /usr/bin/php /var/www/apps/cli.php result update
-30 00 * * 2,5 /usr/bin/php /var/www/apps/cli.php latestresult resultsReminderWhenPlayed
-00 10 * * 2,5 /usr/bin/php /var/www/apps/cli.php jackpot reminderJackpot
+30 * * * * . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php jackpot update
+35 * * * * . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php result update > /tmp/result.log  2>&1
+30 00 * * 2,5 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php latestresult resultsReminderWhenPlayed
+00 10 * * 2,5 . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php jackpot reminderJackpot
