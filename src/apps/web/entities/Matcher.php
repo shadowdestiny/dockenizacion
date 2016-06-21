@@ -13,8 +13,13 @@ class Matcher extends EntityBase implements IEntity, IUser, \JsonSerializable
 
 
     protected $id;
+    protected $matchSide;
     protected $drawDate;
-    protected $idTicket;
+    protected $matchStatus;
+    protected $matchID;
+    protected $matchDate;
+    protected $userId;
+    protected $providerBetId;
     protected $prize;
 
     /**
@@ -70,17 +75,91 @@ class Matcher extends EntityBase implements IEntity, IUser, \JsonSerializable
     /**
      * @return mixed
      */
-    public function getIdTicket()
+    public function getProviderBetId()
     {
-        return $this->idTicket;
+        return $this->providerBetId;
     }
 
     /**
-     * @param mixed $idTicket
+     * @param mixed $providerBetId
      */
-    public function setIdTicket($idTicket)
+    public function setProviderBetId($providerBetId)
     {
-        $this->idTicket = $idTicket;
+        $this->providerBetId = $providerBetId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMatchSide()
+    {
+        return $this->matchSide;
+    }
+
+    /**
+     * @param mixed $matchSide
+     */
+    public function setMatchSide($matchSide)
+    {
+        $this->matchSide = $matchSide;
+    }
+
+    /**
+     * @param mixed $matchStatus
+     * @return Matcher
+     */
+    public function setMatchStatus($matchStatus)
+    {
+        $this->matchStatus = $matchStatus;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMatchID()
+    {
+        return $this->matchID;
+    }
+
+    /**
+     * @param mixed $matchID
+     */
+    public function setMatchID($matchID)
+    {
+        $this->matchID = $matchID;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMatchDate()
+    {
+        return $this->matchDate;
+    }
+
+    /**
+     * @param mixed $matchDate
+     */
+    public function setMatchDate($matchDate)
+    {
+        $this->matchDate = $matchDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 
 
