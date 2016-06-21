@@ -113,12 +113,13 @@ class PrizeCheckoutService
     public function matchNumbersUser(Bet $bet, array $scalarValues, \DateTime $drawDate, Money $amount)
     {
         try {
+            $new_amount = new Money((int) $amount->getAmount() / 100, new Currency('EUR'));
             $match = $this->betRepository->getMatchNumbers($drawDate, $scalarValues['userId']);
             /** @var Bet $currentBet */
             $currentBet = $this->betRepository->findOneBy(['id' => $bet->getId()]);
             $currentBet->setMatchNumbers($match['numbers']);
             $currentBet->setMatchStars($match['stars']);
-            $currentBet->setPrize($amount);
+            $currentBet->setPrize($new_amount);
             $this->entityManager->detach($currentBet);
             $this->betRepository->add($currentBet);
             $this->entityManager->flush();
