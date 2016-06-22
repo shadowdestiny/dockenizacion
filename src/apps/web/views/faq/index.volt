@@ -39,7 +39,7 @@
                     <li><a href="#n03">{{ language.translate("How do I play?") }}</a></li>
                     <li><a href="#n04">{{ language.translate("What time is the draw?") }}</a></li>
                     <li><a href="#n05">{{ language.translate("How do I know that I won?") }}</a></li> 
-                    <li><a href="#n06">{{ language.translate("When the Draw results are released?") }}</a></li>
+                    <li><a href="#n06">{{ language.translate("When are the draw results released?") }}</a></li>
                     <li><a href="#n07">{{ language.translate("What is the Prize Breakdown?") }}</a></li>
                     <li><a href="#n08">{{ language.translate("What is the minimum guaranteed jackpot?") }}</a></li>
                      <li><a href="#n09">{{ language.translate("What is a Superdraw?") }}</a></li>
@@ -120,7 +120,7 @@
                 {% include "faq/back-top.volt" %}
 
                 <a id="n06"></a>
-                <h3 class="h3">{{ language.translate("When the Draw results are released?") }}</h3>
+                <h3 class="h3">{{ language.translate("When are the draw results released?") }}</h3>
                 <p>{{ language.translate('The latest <a href="/euromillions/results">Euromillions results</a> are revealed approximately an hour following the draw 22:30 CET. A full breakdown of prizes is released another hour later 23:30 CET. However, in the event of a large jackpot the processing and verification of the latest results can take up until midnight to finalise. You can get the latest Euromillions results on our results page.') }}</p>
                 {% include "faq/back-top.volt" %}
 

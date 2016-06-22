@@ -81,7 +81,7 @@
                             <li><a href="/{{ lottery }}/faq#n03">{{ language.translate("How do I play?") }}</a></li>
                             <li><a href="/{{ lottery }}/faq#n04">{{ language.translate("What time is the draw?") }}</a></li>
                             <li><a href="/{{ lottery }}/faq#n05">{{ language.translate("How do I know that I won?") }}</a></li>
-                            <li><a href="/{{ lottery }}/faq#n06">{{ language.translate("When the Draw results are released?") }}</a></li>
+                            <li><a href="/{{ lottery }}/faq#n06">{{ language.translate("When are the draw results released?") }}</a></li>
                             <li><a href="/{{ lottery }}/faq#n07">{{ language.translate("What is the Prize Breakdown?") }}</a></li>
                             <li><a href="/{{ lottery }}/faq#n08">{{ language.translate("What is the minimum guaranteed jackpot?") }}</a></li>
                             <li><a href="/{{ lottery }}/faq#n09">{{ language.translate("What is a Superdraw?") }}</a></li>
