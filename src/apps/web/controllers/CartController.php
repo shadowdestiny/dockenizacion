@@ -241,6 +241,7 @@ class CartController extends PublicSiteControllerBase
         $fee_value = $this->siteConfigService->getFeeValueWithCurrencyConverted($user_currency);
         $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValueWithCurrencyConverted($user_currency);
         $single_bet_price = $this->domainServiceFactory->getLotteryService()->getSingleBetPriceByLottery('EuroMillions');
+        $user = $this->authService->getCurrentUser();
         if($orderView) {
             $order = new Order($result->returnValues(),$single_bet_price, $fee_value, $fee_to_limit_value); // order created
             $order_eur = new Order($result->returnValues(),$single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue()); //workaround for new payment gateway
@@ -281,6 +282,7 @@ class CartController extends PublicSiteControllerBase
             'show_form_credit_card' => (!empty($errors)) ? true : false,
             'msg'              => [],
             'checked_wallet'   => $checked_wallet,
+            'email'             => $user->getEmail()->toNative(),
             'total_new_payment_gw' => $order_eur->getTotal()->getAmount() / 100,
             'credit_card_form' => $creditCardForm
         ]);
