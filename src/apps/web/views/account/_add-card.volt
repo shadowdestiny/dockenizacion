@@ -131,8 +131,6 @@
                         {#<input type="submit" class="hidden">#}
                     {#</label>#}
                 {#</div>#}
-
-
             {#</div>#}
             {#</div>#}
     {#{% endif %}#}

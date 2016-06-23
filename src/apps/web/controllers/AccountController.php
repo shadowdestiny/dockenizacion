@@ -462,6 +462,24 @@ class AccountController extends PublicSiteControllerBase
     }
 
 
+    public function depositAction()
+    {
+        if(!$this->request->isPost()) {
+            return $this->response->redirect('/account/wallet');
+        }
+        $value = $this->request->getPost('funds-value');
+        if(!is_numeric($value)) {
+            return $this->response->redirect('/account/wallet');
+        }
+        $this->view->pick('account/deposit');
+        $user = $this->authService->getCurrentUser();
+        return $this->view->setVars([
+            'email' => $user->getEmail()->toNative(),
+            'value' => $value
+        ]);
+    }
+
+
     /**
      * @param string $userId
      * @return MyAccountForm

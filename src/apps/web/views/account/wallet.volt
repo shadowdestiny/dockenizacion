@@ -198,7 +198,26 @@ $(function(){
                     </div>
                 </div>
             </div>
-            <form class="{%if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency" method="post" action="/account/addFunds">
+            <form class="{%if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency" method="post" action="/account/deposit">
+                <div class="col6 second">
+                    <h2 class="h3 yellow margin">{{ language.translate("Add funds to your balance") }}</h2>
+                    <div class="div-balance"><strong class="purple">{{ language.translate("Current Account balance:") }}</strong> <span class="value">{{ user_balance }}</span></div>
+                    <span class="currency">{{ symbol }}</span>{{ credit_card_form.render('funds-value', {'class':'insert input'~form_errors['funds-value']}) }}
+
+                    <div class="notes cl">
+                        <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
+                        <span class="txt" data-txt='{{ language.translate("Fee of")}}  {{ site_config.fee }} {{ language.translate("will be charged for transfers less than ") }}{{ symbol }} {{ site_config.feeLimit }}' >{{ language.translate("Fee of")}} {{  site_config.fee }} {{ language.translate("will be charged for transfers less than ") }} {{ site_config.feeLimit }}</span>
+                        <span class="txt">{{ language.translate("Currencies are just informative, transactions are charged in Euros.")}}</span>
+                    </div>
+                    <br>
+                    {#<div class="div-balance"><strong class="purple charge" >{{ language.translate("Total Charge:") }}</strong> <span class="value charge"></span><span class="value convert"></span></div>#}
+                    <div class="box-wallet overview">
+                        <label class="label btn green">
+                            {{ language.translate("Add funds to your balance") }}
+                            <input type="submit" class="hidden">
+                        </label>
+                    </div>
+                </div>
                 {% set component='{"where": "account"}'|json_decode %}
                 {% include "account/_add-card.volt" %}
             </form>
