@@ -187,6 +187,66 @@ class PlayService
     }
 
 
+    //EMTD método temporal, no hay unit testing. Copia del método play sin credit card
+    public function playWithEmPlay($userId)
+    {
+        try {
+            $lottery = $this->lotteryService->getLotteryConfigByName('EuroMillions');
+            /** @var User $user */
+            $user = $this->userRepository->find(['id' => $userId]);
+            $result_order = $this->cartService->get($userId);
+            if( $result_order->success() ) {
+                /** @var Order $order */
+                $order = $result_order->getValues();
+                $order->setIsCheckedWalletBalance(false);
+                $order->addFunds(null);
+                $order->setAmountWallet($user->getWallet()->getBalance());
+                $draw = $this->lotteryService->getNextDrawByLottery('EuroMillions');
+                $result_payment = new ActionResult(true, $order);
+                if (count($order->getPlayConfig()) > 0 && $result_payment->success()) {
+                    /** @var PlayConfig $play_config */
+                    foreach ($order->getPlayConfig() as $play_config) {
+                        $play_config->setLottery($lottery);
+                        $this->playConfigRepository->add($play_config);
+                        $this->entityManager->flush($play_config);
+                    }
+                }
+                $orderIsToNextDraw = $order->isNextDraw($draw->getValues()->getDrawDate());
+                if ($result_payment->success() && $orderIsToNextDraw) {
+                    $walletBefore = $user->getWallet();
+                    foreach ($order->getPlayConfig() as $play_config) {
+                        $result_validation = $this->betService->validation($play_config, $draw->getValues(), $lottery->getNextDrawDate());
+                        if (!$result_validation->success()) {
+                            return new ActionResult(false, $result_validation->errorMessage());
+                        }
+                        $this->walletService->payWithWallet($user, $play_config);
+                    }
+                    $dataTransaction = [
+                        'lottery_id'           => 1,
+                        'numBets'              => count($order->getPlayConfig()),
+                        'feeApplied'           => $order->getCreditCardCharge()->getIsChargeFee(),
+                        'amountWithWallet'     => $lottery->getSingleBetPrice()->multiply(count($order->getPlayConfig()))->getAmount(),
+                        'walletBefore'         => $walletBefore,
+                        'amountWithCreditCard' => 0,
+                        'playConfigs'          => array_map(function ($val) {
+                            return $val->getId();
+                        }, $order->getPlayConfig())
+                    ];
+
+                    $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
+                    $this->sendEmailPurchase($user, $order->getPlayConfig());
+                    return new ActionResult(true, $order);
+                } else {
+                    return new ActionResult($result_payment->success(), $order);
+                }
+            } else {
+                return new ActionResult(false);
+            }
+        } catch (\Exception $e) {
+            return new ActionResult(false);
+        }
+    }
+
     public function getPlaysFromTemporarilyStorage(User $user)
     {
         try {

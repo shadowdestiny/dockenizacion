@@ -98,7 +98,7 @@ class PaymentController extends CartController
      * @param ActionResult $result
      * @return bool
      */
-    private function playResult(ActionResult $result)
+    protected function playResult(ActionResult $result)
     {
         if($result->success()) {
             $this->response->redirect('/'.$this->lottery.'/result/success');
