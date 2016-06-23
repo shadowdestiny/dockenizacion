@@ -137,7 +137,6 @@
             {#</div>#}
     {#{% endif %}#}
     {#<input id="id_payment" name="id_payment" value="#}{#{{ payment_method.id_payment }}#}{#" type="hidden"/>#}
-    {{ epayiframetag.render(['order_reference' => '12324', 'amount' => '5.00']) }}
 </div>
 
 

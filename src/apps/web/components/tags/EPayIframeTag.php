@@ -31,7 +31,7 @@ class EPayIframeTag extends Tag
 
     private static function buildUrl(array $params, array $config)
     {
-        list($params,$config) = self::mapAndValidate($params,$config);
+        $params = self::mapAndValidate($params,$config);
         $url = $config['url'];
         unset($config['url']);
         $md5Key = $config['md5Key'];
@@ -52,15 +52,16 @@ class EPayIframeTag extends Tag
              }
              return true;
         });
-        $result = [];
         if($validate) {
-            array_walk($config, function(&$value, &$param) use (&$result){
-                    if($param == 'form_purchase_id' || $param == 'form_deposit_id') {
-                        $result['form_id'] = $value;
-                    } else {
-                        $result[$param] = $value;
-                    }
-            }, $result);
+            $params['form_id'] = $params['form'] == 'purchase' ? $config['form_purchase_id'] : $config['form_deposit_id'];
+            unset($params['form']);
+//            array_walk($params, function(&$value, &$param) use (&$result){
+//                    if($param == 'form_purchase_id' || $param == 'form_deposit_id') {
+//                        $result['form_id'] = $config[$param];
+//                    } else {
+//                        $result[$param] = $value;
+//                    }
+//            }, $result);
         }
 
         $params['item_1_code'] = 'EMTICKET';
@@ -69,7 +70,7 @@ class EPayIframeTag extends Tag
         $params['form_language'] = 'EN';
         $params['item_1_predefined'] = '0';
         $params['item_1_digital'] = '1';
-        return [$params,$result];
+        return $params;
     }
 
 }

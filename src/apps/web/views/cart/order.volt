@@ -133,7 +133,7 @@ end PROD imports-->
                 <div id="cart-order"></div>
                 <div class="payment hidden">
                     <div class="embed-container">
-                        {{ EPayIframe.render(['order_reference':1, 'item_1_unit_price_EUR': total_new_payment_gw, 'customer_email' : email]) }}
+                        {{ EPayIframe.render(['order_reference':1, 'item_1_unit_price_EUR': total_new_payment_gw, 'customer_email' : email, 'form' : 'purchase']) }}
                     </div>
                     {#<form class="box-add-card form-currency #}{#{% if which_form != 'edit' and which_form%}hidden{% endif %}#}{#" method="post" action="/euromillions/payment#}{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}{#">#}
                         {#{% set component='{"where": "cart"}'|json_decode %}#}

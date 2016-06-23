@@ -18,7 +18,7 @@ try {
     ));
     $bootstrap->execute();
 } catch (\Exception $e) {
-    header('Location: https://www.euromillions.com/error/page404');
+   // header('Location: https://www.euromillions.com/error/page404'); //EMTD enable for live environment.
     echo "PhalconException: ", $e->getMessage(), " at file ", $e->getFile(), " line ", $e->getLine();
     echo "<br><pre>", var_dump($e->getTrace()), "</pre>";
 }
