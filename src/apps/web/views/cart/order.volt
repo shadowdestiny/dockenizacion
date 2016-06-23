@@ -91,6 +91,9 @@
             e.preventDefault();
         }
     });
+
+    if (window!=top){top.location.href=location.href;}
+
 {% endblock %}
 {% block template_scripts_after %}
     <script src="/w/js/react/cart.js"></script>
