@@ -120,6 +120,9 @@ $(function(){
     checkRadio("#card-list tr, #bank-list tr");
     deleteLnk("#card-list .action a, #bank-list .action a");
 });
+
+if (window!=top){top.location.href=location.href;}
+
 {% endblock %}
 {% block template_scripts_after %}<script src="/w/js/react/tooltip.js"></script>{% endblock %}
 {% block header %}
