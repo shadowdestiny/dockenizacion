@@ -82,7 +82,7 @@ class CartController extends PublicSiteControllerBase
         }
 
         $this->view->pick('cart/profile');
-	$this->tag->prependTitle('Log In or Sign Up');
+	    $this->tag->prependTitle('Log In or Sign Up');
         return $this->view->setVars([
             'which_form'  => 'up',
             'signinform'  => $sign_in_form,
@@ -243,9 +243,9 @@ class CartController extends PublicSiteControllerBase
         $single_bet_price = $this->domainServiceFactory->getLotteryService()->getSingleBetPriceByLottery('EuroMillions');
         if($orderView) {
             $order = new Order($result->returnValues(),$single_bet_price, $fee_value, $fee_to_limit_value); // order created
+            $order_eur = new Order($result->returnValues(),$single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue()); //workaround for new payment gateway
             $this->cartService->store($order);
         }
-        $order->getTotal();
         /** @var PlayConfig[] $play_config */
         $play_config_collection = $result->returnValues();
         $play_config_dto = new PlayConfigCollectionDTO($play_config_collection, $single_bet_price);
@@ -281,7 +281,7 @@ class CartController extends PublicSiteControllerBase
             'show_form_credit_card' => (!empty($errors)) ? true : false,
             'msg'              => [],
             'checked_wallet'   => $checked_wallet,
-            'total_new_payment_gw' => $order->getTotal()->getAmount() / 100,
+            'total_new_payment_gw' => $order_eur->getTotal()->getAmount() / 100,
             'credit_card_form' => $creditCardForm
         ]);
     }

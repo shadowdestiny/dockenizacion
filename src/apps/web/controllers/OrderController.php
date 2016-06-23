@@ -20,7 +20,6 @@ class OrderController extends CartController
         $play_service = $this->domainServiceFactory->getPlayService();
         $msg = '';
         $errors = [];
-
         if(!empty($user_id)) {
             $result = $play_service->getPlaysFromGuestUserAndSwitchUser($user_id,$current_user_id);
             $user = $this->userService->getUser($current_user_id);
@@ -33,7 +32,6 @@ class OrderController extends CartController
             }
             $result = $play_service->getPlaysFromTemporarilyStorage($user);
         }
-
         if(!$result->success()) {
             $this->response->redirect('/'.$this->lottery.'/play');
             return false;
