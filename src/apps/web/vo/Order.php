@@ -63,7 +63,7 @@ class Order implements \JsonSerializable
     }
 
     /**
-     * @return mixed
+     * @return Money
      */
     public function getTotal()
     {

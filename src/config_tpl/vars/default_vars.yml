@@ -49,4 +49,12 @@ restricted_access_ips: '192.168.1.10,192.168.1.11,10.0.2.2,172.17.0.1'
 restricted_access_user: 'beta'
 restricted_access_pass: '4cce5B3t4Eur0'
 
+empay_client_id: '815623'
+empay_form_purchase_id: '2883'
+empay_form_deposit_id: '2873'
+empay_test_transaction: '1'
+empay_md5Key: '3TgJ2CqehZ'
+empay_url: 'https://payment-b30bb144.emppay.com/payment/form/post/'
+
+
 file_databasegeoip_path: '/var/www/data/geoipdatabase'

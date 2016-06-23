@@ -398,7 +398,6 @@ var Fee = {
     }
 };
 
-
 ReactDOM.render(<CartPage total={total_price} config={config} checked_wallet={checked_wallet} symbol_position={symbol_position} draw_days={draw_days} price_below_fee={price_below_fee} fee_charge={fee_charge} currency_symbol={currency_symbol} play_list={play_list} wallet_balance={wallet_balance} single_bet_price={single_bet_price} show_fee_line={show_fee_line}/>,
     document.getElementById('cart-order'));
 

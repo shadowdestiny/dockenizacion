@@ -212,6 +212,21 @@
 }
 
 
+.embed-container{
+  position: relative;
+  padding-bottom: 75%; /* 16:9 */
+  padding-top: 25px;
+  height: 0;
+}
+
+.embed-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 @media only screen and (max-width:1200px){
 .order .my-right{margin-top:55px;}
 }
@@ -226,7 +241,7 @@
 }
 }
 
-@media only screen and (max-width:768px){
+@media only screen and (max-width:900px){
 .steps{margin:auto; width:100%;}
 .line.step2{width:50%;}
 .names .step2{position:absolute; left:50%; margin-left:-65px;}
@@ -333,6 +348,7 @@
     .buy{float:none;}
   }
 }
+
 
 
 @import "_currency/cart"; /*It need to stay at the bottom*/

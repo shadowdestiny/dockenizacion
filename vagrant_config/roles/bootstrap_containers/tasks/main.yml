@@ -87,5 +87,8 @@
       - "4444:4444"
       - "8090:8090"
 
+- name: Create script with env vars
+  shell: docker exec {{webserver_container_name}} printenv | sed 's/^\(.*\)$/export \1/g' | grep EM_ENV > /tmp/project_env.sh
+
 - name: initialize test database
   shell:  mysql -h 127.0.0.1 -u root -ptpl9 --port=3306 -e 'CREATE DATABASE IF NOT EXISTS euromillions_test'

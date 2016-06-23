@@ -245,6 +245,7 @@ class CartController extends PublicSiteControllerBase
             $order = new Order($result->returnValues(),$single_bet_price, $fee_value, $fee_to_limit_value); // order created
             $this->cartService->store($order);
         }
+        $order->getTotal();
         /** @var PlayConfig[] $play_config */
         $play_config_collection = $result->returnValues();
         $play_config_dto = new PlayConfigCollectionDTO($play_config_collection, $single_bet_price);
@@ -280,6 +281,7 @@ class CartController extends PublicSiteControllerBase
             'show_form_credit_card' => (!empty($errors)) ? true : false,
             'msg'              => [],
             'checked_wallet'   => $checked_wallet,
+            'total_new_payment_gw' => $order->getTotal()->getAmount() / 100,
             'credit_card_form' => $creditCardForm
         ]);
     }

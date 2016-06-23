@@ -8,6 +8,7 @@ use EuroMillions\shared\components\PhalconRequestWrapper;
 use EuroMillions\shared\components\PhalconSessionWrapper;
 use EuroMillions\shared\components\PhalconUrlWrapper;
 use EuroMillions\shared\interfaces\IBootstrapStrategy;
+use EuroMillions\web\components\tags\EPayIframeTag;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\factories\ServiceFactory;
 use Phalcon;
@@ -468,6 +469,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 $object = $di->get($web_module['className']);
                 $di->set('language', $this->configLanguage($di), true);
                 $di->set('view', $this->configView($module_name), true);
+                $di->set('EPayIframe', function() { return new EPayIframeTag(); });
                 $object->registerServices($di);
             }
             if ($module_name === 'admin') {
