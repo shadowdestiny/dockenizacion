@@ -189,7 +189,7 @@ end PROD imports-->
 					<div class="box-basic box-result">
 						<div class="cols">
 							<div class="col8 content">
-								<h1 class="h2">{{ language.translate('Euromillions Results') }}</h1>
+								<h1 class="h2">{{ language.translate('EuroMillions Results') }}</h1>
 								<p>{{ language.translate('Numbers from') }} {{ last_draw_date }} </p>
 								<ul class="no-li inline numbers small">
 	                                {% for regular_number in euromillions_results["regular_numbers"] %}
@@ -226,7 +226,7 @@ end PROD imports-->
 									<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)" style="filter:url(#shadow)"></use>
 									<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)"></use>
 								</svg>
-								<a href="/{{ lottery }}/play" class="btn blue">{{ language.translate("Start playing, Win millions") }}</a>
+								<a href="/{{ lottery }}/play" class="btn blue">{{ language.translate("Start Playing, Win Millions") }}</a>
 							</span>
 						</div>
 					</div>
@@ -236,19 +236,19 @@ end PROD imports-->
 						<div class="col6 bg-quality"></div>
 						<div class="col6 box-txt r">
 							<h3 class="li-title">{{ language.translate("Fast") }}</h3>
-							<p>{{ language.translate("Regular players rarely exceed two minutes to validate their euromillions tickets on our website. At Euromillions.com, you just have to choose your favourite numbers, sit back, and relax. We do all the nerve-wracking, waiting, and checking the results for you. Shortly after the draw, you will receive an email notification detailing the latest results, and if you have won, the winnings will automatically be credited to your player account.") }}</p>
+							<p>{{ language.translate("Players on EuroMillions.com usually pick their lines and make their purchase within two minutes. At Euromillions.com, you just have to choose your favourite numbers, sit back, and relax. We do all the work and even check the results for you. Shortly after the draw, you will receive an email notification detailing the latest results, and if you have won, the winnings will automatically be credited to your player account.") }}</p>
 
 							<h3 class="li-title">{{ language.translate("Convenient") }}</h3>
-							<p>{{ language.translate("You will find your played tickets, latest euromillions results, and customer support at the same place. At only %bet_price% (%bet_price_pound%) per play, we offer the best price available on the Internet. Your winnings are commission free and will remain so forever.
+							<p>{{ language.translate("You can find the tickets you have purchased, the latest euromillions results and customer support in the same place. At only %bet_price% (%bet_price_pound%) per play, we offer the best price available on the Internet. Your winnings are commission free and will remain so forever.
 							It doesn’t matter where you live – we are a regulated operator and our services are available worldwide. If you win big, our team of professionals will be at your assistance to make sure you receive your winnings quickly and safely.", ['bet_price': bet_price ,'bet_price_pound': bet_price_pound] ) }}</p>
 
 							<h3 class="li-title">{{ language.translate("Secure") }}</h3>
-							<p>{{ language.translate("Euromillions.com is a fully licensed lottery operator. We are customer-centric and constantly endeavour to improve our performance to meet and exceed the demands of our customers. Our partnerships with top financial institutions and certification companies ensure your optimum safety when playing on our website supporting 256-bit SSL encryption.") }}</p>
+							<p>{{ language.translate("Euromillions.com is a fully licensed lottery operator. We are customer-centric and constantly endeavour to improve our performance to meet and exceed the demands of our customers. Our partnerships with top financial institutions and certification companies ensures optimum safety when playing on our website.") }}</p>
 						</div>
 					</div>
 					<div class="box-action">
 						<span class="h2 phrase">{{ language.translate("Millions of people play EuroMillions everyday") }}</span>
-						<a href="{{ lottery }}/play" class="btn big blue">{{ language.translate("Play anytime, anywhere") }}</a>
+						<a href="{{ lottery }}/play" class="btn big blue">{{ language.translate("Play Anytime, Anywhere") }}</a>
 					</div>
 				</div>
 			</div>
@@ -258,15 +258,15 @@ end PROD imports-->
 			<div class="box-basic how-play">
 				<div class="cols playing-euro">
 					<div class="col6 box-txt l">
-						<h2 class="h1 yellow">{{ language.translate("Playing euromillions") }}</h2>
+						<h2 class="h1 yellow">{{ language.translate("Playing EuroMillions") }}</h2>
 						<h3 class="li-title">{{ language.translate("Play") }}</h3>
-						<p>{{ language.translate("Players select five main numbers from 1 to 50 and two lucky stars numbered from 1 to 11. The results are published shortly after the draw on Euromillions.com, and players receive an email notification detailing the latest results and if they have won. Winnings are commission free and are immediately credited to the player’s account on Euromillions.com") }}</p>
+						<p>{{ language.translate("Select five numbers from 1 to 50 and two lucky stars numbered from 1 to 11. The results are published shortly after the draw on Euromillions.com, and players receive an email notification detailing the latest results and if they have won. Winnings are commission free and are immediately credited to the player’s account on Euromillions.com") }}</p>
 						<h3 class="li-title">{{ language.translate("Eligibility") }}</h3>
-						<p>{{ language.translate("Any person who is 18 years or above can participate in the Euromillions. This differs for some countries such as the United Kingdom, where lottery players can participate starting from the age of 16.") }}</p>
+						<p>{{ language.translate("Any person 18 years or older can play EuroMillions. This differs for some countries such as the United Kingdom, where players can participate starting from the age of 16.") }}</p>
 						<h3 class="li-title">{{ language.translate("Jackpot") }}</h3>
-						<p>{{ language.translate("Euromillions jackpot prizes can reach up to &euro; 190 million with a guaranteed jackpot of at least €15 million (&pound; 10.5 million) per draw (two draws per week). In the absence of a first prize winner, the money is rolled over to the next draw which will grow in successive categories until either a Euromillions jackpot winner is produced, or the Euromillions Pool Cap (&euro; 190 million) is reached.") }}</p>
+						<p>{{ language.translate("The EuroMillions Jackpot can reach up to &euro;190 million with a guaranteed jackpot of at least €15 million (&pound;10.5 million) per draw (two draws per week). In the absence of a jackpot winner, the money is rolled over to the next draw and will grow until the jackpot is won, or the Euromillions Pool Cap (&euro;190 million) is reached.") }}</p>
 						<h3 class="li-title">{{ language.translate("Odds") }}</h3>
-						<p>{{ language.translate("To win the Euromillions jackpot prize, players need to match 5 main numbers from 50, and 2 lucky stars from 11. The Euromillions odds of this actually happening are 1 in 116,531,800. In addition, the Euromillions lottery features 13 different tiers and the odds of a Euromillions win are 1 in 23.") }}</p>
+						<p>{{ language.translate("The EuroMillions lottery features 13 different tiers and the odds of winning a EuroMillions prize are 1 in 23. To win the Euromillions jackpot prize, players need to match 5 main numbers from 50, and 2 lucky stars from 11. The odds of hitting the Euromillions Jackpot are 1 in 116,531,800.") }}</p>
 					</div>
 					<div class="col6 bg-hope"></div>
 				</div>
