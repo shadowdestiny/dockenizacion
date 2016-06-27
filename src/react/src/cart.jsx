@@ -227,7 +227,6 @@ var CartPage = new React.createClass({
                                          wallet_balance={parseFloat(this.props.wallet_balance).toFixed(2)}
             />;
         }
-
         return (
             <div>
                 <div className="box-top cl">

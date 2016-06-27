@@ -43,24 +43,27 @@
     $(function(){
         $('.buy').on('click',function(){
             var value = $(this).data('btn');
-            if(value == 'no-wallet') {
+            var value_txt = $(this).text();
+            if( new String(value_txt).valueOf() == new String('Buy now').valueOf() ) {
+                show_form_credit_card=false;
+                $('.payment').hide();
+                $('.embed-container').hide();
+            } else {
                 var total_text = '';
                 if(currency_symbol !== '€'){
-                    var total_price = accounting.unformat(total_price_in_credit_card_form.slice(1));
-                    var total_convert =  accounting.unformat(total_price) / accounting.unformat(ratio);//parseFloat(parseFloat(total_eur).toFixed(2) + parseFloat(param2).toFixed(2));
-                   // var total =  parseFloat(total_price_in_credit_card_form.slice(1)).toFixed(2)/parseFloat(ratio).toFixed(2);
-                    total_text = '(€'+parseFloat(total_convert).toFixed(2)+')';
+                var total_price = accounting.unformat(total_price_in_credit_card_form.slice(1));
+                var total_convert =  accounting.unformat(total_price) / accounting.unformat(ratio);//parseFloat(parseFloat(total_eur).toFixed(2) + parseFloat(param2).toFixed(2));
+                // var total =  parseFloat(total_price_in_credit_card_form.slice(1)).toFixed(2)/parseFloat(ratio).toFixed(2);
+                total_text = '(€'+parseFloat(total_convert).toFixed(2)+')';
                 }
                 $('.submit.big.green').text('Pay ' + total_price_in_credit_card_form + total_text);
                 $('.payment').show();
                 $('.box-bottom').hide();
                 var $root = $('html, body');
                 $root.animate({
-                    scrollTop: $('#card-number').offset().top
+                scrollTop: $('#card-number').offset().top
                 }, 500);
                 $('#card-number').focus();
-            } else {
-                $('.payment').hide();
             }
     })
     if(show_form_credit_card) {
