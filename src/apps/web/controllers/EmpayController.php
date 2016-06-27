@@ -26,7 +26,7 @@ class EmpayController extends PaymentController
         $amount = $this->request->get('item_1_unit_price_EUR');
         $userId = $this->authService->getCurrentUser();
         $walletService = $this->domainServiceFactory->getWalletService();
-        $result = $walletService->payFromEmpay($userId,new Money((int) str_replace('.','',$amount),new Currency('EUR')));
+        $result = $walletService->payFromEmpay($userId,new Money((int) str_replace('.','',$amount) * 100,new Currency('EUR')));
         if($result->success()) {
             $this->response->redirect('/'.$this->lottery.'/account/wallet');
             return false;

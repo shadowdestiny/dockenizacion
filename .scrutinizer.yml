@@ -144,6 +144,11 @@ build:
 
   dependencies:
     before:
+      - sudo apt-get -y install wget
+      - wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+      - gunzip GeoIP.dat.gz
+      - wget http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
+      - gunzip GeoIPv6.dat.gz
       - chmod 755 dev-scripts/build_phalcon_scrutinizer.sh
       - command: dev-scripts/build_phalcon_scrutinizer.sh
         not_if: 'test -d cphalcon'
