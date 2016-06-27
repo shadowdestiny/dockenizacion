@@ -109,7 +109,7 @@ class WalletService
             $dataTransaction = [
                 'lottery_id' => 1,
                 'numBets' => count($user->getPlayConfig()),
-                'feeApplied' => $amount->getAmount() > 120000 ? 0 : 1,
+                'feeApplied' => $amount->getAmount() > 1200 ? 0 : 1,
                 'amountWithWallet' => 0,
                 'amountWithCreditCard' => $amount,
                 'user' => $user,

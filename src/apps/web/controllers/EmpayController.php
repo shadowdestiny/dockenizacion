@@ -52,7 +52,6 @@ class EmpayController extends PaymentController
             $this->response->redirect('/'.$this->lottery.'/result/failure');
             return false;
         }
-
     }
 
     /**
