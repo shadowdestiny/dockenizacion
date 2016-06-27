@@ -46,8 +46,7 @@ class EmpayController extends PaymentController
         $user = $this->userService->getUser($userId);
         $walletService = $this->domainServiceFactory->getWalletService();
         $amountParsed = new Money((int)str_replace('.', '', $amount), new Currency('EUR'));
-        $creditCardCharged = new CreditCardCharge($amountParsed, $this->siteConfigService->getFee(),$this->siteConfigService->getFeeToLimitValue());
-        $result = $walletService->payFromEmpay($user, $creditCardCharged->getFinalAmount());
+        $result = $walletService->payFromEmpay($user, $amountParsed);
         if($result->success()) {
             $this->response->redirect('/account/wallet');
             return false;

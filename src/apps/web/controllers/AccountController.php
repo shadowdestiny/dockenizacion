@@ -468,14 +468,17 @@ class AccountController extends PublicSiteControllerBase
             return $this->response->redirect('/account/wallet');
         }
         $value = $this->request->getPost('funds-value');
+
         if(!is_numeric($value)) {
             return $this->response->redirect('/account/wallet');
         }
+        $amountParsed = new Money((int)str_replace('.', '', $value), new Currency('EUR'));
+        $creditCardCharged = new CreditCardCharge($amountParsed, $this->siteConfigService->getFee(),$this->siteConfigService->getFeeToLimitValue());
         $this->view->pick('account/deposit');
         $user = $this->authService->getCurrentUser();
         return $this->view->setVars([
             'email' => $user->getEmail()->toNative(),
-            'value' => $value
+            'value' => $creditCardCharged->getFinalAmount()->getAmount() / 100
         ]);
     }
 
