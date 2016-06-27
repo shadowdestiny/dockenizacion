@@ -99,6 +99,31 @@ class WalletService
         return $provider->charge($amount, $card);
     }
 
+    public function payFromEmpay(User $user, Money $amount)
+    {
+        $walletBefore = $user->getWallet();
+        $user->reChargeWallet($amount);
+        try {
+            $this->entityManager->persist($user);
+            $this->entityManager->flush($user);
+            $dataTransaction = [
+                'lottery_id' => 1,
+                'numBets' => count($user->getPlayConfig()),
+                'feeApplied' => $amount->getAmount() > 120000 ? 0 : 1,
+                'amountWithWallet' => 0,
+                'amountWithCreditCard' => $amount,
+                'user' => $user,
+                'walletBefore' => $walletBefore,
+                'walletAfter' => $user->getWallet(),
+                'now' => new \DateTime()
+            ];
+            $this->transactionService->storeTransaction(TransactionType::DEPOSIT,$dataTransaction);
+        } catch (\Exception $e) {
+            return new ActionResult(false);
+        }
+        return new ActionResult(true);
+    }
+
 
     public function payWithWallet(User $user, PlayConfig $playConfig )
     {
