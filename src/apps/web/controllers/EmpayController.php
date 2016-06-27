@@ -4,6 +4,7 @@
 namespace EuroMillions\web\controllers;
 
 
+use EuroMillions\web\entities\GuestUser;
 use EuroMillions\web\vo\EmPayCypher;
 use Money\Currency;
 use Money\Money;
@@ -23,8 +24,11 @@ class EmpayController extends PaymentController
 
     public function depositAction()
     {
-        $amount = $this->request->get('item_1_unit_price_EUR');
+        $amount = $this->request->post('item_1_unit_price_EUR');
         $userId = $this->authService->getCurrentUser();
+        if($userId instanceof GuestUser) {
+            throw new \Exception();
+        }
         $walletService = $this->domainServiceFactory->getWalletService();
         $result = $walletService->payFromEmpay($userId,new Money((int) str_replace('.','',$amount) * 100,new Currency('EUR')));
         if($result->success()) {
