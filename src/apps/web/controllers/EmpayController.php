@@ -6,6 +6,7 @@ namespace EuroMillions\web\controllers;
 
 use EuroMillions\web\entities\GuestUser;
 use EuroMillions\web\services\factories\DomainServiceFactory;
+use EuroMillions\web\vo\CreditCardCharge;
 use EuroMillions\web\vo\EmPayCypher;
 use Money\Currency;
 use Money\Money;
@@ -44,7 +45,9 @@ class EmpayController extends PaymentController
         $userId = $this->authService->getCurrentUser()->getId();
         $user = $this->userService->getUser($userId);
         $walletService = $this->domainServiceFactory->getWalletService();
-        $result = $walletService->payFromEmpay($user,new Money((int) str_replace('.','',$amount) ,new Currency('EUR')));
+        $amountParsed = new Money((int)str_replace('.', '', $amount), new Currency('EUR'));
+        $creditCardCharged = new CreditCardCharge($amountParsed, $this->siteConfigService->getFee(),$this->siteConfigService->getFeeToLimitValue());
+        $result = $walletService->payFromEmpay($user, $creditCardCharged->getFinalAmount());
         if($result->success()) {
             $this->response->redirect('/account/wallet');
             return false;
