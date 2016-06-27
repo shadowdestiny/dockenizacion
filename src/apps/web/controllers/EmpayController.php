@@ -5,12 +5,28 @@ namespace EuroMillions\web\controllers;
 
 
 use EuroMillions\web\entities\GuestUser;
+use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\vo\EmPayCypher;
 use Money\Currency;
 use Money\Money;
 
 class EmpayController extends PaymentController
 {
+
+
+    public function beforeExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
+    {
+        /** @var DomainServiceFactory $domainServiceFactory */
+        $domainServiceFactory = $dispatcher->getDI()->get('domainServiceFactory');
+        $user_id = $domainServiceFactory->getAuthService()->getCurrentUser();
+        $this->insertGoogleAnalyticsCodeViaEnvironment();
+        if($user_id instanceof GuestUser) {
+            $this->response->redirect('/sign-in');
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 
     public function paymentAction()
@@ -25,12 +41,10 @@ class EmpayController extends PaymentController
     public function depositAction()
     {
         $amount = $this->request->getPost('item_1_unit_price_EUR');
-        $userId = $this->authService->getCurrentUser();
-        if($userId instanceof GuestUser) {
-            throw new \Exception();
-        }
+        $userId = $this->authService->getCurrentUser()->getId();
+        $user = $this->userService->getUser($userId);
         $walletService = $this->domainServiceFactory->getWalletService();
-        $result = $walletService->payFromEmpay($userId,new Money((int) str_replace('.','',$amount) * 100,new Currency('EUR')));
+        $result = $walletService->payFromEmpay($user,new Money((int) str_replace('.','',$amount) * 100,new Currency('EUR')));
         if($result->success()) {
             $this->response->redirect('/'.$this->lottery.'/account/wallet');
             return false;
