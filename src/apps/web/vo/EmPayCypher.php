@@ -40,6 +40,11 @@ class EmPayCypher
         return $this->cypher->getQueryString();
     }
 
+    public static function paramAuthenticate(array $params, $secretKey)
+    {
+        return ParamSignerEmPay::paramAuthenticate($params,$secretKey);
+    }
+
 
 
 }

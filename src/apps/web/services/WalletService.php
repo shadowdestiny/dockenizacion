@@ -116,7 +116,6 @@ class WalletService
         $data['walletAfter'] = $user->getWallet();
         $data['user'] = $user;
         $this->transactionService->storeTransaction($transactionType,$data);
-
     }
 
 
