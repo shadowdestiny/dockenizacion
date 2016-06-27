@@ -24,7 +24,7 @@ class EmpayController extends PaymentController
 
     public function depositAction()
     {
-        $amount = $this->request->post('item_1_unit_price_EUR');
+        $amount = $this->request->getPost('item_1_unit_price_EUR');
         $userId = $this->authService->getCurrentUser();
         if($userId instanceof GuestUser) {
             throw new \Exception();
