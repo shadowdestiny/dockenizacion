@@ -14,29 +14,27 @@ class EmpayController extends PaymentController
 
     public function paymentAction()
     {
-        if($this->validate()) {
-            $userId = $this->authService->getCurrentUser()->getId();
-            $play_service = $this->domainServiceFactory->getPlayService();
-            $result = $play_service->playWithEmPlay($userId);
-            $this->playResult($result);
-        }
+        $userId = $this->authService->getCurrentUser()->getId();
+        $play_service = $this->domainServiceFactory->getPlayService();
+        $result = $play_service->playWithEmPlay($userId);
+        $this->playResult($result);
     }
 
 
     public function depositAction()
     {
-        if($this->validate()) {
-            $userId = $this->authService->getCurrentUser();
-            $walletService = $this->domainServiceFactory->getWalletService();
-            $result = $walletService->payFromEmpay($userId,new Money((int) str_replace('.','',''),new Currency('EUR')));
-            if($result->success()) {
-                $this->response->redirect('/'.$this->lottery.'/account/wallet');
-                return false;
-            } else {
-                $this->response->redirect('/'.$this->lottery.'/result/failure');
-                return false;
-            }
+        $amount = $this->request->get('item_1_unit_price_EUR');
+        $userId = $this->authService->getCurrentUser();
+        $walletService = $this->domainServiceFactory->getWalletService();
+        $result = $walletService->payFromEmpay($userId,new Money((int) str_replace('.','',$amount),new Currency('EUR')));
+        if($result->success()) {
+            $this->response->redirect('/'.$this->lottery.'/account/wallet');
+            return false;
+        } else {
+            $this->response->redirect('/'.$this->lottery.'/result/failure');
+            return false;
         }
+
     }
 
     /**
