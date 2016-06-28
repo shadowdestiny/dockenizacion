@@ -54,7 +54,11 @@ $('#form-withdraw').on('submit',function(){
         return false;
     }
 });
-
+$('#form-deposit').on('submit', function(){
+    if($('.box-wallet label.label').hasClass('gray')) {
+        return false;
+    }
+});
     $('#card-cvv,#card-number').on('keypress',function(e){
     var pattern = /^[0-9\.]+$/;
     if(e.target.id == 'card-cvv') {
@@ -76,6 +80,14 @@ $('#amount').on('keyup',function(e){
         $('label.submit').removeClass('gray').addClass('green');
     } else {
         $('label.submit').removeClass('green').addClass('gray');
+    }
+});
+
+$('#funds-value').on('keyup', function(e){
+    if($(this).val() >= 12 ) {
+        $('.box-wallet label.label').removeClass('gray').addClass('green');
+    } else {
+        $('.box-wallet label.label').removeClass('green').addClass('gray');
     }
 });
 
@@ -107,11 +119,6 @@ $('#funds-value').on('blur', function(e){
         $(this).val("");
         value = 0;
     }else{
-//        if(parseFloat(value).toFixed(2) < parseFloat(5.00).toFixed(2)) {
-//            $(this).val("");
-//            value = 0;
-//            return false;
-//        }
         $(this).val(parseFloat(value).toFixed(2));
     }
     show_fee_text(value);
@@ -206,7 +213,7 @@ if (window!=top){top.location.href=location.href;}
                     </div>
                 </div>
             </div>
-            <form class="{%if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency" method="post" action="/account/deposit">
+            <form class="{%if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency" id="form-deposit" method="post" action="/account/deposit">
                 <div class="col6 second">
                     <h2 class="h3 yellow margin">{{ language.translate("Add funds to your balance") }}</h2>
                     <div class="div-balance"><strong class="purple">{{ language.translate("Current Account balance:") }}</strong> <span class="value">{{ user_balance }}</span></div>
@@ -214,13 +221,14 @@ if (window!=top){top.location.href=location.href;}
 
                     <div class="notes cl">
                         <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                        <span class="txt" data-txt='{{ language.translate("Fee of")}}  {{ site_config.fee }} {{ language.translate("will be charged for transfers less than ") }}{{ symbol }} {{ site_config.feeLimit }}' >{{ language.translate("Fee of")}} {{  site_config.fee }} {{ language.translate("will be charged for transfers less than ") }} {{ site_config.feeLimit }}</span>
+                        {#<span class="txt" data-txt='{{ language.translate("Fee of")}}  {{ site_config.fee }} {{ language.translate("will be charged for transfers less than ") }}{{ symbol }} {{ site_config.feeLimit }}' >{{ language.translate("Fee of")}} {{  site_config.fee }} {{ language.translate("will be charged for transfers less than ") }} {{ site_config.feeLimit }}</span>#}
+                        <span class="txt">{{ language.translate("The minium deposit is €12.") }}</span>
                         <span class="txt">{{ language.translate("Currencies are just informative, transactions are charged in Euros.")}}</span>
                     </div>
                     <br>
                     {#<div class="div-balance"><strong class="purple charge" >{{ language.translate("Total Charge:") }}</strong> <span class="value charge"></span><span class="value convert"></span></div>#}
                     <div class="box-wallet overview">
-                        <label class="label btn green">
+                        <label class="label btn gray">
                             {{ language.translate("Add funds to your balance") }}
                             <input type="submit" class="hidden">
                         </label>
