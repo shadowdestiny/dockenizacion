@@ -107,6 +107,11 @@ $('#funds-value').on('blur', function(e){
         $(this).val("");
         value = 0;
     }else{
+//        if(parseFloat(value).toFixed(2) < parseFloat(5.00).toFixed(2)) {
+//            $(this).val("");
+//            value = 0;
+//            return false;
+//        }
         $(this).val(parseFloat(value).toFixed(2));
     }
     show_fee_text(value);

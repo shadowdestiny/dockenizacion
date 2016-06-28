@@ -474,6 +474,9 @@ class AccountController extends PublicSiteControllerBase
         }
         $amountParsed = new Money((int)str_replace('.', '', $value), new Currency('EUR'));
         $creditCardCharged = new CreditCardCharge($amountParsed, $this->siteConfigService->getFee(),$this->siteConfigService->getFeeToLimitValue());
+        if($amountParsed->lessThan(new Money(500, new Currency('EUR')))) {
+
+        }
         $this->view->pick('account/deposit');
         $user = $this->authService->getCurrentUser();
         return $this->view->setVars([

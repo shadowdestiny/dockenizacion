@@ -38,8 +38,6 @@ var globalFunctions = {
 };
 
 function btnShowHide(button, show, hide){
-    console.log(show);
-    console.log(hide);
     $(button).click(function(){
         $(show).show();
         $(hide).hide();
