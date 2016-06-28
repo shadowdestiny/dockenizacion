@@ -18,11 +18,11 @@ class WalletDTO
     private $limitWithdrawWinning;
 
 
-    public function __construct( $balance, $winnings, $current_winnings )
+    public function __construct( $balance, $winnings, $current_winnings, Money $currentWinningsConverted )
     {
         $this->wallet_balance_amount = $balance;
         $this->wallet_winning_amount = $winnings;
-        $this->current_winnings = mb_strpos($current_winnings, '0') == 1 ? '' : $current_winnings;
+        $this->current_winnings = $currentWinningsConverted->isZero() ? '' : $current_winnings;
         $this->limitWithdrawWinning = new Money((int) 2500, new Currency('EUR'));
     }
 

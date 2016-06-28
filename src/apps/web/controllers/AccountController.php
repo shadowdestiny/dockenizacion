@@ -195,7 +195,6 @@ class AccountController extends PublicSiteControllerBase
         $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user->getUserCurrency());
         $this->userService->resetWonAbove($user);
 	    $this->tag->prependTitle('My Balance');
-
         return $this->view->setVars([
             'which_form' => 'wallet',
             'form_errors' => $form_errors,
@@ -472,7 +471,9 @@ class AccountController extends PublicSiteControllerBase
         if(!is_numeric($value)) {
             return $this->response->redirect('/account/wallet');
         }
-        $amountParsed = new Money((int)str_replace('.', '', $value), new Currency('EUR'));
+        $currency = $this->userPreferencesService->getCurrency();
+        $amount = new Money((int)str_replace('.', '', $value), $currency);
+        $amountParsed = $this->currencyConversionService->convert($amount, new Currency('EUR'));
         $creditCardCharged = new CreditCardCharge($amountParsed, $this->siteConfigService->getFee(),$this->siteConfigService->getFeeToLimitValue());
         if($amountParsed->lessThan(new Money(1200, new Currency('EUR')))) {
             $this->response->redirect('/account/wallet');

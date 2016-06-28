@@ -34,12 +34,12 @@ function checkRadio(id){
 }
 
 function show_fee_text(value){
-    if (parseFloat(value) >= parseFloat(fee_limit)){
-        $('.notes span.txt:first').text('No extra fee applied.');
-    }else{
-        $('.notes span.txt:first').text($('.notes span.txt:first').data('txt'));
-        $('.notes').show();
-    }
+//    if (parseFloat(value) >= parseFloat(fee_limit)){
+//        $('.notes span.txt:first').text('No extra fee applied.');
+//    }else{
+//        $('.notes span.txt:first').text($('.notes span.txt:first').data('txt'));
+//        $('.notes').show();
+//    }
 }
 
 
@@ -83,8 +83,9 @@ $('#amount').on('keyup',function(e){
     }
 });
 
+var valueLimitCur = "<?php echo $site_config->feeLimitConverted; ?>";
 $('#funds-value').on('keyup', function(e){
-    if($(this).val() >= 12 ) {
+    if($(this).val() >= valueLimitCur ) {
         $('.box-wallet label.label').removeClass('gray').addClass('green');
     } else {
         $('.box-wallet label.label').removeClass('green').addClass('gray');
@@ -120,6 +121,11 @@ $('#funds-value').on('blur', function(e){
         value = 0;
     }else{
         $(this).val(parseFloat(value).toFixed(2));
+        if(parseFloat(parseFloat(value) >= parseFloat(valueLimitCur)).toFixed(2) ) {
+            $('.box-wallet label.label').removeClass('gray').addClass('green');
+        } else {
+            $('.box-wallet label.label').removeClass('green').addClass('gray');
+        }
     }
     show_fee_text(value);
 });
@@ -222,7 +228,7 @@ if (window!=top){top.location.href=location.href;}
                     <div class="notes cl">
                         <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                         {#<span class="txt" data-txt='{{ language.translate("Fee of")}}  {{ site_config.fee }} {{ language.translate("will be charged for transfers less than ") }}{{ symbol }} {{ site_config.feeLimit }}' >{{ language.translate("Fee of")}} {{  site_config.fee }} {{ language.translate("will be charged for transfers less than ") }} {{ site_config.feeLimit }}</span>#}
-                        <span class="txt">{{ language.translate("The minium deposit is €12.") }}</span>
+                        <span class="txt">{{ language.translate("The minium deposit is ") }} {{ site_config.feeLimit }}</span>
                         <span class="txt">{{ language.translate("Currencies are just informative, transactions are charged in Euros.")}}</span>
                     </div>
                     <br>

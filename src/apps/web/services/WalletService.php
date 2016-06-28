@@ -182,7 +182,10 @@ class WalletService
                 $amount_balance = $this->currencyConversionService->toString($balance_convert, $user->getLocale());
                 $winnings_convert = $this->currencyConversionService->convert($wallet->getWithdrawable(), $user->getUserCurrency());
                 $amount_winnings = $this->currencyConversionService->toString($winnings_convert, $user->getLocale());
-                $wallet_dto = new WalletDTO($amount_balance, $amount_winnings, $amount_current_winning);
+                $wallet_dto = new WalletDTO($amount_balance,
+                                            $amount_winnings,
+                                            $amount_current_winning,
+                                            $current_winnnings_convert);
                 $balance = $this->currencyConversionService->toString($wallet->getBalance(), $user->getLocale());
                 $winnings = $this->currencyConversionService->toString($wallet->getWithdrawable(), $user->getLocale());
                 $wallet_dto->setBalance($balance);

@@ -57,7 +57,7 @@ class SiteConfigServiceUnitTest extends UnitTestBase
         $locale = 'en_GB';
         $fee_to_limit_string = '€ 10.00';
         $fee_string = '€ 2.50';
-        $expected = new SiteConfigDTO($fee_to_limit_string, $fee_string);
+        $expected = new SiteConfigDTO($fee_to_limit_string, $fee_string, 1200, 250);
         $this->currencyConversionService_double->convert($this->feeLimit,$currency)->willReturn($this->feeLimit);
         $this->currencyConversionService_double->toString($this->feeLimit,$locale)->willReturn($fee_to_limit_string);
         $this->currencyConversionService_double->convert($this->fee,$currency)->willReturn($this->fee);

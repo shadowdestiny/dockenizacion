@@ -80,7 +80,7 @@ class SiteConfigService
         $amount_fee_to_limit = $this->currencyConversionService->toString($fee_to_limit_convert , $locale);
         $fee_convert = $this->currencyConversionService->convert($this->configEntity->getFee(), $currency);
         $amount_fee = $this->currencyConversionService->toString($fee_convert, $locale);
-        return new SiteConfigDTO($amount_fee_to_limit, $amount_fee);
+        return new SiteConfigDTO($amount_fee_to_limit, $amount_fee, $fee_to_limit_convert->getAmount(), $fee_convert->getAmount());
     }
 
 
