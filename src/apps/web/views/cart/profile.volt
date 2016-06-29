@@ -82,7 +82,7 @@ $(function(){
                 <div class="col8 active">
                     <div class="box-basic sign-in">
                         <div class="info">
-                            <div class="txt1">{{ language.translate("New to Euromillion?") }}</div>
+                            <div class="txt1">{{ language.translate("New to EuroMillions?") }}</div>
                             <div class="txt2 yellow">
                                 <div class="line-sep"></div>
                                 <div class="line-txt">{{ language.translate("Sign Up") }}</div>
