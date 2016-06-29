@@ -123,12 +123,12 @@ $(function(){
 				<div class="cols">
 					<div class="col8">
 						<div class="box-current-winners">
-							<h1 class="h2 purple">{{ language.translate("Prize pool") }}</h1>
+							<h1 class="h2 purple">{{ language.translate("Prize breakdown") }}</h1>
 							<table id="current-winners" class="table ui-responsive" data-role="table" data-mode="reflow">
 								<thead>
 									<tr>
-										<th class="td-ball">{{ language.translate("Ball") }}</th>
-										<th class="td-star-ball">{{ language.translate("Star Ball") }}</th>
+										<th class="td-ball">{{ language.translate("Numbers") }}</th>
+										<th class="td-star-ball">{{ language.translate("Lucky Stars") }}</th>
 										<th class="td-winners">{{ language.translate("Winners") }}</th>
 										<th class="td-prize">{{ language.translate("Prize") }}</th>
 									</tr>

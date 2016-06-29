@@ -38,13 +38,13 @@
                         <li><a href="#n02">{{ language.translate("What is Euromillions.com?") }}</a></li>
                         <li><a href="#n03">{{ language.translate("How do I play?") }}</a></li>
                         <li><a href="#n04">{{ language.translate("What time is the draw?") }}</a></li>
-                        <li><a href="#n05">{{ language.translate("How do I know that I won?") }}</a></li>
-                        <li><a href="#n06">{{ language.translate("When the Draw results are released?") }}</a></li>
+                        <li><a href="#n05">{{ language.translate("How do I know that I have won?") }}</a></li>
+                        <li><a href="#n06">{{ language.translate("When are the draw results released?") }}</a></li>
                         <li><a href="#n07">{{ language.translate("What is the Prize Breakdown?") }}</a></li>
                         <li><a href="#n08">{{ language.translate("What is the minimum guaranteed jackpot?") }}</a></li>
                         <li><a href="#n09">{{ language.translate("What is a Superdraw?") }}</a></li>
                         <li><a href="#n11">{{ language.translate("How can I participate in a future draw?") }}</a></li>
-                        <li><a href="#n13">{{ language.translate("How do I make a bet with multiple numbers in a line?") }}</a></li>
+                    {#  <li><a href="#n13">{{ language.translate("How do I make a bet with multiple numbers in a line?") }}</a></li> #}
                     </ul>
 
                     {#
@@ -58,7 +58,7 @@
 
                     <h2 class="h3">{{ language.translate("Winnings") }}</h2>
                     <ul class="no-li">
-                        <li><a href="#n14">{{ language.translate("How do I know if I have won a prize?") }}</a></li>
+                        <li><a href="#n14">{{ language.translate("How can I check my winnings?") }}</a></li>
                         <li><a href="#n15">{{ language.translate("How do I claim a prize?") }}</a></li>
                         <li><a href="#n16">{{ language.translate("Are winnings on the Euromillions taxable?") }}</a></li>
                         <li><a href="#n17">{{ language.translate("What are the odds of winning?") }}</a></li>
@@ -78,13 +78,13 @@
                         <li><a href="#n23">{{ language.translate("What should I do if I am experiencing technical problems?") }}</a></li>
                         <li><a href="#n24">{{ language.translate("I have forgotten my password and I cannot login. What do I do?") }}</a></li>
                         {#                    <li><a href="#n25">{{ language.translate("How do I edit or delete a Subscription?") }}</a></li> #}
-                        <li><a href="#n26">{{ language.translate("How I can disable emails notifications?") }}</a></li>
+                        <li><a href="#n26">{{ language.translate("How can I disable emails notifications?") }}</a></li>
                     </ul>
 
                     <h2 class="h3">{{ language.translate("Legal") }}</h2>
                     <ul class="no-li">
                         <li><a href="#n27">{{ language.translate("Can I play on Euromillions from any country") }}</a></li>
-                        <li><a href="#n28">{{ language.translate("Is there a minimum age limit for playing?") }}</a></li>
+                        <li><a href="#n28">{{ language.translate("What is the minimum age to participate?") }}</a></li>
                     </ul>
                 </div>
 
@@ -111,22 +111,22 @@
 
                     <a id="n04"></a>
                     <h3 class="h3">{{ language.translate("What time is the draw?") }}</h3>
-                    <p>{{ language.translate('<a href="/euromillions/play">Euromillions draws</a> take place on Tuesday and Friday evenings at approximately 20:00 CET.') }}</p>
+                    <p>{{ language.translate('<a href="/euromillions/play">Euromillions draws</a> take place on Tuesday and Friday evenings at approximately 20:45 CET in Paris, France.') }}</p>
                     {% include "faq/back-top.volt" %}
 
                     <a id="n05"></a>
-                    <h3 class="h3">{{ language.translate("How do I know that I won?") }}</h3>
-                    <p>{{ language.translate('To win the Euromillions jackpot (Value current Jackpot) players need to match all 5 main numbers and 2 Lucky Stars. To win a Euromillions prize, players they just have to match 2 or more numbers. It is that easy to be a winner!') }}</p>
+                    <h3 class="h3">{{ language.translate("How do I know that I have won?") }}</h3>
+                    <p>{{ language.translate("To win the Euromillions jackpot players need to match all 5 numbers and the 2 Lucky Stars. Players have to match at least 2 numbers to receive a Euromillions prize. It's that easy to be a winner! ") }}</p>
                     {% include "faq/back-top.volt" %}
 
                     <a id="n06"></a>
-                    <h3 class="h3">{{ language.translate("When the Draw results are released?") }}</h3>
-                    <p>{{ language.translate('The latest <a href="/euromillions/results">Euromillions results</a> are revealed approximately an hour following the draw 22:30 CET. A full breakdown of prizes is released another hour later 23:30 CET. However, in the event of a large jackpot the processing and verification of the latest results can take up until midnight to finalise. You can get the latest Euromillions results on our results page.') }}</p>
+                    <h3 class="h3">{{ language.translate("When are the draw results released?") }}</h3>
+                    <p>{{ language.translate('The <a href="/euromillions/results">Euromillions results</a> are revealed at 22:30 CET. The complete prize breakdown is released another hour later at 23:30 CET. The latest Euromillions results are published on our results page shortly after the draw.') }}</p>
                     {% include "faq/back-top.volt" %}
 
                     <a id="n07"></a>
                     <h3 class="h3">{{ language.translate("What is the Prize Breakdown?") }}</h3>
-                    <p>{{ language.translate('The Euromillions lottery has a total of 13 prize tiers. The prize breakdown shows you the amount of winnings per prize tier. You can see in <a href="/euromillions/results">our results</a> an example of prize breakdown.') }}</p>
+                    <p>{{ language.translate('The Euromillions lottery has a total of 13 prize tiers. The prize breakdown shows you the amount of winnings per prize tier. You can see an example of the latest prize breakdown on our <a href="/euromillions/results">results page</a>.') }}</p>
                     {% include "faq/back-top.volt" %}
 
                     <a id="n08"></a>
@@ -136,7 +136,7 @@
 
                     <a id="n09"></a>
                     <h3 class="h3">{{ language.translate("What is a Superdraw?") }}</h3>
-                    <p>{{ language.translate('A Euromillions Superdraw is a special draw which typically features a guaranteed &euro; 100 million jackpot whether or not the Euromillions jackpot was won in the preceding draw. They usually occur once or twice a year in celebration of a special event or to mark changes in the lottery however, they can happen at any time. Similarly to a normal Euromillions draw, if no one matches the 5 main numbers and two lucky stars, the jackpot is rolled over to the next draw.') }}</p>
+                    <p>{{ language.translate('A Euromillions Superdraw is a special draw which typically features a guaranteed Euro 100 million jackpot whether or not the Euromillions jackpot was won in the preceding draw. Superdraws usually occur once or twice a year. Similarly to a normal Euromillions draw, if no one matches the 5 numbers and the two lucky stars, the jackpot rolls over to the next draw.') }}</p>
                     {% include "faq/back-top.volt" %}
 
                     <a id="n11"></a>
@@ -144,11 +144,11 @@
                     <p>{{ language.translate('Yes, you can purchase a play for a future Euromillions draw by using the Buy for Draw option under your lines on the <a href="/euromillions/play">Play Page</a>. You can buy a ticket for up to 12 draws in advance.') }}</p>
                     {% include "faq/back-top.volt" %}
 
-                    <a id="n13"></a>
+{#                    <a id="n13"></a>
                     <h3 class="h3">{{ language.translate("How do I make a bet with multiple numbers in a line?") }}</h3>
                     <p>{{ language.translate('At the moment of launching our new improved version of Euromillions.com, we are not supporting this feature. In the close future we are commited to introduce multiple bets for your convenience.') }}</p>
                     {% include "faq/back-top.volt" %}
-
+#}
                     {#
                                     <h2 class="h2 yellow">{{ language.translate("Euromillions Advanced Play") }}</h2>
 
@@ -172,8 +172,8 @@
                     <h2 class="h2 yellow">{{ language.translate("Winnings") }}</h2>
 
                     <a id="n14"></a>
-                    <h3 class="h3">{{ language.translate("How do I know if I have won a prize?") }}</h3>
-                    <p>{{ language.translate('Shortly after each draw that you played you will receive the latest Euromillions results directly in your email. You can even set from your Account area to send always an email with the draw results even if you have not played. Alternatively, players can visit their online players account or our Results Page with the prize breakdown.') }}</p>
+                    <h3 class="h3">{{ language.translate("How can I check my winnings?") }}</h3>
+                    <p>{{ language.translate('You will receive the latest Euromillions results per email shortly after the draw in which you participated. You can as well configure your player account to always receive our results email or simply visit our results page.') }}</p>
                     {% include "faq/back-top.volt" %}
 
                     <a id="n15"></a>
@@ -188,7 +188,7 @@
 
                     <a id="n17"></a>
                     <h3 class="h3">{{ language.translate("What are the odds of winning?") }}</h3>
-                    <p>{{ language.translate('The odds of winning the Euromillions jackpot are approximately 116,000,000 to 1. The odds of winning a Euromillions prize is 1 in 23.') }}</p>
+                    <p>{{ language.translate('The odds of winning the Euromillions jackpot are approximately 116,000,000 to 1. The odds of winning a Euromillions prize is 23 to 1.') }}</p>
                     {% include "faq/back-top.volt" %}
 
                     <h2 class="h2 yellow">{{ language.translate("Account and Billings") }}</h2>
@@ -205,11 +205,11 @@
 
                     <a id="n20"></a>
                     <h3 class="h3">{{ language.translate("What time do ticket sales close?") }}</h3>
-                    <p>{{ language.translate('Ticket sales closes at 19:00 Central European Time the day of the draw. Bets ordered after the cut of time will be validated for the next draw.') }}</p>
+                    <p>{{ language.translate('Ticket sales closes at 19:00 Central European Time the day of the draw. Bets ordered after the cut off time will be validated for the next draw.') }}</p>
                     {% include "faq/back-top.volt" %}
 
                     <a id="n21"></a>
-                    <h3 class="h3">{{ language.translate("Does the Euromillions have jackpot cap?") }}</h3>
+                    <h3 class="h3">{{ language.translate("Does the Euromillions have a jackpot cap?") }}</h3>
                     <p>{{ language.translate('The jackpot can rollover until a &euro;190 million jackpot cap is reached. A &euro;190 million jackpot can remain only two consecutive draws and if there is no jackpot winner the big prize will cascade down to the following prize tier that features a winner.') }}</p>
                     {% include "faq/back-top.volt" %}
 
@@ -238,20 +238,20 @@
                     #}
 
                     <a id="n26"></a>
-                    <h3 class="h3">{{ language.translate("How I can disable emails notifications?") }}</h3>
-                    <p>{{ language.translate('In the <a href="/account/email">Email Settings area</a> section of your player you can easily configure your email notifications preferences.')}}</p>
+                    <h3 class="h3">{{ language.translate("How can I disable emails notifications?") }}</h3>
+                    <p>{{ language.translate('In the <a href="/account/email">Email Settings</a> section of your player account you can easily configure your email notifications preferences.')}}</p>
                     {% include "faq/back-top.volt" %}
 
                     <h2 class="h2 yellow">{{ language.translate("Legal") }}</h2>
 
                     <a id="n27"></a>
                     <h3 class="h3">{{ language.translate("Can I play Euromillions from any country?") }}</h3>
-                    <p>{{ language.translate('Yes. Anyone from around the world can play through Euromillions.com on the condition that playing a foreign lottery not prohibited in their country of residence.') }}</p>
+                    <p>{{ language.translate('Euromillions.com is a licensed gambling operator. We offer our services all over the world except the United States.') }}</p>
                     {% include "faq/back-top.volt" %}
 
                     <a id="n28"></a>
-                    <h3 class="h3">{{ language.translate("Is there a minimum age limit for playing?") }}</h3>
-                    <p>{{ language.translate('To be eligible to play Euromillions, all participants must be 18 years or over (16+ in the UK).') }}</p>
+                    <h3 class="h3">{{ language.translate("What is the minimum age to participate?") }}</h3>
+                    <p>{{ language.translate('All participants must be 18 years or over.') }}</p>
                     {% include "faq/back-top.volt" %}
                 </div>
 
