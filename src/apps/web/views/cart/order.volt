@@ -72,6 +72,7 @@
     $('.box-add-card').on('submit',function(){
     $('#paywallet').val($('#pay-wallet').is(':checked') ? true : false);
     $('#funds').val($('#charge').val());
+    $.cookie('csid', $('#csid').val());
     });
 
 
@@ -94,7 +95,7 @@
 {% block template_scripts_after %}
     <script src="/w/js/react/cart.js"></script>
     <script src="/w/js/react/tooltip.js"></script>
-
+    <script type="text/javascript" src="/w/js/csid.js" charset="UTF-8"></script>
     {%  if ga_code is defined %}
         <!--start PROD imports
         <script src="/w/js/dist/GASignUpOrder.min.js"></script>
@@ -134,6 +135,7 @@
                     <form class="box-add-card form-currency {#{% if which_form != 'edit' and which_form%}hidden{% endif %}#}" method="post" action="/euromillions/payment{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
                         {% set component='{"where": "cart"}'|json_decode %}
                         {% include "account/_add-card.volt" %}
+                        <input type="hidden" id="csid" name="csid"/>
                     </form>
                 </div>
             </div>

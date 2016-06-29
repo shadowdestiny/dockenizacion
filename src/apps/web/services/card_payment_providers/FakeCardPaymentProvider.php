@@ -1,5 +1,6 @@
 <?php
 namespace EuroMillions\web\services\card_payment_providers;
+use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\CreditCard;
@@ -12,5 +13,14 @@ class FakeCardPaymentProvider implements ICardPaymentProvider
     {
         $result = $card->getLastNumbersOfCreditCard() % 2 == 0;
         return new ActionResult($result);
+    }
+
+
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function user(User $user)
+    {
     }
 }

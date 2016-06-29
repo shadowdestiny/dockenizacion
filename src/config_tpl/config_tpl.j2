@@ -83,6 +83,15 @@ test_transaction={{ empay_test_transaction }}
 md5Key= {{ empay_md5Key }}
 url={{ empay_url}}
 
+
+[gcp]
+url= {{ gcp_url }}
+mid= {{ gcp_mid }}
+visa_gw_id= {{ gcp_visa_gw_id }}
+visa_sign_key={{ gcp_visa_sign_key}}
+master_gw_id={{ gcp_master_gw_id}}
+master_sign_key={{ gcp_master_sign_key }}
+
 [payment_gateway]
 class_strategy={{ payment_strategy }}
 config= {{ payment_config }}

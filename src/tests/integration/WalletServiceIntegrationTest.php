@@ -45,6 +45,7 @@ class WalletServiceIntegrationTest extends DatabaseIntegrationTestBase
         $credit_card = CreditCardMother::aValidCreditCard();
         $credit_card_charge = CreditCardChargeMother::aValidCreditCardChargeWithAmountInParam($amount);
         $payment_provider_stub = $this->getInterfaceWebDouble('ICardPaymentProvider');
+        $payment_provider_stub->user($user)->shouldBeCalled();
         $payment_provider_stub->charge($credit_card_charge->getFinalAmount(), $credit_card)->willReturn(new PaymentProviderResult(true));
         $sut = new WalletService($this->entityManager, $this->getServiceDouble('CurrencyConversionService')->reveal(), $this->getServiceDouble('TransactionService')->reveal());
         $sut->rechargeWithCreditCard($payment_provider_stub->reveal(), $credit_card, $user, $credit_card_charge);

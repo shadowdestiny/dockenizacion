@@ -5,9 +5,11 @@ namespace EuroMillions\web\components\tags;
 
 
 use EuroMillions\shared\vo\results\PaymentProviderResult;
+use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\EmPayCypher;
+use EuroMillions\web\vo\Order;
 use Money\Money;
 use Phalcon\Exception;
 use Phalcon\Tag;
@@ -81,9 +83,19 @@ class EPayIframeTag extends Tag implements ICardPaymentProvider
      * @param Money $amount
      * @param CreditCard $card
      * @return PaymentProviderResult
+     * @throws \Exception
      */
     public function charge(Money $amount, CreditCard $card)
     {
         throw new \Exception();
+    }
+
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function user(User $user)
+    {
+        // TODO: Implement user() method.
     }
 }

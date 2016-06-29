@@ -3,6 +3,7 @@
 {% block bodyClass %}wallet{% endblock %}
 {% block template_scripts %}
     <script src="/w/js/mobileFix.js"></script>
+    <script type="text/javascript" src="/w/js/csid.js" charset="UTF-8"></script>
 {% endblock %}
 {% block template_scripts_code %}
     function deleteLnk(id){
@@ -112,6 +113,11 @@
     show_fee_text(value);
     });
 
+
+    $('.box-add-card').on('submit',function(){
+        $.cookie('csid', $('#csid').val());
+    });
+
     $(function(){
     btnShowHide('.btn.add-funds', '.box-add-card, .back', '.overview-wallet'); {# // Add funds #}
     btnShowHide('.btn.withdraw', '.box-bank, .back', '.overview-wallet'); {# // Withdraw winnings #}
@@ -201,6 +207,7 @@
                 <form class="{%if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency" method="post" action="/account/addFunds">
                     {% set component='{"where": "account"}'|json_decode %}
                     {% include "account/_add-card.volt" %}
+                    <input type="hidden" id="csid" name="csid"/>
                 </form>
                 <div class="box-bank {% if which_form != 'withdraw' %}hidden{% endif %}">
                     {% if msg %}

@@ -76,6 +76,7 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
             }
             $this->setLine($euroMillionsLine);
             $this->setActive(true);
+            $this->setId(1);
             $this->setStartDrawDate(new \DateTime($formPlay->startDrawDate));
             $this->setLastDrawDate(new \DateTime($formPlay->lastDrawDate));
             $this->setFrequency((int) $formPlay->frequency);

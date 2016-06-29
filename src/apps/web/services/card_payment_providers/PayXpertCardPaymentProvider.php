@@ -2,16 +2,19 @@
 namespace EuroMillions\web\services\card_payment_providers;
 
 use EuroMillions\shared\vo\results\PaymentProviderResult;
+use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
 use EuroMillions\web\services\card_payment_providers\payxpert\GatewayClientWrapper;
 use EuroMillions\web\services\card_payment_providers\payxpert\PayXpertConfig;
 use EuroMillions\web\vo\CreditCard;
+use EuroMillions\web\vo\Order;
 use Money\Currency;
 use Money\Money;
 
 class PayXpertCardPaymentProvider implements ICardPaymentProvider
 {
     private $gatewayClient;
+
 
     public function __construct(PayXpertConfig $config, $gatewayClient = null)
     {
@@ -30,5 +33,14 @@ class PayXpertCardPaymentProvider implements ICardPaymentProvider
         $transaction->setShopperInformation('NA', 'NA', 'NA', 'NA', 'NA', 'ZZ', 'NA', 'NA');
         $result = $transaction->send();
         return new PaymentProviderResult($result->errorCode === "000", $result);
+    }
+
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function user(User $user)
+    {
+
     }
 }

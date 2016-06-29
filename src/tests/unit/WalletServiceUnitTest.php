@@ -182,6 +182,7 @@ class WalletServiceUnitTest extends UnitTestBase
         $user = UserMother::aUserWith500Eur()->build();
         $expected_wallet = Wallet::create($expected_wallet_amount);
         $card_payment_provider = $this->getInterfaceWebDouble('ICardPaymentProvider');
+        $card_payment_provider->user($user)->shouldBeCalled();
         $card_payment_provider->charge(Argument::any(), Argument::any())->willReturn(new PaymentProviderResult($payment_provider_result));
         $credit_card = CreditCardMother::aValidCreditCard();
         $credit_card_charge = CreditCardChargeMother::aValidCreditCardChargeWithAmountInParam($amount);

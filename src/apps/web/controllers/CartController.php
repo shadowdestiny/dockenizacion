@@ -283,7 +283,7 @@ class CartController extends PublicSiteControllerBase
             'msg'              => [],
             'checked_wallet'   => $checked_wallet,
             'email'             => $user->getEmail()->toNative(),
-            'total_new_payment_gw' => $order_eur->getTotal()->getAmount() / 100,
+            'total_new_payment_gw' => isset($order_eur) ? $order_eur->getTotal()->getAmount() / 100 : '',
             'credit_card_form' => $creditCardForm
         ]);
     }

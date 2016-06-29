@@ -56,6 +56,13 @@ empay_test_transaction: '1'
 empay_md5Key: '3TgJ2CqehZ'
 empay_url: 'https://payment-b30bb144.emppay.com/payment/form/post/'
 
+gcp_url: 'https://online-safest.com/DirectInterface'
+gcp_mid: '21260'
+gcp_visa_gw_id: '21260001'
+gcp_visa_sign_key: 'Hn6fjbB8'
+gcp_master_gw_id: '21260002'
+gcp_master_sign_key: '6f6pB46l'
+
 payment_strategy: 'EmPayPaymentStrategy'
 payment_config: 'empay_iframe'
 

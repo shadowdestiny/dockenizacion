@@ -38,7 +38,7 @@ class WalletService
                                            User $user,
                                            CreditCardCharge $creditCardCharge)
     {
-
+        $provider->user($user);
         $payment_result = $this->pay($provider,$card,$creditCardCharge);
         if ($payment_result->success()) {
             $user->reChargeWallet($creditCardCharge->getNetAmount());
@@ -47,6 +47,7 @@ class WalletService
                 $this->entityManager->flush($user);
                 //EMTD add funds transaction
             } catch (\Exception $e) {
+                var_dump($e->getMessage());
                 //EMTD Log and warn the admin
             }
         }
@@ -86,7 +87,7 @@ class WalletService
                 ];
                 $this->transactionService->storeTransaction(TransactionType::DEPOSIT,$dataTransaction);
             } catch (\Exception $e) {
-                //EMTD Log and warn the admin
+
             }
         }
         return $payment_result;
@@ -95,8 +96,12 @@ class WalletService
 
     public function pay(ICardPaymentProvider $provider,CreditCard $card,CreditCardCharge $creditCardCharge)
     {
-        $amount = $creditCardCharge->getFinalAmount();
-        return $provider->charge($amount, $card);
+        try {
+            $amount = $creditCardCharge->getFinalAmount();
+            return $provider->charge($amount, $card);
+        } catch ( \Exception $e ) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function payFromEmpay(User $user, Money $amount)

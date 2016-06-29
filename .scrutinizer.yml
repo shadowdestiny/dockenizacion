@@ -128,7 +128,7 @@ filter:
     - src/tests/*
     - src/vendor/*
     - src/apps/web/controllers/TestController.php
-    - src/apps/web/services/card_payment_providers/payxpert/GatewayClient.php
+    - src/apps/web/services/card_payment_providers/payxpert/GatewayClientGCP.php
     - src/apps/web/migrations*
 build:
   environment:
