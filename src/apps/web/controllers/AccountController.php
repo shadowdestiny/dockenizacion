@@ -5,6 +5,7 @@ namespace EuroMillions\web\controllers;
 
 
 use EuroMillions\shared\components\widgets\PaginationWidget;
+use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\GuestUser;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\BankAccountForm;
@@ -194,7 +195,12 @@ class AccountController extends PublicSiteControllerBase
         $wallet_dto = $this->domainServiceFactory->getWalletService()->getWalletDTO($user);
         $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user->getUserCurrency());
         $this->userService->resetWonAbove($user);
+
+        $type = ViewHelper::getNamePaymentType($this->getDI()->get('paymentProviderFactory'));
+        $view = $type == 'iframe' ? 'account/wallet_iframe' : 'account/wallet';
 	    $this->tag->prependTitle('My Balance');
+        $this->view->pick($view);
+
         return $this->view->setVars([
             'which_form' => 'wallet',
             'form_errors' => $form_errors,

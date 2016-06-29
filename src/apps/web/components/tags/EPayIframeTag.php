@@ -4,11 +4,15 @@
 namespace EuroMillions\web\components\tags;
 
 
+use EuroMillions\shared\vo\results\PaymentProviderResult;
+use EuroMillions\web\interfaces\ICardPaymentProvider;
+use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\EmPayCypher;
+use Money\Money;
 use Phalcon\Exception;
 use Phalcon\Tag;
 
-class EPayIframeTag extends Tag
+class EPayIframeTag extends Tag implements ICardPaymentProvider
 {
     protected $config;
     public static function render(array $params, array $config = null)
@@ -73,4 +77,13 @@ class EPayIframeTag extends Tag
         return $params;
     }
 
+    /**
+     * @param Money $amount
+     * @param CreditCard $card
+     * @return PaymentProviderResult
+     */
+    public function charge(Money $amount, CreditCard $card)
+    {
+        throw new \Exception();
+    }
 }

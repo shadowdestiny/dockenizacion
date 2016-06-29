@@ -4,6 +4,7 @@
 namespace EuroMillions\web\controllers;
 
 
+use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\CreditCardForm;
 
@@ -36,7 +37,9 @@ class OrderController extends CartController
             $this->response->redirect('/'.$this->lottery.'/play');
             return false;
         }
-        $this->view->pick('cart/order');
+        $type = ViewHelper::getNamePaymentType($this->getDI()->get('paymentProviderFactory'));
+        $view = $type == 'iframe' ? 'cart/order_iframe' : 'cart/order';
+        $this->view->pick($view);
         return $this->dataOrderView($user, $result, $form_errors, $msg, $credit_card_form, $errors);
     }
 

@@ -124,8 +124,11 @@ abstract class BootstrapStrategyBase
     protected function configPaymentProvider(Di $di)
     {
         $paymentProviderFactory = new PaymentProviderFactory();
-        $config_payment = $di->get('config')['payxpert'];
-        return $paymentProviderFactory->getCreditCardPaymentProvider(new PayXpertCardPaymentStrategy($config_payment));
+        $paymentGatewayLoader = $di->get('config')['payment_gateway'];
+        $configName = $paymentGatewayLoader->config;
+        $config_payment = $di->get('config')[$configName];
+        $class = '\EuroMillions\web\services\card_payment_providers\\'.$paymentGatewayLoader->class_strategy;
+        return $paymentProviderFactory->getCreditCardPaymentProvider(new $class($config_payment));
     }
 
     protected function getConfigFileName(EnvironmentDetector $em)

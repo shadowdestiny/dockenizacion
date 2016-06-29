@@ -486,7 +486,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 $object = $di->get($web_module['className']);
                 $di->set('language', $this->configLanguage($di), true);
                 $di->set('view', $this->configView($module_name), true);
-                $di->set('EPayIframe', function() { return new EPayIframeTag(); });
+              //  $di->set('EPayIframe', function() { return new EPayIframeTag(); });
                 $object->registerServices($di);
             }
             if ($module_name === 'admin') {

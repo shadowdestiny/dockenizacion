@@ -29,6 +29,7 @@
     var total_eur = accounting.unformat(rest_total_from_funds)/accounting.unformat(ratio);
     var total_convert =  accounting.unformat(total_eur) + accounting.unformat(param2);//parseFloat(parseFloat(total_eur).toFixed(2) + parseFloat(param2).toFixed(2));
     var convert = accounting.toFixed(total_convert,2)
+    total_in_eur = convert;
     total_text = '(€'+convert+')';
     }
     total_price_in_credit_card_form = 0;
@@ -42,7 +43,12 @@
     $(function(){
     $('.buy').on('click',function(){
     var value = $(this).data('btn');
-    if(value == 'no-wallet') {
+    var value_txt = $(this).text();
+    if( new String(value_txt).valueOf() == new String('Buy now').valueOf() ) {
+    show_form_credit_card=false;
+    $('.payment').hide();
+    $('.embed-container').hide();
+    } else {
     var total_text = '';
     if(currency_symbol !== '€'){
     var total_price = accounting.unformat(total_price_in_credit_card_form.slice(1));
@@ -58,8 +64,6 @@
     scrollTop: $('#card-number').offset().top
     }, 500);
     $('#card-number').focus();
-    } else {
-    $('.payment').hide();
     }
     })
     if(show_form_credit_card) {
@@ -90,11 +94,11 @@
     e.preventDefault();
     }
     });
+
 {% endblock %}
 {% block template_scripts_after %}
     <script src="/w/js/react/cart.js"></script>
     <script src="/w/js/react/tooltip.js"></script>
-
     {%  if ga_code is defined %}
         <!--start PROD imports
         <script src="/w/js/dist/GASignUpOrder.min.js"></script>
@@ -116,7 +120,7 @@
 
     <main id="content">
         <div class="wrapper">
-            <div class="box-basic medium">
+            <div class="box-basic large">
                 <h1 class="h1 title yellow res">{{ language.translate("Review and Buy") }}</h1>
                 <div class="terms">{{ language.translate("By purchasing you agree to") }} <a href="/legal/">{{ language.translate("Terms &amp; Conditions") }}</a></div>
 
@@ -131,10 +135,9 @@
 
                 <div id="cart-order"></div>
                 <div class="payment hidden">
-                    <form class="box-add-card form-currency {#{% if which_form != 'edit' and which_form%}hidden{% endif %}#}" method="post" action="/euromillions/payment{#{% if which_form == 'edit'%}/account/editPayment/{{ payment_method.id_payment }}{% else %}/{% endif %}#}">
-                        {% set component='{"where": "cart"}'|json_decode %}
-                        {% include "account/_add-card.volt" %}
-                    </form>
+                    <div class="embed-container">
+                        {{ paymentProviderFactory.render(['order_reference':1, 'item_1_unit_price_EUR': total_new_payment_gw, 'customer_email' : email, 'form' : 'purchase']) }}
+                    </div>
                 </div>
             </div>
         </div>

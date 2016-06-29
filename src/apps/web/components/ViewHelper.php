@@ -1,6 +1,8 @@
 <?php
 namespace EuroMillions\web\components;
 
+use Phalcon\Tag;
+
 class ViewHelper
 {
     const MILD_CURRENCIES = 'CNY,RON,ZAR,SEK,ARS,BOB,BRL,GEL,HKD,ILS,MXN,MYR,NOK,PEN,PLN,QAR,TRY,UAH,VEF';
@@ -24,6 +26,11 @@ class ViewHelper
         return substr($amount, 0, strpos($amount, "."));
     }
 
+
+    public static function getNamePaymentType( $nameClass )
+    {
+        return $nameClass instanceof Tag ? 'iframe' : 'form';
+    }
 
 
 }

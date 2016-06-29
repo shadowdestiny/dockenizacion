@@ -83,6 +83,9 @@ test_transaction={{ empay_test_transaction }}
 md5Key= {{ empay_md5Key }}
 url={{ empay_url}}
 
+[payment_gateway]
+class_strategy={{ payment_strategy }}
+config= {{ payment_config }}
 
 [geoip]
 database_files_path={{ file_databasegeoip_path }}

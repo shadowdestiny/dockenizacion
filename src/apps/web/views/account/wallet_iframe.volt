@@ -34,12 +34,12 @@
     }
 
     function show_fee_text(value){
-    if (parseFloat(value) >= parseFloat(fee_limit)){
-    $('.notes span.txt:first').text('No extra fee applied.');
-    }else{
-    $('.notes span.txt:first').text($('.notes span.txt:first').data('txt'));
-    $('.notes').show();
-    }
+    //    if (parseFloat(value) >= parseFloat(fee_limit)){
+    //        $('.notes span.txt:first').text('No extra fee applied.');
+    //    }else{
+    //        $('.notes span.txt:first').text($('.notes span.txt:first').data('txt'));
+    //        $('.notes').show();
+    //    }
     }
 
 
@@ -54,7 +54,11 @@
     return false;
     }
     });
-
+    $('#form-deposit').on('submit', function(){
+    if($('.box-wallet label.label').hasClass('gray')) {
+    return false;
+    }
+    });
     $('#card-cvv,#card-number').on('keypress',function(e){
     var pattern = /^[0-9\.]+$/;
     if(e.target.id == 'card-cvv') {
@@ -76,6 +80,15 @@
     $('label.submit').removeClass('gray').addClass('green');
     } else {
     $('label.submit').removeClass('green').addClass('gray');
+    }
+    });
+
+    var valueLimitCur = "<?php echo $site_config->feeLimitConverted; ?>";
+    $('#funds-value').on('keyup', function(e){
+    if($(this).val() >= valueLimitCur ) {
+    $('.box-wallet label.label').removeClass('gray').addClass('green');
+    } else {
+    $('.box-wallet label.label').removeClass('green').addClass('gray');
     }
     });
 
@@ -108,6 +121,11 @@
     value = 0;
     }else{
     $(this).val(parseFloat(value).toFixed(2));
+    if(parseFloat(parseFloat(value) >= parseFloat(valueLimitCur)).toFixed(2) ) {
+    $('.box-wallet label.label').removeClass('gray').addClass('green');
+    } else {
+    $('.box-wallet label.label').removeClass('green').addClass('gray');
+    }
     }
     show_fee_text(value);
     });
@@ -120,6 +138,9 @@
     checkRadio("#card-list tr, #bank-list tr");
     deleteLnk("#card-list .action a, #bank-list .action a");
     });
+
+    if (window!=top){top.location.href=location.href;}
+
 {% endblock %}
 {% block template_scripts_after %}<script src="/w/js/react/tooltip.js"></script>{% endblock %}
 {% block header %}
@@ -198,9 +219,27 @@
                         </div>
                     </div>
                 </div>
-                <form class="{%if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency" method="post" action="/account/addFunds">
-                    {% set component='{"where": "account"}'|json_decode %}
-                    {% include "account/_add-card.volt" %}
+                <form class="{%if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency" id="form-deposit" method="post" action="/account/deposit">
+                    <div class="col6 second">
+                        <h2 class="h3 yellow margin">{{ language.translate("Add funds to your balance") }}</h2>
+                        <div class="div-balance"><strong class="purple">{{ language.translate("Current Account balance:") }}</strong> <span class="value">{{ user_balance }}</span></div>
+                        <span class="currency">{{ symbol }}</span>{{ credit_card_form.render('funds-value', {'class':'insert input'~form_errors['funds-value']}) }}
+
+                        <div class="notes cl">
+                            <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
+                            {#<span class="txt" data-txt='{{ language.translate("Fee of")}}  {{ site_config.fee }} {{ language.translate("will be charged for transfers less than ") }}{{ symbol }} {{ site_config.feeLimit }}' >{{ language.translate("Fee of")}} {{  site_config.fee }} {{ language.translate("will be charged for transfers less than ") }} {{ site_config.feeLimit }}</span>#}
+                            <span class="txt">{{ language.translate("The minium deposit is ") }} {{ site_config.feeLimit }}</span>
+                            <span class="txt">{{ language.translate("Currencies are just informative, transactions are charged in Euros.")}}</span>
+                        </div>
+                        <br>
+                        {#<div class="div-balance"><strong class="purple charge" >{{ language.translate("Total Charge:") }}</strong> <span class="value charge"></span><span class="value convert"></span></div>#}
+                        <div class="box-wallet overview">
+                            <label class="label btn gray">
+                                {{ language.translate("Add funds to your balance") }}
+                                <input type="submit" class="hidden">
+                            </label>
+                        </div>
+                    </div>
                 </form>
                 <div class="box-bank {% if which_form != 'withdraw' %}hidden{% endif %}">
                     {% if msg %}
