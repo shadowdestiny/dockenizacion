@@ -32,7 +32,7 @@ class GcpController extends PaymentController
     public function resultAction()
     {
         $status = $this->request->getPost('orderStatus');
-        if( (int)  $status == 1 ) {
+        if( (int)  $status == 1 or  (int)  $status == -1) {
             $userId = $this->authService->getCurrentUser()->getId();
             $play_service = $this->domainServiceFactory->getPlayService();
             $result = $play_service->playWithEmPlay($userId);
@@ -45,7 +45,7 @@ class GcpController extends PaymentController
     public function depositAction()
     {
         $status = $this->request->getPost('orderStatus');
-        if( (int)  $status != 1 ) {
+        if( (int)  $status != 1 or (int)  $status == -1) {
             $this->response->redirect('/'.$this->lottery.'/result/failure');
             return false;
         }
