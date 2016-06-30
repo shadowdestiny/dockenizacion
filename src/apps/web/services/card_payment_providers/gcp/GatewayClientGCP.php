@@ -111,7 +111,7 @@ class GatewayClientGCP
         $this->curlWrapper->setOption(CURLOPT_HEADER,0);
         $this->curlWrapper->setOption(CURLOPT_RETURNTRANSFER, 0);
         $this->curlWrapper->setOption(CURLOPT_POST,1);
-        $this->curlWrapper->setOption(CURLOPT_FOLLOWLOCATION, true);
+        $this->curlWrapper->setOption(CURLOPT_FOLLOWLOCATION, 0);
         $this->curlWrapper->setOption(CURLOPT_POSTFIELDS, $params);
         $this->curlWrapper->setOption(CURLOPT_REFERER, $request->getHTTPReferer());
         $this->curlWrapper->setOption(CURLOPT_HTTPHEADER, ['X-FORWARDED-FOR:'.$request->getClientAddress(), 'CLIENT-IP:'.$request->getClientAddress()]);
