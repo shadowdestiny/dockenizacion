@@ -45,7 +45,6 @@
 			<div class="col20per">
 				<strong>{{ language.translate('About')}}</strong>
 				<ul>
-					<li><a href="">{{ language.translate('News') }}</a></li>
 					<li><a href="/#about-us">{{ language.translate('About us') }}</a></li>
 					<li><a href="/legal/index">{{ language.translate('Terms &amp; Conditions') }}</a></li>
 					<li><a href="/legal/privacy">{{ language.translate('Privacy Policy') }}</a></li>
