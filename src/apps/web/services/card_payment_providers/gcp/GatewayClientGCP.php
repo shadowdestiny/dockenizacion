@@ -68,8 +68,8 @@ class GatewayClientGCP
             'orderNo'          => 'EM1',          //OrderNo.
             'orderCurrency'    => 'EUR',    //OrderCurrency
             'orderAmount'      => $this->amount->getAmount() / 100,      //OrderAmount
-            'firstName'        => $this->user->getName(),        //FirstName
-            'lastName'         => $this->user->getSurname(),         //lastName
+            'firstName'        => $this->creditCard->cardHolderName()->toNative(),        //FirstName
+            'lastName'         => ' ',         //lastName
             'cardNo'           => $this->creditCard->cardNumber()->toNative(),           //CardNo
             'cardExpireMonth'  => $this->creditCard->getExpiryMonth(),  //CardExpireMonth
             'cardExpireYear'   => $this->creditCard->getExpiryYear(),   //CardExpireYear
