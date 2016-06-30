@@ -544,12 +544,12 @@
                     <div class="gap">
                         <p>
                             <span class="n">7.6.1</span>
-                            <span class="txt">{{ language.translate("In reference to 7.3.5.2. as the general rule, with the exception of 7.3.5.4., the payment for the purchase of the Ticket is performed either by debiting the participant’s player balance, or by charging the participants credit card by the Euromillions.com website's payment processor. After paying for the Ticket(s), the Euromillions.com website forwards the payment along in the placement flow, therefore payments and purchases are final and cannot be cancelled or refunded.") }}</span>
+                            <span class="txt">{{ language.translate("The payment for the purchase of a ticket is performed either by debiting the participant’s player balance, or by charging the participants credit card via the Euromillions.com website's payment processor. After paying for the ticket(s), the Euromillions.com website forwards the payment along in the placement flow, therefore payments and purchases are final and cannot be cancelled or refunded.") }}</span>
                         </p>
 
                         <p>
                             <span class="n">7.6.2</span>
-                            <span class="txt">{{ language.translate("General rules of cancellation of Tickets are described in 7.3.5.2. and 7.3.5.5. Also, as per 11.3, the Euromillions.com website reserves the right to cancel, terminate, modify or suspend any of the Games if for any reason, the Games cannot be conducted as planned for any reason, including infection by computer virus, bugs, tampering or unauthorized intervention, fraud, technical failures or any other causes beyond the control of the Euromillions.com website.") }}</span>
+                            <span class="txt">{{ language.translate("As per 11.3, the Euromillions.com website reserves the right to cancel, terminate, modify or suspend any of the tickets if for any reason, the ticket purchase cannot be conducted as planned for any reason, including infection by computer virus, bugs, tampering or unauthorized intervention, fraud, technical failures or any other causes beyond the control of the Euromillions.com website.") }}</span>
                         </p>
                     </div>
 
