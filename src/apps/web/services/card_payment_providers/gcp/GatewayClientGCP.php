@@ -26,6 +26,7 @@ class GatewayClientGCP
     private $user;
     /** @var  Money */
     private $amount;
+    private $cardHolderNameSplit;
 
 
     private $curlWrapper;
@@ -45,7 +46,7 @@ class GatewayClientGCP
         if( $this->creditCard == null ) {
             throw new \Exception('No credit card set');
         }
-
+        $this->cardHolderNameSplit = explode(' ', $this->creditCard->cardHolderName()->toNative());
         if( $this->user == null ) {
             throw new \Exception('No user set');
         }
@@ -68,8 +69,8 @@ class GatewayClientGCP
             'orderNo'          => 'EM1',          //OrderNo.
             'orderCurrency'    => 'EUR',    //OrderCurrency
             'orderAmount'      => $this->amount->getAmount() / 100,      //OrderAmount
-            'firstName'        => $this->creditCard->cardHolderName()->toNative(),        //FirstName
-            'lastName'         => ' ',         //lastName
+            'firstName'        => $this->cardHolderNameSplit[0],        //FirstName
+            'lastName'         => $this->cardHolderNameSplit[1],         //lastName
             'cardNo'           => $this->creditCard->cardNumber()->toNative(),           //CardNo
             'cardExpireMonth'  => $this->creditCard->getExpiryMonth(),  //CardExpireMonth
             'cardExpireYear'   => $this->creditCard->getExpiryYear(),   //CardExpireYear
@@ -100,7 +101,7 @@ class GatewayClientGCP
 
     private function signInfo()
     {
-        return hash("sha256" , $this->merchantId.$this->gatewayNo .'EM1'.'EUR'.($this->amount->getAmount() /100).$this->user->getName() .$this->user->getSurname().$this->creditCard->cardNumber()->toNative().$this->creditCard->getExpiryYear().$this->creditCard->getExpiryMonth().$this->creditCard->getCVV().$this->user->getEmail()->toNative().$this->signKey);
+        return hash("sha256" , $this->merchantId.$this->gatewayNo .'EM1'.'EUR'.($this->amount->getAmount() /100).$this->cardHolderNameSplit[0].$this->cardHolderNameSplit[1].$this->creditCard->cardNumber()->toNative().$this->creditCard->getExpiryYear().$this->creditCard->getExpiryMonth().$this->creditCard->getCVV().$this->user->getEmail()->toNative().$this->signKey);
     }
 
 
