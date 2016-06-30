@@ -45,7 +45,7 @@ class GcpController extends PaymentController
     public function depositAction()
     {
         $status = $this->request->getPost('orderStatus');
-        if( (int)  $status != 1 or (int)  $status == -1) {
+        if( (int)  $status != 1 or (int)  $status != -1) {
             $this->response->redirect('/'.$this->lottery.'/result/failure');
             return false;
         }
