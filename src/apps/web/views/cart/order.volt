@@ -73,6 +73,7 @@
     $('#paywallet').val($('#pay-wallet').is(':checked') ? true : false);
     $('#funds').val($('#charge').val());
     $.cookie('csid', $('#csid').val());
+    $.cookie('url_gcp', window.location.protocol+'//'+window.location.host+'/euromillions/gcp');
     });
 
 

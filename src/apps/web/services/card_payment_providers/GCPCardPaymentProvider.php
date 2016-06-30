@@ -37,7 +37,7 @@ class GCPCardPaymentProvider implements ICardPaymentProvider
         $this->gatewayClient->setCreditCard($card);
         $this->gatewayClient->renewConfig($this->config);
         $this->gatewayClient->setAmount($amount);
-        return $this->gatewayClient->send();
+        $this->gatewayClient->send();
     }
 
     /**

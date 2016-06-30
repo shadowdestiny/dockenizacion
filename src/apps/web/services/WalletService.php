@@ -47,7 +47,6 @@ class WalletService
                 $this->entityManager->flush($user);
                 //EMTD add funds transaction
             } catch (\Exception $e) {
-                var_dump($e->getMessage());
                 //EMTD Log and warn the admin
             }
         }

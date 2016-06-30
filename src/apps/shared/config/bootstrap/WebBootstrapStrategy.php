@@ -254,6 +254,12 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action'     => 'result',
         ));
 
+        $router->add("/{lottery:(euromillions)+}/gcp/deposit", array(
+            "module"     => "web",
+            'lottery'    => 1,
+            'controller' => 'gcp',
+            'action'     => 'deposit',
+        ));
 
 
         $router->add("/{lottery:(euromillions)+}/empay/deposit", array(

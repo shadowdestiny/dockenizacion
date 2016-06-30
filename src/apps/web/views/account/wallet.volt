@@ -116,6 +116,7 @@
 
     $('.box-add-card').on('submit',function(){
         $.cookie('csid', $('#csid').val());
+        $.cookie('url_gcp',window.location.protocol+'//'+window.location.host+'/euromillions/gcp/deposit');
     });
 
     $(function(){

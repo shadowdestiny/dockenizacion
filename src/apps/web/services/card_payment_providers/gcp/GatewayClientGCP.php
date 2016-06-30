@@ -62,7 +62,6 @@ class GatewayClientGCP
 
     private function getHttpParams()
     {
-        $request = new Request();
         $arr = [
             'merNo'            => $this->merchantId,            //MerchantNo.
             'gatewayNo'        => $this->gatewayNo,        //GatewayNo.
@@ -77,7 +76,7 @@ class GatewayClientGCP
             'cardSecurityCode' => $this->creditCard->getCVV(),
             'issuingBank'      => 'bank',
             'email'            => $this->user->getEmail()->toNative(),
-            'returnUrl'        => 'https://'.$request->getServerName().':4433/euromillions/gcp',
+            'returnUrl'        => $_COOKIE['url_gcp'],
             'phone'            => '123456789', //$this->user->getPhoneNumber(),
             'country'          => 'ES',//$this->user->getCountry(),
             'state'            => 'NA',
