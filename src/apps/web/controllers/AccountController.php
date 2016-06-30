@@ -26,7 +26,6 @@ use EuroMillions\web\vo\ExpiryDate;
 use EuroMillions\web\vo\NotificationValue;
 use Money\Currency;
 use Money\Money;
-use Phalcon\Di;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\Numericality;

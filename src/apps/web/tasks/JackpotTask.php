@@ -10,7 +10,6 @@ use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\LotteryService;
 use EuroMillions\web\services\UserService;
 use EuroMillions\shared\vo\results\ActionResult;
-use Phalcon\Di;
 
 class JackpotTask extends TaskBase
 {

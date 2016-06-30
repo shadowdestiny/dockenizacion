@@ -6,11 +6,8 @@ namespace EuroMillions\web\vo\dto;
 
 use EuroMillions\web\exceptions\UnsupportedOperationException;
 use EuroMillions\web\interfaces\IDto;
-use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\vo\dto\base\DTOBase;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDownData;
-use Money\Currency;
-use Money\Money;
 
 class EuroMillionsDrawBreakDownDataDTO extends DTOBase implements IDto
 {

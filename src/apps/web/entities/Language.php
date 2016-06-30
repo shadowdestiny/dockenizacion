@@ -2,7 +2,6 @@
 namespace EuroMillions\web\entities;
 
 use EuroMillions\web\interfaces\IEntity;
-use Doctrine\Common\Collections\ArrayCollection;
 
 class Language extends EntityBase implements IEntity
 {

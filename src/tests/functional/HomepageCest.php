@@ -40,6 +40,6 @@ class HomepageCest
     {
         $I->wantTo('Go to the play page');
         $I->click('PLAY NOW');
-        $I->canSee('Choose 5 numbers & 2 stars to play');
+        $I->canSee('Choose 5 numbers & 2 stars per line');
     }
 }

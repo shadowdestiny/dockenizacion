@@ -9,7 +9,6 @@
 namespace EuroMillions\shared\config\bootstrap;
 
 use EuroMillions\shared\interfaces\IBootstrapStrategy;
-use Phalcon;
 
 class Bootstrap
 {

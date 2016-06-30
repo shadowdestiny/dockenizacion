@@ -5,7 +5,6 @@ namespace EuroMillions\web\emailTemplates;
 
 use antonienko\MoneyFormatter\MoneyFormatter;
 use EuroMillions\web\interfaces\IEmailTemplateDataStrategy;
-use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\email_templates_strategies\LatestResultsDataEmailTemplateStrategy;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use Money\Currency;

@@ -3,9 +3,6 @@
 
 namespace EuroMillions\web\components;
 
-
-use Phalcon\Di;
-
 class DateTimeUtil
 {
 
