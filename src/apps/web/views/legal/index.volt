@@ -561,17 +561,17 @@
                     <div class="gap">
                         <p>
                             <span class="n">7.7.1</span>
-                            <span class="txt">{{ language.translate("Users have the option to withdraw money from their player account, and transfer it to their external payment account to which Euromillions.com is connected, after login, under the Deposit/Withdrawal menu.") }}</span> 
+                            <span class="txt">{{ language.translate("As a fraud prevention measure, only winnings from purchased tickets can be withdrawn. The withdrawable balance is visible in your player account. Withdrawals can only be made if the player account and payee account have the same name.") }}</span> 
                         </p>
 
                         <p>
                             <span class="n">7.7.2</span>
-                            <span class="txt">{{ language.translate("The minimum and maximum amounts, the costs and charges of the withdrawal and transfer are shown in the Deposit/Withdrawal menu for each withdrawal option. These parameters are subject to change or update by Euromillions.com sole discretion without any prior notice.") }}</span>
+                            <span class="txt">{{ language.translate("Every withdrawal is manually verified in compliance with anti-money laundering policies.  Bank transaction fees apply on payouts; these can vary depending on the transferred amount and destination country of the bank.") }}</span>
                         </p>
 
                         <p>
                             <span class="n">7.7.3</span>
-                            <span class="txt">{{ language.translate("For withdrawal over 250 Euros, the user may be requested to present his/her ID with a photograph, name and address. The Company may also request a copy of his/her ID that is certified by two (2) witnesses, the names, addresses and ID numbers of the certifier witnesses must be clearly indicated. The copy must be certified as a “true copy of the original seen and the photograph being of a reasonable likeness to the bearer of the ID document”. In addition to the mentioned ID, a certified copy and data of either of the following documents may also be requested:") }}</span>
+                            <span class="txt">{{ language.translate("The minimum withdrawal amount is €25. For withdrawals over €250, the user may be requested to present his/her ID with a photograph, name and address. The Company may also request a copy of his/her ID that is certified by two (2) witnesses, the names, addresses and ID numbers of the certifier witnesses must be clearly indicated. The copy must be certified as a “true copy of the original seen and the photograph being of a reasonable likeness to the bearer of the ID document”. In addition to the mentioned ID, a certified copy and data of either of the following documents may also be requested:") }}</span>
                         </p>
 
                         <div class="gap">
