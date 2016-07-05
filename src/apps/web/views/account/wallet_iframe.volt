@@ -229,7 +229,7 @@
                             <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                             {#<span class="txt" data-txt='{{ language.translate("Fee of")}}  {{ site_config.fee }} {{ language.translate("will be charged for transfers less than ") }}{{ symbol }} {{ site_config.feeLimit }}' >{{ language.translate("Fee of")}} {{  site_config.fee }} {{ language.translate("will be charged for transfers less than ") }} {{ site_config.feeLimit }}</span>#}
                             <span class="txt">{{ language.translate("The minium deposit is ") }} {{ site_config.feeLimit }}</span>
-                            <span class="txt">{{ language.translate("Currencies are just informative, transactions are charged in Euros.")}}</span>
+                            <span class="txt">{{ language.translate("Currencies are just informative, transactions are charged in Euros. </br> Payments and purchases are final and cannot be cancelled or refunded as they will be forwarded to our payment and ticket providers. ")}}</span>
                         </div>
                         <br>
                         {#<div class="div-balance"><strong class="purple charge" >{{ language.translate("Total Charge:") }}</strong> <span class="value charge"></span><span class="value convert"></span></div>#}
