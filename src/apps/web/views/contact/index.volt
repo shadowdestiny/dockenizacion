@@ -55,6 +55,9 @@
                 </div>
             {{ endform() }}
         </div>
+
+	<p align="center">You can contact us per email at <a href="support@euromillions.com">support@euromillions.com</a> <br/> Customer support is available during business days from 09:00 until 18:00 CET </p>
+
     </div>
 </main>
 {% endblock %}
