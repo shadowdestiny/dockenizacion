@@ -16,7 +16,7 @@
            {% include "legal/_nav.volt" %}
         </div>
         <div class="box-basic content">
-            <h1 class="h1 title">{{ language.translate("Terms &amp; Condition") }}</h1>
+            <h1 class="h1 title">{{ language.translate("Terms &amp; Conditions") }}</h1>
 
             <p>{{ language.translate("Please read these Terms and Conditions carefully before using the website Euromillions.com (“Website”). By using or visiting the Website, players hereby accept and agree to these Terms and Conditions. We highly value the trust of our clients, and encourage you to carefully read the Terms and Conditions and information essential to our Website.") }}</p>
 
@@ -25,9 +25,7 @@
 
             <p>{{ language.translate("<strong>Panamedia B.V.</strong>, a private limited liability company organized under and regulated by the government of Curaçao (Kingdom of the Netherlands, European Union), and existing in the Commercial register of Curaçao Number 135786. Panamedia B.V. operates under the Gaming license #5536/JAZ issued by the governor of Curaçao. The Company is the operator of the website Euromillions.com.") }}</p>
 
-            <p>{{ language.translate("<strong>Panamedia Interactive SLU</strong>, a private limited liability company in Spain (European Union) with tax identification number B66106295. Panamedia Interactive SLU provides software engineering, promotion and customer services for Euromillions.com.") }}</p>
-
-            <p>{{ language.translate("<strong>Panamedia International Limited</strong> a private limited liability company in Malta (European Union) with Company Registration Number C53638. Panamedia International Ltd provides payment services for Euromillions.com.") }}</p>
+            <p>{{ language.translate("<strong>Panamedia International Limited</strong> a private limited liability company in Malta (European Union) with Company Registration Number C53638. Panamedia International Ltd provides payment services to Euromillions.com.") }}</p>
 
             <h2 class="h3">{{ language.translate("DEFINITIONS") }}</h2>
 
