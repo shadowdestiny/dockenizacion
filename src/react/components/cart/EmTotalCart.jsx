@@ -16,7 +16,7 @@ var EmTotalCart = new React.createClass({
         return (
             <div className="box-total cl">
                 <div className="txt-currency desktop">
-                    Currencies are just informative, transactions are charged in Euros. </br> Payments and purchases are final and cannot be cancelled or refunded as they will be forwarded to our payment and ticket providers.
+                    Currencies are just informative, transactions are charged in Euros. <br></br> Payments and purchases are final and cannot be cancelled or refunded as they will be forwarded to our payment and ticket providers.
                 </div>
                 <div className="total">
                     <div className="txt">Total to be paid </div>
@@ -26,4 +26,6 @@ var EmTotalCart = new React.createClass({
         )
     }
 });
+
+
 module.exports = EmTotalCart;
