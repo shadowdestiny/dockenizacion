@@ -74,8 +74,7 @@
 		<div class="wrapper">
 			<div class="cols">
 				<div class="col4 txt">
-					{{ language.translate('Material Copyright &copy; 2011 Euromillions.com
-					<br>Euromillions is the trademark of Services aux Loteries en Europe') }}
+					{{ language.translate('This website is operated by Panamedia B.V.- Emancipatie Boulevard 31, Willemstad, Curaçao - Kingdom of the Netherlands. Panamedia B.V. operates under the Gaming License #5536/JAZ issued by the governor of Curaçao. Material Copyright © 2011-2016 Euromillions.com. Payment Processing services are provided by Panamedia International Ltd, with the Company Registration number C53638 - 30/3 Sir Augustus Bartolo Street, XBX 1093, Ta Xbiex Malta.') }}
 				</div>
 				<div class="col8 box-partner">
 					<ul class="no-li inline">
@@ -84,18 +83,10 @@
 						<li><a href="http://www.gambleaware.co.uk/"><svg class="v-gambleaware vector"><use xlink:href="/w/svg/icon.svg#gambleaware"/></svg></a></li>
 						<li><a href="http://www.geotrust.com/"><svg class="v-geotrust vector"><use xlink:href="/w/svg/icon.svg#geotrust"/></svg></a></li>
 					</ul>
-					{#
-					<ul class="no-li inline">
-						<li><a href="https://www.mastercard.com/eur/" class="sprite card mastercard"><span class="txt">Mastercard</span></a></li>
-						<li><a href="https://www.visaeurope.com/" class="sprite card visa"><span class="txt">Visa</span></a></li>
-						<li><a href="https://www.visaeurope.com/" class="sprite card visa-electron"><span class="txt">Visa Electron</span></a></li>
-						<li class="fix-margin"><a href="http://www.gambleaware.co.uk/" class="sprite gambleaddict"><span class="txt">Gamble Addict</span></a></li>
-						<li><a href="https://www.geotrust.com/" class="sprite geotrust"><span class="txt">GeoTrust</span></a></li>
-					</ul>
-					#}
-				</div>
-			</div>
+
+
 		</div>
+
 	</div>
 </footer>
 <div class="media"></div> {# Used to check the size of the document to determin what size it is with JS #}

@@ -542,7 +542,7 @@
                     <div class="gap">
                         <p>
                             <span class="n">7.6.1</span>
-                            <span class="txt">{{ language.translate("The payment for the purchase of a ticket is performed either by debiting the participant’s player balance, or by charging the participants credit card via the Euromillions.com website's payment processor. After paying for the ticket(s), the Euromillions.com website forwards the payment along in the placement flow, therefore payments and purchases are final and cannot be cancelled or refunded.") }}</span>
+                            <span class="txt">{{ language.translate("The payment for the purchase of a ticket is performed either by debiting the participant’s player balance, or by charging the participants credit card via the Euromillions.com website's payment processor. After paying for the ticket(s), the Euromillions.com website forwards the payment to our ticket provider with whom all transactions are final, therefore payments and purchases are final and cannot be cancelled or refunded.</br></br> The EU Consumer Rights legislation requiring a 14 day cooling off period for online purchases does not apply to services for specific dates or event tickets. Therefore, the services supplied by the company do not fall  under the remit of this legislation.") }}</span>
                         </p>
 
                         <p>
