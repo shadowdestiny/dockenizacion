@@ -20,6 +20,7 @@ use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CreditCardCharge;
 use EuroMillions\web\vo\CVV;
 use EuroMillions\web\vo\dto\PlayConfigCollectionDTO;
+use EuroMillions\web\vo\dto\UpcomingDrawsDTO;
 use EuroMillions\web\vo\dto\UserDTO;
 use EuroMillions\web\vo\dto\UserNotificationsDTO;
 use EuroMillions\web\vo\ExpiryDate;
@@ -115,7 +116,7 @@ class AccountController extends PublicSiteControllerBase
         /** @var \Phalcon\Mvc\ViewInterface $paginator_view */
         $paginator_view = (new PaginationWidget($paginator, $this->request->getQuery()))->render();
 	
-	$this->tag->prependTitle('Transaction History');
+	    $this->tag->prependTitle('Transaction History');
         return $this->view->setVars([
             'transactionCollection' => $paginator->getPaginate()->items,
             'page' => $page,
@@ -129,7 +130,7 @@ class AccountController extends PublicSiteControllerBase
         $userId = $this->authService->getCurrentUser();
         $myaccount_form = $this->getMyACcountForm($userId);
         $myaccount_passwordchange_form = new MyAccountChangePasswordForm();
-	$this->tag->prependTitle('Change Password');
+	    $this->tag->prependTitle('Change Password');
         return $this->view->setVars([
             'form_errors' => [],
             'which_form'  => 'password',
@@ -157,7 +158,8 @@ class AccountController extends PublicSiteControllerBase
         $myGamesActives = $this->userService->getMyActivePlays($user->getId());
         if($myGamesActives->success()){
             $myGames = $myGamesActives->getValues();
-            $playConfigDTO = new PlayConfigCollectionDTO($myGames, $single_bet_price);
+            $playConfigDTO = new UpcomingDrawsDTO($myGames);
+            //$playConfigDTO = new PlayConfigCollectionDTO($myGames, $single_bet_price);
         }else{
             $message_actives = $myGamesActives->errorMessage();
         }
@@ -167,12 +169,18 @@ class AccountController extends PublicSiteControllerBase
         }else{
             $message_inactives = $myGamesInactives->errorMessage();
         }
+
+        $page = (!empty($this->request->get('page'))) ? $this->request->get('page') : 1;
+        $paginator = $this->getPaginatorAsArray($playConfigDTO->result,4,$page);
+        /** @var \Phalcon\Mvc\ViewInterface $paginator_view */
+        $paginator_view = (new PaginationWidget($paginator, $this->request->getQuery()))->render();
         $this->view->pick('account/games');
-	$this->tag->prependTitle('My Tickets');
+	    $this->tag->prependTitle('My Tickets');
         return $this->view->setVars([
             'my_games_actives' => $playConfigDTO,
             'my_games_inactives' => $playConfigInactivesDTOCollection,
             'jackpot_value' => $jackpot,
+            'paginator_view' => $paginator_view,
             'message_actives' => $message_actives,
             'message_inactives' => $message_inactives
         ]);

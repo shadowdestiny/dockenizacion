@@ -106,6 +106,7 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     }
 
 
+
     private function exerciseAdd($user,$euroMillionsLine)
     {
         $playConfig = new PlayConfig();

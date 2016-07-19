@@ -69,41 +69,69 @@
                             {#</th>#}
                         </thead>
                         <tbody>
-                            {% for index in 0..my_games_actives.numPlayConfigs-1 %}
-                                <?php $game = $my_games_actives->get($index); ?>
+                            {% for index,upcoming in my_games_actives.result %}
                                 <tr>
                                     <td class="date">
                                         <div class="myCol">
                                             <strong>{{ language.translate("Euromillions") }}</strong>
-                                            <?php $startDrawDate = $game->startDrawDate;?>
-                                            <?php $duration = $game->duration;?>
+                                            <?php $date = new \DateTime($index);
+                                            $startDrawDate = $date->format('Y M j'); ?>
                                         </div>
                                     </td>
                                     <td>
                                         {{ startDrawDate }}
                                     </td>
-                                    {#<td class="duration">#}
-                                        {#<div class="myCol">#}
-                                            {#<strong>{{ duration }}</strong>#}
-                                        {#</div>#}
-                                    {#</td>#}
-                                    <td class="numbers">
-                                        <div class="myCol">
-                                            {#
-                                                Commented because, every number need to be wrapped
+                                    <td>
+                                        <table border="1">
+                                            <?php $rows = count($my_games_actives->result[$index]); ?>
+                                            <?php
+                                            $numColumn = 0;
+                                            for($i=0;$i<$rows/2;$i++){
+                                            ?>
+                                            <?php
+                                                $game = $my_games_actives->result[$index][$numColumn];
+                                                $game = $game->get(0);
+                                            ?>
+                                            <tr>
+                                                <td class="numbers">
+                                                    <div class="myCol">
+                                                        <?php $regular = explode(',', $game->lines['bets']['regular']);?>
+                                                        <?php $lucky = explode(',', $game->lines['bets']['lucky']);?>
 
-                                                {{ game.regular_numbers }} 
-                                                <span class="star">{{ game.lucky_numbers }}</span>
-                                            #}
-                                            <?php $regular = explode(',', $game->lines['bets']['regular']);?>
-                                            <?php $lucky = explode(',', $game->lines['bets']['lucky']);?>
-                                            {% for regular_number in regular  %}
-                                                <span class="num">{{ regular_number }}</span>
-                                            {% endfor %}
-                                            {% for lucky_number in lucky  %}
-                                                <span class="num star">{{ lucky_number }}</span>
-                                            {% endfor %}
-                                        </div>
+                                                        {% for regular_number in regular  %}
+                                                            <span class="num">{{ regular_number }}</span>
+                                                        {% endfor %}
+                                                        {% for lucky_number in lucky  %}
+                                                            <span class="num star">{{ lucky_number }}</span>
+                                                        {% endfor %}
+                                                    </div>
+                                                </td>
+                                                <?php if(count($my_games_actives->result[$index]) > 1 && $numColumn < $rows-1 ) {?>
+                                                <td class="numbers">
+                                                    <?php
+                                                    if(isset($my_games_actives->result[$index][$numColumn+1])) {
+                                                        $game=$my_games_actives->result[$index][$numColumn+1];
+                                                    } else {
+                                                        $game=$my_games_actives->result[$index][$numColumn];
+                                                    }
+                                                    $game = $game->get(0);
+                                                    ?>
+                                                    <div class="myCol">
+                                                        <?php $regular = explode(',', $game->lines['bets']['regular']);?>
+                                                        <?php $lucky = explode(',', $game->lines['bets']['lucky']);?>
+                                                        {% for regular_number in regular  %}
+                                                            <span class="num">{{ regular_number }}</span>
+                                                        {% endfor %}
+                                                        {% for lucky_number in lucky  %}
+                                                            <span class="num star">{{ lucky_number }}</span>
+                                                        {% endfor %}
+                                                    </div>
+                                                </td>
+                                                <?php $numColumn=$numColumn+2;?>
+                                                <?php } ?>
+                                            </tr>
+                                            <?php } ?>
+                                        </table>
                                     </td>
                                     {#<td class="action">
                                         <a href="javascript:void(0);" class="btn blue">Edit <svg class="ico v-pencil"><use xlink:href="/w/svg/icon.svg#v-pencil"></use></svg></a>

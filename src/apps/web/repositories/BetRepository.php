@@ -178,4 +178,22 @@ class BetRepository extends RepositoryBase
             'stars' => implode(',', array_slice($scalarResult[0],5,6))
         ];
     }
+
+
+    public function getPastGamesWithPrizes($userId)
+    {
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT b,p.startDrawDate,p.line.regular_number_one,'
+                . ' p.line.regular_number_two,p.line.regular_number_three, '
+                . ' p.line.regular_number_four,p.line.regular_number_five, '
+                . ' p.line.lucky_number_one, p.line.lucky_number_two'
+                . ' FROM ' . $this->getEntityName() . ' b JOIN b.playConfig p'
+                . ' WHERE p.user = :user_id AND p.active = :active '
+                . ' ORDER BY p.startDrawDate DESC ')
+            ->setParameters(['user_id' => $userId, 'active' => 0])
+            ->getResult();
+        return $result;
+    }
+
 }

@@ -75,6 +75,20 @@ class BetRepositoryIntegrationTest extends DatabaseIntegrationTestBase
 
     }
 
+    /**
+     * method getPastGamesWithPrizes
+     * when called
+     * should returnPastGamesWithPrizes
+     */
+    public function test_getPastGamesWithPrizes_called_returnPastGamesWithPrizes()
+    {
+        $userId = '9098299B-14AC-4124-8DB0-19571EDABE56';
+        $actual = $this->sut->getPastGamesWithPrizes($userId);
+        $this->assertEquals(2,count($actual));
+        $this->assertEquals('11,12',$actual[0][0]->getMatchNumbers());
+    }
+
+
 
     private function exerciseAdd()
     {
