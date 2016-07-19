@@ -19,6 +19,8 @@ use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CreditCardCharge;
 use EuroMillions\web\vo\CVV;
+use EuroMillions\web\vo\dto\PastDrawsCollectionDTO;
+use EuroMillions\web\vo\dto\PastDrawsDTO;
 use EuroMillions\web\vo\dto\PlayConfigCollectionDTO;
 use EuroMillions\web\vo\dto\UpcomingDrawsDTO;
 use EuroMillions\web\vo\dto\UserDTO;
@@ -165,7 +167,8 @@ class AccountController extends PublicSiteControllerBase
         }
         $myGamesInactives = $this->userService->getMyInactivePlays($user->getId());
         if($myGamesInactives->success()){
-            $playConfigInactivesDTOCollection[] = new PlayConfigCollectionDTO($myGamesInactives->getValues(), $single_bet_price);
+            $playConfigInactivesDTOCollection[] = new PastDrawsCollectionDTO($myGamesInactives->getValues());
+             //$playConfigInactivesDTOCollection[] = new PlayConfigCollectionDTO($myGamesInactives->getValues(), $single_bet_price);
         }else{
             $message_inactives = $myGamesInactives->errorMessage();
         }

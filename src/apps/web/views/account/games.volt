@@ -151,24 +151,34 @@
                     <thead>
                     <tr>
                         <th class="date">
-                            {{ language.translate("Game <span class='desktop'>played</span>") }}
+                            {{ language.translate("Lottery") }}
                         </th>
+                        <th class="date">
+                            {{ language.translate("Draw date") }}
+                        </th>
+
+                        {#<th class="when">#}
+                        {#{{ language.translate("Duration") }}#}
+                        {#</th>#}
                         <th class="numbers">
                             {{ language.translate("Numbers <span class='desktop'>played</span>") }}
-                        </th>
-                        <th class="action">
-                            {{ language.translate("Actions") }}
                         </th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for game in my_games_inactives %}
+                        {% for past_games in game.result['dates'] %}
+
+                        {% endfor %}
                     <tr>
                         <td class="date">
                             <div class="myCol">
                                 <strong>{{ language.translate("Euromillions") }}</strong>
                                 {{ game.startDrawDate }}
                             </div>
+                        </td>
+                        <td>
+                            <strong>{{ language.translate("Euromillions") }}</strong>
                         </td>
                         <td class="numbers">
                             <div class="myCol">
@@ -182,11 +192,6 @@
                                 <span class="num">49</span>
                                 <span class="num star">7</span>
                                 <span class="num star">11</span>
-                            </div>
-                        </td>
-                        <td class="action">
-                            <div class="myCol">
-                                <a href="javascript:void(0);" class="btn blue">{{ language.translate("Play it <span class='desktop'>again</span> for") }} 2,35 &euro;</a>
                             </div>
                         </td>
                     </tr>

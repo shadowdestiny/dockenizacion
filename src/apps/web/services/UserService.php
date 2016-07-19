@@ -9,6 +9,7 @@ use EuroMillions\web\entities\Notification;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\entities\UserNotifications;
+use EuroMillions\web\repositories\BetRepository;
 use EuroMillions\web\repositories\NotificationRepository;
 use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserNotificationsRepository;
@@ -48,6 +49,9 @@ class UserService
     /** @var PlayConfigRepository  */
     private $playRepository;
 
+    /** @var BetRepository  */
+    private $betRepository;
+
     /** @var UserNotificationsRepository  */
     private $userNotificationsRepository;
 
@@ -74,6 +78,7 @@ class UserService
         $this->emailService = $emailService;
         $this->paymentProviderService = $paymentProviderService;
         $this->playRepository = $entityManager->getRepository('EuroMillions\web\entities\PlayConfig');
+        $this->betRepository = $entityManager->getRepository('EuroMillions\web\entities\Bet');
         $this->userNotificationsRepository = $entityManager->getRepository('EuroMillions\web\entities\UserNotifications');
         $this->notificationRepository = $entityManager->getRepository('EuroMillions\web\entities\Notification');
         $this->walletService = $walletService;
@@ -166,7 +171,8 @@ class UserService
     {
         if(!empty($userId)){
             /** @var array $result */
-            $result = $this->playRepository->getInactivePlayConfigsByUser($userId);
+            //$result = $this->playRepository->getInactivePlayConfigsByUser($userId);
+            $result = $this->betRepository->getPastGamesWithPrizes($userId);
             if(empty($result)){
                 return new ActionResult(false,'You don\'t have games');
             }
