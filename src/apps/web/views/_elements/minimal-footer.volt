@@ -13,8 +13,7 @@
 					</a>
 				</div>
 				<div class="col4 txt">
-					{{ language.translate('Material Copyright &copy; 2011 Euromillions.com
-					<br>Euromillions is the trademark of Services aux Loteries en Europe') }}
+					{{ language.translate('This website is operated by Panamedia B.V.- Emancipatie Boulevard 31, Willemstad, Curaçao - Kingdom of the Netherlands. Panamedia B.V. operates under the Gaming License #5536/JAZ issued by the governor of Curaçao. Material Copyright © 2011-2016 Euromillions.com. Payment Processing services are provided by Panamedia International Ltd, with the Company Registration number C53638 - 30/3 Sir Augustus Bartolo Street, XBX 1093, Ta Xbiex Malta.') }}
 				</div>
 			</div>
 		</div>
