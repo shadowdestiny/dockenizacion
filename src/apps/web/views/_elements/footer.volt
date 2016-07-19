@@ -73,8 +73,10 @@
 	<div class="info cl">
 		<div class="wrapper">
 			<div class="cols">
-				<div class="col4 txt">
-					{{ language.translate('This website is operated by Panamedia B.V.- Emancipatie Boulevard 31, Willemstad, Curaçao - Kingdom of the Netherlands. Panamedia B.V. operates under the Gaming License #5536/JAZ issued by the governor of Curaçao. Material Copyright © 2011-2016 Euromillions.com. Payment Processing services are provided by Panamedia International Ltd, with the Company Registration number C53638 - 30/3 Sir Augustus Bartolo Street, XBX 1093, Ta Xbiex Malta.') }}
+				<div class="col5 txt">
+					{{ language.translate('This service operates under the Gaming License #5536/JAZ authorised and regulated by the Government of Curaçao. This site is operated by Panamedia B.V., Emancipatie Boulevard 31, Willemstad, Curaçao and payment processing services are provided by Panamedia International Limited, 30/3 Sir Augustus Bartolo Street, XBX 1093, Ta Xbiex Malta (EU). All transactions are charged in Euros. Prices displayed in other currencies are for informative purposes only and are converted according to actual exchange rates.') }}
+					<br><br>
+					{{ language.translate('Copyright © 2011-2016 by EuroMillions.com. All rights reserved.') }}
 				</div>
 				<div class="col8 box-partner">
 					<ul class="no-li inline">
@@ -83,10 +85,7 @@
 						<li><a href="http://www.gambleaware.co.uk/"><svg class="v-gambleaware vector"><use xlink:href="/w/svg/icon.svg#gambleaware"/></svg></a></li>
 						<li><a href="http://www.geotrust.com/"><svg class="v-geotrust vector"><use xlink:href="/w/svg/icon.svg#geotrust"/></svg></a></li>
 					</ul>
-
-
 		</div>
-
 	</div>
 </footer>
 <div class="media"></div> {# Used to check the size of the document to determin what size it is with JS #}
