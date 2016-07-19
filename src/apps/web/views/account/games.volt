@@ -151,10 +151,10 @@
                     <thead>
                     <tr>
                         <th class="date">
-                            {{ language.translate("Lottery") }}
+                            {{ language.translate("Draw date") }}
                         </th>
                         <th class="date">
-                            {{ language.translate("Draw date") }}
+                            {{ language.translate("Lottery") }}
                         </th>
 
                         {#<th class="when">#}
@@ -167,59 +167,37 @@
                     </thead>
                     <tbody>
                     {% for game in my_games_inactives %}
-                        {% for past_games in game.result['dates'] %}
+                        <tr>
+                            <td class="date">
+                                <div class="myCol">
+                                    <?php $date = new \DateTime($index);
+                                $startDrawDate = $date->format('Y M j');?>
+                                    {{ startDrawDate }}
+                                </div>
+                            </td>
+                            <td>
+                                <strong>{{ language.translate("Euromillions") }}</strong>
+                            </td>
 
-                        {% endfor %}
-                    <tr>
-                        <td class="date">
-                            <div class="myCol">
-                                <strong>{{ language.translate("Euromillions") }}</strong>
-                                {{ game.startDrawDate }}
-                            </div>
-                        </td>
-                        <td>
-                            <strong>{{ language.translate("Euromillions") }}</strong>
-                        </td>
-                        <td class="numbers">
-                            <div class="myCol">
-                                {#
-                                {{ game.regular_numbers }} <span class="star">{{ game.lucky_numbers }}</span>
-                                #}
-                                <span class="num">1</span>
-                                <span class="num">2</span>
-                                <span class="num">30</span>
-                                <span class="num">37</span>
-                                <span class="num">49</span>
-                                <span class="num star">7</span>
-                                <span class="num star">11</span>
-                            </div>
-                        </td>
-                    </tr>
+                            {% for i,past_games in game['dates'] %}
+                                <td class="numbers">
+                                    <div class="myCol">
+                                        {#
+                                        {{ game.regular_numbers }} <span class="star">{{ game.lucky_numbers }}</span>
+                                        #}
+                                        <span class="num">1</span>
+                                        <span class="num">2</span>
+                                        <span class="num">30</span>
+                                        <span class="num">37</span>
+                                        <span class="num">49</span>
+                                        <span class="num star">7</span>
+                                        <span class="num star">11</span>
+                                    </div>
+                                </td>
+                            {% endfor %}
+                        </tr>
                     {% endfor %}
-                    <tr class="special">
-                        <td class="date">
-                            <div class="myCol">
-                                <strong>{{ language.translate("Euromillions") }}</strong>
-                                12 May 2015
-                            </div>
-                        </td>
-                        <td class="numbers">
-                            <div class="myCol">
-                                <span class="num">1</span>
-                                <span class="num">2</span>
-                                <span class="num">30</span>
-                                <span class="num">37</span>
-                                <span class="num">49</span>
-                                <span class="num star">7</span>
-                                <span class="num star">11</span>
-                            </div>
-                        </td>
-                        <td class="action">
-                            <div class="myCol">
-                                <a href="javascript:void(0);" class="btn blue">{{ language.translate("Play it <span class='desktop'>again</span> for") }} &euro; 2.35</a>
-                            </div>
-                        </td>
-                    </tr>
+
                     </tbody>
                 </table>
                     {% include "account/_paging.volt" %}

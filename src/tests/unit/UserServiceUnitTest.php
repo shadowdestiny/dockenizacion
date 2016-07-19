@@ -35,6 +35,7 @@ class UserServiceUnitTest extends UnitTestBase
     private $paymentProviderService_double;
     private $paymentMethodRepository_double;
     private $playRepository_double;
+    private $betRepository_double;
     private $userNotificationsRepository_double;
     private $notificationsRepository_double;
     private $walletService_double;
@@ -46,6 +47,7 @@ class UserServiceUnitTest extends UnitTestBase
             Namespaces::ENTITIES_NS . 'User'              => $this->userRepository_double,
             Namespaces::ENTITIES_NS . 'PaymentMethod'     => $this->paymentMethodRepository_double,
             Namespaces::ENTITIES_NS . 'PlayConfig'        => $this->playRepository_double,
+            Namespaces::ENTITIES_NS . 'Bet'               => $this->betRepository_double,
             Namespaces::ENTITIES_NS . 'UserNotifications' => $this->userNotificationsRepository_double,
             Namespaces::ENTITIES_NS . 'Notification'      => $this->notificationsRepository_double,
         ];
@@ -60,6 +62,7 @@ class UserServiceUnitTest extends UnitTestBase
         $this->paymentProviderService_double = $this->getServiceDouble('PaymentProviderService');
         $this->paymentMethodRepository_double = $this->getRepositoryDouble('PaymentMethodRepository');
         $this->playRepository_double = $this->getRepositoryDouble('PlayConfigRepository');
+        $this->betRepository_double = $this->getRepositoryDouble('BetRepository');
         $this->userNotificationsRepository_double = $this->getRepositoryDouble('UserNotificationsRepository');
         $this->notificationsRepository_double = $this->getRepositoryDouble('NotificationRepository');
         $this->walletService_double = $this->getServiceDouble('WalletService');

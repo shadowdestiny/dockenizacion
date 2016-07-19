@@ -167,7 +167,7 @@ class AccountController extends PublicSiteControllerBase
         }
         $myGamesInactives = $this->userService->getMyInactivePlays($user->getId());
         if($myGamesInactives->success()){
-            $playConfigInactivesDTOCollection[] = new PastDrawsCollectionDTO($myGamesInactives->getValues());
+            $playConfigInactivesDTOCollection = new PastDrawsCollectionDTO($myGamesInactives->getValues());
              //$playConfigInactivesDTOCollection[] = new PlayConfigCollectionDTO($myGamesInactives->getValues(), $single_bet_price);
         }else{
             $message_inactives = $myGamesInactives->errorMessage();
@@ -181,7 +181,7 @@ class AccountController extends PublicSiteControllerBase
 	    $this->tag->prependTitle('My Tickets');
         return $this->view->setVars([
             'my_games_actives' => $playConfigDTO,
-            'my_games_inactives' => $playConfigInactivesDTOCollection,
+            'my_games_inactives' => $playConfigInactivesDTOCollection->result['dates'],
             'jackpot_value' => $jackpot,
             'paginator_view' => $paginator_view,
             'message_actives' => $message_actives,
