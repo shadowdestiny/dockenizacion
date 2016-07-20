@@ -173,7 +173,7 @@ class AccountController extends PublicSiteControllerBase
         }
 
         $page = (!empty($this->request->get('page'))) ? $this->request->get('page') : 1;
-        $paginator = $this->getPaginatorAsArray($playConfigInactivesDTOCollection->result['dates'],4,$page);
+        $paginator = $this->getPaginatorAsArray(!empty($playConfigInactivesDTOCollection->result['dates']) ? $playConfigInactivesDTOCollection->result['dates'] : [],4,$page);
         /** @var \Phalcon\Mvc\ViewInterface $paginator_view */
         $paginator_view = (new PaginationWidget($paginator, $this->request->getQuery()))->render();
         $this->view->pick('account/games');

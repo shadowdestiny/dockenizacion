@@ -1,5 +1,7 @@
 <?php
 use EuroMillions\tests\helpers\builders\UserBuilder;
+use EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother;
+
 /**
  * Class AccountCest
  */
@@ -93,8 +95,10 @@ class AccountCest
 
         $I->haveInSession('EM_current_user', $this->userId);
         $I->amOnPage('/account/games');
+        //$I->seeInShellOutput('i dont know');
         $I->canSee('My Tickets');
-        $I->seeNumberOfElements('table.present tr', 1);
+        //$I->seeNumberOfElements('table.present', 1);
+
     }
 
     /**

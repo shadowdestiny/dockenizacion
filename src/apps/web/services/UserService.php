@@ -171,7 +171,6 @@ class UserService
     {
         if(!empty($userId)){
             /** @var array $result */
-            //$result = $this->playRepository->getInactivePlayConfigsByUser($userId);
             $result = $this->betRepository->getPastGamesWithPrizes($userId);
             if(empty($result)){
                 return new ActionResult(false,'You don\'t have games');
