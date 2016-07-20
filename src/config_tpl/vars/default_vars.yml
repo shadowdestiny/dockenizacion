@@ -63,7 +63,7 @@ gcp_visa_sign_key: 'Hn6fjbB8'
 gcp_master_gw_id: '21260002'
 gcp_master_sign_key: '6f6pB46l'
 
-payment_strategy: 'EmPayPaymentStrategy'
-payment_config: 'empay_iframe'
+payment_strategy: 'PayXpertCardPaymentStrategy'
+payment_config: 'payxpert'
 
 file_databasegeoip_path: '/var/www/data/geoipdatabase'
