@@ -150,7 +150,6 @@ class AccountController extends PublicSiteControllerBase
     {
         $user = $this->authService->getLoggedUser();
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions'));
-        $single_bet_price = $this->domainServiceFactory->getLotteryService()->getSingleBetPriceByLottery('EuroMillions');
         $myGames = null;
         $playConfigInactivesDTOCollection = [];
         $message_actives = '';
@@ -174,14 +173,14 @@ class AccountController extends PublicSiteControllerBase
         }
 
         $page = (!empty($this->request->get('page'))) ? $this->request->get('page') : 1;
-        $paginator = $this->getPaginatorAsArray($playConfigDTO->result,4,$page);
+        $paginator = $this->getPaginatorAsArray($playConfigInactivesDTOCollection->result['dates'],4,$page);
         /** @var \Phalcon\Mvc\ViewInterface $paginator_view */
         $paginator_view = (new PaginationWidget($paginator, $this->request->getQuery()))->render();
         $this->view->pick('account/games');
 	    $this->tag->prependTitle('My Tickets');
         return $this->view->setVars([
             'my_games_actives' => $playConfigDTO,
-            'my_games_inactives' => $playConfigInactivesDTOCollection->result['dates'],
+            'my_games_inactives' => $paginator->getPaginate()->items,
             'jackpot_value' => $jackpot,
             'paginator_view' => $paginator_view,
             'message_actives' => $message_actives,

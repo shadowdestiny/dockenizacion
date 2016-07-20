@@ -44,10 +44,10 @@ class PastDrawDTO extends DTOBase implements IDto
                         $this->pastDraw['line.lucky_number_one'],
                         $this->pastDraw['line.lucky_number_two'],
         ];
-        $matchRegularNumbers = !empty($this->pastDraw->matchNumbers) ? explode(',',$this->pastDraw->matchNumbers) : [];
-        $matchStarNumbers = !empty($this->pastDraw->matchStars) ? explode(',',$this->pastDraw->matchStars) : [];
+        $matchRegularNumbers = !empty($this->pastDraw[0]->getMatchNumbers()) ? explode(',',$this->pastDraw[0]->getMatchNumbers()) : [];
+        $matchStarNumbers = !empty($this->pastDraw[0]->getMatchStars()) ? explode(',',$this->pastDraw[0]->getMatchStars()) : [];
         $this->numbers = array_count_values(array_merge($regularNumbers,$matchRegularNumbers));
         $this->stars = array_count_values(array_merge($starNumbers,$matchStarNumbers));
-        $this->prize = !empty($this->pastDraw['prize']) ? $this->pastDraw['prize']->getAmount() / 100 : 0;
+        $this->prize = !empty($this->pastDraw[0]->getPrize()) ? $this->pastDraw[0]->getPrize()->getAmount() / 100 : 0;
     }
 }

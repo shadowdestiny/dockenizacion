@@ -30,14 +30,14 @@ class PastDrawsCollectionDTO extends DTOBase implements IDto
 
     private function createCollectionByDate()
     {
-        $result = [];
+        $collection = [];
         if($this->result) {
+            foreach($this->result as $result) {
+                $startDrawDate = $result['startDrawDate']->format('Y-m-d');
+                $collection['dates'][$startDrawDate][] = new PastDrawDTO($result);
+            }
         }
-        foreach($this->result as $result) {
-            $startDrawDate = $result['startDrawDate']->format('Y-m-d');
-            $result['dates'][$startDrawDate][] = new PastDrawDTO($result);
-        }
-        return $result;
+        return $collection;
     }
 
 }
