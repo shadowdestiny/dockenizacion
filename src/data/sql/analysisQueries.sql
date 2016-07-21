@@ -10,7 +10,7 @@ from
 (select * from matcher where matchside = 'r' and matchID is null) AS mr
 where 
 	ml.providerBetID = mr.providerBetID AND
- 	ml.prize = mr.prize AND
+ 	ml.prize_amount = mr.prize_amount
 --	ml.balls = mr.balls AND
 --	ml.stars = mr.stars
 );
@@ -46,7 +46,7 @@ from
 (select * from matcher where matchside = 'r' and matchID is null) AS mr
 where 
 	ml.providerBetID = mr.providerBetID AND
-	(ml.prize != mr.prize) 
+	(ml.prize_amount != mr.prize_amount)
 --	OR
 --	ml.balls != mr.balls OR
 --	ml.stars != mr.stars)
