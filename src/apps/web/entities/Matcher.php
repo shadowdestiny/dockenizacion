@@ -17,6 +17,7 @@ class Matcher extends EntityBase implements IEntity, IUser, \JsonSerializable
     protected $drawDate;
     protected $matchStatus;
     protected $matchID;
+    protected $matchTypeID;
     protected $matchDate;
     protected $userId;
     protected $providerBetId;
@@ -161,6 +162,23 @@ class Matcher extends EntityBase implements IEntity, IUser, \JsonSerializable
     {
         $this->user = $user;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getMatchTypeID()
+    {
+        return $this->matchTypeID;
+    }
+
+    /**
+     * @param mixed $matchTypeID
+     */
+    public function setMatchTypeID($matchTypeID)
+    {
+        $this->matchTypeID = $matchTypeID;
+    }
+
 
 
 }

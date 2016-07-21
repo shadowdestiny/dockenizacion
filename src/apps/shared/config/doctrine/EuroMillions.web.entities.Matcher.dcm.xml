@@ -16,6 +16,7 @@
         <field name="drawDate" type="date"/>
         <field name="matchStatus" type="string" length="10" nullable="true"/>
         <field name="matchID" type="bigint" column="matchID" nullable="true"/>
+        <field name="matchTypeID" type="integer" column="matchTypeID" nullable="true"/>
         <field name="matchDate" type="datetime" column="matchDate" nullable="true"/>
         <field name="providerBetId" type="bigint" column="providerBetId" nullable="true"/>
         <embedded name="prize" class="Money\Money"/>
