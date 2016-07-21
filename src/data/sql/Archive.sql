@@ -2,13 +2,13 @@
 insert into matchHistory
 (`matchDate`, 
 `userID`, 
-`lPrize`, 
-`providerBetID`, 
+`lPrize_amount`,
+`providerBetId`,
 `matchTypeID`, 
 `drawDate`, 
-`rPrize`, 
+`rPrize_amount`,
 `matchStatus`,
-`prizeCurrencyName`
+`lPrize_currency_name`
 ) 
 
 select 
