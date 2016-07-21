@@ -14,13 +14,13 @@ insert into matchHistory
 select 
 	m1.`matchDate`,
 	m1.userID,
-	m1.prize,
+	m1.prize_amount,
 	m1.providerBetID,
 	m1.matchTypeID,
 	m1.drawDate,
-	m2.prize,
+	m2.prize_amount,
 	m1.matchstatus,
-	m1.prizeCurrencyName
+	m1.prize_currency_name
 from matcher m1, matcher m2
 where m1.matchID = m2.`ID`
 and m1.matchSide = 'l'
