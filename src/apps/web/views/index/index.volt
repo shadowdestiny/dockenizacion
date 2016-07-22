@@ -262,7 +262,7 @@ end PROD imports-->
 						<h3 class="li-title">{{ language.translate("Play") }}</h3>
 						<p>{{ language.translate("Select five numbers from 1 to 50 and two lucky stars numbered from 1 to 11. The results are published shortly after the draw on Euromillions.com, and players receive an email notification detailing the latest results and if they have won. Winnings are commission free and are immediately credited to the player’s account on Euromillions.com") }}</p>
 						<h3 class="li-title">{{ language.translate("Eligibility") }}</h3>
-						<p>{{ language.translate("Any person 18 years or older can play EuroMillions. This differs for some countries such as the United Kingdom, where players can participate starting from the age of 16.") }}</p>
+						<p>{{ language.translate("Any person 18 years or older can play EuroMillions.") }}</p>
 						<h3 class="li-title">{{ language.translate("Jackpot") }}</h3>
 						<p>{{ language.translate("The EuroMillions Jackpot can reach up to &euro;190 million with a guaranteed jackpot of at least €15 million (&pound;10.5 million) per draw (two draws per week). In the absence of a jackpot winner, the money is rolled over to the next draw and will grow until the jackpot is won, or the Euromillions Pool Cap (&euro;190 million) is reached.") }}</p>
 						<h3 class="li-title">{{ language.translate("Odds") }}</h3>
