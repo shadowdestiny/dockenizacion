@@ -82,8 +82,8 @@
                             <label class="label block" for="expiry-date-month">
                                 {{ language.translate("Expiration date") }} <span class="asterisk">*</span>
                             </label>
-                            {{ credit_card_form.render('expiry-date-month', { 'class':'input date'~form_errors['expiry-date-month'], "maxlength":"2", 'style':'width:12%'}) }}
-                            {{ credit_card_form.render('expiry-date-year', { 'class':'input date'~form_errors['expiry-date-year'], "maxlength":"2",'style':'width:12%'}) }}
+                            {{ credit_card_form.render('expiry-date-month', { 'class':'input date'~form_errors['expiry-date-month'], "maxlength":"2", 'style':'width:14%'}) }}
+                            {{ credit_card_form.render('expiry-date-year', { 'class':'input date'~form_errors['expiry-date-year'], "maxlength":"2",'style':'width:14%'}) }}
                         </div>
                         <div class="left cvv">
                             <label class="label" for="card-cvv">

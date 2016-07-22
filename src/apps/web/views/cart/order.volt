@@ -76,7 +76,13 @@
     $.cookie('url_gcp', window.location.protocol+'//'+window.location.host+'/euromillions/gcp');
     });
 
-
+    $('#expiry-date-month').on('keyup',function(e){
+	console.log($(this).val().length);
+	var charCount = $(this).val().length;
+	if (charCount==2){
+		$('#expiry-date-year').focus();
+	}	
+    });	
     $('#card-cvv,#card-number').on('keypress',function(e){
     var pattern = /^[0-9\.]+$/;
     if(e.target.id == 'card-cvv') {
