@@ -209,28 +209,26 @@ end PROD imports-->
 		</div>
 		<div class="informative">
 			<div class="who-we-are">
-				<div class="start-playing">
-					<div class="cols top">
-						<div class="col6">
-							<div class="title-em cl">
-								<svg class="vector text">
-									<use xlink:href="/w/svg/icon.svg#em-golden"></use>
-									<linearGradient id="c" gradientUnits="userSpaceOnUse" x1="7.87" y1="17.069" x2="7.87" y2="1.085" gradientTransform="matrix(1 0 0 -1 -.015 18.646)"><stop offset="0" stop-color="#FEFCF6"/><stop offset="1" stop-color="#F1D86E"/></linearGradient> {# Chrome want this #}
-								</svg>
-								<h3 class="title">{{ language.translate("Fast, Convenient &amp; Secure") }}</h3>
-							</div>
-						</div>
-						<div class="col6">
-							<span class="gold-pile">
-								<svg class="vector" viewBox="-10 150 100 100">
-									<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)" style="filter:url(#shadow)"></use>
-									<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)"></use>
-								</svg>
-								<a href="/{{ lottery }}/play" class="btn blue">{{ language.translate("Start Playing, Win Millions") }}</a>
-							</span>
-						</div>
-					</div>
-				</div>
+
+
+
+<div class="start-playing">
+                                        <div class="cols top">
+                                                <div class="col6">
+                                                        <div class="title-em cl">
+                                                              
+                                                        </div>
+                                                </div>
+                                                <div class="col6">
+                                                  
+                                                </div>
+                                        </div>
+
+                                </div>
+
+
+
+
 				<div class="bg-white">
 					<div class="cols fcs">
 						<div class="col6 bg-quality"></div>
