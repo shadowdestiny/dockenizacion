@@ -18,7 +18,6 @@ var config = {
        play : './src/play.jsx',
        cart : './src/cart.jsx',
        tooltip : './src/tooltip.jsx',
-       numbersplayed : './src/numbersplayed.jsx'
     },
     devtool: 'source-map',
     output: {
