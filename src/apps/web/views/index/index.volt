@@ -276,40 +276,6 @@ end PROD imports-->
 
 			{% include "index/_top.volt" %}
 
-			<div class="box-basic about-us">
-				<div class="cols">
-					<div class="col6 bg-win"></div>
-					<div class="col6 box-txt r">
-						<a id="about-us"></a>
-						<h2  class="h1 yellow">{{ language.translate("About us") }}</h2>
-						<h3 class="li-title">{{ language.translate("What we do") }}</h3>
-						<p>{{ language.translate("Euromillions.com is the first lottery based website built to work on every device and every screen size, no matter how large or small. Mobile or desktop, we will always offer you the best user experience.") }}</p>
-
-						<p>{{ language.translate("Your time is valuable to us, so we work hard to provide you with a quick, smart, and reliable experience to play lottery online from the comfort of your home or on the go.") }}</p> 
-
-						<p>{{ language.translate("Your fate-changer might be right here in the palm of your hand.") }}</p>
-
-						<p>{{ language.translate("We understand what you expect from us and we assure you that your winnings are commission free and will remain so forever.") }}</p>
-
-						<h3 class="li-title">{{ language.translate("Who we are") }}</h3>
-						<p>{{ language.translate("Euromillions.com is the first European transnational lottery launched in 2004.") }}</p>
-
-						<p>{{ language.translate("We are an international team composed of experts and passionate players, and we believe that in order to provide you the best services, we need to follow three important principles: to be fast, convenient and secure.") }}</p> 
-
-						<p>{{ language.translate("We really hope that playing with us will make your dreams come true. For the less lucky ones, we hope that the thrill of imagining a life with a big lottery prize will give you some pleasant hours of day dreaming, until the day that you actually win and everything that you imagined becomes real.") }}</p>
-
-						<p>{{ language.translate("Draws are held every Tuesday and Friday night at 20:45 CET in Paris, France.") }}</p>
-
-						<p>{{ language.translate("We wish you the very best of luck playing and to never stop dreaming.") }}</p>
-					</div>
-				</div>
-				<div class="box-action">
-					<span class="h2 phrase">{{ language.translate("Play today and  ") }}<br class="mobile"> {{ language.translate("change your life forever") }}</span>
-					<a href="{{ lottery }}/play"  class="btn big blue">{{ language.translate("Play. Dream. Win.") }}</a>
-				</div>
-			</div>
-
-			{% include "index/_top.volt" %}
 		</div>
 
 	</div>
