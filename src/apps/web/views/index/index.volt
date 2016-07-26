@@ -167,7 +167,7 @@ end PROD imports-->
 					<li><svg class="v-visa vector"><use class="greyed" xlink:href="/w/svg/icon.svg#visa"/></svg></li>
 					<li><svg class="v-mastercard vector"><use class="greyed" xlink:href="/w/svg/icon.svg#mastercard"/></svg></li>
 					<li><svg class="v-gambleaware vector"><use class="greyed" xlink:href="/w/svg/icon.svg#gambleaware"/></svg></li>
-					<li><svg class="v-geotrust vector"><use class="greyed" xlink:href="/w/svg/icon.svg#geotrust"/></svg></li>
+					<li><img src="/w/svg/comodobw.png"/> </li>
 					<li><svg class="v-shield vector"><use class="greyed" xlink:href="/w/svg/icon.svg#shield"/></svg> <span class="txt">{{ language.translate('Secure<br>Encryption')}}</span></li>
 				</ul>
 				<svg class="laurel last"><use class="greyed" xlink:href="/w/svg/icon.svg#laurel"/></svg>
