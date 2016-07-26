@@ -1,6 +1,6 @@
 <footer data-role="footer" class="main-foot">
 	<div class="info cl">
-		<div class="wrapper">
+		<div class="wrapper-min-footer">
 			<div class="cols">
 				<div class="col8">
 					<a href="/index" class="small-logo" title="Go to Homepage">

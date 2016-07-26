@@ -148,4 +148,5 @@
             </div>
         </div>
     </main>
+{% include "_elements/minimal-footer.volt" %}
 {% endblock %}

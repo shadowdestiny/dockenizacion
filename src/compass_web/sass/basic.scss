@@ -533,6 +533,7 @@ body, .submit{font-family:$basic-font;}
 }
 } /* End Media query */
 
+.wrapper-min-footer{max-width:1180px;margin:auto;min-width:235px;}
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width:480px){
