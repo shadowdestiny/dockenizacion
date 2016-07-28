@@ -162,16 +162,16 @@
                 <div class="{%if show_box_basic == false %}hidden{% endif %} overview-wallet">
                     {#<div class="info box box-congrats">
                        <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                       <span class="txt"><span class="congrats">{{ language.translate("Congratulations! You have won € 89.30") }}</span>
-                           {{ language.translate("") }}
+                       <span class="txt"><span class="congrats">{{ language.app("Congratulations! You have won € 89.30") }}</span>
+                           {{ language.app("") }}
                        </span>
                    </div>
 
                    <div class="info box box-congrats">
                        <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                       <span class="txtTransaction"><span class="congrats">{{ language.translate("Congratulations! You have won &euro; 5,500.70") }}</span>
+                       <span class="txtTransaction"><span class="congrats">{{ language.app("Congratulations! You have won &euro; 5,500.70") }}</span>
    {#
-                       {{ language.translate("To transfer your big winnings into your bank account we required the following informations: 1) your full name, 2) passport or ID card, 3) a current residence address, 4) a telephone number and 5) your bank account details.<br> Please send us everything by email to <a href='mailto:support@euromillions.com?subject=I won the lottery'>support@euromillions.com</a>, we will soon get in contact with you.")}}
+                       {{ language.app("To transfer your big winnings into your bank account we required the following informations: 1) your full name, 2) passport or ID card, 3) a current residence address, 4) a telephone number and 5) your bank account details.<br> Please send us everything by email to <a href='mailto:support@euromillions.com?subject=I won the lottery'>support@euromillions.com</a>, we will soon get in contact with you.")}}
    #}
                     {#                  </span>
                                   </div>#}

@@ -68,6 +68,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         if ($module === 'admin') {
             $view->setViewsDir($this->appPath . 'admin/views/');
         }
+
         $view->registerEngines(array(
             ".volt" => function ($view, $di) use ($compiled_path) {
                 $volt = new Phalcon\Mvc\View\Engine\Volt($view, $di);
@@ -120,6 +121,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'controller' => 1,
             'action'     => 'index',
         ));
+
+        $router->add('/admin/translation.html', array(
+            'module'     => 'admin',
+            'controller' => 'index',
+            'action'     => 'translation',
+        ));
+
 
         $router->add('/admin(/?)', array(
             'module'     => 'admin',

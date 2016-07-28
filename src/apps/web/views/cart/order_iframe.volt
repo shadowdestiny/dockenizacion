@@ -115,7 +115,7 @@
 
 {% block body %}
     {#  Hide this content until we have multiple numbers
-        <span class="type">5 {{ language.translate("numbers") }} + 3 {{ language.translate("stars") }}</span>
+        <span class="type">5 {{ language.app("numbers") }} + 3 {{ language.app("stars") }}</span>
     #}
 
     <main id="content">
@@ -126,11 +126,11 @@
 
                 {#<div class="box-top cl">#}
                 {#&#123;&#35;<div class="balance">&#35;&#125;#}
-                {#&#123;&#35;<span class="txt">{{ language.translate("Your current account balance:") }}</span>&#35;&#125;#}
+                {#&#123;&#35;<span class="txt">{{ language.app("Your current account balance:") }}</span>&#35;&#125;#}
                 {#&#123;&#35;<span class="value"><span class="old"><?php echo $currency_symbol ?> <?php echo $wallet_balance ?>.00</span> <span class="new"><?php echo $currency_symbol ?> 14.05</span></span>&#35;&#125;#}
                 {#&#123;&#35;</div>&#35;&#125;#}
 
-                {#<h2 class="h4 sub-txt">{{ language.translate("Order Summary") }}</h2>#}
+                {#<h2 class="h4 sub-txt">{{ language.app("Order Summary") }}</h2>#}
                 {#</div>#}
 
                 <div id="cart-order"></div>

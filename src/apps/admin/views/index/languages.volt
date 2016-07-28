@@ -25,31 +25,30 @@
     <script src="/a/js/angular-admin/node_modules/rxjs/bundles/Rx.js"></script>
     <script src="/a/js/angular-admin/node_modules/angular2/bundles/angular2.dev.js"></script>
     <script src="/a/js/angular-admin/node_modules/angular2/bundles/router.dev.js"></script>
+    <script src="/a/js/angular-admin/node_modules/angular2/bundles/http.dev.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <base href="/">
 {% endblock %}
 {% block bodyClass %}overview{% endblock %}
 
-{% block meta %}<title>Overview - Euromillions Admin System</title>{% endblock %}
-
 {% block header %}
-{% set activeNav='{"myClass": ""}'|json_decode %} {# It need to be empty #}
-{% include "_elements/header.volt" %}
+    {% set activeNav='{"myClass": ""}'|json_decode %} {# It need to be empty #}
+    {% include "_elements/header.volt" %}
 {% endblock %}
 
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
-<div class="wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="span12">
-                <div class="content">
-                    <h1 class="h1 purple">Overview</h1>
-                    <my-app>Loading...</my-app>
-                </div>
+    <div class="wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <div class="content">
+                        <translate-mg>Loading...</translate-mg>
+                    </div>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}

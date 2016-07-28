@@ -18,17 +18,17 @@
                 <br class="br">either way we are unable to realize all the wishes requested. We apologise for the inconvenience.') }}
             </p>
             {#<form class="box-results">#}
-                {#<p class="last-known">{{ language.translate('The last known wish <span class="yellow">"win the lottery"</span> was') }}</p>#}
+                {#<p class="last-known">{{ language.app('The last known wish <span class="yellow">"win the lottery"</span> was') }}</p>#}
                 {#<ul class="no-li inline numbers">#}
                     {#<li><span class="num">10</span></li>#}
                     {#<li><span class="num">17</span></li>#}
                     {#<li><span class="num">18</span></li>#}
                     {#<li><span class="num">33</span></li>#}
                     {#<li><span class="num">40</span></li>#}
-                    {#<li class="star"><span class="num">2</span><span class="txt">{{ language.translate("Star ball")}}</span></li>#}
-                    {#<li class="star"><span class="num">8</span><span class="txt">{{ language.translate("Star ball") }}</span></li>#}
+                    {#<li class="star"><span class="num">2</span><span class="txt">{{ language.app("Star ball")}}</span></li>#}
+                    {#<li class="star"><span class="num">8</span><span class="txt">{{ language.app("Star ball") }}</span></li>#}
                 {#</ul>#}
-                {#<a href="javascript:void(0)" class="btn big blue submit">{{ language.translate("Play magically selected numbers") }}</a>#}
+                {#<a href="javascript:void(0)" class="btn big blue submit">{{ language.app("Play magically selected numbers") }}</a>#}
             {#</form>#}
         </div>
     </div>

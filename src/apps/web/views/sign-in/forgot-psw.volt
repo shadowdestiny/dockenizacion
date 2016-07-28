@@ -35,9 +35,9 @@
                     <p><strong>{{ language.translate("Insert captcha") }}</strong></p>
                     <div class="captcha">{{ captcha }}</div>
     {# *** Code to use in case no google captcha is utilised ***}
-                    <br><a href="javascript:void(0);">{{ language.translate("reload the image") }}</a>
+                    <br><a href="javascript:void(0);">{{ language.app("reload the image") }}</a>
                     <br>
-                    <input id="captcha" class="input" placeholder="{{ language.translate("Enter the code") }}">
+                    <input id="captcha" class="input" placeholder="{{ language.app("Enter the code") }}">
 
     #}
                     <div class="cl">

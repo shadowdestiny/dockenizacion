@@ -1,0 +1,51 @@
+// Importar el núcleo de Angular
+import {Component} from 'angular2/core';
+import {ViewEncapsulation} from "angular2/core";
+import {ROUTER_DIRECTIVES, RouteConfig, Router} from "angular2/router";
+import {ListLanguageComponent} from "./components/list-language.component";
+import {EditLanguageComponent} from "./components/edit-language.component";
+import {AddLanguageComponent} from "./components/add-language.component";
+import {AuthService} from "./services/auth.service";
+import {OnInit} from "angular2/core";
+import config = require('./config/config');
+
+
+
+// Decorador component, indicamos en que etiqueta se va a cargar la plantilla
+@Component({
+    selector: 'translate-mg',
+    templateUrl: '/a/js/angular-admin/app/views/translates.html',
+    styleUrls: ["a/js/angular-admin/assets/css/styles-angular.css"],
+    providers: [AuthService],
+    directives: [ListLanguageComponent,
+                 ROUTER_DIRECTIVES]
+})
+
+@RouteConfig([
+    {path: "/languages",name: "Languages", component: ListLanguageComponent, useAsDefault: true},
+    {path: "/edit-language/:id",name: "EditLanguage", component: EditLanguageComponent},
+    {path: "/add-language",name: "AddLanguage", component: AddLanguageComponent}
+])
+
+
+export class AppComponent implements OnInit{
+
+    constructor(private _authService:AuthService)
+    {
+
+    }
+
+    ngOnInit():any {
+        this.getAuth();
+    }
+
+    private getAuth(){
+        this._authService.login()
+            .subscribe(
+                result => {
+                },
+                error => {
+                }
+            );
+    }
+}

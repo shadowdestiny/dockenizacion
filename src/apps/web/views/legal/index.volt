@@ -49,11 +49,11 @@
 
             <p>{{ language.translate("<strong>Ticket</strong> means the online ticket that is filled out on the Euromillions.com website. Tickets are made of a set of Fields.") }}</p>
 
- {#           <p>{{ language.translate("<strong>Ticket ID</strong> means a unique identification number given to a Ticket that is sent into play. It is available for review under the My Bets menu.") }}</p> #}
+ {#           <p>{{ language.app("<strong>Ticket ID</strong> means a unique identification number given to a Ticket that is sent into play. It is available for review under the My Bets menu.") }}</p> #}
 
-{#             <p>{{ language.translate("<strong>Transaction ID</strong> means a unique identifier of a payment. It is available for review under the My Transactions menu.") }}</p> #}
+{#             <p>{{ language.app("<strong>Transaction ID</strong> means a unique identifier of a payment. It is available for review under the My Transactions menu.") }}</p> #}
 
-{#             <p>{{ language.translate('<strong>Valid Ticket</strong> means a paid Ticket that has received a valid Ticket ID and has the status of "Paid, Valid".')}}</p> #}
+{#             <p>{{ language.app('<strong>Valid Ticket</strong> means a paid Ticket that has received a valid Ticket ID and has the status of "Paid, Valid".')}}</p> #}
 
             <p>{{ language.translate("<strong>Winning Numbers</strong> means a set of numbers of the certain game, drawn on a given day and published in a final manner by the official lottery operator.") }}</p>
 
@@ -201,12 +201,12 @@
 {#                    <div class="gap">
                         <p>
                             <span class="n">4.1.1</span>
-                            <span class="txt">{{ language.translate("The first step is to complete the registration form with valid data. Participants must ensure that their data are true, and must inform Euromillions.com immediately of any change in the data supplied by them during registration, including changes in their credit card or bank account data, by modifying their own accounts on this website.") }}</span>
+                            <span class="txt">{{ language.app("The first step is to complete the registration form with valid data. Participants must ensure that their data are true, and must inform Euromillions.com immediately of any change in the data supplied by them during registration, including changes in their credit card or bank account data, by modifying their own accounts on this website.") }}</span>
                         </p>
 
                         <p>
                             <span class="n">4.1.2</span>
-                            <span class="txt">{{ language.translate("The second step is confirmation, which is performed by clicking a confirmation link sent to the registrant via e-mail to the e-mail address provided in the first step.") }}</span>
+                            <span class="txt">{{ language.app("The second step is confirmation, which is performed by clicking a confirmation link sent to the registrant via e-mail to the e-mail address provided in the first step.") }}</span>
                         </p>
                     </div> #}
 
@@ -390,7 +390,7 @@
 
 {#                      <p>
                             <span class="n">7.3.3</span>
-                            <span class="txt">{{ language.translate('When a participant sends the Ticket(s) into play, the transaction gets a unique Transaction ID, with a "Not Paid" Status and gets forwarded for payment. From this moment on, the transaction is available for review under the My Transactions menu.')}}</span>
+                            <span class="txt">{{ language.app('When a participant sends the Ticket(s) into play, the transaction gets a unique Transaction ID, with a "Not Paid" Status and gets forwarded for payment. From this moment on, the transaction is available for review under the My Transactions menu.')}}</span>
                         </p> #}
 
                        <p>
@@ -406,24 +406,24 @@
 {#                        <div class="gap">
                             <p>
                                 <span class="n">a.</span>
-                                <span class="txt">{{ language.translate('The Status of the transaction gets updated to "Paid" under the My Transactions menu;') }}</span>
+                                <span class="txt">{{ language.app('The Status of the transaction gets updated to "Paid" under the My Transactions menu;') }}</span>
                             </p>
 
                             <p>
                                 <span class="n">b.</span>
-                                <span class="txt">{{ language.translate('The Tickets, each played on separate dates, will be available for review under the My Bets menu. Their status will be "Placement Pending" while they are forwarded for placement.')}}</span>
+                                <span class="txt">{{ language.app('The Tickets, each played on separate dates, will be available for review under the My Bets menu. Their status will be "Placement Pending" while they are forwarded for placement.')}}</span>
                             </p>
 
                             <p>
                                 <span class="n">c.</span>
-                                <span class="txt">{{ language.translate('A "Transaction Notification"')}} {{ language.translate("confirmation email will be sent out to the participants' email, separately for each game, containing a unique Ticket ID for each Ticket, and all the played numbers and their settings.") }}</span>
+                                <span class="txt">{{ language.app('A "Transaction Notification"')}} {{ language.app("confirmation email will be sent out to the participants' email, separately for each game, containing a unique Ticket ID for each Ticket, and all the played numbers and their settings.") }}</span>
                             </p>
                         </div> #}
 
                         <div class="gap">
 {#                             <p>
                                 <span class="n">7.3.4.1</span>
-                                <span class="txt">{{ language.translate("The participant has the responsibility to preserve the Ticket ID, and to present it to the Euromillions.com website upon its request. The Euromillions.com website reserves the right to reject all claims, including but not limited to winnings, if the participant is not able to present at least the valid Ticket ID and draw date. A Ticket ID and draw date are considered valid if the data completely match with the Euromillions.com website's records along with the Identification and Payment data of the user. In case of disputes, the Euromillions.com website's records are considered the official and valid records.") }}</span>
+                                <span class="txt">{{ language.app("The participant has the responsibility to preserve the Ticket ID, and to present it to the Euromillions.com website upon its request. The Euromillions.com website reserves the right to reject all claims, including but not limited to winnings, if the participant is not able to present at least the valid Ticket ID and draw date. A Ticket ID and draw date are considered valid if the data completely match with the Euromillions.com website's records along with the Identification and Payment data of the user. In case of disputes, the Euromillions.com website's records are considered the official and valid records.") }}</span>
                             </p> #}
 
                             <p>

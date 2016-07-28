@@ -176,16 +176,16 @@
                 <div class="{%if show_box_basic == false %}hidden{% endif %} overview-wallet">
                     {#<div class="info box box-congrats">
                        <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                       <span class="txt"><span class="congrats">{{ language.translate("Congratulations! You have won € 89.30") }}</span>
-                           {{ language.translate("") }}
+                       <span class="txt"><span class="congrats">{{ language.app("Congratulations! You have won € 89.30") }}</span>
+                           {{ language.app("") }}
                        </span>
                    </div>
 
                    <div class="info box box-congrats">
                        <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                       <span class="txtTransaction"><span class="congrats">{{ language.translate("Congratulations! You have won &euro; 5,500.70") }}</span>
+                       <span class="txtTransaction"><span class="congrats">{{ language.app("Congratulations! You have won &euro; 5,500.70") }}</span>
    {#
-                       {{ language.translate("To transfer your big winnings into your bank account we required the following informations: 1) your full name, 2) passport or ID card, 3) a current residence address, 4) a telephone number and 5) your bank account details.<br> Please send us everything by email to <a href='mailto:support@euromillions.com?subject=I won the lottery'>support@euromillions.com</a>, we will soon get in contact with you.")}}
+                       {{ language.app("To transfer your big winnings into your bank account we required the following informations: 1) your full name, 2) passport or ID card, 3) a current residence address, 4) a telephone number and 5) your bank account details.<br> Please send us everything by email to <a href='mailto:support@euromillions.com?subject=I won the lottery'>support@euromillions.com</a>, we will soon get in contact with you.")}}
    #}
                     {#                  </span>
                                   </div>#}
@@ -227,12 +227,12 @@
 
                         <div class="notes cl">
                             <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-                            {#<span class="txt" data-txt='{{ language.translate("Fee of")}}  {{ site_config.fee }} {{ language.translate("will be charged for transfers less than ") }}{{ symbol }} {{ site_config.feeLimit }}' >{{ language.translate("Fee of")}} {{  site_config.fee }} {{ language.translate("will be charged for transfers less than ") }} {{ site_config.feeLimit }}</span>#}
+                            {#<span class="txt" data-txt='{{ language.app("Fee of")}}  {{ site_config.fee }} {{ language.app("will be charged for transfers less than ") }}{{ symbol }} {{ site_config.feeLimit }}' >{{ language.app("Fee of")}} {{  site_config.fee }} {{ language.app("will be charged for transfers less than ") }} {{ site_config.feeLimit }}</span>#}
                             <span class="txt">{{ language.translate("The minium deposit is ") }} {{ site_config.feeLimit }}</span>
                             <span class="txt">{{ language.translate("Currencies are just informative, transactions are charged in Euros. </br> Payments and purchases are final and cannot be cancelled or refunded as they will be forwarded to our payment and ticket providers. ")}}</span>
                         </div>
                         <br>
-                        {#<div class="div-balance"><strong class="purple charge" >{{ language.translate("Total Charge:") }}</strong> <span class="value charge"></span><span class="value convert"></span></div>#}
+                        {#<div class="div-balance"><strong class="purple charge" >{{ language.app("Total Charge:") }}</strong> <span class="value charge"></span><span class="value convert"></span></div>#}
                         <div class="box-wallet overview">
                             <label class="label btn gray">
                                 {{ language.translate("Add funds to your balance") }}

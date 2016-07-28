@@ -24,7 +24,7 @@
 {# EMTD - CART link functionality incompleted and hidden for first release
 
 <li class="li-cart">
-	<a class="link" href="/cart"><svg class="ico v-cart"><use xlink:href="/w/svg/icon.svg#v-cart"></use></svg> {{ language.translate('Cart') }}</a>
+	<a class="link" href="/cart"><svg class="ico v-cart"><use xlink:href="/w/svg/icon.svg#v-cart"></use></svg> {{ language.app('Cart') }}</a>
 </li>
 #}
 

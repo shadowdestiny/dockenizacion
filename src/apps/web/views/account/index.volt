@@ -71,10 +71,10 @@
                 <hr class="yellow">
                 <div class="connect">
                     <div class="cl">
-                        <h2 class="title h3">{{ language.translate("Connect with Facebook") }}</h2>
-                        <a class="btn gwy revoke" href="javascript:void(0)">{{ language.translate("Revoke Access") }}</a>
+                        <h2 class="title h3">{{ language.app("Connect with Facebook") }}</h2>
+                        <a class="btn gwy revoke" href="javascript:void(0)">{{ language.app("Revoke Access") }}</a>
                     </div>
-                    <p>{{ language.translate("Permissions: Read only") }}</p>
+                    <p>{{ language.app("Permissions: Read only") }}</p>
                 </div>
                 #}
             </div>

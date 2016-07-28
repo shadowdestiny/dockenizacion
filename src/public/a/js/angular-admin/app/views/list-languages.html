@@ -1,0 +1,31 @@
+<div style="float: right">
+    <button [routerLink]="['AddLanguage']" class="btn btn-default" >Add language</button>
+</div>
+<br>
+<br>
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>Language</th>
+            <th>Key</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="#language of languages">
+            <td>
+                <label>{{language.ccode}}</label>
+            </td>
+            <td>
+                <label>{{language.defaultLocale}}</label>
+            </td>
+            <td>
+               <label *ngIf="language.active">Active</label>
+            </td>
+            <td>
+                <a [routerLink]="['EditLanguage', {id: language.id}]" style="cursor:pointer">edit</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

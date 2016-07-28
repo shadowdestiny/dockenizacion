@@ -30,13 +30,13 @@ $(function(){swap(".log-in .box-extra a, .sign-up .box-extra a");});
 
                 {# DO NOT DELETE - Facebook connect
                 <div class="connect">
-                    <a href="#" class="btn blue big"><svg class="ico v-facebook"><use xlink:href="/w/svg/icon.svg#v-facebook"></use></svg> {{ language.translate("Log in with Facebook") }}</a>
-                    <a href="#" class="btn red big"><svg class="ico v-google-plus"><use xlink:href="/w/svg/icon.svg#v-google-plus"></use></svg></span> {{ language.translate("Log in with Google") }}</a>
+                    <a href="#" class="btn blue big"><svg class="ico v-facebook"><use xlink:href="/w/svg/icon.svg#v-facebook"></use></svg> {{ language.app("Log in with Facebook") }}</a>
+                    <a href="#" class="btn red big"><svg class="ico v-google-plus"><use xlink:href="/w/svg/icon.svg#v-google-plus"></use></svg></span> {{ language.app("Log in with Google") }}</a>
                 </div>
 
                 <div class="separator">
                     <hr class="hr">
-                    <span class="bg-or"><span class="or">{{ language.translate("or") }}</span></span>
+                    <span class="bg-or"><span class="or">{{ language.app("or") }}</span></span>
                 </div>
                 #}
                 {% set url_signin = '/sign-in' %}

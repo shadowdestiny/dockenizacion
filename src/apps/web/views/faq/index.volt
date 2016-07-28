@@ -44,15 +44,15 @@
                         <li><a href="#n08">{{ language.translate("What is the minimum guaranteed jackpot?") }}</a></li>
                         <li><a href="#n09">{{ language.translate("What is a Superdraw?") }}</a></li>
                         <li><a href="#n11">{{ language.translate("How can I participate in a future draw?") }}</a></li>
-                    {#  <li><a href="#n13">{{ language.translate("How do I make a bet with multiple numbers in a line?") }}</a></li> #}
+                    {#  <li><a href="#n13">{{ language.app("How do I make a bet with multiple numbers in a line?") }}</a></li> #}
                     </ul>
 
                     {#
-                                    <h2 class="h3">{{ language.translate("Euromillions Advanced Play") }}</h2>
+                                    <h2 class="h3">{{ language.app("Euromillions Advanced Play") }}</h2>
                                     <ul class="no-li">
-                                        <li><a href="#n10">{{ language.translate("What is a Long Play?") }}</a></li>
-                                        <li><a href="#n07">{{ language.translate("What is a Subscription?") }}</a></li>
-                                        <li><a href="#n12">{{ language.translate("Can I play only when the Jackpot Prize reach a specific amount?") }}</a></li>
+                                        <li><a href="#n10">{{ language.app("What is a Long Play?") }}</a></li>
+                                        <li><a href="#n07">{{ language.app("What is a Subscription?") }}</a></li>
+                                        <li><a href="#n12">{{ language.app("Can I play only when the Jackpot Prize reach a specific amount?") }}</a></li>
                                     </ul>
                     #}
 
@@ -77,7 +77,7 @@
                     <ul class="no-li">
                         <li><a href="#n23">{{ language.translate("What should I do if I am experiencing technical problems?") }}</a></li>
                         <li><a href="#n24">{{ language.translate("I have forgotten my password and I cannot login. What do I do?") }}</a></li>
-                        {#                    <li><a href="#n25">{{ language.translate("How do I edit or delete a Subscription?") }}</a></li> #}
+                        {#                    <li><a href="#n25">{{ language.app("How do I edit or delete a Subscription?") }}</a></li> #}
                         <li><a href="#n26">{{ language.translate("How can I disable emails notifications?") }}</a></li>
                     </ul>
 
@@ -145,26 +145,26 @@
                     {% include "faq/back-top.volt" %}
 
 {#                    <a id="n13"></a>
-                    <h3 class="h3">{{ language.translate("How do I make a bet with multiple numbers in a line?") }}</h3>
-                    <p>{{ language.translate('At the moment of launching our new improved version of Euromillions.com, we are not supporting this feature. In the close future we are commited to introduce multiple bets for your convenience.') }}</p>
+                    <h3 class="h3">{{ language.app("How do I make a bet with multiple numbers in a line?") }}</h3>
+                    <p>{{ language.app('At the moment of launching our new improved version of Euromillions.com, we are not supporting this feature. In the close future we are commited to introduce multiple bets for your convenience.') }}</p>
                     {% include "faq/back-top.volt" %}
 #}
                     {#
-                                    <h2 class="h2 yellow">{{ language.translate("Euromillions Advanced Play") }}</h2>
+                                    <h2 class="h2 yellow">{{ language.app("Euromillions Advanced Play") }}</h2>
 
                                     <a id="n10"></a>
-                                    <h3 class="h3">{{ language.translate("What is a Long Play?") }}</h3>
-                                    <p>{{ language.translate('A Long Play is a recurring ticket. You can participate in the coming weeks without repeating the payment process. Do not worry, we will send you an email notification when your Long Play comes to an end. Remember, that you can opt again for a Long Play or a Subscription without any kind of commitment.')}}</p>
+                                    <h3 class="h3">{{ language.app("What is a Long Play?") }}</h3>
+                                    <p>{{ language.app('A Long Play is a recurring ticket. You can participate in the coming weeks without repeating the payment process. Do not worry, we will send you an email notification when your Long Play comes to an end. Remember, that you can opt again for a Long Play or a Subscription without any kind of commitment.')}}</p>
                                     {% include "faq/back-top.volt" %}
 
                                     <a id="n07"></a>
-                                    <h3 class="h3">{{ language.translate("What is a Subscription?") }}</h3>
-                                    <p>{{ language.translate('A subscription comprises a recurring ticket, which ensures that you never miss a lottery draw. Subscription are without commitment and you can stop it any time.',['link':url("play")]) }}</p>
+                                    <h3 class="h3">{{ language.app("What is a Subscription?") }}</h3>
+                                    <p>{{ language.app('A subscription comprises a recurring ticket, which ensures that you never miss a lottery draw. Subscription are without commitment and you can stop it any time.',['link':url("play")]) }}</p>
                                     {% include "faq/back-top.volt" %}
 
                                     <a id="n12"></a>
-                                    <h3 class="h3">{{ language.translate("Can I play only when the Jackpot Prize reach a specific amount?") }}</h3>
-                                    <p>{{ language.translate('Yes, you can by clicking on Advance Play in the <a href="%link%">Play Page</a>',['link':url("play")]) }}</p>
+                                    <h3 class="h3">{{ language.app("Can I play only when the Jackpot Prize reach a specific amount?") }}</h3>
+                                    <p>{{ language.app('Yes, you can by clicking on Advance Play in the <a href="%link%">Play Page</a>',['link':url("play")]) }}</p>
                                     {% include "faq/back-top.volt" %}
                     #}
 
@@ -232,8 +232,8 @@
 
                     {#
                                     <a id="n25"></a>
-                                    <h3 class="h3">{{ language.translate("How do I edit or delete a Subscription?") }}</h3>
-                                    <p>{{ language.translate('In the <a href="%link%">Games area</a> section of your player account you can find all your active bets. In there you can easily modify duration, numbers and amount of partecipating bets per draw.',['link':url("account/games")]) }}</p>
+                                    <h3 class="h3">{{ language.app("How do I edit or delete a Subscription?") }}</h3>
+                                    <p>{{ language.app('In the <a href="%link%">Games area</a> section of your player account you can find all your active bets. In there you can easily modify duration, numbers and amount of partecipating bets per draw.',['link':url("account/games")]) }}</p>
                                     {% include "faq/back-top.volt" %}
                     #}
 

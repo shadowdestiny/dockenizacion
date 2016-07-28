@@ -30,7 +30,7 @@ module.exports = function(grunt) {
         uglify: {
             minify: {
                 files: {
-                    '../public/w/js/dist/main.min.js': '../public/w/js/main.js',
+                    '../public/w/js/dist/main.min.js': '../public/w/js/app.js',
                     '../public/w/js/dist/mobileInit.min.js': '../public/w/js/mobileInit.js',
                     '../public/w/js/dist/btnMsgHide.min.js': '../public/w/js/btnMsgHide.js',
                     '../public/w/js/dist/CheckWin.min.js': '../public/w/js/CheckWin.js',

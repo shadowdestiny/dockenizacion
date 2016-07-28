@@ -60,13 +60,13 @@
                             </th>
 
                             {#<th class="when">#}
-                                {#{{ language.translate("Duration") }}#}
+                                {#{{ language.app("Duration") }}#}
                             {#</th>#}
                             <th class="numbers">
                                 {{ language.translate("Numbers <span class='desktop'>played</span>") }}
                             </th>
                             {#<th class="action">#}
-                                {#{{ language.translate("Actions") }}#}
+                                {#{{ language.app("Actions") }}#}
                             {#</th>#}
                         </thead>
                         <tbody>
@@ -159,7 +159,7 @@
                         </th>
 
                         {#<th class="when">#}
-                        {#{{ language.translate("Duration") }}#}
+                        {#{{ language.app("Duration") }}#}
                         {#</th>#}
                         <th class="numbers">
                             {{ language.translate("Numbers <span class='desktop'>played</span>") }}

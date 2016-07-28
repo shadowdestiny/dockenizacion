@@ -35,3 +35,6 @@ ansible/roles/external/*
 /src/react/npm-debug.log*
 /src/public/w/js/*min.js
 /src/grunt/node_modules
+/src/public/a/js/angular-admin/node_modules
+/src/public/a/js/angular-admin/typings
+/src/public/a/js/angular-admin/npm-debug.log*

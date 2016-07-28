@@ -35,7 +35,7 @@
             <li><a href="/account/wallet">{{ language.translate("Balance") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
             <li><a href="/account/transaction">{{ language.translate("Transactions") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
 {#
-            <li><a href="/account/messages">{{ language.translate("Messages") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
+            <li><a href="/account/messages">{{ language.app("Messages") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
 #}
             <li><a href="/account/email">{{ language.translate("Email Settings") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
             <li><a href="/account/password">{{ language.translate("Change Password") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>

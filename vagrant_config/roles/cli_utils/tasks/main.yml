@@ -16,6 +16,16 @@
   args:
     chdir: /var/www/react
 
+- name: Translations angular2 dependencies install
+  shell: npm install
+  args:
+    chdir: /var/www/public/a/js/angular-admin
+
+- name: Translation angular2 start spa
+  shell: npm start &
+  args:
+    chdir: /var/www/public/a/js/angular-admin
+
 - name: Get GeoIP IPv4 database
   shell: wget -nc http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
   args:

@@ -5,7 +5,7 @@
     <li><a {% if activeSubnav.myClass == "transaction" %}class="active"{% endif %} href="/account/transaction">{{ language.translate("Transactions") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
 
 {# Messages features are not included in the first release, so we hide it.
-   <li><a {% if activeSubnav.myClass == "messages" %}class="active"{% endif %}href="/account/messages">{{ language.translate("Messages") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
+   <li><a {% if activeSubnav.myClass == "messages" %}class="active"{% endif %}href="/account/messages">{{ language.app("Messages") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
 #}
 
     <li><a {% if activeSubnav.myClass == "email" %}class="active"{% endif %} href="/account/email">{{ language.translate("Email Settings") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
