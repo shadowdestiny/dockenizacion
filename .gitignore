@@ -39,3 +39,6 @@ ansible/roles/external/*
 /src/public/a/js/angular-admin/node_modules
 /src/public/a/js/angular-admin/typings
 /src/public/a/js/angular-admin/npm-debug.log*
+/src/angular-admin/node_modules
+/src/angular-admin/typings
+/src/angular-admin/npm-debug.log*
