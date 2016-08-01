@@ -167,7 +167,7 @@ end PROD imports-->
 					<li><svg class="v-visa vector"><use class="greyed" xlink:href="/w/svg/icon.svg#visa"/></svg></li>
 					<li><svg class="v-mastercard vector"><use class="greyed" xlink:href="/w/svg/icon.svg#mastercard"/></svg></li>
 					<li><svg class="v-gambleaware vector"><use class="greyed" xlink:href="/w/svg/icon.svg#gambleaware"/></svg></li>
-					<li><svg class="v-geotrust vector"><use class="greyed" xlink:href="/w/svg/icon.svg#geotrust"/></svg></li>
+					<li><img src="/w/svg/comodobw.png"/> </li>
 					<li><svg class="v-shield vector"><use class="greyed" xlink:href="/w/svg/icon.svg#shield"/></svg> <span class="txt">{{ language.translate('Secure<br>Encryption')}}</span></li>
 				</ul>
 				<svg class="laurel last"><use class="greyed" xlink:href="/w/svg/icon.svg#laurel"/></svg>
@@ -209,28 +209,26 @@ end PROD imports-->
 		</div>
 		<div class="informative">
 			<div class="who-we-are">
-				<div class="start-playing">
-					<div class="cols top">
-						<div class="col6">
-							<div class="title-em cl">
-								<svg class="vector text">
-									<use xlink:href="/w/svg/icon.svg#em-golden"></use>
-									<linearGradient id="c" gradientUnits="userSpaceOnUse" x1="7.87" y1="17.069" x2="7.87" y2="1.085" gradientTransform="matrix(1 0 0 -1 -.015 18.646)"><stop offset="0" stop-color="#FEFCF6"/><stop offset="1" stop-color="#F1D86E"/></linearGradient> {# Chrome want this #}
-								</svg>
-								<h3 class="title">{{ language.translate("Fast, Convenient &amp; Secure") }}</h3>
-							</div>
-						</div>
-						<div class="col6">
-							<span class="gold-pile">
-								<svg class="vector" viewBox="-10 150 100 100">
-									<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)" style="filter:url(#shadow)"></use>
-									<use xlink:href="/w/svg/icon.svg#logo" transform="scale(4)"></use>
-								</svg>
-								<a href="/{{ lottery }}/play" class="btn blue">{{ language.translate("Start Playing, Win Millions") }}</a>
-							</span>
-						</div>
-					</div>
-				</div>
+
+
+
+<div class="start-playing">
+                                        <div class="cols top">
+                                                <div class="col6">
+                                                        <div class="title-em cl">
+                                                              
+                                                        </div>
+                                                </div>
+                                                <div class="col6">
+                                                  
+                                                </div>
+                                        </div>
+
+                                </div>
+
+
+
+
 				<div class="bg-white">
 					<div class="cols fcs">
 						<div class="col6 bg-quality"></div>
@@ -262,7 +260,7 @@ end PROD imports-->
 						<h3 class="li-title">{{ language.translate("Play") }}</h3>
 						<p>{{ language.translate("Select five numbers from 1 to 50 and two lucky stars numbered from 1 to 11. The results are published shortly after the draw on Euromillions.com, and players receive an email notification detailing the latest results and if they have won. Winnings are commission free and are immediately credited to the player’s account on Euromillions.com") }}</p>
 						<h3 class="li-title">{{ language.translate("Eligibility") }}</h3>
-						<p>{{ language.translate("Any person 18 years or older can play EuroMillions. This differs for some countries such as the United Kingdom, where players can participate starting from the age of 16.") }}</p>
+						<p>{{ language.translate("Any person 18 years or older can play EuroMillions.") }}</p>
 						<h3 class="li-title">{{ language.translate("Jackpot") }}</h3>
 						<p>{{ language.translate("The EuroMillions Jackpot can reach up to &euro;190 million with a guaranteed jackpot of at least €15 million (&pound;10.5 million) per draw (two draws per week). In the absence of a jackpot winner, the money is rolled over to the next draw and will grow until the jackpot is won, or the Euromillions Pool Cap (&euro;190 million) is reached.") }}</p>
 						<h3 class="li-title">{{ language.translate("Odds") }}</h3>
@@ -278,40 +276,6 @@ end PROD imports-->
 
 			{% include "index/_top.volt" %}
 
-			<div class="box-basic about-us">
-				<div class="cols">
-					<div class="col6 bg-win"></div>
-					<div class="col6 box-txt r">
-						<a id="about-us"></a>
-						<h2  class="h1 yellow">{{ language.translate("About us") }}</h2>
-						<h3 class="li-title">{{ language.translate("What we do") }}</h3>
-						<p>{{ language.translate("Euromillions.com is the first lottery based website built to work on every device and every screen size, no matter how large or small. Mobile or desktop, we will always offer you the best user experience.") }}</p>
-
-						<p>{{ language.translate("Your time is valuable to us, so we work hard to provide you with a quick, smart, and reliable experience to play lottery online from the comfort of your home or on the go.") }}</p> 
-
-						<p>{{ language.translate("Your fate-changer might be right here in the palm of your hand.") }}</p>
-
-						<p>{{ language.translate("We understand what you expect from us and we assure you that your winnings are commission free and will remain so forever.") }}</p>
-
-						<h3 class="li-title">{{ language.translate("Who we are") }}</h3>
-						<p>{{ language.translate("Euromillions.com is the first European transnational lottery launched in 2004.") }}</p>
-
-						<p>{{ language.translate("We are an international team composed of experts and passionate players, and we believe that in order to provide you the best services, we need to follow three important principles: to be fast, convenient and secure.") }}</p> 
-
-						<p>{{ language.translate("We really hope that playing with us will make your dreams come true. For the less lucky ones, we hope that the thrill of imagining a life with a big lottery prize will give you some pleasant hours of day dreaming, until the day that you actually win and everything that you imagined becomes real.") }}</p>
-
-						<p>{{ language.translate("Draws are held every Tuesday and Friday night at 20:45 CET in Paris, France.") }}</p>
-
-						<p>{{ language.translate("We wish you the very best of luck playing and to never stop dreaming.") }}</p>
-					</div>
-				</div>
-				<div class="box-action">
-					<span class="h2 phrase">{{ language.translate("Play today and  ") }}<br class="mobile"> {{ language.translate("change your life forever") }}</span>
-					<a href="{{ lottery }}/play"  class="btn big blue">{{ language.translate("Play. Dream. Win.") }}</a>
-				</div>
-			</div>
-
-			{% include "index/_top.volt" %}
 		</div>
 
 	</div>

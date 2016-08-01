@@ -20,7 +20,7 @@
                     </p>
                     <p>
                         <strong>{{ language.translate("If difficulties persist, please contact our support team.") }}</strong>
-                        <br>{{ language.translate("Write us directly at") }} <em><a href="mailto:support@euromillion.com">support@euromillion.com</a></em> {{ language.translate("and describe in detail your issue. Describe as well what browser and operative system you are using for the operation. Thank you.")}}
+                        <br>{{ language.translate("Write us directly at") }} <em><a href="mailto:support@euromillions.com">support@euromillions.com</a></em> {{ language.translate("and describe in detail your issue. Describe as well what browser and operative system you are using for the operation. Thank you.")}}
                     </p>
                 </div>
                 <div class="col3 img"></div>

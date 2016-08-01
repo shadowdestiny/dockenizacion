@@ -82,8 +82,8 @@
                             <label class="label block" for="expiry-date-month">
                                 {{ language.translate("Expiration date") }} <span class="asterisk">*</span>
                             </label>
-                            {{ credit_card_form.render('expiry-date-month', { 'class':'input date'~form_errors['expiry-date-month'], "maxlength":"2", 'style':'width:12%'}) }}
-                            {{ credit_card_form.render('expiry-date-year', { 'class':'input date'~form_errors['expiry-date-year'], "maxlength":"2",'style':'width:12%'}) }}
+                            {{ credit_card_form.render('expiry-date-month', { 'class':'input date'~form_errors['expiry-date-month'], "maxlength":"2", 'style':'width:14%'}) }}
+                            {{ credit_card_form.render('expiry-date-year', { 'class':'input date'~form_errors['expiry-date-year'], "maxlength":"2",'style':'width:14%'}) }}
                         </div>
                         <div class="left cvv">
                             <label class="label" for="card-cvv">
@@ -121,6 +121,7 @@
             <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
             <span class="txt" data-txt='{{ language.translate("Fee of")}}  {{ site_config.fee }} {{ language.translate("will be charged for transfers less than ") }}{{ symbol }} {{ site_config.feeLimit }}' >{{ language.translate("Fee of")}} {{  site_config.fee }} {{ language.translate("will be charged for transfers less than ") }} {{ site_config.feeLimit }}</span>
             <span class="txt">{{ language.translate("Currencies are just informative, transactions are charged in Euros.")}}</span>
+	<span class="txt">{{ language.translate("This transaction will appear as EuroMillions.com on your bank account statement.")}}</span>
         </div>
         <br>
         <div class="div-balance"><strong class="purple charge" >{{ language.translate("Total Charge:") }}</strong> <span class="value charge"></span><span class="value convert"></span></div>

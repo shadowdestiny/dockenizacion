@@ -17,7 +17,10 @@ class LegalController extends PublicSiteControllerBase{
 
     }
     
+    public function aboutAction(){
+	$this->tag->prependTitle('About Us');
 
+    }
 
     public function cookiesAction(){
 
