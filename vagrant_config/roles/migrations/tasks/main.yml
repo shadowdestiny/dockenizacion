@@ -7,6 +7,6 @@
   shell: /vagrant/dev-scripts/schema_migration.sh devel
 - name: modify ending lines of files (windows fix)
   shell: dos2unix /vagrant/dev-scripts/run_seed.sh
-- name: execute migrations
+- name: execute seed migrations
   shell: /vagrant/dev-scripts/run_seed.sh devel
   ignore_errors: yes

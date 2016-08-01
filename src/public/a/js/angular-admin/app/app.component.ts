@@ -8,6 +8,7 @@ import {AddLanguageComponent} from "./components/add-language.component";
 import {AuthService} from "./services/auth.service";
 import {OnInit} from "angular2/core";
 import config = require('./config/config');
+import {ListTranslationComponent} from "./components/list-translation.component";
 
 
 
@@ -22,9 +23,10 @@ import config = require('./config/config');
 })
 
 @RouteConfig([
-    {path: "/languages",name: "Languages", component: ListLanguageComponent, useAsDefault: true},
+    {path: "/languages",name: "Languages", component: ListLanguageComponent},
     {path: "/edit-language/:id",name: "EditLanguage", component: EditLanguageComponent},
-    {path: "/add-language",name: "AddLanguage", component: AddLanguageComponent}
+    {path: "/add-language",name: "AddLanguage", component: AddLanguageComponent},
+    {path: "/translates",name: "Translates", component: ListTranslationComponent}
 ])
 
 
