@@ -17,14 +17,14 @@ class BigWinTransaction extends Transaction implements ITransactionData
 
     public function __construct(array $data)
     {
-        $this->setDrawId($data['draw_id']);
-        $this->setBetId($data['bet_id']);
-        $this->setAmount($data['amount']);
-        $this->setState($data['state']);
-        $this->setWalletBefore($data['walletBefore']);
-        $this->setWalletAfter($data['walletAfter']);
-        $this->setDate($data['now']);
-        $this->setUser($data['user']);
+            $this->setDrawId($data['draw_id']);
+            $this->setBetId($data['bet_id']);
+            $this->setAmount($data['amount']);
+            $this->setState($data['state']);
+            $this->setWalletBefore($data['walletBefore']);
+            $this->setWalletAfter($data['walletAfter']);
+            $this->setDate($data['now']);
+            $this->setUser($data['user']);
     }
 
     public function toString()

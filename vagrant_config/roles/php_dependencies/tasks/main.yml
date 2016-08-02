@@ -9,5 +9,11 @@
   file: src=/etc/php5/mods-available/{{ xdebug_config_file }} dest=/etc/php5/cli/conf.d/{{ xdebug_config_file }} state=link
 - name: Enable mcrypt php module
   shell: php5enmod mcrypt
+- name: Clone Phalcon 2.0.10
+  git: repo=https://github.com/phalcon/cphalcon.git accept_hostkey=yes dest=/tmp/phalcon version=phalcon-v2.0.10
+- name: Build Phalcon
+  shell: cd /tmp/phalcon/build/; ./install
+- name: Phalcon module php
+  shell: echo "extension=phalcon.so" > /etc/php5/mods-available/30-phalcon.ini
 - name: Enable phalcon module
-  shell: php5enmod phalcon
+  shell: php5enmod 30-phalcon
