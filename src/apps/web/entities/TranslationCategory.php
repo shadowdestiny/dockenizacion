@@ -4,6 +4,7 @@
 namespace EuroMillions\web\entities;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use EuroMillions\web\interfaces\IEntity;
 
 class TranslationCategory implements IEntity
@@ -13,6 +14,13 @@ class TranslationCategory implements IEntity
     protected $categoryName;
     protected $categoryCode;
     protected $description;
+    protected $translation;
+
+
+    public function __construct()
+    {
+        $this->translation = new ArrayCollection();
+    }
 
 
     public function getId()

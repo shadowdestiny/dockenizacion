@@ -10,6 +10,7 @@ class Translation implements IEntity
     protected $key;
     protected $used;
     protected $translatedTo;
+    protected $translationCategory;
 
     public function __construct()
     {

@@ -15,5 +15,7 @@
         <field name="categoryName" type="string" column="category_name" nullable="true"/>
         <field name="categoryCode" type="string" column="category_code" length="10" nullable="true"/>
         <field name="description" type="string" nullable="true"/>
+        <one-to-many target-entity="EuroMillions\web\entities\Translation" mapped-by="translationCategory"
+                     field="translation"/>
     </entity>
 </doctrine-mapping>

@@ -20,6 +20,7 @@
         </field>
         <one-to-many target-entity="EuroMillions\web\entities\TranslationDetail" mapped-by="translation"
                      field="translatedTo"/>
+        <many-to-one target-entity="EuroMillions\web\entities\TranslationCategory" field="translationCategory" inversed-by="translation" />
     </entity>
 
 </doctrine-mapping>
