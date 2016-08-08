@@ -13,4 +13,10 @@ export class TranslationService {
 
     }
 
+    getTranslation(){
+
+    }
+
+    
+
 }

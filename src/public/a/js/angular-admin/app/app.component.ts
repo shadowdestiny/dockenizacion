@@ -5,6 +5,9 @@ import {ROUTER_DIRECTIVES, RouteConfig, Router} from "angular2/router";
 import {ListLanguageComponent} from "./components/list-language.component";
 import {EditLanguageComponent} from "./components/edit-language.component";
 import {AddLanguageComponent} from "./components/add-language.component";
+import {ListCategoryComponent} from "./components/list-category.component";
+import {AddCategoryComponent} from "./components/add-category.component";
+import {AddTranslationComponent} from "./components/add-translation.component";
 import {AuthService} from "./services/auth.service";
 import {OnInit} from "angular2/core";
 import config = require('./config/config');
@@ -26,7 +29,11 @@ import {ListTranslationComponent} from "./components/list-translation.component"
     {path: "/languages",name: "Languages", component: ListLanguageComponent},
     {path: "/edit-language/:id",name: "EditLanguage", component: EditLanguageComponent},
     {path: "/add-language",name: "AddLanguage", component: AddLanguageComponent},
-    {path: "/translates",name: "Translates", component: ListTranslationComponent}
+    {path: "/translates",name: "Translates", component: ListTranslationComponent},
+    {path: "/categories",name: "Categories", component: ListCategoryComponent},
+    {path: "/add-category/",name: "AddCategory", component: AddCategoryComponent},
+    {path: "/edit-category/",name: "EditCategory", component: AddCategoryComponent},
+    {path: "/add-translation/",name: "AddTranslation", component: AddTranslationComponent},
 ])
 
 

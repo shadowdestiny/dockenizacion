@@ -1,4 +1,4 @@
-System.register(['angular2/core', "angular2/router", "./components/list-language.component", "./components/edit-language.component", "./components/add-language.component", "./services/auth.service", "./components/list-translation.component"], function(exports_1, context_1) {
+System.register(['angular2/core', "angular2/router", "./components/list-language.component", "./components/edit-language.component", "./components/add-language.component", "./components/list-category.component", "./components/add-category.component", "./components/add-translation.component", "./services/auth.service", "./components/list-translation.component"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', "angular2/router", "./components/list-language
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, list_language_component_1, edit_language_component_1, add_language_component_1, auth_service_1, list_translation_component_1;
+    var core_1, router_1, list_language_component_1, edit_language_component_1, add_language_component_1, list_category_component_1, add_category_component_1, add_translation_component_1, auth_service_1, list_translation_component_1;
     var AppComponent;
     return {
         setters:[
@@ -28,6 +28,15 @@ System.register(['angular2/core', "angular2/router", "./components/list-language
             },
             function (add_language_component_1_1) {
                 add_language_component_1 = add_language_component_1_1;
+            },
+            function (list_category_component_1_1) {
+                list_category_component_1 = list_category_component_1_1;
+            },
+            function (add_category_component_1_1) {
+                add_category_component_1 = add_category_component_1_1;
+            },
+            function (add_translation_component_1_1) {
+                add_translation_component_1 = add_translation_component_1_1;
             },
             function (auth_service_1_1) {
                 auth_service_1 = auth_service_1_1;
@@ -63,7 +72,11 @@ System.register(['angular2/core', "angular2/router", "./components/list-language
                         { path: "/languages", name: "Languages", component: list_language_component_1.ListLanguageComponent },
                         { path: "/edit-language/:id", name: "EditLanguage", component: edit_language_component_1.EditLanguageComponent },
                         { path: "/add-language", name: "AddLanguage", component: add_language_component_1.AddLanguageComponent },
-                        { path: "/translates", name: "Translates", component: list_translation_component_1.ListTranslationComponent }
+                        { path: "/translates", name: "Translates", component: list_translation_component_1.ListTranslationComponent },
+                        { path: "/categories", name: "Categories", component: list_category_component_1.ListCategoryComponent },
+                        { path: "/add-category/", name: "AddCategory", component: add_category_component_1.AddCategoryComponent },
+                        { path: "/edit-category/", name: "EditCategory", component: add_category_component_1.AddCategoryComponent },
+                        { path: "/add-translation/", name: "AddTranslation", component: add_translation_component_1.AddTranslationComponent },
                     ]), 
                     __metadata('design:paramtypes', [auth_service_1.AuthService])
                 ], AppComponent);
