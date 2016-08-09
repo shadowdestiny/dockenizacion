@@ -74,7 +74,7 @@
 		<div class="wrapper">
 			<div class="cols">
 				<div class="col5 txt">
-					{{ language.translate('This service operates under the Gaming License #5536/JAZ authorised and regulated by the Government of Curaçao. This site is operated by Panamedia B.V., Emancipatie Boulevard 31, Willemstad, Curaçao and payment processing services are provided by Panamedia International Limited, 30/3 Sir Augustus Bartolo Street, XBX 1093, Ta Xbiex Malta (EU). All transactions are charged in Euros. Prices displayed in other currencies are for informative purposes only and are converted according to actual exchange rates.') }}
+					{{ language.translate('This service operates under the Gaming License #5536/JAZ authorised and regulated by the Government of Curaçao. This site is operated by Panamedia B.V., Emancipatie Boulevard 29, Willemstad, Curaçao and payment processing services are provided by Panamedia International Limited, 30/3 Sir Augustus Bartolo Street, XBX 1093, Ta Xbiex Malta (EU). All transactions are charged in Euros. Prices displayed in other currencies are for informative purposes only and are converted according to actual exchange rates.') }}
 					<br><br>
 					{{ language.translate('Copyright © 2011-2016 by EuroMillions.com. All rights reserved.') }}
 				</div>
