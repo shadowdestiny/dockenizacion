@@ -7,9 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Translation implements IEntity
 {
     protected $id;
-    protected $key;
+    protected $translationKey;
     protected $used;
     protected $translatedTo;
+    protected $description;
     protected $translationCategory;
 
     public function __construct()

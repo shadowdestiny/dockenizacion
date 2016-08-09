@@ -66,7 +66,7 @@ class TranslatedStringsSeeder extends AbstractSeed
                     . " (`translation_id`, `lang`, `value`, `language_id`)"
                     . " SELECT t.id, '$language', '$value', l.id"
                     . " FROM translations t, languages l"
-                    . " WHERE t.`key` = '$key' AND l.ccode = '$language'";
+                    . " WHERE t.`translationKey` = '$key' AND l.ccode = '$language'";
                 $translation_details_insert[] = $str;
             }
         }
@@ -75,7 +75,7 @@ class TranslatedStringsSeeder extends AbstractSeed
 
         $sql = "INSERT IGNORE INTO languages (`ccode`) VALUES $language_values";
         $this->execute($sql);
-        $sql = "INSERT IGNORE INTO translations (`key`) VALUES $translation_values";
+        $sql = "INSERT IGNORE INTO translations (`translationKey`) VALUES $translation_values";
         $this->execute($sql);
         $insert = implode(';', $translation_details_insert);
         $this->execute($insert);

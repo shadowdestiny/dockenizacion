@@ -12,7 +12,7 @@
                 <option name="unsigned">true</option>
             </options>
         </id>
-        <field name="value" type="string"/>
+        <field name="value" type="text"/>
         <field name="lang" type="string" length="6"/>
         <many-to-one target-entity="EuroMillions\web\entities\Translation" field="translation" inversed-by="translatedTo" />
         <many-to-one target-entity="EuroMillions\web\entities\Language" field="language" />

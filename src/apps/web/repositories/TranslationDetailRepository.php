@@ -11,7 +11,7 @@ class TranslationDetailRepository extends EntityRepository
             ->createQuery(
                 'SELECT td.value'
                 .' FROM '.$this->getEntityName().' td JOIN td.translation t'
-                .' WHERE td.lang = :lang AND t.key = :key')
+                .' WHERE td.lang = :lang AND t.translationKey = :key')
             ->setMaxResults(1)
             ->setParameters(['lang' => $language, 'key'=>$key])
             ->useResultCache(true)

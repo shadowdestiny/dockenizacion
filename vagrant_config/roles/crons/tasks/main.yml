@@ -9,3 +9,6 @@
 - name: configure cron backup on slave database
   shell: >
       docker exec {{database_slave_name}} crontab /var/www/global_config/cron_backup.txt
+
+- name: Insert translation to BBDD
+  shell: mysql -h 127.0.0.1 -u root -ptpl9 --port=3306 euromillions < ../src/data/sql/translation_dump.sql
