@@ -30,10 +30,10 @@ class PlayController extends PublicSiteControllerBase
         }
         $currency_symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
         $this->tag->prependTitle('Play Euromillions - Jackpot: ' . ViewHelper::formatJackpotNoCents($jackpot) );
-	MetaDescriptionTag::setDescription('Play the EuroMillions Lottery worldwide on the official website of EuroMillions.com and become our next EuroMillionaire!');
+	    MetaDescriptionTag::setDescription('Play the EuroMillions Lottery worldwide on the official website of EuroMillions.com and become our next EuroMillionaire!');
 
         return $this->view->setVars([
-            'jackpot_value' => $jackpot,
+            'jackpot_value' => ViewHelper::formatJackpotNoCents($jackpot),
             'play_dates' => $play_dates,
             'next_draw' => $dayOfWeek,
             'next_draw_format' => $draw->format('l j M G:i'),
