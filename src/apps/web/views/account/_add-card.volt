@@ -127,7 +127,7 @@
         <div class="div-balance"><strong class="purple charge" >{{ language.translate("Total Charge:") }}</strong> <span class="value charge"></span><span class="value convert"></span></div>
         <div class="box-wallet overview">
 
-            <label class="label btn green">
+            <label class="label submit btn gray" style="cursor:default">
                 {{ language.translate("Add funds to your balance") }}
                 <input type="submit" class="hidden">
             </label>

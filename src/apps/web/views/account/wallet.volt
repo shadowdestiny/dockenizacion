@@ -56,6 +56,13 @@
     }
     });
 
+    $('.box-add-card').on('submit', function(){
+        var disabled = $('.box-wallet.overview > label.submit').hasClass('gray');
+        if(disabled) {
+            return false;
+        }
+    })
+
     $('#card-cvv,#card-number').on('keypress',function(e){
     var pattern = /^[0-9\.]+$/;
     if(e.target.id == 'card-cvv') {
@@ -89,9 +96,16 @@
     }
     });
 
+
     $('#funds-value').on('keyup',function(){
+    var fee_limit = "<?php echo $site_config->feeLimit;?>";
     var value = $(this).val();
     if(value == '') value = 0.00;
+    if(parseFloat(value).toFixed(2) >= parseFloat(fee_limit.substring(1)).toFixed(2)) {
+        $('.box-wallet.overview > label.submit').removeClass('gray').addClass('green');
+    } else {
+        $('.box-wallet.overview > label.submit').removeClass('gray').addClass('green');
+    }
     if( '{{ symbol }}' !== '€'){
     $('.charge').show();
     $('.value.charge').text('{{ symbol }}' + parseFloat(value).toFixed(2));
