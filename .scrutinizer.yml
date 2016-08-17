@@ -169,7 +169,7 @@ build:
 
   tests:
     override:
-      - command: cd src;vendor/bin/codecept run --config=codeception_scrutinizer.yml --skip acceptance --coverage --coverage-xml
+      - command: cd src;php -d zend.enable_gc=0 vendor/bin/codecept run --config=codeception_scrutinizer.yml --skip acceptance --coverage --coverage-xml
         coverage:
           file: src/tests/_output/coverage.xml
           format: php-clover
