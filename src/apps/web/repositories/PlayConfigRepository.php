@@ -137,4 +137,18 @@ class PlayConfigRepository extends RepositoryBase
         return (int) $result[0][1];
     }
 
+    public function getPlayConfigsByCollectionIds(array $ids)
+    {
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT p '
+                . ' FROM ' . $this->getEntityName() . ' p'
+                . ' WHERE p.id IN (:ids)')
+            ->setParameters([
+                'ids' => $ids
+            ])
+            ->getResult();
+        return $result;
+    }
+
 }

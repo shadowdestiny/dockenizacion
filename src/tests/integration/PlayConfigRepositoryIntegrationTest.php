@@ -106,6 +106,32 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     }
 
 
+    /**
+     * method getPlayConfigsByCollectionIds
+     * when calledPassingAValidArrayOfIds
+     * should returnCollectionOfPlayConfigs
+     */
+    public function test_getPlayConfigsByCollectionIds_calledPassingAValidArrayOfIds_returnCollectionOfPlayConfigs()
+    {
+        $ids = [1,2,3];
+        $actual = $this->sut->getPlayConfigsByCollectionIds($ids);
+        $this->assertEquals(3, count($actual));
+        $this->assertEquals(1,$actual[0]->getId());
+        $this->assertEquals(2,$actual[1]->getId());
+        $this->assertEquals(3,$actual[2]->getId());
+    }
+
+    /**
+     * method getPlayConfigsByCollectionIds
+     * when calledPassingInvalidArrayOfIds
+     * should returnEmtpyCollection
+     */
+    public function test_getPlayConfigsByCollectionIds_calledPassingInvalidArrayOfIds_returnEmtpyCollection()
+    {
+        $ids=[1000,10001,1200];
+        $actual = $this->sut->getPlayConfigsByCollectionIds($ids);
+        $this->assertEquals(0,count($actual));
+    }
 
     private function exerciseAdd($user,$euroMillionsLine)
     {

@@ -6,7 +6,6 @@ namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\vo\results\ActionResult;
-use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\entities\BigWinTransaction;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\entities\User;
@@ -69,4 +68,17 @@ class TransactionService
         }
         return [];
     }
+
+    public function obtainTransaction($id)
+    {
+        /** @var Transaction $transactionEntity */
+        $transactionEntity = $this->transactionRepository->findBy(["id" => $id]);
+        if(null != $transactionEntity) {
+            return $transactionEntity;
+        } else {
+            return null;
+        }
+    }
+
+
 }
