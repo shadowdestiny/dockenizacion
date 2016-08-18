@@ -14,7 +14,6 @@ use EuroMillions\web\entities\TicketPurchaseTransaction;
 class TicketPurchaseDetailUnitTest extends UnitTestBase
 {
 
-    private $entityManagerDouble;
     private $playConfigRepository_double;
 
     protected function getEntityManagerStubExtraMappings()
@@ -26,7 +25,6 @@ class TicketPurchaseDetailUnitTest extends UnitTestBase
 
     public function setUp()
     {
-        $this->entityManagerDouble = $this->getEntityManagerDouble();
         $this->playConfigRepository_double = $this->getRepositoryDouble('PlayConfigRepository');
         parent::setUp();
     }

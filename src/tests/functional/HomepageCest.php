@@ -18,7 +18,7 @@ class HomepageCest
     public function seePage(FunctionalTester $I)
     {
         $I->wantTo('Ensure that frontpage works even if crons did not');
-        $I->canSee('Home');
+        $I->canSee('PLAY NOW');
     }
 
     public function playButton(FunctionalTester $I)

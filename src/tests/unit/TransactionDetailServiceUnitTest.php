@@ -14,7 +14,6 @@ use Prophecy\Argument;
 class TransactionDetailServiceUnitTest extends UnitTestBase
 {
 
-    private $entityManagerDouble;
     private $transactionsRepository_double;
     private $playConfigRepository_double;
     private $currencyConversionService_double;
@@ -31,7 +30,6 @@ class TransactionDetailServiceUnitTest extends UnitTestBase
 
     public function setUp()
     {
-        $this->entityManagerDouble = $this->getEntityManagerDouble();
         $this->transactionsRepository_double = $this->getRepositoryDouble('TransactionRepository');
         $this->currencyConversionService_double = $this->getServiceDouble('CurrencyConversionService');
         $this->playConfigRepository_double = $this->getRepositoryDouble('PlayConfigRepository');
