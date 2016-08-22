@@ -34,4 +34,9 @@ class TicketPurchaseDetailDTO extends DTOBase implements IDto
         $this->luckyNumbers = $this->playConfig->getLine()->getLuckyNumbers();
         $this->drawDate = $this->playConfig->getStartDrawDate()->format('Y-m-d');
     }
+
+    public function toJson()
+    {
+        return json_encode(get_object_vars($this));
+    }
 }

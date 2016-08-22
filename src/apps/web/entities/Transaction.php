@@ -9,6 +9,9 @@ use EuroMillions\shared\vo\Wallet;
 abstract class Transaction extends EntityBase
 {
 
+    CONST DEPOSIT_TRANSACTION_TYPE = 'deposit';
+    CONST TICKET_PURCHASE_TYPE = 'ticket_purchase';
+
     protected $id;
     protected $data;
     protected $date;

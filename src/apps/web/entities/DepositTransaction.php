@@ -70,4 +70,10 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
         $this->amountAdded = $amountAdded;
     }
 
+    public function getEntityType()
+    {
+        return parent::DEPOSIT_TRANSACTION_TYPE;
+    }
+
+
 }

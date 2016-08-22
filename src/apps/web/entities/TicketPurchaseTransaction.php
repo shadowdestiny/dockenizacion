@@ -136,4 +136,9 @@ class TicketPurchaseTransaction extends PurchaseTransaction implements ITransact
         }
         return $this;
     }
+
+    public function getEntityType()
+    {
+        return parent::TICKET_PURCHASE_TYPE;
+    }
 }

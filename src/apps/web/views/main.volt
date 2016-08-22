@@ -74,6 +74,7 @@
                 end PROD imports-->
                 <!--start DEV imports-->
                 <script src="/w/js/CheckWin.js"></script>
+
                 <!--end DEV imports-->
                 <a href="/account/wallet" id="win" class="modal win">
                     <span class="btn-box"><span class="btn blue">{{ language.translate("View the prize") }}</span></span>

@@ -2,6 +2,7 @@
 {% block template_css %}
     <link rel="stylesheet" href="/w/css/account.css">
     <link rel="stylesheet" href="/a/css/pagination.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css">
 {% endblock %}
 {% block bodyClass %}transaction{% endblock %}
 
@@ -10,7 +11,53 @@
     {% include "_elements/header.volt" %}
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
-{% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script>{% endblock %}
+{% block template_scripts %}
+    <script src="/w/js/mobileFix.min.js"></script>
+    <script>
+
+        $(function(){
+//            var id = 0;
+//            $('tr').on('mouseenter',function(){
+//                id = $(this).data('id');
+//                console.log(id);
+//            });
+//
+//                $('#table_transactions').webuiPopover({
+//                    type: 'async',
+//                    url: '/ajax/transaction-detail/obtain/'+id,
+//                    content: function(data){
+//
+//                    },
+//                    trigger: 'hover'
+//                });
+            var idTransaction = 2;
+
+            $('#table_transactions tbody tr').webuiPopover({
+                type: 'async',
+                url: '/ajax/transaction-detail/obtain/'+idTransaction,
+                content: function(data){
+                },
+                trigger: 'hover'
+            });
+//
+//            $('tr').on('mouseenter',function(e){
+//                idTransaction = $(this).data('id');
+//                $('#table_transactions tbody tr').webuiPopover('show');
+//            });
+//
+//            $('tr').on('mouseleave',function(e){
+//                $('#table_transactions tbody tr').webuiPopover('hide');
+//            });
+//
+
+        })
+//        type: 'async',
+//                url: '/ajax/transaction-detail/obtain/'+id,
+//                content: function(data){
+//            console.log(data);
+//        }
+    </script>
+{% endblock %}
 
 {% block body %}
     <main id="content">
@@ -28,7 +75,7 @@
                     {#<span class="txt">{{ language.app("Transaction successful.")}} <span class="info">{{ language.app("You just added &euro; 300 to your balance.")}}</span></span>#}
                 {#</div>#}
 
-                <table class="cl table ui-responsive" data-role="table" data-mode="reflow">
+                <table id="table_transactions" class="cl table ui-responsive" data-role="table" data-mode="reflow">
                     <thead>
                         <tr>
                             <th class="date">{{ language.translate("Date")}}</th>
@@ -40,7 +87,7 @@
                     <tbody>
 
                         {% for transaction in transactionCollection %}
-                            <tr>
+                            <tr data-id="{{ transaction.id }}">
                                 <td class="date">{{ transaction.date }}</td>
                                 <td class="type">{{ transaction.transactionName }}</td>
                                 <td class="movement" {% if transaction.transactionName == 'Winning Withdraw' or transaction.transactionName == 'Ticket Purchase' %}style="color:#c22"{% endif %}>

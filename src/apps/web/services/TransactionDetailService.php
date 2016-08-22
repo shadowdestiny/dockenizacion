@@ -30,6 +30,9 @@ class TransactionDetailService
         $detailTransaction = $iTransactionDetailStrategy;
         list($partOne,$partTwo) = explode('_',$transaction->getEntityType());
         $class = 'EuroMillions\web\components\transaction\detail\\'.ucfirst($partOne).ucfirst($partTwo).'Detail';
+        if( !class_exists($class) ) {
+            return null;
+        }
         if($detailTransaction == null ) {
             /** @var ITransactionDetailStrategy $detailTransaction */
             $detailTransaction = new $class($this->entityManager,$transaction);

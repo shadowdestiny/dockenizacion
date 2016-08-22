@@ -70,5 +70,15 @@ class TransactionDetailServiceUnitTest extends UnitTestBase
         $this->assertCount(2,$actual);
     }
 
+    /**
+     * method obtainTransactionDetails
+     * when calledWithTransactionTypeDifferentTicketPurchaseAndWinnings
+     * should returnNull
+     */
+    public function test_obtainTransactionDetails_calledWithTransactionTypeDifferentTicketPurchaseAndWinnings_returnNull()
+    {
+
+    }
+
 
 }

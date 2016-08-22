@@ -27,11 +27,13 @@ class TicketPurchaseDetail implements ITransactionDetailStrategy
 
     public function obtainDataForDetails()
     {
+        $this->transaction->fromString();
         $ids = $this->transaction->getPlayConfigs();
         $playConfigCollection = $this->playConfigRepository->getPlayConfigsByCollectionIds($ids);
         $ticketPurchaseDetailDTOCollection = [];
         foreach($playConfigCollection as $playConfig) {
-            $ticketPurchaseDetailDTOCollection[] = new TicketPurchaseDetailDTO($playConfig);
+            $ticketPurchaseDTO = new TicketPurchaseDetailDTO($playConfig);
+            $ticketPurchaseDetailDTOCollection = $ticketPurchaseDTO->toJson();
         }
         return $ticketPurchaseDetailDTOCollection;
     }
