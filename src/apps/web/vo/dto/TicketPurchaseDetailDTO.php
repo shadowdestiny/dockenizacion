@@ -37,6 +37,6 @@ class TicketPurchaseDetailDTO extends DTOBase implements IDto
 
     public function toJson()
     {
-        return json_encode(get_object_vars($this));
+        return json_encode(get_object_vars($this), JSON_UNESCAPED_SLASHES);
     }
 }

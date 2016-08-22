@@ -12,7 +12,6 @@ var Tooltip = new React.createClass({
         });
     },
 
-
     render : function (){
         var react_tooltip = <ReactTooltip effect="solid" type="light" id='tooltip'/>;
         var xlink = "/w/svg/icon.svg#" +this.props.ico;

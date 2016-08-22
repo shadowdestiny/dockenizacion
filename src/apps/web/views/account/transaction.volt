@@ -2,7 +2,7 @@
 {% block template_css %}
     <link rel="stylesheet" href="/w/css/account.css">
     <link rel="stylesheet" href="/a/css/pagination.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css">
+    <link rel="stylesheet" href="/w/css/vendor/tipped.css">
 {% endblock %}
 {% block bodyClass %}transaction{% endblock %}
 
@@ -16,46 +16,35 @@
     <script>
 
         $(function(){
-//            var id = 0;
-//            $('tr').on('mouseenter',function(){
-//                id = $(this).data('id');
-//                console.log(id);
-//            });
-//
-//                $('#table_transactions').webuiPopover({
-//                    type: 'async',
-//                    url: '/ajax/transaction-detail/obtain/'+id,
-//                    content: function(data){
-//
-//                    },
-//                    trigger: 'hover'
-//                });
-            var idTransaction = 2;
-
-            $('#table_transactions tbody tr').webuiPopover({
-                type: 'async',
-                url: '/ajax/transaction-detail/obtain/'+idTransaction,
-                content: function(data){
-                },
-                trigger: 'hover'
+            $('#table_transactions tbody tr').on('mouseenter',function(e){
+                var idTransaction = $(this).data('id');
+                $.ajax({
+                    url:'/ajax/transaction-detail/obtain/'+idTransaction,
+                    success: function(data) {
+                        if(data != 'null') {
+                            var dataJson = JSON.parse(data);
+                            var content = $('<div>');
+                            content.append('EuroMillions: ' + " " + dataJson[0].drawDate + '<br>');
+                            content.append('<ul>');
+                            $.each(dataJson,function(i,draw){
+                               content.append('<li>'+ draw.regularNumbers + " " + draw.luckyNumbers + '</li>');
+                            });
+                            content.append('</ul>');
+                            content.append('</div>');
+                            Tipped.create('.tr-transactions-'+idTransaction, content,
+                                    {
+                                        skin: 'light',
+                                        title: 'Transaction Details - Ticket Purchase'
+                                    }
+                            );
+                        }
+                    }
+                })
+            }).on('mouseleave', function(e){
+                var idTransaction = $(this).data('id');
+                //Tipped.remove('.tr-transactions-'+idTransaction);
             });
-//
-//            $('tr').on('mouseenter',function(e){
-//                idTransaction = $(this).data('id');
-//                $('#table_transactions tbody tr').webuiPopover('show');
-//            });
-//
-//            $('tr').on('mouseleave',function(e){
-//                $('#table_transactions tbody tr').webuiPopover('hide');
-//            });
-//
-
-        })
-//        type: 'async',
-//                url: '/ajax/transaction-detail/obtain/'+id,
-//                content: function(data){
-//            console.log(data);
-//        }
+        });
     </script>
 {% endblock %}
 
@@ -87,7 +76,7 @@
                     <tbody>
 
                         {% for transaction in transactionCollection %}
-                            <tr data-id="{{ transaction.id }}">
+                            <tr class="tr-transactions-{{ transaction.id }}" data-id="{{ transaction.id }}">
                                 <td class="date">{{ transaction.date }}</td>
                                 <td class="type">{{ transaction.transactionName }}</td>
                                 <td class="movement" {% if transaction.transactionName == 'Winning Withdraw' or transaction.transactionName == 'Ticket Purchase' %}style="color:#c22"{% endif %}>

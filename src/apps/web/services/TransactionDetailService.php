@@ -28,6 +28,8 @@ class TransactionDetailService
     public function obtainTransactionDetails(Transaction $transaction, ITransactionDetailStrategy $iTransactionDetailStrategy = null)
     {
         $detailTransaction = $iTransactionDetailStrategy;
+        if( strpos($transaction->getEntityType(),'_') === false ) return null;
+
         list($partOne,$partTwo) = explode('_',$transaction->getEntityType());
         $class = 'EuroMillions\web\components\transaction\detail\\'.ucfirst($partOne).ucfirst($partTwo).'Detail';
         if( !class_exists($class) ) {

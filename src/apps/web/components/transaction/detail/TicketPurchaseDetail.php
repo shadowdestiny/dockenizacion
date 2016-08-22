@@ -33,7 +33,7 @@ class TicketPurchaseDetail implements ITransactionDetailStrategy
         $ticketPurchaseDetailDTOCollection = [];
         foreach($playConfigCollection as $playConfig) {
             $ticketPurchaseDTO = new TicketPurchaseDetailDTO($playConfig);
-            $ticketPurchaseDetailDTOCollection = $ticketPurchaseDTO->toJson();
+            $ticketPurchaseDetailDTOCollection[] = $ticketPurchaseDTO;
         }
         return $ticketPurchaseDetailDTOCollection;
     }
