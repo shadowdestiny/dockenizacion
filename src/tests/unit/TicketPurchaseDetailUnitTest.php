@@ -57,6 +57,7 @@ class TicketPurchaseDetailUnitTest extends UnitTestBase
         ];
 
         $transaction = new TicketPurchaseTransaction($data);
+        $transaction->toString();
         $sut = new TicketPurchaseDetail($this->getEntityManagerRevealed(),$transaction);
         $this->playConfigRepository_double->getPlayConfigsByCollectionIds([1,2])->willReturn([$playConfig,$playConfigTwo]);
         $actual = $sut->obtainDataForDetails();
