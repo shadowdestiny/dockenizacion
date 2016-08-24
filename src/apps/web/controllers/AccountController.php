@@ -97,7 +97,7 @@ class AccountController extends PublicSiteControllerBase
             }
         }
         $this->view->pick('account/index');
-	$this->tag->prependTitle('Account Details');
+	    $this->tag->prependTitle('Account Details');
         return $this->view->setVars([
             'form_errors' => $form_errors,
             'which_form'  => 'index',
@@ -108,6 +108,9 @@ class AccountController extends PublicSiteControllerBase
         ]);
     }
 
+    /**
+     * @return \Phalcon\Mvc\View
+     */
     public function transactionAction()
     {
         $user = $this->authService->getLoggedUser();
@@ -119,6 +122,7 @@ class AccountController extends PublicSiteControllerBase
         $paginator_view = (new PaginationWidget($paginator, $this->request->getQuery()))->render();
 	
 	    $this->tag->prependTitle('Transaction History');
+
         return $this->view->setVars([
             'transactionCollection' => $paginator->getPaginate()->items,
             'page' => $page,
@@ -126,7 +130,9 @@ class AccountController extends PublicSiteControllerBase
         ]);
     }
 
-
+    /**
+     * @return \Phalcon\Mvc\View
+     */
     public function passwordAction()
     {
         $userId = $this->authService->getCurrentUser();
@@ -150,7 +156,6 @@ class AccountController extends PublicSiteControllerBase
     {
         $user = $this->authService->getLoggedUser();
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions'));
-        $myGames = null;
         $playConfigInactivesDTOCollection = [];
         $message_actives = '';
         $message_inactives = '';
@@ -160,14 +165,12 @@ class AccountController extends PublicSiteControllerBase
         if($myGamesActives->success()){
             $myGames = $myGamesActives->getValues();
             $playConfigDTO = new UpcomingDrawsDTO($myGames);
-            //$playConfigDTO = new PlayConfigCollectionDTO($myGames, $single_bet_price);
         }else{
             $message_actives = $myGamesActives->errorMessage();
         }
         $myGamesInactives = $this->userService->getMyInactivePlays($user->getId());
         if($myGamesInactives->success()){
             $playConfigInactivesDTOCollection = new PastDrawsCollectionDTO($myGamesInactives->getValues());
-             //$playConfigInactivesDTOCollection[] = new PlayConfigCollectionDTO($myGamesInactives->getValues(), $single_bet_price);
         }else{
             $message_inactives = $myGamesInactives->errorMessage();
         }
@@ -227,8 +230,12 @@ class AccountController extends PublicSiteControllerBase
         ]);
     }
 
+    /**
+     * @return \Phalcon\Mvc\View
+     */
     public function withDrawAction()
     {
+        $errors = [];
         $user_id = $this->authService->getCurrentUser();
         $form_errors = $this->getErrorsArray();
         /** @var User $user */
@@ -272,7 +279,7 @@ class AccountController extends PublicSiteControllerBase
         }
         $wallet_dto = $this->domainServiceFactory->getWalletService()->getWalletDTO($user);
         $this->view->pick('account/wallet');
-	$this->tag->prependTitle('Request a Withdrawal');
+	    $this->tag->prependTitle('Request a Withdrawal');
         return $this->view->setVars([
             'which_form' => 'withdraw',
             'form_errors' => $form_errors,
@@ -382,7 +389,7 @@ class AccountController extends PublicSiteControllerBase
     public function emailAction()
     {
         $userId = $this->authService->getCurrentUser();
-        $result = $this->userService->getActiveNotificationsByUser($userId);
+        $result = $this->obtainActiveNotifications($userId);
         $list_notifications = [];
 
         if($result->success()) {
@@ -453,7 +460,7 @@ class AccountController extends PublicSiteControllerBase
         } catch(\Exception $e) {
             $error[] = $e->getMessage();
         } finally {
-            $result = $this->userService->getActiveNotificationsByUser($user);
+            $result = $this->obtainActiveNotifications($user);
             if($result->success()) {
                 $notifications_collection = $result->getValues();
                 foreach($notifications_collection as $notifications) {
@@ -475,7 +482,9 @@ class AccountController extends PublicSiteControllerBase
 
     }
 
-
+    /**
+     * @return \Phalcon\Mvc\View
+     */
     public function depositAction()
     {
         if(!$this->request->isPost()) {
@@ -590,6 +599,16 @@ class AccountController extends PublicSiteControllerBase
         sort($countries);
         $countries = array_combine(range(1, count($countries)), array_values($countries));
         return $countries;
+    }
+
+    /**
+     * @param $userId
+     * @return \EuroMillions\shared\vo\results\ActionResult
+     */
+    private function obtainActiveNotifications($userId)
+    {
+        $result = $this->userService->getActiveNotificationsByUser($userId);
+        return $result;
     }
 
 }
