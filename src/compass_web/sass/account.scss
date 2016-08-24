@@ -26,6 +26,7 @@
 */
 .games, .transaction{
     .table{width:100%; border-radius:5px; overflow:hidden; border:1px solid $purple; border-collapse:separate; font-size:$basic-size;
+        tr:hover{background:#e2e2e2}
         th, td{padding:7px 12px;}
         th{background:$purple; color:#fff; font-weight:700; border-right:1px solid #fff;}
         td{border:1px solid $purple; border-width:0 1px 1px 0; vertical-align:top;}
@@ -79,6 +80,7 @@
         .ico{position:relative; float:right; top:4px; margin-left:5px;}
     }
 }
+
 
 .wallet{
     hr{position:relative; margin:1.5em -15px!important;}

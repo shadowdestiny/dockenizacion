@@ -41,6 +41,7 @@ class WinningReceiveDetailDTO extends DTOBase implements IDto
         $this->luckyNumbers = $this->bet->getPlayConfig()->getLine()->getLuckyNumbers();
         $this->matchNumbers = $this->bet->getMatchNumbers();
         $this->matchLucky = $this->bet->getMatchStars();
+        $this->drawDate = $this->bet->getPlayConfig()->getStartDrawDate()->format('Y-m-d');
         $this->type = 'winning_receive';
     }
 }

@@ -24,6 +24,7 @@
                 if(typeof showPopover == 'undefined') return;
                 $(this).webuiPopover({
                     type: 'async',
+                    cache: false,
                     url: '/ajax/transaction-detail/obtain/' + idTransaction,
                     trigger: 'manual',
                     content: function (data) {
@@ -34,7 +35,7 @@
                             if (dataJson[0].type == 'ticket_purchase') {
                                 content.append('<ul>');
                                 $.each(dataJson, function (i, draw) {
-                                    content.append('<li>' + draw.regularNumbers + " " + draw.luckyNumbers + '</li>');
+                                    content.append('<li><span class="num">' + draw.regularNumbers + '</span> <span style="color:#ebb019"> ' + draw.luckyNumbers + '</span></li>');
                                 });
                                 content.append('</ul>');
                                 title = 'Ticket Purchase';
@@ -43,7 +44,28 @@
                                 content.append('Winning Lines:</br>');
                                 content.append('<ul>');
                                 $.each(dataJson, function (i, draw) {
-                                    content.append('<li>' + draw.regularNumbers + " " + draw.luckyNumbers + '</li>');
+                                    if(draw.matchNumbers == null) draw.matchNumbers = '';
+                                    var matchNumbers = draw.matchNumbers.split(',');
+                                    if(draw.matchLucky == null) draw.matchLucky = '';
+                                    var matchStars = draw.matchLucky.split(',');
+                                    var splitNumbers = draw.regularNumbers.split(',');
+                                    var splitStars = draw.luckyNumbers.split(',');
+                                    content.append('<li>');
+                                    $.each(splitNumbers,function(i,mNumber){
+                                        if(matchNumbers.indexOf(mNumber) != -1) {
+                                            content.append('<span style="color:red">' + mNumber + ' ');
+                                        } else {
+                                            content.append(mNumber + ' ');
+                                        }
+                                    });
+                                    $.each(splitStars,function(i,mStar){
+                                        if(matchStars.indexOf(mStar) != -1) {
+                                            content.append('<span style="color:red">' + mStar + ' ');
+                                        } else {
+                                            content.append(mStar + ' ');
+                                        }
+                                    });
+                                    content.append('</li>');
                                 });
                                 content.append('</ul>');
                                 title='Winning';
@@ -58,8 +80,12 @@
                     title: title
                 });
                 $(this).on('mouseenter',function(){
-                        $(this).webuiPopover('show');
+                    $(this).webuiPopover('show');
                 });
+                $(this).on('mouseleave',function(){
+                    $(this).webuiPopover('hide');
+                });
+
             });
         });
     </script>
@@ -96,7 +122,7 @@
                             <tr class="tr-transactions-{{ transaction.id }}" data-id="{{ transaction.id }}">
                                 <td class="date">{{ transaction.date }}</td>
                                 <td class="type">{{ transaction.transactionName }}</td>
-                                <td class="movement" {% if transaction.transactionName == 'Winning Withdraw' or transaction.transactionName == 'Ticket Purchase' %} data-trans="" style="color:#c22"{% endif %}>
+                                <td class="movement" {% if transaction.transactionName == 'Winning Withdraw' or transaction.transactionName == 'Ticket Purchase' %} data-trans="" style="color:#c22"{% endif %} {% if transaction.transactionName == 'Winnings Received'%}data-trans="" {% endif %}>
                                     {{ transaction.movement }}
                                 </td>
                                 <td class="wallet">{{ transaction.balance }}</td>
