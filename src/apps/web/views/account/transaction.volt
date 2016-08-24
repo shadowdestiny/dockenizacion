@@ -24,7 +24,7 @@
                 if(typeof showPopover == 'undefined') return;
                 $(this).webuiPopover({
                     type: 'async',
-                    cache: false,
+                    cache: true,
                     url: '/ajax/transaction-detail/obtain/' + idTransaction,
                     trigger: 'manual',
                     content: function (data) {
@@ -50,7 +50,6 @@
                                     var matchStars = draw.matchLucky.split(',');
                                     var splitNumbers = draw.regularNumbers.split(',');
                                     var splitStars = draw.luckyNumbers.split(',');
-                                    content.append('<li>');
                                     $.each(splitNumbers,function(i,mNumber){
                                         if(matchNumbers.indexOf(mNumber) != -1) {
                                             content.append('<span style="color:red">' + mNumber + ' ');
@@ -65,7 +64,6 @@
                                             content.append(mStar + ' ');
                                         }
                                     });
-                                    content.append('</li>');
                                 });
                                 content.append('</ul>');
                                 title='Winning';

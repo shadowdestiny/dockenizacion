@@ -60,7 +60,8 @@ class WinningReceiveDetailDTOUnitTest extends UnitTestBase
         $playConfig = new PlayConfig();
         $playConfig->initialize([
                 'user' => $user,
-                'line' => $euroMillionsLine
+                'line' => $euroMillionsLine,
+                'startDrawDate' => new \DateTime()
             ]
         );
         return [$playConfig,$euroMillionsDraw];
