@@ -121,42 +121,27 @@ class LotteryService
 
     public function getTimeToNextDraw($lotteryName, \DateTime $now = null)
     {
-        if (!$now) {
-            $now = new \DateTime();
-        }
-        /** @var Lottery $lottery */
-        $lottery = $this->getLotteryByName($lotteryName);
+        list($now, $lottery) = $this->getLotteryAndNowDate($lotteryName, $now);
         $next_draw_date = $lottery->getNextDrawDate($now);
         return $now->diff($next_draw_date);
     }
 
     public function getNextDateDrawByLottery($lotteryName, \DateTime $now = null)
     {
-        if (!$now) {
-            $now = new \DateTime();
-        }
-        /** @var Lottery $lottery */
-        $lottery = $this->getLotteryByName($lotteryName);
+        list($now, $lottery) = $this->getLotteryAndNowDate($lotteryName, $now);
         return $lottery->getNextDrawDate($now);
     }
 
     public function getRecurrentDrawDates($lotteryName, $iteration = 12, \DateTime $now = null)
     {
-        if (!$now) {
-            $now = new \DateTime();
-        }
-        $lottery = $this->getLotteryByName($lotteryName);
 
+        list($now, $lottery) = $this->getLotteryAndNowDate($lotteryName, $now);
         return $lottery->getRecurringIntervalDrawDate($iteration, $now);
     }
 
     public function getNextDrawByLottery($lotteryName, \DateTime $now = null)
     {
-        if (!$now) {
-            $now = new \DateTime();
-        }
-        /** @var Lottery $lottery */
-        $lottery = $this->getLotteryByName($lotteryName);
+        list($now, $lottery) = $this->getLotteryAndNowDate($lotteryName, $now);
         if (null !== $lottery) {
             /** @var EuroMillionsDraw[] $euroMillionsDraw */
             $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($now));
@@ -206,11 +191,7 @@ class LotteryService
 
     public function lastBreakDown($lotteryName, \DateTime $now = null)
     {
-        if (!$now) {
-            $now = new \DateTime();
-        }
-        /** @var Lottery $lottery */
-        $lottery = $this->getLotteryByName($lotteryName);
+        list($now, $lottery) = $this->getLotteryAndNowDate($lotteryName, $now);
         $last_draw_date = $lottery->getLastDrawDate($now);
         /** @var EuroMillionsDraw $draw */
         $draw = $this->lotteryDrawRepository->findOneBy(['lottery' => $lotteryName, 'draw_date' => $last_draw_date]);
@@ -305,7 +286,8 @@ class LotteryService
     }
 
     public function sendResultLotteryToUsersWithBets( $result, IEmailTemplate $emailTemplate) {
-        $notificationResultsStrategy = new UserNotificationResultsStrategy($this->userService);
+
+        $notificationResultsStrategy = $this->obtainNotificationResultStrategy();
         /** @var Bet $bet */
         foreach ($result as $bet) {
             $user = $bet->getPlayConfig()->getUser();
@@ -318,7 +300,7 @@ class LotteryService
 
     public function sendResultLotteryToUsers( array $users, IEmailTemplate $emailTemplate )
     {
-        $notificationResultsStrategy = new UserNotificationResultsStrategy($this->userService);
+        $notificationResultsStrategy = $this->obtainNotificationResultStrategy();
         /** @var User $user */
         foreach($users as $user) {
             $hasNotification = $this->userNotificationsService->hasNotificationActive($notificationResultsStrategy, $user);
@@ -359,6 +341,30 @@ class LotteryService
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         return $lottery;
+    }
+
+    /**
+     * @param $lotteryName
+     * @param \DateTime $now
+     * @return array
+     */
+    private function getLotteryAndNowDate($lotteryName, \DateTime $now = null)
+    {
+        if (!$now) {
+            $now = new \DateTime();
+        }
+        /** @var Lottery $lottery */
+        $lottery = $this->getLotteryByName($lotteryName);
+        return array($now, $lottery);
+    }
+
+    /**
+     * @return UserNotificationResultsStrategy
+     */
+    private function obtainNotificationResultStrategy()
+    {
+        $notificationResultsStrategy = new UserNotificationResultsStrategy($this->userService);
+        return $notificationResultsStrategy;
     }
 
 
