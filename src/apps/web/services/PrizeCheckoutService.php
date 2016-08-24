@@ -124,6 +124,7 @@ class PrizeCheckoutService
             $this->betRepository->add($currentBet);
             $this->entityManager->flush();
         } catch (\Exception $e) {
+
         }
     }
 

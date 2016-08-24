@@ -2,7 +2,7 @@
 {% block template_css %}
     <link rel="stylesheet" href="/w/css/account.css">
     <link rel="stylesheet" href="/a/css/pagination.css">
-    <link rel="stylesheet" href="/w/css/vendor/tipped.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.13/jquery.webui-popover.min.css">
 {% endblock %}
 {% block bodyClass %}transaction{% endblock %}
 
@@ -16,33 +16,50 @@
     <script>
 
         $(function(){
-            $('#table_transactions tbody tr').on('mouseenter',function(e){
+            var hasContent=true;
+            $('#table_transactions tbody tr').each(function() {
+                var showPopover = $(this).find('td:eq(2)').data('trans');
                 var idTransaction = $(this).data('id');
-                $.ajax({
-                    url:'/ajax/transaction-detail/obtain/'+idTransaction,
-                    success: function(data) {
-                        if(data != 'null') {
+                var title='';
+                if(typeof showPopover == 'undefined') return;
+                $(this).webuiPopover({
+                    type: 'async',
+                    url: '/ajax/transaction-detail/obtain/' + idTransaction,
+                    trigger: 'manual',
+                    content: function (data) {
+                        if (data != 'null') {
                             var dataJson = JSON.parse(data);
                             var content = $('<div>');
                             content.append('EuroMillions: ' + " " + dataJson[0].drawDate + '<br>');
-                            content.append('<ul>');
-                            $.each(dataJson,function(i,draw){
-                               content.append('<li>'+ draw.regularNumbers + " " + draw.luckyNumbers + '</li>');
-                            });
-                            content.append('</ul>');
+                            if (dataJson[0].type == 'ticket_purchase') {
+                                content.append('<ul>');
+                                $.each(dataJson, function (i, draw) {
+                                    content.append('<li>' + draw.regularNumbers + " " + draw.luckyNumbers + '</li>');
+                                });
+                                content.append('</ul>');
+                                title = 'Ticket Purchase';
+                            } else if (dataJson[0].type == 'winning_receive') {
+                                content.append('Winning Numbers: ' + dataJson[0].draw + '</br>');
+                                content.append('Winning Lines:</br>');
+                                content.append('<ul>');
+                                $.each(dataJson, function (i, draw) {
+                                    content.append('<li>' + draw.regularNumbers + " " + draw.luckyNumbers + '</li>');
+                                });
+                                content.append('</ul>');
+                                title='Winning';
+                            }
                             content.append('</div>');
-                            Tipped.create('.tr-transactions-'+idTransaction, content,
-                                    {
-                                        skin: 'light',
-                                        title: 'Transaction Details - Ticket Purchase'
-                                    }
-                            );
+                            return content.html();
+                        } else {
+                            hasContent=false;
                         }
-                    }
-                })
-            }).on('mouseleave', function(e){
-                var idTransaction = $(this).data('id');
-                //Tipped.remove('.tr-transactions-'+idTransaction);
+                    },
+                    closeable: true,
+                    title: title
+                });
+                $(this).on('mouseenter',function(){
+                        $(this).webuiPopover('show');
+                });
             });
         });
     </script>
@@ -79,7 +96,7 @@
                             <tr class="tr-transactions-{{ transaction.id }}" data-id="{{ transaction.id }}">
                                 <td class="date">{{ transaction.date }}</td>
                                 <td class="type">{{ transaction.transactionName }}</td>
-                                <td class="movement" {% if transaction.transactionName == 'Winning Withdraw' or transaction.transactionName == 'Ticket Purchase' %}style="color:#c22"{% endif %}>
+                                <td class="movement" {% if transaction.transactionName == 'Winning Withdraw' or transaction.transactionName == 'Ticket Purchase' %} data-trans="" style="color:#c22"{% endif %}>
                                     {{ transaction.movement }}
                                 </td>
                                 <td class="wallet">{{ transaction.balance }}</td>

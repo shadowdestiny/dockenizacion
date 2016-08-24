@@ -7,7 +7,7 @@
 <script src="/w/js/vendor/accounting.min.js"></script>
 <script src="/w/js/vendor/jquery.lazyloadxt.min.js"></script>
 <script src="/w/js/vendor/jquery.lazyloadxt.widget.js"></script>
-<script src="/w/js/vendor/tipped.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.13/jquery.webui-popover.min.js"></script>
 <!--start PROD imports
 <script src="/w/js/dist/main.min.js"></script>
 <script src="/w/js/dist/mobileInit.min.js"></script>

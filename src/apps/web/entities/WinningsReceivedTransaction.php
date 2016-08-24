@@ -105,4 +105,9 @@ class WinningsReceivedTransaction extends Transaction implements ITransactionDat
         $this->state = $state;
     }
 
+    public function getEntityType()
+    {
+        return parent::WINNING_RECEIVED_TYPE;
+    }
+
 }

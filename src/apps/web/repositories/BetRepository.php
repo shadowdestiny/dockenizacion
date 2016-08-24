@@ -196,4 +196,23 @@ class BetRepository extends RepositoryBase
         return $result;
     }
 
+
+    public function obtainWinnerBetById( $betId )
+    {
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT b,p.startDrawDate,p.line.regular_number_one,'
+                . ' p.line.regular_number_two,p.line.regular_number_three, '
+                . ' p.line.regular_number_four,p.line.regular_number_five, '
+                . ' p.line.lucky_number_one, p.line.lucky_number_two'
+                . ' FROM ' . $this->getEntityName() . ' b JOIN b.playConfig p'
+                . ' WHERE b.id = :id '
+                . ' ')
+            ->setParameters(['id' => $betId])
+            ->getResult();
+        return $result;
+
+    }
+
+
 }

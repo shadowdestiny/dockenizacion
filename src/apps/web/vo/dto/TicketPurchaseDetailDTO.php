@@ -16,6 +16,7 @@ class TicketPurchaseDetailDTO extends DTOBase implements IDto
     public $regularNumbers;
     public $luckyNumbers;
     public $drawDate;
+    public $type;
 
     public function __construct(PlayConfig $playConfig)
     {
@@ -33,6 +34,7 @@ class TicketPurchaseDetailDTO extends DTOBase implements IDto
         $this->regularNumbers = $this->playConfig->getLine()->getRegularNumbers();
         $this->luckyNumbers = $this->playConfig->getLine()->getLuckyNumbers();
         $this->drawDate = $this->playConfig->getStartDrawDate()->format('Y-m-d');
+        $this->type = 'ticket_purchase';
     }
 
     public function toJson()

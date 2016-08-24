@@ -76,6 +76,19 @@ class BetRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     }
 
     /**
+     * method obtainWinnerBetById
+     * when calledPassingABetIdValid
+     * should returnResultWithMatchNumbers
+     */
+    public function test_obtainWinnerBetById_calledPassingABetIdValid_returnResultWithMatchNumbers()
+    {
+        $betId = 3;
+        $actual = $this->sut->obtainWinnerBetById($betId);
+        $this->assertEquals(1, count($actual));
+        $this->assertEquals('11,12',$actual[0][0]->getMatchNumbers());
+    }
+
+    /**
      * method getPastGamesWithPrizes
      * when called
      * should returnPastGamesWithPrizes
