@@ -122,7 +122,7 @@ class AccountCest
             'data' => '1#1#1000#'
         ]);
         $I->haveInSession('EM_current_user', $this->userId);
-        $I->amOnPage('/account/transaction');
+        $I->amOnPage('/profile/transactions');
         $I->canSee('Transaction');
         $I->seeNumberOfElements('table tbody tr', 1);
     }

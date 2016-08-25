@@ -183,6 +183,8 @@ class LotteryServiceUnitTest extends UnitTestBase
         ];
     }
 
+
+
     /**
      * method getLastDrawDate
      * when called

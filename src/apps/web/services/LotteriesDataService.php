@@ -4,6 +4,7 @@ namespace EuroMillions\web\services;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\exceptions\DataMissingException;
 use EuroMillions\web\exceptions\ValidDateRangeException;
 use EuroMillions\web\repositories\LotteryDrawRepository;
@@ -114,6 +115,23 @@ class LotteriesDataService
         $draw->createBreakDown($result);
         $this->entityManager->flush();
         return $draw;
+    }
+
+
+    /**
+     * @param Lottery $lottery
+     * @param array $playconfigs
+     * @return Money
+     */
+    public function getPriceForNextDraw(Lottery $lottery, array $playconfigs)
+    {
+        $price = new Money(0,new Currency('EUR'));
+        /** @var PlayConfig $playconfig */
+        foreach($playconfigs as $playconfig) {
+            $amount = new Money((int) ($playconfig->numBets() * $lottery->getSingleBetPrice()->getAmount()),new Currency('EUR'));
+            $price = $price->add($amount);
+        }
+        return $price;
     }
 
     /**

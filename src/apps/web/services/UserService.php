@@ -332,14 +332,6 @@ class UserService
         }
     }
 
-    public function chargeFeeFromWallet(Money $amount, Money $feeLimit, Money $fee )
-    {
-        if( $amount->getAmount() < $feeLimit->getAmount() ) {
-            return new ActionResult(true,$amount->add($fee));
-        } else {
-            return new ActionResult(false,$amount);
-        }
-    }
 
     public function resetWonAbove( User $user ) {
 
@@ -392,21 +384,7 @@ class UserService
         return $this->userRepository->getUsersWithPlayConfigsOrderByLottery();
     }
 
-    /**
-     * @param Lottery $lottery
-     * @param array $playconfigs
-     * @return Money
-     */
-    public function getPriceForNextDraw(Lottery $lottery, array $playconfigs)
-    {
-        $price = new Money(0,new Currency('EUR'));
-        /** @var PlayConfig $playconfig */
-        foreach($playconfigs as $playconfig) {
-            $amount = new Money((int) ($playconfig->numBets() * $lottery->getSingleBetPrice()->getAmount()),new Currency('EUR'));
-            $price = $price->add($amount);
-        }
-        return $price;
-    }
+
 
     public function createWithDraw( User $user, array $data )
     {

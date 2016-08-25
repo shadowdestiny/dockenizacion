@@ -89,7 +89,6 @@ class PublicSiteControllerBase extends ControllerBase
         $this->setTopNavValues();
         $this->setNavValues();
         $this->setCommonTemplateVariables();
-        $this->setClosingModalVariables();
         $this->setVarWinningModal();
 
         $controller_not_referer = [
@@ -200,26 +199,6 @@ class PublicSiteControllerBase extends ControllerBase
     private function setCommonTemplateVariables()
     {
         $this->view->setVar('currency_symbol_first', true);
-    }
-
-    private function setClosingModalVariables()
-    {
-        //Vars draw closing modal
-        $dateUtil = new DateTimeUtil();
-        $lottery_date_time = new \DateTime('2016-03-16 10:50:00');
-        $time_to_remain = $dateUtil->getTimeRemainingToCloseDraw($lottery_date_time);
-        if($time_to_remain) {
-            $minutes_to_close = $dateUtil->restMinutesToCloseDraw($lottery_date_time);
-        }
-
-        $minutes_to_close_rounded = $dateUtil->restMinutesToCloseDraw($lottery_date_time,null,true);
-        $last_minute = $dateUtil->isLastMinuteToDraw($lottery_date_time);
-        $this->view->setVar('time_to_remain_draw', $time_to_remain);
-        $this->view->setVar('minutes_to_close_rounded', (int) $minutes_to_close_rounded);
-        $this->view->setVar('last_minute', $last_minute);
-        $this->view->setVar('draw_date', date('Y/m/d H:i:s',$lottery_date_time->getTimestamp() - 1800));
-        $this->view->setVar('timeout_to_closing_modal', 30 * 60 * 1000);
-        $this->view->setVar('minutes_to_close', !empty($minutes_to_close) ? $minutes_to_close : '');
     }
 
     private function setVarWinningModal()
