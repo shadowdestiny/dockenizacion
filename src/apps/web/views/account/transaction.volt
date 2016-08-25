@@ -30,7 +30,9 @@
                     content: function (data) {
                         if (data != 'null') {
                             var dataJson = JSON.parse(data);
+                            var title = (dataJson[0].type == 'ticket_purchase') ? 'Transaction Details - Ticket Purchase' : 'Transaction Details - Draw Winnings';
                             var content = $('<div>');
+                            content.append('<div style="background-color: #B75D84;width:100%;color:#FFFFDF">' + title + '</div>');
                             content.append('EuroMillions: ' + " " + dataJson[0].drawDate + '<br>');
                             if (dataJson[0].type == 'ticket_purchase') {
                                 content.append('<ul>');
@@ -74,7 +76,6 @@
                             hasContent=false;
                         }
                     },
-                    closeable: true,
                     title: title
                 });
                 $(this).on('mouseenter',function(){
