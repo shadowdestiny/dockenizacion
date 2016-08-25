@@ -185,6 +185,20 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action'     => 'transaction'
         ));
 
+        $router->add("/withdraw", array(
+            "module"     => "web",
+            'namespace'  => 'EuroMillions\web\controllers\profile\payment',
+            'controller' => 'withdraw',
+            'action'     => 'withdraw'
+        ));
+
+        $router->add("/addFunds", array(
+            "module"     => "web",
+            'namespace'  => 'EuroMillions\web\controllers\profile\payment',
+            'controller' => 'funds',
+            'action'     => 'addFunds'
+        ));
+
 
         $router->add("/account", array(
             "module"     => "web",
