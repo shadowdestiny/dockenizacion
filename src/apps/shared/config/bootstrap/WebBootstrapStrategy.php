@@ -171,6 +171,21 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action'     => 'index',
         ));
 
+        $router->add("/profile/tickets/games", array(
+            "module"     => "web",
+            'namespace'  => 'EuroMillions\web\controllers\profile',
+            'controller' => 'tickets',
+            'action'     => 'games'
+        ));
+
+        $router->add("/profile/transactions", array(
+            "module"     => "web",
+            'namespace'  => 'EuroMillions\web\controllers\profile',
+            'controller' => 'transactions',
+            'action'     => 'transaction'
+        ));
+
+
         $router->add("/account", array(
             "module"     => "web",
             'controller' => 'account',
@@ -182,11 +197,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'controller' => 'user-access',
             'action'     => 'signIn'
         ));
+
         $router->add("/sign-up", array(
             "module"     => "web",
             'controller' => 'user-access',
             'action'     => 'signUp'
         ));
+
         $router->add("/logout", array(
             "module"     => "web",
             'controller' => 'user-access',
@@ -197,12 +214,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'controller' => 'user-access',
             'action'     => 'validate'
         ));
+
         $router->add("/passwordReset/:params", array(
             "module"     => "web",
             'controller' => 'user-access',
             'action'     => 'passwordReset',
             'params'     => 1
         ));
+
         $router->add("/forgotPassword", array(
             "module"     => "web",
             'controller' => 'user-access',

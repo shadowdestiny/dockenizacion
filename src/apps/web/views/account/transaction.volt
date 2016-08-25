@@ -28,6 +28,7 @@
                     url: '/ajax/transaction-detail/obtain/' + idTransaction,
                     trigger: 'manual',
                     content: function (data) {
+                        console.log(data);
                         if (data != 'null') {
                             var dataJson = JSON.parse(data);
                             var title = (dataJson[0].type == 'ticket_purchase') ? 'Transaction Details - Ticket Purchase' : 'Transaction Details - Draw Winnings';

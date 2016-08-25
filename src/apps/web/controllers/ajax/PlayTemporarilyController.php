@@ -5,7 +5,6 @@ namespace EuroMillions\web\controllers\ajax;
 
 
 use EuroMillions\web\components\DateTimeUtil;
-use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
