@@ -26,7 +26,6 @@ class NumbersController extends PublicSiteControllerBase
                'error' => $result->errorMessage()
             ]);
         }
-
         /** @var EuroMillionsDraw $euroMillionsDraw */
         $euroMillionsDraw = $draw_result->getValues();
         $breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
@@ -34,7 +33,6 @@ class NumbersController extends PublicSiteControllerBase
 
         $this->tag->prependTitle('Euromillions Results & Winning Numbers');
 	    MetaDescriptionTag::setDescription('Check the EuroMillions results and prize breakdown. Follow each EuroMillions draw and find out if you are the fortunate winner of a big jackpot prize!');
-
         return $this->view->setVars([
             'break_downs' => !empty($break_down_list) ? $break_down_list : '',
             'id_draw' => $euroMillionsDraw->getId(),

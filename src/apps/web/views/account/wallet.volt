@@ -104,7 +104,7 @@
     if(parseFloat(value).toFixed(2) >= parseFloat(fee_limit.substring(1)).toFixed(2)) {
         $('.box-wallet.overview > label.submit').removeClass('gray').addClass('green');
     } else {
-        $('.box-wallet.overview > label.submit').removeClass('gray').addClass('green');
+        $('.box-wallet.overview > label.submit').removeClass('green').addClass('gray');
     }
     if( '{{ symbol }}' !== '€'){
     $('.charge').show();

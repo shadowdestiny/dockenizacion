@@ -48,9 +48,15 @@ class ResultTask extends TaskBase
         $this->currencyService =  $currencyService ? $currencyService : $domainFactory->getCurrencyService();
     }
 
+    public function mainAction()
+    {
+
+    }
+
 
     public function updateAction(\DateTime $today = null)
     {
+
         if(!$today) {
             $today = new \DateTime();
         }

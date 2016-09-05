@@ -49,7 +49,6 @@ class JackpotTask extends TaskBase
 
     public function reminderJackpotAction()
     {
-
         $jackpot_amount = $this->lotteryService->getNextJackpot('EuroMillions');
         $emailTemplate = new EmailTemplate();
         $emailTemplate = new JackpotRolloverEmailTemplate($emailTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
