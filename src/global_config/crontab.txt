@@ -6,3 +6,7 @@
 58 11 * * * . /tmp/project_env.sh; mysql -u root -ptpl9 euromillions < /var/www/data/sql/analysisQueries.sql
 59 11 * * * . /tmp/project_env.sh; mysql -u root -ptpl9 euromillions < /var/www/data/sql/Archive.sql
 
+
+
+
+

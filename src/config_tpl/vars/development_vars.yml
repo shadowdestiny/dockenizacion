@@ -5,3 +5,4 @@ display_startup_errors: '1'
 
 database_user: 'root'
 database_pass: 'tpl9'
+is_development_mode: 'true'

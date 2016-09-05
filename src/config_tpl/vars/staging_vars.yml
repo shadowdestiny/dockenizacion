@@ -7,6 +7,7 @@ domain_url: 'beta.euromillions.com/'
 
 database_user: 'root'
 database_pass: 'tpl9'
+is_development_mode: 'false'
 
 restricted_access_activated: '1'
 restricted_access_ips: '62.57.159.66,10.0.2.2'
