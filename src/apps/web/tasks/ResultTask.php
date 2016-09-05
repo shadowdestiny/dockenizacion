@@ -71,47 +71,8 @@ class ResultTask extends TaskBase
 //        $logger->setLogLevel(Logger::ERROR);
         try{
             $this->lotteriesDataService->updateLastDrawResult('EuroMillions');
-            $draw = $this->lotteriesDataService->updateLastBreakDown('EuroMillions');
-            $break_down_list = new EuroMillionsDrawBreakDownDTO($draw->getBreakDown());
-
-            $emailTemplate = new EmailTemplate();
-            $emailTemplate = new LatestResultsEmailTemplate($emailTemplate, new LatestResultsDataEmailTemplateStrategy());
-            // $emailTemplate->setBreakDownList($break_down_list);
-
-            $result_play_config = $this->playService->getPlaysConfigToBet($today);
-            if($result_play_config->success() && null !== $break_down_list){
-                /** @var PlayConfig[] $play_config_list */
-                $play_config_list = $result_play_config->getValues();
-                foreach($play_config_list as $play_config){
-                    /** @var User $user */
-                    $user = $this->userService->getUser($play_config->getUser()->getId());
-                    $emailTemplate->setBreakDownList($break_down_list/*$this->convertCurrency($break_down_list,$user->getBalance()->getCurrency())*/);
-                    //$break_down_list->convertCurrency($user->getBalance()->getCurrency());
-                    $user_notifications_result = $this->userService->getActiveNotificationsByUserAndType($user, NotificationValue::NOTIFICATION_RESULT_DRAW);
-                    if($user_notifications_result->success()) {
-                        /** @var UserNotifications[] $user_notifications */
-                        $user_notifications = $user_notifications_result->getValues();
-                        foreach($user_notifications as $user_notification) {
-                            if($user_notification->getActive() && !$user_notification->getConfigValue()->getValue()) {
-                                $this->emailService->sendTransactionalEmail($user,$emailTemplate);
-                            }
-                        }
-                    }
-                }
-            }
-
-            $user_notifications_result = $this->userService->getActiveNotificationsByType(NotificationValue::NOTIFICATION_RESULT_DRAW);
-            if($user_notifications_result->success()) {
-                $users_notifications = $user_notifications_result->getValues();
-                /** @var UserNotifications $user_notification */
-                foreach($users_notifications as $user_notification) {
-                    if($user_notification->getConfigValue()->getValue()) {
-                        $emailTemplate->setBreakDownList($break_down_list/*$this->convertCurrency($break_down_list,$user->getBalance()->getCurrency())*/);
-                        $this->emailService->sendTransactionalEmail($user_notification->getUser(),$emailTemplate);
-                    }
-                }
-            }
-        } catch( \Exception $e ) {
+            $this->lotteriesDataService->updateLastBreakDown('EuroMillions');
+       } catch( \Exception $e ) {
 //            $logger->error($e->getMessage());
         }
 
