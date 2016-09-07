@@ -32,7 +32,8 @@
         <ul class="subnav hidden">
             <li><a href="/account">{{ language.translate("Account") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
             <li><a href="/profile/tickets/games">{{ language.translate("Tickets") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
-            <li><a href="/account/wallet">{{ language.translate("Balance") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
+            <?php $var = array('balance' => $user_balance);?>
+            <li><a href="/account/wallet">{{ language.translate("Balance", ['balance' :   user_balance ]) }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
             <li><a href="/profile/transactions">{{ language.translate("Transactions") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>
 {#
             <li><a href="/account/messages">{{ language.app("Messages") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></a></li>

@@ -161,7 +161,7 @@
                 <div class="{%if show_box_basic == true %}hidden{% endif %} right back cl">
                     <a class="btn" href="javascript:void(0);">Go Back</a>
                 </div>
-                <h1 class="h1 title yellow">{{ language.translate("Balance") }}</h1>
+                <h1 class="h1 title yellow">{{ language.translate("Balance", ['balance' :   user_balance ]) }}</h1>
 
                 {% if wallet.current_winnings %}
                     <div class="box info">
