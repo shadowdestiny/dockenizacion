@@ -59,20 +59,20 @@
             </td> 
             
             
-            <td *ngIf="translations[i].details[0].length == 0"> 
+            <td *ngIf="translations[i].details.length == 0">
                
             </td> 
-             <td *ngIf="translations[i].details[0].length == 0"> 
+             <td *ngIf="translations[i].details.length == 0">
                 
             </td>
  
       
           
-                <td *ngIf="translations[i].details[0].length == 1 && translations[i].details[0][0].lang != lang1">
+                <td *ngIf="translations[i].details.length == 1 && translations[i].details[0].lang != lang1">
                 
                 </td>
 
-            <td *ngFor="#detail of translations[i].details[0]; #j=index">
+            <td *ngFor="#detail of translations[i].details; #j=index">
                 <div *ngIf="detail.lang == lang1" > 
                     {{ detail.value }} 
                 </div>
@@ -81,7 +81,7 @@
                 </div>
             </td>      
             
-             <td *ngIf="translations[i].details[0].length == 1 && translations[i].details[0][0].lang != lang2">
+             <td *ngIf="translations[i].details.length == 1 && translations[i].details[0].lang != lang2">
                 
             </td>
             

@@ -25,12 +25,12 @@
             </select>
 
         </div>
-            Translation --> {{translation.details[0] }}
         <div class="form-group" *ngFor="#language of languages; #i=index">
             <label>{{ language.ccode }}</label>
-   
         </div>
-
+        <div class="form-group" *ngFor="#detail of translation.details; #j=index">
+            <label>{{ detail.id }}</label>
+        </div>
         <br/>
         <button type="submit" class="btn btn-default">Update Translation</button>
     </form>

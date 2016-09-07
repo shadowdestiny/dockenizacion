@@ -6,6 +6,7 @@ export class Translation{
         public translationKey:string,
         public translationCategory:number,
         public category:Category,
-        public description:string
+        public description:string,
+        public translationDetail:[]
     ){}
 }

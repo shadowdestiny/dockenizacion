@@ -8,7 +8,7 @@ import {AddLanguageComponent} from "./components/add-language.component";
 import {ListCategoryComponent} from "./components/list-category.component";
 import {AddCategoryComponent} from "./components/add-category.component";
 import {EditCategoryComponent} from "./components/edit-category.component";
-import {EditTranslationComponent} from "./components/edit-Translation.component";
+import {EditTranslationComponent} from "./components/edit-translation.component";
 import {AddTranslationComponent} from "./components/add-translation.component";
 import {AuthService} from "./services/auth.service";
 import {OnInit} from "angular2/core";
