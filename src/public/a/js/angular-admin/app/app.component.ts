@@ -7,6 +7,8 @@ import {EditLanguageComponent} from "./components/edit-language.component";
 import {AddLanguageComponent} from "./components/add-language.component";
 import {ListCategoryComponent} from "./components/list-category.component";
 import {AddCategoryComponent} from "./components/add-category.component";
+import {EditCategoryComponent} from "./components/edit-category.component";
+import {EditTranslationComponent} from "./components/edit-Translation.component";
 import {AddTranslationComponent} from "./components/add-translation.component";
 import {AuthService} from "./services/auth.service";
 import {OnInit} from "angular2/core";
@@ -32,7 +34,8 @@ import {ListTranslationComponent} from "./components/list-translation.component"
     {path: "/translates",name: "Translates", component: ListTranslationComponent},
     {path: "/categories",name: "Categories", component: ListCategoryComponent},
     {path: "/add-category/",name: "AddCategory", component: AddCategoryComponent},
-    {path: "/edit-category/",name: "EditCategory", component: AddCategoryComponent},
+    {path: "/edit-category/",name: "EditCategory", component: EditCategoryComponent},
+    {path: "/edit-translation/",name: "EditTranslation", component: EditTranslationComponent},
     {path: "/add-translation/",name: "AddTranslation", component: AddTranslationComponent},
 ])
 

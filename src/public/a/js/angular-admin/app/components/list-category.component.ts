@@ -23,9 +23,20 @@ export class ListCategoryComponent implements OnInit{
     }
 
     ngOnInit():any {
-     
+        this.getCategories();
     }
 
-    
+    getCategories()
+    {
+        this._categoryService.getCategories()
+                                    .subscribe(
+                                        result => {
+                                            this.categories = result.translation_categories;
+                                        },
+                                        error => {
+ 
+                                        }
+                                    );
+    }
 
 }

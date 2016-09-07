@@ -16,16 +16,16 @@
     <tbody>
         <tr *ngFor="#category of categories">
             <td>
-                
+                <label>{{category.categoryName}}</label>
             </td>
             <td>
-                
+                <label>{{category.categoryCode}}</label>
             </td>
             <td>
-            
+                <label>{{category.description}}</label>
             </td>
             <td>
-               
+               <a [routerLink]="['EditCategory', {id: category.id}]" style="cursor:pointer">edit</a>
             </td>
         </tr>
     </tbody>

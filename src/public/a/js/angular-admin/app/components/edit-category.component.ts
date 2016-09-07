@@ -15,15 +15,46 @@ import {OnInit} from "angular2/core";
 
 export class EditCategoryComponent {
 
-      constructor(private _categoryService:CategoryService,
-                private _routeParams: RouteParams){
-        
+    public id;
+    public category:Category;
+    public title:string = 'Edit Category';
+    public status:boolean = false;
+    
+    constructor(private _categoryService:CategoryService,
+                private _routeParams: RouteParams)
+    {
+        this.category = new Category(0,'','','');
     }
 
+    ngOnInit():any {
+        this.getCategoryById();
+    }
 
-    public editCategory()
+    getCategoryById()
     {
-       
+        this.id = this._routeParams.get("id");
+        this._categoryService.getCategory(this.id)
+                                .subscribe(
+                                    result => {
+                                        this.category = result.translation_category;
+                                    },
+                                    error => {
+
+                                    }
+                                );
+    }
+
+    onSubmit()
+    {
+        this._categoryService.updateCategory(this.category)
+                                    .subscribe(
+                                        result => {
+                                            this.status=true;
+                                        },
+                                        error => {
+                                            this.status=false;
+                                        }
+                                    );
     }
 
 }

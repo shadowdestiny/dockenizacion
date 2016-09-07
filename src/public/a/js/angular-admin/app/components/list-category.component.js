@@ -30,6 +30,15 @@ System.register(['angular2/core', "angular2/router", "../services/category.servi
                     this.title = 'Manage Translation Categories';
                 }
                 ListCategoryComponent.prototype.ngOnInit = function () {
+                    this.getCategories();
+                };
+                ListCategoryComponent.prototype.getCategories = function () {
+                    var _this = this;
+                    this._categoryService.getCategories()
+                        .subscribe(function (result) {
+                        _this.categories = result.translation_categories;
+                    }, function (error) {
+                    });
                 };
                 ListCategoryComponent = __decorate([
                     core_1.Component({

@@ -1,4 +1,4 @@
-System.register(["angular2/core", "angular2/http", "rxjs/add/operator/map", "../services/auth.service"], function(exports_1, context_1) {
+System.register(["angular2/core", "angular2/http", "rxjs/add/operator/map", "../services/auth.service", '../config/config'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["angular2/core", "angular2/http", "rxjs/add/operator/map", "../
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, auth_service_1;
+    var core_1, http_1, auth_service_1, config;
     var TranslationService;
     return {
         setters:[
@@ -23,6 +23,9 @@ System.register(["angular2/core", "angular2/http", "rxjs/add/operator/map", "../
             function (_1) {},
             function (auth_service_1_1) {
                 auth_service_1 = auth_service_1_1;
+            },
+            function (config_1) {
+                config = config_1;
             }],
         execute: function() {
             TranslationService = (function () {
@@ -30,7 +33,23 @@ System.register(["angular2/core", "angular2/http", "rxjs/add/operator/map", "../
                     this._http = _http;
                     this._authService = _authService;
                 }
-                TranslationService.prototype.getTranslation = function () {
+                TranslationService.prototype.getTranslations = function (lang1, lang2, category) {
+                    var headers = this._authService.getHeaderBearer();
+                    if (this._authService.isLoggedIn()) {
+                        if (category != ' ') {
+                            return this._http.get(config.api_url + 'translations?lang1=' + lang1 + '&lang2=' + lang2 + '&having={"translationCategory_id":' + category + '}', { headers: headers }).map(function (res) { return res.json(); });
+                        }
+                        else {
+                            return this._http.get(config.api_url + 'translations/?lang1=' + lang1 + '&lang2=' + lang2, { headers: headers }).map(function (res) { return res.json(); });
+                        }
+                    }
+                };
+                TranslationService.prototype.getTranslation = function (id) {
+                    if (id === void 0) { id = null; }
+                    var headers = this._authService.getHeaderBearer();
+                    if (this._authService.isLoggedIn()) {
+                        return this._http.get(config.api_url + 'translations/' + id, { headers: headers }).map(function (res) { return res.json(); });
+                    }
                 };
                 TranslationService = __decorate([
                     core_1.Injectable(), 

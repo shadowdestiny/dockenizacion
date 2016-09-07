@@ -9,8 +9,29 @@
 
 <form #filterTranslationForm="ngForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-            <label>Display Language</label>
+            <label>Display Languages</label>
+            
+            <select [(ngModel)]="language1">
+                <option *ngFor="#language of languages; #i=index" value="{{ language.ccode }}"> 
+                    {{ language.ccode }}
+                </option>
+            </select>
 
+            <select [(ngModel)]="language2">
+                <option *ngFor="#language of languages; #i=index" value="{{ language.ccode }}"> 
+                    {{ language.ccode }}
+                </option>
+            </select>
+            
+            <br/>
+            <label>Category</label>
+            <select [(ngModel)]="cat">
+                <option *ngFor="#category of categories; #i=index" value="{{ category.id }}"> 
+                    {{ category.categoryName }}
+                </option>
+            </select>
+
+            <button type="submit" class="btn btn-default">Display</button>
         </div>
 </form>
 
@@ -20,25 +41,53 @@
             <th>Key</th>
             <th>Category</th>
             <th>Description</th>
-            <th>English</th>
-            <th>German</th>
+            <th>{{ lang1 }} </th>
+            <th>{{ lang2 }} </th> 
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="#translation of translations">
-            <td>
-                
+        <tr *ngFor="#translation of translations; #i=index">
+            <td> 
+                {{ translations[i].translationKey }} 
             </td>
-            <td>
-                
-            </td>
-            <td>
+            <td> 
+                {{ translations[i].category[0].categoryName }} 
+            </td>         
+            <td> 
+                {{ translations[i].description }} 
+            </td> 
             
-            </td>
-            <td>
+            
+            <td *ngIf="translations[i].details[0].length == 0"> 
                
+            </td> 
+             <td *ngIf="translations[i].details[0].length == 0"> 
+                
             </td>
+ 
+      
+          
+                <td *ngIf="translations[i].details[0].length == 1 && translations[i].details[0][0].lang != lang1">
+                
+                </td>
+
+            <td *ngFor="#detail of translations[i].details[0]; #j=index">
+                <div *ngIf="detail.lang == lang1" > 
+                    {{ detail.value }} 
+                </div>
+                <div *ngIf="detail.lang == lang2" > 
+                    {{ detail.value }} 
+                </div>
+            </td>      
+            
+             <td *ngIf="translations[i].details[0].length == 1 && translations[i].details[0][0].lang != lang2">
+                
+            </td>
+            
+            <td> 
+                <a [routerLink]="['EditTranslation', {id: translations[i].id}]" style="cursor:pointer">edit</a>
+            </td>    
         </tr>
     </tbody>
 </table>

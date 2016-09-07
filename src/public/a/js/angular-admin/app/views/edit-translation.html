@@ -4,30 +4,34 @@
             Translation was added correctly
         </div>
     </div>
-    <form #addTranslationForm="ngForm" (ngSubmit)="addTranslation()">
+    <form #editTranslationForm="ngForm" (ngSubmit)="editTranslation()">
 
         <div class="form-group">
             <label>Translation</label>
-            <input type="text" #key="ngForm" ngControl="key" [(ngModel)]="translation.key" class="form-control" required />
-            <span *ngIf="!key.valid">The translation key is required</span>
+            <input type="text" #translationKey="ngForm" ngControl="translationKey" [(ngModel)]="translation.translationKey" class="form-control" required />
+            <span *ngIf="!translationKey.valid">The translation key is required</span>
         </div>
 
         <div class="form-group">
-            <label>Category</label>
+            <label>Description</label>
             <input type="text" #description="ngForm" ngControl="description" [(ngModel)]="translation.description" class="form-control" required />
 
-            <select #category="ngForm" ngControl="category" [(ngModel)]="translation.category" class="form-control" required>
-                //here we need to dynamically load the categories we have 
-
+            <label>Category</label> <br/>
+            <select [(ngModel)]="translation">
+   
+                <option *ngFor="#category of categories; #i=index" value="{{ category.id }}" [selected]="category.id == translation.translationCategory"> 
+                    {{ category.categoryName }} 
+                </option>
             </select>
 
         </div>
-
-
-
-// here we need to dynamically add a field for each languages
+            Translation --> {{translation.details[0] }}
+        <div class="form-group" *ngFor="#language of languages; #i=index">
+            <label>{{ language.ccode }}</label>
+   
+        </div>
 
         <br/>
-        <button type="submit" class="btn btn-default" [disabled]="!addLanguageForm.form.valid">Update Translation</button>
+        <button type="submit" class="btn btn-default">Update Translation</button>
     </form>
 </section>

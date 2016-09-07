@@ -6,9 +6,10 @@ System.register([], function(exports_1, context_1) {
         setters:[],
         execute: function() {
             Translation = (function () {
-                function Translation(id, key, category, description) {
+                function Translation(id, translationKey, translationCategory, category, description) {
                     this.id = id;
-                    this.key = key;
+                    this.translationKey = translationKey;
+                    this.translationCategory = translationCategory;
                     this.category = category;
                     this.description = description;
                 }

@@ -1,8 +1,11 @@
+import {Category} from "./category";
+
 export class Translation{
     constructor(
         public id:number,
-        public key:string,
-        public category:number,
+        public translationKey:string,
+        public translationCategory:number,
+        public category:Category,
         public description:string
     ){}
 }

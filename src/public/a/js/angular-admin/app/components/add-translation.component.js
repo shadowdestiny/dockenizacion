@@ -1,4 +1,4 @@
-System.register(['angular2/core', "angular2/router", "../services/translation.service"], function(exports_1, context_1) {
+System.register(['angular2/core', "angular2/router", "../services/translation.service", "../services/language.service", "../services/category.service"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', "angular2/router", "../services/translation.se
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, translation_service_1;
+    var core_1, router_1, translation_service_1, language_service_1, category_service_1;
     var AddTranslationComponent;
     return {
         setters:[
@@ -22,23 +22,51 @@ System.register(['angular2/core', "angular2/router", "../services/translation.se
             },
             function (translation_service_1_1) {
                 translation_service_1 = translation_service_1_1;
+            },
+            function (language_service_1_1) {
+                language_service_1 = language_service_1_1;
+            },
+            function (category_service_1_1) {
+                category_service_1 = category_service_1_1;
             }],
         execute: function() {
             AddTranslationComponent = (function () {
-                function AddTranslationComponent(_translationService, _routeParams) {
+                function AddTranslationComponent(_translationService, _categoryService, _languageService, _routeParams) {
                     this._translationService = _translationService;
+                    this._categoryService = _categoryService;
+                    this._languageService = _languageService;
                     this._routeParams = _routeParams;
                 }
+                AddTranslationComponent.prototype.ngOnInit = function () {
+                    this.getLanguages();
+                    this.getCategories();
+                };
                 AddTranslationComponent.prototype.addTranslation = function () {
+                };
+                AddTranslationComponent.prototype.getLanguages = function () {
+                    var _this = this;
+                    this._languageService.getLanguages()
+                        .subscribe(function (result) {
+                        _this.languages = result.languages;
+                    }, function (error) {
+                    });
+                };
+                AddTranslationComponent.prototype.getCategories = function () {
+                    var _this = this;
+                    this._categoryService.getCategories()
+                        .subscribe(function (result) {
+                        _this.categories = result.translation_categories;
+                    }, function (error) {
+                    });
                 };
                 AddTranslationComponent = __decorate([
                     core_1.Component({
                         selector: 'add-translation',
                         templateUrl: '/a/js/angular-admin/app/views/add-translation.html',
-                        providers: [translation_service_1.TranslationService],
+                        providers: [translation_service_1.TranslationService, category_service_1.CategoryService, language_service_1.LanguageService],
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
-                    __metadata('design:paramtypes', [translation_service_1.TranslationService, router_1.RouteParams])
+                    __metadata('design:paramtypes', [translation_service_1.TranslationService, category_service_1.CategoryService, language_service_1.LanguageService, router_1.RouteParams])
                 ], AddTranslationComponent);
                 return AddTranslationComponent;
             }());
