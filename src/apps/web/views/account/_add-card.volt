@@ -119,7 +119,7 @@
 
         <div class="notes cl">
             <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
-            <span class="txt" data-txt='{{ language.translate("Fee of")}}  {{ site_config.fee }} {{ language.translate("will be charged for transfers less than ") }}{{ symbol }} {{ site_config.feeLimit }}' >{{ language.translate("Fee of")}} {{  site_config.fee }} {{ language.translate("will be charged for transfers less than ") }} {{ site_config.feeLimit }}</span>
+            <span class="txt" data-txt='{{ language.translate("Minimum Deposit is ") }}{{ symbol }} {{ site_config.feeLimit }}' >{{ language.translate("Minimum Deposit is ") }} {{ site_config.feeLimit }}</span>
             <span class="txt">{{ language.translate("Currencies are just informative, transactions are charged in Euros.")}}</span>
 	<span class="txt">{{ language.translate("This transaction will appear as EuroMillions.com on your bank account statement.")}}</span>
         </div>
