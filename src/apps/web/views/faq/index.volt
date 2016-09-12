@@ -93,7 +93,7 @@
 
                     <a id="n01"></a>
                     <h3 class="h3">{{ language.translate("What is the Euromillions lottery?") }}</h3>
-                    <p>{{ language.translate('Euromillions is the biggest European transnational lottery featuring a minimum 15 million euro jackpot every Tuesday and Friday. The jackpot can rollover until it reaches 190 million euro if there are no winners.') }}</p>
+                    <p>{{ language.translate('Euromillions is the biggest European transnational lottery featuring a minimum 17 million euro jackpot every Tuesday and Friday. The jackpot can rollover until it reaches 190 million euro if there are no winners.') }}</p>
                     {% include "faq/back-top.volt" %}
 
                     <a id="n02"></a>
@@ -131,7 +131,7 @@
 
                     <a id="n08"></a>
                     <h3 class="h3">{{ language.translate('What is the minimum guaranteed jackpot?')}}</h3>
-                    <p>{{ language.translate('The minimum guaranteed jackpot is &euro;15 million. It can rollover until &euro;190 million.') }}</p>
+                    <p>{{ language.translate('The minimum guaranteed jackpot is &euro;17 million. It can rollover until &euro;190 million.') }}</p>
                     {% include "faq/back-top.volt" %}
 
                     <a id="n09"></a>
@@ -188,7 +188,7 @@
 
                     <a id="n17"></a>
                     <h3 class="h3">{{ language.translate("What are the odds of winning?") }}</h3>
-                    <p>{{ language.translate('The odds of winning the Euromillions jackpot are approximately 116,000,000 to 1. The odds of winning a Euromillions prize is 23 to 1.') }}</p>
+                    <p>{{ language.translate('The odds of winning the Euromillions jackpot are approximately 140,000,000 to 1. The odds of winning a Euromillions prize is 22 to 1.') }}</p>
                     {% include "faq/back-top.volt" %}
 
                     <h2 class="h2 yellow">{{ language.translate("Account and Billings") }}</h2>

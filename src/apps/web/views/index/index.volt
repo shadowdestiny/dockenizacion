@@ -258,13 +258,13 @@ end PROD imports-->
 					<div class="col6 box-txt l">
 						<h2 class="h1 yellow">{{ language.translate("Playing EuroMillions") }}</h2>
 						<h3 class="li-title">{{ language.translate("Play") }}</h3>
-						<p>{{ language.translate("Select five numbers from 1 to 50 and two lucky stars numbered from 1 to 11. The results are published shortly after the draw on Euromillions.com, and players receive an email notification detailing the latest results and if they have won. Winnings are commission free and are immediately credited to the player’s account on Euromillions.com") }}</p>
+						<p>{{ language.translate("Select five numbers from 1 to 50 and two lucky stars numbered from 1 to 12. The results are published shortly after the draw on Euromillions.com, and players receive an email notification detailing the latest results and if they have won. Winnings are commission free and are immediately credited to the player’s account on Euromillions.com") }}</p>
 						<h3 class="li-title">{{ language.translate("Eligibility") }}</h3>
 						<p>{{ language.translate("Any person 18 years or older can play EuroMillions.") }}</p>
 						<h3 class="li-title">{{ language.translate("Jackpot") }}</h3>
-						<p>{{ language.translate("The EuroMillions Jackpot can reach up to &euro;190 million with a guaranteed jackpot of at least €15 million (&pound;10.5 million) per draw (two draws per week). In the absence of a jackpot winner, the money is rolled over to the next draw and will grow until the jackpot is won, or the Euromillions Pool Cap (&euro;190 million) is reached.") }}</p>
+						<p>{{ language.translate("The EuroMillions Jackpot can reach up to &euro;190 million with a guaranteed jackpot of at least €17 million (&pound;14.4 million) per draw (two draws per week). In the absence of a jackpot winner, the money is rolled over to the next draw and will grow until the jackpot is won, or the Euromillions Pool Cap (&euro;190 million) is reached.") }}</p>
 						<h3 class="li-title">{{ language.translate("Odds") }}</h3>
-						<p>{{ language.translate("The EuroMillions lottery features 13 different tiers and the odds of winning a EuroMillions prize are 1 in 23. To win the Euromillions jackpot prize, players need to match 5 main numbers from 50, and 2 lucky stars from 11. The odds of hitting the Euromillions Jackpot are 1 in 116,531,800.") }}</p>
+						<p>{{ language.translate("The EuroMillions lottery features 13 different tiers and the odds of winning a EuroMillions prize are 1 in 22. To win the Euromillions jackpot prize, players need to match 5 main numbers from 50, and 2 lucky stars from 12. The odds of hitting the Euromillions Jackpot are 1 in 139,838,800.") }}</p>
 					</div>
 					<div class="col6 bg-hope"></div>
 				</div>

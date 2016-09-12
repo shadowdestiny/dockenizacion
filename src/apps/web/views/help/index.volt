@@ -29,7 +29,7 @@
                             </div>
                             <div class="content">
                                 <h3 class="li-title">{{ language.translate("Choose your numbers") }}</h3>
-                                {{ language.translate("Complete a Euromillions play slip by selecting <em>five</em> main numbers from 1 to 50 and <em>two</em> Lucky Stars from 1 to 11. Alternatively, click on") }} <div class='sample btn gwy'><svg class="ico v-shuffle"><use xlink:href="/w/svg/icon.svg#v-shuffle"/></svg></div> or <div class='sample btn bwb'>{{ language.translate("Randomize all lines") }} <svg class="ico v-shuffle"><use xlink:href="/w/svg/icon.svg#v-shuffle"/></svg></div> {{ language.translate("to generate a random selection of numbers.") }}
+                                {{ language.translate("Complete a Euromillions play slip by selecting <em>five</em> main numbers from 1 to 50 and <em>two</em> Lucky Stars from 1 to 12. Alternatively, click on") }} <div class='sample btn gwy'><svg class="ico v-shuffle"><use xlink:href="/w/svg/icon.svg#v-shuffle"/></svg></div> or <div class='sample btn bwb'>{{ language.translate("Randomize all lines") }} <svg class="ico v-shuffle"><use xlink:href="/w/svg/icon.svg#v-shuffle"/></svg></div> {{ language.translate("to generate a random selection of numbers.") }}
                             </div>
                         </li>
                         <li class="slip cl">
