@@ -43,7 +43,7 @@
                         <li><a href="#n07">{{ language.translate("What is the Prize Breakdown?") }}</a></li>
                         <li><a href="#n08">{{ language.translate("What is the minimum guaranteed jackpot?") }}</a></li>
                         <li><a href="#n09">{{ language.translate("What is a Superdraw?") }}</a></li>
-                        <li><a href="#n11">{{ language.translate("How can I participate in a future draw?") }}</a></li>
+                    {#  <li><a href="#n11">{{ language.translate("How can I participate in a future draw?") }}</a></li> #}
                     {#  <li><a href="#n13">{{ language.app("How do I make a bet with multiple numbers in a line?") }}</a></li> #}
                     </ul>
 
@@ -93,7 +93,7 @@
 
                     <a id="n01"></a>
                     <h3 class="h3">{{ language.translate("What is the Euromillions lottery?") }}</h3>
-                    <p>{{ language.translate('Euromillions is the biggest European transnational lottery featuring a minimum 15 million euro jackpot every Tuesday and Friday. The jackpot can rollover until it reaches 190 million euro if there are no winners.') }}</p>
+                    <p>{{ language.translate('Euromillions is the biggest European transnational lottery featuring a minimum 17 million euro jackpot every Tuesday and Friday. The jackpot can rollover until it reaches 190 million euro if there are no winners.') }}</p>
                     {% include "faq/back-top.volt" %}
 
                     <a id="n02"></a>
@@ -131,18 +131,18 @@
 
                     <a id="n08"></a>
                     <h3 class="h3">{{ language.translate('What is the minimum guaranteed jackpot?')}}</h3>
-                    <p>{{ language.translate('The minimum guaranteed jackpot is &euro;15 million. It can rollover until &euro;190 million.') }}</p>
+                    <p>{{ language.translate('The minimum guaranteed jackpot is &euro;17 million. It can rollover until &euro;190 million.') }}</p>
                     {% include "faq/back-top.volt" %}
 
                     <a id="n09"></a>
                     <h3 class="h3">{{ language.translate("What is a Superdraw?") }}</h3>
-                    <p>{{ language.translate('A Euromillions Superdraw is a special draw which typically features a guaranteed Euro 100 million jackpot whether or not the Euromillions jackpot was won in the preceding draw. Superdraws usually occur once or twice a year. Similarly to a normal Euromillions draw, if no one matches the 5 numbers and the two lucky stars, the jackpot rolls over to the next draw.') }}</p>
+                    <p>{{ language.translate('A Euromillions Superdraw is a special draw which typically features a guaranteed Euro 130 million jackpot whether or not the Euromillions jackpot was won in the preceding draw. Superdraws usually occur once or twice a year. Similarly to a normal Euromillions draw, if no one matches the 5 numbers and the two lucky stars, the jackpot rolls over to the next draw.') }}</p>
                     {% include "faq/back-top.volt" %}
 
-                    <a id="n11"></a>
+{#                    <a id="n11"></a>
                     <h3 class="h3">{{ language.translate("How can I participate in a future draw?") }}</h3>
                     <p>{{ language.translate('Yes, you can purchase a play for a future Euromillions draw by using the Buy for Draw option under your lines on the <a href="/euromillions/play">Play Page</a>. You can buy a ticket for up to 12 draws in advance.') }}</p>
-                    {% include "faq/back-top.volt" %}
+                    {% include "faq/back-top.volt" %} #}
 
 {#                    <a id="n13"></a>
                     <h3 class="h3">{{ language.app("How do I make a bet with multiple numbers in a line?") }}</h3>
@@ -188,7 +188,7 @@
 
                     <a id="n17"></a>
                     <h3 class="h3">{{ language.translate("What are the odds of winning?") }}</h3>
-                    <p>{{ language.translate('The odds of winning the Euromillions jackpot are approximately 116,000,000 to 1. The odds of winning a Euromillions prize is 23 to 1.') }}</p>
+                    <p>{{ language.translate('The odds of winning the Euromillions jackpot are approximately 140,000,000 to 1. The odds of winning a Euromillions prize is 13 to 1.') }}</p>
                     {% include "faq/back-top.volt" %}
 
                     <h2 class="h2 yellow">{{ language.translate("Account and Billings") }}</h2>
