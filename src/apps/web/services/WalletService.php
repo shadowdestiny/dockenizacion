@@ -203,6 +203,11 @@ class WalletService
         return null;
     }
 
+    public function fetchLastTransactionId()
+    {
+        return $this->transactionService->obtainLastId();
+    }
+
     public function logMovement()
     {
         //EMTD TO DO

@@ -80,5 +80,10 @@ class TransactionService
         }
     }
 
+    public function obtainLastId()
+    {
+        return $this->transactionRepository->getNextId();
+    }
+
 
 }

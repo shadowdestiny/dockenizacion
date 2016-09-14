@@ -45,8 +45,8 @@ class PlayService
     private $cartService;
     /** @var  WalletService $walletService */
     private $walletService;
-    /** @var  PayXpertCardPaymentStrategy $payXpertCardPaymentStrategy */
-    private $payXpertCardPaymentStrategy;
+    /** @var  PayXpertCardPaymentStrategy $cardPaymentProvider */
+    private $cardPaymentProvider;
     /** @var  BetService $betService */
     private $betService;
     /** @var  EmailService $emailService */
@@ -73,7 +73,7 @@ class PlayService
         $this->cartService = $cartService;
         $this->walletService = $walletService;
         $this->betService = $betService;
-        $this->payXpertCardPaymentStrategy = $payXpertCardPaymentStrategy;
+        $this->cardPaymentProvider = $payXpertCardPaymentStrategy;
         $this->emailService = $emailService;
     }
 
@@ -136,8 +136,9 @@ class PlayService
                     $order->setAmountWallet($user->getWallet()->getBalance());
                     $draw = $this->lotteryService->getNextDrawByLottery('EuroMillions');
                     if( null != $credit_card ) {
-                        $this->payXpertCardPaymentStrategy->user($user);
-                        $result_payment = $this->walletService->payWithCreditCard($this->payXpertCardPaymentStrategy,$credit_card, $user, $order->getCreditCardCharge());
+                        $this->cardPaymentProvider->user($user);
+                        $this->cardPaymentProvider->idTransaction = $this->walletService->fetchLastTransactionId();
+                        $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider,$credit_card, $user, $order->getCreditCardCharge());
                     } else {
                         $result_payment = new ActionResult(true,$order);
                     }

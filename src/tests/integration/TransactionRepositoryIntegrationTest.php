@@ -41,4 +41,16 @@ class TransactionRepositoryIntegrationTest extends RepositoryIntegrationTestBase
         $actual = $this->sut->getTransactionsByType($transaction);
         $this->assertEquals(2,count($actual));
     }
+
+    /**
+     * method getLast
+     * when called
+     * should returnNextIdFromTransactionTable
+     */
+    public function test_getLast_called_returnNextIdFromTransactionTable()
+    {
+        $actual = $this->sut->getNextId();
+        $this->assertEquals(6, $actual);
+    }
+    
 }

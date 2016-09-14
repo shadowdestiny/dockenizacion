@@ -22,4 +22,15 @@ class TransactionRepository extends RepositoryBase
 
     }
 
+    public function getNextId()
+    {
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT max(t.id)'
+                .' FROM \EuroMillions\web\entities\Transaction t')
+            ->getResult();
+
+        return (int) ($result[0][1]) +1 ;
+    }
+
 }
