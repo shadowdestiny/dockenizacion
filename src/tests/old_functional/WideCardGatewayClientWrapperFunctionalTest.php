@@ -29,8 +29,7 @@ class WideCardGatewayClientWrapperFunctionalTest extends DatabaseIntegrationTest
      */
     public function test_send_calledPassingAValidJson_returnJsonResponseFromEndpoint()
     {
-        $this->markTestSkipped("Cuando la api en amazon esté disponible en beta, apuntar a la ip para pasar el test");
-        $endpoint = 'http://10.0.2.2:8081/payment';
+        $endpoint = 'https://api.euromillions.com/payment';
         $wideCardConfig = new WideCardConfig($endpoint);
         $gwWrapper = new GatewayClientWrapper($wideCardConfig);
         $json = [

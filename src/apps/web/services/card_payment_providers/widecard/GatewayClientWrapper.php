@@ -23,6 +23,7 @@ class GatewayClientWrapper
     public function send(array $params) {
         try {
             /** @var Response  $response */
+            $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYHOST,false);
             $response = $this->curlWrapper->post($this->config->getEndpoint(),
                 json_encode($params),
                 true,

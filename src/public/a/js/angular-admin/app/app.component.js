@@ -1,4 +1,4 @@
-System.register(['angular2/core', "angular2/router", "./components/list-language.component", "./components/edit-language.component", "./components/add-language.component", "./components/list-category.component", "./components/add-category.component", "./components/edit-category.component", "./components/edit-Translation.component", "./components/add-translation.component", "./services/auth.service", "./components/list-translation.component"], function(exports_1, context_1) {
+System.register(['angular2/core', "angular2/router", "./components/list-language.component", "./components/edit-language.component", "./components/add-language.component", "./components/list-category.component", "./components/add-category.component", "./components/edit-category.component", "./components/edit-translation.component", "./components/add-translation.component", "./services/auth.service", "./components/list-translation.component"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', "angular2/router", "./components/list-language
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, list_language_component_1, edit_language_component_1, add_language_component_1, list_category_component_1, add_category_component_1, edit_category_component_1, edit_Translation_component_1, add_translation_component_1, auth_service_1, list_translation_component_1;
+    var core_1, router_1, list_language_component_1, edit_language_component_1, add_language_component_1, list_category_component_1, add_category_component_1, edit_category_component_1, edit_translation_component_1, add_translation_component_1, auth_service_1, list_translation_component_1;
     var AppComponent;
     return {
         setters:[
@@ -38,8 +38,8 @@ System.register(['angular2/core', "angular2/router", "./components/list-language
             function (edit_category_component_1_1) {
                 edit_category_component_1 = edit_category_component_1_1;
             },
-            function (edit_Translation_component_1_1) {
-                edit_Translation_component_1 = edit_Translation_component_1_1;
+            function (edit_translation_component_1_1) {
+                edit_translation_component_1 = edit_translation_component_1_1;
             },
             function (add_translation_component_1_1) {
                 add_translation_component_1 = add_translation_component_1_1;
@@ -82,7 +82,7 @@ System.register(['angular2/core', "angular2/router", "./components/list-language
                         { path: "/categories", name: "Categories", component: list_category_component_1.ListCategoryComponent },
                         { path: "/add-category/", name: "AddCategory", component: add_category_component_1.AddCategoryComponent },
                         { path: "/edit-category/", name: "EditCategory", component: edit_category_component_1.EditCategoryComponent },
-                        { path: "/edit-translation/", name: "EditTranslation", component: edit_Translation_component_1.EditTranslationComponent },
+                        { path: "/edit-translation/", name: "EditTranslation", component: edit_translation_component_1.EditTranslationComponent },
                         { path: "/add-translation/", name: "AddTranslation", component: add_translation_component_1.AddTranslationComponent },
                     ]), 
                     __metadata('design:paramtypes', [auth_service_1.AuthService])
