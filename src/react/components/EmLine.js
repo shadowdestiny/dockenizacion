@@ -183,17 +183,18 @@ var EuroMillionsLine = React.createClass({
         star_rows.push(<EuroMillionsLineStarsRow random_animation={this.state.isAnimated} numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
                                                  extraClass="" columnClass="col3 not" key="1"/>);
         star_numbers = [];
-        for (; k <= 7; k++) {
+        for (; k <= 8; k++) {
             star_numbers.push(k);
         }
         star_rows.push(<EuroMillionsLineStarsRow random_animation={this.state.isAnimated} numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
-                                                 extraClass=" extra-pad" columnClass="col4 not" key="2"/>);
+                                                 extraClass=" " columnClass="col4 not" key="2"/>);
         star_numbers = [];
-        for (; k <= 11; k++) {
+        for (; k <= 12; k++) {
             star_numbers.push(k);
         }
         star_rows.push(<EuroMillionsLineStarsRow random_animation={this.state.isAnimated} numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
                                                  extraClass="" columnClass="col3 not" key="3"/>);
+
 
         var alphabet = 'ABCDEFGHIJKLMNOPQRSTVWXYZ';
         var num_char_line = '';
