@@ -47,6 +47,24 @@ class LoteriasyapuestasDotEsApiFunctionalTest extends DatabaseIntegrationTestBas
     }
 
 
+    /**
+     * method getResultBreakDownForDate
+     * when called
+     * should returnBreakdownForDate
+     */
+    public function test_getResultBreakDownForDate_called_returnBreakdownForDate()
+    {
+        /** @var EntityManager $entity_manager */
+        $entity_manager = DI::getDefault()->get('entityManager');
+        $lottery_repository = $entity_manager->getRepository($this->getEntitiesToArgument('Lottery'));
+        /** @var Lottery $lottery */
+        $lottery = $lottery_repository->findOneBy(['name'=>'EuroMillions']);
+        $sut = new LoteriasyapuestasDotEsApi();
+        $actual = $sut->getResultBreakDownForDate($lottery->getName(),$lottery->getLastDrawDate()->format("Y-m-d"));
+        $this->assertArrayHasKey('category_one',$actual);
+
+    }
+
 
     /**
      * Child classes must implement this method. Return empty array if no fixtures are needed
