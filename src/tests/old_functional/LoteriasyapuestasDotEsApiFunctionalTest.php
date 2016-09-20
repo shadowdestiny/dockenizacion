@@ -62,7 +62,6 @@ class LoteriasyapuestasDotEsApiFunctionalTest extends DatabaseIntegrationTestBas
         $sut = new LoteriasyapuestasDotEsApi();
         $actual = $sut->getResultBreakDownForDate($lottery->getName(),$lottery->getLastDrawDate()->format("Y-m-d"));
         $this->assertArrayHasKey('category_one',$actual);
-
     }
 
 
