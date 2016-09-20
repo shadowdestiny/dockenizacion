@@ -139,7 +139,7 @@ var EuroMillionsLine = React.createClass({
             if(n == 0) i--;
         }
         for(var i=0; i < 2; i++){
-            var s = Math.floor(Math.random() * 12);
+            var s = Math.floor(Math.random() * 13);
             if(stars.indexOf(s) == -1) stars[i] = s; else i--;
             if(s == 0) i--;
         }
