@@ -19,7 +19,7 @@ class WideCardPaymentStrategy implements ICreditCardStrategy
 
     public function get()
     {
-        return new WideCardPaymentProvider(new WideCardConfig($this->config['endpoint']));
+        return new WideCardPaymentProvider(new WideCardConfig($this->config['endpoint'], $this->config['api_key']));
     }
 
 

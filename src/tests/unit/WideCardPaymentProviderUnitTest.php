@@ -43,7 +43,7 @@ class WideCardPaymentProviderUnitTest extends UnitTestBase
         $response->header->statusCode = 200;
         $response->body = '{ "status": "ok" }';
         $this->gatewayClient_double->send(Argument::type('Array'))->willReturn($response);
-        $wideCardProvider = new WideCardPaymentProvider(new WideCardConfig([]),$this->gatewayClient_double->reveal());
+        $wideCardProvider = new WideCardPaymentProvider(new WideCardConfig([],''),$this->gatewayClient_double->reveal());
         $wideCardProvider->idTransaction = 1;
         $wideCardProvider->user(UserMother::aUserWith50Eur()->build());
         $actual = $wideCardProvider->charge($amount,$card);
@@ -65,7 +65,7 @@ class WideCardPaymentProviderUnitTest extends UnitTestBase
         $response->header->statusCode = 200;
         $response->body = '{ "status": "ko" }';
         $this->gatewayClient_double->send(Argument::type('Array'))->willReturn($response);
-        $wideCardProvider = new WideCardPaymentProvider(new WideCardConfig([]),$this->gatewayClient_double->reveal());
+        $wideCardProvider = new WideCardPaymentProvider(new WideCardConfig([],''),$this->gatewayClient_double->reveal());
         $wideCardProvider->idTransaction = 1;
         $wideCardProvider->user(UserMother::aUserWith50Eur()->build());
         $actual = $wideCardProvider->charge($amount,$card);

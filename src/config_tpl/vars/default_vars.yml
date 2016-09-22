@@ -65,6 +65,7 @@ gcp_master_gw_id: '21260002'
 gcp_master_sign_key: '6f6pB46l'
 
 wirecard_endpoint: 'https://api.euromillions.com/beta/payment'
+wirecard_apikey: 'n6CNSj6sue1EF2X9MLm9E1Pf873RrtYVYnhXsrI4'
 
 payment_strategy: 'WideCardPaymentStrategy'
 payment_config: 'wirecard'

@@ -8,10 +8,12 @@ class WideCardConfig
 {
 
     private $endpoint;
+    private $apiKey;
 
-    public function __construct($endpoint)
+    public function __construct($endpoint, $apiKey)
     {
         $this->endpoint = $endpoint;
+        $this->apiKey = $apiKey;
     }
 
     /**
@@ -28,6 +30,22 @@ class WideCardConfig
     public function setEndpoint($endpoint)
     {
         $this->endpoint = $endpoint;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+
+    /**
+     * @param mixed $apiKey
+     */
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
     }
 
 }
