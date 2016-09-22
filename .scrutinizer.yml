@@ -4,7 +4,7 @@ build_failure_conditions:
     - 'issues.severity(>= MAJOR).new.exists'
     - 'project.metric("scrutinizer.quality", < 8.75)'
     - 'project.metric("scrutinizer.test_coverage", < 0.45)'
-    - 'project.metric_change("scrutinizer.test_coverage", < -0.005)'
+    - 'project.metric_change("scrutinizer.test_coverage", < -0.045)'
 checks:
   php:
     verify_property_names: true
