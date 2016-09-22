@@ -41,11 +41,15 @@ class WalletService
         $provider->user($user);
         $payment_result = $this->pay($provider,$card,$creditCardCharge);
         if ($payment_result->success()) {
+            $walletBefore = $user->getWallet();
             $user->reChargeWallet($creditCardCharge->getNetAmount());
+            $uniqueId = $this->getUniqueTransactionId();
+            $provider->idTransaction = $uniqueId;
             try {
                 $this->entityManager->persist($user);
                 $this->entityManager->flush($user);
-                //EMTD add funds transaction
+                $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueId, $walletBefore);
+                $this->transactionService->storeTransaction(TransactionType::DEPOSIT,$dataTransaction);
             } catch (\Exception $e) {
                 //EMTD Log and warn the admin
             }
@@ -63,7 +67,7 @@ class WalletService
     public function payWithCreditCard(ICardPaymentProvider $provider,
                                            CreditCard $card,
                                            User $user,
-                                           CreditCardCharge $creditCardCharge)
+                                           CreditCardCharge $creditCardCharge,$uniqueID = null)
     {
 
         $payment_result = $this->pay($provider,$card,$creditCardCharge);
@@ -73,17 +77,7 @@ class WalletService
             try {
                 $this->entityManager->persist($user);
                 $this->entityManager->flush($user);
-                $dataTransaction = [
-                    'lottery_id' => 1,
-                    'numBets' => count($user->getPlayConfig()),
-                    'feeApplied' => $creditCardCharge->getIsChargeFee(),
-                    'amountWithWallet' => 0,
-                    'amountWithCreditCard' => $creditCardCharge->getFinalAmount()->getAmount(),
-                    'user' => $user,
-                    'walletBefore' => $walletBefore,
-                    'walletAfter' => $user->getWallet(),
-                    'now' => new \DateTime()
-                ];
+                $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueID, $walletBefore);
                 $this->transactionService->storeTransaction(TransactionType::DEPOSIT,$dataTransaction);
             } catch (\Exception $e) {
 
@@ -203,6 +197,12 @@ class WalletService
         return null;
     }
 
+    public function getUniqueTransactionId()
+    {
+        return $this->transactionService->getUniqueTransactionId();
+    }
+
+
     public function fetchLastTransactionId()
     {
         return $this->transactionService->obtainLastId();
@@ -211,5 +211,29 @@ class WalletService
     public function logMovement()
     {
         //EMTD TO DO
+    }
+
+    /**
+     * @param User $user
+     * @param CreditCardCharge $creditCardCharge
+     * @param $uniqueID
+     * @param $walletBefore
+     * @return array
+     */
+    private function buildDepositTransactionData(User $user, CreditCardCharge $creditCardCharge, $uniqueID, $walletBefore)
+    {
+        $dataTransaction = [
+            'lottery_id'           => 1,
+            'numBets'              => count($user->getPlayConfig()),
+            'feeApplied'           => $creditCardCharge->getIsChargeFee(),
+            'transactionID'        => $uniqueID,
+            'amountWithWallet'     => 0,
+            'amountWithCreditCard' => $creditCardCharge->getFinalAmount()->getAmount(),
+            'user'                 => $user,
+            'walletBefore'         => $walletBefore,
+            'walletAfter'          => $user->getWallet(),
+            'now'                  => new \DateTime()
+        ];
+        return $dataTransaction;
     }
 }

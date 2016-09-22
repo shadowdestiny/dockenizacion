@@ -24,6 +24,7 @@ class TicketPurchaseTransaction extends PurchaseTransaction implements ITransact
         $this->setFeeApplied($data['feeApplied']);
         $this->setWalletBefore($data['walletBefore']);
         $this->setWalletAfter($data['walletAfter']);
+        $this->setTransactionID($data['transactionID']);
         $this->setDate($data['now']);
         $this->setUser($data['user']);
         $this->setPlayConfigs($data['playConfigs']);

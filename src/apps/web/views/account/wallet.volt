@@ -102,6 +102,7 @@
     var value = $(this).val();
     if(value == '') value = 0.00;
     if(parseFloat(value).toFixed(2) >= parseFloat(fee_limit.substring(1)).toFixed(2)) {
+        console.log('llega');
         $('.box-wallet.overview > label.submit').removeClass('gray').addClass('green');
     } else {
         $('.box-wallet.overview > label.submit').removeClass('green').addClass('gray');

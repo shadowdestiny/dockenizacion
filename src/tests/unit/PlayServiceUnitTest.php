@@ -253,7 +253,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->exercisePlayWallet($user, $order, $credit_card,$draw_date);
         $this->betService_double->validation(Argument::any(), Argument::any(),Argument::any())->willReturn(new ActionResult(true));
         $entityManager_double = $this->getEntityManagerDouble();
-        $this->walletService_double->fetchLastTransactionId()->willReturn(1);
+        $this->walletService_double->getUniqueTransactionId()->willReturn(1);
         $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
         $entityManager_double->flush(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
         $this->walletService_double->payWithWallet($user,Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
@@ -281,7 +281,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->exercisePlayWallet($user, $order, $credit_card,$draw_date);
         $this->betService_double->validation(Argument::any(), Argument::any(), Argument::any())->willReturn(new ActionResult(true));
         $entityManager_double = $this->getEntityManagerDouble();
-        $this->walletService_double->fetchLastTransactionId()->willReturn(1);
+        $this->walletService_double->getUniqueTransactionId()->willReturn(1);
         $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
         $entityManager_double->flush(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
         $this->walletService_double->payWithWallet($user,Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
@@ -309,7 +309,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->lotteryService_double->getLotteryConfigByName('EuroMillions')->willReturn($lottery);
         $this->userRepository_double->find(['id' => $user->getId()])->willReturn($user);
         $this->orderStorageStrategy_double->findByKey($user->getId())->willReturn($order->toJsonData());
-        $this->walletService_double->fetchLastTransactionId()->willReturn(1);
+        $this->walletService_double->getUniqueTransactionId()->willReturn(1);
         $this->cartService_double->get($user->getId())->willReturn(new ActionResult(true, $order));
         $this->lotteryService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true, $euromillions_draw));
         $entityManager_double = $this->getEntityManagerDouble();
@@ -335,7 +335,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->exercisePlayWallet($user, $order, $credit_card,$draw_date);
         $expected = new ActionResult(true, $order);
         $sut = $this->getSut();
-        $this->walletService_double->fetchLastTransactionId()->willReturn(1);
+        $this->walletService_double->getUniqueTransactionId()->willReturn(1);
         $this->betService_double->validation(Argument::any(), Argument::any(),Argument::any())->willReturn(new ActionResult(true));
         $entityManager_double = $this->getEntityManagerDouble();
         $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalledTimes(4);
@@ -362,7 +362,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->exercisePlayWallet($user, $order, $credit_card,$draw_date);
         $expected = new ActionResult(true, $order);
         $sut = $this->getSut();
-        $this->walletService_double->fetchLastTransactionId()->willReturn(1);
+        $this->walletService_double->getUniqueTransactionId()->willReturn(1);
         $this->betService_double->validation(Argument::any(), Argument::any(),Argument::any())->willReturn(new ActionResult(true));
         $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalledTimes(4);
         $this->iDontCareAboutFlush();
@@ -569,7 +569,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->userRepository_double->find(['id' => $user->getId()])->willReturn($user);
         $this->orderStorageStrategy_double->findByKey($user->getId())->willReturn($order->toJsonData());
         $this->cartService_double->get($user->getId())->willReturn(new ActionResult(true, $order));
-        $this->walletService_double->payWithCreditCard($this->card_payment_provider->reveal(), $credit_card, $user, $order->getCreditCardCharge())->willReturn(new ActionResult(true));
+        $this->walletService_double->payWithCreditCard($this->card_payment_provider->reveal(), $credit_card, $user, $order->getCreditCardCharge(),1)->willReturn(new ActionResult(true));
         $this->lotteryService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true, $euromillions_draw));
     }
 

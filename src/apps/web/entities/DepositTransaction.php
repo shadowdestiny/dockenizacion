@@ -20,6 +20,7 @@ class DepositTransaction extends PurchaseTransaction implements ITransactionData
         $this->setWalletBefore($data['walletBefore']);
         $this->setWalletAfter($data['walletAfter']);
         $this->setAmountAdded($data['amount']);
+        $this->setTransactionID($data['transactionID']);
         $this->setDate($data['now']);
         $this->setUser($data['user']);
     }

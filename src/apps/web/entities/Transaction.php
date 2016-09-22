@@ -20,6 +20,7 @@ abstract class Transaction extends EntityBase
     protected $wallet_after;
     protected $entity_type;
     protected $user;
+    protected $transactionID;
 
     /**
      * @return mixed
@@ -132,5 +133,22 @@ abstract class Transaction extends EntityBase
     {
         $this->data = $data;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTransactionID()
+    {
+        return $this->transactionID;
+    }
+
+    /**
+     * @param mixed $transactionID
+     */
+    public function setTransactionID($transactionID)
+    {
+        $this->transactionID = $transactionID;
+    }
+
 
 }

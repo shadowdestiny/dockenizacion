@@ -36,6 +36,7 @@ class DepositGeneratorUnitTest extends UnitTestBase
             'user' => $user,
             'walletBefore' => $wallet_before,
             'walletAfter' => $wallet_after,
+            'transactionID' => uniqid(),
             'amount' => 2000,
             'now' => $now,
         ];

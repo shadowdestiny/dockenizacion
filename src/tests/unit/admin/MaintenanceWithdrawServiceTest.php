@@ -83,6 +83,7 @@ class MaintenanceWithdrawServiceTest extends UnitTestBase
             'feeApplied' => 0,
             'walletBefore' => Wallet::create(),
             'walletAfter' => Wallet::create(),
+            'transactionID' => uniqid(),
             'now' => '',
             'user' => '',
             'playConfigs' => [1,2]

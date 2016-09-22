@@ -59,6 +59,7 @@ class TransactionIntegrationTest extends DatabaseIntegrationTestBase
             'user' => $user,
             'walletBefore' => $user->getWallet(),
             'walletAfter' => $user->getWallet(),
+            'transactionID' => '123456',
             'now' => $now,
             'playConfigs' => [1,2]
         ];

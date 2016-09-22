@@ -26,6 +26,9 @@ class WideCardPaymentProvider implements ICardPaymentProvider
         $this->gatewayClient = $gatewayClient ?: new GatewayClientWrapper($config);
     }
 
+    public function __get($name) {
+        return $this->data[$name];
+    }
 
     public function __set($name, $value) {
         $this->data[$name] = $value;
@@ -60,7 +63,7 @@ class WideCardPaymentProvider implements ICardPaymentProvider
 
     private function createArrayData(Money $amount, CreditCard $card) {
         return [
-            'idTransaction' => $this->data['idTransaction'],
+            'idTransaction' => empty($this->data['idTransaction']) ?  1 : $this->data['idTransaction'],
             'userId' => $this->user->getId(),
             'amount' => $amount->getAmount(),
             'creditCardNumber' => $card->cardNumber()->toNative(),

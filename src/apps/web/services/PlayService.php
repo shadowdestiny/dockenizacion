@@ -137,8 +137,9 @@ class PlayService
                     $draw = $this->lotteryService->getNextDrawByLottery('EuroMillions');
                     if( null != $credit_card ) {
                         $this->cardPaymentProvider->user($user);
-                        $this->cardPaymentProvider->idTransaction = $this->walletService->fetchLastTransactionId();
-                        $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider,$credit_card, $user, $order->getCreditCardCharge());
+                        $uniqueId = $this->walletService->getUniqueTransactionId();
+                        $this->cardPaymentProvider->idTransaction = $uniqueId;
+                        $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider,$credit_card, $user, $order->getCreditCardCharge(),$uniqueId);
                     } else {
                         $result_payment = new ActionResult(true,$order);
                     }
@@ -164,6 +165,7 @@ class PlayService
                         }
                         $dataTransaction = [
                             'lottery_id' => 1,
+                            'transactionID' => $uniqueId,
                             'numBets' => count($order->getPlayConfig()),
                             'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
                             'amountWithWallet' => $lottery->getSingleBetPrice()->multiply(count($order->getPlayConfig()))->getAmount(),

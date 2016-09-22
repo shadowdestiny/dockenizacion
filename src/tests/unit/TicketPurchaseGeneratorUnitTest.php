@@ -36,6 +36,7 @@ class TicketPurchaseGeneratorUnitTest extends UnitTestBase
             'walletBefore' => $wallet_before,
             'walletAfter' => $wallet_after,
             'now' => $now,
+            'transactionID' => uniqid(),
             'playConfigs' => ['1,2']
         ];
         $expected = new TicketPurchaseTransaction($data);
