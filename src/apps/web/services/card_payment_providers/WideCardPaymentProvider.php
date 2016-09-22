@@ -63,7 +63,7 @@ class WideCardPaymentProvider implements ICardPaymentProvider
 
     private function createArrayData(Money $amount, CreditCard $card) {
         return [
-            'idTransaction' => empty($this->data['idTransaction']) ?  1 : $this->data['idTransaction'],
+            'idTransaction' => $this->data['idTransaction'],
             'userId' => $this->user->getId(),
             'amount' => $amount->getAmount(),
             'creditCardNumber' => $card->cardNumber()->toNative(),

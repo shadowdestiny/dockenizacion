@@ -39,12 +39,12 @@ class WalletService
                                            CreditCardCharge $creditCardCharge)
     {
         $provider->user($user);
+        $uniqueId = $this->getUniqueTransactionId();
+        $provider->idTransaction = $uniqueId;
         $payment_result = $this->pay($provider,$card,$creditCardCharge);
         if ($payment_result->success()) {
             $walletBefore = $user->getWallet();
             $user->reChargeWallet($creditCardCharge->getNetAmount());
-            $uniqueId = $this->getUniqueTransactionId();
-            $provider->idTransaction = $uniqueId;
             try {
                 $this->entityManager->persist($user);
                 $this->entityManager->flush($user);
