@@ -103,4 +103,13 @@ class BetService
         }
     }
 
+    public function updatePlayConfigsToInactive(\DateTime $dateTime)
+    {
+        try {
+            $this->playConfigRepository->updateToInactives($dateTime);
+        } catch ( \Exception $e ) {
+            throw new \Exception('Error updating playconfigs actives');
+        }
+    }
+
 }

@@ -133,6 +133,18 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $this->assertEquals(0,count($actual));
     }
 
+    /**
+     * method updateToInactives
+     * when called
+     * should updateMatchingRowsToInactive
+     */
+    public function test_updateToInactives_called_updateMatchingRowsToInactive()
+    {
+        $date = new \DateTime('2016-01-01');
+        $actual = $this->sut->updateToInactives($date);
+        $this->assertEquals(5,$actual);
+    }
+
     private function exerciseAdd($user,$euroMillionsLine)
     {
         $playConfig = new PlayConfig();

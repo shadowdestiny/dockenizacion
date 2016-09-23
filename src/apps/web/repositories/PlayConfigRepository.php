@@ -151,4 +151,20 @@ class PlayConfigRepository extends RepositoryBase
         return $result;
     }
 
+    public function updateToInactives(\DateTime $dateTime)
+    {
+        $date = $dateTime->format('Y-m-d');
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'UPDATE '
+                . $this->getEntityName() . ' p '
+                . ' SET p.active=0'
+                . ' WHERE :date > p.lastDrawDate')
+            ->setParameters([
+                'date' => $date
+            ])
+            ->execute();
+        return $result;
+    }
+
 }
