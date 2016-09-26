@@ -22,6 +22,9 @@ class Matcher extends EntityBase implements IEntity, IUser, \JsonSerializable
     protected $userId;
     protected $providerBetId;
     protected $prize;
+    protected $type;
+    protected $raffleMillion;
+    protected $raffleRain;
 
     /**
      * Specify data which should be serialized to JSON
@@ -179,6 +182,53 @@ class Matcher extends EntityBase implements IEntity, IUser, \JsonSerializable
         $this->matchTypeID = $matchTypeID;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRaffleMillion()
+    {
+        return $this->raffleMillion;
+    }
+
+    /**
+     * @param mixed $raffleMillion
+     */
+    public function setRaffleMillion($raffleMillion)
+    {
+        $this->raffleMillion = $raffleMillion;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRaffleRain()
+    {
+        return $this->raffleRain;
+    }
+
+    /**
+     * @param mixed $raffleRain
+     */
+    public function setRaffleRain($raffleRain)
+    {
+        $this->raffleRain = $raffleRain;
+    }
 
 
 }
