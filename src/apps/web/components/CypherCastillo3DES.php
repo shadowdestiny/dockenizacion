@@ -29,7 +29,7 @@ class CypherCastillo3DES implements ICypherStrategy
 
     public function encrypt($key,$clear)
     {
-        $key = self::$cypher_keys[$key];
+        $key = bin2hex(self::$cypher_keys[$key]);
         $key = pack("H" . strlen($key), $key);
 
         if ($key && $clear) {
@@ -56,7 +56,7 @@ class CypherCastillo3DES implements ICypherStrategy
     public function decrypt($cyphered, $key)
     {
         $cyphered = base64_decode($cyphered);
-        $key = pack("H" . strlen(self::$cypher_keys[$key]), self::$cypher_keys[$key]);
+        $key = pack("H" . strlen(bin2hex(self::$cypher_keys[$key])), bin2hex(self::$cypher_keys[$key]));
 
         if ($key && $cyphered) {
             $td = mcrypt_module_open(MCRYPT_3DES, '', 'cbc', '');
