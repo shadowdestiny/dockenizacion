@@ -93,7 +93,7 @@ class LotteryValidationCastilloApiUnitTest extends UnitTestBase
         $castilloCypherKey = CastilloCypherKey::create();
         $this->castilloTicketId_double->create()->willReturn(null);
         $this->castilloTicketId_double->id()->willReturn('123456');
-        $content = "<?xml version='1.0' encoding='UTF-8'?><ticket type='6' date='151004' bets='1' price='2'><id>123456</id><combination><number>7</number><number>15</number><number>16</number><number>17</number><number>22</number><star>1</star><star>7</star></combination></ticket>";
+        $content = "<?xml version='1.0' encoding='UTF-8'?><ticket type='6' date='151004' bets='1' price='2.50'><id>123456</id><combination><number>7</number><number>15</number><number>16</number><number>17</number><number>22</number><star>1</star><star>7</star></combination></ticket>";
         $this->cypher_double->encrypt($castilloCypherKey->key(), $content)->willReturn('content cifrado');
         $this->cypher_double->getSignature('content cifrado')->willReturn('signature cifrada');
         $this->curlWrapper_double->post('https://www.loteriacastillo.com/euromillions/')->willReturn(new CurlResponse(self::$xml_with_fake_cyphered_content));

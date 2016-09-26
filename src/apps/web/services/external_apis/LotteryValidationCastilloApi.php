@@ -11,6 +11,9 @@ use Phalcon\Http\Client\Provider\Curl;
 
 class LotteryValidationCastilloApi
 {
+
+    const PRICE_BET  = '2.50';
+
     private $curlWrapper;
 
     private $xml_response;
@@ -36,7 +39,7 @@ class LotteryValidationCastilloApi
 
         $regular_numbers = $line->getRegularNumbersArray();
         $lucky_numbers = $line->getLuckyNumbersArray();
-        $content = "<?xml version='1.0' encoding='UTF-8'?><ticket type='6' date='" . $date_next_draw->format('ymd') . "' bets='1' price='2'><id>" . $castilloTicketId->id() . "</id><combination>";
+        $content = "<?xml version='1.0' encoding='UTF-8'?><ticket type='6' date='" . $date_next_draw->format('ymd') . "' bets='1' price='".self::PRICE_BET."'><id>" . $castilloTicketId->id() . "</id><combination>";
         foreach ($regular_numbers as $number) {
             $content .= "<number>{$number}</number>";
         }
@@ -49,7 +52,6 @@ class LotteryValidationCastilloApi
 
         $content_cyphered = $cypher->encrypt($key, $content);
         $signature = $cypher->getSignature($content_cyphered);
-
         $xml = '<?xml version="1.0" encoding="UTF-8"?><message><operation id="' . $idsession . '" key="' . $key . '" type="1"><content>' . $content_cyphered . '</content></operation>';
         $xml .= '<signature>' . $signature . '</signature></message>';
         $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYPEER, 0);
