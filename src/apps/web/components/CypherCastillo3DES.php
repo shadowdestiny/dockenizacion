@@ -56,6 +56,7 @@ class CypherCastillo3DES implements ICypherStrategy
     public function decrypt($cyphered, $key)
     {
         $cyphered = base64_decode($cyphered);
+
         $key = pack("H" . strlen(bin2hex(self::$cypher_keys[$key])), bin2hex(self::$cypher_keys[$key]));
 
         if ($key && $cyphered) {
