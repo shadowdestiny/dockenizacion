@@ -29,7 +29,7 @@ class CypherCastillo3DES implements ICypherStrategy
 
     public function encrypt($key,$clear)
     {
-        $key = bin2hex(self::$cypher_keys[$key]);
+        $key = $this->getKeys($key);
         $key = pack("H" . strlen($key), $key);
 
         if ($key && $clear) {
@@ -57,7 +57,7 @@ class CypherCastillo3DES implements ICypherStrategy
     {
         $cyphered = base64_decode($cyphered);
 
-        $key = pack("H" . strlen(bin2hex(self::$cypher_keys[$key])), bin2hex(self::$cypher_keys[$key]));
+        $key = pack("H" . strlen($this->getKeys($key)), $this->getKeys($key));
 
         if ($key && $cyphered) {
             $td = mcrypt_module_open(MCRYPT_3DES, '', 'cbc', '');
@@ -78,6 +78,24 @@ class CypherCastillo3DES implements ICypherStrategy
         $signature = sha1(base64_decode($content_cypehered).self::PRESHARED);
         return base64_encode($signature);
     }
+
+
+    private function getKeys($key)
+    {
+        $keys = [];
+        $keys[0] = bin2hex('000000000000000000000000');
+        $keys[1] = bin2hex('000000000000000000000001');
+        $keys[2] = bin2hex('000000000000000000000002');
+        $keys[3] = bin2hex('000000000000000000000003');
+        $keys[4] = bin2hex('000000000000000000000004');
+        $keys[5] = bin2hex('000000000000000000000005');
+        $keys[6] = bin2hex('000000000000000000000006');
+        $keys[7] = bin2hex('000000000000000000000007');
+        $keys[8] = bin2hex('000000000000000000000008');
+        $keys[9] = bin2hex('000000000000000000000009');
+        return $keys[$key];
+    }
+
 
 
 }

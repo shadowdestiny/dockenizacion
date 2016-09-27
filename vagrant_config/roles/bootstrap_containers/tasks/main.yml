@@ -32,6 +32,8 @@
       REPLICATION_NODE: 2
       REPLICATION_SLAVE_USER: slave_db1
       REPLITACION_SLAVE_PASSWORD: euromillions
+      MYSQL_USER: euromillions
+      MYSQL_PASSWORD: tpl9
       MYSQL_ROOT_PASSWORD: tpl9
       MYSQL_DATABASE: euromillions
     links:
