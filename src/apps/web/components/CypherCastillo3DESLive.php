@@ -5,7 +5,7 @@ use EuroMillions\web\interfaces\ICypherStrategy;
 class CypherCastillo3DESLive implements ICypherStrategy
 {
 
-    const PRESHARED = 'llKA2+sd(23ssDFc';
+    const PRESHARED = '881e03X65b4fdfcY1dd18f6c2';
 
     private $cypher;
 
@@ -70,16 +70,16 @@ class CypherCastillo3DESLive implements ICypherStrategy
     private function getKeys($key)
     {
         $keys = [];
-        $keys[0] = '4b6a736e6b32394a4b446c322b61644d4a53443332336173';
-        $keys[1] = '61444437373332686a6b642e5721566b6c494f6e69557735';
-        $keys[2] = '6d26686872656b4b4e76474f733d693872342d4f3f3a4261';
-        $keys[3] = '2e4d43726772465a594234325a466e775f643f67344f6444';
-        $keys[4] = '6664556441563f462a3a444e376d7a6436362b434e742e4f';
-        $keys[5] = '657335442f61382f68323f5466353332396453332c506370';
-        $keys[6] = '715477306f392d2f5a6764332e71384d6b4271712f3a516d';
-        $keys[7] = '6444412b50707a4f2d724b353267783b30674d6e793f4e79';
-        $keys[8] = '67623d61442f4e3d4943702e653878444131646752635246';
-        $keys[9] = '6c4d6b49707273712552723d44432a7a5036776874516539';
+        $keys[0] = bin2hex('f67X782a5b18F098ff2e30bb2');
+        $keys[1] = bin2hex('d7ee921e4e6b5e5c17a4Pdf2c');
+        $keys[2] = bin2hex('422ec44fc8cR288e1e6d5cb25');
+        $keys[3] = bin2hex('a05d849c8Vda4e2ebe375508b');
+        $keys[4] = bin2hex('42f355U187e943276b22d6c79');
+        $keys[5] = bin2hex('f618975092b51d50fc2bK3dff');
+        $keys[6] = bin2hex('c9a3d138e26c3be52bf0b7936');
+        $keys[7] = bin2hex('6f6Z83acf69806f8e6e1bc02b');
+        $keys[8] = bin2hex('4f4ce0a4c34f37b7eadd22cf8');
+        $keys[9] = bin2hex('91ac3dDe3e5117b0221Ad49eb');
         return $keys[$key];
     }
 
