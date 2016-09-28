@@ -14,7 +14,7 @@ home
 {% block font %}<link href='https://fonts.googleapis.com/css?family=Signika:700' rel='stylesheet' type='text/css'>{% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}
-<script src="/w/js/mobileFix.min.js"></script>
+<script src="/w/js/mobileFix.js"></script>
 {%  if ga_code is defined %}
 <!--start PROD imports
 <script src="/w/js/dist/GASignUpLanding.min.js"></script>

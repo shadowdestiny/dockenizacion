@@ -12,8 +12,8 @@ function navValue(){
             }
             // add sliding capability
             $(".your-account").attr({"data-transition":"slide", "href":"#nav-account"});
-            $(".li-currency .link").attr({"data-transition":"slide", "href":"#language"});
         }
+        $(".li-currency .link").attr({"data-transition":"slide", "href":"#language"});
         mobile = 1; // You have a mobile size website
     }else{
         // DESKTOP

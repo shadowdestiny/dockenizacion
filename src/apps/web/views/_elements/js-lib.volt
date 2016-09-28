@@ -19,7 +19,6 @@ end PROD imports-->
 <script src="/w/js/mobileInit.js"></script>
 <script src="/w/js/main.js"></script>
 <!--end DEV imports-->
-<script src="/w/js/vendor/jquery.mobile.custom.min.js"></script>
 <script>
     var isOpera=!!window.opr&&!!opr.addons||!!window.opera||navigator.userAgent.indexOf(" OPR/")>=0,isFirefox="undefined"!=typeof InstallTrigger,isSafari=Object.prototype.toString.call(window.HTMLElement).indexOf("Constructor")>0,isIE=!!document.documentMode,isEdge=!isIE&&!!window.StyleMedia,isChrome=!!window.chrome&&!!window.chrome.webstore,isBlink=(isChrome||isOpera)&&!!window.CSS;
     {# /* DRAW TIME */ #}
@@ -31,3 +30,4 @@ end PROD imports-->
     var draw_date = '<?php echo !empty($draw_date) ? $draw_date : ""; ?>';
     var show_modal = '<?php echo !empty($show_modal_winning) ? 1 : 0; ?>';
 </script>
+<script src="/w/js/vendor/jquery.mobile.custom.min.js"></script>
