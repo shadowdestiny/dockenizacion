@@ -14,7 +14,7 @@ numbers
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}
-<script src="/w/js/mobileFix.min.js"></script>
+<script src="/w/js/mobileFix.js"></script>
 {% endblock %}
 {% block template_scripts_code %}
 $(function(){
