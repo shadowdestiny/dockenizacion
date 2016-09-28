@@ -187,7 +187,7 @@ var EuroMillionsLine = React.createClass({
             star_numbers.push(k);
         }
         star_rows.push(<EuroMillionsLineStarsRow random_animation={this.state.isAnimated} numbers={star_numbers} onStarClick={this.handleClickOnStar} selectedNumbers={this.state.selectedNumbers}
-                                                 extraClass=" " columnClass="col4 not" key="2"/>);
+                                                 extraClass=" " columnClass="col3 not" key="2"/>);
         star_numbers = [];
         for (; k <= 12; k++) {
             star_numbers.push(k);
