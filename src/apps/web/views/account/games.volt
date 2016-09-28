@@ -26,7 +26,7 @@
                     <div class="box info">
                         <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                         <span class="txt">
-                            {{ language.translate("You didn't play any games yet.") }} <a href="/{{ lottery }}/play">{{ language.translate("Play now and start to win.") }}</a>
+                            {{ language.translate("You have purchased no tickets for upcoming draws.") }} <a href="/{{ lottery }}/play">{{ language.translate("Play now and start to win.") }}</a>
                         </span>
                     </div>
 
