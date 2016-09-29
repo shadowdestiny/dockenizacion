@@ -3,6 +3,8 @@
 
 namespace EuroMillions\web\components;
 
+use EuroMillions\web\entities\EuroMillionsDraw;
+
 class DateTimeUtil
 {
 
@@ -36,6 +38,15 @@ class DateTimeUtil
         $limit_time = strtotime($date_today->format('Y/m/d '. $time_config['time']));
         return ($timeToRetry < $limit_time);
     }
+
+    public function checkTimeForClosePlay(\DateTime $draw)
+    {
+        $now = new \DateTime();
+        $datetime_from = $draw->sub(\DateInterval::createFromDateString('10 minutes'))->format('Y-m-d H:i');
+        return ($now->format('Y-m-d H:i') > $datetime_from);
+    }
+
+
 
     public function getNumWeeksBetweenDates( \DateTime $date_ini, \DateTime $date_end )
     {

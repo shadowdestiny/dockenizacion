@@ -16,6 +16,7 @@ class PlayController extends PublicSiteControllerBase
         $draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
         $date_time_util = new DateTimeUtil();
         $dayOfWeek = $date_time_util->getDayOfWeek($draw);
+        $checkOpenTicket = $date_time_util->checkTimeForClosePlay($draw);
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
         $automatic_random = $this->request->get('random');
 
@@ -38,6 +39,7 @@ class PlayController extends PublicSiteControllerBase
             'next_draw' => $dayOfWeek,
             'next_draw_format' => $draw->format('l j M G:i'),
             'currency_symbol' => $currency_symbol,
+            'openTicket' => ($checkOpenTicket) ? '1' : '0',
             'single_bet_price' => $single_bet_price_currency->getAmount() /100,
             'automatic_random' => isset($automatic_random) ? true : false,
         ]);

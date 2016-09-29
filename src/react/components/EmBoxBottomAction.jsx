@@ -6,6 +6,10 @@ var EuroMillionsAddToCart = require('./EmAddToCart.jsx');
 var EuroMillionsBoxBottomAction = React.createClass({
 
     addToCart : function () {
+        if(openTicket) {
+            showModalTicketClose();
+            return false;
+        }
         var params = '';
         this.props.lines.forEach(function(bet,i){
             if(bet.numbers.length == 5 && bet.stars.length == 2 ) {
