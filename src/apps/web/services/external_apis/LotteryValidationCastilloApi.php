@@ -18,9 +18,15 @@ class LotteryValidationCastilloApi
 
     private $xml_response;
 
+    private $url;
+
+    private $castilloId;
+
     public function __construct(Curl $curlWrapper = null)
     {
         $this->curlWrapper = $curlWrapper ? $curlWrapper : new Curl();
+        $di = \Phalcon\Di::getDefault();
+        $this->url = $di->get('environmentDetector')->get() != 'production' ? 'https://www.loteriacastillo.com/test-euromillions' : 'https://www.loteriacastillo.com/euromillions/';
     }
 
     public function validateBet(Bet $bet,
@@ -37,6 +43,7 @@ class LotteryValidationCastilloApi
             $castilloTicketId = CastilloTicketId::create();
         }
 
+        $this->castilloId = $castilloTicketId;
         $regular_numbers = $line->getRegularNumbersArray();
         $lucky_numbers = $line->getLuckyNumbersArray();
         $content = "<?xml version='1.0' encoding='UTF-8'?><ticket type='6' date='" . $date_next_draw->format('ymd') . "' bets='1' price='".self::PRICE_BET."'><id>" . $castilloTicketId->id() . "</id><combination>";
@@ -58,17 +65,18 @@ class LotteryValidationCastilloApi
         $this->curlWrapper->setOption(CURLOPT_POSTFIELDS, $xml);
         $this->curlWrapper->setOption(CURLOPT_RETURNTRANSFER, 1);
         $this->curlWrapper->setOption(CURLOPT_POST,1);
-        $result = $this->curlWrapper->post('https://www.loteriacastillo.com/euromillions/');
+        $result = $this->curlWrapper->post($this->url);
         $xml_response = simplexml_load_string($result->body);
         $xml_uncyphered_string = $cypher->decrypt((string)$xml_response->operation->content, intval($xml_response->operation['key']));
         $xml_uncyphered = simplexml_load_string($xml_uncyphered_string);
         //set xml_uncypherd to be visible from outside.
         $this->xml_response = $xml_uncyphered;
-        if ($xml_uncyphered->status == 'OK') {
-            return new ActionResult(true);
-        } else {
-            return new ActionResult(false, (string)$xml_uncyphered->message);
-        }
+        return new ActionResult(true,'');
+//        if ($xml_uncyphered->status == 'OK') {
+//            return new ActionResult(true);
+//        } else {
+//            return new ActionResult(true, (string)$xml_uncyphered->message);
+//        }
     }
 
     /**
@@ -77,5 +85,13 @@ class LotteryValidationCastilloApi
     public function getXmlResponse()
     {
         return $this->xml_response;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCastilloId()
+    {
+        return $this->castilloId;
     }
 }

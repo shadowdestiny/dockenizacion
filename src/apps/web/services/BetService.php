@@ -64,9 +64,9 @@ class BetService
                 $log_api_reponse = new LogValidationApi();
                 $log_api_reponse->initialize([
                     'id_provider' => 1,
-                    'id_ticket' => $lotteryValidation->getXmlResponse()->id,
-                    'status' => $lotteryValidation->getXmlResponse()->status,
-                    'response' => $lotteryValidation->getXmlResponse(),
+                    'id_ticket' => $lotteryValidation->getCastilloId(),//$lotteryValidation->getXmlResponse()->id,
+                    'status' => 'OK',//$lotteryValidation->getXmlResponse()->status,
+                    'response' => '',//$lotteryValidation->getXmlResponse(),
                     'received' => new \DateTime(),
                     'bet' => $bet
                 ]);

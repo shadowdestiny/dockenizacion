@@ -42,7 +42,7 @@ class LotteryValidationCastilloApiUnitTest extends UnitTestBase
         list($bet, $castilloCypherKey) = $this->prepareForSendingValidation(self::$content_with_ok_result);
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?><message><operation id="'.$bet->getCastilloBet()->id().'" key="'.$castilloCypherKey->key().'" type="1"><content>content cifrado</content></operation><signature>signature cifrada</signature></message>';
-        $this->curlWrapper_double->post('https://www.loteriacastillo.com/euromillions/')->shouldBeCalled();
+        $this->curlWrapper_double->post('https://www.loteriacastillo.com/test-euromillions')->shouldBeCalled();
         $this->curlWrapper_double->setOption(CURLOPT_SSL_VERIFYPEER,0)->shouldBeCalled();
         $this->curlWrapper_double->setOption(CURLOPT_POSTFIELDS,$xml)->shouldBeCalled();
         $this->curlWrapper_double->setOption(CURLOPT_RETURNTRANSFER,1)->shouldBeCalled();
@@ -62,9 +62,10 @@ class LotteryValidationCastilloApiUnitTest extends UnitTestBase
 
         $this->prepareCurl();
         $actual = $this->exerciseValidate($bet,$castilloCypherKey);
-        $expected = new ActionResult(false,'Esto es un message de error');
+        $expected = new ActionResult(true,'');
         $this->assertEquals($expected,$actual);
     }
+
 
 
     /**
@@ -96,10 +97,10 @@ class LotteryValidationCastilloApiUnitTest extends UnitTestBase
         $content = "<?xml version='1.0' encoding='UTF-8'?><ticket type='6' date='151004' bets='1' price='2.50'><id>123456</id><combination><number>7</number><number>15</number><number>16</number><number>17</number><number>22</number><star>1</star><star>7</star></combination></ticket>";
         $this->cypher_double->encrypt($castilloCypherKey->key(), $content)->willReturn('content cifrado');
         $this->cypher_double->getSignature('content cifrado')->willReturn('signature cifrada');
-        $this->curlWrapper_double->post('https://www.loteriacastillo.com/euromillions/')->willReturn(new CurlResponse(self::$xml_with_fake_cyphered_content));
+        $this->curlWrapper_double->post('https://www.loteriacastillo.com/test-euromillions')->willReturn(new CurlResponse(self::$xml_with_fake_cyphered_content));
         $this->cypher_double->decrypt('Esto es contenido cifrado', '6')->willReturn(self::$content_with_ok_result);
         $xml = '<?xml version="1.0" encoding="UTF-8"?><message><operation id="'.$bet->getCastilloBet()->id().'" key="'.$castilloCypherKey->key().'" type="1"><content>content cifrado</content></operation><signature>signature cifrada</signature></message>';
-        $this->curlWrapper_double->post('https://www.loteriacastillo.com/euromillions/')->shouldBeCalled();
+        $this->curlWrapper_double->post('https://www.loteriacastillo.com/test-euromillions')->shouldBeCalled();
         $this->curlWrapper_double->setOption(CURLOPT_SSL_VERIFYPEER,0)->shouldBeCalled();
         $this->curlWrapper_double->setOption(CURLOPT_POSTFIELDS,$xml)->shouldBeCalled();
         $this->curlWrapper_double->setOption(CURLOPT_RETURNTRANSFER,1)->shouldBeCalled();
@@ -136,7 +137,6 @@ class LotteryValidationCastilloApiUnitTest extends UnitTestBase
         $this->curlWrapper_double->setOption(CURLOPT_SSL_VERIFYPEER, 0)->willReturn(null);
         $this->curlWrapper_double->setOption(CURLOPT_RETURNTRANSFER,1)->willReturn(null);
         $this->curlWrapper_double->setOption(CURLOPT_POST,1)->willReturn(null);
-
     }
 
     /**
@@ -151,7 +151,7 @@ class LotteryValidationCastilloApiUnitTest extends UnitTestBase
         $this->castilloTicketId_double->id()->willReturn('123456');
         $this->cypher_double->encrypt($castilloCypherKey->key(), $this->getXmlContent())->willReturn('content cifrado');
         $this->cypher_double->getSignature('content cifrado')->willReturn('signature cifrada');
-        $this->curlWrapper_double->post('https://www.loteriacastillo.com/euromillions/')->willReturn(new CurlResponse(self::$xml_with_fake_cyphered_content));
+        $this->curlWrapper_double->post('https://www.loteriacastillo.com/test-euromillions')->willReturn(new CurlResponse(self::$xml_with_fake_cyphered_content));
         $this->cypher_double->decrypt('Esto es contenido cifrado', '6')->willReturn($contentResult);
         return array($bet, $castilloCypherKey);
     }

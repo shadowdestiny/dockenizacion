@@ -9,19 +9,6 @@ class CypherCastillo3DES implements ICypherStrategy
 
     private $cypher;
 
-    public static $cypher_keys = [
-            '000000000000000000000000',
-            '000000000000000000000001',
-            '000000000000000000000002',
-            '000000000000000000000003',
-            '000000000000000000000004',
-            '000000000000000000000005',
-            '000000000000000000000006',
-            '000000000000000000000007',
-            '000000000000000000000008',
-            '000000000000000000000009'
-    ];
-
     public function __construct()
     {
         $this->cypher = \mcrypt_module_open(MCRYPT_3DES, '', MCRYPT_MODE_CBC, '');

@@ -77,6 +77,7 @@ class BetServiceUnitTest extends UnitTestBase
         $this->betRepository_double->getBetsByDrawDate($date)->willReturn(null);
         $this->callValidationApi(true);
         $this->lotteryValidation_double->getXmlResponse()->willReturn(new \SimpleXMLElement(self::$content_with_ok_result));
+        $this->lotteryValidation_double->getCastilloId()->willReturn(1);
         $this->logValidationApi_double->add(Argument::type($this->getEntitiesToArgument('LogValidationApi')))->shouldBeCalled();
         $this->betRepository_double->add(Argument::any())->willReturn(true);
         $this->userRepository_double->add(Argument::any())->willReturn(true);
@@ -103,6 +104,7 @@ class BetServiceUnitTest extends UnitTestBase
         $this->betRepository_double->getBetsByDrawDate($date)->willReturn(null);
         $this->callValidationApi(true);
         $this->lotteryValidation_double->getXmlResponse()->willReturn(new \SimpleXMLElement(self::$content_with_ok_result));
+        $this->lotteryValidation_double->getCastilloId()->willReturn(1);
         $this->logValidationApi_double->add(Argument::type($this->getEntitiesToArgument('LogValidationApi')))->shouldBeCalled();
         $this->betRepository_double->add(Argument::any())->willReturn(true);
         $this->userRepository_double->add(Argument::any())->willReturn(true);
@@ -148,6 +150,7 @@ class BetServiceUnitTest extends UnitTestBase
         list($playConfig, $euroMillionsDraw) = $this->exerciseValidationBet($expected);
         $this->userRepository_double->add(Argument::any())->willReturn(true);
         $this->lotteryValidation_double->getXmlResponse()->willReturn(new \SimpleXMLElement(self::$content_with_ok_result));
+        $this->lotteryValidation_double->getCastilloId()->willReturn(1);
         $this->logValidationApi_double->add(Argument::type($this->getEntitiesToArgument('LogValidationApi')))->shouldBeCalled();
         $this->logValidationApi_double->add(Argument::any())->shouldBeCalled();
         $entityManager_stub = $this->getEntityManagerDouble();
