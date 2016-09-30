@@ -2,6 +2,8 @@
 namespace EuroMillions\web\repositories;
 
 
+use EuroMillions\web\entities\Bet;
+
 class PlayConfigRepository extends RepositoryBase
 {
     public function getActivePlayConfigsByUser($userId)
@@ -87,10 +89,11 @@ class PlayConfigRepository extends RepositoryBase
      */
     protected function getPlayConfigsByUser($userId, $active)
     {
+
         $result = $this->getEntityManager()
             ->createQuery(
-                'SELECT p'
-                . ' FROM ' . $this->getEntityName() . ' p'
+                'SELECT b'
+                . ' FROM ' . '\EuroMillions\web\entities\Bet' . ' b INNER JOIN b.playConfig p '
                 . ' WHERE p.user = :user_id AND p.active = :active '
                 . ' GROUP BY p.startDrawDate,p.line.regular_number_one,'
                 . ' p.line.regular_number_two,p.line.regular_number_three, '
@@ -100,7 +103,25 @@ class PlayConfigRepository extends RepositoryBase
             ->setParameters(['user_id' => $userId, 'active' => $active])
             ->getResult();
 
-        return $result;
+        $playConfigs = [];
+        /** @var Bet $bet */
+        foreach($result as $bet) {
+            $playConfigs[] = $bet->getPlayConfig();
+        }
+//        $result = $this->getEntityManager()
+//            ->createQuery(
+//                'SELECT p'
+//                . ' FROM ' . $this->getEntityName() . ' p '
+//                . ' WHERE p.user = :user_id AND p.active = :active '
+//                . ' GROUP BY p.startDrawDate,p.line.regular_number_one,'
+//                . ' p.line.regular_number_two,p.line.regular_number_three, '
+//                . ' p.line.regular_number_four,p.line.regular_number_five, '
+//                . ' p.line.lucky_number_one, p.line.lucky_number_two '
+//                . ' ORDER BY p.startDrawDate DESC ')
+//            ->setParameters(['user_id' => $userId, 'active' => $active])
+//            ->getResult();
+
+        return $playConfigs;
     }
 
     public function getUsersWithPlayConfigsActive()
