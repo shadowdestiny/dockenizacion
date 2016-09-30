@@ -42,11 +42,9 @@ class DateTimeUtil
     public function checkTimeForClosePlay(\DateTime $draw)
     {
         $now = new \DateTime();
-        $datetime_from = $draw->sub(\DateInterval::createFromDateString('10 minutes'))->format('Y-m-d H:i');
+        $datetime_from = $draw->sub(\DateInterval::createFromDateString('130 minutes'))->format('Y-m-d H:i');
         return ($now->format('Y-m-d H:i') > $datetime_from);
     }
-
-
 
     public function getNumWeeksBetweenDates( \DateTime $date_ini, \DateTime $date_end )
     {
