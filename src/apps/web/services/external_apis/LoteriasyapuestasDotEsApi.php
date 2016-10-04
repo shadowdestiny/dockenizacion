@@ -102,22 +102,26 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
 
     private function sanetizeArrayResults($array)
     {
+        if( count($array) > 13 ) {
+            unset($array[13]);
+            unset($array[14]);
+        }
         foreach($array as $b => $result){
-            if(is_array($result)){
-                foreach($result as $k => $breakDown){
-                    if($k == 0){
-                        $category = explode(" ",$breakDown);
-                        $result[$k] = $category[1]. " ".$category[2]." ".$category[3];
+                if(is_array($result)){
+                    foreach($result as $k => $breakDown){
+                        if($k == 0){
+                            $category = explode(" ",$breakDown);
+                            $result[$k] = $category[1]. " ".$category[2]." ".$category[3];
+                        }
+                        if($k == 1){
+                            unset($result[$k]);
+                        }
+                        if($k == 2){
+                            $result[$k] = new Money((int) str_replace('.', '',trim(str_replace('€','',$result[$k])))*100 , new Currency('EUR'));
+                        }
                     }
-                    if($k == 1){
-                        unset($result[$k]);
-                    }
-                    if($k == 2){
-                        $result[$k] = new Money((int) str_replace('.', '',trim(str_replace('€','',$result[$k])))*100 , new Currency('EUR'));
-                    }
+                    $array[$b] = $result;
                 }
-                $array[$b] = $result;
-            }
         }
         return $this->translateKey(array_map('array_values', $array));
     }

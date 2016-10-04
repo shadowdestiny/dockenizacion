@@ -16,7 +16,6 @@ class LoteriasyapuestasDotEsApiFunctionalTest extends DatabaseIntegrationTestBas
      */
     public function test_getJackpotForDate_called_returnsAcceptableJackpot()
     {
-        $this->markTestSkipped();
         /** @var EntityManager $entity_manager */
         $entity_manager = DI::getDefault()->get('entityManager');
         $lottery_repository = $entity_manager->getRepository($this->getEntitiesToArgument('Lottery'));

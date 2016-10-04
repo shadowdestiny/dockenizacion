@@ -6,12 +6,13 @@ System.register([], function(exports_1, context_1) {
         setters:[],
         execute: function() {
             Translation = (function () {
-                function Translation(id, translationKey, translationCategory, category, description) {
+                function Translation(id, translationKey, translationCategory, category, description, translationDetail) {
                     this.id = id;
                     this.translationKey = translationKey;
                     this.translationCategory = translationCategory;
                     this.category = category;
                     this.description = description;
+                    this.translationDetail = translationDetail;
                 }
                 return Translation;
             }());
