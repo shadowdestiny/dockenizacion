@@ -36,5 +36,9 @@ class DomainAdminServiceFactory
         return new MaintenanceWithdrawService($this->entityManager);
     }
 
+    public function getMillonService()
+    {
+        return new MillonService($this->entityManager);
+    }
 
 }
