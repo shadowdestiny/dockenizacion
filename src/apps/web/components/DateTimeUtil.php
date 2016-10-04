@@ -42,7 +42,7 @@ class DateTimeUtil
     public function checkTimeForClosePlay(\DateTime $draw)
     {
         $now = new \DateTime();
-        $datetime_from = $draw->sub(\DateInterval::createFromDateString('130 minutes'))->format('Y-m-d H:i');
+        $datetime_from = $draw->sub(\DateInterval::createFromDateString('70 minutes'))->format('Y-m-d H:i');
         return ($now->format('Y-m-d H:i') > $datetime_from);
     }
 
