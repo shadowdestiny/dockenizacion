@@ -30,9 +30,9 @@
                 <div data-role="page" id="nav-account">
                     <ul class="no-li" data-role="listview">
                         <li><a href="/account" data-transition="slide" data-direction="reverse">{{ language.translate("Account") }}</a></li>
-                        <li><a href="/account/games" data-transition="slide" data-direction="reverse">{{ language.translate("Tickets") }}</a></li>
+                        <li><a href="/profile/tickets/games" data-transition="slide" data-direction="reverse">{{ language.translate("Tickets") }}</a></li>
                         <li><a href="/account/wallet" data-transition="slide" data-direction="reverse">{{ language.translate("Balance") }}</a></li>
-                        <li><a href="/account/transaction" data-transition="slide" data-direction="reverse">{{ language.translate("Transactions") }}</a></li>
+                        <li><a href="/profile/transactions" data-transition="slide" data-direction="reverse">{{ language.translate("Transactions") }}</a></li>
                         <li><a href="/account/email" data-transition="slide" data-direction="reverse">{{ language.translate("Email Settings") }}</a></li>
                         <li><a href="/account/password" data-transition="slide" data-direction="reverse">{{ language.translate("Change Password") }}</a></li>
                         <li><a href="/logout" data-transition="slide" data-direction="reverse">{{ language.translate("Sign out") }}</a></li>
