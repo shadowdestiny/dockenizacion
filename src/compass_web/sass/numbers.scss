@@ -94,9 +94,9 @@ body.numbers{
 }
 
 /*Retina only */
-@media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx){
-    .star-ball{background-image:url(../img/home/bg-euro@2x.jpg); background-size:600px 171px;}
-}
+//@media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx){
+//    .star-ball{background-image:url(../img/home/bg-euro@2x.jpg); background-size:600px 171px;}
+//}
 
 @media only screen and (max-width:1200px){
     .box-estimated{
@@ -164,7 +164,7 @@ body.numbers{
     .table th, .table td, .table2 th, .table2 td{padding:4px 6px; border-bottom:0;}
     .table{border-top:1px solid $yellow;}
     .td-ball{text-align:left; min-width:82px;}
-    .td-star-ball{text-align:left; min-width:51px;}
+    //.td-star-ball{text-align:left; min-width:51px;}
     .box-history .pad, .table .td-payout, .table2 .td-star-numbers{border-bottom:1px solid $yellow;}
     .box-history .h2{display:inline-block; padding-bottom:4px;}
     .box-history .box-basic, .box-current-winners{background:$yellow;}
@@ -173,7 +173,7 @@ body.numbers{
     .table, .table2{border-radius:0;}
     .box-current-winners, .box-history .box-basic, .box-results{border-radius:0; border-left:0; border-right:0;}
     .ball{width:10px; height:10px;}
-    .td-ball, .td-star-ball, .td-winners, .td-prize, .td-payout{font-size:$basic-size;}
+    .td-ball, .td-winners, .td-prize, .td-payout{font-size:$basic-size;}
 }
  
 @import "_currency/numbers"; /*It need to stay at the bottom*/
