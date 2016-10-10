@@ -95,7 +95,7 @@ body.numbers{
 
 /*Retina only */
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx){
-    .star-ball{background-image:url("../img/sprite.png"); background-size:600px 171px;}
+    .star-ball{background:url("../img/sprite.png") no-repeat; background-position:-190px -40px; width:15px; height:15px;}
 }
 
 @media only screen and (max-width:1200px){
