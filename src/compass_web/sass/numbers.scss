@@ -95,7 +95,7 @@ body.numbers{
 
 /*Retina only */
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx){
-    .star-ball{background-image:url("../img/sprite.png"); background-size:600px 171px;}
+    .star-ball{background-image:url(../img/home/bg-euro@2x.jpg); background-size:600px 171px;}
 }
 
 @media only screen and (max-width:1200px){
@@ -138,42 +138,42 @@ body.numbers{
     body.numbers .crown{left:0px; top:-85px; width:45px;}
 }
 
-//
-///* Small Devices, Tablets */
-//@media only screen and (max-width:768px){
-//    .wrapper > .box-basic{background:$yellow-lighter;}
-//    .box-history{
-//        .box-basic{border:1px solid $yellow; border-radius:5px;}
-//    }
-//    .wrap{margin:0;}
-//    .box-estimated{display:none;}
-//    .box-results{min-height:auto;}
-//    .table tr:nth-child(even) td, .table2 tr:nth-child(odd) td{background-color:#fff;}
-//
-//    body.numbers .bottom{position:relative; margin:-15px 0 1em;}
-//}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width:768px){
+    .wrapper > .box-basic{background:$yellow-lighter;}
+    .box-history{
+        .box-basic{border:1px solid $yellow; border-radius:5px;}
+    }
+    .wrap{margin:0;}
+    .box-estimated{display:none;}
+    .box-results{min-height:auto;}
+    .table tr:nth-child(even) td, .table2 tr:nth-child(odd) td{background-color:#fff;}
+
+    body.numbers .bottom{position:relative; margin:-15px 0 1em;}
+}
 
 /* Extra Small Devices, Phones */
-//@media only screen and (max-width:480px){
-//    .box-results{
-//        .purple{display:block;}
-//        .content{padding-bottom:20px;}
-//        .grey{margin-top:-8px;}
-//        .star .txt{display:none;}
-//    }
-//    .table th, .table td, .table2 th, .table2 td{padding:4px 6px; border-bottom:0;}
-//    .table{border-top:1px solid $yellow;}
-//    .td-ball{text-align:left; min-width:82px;}
-//    .td-star-ball{text-align:left; min-width:51px;}
-//    .box-history .pad, .table .td-payout, .table2 .td-star-numbers{border-bottom:1px solid $yellow;}
-//    .box-history .h2{display:inline-block; padding-bottom:4px;}
-//    .box-history .box-basic, .box-current-winners{background:$yellow;}
-//    h1.purple{font-size:$h3; color:#fff; text-shadow:0 1px 3px rgba(0, 0, 0, .4);}
-//    .box-basic{padding:15px 0;}
-//    .table, .table2{border-radius:0;}
-//    .box-current-winners, .box-history .box-basic, .box-results{border-radius:0; border-left:0; border-right:0;}
-//    .ball{width:10px; height:10px;}
-//    .td-ball, .td-star-ball, .td-winners, .td-prize, .td-payout{font-size:$basic-size;}
-//}
+@media only screen and (max-width:480px){
+    .box-results{
+        .purple{display:block;}
+        .content{padding-bottom:20px;}
+        .grey{margin-top:-8px;}
+        .star .txt{display:none;}
+    }
+    .table th, .table td, .table2 th, .table2 td{padding:4px 6px; border-bottom:0;}
+    .table{border-top:1px solid $yellow;}
+    .td-ball{text-align:left; min-width:82px;}
+    .td-star-ball{text-align:left; min-width:51px;}
+    .box-history .pad, .table .td-payout, .table2 .td-star-numbers{border-bottom:1px solid $yellow;}
+    .box-history .h2{display:inline-block; padding-bottom:4px;}
+    .box-history .box-basic, .box-current-winners{background:$yellow;}
+    h1.purple{font-size:$h3; color:#fff; text-shadow:0 1px 3px rgba(0, 0, 0, .4);}
+    .box-basic{padding:15px 0;}
+    .table, .table2{border-radius:0;}
+    .box-current-winners, .box-history .box-basic, .box-results{border-radius:0; border-left:0; border-right:0;}
+    .ball{width:10px; height:10px;}
+    .td-ball, .td-star-ball, .td-winners, .td-prize, .td-payout{font-size:$basic-size;}
+}
  
 @import "_currency/numbers"; /*It need to stay at the bottom*/
