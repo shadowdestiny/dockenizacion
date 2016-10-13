@@ -8,8 +8,22 @@
     - xdebug_config_file: 20-xdebug.ini
     - webserver_container_name: develweb
     - database_slave_name: develdbslave
+    - haproxy_app_name: euromillions
+    - haproxy_mode: http
+    - haproxy_enable_stats: enable
+    - haproxy_algorithm: roundrobin
+    - haproxy_backend_servers:
+      - {name: server1, ip: 172.17.0.5, port: 443, paramstring: cookie A check}
+    - haproxy_stats_users:
+      - {username: joe, password: soap}
+
   roles:
+#    - haproxy
     - bootstrap_containers
     - migrations
     - replication
     - crons
+
+  handlers:
+  - name: restart haproxy
+    service: name=haproxy state=restarted

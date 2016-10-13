@@ -1,0 +1,10 @@
+—–
+ vars:
+    haproxy_app_name: euromillions
+    haproxy_mode: https
+    haproxy_enable_stats: enable
+    haproxy_algorithm: roundrobin
+    haproxy_backend_servers:
+      - {name: server1, ip: 172.17.0.5, port: 443, paramstring: cookie A check}
+    haproxy_stats_users:
+      - {username: joe, password: soap}
