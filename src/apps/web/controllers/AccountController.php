@@ -58,7 +58,7 @@ class AccountController extends PublicSiteControllerBase
         $user = $this->authService->getLoggedUser();
         $myaccount_form = $this->getMyACcountForm($user->getId());
         $myaccount_passwordchange_form = new MyAccountChangePasswordForm();
-        if($this->request->isPost()) {
+        if ($this->request->isPost()) {
             if ($myaccount_form->isValid($this->request->getPost()) == false) {
                 $messages = $myaccount_form->getMessages(true);
                 /**
@@ -69,27 +69,28 @@ class AccountController extends PublicSiteControllerBase
                     $errors[] = $field_messages[0]->getMessage();
                     $form_errors[$field] = ' error';
                 }
-            }else {
+            } else {
                 $result = $this->userService->updateUserData([
-                    'name'     => $this->request->getPost('name'),
-                    'surname'  => $this->request->getPost('surname'),
-                    'street'   => $this->request->getPost('street'),
-                    'zip'      => (int) $this->request->getPost('zip'),
-                    'city'     => $this->request->getPost('city'),
-                    'phone_number' =>(int) $this->request->getPost('phone_number')
+                    'name' => $this->request->getPost('name'),
+                    'surname' => $this->request->getPost('surname'),
+                    'street' => $this->request->getPost('street'),
+                    'zip' => $this->request->getPost('zip'),
+                    'city' => $this->request->getPost('city'),
+                    'phone_number' => (int)$this->request->getPost('phone_number'),
+                    'country' => $user->getCountry(),
                 ], $user->getEmail());
-                if($result->success()){
+                if ($result->success()) {
                     $msg = $result->getValues();
-                }else{
+                } else {
                     $errors [] = $result->errorMessage();
                 }
             }
         }
         $this->view->pick('account/index');
-	    $this->tag->prependTitle('Account Details');
+        $this->tag->prependTitle('Account Details');
         return $this->view->setVars([
             'form_errors' => $form_errors,
-            'which_form'  => 'index',
+            'which_form' => 'index',
             'errors' => $errors,
             'msg' => $msg,
             'myaccount' => $myaccount_form,

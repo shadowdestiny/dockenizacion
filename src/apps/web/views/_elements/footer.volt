@@ -23,7 +23,7 @@
 				<strong>{{ language.translate('Your Account')}}</strong>
 				<ul>
 					{% if user_logged %}
-						<li><a href="/account/games">{{ language.translate('My Tickets') }}</a></li>
+						<li><a href="/profile/tickets/games">{{ language.translate('My Tickets') }}</a></li>
 						<li><a href="/account/wallet">{{ language.translate('Transactions') }}</a></li>
 						<li><a href="/account/wallet">{{ language.translate('Deposit Funds') }}</a></li>
 						<li><a href="/account/wallet">{{ language.translate('Withdraw winnings') }}</a></li>

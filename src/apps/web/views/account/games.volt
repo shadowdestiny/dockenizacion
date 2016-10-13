@@ -53,10 +53,10 @@
                     <table class="present cl table ui-responsive" data-role="table" data-mode="reflow">
                         <thead>
                             <th class="date">
-                                {{ language.translate("Lottery") }}
+                                {{ language.translate("Draw date") }}
                             </th>
                             <th class="date">
-                                {{ language.translate("Draw date") }}
+                                {{ language.translate("Lottery") }}
                             </th>
 
                             {#<th class="when">#}
