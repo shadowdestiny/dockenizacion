@@ -48,7 +48,14 @@
                 {% endif %}
                 {{ guestContactForm.render('message', {'class':'textarea'~form_errors['message']}) }}
                 {{ guestContactForm.render('csrf', ['value': security.getSessionToken()]) }}
-
+                <p><strong>{{ language.translate("Insert captcha") }}</strong></p>
+                <p><div class="captcha">{{ captcha }}</div>
+                    {# *** Code to use in case no google captcha is utilised ***}
+                                    <br><a href="javascript:void(0);">{{ language.app("reload the image") }}</a>
+                                    <br>
+                                    <input id="captcha" class="input" placeholder="{{ language.app("Enter the code") }}">
+                    #}
+                </p>
                 <div class="cl">
                     <label for="submitBtn" class="btn blue big submit right">{{ language.translate("Send message") }}</label>
                     <input id="submitBtn" type="submit" class="hidden">
