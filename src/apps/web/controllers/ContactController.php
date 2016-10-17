@@ -7,6 +7,8 @@ use EuroMillions\web\forms\GuestContactForm;
 use EuroMillions\web\vo\ContactFormInfo;
 use EuroMillions\web\vo\Email;
 use Phalcon\Forms\Element\Text;
+use Captcha\Captcha;
+use EuroMillions\web\components\ReCaptchaWrapper;
 
 class ContactController extends PublicSiteControllerBase
 {
@@ -30,6 +32,11 @@ class ContactController extends PublicSiteControllerBase
                 'topics' => $topics
             ]
         );
+        //get captcha instance
+        $config = $this->di->get('config')['recaptcha'];
+        $captcha = new ReCaptchaWrapper(new Captcha());
+        $captcha->getCaptcha()->setPublicKey($config['public_key']);
+        $captcha->getCaptcha()->setPrivateKey($config['private_key']);
         /** @var User $user */
         $user = $this->authService->getCurrentUser();
         if ($this->request->isPost()) {
@@ -44,20 +51,25 @@ class ContactController extends PublicSiteControllerBase
                     $form_errors[$field] = ' error';
                 }
             } else {
-                if($user instanceof User) {
+                if ($user instanceof User) {
                     $email = $user->getEmail()->toNative();
                     $fullName = $user->getName() . ' ' . $user->getSurname();
                 }
-                $contactFormInfo  = new ContactFormInfo(new Email($email), $fullName, $content, $topic);
-                $contactRequest_result = $this->userService->contactRequest($contactFormInfo);
-                if($contactRequest_result->success())
-                {
-                    $guestContactForm->clear();
-                    $message = $contactRequest_result->getValues();
-                    $class = ' success';
-                }else{
+                $reCaptchaResult = $captcha->check()->isValid();
+                $contactFormInfo = new ContactFormInfo(new Email($email), $fullName, $content, $topic);
+                $class = ' error';
+                if (empty($reCaptchaResult)) {
+
+                    $errors[] = 'You are a robot... or you forgot to check the Captcha verification.';
+                } elseif ($reCaptchaResult) {
+                    $contactRequest_result = $this->userService->contactRequest($contactFormInfo);
+                    if ($contactRequest_result->success()) {
+                        $guestContactForm->clear();
+                        $message = $contactRequest_result->getValues();
+                        $class = ' success';
+                    }
+                } else {
                     $errors[] = $contactRequest_result->errorMessage();
-                    $class = ' error';
                 }
             }
         }
@@ -72,6 +84,7 @@ class ContactController extends PublicSiteControllerBase
             'guestContactForm'  => $guestContactForm,
             'message'     => $message,
             'class'       => $class,
+            'captcha' => $captcha->html()
         ]);
 
     }
