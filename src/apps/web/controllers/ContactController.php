@@ -21,6 +21,8 @@ class ContactController extends PublicSiteControllerBase
         $fullName = $this->request->getPost('fullname');
         $content = $this->request->getPost('message');
         $topic   = $this->request->getPost('topic');
+        $message = null;
+        $class = null;
         //EMTD: move topics like dynamic data
         $topics = [1 => 'Playing the game',
                    2 => 'Password, Email and Log in',
@@ -75,8 +77,8 @@ class ContactController extends PublicSiteControllerBase
         }
         $this->view->pick('contact/index');
 
-	$this->tag->prependTitle('Contact Us');
-	MetaDescriptionTag::setDescription('Contact the official EuroMillions.com. We are always happy to answer your questions.');
+	    $this->tag->prependTitle('Contact Us');
+	    MetaDescriptionTag::setDescription('Contact the official EuroMillions.com. We are always happy to answer your questions.');
 
         return $this->view->setVars([
             'form_errors' => $form_errors,
@@ -86,7 +88,6 @@ class ContactController extends PublicSiteControllerBase
             'class'       => $class,
             'captcha' => $captcha->html()
         ]);
-
     }
 
 

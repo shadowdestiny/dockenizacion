@@ -283,49 +283,6 @@
 }
 }
 
-@media only screen and (min-width:767px){
-  .steps{margin:auto; width:100%;}
-  .line.step2{width:50%;}
-  .names .step2{position:absolute; left:50%; margin-left:-65px;}
-  .line.step3{width:93%;}
-  .fields li:nth-child(odd){margin-right:4%;}
-  .card-info, .wrap .second{margin:0!important;}
-  .wrap .first{margin-bottom:.5em!important;}
-  .cart .label{text-align:left; width:100%;}
-  .order{
-    .box-total .txt{float:left;}
-    .box-order{text-align:left;}
-    .box-jackpot{margin-bottom:1em; float:left;}
-    .num{width:auto;}
-    #content .balance{float:none;}
-  }
-  .success{
-    .ticket-col{display:none!important;}
-    .txt-col{text-align:left;}
-    .form{width:70%; margin:auto;}
-  }
-  .profile{
-    .what-user{
-      .col4{width:50%; padding-right:0!important;}
-      .col8{width:50%;}
-    }
-    .line-sep{display:none;}
-    .box-extra{
-      display:block; margin-top:20px;
-      span{font-size:$basic-size; margin-right:5px;}
-    }
-    .submit{width:100%; margin:0;}
-    .terms br{display:block;}
-  }
-  .payment{
-    .cols > div{
-      padding:0; margin:0;
-    }
-    .submit{margin-top:20px;}
-    .box-add-card h2{margin-top:10px;}
-  }
-}
-
 /*
 @media only screen and (max-width:650px){
   .line.step3{width:92%;}

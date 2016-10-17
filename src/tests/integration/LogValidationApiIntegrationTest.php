@@ -80,6 +80,7 @@ class LogValidationApiIntegrationTest extends DatabaseIntegrationTestBase
      */
     public function test_persistValidationAndBetsFromPlayConfigsCollection_called_storeCorrectlyInDatabase()
     {
+        $this->markTestIncomplete('persistValidationBets incomplete test');
         $playConfigOne = PlayConfigMother::aPlayConfig()->build();
         $playConfigTwo = PlayConfigMother::aPlayConfig()->build();
         $playConfigCollection = [$playConfigOne,$playConfigTwo];
