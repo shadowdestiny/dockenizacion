@@ -4,13 +4,17 @@
 namespace EuroMillions\tests\integration;
 
 
+use EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother;
+use EuroMillions\tests\helpers\mothers\PlayConfigMother;
 use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\LogValidationApi;
 use EuroMillions\tests\base\DatabaseIntegrationTestBase;
+use EuroMillions\web\repositories\LogValidationApiRepository;
 
 class LogValidationApiIntegrationTest extends DatabaseIntegrationTestBase
 {
 
+    /** @var  LogValidationApiRepository */
     private $sut;
 
     /**
@@ -32,7 +36,7 @@ class LogValidationApiIntegrationTest extends DatabaseIntegrationTestBase
     public function setUp()
     {
         parent::setup();
-        $this->sut = $this->entityManager->getRepository('\EuroMillions\web\entities\LogValidationApi');
+        $this->sut = $this->entityManager->getRepository($this->getEntitiesToArgument('LogValidationApi'));
     }
 
     /**
@@ -66,6 +70,23 @@ class LogValidationApiIntegrationTest extends DatabaseIntegrationTestBase
             ->getResult()[0];
 
         $this->assertEquals($log_api_reponse,$actual);
+    }
+
+
+    /**
+     * method persistValidationAndBetsFromPlayConfigsCollection
+     * when called
+     * should storeCorrectlyInDatabase
+     */
+    public function test_persistValidationAndBetsFromPlayConfigsCollection_called_storeCorrectlyInDatabase()
+    {
+        $playConfigOne = PlayConfigMother::aPlayConfig()->build();
+        $playConfigTwo = PlayConfigMother::aPlayConfig()->build();
+        $playConfigCollection = [$playConfigOne,$playConfigTwo];
+        $draw = EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()->build();
+        $id_ticket = '123456';
+        $this->sut->persistValidationsAndBetsFromPlayConfigsCollection();
+
     }
 
 }

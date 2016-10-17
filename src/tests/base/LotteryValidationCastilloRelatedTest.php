@@ -54,6 +54,11 @@ trait LotteryValidationCastilloRelatedTest
         return  $content = "<?xml version='1.0' encoding='UTF-8'?><ticket type='6' date='151004' bets='1' price='2.50'><id>123456</id><combination><number>7</number><number>15</number><number>16</number><number>17</number><number>22</number><star>1</star><star>7</star></combination></ticket>";
     }
 
+    protected function getXmlContentGrouped()
+    {
+        return  $content = "<?xml version='1.0' encoding='UTF-8'?><ticket type='6' date='151004' bets='2' price='2.50'><id>123456</id><combination><number>7</number><number>15</number><number>16</number><number>17</number><number>22</number><star>1</star><star>7</star></combination><combination><number>7</number><number>15</number><number>16</number><number>17</number><number>22</number><star>1</star><star>7</star></combination></ticket>";
+    }
+
     protected function getPlayConfig()
     {
         $reg = [7,16,17,22,15];

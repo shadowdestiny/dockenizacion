@@ -114,7 +114,6 @@ class BetRepository extends RepositoryBase
                 OR (cnt=3 and cnt_lucky=2) OR (cnt=2 and cnt_lucky=2) OR (cnt=3 and cnt_lucky=1)
                 OR (cnt=3 and cnt_lucky=0) OR (cnt=1 and cnt_lucky=2) OR (cnt=2 and cnt_lucky=1)
                 OR (cnt=2 and cnt_lucky=0);", $rsm);
-
         $result->setParameter(1,$date);
         return $result->getResult();
     }

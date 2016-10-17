@@ -61,6 +61,63 @@ class BetService
                 $castillo_ticket = CastilloTicketId::create();
                 $bet->setCastilloBet($castillo_ticket);
                 $result_validation = $lotteryValidation->validateBet($bet,$cypher,$castillo_key,$castillo_ticket,$dateNextDraw, $bet->getPlayConfig()->getLine());
+
+                $log_api_reponse = new LogValidationApi();
+                $log_api_reponse->initialize([
+                    'id_provider' => 1,
+                    'id_ticket' => $lotteryValidation->getCastilloId(),//$lotteryValidation->getXmlResponse()->id,
+                    'status' => 'OK',//$lotteryValidation->getXmlResponse()->status,
+                    'response' => '',//$lotteryValidation->getXmlResponse(),
+                    'received' => new \DateTime(),
+                    'bet' => $bet
+                ]);
+                $this->entityManager->persist($bet);
+                $this->logValidationRepository->add($log_api_reponse);
+                $this->entityManager->flush();
+
+
+
+                if($result_validation->success()) {
+                    $this->betRepository->add($bet);
+                    $this->entityManager->flush();
+                    $this->playConfigRepository->add($playConfig);
+                    $this->entityManager->flush();
+                    return new ActionResult(true);
+                } else {
+                    return new ActionResult(false, $result_validation->errorMessage());
+                }
+            }catch(\Exception $e) {
+                return new ActionResult(false);
+            }
+        } else {
+            throw new InvalidBalanceException();
+        }
+    }
+
+
+    public function groupingValidation(array $playConfig,
+                                       EuroMillionsDraw $euroMillionsDraw,
+                                       \DateTime $dateNextDraw,
+                                       \DateTime $today = null,
+                                       LotteryValidationCastilloApi $lotteryValidation = null)
+    {
+        if (!$today) {
+            $today = new \DateTime();
+        }
+        if(!$lotteryValidation) {
+            $lotteryValidation = new LotteryValidationCastilloApi();
+        }
+        /** @var User $user */
+        $user = $this->userRepository->find($playConfig->getUser()->getId());
+        $single_bet_price = $euroMillionsDraw->getLottery()->getSingleBetPrice();
+        if($user->getBalance()->getAmount() >= $single_bet_price->getAmount()) {
+            $di = \Phalcon\Di::getDefault();
+            $cypher = $di->get('environmentDetector')->get() != 'production' ? new CypherCastillo3DES() : new CypherCastillo3DESLive();
+            try{
+                $castillo_key = CastilloCypherKey::create();
+                $castillo_ticket = CastilloTicketId::create();
+                $result_validation = $lotteryValidation->validateBetInGroup($cypher,$dateNextDraw,$castillo_key,$castillo_ticket);
+
                 $log_api_reponse = new LogValidationApi();
                 $log_api_reponse->initialize([
                     'id_provider' => 1,
