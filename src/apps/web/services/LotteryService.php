@@ -246,6 +246,7 @@ class LotteryService
                     if( $price->getAmount() < $user->getBalance()->getAmount() ) {
                         /** @var EuroMillionsDraw $euroMillionsDraw */
                         $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($dateNextDraw));
+
                         /** @var PlayConfig $playConfig */
                         foreach( $playconfigsFilteredToArray as $playConfig ) {
                             $result = $this->betService->validation($playConfig, $euroMillionsDraw, $nextDrawDate);

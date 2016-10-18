@@ -100,12 +100,8 @@ class BetService
     public function groupingValidation(array $playConfig,
                                        EuroMillionsDraw $euroMillionsDraw,
                                        \DateTime $dateNextDraw,
-                                       \DateTime $today = null,
                                        LotteryValidationCastilloApi $lotteryValidation = null)
     {
-        if (!$today) {
-            $today = new \DateTime();
-        }
         if(!$lotteryValidation) {
             $lotteryValidation = new LotteryValidationCastilloApi();
         }

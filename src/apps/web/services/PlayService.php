@@ -168,13 +168,6 @@ class PlayService
                         }
                         $this->walletService->payGroupedBetsWithWallet($user,$playConfigs[0]->getLottery()->getSingleBetPrice()->multiply(count($playConfigs)));
 
-//                        foreach( $order->getPlayConfig() as $play_config ) {
-//                            $result_validation = $this->betService->validation($play_config, $draw->getValues(),$lottery->getNextDrawDate());
-//                            if(!$result_validation->success()) {
-//                                return new ActionResult(false, $result_validation->errorMessage());
-//                            }
-//                            $this->walletService->payWithWallet($user,$play_config);
-//                        }
                         $dataTransaction = [
                             'lottery_id' => 1,
                             'transactionID' => $uniqueId,
@@ -230,13 +223,15 @@ class PlayService
                 $orderIsToNextDraw = $order->isNextDraw($draw->getValues()->getDrawDate());
                 if ($result_payment->success() && $orderIsToNextDraw) {
                     $walletBefore = $user->getWallet();
-                    foreach ($order->getPlayConfig() as $play_config) {
-                        $result_validation = $this->betService->validation($play_config, $draw->getValues(), $lottery->getNextDrawDate());
-                        if (!$result_validation->success()) {
+                    $playConfigs = $order->getPlayConfig();
+
+                    foreach(array_chunk($playConfigs,self::NUM_BETS_PER_REQUEST) as $playConfigsSplit) {
+                        $result_validation = $this->betService->groupingValidation($playConfigsSplit, $draw->getValues(), $lottery->getNextDrawDate());
+                        if(!$result_validation->success()) {
                             return new ActionResult(false, $result_validation->errorMessage());
                         }
-                        $this->walletService->payWithWallet($user, $play_config);
                     }
+                    $this->walletService->payGroupedBetsWithWallet($user,$playConfigs[0]->getLottery()->getSingleBetPrice()->multiply(count($playConfigs)));
                     $dataTransaction = [
                         'lottery_id'           => 1,
                         'numBets'              => count($order->getPlayConfig()),
