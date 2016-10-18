@@ -21,10 +21,6 @@ class LogValidationApiRepository extends RepositoryBase
         if( count($playConfigs) == 0 ) {
             throw new \Exception('PlayConfigs collection is empty');
         }
-        /** @var BetRepository $betRepository */
-        $betRepository = $this->getEntityManager()->getRepository('\EuroMillions\web\entities\Bet');
-        /** @var PlayConfigRepository $playConfigRepository */
-        $playConfigRepository = $this->getEntityManager()->getRepository('\EuroMillions\web\entities\PlayConfig');
 
         /** @var PlayConfig $playConfig */
         foreach($playConfigs as $playConfig) {
@@ -38,11 +34,11 @@ class LogValidationApiRepository extends RepositoryBase
                 'received' => new \DateTime(),
                 'bet' => $bet
             ]);
-            $this->getEntityManager()->persist($bet);
+            $this->add($bet);
+            $this->getEntityManager()->flush($bet);
             $this->add($log_api_reponse);
-            $betRepository->add($bet);
-            $playConfigRepository->add($playConfig);
+            $this->add($playConfig);
+            $this->getEntityManager()->flush($log_api_reponse);
         }
-        $this->getEntityManager()->flush();
     }
 }

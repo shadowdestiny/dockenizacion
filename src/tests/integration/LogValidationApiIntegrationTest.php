@@ -4,9 +4,8 @@
 namespace EuroMillions\tests\integration;
 
 
-use EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother;
-use EuroMillions\tests\helpers\mothers\PlayConfigMother;
 use EuroMillions\web\entities\Bet;
+use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\LogValidationApi;
 use EuroMillions\tests\base\DatabaseIntegrationTestBase;
 use EuroMillions\web\repositories\LogValidationApiRepository;
@@ -80,14 +79,28 @@ class LogValidationApiIntegrationTest extends DatabaseIntegrationTestBase
      */
     public function test_persistValidationAndBetsFromPlayConfigsCollection_called_storeCorrectlyInDatabase()
     {
-        $this->markTestIncomplete('persistValidationBets incomplete test');
-        $playConfigOne = PlayConfigMother::aPlayConfig()->build();
-        $playConfigTwo = PlayConfigMother::aPlayConfig()->build();
+        $playConfigOne = $this->entityManager->find('EuroMillions\web\entities\PlayConfig', 1);
+        $playConfigTwo = $this->entityManager->find('EuroMillions\web\entities\PlayConfig', 2);
         $playConfigCollection = [$playConfigOne,$playConfigTwo];
-        $draw = EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()->build();
+        /** @var EuroMillionsDraw $draw */
+        $draw = $this->entityManager->find('EuroMillions\web\entities\EuroMillionsDraw', 1);
         $id_ticket = '123456';
-        $this->sut->persistValidationsAndBetsFromPlayConfigsCollection();
+        $this->sut->persistValidationsAndBetsFromPlayConfigsCollection($playConfigCollection,$draw,$id_ticket);
 
+        $actual = $this->entityManager
+            ->createQuery(
+                'SELECT l'
+                .    ' FROM \EuroMillions\web\entities\LogValidationApi l')
+            ->getResult();
+
+        $actualBet = $this->entityManager
+            ->createQuery(
+                'SELECT b'
+                .    ' FROM \EuroMillions\web\entities\Bet b')
+            ->getResult();
+
+        $this->assertEquals(4,count($actual));
+        $this->assertEquals(6,count($actualBet));
     }
 
 }

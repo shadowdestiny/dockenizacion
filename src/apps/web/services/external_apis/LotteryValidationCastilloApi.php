@@ -93,7 +93,6 @@ class LotteryValidationCastilloApi
         if (null === $castilloTicketId) {
             $castilloTicketId = CastilloTicketId::create();
         }
-
         $numBets=count($playConfigsArray);
         $this->castilloId = $castilloTicketId;
         $content = "<?xml version='1.0' encoding='UTF-8'?><ticket type='6' date='" . $date_next_draw->format('ymd') . "' bets='".$numBets."' price='".self::PRICE_BET."'><id>" . $castilloTicketId->id() . "</id>";

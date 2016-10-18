@@ -133,6 +133,16 @@ class WalletService
         }
     }
 
+    public function payGroupedBetsWithWallet(User $user, Money $totalBets)
+    {
+        try {
+            $user->pay($totalBets);
+            $this->entityManager->flush($user);
+        } catch ( \Exception $e ) {
+            //EMTD Log and warn the admin
+        }
+    }
+
     public function purchaseTransactionGrouped(User $user, $transactionType, $data)
     {
         $data['now'] = new \DateTime();
