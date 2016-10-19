@@ -39,7 +39,10 @@ build:
 #    - cd src/react;npm test
 
   on_success:
-#    - curl --data "environment=staging&version=master" http://62.57.159.66:3000/deploy/
+    - curl --data "environment=staging&version=master" http://62.57.159.66:3000/deploy/
+    - BUILD_NUMBER=$(date +'%Y%m%d_%H%M%S').$RANDOM
+    - git tag -a v1-$BUILD_NUMBER -m "v1-$BUILD_NUMBER"
+    - git push origin v1-$BUILD_NUMBER
 
   after_success:
     - BUILD_NUMBER=$(date +'%Y%m%d_%H%M%S').$RANDOM
