@@ -72,7 +72,7 @@ class JackpotTaskUnitTest extends UnitTestBase
     {
         $lottery_name = 'EuroMillions';
         $notifications = [$this->getUserNotifications()];
-        $jackpot_amount = new Money(40000000, new Currency('EUR'));
+        $jackpot_amount = new Money(4000000000, new Currency('EUR'));
         $this->lotteryService_double->getNextDateDrawByLottery($lottery_name)->willReturn(new \DateTime());
         $this->lotteryService_double->getNextJackpot($lottery_name)->willReturn($jackpot_amount);
         $this->userService_double->getActiveNotificationsTypeJackpot()->willReturn(new ActionResult(true,$notifications));
@@ -99,7 +99,7 @@ class JackpotTaskUnitTest extends UnitTestBase
         $notification = new Notification();
         $notification->setDescription('Test');
         $userNotifications->setNotification($notification);
-        $notificationType = new NotificationValue(1,3500000);
+        $notificationType = new NotificationValue(1,35000000);
         $userNotifications->setConfigValue($notificationType);
         $userNotifications->setActive(true);
         return $userNotifications;

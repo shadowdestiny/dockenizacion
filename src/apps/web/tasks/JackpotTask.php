@@ -10,6 +10,8 @@ use EuroMillions\web\services\LotteriesDataService;
 use EuroMillions\web\services\LotteryService;
 use EuroMillions\web\services\UserService;
 use EuroMillions\shared\vo\results\ActionResult;
+use Money\Currency;
+use Money\Money;
 
 class JackpotTask extends TaskBase
 {
@@ -60,7 +62,8 @@ class JackpotTask extends TaskBase
             $user_notifications = $result->getValues();
             foreach($user_notifications as $user_notification) {
                 if($user_notification->getActive()) {
-                    if($jackpot_amount->getAmount() >= $user_notification->getConfigValue()->getValue()) {
+                    $valueThreshold = new Money((int)$user_notification->getConfigValue()->getValue() * 100, new Currency('EUR'));
+                    if($jackpot_amount->getAmount() >= $valueThreshold->getAmount()) {
                         $user = $this->userService->getUser($user_notification->getUser()->getId());
                         $emailTemplate->setUser($user);
                         $emailTemplate->setThresholdAmount($user_notification->getConfigValue()->getValue());

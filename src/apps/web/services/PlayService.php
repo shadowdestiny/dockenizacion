@@ -88,7 +88,7 @@ class PlayService
         }
         try{
             /** @var ActionResult $result_find_playstorage */
-            $result_find_playstorage = $this->playStorageStrategy->findByKey($user_id);
+            $result_find_playstorage = $this->playStorageStrategy->findByKey($current_user_id);
             if($result_find_playstorage->success()) {
                 $this->playStorageStrategy->save($result_find_playstorage->returnValues(),$current_user_id);
                 $result_save_playstorage = $this->playStorageStrategy->findByKey($current_user_id);
