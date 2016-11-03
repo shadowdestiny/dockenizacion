@@ -27,6 +27,25 @@ class LotteryDrawRepository extends EntityRepository
         return $result[0]->getJackpot();
     }
 
+    public function getLastRaffle($lotteryName, $date = null)
+    {
+        if (!$date) {
+            $date = date("Y-m-d");
+        }
+        /** @var EuroMillionsDraw[] $result */
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT raffle_value'
+                . ' FROM ' . $this->getEntityName() . ' ld JOIN ld.lottery l'
+                . ' WHERE l.name = :lottery_name AND ld.draw_date < :date'
+                . ' ORDER BY ld.draw_date DESC')
+            ->setMaxResults(1)
+            ->setParameters(['lottery_name' => $lotteryName, 'date' => $date])
+            ->useResultCache(true)
+            ->getResult();
+        return $result[0]->getRaffle();
+    }
+
     /**
      * @param Lottery $lottery
      * @param \DateTime|null $date

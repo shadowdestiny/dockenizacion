@@ -45,7 +45,17 @@ class LoteriasyapuestasDotEsApiFunctionalTest extends DatabaseIntegrationTestBas
         $this->assertArrayHasKey('lucky_numbers',$actual);
     }
 
-
+    public function testGetRaffleForDate()
+    {
+        $entity_manager = DI::getDefault()->get('entityManager');
+        $lottery_repository = $entity_manager->getRepository($this->getEntitiesToArgument('Lottery'));
+        /** @var Lottery $lottery */
+        $lottery = $lottery_repository->findOneBy(['name' => 'EuroMillions']);
+        $sut = new LoteriasyapuestasDotEsApi();
+        $actual = $sut->getRaffleForDate($lottery->getName(), $lottery->getLastDrawDate()->format("Y-m-d"));
+        $this->assertArrayHasKey('raffle_numbers', $actual);
+    }
+    
     /**
      * method getResultBreakDownForDate
      * when called

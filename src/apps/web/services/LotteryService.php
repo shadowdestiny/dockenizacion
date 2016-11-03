@@ -3,6 +3,7 @@ namespace EuroMillions\web\services;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\UnexpectedResultException;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\emailTemplates\EmailTemplate;
@@ -25,6 +26,7 @@ use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsJackpot;
 use EuroMillions\web\vo\EuroMillionsLine;
+use EuroMillions\web\vo\Raffle;
 
 class LotteryService
 {
@@ -213,10 +215,27 @@ class LotteryService
         }
     }
 
+    public function addRaffle(Lottery $lottery, Raffle $raffle)
+    {
+        try {
+            /** @var EuroMillionsDraw $euromillionsDraw */
+            $euromillionsDraw = $this->lotteryDrawRepository->getLastDraw($lottery);
+            $euromillionsDraw->setRaffle($raffle);
+            $this->entityManager->persist($euromillionsDraw);
+            $this->entityManager->flush($euromillionsDraw);
+        } catch (\Exception $e) {
+            throw new UnexpectedResultException();
+        }
+    }
 
     public function getLastJackpot($lotteryName)
     {
         return $this->lotteryDrawRepository->getLastJackpot($lotteryName);
+    }
+
+    public function getLastRaffle($lotteryName, \DateTime $today)
+    {
+        return $this->lotteryDrawRepository->getLastRaffle($lotteryName, $today);
     }
 
     public function getLastDrawWithBreakDownByDate($lotteryName, \DateTime $today)

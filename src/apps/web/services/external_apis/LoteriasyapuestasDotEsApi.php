@@ -74,6 +74,28 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
         throw new ValidDateRangeException('The date requested ('.$date.') is not valid for the LoteriasyapuestasDotEsApi');
     }
 
+    public function getRaffleForDate($lotteryName, $date)
+    {
+        if ($this->result_response == null) {
+            $this->result_response = $this->curlWrapper->get('http://www.loteriasyapuestas.es/es/euromillones/resultados/.formatoRSS');
+        }
+        $xml = new \SimpleXMLElement($this->result_response->body);
+        //TODO:Coger solo los valores cuando sea viernes.
+        foreach ($xml->channel->item as $item) {
+            if (preg_match('/Euromillones: premios y ganadores del [a-z]+ ([0123][0-9]) de ([a-z]+) de ([0-9]{4})/', $item->title, $matches)) {
+                $day = $matches[1];
+                $month = $this->translateMonth($matches[2]);
+                $year = $matches[3];
+                $item_date = "$year-$month-$day";
+                preg_match('/[A-Z]{3}[0-9]{5}/', $item->description, $result_matches);
+                $result = [];
+                $result['raffle_numbers'] = $result_matches;
+                return $result;
+            }
+        }
+        throw new ValidDateRangeException('The date requested (' . $date . ') is not valid for the LoteriasyapuestasDotEsApi');
+    }
+
     /**
      * @param $lotteryName
      * @param $date

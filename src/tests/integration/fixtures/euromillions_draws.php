@@ -2,7 +2,7 @@
 return [
     'euromillions_draws' => [
         [
-            'id'   => 1,
+            'id' => 1,
             'draw_date' => '2015-05-12',
             'jackpot_amount' => 1034900,
             'lottery_id' => 1,
@@ -16,7 +16,7 @@ return [
             'result_lucky_number_two' => 8,
         ],
         [
-            'id'   => 2,
+            'id' => 2,
             'draw_date' => '2015-05-15',
             'jackpot_amount' => 10344500,
             'lottery_id' => 1,
@@ -28,9 +28,10 @@ return [
             'result_regular_number_five' => 32,
             'result_lucky_number_one' => 1,
             'result_lucky_number_two' => 8,
+            'raffle_value' => 'AAA12345',
         ],
         [
-            'id'   => 3,
+            'id' => 3,
             'draw_date' => '2015-05-19',
             'jackpot_amount' => 19394845825200,
             'lottery_id' => 1,
@@ -44,7 +45,7 @@ return [
             'result_lucky_number_two' => 8,
         ],
         [
-            'id'   => 4,
+            'id' => 4,
             'draw_date' => '2015-05-22',
             'jackpot_amount' => 415034000,
             'lottery_id' => 1,
@@ -56,9 +57,10 @@ return [
             'result_regular_number_five' => 32,
             'result_lucky_number_one' => 1,
             'result_lucky_number_two' => 8,
+            'raffle_value' => 'AAA12345',
         ],
         [
-            'id'   => 6,
+            'id' => 6,
             'draw_date' => '2015-06-05',
             'jackpot_amount' => 10000000000,
             'lottery_id' => 1,
@@ -70,9 +72,10 @@ return [
             'result_regular_number_five' => 34,
             'result_lucky_number_one' => 6,
             'result_lucky_number_two' => 8,
+            'raffle_value' => 'AAA12345',
         ],
         [
-            'id'   => 7,
+            'id' => 7,
             'draw_date' => '2015-10-02',
             'jackpot_amount' => 10000000000,
             'lottery_id' => 1,
@@ -84,9 +87,10 @@ return [
             'result_regular_number_five' => 32,
             'result_lucky_number_one' => 1,
             'result_lucky_number_two' => 8,
+            'raffle_value' => 'AAA12345',
         ],
         [
-            'id'   => 8,
+            'id' => 8,
             'draw_date' => '2015-06-02',
             'jackpot_amount' => 10000000000,
             'lottery_id' => 1,
@@ -100,7 +104,7 @@ return [
             'result_lucky_number_two' => null,
         ],
         [
-            'id'   => 9,
+            'id' => 9,
             'draw_date' => '2015-09-22',
             'jackpot_amount' => 1034900,
             'lottery_id' => 1,
@@ -113,8 +117,5 @@ return [
             'result_lucky_number_one' => 1,
             'result_lucky_number_two' => 8,
         ],
-
-
-
     ]
 ];

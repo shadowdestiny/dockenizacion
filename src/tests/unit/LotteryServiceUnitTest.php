@@ -2,6 +2,8 @@
 namespace EuroMillions\tests\unit;
 
 
+use Doctrine\ORM\UnexpectedResultException;
+use EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother;
 use EuroMillions\tests\helpers\mothers\EuroMillionsLineMother;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
@@ -11,6 +13,7 @@ use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsJackpot;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\vo\Raffle;
 use Money\Currency;
 use Money\Money;
 use Phalcon\Di;
@@ -63,6 +66,42 @@ class LotteryServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected->success(),$actual->success());
     }
 
+    //TODO: testear que devuelve excepcion
+    //TODO: testear que se llama al flush y al persist
+
+    /**
+     * method testReturnExceptionOnRunTimeError
+     * should throw
+     */
+    public function testReturnExceptionOnRunTimeError()
+    {
+        $this->setExpectedException('Doctrine\ORM\UnexpectedResultException');
+        $lotteryName = 'Euromillions';
+        $raffle = new Raffle('AAA00000');
+        $lottery = $this->prepareLotteryEntity($lotteryName);
+        $this->lotteryDrawRepositoryDouble->getLastDraw(Argument::any())->WillThrow(new UnexpectedResultException());
+        $sut = $this->getSut();
+        $sut->addRaffle($lottery, $raffle);
+    }
+
+    public function testPersistRaffle()
+    {
+//        $this->setExpectedException('Doctrine\ORM\UnexpectedResultException');
+        $lotteryName = 'Euromillions';
+        $lottery = $this->prepareLotteryEntity($lotteryName);
+        $raffle = new Raffle('AAA00000');
+        $euromillionsDraw = EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()->build();
+        /** @var EuroMillionsDraw $euromillionsDraw */
+        $this->lotteryDrawRepositoryDouble->getLastDraw($lottery)->willReturn($euromillionsDraw);
+        $euromillionsDraw->setRaffle($raffle);
+        $entityManager_stub = $this->getEntityManagerDouble();
+        $entityManager_stub->persist($euromillionsDraw)->shouldBeCalled();
+        $entityManager_stub->flush($euromillionsDraw)->shouldBeCalled();
+//        $expected = new UnexpectedResultException();$sut = $this->getSut();
+        $sut = $this->getSut();
+        $sut->addRaffle($lottery, $raffle);
+    }
+    
     /**
      * method getTimeToNextDraw
      * when called
