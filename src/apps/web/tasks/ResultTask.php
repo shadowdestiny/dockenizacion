@@ -71,8 +71,10 @@ class ResultTask extends TaskBase
 //        $logger->setLogLevel(Logger::ERROR);
         try{
             $this->lotteriesDataService->updateLastDrawResult('EuroMillions');
+            //AQUI!!
             $this->lotteriesDataService->updateLastBreakDown('EuroMillions');
        } catch( \Exception $e ) {
+            //TODO: crear nueva exception, y mandar mail via emailservice creando un nuevo metodo dentro
 //            $logger->error($e->getMessage());
         }
 

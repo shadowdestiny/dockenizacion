@@ -24,6 +24,8 @@ class Bet extends EntityBase implements IEntity
     protected $matchStars;
 
     protected $prize;
+    
+    protected $matcher;
 
     public function __construct(PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw)
     {
@@ -39,6 +41,22 @@ class Bet extends EntityBase implements IEntity
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMatcher()
+    {
+        return $this->matcher;
+    }
+
+    /**
+     * @param mixed $matcher
+     */
+    public function setMatcher($matcher)
+    {
+        $this->matcher = $matcher;
     }
 
     public function setPlayConfig($playConfig)

@@ -103,6 +103,7 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
      */
     public function getResultBreakDownForDate($lotteryName, $date)
     {
+        //TODO: comprobar si viene vacio.
         if ($this->result_response == null) {
             $this->result_response = $this->curlWrapper->get('http://www.loteriasyapuestas.es/es/euromillones/resultados/.formatoRSS');
         }

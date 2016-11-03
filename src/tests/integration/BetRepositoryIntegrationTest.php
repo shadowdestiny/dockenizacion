@@ -27,7 +27,9 @@ class BetRepositoryIntegrationTest extends DatabaseIntegrationTestBase
             'lotteries',
             'play_configs',
             'euromillions_draws',
-            'bets'
+            'bets',
+            'matcher',
+            'log_validation_api'
         ];
     }
 
@@ -56,6 +58,18 @@ class BetRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     public function test_getBetsPlayedLastDraw_calledWithADateLastDraw_returnProperResult()
     {
         $actual = $this->sut->getBetsPlayedLastDraw(new \DateTime('2015-10-02'));
+        $this->assertEquals(3, $actual[0]->getId());
+        $this->assertEquals(1, count($actual));
+    }
+
+    /**
+     * method getBetsPlayedLastDraw
+     * when calledWithADateLastDraw
+     * should returnProperResult
+     */
+    public function test_getRafflePlayedLastDraw_calledWithADateLastDraw_returnProperResult()
+    {
+        $actual = $this->sut->getRafflePlayedLastDraw(new \DateTime('2016-09-30'));
         $this->assertEquals(3, $actual[0]->getId());
         $this->assertEquals(1, count($actual));
     }

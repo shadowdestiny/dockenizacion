@@ -56,20 +56,19 @@ class BetRepository extends RepositoryBase
 
     public function getRafflePlayedLastDraw(\DateTime $dateLastDraw)
     {
+        $patatafrita = 0;
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('bet','bet');
+        $rsm->addScalarResult('raffle','raffle');
         $result = $this->getEntityManager()
-            ->createQuery(
-                'SELECT b'
-                . ' FROM ' . $this->getEntityName() . ' b JOIN b.log_validation_api l'
-                . ' JOIN b.matcher m'
-                . ' JOIN b.matcher m'
-                . ' WHERE p.active = 0 AND e.draw_date = :date'
-                . ' WHERE b.id = l.bet_id'
-                . ' WHERE m.providerBetId = l.id_ticket'
-                . ' GROUP BY p.user')
-            ->setParameters(['date' => $dateLastDraw->format('Y-m-d')])
-            ->getResult();
-
-        return $result;
+            ->createNativeQuery("SELECT b.id as bet, m.raffle_million as raffle
+            FROM bets b
+            JOIN log_validation_api l on l.id_ticket = b.castillo_bet_id
+            JOIN matcher m on l.id_ticket = m.providerBetId
+            WHERE m.drawDate = ? ", $rsm);
+        $result->setParameter(1, $dateLastDraw);
+        var_dump($result->getResult());die();
+        return $result->getResult();
     }
 
     public function getCheckResult($date)
