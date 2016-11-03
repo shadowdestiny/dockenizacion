@@ -93,4 +93,4 @@ System.register(['angular2/core', "angular2/router", "../services/translation.se
         }
     }
 });
-//# sourceMappingURL=edit-Translation.component.js.map
+//# sourceMappingURL=edit-translation.component.js.map
