@@ -32,6 +32,22 @@ class LotteriesDataService
         $this->apisFactory = $apisFactory;
     }
 
+    public function getRaffle($lotteryName, \DateTime $now = null)
+    {
+        if (!$now) {
+            $now = new \DateTime();
+        }
+        try {
+            /** @var Lottery $lottery */
+            $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
+            $result_api = $this->apisFactory->resultApi($lottery);
+            $last_draw_date = $lottery->getLastDrawDate($now);
+            $result = $result_api->getRaffleForDate($lotteryName, $last_draw_date->format('Y-m-d'));
+        } catch (\Exception $e) {
+            throw new \Exception('Error getting results');
+        }
+    }
+
     public function updateNextDrawJackpot($lotteryName, \DateTime $now = null)
     {
         if (!$now) {

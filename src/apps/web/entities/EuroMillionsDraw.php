@@ -6,6 +6,7 @@ use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
 use EuroMillions\web\vo\EuroMillionsLine;
+use EuroMillions\web\vo\Raffle;
 use Money\Money;
 
 class EuroMillionsDraw extends EntityBase implements IEntity
@@ -20,6 +21,24 @@ class EuroMillionsDraw extends EntityBase implements IEntity
     protected $result;
     /** @var  EuroMillionsDrawBreakDown */
     protected $break_down;
+    /** @var  Raffle */
+    protected $raffle;
+
+    /**
+     * @return Raffle
+     */
+    public function getRaffle()
+    {
+        return $this->raffle;
+    }
+
+    /**
+     * @param Raffle $raffle
+     */
+    public function setRaffle($raffle)
+    {
+        $this->raffle = $raffle;
+    }
 
     /**
      * @return mixed

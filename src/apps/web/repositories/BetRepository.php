@@ -53,6 +53,24 @@ class BetRepository extends RepositoryBase
         return $result;
     }
 
+
+    public function getRafflePlayedLastDraw(\DateTime $dateLastDraw)
+    {
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT b'
+                . ' FROM ' . $this->getEntityName() . ' b JOIN b.log_validation_api l'
+                . ' JOIN b.matcher m'
+                . ' WHERE p.active = 0 AND e.draw_date = :date'
+                . ' WHERE b.id = l.bet_id'
+                . ' WHERE m.providerBetId = l.id_ticket'
+                . ' GROUP BY p.user')
+            ->setParameters(['date' => $dateLastDraw->format('Y-m-d')])
+            ->getResult();
+
+        return $result;
+    }
+
     public function getCheckResult($date)
     {
         $rsm = new ResultSetMapping;

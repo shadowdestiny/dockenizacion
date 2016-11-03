@@ -109,6 +109,12 @@ class PrizeCheckoutService
         }
     }
 
+    public function getBetsRaffle(Bet $bet, $drawdate)
+    {
+        $data = $this->betRepository->getRafflePlayedLastDraw($drawdate);
+
+        return $data;
+    }
 
     public function matchNumbersUser(Bet $bet, array $scalarValues, \DateTime $drawDate, Money $amount)
     {

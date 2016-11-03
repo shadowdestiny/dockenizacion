@@ -19,6 +19,7 @@
         <embedded name="result" class="EuroMillions\web\vo\EuroMillionsLine"/>
         <embedded name="jackpot" class="Money\Money"/>
         <embedded name="break_down" class="EuroMillions\web\vo\EuroMillionsDrawBreakDown"/>
+        <embedded name="raffle" class="EuroMillions\web\vo\Raffle"/>
         <many-to-one target-entity="EuroMillions\web\entities\Lottery" field="lottery" inversed-by="draws"/>
     </entity>
 

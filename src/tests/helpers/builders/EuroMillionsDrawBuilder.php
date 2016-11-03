@@ -2,9 +2,11 @@
 namespace EuroMillions\tests\helpers\builders;
 
 use EuroMillions\tests\helpers\mothers\LotteryMother;
+use EuroMillions\tests\helpers\mothers\RaffleMother;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\vo\EuroMillionsDrawBreakDown;
 use EuroMillions\web\vo\EuroMillionsLine;
+use EuroMillions\web\vo\Raffle;
 use Money\Money;
 
 class EuroMillionsDrawBuilder
@@ -18,6 +20,7 @@ class EuroMillionsDrawBuilder
     private $jackpot;
     private $break_down;
     private $result;
+    private $raffle;
 
     public static function aDraw()
     {
@@ -29,6 +32,7 @@ class EuroMillionsDrawBuilder
         $this->id = self::DEFAULT_ID;
         $this->lottery = LotteryMother::anEuroMillions();
         $this->draw_date = self::DEFAULT_DRAW_DATE;
+        $this->raffle = RaffleMother::anRaffle();
     }
 
     public function withJackpot(Money $jackpot)
@@ -54,5 +58,11 @@ class EuroMillionsDrawBuilder
         $draw = new EuroMillionsDraw();
         $draw->initialize(get_object_vars($this));
         return $draw;
+    }
+
+    public function withRaffle(Raffle $raffle)
+    {
+        $this->raffle = $raffle;
+        return $this;
     }
 }
