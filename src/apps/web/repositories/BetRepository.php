@@ -61,6 +61,7 @@ class BetRepository extends RepositoryBase
                 'SELECT b'
                 . ' FROM ' . $this->getEntityName() . ' b JOIN b.log_validation_api l'
                 . ' JOIN b.matcher m'
+                . ' JOIN b.matcher m'
                 . ' WHERE p.active = 0 AND e.draw_date = :date'
                 . ' WHERE b.id = l.bet_id'
                 . ' WHERE m.providerBetId = l.id_ticket'
