@@ -16,7 +16,7 @@ use Phalcon\Validation\Validator\StringLength;
 
 class CreditCardForm extends Form
 {
-    public function initialize()
+    public function initialize($entity, $options = null)
     {
         $card_number = new Text('card-number', array(
             'placeholder' => '',
@@ -44,7 +44,8 @@ class CreditCardForm extends Form
 
         $card_holder = new Text('card-holder', array(
             'placeholder' => '',
-            'autocomplete' => 'off'
+            'autocomplete' => 'off',
+            'value' => $options['Name'] . ' ' . $options['Surname']
         ));
         $card_holder->addValidators(array(
             new PresenceOf(array(

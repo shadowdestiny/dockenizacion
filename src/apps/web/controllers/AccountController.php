@@ -122,11 +122,13 @@ class AccountController extends PublicSiteControllerBase
      */
     public function walletAction()
     {
-        $credit_card_form = new CreditCardForm();
+        $user = $this->authService->getLoggedUser();
+        $userDetails['Name'] = (!is_null($user->getName())) ? $user->getName() : '';
+        $userDetails['Surname'] = (!is_null($user->getSurname())) ? $user->getSurname() : '';
+        $credit_card_form = new CreditCardForm($user, $userDetails);
         $countries = $this->getCountries();
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $form_errors = $this->getErrorsArray();
-        $user = $this->authService->getLoggedUser();
         $bank_account_form = new BankAccountForm($user, ['countries' => $countries] );
         $site_config_dto = $this->siteConfigService->getSiteConfigDTO($user->getUserCurrency(), $user->getLocale());
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
