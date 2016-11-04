@@ -56,7 +56,6 @@ class BetRepository extends RepositoryBase
 
     public function getRafflePlayedLastDraw(\DateTime $dateLastDraw)
     {
-        $patatafrita = 0;
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('bet','bet');
         $rsm->addScalarResult('raffle','raffle');
@@ -67,7 +66,6 @@ class BetRepository extends RepositoryBase
             JOIN matcher m on l.id_ticket = m.providerBetId
             WHERE m.drawDate = ? ", $rsm);
         $result->setParameter(1, $dateLastDraw);
-        var_dump($result->getResult());die();
         return $result->getResult();
     }
 
