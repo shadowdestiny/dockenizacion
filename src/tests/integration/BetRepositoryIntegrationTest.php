@@ -4,6 +4,7 @@
 namespace EuroMillions\tests\integration;
 
 
+use EuroMillions\tests\helpers\mothers\RaffleMother;
 use EuroMillions\web\entities\Bet;
 use EuroMillions\web\repositories\BetRepository;
 use EuroMillions\tests\base\DatabaseIntegrationTestBase;
@@ -70,8 +71,8 @@ class BetRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     public function test_getRafflePlayedLastDraw_calledWithADateLastDraw_returnProperResult()
     {
         $actual = $this->sut->getRafflePlayedLastDraw(new \DateTime('2016-09-30'));
-        $this->assertEquals(3, $actual[0]->getId());
-        $this->assertEquals(1, count($actual));
+        $raffle = RaffleMother::anRaffle()->getValue();
+        $this->assertEquals(substr($actual[0]['raffle'], 0 , 8), $raffle);
     }
 
     /**
