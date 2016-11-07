@@ -42,7 +42,7 @@ class MatcherRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     {
         $date = new \DateTime('2016-09-30');
         $actual = $this->sut->fetchRaffleMillionByDrawDate($date);
-        $this->assertCount(2,$actual);
+        $this->assertCount(3,$actual);
     }
 
 

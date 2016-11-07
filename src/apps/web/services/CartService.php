@@ -5,6 +5,7 @@ namespace EuroMillions\web\services;
 
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
@@ -22,11 +23,15 @@ class CartService
 
     private $userRepository;
 
-    public function __construct( EntityManager $entityManager, IPlayStorageStrategy $orderStorageStrategy )
+    /** @var SiteConfigService $siteConfigService */
+    private $siteConfigService;
+
+    public function __construct( EntityManager $entityManager, IPlayStorageStrategy $orderStorageStrategy, SiteConfigService $siteConfigService )
     {
         $this->entityManager = $entityManager;
         $this->orderStorageStrategy = $orderStorageStrategy;
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
+        $this->siteConfigService = $siteConfigService;
     }
 
     public function store( Order $order )
@@ -63,8 +68,8 @@ class CartService
                         $playConfig->formToEntity($user,$bet,$bet->euromillions_line);
                         $bets[] = $playConfig;
                     }
-                    $fee = new Money((int) $json->fee, new Currency('EUR'));
-                    $fee_limit = new Money((int) $json->fee_limit, new Currency('EUR'));
+                    $fee = $this->siteConfigService->getFee();
+                    $fee_limit = $this->siteConfigService->getFeeToLimitValue();
                     $single_bet_price = new Money((int) $json->single_bet_price, new Currency('EUR'));
                     $order = new Order($bets,$single_bet_price, $fee, $fee_limit);//order created
                     if( null !== $order ) {

@@ -126,10 +126,12 @@ class PlayService
 
         if($user_id) {
             try{
+                $di = \Phalcon\Di::getDefault();
                 $lottery = $this->lotteryService->getLotteryConfigByName('EuroMillions');
                 /** @var User $user */
                 $user = $this->userRepository->find(['id' => $user_id]);
                 $result_order = $this->cartService->get($user_id);
+                $numPlayConfigs=0;
                 if( $result_order->success() ) {
                     /** @var Order $order */
                     $order = $result_order->getValues();
@@ -158,22 +160,34 @@ class PlayService
                     $orderIsToNextDraw = $order->isNextDraw($draw->getValues()->getDrawDate());
                     if( $result_payment->success() && $orderIsToNextDraw) {
                         $walletBefore = $user->getWallet();
-
-                        $playConfigs = $order->getPlayConfig();
-                        foreach(array_chunk($playConfigs,self::NUM_BETS_PER_REQUEST) as $playConfigsSplit) {
-                            $result_validation = $this->betService->groupingValidation($playConfigsSplit, $draw->getValues(), $lottery->getNextDrawDate());
-                            if(!$result_validation->success()) {
-                                return new ActionResult(false, $result_validation->errorMessage());
+                        $config = $di->get('config');
+                        if($config->application->send_single_validations) {
+                            foreach( $order->getPlayConfig() as $play_config ) {
+                                $result_validation = $this->betService->validation($play_config, $draw->getValues(),$lottery->getNextDrawDate());
+                                if(!$result_validation->success()) {
+                                    return new ActionResult(false, $result_validation->errorMessage());
+                                }
+                                $this->walletService->payWithWallet($user,$play_config);
                             }
+                            $numPlayConfigs = count($order->getPlayConfig());
+                        } else {
+                            $playConfigs = $order->getPlayConfig();
+                            foreach(array_chunk($playConfigs,self::NUM_BETS_PER_REQUEST) as $playConfigsSplit) {
+                                $result_validation = $this->betService->groupingValidation($playConfigsSplit, $draw->getValues(), $lottery->getNextDrawDate());
+                                if(!$result_validation->success()) {
+                                    return new ActionResult(false, $result_validation->errorMessage());
+                                }
+                            }
+                            $this->walletService->payGroupedBetsWithWallet($user,$playConfigs[0]->getLottery()->getSingleBetPrice()->multiply(count($playConfigs)));
+                            $numPlayConfigs = count($playConfigs);
                         }
-                        $this->walletService->payGroupedBetsWithWallet($user,$playConfigs[0]->getLottery()->getSingleBetPrice()->multiply(count($playConfigs)));
 
                         $dataTransaction = [
                             'lottery_id' => 1,
                             'transactionID' => $uniqueId,
                             'numBets' => count($order->getPlayConfig()),
                             'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
-                            'amountWithWallet' => $lottery->getSingleBetPrice()->multiply(count($playConfigs))->getAmount(),
+                            'amountWithWallet' => $lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount(),
                             'walletBefore' => $walletBefore,
                             'amountWithCreditCard' => 0,
                             'playConfigs' => array_map(function($val){return $val->getId();}, $order->getPlayConfig())
