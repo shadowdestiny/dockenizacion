@@ -82,7 +82,15 @@
 	if (charCount==2){
 		$('#expiry-date-year').focus();
 	}	
-    });	
+    });
+
+    $('#expiry-date-year').on('keyup',function(e){
+    var charCount = $(this).val().length;
+    if (charCount==2){
+        $('#card-cvv').focus();
+    }
+    });
+
     $('#card-cvv,#card-number').on('keypress',function(e){
     var pattern = /^[0-9\.]+$/;
     if(e.target.id == 'card-cvv') {

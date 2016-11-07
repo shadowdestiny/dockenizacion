@@ -101,7 +101,7 @@
                 <input type="hidden" name="funds" id="funds" value=""/>
                 <div class="cl col6">
                     <input id="new-card" type="submit" class="hidden2">
-                    <label class="btn submit big green right" for="new-card">
+                    <label class="btn submit big green right" for="new-card" onClick="btnDisablePayment()">
                         {{ language.translate("Pay {total_value}") }}
                     </label>
                 </div>

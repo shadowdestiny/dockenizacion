@@ -227,6 +227,26 @@
   height: 100%;
 }
 
+.overlay-payment{
+  background-color:$grey;
+  position:absolute;
+  top:0;
+  left:0;
+  height:2000px;
+  width:100%;
+  z-index:999;
+  opacity:0.9;
+}
+
+.overlay-payment-content{
+  background-color: #ffffff;
+  border:1px solid $yellow;
+  border-radius:0;
+  width:400px;
+  top:25%;
+  margin:100px auto;
+}
+
 @media only screen and (max-width:1200px){
 .order .my-right{margin-top:55px;}
 }
@@ -341,6 +361,7 @@
 
 @media only screen and (max-width:380px){ /*Not standard size */
   .line.step3{width:90%;}
+  .overlay-payment-content{width:90%;}
   .order{
 /*    .desc{margin-bottom:.2em;}*/
     .num{width:100%;}
