@@ -2,6 +2,7 @@
 namespace EuroMillions\web\services\factories;
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\repositories\LanguageRepository;
 use EuroMillions\web\repositories\TranslationDetailRepository;
@@ -163,7 +164,8 @@ class DomainServiceFactory
     {
         return new CartService(
             $this->entityManager,
-            new RedisOrderStorageStrategy($this->serviceFactory->getDI()->get('redisCache'))
+            new RedisOrderStorageStrategy($this->serviceFactory->getDI()->get('redisCache')),
+            new SiteConfigService($this->entityManager,$this->getCurrencyConversionService())
         );
     }
 
