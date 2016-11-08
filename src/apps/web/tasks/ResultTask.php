@@ -53,30 +53,17 @@ class ResultTask extends TaskBase
 
     }
 
-
     public function updateAction(\DateTime $today = null)
     {
-
-        if(!$today) {
-            $today = new \DateTime();
-        }
-
-        //EMTD refactor, DI instead -> loggerService
-//        $config = $this->di->get('config');
-//        $smsAlert = new TextMagicSmsWrapper(['username' => $config->sms['username'],
-//                                             'password' => $config->sms['password']
-//                                            ]);
-//
-//        $logger = new SmsAdapter('updateResults', $smsAlert, [$config->sms['number']]);
-//        $logger->setLogLevel(Logger::ERROR);
-        try{
+        try {
             $this->lotteriesDataService->updateLastDrawResult('EuroMillions');
-            //AQUI!!
             $this->lotteriesDataService->updateLastBreakDown('EuroMillions');
-       } catch( \Exception $e ) {
-            //TODO: crear nueva exception, y mandar mail via emailservice creando un nuevo metodo dentro
-//            $logger->error($e->getMessage());
+        } catch (\Exception $e) {
+            $name = 'Breakdown is Empty';
+            $type = '';
+            $message = 'Breakdown is not saved correctly, is empty or have failed.';
+            $time = $now = new \DateTime('NOW');
+            $this->emailService->sendLog($name, $type, $message, $time);
         }
-
-   }
+    }
 }
