@@ -7,9 +7,11 @@ namespace EuroMillions\web\services;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
+use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\vo\Order;
 use Money\Currency;
 use Money\Money;
@@ -23,6 +25,9 @@ class CartService
 
     private $userRepository;
 
+    /** @var LotteryRepository $lotteryRepository  */
+    private $lotteryRepository;
+
     /** @var SiteConfigService $siteConfigService */
     private $siteConfigService;
 
@@ -31,6 +36,7 @@ class CartService
         $this->entityManager = $entityManager;
         $this->orderStorageStrategy = $orderStorageStrategy;
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
+        $this->lotteryRepository = $entityManager->getRepository('EuroMillions\web\entities\Lottery');
         $this->siteConfigService = $siteConfigService;
     }
 
@@ -54,6 +60,8 @@ class CartService
         try {
             /** @var ActionResult $result */
             $result = $this->orderStorageStrategy->findByKey($user_id);
+            /** @var Lottery $lottery */
+            $lottery = $this->lotteryRepository->findOneBy(['name' => 'EuroMillions']);
             if($result->success()) {
                 $json = json_decode($result->returnValues());
                 if( NULL == $json ) {
@@ -70,8 +78,7 @@ class CartService
                     }
                     $fee = $this->siteConfigService->getFee();
                     $fee_limit = $this->siteConfigService->getFeeToLimitValue();
-                    $single_bet_price = new Money((int) $json->single_bet_price, new Currency('EUR'));
-                    $order = new Order($bets,$single_bet_price, $fee, $fee_limit);//order created
+                    $order = new Order($bets,$lottery->getSingleBetPrice(), $fee, $fee_limit);//order created
                     if( null !== $order ) {
                         return new ActionResult(true, $order);
                     }
