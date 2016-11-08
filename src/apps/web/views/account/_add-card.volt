@@ -1,12 +1,4 @@
 <script type="text/javascript">
-//        $("body").append(
-//                '<div class="overlay-payment">' +
-//                '<div class="overlay-payment-content">' +
-//                '<h1 class="h1 title yellow res">Processing payment...<br /><br />Please wait...</h1>' +
-//                '</div>' +
-//                '</div>'
-//        );
-
     window.onload = function() {
         $('#card-number').mask('9999 9999 9999 9999');
     };
