@@ -1,3 +1,16 @@
+<script type="text/javascript">
+//        $("body").append(
+//                '<div class="overlay-payment">' +
+//                '<div class="overlay-payment-content">' +
+//                '<h1 class="h1 title yellow res">Processing payment...<br /><br />Please wait...</h1>' +
+//                '</div>' +
+//                '</div>'
+//        );
+
+    window.onload = function() {
+        $('#card-number').mask('9999 9999 9999 9999');
+    };
+</script>
 
 {% if component.where == 'cart' %}
     <hr class="hr yellow">
@@ -101,7 +114,7 @@
                 <input type="hidden" name="funds" id="funds" value=""/>
                 <div class="cl col6">
                     <input id="new-card" type="submit" class="hidden2">
-                    <label class="btn submit big green right" for="new-card" onClick="btnDisablePayment()">
+                    <label class="btn submit big green right" for="new-card">
                         {{ language.translate("Pay {total_value}") }}
                     </label>
                 </div>

@@ -136,16 +136,6 @@ function navCurrency(){
     }
 }
 
-function btnDisablePayment(){
-    $("body").append(
-        '<div class="overlay-payment">' +
-            '<div class="overlay-payment-content">' +
-                '<h1 class="h1 title yellow res">Processing payment...<br /><br />Please wait...</h1>' +
-            '</div>' +
-        '</div>'
-    );
-}
-
 $(function(){
     if(show_modal == 1) {
         $("#win").easyModal({
