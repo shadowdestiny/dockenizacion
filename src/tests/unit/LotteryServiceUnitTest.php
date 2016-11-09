@@ -34,6 +34,7 @@ class LotteryServiceUnitTest extends UnitTestBase
     protected $emailService_double;
     protected $userNotoificationsService_double;
     protected $walletService_double;
+    protected $lotteryService_double;
 
 
     public function setUp()
@@ -48,6 +49,7 @@ class LotteryServiceUnitTest extends UnitTestBase
         $this->emailService_double = $this->getServiceDouble('EmailService');
         $this->userNotoificationsService_double = $this->getServiceDouble('UserNotificationsService');
         $this->walletService_double = $this->getServiceDouble('WalletService');
+        $this->lotteryService_double = $this->getServiceDouble('LotteryService');
     }
 
     /**
@@ -484,6 +486,77 @@ class LotteryServiceUnitTest extends UnitTestBase
         $this->assertEquals($expected,$actual);
     }
 
+    public function test_obtainDataForDraw_called_returnArrayDataDraw_whenDateIsBeforeClosedDraw()
+    {
+        $lotteryName = 'Euromillions';
+        $date = new \DateTime('2016-11-11');
+        $date->setTime(18,00);
+
+        $this->prepareLotteryEntity($lotteryName);
+        $sut = $this->getSut();
+        $this->assertSame(
+            $this->expectedResponseObtainDataForDrawWhenDateIsBeforeClosedDraw(),
+            $sut->obtainDataForDraw($lotteryName, $date)
+        );
+    }
+
+    private function expectedResponseObtainDataForDrawWhenDateIsBeforeClosedDraw()
+    {
+        return [
+            'drawDate' => 'Friday 11 Nov 20:00',
+            'playDates' => [
+                ['Friday 11 November#5'],
+                ['Tuesday 15 November#2'],
+                ['Friday 18 November#5'],
+                ['Tuesday 22 November#2'],
+                ['Friday 25 November#5'],
+                ['Tuesday 29 November#2'],
+                ['Friday 02 December#5'],
+                ['Tuesday 06 December#2'],
+                ['Friday 09 December#5'],
+                ['Tuesday 13 December#2'],
+                ['Friday 16 December#5'],
+                ['Tuesday 20 December#2']
+            ],
+            'dayOfWeek' => 5,
+        ];
+    }
+
+    public function test_obtainDataForDraw_called_returnArrayDataDraw_whenDateIsAfterClosedDraw()
+    {
+        $lotteryName = 'Euromillions';
+        $date = new \DateTime('2016-11-11');
+        $date->setTime(19,00);
+
+        $this->prepareLotteryEntity($lotteryName);
+        $sut = $this->getSut();
+        $this->assertSame(
+            $this->expectedResponseObtainDataForDrawWhenDateIsAfterClosedDraw(),
+            $sut->obtainDataForDraw($lotteryName, $date)
+        );
+    }
+
+    private function expectedResponseObtainDataForDrawWhenDateIsAfterClosedDraw()
+    {
+        return [
+            'drawDate' => 'Tuesday 15 Nov 20:00',
+            'playDates' => [
+                ['Tuesday 15 November#2'],
+                ['Friday 18 November#5'],
+                ['Tuesday 22 November#2'],
+                ['Friday 25 November#5'],
+                ['Tuesday 29 November#2'],
+                ['Friday 02 December#5'],
+                ['Tuesday 06 December#2'],
+                ['Friday 09 December#5'],
+                ['Tuesday 13 December#2'],
+                ['Friday 16 December#5'],
+                ['Tuesday 20 December#2'],
+                ['Friday 23 December#5']
+                ],
+            'dayOfWeek' => 2,
+        ];
+    }
 
 
     /**
