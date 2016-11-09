@@ -491,35 +491,27 @@ class LotteryServiceUnitTest extends UnitTestBase
         $lotteryName = 'Euromillions';
         $date = new \DateTime('2016-11-11');
         $date->setTime(18,00);
+        $expectedPlayDates = [
+            ['Friday 11 November#5'],
+            ['Tuesday 15 November#2'],
+            ['Friday 18 November#5'],
+            ['Tuesday 22 November#2'],
+            ['Friday 25 November#5'],
+            ['Tuesday 29 November#2'],
+            ['Friday 02 December#5'],
+            ['Tuesday 06 December#2'],
+            ['Friday 09 December#5'],
+            ['Tuesday 13 December#2'],
+            ['Friday 16 December#5'],
+            ['Tuesday 20 December#2']
+        ];
 
         $this->prepareLotteryEntity($lotteryName);
         $sut = $this->getSut();
         $this->assertSame(
-            $this->expectedResponseObtainDataForDrawWhenDateIsBeforeClosedDraw(),
+            $this->expectedResponseObtainDataForDraw('Friday 11 Nov 20:00', $expectedPlayDates, 5),
             $sut->obtainDataForDraw($lotteryName, $date)
         );
-    }
-
-    private function expectedResponseObtainDataForDrawWhenDateIsBeforeClosedDraw()
-    {
-        return [
-            'drawDate' => 'Friday 11 Nov 20:00',
-            'playDates' => [
-                ['Friday 11 November#5'],
-                ['Tuesday 15 November#2'],
-                ['Friday 18 November#5'],
-                ['Tuesday 22 November#2'],
-                ['Friday 25 November#5'],
-                ['Tuesday 29 November#2'],
-                ['Friday 02 December#5'],
-                ['Tuesday 06 December#2'],
-                ['Friday 09 December#5'],
-                ['Tuesday 13 December#2'],
-                ['Friday 16 December#5'],
-                ['Tuesday 20 December#2']
-            ],
-            'dayOfWeek' => 5,
-        ];
     }
 
     public function test_obtainDataForDraw_called_returnArrayDataDraw_whenDateIsAfterClosedDraw()
@@ -527,37 +519,43 @@ class LotteryServiceUnitTest extends UnitTestBase
         $lotteryName = 'Euromillions';
         $date = new \DateTime('2016-11-11');
         $date->setTime(19,00);
+        $expectedPlayDates = [
+            ['Tuesday 15 November#2'],
+            ['Friday 18 November#5'],
+            ['Tuesday 22 November#2'],
+            ['Friday 25 November#5'],
+            ['Tuesday 29 November#2'],
+            ['Friday 02 December#5'],
+            ['Tuesday 06 December#2'],
+            ['Friday 09 December#5'],
+            ['Tuesday 13 December#2'],
+            ['Friday 16 December#5'],
+            ['Tuesday 20 December#2'],
+            ['Friday 23 December#5']
+        ];
 
         $this->prepareLotteryEntity($lotteryName);
         $sut = $this->getSut();
         $this->assertSame(
-            $this->expectedResponseObtainDataForDrawWhenDateIsAfterClosedDraw(),
+            $this->expectedResponseObtainDataForDraw('Tuesday 15 Nov 20:00', $expectedPlayDates, 2),
             $sut->obtainDataForDraw($lotteryName, $date)
         );
     }
 
-    private function expectedResponseObtainDataForDrawWhenDateIsAfterClosedDraw()
+    /**
+     * @param $drawDate
+     * @param $playDates
+     * @param $dayOfWeek
+     * @return array
+     */
+    private function expectedResponseObtainDataForDraw($drawDate, $playDates, $dayOfWeek)
     {
         return [
-            'drawDate' => 'Tuesday 15 Nov 20:00',
-            'playDates' => [
-                ['Tuesday 15 November#2'],
-                ['Friday 18 November#5'],
-                ['Tuesday 22 November#2'],
-                ['Friday 25 November#5'],
-                ['Tuesday 29 November#2'],
-                ['Friday 02 December#5'],
-                ['Tuesday 06 December#2'],
-                ['Friday 09 December#5'],
-                ['Tuesday 13 December#2'],
-                ['Friday 16 December#5'],
-                ['Tuesday 20 December#2'],
-                ['Friday 23 December#5']
-                ],
-            'dayOfWeek' => 2,
+            'drawDate' => $drawDate,
+            'playDates' => $playDates,
+            'dayOfWeek' => $dayOfWeek,
         ];
     }
-
 
     /**
      * @param $lottery_name
