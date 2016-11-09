@@ -68,7 +68,7 @@ class RaffleCest
         $draw_array = $draw->toArray();
         $raffle = RaffleMother::anRaffle();
         $I->haveInDatabase('euromillions_draws', $draw_array);
-        $I->canSeeInDatabase('euromillions_draws', ['raffle_value' => $raffle]);
+        $I->canSeeInDatabase('euromillions_draws', ['raffle_value' => $raffle->getValue()]);
         $bet = new Bet($playConfig, $draw);
         $bet->setId(1);
         $bet->setPrize(new \Money\Money(10000, new \Money\Currency('EUR')));

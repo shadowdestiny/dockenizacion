@@ -10,8 +10,8 @@ class RaffleMother
 {
     public static function anRaffle()
     {
-        $raffle = new Raffle('BNN41949');
-
-        return $raffle;
+        return new Raffle(
+            'BNN41949'
+        );
     }
 }

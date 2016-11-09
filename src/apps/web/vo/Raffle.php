@@ -8,7 +8,7 @@ use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use EuroMillions\web\vo\base\StringLiteral;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
-class Raffle extends StringLiteral
+class Raffle
 {
     protected $value;
 
@@ -16,16 +16,16 @@ class Raffle extends StringLiteral
     {
         Assertion::notEmpty($value);
         $this->tipoIsCorrect($value);
-        parent::__construct($value);
     }
 
     public function tipoIsCorrect($raffle)
     {
         $regex = '/^[A-Z]{3}[0-9]{5}$/';
         if (preg_match($regex, $raffle)) {
-            return true;
+            $this->value = $raffle;
+        } else {
+            throw new \InvalidArgumentException();
         }
-        throw new \InvalidArgumentException();
     }
 
     public function equals(Raffle $raffle)
@@ -50,14 +50,21 @@ class Raffle extends StringLiteral
         $this->value = $value;
     }
 
-    public function getRaffleChars($raffle)
+    public function getRaffleChars()
     {
-        return substr($raffle, 0, 2);
+        return substr($this->value, 0, 2);
     }
 
-    public function getRaffleNumbers($raffle)
+    public function getRaffleNumbers()
     {
-        return substr($raffle, 3, 7);
+        return substr($this->value, 3, 7);
+    }
+
+    public function toArray()
+    {
+        return [
+            'value' => $this->value
+        ];
     }
 
 }

@@ -55,7 +55,6 @@ class EntityBase
     public function toArray()
     {
         $object_as_array = (array)$this->toValueObject();
-
         foreach ($object_as_array as $property => $value) {
             $strategy = $this->getStrategy($value);
             unset($object_as_array[$property]);
