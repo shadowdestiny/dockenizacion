@@ -1,11 +1,13 @@
 <?php
 namespace EuroMillions\web\services;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\UnexpectedResultException;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\IEmailTemplate;
 use EuroMillions\web\entities\Bet;
@@ -328,6 +330,32 @@ class LotteryService
                 $this->emailService->sendTransactionalEmail($user, $emailTemplate);
             }
         }
+    }
+
+    public function obtainDataForDraw($lotteryName, \DateTime $datetime=null)
+    {
+        if($datetime == null) {
+            $datetime = new DateTime();
+        }
+
+        $draw = $this->getNextDateDrawByLottery($lotteryName, $datetime);
+        $date_time_util = new DateTimeUtil();
+
+        if ($date_time_util->checkTimeForClosePlay($draw, $datetime)) {
+            $playDates = $this->getRecurrentDrawDates($lotteryName, 12, $datetime->modify('+1 day'));
+            $draw = $this->getNextDateDrawByLottery($lotteryName, $datetime->modify('+1 day'));
+        } else {
+            $playDates = $this->getRecurrentDrawDates($lotteryName, 12, $datetime);
+            $draw = $this->getNextDateDrawByLottery($lotteryName, $datetime);
+        }
+
+        $dayOfWeek = $date_time_util->getDayOfWeek($draw);
+
+        return [
+            'drawDate' => $draw->format('l j M G:i'),
+            'playDates' => $playDates,
+            'dayOfWeek' => $dayOfWeek,
+        ];
     }
 
     /**

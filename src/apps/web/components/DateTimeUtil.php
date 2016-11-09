@@ -39,9 +39,11 @@ class DateTimeUtil
         return ($timeToRetry < $limit_time);
     }
 
-    public function checkTimeForClosePlay(\DateTime $draw)
+    public function checkTimeForClosePlay(\DateTime $draw, \DateTime $now=null)
     {
-        $now = new \DateTime();
+        if($now == null) {
+            $now = new \DateTime();
+        }
         $datetime_from = $draw->sub(\DateInterval::createFromDateString('70 minutes'))->format('Y-m-d H:i');
         return ($now->format('Y-m-d H:i') > $datetime_from);
     }

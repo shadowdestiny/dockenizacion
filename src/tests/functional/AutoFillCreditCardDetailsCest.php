@@ -21,17 +21,7 @@ class AutoFillCreditCardDetailsCest
 
     /**
      * @param FunctionalTester $I
-     * @group unic
-     */
-    public function redirectToLoginIfNotLoggedIn(FunctionalTester $I)
-    {
-        $I->amOnPage('/account');
-        $I->seeCurrentUrlMatches('/^\/sign-in/');
-    }
-
-    /**
-     * @param FunctionalTester $I
-     * @group unic
+     * @group active
      */
     public function seeNameInCardHolderAtBalancePage(FunctionalTester $I)
     {
