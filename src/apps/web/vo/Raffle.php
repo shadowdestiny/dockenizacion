@@ -50,14 +50,14 @@ class Raffle extends StringLiteral
         $this->value = $value;
     }
 
-    public function getRaffleChars($raffle)
+    public function getRaffleChars()
     {
-        return substr($raffle, 0, 2);
+        return substr($this->value, 0, 2);
     }
 
-    public function getRaffleNumbers($raffle)
+    public function getRaffleNumbers()
     {
-        return substr($raffle, 3, 7);
+        return substr($this->value, 3, 7);
     }
 
 }
