@@ -1,85 +1,47 @@
 <?php
-
-
 namespace EuroMillions\tests\unit;
 
-
 use EuroMillions\shared\vo\Wallet;
+use EuroMillions\tests\base\UnitTestBase;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\shared\config\Namespaces;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\tasks\RaffleTask;
 use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\Password;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
-use EuroMillions\tests\base\UnitTestBase;
+use EuroMillions\web\entities\Lottery;
+use EuroMillions\web\entities\PlayConfig;
+//
+use EuroMillions\web\tasks\ResultTask;
 
-class ResultTaskUnitTest
+class ResultTaskUnitTest extends UnitTestBase
 {
-
-    private $playConfigRepository_double;
-
-    private $euroMillionsDrawRepository_double;
-
-    private $lotteryDrawRepository_double;
-
-    private $lotteriesDataService_double;
-
-    private $betRepository_double;
-
-    private $userRepository_double;
-
-    private $playService_double;
-
     private $emailService_double;
-
+    private $lotteryDataService_double;
+    private $playService_double;
     private $userService_double;
-
     private $currencyService_double;
 
-//    protected function getEntityManagerStubExtraMappings()
-//    {
-//        return [
-//            Namespaces::ENTITIES_NS . 'PlayConfig' => $this->playConfigRepository_double,
-//            Namespaces::ENTITIES_NS . 'EuroMillionsDraw' => $this->euroMillionsDrawRepository_double,
-//            Namespaces::ENTITIES_NS . 'Lottery' => $this->lotteryDrawRepository_double,
-//            Namespaces::ENTITIES_NS . 'Bet' => $this->betRepository_double,
-//            Namespaces::ENTITIES_NS . 'User' => $this->userRepository_double,
-//        ];
-//    }
-//
-//    public function setUp()
-//    {
-//        $this->lotteriesDataService_double = $this->getServiceDouble('LotteriesDataService');
-//        $this->playService_double = $this->getServiceDouble('PlayService');
-//        $this->emailService_double = $this->getServiceDouble('EmailService');
-//        $this->userService_double = $this->getServiceDouble('UserService');
-//        $this->currencyService_double = $this->getServiceDouble('CurrencyService');
-//        parent::setUp();
-//    }
-    
-
-    /**
-     * @param string $currency
-     * @return User
-     */
-    private function getUser($currency = 'EUR')
+    public function setUp()
     {
-        $user = new User();
-        $user->initialize(
-            [
-                'id' => '9098299B-14AC-4124-8DB0-19571EDABE55',
-                'name'     => 'test',
-                'surname'  => 'test01',
-                'email'    => new Email('raul.mesa@panamedia.net'),
-                'password' => new Password('passworD01', new NullPasswordHasher()),
-                'validated' => false,
-                'wallet' => new Wallet(new Money(5000,new Currency($currency))),
-                'validation_token' => '33e4e6a08f82abb38566fc3bb8e8ef0d'
-            ]
-        );
-        return $user;
+        $this->lotteryDataService_double = $this->getServiceDouble('LotteriesDataService');
+        $this->playService_double = $this->getServiceDouble('PlayService');
+        $this->emailService_double = $this->getServiceDouble('EmailService');
+        $this->userService_double = $this->getServiceDouble('UserService');
+        $this->currencyService_double = $this->getServiceDouble('CurrencyService');
+        parent::setUp();
+    }
+
+    public function test_SendEmailLogAction()
+    {
+        $this->emailService_double->sendLog(Argument::any(), Argument::any(), Argument::any(), Argument::any())->shouldBeCalled();
+        $this->lotteryDataService_double->updateLastBreakDown('EuroMillions')->willReturn(new \Exception);
+        $sut = new ResultTask();
+        $sut->initialize($this->lotteryDataService_double->reveal(), $this->playService_double->reveal(), $this->emailService_double->reveal(), $this->userService_double->reveal(), $this->currencyService_double->reveal());
+        $sut->updateAction(new \DateTime());
     }
 
     protected function getBreakDownDataDraw()

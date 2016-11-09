@@ -6,6 +6,7 @@ use EuroMillions\web\interfaces\IJackpotApi;
 use EuroMillions\web\interfaces\IResultApi;
 use Money\Currency;
 use Money\Money;
+use Phalcon\Exception;
 use Phalcon\Http\Client\Provider\Curl;
 
 class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
@@ -103,23 +104,26 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
      */
     public function getResultBreakDownForDate($lotteryName, $date)
     {
-        //TODO: comprobar si viene vacio.
-        if ($this->result_response == null) {
-            $this->result_response = $this->curlWrapper->get('http://www.loteriasyapuestas.es/es/euromillones/resultados/.formatoRSS');
-        }
-        $s = preg_replace('~//<!\[CDATA\[\s*|\s*//\]\]>~', '', $this->result_response->body);
-        $xml = simplexml_load_string($s, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
-        foreach ($xml->channel->item as $item) {
-            if (preg_match('/Euromillones: resultados del [a-z]+ ([0123][0-9]) de ([a-z]+) de ([0-9]{4})/', $item->title, $matches)) {
-                $day = $matches[1];
-                $month = $this->translateMonth($matches[2]);
-                $year = $matches[3];
-                $item_date = "$year-$month-$day";
-                if ($item_date == $date) {
-                    preg_match_all('/<td[^>]*>(.*?)<\/td>/', $xml->channel->item->description, $matches);
-                    return $this->sanetizeArrayResults(array_chunk($matches[1],4));
+        try {
+            if ($this->result_response == null) {
+                $this->result_response = $this->curlWrapper->get('http://www.loteriasyapuestas.es/es/euromillones/resultados/.formatoRSS');
+            }
+            $s = preg_replace('~//<!\[CDATA\[\s*|\s*//\]\]>~', '', $this->result_response->body);
+            $xml = simplexml_load_string($s, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
+            foreach ($xml->channel->item as $item) {
+                if (preg_match('/Euromillones: resultados del [a-z]+ ([0123][0-9]) de ([a-z]+) de ([0-9]{4})/', $item->title, $matches)) {
+                    $day = $matches[1];
+                    $month = $this->translateMonth($matches[2]);
+                    $year = $matches[3];
+                    $item_date = "$year-$month-$day";
+                    if ($item_date == $date) {
+                        preg_match_all('/<td[^>]*>(.*?)<\/td>/', $xml->channel->item->description, $matches);
+                        return $this->sanetizeArrayResults(array_chunk($matches[1], 4));
+                    }
                 }
             }
+        } catch (\Exception $e) {
+            throw new Exception();
         }
     }
 

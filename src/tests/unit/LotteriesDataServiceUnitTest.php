@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\tests\unit;
 
+use EuroMillions\tests\helpers\mothers\EuroMillionsDrawMother;
 use EuroMillions\tests\helpers\mothers\UserMother;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\EuroMillionsDraw;
@@ -115,6 +116,30 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     }
 
     /**
+     * method updateLastBreakdown
+     * when calledWithADateDifferentThanADrawDate
+     * should getResultsFromPreviousDraw
+     */
+    public function test_updateLastBreakdown_calledWithADateDifferentThanADrawDate_getResultsFromPreviousDraw()
+    {
+        $lottery_name = 'EuroMillions';
+        $drawDate = new \DateTime('2015-06-10');
+        $lastdrawDate = new \DateTime('2015-06-09 20:00:00');
+        $api_mock = $this->prophesize('\EuroMillions\web\services\external_apis\LoteriasyapuestasDotEsApi');
+        $this->lotteryRepositoryDouble->findOneBy(['name' => $lottery_name])->willReturn($this->prepareLotteryEntity($lottery_name));
+        $this->apiFactoryDouble->resultApi(Argument::any())->willReturn($api_mock->reveal());
+        $expected = EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()->build();
+        $expected->setDrawDate($drawDate);
+        $this->lotteryDrawRepositoryDouble->getLastDraw(Argument::any())->willReturn($expected);
+        $api_mock->getResultBreakDownForDate($lottery_name, '2015-06-09')->willReturn($this->getBreakDownDataDraw()[0]);
+        $this->lotteryDrawRepositoryDouble->findOneBy(['lottery' => $this->prepareLotteryEntity($lottery_name), 'draw_date' => $lastdrawDate])->willReturn($expected);
+        $this->entityManagerDouble->flush()->shouldBeCalled();
+        $sut = $this->getSut();
+        $actual = $sut->updateLastBreakDown($lottery_name, $drawDate);
+        $this->assertEquals($expected->getBreakDown(), $actual->getBreakDown());
+    }
+
+    /**
      * method getPriceForNextDraw
      * when called
      * should returnTotalPriceForNextDraw
@@ -211,5 +236,26 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
         $this->entityManagerDouble->getRepository('EuroMillions\web\entities\EuroMillionsDraw')->willReturn($this->lotteryDrawRepositoryDouble);
         $this->entityManagerDouble->getRepository('EuroMillions\web\entities\Lottery')->willReturn($this->lotteryRepositoryDouble);
         return new LotteriesDataService($this->entityManagerDouble->reveal(), $this->apiFactoryDouble->reveal());
+    }
+
+    protected function getBreakDownDataDraw()
+    {
+        return [
+            [
+                'category_one' => ['5 + 2', '189080000', '0'],
+                'category_two' => ['5 + 1', '2939257', '9'],
+                'category_three' => ['5 + 0', '8817797', '10'],
+                'category_four' => ['4 + 2', '668015', '66'],
+                'category_five' => ['4 + 1', '27516', '1.402'],
+                'category_six' => ['4 + 0', '13149', '2.934'],
+                'category_seven' => ['3 + 2', '6087', '4.527'],
+                'category_eight' => ['2 + 2', '1893', '66.973'],
+                'category_nine' => ['3 + 1', '1673', '72.488'],
+                'category_ten' => ['3 + 0', '1341', '152.009'],
+                'category_eleven' => ['1 + 2', '998', '358.960'],
+                'category_twelve' => ['2 + 1', '852', '1.138.617'],
+                'category_thirteen' => ['2 + 0', '415', '2.390.942'],
+            ]
+        ];
     }
 }

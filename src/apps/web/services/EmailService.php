@@ -127,7 +127,7 @@ class EmailService
                 $this->mailConfig['from_address'],
                 [
                     [
-                        'email' => 'rmrbest@gmail.com',
+                        'email' => 'alerts@panamedia.net',
                         'name'  => 'Contact',
                         'type'  => 'to',
                     ]
