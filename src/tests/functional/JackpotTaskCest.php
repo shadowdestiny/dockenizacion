@@ -29,7 +29,7 @@ class JackpotTaskCest
 
     /**
      * @param FunctionalTester $I
-     * @group active
+     * @group problems
      */
     public function jackpotReminderWhenThersholdReach( FunctionalTester $I)
     {
@@ -47,7 +47,7 @@ class JackpotTaskCest
         $draw = EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()->withJackpot(new \Money\Money((int) 15000000, new \Money\Currency('EUR')))->build();
         $draw_array = $draw->toArray();
         $I->haveInDatabase('euromillions_draws', $draw_array);
-        $I->wantTo('Send email reminder when threshold reach');
+        $I->wantTo('Send email reminder whthreshold reach');
         $I->runShellCommand('php '.__DIR__.'/../../apps/cli-test.php jackpot reminderJackpot');
     }
 }
