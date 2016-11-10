@@ -23,6 +23,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
     protected $lotteryRepositoryDouble;
     protected $entityManagerDouble;
     protected $apiFactoryDouble;
+    protected $lotteriesDataServiceDouble;
 
     public function setUp()
     {
@@ -31,6 +32,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
         $this->lotteryDrawRepositoryDouble = $this->getRepositoryDouble('LotteryDrawRepository');
         $this->lotteryRepositoryDouble = $this->getRepositoryDouble('LotteryRepository');
         $this->entityManagerDouble = $this->getEntityManagerDouble();
+        $this->lotteriesDataServiceDouble = $this->getServiceDouble('LotteriesDataService');
     }
 
     /**
@@ -137,6 +139,27 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
         $sut = $this->getSut();
         $actual = $sut->updateLastBreakDown($lottery_name, $drawDate);
         $this->assertEquals($expected->getBreakDown(), $actual->getBreakDown());
+    }
+
+    /**
+     * method updateLastBreakdown
+     * when calledWithADateDifferentThanADrawDate
+     * should getResultsFromPreviousDraw
+     */
+    public function test_updateLastBreakdown_isEmpty()
+    {
+        $lottery_name = 'EuroMillions';
+        $drawDate = new \DateTime('2015-06-10');
+        $api_mock = $this->prophesize('\EuroMillions\web\services\external_apis\LoteriasyapuestasDotEsApi');
+        $this->lotteryRepositoryDouble->findOneBy(['name' => $lottery_name])->willReturn($this->prepareLotteryEntity($lottery_name));
+        $this->apiFactoryDouble->resultApi(Argument::any())->willReturn($api_mock->reveal());
+        $expected = EuroMillionsDrawMother::anEuroMillionsDrawWithJackpotAndBreakDown()->build();
+        $expected->setDrawDate($drawDate);
+        $this->lotteryDrawRepositoryDouble->getLastDraw(Argument::any())->willReturn($expected);
+        $api_mock->getResultBreakDownForDate($lottery_name, '2015-06-09')->WillThrow(new \Exception);
+        $this->setExpectedException('\Exception');
+        $sut = $this->getSut();
+        $sut->updateLastBreakDown($lottery_name, $drawDate);
     }
 
     /**

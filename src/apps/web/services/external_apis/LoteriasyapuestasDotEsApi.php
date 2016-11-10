@@ -102,14 +102,16 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
      * @param $date
      * @return array
      */
-    public function getResultBreakDownForDate($lotteryName, $date)
+    public function getResultBreakDownForDate($lotteryName, $date, $xml = null)
     {
         try {
             if ($this->result_response == null) {
                 $this->result_response = $this->curlWrapper->get('http://www.loteriasyapuestas.es/es/euromillones/resultados/.formatoRSS');
             }
             $s = preg_replace('~//<!\[CDATA\[\s*|\s*//\]\]>~', '', $this->result_response->body);
-            $xml = simplexml_load_string($s, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
+            if(empty($xml)) {
+                $xml = simplexml_load_string($s, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
+            }
             foreach ($xml->channel->item as $item) {
                 if (preg_match('/Euromillones: resultados del [a-z]+ ([0123][0-9]) de ([a-z]+) de ([0-9]{4})/', $item->title, $matches)) {
                     $day = $matches[1];
@@ -118,12 +120,15 @@ class LoteriasyapuestasDotEsApi implements IResultApi, IJackpotApi
                     $item_date = "$year-$month-$day";
                     if ($item_date == $date) {
                         preg_match_all('/<td[^>]*>(.*?)<\/td>/', $xml->channel->item->description, $matches);
+                        if (empty($matches)) {
+                            throw new \Exception();
+                        }
                         return $this->sanetizeArrayResults(array_chunk($matches[1], 4));
                     }
                 }
             }
         } catch (\Exception $e) {
-            throw new Exception();
+            throw $e;
         }
     }
 
