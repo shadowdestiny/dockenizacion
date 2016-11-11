@@ -16,8 +16,8 @@
 	<body class="{% if user_currency is defined %}{% if user_currency['symbol']|length > 1 %}cur-txt {% endif %}{{ currency_css(user_currency_code) }}{% endif %} {% block bodyClass %}{% endblock %}">
         {% if countdown_finish_bet|length != 0 %}
             <div id="countDownFinishBet" class="overlay-limit-bet">
-                <h1>TIME LEFT</h1>
-                <span id="m_timer"></span><br />
+                TIME LEFT
+                <span id="m_timer"></span>
                 <a href="/{{ lottery }}/play" class="btn red small ui-link">PLAY NOW</a>
                 <script>
                     window.onload = function() {
@@ -34,7 +34,7 @@
                         });
                         
                         if ( {{ countdown_finish_bet['diffTimeActualTimeAndNextDrawTime'] }} > {{ countdown_finish_bet['timeLimitAppearCountDown'] }} ){
-                            if ( ({{ countdown_finish_bet['diffTimeActualTimeAndNextDrawTime'] }} - {{ countdown_finish_bet['timeLimitAppearCountDown'] }} ) > 30) {
+                            if ( ({{ countdown_finish_bet['diffTimeActualTimeAndNextDrawTime'] }} - {{ countdown_finish_bet['timeLimitAppearCountDown'] }} ) > {{ countdown_finish_bet['timeLeftCountDown'] }}) {
                                 setTimeout(function() {
                                     $('#countDownFinishBet').fadeOut('fast');
                                 }, {{ countdown_finish_bet['timeLeftCountDown'] * 1000 }});

@@ -143,7 +143,12 @@ class PublicSiteControllerBase extends ControllerBase
         $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
         $this->view->setVar('countdown_next_draw', $date_time_util->getCountDownNextDraw($date_next_draw));
         //EMTD create a method helper to set this vars
-        $this->view->setVar('countdown_finish_bet', ViewHelper::setCountDownFinishBet($this->lotteryService->getNextDateDrawByLottery('EuroMillions')));
+        $this->view->setVar('countdown_finish_bet', ViewHelper::setCountDownFinishBet(30, 10, 5, $this->lotteryService->getNextDateDrawByLottery('EuroMillions')));
+        //This is only for functional test
+        if(!empty($this->request->get('fakedatetime'))) {
+            $fakeDateTime = new \DateTime($this->request->get('fakedatetime'));
+            $this->view->setVar('countdown_finish_bet', ViewHelper::setCountDownFinishBet(1, 100, 5, $this->lotteryService->getNextDateDrawByLottery('EuroMillions', new \DateTime('2016-11-11 18:00:00')),$fakeDateTime->setTime(17, 9, 58)));
+        }
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
         $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $current_currency);
         $bet_value = $this->currencyConversionService->toString($single_bet_price_currency,$current_currency);

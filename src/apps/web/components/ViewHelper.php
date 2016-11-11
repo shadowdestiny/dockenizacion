@@ -7,9 +7,6 @@ class ViewHelper
 {
     const MILD_CURRENCIES = 'CNY,RON,ZAR,SEK,ARS,BOB,BRL,GEL,HKD,ILS,MXN,MYR,NOK,PEN,PLN,QAR,TRY,UAH,VEF';
     const SEVERE_CURRENCIES = 'BYR,COP,INR,JPY,RUB,THB,ALL,CLP,CZK,HUF,IDR,ISK,KES,KRW,KZT,LBP,MDL,MKD,NGN,PHP,PKR,PYG,RSD';
-    const TIME_LEFT_COUNTDOWN = 30; //seconds
-    const TIME_LIMIT_SHOW_UNTIL_BET = 10 * 60; //minutes to seconds
-    const HOURS_SHOW_COUNT_DOWN = 5;
 
     public static function getBodyCssForCurrency($currencyCode)
     {
@@ -35,25 +32,30 @@ class ViewHelper
         return $nameClass instanceof Tag ? 'iframe' : 'form';
     }
 
-    public static function setCountDownFinishBet(\DateTime $nextDrawDate, \DateTime $datetime=null)
+    /**
+     * @param int $timeLeftCountDown
+     * @param int $timeLimitShowUntilBet
+     * @param int $hoursShowCountDown
+     * @param \DateTime $nextDrawDate
+     * @param \DateTime|null $datetime
+     * @return array
+     */
+    public static function setCountDownFinishBet($timeLeftCountDown, $timeLimitShowUntilBet, $hoursShowCountDown, \DateTime $nextDrawDate, \DateTime $datetime=null)
     {
         if($datetime == null) {
             $datetime = new \DateTime();
         }
         $nextDrawDate->setTime('18', '50');
 
-
-        $datetime->modify('+1 day');
-
-        if ($datetime->diff($nextDrawDate)->d == 0 && $datetime->diff($nextDrawDate)->h < self::HOURS_SHOW_COUNT_DOWN && $datetime->diff($nextDrawDate)->i <= 59 && $datetime->diff($nextDrawDate)->invert == 0) {
+        if ($datetime->diff($nextDrawDate)->d == 0 && $datetime->diff($nextDrawDate)->h < $hoursShowCountDown && $datetime->diff($nextDrawDate)->i <= 59 && $datetime->diff($nextDrawDate)->invert == 0) {
             return [
                 'hours' => $datetime->diff($nextDrawDate)->h,
                 'minutes' => $datetime->diff($nextDrawDate)->i,
                 'seconds' => $datetime->diff($nextDrawDate)->s,
-                'timeLeftCountDown' => self::TIME_LEFT_COUNTDOWN,
+                'timeLeftCountDown' => $timeLeftCountDown,
                 'diffTimeActualTimeAndNextDrawTime' => $nextDrawDate->getTimestamp() - $datetime->getTimestamp(),
-                'timeAppearCountDownAgain' => $nextDrawDate->getTimestamp() - $datetime->getTimestamp() - self::TIME_LIMIT_SHOW_UNTIL_BET,
-                'timeLimitAppearCountDown' => self::TIME_LIMIT_SHOW_UNTIL_BET,
+                'timeAppearCountDownAgain' => $nextDrawDate->getTimestamp() - $datetime->getTimestamp() - $timeLimitShowUntilBet * 60,
+                'timeLimitAppearCountDown' => $timeLimitShowUntilBet * 60,
             ];
         }
 
