@@ -4,6 +4,7 @@ namespace EuroMillions\web\controllers;
 use EuroMillions\shared\helpers\PaginatedControllerTrait;
 use EuroMillions\shared\services\SiteConfigService;
 use EuroMillions\web\components\DateTimeUtil;
+use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\Language;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\AuthService;
@@ -142,6 +143,7 @@ class PublicSiteControllerBase extends ControllerBase
         $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
         $this->view->setVar('countdown_next_draw', $date_time_util->getCountDownNextDraw($date_next_draw));
         //EMTD create a method helper to set this vars
+        $this->view->setVar('countdown_finish_bet', ViewHelper::setCountDownFinishBet($this->lotteryService->getNextDateDrawByLottery('EuroMillions')));
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
         $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $current_currency);
         $bet_value = $this->currencyConversionService->toString($single_bet_price_currency,$current_currency);
