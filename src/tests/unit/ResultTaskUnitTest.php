@@ -38,7 +38,7 @@ class ResultTaskUnitTest extends UnitTestBase
     public function test_SendEmailLogAction()
     {
         $this->emailService_double->sendLog(Argument::any(), Argument::any(), Argument::any(), Argument::any())->shouldBeCalled();
-        $this->lotteryDataService_double->updateLastBreakDown('EuroMillions')->willReturn(new \Exception);
+        $this->lotteryDataService_double->updateLastBreakDown('EuroMillions')->WillThrow(new \Exception);
         $sut = new ResultTask();
         $sut->initialize($this->lotteryDataService_double->reveal(), $this->playService_double->reveal(), $this->emailService_double->reveal(), $this->userService_double->reveal(), $this->currencyService_double->reveal());
         $sut->updateAction(new \DateTime());

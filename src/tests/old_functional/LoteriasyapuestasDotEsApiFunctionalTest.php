@@ -55,7 +55,7 @@ class LoteriasyapuestasDotEsApiFunctionalTest extends DatabaseIntegrationTestBas
         $actual = $sut->getRaffleForDate($lottery->getName(), $lottery->getLastDrawDate()->format("Y-m-d"));
         $this->assertArrayHasKey('raffle_numbers', $actual);
     }
-    
+
     /**
      * method getResultBreakDownForDate
      * when called
@@ -71,6 +71,40 @@ class LoteriasyapuestasDotEsApiFunctionalTest extends DatabaseIntegrationTestBas
         $sut = new LoteriasyapuestasDotEsApi();
         $actual = $sut->getResultBreakDownForDate($lottery->getName(),$lottery->getLastDrawDate()->format("Y-m-d"));
         $this->assertArrayHasKey('category_one',$actual);
+    }
+
+    public function createFakeXmlResults()
+    {
+        $xml = '<channel>
+		<item>
+            <title>Euromillones: resultados del martes 08 de noviembre de 2016</title>
+            <pubDate>Tue, 08 Nov 2016 21:27:39 +0100</pubDate>
+            <link>http://www.loteriasyapuestas.es/es/euromillones/resultados/euromillones%2Dresultados%2Ddel%2Dmartes%2D08%2Dde%2Dnoviembre%2Dde%2D2016</link>
+            <description>
+            </description>
+            <comments></comments>
+            <guid isPermaLink="false">20161108212739030909d71b14851019d71b148510c3ab1cacRCRD</guid>
+        </item>';
+        $xml = preg_replace('~//<!\[CDATA\[\s*|\s*//\]\]>~', '', $xml);
+        return new \SimpleXMLElement($xml);
+    }
+
+    /**
+     * method getResultBreakDownForDate
+     * when calledWithInvalidData
+     * should throwException
+     */
+    public function test_getResultBreakDownForDate_calledWithInvalidaData_throwException()
+    {
+        $this->setExpectedException('\Exception');
+        /** @var EntityManager $entity_manager */
+        $entity_manager = DI::getDefault()->get('entityManager');
+        $lottery_repository = $entity_manager->getRepository($this->getEntitiesToArgument('Lottery'));
+        /** @var Lottery $lottery */
+        $lottery = $lottery_repository->findOneBy(['name' => 'EuroMillions']);
+        $xml = $this->createFakeXmlResults();
+        $sut = new LoteriasyapuestasDotEsApi();
+        $sut->getResultBreakDownForDate($lottery->getName(), $lottery->getLastDrawDate()->format("Y-m-d"), $xml);
     }
 
 
