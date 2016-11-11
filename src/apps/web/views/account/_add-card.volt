@@ -112,6 +112,7 @@
                 </div>
             </div>
         </div>
+
         {% endif %}
 
         {% if component.where == 'account' %}
@@ -146,3 +147,12 @@
 </div>
 
 
+<p>
+<div class="images-payment col4 box-partner">
+    <ul class="no-li inline"  style="float:right">
+        <li><a href="http://www.visaeurope.com/"><svg class="v-visa vector"><use xlink:href="/w/svg/icon.svg#visa"/></svg></a></li>
+        <li><a href="http://www.mastercard.com/eur/"><svg class="v-mastercard vector"><use xlink:href="/w/svg/icon.svg#mastercard"/></svg></a></li>
+        <li><a href="https://ssl.comodo.com/"><img src="/w/svg/comodo.png"/> </a></li>
+    </ul>
+</div>
+</p>

@@ -50,7 +50,7 @@ hr.yellow{background:$yellow; margin:0 -15px;}
 }
 .left{float:left;}
 img.left{margin:0 10px 15px 0;}
-.right{float:right;} 
+.right{float:right;}
 img.right{margin:0 0 15px 10px;}
 .inline li{display:inline-block;}
 .center{margin:auto; text-align:center;}
@@ -211,7 +211,7 @@ label.submit{cursor:pointer;}
 .combo{
     > .btn{border-radius:0; border-right:0 solid #eee;}
     > .btn:hover:not(:last-child), > .btn:focus:not(:last-child), > .btn:active:not(:last-child){border-right:0 solid transparent!important;}
-    > .btn:first-child{border-radius:5px 0 0 5px;} 
+    > .btn:first-child{border-radius:5px 0 0 5px;}
     > .btn:last-child{border-radius:0 5px 5px 0;}
 }
 
@@ -230,7 +230,7 @@ label.submit{cursor:pointer;}
 }
 .menu-ham .bar{margin:-2px 0 0 4px;}
 .menu-ham .bar, .menu-ham .bar:before, .menu-ham .bar:after{
-  content:''; position:absolute; cursor:pointer; border-radius:1px; height:5px; width:100%; 
+  content:''; position:absolute; cursor:pointer; border-radius:1px; height:5px; width:100%;
   display:block; transition:all 500ms ease-in-out; background:$purple; width:32px;
 }
 .menu-ham .bar:before{top:-10px;}
@@ -292,7 +292,7 @@ body, .submit{font-family:$basic-font;}
 .arrow-box, .arrow-box2{
   position:relative; border:1px solid #bbb; background:#fff;
   &:after, &:before{
-    content:""; bottom:100%; left:50%; border:solid transparent; height:0; width:0; 
+    content:""; bottom:100%; left:50%; border:solid transparent; height:0; width:0;
     position:absolute; pointer-events:none;
   }
   &:after{
@@ -320,7 +320,7 @@ body, .submit{font-family:$basic-font;}
 }
 
 .ul-top-nav > li{float:right;}
-.ul-top-nav > li:before{display:block; content:"\00b7"; color:#fff; float:right; line-height:28px; margin-right:-2px;} // &middot;  
+.ul-top-nav > li:before{display:block; content:"\00b7"; color:#fff; float:right; line-height:28px; margin-right:-2px;} // &middot;
 .ul-top-nav > li:first-child:before{display:none;}
 .ul-top-nav > li > a{display:block; color:#fff; padding:0 15px; line-height:28px;}
 .ul-top-nav > li > a:hover, .ul-top-nav > li > a:focus, .ul-top-nav > li:hover .link, .ul-top-nav > li:focus .link
@@ -437,7 +437,7 @@ body, .submit{font-family:$basic-font;}
 }
 
 /* Hide Text but keep it SEO friendly */
-.social .txt, .partner .txt{position:absolute; left:-9999px; top:-9999px;} 
+.social .txt, .partner .txt{position:absolute; left:-9999px; top:-9999px;}
 
 .ending{position:fixed; bottom:0; left:25px; background:$purple; color:#fff; padding:10px 15px; text-shadow:0 1px 3px rgba(0, 0, 0, .7); margin:auto; z-index:11; font-weight:bold; border-radius:5px 5px 0 0;}
 
@@ -460,7 +460,15 @@ body, .submit{font-family:$basic-font;}
 .media{width:1px}
 .wrapper{max-width:992px;}
 }
- 
+
+.images-payment-center{display:none;}
+
+@media only screen and (max-width:768px){
+  /*body{border:10px solid #0ff;} /* BLUE WATER */
+  .images-payment{visibility: hidden}
+  .images-payment-center{display:initial;}
+}
+
 /* Medium Devices, Desktops */
 @media only screen and (max-width:992px){
  /*body{border:10px solid #ff0;} /* YELLOW */
@@ -468,7 +476,7 @@ body, .submit{font-family:$basic-font;}
 .wrapper{max-width:768px;}
 .header .v-logo{width:250px; height:54px;}
 .main-nav a{padding:10px 12px; min-height:62px;}
-.main-nav .subnav a{min-height:inherit;} 
+.main-nav .subnav a{min-height:inherit;}
 .box-links .col20per{padding:0 10px;}
 }
 
@@ -564,7 +572,7 @@ body, .submit{font-family:$basic-font;}
   bottom: 0px;
 }
 }
- 
+
 /* Custom, iPhone Retina */
 @media only screen and (max-width:320px){
 /*body{border:2px solid #f00;} /* RED */
