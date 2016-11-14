@@ -39,8 +39,10 @@
         </div>
     </div>
     {% if needReportsMenu is defined %}
-    <div>
-        <a href="/admin/reports/salesDraw">Sales Draw</a>
-    </div>
+        <div class="navbar-inner">
+            <ul class="nav">
+                <li><a href="/admin/reports/salesDraw">Sales Draw</a></li>
+            </ul>
+        </div>
     {% endif %}
 </div>

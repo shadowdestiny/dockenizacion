@@ -17,6 +17,7 @@ class ReportsController extends AdminControllerBase
         $this->reportsService->fetchSalesDraw();
         $this->view->setVars([
             'needReportsMenu' => true,
+            'salesDraw' => $this->reportsService->fetchSalesDraw()
         ]);
     }
 }
