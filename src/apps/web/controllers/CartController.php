@@ -251,7 +251,7 @@ class CartController extends PublicSiteControllerBase
         $play_config_collection = $result->returnValues();
         $play_config_dto = new PlayConfigCollectionDTO($play_config_collection, $single_bet_price);
         $wallet_balance = $this->currencyConversionService->convert($play_config_dto->wallet_balance_user, $user_currency);
-        $checked_wallet = $wallet_balance->getAmount() > 0 ? true : false;
+        $checked_wallet = ($wallet_balance->getAmount() && !$this->request->isPost()) > 0 ? true : false;
         $play_config_dto->single_bet_price_converted = $this->currencyConversionService->convert($play_config_dto->single_bet_price, $user_currency);
         //convert to user currency
         $total_price = $this->currencyConversionService->convert($play_config_dto->single_bet_price, $user_currency)->getAmount() * $play_config_dto->numPlayConfigs;
