@@ -22,9 +22,9 @@ class ReportsController extends AdminControllerBase
 
     public function monthlySalesAction()
     {
-        $this->reportsService->fetchMonthlySales();
         $this->view->setVars([
             'needReportsMenu' => true,
+            'monthlySales' => $this->reportsService->fetchMonthlySales()
         ]);
     }
 }
