@@ -4,6 +4,7 @@ namespace EuroMillions\web\repositories;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\interfaces\IReports;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 class ReportsRepository implements IReports
 {
@@ -17,21 +18,26 @@ class ReportsRepository implements IReports
 
     public function getMonthlySales(\DateTime $date)
     {
-//        $result = $this->getEntityManager()
-//            ->createQuery(
-//                'SELECT MONTHNAME(d.draw_date) as month,count(b.id) as total_bets, count(b.id) * 3.00 as gross_sales, count(1) * 0.50 as gross_margin,
-//                (select SUM(t.wallet_after_winnings_amount)
-//                FROM \EuroMillions\web\entities\Transaction t
-//                where MONTHNAME(t.date)=MONTHNAME(d.draw_date)
-//                    and entity_type='winnings_received') as winnings
-//                from bets b
-//                join euromillions_draws d on d.id=b.euromillions_draw_id
-//                join play_configs p on p.id=b.playConfig_id
-//                group by MONTH(d.draw_date')
-//            ->getResult();
-
-        $result = [];
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('month','month');
+        $rsm->addScalarResult('total_bets','total_bets');
+        $rsm->addScalarResult('gross_sales','gross_sales');
+        $rsm->addScalarResult('gross_margin','gross_margin');
+        $rsm->addScalarResult('winnings','winnings');
+        $result = $this->getEntityManager()
+            ->createQuery(
+                "SELECT MONTHNAME(d.draw_date) as month,count(b.id) as total_bets, count(b.id) * 3.00 as gross_sales, count(1) * 0.50 as gross_margin,
+                (select SUM(t.wallet_after_winnings_amount)
+                FROM transactions t
+                WHERE MONTHNAME(t.date)=MONTHNAME(d.draw_date)
+                    and entity_type='winnings_received') as winnings
+                FROM bets b
+                JOIN euromillions_draws d on d.id=b.euromillions_draw_id
+                JOIN play_configs p on p.id=b.playConfig_id
+                GROUP BY MONTH(d.draw_date", $rsm)
+            ->getResult();
         return $result;
+
     }
 
     public function getSalesDraw()
