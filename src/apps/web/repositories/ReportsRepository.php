@@ -34,8 +34,9 @@ class ReportsRepository implements IReports
                 FROM bets b
                 JOIN euromillions_draws d on d.id=b.euromillions_draw_id
                 JOIN play_configs p on p.id=b.playConfig_id
-                GROUP BY MONTH(d.draw_date", $rsm)
+                GROUP BY MONTH(d.draw_date)", $rsm)
             ->getResult();
+//            var_dump($result);die();
         return $result;
 
     }
