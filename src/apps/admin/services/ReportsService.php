@@ -5,19 +5,27 @@ namespace EuroMillions\admin\services;
 
 
 use Doctrine\ORM\EntityManager;
-use EuroMillions\web\repositories\TransactionRepository;
-use EuroMillions\web\entities\Transaction;
+use EuroMillions\web\repositories\ReportsRepository;
 
 class ReportsService
 {
 
     private $entityManager;
-    /** @var TransactionRepository $transactionRepository */
-    private $transactionRepository;
+    private $entityRepository;
+    /** @var ReportsRepository $reportsRepository */
+    private $reportsRepository;
 
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->transactionRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Transaction');
+        $this->reportsRepository = $this->entityManager->getRepository('Euromillions\web\repositories\ReportsRepository');
+    }
+
+    public function fetchMonthlySales(\DateTime $date)
+    {
+        $result = $this->reportsRepository->getMonthlySales($date);
+        $monthlySales = [];
+
+        return $monthlySales;
     }
 }
