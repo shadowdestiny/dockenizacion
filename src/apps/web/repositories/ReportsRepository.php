@@ -43,15 +43,22 @@ class ReportsRepository implements IReports
 
     public function getSalesDraw()
     {
-        $result = $this->entityManager
-            ->createQuery(
-                'SELECT \'EM\',e.id, e.draw_date, IF(e.draw_date < now(),\'Finished\',\'Open\') as draw_status, count(b.id), count(b.id) * 3.00, count(b.id) * 0.50
-                  FROM euromillions_draws e
-                  JOIN bets b on b.euromillions_draw_id=e.id
-                  JOIN log_validation_api l on l.bet_id=b.id
-                  GROUP BY e.draw_date;')
-            ->getResult();
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('em','em');
+        $rsm->addScalarResult('id','id');
+        $rsm->addScalarResult('draw_date','draw_date');
+        $rsm->addScalarResult('draw_status','draw_status');
+        $rsm->addScalarResult('count_id','count_id');
+        $rsm->addScalarResult('count_id_3','count_id_3');
+        $rsm->addScalarResult('count_id_05','count_id_05');
 
-        return $result;
+        return $this->entityManager
+            ->createNativeQuery(
+                "select 'EM' as em, e.id as id, e.draw_date as draw_date, IF(e.draw_date < now(),'Finished','Open') as draw_status, count(b.id) as count_id, count(b.id) * 3.00 as count_id_3, count(b.id) * 0.50 as count_id_05
+                  from euromillions_draws e
+                  JOIN bets b on b.euromillions_draw_id=e.id
+                  join log_validation_api l on l.bet_id=b.id
+                  GROUP BY e.draw_date", $rsm)
+            ->getResult();
     }
 }

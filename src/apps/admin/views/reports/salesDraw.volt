@@ -25,6 +25,49 @@
             <div class="module">
                 <div class="module-body">
                     <h1 class="h1 purple">Reports Sales Draw</h1>
+                    {% if (salesDraw is not empty) %}
+                        <table class="table">
+                            <thead>
+                            <tr class="special">
+                                <th></th>
+                                <th>ID</th>
+                                <th>Draw Date</th>
+                                <th>Status</th>
+                                <th></th>
+                                <th> * 3</th>
+                                <th> * 0,5</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                            {{ dump(salesDraw) }}
+                    {% else %}
+                        Not reports yet.
+                    {% endif %}
                 </div>
             </div>
         </div>
