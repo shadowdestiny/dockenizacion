@@ -33,6 +33,9 @@
     <a class="link" href="/sign-in">{{ language.translate('Sign in') }}</a>
 </li>
 {% else %}
+<li>
+	<a class="link" href="/logout">{{ language.translate('Logout') }}</a>
+</li>
 <li class="li-sign">
     <a class="link" href="/account/wallet">{{ language.translate('Deposit') }}</a>
 </li>
