@@ -29,42 +29,43 @@
                         <table class="table">
                             <thead>
                             <tr class="special">
-                                <th></th>
-                                <th>ID</th>
-                                <th>Draw Date</th>
-                                <th>Status</th>
-                                <th></th>
-                                <th> * 3</th>
-                                <th> * 0,5</th>
+                                <th>Lottery</th>
+                                <th>Draw ID</th>
+                                <th>Draw date</th>
+                                <th>Draw Status</th>
+                                <th>Total Bets</th>
+                                <th>Gross Sales</th>
+                                <th>Gross Margin</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>
-
-                                </td>
-                                <td>
-
-                                </td>
-                                <td>
-
-                                </td>
-                                <td>
-
-                                </td>
-                                <td>
-
-                                </td>
-                                <td>
-
-                                </td>
-                                <td>
-
-                                </td>
-                            </tr>
+                            {% for salesData in salesDraw %}
+                                <tr>
+                                    <td>
+                                        {{ salesData['em'] }}
+                                    </td>
+                                    <td>
+                                        {{ salesData['id'] }}
+                                    </td>
+                                    <td>
+                                        {{ salesData['draw_date'] }}
+                                    </td>
+                                    <td>
+                                        {{ salesData['draw_status'] }}
+                                    </td>
+                                    <td>
+                                        {{ salesData['count_id'] }}
+                                    </td>
+                                    <td>
+                                        {{ salesData['count_id_3'] }} €
+                                    </td>
+                                    <td>
+                                        {{ salesData['count_id_05'] }} €
+                                    </td>
+                                </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
-                            {{ dump(salesDraw) }}
                     {% else %}
                         Not reports yet.
                     {% endif %}
