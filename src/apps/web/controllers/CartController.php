@@ -234,8 +234,6 @@ class CartController extends PublicSiteControllerBase
                                    $orderView = true)
     {
 
-
-
         $locale = $this->request->getBestLanguage();
         $user_currency = $user->getUserCurrency();
         $fee_value = $this->siteConfigService->getFeeValueWithCurrencyConverted($user_currency);

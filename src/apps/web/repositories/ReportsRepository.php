@@ -2,9 +2,20 @@
 
 namespace EuroMillions\web\repositories;
 
-class ReportsRepository extends RepositoryBase
+use Doctrine\ORM\EntityManager;
+use EuroMillions\web\interfaces\IReports;
+
+class ReportsRepository implements IReports
 {
-    public function getMonthlySales($date)
+
+    private $entityManager;
+    public function __construct(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+
+    public function getMonthlySales(\DateTime $date)
     {
 //        $result = $this->getEntityManager()
 //            ->createQuery(
@@ -25,7 +36,7 @@ class ReportsRepository extends RepositoryBase
 
     public function getSalesDraw()
     {
-        $result = $this->getEntityManager()
+        $result = $this->entityManager
             ->createQuery(
                 'SELECT \'EM\',e.id, e.draw_date, IF(e.draw_date < now(),\'Finished\',\'Open\') as draw_status, count(b.id), count(b.id) * 3.00, count(b.id) * 0.50
                   FROM euromillions_draws e

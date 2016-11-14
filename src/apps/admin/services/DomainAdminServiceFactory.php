@@ -2,6 +2,7 @@
 namespace EuroMillions\admin\services;
 
 use EuroMillions\shared\components\PhalconSessionWrapper;
+use EuroMillions\web\repositories\ReportsRepository;
 use EuroMillions\web\services\CurrencyConversionService;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use Phalcon\DiInterface;
@@ -41,10 +42,9 @@ class DomainAdminServiceFactory
         return new MillonService($this->entityManager);
     }
 
-
     public function getReportsService()
     {
-        return new ReportsService($this->entityManager);
+        return new ReportsService(new ReportsRepository($this->entityManager));
     }
 
 }
