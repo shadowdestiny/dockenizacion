@@ -6,10 +6,7 @@ class ReportsController extends AdminControllerBase
 {
     public function indexAction()
     {
-        $this->view->pick('reports/salesDraw');
-        $this->view->setVars([
-            'needReportsMenu' => true,
-        ]);
+
     }
 
     public function salesDrawAction()
