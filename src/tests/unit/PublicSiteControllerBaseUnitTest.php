@@ -4,6 +4,7 @@
 namespace EuroMillions\tests\unit;
 
 
+use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\controllers\PublicSiteControllerBase;
 use EuroMillions\web\vo\EuroMillionsJackpot;
 use Money\Currency;
@@ -81,6 +82,8 @@ class PublicSiteControllerBaseUnitTest extends ControllerUnitTestBase
 
         $user_balance = $user_balance_raw = '';
 
+        $fakeDrawDate = new \DateTime('2016-10-14');
+        $fakeDrawDate->setTime(9,0,0);
         $this->assertSetVarCalledWithData([
             'current_currency'   => $current_currency_name,
             'user_currency'      => $user_currency,
@@ -89,6 +92,7 @@ class PublicSiteControllerBaseUnitTest extends ControllerUnitTestBase
             'user_balance_raw' => $user_balance_raw,
             'jackpot'       => 15000000,
             'countdown_next_draw' => Argument::any(),
+            'countdown_finish_bet' => ViewHelper::setCountDownFinishBet(30, 10, 5, $fakeDrawDate),
             'bet_price' => $bet_price_to_string,
             'bet_price_pound' => $bet_price_pound_to_string,
             'lottery' => 'euromillions'
