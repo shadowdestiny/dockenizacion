@@ -6,6 +6,17 @@ class ReportsController extends AdminControllerBase
 {
     public function indexAction()
     {
-        $this->view->pick('reports/monthlySales');
+        $this->view->pick('reports/salesDraw');
+        $this->view->setVars([
+            'needReportsMenu' => true,
+        ]);
+    }
+
+    public function salesDrawAction()
+    {
+        $this->reportsService->fetchSalesDraw();
+        $this->view->setVars([
+            'needReportsMenu' => true,
+        ]);
     }
 }

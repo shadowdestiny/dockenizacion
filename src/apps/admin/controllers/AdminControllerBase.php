@@ -5,6 +5,7 @@ namespace EuroMillions\admin\controllers;
 
 
 use EuroMillions\admin\services\DomainAdminServiceFactory;
+use EuroMillions\admin\services\ReportsService;
 use EuroMillions\shared\helpers\PaginatedControllerTrait;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\View;
@@ -17,10 +18,13 @@ class AdminControllerBase extends Controller
     use PaginatedControllerTrait;
     /** @var  DomainAdminServiceFactory */
     protected $domainAdminServiceFactory;
+    /** @var  ReportsService */
+    protected $reportsService;
 
     public function initialize()
     {
         $this->domainAdminServiceFactory = $this->di->get('domainAdminServiceFactory');
+        $this->reportsService = $this->domainAdminServiceFactory->getReportsService();
     }
 
     protected function noRender()

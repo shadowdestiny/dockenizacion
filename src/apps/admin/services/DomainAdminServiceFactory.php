@@ -41,4 +41,10 @@ class DomainAdminServiceFactory
         return new MillonService($this->entityManager);
     }
 
+
+    public function getReportsService()
+    {
+        return new ReportsService($this->entityManager);
+    }
+
 }

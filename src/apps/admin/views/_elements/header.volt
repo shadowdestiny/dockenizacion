@@ -39,8 +39,8 @@
         </div>
     </div>
     {% if needReportsMenu is defined %}
-    <div id="reports-menu">
-
+    <div>
+        <a href="/admin/reports/salesDraw">Sales Draw</a>
     </div>
     {% endif %}
 </div>

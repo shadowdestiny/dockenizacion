@@ -1,16 +1,11 @@
 <?php
 
-
 namespace EuroMillions\web\repositories;
-
-
-use EuroMillions\web\entities\Transaction;
 
 class ReportsRepository extends RepositoryBase
 {
-
-//    public function getMonthlySales($date)
-//    {
+    public function getMonthlySales($date)
+    {
 //        $result = $this->getEntityManager()
 //            ->createQuery(
 //                'SELECT MONTHNAME(d.draw_date) as month,count(b.id) as total_bets, count(b.id) * 3.00 as gross_sales, count(1) * 0.50 as gross_margin,
@@ -23,8 +18,22 @@ class ReportsRepository extends RepositoryBase
 //                join play_configs p on p.id=b.playConfig_id
 //                group by MONTH(d.draw_date')
 //            ->getResult();
-//
-//        return $result;
-//    }
 
+        $result = [];
+        return $result;
+    }
+
+    public function getSalesDraw()
+    {
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT \'EM\',e.id, e.draw_date, IF(e.draw_date < now(),\'Finished\',\'Open\') as draw_status, count(b.id), count(b.id) * 3.00, count(b.id) * 0.50
+                  FROM euromillions_draws e
+                  JOIN bets b on b.euromillions_draw_id=e.id
+                  JOIN log_validation_api l on l.bet_id=b.id
+                  GROUP BY e.draw_date;')
+            ->getResult();
+
+        return $result;
+    }
 }
