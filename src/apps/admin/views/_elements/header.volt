@@ -42,6 +42,7 @@
         <div class="navbar-inner">
             <ul class="nav">
                 <li><a href="/admin/reports/salesDraw">Sales Draw</a></li>
+                <li><a href="/admin/reports/monthlySales">Monthly Sales</a></li>
             </ul>
         </div>
     {% endif %}

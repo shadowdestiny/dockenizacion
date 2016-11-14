@@ -20,4 +20,12 @@ class ReportsController extends AdminControllerBase
             'salesDraw' => $this->reportsService->fetchSalesDraw()
         ]);
     }
+
+    public function monthlySalesAction()
+    {
+        $this->reportsService->fetchMonthlySales();
+        $this->view->setVars([
+            'needReportsMenu' => true,
+        ]);
+    }
 }

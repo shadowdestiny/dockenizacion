@@ -16,7 +16,7 @@ class ReportsRepository implements IReports
     }
 
 
-    public function getMonthlySales(\DateTime $date)
+    public function getMonthlySales()
     {
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('month','month');
@@ -24,8 +24,8 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('gross_sales','gross_sales');
         $rsm->addScalarResult('gross_margin','gross_margin');
         $rsm->addScalarResult('winnings','winnings');
-        $result = $this->getEntityManager()
-            ->createQuery(
+        $result = $this->entityManager
+            ->createNativeQuery(
                 "SELECT MONTHNAME(d.draw_date) as month,count(b.id) as total_bets, count(b.id) * 3.00 as gross_sales, count(1) * 0.50 as gross_margin,
                 (select SUM(t.wallet_after_winnings_amount)
                 FROM transactions t
