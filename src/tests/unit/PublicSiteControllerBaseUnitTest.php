@@ -73,7 +73,7 @@ class PublicSiteControllerBaseUnitTest extends ControllerUnitTestBase
         $this->authService_double->isLogged()->willReturn(false);
         $this->lotteriyService_double->getNextJackpot('EuroMillions')->willReturn($jackpot);
         $this->userPreferencesService_double->getJackpotInMyCurrency($jackpot)->willReturn((int) $jackpot->getAmount());
-        $this->lotteriyService_double->getNextDateDrawByLottery('EuroMillions')->willReturn(new \DateTime()); //I don't care about this, I won't check the countdown
+        $this->lotteriyService_double->getNextDateDrawByLottery('EuroMillions')->willReturn(new \DateTime('2016-09-09')); //I don't care about this, I won't check the countdown
         $this->lotteriyService_double->getSingleBetPriceByLottery('EuroMillions')->willReturn($bet_price);
         $this->currencyConversionService_double->convert($bet_price, $current_currency)->willReturn($bet_price);
         $this->currencyConversionService_double->toString($bet_price, $current_currency)->willReturn($bet_price_to_string);
@@ -82,8 +82,9 @@ class PublicSiteControllerBaseUnitTest extends ControllerUnitTestBase
 
         $user_balance = $user_balance_raw = '';
 
-        $fakeDrawDate = new \DateTime('2016-10-14');
-        $fakeDrawDate->setTime(9,0,0);
+        $fakeDrawDate = new \DateTime('2016-10-11');
+        $fakeDrawDate->setTime(23,0,0);
+
         $this->assertSetVarCalledWithData([
             'current_currency'   => $current_currency_name,
             'user_currency'      => $user_currency,
