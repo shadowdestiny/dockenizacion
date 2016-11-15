@@ -22,7 +22,7 @@
                             <li><a href="/admin/draws">Draws &amp; Jackpot</a></li>
                             <li><a href="/admin/withdraws">Manage Withdrawals</a></li>
                             <li><a href="/admin/millon">Find El Millon</a></li>
-                            <li><a href="/admin/reports">Reports</a></li>
+                            <li><a href="/admin/reports/salesDraw">Reports</a></li>
                         </ul>
                     </li>
                     <li class=" dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -39,8 +39,11 @@
         </div>
     </div>
     {% if needReportsMenu is defined %}
-    <div>
-        <a href="/admin/reports/salesDraw">Sales Draw</a>
-    </div>
+        <div class="navbar-inner">
+            <ul class="nav">
+                <li><a href="/admin/reports/salesDraw">Sales Draw</a></li>
+                <li><a href="/admin/reports/monthlySales">Monthly Sales</a></li>
+            </ul>
+        </div>
     {% endif %}
 </div>

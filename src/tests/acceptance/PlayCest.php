@@ -7,7 +7,7 @@ class PlayCest
 {
 
     /**
-     * @group unic
+     * @group active
      * @param AcceptanceTester $I
      */
     public function seeOverlayTimeLeftAppearsAndDisappears(AcceptanceTester $I)

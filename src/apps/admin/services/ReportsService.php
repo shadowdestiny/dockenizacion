@@ -18,12 +18,9 @@ class ReportsService
         $this->reportsRepository = $iReports;
     }
 
-    public function fetchMonthlySales(\DateTime $date)
+    public function fetchMonthlySales()
     {
-        $result = $this->reportsRepository->getMonthlySales($date);
-        $monthlySales = [];
-
-        return $monthlySales;
+        return $this->reportsRepository->getMonthlySales();
     }
 
     public function fetchSalesDraw()
