@@ -117,5 +117,19 @@ return [
             'result_lucky_number_one' => 1,
             'result_lucky_number_two' => 8,
         ],
+        [
+            'id' => 10,
+            'draw_date' => '2015-11-22',
+            'jackpot_amount' => 103490000,
+            'lottery_id' => 1,
+            'jackpot_currency_name' => 'EUR',
+            'result_regular_number_one' => 11,
+            'result_regular_number_two' => 20,
+            'result_regular_number_three' => 22,
+            'result_regular_number_four' => 29,
+            'result_regular_number_five' => 32,
+            'result_lucky_number_one' => 1,
+            'result_lucky_number_two' => 8,
+        ],
     ]
 ];

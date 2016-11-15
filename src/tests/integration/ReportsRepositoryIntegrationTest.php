@@ -44,7 +44,15 @@ class ReportsRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     public function test_getMonthlySales_called_returnArrayWithReports()
     {
         $actual = $this->sut->getMonthlySales();
-        $this->assertEquals('May',$actual[0]['month']);
+        $expected = [
+            'month' => 'November',
+            'total_bets' =>  '1',
+            'gross_sales' => '3.00',
+            'gross_margin' => '0.50',
+            'winnings' => '0',
+        ];
+
+        $this->assertEquals($expected, $actual[2]);
     }
 
     /**
