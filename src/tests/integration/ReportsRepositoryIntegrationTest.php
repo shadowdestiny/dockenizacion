@@ -25,8 +25,8 @@ class ReportsRepositoryIntegrationTest extends DatabaseIntegrationTestBase
             'users',
             'play_configs',
             'bets',
-            'transactions'
-
+            'transactions',
+            'log_validation_api',
         ];
     }
 
@@ -45,5 +45,26 @@ class ReportsRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     {
         $actual = $this->sut->getMonthlySales();
         $this->assertEquals('May',$actual[0]['month']);
+    }
+
+    /**
+     * method getSalesDraw
+     * when called
+     * should returnArrayWithReports
+     */
+    public function test_getSalesDraw_called_returnArrayWithReports()
+    {
+        $expectedResponse = [
+            [
+                'em' => 'EM',
+                'id' => '1',
+                'draw_date' => '2015-05-12',
+                'draw_status' => 'Finished',
+                'count_id' => '1',
+                'count_id_3' => '3.00',
+                'count_id_05' => '0.50',
+            ]
+        ];
+        $this->assertEquals($expectedResponse, $this->sut->getSalesDraw());
     }
 }
