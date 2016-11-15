@@ -2,7 +2,7 @@
 return [
     'bets' => [
         [
-            'id'   => 1,
+            'id' => 1,
             'playConfig_id' => 1,
             'match_numbers' => '11,12',
             'match_stars' => '1',
@@ -12,13 +12,13 @@ return [
             'castillo_bet_id' => 123456
         ],
         [
-            'id'   => 2,
+            'id' => 2,
             'playConfig_id' => 2,
             'euromillions_draw_id' => 1,
             'castillo_bet_id' => 1234567890
         ],
         [
-            'id'   => 3,
+            'id' => 3,
             'playConfig_id' => 7,
             'euromillions_draw_id' => 7,
             'match_numbers' => '11,12',
@@ -28,7 +28,7 @@ return [
             'castillo_bet_id' => 1234567890
         ],
         [
-            'id'   => 4,
+            'id' => 4,
             'playConfig_id' => 8,
             'match_numbers' => '11,12',
             'match_stars' => '1',
@@ -38,7 +38,7 @@ return [
             'castillo_bet_id' => 1234567890
         ],
         [
-            'id'   => 5,
+            'id' => 5,
             'playConfig_id' => 9,
             'match_numbers' => '11,12',
             'match_stars' => '1',
