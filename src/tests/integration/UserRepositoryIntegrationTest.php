@@ -205,7 +205,7 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
      */
     public function test_getUserPlayConfigsActives_called_returnPlayConfigsCollectionActivesFromUser()
     {
-        $ids = [1,2,6];
+        $ids = [1,2,6,9];
         $actual = $this->sut->getUserPlayConfigsActives();
         $this->assertEquals($ids,$this->getIdsFromArrayOfObjects($actual));
     }
@@ -218,7 +218,7 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
      */
     public function test_getUsersWithPlayConfigOrderByLottery_called_returnProperData()
     {
-        $ids = ['9098299B-14AC-4124-8DB0-19571EDABE55','9098299B-14AC-4124-8DB0-19571EDABE56','9098299B-14AC-4124-8DB0-19571EDABE59'];
+        $ids = ['9098299B-14AC-4124-8DB0-19571EDABE55','9098299B-14AC-4124-8DB0-19571EDABE56','9098299B-14AC-4124-8DB0-19571EDABE59','9098299B-14AC-4124-8DB0-19571EDABE60'];
         $actual = $this->sut->getUsersWithPlayConfigsOrderByLottery();
         $this->assertEquals($ids,$this->getIdsFromArrayOfObjects($actual));
     }

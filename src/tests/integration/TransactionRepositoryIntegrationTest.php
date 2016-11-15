@@ -50,7 +50,7 @@ class TransactionRepositoryIntegrationTest extends RepositoryIntegrationTestBase
     public function test_getLast_called_returnNextIdFromTransactionTable()
     {
         $actual = $this->sut->getNextId();
-        $this->assertEquals(6, $actual);
+        $this->assertEquals(7, $actual);
     }
     
 }

@@ -81,7 +81,7 @@ class TransactionIntegrationTest extends DatabaseIntegrationTestBase
                 'SELECT t'
                 . ' FROM \EuroMillions\web\entities\Transaction t')
             ->getResult();
-        $this->assertCount(6,$actual);
+        $this->assertCount(7,$actual);
         $this->assertEquals('ticket_purchase',$actual[0]->getEntityType());
     }
 

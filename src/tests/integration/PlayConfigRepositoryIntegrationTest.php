@@ -86,7 +86,7 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     public function getDateAndExpectedIds()
     {
         return [
-            ['2015-10-06',[3]],
+            ['2015-10-06',[3,9]],
             ['2015-09-22',[1,2]],
             ['2001-09-01',[]]
         ];
@@ -142,7 +142,7 @@ class PlayConfigRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     {
         $date = new \DateTime('2016-01-01');
         $actual = $this->sut->updateToInactives($date);
-        $this->assertEquals(5,$actual);
+        $this->assertEquals(6,$actual);
     }
 
     private function exerciseAdd($user,$euroMillionsLine)

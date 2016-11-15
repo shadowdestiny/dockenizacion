@@ -183,7 +183,7 @@ class LotteryDrawRepositoryIntegrationTest extends RepositoryIntegrationTestBase
             'draw_time' => '20:00:00',
         ]);
         $actual = $this->sut->getDraws($lottery);
-        $this->assertEquals(new \DateTime('2015-09-22 00:00:00'), $actual[1]->getDrawDate());
+        $this->assertEquals(new \DateTime('2015-10-02 00:00:00'), $actual[1]->getDrawDate());
     }
 
     protected function getEntity()
