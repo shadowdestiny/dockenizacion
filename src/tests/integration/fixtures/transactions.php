@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'transactions' =>  [
+    'transactions' => [
         [
             'user_id' => '9098299B-14AC-4124-8DB0-19571EDABE55',
             'date' => '2016-04-06',

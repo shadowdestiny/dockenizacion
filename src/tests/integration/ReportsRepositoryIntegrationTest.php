@@ -10,7 +10,7 @@ use EuroMillions\web\repositories\ReportsRepository;
 class ReportsRepositoryIntegrationTest extends DatabaseIntegrationTestBase
 {
 
-    /** @var  ReportsRepository*/
+    /** @var  ReportsRepository */
     protected $sut;
 
     /**
@@ -46,7 +46,7 @@ class ReportsRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         $actual = $this->sut->getMonthlySales();
         $expected = [
             'month' => 'November',
-            'total_bets' =>  '1',
+            'total_bets' => '1',
             'gross_sales' => '3.00',
             'gross_margin' => '0.50',
             'winnings' => '0',
