@@ -7,8 +7,4 @@
 57 11 * * * . /tmp/project_env.sh; mysql -u root -ptpl9 euromillions < /var/www/data/sql/pullFromEMDB.sql
 58 11 * * * . /tmp/project_env.sh; mysql -u root -ptpl9 euromillions < /var/www/data/sql/analysisQueries.sql
 59 11 * * * . /tmp/project_env.sh; mysql -u root -ptpl9 euromillions < /var/www/data/sql/Archive.sql
-
-
-
-
-
+30 00 * * * . /tmp/project_env.sh;/usr/bin/php /var/www/apps/cli.php clearcache clear
