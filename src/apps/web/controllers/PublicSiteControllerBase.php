@@ -143,7 +143,7 @@ class PublicSiteControllerBase extends ControllerBase
         $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
         $this->view->setVar('countdown_next_draw', $date_time_util->getCountDownNextDraw($date_next_draw));
         //EMTD create a method helper to set this vars
-        $this->view->setVar('countdown_finish_bet', ViewHelper::setCountDownFinishBet(30, 10, 5, $date_next_draw));
+        $this->view->setVar('countdown_finish_bet', []/*ViewHelper::setCountDownFinishBet(30, 10, 5, $date_next_draw)*/);
         //This is only for functional test
         if(!empty($this->request->get('fakedatetime'))) {
             $fakeDateTime = new \DateTime($this->request->get('fakedatetime'));
