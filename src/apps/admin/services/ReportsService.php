@@ -27,4 +27,9 @@ class ReportsService
     {
         return $this->reportsRepository->getSalesDraw();
     }
+
+    public function fetchCustomerData()
+    {
+        return $this->reportsRepository->getCustomersData();
+    }
 }

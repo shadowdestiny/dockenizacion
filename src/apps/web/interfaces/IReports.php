@@ -8,4 +8,5 @@ interface IReports
 {
     public function getSalesDraw();
     public function getMonthlySales();
+    public function getCustomersData();
 }

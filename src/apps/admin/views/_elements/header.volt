@@ -43,6 +43,7 @@
             <ul class="nav">
                 <li><a href="/admin/reports/salesDraw">Sales Draw</a></li>
                 <li><a href="/admin/reports/monthlySales">Monthly Sales</a></li>
+                <li><a href="/admin/reports/customerData">Customer data</a></li>
             </ul>
         </div>
     {% endif %}

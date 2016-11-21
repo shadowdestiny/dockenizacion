@@ -75,4 +75,28 @@ class ReportsRepositoryIntegrationTest extends DatabaseIntegrationTestBase
         ];
         $this->assertEquals($expectedResponse, $this->sut->getSalesDraw());
     }
+
+    /**
+     * method getCustomerData
+     * when called
+     * should returnArrayWithProperData
+     */
+    public function test_getCustomerData_called_returnArrayWithProperData()
+    {
+        $expected = [
+            'name' => '',
+            'surname' => '',
+            'email' => 'algarrobo@currojimenez.com',
+            'created' => '',
+            'id' => '9098299B-14AC-4124-8DB0-19571EDABE55',
+            'currency' => null,
+            'country' => '',
+            'money_deposited' => '',
+            'winnings' => null,
+            'balance' => 3000.0500,
+            'num_bets' => 1
+        ];
+        $actual = $this->sut->getCustomersData();
+        $this->assertEquals($expected,$actual[0]);
+    }
 }

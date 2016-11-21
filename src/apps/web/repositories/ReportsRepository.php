@@ -30,7 +30,7 @@ class ReportsRepository implements IReports
                 (select SUM(t.wallet_after_winnings_amount)
                 FROM transactions t
                 WHERE MONTHNAME(t.date)=MONTHNAME(d.draw_date)
-                    and entity_type='winnings_received') as winnings
+                    and entity_type='winnings_received') / 100 as winnings
                 FROM bets b
                 JOIN euromillions_draws d on d.id=b.euromillions_draw_id
                 JOIN play_configs p on p.id=b.playConfig_id
@@ -60,5 +60,36 @@ class ReportsRepository implements IReports
                   join log_validation_api l on l.bet_id=b.id
                   GROUP BY e.draw_date", $rsm)
             ->getResult();
+    }
+
+
+    public function getCustomersData()
+    {
+        $rsm = new ResultSetMapping();
+
+        $rsm->addScalarResult('name', 'name');
+        $rsm->addScalarResult('surname', 'surname');
+        $rsm->addScalarResult('email', 'email');
+        $rsm->addScalarResult('created', 'created');
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('currency', 'currency');
+        $rsm->addScalarResult('country', 'country');
+        $rsm->addScalarResult('money_deposited', 'money_deposited');
+        $rsm->addScalarResult('moeny_spent', 'moeny_spent');
+        $rsm->addScalarResult('winnings', 'winnings');
+        $rsm->addScalarResult('balance', 'balance');
+        $rsm->addScalarResult('num_bets', 'num_bets');
+
+        return $this->entityManager
+            ->createNativeQuery(
+                "select u.name as name,u.surname as surname,u.email as email, u.created as created ,u.id as id ,u.user_currency_name as currency,u.country as country, (select SUM(t.wallet_after_uploaded_amount)
+                  from transactions t where t.user_id=u.id and entity_type='deposit' ) / 100 as money_deposited,
+                  (select SUM(t.wallet_before_uploaded_amount - t.wallet_after_uploaded_amount) from transactions t where t.user_id=u.id and entity_type='ticket_purchase') as money_spent,
+                  (select SUM(t.wallet_after_winnings_amount) from transactions t where t.user_id=u.id and entity_type='winnings_received')as winnings,
+                  (select us.wallet_uploaded_amount + us.wallet_winnings_amount from users us where us.id=u.id) / 100 as balance,
+                  (select count(1) from bets b join play_configs p on p.id=b.playConfig_id where p.user_id=u.id) as num_bets
+                  from users u;",$rsm)
+            ->getResult();
+
     }
 }

@@ -24,4 +24,12 @@ class ReportsController extends AdminControllerBase
             'monthlySales' => $this->reportsService->fetchMonthlySales()
         ]);
     }
+
+    public function customerDataAction()
+    {
+        $this->view->setVars([
+            'needReportsMenu' => true,
+            'customerData' => $this->reportsService->fetchCustomerData()
+        ]);
+    }
 }
