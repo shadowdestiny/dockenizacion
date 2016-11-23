@@ -7,6 +7,7 @@ use EuroMillions\web\components\Md5EmailValidationToken;
 use EuroMillions\web\components\NullPasswordHasher;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\IPAddress;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\ValidationToken;
 use Money\Currency;
@@ -22,6 +23,7 @@ class UserBuilder
     const DEFAULT_COUNTRY = 'Spain';
     const DEFAULT_VALIDATED = 0;
     const DEFAULT_USER_CURRENCY = 'EUR';
+    const DEFAULT_IP_ADDRESS = '127.0.0.1';
 
     private $name = self::DEFAULT_NAME;
     private $surname = self::DEFAULT_SURNAME;
@@ -39,6 +41,7 @@ class UserBuilder
     private $jackpot_reminder;
     private $playConfig;
     private $winning_above;
+    private $ip_address;
 
 
 
@@ -56,6 +59,7 @@ class UserBuilder
         $this->validationToken = new ValidationToken($this->email, new Md5EmailValidationToken());
         $this->user_currency = new Currency(self::DEFAULT_USER_CURRENCY);
         $this->winning_above = new Money((int) 0, new Currency(self::DEFAULT_USER_CURRENCY));
+        $this->ip_address = new IPAddress(self::DEFAULT_IP_ADDRESS);
     }
 
     /**

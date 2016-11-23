@@ -16,22 +16,12 @@ class IPAddress extends Domain
         parent::__construct($value);
     }
 
-    /**
-     * @return mixed
-     */
-    public function getValue()
+    public function toArray()
     {
-        return $this->value;
+        return [
+            'ip_address_value' => $this->value
+        ];
     }
-
-    /**
-     * @param mixed $value
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-    }
-
 
 
 }

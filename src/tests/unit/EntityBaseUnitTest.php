@@ -7,6 +7,7 @@ use EuroMillions\web\entities\EntityBase;
 use EuroMillions\web\entities\Language;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\tests\base\UnitTestBase;
+use EuroMillions\web\vo\IPAddress;
 use Money\Currency;
 use Money\Money;
 
@@ -101,6 +102,7 @@ class EntityBaseUnitTest extends UnitTestBase
         $expected->bankUserName = null;
         $expected->bankSurname = null;
         $expected->created = null;
+        $expected->ip_address = new IPAddress('127.0.0.1');
         $this->assertEquals($expected, $user->toValueObject());
     }
 
@@ -142,6 +144,7 @@ class EntityBaseUnitTest extends UnitTestBase
             'winning_above_amount'          => 0,
             'winning_above_currency_name'   => 'EUR',
             'created' => null,
+            'ip_address_value' => '127.0.0.1',
         ];
         $this->assertEquals($expected, $user->toArray());
     }
