@@ -19,6 +19,7 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     protected $id;
     protected $name;
     protected $surname;
+    protected $ipaddress;
     /** @var  Password */
     protected $password;
     /** @var  Email */
@@ -481,6 +482,14 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
         $this->created = $created;
     }
 
+    /**
+     * @return string
+     */
+    public function getIpAddress()
+    {
+        return $this->getClientIpEnv();
+    }
+
 
     /**
      * @param \DateTime $date
@@ -495,5 +504,24 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
             ->orWhere(Criteria::expr()->eq('lastDrawDate',$date));
 
         return $this->getPlayConfig()->matching($criteria);
+    }
+
+    private function getClientIpEnv() {
+        if (getenv('HTTP_CLIENT_IP'))
+            $ipaddress = getenv('HTTP_CLIENT_IP');
+        else if(getenv('HTTP_X_FORWARDED_FOR'))
+            $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+        else if(getenv('HTTP_X_FORWARDED'))
+            $ipaddress = getenv('HTTP_X_FORWARDED');
+        else if(getenv('HTTP_FORWARDED_FOR'))
+            $ipaddress = getenv('HTTP_FORWARDED_FOR');
+        else if(getenv('HTTP_FORWARDED'))
+            $ipaddress = getenv('HTTP_FORWARDED');
+        else if(getenv('REMOTE_ADDR'))
+            $ipaddress = getenv('REMOTE_ADDR');
+        else
+            $ipaddress = 'UNKNOWN';
+
+        return $ipaddress;
     }
 }
