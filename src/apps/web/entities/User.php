@@ -7,6 +7,7 @@ use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\interfaces\IEntity;
 use EuroMillions\web\interfaces\IUser;
 use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\IPAddress;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\RememberToken;
 use EuroMillions\web\vo\ValidationToken;
@@ -51,6 +52,8 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     protected $bankUserName;
     protected $bankSurname;
     protected $created;
+    /** @var IPAddress */
+    protected $ip_address;
 
 
 
