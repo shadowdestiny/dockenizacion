@@ -9,6 +9,7 @@ use EuroMillions\web\interfaces\IEmailValidationToken;
 use EuroMillions\web\interfaces\IPasswordHasher;
 use EuroMillions\web\vo\DrawDays;
 use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\IPAddress;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\ValidationToken;
 use Money\Currency;
@@ -77,7 +78,8 @@ class UserRepository extends RepositoryBase
             'validated'        => 0,
             'validation_token' => new ValidationToken($email, $validationTokenGenerator),
             'user_currency'    => new Currency('EUR'),
-            'created'          => new \DateTime()
+            'created'          => new \DateTime(),
+            'ip_address'       => new IPAddress($credentials['ipaddress'])
         ]);
         $this->add($user);
         $this->getEntityManager()->flush($user);
@@ -99,7 +101,8 @@ class UserRepository extends RepositoryBase
             'validated'        => 0,
             'validation_token' => new ValidationToken($email, $validationTokenGenerator),
             'user_currency'    => new Currency('EUR'),
-            'created'          => new \DateTime()
+            'created'          => new \DateTime(),
+            'ip_address'       => new IPAddress($credentials['ipaddress'])
         ]);
 
         $this->addWithId($user);

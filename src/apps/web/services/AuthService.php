@@ -16,6 +16,7 @@ use EuroMillions\web\interfaces\IUser;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\email_templates_strategies\NullEmailTemplateDataStrategy;
 use EuroMillions\web\vo\Email;
+use EuroMillions\web\vo\IPAddress;
 use EuroMillions\web\vo\Password;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\Url;
@@ -107,8 +108,9 @@ class AuthService
             if ($credentials['remember']) {
                 $user->setRememberToken($agentIdentificationString);
                 $this->storageStrategy->storeRemember($user);
-                $this->entityManager->flush();
             }
+            $user->setIpAddress(new IPAddress($credentials['ipaddress']));
+            $this->entityManager->flush();
         }
         return $password_match;
     }

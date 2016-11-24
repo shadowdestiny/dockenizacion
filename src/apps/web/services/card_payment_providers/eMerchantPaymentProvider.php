@@ -72,7 +72,7 @@ class eMerchantPaymentProvider implements ICardPaymentProvider
             'expirationMonth' => $card->expiryDate()->getMonth(),
             'cardHolderName' => $card->cardHolderName()->toNative(),
             'email' => $this->user->getEmail()->toNative(),
-            'ip' => $this->user->getIpAddress(),
+            'ip' => $this->user->getIpAddress()->toNative(),
         ];
     }
 }

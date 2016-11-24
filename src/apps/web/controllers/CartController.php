@@ -13,6 +13,7 @@ use Phalcon\Validation\Message;
 
 class CartController extends PublicSiteControllerBase
 {
+    const IP_DEFAULT = '127.0.0.1';
 
     /**
      * @param null $paramsFromPreviousAction
@@ -72,6 +73,7 @@ class CartController extends PublicSiteControllerBase
                     'password' => $this->request->getPost('password'),
                     'email'    => $this->request->getPost('email'),
                     'country'  => $this->request->getPost('country'),
+                    'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
                 ], $user->getId());
                 if($result->success()){
                     $this->response->redirect('/'.$this->lottery.'/order');

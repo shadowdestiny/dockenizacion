@@ -24,6 +24,7 @@ class AuthServiceUnitTest extends UnitTestBase
     const USERNAME = 'azofaifa';
     const PASS = 'azofaifaPass01';
     const USER_AGENT = 'Nocilla correfocs 66.6';
+    const IP_ADDRESS = '127.0.0.1';
     private $userRepository_double;
     private $hasher_double;
     private $storageStrategy_double;
@@ -61,6 +62,8 @@ class AuthServiceUnitTest extends UnitTestBase
     public function test_check_calledWithRightCredentials_returnTrue()
     {
         $credentials_and_user = $this->prepareHasherCredentialsAndUserRepo(false);
+
+        $this->expectFlushInEntityManager();
 
         $actual = $this->exerciseCheck($credentials_and_user[0]);
 
@@ -116,12 +119,11 @@ class AuthServiceUnitTest extends UnitTestBase
 
         $this->userRepository_double->getByEmail(self::EMAIL)->willReturn($user_mock);
 
-        $entityManager_stub = $this->getEntityManagerDouble();
-        $entityManager_stub->flush()->shouldNotBeCalled();
-        $this->stubEntityManager($entityManager_stub);
-
         $this->storageStrategy_double->storeRemember(Argument::any())->shouldNotBeCalled();
         $this->storageStrategy_double->setCurrentUserId(Argument::any())->shouldBeCalled();
+
+        $user_mock->setIpAddress(Argument::any())->shouldBeCalled();
+        $this->expectFlushInEntityManager();
 
         $this->exerciseCheck($credentials);
     }
@@ -215,7 +217,7 @@ class AuthServiceUnitTest extends UnitTestBase
      */
     private function prepareHasherAndCredentials($remember, $passwordIsGood)
     {
-        $credentials = ['email' => self::EMAIL, 'password' => self::PASS, 'remember' => $remember];
+        $credentials = ['email' => self::EMAIL, 'password' => self::PASS, 'remember' => $remember, 'ipaddress' => self::IP_ADDRESS];
 
         $this->hasher_double->hashPassword(self::PASS)->willReturn(self::HASH);
         $this->hasher_double->checkPassword(self::PASS, self::HASH)->willReturn($passwordIsGood);

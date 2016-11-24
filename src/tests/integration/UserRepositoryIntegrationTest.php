@@ -159,7 +159,8 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
             'surname'  => UserBuilder::DEFAULT_SURNAME,
             'password' => UserBuilder::DEFAULT_PASSWORD,
             'country'  => UserBuilder::DEFAULT_COUNTRY,
-            'created'  => $createdOn
+            'created'  => $createdOn,
+            'ipaddress' => UserBuilder::DEFAULT_IP_ADDRESS,
         ];
         $user = $this->sut->register($credentials, new NullPasswordHasher(), new Md5EmailValidationToken());
         $this->entityManager->detach($user);
@@ -186,6 +187,7 @@ class UserRepositoryIntegrationTest extends DatabaseIntegrationTestBase
             'surname'  => UserBuilder::DEFAULT_SURNAME,
             'password' => UserBuilder::DEFAULT_PASSWORD,
             'country'  => UserBuilder::DEFAULT_COUNTRY,
+            'ipaddress' => UserBuilder::DEFAULT_IP_ADDRESS,
         ];
         $user = $this->sut->registerFromCheckout($credentials, $userId , new NullPasswordHasher(), new Md5EmailValidationToken());
         $this->entityManager->detach($user);
