@@ -67,13 +67,13 @@
                                         {{ data['country'] }}
                                     </td>
                                     <td>
-                                        {{ data['money_deposited'] }}
+                                        {{ data['money_deposited'] | number_format (2,'.',',') }} €
                                     </td>
                                     <td>
-                                        {{ data['winnings'] }}
+                                        {{ data['winnings'] | number_format (2,'.',',') }} €
                                     </td>
                                     <td>
-                                        {{ data['balance'] }}
+                                        {{ data['balance'] | number_format (2,'.',',') }} €
                                     </td>
                                     <td>
                                         {{ data['num_bets'] }}
