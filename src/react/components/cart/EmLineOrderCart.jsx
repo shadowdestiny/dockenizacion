@@ -7,13 +7,25 @@ var EmLineOrder = new React.createClass({
     render : function ()
     {
 
+        var linenumber = this.props.line;
         var numbers = this.props.numbers.split(',');
         var stars = this.props.stars.split(',');
-        var char_line = 'ABCDEFGHIJKLMNOPQRSTVWXYZ'.charAt(this.props.line);
+
+        var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var num_char_line = '';
+        for(var c = 0; c < alphabet.length; c++) {
+            num_char_line = alphabet.charAt(linenumber);
+            if( !num_char_line ) {
+                var cur_pos = (linenumber - alphabet.length);
+                var new_pos = (linenumber - alphabet.length) + 2;
+                num_char_line = alphabet.charAt(cur_pos) +""+ alphabet.charAt(new_pos);
+            }
+        }
+
         return (
             <div className="row cl">
                 <div className="desc">
-                    Line {char_line}
+                    Line {num_char_line}
                 </div>
                 <div className="detail">
                     <ol className="no-li num">
