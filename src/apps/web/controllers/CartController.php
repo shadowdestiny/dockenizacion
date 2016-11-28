@@ -127,6 +127,7 @@ class CartController extends PublicSiteControllerBase
                     'email'    => $this->request->getPost('email'),
                     'password' => $this->request->getPost('password'),
                     false,
+                    'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
                 ], 'string')
                 ) {
                     $errors[] = 'Incorrect email or password.';
