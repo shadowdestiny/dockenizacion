@@ -196,7 +196,7 @@ var EuroMillionsLine = React.createClass({
                                                  extraClass="" columnClass="col3 not" key="3"/>);
 
 
-        var alphabet = 'ABCDEFGHIJKLMNOPQRSTVWXYZ';
+        var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         var num_char_line = '';
         for(var c = 0; c < alphabet.length; c++) {
             num_char_line = alphabet.charAt(linenumber)

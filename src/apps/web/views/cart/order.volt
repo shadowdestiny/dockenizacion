@@ -41,6 +41,10 @@
 
     $(function(){
     $('.buy').on('click',function(){
+    if ($(this).text() == 'Buy now') {
+        $(this).text('Please wait...');
+        $(this).css('pointer-events', 'none');
+    }
     var value = $(this).data('btn');
     if(value == 'no-wallet') {
     var total_text = '';

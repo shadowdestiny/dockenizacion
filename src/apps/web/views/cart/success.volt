@@ -50,13 +50,27 @@ cart success minimal
                             <br>*******************************
                             <br>
                             {%  set lines = order.lines|json_decode %}
-                            <?php $chars = range('A','Z'); ?>
+                            <?php
+                            function numCharLine($line){
+                                $alphabet = range('A','Z');
+                                for($c = 0; $c < count($alphabet); $c++) {
+                                    if( $line > 25 ) {
+                                        $cur_pos = ($line - count($alphabet));
+                                        $new_pos = ($line - count($alphabet)) + 2;
+                                        $num_char_line = $alphabet[$cur_pos] ."". $alphabet[$new_pos];
+                                    } else {
+                                        $num_char_line = $alphabet[$line];
+                                    }
+                                }
+                                return $num_char_line;
+                            }
+                            ?>
                             {%  for i,numbers in lines.bets %}
                                 <?php $regular_arr = explode(',', $numbers->regular);
                                       $lucky_arr = explode(',', $numbers->lucky);
                                 ?>
                                 <ul class="no-li num">
-                                    <li><?php echo $chars[$i];?></li>
+                                    <li><?php echo numCharLine($i);?></li>
                                     {% for regular_number in regular_arr %}
                                         <li><?php echo sprintf("%02s", $regular_number);?></li>
                                     {% endfor %}
