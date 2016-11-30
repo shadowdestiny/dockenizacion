@@ -83,6 +83,14 @@ class SiteConfigService
         return new SiteConfigDTO($amount_fee_to_limit, $amount_fee, $fee_to_limit_convert->getAmount(), $fee_convert->getAmount());
     }
 
+    /**
+     * @return array
+     */
+    public function retrieveEuromillionsBundlePrice()
+    {
+        return $this->configEntity->retrieveEuromillionsBundlePrice();
+    }
+
 
     /**
      * @param MoneyCurrency $user_currency
