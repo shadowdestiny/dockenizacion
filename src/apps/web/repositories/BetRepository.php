@@ -59,8 +59,9 @@ class BetRepository extends RepositoryBase
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('bet','bet');
         $rsm->addScalarResult('raffle','raffle');
+        $rsm->addScalarResult('playconfig', 'playconfig');
         $result = $this->getEntityManager()
-            ->createNativeQuery("SELECT b.id as bet, m.raffle_million as raffle
+            ->createNativeQuery("SELECT b.id as bet, m.raffle_million as raffle, b.playConfig_id as playconfig
             FROM bets b
             JOIN log_validation_api l on l.id_ticket = b.castillo_bet_id
             JOIN matcher m on l.id_ticket = m.providerBetId

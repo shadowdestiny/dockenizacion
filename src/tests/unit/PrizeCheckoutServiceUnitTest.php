@@ -18,6 +18,7 @@ use EuroMillions\web\vo\Email;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\Password;
 use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\vo\Raffle;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -228,6 +229,32 @@ class PrizeCheckoutServiceUnitTest extends UnitTestBase
         $sut->matchNumbersUser($bet,$this->getScalarValues(), $date, new Money((int) 100 ,new Currency('EUR')));
     }
 
+
+
+    /**
+     * method sendEmailWinnerRaffle
+     * when calledWithADateLastDraw
+     * should returnProperResult
+     */
+    public function test_sendEmailWinnerRaffle_returnProperResult()
+    {
+        $sut = $this->getSut();
+        $betsRaffle = [
+            [
+                'bet' => "1",
+                'raffle' => "BNN41949",
+                'playconfig' => "1"
+            ], [
+                'bet' => "2",
+                'raffle' => "BNN41940",
+                'playconfig' => "2"
+            ]];
+        $raffle = new Raffle($betsRaffle[0]['raffle']);
+        list($playConfig, $euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw();
+        $this->playConfigRepository_double->find(1)->willReturn($playConfig);
+        $this->emailService_double->sendLog(Argument::any(), Argument::any(), Argument::any(), Argument::any())->shouldBeCalledTimes(1);
+        $sut->sendEmailWinnerRaffle($betsRaffle, $raffle);
+    }
 
     private function getSut(){
         return new PrizeCheckoutService(
