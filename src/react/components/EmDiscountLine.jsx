@@ -15,12 +15,12 @@ var EuroMillionsDiscountLine = React.createClass({
                 <table>
                     <tbody>
                     <tr>
-                        <td width="15px"><input type="radio" name="draw_type" checked={this.props.checked} /></td>
+                        <td width="15px"><input type="radio" name="draw_type" defaultChecked={this.props.checked} value={this.props.draws} /></td>
                         <td width="200px">{this.props.desc}</td>
                         <td>{price}€ / {this.props.price_desc}</td>
                     </tr>
                     </tbody>
-                </table>p
+                </table>
             </div>
         );
     }
