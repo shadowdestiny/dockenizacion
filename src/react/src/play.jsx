@@ -4,6 +4,7 @@ var EuroMillionsBoxAction = require('../components/EmBoxActionPlay.jsx');
 var EuroMillionsMultipleEmLines = require('../components/EmMultipleEmLines.jsx');
 var EuroMillionsBoxBottomAction = require('../components/EmBoxBottomAction.jsx');
 var EmConfigPlayBlock = require('../components/EmConfigPlayBlock.jsx');
+var EmDiscountLinesTitle = require('../components/EmDiscountLines.jsx');
 var EmDiscountLines = require('../components/EmDiscountLines.jsx');
 
 
@@ -382,7 +383,7 @@ var PlayPage = React.createClass({
                 <div className="box-bottom">
                     <div className="wrap">
                         <EuroMillionsBoxBottomAction reset={this.handleResetStateAdvancedPlay} config_changed={this.state.config_changed} draw_day_play={this.state.draw_day_play} currency_symbol={this.props.currency_symbol} click_advanced_play={this.handleClickAdvancedPlay} date_play={this.state.date_play} duration={this.state.duration} play_days={this.state.playDays}  lines={this.state.storage}  price={this.state.price}/>
-                        <EmDiscountLines title={discountLinesTitle}/>
+                        <EmDiscountLines title={this.props.discount_lines_title} discount_lines={this.props.discount_lines} />
                         <EmConfigPlayBlock next_draw={this.props.next_draw} reset={this.handleResetStateAdvancedPlay} update_threshold={this.setChangedWhenThresholdUpdate}  show_config={this.state.show_config} date_play={this.handleChangeDate} reset_config={this.state.reset_advanced_play} draw_dates={this.state.draw_dates}  current_duration_value={this.state.duration} draw_days_selected={this.state.draw_day_play} draw_duration={this.state.draw_duration} duration={this.handleChangeDuration} play_days={this.handleChangeDraw} show={this.state.show_block_config}/>
                     </div>
                 </div>
@@ -401,7 +402,7 @@ var options_draw_duration = [
     {text : '52 weeks (Draws: 52)' , value : 52}
 ];
 
-ReactDOM.render(<PlayPage next_draw={next_draw} next_draw_format={next_draw_format} currency_symbol={currency_symbol} automatic_random={automatic_random}  lines_default={5} date_play={""+draw_dates[0]} draw_duration={options_draw_duration} draw_dates={draw_dates}/>, document.getElementById('gameplay'));
+ReactDOM.render(<PlayPage discount_lines_title={discount_lines_title} discount_lines={discount_lines} next_draw={next_draw} next_draw_format={next_draw_format} currency_symbol={currency_symbol} automatic_random={automatic_random}  lines_default={5} date_play={""+draw_dates[0]} draw_duration={options_draw_duration} draw_dates={draw_dates}/>, document.getElementById('gameplay'));
 
 
 
