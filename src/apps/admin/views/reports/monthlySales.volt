@@ -46,13 +46,13 @@
                                     {{ sales['total_bets'] }}
                                 </td>
                                 <td>
-                                    {{ sales['gross_sales'] }}
+                                    {{ sales['gross_sales'] | number_format (2,',','') }}
                                 </td>
                                 <td>
-                                    {{ sales['gross_margin'] }}
+                                    {{ sales['gross_margin'] | number_format (2,',','') }}
                                 </td>
                                 <td>
-                                    {{ sales['winnings'] }}
+                                    {{ sales['winnings'] | number_format (2,',','') }}
                                 </td>
                             </tr>
                                 {%  endfor %}

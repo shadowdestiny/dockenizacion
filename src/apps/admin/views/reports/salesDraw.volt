@@ -57,10 +57,10 @@
                                         {{ salesData['count_id'] }}
                                     </td>
                                     <td>
-                                        {{ salesData['count_id_3'] }} €
+                                        {{ salesData['count_id_3'] | number_format (2,',','') }} €
                                     </td>
                                     <td>
-                                        {{ salesData['count_id_05'] }} €
+                                        {{ salesData['count_id_05'] | number_format (2,',','') }} €
                                     </td>
                                 </tr>
                             {% endfor %}
