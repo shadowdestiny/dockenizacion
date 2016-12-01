@@ -374,8 +374,6 @@ var PlayPage = React.createClass({
 
         elem.push(<EuroMillionsMultipleEmLines add_storage={this.addLinesInStorage} clear_all={this.state.clear_all} callback={this.handleOfBetsLine} random_all={random_all} numberEuroMillionsLine={numberEuroMillionsLine} key="1"/>);
         elem.push(<EuroMillionsBoxAction date_play={this.handleChangeDate} draw_dates={this.state.draw_dates} next_draw_format={this.props.next_draw_format} show_tooltip={this.state.show_tooltip_lines}  mouse_over_btn={this.mouseOverBtnAddLines}  add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} show_clear_all={this.state.show_clear_all} clear_all_btn={this.handlerClearAll} key="2"/>);
-        var discountLinesTitle = 'Patata frita';
-
 
         return (
             <div>

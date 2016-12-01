@@ -7,11 +7,12 @@ var EuroMillionsDiscountLines = new React.createClass({
         var showtitle = this.props.title ? "block" : "none";
         var discountLine = [];
         var cont=0;
+
         JSON.parse(this.props.discount_lines).forEach(function (line) {
-            console.log(line);
-            discountLine.push(<EmDiscountLine key={cont} draws={line.draws} desc={line.description} price_desc={line.price_description}  price={line.price}  discount={line.discount} />);
+            discountLine.push(<EmDiscountLine key={cont} draws={line.draws} desc={line.description} price_desc={line.price_description}  price={line.price}  discount={line.discount} checked={line.checked} />);
             cont++;
         });
+
         return (
             <span>
                 <h1 className="purple" style={{display : showtitle}}>{this.props.title}</h1>

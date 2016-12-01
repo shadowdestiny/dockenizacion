@@ -59,11 +59,11 @@ class SiteConfig extends EntityBase
 
     public function retrieveEuromillionsBundlePrice() {
         return [
-            ['draws' => '1', 'description' => '1 Draw', 'price_description' => 'Line', 'price' => '3', 'discount' => 0],
-            ['draws' => '4', 'description' => '4 Draws (2 weeks)', 'price_description' => 'Line', 'price' => '3', 'discount' => 0],
-            ['draws' => '8', 'description' => '1 Month (4 weeks)', 'price_description' => 'Month', 'price' => '24', 'discount' => 0],
-            ['draws' => '24', 'description' => '3 Months (12 weeks)', 'price_description' => 'Month', 'price' => '24', 'discount' => 1.25],
-            ['draws' => '48', 'description' => '6 Months (24 weeks)', 'price_description' => 'Month', 'price' => '24', 'discount' => 4.5],
+            ['draws' => '1', 'description' => '1 Draw', 'price_description' => 'Line', 'price' => '3', 'discount' => 0, 'checked' => ''],
+            ['draws' => '4', 'description' => '4 Draws (2 weeks)', 'price_description' => 'Line', 'price' => '3', 'discount' => 0, 'checked' => 'checked'],
+            ['draws' => '8', 'description' => '1 Month (4 weeks)', 'price_description' => 'Month', 'price' => '24', 'discount' => 0, 'checked' => ''],
+            ['draws' => '24', 'description' => '3 Months (12 weeks)', 'price_description' => 'Month', 'price' => '24', 'discount' => 1.25, 'checked' => ''],
+            ['draws' => '48', 'description' => '6 Months (24 weeks)', 'price_description' => 'Month', 'price' => '24', 'discount' => 4.5, 'checked' => ''],
         ];
     }
 
