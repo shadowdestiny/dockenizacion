@@ -6,10 +6,11 @@ var EuroMillionsDiscountLines = new React.createClass({
     render : function () {
         var showtitle = this.props.title ? "block" : "none";
         var discountLine = [];
-        var cont = 0;
+        var cont=0;
         JSON.parse(this.props.discount_lines).forEach(function (line) {
+            console.log(line);
+            discountLine.push(<EmDiscountLine key={cont} draws={line.draws} desc={line.description} price_desc={line.price_description}  price={line.price}  discount={line.discount} />);
             cont++;
-            discountLine.push(<EmDiscountLine />);
         });
         return (
             <span>
