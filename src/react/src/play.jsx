@@ -386,9 +386,9 @@ var PlayPage = React.createClass({
                 {elem}
                 <div className="box-bottom">
                     <div className="wrap">
-                        <EuroMillionsBoxBottomAction reset={this.handleResetStateAdvancedPlay} config_changed={this.state.config_changed} draw_day_play={this.state.draw_day_play} currency_symbol={this.props.currency_symbol} click_advanced_play={this.handleClickAdvancedPlay} date_play={this.state.date_play} duration={this.state.duration} play_days={this.state.playDays}  lines={this.state.storage}  price={this.state.price}/>
                         <EmDiscountLines sendLineSelected={this.updateTotalByDiscount} title={this.props.discount_lines_title} discount_lines={this.props.discount_lines} />
                         <EmDrawTotalPrice num_lines={this.getNumLinesThatAreFilled()} draws_number={this.state.draws_number} />
+                        <EuroMillionsBoxBottomAction reset={this.handleResetStateAdvancedPlay} config_changed={this.state.config_changed} draw_day_play={this.state.draw_day_play} currency_symbol={this.props.currency_symbol} click_advanced_play={this.handleClickAdvancedPlay} date_play={this.state.date_play} duration={this.state.duration} play_days={this.state.playDays}  lines={this.state.storage}  price={this.state.price}/>
                         <EmConfigPlayBlock next_draw={this.props.next_draw} reset={this.handleResetStateAdvancedPlay} update_threshold={this.setChangedWhenThresholdUpdate}  show_config={this.state.show_config} date_play={this.handleChangeDate} reset_config={this.state.reset_advanced_play} draw_dates={this.state.draw_dates}  current_duration_value={this.state.duration} draw_days_selected={this.state.draw_day_play} draw_duration={this.state.draw_duration} duration={this.handleChangeDuration} play_days={this.handleChangeDraw} show={this.state.show_block_config}/>
                     </div>
                 </div>

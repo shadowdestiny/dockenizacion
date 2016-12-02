@@ -20,8 +20,8 @@ var EuroMillionsDiscountLine = React.createClass({
                 <input id={this.props.key} type="radio" name="draw_type" onClick={this.props.sendLineSelected.bind(null, this.props.draws)} defaultChecked={this.props.checked} value={this.props.draws} />
                 <label htmlFor={this.props.key}>
                     {this.props.desc}
-                    {price}€ / {this.props.price_desc}
                 </label>
+                {price}€ / {this.props.price_desc}
             </li>
         );
     }
