@@ -43,7 +43,7 @@ class PlayController extends PublicSiteControllerBase
             'openTicket' => ($checkOpenTicket)  ? '1': '0',
             'single_bet_price' => $single_bet_price_currency->getAmount() /100,
             'automatic_random' => isset($automatic_random) ? true : false,
-            'discount_lines_title' => 'Choose your bundle',
+            'discount_lines_title' => 'Hola Raul',
             'discount_lines' => json_encode($bundle_price),
         ]);
     }
