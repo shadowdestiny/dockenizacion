@@ -16,17 +16,13 @@ var EuroMillionsDiscountLine = React.createClass({
         }
 
         return (
-            <div>
-                <table>
-                    <tbody>
-                    <tr>
-                        <td width="15px"><input type="radio" name="draw_type" onClick={this.props.sendLineSelected.bind(null, this.props.draws)} defaultChecked={this.props.checked} value={this.props.draws} /></td>
-                        <td width="200px">{this.props.desc}</td>
-                        <td>{price}€ / {this.props.price_desc}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            <li className="discount-list">
+                <input id={this.props.key} type="radio" name="draw_type" onClick={this.props.sendLineSelected.bind(null, this.props.draws)} defaultChecked={this.props.checked} value={this.props.draws} />
+                <label htmlFor={this.props.key}>
+                    {this.props.desc}
+                    {price}€ / {this.props.price_desc}
+                </label>
+            </li>
         );
     }
 });

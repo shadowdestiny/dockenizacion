@@ -140,16 +140,15 @@ $gap3:15px; /* Responsive design 3 column */
 	.txt, .checkbox{cursor:pointer;}
 }
 
-.filter-discounts{position:relative; width:200px;}
+.filter-discounts{position:relative; width:500px;}
 .filter-discounts input[type="radio"]{display:none}
 .filter-discounts input[type="radio"]+label{display:block;height:100%;line-height:25px}
-.filter-discounts .discount-list{background:white;height:25px;line-height:25px;margin-left:0;text-align:center;display:inline-block;float:left}
-.filter-discounts .discount-list label{font-size:12px;border: 1px solid $purple;color: $purple; border-radius: 5px;}
-.filter-discounts .discount-list label:hover{background: $purple;color: white; cursor:pointer;border-top:1px solid $purple}
-.filter-discounts .discount-list input[type="radio"]:checked+label{border-top:solid 1px $purple;border-bottom:none;background:$purple;color:white;cursor:default;pointer-events:none}
-.filter-discounts .discount-list{width: 200px;margin-bottom:10px}
+.filter-discounts .discount-list{background:white;height:25px;line-height:25px;margin-left:0;display:inline-block;}
+.filter-discounts .discount-list label{font-size:14px;border: 1px solid $purple;color: $purple; border-radius: 5px;}
+.filter-discounts .discount-list label:hover{background: $purple;color: white; cursor:pointer;border:1px solid $purple}
+.filter-discounts .discount-list input[type="radio"]:checked+label{border-top:solid 1px $purple;border-bottom:none;background:$purple;color:white;cursor:default;pointer-events:none;}
+.filter-discounts .discount-list{width: 500px;margin-bottom:10px}
 .filter-discounts .discount-list .discount-list--label{border-bottom:solid 1px #dedede}
-.filter-discounts .discount-list input:checked+.discount-list--label{border-top:solid 1px #6bcaf2 !important;font-family:open_sanssemibold, sans-serif}
 .filter-discounts .discount-list input:disabled+.discount-list--label{background:#f2f2f2;border:none;cursor:default !important;color:#ccc}
 .filter-discounts .discount-list input:disabled+.discount-list--label:hover{border:none;background:#f2f2f2;color:#ccc}
 

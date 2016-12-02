@@ -25,10 +25,12 @@ var EuroMillionsDiscountLines = new React.createClass({
         });
 
         return (
-            <span>
+            <div>
                 <h1 className="purple" style={{display : showtitle}}>{this.props.title}</h1>
-                <span>{discountLine}</span>
-            </span>
+                <ul className="filter-discounts">
+                    {discountLine}
+                </ul>
+            </div>
         )
     }
 
