@@ -331,3 +331,8 @@ $gap3:15px; /* Responsive design 3 column */
 	.col1:not(.not), .col2:not(.not), .col3:not(.not), .col4:not(.not), .col5:not(.not), .col6:not(.not), .col7:not(.not), .col8:not(.not), .col9:not(.not), .col10:not(.not), .col11:not(.not), .col12:not(.not), .col20per:not(.not)
 	{display:block; float:none; position:relative; width:100%; border:0!important; padding-bottom:0;}
 }}
+
+.drawTotal{
+	font-size:180%;
+	font-weight: normal;
+}
