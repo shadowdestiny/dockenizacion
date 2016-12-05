@@ -38,7 +38,7 @@ var EmSelectDrawDate = React.createClass({
             color : '#333'
         }
         return (
-            <div>
+            <div id="BuyForDrawBox">
                 <div style={divStyle}>
                     Buy for Draw:
                 </div>

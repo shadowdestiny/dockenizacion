@@ -7,6 +7,15 @@ var EuroMillionsDiscountLine = React.createClass({
     //     sendLineSelected: React.PropTypes.func.isRequired
     // },
 
+
+    isActive:function(value){
+        return 'btn pwp add-more ui-link' + ((value=='active') ? ' pwp-active' : '');
+    },
+
+    getId:function(value){
+        return 'buttonDrawKey' + value;
+    },
+
     render: function () {
         var price = this.props.price;
 
@@ -15,14 +24,16 @@ var EuroMillionsDiscountLine = React.createClass({
             price = price.toFixed(2);
         }
 
+
         return (
-            <li className="discount-list">
-                <input id={this.props.key} type="radio" name="draw_type" onClick={this.props.sendLineSelected.bind(null, this.props.draws)} defaultChecked={this.props.checked} value={this.props.draws} />
-                <label htmlFor={this.props.key}>
-                    {this.props.desc}
-                </label>
-                {price}€ / {this.props.price_desc}
-            </li>
+            <div className="buttonDrawList">
+                <a id={this.getId(this.props.draws)} className={this.isActive(this.props.checked)} href="javascript:void(0);" onClick={this.props.sendLineSelected.bind(null, this.props.draws, this.props.discount, this.getId(this.props.draws))}>
+                    <span>
+                        {this.props.desc}
+                    </span>
+                </a>
+                &nbsp; {price} {this.props.currency_symbol} / {this.props.price_desc}
+            </div>
         );
     }
 });
