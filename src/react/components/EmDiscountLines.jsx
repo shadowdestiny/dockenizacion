@@ -13,16 +13,12 @@ var EuroMillionsDiscountLines = new React.createClass({
     render : function () {
         var showtitle = this.props.title ? "block" : "none";
         var discountLine = [];
-        var cont=0;
         var sendLineSelected = this.props.sendLineSelected;
-        var drawsNumber = this.state.draws_number;
+        var rowSelected = this.props.rowSelected;
         var currencySymbol = this.props.currency_symbol;
-        JSON.parse(this.props.discount_lines).forEach(function (line) {
-            if (line.checked == 'checked') {
-                drawsNumber = line.draws;
-            }
-            discountLine.push(<EmDiscountLine currency_symbol={currencySymbol} sendLineSelected={sendLineSelected} key={cont} draws={line.draws} desc={line.description} price_desc={line.price_description}  price={line.price}  discount={line.discount} checked={line.checked} />);
-            cont++;
+        JSON.parse(this.props.discount_lines).forEach(function (line,i) {
+            var isChecked = (line.draws == rowSelected);
+            discountLine.push(<EmDiscountLine currency_symbol={currencySymbol} sendLineSelected={sendLineSelected} key={i} draws={line.draws} desc={line.description} price_desc={line.price_description}  price={line.price}  discount={line.discount} checked={isChecked} />);
         });
 
         return (

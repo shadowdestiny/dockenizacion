@@ -37,6 +37,9 @@ var EmSelectDrawDate = React.createClass({
         var labelStyle = {
             color : '#333'
         }
+
+        if(this.props.show > 1) return null;
+
         return (
             <div id="BuyForDrawBox">
                 <div style={divStyle}>
