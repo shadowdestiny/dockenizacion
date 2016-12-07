@@ -17,7 +17,7 @@ var EuroMillionsDiscountLines = new React.createClass({
         var rowSelected = this.props.rowSelected;
         var currencySymbol = this.props.currency_symbol;
         JSON.parse(this.props.discount_lines).forEach(function (line,i) {
-            var isChecked = (line.draws == rowSelected);
+            let isChecked = (line.draws == rowSelected);
             discountLine.push(<EmDiscountLine currency_symbol={currencySymbol} sendLineSelected={sendLineSelected} key={i} draws={line.draws} desc={line.description} price_desc={line.price_description}  price={line.price}  discount={line.discount} checked={isChecked} />);
         });
 

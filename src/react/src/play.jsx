@@ -379,9 +379,10 @@ var PlayPage = React.createClass({
             numberEuroMillionsLine = this.state.count_lines ;
         }
         var random_all = this.state.random_all;
-
+        //EMTD @tey86, think a place for this line
+        var showBuyDrawDate = (this.props.draws_number == this.state.draws_number);
         elem.push(<EuroMillionsMultipleEmLines add_storage={this.addLinesInStorage} clear_all={this.state.clear_all} callback={this.handleOfBetsLine} random_all={random_all} numberEuroMillionsLine={numberEuroMillionsLine} key="1"/>);
-        elem.push(<EuroMillionsBoxAction showBuyDrawDate={this.state.draws_number} date_play={this.handleChangeDate} draw_dates={this.state.draw_dates} next_draw_format={this.props.next_draw_format} show_tooltip={this.state.show_tooltip_lines}  mouse_over_btn={this.mouseOverBtnAddLines}  add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} show_clear_all={this.state.show_clear_all} clear_all_btn={this.handlerClearAll} key="2"/>);
+        elem.push(<EuroMillionsBoxAction showBuyDrawDate={showBuyDrawDate} date_play={this.handleChangeDate} draw_dates={this.state.draw_dates} next_draw_format={this.props.next_draw_format} show_tooltip={this.state.show_tooltip_lines}  mouse_over_btn={this.mouseOverBtnAddLines}  add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} show_clear_all={this.state.show_clear_all} clear_all_btn={this.handlerClearAll} key="2"/>);
         return (
             <div>
                 {elem}

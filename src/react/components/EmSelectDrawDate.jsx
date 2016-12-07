@@ -38,7 +38,7 @@ var EmSelectDrawDate = React.createClass({
             color : '#333'
         }
 
-        if(this.props.show > 1) return null;
+        if(!this.props.show) return null;
 
         return (
             <div id="BuyForDrawBox">
