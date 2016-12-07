@@ -18,6 +18,7 @@ use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\services\email_templates_strategies\WinEmailAboveDataEmailTemplateStrategy;
 use EuroMillions\web\vo\enum\TransactionType;
+use EuroMillions\web\vo\Raffle;
 use Money\Currency;
 use Money\Money;
 
@@ -192,5 +193,24 @@ class PrizeCheckoutService
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 
+    public function sendEmailWinnerRaffle($betsRaffle, Raffle $lastRaffle)
+    {
+        foreach ($betsRaffle as $bet) {
+            if ($lastRaffle->equals(new Raffle($bet['raffle']))) {
+                /* @var PlayConfig $playconfig */
+                $playconfig = $this->playConfigRepository->find($bet['playconfig']);
+                /* @var User $user */
+                $user = $playconfig->getUser();
+                $name = 'A user has won the Raffle';
+                $type = '';
+                $message = '<b>User name: </b>' . $user->getName() . '\n';
+                $message .= '<b>User Id : </b>' . $user->getId() . '\n';
+                $message .= '<b>Email </b>' . $user->getEmail() . '\n';
+                $time = $now = new \DateTime('NOW');
+                $this->emailService->sendLog($name, $type, $message, $time);
+            }
+        }
+
+    }
 
 }

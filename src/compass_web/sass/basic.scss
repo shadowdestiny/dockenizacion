@@ -146,7 +146,7 @@ label.submit{cursor:pointer;}
 .btn.white, .tab.active, .tab.active:visited{color:$hover; background:#fff; font-weight:normal; border:1px solid #fff; text-shadow:0 0 0 transparent;}
 .btn.white:hover, .btn.white:focus, .gwy:hover, .gwy:focus, .gwp:hover, .gwp:focus
 {border:1px solid #ccc;}
-.btn.white:active, .gwy:active, .gwp:active, .gwg:active, .bwb:active, .rwr:active, .ywy:active
+.btn.white:active, .gwy:active, .gwp:active, .gwg:active, .bwb:active, .rwr:active, .ywy:active, .pwp:active
 {border:1px solid #666; box-shadow:inset 0 0 0 0 transparent;}
 .btn.blue{
   background:$btn-blue; border:1px solid $btn-blue-dark; color:#fff; /* Color Value it is inserted because of Internet Explorer */
@@ -172,7 +172,7 @@ label.submit{cursor:pointer;}
 }
 .btn.green:hover, .btn.green:focus{color:$btn-green; background:#fff; border:1px solid $btn-green;}
 
-.gwy, .gwr, .gwp, .gwg, .bwb, .rwr, .ywy{font-weight:700; background:#fff; text-shadow:0 0 0 transparent;}
+.gwy, .gwr, .gwp, .gwg, .bwb, .rwr, .ywy, .pwp{font-weight:700; background:#fff; text-shadow:0 0 0 transparent;}
 
 /* GWY: Grey (border) White (background) Yellow (font)*/
 .gwy, .gwy:visited{border:1px solid $grey-lighter; color:$yellow-dark;}
@@ -193,6 +193,11 @@ label.submit{cursor:pointer;}
 /* BWB: Blue (border) White (background) Blue (font)*/
 .bwb, .bwb:visited{border:1px solid $blue-dark; background:#fff; color:$blue-dark;}
 .bwb:hover, .bwb:focus{background:$blue-dark; color:#fff;}
+
+/* PWP: Purple (border) White (background) Purple (font)*/
+.pwp, .pwp:visited{border:1px solid $purple; background:#fff; color:$purple;}
+.pwp:hover, .pwp:focus{background:$purple; color:#fff;}
+.pwp-active{background:$purple; color:#fff;}
 
 /* RWR: Red (border) White (background) Red (font)*/
 .rwr, .rwr:visited{border:1px solid $red; background:#fff; color:$red;}

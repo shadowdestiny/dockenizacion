@@ -30,6 +30,11 @@
 	var openTicket = <?php echo $openTicket; ?>;
 	var currency_symbol = '<?php echo $currency_symbol ?>';
 	var automatic_random = '<?php echo $automatic_random; ?>';
+	var discount_lines_title = '<?php echo $discount_lines_title; ?>';
+	var discount_lines = '<?php echo $discount_lines; ?>';
+	var draws_number = '<?php echo $draws_number; ?>';
+	var discount = '<?php echo $discount; ?>';
+
 
 	if(openTicket){
 		showModalTicketClose();

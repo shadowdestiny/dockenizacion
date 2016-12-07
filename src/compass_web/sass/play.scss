@@ -140,6 +140,10 @@ $gap3:15px; /* Responsive design 3 column */
 	.txt, .checkbox{cursor:pointer;}
 }
 
+.buttonDrawList {
+	margin-top: 5px;
+}
+
 /* Large Devices, Wide Screens */
 @media only screen and (max-width:1200px){
 .gameplay{overflow:visible;}

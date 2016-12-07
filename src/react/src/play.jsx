@@ -4,6 +4,7 @@ var EuroMillionsBoxAction = require('../components/EmBoxActionPlay.jsx');
 var EuroMillionsMultipleEmLines = require('../components/EmMultipleEmLines.jsx');
 var EuroMillionsBoxBottomAction = require('../components/EmBoxBottomAction.jsx');
 var EmConfigPlayBlock = require('../components/EmConfigPlayBlock.jsx');
+var EmDiscountLines = require('../components/EmDiscountLines.jsx');
 
 
 var PlayPage = React.createClass({
@@ -33,7 +34,9 @@ var PlayPage = React.createClass({
             reset_advanced_play : false,
             draw_dates : this.props.draw_dates,
             draw_duration : this.props.draw_duration,
-            storage : JSON.parse(localStorage.getItem('bet_line')) || []
+            storage : JSON.parse(localStorage.getItem('bet_line')) || [],
+            draws_number: this.props.draws_number,
+            discount: this.props.discount
         }
     },
 
@@ -64,6 +67,8 @@ var PlayPage = React.createClass({
         if( nextState.random_all != this.state.random_all) return true;
         if( nextState.count_lines != this.state.count_lines ) return true;
         if( nextState.show_clear_all != this.state.show_clear_all) return true;
+        if( nextState.draws_number != this.state.draws_number) return true;
+        if( nextState.discount != this.state.discount) return true;
         return nextState.price != this.state.price;
     },
 
@@ -361,6 +366,20 @@ var PlayPage = React.createClass({
         this.setState( { price : total, show_clear_all : show_clear_all, clear_all : false, random_all : false} );
     },
 
+    updateTotalByDiscount: function (draws_number, discount, buttonDraw)
+    {
+        $("a[id^='buttonDrawKey']").removeClass('pwp-active');
+        $('#'+buttonDraw).addClass('pwp-active');
+
+        if (draws_number == 1) {
+            document.getElementById('BuyForDrawBox').style.display = "block";
+        } else {
+            document.getElementById('BuyForDrawBox').style.display = "none";
+        }
+
+        this.setState({ draws_number : draws_number, discount: discount });
+    },
+
     render : function ()
     {
         var elem = [];
@@ -372,13 +391,13 @@ var PlayPage = React.createClass({
 
         elem.push(<EuroMillionsMultipleEmLines add_storage={this.addLinesInStorage} clear_all={this.state.clear_all} callback={this.handleOfBetsLine} random_all={random_all} numberEuroMillionsLine={numberEuroMillionsLine} key="1"/>);
         elem.push(<EuroMillionsBoxAction date_play={this.handleChangeDate} draw_dates={this.state.draw_dates} next_draw_format={this.props.next_draw_format} show_tooltip={this.state.show_tooltip_lines}  mouse_over_btn={this.mouseOverBtnAddLines}  add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} show_clear_all={this.state.show_clear_all} clear_all_btn={this.handlerClearAll} key="2"/>);
-
         return (
             <div>
                 {elem}
                 <div className="box-bottom">
                     <div className="wrap">
-                        <EuroMillionsBoxBottomAction reset={this.handleResetStateAdvancedPlay} config_changed={this.state.config_changed} draw_day_play={this.state.draw_day_play} currency_symbol={this.props.currency_symbol} click_advanced_play={this.handleClickAdvancedPlay} date_play={this.state.date_play} duration={this.state.duration} play_days={this.state.playDays}  lines={this.state.storage}  price={this.state.price}/>
+                        <EmDiscountLines sendLineSelected={this.updateTotalByDiscount} title={this.props.discount_lines_title} discount_lines={this.props.discount_lines} currency_symbol={this.props.currency_symbol} />
+                        <EuroMillionsBoxBottomAction num_lines={this.getNumLinesThatAreFilled()} discount={this.state.discount} draws_number={this.state.draws_number} reset={this.handleResetStateAdvancedPlay} config_changed={this.state.config_changed} draw_day_play={this.state.draw_day_play} currency_symbol={this.props.currency_symbol} click_advanced_play={this.handleClickAdvancedPlay} date_play={this.state.date_play} duration={this.state.duration} play_days={this.state.playDays}  lines={this.state.storage}  price={this.state.price}/>
                         <EmConfigPlayBlock next_draw={this.props.next_draw} reset={this.handleResetStateAdvancedPlay} update_threshold={this.setChangedWhenThresholdUpdate}  show_config={this.state.show_config} date_play={this.handleChangeDate} reset_config={this.state.reset_advanced_play} draw_dates={this.state.draw_dates}  current_duration_value={this.state.duration} draw_days_selected={this.state.draw_day_play} draw_duration={this.state.draw_duration} duration={this.handleChangeDuration} play_days={this.handleChangeDraw} show={this.state.show_block_config}/>
                     </div>
                 </div>
@@ -397,7 +416,7 @@ var options_draw_duration = [
     {text : '52 weeks (Draws: 52)' , value : 52}
 ];
 
-ReactDOM.render(<PlayPage next_draw={next_draw} next_draw_format={next_draw_format} currency_symbol={currency_symbol} automatic_random={automatic_random}  lines_default={5} date_play={""+draw_dates[0]} draw_duration={options_draw_duration} draw_dates={draw_dates}/>, document.getElementById('gameplay'));
+ReactDOM.render(<PlayPage discount={discount} draws_number={draws_number} discount_lines_title={discount_lines_title} discount_lines={discount_lines} next_draw={next_draw} next_draw_format={next_draw_format} currency_symbol={currency_symbol} automatic_random={automatic_random}  lines_default={5} date_play={""+draw_dates[0]} draw_duration={options_draw_duration} draw_dates={draw_dates}/>, document.getElementById('gameplay'));
 
 
 

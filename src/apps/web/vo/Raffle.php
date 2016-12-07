@@ -30,8 +30,10 @@ class Raffle
 
     public function equals(Raffle $raffle)
     {
-
-        return true;
+        if ($raffle->getValue() == $this->value) {
+            return true;
+        }
+        return false;
     }
 
     /**

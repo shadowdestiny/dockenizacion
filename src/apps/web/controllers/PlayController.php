@@ -19,6 +19,16 @@ class PlayController extends PublicSiteControllerBase
         $checkOpenTicket = $date_time_util->checkTimeForClosePlay($draw);
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
         $automatic_random = $this->request->get('random');
+        $bundle_price = $this->siteConfigService->retrieveEuromillionsBundlePrice();
+
+        $draws_number = 1;
+        $discount = 0;
+        foreach ($bundle_price as $value) {
+            if ($value['checked'] == 'active') {
+                $draws_number = $value['draws'];
+                $discount = $value['discount'];
+            }
+        }
 
         if(!$this->authService->isLogged()) {
             $user_currency = $this->userPreferencesService->getCurrency();
@@ -42,6 +52,10 @@ class PlayController extends PublicSiteControllerBase
             'openTicket' => ($checkOpenTicket)  ? '1': '0',
             'single_bet_price' => $single_bet_price_currency->getAmount() /100,
             'automatic_random' => isset($automatic_random) ? true : false,
+            'discount_lines_title' => 'Choose your bundle',
+            'discount_lines' => json_encode($bundle_price),
+            'draws_number' => $draws_number,
+            'discount' => $discount,
         ]);
     }
 }

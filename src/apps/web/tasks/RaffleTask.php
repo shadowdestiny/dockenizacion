@@ -46,11 +46,8 @@ class RaffleTask extends TaskBase
         $betsRaffle = $this->PrizeCheckoutService->getBetsRaffle($euromillions_breakDown, $drawDate);
 
         $lastRaffle = $this->lotteryService->getLastRaffle('EuroMillions', $today);
-        if ($betsRaffle === $lastRaffle) {
-//TODO: what I do if equals
-        } else {
+        $this->PrizeCheckoutService->sendEmailWinnerRaffle($betsRaffle, $lastRaffle);
 
-        }
     }
 
     public function saveRaffleAction(\DateTime $today = null)
