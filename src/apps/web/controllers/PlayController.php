@@ -21,15 +21,6 @@ class PlayController extends PublicSiteControllerBase
         $automatic_random = $this->request->get('random');
         $bundle_price = $this->siteConfigService->retrieveEuromillionsBundlePrice();
 
-        $draws_number = 1;
-        $discount = 0;
-        foreach ($bundle_price as $value) {
-            if ($value['checked'] == 'active') {
-                $draws_number = $value['draws'];
-                $discount = $value['discount'];
-            }
-        }
-
         if(!$this->authService->isLogged()) {
             $user_currency = $this->userPreferencesService->getCurrency();
             $single_bet_price_currency  = $this->currencyConversionService->convert($single_bet_price, $user_currency);
@@ -54,8 +45,8 @@ class PlayController extends PublicSiteControllerBase
             'automatic_random' => isset($automatic_random) ? true : false,
             'discount_lines_title' => 'Choose your bundle',
             'discount_lines' => json_encode($bundle_price),
-            'draws_number' => $draws_number,
-            'discount' => $discount,
+            'draws_number' => $bundle_price->bundlePlayDTOActive->getDraws(),
+            'discount' => $bundle_price->bundlePlayDTOActive->getDiscount(),
         ]);
     }
 }

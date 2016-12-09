@@ -76,19 +76,28 @@ class SiteConfigService
 
     public function getSiteConfigDTO( MoneyCurrency $currency, $locale )
     {
-        $fee_to_limit_convert = $this->currencyConversionService->convert($this->configEntity->getFeeToLimit(), $currency);
-        $amount_fee_to_limit = $this->currencyConversionService->toString($fee_to_limit_convert , $locale);
-        $fee_convert = $this->currencyConversionService->convert($this->configEntity->getFee(), $currency);
-        $amount_fee = $this->currencyConversionService->toString($fee_convert, $locale);
-        return new SiteConfigDTO($amount_fee_to_limit, $amount_fee, $fee_to_limit_convert->getAmount(), $fee_convert->getAmount());
+        $arraySiteConfigParams = $this->prepareSiteConfigParams($currency, $locale);
+        return new SiteConfigDTO(
+            $arraySiteConfigParams['amountFeeToLimit'],
+            $arraySiteConfigParams['amountFee'],
+            $arraySiteConfigParams['feeToLimitConvert']->getAmount(),
+            $arraySiteConfigParams['feeConvert']->getAmount()
+        );
     }
 
     /**
-     * @return array
+     * @return SiteConfigDTO
      */
     public function retrieveEuromillionsBundlePrice()
     {
-        return $this->configEntity->retrieveEuromillionsBundlePrice();
+        $arraySiteConfigParams = $this->prepareSiteConfigParams(new MoneyCurrency('EUR'), 'en_EN');
+        return new SiteConfigDTO(
+            $arraySiteConfigParams['amountFeeToLimit'],
+            $arraySiteConfigParams['amountFee'],
+            $arraySiteConfigParams['feeToLimitConvert']->getAmount(),
+            $arraySiteConfigParams['feeConvert']->getAmount(),
+            $this->configEntity->retrieveEuromillionsBundlePrice()
+        );
     }
 
 
@@ -103,6 +112,23 @@ class SiteConfigService
         $value_currency_convert = $this->currencyConversionService->convert($value, $user_currency);
         $value = $this->currencyConversionService->toString($value_currency_convert, $locale);
         return array($value);
+    }
+
+    /**
+     * @param MoneyCurrency $currency
+     * @param $locale
+     * @return array
+     */
+    private function prepareSiteConfigParams(MoneyCurrency $currency, $locale)
+    {
+        $fee_to_limit_convert = $this->currencyConversionService->convert($this->configEntity->getFeeToLimit(), $currency);
+        $fee_convert = $this->currencyConversionService->convert($this->configEntity->getFee(), $currency);
+        return [
+            'feeToLimitConvert' => $fee_to_limit_convert,
+            'amountFeeToLimit' => $this->currencyConversionService->toString($fee_to_limit_convert, $locale),
+            'feeConvert' => $fee_convert,
+            'amountFee' => $this->currencyConversionService->toString($fee_convert, $locale),
+        ];
     }
 
 

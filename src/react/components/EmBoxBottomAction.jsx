@@ -29,15 +29,13 @@ var EuroMillionsBoxBottomAction = React.createClass({
 
     render : function () {
         var elem = [];
-        var total_price = this.props.price * this.props.draws_number / ((this.props.discount / 100) + 1);
-        total_price = total_price.toFixed(2);
 
         elem.push(<EuroMillionsAdvancedPlayBtn show={false} reset={this.props.reset} config_changed={this.props.config_changed} click_advanced_play={this.props.click_advanced_play} key="1"/>);
-        elem.push(<EuroMillionsAddToCart currency_symbol={this.props.currency_symbol} price={total_price} onBtnAddToCartClick={this.addToCart} key="2"/>);
+        elem.push(<EuroMillionsAddToCart currency_symbol={this.props.currency_symbol} price={this.props.price} onBtnAddToCartClick={this.addToCart} key="2"/>);
         return (
         <div className="cl">
             <div className="right">
-                {this.props.num_lines} Lines x {this.props.draws_number} Draws
+                {this.props.description_before_price}
                 {elem}
             </div>
         </div>

@@ -379,17 +379,19 @@ var PlayPage = React.createClass({
             numberEuroMillionsLine = this.state.count_lines ;
         }
         var random_all = this.state.random_all;
-        //EMTD @tey86, think a place for this line
-        var showBuyDrawDate = (this.props.draws_number == this.state.draws_number);
+        var descriptionBeforeButtonPrice = this.getNumLinesThatAreFilled() + ' Lines x ' + this.state.draws_number + ' Draws';
+        var total_price = this.state.price * this.state.draws_number / ((this.state.discount / 100) + 1);
+        total_price = total_price.toFixed(2);
+
         elem.push(<EuroMillionsMultipleEmLines add_storage={this.addLinesInStorage} clear_all={this.state.clear_all} callback={this.handleOfBetsLine} random_all={random_all} numberEuroMillionsLine={numberEuroMillionsLine} key="1"/>);
-        elem.push(<EuroMillionsBoxAction showBuyDrawDate={showBuyDrawDate} date_play={this.handleChangeDate} draw_dates={this.state.draw_dates} next_draw_format={this.props.next_draw_format} show_tooltip={this.state.show_tooltip_lines}  mouse_over_btn={this.mouseOverBtnAddLines}  add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} show_clear_all={this.state.show_clear_all} clear_all_btn={this.handlerClearAll} key="2"/>);
+        elem.push(<EuroMillionsBoxAction showBuyDrawDate={this.state.draws_number} date_play={this.handleChangeDate} draw_dates={this.state.draw_dates} next_draw_format={this.props.next_draw_format} show_tooltip={this.state.show_tooltip_lines}  mouse_over_btn={this.mouseOverBtnAddLines}  add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} show_clear_all={this.state.show_clear_all} clear_all_btn={this.handlerClearAll} key="2"/>);
         return (
             <div>
                 {elem}
                 <div className="box-bottom">
                     <div className="wrap">
                         <EmDiscountLines rowSelected={this.state.draws_number} sendLineSelected={this.updateTotalByDiscount} title={this.props.discount_lines_title} discount_lines={this.props.discount_lines} currency_symbol={this.props.currency_symbol} />
-                        <EuroMillionsBoxBottomAction num_lines={this.getNumLinesThatAreFilled()} discount={this.state.discount} draws_number={this.state.draws_number} reset={this.handleResetStateAdvancedPlay} config_changed={this.state.config_changed} draw_day_play={this.state.draw_day_play} currency_symbol={this.props.currency_symbol} click_advanced_play={this.handleClickAdvancedPlay} date_play={this.state.date_play} duration={this.state.duration} play_days={this.state.playDays}  lines={this.state.storage}  price={this.state.price}/>
+                        <EuroMillionsBoxBottomAction description_before_price={descriptionBeforeButtonPrice} reset={this.handleResetStateAdvancedPlay} config_changed={this.state.config_changed} draw_day_play={this.state.draw_day_play} currency_symbol={this.props.currency_symbol} click_advanced_play={this.handleClickAdvancedPlay} date_play={this.state.date_play} duration={this.state.duration} play_days={this.state.playDays}  lines={this.state.storage}  price={total_price}/>
                         <EmConfigPlayBlock next_draw={this.props.next_draw} reset={this.handleResetStateAdvancedPlay} update_threshold={this.setChangedWhenThresholdUpdate}  show_config={this.state.show_config} date_play={this.handleChangeDate} reset_config={this.state.reset_advanced_play} draw_dates={this.state.draw_dates}  current_duration_value={this.state.duration} draw_days_selected={this.state.draw_day_play} draw_duration={this.state.draw_duration} duration={this.handleChangeDuration} play_days={this.handleChangeDraw} show={this.state.show_block_config}/>
                     </div>
                 </div>

@@ -38,18 +38,21 @@ var EmSelectDrawDate = React.createClass({
             color : '#333'
         }
 
-        if(!this.props.show) return null;
+        if(this.props.show == 1) {
+            return (
+                <div id="BuyForDrawBox">
+                    <div style={divStyle}>
+                        Buy for Draw:
+                    </div>
+                    <div style={divStyle}>
+                        <label style={labelStyle}>{this.props.defaultText}</label>
+                    </div>
+                </div>
+            )
+        }
 
-        return (
-            <div id="BuyForDrawBox">
-                <div style={divStyle}>
-                    Buy for Draw:
-                </div>
-                <div style={divStyle}>
-                    <label style={labelStyle}>{this.props.defaultText}</label>
-                </div>
-            </div>
-        )
+        return null;
+
     }
 
 })
