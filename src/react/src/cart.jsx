@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var EmLineOrderCart = require('../components/cart/EmLineOrderCart.jsx');
 var EmLineOrderConfig = require('../components/cart/EmLineOrderConfig.jsx');
+var EmResumeOrder = require('../components/cart/EmResumeOrder.jsx');
 var EmTotalCart = require('../components/cart/EmTotalCart.jsx');
 var EmLineFeeCart = require('../components/cart/EmLineFeeCart.jsx');
 var EmWallet = require('../components/cart/EmWallet.jsx');
@@ -231,6 +232,9 @@ var CartPage = new React.createClass({
             <div>
                 <div className="box-top cl">
                     <h2 className="h4 sub-txt">Order Summary</h2>
+                </div>
+                <div className="box-order">
+                    <EmResumeOrder href={href_payment} databtn={data_btn} price={price_txt_btn} classBtn={class_button_payment} text={txt_button_payment} config={this.props.config} playConfig={_playConfigList} pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration} pricetopay={this.state.total} funds={Funds.funds_value} total_price={pre_total_symbol}/>
                 </div>
                 <div className="box-order">
                     {_euroMillionsLine}
