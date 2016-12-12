@@ -140,8 +140,30 @@ $gap3:15px; /* Responsive design 3 column */
 	.txt, .checkbox{cursor:pointer;}
 }
 
-.buttonDrawList {
-	margin-top: 5px;
+.button-draw-list {
+	margin-top: 15px;
+	clear: left;
+}
+
+.box-button-draw-left {
+	width: 95px;
+	float: left;
+}
+
+.box-button-draw-right {
+	padding-top: 5px;
+}
+
+.total-price-description {
+	color: $purple;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.description-before-price {
+	font-weight: bold;
+	font-size: 20px;
+	padding-right: 350px;
 }
 
 /* Large Devices, Wide Screens */

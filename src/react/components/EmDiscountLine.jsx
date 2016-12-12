@@ -11,13 +11,17 @@ var EuroMillionsDiscountLine = React.createClass({
         }
         var classBtn = (this.props.checked) ? 'btn pwp add-more ui-link pwp-active' : 'btn pwp add-more ui-link';
         return (
-            <div className="buttonDrawList">
-                <a className={classBtn} href="javascript:void(0);" onClick={this.props.sendLineSelected.bind(null, this.props.draws, this.props.discount)}>
-                    <span>
-                        {this.props.desc}
-                    </span>
-                </a>
-                &nbsp; {price} {this.props.currency_symbol} / {this.props.price_desc}
+            <div className="button-draw-list">
+                <div className="box-button-draw-left">
+                    <a className={classBtn} href="javascript:void(0);" onClick={this.props.sendLineSelected.bind(null, this.props.draws, this.props.discount)}>
+                        <span>
+                            {this.props.desc}
+                        </span>
+                    </a>
+                </div>
+                <div className="box-button-draw-right">
+                    &nbsp; {price} {this.props.currency_symbol} / {this.props.price_desc}
+                </div>
             </div>
         );
     }

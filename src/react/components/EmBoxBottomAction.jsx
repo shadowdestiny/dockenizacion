@@ -35,7 +35,12 @@ var EuroMillionsBoxBottomAction = React.createClass({
         return (
         <div className="cl">
             <div className="right">
-                {this.props.description_before_price}
+                <span className="total-price-description">
+                    {this.props.total_price_description}
+                </span>
+                <span className="description-before-price">
+                    {this.props.description_before_price}
+                </span>
                 {elem}
             </div>
         </div>
