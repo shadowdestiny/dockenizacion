@@ -8,15 +8,11 @@ var EmResumeOrder = new React.createClass({
 
 
     componentWillReceiveProps : function(newProps) {
-        console.log(newProps);
-        this.props.price_txt_btn = newProps.text;
         $(document).trigger("totalPriceEvent", [ newProps.pricetopay, newProps.funds ]);
     },
 
     render : function ()
     {
-
-        console.log('propertiiiiiiiiieeeeeeeessss' + this.props.price_txt_btn);
 
         return (
 
@@ -30,7 +26,7 @@ var EmResumeOrder = new React.createClass({
                 <div className="total">
                     <div className="txt">TOTAL XXX€ </div>
                     <div className="val">{this.props.total_price}</div>
-                    <EmBtnPayment href={this.props.href_payment} databtn={this.props.data_btn} price={this.props.price_txt_btn} classBtn={this.props.class_button_payment} text={this.props.txt_button_payment}/>
+                    <EmBtnPayment href={this.props.href} databtn={this.props.databtn} price={this.props.price} classBtn={this.props.classBtn} text={this.props.text}/>
                 </div>
             </div>
         )
