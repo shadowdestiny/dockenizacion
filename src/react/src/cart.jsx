@@ -228,22 +228,30 @@ var CartPage = new React.createClass({
                                          wallet_balance={parseFloat(this.props.wallet_balance).toFixed(2)}
             />;
         }
+
         return (
             <div>
                 <div className="box-top cl">
                     <h2 className="h4 sub-txt">Order Summary</h2>
                 </div>
                 <div className="box-order">
-                    <EmResumeOrder href={href_payment} databtn={data_btn} price={price_txt_btn} classBtn={class_button_payment} text={txt_button_payment} config={this.props.config} playConfig={_playConfigList} pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration} pricetopay={this.state.total} funds={Funds.funds_value} total_price={pre_total_symbol}/>
+                    <EmResumeOrder config={this.props.config} draw_days={this.props.draw_days} href={href_payment}
+                                   databtn={data_btn} price={price_txt_btn} classBtn={class_button_payment}
+                                   text={txt_button_payment} config={this.props.config} playConfig={_playConfigList}
+                                   pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration}
+                                   pricetopay={this.state.total} funds={Funds.funds_value}
+                                   total_price={pre_total_symbol}/>
                 </div>
                 <div className="box-order">
                     {_euroMillionsLine}
-                    <EmLineOrderConfig config={this.props.config} playConfig={_playConfigList} pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration}/>
+                    <EmLineOrderConfig config={this.props.config} playConfig={_playConfigList}
+                                       pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration}/>
                     {line_fee_component}
                 </div>
-                <EmTotalCart pricetopay={this.state.total} funds={Funds.funds_value} total_price={pre_total_symbol} />
+                <EmTotalCart pricetopay={this.state.total} funds={Funds.funds_value} total_price={pre_total_symbol}/>
                 {wallet_component}
-                <EmBtnPayment  href={href_payment} databtn={data_btn} price={price_txt_btn} classBtn={class_button_payment} text={txt_button_payment}/>
+                <EmBtnPayment href={href_payment} databtn={data_btn} price={price_txt_btn}
+                              classBtn={class_button_payment} text={txt_button_payment}/>
             </div>
         )
     }
@@ -401,7 +409,7 @@ var Fee = {
     }
 };
 
-ReactDOM.render(<CartPage total={total_price} config={config} checked_wallet={checked_wallet} symbol_position={symbol_position} draw_days={draw_days} price_below_fee={price_below_fee} fee_charge={fee_charge} currency_symbol={currency_symbol} play_list={play_list} wallet_balance={wallet_balance} single_bet_price={single_bet_price} show_fee_line={show_fee_line}/>,
+ReactDOM.render(<CartPage config={config} total={total_price} config={config} checked_wallet={checked_wallet} symbol_position={symbol_position} draw_days={draw_days} price_below_fee={price_below_fee} fee_charge={fee_charge} currency_symbol={currency_symbol} play_list={play_list} wallet_balance={wallet_balance} single_bet_price={single_bet_price} show_fee_line={show_fee_line}/>,
     document.getElementById('cart-order'));
 
 
