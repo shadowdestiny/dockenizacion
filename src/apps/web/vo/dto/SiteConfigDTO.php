@@ -29,18 +29,9 @@ class SiteConfigDTO implements \JsonSerializable
      */
     public function getBundleData($bundleData){
         $arrayBundleData = [];
-        foreach ($bundleData as $value) {
-            $arrayBundleData[] = new BundlePlayDTO(
-                $value['draws'],
-                $value['description'],
-                $value['price_description'],
-                $value['price'],
-                $value['discount'],
-                $value['checked']
-            );
-
-            if ($value['checked'] == 'active') {
-                $this->bundlePlayDTOActive = new BundlePlayDTO(
+        if ($bundleData) {
+            foreach ($bundleData as $value) {
+                $arrayBundleData[] = new BundlePlayDTO(
                     $value['draws'],
                     $value['description'],
                     $value['price_description'],
@@ -48,6 +39,17 @@ class SiteConfigDTO implements \JsonSerializable
                     $value['discount'],
                     $value['checked']
                 );
+
+                if ($value['checked'] == 'active') {
+                    $this->bundlePlayDTOActive = new BundlePlayDTO(
+                        $value['draws'],
+                        $value['description'],
+                        $value['price_description'],
+                        $value['price'],
+                        $value['discount'],
+                        $value['checked']
+                    );
+                }
             }
         }
         return $arrayBundleData;
