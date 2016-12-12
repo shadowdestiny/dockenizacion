@@ -28,7 +28,7 @@ var EmLineOrder = new React.createClass({
                     Line {num_char_line}
                 </div>
                 <div className="detail">
-                    <ol className="no-li num">
+                    <ul className="no-li inline numbers small">
                         {
                             numbers.map(function(number,i) {
                                 return <li key={i}>{number}</li>
@@ -36,10 +36,10 @@ var EmLineOrder = new React.createClass({
                         }
                         {
                             stars.map(function(star,i) {
-                                return <li className="yellow" key={i}>{star}</li>
+                                return <li className="star" key={i}>{star}</li>
                             })
                         }
-                    </ol>
+                    </ul>
                 </div>
                 <div className="summary val">{this.props.single_bet_price}</div>
             </div>

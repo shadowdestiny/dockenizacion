@@ -120,7 +120,6 @@
     font-size:90%;
     font-style: normal;
     .total{
-      //las cuales jamás han sufrido de violencia de género. Tienes una tendencia a generalizar que asusta.
       float:right; font-weight:600;
       text-align: right;
       .txt{display:inline-block;}
@@ -144,6 +143,14 @@
       &:hover, &:focus{text-decoration:underline;}
     }
   }
+  .box-order .numbers.small li{
+    text-align:center; width:36px; height:35px; line-height:32px;
+    background:url(../img/sprite.png) no-repeat -190px -70px;
+    text-shadow:0 0 1px rgba(255, 255, 255, 0.5);
+    letter-spacing:0.05em; font-size:$h4;
+    font-weight: bold;
+  }
+  .box-order .numbers.small .star{background:url(../img/sprite.png) no-repeat -150px -70px; text-indent:-.05em;}
   .num{
     width:288px;
     li{margin-right:8px;}
