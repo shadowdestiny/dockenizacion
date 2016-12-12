@@ -16,12 +16,12 @@ var EmResumeOrder = new React.createClass({
 
         return (
 
-            <div className="box-total cl">
-                <div className="txt-black desktop">
-                    <span>X Draws</span><br />
-                    <span>Tuesday / Friday / Tuesday and Friday</span><br />
-                    <span>Jackpot: Minimum 70 kilacos</span><br />
-                    <span>Starting Date: Next Draw</span><br />
+            <div className="box-total-upper cl">
+                <div className="txt-black-upper desktop">
+                    <span className="txt-bold">X Draws</span><br />
+                    <span className="txt-bold">Tuesday / Friday / Tuesday and Friday</span><br />
+                    <span className="txt-bold">Jackpot: </span><span>Minimum 70 kilacos</span><br />
+                    <span className="txt-bold">Starting Date: </span><span>Next Draw</span><br />
                 </div>
                 <div className="total">
                     <div className="txt">TOTAL XXX€ </div>

@@ -88,6 +88,7 @@
   .change{position:relative; top:-2px;}
   .txt-currency{float:left; font-style:italic; color:$grey-light}
   .txt-black{float:left; font-style:italic; color:$black}
+  .txt-black-upper{float:left; font-style:normal; color:$black}
   .terms{
     margin:10px 0 .75em; font-size:.675em;
     a{text-decoration:none;}
@@ -113,12 +114,28 @@
       .txt{display:inline-block;}
     }
   }
+
+  .box-total-upper{
+    padding:8px 10px;
+    font-size:90%;
+    font-style: normal;
+    .total{
+      //las cuales jamás han sufrido de violencia de género. Tienes una tendencia a generalizar que asusta.
+      float:right; font-weight:600;
+      text-align: right;
+      .txt{display:inline-block;}
+    }
+  }
   .pre-total{
      color:$grey; border-top:1px solid $grey-light;
     .total{font-size:$basic-size;}
   }
   .box-total{
     color:$purple; border-top:2px solid $purple;
+    .total{font-size:$h3;}
+  }
+  .box-total-upper{
+    color:$purple; border-bottom:2px solid $purple;
     .total{font-size:$h3;}
   }
   .box-order{
@@ -203,6 +220,10 @@
   }
 }
 
+.txt-bold{
+  font-weight:700;
+}
+
 .fail{
   a:hover{text-decoration:none;}
   .title{margin-bottom:0;}
@@ -272,7 +293,7 @@
 .wrap .first{margin-bottom:.5em!important;}
 .cart .label{text-align:left; width:100%;}
 .order{
-  .box-total .txt{float:left;}
+  .box-total .txt .box-total-upper{float:left;}
   .box-order{text-align:left;}
   .box-jackpot{margin-bottom:1em; float:left;}
   .num{width:auto;}
@@ -352,7 +373,7 @@
     .num{width:240px;}
     .type{width:150px;}
     .val{min-width:auto; margin-left:8px;}
-    .box-order, .box-total{margin:0 -15px;}
+    .box-order, .box-total, .box-total-upper{margin:0 -15px;}
     .desc{display:none;}
     .tweak{float:none;}
     .box-funds{margin-top:5px; float:left;}
