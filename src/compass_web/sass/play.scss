@@ -187,6 +187,7 @@ $gap3:15px; /* Responsive design 3 column */
 	.myCol:last-child{border-right:$gap3+$gap3 solid transparent;}
 }
 .box-action{margin-right:$gap3+$gap3+1;}
+.description-before-price {padding-right: 250px;}
 }
 
 /* I NEED TO MAKE DISAPPEAR IN A CLEVER WAY ONE COLUMN AT TIME */
@@ -210,6 +211,7 @@ $gap3:15px; /* Responsive design 3 column */
 	.myCol:last-child{border-right:$gap3 solid transparent;}
 }
 .box-action{margin:0 12px;}
+.description-before-price {padding-right: 0;}
 }
 
 /* Small Devices, Tablets */
@@ -266,6 +268,9 @@ $gap3:15px; /* Responsive design 3 column */
 	.close{top:10px; right:-2px;}
 }
 .special{border-width:0!important;}
+.total-price-description:before {content: "\a"; white-space: pre;}
+.description-before-price {padding-right: 0;}
+.description-before-price:after {content: "\a"; white-space: pre;}
 }
 
 @media all and (min-width:581px){
@@ -296,6 +301,9 @@ $gap3:15px; /* Responsive design 3 column */
 */
 .bg-top .h3, .bg-top .h1{text-align:center; display:block;}
 .box-lines{padding-top:0;}
+.total-price-description:before {content: "\a"; white-space: pre;}
+.description-before-price {padding-right: 0;}
+.description-before-price:after {content: "\a"; white-space: pre;}
 }
 
  
@@ -324,6 +332,10 @@ $gap3:15px; /* Responsive design 3 column */
 }
 .advanced{margin-bottom:15px;}
 .special{font-size:$small; line-height:$h2;}
+.total-price-description {font-size: 14px;}
+.total-price-description:before {content: "\a"; white-space: pre;}
+.description-before-price {font-size: 14px; padding-right: 0;}
+.description-before-price:after {content: "\a"; white-space: pre;}
 }
 
  
@@ -344,4 +356,9 @@ $gap3:15px; /* Responsive design 3 column */
 	.cols:not(.not){margin-bottom:0; display:block;}
 	.col1:not(.not), .col2:not(.not), .col3:not(.not), .col4:not(.not), .col5:not(.not), .col6:not(.not), .col7:not(.not), .col8:not(.not), .col9:not(.not), .col10:not(.not), .col11:not(.not), .col12:not(.not), .col20per:not(.not)
 	{display:block; float:none; position:relative; width:100%; border:0!important; padding-bottom:0;}
-}}
+}
+.total-price-description {font-size: 14px;}
+.total-price-description:before {content: "\a"; white-space: pre;}
+.description-before-price {font-size: 14px; padding-right: 0;}
+.description-before-price:after {content: "\a"; white-space: pre;}
+}
