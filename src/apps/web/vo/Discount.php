@@ -27,10 +27,12 @@ class Discount
     
     public function getDiscountByFrequency($frequency)
     {
-        /* @var BundlePlayDTO $numberDraws*/
-        foreach ($this->value as $numberDraws) {
-            if ($numberDraws->getDraws() == $frequency) {
-                return $numberDraws->getDiscount();
+        if ($this->value) {
+            /* @var BundlePlayDTO $numberDraws*/
+            foreach ($this->value as $numberDraws) {
+                if ($numberDraws->getDraws() == $frequency) {
+                    return $numberDraws->getDiscount();
+                }
             }
         }
 
