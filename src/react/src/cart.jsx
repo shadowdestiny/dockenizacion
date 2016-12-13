@@ -240,7 +240,7 @@ var CartPage = new React.createClass({
                                    text={txt_button_payment} config={this.props.config} playConfig={_playConfigList}
                                    pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration}
                                    pricetopay={this.state.total} funds={Funds.funds_value}
-                                   total_price={pre_total_symbol}/>
+                                   total_price={this.state.total}/>
                 </div>
                 <div className="box-order">
                     {_euroMillionsLine}
@@ -248,7 +248,7 @@ var CartPage = new React.createClass({
                                        pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration}/>
                     {line_fee_component}
                 </div>
-                <EmTotalCart pricetopay={this.state.total} funds={Funds.funds_value} total_price={pre_total_symbol}/>
+                <EmTotalCart pricetopay={this.state.total} funds={Funds.funds_value} total_price={this.state.total}/>
                 {wallet_component}
                 <EmBtnPayment href={href_payment} databtn={data_btn} price={price_txt_btn}
                               classBtn={class_button_payment} text={txt_button_payment}/>
