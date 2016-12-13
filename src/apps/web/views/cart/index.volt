@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="/w/css/sign-in.css">
 <link rel="stylesheet" href="/w/css/cart.css">
 {% endblock %}
+var config = '<?php echo $config; ?>';
 {% block template_scripts %}
     {% include "sign-in/_sign-in-js.volt" %}
 {% endblock %}
