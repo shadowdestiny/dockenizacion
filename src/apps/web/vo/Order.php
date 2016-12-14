@@ -67,7 +67,7 @@ class Order implements \JsonSerializable
     }
 
     /**
-     * @return int
+     * @return Discount
      */
     public function getDiscount()
     {
