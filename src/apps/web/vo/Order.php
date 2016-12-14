@@ -31,10 +31,10 @@ class Order implements \JsonSerializable
 
     /** @var  Money  */
     private $amountWallet;
+    /** @var  Discount  */
+    private $discount;
 
-
-
-    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit)
+    public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null)
     {
         $this->play_config = $play_config;
         $this->single_bet_price = $single_bet_price;
@@ -42,6 +42,10 @@ class Order implements \JsonSerializable
         $this->fee_limit = $fee_limit;
         $this->funds_amount = new Money(0, new Currency('EUR'));
         $this->isCheckedWalletBalance = false;
+        if (!$discount) {
+            $discount = new Discount(0);
+        }
+        $this->discount = $discount;
         $this->initialize();
     }
 
@@ -60,6 +64,22 @@ class Order implements \JsonSerializable
         $this->funds_amount = $amount;
         $total = $this->total->add($amount);
         $this->credit_card_charge = new CreditCardCharge($total, $this->fee, $this->fee_limit);
+    }
+
+    /**
+     * @return Discount
+     */
+    public function getDiscount()
+    {
+        return $this->discount;
+    }
+
+    /**
+     * @param int $discount
+     */
+    public function setDiscount($discount)
+    {
+        $this->discount = $discount;
     }
 
     /**
@@ -180,7 +200,9 @@ class Order implements \JsonSerializable
     {
         $this->num_lines = count($this->play_config);
         $this->total = new Money(1,new Currency('EUR'));
+        $discountValue = $this->discount->getDiscountByFrequency($this->play_config[0]->getFrequency());
         $this->total = $this->total->multiply($this->num_lines)->multiply((int) $this->single_bet_price->getAmount())->multiply($this->play_config[0]->getFrequency());
+        $this->total = $this->total->divide((($discountValue / 100) + 1));
         $this->credit_card_charge = new CreditCardCharge($this->total,$this->fee,$this->fee_limit);
     }
 
