@@ -43,7 +43,7 @@ class Order implements \JsonSerializable
         $this->funds_amount = new Money(0, new Currency('EUR'));
         $this->isCheckedWalletBalance = false;
         if (!$discount) {
-            $discount = new Discount(0);
+            $discount = new Discount([]);
         }
         $this->discount = $discount;
         $this->initialize();

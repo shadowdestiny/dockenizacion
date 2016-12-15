@@ -54,7 +54,8 @@ class TicketPurchaseDetailUnitTest extends UnitTestBase
             'walletAfter' => $wallet_after,
             'transactionID' => uniqid(),
             'now' => $now,
-            'playConfigs' => [1,2]
+            'playConfigs' => [1,2],
+            'discount' => 0,
         ];
 
         $transaction = new TicketPurchaseTransaction($data);
