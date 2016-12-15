@@ -58,7 +58,8 @@ class TransactionDetailServiceUnitTest extends UnitTestBase
             'walletAfter' => $wallet_after,
             'now' => $now,
             'transactionID' => uniqid(),
-            'playConfigs' => [1,2]
+            'playConfigs' => [1,2],
+            'discount' => 0,
         ];
 
 

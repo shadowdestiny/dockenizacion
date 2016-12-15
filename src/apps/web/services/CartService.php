@@ -12,6 +12,7 @@ use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\repositories\LotteryRepository;
+use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\Order;
 use Money\Currency;
 use Money\Money;
@@ -78,7 +79,7 @@ class CartService
                     }
                     $fee = $this->siteConfigService->getFee();
                     $fee_limit = $this->siteConfigService->getFeeToLimitValue();
-                    $order = new Order($bets,$lottery->getSingleBetPrice(), $fee, $fee_limit);//order created
+                    $order = new Order($bets,$lottery->getSingleBetPrice(), $fee, $fee_limit, new Discount($this->siteConfigService->retrieveEuromillionsBundlePrice()->bundleData));//order created
                     if( null !== $order ) {
                         return new ActionResult(true, $order);
                     }

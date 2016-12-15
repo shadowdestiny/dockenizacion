@@ -86,8 +86,10 @@ class MaintenanceWithdrawServiceTest extends UnitTestBase
             'transactionID' => uniqid(),
             'now' => '',
             'user' => '',
-            'playConfigs' => [1,2]
+            'playConfigs' => [1,2],
+            'discount' => 0,
         ];
+
         $transaction = new TicketPurchaseTransaction($data);
         $sut = $this->getSut();
         $sut->changeState($idTransaction,$state, $transaction);

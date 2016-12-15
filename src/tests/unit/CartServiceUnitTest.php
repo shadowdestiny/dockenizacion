@@ -11,6 +11,7 @@ use EuroMillions\tests\helpers\mothers\LotteryMother;
 use EuroMillions\tests\helpers\mothers\OrderMother;
 use EuroMillions\tests\helpers\mothers\UserMother;
 use EuroMillions\web\services\CartService;
+use EuroMillions\web\vo\dto\SiteConfigDTO;
 use Money\Currency;
 use Money\Money;
 
@@ -74,6 +75,7 @@ class CartServiceUnitTest extends UnitTestBase
         $this->userRepository_double->find(['id' => $user_id])->willReturn($user);
         $this->siteConfigService_double->getFee()->willReturn(new Money(35, new Currency('EUR')));
         $this->siteConfigService_double->getFeeToLimitValue()->willReturn(new Money(1200, new Currency('EUR')));
+        $this->siteConfigService_double->retrieveEuromillionsBundlePrice()->willReturn(new SiteConfigDTO('€12.00', '€0.35', 1200, 35, []));
         $sut = $this->getSut();
         $actual = $sut->get($user_id);
         $this->assertEquals($expected, $actual);
@@ -134,6 +136,7 @@ class CartServiceUnitTest extends UnitTestBase
         $this->userRepository_double->find(['id' => $user_id])->willReturn($user);
         $this->siteConfigService_double->getFee()->willReturn(new Money(35, new Currency('EUR')));
         $this->siteConfigService_double->getFeeToLimitValue()->willReturn(new Money(1200, new Currency('EUR')));
+        $this->siteConfigService_double->retrieveEuromillionsBundlePrice()->willReturn(new SiteConfigDTO('€12.00', '€0.35', 1200, 35, []));
         $sut = $this->getSut();
         $actual = $sut->get($user_id);
         $this->assertEquals($order->getTotal(), $actual->getValues()->getTotal());

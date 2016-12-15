@@ -135,6 +135,7 @@ class PlayService
                 if( $result_order->success() ) {
                     /** @var Order $order */
                     $order = $result_order->getValues();
+                    $discount = $order->getDiscount()->getDiscountByFrequency($order->getPlayConfig()[0]->getFrequency());
                     $order->setIsCheckedWalletBalance($withAccountBalance);
                     $order->addFunds($funds);
                     $order->setAmountWallet($user->getWallet()->getBalance());
@@ -190,7 +191,8 @@ class PlayService
                             'amountWithWallet' => $lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount(),
                             'walletBefore' => $walletBefore,
                             'amountWithCreditCard' => 0,
-                            'playConfigs' => array_map(function($val){return $val->getId();}, $order->getPlayConfig())
+                            'playConfigs' => array_map(function($val){return $val->getId();}, $order->getPlayConfig()),
+                            'discount' => $discount,
                         ];
 
                         $this->walletService->purchaseTransactionGrouped($user,TransactionType::TICKET_PURCHASE,$dataTransaction);

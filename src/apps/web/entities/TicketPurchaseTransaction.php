@@ -13,6 +13,7 @@ class TicketPurchaseTransaction extends PurchaseTransaction implements ITransact
     protected $amountWithWallet;
     protected $amountWithCreditCard;
     protected $feeApplied;
+    protected $discount;
 
 
     public function __construct(array $data)
@@ -28,6 +29,7 @@ class TicketPurchaseTransaction extends PurchaseTransaction implements ITransact
         $this->setDate($data['now']);
         $this->setUser($data['user']);
         $this->setPlayConfigs($data['playConfigs']);
+        $this->setDiscount($data['discount']);
     }
 
     /**
@@ -110,20 +112,44 @@ class TicketPurchaseTransaction extends PurchaseTransaction implements ITransact
         $this->numBets = $numBets;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDiscount()
+    {
+        return $this->discount;
+    }
+
+    /**
+     * @param $discount
+     */
+    public function setDiscount($discount)
+    {
+        $this->discount = $discount;
+    }
+
     public function toString()
     {
-        $this->data = $this->lotteryId.'#'.$this->numBets.'#'.$this->amountWithWallet.'#'.$this->amountWithCreditCard.'#'.$this->feeApplied.'#'.implode(',',$this->playConfigs);
+        $this->data = $this->lotteryId.'#'.$this->numBets.'#'.$this->amountWithWallet.'#'.$this->amountWithCreditCard.'#'.$this->feeApplied.'#'.implode(',',$this->playConfigs).'#'.$this->discount;
     }
 
     public function fromString()
     {
         try {
-
-            list($lotteryId,
-                $numBets,
-                $amountWithWallet,
-                $amountWithCreditCard,
-                $feeApplied,$playConfigs) = explode('#',$this->data);
+            if (count(explode('#',$this->data)) <= 6) {
+                list($lotteryId,
+                    $numBets,
+                    $amountWithWallet,
+                    $amountWithCreditCard,
+                    $feeApplied,$playConfigs) = explode('#',$this->data);
+                    $discount = 0;
+            } else {
+                list($lotteryId,
+                    $numBets,
+                    $amountWithWallet,
+                    $amountWithCreditCard,
+                    $feeApplied,$playConfigs,$discount) = explode('#',$this->data);
+            }
 
             $this->lotteryId = $lotteryId;
             $this->numBets = $numBets;
@@ -131,10 +157,11 @@ class TicketPurchaseTransaction extends PurchaseTransaction implements ITransact
             $this->amountWithCreditCard = $amountWithCreditCard;
             $this->feeApplied = $feeApplied;
             $this->playConfigs = explode(',',$playConfigs);
-
+            $this->discount = $discount;
         } catch ( \Exception $e ) {
             throw new BadEntityInitializationException('Invalid data format');
         }
+
         return $this;
     }
 
