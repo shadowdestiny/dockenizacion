@@ -10,9 +10,12 @@ class Discount
 {
     protected $value;
 
-    public function __construct($value)
+    public function __construct($frequency, $arrayBundle)
     {
-        $this->value = $value;
+        $this->value = 0;
+        if ($arrayBundle) {
+            $this->value = $this->getDiscountByFrequency($frequency, $arrayBundle);
+        }
     }
 
     public function getValue()
@@ -24,15 +27,13 @@ class Discount
     {
         $this->value = $value;
     }
-    
-    public function getDiscountByFrequency($frequency)
+
+    public function getDiscountByFrequency($frequency, $arrayBundle)
     {
-        if ($this->value) {
-            /* @var BundlePlayDTO $numberDraws*/
-            foreach ($this->value as $numberDraws) {
-                if ($numberDraws->getDraws() == $frequency) {
-                    return $numberDraws->getDiscount();
-                }
+        /* @var BundlePlayDTO $numberDraws */
+        foreach ($arrayBundle as $numberDraws) {
+            if ($numberDraws->getDraws() == $frequency) {
+                return $numberDraws->getDiscount();
             }
         }
 
