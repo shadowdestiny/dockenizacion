@@ -115,6 +115,7 @@ class LotteriesDataService
      * @param $lotteryName
      * @param \DateTime|null $now
      * @return EuroMillionsDraw
+     * @throws \Exception
      */
     public function updateLastBreakDown($lotteryName, \DateTime $now = null)
     {
@@ -139,7 +140,7 @@ class LotteriesDataService
 
 
     /**
-     * @param array $playConfig
+     * @param array $playConfigs
      * @return Money
      */
     public function getPriceForNextDraw(array $playConfigs)
