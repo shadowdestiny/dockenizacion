@@ -143,14 +143,14 @@ class LotteriesDataService
      * @param array $playconfigs
      * @return Money
      */
-    public function getPriceForNextDraw(Lottery $lottery, array $playconfigs)
+    public function getPriceForNextDraw(array $playconfigs)
     {
-        $price = new Money(0,new Currency('EUR'));
+        $price = new Money(0, new Currency('EUR'));
         /** @var PlayConfig $playconfig */
-        foreach($playconfigs as $playconfig) {
-            $amount = new Money((int) ($playconfig->numBets() * $lottery->getSingleBetPrice()->getAmount()),new Currency('EUR'));
-            $price = $price->add($amount);
+        foreach ($playconfigs as $playconfig) {
+            $price = $price->add($playconfig->getSinglePriceWithDiscount());
         }
+
         return $price;
     }
 

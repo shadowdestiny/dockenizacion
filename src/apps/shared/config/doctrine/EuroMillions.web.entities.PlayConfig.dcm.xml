@@ -21,6 +21,7 @@
         <field name="frequency" type="integer" nullable="true" column="frequency"/>
 
         <embedded name="line" class="EuroMillions\web\vo\EuroMillionsLine"/>
+        <embedded name="discount" class="EuroMillions\web\vo\Discount"/>
         <one-to-many target-entity="EuroMillions\web\entities\Bet" mapped-by="bet"
                      field="bet">
         </one-to-many>

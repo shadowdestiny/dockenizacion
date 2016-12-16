@@ -7,9 +7,12 @@ namespace EuroMillions\web\entities;
 use Doctrine\Common\Collections\ArrayCollection;
 use EuroMillions\web\interfaces\IEntity;
 use EuroMillions\web\interfaces\IEMForm;
+use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
+use Money\Money;
+use Money\Currency;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
 
@@ -38,6 +41,8 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
 
     protected $lottery;
 
+    /** @var Discount */
+    protected $discount;
 
     public function __construct()
     {
@@ -227,4 +232,29 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
     {
         $this->lottery = $lottery;
     }
+
+    /**
+     * @return Discount
+     */
+    public function getDiscount()
+    {
+        return $this->discount;
+    }
+
+    /**
+     * @param Discount $discount
+     */
+    public function setDiscount($discount)
+    {
+        $this->discount = $discount;
+    }
+
+    public function getSinglePriceWithDiscount()
+    {
+        $discount = $this->getDiscount()->getValue();
+        $amount = new Money((int)($this->numBets() * ($this->getLottery()->getSingleBetPrice()->getAmount()) * (($discount / 100) + 1)), new Currency('EUR'));
+
+        return $amount;
+    }
+
 }
