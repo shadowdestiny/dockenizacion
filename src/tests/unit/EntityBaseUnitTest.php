@@ -172,7 +172,8 @@ class EntityBaseUnitTest extends UnitTestBase
             'last_draw_date'            => "2015-09-30 00:00:00.000000",
             'active'                    => 1,
             'frequency'                 => null,
-            'lottery_id'                => 1
+            'lottery_id'                => 1,
+            'discount'                  => null,
         ];
         $this->assertEquals($expected, $play_config->toArray());
     }

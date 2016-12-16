@@ -148,9 +148,8 @@ class LotteriesDataService
         $price = new Money(0, new Currency('EUR'));
         /** @var PlayConfig $playConfig */
         foreach ($playConfigs as $playConfig) {
-            $price = $price->add($playConfig->getSinglePriceWithDiscount());
+            $price = $price->add($playConfig->getSinglePrice());
         }
-
         return $price;
     }
 

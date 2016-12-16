@@ -10,6 +10,7 @@ use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\LotteryService;
+use EuroMillions\web\vo\Discount;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;

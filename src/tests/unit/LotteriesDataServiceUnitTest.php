@@ -7,6 +7,8 @@ use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\services\LotteriesDataService;
+use EuroMillions\web\vo\Discount;
+use EuroMillions\web\vo\dto\BundlePlayDTO;
 use EuroMillions\web\vo\EuroMillionsLine;
 use Money\Currency;
 use Money\Money;
@@ -173,12 +175,28 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
         $lottery = new Lottery();
         $lottery->setSingleBetPrice(new Money(250, new Currency('EUR')));
         $sut = $this->getSut();
-        $actual = $sut->getPriceForNextDraw($lottery, [$playConfig,$playConfig,$playConfig]);
+        $actual = $sut->getPriceForNextDraw([$playConfig,$playConfig,$playConfig]);
         $expected = new Money(750,new Currency('EUR'));
         $this->assertEquals($expected,$actual);
     }
 
-    private function getPlayConfigAndEuroMillionsDraw()
+    /**
+     * method getPriceForNextDraw
+     * when called
+     * should returnTotalPriceForNextDrawWithDiscount
+     */
+    public function test_getPriceForNextDraw_called_returnTotalPriceForNextDrawWithDiscount()
+    {
+        list($playConfig,$euroMillionsDraw) = $this->getPlayConfigAndEuroMillionsDraw(true);
+        $lottery = new Lottery();
+        $lottery->setSingleBetPrice(new Money(250, new Currency('EUR')));
+        $sut = $this->getSut();
+        $actual = $sut->getPriceForNextDraw([$playConfig,$playConfig,$playConfig]);
+        $expected = new Money(717,new Currency('EUR'));
+        $this->assertEquals($expected,$actual);
+    }
+
+    private function getPlayConfigAndEuroMillionsDraw($frequency = null)
     {
         $user = UserMother::aUserWith50Eur()->build();
         $regular_numbers = [1, 2, 3, 4, 5];
@@ -194,15 +212,28 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
             'active'           => 1,
             'frequency'        => 'freq',
             'draw_time'        => 'draw',
-            'single_bet_price' => new Money(23500, new Currency('EUR')),
+            'single_bet_price' => new Money(250, new Currency('EUR')),
         ]);
         $euroMillionsDraw->setLottery($lottery);
         $playConfig = new PlayConfig();
+        $discount = new Discount(0, []);
+        if ($frequency) {
+            $discount = new Discount(48, [new BundlePlayDTO(
+                48,
+                '',
+                '',
+                24,
+                4.50,
+                'active'
+            )]);
+        }
         $playConfig->initialize([
+                'lottery' => $lottery,
                 'user' => $user,
                 'line' => [$euroMillionsLine],
                 'startDrawDate' => new \DateTime('2016-03-16 20:00:00'),
-                'lastDrawDate' => new \DateTime('2016-03-16 20:00:00')
+                'lastDrawDate' => new \DateTime('2016-03-16 20:00:00'),
+                'discount' => $discount,
             ]
         );
         return [$playConfig, $euroMillionsDraw];
