@@ -115,6 +115,7 @@ class LotteriesDataService
      * @param $lotteryName
      * @param \DateTime|null $now
      * @return EuroMillionsDraw
+     * @throws \Exception
      */
     public function updateLastBreakDown($lotteryName, \DateTime $now = null)
     {
@@ -139,7 +140,6 @@ class LotteriesDataService
 
 
     /**
-     * @param Lottery $lottery
      * @param array $playconfigs
      * @return Money
      */
@@ -148,7 +148,8 @@ class LotteriesDataService
         $price = new Money(0, new Currency('EUR'));
         /** @var PlayConfig $playconfig */
         foreach ($playconfigs as $playconfig) {
-            $price = $price->add($playconfig->getSinglePriceWithDiscount());
+            $amount = new Money((int)($playconfig->numBets() * ($playconfig->getLottery()->getSingleBetPrice()->getAmount()) * (($playconfig->getDiscount()->getValue() / 100) + 1)), new Currency('EUR'));
+            $price = $price->add($amount);
         }
 
         return $price;
