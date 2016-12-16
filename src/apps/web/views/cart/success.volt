@@ -30,7 +30,7 @@ cart success minimal
                         <span class="purple">{{ countdown_next_draw }}</span>
                     </div>
 
-<p>{{ language.translate('We have sent you an email with details of the line you played. You can also see the lines you have played on our <a href="/account/games">tickets page</a>') }} </p>
+<p>{{ language.translate('We have sent you an email with details of the line you played. You can also see the lines you have played on our <a href="/profile/tickets/games">tickets page</a>') }} </p>
 
                     <h2 class="h4">{{ language.translate("In case of winning") }}</h2>
                     <p>{{ language.translate("We'll contact you at <em>%useremail%</em> be sure to add our email <em>support@euromillions.com</em> to your address book to avoid spam filters.",['useremail' : user.email]) }}</p>

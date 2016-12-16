@@ -148,8 +148,7 @@ class LotteriesDataService
         $price = new Money(0, new Currency('EUR'));
         /** @var PlayConfig $playconfig */
         foreach ($playconfigs as $playconfig) {
-            $discount = $playconfig->getDiscount()->getValue();
-            $amount = new Money((int)($playconfig->numBets() * ($playconfig->getLottery()->getSingleBetPrice()->getAmount()) * (($discount / 100) + 1)), new Currency('EUR'));
+            $amount = new Money((int)($playconfig->numBets() * ($playconfig->getLottery()->getSingleBetPrice()->getAmount()) * (($playconfig->getDiscount()->getValue() / 100) + 1)), new Currency('EUR'));
             $price = $price->add($amount);
         }
 
