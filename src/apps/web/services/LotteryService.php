@@ -263,7 +263,7 @@ class LotteryService
                 if( count($playconfigsFiltered) > 0 ) {
                     //EMTD get playconfigsFiltered as array
                     $playconfigsFilteredToArray = $playconfigsFiltered->toArray();
-                    $price = $this->lotteriesDataService->getPriceForNextDraw($lottery, $playconfigsFilteredToArray);
+                    $price = $this->lotteriesDataService->getPriceForNextDraw($playconfigsFilteredToArray);
                     if( $price->getAmount() < $user->getBalance()->getAmount() ) {
                         /** @var EuroMillionsDraw $euroMillionsDraw */
                         $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($dateNextDraw));
