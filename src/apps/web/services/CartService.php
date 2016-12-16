@@ -79,7 +79,7 @@ class CartService
                     }
                     $fee = $this->siteConfigService->getFee();
                     $fee_limit = $this->siteConfigService->getFeeToLimitValue();
-                    $order = new Order($bets,$lottery->getSingleBetPrice(), $fee, $fee_limit, new Discount($this->siteConfigService->retrieveEuromillionsBundlePrice()->bundleData));//order created
+                    $order = new Order($bets,$lottery->getSingleBetPrice(), $fee, $fee_limit, new Discount($bets[0]->getFrequency(), $this->siteConfigService->retrieveEuromillionsBundlePrice()->bundleData));
                     if( null !== $order ) {
                         return new ActionResult(true, $order);
                     }

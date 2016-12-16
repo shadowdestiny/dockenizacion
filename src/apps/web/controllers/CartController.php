@@ -244,7 +244,7 @@ class CartController extends PublicSiteControllerBase
         $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValueWithCurrencyConverted($user_currency);
         $single_bet_price = $this->domainServiceFactory->getLotteryService()->getSingleBetPriceByLottery('EuroMillions');
         $user = $this->authService->getCurrentUser();
-        $discount = new Discount($this->siteConfigService->retrieveEuromillionsBundlePrice()->bundleData);
+        $discount = new Discount($result->returnValues()[0]->getFrequency(), $this->siteConfigService->retrieveEuromillionsBundlePrice()->bundleData);
         if ($orderView) {
             $order = new Order($result->returnValues(), $single_bet_price, $fee_value, $fee_to_limit_value, $discount); // order created
             $order_eur = new Order($result->returnValues(), $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount); //workaround for new payment gateway

@@ -16,7 +16,7 @@ class BundlePlayDTO implements \JsonSerializable
      * @param string $description
      * @param string $priceDescription
      * @param integer $price
-     * @param integer $discount
+     * @param float $discount
      * @param string $active
      */
     public function __construct($draws, $description, $priceDescription, $price, $discount, $active)
@@ -94,7 +94,7 @@ class BundlePlayDTO implements \JsonSerializable
     }
 
     /**
-     * @return integer
+     * @return float
      */
     public function getDiscount()
     {
@@ -102,7 +102,7 @@ class BundlePlayDTO implements \JsonSerializable
     }
 
     /**
-     * @param integer $discount
+     * @param float $discount
      */
     public function setDiscount($discount)
     {

@@ -135,7 +135,7 @@ class PlayService
                 if( $result_order->success() ) {
                     /** @var Order $order */
                     $order = $result_order->getValues();
-                    $discount = $order->getDiscount()->getDiscountByFrequency($order->getPlayConfig()[0]->getFrequency());
+                    $discount = $order->getDiscount()->getValue();
                     $order->setIsCheckedWalletBalance($withAccountBalance);
                     $order->addFunds($funds);
                     $order->setAmountWallet($user->getWallet()->getBalance());

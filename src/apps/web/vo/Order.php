@@ -10,7 +10,6 @@ use Money\Money;
 
 class Order implements \JsonSerializable
 {
-
     /** @var  Money $total */
     private $total;
     /** @var PlayConfig[] $play_config */
@@ -28,7 +27,6 @@ class Order implements \JsonSerializable
     private $credit_card_charge;
     /** @var bool $isCheckedWalletBalance */
     private $isCheckedWalletBalance;
-
     /** @var  Money  */
     private $amountWallet;
     /** @var  Discount  */
@@ -43,7 +41,7 @@ class Order implements \JsonSerializable
         $this->funds_amount = new Money(0, new Currency('EUR'));
         $this->isCheckedWalletBalance = false;
         if (!$discount) {
-            $discount = new Discount([]);
+            $discount = new Discount(0, []);
         }
         $this->discount = $discount;
         $this->initialize();
@@ -90,11 +88,17 @@ class Order implements \JsonSerializable
         return $this->credit_card_charge->getFinalAmount();
     }
 
+    /**
+     * @return Money
+     */
     public function getTotalFromUser()
     {
         return $this->credit_card_charge->getNetAmount();
     }
 
+    /**
+     * @return Money
+     */
     public function totalOriginal()
     {
         return $this->total;
@@ -189,6 +193,10 @@ class Order implements \JsonSerializable
         $this->state = $state;
     }
 
+    /**
+     * @param \DateTime $draw_date
+     * @return bool
+     */
     public function isNextDraw( \DateTime $draw_date )
     {
         $play_config = $this->getPlayConfig();
@@ -200,9 +208,8 @@ class Order implements \JsonSerializable
     {
         $this->num_lines = count($this->play_config);
         $this->total = new Money(1,new Currency('EUR'));
-        $discountValue = $this->discount->getDiscountByFrequency($this->play_config[0]->getFrequency());
         $this->total = $this->total->multiply($this->num_lines)->multiply((int) $this->single_bet_price->getAmount())->multiply($this->play_config[0]->getFrequency());
-        $this->total = $this->total->divide((($discountValue / 100) + 1));
+        $this->total = $this->total->divide((($this->discount->getValue() / 100) + 1));
         $this->credit_card_charge = new CreditCardCharge($this->total,$this->fee,$this->fee_limit);
     }
 

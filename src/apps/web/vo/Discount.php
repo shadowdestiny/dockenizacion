@@ -13,7 +13,7 @@ class Discount
     public function __construct($frequency, $arrayBundle)
     {
         $this->value = 0;
-        if ($arrayBundle) {
+        if (!empty($arrayBundle)) {
             $this->value = $this->getDiscountByFrequency($frequency, $arrayBundle);
         }
     }

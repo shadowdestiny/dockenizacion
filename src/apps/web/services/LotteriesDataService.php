@@ -139,16 +139,15 @@ class LotteriesDataService
 
 
     /**
-     * @param Lottery $lottery
-     * @param array $playconfigs
+     * @param array $playConfig
      * @return Money
      */
-    public function getPriceForNextDraw(array $playconfigs)
+    public function getPriceForNextDraw(array $playConfigs)
     {
         $price = new Money(0, new Currency('EUR'));
-        /** @var PlayConfig $playconfig */
-        foreach ($playconfigs as $playconfig) {
-            $price = $price->add($playconfig->getSinglePriceWithDiscount());
+        /** @var PlayConfig $playConfig */
+        foreach ($playConfigs as $playConfig) {
+            $price = $price->add($playConfig->getSinglePriceWithDiscount());
         }
 
         return $price;
