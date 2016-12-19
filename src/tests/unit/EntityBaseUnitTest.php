@@ -173,7 +173,7 @@ class EntityBaseUnitTest extends UnitTestBase
             'active'                    => 1,
             'frequency'                 => null,
             'lottery_id'                => 1,
-            'discount'                  => null,
+            'discount_value'            => 0,
         ];
         $this->assertEquals($expected, $play_config->toArray());
     }
