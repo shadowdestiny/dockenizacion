@@ -41,6 +41,8 @@ class Discount
     }
 
     public function toArray() {
-        return ['value' => $this->getValue()];
+        return [
+            'value' => $this->value
+        ];
     }
 }
