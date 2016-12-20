@@ -10,6 +10,7 @@ use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\LotteryService;
+use EuroMillions\web\vo\Discount;
 use Money\Currency;
 use Money\Money;
 use Prophecy\Argument;
@@ -141,8 +142,8 @@ class LotteryServiceIntegrationTest extends DatabaseIntegrationTestBase
         $priceUserOne = new Money((int)$lottery->getSingleBetPrice()->getAmount() * count($playConfigsFilteredUserOne), new Currency('EUR'));
         $priceUserTwo = new Money((int)$lottery->getSingleBetPrice()->getAmount() * count($playConfigsFilteredUserTwo), new Currency('EUR'));
         $this->userService_double->getUsersWithPlayConfigsForNextDraw()->willReturn($users);
-        $this->lotteriesDataService_double->getPriceForNextDraw($lottery, $playConfigsFilteredUserOne->toArray())->willReturn($priceUserOne);
-        $this->lotteriesDataService_double->getPriceForNextDraw($lottery, $playConfigsFilteredUserTwo->toArray())->willReturn($priceUserTwo);
+        $this->lotteriesDataService_double->getPriceForNextDraw($playConfigsFilteredUserOne->toArray())->willReturn($priceUserOne);
+        $this->lotteriesDataService_double->getPriceForNextDraw($playConfigsFilteredUserTwo->toArray())->willReturn($priceUserTwo);
         $this->betService_double->validation($playConfigsFilteredUserOne->toArray()[0], Argument::type('EuroMillions\web\entities\EuroMillionsDraw'), Argument::any())->willReturn(new ActionResult(true));
         $this->betService_double->validation($playConfigsFilteredUserTwo->toArray()[0], Argument::type('EuroMillions\web\entities\EuroMillionsDraw'), Argument::any())->willReturn(new ActionResult(true));
         $this->betService_double->validation($playConfigsFilteredUserTwo->toArray()[1], Argument::type('EuroMillions\web\entities\EuroMillionsDraw'), Argument::any())->willReturn(new ActionResult(true));
@@ -159,7 +160,7 @@ class LotteryServiceIntegrationTest extends DatabaseIntegrationTestBase
         $playConfigsFilteredUserOne = $user->getPlayConfigsFilteredForNextDraw($lottery->getNextDrawDate($date));
         $priceUserOne = new Money((int)$lottery->getSingleBetPrice()->getAmount() * count($playConfigsFilteredUserOne), new Currency('EUR'));
         $this->userService_double->getUsersWithPlayConfigsForNextDraw()->willReturn($users);
-        $this->lotteriesDataService_double->getPriceForNextDraw($lottery, $playConfigsFilteredUserOne->toArray())->willReturn($priceUserOne);
+        $this->lotteriesDataService_double->getPriceForNextDraw($playConfigsFilteredUserOne->toArray())->willReturn($priceUserOne);
         $this->userNotificationsService_double->hasNotificationActive(Argument::any(),$user)->willReturn(true);
         $this->emailService_double->sendLowBalanceEmail($user)->shouldBeCalled();
     }

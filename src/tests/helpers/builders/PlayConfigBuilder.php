@@ -8,6 +8,7 @@ use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\entities\PlayConfig;
 
 use EuroMillions\web\entities\User;
+use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\DrawDays;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
@@ -25,6 +26,7 @@ class PlayConfigBuilder
     protected $active;
     protected $frequency;
     protected $lottery;
+    protected $discount;
     
     const REGULAR_NUMBERS = [7, 16, 17, 22, 15];
 
@@ -38,6 +40,7 @@ class PlayConfigBuilder
         $this->lastDrawDate = new \DateTime('2015-09-30');
         $this->active = 1;
         $this->lottery = $this->getLottery();
+        $this->discount = new Discount(0,[]);
     }
 
     public static function aPlayConfig()

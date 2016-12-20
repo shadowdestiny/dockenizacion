@@ -39,4 +39,10 @@ class Discount
 
         return 0;
     }
+
+    public function toArray() {
+        return [
+            'value' => $this->value
+        ];
+    }
 }
