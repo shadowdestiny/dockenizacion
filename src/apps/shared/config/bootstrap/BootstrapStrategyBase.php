@@ -9,7 +9,10 @@ use EuroMillions\shared\components\EnvironmentDetector;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
+use EuroMillions\web\services\card_payment_providers\payments_util\PaymentsCollection;
+use EuroMillions\web\services\card_payment_providers\payments_util\PaymentsRegistry;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
+use EuroMillions\web\services\card_payment_providers\pgwlb\RandomStrategy;
 use EuroMillions\web\services\card_payment_providers\WideCardPaymentStrategy;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\factories\ServiceFactory;
@@ -129,12 +132,9 @@ abstract class BootstrapStrategyBase
            $class = "\\EuroMillions\\web\\services\\card_payment_providers\\".$class_strategy;
             new $class;
         }
-        $class = '\EuroMillions\web\services\card_payment_providers\\'.$paymentGatewayLoader->class_strategy;
-        $configName = $paymentGatewayLoader->config;
-        $config_payment = $di->get('config')[$configName];
-        $objectTest = new WideCardPaymentStrategy($config_payment);
-        //return $paymentProviderFactory->getCreditCardPaymentProvider(new $class($config_payment));
-        return $paymentProviderFactory->getCreditCardPaymentProvider($objectTest);
+        $configPayments = explode(',',$paymentGatewayLoader->config);
+        $paymentInstance = new RandomStrategy(new PaymentsRegistry($configPayments));
+        return $paymentProviderFactory->getCreditCardPaymentProvider($paymentInstance->getInstance());
     }
 
     protected function getConfigFileName(EnvironmentDetector $em)

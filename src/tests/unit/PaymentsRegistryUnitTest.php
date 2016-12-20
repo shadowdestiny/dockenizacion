@@ -29,5 +29,15 @@ class PaymentsRegistryUnitTest extends UnitTestBase
         $this->assertInstanceOf('EuroMillions\web\services\card_payment_providers\WideCardPaymentStrategy',$actual[0]);
     }
 
+    /**
+     * method getInstances
+     * when calledIncorrectConfig
+     * should returnEmptyArray
+     */
+    public function test_getInstances_calledIncorrectConfig_returnEmptyArray()
+    {
+
+    }
+
 
 }

@@ -53,4 +53,8 @@ class PaymentsCollection
     public function keys() {
         return array_keys($this->payments);
     }
+
+    public function count() {
+        return count($this->payments);
+    }
 }
