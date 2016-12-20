@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use EuroMillions\web\services\card_payment_providers\factory\PaymentProviderFactory;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
+use EuroMillions\web\services\card_payment_providers\WideCardPaymentStrategy;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\factories\ServiceFactory;
 use Phalcon\Config;
@@ -124,10 +125,16 @@ abstract class BootstrapStrategyBase
     {
         $paymentProviderFactory = new PaymentProviderFactory();
         $paymentGatewayLoader = $di->get('config')['payment_gateway'];
+        foreach(explode(',',$paymentGatewayLoader->class_strategy) as $k => $class_strategy ) {
+           $class = "\\EuroMillions\\web\\services\\card_payment_providers\\".$class_strategy;
+            new $class;
+        }
+        $class = '\EuroMillions\web\services\card_payment_providers\\'.$paymentGatewayLoader->class_strategy;
         $configName = $paymentGatewayLoader->config;
         $config_payment = $di->get('config')[$configName];
-        $class = '\EuroMillions\web\services\card_payment_providers\\'.$paymentGatewayLoader->class_strategy;
-        return $paymentProviderFactory->getCreditCardPaymentProvider(new $class($config_payment));
+        $objectTest = new WideCardPaymentStrategy($config_payment);
+        //return $paymentProviderFactory->getCreditCardPaymentProvider(new $class($config_payment));
+        return $paymentProviderFactory->getCreditCardPaymentProvider($objectTest);
     }
 
     protected function getConfigFileName(EnvironmentDetector $em)
