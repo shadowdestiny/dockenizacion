@@ -20,7 +20,7 @@ var EmResumeOrder = new React.createClass({
             <div className="box-total-upper cl">
                 <div className="txt-black-upper desktop">
                     <span className="txt-bold">{config['frequency']} Draws</span><br />
-                    <span className="txt-bold">{config['draw_days']}Tuesday / Friday / Tuesday and Friday</span><br />
+                    <span className="txt-bold">{config['draw_days']}</span><br />
 
                     <span className="txt-bold" style={{ display: jackpot}}>Jackpot: </span><span style={{display: jackpot}}>{config['draw_days']}</span>
                     <span className="txt-bold" style={{ display: styleStartingDate}}>Starting Date: </span><span style={{display: styleStartingDate}}>{config['startDrawDate']}</span>
