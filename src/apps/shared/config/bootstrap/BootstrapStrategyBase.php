@@ -127,13 +127,17 @@ abstract class BootstrapStrategyBase
     protected function configPaymentProvider(Di $di)
     {
         $paymentProviderFactory = new PaymentProviderFactory();
+        //Gets payment gateway from config.ini
         $paymentGatewayLoader = $di->get('config')['payment_gateway'];
         foreach(explode(',',$paymentGatewayLoader->class_strategy) as $k => $class_strategy ) {
            $class = "\\EuroMillions\\web\\services\\card_payment_providers\\".$class_strategy;
             new $class;
         }
         $configPayments = explode(',',$paymentGatewayLoader->config);
-        $paymentInstance = new RandomStrategy(new PaymentsRegistry($configPayments));
+        $paymentStrategy = $di->get('config')['payment_balancing'];
+
+        $paymentStrategy = "\\EuroMillions\\web\\services\\card_payment_providers\\pgwlb\\".$paymentStrategy->strategy.'Strategy';
+        $paymentInstance = new $paymentStrategy(new PaymentsRegistry($configPayments));
         return $paymentProviderFactory->getCreditCardPaymentProvider($paymentInstance->getInstance());
     }
 
