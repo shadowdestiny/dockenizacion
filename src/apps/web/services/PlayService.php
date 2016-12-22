@@ -5,6 +5,7 @@ use Doctrine\ORM\EntityManager;
 
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\PurchaseConfirmationEmailTemplate;
+use EuroMillions\web\emailTemplates\PurchaseSubscriptionConfirmationEmailTemplate;
 use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\ICardPaymentProvider;
@@ -305,8 +306,16 @@ class PlayService
     {
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new PurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
+        if ($orderLines[0]->getFrequency() >= 24) {
+            $emailTemplate = new PurchaseSubscriptionConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
+        }
         $emailTemplate->setLine($orderLines);
         $emailTemplate->setUser($user);
+//        $emailTemplate->setFrequency($orderLines[0]->getFrequencyPlay());
+        $emailTemplate->setDraws($orderLines[0]->getFrequency());
+//        $emailTemplate->setJackpot($orderLines[0]->getJackpot());
+        $emailTemplate->setStartingDate($orderLines[0]->getStartDrawDate()->format('d-m-Y'));
+
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 
