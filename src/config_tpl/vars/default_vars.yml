@@ -75,3 +75,5 @@ payment_strategy: 'WideCardPaymentStrategy,eMerchantPaymentStrategy'
 payment_config: 'wirecard,emerchant_api'
 
 file_databasegeoip_path: '/var/www/data/geoipdatabase'
+
+payment_balancing: 'Random'
