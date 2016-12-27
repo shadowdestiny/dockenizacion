@@ -381,7 +381,7 @@ var PlayPage = React.createClass({
         var random_all = this.state.random_all;
         var totalPriceDescription = 'Total price ';
         var descriptionBeforeButtonPrice = this.getNumLinesThatAreFilled() + ' Lines x ' + this.state.draws_number + ' Draws ';
-        var total_price = this.state.price * this.state.draws_number / ((this.state.discount / 100) + 1);
+        var total_price = (this.state.price  / ((this.state.discount / 100) + 1)).toFixed(2) * this.state.draws_number;
         total_price = total_price.toFixed(2);
 
         elem.push(<EuroMillionsMultipleEmLines add_storage={this.addLinesInStorage} clear_all={this.state.clear_all} callback={this.handleOfBetsLine} random_all={random_all} numberEuroMillionsLine={numberEuroMillionsLine} key="1"/>);

@@ -3,12 +3,8 @@ var React = require('react');
 var EuroMillionsDiscountLine = React.createClass({
 
     render: function () {
-        var price = this.props.price;
+        var price = this.props.price * this.props.multi_price / 100;
 
-        if (this.props.discount != 0) {
-            price = this.props.price / ((this.props.discount / 100) + 1);
-            price = price.toFixed(2);
-        }
         var classBtn = (this.props.checked) ? 'btn pwp add-more ui-link pwp-active' : 'btn pwp add-more ui-link';
         return (
             <div className="button-draw-list">
@@ -20,7 +16,7 @@ var EuroMillionsDiscountLine = React.createClass({
                     </a>
                 </div>
                 <div className="box-button-draw-right">
-                    &nbsp; {price} {this.props.currency_symbol} / {this.props.price_desc}
+                    &nbsp; {price.toFixed(2)} {this.props.currency_symbol} / {this.props.price_desc}
                 </div>
             </div>
         );

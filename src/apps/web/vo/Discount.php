@@ -4,8 +4,6 @@
 namespace EuroMillions\web\vo;
 
 
-use EuroMillions\web\vo\dto\BundlePlayDTO;
-
 class Discount
 {
     protected $value;
@@ -23,20 +21,13 @@ class Discount
         return $this->value;
     }
 
-    public function setValue($value)
+    protected function getDiscountByFrequency($frequency, $arrayBundle)
     {
-        $this->value = $value;
-    }
-
-    public function getDiscountByFrequency($frequency, $arrayBundle)
-    {
-        /* @var BundlePlayDTO $numberDraws */
         foreach ($arrayBundle as $numberDraws) {
-            if ($numberDraws->getDraws() == $frequency) {
-                return $numberDraws->getDiscount();
+            if ($numberDraws['draws'] == $frequency) {
+                return $numberDraws['discount'];
             }
         }
-
         return 0;
     }
 

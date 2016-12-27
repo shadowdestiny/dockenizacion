@@ -14,11 +14,16 @@ use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\repositories\UserRepository;
 use EuroMillions\web\services\card_payment_providers\PayXpertCardPaymentStrategy;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
+use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\vo\CreditCard;
+use EuroMillions\web\vo\Discount;
+use EuroMillions\web\vo\dto\BundlePlayCollectionDTO;
+use EuroMillions\web\vo\dto\BundlePlayDTO;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\PlayFormToStorage;
 use EuroMillions\shared\vo\results\ActionResult;
+use Money\Currency;
 use Money\Money;
 
 class PlayService
@@ -89,7 +94,7 @@ class PlayService
         }
         try{
             /** @var ActionResult $result_find_playstorage */
-            $result_find_playstorage = $this->playStorageStrategy->findByKey($current_user_id);
+            $result_find_playstorage = $this->playStorageStrategy->findByKey($user_id);
             if($result_find_playstorage->success()) {
                 $this->playStorageStrategy->save($result_find_playstorage->returnValues(),$current_user_id);
                 $result_save_playstorage = $this->playStorageStrategy->findByKey($current_user_id);
@@ -100,6 +105,7 @@ class PlayService
                         $playConfig = new PlayConfig();
                         $playConfig->formToEntity($user,$bet,$bet->euroMillionsLines);
                         $playConfig->setLottery($this->getLottery());
+                        $playConfig->setDiscount(new Discount($bet->frequency, $this->playConfigRepository->retrieveEuromillionsBundlePrice()));
                         $bets[] = $playConfig;
                     }
                     return new ActionResult(true,$bets);
@@ -155,6 +161,7 @@ class PlayService
                         /** @var PlayConfig $play_config */
                         foreach( $order->getPlayConfig() as $play_config ) {
                             $play_config->setLottery($lottery);
+                            $play_config->setDiscount($order->getDiscount());
                             $this->playConfigRepository->add($play_config);
                             $this->entityManager->flush($play_config);
                         }
@@ -213,10 +220,6 @@ class PlayService
     }
 
 
-    //EMTD método temporal, no hay unit testing. Copia del método play sin credit card
-    public function playWithEmPlay($userId)
-    {
-    }
 
     public function getPlaysFromTemporarilyStorage(User $user)
     {
@@ -230,6 +233,7 @@ class PlayService
                     $playConfig = new PlayConfig();
                     $playConfig->formToEntity($user,$bet,$bet->euroMillionsLines);
                     $playConfig->setLottery($this->getLottery());
+                    $playConfig->setDiscount(new Discount($bet->frequency, $this->playConfigRepository->retrieveEuromillionsBundlePrice()));
                     $bets[] = $playConfig;
                 }
                 return new ActionResult(true,$bets);
@@ -294,6 +298,40 @@ class PlayService
         if( null != $user_id ) {
             $this->orderStorageStrategy->delete($user_id);
         }
+    }
+
+
+
+    //Enric, por favor, refactoriza toda la clase en partes más pequeñas. Evitando las dependencias que se utlizan una vez en la clase.
+    /**
+     * @return BundlePlayCollectionDTO
+     */
+    public function retrieveEuromillionsBundlePriceDTO()
+    {
+        $bundlePlayCollectionDTO = new BundlePlayCollectionDTO($this->playConfigRepository->retrieveEuromillionsBundlePrice(), $this->getLottery()->getSingleBetPrice());
+        $di = \Phalcon\Di::getDefault();
+        /** @var DomainServiceFactory $domainServiceFactory */
+        $domainServiceFactory = $di->get('domainServiceFactory');
+        $current_currency = $domainServiceFactory->getUserPreferencesService()->getCurrency();
+        if($domainServiceFactory->getAuthService()->isLogged()) {
+            /** @var User $user */
+            $user = $this->userRepository->find($domainServiceFactory->getAuthService()->getCurrentUser()->getId());
+            $userCurrency = $user->getUserCurrency();
+            $domainServiceFactory->getUserPreferencesService()->setCurrency($userCurrency);
+            $current_currency = $userCurrency;
+        }
+        /** @var BundlePlayDTO $bundlePlayDto */
+        foreach ($bundlePlayCollectionDTO->bundlePlayDTO as $bundlePlayDto ) {
+           $moneyConverted = $domainServiceFactory->getCurrencyConversionService()->convert($bundlePlayDto->singleBetPriceWithDiscount, $current_currency);
+           $bundlePlayDto->singleBetPriceWithDiscount = $moneyConverted;
+        }
+        return $bundlePlayCollectionDTO;
+    }
+
+
+    public function getBundleDataAsArray()
+    {
+        return $this->playConfigRepository->retrieveEuromillionsBundlePrice();
     }
 
     //EMTD workaround, now only once lottery we have. In the future should pass lottery as param

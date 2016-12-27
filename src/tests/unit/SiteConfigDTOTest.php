@@ -20,7 +20,7 @@ class SiteConfigDTOTest extends UnitTestBase
         $expectedBundleDataActive = new BundlePlayDTO(1, '1 Draw', 'Line', 3, 0, 'active');
         $bundleData = $this->getSiteConfigDTO($this->bundlePlayData());
 
-        $this->assertEquals($expectedBundleData, $bundleData->bundleData);
+        $this->assertEquals($expectedBundleData, $bundleData->bundleDataDTO);
         $this->assertEquals($expectedBundleDataActive, $bundleData->bundlePlayDTOActive);
     }
 
@@ -30,7 +30,7 @@ class SiteConfigDTOTest extends UnitTestBase
      * should returnEmptyArray
      */
     public function test_getBundleData_called_returnEmptyArrayInBundleData(){
-        $this->assertSame([], $this->getSiteConfigDTO()->bundleData);
+        $this->assertSame([], $this->getSiteConfigDTO()->bundleDataDTO);
         $this->assertSame(null, $this->getSiteConfigDTO()->bundlePlayDTOActive);
     }
 

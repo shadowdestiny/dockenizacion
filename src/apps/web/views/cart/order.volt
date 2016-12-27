@@ -8,7 +8,7 @@
     var show_form_credit_card = '<?php echo $show_form_credit_card; ?>';
     var wallet_balance = '<?php echo $wallet_balance; ?>';
     var total_price ='<?php echo $total_price ?>';
-    var single_bet_price = '<?php echo $order->single_bet_price_converted->getAmount() / 100 ?>';
+    var single_bet_price = '<?php echo $order->singleBetPriceWithDiscountConverted->getAmount() / 100 ?>';
     var currency_symbol = '<?php echo empty($currency_symbol) ? $current_currency : $currency_symbol;?>';
     var price_below_fee = '<?php echo number_format($fee_limit,2,".",","); ?>';
     var fee_charge = '<?php echo number_format($fee,2,".",","); ?>';
@@ -16,11 +16,9 @@
     var draw_days = '<?php echo $order->drawDays; ?>';
     var show_order_cart = true;
     var total_price_in_credit_card_form = 0;
-    var ratio = '<?php echo $ratio; ?>'
+    var ratio = '<?php echo $ratio; ?>';
     var total_in_eur = 0;
-
-
-
+    var discount = <?php echo $discount; ?>;
 
     $(document).on("totalPriceEvent",{total: 0, param2: 0},function(e, total, param2) {
     var total_text = '';
@@ -33,7 +31,8 @@
     }
     total_price_in_credit_card_form = 0;
     $('.submit.big.green').text('');
-    $('.submit.big.green').text('Pay ' + total + total_text);
+    $('.submit.big.green').text('Pay ' + total);
+    {#$('.submit.big.green').text('Pay ' + total + total_text);#}
     total_price_in_credit_card_form = total;
     }
     )
@@ -54,7 +53,8 @@
     // var total =  parseFloat(total_price_in_credit_card_form.slice(1)).toFixed(2)/parseFloat(ratio).toFixed(2);
     total_text = '(€'+parseFloat(total_convert).toFixed(2)+')';
     }
-    $('.submit.big.green').text('Pay ' + total_price_in_credit_card_form + total_text);
+    $('.submit.big.green').text('Pay ' + total_price_in_credit_card_form);
+    {#$('.submit.big.green').text('Pay ' + total_price_in_credit_card_form + total_text);#}
     $('.payment').show();
     $('.box-bottom').hide();
     var $root = $('html, body');
@@ -89,7 +89,6 @@
     });
 
     $('#expiry-date-month').on('keyup',function(e){
-	console.log($(this).val().length);
 	var charCount = $(this).val().length;
 	if (charCount==2){
 		$('#expiry-date-year').focus();
