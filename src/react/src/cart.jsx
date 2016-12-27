@@ -231,11 +231,6 @@ var CartPage = new React.createClass({
                 <div className="box-top cl">
                     <h2 className="h4 sub-txt">Order Summary</h2>
                 </div>
-                <div>
-                    <a href="javascript:history.back()" className="btn purple small ui-link">
-                        Edit
-                    </a>
-                </div>
                 <div className="box-order">
                     <EmResumeOrder draw_days={this.props.draw_days} href={href_payment}
                                    databtn={data_btn} price={price_txt_btn} classBtn={class_button_payment}

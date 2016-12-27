@@ -14,22 +14,43 @@ var EmResumeOrder = new React.createClass({
     render: function () {
         var config = JSON.parse(this.props.config);
         var jackpot = config['draw_days'] != null ? 'block' : 'none';
-        var styleStartingDate = config['startDrawDate'] != null ? 'inline' : 'none';
+
+        var date_since = config.startDrawDate;
+        var text_weeks = '';
+
+        var date = new Date(date_since);
+        var day = '';
+        if(date.getDay() == 2 ) {
+            day = 'Tuesday';
+        } else if(date.getDay() == 5 ) {
+            day = 'Friday';
+        }
+
+        if(config.frequency == 1) {
+            text_weeks = ' On ' + day + ' ' + date_since;
+        } else {
+            text_weeks = 'Tuesday & Friday, since ' + date_since + ' for ' + config.frequency / 2 + ' weeks';
+        }
+
         return (
 
             <div className="box-total-upper cl">
                 <div className="txt-black-upper desktop">
-                    <span className="txt-bold">{config['frequency']} Draws</span><br />
-                    <span className="txt-bold">{config['draw_days']}</span><br />
-
+                    <span className="txt-bold">Draws x{config['frequency']}</span><br />
+                    <span className="txt-bold">{text_weeks}</span><br />
                     <span className="txt-bold" style={{ display: jackpot}}>Jackpot: </span><span style={{display: jackpot}}>{config['draw_days']}</span>
-                    <span className="txt-bold" style={{ display: styleStartingDate}}>Starting Date: </span><span style={{display: styleStartingDate}}>{config['startDrawDate']}</span>
                 </div>
                 <div className="total">
-                    <div className="txt">TOTAL </div>
+                    <div className="txt">Total to be paid </div>
                     <div className="val">{this.props.total_price}</div>
                     <EmBtnPayment href={this.props.href} databtn={this.props.databtn} price={this.props.total_price}
                                   classBtn={this.props.classBtn} text={this.props.text}/>
+                </div>
+                <br /><br />
+                <div>
+                    <a href="/euromillions/play" className="btn purple small ui-link">
+                        Edit
+                    </a>
                 </div>
             </div>
         )
