@@ -13,6 +13,7 @@ use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\PlayService;
 use EuroMillions\web\vo\CastilloBetId;
+use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\EuroMillionsLine;
 use EuroMillions\web\vo\EuroMillionsLuckyNumber;
@@ -549,6 +550,7 @@ class PlayServiceUnitTest extends UnitTestBase
         foreach ($form_decode->play_config as $bet) {
             $playConfig = new PlayConfig();
             $playConfig->formToEntity($this->getUser(), $bet, $bet->euroMillionsLines);
+            $playConfig->setDiscount(new Discount(1,[]));
             $bets[] = $playConfig;
         }
         return $bets;
