@@ -3,6 +3,8 @@
 namespace EuroMillions\web\vo\dto;
 
 
+use Money\Money;
+
 class BundlePlayCollectionDTO implements \JsonSerializable
 {
     /** @var BundlePlayDTO $bundlePlayDTO */
@@ -12,7 +14,7 @@ class BundlePlayCollectionDTO implements \JsonSerializable
     protected $betSinglePrice;
     protected $arrayBundle;
 
-    public function __construct(array $arrayBundle, $betSinglePrice)
+    public function __construct(array $arrayBundle, Money $betSinglePrice)
     {
         $this->arrayBundle = $arrayBundle;
         $this->betSinglePrice = $betSinglePrice;

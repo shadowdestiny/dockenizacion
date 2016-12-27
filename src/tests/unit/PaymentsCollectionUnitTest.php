@@ -24,7 +24,7 @@ class PaymentsCollectionUnitTest extends UnitTestBase
     public function test_getAll_called_returnACollectionFromGateways()
     {
         $sut = $this->getSut();
-        $this->assertEquals('EuroMillions\\web\\services\\card_payment_providers\\WideCardPaymentStrategy',$sut->getAll()[563]);
+        $this->assertSame(2, count($sut->getAll()));
     }
 
 
