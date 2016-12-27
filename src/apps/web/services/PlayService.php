@@ -346,13 +346,13 @@ class PlayService
         $emailTemplate = new PurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
         if ($orderLines[0]->getFrequency() >= 24) {
             $emailTemplate = new PurchaseSubscriptionConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
+//        $emailTemplate->setFrequency($orderLines[0]->getFrequencyPlay());
+            $emailTemplate->setDraws($orderLines[0]->getFrequency());
+//        $emailTemplate->setJackpot($orderLines[0]->getJackpot());
+            $emailTemplate->setStartingDate($orderLines[0]->getStartDrawDate()->format('d-m-Y'));
         }
         $emailTemplate->setLine($orderLines);
         $emailTemplate->setUser($user);
-//        $emailTemplate->setFrequency($orderLines[0]->getFrequencyPlay());
-        $emailTemplate->setDraws($orderLines[0]->getFrequency());
-//        $emailTemplate->setJackpot($orderLines[0]->getJackpot());
-        $emailTemplate->setStartingDate($orderLines[0]->getStartDrawDate()->format('d-m-Y'));
 
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
