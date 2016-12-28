@@ -228,17 +228,12 @@ var CartPage = new React.createClass({
 
         return (
             <div>
-                <div className="box-top cl">
-                    <h2 className="h4 sub-txt">Order Summary</h2>
-                </div>
-                <div className="box-order">
-                    <EmResumeOrder draw_days={this.props.draw_days} href={href_payment}
-                                   databtn={data_btn} price={price_txt_btn} classBtn={class_button_payment}
-                                   text={txt_button_payment} config={this.props.config} playConfig={_playConfigList}
-                                   pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration}
-                                   pricetopay={this.state.total} funds={Funds.funds_value}
-                                   total_price={this.state.total}/>
-                </div>
+                <EmResumeOrder draw_days={this.props.draw_days} href={href_payment}
+                               databtn={data_btn} price={price_txt_btn} classBtn={class_button_payment}
+                               text={txt_button_payment} config={this.props.config} playConfig={_playConfigList}
+                               pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration}
+                               pricetopay={this.state.total} funds={Funds.funds_value}
+                               total_price={this.state.total}/>
                 <div className="box-order">
                     {_euroMillionsLine}
                     <EmLineOrderConfig config={this.props.config} playConfig={_playConfigList}
