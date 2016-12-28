@@ -32,6 +32,8 @@ class Order implements \JsonSerializable
     /** @var  Discount  */
     private $discount;
 
+    private $hasSubscription;
+
     public function __construct(array $play_config, Money $single_bet_price, Money $fee, Money $fee_limit, Discount $discount = null)
     {
         $this->play_config = $play_config;
@@ -277,5 +279,21 @@ class Order implements \JsonSerializable
         } else {
             $this->amountWallet = new Money(0,new Currency('EUR'));
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHasSubscription()
+    {
+        return $this->play_config[0]->getFrequency() > 1;
+    }
+
+    /**
+     * @param mixed $hasSubscription
+     */
+    public function setHasSubscription($hasSubscription)
+    {
+        $this->hasSubscription = $hasSubscription;
     }
 }

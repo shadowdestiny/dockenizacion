@@ -11,6 +11,7 @@ use EuroMillions\web\vo\CreditCard;
 use EuroMillions\web\vo\CreditCardCharge;
 use EuroMillions\web\vo\dto\WalletDTO;
 use EuroMillions\web\vo\enum\TransactionType;
+use EuroMillions\web\vo\Order;
 use Money\Money;
 
 class WalletService
@@ -65,20 +66,24 @@ class WalletService
      * @return IResult
      */
     public function payWithCreditCard(ICardPaymentProvider $provider,
-                                           CreditCard $card,
-                                           User $user,
-                                           CreditCardCharge $creditCardCharge,$uniqueID = null)
+                                      CreditCard $card,
+                                      User $user,
+                                      $uniqueID = null,
+                                      Order $order)
     {
-
-        $payment_result = $this->pay($provider,$card,$creditCardCharge);
+        $creditCardCharge = $order->getCreditCardCharge();
+        $payment_result = $this->pay($provider, $card, $creditCardCharge);
         if ($payment_result->success()) {
             $walletBefore = $user->getWallet();
             $user->reChargeWallet($creditCardCharge->getNetAmount());
             try {
                 $this->entityManager->persist($user);
                 $this->entityManager->flush($user);
-                $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueID, $walletBefore);
-                $this->transactionService->storeTransaction(TransactionType::DEPOSIT,$dataTransaction);
+                if (!$order->getHasSubscription()) {
+                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueID, $walletBefore);
+                    $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
+                }
+
             } catch (\Exception $e) {
 
             }
@@ -127,6 +132,30 @@ class WalletService
     {
         try {
             $user->pay($playConfig->getSinglePrice());
+            $this->entityManager->flush($user);
+        } catch ( \Exception $e ) {
+            //EMTD Log and warn the admin
+        }
+    }
+
+    public function payWithSubscription(User $user, PlayConfig $playConfig, $transactionType = null)
+    {
+        try {
+//            $dataTransaction = [
+//                'lottery_id'           => 1,
+//                'numBets'              => count($user->getPlayConfig()),
+//                'transactionID'        => $this->getUniqueTransactionId();
+//                'amountWithWallet'     => 0,
+//                'amountWithCreditCard' => $creditCardCharge->getFinalAmount()->getAmount(),
+//                'user'                 => $user,
+//                'walletBefore'         => $walletBefore,
+//                'walletAfter'          => $user->getWallet(),
+//                'now'                  => new \DateTime()
+//            ];
+            $user->pay($playConfig->getSinglePrice());
+            
+            $this->transactionService->storeTransaction($transactionType, $dataTransaction);
+//            $user->removeSubscriptionWallet($playConfig->getSinglePrice());
             $this->entityManager->flush($user);
         } catch ( \Exception $e ) {
             //EMTD Log and warn the admin

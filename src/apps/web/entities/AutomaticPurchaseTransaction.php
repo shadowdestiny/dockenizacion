@@ -33,4 +33,13 @@ class AutomaticPurchaseTransaction extends PurchaseTransaction implements ITrans
         return $this;
     }
 
+    public function setSubscriptionWalletBefore()
+    {
+
+    }
+
+    public function setSubscriptionWalletAfter()
+    {
+
+    }
 }

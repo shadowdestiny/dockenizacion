@@ -151,7 +151,7 @@ class PlayService
                         $this->cardPaymentProvider->user($user);
                         $uniqueId = $this->walletService->getUniqueTransactionId();
                         $this->cardPaymentProvider->idTransaction = $uniqueId;
-                        $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider,$credit_card, $user, $order->getCreditCardCharge(),$uniqueId);
+                        $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider,$credit_card, $user, $uniqueId, $order);
                     } else {
                         $result_payment = new ActionResult(true,$order);
                     }
@@ -199,11 +199,18 @@ class PlayService
                             'amountWithWallet' => $lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount(),
                             'walletBefore' => $walletBefore,
                             'amountWithCreditCard' => 0,
-                            'playConfigs' => array_map(function($val){return $val->getId();}, $order->getPlayConfig()),
+                            'playConfigs' => array_map(function ($val) {
+                                return $val->getId();
+                            }, $order->getPlayConfig()),
                             'discount' => $discount,
-                        ];
 
-                        $this->walletService->purchaseTransactionGrouped($user,TransactionType::TICKET_PURCHASE,$dataTransaction);
+                        ];
+                        if ($order->getHasSubscription()) {
+                            $this->walletService->purchaseTransactionGrouped($user,TransactionType::SUBSCRIPTION_PURCHASE,$dataTransaction);
+                        } else {
+                            $this->walletService->purchaseTransactionGrouped($user,TransactionType::TICKET_PURCHASE,$dataTransaction);
+                        }
+//die();
                         $this->sendEmailPurchase($user,$order->getPlayConfig());
                         return new ActionResult(true,$order);
                     } else {

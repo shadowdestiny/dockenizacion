@@ -12,6 +12,7 @@
         <discriminator-column name="entity_type" type="string" />
         <discriminator-map>
             <discriminator-mapping value="ticket_purchase" class="EuroMillions\web\entities\TicketPurchaseTransaction" />
+            <discriminator-mapping value="subscription_purchase" class="EuroMillions\web\entities\SubscriptionPurchaseTransaction" />
             <discriminator-mapping value="automatic_purchase" class="EuroMillions\web\entities\AutomaticPurchaseTransaction" />
             <discriminator-mapping value="funds_added" class="EuroMillions\web\entities\FundsAddedTransaction" />
             <discriminator-mapping value="winnings_received" class="EuroMillions\web\entities\WinningsReceivedTransaction" />

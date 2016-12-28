@@ -44,6 +44,8 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
     /** @var Discount */
     protected $discount;
 
+    protected $hasDiscount;
+
     public function __construct()
     {
         $this->bet = new ArrayCollection();
@@ -239,6 +241,22 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
     public function getDiscount()
     {
         return $this->discount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHasDiscount()
+    {
+        return $this->discount > 1;
+    }
+
+    /**
+     * @param mixed $hasDiscount
+     */
+    public function setHasDiscount($hasDiscount)
+    {
+        $this->hasDiscount = $hasDiscount;
     }
 
     /**
