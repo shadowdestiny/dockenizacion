@@ -2,4 +2,4 @@
 dependencies:
   - T2L.composer
   - martinmicunda.nodejs
-  - angstwad.docker_ubuntu
+  - docker.ubuntu
