@@ -244,16 +244,19 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
     /**
      * @param Discount $discount
      */
-    public function setDiscount($discount)
+    public function setDiscount(Discount $discount)
     {
         $this->discount = $discount;
     }
 
     public function getSinglePrice()
     {
-
-        $discount = ($this->getDiscount()->getValue() / 100) +1;
-        $amount = new Money((int)(($this->numBets() * ($this->getLottery()->getSingleBetPrice()->getAmount())) / $discount), new Currency('EUR'));
+        if (is_null($this->getDiscount())) {
+            $discount = 1;
+        } else {
+            $discount = ($this->getDiscount()->getValue() / 100) +1;
+        }
+        $amount = new Money((int)round(($this->numBets() * ($this->getLottery()->getSingleBetPrice()->getAmount())) / $discount), new Currency('EUR'));
         return $amount;
     }
 

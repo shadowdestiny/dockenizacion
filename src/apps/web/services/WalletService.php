@@ -126,7 +126,7 @@ class WalletService
     public function payWithWallet(User $user, PlayConfig $playConfig )
     {
         try {
-            $user->pay($playConfig->getLottery()->getSingleBetPrice());
+            $user->pay($playConfig->getSinglePrice());
             $this->entityManager->flush($user);
         } catch ( \Exception $e ) {
             //EMTD Log and warn the admin

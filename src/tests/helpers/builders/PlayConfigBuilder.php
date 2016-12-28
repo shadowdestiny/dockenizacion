@@ -96,6 +96,12 @@ class PlayConfigBuilder
         return $this;
     }
 
+    public function withLottery($lottery)
+    {
+        $this->lottery = $this->getLottery($lottery);
+        return $this;
+    }
+
     private function getLine()
     {
         $reg = self::REGULAR_NUMBERS;
@@ -103,11 +109,14 @@ class PlayConfigBuilder
         return $this->createLineFromArrays($reg, $luck);
     }
 
-    private function getLottery()
+    private function getLottery($lotteryId = null)
     {
+        if (is_null($lotteryId)) {
+            $lotteryId = 1;
+        }
         $lottery = new Lottery();
         $lottery->initialize([
-            'id'        => 1,
+            'id'        => $lotteryId,
             'name'      => 'EuroMillions',
             'active'    => 1,
             'frequency' => 'w0100100',

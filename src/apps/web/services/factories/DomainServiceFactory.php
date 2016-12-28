@@ -224,4 +224,5 @@ class DomainServiceFactory
     {
         return $this->serviceFactory;
     }
+
 }

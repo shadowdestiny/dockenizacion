@@ -44,6 +44,10 @@ class PlayConfigCollectionDTO extends DTOBase implements IDto
 
     public $single_bet_price_converted;
 
+    public $singleBetPriceWithDiscount;
+
+    public $singleBetPriceWithDiscountConverted;
+
     public $frequency;
 
     public $numPlayConfigs;
@@ -74,6 +78,7 @@ class PlayConfigCollectionDTO extends DTOBase implements IDto
         $this->frequency = $this->playConfig[0]->getFrequency();
         $this->user = $this->playConfig[0]->getUser();
         $this->wallet_balance_user = $this->playConfig[0]->getUser()->getBalance();
+        $this->singleBetPriceWithDiscount = $this->playConfig[0]->getSinglePrice();
         $result_total = count($this->playConfig) * ($this->single_bet_price->getAmount()) * $this->playConfig[0]->getFrequency();
         $this->play_config_total_amount = new Money((int) str_replace('.','',$result_total), new Currency('EUR')) ;
     }

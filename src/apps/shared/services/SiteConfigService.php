@@ -86,22 +86,6 @@ class SiteConfigService
     }
 
     /**
-     * @return SiteConfigDTO
-     */
-    public function retrieveEuromillionsBundlePrice()
-    {
-        $arraySiteConfigParams = $this->prepareSiteConfigParams(new MoneyCurrency('EUR'), 'en_EN');
-        return new SiteConfigDTO(
-            $arraySiteConfigParams['amountFeeToLimit'],
-            $arraySiteConfigParams['amountFee'],
-            $arraySiteConfigParams['feeToLimitConvert']->getAmount(),
-            $arraySiteConfigParams['feeConvert']->getAmount(),
-            $this->configEntity->retrieveEuromillionsBundlePrice()
-        );
-    }
-
-
-    /**
      * @param MoneyCurrency $user_currency
      * @param string $locale
      * @param Money $value

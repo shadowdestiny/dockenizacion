@@ -57,14 +57,6 @@ class SiteConfig extends EntityBase
         $this->fee_to_limit = $fee_to_limit;
     }
 
-    public function retrieveEuromillionsBundlePrice() {
-        return [
-            ['draws' => '1', 'description' => '1 Draw', 'price_description' => 'Line', 'price' => '3', 'discount' => 0, 'checked' => 'active'],
-            ['draws' => '4', 'description' => '4 Draws', 'price_description' => 'Line', 'price' => '3', 'discount' => 0, 'checked' => ''],
-            ['draws' => '8', 'description' => '8 Draws', 'price_description' => 'Month', 'price' => '24', 'discount' => 0, 'checked' => ''],
-            ['draws' => '24', 'description' => '24 Draws', 'price_description' => 'Month', 'price' => '24', 'discount' => 1.25, 'checked' => ''],
-            ['draws' => '48', 'description' => '48 Draws', 'price_description' => 'Month', 'price' => '24', 'discount' => 4.5, 'checked' => ''],
-        ];
-    }
+
 
 }

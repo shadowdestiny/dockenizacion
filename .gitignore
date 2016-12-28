@@ -42,3 +42,17 @@ ansible/roles/external/*
 /src/angular-admin/node_modules
 /src/angular-admin/typings
 /src/angular-admin/npm-debug.log*
+/src/data/geoipdatabase/GeoIP.dat
+/src/data/geoipdatabase/GeoIPv6.dat
+/src/public/a/js/angular-admin/app/app.component.js.map
+/src/public/a/js/angular-admin/app/components/add-language.component.js.map
+/src/public/a/js/angular-admin/app/components/contacto.component.js.map
+/src/public/a/js/angular-admin/app/components/edit-language.component.js.map
+/src/public/a/js/angular-admin/app/components/list-language.component.js.map
+/src/public/a/js/angular-admin/app/components/list-translation.component.js.map
+/src/public/a/js/angular-admin/app/config/config.js.map
+/src/public/a/js/angular-admin/app/main.js.map
+/src/public/a/js/angular-admin/app/model/language.js.map
+/src/public/a/js/angular-admin/app/services/auth.service.js.map
+/src/public/a/js/angular-admin/app/services/language.service.js.map
+/src/public/a/js/angular-admin/app/services/translation.service.js.map

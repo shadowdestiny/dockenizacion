@@ -12,6 +12,7 @@ use EuroMillions\web\entities\PlayConfig;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IPlayStorageStrategy;
 use EuroMillions\web\repositories\LotteryRepository;
+use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\vo\Discount;
 use EuroMillions\web\vo\Order;
 use Money\Currency;
@@ -32,12 +33,16 @@ class CartService
     /** @var SiteConfigService $siteConfigService */
     private $siteConfigService;
 
+    /** @var PlayConfigRepository $playConfigRepository */
+    private $playConfigRepository;
+
     public function __construct( EntityManager $entityManager, IPlayStorageStrategy $orderStorageStrategy, SiteConfigService $siteConfigService )
     {
         $this->entityManager = $entityManager;
         $this->orderStorageStrategy = $orderStorageStrategy;
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
         $this->lotteryRepository = $entityManager->getRepository('EuroMillions\web\entities\Lottery');
+        $this->playConfigRepository = $entityManager->getRepository('EuroMillions\web\entities\PlayConfig');
         $this->siteConfigService = $siteConfigService;
     }
 
@@ -79,7 +84,11 @@ class CartService
                     }
                     $fee = $this->siteConfigService->getFee();
                     $fee_limit = $this->siteConfigService->getFeeToLimitValue();
-                    $order = new Order($bets,$lottery->getSingleBetPrice(), $fee, $fee_limit, new Discount($bets[0]->getFrequency(), $this->siteConfigService->retrieveEuromillionsBundlePrice()->bundleData));
+                    $order = new Order($bets,
+                                       $lottery->getSingleBetPrice(),
+                                       $fee, $fee_limit,
+                                       new Discount($bets[0]->getFrequency(), $this->playConfigRepository->retrieveEuromillionsBundlePrice()));
+
                     if( null !== $order ) {
                         return new ActionResult(true, $order);
                     }

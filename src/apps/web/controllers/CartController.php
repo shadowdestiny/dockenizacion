@@ -244,7 +244,7 @@ class CartController extends PublicSiteControllerBase
         $fee_to_limit_value = $this->siteConfigService->getFeeToLimitValueWithCurrencyConverted($user_currency);
         $single_bet_price = $this->domainServiceFactory->getLotteryService()->getSingleBetPriceByLottery('EuroMillions');
         $user = $this->authService->getCurrentUser();
-        $discount = new Discount($result->returnValues()[0]->getFrequency(), $this->siteConfigService->retrieveEuromillionsBundlePrice()->bundleData);
+        $discount = new Discount($result->returnValues()[0]->getFrequency(), $this->domainServiceFactory->getPlayService()->getBundleDataAsArray());
         if ($orderView) {
             $order = new Order($result->returnValues(), $single_bet_price, $fee_value, $fee_to_limit_value, $discount); // order created
             $order_eur = new Order($result->returnValues(), $single_bet_price, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue(), $discount); //workaround for new payment gateway
@@ -256,8 +256,9 @@ class CartController extends PublicSiteControllerBase
         $wallet_balance = $this->currencyConversionService->convert($play_config_dto->wallet_balance_user, $user_currency);
         $checked_wallet = ($wallet_balance->getAmount() && !$this->request->isPost()) > 0 ? true : false;
         $play_config_dto->single_bet_price_converted = $this->currencyConversionService->convert($play_config_dto->single_bet_price, $user_currency);
+        $play_config_dto->singleBetPriceWithDiscountConverted = $this->currencyConversionService->convert($play_config_dto->singleBetPriceWithDiscount, $user_currency);
         //convert to user currency
-        $total_price = $this->currencyConversionService->convert($order->getTotal(), $user_currency)->getAmount();
+        $total_price = ($this->currencyConversionService->convert($play_config_dto->singleBetPriceWithDiscount, $user_currency)->getAmount() * $play_config_dto->numPlayConfigs) * $play_config_dto->frequency;
         $symbol_position = $this->currencyConversionService->getSymbolPosition($locale, $user_currency);
         $currency_symbol = $this->currencyConversionService->getSymbol($wallet_balance, $locale);
         $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user_currency);
@@ -277,8 +278,10 @@ class CartController extends PublicSiteControllerBase
             'total_price' => $total_price / 100,
             'form_errors' => $formErrors,
             'ratio' => $ratio,
+            'singleBetPriceWithDiscount' => $play_config_dto->singleBetPriceWithDiscount->getAmount(),
             'fee_limit' => $fee_to_limit_value->getAmount() / 100,
             'fee' => $fee_value->getAmount() / 100,
+            'discount' => $discount->getValue(),
             'currency_symbol' => $currency_symbol,
             'symbol_position' => ($symbol_position === 0) ? false : true,
             'message' => (!empty($msg)) ? $msg : '',

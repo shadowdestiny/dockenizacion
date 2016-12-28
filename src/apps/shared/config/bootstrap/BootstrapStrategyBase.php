@@ -42,7 +42,9 @@ abstract class BootstrapStrategyBase
         }
         $config = $this->configConfig($environment_detector);
         $di->set('crypt', $this->configCrypt(), true);
-        $di->set('configPath', function() {return $this->configPath;}, true);
+        $di->set('configPath', function () {
+            return $this->configPath;
+        }, true);
         $di->set('environmentDetector', $environment_detector);
         $di->set('config', $config, true);
         $redis = $this->configRedis($config);
@@ -50,10 +52,11 @@ abstract class BootstrapStrategyBase
         $di->set('entityManager', $this->configDoctrine($config, $redis), true);
         $di->set('paymentProviderFactory', $this->configPaymentProvider($di), true);
         $di->set('domainServiceFactory', $this->setDomainServiceFactory($di), true);
-        $di->set('domainAdminServiceFactory', $this->setDomainAdminServiceFactory($di),true);
-       
+        $di->set('domainAdminServiceFactory', $this->setDomainAdminServiceFactory($di), true);
+
         return $di;
     }
+
     private function setDomainServiceFactory($di)
     {
         return new DomainServiceFactory($di, new ServiceFactory($di));
@@ -98,12 +101,12 @@ abstract class BootstrapStrategyBase
         $redis_cache->setNamespace('result_');
         $config->setResultCacheImpl($redis_cache);
         $conn = [
-            'host'     => $appConfig['database']['host'],
-            'driver'   => 'pdo_mysql',
-            'user'     => $appConfig['database']['username'],
+            'host' => $appConfig['database']['host'],
+            'driver' => 'pdo_mysql',
+            'user' => $appConfig['database']['username'],
             'password' => $appConfig['database']['password'],
-            'dbname'   => $appConfig['database']['dbname'],
-            'charset'  => 'utf8'
+            'dbname' => $appConfig['database']['dbname'],
+            'charset' => 'utf8'
         ];
         $em = EntityManager::create($conn, $config);
         if (!Type::hasType('uuid')) {
@@ -120,20 +123,26 @@ abstract class BootstrapStrategyBase
         return new EnvironmentDetector();
     }
 
-    protected function configConfig(EnvironmentDetector $em) {
-        return new Ini($this->configPath.$this->getConfigFileName($em));
+    protected function configConfig(EnvironmentDetector $em)
+    {
+        return new Ini($this->configPath . $this->getConfigFileName($em));
     }
 
     protected function configPaymentProvider(Di $di)
     {
         $paymentProviderFactory = new PaymentProviderFactory();
+        //Gets payment gateway from config.ini
         $paymentGatewayLoader = $di->get('config')['payment_gateway'];
-        foreach(explode(',',$paymentGatewayLoader->class_strategy) as $k => $class_strategy ) {
-           $class = "\\EuroMillions\\web\\services\\card_payment_providers\\".$class_strategy;
+        foreach (explode(',', $paymentGatewayLoader->class_strategy) as $k => $class_strategy) {
+            $class = "\\EuroMillions\\web\\services\\card_payment_providers\\" . $class_strategy;
             new $class;
         }
-        $configPayments = explode(',',$paymentGatewayLoader->config);
-        $paymentInstance = new RandomStrategy(new PaymentsRegistry($configPayments));
+        $configPayments = explode(',', $paymentGatewayLoader->config);
+        $paymentStrategy = $di->get('config')['payment_balancing'];
+
+        $paymentStrategy = "\\EuroMillions\\web\\services\\card_payment_providers\\pgwlb\\" . $paymentStrategy->strategy . 'Strategy';
+        $paymentInstance = new $paymentStrategy(new PaymentsRegistry($configPayments));
+
         return $paymentProviderFactory->getCreditCardPaymentProvider($paymentInstance->getInstance());
     }
 

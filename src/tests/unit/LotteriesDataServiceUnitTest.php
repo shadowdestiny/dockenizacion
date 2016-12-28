@@ -218,14 +218,7 @@ class LotteriesDataServiceUnitTest extends UnitTestBase
         $playConfig = new PlayConfig();
         $discount = new Discount(0, []);
         if ($frequency) {
-            $discount = new Discount(48, [new BundlePlayDTO(
-                48,
-                '',
-                '',
-                24,
-                4.50,
-                'active'
-            )]);
+            $discount = new Discount(48, [['draws' => '48', 'description' => '48 Draws', 'price_description' => 'Month', 'price' => '24', 'discount' => 4.5, 'checked' => '']]);
         }
         $playConfig->initialize([
                 'lottery' => $lottery,

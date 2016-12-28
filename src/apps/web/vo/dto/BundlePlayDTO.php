@@ -2,31 +2,47 @@
 
 namespace EuroMillions\web\vo\dto;
 
+use Money\Currency;
+use Money\Money;
+
 class BundlePlayDTO implements \JsonSerializable
 {
+    public $arrayBundleData;
     public $draws;
     public $description;
     public $priceDescription;
     public $price;
     public $discount;
     public $active;
+    public $singleBetPrice;
+    public $singleBetPriceWithDiscount;
+    public $singleBetPriceWithDiscountConversionCurrrency;
 
     /**
-     * @param integer $draws
-     * @param string $description
-     * @param string $priceDescription
-     * @param integer $price
-     * @param float $discount
-     * @param string $active
+     * @param array $arrayBundleData
+     * @param Money $singleBetPrice
      */
-    public function __construct($draws, $description, $priceDescription, $price, $discount, $active)
+    public function __construct(array $arrayBundleData, Money $singleBetPrice)
     {
-        $this->draws = $draws;
-        $this->description = $description;
-        $this->priceDescription = $priceDescription;
-        $this->price = $price;
-        $this->discount = $discount;
-        $this->active = $active;
+        $this->arrayBundleData = $arrayBundleData;
+        $this->draws = $arrayBundleData['draws'];
+        $this->description = $arrayBundleData['description'];
+        $this->priceDescription = $arrayBundleData['price_description'];
+        $this->price = $arrayBundleData['price'];
+        $this->discount = $arrayBundleData['discount'];
+        $this->active = $arrayBundleData['checked'];
+        $this->singleBetPrice = $singleBetPrice;
+        $this->singleBetPriceWithDiscount = $this->getSingleBetPriceWithDiscount($singleBetPrice, $arrayBundleData['discount']);
+    }
+
+    /**
+     * @param $singleBetPrice
+     * @param $discount
+     *
+     * @return Money
+     */
+    private function getSingleBetPriceWithDiscount(Money $singleBetPrice, $discount){
+        return new Money((int) round($singleBetPrice->getAmount() / (($discount / 100) +1)), new Currency('EUR'));
     }
 
     /**
@@ -142,6 +158,24 @@ class BundlePlayDTO implements \JsonSerializable
             'price' => $this->getPrice(),
             'discount' => $this->getDiscount(),
             'checked' => $this->getActive(),
+            'singleBetPrice' => $this->singleBetPrice->getAmount(),
+            'singleBetPriceWithDiscount' => $this->singleBetPriceWithDiscount->getAmount(),
         ];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSingleBetPriceWithDiscountConversionCurrrency()
+    {
+        return $this->singleBetPriceWithDiscountConversionCurrrency;
+    }
+
+    /**
+     * @param mixed $singleBetPriceWithDiscountConversionCurrrency
+     */
+    public function setSingleBetPriceWithDiscountConversionCurrrency($singleBetPriceWithDiscountConversionCurrrency)
+    {
+        $this->singleBetPriceWithDiscountConversionCurrrency = $singleBetPriceWithDiscountConversionCurrrency;
     }
 }

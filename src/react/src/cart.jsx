@@ -91,9 +91,6 @@ var CartPage = new React.createClass({
     handlePreTotal : function (value)
     {
         this.state.pre_total = parseFloat(value * this.props.single_bet_price * this.state.playConfigList.bets.length).toFixed(2);
-        //console.log(PreTotal.getPreTotal(total));
-        //this.state.pre_total = PreTotal.getPreTotal(total);
-        //this.state.pre_total = PreTotal.getPreTotal(accounting.formatMoney((value * this.props.single_bet_price * this.state.playConfigList.bets.length), ' ' + this.props.currency_symbol, 2));
     },
 
     handleClickAdd : function (value)
@@ -231,17 +228,12 @@ var CartPage = new React.createClass({
 
         return (
             <div>
-                <div className="box-top cl">
-                    <h2 className="h4 sub-txt">Order Summary</h2>
-                </div>
-                <div className="box-order">
-                    <EmResumeOrder config={this.props.config} draw_days={this.props.draw_days} href={href_payment}
-                                   databtn={data_btn} price={price_txt_btn} classBtn={class_button_payment}
-                                   text={txt_button_payment} config={this.props.config} playConfig={_playConfigList}
-                                   pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration}
-                                   pricetopay={this.state.total} funds={Funds.funds_value}
-                                   total_price={this.state.total}/>
-                </div>
+                <EmResumeOrder draw_days={this.props.draw_days} href={href_payment}
+                               databtn={data_btn} price={price_txt_btn} classBtn={class_button_payment}
+                               text={txt_button_payment} config={this.props.config} playConfig={_playConfigList}
+                               pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration}
+                               pricetopay={this.state.total} funds={Funds.funds_value}
+                               total_price={this.state.total}/>
                 <div className="box-order">
                     {_euroMillionsLine}
                     <EmLineOrderConfig config={this.props.config} playConfig={_playConfigList}
@@ -335,7 +327,7 @@ var LogicCart = {
         if( accounting.unformat(LogicCart.fee_limit)  > accounting.unformat(LogicCart.total)) {
             LogicCart.pre_total = Funds.getTotalWhenFundsAreInserted(pre_total);
             LogicCart.total = Funds.getTotalWhenFundsAreInserted(LogicCart.total);
-            if( accounting.unformat(LogicCart.total) < accounting.unformat(LogicCart.fee_limit) ) {
+            if( accounting.unformat(LogicCart.pre_total) < accounting.unformat(LogicCart.fee_limit) ) {
                 LogicCart.pre_total = Fee.getTotalWithFee(LogicCart.pre_total);
                 LogicCart.total = Fee.getTotalWithFee(LogicCart.total);
                 LogicCart.show_all_fee = true;
@@ -409,8 +401,20 @@ var Fee = {
     }
 };
 
-ReactDOM.render(<CartPage config={config} total={total_price} config={config} checked_wallet={checked_wallet} symbol_position={symbol_position} draw_days={draw_days} price_below_fee={price_below_fee} fee_charge={fee_charge} currency_symbol={currency_symbol} play_list={play_list} wallet_balance={wallet_balance} single_bet_price={single_bet_price} show_fee_line={show_fee_line}/>,
-    document.getElementById('cart-order'));
+ReactDOM.render(<CartPage total={total_price}
+                          config={config}
+                          checked_wallet={checked_wallet}
+                          symbol_position={symbol_position}
+                          draw_days={draw_days}
+                          price_below_fee={price_below_fee}
+                          fee_charge={fee_charge}
+                          currency_symbol={currency_symbol}
+                          play_list={play_list}
+                          wallet_balance={wallet_balance}
+                          single_bet_price={single_bet_price}
+                          show_fee_line={show_fee_line}
+                          discount={discount}
+                />, document.getElementById('cart-order'));
 
 
 

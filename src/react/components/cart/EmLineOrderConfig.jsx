@@ -60,6 +60,7 @@ var EmLineOrderConfig = new React.createClass({
             text_weeks = 'Tuesday & Friday, since ' + date_since + ' for ' + num_weeks + ' weeks';
         }
 
+        return null;
         if(draw_days == 1 && num_weeks == 1) {
             return (
                 <div className="row cl">
