@@ -29,7 +29,10 @@ class LastDrawDate
             if($this->frequency == 1){
                 $tmpLast = strtotime($this->startDrawDate);
             }else{
-                $tmpLast = strtotime('+'.$this->frequency.'week',strtotime($this->startDrawDate));
+                $weeks = $this->frequency / 2;
+                $tmp = strtotime('+'.$weeks.'week',strtotime($this->startDrawDate));
+                $dayName = date('w',$tmp) == 2 ? 'Friday' : 'Tuesday';
+                $tmpLast = strtotime('last '.$dayName,$tmp);
             }
             $dateTimeLast->setTimestamp($tmpLast);
             return $dateTimeLast->format('Y-m-d H:i:s');
