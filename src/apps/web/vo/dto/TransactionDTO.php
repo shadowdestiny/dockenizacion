@@ -7,6 +7,7 @@ namespace EuroMillions\web\vo\dto;
 use EuroMillions\web\entities\AutomaticPurchaseTransaction;
 use EuroMillions\web\entities\BigWinTransaction;
 use EuroMillions\web\entities\DepositTransaction;
+use EuroMillions\web\entities\SubscriptionPurchaseTransaction;
 use EuroMillions\web\entities\TicketPurchaseTransaction;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\entities\WinningsReceivedTransaction;
@@ -66,6 +67,9 @@ class TransactionDTO extends DTOBase implements IDto
         }
         if($transactionType instanceof WinningsReceivedTransaction ) {
             return 'Winnings Received';
+        }
+        if($transactionType instanceof SubscriptionPurchaseTransaction ) {
+            return 'Subscription Deposit';
         }
 
     }

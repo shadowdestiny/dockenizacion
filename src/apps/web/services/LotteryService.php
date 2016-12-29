@@ -272,7 +272,7 @@ class LotteryService
                         foreach( $playconfigsFilteredToArray as $playConfig ) {
                             $result = $this->betService->validation($playConfig, $euroMillionsDraw, $nextDrawDate);
                             if($result->success()) {
-                                $this->walletService->payWithSubscription($user,$playConfig,TransactionType::AUTOMATIC_PURCHASE,$dataTransaction);
+                                $this->walletService->payWithSubscription($user,$playConfig,TransactionType::AUTOMATIC_PURCHASE);
                             }
                         }
                     } else {

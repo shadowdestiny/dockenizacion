@@ -176,7 +176,11 @@ class PlayService
                                 if(!$result_validation->success()) {
                                     return new ActionResult(false, $result_validation->errorMessage());
                                 }
-                                $this->walletService->payWithWallet($user,$play_config);
+                                if ($order->getHasSubscription()) {
+                                    $this->walletService->payWithSubscription($user,$play_config);
+                                } else {
+                                    $this->walletService->payWithWallet($user,$play_config);
+                                }
                             }
                             $numPlayConfigs = count($order->getPlayConfig());
                         } else {
@@ -190,7 +194,6 @@ class PlayService
                             $this->walletService->payGroupedBetsWithWallet($user,$playConfigs[0]->getLottery()->getSingleBetPrice()->multiply(count($playConfigs)));
                             $numPlayConfigs = count($playConfigs);
                         }
-
                         $dataTransaction = [
                             'lottery_id' => 1,
                             'transactionID' => $uniqueId,
@@ -203,14 +206,8 @@ class PlayService
                                 return $val->getId();
                             }, $order->getPlayConfig()),
                             'discount' => $discount,
-
                         ];
-                        if ($order->getHasSubscription()) {
-                            $this->walletService->purchaseTransactionGrouped($user,TransactionType::SUBSCRIPTION_PURCHASE,$dataTransaction);
-                        } else {
-                            $this->walletService->purchaseTransactionGrouped($user,TransactionType::TICKET_PURCHASE,$dataTransaction);
-                        }
-//die();
+                        $this->walletService->purchaseTransactionGrouped($user,TransactionType::TICKET_PURCHASE,$dataTransaction);
                         $this->sendEmailPurchase($user,$order->getPlayConfig());
                         return new ActionResult(true,$order);
                     } else {
@@ -220,7 +217,7 @@ class PlayService
                     //error
                 }
             } catch ( \Exception $e ) {
-
+                var_dump($e);die();
             }
         }
         return new ActionResult(false);

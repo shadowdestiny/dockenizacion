@@ -12,12 +12,15 @@ class Wallet implements IArraySerializable
 {
     private $uploaded;
     private $winnings;
+    private $subscription;
+
     CONST MIN_AMOUNT_TO_WITHDRAW = 2500;
 
-    public function __construct(Money $uploaded = null, Money $winnings = null)
+    public function __construct(Money $uploaded = null, Money $winnings = null, Money $subscription = null)
     {
         $this->uploaded = $this->initializeAmount($uploaded);
         $this->winnings = $this->initializeAmount($winnings);
+        $this->subscription = $this->initializeAmount($subscription);
     }
 
     /**
@@ -66,6 +69,17 @@ class Wallet implements IArraySerializable
         } else {
             return new self($this->uploaded->subtract($amount), $this->winnings);
         }
+    }
+
+    //EMTD @etey o @benair3 crear TEST!!!!!
+    public function payWithSubscription(Money $amount)
+    {
+        return new self($this->uploaded, $this->winnings,$this->subscription->subtract($amount));
+    }
+
+    public function uploadToSubscription(Money $amount)
+    {
+        return new self($this->uploaded,$this->winnings,$this->subscription->add($amount));
     }
 
     public function withdraw(Money $amount)
@@ -133,6 +147,14 @@ class Wallet implements IArraySerializable
     public function getWinnings()
     {
         return $this->winnings;
+    }
+
+    /**
+     * @return Money
+     */
+    public function getSubscription()
+    {
+        return $this->subscription;
     }
 
 }

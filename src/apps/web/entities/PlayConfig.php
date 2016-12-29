@@ -248,7 +248,7 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
      */
     public function getHasDiscount()
     {
-        return $this->discount > 1;
+        return $this->discount->getValue() > 1;
     }
 
     /**

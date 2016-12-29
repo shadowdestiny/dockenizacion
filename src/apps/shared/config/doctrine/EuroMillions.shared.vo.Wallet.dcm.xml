@@ -8,5 +8,6 @@
     <embeddable name="EuroMillions\shared\vo\Wallet">
         <embedded name="uploaded" class="Money\Money" use-column-prefix="true" />
         <embedded name="winnings" class="Money\Money" use-column-prefix="true" />
+        <embedded name="subscription" class="Money\Money" use-column-prefix="true" />
     </embeddable>
 </doctrine-mapping>

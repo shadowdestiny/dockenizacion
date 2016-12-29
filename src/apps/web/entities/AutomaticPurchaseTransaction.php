@@ -9,6 +9,7 @@ use EuroMillions\web\interfaces\ITransactionData;
 class AutomaticPurchaseTransaction extends PurchaseTransaction implements ITransactionData
 {
 
+
     public function __construct(array $data)
     {
         $this->setLotteryId($data['lottery_id']);
@@ -33,13 +34,5 @@ class AutomaticPurchaseTransaction extends PurchaseTransaction implements ITrans
         return $this;
     }
 
-    public function setSubscriptionWalletBefore()
-    {
 
-    }
-
-    public function setSubscriptionWalletAfter()
-    {
-
-    }
 }

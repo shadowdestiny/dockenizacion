@@ -39,8 +39,6 @@ class LastDrawDate
         }catch(\Exception $e){
             throw new InvalidArgumentException('Invalid date to calculate last date draw');
         }
-
-
     }
 
 }

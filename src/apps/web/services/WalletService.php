@@ -74,16 +74,19 @@ class WalletService
         $creditCardCharge = $order->getCreditCardCharge();
         $payment_result = $this->pay($provider, $card, $creditCardCharge);
         if ($payment_result->success()) {
-            $walletBefore = $user->getWallet();
-            $user->reChargeWallet($creditCardCharge->getNetAmount());
             try {
-                $this->entityManager->persist($user);
-                $this->entityManager->flush($user);
+                $walletBefore = $user->getWallet();
                 if (!$order->getHasSubscription()) {
+                    $user->reChargeWallet($creditCardCharge->getNetAmount());
                     $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueID, $walletBefore);
                     $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
+                } else {
+                    $user->reChargeSubscriptionWallet($creditCardCharge->getNetAmount());
+                    $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueID, $walletBefore);
+                    $this->transactionService->storeTransaction(TransactionType::SUBSCRIPTION_PURCHASE, $dataTransaction);
                 }
-
+                $this->entityManager->persist($user);
+                $this->entityManager->flush($user);
             } catch (\Exception $e) {
 
             }
@@ -138,24 +141,12 @@ class WalletService
         }
     }
 
-    public function payWithSubscription(User $user, PlayConfig $playConfig, $transactionType = null)
+
+    //EMTD TEST!!
+    public function payWithSubscription(User $user, PlayConfig $playConfig)
     {
         try {
-//            $dataTransaction = [
-//                'lottery_id'           => 1,
-//                'numBets'              => count($user->getPlayConfig()),
-//                'transactionID'        => $this->getUniqueTransactionId();
-//                'amountWithWallet'     => 0,
-//                'amountWithCreditCard' => $creditCardCharge->getFinalAmount()->getAmount(),
-//                'user'                 => $user,
-//                'walletBefore'         => $walletBefore,
-//                'walletAfter'          => $user->getWallet(),
-//                'now'                  => new \DateTime()
-//            ];
-            $user->pay($playConfig->getSinglePrice());
-            
-            $this->transactionService->storeTransaction($transactionType, $dataTransaction);
-//            $user->removeSubscriptionWallet($playConfig->getSinglePrice());
+            $user->removeSubscriptionWallet($playConfig->getSinglePrice());
             $this->entityManager->flush($user);
         } catch ( \Exception $e ) {
             //EMTD Log and warn the admin
