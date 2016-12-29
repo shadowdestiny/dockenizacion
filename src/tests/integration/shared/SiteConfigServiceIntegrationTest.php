@@ -46,7 +46,7 @@ class SiteConfigServiceIntegrationTest extends DatabaseIntegrationTestBase
         $expected->initialize([
             'id' => 1,
             'fee' => new Money(35 ,new Currency('EUR')),
-            'fee_to_limit' => new Money(1200, new Currency('EUR')),
+            'fee_to_limit' => new Money(12000, new Currency('EUR')),
             'default_currency' => new Currency('EUR')
         ]);
 
