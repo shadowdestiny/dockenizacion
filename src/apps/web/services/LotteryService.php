@@ -264,15 +264,17 @@ class LotteryService
                     //EMTD get playconfigsFiltered as array
                     $playconfigsFilteredToArray = $playconfigsFiltered->toArray();
                     $price = $this->lotteriesDataService->getPriceForNextDraw($playconfigsFilteredToArray);
-                    if( $price->getAmount() < $user->getBalance()->getAmount() ) {
+                    if( $user->getWallet()->getSubscription()->getAmount() > $price->getAmount() ) {
                         /** @var EuroMillionsDraw $euroMillionsDraw */
                         $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($dateNextDraw));
 
                         /** @var PlayConfig $playConfig */
                         foreach( $playconfigsFilteredToArray as $playConfig ) {
-                            $result = $this->betService->validation($playConfig, $euroMillionsDraw, $nextDrawDate);
-                            if($result->success()) {
-                                $this->walletService->payWithSubscription($user,$playConfig,TransactionType::AUTOMATIC_PURCHASE);
+                            if(empty($this->betService->obtainBetsWithAPlayConfigAndAEuromillionsDraw($playConfig,$euroMillionsDraw))) {
+                                $result = $this->betService->validation($playConfig, $euroMillionsDraw, $nextDrawDate);
+                                if($result->success()) {
+                                    $this->walletService->payWithSubscription($user,$playConfig,TransactionType::AUTOMATIC_PURCHASE);
+                                }
                             }
                         }
                     } else {

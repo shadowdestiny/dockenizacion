@@ -64,6 +64,19 @@ class BetRepositoryIntegrationTest extends DatabaseIntegrationTestBase
     }
 
     /**
+     * method getBetsByPlayConfigAndEuromillionsDraw
+     * when calledWithAPlayConfigAndEuromillionsDraw
+     * should returnProperResult
+     */
+    public function test_getBetsByPlayConfigAndEuromillionsDraw_returnProperResult()
+    {
+        $euroMillionsDraw = $this->entityManager->find($this->getEntitiesToArgument('EuroMillionsDraw'), 2);
+        $playConfig = $this->entityManager->find($this->getEntitiesToArgument('PlayConfig'), 1);
+        $actual = $this->sut->getBetsByPlayConfigAndEuromillionsDraw($playConfig,$euroMillionsDraw);
+        $this->assertCount(0,$actual);
+    }    
+
+    /**
      * method getBetsPlayedLastDraw
      * when calledWithADateLastDraw
      * should returnProperResult

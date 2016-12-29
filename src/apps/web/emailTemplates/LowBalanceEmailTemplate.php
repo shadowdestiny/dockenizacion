@@ -20,13 +20,13 @@ class LowBalanceEmailTemplate extends EmailTemplateDecorator
         $draw_day_format_two = $data['draw_day_format_two'];
 
         $vars = [
-            'template' => 'low-balance',
+            'template' => '1188463',
             'subject' => 'Low balance',
             'vars' =>
                 [
                     [
                         'name'    => 'jackpot',
-                        'content' => number_format((float) $jackpot->getAmount() / 100,2,".",",")
+                        'content' => $jackpot
                     ],
                     [
                         'name'    => 'draw_day_format_one',

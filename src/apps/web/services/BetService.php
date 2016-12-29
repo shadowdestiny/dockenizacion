@@ -139,6 +139,15 @@ class BetService
         }
     }
 
+    public function obtainBetsWithAPlayConfigAndAEuromillionsDraw( PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw )
+    {
+        try {
+            return $this->betRepository->getBetsByPlayConfigAndEuromillionsDraw($playConfig,$euroMillionsDraw);
+        } catch ( \Exception $e) {
+            return false;
+        }
+    }
+
     public function updatePlayConfigsToInactive(\DateTime $dateTime)
     {
         try {

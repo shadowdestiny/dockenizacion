@@ -267,6 +267,11 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
         $this->discount = $discount;
     }
 
+    public function hasBet()
+    {
+        return count($this->getBet()) > 0;
+    }
+
     public function getSinglePrice()
     {
         if (is_null($this->getDiscount())) {

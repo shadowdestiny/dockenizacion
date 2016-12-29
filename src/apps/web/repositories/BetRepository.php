@@ -5,6 +5,7 @@ namespace EuroMillions\web\repositories;
 
 
 use Doctrine\ORM\Query\ResultSetMapping;
+use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\PlayConfig;
 
 class BetRepository extends RepositoryBase
@@ -23,15 +24,18 @@ class BetRepository extends RepositoryBase
         return $result;
     }
 
-    public function getBetsByPlayConfig(PlayConfig $playConfig)
+    public function getBetsByPlayConfigAndEuromillionsDraw(PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw)
     {
         $result = $this->getEntityManager()
             ->createQuery(
                 'SELECT b'
                 . ' FROM ' . $this->getEntityName() . ' b INNER JOIN b.playConfig p'
-                . ' WHERE b.play_config = :play_config_id'
+                . ' WHERE b.playConfig = :play_config_id'
+                . ' AND b.euromillionsDraw = :euromillions_draw_id'
                 . ' GROUP BY p.user')
-            ->setParameters(['play_config_id' => $playConfig->getId()])
+            ->setParameters(['play_config_id' => $playConfig->getId(),
+                             'euromillions_draw_id' => $euroMillionsDraw->getId()
+            ])
             ->getResult();
 
         return $result;
