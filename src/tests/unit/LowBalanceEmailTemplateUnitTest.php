@@ -39,7 +39,7 @@ class LowBalanceEmailTemplateUnitTest extends UnitTestBase
         $emailTemplateDataStrategy_double = $this->getInterfaceWebDouble('IEmailTemplateDataStrategy');
         $emailTemplateDataStrategy_double->getData(Argument::type('EuroMillions\web\interfaces\IEmailTemplateDataStrategy'))->willReturn([]);
         $data = [
-            'jackpot_amount' => new Money(10000, new Currency('EUR')),
+            'jackpot_amount' => 100,
             'draw_day_format_one' => $next_draw_day->format('l'),
             'draw_day_format_two' => $next_draw_day->format('j F Y')
         ];
@@ -58,7 +58,7 @@ class LowBalanceEmailTemplateUnitTest extends UnitTestBase
         $draw_day_format_two = $next_draw_day->format('j F Y');
 
         $vars = [
-            'template' => 'low-balance',
+            'template' => '1188463',
             'subject' => 'Low balance',
             'vars' =>
                 [
