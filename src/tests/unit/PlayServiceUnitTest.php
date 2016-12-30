@@ -277,7 +277,6 @@ class PlayServiceUnitTest extends UnitTestBase
         $funds_amount_to_charged = new Money(2000, new Currency('EUR'));
         $order = OrderMother::aJustOrder()->build();
         $order->addFunds($funds_amount_to_charged);
-        $expected = new ActionResult(true, $order);
         $credit_card = CreditCardMother::aValidCreditCard();
         $this->exercisePlayWallet($user, $order, $credit_card,$draw_date);
         $this->betService_double->validation(Argument::any(), Argument::any(), Argument::any())->willReturn(new ActionResult(true));
@@ -290,7 +289,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
         $sut = $this->getSut();
         $actual = $sut->play($user->getId(), $funds_amount_to_charged, $credit_card);
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals(new ActionResult(true, $order), $actual);
     }
 
     /**
@@ -334,7 +333,6 @@ class PlayServiceUnitTest extends UnitTestBase
         $order = OrderMother::aJustOrder()->build();
         $credit_card = CreditCardMother::aValidCreditCard();
         $this->exercisePlayWallet($user, $order, $credit_card,$draw_date);
-        $expected = new ActionResult(true, $order);
         $sut = $this->getSut();
         $this->walletService_double->getUniqueTransactionId()->willReturn(1);
         $this->betService_double->validation(Argument::any(), Argument::any(),Argument::any())->willReturn(new ActionResult(true));
@@ -345,7 +343,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->walletService_double->purchaseTransactionGrouped($user,TransactionType::TICKET_PURCHASE,Argument::type('array'))->shouldBeCalled();
         $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
         $actual = $sut->play($user->getId(), null, $credit_card);
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals(new ActionResult(true, $order), $actual);
     }
 
 
@@ -361,7 +359,6 @@ class PlayServiceUnitTest extends UnitTestBase
         $order = OrderMother::aJustOrder()->build();
         $credit_card = CreditCardMother::aValidCreditCard();
         $this->exercisePlayWallet($user, $order, $credit_card,$draw_date);
-        $expected = new ActionResult(true, $order);
         $sut = $this->getSut();
         $this->walletService_double->getUniqueTransactionId()->willReturn(1);
         $this->betService_double->validation(Argument::any(), Argument::any(),Argument::any())->willReturn(new ActionResult(true));
@@ -371,7 +368,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->walletService_double->purchaseTransactionGrouped($user,TransactionType::TICKET_PURCHASE,Argument::type('array'))->shouldBeCalled();
         $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
         $actual = $sut->play($user->getId(), null, $credit_card);
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals(new ActionResult(true, $order), $actual);
 
     }
 
@@ -571,7 +568,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->userRepository_double->find(['id' => $user->getId()])->willReturn($user);
         $this->orderStorageStrategy_double->findByKey($user->getId())->willReturn($order->toJsonData());
         $this->cartService_double->get($user->getId())->willReturn(new ActionResult(true, $order));
-        $this->walletService_double->payWithCreditCard($this->card_payment_provider->reveal(), $credit_card, $user, $order->getCreditCardCharge(),1)->willReturn(new ActionResult(true));
+        $this->walletService_double->payWithCreditCard($this->card_payment_provider->reveal(), $credit_card, $user, 1, $order)->willReturn(new ActionResult(true));
         $this->lotteryService_double->getNextDrawByLottery('EuroMillions')->willReturn(new ActionResult(true, $euromillions_draw));
     }
 
