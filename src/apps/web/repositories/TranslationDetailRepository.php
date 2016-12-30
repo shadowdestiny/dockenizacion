@@ -16,6 +16,7 @@ class TranslationDetailRepository extends EntityRepository
             ->setParameters(['lang' => $language, 'key'=>$key])
             ->useResultCache(true)
             ->getResult();
+        //TODO: if empty return default language
         if ($result) {
             return $result[0]['value'];
         } else {
