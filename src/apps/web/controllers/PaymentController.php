@@ -20,7 +20,6 @@ class PaymentController extends CartController
 {
 
 
-
     public function paymentAction()
     {
         $credit_card_form = new CreditCardForm();
@@ -37,8 +36,8 @@ class PaymentController extends CartController
         $user_id = $this->authService->getCurrentUser()->getId();
         /** @var User $user */
         $user = $this->userService->getUser($user_id);
-        if( null == $user ) {
-            $this->response->redirect('/'.$this->lottery.'/cart/profile');
+        if (null == $user) {
+            $this->response->redirect('/' . $this->lottery . '/cart/profile');
             return false;
         }
         $result = $play_service->getPlaysFromTemporarilyStorage($user);
@@ -46,24 +45,24 @@ class PaymentController extends CartController
 
 
         $order_view = true;
-        if($this->request->isGet()) {
+        if ($this->request->isGet()) {
             $charge = $this->request->get('charge');
             $user = $this->userService->getUser($user_id);
-            if( null != $user && isset($charge) ){
+            if (null != $user && isset($charge)) {
                 try {
                     $card = null;
-                    $amount = new Money((int) $charge, new Currency('EUR'));
-                    $result = $play_service->play($user_id,$amount, $card,true);
+                    $amount = new Money((int)$charge, new Currency('EUR'));
+                    $result = $play_service->play($user_id, $amount, $card, true);
                     return $this->playResult($result);
-                } catch (\Exception $e ) {
+                } catch (\Exception $e) {
                     $errors[] = $e->getMessage();
                 }
             }
         }
 
-        if($this->request->isPost()) {
+        if ($this->request->isPost()) {
             $order_view = false;
-            if ($credit_card_form->isValid($this->request->getPost()) == false ) {
+            if ($credit_card_form->isValid($this->request->getPost()) == false) {
                 $messages = $credit_card_form->getMessages(true);
                 /**
                  * @var string $field
@@ -74,16 +73,16 @@ class PaymentController extends CartController
                     $errors[] = $field_messages[0]->getMessage();
                     $form_errors[$field] = ' error';
                 }
-            }else {
+            } else {
                 /** User $user */
                 $user = $this->userService->getUser($user_id);
-                if(null != $user ){
+                if (null != $user) {
                     try {
-                        $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number) , new ExpiryDate($expiry_date_month.'/'.$expiry_date_year), new CVV($cvv));
-                        $amount = new Money((int) str_replace('.','',$funds_value), new Currency('EUR'));
-                        $result = $play_service->play($user_id,$amount, $card,$payWallet);
+                        $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number), new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
+                        $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
+                        $result = $play_service->play($user_id, $amount, $card, $payWallet);
                         return $this->playResult($result);
-                    } catch (\Exception $e ) {
+                    } catch (\Exception $e) {
                         $errors[] = $e->getMessage();
                     }
                 }
@@ -102,11 +101,11 @@ class PaymentController extends CartController
      */
     protected function playResult(ActionResult $result)
     {
-        if($result->success()) {
-            $this->response->redirect('/'.$this->lottery.'/result/success');
+        if ($result->success()) {
+            $this->response->redirect('/' . $this->lottery . '/result/success');
             return false;
         } else {
-            $this->response->redirect('/'.$this->lottery.'/result/failure');
+            $this->response->redirect('/' . $this->lottery . '/result/failure');
             return false;
         }
     }

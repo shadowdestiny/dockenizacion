@@ -16,7 +16,7 @@ use Money\Currency;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
 
-class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
+class PlayConfig extends EntityBase implements IEntity, IEMForm, \JsonSerializable
 {
 
     protected $id;
@@ -53,18 +53,18 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
     public function formToEntity(User $user, $json, $bets)
     {
         $formPlay = null;
-        try{
+        try {
             $formPlay = $json;
-            if(empty($formPlay)){
+            if (empty($formPlay)) {
                 throw new Exception('Error converting object to array from storage');
             }
             $this->setUser($user);
             $euroMillionsLine = null;
-            foreach($bets as $bet) {
+            foreach ($bets as $bet) {
                 $regular_numbers = [];
                 $lucky_numbers = [];
 
-                if(is_array($bet)) {
+                if (is_array($bet)) {
                     $regular = $bet[0]->regular;
                     $lucky = $bet[0]->lucky;
                 } else {
@@ -72,21 +72,21 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
                     $lucky = $bet->lucky;
                 }
                 foreach ($regular as $number) {
-                    $regular_numbers[] = new EuroMillionsRegularNumber( (int) $number);
+                    $regular_numbers[] = new EuroMillionsRegularNumber((int)$number);
                 }
                 foreach ($lucky as $number) {
-                    $lucky_numbers[] = new EuroMillionsLuckyNumber((int) $number);
+                    $lucky_numbers[] = new EuroMillionsLuckyNumber((int)$number);
                 }
-                $euroMillionsLine = new EuroMillionsLine($regular_numbers,$lucky_numbers);
+                $euroMillionsLine = new EuroMillionsLine($regular_numbers, $lucky_numbers);
             }
             $this->setLine($euroMillionsLine);
             $this->setActive(true);
             $this->setId(1);
             $this->setStartDrawDate(new \DateTime($formPlay->startDrawDate));
             $this->setLastDrawDate(new \DateTime($formPlay->lastDrawDate));
-            $this->setFrequency((int) $formPlay->frequency);
+            $this->setFrequency((int)$formPlay->frequency);
 
-        }catch(Exception $e){
+        } catch (Exception $e) {
             throw new Exception($e);
         }
     }
@@ -106,8 +106,8 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
     public function jsonSerialize()
     {
         $lines = [];
-        if( null !== $this->line) {
-                $lines[] = $this->line->toJsonData();
+        if (null !== $this->line) {
+            $lines[] = $this->line->toJsonData();
         }
 
         return [
@@ -116,7 +116,7 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
             'lastDrawDate' => $this->lastDrawDate->format('Y-m-d H:i:s'),
             'frequency' => $this->frequency,
             'euromillions_line' => $lines,
-            'user' => ['id' => (string) $this->user->getId()]
+            'user' => ['id' => (string)$this->user->getId()]
         ];
     }
 
@@ -220,6 +220,7 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
     {
         return 1;
     }
+
     /**
      * @return Lottery
      */
@@ -267,7 +268,7 @@ class PlayConfig extends EntityBase implements IEntity,IEMForm,\JsonSerializable
         if (is_null($this->getDiscount())) {
             $discount = 1;
         } else {
-            $discount = ($this->getDiscount()->getValue() / 100) +1;
+            $discount = ($this->getDiscount()->getValue() / 100) + 1;
         }
         $amount = new Money((int)round(($this->numBets() * ($this->getLottery()->getSingleBetPrice()->getAmount())) / $discount), new Currency('EUR'));
         return $amount;
