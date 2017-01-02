@@ -264,6 +264,18 @@ class CartController extends PublicSiteControllerBase
         $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user_currency);
         $this->tag->prependTitle('Review and Buy');
 
+        $thm_org_id = 'lygdph9h';
+        $client_id = "909524";
+        $thm_session_id = $client_id.date('Ymdhis').rand(100000,999999);
+        $thm_guid = md5(rand());
+
+        $emerchantData = [
+            'thm_org_id' => 'lygdph9h',
+            'client_id' => "909524",
+            'thm_session_id' => $client_id.date('Ymdhis').rand(100000,999999),
+            'thm_guid' => md5(rand()),
+            'thm_params' => 'org_id='.$thm_org_id.'&session_id='.$thm_session_id
+        ];
         return $this->view->setVars([
             'order' => $play_config_dto,
             'config' => json_encode(
@@ -291,7 +303,8 @@ class CartController extends PublicSiteControllerBase
             'checked_wallet' => $checked_wallet,
             'email' => $user->getEmail()->toNative(),
             'total_new_payment_gw' => isset($order_eur) ? $order_eur->getTotal()->getAmount() / 100 : '',
-            'credit_card_form' => $creditCardForm
+            'credit_card_form' => $creditCardForm,
+            'emerchant_data' => $emerchantData
         ]);
     }
 

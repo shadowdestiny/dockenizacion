@@ -99,6 +99,7 @@
                         </div>
                         {{ credit_card_form.render('csrf', ['value': security.getSessionToken()]) }}
                     </div>
+                    <input type="hidden" name="thm_session_id" value="{{ emerchant_data['thm_session_id'] }}">
 
                     {% if component.where == 'cart' %}
                 </div>
