@@ -85,9 +85,22 @@ class WalletServiceUnitTest extends UnitTestBase
         $user->setWinningAbove(new Money(10000, new Currency('EUR')));
         $uploaded = new Money(1000, new Currency('EUR'));
         $uploaded_string = '€ 10.00';
-        $expected = new WalletDTO($uploaded_string,$uploaded_string,$uploaded_string, new Money(10000, new Currency('EUR')));
+        $expected = new WalletDTO(
+            $uploaded_string,
+            $uploaded_string,
+            $uploaded_string,
+            $uploaded_string,
+            new Money(10000, new Currency('EUR'))
+        );
+
         $this->exerciseConvert($uploaded, $user, $uploaded_string);
-        $sut = new WalletService($this->getEntityManagerRevealed(), $this->currencyConversionService_double->reveal(),$this->transactionService_double->reveal());
+
+        $sut = new WalletService(
+            $this->getEntityManagerRevealed(),
+            $this->currencyConversionService_double->reveal(),
+            $this->transactionService_double->reveal()
+        );
+
         $this->currencyConversionService_double->toString($user->getWallet()->getBalance(),$user->getLocale())->shouldBeCalled();
         $this->currencyConversionService_double->toString($user->getWallet()->getWinnings(),$user->getLocale())->shouldBeCalled();
         $actual = $sut->getWalletDTO($user);

@@ -214,12 +214,16 @@
                                 <a href="javascript:void(0)" class="btn big blue add-funds">{{ language.translate("Add funds of your balance") }}</a>
                             </div>
                         </div>
-                        <br>
+                        <br />
                         <div class="border cl">
                             <div class="txt">{{ language.translate("Your Withdrawable Balance:")}} <span class="value">{{ wallet.wallet_winning_amount }}</span></div>
                             <div class="box-btn">
                                 <a href="javascript:void(0)" class="btn big green withdraw">{{ language.translate("Make Withdrawal") }}</a>
                             </div>
+                        </div>
+                        <br />
+                        <div class="border cl">
+                            <div class="txt">{{ language.translate("Your Subscription:")}} <span class="value">{{ wallet.wallet_subscription_amount }}</span></div>
                         </div>
                     </div>
                 </div>

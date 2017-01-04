@@ -11,6 +11,7 @@ class WalletDTO
     public $wallet_balance_amount;
     public $wallet_uploaded_amount;
     public $wallet_winning_amount;
+    public $wallet_subscription_amount;
     public $current_winnings;
     public $balance;
     public $winnings;
@@ -18,10 +19,11 @@ class WalletDTO
     private $limitWithdrawWinning;
 
 
-    public function __construct( $balance, $winnings, $current_winnings, Money $currentWinningsConverted )
+    public function __construct( $balance, $winnings, $current_winnings, $subscription, Money $currentWinningsConverted )
     {
         $this->wallet_balance_amount = $balance;
         $this->wallet_winning_amount = $winnings;
+        $this->wallet_subscription_amount = $subscription;
         $this->current_winnings = $currentWinningsConverted->isZero() ? '' : $current_winnings;
         $this->limitWithdrawWinning = new Money((int) 2500, new Currency('EUR'));
     }
@@ -32,6 +34,14 @@ class WalletDTO
     public function getWalletBalanceAmount()
     {
         return $this->wallet_balance_amount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWalletSubscriptionAmount()
+    {
+        return $this->wallet_subscription_amount;
     }
 
     /**
