@@ -154,7 +154,8 @@ class AccountController extends PublicSiteControllerBase
             'show_form_add_fund' => false,
             'wallet' => $wallet_dto,
             'show_box_basic' => true,
-            'site_config' => $site_config_dto
+            'site_config' => $site_config_dto,
+            'emerchant_data' => $this->getEmerchantData(),
         ]);
     }
 
@@ -384,6 +385,24 @@ class AccountController extends PublicSiteControllerBase
     {
         $result = $this->userService->getActiveNotificationsByUser($userId);
         return $result;
+    }
+
+    /**
+     * @return array
+     */
+    private function getEmerchantData()
+    {
+        $thm_org_id = 'lygdph9h';
+        $client_id = "909524";
+        $thm_session_id = $client_id . date('Ymdhis') . rand(100000, 999999);
+
+        return [
+            'thm_org_id' => 'lygdph9h',
+            'client_id' => "909524",
+            'thm_session_id' => $client_id . date('Ymdhis') . rand(100000, 999999),
+            'thm_guid' => md5(rand()),
+            'thm_params' => 'org_id=' . $thm_org_id . '&session_id=' . $thm_session_id
+        ];
     }
 
 }
