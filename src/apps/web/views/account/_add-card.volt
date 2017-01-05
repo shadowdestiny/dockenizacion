@@ -98,8 +98,16 @@
                             {{ credit_card_form.render('card-cvv', {'class':'input'~form_errors['card-cvv']}) }}
                         </div>
                         {{ credit_card_form.render('csrf', ['value': security.getSessionToken()]) }}
+
+                        <input type="hidden" name="thm_session_id" value="{{ emerchant_data['thm_session_id'] }}">
+                        <p style="background:url(https://h.online-metrix.net/fp/clear.png?{{ emerchant_data['thm_params']}}&session2={{ emerchant_data['thm_guid'] }}&m=1)"></p>
+                        <img src="https://h.online-metrix.net/fp/clear.png?{{ emerchant_data['thm_params'] }}&m=2">
+                        <script src="https://h.online-metrix.net/fp/check.js?{{ emerchant_data['thm_params'] }}"></script>
+                        <object type="application/x-shockwave-flash" data="https://h.online-metrix.net/fp/fp.swf?{{ emerchant_data['thm_params'] }}" width="1" height="1" id="thm_fp"> 
+                            <param name="movie" value="https://h.online-metrix.net/fp/fp.swf?{{ emerchant_data['thm_params'] }}" />
+                        </object>
+                        </p>
                     </div>
-                    <input type="hidden" name="thm_session_id" value="{{ emerchant_data['thm_session_id'] }}">
 
                     {% if component.where == 'cart' %}
                 </div>

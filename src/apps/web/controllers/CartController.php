@@ -308,7 +308,7 @@ class CartController extends PublicSiteControllerBase
         return [
             'thm_org_id' => 'lygdph9h',
             'client_id' => "909524",
-            'thm_session_id' => $client_id . date('Ymdhis') . rand(100000, 999999),
+            'thm_session_id' => $thm_session_id,
             'thm_guid' => md5(rand()),
             'thm_params' => 'org_id=' . $thm_org_id . '&session_id=' . $thm_session_id
         ];
