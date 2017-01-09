@@ -31,6 +31,7 @@ class PaymentController extends CartController
         $expiry_date_year = $this->request->getPost('expiry-date-year') + 2000; //This is Antonio, the first developer at EuroMillions. If something failed horribly and you are looking at this, I'm glad that my code survived for more than 75 years, but also my apologies. We changed from 4 digits years to 2 digits, and the implications in all the validators where so much, and we need to finish to go to production, that I decided to include this ugly hack. Luckily, it will work until after I'm dead and rotten.
         $cvv = $this->request->getPost('card-cvv');
         $payWallet = $this->request->getPost('paywallet') !== 'false';
+        $isWallet = false;
         $play_service = $this->domainServiceFactory->getPlayService();
         $errors = [];
         $user_id = $this->authService->getCurrentUser()->getId();
@@ -43,16 +44,17 @@ class PaymentController extends CartController
         $result = $play_service->getPlaysFromTemporarilyStorage($user);
         $msg = '';
 
-
         $order_view = true;
+        //Payment thru wallet ONLY
         if ($this->request->isGet()) {
+            $isWallet = true;
             $charge = $this->request->get('charge');
             $user = $this->userService->getUser($user_id);
             if (null != $user && isset($charge)) {
                 try {
                     $card = null;
                     $amount = new Money((int)$charge, new Currency('EUR'));
-                    $result = $play_service->play($user_id, $amount, $card, true);
+                    $result = $play_service->play($user_id, $amount, $card, true, $isWallet);
                     return $this->playResult($result);
                 } catch (\Exception $e) {
                     $errors[] = $e->getMessage();
@@ -60,7 +62,9 @@ class PaymentController extends CartController
             }
         }
 
+        //Payment thru Credit Card or Credit Card + Wallet
         if ($this->request->isPost()) {
+            $isWallet = false;
             $order_view = false;
             if ($credit_card_form->isValid($this->request->getPost()) == false) {
                 $messages = $credit_card_form->getMessages(true);
@@ -80,7 +84,8 @@ class PaymentController extends CartController
                     try {
                         $card = new CreditCard(new CardHolderName($card_holder_name), new CardNumber($card_number), new ExpiryDate($expiry_date_month . '/' . $expiry_date_year), new CVV($cvv));
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
-                        $result = $play_service->play($user_id, $amount, $card, $payWallet);
+                        $result = $play_service->play($user_id, $amount, $card, $payWallet, $isWallet);
+
                         return $this->playResult($result);
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();

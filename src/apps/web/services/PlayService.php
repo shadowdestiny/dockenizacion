@@ -128,7 +128,7 @@ class PlayService
      * @param bool $withAccountBalance
      * @return ActionResult
      */
-    public function play( $user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false)
+    public function play( $user_id, Money $funds = null, CreditCard $credit_card = null, $withAccountBalance = false, $isWallet = null)
     {
 
         if($user_id) {
@@ -147,11 +147,11 @@ class PlayService
                     $order->addFunds($funds);
                     $order->setAmountWallet($user->getWallet()->getBalance());
                     $draw = $this->lotteryService->getNextDrawByLottery('EuroMillions');
-                    if( null != $credit_card ) {
+                    if( $credit_card != null ) {
                         $this->cardPaymentProvider->user($user);
                         $uniqueId = $this->walletService->getUniqueTransactionId();
                         $this->cardPaymentProvider->idTransaction = $uniqueId;
-                        $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider,$credit_card, $user, $uniqueId, $order);
+                        $result_payment = $this->walletService->payWithCreditCard($this->cardPaymentProvider,$credit_card, $user, $uniqueId, $order, $isWallet);
                     } else {
                         $result_payment = new ActionResult(true,$order);
                     }
@@ -177,7 +177,14 @@ class PlayService
                                     return new ActionResult(false, $result_validation->errorMessage());
                                 }
                                 if ($order->getHasSubscription()) {
-                                    $this->walletService->payWithSubscription($user,$play_config);
+                                    if ($isWallet){
+                                        $this->walletService->paySubscriptionWithWallet($user,$play_config);
+                                    } elseif ($withAccountBalance) {
+                                        $this->walletService->payWithSubscription($user,$play_config);
+                                        $this->walletService->paySubscriptionWithWalletAndCreditCard($user,$play_config);
+                                    } else {
+                                        $this->walletService->payWithSubscription($user,$play_config);
+                                    }
                                 } else {
                                     $this->walletService->payWithWallet($user,$play_config);
                                 }

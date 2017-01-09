@@ -50,7 +50,7 @@ class Wallet implements IArraySerializable
 
     public function upload(Money $amount)
     {
-        return new self($this->uploaded->add($amount), $this->winnings);
+        return new self($this->uploaded->add($amount), $this->winnings, $this->subscription);
     }
 
     public function award(Money $amount)
@@ -71,10 +71,20 @@ class Wallet implements IArraySerializable
         }
     }
 
-    //EMTD @etey o @benair3 crear TEST!!!!!
+    //TODO: @etey o @benair3 crear TEST!!!!!
     public function payWithSubscription(Money $amount)
     {
         return new self($this->uploaded, $this->winnings,$this->subscription->subtract($amount));
+    }
+
+    public function paySubscriptionWithWallet(Money $amount)
+    {
+        return new self($this->uploaded->subtract($amount), $this->winnings,$this->subscription->add($amount));
+    }
+
+    public function removeWalletToSubscription()
+    {
+        return new self($this->uploaded->subtract($this->uploaded), $this->winnings,$this->subscription->add($this->uploaded));
     }
 
     public function uploadToSubscription(Money $amount)

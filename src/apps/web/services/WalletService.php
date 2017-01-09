@@ -69,7 +69,8 @@ class WalletService
                                       CreditCard $card,
                                       User $user,
                                       $uniqueID = null,
-                                      Order $order)
+                                      Order $order,
+                                      $isWallet = null)
     {
         $creditCardCharge = $order->getCreditCardCharge();
         $payment_result = $this->pay($provider, $card, $creditCardCharge);
@@ -82,6 +83,9 @@ class WalletService
                     $this->transactionService->storeTransaction(TransactionType::DEPOSIT, $dataTransaction);
                 } else {
                     $user->reChargeSubscriptionWallet($creditCardCharge->getNetAmount());
+                    if ($isWallet) {
+                        $user->removeSubscriptionWithWallet($creditCardCharge->getNetAmount());
+                    }
                     $dataTransaction = $this->buildDepositTransactionData($user, $creditCardCharge, $uniqueID, $walletBefore);
                     $this->transactionService->storeTransaction(TransactionType::SUBSCRIPTION_PURCHASE, $dataTransaction);
                 }
@@ -138,6 +142,28 @@ class WalletService
             $this->entityManager->flush($user);
         } catch ( \Exception $e ) {
             //EMTD Log and warn the admin
+        }
+    }
+    
+    public function paySubscriptionWithWallet(User $user, PlayConfig $playConfig )
+    {
+        try {
+            $user->removeSubscriptionWithWallet($playConfig->getgetSinglePrice());
+
+            $this->entityManager->flush($user);
+        } catch ( \Exception $e ) {
+            //TODO: Log and warn the admin
+        }
+    }
+    
+    public function paySubscriptionWithWalletAndCreditCard(User $user)
+    {
+        try {
+            $user->removeWalletToSubscription();
+
+            $this->entityManager->flush($user);
+        } catch ( \Exception $e ) {
+            //TODO: Log and warn the admin
         }
     }
 
