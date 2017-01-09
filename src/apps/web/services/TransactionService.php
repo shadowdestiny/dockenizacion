@@ -20,7 +20,7 @@ class TransactionService
     protected $transactionRepository;
     protected $currencyConversionService;
 
-    public function __construct( EntityManager $entityManager, CurrencyConversionService $currencyConversionService )
+    public function __construct(EntityManager $entityManager, CurrencyConversionService $currencyConversionService)
     {
         $this->entityManager = $entityManager;
         $this->transactionRepository = $entityManager->getRepository('EuroMillions\web\entities\Transaction');
@@ -28,40 +28,42 @@ class TransactionService
     }
 
 
-    public function storeTransaction( $transactionType ,
-                                      array $data)
+    public function storeTransaction($transactionType,
+                                     array $data)
     {
-        if( null == $data['now'] ) {
+        if ($data['now'] == null) {
             $data['now'] = new \DateTime();
         }
-        list($partOne,$partTwo) = explode('_',$transactionType);
-        $class = 'EuroMillions\web\components\transaction\\'.ucfirst($partOne).ucfirst($partTwo).'Generator';
+        list($partOne, $partTwo) = explode('_', $transactionType);
+        $class = 'EuroMillions\web\components\transaction\\' . ucfirst($partOne) . ucfirst($partTwo) . 'Generator';
         try {
             /** @var Transaction $entity */
             $entity = $class::build($data);
             $this->entityManager->persist($entity);
             $this->entityManager->flush();
-        } catch ( \Exception $e ) {
+        } catch (\Exception $e) {
             return new ActionResult(false);
         }
         return new ActionResult(true, $entity);
     }
 
-    public function getTransactionsDTOByUser( User $user )
+    public function getTransactionsDTOByUser(User $user)
     {
-        $result = $this->transactionRepository->findBy(['user' => $user->getId() ],['id' => 'DESC']);
-        if( null != $result ) {
+        $result = $this->transactionRepository->findBy(['user' => $user->getId()], ['id' => 'DESC']);
+        if (null != $result) {
             $transactionDtoCollection = [];
             /** @var Transaction $transaction */
-            foreach($result as $transaction) {
-                if($transaction instanceof BigWinTransaction) continue;
+            foreach ($result as $transaction) {
+                if ($transaction instanceof BigWinTransaction) continue;
                 $transactionDTO = new TransactionDTO($transaction);
                 $movement = $this->currencyConversionService->convert($transactionDTO->movement, new Currency('EUR'));
                 $balance = $this->currencyConversionService->convert($transactionDTO->balance, new Currency('EUR'));
                 $winnings = $this->currencyConversionService->convert($transactionDTO->winnings, new Currency('EUR'));
+                $pendingBalance = $this->currencyConversionService->convert($transactionDTO->pendingBalance, new Currency('EUR'));
                 $transactionDTO->movement = $transactionDTO->formatMovement($this->currencyConversionService->toString($movement, $user->getLocale()));
                 $transactionDTO->balance = $this->currencyConversionService->toString($balance, $user->getLocale());
                 $transactionDTO->winnings = $this->currencyConversionService->toString($winnings, $user->getLocale());
+                $transactionDTO->pendingBalance = $this->currencyConversionService->toString($pendingBalance, $user->getLocale());
                 $transactionDtoCollection[] = $transactionDTO;
             }
             return $transactionDtoCollection;
@@ -73,7 +75,7 @@ class TransactionService
     {
         /** @var Transaction $transactionEntity */
         $transactionEntity = $this->transactionRepository->findBy(["id" => $id]);
-        if(null != $transactionEntity) {
+        if ($transactionEntity != null) {
             return $transactionEntity;
         } else {
             return null;

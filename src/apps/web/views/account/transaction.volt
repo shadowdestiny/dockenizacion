@@ -114,6 +114,7 @@
                             <th class="type">{{ language.translate("Transaction")}}</th>
                             <th class="movement">{{ language.translate("Movement")}}</th>
                             <th class="wallet">{{ language.translate("Balance")}}</th>
+                            <th class="wallet">{{ language.translate("Pending Balance")}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -126,6 +127,7 @@
                                     {{ transaction.movement }}
                                 </td>
                                 <td class="wallet">{{ transaction.balance }}</td>
+                                <td class="wallet">{{ transaction.pendingBalance }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

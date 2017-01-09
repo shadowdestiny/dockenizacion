@@ -25,6 +25,7 @@ class TransactionDTO extends DTOBase implements IDto
     public $movement;
     public $balance;
     public $winnings;
+    public $pendingBalance;
 
     public function __construct(Transaction $transaction)
     {
@@ -46,38 +47,38 @@ class TransactionDTO extends DTOBase implements IDto
         $this->movement = $this->transaction->getWalletAfter()->getBalance()->subtract($this->transaction->getWalletBefore()->getBalance());
         $this->balance = $this->transaction->getWalletAfter()->getBalance();
         $this->winnings = $this->transaction->getWalletAfter()->getWinnings();
+        $this->pendingBalance = $this->transaction->getWalletAfter()->getSubscription();
     }
 
-    public function getEntityType( $transactionType )
+    public function getEntityType($transactionType)
     {
-        if($transactionType instanceof TicketPurchaseTransaction) {
+        if ($transactionType instanceof TicketPurchaseTransaction) {
             return 'Ticket Purchase';
         }
-        if($transactionType instanceof AutomaticPurchaseTransaction) {
+        if ($transactionType instanceof AutomaticPurchaseTransaction) {
             return 'Automatic Purchase';
         }
-        if($transactionType instanceof WinningsWithdrawTransaction ) {
+        if ($transactionType instanceof WinningsWithdrawTransaction) {
             return 'Winning Withdraw';
         }
-        if($transactionType instanceof DepositTransaction ) {
+        if ($transactionType instanceof DepositTransaction) {
             return 'Deposit';
         }
-        if($transactionType instanceof BigWinTransaction ) {
+        if ($transactionType instanceof BigWinTransaction) {
             return 'Big Winning';
         }
-        if($transactionType instanceof WinningsReceivedTransaction ) {
+        if ($transactionType instanceof WinningsReceivedTransaction) {
             return 'Winnings Received';
         }
-        if($transactionType instanceof SubscriptionPurchaseTransaction ) {
+        if ($transactionType instanceof SubscriptionPurchaseTransaction) {
             return 'Subscription Deposit';
         }
 
     }
 
-    public function formatMovement( $amount )
+    public function formatMovement($amount)
     {
-        if( $this->transaction instanceof DepositTransaction )
-        {
+        if ($this->transaction instanceof DepositTransaction) {
             return '+' . $amount;
         }
         return $amount;
