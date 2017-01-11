@@ -10,6 +10,8 @@ use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\components\DateTimeUtil;
 use EuroMillions\web\emailTemplates\EmailTemplate;
 use EuroMillions\web\emailTemplates\IEmailTemplate;
+use EuroMillions\web\emailTemplates\PurchaseConfirmationEmailTemplate;
+use EuroMillions\web\emailTemplates\PurchaseSubscriptionConfirmationEmailTemplate;
 use EuroMillions\web\entities\Bet;
 use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\entities\Lottery;
@@ -20,6 +22,7 @@ use EuroMillions\web\exceptions\DataMissingException;
 use EuroMillions\web\interfaces\IJackpot;
 use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
+use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationAutoPlayNoFunds;
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationResultsStrategy;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
@@ -273,7 +276,18 @@ class LotteryService
                             if(empty($this->betService->obtainBetsWithAPlayConfigAndAEuromillionsDraw($playConfig,$euroMillionsDraw))) {
                                 $result = $this->betService->validation($playConfig, $euroMillionsDraw, $nextDrawDate);
                                 if($result->success()) {
-                                    $this->walletService->payWithSubscription($user,$playConfig,TransactionType::AUTOMATIC_PURCHASE);
+                                    $walletBefore = $user->getWallet();
+                                    $this->walletService->payWithSubscription($user,$playConfig);
+                                    $dataTransaction = [
+                                        'lottery_id' => 1,
+                                        'numBets' => 1,
+                                        'walletBefore' => $walletBefore,
+                                        'amountWithCreditCard' => 0,
+                                        'playConfigs' => $playConfig->getId(),
+                                        'discount' => $playConfig->getDiscount(),
+                                    ];
+                                    $this->walletService->purchaseTransactionGrouped($user,TransactionType::AUTOMATIC_PURCHASE,$dataTransaction);
+                                    $this->sendEmailPurchase($user,$playConfig);
                                 }
                             }
                         }
@@ -413,5 +427,19 @@ class LotteryService
         return $notificationResultsStrategy;
     }
 
+    private function sendEmailPurchase(User $user, PlayConfig $playConfig)
+    {
+        $emailBaseTemplate = new EmailTemplate();
+        $emailTemplate = new PurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this));
+        if ($playConfig->getFrequency() >= 4) {
+            $emailTemplate = new PurchaseSubscriptionConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this));
+            $emailTemplate->setDraws($playConfig->getFrequency());
+            $emailTemplate->setStartingDate($playConfig->getStartDrawDate()->format('d-m-Y'));
+        }
+        $emailTemplate->setLine($playConfig);
+        $emailTemplate->setUser($user);
+
+        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
+    }
 
 }

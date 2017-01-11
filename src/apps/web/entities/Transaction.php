@@ -13,6 +13,7 @@ abstract class Transaction extends EntityBase
     CONST TICKET_PURCHASE_TYPE = 'ticket_purchase';
     CONST WINNING_RECEIVED_TYPE = 'winning_receive';
     CONST SUBSCRIPTION_PURCHASE_TYPE = 'subscription_purchase';
+    CONST AUTOMATIC_PURCHASE_TYPE = 'automatic_purchase';
 
     protected $id;
     protected $data;

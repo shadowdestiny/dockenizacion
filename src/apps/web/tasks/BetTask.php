@@ -36,16 +36,15 @@ class BetTask extends TaskBase
         $this->userService = $userService ? $userService : $this->domainServiceFactory->getUserService();
     }
 
-
-    public function placeBetsAction( $args = null )
+    public function placeBetsAction($args = null)
     {
-        if(!$args) {
+        if (!$args) {
             $date = new \DateTime();
         } else {
             $date = new \DateTime($args[0]);
         }
         $lotteries = $this->lotteryService->getLotteriesOrderedByNextDrawDate();
-        foreach( $lotteries as $lottery ) {
+        foreach ($lotteries as $lottery) {
             $this->lotteryService->placeBetForNextDraw($lottery, $date);
         }
     }
