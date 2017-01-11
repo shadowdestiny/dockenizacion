@@ -117,7 +117,7 @@
                             {#<th class="movement">{{ language.translate("Pending Balance Movement")}}</th>#}
                             <th class="wallet">{{ language.translate("Balance")}}</th>
 
-                            <th class="wallet">{{ language.translate("Pending Balance")}}</th>
+                            <th class="wallet">{{ language.translate("Subscription Balance")}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -133,7 +133,7 @@
                                 {#<td class="wallet">{{ transaction.pendingBalanceMovement }}</td>#}
                                 <td class="wallet" >{{ transaction.balance }} (<span {% if transaction.transactionName == 'Winning Withdraw' or transaction.transactionName == 'Ticket Purchase' %} data-trans="" style="color:#c22"{% endif %} {% if transaction.transactionName == 'Deposit'%}style="color:green" {% endif %}>{{ transaction.movement }} </span>) </td>
 
-                                <td class="wallet">{{ transaction.pendingBalance }} (<span {% if transaction.transactionName == 'Winning Withdraw' or transaction.transactionName == 'Automatic Purchase'%} data-trans="" style="color:#c22"{% endif %} {% if transaction.transactionName == 'Subscription Deposit' or transaction.transactionName == 'Ticket Purchase'%}style="color:green" {% endif %}>{{ transaction.pendingBalanceMovement }} </span>)</td>
+                                <td class="wallet">{{ transaction.pendingBalance }} (<span {% if transaction.transactionName == 'Winning Withdraw' or (transaction.transactionName == 'Automatic Purchase' and transaction.pendingBalanceMovement != '€0.00' )%} data-trans="" style="color:#c22"{% endif %} {% if transaction.transactionName == 'Subscription Deposit' or (transaction.transactionName == 'Ticket Purchase' and transaction.pendingBalanceMovement != '€0.00' )%}style="color:green" {% endif %}>{{ transaction.pendingBalanceMovement }} </span>)</td>
                             </tr>
                         {% endfor %}
                     </tbody>
