@@ -344,7 +344,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->walletService_double->payWithWallet($user,Argument::any())->shouldBeCalled();
         $this->walletService_double->purchaseTransactionGrouped($user,TransactionType::TICKET_PURCHASE,Argument::type('array'))->shouldBeCalled();
         $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
-        $actual = $sut->play($user->getId(), null, $credit_card);
+        $actual = $sut->play($user->getId(), null, $credit_card, false, true);
         $this->assertEquals(new ActionResult(true, $order), $actual);
     }
 
@@ -369,7 +369,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->walletService_double->payWithWallet($user,Argument::any())->shouldBeCalled();
         $this->walletService_double->purchaseTransactionGrouped($user,TransactionType::TICKET_PURCHASE,Argument::type('array'))->shouldBeCalled();
         $this->emailService_double->sendTransactionalEmail(Argument::any(),Argument::any())->shouldBeCalled();
-        $actual = $sut->play($user->getId(), null, $credit_card);
+        $actual = $sut->play($user->getId(), null, $credit_card, false, true);
         $this->assertEquals(new ActionResult(true, $order), $actual);
 
     }
