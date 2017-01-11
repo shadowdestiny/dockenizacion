@@ -14,8 +14,6 @@ class SubscriptionPurchaseTransaction extends PurchaseTransaction implements ITr
     protected $amountAdded;
     protected $discount;
 
-
-
     public function __construct(array $data)
     {
         $this->setLotteryId($data['lottery_id']);
@@ -27,6 +25,7 @@ class SubscriptionPurchaseTransaction extends PurchaseTransaction implements ITr
         $this->setTransactionID($data['transactionID']);
         $this->setDate($data['now']);
         $this->setUser($data['user']);
+        $this->setPendingBalanceAmount($data['amountWithCreditCard'] + $data['amountWithWallet']);
     }
 
 

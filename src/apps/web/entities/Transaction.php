@@ -22,6 +22,23 @@ abstract class Transaction extends EntityBase
     protected $entity_type;
     protected $user;
     protected $transactionID;
+    protected $pendingBalanceAmount;
+
+    /**
+     * @return mixed
+     */
+    public function getPendingBalanceAmount()
+    {
+        return $this->pendingBalanceAmount;
+    }
+
+    /**
+     * @param mixed $setPendingBalanceAmount
+     */
+    public function setPendingBalanceAmount($pendingBalanceAmount)
+    {
+        $this->pendingBalanceAmount = $pendingBalanceAmount;
+    }
 
     /**
      * @return mixed

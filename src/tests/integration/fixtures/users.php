@@ -13,7 +13,9 @@ return [
             'validated' => false,
             'validation_token' => 'fdsdsfsdffsd54353GFD1',
             'jackpot_reminder' => false,
-            'show_modal_winning' => false
+            'show_modal_winning' => false,
+            'wallet_subscription_amount' => 0,
+            'wallet_subscription_currency_name' => 'EUR'
         ],
         [
             'id' => '9098299B-14AC-4124-8DB0-19571EDABE56',
@@ -27,7 +29,9 @@ return [
             'validated' => false,
             'validation_token' => 'fdsdsfsdffsd54353GFD2',
             'jackpot_reminder' => false,
-            'show_modal_winning' => false
+            'show_modal_winning' => false,
+            'wallet_subscription_amount' => 0,
+            'wallet_subscription_currency_name' => 'EUR'
         ],
         [
             'id' => '9098299B-14AC-4124-8DB0-19571EDABE57',
@@ -41,7 +45,9 @@ return [
             'validated' => false,
             'validation_token' => 'fdsdsfsdffsd54353GFD3',
             'jackpot_reminder' => false,
-            'show_modal_winning' => false
+            'show_modal_winning' => false,
+            'wallet_subscription_amount' => 0,
+            'wallet_subscription_currency_name' => 'EUR'
         ],
 
         [
@@ -56,8 +62,10 @@ return [
             'validated' => false,
             'validation_token' => 'fdsdsfsdffsd54353GFD3',
             'jackpot_reminder' => false,
-            'user_currency_name' => 'USD',
-            'show_modal_winning' => false
+            'user_currency_name' => 'EUR',
+            'show_modal_winning' => false,
+            'wallet_subscription_amount' => 0,
+            'wallet_subscription_currency_name' => 'EUR'
         ],
 
         [
@@ -73,7 +81,9 @@ return [
             'validation_token' => 'fdsdsfsdffsd54353GFD3',
             'jackpot_reminder' => false,
             'user_currency_name' => 'USD',
-            'show_modal_winning' => false
+            'show_modal_winning' => false,
+            'wallet_subscription_amount' => 0,
+            'wallet_subscription_currency_name' => 'EUR'
         ],
     ]
 ];

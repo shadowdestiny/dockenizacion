@@ -112,8 +112,11 @@
                         <tr>
                             <th class="date">{{ language.translate("Date")}}</th>
                             <th class="type">{{ language.translate("Transaction")}}</th>
-                            <th class="movement">{{ language.translate("Movement")}}</th>
+                            <th class="movement">{{ language.translate("Ticket Price")}}</th>
+                            {#<th class="movement">{{ language.translate("Movement")}}</th>#}
+                            {#<th class="movement">{{ language.translate("Pending Balance Movement")}}</th>#}
                             <th class="wallet">{{ language.translate("Balance")}}</th>
+
                             <th class="wallet">{{ language.translate("Pending Balance")}}</th>
                         </tr>
                     </thead>
@@ -123,11 +126,14 @@
                             <tr class="tr-transactions-{{ transaction.id }}" data-id="{{ transaction.id }}">
                                 <td class="date">{{ transaction.date }}</td>
                                 <td class="type">{{ transaction.transactionName }}</td>
-                                <td class="movement" {% if transaction.transactionName == 'Winning Withdraw' or transaction.transactionName == 'Ticket Purchase' %} data-trans="" style="color:#c22"{% endif %} {% if transaction.transactionName == 'Winnings Received'%}data-trans="" {% endif %}>
-                                    {{ transaction.movement }}
-                                </td>
-                                <td class="wallet">{{ transaction.balance }}</td>
-                                <td class="wallet">{{ transaction.pendingBalance }}</td>
+                                <td class="type"  {% if transaction.transactionName == 'Winning Withdraw' or transaction.transactionName == 'Ticket Purchase' %} data-trans="" style="color:#c22"{% endif %} >{{ transaction.ticketPrice }}</td>
+                                {#<td class="movement" {% if transaction.transactionName == 'Winning Withdraw' or transaction.transactionName == 'Ticket Purchase' %} data-trans="" style="color:#c22"{% endif %} {% if transaction.transactionName == 'Winnings Received'%}data-trans="" {% endif %}>#}
+                                    {#{{ transaction.movement }}#}
+                                {#</td>#}
+                                {#<td class="wallet">{{ transaction.pendingBalanceMovement }}</td>#}
+                                <td class="wallet" >{{ transaction.balance }} (<span {% if transaction.transactionName == 'Winning Withdraw' or transaction.transactionName == 'Ticket Purchase' %} data-trans="" style="color:#c22"{% endif %} {% if transaction.transactionName == 'Deposit'%}style="color:green" {% endif %}>{{ transaction.movement }} </span>) </td>
+
+                                <td class="wallet">{{ transaction.pendingBalance }} (<span {% if transaction.transactionName == 'Winning Withdraw' or transaction.transactionName == 'Ticket Purchase' %} data-trans="" style="color:#c22"{% endif %} {% if transaction.transactionName == 'Subscription Deposit' %}style="color:green" {% endif %}>{{ transaction.pendingBalanceMovement }} </span>)</td>
                             </tr>
                         {% endfor %}
                     </tbody>

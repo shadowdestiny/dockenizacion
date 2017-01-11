@@ -14,6 +14,8 @@ use EuroMillions\web\entities\WinningsReceivedTransaction;
 use EuroMillions\web\entities\WinningsWithdrawTransaction;
 use EuroMillions\web\interfaces\IDto;
 use EuroMillions\web\vo\dto\base\DTOBase;
+use Money\Currency;
+use Money\Money;
 
 class TransactionDTO extends DTOBase implements IDto
 {
@@ -26,6 +28,8 @@ class TransactionDTO extends DTOBase implements IDto
     public $balance;
     public $winnings;
     public $pendingBalance;
+    public $pendingBalanceMovement;
+    public $ticketPrice;
 
     public function __construct(Transaction $transaction)
     {
@@ -48,6 +52,12 @@ class TransactionDTO extends DTOBase implements IDto
         $this->balance = $this->transaction->getWalletAfter()->getBalance();
         $this->winnings = $this->transaction->getWalletAfter()->getWinnings();
         $this->pendingBalance = $this->transaction->getWalletAfter()->getSubscription();
+        $this->pendingBalanceMovement = $this->transaction->getWalletAfter()->getSubscription()->subtract($this->transaction->getWalletBefore()->getSubscription());
+        if ($this->transaction->getEntityType() == 'ticket_purchase') {
+            $this->ticketPrice = $this->movement->add($this->pendingBalanceMovement);
+        } else {
+            $this->ticketPrice = new Money(0, new Currency('EUR'));
+        }
     }
 
     public function getEntityType($transactionType)

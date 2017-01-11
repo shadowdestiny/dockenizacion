@@ -148,7 +148,7 @@ class WalletService
     public function paySubscriptionWithWallet(User $user, PlayConfig $playConfig )
     {
         try {
-            $user->removeSubscriptionWithWallet($playConfig->getgetSinglePrice());
+            $user->removeSubscriptionWithWallet($playConfig->getSinglePrice()->multiply($playConfig->getFrequency()));
 
             $this->entityManager->flush($user);
         } catch ( \Exception $e ) {
