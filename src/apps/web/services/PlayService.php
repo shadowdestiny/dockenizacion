@@ -179,6 +179,7 @@ class PlayService
                                 if ($order->getHasSubscription()) {
                                     if ($isWallet){
                                         $this->walletService->paySubscriptionWithWallet($user,$play_config);
+                                        $this->walletService->payWithSubscription($user,$play_config);
                                     } elseif ($withAccountBalance) {
                                         $this->walletService->payWithSubscription($user,$play_config);
                                         $this->walletService->paySubscriptionWithWalletAndCreditCard($user,$play_config);
