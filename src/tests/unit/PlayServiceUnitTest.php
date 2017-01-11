@@ -302,8 +302,6 @@ class PlayServiceUnitTest extends UnitTestBase
         $user = UserMother::aUserWith500Eur()->build();
         $order = OrderMother::aJustOrder()->build();
         $expected = new ActionResult(true, $order);
-        $funds_amount_to_charged = new Money(2000, new Currency('EUR'));
-        $credit_card = CreditCardMother::aValidCreditCard();
         $userId = $user->getId();
         list($play_config, $euromillions_draw) = $this->getPlayConfigAndEuroMillionsDraw();
         $euromillions_draw->setDrawDate(new \DateTime('2016-02-05 20:00:00'));
@@ -319,7 +317,7 @@ class PlayServiceUnitTest extends UnitTestBase
         $this->playConfigRepository_double->add(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
         $entityManager_double->flush(Argument::type('EuroMillions\web\entities\PlayConfig'))->shouldBeCalled();
         $sut = $this->getSut();
-        $actual = $sut->play($userId, $funds_amount_to_charged, $credit_card, false, false);
+        $actual = $sut->play($userId);
         $this->assertEquals($expected, $actual);
     }
 
