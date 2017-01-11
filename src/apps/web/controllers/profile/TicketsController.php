@@ -52,7 +52,8 @@ class TicketsController extends AccountController
             'jackpot_value' => $jackpot,
             'paginator_view' => $paginator_view,
             'message_actives' => $message_actives,
-            'message_inactives' => $message_inactives
+            'message_inactives' => $message_inactives,
+            'nextDrawDate' => $this->lotteryService->getNextDateDrawByLottery('Euromillions')->format('Y M d'),
         ]);
     }
 

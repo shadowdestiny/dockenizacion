@@ -74,13 +74,11 @@
                                 <tr>
                                     <td class="date">
                                         <div class="myCol">
-                                            <strong>{{ language.translate("Euromillions") }}</strong>
-                                            <?php $date = new \DateTime($index);
-                                            $startDrawDate = $date->format('Y M j'); ?>
+                                            {{ nextDrawDate }}
                                         </div>
                                     </td>
                                     <td>
-                                        {{ startDrawDate }}
+                                        <strong>{{ language.translate("Euromillions") }}</strong>
                                     </td>
                                     <td>
                                         <table border="1">
