@@ -27,8 +27,8 @@ class SubscriptionInWallet extends AbstractMigration
      */
     public function change()
     {
-        $this->execute('ALTER TABLE users ADD wallet_subscription_amount BIGINT DEFAULT NULL, ADD wallet_subscription_currency_name VARCHAR(255) DEFAULT NULL;
-                        ALTER TABLE transactions ADD wallet_before_subscription_amount BIGINT DEFAULT NULL, ADD wallet_before_subscription_currency_name VARCHAR(255) DEFAULT NULL, ADD wallet_after_subscription_amount BIGINT DEFAULT NULL, ADD wallet_after_subscription_currency_name VARCHAR(255) DEFAULT NULL;
+        $this->execute('ALTER TABLE users ADD wallet_subscription_amount BIGINT DEFAULT 0, ADD wallet_subscription_currency_name VARCHAR(255) DEFAULT \'EUR\';
+                        ALTER TABLE transactions ADD wallet_before_subscription_amount BIGINT DEFAULT 0, ADD wallet_before_subscription_currency_name VARCHAR(255) DEFAULT \'EUR\', ADD wallet_after_subscription_amount BIGINT DEFAULT 0, ADD wallet_after_subscription_currency_name VARCHAR(255) DEFAULT \'EUR\';
         ');
     }
 }
