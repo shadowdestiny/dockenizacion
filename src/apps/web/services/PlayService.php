@@ -356,7 +356,7 @@ class PlayService
     {
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new PurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
-        if ($orderLines[0]->getFrequency() >= 24) {
+        if ($orderLines[0]->getFrequency() >= 4) {
             $emailTemplate = new PurchaseSubscriptionConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
 //        $emailTemplate->setFrequency($orderLines[0]->getFrequencyPlay());
             $emailTemplate->setDraws($orderLines[0]->getFrequency());
