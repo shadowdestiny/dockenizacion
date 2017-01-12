@@ -156,10 +156,10 @@ class WalletService
         }
     }
     
-    public function paySubscriptionWithWalletAndCreditCard(User $user)
+    public function paySubscriptionWithWalletAndCreditCard(User $user, PlayConfig $playConfig)
     {
         try {
-            $user->removeWalletToSubscription();
+            $user->removeWalletToSubscription($playConfig->getSinglePrice()->multiply($playConfig->getFrequency()));
 
             $this->entityManager->flush($user);
         } catch ( \Exception $e ) {

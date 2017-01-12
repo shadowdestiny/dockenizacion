@@ -79,12 +79,37 @@ class Wallet implements IArraySerializable
 
     public function paySubscriptionWithWallet(Money $amount)
     {
-        return new self($this->uploaded->subtract($amount), $this->winnings,$this->subscription->add($amount));
+        if ($amount->greaterThan($this->uploaded->add($this->winnings))) {
+            throw new NotEnoughFunds();
+        }
+        if ($amount->greaterThan($this->uploaded)) {
+            $to_subtract_from_winnings = $amount->subtract($this->uploaded);
+            return new self($this->uploaded->subtract($amount->subtract($to_subtract_from_winnings)), $this->winnings->subtract($to_subtract_from_winnings), $this->subscription->add($amount));
+        } else {
+            return new self($this->uploaded->subtract($amount), $this->winnings, $this->subscription->add($amount));
+        }
     }
 
-    public function removeWalletToSubscription()
+    public function removeWalletToSubscription(Money $amount)
     {
-        return new self($this->uploaded->subtract($this->uploaded), $this->winnings,$this->subscription->add($this->uploaded));
+        if ($amount->greaterThan($this->uploaded->add($this->winnings))) {
+            $to_add = $this->uploaded->add($this->winnings);
+
+            return new self($this->uploaded->subtract($this->uploaded), $this->winnings->subtract($this->winnings),$this->subscription->add($to_add));
+        } else {
+            if ($amount->greaterThan($this->uploaded)) {
+                var_dump($amount);
+                $to_subtract_from_winnings = $amount->subtract($this->uploaded);
+                var_dump($to_subtract_from_winnings);
+
+                die('jajaj');
+                return new self($this->uploaded->subtract($this->uploaded), $this->winnings->subtract($to_subtract_from_winnings),$this->subscription->add($amount));
+            } else {
+                die('shit');
+                return new self($this->uploaded->subtract($amount), $this->winnings, $this->subscription->add($amount));
+            }
+        }
+
     }
 
     public function uploadToSubscription(Money $amount)

@@ -355,9 +355,9 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
         $this->wallet = $this->wallet->paySubscriptionWithWallet($amount);
     }
     
-    public function removeWalletToSubscription()
+    public function removeWalletToSubscription(Money $amount)
     {
-        $this->wallet = $this->wallet->removeWalletToSubscription();
+        $this->wallet = $this->wallet->removeWalletToSubscription($amount);
     }
 
     /**
