@@ -55,7 +55,7 @@ class Wallet implements IArraySerializable
 
     public function award(Money $amount)
     {
-        return new self($this->uploaded, $this->winnings->add($amount));
+        return new self($this->uploaded, $this->winnings->add($amount), $this->subscription);
     }
 
     public function pay(Money $amount)
@@ -121,7 +121,7 @@ class Wallet implements IArraySerializable
         }
         if( $amount->lessThan($this->winnings) ) {
             $substract_from_winnings = $this->winnings->subtract($amount);
-            return new self($this->uploaded,$substract_from_winnings);
+            return new self($this->uploaded,$substract_from_winnings, $this->subscription);
         }
     }
 
