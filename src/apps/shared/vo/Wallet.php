@@ -30,9 +30,9 @@ class Wallet implements IArraySerializable
      * @throws UnknownCurrencyException
      * @return Wallet
      */
-    public static function create($uploaded = null, $winnings = null)
+    public static function create($uploaded = null, $winnings = null, $subscription = null)
     {
-        return new Wallet(self::getEuros((int)$uploaded), self::getEuros((int)$winnings));
+        return new Wallet(self::getEuros((int)$uploaded), self::getEuros((int)$winnings), self::getEuros((int)$subscription));
     }
 
     public function getBalance()
@@ -152,6 +152,8 @@ class Wallet implements IArraySerializable
             'uploaded_currency_name' => $this->getUploaded()->getCurrency()->getName(),
             'winnings_amount'        => $this->getUploaded()->getAmount(),
             'winnings_currency_name' => $this->getUploaded()->getCurrency()->getName(),
+            'subscription_amount'    => $this->getUploaded()->getCurrency(),
+            'subscription_currency_name' => $this->getUploaded()->getCurrency()->getName()
         ];
     }
 
@@ -159,7 +161,8 @@ class Wallet implements IArraySerializable
     {
         return
             $this->uploaded->getAmount() === $wallet->uploaded->getAmount() &&
-            $this->winnings->getAmount() === $wallet->winnings->getAmount();
+            $this->winnings->getAmount() === $wallet->winnings->getAmount() &&
+            $this->subscription->getAmount() === $wallet->subscription->getAmount();
     }
 
     /**
