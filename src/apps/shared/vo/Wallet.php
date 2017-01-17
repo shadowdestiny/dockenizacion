@@ -152,7 +152,7 @@ class Wallet implements IArraySerializable
             'uploaded_currency_name' => $this->getUploaded()->getCurrency()->getName(),
             'winnings_amount' => $this->getUploaded()->getAmount(),
             'winnings_currency_name' => $this->getUploaded()->getCurrency()->getName(),
-            'subscription_amount' => $this->getUploaded()->getCurrency(),
+            'subscription_amount' => $this->getUploaded()->getAmount(),
             'subscription_currency_name' => $this->getUploaded()->getCurrency()->getName()
         ];
     }
