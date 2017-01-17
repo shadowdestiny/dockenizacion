@@ -145,6 +145,8 @@ class EntityBaseUnitTest extends UnitTestBase
             'winning_above_currency_name'   => 'EUR',
             'created' => null,
             'ip_address_value' => '127.0.0.1',
+            'wallet_subscription_amount' => 0,
+            'wallet_subscription_currency_name' => 'EUR'
         ];
         $this->assertEquals($expected, $user->toArray());
     }
