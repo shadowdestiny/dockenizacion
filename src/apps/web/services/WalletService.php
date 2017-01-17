@@ -198,12 +198,12 @@ class WalletService
     }
 
 
-    public function withDraw( User $user, Money $amount )
+    public function withDraw(User $user, Money $amount)
     {
-        try{
+        try {
             $walletBefore = $user->getWallet();
             $newWallet = $user->getWallet()->withdraw($amount);
-            if(null == $newWallet) {
+            if ($newWallet == null) {
                 throw new \Exception('You don\'t have enough winning amount to complete transaction');
             }
             $user->setWallet($newWallet);
@@ -219,7 +219,7 @@ class WalletService
             $data['state'] = 'pending';
             $this->transactionService->storeTransaction(TransactionType::WINNINGS_WITHDRAW, $data);
             return new ActionResult(true);
-        } catch ( \Exception $e ) {
+        } catch (\Exception $e) {
             return new ActionResult(false, $e->getMessage());
             //EMTD Log and warn the admin
         }
@@ -227,7 +227,7 @@ class WalletService
 
     public function getWalletDTO( User $user )
     {
-        if( null != $user ) {
+        if( $user != null ) {
             try {
                 $wallet = $user->getWallet();
                 $current_winnnings_convert = $this->currencyConversionService->convert($user->getWinningAbove(), $user->getUserCurrency());
@@ -282,16 +282,16 @@ class WalletService
     private function buildDepositTransactionData(User $user, CreditCardCharge $creditCardCharge, $uniqueID, $walletBefore)
     {
         $dataTransaction = [
-            'lottery_id'           => 1,
-            'numBets'              => count($user->getPlayConfig()),
-            'feeApplied'           => $creditCardCharge->getIsChargeFee(),
-            'transactionID'        => $uniqueID,
-            'amountWithWallet'     => 0,
+            'lottery_id' => 1,
+            'numBets' => count($user->getPlayConfig()),
+            'feeApplied' => $creditCardCharge->getIsChargeFee(),
+            'transactionID' => $uniqueID,
+            'amountWithWallet' => 0,
             'amountWithCreditCard' => $creditCardCharge->getFinalAmount()->getAmount(),
-            'user'                 => $user,
-            'walletBefore'         => $walletBefore,
-            'walletAfter'          => $user->getWallet(),
-            'now'                  => new \DateTime()
+            'user' => $user,
+            'walletBefore' => $walletBefore,
+            'walletAfter' => $user->getWallet(),
+            'now' => new \DateTime()
         ];
         return $dataTransaction;
     }

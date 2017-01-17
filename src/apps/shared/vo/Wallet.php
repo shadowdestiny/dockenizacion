@@ -74,7 +74,7 @@ class Wallet implements IArraySerializable
     //TODO: @etey o @benair3 crear TEST!!!!!
     public function payWithSubscription(Money $amount)
     {
-        return new self($this->uploaded, $this->winnings,$this->subscription->subtract($amount));
+        return new self($this->uploaded, $this->winnings, $this->subscription->subtract($amount));
     }
 
     public function paySubscriptionWithWallet(Money $amount)
@@ -95,12 +95,12 @@ class Wallet implements IArraySerializable
         if ($amount->greaterThan($this->uploaded->add($this->winnings))) {
             $to_add = $this->uploaded->add($this->winnings);
 
-            return new self($this->uploaded->subtract($this->uploaded), $this->winnings->subtract($this->winnings),$this->subscription->add($to_add));
+            return new self($this->uploaded->subtract($this->uploaded), $this->winnings->subtract($this->winnings), $this->subscription->add($to_add));
         } else {
             if ($amount->greaterThan($this->uploaded)) {
                 $to_subtract_from_winnings = $amount->subtract($this->uploaded);
 
-                return new self($this->uploaded->subtract($this->uploaded), $this->winnings->subtract($to_subtract_from_winnings),$this->subscription->add($amount));
+                return new self($this->uploaded->subtract($this->uploaded), $this->winnings->subtract($to_subtract_from_winnings), $this->subscription->add($amount));
             } else {
                 return new self($this->uploaded->subtract($amount), $this->winnings, $this->subscription->add($amount));
             }
@@ -110,18 +110,18 @@ class Wallet implements IArraySerializable
 
     public function uploadToSubscription(Money $amount)
     {
-        return new self($this->uploaded,$this->winnings,$this->subscription->add($amount));
+        return new self($this->uploaded, $this->winnings, $this->subscription->add($amount));
     }
 
     public function withdraw(Money $amount)
     {
         $minAmountToWithdraw = new Money(self::MIN_AMOUNT_TO_WITHDRAW, new Currency('EUR'));
-        if( $amount->lessThan($minAmountToWithdraw) ) {
+        if ($amount->lessThan($minAmountToWithdraw)) {
             throw new NotEnoughFunds();
         }
-        if( $amount->lessThan($this->winnings) ) {
+        if ($amount->lessThan($this->winnings)) {
             $substract_from_winnings = $this->winnings->subtract($amount);
-            return new self($this->uploaded,$substract_from_winnings, $this->subscription);
+            return new self($this->uploaded, $substract_from_winnings, $this->subscription);
         }
     }
 
@@ -148,11 +148,11 @@ class Wallet implements IArraySerializable
     public function toArray()
     {
         return [
-            'uploaded_amount'        => $this->getUploaded()->getAmount(),
+            'uploaded_amount' => $this->getUploaded()->getAmount(),
             'uploaded_currency_name' => $this->getUploaded()->getCurrency()->getName(),
-            'winnings_amount'        => $this->getUploaded()->getAmount(),
+            'winnings_amount' => $this->getUploaded()->getAmount(),
             'winnings_currency_name' => $this->getUploaded()->getCurrency()->getName(),
-            'subscription_amount'    => $this->getUploaded()->getCurrency(),
+            'subscription_amount' => $this->getUploaded()->getCurrency(),
             'subscription_currency_name' => $this->getUploaded()->getCurrency()->getName()
         ];
     }
