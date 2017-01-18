@@ -436,7 +436,7 @@ class LotteryService
             $emailTemplate->setDraws($playConfig->getFrequency());
             $emailTemplate->setStartingDate($playConfig->getStartDrawDate()->format('d-m-Y'));
         }
-        $emailTemplate->setLine($playConfig);
+        $emailTemplate->setLine([$playConfig]);
         $emailTemplate->setUser($user);
 
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
