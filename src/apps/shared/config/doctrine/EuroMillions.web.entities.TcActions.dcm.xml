@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="EuroMillions\web\entities\TcActions" table="tc_actions" repository-class="EuroMillions\web\repositories\TcActionsRepository">
+        <id name="id" type="integer">
+            <generator strategy="IDENTITY"/>
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+        <field name="name" column="name" type="string" length="45" nullable="true"/>
+        <field name="conditions" column="conditions" type="text" nullable="true"/>
+        <many-to-one target-entity="EuroMillions\web\entities\TrackingCodes" inversed-by="trackingCode"
+                     field="trackingCode">
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

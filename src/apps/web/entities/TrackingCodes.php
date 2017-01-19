@@ -45,7 +45,7 @@ class TrackingCodes extends EntityBase implements IEntity
     /**
      * @param string $description
      */
-    public function setLeftEdge($description)
+    public function setDescription($description)
     {
         $this->description = $description;
     }

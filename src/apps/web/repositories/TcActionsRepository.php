@@ -4,7 +4,7 @@
 namespace EuroMillions\web\repositories;
 
 
-class TrackingCodesRepository extends RepositoryBase
+class TcActionsRepository extends RepositoryBase
 {
 
 }
