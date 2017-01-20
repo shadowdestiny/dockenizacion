@@ -1,0 +1,103 @@
+<?php
+
+namespace EuroMillions\web\entities;
+
+use EuroMillions\web\interfaces\IEntity;
+
+class TcAttributes extends EntityBase implements IEntity
+{
+    protected $id;
+    protected $name;
+    protected $conditions;
+    protected $trackingCode;
+    protected $functionName;
+    protected $relationshipTable;
+
+    /**
+     * @return mixed
+     */
+    public function getTrackingCode()
+    {
+        return $this->trackingCode;
+    }
+
+    /**
+     * @param mixed $trackingCode
+     */
+    public function setTrackingCode($trackingCode)
+    {
+        $this->trackingCode = $trackingCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getConditions()
+    {
+        return $this->conditions;
+    }
+
+    /**
+     * @param string $conditions
+     */
+    public function setConditions($conditions)
+    {
+        $this->conditions = $conditions;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFunctionName()
+    {
+        return $this->functionName;
+    }
+
+    /**
+     * @param mixed $functionName
+     */
+    public function setFunctionName($functionName)
+    {
+        $this->functionName = $functionName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRelationshipTable()
+    {
+        return $this->relationshipTable;
+    }
+
+    /**
+     * @param mixed $relationshipTable
+     */
+    public function setRelationshipTable($relationshipTable)
+    {
+        $this->relationshipTable = $relationshipTable;
+    }
+}
