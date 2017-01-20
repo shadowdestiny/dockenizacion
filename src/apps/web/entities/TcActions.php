@@ -16,15 +16,15 @@ class TcActions extends EntityBase implements IEntity
      */
     public function getTrackingCode()
     {
-        return $this->trackingCodeId;
+        return $this->trackingCode;
     }
 
     /**
-     * @param mixed $trackingCodeId
+     * @param mixed $trackingCode
      */
-    public function setTrackingCode($trackingCodeId)
+    public function setTrackingCode($trackingCode)
     {
-        $this->trackingCodeId = $trackingCodeId;
+        $this->trackingCode = $trackingCode;
     }
 
     /**
