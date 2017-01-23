@@ -47,4 +47,9 @@ class DomainAdminServiceFactory
         return new ReportsService(new ReportsRepository($this->entityManager));
     }
 
+    public function getTrackingService()
+    {
+        return new TrackingService($this->entityManager);
+    }
+
 }

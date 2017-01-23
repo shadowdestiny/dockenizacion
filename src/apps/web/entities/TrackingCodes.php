@@ -11,6 +11,15 @@ class TrackingCodes extends EntityBase implements IEntity
     protected $description;
 
     /**
+     * @param array $data
+     */
+    public function __construct(array $data)
+    {
+        $this->setName($data['name']);
+        $this->setDescription($data['description']);
+    }
+
+    /**
      * @return mixed
      */
     public function getId()
