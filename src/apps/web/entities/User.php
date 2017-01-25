@@ -527,6 +527,7 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
      */
     public function getPlayConfigsFilteredForNextDraw( \DateTime $date )
     {
+        $date->setTime(0,0,0);
         $criteria = Criteria::create()->where(Criteria::expr()->eq('active',1))
             ->andWhere(Criteria::expr()->lt('startDrawDate',$date))
             ->andWhere(Criteria::expr()->gt('lastDrawDate',$date))
