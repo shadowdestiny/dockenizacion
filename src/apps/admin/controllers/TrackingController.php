@@ -3,16 +3,24 @@
 namespace EuroMillions\admin\controllers;
 
 use EuroMillions\admin\services\TrackingService;
+use EuroMillions\web\services\CurrencyService;
+use EuroMillions\web\services\GeoService;
 
 class TrackingController extends AdminControllerBase
 {
     /** @var TrackingService $trackingService */
     private $trackingService;
+    /** @var GeoService $geoService */
+    private $geoService;
+    /** @var CurrencyService $currencyService */
+    private $currencyService;
 
     public function initialize()
     {
         parent::initialize();
         $this->trackingService = $this->domainAdminServiceFactory->getTrackingService();
+        $this->geoService = $this->domainAdminServiceFactory->getGeoService();
+        $this->currencyService = $this->domainAdminServiceFactory->getCurrencyService();
     }
 
     /**
@@ -85,6 +93,44 @@ class TrackingController extends AdminControllerBase
                 return $this->redirectToTrackingIndex('ERROR - No users for this Tracking Code');
             }
         }
+    }
+
+    public function cloneTrackingCodeAction()
+    {
+        if ($this->request->getPost('name')) {
+            if ($this->trackingService->existTrackingCodeName($this->request->getPost('name'))){
+                return $this->redirectToTrackingIndex('ERROR - The name is duplicated, choose other name');
+            }
+            $this->trackingService->createTrackingCode([
+                'name' => $this->request->getPost('name'),
+                'description' => $this->request->getPost('description'),
+            ]);
+        }
+        //ToDo: Clone Actions and Attributes
+        return $this->redirectToTrackingIndex();
+    }
+
+    public function editPreferencesAction()
+    {
+        if ($this->request->get('id')) {
+            $countries = $this->geoService->countryList();
+            sort($countries);
+            //key+1, select element from phalcon need index 0 to set empty value
+            $countries = array_combine(range(1, count($countries)), array_values($countries));
+
+            $this->view->pick('tracking/preferences');
+            return $this->view->setVars([
+                'trackingCode' => $this->trackingService->getTrackingCodeById($this->request->get('id')),
+                'attributes' => $this->trackingService->getAttributesByTrackingCode($this->request->get('id')),
+                'actions' => $this->trackingService->getActionsByTrackingCode($this->request->get('id')),
+                'countryList' => $countries,
+                'currencyList' => $this->currencyService->getActiveCurrenciesCodeAndNames()->returnValues(),
+                'lotteries' => $this->trackingService->getLotteries(),
+                'allTrackingCodes' => $this->trackingService->getAllTrackingCodesWithUsersCount(),
+            ]);
+        }
+
+        return $this->redirectToTrackingIndex('ERROR - You don\'t select any tracking code to edit preferences');
     }
 
     /**

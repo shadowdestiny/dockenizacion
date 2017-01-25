@@ -4,6 +4,7 @@ namespace EuroMillions\admin\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\entities\TrackingCodes;
+use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\repositories\TcUsersListRepository;
 use EuroMillions\web\repositories\TrackingCodesRepository;
 use Phalcon\Exception;
@@ -15,6 +16,8 @@ class TrackingService
     private $trackingCodesRepository;
     /** @var TcUsersListRepository $tcUsersListRepostiroy */
     private $tcUsersListRepository;
+    /** @var LotteryRepository $lotteryRepository */
+    private $lotteryRepository;
 
     /**
      * @param EntityManager $entityManager
@@ -24,6 +27,7 @@ class TrackingService
         $this->entityManager = $entityManager;
         $this->trackingCodesRepository = $this->entityManager->getRepository('EuroMillions\web\entities\TrackingCodes');
         $this->tcUsersListRepository = $this->entityManager->getRepository('EuroMillions\web\entities\TcUsersList');
+        $this->lotteryRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Lottery');
     }
 
     /**
@@ -32,6 +36,23 @@ class TrackingService
     public function getAllTrackingCodesWithUsersCount()
     {
         return $this->trackingCodesRepository->getAllTrackingCodesWithUsersCount();
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllTrackingCodes()
+    {
+        return $this->trackingCodesRepository->findAll();
+    }
+
+    /**
+     * @param $id
+     * @return null|object
+     */
+    public function getTrackingCodeById($id)
+    {
+        return $this->trackingCodesRepository->find($id);
     }
 
     /**
@@ -55,7 +76,7 @@ class TrackingService
     public function deleteTrackingCode($id)
     {//ToDo: Cuando este todo creado y funcionando, esto también debería eliminar las listas de usuarios, atributos y acciones relacionadas
         try {
-            $this->entityManager->remove($this->trackingCodesRepository->find($id));
+            $this->entityManager->remove($this->getTrackingCodeById($id));
             $this->entityManager->flush();
         } catch (\Exception $e) {
             throw new Exception("Was not possible to delete TrackingCode data");
@@ -63,11 +84,15 @@ class TrackingService
 
     }
 
+    /**
+     * @param array $trackingCodeData
+     * @throws Exception
+     */
     public function editTrackingCode(array $trackingCodeData)
     {
         try {
             /** @var TrackingCodes $trackingCode */
-            $trackingCode = $this->trackingCodesRepository->find($trackingCodeData['id']);
+            $trackingCode = $this->getTrackingCodeById($trackingCodeData['id']);
             $trackingCode->setName($trackingCodeData['name']);
             $trackingCode->setDescription($trackingCodeData['description']);
             $this->entityManager->persist($trackingCode);
@@ -96,5 +121,25 @@ class TrackingService
     public function getUsersListByTrackingCode($id)
     {
         return $this->tcUsersListRepository->getUsersListByTrackingCode($id);
+    }
+
+    /**
+     * @return array
+     */
+    public function getLotteries()
+    {
+        return $this->lotteryRepository->findAll();
+    }
+
+    public function getAttributesByTrackingCode($id)
+    {
+        //ToDo: getAttributtes from Database
+        return [];
+    }
+
+    public function getActionsByTrackingCode($id)
+    {
+        //ToDo: getActions from Database
+        return [];
     }
 }

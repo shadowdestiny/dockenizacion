@@ -3,8 +3,8 @@ namespace EuroMillions\admin\services;
 
 use EuroMillions\shared\components\PhalconSessionWrapper;
 use EuroMillions\web\repositories\ReportsRepository;
-use EuroMillions\web\services\CurrencyConversionService;
-use EuroMillions\web\services\factories\DomainServiceFactory;
+use EuroMillions\web\services\CurrencyService;
+use EuroMillions\web\services\GeoService;
 use Phalcon\DiInterface;
 
 class DomainAdminServiceFactory
@@ -52,4 +52,13 @@ class DomainAdminServiceFactory
         return new TrackingService($this->entityManager);
     }
 
+    public function getGeoService()
+    {
+        return new GeoService();
+    }
+
+    public function getCurrencyService()
+    {
+        return new CurrencyService($this->entityManager);
+    }
 }
