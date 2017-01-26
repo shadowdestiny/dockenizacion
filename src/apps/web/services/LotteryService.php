@@ -257,27 +257,27 @@ class LotteryService
     public function placeBetForNextDraw(Lottery $lottery, \DateTime $dateNextDraw = null)
     {
         $users = $this->userService->getUsersWithPlayConfigsForNextDraw();
-        if( null != $users ) {
+        if (null != $users) {
             /** @var User $user */
             $nextDrawDate = $lottery->getNextDrawDate($dateNextDraw);
-            foreach( $users as $user ) {
+            foreach ($users as $user) {
                 /** @var ArrayCollection $playconfigsFiltered */
                 $playconfigsFiltered = $user->getPlayConfigsFilteredForNextDraw($nextDrawDate);
-                if( count($playconfigsFiltered) > 0 ) {
+                if (count($playconfigsFiltered) > 0) {
                     //EMTD get playconfigsFiltered as array
                     $playconfigsFilteredToArray = $playconfigsFiltered->toArray();
                     $price = $this->lotteriesDataService->getPriceForNextDraw($playconfigsFilteredToArray);
-                    if( $user->getWallet()->getSubscription()->getAmount() > $price->getAmount() ) {
+                    if ($user->getWallet()->getSubscription()->getAmount() >= $price->getAmount()) {
                         /** @var EuroMillionsDraw $euroMillionsDraw */
                         $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($dateNextDraw));
 
                         /** @var PlayConfig $playConfig */
-                        foreach( $playconfigsFilteredToArray as $playConfig ) {
-                            if(empty($this->betService->obtainBetsWithAPlayConfigAndAEuromillionsDraw($playConfig,$euroMillionsDraw))) {
+                        foreach ($playconfigsFilteredToArray as $playConfig) {
+                            if (empty($this->betService->obtainBetsWithAPlayConfigAndAEuromillionsDraw($playConfig, $euroMillionsDraw))) {
                                 $result = $this->betService->validation($playConfig, $euroMillionsDraw, $nextDrawDate);
-                                if($result->success()) {
+                                if ($result->success()) {
                                     $walletBefore = $user->getWallet();
-                                    $this->walletService->payWithSubscription($user,$playConfig);
+                                    $this->walletService->payWithSubscription($user, $playConfig);
                                     $dataTransaction = [
                                         'lottery_id' => 1,
                                         'numBets' => 1,
@@ -286,15 +286,15 @@ class LotteryService
                                         'playConfigs' => $playConfig->getId(),
                                         'discount' => $playConfig->getDiscount(),
                                     ];
-                                    $this->walletService->purchaseTransactionGrouped($user,TransactionType::AUTOMATIC_PURCHASE,$dataTransaction);
-                                    $this->sendEmailPurchase($user,$playConfig);
+                                    $this->walletService->purchaseTransactionGrouped($user, TransactionType::AUTOMATIC_PURCHASE, $dataTransaction);
+                                    $this->sendEmailPurchase($user, $playConfig);
                                 }
                             }
                         }
                     } else {
                         $userNotificationAutoPlayNoFunds = new UserNotificationAutoPlayNoFunds($this->userService);
                         $hasNotification = $this->userNotificationsService->hasNotificationActive($userNotificationAutoPlayNoFunds, $user);
-                        if($hasNotification) {
+                        if ($hasNotification) {
                             $this->emailService->sendLowBalanceEmail($user);
                         }
                     }
