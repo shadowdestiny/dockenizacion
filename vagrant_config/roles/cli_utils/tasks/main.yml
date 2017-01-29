@@ -1,6 +1,6 @@
 ---
 - name: Installing git and mysql clients from repository
-  apt: name=gzip,git,mysql-client-5.6 state=present
+  apt: name=gzip,git,python-pip,mysql-client-5.6 state=present
 - name: Install composer libraries
   composer: command="install" working_dir="/var/www" no_dev=no
 - name: Set softlink for doctrine command line utilities
@@ -45,3 +45,23 @@
   shell: gzip -fd GeoIPv6.dat.gz
   args:
     chdir: /var/www/data/geoipdatabase
+
+- name: make sure pip is installed
+  become: true
+  become_user: root
+  easy_install:
+    name: '{{ item }}'
+  with_items:
+    - pip
+    - docker-py==1.7.0
+    - six>=1.4.0
+
+- name: make sure required PyPi packages are installed
+  become: true
+  become_user: root
+  pip:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - docker-py==1.2.3
+    - six>=1.4.0
