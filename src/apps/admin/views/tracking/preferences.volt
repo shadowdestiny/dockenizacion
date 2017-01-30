@@ -751,9 +751,9 @@
                         </table>
                         <br />
                         <p align="center">
-                            <input type="button" value="Go Back" onclick="location='/admin/tracking/index'" class="btn btn-primary" />
-                            &nbsp; &nbsp; &nbsp;
                             <input type="submit" value="Save" class="btn btn-primary" />
+                            &nbsp; &nbsp; &nbsp;
+                            <input type="button" value="Go Back" onclick="location='/admin/tracking/index'" class="btn btn-primary" />
                         </p>
                     </form>
                 </div>

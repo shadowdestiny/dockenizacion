@@ -101,7 +101,8 @@ class TrackingController extends AdminControllerBase
             if ($this->trackingService->existTrackingCodeName($this->request->getPost('name'))){
                 return $this->redirectToTrackingIndex('ERROR - The name is duplicated, choose other name');
             }
-            $this->trackingService->createTrackingCode([
+            $this->trackingService->cloneTrackingCode([
+                'id' => $this->request->getPost(('id')),
                 'name' => $this->request->getPost('name'),
                 'description' => $this->request->getPost('description'),
             ]);

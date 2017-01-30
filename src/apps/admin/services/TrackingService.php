@@ -70,7 +70,23 @@ class TrackingService
             $this->entityManager->persist(new TrackingCodes($trackingCodeData));
             $this->entityManager->flush();
         } catch (\Exception $e) {
-            throw new Exception("Was not possible to save TrackingCode data");
+            throw new Exception("Was not possible to create TrackingCode data");
+        }
+    }
+
+    /**
+     * @param array $trackingCodeData
+     * @throws Exception
+     */
+    public function cloneTrackingCode(array $trackingCodeData)
+    {
+        try {
+            $trackingCode = new TrackingCodes($trackingCodeData);
+            $this->entityManager->persist($trackingCode);
+            $this->entityManager->flush();
+            $this->tcAttributesRepository->cloneAttributesByLastTCAndNewTC($trackingCodeData['id'], $trackingCode->getId());
+        } catch (\Exception $e) {
+            // throw new Exception("Was not possible to clone TrackingCode data");
         }
     }
 
@@ -103,7 +119,7 @@ class TrackingService
             $this->entityManager->persist($trackingCode);
             $this->entityManager->flush();
         } catch (\Exception $e) {
-            throw new Exception("Was not possible to save TrackingCode data");
+            throw new Exception("Was not possible to edit TrackingCode data");
         }
     }
 
