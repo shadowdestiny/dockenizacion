@@ -110,8 +110,12 @@ class TrackingController extends AdminControllerBase
         return $this->redirectToTrackingIndex();
     }
 
+    /**
+     * @return \Phalcon\Mvc\View
+     */
     public function editPreferencesAction()
     {
+        //ToDo: Faltaría cargar las preferencias anteriores si tiene
         if ($this->request->get('id')) {
             $countries = $this->geoService->countryList();
             sort($countries);
@@ -121,6 +125,7 @@ class TrackingController extends AdminControllerBase
             $this->view->pick('tracking/preferences');
             return $this->view->setVars([
                 'trackingCode' => $this->trackingService->getTrackingCodeById($this->request->get('id')),
+                'attributesChecked' => $this->trackingService->getAttributesTreatedArray($this->request->get('id')),
                 'attributes' => $this->trackingService->getAttributesByTrackingCode($this->request->get('id')),
                 'actions' => $this->trackingService->getActionsByTrackingCode($this->request->get('id')),
                 'countryList' => $countries,
@@ -131,6 +136,20 @@ class TrackingController extends AdminControllerBase
         }
 
         return $this->redirectToTrackingIndex('ERROR - You don\'t select any tracking code to edit preferences');
+    }
+
+    /**
+     * @return \Phalcon\Mvc\View
+     */
+    public function savePreferencesAction()
+    {
+        if ($this->request->getPost('trackingCodeId')) {
+            $this->trackingService->saveTrackingCodePreferences($this->request->getPost());
+        } else {
+            return $this->redirectToTrackingIndex('ERROR - Preferences cannot be saved');
+        }
+
+        return $this->redirectToTrackingIndex('OK - Preferences saved');
     }
 
     /**

@@ -27,6 +27,7 @@ html{box-sizing:border-box;}
 .divider{border-top:1px solid #AE5279!important;}
 .hidden-element{display:none;}
 .modal-backdrop{background:#000!important;}
+.display-none{display: none;}
 
 /* Navigation */
 .navbar .brand{padding:0; margin:10px 0;}
@@ -129,7 +130,7 @@ td.approved, td.modif, td.missing, td.review, td.verify{text-align:center;}
 .admin input[type=text], .admin input[type=password]{height:30px;}
 .users .add{margin-bottom:10px;}
 .users .table td{font-size:14px;}
-.users .select{width:auto; margin-right:5px; color:000;}
+.users .select{width:auto; margin-right:5px; color:#000;}
 .users .input{height:30px; line-height:30px;}
 .users label{font-weight:bold; color:#000; background:#fff;}
 .users .search label{line-height:30px; float:left; margin-right:7px;}

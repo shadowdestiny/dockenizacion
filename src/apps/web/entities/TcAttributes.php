@@ -9,28 +9,24 @@ class TcAttributes extends EntityBase implements IEntity
     protected $id;
     protected $name;
     protected $conditions;
-    protected $trackingCode;
     protected $functionName;
     protected $relationshipTable;
+    protected $trackingCode;
 
     /**
-     * @return mixed
+     * @param array $data
      */
-    public function getTrackingCode()
+    public function __construct(array $data)
     {
-        return $this->trackingCode;
+        $this->setName($data['name']);
+        $this->setConditions($data['conditions']);
+        $this->setFunctionName($data['functionName']);
+        $this->setRelationshipTable($data['relationshipTable']);
+        $this->setTrackingCode($data['trackingCodeId']);
     }
 
     /**
-     * @param mixed $trackingCode
-     */
-    public function setTrackingCode($trackingCode)
-    {
-        $this->trackingCode = $trackingCode;
-    }
-
-    /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -38,7 +34,7 @@ class TcAttributes extends EntityBase implements IEntity
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName()
     {
@@ -70,7 +66,7 @@ class TcAttributes extends EntityBase implements IEntity
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getFunctionName()
     {
@@ -78,7 +74,7 @@ class TcAttributes extends EntityBase implements IEntity
     }
 
     /**
-     * @param mixed $functionName
+     * @param string $functionName
      */
     public function setFunctionName($functionName)
     {
@@ -86,7 +82,7 @@ class TcAttributes extends EntityBase implements IEntity
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getRelationshipTable()
     {
@@ -94,10 +90,26 @@ class TcAttributes extends EntityBase implements IEntity
     }
 
     /**
-     * @param mixed $relationshipTable
+     * @param string $relationshipTable
      */
     public function setRelationshipTable($relationshipTable)
     {
         $this->relationshipTable = $relationshipTable;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTrackingCode()
+    {
+        return $this->trackingCode;
+    }
+
+    /**
+     * @param int $trackingCode
+     */
+    public function setTrackingCode($trackingCode)
+    {
+        $this->trackingCode = $trackingCode;
     }
 }

@@ -20,7 +20,7 @@ class TrackingCodes extends EntityBase implements IEntity
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -28,7 +28,7 @@ class TrackingCodes extends EntityBase implements IEntity
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName()
     {
