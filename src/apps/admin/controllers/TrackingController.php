@@ -115,8 +115,7 @@ class TrackingController extends AdminControllerBase
      */
     public function editPreferencesAction()
     {
-        //ToDo: Faltaría cargar las preferencias anteriores si tiene
-        if ($this->request->get('id')) {
+        if ($this->trackingService->getTrackingCodeById($this->request->get('id'))) {
             $countries = $this->geoService->countryList();
             sort($countries);
             //key+1, select element from phalcon need index 0 to set empty value
