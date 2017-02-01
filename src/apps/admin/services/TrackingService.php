@@ -5,6 +5,7 @@ namespace EuroMillions\admin\services;
 use DateTime;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\entities\TcAttributes;
+use EuroMillions\web\entities\TcUsersList;
 use EuroMillions\web\entities\TrackingCodes;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\repositories\TcAttributesRepository;
@@ -97,14 +98,27 @@ class TrackingService
      * @throws Exception
      */
     public function deleteTrackingCode($id)
-    {//ToDo: Cuando este todo creado y funcionando, esto también debería eliminar las listas de usuarios, atributos y acciones relacionadas
+    {
+        //ToDo: Cuando esten terminadas las acciones esto debería borrarlas
         try {
             $this->entityManager->remove($this->getTrackingCodeById($id));
+
+            $tcAttributes = $this->getAttributesByTrackingCode($id);
+            /** @var TcAttributes $tcAttribute */
+            foreach ($tcAttributes as $tcAttribute) {
+                $this->entityManager->remove($tcAttribute);
+            }
+
+            $tcUsers = $this->getTcUsersByTrackingCode($id);
+            /** @var TcUsersList $tcUser */
+            foreach ($tcUsers as $tcUser) {
+                $this->entityManager->remove($tcUser);
+            }
+
             $this->entityManager->flush();
         } catch (\Exception $e) {
             throw new Exception("Was not possible to delete TrackingCode data");
         }
-
     }
 
     /**
@@ -161,6 +175,11 @@ class TrackingService
     public function getAttributesByTrackingCode($id)
     {
         return $this->tcAttributesRepository->findBy(['trackingCode' => $id]);
+    }
+
+    public function getTcUsersByTrackingCode($id)
+    {
+        return $this->tcUsersListRepository->findBy(['trackingCode' => $id]);
     }
 
 
