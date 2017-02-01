@@ -48,6 +48,11 @@
         location='/admin/tracking/downloadUsers?id='+id;
     }
 
+    function launchTrackingCode(id)
+    {
+        location='/admin/tracking/launchTrackingCode?id='+id;
+    }
+
     function editPreferences(id)
     {
         location='/admin/tracking/editPreferences?id='+id;
@@ -171,6 +176,7 @@
                                         <input type="button" class="btn btn-primary" value="Delete" onClick="deleteConfirmation({{ trackingCode['id'] }});" />
                                         <input type="button" class="btn btn-primary" value="Clone"  onClick="cloneTrackingCode({{ trackingCode['id'] }}, '{{ trackingCode['name'] }}', '{{ trackingCode['description'] }}');" />
                                         <input type="button" class="btn btn-primary" value="Download"  onClick="downloadUsers({{ trackingCode['id'] }});" />
+                                        <input type="button" class="btn btn-primary" value="Launch"  onClick="launchTrackingCode({{ trackingCode['id'] }});" />
                                         <input type="button" class="btn btn-primary" value="Preferences"  onClick="editPreferences({{ trackingCode['id'] }});" />
                                     </td>
                                 </tr>

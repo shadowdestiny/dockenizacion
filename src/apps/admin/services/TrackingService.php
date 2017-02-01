@@ -2,6 +2,7 @@
 
 namespace EuroMillions\admin\services;
 
+use DateTime;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\entities\TcAttributes;
 use EuroMillions\web\entities\TrackingCodes;
@@ -10,6 +11,7 @@ use EuroMillions\web\repositories\TcAttributesRepository;
 use EuroMillions\web\repositories\TcUsersListRepository;
 use EuroMillions\web\repositories\TrackingCodesRepository;
 use Phalcon\Exception;
+use Phalcon\Forms\Element\Date;
 
 class TrackingService
 {
@@ -205,6 +207,15 @@ class TrackingService
     }
 
     /**
+     * @param $id
+     */
+    public function launchTrackingCodeById($id)
+    {
+        $tcAttributes = $this->getAttributesByTrackingCode($id);
+        $usersByAttributes = $this->generateSQLByAttributes($tcAttributes);
+    }
+
+    /**
      * @param $key
      * @param array $postData
      * Se hace uppercase para que cuando llamemos a la funcion se haga en camelcase
@@ -280,5 +291,134 @@ class TrackingService
         } catch (\Exception $e) {
             throw new Exception("Was not possible to save PreferenceKey");
         }
+    }
+
+    /**
+     * @param $tcAttributes
+     * @return array
+     */
+    private function generateSQLByAttributes($tcAttributes)
+    {
+        $conditions = "WHERE ";
+
+        /** @var TcAttributes $tcAttribute */
+        foreach ($tcAttributes as $tcAttribute) {
+            switch($tcAttribute->getFunctionName()) {
+                case 'ByUserId':
+                    $conditions .= "u.id IN ('" .implode("','", explode(',', $tcAttribute->getConditions())). "') AND ";
+                    break;
+                case 'ByEmail':
+                    $conditions .= "u.email IN ('" .implode("','", explode(',', $tcAttribute->getConditions())). "') AND ";
+                    break;
+                case "ByCountry":
+                    $conditions .= "u.country IN ('" .implode("','", explode(',', $tcAttribute->getConditions())). "') AND ";
+                    break;
+                case "ByCity":
+                    $conditions .= "u.city IN ('" .implode("','", explode(',', $tcAttribute->getConditions())). "') AND ";
+                    break;
+                case "ByAcceptingEmails":
+                    //ToDo: En el pròximo sprint
+                    break;
+                case "ByMobileRegistered":
+                    if ($tcAttribute->getConditions() == 'Y') {
+                        $conditions .= "u.phone_number IS NOT NULL AND ";
+                    } else {
+                        $conditions .= "u.phone_number IS NULL AND ";
+                    }
+                    break;
+                case "ByRegistrationDate":
+                    $registrationDateConditions = explode(',', $tcAttribute->getConditions());
+                    if (strlen($registrationDateConditions[0]) > 3){
+                        $date1 = (new DateTime($registrationDateConditions[0]))->setTime(0,0,0);
+                        $date2 = (new DateTime($registrationDateConditions[1]))->setTime(23,59,59);
+                    } else {
+                        $date1 = (new DateTime())->modify($registrationDateConditions[0] . ' days')->setTime(0,0,0);
+                        $date2 = (new DateTime())->modify($registrationDateConditions[1] . ' days')->setTime(23,59,59);
+                    }
+                    $conditions .= "u.created BETWEEN '".$date1->format('Y-m-d H:i:s')."' AND '".$date2->format('Y-m-d H:i:s')."' AND ";
+                    break;
+                case "ByCurrency":
+                    $conditions .= "u.user_currency_name IN ('" .implode("','", explode(',', $tcAttribute->getConditions())). "') AND ";
+                    break;
+                case "ByDepositCount":
+                    $depositCountConditions = explode(',', $tcAttribute->getConditions());
+                    $conditions .= "u.id IN (select user_id from transactions where entity_type='deposit' group by user_id having count(id) BETWEEN'" . $depositCountConditions[0] . "' AND '" . $depositCountConditions[1] . "') AND ";
+                    break;
+                case "ByFirstDepositDate":
+                    $firstDepositDateConditions = explode(',', $tcAttribute->getConditions());
+                    if (strlen($firstDepositDateConditions[0]) > 3){
+                        $date1 = (new DateTime($firstDepositDateConditions[0]))->setTime(0,0,0);
+                        $date2 = (new DateTime($firstDepositDateConditions[1]))->setTime(23,59,59);
+                    } else {
+                        $date1 = (new DateTime())->modify($firstDepositDateConditions[0] . ' days')->setTime(0,0,0);
+                        $date2 = (new DateTime())->modify($firstDepositDateConditions[1] . ' days')->setTime(23,59,59);
+                    }
+                    $conditions .= "u.id IN (select user_id from transactions where entity_type='deposit' group by user_id having min(date) BETWEEN '".$date1->format('Y-m-d H:i:s')."' AND '".$date2->format('Y-m-d H:i:s')."') AND ";
+                    break;
+                case "ByLastDepositDate":
+                    $lastDepositDateConditions = explode(',', $tcAttribute->getConditions());
+                    if (strlen($lastDepositDateConditions[0]) > 3){
+                        $date1 = (new DateTime($lastDepositDateConditions[0]))->setTime(0,0,0);
+                        $date2 = (new DateTime($lastDepositDateConditions[1]))->setTime(23,59,59);
+                    } else {
+                        $date1 = (new DateTime())->modify($lastDepositDateConditions[0] . ' days')->setTime(0,0,0);
+                        $date2 = (new DateTime())->modify($lastDepositDateConditions[1] . ' days')->setTime(23,59,59);
+                    }
+                    $conditions .= "u.id IN (select user_id from transactions where entity_type='deposit' group by user_id having max(date) BETWEEN '".$date1->format('Y-m-d H:i:s')."' AND '".$date2->format('Y-m-d H:i:s')."') AND ";
+                    break;
+                case "ByTotalDeposited":
+                    $totalDepositedConditions = explode(',', $tcAttribute->getConditions());
+                    $conditions .= "u.id IN (select user_id from transactions where entity_type='deposit' group by user_id having sum(wallet_after_uploaded_amount - wallet_before_uploaded_amount) BETWEEN '".$totalDepositedConditions[0]."' AND '".$totalDepositedConditions[1]."') AND ";
+                    break;
+                case "ByLastWithdrawal":
+                    $lastWithdrawalConditions = explode(',', $tcAttribute->getConditions());
+                    if (strlen($lastWithdrawalConditions[0]) > 3){
+                        $date1 = (new DateTime($lastWithdrawalConditions[0]))->setTime(0,0,0);
+                        $date2 = (new DateTime($lastWithdrawalConditions[1]))->setTime(23,59,59);
+                    } else {
+                        $date1 = (new DateTime())->modify($lastWithdrawalConditions[0] . ' days')->setTime(0,0,0);
+                        $date2 = (new DateTime())->modify($lastWithdrawalConditions[1] . ' days')->setTime(23,59,59);
+                    }
+                    $conditions .= "u.id IN (select user_id from transactions where entity_type='winnings_withdraw' group by user_id having max(date) BETWEEN '".$date1->format('Y-m-d H:i:s')."' AND '".$date2->format('Y-m-d H:i:s')."') AND ";
+                    break;
+                case "ByTotalWithdrawal":
+                    $totalWithdrawalConditions = explode(',', $tcAttribute->getConditions());
+                    $conditions .= "u.id IN (select user_id from transactions where entity_type='winnings_withdraw' group by user_id having sum(wallet_before_winnings_amount - wallet_after_winnings_amount) BETWEEN '".$totalWithdrawalConditions[0]."' AND '".$totalWithdrawalConditions[1]."') AND ";
+                    break;
+                case "ByLastLoginDate":
+                    //No se puede hacer, no hay una última conexión de usuario en base de datos
+                    break;
+                case "ByBalance":
+                    $balanceConditions = explode(',', $tcAttribute->getConditions());
+                    $conditions .= "(u.wallet_uploaded_amount + u.wallet_winnings_amount) BETWEEN '".$balanceConditions[0]."' AND '".$balanceConditions[1]."' AND ";
+                    break;
+                case "ByInNotTrackingCode":
+                    $inNotTrackingCodeConditions = explode('|', $tcAttribute->getConditions());
+                    if ($inNotTrackingCodeConditions == 'In') {
+                        $searchInNot = 'IN';
+                    } else {
+                        $searchInNot = 'NOT IN';
+                    }
+                    $conditions .= "u.id IN (select user_id from tc_users_list where trackingCode_id " . $searchInNot . "('" .implode("','", explode(',', $inNotTrackingCodeConditions[1])). "')) AND ";
+                    break;
+                case "ByLotteriesPlayed":
+                    $conditions .= "u.id IN (select user_id from play_configs where lottery_id IN('" .implode("','", explode(',', $tcAttribute->getConditions())). "')) AND ";
+                    break;
+                case "ByWagering":
+                    $wageringConditions = explode(',', $tcAttribute->getConditions());
+                    $conditions .= "u.id IN (select user_id from transactions where entity_type='ticket_purchase' group by user_id having count(*) BETWEEN '".$wageringConditions[0]."' AND '".$wageringConditions[1]."') AND ";
+                    break;
+                case "ByGrossRevenue":
+                    $grossRevenueConditions = explode(',', $tcAttribute->getConditions());
+                    $conditions .=  "u.id IN (select user_id FROM euromillions.transactions where entity_type in ('ticket_purchase', 'automatic_purchase') group by user_id having count(*) * 0.50 * 100 BETWEEN '".$grossRevenueConditions[0]."' AND '".$grossRevenueConditions[1]."') AND ";
+                    break;
+            }
+        }
+
+        $sql = "SELECT u.id, u.name, u.surname, u.email
+                FROM users u
+                " . substr($conditions, 0, -4);
+
+        return $this->trackingCodesRepository->getUsersByTrackingCodePreferencesQuery($sql);
     }
 }

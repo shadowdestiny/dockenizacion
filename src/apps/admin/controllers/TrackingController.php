@@ -152,6 +152,17 @@ class TrackingController extends AdminControllerBase
         return $this->redirectToTrackingIndex('OK - Preferences saved');
     }
 
+    public function launchTrackingCodeAction()
+    {
+        if ($this->request->get('id')) {
+            $this->trackingService->launchTrackingCodeById($this->request->get('id'));
+        } else {
+            return $this->redirectToTrackingIndex('ERROR - No tracking code received');
+        }
+
+        return $this->redirectToTrackingIndex('Tracking Code Launched');
+    }
+
     /**
      * @param null $errorMessage
      * @return \Phalcon\Mvc\View
