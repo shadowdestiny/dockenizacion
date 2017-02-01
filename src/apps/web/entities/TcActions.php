@@ -12,6 +12,16 @@ class TcActions extends EntityBase implements IEntity
     protected $trackingCode;
 
     /**
+     * @param array $data
+     */
+    public function __construct(array $data)
+    {
+        $this->setName($data['name']);
+        $this->setConditions($data['conditions']);
+        $this->setTrackingCode($data['trackingCodeId']);
+    }
+
+    /**
      * @return mixed
      */
     public function getTrackingCode()

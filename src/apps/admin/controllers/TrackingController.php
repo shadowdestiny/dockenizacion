@@ -145,6 +145,7 @@ class TrackingController extends AdminControllerBase
     {
         if ($this->request->getPost('trackingCodeId')) {
             $this->trackingService->saveTrackingCodePreferences($this->request->getPost());
+            $this->trackingService->saveTrackingCodeActions($this->request->getPost());
         } else {
             return $this->redirectToTrackingIndex('ERROR - Preferences cannot be saved');
         }

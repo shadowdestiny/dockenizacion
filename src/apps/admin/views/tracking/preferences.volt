@@ -180,14 +180,14 @@
                                                 <td>
                                                     Credit / Debit real money
                                                 </td>
-                                                <td><input type="checkbox" name="check_creditDebitRealMoney" value="Y" /></td>
+                                                <td><input type="checkbox" name="check_creditDebitRealMoney" value="Y" onclick="showSelection(this.name)" {% if (attributesChecked['creditDebitRealMoney'] is defined) %} checked {% endif %}/></td>
                                             </tr>
-                                            <tr>
-                                                <td>
-                                                    Credit ticket
-                                                </td>
-                                                <td><input type="checkbox" name="check_creditTicket" value="Y" /></td>
-                                            </tr>
+                                            {#<tr>#}
+                                                {#<td>#}
+                                                    {#Credit ticket#}
+                                                {#</td>#}
+                                                {#<td><input type="checkbox" name="check_creditTicket" value="Y" /></td>#}
+                                            {#</tr>#}
                                             <tr>
                                                 <td>
                                                     Send email
@@ -196,7 +196,7 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    Add player to Tracking Code
+                                                    Add player to Tracking Code {# Botón para crear lista, sin este botón no se crea lista XD #}
                                                 </td>
                                                 <td><input type="checkbox" name="check_addPlayerToTrackingCode" value="Y" /></td>
                                             </tr>
@@ -208,29 +208,29 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    Move player to Tracking Code
+                                                    Relaunch Tracking Code
                                                 </td>
-                                                <td><input type="checkbox" name="check_movePlayerToTrackingCode" value="Y" /></td>
+                                                <td><input type="checkbox" name="check_relaunchTrackingCode" value="Y" /></td>
                                             </tr>
-                                            <tr>
-                                                <td>
-                                                    Issue bonus
-                                                </td>
-                                                <td><input type="checkbox" name="check_issueBonus" value="Y" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Send SMS
-                                                </td>
-                                                <td><input type="checkbox" name="check_sendSms" value="Y" /></td>
-                                            </tr>
+                                            {#<tr>#}
+                                                {#<td>#}
+                                                    {#Issue bonus#}
+                                                {#</td>#}
+                                                {#<td><input type="checkbox" name="check_issueBonus" value="Y" /></td>#}
+                                            {#</tr>#}
+                                            {#<tr>#}
+                                                {#<td>#}
+                                                    {#Send SMS#}
+                                                {#</td>#}
+                                                {#<td><input type="checkbox" name="check_sendSms" value="Y" /></td>#}
+                                            {#</tr>#}
 
-                                            <tr>
-                                                <td>
-                                                    Send Push Notification
-                                                </td>
-                                                <td><input type="checkbox" name="check_sendPushNotification" value="Y" /></td>
-                                            </tr>
+                                            {#<tr>#}
+                                                {#<td>#}
+                                                    {#Send Push Notification#}
+                                                {#</td>#}
+                                                {#<td><input type="checkbox" name="check_sendPushNotification" value="Y" /></td>#}
+                                            {#</tr>#}
                                         </table>
                                     </td>
                                 </tr>
@@ -746,6 +746,19 @@
                                 </td>
                                 <td>
                                     From <input type="text" name="grossRevenue_from" value="{{ grossRevenueConditions[0] }}" /> to <input type="text" name="grossRevenue_to" value="{{ grossRevenueConditions[1] }}" />
+                                </td>
+                            </tr>
+                            <tr id="show_creditDebitRealMoney" {% if (attributesChecked['creditDebitRealMoney'] is not defined) %}class="display-none"{% endif %}>
+                                <td>
+                                    Credit / Debit real money
+                                    {% if (attributesChecked['creditDebitRealMoney'] is defined) %}
+                                        <?php $creditDebitRealMoneyConditions = explode(',', $attributes[$attributesChecked['creditDebitRealMoney_key']]->getConditions()); ?>
+                                    {% else %}
+                                        <?php $creditDebitRealMoneyConditions = ['','']; ?>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <input type="text" name="creditDebitRealMoney_from" value="{{ creditDebitRealMoneyConditions[0] }}" /> €
                                 </td>
                             </tr>
                         </table>

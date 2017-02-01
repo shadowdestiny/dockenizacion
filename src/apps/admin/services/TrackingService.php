@@ -4,6 +4,7 @@ namespace EuroMillions\admin\services;
 
 use DateTime;
 use Doctrine\ORM\EntityManager;
+use EuroMillions\web\entities\TcActions;
 use EuroMillions\web\entities\TcAttributes;
 use EuroMillions\web\entities\TcUsersList;
 use EuroMillions\web\entities\TrackingCodes;
@@ -11,6 +12,7 @@ use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\repositories\TcAttributesRepository;
 use EuroMillions\web\repositories\TcUsersListRepository;
 use EuroMillions\web\repositories\TrackingCodesRepository;
+use EuroMillions\web\repositories\TcActionsRepository;
 use Phalcon\Exception;
 use Phalcon\Forms\Element\Date;
 
@@ -23,8 +25,10 @@ class TrackingService
     private $tcUsersListRepository;
     /** @var LotteryRepository $lotteryRepository */
     private $lotteryRepository;
-    /** @var TcAttributesRepository $tcAttributes */
+    /** @var TcAttributesRepository $tcAttributesRepository */
     private $tcAttributesRepository;
+    /** @var TcActionsRepository $tcActionsRepository */
+    private $tcActionsRepository;
 
     /**
      * @param EntityManager $entityManager
@@ -36,6 +40,7 @@ class TrackingService
         $this->tcUsersListRepository = $this->entityManager->getRepository('EuroMillions\web\entities\TcUsersList');
         $this->lotteryRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Lottery');
         $this->tcAttributesRepository = $this->entityManager->getRepository('EuroMillions\web\entities\TcAttributes');
+        $this->tcActionsRepository = $this->entityManager->getRepository('EuroMillions\web\entities\TcActions');
     }
 
     /**
@@ -88,6 +93,7 @@ class TrackingService
             $this->entityManager->persist($trackingCode);
             $this->entityManager->flush();
             $this->tcAttributesRepository->cloneAttributesByLastTCAndNewTC($trackingCodeData['id'], $trackingCode->getId());
+            $this->tcActionsRepository->cloneActionsByLastTCAndNewTC($trackingCodeData['id'], $trackingCode->getId());
         } catch (\Exception $e) {
             // throw new Exception("Was not possible to clone TrackingCode data");
         }
@@ -234,6 +240,24 @@ class TrackingService
         $usersByAttributes = $this->generateSQLByAttributes($tcAttributes);
     }
 
+    public function saveTrackingCodeActions(array $postData)
+    {
+        if ($postData['trackingCodeId']) {
+            $tcActions = $this->tcActionsRepository->findBy(['trackingCode' => $postData['trackingCodeId']]);
+            foreach($tcActions as $tcAction) {
+                $this->entityManager->remove($tcAction);
+            }
+            $this->entityManager->flush();
+        }
+
+        foreach($postData as $postKey => $postValue)
+        {
+            if (substr($postKey, 0, 6) == 'check_') {
+                $this->processActionPreferenceKey(explode('_', $postKey)[1], $postData);
+            }
+        }
+    }
+
     /**
      * @param $key
      * @param array $postData
@@ -303,6 +327,28 @@ class TrackingService
                 'name' => $name,
                 'conditions' => $conditions,
                 'functionName' => $functionName,
+                'relationshipTable' => $relationshipTable,
+                'trackingCodeId' => $this->getTrackingCodeById($trackingCodeId),
+            ]));
+            $this->entityManager->flush();
+        } catch (\Exception $e) {
+            throw new Exception("Was not possible to save PreferenceKey");
+        }
+    }
+    /**
+     * @param $name
+     * @param $conditions
+     * @param $functionName
+     * @param $relationshipTable
+     * @param $trackingCodeId
+     * @throws Exception
+     */
+    private function saveActionPreferenceKey($name, $conditions, $relationshipTable, $trackingCodeId)
+    {
+        try {
+            $this->entityManager->persist(new TcActions([
+                'name' => $name,
+                'conditions' => $conditions,
                 'relationshipTable' => $relationshipTable,
                 'trackingCodeId' => $this->getTrackingCodeById($trackingCodeId),
             ]));
