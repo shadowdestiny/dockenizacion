@@ -243,10 +243,10 @@ class TrackingService
 
         $tcActions = $this->getActionsByTrackingCode($id);
         /** @var TcActions $tcAction */
-        foreach($tcActions as $tcAction) {
-            switch($tcAction->getName()) {
+        foreach ($tcActions as $tcAction) {
+            switch ($tcAction->getName()) {
                 case "addPlayerToTrackingCode":
-                        $this->addPlayerToTrackingCode($usersByAttributes, $id);
+                    $this->addPlayerToTrackingCode($usersByAttributes, $id);
                     break;
             }
         }
@@ -256,14 +256,13 @@ class TrackingService
     {
         if ($postData['trackingCodeId']) {
             $tcActions = $this->tcActionsRepository->findBy(['trackingCode' => $postData['trackingCodeId']]);
-            foreach($tcActions as $tcAction) {
+            foreach ($tcActions as $tcAction) {
                 $this->entityManager->remove($tcAction);
             }
             $this->entityManager->flush();
         }
 
-        foreach($postData as $postKey => $postValue)
-        {
+        foreach ($postData as $postKey => $postValue) {
             if (substr($postKey, 0, 6) == 'check_') {
                 $this->processPreferenceKey(explode('_', $postKey)[1], $postData);
             }
@@ -278,13 +277,13 @@ class TrackingService
     private function processPreferenceKey($key, array $postData)
     {
         $relationshipTable = '';
-        switch($key) {
+        switch ($key) {
             case 'userId':
             case 'email':
             case 'city':
             case 'acceptingEmails':
             case 'mobileRegistered':
-                $this->savePreferenceKey($key, $postData[$key], 'By'.ucfirst($key), $relationshipTable, $postData['trackingCodeId']);
+                $this->savePreferenceKey($key, $postData[$key], 'By' . ucfirst($key), $relationshipTable, $postData['trackingCodeId']);
                 break;
             case 'country':
             case 'currency':
@@ -292,7 +291,7 @@ class TrackingService
                 if ($key == 'lotteriesPlayed') {
                     $relationshipTable = 'play_configs';
                 }
-                $this->savePreferenceKey($key, implode(',',$postData[$key]), 'By'.ucfirst($key), $relationshipTable, $postData['trackingCodeId']);
+                $this->savePreferenceKey($key, implode(',', $postData[$key]), 'By' . ucfirst($key), $relationshipTable, $postData['trackingCodeId']);
                 break;
             case 'registrationDate':
             case 'firstDepositDate':
@@ -302,10 +301,10 @@ class TrackingService
                 if ($key == 'firstDepositDate' || $key == 'lastDepositDate' || $key == 'lastWithdrawal') {
                     $relationshipTable = 'transactions';
                 }
-                if ($postData['type_'.$key] == "dates") {
-                    $this->savePreferenceKey($key, $postData[$key.'_date_from'] . ',' . $postData[$key.'_date_to'], 'By'.ucfirst($key), $relationshipTable, $postData['trackingCodeId']);
+                if ($postData['type_' . $key] == "dates") {
+                    $this->savePreferenceKey($key, $postData[$key . '_date_from'] . ',' . $postData[$key . '_date_to'], 'By' . ucfirst($key), $relationshipTable, $postData['trackingCodeId']);
                 } else {
-                    $this->savePreferenceKey($key,  $postData[$key.'_days_from'] . ',' . $postData[$key.'_days_to'], 'By'.ucfirst($key), $relationshipTable, $postData['trackingCodeId']);
+                    $this->savePreferenceKey($key, $postData[$key . '_days_from'] . ',' . $postData[$key . '_days_to'], 'By' . ucfirst($key), $relationshipTable, $postData['trackingCodeId']);
                 }
                 break;
             case 'depositCount':
@@ -315,26 +314,26 @@ class TrackingService
             case 'wagering':
             case 'grossRevenue':
                 $relationshipTable = 'transactions';
-                $this->savePreferenceKey($key,  $postData[$key.'_from'] . ',' . $postData[$key.'_to'], 'By'.ucfirst($key), $relationshipTable, $postData['trackingCodeId']);
+                $this->savePreferenceKey($key, $postData[$key . '_from'] . ',' . $postData[$key . '_to'], 'By' . ucfirst($key), $relationshipTable, $postData['trackingCodeId']);
                 break;
             case 'inNotTrackingCode':
                 $relationshipTable = 'tc_users_list';
-                $this->savePreferenceKey($key, $postData[$key.'_type'] . '|' . implode(',',$postData[$key]), 'By'.ucfirst($key), $relationshipTable, $postData['trackingCodeId']);
+                $this->savePreferenceKey($key, $postData[$key . '_type'] . '|' . implode(',', $postData[$key]), 'By' . ucfirst($key), $relationshipTable, $postData['trackingCodeId']);
                 break;
             case 'creditDebitRealMoney':
-                $this->saveActionPreferenceKey($key, $postData[$key.'_from'], $postData['trackingCodeId'] );
+                $this->saveActionPreferenceKey($key, $postData[$key . '_from'], $postData['trackingCodeId']);
                 break;
             case 'sendEmail':
-                $this->saveActionPreferenceKey($key, 1, $postData['trackingCodeId'] );
+                $this->saveActionPreferenceKey($key, 1, $postData['trackingCodeId']);
                 break;
             case 'addPlayerToTrackingCode':
-                $this->saveActionPreferenceKey($key, 1, $postData['trackingCodeId'] );
+                $this->saveActionPreferenceKey($key, 1, $postData['trackingCodeId']);
                 break;
             case 'removePlayerFromTrackingCode':
-                $this->saveActionPreferenceKey($key, 1, $postData['trackingCodeId'] );
+                $this->saveActionPreferenceKey($key, 1, $postData['trackingCodeId']);
                 break;
             case 'relaunchTrackingCode':
-                $this->saveActionPreferenceKey($key, 1, $postData['trackingCodeId'] );
+                $this->saveActionPreferenceKey($key, 1, $postData['trackingCodeId']);
                 break;
         }
     }
@@ -362,6 +361,7 @@ class TrackingService
             throw new Exception("Was not possible to save PreferenceKey");
         }
     }
+
     /**
      * @param $name
      * @param $conditions
@@ -376,7 +376,6 @@ class TrackingService
             $this->entityManager->persist(new TcActions([
                 'name' => $name,
                 'conditions' => $conditions,
-                'relationshipTable' => $relationshipTable,
                 'trackingCodeId' => $this->getTrackingCodeById($trackingCodeId),
             ]));
             $this->entityManager->flush();
@@ -395,7 +394,7 @@ class TrackingService
         try {
             $tcUsersList = $this->tcUsersListRepository->findBy(['trackingCode' => $id]);
             /** @var TcUsersList $tcUser */
-            foreach($tcUsersList as $tcUser) {
+            foreach ($tcUsersList as $tcUser) {
                 $this->entityManager->remove($tcUser);
             }
             $this->entityManager->flush();
