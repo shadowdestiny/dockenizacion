@@ -265,7 +265,7 @@ class TrackingService
         foreach($postData as $postKey => $postValue)
         {
             if (substr($postKey, 0, 6) == 'check_') {
-                $this->processActionPreferenceKey(explode('_', $postKey)[1], $postData);
+                $this->processPreferenceKey(explode('_', $postKey)[1], $postData);
             }
         }
     }
@@ -321,6 +321,21 @@ class TrackingService
                 $relationshipTable = 'tc_users_list';
                 $this->savePreferenceKey($key, $postData[$key.'_type'] . '|' . implode(',',$postData[$key]), 'By'.ucfirst($key), $relationshipTable, $postData['trackingCodeId']);
                 break;
+            case 'creditDebitRealMoney':
+                $this->saveActionPreferenceKey($key, $postData[$key.'_from'], $postData['trackingCodeId'] );
+                break;
+            case 'sendEmail':
+                $this->saveActionPreferenceKey($key, 1, $postData['trackingCodeId'] );
+                break;
+            case 'addPlayerToTrackingCode':
+                $this->saveActionPreferenceKey($key, 1, $postData['trackingCodeId'] );
+                break;
+            case 'removePlayerFromTrackingCode':
+                $this->saveActionPreferenceKey($key, 1, $postData['trackingCodeId'] );
+                break;
+            case 'relaunchTrackingCode':
+                $this->saveActionPreferenceKey($key, 1, $postData['trackingCodeId'] );
+                break;
         }
     }
 
@@ -355,7 +370,7 @@ class TrackingService
      * @param $trackingCodeId
      * @throws Exception
      */
-    private function saveActionPreferenceKey($name, $conditions, $relationshipTable, $trackingCodeId)
+    private function saveActionPreferenceKey($name, $conditions, $trackingCodeId)
     {
         try {
             $this->entityManager->persist(new TcActions([

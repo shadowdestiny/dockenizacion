@@ -192,7 +192,7 @@
                                                 <td>
                                                     Send email
                                                 </td>
-                                                <td><input type="checkbox" name="check_sendEmail" value="Y" /></td>
+                                                <td><input type="checkbox" name="check_sendEmail" value="Y" onclick="showSelection(this.name)" {% if (attributesChecked['sendEmail'] is defined) %} checked {% endif %}/></td>
                                             </tr>
                                             <tr>
                                                 <td>
