@@ -3,6 +3,7 @@
 namespace EuroMillions\admin\controllers;
 
 use EuroMillions\admin\services\TrackingService;
+use EuroMillions\web\entities\User;
 use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\GeoService;
 
@@ -85,8 +86,10 @@ class TrackingController extends AdminControllerBase
                 header('Content-Type: text/csv; charset=utf-8');
                 header('Content-Disposition: attachment; filename=data.csv');
                 $fp = fopen('php://output', 'w');
-                foreach ($usersList as $user) {
-                    fputcsv($fp, [$user['user_id']]);
+                foreach ($usersList as $userList) {
+                    /** @var User $user */
+                    $user = $this->trackingService->getUserById($userList['user_id']);
+                    fputcsv($fp, [$user->getId(), $user->getName(), $user->getSurname(), $user->getEmail()]);
                 }
                 fclose($fp);
             } else {

@@ -11,6 +11,15 @@ class TcUsersList extends EntityBase implements IEntity
     protected $trackingCode;
 
     /**
+     * @param array $data
+     */
+    public function __construct(array $data)
+    {
+        $this->setUser($data['user_id']);
+        $this->setTrackingCode($data['trackingCodeId']);
+    }
+
+    /**
      * @return mixed
      */
     public function getId()

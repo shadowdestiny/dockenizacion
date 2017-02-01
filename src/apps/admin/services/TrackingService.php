@@ -13,8 +13,8 @@ use EuroMillions\web\repositories\TcAttributesRepository;
 use EuroMillions\web\repositories\TcUsersListRepository;
 use EuroMillions\web\repositories\TrackingCodesRepository;
 use EuroMillions\web\repositories\TcActionsRepository;
+use EuroMillions\web\repositories\UserRepository;
 use Phalcon\Exception;
-use Phalcon\Forms\Element\Date;
 
 class TrackingService
 {
@@ -29,6 +29,8 @@ class TrackingService
     private $tcAttributesRepository;
     /** @var TcActionsRepository $tcActionsRepository */
     private $tcActionsRepository;
+    /** @var UserRepository $userRepository */
+    private $userRepository;
 
     /**
      * @param EntityManager $entityManager
@@ -41,6 +43,7 @@ class TrackingService
         $this->lotteryRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Lottery');
         $this->tcAttributesRepository = $this->entityManager->getRepository('EuroMillions\web\entities\TcAttributes');
         $this->tcActionsRepository = $this->entityManager->getRepository('EuroMillions\web\entities\TcActions');
+        $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
     }
 
     /**
@@ -205,8 +208,7 @@ class TrackingService
 
     public function getActionsByTrackingCode($id)
     {
-        //ToDo: getActions from Database
-        return [];
+        return $this->tcActionsRepository->findBy(['trackingCode' => $id]);
     }
 
     /**
@@ -238,6 +240,16 @@ class TrackingService
     {
         $tcAttributes = $this->getAttributesByTrackingCode($id);
         $usersByAttributes = $this->generateSQLByAttributes($tcAttributes);
+
+        $tcActions = $this->getActionsByTrackingCode($id);
+        /** @var TcActions $tcAction */
+        foreach($tcActions as $tcAction) {
+            switch($tcAction->getName()) {
+                case "addPlayerToTrackingCode":
+                        $this->addPlayerToTrackingCode($usersByAttributes, $id);
+                    break;
+            }
+        }
     }
 
     public function saveTrackingCodeActions(array $postData)
@@ -356,6 +368,39 @@ class TrackingService
         } catch (\Exception $e) {
             throw new Exception("Was not possible to save PreferenceKey");
         }
+    }
+
+    /**
+     * @param $users
+     * @param $id
+     * @throws Exception
+     */
+    private function addPlayerToTrackingCode($users, $id)
+    {
+        try {
+            $tcUsersList = $this->tcUsersListRepository->findBy(['trackingCode' => $id]);
+            /** @var TcUsersList $tcUser */
+            foreach($tcUsersList as $tcUser) {
+                $this->entityManager->remove($tcUser);
+            }
+            $this->entityManager->flush();
+
+            foreach ($users as $user) {
+                $this->entityManager->persist(new TcUsersList([
+                    'user_id' => $this->getUserById($user['id']),
+                    'trackingCodeId' => $this->getTrackingCodeById($id),
+                ]));
+            }
+            $this->entityManager->flush();
+        } catch (\Exception $e) {
+            throw new Exception("Was not possible to save TcUsersList");
+        }
+
+    }
+
+    public function getUserById($userId)
+    {
+        return $this->userRepository->find($userId);
     }
 
     /**
