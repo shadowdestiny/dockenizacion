@@ -108,7 +108,6 @@ class TrackingService
      */
     public function deleteTrackingCode($id)
     {
-        //ToDo: Cuando esten terminadas las acciones esto debería borrarlas
         try {
             $this->entityManager->remove($this->getTrackingCodeById($id));
 
@@ -116,6 +115,12 @@ class TrackingService
             /** @var TcAttributes $tcAttribute */
             foreach ($tcAttributes as $tcAttribute) {
                 $this->entityManager->remove($tcAttribute);
+            }
+
+            $tcActions = $this->getActionsByTrackingCode($id);
+            /** @var TcActions $tcAction */
+            foreach ($tcActions as $tcAction) {
+                $this->entityManager->remove($tcAction);
             }
 
             $tcUsers = $this->getTcUsersByTrackingCode($id);
@@ -186,11 +191,14 @@ class TrackingService
         return $this->tcAttributesRepository->findBy(['trackingCode' => $id]);
     }
 
+    /**
+     * @param $id
+     * @return array
+     */
     public function getTcUsersByTrackingCode($id)
     {
         return $this->tcUsersListRepository->findBy(['trackingCode' => $id]);
     }
-
 
     /**
      * @param $id
@@ -206,6 +214,24 @@ class TrackingService
         return $attributesChecked;
     }
 
+    /**
+     * @param $id
+     * @return array
+     */
+    public function getActionsTreatedArray($id){
+        $actions = $this->getActionsByTrackingCode($id);
+        $actionsChecked = [];
+        foreach ($actions as $keyAction => $action) {
+            $actionsChecked[$action->getName()] = true;
+            $actionsChecked[$action->getName() . '_key'] = $keyAction;
+        }
+        return $actionsChecked;
+    }
+
+    /**
+     * @param $id
+     * @return array
+     */
     public function getActionsByTrackingCode($id)
     {
         return $this->tcActionsRepository->findBy(['trackingCode' => $id]);
@@ -247,6 +273,12 @@ class TrackingService
             switch ($tcAction->getName()) {
                 case "addPlayerToTrackingCode":
                     $this->addPlayerToTrackingCode($usersByAttributes, $id);
+                    break;
+                case "relaunchTrackingCode":
+                    $this->relaunchTrackingCode($usersByAttributes, $id);
+                    break;
+                case "removePlayerFromTrackingCode":
+                    $this->removePlayerFromTrackingCode($usersByAttributes, $id);
                     break;
             }
         }
@@ -323,15 +355,11 @@ class TrackingService
             case 'creditDebitRealMoney':
                 $this->saveActionPreferenceKey($key, $postData[$key . '_from'], $postData['trackingCodeId']);
                 break;
-            case 'sendEmail':
-                $this->saveActionPreferenceKey($key, 1, $postData['trackingCodeId']);
-                break;
-            case 'addPlayerToTrackingCode':
-                $this->saveActionPreferenceKey($key, 1, $postData['trackingCodeId']);
-                break;
             case 'removePlayerFromTrackingCode':
-                $this->saveActionPreferenceKey($key, 1, $postData['trackingCodeId']);
+                $this->saveActionPreferenceKey($key, $postData[$key], $postData['trackingCodeId']);
                 break;
+            case 'sendEmail':
+            case 'addPlayerToTrackingCode':
             case 'relaunchTrackingCode':
                 $this->saveActionPreferenceKey($key, 1, $postData['trackingCodeId']);
                 break;
@@ -365,8 +393,6 @@ class TrackingService
     /**
      * @param $name
      * @param $conditions
-     * @param $functionName
-     * @param $relationshipTable
      * @param $trackingCodeId
      * @throws Exception
      */
@@ -392,6 +418,27 @@ class TrackingService
     private function addPlayerToTrackingCode($users, $id)
     {
         try {
+            foreach ($users as $user) {
+                $this->entityManager->persist(new TcUsersList([
+                    'user_id' => $this->getUserById($user['id']),
+                    'trackingCodeId' => $this->getTrackingCodeById($id),
+                ]));
+            }
+            $this->entityManager->flush();
+        } catch (\Exception $e) {
+            throw new Exception("Was not possible to save TcUsersList");
+        }
+
+    }
+
+    /**
+     * @param $users
+     * @param $id
+     * @throws Exception
+     */
+    private function relaunchTrackingCode($users, $id)
+    {
+        try {
             $tcUsersList = $this->tcUsersListRepository->findBy(['trackingCode' => $id]);
             /** @var TcUsersList $tcUser */
             foreach ($tcUsersList as $tcUser) {
@@ -410,6 +457,28 @@ class TrackingService
             throw new Exception("Was not possible to save TcUsersList");
         }
 
+    }
+
+    private function removePlayerFromTrackingCode($users, $id)
+    {
+        try {
+            $tcUsersList = $this->tcUsersListRepository->findBy(['trackingCode' => $id]);
+            /** @var TcUsersList $tcUser */
+            foreach ($tcUsersList as $tcUser) {
+                $this->entityManager->remove($tcUser);
+            }
+            $this->entityManager->flush();
+
+            foreach ($users as $user) {
+                $this->entityManager->persist(new TcUsersList([
+                    'user_id' => $this->getUserById($user['id']),
+                    'trackingCodeId' => $this->getTrackingCodeById($id),
+                ]));
+            }
+            $this->entityManager->flush();
+        } catch (\Exception $e) {
+            throw new Exception("Was not possible to save TcUsersList");
+        }
     }
 
     public function getUserById($userId)

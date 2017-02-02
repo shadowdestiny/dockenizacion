@@ -180,7 +180,7 @@
                                                 <td>
                                                     Credit / Debit real money
                                                 </td>
-                                                <td><input type="checkbox" name="check_creditDebitRealMoney" value="Y" onclick="showSelection(this.name)" {% if (attributesChecked['creditDebitRealMoney'] is defined) %} checked {% endif %}/></td>
+                                                <td><input type="checkbox" name="check_creditDebitRealMoney" value="Y" onclick="showSelection(this.name)" {% if (actionsChecked['creditDebitRealMoney'] is defined) %} checked {% endif %}/></td>
                                             </tr>
                                             {#<tr>#}
                                                 {#<td>#}
@@ -192,25 +192,25 @@
                                                 <td>
                                                     Send email
                                                 </td>
-                                                <td><input type="checkbox" name="check_sendEmail" value="Y" onclick="showSelection(this.name)" {% if (attributesChecked['sendEmail'] is defined) %} checked {% endif %}/></td>
+                                                <td><input type="checkbox" name="check_sendEmail" value="Y" onclick="showSelection(this.name)" {% if (actionsChecked['sendEmail'] is defined) %} checked {% endif %}/></td>
                                             </tr>
                                             <tr>
                                                 <td>
                                                     Add player to Tracking Code {# Botón para crear lista, sin este botón no se crea lista XD #}
                                                 </td>
-                                                <td><input type="checkbox" name="check_addPlayerToTrackingCode" value="Y" /></td>
+                                                <td><input type="checkbox" name="check_addPlayerToTrackingCode" value="Y" {% if (actionsChecked['addPlayerToTrackingCode'] is defined) %} checked {% endif %}/></td>
                                             </tr>
                                             <tr>
                                                 <td>
                                                     Remove player from Tracking Code
                                                 </td>
-                                                <td><input type="checkbox" name="check_removePlayerFromTrackingCode" value="Y" /></td>
+                                                <td><input type="checkbox" name="check_removePlayerFromTrackingCode" value="Y" {% if (actionsChecked['removePlayerFromTrackingCode'] is defined) %} checked {% endif %}/></td>
                                             </tr>
                                             <tr>
                                                 <td>
                                                     Relaunch Tracking Code
                                                 </td>
-                                                <td><input type="checkbox" name="check_relaunchTrackingCode" value="Y" /></td>
+                                                <td><input type="checkbox" name="check_relaunchTrackingCode" value="Y" {% if (actionsChecked['relaunchTrackingCode'] is defined) %} checked {% endif %}/></td>
                                             </tr>
                                             {#<tr>#}
                                                 {#<td>#}
@@ -748,17 +748,32 @@
                                     From <input type="text" name="grossRevenue_from" value="{{ grossRevenueConditions[0] }}" /> to <input type="text" name="grossRevenue_to" value="{{ grossRevenueConditions[1] }}" />
                                 </td>
                             </tr>
-                            <tr id="show_creditDebitRealMoney" {% if (attributesChecked['creditDebitRealMoney'] is not defined) %}class="display-none"{% endif %}>
+                            <tr id="show_creditDebitRealMoney" {% if (actionsChecked['creditDebitRealMoney'] is not defined) %}class="display-none"{% endif %}>
                                 <td>
                                     Credit / Debit real money
-                                    {% if (attributesChecked['creditDebitRealMoney'] is defined) %}
-                                        <?php $creditDebitRealMoneyConditions = explode(',', $attributes[$attributesChecked['creditDebitRealMoney_key']]->getConditions()); ?>
+                                </td>
+                                <td>
+                                    <input type="text" name="creditDebitRealMoney_from" {% if (actionsChecked['creditDebitRealMoney'] is defined) %} value="<?php echo $actions[$actionsChecked['creditDebitRealMoney_key']]->getConditions(); ?>" {% endif %} /> €
+                                </td>
+                            </tr>
+                            <tr id="show_removePlayerFromTrackingCode" {% if (actionsChecked['removePlayerFromTrackingCode'] is not defined) %}class="display-none"{% endif %}>
+                                <td>
+                                    Remove players from tracking code
+                                    {% if (actionsChecked['removePlayerFromTrackingCode'] is defined) %}
+                                        <?php
+                                            $removePlayerFromTrackingCodeIds = $actions[$actionsChecked['removePlayerFromTrackingCode_key']]->getConditions();
+                                        ?>
                                     {% else %}
-                                        <?php $creditDebitRealMoneyConditions = ['','']; ?>
+                                        {% set removePlayerFromTrackingCodeIds = '' %}
                                     {% endif %}
                                 </td>
                                 <td>
-                                    <input type="text" name="creditDebitRealMoney_from" value="{{ creditDebitRealMoneyConditions[0] }}" /> €
+                                    <select name="removePlayerFromTrackingCode">
+                                        <option value="0">[-- Select --]</option>
+                                        {% for trackingCode in allTrackingCodes %}
+                                            <option value="{{ trackingCode['id'] }}"  {% if trackingCode['id'] == removePlayerFromTrackingCodeIds %} selected {% endif %}>{{ trackingCode['name'] }}</option>
+                                        {% endfor %}
+                                    </select>
                                 </td>
                             </tr>
                         </table>

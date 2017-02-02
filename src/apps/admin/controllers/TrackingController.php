@@ -130,6 +130,7 @@ class TrackingController extends AdminControllerBase
                 'trackingCode' => $this->trackingService->getTrackingCodeById($this->request->get('id')),
                 'attributesChecked' => $this->trackingService->getAttributesTreatedArray($this->request->get('id')),
                 'attributes' => $this->trackingService->getAttributesByTrackingCode($this->request->get('id')),
+                'actionsChecked' => $this->trackingService->getActionsTreatedArray($this->request->get('id')),
                 'actions' => $this->trackingService->getActionsByTrackingCode($this->request->get('id')),
                 'countryList' => $countries,
                 'currencyList' => $this->currencyService->getActiveCurrenciesCodeAndNames()->returnValues(),

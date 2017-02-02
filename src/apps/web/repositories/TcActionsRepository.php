@@ -1,8 +1,8 @@
 <?php
 
-
 namespace EuroMillions\web\repositories;
 
+use Doctrine\ORM\Query\ResultSetMapping;
 
 class TcActionsRepository extends RepositoryBase
 {
