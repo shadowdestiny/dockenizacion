@@ -8,12 +8,14 @@ use EuroMillions\web\entities\TcActions;
 use EuroMillions\web\entities\TcAttributes;
 use EuroMillions\web\entities\TcUsersList;
 use EuroMillions\web\entities\TrackingCodes;
+use EuroMillions\web\entities\User;
 use EuroMillions\web\repositories\LotteryRepository;
 use EuroMillions\web\repositories\TcAttributesRepository;
 use EuroMillions\web\repositories\TcUsersListRepository;
 use EuroMillions\web\repositories\TrackingCodesRepository;
 use EuroMillions\web\repositories\TcActionsRepository;
 use EuroMillions\web\repositories\UserRepository;
+use Money\Money;
 use Phalcon\Exception;
 
 class TrackingService
@@ -280,6 +282,9 @@ class TrackingService
                 case "removePlayerFromTrackingCode":
                     $this->removePlayerFromTrackingCode($usersByAttributes, $tcAction->getConditions());
                     break;
+                case "creditDebitRealMoney":
+                    $this->creditDebitRealMoney($usersByAttributes, $id, $tcAction->getConditions());
+                    break;
             }
         }
     }
@@ -470,6 +475,17 @@ class TrackingService
             $this->entityManager->flush();
         } catch (\Exception $e) {
             throw new Exception("Was not possible to save TcUsersList");
+        }
+    }
+
+    public function creditDebitRealMoney($users, $id, $conditions)
+    {
+        foreach ($users as $user) {
+            /* @var User $changeUser*/
+            $changeUser = $this->getUserById($user['id']);
+            $changeUser->setWallet($changeUser->getWallet()->upload(new Money((int)$conditions, $changeUser->getWallet()->getBalance()->getCurrency())));
+            $this->entityManager->persist($changeUser);
+            $this->entityManager->flush();
         }
     }
 
