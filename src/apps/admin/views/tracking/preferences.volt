@@ -204,7 +204,7 @@
                                                 <td>
                                                     Remove player from Tracking Code
                                                 </td>
-                                                <td><input type="checkbox" name="check_removePlayerFromTrackingCode" value="Y" {% if (actionsChecked['removePlayerFromTrackingCode'] is defined) %} checked {% endif %}/></td>
+                                                <td><input type="checkbox" name="check_removePlayerFromTrackingCode" value="Y" onclick="showSelection(this.name)" {% if (actionsChecked['removePlayerFromTrackingCode'] is defined) %} checked {% endif %}/></td>
                                             </tr>
                                             <tr>
                                                 <td>

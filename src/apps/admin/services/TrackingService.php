@@ -278,7 +278,7 @@ class TrackingService
                     $this->relaunchTrackingCode($usersByAttributes, $id);
                     break;
                 case "removePlayerFromTrackingCode":
-                    $this->removePlayerFromTrackingCode($usersByAttributes, $id);
+                    $this->removePlayerFromTrackingCode($usersByAttributes, $tcAction->getConditions());
                     break;
             }
         }
@@ -462,18 +462,10 @@ class TrackingService
     private function removePlayerFromTrackingCode($users, $id)
     {
         try {
-            $tcUsersList = $this->tcUsersListRepository->findBy(['trackingCode' => $id]);
-            /** @var TcUsersList $tcUser */
-            foreach ($tcUsersList as $tcUser) {
-                $this->entityManager->remove($tcUser);
-            }
-            $this->entityManager->flush();
-
-            foreach ($users as $user) {
-                $this->entityManager->persist(new TcUsersList([
-                    'user_id' => $this->getUserById($user['id']),
-                    'trackingCodeId' => $this->getTrackingCodeById($id),
-                ]));
+            foreach ($users as $user){
+                foreach ($this->tcUsersListRepository->findBy(['user' => $user['id'], 'trackingCode' => $id]) as $tcUser) {
+                    $this->entityManager->remove($tcUser);
+                }
             }
             $this->entityManager->flush();
         } catch (\Exception $e) {
