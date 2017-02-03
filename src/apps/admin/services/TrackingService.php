@@ -523,11 +523,6 @@ class TrackingService
         }
     }
 
-    public function getUserById($userId)
-    {
-        return $this->userRepository->find($userId);
-    }
-
     /**
      * @param $tcAttributes
      * @return array
