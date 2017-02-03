@@ -307,6 +307,38 @@ class TrackingService
     }
 
     /**
+     * @param $userId
+     * @return null|object
+     */
+    public function getUserById($userId)
+    {
+        return $this->userRepository->find($userId);
+    }
+
+    /**
+     * @param $usersList
+     * @return array
+     */
+    public function getNamesAndEmailsByTcUserList($usersList)
+    {
+        $users = [];
+        /** @var TcUsersList $userList */
+        foreach ($usersList as $userList) {
+            $users[] = $this->getUserById($userList['user_id']);
+        }
+        return $users;
+    }
+
+    public function removeUserFromTrackingCode($trackingCodeId, $userId)
+    {
+        $tcUsersList = $this->tcUsersListRepository->findBy(['trackingCode' => $trackingCodeId, 'user' => $userId]);
+        foreach ($tcUsersList as $tcUserList) {
+            $this->entityManager->remove($tcUserList);
+        }
+        $this->entityManager->flush();
+    }
+
+    /**
      * @param $key
      * @param array $postData
      * Se hace uppercase para que cuando llamemos a la funcion se haga en camelcase
@@ -424,10 +456,12 @@ class TrackingService
     {
         try {
             foreach ($users as $user) {
-                $this->entityManager->persist(new TcUsersList([
-                    'user_id' => $this->getUserById($user['id']),
-                    'trackingCodeId' => $this->getTrackingCodeById($id),
-                ]));
+                if (!$this->tcUsersListRepository->findBy(['user' => $user['id'], 'trackingCode' => $id])) {
+                    $this->entityManager->persist(new TcUsersList([
+                        'user_id' => $this->getUserById($user['id']),
+                        'trackingCodeId' => $this->getTrackingCodeById($id),
+                    ]));
+                }
             }
             $this->entityManager->flush();
         } catch (\Exception $e) {

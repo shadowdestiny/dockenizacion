@@ -2,6 +2,7 @@
 
 namespace EuroMillions\admin\controllers;
 
+use Captcha\Exception;
 use EuroMillions\admin\services\TrackingService;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\CurrencyService;
@@ -15,6 +16,7 @@ class TrackingController extends AdminControllerBase
     private $geoService;
     /** @var CurrencyService $currencyService */
     private $currencyService;
+    private $message;
 
     public function initialize()
     {
@@ -29,11 +31,17 @@ class TrackingController extends AdminControllerBase
      */
     public function indexAction()
     {
-        return $this->redirectToTrackingIndex();
+        $message = $this->cookies->get('message');
+        $this->cookies->set('message', '');
+        $this->view->pick('tracking/index');
+        return $this->view->setVars([
+            'trackingCodes' => $this->trackingService->getAllTrackingCodesWithUsersCount(),
+            'errorMessage' => $message,
+        ]);
     }
 
     /**
-     * @return \Phalcon\Mvc\View
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
      */
     public function createTrackingCodeAction()
     {
@@ -50,7 +58,7 @@ class TrackingController extends AdminControllerBase
     }
 
     /**
-     * @return \Phalcon\Mvc\View
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
      */
     public function editTrackingCodeAction()
     {
@@ -65,7 +73,7 @@ class TrackingController extends AdminControllerBase
     }
 
     /**
-     * @return \Phalcon\Mvc\View
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
      */
     public function deleteTrackingCodeAction()
     {
@@ -76,7 +84,7 @@ class TrackingController extends AdminControllerBase
     }
 
     /**
-     * @return \Phalcon\Mvc\View
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
      */
     public function downloadUsersAction()
     {
@@ -98,6 +106,9 @@ class TrackingController extends AdminControllerBase
         }
     }
 
+    /**
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
+     */
     public function cloneTrackingCodeAction()
     {
         if ($this->request->getPost('name')) {
@@ -115,7 +126,7 @@ class TrackingController extends AdminControllerBase
     }
 
     /**
-     * @return \Phalcon\Mvc\View
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface|\Phalcon\Mvc\View
      */
     public function editPreferencesAction()
     {
@@ -143,7 +154,7 @@ class TrackingController extends AdminControllerBase
     }
 
     /**
-     * @return \Phalcon\Mvc\View
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
      */
     public function savePreferencesAction()
     {
@@ -157,6 +168,9 @@ class TrackingController extends AdminControllerBase
         return $this->redirectToTrackingIndex('OK - Preferences saved');
     }
 
+    /**
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
+     */
     public function launchTrackingCodeAction()
     {
         if ($this->request->get('id')) {
@@ -169,15 +183,59 @@ class TrackingController extends AdminControllerBase
     }
 
     /**
-     * @param null $errorMessage
-     * @return \Phalcon\Mvc\View
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface|\Phalcon\Mvc\View
+     * @throws Exception
      */
-    private function redirectToTrackingIndex($errorMessage = null)
+    public function viewUsersListAction()
     {
-        $this->view->pick('tracking/index');
-        return $this->view->setVars([
-            'trackingCodes' => $this->trackingService->getAllTrackingCodesWithUsersCount(),
-            'errorMessage' => $errorMessage,
-        ]);
+        if ($this->request->get('id')) {
+            try {
+                $users = $this->trackingService->getNamesAndEmailsByTcUserList(
+                    $this->trackingService->getUsersListByTrackingCode($this->request->get('id'))
+                );
+
+                $this->view->pick('tracking/viewUsersList');
+                return $this->view->setVars([
+                    'users' => $users,
+                    'trackingCode' => $this->trackingService->getTrackingCodeById($this->request->get('id')),
+                ]);
+            } catch (Exception $e) {
+                throw new Exception('No tracking code selected');
+            }
+        }
+
+        return $this->redirectToTrackingIndex('No tracking code selected to view users list');
+    }
+
+    /**
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface|\Phalcon\Mvc\View
+     */
+    public function deleteUserFromTcAction()
+    {
+        if ($this->request->get('trackingCodeId') && $this->request->get('userId')) {
+            $this->trackingService->removeUserFromTrackingCode($this->request->get('trackingCodeId'), $this->request->get('userId'));
+
+            $users = $this->trackingService->getNamesAndEmailsByTcUserList(
+                $this->trackingService->getUsersListByTrackingCode($this->request->get('trackingCodeId'))
+            );
+
+            $this->view->pick('tracking/viewUsersList');
+            return $this->view->setVars([
+                'users' => $users,
+                'trackingCode' => $this->trackingService->getTrackingCodeById($this->request->get('trackingCodeId')),
+            ]);
+        } else {
+            return $this->redirectToTrackingIndex('No tracking code and user received to remove');
+        }
+    }
+
+    /**
+     * @param null $message
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
+     */
+    private function redirectToTrackingIndex($message = null)
+    {
+        $this->cookies->set('message', $message);
+        return $this->response->redirect('/admin/tracking/index');
     }
 }

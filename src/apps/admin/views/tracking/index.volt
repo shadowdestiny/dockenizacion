@@ -57,6 +57,11 @@
     {
         location='/admin/tracking/editPreferences?id='+id;
     }
+
+    function viewUsersList(id)
+    {
+        location='/admin/tracking/viewUsersList?id='+id;
+    }
 </script>
     <div class="wrapper">
         <div class="container">
@@ -178,6 +183,7 @@
                                         <input type="button" class="btn btn-primary" value="Download"  onClick="downloadUsers({{ trackingCode['id'] }});" />
                                         <input type="button" class="btn btn-primary" value="Launch"  onClick="launchTrackingCode({{ trackingCode['id'] }});" />
                                         <input type="button" class="btn btn-primary" value="Preferences"  onClick="editPreferences({{ trackingCode['id'] }});" />
+                                        <input type="button" class="btn btn-primary" value="View Users List"  onClick="viewUsersList({{ trackingCode['id'] }});" />
                                     </td>
                                 </tr>
                             {% endfor %}
