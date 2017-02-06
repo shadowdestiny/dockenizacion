@@ -38,11 +38,11 @@ class TrackingService
     private $tcActionsRepository;
     /** @var UserRepository $userRepository */
     private $userRepository;
-    /** @var TransactionRepository $transactionRepository*/
+    /** @var TransactionRepository $transactionRepository */
     private $transactionRepository;
-    /** @var WalletService $walletService*/
+    /** @var WalletService $walletService */
     private $walletService;
-    /** @var TransactionService $transactionService*/
+    /** @var TransactionService $transactionService */
     private $transactionService;
 
     /**
@@ -218,7 +218,8 @@ class TrackingService
      * @param $id
      * @return array
      */
-    public function getAttributesTreatedArray($id){
+    public function getAttributesTreatedArray($id)
+    {
         $attributes = $this->getAttributesByTrackingCode($id);
         $attributesChecked = [];
         foreach ($attributes as $keyAttribute => $attribute) {
@@ -232,7 +233,8 @@ class TrackingService
      * @param $id
      * @return array
      */
-    public function getActionsTreatedArray($id){
+    public function getActionsTreatedArray($id)
+    {
         $actions = $this->getActionsByTrackingCode($id);
         $actionsChecked = [];
         foreach ($actions as $keyAction => $action) {
@@ -259,14 +261,13 @@ class TrackingService
     {
         if ($postData['trackingCodeId']) {
             $tcAttributes = $this->tcAttributesRepository->findBy(['trackingCode' => $postData['trackingCodeId']]);
-            foreach($tcAttributes as $tcAttribute) {
+            foreach ($tcAttributes as $tcAttribute) {
                 $this->entityManager->remove($tcAttribute);
             }
             $this->entityManager->flush();
         }
 
-        foreach($postData as $postKey => $postValue)
-        {
+        foreach ($postData as $postKey => $postValue) {
             if (substr($postKey, 0, 6) == 'check_') {
                 $this->processPreferenceKey(explode('_', $postKey)[1], $postData);
             }
@@ -360,10 +361,6 @@ class TrackingService
             $this->entityManager->persist($changeUser);
             $this->entityManager->flush();
 
-//            coger de transaction service la transaction
-            $transaction = $this->transactionRepository->findBy(['user' => $user['id']], ['id' => 'DESC']);
-//            $transaction = $this->transactionService->getTransactionsDTOByUser($changeUser);
-
             $dataTransaction = [
                 'lottery_id' => 1,
                 'amountWithWallet' => 0,
@@ -374,10 +371,10 @@ class TrackingService
             ];
             list($partOne, $partTwo) = explode('_', TransactionType::MANUAL_DEPOSIT);
             $class = 'EuroMillions\web\components\transaction\\' . ucfirst($partOne) . ucfirst($partTwo) . 'Generator';
-                /** @var Transaction $entity */
-                $entity = $class::build($dataTransaction);
-                $this->entityManager->persist($entity);
-                $this->entityManager->flush();
+            /** @var Transaction $entity */
+            $entity = $class::build($dataTransaction);
+            $this->entityManager->persist($entity);
+            $this->entityManager->flush();
         }
     }
 
@@ -544,7 +541,7 @@ class TrackingService
     private function removePlayerFromTrackingCode($users, $id)
     {
         try {
-            foreach ($users as $user){
+            foreach ($users as $user) {
                 foreach ($this->tcUsersListRepository->findBy(['user' => $user['id'], 'trackingCode' => $id]) as $tcUser) {
                     $this->entityManager->remove($tcUser);
                 }
@@ -565,18 +562,18 @@ class TrackingService
 
         /** @var TcAttributes $tcAttribute */
         foreach ($tcAttributes as $tcAttribute) {
-            switch($tcAttribute->getFunctionName()) {
+            switch ($tcAttribute->getFunctionName()) {
                 case 'ByUserId':
-                    $conditions .= "u.id IN ('" .implode("','", explode(',', $tcAttribute->getConditions())). "') AND ";
+                    $conditions .= "u.id IN ('" . implode("','", explode(',', $tcAttribute->getConditions())) . "') AND ";
                     break;
                 case 'ByEmail':
-                    $conditions .= "u.email IN ('" .implode("','", explode(',', $tcAttribute->getConditions())). "') AND ";
+                    $conditions .= "u.email IN ('" . implode("','", explode(',', $tcAttribute->getConditions())) . "') AND ";
                     break;
                 case "ByCountry":
-                    $conditions .= "u.country IN ('" .implode("','", explode(',', $tcAttribute->getConditions())). "') AND ";
+                    $conditions .= "u.country IN ('" . implode("','", explode(',', $tcAttribute->getConditions())) . "') AND ";
                     break;
                 case "ByCity":
-                    $conditions .= "u.city IN ('" .implode("','", explode(',', $tcAttribute->getConditions())). "') AND ";
+                    $conditions .= "u.city IN ('" . implode("','", explode(',', $tcAttribute->getConditions())) . "') AND ";
                     break;
                 case "ByAcceptingEmails":
                     //ToDo: En el pròximo sprint
@@ -590,17 +587,17 @@ class TrackingService
                     break;
                 case "ByRegistrationDate":
                     $registrationDateConditions = explode(',', $tcAttribute->getConditions());
-                    if (strlen($registrationDateConditions[0]) > 3){
-                        $date1 = (new DateTime($registrationDateConditions[0]))->setTime(0,0,0);
-                        $date2 = (new DateTime($registrationDateConditions[1]))->setTime(23,59,59);
+                    if (strlen($registrationDateConditions[0]) > 3) {
+                        $date1 = (new DateTime($registrationDateConditions[0]))->setTime(0, 0, 0);
+                        $date2 = (new DateTime($registrationDateConditions[1]))->setTime(23, 59, 59);
                     } else {
-                        $date1 = (new DateTime())->modify($registrationDateConditions[0] . ' days')->setTime(0,0,0);
-                        $date2 = (new DateTime())->modify($registrationDateConditions[1] . ' days')->setTime(23,59,59);
+                        $date1 = (new DateTime())->modify($registrationDateConditions[0] . ' days')->setTime(0, 0, 0);
+                        $date2 = (new DateTime())->modify($registrationDateConditions[1] . ' days')->setTime(23, 59, 59);
                     }
-                    $conditions .= "u.created BETWEEN '".$date1->format('Y-m-d H:i:s')."' AND '".$date2->format('Y-m-d H:i:s')."' AND ";
+                    $conditions .= "u.created BETWEEN '" . $date1->format('Y-m-d H:i:s') . "' AND '" . $date2->format('Y-m-d H:i:s') . "' AND ";
                     break;
                 case "ByCurrency":
-                    $conditions .= "u.user_currency_name IN ('" .implode("','", explode(',', $tcAttribute->getConditions())). "') AND ";
+                    $conditions .= "u.user_currency_name IN ('" . implode("','", explode(',', $tcAttribute->getConditions())) . "') AND ";
                     break;
                 case "ByDepositCount":
                     $depositCountConditions = explode(',', $tcAttribute->getConditions());
@@ -608,51 +605,51 @@ class TrackingService
                     break;
                 case "ByFirstDepositDate":
                     $firstDepositDateConditions = explode(',', $tcAttribute->getConditions());
-                    if (strlen($firstDepositDateConditions[0]) > 3){
-                        $date1 = (new DateTime($firstDepositDateConditions[0]))->setTime(0,0,0);
-                        $date2 = (new DateTime($firstDepositDateConditions[1]))->setTime(23,59,59);
+                    if (strlen($firstDepositDateConditions[0]) > 3) {
+                        $date1 = (new DateTime($firstDepositDateConditions[0]))->setTime(0, 0, 0);
+                        $date2 = (new DateTime($firstDepositDateConditions[1]))->setTime(23, 59, 59);
                     } else {
-                        $date1 = (new DateTime())->modify($firstDepositDateConditions[0] . ' days')->setTime(0,0,0);
-                        $date2 = (new DateTime())->modify($firstDepositDateConditions[1] . ' days')->setTime(23,59,59);
+                        $date1 = (new DateTime())->modify($firstDepositDateConditions[0] . ' days')->setTime(0, 0, 0);
+                        $date2 = (new DateTime())->modify($firstDepositDateConditions[1] . ' days')->setTime(23, 59, 59);
                     }
-                    $conditions .= "u.id IN (select user_id from transactions where entity_type='deposit' group by user_id having min(date) BETWEEN '".$date1->format('Y-m-d H:i:s')."' AND '".$date2->format('Y-m-d H:i:s')."') AND ";
+                    $conditions .= "u.id IN (select user_id from transactions where entity_type='deposit' group by user_id having min(date) BETWEEN '" . $date1->format('Y-m-d H:i:s') . "' AND '" . $date2->format('Y-m-d H:i:s') . "') AND ";
                     break;
                 case "ByLastDepositDate":
                     $lastDepositDateConditions = explode(',', $tcAttribute->getConditions());
-                    if (strlen($lastDepositDateConditions[0]) > 3){
-                        $date1 = (new DateTime($lastDepositDateConditions[0]))->setTime(0,0,0);
-                        $date2 = (new DateTime($lastDepositDateConditions[1]))->setTime(23,59,59);
+                    if (strlen($lastDepositDateConditions[0]) > 3) {
+                        $date1 = (new DateTime($lastDepositDateConditions[0]))->setTime(0, 0, 0);
+                        $date2 = (new DateTime($lastDepositDateConditions[1]))->setTime(23, 59, 59);
                     } else {
-                        $date1 = (new DateTime())->modify($lastDepositDateConditions[0] . ' days')->setTime(0,0,0);
-                        $date2 = (new DateTime())->modify($lastDepositDateConditions[1] . ' days')->setTime(23,59,59);
+                        $date1 = (new DateTime())->modify($lastDepositDateConditions[0] . ' days')->setTime(0, 0, 0);
+                        $date2 = (new DateTime())->modify($lastDepositDateConditions[1] . ' days')->setTime(23, 59, 59);
                     }
-                    $conditions .= "u.id IN (select user_id from transactions where entity_type='deposit' group by user_id having max(date) BETWEEN '".$date1->format('Y-m-d H:i:s')."' AND '".$date2->format('Y-m-d H:i:s')."') AND ";
+                    $conditions .= "u.id IN (select user_id from transactions where entity_type='deposit' group by user_id having max(date) BETWEEN '" . $date1->format('Y-m-d H:i:s') . "' AND '" . $date2->format('Y-m-d H:i:s') . "') AND ";
                     break;
                 case "ByTotalDeposited":
                     $totalDepositedConditions = explode(',', $tcAttribute->getConditions());
-                    $conditions .= "u.id IN (select user_id from transactions where entity_type='deposit' group by user_id having sum(wallet_after_uploaded_amount - wallet_before_uploaded_amount) BETWEEN '".$totalDepositedConditions[0]."' AND '".$totalDepositedConditions[1]."') AND ";
+                    $conditions .= "u.id IN (select user_id from transactions where entity_type='deposit' group by user_id having sum(wallet_after_uploaded_amount - wallet_before_uploaded_amount) BETWEEN '" . $totalDepositedConditions[0] . "' AND '" . $totalDepositedConditions[1] . "') AND ";
                     break;
                 case "ByLastWithdrawal":
                     $lastWithdrawalConditions = explode(',', $tcAttribute->getConditions());
-                    if (strlen($lastWithdrawalConditions[0]) > 3){
-                        $date1 = (new DateTime($lastWithdrawalConditions[0]))->setTime(0,0,0);
-                        $date2 = (new DateTime($lastWithdrawalConditions[1]))->setTime(23,59,59);
+                    if (strlen($lastWithdrawalConditions[0]) > 3) {
+                        $date1 = (new DateTime($lastWithdrawalConditions[0]))->setTime(0, 0, 0);
+                        $date2 = (new DateTime($lastWithdrawalConditions[1]))->setTime(23, 59, 59);
                     } else {
-                        $date1 = (new DateTime())->modify($lastWithdrawalConditions[0] . ' days')->setTime(0,0,0);
-                        $date2 = (new DateTime())->modify($lastWithdrawalConditions[1] . ' days')->setTime(23,59,59);
+                        $date1 = (new DateTime())->modify($lastWithdrawalConditions[0] . ' days')->setTime(0, 0, 0);
+                        $date2 = (new DateTime())->modify($lastWithdrawalConditions[1] . ' days')->setTime(23, 59, 59);
                     }
-                    $conditions .= "u.id IN (select user_id from transactions where entity_type='winnings_withdraw' group by user_id having max(date) BETWEEN '".$date1->format('Y-m-d H:i:s')."' AND '".$date2->format('Y-m-d H:i:s')."') AND ";
+                    $conditions .= "u.id IN (select user_id from transactions where entity_type='winnings_withdraw' group by user_id having max(date) BETWEEN '" . $date1->format('Y-m-d H:i:s') . "' AND '" . $date2->format('Y-m-d H:i:s') . "') AND ";
                     break;
                 case "ByTotalWithdrawal":
                     $totalWithdrawalConditions = explode(',', $tcAttribute->getConditions());
-                    $conditions .= "u.id IN (select user_id from transactions where entity_type='winnings_withdraw' group by user_id having sum(wallet_before_winnings_amount - wallet_after_winnings_amount) BETWEEN '".$totalWithdrawalConditions[0]."' AND '".$totalWithdrawalConditions[1]."') AND ";
+                    $conditions .= "u.id IN (select user_id from transactions where entity_type='winnings_withdraw' group by user_id having sum(wallet_before_winnings_amount - wallet_after_winnings_amount) BETWEEN '" . $totalWithdrawalConditions[0] . "' AND '" . $totalWithdrawalConditions[1] . "') AND ";
                     break;
                 case "ByLastLoginDate":
                     //No se puede hacer, no hay una última conexión de usuario en base de datos
                     break;
                 case "ByBalance":
                     $balanceConditions = explode(',', $tcAttribute->getConditions());
-                    $conditions .= "(u.wallet_uploaded_amount + u.wallet_winnings_amount) BETWEEN '".$balanceConditions[0]."' AND '".$balanceConditions[1]."' AND ";
+                    $conditions .= "(u.wallet_uploaded_amount + u.wallet_winnings_amount) BETWEEN '" . $balanceConditions[0] . "' AND '" . $balanceConditions[1] . "' AND ";
                     break;
                 case "ByInNotTrackingCode":
                     $inNotTrackingCodeConditions = explode('|', $tcAttribute->getConditions());
@@ -661,18 +658,18 @@ class TrackingService
                     } else {
                         $searchInNot = 'NOT IN';
                     }
-                    $conditions .= "u.id IN (select user_id from tc_users_list where trackingCode_id " . $searchInNot . "('" .implode("','", explode(',', $inNotTrackingCodeConditions[1])). "')) AND ";
+                    $conditions .= "u.id IN (select user_id from tc_users_list where trackingCode_id " . $searchInNot . "('" . implode("','", explode(',', $inNotTrackingCodeConditions[1])) . "')) AND ";
                     break;
                 case "ByLotteriesPlayed":
-                    $conditions .= "u.id IN (select user_id from play_configs where lottery_id IN('" .implode("','", explode(',', $tcAttribute->getConditions())). "')) AND ";
+                    $conditions .= "u.id IN (select user_id from play_configs where lottery_id IN('" . implode("','", explode(',', $tcAttribute->getConditions())) . "')) AND ";
                     break;
                 case "ByWagering":
                     $wageringConditions = explode(',', $tcAttribute->getConditions());
-                    $conditions .= "u.id IN (select user_id from transactions where entity_type='ticket_purchase' group by user_id having count(*) BETWEEN '".$wageringConditions[0]."' AND '".$wageringConditions[1]."') AND ";
+                    $conditions .= "u.id IN (select user_id from transactions where entity_type='ticket_purchase' group by user_id having count(*) BETWEEN '" . $wageringConditions[0] . "' AND '" . $wageringConditions[1] . "') AND ";
                     break;
                 case "ByGrossRevenue":
                     $grossRevenueConditions = explode(',', $tcAttribute->getConditions());
-                    $conditions .=  "u.id IN (select user_id FROM euromillions.transactions where entity_type in ('ticket_purchase', 'automatic_purchase') group by user_id having count(*) * 0.50 * 100 BETWEEN '".$grossRevenueConditions[0]."' AND '".$grossRevenueConditions[1]."') AND ";
+                    $conditions .= "u.id IN (select user_id FROM euromillions.transactions where entity_type in ('ticket_purchase', 'automatic_purchase') group by user_id having count(*) * 0.50 * 100 BETWEEN '" . $grossRevenueConditions[0] . "' AND '" . $grossRevenueConditions[1] . "') AND ";
                     break;
             }
         }
