@@ -127,7 +127,7 @@ class TransactionServiceUnitTest extends UnitTestBase
         $expected = new PurchaseTransaction([]);
         $sut = $this->getSut();
         $this->transactionsRepository_double->findBy(["id"=> 1])->willReturn($expected);
-        $actual = $sut->obtainTransaction(1);
+        $actual = $sut->getTransaction(1);
         $this->assertEquals($expected,$actual);
     }
 
@@ -141,7 +141,7 @@ class TransactionServiceUnitTest extends UnitTestBase
         $expected = null;
         $sut = $this->getSut();
         $this->transactionsRepository_double->findBy(["id"=> 1])->willReturn(null);
-        $actual = $sut->obtainTransaction(1);
+        $actual = $sut->getTransaction(1);
         $this->assertNull($actual);
     }
 

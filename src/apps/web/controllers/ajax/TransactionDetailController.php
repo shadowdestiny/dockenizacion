@@ -15,7 +15,7 @@ class TransactionDetailController extends AjaxControllerBase
         $transactionService = $this->domainServiceFactory->getTransactionService();
         $transactionDetailService = $this->domainServiceFactory->getTransactionDetailService();
         /** @var Transaction $transactionEntity */
-        $transactionEntity = $transactionService->obtainTransaction($id)[0];
+        $transactionEntity = $transactionService->getTransaction($id)[0];
         if(null != $transactionEntity) {
             $result = $transactionDetailService->obtainTransactionDetails($transactionEntity);
             echo json_encode($result);

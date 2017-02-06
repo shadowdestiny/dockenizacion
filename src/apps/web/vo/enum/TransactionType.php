@@ -29,4 +29,6 @@ class TransactionType
     
     const SUBSCRIPTION_PURCHASE = 'subscription_purchase';
 
+    const MANUAL_DEPOSIT = 'manual_deposit';
+
 }

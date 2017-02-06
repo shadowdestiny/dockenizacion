@@ -4,6 +4,7 @@
 namespace EuroMillions\web\repositories;
 
 
+use Doctrine\ORM\Query\ResultSetMapping;
 use EuroMillions\web\entities\Transaction;
 
 class TransactionRepository extends RepositoryBase
@@ -32,5 +33,4 @@ class TransactionRepository extends RepositoryBase
 
         return (int) ($result[0][1]) +1 ;
     }
-
 }

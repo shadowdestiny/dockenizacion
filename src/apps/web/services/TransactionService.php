@@ -75,7 +75,7 @@ class TransactionService
         return [];
     }
 
-    public function obtainTransaction($id)
+    public function getTransaction($id)
     {
         /** @var Transaction $transactionEntity */
         $transactionEntity = $this->transactionRepository->findBy(["id" => $id]);
@@ -91,7 +91,7 @@ class TransactionService
         return str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
     }
 
-    public function obtainLastId()
+    public function getLastId()
     {
         return $this->transactionRepository->getNextId();
     }

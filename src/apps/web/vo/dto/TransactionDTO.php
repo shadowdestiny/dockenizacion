@@ -12,6 +12,7 @@ use EuroMillions\web\entities\TicketPurchaseTransaction;
 use EuroMillions\web\entities\Transaction;
 use EuroMillions\web\entities\WinningsReceivedTransaction;
 use EuroMillions\web\entities\WinningsWithdrawTransaction;
+use EuroMillions\web\entities\ManualDepositTransaction;
 use EuroMillions\web\interfaces\IDto;
 use EuroMillions\web\vo\dto\base\DTOBase;
 use Money\Currency;
@@ -82,6 +83,9 @@ class TransactionDTO extends DTOBase implements IDto
         }
         if ($transactionType instanceof SubscriptionPurchaseTransaction) {
             return 'Subscription Deposit';
+        }
+        if ($transactionType instanceof ManualDepositTransaction) {
+            return 'Manual Deposit';
         }
 
     }

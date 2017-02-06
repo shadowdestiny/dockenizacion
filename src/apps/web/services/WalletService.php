@@ -264,7 +264,7 @@ class WalletService
 
     public function fetchLastTransactionId()
     {
-        return $this->transactionService->obtainLastId();
+        return $this->transactionService->getLastId();
     }
 
     public function logMovement()

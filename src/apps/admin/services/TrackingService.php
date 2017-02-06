@@ -14,9 +14,14 @@ use EuroMillions\web\repositories\TcAttributesRepository;
 use EuroMillions\web\repositories\TcUsersListRepository;
 use EuroMillions\web\repositories\TrackingCodesRepository;
 use EuroMillions\web\repositories\TcActionsRepository;
+use EuroMillions\web\repositories\TransactionRepository;
 use EuroMillions\web\repositories\UserRepository;
+use EuroMillions\web\services\WalletService;
+use EuroMillions\web\services\TransactionService;
+use EuroMillions\web\vo\enum\TransactionType;
 use Money\Money;
 use Phalcon\Exception;
+use Phalcon\Mvc\Model\Transaction;
 
 class TrackingService
 {
@@ -33,6 +38,12 @@ class TrackingService
     private $tcActionsRepository;
     /** @var UserRepository $userRepository */
     private $userRepository;
+    /** @var TransactionRepository $transactionRepository*/
+    private $transactionRepository;
+    /** @var WalletService $walletService*/
+    private $walletService;
+    /** @var TransactionService $transactionService*/
+    private $transactionService;
 
     /**
      * @param EntityManager $entityManager
@@ -46,6 +57,7 @@ class TrackingService
         $this->tcAttributesRepository = $this->entityManager->getRepository('EuroMillions\web\entities\TcAttributes');
         $this->tcActionsRepository = $this->entityManager->getRepository('EuroMillions\web\entities\TcActions');
         $this->userRepository = $entityManager->getRepository('EuroMillions\web\entities\User');
+        $this->transactionRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Transaction');
     }
 
     /**
@@ -338,6 +350,37 @@ class TrackingService
         $this->entityManager->flush();
     }
 
+    public function creditDebitRealMoney($users, $id, $conditions)
+    {
+        foreach ($users as $user) {
+            /* @var User $changeUser */
+            $changeUser = $this->getUserById($user['id']);
+            $walletBefore = $changeUser->getWallet();
+            $changeUser->setWallet($changeUser->getWallet()->upload(new Money((int)$conditions, $changeUser->getWallet()->getBalance()->getCurrency())));
+            $this->entityManager->persist($changeUser);
+            $this->entityManager->flush();
+
+//            coger de transaction service la transaction
+            $transaction = $this->transactionRepository->findBy(['user' => $user['id']], ['id' => 'DESC']);
+//            $transaction = $this->transactionService->getTransactionsDTOByUser($changeUser);
+
+            $dataTransaction = [
+                'lottery_id' => 1,
+                'amountWithWallet' => 0,
+                'user' => $changeUser,
+                'walletBefore' => $walletBefore,
+                'walletAfter' => $changeUser->getWallet(),
+                'now' => new \DateTime()
+            ];
+            list($partOne, $partTwo) = explode('_', TransactionType::MANUAL_DEPOSIT);
+            $class = 'EuroMillions\web\components\transaction\\' . ucfirst($partOne) . ucfirst($partTwo) . 'Generator';
+                /** @var Transaction $entity */
+                $entity = $class::build($dataTransaction);
+                $this->entityManager->persist($entity);
+                $this->entityManager->flush();
+        }
+    }
+
     /**
      * @param $key
      * @param array $postData
@@ -509,17 +552,6 @@ class TrackingService
             $this->entityManager->flush();
         } catch (\Exception $e) {
             throw new Exception("Was not possible to save TcUsersList");
-        }
-    }
-
-    public function creditDebitRealMoney($users, $id, $conditions)
-    {
-        foreach ($users as $user) {
-            /* @var User $changeUser*/
-            $changeUser = $this->getUserById($user['id']);
-            $changeUser->setWallet($changeUser->getWallet()->upload(new Money((int)$conditions, $changeUser->getWallet()->getBalance()->getCurrency())));
-            $this->entityManager->persist($changeUser);
-            $this->entityManager->flush();
         }
     }
 
