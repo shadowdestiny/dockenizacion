@@ -653,12 +653,13 @@ class TrackingService
                     break;
                 case "ByInNotTrackingCode":
                     $inNotTrackingCodeConditions = explode('|', $tcAttribute->getConditions());
-                    if ($inNotTrackingCodeConditions == 'In') {
-                        $searchInNot = 'IN';
+                    if ($inNotTrackingCodeConditions[0] == 'In') {
+                        $conditions .= "u.id IN (select user_id from tc_users_list where trackingCode_id IN ('" . implode("','", explode(',', $inNotTrackingCodeConditions[1])) . "')) AND ";
                     } else {
-                        $searchInNot = 'NOT IN';
+                        $conditions .= "u.id IN (select user_id from tc_users_list where user_id NOT IN
+                        (select user_id from tc_users_list where trackingCode_id IN ('" . implode("','", explode(',', $inNotTrackingCodeConditions[1])) . "'))
+                        ) AND ";
                     }
-                    $conditions .= "u.id IN (select user_id from tc_users_list where trackingCode_id " . $searchInNot . "('" . implode("','", explode(',', $inNotTrackingCodeConditions[1])) . "')) AND ";
                     break;
                 case "ByLotteriesPlayed":
                     $conditions .= "u.id IN (select user_id from play_configs where lottery_id IN('" . implode("','", explode(',', $tcAttribute->getConditions())) . "')) AND ";
@@ -669,7 +670,11 @@ class TrackingService
                     break;
                 case "ByGrossRevenue":
                     $grossRevenueConditions = explode(',', $tcAttribute->getConditions());
-                    $conditions .= "u.id IN (select user_id FROM euromillions.transactions where entity_type in ('ticket_purchase', 'automatic_purchase') group by user_id having count(*) * 0.50 * 100 BETWEEN '" . $grossRevenueConditions[0] . "' AND '" . $grossRevenueConditions[1] . "') AND ";
+                    //old $conditions .= "u.id IN (select user_id FROM euromillions.transactions where entity_type in ('ticket_purchase', 'automatic_purchase') group by user_id having count(*) * 0.50 * 100 BETWEEN '" . $grossRevenueConditions[0] . "' AND '" . $grossRevenueConditions[1] . "') AND ";
+                    $conditions .= "u.id IN (select user_id FROM ( select user_id, transactions.data
+                                                FROM euromillions.transactions where entity_type in ('ticket_purchase', 'automatic_purchase')
+                                                group by user_id
+                                                having (ceiling(count(*) * 0.50 * 100) * substr(transactions.data, 3, 1) ) between '" . $grossRevenueConditions[0] . "' AND '" . $grossRevenueConditions[1] . "') as hola ) AND ";
                     break;
             }
         }
