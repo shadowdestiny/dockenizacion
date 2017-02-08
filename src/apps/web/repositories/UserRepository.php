@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\web\repositories;
 
+use Doctrine\ORM\Query\ResultSetMapping;
 use EuroMillions\shared\vo\Wallet;
 use EuroMillions\web\components\UserId;
 use EuroMillions\web\entities\Lottery;
@@ -13,6 +14,7 @@ use EuroMillions\web\vo\IPAddress;
 use EuroMillions\web\vo\Password;
 use EuroMillions\web\vo\ValidationToken;
 use Money\Currency;
+use Phalcon\Forms\Element\Date;
 use Ramsey\Uuid\Uuid;
 
 class UserRepository extends RepositoryBase
@@ -136,6 +138,16 @@ class UserRepository extends RepositoryBase
             ->getResult();
 
         return $result;
+    }
+
+    public function updateLastConnection($userId)
+    {
+        $rsm = new ResultSetMapping();
+        $this->getEntityManager()
+            ->createNativeQuery(
+                'UPDATE users SET last_connection = "'. (new \DateTime())->format('Y-m-d H:i:s').'"
+                  WHERE id = "' . $userId . '"'
+                , $rsm)->getResult();
     }
 
 

@@ -128,6 +128,11 @@ class PublicSiteControllerBase extends ControllerBase
             }
             $user_balance = $this->userService->getBalanceWithUserCurrencyConvert($this->authService->getCurrentUser()->getId(), $this->userPreferencesService->getCurrency());
             $user_balance_raw = $this->currencyConversionService->convert($user->getBalance(),$this->userPreferencesService->getCurrency())->getAmount();
+
+            if (!$this->session->get('lastConnectionTime') || ($this->session->get('lastConnectionTime') < date('Y-m-d H:i:s'))) {
+                $this->userService->updateLastConnection($user);
+                $this->session->set('lastConnectionTime', date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' +1 day')));
+            }
         }else{
             $user_balance = '';
             $user_balance_raw = '';
