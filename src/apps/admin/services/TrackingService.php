@@ -680,9 +680,9 @@ class TrackingService
                     $grossRevenueConditions = explode(',', $tcAttribute->getConditions());
                     //old $conditions .= "u.id IN (select user_id FROM euromillions.transactions where entity_type in ('ticket_purchase', 'automatic_purchase') group by user_id having count(*) * 0.50 * 100 BETWEEN '" . $grossRevenueConditions[0] . "' AND '" . $grossRevenueConditions[1] . "') AND ";
                     $conditions .= "u.id IN (select user_id FROM ( select user_id, transactions.data
-                                                FROM euromillions.transactions where entity_type in ('ticket_purchase', 'automatic_purchase')
+                                                FROM transactions where entity_type in ('ticket_purchase', 'automatic_purchase')
                                                 group by user_id
-                                                having (ceiling(count(*) * 0.50 * 100) * substr(transactions.data, 3, 1) ) between '" . $grossRevenueConditions[0] . "' AND '" . $grossRevenueConditions[1] . "') as hola ) AND ";
+                                                having (ceiling(0.50 * 100 * sum(substr(transactions.data, 3, 1)))) between '" . $grossRevenueConditions[0] . "' AND '" . $grossRevenueConditions[1] . "') as hola ) AND ";
                     break;
             }
         }
