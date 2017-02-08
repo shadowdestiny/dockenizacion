@@ -103,6 +103,7 @@ class EntityBaseUnitTest extends UnitTestBase
         $expected->bankSurname = null;
         $expected->created = null;
         $expected->ip_address = new IPAddress('127.0.0.1');
+        $expected->lastConnection = null;
         $this->assertEquals($expected, $user->toValueObject());
     }
 
@@ -146,7 +147,8 @@ class EntityBaseUnitTest extends UnitTestBase
             'created' => null,
             'ip_address_value' => '127.0.0.1',
             'wallet_subscription_amount' => 0,
-            'wallet_subscription_currency_name' => 'EUR'
+            'wallet_subscription_currency_name' => 'EUR',
+            'last_connection' => null,
         ];
         $this->assertEquals($expected, $user->toArray());
     }
