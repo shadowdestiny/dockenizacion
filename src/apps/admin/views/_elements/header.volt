@@ -42,9 +42,13 @@
     {% if needReportsMenu is defined %}
         <div class="navbar-inner">
             <ul class="nav">
-                <li><a href="/admin/reports/salesDraw">Sales Draw</a></li>
+                <li><a href="/admin/reports/businessReportsGeneralKPIs">General KPIs</a></li>
+                <li><a href="/admin/reports/businessReportsActivity">Activity</a></li>
+                <li><a href="/admin/reports/businessReportsSalesDraw">Sales Draw</a></li>
+                <li><a href="/admin/reports/playersReports">Players Reports</a></li>
+                <!-- li><a href="/admin/reports/salesDraw">Sales Draw</a></li>
                 <li><a href="/admin/reports/monthlySales">Monthly Sales</a></li>
-                <li><a href="/admin/reports/customerData">Customer data</a></li>
+                <li><a href="/admin/reports/customerData">Customer data</a></li -->
             </ul>
         </div>
     {% endif %}
