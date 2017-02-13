@@ -33,4 +33,16 @@ class TrackingCodesRepository extends RepositoryBase
         return  $this->getEntityManager()
             ->createNativeQuery($sql, $rsm)->getResult();
     }
+
+    public function getUserAndDataFromTransactions()
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('user_id','user_id');
+        $rsm->addScalarResult('data','data');
+        return  $this->getEntityManager()
+            ->createNativeQuery('SELECT t.user_id, t.data
+                                FROM transactions t
+                                WHERE entity_type in ("ticket_purchase", "automatic_purchase")',
+                $rsm)->getResult();
+    }
 }
