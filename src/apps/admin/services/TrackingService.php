@@ -645,7 +645,15 @@ class TrackingService
                     $conditions .= "u.id IN (select user_id from transactions where entity_type='winnings_withdraw' group by user_id having sum(wallet_before_winnings_amount - wallet_after_winnings_amount) BETWEEN '" . $totalWithdrawalConditions[0] . "' AND '" . $totalWithdrawalConditions[1] . "') AND ";
                     break;
                 case "ByLastLoginDate":
-                    //No se puede hacer, no hay una última conexión de usuario en base de datos
+                    $lastLoginDateConditions = explode(',', $tcAttribute->getConditions());
+                    if (strlen($lastLoginDateConditions[0]) > 3) {
+                        $date1 = (new DateTime($lastLoginDateConditions[0]))->setTime(0, 0, 0);
+                        $date2 = (new DateTime($lastLoginDateConditions[1]))->setTime(23, 59, 59);
+                    } else {
+                        $date1 = (new DateTime())->modify($lastLoginDateConditions[0] . ' days')->setTime(0, 0, 0);
+                        $date2 = (new DateTime())->modify($lastLoginDateConditions[1] . ' days')->setTime(23, 59, 59);
+                    }
+                    $conditions .= "u.last_connection BETWEEN '" . $date1->format('Y-m-d H:i:s') . "' AND '" . $date2->format('Y-m-d H:i:s') . "' AND ";
                     break;
                 case "ByBalance":
                     $balanceConditions = explode(',', $tcAttribute->getConditions());

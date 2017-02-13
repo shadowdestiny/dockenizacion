@@ -405,4 +405,13 @@ class UserService
         }
     }
 
+    public function updateLastConnection( User $user)
+    {
+        try {
+            $this->userRepository->updateLastConnection($user->getId());
+        } catch ( \Exception $e ) {
+            return new ActionResult(false);
+        }
+    }
+
 }

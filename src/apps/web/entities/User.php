@@ -53,6 +53,7 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     protected $created;
     /** @var IPAddress */
     protected $ip_address;
+    protected $lastConnection;
 
 
 
@@ -518,6 +519,22 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     public function getIpAddress()
     {
         return $this->ip_address;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastConnection()
+    {
+        return $this->lastConnection;
+    }
+
+    /**
+     * @param $lastConnection
+     */
+    public function setLastConnection($lastConnection)
+    {
+        $this->lastConnection = $lastConnection;
     }
 
 
