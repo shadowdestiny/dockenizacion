@@ -3,6 +3,7 @@
 namespace EuroMillions\web\repositories;
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\web\entities\Bet;
 use EuroMillions\web\interfaces\IReports;
 use Doctrine\ORM\Query\ResultSetMapping;
 
@@ -91,5 +92,100 @@ class ReportsRepository implements IReports
                   from users u;",$rsm)
             ->getResult();
 
+    }
+
+    public function getUsersByReportsPlayersQuery($sql)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('name', 'name');
+        $rsm->addScalarResult('surname', 'surname');
+        $rsm->addScalarResult('email', 'email');
+        $rsm->addScalarResult('phone', 'phone');
+        $rsm->addScalarResult('country', 'country');
+        $rsm->addScalarResult('city', 'city');
+        $rsm->addScalarResult('street', 'street');
+        $rsm->addScalarResult('ip', 'ip');
+        $rsm->addScalarResult('LastLoginDate', 'LastLoginDate');
+        $rsm->addScalarResult('registrationDate', 'registrationDate');
+        $rsm->addScalarResult('numberDeposits', 'numberDeposits');
+        $rsm->addScalarResult('amountDeposited', 'amountDeposited');
+        $rsm->addScalarResult('LastDepositDate', 'LastDepositDate');
+        $rsm->addScalarResult('numberWithdrawals', 'numberWithdrawals');
+        $rsm->addScalarResult('amountWithdraw', 'amountWithdraw');
+        $rsm->addScalarResult('winnings', 'winnings');
+        $rsm->addScalarResult('balance', 'balance');
+        return $this->entityManager
+            ->createNativeQuery($sql, $rsm)->getResult();
+    }
+
+    public function getUserAndDataFromTransactionsBetweenDates($dateFrom, $dateTo)
+    {
+
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('user_id','user_id');
+        $rsm->addScalarResult('data','data');
+        return  $this->entityManager
+            ->createNativeQuery('SELECT t.user_id, t.data
+                                FROM transactions t
+                                WHERE entity_type in ("ticket_purchase", "automatic_purchase") AND 
+                                t.date BETWEEN "' . $dateFrom . '" AND "' . $dateTo . '"',
+                $rsm)->getResult();
+    }
+
+    /**
+     * @param $userId
+     *
+     * @return array
+     */
+    public function getActivePlayConfigsByUser($userId)
+    {
+        return $this->getPlayConfigsByUserAndActive($userId, '1');
+    }
+
+    /**
+     * @param $userId
+     * @param $active
+     *
+     * @return array
+     */
+    protected function getPlayConfigsByUserAndActive($userId, $active)
+    {
+        $result = $this->entityManager
+            ->createQuery(
+                'SELECT b'
+                . ' FROM ' . '\EuroMillions\web\entities\Bet' . ' b INNER JOIN b.playConfig p '
+                . ' WHERE p.user = :user_id AND p.active = :active '
+                . ' GROUP BY p.startDrawDate,p.line.regular_number_one,'
+                . ' p.line.regular_number_two,p.line.regular_number_three, '
+                . ' p.line.regular_number_four,p.line.regular_number_five, '
+                . ' p.line.lucky_number_one, p.line.lucky_number_two '
+                . ' ORDER BY p.startDrawDate DESC ')
+            ->setParameters(['user_id' => $userId, 'active' => $active])
+            ->getResult();
+
+        $playConfigs = [];
+        /** @var Bet $bet */
+        foreach($result as $bet) {
+            $playConfigs[] = $bet->getPlayConfig();
+        }
+
+        return $playConfigs;
+    }
+
+    public function getPastGamesWithPrizes($userId)
+    {
+        $result = $this->entityManager
+            ->createQuery(
+                'SELECT b,p.startDrawDate,p.line.regular_number_one,'
+                . ' p.line.regular_number_two,p.line.regular_number_three, '
+                . ' p.line.regular_number_four,p.line.regular_number_five, '
+                . ' p.line.lucky_number_one, p.line.lucky_number_two'
+                . ' FROM ' . '\EuroMillions\web\entities\Bet' . ' b JOIN b.playConfig p JOIN b.euromillionsDraw e'
+                . ' WHERE p.user = :user_id AND e.draw_date < :actual_date '
+                . ' ORDER BY p.startDrawDate DESC ')
+            ->setParameters(['user_id' => $userId, 'actual_date' => date('Y-m-d')])
+            ->getResult();
+        return $result;
     }
 }

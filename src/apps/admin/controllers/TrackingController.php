@@ -16,7 +16,6 @@ class TrackingController extends AdminControllerBase
     private $geoService;
     /** @var CurrencyService $currencyService */
     private $currencyService;
-    private $message;
 
     public function initialize()
     {

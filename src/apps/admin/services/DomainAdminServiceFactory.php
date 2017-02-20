@@ -5,6 +5,7 @@ use EuroMillions\shared\components\PhalconSessionWrapper;
 use EuroMillions\web\repositories\ReportsRepository;
 use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\GeoService;
+use EuroMillions\web\services\LotteryService;
 use Phalcon\DiInterface;
 
 class DomainAdminServiceFactory
@@ -44,7 +45,7 @@ class DomainAdminServiceFactory
 
     public function getReportsService()
     {
-        return new ReportsService(new ReportsRepository($this->entityManager));
+        return new ReportsService(new ReportsRepository($this->entityManager), $this->entityManager);
     }
 
     public function getTrackingService()
