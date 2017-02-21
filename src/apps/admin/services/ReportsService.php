@@ -4,10 +4,9 @@
 namespace EuroMillions\admin\services;
 
 use Doctrine\ORM\EntityManager;
-use EuroMillions\shared\vo\results\ActionResult;
+use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IReports;
-use EuroMillions\web\repositories\BetRepository;
-use EuroMillions\web\repositories\PlayConfigRepository;
+use EuroMillions\web\repositories\TransactionRepository;
 use EuroMillions\web\repositories\UserRepository;
 
 class ReportsService
@@ -17,23 +16,21 @@ class ReportsService
     private $reportsRepository;
     /** @var UserRepository $userRepository */
     private $userRepository;
-    /** @var PlayConfigRepository $userRepository */
-    private $playRepository;
-    /** @var BetRepository $betRepository */
-    private $betRepository;
+    /** @var TransactionRepository $transactionRepository */
+    private $transactionRepository;
 
     public function __construct(IReports $iReports = null, EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
         $this->reportsRepository = $iReports;
         $this->userRepository =  $this->entityManager->getRepository('EuroMillions\web\entities\User');
-        $this->playRepository = $this->entityManager->getRepository('EuroMillions\web\entities\PlayConfig');
         $this->lotteryRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Lottery');
-        $this->betRepository = $entityManager->getRepository('EuroMillions\web\entities\Bet');
+        $this->transactionRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Transaction');
     }
 
     /**
      * @param $userId
+     *
      * @return null|object
      */
     public function getUserById($userId)
@@ -68,6 +65,13 @@ class ReportsService
         return $aPlayersReportsKeys;
     }
 
+    /**
+     * @param $needGGR
+     * @param $dateFrom
+     * @param $dateTo
+     *
+     * @return array
+     */
     public function getGGRPlayersByDates($needGGR, $dateFrom, $dateTo)
     {
         if ($needGGR && $dateFrom && $dateTo) {
@@ -108,11 +112,53 @@ class ReportsService
      *
      * @return array
      */
+    public function getAutomaticAndTicketPurchaseByUserId($userId)
+    {
+        $userBets = $this->transactionRepository->getAutomaticAndTicketPurchaseByUserId($userId);
+        foreach($userBets as $key => $bet){
+            if ($bet['entity_type'] == 'ticket_purchase') {
+                $aData = explode('#', $bet['data']);
+                if (isset($aData[6])) {
+                    if ($aData[6] > 0) {
+                        $userBets[$key]["movement"] = ($aData[2] - round(($aData[2] * ($aData[6] / 100)))) / 100;
+                    } else {
+                        $userBets[$key]["movement"] = $aData[2] / 100;
+                    }
+                } else {
+                    $userBets[$key]["movement"] = $aData[2] / 100;
+                }
+            } else {
+                $userBets[$key]["movement"] = $userBets[$key]['automaticMovement'] / 100;
+            }
+        }
+        return $userBets;
+    }
+
+    /**
+     * @param $userId
+     *
+     * @return array
+     */
+    public function getDepositsByUserId($userId)
+    {
+        return  $this->transactionRepository->getDepositsByUserId($userId);
+    }
+
+    /**
+     * @param $userId
+     *
+     * @return array
+     */
     public function getActivePlaysByUserId($userId)
     {
         return $this->reportsRepository->getActivePlayConfigsByUser($userId);
     }
 
+    /**
+     * @param $userId
+     *
+     * @return mixed
+     */
     public function getPastGamesWithPrizes($userId)
     {
         return $this->reportsRepository->getPastGamesWithPrizes($userId);

@@ -1,6 +1,6 @@
 <h3 class="h4">Upcoming Draws</h3>
 {% if my_games_actives.result is empty %}
-    You have purchased no tickets for upcoming draws.
+    This player didn't purchase tickets for upcoming draws.
 {% else %}
     <table class="table-program" width="100%">
         <thead>

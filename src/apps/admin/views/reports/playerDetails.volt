@@ -43,6 +43,10 @@
 
                     {% include "reports/playerDetails/_pastGames.volt" %}
 
+                    {% include "reports/playerDetails/_bets.volt" %}
+
+                    {% include "reports/playerDetails/_deposits.volt" %}
+
                     <p align="center"><input type="button" onclick="window.history.back();" value="Go Back" class="btn btn-primary" /></p>
                 </div>
             </div>

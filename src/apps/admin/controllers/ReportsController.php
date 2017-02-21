@@ -23,6 +23,7 @@ class ReportsController extends AdminControllerBase
         $this->trackingService = $this->domainAdminServiceFactory->getTrackingService();
         $this->geoService = $this->domainAdminServiceFactory->getGeoService();
         $this->countries = $this->getCountries();
+
     }
 
     public function indexAction()
@@ -98,7 +99,7 @@ class ReportsController extends AdminControllerBase
     public function playerDetailsAction()
     {
         $user = $this->reportsService->getUserById($this->request->get('id'));
-        $playConfigDTO = null;
+
         $myGamesActives = new UpcomingDrawsDTO($this->reportsService->getActivePlaysByUserId($user->getId()));
         $pageActives = (!empty($this->request->get('page'))) ? $this->request->get('page') : 1;
         $paginatorActives = $this->getPaginatorAsArray(!empty($myGamesActives->result) ? $myGamesActives->result : [], 4, $pageActives);
@@ -109,6 +110,9 @@ class ReportsController extends AdminControllerBase
         $paginatorInactives = $this->getPaginatorAsArray(!empty($myGamesInactives->result['dates']) ? $myGamesInactives->result['dates'] : [], 4, $pageInactives);
         $paginatorViewInactives = (new PaginationWidget($paginatorInactives, $this->request->getQuery()))->render();
 
+        $userBets = $this->reportsService->getAutomaticAndTicketPurchaseByUserId($this->request->get('id'));
+        $userDeposits = $this->reportsService->getDepositsByUserId($this->request->get('id'));
+
         $this->view->setVars([
             'user' => $user,
             'my_games_actives' => $myGamesActives,
@@ -116,7 +120,9 @@ class ReportsController extends AdminControllerBase
             'my_games_inactives' => $paginatorInactives->getPaginate()->items,
             'paginator_view_inactives' => $paginatorViewInactives,
             'nextDrawDate' => $this->reportsService->getNextDateDrawByLottery('Euromillions')->format('Y M d'),
-            'lottery' => 'Euromillions'
+            'lottery' => 'Euromillions',
+            'userBets' => $userBets,
+            'userDeposits' => $userDeposits,
         ]);
     }
 

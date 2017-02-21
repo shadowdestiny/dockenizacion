@@ -1,6 +1,6 @@
 <h3 class="h4">Past Games</h3>
 {% if my_games_inactives is empty %}
-    You have purchased no tickets for past draws.
+    This player didn't purchase tickets for past draws.
 {% else %}
     <table class="table-program" width="100%">
         <thead>
