@@ -1,5 +1,5 @@
 <h3 class="h4">Upcoming Draws</h3>
-{% if my_games_actives.result is empty %}
+{% if my_games_actives is empty %}
     This player didn't purchase tickets for upcoming draws.
 {% else %}
     <table class="table-program" width="100%">
@@ -17,7 +17,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for index,upcoming in my_games_actives.result %}
+        {% for index,upcoming in my_games_actives %}
             <tr>
                 <td align="center">
                     {{ nextDrawDate }}
@@ -27,11 +27,11 @@
                 </td>
                 <td>
                     <table>
-                        <?php $rows = count($my_games_actives->result[$index]); ?>
+                        <?php $rows = count($my_games_actives[$index]); ?>
                         <?php
                             $numColumn = 0;
                             for($i=0;$i<$rows/2;$i++){
-                                $game = $my_games_actives->result[$index][$numColumn];
+                                $game = $my_games_actives[$index][$numColumn];
                                 $game = $game->get(0);
                         ?>
                         <tr>
@@ -48,13 +48,13 @@
                                     {% endfor %}
                                 </div>
                             </td>
-                            <?php if(count($my_games_actives->result[$index]) > 1 && $numColumn < $rows-1 ) {?>
+                            <?php if(count($my_games_actives[$index]) > 1 && $numColumn < $rows-1 ) {?>
                             <td class="numbers">
                                 <?php
-                                    if(isset($my_games_actives->result[$index][$numColumn+1])) {
-                                        $game=$my_games_actives->result[$index][$numColumn+1];
+                                    if(isset($my_games_actives[$index][$numColumn+1])) {
+                                        $game=$my_games_actives[$index][$numColumn+1];
                                     } else {
-                                        $game=$my_games_actives->result[$index][$numColumn];
+                                        $game=$my_games_actives[$index][$numColumn];
                                     }
                                     $game = $game->get(0);
                                 ?>

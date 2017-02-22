@@ -20,6 +20,15 @@
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
+    <script language="javascript">
+        function downloadBets(id) {
+            location='/admin/reports/downloadBets?id='+id;
+        }
+
+        function downloadDeposits(id) {
+            location='/admin/reports/downloadDeposits?id='+id;
+        }
+    </script>
     <div class="wrapper">
         <div class="container">
             <div class="module">

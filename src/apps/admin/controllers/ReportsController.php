@@ -3,7 +3,7 @@
 namespace EuroMillions\admin\controllers;
 
 use EuroMillions\admin\services\TrackingService;
-use EuroMillions\shared\components\widgets\PaginationWidget;
+use EuroMillions\shared\components\widgets\PaginationWidgetAdmin;
 use EuroMillions\web\services\GeoService;
 use EuroMillions\web\vo\dto\PastDrawsCollectionDTO;
 use EuroMillions\web\vo\dto\UpcomingDrawsDTO;
@@ -101,29 +101,70 @@ class ReportsController extends AdminControllerBase
         $user = $this->reportsService->getUserById($this->request->get('id'));
 
         $myGamesActives = new UpcomingDrawsDTO($this->reportsService->getActivePlaysByUserId($user->getId()));
-        $pageActives = (!empty($this->request->get('page'))) ? $this->request->get('page') : 1;
+        $pageActives = (!empty($this->request->get('pageActives'))) ? $this->request->get('pageActives') : 1;
         $paginatorActives = $this->getPaginatorAsArray(!empty($myGamesActives->result) ? $myGamesActives->result : [], 4, $pageActives);
-        $paginatorViewActives = (new PaginationWidget($paginatorActives, $this->request->getQuery()))->render();
+        $paginatorViewActives = (new PaginationWidgetAdmin($paginatorActives, $this->request->getQuery(), [], 'pageActives'))->render();
 
         $myGamesInactives = new PastDrawsCollectionDTO($this->reportsService->getPastGamesWithPrizes($user->getId()));
-        $pageInactives = (!empty($this->request->get('page'))) ? $this->request->get('page') : 1;
+        $pageInactives = (!empty($this->request->get('pageInactives'))) ? $this->request->get('pageInactives') : 1;
         $paginatorInactives = $this->getPaginatorAsArray(!empty($myGamesInactives->result['dates']) ? $myGamesInactives->result['dates'] : [], 4, $pageInactives);
-        $paginatorViewInactives = (new PaginationWidget($paginatorInactives, $this->request->getQuery()))->render();
+        $paginatorViewInactives = (new PaginationWidgetAdmin($paginatorInactives, $this->request->getQuery(), [], 'pageInactives'))->render();
 
         $userBets = $this->reportsService->getAutomaticAndTicketPurchaseByUserId($this->request->get('id'));
+        $pageBets = (!empty($this->request->get('pageBets'))) ? $this->request->get('pageBets') : 1;
+        $paginatorBets = $this->getPaginatorAsArray(!empty($userBets) ? $userBets : [], 8, $pageBets);
+        $paginatorViewBets = (new PaginationWidgetAdmin($paginatorBets, $this->request->getQuery(), [], 'pageBets'))->render();
+
         $userDeposits = $this->reportsService->getDepositsByUserId($this->request->get('id'));
+        $pageDeposits = (!empty($this->request->get('pageDeposits'))) ? $this->request->get('pageDeposits') : 1;
+        $paginatorDeposits = $this->getPaginatorAsArray(!empty($userDeposits) ? $userDeposits : [], 8, $pageDeposits);
+        $paginatorViewDeposits = (new PaginationWidgetAdmin($paginatorDeposits, $this->request->getQuery(), [], 'pageDeposits'))->render();
 
         $this->view->setVars([
             'user' => $user,
-            'my_games_actives' => $myGamesActives,
-            'paginator_view_actives' => '', //$paginatorViewActives
+            'my_games_actives' => $paginatorActives->getPaginate()->items,
+            'paginator_view_actives' => $paginatorViewActives,
             'my_games_inactives' => $paginatorInactives->getPaginate()->items,
             'paginator_view_inactives' => $paginatorViewInactives,
+            'userBets' => $paginatorBets->getPaginate()->items,
+            'paginator_view_bets' => $paginatorViewBets,
+            'userDeposits' => $paginatorDeposits->getPaginate()->items,
+            'paginator_view_deposits' => $paginatorViewDeposits,
             'nextDrawDate' => $this->reportsService->getNextDateDrawByLottery('Euromillions')->format('Y M d'),
             'lottery' => 'Euromillions',
-            'userBets' => $userBets,
-            'userDeposits' => $userDeposits,
         ]);
+    }
+
+    public function downloadBetsAction()
+    {
+        if ($this->request->get('id')) {
+            $userBets = $this->reportsService->getAutomaticAndTicketPurchaseByUserId($this->request->get('id'));
+            if (count($userBets) > 0) {
+                header('Content-Type: text/csv; charset=utf-8');
+                header('Content-Disposition: attachment; filename=userBets.csv');
+                $fp = fopen('php://output', 'w');
+                foreach ($userBets as $userBet) {
+                    fputcsv($fp, [$userBet['date'], $userBet['entity_type'], sprintf("%.2f", $userBet['movement']) . '€', sprintf("%.2f", $userBet['balance'] / 100) . '€']);
+                }
+                fclose($fp);
+            }
+        }
+    }
+
+    public function downloadDepositsAction()
+    {
+        if ($this->request->get('id')) {
+            $userDeposits = $this->reportsService->getDepositsByUserId($this->request->get('id'));
+            if (count($userDeposits) > 0) {
+                header('Content-Type: text/csv; charset=utf-8');
+                header('Content-Disposition: attachment; filename=userDeposits.csv');
+                $fp = fopen('php://output', 'w');
+                foreach ($userDeposits as $userDeposit) {
+                    fputcsv($fp, [$userDeposit['date'], 'Deposit', sprintf("%.2f", $userDeposit['movement'] / 100) . '€', sprintf("%.2f", $userDeposit['balance'] / 100) . '€']);
+                }
+                fclose($fp);
+            }
+        }
     }
 
     public function salesDrawAction()

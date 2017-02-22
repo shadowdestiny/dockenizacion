@@ -38,5 +38,6 @@
             {% endfor %}
         </tbody>
     </table>
-    {#{{ paginator_view_inactives }}#}
+    {{ paginator_view_bets }}
+    <p align="right"><input type="button" onclick="downloadBets('{{ user.getId() }}')" value="Download" class="btn btn-primary" /></p>
 {% endif %}
