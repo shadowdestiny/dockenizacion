@@ -121,6 +121,7 @@ class ReportsController extends AdminControllerBase
         $paginatorViewDeposits = (new PaginationWidgetAdmin($paginatorDeposits, $this->request->getQuery(), [], 'pageDeposits'))->render();
 
         $this->view->setVars([
+            'needReportsMenu' => true,
             'user' => $user,
             'my_games_actives' => $paginatorActives->getPaginate()->items,
             'paginator_view_actives' => $paginatorViewActives,
