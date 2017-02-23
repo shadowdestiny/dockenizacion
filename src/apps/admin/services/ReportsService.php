@@ -141,7 +141,23 @@ class ReportsService
      */
     public function getDepositsByUserId($userId)
     {
-        return  $this->transactionRepository->getDepositsByUserId($userId);
+        return $this->transactionRepository->getDepositsByUserId($userId);
+    }
+
+    /**
+     * @param $userId
+     *
+     * @return array
+     */
+    public function getWithdrawalsByUserId($userId)
+    {
+        $userWithdrawals = $this->transactionRepository->getWithdrawalsByUserId($userId);
+        foreach ($userWithdrawals as $key => $userWithdrawal){
+            $aData = explode('#', $userWithdrawal['data']);
+            $userWithdrawals[$key]['amount'] = $aData[1] / 100;
+            $userWithdrawals[$key]['state'] = $aData[2];
+        }
+        return $userWithdrawals;
     }
 
     /**
@@ -284,11 +300,11 @@ class ReportsService
         }
 
         if ($postData['name']) {
-            $whereConditions .= ' u.name = "' . $postData['name'] . '" AND ';
+            $whereConditions .= ' u.name like "%' . $postData['name'] . '%" AND ';
         }
 
         if ($postData['surname']) {
-            $whereConditions .= ' u.surname = "' . $postData['surname'] . '" AND ';
+            $whereConditions .= ' u.surname like "%' . $postData['surname'] . '%" AND ';
         }
 
         if ($postData['email']) {

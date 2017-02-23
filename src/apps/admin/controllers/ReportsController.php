@@ -133,6 +133,8 @@ class ReportsController extends AdminControllerBase
             'paginator_view_deposits' => $paginatorViewDeposits,
             'nextDrawDate' => $this->reportsService->getNextDateDrawByLottery('Euromillions')->format('Y M d'),
             'lottery' => 'Euromillions',
+            'userWithdrawals' => $this->reportsService->getWithdrawalsByUserId($this->request->get('id')),
+            'countryList' => $this->countries,
         ]);
     }
 
@@ -145,7 +147,7 @@ class ReportsController extends AdminControllerBase
                 header('Content-Disposition: attachment; filename=userBets.csv');
                 $fp = fopen('php://output', 'w');
                 foreach ($userBets as $userBet) {
-                    fputcsv($fp, [$userBet['date'], $userBet['entity_type'], sprintf("%.2f", $userBet['movement']) . '€', sprintf("%.2f", $userBet['balance'] / 100) . '€']);
+                    fputcsv($fp, [$userBet['date'], $userBet['entity_type'], sprintf("%.2f", $userBet['movement']), sprintf("%.2f", $userBet['balance'] / 100)]);
                 }
                 fclose($fp);
             }
@@ -161,7 +163,7 @@ class ReportsController extends AdminControllerBase
                 header('Content-Disposition: attachment; filename=userDeposits.csv');
                 $fp = fopen('php://output', 'w');
                 foreach ($userDeposits as $userDeposit) {
-                    fputcsv($fp, [$userDeposit['date'], 'Deposit', sprintf("%.2f", $userDeposit['movement'] / 100) . '€', sprintf("%.2f", $userDeposit['balance'] / 100) . '€']);
+                    fputcsv($fp, [$userDeposit['date'], 'Deposit', sprintf("%.2f", $userDeposit['movement'] / 100), sprintf("%.2f", $userDeposit['balance'] / 100)]);
                 }
                 fclose($fp);
             }

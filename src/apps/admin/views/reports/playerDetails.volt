@@ -56,6 +56,8 @@
 
                     {% include "reports/playerDetails/_deposits.volt" %}
 
+                    {% include "reports/playerDetails/_withdrawals.volt" %}
+
                     {#<p align="center"><input type="button" onclick="window.history.back();" value="Go Back" class="btn btn-primary" /></p>#}
                 </div>
             </div>

@@ -72,15 +72,15 @@
                             {% if 'ip' in headerList %}<td>{{ player['ip'] }}</td>{% endif %}
                             {% if 'LastLoginDate' in headerList %}<td>{{ player['LastLoginDate'] }}</td>{% endif %}
                             {% if 'registrationDate' in headerList %}<td>{{ player['registrationDate'] }}</td>{% endif %}
-                            {% if 'winnings' in headerList %}<td>{{ player['winnings'] / 100 }} €</td>{% endif %}
-                            {% if 'balance' in headerList %}<td>{{ player['balance'] / 100 }} €</td>{% endif %}
+                            {% if 'winnings' in headerList %}<td>{{ player['winnings'] / 100 }}</td>{% endif %}
+                            {% if 'balance' in headerList %}<td>{{ player['balance'] / 100 }}</td>{% endif %}
                             {% if 'deposited' in headerList %}<td>{% if player['numberDeposits'] > 0 %}Y{% else %}N{% endif %}</td>{% endif %}
                             {% if 'numberDeposits' in headerList %}<td>{{ player['numberDeposits'] }}</td>{% endif %}
-                            {% if 'amountDeposited' in headerList %}<td>{{ player['amountDeposited'] / 100 }} €</td>{% endif %}
+                            {% if 'amountDeposited' in headerList %}<td>{{ player['amountDeposited'] / 100 }}</td>{% endif %}
                             {% if 'LastDepositDate' in headerList %}<td>{{ player['LastDepositDate'] }}</td>{% endif %}
                             {% if 'numberWithdrawals' in headerList %}<td>{{ player['numberWithdrawals'] }}</td>{% endif %}
-                            {% if 'amountWithdraw' in headerList %}<td>{{ player['amountWithdraw'] / 100 }} €</td>{% endif %}
-                            {% if 'ggr' in headerList %}<td>{% if playersGGRList[player['id']] is defined %}{{ playersGGRList[player['id']] }} €{% else %} 0 €{% endif %}</td>{% endif %}
+                            {% if 'amountWithdraw' in headerList %}<td>{{ player['amountWithdraw'] / 100 }}</td>{% endif %}
+                            {% if 'ggr' in headerList %}<td>{% if playersGGRList[player['id']] is defined %}{{ playersGGRList[player['id']] }}{% else %} 0{% endif %}</td>{% endif %}
                         </tr>
                         {% endfor %}
                         </tbody>

@@ -69,4 +69,19 @@ class TransactionRepository extends RepositoryBase
                 order by date desc'
                 , $rsm)->getResult();
     }
+
+    public function getWithdrawalsByUserId($userId)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('date','date');
+        $rsm->addScalarResult('data','data');
+
+        return $this->getEntityManager()
+            ->createNativeQuery(
+                'SELECT date, data
+                FROM transactions
+                WHERE entity_type = "winnings_withdraw" and user_id = "' . $userId . '"
+                order by date desc'
+                , $rsm)->getResult();
+    }
 }
