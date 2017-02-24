@@ -4,7 +4,6 @@
 namespace EuroMillions\admin\services;
 
 use Doctrine\ORM\EntityManager;
-use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IReports;
 use EuroMillions\web\repositories\TransactionRepository;
 use EuroMillions\web\repositories\UserRepository;
@@ -74,9 +73,9 @@ class ReportsService
      */
     public function getGGRPlayersByDates($needGGR, $dateFrom, $dateTo)
     {
-        if ($needGGR && $dateFrom && $dateTo) {
-            $dateFrom = (new \DateTime($dateFrom))->setTime(0,0,0);
-            $dateTo = (new \DateTime($dateTo))->setTime(23,59,59);
+        if ($needGGR) {
+            $dateFrom = ($dateFrom) ? (new \DateTime($dateFrom))->setTime(0,0,0) : (new \DateTime('2016-01-01'))->setTime(0,0,0);
+            $dateTo = ($dateTo) ? (new \DateTime($dateTo))->setTime(23,59,59) : (new \DateTime())->setTime(23,59,59);
 
             $ggrPlayers = $this->reportsRepository->getUserAndDataFromTransactionsBetweenDates(
                 $dateFrom->format('Y-m-d H:i:s'),
@@ -228,7 +227,7 @@ class ReportsService
     private function generateSQLByPlayersReports(array $aPlayersReportsKeys, array $postData)
     {
         $dateFrom = ($postData['dateFrom']) ? (new \DateTime($postData['dateFrom']))->setTime(0,0,0) : (new \DateTime('2016-01-01'))->setTime(0,0,0);
-        $dateTo = ($postData['dateTo']) ? (new \DateTime($postData['dateTo']))->setTime(23,59,59) : (new \DateTime('2026-01-01'))->setTime(23,59,59);
+        $dateTo = ($postData['dateTo']) ? (new \DateTime($postData['dateTo']))->setTime(23,59,59) : (new \DateTime())->setTime(23,59,59);
 
         $selectPlayersReports = ' u.id as id,';
         $selectPlayersReports .= ' u.email as email,';
