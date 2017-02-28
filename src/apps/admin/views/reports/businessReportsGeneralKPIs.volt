@@ -25,7 +25,7 @@
             $("#dateFrom").datepicker();
             $("#dateTo").datepicker();
 
-            $("#generalKPI").click(function(){
+            $("#generalKPI").click(function () {
                 if (!$('input[name=groupBy]:checked').val() || !$("#dateFrom").val() || !$("#dateTo").val()) {
                     alert('You must fill in dates and group by');
                 } else {
@@ -38,10 +38,10 @@
                             countries: $("#countries").val(),
                             groupBy: $('input[name=groupBy]:checked').val(),
                         },
-                        success: function(data) {
+                        success: function (data) {
                             $('#resultsActivity').html(data);
                         },
-                        error: function() {
+                        error: function () {
                             alert('Something went wrong, please try again.');
                         },
                     });
@@ -49,8 +49,8 @@
             });
         });
 
-        $(document).ready(function(){
-            $(".index").click(function(){
+        $(document).ready(function () {
+            $(".index").click(function () {
                 $(".values").fadeToggle();
             });
         });
@@ -65,7 +65,8 @@
                         <table>
                             <tr>
                                 <td>
-                                    <b>Date:</b> From <input type="text" name="dateFrom" id="dateFrom" /> To <input type="text" name="dateTo" id="dateTo" />
+                                    <b>Date:</b> From <input type="text" name="dateFrom" id="dateFrom"/> To <input
+                                            type="text" name="dateTo" id="dateTo"/>
                                 </td>
                                 <td>
                                     <b>Country</b>
@@ -79,14 +80,14 @@
                             <tr>
                                 <td colspan="2">
                                     <b>Group by: </b>
-                                    <input type="radio" name="groupBy" value="day" /> Day &nbsp;
-                                    <input type="radio" name="groupBy" value="month" /> Month &nbsp;
-                                    <input type="radio" name="groupBy" value="year" /> Year
+                                    <input type="radio" name="groupBy" value="day"/> Day &nbsp;
+                                    <input type="radio" name="groupBy" value="month"/> Month &nbsp;
+                                    <input type="radio" name="groupBy" value="year"/> Year
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2" align="center">
-                                    <input type="button" value="Show" class="btn btn-primary" id="generalKPI" />
+                                    <input type="button" value="Show" class="btn btn-primary" id="generalKPI"/>
                                 </td>
                             </tr>
                         </table>
@@ -113,23 +114,23 @@
                             <tbody>
                             {% for date in arrayDates %}
                                 <tr>
-                                    <td class="index">{{ date }}</td>
-                                    {% for key, kpi in generalKPIs[date] %}
-                                        <tr>
-                                            <td class="values">{{ countryList[key] }}</td>
-                                            <td class="values">{% if kpi['newRegistrations'] is defined %}{{  kpi['newRegistrations'] }}{% else %}0{% endif %}</td>
-                                            <td class="values">{% if kpi['newDepositors'] is defined %}{{  kpi['newDepositors'] }}{% else %}0{% endif %}</td>
-                                            <td class="values">{% if kpi['conversion'] is defined %}{{  kpi['conversion'] }}{% else %}0{% endif %}</td>
-                                            <td class="values">{% if kpi['actives'] is defined %}{{  kpi['actives'] }}{% else %}0{% endif %}</td>
-                                            <td class="values">{% if kpi['numberBets'] is defined %}{{  kpi['numberBets'] }}{% else %}0{% endif %}</td>
-                                            <td class="values">{% if kpi['totalBets'] is defined %}{{  kpi['totalBets'] }}{% else %}0{% endif %}</td>
-                                            <td class="values">{% if kpi['numberDeposits'] is defined %}{{  kpi['numberDeposits'] }}{% else %}0{% endif %}</td>
-                                            <td class="values">{% if kpi['depositAmount'] is defined %}{{  kpi['depositAmount'] }}{% else %}0{% endif %}</td>
-                                            <td class="values">{% if kpi['numberWithdrawals'] is defined %}{{  kpi['numberWithdrawals'] }}{% else %}0{% endif %}</td>
-                                            <td class="values">{% if kpi['withdrawalAmount'] is defined %}{{  kpi['withdrawalAmount'] }}{% else %}0{% endif %}</td>
-                                            <td class="values">{% if kpi['playerWinnings'] is defined %}{{  kpi['playerWinnings'] }}{% else %}0{% endif %}</td>
-                                        </tr>
-                                    {% endfor %}
+                                <td class="index">{{ date }}</td>
+                                {% for key, kpi in generalKPIs[date] %}
+                                    <tr>
+                                        <td class="values">{{ countryList[key] }}</td>
+                                        <td class="values">{% if kpi['newRegistrations'] is defined %}{{ kpi['newRegistrations'] }}{% else %}0{% endif %}</td>
+                                        <td class="values">{% if kpi['newDepositors'] is defined %}{{ kpi['newDepositors'] }}{% else %}0{% endif %}</td>
+                                        <td class="values">{% if kpi['conversion'] is defined %}{{ kpi['conversion'] }}{% else %}0{% endif %}</td>
+                                        <td class="values">{% if kpi['actives'] is defined %}{{ kpi['actives'] }}{% else %}0{% endif %}</td>
+                                        <td class="values">{% if kpi['numberBets'] is defined %}{{ kpi['numberBets'] }}{% else %}0{% endif %}</td>
+                                        <td class="values">{% if kpi['totalBets'] is defined %}{{ kpi['totalBets'] }}{% else %}0{% endif %}</td>
+                                        <td class="values">{% if kpi['numberDeposits'] is defined %}{{ kpi['numberDeposits'] }}{% else %}0{% endif %}</td>
+                                        <td class="values">{% if kpi['depositAmount'] is defined %}{{ kpi['depositAmount'] }}{% else %}0{% endif %}</td>
+                                        <td class="values">{% if kpi['numberWithdrawals'] is defined %}{{ kpi['numberWithdrawals'] }}{% else %}0{% endif %}</td>
+                                        <td class="values">{% if kpi['withdrawalAmount'] is defined %}{{ kpi['withdrawalAmount'] }}{% else %}0{% endif %}</td>
+                                        <td class="values">{% if kpi['playerWinnings'] is defined %}{{ kpi['playerWinnings'] }}{% else %}0{% endif %}</td>
+                                    </tr>
+                                {% endfor %}
                                 </tr>
                             {% endfor %}
                             </tbody>

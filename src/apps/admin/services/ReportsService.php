@@ -22,7 +22,7 @@ class ReportsService
     {
         $this->entityManager = $entityManager;
         $this->reportsRepository = $iReports;
-        $this->userRepository =  $this->entityManager->getRepository('EuroMillions\web\entities\User');
+        $this->userRepository = $this->entityManager->getRepository('EuroMillions\web\entities\User');
         $this->lotteryRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Lottery');
         $this->transactionRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Transaction');
     }
@@ -74,8 +74,8 @@ class ReportsService
     public function getGGRPlayersByDates($needGGR, $dateFrom, $dateTo)
     {
         if ($needGGR) {
-            $dateFrom = ($dateFrom) ? (new \DateTime($dateFrom))->setTime(0,0,0) : (new \DateTime('2016-01-01'))->setTime(0,0,0);
-            $dateTo = ($dateTo) ? (new \DateTime($dateTo))->setTime(23,59,59) : (new \DateTime())->setTime(23,59,59);
+            $dateFrom = ($dateFrom) ? (new \DateTime($dateFrom))->setTime(0, 0, 0) : (new \DateTime('2016-01-01'))->setTime(0, 0, 0);
+            $dateTo = ($dateTo) ? (new \DateTime($dateTo))->setTime(23, 59, 59) : (new \DateTime())->setTime(23, 59, 59);
 
             $ggrPlayers = $this->reportsRepository->getUserAndDataFromTransactionsBetweenDates(
                 $dateFrom->format('Y-m-d H:i:s'),
@@ -86,9 +86,9 @@ class ReportsService
             foreach ($ggrPlayers as $ggrPlayer) {
                 $data = explode('#', $ggrPlayer['data']);
 
-                if (isset($data[6])){
+                if (isset($data[6])) {
                     if ($data[6] > 0) {
-                        $brut = 0.5 - round(0.5 * ($data[6]/100),2);
+                        $brut = 0.5 - round(0.5 * ($data[6] / 100), 2);
                     } else {
                         $brut = 0.5;
                     }
@@ -117,7 +117,7 @@ class ReportsService
     public function getAutomaticAndTicketPurchaseByUserId($userId)
     {
         $userBets = $this->transactionRepository->getAutomaticAndTicketPurchaseByUserId($userId);
-        foreach($userBets as $key => $bet){
+        foreach ($userBets as $key => $bet) {
             if ($bet['entity_type'] == 'ticket_purchase') {
                 $aData = explode('#', $bet['data']);
                 if (isset($aData[6])) {
@@ -154,7 +154,7 @@ class ReportsService
     public function getWithdrawalsByUserId($userId)
     {
         $userWithdrawals = $this->transactionRepository->getWithdrawalsByUserId($userId);
-        foreach ($userWithdrawals as $key => $userWithdrawal){
+        foreach ($userWithdrawals as $key => $userWithdrawal) {
             $aData = explode('#', $userWithdrawal['data']);
             $userWithdrawals[$key]['amount'] = $aData[1] / 100;
             $userWithdrawals[$key]['state'] = $aData[2];
@@ -229,8 +229,8 @@ class ReportsService
      */
     private function generateSQLByPlayersReports(array $aPlayersReportsKeys, array $postData)
     {
-        $dateFrom = ($postData['dateFrom']) ? (new \DateTime($postData['dateFrom']))->setTime(0,0,0) : (new \DateTime('2016-01-01'))->setTime(0,0,0);
-        $dateTo = ($postData['dateTo']) ? (new \DateTime($postData['dateTo']))->setTime(23,59,59) : (new \DateTime())->setTime(23,59,59);
+        $dateFrom = ($postData['dateFrom']) ? (new \DateTime($postData['dateFrom']))->setTime(0, 0, 0) : (new \DateTime('2016-01-01'))->setTime(0, 0, 0);
+        $dateTo = ($postData['dateTo']) ? (new \DateTime($postData['dateTo']))->setTime(23, 59, 59) : (new \DateTime())->setTime(23, 59, 59);
 
         $selectPlayersReports = ' u.id as id,';
         $selectPlayersReports .= ' u.email as email,';
@@ -318,7 +318,7 @@ class ReportsService
         }
 
         if ($postData['trackingCode'] != 0) {
-            $whereConditions .= 'u.id IN (select user_id from tc_users_list where trackingCode_id IN ("'.$postData['trackingCode'].'")) AND ';
+            $whereConditions .= 'u.id IN (select user_id from tc_users_list where trackingCode_id IN ("' . $postData['trackingCode'] . '")) AND ';
         }
 
         if ($postData['depositor']) {
@@ -343,6 +343,7 @@ class ReportsService
 
         return $this->reportsRepository->getUsersByReportsPlayersQuery($sql);
     }
+
 //
     public function getGeneralKPI($data)
     {
@@ -377,70 +378,70 @@ class ReportsService
             $order = 0;
         }
         foreach ($newRegistrations as $new) {
-            $date = explode('-',$new['created']);
+            $date = explode('-', $new['created']);
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
             }
             $arrayResults[$date[$order]][$new['country']]['newRegistrations'] += (int)[$new['id']];
         }
         foreach ($newDepositors as $new) {
-            $date = explode('-',$new['created']);
+            $date = explode('-', $new['created']);
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
             }
             $arrayResults[$date[$order]][$new['country']]['newDepositors'] += (int)[$new['id']];
         }
         foreach ($actives as $new) {
-            $date = explode('-',$new['created']);
+            $date = explode('-', $new['created']);
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
             }
             $arrayResults[$date[$order]][$new['country']]['actives'] += (int)[$new['id']];
         }
         foreach ($numberBets as $new) {
-            $date = explode('-',$new['created']);
+            $date = explode('-', $new['created']);
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
             }
             $arrayResults[$date[$order]][$new['country']]['numberBets'] += (int)[$new['id']];
         }
         foreach ($totalBets as $new) {
-            $date = explode('-',$new['created']);
+            $date = explode('-', $new['created']);
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
             }
             $arrayResults[$date[$order]][$new['country']]['totalBets'] += (int)[$new['id']];
         }
         foreach ($numberDeposits as $new) {
-            $date = explode('-',$new['created']);
+            $date = explode('-', $new['created']);
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
             }
             $arrayResults[$date[$order]][$new['country']]['numberDeposits'] += (int)[$new['id']];
         }
         foreach ($depositAmount as $new) {
-            $date = explode('-',$new['created']);
+            $date = explode('-', $new['created']);
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
             }
             $arrayResults[$date[$order]][$new['country']]['depositAmount'] += (int)[$new['id']];
         }
         foreach ($numberWithdrawals as $new) {
-            $date = explode('-',$new['created']);
+            $date = explode('-', $new['created']);
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
             }
             $arrayResults[$date[$order]][$new['country']]['numberWithdrawals'] += (int)[$new['id']];
         }
         foreach ($withdrawalAmount as $new) {
-            $date = explode('-',$new['created']);
+            $date = explode('-', $new['created']);
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
             }
             $arrayResults[$date[$order]][$new['country']]['withdrawalAmount'] += (int)[$new['id']];
         }
         foreach ($playerWinnings as $new) {
-            $date = explode('-',$new['created']);
+            $date = explode('-', $new['created']);
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
             }

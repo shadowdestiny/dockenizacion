@@ -11,6 +11,7 @@ class ReportsRepository implements IReports
 {
 
     private $entityManager;
+
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
@@ -20,11 +21,11 @@ class ReportsRepository implements IReports
     public function getMonthlySales()
     {
         $rsm = new ResultSetMapping();
-        $rsm->addScalarResult('month','month');
-        $rsm->addScalarResult('total_bets','total_bets');
-        $rsm->addScalarResult('gross_sales','gross_sales');
-        $rsm->addScalarResult('gross_margin','gross_margin');
-        $rsm->addScalarResult('winnings','winnings');
+        $rsm->addScalarResult('month', 'month');
+        $rsm->addScalarResult('total_bets', 'total_bets');
+        $rsm->addScalarResult('gross_sales', 'gross_sales');
+        $rsm->addScalarResult('gross_margin', 'gross_margin');
+        $rsm->addScalarResult('winnings', 'winnings');
         $result = $this->entityManager
             ->createNativeQuery(
                 "SELECT MONTHNAME(d.draw_date) as month,count(b.id) as total_bets, count(b.id) * 3.00 as gross_sales, count(1) * 0.50 as gross_margin,
@@ -45,13 +46,13 @@ class ReportsRepository implements IReports
     public function getSalesDraw()
     {
         $rsm = new ResultSetMapping();
-        $rsm->addScalarResult('em','em');
-        $rsm->addScalarResult('id','id');
-        $rsm->addScalarResult('draw_date','draw_date');
-        $rsm->addScalarResult('draw_status','draw_status');
-        $rsm->addScalarResult('count_id','count_id');
-        $rsm->addScalarResult('count_id_3','count_id_3');
-        $rsm->addScalarResult('count_id_05','count_id_05');
+        $rsm->addScalarResult('em', 'em');
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('draw_date', 'draw_date');
+        $rsm->addScalarResult('draw_status', 'draw_status');
+        $rsm->addScalarResult('count_id', 'count_id');
+        $rsm->addScalarResult('count_id_3', 'count_id_3');
+        $rsm->addScalarResult('count_id_05', 'count_id_05');
 
         return $this->entityManager
             ->createNativeQuery(
@@ -89,7 +90,7 @@ class ReportsRepository implements IReports
                   (select SUM(t.wallet_after_winnings_amount) from transactions t where t.user_id=u.id and entity_type='winnings_received')as winnings,
                   (select us.wallet_uploaded_amount + us.wallet_winnings_amount from users us where us.id=u.id) / 100 as balance,
                   (select count(1) from bets b join play_configs p on p.id=b.playConfig_id where p.user_id=u.id) as num_bets
-                  from users u;",$rsm)
+                  from users u;", $rsm)
             ->getResult();
 
     }
@@ -123,9 +124,9 @@ class ReportsRepository implements IReports
     {
 
         $rsm = new ResultSetMapping();
-        $rsm->addScalarResult('user_id','user_id');
-        $rsm->addScalarResult('data','data');
-        return  $this->entityManager
+        $rsm->addScalarResult('user_id', 'user_id');
+        $rsm->addScalarResult('data', 'data');
+        return $this->entityManager
             ->createNativeQuery('SELECT t.user_id, t.data
                                 FROM transactions t
                                 WHERE entity_type in ("ticket_purchase", "automatic_purchase") AND 
@@ -166,7 +167,7 @@ class ReportsRepository implements IReports
 
         $playConfigs = [];
         /** @var Bet $bet */
-        foreach($result as $bet) {
+        foreach ($result as $bet) {
             $playConfigs[] = $bet->getPlayConfig();
         }
 
@@ -192,24 +193,26 @@ class ReportsRepository implements IReports
     public function getNewRegistrations($data)
     {
         $rsm = new ResultSetMapping();
-        $rsm->addScalarResult('id','id');
-        $rsm->addScalarResult('displaydate','created');
-        $rsm->addScalarResult('country','country');
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
                 "SELECT COUNT(id) as id, DATE_FORMAT(created, '%Y-%M-%d') as displaydate, country
                 FROM users
                 WHERE created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 AND country IN ('" . implode("','", $data['countries']) . "')
-                GROUP BY displaydate, country" , $rsm)->getResult();
+                GROUP BY displaydate, country", $rsm)->getResult();
 
     }
-    public function getNewDepositors($data){
+
+    public function getNewDepositors($data)
+    {
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('id', 'id');
-        $rsm->addScalarResult('displaydate','created');
-        $rsm->addScalarResult('country','country');
-        $rsm->addScalarResult('date','date');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
+        $rsm->addScalarResult('date', 'date');
         return $this->entityManager
             ->createNativeQuery("
                 SELECT COUNT(date) as id, DATE_FORMAT(created, '%Y-%M-%d') as displaydate, country
@@ -220,11 +223,12 @@ class ReportsRepository implements IReports
                 AND t.entity_type = 'deposit' GROUP BY user_id, displaydate, country", $rsm)->getResult();
     }
 
-    public function getActives($data){
+    public function getActives($data)
+    {
         $rsm = new ResultSetMapping();
-        $rsm->addScalarResult('id','id');
-        $rsm->addScalarResult('displaydate','created');
-        $rsm->addScalarResult('country','country');
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
                 "SELECT COUNT(DISTINCT(t.user_id)) as id, DATE_FORMAT(created, '%Y-%M-%d') as displaydate, country
@@ -255,11 +259,12 @@ class ReportsRepository implements IReports
 //        $rsm->addScalarResult();
 //
 //    }
-    public function getNumberBets($data){
+    public function getNumberBets($data)
+    {
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('id', 'id');
-        $rsm->addScalarResult('displaydate','created');
-        $rsm->addScalarResult('country','country');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
                 "SELECT COUNT(t.id) as id, DATE_FORMAT(u.created, '%Y-%M-%d') as displaydate, u.country
@@ -272,11 +277,12 @@ class ReportsRepository implements IReports
 
     }
 
-    public function getTotalBets($data){
+    public function getTotalBets($data)
+    {
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('id', 'id');
-        $rsm->addScalarResult('displaydate','created');
-        $rsm->addScalarResult('country','country');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
                 "SELECT COUNT(t.id) as id, DATE_FORMAT(u.created, '%Y-%M-%d') as displaydate, u.country
@@ -289,11 +295,12 @@ class ReportsRepository implements IReports
 
     }
 
-    public function getNumberDeposits($data){
+    public function getNumberDeposits($data)
+    {
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('id', 'id');
-        $rsm->addScalarResult('displaydate','created');
-        $rsm->addScalarResult('country','country');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
                 "SELECT COUNT(t.id) as id, DATE_FORMAT(u.created, '%Y-%M-%d') as displaydate, u.country
@@ -305,11 +312,12 @@ class ReportsRepository implements IReports
                 GROUP BY displaydate, country", $rsm)->getResult();
     }
 
-    public function getDepositAmount($data){
+    public function getDepositAmount($data)
+    {
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('id', 'id');
-        $rsm->addScalarResult('displaydate','created');
-        $rsm->addScalarResult('country','country');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
                 "SELECT SUM(t.wallet_after_uploaded_amount - t.wallet_before_uploaded_amount) as id, DATE_FORMAT(u.created, '%Y-%M-%d') as displaydate, u.country
@@ -322,11 +330,12 @@ class ReportsRepository implements IReports
 
     }
 
-    public function getNumberWithdrawals($data){
+    public function getNumberWithdrawals($data)
+    {
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('id', 'id');
-        $rsm->addScalarResult('displaydate','created');
-        $rsm->addScalarResult('country','country');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
                 "SELECT COUNT(t.id) as id, DATE_FORMAT(u.created, '%Y-%M-%d') as displaydate, u.country
@@ -339,11 +348,12 @@ class ReportsRepository implements IReports
 
     }
 
-    public function getWithdrawalAmount($data){
+    public function getWithdrawalAmount($data)
+    {
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('id', 'id');
-        $rsm->addScalarResult('displaydate','created');
-        $rsm->addScalarResult('country','country');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
                 "SELECT SUM(t.wallet_after_uploaded_amount - t.wallet_before_uploaded_amount) as id, DATE_FORMAT(u.created, '%Y-%M-%d') as displaydate, u.country
@@ -376,11 +386,12 @@ class ReportsRepository implements IReports
 //        $rsm->addScalarResult();
 //    }
 
-    public function getPlayerWinnings($data){
+    public function getPlayerWinnings($data)
+    {
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('id', 'id');
-        $rsm->addScalarResult('displaydate','created');
-        $rsm->addScalarResult('country','country');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
                 "SELECT SUM(t.wallet_after_uploaded_amount - t.wallet_before_uploaded_amount) as id, DATE_FORMAT(u.created, '%Y-%M-%d') as displaydate, u.country
