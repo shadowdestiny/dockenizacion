@@ -340,4 +340,110 @@ class ReportsService
 
         return $this->reportsRepository->getUsersByReportsPlayersQuery($sql);
     }
+//
+    public function getGeneralKPI($data)
+    {
+        $arrayResults = [];
+        $arrayResultsMonths = [];
+        //Ordenar por fecha, y dentro por pais, y meter todas las columnas
+        $newRegistrations = $this->reportsRepository->getNewRegistrations($data);
+        $newDepositors = $this->reportsRepository->getNewDepositors($data);
+        $conversion = $newDepositors['0']['id'] / ($newRegistrations['0']['id'] * 100);
+        $actives = $this->reportsRepository->getActives($data);
+//        $this->reportsRepository->getNewRegistrationsMobile($data);
+//        $this->reportsRepository->getNewDepositorsMobile($data);
+//        $this->reportsRepository->geConversionMobile($data);
+//        $this->reportsRepository->getActivesMobile($data);
+        $numberBets = $this->reportsRepository->getNumberBets($data);
+        $totalBets = $this->reportsRepository->getTotalBets($data);
+        $numberDeposits = $this->reportsRepository->getNumberDeposits($data);
+        $depositAmount = $this->reportsRepository->getDepositAmount($data);
+        $numberWithdrawals = $this->reportsRepository->getNumberWithdrawals($data);
+        $withdrawalAmount = $this->reportsRepository->getWithdrawalAmount($data);
+//        $this->reportsRepository->getGrossGamingRevenue($data);
+//        $this->reportsRepository->getNetGamingRevenue($data);
+//        $this->reportsRepository->getAverageRevenuePerUser($data);
+//        $this->reportsRepository->getBonusCost($data);
+        $playerWinnings = $this->reportsRepository->getPlayerWinnings($data);
+//        $this->reportsRepository->getCustomerLifetimeValue($data);
+        if ($data['groupBy'] == 'day') {
+            $order = 2;
+        } elseif ($data['groupBy'] == 'month') {
+            $order = 1;
+        } else {
+            $order = 0;
+        }
+        foreach ($newRegistrations as $new) {
+            $date = explode('-',$new['created']);
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+            }
+            $arrayResults[$date[$order]][$new['country']]['newRegistrations'] += (int)[$new['id']];
+        }
+        foreach ($newDepositors as $new) {
+            $date = explode('-',$new['created']);
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+            }
+            $arrayResults[$date[$order]][$new['country']]['newDepositors'] += (int)[$new['id']];
+        }
+        foreach ($actives as $new) {
+            $date = explode('-',$new['created']);
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+            }
+            $arrayResults[$date[$order]][$new['country']]['actives'] += (int)[$new['id']];
+        }
+        foreach ($numberBets as $new) {
+            $date = explode('-',$new['created']);
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+            }
+            $arrayResults[$date[$order]][$new['country']]['numberBets'] += (int)[$new['id']];
+        }
+        foreach ($totalBets as $new) {
+            $date = explode('-',$new['created']);
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+            }
+            $arrayResults[$date[$order]][$new['country']]['totalBets'] += (int)[$new['id']];
+        }
+        foreach ($numberDeposits as $new) {
+            $date = explode('-',$new['created']);
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+            }
+            $arrayResults[$date[$order]][$new['country']]['numberDeposits'] += (int)[$new['id']];
+        }
+        foreach ($depositAmount as $new) {
+            $date = explode('-',$new['created']);
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+            }
+            $arrayResults[$date[$order]][$new['country']]['depositAmount'] += (int)[$new['id']];
+        }
+        foreach ($numberWithdrawals as $new) {
+            $date = explode('-',$new['created']);
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+            }
+            $arrayResults[$date[$order]][$new['country']]['numberWithdrawals'] += (int)[$new['id']];
+        }
+        foreach ($withdrawalAmount as $new) {
+            $date = explode('-',$new['created']);
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+            }
+            $arrayResults[$date[$order]][$new['country']]['withdrawalAmount'] += (int)[$new['id']];
+        }
+        foreach ($playerWinnings as $new) {
+            $date = explode('-',$new['created']);
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+            }
+            $arrayResults[$date[$order]][$new['country']]['playerWinnings'] += (int)[$new['id']];
+        }
+
+        return [$arrayResults, $arrayResultsMonths];
+    }
 }

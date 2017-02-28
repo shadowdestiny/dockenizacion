@@ -188,4 +188,212 @@ class ReportsRepository implements IReports
             ->getResult();
         return $result;
     }
+
+    public function getNewRegistrations($data)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id','id');
+        $rsm->addScalarResult('displaydate','created');
+        $rsm->addScalarResult('country','country');
+        return $this->entityManager
+            ->createNativeQuery(
+                "SELECT COUNT(id) as id, DATE_FORMAT(created, '%Y-%M-%d') as displaydate, country
+                FROM users
+                WHERE created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND country IN ('" . implode("','", $data['countries']) . "')
+                GROUP BY displaydate, country" , $rsm)->getResult();
+
+    }
+    public function getNewDepositors($data){
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate','created');
+        $rsm->addScalarResult('country','country');
+        $rsm->addScalarResult('date','date');
+        return $this->entityManager
+            ->createNativeQuery("
+                SELECT COUNT(date) as id, DATE_FORMAT(created, '%Y-%M-%d') as displaydate, country
+                FROM transactions t 
+                LEFT JOIN users u ON u.id = t.user_id 
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND u.country IN ('" . implode("','", $data['countries']) . "') 
+                AND t.entity_type = 'deposit' GROUP BY user_id, displaydate, country", $rsm)->getResult();
+    }
+
+    public function getActives($data){
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id','id');
+        $rsm->addScalarResult('displaydate','created');
+        $rsm->addScalarResult('country','country');
+        return $this->entityManager
+            ->createNativeQuery(
+                "SELECT COUNT(DISTINCT(t.user_id)) as id, DATE_FORMAT(created, '%Y-%M-%d') as displaydate, country
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND u.country IN ('" . implode("','", $data['countries']) . "')
+                GROUP BY t.user_id, displaydate, country", $rsm)->getResult();
+
+    }
+//    public function getNewRegistrationsMobile($data){
+//        $rsm = new ResultSetMapping();
+//        $rsm->addScalarResult();
+//
+//    }
+//    public function getNewDepositorsMobile($data){
+//        $rsm = new ResultSetMapping();
+//        $rsm->addScalarResult();
+//
+//    }
+//    public function geConversionMobile($data){
+//        $rsm = new ResultSetMapping();
+//        $rsm->addScalarResult();
+//
+//    }
+//    public function getActivesMobile($data){
+//        $rsm = new ResultSetMapping();
+//        $rsm->addScalarResult();
+//
+//    }
+    public function getNumberBets($data){
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate','created');
+        $rsm->addScalarResult('country','country');
+        return $this->entityManager
+            ->createNativeQuery(
+                "SELECT COUNT(t.id) as id, DATE_FORMAT(u.created, '%Y-%M-%d') as displaydate, u.country
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND u.country IN ('" . implode("','", $data['countries']) . "')
+                AND t.entity_type = 'ticket_purchase'
+                GROUP BY displaydate, country", $rsm)->getResult();
+
+    }
+
+    public function getTotalBets($data){
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate','created');
+        $rsm->addScalarResult('country','country');
+        return $this->entityManager
+            ->createNativeQuery(
+                "SELECT COUNT(t.id) as id, DATE_FORMAT(u.created, '%Y-%M-%d') as displaydate, u.country
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND u.country IN ('" . implode("','", $data['countries']) . "')
+                AND t.entity_type IN ('ticket_purchase', ' automatic_purchase')
+                GROUP BY displaydate, country", $rsm)->getResult();
+
+    }
+
+    public function getNumberDeposits($data){
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate','created');
+        $rsm->addScalarResult('country','country');
+        return $this->entityManager
+            ->createNativeQuery(
+                "SELECT COUNT(t.id) as id, DATE_FORMAT(u.created, '%Y-%M-%d') as displaydate, u.country
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND u.country IN ('" . implode("','", $data['countries']) . "')
+                AND t.entity_type IN ('deposit', 'manual_deposit', 'subscription_purchase')
+                GROUP BY displaydate, country", $rsm)->getResult();
+    }
+
+    public function getDepositAmount($data){
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate','created');
+        $rsm->addScalarResult('country','country');
+        return $this->entityManager
+            ->createNativeQuery(
+                "SELECT SUM(t.wallet_after_uploaded_amount - t.wallet_before_uploaded_amount) as id, DATE_FORMAT(u.created, '%Y-%M-%d') as displaydate, u.country
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND u.country IN ('" . implode("','", $data['countries']) . "')
+                AND t.entity_type IN ('deposit', 'manual_deposit')
+                GROUP BY displaydate, country", $rsm)->getResult();
+
+    }
+
+    public function getNumberWithdrawals($data){
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate','created');
+        $rsm->addScalarResult('country','country');
+        return $this->entityManager
+            ->createNativeQuery(
+                "SELECT COUNT(t.id) as id, DATE_FORMAT(u.created, '%Y-%M-%d') as displaydate, u.country
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND u.country IN ('" . implode("','", $data['countries']) . "')
+                AND t.entity_type IN ('winnings_withdraw')
+                GROUP BY displaydate, country", $rsm)->getResult();
+
+    }
+
+    public function getWithdrawalAmount($data){
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate','created');
+        $rsm->addScalarResult('country','country');
+        return $this->entityManager
+            ->createNativeQuery(
+                "SELECT SUM(t.wallet_after_uploaded_amount - t.wallet_before_uploaded_amount) as id, DATE_FORMAT(u.created, '%Y-%M-%d') as displaydate, u.country
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND u.country IN ('" . implode("','", $data['countries']) . "')
+                AND t.entity_type IN ('winnings_withdraw')
+                GROUP BY displaydate, country", $rsm)->getResult();
+
+    }
+
+//    public function getGrossGamingRevenue($data){
+//        $rsm = new ResultSetMapping();
+//        $rsm->addScalarResult();
+//
+//    }
+//    public function getNetGamingRevenue($data){
+//        $rsm = new ResultSetMapping();
+//        $rsm->addScalarResult();
+//    }
+
+//    public function getAverageRevenuePerUser($data){
+//        $rsm = new ResultSetMapping();
+//        $rsm->addScalarResult();
+//    }
+
+//    public function getBonusCost($data){
+//        $rsm = new ResultSetMapping();
+//        $rsm->addScalarResult();
+//    }
+
+    public function getPlayerWinnings($data){
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate','created');
+        $rsm->addScalarResult('country','country');
+        return $this->entityManager
+            ->createNativeQuery(
+                "SELECT SUM(t.wallet_after_uploaded_amount - t.wallet_before_uploaded_amount) as id, DATE_FORMAT(u.created, '%Y-%M-%d') as displaydate, u.country
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND u.country IN ('" . implode("','", $data['countries']) . "')
+                AND t.entity_type IN ('winnings_received')
+                GROUP BY displaydate, country", $rsm)->getResult();
+    }
+
+//    public function getCustomerLifetimeValue($data){
+//        $rsm = new ResultSetMapping();
+//        $rsm->addScalarResult();
+//    }
 }
