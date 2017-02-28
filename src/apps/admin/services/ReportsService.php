@@ -85,10 +85,13 @@ class ReportsService
             $users = [];
             foreach ($ggrPlayers as $ggrPlayer) {
                 $data = explode('#', $ggrPlayer['data']);
-                $discount = substr(strrchr($ggrPlayer['data'], '#'),1);
 
-                if ($discount > 0) {
-                    $brut = 0.5 - round(0.5 * ($discount/100),2);
+                if (isset($data[6])){
+                    if ($data[6] > 0) {
+                        $brut = 0.5 - round(0.5 * ($data[6]/100),2);
+                    } else {
+                        $brut = 0.5;
+                    }
                 } else {
                     $brut = 0.5;
                 }
