@@ -380,7 +380,7 @@ class ReportsService
         foreach ($newRegistrations as $new) {
             $date = explode('-', $new['created']);
             if ($order == 2) {
-                $date[$order] = $date[$order]." - ".$date[$order - 1];
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
@@ -390,7 +390,7 @@ class ReportsService
         foreach ($newDepositors as $new) {
             $date = explode('-', $new['created']);
             if ($order == 2) {
-                $date[$order] = $date[$order]." - ".$date[$order - 1];
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
@@ -400,7 +400,7 @@ class ReportsService
         foreach ($actives as $new) {
             $date = explode('-', $new['created']);
             if ($order == 2) {
-                $date[$order] = $date[$order]." - ".$date[$order - 1];
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
@@ -410,7 +410,7 @@ class ReportsService
         foreach ($numberBets as $new) {
             $date = explode('-', $new['created']);
             if ($order == 2) {
-                $date[$order] = $date[$order]." - ".$date[$order - 1];
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
@@ -420,7 +420,7 @@ class ReportsService
         foreach ($totalBets as $new) {
             $date = explode('-', $new['created']);
             if ($order == 2) {
-                $date[$order] = $date[$order]." - ".$date[$order - 1];
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
@@ -430,7 +430,7 @@ class ReportsService
         foreach ($numberDeposits as $new) {
             $date = explode('-', $new['created']);
             if ($order == 2) {
-                $date[$order] = $date[$order]." - ".$date[$order - 1];
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
@@ -440,7 +440,7 @@ class ReportsService
         foreach ($depositAmount as $new) {
             $date = explode('-', $new['created']);
             if ($order == 2) {
-                $date[$order] = $date[$order]." - ".$date[$order - 1];
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
@@ -450,7 +450,7 @@ class ReportsService
         foreach ($numberWithdrawals as $new) {
             $date = explode('-', $new['created']);
             if ($order == 2) {
-                $date[$order] = $date[$order]." - ".$date[$order - 1];
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
@@ -460,7 +460,7 @@ class ReportsService
         foreach ($withdrawalAmount as $new) {
             $date = explode('-', $new['created']);
             if ($order == 2) {
-                $date[$order] = $date[$order]." - ".$date[$order - 1];
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
@@ -470,7 +470,7 @@ class ReportsService
         foreach ($playerWinnings as $new) {
             $date = explode('-', $new['created']);
             if ($order == 2) {
-                $date[$order] = $date[$order]." - ".$date[$order - 1];
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
