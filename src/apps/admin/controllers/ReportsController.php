@@ -51,6 +51,7 @@ class ReportsController extends AdminControllerBase
             'countryList' => $this->countries,
             'generalKPIs' => $generalKPIs[0],
             'arrayDates' => $generalKPIs[1],
+            'arrayTotals' => $generalKPIs[2],
         ]);
     }
 
@@ -196,7 +197,7 @@ class ReportsController extends AdminControllerBase
 
     public function salesDrawDetailsAction()
     {
-        if ($this->request->get('id')){
+        if ($this->request->get('id')) {
             $drawDates = $this->reportsService->getEuromillionsDrawsActualAfterDatesById($this->request->get('id'));
             $this->view->setVars([
                 'needReportsMenu' => true,
