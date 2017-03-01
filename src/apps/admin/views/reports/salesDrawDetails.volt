@@ -30,43 +30,39 @@
         <div class="container">
             <div class="module">
                 <div class="module-body">
-                    <h1 class="h1 purple">Reports Sales Draw</h1>
-                    {% if (salesDraw is not empty) %}
+                    <h1 class="h1 purple">Reports Sales Draw - Draw {{ euromillionsDrawId }} Details</h1>
+                    {% if (salesDrawDetailsData is not empty) %}
                         <table id="tableExport" class="table">
                             <thead>
                             <tr class="special">
-                                <th>Lottery</th>
-                                <th>Draw ID</th>
-                                <th>Draw date</th>
-                                <th>Draw Status</th>
-                                <th>Total Bets</th>
-                                <th>Gross Sales</th>
-                                <th>Gross Margin</th>
+                                <th>User</th>
+                                <th>Country</th>
+                                <th>Transaction ID</th>
+                                {#<th>Bet ID</th>#}
+                                <th>Purchase date</th>
+                                <th>Bet Amount</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for salesData in salesDraw %}
+                            {% for detailsData in salesDrawDetailsData %}
                                 <tr>
-                                    <td>
-                                        {{ salesData['em'] }}
+                                    <td align="center">
+                                        {{ detailsData['user'] }}
                                     </td>
-                                    <td>
-                                        <a href="/admin/reports/salesDrawDetails?id={{ salesData['id'] }}">{{ salesData['id'] }}</a>
+                                    <td align="center">
+                                        {{ countryList[detailsData['country']] }}
                                     </td>
-                                    <td>
-                                        {{ salesData['draw_date'] }}
+                                    <td align="center">
+                                        {{ detailsData['transactionID'] }}
                                     </td>
-                                    <td>
-                                        {{ salesData['draw_status'] }}
+                                    {#<td>#}
+                                        {#{{ detailsData['betId'] }}#}
+                                    {#</td>#}
+                                    <td align="center">
+                                        {{ detailsData['purchaseDate'] }}
                                     </td>
-                                    <td>
-                                        {{ salesData['count_id'] }}
-                                    </td>
-                                    <td>
-                                        {{ salesData['count_id_3'] | number_format (2,',','') }} &euro;
-                                    </td>
-                                    <td>
-                                        {{ salesData['count_id_05'] | number_format (2,',','') }} &euro;
+                                    <td align="center">
+                                        {{ "%.2f"|format(detailsData['movement'] ) }} &euro;
                                     </td>
                                 </tr>
                             {% endfor %}

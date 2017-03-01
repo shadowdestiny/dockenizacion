@@ -178,6 +178,19 @@ class ReportsController extends AdminControllerBase
         ]);
     }
 
+    public function salesDrawDetailsAction()
+    {
+        if ($this->request->get('id')){
+            $drawDates = $this->reportsService->getEuromillionsDrawsActualAfterDatesById($this->request->get('id'));
+            $this->view->setVars([
+                'needReportsMenu' => true,
+                'euromillionsDrawId' => $this->request->get('id'),
+                'salesDrawDetailsData' => $this->reportsService->getEuromillionsDrawDetailsByIdAndDates($this->request->get('id'), $drawDates),
+                'countryList' => $this->countries,
+            ]);
+        }
+    }
+
     public function monthlySalesAction()
     {
         $this->view->setVars([

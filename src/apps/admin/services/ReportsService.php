@@ -4,7 +4,9 @@
 namespace EuroMillions\admin\services;
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\web\entities\EuroMillionsDraw;
 use EuroMillions\web\interfaces\IReports;
+use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\TransactionRepository;
 use EuroMillions\web\repositories\UserRepository;
 
@@ -17,6 +19,8 @@ class ReportsService
     private $userRepository;
     /** @var TransactionRepository $transactionRepository */
     private $transactionRepository;
+    /** @var  LotteryDrawRepository $lotteryDrawRepository */
+    private $lotteryDrawRepository;
 
     public function __construct(IReports $iReports = null, EntityManager $entityManager)
     {
@@ -25,6 +29,7 @@ class ReportsService
         $this->userRepository =  $this->entityManager->getRepository('EuroMillions\web\entities\User');
         $this->lotteryRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Lottery');
         $this->transactionRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Transaction');
+        $this->lotteryDrawRepository = $this->entityManager->getRepository('EuroMillions\web\entities\EuroMillionsDraw');
     }
 
     /**
@@ -117,23 +122,7 @@ class ReportsService
     public function getAutomaticAndTicketPurchaseByUserId($userId)
     {
         $userBets = $this->transactionRepository->getAutomaticAndTicketPurchaseByUserId($userId);
-        foreach($userBets as $key => $bet){
-            if ($bet['entity_type'] == 'ticket_purchase') {
-                $aData = explode('#', $bet['data']);
-                if (isset($aData[6])) {
-                    if ($aData[6] > 0) {
-                        $userBets[$key]["movement"] = ($aData[2] - round(($aData[2] * ($aData[6] / 100)))) / 100;
-                    } else {
-                        $userBets[$key]["movement"] = $aData[2] / 100;
-                    }
-                } else {
-                    $userBets[$key]["movement"] = $aData[2] / 100;
-                }
-            } else {
-                $userBets[$key]["movement"] = $userBets[$key]['automaticMovement'] / 100;
-            }
-        }
-        return $userBets;
+        return $this->generateMovement($userBets);
     }
 
     /**
@@ -183,6 +172,27 @@ class ReportsService
     }
 
     /**
+     * @param $id
+     *
+     * @return array
+     */
+    public function getEuromillionsDrawsActualAfterDatesById($id)
+    {
+        /** @var EuroMillionsDraw $actualDraw */
+        $actualDraw = $this->lotteryDrawRepository->find($id);
+        $actualDrawDate = clone $actualDraw->getDrawDate();
+        $nextDrawDate = $this->getNextDateDrawByLottery('Euromillions', $actualDrawDate->modify('+1 day'))->setTime(21,30,00);
+
+        return ['actualDrawDate' => $actualDraw->getDrawDate(), 'nextDrawDate' => $nextDrawDate];
+    }
+
+    public function getEuromillionsDrawDetailsByIdAndDates($id, $drawDates)
+    {
+        $drawDetails = $this->reportsRepository->getEuromillionsDrawDetailsByIdAndDates($id, $drawDates);
+        return $this->generateMovement($drawDetails);
+    }
+
+    /**
      * @return mixed
      */
     public function fetchMonthlySales()
@@ -219,6 +229,33 @@ class ReportsService
         }
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         return $lottery->getNextDrawDate($now);
+    }
+
+    /**
+     * @param $userBets
+     *
+     * @return array
+     */
+    private function generateMovement($userBets)
+    {
+        foreach($userBets as $key => $bet){
+            if ($bet['entity_type'] == 'ticket_purchase') {
+                $aData = explode('#', $bet['data']);
+                if (isset($aData[6])) {
+                    if ($aData[6] > 0) {
+                        $userBets[$key]["movement"] = ($aData[2] - round(($aData[2] * ($aData[6] / 100)))) / 100;
+                    } else {
+                        $userBets[$key]["movement"] = $aData[2] / 100;
+                    }
+                } else {
+                    $userBets[$key]["movement"] = $aData[2] / 100;
+                }
+            } else {
+                $userBets[$key]["movement"] = $userBets[$key]['automaticMovement'] / 100;
+            }
+        }
+
+        return $userBets;
     }
 
     /**
