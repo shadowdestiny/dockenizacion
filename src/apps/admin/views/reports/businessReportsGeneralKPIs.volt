@@ -120,7 +120,7 @@
                                         <td class="values">{{ countryList[key] }}</td>
                                         <td class="values">{% if kpi['newRegistrations'] is defined %}{{ kpi['newRegistrations'] }}{% else %}0{% endif %}</td>
                                         <td class="values">{% if kpi['newDepositors'] is defined %}{{ kpi['newDepositors'] }}{% else %}0{% endif %}</td>
-                                        <td class="values">{% if kpi['conversion'] is defined %}{{ kpi['conversion'] }}{% else %}0{% endif %}</td>
+                                        <td class="values">{% if kpi['newDepositors'] is defined and kpi['newRegistrations'] is defined %}{{ kpi['newDepositors'] / (kpi['newRegistrations'] * 100)  }}{% else %}0{% endif %}</td>
                                         <td class="values">{% if kpi['actives'] is defined %}{{ kpi['actives'] }}{% else %}0{% endif %}</td>
                                         <td class="values">{% if kpi['numberBets'] is defined %}{{ kpi['numberBets'] }}{% else %}0{% endif %}</td>
                                         <td class="values">{% if kpi['totalBets'] is defined %}{{ kpi['totalBets'] }}{% else %}0{% endif %}</td>
