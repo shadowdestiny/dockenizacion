@@ -33,8 +33,16 @@ class ReportsController extends AdminControllerBase
 
     public function businessReportsGeneralKPIsAction()
     {
+        $generalKPIs = [];
+        if ($this->request->getPost()) {
+            $generalKPIs = $this->reportsService->getGeneralKPI($this->request->getPost());
+        }
+
         $this->view->setVars([
             'needReportsMenu' => true,
+            'countryList' => $this->countries,
+            'generalKPIs' => $generalKPIs[0],
+            'arrayDates' => $generalKPIs[1],
         ]);
     }
 
