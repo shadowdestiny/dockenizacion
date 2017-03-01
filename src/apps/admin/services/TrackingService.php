@@ -688,19 +688,29 @@ class TrackingService
                     $values = $this->trackingCodesRepository->getUserAndDataFromTransactions();
                     $usersToFind = [];
                     $users = [];
+
                     foreach ($values as $value) {
-//                        if ($value['user_id'] == $users[$value['user_id']])
                         $data = explode('#', $value['data']);
-                        $discount = substr(strrchr($value['data'], '#'),1);
-                        if ($discount > 0) {
-                            $brut = 0.5 - (0.5 * ($discount/100));
+
+                        if (isset($data[6])) {
+                            if ($data[6] > 0) {
+                                $brut = 0.5 - (0.5 * ($data[6] / 100));
+                            } else {
+                                $brut = 0.5;
+                            }
                         } else {
                             $brut = 0.5;
                         }
+
                         $brut = $brut * $data[1];
+
+                        if (!isset($users[$value['user_id']])) {
+                            $users[$value['user_id']] = 0;
+                        }
+
                         $users[$value['user_id']] = $brut + $users[$value['user_id']];
-//                        $value['user_id'];
                     }
+
                     foreach ($users as $key=>$user) {
                         if ($user > $grossRevenueConditions[0] && $user < $grossRevenueConditions[1]) {
                             if (empty($usersToFind)) {
