@@ -39,9 +39,11 @@ class TrackingCodesRepository extends RepositoryBase
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('user_id','user_id');
         $rsm->addScalarResult('data','data');
+        $rsm->addScalarResult('entity_type', 'entity_type');
+        $rsm->addScalarResult('automaticMovement', 'automaticMovement');
         return  $this->getEntityManager()
-            ->createNativeQuery('SELECT t.user_id, t.data
-                                FROM transactions t
+            ->createNativeQuery('SELECT user_id, data, entity_type, (wallet_before_subscription_amount - wallet_after_subscription_amount - 250) as automaticMovement
+                                FROM transactions
                                 WHERE entity_type in ("ticket_purchase", "automatic_purchase")',
                 $rsm)->getResult();
     }

@@ -89,18 +89,22 @@ class ReportsService
 
             $users = [];
             foreach ($ggrPlayers as $ggrPlayer) {
-                $data = explode('#', $ggrPlayer['data']);
+                if ($ggrPlayer['entity_type'] == 'ticket_purchase') {
+                    $data = explode('#', $ggrPlayer['data']);
 
-                if (isset($data[6])) {
-                    if ($data[6] > 0) {
-                        $brut = 0.5 - round(0.5 * ($data[6] / 100), 2);
+                    if (isset($data[6])) {
+                        if ($data[6] > 0) {
+                            $brut = 0.5 - round(0.5 * ($data[6] / 100), 2);
+                        } else {
+                            $brut = 0.5;
+                        }
                     } else {
                         $brut = 0.5;
                     }
+                    $brut = $brut * $data[1];
                 } else {
-                    $brut = 0.5;
+                    $brut = $ggrPlayer['automaticMovement'] / 100;
                 }
-                $brut = $brut * $data[1];
 
                 if (!isset($users[$ggrPlayer['user_id']])) {
                     $users[$ggrPlayer['user_id']] = 0;

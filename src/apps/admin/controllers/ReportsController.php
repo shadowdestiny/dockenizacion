@@ -89,13 +89,6 @@ class ReportsController extends AdminControllerBase
 
     }
 
-    public function businessReportsSalesDrawAction()
-    {
-        $this->view->setVars([
-            'needReportsMenu' => true,
-        ]);
-    }
-
     public function playersReportsAction()
     {
         $this->view->setVars([

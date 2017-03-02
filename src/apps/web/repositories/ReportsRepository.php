@@ -126,11 +126,13 @@ class ReportsRepository implements IReports
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('user_id', 'user_id');
         $rsm->addScalarResult('data', 'data');
+        $rsm->addScalarResult('entity_type', 'entity_type');
+        $rsm->addScalarResult('automaticMovement', 'automaticMovement');
         return $this->entityManager
-            ->createNativeQuery('SELECT t.user_id, t.data
-                                FROM transactions t
+            ->createNativeQuery('SELECT user_id, data, entity_type, (wallet_before_subscription_amount - wallet_after_subscription_amount - 250) as automaticMovement
+                                FROM transactions
                                 WHERE entity_type in ("ticket_purchase", "automatic_purchase") AND 
-                                t.date BETWEEN "' . $dateFrom . '" AND "' . $dateTo . '"',
+                                date BETWEEN "' . $dateFrom . '" AND "' . $dateTo . '"',
                 $rsm)->getResult();
     }
 
@@ -411,7 +413,7 @@ class ReportsRepository implements IReports
     public function getEuromillionsDrawDetailsByIdAndDates($id, $drawDates)
     {
         $rsm = new ResultSetMapping();
-        $rsm->addScalarResult('user','user');
+        $rsm->addScalarResult('email','email');
         $rsm->addScalarResult('country','country');
         $rsm->addScalarResult('transactionID','transactionID');
         //$rsm->addScalarResult('betId','betId'); No se puede poner pq no hay relación con el betId
@@ -421,7 +423,7 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('automaticMovement','automaticMovement');
 
         return  $this->entityManager
-            ->createNativeQuery('SELECT distinct u.id as user, u.country as country, t.transactionID, t.date as purchaseDate, t.entity_type, t.data, (wallet_before_subscription_amount - wallet_after_subscription_amount) as automaticMovement
+            ->createNativeQuery('SELECT distinct u.email as email, u.country as country, t.transactionID, t.date as purchaseDate, t.entity_type, t.data, (wallet_before_subscription_amount - wallet_after_subscription_amount) as automaticMovement
                             FROM bets b
                             INNER JOIN play_configs pc ON b.playConfig_id = pc.id
                             INNER JOIN users u ON pc.user_id = u.id

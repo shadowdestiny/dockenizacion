@@ -690,19 +690,22 @@ class TrackingService
                     $users = [];
 
                     foreach ($values as $value) {
-                        $data = explode('#', $value['data']);
+                        if ($value['entity_type'] == 'ticket_purchase') {
+                            $data = explode('#', $value['data']);
 
-                        if (isset($data[6])) {
-                            if ($data[6] > 0) {
-                                $brut = 0.5 - (0.5 * ($data[6] / 100));
+                            if (isset($data[6])) {
+                                if ($data[6] > 0) {
+                                    $brut = 0.5 - round(0.5 * ($data[6] / 100), 2);
+                                } else {
+                                    $brut = 0.5;
+                                }
                             } else {
                                 $brut = 0.5;
                             }
+                            $brut = $brut * $data[1];
                         } else {
-                            $brut = 0.5;
+                            $brut = $value['automaticMovement'] / 100;
                         }
-
-                        $brut = $brut * $data[1];
 
                         if (!isset($users[$value['user_id']])) {
                             $users[$value['user_id']] = 0;

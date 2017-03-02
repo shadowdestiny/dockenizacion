@@ -44,7 +44,7 @@
             <ul class="nav">
                 <li><a href="/admin/reports/businessReportsGeneralKPIs">General KPIs</a></li>
                 <li><a href="/admin/reports/businessReportsActivity">Activity</a></li>
-                <li><a href="/admin/reports/businessReportsSalesDraw">Sales Draw</a></li>
+                <li><a href="/admin/reports/salesDraw">Sales Draw</a></li>
                 <li><a href="/admin/reports/playersReports">Players Reports</a></li>
                 <!-- li><a href="/admin/reports/salesDraw">Sales Draw</a></li>
                 <li><a href="/admin/reports/monthlySales">Monthly Sales</a></li>

@@ -47,7 +47,7 @@
                             {% for detailsData in salesDrawDetailsData %}
                                 <tr>
                                     <td align="center">
-                                        {{ detailsData['user'] }}
+                                        {{ detailsData['email'] }}
                                     </td>
                                     <td align="center">
                                         {{ countryList[detailsData['country']] }}
