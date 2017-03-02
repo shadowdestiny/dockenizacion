@@ -180,9 +180,10 @@ class ReportsService
     {
         /** @var EuroMillionsDraw $actualDraw */
         $actualDraw = $this->lotteryDrawRepository->find($id);
-        $nextDrawDate = $this->getNextDateDrawByLottery('Euromillions', $actualDraw->getDrawDate()->modify('+1 day'))->setTime(21,30,00);
+        $nextDrawDate = clone $actualDraw->getDrawDate()->setTime(21,30,00);
+        $actualDrawDate = $this->getNextDateDrawByLottery('Euromillions', $actualDraw->getDrawDate()->modify('-5 days'))->setTime(00,00,00);
 
-        return ['actualDrawDate' => $actualDraw->getDrawDate(), 'nextDrawDate' => $nextDrawDate];
+        return ['actualDrawDate' => $actualDrawDate->modify('+1 day'), 'nextDrawDate' => $nextDrawDate];
     }
 
     public function getEuromillionsDrawDetailsByIdAndDates($id, $drawDates)
