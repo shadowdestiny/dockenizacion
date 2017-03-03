@@ -1,5 +1,5 @@
 <h3 class="h4">Withdrawals</h3>
-{% if userBets is empty %}
+{% if userWithdrawals is empty %}
     This player doesn't have withdrawals
 {% else %}
     <table class="table-program" width="100%">

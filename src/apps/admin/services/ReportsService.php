@@ -326,6 +326,22 @@ class ReportsService
                 case "winnings":
                     $selectPlayersReports .= ' SUM(CASE WHEN t.entity_type = "winnings_received" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN t.wallet_after_winnings_amount - t.wallet_before_winnings_amount ELSE 0 END) as winnings,';
                     break;
+                case "numberBets":
+                    $selectPlayersReports .= ' sum(CASE
+                                        WHEN entity_type = "ticket_purchase" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN 1
+                                        WHEN entity_type = "automatic_purchase" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN 1
+                                        ELSE 0
+                                        END
+                                    ) as numberBets,';
+                    break;
+                case "wagering":
+                    $selectPlayersReports .= ' sum(CASE
+                                        WHEN entity_type = "ticket_purchase" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (SUBSTRING(data, 3, 1) * 300) 
+                                        WHEN entity_type = "automatic_purchase" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount)
+                                        ELSE 0
+                                        END
+                                    ) as wagering,';
+                    break;
                 case "ggr":
                     //Pasamos un array con el ggr de todos los usuarios a la vista
                     //$selectPlayersReports .= ' SUM(CASE WHEN (t.entity_type = "ticket_purchase" || t.entity_type = "automatic_purchase") and t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN substr(t.data, 3, 1) * 0.50 ELSE 0 END)';

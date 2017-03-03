@@ -203,10 +203,10 @@
                                         </td>
                                         <td>&nbsp;</td>
                                         <td>
-                                            Bonus Cost
+                                            Number of bets
                                         </td>
                                         <td>
-                                            <input type="checkbox" name="check_bonusCost" value="Y" />
+                                            <input type="checkbox" name="check_numberBets" value="Y" />
                                         </td>
                                     </tr>
                                     <tr>
@@ -223,6 +223,13 @@
                                         <td>
                                             <input type="checkbox" name="check_numberDeposits" value="Y" />
                                         </td>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            Wagering
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" name="check_wagering" value="Y" />
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -237,6 +244,13 @@
                                         </td>
                                         <td>
                                             <input type="checkbox" name="check_amountDeposited" value="Y" />
+                                        </td>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            Bonus Cost
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" name="check_bonusCost" value="Y" />
                                         </td>
                                     </tr>
                                     <tr>

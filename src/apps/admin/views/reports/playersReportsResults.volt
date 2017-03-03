@@ -55,6 +55,8 @@
                             {% if 'LastDepositDate' in headerList %}<th>Last deposit date</th>{% endif %}
                             {% if 'numberWithdrawals' in headerList %}<th>Number withdrawals</th>{% endif %}
                             {% if 'amountWithdraw' in headerList %}<th>Amount withdraw</th>{% endif %}
+                            {% if 'numberBets' in headerList %}<th>Number Bets</th>{% endif %}
+                            {% if 'wagering' in headerList %}<th>Wagering</th>{% endif %}
                             {% if 'ggr' in headerList %}<th>GGR</th>{% endif %}
                         </tr>
                         </thead>
@@ -80,6 +82,8 @@
                             {% if 'LastDepositDate' in headerList %}<td>{{ player['LastDepositDate'] }}</td>{% endif %}
                             {% if 'numberWithdrawals' in headerList %}<td>{{ player['numberWithdrawals'] }}</td>{% endif %}
                             {% if 'amountWithdraw' in headerList %}<td>{{ player['amountWithdraw'] / 100 }}</td>{% endif %}
+                            {% if 'numberBets' in headerList %}<td>{{ player['numberBets'] }}</td>{% endif %}
+                            {% if 'wagering' in headerList %}<td>{{ player['wagering'] }}</td>{% endif %}
                             {% if 'ggr' in headerList %}<td>{% if playersGGRList[player['id']] is defined %}{{ playersGGRList[player['id']] }}{% else %} 0{% endif %}</td>{% endif %}
                         </tr>
                         {% endfor %}
