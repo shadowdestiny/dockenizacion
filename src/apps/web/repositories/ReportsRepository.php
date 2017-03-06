@@ -50,13 +50,14 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('id', 'id');
         $rsm->addScalarResult('draw_date', 'draw_date');
         $rsm->addScalarResult('draw_status', 'draw_status');
-        $rsm->addScalarResult('count_id', 'count_id');
-        $rsm->addScalarResult('count_id_3', 'count_id_3');
-        $rsm->addScalarResult('count_id_05', 'count_id_05');
+//        $rsm->addScalarResult('count_id', 'count_id');
+//        $rsm->addScalarResult('count_id_3', 'count_id_3');
+//        $rsm->addScalarResult('count_id_05', 'count_id_05');
 
+//        select 'EM' as em, e.id as id, e.draw_date as draw_date, IF(e.draw_date < now(),'Finished','Open') as draw_status, count(b.id) as count_id, count(b.id) * 3.00 as count_id_3, count(b.id) * 0.50 as count_id_05
         return $this->entityManager
             ->createNativeQuery(
-                "select 'EM' as em, e.id as id, e.draw_date as draw_date, IF(e.draw_date < now(),'Finished','Open') as draw_status, count(b.id) as count_id, count(b.id) * 3.00 as count_id_3, count(b.id) * 0.50 as count_id_05
+                "select 'EM' as em, e.id as id, e.draw_date as draw_date, IF(e.draw_date < now(),'Finished','Open') as draw_status
                   from euromillions_draws e
                   JOIN bets b on b.euromillions_draw_id=e.id
                   join log_validation_api l on l.bet_id=b.id
@@ -412,6 +413,12 @@ class ReportsRepository implements IReports
 //        $rsm->addScalarResult();
 //    }
 
+    /**
+     * @param $id
+     * @param $drawDates
+     *
+     * @return array
+     */
     public function getEuromillionsDrawDetailsByIdAndDates($id, $drawDates)
     {
         $rsm = new ResultSetMapping();
@@ -434,5 +441,35 @@ class ReportsRepository implements IReports
                             t.date BETWEEN "' . $drawDates['actualDrawDate']->format('Y-m-d H:i:s') . '" AND "' . $drawDates['nextDrawDate']->format('Y-m-d H:i:s') . '"
                             ORDER BY purchaseDate desc',
                 $rsm)->getResult();
+    }
+
+    /**
+     * @param $drawDates
+     *
+     * @return array
+     */
+    public function getEuromillionsDrawDetailsBetweenDrawDates($drawDates)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('totalBets','totalBets');
+        $rsm->addScalarResult('grossSales','grossSales');
+        $rsm->addScalarResult('grossMargin','grossMargin');
+
+        return  $this->entityManager
+            ->createNativeQuery('SELECT count(*) as totalBets, sum(CASE
+                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING(data, 3, 1) * 300) 
+                                        WHEN entity_type = "automatic_purchase" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount)
+                                        ELSE 0
+                                        END
+                                    ) as grossSales, sum(CASE
+                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING(data, 3, 1) * 300) - (SUBSTRING(data, 3, 1) * 250)
+                                        WHEN entity_type = "automatic_purchase" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - 250)
+                                        ELSE 0
+                                        END
+                                    ) as grossMargin
+                            FROM transactions
+                            WHERE (entity_type = "ticket_purchase" || entity_type = "automatic_purchase") and
+                            date BETWEEN "' . $drawDates['actualDrawDate']->format('Y-m-d H:i:s') . '" AND "' . $drawDates['nextDrawDate']->format('Y-m-d H:i:s') . '"'
+                , $rsm)->getResult();
     }
 }

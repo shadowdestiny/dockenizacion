@@ -184,12 +184,32 @@ class ReportsService
     {
         /** @var EuroMillionsDraw $actualDraw */
         $actualDraw = $this->lotteryDrawRepository->find($id);
-        $nextDrawDate = clone $actualDraw->getDrawDate()->setTime(21,30,00);
-        $actualDrawDate = $this->getNextDateDrawByLottery('Euromillions', $actualDraw->getDrawDate()->modify('-5 days'))->setTime(00,00,00);
+        $nextDrawDate = clone $actualDraw->getDrawDate()->setTime(19,30,00);
+        $actualDrawDate = $this->getNextDateDrawByLottery('Euromillions', $actualDraw->getDrawDate()->modify('-5 days'))->setTime(19,30,00);
 
-        return ['actualDrawDate' => $actualDrawDate->modify('+1 day'), 'nextDrawDate' => $nextDrawDate];
+        return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
     }
 
+    /**
+     * @param $date
+     *
+     * @return array
+     */
+    public function getEuromillionsDrawsActualAfterDatesByDrawDate($date)
+    {
+        $actualDraw = new \DateTime($date);
+        $nextDrawDate = clone $actualDraw->setTime(19,30,00);
+        $actualDrawDate = $this->getNextDateDrawByLottery('Euromillions', $actualDraw->modify('-5 days'))->setTime(19,30,00);
+
+        return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
+    }
+
+    /**
+     * @param $id
+     * @param $drawDates
+     *
+     * @return array
+     */
     public function getEuromillionsDrawDetailsByIdAndDates($id, $drawDates)
     {
         $drawDetails = $this->reportsRepository->getEuromillionsDrawDetailsByIdAndDates($id, $drawDates);
@@ -209,7 +229,15 @@ class ReportsService
      */
     public function fetchSalesDraw()
     {
-        return $this->reportsRepository->getSalesDraw();
+        $salesDraw = $this->reportsRepository->getSalesDraw();
+        foreach ($salesDraw as $keyDraw => $valueDraw) {
+            $drawDates = $this->getEuromillionsDrawsActualAfterDatesByDrawDate($valueDraw['draw_date']);
+            $drawData = $this->reportsRepository->getEuromillionsDrawDetailsBetweenDrawDates($drawDates);
+            $salesDraw[$keyDraw]['totalBets'] = $drawData[0]['totalBets'];
+            $salesDraw[$keyDraw]['grossSales'] = $drawData[0]['grossSales'];
+            $salesDraw[$keyDraw]['grossMargin'] = $drawData[0]['grossMargin'];
+        }
+        return $salesDraw;
     }
 
     /**

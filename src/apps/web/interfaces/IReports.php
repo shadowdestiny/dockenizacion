@@ -20,6 +20,7 @@ interface IReports
 
     public function getPastGamesWithPrizes($userId);
     public function getEuromillionsDrawDetailsByIdAndDates($id, $drawDates);
+    public function getEuromillionsDrawDetailsBetweenDrawDates($drawDates);
 
     public function getNewRegistrations($data);
 

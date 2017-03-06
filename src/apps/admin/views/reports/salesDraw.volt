@@ -60,13 +60,13 @@
                                         {{ salesData['draw_status'] }}
                                     </td>
                                     <td>
-                                        {{ salesData['count_id'] }}
+                                        {{ salesData['totalBets'] }}
                                     </td>
                                     <td>
-                                        {{ salesData['count_id_3'] | number_format (2,',','') }} &euro;
+                                        {{ (salesData['grossSales'] / 100) | number_format (2,',','') }} &euro;
                                     </td>
                                     <td>
-                                        {{ salesData['count_id_05'] | number_format (2,',','') }} &euro;
+                                        {{ (salesData['grossMargin'] / 100) | number_format (2,',','') }} &euro;
                                     </td>
                                 </tr>
                             {% endfor %}
