@@ -4,9 +4,15 @@
             $(".values").fadeToggle();
         });
     });
+    $(function () {
+        $("#export").click(function(){
+            $("#tableExport").tableToCSV();
+        });
+    });
 </script>
 {#{% if playersList is not empty %}#}
 <table class="table-program" width="100%" id="tableExport">
+    &nbsp; <input type="button" value="Download" id="export" class="btn btn-primary" />
     <thead>
     <tr class="special">
         <th>Date</th>
@@ -26,7 +32,7 @@
     <tbody>
     {% for date in arrayDates %}
         <tr>
-        <td class="index">{{ date }}</td>
+        <td class="index" width="190px;">{{ date }}</td>
         <td>{% if arrayTotals[date]['newRegistrations'] is defined %}{{ arrayTotals[date]['newRegistrations'] }}{% else %}0{% endif %}</td>
         <td>{% if arrayTotals[date]['newDepositors'] is defined %}{{ arrayTotals[date]['newDepositors'] }}{% else %}0{% endif %}</td>
         <td>{% if arrayTotals[date]['newDepositors'] is defined and arrayTotals[date]['newRegistrations'] is defined %}{{ (arrayTotals[date]['newDepositors'] / arrayTotals[date]['newRegistrations'] * 100) | number_format (2,',','') }}%{% else %}0%{% endif %}</td>
@@ -56,5 +62,21 @@
         {% endfor %}
         </tr>
     {% endfor %}
+    <tr>
+        <td>TOTAL</td>
+        <td>{% if total['newRegistrations'] is defined %}{{ total['newRegistrations'] }}{% else %}0{% endif %}</td>
+        <td>{% if total['newDepositors'] is defined %}{{ total['newDepositors'] }}{% else %}0{% endif %}</td>
+        <td>{% if total['newRegistrations'] is defined and total['newDepositors'] is defined%}{{ (total['newDepositors'] / total['newRegistrations'] * 100) }}{% else %}0{% endif %}</td>
+        <td>{% if total['actives'] is defined %}{{ total['actives'] }}{% else %}0{% endif %}</td>
+        <td>{% if total['numberBets'] is defined %}{{ total['numberBets'] }}{% else %}0{% endif %}</td>
+        <td>{% if total['totalBets'] is defined %}{{ total['totalBets']  / 100 }}€{% else %}0€{% endif %}</td>
+        <td>{% if total['numberDeposits'] is defined %}{{ total['numberDeposits'] }}{% else %}0€{% endif %}</td>
+        <td>{% if total['depositAmount'] is defined %}{{ total['depositAmount']  / 100 }}€{% else %}0€{% endif %}</td>
+        <td>{% if total['numberWithdrawals'] is defined %}{{ total['numberWithdrawals'] }}{% else %}0€{% endif %}</td>
+        <td>{% if total['withdrawalAmount'] is defined %}{{ total['withdrawalAmount'] / 100 }}€{% else %}0€{% endif %}</td>
+        <td>{% if total['playerWinnings'] is defined %}{{ total['playerWinnings'] / 100 }}€{% else %}0€{% endif %}</td>
+
+
+    </tr>
     </tbody>
 </table>

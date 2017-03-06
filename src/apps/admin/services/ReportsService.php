@@ -435,6 +435,7 @@ class ReportsService
         $arrayResults = [];
         $arrayResultsMonths = [];
         $arrayTotals = [];
+        $total = [];
         //Ordenar por fecha, y dentro por pais, y meter todas las columnas
         $newRegistrations = $this->reportsRepository->getNewRegistrations($data);
         $newDepositors = $this->reportsRepository->getNewDepositors($data);
@@ -477,6 +478,7 @@ class ReportsService
             }
             $arrayResults[$date[$order]][$new['country']]['newRegistrations'] += (int)[$new['id']];
             $arrayTotals[$date[$order]]['newRegistrations'] += (int)[$new['id']];
+            $total['newRegistrations'] += (int)[$new['id']];
         }
 
         foreach ($newDepositors as $new) {
@@ -490,6 +492,7 @@ class ReportsService
             }
             $arrayResults[$date[$order]][$new['country']]['newDepositors'] += (int)[$new['id']];
             $arrayTotals[$date[$order]]['newDepositors'] += (int)[$new['id']];
+            $total['newDepositors'] += (int)[$new['id']];
         }
 
         foreach ($actives as $new) {
@@ -503,6 +506,7 @@ class ReportsService
             }
             $arrayResults[$date[$order]][$new['country']]['actives'] += (int)[$new['id']];
             $arrayTotals[$date[$order]]['actives'] += (int)[$new['id']];
+            $total['actives'] += (int)[$new['id']];
         }
 
         foreach ($numberBets as $new) {
@@ -516,6 +520,7 @@ class ReportsService
             }
             $arrayResults[$date[$order]][$new['country']]['numberBets'] += (int)[$new['id']];
             $arrayTotals[$date[$order]]['numberBets'] += (int)[$new['id']];
+            $total['numberBets'] += (int)[$new['id']];
         }
 
         foreach ($totalBets as $new) {
@@ -530,6 +535,7 @@ class ReportsService
             }
             $arrayResults[$date[$order]][$new['country']]['totalBets'] += (int)$new['id'];
             $arrayTotals[$date[$order]]['totalBets'] += (int)$new['id'];
+            $total['totalBets'] += (int)$new['id'];
         }
 
         foreach ($numberDeposits as $new) {
@@ -543,6 +549,7 @@ class ReportsService
             }
             $arrayResults[$date[$order]][$new['country']]['numberDeposits'] += (int)[$new['id']];
             $arrayTotals[$date[$order]]['numberDeposits'] += (int)[$new['id']];
+            $total['numberDeposits'] += (int)[$new['id']];
         }
 
         foreach ($depositAmount as $new) {
@@ -556,6 +563,7 @@ class ReportsService
             }
             $arrayResults[$date[$order]][$new['country']]['depositAmount'] += (int)$new['id'];
             $arrayTotals[$date[$order]]['depositAmount'] += (int)$new['id'];
+            $total['depositAmount'] += (int)$new['id'];
         }
         foreach ($numberWithdrawals as $new) {
             $date = explode('-', $new['created']);
@@ -568,6 +576,7 @@ class ReportsService
             }
             $arrayResults[$date[$order]][$new['country']]['numberWithdrawals'] += (int)[$new['id']];
             $arrayTotals[$date[$order]]['numberWithdrawals'] += (int)[$new['id']];
+            $total['numberWithdrawals'] += (int)[$new['id']];
         }
 
         foreach ($withdrawalAmount as $new) {
@@ -581,6 +590,7 @@ class ReportsService
             }
             $arrayResults[$date[$order]][$new['country']]['withdrawalAmount'] += (int)$new['id'];
             $arrayTotals[$date[$order]]['withdrawalAmount'] += (int)$new['id'];
+            $total['withdrawalAmount'] += (int)$new['id'];
         }
 
         foreach ($playerWinnings as $new) {
@@ -594,8 +604,9 @@ class ReportsService
             }
             $arrayResults[$date[$order]][$new['country']]['playerWinnings'] += (int)$new['id'];
             $arrayTotals[$date[$order]]['playerWinnings'] += (int)$new['id'];
+            $total['playerWinnings'] += (int)$new['id'];
         }
 //        var_dump($arrayResults,$arrayResultsMonths,$arrayTotals);die();
-        return [$arrayResults, $arrayResultsMonths, $arrayTotals];
+        return [$arrayResults, $arrayResultsMonths, $arrayTotals, $total];
     }
 }

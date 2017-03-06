@@ -52,6 +52,7 @@ class ReportsController extends AdminControllerBase
             'generalKPIs' => $generalKPIs[0],
             'arrayDates' => $generalKPIs[1],
             'arrayTotals' => $generalKPIs[2],
+            'total' => $generalKPIs[3],
         ]);
     }
 
@@ -68,6 +69,7 @@ class ReportsController extends AdminControllerBase
             'generalKPIs' => $generalKPIs[0],
             'arrayDates' => $generalKPIs[1],
             'arrayTotals' => $generalKPIs[2],
+            'total' => $generalKPIs[3],
         ]);
     }
 
