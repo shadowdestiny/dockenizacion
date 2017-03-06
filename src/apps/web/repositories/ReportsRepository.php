@@ -435,7 +435,7 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('automaticMovement', 'automaticMovement');
 
         return $this->entityManager
-            ->createNativeQuery('SELECT distinct u.email as email, u.country as country, t.transactionID, t.date as purchaseDate, t.entity_type, t.data, (wallet_before_subscription_amount - wallet_after_subscription_amount) as automaticMovement
+            ->createNativeQuery('SELECT distinct t.id, u.email as email, u.country as country, t.transactionID, t.date as purchaseDate, t.entity_type, t.data, (wallet_before_subscription_amount - wallet_after_subscription_amount) as automaticMovement
                             FROM bets b
                             INNER JOIN play_configs pc ON b.playConfig_id = pc.id
                             INNER JOIN users u ON pc.user_id = u.id
