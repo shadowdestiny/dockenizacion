@@ -68,9 +68,6 @@ class ReportsRepositoryIntegrationTest extends DatabaseIntegrationTestBase
                 'id' => '1',
                 'draw_date' => '2015-05-12',
                 'draw_status' => 'Finished',
-                'count_id' => '1',
-                'count_id_3' => '3.00',
-                'count_id_05' => '0.50',
             ]
         ];
         $this->assertEquals($expectedResponse, $this->sut->getSalesDraw());
