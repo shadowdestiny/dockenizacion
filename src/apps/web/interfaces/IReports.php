@@ -19,6 +19,7 @@ interface IReports
     public function getActivePlayConfigsByUser($userId);
 
     public function getPastGamesWithPrizes($userId);
+
     public function getEuromillionsDrawDetailsByIdAndDates($id, $drawDates);
     public function getEuromillionsDrawDetailsBetweenDrawDates($drawDates);
 
@@ -33,7 +34,7 @@ interface IReports
 //    public function getActivesMobile($data);
     public function getNumberBets($data);
 
-    public function getTotalBets($data);
+    public function getTotalBetsAmount($data);
 
     public function getNumberDeposits($data);
 

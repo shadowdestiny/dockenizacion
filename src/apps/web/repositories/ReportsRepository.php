@@ -277,12 +277,12 @@ class ReportsRepository implements IReports
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
-                AND t.entity_type = 'ticket_purchase'
+                AND t.entity_type IN ('ticket_purchase', 'automatic_purchase')
                 GROUP BY displaydate, country", $rsm)->getResult();
 
     }
 
-    public function getTotalBets($data)
+    public function getTotalBetsAmount($data)
     {
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('id', 'id');
@@ -290,14 +290,17 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
-                "SELECT COUNT(t.id) as id, DATE_FORMAT(u.created, '%Y-%M-%d') as displaydate, u.country
+                "SELECT sum(CASE
+                            WHEN entity_type = 'ticket_purchase' AND t.date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "' THEN (SUBSTRING(data, 3, 1) * 300) 
+                            WHEN entity_type = 'automatic_purchase' AND t.date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "' THEN (wallet_before_subscription_amount - wallet_after_subscription_amount)
+                            ELSE 0
+                            END) as id, DATE_FORMAT(u.created, '%Y-%M-%d') as displaydate, u.country
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 AND t.entity_type IN ('ticket_purchase', ' automatic_purchase')
                 GROUP BY displaydate, country", $rsm)->getResult();
-
     }
 
     public function getNumberDeposits($data)
@@ -399,7 +402,7 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
-                "SELECT SUM(t.wallet_after_uploaded_amount - t.wallet_before_uploaded_amount) as id, DATE_FORMAT(u.created, '%Y-%M-%d') as displaydate, u.country
+                "SELECT SUM(t.wallet_after_winnings_amount - t.wallet_before_winnings_amount) as id, DATE_FORMAT(u.created, '%Y-%M-%d') as displaydate, u.country
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
@@ -422,16 +425,16 @@ class ReportsRepository implements IReports
     public function getEuromillionsDrawDetailsByIdAndDates($id, $drawDates)
     {
         $rsm = new ResultSetMapping();
-        $rsm->addScalarResult('email','email');
-        $rsm->addScalarResult('country','country');
-        $rsm->addScalarResult('transactionID','transactionID');
+        $rsm->addScalarResult('email', 'email');
+        $rsm->addScalarResult('country', 'country');
+        $rsm->addScalarResult('transactionID', 'transactionID');
         //$rsm->addScalarResult('betId','betId'); No se puede poner pq no hay relación con el betId
-        $rsm->addScalarResult('purchaseDate','purchaseDate');
-        $rsm->addScalarResult('entity_type','entity_type');
-        $rsm->addScalarResult('data','data');
-        $rsm->addScalarResult('automaticMovement','automaticMovement');
+        $rsm->addScalarResult('purchaseDate', 'purchaseDate');
+        $rsm->addScalarResult('entity_type', 'entity_type');
+        $rsm->addScalarResult('data', 'data');
+        $rsm->addScalarResult('automaticMovement', 'automaticMovement');
 
-        return  $this->entityManager
+        return $this->entityManager
             ->createNativeQuery('SELECT distinct u.email as email, u.country as country, t.transactionID, t.date as purchaseDate, t.entity_type, t.data, (wallet_before_subscription_amount - wallet_after_subscription_amount) as automaticMovement
                             FROM bets b
                             INNER JOIN play_configs pc ON b.playConfig_id = pc.id
