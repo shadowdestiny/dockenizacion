@@ -29,7 +29,7 @@
         <td class="index">{{ date }}</td>
         <td>{% if arrayTotals[date]['newRegistrations'] is defined %}{{ arrayTotals[date]['newRegistrations'] }}{% else %}0{% endif %}</td>
         <td>{% if arrayTotals[date]['newDepositors'] is defined %}{{ arrayTotals[date]['newDepositors'] }}{% else %}0{% endif %}</td>
-        <td>{% if arrayTotals[date]['newDepositors'] is defined and arrayTotals[date]['newRegistrations'] is defined %}{{ (arrayTotals[date]['newDepositors'] / arrayTotals[date]['newRegistrations'] * 100) }}%{% else %}0%{% endif %}</td>
+        <td>{% if arrayTotals[date]['newDepositors'] is defined and arrayTotals[date]['newRegistrations'] is defined %}{{ (arrayTotals[date]['newDepositors'] / arrayTotals[date]['newRegistrations'] * 100) | number_format (2,',','') }}%{% else %}0%{% endif %}</td>
         <td>{% if arrayTotals[date]['actives'] is defined %}{{ arrayTotals[date]['actives'] }}{% else %}0{% endif %}</td>
         <td>{% if arrayTotals[date]['numberBets'] is defined %}{{ arrayTotals[date]['numberBets'] }}{% else %}0{% endif %}</td>
         <td>{% if arrayTotals[date]['totalBets'] is defined %}{{ arrayTotals[date]['totalBets'] / 100 }}€{% else %}0€{% endif %}</td>
@@ -43,7 +43,7 @@
                 <td class="values">{{ countryList[key] }}</td>
                 <td class="values">{% if kpi['newRegistrations'] is defined %}{{ kpi['newRegistrations'] }}{% else %}0{% endif %}</td>
                 <td class="values">{% if kpi['newDepositors'] is defined %}{{ kpi['newDepositors'] }}{% else %}0{% endif %}</td>
-                <td class="values">{% if kpi['newDepositors'] is defined and kpi['newRegistrations'] is defined %}{{ (kpi['newDepositors'] / kpi['newRegistrations'] * 100) }}%{% else %}0%{% endif %}</td>
+                <td class="values">{% if kpi['newDepositors'] is defined and kpi['newRegistrations'] is defined %}{{ (kpi['newDepositors'] / kpi['newRegistrations'] * 100) | number_format (2,',','') }}%{% else %}0%{% endif %}</td>
                 <td class="values">{% if kpi['actives'] is defined %}{{ kpi['actives'] }}{% else %}0{% endif %}</td>
                 <td class="values">{% if kpi['numberBets'] is defined %}{{ kpi['numberBets'] }}{% else %}0{% endif %}</td>
                 <td class="values">{% if kpi['totalBets'] is defined %}{{ kpi['totalBets'] /100 }}€{% else %}0€{% endif %}</td>
