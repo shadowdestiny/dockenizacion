@@ -243,6 +243,60 @@ class ReportsRepository implements IReports
                 WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
+                GROUP BY t.user_id, country", $rsm)->getResult();
+
+    }
+
+    public function getActivesDay($data)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
+        return $this->entityManager
+            ->createNativeQuery(
+                "SELECT COUNT(DISTINCT(t.user_id)) as id, DATE_FORMAT(date, '%d') as displaydate, country
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND u.country IN ('" . implode("','", $data['countries']) . "')
+                GROUP BY t.user_id, displaydate, country", $rsm)->getResult();
+
+    }
+
+    public function getActivesMonth($data)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
+        return $this->entityManager
+            ->createNativeQuery(
+                "SELECT COUNT(DISTINCT(t.user_id)) as id, DATE_FORMAT(date, '%M') as displaydate, country
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND u.country IN ('" . implode("','", $data['countries']) . "')
+                GROUP BY t.user_id, displaydate, country", $rsm)->getResult();
+
+    }
+
+    public function getActivesYear($data)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
+        return $this->entityManager
+            ->createNativeQuery(
+                "SELECT COUNT(DISTINCT(t.user_id)) as id, DATE_FORMAT(date, '%Y') as displaydate, country
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND u.country IN ('" . implode("','", $data['countries']) . "')
                 GROUP BY t.user_id, displaydate, country", $rsm)->getResult();
 
     }

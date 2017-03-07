@@ -440,7 +440,16 @@ class ReportsService
         $newRegistrations = $this->reportsRepository->getNewRegistrations($data);
         $newDepositors = $this->reportsRepository->getNewDepositors($data);
         $conversion = ($newDepositors['0']['id'] / $newRegistrations['0']['id'] * 100);
+//        if ($data['groupBy'] == 'day') {
+//            $actives = $this->reportsRepository->getActivesDay($data);
+//        } elseif ($data['groupBy'] == 'month') {
+//            $actives = $this->reportsRepository->getActivesMonth($data);
+//        } else {
+//            $actives = $this->reportsRepository->getActivesYear($data);
+//        }
         $actives = $this->reportsRepository->getActives($data);
+
+//var_dump($actives);die();
 //        $this->reportsRepository->getNewRegistrationsMobile($data);
 //        $this->reportsRepository->getNewDepositorsMobile($data);
 //        $this->reportsRepository->geConversionMobile($data);
