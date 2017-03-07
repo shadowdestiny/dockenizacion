@@ -212,8 +212,23 @@ class ReportsService
      */
     public function getEuromillionsDrawDetailsByIdAndDates($id, $drawDates)
     {
-        $drawDetails = $this->reportsRepository->getEuromillionsDrawDetailsByIdAndDates($id, $drawDates);
-        return $this->generateMovement($drawDetails);
+        $drawDetails = $this->generateMovement($this->reportsRepository->getEuromillionsDrawDetailsByIdAndDates($id, $drawDates));
+        foreach ($drawDetails as $drawKey => $drawValue) {
+            if ($drawValue['entity_type'] == 'ticket_purchase') {
+                $drawData = explode('#', $drawValue['data']);
+                if (isset($drawData[5])) {
+                    $betIds = explode(',', $drawData[5]);
+                    $cont = 0;
+                    foreach ($betIds as $betId) {
+                        $drawDetails[$drawKey]['betIds']['id'][$cont] = $betId;
+                        $drawDetails[$drawKey]['betIds']['numbers'][$cont] = implode(", ", $this->reportsRepository->getNumbersPlayedByBetId($betId));
+                        $cont++;
+                    }
+                }
+            }
+        }
+
+        return $drawDetails;
     }
 
     /**

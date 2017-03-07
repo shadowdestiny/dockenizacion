@@ -39,6 +39,7 @@
                                 <th>Country</th>
                                 <th>Transaction ID</th>
                                 <th>Bet ID</th>
+                                <th>Numbers played</th>
                                 <th>Purchase date</th>
                                 <th>Bet Amount</th>
                             </tr>
@@ -59,7 +60,14 @@
                                                 {{ detailsData['transactionID'] }}
                                             </td>
                                             <td>
-                                                {#{{ detailsData['betId'] }}#}
+                                                {% if detailsData['betIds'] is defined %}
+                                                    {{ detailsData['betIds']['id'][i-1] }}
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if detailsData['betIds'] is defined %}
+                                                    {{ detailsData['betIds']['numbers'][i-1] }}
+                                                {% endif %}
                                             </td>
                                             <td align="center">
                                                 {{ detailsData['purchaseDate'] }}
@@ -81,7 +89,14 @@
                                             {{ detailsData['transactionID'] }}
                                         </td>
                                         <td>
-                                            {#{{ detailsData['betId'] }}#}
+                                            {% if detailsData['betIds'] is defined %}
+                                                {{ detailsData['betIds']['id'][0] }}
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if detailsData['betIds'] is defined %}
+                                                {{ detailsData['betIds']['numbers'][0] }}
+                                            {% endif %}
                                         </td>
                                         <td align="center">
                                             {{ detailsData['purchaseDate'] }}

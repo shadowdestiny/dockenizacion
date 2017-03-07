@@ -37,4 +37,5 @@ interface IReports
 //    public function getBonusCost($data);
     public function getPlayerWinnings($data);
 //    public function getCustomerLifetimeValue($data);
+    public function getNumbersPlayedByBetId($betId);
 }
