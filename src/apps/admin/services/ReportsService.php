@@ -539,7 +539,7 @@ class ReportsService
             }
 
         }
-var_dump($arrayResults, $arrayResultsMonths, $arrayTotals, $total, $countActives);die();
+
         foreach ($numberBets as $new) {
             $date = explode('-', $new['created']);
             if ($order == 2) {
@@ -638,7 +638,7 @@ var_dump($arrayResults, $arrayResultsMonths, $arrayTotals, $total, $countActives
             $arrayTotals[$date[$order]]['playerWinnings'] += (int)$new['id'];
             $total['playerWinnings'] += (int)$new['id'];
         }
-//        var_dump($arrayResults,$arrayResultsMonths,$arrayTotals);die();
+        var_dump($arrayResults, $arrayResultsMonths, $arrayTotals, $total, $countActives);die();
         return [$arrayResults, $arrayResultsMonths, $arrayTotals, $total, $countActives];
     }
 }
