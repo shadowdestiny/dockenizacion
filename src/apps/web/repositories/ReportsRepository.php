@@ -542,4 +542,27 @@ class ReportsRepository implements IReports
                             date BETWEEN "' . $drawDates['actualDrawDate']->format('Y-m-d H:i:s') . '" AND "' . $drawDates['nextDrawDate']->format('Y-m-d H:i:s') . '"'
                 , $rsm)->getResult();
     }
+
+    /**
+     * @param $betId
+     *
+     * @return array
+     */
+    public function getNumbersPlayedByBetId($betId)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('line_regular_number_one','line_regular_number_one');
+        $rsm->addScalarResult('line_regular_number_two','line_regular_number_two');
+        $rsm->addScalarResult('line_regular_number_three','line_regular_number_three');
+        $rsm->addScalarResult('line_regular_number_four','line_regular_number_four');
+        $rsm->addScalarResult('line_regular_number_five','line_regular_number_five');
+        $rsm->addScalarResult('line_lucky_number_one','line_lucky_number_one');
+        $rsm->addScalarResult('line_lucky_number_two','line_lucky_number_two');
+
+        return  $this->entityManager
+            ->createNativeQuery('SELECT line_regular_number_one, line_regular_number_two, line_regular_number_three, line_regular_number_four, line_regular_number_five, line_lucky_number_one, line_lucky_number_two
+                FROM play_configs
+                WHERE id = ' . $betId
+                , $rsm)->getResult()[0];
+    }
 }
