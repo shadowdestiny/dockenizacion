@@ -73,7 +73,7 @@
                                                 {{ detailsData['purchaseDate'] }}
                                             </td>
                                             <td align="center">
-                                                {{ "%.2f"|format(detailsData['movement'] / dataExplode[1]) }} &euro;
+                                                {{ "%.2f"|format(detailsData['movement'] / dataExplode[1]) }}
                                             </td>
                                         </tr>
                                     {% endfor %}
@@ -102,7 +102,7 @@
                                             {{ detailsData['purchaseDate'] }}
                                         </td>
                                         <td align="center">
-                                            {{ "%.2f"|format(detailsData['movement'] ) }} &euro;
+                                            {{ "%.2f"|format(detailsData['movement'] ) }}
                                         </td>
                                     </tr>
                                 {% endif %}

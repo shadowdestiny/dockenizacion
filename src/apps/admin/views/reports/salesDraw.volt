@@ -63,10 +63,10 @@
                                         {{ salesData['totalBets'] }}
                                     </td>
                                     <td>
-                                        {{ (salesData['grossSales'] / 100) | number_format (2,',','') }} &euro;
+                                        {{ (salesData['grossSales'] / 100) | number_format (2,',','') }}
                                     </td>
                                     <td>
-                                        {{ (salesData['grossMargin'] / 100) | number_format (2,',','') }} &euro;
+                                        {{ (salesData['grossMargin'] / 100) | number_format (2,',','') }}
                                     </td>
                                 </tr>
                             {% endfor %}
