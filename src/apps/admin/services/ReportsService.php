@@ -532,8 +532,6 @@ class ReportsService
                 $arrayTotals[] = $date[$order];
             }
             if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
-                echo 'mierda';
-
                 $controlShitActives[$date[$order]][] = $new['id'];
                 $arrayResults[$date[$order]][$new['country']]['actives'] += 1;
                 $arrayTotals[$date[$order]]['actives'] += 1;
@@ -541,7 +539,7 @@ class ReportsService
             }
 
         }
-
+var_dump($arrayResults, $arrayResultsMonths, $arrayTotals, $total, $countActives);die();
         foreach ($numberBets as $new) {
             $date = explode('-', $new['created']);
             if ($order == 2) {
@@ -555,7 +553,7 @@ class ReportsService
             $arrayTotals[$date[$order]]['numberBets'] += (int)$new['id'];
             $total['numberBets'] += (int)$new['id'];
         }
-//        var_dump($numberBets);die();
+
         foreach ($totalBets as $new) {
 
             $date = explode('-', $new['created']);
