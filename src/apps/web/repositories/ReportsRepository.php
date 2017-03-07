@@ -376,6 +376,7 @@ class ReportsRepository implements IReports
                 WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 AND t.entity_type IN ('deposit', 'manual_deposit', 'subscription_purchase')
+                AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 GROUP BY displaydate, country", $rsm)->getResult();
     }
 
@@ -393,6 +394,7 @@ class ReportsRepository implements IReports
                 WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 AND t.entity_type IN ('deposit', 'manual_deposit')
+                AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 GROUP BY displaydate, country", $rsm)->getResult();
 
     }
@@ -411,6 +413,7 @@ class ReportsRepository implements IReports
                 WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 AND t.entity_type IN ('winnings_withdraw')
+                AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 GROUP BY displaydate, country", $rsm)->getResult();
 
     }
@@ -429,6 +432,7 @@ class ReportsRepository implements IReports
                 WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 AND t.entity_type IN ('winnings_withdraw')
+                AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 GROUP BY displaydate, country", $rsm)->getResult();
 
     }
@@ -467,6 +471,7 @@ class ReportsRepository implements IReports
                 WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 AND t.entity_type IN ('winnings_received')
+                AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 GROUP BY displaydate, country", $rsm)->getResult();
     }
 
