@@ -451,6 +451,7 @@ class ReportsService
         $arrayResultsMonths = [];
         $arrayTotals = [];
         $total = [];
+        $controlShitActives = [];
         //Ordenar por fecha, y dentro por pais, y meter todas las columnas
         $newRegistrations = $this->reportsRepository->getNewRegistrations($data);
         $newDepositors = $this->reportsRepository->getNewDepositors($data);
@@ -518,7 +519,7 @@ class ReportsService
             $arrayTotals[$date[$order]]['newDepositors'] += (int)[$new['id']];
             $total['newDepositors'] += (int)[$new['id']];
         }
-
+//var_dump($actives);die();
         foreach ($actives as $new) {
             $date = explode('-', $new['created']);
             if ($order == 2) {
@@ -528,11 +529,17 @@ class ReportsService
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
-            $arrayResults[$date[$order]][$new['country']]['actives'] += (int)[$new['id']];
-            $arrayTotals[$date[$order]]['actives'] += (int)[$new['id']];
-            $total['actives'] += (int)[$new['id']];
-        }
+            if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
+                echo 'mierda';
 
+                $controlShitActives[$date[$order]][] = $new['id'];
+                $arrayResults[$date[$order]][$new['country']]['actives'] += 1;
+                $arrayTotals[$date[$order]]['actives'] += 1;
+                $total['actives'] += 1;
+            }
+
+        }
+//        var_dump($controlShitActives,$arrayResults,$arrayResultsMonths,$arrayTotals);die();
         foreach ($numberBets as $new) {
             $date = explode('-', $new['created']);
             if ($order == 2) {
