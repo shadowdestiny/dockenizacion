@@ -503,8 +503,9 @@ class ReportsService
             $arrayTotals[$date[$order]]['newDepositors'] += (int)[$new['id']];
             $total['newDepositors'] += (int)[$new['id']];
         }
-
+//var_dump($actives);die();
         foreach ($actives as $new) {
+
             $date = explode('-', $new['created']);
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
@@ -513,9 +514,9 @@ class ReportsService
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
-            $arrayResults[$date[$order]][$new['country']]['actives'] += (int)[$new['id']];
-            $arrayTotals[$date[$order]]['actives'] += (int)[$new['id']];
-            $total['actives'] += (int)[$new['id']];
+            $arrayResults[$date[$order]][$new['country']]['actives'] += 1;
+            $arrayTotals[$date[$order]]['actives'] += 1;
+            $total['actives'] += 1;
         }
 
         foreach ($numberBets as $new) {
