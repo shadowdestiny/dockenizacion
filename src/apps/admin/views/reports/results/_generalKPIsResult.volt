@@ -38,7 +38,7 @@
         <td>{% if arrayTotals[date]['newDepositors'] is defined and arrayTotals[date]['newRegistrations'] is defined %}{{ (arrayTotals[date]['newDepositors'] / arrayTotals[date]['newRegistrations'] * 100) | number_format (2,',','') }}%{% else %}0%{% endif %}</td>
         <td>{% if arrayTotals[date]['actives'] is defined %}{{ arrayTotals[date]['actives'] }}{% else %}0{% endif %}</td>
         <td>{% if arrayTotals[date]['numberBets'] is defined %}{{ arrayTotals[date]['numberBets'] }}{% else %}0{% endif %}</td>
-        <td>{% if arrayTotals[date]['totalBets'] is defined %}{{ arrayTotals[date]['totalBets'] / 100 }}{% else %}0{% endif %}</td>
+        <td>{% if arrayTotals[date]['totalBets'] is defined %}{{ arrayTotals[date]['totalBets']}}{% else %}0{% endif %}</td>
         <td>{% if arrayTotals[date]['numberDeposits'] is defined %}{{ arrayTotals[date]['numberDeposits'] }}{% else %}0{% endif %}</td>
         <td>{% if arrayTotals[date]['depositAmount'] is defined %}{{ arrayTotals[date]['depositAmount'] / 100 }}{% else %}0{% endif %}</td>
         <td>{% if arrayTotals[date]['numberWithdrawals'] is defined %}{{ arrayTotals[date]['numberWithdrawals'] }}{% else %}0{% endif %}</td>
@@ -52,7 +52,7 @@
                 <td class="values">{% if kpi['newDepositors'] is defined and kpi['newRegistrations'] is defined %}{{ (kpi['newDepositors'] / kpi['newRegistrations'] * 100) | number_format (2,',','') }}%{% else %}0%{% endif %}</td>
                 <td class="values">{% if kpi['actives'] is defined %}{{ kpi['actives'] }}{% else %}0{% endif %}</td>
                 <td class="values">{% if kpi['numberBets'] is defined %}{{ kpi['numberBets'] }}{% else %}0{% endif %}</td>
-                <td class="values">{% if kpi['totalBets'] is defined %}{{ kpi['totalBets'] /100 }}{% else %}0{% endif %}</td>
+                <td class="values">{% if kpi['totalBets'] is defined %}{{ kpi['totalBets']}}{% else %}0{% endif %}</td>
                 <td class="values">{% if kpi['numberDeposits'] is defined %}{{ kpi['numberDeposits'] }}{% else %}0{% endif %}</td>
                 <td class="values">{% if kpi['depositAmount'] is defined %}{{ kpi['depositAmount'] / 100 }}{% else %}0{% endif %}</td>
                 <td class="values">{% if kpi['numberWithdrawals'] is defined %}{{ kpi['numberWithdrawals'] }}{% else %}0{% endif %}</td>
@@ -69,7 +69,7 @@
         <td>{% if total['newRegistrations'] is defined and total['newDepositors'] is defined%}{{ (total['newDepositors'] / total['newRegistrations'] * 100) | number_format (2,',','') }}%{% else %}0%{% endif %}</td>
         <td>{% if valueTotalManualAlternativeQueryForOneValue is defined %}{{ valueTotalManualAlternativeQueryForOneValue }}{% else %}0{% endif %}</td>
         <td>{% if total['numberBets'] is defined %}{{ total['numberBets'] }}{% else %}0{% endif %}</td>
-        <td>{% if total['totalBets'] is defined %}{{ total['totalBets']  / 100 }}{% else %}0{% endif %}</td>
+        <td>{% if total['totalBets'] is defined %}{{ total['totalBets']}}{% else %}0{% endif %}</td>
         <td>{% if total['numberDeposits'] is defined %}{{ total['numberDeposits'] }}{% else %}0{% endif %}</td>
         <td>{% if total['depositAmount'] is defined %}{{ total['depositAmount']  / 100 }}{% else %}0{% endif %}</td>
         <td>{% if total['numberWithdrawals'] is defined %}{{ total['numberWithdrawals'] }}{% else %}0{% endif %}</td>
