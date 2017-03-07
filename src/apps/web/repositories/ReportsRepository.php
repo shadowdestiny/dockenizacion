@@ -331,7 +331,7 @@ class ReportsRepository implements IReports
                             WHEN entity_type = 'ticket_purchase' AND t.date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "' THEN (SUBSTRING(data, 3, 1)) 
                             WHEN entity_type = 'automatic_purchase' AND t.date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "' THEN 1
                             ELSE 0
-                            END) as id, DATE_FORMAT(u.date, '%Y-%M-%d') as displaydate, u.country
+                            END) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, u.country
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
@@ -354,7 +354,7 @@ class ReportsRepository implements IReports
                             WHEN entity_type = 'ticket_purchase' AND t.date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "' THEN (SUBSTRING(data, 3, 1) * 300) 
                             WHEN entity_type = 'automatic_purchase' AND t.date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "' THEN (wallet_before_subscription_amount - wallet_after_subscription_amount)
                             ELSE 0
-                            END) as id, DATE_FORMAT(u.date, '%Y-%M-%d') as displaydate, u.country
+                            END) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, u.country
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
