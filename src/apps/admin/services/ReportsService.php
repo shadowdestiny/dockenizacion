@@ -484,7 +484,6 @@ class ReportsService
         $playerWinnings = $this->reportsRepository->getPlayerWinnings($data);
 //        $this->reportsRepository->getCustomerLifetimeValue($data);
 
-        var_dump($newRegistrations,$newDepositors,$conversion,$actives,$numberBets,$totalBets,$numberDeposits,$depositAmount,$numberWithdrawals,$withdrawalAmount,$playerWinnings);
         if ($data['groupBy'] == 'day') {
             $order = 2;
         } elseif ($data['groupBy'] == 'month') {
@@ -638,7 +637,6 @@ class ReportsService
             $arrayTotals[$date[$order]]['playerWinnings'] += (int)$new['id'];
             $total['playerWinnings'] += (int)$new['id'];
         }
-        var_dump($arrayResults, $arrayResultsMonths, $arrayTotals, $total, $countActives);die();
         return [$arrayResults, $arrayResultsMonths, $arrayTotals, $total, $countActives];
     }
 }
