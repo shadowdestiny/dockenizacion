@@ -241,9 +241,8 @@ class ReportsRepository implements IReports
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
-                AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
-                GROUP BY t.user_id, country", $rsm)->getResult();
+                GROUP BY displaydate, t.user_id, country", $rsm)->getResult();
 
     }
 
