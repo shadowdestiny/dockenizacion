@@ -235,10 +235,9 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('id', 'id');
         $rsm->addScalarResult('displaydate', 'created');
         $rsm->addScalarResult('country', 'country');
-        $rsm->addScalarResult('total', 'total');
         return $this->entityManager
             ->createNativeQuery(
-                "SELECT DISTINCT(t.user_id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country, COUNT(DISTINCT(t.user_id)) as total
+                "SELECT DISTINCT(t.user_id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
