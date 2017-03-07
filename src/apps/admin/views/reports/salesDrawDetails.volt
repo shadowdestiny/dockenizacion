@@ -38,33 +38,59 @@
                                 <th>User</th>
                                 <th>Country</th>
                                 <th>Transaction ID</th>
-                                {#<th>Bet ID</th>#}
+                                <th>Bet ID</th>
                                 <th>Purchase date</th>
                                 <th>Bet Amount</th>
                             </tr>
                             </thead>
                             <tbody>
                             {% for detailsData in salesDrawDetailsData %}
-                                <tr>
-                                    <td align="center">
-                                        {{ detailsData['email'] }}
-                                    </td>
-                                    <td align="center">
-                                        {{ countryList[detailsData['country']] }}
-                                    </td>
-                                    <td align="center">
-                                        {{ detailsData['transactionID'] }}
-                                    </td>
-                                    {#<td>#}
-                                        {#{{ detailsData['betId'] }}#}
-                                    {#</td>#}
-                                    <td align="center">
-                                        {{ detailsData['purchaseDate'] }}
-                                    </td>
-                                    <td align="center">
-                                        {{ "%.2f"|format(detailsData['movement'] ) }} &euro;
-                                    </td>
-                                </tr>
+                                <?php $dataExplode = explode('#', $detailsData['data']); ?>
+                                {% if (dataExplode[1] > 1) %}
+                                    {% for i in 1..dataExplode[1] %}
+                                        <tr>
+                                            <td align="center">
+                                                {{ detailsData['email'] }}
+                                            </td>
+                                            <td align="center">
+                                                {{ countryList[detailsData['country']] }}
+                                            </td>
+                                            <td align="center">
+                                                {{ detailsData['transactionID'] }}
+                                            </td>
+                                            <td>
+                                                {#{{ detailsData['betId'] }}#}
+                                            </td>
+                                            <td align="center">
+                                                {{ detailsData['purchaseDate'] }}
+                                            </td>
+                                            <td align="center">
+                                                {{ "%.2f"|format(detailsData['movement'] / dataExplode[1]) }} &euro;
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td align="center">
+                                            {{ detailsData['email'] }}
+                                        </td>
+                                        <td align="center">
+                                            {{ countryList[detailsData['country']] }}
+                                        </td>
+                                        <td align="center">
+                                            {{ detailsData['transactionID'] }}
+                                        </td>
+                                        <td>
+                                            {#{{ detailsData['betId'] }}#}
+                                        </td>
+                                        <td align="center">
+                                            {{ detailsData['purchaseDate'] }}
+                                        </td>
+                                        <td align="center">
+                                            {{ "%.2f"|format(detailsData['movement'] ) }} &euro;
+                                        </td>
+                                    </tr>
+                                {% endif %}
                             {% endfor %}
                             </tbody>
                         </table>
