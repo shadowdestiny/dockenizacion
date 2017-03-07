@@ -67,7 +67,7 @@
         <td>{% if total['newRegistrations'] is defined %}{{ total['newRegistrations'] }}{% else %}0{% endif %}</td>
         <td>{% if total['newDepositors'] is defined %}{{ total['newDepositors'] }}{% else %}0{% endif %}</td>
         <td>{% if total['newRegistrations'] is defined and total['newDepositors'] is defined%}{{ (total['newDepositors'] / total['newRegistrations'] * 100) | number_format (2,',','') }}%{% else %}0%{% endif %}</td>
-        <td>{% if total['actives'] is defined %}{{ total['actives'] }}{% else %}0{% endif %}</td>
+        <td>{% if valueTotalManualAlternativeQueryForOneValue is defined %}{{ valueTotalManualAlternativeQueryForOneValue }}{% else %}0{% endif %}</td>
         <td>{% if total['numberBets'] is defined %}{{ total['numberBets'] }}{% else %}0{% endif %}</td>
         <td>{% if total['totalBets'] is defined %}{{ total['totalBets']  / 100 }}{% else %}0{% endif %}</td>
         <td>{% if total['numberDeposits'] is defined %}{{ total['numberDeposits'] }}{% else %}0{% endif %}</td>
