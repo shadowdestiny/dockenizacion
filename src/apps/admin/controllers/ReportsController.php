@@ -53,6 +53,7 @@ class ReportsController extends AdminControllerBase
             'arrayDates' => $generalKPIs[1],
             'arrayTotals' => $generalKPIs[2],
             'total' => $generalKPIs[3],
+            'valueTotalManualAlternativeQueryForOneValue' => $generalKPIs[4],
         ]);
     }
 
