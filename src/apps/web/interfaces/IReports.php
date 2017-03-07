@@ -28,6 +28,9 @@ interface IReports
     public function getNewDepositors($data);
 
     public function getActives($data);
+    public function getActivesDay($data);
+    public function getActivesMonth($data);
+    public function getActivesYear($data);
 //    public function getNewRegistrationsMobile($data);
 //    public function getNewDepositorsMobile($data);
 //    public function geConversionMobile($data);
