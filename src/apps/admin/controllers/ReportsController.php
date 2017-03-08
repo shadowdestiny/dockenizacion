@@ -59,35 +59,27 @@ class ReportsController extends AdminControllerBase
 
     public function businessReportsActivityAction()
     {
+        $this->view->setVars([
+            'needReportsMenu' => true,
+            'countryList' => $this->countries,
+        ]);
+    }
+
+    public function businessReportsActivityResultAction()
+    {
         $generalKPIs = [];
         if ($this->request->getPost()) {
             $generalKPIs = $this->reportsService->getGeneralKPI($this->request->getPost());
         }
 
-        $this->view->pick('reports/results/_ActivityResult');
+        $this->view->pick('reports/results/_generalKPIsResult');
         $this->view->setVars([
             'countryList' => $this->countries,
             'generalKPIs' => $generalKPIs[0],
             'arrayDates' => $generalKPIs[1],
             'arrayTotals' => $generalKPIs[2],
             'total' => $generalKPIs[3],
-        ]);
-    }
-
-    public function activityResultAction()
-    {
-        echo $this->request->getPost('dateFrom');
-        echo '<br />';
-        echo $this->request->getPost('dateTo');
-        echo '<br />';
-        var_dump($this->request->getPost('countries'));
-        echo '<br />';
-        var_dump($this->request->getPost('groupBy'));
-
-
-        $this->view->pick('reports/results/_activityResults');
-        return $this->view->setVars([
-            'test' => $this->request->getPost('dateFrom'),
+            'valueTotalManualAlternativeQueryForOneValue' => $generalKPIs[4],
         ]);
 
     }
