@@ -29,10 +29,10 @@
                         {{ userBet['entity_type'] }}
                     </td>
                     <td align="center">
-                        {{ "%.2f"|format(userBet['movement'] ) }} €
+                        {{ "%.2f"|format(userBet['movement'] ) }}
                     </td>
                     <td align="center">
-                        {{ "%.2f"|format(userBet['balance'] / 100 ) }} €
+                        {{ "%.2f"|format(userBet['balance'] / 100 ) }}
                     </td>
                 </tr>
             {% endfor %}

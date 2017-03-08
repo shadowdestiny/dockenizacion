@@ -49,7 +49,7 @@
                                         <span class="num yellow <?php if($lucky_number > 1) echo 'highlight' ?>">{{ s }}</span>
                                     {% endfor %}
                                     <?php if($pastGame->prize > 0){?>
-                                    <span class="">({{ pastGame.prize }}€)</span>
+                                    <span class="">({{ pastGame.prize }})</span>
                                     <?php } ?>
 
                                 </div>
@@ -71,7 +71,7 @@
                                         <span class="num yellow <?php if($lucky_number > 1) echo 'highlight' ?>">{{ s }}</span>
                                     {% endfor %}
                                     <?php if($pastGame->prize > 0){?>
-                                    <span class="">({{ pastGame.prize }}€)</span>
+                                    <span class="">({{ pastGame.prize }})</span>
                                     <?php } ?>
                                 </div>
                             </td>

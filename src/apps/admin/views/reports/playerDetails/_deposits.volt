@@ -29,10 +29,10 @@
                         Deposit
                     </td>
                     <td align="center">
-                        {{ "%.2f"|format(userDeposit['movement'] / 100 ) }} €
+                        {{ "%.2f"|format(userDeposit['movement'] / 100 ) }}
                     </td>
                     <td align="center">
-                        {{ "%.2f"|format(userDeposit['balance'] / 100 ) }} €
+                        {{ "%.2f"|format(userDeposit['balance'] / 100 ) }}
                     </td>
                 </tr>
             {% endfor %}

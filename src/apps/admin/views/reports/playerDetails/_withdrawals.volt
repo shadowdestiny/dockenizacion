@@ -50,7 +50,7 @@
                         Country: {{ countryList[user.getCountry()] }}<br />
                     </td>
                     <td align="center">
-                        {{ userWithdrawal['amount'] }} €
+                        {{ userWithdrawal['amount'] }}
                     </td>
                     <td align="center">
                         {{ userWithdrawal['state'] }}
