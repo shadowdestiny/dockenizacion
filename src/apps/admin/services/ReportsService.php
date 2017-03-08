@@ -689,6 +689,7 @@ class ReportsService
             $arrayTotals[$date[$order]]['playerWinnings'] += (int)$new['id'];
             $total['playerWinnings'] += (int)$new['id'];
         }
+        var_dump($numberBets,$arrayResults, $arrayResultsMonths, $arrayTotals, $total, $countActives);die();
         return [$arrayResults, $arrayResultsMonths, $arrayTotals, $total, $countActives];
     }
 }
