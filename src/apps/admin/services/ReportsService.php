@@ -346,10 +346,12 @@ class ReportsService
                     break;
                 case "deposited":
                 case "numberDeposits":
-                    $selectPlayersReports .= ' SUM(CASE WHEN t.entity_type = "deposit" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN 1 ELSE 0 END) as numberDeposits,';
+                    $selectPlayersReports .= ' SUM(CASE WHEN t.entity_type in ("deposit", "subscription_purchase") AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN 1 ELSE 0 END) as numberDeposits,';
                     break;
                 case "amountDeposited":
-                    $selectPlayersReports .= ' SUM(CASE WHEN t.entity_type = "deposit" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN t.wallet_after_uploaded_amount - t.wallet_before_uploaded_amount ELSE 0 END) as amountDeposited,';
+                    $selectPlayersReports .= ' SUM(CASE WHEN t.entity_type = "deposit" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN t.wallet_after_uploaded_amount - t.wallet_before_uploaded_amount
+                                                        WHEN t.entity_type = "subscription_purchase" THEN t.wallet_after_subscription_amount - t.wallet_before_subscription_amount
+                                                        ELSE 0 END) as amountDeposited,';
                     break;
                 case "numberWithdrawals":
                     $selectPlayersReports .= ' SUM(CASE WHEN t.entity_type = "winnings_withdraw" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN 1 ELSE 0 END) as numberWithdrawals, ';
@@ -358,7 +360,7 @@ class ReportsService
                     $selectPlayersReports .= ' SUM(CASE WHEN t.entity_type = "winnings_withdraw" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN t.wallet_before_winnings_amount - t.wallet_after_winnings_amount ELSE 0 END) as amountWithdraw,';
                     break;
                 case "LastDepositDate":
-                    $selectPlayersReports .= ' max(CASE WHEN t.entity_type = "deposit" THEN t.date END) as LastDepositDate,';
+                    $selectPlayersReports .= ' max(CASE WHEN t.entity_type in ("deposit", "subscription_purchase") THEN t.date END) as LastDepositDate,';
                     break;
                 case "LastLoginDate":
                     $selectPlayersReports .= ' u.last_connection as LastLoginDate,';
@@ -422,7 +424,7 @@ class ReportsService
         }
 
         if ($postData['depositor']) {
-            $selectPlayersReports .= ' SUM(CASE WHEN t.entity_type = "deposit" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN 1 ELSE 0 END) as numberDeposits,';
+            $selectPlayersReports .= ' SUM(CASE WHEN t.entity_type in ("deposit", "subscription_purchase") AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN 1 ELSE 0 END) as numberDeposits,';
             if ($postData['depositor'] == 'Y') {
                 $havingConditions = ' HAVING numberDeposits > 0';
             } else {
