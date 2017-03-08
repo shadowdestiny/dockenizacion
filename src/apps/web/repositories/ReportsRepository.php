@@ -335,7 +335,8 @@ class ReportsRepository implements IReports
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
-                AND created IS NOT NULL", $rsm)->getResult();
+                AND created IS NOT NULL
+                group by displaydate, country", $rsm)->getResult();
 
     }
 
