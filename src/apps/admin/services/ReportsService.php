@@ -604,7 +604,7 @@ class ReportsService
             $arrayTotals[$date[$order]]['numberBets'] += (int)$new['id'];
             $total['numberBets'] += (int)$new['id'];
         }
-var_dump($numberBets, $arrayResults);die();
+//var_dump($numberBets, $arrayResults);die();
         foreach ($totalBets as $new) {
 
             $date = explode('-', $new['created']);
