@@ -373,7 +373,7 @@ class ReportsService
                     break;
                 case "numberBets":
                     $selectPlayersReports .= ' sum(CASE
-                                        WHEN entity_type = "ticket_purchase" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN 1
+                                        WHEN entity_type = "ticket_purchase" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (SUBSTRING(data, 3, 1)
                                         WHEN entity_type = "automatic_purchase" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN 1
                                         ELSE 0
                                         END
