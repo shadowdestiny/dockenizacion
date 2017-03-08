@@ -57,15 +57,16 @@ class TransactionRepository extends RepositoryBase
     {
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('date','date');
-        $rsm->addScalarResult('data','data');
+        $rsm->addScalarResult('entity_type','entity_type');
         $rsm->addScalarResult('movement','movement');
+        $rsm->addScalarResult('subsMovement','subsMovement');
         $rsm->addScalarResult('balance','balance');
 
         return $this->getEntityManager()
             ->createNativeQuery(
-                'SELECT date, (wallet_after_uploaded_amount - wallet_before_uploaded_amount) as movement, (wallet_after_uploaded_amount + wallet_after_winnings_amount) as balance
+                'SELECT date, entity_type, (wallet_after_uploaded_amount - wallet_before_uploaded_amount) as movement, (wallet_after_uploaded_amount + wallet_after_winnings_amount) as balance, (wallet_after_subscription_amount - wallet_before_subscription_amount) as subsMovement
                 FROM transactions
-                WHERE entity_type = "deposit" and user_id = "' . $userId . '"
+                WHERE entity_type in ("deposit", "subscription_purchase") and user_id = "' . $userId . '"
                 order by date desc'
                 , $rsm)->getResult();
     }
