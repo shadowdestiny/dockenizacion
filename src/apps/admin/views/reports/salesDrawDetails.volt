@@ -50,60 +50,24 @@
                                 {% if (dataExplode[1] > 1) %}
                                     {% for i in 1..dataExplode[1] %}
                                         <tr>
-                                            <td align="center">
-                                                {{ detailsData['email'] }}
-                                            </td>
-                                            <td align="center">
-                                                {{ countryList[detailsData['country']] }}
-                                            </td>
-                                            <td align="center">
-                                                {{ detailsData['transactionID'] }}
-                                            </td>
-                                            <td>
-                                                {% if detailsData['betIds'] is defined %}
-                                                    {{ detailsData['betIds']['id'][i-1] }}
-                                                {% endif %}
-                                            </td>
-                                            <td>
-                                                {% if detailsData['betIds'] is defined %}
-                                                    {{ detailsData['betIds']['numbers'][i-1] }}
-                                                {% endif %}
-                                            </td>
-                                            <td align="center">
-                                                {{ detailsData['purchaseDate'] }}
-                                            </td>
-                                            <td align="center">
-                                                {{ "%.2f"|format(detailsData['movement'] / dataExplode[1]) }}
-                                            </td>
+                                            <td>{{ detailsData['email'] }}</td>
+                                            <td>{{ countryList[detailsData['country']] }}</td>
+                                            <td>{{ detailsData['transactionID'] }}</td>
+                                            <td>{% if detailsData['betIds'] is defined %}{{ detailsData['betIds']['id'][i-1] }}{% endif %}</td>
+                                            <td>{% if detailsData['betIds'] is defined %}{{ detailsData['betIds']['numbers'][i-1] }}{% endif %}</td>
+                                            <td>{{ detailsData['purchaseDate'] }}</td>
+                                            <td>{{ "%.2f"|format(detailsData['movement'] / dataExplode[1]) }}</td>
                                         </tr>
                                     {% endfor %}
                                 {% else %}
                                     <tr>
-                                        <td align="center">
-                                            {{ detailsData['email'] }}
-                                        </td>
-                                        <td align="center">
-                                            {{ countryList[detailsData['country']] }}
-                                        </td>
-                                        <td align="center">
-                                            {{ detailsData['transactionID'] }}
-                                        </td>
-                                        <td>
-                                            {% if detailsData['betIds'] is defined %}
-                                                {{ detailsData['betIds']['id'][0] }}
-                                            {% endif %}
-                                        </td>
-                                        <td>
-                                            {% if detailsData['betIds'] is defined %}
-                                                {{ detailsData['betIds']['numbers'][0] }}
-                                            {% endif %}
-                                        </td>
-                                        <td align="center">
-                                            {{ detailsData['purchaseDate'] }}
-                                        </td>
-                                        <td align="center">
-                                            {{ "%.2f"|format(detailsData['movement'] ) }}
-                                        </td>
+                                        <td>{{ detailsData['email'] }}</td>
+                                        <td>{{ countryList[detailsData['country']] }}</td>
+                                        <td>{{ detailsData['transactionID'] }}</td>
+                                        <td>{% if detailsData['betIds'] is defined %}{{ detailsData['betIds']['id'][0] }}{% endif %}</td>
+                                        <td>{% if detailsData['betIds'] is defined %}{{ detailsData['betIds']['numbers'][0] }}{% endif %}</td>
+                                        <td>{{ detailsData['purchaseDate'] }}</td>
+                                        <td>{{ "%.2f"|format(detailsData['movement'] ) }}</td>
                                     </tr>
                                 {% endif %}
                             {% endfor %}
