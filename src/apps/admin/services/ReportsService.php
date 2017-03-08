@@ -446,7 +446,64 @@ class ReportsService
         return $this->reportsRepository->getUsersByReportsPlayersQuery($sql);
     }
 
+
+//    public function getActivities($data)
+//    {
+//        $arrayResults = [];
+//        $arrayResultsMonths = [];
+//        $arrayTotals = [];
+//        $total = [];
+//        $controlShitActives = [];
+//        $countActives = 0;
+//        //Ordenar por fecha, y dentro por pais, y meter todas las columnas
+//        $newRegistrations = $this->reportsRepository->getNewRegistrations($data);
+//        $depositors0 = ;
+//        $depositors1 = ;
+//        $depositors2 = ;
+//        $actives = $this->reportsRepository->getActives($data);
+//        if ($data['groupBy'] == 'day') {
+//            $order = 2;
+//        } elseif ($data['groupBy'] == 'month') {
+//            $order = 1;
+//        } else {
+//            $order = 0;
+//        }
 //
+//        foreach ($newRegistrations as $new) {
+//            $date = explode('-', $new['created']);
+//            if ($order == 2) {
+//                $date[$order] = $date[$order] . " - " . $date[$order - 1];
+//            }
+//            if (!in_array($date[$order], $arrayResultsMonths)) {
+//                $arrayResultsMonths[] = $date[$order];
+//                $arrayTotals[] = $date[$order];
+//            }
+//            $arrayResults[$date[$order]][$new['country']]['newRegistrations'] += (int)[$new['id']];
+//            $arrayTotals[$date[$order]]['newRegistrations'] += (int)[$new['id']];
+//            $total['newRegistrations'] += (int)[$new['id']];
+//        }
+//
+//        foreach ($actives as $new) {
+//            $countActives++;
+//            $date = explode('-', $new['created']);
+//            if ($order == 2) {
+//                $date[$order] = $date[$order] . " - " . $date[$order - 1];
+//            }
+//            if (!in_array($date[$order], $arrayResultsMonths)) {
+//                $arrayResultsMonths[] = $date[$order];
+//                $arrayTotals[] = $date[$order];
+//            }
+//            if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
+//                $controlShitActives[$date[$order]][] = $new['id'];
+//                $arrayResults[$date[$order]][$new['country']]['actives'] += 1;
+//                $arrayTotals[$date[$order]]['actives'] += 1;
+//                $total['actives'] += 1;
+//            }
+//
+//        }
+//
+//        return;
+//    }
     public function getGeneralKPI($data)
     {
         $arrayResults = [];
@@ -459,16 +516,9 @@ class ReportsService
         $newRegistrations = $this->reportsRepository->getNewRegistrations($data);
         $newDepositors = $this->reportsRepository->getNewDepositors($data);
         $conversion = ($newDepositors['0']['id'] / $newRegistrations['0']['id'] * 100);
-//        if ($data['groupBy'] == 'day') {
-//            $actives = $this->reportsRepository->getActivesDay($data);
-//        } elseif ($data['groupBy'] == 'month') {
-//            $actives = $this->reportsRepository->getActivesMonth($data);
-//        } else {
-//            $actives = $this->reportsRepository->getActivesYear($data);
-//        }
+
         $actives = $this->reportsRepository->getActives($data);
 
-//var_dump($actives);die();
 //        $this->reportsRepository->getNewRegistrationsMobile($data);
 //        $this->reportsRepository->getNewDepositorsMobile($data);
 //        $this->reportsRepository->geConversionMobile($data);
