@@ -606,7 +606,6 @@ class ReportsService
         }
 //var_dump($numberBets, $arrayResults);die();
         foreach ($totalBets as $new) {
-
             $date = explode('-', $new['created']);
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];

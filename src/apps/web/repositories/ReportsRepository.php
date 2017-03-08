@@ -349,15 +349,14 @@ class ReportsRepository implements IReports
         return $this->entityManager
             ->createNativeQuery(
                 "SELECT sum(CASE
-                            WHEN entity_type = 'ticket_purchase' AND t.date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "' THEN (SUBSTRING(data, 3, 1) * 300) 
-                            WHEN entity_type = 'automatic_purchase' AND t.date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "' THEN (wallet_before_subscription_amount - wallet_after_subscription_amount)
+                            WHEN entity_type = 'ticket_purchase' AND t.date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "' THEN (SUBSTRING(data, 3, 1)) 
+                            WHEN entity_type = 'automatic_purchase' AND t.date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "' THEN 1
                             ELSE 0
                             END) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, u.country
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
-                AND t.entity_type IN ('ticket_purchase', ' automatic_purchase')
                 AND created IS NOT NULL
                 GROUP BY displaydate, country", $rsm)->getResult();
     }
