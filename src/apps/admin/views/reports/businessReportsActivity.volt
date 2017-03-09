@@ -30,7 +30,7 @@
                     alert('You must fill in dates and group by');
                 } else {
                     $.ajax({
-                        url: 'activityResult',
+                        url: 'businessReportsActivityResult',
                         type: 'POST',
                         data: {
                             dateFrom: $("#dateFrom").val(),

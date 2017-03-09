@@ -660,7 +660,7 @@ class ReportsService
             }
         }
 
-        return;
+        return [$arrayResults, $arrayResultsMonths, $arrayTotals, $total, $countActives];    
     }
 
     public function getGeneralKPI($data)
