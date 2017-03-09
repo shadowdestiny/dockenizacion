@@ -561,4 +561,183 @@ class ReportsRepository implements IReports
                 WHERE id = ' . $betId
                 , $rsm)->getResult()[0];
     }
+
+    public function getDepositorsD0($data)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
+        $rsm->addScalarResult('date', 'date');
+        return $this->entityManager
+            ->createNativeQuery("
+                SELECT COUNT(date) as id, DATE_FORMAT(created, '%Y-%M-%d') as displaydate, country
+                FROM transactions t 
+                LEFT JOIN users u ON u.id = t.user_id 
+                WHERE date BETWEEN created AND DATE(DATE_ADD(created, INTERVAL +1 DAY)) 
+                AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND u.country IN ('" . implode("','", $data['countries']) . "') 
+                AND t.entity_type = 'deposit' GROUP BY user_id, displaydate, country", $rsm)->getResult();
+    }
+
+    public function getDepositorsD1($data)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
+        $rsm->addScalarResult('date', 'date');
+        return $this->entityManager
+            ->createNativeQuery("
+                SELECT COUNT(date) as id, DATE_FORMAT(created, '%Y-%M-%d') as displaydate, country
+                FROM transactions t 
+                LEFT JOIN users u ON u.id = t.user_id 
+                WHERE date BETWEEN DATE(DATE_ADD(created, INTERVAL +1 DAY)) AND DATE(DATE_ADD(created, INTERVAL +2 DAY)) 
+                AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND u.country IN ('" . implode("','", $data['countries']) . "') 
+                AND t.entity_type = 'deposit' GROUP BY user_id, displaydate, country", $rsm)->getResult();
+    }
+
+    public function getDepositorsD2($data)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
+        $rsm->addScalarResult('date', 'date');
+        return $this->entityManager
+            ->createNativeQuery("
+                SELECT COUNT(date) as id, DATE_FORMAT(created, '%Y-%M-%d') as displaydate, country
+                FROM transactions t 
+                LEFT JOIN users u ON u.id = t.user_id 
+                WHERE date BETWEEN DATE(DATE_ADD(created, INTERVAL +2 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND u.country IN ('" . implode("','", $data['countries']) . "') 
+                AND t.entity_type = 'deposit' GROUP BY user_id, displaydate, country", $rsm)->getResult();
+    }
+
+    public function getJustInactives($data)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
+        return $this->entityManager
+            ->createNativeQuery(
+                "SELECT COUNT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
+                FROM users
+                LEFT JOIN transactions t
+                WHERE u.id NOT IN (SELECT DISTINCT(t.user_id) as id
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -14 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -7 DAY))
+                AND u.country IN ('" . implode("','", $data['countries']) . "'))", $rsm)->getResult();
+
+    }
+
+    public function getInactives($data)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
+        return $this->entityManager
+            ->createNativeQuery(
+                "SELECT COUNT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
+                FROM users
+                LEFT JOIN transactions t
+                WHERE u.id NOT IN (SELECT DISTINCT(t.user_id) as id
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -30 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -15 DAY))
+                AND u.country IN ('" . implode("','", $data['countries']) . "'))", $rsm)->getResult();
+
+    }
+
+    public function getDormant($data)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
+        return $this->entityManager
+            ->createNativeQuery(
+                "SELECT COUNT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
+                FROM users
+                LEFT JOIN transactions t
+                WHERE u.id NOT IN (SELECT DISTINCT(t.user_id) as id
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN '2016-01-01' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -30 DAY))
+                AND u.country IN ('" . implode("','", $data['countries']) . "'))", $rsm)->getResult();
+    }
+
+    public function getReactivatedJI($data)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
+        return $this->entityManager
+            ->createNativeQuery(
+                "SELECT COUNT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
+                FROM users
+                LEFT JOIN transactions t 
+                WHERE user_id NOT IN(SELECT u.id
+                FROM users
+                LEFT JOIN transactions t
+                WHERE id IN (SELECT DISTINCT(t.user_id) as id
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -14 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -7 DAY))
+                AND u.country IN ('" . implode("','", $data['countries']) . "')))
+                AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -6 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'", $rsm)->getResult();
+
+    }
+
+    public function getReactivatedIN($data)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
+        return $this->entityManager
+            ->createNativeQuery(
+                "SELECT COUNT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
+                FROM users
+                LEFT JOIN transactions t 
+                WHERE user_id NOT IN(SELECT u.id
+                FROM users
+                LEFT JOIN transactions t
+                WHERE id IN (SELECT DISTINCT(t.user_id) as id
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -30 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -15 DAY))
+                AND u.country IN ('" . implode("','", $data['countries']) . "')))
+                AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -6 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'", $rsm)->getResult();
+
+    }
+
+    public function getReactivatedDOR($data)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
+        return $this->entityManager
+            ->createNativeQuery(
+                "SELECT COUNT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
+                FROM users
+                LEFT JOIN transactions t 
+                WHERE user_id NOT IN(SELECT u.id
+                FROM users
+                LEFT JOIN transactions t
+                WHERE id IN (SELECT DISTINCT(t.user_id) as id
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN '2016-01-01' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -30 DAY))
+                AND u.country IN ('" . implode("','", $data['countries']) . "')))
+                AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -6 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'", $rsm)->getResult();
+
+    }
 }

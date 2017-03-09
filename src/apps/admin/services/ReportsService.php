@@ -447,63 +447,219 @@ class ReportsService
     }
 
 
-//    public function getActivities($data)
-//    {
-//        $arrayResults = [];
-//        $arrayResultsMonths = [];
-//        $arrayTotals = [];
-//        $total = [];
-//        $controlShitActives = [];
-//        $countActives = 0;
-//        //Ordenar por fecha, y dentro por pais, y meter todas las columnas
-//        $newRegistrations = $this->reportsRepository->getNewRegistrations($data);
-//        $depositors0 = ;
-//        $depositors1 = ;
-//        $depositors2 = ;
-//        $actives = $this->reportsRepository->getActives($data);
-//        if ($data['groupBy'] == 'day') {
-//            $order = 2;
-//        } elseif ($data['groupBy'] == 'month') {
-//            $order = 1;
-//        } else {
-//            $order = 0;
-//        }
-//
-//        foreach ($newRegistrations as $new) {
-//            $date = explode('-', $new['created']);
-//            if ($order == 2) {
-//                $date[$order] = $date[$order] . " - " . $date[$order - 1];
-//            }
-//            if (!in_array($date[$order], $arrayResultsMonths)) {
-//                $arrayResultsMonths[] = $date[$order];
-//                $arrayTotals[] = $date[$order];
-//            }
-//            $arrayResults[$date[$order]][$new['country']]['newRegistrations'] += (int)[$new['id']];
-//            $arrayTotals[$date[$order]]['newRegistrations'] += (int)[$new['id']];
-//            $total['newRegistrations'] += (int)[$new['id']];
-//        }
-//
-//        foreach ($actives as $new) {
-//            $countActives++;
-//            $date = explode('-', $new['created']);
-//            if ($order == 2) {
-//                $date[$order] = $date[$order] . " - " . $date[$order - 1];
-//            }
-//            if (!in_array($date[$order], $arrayResultsMonths)) {
-//                $arrayResultsMonths[] = $date[$order];
-//                $arrayTotals[] = $date[$order];
-//            }
-//            if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
-//                $controlShitActives[$date[$order]][] = $new['id'];
-//                $arrayResults[$date[$order]][$new['country']]['actives'] += 1;
-//                $arrayTotals[$date[$order]]['actives'] += 1;
-//                $total['actives'] += 1;
-//            }
-//
-//        }
-//
-//        return;
-//    }
+    public function getActivities($data)
+    {
+        $arrayResults = [];
+        $arrayResultsMonths = [];
+        $arrayTotals = [];
+        $total = [];
+        $controlShitActives = [];
+        $countActives = 0;
+        //Ordenar por fecha, y dentro por pais, y meter todas las columnas
+        $newRegistrations = $this->reportsRepository->getNewRegistrations($data);
+        $depositors0 = $this->reportsRepository->getDepositorsD0($data);
+        $depositors1 = $this->reportsRepository->getDepositorsD1($data);
+        $depositors2 = $this->reportsRepository->getDepositorsD2($data);
+        $actives = $this->reportsRepository->getActives($data);
+        $justInactives = $this->reportsRepository->getJustInactives($data);
+        $inactives = $this->reportsRepository->getInactives($data);
+        $dormant = $this->reportsRepository->getDormant($data);
+        $reactivatedJI = $this->reportsRepository->getReactivatedJI($data);
+        $reactivatedIN = $this->reportsRepository->getReactivatedIN($data);
+        $reactivatedDOR = $this->reportsRepository->getReactivatedDOR($data);
+        if ($data['groupBy'] == 'day') {
+            $order = 2;
+        } elseif ($data['groupBy'] == 'month') {
+            $order = 1;
+        } else {
+            $order = 0;
+        }
+
+        foreach ($newRegistrations as $new) {
+            $date = explode('-', $new['created']);
+            if ($order == 2) {
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
+            }
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+                $arrayTotals[] = $date[$order];
+            }
+            $arrayResults[$date[$order]][$new['country']]['newRegistrations'] += (int)[$new['id']];
+            $arrayTotals[$date[$order]]['newRegistrations'] += (int)[$new['id']];
+            $total['newRegistrations'] += (int)[$new['id']];
+        }
+
+        foreach ($depositors0 as $new) {
+            $date = explode('-', $new['created']);
+            if ($order == 2) {
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
+            }
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+                $arrayTotals[] = $date[$order];
+            }
+            $arrayResults[$date[$order]][$new['country']]['depositorsD0'] += (int)[$new['id']];
+            $arrayTotals[$date[$order]]['depositorsD0'] += (int)[$new['id']];
+            $total['depositorsD0'] += (int)[$new['id']];
+        }
+
+        foreach ($depositors1 as $new) {
+            $date = explode('-', $new['created']);
+            if ($order == 2) {
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
+            }
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+                $arrayTotals[] = $date[$order];
+            }
+            $arrayResults[$date[$order]][$new['country']]['depositorsD1'] += (int)[$new['id']];
+            $arrayTotals[$date[$order]]['depositorsD1'] += (int)[$new['id']];
+            $total['depositorsD1'] += (int)[$new['id']];
+        }
+
+        foreach ($depositors2 as $new) {
+            $date = explode('-', $new['created']);
+            if ($order == 2) {
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
+            }
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+                $arrayTotals[] = $date[$order];
+            }
+            $arrayResults[$date[$order]][$new['country']]['depositorsD2'] += (int)[$new['id']];
+            $arrayTotals[$date[$order]]['depositorsD2'] += (int)[$new['id']];
+            $total['depositorsD2'] += (int)[$new['id']];
+        }
+
+        foreach ($actives as $new) {
+            $countActives++;
+            $date = explode('-', $new['created']);
+            if ($order == 2) {
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
+            }
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+                $arrayTotals[] = $date[$order];
+            }
+            if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
+                $controlShitActives[$date[$order]][] = $new['id'];
+                $arrayResults[$date[$order]][$new['country']]['actives'] += 1;
+                $arrayTotals[$date[$order]]['actives'] += 1;
+                $total['actives'] += 1;
+            }
+        }
+
+        foreach ($justInactives as $new) {
+            $countActives++;
+            $date = explode('-', $new['created']);
+            if ($order == 2) {
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
+            }
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+                $arrayTotals[] = $date[$order];
+            }
+            if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
+                $controlShitActives[$date[$order]][] = $new['id'];
+                $arrayResults[$date[$order]][$new['country']]['justInactive'] += 1;
+                $arrayTotals[$date[$order]]['justInactive'] += 1;
+                $total['justInactive'] += 1;
+            }
+        }
+
+        foreach ($inactives as $new) {
+            $countActives++;
+            $date = explode('-', $new['created']);
+            if ($order == 2) {
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
+            }
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+                $arrayTotals[] = $date[$order];
+            }
+            if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
+                $controlShitActives[$date[$order]][] = $new['id'];
+                $arrayResults[$date[$order]][$new['country']]['inactive'] += 1;
+                $arrayTotals[$date[$order]]['inactive'] += 1;
+                $total['inactive'] += 1;
+            }
+        }
+
+        foreach ($dormant as $new) {
+            $countActives++;
+            $date = explode('-', $new['created']);
+            if ($order == 2) {
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
+            }
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+                $arrayTotals[] = $date[$order];
+            }
+            if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
+                $controlShitActives[$date[$order]][] = $new['id'];
+                $arrayResults[$date[$order]][$new['country']]['dormant'] += 1;
+                $arrayTotals[$date[$order]]['dormant'] += 1;
+                $total['dormant'] += 1;
+            }
+        }
+
+        foreach ($reactivatedJI as $new) {
+            $countActives++;
+            $date = explode('-', $new['created']);
+            if ($order == 2) {
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
+            }
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+                $arrayTotals[] = $date[$order];
+            }
+            if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
+                $controlShitActives[$date[$order]][] = $new['id'];
+                $arrayResults[$date[$order]][$new['country']]['reactivatedJI'] += 1;
+                $arrayTotals[$date[$order]]['reactivatedJI'] += 1;
+                $total['reactivatedJI'] += 1;
+            }
+        }
+
+        foreach ($reactivatedIN as $new) {
+            $countActives++;
+            $date = explode('-', $new['created']);
+            if ($order == 2) {
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
+            }
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+                $arrayTotals[] = $date[$order];
+            }
+            if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
+                $controlShitActives[$date[$order]][] = $new['id'];
+                $arrayResults[$date[$order]][$new['country']]['reactivatedIN'] += 1;
+                $arrayTotals[$date[$order]]['reactivatedIN'] += 1;
+                $total['reactivatedIN'] += 1;
+            }
+        }
+
+        foreach ($reactivatedDOR as $new) {
+            $countActives++;
+            $date = explode('-', $new['created']);
+            if ($order == 2) {
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
+            }
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+                $arrayTotals[] = $date[$order];
+            }
+            if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
+                $controlShitActives[$date[$order]][] = $new['id'];
+                $arrayResults[$date[$order]][$new['country']]['reactivatedDOR'] += 1;
+                $arrayTotals[$date[$order]]['reactivatedDOR'] += 1;
+                $total['reactivatedDOR'] += 1;
+            }
+        }
+
+        return;
+    }
+
     public function getGeneralKPI($data)
     {
         $arrayResults = [];

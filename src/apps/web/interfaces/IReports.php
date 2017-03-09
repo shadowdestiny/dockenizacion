@@ -38,4 +38,13 @@ interface IReports
     public function getPlayerWinnings($data);
 //    public function getCustomerLifetimeValue($data);
     public function getNumbersPlayedByBetId($betId);
+    public function getDepositorsD0($data);
+    public function getDepositorsD1($data);
+    public function getDepositorsD2($data);
+    public function getJustInactives($data);
+    public function getInactives($data);
+    public function getDormant($data);
+    public function getReactivatedJI($data);
+    public function getReactivatedIN($data);
+    public function getReactivatedDOR($data);
 }
