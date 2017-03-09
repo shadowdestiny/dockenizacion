@@ -740,4 +740,36 @@ class ReportsRepository implements IReports
                 AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -6 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'", $rsm)->getResult();
 
     }
+
+    public function getActivesBeginning($data)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
+        return $this->entityManager
+            ->createNativeQuery(
+                "SELECT DISTINCT(t.user_id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateFrom'])) . "', INTERVAL -7 DAY)) AND '" . date('Y-m-d', strtotime($data['dateFrom'])) . "'
+                AND u.country IN ('" . implode("','", $data['countries']) . "')", $rsm)->getResult();
+
+    }
+
+    public function getActivesEnd($data)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate', 'created');
+        $rsm->addScalarResult('country', 'country');
+        return $this->entityManager
+            ->createNativeQuery(
+                "SELECT DISTINCT(t.user_id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -7 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND u.country IN ('" . implode("','", $data['countries']) . "')", $rsm)->getResult();
+
+    }
 }

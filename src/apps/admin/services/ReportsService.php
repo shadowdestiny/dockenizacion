@@ -467,6 +467,9 @@ class ReportsService
         $reactivatedJI = $this->reportsRepository->getReactivatedJI($data);
         $reactivatedIN = $this->reportsRepository->getReactivatedIN($data);
         $reactivatedDOR = $this->reportsRepository->getReactivatedDOR($data);
+        $activesBeginning = $this->reportsRepository->getActivesBeginning($data);
+        $activesEnd = $this->reportsRepository->getActivesEnd($data);
+        $churnRate = (($activesBeginning[0]['id'] - $activesEnd[0]['id']) / $activesBeginning[0]['id'] * 100 );
         if ($data['groupBy'] == 'day') {
             $order = 2;
         } elseif ($data['groupBy'] == 'month') {

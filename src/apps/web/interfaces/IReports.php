@@ -47,4 +47,6 @@ interface IReports
     public function getReactivatedJI($data);
     public function getReactivatedIN($data);
     public function getReactivatedDOR($data);
+    public function getActivesBeginning($data);
+    public function getActivesEnd($data);
 }
