@@ -576,7 +576,8 @@ class ReportsRepository implements IReports
                 LEFT JOIN users u ON u.id = t.user_id 
                 WHERE date BETWEEN created AND DATE(DATE_ADD(created, INTERVAL +1 DAY)) 
                 AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
-                AND u.country IN ('" . implode("','", $data['countries']) . "') 
+                AND u.country IN ('" . implode("','", $data['countries']) . "')
+                AND created IS NOT NULL
                 AND t.entity_type = 'deposit' GROUP BY user_id, displaydate, country", $rsm)->getResult();
     }
 
@@ -594,7 +595,8 @@ class ReportsRepository implements IReports
                 LEFT JOIN users u ON u.id = t.user_id 
                 WHERE date BETWEEN DATE(DATE_ADD(created, INTERVAL +1 DAY)) AND DATE(DATE_ADD(created, INTERVAL +2 DAY)) 
                 AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
-                AND u.country IN ('" . implode("','", $data['countries']) . "') 
+                AND u.country IN ('" . implode("','", $data['countries']) . "')
+                AND created IS NOT NULL
                 AND t.entity_type = 'deposit' GROUP BY user_id, displaydate, country", $rsm)->getResult();
     }
 
@@ -612,7 +614,8 @@ class ReportsRepository implements IReports
                 LEFT JOIN users u ON u.id = t.user_id 
                 WHERE date BETWEEN DATE(DATE_ADD(created, INTERVAL +2 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
-                AND u.country IN ('" . implode("','", $data['countries']) . "') 
+                AND u.country IN ('" . implode("','", $data['countries']) . "')
+                AND created IS NOT NULL
                 AND t.entity_type = 'deposit' GROUP BY user_id, displaydate, country", $rsm)->getResult();
     }
 
@@ -625,13 +628,16 @@ class ReportsRepository implements IReports
         return $this->entityManager
             ->createNativeQuery(
                 "SELECT COUNT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
-                FROM users
-                LEFT JOIN transactions t
-                WHERE u.id NOT IN (SELECT DISTINCT(t.user_id) as id
+                FROM users u
+                LEFT JOIN transactions t ON t.user_id = u.id
+                WHERE created IS NOT NULL
+                AND u.id NOT IN (SELECT DISTINCT(t.user_id) as id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -14 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -7 DAY))
-                AND u.country IN ('" . implode("','", $data['countries']) . "'))", $rsm)->getResult();
+                AND created IS NOT NULL
+                AND u.country IN ('" . implode("','", $data['countries']) . "'))
+                AND created IS NOT NULL", $rsm)->getResult();
 
     }
 
@@ -644,13 +650,16 @@ class ReportsRepository implements IReports
         return $this->entityManager
             ->createNativeQuery(
                 "SELECT COUNT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
-                FROM users
-                LEFT JOIN transactions t
-                WHERE u.id NOT IN (SELECT DISTINCT(t.user_id) as id
+                FROM users u
+                LEFT JOIN transactions t ON t.user_id = u.id
+                WHERE created IS NOT NULL
+                AND u.id NOT IN (SELECT DISTINCT(t.user_id) as id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -30 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -15 DAY))
-                AND u.country IN ('" . implode("','", $data['countries']) . "'))", $rsm)->getResult();
+                AND created IS NOT NULL
+                AND u.country IN ('" . implode("','", $data['countries']) . "')
+                AND created IS NOT NULL)", $rsm)->getResult();
 
     }
 
@@ -663,13 +672,16 @@ class ReportsRepository implements IReports
         return $this->entityManager
             ->createNativeQuery(
                 "SELECT COUNT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
-                FROM users
-                LEFT JOIN transactions t
-                WHERE u.id NOT IN (SELECT DISTINCT(t.user_id) as id
+                FROM users u
+                LEFT JOIN transactions t ON t.user_id = u.id
+                WHERE created IS NOT NULL
+                AND u.id NOT IN (SELECT DISTINCT(t.user_id) as id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN '2016-01-01' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -30 DAY))
-                AND u.country IN ('" . implode("','", $data['countries']) . "'))", $rsm)->getResult();
+                AND created IS NOT NULL
+                AND u.country IN ('" . implode("','", $data['countries']) . "')
+                AND created IS NOT NULL)", $rsm)->getResult();
     }
 
     public function getReactivatedJI($data)
@@ -681,17 +693,20 @@ class ReportsRepository implements IReports
         return $this->entityManager
             ->createNativeQuery(
                 "SELECT COUNT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
-                FROM users
-                LEFT JOIN transactions t 
+                FROM users u
+                LEFT JOIN transactions t ON t.user_id = u.id
                 WHERE user_id NOT IN(SELECT u.id
-                FROM users
-                LEFT JOIN transactions t
-                WHERE id IN (SELECT DISTINCT(t.user_id) as id
+                FROM users u
+                LEFT JOIN transactions t ON t.user_id = u.id
+                WHERE created IS NOT NULL
+                AND u.id IN (SELECT DISTINCT(t.user_id) as id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -14 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -7 DAY))
                 AND u.country IN ('" . implode("','", $data['countries']) . "')))
-                AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -6 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'", $rsm)->getResult();
+                AND created IS NOT NULL
+                AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -6 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND created IS NOT NULL", $rsm)->getResult();
 
     }
 
@@ -704,16 +719,18 @@ class ReportsRepository implements IReports
         return $this->entityManager
             ->createNativeQuery(
                 "SELECT COUNT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
-                FROM users
-                LEFT JOIN transactions t 
+                FROM users u
+                LEFT JOIN transactions t ON t.user_id = u.id
                 WHERE user_id NOT IN(SELECT u.id
-                FROM users
-                LEFT JOIN transactions t
-                WHERE id IN (SELECT DISTINCT(t.user_id) as id
+                FROM users u
+                LEFT JOIN transactions t ON t.user_id = u.id
+                WHERE created IS NOT NULL
+                AND u.id IN (SELECT DISTINCT(t.user_id) as id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -30 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -15 DAY))
                 AND u.country IN ('" . implode("','", $data['countries']) . "')))
+                AND created IS NOT NULL
                 AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -6 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'", $rsm)->getResult();
 
     }
@@ -727,16 +744,18 @@ class ReportsRepository implements IReports
         return $this->entityManager
             ->createNativeQuery(
                 "SELECT COUNT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
-                FROM users
-                LEFT JOIN transactions t 
+                FROM users u
+                LEFT JOIN transactions t ON t.user_id = u.id
                 WHERE user_id NOT IN(SELECT u.id
-                FROM users
-                LEFT JOIN transactions t
-                WHERE id IN (SELECT DISTINCT(t.user_id) as id
+                FROM users u
+                LEFT JOIN transactions t ON t.user_id = u.id
+                WHERE created IS NOT NULL
+                AND u.id IN (SELECT DISTINCT(t.user_id) as id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN '2016-01-01' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -30 DAY))
                 AND u.country IN ('" . implode("','", $data['countries']) . "')))
+                AND created IS NOT NULL
                 AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -6 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'", $rsm)->getResult();
 
     }

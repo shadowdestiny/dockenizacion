@@ -492,6 +492,7 @@ class ReportsService
             $total['newRegistrations'] += (int)[$new['id']];
         }
 
+
         foreach ($depositors0 as $new) {
             $date = explode('-', $new['created']);
             if ($order == 2) {
@@ -552,6 +553,7 @@ class ReportsService
             }
         }
 
+
         foreach ($justInactives as $new) {
             $countActives++;
             $date = explode('-', $new['created']);
@@ -587,7 +589,7 @@ class ReportsService
                 $total['inactive'] += 1;
             }
         }
-
+        
         foreach ($dormant as $new) {
             $countActives++;
             $date = explode('-', $new['created']);
@@ -659,8 +661,7 @@ class ReportsService
                 $total['reactivatedDOR'] += 1;
             }
         }
-
-        return [$arrayResults, $arrayResultsMonths, $arrayTotals, $total, $countActives];    
+        return [$arrayResults, $arrayResultsMonths, $arrayTotals, $total, $countActives];
     }
 
     public function getGeneralKPI($data)
