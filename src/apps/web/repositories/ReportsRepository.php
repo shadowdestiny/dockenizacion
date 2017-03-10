@@ -678,7 +678,7 @@ class ReportsRepository implements IReports
                 AND u.id NOT IN (SELECT DISTINCT(t.user_id) as id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date BETWEEN '2016-01-01' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -30 DAY))
+                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -45 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -30 DAY))
                 AND created IS NOT NULL
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 AND created IS NOT NULL)", $rsm)->getResult();
@@ -753,7 +753,7 @@ class ReportsRepository implements IReports
                 AND u.id IN (SELECT DISTINCT(t.user_id) as id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date BETWEEN '2016-01-01' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -30 DAY))
+                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -45 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -30 DAY))
                 AND u.country IN ('" . implode("','", $data['countries']) . "')))
                 AND created IS NOT NULL
                 AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -6 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'", $rsm)->getResult();
