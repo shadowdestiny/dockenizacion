@@ -11,7 +11,6 @@
     });
 </script>
 {#{% if playersList is not empty %}#}
-{{ dump(date) }}
 <table class="table-program" width="100%" id="tableExport">
     &nbsp; <input type="button" value="Download" id="export" class="btn btn-primary" />
     <thead>
@@ -50,7 +49,6 @@
         <td>{% if arrayTotals[date]['churn'] is defined %}{{ arrayTotals[date]['churn'] /100 }}{% else %}0{% endif %}</td>
         {% for key, kpi in generalKPIs[date] %}
             <tr>
-                {{ dump(generalKPIs) }}
                 <td class="values">{{ countryList[key] }}</td>
                 <td class="values">{% if kpi['newRegistrations'] is defined %}{{ kpi['newRegistrations'] }}{% else %}0{% endif %}</td>
                 <td class="values">{% if kpi['depositorsD0'] is defined %}{{ kpi['depositorsD0'] }}{% else %}0{% endif %}</td>
