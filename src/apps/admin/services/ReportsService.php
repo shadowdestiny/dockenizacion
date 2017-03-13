@@ -608,59 +608,60 @@ class ReportsService
             }
         }
 
-//        foreach ($reactivatedJI as $new) {
-//            $countActives++;
-//            $date = explode('-', $new['created']);
-//            if ($order == 2) {
-//                $date[$order] = $date[$order] . " - " . $date[$order - 1];
-//            }
-//            if (!in_array($date[$order], $arrayResultsMonths)) {
-//                $arrayResultsMonths[] = $date[$order];
-//                $arrayTotals[] = $date[$order];
-//            }
-//            if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
-//                $controlShitActives[$date[$order]][] = $new['id'];
-//                $arrayResults[$date[$order]][$new['country']]['reactivatedJI'] += 1;
-//                $arrayTotals[$date[$order]]['reactivatedJI'] += 1;
-//                $total['reactivatedJI'] += 1;
-//            }
-//        }
-//
-//        foreach ($reactivatedIN as $new) {
-//            $countActives++;
-//            $date = explode('-', $new['created']);
-//            if ($order == 2) {
-//                $date[$order] = $date[$order] . " - " . $date[$order - 1];
-//            }
-//            if (!in_array($date[$order], $arrayResultsMonths)) {
-//                $arrayResultsMonths[] = $date[$order];
-//                $arrayTotals[] = $date[$order];
-//            }
-//            if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
-//                $controlShitActives[$date[$order]][] = $new['id'];
-//                $arrayResults[$date[$order]][$new['country']]['reactivatedIN'] += 1;
-//                $arrayTotals[$date[$order]]['reactivatedIN'] += 1;
-//                $total['reactivatedIN'] += 1;
-//            }
-//        }
-//
-//        foreach ($reactivatedDOR as $new) {
-//            $countActives++;
-//            $date = explode('-', $new['created']);
-//            if ($order == 2) {
-//                $date[$order] = $date[$order] . " - " . $date[$order - 1];
-//            }
-//            if (!in_array($date[$order], $arrayResultsMonths)) {
-//                $arrayResultsMonths[] = $date[$order];
-//                $arrayTotals[] = $date[$order];
-//            }
-//            if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
-//                $controlShitActives[$date[$order]][] = $new['id'];
-//                $arrayResults[$date[$order]][$new['country']]['reactivatedDOR'] += 1;
-//                $arrayTotals[$date[$order]]['reactivatedDOR'] += 1;
-//                $total['reactivatedDOR'] += 1;
-//            }
-//        }
+        foreach ($reactivatedJI as $new) {
+            $countActives++;
+            $date = explode('-', $new['created']);
+            if ($order == 2) {
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
+            }
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+                $arrayTotals[] = $date[$order];
+            }
+            if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
+                $controlShitActives[$date[$order]][] = $new['id'];
+                $arrayResults[$date[$order]][$new['country']]['reactivatedJI'] += 1;
+                $arrayTotals[$date[$order]]['reactivatedJI'] += 1;
+                $total['reactivatedJI'] += 1;
+            }
+        }
+
+        foreach ($reactivatedIN as $new) {
+            $countActives++;
+            $date = explode('-', $new['created']);
+            if ($order == 2) {
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
+            }
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+                $arrayTotals[] = $date[$order];
+            }
+            if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
+                $controlShitActives[$date[$order]][] = $new['id'];
+                $arrayResults[$date[$order]][$new['country']]['reactivatedIN'] += 1;
+                $arrayTotals[$date[$order]]['reactivatedIN'] += 1;
+                $total['reactivatedIN'] += 1;
+            }
+        }
+
+        foreach ($reactivatedDOR as $new) {
+            $countActives++;
+            $date = explode('-', $new['created']);
+            if ($order == 2) {
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
+            }
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+                $arrayTotals[] = $date[$order];
+            }
+            if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
+                $controlShitActives[$date[$order]][] = $new['id'];
+                $arrayResults[$date[$order]][$new['country']]['reactivatedDOR'] += 1;
+                $arrayTotals[$date[$order]]['reactivatedDOR'] += 1;
+                $total['reactivatedDOR'] += 1;
+            }
+        }
+        
         return [$arrayResults, $arrayResultsMonths, $arrayTotals, $total, $countActives];
     }
 

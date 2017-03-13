@@ -695,18 +695,20 @@ class ReportsRepository implements IReports
                 "SELECT COUNT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
                 FROM users u
                 LEFT JOIN transactions t ON t.user_id = u.id
-                WHERE user_id NOT IN(SELECT u.id
+                WHERE user_id NOT IN(SELECT u.id as id
                 FROM users u
                 LEFT JOIN transactions t ON t.user_id = u.id
                 WHERE created IS NOT NULL
-                AND u.id IN (SELECT DISTINCT(t.user_id) as id
+                AND u.id NOT IN (SELECT DISTINCT(t.user_id) as id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -14 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -7 DAY))
-                AND u.country IN ('" . implode("','", $data['countries']) . "')))
                 AND created IS NOT NULL
+                AND u.country IN ('" . implode("','", $data['countries']) . "'))
+                AND created IS NOT NULL)
                 AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -6 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
-                AND created IS NOT NULL", $rsm)->getResult();
+                AND created IS NOT NULL
+                GROUP BY country", $rsm)->getResult();
 
     }
 
@@ -721,17 +723,20 @@ class ReportsRepository implements IReports
                 "SELECT COUNT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
                 FROM users u
                 LEFT JOIN transactions t ON t.user_id = u.id
-                WHERE user_id NOT IN(SELECT u.id
+                WHERE user_id NOT IN(SELECT u.id as id
                 FROM users u
                 LEFT JOIN transactions t ON t.user_id = u.id
                 WHERE created IS NOT NULL
-                AND u.id IN (SELECT DISTINCT(t.user_id) as id
+                AND u.id NOT IN (SELECT DISTINCT(t.user_id) as id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -30 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -15 DAY))
-                AND u.country IN ('" . implode("','", $data['countries']) . "')))
                 AND created IS NOT NULL
-                AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -6 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'", $rsm)->getResult();
+                AND u.country IN ('" . implode("','", $data['countries']) . "'))
+                AND created IS NOT NULL)
+                AND created IS NOT NULL
+                AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -6 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                GROUP BY country", $rsm)->getResult();
 
     }
 
@@ -746,17 +751,20 @@ class ReportsRepository implements IReports
                 "SELECT COUNT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
                 FROM users u
                 LEFT JOIN transactions t ON t.user_id = u.id
-                WHERE user_id NOT IN(SELECT u.id
+                WHERE user_id NOT IN(SELECT u.id as id
                 FROM users u
                 LEFT JOIN transactions t ON t.user_id = u.id
                 WHERE created IS NOT NULL
-                AND u.id IN (SELECT DISTINCT(t.user_id) as id
+                AND u.id NOT IN (SELECT DISTINCT(t.user_id) as id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -45 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -30 DAY))
-                AND u.country IN ('" . implode("','", $data['countries']) . "')))
                 AND created IS NOT NULL
-                AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -6 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'", $rsm)->getResult();
+                AND u.country IN ('" . implode("','", $data['countries']) . "'))
+                AND created IS NOT NULL)
+                AND created IS NOT NULL
+                AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -6 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                GROUP BY country", $rsm)->getResult();
 
     }
 
