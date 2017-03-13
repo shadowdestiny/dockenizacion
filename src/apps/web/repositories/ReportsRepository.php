@@ -387,7 +387,7 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
-                "SELECT SUM(t.wallet_after_uploaded_amount - t.wallet_before_uploaded_amount) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, u.country
+                "SELECT SUM((t.wallet_after_uploaded_amount - t.wallet_before_uploaded_amount) + (t.wallet_after_subscription_amount - t.wallet_before_subscription_amount) ) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, u.country
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'

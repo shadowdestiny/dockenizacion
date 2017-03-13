@@ -470,6 +470,7 @@ class ReportsService
         $activesBeginning = $this->reportsRepository->getActivesBeginning($data);
         $activesEnd = $this->reportsRepository->getActivesEnd($data);
         $churnRate = (($activesBeginning[0]['id'] - $activesEnd[0]['id']) / $activesBeginning[0]['id'] * 100 );
+
         if ($data['groupBy'] == 'day') {
             $order = 2;
         } elseif ($data['groupBy'] == 'month') {
@@ -661,7 +662,25 @@ class ReportsService
                 $total['reactivatedDOR'] += 1;
             }
         }
-        
+
+        foreach ($reactivatedDOR as $new) {
+            $countActives++;
+            $date = explode('-', $new['created']);
+            if ($order == 2) {
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
+            }
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+                $arrayTotals[] = $date[$order];
+            }
+            if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
+                $controlShitActives[$date[$order]][] = $new['id'];
+                $arrayResults[$date[$order]][$new['country']]['reactivatedDOR'] += 1;
+                $arrayTotals[$date[$order]]['reactivatedDOR'] += 1;
+                $total['reactivatedDOR'] += 1;
+            }
+        }
+
         return [$arrayResults, $arrayResultsMonths, $arrayTotals, $total, $countActives];
     }
 
@@ -673,6 +692,7 @@ class ReportsService
         $total = [];
         $controlShitActives = [];
         $countActives = 0;
+        $anotherCountActives = [];
         //Ordenar por fecha, y dentro por pais, y meter todas las columnas
         $newRegistrations = $this->reportsRepository->getNewRegistrations($data);
         $newDepositors = $this->reportsRepository->getNewDepositors($data);
@@ -734,7 +754,12 @@ class ReportsService
         }
 
         foreach ($actives as $new) {
-            $countActives++;
+
+            if (!in_array($new['id'], $anotherCountActives)) {
+                $anotherCountActives[] = $new['id'];
+                $countActives++;
+            }
+
             $date = explode('-', $new['created']);
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
