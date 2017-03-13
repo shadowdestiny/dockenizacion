@@ -49,4 +49,5 @@ interface IReports
     public function getReactivatedDOR($data);
     public function getActivesBeginning($data);
     public function getActivesEnd($data);
+    public function getGrossGamingRevenue($data);
 }

@@ -710,9 +710,9 @@ class ReportsService
         $depositAmount = $this->reportsRepository->getDepositAmount($data);
         $numberWithdrawals = $this->reportsRepository->getNumberWithdrawals($data);
         $withdrawalAmount = $this->reportsRepository->getWithdrawalAmount($data);
-//        $this->reportsRepository->getGrossGamingRevenue($data);
+        $grossGaming = $this->reportsRepository->getGrossGamingRevenue($data);
+
 //        $this->reportsRepository->getNetGamingRevenue($data);
-//        $this->reportsRepository->getAverageRevenuePerUser($data);
 //        $this->reportsRepository->getBonusCost($data);
         $playerWinnings = $this->reportsRepository->getPlayerWinnings($data);
 //        $this->reportsRepository->getCustomerLifetimeValue($data);
@@ -873,6 +873,20 @@ class ReportsService
             $arrayResults[$date[$order]][$new['country']]['playerWinnings'] += (int)$new['id'];
             $arrayTotals[$date[$order]]['playerWinnings'] += (int)$new['id'];
             $total['playerWinnings'] += (int)$new['id'];
+        }
+
+        foreach ($grossGaming as $new) {
+            $date = explode('-', $new['created']);
+            if ($order == 2) {
+                $date[$order] = $date[$order] . " - " . $date[$order - 1];
+            }
+            if (!in_array($date[$order], $arrayResultsMonths)) {
+                $arrayResultsMonths[] = $date[$order];
+                $arrayTotals[] = $date[$order];
+            }
+            $arrayResults[$date[$order]][$new['country']]['grossGaming'] += (int)$new['id'];
+            $arrayTotals[$date[$order]]['grossGaming'] += (int)$new['id'];
+            $total['grossGaming'] += (int)$new['id'];
         }
 
         return [$arrayResults, $arrayResultsMonths, $arrayTotals, $total, $countActives];

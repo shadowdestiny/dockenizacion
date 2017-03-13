@@ -27,6 +27,8 @@
         <th>Number Withdrawals</th>
         <th>Withdrawal Amount</th>
         <th>Player Winnings</th>
+        <th>Gross Gaming</th>
+        <th>ARPU</th>
     </tr>
     </thead>
     <tbody>
@@ -44,6 +46,8 @@
         <td>{% if arrayTotals[date]['numberWithdrawals'] is defined %}{{ arrayTotals[date]['numberWithdrawals'] }}{% else %}0{% endif %}</td>
         <td>{% if arrayTotals[date]['withdrawalAmount'] is defined %}{{ arrayTotals[date]['withdrawalAmount'] /100 }}{% else %}0{% endif %}</td>
         <td>{% if arrayTotals[date]['playerWinnings'] is defined %}{{ arrayTotals[date]['playerWinnings'] / 100 }}{% else %}0{% endif %}</td>
+        <td>{% if arrayTotals[date]['grossGaming'] is defined %}{{ arrayTotals[date]['grossGaming']}}{% else %}0{% endif %}</td>
+        <td>{% if arrayTotals[date]['grossGaming'] is defined and arrayTotals[date]['actives'] is defined %}{{ arrayTotals[date]['grossGaming'] / arrayTotals[date]['actives']}}{% else %}0{% endif %}</td>
         {% for key, kpi in generalKPIs[date] %}
             <tr>
                 <td class="values">{{ countryList[key] }}</td>
@@ -58,6 +62,8 @@
                 <td class="values">{% if kpi['numberWithdrawals'] is defined %}{{ kpi['numberWithdrawals'] }}{% else %}0{% endif %}</td>
                 <td class="values">{% if kpi['withdrawalAmount'] is defined %}{{ kpi['withdrawalAmount'] / 100 }}{% else %}0{% endif %}</td>
                 <td class="values">{% if kpi['playerWinnings'] is defined %}{{ kpi['playerWinnings'] / 100 }}{% else %}0{% endif %}</td>
+                <td class="values">{% if kpi['grossGaming'] is defined %}{{ kpi['grossGaming'] }}{% else %}0{% endif %}</td>
+                <td class="values">{% if kpi['grossGaming'] is defined and kpi['actives'] is defined%}{{ kpi['grossGaming'] / kpi['actives']}}{% else %}0{% endif %}</td>
             </tr>
         {% endfor %}
         </tr>
@@ -75,6 +81,8 @@
         <td>{% if total['numberWithdrawals'] is defined %}{{ total['numberWithdrawals'] }}{% else %}0{% endif %}</td>
         <td>{% if total['withdrawalAmount'] is defined %}{{ total['withdrawalAmount'] / 100 }}{% else %}0{% endif %}</td>
         <td>{% if total['playerWinnings'] is defined %}{{ total['playerWinnings'] / 100 }}{% else %}0{% endif %}</td>
+        <td>{% if total['grossGaming'] is defined %}{{ total['grossGaming'] }}{% else %}0{% endif %}</td>
+        <td>{% if total['grossGaming'] is defined and total['actives'] is defined%}{{ total['grossGaming'] / total['actives'] }}{% else %}0{% endif %}</td>
 
 
     </tr>

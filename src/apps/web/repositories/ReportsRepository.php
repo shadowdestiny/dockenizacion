@@ -336,7 +336,7 @@ class ReportsRepository implements IReports
                 WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 AND created IS NOT NULL
-                group by displaydate, country", $rsm)->getResult();
+                GROUP BY displaydate, country", $rsm)->getResult();
 
     }
 
@@ -799,4 +799,26 @@ class ReportsRepository implements IReports
                 AND u.country IN ('" . implode("','", $data['countries']) . "')", $rsm)->getResult();
 
     }
+
+    public function getGrossGamingRevenue($data)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('displaydate', 'displaydate');
+        $rsm->addScalarResult('country', 'country');
+        return $this->entityManager
+            ->createNativeQuery("SELECT SUM(CASE 
+				WHEN entity_type = 'automatic_purchase' THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - 250)
+                WHEN entity_type = 'ticket_purchase' THEN (SUBSTRING(data, 3, 1) * 0.50) 
+			END) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, u.country
+                                FROM transactions t
+                                LEFT JOIN users u ON t.user_id = u.id
+                                WHERE entity_type in ('ticket_purchase', 'automatic_purchase')
+                                AND date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                                AND created IS NOT NULL
+                                AND u.country IN ('" . implode("','", $data['countries']) . "')
+                group by displaydate, country",
+                $rsm)->getResult();
+    }
+
 }
