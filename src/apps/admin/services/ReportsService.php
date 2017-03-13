@@ -350,7 +350,7 @@ class ReportsService
                     break;
                 case "amountDeposited":
                     $selectPlayersReports .= ' SUM(CASE WHEN t.entity_type = "deposit" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN t.wallet_after_uploaded_amount - t.wallet_before_uploaded_amount
-                                                        WHEN t.entity_type = "subscription_purchase" THEN t.wallet_after_subscription_amount - t.wallet_before_subscription_amount
+                                                        WHEN t.entity_type = "subscription_purchase" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN t.wallet_after_subscription_amount - t.wallet_before_subscription_amount
                                                         ELSE 0 END) as amountDeposited,';
                     break;
                 case "numberWithdrawals":
