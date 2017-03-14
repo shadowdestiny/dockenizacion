@@ -38,7 +38,6 @@ class ReportsRepository implements IReports
                 JOIN play_configs p on p.id=b.playConfig_id
                 GROUP BY MONTH(d.draw_date)", $rsm)
             ->getResult();
-//            var_dump($result);die();
         return $result;
 
     }
@@ -817,7 +816,7 @@ class ReportsRepository implements IReports
                                 AND date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                                 AND created IS NOT NULL
                                 AND u.country IN ('" . implode("','", $data['countries']) . "')
-                group by country",
+                group by displaydate, country",
                 $rsm)->getResult();
     }
 
