@@ -804,7 +804,7 @@ class ReportsRepository implements IReports
     {
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('id', 'id');
-        $rsm->addScalarResult('displaydate', 'displaydate');
+        $rsm->addScalarResult('displaydate', 'created');
         $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery("SELECT SUM(CASE 
