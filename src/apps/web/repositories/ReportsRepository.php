@@ -817,7 +817,7 @@ class ReportsRepository implements IReports
                                 AND date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                                 AND created IS NOT NULL
                                 AND u.country IN ('" . implode("','", $data['countries']) . "')
-                group by displaydate, country",
+                group by country",
                 $rsm)->getResult();
     }
 
