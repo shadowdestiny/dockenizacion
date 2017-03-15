@@ -332,7 +332,7 @@ class ReportsRepository implements IReports
                             END) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, u.country
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL +1 DAY))
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 AND created IS NOT NULL
                 GROUP BY displaydate, country", $rsm)->getResult();
@@ -354,7 +354,7 @@ class ReportsRepository implements IReports
                             END) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, u.country
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL +1 DAY))
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 AND created IS NOT NULL
                 GROUP BY displaydate, country", $rsm)->getResult();
@@ -371,7 +371,7 @@ class ReportsRepository implements IReports
                 "SELECT COUNT(t.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, u.country
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL +1 DAY))
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 AND t.entity_type IN ('deposit', 'manual_deposit', 'subscription_purchase')
                 AND created IS NOT NULL
@@ -389,7 +389,7 @@ class ReportsRepository implements IReports
                 "SELECT SUM((t.wallet_after_uploaded_amount - t.wallet_before_uploaded_amount) + (t.wallet_after_subscription_amount - t.wallet_before_subscription_amount) ) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, u.country
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL +1 DAY))
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 AND t.entity_type IN ('deposit', 'manual_deposit', 'subscription_purchase')
                 AND created IS NOT NULL
@@ -408,7 +408,7 @@ class ReportsRepository implements IReports
                 "SELECT COUNT(t.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, u.country
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL +1 DAY))
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 AND t.entity_type IN ('winnings_withdraw')
                 AND created IS NOT NULL
@@ -427,7 +427,7 @@ class ReportsRepository implements IReports
                 "SELECT SUM(t.wallet_after_uploaded_amount - t.wallet_before_uploaded_amount) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, u.country
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL +1 DAY))
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 AND t.entity_type IN ('winnings_withdraw')
                 AND created IS NOT NULL
@@ -466,7 +466,7 @@ class ReportsRepository implements IReports
                 "SELECT SUM(t.wallet_after_winnings_amount - t.wallet_before_winnings_amount) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, u.country
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL +1 DAY))
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 AND t.entity_type IN ('winnings_received')
                 AND created IS NOT NULL
@@ -813,7 +813,7 @@ class ReportsRepository implements IReports
                                 FROM transactions t
                                 LEFT JOIN users u ON t.user_id = u.id
                                 WHERE entity_type in ('ticket_purchase', 'automatic_purchase')
-                                AND date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                                AND date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND 'DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL +1 DAY))
                                 AND created IS NOT NULL
                                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 group by displaydate, country",
