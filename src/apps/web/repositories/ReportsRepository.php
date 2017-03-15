@@ -326,8 +326,8 @@ class ReportsRepository implements IReports
         return $this->entityManager
             ->createNativeQuery(
                 "SELECT SUM(CASE
-                            WHEN entity_type = 'ticket_purchase' AND t.date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "' THEN (SUBSTRING(data, 3, 1)) 
-                            WHEN entity_type = 'automatic_purchase' AND t.date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "' THEN 1
+                            WHEN entity_type = 'ticket_purchase' AND t.date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL +1 DAY)) THEN (SUBSTRING(data, 3, 1)) 
+                            WHEN entity_type = 'automatic_purchase' AND t.date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL +1 DAY)) THEN 1
                             ELSE 0
                             END) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, u.country
                 FROM transactions t
@@ -348,8 +348,8 @@ class ReportsRepository implements IReports
         return $this->entityManager
             ->createNativeQuery(
                 "SELECT sum(CASE
-                            WHEN entity_type = 'ticket_purchase' AND t.date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "' THEN (SUBSTRING(data, 3, 1) * 300) 
-                            WHEN entity_type = 'automatic_purchase' AND t.date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "' THEN (wallet_before_subscription_amount - wallet_after_subscription_amount)
+                            WHEN entity_type = 'ticket_purchase' AND t.date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL +1 DAY)) THEN (SUBSTRING(data, 3, 1) * 300) 
+                            WHEN entity_type = 'automatic_purchase' AND t.date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL +1 DAY)) THEN (wallet_before_subscription_amount - wallet_after_subscription_amount)
                             ELSE 0
                             END) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, u.country
                 FROM transactions t
@@ -808,7 +808,7 @@ class ReportsRepository implements IReports
         return $this->entityManager
             ->createNativeQuery("SELECT SUM(CASE 
 				WHEN entity_type = 'automatic_purchase' THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - 250)
-                WHEN entity_type = 'ticket_purchase' THEN (SUBSTRING(data, 3, 1) * 50) 
+                WHEN entity_type = 'ticket_purchase' THEN (wallet_before_uploaded_amount - wallet_after_uploaded_amount - 250)
 			END) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, u.country
                                 FROM transactions t
                                 LEFT JOIN users u ON t.user_id = u.id
