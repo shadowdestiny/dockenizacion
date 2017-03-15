@@ -805,7 +805,7 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('id', 'id');
         $rsm->addScalarResult('displaydate', 'created');
         $rsm->addScalarResult('country', 'country');
-        print_r($this->entityManager
+        return $this->entityManager
             ->createNativeQuery("SELECT SUM(CASE 
 				WHEN entity_type = 'automatic_purchase' THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - 250)
                 WHEN entity_type = 'ticket_purchase' AND pc.frequency < 24 THEN (SUBSTRING(data, 3, 1) * 50) 
@@ -817,7 +817,7 @@ class ReportsRepository implements IReports
                                 AND created IS NOT NULL
                                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 group by displaydate, country",
-                $rsm));die();
+                $rsm)->getResult();
     }
 
 }
