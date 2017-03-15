@@ -809,7 +809,7 @@ class ReportsRepository implements IReports
             ->createNativeQuery("SELECT SUM(CASE 
 				WHEN entity_type = 'automatic_purchase' THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - 250)
                 WHEN entity_type = 'ticket_purchase' AND pc.frequency < 24 THEN (SUBSTRING(data, 3, 1) * 50) 
-                WHEN entity_type = 'ticket_purchase' AND pc.frequency = 24 THEN (SUBSTRING(data, 3, 1) * 49.375) 
+                WHEN entity_type = 'ticket_purchase' AND pc.frequency = 24 THEN (SUBSTRING(data, 3, 1) * 49.38) 
                 WHEN entity_type = 'ticket_purchase' AND pc.frequency > 24 THEN (SUBSTRING(data, 3, 1) * 47.75) 
 			END) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, u.country
                                 FROM transactions t
