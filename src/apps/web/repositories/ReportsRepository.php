@@ -808,7 +808,7 @@ class ReportsRepository implements IReports
         return $this->entityManager
             ->createNativeQuery("SELECT SUM(CASE 
 				WHEN entity_type = 'automatic_purchase' THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - 250)
-                WHEN entity_type = 'ticket_purchase' AND (wallet_before_subscription_amount - wallet_after_subscription_amount) > 0 THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - 250)
+                WHEN entity_type = 'ticket_purchase' AND (wallet_before_subscription_amount - wallet_after_subscription_amount) > 0 THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - ((SUBSTRING(data, 3, 1) * 250))
                 WHEN entity_type = 'ticket_purchase' AND (wallet_before_subscription_amount - wallet_after_subscription_amount) <= 0 THEN (SUBSTRING(data, 3, 1) * 50)
 			END) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, u.country
                                 FROM transactions t
