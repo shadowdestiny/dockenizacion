@@ -805,22 +805,19 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('id', 'id');
         $rsm->addScalarResult('displaydate', 'created');
         $rsm->addScalarResult('country', 'country');
-        return $this->entityManager
+        print_r($this->entityManager
             ->createNativeQuery("SELECT SUM(CASE 
 				WHEN entity_type = 'automatic_purchase' THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - 250)
                 WHEN entity_type = 'ticket_purchase' AND pc.frequency < 24 THEN (SUBSTRING(data, 3, 1) * 50) 
-                WHEN entity_type = 'ticket_purchase' AND pc.frequency = 24 THEN (SUBSTRING(data, 3, 1) * 49) 
-                WHEN entity_type = 'ticket_purchase' AND pc.frequency > 24 THEN (SUBSTRING(data, 3, 1) * 47) 
 			END) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, u.country
                                 FROM transactions t
                                 LEFT JOIN users u ON t.user_id = u.id
-                                LEFT JOIN play_configs pc ON t.user_id = pc.user_id
                                 WHERE entity_type in ('ticket_purchase', 'automatic_purchase')
                                 AND date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL +1 DAY))
                                 AND created IS NOT NULL
                                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 group by displaydate, country",
-                $rsm)->getResult();
+                $rsm));die();
     }
 
 }
