@@ -813,7 +813,7 @@ class ReportsRepository implements IReports
                                 FROM transactions t
                                 LEFT JOIN users u ON t.user_id = u.id
                                 WHERE entity_type in ('ticket_purchase', 'automatic_purchase')
-                                AND date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND 'DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL +1 DAY))
+                                AND date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL +1 DAY))
                                 AND created IS NOT NULL
                                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 group by displaydate, country",
