@@ -374,7 +374,7 @@ class ReportsRepository implements IReports
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL +1 DAY))
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
-                AND t.entity_type IN ('deposit', 'manual_deposit', 'subscription_purchase')
+                AND t.entity_type IN ('deposit', 'subscription_purchase')
                 AND created IS NOT NULL
                 GROUP BY displaydate, country", $rsm)->getResult();
     }
@@ -392,7 +392,7 @@ class ReportsRepository implements IReports
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL +1 DAY))
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
-                AND t.entity_type IN ('deposit', 'manual_deposit', 'subscription_purchase')
+                AND t.entity_type IN ('deposit', 'subscription_purchase')
                 AND created IS NOT NULL
                 GROUP BY displaydate, country", $rsm)->getResult();
 
