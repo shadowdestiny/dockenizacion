@@ -373,7 +373,7 @@ class ReportsService
                     break;
                 case "numberBets":
                     $selectPlayersReports .= ' sum(CASE
-                                        WHEN entity_type = "ticket_purchase" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (SUBSTRING(t.data, 3, 1))
+                                        WHEN entity_type = "ticket_purchase" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(t.data, "#", 2), "#", -1))
                                         WHEN entity_type = "automatic_purchase" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN 1
                                         ELSE 0
                                         END
@@ -381,7 +381,7 @@ class ReportsService
                     break;
                 case "wagering":
                     $selectPlayersReports .= ' sum(CASE
-                                        WHEN entity_type = "ticket_purchase" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (SUBSTRING(data, 3, 1) * 300) 
+                                        WHEN entity_type = "ticket_purchase" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 300) 
                                         WHEN entity_type = "automatic_purchase" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount)
                                         ELSE 0
                                         END
@@ -391,8 +391,8 @@ class ReportsService
                     //Pasamos un array con el ggr de todos los usuarios a la vista
                     $selectPlayersReports .= ' SUM(CASE 
                                     WHEN entity_type = "automatic_purchase" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - 250)
-                                    WHEN entity_type = "ticket_purchase" AND (wallet_before_subscription_amount - wallet_after_subscription_amount) > 0 AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - ((SUBSTRING(data, 3, 1) * 250)))
-                                    WHEN entity_type = "ticket_purchase" AND (wallet_before_subscription_amount - wallet_after_subscription_amount) <= 0 AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (SUBSTRING(data, 3, 1) * 50)
+                                    WHEN entity_type = "ticket_purchase" AND (wallet_before_subscription_amount - wallet_after_subscription_amount) > 0 AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - ((SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 250)))
+                                    WHEN entity_type = "ticket_purchase" AND (wallet_before_subscription_amount - wallet_after_subscription_amount) <= 0 AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 50)
                                 END) as ggr,';
                     break;
                 case "bonusCost":
