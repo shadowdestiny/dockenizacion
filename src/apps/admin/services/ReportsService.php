@@ -455,6 +455,9 @@ class ReportsService
         $total = [];
         $controlShitActives = [];
         $countActives = 0;
+        $anotherCountActives = [];
+        $controlShitDepositors = [];
+        $anotherCountDepositors = [];
         //Ordenar por fecha, y dentro por pais, y meter todas las columnas
         $newRegistrations = $this->reportsRepository->getNewRegistrations($data);
         $depositors0 = $this->reportsRepository->getDepositorsD0($data);
@@ -495,6 +498,11 @@ class ReportsService
 
 
         foreach ($depositors0 as $new) {
+            if (!in_array($new['id'], $anotherCountDepositors)) {
+                $anotherCountActives[] = $new['id'];
+                $countActives++;
+            }
+
             $date = explode('-', $new['created']);
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
@@ -503,12 +511,23 @@ class ReportsService
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
-            $arrayResults[$date[$order]][$new['country']]['depositorsD0'] += (int)[$new['id']];
-            $arrayTotals[$date[$order]]['depositorsD0'] += (int)[$new['id']];
-            $total['depositorsD0'] += (int)[$new['id']];
+            if (!in_array($new['id'], $controlShitDepositors[$date[$order]])) {
+                $controlShitDepositors[$date[$order]][] = $new['id'];
+                $arrayResults[$date[$order]][$new['country']]['depositorsD0'] += (int)[$new['id']];
+                $arrayTotals[$date[$order]]['depositorsD0'] += (int)[$new['id']];
+                $total['depositorsD0'] += (int)[$new['id']];
+            }
         }
+
+        $anotherCountDepositors = [];
+        $controlShitDepositors = [];
 
         foreach ($depositors1 as $new) {
+            if (!in_array($new['id'], $anotherCountDepositors)) {
+                $anotherCountActives[] = $new['id'];
+                $countActives++;
+            }
+
             $date = explode('-', $new['created']);
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
@@ -517,12 +536,23 @@ class ReportsService
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
-            $arrayResults[$date[$order]][$new['country']]['depositorsD1'] += (int)[$new['id']];
-            $arrayTotals[$date[$order]]['depositorsD1'] += (int)[$new['id']];
-            $total['depositorsD1'] += (int)[$new['id']];
+            if (!in_array($new['id'], $controlShitDepositors[$date[$order]])) {
+                $controlShitDepositors[$date[$order]][] = $new['id'];
+                $arrayResults[$date[$order]][$new['country']]['depositorsD1'] += (int)[$new['id']];
+                $arrayTotals[$date[$order]]['depositorsD1'] += (int)[$new['id']];
+                $total['depositorsD1'] += (int)[$new['id']];
+            }
         }
+        
+        $anotherCountDepositors = [];
+        $controlShitDepositors = [];
 
         foreach ($depositors2 as $new) {
+            if (!in_array($new['id'], $anotherCountDepositors)) {
+                $anotherCountActives[] = $new['id'];
+                $countActives++;
+            }
+
             $date = explode('-', $new['created']);
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
@@ -531,13 +561,21 @@ class ReportsService
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
-            $arrayResults[$date[$order]][$new['country']]['depositorsD2'] += (int)[$new['id']];
-            $arrayTotals[$date[$order]]['depositorsD2'] += (int)[$new['id']];
-            $total['depositorsD2'] += (int)[$new['id']];
+            if (!in_array($new['id'], $controlShitDepositors[$date[$order]])) {
+                $controlShitDepositors[$date[$order]][] = $new['id'];
+                $arrayResults[$date[$order]][$new['country']]['depositorsD2'] += (int)[$new['id']];
+                $arrayTotals[$date[$order]]['depositorsD2'] += (int)[$new['id']];
+                $total['depositorsD2'] += (int)[$new['id']];
+            }
         }
 
         foreach ($actives as $new) {
-            $countActives++;
+
+            if (!in_array($new['id'], $anotherCountActives)) {
+                $anotherCountActives[] = $new['id'];
+                $countActives++;
+            }
+
             $date = explode('-', $new['created']);
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
@@ -552,6 +590,7 @@ class ReportsService
                 $arrayTotals[$date[$order]]['actives'] += 1;
                 $total['actives'] += 1;
             }
+
         }
 
 

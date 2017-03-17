@@ -41,11 +41,11 @@
         <td>{% if arrayTotals[date]['depositorsD2'] is defined %}{{ arrayTotals[date]['depositorsD2'] }}{% else %}0{% endif %}</td>
         <td>{% if arrayTotals[date]['actives'] is defined %}{{ arrayTotals[date]['actives'] }}{% else %}0{% endif %}</td>
         <td>{% if arrayTotals[date]['justInactive'] is defined %}{{ arrayTotals[date]['justInactive'] }}{% else %}0{% endif %}</td>
-        <td>{% if arrayTotals[date]['inactive'] is defined %}{{ arrayTotals[date]['inactive'] / 100 }}{% else %}0{% endif %}</td>
+        <td>{% if arrayTotals[date]['inactive'] is defined %}{{ arrayTotals[date]['inactive']  }}{% else %}0{% endif %}</td>
         <td>{% if arrayTotals[date]['dormant'] is defined %}{{ arrayTotals[date]['dormant'] }}{% else %}0{% endif %}</td>
-        <td>{% if arrayTotals[date]['reactivatedJI'] is defined %}{{ arrayTotals[date]['reactivatedJI'] / 100 }}{% else %}0{% endif %}</td>
+        <td>{% if arrayTotals[date]['reactivatedJI'] is defined %}{{ arrayTotals[date]['reactivatedJI']  }}{% else %}0{% endif %}</td>
         <td>{% if arrayTotals[date]['reactivatedIN'] is defined %}{{ arrayTotals[date]['reactivatedIN'] }}{% else %}0{% endif %}</td>
-        <td>{% if arrayTotals[date]['reactivatedDOR'] is defined %}{{ arrayTotals[date]['reactivatedDOR'] /100 }}{% else %}0{% endif %}</td>
+        <td>{% if arrayTotals[date]['reactivatedDOR'] is defined %}{{ arrayTotals[date]['reactivatedDOR']  }}{% else %}0{% endif %}</td>
         <td>{% if arrayTotals[date]['churn'] is defined %}{{ arrayTotals[date]['churn'] /100 }}{% else %}0{% endif %}</td>
         {% for key, kpi in generalKPIs[date] %}
             <tr>
@@ -56,11 +56,11 @@
                 <td class="values">{% if kpi['depositorsD2'] is defined %}{{ kpi['depositorsD2'] }}{% else %}0{% endif %}</td>
                 <td class="values">{% if kpi['actives'] is defined %}{{ kpi['actives'] }}{% else %}0{% endif %}</td>
                 <td class="values">{% if kpi['justInactive'] is defined %}{{ kpi['justInactive'] }}{% else %}0{% endif %}</td>
-                <td class="values">{% if kpi['inactive'] is defined %}{{ kpi['inactive'] /100 }}{% else %}0{% endif %}</td>
+                <td class="values">{% if kpi['inactive'] is defined %}{{ kpi['inactive'] }}{% else %}0{% endif %}</td>
                 <td class="values">{% if kpi['dormant'] is defined %}{{ kpi['dormant'] }}{% else %}0{% endif %}</td>
-                <td class="values">{% if kpi['reactivatedJI'] is defined %}{{ kpi['reactivatedJI'] / 100 }}{% else %}0{% endif %}</td>
+                <td class="values">{% if kpi['reactivatedJI'] is defined %}{{ kpi['reactivatedJI']  }}{% else %}0{% endif %}</td>
                 <td class="values">{% if kpi['reactivatedIN'] is defined %}{{ kpi['reactivatedIN'] }}{% else %}0{% endif %}</td>
-                <td class="values">{% if kpi['reactivatedDOR'] is defined %}{{ kpi['reactivatedDOR'] / 100 }}{% else %}0{% endif %}</td>
+                <td class="values">{% if kpi['reactivatedDOR'] is defined %}{{ kpi['reactivatedDOR'] }}{% else %}0{% endif %}</td>
                 <td class="values">{% if kpi['churn'] is defined %}{{ kpi['churn'] / 100 }}{% else %}0{% endif %}</td>
             </tr>
         {% endfor %}
@@ -74,11 +74,11 @@
         <td>{% if total['depositorsD2'] is defined %}{{ total['depositorsD2'] }}{% else %}0{% endif %}</td>
         <td>{% if valueTotalManualAlternativeQueryForOneValue is defined %}{{ valueTotalManualAlternativeQueryForOneValue }}{% else %}0{% endif %}</td>
         <td>{% if total['justInactive'] is defined %}{{ total['justInactive'] }}{% else %}0{% endif %}</td>
-        <td>{% if total['inactive'] is defined %}{{ total['inactive']  / 100 }}{% else %}0{% endif %}</td>
+        <td>{% if total['inactive'] is defined %}{{ total['inactive']  }}{% else %}0{% endif %}</td>
         <td>{% if total['dormant'] is defined %}{{ total['dormant'] }}{% else %}0{% endif %}</td>
-        <td>{% if total['reactivatedJI'] is defined %}{{ total['reactivatedJI']  / 100 }}{% else %}0{% endif %}</td>
+        <td>{% if total['reactivatedJI'] is defined %}{{ total['reactivatedJI'] }}{% else %}0{% endif %}</td>
         <td>{% if total['reactivatedIN'] is defined %}{{ total['reactivatedIN'] }}{% else %}0{% endif %}</td>
-        <td>{% if total['reactivatedDOR'] is defined %}{{ total['reactivatedDOR'] / 100 }}{% else %}0{% endif %}</td>
+        <td>{% if total['reactivatedDOR'] is defined %}{{ total['reactivatedDOR'] }}{% else %}0{% endif %}</td>
         <td>{% if total['churn'] is defined %}{{ total['churn'] / 100 }}{% else %}0{% endif %}</td>
 
     </tr>
