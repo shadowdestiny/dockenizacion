@@ -84,7 +84,7 @@
                             {% if 'amountWithdraw' in headerList %}<td>{{ player['amountWithdraw'] / 100 }}</td>{% endif %}
                             {% if 'numberBets' in headerList %}<td>{{ player['numberBets'] }}</td>{% endif %}
                             {% if 'wagering' in headerList %}<td>{{ player['wagering'] / 100 }}</td>{% endif %}
-                            {% if 'ggr' in headerList %}<td>{% if playersGGRList[player['id']] is defined %}{{ playersGGRList[player['id']] }}{% else %} 0{% endif %}</td>{% endif %}
+                            {% if 'ggr' in headerList %}<td>{{ player['ggr'] / 100 }}{#% if playersGGRList[player['id']] is defined %}{{ playersGGRList[player['id']] }}{% else %} 0{% endif %#}</td>{% endif %}
                         </tr>
                         {% endfor %}
                         </tbody>
