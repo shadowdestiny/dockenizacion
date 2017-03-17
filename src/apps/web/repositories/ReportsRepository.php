@@ -522,13 +522,13 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('grossMargin','grossMargin');
 
         return  $this->entityManager
-            ->createNativeQuery('SELECT sum(SUBSTRING(data, 3, 1)) as totalBets, sum(CASE
-                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING(data, 3, 1) * 300) 
+            ->createNativeQuery('SELECT sum(SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1)) as totalBets, sum(CASE
+                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 300) 
                                         WHEN entity_type = "automatic_purchase" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount)
                                         ELSE 0
                                         END
                                     ) as grossSales, sum(CASE
-                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING(data, 3, 1) * 300) - (SUBSTRING(data, 3, 1) * 250)
+                                        WHEN entity_type = "ticket_purchase" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 300) - (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 250)
                                         WHEN entity_type = "automatic_purchase" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - 250)
                                         ELSE 0
                                         END
