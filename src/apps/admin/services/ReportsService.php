@@ -619,7 +619,7 @@ class ReportsService
                 $total['inactive'] += 1;
             }
         }
-        var_dump($arrayResults, $arrayResultsMonths, $arrayTotals, $total, $countActives);die();
+
         foreach ($dormant as $new) {
             $date = explode('-', $new['created']);
             if ($order == 2) {
@@ -636,7 +636,7 @@ class ReportsService
                 $total['dormant'] += 1;
             }
         }
-
+        var_dump($arrayResults, $arrayResultsMonths, $arrayTotals, $total, $countActives);die();
         foreach ($reactivatedJI as $new) {
             $date = explode('-', $new['created']);
             if ($order == 2) {
