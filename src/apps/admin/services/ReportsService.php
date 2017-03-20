@@ -502,9 +502,6 @@ class ReportsService
 
 
         foreach ($depositors0 as $new) {
-            if (!in_array($new['id'], $anotherCountDepositors)) {
-                $anotherCountActives[] = $new['id'];
-            }
 
             $date = explode('-', $new['created']);
             if ($order == 2) {
@@ -526,9 +523,6 @@ class ReportsService
         $controlShitDepositors = [];
 
         foreach ($depositors1 as $new) {
-            if (!in_array($new['id'], $anotherCountDepositors)) {
-                $anotherCountActives[] = $new['id'];
-            }
 
             $date = explode('-', $new['created']);
             if ($order == 2) {
@@ -550,9 +544,6 @@ class ReportsService
         $controlShitDepositors = [];
 
         foreach ($depositors2 as $new) {
-            if (!in_array($new['id'], $anotherCountDepositors)) {
-                $anotherCountActives[] = $new['id'];
-            }
 
             $date = explode('-', $new['created']);
             if ($order == 2) {
