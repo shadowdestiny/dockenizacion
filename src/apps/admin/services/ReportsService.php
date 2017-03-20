@@ -619,7 +619,7 @@ class ReportsService
                 $total['inactive'] += 1;
             }
         }
-        
+        var_dump($arrayResults, $arrayResultsMonths, $arrayTotals, $total, $countActives);die();
         foreach ($dormant as $new) {
             $date = explode('-', $new['created']);
             if ($order == 2) {
