@@ -568,17 +568,15 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('id', 'id');
         $rsm->addScalarResult('displaydate', 'created');
         $rsm->addScalarResult('country', 'country');
-        $rsm->addScalarResult('date', 'date');
         return $this->entityManager
             ->createNativeQuery("
-                SELECT COUNT(date) as id, DATE_FORMAT(created, '%Y-%M-%d') as displaydate, country
+                SELECT COUNT(date) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
                 FROM transactions t 
                 LEFT JOIN users u ON u.id = t.user_id 
                 WHERE date BETWEEN created AND DATE(DATE_ADD(created, INTERVAL +1 DAY)) 
                 AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
-                AND created IS NOT NULL
-                AND t.entity_type = 'deposit' GROUP BY user_id, displaydate, country", $rsm)->getResult();
+                AND t.entity_type IN ('deposit', 'subscription_purchase') GROUP BY user_id, displaydate, country", $rsm)->getResult();
     }
 
     public function getDepositorsD1($data)
@@ -587,17 +585,15 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('id', 'id');
         $rsm->addScalarResult('displaydate', 'created');
         $rsm->addScalarResult('country', 'country');
-        $rsm->addScalarResult('date', 'date');
         return $this->entityManager
             ->createNativeQuery("
-                SELECT COUNT(date) as id, DATE_FORMAT(created, '%Y-%M-%d') as displaydate, country
+                SELECT COUNT(date) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
                 FROM transactions t 
                 LEFT JOIN users u ON u.id = t.user_id 
                 WHERE date BETWEEN DATE(DATE_ADD(created, INTERVAL +1 DAY)) AND DATE(DATE_ADD(created, INTERVAL +2 DAY)) 
                 AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
-                AND created IS NOT NULL
-                AND t.entity_type = 'deposit' GROUP BY user_id, displaydate, country", $rsm)->getResult();
+                AND t.entity_type IN ('deposit', 'subscription_purchase') GROUP BY user_id, displaydate, country", $rsm)->getResult();
     }
 
     public function getDepositorsD2($data)
@@ -606,17 +602,15 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('id', 'id');
         $rsm->addScalarResult('displaydate', 'created');
         $rsm->addScalarResult('country', 'country');
-        $rsm->addScalarResult('date', 'date');
         return $this->entityManager
             ->createNativeQuery("
-                SELECT COUNT(date) as id, DATE_FORMAT(created, '%Y-%M-%d') as displaydate, country
+                SELECT COUNT(date) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
                 FROM transactions t 
                 LEFT JOIN users u ON u.id = t.user_id 
                 WHERE date BETWEEN DATE(DATE_ADD(created, INTERVAL +2 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
-                AND created IS NOT NULL
-                AND t.entity_type = 'deposit' GROUP BY user_id, displaydate, country", $rsm)->getResult();
+                AND t.entity_type IN ('deposit', 'subscription_purchase') GROUP BY user_id, displaydate, country", $rsm)->getResult();
     }
 
     public function getJustInactives($data)
@@ -635,7 +629,6 @@ class ReportsRepository implements IReports
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -14 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -7 DAY))
-                AND created IS NOT NULL
                 AND u.country IN ('" . implode("','", $data['countries']) . "'))
                 AND created IS NOT NULL", $rsm)->getResult();
 
