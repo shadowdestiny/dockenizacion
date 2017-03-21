@@ -207,7 +207,7 @@ class ReportsRepository implements IReports
                 FROM users
                 WHERE created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . " 00:00:01' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
                 AND country IN ('" . implode("','", $data['countries']) . "')
-                GROUP BY displaydate, country", $rsm)->getResult();
+                GROUP BY id", $rsm)->getResult();
 
     }
 
