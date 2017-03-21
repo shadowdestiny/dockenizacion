@@ -587,7 +587,7 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery("
-                SELECT DISTINCT(t.user_id) as id, DATE_FORMAT(date, '%Y-%m-%d') as displaydate, country
+                SELECT DISTINCT(t.user_id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
                 FROM transactions t 
                 LEFT JOIN users u ON u.id = t.user_id 
                 WHERE date BETWEEN DATE_FORMAT(DATE_ADD(created, INTERVAL +1 DAY), '%Y-%m-%d 00:00:01') AND DATE_FORMAT(DATE_ADD(created, INTERVAL +2 DAY), '%Y-%m-%d 00:00:01') 
@@ -604,7 +604,7 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery("
-                SELECT DISTINCT(t.user_id) as id, DATE_FORMAT(date, '%Y-%m-%d') as displaydate, country
+                SELECT DISTINCT(t.user_id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
                 FROM transactions t 
                 LEFT JOIN users u ON u.id = t.user_id 
                 WHERE date BETWEEN DATE(DATE_ADD(created, INTERVAL +2 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
