@@ -573,10 +573,10 @@ class ReportsRepository implements IReports
                 SELECT DISTINCT(t.user_id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
                 FROM transactions t 
                 LEFT JOIN users u ON u.id = t.user_id 
-                WHERE date BETWEEN created AND DATE(DATE_ADD(created, INTERVAL +1 DAY)) 
+                WHERE date BETWEEN DATE_FORMAT(created, '%Y-%m-%d 00:00:01') AND DATE_FORMAT(DATE_ADD(created, INTERVAL +1 DAY), '%Y-%m-%d 00:00:01') 
                 AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . " 00:00:01' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
-                AND t.entity_type IN ('deposit', 'subscription_purchase') GROUP BY displaydate, country", $rsm)->getResult();
+                AND t.entity_type IN ('deposit', 'subscription_purchase') GROUP BY u.id", $rsm)->getResult();
     }
 
     public function getDepositorsD1($data)
@@ -587,13 +587,13 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery("
-                SELECT DISTINCT(t.user_id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
+                SELECT DISTINCT(t.user_id) as id, DATE_FORMAT(date, '%Y-%m-%d') as displaydate, country
                 FROM transactions t 
                 LEFT JOIN users u ON u.id = t.user_id 
-                WHERE date BETWEEN DATE(DATE_ADD(created, INTERVAL +1 DAY)) AND DATE(DATE_ADD(created, INTERVAL +2 DAY)) 
+                WHERE date BETWEEN DATE_FORMAT(DATE_ADD(created, INTERVAL +1 DAY), '%Y-%m-%d 00:00:01') AND DATE_FORMAT(DATE_ADD(created, INTERVAL +2 DAY), '%Y-%m-%d 00:00:01') 
                 AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . " 00:00:01' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
-                AND t.entity_type IN ('deposit', 'subscription_purchase') GROUP BY displaydate, country", $rsm)->getResult();
+                AND t.entity_type IN ('deposit', 'subscription_purchase') GROUP BY u.id", $rsm)->getResult();
     }
 
     public function getDepositorsD2($data)
@@ -604,13 +604,13 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery("
-                SELECT DISTINCT(t.user_id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
+                SELECT DISTINCT(t.user_id) as id, DATE_FORMAT(date, '%Y-%m-%d') as displaydate, country
                 FROM transactions t 
                 LEFT JOIN users u ON u.id = t.user_id 
                 WHERE date BETWEEN DATE(DATE_ADD(created, INTERVAL +2 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
                 AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . " 00:00:01' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
-                AND t.entity_type IN ('deposit', 'subscription_purchase') GROUP BY displaydate, country", $rsm)->getResult();
+                AND t.entity_type IN ('deposit', 'subscription_purchase') GROUP BY u.id", $rsm)->getResult();
     }
 
     public function getJustInactives($data)
