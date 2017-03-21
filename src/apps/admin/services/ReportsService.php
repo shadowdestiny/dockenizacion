@@ -461,7 +461,6 @@ class ReportsService
         $countActives = 0;
         $anotherCountActives = [];
         $controlShitDepositors = [];
-        $anotherCountDepositors = [];
         //Ordenar por fecha, y dentro por pais, y meter todas las columnas
         $newRegistrations = $this->reportsRepository->getNewRegistrations($data);
         $depositors0 = $this->reportsRepository->getDepositorsD0($data);
@@ -491,10 +490,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+            
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             $arrayResults[$date[$order]][$new['country']]['newRegistrations'] += (int)[$new['id']];
             $arrayTotals[$date[$order]]['newRegistrations'] += (int)[$new['id']];
             $total['newRegistrations'] += (int)[$new['id']];
@@ -507,10 +508,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             if (!in_array($new['id'], $controlShitDepositors[$date[$order]])) {
                 $controlShitDepositors[$date[$order]][] = $new['id'];
                 $arrayResults[$date[$order]][$new['country']]['depositorsD0'] += (int)[$new['id']];
@@ -519,7 +522,6 @@ class ReportsService
             }
         }
 
-        $anotherCountDepositors = [];
         $controlShitDepositors = [];
 
         foreach ($depositors1 as $new) {
@@ -528,10 +530,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             if (!in_array($new['id'], $controlShitDepositors[$date[$order]])) {
                 $controlShitDepositors[$date[$order]][] = $new['id'];
                 $arrayResults[$date[$order]][$new['country']]['depositorsD1'] += (int)[$new['id']];
@@ -540,7 +544,6 @@ class ReportsService
             }
         }
         
-        $anotherCountDepositors = [];
         $controlShitDepositors = [];
 
         foreach ($depositors2 as $new) {
@@ -549,10 +552,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             if (!in_array($new['id'], $controlShitDepositors[$date[$order]])) {
                 $controlShitDepositors[$date[$order]][] = $new['id'];
                 $arrayResults[$date[$order]][$new['country']]['depositorsD2'] += (int)[$new['id']];
@@ -572,10 +577,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
                 $controlShitActives[$date[$order]][] = $new['id'];
                 $arrayResults[$date[$order]][$new['country']]['actives'] += 1;
@@ -591,10 +598,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
                 $controlShitActives[$date[$order]][] = $new['id'];
                 $arrayResults[$date[$order]][$new['country']]['justInactive'] += 1;
@@ -608,10 +617,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
                 $controlShitActives[$date[$order]][] = $new['id'];
                 $arrayResults[$date[$order]][$new['country']]['inactive'] += 1;
@@ -625,10 +636,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
                 $controlShitActives[$date[$order]][] = $new['id'];
                 $arrayResults[$date[$order]][$new['country']]['dormant'] += 1;
@@ -642,10 +655,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
                 $controlShitActives[$date[$order]][] = $new['id'];
                 $arrayResults[$date[$order]][$new['country']]['reactivatedJI'] += 1;
@@ -659,10 +674,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
                 $controlShitActives[$date[$order]][] = $new['id'];
                 $arrayResults[$date[$order]][$new['country']]['reactivatedIN'] += 1;
@@ -676,10 +693,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
                 $controlShitActives[$date[$order]][] = $new['id'];
                 $arrayResults[$date[$order]][$new['country']]['reactivatedDOR'] += 1;
@@ -693,10 +712,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
                 $controlShitActives[$date[$order]][] = $new['id'];
                 $arrayResults[$date[$order]][$new['country']]['reactivatedDOR'] += 1;
@@ -754,10 +775,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             $arrayResults[$date[$order]][$new['country']]['newRegistrations'] += (int)[$new['id']];
             $arrayTotals[$date[$order]]['newRegistrations'] += (int)[$new['id']];
             $total['newRegistrations'] += (int)[$new['id']];
@@ -768,13 +791,18 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
-            $arrayResults[$date[$order]][$new['country']]['newDepositors'] += (int)[$new['id']];
-            $arrayTotals[$date[$order]]['newDepositors'] += (int)[$new['id']];
-            $total['newDepositors'] += (int)[$new['id']];
+
+            if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
+                $controlShitActives[$date[$order]][] = $new['id'];
+                $arrayResults[$date[$order]][$new['country']]['newDepositors'] += (int)[$new['id']];
+                $arrayTotals[$date[$order]]['newDepositors'] += (int)[$new['id']];
+                $total['newDepositors'] += (int)[$new['id']];
+            }
         }
 
         foreach ($actives as $new) {
@@ -788,10 +816,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             if (!in_array($new['id'], $controlShitActives[$date[$order]])) {
                 $controlShitActives[$date[$order]][] = $new['id'];
                 $arrayResults[$date[$order]][$new['country']]['actives'] += 1;
@@ -806,10 +836,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             $arrayResults[$date[$order]][$new['country']]['numberBets'] += (int)$new['id'];
             $arrayTotals[$date[$order]]['numberBets'] += (int)$new['id'];
             $total['numberBets'] += (int)$new['id'];
@@ -820,10 +852,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             $arrayResults[$date[$order]][$new['country']]['totalBets'] += (int)$new['id'];
             $arrayTotals[$date[$order]]['totalBets'] += (int)$new['id'];
             $total['totalBets'] += (int)$new['id'];
@@ -834,10 +868,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             $arrayResults[$date[$order]][$new['country']]['numberDeposits'] += (int)$new['id'];
             $arrayTotals[$date[$order]]['numberDeposits'] += (int)$new['id'];
             $total['numberDeposits'] += (int)$new['id'];
@@ -848,10 +884,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             $arrayResults[$date[$order]][$new['country']]['depositAmount'] += (int)$new['id'];
             $arrayTotals[$date[$order]]['depositAmount'] += (int)$new['id'];
             $total['depositAmount'] += (int)$new['id'];
@@ -862,10 +900,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             $arrayResults[$date[$order]][$new['country']]['numberWithdrawals'] += (int)$new['id'];
             $arrayTotals[$date[$order]]['numberWithdrawals'] += (int)$new['id'];
             $total['numberWithdrawals'] += (int)$new['id'];
@@ -876,10 +916,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             $arrayResults[$date[$order]][$new['country']]['withdrawalAmount'] += (int)$new['id'];
             $arrayTotals[$date[$order]]['withdrawalAmount'] += (int)$new['id'];
             $total['withdrawalAmount'] += (int)$new['id'];
@@ -890,10 +932,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+
             $arrayResults[$date[$order]][$new['country']]['playerWinnings'] += (int)$new['id'];
             $arrayTotals[$date[$order]]['playerWinnings'] += (int)$new['id'];
             $total['playerWinnings'] += (int)$new['id'];
@@ -904,10 +948,12 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
+            
             $arrayResults[$date[$order]][$new['country']]['grossGaming'] += (int)$new['id'];
             $arrayTotals[$date[$order]]['grossGaming'] += (int)$new['id'];
             $total['grossGaming'] += (int)$new['id'];
