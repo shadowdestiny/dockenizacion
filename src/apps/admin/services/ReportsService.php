@@ -704,7 +704,7 @@ class ReportsService
                 $total['reactivatedDOR'] += 1;
             }
         }
-
+var_dump($arrayResults, $arrayResultsMonths, $arrayTotals, $total, $countActives);die();
         return [$arrayResults, $arrayResultsMonths, $arrayTotals, $total, $countActives];
     }
 
