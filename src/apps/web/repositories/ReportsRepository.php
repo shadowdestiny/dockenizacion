@@ -205,7 +205,7 @@ class ReportsRepository implements IReports
             ->createNativeQuery(
                 "SELECT COUNT(id) as id, DATE_FORMAT(created, '%Y-%M-%d') as displaydate, country
                 FROM users
-                WHERE created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                WHERE created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . " 00:00:01' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
                 AND country IN ('" . implode("','", $data['countries']) . "')
                 GROUP BY displaydate, country", $rsm)->getResult();
 
@@ -574,7 +574,7 @@ class ReportsRepository implements IReports
                 FROM transactions t 
                 LEFT JOIN users u ON u.id = t.user_id 
                 WHERE date BETWEEN created AND DATE(DATE_ADD(created, INTERVAL +1 DAY)) 
-                AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . " 00:00:01' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 AND t.entity_type IN ('deposit', 'subscription_purchase') GROUP BY user_id, displaydate, country", $rsm)->getResult();
     }
@@ -591,7 +591,7 @@ class ReportsRepository implements IReports
                 FROM transactions t 
                 LEFT JOIN users u ON u.id = t.user_id 
                 WHERE date BETWEEN DATE(DATE_ADD(created, INTERVAL +1 DAY)) AND DATE(DATE_ADD(created, INTERVAL +2 DAY)) 
-                AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . " 00:00:01' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 AND t.entity_type IN ('deposit', 'subscription_purchase') GROUP BY user_id, displaydate, country", $rsm)->getResult();
     }
@@ -608,7 +608,7 @@ class ReportsRepository implements IReports
                 FROM transactions t 
                 LEFT JOIN users u ON u.id = t.user_id 
                 WHERE date BETWEEN DATE(DATE_ADD(created, INTERVAL +2 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
-                AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . "' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . "'
+                AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . " 00:00:01' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
                 AND u.country IN ('" . implode("','", $data['countries']) . "')
                 AND t.entity_type IN ('deposit', 'subscription_purchase') GROUP BY user_id, displaydate, country", $rsm)->getResult();
     }
