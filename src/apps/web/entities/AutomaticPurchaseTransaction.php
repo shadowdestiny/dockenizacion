@@ -1,15 +1,11 @@
 <?php
 
-
 namespace EuroMillions\web\entities;
-
 
 use EuroMillions\web\interfaces\ITransactionData;
 
 class AutomaticPurchaseTransaction extends PurchaseTransaction implements ITransactionData
 {
-
-
     public function __construct(array $data)
     {
         $this->setLotteryId($data['lottery_id']);
@@ -18,12 +14,12 @@ class AutomaticPurchaseTransaction extends PurchaseTransaction implements ITrans
         $this->setWalletAfter($data['walletAfter']);
         $this->setDate($data['now']);
         $this->setUser($data['user']);
+        $this->setPlayConfigs($data['playConfigs']);
     }
-
 
     public function toString()
     {
-        $this->data = $this->getLotteryId().'#'.$this->getNumBets();
+        $this->data = $this->getLotteryId().'#'.$this->getNumBets().'#'.$this->playConfigs;
     }
 
     public function fromString()
@@ -33,6 +29,4 @@ class AutomaticPurchaseTransaction extends PurchaseTransaction implements ITrans
         $this->numBets = $numBets;
         return $this;
     }
-
-
 }
