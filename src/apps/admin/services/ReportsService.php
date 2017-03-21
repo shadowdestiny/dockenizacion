@@ -518,13 +518,12 @@ class ReportsService
 
             if (!in_array($new['id'], $controlDepositors[$date[$order]])) {
                 $controlDepositors[$date[$order]][] = $new['id'];
-                $arrayResults[$date[$order]][$new['country']]['depositorsD0'] += (int)[$new['id']];
-                $arrayTotals[$date[$order]]['depositorsD0'] += (int)[$new['id']];
-                $total['depositorsD0'] += (int)[$new['id']];
+                $arrayResults[$date[$order]][$new['country']]['depositorsD0'] += 1;
+                $arrayTotals[$date[$order]]['depositorsD0'] += 1;
+                $total['depositorsD0'] += 1;
             }
         }
 
-        $controlDepositors = [];
         foreach ($depositors1 as $new) {
 
             $date = explode('-', $new['created']);
@@ -539,13 +538,12 @@ class ReportsService
 
             if (!in_array($new['id'], $controlDepositors[$date[$order]])) {
                 $controlDepositors[$date[$order]][] = $new['id'];
-                $arrayResults[$date[$order]][$new['country']]['depositorsD1'] += (int)[$new['id']];
-                $arrayTotals[$date[$order]]['depositorsD1'] += (int)[$new['id']];
-                $total['depositorsD1'] += (int)[$new['id']];
+                $arrayResults[$date[$order]][$new['country']]['depositorsD1'] += 1;
+                $arrayTotals[$date[$order]]['depositorsD1'] += 1;
+                $total['depositorsD1'] += 1;
             }
         }
 
-        $controlDepositors = [];
         foreach ($depositors2 as $new) {
 
             $date = explode('-', $new['created']);
@@ -560,9 +558,9 @@ class ReportsService
 
             if (!in_array($new['id'], $controlDepositors[$date[$order]])) {
                 $controlDepositors[$date[$order]][] = $new['id'];
-                $arrayResults[$date[$order]][$new['country']]['depositorsD2'] += (int)[$new['id']];
-                $arrayTotals[$date[$order]]['depositorsD2'] += (int)[$new['id']];
-                $total['depositorsD2'] += (int)[$new['id']];
+                $arrayResults[$date[$order]][$new['country']]['depositorsD2'] += 1;
+                $arrayTotals[$date[$order]]['depositorsD2'] += 1;
+                $total['depositorsD2'] += 1;
             }
         }
 
@@ -781,9 +779,9 @@ class ReportsService
 
             if (!in_array($new['id'], $controlDepositors[$date[$order]])) {
                 $controlDepositors[$date[$order]][] = $new['id'];
-                $arrayResults[$date[$order]][$new['country']]['newDepositors'] += (int)[$new['id']];
-                $arrayTotals[$date[$order]]['newDepositors'] += (int)[$new['id']];
-                $total['newDepositors'] += (int)[$new['id']];
+                $arrayResults[$date[$order]][$new['country']]['newDepositors'] += 1;
+                $arrayTotals[$date[$order]]['newDepositors'] += 1;
+                $total['newDepositors'] += 1;
             }
         }
 
