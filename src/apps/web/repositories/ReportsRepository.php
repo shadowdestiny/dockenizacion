@@ -226,7 +226,7 @@ class ReportsRepository implements IReports
                 WHERE date BETWEEN created AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
                 AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . " 00:00:01' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
                 AND u.country IN ('" . implode("','", $data['countries']) . "') 
-                AND t.entity_type IN ('deposit', 'subscription_purchase')  GROUP BY displaydate, country", $rsm)->getResult();
+                AND t.entity_type IN ('deposit', 'subscription_purchase')  GROUP BY t.user_id", $rsm)->getResult();
     }
 
     public function getActives($data)
