@@ -524,7 +524,7 @@ class ReportsService
             }
         }
 
-
+        $controlDepositors = [];
         foreach ($depositors1 as $new) {
 
             $date = explode('-', $new['created']);
@@ -544,8 +544,8 @@ class ReportsService
                 $total['depositorsD1'] += (int)[$new['id']];
             }
         }
-        
 
+        $controlDepositors = [];
         foreach ($depositors2 as $new) {
 
             $date = explode('-', $new['created']);
