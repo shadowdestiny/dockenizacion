@@ -522,7 +522,6 @@ class ReportsService
             }
         }
 
-        $controlDepositors = [];
 
         foreach ($depositors1 as $new) {
 
@@ -544,7 +543,6 @@ class ReportsService
             }
         }
         
-        $controlDepositors = [];
 
         foreach ($depositors2 as $new) {
 
