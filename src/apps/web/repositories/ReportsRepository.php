@@ -223,7 +223,7 @@ class ReportsRepository implements IReports
                 SELECT COUNT(date) as id, DATE_FORMAT(created, '%Y-%M-%d') as displaydate, country
                 FROM transactions t 
                 LEFT JOIN users u ON u.id = t.user_id 
-                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . " 00:00:01' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
+                WHERE date BETWEEN created AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
                 AND created BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . " 00:00:01' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
                 AND u.country IN ('" . implode("','", $data['countries']) . "') 
                 AND t.entity_type IN ('deposit', 'subscription_purchase')  GROUP BY user_id, displaydate, country", $rsm)->getResult();
