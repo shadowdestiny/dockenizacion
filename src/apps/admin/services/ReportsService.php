@@ -590,9 +590,8 @@ class ReportsService
 
         }
 
-
         foreach ($justInactives as $new) {
-            $date = explode('-', $new['created']);
+            $date = explode('-', $data['dateTo']);
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
@@ -611,7 +610,7 @@ class ReportsService
         }
 
         foreach ($inactives as $new) {
-            $date = explode('-', $new['created']);
+            $date = explode('-', $data['dateTo']);
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
@@ -630,7 +629,7 @@ class ReportsService
         }
 
         foreach ($dormant as $new) {
-            $date = explode('-', $new['created']);
+            $date = explode('-', $data['dateTo']);
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
