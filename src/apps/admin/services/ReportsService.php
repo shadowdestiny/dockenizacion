@@ -225,6 +225,12 @@ class ReportsService
                         $cont++;
                     }
                 }
+            } elseif ($drawValue['entity_type'] == 'automatic_purchase') {
+                $drawData = explode('#', $drawValue['data']);
+                if (isset($drawData[2])) {
+                        $drawDetails[$drawKey]['betIds']['id'][0] = $drawData[2];
+                        $drawDetails[$drawKey]['betIds']['numbers'][0] = implode(", ", $this->reportsRepository->getNumbersPlayedByBetId($drawData[2]));
+                }
             }
         }
 
