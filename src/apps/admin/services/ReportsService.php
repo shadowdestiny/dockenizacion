@@ -529,7 +529,6 @@ class ReportsService
                 $total['depositorsD0'] += 1;
             }
         }
-        $controlDepositors = [];
         foreach ($depositors1 as $new) {
 
             $date = explode('-', $new['created']);
@@ -549,7 +548,6 @@ class ReportsService
                 $total['depositorsD1'] += 1;
             }
         }
-        $controlDepositors = [];
         foreach ($depositors2 as $new) {
 
             $date = explode('-', $new['created']);
