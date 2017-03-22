@@ -589,9 +589,8 @@ class ReportsService
             }
 
         }
-
         foreach ($justInactives as $new) {
-            $date = explode('-', $data['dateTo']);
+            $date = explode('-', date('Y-F-d', strtotime($data['dateTo'])));
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
