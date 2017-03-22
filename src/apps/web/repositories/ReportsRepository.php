@@ -621,15 +621,16 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
-                "SELECT COUNT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
+                "SELECT DISTINCT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
                 FROM users u
                 LEFT JOIN transactions t ON t.user_id = u.id
-                WHERE u.id NOT IN (SELECT DISTINCT(t.user_id) as id
+                WHERE u.id IN (SELECT DISTINCT(t.user_id) as id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -14 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -7 DAY))
                 AND u.country IN ('" . implode("','", $data['countries']) . "'))
-                GROUP BY country", $rsm)->getResult();
+                AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -14 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -7 DAY))
+                GROUP BY u.id", $rsm)->getResult();
 
     }
 
@@ -641,15 +642,16 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
-                "SELECT COUNT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
+                "SELECT DISTINCT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
                 FROM users u
                 LEFT JOIN transactions t ON t.user_id = u.id
-                WHERE u.id NOT IN (SELECT DISTINCT(t.user_id) as id
+                WHERE u.id IN (SELECT DISTINCT(t.user_id) as id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -30 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -15 DAY))
                 AND u.country IN ('" . implode("','", $data['countries']) . "'))
-                GROUP BY country", $rsm)->getResult();
+                AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -30 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -15 DAY))
+                GROUP BY u.id", $rsm)->getResult();
 
     }
 
@@ -661,15 +663,16 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
-                "SELECT COUNT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
+                "SELECT DISTINCT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
                 FROM users u
                 LEFT JOIN transactions t ON t.user_id = u.id
-                WHERE u.id NOT IN (SELECT DISTINCT(t.user_id) as id
+                WHERE u.id IN (SELECT DISTINCT(t.user_id) as id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -45 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -30 DAY))
                 AND u.country IN ('" . implode("','", $data['countries']) . "'))
-                GROUP BY country", $rsm)->getResult();
+                AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -45 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -30 DAY))
+                GROUP BY u.id", $rsm)->getResult();
     }
 
     public function getReactivatedJI($data)
