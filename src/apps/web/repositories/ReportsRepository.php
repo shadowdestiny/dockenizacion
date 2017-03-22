@@ -693,7 +693,7 @@ class ReportsRepository implements IReports
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -14 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -7 DAY))))
-                AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -6 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
+                AND date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . " 23:59:59' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
                 GROUP BY u.id", $rsm)->getResult();
     }
 
@@ -715,7 +715,7 @@ class ReportsRepository implements IReports
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -30 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -15 DAY))))
-                AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -6 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
+                AND date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . " 23:59:59' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
                 GROUP BY u.id", $rsm)->getResult();
 
     }
@@ -738,7 +738,7 @@ class ReportsRepository implements IReports
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
                 WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -45 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -31 DAY))))
-                AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -6 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
+                AND date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . " 23:59:59' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
                 GROUP BY u.id", $rsm)->getResult();
 
     }
