@@ -615,7 +615,7 @@ class ReportsService
         }
 
         foreach ($inactives as $new) {
-            $date = explode('-', $data['dateTo']);
+            $date = explode('-', date('Y-F-d', strtotime($data['dateTo'])));
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
@@ -634,7 +634,7 @@ class ReportsService
         }
 
         foreach ($dormant as $new) {
-            $date = explode('-', $data['dateTo']);
+            $date = explode('-', date('Y-F-d', strtotime($data['dateTo'])));
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
@@ -653,7 +653,7 @@ class ReportsService
         }
 
         foreach ($reactivatedJI as $new) {
-            $date = explode('-', $new['created']);
+            $date = explode('-', date('Y-F-d', strtotime($data['dateTo'])));
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
@@ -672,7 +672,7 @@ class ReportsService
         }
 
         foreach ($reactivatedIN as $new) {
-            $date = explode('-', $new['created']);
+            $date = explode('-', date('Y-F-d', strtotime($data['dateTo'])));
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
@@ -691,7 +691,7 @@ class ReportsService
         }
 
         foreach ($reactivatedDOR as $new) {
-            $date = explode('-', $new['created']);
+            $date = explode('-', date('Y-F-d', strtotime($data['dateTo'])));
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
