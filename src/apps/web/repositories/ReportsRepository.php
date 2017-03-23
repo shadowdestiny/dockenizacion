@@ -621,16 +621,14 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
-                "SELECT DISTINCT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
-                FROM users u
-                LEFT JOIN transactions t ON t.user_id = u.id
-                WHERE u.id IN (SELECT DISTINCT(t.user_id) as id
+                "SELECT t1.id, t1.displaydate, t1.country
+                FROM (SELECT DISTINCT(t.user_id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -14 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -7 DAY))
-                AND u.country IN ('" . implode("','", $data['countries']) . "'))
-                AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -14 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -7 DAY))
-                GROUP BY u.id", $rsm)->getResult();
+                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -14 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -7 DAY))) AS t1
+                LEFT JOIN transactions t ON t.user_id = t1.id
+                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -7 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
+                GROUP BY t.user_id", $rsm)->getResult();
 
     }
 
@@ -642,16 +640,14 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
-                "SELECT DISTINCT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
-                FROM users u
-                LEFT JOIN transactions t ON t.user_id = u.id
-                WHERE u.id IN (SELECT DISTINCT(t.user_id) as id
+                "SELECT t1.id, t1.displaydate, t1.country
+                FROM (SELECT DISTINCT(t.user_id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -30 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -15 DAY))
-                AND u.country IN ('" . implode("','", $data['countries']) . "'))
-                AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -30 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -15 DAY))
-                GROUP BY u.id", $rsm)->getResult();
+                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -30 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -15 DAY))) AS t1
+                LEFT JOIN transactions t ON t.user_id = t1.id
+                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -15 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
+                GROUP BY t.user_id", $rsm)->getResult();
 
     }
 
@@ -663,16 +659,14 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
-                "SELECT DISTINCT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
-                FROM users u
-                LEFT JOIN transactions t ON t.user_id = u.id
-                WHERE u.id IN (SELECT DISTINCT(t.user_id) as id
+                "SELECT t1.id, t1.displaydate, t1.country
+                FROM (SELECT DISTINCT(t.user_id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -45 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -31 DAY))
-                AND u.country IN ('" . implode("','", $data['countries']) . "'))
-                AND date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -45 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -31 DAY))
-                GROUP BY u.id", $rsm)->getResult();
+                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -45 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -31 DAY))) AS t1
+                LEFT JOIN transactions t ON t.user_id = t1.id
+                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -31 DAY)) AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
+                GROUP BY t.user_id", $rsm)->getResult();
     }
 
     public function getReactivatedJI($data)
