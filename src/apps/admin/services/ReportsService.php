@@ -162,7 +162,7 @@ class ReportsService
      */
     public function getActivePlaysByUserId($userId)
     {
-        return $this->reportsRepository->getActivePlayConfigsByUser($userId);
+        return $this->reportsRepository->getActivePlayConfigsByUser($userId, $this->getNextDateDrawByLottery('Euromillions'));
     }
 
     /**
