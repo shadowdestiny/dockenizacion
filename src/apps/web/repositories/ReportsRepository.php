@@ -558,11 +558,11 @@ class ReportsRepository implements IReports
     public function getEuromillionsDrawDetailsBetweenDrawDates($drawDates)
     {
         $rsm = new ResultSetMapping();
-        $rsm->addScalarResult('totalBets','totalBets');
-        $rsm->addScalarResult('grossSales','grossSales');
-        $rsm->addScalarResult('grossMargin','grossMargin');
+        $rsm->addScalarResult('totalBets', 'totalBets');
+        $rsm->addScalarResult('grossSales', 'grossSales');
+        $rsm->addScalarResult('grossMargin', 'grossMargin');
 
-        return  $this->entityManager
+        return $this->entityManager
             ->createNativeQuery('SELECT sum(SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1)) as totalBets, sum(CASE
                                         WHEN entity_type = "ticket_purchase" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 300) 
                                         WHEN entity_type = "automatic_purchase" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount)
@@ -588,15 +588,15 @@ class ReportsRepository implements IReports
     public function getNumbersPlayedByBetId($betId)
     {
         $rsm = new ResultSetMapping();
-        $rsm->addScalarResult('line_regular_number_one','line_regular_number_one');
-        $rsm->addScalarResult('line_regular_number_two','line_regular_number_two');
-        $rsm->addScalarResult('line_regular_number_three','line_regular_number_three');
-        $rsm->addScalarResult('line_regular_number_four','line_regular_number_four');
-        $rsm->addScalarResult('line_regular_number_five','line_regular_number_five');
-        $rsm->addScalarResult('line_lucky_number_one','line_lucky_number_one');
-        $rsm->addScalarResult('line_lucky_number_two','line_lucky_number_two');
+        $rsm->addScalarResult('line_regular_number_one', 'line_regular_number_one');
+        $rsm->addScalarResult('line_regular_number_two', 'line_regular_number_two');
+        $rsm->addScalarResult('line_regular_number_three', 'line_regular_number_three');
+        $rsm->addScalarResult('line_regular_number_four', 'line_regular_number_four');
+        $rsm->addScalarResult('line_regular_number_five', 'line_regular_number_five');
+        $rsm->addScalarResult('line_lucky_number_one', 'line_lucky_number_one');
+        $rsm->addScalarResult('line_lucky_number_two', 'line_lucky_number_two');
 
-        return  $this->entityManager
+        return $this->entityManager
             ->createNativeQuery('SELECT line_regular_number_one, line_regular_number_two, line_regular_number_three, line_regular_number_four, line_regular_number_five, line_lucky_number_one, line_lucky_number_two
                 FROM play_configs
                 WHERE id = ' . $betId
@@ -677,7 +677,8 @@ class ReportsRepository implements IReports
                 AND u.id NOT IN(SELECT t.user_id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date < DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -14 DAY)))", $rsm)->getResult();
+                WHERE date < DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -14 DAY)))
+                group by t.user_id", $rsm)->getResult();
     }
 
     public function getInactives($data)
@@ -703,7 +704,8 @@ class ReportsRepository implements IReports
                 AND u.id NOT IN(SELECT t.user_id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date < DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -30 DAY)))", $rsm)->getResult();
+                WHERE date < DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -30 DAY)))
+                group by t.user_id", $rsm)->getResult();
 
     }
 
@@ -730,7 +732,8 @@ class ReportsRepository implements IReports
                 AND u.id NOT IN(SELECT t.user_id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date < DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -45 DAY)))", $rsm)->getResult();
+                WHERE date < DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -45 DAY)))
+                group by t.user_id", $rsm)->getResult();
     }
 
     public function getReactivatedJI($data)
@@ -741,18 +744,23 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
-                "SELECT DISTINCT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
-                FROM users u
-                LEFT JOIN transactions t ON t.user_id = u.id
-                WHERE user_id IN(SELECT u.id as id
-                FROM users u
-                LEFT JOIN transactions t ON t.user_id = u.id
-                WHERE u.id NOT IN (SELECT DISTINCT(t.user_id) as id
+                "SELECT DISTINCT(t.user_id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -14 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -7 DAY))))
-                AND date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . " 00:00:01' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
-                GROUP BY u.id", $rsm)->getResult();
+                WHERE u.id IN(SELECT t.user_id
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date > DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -14 DAY)) 
+                AND date < DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -7 DAY)))
+                AND u.id IN(SELECT t.user_id
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date > DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -7 DAY)))
+                AND u.id NOT IN(SELECT t.user_id
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date < DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -14 DAY)))
+                group by t.user_id", $rsm)->getResult();
     }
 
     public function getReactivatedIN($data)
@@ -763,18 +771,23 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
-                "SELECT DISTINCT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
-                FROM users u
-                LEFT JOIN transactions t ON t.user_id = u.id
-                WHERE user_id IN(SELECT u.id as id
-                FROM users u
-                LEFT JOIN transactions t ON t.user_id = u.id
-                WHERE u.id NOT IN (SELECT DISTINCT(t.user_id) as id
+                "SELECT DISTINCT(t.user_id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -30 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -15 DAY))))
-                AND date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . " 00:00:01' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
-                GROUP BY u.id", $rsm)->getResult();
+                WHERE u.id IN(SELECT t.user_id
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date > DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -30 DAY)) 
+                AND date < DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -15 DAY)))
+                AND u.id IN(SELECT t.user_id
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date > DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -15 DAY)))
+                AND u.id NOT IN(SELECT t.user_id
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date < DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -30 DAY)))
+                group by t.user_id", $rsm)->getResult();
 
     }
 
@@ -786,18 +799,23 @@ class ReportsRepository implements IReports
         $rsm->addScalarResult('country', 'country');
         return $this->entityManager
             ->createNativeQuery(
-                "SELECT DISTINCT(u.id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
-                FROM users u
-                LEFT JOIN transactions t ON t.user_id = u.id
-                WHERE user_id IN(SELECT u.id as id
-                FROM users u
-                LEFT JOIN transactions t ON t.user_id = u.id
-                WHERE u.id NOT IN (SELECT DISTINCT(t.user_id) as id
+                "SELECT DISTINCT(t.user_id) as id, DATE_FORMAT(date, '%Y-%M-%d') as displaydate, country
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -45 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -31 DAY))))
-                AND date BETWEEN '" . date('Y-m-d', strtotime($data['dateFrom'])) . " 00:00:01' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59'
-                GROUP BY u.id", $rsm)->getResult();
+                WHERE u.id IN(SELECT t.user_id
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date > DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -45 DAY)) 
+                AND date < DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . "', INTERVAL -30 DAY)))
+                AND u.id IN(SELECT t.user_id
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date > DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -30 DAY)))
+                AND u.id NOT IN(SELECT t.user_id
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date < DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -45 DAY)))
+                group by t.user_id", $rsm)->getResult();
 
     }
 
