@@ -141,7 +141,6 @@ class ReportsRepository implements IReports
 
     /**
      * @param $userId
-     * @param $nextDrawDate
      *
      * @return array
      */
@@ -152,7 +151,6 @@ class ReportsRepository implements IReports
 
     /**
      * @param $userId
-     * @param $nextDrawDate
      * @param $active
      *
      * @return array
