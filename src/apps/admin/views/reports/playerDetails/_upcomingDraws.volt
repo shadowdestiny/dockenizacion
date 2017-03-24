@@ -17,6 +17,7 @@
         </tr>
         </thead>
         <tbody>
+        {% for index,upcoming in my_games_actives %}
             <tr>
                 <td align="center">
                     {{ nextDrawDate }}
@@ -26,25 +27,57 @@
                 </td>
                 <td>
                     <table>
+                        <?php $rows = count($my_games_actives[$index]); ?>
+                        <?php
+                            $numColumn = 0;
+                            for($i=0;$i<$rows/2;$i++){
+                                $game = $my_games_actives[$index][$numColumn];
+                                $game = $game->get(0);
+                        ?>
                         <tr>
-                        {% for index,upcoming in my_games_actives %}
-                                <td class="numbers">
-                                    <div>
-                                        <span class="num">{{ my_games_actives[index]['line_regular_number_one'] }}</span>
-                                        <span class="num">{{ my_games_actives[index]['line_regular_number_two'] }}</span>
-                                        <span class="num">{{ my_games_actives[index]['line_regular_number_three'] }}</span>
-                                        <span class="num">{{ my_games_actives[index]['line_regular_number_four'] }}</span>
-                                        <span class="num">{{ my_games_actives[index]['line_regular_number_five'] }}</span>
-                                        <span class="num yellow">{{ my_games_actives[index]['line_lucky_number_one'] }}</span>
-                                        <span class="num yellow">{{ my_games_actives[index]['line_lucky_number_two'] }}</span>
-                                    </div>
-                                </td>
-                                {% if (index+1) % 2 == 0 %}</tr><tr>{% endif %}
-                        {% endfor %}
+                            <td class="numbers">
+                                <div>
+                                    <?php $regular = explode(',', $game->lines['bets']['regular']);?>
+                                    <?php $lucky = explode(',', $game->lines['bets']['lucky']);?>
+
+                                    {% for regular_number in regular  %}
+                                        <span class="num">{{ regular_number }}</span>
+                                    {% endfor %}
+                                    {% for lucky_number in lucky  %}
+                                        <span class="num yellow">{{ lucky_number }}</span>
+                                    {% endfor %}
+                                </div>
+                            </td>
+                            <?php if(count($my_games_actives[$index]) > 1 && $numColumn < $rows-1 ) {?>
+                            <td class="numbers">
+                                <?php
+                                    if(isset($my_games_actives[$index][$numColumn+1])) {
+                                        $game=$my_games_actives[$index][$numColumn+1];
+                                    } else {
+                                        $game=$my_games_actives[$index][$numColumn];
+                                    }
+                                    $game = $game->get(0);
+                                ?>
+                                <div>
+                                    <?php $regular = explode(',', $game->lines['bets']['regular']);?>
+                                    <?php $lucky = explode(',', $game->lines['bets']['lucky']);?>
+                                    {% for regular_number in regular  %}
+                                        <span class="num">{{ regular_number }}</span>
+                                    {% endfor %}
+                                    {% for lucky_number in lucky  %}
+                                        <span class="num yellow">{{ lucky_number }}</span>
+                                    {% endfor %}
+                                </div>
+                            </td>
+                            <?php $numColumn=$numColumn+2;?>
+                            <?php } ?>
+                        </tr>
+                        <?php } ?>
                     </table>
                 </td>
             </tr>
+        {% endfor %}
         </tbody>
     </table>
-    {#{{ paginator_view_actives }}#}
+    {{ paginator_view_actives }}
 {% endif %}

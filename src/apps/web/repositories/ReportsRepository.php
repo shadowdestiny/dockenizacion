@@ -145,9 +145,9 @@ class ReportsRepository implements IReports
      *
      * @return array
      */
-    public function getActivePlayConfigsByUser($userId, $nextDrawDate)
+    public function getActivePlayConfigsByUser($userId)
     {
-        return $this->getPlayConfigsByUserAndActive($userId, $nextDrawDate, '1');
+        return $this->getPlayConfigsByUserAndActive($userId, '1');
     }
 
     /**
@@ -157,62 +157,19 @@ class ReportsRepository implements IReports
      *
      * @return array
      */
-    protected function getPlayConfigsByUserAndActive($userId, $nextDrawDate, $active)
+    protected function getPlayConfigsByUserAndActive($userId, $active)
     {
-        $receivedDate = clone $nextDrawDate;
-        if ($receivedDate->format('N') == 5) {
-            $receivedDate->modify('-3 days');
-        } else {
-            $receivedDate->modify('-4 days');
-        }
-        $receivedDate->setTime(19,30,00);
-
-        $rsm = new ResultSetMapping();
-        $rsm->addScalarResult('line_regular_number_one', 'line_regular_number_one');
-        $rsm->addScalarResult('line_regular_number_two', 'line_regular_number_two');
-        $rsm->addScalarResult('line_regular_number_three', 'line_regular_number_three');
-        $rsm->addScalarResult('line_regular_number_four', 'line_regular_number_four');
-        $rsm->addScalarResult('line_regular_number_five', 'line_regular_number_five');
-        $rsm->addScalarResult('line_lucky_number_one', 'line_lucky_number_one');
-        $rsm->addScalarResult('line_lucky_number_two', 'line_lucky_number_two');
-
-        return $this->entityManager
-            ->createNativeQuery(
-                'SELECT p.line_regular_number_one,
-                            p.line_regular_number_two,
-                            p.line_regular_number_three, 
-                            p.line_regular_number_four,
-                            p.line_regular_number_five,
-                            p.line_lucky_number_one,
-                            p.line_lucky_number_two'
-                . ' FROM bets b INNER JOIN play_configs p on b.playConfig_id = p.id  '
-                . ' INNER JOIN log_validation_api lva ON lva.bet_id = b.id '
-                . ' WHERE p.user_id = "' . $userId . '" AND p.active = ' . $active . ' '
-                . ' AND last_draw_date >= "' . $nextDrawDate->format('Y-m-d') . '" AND received >= "' . $receivedDate->format('Y-m-d H:i:s') . '"
-                    GROUP BY p.start_draw_date,
-                            p.line_regular_number_one,
-                            p.line_regular_number_two,
-                            p.line_regular_number_three, 
-                            p.line_regular_number_four,
-                            p.line_regular_number_five,
-                            p.line_lucky_number_one,
-                            p.line_lucky_number_two
-                    ORDER BY p.start_draw_date DESC '
-                , $rsm)->getResult();
-
         $result = $this->entityManager
             ->createQuery(
                 'SELECT b'
                 . ' FROM ' . '\EuroMillions\web\entities\Bet' . ' b INNER JOIN b.playConfig p '
-                . ' JOIN ' . '\EuroMillions\web\entities\LogValidationApi' . ' lva'
                 . ' WHERE p.user = :user_id AND p.active = :active '
-                . ' AND p.lastDrawDate >= :lastDrawDate AND lva.received >= :received '
                 . ' GROUP BY p.startDrawDate,p.line.regular_number_one,'
                 . ' p.line.regular_number_two,p.line.regular_number_three, '
                 . ' p.line.regular_number_four,p.line.regular_number_five, '
                 . ' p.line.lucky_number_one, p.line.lucky_number_two '
                 . ' ORDER BY p.startDrawDate DESC ')
-            ->setParameters(['user_id' => $userId, 'active' => $active, 'lastDrawDate' => '2017-03-14', 'received' => '2017-03-21 21:00:00'])
+            ->setParameters(['user_id' => $userId, 'active' => $active])
             ->getResult();
 
         $playConfigs = [];
@@ -222,6 +179,47 @@ class ReportsRepository implements IReports
         }
 
         return $playConfigs;
+
+//        $receivedDate = clone $nextDrawDate;
+//        if ($receivedDate->format('N') == 5) {
+//            $receivedDate->modify('-3 days');
+//        } else {
+//            $receivedDate->modify('-4 days');
+//        }
+//        $receivedDate->setTime(19,30,00);
+//
+//        $rsm = new ResultSetMapping();
+//        $rsm->addScalarResult('line_regular_number_one', 'line_regular_number_one');
+//        $rsm->addScalarResult('line_regular_number_two', 'line_regular_number_two');
+//        $rsm->addScalarResult('line_regular_number_three', 'line_regular_number_three');
+//        $rsm->addScalarResult('line_regular_number_four', 'line_regular_number_four');
+//        $rsm->addScalarResult('line_regular_number_five', 'line_regular_number_five');
+//        $rsm->addScalarResult('line_lucky_number_one', 'line_lucky_number_one');
+//        $rsm->addScalarResult('line_lucky_number_two', 'line_lucky_number_two');
+//
+//        return $this->entityManager
+//            ->createNativeQuery(
+//                'SELECT p.line_regular_number_one,
+//                            p.line_regular_number_two,
+//                            p.line_regular_number_three,
+//                            p.line_regular_number_four,
+//                            p.line_regular_number_five,
+//                            p.line_lucky_number_one,
+//                            p.line_lucky_number_two'
+//                . ' FROM bets b INNER JOIN play_configs p on b.playConfig_id = p.id  '
+//                . ' INNER JOIN log_validation_api lva ON lva.bet_id = b.id '
+//                . ' WHERE p.user_id = "' . $userId . '" AND p.active = ' . $active . ' '
+//                . ' AND last_draw_date >= "' . $nextDrawDate->format('Y-m-d') . '" AND received >= "' . $receivedDate->format('Y-m-d H:i:s') . '"
+//                    GROUP BY p.start_draw_date,
+//                            p.line_regular_number_one,
+//                            p.line_regular_number_two,
+//                            p.line_regular_number_three,
+//                            p.line_regular_number_four,
+//                            p.line_regular_number_five,
+//                            p.line_lucky_number_one,
+//                            p.line_lucky_number_two
+//                    ORDER BY p.start_draw_date DESC '
+//                , $rsm)->getResult();
     }
 
     public function getPastGamesWithPrizes($userId)
