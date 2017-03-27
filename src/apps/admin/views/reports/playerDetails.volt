@@ -50,6 +50,8 @@
 
                     {% include "reports/playerDetails/_upcomingDraws.volt" %}
 
+                    {% include "reports/playerDetails/_subscriptionActives.volt" %}
+
                     {% include "reports/playerDetails/_pastGames.volt" %}
 
                     {% include "reports/playerDetails/_bets.volt" %}
