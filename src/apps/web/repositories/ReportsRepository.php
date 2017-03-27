@@ -755,7 +755,7 @@ class ReportsRepository implements IReports
                 AND u.id IN(SELECT t.user_id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date > '" . date('Y-m-d', strtotime($data['dateTo'])) . " 00:00:01')
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateTo'])) . " 00:00:01' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59')
                 AND u.id NOT IN(SELECT t.user_id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
@@ -786,7 +786,7 @@ class ReportsRepository implements IReports
                 AND u.id IN(SELECT t.user_id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date > '" . date('Y-m-d', strtotime($data['dateTo'])) . " 00:00:01')
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateTo'])) . " 00:00:01' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59')
                 AND u.id NOT IN(SELECT t.user_id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
@@ -818,7 +818,7 @@ class ReportsRepository implements IReports
                 AND u.id IN(SELECT t.user_id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date > '" . date('Y-m-d', strtotime($data['dateTo'])) . " 00:00:01')
+                WHERE date BETWEEN '" . date('Y-m-d', strtotime($data['dateTo'])) . " 00:00:01' AND '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59')
                 AND u.id NOT IN(SELECT t.user_id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
