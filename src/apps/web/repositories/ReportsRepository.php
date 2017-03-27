@@ -755,7 +755,11 @@ class ReportsRepository implements IReports
                 AND u.id IN(SELECT t.user_id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date > '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59')
+                WHERE date > '" . date('Y-m-d', strtotime($data['dateTo'])) . " 00:00:01')
+                AND u.id NOT IN(SELECT t.user_id
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -7 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -1 DAY)))
                 AND u.id NOT IN(SELECT t.user_id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
@@ -782,7 +786,11 @@ class ReportsRepository implements IReports
                 AND u.id IN(SELECT t.user_id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date > '" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59')
+                WHERE date > '" . date('Y-m-d', strtotime($data['dateTo'])) . " 00:00:01')
+                AND u.id NOT IN(SELECT t.user_id
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -15 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -1 DAY)))
                 AND u.id NOT IN(SELECT t.user_id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
@@ -810,7 +818,11 @@ class ReportsRepository implements IReports
                 AND u.id IN(SELECT t.user_id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
-                WHERE date >'" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59')
+                WHERE date > '" . date('Y-m-d', strtotime($data['dateTo'])) . " 00:00:01')
+                AND u.id NOT IN(SELECT t.user_id
+                FROM transactions t
+                LEFT JOIN users u ON t.user_id = u.id
+                WHERE date BETWEEN DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -30 DAY)) AND DATE(DATE_ADD('" . date('Y-m-d', strtotime($data['dateTo'])) . " 23:59:59', INTERVAL -1 DAY)))
                 AND u.id NOT IN(SELECT t.user_id
                 FROM transactions t
                 LEFT JOIN users u ON t.user_id = u.id
