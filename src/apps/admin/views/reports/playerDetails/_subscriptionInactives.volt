@@ -1,4 +1,4 @@
-<h3 class="h4">Subscriptions Finished</h3>
+<h3 class="h4">Past Subscriptions</h3>
 {% if my_subscription_inactives is empty %}
     This player didn't have subscription inactives
 {% else %}
