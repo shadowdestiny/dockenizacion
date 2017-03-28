@@ -203,7 +203,7 @@ class ReportsRepository implements IReports
         } else {
             $receivedDate->modify('-4 days');
         }
-        $receivedDate->setTime(19,30,00);
+        $receivedDate->setTime(19, 30, 00);
 
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('start_draw_date', 'start_draw_date');

@@ -172,7 +172,7 @@ class ReportsService
     public function getSubscriptionsByUserIdActive($userId, $nextDrawDate)
     {
         $subscriptionsActives = $this->reportsRepository->getSubscriptionsByUserIdActive($userId, $nextDrawDate);
-        foreach ($subscriptionsActives as $subscriptionsActiveKey =>  $subscriptionsActiveValue) {
+        foreach ($subscriptionsActives as $subscriptionsActiveKey => $subscriptionsActiveValue) {
             $subscriptionsActives[$subscriptionsActiveKey]['start_draw_date'] = (new \DateTime($subscriptionsActiveValue['start_draw_date']))->format('Y M d');
             $subscriptionsActives[$subscriptionsActiveKey]['last_draw_date'] = (new \DateTime($subscriptionsActiveValue['last_draw_date']))->format('Y M d');
         }
@@ -198,8 +198,8 @@ class ReportsService
     {
         /** @var EuroMillionsDraw $actualDraw */
         $actualDraw = $this->lotteryDrawRepository->find($id);
-        $nextDrawDate = clone $actualDraw->getDrawDate()->setTime(19,30,00);
-        $actualDrawDate = $this->getNextDateDrawByLottery('Euromillions', $actualDraw->getDrawDate()->modify('-5 days'))->setTime(19,30,00);
+        $nextDrawDate = clone $actualDraw->getDrawDate()->setTime(19, 30, 00);
+        $actualDrawDate = $this->getNextDateDrawByLottery('Euromillions', $actualDraw->getDrawDate()->modify('-5 days'))->setTime(19, 30, 00);
 
         return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
     }
@@ -212,8 +212,8 @@ class ReportsService
     public function getEuromillionsDrawsActualAfterDatesByDrawDate($date)
     {
         $actualDraw = new \DateTime($date);
-        $nextDrawDate = clone $actualDraw->setTime(19,30,00);
-        $actualDrawDate = $this->getNextDateDrawByLottery('Euromillions', $actualDraw->modify('-5 days'))->setTime(19,30,00);
+        $nextDrawDate = clone $actualDraw->setTime(19, 30, 00);
+        $actualDrawDate = $this->getNextDateDrawByLottery('Euromillions', $actualDraw->modify('-5 days'))->setTime(19, 30, 00);
 
         return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
     }
@@ -242,8 +242,8 @@ class ReportsService
             } elseif ($drawValue['entity_type'] == 'automatic_purchase') {
                 $drawData = explode('#', $drawValue['data']);
                 if (isset($drawData[2])) {
-                        $drawDetails[$drawKey]['betIds']['id'][0] = $drawData[2];
-                        $drawDetails[$drawKey]['betIds']['numbers'][0] = implode(", ", $this->reportsRepository->getNumbersPlayedByBetId($drawData[2]));
+                    $drawDetails[$drawKey]['betIds']['id'][0] = $drawData[2];
+                    $drawDetails[$drawKey]['betIds']['numbers'][0] = implode(", ", $this->reportsRepository->getNumbersPlayedByBetId($drawData[2]));
                 }
             }
         }
@@ -497,7 +497,7 @@ class ReportsService
         $reactivatedDOR = $this->reportsRepository->getReactivatedDOR($data);
         $activesBeginning = $this->reportsRepository->getActivesBeginning($data);
         $activesEnd = $this->reportsRepository->getActivesEnd($data);
-        $churnRate = (($activesBeginning[0]['id'] - $activesEnd[0]['id']) / $activesBeginning[0]['id'] * 100 );
+        $churnRate = (($activesBeginning[0]['id'] - $activesEnd[0]['id']) / $activesBeginning[0]['id'] * 100);
 
         if ($data['groupBy'] == 'day') {
             $order = 2;
@@ -512,7 +512,7 @@ class ReportsService
             if ($order == 2) {
                 $date[$order] = $date[$order] . " - " . $date[$order - 1];
             }
-            
+
             if (!in_array($date[$order], $arrayResultsMonths)) {
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
@@ -949,7 +949,7 @@ class ReportsService
                 $arrayResultsMonths[] = $date[$order];
                 $arrayTotals[] = $date[$order];
             }
-            
+
             $arrayResults[$date[$order]][$new['country']]['grossGaming'] += (int)$new['id'];
             $arrayTotals[$date[$order]]['grossGaming'] += (int)$new['id'];
             $total['grossGaming'] += (int)$new['id'];
