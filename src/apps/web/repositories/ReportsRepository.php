@@ -380,26 +380,7 @@ class ReportsRepository implements IReports
                 GROUP BY t.user_id, displaydate, country", $rsm)->getResult();
 
     }
-//    public function getNewRegistrationsMobile($data){
-//        $rsm = new ResultSetMapping();
-//        $rsm->addScalarResult();
-//
-//    }
-//    public function getNewDepositorsMobile($data){
-//        $rsm = new ResultSetMapping();
-//        $rsm->addScalarResult();
-//
-//    }
-//    public function geConversionMobile($data){
-//        $rsm = new ResultSetMapping();
-//        $rsm->addScalarResult();
-//
-//    }
-//    public function getActivesMobile($data){
-//        $rsm = new ResultSetMapping();
-//        $rsm->addScalarResult();
-//
-//    }
+    
     public function getNumberBets($data)
     {
         $rsm = new ResultSetMapping();
@@ -518,26 +499,6 @@ class ReportsRepository implements IReports
 
     }
 
-//    public function getGrossGamingRevenue($data){
-//        $rsm = new ResultSetMapping();
-//        $rsm->addScalarResult();
-//
-//    }
-//    public function getNetGamingRevenue($data){
-//        $rsm = new ResultSetMapping();
-//        $rsm->addScalarResult();
-//    }
-
-//    public function getAverageRevenuePerUser($data){
-//        $rsm = new ResultSetMapping();
-//        $rsm->addScalarResult();
-//    }
-
-//    public function getBonusCost($data){
-//        $rsm = new ResultSetMapping();
-//        $rsm->addScalarResult();
-//    }
-
     public function getPlayerWinnings($data)
     {
         $rsm = new ResultSetMapping();
@@ -555,11 +516,6 @@ class ReportsRepository implements IReports
                 AND created IS NOT NULL
                 GROUP BY displaydate, country", $rsm)->getResult();
     }
-
-//    public function getCustomerLifetimeValue($data){
-//        $rsm = new ResultSetMapping();
-//        $rsm->addScalarResult();
-//    }
 
     /**
      * @param $id

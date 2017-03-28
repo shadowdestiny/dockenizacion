@@ -560,6 +560,7 @@ class ReportsService
                 $total['depositorsD0'] += 1;
             }
         }
+        
         foreach ($depositors1 as $new) {
 
             $date = explode('-', $new['created']);
@@ -579,6 +580,7 @@ class ReportsService
                 $total['depositorsD1'] += 1;
             }
         }
+        
         foreach ($depositors2 as $new) {
 
             $date = explode('-', $new['created']);
@@ -624,6 +626,7 @@ class ReportsService
             }
 
         }
+        
         foreach ($justInactives as $new) {
             $date = explode('-', date('Y-F-d', strtotime($data['dateTo'])));
             if ($order == 2) {
@@ -758,10 +761,6 @@ class ReportsService
 
         $actives = $this->reportsRepository->getActives($data);
 
-//        $this->reportsRepository->getNewRegistrationsMobile($data);
-//        $this->reportsRepository->getNewDepositorsMobile($data);
-//        $this->reportsRepository->geConversionMobile($data);
-//        $this->reportsRepository->getActivesMobile($data);
         $numberBets = $this->reportsRepository->getNumberBets($data);
         $totalBets = $this->reportsRepository->getTotalBetsAmount($data);
         $numberDeposits = $this->reportsRepository->getNumberDeposits($data);
@@ -769,11 +768,7 @@ class ReportsService
         $numberWithdrawals = $this->reportsRepository->getNumberWithdrawals($data);
         $withdrawalAmount = $this->reportsRepository->getWithdrawalAmount($data);
         $grossGaming = $this->reportsRepository->getGrossGamingRevenue($data);
-
-//        $this->reportsRepository->getNetGamingRevenue($data);
-//        $this->reportsRepository->getBonusCost($data);
         $playerWinnings = $this->reportsRepository->getPlayerWinnings($data);
-//        $this->reportsRepository->getCustomerLifetimeValue($data);
 
         if ($data['groupBy'] == 'day') {
             $order = 2;
