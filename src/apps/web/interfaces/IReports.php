@@ -13,6 +13,7 @@ interface IReports
     public function getUserAndDataFromTransactionsBetweenDates($dateFrom, $dateTo);
     public function getActivePlayConfigsByUser($userId);
     public function getSubscriptionsByUserIdActive($userId, $nextDrawDate);
+    public function getSubscriptionsByUserIdInactive($userId);
     public function getPastGamesWithPrizes($userId);
     public function getEuromillionsDrawDetailsByIdAndDates($id, $drawDates);
     public function getEuromillionsDrawDetailsBetweenDrawDates($drawDates);

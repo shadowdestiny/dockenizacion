@@ -1,4 +1,4 @@
-<h3 class="h4">Subscription Actives</h3>
+<h3 class="h4">Subscriptions Actives</h3>
 {% if my_subscription_actives is empty %}
     This player didn't have subscription actives
 {% else %}
@@ -38,5 +38,4 @@
         {% endfor %}
         </tbody>
     </table>
-    {{ paginator_view_actives }}
 {% endif %}

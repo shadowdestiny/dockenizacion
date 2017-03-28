@@ -48,9 +48,11 @@
                         </tr>
                     </table>
 
-                    {% include "reports/playerDetails/_upcomingDraws.volt" %}
-
                     {% include "reports/playerDetails/_subscriptionActives.volt" %}
+
+                    {% include "reports/playerDetails/_subscriptionInactives.volt" %}
+
+                    {% include "reports/playerDetails/_upcomingDraws.volt" %}
 
                     {% include "reports/playerDetails/_pastGames.volt" %}
 
