@@ -120,6 +120,8 @@ class ReportsController extends AdminControllerBase
 
         $mySubscriptionActives = $this->reportsService->getSubscriptionsByUserIdActive($user->getId(), $this->reportsService->getNextDateDrawByLottery('Euromillions'));
 
+        $mySubscriptionInactives = $this->reportsService->getSubscriptionsByUserIdInactive($user->getId());
+
         $myGamesInactives = new PastDrawsCollectionDTO($this->reportsService->getPastGamesWithPrizes($user->getId()));
         $pageInactives = (!empty($this->request->get('pageInactives'))) ? $this->request->get('pageInactives') : 1;
         $paginatorInactives = $this->getPaginatorAsArray(!empty($myGamesInactives->result['dates']) ? $myGamesInactives->result['dates'] : [], 4, $pageInactives);
@@ -138,9 +140,10 @@ class ReportsController extends AdminControllerBase
         $this->view->setVars([
             'needReportsMenu' => true,
             'user' => $user,
+            'my_subscription_actives' => $mySubscriptionActives,
+            'my_subscription_inactives' => $mySubscriptionInactives,
             'my_games_actives' => $paginatorActives->getPaginate()->items,
             'paginator_view_actives' => $paginatorViewActives,
-            'my_subscription_actives' => $mySubscriptionActives,
             'my_games_inactives' => $paginatorInactives->getPaginate()->items,
             'paginator_view_inactives' => $paginatorViewInactives,
             'userBets' => $paginatorBets->getPaginate()->items,
