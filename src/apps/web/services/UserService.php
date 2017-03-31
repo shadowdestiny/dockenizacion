@@ -181,6 +181,45 @@ class UserService
         }
     }
 
+    /**
+     * @param $userId
+     * @param $nextDrawDate
+     *
+     * @return array
+     */
+    public function getMyActiveSubscriptions($userId, $nextDrawDate)
+    {
+        if(!empty($userId)){
+            $subscriptionsActives = $this->playRepository->getSubscriptionsByUserIdActive($userId, $nextDrawDate);
+            foreach ($subscriptionsActives as $subscriptionsActiveKey => $subscriptionsActiveValue) {
+                $subscriptionsActives[$subscriptionsActiveKey]['start_draw_date'] = (new \DateTime($subscriptionsActiveValue['start_draw_date']))->format('Y M d');
+                $subscriptionsActives[$subscriptionsActiveKey]['last_draw_date'] = (new \DateTime($subscriptionsActiveValue['last_draw_date']))->format('Y M d');
+            }
+            return $subscriptionsActives;
+        }else{
+            return [];
+        }
+    }
+
+    /**
+     * @param $userId
+     *
+     * @return array
+     */
+    public function getMyInactiveSubscriptions($userId)
+    {
+        if(!empty($userId)){
+            $subscriptionsActives = $this->playRepository->getSubscriptionsByUserIdInactive($userId);
+            foreach ($subscriptionsActives as $subscriptionsActiveKey =>  $subscriptionsActiveValue) {
+                $subscriptionsActives[$subscriptionsActiveKey]['start_draw_date'] = (new \DateTime($subscriptionsActiveValue['start_draw_date']))->format('Y M d');
+                $subscriptionsActives[$subscriptionsActiveKey]['last_draw_date'] = (new \DateTime($subscriptionsActiveValue['last_draw_date']))->format('Y M d');
+            }
+            return $subscriptionsActives;
+        }else{
+            return [];
+        }
+    }
+
     public function updateUserData(array $user_data, Email $email)
     {
         $user = $this->userRepository->getByEmail($email->toNative());
@@ -378,13 +417,10 @@ class UserService
         return new ActionResult(false);
     }
 
-
     public function getUsersWithPlayConfigsForNextDraw()
     {
         return $this->userRepository->getUsersWithPlayConfigsOrderByLottery();
     }
-
-
 
     public function createWithDraw( User $user, array $data )
     {

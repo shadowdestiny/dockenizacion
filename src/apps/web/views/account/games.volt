@@ -22,7 +22,7 @@
             <div class="box-basic content">
                 <h1 class="h1 title">{{ language.translate("Tickets") }}</h1>
 
-                {% if my_games_actives is empty %}
+                {% if my_games_actives is empty and my_subscription_actives is empty %}
                     <div class="box info">
                         <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                         <span class="txt">
@@ -44,6 +44,44 @@
                             <span class="btn blue big" >{{ language.translate("PLAY NOW") }}</span>
                         </div>
                     </a>
+                {% endif %}
+
+                {% if my_subscription_actives is not empty %}
+                    <h2 class="h3">{{ language.translate("My Subscriptions") }}</h2>
+                    <table class="present cl table ui-responsive" data-role="table" data-mode="reflow">
+                        <thead>
+                        <th width="215px">
+                            {{ language.translate("Draw date") }}
+                        </th>
+                        <th class="date">
+                            {{ language.translate("Lottery") }}
+                        </th>
+                        <th class="numbers">
+                            {{ language.translate("Numbers <span class='desktop'>played</span>") }}
+                        </th>
+                        </thead>
+                        <tbody>
+                        {% for my_subscription_active in my_subscription_actives %}
+                            <tr>
+                                <td align="center">
+                                    {{ my_subscription_active['start_draw_date'] }} to {{ my_subscription_active['last_draw_date'] }}
+                                </td>
+                                <td align="center">
+                                    <strong>Euromillions</strong>
+                                </td>
+                                <td>
+                                    <span class="num">{{ my_subscription_active['line_regular_number_one'] }}</span>
+                                    <span class="num">{{ my_subscription_active['line_regular_number_two'] }}</span>
+                                    <span class="num">{{ my_subscription_active['line_regular_number_three'] }}</span>
+                                    <span class="num">{{ my_subscription_active['line_regular_number_four'] }}</span>
+                                    <span class="num">{{ my_subscription_active['line_regular_number_five'] }}</span>
+                                    <span class="num yellow">{{ my_subscription_active['line_lucky_number_one'] }}</span>
+                                    <span class="num yellow">{{ my_subscription_active['line_lucky_number_two'] }}</span>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 {% endif %}
 
                 {% if my_games_actives is empty %}
@@ -138,6 +176,50 @@
                                     </td>#}
                                 </tr>
                             {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+
+                {% if my_subscription_inactives is not empty %}
+                    <h2 class="h3">{{ language.translate("Past Subscriptions") }}</h2>
+                    <table id="game-history" class="cl table ui-responsive" data-role="table" data-mode="reflow">
+                        <thead>
+                        <tr>
+                            <th class="date">
+                                {{ language.translate("Draw date") }}
+                            </th>
+                            <th class="date">
+                                {{ language.translate("Lottery") }}
+                            </th>
+
+                            {#<th class="when">#}
+                            {#{{ language.app("Duration") }}#}
+                            {#</th>#}
+                            <th class="numbers">
+                                {{ language.translate("Numbers <span class='desktop'>played</span>") }}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for my_subscription_inactive in my_subscription_inactives %}
+                            <tr>
+                                <td align="center">
+                                    {{ my_subscription_inactive['start_draw_date'] }} to {{ my_subscription_inactive['last_draw_date'] }}
+                                </td>
+                                <td align="center">
+                                    <strong>Euromillions</strong>
+                                </td>
+                                <td>
+                                    <span class="num">{{ my_subscription_inactive['line_regular_number_one'] }}</span>
+                                    <span class="num">{{ my_subscription_inactive['line_regular_number_two'] }}</span>
+                                    <span class="num">{{ my_subscription_inactive['line_regular_number_three'] }}</span>
+                                    <span class="num">{{ my_subscription_inactive['line_regular_number_four'] }}</span>
+                                    <span class="num">{{ my_subscription_inactive['line_regular_number_five'] }}</span>
+                                    <span class="num yellow">{{ my_subscription_inactive['line_lucky_number_one'] }}</span>
+                                    <span class="num yellow">{{ my_subscription_inactive['line_lucky_number_two'] }}</span>
+                                </td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 {% endif %}

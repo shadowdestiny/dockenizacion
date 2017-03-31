@@ -49,6 +49,8 @@ class TicketsController extends AccountController
         return $this->view->setVars([
             'my_games_actives' => $playConfigDTO,
             'my_games_inactives' => $paginator->getPaginate()->items,
+            'my_subscription_actives' => $this->userService->getMyActiveSubscriptions($user->getId(), $this->lotteryService->getNextDateDrawByLottery('Euromillions')),
+            'my_subscription_inactives' => $this->userService->getMyInactiveSubscriptions($user->getId()),
             'jackpot_value' => $jackpot,
             'paginator_view' => $paginator_view,
             'message_actives' => $message_actives,
@@ -56,6 +58,4 @@ class TicketsController extends AccountController
             'nextDrawDate' => $this->lotteryService->getNextDateDrawByLottery('Euromillions')->format('Y M d'),
         ]);
     }
-
-
 }
