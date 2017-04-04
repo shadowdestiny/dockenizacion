@@ -1,6 +1,5 @@
 <?php
 
-
 namespace EuroMillions\web\emailTemplates;
 
 class JackpotRolloverEmailTemplate extends EmailTemplateDecorator
@@ -29,7 +28,7 @@ class JackpotRolloverEmailTemplate extends EmailTemplateDecorator
                     ],
                     [
                         'name' => 'player_alert_threshold',
-                        'content' => number_format((float) $this->getThresholdAmount() / 100,2,".",",")
+                        'content' => '€' . number_format((float) $this->getThresholdAmount(),0,".",",")
                     ],
                     [
                         'name'    => 'current_jackpot',
@@ -55,7 +54,6 @@ class JackpotRolloverEmailTemplate extends EmailTemplateDecorator
         ];
         return $vars;
     }
-
 
     /**
      * @return mixed
