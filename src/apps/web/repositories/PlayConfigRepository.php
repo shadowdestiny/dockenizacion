@@ -179,6 +179,7 @@ class PlayConfigRepository extends RepositoryBase
                 . ' INNER JOIN log_validation_api lva ON lva.bet_id = b.id '
                 . ' WHERE p.user_id = "' . $userId . '" AND p.active = 1 AND p.frequency > 1 '
                 . ' AND last_draw_date >= "' . $nextDrawDate->format('Y-m-d') . '" AND received >= "' . $receivedDate->format('Y-m-d H:i:s') . '"
+                    AND lva.status = "OK"
                     GROUP BY p.start_draw_date,
                             p.line_regular_number_one,
                             p.line_regular_number_two,
