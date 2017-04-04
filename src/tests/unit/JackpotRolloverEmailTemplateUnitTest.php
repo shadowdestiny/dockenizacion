@@ -64,7 +64,7 @@ class JackpotRolloverEmailTemplateUnitTest extends UnitTestBase
                     ],
                     [
                         'name' => 'player_alert_threshold',
-                        'content' => '10,000.00'
+                        'content' => '€1,000,000'
                     ],
                     [
                         'name'    => 'current_jackpot',
