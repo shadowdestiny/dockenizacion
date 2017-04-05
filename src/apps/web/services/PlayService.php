@@ -346,6 +346,26 @@ class PlayService
         return $this->playConfigRepository->retrieveEuromillionsBundlePrice();
     }
 
+    /**
+     * @param $lotteryId
+     *
+     * @return array
+     */
+    public function getAllSubscriptionsActivesByLotteryId($lotteryId)
+    {
+        return $this->playConfigRepository->getAllSubscriptionsActivesByLotteryId($lotteryId);
+    }
+
+    /**
+     * @param $lotteryId
+     *
+     * @return array
+     */
+    public function getAllSubscriptionsPlayedByLotteryId($lotteryId)
+    {
+        return $this->playConfigRepository->getAllSubscriptionsPlayedByLotteryId($lotteryId, $this->lotteryService->getNextDateDrawByLottery('Euromillions'));
+    }
+
     //EMTD workaround, now only once lottery we have. In the future should pass lottery as param
     private function getLottery()
     {

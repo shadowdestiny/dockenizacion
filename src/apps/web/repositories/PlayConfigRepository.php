@@ -233,6 +233,56 @@ class PlayConfigRepository extends RepositoryBase
                 , $rsm)->getResult();
     }
 
+    /**
+     * @param $lotteryId int
+     *
+     * @return array
+     */
+    public function getAllSubscriptionsActivesByLotteryId($lotteryId)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('user_id', 'user_id');
+
+        return $this->getEntityManager()
+            ->createNativeQuery(
+                'SELECT user_id
+                      FROM play_configs
+                      WHERE frequency > 1 and active = 1 and lottery_id = ' . $lotteryId . '
+                      ORDER BY user_id ASC'
+                , $rsm)->getResult();
+    }
+
+    /**
+     * @param $lotteryId int
+     * @param $nextDrawDate \DateTime
+     *
+     * @return array
+     */
+    public function getAllSubscriptionsPlayedByLotteryId($lotteryId, $nextDrawDate)
+    {
+
+        $receivedDate = clone $nextDrawDate;
+        if ($receivedDate->format('N') == 5) {
+            $receivedDate->modify('-3 days');
+        } else {
+            $receivedDate->modify('-4 days');
+        }
+        $receivedDate->setTime(19, 30, 00);
+
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('user_id', 'user_id');
+
+        return $this->getEntityManager()
+            ->createNativeQuery(
+                'SELECT user_id
+                        FROM bets b INNER JOIN play_configs p on b.playConfig_id = p.id 
+                        INNER JOIN log_validation_api lva ON lva.bet_id = b.id
+                        WHERE p.active = 1 AND p.frequency > 1 AND status = "OK" AND lottery_id = ' . $lotteryId . '
+                          AND last_draw_date >= "' . $nextDrawDate->format('Y-m-d') . '" AND received >= "' . $receivedDate->format('Y-m-d H:i:s') . '"
+                        ORDER BY user_id ASC'
+                , $rsm)->getResult();
+    }
+
     public function getTotalByUserAndPlayForNextDraw( $userId , \DateTime $dateNextDraw )
     {
         $result = $this->getEntityManager()
