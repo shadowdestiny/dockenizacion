@@ -56,7 +56,7 @@ class CheckAutomaticPurchaseTask extends TaskBase
         $emailTemplate->setUsers($usersList);
 
         $user = new User();
-        $user->setEmail(new Email('enric.tey@panamedia.net'));
+        $user->setEmail(new Email('alerts@panamedia.net'));
 
         $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
