@@ -190,12 +190,9 @@ class UserService
     public function getMyActiveSubscriptions($userId, $nextDrawDate)
     {
         if(!empty($userId)){
-            $subscriptionsActives = $this->playRepository->getSubscriptionsByUserIdActive($userId, $nextDrawDate);
-            foreach ($subscriptionsActives as $subscriptionsActiveKey => $subscriptionsActiveValue) {
-                $subscriptionsActives[$subscriptionsActiveKey]['start_draw_date'] = (new \DateTime($subscriptionsActiveValue['start_draw_date']))->format('Y M d');
-                $subscriptionsActives[$subscriptionsActiveKey]['last_draw_date'] = (new \DateTime($subscriptionsActiveValue['last_draw_date']))->format('Y M d');
-            }
-            return $subscriptionsActives;
+            return $this->trateSubscriptionsToView(
+                $this->playRepository->getSubscriptionsByUserIdActive($userId, $nextDrawDate)
+            );
         }else{
             return [];
         }
@@ -209,12 +206,9 @@ class UserService
     public function getMyInactiveSubscriptions($userId)
     {
         if(!empty($userId)){
-            $subscriptionsActives = $this->playRepository->getSubscriptionsByUserIdInactive($userId);
-            foreach ($subscriptionsActives as $subscriptionsActiveKey =>  $subscriptionsActiveValue) {
-                $subscriptionsActives[$subscriptionsActiveKey]['start_draw_date'] = (new \DateTime($subscriptionsActiveValue['start_draw_date']))->format('Y M d');
-                $subscriptionsActives[$subscriptionsActiveKey]['last_draw_date'] = (new \DateTime($subscriptionsActiveValue['last_draw_date']))->format('Y M d');
-            }
-            return $subscriptionsActives;
+            return $this->trateSubscriptionsToView(
+                $this->playRepository->getSubscriptionsByUserIdInactive($userId)
+            );
         }else{
             return [];
         }
@@ -448,6 +442,46 @@ class UserService
         } catch ( \Exception $e ) {
             return new ActionResult(false);
         }
+    }
+
+    private function trateSubscriptionsToView($subscriptionsActives){
+        $subscriptionsActivesPresenter = [];
+        $cont = 0;
+        $contLines = 0;
+        $lastDrawDate = '';
+        $startDrawDate = '';
+        foreach ($subscriptionsActives as $subscriptionsActiveKey => $subscriptionsActiveValue) {
+            if ($lastDrawDate == $subscriptionsActives[$subscriptionsActiveKey]['last_draw_date'] &&
+                $startDrawDate == $subscriptionsActives[$subscriptionsActiveKey]['start_draw_date']) {
+                $subscriptionsActivesPresenter[$cont]['lines'] = $contLines+1;
+                $subscriptionsActivesPresenter[$cont][$contLines]['line_regular_number_one'] = $subscriptionsActiveValue['line_regular_number_one'];
+                $subscriptionsActivesPresenter[$cont][$contLines]['line_regular_number_two'] = $subscriptionsActiveValue['line_regular_number_two'];
+                $subscriptionsActivesPresenter[$cont][$contLines]['line_regular_number_three'] = $subscriptionsActiveValue['line_regular_number_three'];
+                $subscriptionsActivesPresenter[$cont][$contLines]['line_regular_number_four'] = $subscriptionsActiveValue['line_regular_number_four'];
+                $subscriptionsActivesPresenter[$cont][$contLines]['line_regular_number_five'] = $subscriptionsActiveValue['line_regular_number_five'];
+                $subscriptionsActivesPresenter[$cont][$contLines]['line_lucky_number_one'] = $subscriptionsActiveValue['line_lucky_number_one'];
+                $subscriptionsActivesPresenter[$cont][$contLines]['line_lucky_number_two'] = $subscriptionsActiveValue['line_lucky_number_two'];
+                $contLines++;
+            } else {
+                $cont++;
+                $subscriptionsActivesPresenter[$cont]['start_draw_date'] = (new \DateTime($subscriptionsActiveValue['start_draw_date']))->format('Y M d');
+                $subscriptionsActivesPresenter[$cont]['last_draw_date'] = (new \DateTime($subscriptionsActiveValue['last_draw_date']))->format('Y M d');
+                $contLines = 0;
+                $subscriptionsActivesPresenter[$cont]['lines'] = $contLines+1;
+                $subscriptionsActivesPresenter[$cont][$contLines]['line_regular_number_one'] = $subscriptionsActiveValue['line_regular_number_one'];
+                $subscriptionsActivesPresenter[$cont][$contLines]['line_regular_number_two'] = $subscriptionsActiveValue['line_regular_number_two'];
+                $subscriptionsActivesPresenter[$cont][$contLines]['line_regular_number_three'] = $subscriptionsActiveValue['line_regular_number_three'];
+                $subscriptionsActivesPresenter[$cont][$contLines]['line_regular_number_four'] = $subscriptionsActiveValue['line_regular_number_four'];
+                $subscriptionsActivesPresenter[$cont][$contLines]['line_regular_number_five'] = $subscriptionsActiveValue['line_regular_number_five'];
+                $subscriptionsActivesPresenter[$cont][$contLines]['line_lucky_number_one'] = $subscriptionsActiveValue['line_lucky_number_one'];
+                $subscriptionsActivesPresenter[$cont][$contLines]['line_lucky_number_two'] = $subscriptionsActiveValue['line_lucky_number_two'];
+                $contLines++;
+            }
+            $lastDrawDate = $subscriptionsActives[$subscriptionsActiveKey]['last_draw_date'];
+            $startDrawDate = $subscriptionsActives[$subscriptionsActiveKey]['start_draw_date'];
+        }
+
+        return $subscriptionsActivesPresenter;
     }
 
 }

@@ -188,7 +188,7 @@ class PlayConfigRepository extends RepositoryBase
                             p.line_regular_number_five,
                             p.line_lucky_number_one,
                             p.line_lucky_number_two
-                    ORDER BY p.start_draw_date ASC '
+                    ORDER BY p.start_draw_date ASC, p.last_draw_date ASC '
                 , $rsm)->getResult();
     }
 
@@ -229,7 +229,7 @@ class PlayConfigRepository extends RepositoryBase
                             p.line_regular_number_five,
                             p.line_lucky_number_one,
                             p.line_lucky_number_two
-                    ORDER BY p.start_draw_date ASC '
+                    ORDER BY p.start_draw_date ASC, p.last_draw_date ASC '
                 , $rsm)->getResult();
     }
 
