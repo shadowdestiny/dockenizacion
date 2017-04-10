@@ -240,6 +240,7 @@
                         {% endfor %}
                         </tbody>
                     </table>
+                    {{ paginator_view_subs_inactives }}
                 {% endif %}
 
                 {% if my_games_inactives is empty %}
