@@ -51,8 +51,8 @@ $(function(){swap(".log-in .box-extra a, .sign-up .box-extra a");});
             </div>
 
             <div class="terms txt">
-                {{ language.translate("By signing in you agree to our") }} <a href="/legal/index">{{ language.translate("Terms &amp; Conditions") }}</a>
-                <br>{{ language.translate("and that you are 18+ years old.") }}
+                {{ language.translate("By signing in you agree to our") }} <a href="/legal/index" target="_blank">{{ language.translate("Terms &amp; Conditions") }}</a> and our <br><a href="/legal/privacy" target="_blank">{{ language.translate("Privacy Policy") }}</a>
+                {{ language.translate("and that you are 18+ years old.") }}
             </div>
         </div>
     </div>
