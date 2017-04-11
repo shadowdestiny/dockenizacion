@@ -51,7 +51,7 @@ class UserNotificationsDTO extends DTOBase implements IDto
     private function nameFormatted()
     {
         $type = $this->notification->getNotificationType();
-        switch($type) {
+        switch ($type) {
             case 1:
                 $name = 'jackpot_reach';
                 break;
@@ -63,6 +63,9 @@ class UserNotificationsDTO extends DTOBase implements IDto
                 break;
             case 4:
                 $name = 'results';
+                break;
+            case 5:
+                $name = 'email_marketing';
                 break;
             default:
                 throw new \Exception();

@@ -296,6 +296,18 @@ class UserService
         }
     }
 
+    public function getActiveNotificationsTypeEmailMarketing()
+    {
+        $user_notifications = $this->userNotificationsRepository->findBy(['active' => true,
+            'notification' => 5,
+        ]);
+        if(!empty($user_notifications)) {
+            return new ActionResult(true,$user_notifications);
+        } else {
+            return new ActionResult(false);
+        }
+    }
+
     public function getActiveNotificationsByUserAndType(User $user, $notificationType)
     {
         $user_notifications = $this->userNotificationsRepository->findBy(['active' => true,

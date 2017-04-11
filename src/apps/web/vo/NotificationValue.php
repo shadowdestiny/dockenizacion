@@ -18,6 +18,8 @@ class NotificationValue
 
     const NOTIFICATION_RESULT_DRAW = 4;
 
+    const NOTIFICATION_EMAIL_MARKETING = 5;
+
     protected $type;
 
     protected $value;
@@ -47,6 +49,9 @@ class NotificationValue
                 $result = true;
                 break;
             case self::NOTIFICATION_RESULT_DRAW:
+                $result = (is_bool((bool) $value)) ? true : false;
+                break;
+            case self::NOTIFICATION_EMAIL_MARKETING:
                 $result = (is_bool((bool) $value)) ? true : false;
                 break;
             default:

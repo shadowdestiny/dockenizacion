@@ -35,7 +35,7 @@ class AccountController extends PublicSiteControllerBase
         $domainServiceFactory = $dispatcher->getDI()->get('domainServiceFactory');
         $user_id = $domainServiceFactory->getAuthService()->getCurrentUser();
         $this->insertGoogleAnalyticsCodeViaEnvironment();
-        if($user_id instanceof GuestUser) {
+        if ($user_id instanceof GuestUser) {
             $this->response->redirect('/sign-in');
             return false;
         } else {
@@ -106,10 +106,10 @@ class AccountController extends PublicSiteControllerBase
         $userId = $this->authService->getCurrentUser();
         $myaccount_form = $this->getMyACcountForm($userId);
         $myaccount_passwordchange_form = new MyAccountChangePasswordForm();
-	    $this->tag->prependTitle('Change Password');
+        $this->tag->prependTitle('Change Password');
         return $this->view->setVars([
             'form_errors' => [],
-            'which_form'  => 'password',
+            'which_form' => 'password',
             'errors' => [],
             'msg' => null,
             'myaccount' => $myaccount_form,
@@ -129,7 +129,7 @@ class AccountController extends PublicSiteControllerBase
         $countries = $this->getCountries();
         $credit_card_form = $this->appendElementToAForm($credit_card_form);
         $form_errors = $this->getErrorsArray();
-        $bank_account_form = new BankAccountForm($user, ['countries' => $countries] );
+        $bank_account_form = new BankAccountForm($user, ['countries' => $countries]);
         $site_config_dto = $this->siteConfigService->getSiteConfigDTO($user->getUserCurrency(), $user->getLocale());
         $symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
         $wallet_dto = $this->domainServiceFactory->getWalletService()->getWalletDTO($user);
@@ -138,7 +138,7 @@ class AccountController extends PublicSiteControllerBase
 
         $type = ViewHelper::getNamePaymentType($this->getDI()->get('paymentProviderFactory'));
         $view = $type == 'iframe' ? 'account/wallet_iframe' : 'account/wallet';
-	    $this->tag->prependTitle('My Balance');
+        $this->tag->prependTitle('My Balance');
         $this->view->pick($view);
 
         return $this->view->setVars([
@@ -168,17 +168,17 @@ class AccountController extends PublicSiteControllerBase
         $result = $this->obtainActiveNotifications($userId);
         $list_notifications = [];
 
-        if($result->success()) {
+        if ($result->success()) {
             $error_msg = '';
             $notifications_collection = $result->getValues();
-            foreach($notifications_collection as $notifications) {
+            foreach ($notifications_collection as $notifications) {
                 $list_notifications[] = new UserNotificationsDTO($notifications);
             }
-        }else {
+        } else {
             $error_msg = 'An error occurred';
         }
         $this->view->pick('account/email');
-	$this->tag->prependTitle('Email Settings');
+        $this->tag->prependTitle('Email Settings');
         return $this->view->setVars([
             'error' => $error_msg,
             'error_form' => [],
@@ -192,7 +192,7 @@ class AccountController extends PublicSiteControllerBase
      */
     public function editEmailAction()
     {
-        if(!$this->request->isPost()) {
+        if (!$this->request->isPost()) {
             return $this->response->redirect('/account/email');
         }
         $userId = $this->authService->getCurrentUser();
@@ -206,43 +206,46 @@ class AccountController extends PublicSiteControllerBase
         $results_draw = ($this->request->getPost('results') === 'on');
         $config_value_threshold = $this->request->getPost('config_value_jackpot_reach');
         $config_value_results = $this->request->getPost('config_value_results');
+        $emailMarketing = $this->request->getPost('email_marketing');
 
         $message = null;
 
         $list_notifications = [];
         try {
-            if($reach_notification) {
+            if ($reach_notification) {
                 $notificationType = new NotificationValue(NotificationValue::NOTIFICATION_THRESHOLD, $config_value_threshold);
                 $reach_notification = true;
-                if(empty($config_value_threshold)) {
+                if (empty($config_value_threshold)) {
                     $reach_notification = false;
                 }
-                $this->userService->updateEmailNotification($notificationType,$user,$reach_notification);
+                $this->userService->updateEmailNotification($notificationType, $user, $reach_notification);
             } else {
-                $notificationType = new NotificationValue(NotificationValue::NOTIFICATION_THRESHOLD,null);
-                $this->userService->updateEmailNotification($notificationType,$user,false);
+                $notificationType = new NotificationValue(NotificationValue::NOTIFICATION_THRESHOLD, null);
+                $this->userService->updateEmailNotification($notificationType, $user, false);
             }
             //Reach notification
-            $notificationType = new NotificationValue(NotificationValue::NOTIFICATION_NOT_ENOUGH_FUNDS,'');
+            $notificationType = new NotificationValue(NotificationValue::NOTIFICATION_NOT_ENOUGH_FUNDS, '');
 
-            $this->userService->updateEmailNotification($notificationType,$user,$auto_play_funds);
-            $notificationType = new NotificationValue(NotificationValue::NOTIFICATION_LAST_DRAW,'');
+            $this->userService->updateEmailNotification($notificationType, $user, $auto_play_funds);
+            $notificationType = new NotificationValue(NotificationValue::NOTIFICATION_LAST_DRAW, '');
 
-            $this->userService->updateEmailNotification($notificationType,$user,$auto_play_lastdraw);
-            $notificationType = new NotificationValue(NotificationValue::NOTIFICATION_RESULT_DRAW,$config_value_results);
+            $this->userService->updateEmailNotification($notificationType, $user, $auto_play_lastdraw);
+            $notificationType = new NotificationValue(NotificationValue::NOTIFICATION_RESULT_DRAW, $config_value_results);
 
-            $this->userService->updateEmailNotification($notificationType,$user,$results_draw);
+            $this->userService->updateEmailNotification($notificationType, $user, $results_draw);
+            $notificationType = new NotificationValue(NotificationValue::NOTIFICATION_EMAIL_MARKETING, $config_value_results);
+            $this->userService->updateEmailNotification($notificationType, $user, $emailMarketing);
             $message = 'Your new email settings are saved';
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $error[] = $e->getMessage();
         } finally {
             $result = $this->obtainActiveNotifications($user);
-            if($result->success()) {
+            if ($result->success()) {
                 $notifications_collection = $result->getValues();
-                foreach($notifications_collection as $notifications) {
+                foreach ($notifications_collection as $notifications) {
                     $list_notifications[] = new UserNotificationsDTO($notifications);
                 }
-            }else {
+            } else {
                 $error[] = 'An error occurred while updated. Please, try it later';
             }
             $errors = $this->validationEmailSettings();
@@ -252,7 +255,7 @@ class AccountController extends PublicSiteControllerBase
         return $this->view->setVars([
             'error_form' => (is_object($errors) && $errors->count() > 0) ? $errors : [],
             'message' => (is_object($errors) && $errors->count() > 0) ? '' : $message,
-           // 'errors' => $error,
+            // 'errors' => $error,
             'list_notifications' => $list_notifications,
         ]);
 
@@ -263,19 +266,19 @@ class AccountController extends PublicSiteControllerBase
      */
     public function depositAction()
     {
-        if(!$this->request->isPost()) {
+        if (!$this->request->isPost()) {
             return $this->response->redirect('/account/wallet');
         }
         $value = $this->request->getPost('funds-value');
 
-        if(!is_numeric($value)) {
+        if (!is_numeric($value)) {
             return $this->response->redirect('/account/wallet');
         }
         $currency = $this->userPreferencesService->getCurrency();
         $amount = new Money((int)str_replace('.', '', $value), $currency);
         $amountParsed = $this->currencyConversionService->convert($amount, new Currency('EUR'));
-        $creditCardCharged = new CreditCardCharge($amountParsed, $this->siteConfigService->getFee(),$this->siteConfigService->getFeeToLimitValue());
-        if($amountParsed->lessThan(new Money(1200, new Currency('EUR')))) {
+        $creditCardCharged = new CreditCardCharge($amountParsed, $this->siteConfigService->getFee(), $this->siteConfigService->getFeeToLimitValue());
+        if ($amountParsed->lessThan(new Money(1200, new Currency('EUR')))) {
             $this->response->redirect('/account/wallet');
         }
         $this->view->pick('account/deposit');
@@ -296,17 +299,17 @@ class AccountController extends PublicSiteControllerBase
         $countries = $this->getCountries();
         $user = $this->userService->getUser($userId);
         $user_dto = new UserDTO($user);
-        return new MyAccountForm($user_dto,['countries' => $countries]);
+        return new MyAccountForm($user_dto, ['countries' => $countries]);
     }
 
     protected function validationEmailSettings()
     {
         $validation = new Validation();
         $messages = [];
-        if($this->request->getPost('jackpot_reach') === 'on') {
+        if ($this->request->getPost('jackpot_reach') === 'on') {
             $validation->add('config_value_jackpot_reach',
                 new Validation\Validator\Numericality([
-                   'message' => 'Error. You can insert only a numeric value, symbols and letters are not allowed.'
+                    'message' => 'Error. You can insert only a numeric value, symbols and letters are not allowed.'
                 ]));
             $messages = $validation->validate($this->request->getPost());
         }

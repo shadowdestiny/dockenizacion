@@ -31,6 +31,10 @@ class NotificationsTypeSeeder extends AbstractSeed
                 'description' => 'Results of the Draw',
                 'notification_type' => 4
             ],
+            [
+                'description' => 'With special promotions and discount through email',
+                'notification_type' => 5
+            ],
         ];
         $notificationsType = $this->table('notifications_type');
         $notificationsType->insert($data)
