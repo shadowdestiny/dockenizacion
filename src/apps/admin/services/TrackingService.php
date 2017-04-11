@@ -314,7 +314,7 @@ class TrackingService
 
         foreach ($postData as $postKey => $postValue) {
             if (substr($postKey, 0, 6) == 'check_') {
-                $this->processPreferenceKey(explode('_', $postKey)[1], $postData);
+                $this->processActionsKey(explode('_', $postKey)[1], $postData);
             }
         }
     }
@@ -429,6 +429,12 @@ class TrackingService
                 $relationshipTable = 'tc_users_list';
                 $this->savePreferenceKey($key, $postData[$key . '_type'] . '|' . implode(',', $postData[$key]), 'By' . ucfirst($key), $relationshipTable, $postData['trackingCodeId']);
                 break;
+        }
+    }
+
+    private function processActionsKey($key, array $postData){
+        $relationshipTable = '';
+        switch ($key) {
             case 'creditDebitRealMoney':
                 $this->saveActionPreferenceKey($key, $postData[$key . '_from'], $postData['trackingCodeId']);
                 break;
@@ -576,7 +582,11 @@ class TrackingService
                     $conditions .= "u.city IN ('" . implode("','", explode(',', $tcAttribute->getConditions())) . "') AND ";
                     break;
                 case "ByAcceptingEmails":
-                    //ToDo: En el pròximo sprint
+                    if ($tcAttribute->getConditions() == 'Y') {
+                        $conditions .= "u.id IN (select user_id from user_notifications where notification_id = 5 and active = 1 ) AND ";
+                    }else{
+                        $conditions .= "u.id NOT IN (select user_id from user_notifications where notification_id = 5 and active = 1 ) AND ";
+                    }
                     break;
                 case "ByMobileRegistered":
                     if ($tcAttribute->getConditions() == 'Y') {
