@@ -119,6 +119,19 @@ class ReportsService
     }
 
     /**
+     * @return array
+     */
+    public function getAcceptingEmailsPlayers()
+    {
+        $acceptingEmailsPlayers = $this->reportsRepository->getAcceptingEmailsPlayers();
+        $users = [];
+        foreach ($acceptingEmailsPlayers as $acceptingEmailsPlayer) {
+            $users[$acceptingEmailsPlayer['user_id']] = 'Y';
+        }
+        return $users;
+    }
+
+    /**
      * @param $userId
      *
      * @return array
@@ -434,6 +447,9 @@ class ReportsService
                     break;
                 case "bonusCost":
                     //de momento no se hace nada
+                    break;
+                case "acceptingEmails":
+                    //Pasamos array con accepting emails de todos los usuarios a la vista
                     break;
             }
         }

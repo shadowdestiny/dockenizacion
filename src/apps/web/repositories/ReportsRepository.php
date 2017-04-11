@@ -882,4 +882,15 @@ class ReportsRepository implements IReports
                 $rsm)->getResult();
     }
 
+    public function getAcceptingEmailsPlayers()
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'user_id');
+        return $this->entityManager
+            ->createNativeQuery('SELECT distinct u.id
+                    FROM users u
+                    LEFT JOIN user_notifications un on un.user_id = u.id
+                    WHERE un.notification_id = 5 and un.active = 1;', $rsm)->getResult();
+    }
+
 }

@@ -58,6 +58,7 @@
                             {% if 'numberBets' in headerList %}<th>Number Bets</th>{% endif %}
                             {% if 'wagering' in headerList %}<th>Wagering</th>{% endif %}
                             {% if 'ggr' in headerList %}<th>GGR</th>{% endif %}
+                            {% if 'acceptingEmails' in headerList %}<th>Accepting emails</th>{% endif %}
                         </tr>
                         </thead>
                         <tbody>
@@ -85,6 +86,7 @@
                             {% if 'numberBets' in headerList %}<td>{{ player['numberBets'] }}</td>{% endif %}
                             {% if 'wagering' in headerList %}<td>{{ player['wagering'] / 100 }}</td>{% endif %}
                             {% if 'ggr' in headerList %}<td>{{ player['ggr'] / 100 }}{#% if playersGGRList[player['id']] is defined %}{{ playersGGRList[player['id']] }}{% else %} 0{% endif %#}</td>{% endif %}
+                            {% if 'acceptingEmails' in headerList %}<td>{% if playersAcceptingEmailsList[player['id']] is defined %}Y{% else %}N{% endif %}</td>{% endif %}
                         </tr>
                         {% endfor %}
                         </tbody>

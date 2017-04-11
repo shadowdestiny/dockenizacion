@@ -267,6 +267,13 @@
                                         <td>
                                             <input type="checkbox" name="check_numberWithdrawals" value="Y" />
                                         </td>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            Accepting emails
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" name="check_acceptingEmails" value="Y" />
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>
