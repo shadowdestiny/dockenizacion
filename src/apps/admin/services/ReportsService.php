@@ -1,6 +1,5 @@
 <?php
 
-
 namespace EuroMillions\admin\services;
 
 use Doctrine\ORM\EntityManager;
