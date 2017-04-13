@@ -70,17 +70,17 @@
                                     <strong>Euromillions</strong>
                                 </td>
                                 <td>
-                                    <table border="0">
+                                    <table>
                                         <tr>
-                                        {% for i in 1..my_subscription_active['lines']  %}
-                                            <td class="numbers">
-                                                    <span class="num">{{ my_subscription_active[i-1]['line_regular_number_one'] }}</span>
-                                                    <span class="num">{{ my_subscription_active[i-1]['line_regular_number_two'] }}</span>
-                                                    <span class="num">{{ my_subscription_active[i-1]['line_regular_number_three'] }}</span>
-                                                    <span class="num">{{ my_subscription_active[i-1]['line_regular_number_four'] }}</span>
-                                                    <span class="num">{{ my_subscription_active[i-1]['line_regular_number_five'] }}</span>
-                                                    <span class="num yellow">{{ my_subscription_active[i-1]['line_lucky_number_one'] }}</span>
-                                                    <span class="num yellow">{{ my_subscription_active[i-1]['line_lucky_number_two'] }}</span>
+                                        {% for i in 1..my_subscription_active['lines'] %}
+                                            <td class="numbers" style="border-bottom: 0px;">
+                                                <span class="num">{{ my_subscription_active[i-1]['line_regular_number_one'] }}</span>
+                                                <span class="num">{{ my_subscription_active[i-1]['line_regular_number_two'] }}</span>
+                                                <span class="num">{{ my_subscription_active[i-1]['line_regular_number_three'] }}</span>
+                                                <span class="num">{{ my_subscription_active[i-1]['line_regular_number_four'] }}</span>
+                                                <span class="num">{{ my_subscription_active[i-1]['line_regular_number_five'] }}</span>
+                                                <span class="num yellow">{{ my_subscription_active[i-1]['line_lucky_number_one'] }}</span>
+                                                <span class="num yellow">{{ my_subscription_active[i-1]['line_lucky_number_two'] }}</span>
                                             </td>
                                             {% if i % 2 == 0 %}</tr><tr>{% endif %}
                                         {% endfor %}
