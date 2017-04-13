@@ -84,7 +84,7 @@ class EmailService
     public function sendContactRequest(ContactFormInfo $contactFormInfo)
     {
         $vars = [
-            'template' => '625282',
+            'template' => '1496963',
             'subject' => 'Your password in Euromillions.com has been changed',
             'vars' =>
                 [
@@ -106,7 +106,11 @@ class EmailService
             $obj,
             true,
             $this->mailConfig['from_address'],
-            $this->mailConfig['from_address']
+            $this->mailConfig['from_address'],
+            null,
+            null,
+            null,
+            $contactFormInfo->getEmail()->toNative()
         );
 
 //        $content = <<<EOF
