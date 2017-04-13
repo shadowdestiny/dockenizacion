@@ -130,7 +130,7 @@ class UserRepository extends RepositoryBase
         $result = $this->getEntityManager()
             ->createQuery(
                 'SELECT u'
-                . ' FROM ' . $this->getEntityName() . ' u JOIN u.playConfig p WITH u.id=p.user AND p.active = 1'
+                . ' FROM ' . $this->getEntityName() . ' u JOIN u.playConfig p WITH u.id=p.user AND p.active = 1 AND p.frequency > 1'
 //                . ' WHERE p.days.days LIKE :draw_days AND :day > p.startDrawDate AND  :day < p.lastDrawDate '
 //                . ' OR (:day = p.startDrawDate AND :day = p.lastDrawDate)'
                 . ' GROUP BY p.user'
