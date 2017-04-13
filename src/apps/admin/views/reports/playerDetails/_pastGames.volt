@@ -40,7 +40,7 @@
                             $pastGame = $game[$numColumn];
                         ?>
                         <tr>
-                            <td class="numbers">
+                            <td class="numbers" style="border-right: 1px solid purple;">
                                 <div class="myCol">
                                     {% for r,regular_number in pastGame.numbers %}
                                         <span class="num <?php if($regular_number > 1) echo 'highlight' ?>">{{ r }}</span>
