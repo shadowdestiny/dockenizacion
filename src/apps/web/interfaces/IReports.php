@@ -52,4 +52,5 @@ interface IReports
     public function getActivesBeginning($data);
     public function getActivesEnd($data);
     public function getGrossGamingRevenue($data);
+    public function getAcceptingEmailsPlayers();
 }

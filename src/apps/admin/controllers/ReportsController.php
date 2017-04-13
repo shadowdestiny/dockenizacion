@@ -100,11 +100,12 @@ class ReportsController extends AdminControllerBase
             'needReportsMenu' => true,
             'headerList' => $headerList,
             'playersList' => $this->reportsService->getPlayersReportsResultsByPostData($headerList, $this->request->getPost()),
-            'playersGGRList' => $this->reportsService->getGGRPlayersByDates(
-                $this->request->getPost('check_ggr'),
-                $this->request->getPost('dateFrom'),
-                $this->request->getPost('dateTo')
-            ),
+//            'playersGGRList' => $this->reportsService->getGGRPlayersByDates(
+//                $this->request->getPost('check_ggr'),
+//                $this->request->getPost('dateFrom'),
+//                $this->request->getPost('dateTo')
+//            ),
+            'playersAcceptingEmailsList' => $this->reportsService->getAcceptingEmailsPlayers(),
             'countryList' => $this->countries,
         ]);
     }
