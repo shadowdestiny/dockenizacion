@@ -54,8 +54,15 @@
             <h2 class="h3">{{ language.translate("Legal Disclaimer") }}</h2>
             <p>{{ language.translate("Though we make every effort to preserve your privacy, we may need to disclose personal information when required by law wherein we have a good-faith belief that such action is necessary to comply with a current judicial proceeding, a court order or legal process demanded by our 
             website.") }}</p>
-            <hr class="yellow">
+
+            <h2 class="h3">{{ language.translate("Marketing") }}</h2>
+            <p>{{ language.translate("We may use your Personal Information, such as your email address, ourselves or by using our third party subcontractors for the purpose of providing you with promotional materials, concerning the Services of our Company or our business partners’ and affiliates’ websites and products (e.g. scratch cards, side games, etc.), which we believe may interest you.
+            Out of respect to your right to privacy we provide you within such marketing materials with means to decline receiving further email offers from us or from our business partners and affiliates. In addition, at any time, you may request to unsubscribe and discontinue receiving marketing offers by contacting us at support@euromillions.com or by unsubscribing from your profile page.
+            If you unsubscribe we will remove your email address from our marketing distribution lists and from any future lists we may share with our marketing partners. Please note that even if you unsubscribe from our marketing mailing list, we may continue to send you service-related updates and notifications (such as ticket purchases, draw results, etc.)") }}</p>
+
+                <hr class="yellow">
             <br><p>{{ language.translate("If you have any additional questions or suggestions regarding our privacy policy, please contact us at: <a href='mailto:support@euromillions.com'>support@euromillions.com</a>") }}</p>
+
         </div>
     </div>
 </main>
