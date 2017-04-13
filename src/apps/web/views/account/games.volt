@@ -222,7 +222,7 @@
                                     <table border="0">
                                         <tr>
                                             {% for i in 1..my_subscription_inactive['lines']  %}
-                                            <td class="numbers">
+                                            <td class="numbers" style="border-bottom: 0px;">
                                                 <span class="num">{{ my_subscription_inactive[i-1]['line_regular_number_one'] }}</span>
                                                 <span class="num">{{ my_subscription_inactive[i-1]['line_regular_number_two'] }}</span>
                                                 <span class="num">{{ my_subscription_inactive[i-1]['line_regular_number_three'] }}</span>
