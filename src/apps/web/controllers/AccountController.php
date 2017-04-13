@@ -206,7 +206,7 @@ class AccountController extends PublicSiteControllerBase
         $results_draw = ($this->request->getPost('results') === 'on');
         $config_value_threshold = $this->request->getPost('config_value_jackpot_reach');
         $config_value_results = $this->request->getPost('config_value_results');
-        $emailMarketing = $this->request->getPost('email_marketing');
+        $emailMarketing = ($this->request->getPost('email_marketing') === 'on');
 
         $message = null;
 
@@ -233,7 +233,7 @@ class AccountController extends PublicSiteControllerBase
             $notificationType = new NotificationValue(NotificationValue::NOTIFICATION_RESULT_DRAW, $config_value_results);
 
             $this->userService->updateEmailNotification($notificationType, $user, $results_draw);
-            $notificationType = new NotificationValue(NotificationValue::NOTIFICATION_EMAIL_MARKETING, $config_value_results);
+            $notificationType = new NotificationValue(NotificationValue::NOTIFICATION_EMAIL_MARKETING, '');
             $this->userService->updateEmailNotification($notificationType, $user, $emailMarketing);
             $message = 'Your new email settings are saved';
         } catch (\Exception $e) {
