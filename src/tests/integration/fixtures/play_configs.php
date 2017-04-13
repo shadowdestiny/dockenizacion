@@ -14,6 +14,7 @@ return [
             'line_regular_number_five' => 40,
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 7,
+            'frequency' => 4
 
         ],
         [
@@ -29,6 +30,7 @@ return [
             'line_regular_number_five' => 40,
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 7,
+            'frequency' => 4
 
         ],
         [
@@ -44,6 +46,7 @@ return [
             'line_regular_number_five' => 15,
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 7,
+            'frequency' => 4
         ],
         [
             'id' => '7',
@@ -58,6 +61,7 @@ return [
             'line_regular_number_five' => 15,
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 7,
+            'frequency' => 4
         ],
         [
             'id' => '4',
@@ -72,6 +76,7 @@ return [
             'line_regular_number_five' => 40,
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 7,
+            'frequency' => 4
 
         ],
         [
@@ -87,6 +92,7 @@ return [
             'line_regular_number_five' => 40,
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 7,
+            'frequency' => 4
         ],
         [
             'id' => '6',
@@ -101,6 +107,7 @@ return [
             'line_regular_number_five' => 40,
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 7,
+            'frequency' => 4
         ],
         [
             'id' => '8',
@@ -115,6 +122,7 @@ return [
             'line_regular_number_five' => 15,
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 8,
+            'frequency' => 4
         ],
         [
             'id' => '9',
@@ -129,6 +137,7 @@ return [
             'line_regular_number_five' => 15,
             'line_lucky_number_one' => 1,
             'line_lucky_number_two' => 8,
+            'frequency' => 4
         ],
     ]
 ];
