@@ -5,7 +5,6 @@ use EuroMillions\shared\components\PhalconSessionWrapper;
 use EuroMillions\web\repositories\ReportsRepository;
 use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\GeoService;
-use EuroMillions\web\services\LotteryService;
 use Phalcon\DiInterface;
 
 class DomainAdminServiceFactory
@@ -61,5 +60,10 @@ class DomainAdminServiceFactory
     public function getCurrencyService()
     {
         return new CurrencyService($this->entityManager);
+    }
+
+    public function getTranslationService()
+    {
+        return new TranslationService($this->entityManager);
     }
 }
