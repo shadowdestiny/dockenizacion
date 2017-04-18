@@ -12,7 +12,7 @@
                             <li><a href="/admin/index/system">System</a></li>
                         </ul>
                     </li>
-                    <li><a href="/admin/index/translation">Translation</a></li>
+                    <li><a href="/admin/translation/index">Translation</a></li>
                     <li><a href="/admin/index/news">News</a></li>
                     <li class="admin dropdown">
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Admin Area <b class="caret"></b></a>
@@ -49,6 +49,15 @@
                 <!-- li><a href="/admin/reports/salesDraw">Sales Draw</a></li>
                 <li><a href="/admin/reports/monthlySales">Monthly Sales</a></li>
                 <li><a href="/admin/reports/customerData">Customer data</a></li -->
+            </ul>
+        </div>
+    {% endif %}
+    {% if needLanguagesMenu is defined %}
+        <div class="navbar-inner">
+            <ul class="nav">
+                <li><a href="/admin/translation/index">Translation</a></li>
+                <li><a href="/admin/translation/categories">Categories</a></li>
+                <li><a href="/admin/translation/languages">Languages</a></li>
             </ul>
         </div>
     {% endif %}
