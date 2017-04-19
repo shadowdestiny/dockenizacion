@@ -40,7 +40,7 @@ class CheckAutomaticPurchaseTask extends TaskBase
         $subscriptionsActives = $this->playService->getAllSubscriptionsActivesByLotteryId(1);
         $subscriptionsPlayed = $this->playService->getAllSubscriptionsPlayedByLotteryId(1);
         if (count($subscriptionsActives) != count($subscriptionsPlayed)) {
-            $usersDiff = array_diff_assoc($subscriptionsActives, $subscriptionsPlayed);
+            $usersDiff = array_diff($subscriptionsActives, $subscriptionsPlayed);
             if (count($usersDiff) > 0) {
                 $this->sendEmailPurchase($usersDiff, count($subscriptionsActives), count($subscriptionsPlayed));
             }
