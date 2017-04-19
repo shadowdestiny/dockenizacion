@@ -267,10 +267,22 @@ class PlayConfigRepository extends RepositoryBase
         } else {
             $receivedDate->modify('-4 days');
         }
-        $receivedDate->setTime(19, 30, 00);
+        $receivedDate->setTime(20, 30, 00);
 
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('user_id', 'user_id');
+
+        $result =  $this->getEntityManager()
+            ->createNativeQuery(
+                'SELECT user_id
+                        FROM bets b INNER JOIN play_configs p on b.playConfig_id = p.id 
+                        INNER JOIN log_validation_api lva ON lva.bet_id = b.id
+                        WHERE p.active = 1 AND p.frequency > 1 AND status = "OK" AND lottery_id = ' . $lotteryId . '
+                          AND last_draw_date >= "' . $nextDrawDate->format('Y-m-d') . '" AND received >= "' . $receivedDate->format('Y-m-d H:i:s') . '"
+                        ORDER BY user_id ASC'
+                , $rsm);
+        var_dump($result->getSQL());
+        exit;
 
         return $this->getEntityManager()
             ->createNativeQuery(
