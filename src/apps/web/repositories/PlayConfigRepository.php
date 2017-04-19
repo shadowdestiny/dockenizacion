@@ -267,7 +267,7 @@ class PlayConfigRepository extends RepositoryBase
         } else {
             $receivedDate->modify('-4 days');
         }
-        $receivedDate->setTime(20, 30, 00);
+        $receivedDate->setTime(21, 30, 00);
 
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('user_id', 'user_id');
