@@ -1,8 +1,6 @@
 <?php
 
-
 namespace EuroMillions\web\entities;
-
 
 use Doctrine\Common\Collections\ArrayCollection;
 use EuroMillions\web\interfaces\IEntity;
@@ -16,16 +14,24 @@ class TranslationCategory implements IEntity
     protected $description;
     protected $translation;
 
-
-    public function __construct()
+    /**
+     * TranslationCategory constructor.
+     * @param array $data
+     */
+    public function __construct(array $data)
     {
         $this->translation = new ArrayCollection();
+        $this->setCategoryName($data['name']);
+        $this->setCategoryCode($data['code']);
+        $this->setDescription($data['description']);
     }
 
-
+    /**
+     * @return int
+     */
     public function getId()
     {
-        // TODO: Implement getId() method.
+        return $this->id;
     }
 
     /**
