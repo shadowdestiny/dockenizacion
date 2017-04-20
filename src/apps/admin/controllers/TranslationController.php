@@ -17,8 +17,36 @@ class TranslationController extends AdminControllerBase
 
     public function indexAction()
     {
+        $message = $this->cookies->get('message');
+        $this->cookies->set('message', '');
         $this->view->setVars([
             'needLanguagesMenu' => true,
+            'errorMessage' => $message,
+            'categoriesList' => $this->translationService->getAllTranslationCategories(),
+        ]);
+    }
+
+    public function createKeyAction()
+    {
+        if (!empty($this->request->getPost('key'))) {
+            $this->translationService->createKey([
+                'key' => $this->request->getPost('key'),
+                'categoryId' => $this->translationService->getTranslationCategoryById($this->request->getPost('categoryId')),
+                'description' => $this->request->getPost('description'),
+            ]);
+            return $this->redirectToTranslation('Key saved correctly');
+        }
+        return $this->redirectToTranslation('Key wasn\'t saved');
+    }
+
+    public function translationKeysResultAction()
+    {
+        $this->view->pick('translation/results/_translationResults');
+        $this->view->setVars([
+            'keysList' => $this->translationService->getKeysByCategoryIdAndKey(
+                $this->request->getPost('categoryId'),
+                $this->request->getPost('key')
+            ),
         ]);
     }
 
@@ -112,6 +140,16 @@ class TranslationController extends AdminControllerBase
     {
         $this->cookies->set('message', $message);
         return $this->response->redirect('/admin/translation/languages');
+    }
+
+    /**
+     * @param null $message
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
+     */
+    private function redirectToTranslation($message = null)
+    {
+        $this->cookies->set('message', $message);
+        return $this->response->redirect('/admin/translation/index');
     }
 
     /**

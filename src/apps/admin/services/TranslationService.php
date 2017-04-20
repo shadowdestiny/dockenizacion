@@ -3,15 +3,19 @@
 namespace EuroMillions\admin\services;
 
 use Doctrine\ORM\EntityManager;
+use EuroMillions\web\entities\Translation;
 use EuroMillions\web\entities\TranslationCategory;
 use EuroMillions\web\entities\Language;
 use EuroMillions\web\repositories\LanguageRepository;
 use EuroMillions\web\repositories\TranslationCategoryRepository;
+use EuroMillions\web\repositories\TranslationRepository;
 use Phalcon\Exception;
 
 class TranslationService
 {
     private $entityManager;
+    /** @var TranslationRepository $translationRepository */
+    private $translationRepository;
     /** @var TranslationCategoryRepository $translationCategoryRepository */
     private $translationCategoryRepository;
     /** @var LanguageRepository $languageRepository */
@@ -23,8 +27,24 @@ class TranslationService
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
+        $this->translationRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Translation');
         $this->translationCategoryRepository = $this->entityManager->getRepository('EuroMillions\web\entities\TranslationCategory');
         $this->languageRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Language');
+    }
+
+    /**
+     * @param $arrayKey
+     *
+     * @throws Exception
+     */
+    public function createKey($arrayKey)
+    {
+        try {
+            $this->entityManager->persist(new Translation($arrayKey));
+            $this->entityManager->flush();
+        } catch (\Exception $e) {
+            throw new Exception("Was not possible to create Translation Key");
+        }
     }
 
     /**
@@ -33,6 +53,26 @@ class TranslationService
     public function getAllTranslationCategories()
     {
         return $this->translationCategoryRepository->findAll();
+    }
+
+    /**
+     * @param $id
+     *
+     * @return null|object
+     */
+    public function getTranslationCategoryById($id)
+    {
+        return $this->translationCategoryRepository->findOneBy(['id' => $id]);
+    }
+
+    public function getKeysByCategoryIdAndKey($categoryId, $key)
+    {
+
+        if (empty($key)) {
+            return $this->translationRepository->findBy(['translationCategory' => $categoryId]);
+        }
+
+        return $this->translationRepository->findBy(['translationCategory' => $categoryId, 'translationKey' => $key]);
     }
 
     /**

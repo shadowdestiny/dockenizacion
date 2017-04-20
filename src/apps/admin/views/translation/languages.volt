@@ -10,7 +10,7 @@
 
 {% endblock %}
 
-{% block meta %}<title>El Millón - Euromillions Admin System</title>{% endblock %}
+{% block meta %}<title>Languages - Euromillions Admin System</title>{% endblock %}
 
 {% block header %}
     {% set activeNav='{"myClass": ""}'|json_decode %} {# It need to be empty #}

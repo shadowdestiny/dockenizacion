@@ -13,9 +13,13 @@ class Translation implements IEntity
     protected $description;
     protected $translationCategory;
 
-    public function __construct()
+    public function __construct(array $data)
     {
         $this->translatedTo = new ArrayCollection();
+        $this->setKey($data['key']);
+        $this->setUsed(0);
+        $this->setDescription($data['description']);
+        $this->setTranslationCategory($data['categoryId']);
     }
 
     public function getId()
@@ -25,12 +29,12 @@ class Translation implements IEntity
 
     public function getKey()
     {
-        return $this->key;
+        return $this->translationKey;
     }
 
-    public function setKey($key)
+    public function setKey($translationKey)
     {
-        $this->key= $key;
+        $this->translationKey= $translationKey;
     }
 
     public function getUsed()
@@ -41,5 +45,25 @@ class Translation implements IEntity
     public function setUsed($used)
     {
         $this->used = $used;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    public function getTranslationCategory()
+    {
+        return $this->translationCategory;
+    }
+
+    public function setTranslationCategory($translationCategory)
+    {
+        $this->translationCategory = $translationCategory;
     }
 }
