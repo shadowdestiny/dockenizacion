@@ -1,4 +1,5 @@
 <?php
+
 namespace EuroMillions\tests\integration;
 
 use EuroMillions\web\entities\Language;
@@ -34,12 +35,12 @@ class LanguageRepositoryIntegrationTest extends RepositoryIntegrationTestBase
         $language = 'es';
         $actual = $this->sut->getActiveLanguage($language);
         $expected = new Language([
-            'ccode'         => 'en',
+            'ccode' => 'en',
             'defaultLocale' => 'en_US',
-            'active'        => true
+            'active' => true
         ]);
         $expected->initialize([
-            'id'=> 2,
+            'id' => 2,
             'ccode' => 'es',
             'active' => true,
             'defaultLocale' => 'es_ES'

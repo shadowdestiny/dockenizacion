@@ -1,4 +1,5 @@
 <?php
+
 namespace EuroMillions\tests\base;
 
 use EuroMillions\shared\config\Namespaces;
@@ -12,7 +13,7 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
     use TestHelperTrait;
 
     const DEFAULT_ENTITY_REPOSITORY = '\Doctrine\ORM\EntityRepository';
-    const DOCTRINE_EMPTY_SINGLEOBJECT_RESULT= null;
+    const DOCTRINE_EMPTY_SINGLEOBJECT_RESULT = null;
     const DOCTRINE_EMPTY_COLLECTION_RESULT = [];
 
     protected $original_di = null;
@@ -31,6 +32,7 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
         $this->stubDIService('entityManager', $this->addMappingsToEntityManager()->reveal());
         $this->stubDIService('redisCache', $this->prophesize('\Phalcon\Cache\Backend\Redis')->reveal());
     }
+
     protected function restoreDI()
     {
         DI::reset();
@@ -86,7 +88,7 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
     {
         $mappings = array_merge(
             [
-                Namespaces::ENTITIES_NS . 'Language'          => $this->getRepositoryDouble('LanguageRepository'),
+                Namespaces::ENTITIES_NS . 'Language' => $this->getRepositoryDouble('LanguageRepository'),
                 Namespaces::ENTITIES_NS . 'TranslationDetail' => $this->getRepositoryDouble('TranslationDetailRepository'),
             ], $this->getEntityManagerStubExtraMappings());
         return $mappings;
@@ -122,14 +124,14 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
     {
         $languageRepository_stub = $this->getRepositoryDouble('LanguageRepository');
         $language = new Language([
-            'ccode'         => 'en',
+            'ccode' => 'en',
             'defaultLocale' => 'en_US',
-            'active'        => true
+            'active' => true
         ]);
         $language->initialize([
-            'ccode'         => 'en',
+            'ccode' => 'en',
             'defaultLocale' => 'en_US',
-            'active'        => true
+            'active' => true
         ]);
         $languageRepository_stub->getActiveLanguage('en')->willReturn($language);
         return $languageRepository_stub;

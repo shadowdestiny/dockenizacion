@@ -1,4 +1,5 @@
 <?php
+
 namespace EuroMillions\tests\unit;
 
 use EuroMillions\web\entities\Language;
@@ -44,14 +45,14 @@ class LanguageServiceUnitTest extends UnitTestBase
         $language = 'non_existing';
         $default_locale = 'lsdflksj';
         $language_entity = new Language([
-            'ccode'         => 'en',
+            'ccode' => 'en',
             'defaultLocale' => 'en_US',
-            'active'        => true
+            'active' => true
         ]);
         $language_entity->setDefaultLocale($default_locale);
         $this->languageStrategy_double->get()->willReturn($language);
         $this->languageRepository_double->getActiveLanguage($language)->willReturn(null);
-        $this->languageRepository_double->findOneBy(['ccode'=>'en'])->willReturn($language_entity);
+        $this->languageRepository_double->findOneBy(['ccode' => 'en'])->willReturn($language_entity);
         $sut = $this->getSut();
         $actual = $sut->getLocale();
         $this->assertEquals($default_locale, $actual);
