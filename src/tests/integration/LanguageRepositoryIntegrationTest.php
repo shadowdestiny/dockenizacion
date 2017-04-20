@@ -33,7 +33,11 @@ class LanguageRepositoryIntegrationTest extends RepositoryIntegrationTestBase
     {
         $language = 'es';
         $actual = $this->sut->getActiveLanguage($language);
-        $expected = new Language();
+        $expected = new Language([
+            'ccode'         => 'en',
+            'defaultLocale' => 'en_US',
+            'active'        => true
+        ]);
         $expected->initialize([
             'id'=> 2,
             'ccode' => 'es',

@@ -121,7 +121,11 @@ class UnitTestBase extends \PHPUnit_Framework_TestCase
     protected function getLanguageRepositoryStubWithDefaultLanguage()
     {
         $languageRepository_stub = $this->getRepositoryDouble('LanguageRepository');
-        $language = new Language();
+        $language = new Language([
+            'ccode'         => 'en',
+            'defaultLocale' => 'en_US',
+            'active'        => true
+        ]);
         $language->initialize([
             'ccode'         => 'en',
             'defaultLocale' => 'en_US',

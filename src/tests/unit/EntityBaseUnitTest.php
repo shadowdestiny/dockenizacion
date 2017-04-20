@@ -19,7 +19,12 @@ class EntityBaseUnitTest extends UnitTestBase
     public function setUp()
     {
         parent::setUp();
-        $this->sut = new Language();
+
+        $this->sut = new Language([
+            'ccode' => 'es',
+            'defaultLocale' => 'es_ES',
+            'active' => 1,
+        ]);
     }
 
     public function test_initialize_calledWithArgument_setProperties()

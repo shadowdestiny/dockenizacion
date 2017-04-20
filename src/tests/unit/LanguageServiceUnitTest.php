@@ -43,7 +43,11 @@ class LanguageServiceUnitTest extends UnitTestBase
     {
         $language = 'non_existing';
         $default_locale = 'lsdflksj';
-        $language_entity = new Language();
+        $language_entity = new Language([
+            'ccode'         => 'en',
+            'defaultLocale' => 'en_US',
+            'active'        => true
+        ]);
         $language_entity->setDefaultLocale($default_locale);
         $this->languageStrategy_double->get()->willReturn($language);
         $this->languageRepository_double->getActiveLanguage($language)->willReturn(null);
