@@ -4,6 +4,8 @@ namespace EuroMillions\admin\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\entities\TranslationCategory;
+use EuroMillions\web\entities\Language;
+use EuroMillions\web\repositories\LanguageRepository;
 use EuroMillions\web\repositories\TranslationCategoryRepository;
 use Phalcon\Exception;
 
@@ -12,6 +14,8 @@ class TranslationService
     private $entityManager;
     /** @var TranslationCategoryRepository $translationCategoryRepository */
     private $translationCategoryRepository;
+    /** @var LanguageRepository $languageRepository */
+    private $languageRepository;
 
     /**
      * @param EntityManager $entityManager
@@ -20,6 +24,7 @@ class TranslationService
     {
         $this->entityManager = $entityManager;
         $this->translationCategoryRepository = $this->entityManager->getRepository('EuroMillions\web\entities\TranslationCategory');
+        $this->languageRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Language');
     }
 
     /**
@@ -79,6 +84,66 @@ class TranslationService
             $this->entityManager->flush();
         } catch (\Exception $e) {
             throw new Exception("Was not possible to delete TrackingCode data");
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllTranslationLanguages()
+    {
+        return $this->languageRepository->findAll();
+    }
+
+    /**
+     * @param $arrayLanguage
+     *
+     * @throws Exception
+     */
+    public function createLanguage($arrayLanguage)
+    {
+        try {
+            $this->entityManager->persist(new Language($arrayLanguage));
+            $this->entityManager->flush();
+        } catch (\Exception $e) {
+            throw new Exception("Was not possible to create Language");
+        }
+    }
+
+    /**
+     * @param $arrayLanguage
+     *
+     * @throws Exception
+     */
+    public function editLanguage($arrayLanguage)
+    {
+        try {
+
+            /** @var Language $language */
+            $language = $this->languageRepository->findOneBy(['id' => $arrayLanguage['id']]);
+
+            $language->setCcode($arrayLanguage['ccode']);
+            $language->setDefaultLocale($arrayLanguage['defaultLocale']);
+
+            $this->entityManager->persist($language);
+            $this->entityManager->flush();
+        } catch (\Exception $e) {
+            throw new Exception("Was not possible to create Language");
+        }
+    }
+
+    /**
+     * @param int $id
+     * @throws Exception
+     */
+    public function deleteLanguage($id)
+    {
+        try {
+            $this->entityManager->remove($this->languageRepository->find($id));
+
+            $this->entityManager->flush();
+        } catch (\Exception $e) {
+            throw new Exception("Was not possible to delete Language data");
         }
     }
 

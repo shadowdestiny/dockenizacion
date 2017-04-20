@@ -1,4 +1,5 @@
 <?php
+
 namespace EuroMillions\web\services;
 
 use EuroMillions\web\components\EmTranslationAdapter;
@@ -8,7 +9,7 @@ use EuroMillions\web\repositories\LanguageRepository;
 
 class LanguageService
 {
-    /** @var \EuroMillions\web\repositories\LanguageRepository  */
+    /** @var \EuroMillions\web\repositories\LanguageRepository */
     protected $languageRepository;
     protected $languageStrategy;
     protected $translationAdapter;
@@ -30,6 +31,9 @@ class LanguageService
         return $this->languageRepository->getActiveLanguages();
     }
 
+    /*
+     * The function to translate in all the web.
+     */
     public function translate($key, array $placeholders = null)
     {
         return $this->translationAdapter->_($key, $placeholders);

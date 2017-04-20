@@ -1,4 +1,5 @@
 <?php
+
 namespace EuroMillions\web\entities;
 
 use EuroMillions\web\interfaces\IEntity;
@@ -9,6 +10,17 @@ class Language extends EntityBase implements IEntity
     protected $ccode;
     protected $active;
     protected $defaultLocale;
+
+    /**
+     * Language constructor.
+     * @param array $data
+     */
+    public function __construct(array $data)
+    {
+        $this->setCcode($data['ccode']);
+        $this->setDefaultLocale($data['defaultLocale']);
+        $this->setActive($data['active']);
+    }
 
     public function getActive()
     {

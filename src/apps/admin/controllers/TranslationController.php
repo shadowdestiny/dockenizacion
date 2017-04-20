@@ -33,6 +33,17 @@ class TranslationController extends AdminControllerBase
         ]);
     }
 
+    public function languagesAction()
+    {
+        $message = $this->cookies->get('message');
+        $this->cookies->set('message', '');
+        $this->view->setVars([
+            'needLanguagesMenu' => true,
+            'errorMessage' => $message,
+            'languagesList' => $this->translationService->getAllTranslationLanguages(),
+        ]);
+    }
+
     /**
      * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
      */
@@ -91,5 +102,66 @@ class TranslationController extends AdminControllerBase
     {
         $this->cookies->set('message', $message);
         return $this->response->redirect('/admin/translation/categories');
+    }
+
+    /**
+     * @param null $message
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
+     */
+    private function redirectToLanguage($message = null)
+    {
+        $this->cookies->set('message', $message);
+        return $this->response->redirect('/admin/translation/languages');
+    }
+
+    /**
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
+     */
+    public function createLanguageAction()
+    {
+        if (!empty($this->request->getPost('ccode'))) {
+            $this->translationService->createLanguage([
+                'ccode' => $this->request->getPost('ccode'),
+                'defaultLocale' => $this->request->getPost('defaultLocale'),
+                'active' => 1,
+            ]);
+
+            return $this->redirectToLanguage('Language saved correctly');
+        }
+
+        return $this->redirectToLanguage('Language wasn\'t saved');
+    }
+
+    /**
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
+     */
+    public function editLanguageAction()
+    {
+        if ($this->request->getPost('id')) {
+            $this->translationService->editLanguage([
+                'id' => $this->request->getPost('id'),
+                'ccode' => $this->request->getPost('ccode'),
+                'defaultLocale' => $this->request->getPost('defaultLocale'),
+            ]);
+
+
+            return $this->redirectToLanguage('Language edited correctly');
+        }
+
+        return $this->redirectToLanguage('Language wasn\'t edited');
+    }
+
+    /**
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
+     */
+    public function deleteLanguageAction()
+    {
+
+        if ($this->request->get('id')) {
+            $this->translationService->deleteLanguage($this->request->get('id'));
+
+            return $this->redirectToLanguage('Language deleted correctly');
+        }
+        return $this->redirectToLanguage('Language wasn\'t deleted');
     }
 }
