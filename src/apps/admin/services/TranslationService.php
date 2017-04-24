@@ -8,13 +8,12 @@ use EuroMillions\web\entities\TranslationCategory;
 use EuroMillions\web\entities\Language;
 use EuroMillions\web\repositories\LanguageRepository;
 use EuroMillions\web\repositories\TranslationCategoryRepository;
-use EuroMillions\web\repositories\TranslationRepository;
 use Phalcon\Exception;
 
 class TranslationService
 {
     private $entityManager;
-    /** @var TranslationRepository $translationRepository */
+    /** @var Translation $translationRepository */
     private $translationRepository;
     /** @var TranslationCategoryRepository $translationCategoryRepository */
     private $translationCategoryRepository;
@@ -65,9 +64,14 @@ class TranslationService
         return $this->translationCategoryRepository->findOneBy(['id' => $id]);
     }
 
+    /**
+     * @param $categoryId
+     * @param $key
+     *
+     * @return array
+     */
     public function getKeysByCategoryIdAndKey($categoryId, $key)
     {
-
         if (empty($key)) {
             return $this->translationRepository->findBy(['translationCategory' => $categoryId]);
         }
