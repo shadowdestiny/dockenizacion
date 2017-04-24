@@ -27,9 +27,9 @@ class Order implements \JsonSerializable
     private $credit_card_charge;
     /** @var bool $isCheckedWalletBalance */
     private $isCheckedWalletBalance;
-    /** @var  Money  */
+    /** @var  Money */
     private $amountWallet;
-    /** @var  Discount  */
+    /** @var  Discount */
     private $discount;
 
     private $hasSubscription;
@@ -55,9 +55,9 @@ class Order implements \JsonSerializable
         return $this->credit_card_charge;
     }
 
-    public function addFunds( Money $amount = null )
+    public function addFunds(Money $amount = null)
     {
-        if( $amount == null ) {
+        if ($amount == null) {
             $amount = new Money(0, new Currency('EUR'));
         }
 
@@ -199,7 +199,7 @@ class Order implements \JsonSerializable
      * @param \DateTime $draw_date
      * @return bool
      */
-    public function isNextDraw( \DateTime $draw_date )
+    public function isNextDraw(\DateTime $draw_date)
     {
         $play_config = $this->getPlayConfig();
         return $play_config[0]->getStartDrawDate()->getTimestamp() <= $draw_date->getTimestamp();
@@ -209,10 +209,17 @@ class Order implements \JsonSerializable
     private function initialize()
     {
         $this->num_lines = count($this->play_config);
-        $this->total = new Money(1,new Currency('EUR'));
-        $this->total = $this->total->multiply($this->num_lines)->multiply((int) $this->single_bet_price->getAmount())->multiply($this->play_config[0]->getFrequency());
+        $this->total = new Money(1, new Currency('EUR'));
+        $this->total = $this->total->multiply($this->num_lines)->multiply((int)$this->single_bet_price->getAmount())->multiply($this->play_config[0]->getFrequency());
         $this->total = $this->total->divide((($this->discount->getValue() / 100) + 1));
-        $this->credit_card_charge = new CreditCardCharge($this->total,$this->fee,$this->fee_limit);
+
+        if (!$this->discount->getValue()) {
+            $this->total = $this->total->divide((($this->discount->getValue() / 100) + 1));
+        } else {
+            $this->total = new Money((int)(round($this->single_bet_price->getAmount() / (($this->discount->getValue() / 100) + 1)) * ($this->play_config[0]->getFrequency())) * $this->num_lines, new Currency('EUR'));
+        }
+
+        $this->credit_card_charge = new CreditCardCharge($this->total, $this->fee, $this->fee_limit);
     }
 
     public function toJsonData()
@@ -247,13 +254,13 @@ class Order implements \JsonSerializable
     public function jsonSerialize()
     {
 
-         $bets = [];
+        $bets = [];
         /** @var PlayConfig $play */
-        foreach($this->play_config as $play) {
+        foreach ($this->play_config as $play) {
             $bets[] = $play->jsonSerialize();
-         }
+        }
 
-         return [
+        return [
             'total' => $this->total->getAmount(),
             'fee' => $this->fee->getAmount(),
             'fee_limit' => $this->fee_limit->getAmount(),
@@ -269,15 +276,15 @@ class Order implements \JsonSerializable
      */
     public function setAmountWallet($amountWallet)
     {
-        if($this->isCheckedWalletBalance) {
+        if ($this->isCheckedWalletBalance) {
             $this->amountWallet = $amountWallet;
-            if($this->amountWallet->greaterThan($this->total)) {
+            if ($this->amountWallet->greaterThan($this->total)) {
                 $this->amountWallet = $this->total;
             }
             $total = $this->total->subtract($this->amountWallet)->add($this->funds_amount);
             $this->credit_card_charge = new CreditCardCharge($total, $this->fee, $this->fee_limit);
         } else {
-            $this->amountWallet = new Money(0,new Currency('EUR'));
+            $this->amountWallet = new Money(0, new Currency('EUR'));
         }
     }
 
