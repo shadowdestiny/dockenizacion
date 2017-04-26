@@ -54,7 +54,7 @@ class TranslationController extends AdminControllerBase
 
     public function saveTranslationsAction()
     {
-        try{
+        try {
             $this->translationService->saveTranslations($this->request->getPost());
         } catch (Exception $e) {
             return $this->redirectToTranslation('Translations wasn\'t saved correctly');
@@ -174,7 +174,7 @@ class TranslationController extends AdminControllerBase
             $this->translationService->createLanguage([
                 'ccode' => $this->request->getPost('ccode'),
                 'defaultLocale' => $this->request->getPost('defaultLocale'),
-                'active' => 1,
+                'active' => 0,
             ]);
 
             return $this->redirectToLanguage('Language saved correctly');
