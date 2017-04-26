@@ -6,8 +6,10 @@ use Doctrine\ORM\EntityManager;
 use EuroMillions\web\entities\Translation;
 use EuroMillions\web\entities\TranslationCategory;
 use EuroMillions\web\entities\Language;
+use EuroMillions\web\entities\TranslationDetail;
 use EuroMillions\web\repositories\LanguageRepository;
 use EuroMillions\web\repositories\TranslationCategoryRepository;
+use EuroMillions\web\repositories\TranslationDetailRepository;
 use Phalcon\Exception;
 
 class TranslationService
@@ -15,6 +17,8 @@ class TranslationService
     private $entityManager;
     /** @var Translation $translationRepository */
     private $translationRepository;
+    /** @var TranslationDetailRepository $translationDetailRepository */
+    private $translationDetailRepository;
     /** @var TranslationCategoryRepository $translationCategoryRepository */
     private $translationCategoryRepository;
     /** @var LanguageRepository $languageRepository */
@@ -27,6 +31,7 @@ class TranslationService
     {
         $this->entityManager = $entityManager;
         $this->translationRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Translation');
+        $this->translationDetailRepository = $this->entityManager->getRepository('EuroMillions\web\entities\TranslationDetail');
         $this->translationCategoryRepository = $this->entityManager->getRepository('EuroMillions\web\entities\TranslationCategory');
         $this->languageRepository = $this->entityManager->getRepository('EuroMillions\web\entities\Language');
     }
@@ -65,6 +70,22 @@ class TranslationService
     }
 
     /**
+     * @param $translations
+     */
+    public function saveTranslations($translations)
+    {
+        foreach($translations as $translationKey => $translation) {
+            $translationDetailsArray = explode('|', $translationKey);
+            $this->translationDetailRepository->saveTranslation([
+                'translationId' => $translationDetailsArray[0],
+                'languageId' => $translationDetailsArray[1],
+                'value' => $translation,
+                'lang' => $translationDetailsArray[2],
+            ]);
+        }
+    }
+
+    /**
      * @param $categoryId
      * @param $key
      *
@@ -72,11 +93,39 @@ class TranslationService
      */
     public function getKeysByCategoryIdAndKey($categoryId, $key)
     {
-        if (empty($key)) {
-            return $this->translationRepository->findBy(['translationCategory' => $categoryId]);
-        }
+        $translationKeys = $this->translationDetailRepository->getKeysByCategoryIdAndKey($categoryId, $key);
+        $translations = [];
+        if (!empty($translationKeys)) {
+            $oldTranslation['translationKey'] = $translationKeys[0]['translationKey'];
+            $translation = [
+                'translationKey' => $translationKeys[0]['translationKey'],
+                'description' => $translationKeys[0]['description'],
+                'id' => $translationKeys[0]['id'],
+                $translationKeys[0]['lang'] => $translationKeys[0]['value'],
+            ];
+            foreach ($translationKeys as $translationKey) {
+                if ($oldTranslation['translationKey'] == $translationKey['translationKey']) {
+                    $translation[$translationKey['lang']] = $translationKey['value'];
+                } else {
+                    $translations[] = $translation;
+                    $translation = [
+                        'translationKey' => $translationKey['translationKey'],
+                        'description' => $translationKey['description'],
+                        'id' => $translationKey['id'],
+                        $translationKey['lang'] => $translationKey['value'],
+                    ];
+                }
+                $oldTranslation['translationKey'] = $translationKey['translationKey'];
 
-        return $this->translationRepository->findBy(['translationCategory' => $categoryId, 'translationKey' => $key]);
+            }
+            $translations[] = $translation;
+        }
+        return $translations;
+    }
+
+    public function getLanguagesActives()
+    {
+        return $this->languageRepository->findBy(['active' => 1], ['ccode' => 'ASC']);
     }
 
     /**
