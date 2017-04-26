@@ -26,11 +26,14 @@
             }
         }
 
-        function editLanguage(id, ccode, defaultLocale) {
+        function editLanguage(id, ccode, defaultLocale, active) {
             $('#showEditLanguage').css('display', 'block');
             $('#editIdLanguage').val(id);
             $('#editCountryCodeLanguage').val(ccode);
             $('#editDefaultLocaleLanguage').val(defaultLocale);
+            if (active == 1) $('#editActive').prop('checked', true);
+            else $('#editActive').prop('checked', false);
+
         }
     </script>
 
@@ -49,6 +52,7 @@
                             <tr>
                                 <td>Country code</td>
                                 <td>Locale code</td>
+                                <td>Active</td>
                             </tr>
                             </thead>
                             <tbody>
@@ -58,6 +62,9 @@
                                 </td>
                                 <td>
                                     <input type="text" name="defaultLocale"/>
+                                </td>
+                                <td width="20px">
+                                    <input type="checkbox" name="active" />
                                 </td>
                                 <td>
                                     <input type="submit" class="btn btn-primary" value="Create"/>
@@ -73,7 +80,8 @@
                                 <thead>
                                 <tr>
                                     <td>Country code</td>
-                                    <td>Locale code</td>
+                                    <td>Default Locale</td>
+                                    <td>Active</td>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -84,6 +92,10 @@
                                     </td>
                                     <td>
                                         <input type="text" name="defaultLocale" id="editDefaultLocaleLanguage"/>
+                                    </td>
+                                    <td width="20px">
+
+                                        <input type="checkbox" name="active" id="editActive" />
                                     </td>
                                     <td>
                                         <input type="submit" class="btn btn-primary" value="Save"/>
@@ -100,6 +112,7 @@
                                 <th>ID</th>
                                 <th>Country Code</th>
                                 <th>Default Locale</th>
+                                <th>Active</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -116,8 +129,15 @@
                                         {{ language.getDefaultLocale() }}
                                     </td>
                                     <td>
+                                        {% if (language.getActive() is not 0) %}
+                                            Yes
+                                        {% else %}
+                                            No
+                                        {% endif %}
+                                    </td>
+                                    <td>
                                         <input type="button" class="btn btn-primary" value="Edit"
-                                               onClick="editLanguage({{ language.getId() }}, '{{ language.getCcode() }}', '{{ language.getDefaultLocale() }}');"/>
+                                               onClick="editLanguage({{ language.getId() }}, '{{ language.getCcode() }}', '{{ language.getDefaultLocale() }}', '{{ language.getActive() }}');"/>
                                         <input type="button" class="btn btn-primary" value="Delete"
                                                onClick="deleteConfirmation({{ language.getId() }});"/>
                                     </td>

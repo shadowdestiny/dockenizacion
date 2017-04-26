@@ -217,6 +217,7 @@ class TranslationService
 
             $language->setCcode($arrayLanguage['ccode']);
             $language->setDefaultLocale($arrayLanguage['defaultLocale']);
+            $language->setActive($arrayLanguage['active']);
 
             $this->entityManager->persist($language);
             $this->entityManager->flush();

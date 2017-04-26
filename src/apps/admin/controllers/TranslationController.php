@@ -174,7 +174,7 @@ class TranslationController extends AdminControllerBase
             $this->translationService->createLanguage([
                 'ccode' => $this->request->getPost('ccode'),
                 'defaultLocale' => $this->request->getPost('defaultLocale'),
-                'active' => 0,
+                'active' => $this->request->getPost('active') ? 1 : 0,
             ]);
 
             return $this->redirectToLanguage('Language saved correctly');
@@ -193,6 +193,7 @@ class TranslationController extends AdminControllerBase
                 'id' => $this->request->getPost('id'),
                 'ccode' => $this->request->getPost('ccode'),
                 'defaultLocale' => $this->request->getPost('defaultLocale'),
+                'active' => $this->request->getPost('active') ? 1 : 0,
             ]);
 
 
