@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityManager;
 use EuroMillions\web\entities\Translation;
 use EuroMillions\web\entities\TranslationCategory;
 use EuroMillions\web\entities\Language;
-use EuroMillions\web\entities\TranslationDetail;
 use EuroMillions\web\repositories\LanguageRepository;
 use EuroMillions\web\repositories\TranslationCategoryRepository;
 use EuroMillions\web\repositories\TranslationDetailRepository;
