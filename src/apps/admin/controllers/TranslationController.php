@@ -3,6 +3,7 @@
 namespace EuroMillions\admin\controllers;
 
 use EuroMillions\admin\services\TranslationService;
+use Phalcon\Exception;
 
 class TranslationController extends AdminControllerBase
 {
@@ -47,7 +48,19 @@ class TranslationController extends AdminControllerBase
                 $this->request->getPost('categoryId'),
                 $this->request->getPost('key')
             ),
+            'languages' => $this->translationService->getAllTranslationLanguages(),
         ]);
+    }
+
+    public function saveTranslationsAction()
+    {
+        try{
+            $this->translationService->saveTranslations($this->request->getPost());
+        } catch (Exception $e) {
+            return $this->redirectToTranslation('Translations wasn\'t saved correctly');
+        }
+
+        return $this->redirectToTranslation('Translations saved correctly');
     }
 
     public function categoriesAction()

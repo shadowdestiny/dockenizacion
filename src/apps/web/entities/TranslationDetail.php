@@ -11,6 +11,18 @@ class TranslationDetail implements IEntity
     protected $lang;
     protected $language;
 
+    /**
+     * TranslationDetail constructor.
+     * @param array $data
+     */
+    public function __construct(array $data)
+    {
+        $this->setTranslation($data['translationId']);
+        $this->setLanguage($data['languageId']);
+        $this->setLang($data['lang']);
+        $this->setValue($data['value']);
+    }
+
     public function getTranslation()
     {
         return $this->translation;
