@@ -18,10 +18,10 @@ class TranslationDetailRepository extends EntityRepository
         $result = $this->getEntityManager()
             ->createQuery(
                 'SELECT td.value'
-                . ' FROM ' . $this->getEntityName() . ' td JOIN td.translation t'
-                . ' WHERE td.lang = :lang AND t.translationKey = :key')
+                . ' FROM ' . $this->getEntityName() . ' td JOIN td.translation t JOIN td.language l'
+                . ' WHERE td.lang = :lang AND t.translationKey = :key AND l.active = :active')
             ->setMaxResults(1)
-            ->setParameters(['lang' => $language, 'key' => $key])
+            ->setParameters(['lang' => $language, 'key' => $key, 'active' => 1])
             ->useResultCache(true, 3600)
             ->getResult();
 
@@ -55,12 +55,12 @@ class TranslationDetailRepository extends EntityRepository
     public function getKeysByCategoryIdAndKey($categoryId, $key)
     {
         $rsm = new ResultSetMapping();
-        $rsm->addScalarResult('translationKey','translationKey');
-        $rsm->addScalarResult('description','description');
-        $rsm->addScalarResult('value','value');
-        $rsm->addScalarResult('lang','lang');
-        $rsm->addScalarResult('id','id');
-        $rsm->addScalarResult('language_id','language_id');
+        $rsm->addScalarResult('translationKey', 'translationKey');
+        $rsm->addScalarResult('description', 'description');
+        $rsm->addScalarResult('value', 'value');
+        $rsm->addScalarResult('lang', 'lang');
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('language_id', 'language_id');
         if (empty($key)) {
             $where = 'WHERE translationCategory_id = ' . $categoryId;
         } else {
@@ -80,12 +80,12 @@ class TranslationDetailRepository extends EntityRepository
     public function saveTranslation(array $translationData)
     {
         $rsm = new ResultSetMapping();
-        $rsm->addScalarResult('id','id');
+        $rsm->addScalarResult('id', 'id');
         $translationExist = $this->getEntityManager()->createNativeQuery(
             'SELECT id
                  FROM translation_details
                  WHERE translation_id = ' . $translationData['translationId'] . ' AND language_id = ' . $translationData['languageId'] .
-                ' AND lang = "' . $translationData['lang'] . '"', $rsm)->getResult();
+            ' AND lang = "' . $translationData['lang'] . '"', $rsm)->getResult();
         if (empty($translationExist)) {
             $sql = 'INSERT INTO translation_details (translation_id, language_id, value, lang)
                 VALUES (' . $translationData['translationId'] . ', ' . $translationData['languageId'] . ', "' . $translationData['value'] . '", "' . $translationData['lang'] . '")';
