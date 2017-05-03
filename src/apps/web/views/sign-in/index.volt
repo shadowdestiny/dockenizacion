@@ -45,14 +45,13 @@ $(function(){swap(".log-in .box-extra a, .sign-up .box-extra a");});
             </div>
 
             <div class="box-basic sign-up hidden">
-                <h1 class="h1 title">{{ language.translate("Sign up") }}</h1>
+                <h1 class="h1 title">{{ language.translate("signup_head") }}</h1>
                 {% set url_signup = '/sign-up' %}
                 {% include "sign-in/_sign-up.volt" %}
             </div>
 
             <div class="terms txt">
-                {{ language.translate("By signing in you agree to our") }} <a href="/legal/index" target="_blank">{{ language.translate("Terms &amp; Conditions") }}</a> and our <br><a href="/legal/privacy" target="_blank">{{ language.translate("Privacy Policy") }}</a>
-                {{ language.translate("and that you are 18+ years old.") }}
+                {{ language.translate("signup_signInTC") }}
             </div>
         </div>
     </div>
