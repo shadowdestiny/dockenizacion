@@ -11,21 +11,21 @@
     <div class="cl reduce">
         <label class="label left" for="remember">
             {{ signinform.render('remember', {'class':'checkbox', 'data-role':'none'}) }}
-            <span class="txt">{{ language.translate("Stay signed in") }}</span>
+            <span class="txt">{{ language.translate("signin_staysigned") }}</span>
         </label>
         <div class="right forgot-psw">
-            <a href="/user-access/forgotPassword">{{ language.translate("Forgot password?") }}</a>
+            <a href="/user-access/forgotPassword">{{ language.translate("signin_forgotpass") }}</a>
         </div>
     </div>
     
     <div class="cl">
         <input id="go" type="submit" class="hidden2" />
         {% if signIn.myClass == 'sign-in' %}
-            <label for="go" class="submit btn big blue">{{ language.translate("Login") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
+            <label for="go" class="submit btn big blue">{{ language.translate("signin_LogIn_btn") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
         {% elseif signIn.myClass == 'cart' %}
             <label for="go" class="submit btn big blue">{{ language.translate("Login &amp; Play") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
         {% endif %}
     </div>
     
-    <div class="box-extra{% if signIn.myClass == 'cart' %} hidden{% endif %}"><span class="txt">{{ language.translate("Don't you have an account?") }}</span> <a class="btn gwy" href="javascript:void(0)">{{ language.translate("Sign up") }}</a></div>
+    <div class="box-extra{% if signIn.myClass == 'cart' %} hidden{% endif %}"><span class="txt">{{ language.translate("signin_accountQuestion") }}</span> <a class="btn gwy" href="javascript:void(0)">{{ language.translate("signin_signup_btn") }}</a></div>
 </form>

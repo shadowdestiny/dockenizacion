@@ -27,7 +27,7 @@ $(function(){swap(".log-in .box-extra a, .sign-up .box-extra a");});
         </div>
         <div class="col-right">
             <div class="box-basic log-in">
-                <h1 class="h1 title">{{ language.translate("signup_head") }}</h1>
+                <h1 class="h1 title">{{ language.translate("signin_head") }}</h1>
 
                 {# DO NOT DELETE - Facebook connect
                 <div class="connect">
