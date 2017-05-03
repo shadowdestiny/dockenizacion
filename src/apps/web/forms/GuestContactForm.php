@@ -2,6 +2,9 @@
 namespace EuroMillions\web\forms;
 
 
+use EuroMillions\web\components\EmTranslationAdapter;
+use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
+use Phalcon\Di;
 use Phalcon\Forms\Element\Email;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Select;
@@ -16,10 +19,13 @@ class GuestContactForm extends Form
 {
     public function initialize($entity = null, $options = null)
     {
+        $di = Di::getDefault();
+        $entityManager = $di->get('entityManager');
+        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
 
         // Email
         $username = new Email('email', array(
-            'placeholder' => 'Email'
+            'placeholder' => $translationAdapter->query("email")
         ));
         $username->addValidators(array(
             new PresenceOf(array(
@@ -32,7 +38,7 @@ class GuestContactForm extends Form
         $this->add($username);
 
         $fullname = new Text('fullname', [
-            'placeholder' => 'Full Name'
+            'placeholder' => $translationAdapter->query("name")
         ]);
         $fullname->addValidators([
             new PresenceOf([
@@ -42,7 +48,7 @@ class GuestContactForm extends Form
         $this->add($fullname);
 
         $content = new TextArea('message', [
-            'placeholder' => 'Insert your message here'
+            'placeholder' => $translationAdapter->query("message")
         ]);
 
         $content->addValidators(array(
@@ -54,10 +60,16 @@ class GuestContactForm extends Form
 
         $topic = new Select(
             'topic',
-            $options['topics'],
+            [
+                1 => $translationAdapter->query("option1"),
+                2 => $translationAdapter->query("option2"),
+                3 => $translationAdapter->query("option3"),
+                4 => $translationAdapter->query("option4"),
+                5 => $translationAdapter->query("option5")
+            ],
             [
                 'useEmpty' => true,
-                'emptyText' => 'Please select an option.',
+                'emptyText' => $translationAdapter->query("option"),
 
             ]
         );
