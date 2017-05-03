@@ -41,7 +41,7 @@
                 {{ guestContactForm.render('topic', {'class':'input'}) }}
                 
                 {% if user_logged %}
-                    <p class="logged">{{ language.translate("sendas") }}{{ user_name }}</p>
+                    <p class="logged">{{ language.translate("sendas") }} {{ user_name }}</p>
                 {% else %}
                     {{ guestContactForm.render('fullname', {'class':'input'~form_errors['fullname']}) }}
                     {{ guestContactForm.render('email', {'class':'input'~form_errors['email']}) }}
