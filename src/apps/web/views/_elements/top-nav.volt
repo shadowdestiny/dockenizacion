@@ -7,7 +7,7 @@
 					<li><a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">{{ currency.code }} &nbsp; {{ currency.name }}</a></li>
 				{% endif %}
             {% endfor %}
-            <li><a href="/currency">{{ language.translate('Show all currencies') }} <svg class="ico v-arrow-right3"><use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use></svg></a></li>
+            <li><a href="/currency">{{ language.translate('currencies') }} <svg class="ico v-arrow-right3"><use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use></svg></a></li>
         </ul>
     </div>
 </li>
@@ -19,7 +19,7 @@
 {% endif %}
 
 <li class="balance {{class_balance }}">
-	<a class="link" href="/account/wallet/">{{ language.translate('Balance') }}: {{ user_balance }}</a>
+	<a class="link" href="/account/wallet/">{{ language.translate('balance') }}: {{ user_balance }}</a>
 </li>
 {# EMTD - CART link functionality incompleted and hidden for first release
 
@@ -30,14 +30,14 @@
 
 {% if user_logged is empty %}
 <li class="li-sign">
-    <a class="link" href="/sign-in">{{ language.translate('Sign in') }}</a>
+    <a class="link" href="/sign-in">{{ language.translate('signIn') }}</a>
 </li>
 {% else %}
 <li>
-	<a class="link" href="/logout">{{ language.translate('Logout') }}</a>
+	<a class="link" href="/logout">{{ language.translate('LogOut') }}</a>
 </li>
 <li class="li-sign">
-    <a class="link" href="/account/wallet">{{ language.translate('Deposit') }}</a>
+    <a class="link" href="/account/wallet">{{ language.translate('deposit') }}</a>
 </li>
 
 {% endif %}
