@@ -43,7 +43,7 @@ end PROD imports-->
 	<div class="large wrapper">
 		<div class="banner">
 			<div class="box-jackpot">
-				<div class="info">{{ language.translate("EuroMillions Jackpot") }}</div>
+				<div class="info">{{ language.translate("banner1_head") }}</div>
 				<div class="jackpot">
 					<svg class="value">
 					    <defs>
@@ -144,8 +144,8 @@ end PROD imports-->
 				</div>
 			</div>
 			<div class="btn-box">
-				<a href="/{{ lottery }}/play" class="btn red huge">{{ language.translate("PLAY NOW") }}</a>
-				<div class="for-only">{{ language.translate("For only")}} {{ bet_price }}</div>
+				<a href="/{{ lottery }}/play" class="btn red huge">{{ language.translate("banner1_btn") }}</a>
+				<div class="for-only">{{ language.translate("banner1_subbtn")}} {{ bet_price }}</div>
 			</div>
 			<div class="txt">{{ language.translate("Join the Club. Become our next EuroMillionaire!") }}</div>
 			<div class="best-price">
@@ -179,9 +179,9 @@ end PROD imports-->
 				<div class="col6">
 					<div class="box-basic box-quick-play ball">
 						<div class="content">
-							<h1 class="h2">{{ language.translate("Don't know what to play?") }}</h1>
-							<p>{{ language.translate("Use our Lucky Number Generator") }}</p>
-							<a href="/{{ lottery }}/play?random" class="btn blue big wide">{{ language.translate("I Feel Lucky!") }}</a>
+							<h1 class="h2">{{ language.translate("cta1_head") }}</h1>
+							<p>{{ language.translate("cta1_text") }}</p>
+							<a href="/{{ lottery }}/play?random" class="btn blue big wide">{{ language.translate("cta1_btn") }}</a>
 						</div>
 					</div>
 				</div>
@@ -189,8 +189,8 @@ end PROD imports-->
 					<div class="box-basic box-result">
 						<div class="cols">
 							<div class="col8 content">
-								<h1 class="h2">{{ language.translate('EuroMillions Results') }}</h1>
-								<p>{{ language.translate('Numbers from') }} {{ last_draw_date }} </p>
+								<h1 class="h2">{{ language.translate("results_head") }}</h1>
+								<p>{{ language.translate("results_text") }} {{ last_draw_date }} </p>
 								<ul class="no-li inline numbers small">
 	                                {% for regular_number in euromillions_results["regular_numbers"] %}
 									    <li>{{ regular_number }}</li>
@@ -199,7 +199,7 @@ end PROD imports-->
 									    <li class="star">{{ lucky_number }}</li>
 	                                {% endfor %}
 								</ul>
-								<a href="/{{ lottery }}/results" class="lnk animate infi"><span class="txt">{{ language.translate('Results &amp; Prizes') }}</span> <svg class="ico v-arrow-right3"><use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use></svg></a>
+								<a href="/{{ lottery }}/results" class="lnk animate infi"><span class="txt">{{ language.translate("results_link") }}</span> <svg class="ico v-arrow-right3"><use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use></svg></a>
 							</div>
 							<div class="col4 woman">&nbsp;</div>
 						</div>
@@ -233,20 +233,19 @@ end PROD imports-->
 					<div class="cols fcs">
 						<div class="col6 bg-quality"></div>
 						<div class="col6 box-txt r">
-							<h3 class="li-title">{{ language.translate("Fast") }}</h3>
-							<p>{{ language.translate("Players on EuroMillions.com usually pick their lines and make their purchase within two minutes. At Euromillions.com, you just have to choose your favourite numbers, sit back, and relax. We do all the work and even check the results for you. Shortly after the draw, you will receive an email notification detailing the latest results, and if you have won, the winnings will automatically be credited to your player account.") }}</p>
+							<h3 class="li-title">{{ language.translate("cta2_sub1") }}</h3>
+							<p>{{ language.translate("cta2_text1") }}</p>
 
-							<h3 class="li-title">{{ language.translate("Convenient") }}</h3>
-							<p>{{ language.translate("You can find the tickets you have purchased, the latest euromillions results and customer support in the same place. At only %bet_price% (%bet_price_pound%) per play, we offer the best price available on the Internet. Your winnings are commission free and will remain so forever.
-							It doesn’t matter where you live – we are a regulated operator and our services are available worldwide. If you win big, our team of professionals will be at your assistance to make sure you receive your winnings quickly and safely.", ['bet_price': bet_price ,'bet_price_pound': bet_price_pound] ) }}</p>
+							<h3 class="li-title">{{ language.translate("cta2_sub2") }}</h3>
+							<p>{{ language.translate("cta2_text2", ['bet_price': bet_price ,'bet_price_pound': bet_price_pound] ) }}</p>
 
-							<h3 class="li-title">{{ language.translate("Secure") }}</h3>
-							<p>{{ language.translate("Euromillions.com is a fully licensed lottery operator. We are customer-centric and constantly endeavour to improve our performance to meet and exceed the demands of our customers. Our partnerships with top financial institutions and certification companies ensures optimum safety when playing on our website.") }}</p>
+							<h3 class="li-title">{{ language.translate("cta2_sub3") }}</h3>
+							<p>{{ language.translate("cta2_text3") }}</p>
 						</div>
 					</div>
 					<div class="box-action">
-						<span class="h2 phrase">{{ language.translate("Millions of people play EuroMillions everyday") }}</span>
-						<a href="{{ lottery }}/play" class="btn big blue">{{ language.translate("Play Anytime, Anywhere") }}</a>
+						<span class="h2 phrase">{{ language.translate("cta2_tagline") }}</span>
+						<a href="{{ lottery }}/play" class="btn big blue">{{ language.translate("cta2_btn") }}</a>
 					</div>
 				</div>
 			</div>
@@ -256,21 +255,21 @@ end PROD imports-->
 			<div class="box-basic how-play">
 				<div class="cols playing-euro">
 					<div class="col6 box-txt l">
-						<h2 class="h1 yellow">{{ language.translate("Playing EuroMillions") }}</h2>
-						<h3 class="li-title">{{ language.translate("Play") }}</h3>
-						<p>{{ language.translate("Select five numbers from 1 to 50 and two lucky stars numbered from 1 to 12. The results are published shortly after the draw on Euromillions.com, and players receive an email notification detailing the latest results and if they have won. Winnings are commission free and are immediately credited to the player’s account on Euromillions.com") }}</p>
-						<h3 class="li-title">{{ language.translate("Eligibility") }}</h3>
-						<p>{{ language.translate("Any person 18 years or older can play EuroMillions.") }}</p>
-						<h3 class="li-title">{{ language.translate("Jackpot") }}</h3>
-						<p>{{ language.translate("The EuroMillions Jackpot can reach up to &euro;190 million with a guaranteed jackpot of at least €17 million (&pound;14.4 million) per draw (two draws per week). In the absence of a jackpot winner, the money is rolled over to the next draw and will grow until the jackpot is won, or the Euromillions Pool Cap (&euro;190 million) is reached.") }}</p>
-						<h3 class="li-title">{{ language.translate("Odds") }}</h3>
-						<p>{{ language.translate("The EuroMillions lottery features 13 different tiers and the odds of winning a EuroMillions prize are 1 in 22. To win the Euromillions jackpot prize, players need to match 5 main numbers from 50, and 2 lucky stars from 12. The odds of hitting the Euromillions Jackpot are 1 in 139,838,800.") }}</p>
+						<h2 class="h1 yellow">{{ language.translate("cta3_head") }}</h2>
+						<h3 class="li-title">{{ language.translate("cta3_sub1") }}</h3>
+						<p>{{ language.translate("cta3_text1") }}</p>
+						<h3 class="li-title">{{ language.translate("cta3_sub2") }}</h3>
+						<p>{{ language.translate("cta3_text2") }}</p>
+						<h3 class="li-title">{{ language.translate("cta3_sub3") }}</h3>
+						<p>{{ language.translate("cta3_text3") }}</p>
+						<h3 class="li-title">{{ language.translate("cta3_sub4") }}</h3>
+						<p>{{ language.translate("cta3_text4") }}</p>
 					</div>
 					<div class="col6 bg-hope"></div>
 				</div>
 				<div class="box-action">
-				<span class="h2 phrase">{{ language.translate("If you're not in, you can't Win!") }}</span>	
-				<a href="{{ lottery }}/play" class="btn big blue">{{ language.translate("Beat the odds, Play the Lotto") }}</a>
+				<span class="h2 phrase">{{ language.translate("cta3_tagline") }}</span>
+				<a href="{{ lottery }}/play" class="btn big blue">{{ language.translate("cta3_btn") }}</a>
 				</div>
 			</div>
 
