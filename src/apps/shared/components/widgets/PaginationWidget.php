@@ -2,6 +2,9 @@
 
 namespace EuroMillions\shared\components\widgets;
 
+use EuroMillions\web\components\EmTranslationAdapter;
+use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
+use Phalcon\Di;
 use Phalcon\Mvc\View\Simple as ViewSimple;
 use Phalcon\Mvc\ViewInterface;
 
@@ -104,6 +107,16 @@ class PaginationWidget extends \Phalcon\Mvc\User\Component {
             $dotted = false;
             $pagination['pages'][] = $page;
         }
+        $di = Di::getDefault();
+        $entityManager = $di->get('entityManager');
+        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
+        $pagination['translation'] = [
+            'first' => $translationAdapter->query('first'),
+            'last' => $translationAdapter->query('last'),
+            'previous' => $translationAdapter->query('previous'),
+            'next' => $translationAdapter->query('next'),
+
+        ];
         $params['pagination'] = $pagination;
         $this->getView();
        try {
