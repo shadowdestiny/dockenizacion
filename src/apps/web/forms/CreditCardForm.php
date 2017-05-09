@@ -4,7 +4,10 @@
 namespace EuroMillions\web\forms;
 
 
+use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\forms\validators\CreditCardExpiryDateValidator;
+use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
+use Phalcon\Di;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Form;
@@ -18,6 +21,10 @@ class CreditCardForm extends Form
 {
     public function initialize($entity, $options = null)
     {
+        $di = Di::getDefault();
+        $entityManager = $di->get('entityManager');
+        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
+
         $card_number = new Text('card-number', array(
             'placeholder' => '',
             'autocomplete' => 'off',
@@ -26,12 +33,12 @@ class CreditCardForm extends Form
         ));
         $card_number->addValidators(array(
             new PresenceOf(array(
-                'message' => 'Insert a Credit Card number.'
+                'message' => $translationAdapter->query('card_number_error')
             )),
             new StringLength(array(
                 'min' => 16,
                 'max' => 16,
-                'message' => 'The Credit Card must be composed of exactly 16 characters long.'
+                'message' => $translationAdapter->query('card_number_error')
             )),
             new Numericality(array(
             )),
@@ -49,11 +56,11 @@ class CreditCardForm extends Form
         ));
         $card_holder->addValidators(array(
             new PresenceOf(array(
-                'message' => 'Insert the full name of the Credit Card holder.'
+                'message' => $translationAdapter->query('card_name_error')
             )),
             new StringLength(array(
                 'min' => 5,
-                'message' => 'Full name is too short, please add your full Name as written on the credit card.'
+                'message' => $translationAdapter->query('card_name_error5')
             )),
         ));
         $this->add($card_holder);
@@ -65,7 +72,7 @@ class CreditCardForm extends Form
 
         $card_cvv->addValidators(array(
             new PresenceOf(array(
-                'message' => 'Insert a CVV number.'
+                'message' => $translationAdapter->query('card_cvv_error')
             )),
             new Numericality(array(
 
@@ -73,7 +80,7 @@ class CreditCardForm extends Form
             new StringLength(array(
                 'min' => 3,
                 'max' => 4,
-                'message' => 'The CVV must be in between 3 and 4 characters long.'
+                'message' => $translationAdapter->query('card_cvv_error4')
             ))
         ));
         $this->add($card_cvv);
@@ -85,7 +92,7 @@ class CreditCardForm extends Form
 
         $expiry_date_month->addValidators(array(
             new PresenceOf([
-                'message' => 'Insert an expiry date valid.'
+                'message' => $translationAdapter->query('card_date_error')
             ]),
             new CreditCardExpiryDateValidator([
                 'what'=>'month',

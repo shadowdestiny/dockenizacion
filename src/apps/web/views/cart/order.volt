@@ -144,8 +144,8 @@
     <main id="content">
         <div class="wrapper">
             <div class="box-basic medium">
-                <h1 class="h1 title yellow res">{{ language.translate("Review and Buy") }}</h1>
-                <div class="terms">{{ language.translate("By purchasing you agree to") }} <a href="/legal/">{{ language.translate("Terms &amp; Conditions") }}</a></div>
+                <h1 class="h1 title yellow res">{{ language.translate("checkout_head") }}</h1>
+                <div class="terms">{{ language.translate("terms") }}</a></div>
 
                 {#<div class="box-top cl">#}
                 {#&#123;&#35;<div class="balance">&#35;&#125;#}

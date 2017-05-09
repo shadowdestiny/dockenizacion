@@ -50,7 +50,7 @@
     <div class="cols fix-margin">
         <div class="col6 first">
             {% endif %}
-            <h2 class="h2 yellow">{{ language.translate("Enter your credit card details") }}</h2>
+            <h2 class="h2 yellow">{{ language.translate("card_subhead") }}</h2>
 
 
             {% if component.where == 'cart' %}
@@ -73,26 +73,26 @@
 
 
                     <label class="label" for="card-number">
-                        {{ language.translate("Card Number") }} <span class="asterisk">*</span>
+                        {{ language.translate("card_number") }} <span class="asterisk">*</span>
                     </label>
                     {{ credit_card_form.render('card-number', {'class':'input'~form_errors['card-number']}) }}
 
                     <label class="label" for="card-holder">
-                        {{ language.translate("Full Name on Card") }} <span class="asterisk">*</span>
+                        {{ language.translate("card_name") }} <span class="asterisk">*</span>
                     </label>
                     {{ credit_card_form.render('card-holder', {'class':'input'~form_errors['card-holder']}) }}
 
                     <div class="cl card-detail">
                         <div class="left margin">
                             <label class="label block" for="expiry-date-month">
-                                {{ language.translate("Expiration date") }} <span class="asterisk">*</span>
+                                {{ language.translate("card_date") }} <span class="asterisk">*</span>
                             </label>
                             {{ credit_card_form.render('expiry-date-month', { 'class':'input date'~form_errors['expiry-date-month'], "maxlength":"2", 'style':'width:14%'}) }}
                             {{ credit_card_form.render('expiry-date-year', { 'class':'input date'~form_errors['expiry-date-year'], "maxlength":"2",'style':'width:14%'}) }}
                         </div>
                         <div class="left cvv">
                             <label class="label" for="card-cvv">
-                                {{ language.translate("CVV") }} <span class="asterisk">*</span>
+                                {{ language.translate("card_cvv") }} <span class="asterisk">*</span>
                                 <span class="tooltip" data-type="span" data-place="top" data-event="click" data-message="{{ language.translate('The Card Code Verification is a 3 digit number (Mastercard and Visa) or 4 digit (American Express) that can be located on your card.') }}" data-class="v-question-mark ico" data-ico="v-question-mark"></span>
                             </label>
                             {{ credit_card_form.render('card-cvv', {'class':'input'~form_errors['card-cvv']}) }}
