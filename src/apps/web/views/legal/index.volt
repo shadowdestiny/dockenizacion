@@ -16,38 +16,38 @@
            {% include "legal/_nav.volt" %}
         </div>
         <div class="box-basic content">
-            <h1 class="h1 title">{{ language.translate("Terms &amp; Conditions") }}</h1>
+            <h1 class="h1 title">{{ language.translate("terms_head") }}</h1>
 
-            <p>{{ language.translate("Please read these Terms and Conditions carefully before using the website Euromillions.com (“Website”). By using or visiting the Website, players hereby accept and agree to these Terms and Conditions. We highly value the trust of our clients, and encourage you to carefully read the Terms and Conditions and information essential to our Website.") }}</p>
+            <p>{{ language.translate("terms_head_text") }}</p>
 
-            <h2 class="no-margin h3">{{ language.translate("PARTIES") }}</h2>
-            <h2 class="h3">{{ language.translate("Panamedia group") }}</h2>
+            <h2 class="no-margin h3">{{ language.translate("terms_subhead") }}</h2>
+            <h2 class="h3">{{ language.translate("terms_subhead2") }}</h2>
 
-            <p>{{ language.translate("<strong>Panamedia B.V.</strong>, a private limited liability company organized under and regulated by the government of Curaçao (Kingdom of the Netherlands), and existing in the Commercial register of Curaçao Number 135786. Panamedia B.V. operates under the Gaming license #5536/JAZ issued by the governor of Curaçao. The Company is the operator of the website Euromillions.com.") }}</p>
+            <p>{{ language.translate("terms_subhead_text") }}</p>
 
-            <p>{{ language.translate("<strong>Panamedia International Limited</strong> a private limited liability company in Malta (European Union) with Company Registration Number C53638. Panamedia International Ltd provides payment services to Euromillions.com.") }}</p>
+            <p>{{ language.translate("terms_subhead_text2") }}</p>
 
-            <h2 class="h3">{{ language.translate("DEFINITIONS") }}</h2>
+            <h2 class="h3">{{ language.translate("terms_definitions") }}</h2>
 
-            <p>{{ language.translate("<strong>Access information</strong> means the unique login credentials generated during the registration process.") }}</p>
+            <p>{{ language.translate("terms_definitions1") }}</p>
 
-            <p>{{ language.translate("<strong>Player account</strong> means a set of dedicated webpages for registered users, used to manage their identification and access data at Euromillions.com, such as accessing their transaction and ticket history in the Euromillions.com website.") }}</p>
+            <p>{{ language.translate("terms_definitions2") }}</p>
 
-            <p>{{ language.translate("<strong>Dispatch deadline</strong> or <strong>Cut off time</strong> means the remaining time until the Euromillions.com website accepts bets for the next draw for a certain game. The Dispatch deadline is based on the local time, local rules of the certain game, and the local opening hours of the local lottery shops.") }}</p> 
+            <p>{{ language.translate("terms_definitions3") }}</p>
 
-            <p>{{ language.translate("<strong>Field</strong> means a single, numbered, clickable area to select the numbers the player wishes to play. A ticket is made of a set of fields.") }}</p>
+            <p>{{ language.translate("terms_definitions4") }}</p>
 
-            <p>{{ language.translate("<strong>Game</strong> means any of the individual or group games available on the Euromillions.com website.") }}</p>
+            <p>{{ language.translate("terms_definitions5") }}</p>
 
-            <p>{{ language.translate("<strong>&euro;</strong> means the Euro currency.") }}</p>
+            <p>{{ language.translate("terms_definitions6") }}</p>
 
-            <p>{{ language.translate("<strong>Group game</strong> or <strong>Syndicates</strong> means a group of users collectively playing a certain number of Tickets and collectively sharing the winnings based on the individual rules of the certain Group Game.") }}</p>
+            <p>{{ language.translate("terms_definitions7") }}</p>
 
-            <p>{{ language.translate("<strong>Euromillions.com website</strong> means the official Euromillions.com website of Euromillions.com, currently accessible at www.Euromillions.com. The official language of the Euromillions.com website is English.") }}</p> 
+            <p>{{ language.translate("terms_definitions8") }}</p>
             
-            <p>{{ language.translate("<strong>Official result</strong> means the winning numbers, number of winners, and prizes of each category published by the official lottery operator.") }}</p>
+            <p>{{ language.translate("terms_definitions9") }}</p>
 
-            <p>{{ language.translate("<strong>Ticket</strong> means the online ticket that is filled out on the Euromillions.com website. Tickets are made of a set of Fields.") }}</p>
+            <p>{{ language.translate("terms_definitions10") }}</p>
 
  {#           <p>{{ language.app("<strong>Ticket ID</strong> means a unique identification number given to a Ticket that is sent into play. It is available for review under the My Bets menu.") }}</p> #}
 
@@ -55,147 +55,147 @@
 
 {#             <p>{{ language.app('<strong>Valid Ticket</strong> means a paid Ticket that has received a valid Ticket ID and has the status of "Paid, Valid".')}}</p> #}
 
-            <p>{{ language.translate("<strong>Winning Numbers</strong> means a set of numbers of the certain game, drawn on a given day and published in a final manner by the official lottery operator.") }}</p>
+            <p>{{ language.translate("terms_definitions11") }}</p>
 
             <div class="numbered">
-                <h2 class="h3">{{ language.translate("1. Introduction") }}</h2>
+                <h2 class="h3">1. {{ language.translate("terms_introduction") }}</h2>
                 <div class="gap">
                     <p>
-                        <span class="n">1.1</span> <span class="txt">{{ language.translate("The main purpose of this Euromillions.com website is to enable its registered users to participate without any geographical limitations in any games listed on the Euromillions.com website.")}}</span>
+                        <span class="n">1.1</span> <span class="txt">{{ language.translate("terms_introduction11")}}</span>
                     </p>
                     <p>
-                        <span class="n">1.2</span> <span class="txt"><strong>{{ language.translate("What Euromillions.com Does") }}</strong></span>
+                        <span class="n">1.2</span> <span class="txt"><strong>{{ language.translate("terms_introduction12") }}</strong></span>
                     </p>
                     <div class="gap">
                         <p>
-                            <span class="n">1.2.1</span> <span class="txt">{{ language.translate("Customers come to the Euromillions.com website") }}</span>
+                            <span class="n">1.2.1</span> <span class="txt">{{ language.translate("terms_introduction121") }}</span>
                         </p>
                         <p>
-                            <span class="n">1.2.2</span> <span class="txt">{{ language.translate("Customers select the lottery and the numbers.") }}</span>
+                            <span class="n">1.2.2</span> <span class="txt">{{ language.translate("terms_introduction122") }}</span>
                         </p>
                         <p>
-                            <span class="n">1.2.3</span> <span class="txt">{{ language.translate("Euromillions.com acts on the placement assignment and keeps track of the status, results and success of the Ticket(s).") }}</span>
+                            <span class="n">1.2.3</span> <span class="txt">{{ language.translate("terms_introduction123") }}</span>
                         </p>
                         <p>
-                            <span class="n">1.2.4</span> <span class="txt">{{ language.translate("In case of winnings, Euromillions.com assists to claim the prize.") }}</span>
+                            <span class="n">1.2.4</span> <span class="txt">{{ language.translate("terms_introduction124") }}</span>
                         </p>
                     </div>
 
                     <p>
                         <span class="n">1.3</span> 
-                        <span class="txt">{{ language.translate("To fulfill its main purpose, the Euromillions.com website provides a variety of additional services, such as providing users a player account, validation of tickets, publishing results of the draws, and collecting and forwarding prizes to the winners in cases where collection is allowed to be executed by the Euromillions.com website.") }}</span>
+                        <span class="txt">{{ language.translate("terms_introduction13") }}</span>
                     </p>
 
-                    <p><span class="n">1.4</span> <strong><span class="txt">{{ language.translate("What Euromillions.com Does Not") }}</span></strong></p>
+                    <p><span class="n">1.4</span> <strong><span class="txt">{{ language.translate("terms_introduction14") }}</span></strong></p>
 
                     <div class="gap">
                         <p>
                             <span class="n">1.4.1</span>
-                            <span class="txt">{{ language.translate("Euromillions.com does not organize any lottery games. They are existing, offline lotteries independent from the Euromillions.com website or its business entity. The participants understood and acknowledge therefore that the payment after their prizes will come from the offline lottery companies and not directly from the Euromillions.com") }}</span>
+                            <span class="txt">{{ language.translate("terms_introduction141") }}</span>
                         </p>
 
                         <p>
                             <span class="n">1.4.2</span>
-                            <span class="txt">{{ language.translate("Euromillions.com does NOT take any commission from the winnings as a fee for its service as long as the takeover of the winnings does not cause any costs to Euromillions.com. Euromillions.com only applies a reasonable markup on the individual ticket prices as a fee for its service.") }}</span>
+                            <span class="txt">{{ language.translate("terms_introduction142") }}</span>
                         </p>
                     </div>
 
                     <p>
                         <span class="n">1.5</span>
-                        <span class="txt">{{ language.translate("Registered users must accept the Terms and Conditions not only at registration, but at each time they send Tickets into game. In every paid game, the participants have the chance to review and agree to the updated Terms and Conditions. With the acceptance of the Terms and Conditions, the participants authorize Euromillions.com to act on their behalf in front of the offline lotteries, and to claim and handle winnings of the participants in all cases where offline lotteries allow agents to takeover the winnings.") }}</span>
+                        <span class="txt">{{ language.translate("terms_introduction15") }}</span>
                     </p>
 
                     <p>
                         <span class="n">1.6</span>
-                        <span class="txt">{{ language.translate("The Euromillions.com website is entitled to amend these Terms and Conditions at any time, according to its absolute and exclusive discretion, without the obligation of any special notification, except the feature that makes participants agree to the updated Terms and Conditions at each played game.") }}</span>
+                        <span class="txt">{{ language.translate("terms_introduction16") }}</span>
                     </p>
 
                     <p>
                         <span class="n">1.7</span>
-                        <span class="txt">{{ language.translate("These Terms and Conditions constitute the entire and whole agreement between the Euromillions.com website and its registered users. Any presentation, promise, undertaking or consent, whether verbal or in writing, which does not comply with the Terms and Conditions, will not be valid.") }}</span>
+                        <span class="txt">{{ language.translate("terms_introduction17") }}</span>
                     </p>
 
                     <p>
                         <span class="n">1.8</span>
-                        <span class="txt">{{ language.translate("In case of disputes, the English Terms and Conditions a used as reference.") }}</span> 
+                        <span class="txt">{{ language.translate("terms_introduction18") }}</span>
                     </p>
 
                     <p>
                         <span class="n">1.9</span>
-                        <span class="txt">{{ language.translate("In case of any discrepancy between these Terms and Conditions and texts appeared on the applicable screen, these Terms and Conditions shall prevail.") }}</span>
+                        <span class="txt">{{ language.translate("terms_introduction19") }}</span>
                     </p>
                 </div>
 
 
-                <h2 class="h3">{{ language.translate("2. Participation Requirements") }}</h2>
+                <h2 class="h3">2. {{ language.translate("terms_participation2") }}</h2>
 
                 <div class="gap">
                     <p>
                         <span class="n">2.1</span>
-                        <span class="txt">{{ language.translate("The participation in games or usage of any other services of the Euromillions.com website is permitted for a participant only if:") }}</span>
+                        <span class="txt">{{ language.translate("terms_participation21") }}</span>
                     </p>
 
                     <div class="gap">
                         <p>
                             <span class="n">2.1.1</span>
-                            <span class="txt">{{ language.translate("On the participation date, the participant's age is at least 18 years; and") }}</span>
+                            <span class="txt">{{ language.translate("terms_participation211") }}</span>
                         </p>
 
                         <p>
                             <span class="n">2.1.2</span>
-                            <span class="txt">{{ language.translate("The participant is the legal owner of a valid payment vehicle.") }}</span>
+                            <span class="txt">{{ language.translate("terms_participation212") }}</span>
                         </p>
                     </div>
 
                     <p>
                         <span class="n">2.2</span>
-                        <span class="txt">{{ language.translate("The participant has the exclusive responsibility to know the rules and conditions of each game, and the local and international legal background of each game.") }}</span>
+                        <span class="txt">{{ language.translate("terms_participation22") }}</span>
                     </p>
 
                     <p>
                         <span class="n">2.3</span>
-                        <span class="txt">{{ language.translate("The participant must not violate or breach any local or international law, and the official rules of participation of each game.") }}</span>
+                        <span class="txt">{{ language.translate("terms_participation23") }}</span>
                     </p>
 
                     <p>
                         <span class="n">2.4</span>
-                        <span class="txt">{{ language.translate("Upon winning a prize that requires identification, the participant must present the required documentation matching the records in the Euromillions.com website's database.") }}</span>
+                        <span class="txt">{{ language.translate("terms_participation24") }}</span>
                     </p>
 
                     <p>
                         <span class="n">2.5</span>
-                        <span class="txt">{{ language.translate("In case of any default, the participant shall not be entitled to obtain any prizes.") }}</span>
+                        <span class="txt">{{ language.translate("terms_participation25") }}</span>
                     </p>
 
                     <p>
                         <span class="n">2.6</span>
-                        <span class="txt">{{ language.translate("Before registering or participating in any activity through this Euromillions.com website, it is each participant's responsibility to ensure that he/she complies with any and all laws applicable to him/her.") }}</span> 
+                        <span class="txt">{{ language.translate("terms_participation26") }}</span>
                     </p>
 
                     <p>
                         <span class="n">2.7</span>
-                        <span class="txt">{{ language.translate("Due to the regulation limits mentioned in the above laws and rules, a person who is NOT entitled to participate in the games or violates the aforesaid regulations is also NOT entitled to any of the prizes achieved via the Euromillions.com website.") }}</span> 
+                        <span class="txt">{{ language.translate("terms_participation27") }}</span>
                     </p>
 
                     <p>
                         <span class="n">2.8</span>
-                        <span class="txt">{{ language.translate("The Euromillions.com website, its agents and anyone on their behalf make no representations or warranties, expressed or implied, as to the lawfulness of any person's participation in any activity through this Euromillions.com website, and to his/her legal right to participate in the lottery draws or any other activity proposed by this Euromillions.com website.") }}</span> 
+                        <span class="txt">{{ language.translate("terms_participation28") }}</span>
                     </p>
                 </div>
 
-                <h2 class="h3">3. {{ language.translate("Declarations of Participants") }}</h2>
+                <h2 class="h3">3. {{ language.translate("terms_declarations3") }}</h2>
 
                 <p class="gap">
                     <span class="n">3.1</span>
-                    <span class="txt">{{ language.translate("With the acceptance of the present Terms and Conditions, the participant declares that according to the laws of his/her own country where he/she is a citizen, the participant is entitled to participate in the game he/she plays on this website. Participant also declares that during the use of this Website, he/she acts on behalf his/her own and there is no other person who is represented by his/her.") }}</span>
+                    <span class="txt">{{ language.translate("terms_declarations31") }}</span>
                 </p>
 
-                <h2 class="h3">4. {{ language.translate("Registration") }}</h2>
+                <h2 class="h3">4. {{ language.translate("terms_registration4") }}</h2>
 
                 <div class="gap">
                     <p>
                         <span class="n">4.1</span>
-                        <span class="txt">{{ language.translate("Registration is free and required to use the services of the Euromillions.com website. Participants must ensure that their data is true, and must inform Euromillions.com immediately of any change in the data supplied by them during registration, including changes in their credit card or bank account data, by modifying their own accounts on this website.") }}</span>
+                        <span class="txt">{{ language.translate("terms_registration41") }}</span>
                     </p>
 
 {#                    <div class="gap">
@@ -212,163 +212,163 @@
 
                     <p>
                         <span class="n">4.2</span>
-                        <span class="txt">{{ language.translate("The participant has the entire responsibility to reserve the confidentiality of the identification and Euromillions.com website access details, and not to make them available to anyone else.") }}</span>
+                        <span class="txt">{{ language.translate("terms_registration42") }}</span>
                     </p>
 
                     <p>
                         <span class="n">4.3</span>
-                        <span class="txt">{{ language.translate("The currently available technologies can only allow Euromillions.com website to check the validity and correctness of the Euromillions.com website access credentials, but are not suitable to validate the legal ownership and use of such. Therefore, the full responsibility for an unauthorized use of the registrant's identification and access details lies solely on the registrant.") }}</span>
+                        <span class="txt">{{ language.translate("terms_registration43") }}</span>
                     </p>
 
                     <p>
                         <span class="n">4.4</span>
-                        <span class="txt">{{ language.translate("Euromillions.com shall not be liable for any failure or to deliver any prizes if any information provided by the relevant participant is incomplete, incorrect, or out of date. Euromillions.com shall not be obliged in any way to get connection to any participant in order to complete or correct any information which may seem to be incomplete, incorrect or out of date.") }}</span>
+                        <span class="txt">{{ language.translate("terms_registration44") }}</span>
                     </p>
 
-                    <h2 class="h3">5. {{ language.translate("Player Account") }}</h2>
+                    <h2 class="h3">5. {{ language.translate("terms_playerAccount5") }}</h2>
 
                     <p>
                         <span class="n">5.1</span>
-                        <span class="txt">{{ language.translate("Each registrant will have access to his/her own player account. Access to the player account is only possible with valid credentials. Without valid credentials, the player account is not accessible.") }}</span>
+                        <span class="txt">{{ language.translate("terms_playerAccount51") }}</span>
                     </p>
 
                     <p>
                         <span class="n">5.2</span>
-                        <span class="txt">{{ language.translate("Registrants have the chance to modify their identification data, view their transactions, bets, notification settings, and perform deposits and withdrawals through their player account.") }}</span>
+                        <span class="txt">{{ language.translate("terms_playerAccount52") }}</span>
                     </p>
 
                     <p>
                         <span class="n">5.3</span>
-                        <span class="txt">{{ language.translate("Player accounts shall be established for the exclusive personal use of the registrant. Registrant undertakes not to create an account for anyone else or use anyone else’s account. Player accounts shall not be subject to any kind of transfer or assignment. Registrant shall be solely responsible for any and all activity that occurs in his/her account.") }}</span>
+                        <span class="txt">{{ language.translate("terms_playerAccount53") }}</span>
                     </p>
 
                     <p>
                         <span class="n">5.4</span>
-                        <span class="txt">{{ language.translate("Registrant hereby acknowledges and declares that he/she is the exclusive owner of all money transferred onto his/her account and all transferred money has clear legal title.") }}</span>
+                        <span class="txt">{{ language.translate("terms_playerAccount54") }}</span>
                     </p>
 
                     <p>
                         <span class="n">5.5</span>
-                        <span class="txt">{{ language.translate("Euromillions.com may at any time, without reason, refuse money lodgment or transfer to any registrants’ account at its sole discretion.") }}</span> 
+                        <span class="txt">{{ language.translate("terms_playerAccount55") }}</span>
                     </p>
                 </div>
 
-                <h2 class="h3">6. {{ language.translate("Confidentiality") }}</h2>
+                <h2 class="h3">6. {{ language.translate("terms_confidentiality6") }}</h2>
 
                 <div class="gap">
                     <p>
                         <span class="n">6.1</span>
-                        <span class="txt">{{ language.translate("Customer data are strictly confidential and will be used solely by Euromillions.com, subject to exceptions contained in these Terms and Conditions or under applicable law.") }}</span>
+                        <span class="txt">{{ language.translate("terms_confidentiality61") }}</span>
                     </p>
 
                     <p>
                         <span class="n">6.2</span>
-                        <span class="txt">{{ language.translate("The Company adheres to the Data Protection Act, other relevant regulations, legal notices and/or similar at the Place of the Contract taking account of the Data Protection Directive (EC Directive 95/46/EC) and the Electronic Communications Privacy Directive (EC Directive/2002/58/EC).") }}</span>
+                        <span class="txt">{{ language.translate("terms_confidentiality62") }}</span>
                     </p>
 
                     <p>
                         <span class="n">6.3</span>
-                        <span class="txt">{{ language.translate("Euromillions.com ensures their account holders that, at all times that:") }}</span>
+                        <span class="txt">{{ language.translate("terms_confidentiality63") }}</span>
                     </p>
 
                     <div class="gap">
                         <p>
                             <span class="n">6.3.1</span>
-                            <span class="txt">{{ language.translate("all personal data is processed in accordance with the rights of the account holder concerned;")}}</span>
+                            <span class="txt">{{ language.translate("terms_confidentiality631")}}</span>
                         </p>
 
                         <p>
                             <span class="n">6.3.2</span>
-                            <span class="txt">{{ language.translate("all personal data is processed fairly and lawfully;") }}</span> 
+                            <span class="txt">{{ language.translate("terms_confidentiality632") }}</span>
                         </p>
 
                         <p>
                             <span class="n">6.3.3</span>
-                            <span class="txt">{{ language.translate("all personal data is always processed in accordance with good practice;") }}</span>
+                            <span class="txt">{{ language.translate("terms_confidentiality633") }}</span>
                         </p>
 
                         <p>
                             <span class="n">6.3.4</span>
-                            <span class="txt">{{ language.translate("personal data is only collected for specific, explicitly stated and legitimate purposes;") }}</span>
+                            <span class="txt">{{ language.translate("terms_confidentiality634") }}</span>
                         </p>
 
                         <p>
                             <span class="n">6.3.5</span>
-                            <span class="txt">{{ language.translate("personal data is not processed for any purpose that is incompatible with that for which the information is collected;") }}</span>
+                            <span class="txt">{{ language.translate("terms_confidentiality635") }}</span>
                         </p>
 
                         <p>
                             <span class="n">6.3.6</span>
-                            <span class="txt">{{ language.translate("personal data that is processed is adequate and relevant in relation to the purposes of the processing;") }}</span>
+                            <span class="txt">{{ language.translate("terms_confidentiality636") }}</span>
                         </p>
 
                         <p>
                             <span class="n">6.3.7</span>
-                            <span class="txt">{{ language.translate("no more personal data is processed than is necessary with regards to the purposes of the processing;") }}</span>
+                            <span class="txt">{{ language.translate("terms_confidentiality637") }}</span>
                         </p>
 
                         <p>
                             <span class="n">6.3.8</span>
-                            <span class="txt">{{ language.translate("the personal data that is processed is correct and, if necessary, up to date;") }}</span>
+                            <span class="txt">{{ language.translate("terms_confidentiality638") }}</span>
                         </p>
 
                         <p>
                             <span class="n">6.3.9</span>
-                            <span class="txt">{{ language.translate("no personal data is kept for a period longer than is necessary, with regards to the purposes for which they are processed; and") }}</span>
+                            <span class="txt">{{ language.translate("terms_confidentiality639") }}</span>
                         </p>
 
                         <p>
                             <span class="n">6.3.10</span>
-                            <span class="txt">{{ language.translate("all reasonable measures are taken to complete, correct, block or erase data to the extent that such data is incomplete or incorrect, having regard to the purposes for which they are processed.") }}</span>
+                            <span class="txt">{{ language.translate("terms_confidentiality6310") }}</span>
                         </p>
                     </div>
 
                     <p>
                         <span class="n">6.4</span>
-                        <span class="txt">{{ language.translate("Euromillions.com discloses personal data when ordered to do so by the Governing Authorities and/or under provision in the Governing Law. Furthermore, the Company reserves the right to disclose personal data to relevant recipients when the Company has reasonable grounds to suspect irregularities that involve a bet-at-home betting account.") }}</span>
+                        <span class="txt">{{ language.translate("terms_confidentiality64") }}</span>
                     </p>
 
                     <p>
                         <span class="n">6.5</span>
-                        <span class="txt">{{ language.translate("Euromillions.com reserves the right to process personal data for CRM (Customer Relationship Management) purposes.") }}</span>
+                        <span class="txt">{{ language.translate("terms_confidentiality65") }}</span>
                     </p>
                 </div>
 
-                <h2 class="h3">7. Paid Participation</h2>
+                <h2 class="h3">7. {{ language.translate("terms_paidParticipation7") }}</h2>
 
                 <div class="gap">
                     <p>
                         <span class="n">7.1</span>
-                        <strong><span class="txt">{{ language.translate("Purpose of the Game") }}</span></strong>
+                        <strong><span class="txt">{{ language.translate("terms_paidParticipation71") }}</span></strong>
                     </p>
 
 
                     <div class="gap">
                         <p>
                             <span class="n">7.1.1</span>
-                            <span class="txt">{{ language.translate("The Game's purpose is to guess and select the winning numbers that will be drawn and published in a final manner by the official lottery operator. Suitable matches, their prize categories and prizes are also set according to the publications by the official lottery operator.") }}</span>
+                            <span class="txt">{{ language.translate("terms_paidParticipation711") }}</span>
                         </p>
 
                         <p>
                             <span class="n">7.1.2</span>
-                            <span class="txt">{{ language.translate("Participants can win various monetary prizes, equal to those granted in the official lottery draws. As mentioned in the Participation requirements, participation in a Game is subject to, and will be in accordance with, the official and valid rules of each and every official lottery game.") }}</span>
+                            <span class="txt">{{ language.translate("terms_paidParticipation712") }}</span>
                         </p>
                     </div>
 
                     <p>
                         <span class="n">7.2</span>
-                        <strong><span class="txt">{{ language.translate("Participation Requirements") }}</span></strong>
+                        <strong><span class="txt">{{ language.translate("terms_paidParticipation72") }}</span></strong>
                     </p>
 
                     <div class="gap">
                         <p>
                             <span class="n">7.2.1</span>
-                            <span class="txt">{{ language.translate("Registrants who comply with the participation requirements, mentioned above and with valid access information, have the possibility to send the filled out lottery tickets into play after payment.") }}</span>
+                            <span class="txt">{{ language.translate("terms_paidParticipation721") }}</span>
                         </p>
 
                         <p>
                             <span class="n">7.2.2</span>
-                            <span class="txt">{{ language.translate("The Euromillions.com website, from time to time, offers a Welcome bonus package in which it lets its first-time players access a free gift or offer. Contents, amounts and conditions in parts or the Welcome bonus in its whole can be a subject to immediate change or suspension at the sole discretion of the operator of the Euromillions.com website.") }}</span>
+                            <span class="txt">{{ language.translate("terms_paidParticipation722") }}</span>
                         </p>
                     </div>
 
