@@ -190,12 +190,12 @@ var CartPage = new React.createClass({
         var data_btn = '';
         var price_txt_btn = '';
         if( (this.state.checked_wallet && accounting.unformat(LogicCart.total) > 0) || accounting.unformat(LogicCart.total) > 0 ) {
-            txt_button_payment = 'Continue to payment';
+            txt_button_payment = this.props.txt_gotopay_btn;
             price_txt_btn = this.state.total;
             href_payment = 'javascript:void(0)';
             data_btn = 'no-wallet';
         } else {
-            txt_button_payment = 'Buy now';
+            txt_button_payment = this.props.txt_buy_btn;
             href_payment = '/euromillions/payment/payment?method=wallet&charge='+this.state.fund_value;
             data_btn = 'wallet';
             price_txt_btn = this.state.total;
@@ -223,6 +223,7 @@ var CartPage = new React.createClass({
                                          total_price={this.props.total}
                                          old_new_balance={old_balance_and_new_balance}
                                          wallet_balance={parseFloat(this.props.wallet_balance).toFixed(2)}
+                                         txt_payWithBalanceOption={this.props.txt_payWithBalanceOption}
             />;
         }
 
@@ -233,14 +234,16 @@ var CartPage = new React.createClass({
                                text={txt_button_payment} config={this.props.config} playConfig={_playConfigList}
                                pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration}
                                pricetopay={this.state.total} funds={Funds.funds_value}
-                               total_price={this.state.total}/>
+                               total_price={this.state.total} txt_summary={this.props.txt_summary}
+                               txt_draws={this.props.txt_draws} txt_on={this.props.txt_on} txt_total={this.props.txt_total} />
                 <div className="box-order">
                     {_euroMillionsLine}
                     <EmLineOrderConfig config={this.props.config} playConfig={_playConfigList}
                                        pre_total={this.handlePreTotal} duration={this.handleChangeDrawDuration}/>
                     {line_fee_component}
                 </div>
-                <EmTotalCart pricetopay={this.state.total} funds={Funds.funds_value} total_price={this.state.total}/>
+                <EmTotalCart pricetopay={this.state.total} funds={Funds.funds_value} total_price={this.state.total}
+                    txt_currencyAlert={this.props.txt_currencyAlert} txt_total={this.props.txt_total} />
                 {wallet_component}
                 <EmBtnPayment href={href_payment} databtn={data_btn} price={price_txt_btn}
                               classBtn={class_button_payment} text={txt_button_payment}/>
@@ -413,7 +416,10 @@ ReactDOM.render(<CartPage total={total_price}
                           wallet_balance={wallet_balance}
                           single_bet_price={single_bet_price}
                           show_fee_line={show_fee_line}
-                          discount={discount}
+                          discount={discount} txt_summary={txt_summary} txt_draws={txt_draws} txt_on={txt_on}
+                          txt_currencyAlert={txt_currencyAlert} txt_total={txt_total}
+                          txt_payWithBalanceOption={txt_payWithBalanceOption} txt_gotopay_btn={txt_gotopay_btn}
+                          txt_buy_btn={txt_buy_btn}
                 />, document.getElementById('cart-order'));
 
 

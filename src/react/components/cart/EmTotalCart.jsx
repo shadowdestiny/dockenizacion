@@ -16,10 +16,10 @@ var EmTotalCart = new React.createClass({
         return (
             <div className="box-total cl">
                 <div className="txt-currency desktop">
-                    Currencies are just informative, transactions are charged in Euros. <br></br> This transaction will appear as EuroMillions.com on your bank account statement.  <br></br> Payments and purchases are final and cannot be cancelled or refunded as they will be forwarded to our payment and ticket providers.
+                    {this.props.txt_currencyAlert}
                 </div>
                 <div className="total">
-                    <div className="txt">Total to be paid </div>
+                    <div className="txt">{this.props.txt_total}</div>
                     <div className="val">{this.props.total_price}</div>
                 </div>
             </div>
