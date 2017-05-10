@@ -163,7 +163,7 @@
 
             <div class="box-basic content">
                 <div class="{%if show_box_basic == true %}hidden{% endif %} right back cl">
-                    <a class="btn" href="javascript:void(0);">Go Back</a>
+                    <a class="btn" href="javascript:void(0);">{{ language.translate("balance_back_btn") }}</a>
                 </div>
                 <h1 class="h1 title yellow">{{ language.translate("balance_head", ['balance' :   user_balance ]) }}</h1>
 

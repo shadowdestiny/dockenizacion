@@ -159,7 +159,7 @@
 
             <div class="box-basic content">
                 <div class="{%if show_box_basic == true %}hidden{% endif %} right back cl">
-                    <a class="btn" href="javascript:void(0);">Go Back</a>
+                    <a class="btn" href="javascript:void(0);">{{ language.translate("balance_back_btn") }}</a>
                 </div>
                 <h1 class="h1 title yellow">{{ language.translate("Balance") }}</h1>
 
@@ -221,7 +221,7 @@
                 </div>
                 <form class="{%if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency" id="form-deposit" method="post" action="/account/deposit">
                     <div class="col6 second">
-                        <h2 class="h3 yellow margin">{{ language.translate("Add funds to your balance") }}</h2>
+                        <h2 class="h3 yellow margin">{{ language.translate("deposit_deposit_btn") }}</h2>
                         <div class="div-balance"><strong class="purple">{{ language.translate("Current Account balance:") }}</strong> <span class="value">{{ user_balance }}</span></div>
                         <span class="currency">{{ symbol }}</span>{{ credit_card_form.render('funds-value', {'class':'insert input'~form_errors['funds-value']}) }}
 
@@ -235,7 +235,7 @@
                         {#<div class="div-balance"><strong class="purple charge" >{{ language.app("Total Charge:") }}</strong> <span class="value charge"></span><span class="value convert"></span></div>#}
                         <div class="box-wallet overview">
                             <label class="label btn gray">
-                                {{ language.translate("Add funds to your balance") }}
+                                {{ language.translate("deposit_deposit_btn") }}
                                 <input type="submit" class="hidden">
                             </label>
                         </div>

@@ -129,7 +129,7 @@
         {% if component.where == 'account' %}
     </div>
     <div class="col6 second">
-        <h2 class="h3 yellow margin">{{ language.translate("Add funds to your balance") }}</h2>
+        <h2 class="h3 yellow margin">{{ language.translate("deposit_subhead") }}</h2>
         <div class="div-balance"><strong class="purple">{{ language.translate("Current Account balance:") }}</strong> <span class="value">{{ user_balance }}</span></div>
         <span class="currency">{{ symbol }}</span>{{ credit_card_form.render('funds-value', {'class':'insert input'~form_errors['funds-value']}) }}
 
@@ -145,7 +145,7 @@
         <div class="box-wallet overview">
 
             <label class="label submit btn gray" style="cursor:default">
-                {{ language.translate("Add funds to your balance") }}
+                {{ language.translate("deposit_deposit_btn") }}
                 <input type="submit" class="hidden">
             </label>
         </div>
