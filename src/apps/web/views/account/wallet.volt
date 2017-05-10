@@ -165,7 +165,7 @@
                 <div class="{%if show_box_basic == true %}hidden{% endif %} right back cl">
                     <a class="btn" href="javascript:void(0);">Go Back</a>
                 </div>
-                <h1 class="h1 title yellow">{{ language.translate("Balance", ['balance' :   user_balance ]) }}</h1>
+                <h1 class="h1 title yellow">{{ language.translate("balance_head", ['balance' :   user_balance ]) }}</h1>
 
                 {% if wallet.current_winnings %}
                     <div class="box info">
@@ -209,21 +209,21 @@
 
                     <div class="box-balance">
                         <div class="border cl">
-                            <div class="txt">{{ language.translate("Your balance:") }} <span class="value">{{ user_balance }}</span></div>
+                            <div class="txt">{{ language.translate("balance_yourBalance") }} <span class="value">{{ user_balance }}</span></div>
                             <div class="box-btn">
-                                <a href="javascript:void(0)" class="btn big blue add-funds">{{ language.translate("Add funds of your balance") }}</a>
+                                <a href="javascript:void(0)" class="btn big blue add-funds">{{ language.translate("balance_deposit_btn") }}</a>
                             </div>
                         </div>
                         <br />
                         <div class="border cl">
-                            <div class="txt">{{ language.translate("Your Withdrawable Balance:")}} <span class="value">{{ wallet.wallet_winning_amount }}</span></div>
+                            <div class="txt">{{ language.translate("balance_yourWithdrawable")}} <span class="value">{{ wallet.wallet_winning_amount }}</span></div>
                             <div class="box-btn">
-                                <a href="javascript:void(0)" class="btn big green withdraw">{{ language.translate("Make Withdrawal") }}</a>
+                                <a href="javascript:void(0)" class="btn big green withdraw">{{ language.translate("balance_withdraw_btn") }}</a>
                             </div>
                         </div>
                         <br />
                         <div class="border cl">
-                            <div class="txt">{{ language.translate("Your Subscription:")}} <span class="value">{{ wallet.wallet_subscription_amount }}</span></div>
+                            <div class="txt">{{ language.translate("balance_yourSubscription")}} <span class="value">{{ wallet.wallet_subscription_amount }}</span></div>
                         </div>
                     </div>
                 </div>
@@ -247,25 +247,25 @@
                         </div>
                     {% endif %}
 
-                    <h2 class="h3 yellow">{{ language.translate("Withdraw your winnings") }}</h2>
+                    <h2 class="h3 yellow">{{ language.translate("withdraw_head") }}</h2>
 
                     <form action="/withdraw" method="post" id="form-withdraw" class="box-add-bank">
                         <div class="box-details {#{% if which_form == 'edit' %} hidden {% endif %}#}">
                             <div class="cl box-wallet">
                                 <div class="value">
-                                    <span class="purple">{{ language.translate("Account balance:") }}</span> {{ wallet.wallet_balance_amount }} {% if symbol != '€' %} ({{ wallet.balance }}) {% endif %}
+                                    <span class="purple">{{ language.translate("withdraw_balance") }}</span> {{ wallet.wallet_balance_amount }} {% if symbol != '€' %} ({{ wallet.balance }}) {% endif %}
                                 </div>
                                 <br>
                                 <div class="left value">
-                                    <span class="purple">{{ language.translate("Withdrawable:") }}</span> {{ wallet.wallet_winning_amount }} {% if symbol != '€' %} ({{ wallet.winnings }}) {% endif %}
+                                    <span class="purple">{{ language.translate("withdraw_withdrawable") }}</span> {{ wallet.wallet_winning_amount }} {% if symbol != '€' %} ({{ wallet.winnings }}) {% endif %}
                                 </div>
                                 <br>
                                 <div class="value">
-                                    <span class="subtxt grey-lighter">{{ language.translate("Minimum Withdrawal is €25") }}</span>
+                                    <span class="subtxt grey-lighter">{{ language.translate("withdraw_minimum") }}</span>
                                 </div>
                                 <br>
                                 <div class="value">
-                                    <span class="subtxt grey-lighter">{{ language.translate("Currencies are just informative, withdrawals must be made in Euros") }}</span>
+                                    <span class="subtxt grey-lighter">{{ language.translate("withdraw_ccyWarning") }}</span>
                                 </div>
                                 <br>
                                 <div class="right form-currency cl">
@@ -274,7 +274,7 @@
                                 </div>
                             </div>
                         </div>
-                        <h2 class="h3 yellow">{{ language.translate("Bank account details") }}</h2>
+                        <h2 class="h3 yellow">{{ language.translate("withdraw_bank") }}</h2>
 
                         <div class="wrap">
                             <div class="cols">
@@ -282,45 +282,45 @@
                                     <label class="label" for="add-bank-user">
                                         {{ language.translate("Name") }} <span class="asterisk">*</span> <span class="subtxt">({{ language.translate("bank account holder name") }}</span>
                                     </label>
-                                    {{ bank_account_form.render('name', {'class':'input'~form_errors['name']}) }}
+                                    {{ bank_account_form.render('withdraw_name', {'class':'input'~form_errors['name']}) }}
 
                                     <label class="label" for="add-bank-user-surname">
-                                        {{ language.translate("Surname") }} <span class="asterisk">*</span> <span class="subtxt">({{ language.translate("bank account holder") }})</span>
+                                        {{ language.translate("withdraw_surname") }} <span class="asterisk">*</span> <span class="subtxt">({{ language.translate("bank account holder") }})</span>
                                     </label>
                                     {{ bank_account_form.render('surname', {'class':'input'~form_errors['surname']}) }}
                                     <label class="label" for="add-bank-name">
-                                        {{ language.translate("Bank Name") }} <span class="asterisk">*</span>
+                                        {{ language.translate("withdraw_bankname") }} <span class="asterisk">*</span>
                                     </label>
                                     {{ bank_account_form.render('bank-name', {'class':'input'~form_errors['bank-name']}) }}
                                     <label class="label" for="add-bank-iban">
-                                        {{ language.translate("IBAN or Bank account") }} <span class="asterisk">*</span>
+                                        {{ language.translate("withdraw_iban") }} <span class="asterisk">*</span>
                                     </label>
                                     {{ bank_account_form.render('bank-account', {'class':'input'~form_errors['bank-account']}) }}
                                     <label class="label" for="add-bank-bic">
-                                        {{ language.translate("BIC or SWIFT") }} <span class="asterisk">*</span>
+                                        {{ language.translate("withdraw_bic") }} <span class="asterisk">*</span>
                                     </label>
                                     {{ bank_account_form.render('bank-swift', {'class':'input'~form_errors['bank-swift']}) }}
                                 </div>
                                 <div class="col6">
                                     <label class="label" for="add-bank-country">
-                                        {{ language.translate("Country of residence") }} <span class="asterisk">*</span>
+                                        {{ language.translate("withdraw_county") }} <span class="asterisk">*</span>
                                     </label>
                                     {{ bank_account_form.render('country', {'disabled':'disabled','class':'select'~form_errors['country']}) }}
 
                                     <label class="label" for="add-bank-address">
-                                        {{ language.translate("Address") }} <span class="asterisk">*</span>
+                                        {{ language.translate("withdraw_address") }} <span class="asterisk">*</span>
                                     </label>
                                     {{ bank_account_form.render('street', {'class':'input'~form_errors['street']}) }}
                                     <label class="label" for="add-bank-city">
-                                        {{ language.translate("City") }} <span class="asterisk">*</span>
+                                        {{ language.translate("withdraw_city") }} <span class="asterisk">*</span>
                                     </label>
                                     {{ bank_account_form.render('city', {'class':'input'~form_errors['city']}) }}
                                     <label class="label" for="add-bank-postal">
-                                        {{ language.translate("Postal Code") }} <span class="asterisk">*</span>
+                                        {{ language.translate("withdraw_zip") }} <span class="asterisk">*</span>
                                     </label>
                                     {{ bank_account_form.render('zip', {'class':'input'~form_errors['zip']}) }}
                                     <label class="label" for="add-bank-phone">
-                                        {{ language.translate("Phone number") }} <span class="asterisk">*</span>
+                                        {{ language.translate("withdraw_phone") }} <span class="asterisk">*</span>
                                     </label>
                                     {{ bank_account_form.render('phone_number', {'class':'input'~form_errors['phone_number']}) }}
                                 </div>
@@ -328,7 +328,7 @@
                         </div>
                         <div class="cl">
                             <label class="label submit btn gray" style="cursor:default" for="new-bank">
-                                {{ language.translate("Request Withdrawal") }}
+                                {{ language.translate("withdraw_request_btn") }}
                                 <input id="new-bank" type="submit" class="hidden">
                             </label>
                         </div>

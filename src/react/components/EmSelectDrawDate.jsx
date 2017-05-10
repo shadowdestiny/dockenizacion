@@ -42,7 +42,7 @@ var EmSelectDrawDate = React.createClass({
             return (
                 <div id="BuyForDrawBox">
                     <div style={divStyle}>
-                        Buy for Draw:
+                        {this.prop.buyForDraw}:
                     </div>
                     <div style={divStyle}>
                         <label style={labelStyle}>{this.props.defaultText}</label>
