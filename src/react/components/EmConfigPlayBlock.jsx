@@ -61,7 +61,7 @@ var EmConfigPlayBlock = new React.createClass({
                     <a href="javascript:void(0);" onClick={this.props.reset} className="close"><svg className="ico v-cancel-circle"><use xlinkHref="/w/svg/icon.svg#v-cancel-circle"></use></svg>
                     </a>
                     <div className="cols">
-                        <EmDrawConfig active={this.state.show_config} draw_days_selected={this.props.draw_days_selected} current_duration_value={this.props.current_duration_value} draw_dates={this.props.draw_dates} date_play={this.props.date_play} draw_duration={this.props.draw_duration} duration={this.props.duration} play_days={this.props.play_days}  customValue={custom_value}/>
+                        <EmDrawConfig active={this.state.show_config} buyFroDraw={this.props.buyForDraw} draw_days_selected={this.props.draw_days_selected} current_duration_value={this.props.current_duration_value} draw_dates={this.props.draw_dates} date_play={this.props.date_play} draw_duration={this.props.draw_duration} duration={this.props.duration} play_days={this.props.play_days}  customValue={custom_value}/>
                         <ThresholdPlay active={this.state.show_config} callback_threshold={this.handleThreshold} options={options} customValue={custom_value} defaultValue={default_value} defaultText={default_text}/>
                     </div>
                 </div>

@@ -85,7 +85,7 @@
 
                                     {% if notification.notification.notification_type == 1 %}
                                         <span class="currency">&euro;</span>
-                                        <input name="config_value_{{ notification.name }}" id="amount-threshold" placeholder="{{ language.translate('Insert an amount') }}" type="text" value="{{ notification.config_value }}" class="input insert{% if error_form %}error{% endif %}"/>
+                                        <input name="config_value_{{ notification.name }}" id="amount-threshold" placeholder="{{ language.translate('withdraw_insertAmt') }}" type="text" value="{{ notification.config_value }}" class="input insert{% if error_form %}error{% endif %}"/>
                                     {% endif %}
                                 </li>
                                 {% endif %}

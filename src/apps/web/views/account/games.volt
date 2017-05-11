@@ -20,13 +20,13 @@
                 {% include "account/_nav.volt" %}
             </div>
             <div class="box-basic content">
-                <h1 class="h1 title">{{ language.translate("Tickets") }}</h1>
+                <h1 class="h1 title">{{ language.translate("tickets_head") }}</h1>
 
                 {% if my_games_actives is empty and my_subscription_actives is empty %}
                     <div class="box info">
                         <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                         <span class="txt">
-                            {{ language.translate("You have purchased no tickets for upcoming draws.") }} <a href="/{{ lottery }}/play">{{ language.translate("Play now and start to win.") }}</a>
+                            <a href="/{{ lottery }}/play">{{ language.translate("tickets_notickets") }}</a>
                         </span>
                     </div>
 
@@ -37,11 +37,11 @@
                                 a real treasure awaits!") }}
                             </span>
 
-                            <span class="jackpot-txt">{{ language.translate("Jackpot this week") }}</span>
+                            <span class="jackpot-txt">{{ language.translate("nextDraw_Estimate") }}</span>
 
                             {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
                             {% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
-                            <span class="btn blue big" >{{ language.translate("PLAY NOW") }}</span>
+                            <span class="btn blue big" >{{ language.translate("nextDraw_btn") }}</span>
                         </div>
                     </a>
                 {% endif %}

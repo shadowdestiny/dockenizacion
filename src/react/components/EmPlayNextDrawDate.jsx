@@ -18,7 +18,7 @@ var EuroMillionsPlayNextDrawDate = React.createClass({
         var default_text_date = ""+options_draw_dates[0].text;
         var default_value_date = ""+options_draw_dates[0].text;
 
-        var selectDrawDate =  <EmSelectDrawDate change_date={this.props.date_play} defaultValue={default_value_date} defaultText={default_text_date} options={options_draw_dates} active={true}/>
+        var selectDrawDate =  <EmSelectDrawDate change_date={this.props.date_play} buyFroDraw={this.props.buyForDraw} defaultValue={default_value_date} defaultText={default_text_date} options={options_draw_dates} active={true}/>
 
         return (
             <div>

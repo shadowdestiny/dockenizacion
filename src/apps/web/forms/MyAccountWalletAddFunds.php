@@ -4,6 +4,9 @@
 namespace apps\web\forms;
 
 
+use EuroMillions\web\components\EmTranslationAdapter;
+use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
+use Phalcon\Di;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\CreditCard;
@@ -14,15 +17,19 @@ class MyAccountWalletAddFunds extends Form
 
     public function initialize()
     {
+        $di = Di::getDefault();
+        $entityManager = $di->get('entityManager');
+        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
+
         $card_number = new Text('card-number', array(
             'placeholder' => ''
         ));
         $card_number->addValidators(array(
             new PresenceOf(array(
-                'message' => 'Insert a Credit Card number.'
+                'message' => $translationAdapter->query("deposit_error_msg_cc")
             )),
             new CreditCard(array(
-                'message' => 'The Credit Card number inserted is not valid.'
+                'message' => $translationAdapter->query("deposit_error_msg_cardNotValid")
             ))
         ));
         $this->add($card_number);
@@ -32,7 +39,7 @@ class MyAccountWalletAddFunds extends Form
         ));
         $card_holder->addValidators(array(
             new PresenceOf(array(
-                'message' => 'Insert the full name of the Credit Card holder.'
+                'message' => $translationAdapter->query("deposit_error_msg_name")
             ))
         ));
         $this->add($card_holder);
@@ -42,7 +49,7 @@ class MyAccountWalletAddFunds extends Form
         ));
         $card_cvv->addValidators(array(
             new PresenceOf(array(
-                'message' => 'Insert a CVV number.'
+                'message' => $translationAdapter->query("deposit_error_msg_cvv")
             ))
         ));
         $this->add($card_cvv);
