@@ -31,6 +31,22 @@
             return true;
         }
 
+        function editKey(key, description)
+        {
+            $('#showEditKey').css('display', 'block');
+            $('#editKeyCode').val(key);
+            $('#editOldKeyCode').val(key);
+            $('#editKeyCategoryId').val($('#categoryIdToShow').val());
+            $('#editKeyDescription').val(description);
+        }
+
+        function deleteConfirmation(key)
+        {
+            if (confirm('Are you sure you want to remove this Translation Key from database?')) {
+                location='/admin/translation/deleteKey?key='+key;
+            }
+        }
+
         $(function () {
             $("#searchKeys").click(function(){
                 $.ajax({
@@ -92,6 +108,44 @@
                             </tbody>
                         </table>
                     </form>
+                    <div id="showEditKey" style="display:none;">
+                        <p><b class="purple">Edit Key</b></p>
+                        <form method="post" action="/admin/translation/editKey">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <td>Key
+                                    <td>Category</td>
+                                    <td>Description</td>
+                                    <td></td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="text" name="key" id="editKeyCode" />
+                                        <input type="hidden" name="oldKey" id="editOldKeyCode" />
+                                    </td>
+                                    <td>
+                                        <select name="categoryId" id="editKeyCategoryId">
+                                            {% if categoriesList is not empty %}
+                                                {% for category in categoriesList %}
+                                                    <option value="{{ category.getId() }}">{{ category.getCategoryName() }}</option>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="description" id="editKeyDescription" />
+                                    </td>
+                                    <td>
+                                        <input type="submit" class="btn btn-primary" value="Save" />
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
                     <hr />
                     <table>
                         <thead>

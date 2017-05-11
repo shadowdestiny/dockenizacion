@@ -38,16 +38,67 @@ class TranslationService
     /**
      * @param $arrayKey
      *
+     * @return bool
      * @throws Exception
      */
     public function createKey($arrayKey)
     {
         try {
-            $this->entityManager->persist(new Translation($arrayKey));
-            $this->entityManager->flush();
+            $keyExist = $this->translationRepository->findBy(['translationKey' => $arrayKey['key']]);
+            if (empty($keyExist)) {
+                $this->entityManager->persist(new Translation($arrayKey));
+                $this->entityManager->flush();
+
+                return true;
+            }
+
+            return false;
         } catch (\Exception $e) {
             throw new Exception("Was not possible to create Translation Key");
         }
+    }
+
+    /**
+     * @param $arrayKey
+     *
+     * @return bool
+     * @throws Exception
+     */
+    public function editKey($arrayKey)
+    {
+        try {
+            $keyExist = null;
+            if ($arrayKey['key'] != $arrayKey['oldKey']) {
+                $keyExist = $this->translationRepository->findBy(['translationKey' => $arrayKey['key']]);
+            }
+
+            if (empty($keyExist)) {
+                /** @var Translation $translationData */
+                $translationData = $this->translationRepository->findBy(['translationKey' => $arrayKey['oldKey']])[0];
+                $translationData->setKey($arrayKey['key']);
+                $translationData->setTranslationCategory($this->translationCategoryRepository->find($arrayKey['categoryId']));
+                $translationData->setDescription($arrayKey['description']);
+                $this->entityManager->persist($translationData);
+                $this->entityManager->flush();
+
+                return true;
+            }
+
+            return false;
+        } catch (\Exception $e) {
+            throw new Exception("Was not possible to create Translation Key");
+        }
+    }
+
+    /**
+     * @param $key
+     * @throws Exception
+     */
+    public function deleteKey($key)
+    {
+        $this->translationDetailRepository->removeTranslationByKey(
+            $this->translationRepository->findBy(['translationKey' => $key])[0]
+        );
     }
 
     /**
@@ -210,7 +261,6 @@ class TranslationService
     public function editLanguage($arrayLanguage)
     {
         try {
-
             /** @var Language $language */
             $language = $this->languageRepository->findOneBy(['id' => $arrayLanguage['id']]);
 

@@ -30,14 +30,40 @@ class TranslationController extends AdminControllerBase
     public function createKeyAction()
     {
         if (!empty($this->request->getPost('key'))) {
-            $this->translationService->createKey([
+            $response = $this->translationService->createKey([
                 'key' => $this->request->getPost('key'),
                 'categoryId' => $this->translationService->getTranslationCategoryById($this->request->getPost('categoryId')),
                 'description' => $this->request->getPost('description'),
             ]);
-            return $this->redirectToTranslation('Key saved correctly');
+            if ($response) {
+                return $this->redirectToTranslation('Key saved correctly');
+            }
         }
         return $this->redirectToTranslation('Key wasn\'t saved');
+    }
+
+    public function EditKeyAction()
+    {
+        if (!empty($this->request->getPost('key'))) {
+            $response = $this->translationService->editKey($this->request->getPost());
+            if ($response) {
+                return $this->redirectToTranslation('Key saved correctly');
+            }
+        }
+        return $this->redirectToTranslation('Key wasn\'t saved');
+    }
+
+    /**
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
+     */
+    public function deleteKeyAction()
+    {
+        if ($this->request->get('key')) {
+            $this->translationService->deleteKey($this->request->get('key'));
+
+            return $this->redirectToTranslation('Key deleted correctly');
+        }
+        return $this->redirectToTranslation('Key wasn\'t deleted');
     }
 
     public function translationKeysResultAction()
