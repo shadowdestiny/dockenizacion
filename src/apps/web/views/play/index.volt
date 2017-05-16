@@ -34,7 +34,7 @@
 	var addLinesBtn = '{{ language.translate('addLines_btn') }}';
 	var randomizeAllLines = '{{ language.translate('randomizeAll_btn') }}';
 	var clearAllLines = '{{ language.translate('clearAll_btn') }}';
-	var buyFroDraw = '{{ language.translate('buyForDraw') }}';
+	var buyForDraw = '{{ language.translate('buyForDraw') }}';
 
 
 	{#añadir aqui el translate#}
