@@ -79,7 +79,7 @@ var EuroMillionsDrawConfig = new React.createClass({
         });
 
         elem.push(<EmSelectDraw play_days={this.props.play_days} defaultValue={default_value_draw} defaultText={default_text_draw} options={options_draw_days} {...this.props} active={this.state.selectdrawactive} key="1"/>)
-        elem.push(<EmSelectDrawDate change_date={this.props.date_play} buyFroDraw={this.props.buyForDraw} defaultValue={default_value_date} defaultText={default_text_date} options={options_draw_dates} active={this.state.selectdrawactive} key="2"/>)
+        elem.push(<EmSelectDrawDate change_date={this.props.date_play} buyForDraw={this.props.buyForDraw} defaultValue={default_value_date} defaultText={default_text_date} options={options_draw_dates} active={this.state.selectdrawactive} key="2"/>)
         elem.push(<EmSelectDrawDuration change_duration={this.props.duration} defaultValue={default_value_duration} defaultText={default_text_duration} options={this.props.draw_duration} active={this.state.selectdrawactive} key="3"/>)
         return (
             <div>

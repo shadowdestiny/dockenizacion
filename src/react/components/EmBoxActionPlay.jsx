@@ -31,7 +31,7 @@ var EuroMilliosnBoxActionPlay = React.createClass({
 
         var default_text_date = ""+options_draw_dates[0].text;
         var default_value_date = ""+options_draw_dates[0].text;
-        var selectDrawDate = <EmSelectDrawDate show={this.props.showBuyDrawDate} buyFroDraw={this.props.buyForDraw} change_date={this.props.date_play} defaultValue={default_value_date} defaultText={default_text_date} options={options_draw_dates} active={true}/>
+        var selectDrawDate = <EmSelectDrawDate show={this.props.showBuyDrawDate} buyForDraw={this.props.buyForDraw} change_date={this.props.date_play} defaultValue={default_value_date} defaultText={default_text_date} options={options_draw_dates} active={true}/>
 
         elem.push(<EuroMillionsAddLinesBtn show_tooltip={this.props.show_tooltip} addLinesBtn={this.props.addLinesBtn} mouse_over_btn={this.props.mouse_over_btn} onBtnAddLinesClick={this.handlerAddLines} key="1"/>);
         elem.push(<EuroMillionsRandomAllBtn onBtnRandomAllClick={this.handlerRandomAll} randomizeAllLines={this.props.randomizeAllLines} key="2"/>);
