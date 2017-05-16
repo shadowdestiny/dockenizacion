@@ -106,22 +106,20 @@
 
                                         <div class="box-next-draw cl">
                                             <div class="countdown">
-                                                <span class="next-draw"><span
-                                                            class="txt-one">{{ language.translate("nextDraw_Estimate") }}</span><br
-                                                            class="br">{{ language.translate("Draw") }}</span>
+                                                <span class="next-draw"><span class="txt-one">{{ language.translate("Next") }}</span><br class="br">{{ language.translate("Draw") }}</span>
                                                 <div class="day unit">
                                                     <span class="val">%-d</span>
-                                                    <span class="txt">{{ language.translate("nextDraw_day") }}%!d</span>
+                                                    <span class="txt">day%!d</span>
                                                 </div>
                                                 <div class="dots">:</div>
                                                 <div class="hour unit">
                                                     <span class="val">%-H</span>
-                                                    <span class="txt">{{ language.translate("nextDraw_hr") }}</span>
+                                                    <span class="txt">hr</span>
                                                 </div>
                                                 <div class="dots">:</div>
                                                 <div class="minute unit">
                                                     <span class="val">%-M</span>
-                                                    <span class="txt">{{ language.translate("nextDraw_min") }}</span>
+                                                    <span class="txt">min</span>
                                                 </div>
                                                 <div class="dots">:</div>
                                                 <div class="seconds unit">
@@ -129,7 +127,7 @@
                                                     <span class="txt">sec</span>
                                                 </div>
                                             </div>
-                                            <span class="btn red big right">{{ language.translate("nextDraw_btn") }}</span>
+                                            <span class="btn red big right">{{ language.translate("PLAY NOW") }}</span>
                                         </div>
                                     </a>
                                 </div>
