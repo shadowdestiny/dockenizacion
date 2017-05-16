@@ -106,7 +106,9 @@
 
                                         <div class="box-next-draw cl">
                                             <div class="countdown">
-                                                <span class="next-draw"><span class="txt-one">{{ language.translate("Next") }}</span><br class="br">{{ language.translate("Draw") }}</span>
+                                                <span class="next-draw"><span
+                                                            class="txt-one">{{ language.translate("nextDraw_Estimate") }}</span><br
+                                                            class="br">{{ language.translate("Draw") }}</span>
                                                 <div class="day unit">
                                                     <span class="val">%-d</span>
                                                     <span class="txt">day%!d</span>
