@@ -498,8 +498,7 @@
 
                         <p>
                             <span class="n">7.5.3</span>
-                            <span class="txt">{{ language.translate("terms_paidParticipation753
-") }}</span>
+                            <span class="txt">{{ language.translate("terms_paidParticipation753") }}</span>
                         </p>
 
                         <div class="gap">

@@ -40,7 +40,7 @@
                         <li><a href="#n04">{{ language.translate("eurom_no4_q") }}</a></li>
                         <li><a href="#n05">{{ language.translate("eurom_no5_q") }}</a></li>
                         <li><a href="#n06">{{ language.translate("eurom_no6_q") }}</a></li>
-                        <li><a href="#n07">{{ language.translate("eurom_no7_a") }}</a></li>
+                        <li><a href="#n07">{{ language.translate("eurom_no7_q") }}</a></li>
                         <li><a href="#n08">{{ language.translate("eurom_no8_q") }}</a></li>
                         <li><a href="#n09">{{ language.translate("eurom_no9_q") }}</a></li>
                     {#  <li><a href="#n11">{{ language.translate("eurom_no10_q") }}</a></li> #}
@@ -122,8 +122,8 @@
                     {% include "faq/back-top.volt" %}
 
                     <a id="n07"></a>
-                    <h3 class="h3">{{ language.translate("eurom_no7_a") }}</h3>
-                    <p>{{ language.translate("eurom_no7_q") }}</p>
+                    <h3 class="h3">{{ language.translate("eurom_no7_q") }}</h3>
+                    <p>{{ language.translate("eurom_no7_a") }}</p>
                     {% include "faq/back-top.volt" %}
 
                     <a id="n08"></a>
