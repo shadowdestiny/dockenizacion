@@ -114,7 +114,7 @@
                             <table>
                                 <thead>
                                 <tr>
-                                    <td>Key
+                                    <td>Key</td>
                                     <td>Category</td>
                                     <td>Description</td>
                                     <td></td>
