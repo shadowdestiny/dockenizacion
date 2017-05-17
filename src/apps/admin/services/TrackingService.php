@@ -392,6 +392,11 @@ class TrackingService
             case 'city':
             case 'acceptingEmails':
             case 'mobileRegistered':
+            case 'multiplePurchase':
+            case 'subscription':
+                if ($key == 'multiplePurchase' || $key == 'subscription') {
+                    $relationshipTable = 'transactions';
+                }
                 $this->savePreferenceKey($key, $postData[$key], 'By' . ucfirst($key), $relationshipTable, $postData['trackingCodeId']);
                 break;
             case 'country':
@@ -685,13 +690,27 @@ class TrackingService
                 case "ByWagering":
                     $wageringConditions = explode(',', $tcAttribute->getConditions());
                     $conditions .= "u.id IN (select user_id
-                                from transactions where entity_type='ticket_purchase' || entity_type = 'automatic_purchase' group by user_id
+                                from transactions where entity_type = 'ticket_purchase' || entity_type = 'automatic_purchase' group by user_id
                                     having sum(CASE
                                         WHEN entity_type = 'ticket_purchase' THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, '#', 2), '#', -1) * 300)
                                         WHEN entity_type = 'automatic_purchase' THEN (wallet_before_subscription_amount - wallet_after_subscription_amount)
                                         ELSE 0
                                         END
                                     ) BETWEEN '" . $wageringConditions[0] . "' AND '" . $wageringConditions[1] . "') AND ";
+                    break;
+                case "ByMultiplePurchase":
+                    if ($tcAttribute->getConditions() == 'Y') {
+                        $conditions .= "u.id IN (select user_id from transactions where entity_type = 'subscription_purchase') AND ";
+                    } else {
+                        $conditions .= "u.id IN (select user_id from transactions where entity_type != 'subscription_purchase') AND ";
+                    }
+                    break;
+                case "BySubscription":
+                    if ($tcAttribute->getConditions() == 'Y') {
+                        $conditions .= "u.id IN (select user_id from transactions where entity_type = 'recurring_purchase') AND ";
+                    } else {
+                        $conditions .= "u.id IN (select user_id from transactions where entity_type != 'recurring_purchase') AND ";
+                    }
                     break;
                 case "ByGrossRevenue":
                     $grossRevenueConditions = explode(',', $tcAttribute->getConditions());

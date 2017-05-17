@@ -172,6 +172,16 @@
                                                 </td>
                                                 <td><input type="checkbox" name="check_grossRevenue" value="Y" onclick="showSelection(this.name)" {% if (attributesChecked['grossRevenue'] is defined) %} checked {% endif %} /></td>
                                             </tr>
+                                            <tr>
+                                                <td>
+                                                    Multiple purchase
+                                                </td>
+                                                <td><input type="checkbox" name="check_multiplePurchase" value="Y" onclick="showSelection(this.name)" {% if (attributesChecked['multiplePurchase'] is defined) %} checked {% endif %} /></td>
+                                                <td>
+                                                    Subscription
+                                                </td>
+                                                <td><input type="checkbox" name="check_subscription" value="Y" onclick="showSelection(this.name)" {% if (attributesChecked['subscription'] is defined) %} checked {% endif %} /></td>
+                                            </tr>
                                         </table>
                                     </td>
                                     <td style="border-left: 1px solid #AE5279;">
@@ -748,6 +758,36 @@
                                     From <input type="text" name="grossRevenue_from" value="{{ grossRevenueConditions[0] }}" /> to <input type="text" name="grossRevenue_to" value="{{ grossRevenueConditions[1] }}" />
                                 </td>
                             </tr>
+                            <tr id="show_multiplePurchase" {% if (attributesChecked['multiplePurchase'] is not defined) %}class="display-none"{% endif %}>
+                                <td>
+                                    Multiple purchase
+                                </td>
+                                <td>
+                                    {% if (attributesChecked['multiplePurchase'] is defined) %}
+                                        {% set radioMultiplePurchase = attributes[attributesChecked['multiplePurchase_key']].getConditions() %}
+                                    {% else %}
+                                        {% set radioMultiplePurchase = '' %}
+                                    {% endif %}
+                                    <input type="radio" name="multiplePurchase" value="Y" {% if radioMultiplePurchase == 'Y' %} checked {% endif %} /> Yes &nbsp;
+                                    <input type="radio" name="multiplePurchase" value="N" {% if radioMultiplePurchase == 'N' %} checked {% endif %} /> No
+                                </td>
+                            </tr>
+
+                            <tr id="show_subscription" {% if (attributesChecked['subscription'] is not defined) %}class="display-none"{% endif %}>
+                                <td>
+                                    Subscription
+                                </td>
+                                <td>
+                                    {% if (attributesChecked['subscription'] is defined) %}
+                                        {% set radioSubscription = attributes[attributesChecked['subscription_key']].getConditions() %}
+                                    {% else %}
+                                        {% set radioSubscription = '' %}
+                                    {% endif %}
+                                    <input type="radio" name="subscription" value="Y" {% if radioSubscription == 'Y' %} checked {% endif %} /> Yes &nbsp;
+                                    <input type="radio" name="subscription" value="N" {% if radioSubscription == 'N' %} checked {% endif %} /> No
+                                </td>
+                            </tr>
+
                             <tr id="show_creditDebitRealMoney" {% if (actionsChecked['creditDebitRealMoney'] is not defined) %}class="display-none"{% endif %}>
                                 <td>
                                     Credit / Debit real money
