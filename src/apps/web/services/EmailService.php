@@ -106,7 +106,7 @@ class EmailService
             $obj,
             true,
             $this->mailConfig['from_address'],
-            $this->mailConfig['from_address'],
+            'a25d12223af011e7bd7f417678625c0e@tickets.tawk.to',
             null,
             null,
             null,
