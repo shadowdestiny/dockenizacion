@@ -1,15 +1,11 @@
 <?php
 
-
 namespace EuroMillions\web\components;
-
 
 use EuroMillions\web\interfaces\IGeoIPServiceAPI;
 
-
 class MaxMindWrapper implements IGeoIPServiceAPI
 {
-
     CONST DATABASE_IPV4_FILE = 'GeoIP.dat';
     CONST DATABASE_IPV6_FILE = 'GeoIPV6.dat';
 
