@@ -47,7 +47,7 @@
            {% include "account/_nav.volt" %}
         </div>
         <div class="box-basic content">
-            <h1 class="h1 title yellow">{{ language.translate("Email Settings") }}</h1>
+            <h1 class="h1 title yellow">{{ language.translate("email_head") }}</h1>
 
             {% if message %}
                 <div class="box success">
@@ -64,7 +64,7 @@
 
             <form action="/account/editEmail" name="form_notifications" id="form-email-settings" method="post" class="form-currency">
                 <div class="cl">
-                    <div class="email-me">{{ language.translate("Email me") }}</div>
+                    <div class="email-me">{{ language.translate("email_emailme") }}</div>
                     <ul class="no-li options">
                         {% if list_notifications is empty %}
                          {# EMTD - We shouldn't do something about when notification is empty? Alessio #}
@@ -78,8 +78,8 @@
                                     </label>
                                     {% if notification.notification.notification_type == 4 %}
                                         <select class="select" id="config_value" name="config_value_{{ notification.name }}">
-                                            <option value="0" {% if notification.config_value == 0 %}selected{% endif %}>{{ language.translate("When I played a ticket") }}</option>
-                                            <option value="1" {% if notification.config_value == 1 %}selected{% endif %}>{{ language.translate("Always") }}</option>
+                                            <option value="0" {% if notification.config_value == 0 %}selected{% endif %}>{{ language.translate("When I have played a ticket") }}</option>
+                                            <option value="1" {% if notification.config_value == 1 %}selected{% endif %}>{{ language.translate("email_always_dropdown") }}</option>
                                         </select>
                                     {% endif %}
 
@@ -95,7 +95,7 @@
                 </div>
                 <div class="cl">
                     <label class="btn submit blue right" for="new-card">
-                        {{ language.translate("Save Email Settings") }}
+                        {{ language.translate("email_save_btn") }}
                         <input id="new-card" type="submit" class="hidden2">
                     </label>
                 </div>

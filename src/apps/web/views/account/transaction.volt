@@ -31,7 +31,7 @@
                         console.log(data);
                         if (data != 'null') {
                             var dataJson = JSON.parse(data);
-                            var title = (dataJson[0].type == 'ticket_purchase') ? 'Transaction Details - Ticket Purchase' : 'Transaction Details - Draw Winnings';
+                            var title = (dataJson[0].type == 'ticket_purchase') ? "{{ language.translate("transaction_purchase_head") }}" : "{{ language.translate("transaction_win_head") }}";
                             var content = $('<div>');
                             content.append('<div style="background-color: #B75D84;width:100%;color:#FFFFDF">' + title + '</div>');
                             content.append('EuroMillions: ' + " " + dataJson[0].drawDate + '<br>');
@@ -43,8 +43,8 @@
                                 content.append('</ul>');
                                 title = 'Ticket Purchase';
                             } else if (dataJson[0].type == 'winning_receive') {
-                                content.append('Winning Numbers: ' + dataJson[0].draw + '</br>');
-                                content.append('Winning Lines:</br>');
+                                content.append("{{ language.translate("transaction_win_numbers") }}: " + dataJson[0].draw + '</br>');
+                                content.append("{{ language.translate("transaction_win_lines") }}:</br>");
                                 content.append('<ul>');
                                 $.each(dataJson, function (i, draw) {
                                     if(draw.matchNumbers == null) draw.matchNumbers = '';
@@ -100,7 +100,7 @@
             </div>
 
             <div class="box-basic content">
-                <h1 class="h1 title">{{ language.translate("Transaction") }}</h1>
+                <h1 class="h1 title">{{ language.translate("transaction_head") }}</h1>
 
                 {#<div class="box success">#}
                     {#<svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>#}
@@ -110,14 +110,14 @@
                 <table id="table_transactions" class="cl table ui-responsive" data-role="table" data-mode="reflow">
                     <thead>
                         <tr>
-                            <th class="date">{{ language.translate("Date")}}</th>
-                            <th class="type">{{ language.translate("Transaction")}}</th>
-                            <th class="movement">{{ language.translate("Ticket Price")}}</th>
+                            <th class="date">{{ language.translate("transaction_date")}}</th>
+                            <th class="type">{{ language.translate("transaction_type")}}</th>
+                            <th class="movement">{{ language.translate("transaction_price")}}</th>
                             {#<th class="movement">{{ language.translate("Movement")}}</th>#}
                             {#<th class="movement">{{ language.translate("Pending Balance Movement")}}</th>#}
-                            <th class="wallet">{{ language.translate("Balance")}}</th>
+                            <th class="wallet">{{ language.translate("transaction_balance")}}</th>
 
-                            <th class="wallet">{{ language.translate("Subscription Balance")}}</th>
+                            <th class="wallet">{{ language.translate("transaction_SubsBalance")}}</th>
                         </tr>
                     </thead>
                     <tbody>
