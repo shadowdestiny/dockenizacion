@@ -3,7 +3,10 @@ namespace EuroMillions\web\repositories;
 
 
 use Doctrine\ORM\Query\ResultSetMapping;
+use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\entities\Bet;
+use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
+use Phalcon\Di;
 
 class PlayConfigRepository extends RepositoryBase
 {
@@ -333,12 +336,16 @@ class PlayConfigRepository extends RepositoryBase
     }
 
     public function retrieveEuromillionsBundlePrice() {
+        $di = Di::getDefault();
+        $entityManager = $di->get('entityManager');
+        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
+
         return [
-            ['draws' => '1', 'description' => '1 Draw', 'price_description' => 'Line', 'price' => '1', 'discount' => 0, 'checked' => 'active'],
-            ['draws' => '4', 'description' => '4 Draws', 'price_description' => 'Line', 'price' => '1', 'discount' => 0, 'checked' => ''],
-            ['draws' => '8', 'description' => '8 Draws', 'price_description' => 'Month', 'price' => '8', 'discount' => 0, 'checked' => ''],
-            ['draws' => '24', 'description' => '24 Draws', 'price_description' => 'Month', 'price' => '8', 'discount' => 1.25, 'checked' => ''],
-            ['draws' => '48', 'description' => '48 Draws', 'price_description' => 'Month', 'price' => '8', 'discount' => 4.5, 'checked' => ''],
+            ['draws' => '1', 'description' => $translationAdapter->query("mult_btn1"), 'price_description' => $translationAdapter->query("desc_mult1"), 'price' => '1', 'discount' => 0, 'checked' => 'active'],
+            ['draws' => '4', 'description' => $translationAdapter->query("mult_btn2"), 'price_description' => $translationAdapter->query("desc_mult2"), 'price' => '1', 'discount' => 0, 'checked' => ''],
+            ['draws' => '8', 'description' => $translationAdapter->query("mult_btn3"), 'price_description' => $translationAdapter->query("desc_mult3"), 'price' => '8', 'discount' => 0, 'checked' => ''],
+            ['draws' => '24', 'description' => $translationAdapter->query("mult_btn4"), 'price_description' => $translationAdapter->query("desc_mult4"), 'price' => '8', 'discount' => 1.25, 'checked' => ''],
+            ['draws' => '48', 'description' => $translationAdapter->query("mult_btn5"), 'price_description' => $translationAdapter->query("desc_mult5"), 'price' => '8', 'discount' => 4.5, 'checked' => ''],
         ];
     }
 
