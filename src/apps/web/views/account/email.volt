@@ -52,7 +52,7 @@
             {% if message %}
                 <div class="box success">
                     <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>
-                    <div class="txt">{{ message }}</div>
+                    <div class="txt">{{ language.translate(message) }}</div>
                 </div>
             {% endif %}
             {% if error_form %}

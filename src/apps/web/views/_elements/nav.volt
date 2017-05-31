@@ -7,11 +7,11 @@
 </li>
 <li class="li-numbers{% if activeNav.myClass == 'numbers' %} active{% endif %}">
     <a href="/{{ lottery }}/results">
-        <span class="link desktop">{{ language.translate("Winning") }}</span>
+        <span class="link desktop">{{ language.translate("results") }}</span>
         <br class="br">
 		<span class="txt">
-			<span class="desktop">{{ language.translate("results") }}</span>
-			<span class="mobile">{{ language.translate("results") }}</span>
+			<span class="desktop">{{ language.translate("results_sub") }}</span>
+			<span class="mobile">{{ language.translate("results_sub") }}</span>
 		</span>
     </a>
 </li>

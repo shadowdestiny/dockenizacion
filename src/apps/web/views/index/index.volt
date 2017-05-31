@@ -147,7 +147,7 @@ end PROD imports-->
 				<a href="/{{ lottery }}/play" class="btn red huge">{{ language.translate("banner1_btn") }}</a>
 				<div class="for-only">{{ language.translate("banner1_subbtn")}} {{ bet_price }}</div>
 			</div>
-			<div class="txt">{{ language.translate("Join the Club. Become our next EuroMillionaire!") }}</div>
+			<div class="txt">{{ language.translate("banner1_subline") }}</div>
 			<div class="best-price">
 				<picture class="pic">
 					<img width="60" height="59" src="/w/img/home/best-price.png" srcset="/w/img/home/best-price@2x.png 1.5x" alt="{{ language.translate('Best Price Guarantee') }}">
