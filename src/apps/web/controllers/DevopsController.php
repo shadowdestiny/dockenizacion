@@ -13,7 +13,7 @@ class DevopsController extends ControllerBase
         $redis = $this->domainServiceFactory->getServiceFactory()->getDI()->get('redisCache');
         $redis_cache = new RedisCache();
         $redis_cache->setRedis($redis);
-        $results = $redis->keys('*');
+        $results = $redis->keys('result_*');
         foreach ($results as $result) {
             $redis->delete($result);
         }
