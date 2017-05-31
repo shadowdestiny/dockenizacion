@@ -395,11 +395,11 @@ var PlayPage = React.createClass({
             numberEuroMillionsLine = this.state.count_lines ;
         }
         var random_all = this.state.random_all;
-        var totalPriceDescription = 'Total price ';
-        var descriptionBeforeButtonPrice = this.getNumLinesThatAreFilled() + ' Lines x ' + this.state.draws_number + ' Draws ';
+        var totalPriceDescription = this.props.txtMultTotalPrice + ' ';
+        var descriptionBeforeButtonPrice = this.getNumLinesThatAreFilled() + ' ' + this.props.txtMultLines + ' x ' + this.state.draws_number + ' ' + this.props.txtMultDraws + ' ';
         var total_price = this.getTotalPriceWithDiscount(this.state.draws_number).toFixed(2);
 
-        elem.push(<EuroMillionsMultipleEmLines add_storage={this.addLinesInStorage} clear_all={this.state.clear_all} callback={this.handleOfBetsLine} random_all={random_all} numberEuroMillionsLine={numberEuroMillionsLine} key="1"/>);
+        elem.push(<EuroMillionsMultipleEmLines add_storage={this.addLinesInStorage} clear_all={this.state.clear_all} callback={this.handleOfBetsLine} random_all={random_all} numberEuroMillionsLine={numberEuroMillionsLine} key="1" txtLine={this.props.txtLine} />);
         elem.push(<EuroMillionsBoxAction showBuyDrawDate={this.state.draws_number} buyForDraw={this.props.buyForDraw} clearAllLines={this.props.clearAllLines} randomizeAllLines={this.props.randomizeAllLines} addLinesBtn={this.props.addLinesBtn} date_play={this.handleChangeDate} draw_dates={this.state.draw_dates} next_draw_format={this.props.next_draw_format} show_tooltip={this.state.show_tooltip_lines}  mouse_over_btn={this.mouseOverBtnAddLines}  add_lines={this.handlerAddLines} lines={this.state.lines} random_all_btn={this.handlerRandomAll} show_clear_all={this.state.show_clear_all} clear_all_btn={this.handlerClearAll} key="2"/>);
         return (
             <div>
@@ -426,7 +426,7 @@ var options_draw_duration = [
     {text : '52 weeks (Draws: 52)' , value : 52}
 ];
 
-ReactDOM.render(<PlayPage discount={discount} draws_number={draws_number} buyForDraw={buyForDraw} clearAllLines={clearAllLines} randomizeAllLines={randomizeAllLines} addLinesBtn={addLinesBtn} discount_lines_title={discount_lines_title} discount_lines={discount_lines} next_draw={next_draw} next_draw_format={next_draw_format} currency_symbol={currency_symbol} automatic_random={automatic_random}  lines_default={5} date_play={""+draw_dates[0]} draw_duration={options_draw_duration} draw_dates={draw_dates}/>, document.getElementById('gameplay'));
+ReactDOM.render(<PlayPage discount={discount} draws_number={draws_number} buyForDraw={buyForDraw} clearAllLines={clearAllLines} randomizeAllLines={randomizeAllLines} addLinesBtn={addLinesBtn} discount_lines_title={discount_lines_title} discount_lines={discount_lines} next_draw={next_draw} next_draw_format={next_draw_format} currency_symbol={currency_symbol} automatic_random={automatic_random}  lines_default={5} date_play={""+draw_dates[0]} draw_duration={options_draw_duration} draw_dates={draw_dates} txtLine={txtLine} txtMultTotalPrice={txtMultTotalPrice} txtMultLines={txtMultLines} txtMultDraws={txtMultDraws} />, document.getElementById('gameplay'));
 
 
 

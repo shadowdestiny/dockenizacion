@@ -35,6 +35,10 @@
 	var randomizeAllLines = '{{ language.translate('randomizeAll_btn') }}';
 	var clearAllLines = '{{ language.translate('clearAll_btn') }}';
 	var buyForDraw = '{{ language.translate('buyForDraw') }}';
+	var txtLine = '{{ language.translate('line') }}';
+	var txtMultTotalPrice = '{{ language.translate('mult_total1') }}';
+	var txtMultLines = '{{ language.translate('mult_total2') }}';
+	var txtMultDraws = '{{ language.translate('mult_total3') }}';
 
 
 	{#añadir aqui el translate#}
