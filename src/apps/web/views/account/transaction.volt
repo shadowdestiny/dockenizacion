@@ -125,8 +125,17 @@
                         {% for transaction in transactionCollection %}
                             <tr class="tr-transactions-{{ transaction.id }}" data-id="{{ transaction.id }}">
                                 <td class="date">{{ transaction.date }}</td>
-                                <td class="type">{{ transaction.transactionName }}</td>
-                                <td class="type"  {% if transaction.transactionName == 'Winning Withdraw' or transaction.transactionName == 'Ticket Purchase' %} data-trans="" style="color:#c22"{% endif %} >{{ transaction.ticketPrice }}</td>
+                                <td class="type">
+                                    {% if transaction.transactionName == 'Winning Withdraw' %} {{ language.translate("transaction_type_withdraw") }}
+                                    {% elseif transaction.transactionName == 'Ticket Purchase' %} {{ language.translate("transaction_type_purchase") }}
+                                    {% elseif transaction.transactionName == 'Automatic Purchase' %} {{ language.translate("transaction_type_purchase_aut") }}
+                                    {% elseif transaction.transactionName == 'Subscription Deposit' %} {{ language.translate("transaction_type_subs_deposit") }}
+                                    {% elseif transaction.transactionName == 'Deposit' %} {{ language.translate("transaction_type_deposit") }}
+                                    {% elseif transaction.transactionName == 'Winnings Received' %} {{ language.translate("transaction_type_win") }}
+                                    {% else %} {{ transaction.transactionName }}
+                                    {% endif %}
+                                </td>
+                                <td class="type" {% if transaction.transactionName == 'Winning Withdraw' or transaction.transactionName == 'Ticket Purchase' %} data-trans="" style="color:#c22"{% endif %} >{{ transaction.ticketPrice }}</td>
                                 {#<td class="movement" {% if transaction.transactionName == 'Winning Withdraw' or transaction.transactionName == 'Ticket Purchase' %} data-trans="" style="color:#c22"{% endif %} {% if transaction.transactionName == 'Winnings Received'%}data-trans="" {% endif %}>#}
                                     {#{{ transaction.movement }}#}
                                 {#</td>#}
