@@ -46,13 +46,13 @@ $(function(){
 <main id="content">
 	<div class="wrapper">
 		<div class="box-basic">
-			<h1 class="h1 title">{{ language.translate("Winning Numbers") }}</h1>
+			<h1 class="h1 title">{{ language.translate("results_tittle") }}</h1>
 			<div class="wrap">
 				<div class="cols">
 					<div class="col8">
 						<div class="box-results">
 							<div class="content cl">
-								<h2 class="h2"><span class="purple">{{ language.translate("Last Draw") }}</span> {{ last_draw_date }}</h2>
+								<h2 class="h2"><span class="purple">{{ language.translate("lastDraw_title") }}</span> {{ last_draw_date }}</h2>
 
 								<ul class="no-li inline numbers">
 									{% for index,regular_number in last_result["regular_numbers"] %}
@@ -67,10 +67,10 @@ $(function(){
 										{% endif %}
 									{% endfor %}
 									{% for lucky_number in last_result["lucky_numbers"] %}
-										<li class="star"><span class="num">{{ lucky_number }}</span><span class="txt">{{ language.translate("Star ball") }}</span></li>
+										<li class="star"><span class="num">{{ lucky_number }}</span><span class="txt">{{ language.translate("starBall") }}</span></li>
 									{% endfor %}
 								</ul>
-								<span class="grey left">{{ language.translate("Draw") }} {{ id_draw }}</span>
+								<span class="grey left">{{ language.translate("draw") }} {{ id_draw }}</span>
 							</div>
 						</div>
 					</div>
@@ -84,27 +84,27 @@ $(function(){
 							</div>
 							<div class="bg">
 								<a href="/{{ lottery }}/play" class="content">
-									<h1 class="h3">{{ language.translate("Estimated jackpot") }}</h1>
+									<h1 class="h3">{{ language.translate("nextDraw_Estimate") }}</h1>
 
 									{% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
                                     {% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
 
                                     <div class="box-next-draw cl">
                                     	<div class="countdown">
-		                                    <span class="next-draw"><span class="txt-one">{{ language.translate("Next") }}</span><br class="br">{{ language.translate("Draw") }}</span>
+		                                    <span class="next-draw"><span class="txt-one">{{ language.translate("nextDraw_lbl1") }}</span><br class="br">{{ language.translate("nextDraw_lbl2") }}</span>
 		                                    <div class="day unit">
 		                                    	<span class="val">%-d</span>
-		                                    	<span class="txt">day%!d</span>
+		                                    	<span class="txt">{{ language.translate("nextDraw_day") }}%!d</span>
 		                                    </div>
 		                                    <div class="dots">:</div>
 		                                    <div class="hour unit">
 		                                    	<span class="val">%-H</span>
-		                                    	<span class="txt">hr</span>
+		                                    	<span class="txt">{{ language.translate("nextDraw_hr") }}</span>
 			                                </div>
 		                                    <div class="dots">:</div>
 		                                    <div class="minute unit">
 		                                    	<span class="val">%-M</span>
-		                                    	<span class="txt">min</span>
+		                                    	<span class="txt">{{ language.translate("nextDraw_min") }}</span>
 		                                    </div>
 											<div class="dots">:</div>
 											<div class="seconds unit">
@@ -112,7 +112,7 @@ $(function(){
 												<span class="txt">sec</span>
 											</div>
 		                                </div>
-                                    	<span class="btn red big right">{{ language.translate("PLAY NOW") }}</span>
+                                    	<span class="btn red big right">{{ language.translate("nextDraw_btn") }}</span>
 	                                </div>
 								</a>
 							</div>
@@ -123,14 +123,14 @@ $(function(){
 				<div class="cols">
 					<div class="col8">
 						<div class="box-current-winners">
-							<h1 class="h2 purple">{{ language.translate("Prize breakdown") }}</h1>
+							<h1 class="h2 purple">{{ language.translate("prizePool_title") }}</h1>
 							<table id="current-winners" class="table ui-responsive" data-role="table" data-mode="reflow">
 								<thead>
 									<tr>
-										<th class="td-ball">{{ language.translate("Numbers") }}</th>
-										<th class="td-star-ball">{{ language.translate("Lucky Stars") }}</th>
-										<th class="td-winners">{{ language.translate("Winners") }}</th>
-										<th class="td-prize">{{ language.translate("Prize") }}</th>
+										<th class="td-ball">{{ language.translate("prizePool_ball") }}</th>
+										<th class="td-star-ball">{{ language.translate("prizePool_star") }}</th>
+										<th class="td-winners">{{ language.translate("prizePool_winners") }}</th>
+										<th class="td-prize">{{ language.translate("prizePool_prize") }}</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -168,15 +168,15 @@ $(function(){
 
 						<div class="box-basic">
 							<div class="pad">
-								<h1 class="h2 purple">{{ language.translate("Past Winning Numbers") }}</h1>
+								<h1 class="h2 purple">{{ language.translate("pastNumbers_title") }}</h1>
 							</div>
 							<table id="history-numbers" class="ui-responsive table2" data-role="table" data-mode="reflow">
 								<thead>
 								<tr>
-									<th class="td-date">{{ language.translate("Date") }}</th>
-									<th class="td-ball-numbers">{{ language.translate("Ball") }} <span class="ball"></span></th>
+									<th class="td-date">{{ language.translate("pastNumbers_date") }}</th>
+									<th class="td-ball-numbers">{{ language.translate("pastNumbers_ball") }} <span class="ball"></span></th>
 									<th class="td-star-numbers">
-										{{ language.translate("Star") }}
+										{{ language.translate("pastNumbers_star") }}
 										<span class="star-ball"></span>
 									</th>
 								</tr>
@@ -192,7 +192,7 @@ $(function(){
 								</tbody>
 							</table>
 							<div class="box-action">
-								<a href="/euromillions/results/draw-history-page" class="btn  green big wide ui-link">Show more past results</a>
+								<a href="/euromillions/results/draw-history-page" class="btn  green big wide ui-link">{{ language.translate("morePastResults_btn") }}</a>
 							</div>
 						</div>
 					</div>
