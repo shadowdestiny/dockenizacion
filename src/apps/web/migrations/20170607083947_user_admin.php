@@ -27,6 +27,6 @@ class UserAdmin extends AbstractMigration
      */
     public function change()
     {
-        $this->execute('CREATE TABLE users_admin (id INT UNSIGNED AUTO_INCREMENT NOT NULL, name VARCHAR(30) NOT NULL, surname VARCHAR(30) NOT NULL, email VARCHAR(60) NOT NULL, password VARCHAR(30) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;');
+        $this->execute('CREATE TABLE users_admin (id INT UNSIGNED AUTO_INCREMENT NOT NULL, name VARCHAR(30) NOT NULL, surname VARCHAR(30) NOT NULL, email VARCHAR(60) NOT NULL, password VARCHAR(30) NOT NULL, useraccess VARCHAR(15) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;');
     }
 }

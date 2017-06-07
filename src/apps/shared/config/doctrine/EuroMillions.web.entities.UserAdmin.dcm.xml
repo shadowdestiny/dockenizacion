@@ -16,5 +16,6 @@
         <field name="surname" type="string" length="30" />
         <field name="email" type="string" length="60" />
         <field name="password" type="string" length="30" />
+        <field name="useraccess" type="string" length="15" />
     </entity>
 </doctrine-mapping>

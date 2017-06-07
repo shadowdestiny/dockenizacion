@@ -9,6 +9,7 @@ class UserAdmin extends EntityBase
     protected $surname;
     protected $email;
     protected $password;
+    protected $useraccess;
 
     public function __construct(){}
 
@@ -90,5 +91,21 @@ class UserAdmin extends EntityBase
     public function setPassword($password)
     {
         $this->password = $password;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUseraccess()
+    {
+        return $this->useraccess;
+    }
+
+    /**
+     * @param mixed $useraccess
+     */
+    public function setUseraccess($useraccess)
+    {
+        $this->useraccess = $useraccess;
     }
 }
