@@ -1,6 +1,5 @@
 <?php
 
-
 namespace EuroMillions\admin\controllers;
 
 use EuroMillions\admin\forms\LoginForm;
@@ -34,11 +33,10 @@ class LoginController extends AdminControllerBase
                     'pass' => $this->request->getPost('password')
                 ],$config_credentials);
 
-                if(!$result->success())
-                {
+                if (!$result->success()) {
                     $errors[] = 'Username/password combination not valid';
                 } else {
-                    if(!empty($controller) && !empty($action) && !empty($params)) {
+                    if (!empty($controller) && !empty($action) && !empty($params)) {
                         return $this->response->redirect('/admin/'.$controller.'/'.$action.'/'.$params);
                     } else {
                         return $this->response->redirect('/admin/index/index');

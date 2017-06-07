@@ -1,8 +1,6 @@
 <?php
 
-
 namespace EuroMillions\admin\services;
-
 
 use EuroMillions\shared\vo\results\ActionResult;
 use Phalcon\Config;
@@ -24,11 +22,11 @@ class AuthUserService
 
     public function login($credentials, Config $config_credentials)
     {
-        if(is_array($credentials)) {
+        if (is_array($credentials)) {
             //EMTD fetch credentials validation from database
             $user = $credentials['user'];
             $pass = $credentials['pass'];
-            if($user === $config_credentials['user'] && $pass === $config_credentials['pass']) {
+            if ($user === $config_credentials['user'] && $pass === $config_credentials['pass']) {
                 //EMTD improve session storage
                 $this->session->set(self::CURRENT_ADMIN_USER_VAR, time());
                 return new ActionResult(true);
@@ -39,9 +37,9 @@ class AuthUserService
 
     public function check_session()
     {
-        if(!$this->session->get(self::CURRENT_ADMIN_USER_VAR)) {
+        if (!$this->session->get(self::CURRENT_ADMIN_USER_VAR)) {
             return new ActionResult(false);
-        }else {
+        } else {
             return new ActionResult(true);
         }
     }
