@@ -11,7 +11,14 @@ class UserAdmin extends EntityBase
     protected $password;
     protected $useraccess;
 
-    public function __construct(){}
+    public function __construct(array $userAdminData)
+    {
+        $this->name = $userAdminData['name'];
+        $this->surname = $userAdminData['surname'];
+        $this->email = $userAdminData['email'];
+        $this->password = $userAdminData['password'];
+        $this->useraccess = $userAdminData['useraccess'];
+    }
 
     /**
      * @return mixed

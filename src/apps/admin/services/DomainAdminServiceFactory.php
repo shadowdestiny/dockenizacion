@@ -66,4 +66,9 @@ class DomainAdminServiceFactory
     {
         return new TranslationService($this->entityManager);
     }
+
+    public function getUserAdminService()
+    {
+        return new UserAdminService($this->entityManager);
+    }
 }
