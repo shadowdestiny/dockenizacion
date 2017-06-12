@@ -19,7 +19,7 @@ class DomainAdminServiceFactory
 
     public function getAuthUserService()
     {
-        return new AuthUserService(new PhalconSessionWrapper());
+        return new AuthUserService(new PhalconSessionWrapper(), $this->entityManager);
     }
 
     public function getMaintenanceUserService()

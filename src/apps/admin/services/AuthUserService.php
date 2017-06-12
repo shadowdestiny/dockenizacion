@@ -2,32 +2,41 @@
 
 namespace EuroMillions\admin\services;
 
+use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\vo\results\ActionResult;
-use Phalcon\Config;
+use EuroMillions\web\entities\UserAdmin;
+use EuroMillions\web\repositories\UserAdminRepository;
 use Phalcon\Session\AdapterInterface;
 
 class AuthUserService
 {
-
     const CURRENT_ADMIN_USER_VAR = 'EM_ADMIN_current_user';
 
-    protected $entityManager;
-
     protected $session;
+    /** @var EntityManager $entityManager */
+    protected $entityManager;
+    /** @var UserAdminRepository $userAdminRepository */
+    private $userAdminRepository;
 
-    public function __construct(AdapterInterface $session)
+    public function __construct(AdapterInterface $session, EntityManager $entityManager)
     {
         $this->session = $session;
+        $this->entityManager = $entityManager;
+        $this->userAdminRepository = $this->entityManager->getRepository('EuroMillions\web\entities\UserAdmin');
     }
 
-    public function login($credentials, Config $config_credentials)
+    public function login($credentials)
     {
         if (is_array($credentials)) {
-            //EMTD fetch credentials validation from database
-            $user = $credentials['user'];
-            $pass = $credentials['pass'];
-            if ($user === $config_credentials['user'] && $pass === $config_credentials['pass']) {
+            /** @var UserAdmin $userAdmin */
+            $userAdmin = $this->userAdminRepository->findOneBy([
+                'email' => $credentials['email'],
+                'password' => $credentials['pass']
+            ]);
+            if (!empty($userAdmin)) {
                 //EMTD improve session storage
+                $this->session->set('userId', $userAdmin->getId());
+                $this->session->set('userAccess', $userAdmin->getUseraccess());
                 $this->session->set(self::CURRENT_ADMIN_USER_VAR, time());
                 return new ActionResult(true);
             }
