@@ -89,8 +89,7 @@ class UsersadminController extends AdminControllerBase
     private function checkPermissions()
     {
         if (strpos('S', $this->session->get('userAdminAccess'))  !== false) {
-            echo 'no entra';
-            exit;
+            return $this->response->redirect('/admin/index/notaccess');
         }
     }
 }

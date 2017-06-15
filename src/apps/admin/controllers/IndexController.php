@@ -3,7 +3,6 @@
 namespace EuroMillions\admin\controllers;
 
 class IndexController extends AdminControllerBase{
-
     public function indexAction(){}
     public function businessAction(){}
     public function systemAction(){}
@@ -14,5 +13,5 @@ class IndexController extends AdminControllerBase{
     public function adminAction(){}
     public function jackpotAction(){}
     public function accountAction(){}
-
+    public function notaccessAction(){}
 }
