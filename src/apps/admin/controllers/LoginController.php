@@ -9,7 +9,6 @@ class LoginController extends AdminControllerBase
 {
     public function indexAction($paramsFromPreviousAction = null)
     {
-
         $auth_user_service = $this->domainAdminServiceFactory->getAuthUserService();
         $errors = [];
         $sign_in_form = new LoginForm();

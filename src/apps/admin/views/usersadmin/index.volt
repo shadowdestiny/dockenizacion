@@ -75,7 +75,7 @@
                                     <td>
                                         <select name="useraccess" style="width: 80px;">
                                             <option value="A">Admin</option>
-                                            <option value="U">User</option>
+                                            <option value="S">Customer Support</option>
                                         </select>
                                     </td>
                                     <td>

@@ -21,6 +21,7 @@ class DrawsController extends AdminControllerBase
 
     public function initialize()
     {
+        $this->checkPermissions();
         parent::initialize();
         $this->maintenanceDrawService = $this->domainAdminServiceFactory->getMaintenanceDrawService();
     }
@@ -170,6 +171,14 @@ class DrawsController extends AdminControllerBase
             echo json_encode([
                         'result' => 'KO'
             ]);
+        }
+    }
+
+    private function checkPermissions()
+    {
+        if (strpos('S', $this->session->get('userAdminAccess'))  !== false) {
+            echo 'no entra';
+            exit;
         }
     }
 

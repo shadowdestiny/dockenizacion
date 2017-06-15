@@ -19,6 +19,7 @@ class TrackingController extends AdminControllerBase
 
     public function initialize()
     {
+        $this->checkPermissions();
         parent::initialize();
         $this->trackingService = $this->domainAdminServiceFactory->getTrackingService();
         $this->geoService = $this->domainAdminServiceFactory->getGeoService();
@@ -236,5 +237,13 @@ class TrackingController extends AdminControllerBase
     {
         $this->cookies->set('message', $message);
         return $this->response->redirect('/admin/tracking/index');
+    }
+
+    private function checkPermissions()
+    {
+        if (strpos('S', $this->session->get('userAdminAccess'))  !== false) {
+            echo 'no entra';
+            exit;
+        }
     }
 }

@@ -17,6 +17,7 @@ class UsersController extends AdminControllerBase
 
     public function initialize()
     {
+        $this->checkPermissions();
         parent::initialize();
         $this->maintenanceUserService = $this->domainAdminServiceFactory->getMaintenanceUserService();
     }
@@ -96,4 +97,12 @@ class UsersController extends AdminControllerBase
             }
         }
    }
+
+    private function checkPermissions()
+    {
+        if (strpos('S', $this->session->get('userAdminAccess'))  !== false) {
+            echo 'no entra';
+            exit;
+        }
+    }
 }

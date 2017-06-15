@@ -12,6 +12,7 @@ class UsersadminController extends AdminControllerBase
 
     public function initialize()
     {
+        $this->checkPermissions();
         parent::initialize();
         $this->userAdminService = $this->domainAdminServiceFactory->getUserAdminService();
     }
@@ -83,5 +84,13 @@ class UsersadminController extends AdminControllerBase
     {
         $this->cookies->set('message', $message);
         return $this->response->redirect('/admin/usersadmin/index');
+    }
+
+    private function checkPermissions()
+    {
+        if (strpos('S', $this->session->get('userAdminAccess'))  !== false) {
+            echo 'no entra';
+            exit;
+        }
     }
 }

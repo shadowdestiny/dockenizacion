@@ -33,6 +33,7 @@ class ReportsController extends AdminControllerBase
 
     public function businessReportsGeneralKPIsAction()
     {
+        $this->checkPermissions();
         $this->view->setVars([
             'needReportsMenu' => true,
             'countryList' => $this->countries,
@@ -41,6 +42,7 @@ class ReportsController extends AdminControllerBase
 
     public function businessReportsGeneralKPIsResultAction()
     {
+        $this->checkPermissions();
         $generalKPIs = [];
         if ($this->request->getPost()) {
             $generalKPIs = $this->reportsService->getGeneralKPI($this->request->getPost());
@@ -59,6 +61,7 @@ class ReportsController extends AdminControllerBase
 
     public function businessReportsActivityAction()
     {
+        $this->checkPermissions();
         $this->view->setVars([
             'needReportsMenu' => true,
             'countryList' => $this->countries,
@@ -67,6 +70,7 @@ class ReportsController extends AdminControllerBase
 
     public function businessReportsActivityResultAction()
     {
+        $this->checkPermissions();
         $activities = [];
         if ($this->request->getPost()) {
             $activities = $this->reportsService->getActivities($this->request->getPost());
@@ -239,5 +243,13 @@ class ReportsController extends AdminControllerBase
         sort($countries);
         //key+1, select element from phalcon need index 0 to set empty value
         return array_combine(range(1, count($countries)), array_values($countries));
+    }
+
+    private function checkPermissions()
+    {
+        if (strpos('S', $this->session->get('userAdminAccess'))  !== false) {
+            echo 'no entra';
+            exit;
+        }
     }
 }
