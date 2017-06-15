@@ -35,8 +35,8 @@ class AuthUserService
             ]);
             if (!empty($userAdmin)) {
                 //EMTD improve session storage
-                $this->session->set('userId', $userAdmin->getId());
-                $this->session->set('userAccess', $userAdmin->getUseraccess());
+                $this->session->set('userAdminId', $userAdmin->getId());
+                $this->session->set('userAdminAccess', $userAdmin->getUseraccess());
                 $this->session->set(self::CURRENT_ADMIN_USER_VAR, time());
                 return new ActionResult(true);
             }

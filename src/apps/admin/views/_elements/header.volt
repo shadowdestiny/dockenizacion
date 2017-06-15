@@ -30,7 +30,7 @@
                         User name
                         <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/admin/index/account">Account Settings</a></li>
+                            <li><a href="/admin/account">Account Settings</a></li>
                             <li class="divider"></li>
                             <li><a href="#">Logout</a></li>
                         </ul>

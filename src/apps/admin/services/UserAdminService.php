@@ -76,6 +76,11 @@ class UserAdminService
         return $this->userAdminRepository->findAll();
     }
 
+    /**
+     * @param $id
+     *
+     * @throws Exception
+     */
     public function deleteUserById($id)
     {
         try {
@@ -91,8 +96,27 @@ class UserAdminService
      *
      * @return null|object
      */
-    private function getUserAdminById($userId)
+    public function getUserAdminById($userId)
     {
         return $this->userAdminRepository->find($userId);
+    }
+
+    public function savePassword($postData)
+    {
+        if (!empty($postData)) {
+            /** @var UserAdmin $userAdmin */
+            $userAdmin = $this->userAdminRepository->findOneBy([
+                'email' => $postData['email'],
+                'password' => md5($postData['old-psw']),
+            ]);
+            if (!empty($userAdmin)) {
+                $userAdmin->setPassword(md5($postData['new-psw']));
+                $this->entityManager->persist($userAdmin);
+                $this->entityManager->flush();
+                return 'OK';
+            }
+        }
+
+        return 'KO';
     }
 }
