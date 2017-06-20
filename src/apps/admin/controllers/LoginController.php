@@ -1,6 +1,5 @@
 <?php
 
-
 namespace EuroMillions\admin\controllers;
 
 use EuroMillions\admin\forms\LoginForm;
@@ -10,7 +9,6 @@ class LoginController extends AdminControllerBase
 {
     public function indexAction($paramsFromPreviousAction = null)
     {
-
         $auth_user_service = $this->domainAdminServiceFactory->getAuthUserService();
         $errors = [];
         $sign_in_form = new LoginForm();
@@ -27,18 +25,15 @@ class LoginController extends AdminControllerBase
                     $form_errors[$field] = ' error';
                 }
             } else {
-                $config = $this->di->get('config');
-                $config_credentials = $config->admin_credentials;
                 $result = $auth_user_service->login([
-                    'user'    => $this->request->getPost('username'),
-                    'pass' => $this->request->getPost('password')
-                ],$config_credentials);
+                    'email'    => $this->request->getPost('username'),
+                    'pass' => md5($this->request->getPost('password'))
+                ]);
 
-                if(!$result->success())
-                {
+                if (!$result->success()) {
                     $errors[] = 'Username/password combination not valid';
                 } else {
-                    if(!empty($controller) && !empty($action) && !empty($params)) {
+                    if (!empty($controller) && !empty($action) && !empty($params)) {
                         return $this->response->redirect('/admin/'.$controller.'/'.$action.'/'.$params);
                     } else {
                         return $this->response->redirect('/admin/index/index');
@@ -46,6 +41,7 @@ class LoginController extends AdminControllerBase
                 }
             }
         }
+        
         return $this->view->setVars([
             'signinform'  => $sign_in_form,
             'errors'      => $errors,
@@ -74,3 +70,6 @@ class LoginController extends AdminControllerBase
         }
     }
 }
+
+
+

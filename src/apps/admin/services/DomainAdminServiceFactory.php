@@ -19,7 +19,7 @@ class DomainAdminServiceFactory
 
     public function getAuthUserService()
     {
-        return new AuthUserService(new PhalconSessionWrapper());
+        return new AuthUserService(new PhalconSessionWrapper(), $this->entityManager);
     }
 
     public function getMaintenanceUserService()
@@ -65,5 +65,10 @@ class DomainAdminServiceFactory
     public function getTranslationService()
     {
         return new TranslationService($this->entityManager);
+    }
+
+    public function getUserAdminService()
+    {
+        return new UserAdminService($this->entityManager);
     }
 }

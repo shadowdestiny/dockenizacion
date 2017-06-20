@@ -17,7 +17,7 @@
                     <li class="admin dropdown">
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Admin Area <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/admin">Admin users</a></li>
+                            <li><a href="/admin/usersadmin">Admin users</a></li>
                             <li><a href="/admin/users">Users</a></li>
                             <li><a href="/admin/draws">Draws &amp; Jackpot</a></li>
                             <li><a href="/admin/withdraws">Manage Withdrawals</a></li>
@@ -30,7 +30,7 @@
                         User name
                         <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/admin/index/account">Account Settings</a></li>
+                            <li><a href="/admin/account">Account Settings</a></li>
                             <li class="divider"></li>
                             <li><a href="#">Logout</a></li>
                         </ul>

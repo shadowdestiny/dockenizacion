@@ -14,6 +14,7 @@ class WithdrawsController extends AdminControllerBase
 
     public function initialize()
     {
+        $this->checkPermissions();
         parent::initialize();
         $this->maintenanceWithdrawService = $this->domainAdminServiceFactory->getMaintenanceWithdrawService();
     }
@@ -67,6 +68,13 @@ class WithdrawsController extends AdminControllerBase
         /** @var \Phalcon\Mvc\ViewInterface $paginator_view */
         $paginator_view = (new PaginationWidget($paginator, $this->request->getQuery()))->render();
         return array($page, $paginator, $paginator_view);
+    }
+
+    private function checkPermissions()
+    {
+        if (strpos('S', $this->session->get('userAdminAccess'))  !== false) {
+            return $this->response->redirect('/admin/index/notaccess');
+        }
     }
 
 }
