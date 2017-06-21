@@ -21,7 +21,7 @@
         <field name="street" type="string" nullable="true"/>
         <field name="zip" type="integer" nullable="true"/>
         <field name="city" type="string" nullable="true"/>
-        <field name="phone_number" type="integer" nullable="true"/>
+        <field name="phone_number" type="string" nullable="true"/>
         <field name="jackpotReminder" column="jackpot_reminder" type="boolean" nullable="true">
             <options>
                 <option name="default">0</option>
