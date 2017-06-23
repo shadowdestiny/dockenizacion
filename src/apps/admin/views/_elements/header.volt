@@ -22,7 +22,7 @@
                             <li><a href="/admin/draws">Draws &amp; Jackpot</a></li>
                             <li><a href="/admin/withdraws">Manage Withdrawals</a></li>
                             <li><a href="/admin/millon">Find El Millon</a></li>
-                            <li><a href="/admin/reports/salesDraw">Reports</a></li>
+                            <li><a href="/admin/reports/playersReports">Reports</a></li>
                             <li><a href="/admin/tracking">Tracking</a></li>
                         </ul>
                     </li>

@@ -202,6 +202,7 @@ class ReportsController extends AdminControllerBase
 
     public function salesDrawAction()
     {
+        $this->checkPermissions();
         $this->view->setVars([
             'needReportsMenu' => true,
             'salesDraw' => $this->reportsService->fetchSalesDraw()
@@ -210,6 +211,7 @@ class ReportsController extends AdminControllerBase
 
     public function salesDrawDetailsAction()
     {
+        $this->checkPermissions();
         if ($this->request->get('id')) {
             $drawDates = $this->reportsService->getEuromillionsDrawsActualAfterDatesById($this->request->get('id'));
             $this->view->setVars([
