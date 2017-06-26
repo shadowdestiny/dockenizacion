@@ -56,7 +56,7 @@ class ReportsRepository implements IReports
 //        select 'EM' as em, e.id as id, e.draw_date as draw_date, IF(e.draw_date < now(),'Finished','Open') as draw_status, count(b.id) as count_id, count(b.id) * 3.00 as count_id_3, count(b.id) * 0.50 as count_id_05
         return $this->entityManager
             ->createNativeQuery(
-                "select 'EM' as em, e.id as id, e.draw_date as draw_date, IF(e.draw_date < now(),'Finished','Open') as draw_status
+                "select 'EM' as em, e.id as id, e.draw_date as draw_date, IF(date_add(CAST(e.draw_date AS DATETIME), INTERVAL 19 HOUR) < now(),'Finished','Open') as draw_status
                   from euromillions_draws e
                   JOIN bets b on b.euromillions_draw_id=e.id
                   join log_validation_api l on l.bet_id=b.id
