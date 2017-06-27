@@ -6,13 +6,13 @@
         <thead>
         <tr class="special">
             <th width="200px">
-                {{ language.translate("tickets_SubsUpcoming_date") }}
+                Draw date
             </th>
             <th width="150px">
-                {{ language.translate("tickets_SubsUpcoming_lotto") }}
+                Lottery
             </th>
             <th>
-                {{ language.translate("tickets_SubsUpcoming_numbers") }}
+                Numbers played
             </th>
         </tr>
         </thead>

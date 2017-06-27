@@ -1,4 +1,4 @@
-<h3 class="h4">{{ language.translate("tickets_upcoming") }}</h3>
+<h3 class="h4">Upcoming draws</h3>
 {% if my_games_actives is empty %}
     This player didn't purchase tickets for upcoming draws.
 {% else %}
@@ -6,13 +6,13 @@
         <thead>
         <tr class="special">
             <th width="150px">
-                {{ language.translate("tickets_upcoming_date") }}
+                Draw date
             </th>
             <th width="150px">
-                {{ language.translate("tickets_upcoming_lotto") }}
+                Lottery
             </th>
             <th>
-                {{ language.translate("tickets_upcoming_numbers") }}
+                Numbers played
             </th>
         </tr>
         </thead>

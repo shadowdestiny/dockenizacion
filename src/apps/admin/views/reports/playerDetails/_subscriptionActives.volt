@@ -5,14 +5,14 @@
     <table class="table-program" width="100%">
         <thead>
         <tr class="special">
-            <th width="150px">
-                {{ language.translate("tickets_upcoming_date") }}
+            <th width="200px">
+                Draw date
             </th>
             <th width="150px">
-                {{ language.translate("tickets_upcoming_lotto") }}
+                Lottery
             </th>
             <th>
-                {{ language.translate("tickets_upcoming_numbers") }}
+                Numbers played
             </th>
         </tr>
         </thead>
