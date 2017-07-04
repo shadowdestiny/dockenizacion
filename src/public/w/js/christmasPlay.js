@@ -1,26 +1,30 @@
-function btnShowHide(button, show, hide){
-    $(button).click(function(){
-        $(show).show();
-        $(hide).hide();
-    });
+function recalculateTotal()
+{
+    $('#totalPriceValue').text((parseInt($('#totalTickets').val())*parseFloat($('#singleBetPrice').val())).toFixed(2));
+
+    if ($('#totalTickets').val() > 0) {
+        $('#nextButton').addClass('active ui-link');
+    } else {
+        $('#nextButton').removeClass('active ui-link');
+    }
 }
 
 $(function(){
-    //hacer if para cambiar a activo
-    $('#funds-value,#card-cvv,#card-number').on('keypress',function(e){
+    $( "#add_1" ).click(function() {
+        $('#totalTickets').val(parseInt($('#totalTickets').val())+1);
+        recalculateTotal();
+    });
 
-        var pattern = /^[0-9\.]+$/;
-        if(e.target.id == 'card-cvv' || e.target.id == 'card-number' ) {
-            pattern = /^[0-9]+$/;
+    $( "#remove_1" ).click(function() {
+        if ($('#totalTickets').val() != 0) {
+            $('#totalTickets').val(parseInt($('#totalTickets').val())-1);
+            recalculateTotal();
         }
-        var codeFF = e.keyCode;
-        var code = e.which
-        var chr = String.fromCharCode(code);
-        if(codeFF == 8 || codeFF == 37 || codeFF == 38 || codeFF == 39 || codeFF == 40 ) {
-            return true;
-        }
-        if(!pattern.test(chr)){
-            e.preventDefault();
+    });
+
+    $( "#nextButton" ).click(function() {
+        if ($('#nextButton').hasClass('active')) {
+            $('#christmasForm').submit();
         }
     });
 });
