@@ -1,6 +1,7 @@
 function recalculateTotal()
 {
     $('#totalPriceValue').text((parseInt($('#totalTickets').val())*parseFloat($('#singleBetPrice').val())).toFixed(2));
+    $('#showTotalTickets').text(parseInt($('#totalTickets').val()));
 
     if ($('#totalTickets').val() > 0) {
         $('#nextButton').addClass('active ui-link');

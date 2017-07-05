@@ -56,7 +56,7 @@
                     <div class="box-bottom">
                         <div class="right">
                             <span class="total-price-description">Total price: </span>
-                            <span class="description-before-price">x boletos x precio boleto</span>
+                            <span class="description-before-price"><span id="showTotalTickets">0</span> tickets x {{ singleBetPrice | number_format (2,'.','') }} {{ currencySymbol }}</span>
 
                             <a href="javascript:void(0);" id="nextButton" class="btn add-cart">
                                 <span class="value">
