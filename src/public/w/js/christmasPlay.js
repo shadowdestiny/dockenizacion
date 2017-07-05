@@ -10,14 +10,22 @@ function recalculateTotal()
 }
 
 $(function(){
-    $( "#add_1" ).click(function() {
-        $('#totalTickets').val(parseInt($('#totalTickets').val())+1);
-        recalculateTotal();
+    $( ".addTicket" ).click(function() {
+        var id = this.id.split('_')[1];
+        if (parseInt($('#maxTickets_' + id).val()) > parseInt($('#numTickets_' + id).val())) {
+            $('#totalTickets').val(parseInt($('#totalTickets').val())+1);
+            $('#showNumTickets_' + id).text(parseInt($('#numTickets_' + id).val()) + 1);
+            $('#numTickets_' + id).val(parseInt($('#numTickets_' + id).val()) + 1);
+            recalculateTotal();
+        }
     });
 
-    $( "#remove_1" ).click(function() {
-        if ($('#totalTickets').val() != 0) {
+    $( ".removeTicket" ).click(function() {
+        var id = this.id.split('_')[1];
+        if (parseInt($('#numTickets_' + id).val()) != 0) {
             $('#totalTickets').val(parseInt($('#totalTickets').val())-1);
+            $('#showNumTickets_' + id).text(parseInt($('#numTickets_' + id).val()) - 1);
+            $('#numTickets_' + id).val(parseInt($('#numTickets_' + id).val()) - 1);
             recalculateTotal();
         }
     });

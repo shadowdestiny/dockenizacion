@@ -16,20 +16,42 @@
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block body %}
-	<main id="content">
+    <main id="content">
 		<div class="wrapper">
 			<div class="gameplay border-top-yellow">
                 <form action="/christmas/order" method="post" id="christmasForm">
-                    <img src="/w/img/christmas/ticket.jpg" width="350px" />
-                    <br /><br />
-                    <input type="button" id="add_1" value="+" />
-                    {{ singleBetPrice }}
-                    {{ currencySymbol }}
-                    <input type="hidden" id="maxTickets_1" value="2" />
-                    <input type="hidden" id="numTickets_1" name="numTickets_1" value="0" />
-                    <input type="button" id="remove_1" value="-" />
-                    <br />
-                    Max Tickets: 2 - Tickets: 0
+                    {% if christmasTickets is defined %}
+                        <table style="margin-top: 15px; margin-bottom: 15px;">
+                            <tr>
+                            {% set cont = 0 %}
+                            {% for ticket in christmasTickets %}
+                                <td width="15">&nbsp;</td>
+                                <td align="center" style="background-color: white;">
+                                    <div class="christmasTicketImg">
+                                        <img src="/w/img/christmas/ticket.png" width="300px" />
+                                        <span class="christmasTicketTxt">{{ ticket['number'] }}</span>
+                                    </div>
+                                    <input type="button" id="add_{{ ticket['id'] }}" class="addTicket" value="+" />
+                                    {{ singleBetPrice }}
+                                    {{ currencySymbol }}
+                                    <input type="hidden" id="maxTickets_{{ ticket['id'] }}" value="{{ ticket['n_fractions'] }}" />
+                                    <input type="hidden" id="numTickets_{{ ticket['id'] }}" name="numTickets_{{ ticket['id'] }}" value="0" />
+                                    <input type="button" id="remove_{{ ticket['id'] }}" class="removeTicket" value="-" />
+                                    <br />
+                                    Available Tickets: {{ ticket['n_fractions'] }} - Your Tickets: <span id="showNumTickets_{{ ticket['id'] }}">0</span>
+                                </td>
+                                <td width="15">&nbsp;</td>
+                                {% set cont = cont + 1 %}
+                                {% if cont == 3 %}
+                                    {% set cont = 0 %}
+                                    </tr><tr><td>&nbsp;</td></tr><tr>
+                                {% endif %}
+                            {% endfor %}
+                            </tr>
+                        </table>
+                    {% else %}
+                        <h3>We don't have Christmas Tickets.</h3>
+                    {% endif %}
                     <!-- Total Price Info -->
                     <div class="box-bottom">
                         <div class="right">
@@ -46,7 +68,7 @@
                             </a>
                         </div>
                         <br /><br />
-                        <input type="hidden" id="totalTickets" name="totalTickets" value="0" />
+                        <input type="hidden" id="totalTickets" value="0" />
                         <input type="hidden" id="singleBetPrice" value="{{ singleBetPrice | number_format (2,'.','') }}" />
                     </div>
                 </form>
