@@ -52,7 +52,7 @@
                     {% else %}
                         <h3>We don't have Christmas Tickets.</h3>
                     {% endif %}
-                    <!-- Total Price Info -->
+
                     <div class="box-bottom">
                         <div class="right">
                             <span class="total-price-description">Total price: </span>

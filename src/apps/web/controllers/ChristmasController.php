@@ -35,8 +35,6 @@ class ChristmasController extends PublicSiteControllerBase
 
     public function orderAction()
     {
-        var_dump($this->request->getPost());
-        exit;
         $user_id = $this->request->get('user');
         $current_user_id = $this->authService->getCurrentUser()->getId();
         $creditCardForm = new CreditCardForm();
@@ -49,7 +47,7 @@ class ChristmasController extends PublicSiteControllerBase
             /** @var User $user */
             $user = $this->userService->getUser($current_user_id);
             if(!$user) {
-                $this->response ->redirect('/christmas/play');
+                $this->response ->redirect('/cart/profile');
                 return false;
             }
         }
@@ -58,7 +56,6 @@ class ChristmasController extends PublicSiteControllerBase
         $user_currency = $user->getUserCurrency();
         $single_bet_price = $this->domainServiceFactory->getLotteryService()->getSingleBetPriceByLottery('Christmas');
         $user = $this->authService->getCurrentUser();
-        $discount = 0;
 
         $wallet_balance = $this->currencyConversionService->convert($user->getBalance(), $user_currency);
         $checked_wallet = ($wallet_balance->getAmount() && !$this->request->isPost()) > 0 ? true : false;
@@ -72,9 +69,10 @@ class ChristmasController extends PublicSiteControllerBase
         return $this->view->setVars([
             'wallet_balance' => $wallet_balance->getAmount() / 100,
             'total_price' => $total_price / 100,
+            'single_bet_price' => $single_bet_price->getAmount() / 100,
             'form_errors' => $formErrors,
             'ratio' => $ratio,
-            'discount' => $discount->getValue(),
+            'msg' => [],
             'currency_symbol' => $currency_symbol,
             'symbol_position' => ($symbol_position === 0) ? false : true,
             'errors' => $errors,
@@ -83,8 +81,14 @@ class ChristmasController extends PublicSiteControllerBase
             'email' => $user->getEmail()->toNative(),
             'total_new_payment_gw' => isset($order_eur) ? $order_eur->getTotal()->getAmount() / 100 : '',
             'credit_card_form' => $creditCardForm,
+            'christmasTickets' => $this->christmasService->getChristmasTicketsData($this->request->getPost()),
             'emerchant_data' => $this->getEmerchantData(),
         ]);
+    }
+
+    public function paymentAction()
+    {
+        $christmasTickets = $this->fakeTickets();
     }
 
     /**
@@ -125,5 +129,23 @@ class ChristmasController extends PublicSiteControllerBase
             'thm_params' => 'org_id=' . $thm_org_id . '&session_id=' . $thm_session_id
         ];
     }
-
+    
+    private function fakeTickets()
+    {
+        return [
+            [
+                'id' => 1,
+                'tickets' => 2,
+            ],[
+                'id' => 3,
+                'tickets' => 1,
+            ],[
+                'id' => 5,
+                'tickets' => 3,
+            ],[
+                'id' => 8,
+                'tickets' => 1,
+            ]
+        ];
+    }
 }
