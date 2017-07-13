@@ -149,12 +149,12 @@
 							</div>
 							<div class="total">
 								<div class="txt">Total to be paid</div>
-								<div class="val">€ 6.00</div>
+								<div class="val">{{ currency_symbol }} {{ total_price | number_format (2,'.','') }}</div>
 								<div class="box-bottom cl">
 									<a href="javascript:void(0);" data-btn="no-wallet" class="btn blue big buy ui-link">
 										<span>Continue to payment</span>
 										<span class="gap">|</span>
-										<span>€ 6.00</span>
+										<span>{{ currency_symbol }} {{ total_price | number_format (2,'.','') }}</span>
 									</a>
 								</div>
 							</div>
@@ -173,13 +173,12 @@
 						<div class="txt-currency desktop">Currencies are just informative, transactions are charged in Euros. This transaction will appear as EuroMillions.com on your bank account statement. Payments and purchases are final and cannot be cancelled or refunded as they will be forwarded to our payment and ticket providers.</div>
 						<div class="total">
 							<div class="txt">Total to be paid</div>
-							<div class="val">€ 6.00</div>
+							<div class="val">{{ currency_symbol }} {{ total_price | number_format (2,'.','') }}</div>
 						</div>
 						<br /><br /><br /><br /><br />
-						<!-- rehacer lo del balance para q salga bien -->
-						{% if wallet_balance != 0 %}{{ wallet_balance }}
+						{% if wallet_balance != 0 %}
 						<div class="row cl" style="color: black;">
-							<div class="summary val disabled">€ 0.00</div>
+							<div class="summary val disabled">{{ currency_symbol }} {{ wallet_balance | number_format (2,'.','') }}</div>
 							<div class="box-wallet cl">
 								<label class="txt">Pay with your Account balance</label>
 								<div class=" ui-checkbox">
@@ -192,7 +191,7 @@
 							<a href="javascript:void(0);" data-btn="no-wallet" class="btn blue big buy ui-link">
 								<span>Continue to payment</span>
 								<span class="gap">|</span>
-								<span>€ 6.00</span>
+								<span>{{ currency_symbol }} {{ total_price | number_format (2,'.','') }}</span>
 							</a>
 						</div>
 					</div>

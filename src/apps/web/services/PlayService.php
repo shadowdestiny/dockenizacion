@@ -257,9 +257,35 @@ class PlayService
         }
     }
 
+    public function getChristmasPlaysFromTemporarilyStorage(User $user)
+    {
+        try {
+            /** @var ActionResult $result */
+            $result = $this->playStorageStrategy->findByChristmasKey($user->getId());
+
+            if($result->success()) {
+                return new ActionResult(true, $result->returnValues());
+            } else {
+                return new ActionResult(false);
+            }
+        } catch ( \RedisException $r) {
+            return new ActionResult(false, $r->getMessage());
+        }
+    }
+
     public function savePlayFromJson($json, $userId)
     {
         $result = $this->playStorageStrategy->save($json,$userId);
+        if($result->success()){
+            return new ActionResult(true);
+        }else{
+            return new ActionResult(false);
+        }
+    }
+
+    public function saveChristmasPlay($christmasTickets, $userId)
+    {
+        $result = $this->playStorageStrategy->saveChristmas($christmasTickets,$userId);
         if($result->success()){
             return new ActionResult(true);
         }else{

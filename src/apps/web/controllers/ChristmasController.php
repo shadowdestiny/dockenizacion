@@ -12,7 +12,7 @@ class ChristmasController extends PublicSiteControllerBase
     public function indexAction()
     {
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('Christmas');
-        if(!$this->authService->isLogged()) {
+        if (!$this->authService->isLogged()) {
             $user_currency = $this->userPreferencesService->getCurrency();
             $single_bet_price_currency  = $this->currencyConversionService->convert($single_bet_price, $user_currency);
         } else {
@@ -35,6 +35,10 @@ class ChristmasController extends PublicSiteControllerBase
 
     public function orderAction()
     {
+        if (!$this->request->getPost()) {
+            $this->response->redirect('/christmas/play');
+        }
+
         $user_id = $this->request->get('user');
         $current_user_id = $this->authService->getCurrentUser()->getId();
         $creditCardForm = new CreditCardForm();
@@ -55,21 +59,28 @@ class ChristmasController extends PublicSiteControllerBase
         $locale = $this->request->getBestLanguage();
         $user_currency = $user->getUserCurrency();
         $single_bet_price = $this->domainServiceFactory->getLotteryService()->getSingleBetPriceByLottery('Christmas');
+        $single_bet_price_currency  = $this->currencyConversionService->convert($single_bet_price, new Currency($user_currency->getName()));
         $user = $this->authService->getCurrentUser();
 
         $wallet_balance = $this->currencyConversionService->convert($user->getBalance(), $user_currency);
         $checked_wallet = ($wallet_balance->getAmount() && !$this->request->isPost()) > 0 ? true : false;
 
-        $total_price = ($this->currencyConversionService->convert($single_bet_price, $user_currency)->getAmount() * $this->request->getPost('totalTickets'));
+        $christmasTickets = $this->christmasService->getChristmasTicketsData($this->request->getPost());
+        $total_price = ($this->currencyConversionService->convert($single_bet_price, $user_currency)->getAmount() * count($christmasTickets));
+
         $symbol_position = $this->currencyConversionService->getSymbolPosition($locale, $user_currency);
         $currency_symbol = $this->currencyConversionService->getSymbol($wallet_balance, $locale);
         $ratio = $this->currencyConversionService->getRatio(new Currency('EUR'), $user_currency);
+
+        $play_service = $this->domainServiceFactory->getPlayService();
+        $play_service->saveChristmasPlay($christmasTickets, $user->getId());
+
         $this->tag->prependTitle('Review and Buy');
 
         return $this->view->setVars([
             'wallet_balance' => $wallet_balance->getAmount() / 100,
             'total_price' => $total_price / 100,
-            'single_bet_price' => $single_bet_price->getAmount() / 100,
+            'single_bet_price' => $single_bet_price_currency->getAmount() / 100,
             'form_errors' => $formErrors,
             'ratio' => $ratio,
             'msg' => [],
@@ -81,7 +92,7 @@ class ChristmasController extends PublicSiteControllerBase
             'email' => $user->getEmail()->toNative(),
             'total_new_payment_gw' => isset($order_eur) ? $order_eur->getTotal()->getAmount() / 100 : '',
             'credit_card_form' => $creditCardForm,
-            'christmasTickets' => $this->christmasService->getChristmasTicketsData($this->request->getPost()),
+            'christmasTickets' => $play_service->getChristmasPlaysFromTemporarilyStorage($user)->returnValues(),
             'emerchant_data' => $this->getEmerchantData(),
         ]);
     }

@@ -18,6 +18,8 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
 
     protected static $key = 'PlayStore_EMLINES:';
 
+    protected static $christmasKey = 'PlayStore_CRNUMBERS:';
+
     /**
      * @param Redis $storage
      */
@@ -30,6 +32,16 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
     {
         try{
             $this->storage->set($this->getNameKey($userId), $json);
+            return new ActionResult(true);
+        }catch(RedisException $e){
+            return new ActionResult(false,'Unable to save data in storage');
+        }
+    }
+
+    public function saveChristmas($json, $userId)
+    {
+        try{
+            $this->storage->set($this->getChristmasKey($userId), $json);
             return new ActionResult(true);
         }catch(RedisException $e){
             return new ActionResult(false,'Unable to save data in storage');
@@ -60,6 +72,20 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
         }
     }
 
+    public function findByChristmasKey($key)
+    {
+        try{
+            $result = $this->storage->get(self::$christmasKey.$key);
+            if(empty($result)){
+                return new ActionResult(false,'Key not found');
+            }else{
+                return new ActionResult(true, $result);
+            }
+        }catch(RedisException $e){
+            return new ActionResult(false,'An error ocurred while find key');
+        }
+    }
+
     public function delete($key = '')
     {
         if(empty($key)){
@@ -77,5 +103,10 @@ class RedisPlayStorageStrategy implements IPlayStorageStrategy
     private function getNameKey($userId)
     {
         return "PlayStore_EMLINES:" . $userId;
+    }
+
+    private function getChristmasKey($userId)
+    {
+        return self::$christmasKey . $userId;
     }
 }
