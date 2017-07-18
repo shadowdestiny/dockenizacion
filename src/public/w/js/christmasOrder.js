@@ -25,12 +25,6 @@ $(function(){
             $('.payment').hide();
         }
     });
-
-    // if(show_form_credit_card) {
-    //     $('.box-bottom').hide();
-    //     $('.payment').show();
-    //     $('#card-number').focus();
-    // }
 });
 
 $('#pay-wallet').on('click', function(){
