@@ -78,7 +78,7 @@ class ChristmasController extends PublicSiteControllerBase
         $this->tag->prependTitle('Review and Buy');
 
         return $this->view->setVars([
-            'wallet_balance' => $wallet_balance->getAmount() / 100,
+            'wallet_balance' => number_format((float)$wallet_balance->getAmount() / 100, 2, '.', ''),
             'total_price' => number_format((float)$total_price / 100, 2, '.', ''),
             'single_bet_price' => $single_bet_price_currency->getAmount() / 100,
             'form_errors' => $formErrors,

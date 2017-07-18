@@ -39,6 +39,7 @@ $('#pay-wallet').on('click', function(){
             $('.buy').attr('href', '/christmas/payment?method=wallet');
             $('.buy').attr('data-btn', 'wallet');
             $('.buy').text('Buy now');
+            $('.balance-price').text('- ' + currency_symbol + ' ' + total_price);
             $('.box-bottom').show();
             $('.payment').hide();
         } else {
@@ -46,6 +47,7 @@ $('#pay-wallet').on('click', function(){
             $('.buy').attr('data-btn', 'no-wallet');
             $('.buy').text('Continue to payment | ' + currency_symbol + ' ' + priceWithWallet.toFixed(2));
             $('.val').text(currency_symbol + ' ' + priceWithWallet.toFixed(2));
+            $('.balance-price').text('- ' + currency_symbol + ' ' + wallet_balance);
             $('.submit.big.green').text('Pay ' + currency_symbol + ' ' + priceWithWallet.toFixed(2));
         }
     } else {
@@ -53,6 +55,7 @@ $('#pay-wallet').on('click', function(){
         $('.buy').attr('data-btn', 'no-wallet');
         $('.buy').text('Continue to payment | ' + currency_symbol + ' ' + total_price);
         $('.val').text(currency_symbol + ' ' + total_price);
+        $('.balance-price').text(currency_symbol + ' 0.00');
         $('.submit.big.green').text('Pay ' + currency_symbol + ' ' + total_price);
     }
 });

@@ -78,7 +78,7 @@
 						<br /><br /><br /><br /><br />
 						{% if wallet_balance != 0 %}
 						<div class="row cl" style="color: black;">
-							<div class="summary disabled" style="margin-left: 20px;">{{ currency_symbol }} {{ wallet_balance | number_format (2,'.','') }}</div>
+							<div class="summary balance-price disabled" style="margin-left: 20px;">{{ currency_symbol }} 0.00</div>
 							<div class="box-wallet cl">
 								<label class="txt" for="pay-wallet">Pay with your Account balance</label>
 								<div class=" ui-checkbox">
