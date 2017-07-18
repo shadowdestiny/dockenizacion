@@ -79,7 +79,7 @@ class ChristmasController extends PublicSiteControllerBase
 
         return $this->view->setVars([
             'wallet_balance' => $wallet_balance->getAmount() / 100,
-            'total_price' => $total_price / 100,
+            'total_price' => number_format((float)$total_price / 100, 2, '.', ''),
             'single_bet_price' => $single_bet_price_currency->getAmount() / 100,
             'form_errors' => $formErrors,
             'ratio' => $ratio,
@@ -93,6 +93,8 @@ class ChristmasController extends PublicSiteControllerBase
             'total_new_payment_gw' => isset($order_eur) ? $order_eur->getTotal()->getAmount() / 100 : '',
             'credit_card_form' => $creditCardForm,
             'christmasTickets' => $play_service->getChristmasPlaysFromTemporarilyStorage($user)->returnValues(),
+            'payTotalWithWallet' => ( ($total_price - $wallet_balance->getAmount()) / 100 <= 0 ) ? 1 : 0, // 1 true, 0 false
+            'priceWithWallet' => ($total_price - $wallet_balance->getAmount()) / 100 ,
             'emerchant_data' => $this->getEmerchantData(),
         ]);
     }
