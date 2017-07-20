@@ -24,6 +24,7 @@ use EuroMillions\web\vo\dto\BundlePlayCollectionDTO;
 use EuroMillions\web\vo\dto\BundlePlayDTO;
 use EuroMillions\web\vo\enum\TransactionType;
 use EuroMillions\web\vo\EuroMillionsLine;
+use EuroMillions\web\vo\EuroMillionsLuckyNumber;
 use EuroMillions\web\vo\EuroMillionsRegularNumber;
 use EuroMillions\web\vo\Order;
 use EuroMillions\web\vo\OrderChristmas;
@@ -287,13 +288,22 @@ class PlayService
                             $playConfigChristmas->setLastDrawDate($lottery->getNextDrawDate());
                             $playConfigChristmas->setStartDrawDate($lottery->getNextDrawDate());
                             $playConfigChristmas->setUser($user);
-                            $playConfigChristmas->setLine(new EuroMillionsLine([new EuroMillionsRegularNumber(str_split($play_config->getNumber()))], [new EuroMillionsLuckyNumber($play_config->getNumSeries(), $play_config->getNumFractions())]));
-
+                            $playConfigChristmas->setLine(new EuroMillionsLine([
+                                new EuroMillionsRegularNumber(0),
+                                new EuroMillionsRegularNumber(1),
+                                new EuroMillionsRegularNumber(2),
+                                new EuroMillionsRegularNumber(3),
+                                new EuroMillionsRegularNumber(4)
+                            ], [
+                                    new EuroMillionsLuckyNumber(1),
+                                    new EuroMillionsLuckyNumber(2)
+                            ]));
                             $playConfigChristmas->setLottery($lottery->getId());
                             $this->playConfigRepository->add($playConfigChristmas);
                             $this->entityManager->flush($playConfigChristmas);
                         }
                     }
+
                     if ($result_payment->success()) {
                         $walletBefore = $user->getWallet();
                         $config = $di->get('config');
