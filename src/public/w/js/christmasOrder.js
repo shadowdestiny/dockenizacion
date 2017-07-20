@@ -57,12 +57,29 @@ $('#pay-wallet').on('click', function(){
 $('.box-add-card').on('submit',function(){
     var disabled = $('label.submit').hasClass('gray');
     var cardNumber = $('#card-number');
+    var error = 0;
     if(disabled) {
         return false;
     }
+    cardNumber.val(cardNumber.val().replace(/ /g, ''));
+
+    if (cardNumber.val().length != 16 || isNaN(cardNumber.val())) {
+        error = 1;
+    }
+
+    if ($('#card-holder').val().replace(/ /g, '') == '' || $('#expiry-date-month').val().replace(/ /g, '') == '' ||
+        $('#expiry-date-year').val().replace(/ /g, '') == '' || $('#card-cvv').val().replace(/ /g, '') == '') {
+        error = 1;
+    }
+
+    if (error == 1) {
+        alert ('You must fill in the card details');
+        return false;
+    }
+
     $('label.submit').removeClass('green').addClass('gray');
     $('label.submit').text('Please wait...');
-    cardNumber.val(cardNumber.val().replace(/ /g, ''));
+
     $('#paywallet').val($('#pay-wallet').is(':checked') ? true : false);
     $('#funds').val($('#charge').val());
     $.cookie('csid', $('#csid').val());
@@ -89,7 +106,7 @@ $('#card-cvv,#card-number').on('keypress',function(e){
         pattern = /^[0-9]+$/;
     }
     var codeFF = e.keyCode;
-    var code = e.which
+    var code = e.which;
     var chr = String.fromCharCode(code);
     if(codeFF == 8 || codeFF == 37 || codeFF == 38 || codeFF == 39 || codeFF == 40 ) {
         return true;
