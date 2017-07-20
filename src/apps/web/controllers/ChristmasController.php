@@ -174,6 +174,8 @@ class ChristmasController extends PublicSiteControllerBase
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
                         $result = $play_service->playChristmas($user_id, $amount, $card, $payWallet, $isWallet, $result->getValues());
 
+                        var_dump('fin1');
+                        exit;
                         return $this->playResult($result);
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();
@@ -181,6 +183,8 @@ class ChristmasController extends PublicSiteControllerBase
                 }
             }
         }
+        var_dump('fin2');
+        exit;
         $this->response->redirect('/christmas/play');
 
 

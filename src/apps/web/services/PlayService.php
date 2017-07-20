@@ -289,21 +289,25 @@ class PlayService
                             $playConfigChristmas->setStartDrawDate($lottery->getNextDrawDate());
                             $playConfigChristmas->setUser($user);
                             $playConfigChristmas->setLine(new EuroMillionsLine([
-                                new EuroMillionsRegularNumber(0),
-                                new EuroMillionsRegularNumber(1),
-                                new EuroMillionsRegularNumber(2),
-                                new EuroMillionsRegularNumber(3),
-                                new EuroMillionsRegularNumber(4)
+                                new EuroMillionsRegularNumber(0, $lottery->getId()),
+                                new EuroMillionsRegularNumber(1, $lottery->getId()),
+                                new EuroMillionsRegularNumber(2, $lottery->getId()),
+                                new EuroMillionsRegularNumber(3, $lottery->getId()),
+                                new EuroMillionsRegularNumber(4, $lottery->getId())
                             ], [
-                                    new EuroMillionsLuckyNumber(1),
-                                    new EuroMillionsLuckyNumber(2)
-                            ]));
+                                    new EuroMillionsLuckyNumber(1, $lottery->getId()),
+                                    new EuroMillionsLuckyNumber(2, $lottery->getId())
+                            ], $lottery->getId()));
                             $playConfigChristmas->setLottery($lottery->getId());
+
                             $this->playConfigRepository->add($playConfigChristmas);
+
                             $this->entityManager->flush($playConfigChristmas);
+
                         }
                     }
-
+                    var_dump('mierda');
+                    exit;
                     if ($result_payment->success()) {
                         $walletBefore = $user->getWallet();
                         $config = $di->get('config');
