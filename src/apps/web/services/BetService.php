@@ -1,4 +1,5 @@
 <?php
+
 namespace EuroMillions\web\services;
 
 use Doctrine\ORM\EntityManager;
@@ -47,22 +48,23 @@ class BetService
         if (!$today) {
             $today = new \DateTime();
         }
+//TODO: Add new lotteryValidationCastilloChristmasApi
 
-        if(!$lotteryValidation) {
+        if (!$lotteryValidation) {
             $lotteryValidation = new LotteryValidationCastilloApi();
         }
         /** @var User $user */
         $user = $this->userRepository->find($playConfig->getUser()->getId());
         $single_bet_price = $euroMillionsDraw->getLottery()->getSingleBetPrice();
-        if(($user->getBalance()->getAmount() || $user->getWallet()->getSubscription()) >= $single_bet_price->getAmount()) {
+        if (($user->getBalance()->getAmount() || $user->getWallet()->getSubscription()) >= $single_bet_price->getAmount()) {
             $di = \Phalcon\Di::getDefault();
             $cypher = $di->get('environmentDetector')->get() != 'production' ? new CypherCastillo3DES() : new CypherCastillo3DESLive();
-            try{
-                $bet = new Bet($playConfig,$euroMillionsDraw);
+            try {
+                $bet = new Bet($playConfig, $euroMillionsDraw);
                 $castillo_key = CastilloCypherKey::create();
                 $castillo_ticket = CastilloTicketId::create();
                 $bet->setCastilloBet($castillo_ticket);
-                $result_validation = $lotteryValidation->validateBet($bet,$cypher,$castillo_key,$castillo_ticket,$dateNextDraw, $bet->getPlayConfig()->getLine());
+                $result_validation = $lotteryValidation->validateBet($bet, $cypher, $castillo_key, $castillo_ticket, $dateNextDraw, $bet->getPlayConfig()->getLine());
 
                 $log_api_reponse = new LogValidationApi();
                 $log_api_reponse->initialize([
@@ -78,8 +80,7 @@ class BetService
                 $this->entityManager->flush();
 
 
-
-                if($result_validation->success()) {
+                if ($result_validation->success()) {
                     $this->betRepository->add($bet);
                     $this->entityManager->flush();
                     $this->playConfigRepository->add($playConfig);
@@ -88,7 +89,7 @@ class BetService
                 } else {
                     return new ActionResult(false, $result_validation->errorMessage());
                 }
-            }catch(\Exception $e) {
+            } catch (\Exception $e) {
                 return new ActionResult(false);
             }
         } else {
@@ -102,23 +103,23 @@ class BetService
                                        \DateTime $dateNextDraw,
                                        LotteryValidationCastilloApi $lotteryValidation = null)
     {
-        if(!$lotteryValidation) {
+        if (!$lotteryValidation) {
             $lotteryValidation = new LotteryValidationCastilloApi();
         }
         /** @var User $user */
         $user = $this->userRepository->find($playConfig[0]->getUser()->getId());
         $single_bet_price = $euroMillionsDraw->getLottery()->getSingleBetPrice();
-        if($user->getBalance()->getAmount() >= $single_bet_price->getAmount()) {
+        if ($user->getBalance()->getAmount() >= $single_bet_price->getAmount()) {
             $di = \Phalcon\Di::getDefault();
             $cypher = $di->get('environmentDetector')->get() != 'production' ? new CypherCastillo3DES() : new CypherCastillo3DESLive();
-            try{
-                $result_validation = $lotteryValidation->validateBetInGroup($cypher,$dateNextDraw,$playConfig);
-                if($result_validation->success()) {
-                    $this->logValidationRepository->persistValidationsAndBetsFromPlayConfigsCollection($playConfig,$euroMillionsDraw,$lotteryValidation->getCastilloId());
+            try {
+                $result_validation = $lotteryValidation->validateBetInGroup($cypher, $dateNextDraw, $playConfig);
+                if ($result_validation->success()) {
+                    $this->logValidationRepository->persistValidationsAndBetsFromPlayConfigsCollection($playConfig, $euroMillionsDraw, $lotteryValidation->getCastilloId());
                     return $result_validation;
                 }
 
-            }catch(\Exception $e) {
+            } catch (\Exception $e) {
                 return new ActionResult(false);
             }
         } else {
@@ -126,24 +127,24 @@ class BetService
         }
     }
 
-    public function getBetsPlayedLastDraw( \DateTime $dateLastDraw )
+    public function getBetsPlayedLastDraw(\DateTime $dateLastDraw)
     {
         try {
             $result = $this->betRepository->getBetsPlayedLastDraw($dateLastDraw);
-            if( count($result) > 0 ) {
+            if (count($result) > 0) {
                 return $result;
             }
             return null;
-        } catch ( \Exception $e) {
+        } catch (\Exception $e) {
             return null;
         }
     }
 
-    public function obtainBetsWithAPlayConfigAndAEuromillionsDraw( PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw )
+    public function obtainBetsWithAPlayConfigAndAEuromillionsDraw(PlayConfig $playConfig, EuroMillionsDraw $euroMillionsDraw)
     {
         try {
-            return $this->betRepository->getBetsByPlayConfigAndEuromillionsDraw($playConfig,$euroMillionsDraw);
-        } catch ( \Exception $e) {
+            return $this->betRepository->getBetsByPlayConfigAndEuromillionsDraw($playConfig, $euroMillionsDraw);
+        } catch (\Exception $e) {
             return false;
         }
     }
@@ -152,7 +153,7 @@ class BetService
     {
         try {
             $this->playConfigRepository->updateToInactives($dateTime);
-        } catch ( \Exception $e ) {
+        } catch (\Exception $e) {
             throw new \Exception('Error updating playconfigs actives');
         }
     }

@@ -125,7 +125,7 @@ class Lottery extends EntityBase implements IEntity
     protected function getDrawFromDaily(\DateTime $date, $iterationMethod, callable $hourCondition)
     {
         $hour = $date->format("H:i:s");
-        if($hourCondition($hour)) {
+        if ($hourCondition($hour)) {
             return $this->getDateWithDrawTime($date);
         } else {
             return $this->getDateWithDrawTime($date->$iterationMethod(new \DateInterval('P1D')));
@@ -164,13 +164,13 @@ class Lottery extends EntityBase implements IEntity
                     ($configParams == 29 && $leap_year)
                 )
             ) {
-                return $this->getDateWithSpecificMonthAndDayAndDrawTime($date,'m',$configParams);
+                return $this->getDateWithSpecificMonthAndDayAndDrawTime($date, 'm', $configParams);
             } else {
-                return $this->getDateWithSpecificMonthAndDayAndDrawTime($date,'03',$configParams);
+                return $this->getDateWithSpecificMonthAndDayAndDrawTime($date, '03', $configParams);
             }
         } else {
             $next_month = $date->add(new \DateInterval('P1M'));
-            return $this->getDateWithSpecificMonthAndDayAndDrawTime($next_month,'m',$configParams);
+            return $this->getDateWithSpecificMonthAndDayAndDrawTime($next_month, 'm', $configParams);
         }
     }
 
@@ -181,7 +181,7 @@ class Lottery extends EntityBase implements IEntity
         $leap_year = $date->format('L');
         $month = $date->format("m");
         if ($day_of_month > (int)$configParams || ($day_of_month == (int)$configParams) && $hour > $this->draw_time) {
-            return $this->getDateWithSpecificMonthAndDayAndDrawTime($date,'m',$configParams);
+            return $this->getDateWithSpecificMonthAndDayAndDrawTime($date, 'm', $configParams);
         } else {
             if ($month != 3
                 || ($month == 3 &&
@@ -190,9 +190,9 @@ class Lottery extends EntityBase implements IEntity
                 )
             ) {
                 $previous_month = $date->sub(new \DateInterval('P1M'));
-                return $this->getDateWithSpecificMonthAndDayAndDrawTime($previous_month,'m',$configParams);
+                return $this->getDateWithSpecificMonthAndDayAndDrawTime($previous_month, 'm', $configParams);
             } else {
-                return $this->getDateWithSpecificMonthAndDayAndDrawTime($date,'01',$configParams);
+                return $this->getDateWithSpecificMonthAndDayAndDrawTime($date, '01', $configParams);
             }
         }
     }
@@ -206,10 +206,15 @@ class Lottery extends EntityBase implements IEntity
         if (
             ($month_day == $configParams && $hourCondition($hour)) || $monthDayCondition($month_day)
         ) {
-            return $this->getDateWithSpecificMonthAndDayAndDrawTime($date,$draw_month,$draw_day);
+            return $this->getDateWithSpecificMonthAndDayAndDrawTime($date, $draw_month, $draw_day);
         } else {
-            return $this->getDateWithSpecificMonthAndDayAndDrawTime($date->$iterationMethod(new \DateInterval('P1Y')),$draw_month,$draw_day);
+            return $this->getDateWithSpecificMonthAndDayAndDrawTime($date->$iterationMethod(new \DateInterval('P1Y')), $draw_month, $draw_day);
         }
+    }
+
+    protected function getDrawFromYearlyChristmas($configParams, \DateTime $date, $iterationMethod, callable $hourCondition, callable $monthDayCondition)
+    {
+        return new \DateTime($date->format("Y-m-d {$this->draw_time}"));
     }
 
     /**
@@ -224,7 +229,7 @@ class Lottery extends EntityBase implements IEntity
         if ($next_or_last == 'Next') {
             $iteration_method = 'add';
             $increment = 1;
-            $hourCondition = function($hour) use ($draw_time) {
+            $hourCondition = function ($hour) use ($draw_time) {
                 return $hour < $draw_time;
             };
             $monthDayConfition = function ($monthDay) use ($config_params) {
@@ -233,7 +238,7 @@ class Lottery extends EntityBase implements IEntity
         } else {
             $iteration_method = 'sub';
             $increment = -1;
-            $hourCondition = function($hour) use ($draw_time) {
+            $hourCondition = function ($hour) use ($draw_time) {
                 return $hour > $draw_time;
             };
             $monthDayConfition = function ($monthDay) use ($config_params) {
@@ -260,6 +265,9 @@ class Lottery extends EntityBase implements IEntity
             case 'd':
                 return $this->getDrawFromDaily($now, $iteration_method, $hourCondition);
                 break;
+            case 'c':
+                return $this->getDrawFromYearlyChristmas($config_params, $now, $iteration_method, $hourCondition, $monthDayConfition);
+                break;
             default:
                 return false; //throw instead?
         }
@@ -267,15 +275,15 @@ class Lottery extends EntityBase implements IEntity
 
     private function getRecurrentDraw($iteration = 5, \DateTime $now = null)
     {
-        if( !$now ) {
+        if (!$now) {
             $now = new \DateTime();
         }
         $drawDates = [];
-        for($i=0; $i < $iteration; $i++){
-            if($i == 0) $lastDraw = $now;
+        for ($i = 0; $i < $iteration; $i++) {
+            if ($i == 0) $lastDraw = $now;
             /** @var \DateTime $lastDraw */
             $lastDraw = $this->getDrawDate($lastDraw, 'Next');
-            $drawDates[] = [ $lastDraw->format('l d F').'#'.date('w',$lastDraw->getTimestamp())];
+            $drawDates[] = [$lastDraw->format('l d F') . '#' . date('w', $lastDraw->getTimestamp())];
         }
         return $drawDates;
     }
