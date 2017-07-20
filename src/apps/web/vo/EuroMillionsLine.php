@@ -28,13 +28,15 @@ class EuroMillionsLine implements IArraySerializable
      * @param EuroMillionsRegularNumber[] $regular_numbers
      * @param EuroMillionsLuckyNumber[] $lucky_numbers
      */
-    public function __construct(array $regular_numbers, array $lucky_numbers)
+    public function __construct(array $regular_numbers, array $lucky_numbers, $lottery = null)
     {
 //        if (count($regular_numbers) != self::NUM_REGULAR_NUMBERS || count($lucky_numbers) != self::NUM_LUCKY_NUMBERS ){
 //            throw new \InvalidArgumentException("An EuroMillions result should have ".self::NUM_REGULAR_NUMBERS." regular numbers and ".self::NUM_LUCKY_NUMBERS." lucky numbers");
 //        }
-        if ($this->checkTypeAndRepeated($regular_numbers, 'EuroMillionsRegularNumber') || $this->checkTypeAndRepeated($lucky_numbers, 'EuroMillionsLuckyNumber')) {
-            throw new \InvalidArgumentException("The result numbers cannot have duplicates");
+        if ($lottery == NULL) {
+            if ($this->checkTypeAndRepeated($regular_numbers, 'EuroMillionsRegularNumber') || $this->checkTypeAndRepeated($lucky_numbers, 'EuroMillionsLuckyNumber')) {
+                throw new \InvalidArgumentException("The result numbers cannot have duplicates");
+            }
         }
         $callback = function (EuroMillionsResultNumber $elem) {
             return $elem->getNumber();
