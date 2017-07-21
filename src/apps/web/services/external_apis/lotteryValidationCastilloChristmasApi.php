@@ -37,7 +37,7 @@ class LotteryValidationCastilloChristmasApi
                                 CastilloCypherKey $castilloKey = null,
                                 CastilloTicketId $castilloTicketId = null,
                                 \DateTime $date_next_draw,
-                                ChristmasNumber $number)
+                                EuroMillionsLine $line)
     {
         if (null === $castilloKey) {
             $castilloKey = CastilloCypherKey::create();
@@ -50,12 +50,12 @@ class LotteryValidationCastilloChristmasApi
         $regular_numbers = $line->getRegularNumbersArray();
         $lucky_numbers = $line->getLuckyNumbersArray();
         $content = "<?xml version='1.0' encoding='UTF-8'?><ticket type='3' date='" . $date_next_draw->format('ymd') . "' bets='1' price='" . self::PRICE_BET . "'><id>" . $castilloTicketId->id() . "</id><combination>";
-        $content .= "<lottery number='" . $number->getNumber() . "' price='" . self::PRICE_BET . "'>
+        $content .= "<lottery number='" . $line->getRegularNumbers() . "' price='" . self::PRICE_BET . "'>
             <decimo>
                 <date>20171222</date>
-                <number>" . $number->getNumber() . "</number>
-                <serie>" . $number->getSerie() . "</serie>
-                <fraccion>" . $number->getFraccion() . "</fraccion>
+                <number>" . $line->getRegularNumbers() . "</number>
+                <serie>" . $line->getLuckyNumbers() . "</serie>
+                <fraccion>" . $line->getLuckyNumbers() . "</fraccion>
             </decimo>
         </lottery>";
 

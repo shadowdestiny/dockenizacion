@@ -49,14 +49,17 @@ class EuroMillionsLine implements IArraySerializable
         } else {
             $this->regular_numbers = implode(',',array_map($callback, $regular_numbers));
             $this->lucky_numbers = implode(',',array_map($callback, $lucky_numbers));
-            $this->setPropertiesValues($regular_numbers, $lucky_numbers);
+            $this->setPropertiesValues($regular_numbers, $lucky_numbers, $lottery);
         }
     }
 
-    private function setPropertiesValues(array $regular_numbers, array $lucky_numbers)
+    private function setPropertiesValues(array $regular_numbers, array $lucky_numbers, $lottery = null)
     {
-        sort($regular_numbers);
-        sort($lucky_numbers);
+        if (!$lottery) {
+            sort($regular_numbers);
+            sort($lucky_numbers);
+        }
+
         $this->regular_number_one = $regular_numbers[0]->getNumber();
         $this->regular_number_two = $regular_numbers[1]->getNumber();
         $this->regular_number_three = $regular_numbers[2]->getNumber();

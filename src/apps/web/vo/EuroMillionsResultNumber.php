@@ -6,8 +6,6 @@ abstract class EuroMillionsResultNumber
 {
     protected $number;
 
-    protected $lottery;
-
     abstract protected function getMinValue();
     abstract protected function getMaxValue();
 

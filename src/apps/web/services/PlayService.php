@@ -173,6 +173,7 @@ class PlayService
                             $play_config->setLottery($lottery);
                             $play_config->setDiscount($order->getDiscount());
                             $this->playConfigRepository->add($play_config);
+                            var_dump($play_config);die();
                             $this->entityManager->flush($play_config);
                         }
                     }
@@ -283,54 +284,39 @@ class PlayService
                         /** @var ChristmasTickets $play_config */
                         foreach ($order->getPlayConfig() as $play_config) {
                             $playConfigChristmas = new PlayConfig();
-                            $playConfigChristmas->setActive(1);
+                            $playConfigChristmas->setId(1);
+                            $playConfigChristmas->setActive(true);
                             $playConfigChristmas->setFrequency(1);
                             $playConfigChristmas->setLastDrawDate($lottery->getNextDrawDate());
                             $playConfigChristmas->setStartDrawDate($lottery->getNextDrawDate());
                             $playConfigChristmas->setUser($user);
-                            $playConfigChristmas->setLine(new EuroMillionsLine([
-                                new EuroMillionsRegularNumber(0, $lottery->getId()),
-                                new EuroMillionsRegularNumber(1, $lottery->getId()),
-                                new EuroMillionsRegularNumber(2, $lottery->getId()),
-                                new EuroMillionsRegularNumber(3, $lottery->getId()),
-                                new EuroMillionsRegularNumber(4, $lottery->getId())
-                            ], [
-                                    new EuroMillionsLuckyNumber(1, $lottery->getId()),
-                                    new EuroMillionsLuckyNumber(2, $lottery->getId())
-                            ], $lottery->getId()));
-                            $playConfigChristmas->setLottery($lottery->getId());
+                            $playConfigChristmas->setDiscount(new Discount(0, []));
+                            $numberLine = [];
+                            $luckyLine = [];
+                            foreach (str_split($play_config->getNumber()) as $number) {
+                                $numberLine[] = new EuroMillionsRegularNumber(intval($number), $lottery->getId());
+                            }
+                            $luckyLine[] = new EuroMillionsLuckyNumber(intval($play_config->getNumSeries()), $lottery->getId());
+                            $luckyLine[] = new EuroMillionsLuckyNumber(intval($play_config->getNumFractions()), $lottery->getId());
+                            $playConfigChristmas->setLine(new EuroMillionsLine($numberLine, $luckyLine, $lottery->getId()));
 
+                            $playConfigChristmas->setLottery($lottery);
                             $this->playConfigRepository->add($playConfigChristmas);
-
                             $this->entityManager->flush($playConfigChristmas);
-
                         }
                     }
-                    var_dump('mierda');
-                    exit;
                     if ($result_payment->success()) {
                         $walletBefore = $user->getWallet();
                         $config = $di->get('config');
 
                         if ($config->application->send_single_validations) {
                             foreach ($order->getPlayConfig() as $play_config) {
-                                $result_validation = $this->christmasService->validationChristmas($play_config, $draw->getValues(), $lottery->getNextDrawDate());
+                                $result_validation = $this->betService->validationChristmas($playConfigChristmas, $draw->getValues(), $lottery->getNextDrawDate());
+
                                 if (!$result_validation->success()) {
                                     return new ActionResult(false, $result_validation->errorMessage());
                                 }
-                                if ($order->getHasSubscription()) {
-                                    if ($isWallet) {
-                                        $this->walletService->paySubscriptionWithWallet($user, $play_config);
-                                        $this->walletService->payWithSubscription($user, $play_config);
-                                    } elseif ($withAccountBalance) {
-                                        $this->walletService->payWithSubscription($user, $play_config);
-                                        $this->walletService->paySubscriptionWithWalletAndCreditCard($user, $play_config);
-                                    } else {
-                                        $this->walletService->payWithSubscription($user, $play_config);
-                                    }
-                                } else {
-                                    $this->walletService->payWithWallet($user, $play_config);
-                                }
+                                $this->walletService->payWithWallet($user, $playConfigChristmas);
                             }
                             $numPlayConfigs = count($order->getPlayConfig());
                         } else {
@@ -541,6 +527,23 @@ class PlayService
     }
 
     private function sendEmailPurchase(User $user, $orderLines)
+    {
+        $emailBaseTemplate = new EmailTemplate();
+        $emailTemplate = new PurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
+        if ($orderLines[0]->getFrequency() >= 4) {
+            $emailTemplate = new PurchaseSubscriptionConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
+//        $emailTemplate->setFrequency($orderLines[0]->getFrequencyPlay());
+            $emailTemplate->setDraws($orderLines[0]->getFrequency());
+//        $emailTemplate->setJackpot($orderLines[0]->getJackpot());
+            $emailTemplate->setStartingDate($orderLines[0]->getStartDrawDate()->format('d-m-Y'));
+        }
+        $emailTemplate->setLine($orderLines);
+        $emailTemplate->setUser($user);
+
+        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
+    }
+
+    private function sendEmailPurchaseChristmas(User $user, $orderLines)
     {
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new PurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
