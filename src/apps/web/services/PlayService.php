@@ -214,6 +214,9 @@ class PlayService
                             $this->walletService->payGroupedBetsWithWallet($user, $playConfigs[0]->getLottery()->getSingleBetPrice()->multiply(count($playConfigs)));
                             $numPlayConfigs = count($playConfigs);
                         }
+                        var_dump(array_map(function ($val) {
+                            return $val->getId();
+                        }, $order->getPlayConfig()));die();
                         $dataTransaction = [
                             'lottery_id' => 1,
                             'transactionID' => $uniqueId,
@@ -268,7 +271,6 @@ class PlayService
                     $order->setIsCheckedWalletBalance($withAccountBalance);
                     $order->addFunds($funds);
                     $order->setAmountWallet($user->getWallet()->getBalance());
-
                     $draw = $this->lotteryService->getNextDrawByLottery('Christmas');
                     if ($credit_card != null) {
                         $this->cardPaymentProvider->user($user);
@@ -278,7 +280,7 @@ class PlayService
                     } else {
                         $result_payment = new ActionResult(true, $order);
                     }
-
+                    $allPlayConfigsChristmas = [];
                     if (count($order->getPlayConfig()) > 0 && $result_payment->success()) {
                         //EMTD be careful now, set explicity lottery, but it should come inform on playconfig entity
                         /** @var ChristmasTickets $play_config */
@@ -303,14 +305,13 @@ class PlayService
                             $playConfigChristmas->setLottery($lottery);
                             $this->playConfigRepository->add($playConfigChristmas);
                             $this->entityManager->flush($playConfigChristmas);
+                            $allPlayConfigsChristmas[] = $playConfigChristmas;
                         }
                     }
+
                     if ($result_payment->success()) {
                         $walletBefore = $user->getWallet();
-                        $config = $di->get('config');
-
-                        if ($config->application->send_single_validations) {
-                            foreach ($order->getPlayConfig() as $play_config) {
+                            foreach ($allPlayConfigsChristmas as $playConfigChristmas) {
                                 $result_validation = $this->betService->validationChristmas($playConfigChristmas, $draw->getValues(), $lottery->getNextDrawDate());
 
                                 if (!$result_validation->success()) {
@@ -318,33 +319,23 @@ class PlayService
                                 }
                                 $this->walletService->payWithWallet($user, $playConfigChristmas);
                             }
-                            $numPlayConfigs = count($order->getPlayConfig());
-                        } else {
-                            $playConfigs = $order->getPlayConfig();
-                            foreach (array_chunk($playConfigs, self::NUM_BETS_PER_REQUEST) as $playConfigsSplit) {
-                                $result_validation = $this->betService->groupingValidation($playConfigsSplit, $draw->getValues(), $lottery->getNextDrawDate());
-                                if (!$result_validation->success()) {
-                                    return new ActionResult(false, $result_validation->errorMessage());
-                                }
-                            }
-                            $this->walletService->payGroupedBetsWithWallet($user, $playConfigs[0]->getLottery()->getSingleBetPrice()->multiply(count($playConfigs)));
-                            $numPlayConfigs = count($playConfigs);
-                        }
+                            $numPlayConfigs = count($allPlayConfigsChristmas);
                         $dataTransaction = [
-                            'lottery_id' => 1,
+                            'lottery_id' => 2,
                             'transactionID' => $uniqueId,
-                            'numBets' => count($order->getPlayConfig()),
+                            'numBets' => count($allPlayConfigsChristmas),
                             'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
                             'amountWithWallet' => $lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount(),
                             'walletBefore' => $walletBefore,
                             'amountWithCreditCard' => 0,
                             'playConfigs' => array_map(function ($val) {
                                 return $val->getId();
-                            }, $order->getPlayConfig()),
-                            'discount' => $discount,
+                            }, $allPlayConfigsChristmas),
+                            'discount' => 0,
                         ];
+
                         $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
-                        $this->sendEmailPurchase($user, $order->getPlayConfig());
+                        $this->sendEmailPurchaseChristmas($user, $order->getPlayConfig());
                         return new ActionResult(true, $order);
                     } else {
                         return new ActionResult($result_payment->success(), $order);
@@ -545,19 +536,12 @@ class PlayService
 
     private function sendEmailPurchaseChristmas(User $user, $orderLines)
     {
-        $emailBaseTemplate = new EmailTemplate();
-        $emailTemplate = new PurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
-        if ($orderLines[0]->getFrequency() >= 4) {
-            $emailTemplate = new PurchaseSubscriptionConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
-//        $emailTemplate->setFrequency($orderLines[0]->getFrequencyPlay());
-            $emailTemplate->setDraws($orderLines[0]->getFrequency());
-//        $emailTemplate->setJackpot($orderLines[0]->getJackpot());
-            $emailTemplate->setStartingDate($orderLines[0]->getStartDrawDate()->format('d-m-Y'));
-        }
-        $emailTemplate->setLine($orderLines);
-        $emailTemplate->setUser($user);
-
-        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
+//        $emailBaseTemplate = new EmailTemplate();
+//        $emailTemplate = new PurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
+//        $emailTemplate->setLine($orderLines);
+//        $emailTemplate->setUser($user);
+//
+//        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 
 

@@ -136,7 +136,7 @@ class ChristmasController extends PublicSiteControllerBase
         //Payment thru wallet ONLY
         if ($this->request->isGet()) {
             $isWallet = true;
-            $charge = $this->request->get('charge');
+            $charge = 0;
             $user = $this->userService->getUser($user_id);
             if (null != $user && isset($charge)) {
                 try {
@@ -174,8 +174,6 @@ class ChristmasController extends PublicSiteControllerBase
                         $amount = new Money((int)str_replace('.', '', $funds_value), new Currency('EUR'));
                         $result = $play_service->playChristmas($user_id, $amount, $card, $payWallet, $isWallet, $result->getValues());
 
-                        var_dump('fin1');
-                        exit;
                         return $this->playResult($result);
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();
@@ -183,11 +181,8 @@ class ChristmasController extends PublicSiteControllerBase
                 }
             }
         }
-        var_dump('fin2');
-        exit;
+
         $this->response->redirect('/christmas/play');
-
-
     }
 
     /**
@@ -235,6 +230,7 @@ class ChristmasController extends PublicSiteControllerBase
      */
     protected function playResult(ActionResult $result)
     {
+        var_dump('fin');
         if ($result->success()) {
             $this->response->redirect('/' . $this->lottery . '/result/success');
             return false;
