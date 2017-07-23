@@ -2,4 +2,5 @@
 dependencies:
   - T2L.composer
   - martinmicunda.nodejs
-  - docker.ubuntu
+  #- docker.ubuntu
+  - lexrus.ansible-role-docker
