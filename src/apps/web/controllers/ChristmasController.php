@@ -182,7 +182,39 @@ class ChristmasController extends PublicSiteControllerBase
             }
         }
 
-        $this->response->redirect('/christmas/play');
+        $this->response->redirect('/christmas/failure');
+    }
+
+    public function successAction()
+    {
+        $user_id = $this->authService->getCurrentUser()->getId();
+        /** @var User $user */
+        $user = $this->userService->getUser($user_id);
+
+        if (null == $user) {
+            $this->response->redirect('/' . $this->lottery . '/cart/profile');
+            return false;
+        }
+
+        $play_service = $this->domainServiceFactory->getPlayService();
+
+        $this->tag->prependTitle('Purchase Confirmation');
+
+        return $this->view->setVars([
+            'jackpot_value' => '',
+            'user' => $user,
+            'draw_date_format' => $this->lotteryService->getNextDateDrawByLottery('Christmas')->format('Y-m-d'),
+            'christmasTickets' => $play_service->getChristmasPlaysFromTemporarilyStorage($user)->returnValues(),
+        ]);
+    }
+
+    public function failureAction()
+    {
+        $user_id = $this->authService->getCurrentUser()->getId();
+        $play_service = $this->domainServiceFactory->getPlayService();
+        $play_service->removeStorePlay($user_id);
+        $play_service->removeStoreOrder($user_id);
+        $this->tag->prependTitle('Payment Unsuccessful');
     }
 
     /**
@@ -230,12 +262,11 @@ class ChristmasController extends PublicSiteControllerBase
      */
     protected function playResult(ActionResult $result)
     {
-        var_dump('fin');
         if ($result->success()) {
-            $this->response->redirect('/' . $this->lottery . '/result/success');
+            $this->response->redirect('/christmas/success');
             return false;
         } else {
-            $this->response->redirect('/' . $this->lottery . '/result/failure');
+            $this->response->redirect('/christmas/failure');
             return false;
         }
     }

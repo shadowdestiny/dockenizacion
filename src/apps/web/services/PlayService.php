@@ -66,9 +66,6 @@ class PlayService
     private $betService;
     /** @var  EmailService $emailService */
     private $emailService;
-    /** @var  ChristmasService $betService */
-    private $christmasService;
-
 
     //EMTD refactor this class: a lot of dependencies
     public function __construct(EntityManager $entityManager,
@@ -173,7 +170,6 @@ class PlayService
                             $play_config->setLottery($lottery);
                             $play_config->setDiscount($order->getDiscount());
                             $this->playConfigRepository->add($play_config);
-                            var_dump($play_config);die();
                             $this->entityManager->flush($play_config);
                         }
                     }
@@ -214,9 +210,7 @@ class PlayService
                             $this->walletService->payGroupedBetsWithWallet($user, $playConfigs[0]->getLottery()->getSingleBetPrice()->multiply(count($playConfigs)));
                             $numPlayConfigs = count($playConfigs);
                         }
-                        var_dump(array_map(function ($val) {
-                            return $val->getId();
-                        }, $order->getPlayConfig()));die();
+
                         $dataTransaction = [
                             'lottery_id' => 1,
                             'transactionID' => $uniqueId,
@@ -298,7 +292,7 @@ class PlayService
                             foreach (str_split($play_config->getNumber()) as $number) {
                                 $numberLine[] = new EuroMillionsRegularNumber(intval($number), $lottery->getId());
                             }
-                            $luckyLine[] = new EuroMillionsLuckyNumber(intval($play_config->getNumSeries()), $lottery->getId());
+                            $luckyLine[] = new EuroMillionsLuckyNumber(intval($play_config->getSerieInit()), $lottery->getId());
                             $luckyLine[] = new EuroMillionsLuckyNumber(intval($play_config->getNumFractions()), $lottery->getId());
                             $playConfigChristmas->setLine(new EuroMillionsLine($numberLine, $luckyLine, $lottery->getId()));
 
@@ -318,6 +312,7 @@ class PlayService
                                     return new ActionResult(false, $result_validation->errorMessage());
                                 }
                                 $this->walletService->payWithWallet($user, $playConfigChristmas);
+                                $this->playConfigRepository->substractNumFractionsToChristmasTicket($playConfigChristmas->getLine()->getRegularNumbers());
                             }
                             $numPlayConfigs = count($allPlayConfigsChristmas);
                         $dataTransaction = [

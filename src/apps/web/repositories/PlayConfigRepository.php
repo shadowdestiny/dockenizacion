@@ -332,7 +332,17 @@ class PlayConfigRepository extends RepositoryBase
         return $result;
     }
 
-    public function retrieveEuromillionsBundlePrice() {
+    /**
+     * @param $number
+     */
+    public function substractNumFractionsToChristmasTicket($number)
+    {
+        $number = str_replace(',', '', $number);
+        $this->getEntityManager()->getConnection()->executeQuery("UPDATE christmas_tickets SET n_fractions = n_fractions - 1 where number = '". $number ."'");
+    }
+
+    public function retrieveEuromillionsBundlePrice()
+    {
         return [
             ['draws' => '1', 'description' => '1 Draw', 'price_description' => 'Line', 'price' => '1', 'discount' => 0, 'checked' => 'active'],
             ['draws' => '4', 'description' => '4 Draws', 'price_description' => 'Line', 'price' => '1', 'discount' => 0, 'checked' => ''],
