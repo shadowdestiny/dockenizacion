@@ -51,7 +51,7 @@ class LotteryValidationCastilloChristmasApi
         $content = "<?xml version='1.0' encoding='UTF-8'?><ticket type='3' date='" . $date_next_draw->format('ymd') . "' bets='1' price='" . self::PRICE_BET . "'><id>" . $castilloTicketId->id() . "</id><combination>";
         $content .= "<lottery number='" . $line->getRegularNumbers() . "' price='" . self::PRICE_BET . "'>
             <decimo>
-                <date>20171222</date>
+                <date>" . $date_next_draw->format('Ymd') . "</date>
                 <number>" . str_replace(',','',$line->getRegularNumbers()) . "</number>
                 <serie>" . $luckyNumbers[0] . "</serie>
                 <fraccion>" . $luckyNumbers[1] . "</fraccion>
