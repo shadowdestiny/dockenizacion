@@ -48,8 +48,8 @@ class LotteryValidationCastilloChristmasApi
 
         $this->castilloId = $castilloTicketId;
         $luckyNumbers = explode(',',$line->getLuckyNumbers());
-        $content = "<?xml version='1.0' encoding='UTF-8'?><ticket type='3' date='" . $date_next_draw->format('ymd') . "' bets='1' price='" . self::PRICE_BET . "'><id>" . $castilloTicketId->id() . "</id><combination>";
-        $content .= "<lottery number='" . $line->getRegularNumbers() . "' price='" . self::PRICE_BET . "'>
+        $content = "<?xml version='1.0' encoding='UTF-8'?>";
+        $content .= "<lottery number='" . str_replace(',', '', $line->getRegularNumbers()) . "' price='" . self::PRICE_BET . "'>
             <decimo>
                 <date>" . $date_next_draw->format('Ymd') . "</date>
                 <number>" . str_replace(',','',$line->getRegularNumbers()) . "</number>
@@ -58,12 +58,11 @@ class LotteryValidationCastilloChristmasApi
             </decimo>
         </lottery>";
 
-        $content .= "</combination></ticket>";
         $idsession = $bet->getCastilloBet()->id();
         $key = $castilloKey->key();
         $content_cyphered = $cypher->encrypt($key, $content);
         $signature = $cypher->getSignature($content_cyphered);
-        $xml = '<?xml version="1.0" encoding="UTF-8"?><message><operation id="' . $idsession . '" key="' . $key . '" type="1"><content>' . $content_cyphered . '</content></operation>';
+        $xml = '<?xml version="1.0" encoding="UTF-8"?><message><operation id="' . $idsession . '" key="' . $key . '" type="5"><content>' . $content_cyphered . '</content></operation>';
         $xml .= '<signature>' . $signature . '</signature></message>';
         $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYPEER, 0);
         $this->curlWrapper->setOption(CURLOPT_POSTFIELDS, $xml);

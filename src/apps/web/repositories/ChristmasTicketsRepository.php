@@ -19,4 +19,11 @@ class ChristmasTicketsRepository extends RepositoryBase
                     FROM christmas_tickets
                     WHERE n_fractions > 0', $rsm)->getResult();
     }
+
+    public function insertTicket(array $ticket)
+    {
+        $this->getEntityManager()->getConnection()->executeQuery("
+            INSERT INTO christmas_tickets VALUES (NULL, '" . $ticket[0] . "', '1', " . $ticket[1] . ", " . $ticket[1] . ", 10, 1, 10)
+            ");
+    }
 }
