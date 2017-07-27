@@ -95,8 +95,8 @@
 	</div>
 	<div id="closeticket" class="modal" style="width: 1000px;height: 500px;">
 		<div style="text-align: center;color:white">
-			{#It is too late to buy EuroMillions tickets for the draw held in Paris tonight at 20:45 CET.#}
-			In a few moments you will be able to purchase EuroMillions tickets for the next draw. {# that will take place on Tuesday.#}
+			It is too late to buy EuroMillions tickets for the draw held in Paris tonight at 20:45 CET.
+			In a few moments you will be able to purchase EuroMillions tickets for the next draw that will take place on Tuesday.
 
 			<br><br>Thank you for your pacience.<br>
 
