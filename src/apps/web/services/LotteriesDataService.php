@@ -77,7 +77,9 @@ class LotteriesDataService
             if (!$draw) {
                 $draw = $this->createDraw($next_draw_date, $jackpot, $lottery);
             } else {
-                $draw->setJackpot($jackpot);
+                if (is_null($draw->getJackpot())) {
+                    $draw->setJackpot($jackpot);
+                }
             }
             $this->entityManager->persist($draw);
             $this->entityManager->flush();
