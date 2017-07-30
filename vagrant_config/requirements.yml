@@ -1,5 +1,7 @@
 ---
 #- src: sarrubia.phalcon
 - src: martinmicunda.nodejs
-- src: https://github.com/rmrbest/docker.ubuntu
+#- src: https://github.com/rmrbest/docker.ubuntu
+#- src: geerlingguy.pip
+#- src: geerlingguy.docker
 - src: T2L.composer

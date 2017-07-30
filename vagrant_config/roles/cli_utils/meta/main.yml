@@ -1,5 +1,5 @@
 ---
 dependencies:
   - T2L.composer
-  - martinmicunda.nodejs
-  - docker.ubuntu
+#  - martinmicunda.nodejs
+#  - geerlingguy.docker

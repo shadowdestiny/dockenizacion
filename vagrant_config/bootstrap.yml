@@ -9,6 +9,7 @@
     - webserver_container_name: develweb
     - database_slave_name: develdbslave
   roles:
+    - install_docker
     - bootstrap_containers
     - migrations
     - replication
