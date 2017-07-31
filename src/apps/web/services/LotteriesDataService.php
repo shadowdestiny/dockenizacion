@@ -65,9 +65,7 @@ class LotteriesDataService
             if (!$draw) {
                 $draw = $this->createDraw($next_draw_date, $jackpot, $lottery);
             } else {
-                if (is_null($draw->getJackpot())) {
-                    $draw->setJackpot($jackpot);
-                }
+                $draw->setJackpot($jackpot);
             }
             $this->entityManager->persist($draw);
             $this->entityManager->flush();
@@ -77,9 +75,7 @@ class LotteriesDataService
             if (!$draw) {
                 $draw = $this->createDraw($next_draw_date, $jackpot, $lottery);
             } else {
-                if (is_null($draw->getJackpot())) {
-                    $draw->setJackpot($jackpot);
-                }
+                $draw->setJackpot($jackpot);
             }
             $this->entityManager->persist($draw);
             $this->entityManager->flush();
