@@ -451,10 +451,6 @@ class PlayService
         }
     }
 
-
-
-    //Enric, por favor, refactoriza toda la clase en partes más pequeñas. Evitando las dependencias que se utlizan una vez en la clase.
-
     /**
      * @return BundlePlayCollectionDTO
      */
