@@ -92,7 +92,7 @@
     <modified />
    </fileset>
 
-   <fileset dir="${basedir}/tests">
+   <fileset dir="${basedir}/src/tests">
     <include name="**/*.php" />
     <modified />
    </fileset>
