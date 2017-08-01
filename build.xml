@@ -128,7 +128,7 @@
   </exec>
 
   <property name="phploc.done" value="true"/>
- </target>-->
+ </target> -->
 
  <target name="pdepend"
          unless="pdepend.done"
