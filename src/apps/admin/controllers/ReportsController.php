@@ -151,6 +151,7 @@ class ReportsController extends AdminControllerBase
             'paginator_view_actives' => $paginatorViewActives,
             'my_games_inactives' => $paginatorInactives->getPaginate()->items,
             'paginator_view_inactives' => $paginatorViewInactives,
+            'my_christmas_actives' => $this->reportsService->getMyActiveChristmas($user->getId()),
             'userBets' => $paginatorBets->getPaginate()->items,
             'paginator_view_bets' => $paginatorViewBets,
             'userDeposits' => $paginatorDeposits->getPaginate()->items,

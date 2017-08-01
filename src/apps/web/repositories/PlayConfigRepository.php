@@ -149,15 +149,7 @@ class PlayConfigRepository extends RepositoryBase
                             p.line_lucky_number_two'
                 . ' FROM bets b INNER JOIN play_configs p on b.playConfig_id = p.id  '
                 . ' WHERE p.user_id = "' . $userId . '" AND p.active = 1 AND p.frequency = 1 and p.lottery_id = 2'
-                . ' GROUP BY p.start_draw_date,
-                            p.line_regular_number_one,
-                            p.line_regular_number_two,
-                            p.line_regular_number_three,
-                            p.line_regular_number_four,
-                            p.line_regular_number_five,
-                            p.line_lucky_number_one,
-                            p.line_lucky_number_two
-                    ORDER BY p.start_draw_date ASC, p.last_draw_date ASC '
+                . ' ORDER BY p.start_draw_date ASC, p.last_draw_date ASC '
                 , $rsm)->getResult();
     }
 

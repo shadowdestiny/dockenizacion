@@ -179,6 +179,20 @@ class ReportsService
 
     /**
      * @param $userId
+     *
+     * @return array
+     */
+    public function getMyActiveChristmas($userId)
+    {
+        if(!empty($userId)){
+            return  $this->reportsRepository->getActiveChristmasByUser($userId);
+        }
+
+        return [];
+    }
+
+    /**
+     * @param $userId
      * @param $nextDrawDate
      *
      * @return mixed

@@ -161,7 +161,7 @@ class ReportsRepository implements IReports
             ->createQuery(
                 'SELECT b'
                 . ' FROM ' . '\EuroMillions\web\entities\Bet' . ' b INNER JOIN b.playConfig p '
-                . ' WHERE p.user = :user_id AND p.active = :active and p.frequency = 1 '
+                . ' WHERE p.user = :user_id AND p.active = :active and p.frequency = 1 AND p.lottery = 1 '
                 . ' GROUP BY p.startDrawDate,p.line.regular_number_one,'
                 . ' p.line.regular_number_two,p.line.regular_number_three, '
                 . ' p.line.regular_number_four,p.line.regular_number_five, '
@@ -188,11 +188,39 @@ class ReportsRepository implements IReports
                 . ' p.line.regular_number_four,p.line.regular_number_five, '
                 . ' p.line.lucky_number_one, p.line.lucky_number_two'
                 . ' FROM ' . '\EuroMillions\web\entities\Bet' . ' b JOIN b.playConfig p JOIN b.euromillionsDraw e'
-                . ' WHERE p.user = :user_id AND e.draw_date < :actual_date and p.frequency = 1 '
+                . ' WHERE p.user = :user_id AND e.draw_date < :actual_date and p.frequency = 1 AND p.lottery = 1 '
                 . ' ORDER BY p.startDrawDate DESC ')
             ->setParameters(['user_id' => $userId, 'actual_date' => date('Y-m-d')])
             ->getResult();
         return $result;
+    }
+
+    public function getActiveChristmasByUser($userId)
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('start_draw_date', 'start_draw_date');
+        $rsm->addScalarResult('last_draw_date', 'last_draw_date');
+        $rsm->addScalarResult('line_regular_number_one', 'line_regular_number_one');
+        $rsm->addScalarResult('line_regular_number_two', 'line_regular_number_two');
+        $rsm->addScalarResult('line_regular_number_three', 'line_regular_number_three');
+        $rsm->addScalarResult('line_regular_number_four', 'line_regular_number_four');
+        $rsm->addScalarResult('line_regular_number_five', 'line_regular_number_five');
+        $rsm->addScalarResult('line_lucky_number_one', 'line_lucky_number_one');
+        $rsm->addScalarResult('line_lucky_number_two', 'line_lucky_number_two');
+
+        return $this->entityManager
+            ->createNativeQuery(
+                'SELECT p.start_draw_date, p.last_draw_date, p.line_regular_number_one,
+                            p.line_regular_number_two,
+                            p.line_regular_number_three,
+                            p.line_regular_number_four,
+                            p.line_regular_number_five,
+                            p.line_lucky_number_one,
+                            p.line_lucky_number_two'
+                . ' FROM bets b INNER JOIN play_configs p on b.playConfig_id = p.id  '
+                . ' WHERE p.user_id = "' . $userId . '" AND p.active = 1 AND p.frequency = 1 and p.lottery_id = 2'
+                . ' ORDER BY p.start_draw_date ASC, p.last_draw_date ASC '
+                , $rsm)->getResult();
     }
 
     public function getSubscriptionsByUserIdActive($userId, $nextDrawDate)
@@ -227,7 +255,7 @@ class ReportsRepository implements IReports
                             p.line_lucky_number_two'
                 . ' FROM bets b INNER JOIN play_configs p on b.playConfig_id = p.id  '
                 . ' INNER JOIN log_validation_api lva ON lva.bet_id = b.id '
-                . ' WHERE p.user_id = "' . $userId . '" AND p.active = 1 AND p.frequency > 1 '
+                . ' WHERE p.user_id = "' . $userId . '" AND p.active = 1 AND p.frequency > 1 AND p.lottery_id = 1 '
                 . ' AND last_draw_date >= "' . $nextDrawDate->format('Y-m-d') . '" AND received >= "' . $receivedDate->format('Y-m-d H:i:s') . '"
                     GROUP BY p.start_draw_date,
                             p.line_regular_number_one,
@@ -264,7 +292,7 @@ class ReportsRepository implements IReports
                             p.line_lucky_number_one,
                             p.line_lucky_number_two'
                 . ' FROM bets b INNER JOIN play_configs p on b.playConfig_id = p.id  '
-                . ' WHERE p.user_id = "' . $userId . '" AND p.active = 0 AND p.frequency > 1 '
+                . ' WHERE p.user_id = "' . $userId . '" AND p.active = 0 AND p.frequency > 1 AND p.lottery_id = 1 '
                 . '    GROUP BY p.start_draw_date,
                             p.line_regular_number_one,
                             p.line_regular_number_two,
