@@ -4,7 +4,6 @@ Vagrant.configure(2) do |config|
         v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
     end
     config.vm.box = "gigerdo/ubuntu-wily"
-
     config.vm.provision "shell", inline: <<-SCRIPT
         sudo apt-get update
         sudo apt-get remove --purge nodejs 
