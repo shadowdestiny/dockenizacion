@@ -7,6 +7,7 @@ namespace EuroMillions\web\interfaces;
 interface IReports
 {
     public function getSalesDraw();
+    public function getSalesDrawChristmas();
     public function getMonthlySales();
     public function getCustomersData();
     public function getUsersByReportsPlayersQuery($sql);

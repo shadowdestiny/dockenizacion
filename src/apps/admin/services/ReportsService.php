@@ -321,6 +321,22 @@ class ReportsService
     /**
      * @return mixed
      */
+    public function fetchSalesDrawChristmas()
+    {
+        $salesDraw = $this->reportsRepository->getSalesDrawChristmas();
+        foreach ($salesDraw as $keyDraw => $valueDraw) {
+            $drawDates = $this->getEuromillionsDrawsActualAfterDatesByDrawDate($valueDraw['draw_date']);
+            $drawData = $this->reportsRepository->getEuromillionsDrawDetailsBetweenDrawDates($drawDates);
+            $salesDraw[$keyDraw]['totalBets'] = $drawData[0]['totalBets'];
+            $salesDraw[$keyDraw]['grossSales'] = $drawData[0]['grossSales'];
+            $salesDraw[$keyDraw]['grossMargin'] = $drawData[0]['grossMargin'];
+        }
+        return $salesDraw;
+    }
+
+    /**
+     * @return mixed
+     */
     public function fetchCustomerData()
     {
         return $this->reportsRepository->getCustomersData();

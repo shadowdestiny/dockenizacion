@@ -210,7 +210,30 @@ class ReportsController extends AdminControllerBase
         ]);
     }
 
+    public function salesDrawChristmasAction()
+    {
+        $this->checkPermissions();
+        $this->view->setVars([
+            'needReportsMenu' => true,
+            'salesDraw' => $this->reportsService->fetchSalesDrawChristmas()
+        ]);
+    }
+
     public function salesDrawDetailsAction()
+    {
+        $this->checkPermissions();
+        if ($this->request->get('id')) {
+            $drawDates = $this->reportsService->getEuromillionsDrawsActualAfterDatesById($this->request->get('id'));
+            $this->view->setVars([
+                'needReportsMenu' => true,
+                'euromillionsDrawId' => $this->request->get('id'),
+                'salesDrawDetailsData' => $this->reportsService->getEuromillionsDrawDetailsByIdAndDates($this->request->get('id'), $drawDates),
+                'countryList' => $this->countries,
+            ]);
+        }
+    }
+
+    public function salesDrawChristmasDetailsAction()
     {
         $this->checkPermissions();
         if ($this->request->get('id')) {
