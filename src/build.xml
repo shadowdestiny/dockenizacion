@@ -43,6 +43,7 @@
         <exec executable="${toolsdir}phpunit">
             <arg value="--configuration"/>
             <arg path="tests/phpunit.xml"/>
+            <arg value="--testsuite unit"/>
         </exec>
     </target>
 </project>
