@@ -2,7 +2,6 @@
 <project name="Euromillions" default="build">
 
     <property name="toolsdir" value="vendor/bin/"/>
-
     <target name="build"
             depends="prepare,vendors,phpunit"
             description=""/>
