@@ -18,7 +18,9 @@ interface IReports
     public function getPastGamesWithPrizes($userId);
     public function getActiveChristmasByUser($userId);
     public function getEuromillionsDrawDetailsByIdAndDates($id, $drawDates);
+    public function getChristmasDrawDetailsByIdAndDates($id, $drawDates);
     public function getEuromillionsDrawDetailsBetweenDrawDates($drawDates);
+    public function getChristmasDrawDetailsBetweenDrawDates($drawDates);
     public function getNewRegistrations($data);
     public function getNewDepositors($data);
     public function getActives($data);

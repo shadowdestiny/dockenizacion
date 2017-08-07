@@ -248,6 +248,21 @@ class ReportsService
     }
 
     /**
+     * @param $id
+     *
+     * @return array
+     */
+    public function getChristmasDrawsActualAfterDatesById($id)
+    {
+        /** @var EuroMillionsDraw $actualDraw */
+        $actualDraw = $this->lotteryDrawRepository->find($id);
+        $nextDrawDate = clone $actualDraw->getDrawDate()->setTime(19, 30, 00);
+        $actualDrawDate = $actualDraw->getDrawDate()->setDate($actualDraw->getDrawDate()->format('Y'), 1, 1)->setTime(1, 0,0);
+
+        return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
+    }
+
+    /**
      * @param $date
      *
      * @return array
@@ -257,6 +272,15 @@ class ReportsService
         $actualDraw = new \DateTime($date);
         $nextDrawDate = clone $actualDraw->setTime(19, 30, 00);
         $actualDrawDate = $this->getNextDateDrawByLottery('Euromillions', $actualDraw->modify('-5 days'))->setTime(19, 30, 00);
+
+        return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
+    }
+
+    public function getChristmassDrawsActualAfterDatesByDrawDate($date)
+    {
+        $actualDraw = new \DateTime($date);
+        $nextDrawDate = clone $actualDraw->setTime(19, 30, 00);
+        $actualDrawDate = $actualDraw->setDate($actualDraw->format('Y'), 1, 1)->setTime(1, 0,0);
 
         return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
     }
@@ -295,6 +319,41 @@ class ReportsService
     }
 
     /**
+     * @param $id
+     * @param $drawDates
+     *
+     * @return array
+     */
+    public function getChristmasDrawDetailsByIdAndDates($id, $drawDates)
+    {
+        $drawDetails = $this->generateMovement($this->reportsRepository->getChristmasDrawDetailsByIdAndDates($id, $drawDates));
+        foreach ($drawDetails as $drawKey => $drawValue) {
+            if ($drawValue['entity_type'] == 'ticket_purchase') {
+                $drawData = explode('#', $drawValue['data']);
+                if (isset($drawData[5])) {
+                    $betIds = explode(',', $drawData[5]);
+                    $cont = 0;
+                    foreach ($betIds as $betId) {
+                        $drawDetails[$drawKey]['betIds']['id'][$cont] = $betId;
+                        $numbers = $this->reportsRepository->getNumbersPlayedByBetId($betId);
+                        $drawDetails[$drawKey]['betIds']['numbers'][$cont] = $numbers['line_regular_number_one'] . $numbers['line_regular_number_two'] . $numbers['line_regular_number_three'] . $numbers['line_regular_number_four'] . $numbers['line_regular_number_five'] . ' - ' . $numbers['line_lucky_number_one'];
+                        $cont++;
+                    }
+                }
+            } elseif ($drawValue['entity_type'] == 'automatic_purchase') {
+                $drawData = explode('#', $drawValue['data']);
+                if (isset($drawData[2])) {
+                    $drawDetails[$drawKey]['betIds']['id'][0] = $drawData[2];
+                    $numbers = $this->reportsRepository->getNumbersPlayedByBetId($drawData[2]);
+                    $drawDetails[$drawKey]['betIds']['numbers'][0] = $numbers['line_regular_number_one'] . $numbers['line_regular_number_two'] . $numbers['line_regular_number_three'] . $numbers['line_regular_number_four'] . $numbers['line_regular_number_five'] . ' - ' . $numbers['line_lucky_number_one'];
+                }
+            }
+        }
+
+        return $drawDetails;
+    }
+
+    /**
      * @return mixed
      */
     public function fetchMonthlySales()
@@ -325,8 +384,8 @@ class ReportsService
     {
         $salesDraw = $this->reportsRepository->getSalesDrawChristmas();
         foreach ($salesDraw as $keyDraw => $valueDraw) {
-            $drawDates = $this->getEuromillionsDrawsActualAfterDatesByDrawDate($valueDraw['draw_date']);
-            $drawData = $this->reportsRepository->getEuromillionsDrawDetailsBetweenDrawDates($drawDates);
+            $drawDates = $this->getChristmassDrawsActualAfterDatesByDrawDate($valueDraw['draw_date']);
+            $drawData = $this->reportsRepository->getChristmasDrawDetailsBetweenDrawDates($drawDates);
             $salesDraw[$keyDraw]['totalBets'] = $drawData[0]['totalBets'];
             $salesDraw[$keyDraw]['grossSales'] = $drawData[0]['grossSales'];
             $salesDraw[$keyDraw]['grossMargin'] = $drawData[0]['grossMargin'];

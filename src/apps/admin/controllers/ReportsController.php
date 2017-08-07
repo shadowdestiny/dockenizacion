@@ -237,11 +237,11 @@ class ReportsController extends AdminControllerBase
     {
         $this->checkPermissions();
         if ($this->request->get('id')) {
-            $drawDates = $this->reportsService->getEuromillionsDrawsActualAfterDatesById($this->request->get('id'));
+            $drawDates = $this->reportsService->getChristmasDrawsActualAfterDatesById($this->request->get('id'));
             $this->view->setVars([
                 'needReportsMenu' => true,
                 'euromillionsDrawId' => $this->request->get('id'),
-                'salesDrawDetailsData' => $this->reportsService->getEuromillionsDrawDetailsByIdAndDates($this->request->get('id'), $drawDates),
+                'salesDrawDetailsData' => $this->reportsService->getChristmasDrawDetailsByIdAndDates($this->request->get('id'), $drawDates),
                 'countryList' => $this->countries,
             ]);
         }
