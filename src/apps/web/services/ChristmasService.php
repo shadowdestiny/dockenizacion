@@ -48,14 +48,12 @@ class ChristmasService
         $di = \Phalcon\Di::getDefault();
         $cypher = $di->get('environmentDetector')->get() != 'production' ? new CypherCastillo3DES() : new CypherCastillo3DESLive();
 
-        var_dump($xmlPost);
-        var_dump($xmlPost['xml']);
-        exit;
         if ($xmlPost['xml'] != '') {
             $xml = $xmlPost['xml'];
             var_dump($xml);
             $xml_response = simplexml_load_string($xml);
             var_dump($xml_response);
+            exit;
             $xml_uncyphered_string = $cypher->decrypt((string)$xml_response->operation->content, intval($xml_response->operation['key']));
             var_dump($xml_uncyphered_string);
             $xml_uncyphered = simplexml_load_string($xml_uncyphered_string);
