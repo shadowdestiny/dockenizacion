@@ -20,7 +20,6 @@ class CastilloController extends PublicSiteControllerBase
                 throw new Exception('failed to initialize');
 
             $xmlstream = '<?xml version="1.0" encoding="UTF-8"?><message><operation id="20170808080159303919" key="4" type="4"><content>dDziUcQOLCCSSkQwWBSO/dlnr1CXoT0dffnFFg5/040zAWg7IBJfb1nglwT9LbogBtOK83hIwR9rxrEkvXZpCyD1iBahT7K9lo6YK0vOWJuDVu7bNbuPXHVJqrHBDh9qu+COpqXmCaP3dkiMLgoCcY0KMXK/tETo9sCmLjMsoeA=</content></operation><signature>Y2Q1OGJkYmJkZGFiNGZkMTQ4NThiODliYjExNjQ5MDAwYTJlM2Q5ZQ==</signature></message>';
-            var_dump($xmlstream);
 
             curl_setopt($ch, CURLOPT_POST,1);
             curl_setopt($ch, CURLOPT_URL, 'https://beta.euromillions.com/castillo/christmasxml');
