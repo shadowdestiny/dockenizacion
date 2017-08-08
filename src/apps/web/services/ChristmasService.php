@@ -56,10 +56,8 @@ class ChristmasService
             $xml_uncyphered_string = $cypher->decrypt((string)$xml_response->operation->content, intval($xml_response->operation['key']));
             var_dump($xml_uncyphered_string);
             $xml_uncyphered = simplexml_load_string($xml_uncyphered_string);
-            var_dump($xml_uncyphered);
             var_dump($xml_uncyphered->csv);
             $ticketsChristmas = explode(',*', preg_replace('[\n|\r|\n\r|\t|\0|\x0B]', '', $xml_uncyphered->csv));
-            var_dump($ticketsChristmas);
             foreach ($ticketsChristmas as $ticket) {
                 if ($ticket != '') {
                     $ticketArray = explode(',', $ticket);
