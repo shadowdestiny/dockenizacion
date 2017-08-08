@@ -43,12 +43,12 @@ class ChristmasService
         return $christmasTicketsData;
     }
 
-    public function insertStockXML($xml)
+    public function insertStockXML($xmlPost)
     {
         $di = \Phalcon\Di::getDefault();
         $cypher = $di->get('environmentDetector')->get() != 'production' ? new CypherCastillo3DES() : new CypherCastillo3DESLive();
 
-        if ($xml != '') {
+        foreach ($xmlPost as $xml) {
             var_dump($xml);
             $xml_response = simplexml_load_string($xml);
             var_dump($xml_response);

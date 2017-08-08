@@ -48,6 +48,11 @@ class CastilloController extends PublicSiteControllerBase
 
     public function christmasXmlAction()
     {
+        var_dump($this->request->get());
+        var_dump($this->request->getPost());
+        parse_str(file_get_contents('php://input'), $requestData);
+        var_dump($requestData);
+
         $this->christmasService->insertStockXML($this->request->getPost());
     }
 
