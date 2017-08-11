@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Euromillions" default="build">
 
-    <property name="toolsdir" value="vendor/bin/"/>
+    <property name="toolsdir" value="src/vendor/bin/"/>
+
     <target name="build"
             depends="prepare,vendors,phpunit"
             description=""/>
@@ -42,8 +43,7 @@
             description="Run unit tests with PHPUnit">
         <exec executable="${toolsdir}phpunit">
             <arg value="--configuration"/>
-            <arg path="tests/phpunit.xml"/>
-            <arg value="--testsuite unit"/>
+            <arg path="src/tests/phpunit.xml"/>
         </exec>
     </target>
 </project>

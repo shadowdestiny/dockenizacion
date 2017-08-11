@@ -3,10 +3,10 @@ Vagrant.configure(2) do |config|
         v.memory = 2048
         v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
     end
-    config.vm.box = "ubuntu/wily64"
-
+    config.vm.box = "gigerdo/ubuntu-wily"
     config.vm.provision "shell", inline: <<-SCRIPT
         sudo apt-get update
+        sudo apt-get remove --purge nodejs 
         sudo wget https://launchpad.net/~ansible/+archive/ubuntu/ansible-1.9/+files/ansible_1.9.4-1ppa~trusty_all.deb -O /tmp/ansible.deb
         sudo apt-get install -y python-support \
           python-jinja2 \
@@ -14,10 +14,13 @@ Vagrant.configure(2) do |config|
           python-paramiko \
           python-httplib2 \
           gzip \
+          git \
           python-crypto sshpass
           build-essential
           dpkg -i /tmp/ansible.deb
           rm -f /tmp/ansible.deb
+        curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+        sudo apt-get install -y nodejs
         ansible-galaxy install -r /vagrant/vagrant_config/requirements.yml --ignore-errors
     SCRIPT
 
