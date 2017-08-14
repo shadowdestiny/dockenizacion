@@ -51,7 +51,7 @@ class ChristmasService
         if ($xmlPost['xml'] != '') {
             $xml = $xmlPost['xml'];
             $xml_response = simplexml_load_string($xml);
-            $xml_uncyphered_string = $cypher->decrypt((string)$xml_response->operation->content, intval($xml_response->operation['key']));
+            $xml_uncyphered_string = $cypher->decrypt((string)str_replace(' ', '+', $xml_response->operation->content), intval($xml_response->operation['key']));
             echo $xml_uncyphered_string;
             $xml_uncyphered = simplexml_load_string($xml_uncyphered_string);
             $ticketsChristmas = explode(',*', preg_replace('[\n|\r|\n\r|\t|\0|\x0B]', '', $xml_uncyphered->csv));
