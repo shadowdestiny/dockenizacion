@@ -13,6 +13,7 @@ class CastilloController extends PublicSiteControllerBase
 
     public function testAction()
     {
+        exit;
         try {
             $ch = curl_init();
 
