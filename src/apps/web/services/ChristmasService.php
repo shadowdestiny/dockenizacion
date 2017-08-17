@@ -46,8 +46,7 @@ class ChristmasService
     public function insertStockXML($xmlPost)
     {
         $di = \Phalcon\Di::getDefault();
-        //$cypher = $di->get('environmentDetector')->get() != 'production' ? new CypherCastillo3DES() : new CypherCastillo3DESLive();
-        $cypher = new CypherCastillo3DES();
+        $cypher = $di->get('environmentDetector')->get() != 'production' ? new CypherCastillo3DES() : new CypherCastillo3DESLive();
 
         if ($xmlPost['xml'] != '') {
             $xml = $xmlPost['xml'];
