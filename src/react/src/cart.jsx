@@ -183,6 +183,7 @@ var CartPage = new React.createClass({
                                                 show_all_fee={this.state.show_all_fee}
                                                 show_fee_text={this.state.show_fee_text}
                                                 keyup={this.handleKeyUpAddFund}
+                                                txt_checkout_fee={txt_checkout_fee}
             />;
 
         var txt_button_payment = '';
@@ -419,7 +420,7 @@ ReactDOM.render(<CartPage total={total_price}
                           discount={discount} txt_summary={txt_summary} txt_draws={txt_draws} txt_on={txt_on}
                           txt_currencyAlert={txt_currencyAlert} txt_total={txt_total}
                           txt_payWithBalanceOption={txt_payWithBalanceOption} txt_gotopay_btn={txt_gotopay_btn}
-                          txt_buy_btn={txt_buy_btn}
+                          txt_buy_btn={txt_buy_btn} txt_checkout_fee={txt_checkout_fee}
                 />, document.getElementById('cart-order'));
 
 

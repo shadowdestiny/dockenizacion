@@ -16,7 +16,7 @@ var EuroMillionsDiscountLine = React.createClass({
                     </a>
                 </div>
                 <div className="box-button-draw-right">
-                    &nbsp; {price.toFixed(2)} {this.props.currency_symbol} / {this.props.price_desc}
+                    &nbsp; {/*{price.toFixed(2)} {this.props.currency_symbol} / */}{this.props.price_desc}
                 </div>
             </div>
         );

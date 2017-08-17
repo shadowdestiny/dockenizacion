@@ -39,7 +39,8 @@ var EmLineFeeCart = new React.createClass({
         }
         var show_fee_text = 'No extra fee';
         if(this.props.show_fee_text) {
-            show_fee_text = 'Fee for transactions below ' + price_and_symbol_fee_below_text;
+            /*show_fee_text = 'Fee for transactions below ' + price_and_symbol_fee_below_text;*/
+            show_fee_text = txt_checkout_fee;
         }
 
         var fee_value = this.props.symbol_position ? + this.props.fee_charge + ' '  + this.props.currency_symbol : this.props.currency_symbol + ' ' + this.props.fee_charge;
