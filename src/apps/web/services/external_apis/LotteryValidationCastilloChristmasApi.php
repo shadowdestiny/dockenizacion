@@ -49,7 +49,7 @@ class LotteryValidationCastilloChristmasApi
         $this->castilloId = $castilloTicketId;
         $luckyNumbers = explode(',',$line->getLuckyNumbers());
         $content = "<?xml version='1.0' encoding='UTF-8'?>";
-        $content .= "<lottery number='" . str_replace(',', '', $line->getRegularNumbers()) . "' price='" . self::PRICE_BET . "'>
+        $content .= "<lottery number='1' price='" . self::PRICE_BET . "'>
             <decimo>
                 <date>" . $date_next_draw->format('Ymd') . "</date>
                 <number>" . str_replace(',','',$line->getRegularNumbers()) . "</number>
@@ -74,12 +74,12 @@ class LotteryValidationCastilloChristmasApi
         $xml_uncyphered = simplexml_load_string($xml_uncyphered_string);
         //set xml_uncypherd to be visible from outside.
         $this->xml_response = $xml_uncyphered;
-        return new ActionResult(true, '');
-//        if ($xml_uncyphered->status == 'OK') {
-//            return new ActionResult(true);
-//        } else {
-//            return new ActionResult(true, (string)$xml_uncyphered->message);
-//        }
+
+        if ($xml_uncyphered->status == 'OK') {
+            return new ActionResult(true, '');
+        }
+
+        return new ActionResult(false, '');
     }
 
 
