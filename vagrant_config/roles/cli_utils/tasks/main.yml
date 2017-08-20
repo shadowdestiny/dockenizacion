@@ -16,15 +16,15 @@
   args:
     chdir: /var/www/react
 
-- name: Translations angular2 dependencies install
-  shell: npm install
-  args:
-    chdir: /var/www/public/a/js/angular-admin
+#- name: Translations angular2 dependencies install
+#  shell: npm install
+#  args:
+#    chdir: /var/www/public/a/js/angular-admin
 
-- name: Translation angular2 start spa
-  shell: npm start &
-  args:
-    chdir: /var/www/public/a/js/angular-admin
+#- name: Translation angular2 start spa
+#  shell: npm start &
+#  args:
+#    chdir: /var/www/public/a/js/angular-admin
 
 - name: Get GeoIP IPv4 database
   shell: wget -nc http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
@@ -46,22 +46,11 @@
   args:
     chdir: /var/www/data/geoipdatabase
 
-- name: make sure pip is installed
-  become: true
-  become_user: root
-  easy_install:
-    name: '{{ item }}'
-  with_items:
-    - pip
-    - docker-py==1.7.0
-    - six>=1.4.0
 
-- name: make sure required PyPi packages are installed
-  become: true
-  become_user: root
-  pip:
-    name: '{{ item }}'
-    state: present
+- name: install the required packages
+  apt: pkg={{ item }} state=present update_cache=yes
   with_items:
-    - docker-py==1.2.3
-    - six>=1.4.0
+   - python-pip
+
+- name: Install docker-py as a workaround for Ansible issue
+  pip: name=docker-py version=1.2.3
