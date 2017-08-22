@@ -110,7 +110,7 @@ class BetService
         $user = $this->userRepository->find($playConfig->getUser()->getId());
         if ($user->getBalance()->getAmount()) {
             $di = \Phalcon\Di::getDefault();
-            $cypher = $di->get('environmentDetector')->get() != 'production' ? new CypherCastillo3DES() : new CypherCastillo3DESLive();
+            $cypher = $di->get('environmentDetector')->get() == 'production' ? new CypherCastillo3DES() : new CypherCastillo3DESLive();
             try {
                 $bet = new Bet($playConfig, $euroMillionsDraw);
                 $castillo_key = CastilloCypherKey::create();
@@ -122,7 +122,7 @@ class BetService
                 $log_api_reponse->initialize([
                     'id_provider' => 1,
                     'id_ticket' => $lotteryValidation->getCastilloId(),//$lotteryValidation->getXmlResponse()->id,
-                    'status' => 'OK',//$lotteryValidation->getXmlResponse()->status,
+                    'status' => $result_validation->success() ? 'OK' : 'KO',//$lotteryValidation->getXmlResponse()->status,
                     'response' => '',//$lotteryValidation->getXmlResponse(),
                     'received' => new \DateTime(),
                     'bet' => $bet

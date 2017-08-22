@@ -5,6 +5,7 @@ namespace EuroMillions\web\services;
 use Doctrine\ORM\EntityManager;
 
 use EuroMillions\web\emailTemplates\EmailTemplate;
+use EuroMillions\web\emailTemplates\PurchaseConfirmationChristmasEmailTemplate;
 use EuroMillions\web\emailTemplates\PurchaseConfirmationEmailTemplate;
 use EuroMillions\web\emailTemplates\PurchaseSubscriptionConfirmationEmailTemplate;
 use EuroMillions\web\entities\ChristmasTickets;
@@ -276,6 +277,7 @@ class PlayService
                     }
                     $allPlayConfigsChristmas = [];
                     if (count($order->getPlayConfig()) > 0 && $result_payment->success()) {
+                        $discountNumFraction = 0;
                         //EMTD be careful now, set explicity lottery, but it should come inform on playconfig entity
                         /** @var ChristmasTickets $play_config */
                         foreach ($order->getPlayConfig() as $play_config) {
@@ -293,19 +295,22 @@ class PlayService
                                 $numberLine[] = new EuroMillionsRegularNumber(intval($number), $lottery->getId());
                             }
                             $luckyLine[] = new EuroMillionsLuckyNumber(intval($play_config->getSerieInit()), $lottery->getId());
-                            $luckyLine[] = new EuroMillionsLuckyNumber(intval($play_config->getNumFractions()), $lottery->getId());
+                            $luckyLine[] = new EuroMillionsLuckyNumber(intval($play_config->getNumFractions()) - $discountNumFraction, $lottery->getId());
                             $playConfigChristmas->setLine(new EuroMillionsLine($numberLine, $luckyLine, $lottery->getId()));
 
                             $playConfigChristmas->setLottery($lottery);
                             $this->playConfigRepository->add($playConfigChristmas);
                             $this->entityManager->flush($playConfigChristmas);
                             $allPlayConfigsChristmas[] = $playConfigChristmas;
+                            $discountNumFraction++;
                         }
                     }
 
                     if ($result_payment->success()) {
                         $walletBefore = $user->getWallet();
+                        /* @var PlayConfig $playConfigChristmas*/
                             foreach ($allPlayConfigsChristmas as $playConfigChristmas) {
+
                                 $result_validation = $this->betService->validationChristmas($playConfigChristmas, $draw->getValues(), $lottery->getNextDrawDate());
 
                                 if (!$result_validation->success()) {
@@ -313,23 +318,25 @@ class PlayService
                                 }
                                 $this->walletService->payWithWallet($user, $playConfigChristmas);
                                 $this->playConfigRepository->substractNumFractionsToChristmasTicket($playConfigChristmas->getLine()->getRegularNumbers());
-                            }
-                            $numPlayConfigs = count($allPlayConfigsChristmas);
-                        $dataTransaction = [
-                            'lottery_id' => 2,
-                            'transactionID' => $uniqueId,
-                            'numBets' => count($allPlayConfigsChristmas),
-                            'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
-                            'amountWithWallet' => $lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount(),
-                            'walletBefore' => $walletBefore,
-                            'amountWithCreditCard' => 0,
-                            'playConfigs' => array_map(function ($val) {
-                                return $val->getId();
-                            }, $allPlayConfigsChristmas),
-                            'discount' => 0,
-                        ];
 
-                        $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
+                                $numPlayConfigs = count($allPlayConfigsChristmas);
+                                $dataTransaction = [
+                                    'lottery_id' => 2,
+                                    'transactionID' => $uniqueId,
+                                    'numBets' => count($allPlayConfigsChristmas),
+                                    'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
+                                    'amountWithWallet' => $lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount(),
+                                    'walletBefore' => $walletBefore,
+                                    'amountWithCreditCard' => 0,
+                                    'playConfigs' => array_map(function ($val) {
+                                        return $val->getId();
+                                    }, $allPlayConfigsChristmas),
+                                    'discount' => 0,
+                                ];
+
+                                $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
+                            }
+//
                         $this->sendEmailPurchaseChristmas($user, $order->getPlayConfig());
                         return new ActionResult(true, $order);
                     } else {
@@ -527,12 +534,12 @@ class PlayService
 
     private function sendEmailPurchaseChristmas(User $user, $orderLines)
     {
-//        $emailBaseTemplate = new EmailTemplate();
-//        $emailTemplate = new PurchaseConfirmationEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
-//        $emailTemplate->setLine($orderLines);
-//        $emailTemplate->setUser($user);
-//
-//        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
+        $emailBaseTemplate = new EmailTemplate();
+        $emailTemplate = new PurchaseConfirmationChristmasEmailTemplate($emailBaseTemplate, new JackpotDataEmailTemplateStrategy($this->lotteryService));
+        $emailTemplate->setLine($orderLines);
+        $emailTemplate->setUser($user);
+
+        $this->emailService->sendTransactionalEmail($user, $emailTemplate);
     }
 
 
