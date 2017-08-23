@@ -9,7 +9,7 @@ class ChristmasTicketsRepository extends RepositoryBase
     public function getAvailableTickets()
     {
         $rsm = new ResultSetMapping();
-        $rsm->addScalarResult('id','id');
+        $rsm->addScalarResult('id', 'id');
         $rsm->addScalarResult('number', 'number');
         $rsm->addScalarResult('n_fractions', 'n_fractions');
 

@@ -308,34 +308,34 @@ class PlayService
 
                     if ($result_payment->success()) {
                         $walletBefore = $user->getWallet();
-                        /* @var PlayConfig $playConfigChristmas*/
-                            foreach ($allPlayConfigsChristmas as $playConfigChristmas) {
+                        /* @var PlayConfig $playConfigChristmas */
+                        foreach ($allPlayConfigsChristmas as $playConfigChristmas) {
 
-                                $result_validation = $this->betService->validationChristmas($playConfigChristmas, $draw->getValues(), $lottery->getNextDrawDate());
+                            $result_validation = $this->betService->validationChristmas($playConfigChristmas, $draw->getValues(), $lottery->getNextDrawDate());
 
-                                if (!$result_validation->success()) {
-                                    return new ActionResult(false, $result_validation->errorMessage());
-                                }
-                                $this->walletService->payWithWallet($user, $playConfigChristmas);
-                                $this->playConfigRepository->substractNumFractionsToChristmasTicket($playConfigChristmas->getLine()->getRegularNumbers());
-
-                                $numPlayConfigs = count($allPlayConfigsChristmas);
-                                $dataTransaction = [
-                                    'lottery_id' => 2,
-                                    'transactionID' => $uniqueId,
-                                    'numBets' => count($allPlayConfigsChristmas),
-                                    'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
-                                    'amountWithWallet' => $lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount(),
-                                    'walletBefore' => $walletBefore,
-                                    'amountWithCreditCard' => 0,
-                                    'playConfigs' => array_map(function ($val) {
-                                        return $val->getId();
-                                    }, $allPlayConfigsChristmas),
-                                    'discount' => 0,
-                                ];
-
-                                $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
+                            if (!$result_validation->success()) {
+                                return new ActionResult(false, $result_validation->errorMessage());
                             }
+                            $this->walletService->payWithWallet($user, $playConfigChristmas);
+                            $this->playConfigRepository->substractNumFractionsToChristmasTicket($playConfigChristmas->getLine()->getRegularNumbers());
+
+                            $numPlayConfigs = count($allPlayConfigsChristmas);
+                            $dataTransaction = [
+                                'lottery_id' => 2,
+                                'transactionID' => $uniqueId,
+                                'numBets' => count($allPlayConfigsChristmas),
+                                'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
+                                'amountWithWallet' => $lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount(),
+                                'walletBefore' => $walletBefore,
+                                'amountWithCreditCard' => 0,
+                                'playConfigs' => array_map(function ($val) {
+                                    return $val->getId();
+                                }, $allPlayConfigsChristmas),
+                                'discount' => 0,
+                            ];
+
+                            $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
+                        }
 //
                         $this->sendEmailPurchaseChristmas($user, $order->getPlayConfig());
                         return new ActionResult(true, $order);

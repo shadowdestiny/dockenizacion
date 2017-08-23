@@ -1,4 +1,5 @@
 <?php
+
 namespace EuroMillions\web\repositories;
 
 
@@ -76,7 +77,7 @@ class PlayConfigRepository extends RepositoryBase
                 'SELECT p'
                 . ' FROM ' . $this->getEntityName() . ' p'
                 . ' WHERE p.user = :user_id AND p.active = 1 AND p.lottery = 1 AND :day BETWEEN p.startDrawDate and p.lastDrawDate ')
-            ->setParameters(['user_id' => $userId,'day' => $day])
+            ->setParameters(['user_id' => $userId, 'day' => $day])
             ->getResult();
 
         return $result;
@@ -106,7 +107,7 @@ class PlayConfigRepository extends RepositoryBase
 
         $playConfigs = [];
         /** @var Bet $bet */
-        foreach($result as $bet) {
+        foreach ($result as $bet) {
             $playConfigs[] = $bet->getPlayConfig();
         }
 //        $result = $this->getEntityManager()
@@ -311,7 +312,7 @@ class PlayConfigRepository extends RepositoryBase
                 , $rsm)->getResult();
     }
 
-    public function getTotalByUserAndPlayForNextDraw( $userId , \DateTime $dateNextDraw )
+    public function getTotalByUserAndPlayForNextDraw($userId, \DateTime $dateNextDraw)
     {
         $result = $this->getEntityManager()
             ->createQuery(
@@ -327,7 +328,7 @@ class PlayConfigRepository extends RepositoryBase
             ])
             ->getResult();
 
-        return (int) $result[0][1];
+        return (int)$result[0][1];
     }
 
     public function getPlayConfigsByCollectionIds(array $ids)
@@ -366,7 +367,7 @@ class PlayConfigRepository extends RepositoryBase
     public function substractNumFractionsToChristmasTicket($number)
     {
         $number = str_replace(',', '', $number);
-        $this->getEntityManager()->getConnection()->executeQuery("UPDATE christmas_tickets SET n_fractions = n_fractions - 1 where number = '". $number ."'");
+        $this->getEntityManager()->getConnection()->executeQuery("UPDATE christmas_tickets SET n_fractions = n_fractions - 1 where number = '" . $number . "'");
     }
 
     public function retrieveEuromillionsBundlePrice()

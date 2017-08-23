@@ -1,4 +1,5 @@
 <?php
+
 namespace EuroMillions\web\entities;
 
 use EuroMillions\web\interfaces\IEntity;

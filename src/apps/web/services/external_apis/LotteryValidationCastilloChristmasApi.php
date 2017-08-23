@@ -47,12 +47,12 @@ class LotteryValidationCastilloChristmasApi
         }
 
         $this->castilloId = $castilloTicketId;
-        $luckyNumbers = explode(',',$line->getLuckyNumbers());
+        $luckyNumbers = explode(',', $line->getLuckyNumbers());
         $content = "<?xml version='1.0' encoding='UTF-8'?>";
         $content .= "<lottery number='1' price='" . self::PRICE_BET . "'>
             <decimo>
                 <date>" . $date_next_draw->format('Ymd') . "</date>
-                <number>" . str_replace(',','',$line->getRegularNumbers()) . "</number>
+                <number>" . str_replace(',', '', $line->getRegularNumbers()) . "</number>
                 <serie>" . $luckyNumbers[0] . "</serie>
                 <fraccion>" . $luckyNumbers[1] . "</fraccion>
             </decimo>

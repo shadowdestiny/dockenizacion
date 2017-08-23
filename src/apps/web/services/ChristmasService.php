@@ -10,7 +10,7 @@ use EuroMillions\web\repositories\ChristmasTicketsRepository;
 class ChristmasService
 {
     protected $entityManager;
-    /** @var ChristmasTicketsRepository  */
+    /** @var ChristmasTicketsRepository */
     protected $christmasTicketsRepository;
 
     public function __construct(EntityManager $entityManager)
@@ -34,7 +34,7 @@ class ChristmasService
         foreach ($chistmasPost as $key => $value) {
             $id = explode('_', $key)[1];
             if ($value != 0) {
-                for ($i=0;$i<$value;$i++) {
+                for ($i = 0; $i < $value; $i++) {
                     $christmasTicketsData[] = $this->christmasTicketsRepository->findOneBy(['id' => $id]);
                 }
             }
