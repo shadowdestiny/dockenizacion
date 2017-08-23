@@ -29,7 +29,7 @@ class LotteryValidationCastilloChristmasApi
     {
         $this->curlWrapper = $curlWrapper ? $curlWrapper : new Curl();
         $di = \Phalcon\Di::getDefault();
-        $this->url = $di->get('environmentDetector')->get() == 'production' ? 'https://www.loteriacastillo.com/test-euromillions' : 'https://www.loteriacastillo.com/euromillions/';
+        $this->url = $di->get('environmentDetector')->get() != 'production' ? 'https://www.loteriacastillo.com/test-euromillions' : 'https://www.loteriacastillo.com/euromillions/';
     }
 
     public function validateBet(Bet $bet,

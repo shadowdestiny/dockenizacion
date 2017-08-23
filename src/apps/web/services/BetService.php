@@ -110,7 +110,7 @@ class BetService
         $user = $this->userRepository->find($playConfig->getUser()->getId());
         if ($user->getBalance()->getAmount()) {
             $di = \Phalcon\Di::getDefault();
-            $cypher = $di->get('environmentDetector')->get() == 'production' ? new CypherCastillo3DES() : new CypherCastillo3DESLive();
+            $cypher = $di->get('environmentDetector')->get() != 'production' ? new CypherCastillo3DES() : new CypherCastillo3DESLive();
             try {
                 $bet = new Bet($playConfig, $euroMillionsDraw);
                 $castillo_key = CastilloCypherKey::create();
