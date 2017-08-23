@@ -1,10 +1,10 @@
-{#<li class="li-christmas{% if activeNav.myClass == 'christmas' %} active{% endif %}">
+<li class="li-christmas{% if activeNav.myClass == 'christmas' %} active{% endif %}">
     <a href="/christmas/play">
         <span class="link desktop">{{ language.translate("Christmas Lottery") }}</span>
         <br class="br">
         <span class="txt">{{ language.translate("Play") }}</span>
     </a>
-</li>#}
+</li>
 <li class="li-play{% if activeNav.myClass == 'play' %} active{% endif %}">
     <a href="/{{ lottery }}/play">
         <span class="link desktop">{{ language.translate("Win top prizes") }}</span>
