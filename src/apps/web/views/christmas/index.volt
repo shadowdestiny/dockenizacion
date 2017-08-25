@@ -18,6 +18,14 @@
 {% block body %}
     <main id="content">
 		<div class="wrapper">
+            <header class="bg-top cl">
+                <h1 class="h3 draw">{{ language.translate("Choose your favourite tickets") }}</h1>
+                <span class="h1 jackpot">
+                    {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
+                    {% include "_elements/christmasJackpot-value" with ['extraClass': extraClass] %}
+                      - 22nd December 2017
+			    </span>
+            </header>
 			<div class="gameplay border-top-yellow">
                 <form action="/christmas/order" method="post" id="christmasForm">
                     {% if christmasTickets is defined %}

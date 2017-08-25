@@ -19,6 +19,8 @@ class ChristmasController extends PublicSiteControllerBase
     public function indexAction()
     {
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('Christmas');
+        $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('Christmas'));
+        $this->view->setVar('jackpot_value', $jackpot);
         if (!$this->authService->isLogged()) {
             $user_currency = $this->userPreferencesService->getCurrency();
             $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $user_currency);
@@ -201,7 +203,7 @@ class ChristmasController extends PublicSiteControllerBase
         $this->tag->prependTitle('Purchase Confirmation');
 
         return $this->view->setVars([
-            'jackpot_value' => '',
+            'jackpot_value' => '2.3',
             'user' => $user,
             'draw_date_format' => $this->lotteryService->getNextDateDrawByLottery('Christmas')->format('Y-m-d'),
             'christmasTickets' => $play_service->getChristmasPlaysFromTemporarilyStorage($user)->returnValues(),
