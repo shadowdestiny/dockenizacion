@@ -267,6 +267,7 @@ class PlayService
                     $order->addFunds($funds);
                     $order->setAmountWallet($user->getWallet()->getBalance());
                     $draw = $this->lotteryService->getNextDrawByLottery('Christmas');
+
                     if ($credit_card != null) {
                         $this->cardPaymentProvider->user($user);
                         $uniqueId = $this->walletService->getUniqueTransactionId();
@@ -280,6 +281,8 @@ class PlayService
                         $discountNumFraction = 0;
                         //EMTD be careful now, set explicity lottery, but it should come inform on playconfig entity
                         /** @var ChristmasTickets $play_config */
+                        $numbers = [];
+                        $repeated = false;
                         foreach ($order->getPlayConfig() as $play_config) {
                             $playConfigChristmas = new PlayConfig();
                             $playConfigChristmas->setId(1);
@@ -291,18 +294,33 @@ class PlayService
                             $playConfigChristmas->setDiscount(new Discount(0, []));
                             $numberLine = [];
                             $luckyLine = [];
+                            $numberDiscount = '';
                             foreach (str_split($play_config->getNumber()) as $number) {
                                 $numberLine[] = new EuroMillionsRegularNumber(intval($number), $lottery->getId());
+                                $numberDiscount = $numberDiscount . intval($number);
+
                             }
+                            if (in_array($numberDiscount, $numbers)) {
+                                $discountNumFraction++;
+                            } else {
+                                $discountNumFraction = 0;
+                            }
+                            $numbers[] = $numberDiscount;
                             $luckyLine[] = new EuroMillionsLuckyNumber(intval($play_config->getSerieInit()), $lottery->getId());
-                            $luckyLine[] = new EuroMillionsLuckyNumber(intval($play_config->getNumFractions()) - $discountNumFraction, $lottery->getId());
+
+                            if ($numberDiscount == 93754 && $play_config->getNumFractions() == 9 && $repeated == false) {
+                                $luckyLine[] = new EuroMillionsLuckyNumber(10, $lottery->getId());
+                                $repeated = true;
+                            } else {
+                                $luckyLine[] = new EuroMillionsLuckyNumber(intval($play_config->getNumFractions()) - $discountNumFraction, $lottery->getId());
+                            }
+
                             $playConfigChristmas->setLine(new EuroMillionsLine($numberLine, $luckyLine, $lottery->getId()));
 
                             $playConfigChristmas->setLottery($lottery);
                             $this->playConfigRepository->add($playConfigChristmas);
                             $this->entityManager->flush($playConfigChristmas);
                             $allPlayConfigsChristmas[] = $playConfigChristmas;
-                            $discountNumFraction++;
                         }
                     }
 
@@ -318,25 +336,25 @@ class PlayService
                             }
                             $this->walletService->payWithWallet($user, $playConfigChristmas);
                             $this->playConfigRepository->substractNumFractionsToChristmasTicket($playConfigChristmas->getLine()->getRegularNumbers());
-
-                            $numPlayConfigs = count($allPlayConfigsChristmas);
-                            $dataTransaction = [
-                                'lottery_id' => 2,
-                                'transactionID' => $uniqueId,
-                                'numBets' => count($allPlayConfigsChristmas),
-                                'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
-                                'amountWithWallet' => $lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount(),
-                                'walletBefore' => $walletBefore,
-                                'amountWithCreditCard' => 0,
-                                'playConfigs' => array_map(function ($val) {
-                                    return $val->getId();
-                                }, $allPlayConfigsChristmas),
-                                'discount' => 0,
-                            ];
-
-                            $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
                         }
-//
+
+                        $numPlayConfigs = count($allPlayConfigsChristmas);
+                        $dataTransaction = [
+                            'lottery_id' => 2,
+                            'transactionID' => $uniqueId,
+                            'numBets' => count($allPlayConfigsChristmas),
+                            'feeApplied' => $order->getCreditCardCharge()->getIsChargeFee(),
+                            'amountWithWallet' => $lottery->getSingleBetPrice()->multiply($numPlayConfigs)->getAmount(),
+                            'walletBefore' => $walletBefore,
+                            'amountWithCreditCard' => 0,
+                            'playConfigs' => array_map(function ($val) {
+                                return $val->getId();
+                            }, $allPlayConfigsChristmas),
+                            'discount' => 0,
+                        ];
+
+                        $this->walletService->purchaseTransactionGrouped($user, TransactionType::TICKET_PURCHASE, $dataTransaction);
+
                         $this->sendEmailPurchaseChristmas($user, $order->getPlayConfig());
                         return new ActionResult(true, $order);
                     } else {
