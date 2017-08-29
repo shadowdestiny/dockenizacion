@@ -47,7 +47,7 @@
 								<h1>ORDER SUMMARY</h1>
 							</div>
 							<div class="txt-black-upper cl">
-								<a href="/play/christmas-lottery" class="btn purple small ui-link">Edit</a>
+								<a href="/christmas-lottery/play" class="btn purple small ui-link">Edit</a>
 							</div>
 							<div class="total">
 								<div class="txt">Total to be paid</div>
