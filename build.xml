@@ -7,6 +7,17 @@
             depends="prepare,vendors,phpunit"
             description=""/>
 
+    <target name="clean"
+            unless="clean.done"
+            description="Cleanup build artifacts">
+        <delete dir="build/api"/>
+        <delete dir="build/coverage"/>
+        <delete dir="build/logs"/>
+        <delete dir="build/pdepend"/>
+        <delete dir="build/phpdox"/>
+        <property name="clean.done" value="true"/>
+    </target>
+
     <target name="prepare"
             unless="prepare.done"
             depends="clean"
@@ -17,17 +28,6 @@
         <mkdir dir="build/pdepend"/>
         <mkdir dir="build/phpdox"/>
         <property name="prepare.done" value="true"/>
-    </target>
-
-    <target name="clean"
-            unless="clean.done"
-            description="Cleanup build artifacts">
-        <delete dir="build/api"/>
-        <delete dir="build/coverage"/>
-        <delete dir="build/logs"/>
-        <delete dir="build/pdepend"/>
-        <delete dir="build/phpdox"/>
-        <property name="clean.done" value="true"/>
     </target>
 
     <target name="vendors" depends="clean" description="Add Dev Vendors">
@@ -48,7 +48,7 @@
     <target name="phpunit"
             depends="vendors"
             description="Run unit tests with PHPUnit">
-        <exec executable="${toolsdir}phpunit">
+        <exec executable="${toolsdir}phpunit" resultproperty="result.phpunit" taskname="phpunit">
             <arg value="--configuration"/>
             <arg path="src/tests/phpunit.xml"/>
         </exec>
