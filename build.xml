@@ -4,7 +4,7 @@
     <property name="toolsdir" value="src/vendor/bin/"/>
     <property name="phpcpd"  value="phpcpd"/>
     <target name="build"
-            depends="prepare,vendors,phpunit"
+            depends="prepare,vendors,phpunit,-check-failure,phpcpd-ci"
             description=""/>
 
     <target name="clean"
@@ -45,6 +45,22 @@
         </exec>
         <property name="phpcpd.done" value="true"/>
     </target>
+
+ <target name="phpcpd-ci"
+         unless="phpcpd.done"
+         depends="prepare"
+         description="Find duplicate code using PHPCPD and log result in XML format. Intended for usage within a continuous integration environment.">
+  <exec executable="${phpcpd}" taskname="phpcpd">
+   <arg value="--log-pmd" />
+   <arg path="build/logs/pmd-cpd.xml" />
+   <arg path="src" />
+  </exec>
+
+  <property name="phpcpd.done" value="true"/>
+ </target>
+
+
+
     <target name="phpunit"
             depends="vendors"
             description="Run unit tests with PHPUnit">
@@ -53,4 +69,15 @@
             <arg path="src/tests/phpunit.xml"/>
         </exec>
     </target>
+
+
+ <target name="-check-failure">
+  <fail message="PHPUnit did not finish successfully">
+   <condition>
+    <not>
+     <equals arg1="${result.phpunit}" arg2="0"/>
+    </not>
+   </condition>
+  </fail>
+ </target>
 </project>
