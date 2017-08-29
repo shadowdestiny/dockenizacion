@@ -4,7 +4,7 @@
     <property name="toolsdir" value="src/vendor/bin/"/>
     <property name="phpcpd"  value="phpcpd"/>
     <target name="build"
-            depends="prepare,vendors,phpunit,-check-failure,phpcpd-ci"
+            depends="prepare,vendors,phpcpd-ci,phpcs-ci,phpunit,-check-failure"
             description=""/>
 
     <target name="clean"
@@ -37,6 +37,25 @@
             <arg value='--prefer-dist' />
         </exec>
     </target>
+
+ <target name="phpcs-ci"
+         unless="phpcs.done"
+         depends="prepare"
+         description="Find coding standard violations using PHP_CodeSniffer and log result in XML format. Intended for usage within a continuous integration environment.">
+  <exec executable="${phpcs}" output="/dev/null" taskname="phpcs">
+   <arg value="--report=checkstyle" />
+   <arg value="--report-file=build/logs/checkstyle.xml" />
+   <arg value="--standard=PSR2" />
+   <arg value="--extensions=php" />
+   <arg value="--ignore=autoload.php" />
+   <arg path="src" />
+   <arg path="src/tests" />
+  </exec>
+
+  <property name="phpcs.done" value="true"/>
+ </target>
+
+
     <target name="phpcpd"
          unless="phpcpd.done"
          description="Find duplicate code using PHPCPD and print human readable output. Intended for usage on the command line before committing.">
