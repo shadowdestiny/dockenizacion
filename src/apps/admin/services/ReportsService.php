@@ -179,6 +179,20 @@ class ReportsService
 
     /**
      * @param $userId
+     *
+     * @return array
+     */
+    public function getMyActiveChristmas($userId)
+    {
+        if(!empty($userId)){
+            return  $this->reportsRepository->getActiveChristmasByUser($userId);
+        }
+
+        return [];
+    }
+
+    /**
+     * @param $userId
      * @param $nextDrawDate
      *
      * @return mixed
@@ -234,6 +248,21 @@ class ReportsService
     }
 
     /**
+     * @param $id
+     *
+     * @return array
+     */
+    public function getChristmasDrawsActualAfterDatesById($id)
+    {
+        /** @var EuroMillionsDraw $actualDraw */
+        $actualDraw = $this->lotteryDrawRepository->find($id);
+        $nextDrawDate = clone $actualDraw->getDrawDate()->setTime(19, 30, 00);
+        $actualDrawDate = $actualDraw->getDrawDate()->setDate($actualDraw->getDrawDate()->format('Y'), 1, 1)->setTime(1, 0,0);
+
+        return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
+    }
+
+    /**
      * @param $date
      *
      * @return array
@@ -243,6 +272,15 @@ class ReportsService
         $actualDraw = new \DateTime($date);
         $nextDrawDate = clone $actualDraw->setTime(19, 30, 00);
         $actualDrawDate = $this->getNextDateDrawByLottery('Euromillions', $actualDraw->modify('-5 days'))->setTime(19, 30, 00);
+
+        return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
+    }
+
+    public function getChristmassDrawsActualAfterDatesByDrawDate($date)
+    {
+        $actualDraw = new \DateTime($date);
+        $nextDrawDate = clone $actualDraw->setTime(19, 30, 00);
+        $actualDrawDate = $actualDraw->setDate($actualDraw->format('Y'), 1, 1)->setTime(1, 0,0);
 
         return ['actualDrawDate' => $actualDrawDate, 'nextDrawDate' => $nextDrawDate];
     }
@@ -281,6 +319,41 @@ class ReportsService
     }
 
     /**
+     * @param $id
+     * @param $drawDates
+     *
+     * @return array
+     */
+    public function getChristmasDrawDetailsByIdAndDates($id, $drawDates)
+    {
+        $drawDetails = $this->generateMovement($this->reportsRepository->getChristmasDrawDetailsByIdAndDates($id, $drawDates));
+        foreach ($drawDetails as $drawKey => $drawValue) {
+            if ($drawValue['entity_type'] == 'ticket_purchase') {
+                $drawData = explode('#', $drawValue['data']);
+                if (isset($drawData[5])) {
+                    $betIds = explode(',', $drawData[5]);
+                    $cont = 0;
+                    foreach ($betIds as $betId) {
+                        $drawDetails[$drawKey]['betIds']['id'][$cont] = $betId;
+                        $numbers = $this->reportsRepository->getNumbersPlayedByBetId($betId);
+                        $drawDetails[$drawKey]['betIds']['numbers'][$cont] = $numbers['line_regular_number_one'] . $numbers['line_regular_number_two'] . $numbers['line_regular_number_three'] . $numbers['line_regular_number_four'] . $numbers['line_regular_number_five'] . ' - ' . $numbers['line_lucky_number_one'];
+                        $cont++;
+                    }
+                }
+            } elseif ($drawValue['entity_type'] == 'automatic_purchase') {
+                $drawData = explode('#', $drawValue['data']);
+                if (isset($drawData[2])) {
+                    $drawDetails[$drawKey]['betIds']['id'][0] = $drawData[2];
+                    $numbers = $this->reportsRepository->getNumbersPlayedByBetId($drawData[2]);
+                    $drawDetails[$drawKey]['betIds']['numbers'][0] = $numbers['line_regular_number_one'] . $numbers['line_regular_number_two'] . $numbers['line_regular_number_three'] . $numbers['line_regular_number_four'] . $numbers['line_regular_number_five'] . ' - ' . $numbers['line_lucky_number_one'];
+                }
+            }
+        }
+
+        return $drawDetails;
+    }
+
+    /**
      * @return mixed
      */
     public function fetchMonthlySales()
@@ -297,6 +370,22 @@ class ReportsService
         foreach ($salesDraw as $keyDraw => $valueDraw) {
             $drawDates = $this->getEuromillionsDrawsActualAfterDatesByDrawDate($valueDraw['draw_date']);
             $drawData = $this->reportsRepository->getEuromillionsDrawDetailsBetweenDrawDates($drawDates);
+            $salesDraw[$keyDraw]['totalBets'] = $drawData[0]['totalBets'];
+            $salesDraw[$keyDraw]['grossSales'] = $drawData[0]['grossSales'];
+            $salesDraw[$keyDraw]['grossMargin'] = $drawData[0]['grossMargin'];
+        }
+        return $salesDraw;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function fetchSalesDrawChristmas()
+    {
+        $salesDraw = $this->reportsRepository->getSalesDrawChristmas();
+        foreach ($salesDraw as $keyDraw => $valueDraw) {
+            $drawDates = $this->getChristmassDrawsActualAfterDatesByDrawDate($valueDraw['draw_date']);
+            $drawData = $this->reportsRepository->getChristmasDrawDetailsBetweenDrawDates($drawDates);
             $salesDraw[$keyDraw]['totalBets'] = $drawData[0]['totalBets'];
             $salesDraw[$keyDraw]['grossSales'] = $drawData[0]['grossSales'];
             $salesDraw[$keyDraw]['grossMargin'] = $drawData[0]['grossMargin'];
@@ -430,18 +519,19 @@ class ReportsService
                     break;
                 case "wagering":
                     $selectPlayersReports .= ' sum(CASE
-                                        WHEN entity_type = "ticket_purchase" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 300) 
+                                        WHEN entity_type = "ticket_purchase" AND data like "1#%" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 300)
+                                        WHEN entity_type = "ticket_purchase" AND data like "2#%" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 2500) 
                                         WHEN entity_type = "automatic_purchase" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount)
                                         ELSE 0
                                         END
                                     ) as wagering,';
                     break;
                 case "ggr":
-                    //Pasamos un array con el ggr de todos los usuarios a la vista
                     $selectPlayersReports .= ' SUM(CASE 
                                     WHEN entity_type = "automatic_purchase" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - 250)
-                                    WHEN entity_type = "ticket_purchase" AND (wallet_before_subscription_amount - wallet_after_subscription_amount) > 0 AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - ((SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 250)))
-                                    WHEN entity_type = "ticket_purchase" AND (wallet_before_subscription_amount - wallet_after_subscription_amount) <= 0 AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 50)
+                                    WHEN entity_type = "ticket_purchase" AND data like "1#%" AND (wallet_before_subscription_amount - wallet_after_subscription_amount) > 0 AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (wallet_before_subscription_amount - wallet_after_subscription_amount - ((SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 250)))
+                                    WHEN entity_type = "ticket_purchase" AND data like "1#%" AND (wallet_before_subscription_amount - wallet_after_subscription_amount) <= 0 AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 50)
+                                    WHEN entity_type = "ticket_purchase" AND data like "2#%" AND t.date BETWEEN "' . $dateFrom->format('Y-m-d H:i:s') . '" AND "' . $dateTo->format('Y-m-d H:i:s') . '" THEN (SUBSTRING_INDEX(SUBSTRING_INDEX(data, "#", 2), "#", -1) * 500)
                                 END) as ggr,';
                     break;
                 case "bonusCost":

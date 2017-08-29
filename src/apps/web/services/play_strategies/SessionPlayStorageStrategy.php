@@ -44,12 +44,35 @@ class SessionPlayStorageStrategy implements IPlayStorageStrategy
         }
     }
 
+    /**
+     * @param $key
+     * @return ActionResult
+     */
+    public function findByChristmasKey($key)
+    {
+        if (null === $key) {
+            return new ActionResult(false, 'Key is invalid in session');
+        }
+
+        $result = $this->session->get($key);
+        if (!empty($result)) {
+            return new ActionResult(true, $result);
+        } else {
+            return new ActionResult(false, 'No EuroMillions lines in session');
+        }
+    }
+
     public function delete($key = '')
     {
         $this->session->destroy();
     }
 
     public function save($json, $userId)
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    public function saveChristmas($json, $userId)
     {
         throw new UnsupportedOperationException();
     }

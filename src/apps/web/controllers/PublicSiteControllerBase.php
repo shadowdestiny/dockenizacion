@@ -9,6 +9,7 @@ use EuroMillions\web\entities\Language;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\services\AuthService;
 use EuroMillions\web\services\CartService;
+use EuroMillions\web\services\ChristmasService;
 use EuroMillions\web\services\CurrencyConversionService;
 use EuroMillions\web\services\CurrencyService;
 use EuroMillions\web\services\LanguageService;
@@ -46,13 +47,14 @@ class PublicSiteControllerBase extends ControllerBase
     protected $userPreferencesService;
     /** @var  SiteConfigService $siteConfigService */
     protected $siteConfigService;
-
     /** @var  CartService $cartService */
     protected $cartService;
     /** @var  CurrencyConversionService */
     protected $currencyConversionService;
     /** @var  TransactionService */
     protected $transactionService;
+    /** @var  ChristmasService */
+    protected $christmasService;
 
     protected $lottery;
 
@@ -66,7 +68,8 @@ class PublicSiteControllerBase extends ControllerBase
                                SiteConfigService $siteConfigService = null,
                                CartService $cartService = null,
                                CurrencyConversionService $currencyConversionService = null,
-                               TransactionService $transactionService = null)
+                               TransactionService $transactionService = null,
+                               ChristmasService $christmasService = null)
     {
         parent::initialize();
         $this->lotteryService = $lotteryService ?: $this->domainServiceFactory->getLotteryService();
@@ -79,6 +82,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->currencyConversionService = $currencyConversionService ?: $this->domainServiceFactory->getCurrencyConversionService();
         $this->siteConfigService = $siteConfigService ?: new SiteConfigService($this->di->get('entityManager'), $this->currencyConversionService);
         $this->transactionService = $transactionService ?: new TransactionService($this->di->get('entityManager'), $this->currencyConversionService);
+        $this->christmasService = $christmasService ?: new ChristmasService($this->di->get('entityManager'));
         $this->lottery = !isset($this->router->getParams()['lottery']) ? 'euromillions' : $this->router->getParams()['lottery'];
     }
 
