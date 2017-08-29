@@ -40,17 +40,21 @@
                                         <img src="/w/img/christmas/ticket.png" width="300px"/>
                                         <span class="christmasTicketTxt">{{ ticket['number'] }}</span>
                                     </div>
-                                    <input type="button" id="add_{{ ticket['id'] }}" class="addTicket" value="+"/>
+                                    <input type="button" id="remove_{{ ticket['id'] }}" class="removeTicket" value="-"/>
                                     {{ singleBetPrice }}
                                     {{ currencySymbol }}
                                     <input type="hidden" id="maxTickets_{{ ticket['id'] }}"
                                            value="{{ ticket['n_fractions'] }}"/>
                                     <input type="hidden" id="numTickets_{{ ticket['id'] }}"
                                            name="numTickets_{{ ticket['id'] }}" value="0"/>
-                                    <input type="button" id="remove_{{ ticket['id'] }}" class="removeTicket" value="-"/>
+
+                                    <input type="button" id="add_{{ ticket['id'] }}" class="addTicket" value="+"/>
                                     <br/>
-                                    Available Tickets: {{ ticket['n_fractions'] }} - Your Tickets: <span
-                                            id="showNumTickets_{{ ticket['id'] }}">0</span>
+                                    <br/>
+                                    <div style="float:left; margin-left: 20px; margin-bottom: 10px;">Available
+                                        Tickets: {{ ticket['n_fractions'] }}  </div>
+                                    <div style="float:right; margin-right: 20px; margin-bottom: 10px;">Your Tickets:
+                                        <span id="showNumTickets_{{ ticket['id'] }}">0</span></div>
                                 </td>
                                 <td width="15">&nbsp;</td>
                                 {% set cont = cont + 1 %}
