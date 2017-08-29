@@ -21,7 +21,7 @@ class ResultController extends PublicSiteControllerBase
         $result_order = $this->cartService->get($user_id);
         $order_dto = new OrderDTO($result_order->getValues());
         $this->view->pick('/cart/success');
-	$this->tag->prependTitle('Purchase Confirmation');
+	    $this->tag->prependTitle('Purchase Confirmation');
         return $this->view->setVars([
             'order' => $order_dto,
             'jackpot_value' => ViewHelper::formatJackpotNoCents($jackpot),
@@ -37,7 +37,7 @@ class ResultController extends PublicSiteControllerBase
         $play_service->removeStorePlay($user_id);
         $play_service->removeStoreOrder($user_id);
         $this->view->pick('/cart/fail');
-	$this->tag->prependTitle('Payment Unsuccessful');
+	    $this->tag->prependTitle('Payment Unsuccessful');
     }
 
 }

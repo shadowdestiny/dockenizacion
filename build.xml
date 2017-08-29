@@ -2,10 +2,22 @@
 <project name="Euromillions" default="build">
 
     <property name="toolsdir" value="src/vendor/bin/"/>
-
+    <property name="phpcpd"  value="phpcpd"/>
+    <property name="phpcs"   value="phpcs"/>
     <target name="build"
-            depends="prepare,vendors,phpunit"
+            depends="prepare,vendors,phpcpd-ci,phpcs-ci,phpunit,-check-failure"
             description=""/>
+
+    <target name="clean"
+            unless="clean.done"
+            description="Cleanup build artifacts">
+        <delete dir="build/api"/>
+        <delete dir="build/coverage"/>
+        <delete dir="build/logs"/>
+        <delete dir="build/pdepend"/>
+        <delete dir="build/phpdox"/>
+        <property name="clean.done" value="true"/>
+    </target>
 
     <target name="prepare"
             unless="prepare.done"
@@ -19,17 +31,6 @@
         <property name="prepare.done" value="true"/>
     </target>
 
-    <target name="clean"
-            unless="clean.done"
-            description="Cleanup build artifacts">
-        <delete dir="build/api"/>
-        <delete dir="build/coverage"/>
-        <delete dir="build/logs"/>
-        <delete dir="build/pdepend"/>
-        <delete dir="build/phpdox"/>
-        <property name="clean.done" value="true"/>
-    </target>
-
     <target name="vendors" depends="clean" description="Add Dev Vendors">
         <exec executable="composer">
             <arg value='install' />
@@ -38,12 +39,82 @@
         </exec>
     </target>
 
+ <target name="phpcs"
+         unless="phpcs.done"
+         description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
+  <exec executable="${phpcs}" taskname="phpcs">
+   <arg value="--standard=PSR2" />
+   <arg value="--extensions=php" />
+   <arg value="--ignore=autoload.php" />
+   <arg path="src/apps" />
+   <arg path="src/tests" />
+  </exec>
+
+  <property name="phpcs.done" value="true"/>
+ </target>
+
+
+
+
+ <target name="phpcs-ci"
+         unless="phpcs.done"
+         depends="prepare"
+         description="Find coding standard violations using PHP_CodeSniffer and log result in XML format. Intended for usage within a continuous integration environment.">
+  <exec executable="${phpcs}" output="/dev/null" taskname="phpcs">
+   <arg value="--report=checkstyle" />
+   <arg value="--report-file=build/logs/checkstyle.xml" />
+   <arg value="--standard=PSR2" />
+   <arg value="--extensions=php" />
+   <arg value="--ignore=autoload.php" />
+   <arg path="src/apps" />
+   <arg path="src/tests" />
+  </exec>
+
+  <property name="phpcs.done" value="true"/>
+ </target>
+
+
+    <target name="phpcpd"
+         unless="phpcpd.done"
+         description="Find duplicate code using PHPCPD and print human readable output. Intended for usage on the command line before committing.">
+        <exec executable="${phpcpd}" taskname="phpcpd">
+            <arg path="src" />
+        </exec>
+        <property name="phpcpd.done" value="true"/>
+    </target>
+
+ <target name="phpcpd-ci"
+         unless="phpcpd.done"
+         depends="prepare"
+         description="Find duplicate code using PHPCPD and log result in XML format. Intended for usage within a continuous integration environment.">
+  <exec executable="${phpcpd}" taskname="phpcpd">
+   <arg value="--log-pmd" />
+   <arg path="build/logs/pmd-cpd.xml" />
+   <arg path="src/apps" />
+  </exec>
+
+  <property name="phpcpd.done" value="true"/>
+ </target>
+
+
+
     <target name="phpunit"
             depends="vendors"
             description="Run unit tests with PHPUnit">
-        <exec executable="${toolsdir}phpunit">
+        <exec executable="${toolsdir}phpunit" resultproperty="result.phpunit" taskname="phpunit">
             <arg value="--configuration"/>
             <arg path="src/tests/phpunit.xml"/>
         </exec>
     </target>
+
+
+ <target name="-check-failure">
+  <fail message="PHPUnit did not finish successfully">
+   <condition>
+    <not>
+     <equals arg1="${result.phpunit}" arg2="0"/>
+    </not>
+   </condition>
+  </fail>
+ </target>
 </project>

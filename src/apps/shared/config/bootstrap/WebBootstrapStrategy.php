@@ -171,6 +171,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action'     => 'index',
         ));
 
+        $router->add("/christmas-lottery/play", array(
+            "module"     => "web",
+            "lottery"    => 'euromillions',
+            'controller' => 'christmas',
+            'action'     => 'index',
+        ));
+
         $router->add("/profile/tickets/games", array(
             "module"     => "web",
             'namespace'  => 'EuroMillions\web\controllers\profile',
@@ -255,6 +262,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             "module"     => "web",
             'lottery'    => 1,
             'controller' => 'order',
+            'action'     => 'order'
+        ));
+
+        $router->add("/christmas/order", array(
+            "module"     => "web",
+            'lottery'    => "euromillions",
+            'controller' => 'christmas',
             'action'     => 'order'
         ));
 

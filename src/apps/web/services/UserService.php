@@ -193,9 +193,18 @@ class UserService
             return $this->trateSubscriptionsToView(
                 $this->playRepository->getSubscriptionsByUserIdActive($userId, $nextDrawDate)
             );
-        }else{
-            return [];
         }
+
+        return [];
+    }
+
+    public function getMyActiveChristmas($userId)
+    {
+        if(!empty($userId)){
+            return  $this->playRepository->getActiveChristmasByUser($userId);
+        }
+
+        return [];
     }
 
     /**
@@ -209,9 +218,9 @@ class UserService
             return $this->trateSubscriptionsToView(
                 $this->playRepository->getSubscriptionsByUserIdInactive($userId)
             );
-        }else{
-            return [];
         }
+
+        return [];
     }
 
     public function updateUserData(array $user_data, Email $email)

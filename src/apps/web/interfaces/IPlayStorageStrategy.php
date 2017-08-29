@@ -13,6 +13,14 @@ interface IPlayStorageStrategy
     /** @return ActionResult */
     public function save($json, $userId);
 
+
+    /**
+     * @param $christmasTickets
+     * @param $userId
+     * @return ActionResult
+     */
+    public function saveChristmas($christmasTickets, $userId);
+
     /**
      * @param PlayFormToStorage $data
      * @param string $userId
@@ -25,6 +33,12 @@ interface IPlayStorageStrategy
      * @return ActionResult
      */
     public function findByKey($key);
+
+    /**
+     * @param $key
+     * @return ActionResult
+     */
+    public function findByChristmasKey($key);
 
     /** @return void */
     public function delete($key = '');

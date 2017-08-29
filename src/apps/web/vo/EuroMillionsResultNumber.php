@@ -12,9 +12,9 @@ abstract class EuroMillionsResultNumber
     /**
      * @param int $number
      */
-    public function __construct($number)
+    public function __construct($number, $lottery = null)
     {
-        $this->setNumber($number);
+            $this->setNumber($number, $lottery);
     }
 
     public function getNumber()
@@ -22,10 +22,14 @@ abstract class EuroMillionsResultNumber
         return $this->number;
     }
 
-    protected function setNumber($number)
+    protected function setNumber($number, $lottery)
     {
         $min_value = $this->getMinValue();
         $max_value = $this->getMaxValue();
+        if ($lottery) {
+            $min_value = 0;
+            $max_value = 200;
+        }
 
         $error_message = "This result number should be an integer between $min_value and $max_value";
         if (!is_int($number)) {

@@ -27,7 +27,7 @@ class CartService
 
     private $userRepository;
 
-    /** @var LotteryRepository $lotteryRepository  */
+    /** @var LotteryRepository $lotteryRepository */
     private $lotteryRepository;
 
     /** @var SiteConfigService $siteConfigService */
@@ -36,7 +36,7 @@ class CartService
     /** @var PlayConfigRepository $playConfigRepository */
     private $playConfigRepository;
 
-    public function __construct( EntityManager $entityManager, IPlayStorageStrategy $orderStorageStrategy, SiteConfigService $siteConfigService )
+    public function __construct(EntityManager $entityManager, IPlayStorageStrategy $orderStorageStrategy, SiteConfigService $siteConfigService)
     {
         $this->entityManager = $entityManager;
         $this->orderStorageStrategy = $orderStorageStrategy;
@@ -46,13 +46,13 @@ class CartService
         $this->siteConfigService = $siteConfigService;
     }
 
-    public function store( Order $order )
+    public function store(Order $order)
     {
         $user_id = $order->getPlayConfig()[0]->getUser()->getId();
-        if( null !== $user_id ) {
+        if (null !== $user_id) {
             /** @var ActionResult $result */
             $result = $this->orderStorageStrategy->save($order->toJsonData(), $user_id);
-            if( $result->success() ) {
+            if ($result->success()) {
                 return $result;
             } else {
                 return new ActionResult(false);
@@ -61,45 +61,54 @@ class CartService
         return new ActionResult(false);
     }
 
-    public function get( $user_id )
+    public function get($user_id)
     {
         try {
             /** @var ActionResult $result */
             $result = $this->orderStorageStrategy->findByKey($user_id);
             /** @var Lottery $lottery */
             $lottery = $this->lotteryRepository->findOneBy(['name' => 'EuroMillions']);
-            if($result->success()) {
+            if ($result->success()) {
                 $json = json_decode($result->returnValues());
-                if( NULL == $json ) {
+                if (NULL == $json) {
                     return new ActionResult(false);
                 }
                 /** @var User $user */
                 $user = $this->userRepository->find(['id' => $user_id]);
-                if( null !== $user ) {
+                if (null !== $user) {
                     $bets = [];
-                    foreach($json->play_config as $bet) {
+                    foreach ($json->play_config as $bet) {
                         $playConfig = new PlayConfig();
-                        $playConfig->formToEntity($user,$bet,$bet->euromillions_line);
+                        $playConfig->formToEntity($user, $bet, $bet->euromillions_line);
                         $bets[] = $playConfig;
                     }
                     $fee = $this->siteConfigService->getFee();
                     $fee_limit = $this->siteConfigService->getFeeToLimitValue();
                     $order = new Order($bets,
-                                       $lottery->getSingleBetPrice(),
-                                       $fee, $fee_limit,
-                                       new Discount($bets[0]->getFrequency(), $this->playConfigRepository->retrieveEuromillionsBundlePrice()));
+                        $lottery->getSingleBetPrice(),
+                        $fee, $fee_limit,
+                        new Discount($bets[0]->getFrequency(), $this->playConfigRepository->retrieveEuromillionsBundlePrice()));
 
-                    if( null !== $order ) {
+                    if (null !== $order) {
                         return new ActionResult(true, $order);
                     }
                 }
             } else {
                 return new ActionResult(false, 'Order doesn\'t exist');
             }
-        } catch ( \RedisException $r ) {
+        } catch (\RedisException $r) {
             return new ActionResult(false, $r->getMessage());
         }
         return new ActionResult(false);
+    }
+
+    public function getChristmas($user_id)
+    {
+        try {
+            return $this->orderStorageStrategy->findByChristmasKey($user_id)->returnValues();
+        } catch (\RedisException $r) {
+            return new ActionResult(false, $r->getMessage());
+        }
     }
 
 }

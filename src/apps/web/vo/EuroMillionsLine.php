@@ -27,14 +27,17 @@ class EuroMillionsLine implements IArraySerializable
     /**
      * @param EuroMillionsRegularNumber[] $regular_numbers
      * @param EuroMillionsLuckyNumber[] $lucky_numbers
+     * @param $lottery
      */
-    public function __construct(array $regular_numbers, array $lucky_numbers)
+    public function __construct(array $regular_numbers, array $lucky_numbers, $lottery = null)
     {
 //        if (count($regular_numbers) != self::NUM_REGULAR_NUMBERS || count($lucky_numbers) != self::NUM_LUCKY_NUMBERS ){
 //            throw new \InvalidArgumentException("An EuroMillions result should have ".self::NUM_REGULAR_NUMBERS." regular numbers and ".self::NUM_LUCKY_NUMBERS." lucky numbers");
 //        }
-        if ($this->checkTypeAndRepeated($regular_numbers, 'EuroMillionsRegularNumber') || $this->checkTypeAndRepeated($lucky_numbers, 'EuroMillionsLuckyNumber')) {
-            throw new \InvalidArgumentException("The result numbers cannot have duplicates");
+        if ($lottery == null) {
+            if ($this->checkTypeAndRepeated($regular_numbers, 'EuroMillionsRegularNumber') || $this->checkTypeAndRepeated($lucky_numbers, 'EuroMillionsLuckyNumber')) {
+                throw new \InvalidArgumentException("The result numbers cannot have duplicates");
+            }
         }
         $callback = function (EuroMillionsResultNumber $elem) {
             return $elem->getNumber();
@@ -46,14 +49,17 @@ class EuroMillionsLine implements IArraySerializable
         } else {
             $this->regular_numbers = implode(',',array_map($callback, $regular_numbers));
             $this->lucky_numbers = implode(',',array_map($callback, $lucky_numbers));
-            $this->setPropertiesValues($regular_numbers, $lucky_numbers);
+            $this->setPropertiesValues($regular_numbers, $lucky_numbers, $lottery);
         }
     }
 
-    private function setPropertiesValues(array $regular_numbers, array $lucky_numbers)
+    private function setPropertiesValues(array $regular_numbers, array $lucky_numbers, $lottery = null)
     {
-        sort($regular_numbers);
-        sort($lucky_numbers);
+        if (!$lottery) {
+            sort($regular_numbers);
+            sort($lucky_numbers);
+        }
+
         $this->regular_number_one = $regular_numbers[0]->getNumber();
         $this->regular_number_two = $regular_numbers[1]->getNumber();
         $this->regular_number_three = $regular_numbers[2]->getNumber();

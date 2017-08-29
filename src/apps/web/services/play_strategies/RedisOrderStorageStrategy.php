@@ -21,6 +21,8 @@ class RedisOrderStorageStrategy implements IPlayStorageStrategy
 
     protected static $key = 'PlayStore_EMORDER:';
 
+    protected static $christmasKey = 'PlayStore_CRORDER:';
+
     public function __construct(Redis $storage)
     {
         $this->storage = $storage;
@@ -37,6 +39,16 @@ class RedisOrderStorageStrategy implements IPlayStorageStrategy
         }
     }
 
+    public function saveChristmas($json, $userId)
+    {
+        try{
+            $this->storage->set($this->getChristmasKey($userId), $json);
+            return new ActionResult(true);
+        }catch(RedisException $e){
+            return new ActionResult(false,'Unable to save data in storage');
+        }
+    }
+
     public function saveAll(PlayFormToStorage $data, $userId)
     {
         throw new UnsupportedOperationException();
@@ -46,6 +58,20 @@ class RedisOrderStorageStrategy implements IPlayStorageStrategy
     {
         try{
             $result = $this->storage->get(self::$key.$key);
+            if(empty($result)){
+                return new ActionResult(false,'Key not found');
+            }else{
+                return new ActionResult(true, $result);
+            }
+        }catch(RedisException $e){
+            return new ActionResult(false,'An error ocurred while find key');
+        }
+    }
+
+    public function findByChristmasKey($key)
+    {
+        try{
+            $result = $this->storage->get(self::$christmasKey.$key);
             if(empty($result)){
                 return new ActionResult(false,'Key not found');
             }else{
@@ -74,5 +100,10 @@ class RedisOrderStorageStrategy implements IPlayStorageStrategy
     private function getNameKey($userId)
     {
         return self::$key . $userId;
+    }
+
+    private function getChristmasKey($userId)
+    {
+        return self::$christmasKey . $userId;
     }
 }

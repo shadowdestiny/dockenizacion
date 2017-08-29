@@ -1,4 +1,5 @@
 <?php
+
 namespace EuroMillions\web\services;
 
 use DateTime;
@@ -61,7 +62,7 @@ class LotteryService
                                 EmailService $emailService,
                                 UserNotificationsService $userNotificationsService,
                                 WalletService $walletService
-                                )
+    )
     {
         $this->entityManager = $entityManager;
         $this->lotteryDrawRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS . 'EuroMillionsDraw');
@@ -96,7 +97,7 @@ class LotteryService
         /** @var Lottery $lottery */
         $lottery = $this->lotteryRepository->getLotteryByName($lotteryName);
         /** @var EuroMillionsJackpot $jackpot_object */
-        $jackpot_object = 'EuroMillions\web\vo\\'.$lotteryName.'Jackpot';
+        $jackpot_object = 'EuroMillions\web\vo\\' . $lotteryName . 'Jackpot';
         try {
             $next_jackpot = $this->lotteryDrawRepository->getNextJackpot($lottery);
             return $jackpot_object::fromAmountIncludingDecimals($next_jackpot->getAmount());
@@ -104,7 +105,7 @@ class LotteryService
             try {
                 $next_jackpot = $this->lotteriesDataService->updateNextDrawJackpot($lotteryName);
                 return $jackpot_object::fromAmountIncludingDecimals($next_jackpot->getAmount());
-            } catch ( DataMissingException $e ) {
+            } catch (DataMissingException $e) {
                 return $jackpot_object::fromAmountIncludingDecimals(null);
             }
         }
@@ -149,15 +150,28 @@ class LotteryService
     public function getNextDrawByLottery($lotteryName, \DateTime $now = null)
     {
         list($now, $lottery) = $this->getLotteryAndNowDate($lotteryName, $now);
-        if (null !== $lottery) {
+        if ($lotteryName == 'Christmas') {
             /** @var EuroMillionsDraw[] $euroMillionsDraw */
             $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($now));
-            if (null !== $euroMillionsDraw) {
+            if ($euroMillionsDraw !== null) {
                 return new ActionResult(true, $euroMillionsDraw);
             } else {
                 return new ActionResult(false);
             }
+        } else {
+
+            if ($lottery !== null) {
+                /** @var EuroMillionsDraw[] $euroMillionsDraw */
+                $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($now));
+
+                if ($euroMillionsDraw !== null) {
+                    return new ActionResult(true, $euroMillionsDraw);
+                } else {
+                    return new ActionResult(false);
+                }
+            }
         }
+
         return new ActionResult(false);
     }
 
@@ -171,13 +185,13 @@ class LotteryService
                 $euroMillionsDraws = $this->lotteryDrawRepository->getDraws($lottery, $limit);
                 $euroMillionsDrawsDTO = [];
                 /** @var EuroMillionsDraw[] $euroMillionsDraws */
-                foreach($euroMillionsDraws as $euroMillionsDraw) {
+                foreach ($euroMillionsDraws as $euroMillionsDraw) {
                     $euromillionsBreakDownDataDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
-                    $euroMillionsDrawDTO = new EuroMillionsDrawDTO($euromillionsBreakDownDataDTO,$euroMillionsDraw);
+                    $euroMillionsDrawDTO = new EuroMillionsDrawDTO($euromillionsBreakDownDataDTO, $euroMillionsDraw);
                     $euroMillionsDrawsDTO[] = $euroMillionsDrawDTO;
                 }
-                return new ActionResult(true,$euroMillionsDrawsDTO);
-            } catch ( DataMissingException $e) {
+                return new ActionResult(true, $euroMillionsDrawsDTO);
+            } catch (DataMissingException $e) {
                 return new ActionResult(false);
             }
         }
@@ -190,7 +204,7 @@ class LotteryService
         /** @var Lottery $lottery */
         $lottery = $this->getLotteryByName($lotteryName);
         if (null !== $lottery) {
-           return $lottery;
+            return $lottery;
         } else {
             return new ActionResult(false, 'Lottery unknown');
         }
@@ -245,12 +259,12 @@ class LotteryService
 
     public function getLastDrawWithBreakDownByDate($lotteryName, \DateTime $today)
     {
-        return $this->getBreakDown($lotteryName, $today,'getLastBreakDownData');
+        return $this->getBreakDown($lotteryName, $today, 'getLastBreakDownData');
     }
 
     public function getDrawWithBreakDownByDate($lotteryName, \DateTime $today)
     {
-        return $this->getBreakDown($lotteryName, $today,'getBreakDownData');
+        return $this->getBreakDown($lotteryName, $today, 'getBreakDownData');
 
     }
 
@@ -303,15 +317,15 @@ class LotteryService
         }
     }
 
-    public function getLotteriesOrderedByNextDrawDate( \DateTime $now = null )
+    public function getLotteriesOrderedByNextDrawDate(\DateTime $now = null)
     {
-        if(!$now) {
+        if (!$now) {
             $now = new \DateTime();
         }
         $new_array = [];
         $lotteries = $this->lotteryRepository->findAll();
         /** @var Lottery $lottery */
-        foreach($lotteries as $lottery) {
+        foreach ($lotteries as $lottery) {
             $next_draw = $lottery->getNextDrawDate($now);
             $new_array[$next_draw->format('Y-m-d H:i:s')] = $lottery;
         }
@@ -319,7 +333,8 @@ class LotteryService
         return count($new_array) > 0 ? $new_array : [];
     }
 
-    public function sendResultLotteryToUsersWithBets( $result, IEmailTemplate $emailTemplate) {
+    public function sendResultLotteryToUsersWithBets($result, IEmailTemplate $emailTemplate)
+    {
 
         $notificationResultsStrategy = $this->obtainNotificationResultStrategy();
         /** @var Bet $bet */
@@ -332,11 +347,11 @@ class LotteryService
         }
     }
 
-    public function sendResultLotteryToUsers( array $users, IEmailTemplate $emailTemplate )
+    public function sendResultLotteryToUsers(array $users, IEmailTemplate $emailTemplate)
     {
         $notificationResultsStrategy = $this->obtainNotificationResultStrategy();
         /** @var User $user */
-        foreach($users as $user) {
+        foreach ($users as $user) {
             $hasNotification = $this->userNotificationsService->hasNotificationActive($notificationResultsStrategy, $user);
             if ($hasNotification->getValue() == 1) {
                 $this->emailService->sendTransactionalEmail($user, $emailTemplate);
@@ -344,9 +359,9 @@ class LotteryService
         }
     }
 
-    public function obtainDataForDraw($lotteryName, \DateTime $datetime=null)
+    public function obtainDataForDraw($lotteryName, \DateTime $datetime = null)
     {
-        if($datetime == null) {
+        if ($datetime == null) {
             $datetime = new DateTime();
         }
 
@@ -413,6 +428,7 @@ class LotteryService
         if (!$now) {
             $now = new \DateTime();
         }
+
         /** @var Lottery $lottery */
         $lottery = $this->getLotteryByName($lotteryName);
         return array($now, $lottery);

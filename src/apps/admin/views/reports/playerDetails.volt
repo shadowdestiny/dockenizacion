@@ -54,6 +54,8 @@
 
                     {% include "reports/playerDetails/_upcomingDraws.volt" %}
 
+                    {% include "reports/playerDetails/_christmasActives.volt" %}
+
                     {% include "reports/playerDetails/_pastGames.volt" %}
 
                     {% include "reports/playerDetails/_bets.volt" %}
