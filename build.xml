@@ -2,7 +2,7 @@
 <project name="Euromillions" default="build">
 
     <property name="toolsdir" value="src/vendor/bin/"/>
-
+    <property name="phpcpd"  value="phpcpd"/>
     <target name="build"
             depends="prepare,vendors,phpunit"
             description=""/>
@@ -37,7 +37,14 @@
             <arg value='--prefer-dist' />
         </exec>
     </target>
-
+    <target name="phpcpd"
+         unless="phpcpd.done"
+         description="Find duplicate code using PHPCPD and print human readable output. Intended for usage on the command line before committing.">
+        <exec executable="${phpcpd}" taskname="phpcpd">
+            <arg path="src" />
+        </exec>
+        <property name="phpcpd.done" value="true"/>
+    </target>
     <target name="phpunit"
             depends="vendors"
             description="Run unit tests with PHPUnit">
