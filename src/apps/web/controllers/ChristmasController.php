@@ -46,7 +46,7 @@ class ChristmasController extends PublicSiteControllerBase
     public function orderAction()
     {
         if (!$this->request->getPost()) {
-            $this->response->redirect('/christmas/play');
+            $this->response->redirect('/play/christmas-lottery');
         }
 
         $user_id = $this->request->get('user');

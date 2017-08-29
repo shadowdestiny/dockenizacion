@@ -171,7 +171,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action'     => 'index',
         ));
 
-        $router->add("/christmas/play", array(
+        $router->add("/play/christmas-lottery", array(
             "module"     => "web",
             "lottery"    => 'euromillions',
             'controller' => 'christmas',

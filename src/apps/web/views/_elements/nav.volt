@@ -1,5 +1,5 @@
 <li class="li-christmas{% if activeNav.myClass == 'christmas' %} active{% endif %}">
-    <a href="/christmas/play">
+    <a href="/play/christmas-lottery">
         <span class="link desktop">{{ language.translate("Christmas Lottery") }}</span>
         <br class="br">
         <span class="txt">{{ language.translate("Play") }}</span>
