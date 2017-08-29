@@ -46,7 +46,7 @@
    <arg value="--standard=PSR2" />
    <arg value="--extensions=php" />
    <arg value="--ignore=autoload.php" />
-   <arg path="src" />
+   <arg path="src/apps" />
    <arg path="src/tests" />
   </exec>
 
@@ -66,7 +66,7 @@
    <arg value="--standard=PSR2" />
    <arg value="--extensions=php" />
    <arg value="--ignore=autoload.php" />
-   <arg path="src" />
+   <arg path="src/apps" />
    <arg path="src/tests" />
   </exec>
 
@@ -90,7 +90,7 @@
   <exec executable="${phpcpd}" taskname="phpcpd">
    <arg value="--log-pmd" />
    <arg path="build/logs/pmd-cpd.xml" />
-   <arg path="src" />
+   <arg path="src/apps" />
   </exec>
 
   <property name="phpcpd.done" value="true"/>
