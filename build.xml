@@ -3,6 +3,7 @@
 
     <property name="toolsdir" value="src/vendor/bin/"/>
     <property name="phpcpd"  value="phpcpd"/>
+    <property name="phpcs"   value="phpcs"/>
     <target name="build"
             depends="prepare,vendors,phpcpd-ci,phpcs-ci,phpunit,-check-failure"
             description=""/>
@@ -37,6 +38,23 @@
             <arg value='--prefer-dist' />
         </exec>
     </target>
+
+ <target name="phpcs"
+         unless="phpcs.done"
+         description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
+  <exec executable="${phpcs}" taskname="phpcs">
+   <arg value="--standard=PSR2" />
+   <arg value="--extensions=php" />
+   <arg value="--ignore=autoload.php" />
+   <arg path="src" />
+   <arg path="src/tests" />
+  </exec>
+
+  <property name="phpcs.done" value="true"/>
+ </target>
+
+
+
 
  <target name="phpcs-ci"
          unless="phpcs.done"
