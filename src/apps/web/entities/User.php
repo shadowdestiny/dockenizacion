@@ -54,6 +54,7 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     /** @var IPAddress */
     protected $ip_address;
     protected $lastConnection;
+    protected $defaultLanguage;
 
 
 
@@ -535,6 +536,22 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     public function setLastConnection($lastConnection)
     {
         $this->lastConnection = $lastConnection;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultLanguage()
+    {
+        return $this->defaultLanguage;
+    }
+
+    /**
+     * @param $defaultLanguage
+     */
+    public function setDefaultLanguage($defaultLanguage)
+    {
+        $this->defaultLanguage = $defaultLanguage;
     }
 
 
