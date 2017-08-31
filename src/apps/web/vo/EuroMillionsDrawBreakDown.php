@@ -47,11 +47,11 @@ class EuroMillionsDrawBreakDown
      */
     public function __construct(array $breakdown)
     {
-        if(!is_array($breakdown)){
+        if (!is_array($breakdown)) {
             throw new \InvalidArgumentException("");
         }
 
-        if(count($breakdown) < self::NUMBER_OF_CATEGORIES) {
+        if (count($breakdown) < self::NUMBER_OF_CATEGORIES) {
             throw new \LengthException('Incorrect categories length from collection');
         }
         $this->breakdown = $breakdown;
@@ -264,14 +264,14 @@ class EuroMillionsDrawBreakDown
     {
         $collection = (empty($this->breakdown[0])) ? $this->breakdown : $this->breakdown[0];
 
-        foreach($collection as $key => $breakDown){
-            $nameMethod = 'set'.str_replace("_","",ucwords($key,'_'));
-            try{
-                if(is_array($breakDown)) {
+        foreach ($collection as $key => $breakDown) {
+            $nameMethod = 'set' . str_replace("_", "", ucwords($key, '_'));
+            try {
+                if (is_array($breakDown)) {
                     if (($breakDown[1] instanceof Money)) {
                         $money = $breakDown[1];
                     } else {
-                        if(!is_numeric($breakDown[1])) {
+                        if (!is_numeric($breakDown[1])) {
                             throw new \Exception();
                         }
                         $value = intval(str_replace(',', '', $breakDown[1]));
@@ -284,15 +284,15 @@ class EuroMillionsDrawBreakDown
                     $euroMillionsDrawBreakDown->setCategoryName($key);
                     $this->$nameMethod($euroMillionsDrawBreakDown);
                 }
-            }catch(\Exception $e){
+            } catch (\Exception $e) {
                 throw new \Exception($e->getMessage());
             }
         }
     }
 
-    private function mappingAward($cnt_number,$cnt_lucky)
+    private function mappingAward($cnt_number, $cnt_lucky)
     {
-        $name_property = $this->structureOfCombinations()[$cnt_number.$cnt_lucky];
+        $name_property = $this->structureOfCombinations()[$cnt_number . $cnt_lucky];
         return $this->$name_property->getLotteryPrize();
     }
 
@@ -305,28 +305,27 @@ class EuroMillionsDrawBreakDown
             50 => 'category_three',
             42 => 'category_four',
             41 => 'category_five',
-            40 => 'category_six',
-            32 => 'category_seven',
+            32 => 'category_six',
+            40 => 'category_seven',
             22 => 'category_eight',
             31 => 'category_nine',
             30 => 'category_ten',
             12 => 'category_eleven',
             21 => 'category_twelve',
             20 => 'category_thirteen'
-       ];
+        ];
     }
 
     public function toArray()
     {
         $categories = $this->structureOfCombinations();
         $result = [];
-        foreach($categories as $category)
-        {
-            $method = 'get'.StringHelper::fromUnderscoreToCamelCase($category);
+        foreach ($categories as $category) {
+            $method = 'get' . StringHelper::fromUnderscoreToCamelCase($category);
             $data = $this->$method()->toArray();
             $data_prefixed = [];
             foreach ($data as $key => $value) {
-                $data_prefixed[$category.'_'.$key] = $value;
+                $data_prefixed[$category . '_' . $key] = $value;
             }
             $result = array_merge($result, $data_prefixed);
         }

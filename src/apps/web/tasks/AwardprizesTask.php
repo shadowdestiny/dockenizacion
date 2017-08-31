@@ -1,4 +1,5 @@
 <?php
+
 namespace EuroMillions\web\tasks;
 
 use EuroMillions\web\entities\EuroMillionsDraw;
@@ -32,10 +33,10 @@ class AwardprizesTask extends TaskBase
     public function checkoutAction($args = 'now')
     {
         $today = new \DateTime($args[0]);
-        if(!$today) {
+        if (!$today) {
             $today = new \DateTime();
         }
-        $drawDate = $this->lotteryService->getLastDrawDate('EuroMillions',$today);
+        $drawDate = $this->lotteryService->getLastDrawDate('EuroMillions', $today);
         $lottery_name = 'EuroMillions';
         $play_configs_result_awarded = $this->PrizeCheckoutService->playConfigsWithBetsAwarded($drawDate);
         //get breakdown
@@ -46,17 +47,17 @@ class AwardprizesTask extends TaskBase
             $euromillions_breakDown = $result_breakdown->getValues()->getBreakDown();
             $play_configs_awarded = $play_configs_result_awarded->getValues();
             foreach ($play_configs_awarded as $k => $play_config_and_count) {
-                if( isset($play_config_and_count['cnt']) && isset($play_config_and_count['cnt_lucky'])) {
+                if (isset($play_config_and_count['cnt']) && isset($play_config_and_count['cnt_lucky'])) {
                     /** @var Money $result_amount */
                     $result_amount = $euromillions_breakDown->getAwardFromCategory($play_config_and_count['cnt'], $play_config_and_count['cnt_lucky']);
                     $scalarValues = [
                         'matches' => ['cnt' => $play_config_and_count['cnt'], 'cnt_lucky' => $play_config_and_count['cnt_lucky']],
-                        'userId'  => $play_config_and_count['userId'],
+                        'userId' => $play_config_and_count['userId'],
                         'playConfigId' => $play_config_and_count['playConfig']
                     ];
                     if ($result_amount->getAmount() > 0) {
-                            $this->PrizeCheckoutService->awardUser($play_config_and_count[0], $result_amount, $scalarValues);
-                            $this->PrizeCheckoutService->matchNumbersUser($play_config_and_count[0],$scalarValues,$drawDate,$result_amount);
+                        $this->PrizeCheckoutService->awardUser($play_config_and_count[0], $result_amount, $scalarValues);
+                        $this->PrizeCheckoutService->matchNumbersUser($play_config_and_count[0], $scalarValues, $drawDate, $result_amount);
                     }
                 }
             }
