@@ -139,6 +139,12 @@ function navCurrency(){
     }
 }
 
+function navLanguage(){
+    if(varSize < 3){
+        menu(".li-language", ".div-language");
+    }
+}
+
 $(function(){
     if(show_modal == 1) {
         $("#win").easyModal({
@@ -180,6 +186,9 @@ $(function(){
     navCurrency();
     $(window).resize(navCurrency);
 
+    navLanguage();
+    $(window).resize(navLanguage());
+
     /* Hide Currency after tapping on mobile */
     $('html').on('touchstart', function(e){
         if($('.div-currency').is(":visible")){
@@ -189,11 +198,22 @@ $(function(){
                 $('.div-currency').show();
             };
         }
+
+        if($('.div-language').is(":visible")){
+            $('.div-language').hide();
+        }else{
+            if(e.target.className.split(" ")[1] == "myLang"){
+                $('.div-language').show();
+            };
+        }
     })
     $(".div-currency").on('touchstart',function(e){
         e.stopPropagation();
     });
 
+    $(".div-language").on('touchstart',function(e){
+        e.stopPropagation();
+    });
 
     $('#funds-value').on('keyup',function(e){
         var regex = /^\d+(\.\d{0,2})?$/g;

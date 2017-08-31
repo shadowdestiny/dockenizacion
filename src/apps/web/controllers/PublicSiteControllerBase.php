@@ -58,6 +58,7 @@ class PublicSiteControllerBase extends ControllerBase
 
     protected $lottery;
 
+    protected $languageUrl;
 
     public function initialize(LotteryService $lotteryService = null,
                                LanguageService $languageService = null,
@@ -84,6 +85,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->transactionService = $transactionService ?: new TransactionService($this->di->get('entityManager'), $this->currencyConversionService);
         $this->christmasService = $christmasService ?: new ChristmasService($this->di->get('entityManager'));
         $this->lottery = !isset($this->router->getParams()['lottery']) ? 'euromillions' : $this->router->getParams()['lottery'];
+        $this->languageUrl = !isset($this->router->getParams()['language']) ? 'en' : $this->router->getParams()['language'];
     }
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
@@ -147,6 +149,8 @@ class PublicSiteControllerBase extends ControllerBase
         $this->view->setVar('user_currency_code', $current_currency->getName());
         $this->view->setVar('user_balance', $user_balance);
         $this->view->setVar('user_balance_raw', $user_balance_raw);
+        $this->view->setVar('active_languages', $this->languageService->activeLanguagesArray());
+        $this->view->setVar('user_language', 'en'); // ToDo: Coger del usuario el language que le toca
         $this->view->setVar('jackpot', $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions')));
         $date_time_util = new DateTimeUtil();
         $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');
