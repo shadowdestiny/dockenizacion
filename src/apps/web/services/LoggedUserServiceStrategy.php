@@ -26,4 +26,9 @@ class LoggedUserServiceStrategy extends UserService implements IAccountLoggerStr
         return parent::updateCurrency($user, $new_currency);
     }
 
+    public function updateLanguage(User $user, $language)
+    {
+        return parent::updateLanguage($user, $language);
+    }
+
 }

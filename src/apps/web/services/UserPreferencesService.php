@@ -33,6 +33,16 @@ class UserPreferencesService
         return $currency;
     }
 
+    public function setLanguage($language)
+    {
+        $this->storageStrategy->setLanguage($language);
+    }
+
+    public function getLanguage()
+    {
+        return $this->storageStrategy->getLanguage();
+    }
+
     /**
      * @param IJackpot $jackpot
      * @param string $locale

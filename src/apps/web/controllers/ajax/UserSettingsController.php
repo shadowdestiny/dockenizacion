@@ -18,6 +18,12 @@ class UserSettingsController extends AjaxControllerBase
         $this->response->redirect($this->session->get('original_referer'));
     }
 
+    public function setLanguageAction($language)
+    {
+        $this->loadLanguage($language);
+        echo json_encode(['result'=>'OK']);
+    }
+
     /**
      * @param $currency
      */
@@ -29,6 +35,19 @@ class UserSettingsController extends AjaxControllerBase
         $user = $this->domainServiceFactory->getAuthService()->getCurrentUser();
         if ($user instanceof User) {
             $this->domainServiceFactory->getUserService()->updateCurrency($user, $new_currency);
+        }
+    }
+
+    /**
+     * @param $language
+     */
+    private function loadLanguage($language)
+    {
+        $user_service = $this->domainServiceFactory->getUserPreferencesService();
+        $user_service->setLanguage($language);
+        $user = $this->domainServiceFactory->getAuthService()->getCurrentUser();
+        if ($user instanceof User) {
+            $this->domainServiceFactory->getUserService()->updateLanguage($user, $language);
         }
     }
 

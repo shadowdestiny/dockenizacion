@@ -8,4 +8,6 @@ interface IUsersPreferencesStorageStrategy
      */
     public function getCurrency();
     public function setCurrency(Currency $currency);
+    public function getLanguage();
+    public function setLanguage($language);
 }

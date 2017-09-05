@@ -139,9 +139,11 @@ class PublicSiteControllerBase extends ControllerBase
                 $this->userService->updateLastConnection($user);
                 $this->session->set('lastConnectionTime', date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' +1 day')));
             }
+            $user_language = $user->getDefaultLanguage();
         }else{
             $user_balance = '';
             $user_balance_raw = '';
+            $user_language = explode('_', $this->languageService->getLocale())[0]; // ToDo: esto creo q no esta bien
         }
         $this->view->setVar('lottery', $this->lottery);
         $this->view->setVar('current_currency', $current_currency->getName());
@@ -150,7 +152,7 @@ class PublicSiteControllerBase extends ControllerBase
         $this->view->setVar('user_balance', $user_balance);
         $this->view->setVar('user_balance_raw', $user_balance_raw);
         $this->view->setVar('active_languages', $this->languageService->activeLanguagesArray());
-        $this->view->setVar('user_language', 'en'); // ToDo: Coger del usuario el language que le toca
+        $this->view->setVar('user_language', $user_language);
         $this->view->setVar('jackpot', $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions')));
         $date_time_util = new DateTimeUtil();
         $date_next_draw = $this->lotteryService->getNextDateDrawByLottery('EuroMillions');

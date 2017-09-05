@@ -19,6 +19,24 @@ var globalFunctions = {
             },
         });
     },
+    setLanguage : function (value){
+        $.ajax({
+            url: '/ajax/user-settings/setLanguage/'+value,
+            type: 'GET',
+            dataType: "json",
+            success: function(json){
+                if(json.result = 'OK'){
+                    location.href = location.href.split('#')[0];
+                }
+            },
+            error: function (xhr, status, errorThrown){
+                alert( "Sorry, there was a problem!" );
+                console.log( "Error: " + errorThrown );
+                console.log( "Status: " + status );
+                console.dir( xhr );
+            },
+        });
+    },
     playCart : function (params){
         $.ajax({
             url: '/ajax/play-temporarily/temporarilyCart/',

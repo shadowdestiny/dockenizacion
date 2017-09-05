@@ -13,6 +13,7 @@ class WebUserPreferencesStorageStrategy implements IUsersPreferencesStorageStrat
     private $cookieManager;
 
     const CURRENCY_VAR = 'EM_currency';
+    const LANGUAGE_VAR = 'EM_language';
 
     public function __construct(AdapterInterface $session, ICookieManager $cookieManager)
     {
@@ -32,5 +33,19 @@ class WebUserPreferencesStorageStrategy implements IUsersPreferencesStorageStrat
     public function setCurrency(Currency $currency)
     {
         $this->session->set(self::CURRENCY_VAR, $currency->getName());
+    }
+
+    public function getLanguage()
+    {
+        if ($this->session->has(self::LANGUAGE_VAR)) {
+            return $this->session->get(self::LANGUAGE_VAR);
+        } else {
+            return 'en';
+        }
+    }
+
+    public function setLanguage($language)
+    {
+        $this->session->set(self::LANGUAGE_VAR, $language);
     }
 }
