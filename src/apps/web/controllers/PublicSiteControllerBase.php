@@ -143,7 +143,7 @@ class PublicSiteControllerBase extends ControllerBase
         }else{
             $user_balance = '';
             $user_balance_raw = '';
-            $user_language = explode('_', $this->languageService->getLocale())[0]; // ToDo: esto creo q no esta bien
+            $user_language = explode('_', $this->languageService->getLocale())[0];
         }
         $this->view->setVar('lottery', $this->lottery);
         $this->view->setVar('current_currency', $current_currency->getName());
