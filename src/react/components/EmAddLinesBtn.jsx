@@ -32,7 +32,7 @@ var EuroMillionsAddLinesBtn = React.createClass({
 
         return (
             <li data-for="add-lines" onTouchStart={this.props.onBtnAddLinesClick} onMouseOut={this.mouseLeave} onMouseOver={this.props.mouse_over_btn.bind(null, null)} className="box-more" data-tip="It is not possible to add more lines until you fill in the previous ones">
-                <a className="btn gwg add-more" onTouchEnd={this.props.onBtnAddLinesClick.bind(null, null)} onClick={this.props.onBtnAddLinesClick.bind(null, null)} href="javascript:void(0);">Add more lines 
+                <a className="btn gwg add-more" onTouchEnd={this.props.onBtnAddLinesClick.bind(null, null)} onClick={this.props.onBtnAddLinesClick.bind(null, null)} href="javascript:void(0);">{this.props.addLinesBtn}
                     <svg className="ico v-plus"><use xlinkHref="/w/svg/icon.svg#v-plus"></use></svg>
                 </a>
                 {react_tooltip}

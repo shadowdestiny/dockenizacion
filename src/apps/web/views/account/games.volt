@@ -20,13 +20,13 @@
                 {% include "account/_nav.volt" %}
             </div>
             <div class="box-basic content">
-                <h1 class="h1 title">{{ language.translate("Tickets") }}</h1>
+                <h1 class="h1 title">{{ language.translate("tickets_head") }}</h1>
 
                 {% if my_games_actives is empty and my_subscription_actives is empty %}
                     <div class="box info">
                         <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                         <span class="txt">
-                            {{ language.translate("You have purchased no tickets for upcoming draws.") }} <a href="/{{ lottery }}/play">{{ language.translate("Play now and start to win.") }}</a>
+                            <a href="/{{ lottery }}/play">{{ language.translate("tickets_notickets") }}</a>
                         </span>
                     </div>
 
@@ -37,27 +37,27 @@
                                 a real treasure awaits!") }}
                             </span>
 
-                            <span class="jackpot-txt">{{ language.translate("Jackpot this week") }}</span>
+                            <span class="jackpot-txt">{{ language.translate("nextDraw_Estimate") }}</span>
 
                             {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
                             {% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
-                            <span class="btn blue big" >{{ language.translate("PLAY NOW") }}</span>
+                            <span class="btn blue big" >{{ language.translate("nextDraw_btn") }}</span>
                         </div>
                     </a>
                 {% endif %}
 
                 {% if my_subscription_actives is not empty %}
-                    <h2 class="h3">{{ language.translate("My Subscriptions") }}</h2>
+                    <h2 class="h3">{{ language.translate("tickets_SubsUpcoming") }}</h2>
                     <table class="present cl table ui-responsive" data-role="table" data-mode="reflow">
                         <thead>
                         <th width="215px">
-                            {{ language.translate("Draw date") }}
+                            {{ language.translate("tickets_SubsUpcoming_date") }}
                         </th>
                         <th class="date">
-                            {{ language.translate("Lottery") }}
+                            {{ language.translate("tickets_SubsUpcoming_lotto") }}
                         </th>
                         <th class="numbers">
-                            {{ language.translate("Numbers <span class='desktop'>played</span>") }}
+                            {{ language.translate("tickets_SubsUpcoming_numbers") }}
                         </th>
                         </thead>
                         <tbody>
@@ -140,21 +140,21 @@
                 {% if my_games_actives is empty %}
 
                 {% else %}
-                    <h2 class="h3">{{ language.translate("My Tickets") }}</h2>
+                    <h2 class="h3">{{ language.translate("tickets_upcoming") }}</h2>
                     <table class="present cl table ui-responsive" data-role="table" data-mode="reflow">
                         <thead>
                             <th class="date">
-                                {{ language.translate("Draw date") }}
+                                {{ language.translate("tickets_upcoming_date") }}
                             </th>
                             <th class="date">
-                                {{ language.translate("Lottery") }}
+                                {{ language.translate("tickets_upcoming_lotto") }}
                             </th>
 
                             {#<th class="when">#}
                                 {#{{ language.app("Duration") }}#}
                             {#</th>#}
                             <th class="numbers">
-                                {{ language.translate("Numbers <span class='desktop'>played</span>") }}
+                                {{ language.translate("tickets_upcoming_numbers") }}
                             </th>
                             {#<th class="action">#}
                                 {#{{ language.app("Actions") }}#}
@@ -234,22 +234,22 @@
                 {% endif %}
 
                 {% if my_subscription_inactives is not empty %}
-                    <h2 class="h3">{{ language.translate("Past Subscriptions") }}</h2>
+                    <h2 class="h3">{{ language.translate("tickets_SubsPast") }}</h2>
                     <table id="game-history" class="cl table ui-responsive" data-role="table" data-mode="reflow">
                         <thead>
                         <tr>
                             <th width="215px">
-                                {{ language.translate("Draw date") }}
+                                {{ language.translate("tickets_SubsPast_date") }}
                             </th>
                             <th class="date">
-                                {{ language.translate("Lottery") }}
+                                {{ language.translate("tickets_SubsPast_lotto") }}
                             </th>
 
                             {#<th class="when">#}
                             {#{{ language.app("Duration") }}#}
                             {#</th>#}
                             <th class="numbers">
-                                {{ language.translate("Numbers <span class='desktop'>played</span>") }}
+                                {{ language.translate("tickets_SubsPast_numbers") }}
                             </th>
                         </tr>
                         </thead>
@@ -290,22 +290,22 @@
                 {% if my_games_inactives is empty %}
 
                 {% else %}
-                    <h2 class="h3">{{ language.translate("Past Games") }}</h2>
+                    <h2 class="h3">{{ language.translate("tickets_past") }}</h2>
                 <table id="game-history" class="cl table ui-responsive" data-role="table" data-mode="reflow">
                     <thead>
                     <tr>
                         <th class="date">
-                            {{ language.translate("Draw date") }}
+                            {{ language.translate("tickets_past_date") }}
                         </th>
                         <th class="date">
-                            {{ language.translate("Lottery") }}
+                            {{ language.translate("tickets_past_lotto") }}
                         </th>
 
                         {#<th class="when">#}
                         {#{{ language.app("Duration") }}#}
                         {#</th>#}
                         <th class="numbers">
-                            {{ language.translate("Numbers <span class='desktop'>played</span>") }}
+                            {{ language.translate("tickets_past_numbers") }}
                         </th>
                     </tr>
                     </thead>

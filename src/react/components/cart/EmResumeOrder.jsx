@@ -27,7 +27,7 @@ var EmResumeOrder = new React.createClass({
         }
 
         if(config.frequency == 1) {
-            text_weeks = ' On ' + day + ' ' + date_since;
+            text_weeks = ' ' + this.props.txt_on + ' ' + day + ' ' + date_since;
         } else {
             text_weeks = 'Tuesday & Friday, since ' + date_since + ' for ' + config.frequency / 2 + ' weeks';
         }
@@ -36,10 +36,10 @@ var EmResumeOrder = new React.createClass({
             <div className="box-order">
                 <div className="box-total-upper cl">
                     <div className="box-top cl">
-                        <h1>Order Summary</h1>
+                        <h1>{this.props.txt_summary}</h1>
                     </div>
                     <div className="txt-black-upper">
-                        <span className="txt-bold">Draws x{config['frequency']}</span><br />
+                        <span className="txt-bold">{this.props.txt_draws} x{config['frequency']}</span><br />
                         <span className="txt-bold">{text_weeks}</span><br />
                         <span className="txt-bold" style={{ display: jackpot}}>Jackpot: </span><span style={{display: jackpot}}>{config['draw_days']}</span>
                         <a href="/euromillions/play" className="btn purple small ui-link">
@@ -47,7 +47,7 @@ var EmResumeOrder = new React.createClass({
                         </a>
                     </div>
                     <div className="total">
-                        <div className="txt">Total to be paid </div>
+                        <div className="txt">{this.props.txt_total}</div>
                         <div className="val">{this.props.total_price}</div>
                         <EmBtnPayment href={this.props.href} databtn={this.props.databtn} price={this.props.total_price}
                                       classBtn={this.props.classBtn} text={this.props.text}/>

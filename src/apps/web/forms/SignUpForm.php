@@ -1,6 +1,9 @@
 <?php
 namespace EuroMillions\web\forms;
 
+use EuroMillions\web\components\EmTranslationAdapter;
+use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
+use Phalcon\Di;
 use Phalcon\Forms\Element\Email;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Password;
@@ -17,37 +20,42 @@ class SignUpForm extends Form
 {
     public function initialize($entity = null, $options = null)
     {
+
+        $di = Di::getDefault();
+        $entityManager = $di->get('entityManager');
+        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
+
         $name = new Text('name', [
-            'placeholder' => 'Name'
+            'placeholder' => $translationAdapter->query('signup_name')
         ]);
 
         $name->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The name is required.'
+                'message' => $translationAdapter->query('signup_msg_error_name')
             )),
         ));
 
         $this->add($name);
 
         $surname = new Text('surname', [
-            'placeholder' => 'Surname'
+            'placeholder' => $translationAdapter->query('signup_surname')
         ]);
 
         $surname->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The surname is required.'
+                'message' => $translationAdapter->query('signup_msg_error_surname')
             )),
         ));
 
         $this->add($surname);
 
         $email = new Email('email', array(
-            'placeholder' => 'Email',
+            'placeholder' => $translationAdapter->query('signup_email'),
             'id' => 'email-sign-up'
         ));
         $email->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The email is required.'
+                'message' => $translationAdapter->query('signup_msg_error_email')
             )),
             new EmailValidator([
                 'message' => 'Not a valid email.'
@@ -57,18 +65,18 @@ class SignUpForm extends Form
         $this->add($email);
 
         $password = new Password('password', array(
-            'placeholder' => 'Password',
+            'placeholder' => $translationAdapter->query('signup_password'),
             'id' => 'password-sign-up'
         ));
 
         $password->addValidator(new PresenceOf(array(
-            'message' => 'Password is a required field.'
+            'message' => $translationAdapter->query('signup_password')
         )));
 
         $password->addValidator(new Confirmation(
             [
                 'with' => 'confirm_password',
-                'message' => 'Passwords inserted don\'t match.'
+                'message' => $translationAdapter->query('signup_passwordMatch')
             ]
         ));
 
@@ -76,16 +84,16 @@ class SignUpForm extends Form
         $password->addValidator(new StringLength(array(
             'field' => 'password',
             'min' => 6,
-            'messageMinimum' => 'Your password should be composed of at least six characters.'
+            'messageMinimum' => $translationAdapter->query('signup_passwordLenght')
         )));
 
 
         $this->add($password);
         $password_confirm = new Password('confirm_password', array(
-            'placeholder' => 'Confirm Password'
+            'placeholder' => $translationAdapter->query('signup_confirmPassword')
         ));
         $password_confirm->addValidator(new PresenceOf(array(
-            'message' => 'Confirm Password is a required field.'
+            'message' => $translationAdapter->query('signup_msg_error_confirmPass')
         )));
 
 
@@ -97,13 +105,13 @@ class SignUpForm extends Form
             $options['countries'],
             [
                 'useEmpty' => true,
-                'emptyText' => 'Select your country of residence.',
+                'emptyText' => $translationAdapter->query('signup_countrySelect'),
             ]
         );
 
         $country->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The country is required.'
+                'message' => $translationAdapter->query('signup_msg_error_country')
             )),
         ));
 

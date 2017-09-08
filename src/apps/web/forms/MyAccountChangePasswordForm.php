@@ -4,7 +4,10 @@
 namespace EuroMillions\web\forms;
 
 
+use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\components\PasswordValidator;
+use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
+use Phalcon\Di;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\Confirmation;
@@ -16,19 +19,23 @@ class MyAccountChangePasswordForm extends Form
 
     public function initialize($entity = null, $options = null)
     {
+        $di = Di::getDefault();
+        $entityManager = $di->get('entityManager');
+        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
+
         $old_password = new Password('old-password', array(
-            'placeholder' => 'Old password.'
+            'placeholder' => $translationAdapter->query("password_old")
         ));
         $old_password->addValidator(new PresenceOf(array(
-            'message' => 'Password is a required field.'
+            'message' => $translationAdapter->query("password_error_msg_oldpass")
         )));
         $this->add($old_password);
 
         $password = new Password('new-password', array(
-            'placeholder' => 'Password'
+            'placeholder' => $translationAdapter->query("password_new")
         ));
         $password->addValidator(new PresenceOf(array(
-            'message' => 'Password is a required field.'
+            'message' => $translationAdapter->query("password_error_msg_pass")
         )));
         $password->addValidator(new Confirmation(
             [
@@ -40,8 +47,8 @@ class MyAccountChangePasswordForm extends Form
         $password->addValidator(new StringLength(array(
             'field' => 'new-password',
             'min' => 6,
-            'messageMaximum' => 'Your password should be composed at least by six letters.',
-            'messageMinimum' => 'Your password should be composed at least by six letters.'
+            'messageMaximum' => $translationAdapter->query("password_error_msg_characters"),
+            'messageMinimum' => $translationAdapter->query("password_error_msg_characters")
         )));
 
 
@@ -50,18 +57,18 @@ class MyAccountChangePasswordForm extends Form
         ]));
         $this->add($password);
         $password_confirm = new Password('confirm-password', array(
-            'placeholder' => 'Confirm Password'
+            'placeholder' => $translationAdapter->query("password_confirm"),
         ));
 
         $password_confirm->addValidator(new StringLength(array(
             'field' => 'confirm-password',
             'min' => 6,
-            'messageMaximum' => 'Your password should be composed at least by six letters.',
-            'messageMinimum' => 'Your password should be composed at least by six letters.'
+            'messageMaximum' => $translationAdapter->query("password_error_msg_characters"),
+            'messageMinimum' => $translationAdapter->query("password_error_msg_characters")
         )));
 
         $password_confirm->addValidator(new PresenceOf(array(
-            'message' => 'Confirm Password is a required field.'
+            'message' => $translationAdapter->query("password_error_msg_pass")
         )));
 
         $this->add($password_confirm);

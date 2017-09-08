@@ -4,7 +4,10 @@
 namespace EuroMillions\web\forms;
 
 
+use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
+use Phalcon\Di;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
@@ -19,13 +22,17 @@ class BankAccountForm extends Form
 
     public function initialize($entity, $options = null)
     {
+        $di = Di::getDefault();
+        $entityManager = $di->get('entityManager');
+        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
+
         $name = new Text('name', [
             'placeholder' => 'Name'
         ]);
 
         $name->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The name is required.'
+                'message' => $translationAdapter->query("withdraw_error_msg_name")
             )),
         ));
 
@@ -37,7 +44,7 @@ class BankAccountForm extends Form
 
         $surname->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The surname is required.'
+                'message' => $translationAdapter->query("withdraw_error_msg_surname")
             )),
         ));
 
@@ -47,7 +54,7 @@ class BankAccountForm extends Form
         ]);
         $bankName->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The bank name is required.'
+                'message' => $translationAdapter->query("withdraw_error_msg_bank")
             )),
         ));
         $this->add($bankName);
@@ -56,7 +63,7 @@ class BankAccountForm extends Form
         ]);
         $bankAccount->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The bank account is required.'
+                'message' => $translationAdapter->query("withdraw_error_msg_accNum")
             )),
         ));
         $this->add($bankAccount);
@@ -65,7 +72,7 @@ class BankAccountForm extends Form
         ]);
         $bankSwift->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The bank swift is required.'
+                'message' => $translationAdapter->query("withdraw_error_msg_bic")
             )),
         ));
         $this->add($bankSwift);

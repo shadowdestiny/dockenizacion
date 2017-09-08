@@ -1,4 +1,4 @@
-<h3 class="h4">Upcoming Draws</h3>
+<h3 class="h4">Upcoming draws</h3>
 {% if my_games_actives is empty %}
     This player didn't purchase tickets for upcoming draws.
 {% else %}

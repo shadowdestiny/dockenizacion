@@ -19,6 +19,16 @@
     var ratio = '<?php echo $ratio; ?>';
     var total_in_eur = 0;
     var discount = <?php echo $discount; ?>;
+    var txt_summary = "{{ language.translate("summary") }}";
+    var txt_draws = "{{ language.translate("draws") }}";
+    var txt_on = "{{ language.translate("date") }}";
+    var txt_currencyAlert = "{{ language.translate("currencyAlert") }}";
+    var txt_total = "{{ language.translate("total") }}";
+    var txt_payWithBalanceOption = "{{ language.translate("payWithBalanceOption") }}";
+    var txt_gotopay_btn = "{{ language.translate("gotopay_btn") }}";
+    var txt_buy_btn = "{{ language.translate("buy_btn") }}";
+    var txt_depositBuy_btn = "{{ language.translate("depositBuy_btn") }}";
+    var txt_checkout_fee = "{{ language.translate("checkout_fee") }}";
 
     $(document).on("totalPriceEvent",{total: 0, param2: 0},function(e, total, param2) {
     var total_text = '';
@@ -31,7 +41,7 @@
     }
     total_price_in_credit_card_form = 0;
     $('.submit.big.green').text('');
-    $('.submit.big.green').text('Pay ' + total);
+    $('.submit.big.green').text(txt_depositBuy_btn + ' ' + total);
     {#$('.submit.big.green').text('Pay ' + total + total_text);#}
     total_price_in_credit_card_form = total;
     }
@@ -40,7 +50,7 @@
 
     $(function(){
     $('.buy').on('click',function(){
-    if ($(this).text() == 'Buy now') {
+    if ($(this).text() == txt_buy_btn) {
         $(this).text('Please wait...');
         $(this).css('pointer-events', 'none');
     }
@@ -53,7 +63,7 @@
     // var total =  parseFloat(total_price_in_credit_card_form.slice(1)).toFixed(2)/parseFloat(ratio).toFixed(2);
     total_text = '(€'+parseFloat(total_convert).toFixed(2)+')';
     }
-    $('.submit.big.green').text('Pay ' + total_price_in_credit_card_form);
+    $('.submit.big.green').text(txt_depositBuy_btn + ' ' + total_price_in_credit_card_form);
     {#$('.submit.big.green').text('Pay ' + total_price_in_credit_card_form + total_text);#}
     $('.payment').show();
     $('.box-bottom').hide();
@@ -144,8 +154,8 @@
     <main id="content">
         <div class="wrapper">
             <div class="box-basic medium">
-                <h1 class="h1 title yellow res">{{ language.translate("Review and Buy") }}</h1>
-                <div class="terms">{{ language.translate("By purchasing you agree to") }} <a href="/legal/">{{ language.translate("Terms &amp; Conditions") }}</a></div>
+                <h1 class="h1 title yellow res">{{ language.translate("checkout_head") }}</h1>
+                <div class="terms">{{ language.translate("terms") }}</a></div>
 
                 {#<div class="box-top cl">#}
                 {#&#123;&#35;<div class="balance">&#35;&#125;#}

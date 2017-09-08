@@ -239,7 +239,7 @@ class UserService
         try{
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
-            return new ActionResult(true,'Your data was update');
+            return new ActionResult(true,'account_update_success_msg');
         }catch(Exception $e){
             return new ActionResult(false,'Sorry, try it later');
         }

@@ -48,7 +48,7 @@ var EmWallet = new React.createClass({
             <div className="row cl">
                 <div className={disabled_value}>{total_value}</div>
                 <div className="box-wallet cl">
-                    <label onClick={this.handleClickLabel} className="txt">Pay with your Account balance</label>
+                    <label onClick={this.handleClickLabel} className="txt">{this.props.txt_payWithBalanceOption}</label>
                     <input id="pay-wallet" onChange={this.handleChange} type="checkbox" className="checkbox" checked={this.state.checked} />
                 </div>
             </div>

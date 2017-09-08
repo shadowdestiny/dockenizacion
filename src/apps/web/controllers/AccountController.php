@@ -235,7 +235,7 @@ class AccountController extends PublicSiteControllerBase
             $this->userService->updateEmailNotification($notificationType, $user, $results_draw);
             $notificationType = new NotificationValue(NotificationValue::NOTIFICATION_EMAIL_MARKETING, '');
             $this->userService->updateEmailNotification($notificationType, $user, $emailMarketing);
-            $message = 'Your new email settings are saved';
+            $message = 'email_msgsave_opt';
         } catch (\Exception $e) {
             $error[] = $e->getMessage();
         } finally {
