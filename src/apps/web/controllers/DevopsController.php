@@ -1,4 +1,5 @@
 <?php
+
 namespace EuroMillions\web\controllers;
 
 use Doctrine\Common\Cache\RedisCache;
@@ -13,7 +14,7 @@ class DevopsController extends ControllerBase
         $redis_cache = new RedisCache();
         $redis_cache->setRedis($redis);
         $results = $redis->keys('result_*');
-        foreach($results as $result){
+        foreach ($results as $result) {
             $redis->delete($result);
         }
         apc_clear_cache();
@@ -30,7 +31,7 @@ class DevopsController extends ControllerBase
     {
         $config = $dispatcher->getDI()->get('config')['ips'];
         $ipClient = $this->request->getClientAddress();
-        if(!in_array($ipClient,explode(',',$config['ips']))){
+        if (!in_array($ipClient, explode(',', $config['ips']))) {
             $this->response->redirect('/');
         }
     }

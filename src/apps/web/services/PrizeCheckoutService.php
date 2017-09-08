@@ -35,13 +35,13 @@ class PrizeCheckoutService
     /** @var  BetRepository */
     private $betRepository;
 
-    /** @var UserRepository  */
+    /** @var UserRepository */
     private $userRepository;
 
     /** @var  UserService */
     private $userService;
 
-    /** @var CurrencyConversionService  */
+    /** @var CurrencyConversionService */
     private $currencyConversionService;
 
     /** @var  EmailService */
@@ -68,13 +68,13 @@ class PrizeCheckoutService
 
     public function playConfigsWithBetsAwarded(\DateTime $date)
     {
-        if(!$date) {
+        if (!$date) {
             $date = new \DateTime();
         }
         $result_awarded = $this->betRepository->getCheckResult($date->format('Y-m-d'));
-        if(count($result_awarded)){
-            return new ActionResult(true,$result_awarded);
-        }else{
+        if (count($result_awarded)) {
+            return new ActionResult(true, $result_awarded);
+        } else {
             return new ActionResult(false);
         }
     }
@@ -82,30 +82,30 @@ class PrizeCheckoutService
     public function awardUser(Bet $bet, Money $amount, array $scalarValues)
     {
         $config = $this->di->get('config');
-        $threshold_price = new Money((int) $config->threshold_above['value'] * 100, new Currency('EUR'));
+        $threshold_price = new Money((int)$config->threshold_above['value'] * 100, new Currency('EUR'));
         /** @var User $user */
         $user = $this->userRepository->find($scalarValues['userId']);
-        try{
+        try {
             //EMTD WinningVO to avoid this logic
-            $data= $this->prepareDataToTransaction($bet,$user,$amount);
+            $data = $this->prepareDataToTransaction($bet, $user, $amount);
             $current_amount = $amount->getAmount() / 100;
-            $amount = new Money((int) $current_amount, new Currency('EUR'));
-            if($amount->greaterThanOrEqual($threshold_price)) {
+            $amount = new Money((int)$current_amount, new Currency('EUR'));
+            if ($amount->greaterThanOrEqual($threshold_price)) {
                 $user->setWinningAbove($amount);
                 $user->setShowModalWinning(1);
                 $this->storeAwardTransaction($data, TransactionType::BIG_WINNING);
-                $this->sendBigWinEmail($bet,$user, $amount,$scalarValues);
+                $this->sendBigWinEmail($bet, $user, $amount, $scalarValues);
             } else {
                 $user->awardPrize($amount);
                 $data['walletAfter'] = $user->getWallet();
                 $data['state'] = '';
                 $this->storeAwardTransaction($data, TransactionType::WINNINGS_RECEIVED);
-                $this->sendSmallWinEmail($bet, $user, $amount,$scalarValues);
+                $this->sendSmallWinEmail($bet, $user, $amount, $scalarValues);
             }
             $this->userRepository->add($user);
             $this->entityManager->flush($user);
-            return new ActionResult(true,$user);
-        }catch(\Exception $e){
+            return new ActionResult(true, $user);
+        } catch (\Exception $e) {
             return new ActionResult(false);
         }
     }
@@ -120,7 +120,7 @@ class PrizeCheckoutService
     public function matchNumbersUser(Bet $bet, array $scalarValues, \DateTime $drawDate, Money $amount)
     {
         try {
-            $new_amount = new Money((int) $amount->getAmount() / 100, new Currency('EUR'));
+            $new_amount = new Money((int)$amount->getAmount() / 100, new Currency('EUR'));
             $match = $this->betRepository->getMatchNumbers($drawDate, $scalarValues['userId']);
             /** @var Bet $currentBet */
             $currentBet = $this->betRepository->findOneBy(['id' => $bet->getId()]);
@@ -137,20 +137,20 @@ class PrizeCheckoutService
 
     private function storeAwardTransaction(array $data, $transactionType)
     {
-        $this->transactionService->storeTransaction($transactionType,$data);
+        $this->transactionService->storeTransaction($transactionType, $data);
     }
 
     private function prepareDataToTransaction(Bet $bet, User $user, Money $amount)
     {
         return [
             'draw_id' => $bet->getEuroMillionsDraw()->getId(),
-            'bet_id'  => $bet->getId(),
-            'amount'  => $amount->getAmount(),
-            'user'    => $user,
+            'bet_id' => $bet->getId(),
+            'amount' => $amount->getAmount(),
+            'user' => $user,
             'walletBefore' => $user->getWallet(),
             'walletAfter' => $user->getWallet(),
-            'state'       => 'pending',
-            'now'         => new \DateTime()
+            'state' => 'pending',
+            'now' => new \DateTime()
         ];
     }
 
@@ -165,7 +165,8 @@ class PrizeCheckoutService
     {
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new WinEmailTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
-        $numLine= $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . '( ' . $bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers() . ' )';        $emailTemplate->setWinningLine($numLine);
+        $numLine = $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . '( ' . $bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers() . ' )';
+        $emailTemplate->setWinningLine($numLine);
         $emailTemplate->setNummBalls($scalarValues['matches']['cnt']);
         $emailTemplate->setStarBalls($scalarValues['matches']['cnt_lucky']);
         $emailTemplate->setUser($user);
@@ -184,7 +185,7 @@ class PrizeCheckoutService
     {
         $emailBaseTemplate = new EmailTemplate();
         $emailTemplate = new WinEmailAboveTemplate($emailBaseTemplate, new WinEmailAboveDataEmailTemplateStrategy($amount, $user->getUserCurrency(), $this->currencyConversionService));
-        $numLine= $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . '( ' . $bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers() . ' )';
+        $numLine = $bet->getEuroMillionsDraw()->getResult()->getRegularNumbers() . '( ' . $bet->getEuroMillionsDraw()->getResult()->getLuckyNumbers() . ' )';
         $emailTemplate->setWinningLine($numLine);
         $emailTemplate->setNummBalls($scalarValues['matches']['cnt']);
         $emailTemplate->setStarBalls($scalarValues['matches']['cnt_lucky']);

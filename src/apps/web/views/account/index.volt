@@ -21,14 +21,14 @@
         <div class="box-basic content">
             <div class="my-account" {% if which_form == 'index' %} style="display: block" {%  else %} style="display: none" {% endif %}>
 
-                <h1 class="h1 title yellow">{{ language.translate("Account") }}</h1>
-                <h2 class="h3 yellow">{{ language.translate("User detail") }}</h2>
+                <h1 class="h1 title yellow">{{ language.translate("account_head") }}</h1>
+                <h2 class="h3 yellow">{{ language.translate("account_subhead") }}</h2>
 
                 {{ form('/account/index') }}
                     {% if msg %}
                         <div class="box success">
                             <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>
-                            <span class="txt">{{ msg }}</span>
+                            <span class="txt">{{ language.translate(msg) }}</span>
                         </div>
                     {% endif %}
                     {% if  errors %}
@@ -43,23 +43,23 @@
                                 {% include "account/_user-detail.volt" %}
                             </div>
                             <div class="col6">
-                                <label class="label" for="street">{{ language.translate("Street address") }}</label>
+                                <label class="label" for="street">{{ language.translate("account_street") }}</label>
                                 {{ myaccount.render('street', {'class':'input',"id":"street"}) }}
 
-                                <label class="label" for="po">{{ language.translate("ZIP / Postal code") }}</label>
+                                <label class="label" for="po">{{ language.translate("account_zip") }}</label>
                                 {{ myaccount.render('zip', {'class':'input',"id":"po"}) }}
 
-                                <label class="label" for="city">{{ language.translate("City") }}</label>
+                                <label class="label" for="city">{{ language.translate("account_city") }}</label>
                                 {{ myaccount.render('city', {'class':'input',"id":"city"}) }}
 
-                                <label class="label" for="phone">{{ language.translate("Phone Number") }}</label>
+                                <label class="label" for="phone">{{ language.translate("account_phone") }}</label>
                                 {{ myaccount.render('phone_number', {'class':'input',"id":"phone"}) }}
                             </div>
                         </div>
                         <div class="cols gap" style="margin-bottom:0;"> {# temporary inline style to remove the gap with #}
                              <div class="col12">
                                  <label class="btn big blue right submit" for="submit">
-                                     {{ language.translate("Update profile details") }}
+                                     {{ language.translate("account_update_btn") }}
                                      <input id="submit" type="submit" class="hidden2">
                                  </label>
                              </div>

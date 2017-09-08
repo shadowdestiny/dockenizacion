@@ -4,6 +4,7 @@ namespace EuroMillions\web\repositories;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\ResultSetMapping;
+use EuroMillions\web\entities\Translation;
 
 class TranslationDetailRepository extends EntityRepository
 {
@@ -95,5 +96,19 @@ class TranslationDetailRepository extends EntityRepository
         }
 
         $this->getEntityManager()->getConnection()->executeQuery($sql);
+    }
+
+    /**
+     * @param $translationData Translation
+     */
+    public function removeTranslationByKey($translationData)
+    {
+        $this->getEntityManager()->getConnection()->executeQuery(
+            'DELETE FROM translation_details WHERE translation_id = ' . $translationData->getId()
+        );
+
+        $this->getEntityManager()->getConnection()->executeQuery(
+            'DELETE FROM translations WHERE id = ' . $translationData->getId()
+        );
     }
 }

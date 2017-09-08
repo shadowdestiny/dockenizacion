@@ -8,7 +8,7 @@ var EuroMillionsClearAllBtn = new React.createClass({
             return null
         }else{
             return(
-                <li><a className="btn rwr random-all" onClick={this.props.onBtnClearAllClick.bind(null, null)} href="javascript:void(0);">Clear all lines <svg className="ico v-cross"><use xlinkHref="/w/svg/icon.svg#v-cross"></use></svg></a></li>
+                <li><a className="btn rwr random-all" onClick={this.props.onBtnClearAllClick.bind(null, null)} href="javascript:void(0);">{this.props.clearAllLines} <svg className="ico v-cross"><use xlinkHref="/w/svg/icon.svg#v-cross"></use></svg></a></li>
             )
         }
     }

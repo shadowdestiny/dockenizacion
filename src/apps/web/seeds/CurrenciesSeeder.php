@@ -1,5 +1,8 @@
 <?php
 
+use EuroMillions\web\components\EmTranslationAdapter;
+use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
+use Phalcon\Di;
 use Phinx\Seed\AbstractSeed;
 
 class CurrenciesSeeder extends AbstractSeed
@@ -21,280 +24,284 @@ class CurrenciesSeeder extends AbstractSeed
 
     private function getData()
     {
+        $di = Di::getDefault();
+        $entityManager = $di->get('entityManager');
+        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
+
         return [
             [
-                'code' => 'EUR',
-                'name' => 'Euro',
+                'code' => $translationAdapter->query("eur_code"),
+                'name' => $translationAdapter->query("eur_name"),
                 'order' => 1
             ],
             [
-                'code' => 'USD',
-                'name' => 'Us Dollar',
+                'code' => $translationAdapter->query("usd_code"),
+                'name' => $translationAdapter->query("usd_name"),
                 'order' => 2
             ],
             [
-                'code' => 'COP',
-                'name' => 'Colombian Peso',
+                'code' => $translationAdapter->query("cop_code"),
+                'name' => $translationAdapter->query("cop_name"),
                 'order' => 7
             ],
             [
-                'code' => 'GBP',
-                'name' => 'Pound Sterling',
+                'code' => $translationAdapter->query("gbp_code"),
+                'name' => $translationAdapter->query("gbp_name"),
                 'order' => 3
             ],
             [
-                'code' => 'RUB',
-                'name' => 'Russian Ruble',
+                'code' => $translationAdapter->query("rub_code"),
+                'name' => $translationAdapter->query("rub_name"),
                 'order' => 5
             ],
             [
-                'code' => 'CHF',
-                'name' => 'Swiss Franc',
+                'code' => $translationAdapter->query("chf_code"),
+                'name' => $translationAdapter->query("chf_name"),
                 'order' => 4
             ],
             [
-                'code' => 'AUD',
-                'name' => 'Australian Dolar',
+                'code' => $translationAdapter->query("aud_code"),
+                'name' => $translationAdapter->query("aud_name"),
                 'order' => 6
             ],
             [
-                'code' => 'RON',
-                'name' => 'Romanian Leu',
+                'code' => $translationAdapter->query("ron_code"),
+                'name' => $translationAdapter->query("ron_name"),
                 'order' => 8
             ],
             [
-                'code' => 'BGN',
-                'name' => 'Bulgarian Lev',
+                'code' => $translationAdapter->query("bgn_code"),
+                'name' => $translationAdapter->query("bgn_name"),
                 'order' => 9
             ],
             [
-                'code' => 'ZAR',
-                'name' => 'South African Rand',
+                'code' => $translationAdapter->query("zar_code"),
+                'name' => $translationAdapter->query("zar_name"),
                 'order' => 10
             ],
             [
-                'code' => 'SEK',
-                'name' => 'Swedish Krone',
+                'code' => $translationAdapter->query("sek_code"),
+                'name' => $translationAdapter->query("sek_name"),
                 'order' => 11
             ],
             [
-                'code' => 'DKK',
-                'name' => 'Danish Krone',
+                'code' => $translationAdapter->query("dkk_code"),
+                'name' => $translationAdapter->query("dkk_name"),
                 'order' => 12
             ],
             [
-                'code' => 'INR',
-                'name' => 'Indian Rupee',
+                'code' => $translationAdapter->query("inr_code"),
+                'name' => $translationAdapter->query("inr_name"),
                 'order' => 13
             ],
             [
-                'code' => 'BYR',
-                'name' => 'Belarusian Ruble',
+                'code' => $translationAdapter->query("byr_code"),
+                'name' => $translationAdapter->query("byr_name"),
                 'order' => 14
             ],
             [
-                'code' => 'CAD',
-                'name' => 'Canadian Dollar',
+                'code' => $translationAdapter->query("cad_code"),
+                'name' => $translationAdapter->query("cad_name"),
                 'order' => 15
             ],
             [
-                'code' => 'CNY',
-                'name' => 'Chinese Yuan',
+                'code' => $translationAdapter->query("cny_code"),
+                'name' => $translationAdapter->query("cny_name"),
                 'order' => 16
             ],
             [
-                'code' => 'JPY',
-                'name' => 'Japanese Yen',
+                'code' => $translationAdapter->query("jpy_code"),
+                'name' => $translationAdapter->query("jpy_name"),
                 'order' => 17
             ],
             [
-                'code' => 'THB',
-                'name' => 'Thai Baht',
+                'code' => $translationAdapter->query("thb_code"),
+                'name' => $translationAdapter->query("thb_name"),
                 'order' => 18
             ],
             [
-                'code' => 'UAH',
-                'name' => 'Ukranian Hryvnia',
+                'code' => $translationAdapter->query("uah_code"),
+                'name' => $translationAdapter->query("uah_name"),
                 'order' => 19
             ],
             [
-                'code' => 'HUF',
-                'name' => 'Hungarian Forint',
+                'code' => $translationAdapter->query("huf_code"),
+                'name' => $translationAdapter->query("huf_name"),
                 'order' => 20
             ],
             [
-                'code' => 'CZK',
-                'name' => 'Czech koruna',
+                'code' => $translationAdapter->query("czk_code"),
+                'name' => $translationAdapter->query("czk_name"),
                 'order' => 21
             ],
             [
-                'code' => 'PLN',
-                'name' => 'Polish Zloty',
+                'code' => $translationAdapter->query("pln_code"),
+                'name' => $translationAdapter->query("pln_name"),
                 'order' => 22
             ],
             [
-                'code' => 'LBP',
-                'name' => 'Lebanese Pound',
+                'code' => $translationAdapter->query("lbp_code"),
+                'name' => $translationAdapter->query("lbp_name"),
                 'order' => 23
             ],
             [
-                'code' => 'NOK',
-                'name' => 'Norwegian Krone',
+                'code' => $translationAdapter->query("nok_code"),
+                'name' => $translationAdapter->query("nok_name"),
                 'order' => 24
             ],
             [
-                'code' => 'MDL',
-                'name' => 'Moldovan Leu',
+                'code' => $translationAdapter->query("mdl_code"),
+                'name' => $translationAdapter->query("mdl_name"),
                 'order' => 25
             ],
             [
-                'code' => 'MXN',
-                'name' => 'Mexican Peso',
+                'code' => $translationAdapter->query("mxn_code"),
+                'name' => $translationAdapter->query("mxn_name"),
                 'order' => 26
             ],
             [
-                'code' => 'NZD',
-                'name' => 'New Zealand Dollar',
+                'code' => $translationAdapter->query("nzd_code"),
+                'name' => $translationAdapter->query("nzd_name"),
                 'order' => 27
             ],
             [
-                'code' => 'TRY',
-                'name' => 'Turkish Lira',
+                'code' => $translationAdapter->query("try_code"),
+                'name' => $translationAdapter->query("try_name"),
                 'order' => 28
             ],
             [
-                'code' => 'BRL',
-                'name' => 'Brazilian Real',
+                'code' => $translationAdapter->query("brl_code"),
+                'name' => $translationAdapter->query("brl_name"),
                 'order' => 29
             ],
             [
-                'code' => 'NGN',
-                'name' => 'Nigerian Naira',
+                'code' => $translationAdapter->query("ngn_code"),
+                'name' => $translationAdapter->query("ngn_name"),
                 'order' => 30
             ],
             [
-                'code' => 'AZN',
-                'name' => 'Azerbaijani Manat',
+                'code' => $translationAdapter->query("azn_code"),
+                'name' => $translationAdapter->query("azn_name"),
                 'order' => 31
             ],
             [
-                'code' => 'PHP',
-                'name' => 'Phillippine Peso',
+                'code' => $translationAdapter->query("php_code"),
+                'name' => $translationAdapter->query("php_name"),
                 'order' => 32
             ],
             [
-                'code' => 'KZT',
-                'name' => 'Kazakhstani Tenge',
+                'code' => $translationAdapter->query("kzt_code"),
+                'name' => $translationAdapter->query("kzt_name"),
                 'order' => 33
             ],
             [
-                'code' => 'ALL',
-                'name' => 'Albanian Lek',
+                'code' => $translationAdapter->query("all_code"),
+                'name' => $translationAdapter->query("all_name"),
                 'order' => 34
             ],
             [
-                'code' => 'RSD',
-                'name' => 'Serbian Dinar',
+                'code' => $translationAdapter->query("rsd_code"),
+                'name' => $translationAdapter->query("rsd_name"),
                 'order' => 35
             ],
             [
-                'code' => 'MKD',
-                'name' => 'Macedonian Denar',
+                'code' => $translationAdapter->query("mkd_code"),
+                'name' => $translationAdapter->query("mkd_name"),
                 'order' => 36
             ],
             [
-                'code' => 'KES',
-                'name' => 'Kenyan Shilling',
+                'code' => $translationAdapter->query("kes_code"),
+                'name' => $translationAdapter->query("kes_name"),
                 'order' => 37
             ],
             [
-                'code' => 'IDR',
-                'name' => 'Indonesian Rupiah',
+                'code' => $translationAdapter->query("idr_code"),
+                'name' => $translationAdapter->query("idr_name"),
                 'order' => 38
             ],
             [
-                'code' => 'ILS',
-                'name' => 'Israeli Shekel',
+                'code' => $translationAdapter->query("ils_code"),
+                'name' => $translationAdapter->query("ils_name"),
                 'order' => 39
             ],
             [
-                'code' => 'CLP',
-                'name' => 'Chilean Peso',
+                'code' => $translationAdapter->query("clp_code"),
+                'name' => $translationAdapter->query("clp_name"),
                 'order' => 40
             ],
             [
-                'code' => 'KRW',
-                'name' => 'South Korean Won',
+                'code' => $translationAdapter->query("krw_code"),
+                'name' => $translationAdapter->query("krw_name"),
                 'order' => 41
             ],
             [
-                'code' => 'SGD',
-                'name' => 'Singapore Dollar',
+                'code' => $translationAdapter->query("sgd_code"),
+                'name' => $translationAdapter->query("sgd_name"),
                 'order' => 42
             ],
             [
-                'code' => 'PKR',
-                'name' => 'Pakistani Rupee',
+                'code' => $translationAdapter->query("pkr_code"),
+                'name' => $translationAdapter->query("pkr_name"),
                 'order' => 43
             ],
             [
-                'code' => 'BAM',
-                'name' => 'Bosnia-Herzegovina Mark',
+                'code' => $translationAdapter->query("bam_code"),
+                'name' => $translationAdapter->query("bam_name"),
                 'order' => 44
             ],
             [
-                'code' => 'HKD',
-                'name' => 'Hong Kong Dollar',
+                'code' => $translationAdapter->query("hkd_code"),
+                'name' => $translationAdapter->query("hkd_name"),
                 'order' => 45
             ],
             [
-                'code' => 'GEL',
-                'name' => 'Georgian Lari',
+                'code' => $translationAdapter->query("gel_code"),
+                'name' => $translationAdapter->query("gel_name"),
                 'order' => 46
             ],
             [
-                'code' => 'QAR',
-                'name' => 'Qatari Riyal',
+                'code' => $translationAdapter->query("qar_code"),
+                'name' => $translationAdapter->query("qar_name"),
                 'order' => 47
             ],
             [
-                'code' => 'MYR',
-                'name' => 'Malaysian Ringgit',
+                'code' => $translationAdapter->query("myr_code"),
+                'name' => $translationAdapter->query("myr_name"),
                 'order' => 48
             ],
             [
-                'code' => 'ARS',
-                'name' => 'Argentine Peso',
+                'code' => $translationAdapter->query("ars_code"),
+                'name' => $translationAdapter->query("ars_name"),
                 'order' => 49
             ],
             [
-                'code' => 'PEN',
-                'name' => 'Peruvian Sol',
+                'code' => $translationAdapter->query("pen_code"),
+                'name' => $translationAdapter->query("pen_name"),
                 'order' => 50
             ],
             [
-                'code' => 'ISK',
-                'name' => 'Icelandic Krona',
+                'code' => $translationAdapter->query("isk_code"),
+                'name' => $translationAdapter->query("isk_name"),
                 'order' => 51
             ],
             [
-                'code' => 'BOB',
-                'name' => 'Bolivian Boliviano',
+                'code' => $translationAdapter->query("bob_code"),
+                'name' => $translationAdapter->query("bob_name"),
                 'order' => 52
             ],
             [
-                'code' => 'PYG',
-                'name' => 'Paraguay Guarani',
+                'code' => $translationAdapter->query("pyg_code"),
+                'name' => $translationAdapter->query("pyg_name"),
                 'order' => 53
             ],
             [
-                'code' => 'VEF',
-                'name' => 'Venezuelan Bolívar',
+                'code' => $translationAdapter->query("vef_code"),
+                'name' => $translationAdapter->query("vef_name"),
                 'order' => 54
             ],
             [
-                'code' => 'AED',
-                'name' => 'Emirati Dirham',
+                'code' => $translationAdapter->query("aed_code"),
+                'name' => $translationAdapter->query("aed_name"),
                 'order' => 55
             ],
         ];

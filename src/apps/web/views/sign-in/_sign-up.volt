@@ -10,18 +10,18 @@
     {{ signupform.render('email', {'class':'input'~form_errors['email']}) }}
     {{ signupform.render('password', {'class':'input'~form_errors['password']}) }}
     {{ signupform.render('confirm_password', {'class':'input'~form_errors['confirm_password']}) }}
-    <p class="small-txt"><svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg> Password must be at least 6 characters long.</p>
+    <p class="small-txt"><svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg> {{ language.translate("signup_passwordLenght") }}</p>
     {{ signupform.render('country', {'class':'select'~form_errors['country']}) }}
     <div class="cl">
         <input id="goSignUp" type="submit" class="hidden2" />
         {% if signIn.myClass == 'sign-in' %}
-            <label for="goSignUp" class="submit btn big blue">{{ language.translate("Create your account") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
+            <label for="goSignUp" class="submit btn big blue">{{ language.translate("signup_createAccount_btn") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
         {% elseif signIn.myClass == 'cart' %}
             <label for="goSignUp" class="submit btn big blue">{{ language.translate("Create account &amp; Play") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
         {% endif %}
     </div>
 
-    <div class="box-extra{% if signIn.myClass == 'cart' %} hidden{% endif %}"><span class="txt">{{ language.translate("Do you have an account?") }}</span> <a class="btn gwy" href="javascript:void(0)">{{ language.translate("Log in") }}</a></div>
+    <div class="box-extra{% if signIn.myClass == 'cart' %} hidden{% endif %}"><span class="txt">{{ language.translate("signup_accountQuestion") }}</span> <a class="btn gwy" href="javascript:void(0)">{{ language.translate("signup_LogIn_btn") }}</a></div>
 </form>
 
 {%  if ga_code is defined %}

@@ -2,8 +2,8 @@
     <div class="centered">
         <?php if($pagination['isFirst']){ ?>
         <?php }else { ?>
-            <a href="<?= $pagination['first_url'] ?>" class="page gradient">first</a>
-            <a href="<?=$pagination['prev_url'] ?>" class="page gradient">prev</a>
+            <a href="<?= $pagination['first_url'] ?>" class="page gradient"><?= $pagination['translation']['first'] ?></a>
+            <a href="<?=$pagination['prev_url'] ?>" class="page gradient"><?= $pagination['translation']['previous'] ?></a>
         <?php } ?>
         <?php foreach($pagination['pages'] as $page): ?>
             <?php if(!$page['isSeparator']): ?>
@@ -21,8 +21,8 @@
         <?php endforeach ?>
         <?php if($pagination['isLast']): ?>
         <?php else: ?>
-            <a href="<?=$pagination['next_url'] ?>" class="page gradient">next</a>
-            <a href="<?=$pagination['last_url'] ?>" class="page gradient">last</a>
+            <a href="<?=$pagination['next_url'] ?>" class="page gradient"><?= $pagination['translation']['next'] ?></a>
+            <a href="<?=$pagination['last_url'] ?>" class="page gradient"><?= $pagination['translation']['last'] ?></a>
         <?php endif ?>
     </div>
 </div>

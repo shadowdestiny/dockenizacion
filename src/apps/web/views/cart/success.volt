@@ -16,8 +16,8 @@ cart success minimal
         <div class="box-basic medium">
             <div class="cols">
                 <div class="col7 txt-col">
-                    <h1 class="h1 title yellow">{{ language.translate("Thanks for your order") }}</h1>
-                    <h2 class="h2 sub-title purple">{{ language.translate("You just completed your payment") }}</h2>
+                    <h1 class="h1 title yellow">{{ language.translate("confirmation_head") }}</h1>
+                    <h2 class="h2 sub-title purple">{{ language.translate("confirmation_subhead") }}</h2>
 
                     {% if order.frequency > 1 %}
                     <p class="note">
@@ -26,14 +26,14 @@ cart success minimal
                     </p>
                     {% endif %}
                     <div class="countdown">
-                        <span class="h4">{{ language.translate("Countdown to the next draw:") }}</span>
+                        <span class="h4">{{ language.translate("countdown") }}</span>
                         <span class="purple">{{ countdown_next_draw }}</span>
                     </div>
 
-<p>{{ language.translate('We have sent you an email with details of the line you played. You can also see the lines you have played on our <a href="/profile/tickets/games">tickets page</a>') }} </p>
+                    <p>{{ language.translate("paragraph1") }} </p>
 
-                    <h2 class="h4">{{ language.translate("In case of winning") }}</h2>
-                    <p>{{ language.translate("We'll contact you at <em>%useremail%</em> be sure to add our email <em>support@euromillions.com</em> to your address book to avoid spam filters.",['useremail' : user.email]) }}</p>
+                    <h2 class="h4">{{ language.translate("win_subhead") }}</h2>
+                    <p>{{ language.translate("win_text",['useremail' : user.email]) }}</p>
 
                     {#<h2 class="h4">{{ language.app("What would you do with your winnings?") }}</h2>
                     <p class="small-margin">{{ language.app("We are very curious to know what makes you play and what are your dreams of victory. We would be very happy to hear from you and inspire us with your story and experience of playing the lottery.")}}</p>
@@ -80,7 +80,7 @@ cart success minimal
                                 </ul>
                             {% endfor %}
                             <br>===============================
-                            <br><em class="luck">{{ language.translate("Good luck for your draw on")}}
+                            <br><em class="luck">{{ language.translate("goodLuck")}}
                             <br>{{ start_draw_date_format }}</em>
                             <br>===============================
                             <br><div class="txt-logo">EuroMillions.com</div>

@@ -3,6 +3,7 @@
     <table class="table">
         <thead>
         <tr class="special">
+            <th></th>
             <th>Translation Key</th>
             <th>Description</th>
             {% for language in languages %}
@@ -13,6 +14,10 @@
         <tbody>
         {% for key in keysList %}
             <tr>
+                <td>
+                    <input type="button" value="Edit" class="btn btn-primary" onClick="editKey('{{ key['translationKey'] }}', '{{ key['description'] }}');" /><br /><br />
+                    <input type="button" value="Delete" class="btn btn-primary" onClick="deleteConfirmation('{{ key['translationKey'] }}');"  />
+                </td>
                 <td>
                     {{ key['translationKey'] }}
                 </td>

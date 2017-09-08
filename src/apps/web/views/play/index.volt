@@ -30,7 +30,18 @@
 	var openTicket = <?php echo $openTicket; ?>;
 	var currency_symbol = '<?php echo $currency_symbol ?>';
 	var automatic_random = '<?php echo $automatic_random; ?>';
-	var discount_lines_title = '<?php echo $discount_lines_title; ?>';
+	var discount_lines_title = '{{ language.translate('tittle_multiple') }}';
+	var addLinesBtn = '{{ language.translate('addLines_btn') }}';
+	var randomizeAllLines = '{{ language.translate('randomizeAll_btn') }}';
+	var clearAllLines = '{{ language.translate('clearAll_btn') }}';
+	var buyForDraw = '{{ language.translate('buyForDraw') }}';
+	var txtLine = '{{ language.translate('line') }}';
+	var txtMultTotalPrice = '{{ language.translate('mult_total1') }}';
+	var txtMultLines = '{{ language.translate('mult_total2') }}';
+	var txtMultDraws = '{{ language.translate('mult_total3') }}';
+
+
+	{#añadir aqui el translate#}
 	var discount_lines = '<?php echo $discount_lines; ?>';
 	var draws_number = '<?php echo $draws_number; ?>';
 	var discount = '<?php echo $discount; ?>';
@@ -83,7 +94,7 @@
 <main id="content">
 	<div class="wrapper">
 		<header class="bg-top cl">
-			<h1 class="h3 draw">{{ language.translate("Choose 5 numbers &amp; 2 stars per line") }}</h1>
+			<h1 class="h3 draw">{{ language.translate("shortInstruction") }}</h1>
 			<span class="h1 jackpot">
 				Jackpot
 				{% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
