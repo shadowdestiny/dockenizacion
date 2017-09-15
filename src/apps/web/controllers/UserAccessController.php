@@ -3,6 +3,7 @@
 namespace EuroMillions\web\controllers;
 
 use Captcha\Captcha;
+use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\components\ReCaptchaWrapper;
 use EuroMillions\web\forms\ForgotPasswordForm;
 use EuroMillions\web\forms\ResetPasswordForm;
@@ -11,8 +12,10 @@ use EuroMillions\web\forms\SignUpForm;
 use EuroMillions\web\services\AuthService;
 use EuroMillions\web\services\GeoService;
 use EuroMillions\web\services\LanguageService;
+use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\vo\Email;
 use EuroMillions\shared\vo\results\ActionResult;
+use Phalcon\Di;
 use Phalcon\Validation\Message;
 
 class UserAccessController extends ControllerBase
@@ -36,6 +39,10 @@ class UserAccessController extends ControllerBase
 
     public function signInAction()
     {
+        $di = Di::getDefault();
+        $entityManager = $di->get('entityManager');
+        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
+
         $errors = [];
         $sign_in_form = new SignInForm();
         $form_errors = $this->getErrorsArray();
@@ -70,7 +77,7 @@ class UserAccessController extends ControllerBase
         }
 
         $this->view->pick('sign-in/index');
-        $this->tag->prependTitle('Sign In');
+        $this->tag->prependTitle($translationAdapter->query('signintag_name'));
 
         return $this->view->setVars([
             'which_form' => 'in',
@@ -90,6 +97,10 @@ class UserAccessController extends ControllerBase
 
     public function signUpAction()
     {
+        $di = Di::getDefault();
+        $entityManager = $di->get('entityManager');
+        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
+
         $errors = [];
         $sign_in_form = new SignInForm();
         $form_errors = $this->getErrorsArray();
@@ -128,7 +139,7 @@ class UserAccessController extends ControllerBase
         }
 
         $this->view->pick('sign-in/index');
-        $this->tag->prependTitle('Sign Up');
+        $this->tag->prependTitle($translationAdapter->query('signuptag_name'));
         return $this->view->setVars([
             'which_form' => 'up',
             'signinform' => $sign_in_form,

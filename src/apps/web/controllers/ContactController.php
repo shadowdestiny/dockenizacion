@@ -1,11 +1,15 @@
 <?php
+
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\GuestContactForm;
+use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\vo\ContactFormInfo;
 use EuroMillions\web\vo\Email;
+use Phalcon\Di;
 use Phalcon\Forms\Element\Text;
 use Captcha\Captcha;
 use EuroMillions\web\components\ReCaptchaWrapper;
@@ -20,15 +24,15 @@ class ContactController extends PublicSiteControllerBase
         $email = $this->request->getPost('email');
         $fullName = $this->request->getPost('fullname');
         $content = $this->request->getPost('message');
-        $topic   = $this->request->getPost('topic');
+        $topic = $this->request->getPost('topic');
         $message = null;
         $class = null;
         //EMTD: move topics like dynamic data
         $topics = [1 => 'Playing the game',
-                   2 => 'Password, Email and Log in',
-                   3 => 'Account settings',
-                   4 => 'Bank and Credit card',
-                   5 => 'Other kind of questions'
+            2 => 'Password, Email and Log in',
+            3 => 'Account settings',
+            4 => 'Bank and Credit card',
+            5 => 'Other kind of questions'
         ];
         $guestContactForm = new GuestContactForm(null, [
                 'topics' => $topics
@@ -76,16 +80,19 @@ class ContactController extends PublicSiteControllerBase
             }
         }
         $this->view->pick('contact/index');
+        $di = Di::getDefault();
+        $entityManager = $di->get('entityManager');
+        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
 
-	    $this->tag->prependTitle('Contact Us');
-	    MetaDescriptionTag::setDescription('Contact the official EuroMillions.com. We are always happy to answer your questions.');
+        $this->tag->prependTitle($translationAdapter->query('contact_name'));
+        MetaDescriptionTag::setDescription($translationAdapter->query('contact_desc'));
 
         return $this->view->setVars([
             'form_errors' => $form_errors,
             'errors' => $errors,
-            'guestContactForm'  => $guestContactForm,
-            'message'     => $message,
-            'class'       => $class,
+            'guestContactForm' => $guestContactForm,
+            'message' => $message,
+            'class' => $class,
             'captcha' => $captcha->html()
         ]);
     }
