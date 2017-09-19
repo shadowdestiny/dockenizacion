@@ -3,7 +3,7 @@
         <span class="link desktop">{{ language.translate("Christmas Lottery") }}</span>
         <br class="br">
         {% if mobile == 1 %}
-            <span class="txt">Play Christmas</span>
+            <span class="txt">Play Christmas Lottery</span>
         {% else %}
             <span class="txt">{{ language.translate("Play") }}</span>
         {% endif %}
@@ -26,7 +26,7 @@
         <br class="br">
         <span class="txt">
 			<span class="desktop">{{ language.translate("results_sub") }}</span>
-			<span class="mobile">{{ language.translate("results_sub") }}</span>
+			<span class="mobile">Euromillions results</span>
 		</span>
     </a>
 </li>
