@@ -2,7 +2,11 @@
     <a href="/christmas-lottery/play">
         <span class="link desktop">{{ language.translate("Christmas Lottery") }}</span>
         <br class="br">
-        <span class="txt">{{ language.translate("Play") }}</span>
+        {% if mobile %}
+            <span class="txt">Play Christmas</span>
+        {% else %}
+            <span class="txt">{{ language.translate("Play") }}</span>
+        {% endif %}
     </a>
 </li>
 <li class="li-play{% if activeNav.myClass == 'play' %} active{% endif %}">
