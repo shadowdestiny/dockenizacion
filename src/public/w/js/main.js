@@ -215,8 +215,8 @@ $(function(){
             $('.div-language').hide();
         } else if (e.target.className.split(" ")[1] == "myCur") {
             $('.div-currency').show();
-        } else if (e.target.className.split(" ")[1] == "myCur") {
-            $('.div-currency').show();
+        } else if (e.target.className.split(" ")[1] == "myLang") {
+            $('.div-language').show();
         }
     });
 
