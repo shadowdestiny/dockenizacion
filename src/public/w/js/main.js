@@ -208,18 +208,14 @@ $(function(){
     $(window).resize(navLanguage());
 
     /* Hide Currency after tapping on mobile */
-    $('div-currency').on('touchstart', function (e) {
+    $('html').on('touchstart', function (e) {
         if ($('.div-currency').is(":visible")) {
             $('.div-currency').hide();
-        }  else if (e.target.className.split(" ")[1] == "myCur") {
-            $('.div-currency').show();
-        }
-    });
-
-    $('div-language').on('touchstart', function (e) {
-        if ($('.div-language').is(":visible")) {
+        } else if ($('.div-language').is(":visible")) {
             $('.div-language').hide();
-        }  else if (e.target.className.split(" ")[1] == "myLang") {
+        } else if (e.target.className.split(" ")[1] == "myCur") {
+            $('.div-currency').show();
+        } else if (e.target.className.split(" ")[1] == "myLang") {
             $('.div-language').show();
         }
     });
