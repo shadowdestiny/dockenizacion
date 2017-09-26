@@ -1,5 +1,5 @@
-<li class="li-language">
-	<a class="link myLang" href="javascript:void(0);">{{ language.translate(user_language) }} <svg class="ico v-triangle-down"><use xlink:href="/w/svg/icon.svg#v-triangle-down"></use></svg></a>
+<li class="li-currency">
+	<a class="link myCur" href="javascript:void(0);">{{ language.translate(user_language) }} <svg class="ico v-triangle-down"><use xlink:href="/w/svg/icon.svg#v-triangle-down"></use></svg></a>
 	<div class="div-language">
 		<ul class="no-li">
             {% for active_language in active_languages %}
