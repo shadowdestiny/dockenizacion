@@ -178,15 +178,15 @@ end PROD imports-->
 			<div class="cols">
 				<div class="col6">
 					<a href="/christmas/play">
-						<img src="/w/img/home/bg-ball.jpg" border=0 />
+						<img src="/w/img/home/Christmas_EN.png" border=0 />
 					</a>
-					<!-- div class="box-basic box-quick-play ball">
+					{#<div class="box-basic box-quick-play ball">
 						<div class="content">
 							<h1 class="h2">{{ language.translate("cta1_head") }}</h1>
 							<p>{{ language.translate("cta1_text") }}</p>
 							<a href="/{{ lottery }}/play?random" class="btn blue big wide">{{ language.translate("cta1_btn") }}</a>
 						</div>
-					</div -->
+					</div>#}
 				</div>
 				<div class="col6">
 					<div class="box-basic box-result">
