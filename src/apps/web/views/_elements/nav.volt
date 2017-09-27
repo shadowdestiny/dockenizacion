@@ -14,7 +14,7 @@
         <span class="link desktop">{{ language.translate("play_sub") }}</span>
         <br class="br">
         {% if mobile == 1 %}
-            <span class="txt">Play Euromillions</span>
+            <span class="txt">Play EuroMillions</span>
         {% else %}
             <span class="txt">{{ language.translate("play") }}</span>
         {% endif %}

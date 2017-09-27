@@ -525,8 +525,8 @@ body, .submit{font-family:$basic-font;}
 .logo-social li:first-child{margin-left:0;}
 .btn.big{font-size:$h4;}
 .logo{margin-top:6px; width:200px;}
-#language a{text-decoration:none;}
-.nav.mobile, #nav-account, #language, #change-language{
+#language, #changelanguage a{text-decoration:none;}
+.nav.mobile, #nav-account, #language, #changelanguage{
   border-bottom:1px solid $purple;
   ul{border-top:1px solid $purple;}
   a{
