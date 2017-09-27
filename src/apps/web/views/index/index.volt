@@ -178,7 +178,7 @@ end PROD imports-->
 			<div class="cols">
 				<div class="col6">
 					<a href="/christmas/play">
-						<img src="../img/home/bg-ball.jpg" border=0 />
+						<img src="/img/home/bg-ball.jpg" border=0 />
 					</a>
 					<!-- div class="box-basic box-quick-play ball">
 						<div class="content">
