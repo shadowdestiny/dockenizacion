@@ -16,7 +16,7 @@ function navValue(){
             $(".your-account").attr({"data-transition":"slide", "href":"#nav-account"});
         }
         $(".li-currency .link").attr({"data-transition":"slide", "href":"#language"});
-        $(".li-language .link").attr({"data-transition":"slide", "href":"#language"});
+        $(".li-language .link").attr({"data-transition":"slide", "href":"#changelanguage"});
         mobile = 1; // You have a mobile size website
     }else{
         // DESKTOP
