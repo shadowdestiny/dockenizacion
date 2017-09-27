@@ -106,7 +106,7 @@
     <div data-role="page" id="changelanguage">
         <ul class="no-li" data-role="listview">
             {% for active_language in languages %}
-                <li>{{ active_language }}</li>
+                <li>{{ active_language.ccode }}</li>
             {% endfor %}
         </ul>
     </div>
