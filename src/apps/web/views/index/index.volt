@@ -177,8 +177,8 @@ end PROD imports-->
 		<div class="box-extra">
 			<div class="cols">
 				<div class="col6">
-					<a href="/christmas/play">
-						<img src="/w/img/home/Christmas_EN.png" border=0 />
+					<a href="/christmas-lottery/play">
+						<img src="/w/img/home/{{ language.translate('home_christmas_image_billions') }}" border=0 />
 					</a>
 					{#<div class="box-basic box-quick-play ball">
 						<div class="content">
