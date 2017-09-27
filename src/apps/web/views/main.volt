@@ -106,7 +106,7 @@
     <div data-role="page" id="changelanguage">
         <ul class="no-li" data-role="listview">
             {% for active_language in languages %}
-                <li>holaaaa</li>
+                <li>{{ active_language }}</li>
             {% endfor %}
         </ul>
     </div>

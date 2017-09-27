@@ -271,7 +271,6 @@ class PublicSiteControllerBase extends ControllerBase
         foreach ($languages as $language) {
             $view_params[] = $language->toValueObject();
         }
-        var_dump($view_params);die();
         $this->view->setVars(['languages' => $view_params]);
     }
 
