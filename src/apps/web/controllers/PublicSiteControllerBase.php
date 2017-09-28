@@ -1,4 +1,5 @@
 <?php
+
 namespace EuroMillions\web\controllers;
 
 use EuroMillions\shared\helpers\PaginatedControllerTrait;
@@ -64,7 +65,7 @@ class PublicSiteControllerBase extends ControllerBase
                                LanguageService $languageService = null,
                                CurrencyService $currencyService = null,
                                UserService $userService = null,
-                               AuthService $authService= null,
+                               AuthService $authService = null,
                                UserPreferencesService $userPreferencesService = null,
                                SiteConfigService $siteConfigService = null,
                                CartService $cartService = null,
@@ -106,11 +107,11 @@ class PublicSiteControllerBase extends ControllerBase
             'password'
         ];
 
-        if(!in_array($dispatcher->getControllerName(),$controller_not_referer, false)) {
-            $this->session->set('original_referer',$this->router->getRewriteUri());
+        if (!in_array($dispatcher->getControllerName(), $controller_not_referer, false)) {
+            $this->session->set('original_referer', $this->router->getRewriteUri());
         }
         //To avoid clickjacking, add it in ngnix configuration
-        $this->response->setHeader('X-Frame-Options','SAMEORIGIN');
+        $this->response->setHeader('X-Frame-Options', 'SAMEORIGIN');
     }
 
     public function checkAuth()
@@ -124,23 +125,23 @@ class PublicSiteControllerBase extends ControllerBase
         $current_currency = $this->userPreferencesService->getCurrency();
         $is_logged = $this->authService->isLogged();
 
-        if($is_logged) {
+        if ($is_logged) {
             $user = $this->authService->getCurrentUser();
             $user = $this->userService->getUser($user->getId());
             $currency = $this->userPreferencesService->getCurrency();
-            if($user->getUserCurrency()->getName() != $currency->getName() ) {
+            if ($user->getUserCurrency()->getName() != $currency->getName()) {
                 $this->userPreferencesService->setCurrency($user->getUserCurrency());
                 $user_currency = $this->userPreferencesService->getMyCurrencyNameAndSymbol();
             }
             $user_balance = $this->userService->getBalanceWithUserCurrencyConvert($this->authService->getCurrentUser()->getId(), $this->userPreferencesService->getCurrency());
-            $user_balance_raw = $this->currencyConversionService->convert($user->getBalance(),$this->userPreferencesService->getCurrency())->getAmount();
+            $user_balance_raw = $this->currencyConversionService->convert($user->getBalance(), $this->userPreferencesService->getCurrency())->getAmount();
 
             if (!$this->session->get('lastConnectionTime') || ($this->session->get('lastConnectionTime') < date('Y-m-d H:i:s'))) {
                 $this->userService->updateLastConnection($user);
                 $this->session->set('lastConnectionTime', date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' +1 day')));
             }
             $user_language = $user->getDefaultLanguage();
-        }else{
+        } else {
             $user_balance = '';
             $user_balance_raw = '';
             $user_language = explode('_', $this->languageService->getLocale())[0];
@@ -160,13 +161,13 @@ class PublicSiteControllerBase extends ControllerBase
         //EMTD create a method helper to set this vars
         $this->view->setVar('countdown_finish_bet', []/*ViewHelper::setCountDownFinishBet(30, 10, 5, $date_next_draw)*/);
         //This is only for functional test
-        if(!empty($this->request->get('fakedatetime'))) {
+        if (!empty($this->request->get('fakedatetime'))) {
             $fakeDateTime = new \DateTime($this->request->get('fakedatetime'));
-            $this->view->setVar('countdown_finish_bet', ViewHelper::setCountDownFinishBet(1, 100, 5, $this->lotteryService->getNextDateDrawByLottery('EuroMillions', new \DateTime('2016-11-11 18:00:00')),$fakeDateTime->setTime(17, 9, 58)));
+            $this->view->setVar('countdown_finish_bet', ViewHelper::setCountDownFinishBet(1, 100, 5, $this->lotteryService->getNextDateDrawByLottery('EuroMillions', new \DateTime('2016-11-11 18:00:00')), $fakeDateTime->setTime(17, 9, 58)));
         }
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
         $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $current_currency);
-        $bet_value = $this->currencyConversionService->toString($single_bet_price_currency,$current_currency);
+        $bet_value = $this->currencyConversionService->toString($single_bet_price_currency, $current_currency);
         $single_bet_price_currency_gbp = $this->currencyConversionService->convert($single_bet_price, new Currency('GBP'));
         $bet_value_pound = $this->currencyConversionService->toString($single_bet_price_currency_gbp, new Currency('GBP'));
         $this->view->setVar('bet_price', $bet_value);
@@ -175,7 +176,7 @@ class PublicSiteControllerBase extends ControllerBase
 
     private function setNavValues()
     {
-        $is_logged = $this->authService->isLogged();        
+        $is_logged = $this->authService->isLogged();
         if ($is_logged) {
             /** @var User $user */
             $user = $this->authService->getCurrentUser();
@@ -249,14 +250,14 @@ class PublicSiteControllerBase extends ControllerBase
     {
         $currencies = $this->currencyService->getCurrenciesMostImportant();
         $currencies_list = $this->currencyService->getActiveCurrenciesCodeAndNames();
-        if($currencies->success()) {
+        if ($currencies->success()) {
             $currencies_dto = [];
-            foreach($currencies->getValues() as $currency ) {
+            foreach ($currencies->getValues() as $currency) {
                 $currencies_dto[] = new CurrencyDTO($currency);
-            }           
+            }
             $this->view->setVars(['currencies' => $currencies_dto]);
             $currencies_dto = [];
-            foreach($currencies_list->getValues() as $currency ) {
+            foreach ($currencies_list->getValues() as $currency) {
                 $currencies_dto[] = new CurrencyDTO($currency);
             }
             $this->view->setVars(['currency_list' => $currencies_dto]);
@@ -286,7 +287,7 @@ class PublicSiteControllerBase extends ControllerBase
             $user_id = $this->authService->getCurrentUser();
             /** @var User $user */
             $user = $this->userService->getUser($user_id->getId());
-            if($user->getShowModalWinning()) {
+            if ($user->getShowModalWinning()) {
                 $this->view->setVar('show_modal_winning', true);
                 $user->setShowModalWinning(false);
                 $this->userService->updateUser($user);
@@ -298,5 +299,5 @@ class PublicSiteControllerBase extends ControllerBase
         }
     }
 
- 
+
 }

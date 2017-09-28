@@ -107,7 +107,8 @@
         <ul class="no-li" data-role="listview">
             {% for active_language in languages %}
                 <li><a href="#main-page" onclick="globalFunctions.setLanguage('{{ active_language.ccode }}')"
-                   data-transition="slide" data-direction="reverse">{{ language.translate(active_language.ccode) }}</a></li>
+                       data-transition="slide"
+                       data-direction="reverse">{{ language.translate(active_language.ccode) }}</a></li>
             {% endfor %}
         </ul>
     </div>

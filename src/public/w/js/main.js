@@ -1,74 +1,79 @@
 /* Initialise variables */
 
 var globalFunctions = {
-    setCurrency : function (value){
+    setCurrency: function (value) {
         $.ajax({
-            url: '/ajax/user-settings/setCurrency/'+value,
+            url: '/ajax/user-settings/setCurrency/' + value,
             type: 'GET',
             dataType: "json",
-            success: function(json){
-                if(json.result = 'OK'){
+            success: function (json) {
+                if (json.result = 'OK') {
                     location.href = location.href.split('#')[0];
                 }
             },
-            error: function (xhr, status, errorThrown){
-                alert( "Sorry, there was a problem!" );
-                console.log( "Error: " + errorThrown );
-                console.log( "Status: " + status );
-                console.dir( xhr );
+            error: function (xhr, status, errorThrown) {
+                alert("Sorry, there was a problem!");
+                console.log("Error: " + errorThrown);
+                console.log("Status: " + status);
+                console.dir(xhr);
             },
         });
     },
-    setLanguage : function (value){
+    setLanguage: function (value) {
         $.ajax({
-            url: '/ajax/user-settings/setLanguage/'+value,
+            url: '/ajax/user-settings/setLanguage/' + value,
             type: 'GET',
             dataType: "json",
-            success: function(json){
-                if(json.result = 'OK'){
+            success: function (json) {
+                if (json.result = 'OK') {
                     location.href = location.href.split('#')[0];
                 }
             },
-            error: function (xhr, status, errorThrown){
-                alert( "Sorry, there was a problem!" );
-                console.log( "Error: " + errorThrown );
-                console.log( "Status: " + status );
-                console.dir( xhr );
+            error: function (xhr, status, errorThrown) {
+                alert("Sorry, there was a problem!");
+                console.log("Error: " + errorThrown);
+                console.log("Status: " + status);
+                console.dir(xhr);
             },
         });
     },
-    playCart : function (params){
+    playCart: function (params) {
         $.ajax({
             url: '/ajax/play-temporarily/temporarilyCart/',
             data: params,
             type: 'POST',
             dataType: "json",
-            success: function(json) {
-                if(json.result = 'OK') {
+            success: function (json) {
+                if (json.result = 'OK') {
                     location.href = json.url;
                 }
             },
-            error: function (xhr, status, errorThrown){
+            error: function (xhr, status, errorThrown) {
                 //EMTD manage errrors
             },
         });
     }
 };
 
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function()
-    { var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0]; s1.async=true; s1.src='https://embed.tawk.to/591c2e4c64f23d19a89b2788/default'; s1.charset='UTF-8'; s1.setAttribute('crossorigin','*'); s0.parentNode.insertBefore(s1,s0); }
-)();
+var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+(function () {
+        var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/591c2e4c64f23d19a89b2788/default';
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+    })();
 
-function btnShowHide(button, show, hide){
-    $(button).click(function(){
+function btnShowHide(button, show, hide) {
+    $(button).click(function () {
         $(show).show();
         $(hide).hide();
     });
 }
 
-function selectFix(){ // Style the "Select"
-    if('querySelector' in document && 'addEventListener' in window){
+function selectFix() { // Style the "Select"
+    if ('querySelector' in document && 'addEventListener' in window) {
         // check query selector is recognised by the browser IE9+
 
         var obj = $('.mySelect');
@@ -78,21 +83,21 @@ function selectFix(){ // Style the "Select"
          $(this).parent().addClass("disabled");
          }
          */
-        $('.mySelect option:selected').each(function(k){
+        $('.mySelect option:selected').each(function (k) {
             var content = $(this).text();
-            $('.select-txt').each(function(index, el){
-                if(index == k){
+            $('.select-txt').each(function (index, el) {
+                if (index == k) {
                     $(this).text(content);
                 }
             });
 
             //elem.text(content);            
         });
-        $('.mySelect').each(function(k){
-            $(this).on('change',function(){
-                var content = $('option:selected',this).text();
-                $('.select-txt').each(function(index, el){
-                    if(index == k){
+        $('.mySelect').each(function (k) {
+            $(this).on('change', function () {
+                var content = $('option:selected', this).text();
+                $('.select-txt').each(function (index, el) {
+                    if (index == k) {
                         $(this).text(content);
                     }
                 });
@@ -105,21 +110,21 @@ function count_down(element,
                     html_formatted,
                     html_formatted_offset,
                     date,
-                    finish_text,finish_action){
-    return element.countdown(date).on('update.countdown', function(event){
-        if(event.offset.days == 0) {
+                    finish_text, finish_action) {
+    return element.countdown(date).on('update.countdown', function (event) {
+        if (event.offset.days == 0) {
             $(this).html(event.strftime(html_formatted_offset[0]));
         }
-        if(event.offset.hours == 0){
+        if (event.offset.hours == 0) {
             $(this).html(event.strftime(html_formatted_offset[1]));
         }
-        if(event.offset.minutes == 0){
+        if (event.offset.minutes == 0) {
             $(this).html(event.strftime(html_formatted_offset[2]));
         }
-        if(event.offset.days > 0) {
+        if (event.offset.days > 0) {
             $(this).html(event.strftime(html_formatted));
         }
-    }).on('finish.countdown',function(event){
+    }).on('finish.countdown', function (event) {
         $(this).html(finish_text).parent().addClass('disabled');
         $(".box-estimated .content").removeAttr("href");
         finish_action();
@@ -128,55 +133,55 @@ function count_down(element,
 }
 
 var varSize = 0
-function checkSize(){
-    if($(".media").width() == "1"){         // max-width: 1200px
+function checkSize() {
+    if ($(".media").width() == "1") {         // max-width: 1200px
         varSize = 1;
-    }else if($(".media").width() == "2"){   // max-width: 992px)
+    } else if ($(".media").width() == "2") {   // max-width: 992px)
         varSize = 2;
-    }else if($(".media").width() == "3"){   // max-width: 768px
+    } else if ($(".media").width() == "3") {   // max-width: 768px
         varSize = 3;
-    }else if($(".media").width() == "4"){   // max-width: 480px
+    } else if ($(".media").width() == "4") {   // max-width: 480px
         varSize = 4;
-    }else if($(".media").width() == "5"){   // max-width: 320px
+    } else if ($(".media").width() == "5") {   // max-width: 320px
         varSize = 5;
     }
     return varSize;
 }
 
-function menu(id, target){
-    $(id).hover(function(event){
+function menu(id, target) {
+    $(id).hover(function (event) {
         $(target).show();
-    }, function(){
+    }, function () {
         $(target).hide();
     });
 }
 
-function navCurrency(){
-    if(varSize < 3){
+function navCurrency() {
+    if (varSize < 3) {
         menu(".li-currency", ".div-currency");
     }
 }
 
-function navLanguage(){
-    if(varSize < 3){
+function navLanguage() {
+    if (varSize < 3) {
         menu(".li-language", ".div-language");
     }
 }
 
-$(function(){
-    if(show_modal == 1) {
+$(function () {
+    if (show_modal == 1) {
         $("#win").easyModal({
-            top:100,
-            autoOpen:true,
-            overlayOpacity:0.7,
-            overlayColor:"#000",
-            transitionIn:'animated fadeIn',
-            transitionOut:'animated fadeOut'
+            top: 100,
+            autoOpen: true,
+            overlayOpacity: 0.7,
+            overlayColor: "#000",
+            transitionIn: 'animated fadeIn',
+            transitionOut: 'animated fadeOut'
         });
     }
 
     selectFix();
-    try{
+    try {
         document.createEvent('TouchEvent');
         var script = document.createElement('script');
         script.src = "/w/js/vendor/fastclick.min.js";
@@ -184,17 +189,18 @@ $(function(){
         //var attachFastClick = Origami.fastclick;
         FastClick.attach(document.body); // It removes the delay of 300ms on mobile browsers because of double tap
         //attachFastClick(document.body);
-    }catch(e){}
+    } catch (e) {
+    }
 
-    $(".menu-ham").click(function(){
+    $(".menu-ham").click(function () {
         $(this).toggleClass('expanded').siblings('ul').slideToggle().toggleClass('open');
     });
 
     var first_page = (new Date().valueOf() - $.cookie('lastSeen') > 0);
-    if($.cookie('EM-law') && first_page){ //First time visitor, load cookies
+    if ($.cookie('EM-law') && first_page) { //First time visitor, load cookies
         $('.box-cookies').remove();
     }
-    if(!$.cookie('lastSeen')){
+    if (!$.cookie('lastSeen')) {
         $.cookie('lastSeen', new Date().valueOf());
     }
 
@@ -220,33 +226,33 @@ $(function(){
         }
     });
 
-    $(".div-currency").on('touchstart',function(e){
+    $(".div-currency").on('touchstart', function (e) {
         e.stopPropagation();
     });
 
-    $(".div-language").on('touchstart',function(e){
+    $(".div-language").on('touchstart', function (e) {
         e.stopPropagation();
     });
 
-    $('#funds-value').on('keyup',function(e){
+    $('#funds-value').on('keyup', function (e) {
         var regex = /^\d+(\.\d{0,2})?$/g;
         var value = e.target.value;
         show_fee_text(value);
     });
 
-    $('#funds-value,#card-cvv,#card-number').on('keypress',function(e){
+    $('#funds-value,#card-cvv,#card-number').on('keypress', function (e) {
 
         var pattern = /^[0-9\.]+$/;
-        if(e.target.id == 'card-cvv' || e.target.id == 'card-number' ) {
+        if (e.target.id == 'card-cvv' || e.target.id == 'card-number') {
             pattern = /^[0-9]+$/;
         }
         var codeFF = e.keyCode;
         var code = e.which
         var chr = String.fromCharCode(code);
-        if(codeFF == 8 || codeFF == 37 || codeFF == 38 || codeFF == 39 || codeFF == 40 ) {
+        if (codeFF == 8 || codeFF == 37 || codeFF == 38 || codeFF == 39 || codeFF == 40) {
             return true;
         }
-        if(!pattern.test(chr)){
+        if (!pattern.test(chr)) {
             e.preventDefault();
         }
     });
