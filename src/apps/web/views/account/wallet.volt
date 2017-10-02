@@ -280,9 +280,9 @@
                             <div class="cols">
                                 <div class="col6">
                                     <label class="label" for="add-bank-user">
-                                        {{ language.translate("Name") }} <span class="asterisk">*</span> <span class="subtxt">({{ language.translate("bank account holder name") }}</span>
+                                        {{ language.translate("withdraw_name") }} <span class="asterisk">*</span> <span class="subtxt">({{ language.translate("bank account holder name") }}</span>
                                     </label>
-                                    {{ bank_account_form.render('withdraw_name', {'class':'input'~form_errors['name']}) }}
+                                    {{ bank_account_form.render('name', {'class':'input'~form_errors['name']}) }}
 
                                     <label class="label" for="add-bank-user-surname">
                                         {{ language.translate("withdraw_surname") }} <span class="asterisk">*</span> <span class="subtxt">({{ language.translate("bank account holder") }})</span>
