@@ -1,6 +1,8 @@
 <script type="text/javascript">
     window.onload = function() {
-        $('#card-number').mask('9999 9999 9999 9999');
+        if (window.jQuery) {
+            $('#card-number').mask('9999 9999 9999 9999');
+        }
     };
 </script>
 
