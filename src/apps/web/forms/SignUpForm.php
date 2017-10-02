@@ -1,4 +1,5 @@
 <?php
+
 namespace EuroMillions\web\forms;
 
 use EuroMillions\web\components\EmTranslationAdapter;
@@ -119,7 +120,7 @@ class SignUpForm extends Form
 
         $csrf = new Hidden('csrf');
         $csrf->addValidator(new Identical(array(
-            'value'   => $this->security->getSessionToken(),
+            'value' => $this->security->getSessionToken(),
             'message' => 'Cross scripting protection. Reload the page.'
         )));
         $this->add($csrf);

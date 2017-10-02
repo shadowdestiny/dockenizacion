@@ -20,7 +20,7 @@
     <main id="content">
         <div class="wrapper">
             <header class="bg-top cl">
-                <h1 class="h3 draw">{{ language.translate("Choose your favourite tickets") }}</h1>
+                <h1 class="h3 draw">{{ language.translate("playchris_top_right") }}</h1>
                 <span class="h1 jackpot">
                     {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
                     {% include "_elements/christmasJackpot-value" with ['extraClass': extraClass] %}
@@ -51,9 +51,8 @@
                                     <input type="button" id="add_{{ ticket['id'] }}" class="addTicket" value="+"/>
                                     <br/>
                                     <br/>
-                                    <div style="float:left; margin-left: 20px; margin-bottom: 10px;">Available
-                                        Tickets: {{ ticket['n_fractions'] }}  </div>
-                                    <div style="float:right; margin-right: 20px; margin-bottom: 10px;">Your Tickets:
+                                    <div style="float:left; margin-left: 20px; margin-bottom: 10px;">{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  </div>
+                                    <div style="float:right; margin-right: 20px; margin-bottom: 10px;">{{ language.translate("playchris_tck_buy") }}
                                         <span id="showNumTickets_{{ ticket['id'] }}">0</span></div>
                                 </td>
                                 <td width="15">&nbsp;</td>
@@ -75,9 +74,10 @@
 
                     <div class="box-bottom">
                         <div class="right">
-                            <span class="total-price-description">Total price: </span>
+                            <span class="total-price-description">{{ language.translate("playchris_total") }} </span>
                             <span class="description-before-price"><span
-                                        id="showTotalTickets">0</span> tickets x {{ singleBetPrice | number_format (2,'.','') }} {{ currencySymbol }}</span>
+                                        id="showTotalTickets">0</span> {{ language.translate("playchris_total_tck") }}
+                                x {{ singleBetPrice | number_format (2,'.','') }} {{ currencySymbol }}</span>
 
                             <a href="javascript:void(0);" id="nextButton" class="btn add-cart">
                                 <span class="value">
@@ -96,40 +96,27 @@
 
                     <div class="box-bottom">
                         <p align="justify">
-                            <h1 style="font-weight: bold; font-size: 26px;">The 2017 Christmas Lottery: the biggest lottery in the world.</h1>
-                            <br />
-                            El Gordo De Navidad is a Spanish Christmas lottery that is drawn every December 22nd in Madrid and is considered the most generous lottery in the world for the biggest prize amount. <strong>The estimated prize pool for this year’s draw is a massive €2.3 BILLION</strong>. Now on EuroMillions.com you can easily play and win the El Gordo Christmas lottery for only €25 per ticket.<br />
-                            <br />
-                            <h3 style="font-weight: bold; font-size: 20px;">How to play the Christmas Lottery</h3>
-                            <br />
-                            The system under which the tickets of El Gordo Christmas lottery are sold is different from the one you are used to on EuroMillions, but it's really easy:<br />
-                            <ol style="margin-left: 30px;">
-                                <li>Choose you favourite 5-digit number from 00000 to 99999, from the tickets available.</li>
-                                <li>Choose how many tickets you want to play.</li>
-                                <li>Once you have selected your tickets click on Next to pay them.</li>
-                            </ol>
-                            <br />
-                            <h3 style="font-weight: bold; font-size: 20px;">What is the prize structure for the Christmas Lottery</h3><br />
-                            <ul style="margin-left: 30px;">
-                                <li>1st prize - 1 prize of €400,000 for each ticket</li>
-                                <li>2nd prize - 1 prize of €125,000 for each ticket</li>
-                                <li>3rd prize - 1 prize of €50,000 for each ticket</li>
-                                <li>4th prize - 2 prizes of €20,000 for each ticket</li>
-                                <li>5th prize - 8 prizes of €6,000 for each ticket</li>
-                                <li>1.794 series of 5 correct numbers each win €1,000</li>
-                                <li>9.999 of matches of the last El Gordo digit each win €200 for the serie</li>
-                            </ul>
-                            <br />
-                            <h3 style="font-weight: bold; font-size: 20px;">How many tickets there are on sale</h3>
-                            <br />
-                            The Christmas Lottery has a particular play mechanic that guarantees much more prizes for everyone. You can buy the same tickets 2 times. See how many numbers are available:<br />
-                            <br />
-                            <ul style="margin-left: 30px;">
-                                <li>There are available all numbers from 00000 to 99999</li>
-                                <li>For each number there are available 170 series (groups)</li>
-                                <li>Each serie is composed by 10 tickets (This is what you buy)</li>
-                            </ul>
-                            <br />So, in summary, for each different number there are 1,700 tickets to be sold. <strong>That means that up to 1,700 people would win the first prize!</strong>
+                        <h1 style="font-weight: bold; font-size: 26px;">{{ language.translate("playchris_txt_tit") }}</h1>
+                        <br/>
+                        {{ language.translate("playchris_txt_1") }}<br/>
+                        <br/>
+                        <h3 style="font-weight: bold; font-size: 20px;">{{ language.translate("playchris_txt_howto_tit") }}</h3>
+                        <br/>
+                        {{ language.translate("playchris_txt_howto_1") }}<br/>
+                        <ol style="margin-left: 30px;">
+                            {{ language.translate("playchris_top_right") }}
+                        </ol>
+                        <br/>
+                        <h3 style="font-weight: bold; font-size: 20px;"> {{ language.translate("playchris_txt_what_tit") }}</h3>
+                        <br/>
+                        <ul style="margin-left: 30px;">
+                            {{ language.translate("playchris_txt_what_1") }}
+                        </ul>
+                        <br/>
+                        <h3 style="font-weight: bold; font-size: 20px;">{{ language.translate("playchris_txt_howmany_tit") }}</h3>
+                        <br/>
+                        {{ language.translate("playchris_txt_howmany_1") }}<br/>
+                        <br/></strong>
                         </p>
                     </div>
                 </form>

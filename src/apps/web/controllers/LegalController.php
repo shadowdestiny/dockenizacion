@@ -1,31 +1,54 @@
 <?php
+
 namespace EuroMillions\web\controllers;
 
+use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
+use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
+use Phalcon\Di;
 
-class LegalController extends PublicSiteControllerBase{
-    public function indexAction(){
-	
-	$this->tag->prependTitle('Terms and Conditions');
-	MetaDescriptionTag::setDescription('Read carrefully the Terms and Conditions of EuroMillions.com to play the EuroMillions Lottery online. Our customer support team will be happy to answer eventual questions you may have.');
-    }
-   
-    public function privacyAction(){
-	
-	$this->tag->prependTitle('Privacy Policy');
-	MetaDescriptionTag::setDescription('EuroMillions.com is the sole owner of the information collected at various points on this website. We will not sell, share, or rent this information to third parties.');
+class LegalController extends PublicSiteControllerBase
+{
+    public function indexAction()
+    {
+        $di = Di::getDefault();
+        $entityManager = $di->get('entityManager');
+        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
 
-    }
-    
-    public function aboutAction(){
-	$this->tag->prependTitle('About Us');
-
+        $this->tag->prependTitle($translationAdapter->query('Terms and Conditions'));
+        MetaDescriptionTag::setDescription($translationAdapter->query('terms_desc'));
     }
 
-    public function cookiesAction(){
+    public function privacyAction()
+    {
+        $di = Di::getDefault();
+        $entityManager = $di->get('entityManager');
+        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
 
-	$this->tag->prependTitle('Cookies');
-	MetaDescriptionTag::setDescription('A cookie is a small piece of text passed to your browser by a website you visit. It helps the website to remember information about your visit.');
+        $this->tag->prependTitle($translationAdapter->query('Privacy Policy'));
+        MetaDescriptionTag::setDescription($translationAdapter->query('privacy_desc'));
+
+    }
+
+    public function aboutAction()
+    {
+        $di = Di::getDefault();
+        $entityManager = $di->get('entityManager');
+        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
+
+        $this->tag->prependTitle($translationAdapter->query('About Us'));
+
+    }
+
+    public function cookiesAction()
+    {
+        $di = Di::getDefault();
+        $entityManager = $di->get('entityManager');
+        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
+
+
+        $this->tag->prependTitle($translationAdapter->query('Cookies'));
+        MetaDescriptionTag::setDescription($translationAdapter->query('cookies_desc'));
 
     }
 }

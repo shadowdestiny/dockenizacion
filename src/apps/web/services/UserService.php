@@ -386,6 +386,21 @@ class UserService
         }
     }
 
+    public function updateLanguage(User $user, $language)
+    {
+        if(!empty($user)) {
+            try{
+                $user->setDefaultLanguage($language);
+                $this->userRepository->add($user);
+                $this->entityManager->flush($user);
+                return new ActionResult(true,$language);
+            } catch( \Exception $e) {
+                return new ActionResult(false);
+            }
+        } else {
+            return new ActionResult(false);
+        }
+    }
 
     public function resetWonAbove( User $user ) {
 

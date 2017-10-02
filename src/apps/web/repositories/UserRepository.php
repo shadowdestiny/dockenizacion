@@ -1,4 +1,5 @@
 <?php
+
 namespace EuroMillions\web\repositories;
 
 use Doctrine\ORM\Query\ResultSetMapping;
@@ -71,40 +72,41 @@ class UserRepository extends RepositoryBase
         $user = new User();
         $email = new Email($credentials['email']);
         $user->initialize([
-            'name'             => $credentials['name'],
-            'surname'          => $credentials['surname'],
-            'email'            => $email,
-            'password'         => new Password($credentials['password'], $passwordHasher),
-            'country'          => $credentials['country'],
-            'wallet'           => new Wallet(),
-            'validated'        => 0,
+            'name' => $credentials['name'],
+            'surname' => $credentials['surname'],
+            'email' => $email,
+            'password' => new Password($credentials['password'], $passwordHasher),
+            'country' => $credentials['country'],
+            'wallet' => new Wallet(),
+            'validated' => 0,
             'validation_token' => new ValidationToken($email, $validationTokenGenerator),
-            'user_currency'    => new Currency('EUR'),
-            'created'          => new \DateTime(),
-            'ip_address'       => new IPAddress($credentials['ipaddress'])
+            'user_currency' => new Currency('EUR'),
+            'created' => new \DateTime(),
+            'ip_address' => new IPAddress($credentials['ipaddress']),
+            'default_language' => $credentials['default_language'],
         ]);
         $this->add($user);
         $this->getEntityManager()->flush($user);
         return $user;
     }
 
-    public function registerFromCheckout(array $credentials, $userId , IPasswordHasher $passwordHasher, IEmailValidationToken $validationTokenGenerator)
+    public function registerFromCheckout(array $credentials, $userId, IPasswordHasher $passwordHasher, IEmailValidationToken $validationTokenGenerator)
     {
         $user = new User();
         $email = new Email($credentials['email']);
         $user->initialize([
-            'id'               => $userId,
-            'name'             => $credentials['name'],
-            'surname'          => $credentials['surname'],
-            'email'            => $email,
-            'password'         => new Password($credentials['password'], $passwordHasher),
-            'country'          => $credentials['country'],
-            'wallet'           => new Wallet(),
-            'validated'        => 0,
+            'id' => $userId,
+            'name' => $credentials['name'],
+            'surname' => $credentials['surname'],
+            'email' => $email,
+            'password' => new Password($credentials['password'], $passwordHasher),
+            'country' => $credentials['country'],
+            'wallet' => new Wallet(),
+            'validated' => 0,
             'validation_token' => new ValidationToken($email, $validationTokenGenerator),
-            'user_currency'    => new Currency('EUR'),
-            'created'          => new \DateTime(),
-            'ip_address'       => new IPAddress($credentials['ipaddress'])
+            'user_currency' => new Currency('EUR'),
+            'created' => new \DateTime(),
+            'ip_address' => new IPAddress($credentials['ipaddress'])
         ]);
 
         $this->addWithId($user);
@@ -145,7 +147,7 @@ class UserRepository extends RepositoryBase
         $rsm = new ResultSetMapping();
         $this->getEntityManager()
             ->createNativeQuery(
-                'UPDATE users SET last_connection = "'. (new \DateTime())->format('Y-m-d H:i:s').'"
+                'UPDATE users SET last_connection = "' . (new \DateTime())->format('Y-m-d H:i:s') . '"
                   WHERE id = "' . $userId . '"'
                 , $rsm)->getResult();
     }

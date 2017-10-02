@@ -1,7 +1,9 @@
 <?php
+
 namespace EuroMillions\web\controllers;
 
 use Captcha\Captcha;
+use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\components\ReCaptchaWrapper;
 use EuroMillions\web\forms\ForgotPasswordForm;
 use EuroMillions\web\forms\ResetPasswordForm;
@@ -9,8 +11,11 @@ use EuroMillions\web\forms\SignInForm;
 use EuroMillions\web\forms\SignUpForm;
 use EuroMillions\web\services\AuthService;
 use EuroMillions\web\services\GeoService;
+use EuroMillions\web\services\LanguageService;
+use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\vo\Email;
 use EuroMillions\shared\vo\results\ActionResult;
+use Phalcon\Di;
 use Phalcon\Validation\Message;
 
 class UserAccessController extends ControllerBase
@@ -19,18 +24,25 @@ class UserAccessController extends ControllerBase
     private $authService;
     /** @var  GeoService */
     private $geoService;
+    /** @var LanguageService */
+    private $languageService;
 
     const IP_DEFAULT = '127.0.0.1';
 
-    public function initialize(AuthService $authService = null, GeoService $geoService = null)
+    public function initialize(AuthService $authService = null, GeoService $geoService = null, LanguageService $languageService = null)
     {
         parent::initialize();
         $this->authService = $authService ? $authService : $this->domainServiceFactory->getAuthService();
         $this->geoService = $geoService ? $geoService : $this->domainServiceFactory->getServiceFactory()->getGeoService();
+        $this->languageService = $languageService ? $languageService : $this->domainServiceFactory->getLanguageService();
     }
 
     public function signInAction()
     {
+        $di = Di::getDefault();
+        $entityManager = $di->get('entityManager');
+        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
+
         $errors = [];
         $sign_in_form = new SignInForm();
         $form_errors = $this->getErrorsArray();
@@ -51,12 +63,12 @@ class UserAccessController extends ControllerBase
                 }
             } else {
                 if (!$this->authService->check([
-                    'email'    => $this->request->getPost('email'),
+                    'email' => $this->request->getPost('email'),
                     'password' => $this->request->getPost('password'),
                     'remember' => $this->request->getPost('remember'),
                     'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
                 ], 'string')
-                ) {                    
+                ) {
                     $errors[] = 'Incorrect email or password.';
                 } else {
                     return $this->response->redirect($url_redirect);
@@ -65,26 +77,30 @@ class UserAccessController extends ControllerBase
         }
 
         $this->view->pick('sign-in/index');
-	$this->tag->prependTitle('Sign In');
+        $this->tag->prependTitle($translationAdapter->query('signintag_name'));
 
         return $this->view->setVars([
-            'which_form'  => 'in',
-            'signinform'  => $sign_in_form,
-            'signupform'  => $sign_up_form,
-            'errors'      => $errors,
+            'which_form' => 'in',
+            'signinform' => $sign_in_form,
+            'signupform' => $sign_up_form,
+            'errors' => $errors,
             'currency_list' => [],
             'form_errors_login' => $form_errors,
             'time_to_remain_draw' => false,
             'last_minute' => false,
             'draw_date' => '',
             'timeout_to_closing_modal' => 30 * 60 * 1000,
-            'minutes_to_close' => false,             
+            'minutes_to_close' => false,
             'form_errors' => $this->getErrorsArray(),
         ]);
     }
 
     public function signUpAction()
     {
+        $di = Di::getDefault();
+        $entityManager = $di->get('entityManager');
+        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
+
         $errors = [];
         $sign_in_form = new SignInForm();
         $form_errors = $this->getErrorsArray();
@@ -103,12 +119,13 @@ class UserAccessController extends ControllerBase
                 }
             } else {
                 $credentials = [
-                    'name'     => $this->request->getPost('name'),
-                    'surname'  => $this->request->getPost('surname'),
-                    'email'    => $this->request->getPost('email'),
+                    'name' => $this->request->getPost('name'),
+                    'surname' => $this->request->getPost('surname'),
+                    'email' => $this->request->getPost('email'),
                     'password' => $this->request->getPost('password'),
-                    'country'  => $this->request->getPost('country'),
+                    'country' => $this->request->getPost('country'),
                     'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
+                    'default_language' => explode('_', $this->languageService->getLocale())[0],
                 ];
 
                 $register_result = $this->authService->register($credentials);
@@ -122,19 +139,19 @@ class UserAccessController extends ControllerBase
         }
 
         $this->view->pick('sign-in/index');
-	$this->tag->prependTitle('Sign Up');
+        $this->tag->prependTitle($translationAdapter->query('signuptag_name'));
         return $this->view->setVars([
-            'which_form'  => 'up',
-            'signinform'  => $sign_in_form,
-            'signupform'  => $sign_up_form,
-            'errors'      => $errors,
+            'which_form' => 'up',
+            'signinform' => $sign_in_form,
+            'signupform' => $sign_up_form,
+            'errors' => $errors,
             'form_errors_login' => $this->getErrorsArray(),
             'currency_list' => [],
             'time_to_remain_draw' => false,
             'last_minute' => false,
             'draw_date' => '',
             'timeout_to_closing_modal' => 30 * 60 * 1000,
-            'minutes_to_close' => false,             
+            'minutes_to_close' => false,
             'form_errors' => $form_errors,
         ]);
     }
@@ -145,7 +162,7 @@ class UserAccessController extends ControllerBase
         if ($result->success()) {
             $message = 'Thanks! Your email has been validated';
         } else {
-            $message = 'Sorry, the token you used is no longer valid. (message was: "'.$result->getValues().'""). Click here to request a new one.'; //EMTD click here has to work and send a new token to the user.
+            $message = 'Sorry, the token you used is no longer valid. (message was: "' . $result->getValues() . '""). Click here to request a new one.'; //EMTD click here has to work and send a new token to the user.
         }
         $this->view->setVar('message', $message);
     }
@@ -173,27 +190,27 @@ class UserAccessController extends ControllerBase
             if ($forgot_password_form->isValid($this->request->getPost()) == false) {
                 $errors[] = 'Invalid email address. Please verify what you have inserted and try again.';
             } else {
-                    $email = $this->request->getPost('email');
-                    $reCaptchaResult = $captcha->check()->isValid();
-                    $result = new ActionResult(false);
-                    if(!empty($email) && !empty($reCaptchaResult)){
-                        $result = $this->authService->forgotPassword(new Email($email));
-                    }
-                    if($result->success() && $reCaptchaResult){
-                        $message = $result->getValues();
-                    } else {
-                        if(empty($reCaptchaResult)) $errors[] = 'You are a robot... or you forgot to check the Captcha verification.';
-                        $errors[] = $result->errorMessage();
-                    }
+                $email = $this->request->getPost('email');
+                $reCaptchaResult = $captcha->check()->isValid();
+                $result = new ActionResult(false);
+                if (!empty($email) && !empty($reCaptchaResult)) {
+                    $result = $this->authService->forgotPassword(new Email($email));
+                }
+                if ($result->success() && $reCaptchaResult) {
+                    $message = $result->getValues();
+                } else {
+                    if (empty($reCaptchaResult)) $errors[] = 'You are a robot... or you forgot to check the Captcha verification.';
+                    $errors[] = $result->errorMessage();
+                }
             }
         }
         $this->view->pick('sign-in/forgot-psw');
         return $this->view->setVars([
             'forgot_password_form' => $forgot_password_form,
-            'captcha'              => $captcha->html(),
-            'errors'               => $errors,
-            'currency_list'        => [],
-            'message'              => $message,
+            'captcha' => $captcha->html(),
+            'errors' => $errors,
+            'currency_list' => [],
+            'message' => $message,
         ]);
     }
 
@@ -209,7 +226,7 @@ class UserAccessController extends ControllerBase
                 'currency_list' => [],
                 'token' => $token,
                 'message' => false,
-                'errors'        => [],
+                'errors' => [],
                 'reset_password_form' => $myaccount_passwordchange_form,
                 'form_errors' => $form_errors,
             ]);
@@ -218,8 +235,6 @@ class UserAccessController extends ControllerBase
             //$message = 'Sorry, the token you used is no longer valid.';
         }
     }
-
-
 
 
     /**
@@ -240,12 +255,12 @@ class UserAccessController extends ControllerBase
     private function getErrorsArray()
     {
         $form_errors = [
-            'email'            => '',
-            'password'         => '',
-            'name'             => '',
-            'surname'          => '',
+            'email' => '',
+            'password' => '',
+            'name' => '',
+            'surname' => '',
             'confirm_password' => '',
-            'country'          => '',
+            'country' => '',
             'card- number' => '',
             'card-holder' => '',
             'card-cvv' => '',

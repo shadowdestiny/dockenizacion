@@ -1,16 +1,24 @@
 <?php
+
 namespace EuroMillions\web\controllers;
 
 use EuroMillions\web\components\DateTimeUtil;
+use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\User;
+use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use Money\Currency;
+use Phalcon\Di;
 
 class PlayController extends PublicSiteControllerBase
 {
     public function indexAction()
     {
+        $di = Di::getDefault();
+        $entityManager = $di->get('entityManager');
+        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
+
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('EuroMillions'));
         $play_dates = $this->lotteryService->getRecurrentDrawDates('Euromillions');
         $draw = $this->lotteryService->getNextDateDrawByLottery('Euromillions');
@@ -20,18 +28,18 @@ class PlayController extends PublicSiteControllerBase
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('EuroMillions');
         $automatic_random = $this->request->get('random');
         $bundlePriceDTO = $this->domainServiceFactory->getPlayService()->retrieveEuromillionsBundlePriceDTO();
-        if(!$this->authService->isLogged()) {
+        if (!$this->authService->isLogged()) {
             $user_currency = $this->userPreferencesService->getCurrency();
-            $single_bet_price_currency  = $this->currencyConversionService->convert($single_bet_price, $user_currency);
+            $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, $user_currency);
         } else {
             $current_user_id = $this->authService->getCurrentUser()->getId();
             /** @var User $user */
             $user = $this->userService->getUser($current_user_id);
-            $single_bet_price_currency  = $this->currencyConversionService->convert($single_bet_price, new Currency($user->getUserCurrency()->getName()));
+            $single_bet_price_currency = $this->currencyConversionService->convert($single_bet_price, new Currency($user->getUserCurrency()->getName()));
         }
         $currency_symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
-        $this->tag->prependTitle('Play Euromillions - Jackpot: ' . ViewHelper::formatJackpotNoCents($jackpot) );
-	    MetaDescriptionTag::setDescription('Play the EuroMillions Lottery worldwide on the official website of EuroMillions.com and become our next EuroMillionaire!');
+        $this->tag->prependTitle($translationAdapter->query('play_em_name') . ViewHelper::formatJackpotNoCents($jackpot));
+        MetaDescriptionTag::setDescription($translationAdapter->query('play_em_desc'));
 
         return $this->view->setVars([
             'jackpot_value' => ViewHelper::formatJackpotNoCents($jackpot),
@@ -39,8 +47,8 @@ class PlayController extends PublicSiteControllerBase
             'next_draw' => $dayOfWeek,
             'next_draw_format' => $draw->format('l j M G:i'),
             'currency_symbol' => $currency_symbol,
-            'openTicket' => ($checkOpenTicket)  ? '1': '0',
-            'single_bet_price' => $single_bet_price_currency->getAmount() /100,
+            'openTicket' => ($checkOpenTicket) ? '1' : '0',
+            'single_bet_price' => $single_bet_price_currency->getAmount() / 100,
             'automatic_random' => isset($automatic_random) ? true : false,
             'discount_lines_title' => 'Choose your bundle',
             'discount_lines' => json_encode($bundlePriceDTO),

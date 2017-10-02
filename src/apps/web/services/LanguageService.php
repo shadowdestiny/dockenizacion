@@ -31,6 +31,16 @@ class LanguageService
         return $this->languageRepository->getActiveLanguages();
     }
 
+    public function activeLanguagesArray()
+    {
+        $activeLanguages = [];
+        /** @var Language $language */
+        foreach ($this->languageRepository->getActiveLanguages() as $language) {
+            $activeLanguages[] = $language->getCcode();
+        }
+        return $activeLanguages;
+    }
+
     /*
      * The function to translate in all the web.
      */
