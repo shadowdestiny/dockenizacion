@@ -43,7 +43,7 @@ if(message){
                         {{ language.translate('Update password') }} <input type="submit" class="hidden2" id="submitpass">
                     </label>
                 {{ endform() }}
-                <a style="display:none" class="btn big blue login-link" href="/sign-in">{{ language.translate('Continue and Log in ') }}</a>
+                <a style="display:none" class="btn big blue login-link" href="/{{ language.translate("link_signin") }}">{{ language.translate('Continue and Log in ') }}</a>
             </div>
         </div>
     </div>

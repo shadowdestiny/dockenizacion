@@ -83,7 +83,7 @@
                                     <svg class="vector"><use xlink:href="/w/svg/icon.svg#laurel"></use></svg>
                                 </div>
                                 <div class="bg">
-                                    <a href="/{{ lottery }}/play" class="content">
+                                    <a href="/{{ language.translate("link_euromillions_play") }}" class="content">
                                         <h1 class="h3">{{ language.translate("Estimated jackpot") }}</h1>
 
                                         {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
@@ -161,7 +161,7 @@
                                 </table>
                             </div>
                             <div class="cols bottom">
-                                <a href="/euromillions/results/" class="btn  green big wide ui-link">Back to Results List</a>
+                                <a href="/{{ language.translate('link_euromillions_results') }}/" class="btn  green big wide ui-link">Back to Results List</a>
                             </div>
                         </div>
                         <div class="col4">

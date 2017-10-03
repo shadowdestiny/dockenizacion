@@ -39,7 +39,7 @@
 		<div class="wrapper">
 			<div class="box-basic medium">
 				<h1 class="h1 title yellow res">{{ language.translate("Review and Buy") }}</h1>
-				<div class="terms">{{ language.translate("By purchasing you agree to") }} <a href="/legal/">{{ language.translate("Terms &amp; Conditions") }}</a></div>
+				<div class="terms">{{ language.translate("By purchasing you agree to") }} <a href="/{{ language.translate("link_legal_index") }}">{{ language.translate("Terms &amp; Conditions") }}</a></div>
 				<div id="cart-order">
 					<div class="box-order">
 						<div class="box-total-upper cl">
@@ -47,7 +47,7 @@
 								<h1>ORDER SUMMARY</h1>
 							</div>
 							<div class="txt-black-upper cl">
-								<a href="/christmas-lottery/play" class="btn purple small ui-link">Edit</a>
+								<a href="/{{ language.translate('link_christmas_play') }}" class="btn purple small ui-link">Edit</a>
 							</div>
 							<div class="total">
 								<div class="txt">Total to be paid</div>

@@ -122,7 +122,7 @@
         <div class="wrapper">
             <div class="box-basic large">
                 <h1 class="h1 title yellow res">{{ language.translate("Review and Buy") }}</h1>
-                <div class="terms">{{ language.translate("By purchasing you agree to") }} <a href="/legal/">{{ language.translate("Terms &amp; Conditions") }}</a></div>
+                <div class="terms">{{ language.translate("By purchasing you agree to") }} <a href="/{{ language.translate("link_legal_index") }}">{{ language.translate("Terms &amp; Conditions") }}</a></div>
 
                 {#<div class="box-top cl">#}
                 {#&#123;&#35;<div class="balance">&#35;&#125;#}

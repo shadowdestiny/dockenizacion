@@ -4,7 +4,7 @@
             <div class="col20per">
                 <strong>{{ language.translate('column1_head') }}</strong>
                 <ul>
-                    <li><a href="/{{ lottery }}/play">{{ language.translate('column1_first') }}</a></li>
+                    <li><a href="/{{ language.translate("link_euromillions_play") }}">{{ language.translate('column1_first') }}</a></li>
                     {# Future links
                                         <li><a href="javascript:void(0);">EuroJackpot</a></li>
                                         <li><a href="javascript:void(0);">MegaMillions</a></li>
@@ -15,9 +15,9 @@
             <div class="col20per">
                 <strong>{{ language.translate('column2_head') }}</strong>
                 <ul>
-                    <li><a href="/{{ lottery }}/results">{{ language.translate('column2_first') }}</a></li>
+                    <li><a href="/{{ language.translate('link_euromillions_results') }}">{{ language.translate('column2_first') }}</a></li>
                     <li>
-                        <a href="/{{ lottery }}/results/draw-history-page">{{ language.translate('column2_second') }}</a>
+                        <a href="/{{ language.translate('link_euromillions_draw_history') }}">{{ language.translate('column2_second') }}</a>
                     </li>
                 </ul>
             </div>
@@ -31,26 +31,26 @@
                         <li><a href="/account/wallet">{{ language.translate('column3Log_fourth') }}</a></li>
                         <li><a href="/logout">{{ language.translate("column3Log_fifth") }}</a></li>
                     {% else %}
-                        <li><a href="/sign-in">{{ language.translate('column3NoLog_first') }}</a></li>
-                        <li><a href="/sign-up">{{ language.translate('column3NoLog_second') }}</a></li>
+                        <li><a href="/{{ language.translate("link_signin") }}">{{ language.translate('column3NoLog_first') }}</a></li>
+                        <li><a href="/{{ language.translate("link_signup") }}">{{ language.translate('column3NoLog_second') }}</a></li>
                     {% endif %}
                 </ul>
             </div>
             <div class="col20per">
                 <strong>{{ language.translate('column4_head') }}</strong>
                 <ul>
-                    <li><a href="/{{ lottery }}/help">{{ language.translate('column4_first') }}</a></li>
-                    <li><a href="/{{ lottery }}/faq">{{ language.translate('column4_second') }}</a></li>
-                    <li><a href="/contact/">{{ language.translate('column4_third') }}</a></li>
+                    <li><a href="/{{ language.translate("link_euromillions_help") }}">{{ language.translate('column4_first') }}</a></li>
+                    <li><a href="/{{ language.translate("link_euromillions_faq") }}">{{ language.translate('column4_second') }}</a></li>
+                    <li><a href="/{{ language.translate("link_contact") }}/">{{ language.translate('column4_third') }}</a></li>
                 </ul>
             </div>
             <div class="col20per">
                 <strong>{{ language.translate('column5_head') }}</strong>
                 <ul>
-                    <li><a href="/legal/about">{{ language.translate('column5_first') }}</a></li>
-                    <li><a href="/legal/index">{{ language.translate('column5_second') }}</a></li>
-                    <li><a href="/legal/privacy">{{ language.translate('column5_third') }}</a></li>
-                    <li><a href="/legal/cookies">{{ language.translate('column5_fourth') }}</a></li>
+                    <li><a href="/{{ language.translate("link_legal_about") }}">{{ language.translate('column5_first') }}</a></li>
+                    <li><a href="/{{ language.translate("link_legal_index") }}">{{ language.translate('column5_second') }}</a></li>
+                    <li><a href="/{{ language.translate("link_legal_privacy") }}">{{ language.translate('column5_third') }}</a></li>
+                    <li><a href="/{{ language.translate("link_legal_cookies") }}">{{ language.translate('column5_fourth') }}</a></li>
 
 
                     {# Future links

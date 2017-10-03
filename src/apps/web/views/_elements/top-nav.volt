@@ -30,7 +30,7 @@
                             &nbsp; {{ currency.name }}</a></li>
                 {% endif %}
             {% endfor %}
-            <li><a href="/currency">{{ language.translate('currencies') }}
+            <li><a href="/{{ language.translate("link_currency") }}">{{ language.translate('currencies') }}
                     <svg class="ico v-arrow-right3">
                         <use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use>
                     </svg>
@@ -57,7 +57,7 @@
 
 {% if user_logged is empty %}
     <li class="li-sign">
-        <a class="link" href="/sign-in">{{ language.translate('signIn') }}</a>
+        <a class="link" href="/{{ language.translate("link_signin") }}">{{ language.translate('signIn') }}</a>
     </li>
 {% else %}
     <li>

@@ -1,4 +1,4 @@
 <div class="box-cookies">
-    <a href="/legal/cookies/" class="lnk">{{ language.translate("cookies") }}</a>
+    <a href="/{{ language.translate("link_legal_cookies") }}" class="lnk">{{ language.translate("cookies") }}</a>
 </div>
 

@@ -26,11 +26,11 @@
                     <div class="box info">
                         <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                         <span class="txt">
-                            <a href="/{{ lottery }}/play">{{ language.translate("tickets_notickets") }}</a>
+                            <a href="/{{ language.translate("link_euromillions_play") }}">{{ language.translate("tickets_notickets") }}</a>
                         </span>
                     </div>
 
-                    <a href="/{{ lottery }}/play" class="no-data img">
+                    <a href="/{{ language.translate("link_euromillions_play") }}" class="no-data img">
                         <div class="txt">
                             <span class="h1">
                                 {{ language.translate("Dream to Win<br>
