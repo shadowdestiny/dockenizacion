@@ -3,7 +3,7 @@ Vagrant.configure(2) do |config|
         v.memory = 2048
         v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
     end
-    config.vm.box = "gigerdo/ubuntu-wily"
+    config.vm.box = "ubuntu/trusty64"
     config.vm.provision "shell", inline: <<-SCRIPT
         sudo apt-get update
         sudo apt-get remove --purge nodejs 
@@ -15,6 +15,7 @@ Vagrant.configure(2) do |config|
           python-httplib2 \
           gzip \
           git \
+          libpcre3-dev \
           python-crypto sshpass
           build-essential
           dpkg -i /tmp/ansible.deb
