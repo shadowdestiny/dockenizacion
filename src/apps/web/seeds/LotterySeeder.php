@@ -21,7 +21,15 @@ class LotterySeeder extends AbstractSeed
                 'frequency' => 'w0100100',
                 'draw_time' => '20:00:00',
                 'result_api' => 'LoteriasyapuestasDotEs',
-                'single_bet_price_amount' => '250',
+                'single_bet_price_amount' => '300',
+                'single_bet_price_currency_name' => 'EUR',
+            ],[
+                'name' => 'Christmas ',
+                'jackpot_api' => 'LoteriasyapuestasDotEs',
+                'frequency' => 'y1222',
+                'draw_time' => '20:00:00',
+                'result_api' => 'LoteriasyapuestasDotEs',
+                'single_bet_price_amount' => '2500',
                 'single_bet_price_currency_name' => 'EUR',
             ]
         ];
