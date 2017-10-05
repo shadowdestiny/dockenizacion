@@ -84,7 +84,7 @@
                             <li><a href="/{{ language.translate("link_euromillions_faq") }}#n06">{{ language.translate("eurom_no6_q") }}</a></li>
                             <li><a href="/{{ language.translate("link_euromillions_faq") }}#n07">{{ language.translate("eurom_no7_q") }}</a></li>
                             <li><a href="/{{ language.translate("link_euromillions_faq") }}#n08">{{ language.translate("eurom_no8_q") }}</a></li>
-                            <li><a href="/{{{ language.translate("link_euromillions_faq") }}#n09">{{ language.translate("eurom_no9_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n09">{{ language.translate("eurom_no9_q") }}</a></li>
 {#                          <li><a href="/{{ language.translate("link_euromillions_faq") }}#n11">{{ language.app("eurom_no10_q") }}</a></li> #}
 {#                          <li><a href="/{{ language.translate("link_euromillions_faq") }}#n13">{{ language.translate("How do I make a bet with multiple numbers in a line?") }}</a></li>#}
                         </ul>
