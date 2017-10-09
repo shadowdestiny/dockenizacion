@@ -26,8 +26,8 @@
         <ul class="no-li">
             {% for currency in currencies %}
                 {% if currency.code != user_currency_code %}
-                    <li><a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">{{ currency.code }}
-                            &nbsp; {{ currency.name }}</a></li>
+                    <li><a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">{{ language.translate(currency.code ~ "_code") }}
+                            &nbsp; {{ language.translate(currency.code ~ "_name") }}</a></li>
                 {% endif %}
             {% endfor %}
             <li><a href="/{{ language.translate("link_currency") }}">{{ language.translate('currencies') }}
