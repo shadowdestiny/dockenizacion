@@ -55,12 +55,12 @@
             <ul class="no-li list cl">
             {% for currency in currency_list %}
                 <li class="box{{ currency.code }}"><a data-enhance=false href="/ajax/user-settings/setCurrencyReload/{{currency.code}}" {% if currency.code == current_currency %}  class="active" {% endif %}>
-                    <span class="curr">{{ currency.code }}
+                    <span class="curr">{{ language.translate(currency.code) }}
                         {% if currency.code != currency.symbol %}
                             <span class="symbol">{{ currency.symbol }}</span>
                         {% endif %}
                     </span>
-                    <span class="name">{{ currency.name }}</span>
+                    <span class="name">{{ language.translate(currency.name) }}</span>
                 </a></li>
             {% endfor %}
             </ul>
