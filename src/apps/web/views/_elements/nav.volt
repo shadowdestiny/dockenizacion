@@ -1,5 +1,5 @@
 <li class="li-christmas{% if activeNav.myClass == 'christmas' %} active{% endif %}">
-    <a href="/christmas-lottery/play">
+    <a href="/{{ language.translate('link_christmas_play') }}">
         <span class="link desktop">{{ language.translate("Christmas Lottery") }}</span>
         <br class="br">
         {% if mobile == 1 %}
@@ -10,7 +10,7 @@
     </a>
 </li>
 <li class="li-play{% if activeNav.myClass == 'play' %} active{% endif %}">
-    <a href="/{{ lottery }}/play">
+    <a href="/{{ language.translate("link_euromillions_play") }}">
         <span class="link desktop">{{ language.translate("play_sub") }}</span>
         <br class="br">
         {% if mobile == 1 %}
@@ -21,7 +21,7 @@
     </a>
 </li>
 <li class="li-numbers{% if activeNav.myClass == 'numbers' %} active{% endif %}">
-    <a href="/{{ lottery }}/results">
+    <a href="/{{ language.translate('link_euromillions_results') }}">
         <span class="link desktop">{{ language.translate("results") }}</span>
         <br class="br">
         <span class="txt">
@@ -89,7 +89,7 @@
     {% endif %}
 </li>
 <li class="li-help{% if activeNav.myClass == 'help' %} active{% endif %}">
-    <a href="/{{ lottery }}/help">
+    <a href="/{{ language.translate("link_euromillions_help") }}">
         <span class="link desktop">{{ language.translate("help_sub") }}</span>
         <br class="br">
         <span class="txt">

@@ -16,7 +16,7 @@
                     <h2 class="h2">{{ language.translate("Whoooooops! Something went terribly wrong...") }}</h2>
                     <p class="txt">
                         {{ language.translate("An error has occurred and your payment has failed.") }}
-                        <br><a href="/christmas-lottery/play">{{ language.translate("Please, try again.") }}</a>
+                        <br><a href="/{{ language.translate("link_christmas_play") }}">{{ language.translate("Please, try again.") }}</a>
                     </p>
                     <p>
                         <strong>{{ language.translate("If difficulties persist, please contact our support team.") }}</strong>

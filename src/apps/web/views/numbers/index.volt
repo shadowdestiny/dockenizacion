@@ -83,7 +83,7 @@ $(function(){
 								<svg class="vector"><use xlink:href="/w/svg/icon.svg#laurel"></use></svg>
 							</div>
 							<div class="bg">
-								<a href="/{{ lottery }}/play" class="content">
+								<a href="/{{ language.translate("link_euromillions_play") }}" class="content">
 									<h1 class="h3">{{ language.translate("nextDraw_Estimate") }}</h1>
 
 									{% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
@@ -186,7 +186,7 @@ $(function(){
 								</thead>
 								<tbody>
 								{% for i,draw in list_draws %}
-										<tr style="cursor: pointer" onclick="document.location='/{{ lottery }}/results/draw-history-page/{{ draw.drawDateParam }}'">
+										<tr style="cursor: pointer" onclick="document.location='/{{ language.translate('link_euromillions_draw_history') }}/{{ draw.drawDateParam }}'">
 												<td class="td-date">{{ draw.drawDate }}</td>
 												<td class="td-ball-numbers">{{ draw.regularNumbers }}</td>
 												<td class="td-star-numbers">{{ draw.luckyNumbers }}</td>
@@ -195,7 +195,7 @@ $(function(){
 								</tbody>
 							</table>
 							<div class="box-action">
-								<a href="/euromillions/results/draw-history-page" class="btn  green big wide ui-link">{{ language.translate("morePastResults_btn") }}</a>
+								<a href="/{{ language.translate('link_euromillions_draw_history') }}" class="btn  green big wide ui-link">{{ language.translate("morePastResults_btn") }}</a>
 							</div>
 						</div>
 					</div>

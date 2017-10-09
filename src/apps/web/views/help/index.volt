@@ -76,55 +76,55 @@
                     <div class="questions">
                         <h3 class="h4">{{ language.translate("eurom_subhead_basics") }}</h3>
                         <ul class="no-li">
-                            <li><a href="/{{ lottery }}/faq#n01">{{ language.translate("eurom_no1_q") }}</a></li>
-                            <li><a href="/{{ lottery }}/faq#n02">{{ language.translate("eurom_no2_q") }}</a></li>
-                            <li><a href="/{{ lottery }}/faq#n03">{{ language.translate("eurom_no3_q") }}</a></li>
-                            <li><a href="/{{ lottery }}/faq#n04">{{ language.translate("eurom_no4_q") }}</a></li>
-                            <li><a href="/{{ lottery }}/faq#n05">{{ language.translate("eurom_no5_q") }}</a></li>
-                            <li><a href="/{{ lottery }}/faq#n06">{{ language.translate("eurom_no6_q") }}</a></li>
-                            <li><a href="/{{ lottery }}/faq#n07">{{ language.translate("eurom_no7_q") }}</a></li>
-                            <li><a href="/{{ lottery }}/faq#n08">{{ language.translate("eurom_no8_q") }}</a></li>
-                            <li><a href="/{{ lottery }}/faq#n09">{{ language.translate("eurom_no9_q") }}</a></li>
-{#                          <li><a href="/{{ lottery }}/faq#n11">{{ language.app("eurom_no10_q") }}</a></li> #}
-{#                          <li><a href="/{{ lottery }}/faq#n13">{{ language.translate("How do I make a bet with multiple numbers in a line?") }}</a></li>#}
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n01">{{ language.translate("eurom_no1_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n02">{{ language.translate("eurom_no2_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n03">{{ language.translate("eurom_no3_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n04">{{ language.translate("eurom_no4_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n05">{{ language.translate("eurom_no5_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n06">{{ language.translate("eurom_no6_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n07">{{ language.translate("eurom_no7_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n08">{{ language.translate("eurom_no8_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n09">{{ language.translate("eurom_no9_q") }}</a></li>
+{#                          <li><a href="/{{ language.translate("link_euromillions_faq") }}#n11">{{ language.app("eurom_no10_q") }}</a></li> #}
+{#                          <li><a href="/{{ language.translate("link_euromillions_faq") }}#n13">{{ language.translate("How do I make a bet with multiple numbers in a line?") }}</a></li>#}
                         </ul>
 
 {#
                         <h3 class="h4">{{ language.app("Euromillions Advanced Play") }}</h2>
                         <ul class="no-li">    
-                            <li><a href="/faq#n10">{{ language.app("What is a Long Play?") }}</a></li>
-                            <li><a href="/faq#n12">{{ language.app("Can I play only when the Jackpot Prize reach a specific amount?") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n10">{{ language.app("What is a Long Play?") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n12">{{ language.app("Can I play only when the Jackpot Prize reach a specific amount?") }}</a></li>
                         </ul>
 #}
                        <h3 class="h4">{{ language.translate("eurom_subhead_winnings") }}</h3>
                         <ul class="no-li">
-                            <li><a href="/{{ lottery }}/faq#n14">{{ language.translate("eurom_no11_q") }}</a></li>
-                            <li><a href="/{{ lottery }}/faq#n15">{{ language.translate("eurom_no12_q") }}</a></li>
-                            <li><a href="/{{ lottery }}/faq#n16">{{ language.translate("eurom_no13_q") }}</a></li>
-                            <li><a href="/{{ lottery }}/faq#n17">{{ language.translate("eurom_no14_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n14">{{ language.translate("eurom_no11_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n15">{{ language.translate("eurom_no12_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n16">{{ language.translate("eurom_no13_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n17">{{ language.translate("eurom_no14_q") }}</a></li>
                         </ul>
 
                         <h3 class="h4">{{ language.translate("eurom_subhead_account") }}</h3>
                         <ul class="no-li">
-                            <li><a href="/{{ lottery }}/faq#n18">{{ language.translate("eurom_no15_q") }}</a></li>
-                            <li><a href="/{{ lottery }}/faq#n19">{{ language.translate("eurom_no16_q") }}</a></li>
-                            <li><a href="/{{ lottery }}/faq#n20">{{ language.translate("eurom_no17_q") }}</a></li>
-                            <li><a href="/{{ lottery }}/faq#n21">{{ language.translate("eurom_no18_q") }}</a></li>
-                            <li><a href="/{{ lottery }}/faq#n22">{{ language.translate("eurom_no19_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n18">{{ language.translate("eurom_no15_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n19">{{ language.translate("eurom_no16_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n20">{{ language.translate("eurom_no17_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n21">{{ language.translate("eurom_no18_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n22">{{ language.translate("eurom_no19_q") }}</a></li>
                         </ul>
 
                         <h3 class="h4">{{ language.translate("eurom_subhead_trouble") }}</h3>
                         <ul class="no-li">
-                            <li><a href="/{{ lottery }}/faq#n23">{{ language.translate("eurom_no20_q") }}</a></li>
-                            <li><a href="/{{ lottery }}/faq#n24">{{ language.translate("eurom_no21_q") }}</a></li>
-{#                            <li><a href="/faq#n25">{{ language.app("How do I edit or delete a Subscription?") }}</a></li> #}
-                            <li><a href="/{{ lottery }}/faq#n26">{{ language.translate("eurom_no22_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n23">{{ language.translate("eurom_no20_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n24">{{ language.translate("eurom_no21_q") }}</a></li>
+{#                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n25">{{ language.app("How do I edit or delete a Subscription?") }}</a></li> #}
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n26">{{ language.translate("eurom_no22_q") }}</a></li>
                         </ul>
 
                         <h3 class="h4">{{ language.translate("eurom_subhead_legal") }}</h3>
                         <ul class="no-li">
-                            <li><a href="/{{ lottery }}/faq#n27">{{ language.translate("eurom_no23_q") }}</a></li>
-                            <li><a href="/{{ lottery }}/faq#n28">{{ language.translate("eurom_no24_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n27">{{ language.translate("eurom_no23_q") }}</a></li>
+                            <li><a href="/{{ language.translate("link_euromillions_faq") }}#n28">{{ language.translate("eurom_no24_q") }}</a></li>
                         </ul>
                     </div>
                 </div>

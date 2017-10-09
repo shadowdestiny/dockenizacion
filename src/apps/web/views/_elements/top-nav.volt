@@ -17,7 +17,7 @@
     </div>
 </li>
 <li class="li-currency">
-    <a class="link myCur" href="javascript:void(0);">{{ user_currency['symbol'] }} &nbsp; {{ user_currency['name'] }}
+    <a class="link myCur" href="javascript:void(0);">{{ user_currency['symbol'] }} &nbsp; {{ language.translate(user_currency_code ~ "_name") }}
         <svg class="ico v-triangle-down">
             <use xlink:href="/w/svg/icon.svg#v-triangle-down"></use>
         </svg>
@@ -26,11 +26,11 @@
         <ul class="no-li">
             {% for currency in currencies %}
                 {% if currency.code != user_currency_code %}
-                    <li><a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">{{ currency.code }}
-                            &nbsp; {{ currency.name }}</a></li>
+                    <li><a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">{{ language.translate(currency.code ~ "_code") }}
+                            &nbsp; {{ language.translate(currency.code ~ "_name") }}</a></li>
                 {% endif %}
             {% endfor %}
-            <li><a href="/currency">{{ language.translate('currencies') }}
+            <li><a href="/{{ language.translate("link_currency") }}">{{ language.translate('currencies') }}
                     <svg class="ico v-arrow-right3">
                         <use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use>
                     </svg>
@@ -57,7 +57,7 @@
 
 {% if user_logged is empty %}
     <li class="li-sign">
-        <a class="link" href="/sign-in">{{ language.translate('signIn') }}</a>
+        <a class="link" href="/{{ language.translate("link_signin") }}">{{ language.translate('signIn') }}</a>
     </li>
 {% else %}
     <li>

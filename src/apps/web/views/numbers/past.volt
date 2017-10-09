@@ -74,7 +74,7 @@
                                     <tbody>
                                     {% for i,draw in list_draws %}
                                         <tr style="cursor: pointer"
-                                            onclick="document.location='/{{ lottery }}/results/draw-history-page/{{ draw.drawDateParam }}'">
+                                            onclick="document.location='/{{ language.translate('link_euromillions_draw_history') }}/{{ draw.drawDateParam }}'">
                                             <td class="td-date">{{ draw.drawDate }}</td>
                                             <td class="td-ball-numbers">{{ draw.regularNumbers }}</td>
                                             <td class="td-star-numbers">{{ draw.luckyNumbers }}</td>
@@ -97,7 +97,7 @@
                                     </svg>
                                 </div>
                                 <div class="bg">
-                                    <a href="/{{ lottery }}/play" class="content">
+                                    <a href="/{{ language.translate("link_euromillions_play") }}" class="content">
                                         <h1 class="h3">{{ language.translate("nextDraw_Estimate") }}</h1>
 
                                         {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}

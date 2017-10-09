@@ -144,7 +144,7 @@ end PROD imports-->
 				</div>
 			</div>
 			<div class="btn-box">
-				<a href="/{{ lottery }}/play" class="btn red huge">{{ language.translate("banner1_btn") }}</a>
+				<a href="/{{ language.translate("link_euromillions_play") }}" class="btn red huge">{{ language.translate("banner1_btn") }}</a>
 				<div class="for-only">{{ language.translate("banner1_subbtn")}} {{ bet_price }}</div>
 			</div>
 			<div class="txt">{{ language.translate("banner1_subline") }}</div>
@@ -177,14 +177,14 @@ end PROD imports-->
 		<div class="box-extra">
 			<div class="cols">
 				<div class="col6">
-					<a href="/christmas-lottery/play">
+					<a href="/{{ language.translate('link_christmas_play') }}">
 						<img src="/w/img/home/{{ language.translate('home_christmas_image_billions') }}" border=0 />
 					</a>
 					{#<div class="box-basic box-quick-play ball">
 						<div class="content">
 							<h1 class="h2">{{ language.translate("cta1_head") }}</h1>
 							<p>{{ language.translate("cta1_text") }}</p>
-							<a href="/{{ lottery }}/play?random" class="btn blue big wide">{{ language.translate("cta1_btn") }}</a>
+							<a href="/{{ language.translate("link_euromillions_play") }}?random" class="btn blue big wide">{{ language.translate("cta1_btn") }}</a>
 						</div>
 					</div>#}
 				</div>
@@ -202,7 +202,7 @@ end PROD imports-->
 									    <li class="star">{{ lucky_number }}</li>
 	                                {% endfor %}
 								</ul>
-								<a href="/{{ lottery }}/results" class="lnk animate infi"><span class="txt">{{ language.translate("results_link") }}</span> <svg class="ico v-arrow-right3"><use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use></svg></a>
+								<a href="/{{ language.translate('link_euromillions_results') }}" class="lnk animate infi"><span class="txt">{{ language.translate("results_link") }}</span> <svg class="ico v-arrow-right3"><use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use></svg></a>
 							</div>
 							<div class="col4 woman">&nbsp;</div>
 						</div>
@@ -248,7 +248,7 @@ end PROD imports-->
 					</div>
 					<div class="box-action">
 						<span class="h2 phrase">{{ language.translate("cta2_tagline") }}</span>
-						<a href="{{ lottery }}/play" class="btn big blue">{{ language.translate("cta2_btn") }}</a>
+						<a href="{{ language.translate("link_euromillions_play") }}" class="btn big blue">{{ language.translate("cta2_btn") }}</a>
 					</div>
 				</div>
 			</div>
@@ -272,7 +272,7 @@ end PROD imports-->
 				</div>
 				<div class="box-action">
 				<span class="h2 phrase">{{ language.translate("cta3_tagline") }}</span>
-				<a href="{{ lottery }}/play" class="btn big blue">{{ language.translate("cta3_btn") }}</a>
+				<a href="{{ language.translate("link_euromillions_play") }}" class="btn big blue">{{ language.translate("cta3_btn") }}</a>
 				</div>
 			</div>
 

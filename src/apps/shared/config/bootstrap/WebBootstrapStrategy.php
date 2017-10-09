@@ -1,4 +1,5 @@
 <?php
+
 namespace EuroMillions\shared\config\bootstrap;
 
 use EuroMillions\admin\services\DomainAdminServiceFactory;
@@ -83,12 +84,11 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
         return $view;
     }
-    
+
     protected function configRouter()
     {
         $router = new Phalcon\Mvc\Router(false);
         $router->setDefaultModule('web');
-
 
 
         $router->add(
@@ -96,371 +96,466 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             array(
                 'module' => 'web',
                 "controller" => 1,
-                "action"     => 2
+                "action" => 2
             )
         );
 
         $router->add("/test/markUserAsWinner/(.*)/([0-9])/([0-9])", array(
-            "module"     => "web",
+            "module" => "web",
             'controller' => 'test',
-            'action'     => 'markUserAsWinner',
-            'userId'     => 1,
-            'balls'     => 2,
-            'stars'     => 3,
+            'action' => 'markUserAsWinner',
+            'userId' => 1,
+            'balls' => 2,
+            'stars' => 3,
         ));
 
         $router->add('/admin/:controller/:action/:params', array(
-            'module'     => 'admin',
+            'module' => 'admin',
             'controller' => 1,
-            'action'     => 2,
-            'params'     => 3,
+            'action' => 2,
+            'params' => 3,
         ));
 
         $router->add('/admin/:controller(/?)', array(
-            'module'     => 'admin',
+            'module' => 'admin',
             'controller' => 1,
-            'action'     => 'index',
+            'action' => 'index',
         ));
 
         $router->add('/admin/translation.html', array(
-            'module'     => 'admin',
+            'module' => 'admin',
             'controller' => 'index',
-            'action'     => 'translation',
+            'action' => 'translation',
         ));
 
 
         $router->add('/admin(/?)', array(
-            'module'     => 'admin',
+            'module' => 'admin',
             'controller' => 'index',
-            'action'     => 'index',
+            'action' => 'index',
         ));
 
         $router->notFound(array(
-            "module"     => "web",
+            "module" => "web",
             "controller" => "index",
-            "action"     => "notfound"
+            "action" => "notfound"
         ));
 
         $router->add("/error/page404", array(
-            "module"     => "web",
+            "module" => "web",
             'controller' => 'error',
-            'action'     => 'page404',
+            'action' => 'page404',
         ));
 
         $router->add("/email-test", array(
-            "module"     => "web",
+            "module" => "web",
             'controller' => 'email',
-            'action'     => 'index',
+            'action' => 'index',
         ));
         $router->add("/email-test/send", array(
-            "module"     => "web",
+            "module" => "web",
             'controller' => 'email',
-            'action'     => 'send',
+            'action' => 'send',
         ));
 
         $router->add("/", array(
-            "module"     => "web",
+            "module" => "web",
             'controller' => 'index',
-            'action'     => 'index',
+            'action' => 'index',
         ));
 
         $router->add("/{lottery:(euromillions)+}/play", array(
-            "module"     => "web",
-            "lottery"    => 1,
+            "module" => "web",
+            "lottery" => 1,
             'controller' => 'play',
-            'action'     => 'index',
+            'action' => 'index',
         ));
 
-// ToDo: Routing
-//        $router->add("/ru/{lottery:(euromillions)+}/playruso", array(
-//            "module"     => "web",
-//            "lottery"    => 1,
-//            'controller' => 'play',
-//            'action'     => 'index',
-//        ));
+        $router->add("/евромиллионы/играть", array(
+            "module" => "web",
+            "lottery" => 1,
+            'controller' => 'play',
+            'action' => 'index',
+        ));
 
         $router->add("/christmas-lottery/play", array(
-            "module"     => "web",
-            "lottery"    => 'euromillions',
+            "module" => "web",
+            "lottery" => 'euromillions',
             'controller' => 'christmas',
-            'action'     => 'index',
+            'action' => 'index',
+        ));
+
+        $router->add("/рождественская-лотерея/играть", array(
+            "module" => "web",
+            "lottery" => 'euromillions',
+            'controller' => 'christmas',
+            'action' => 'index',
         ));
 
         $router->add("/profile/tickets/games", array(
-            "module"     => "web",
-            'namespace'  => 'EuroMillions\web\controllers\profile',
+            "module" => "web",
+            'namespace' => 'EuroMillions\web\controllers\profile',
             'controller' => 'tickets',
-            'action'     => 'games'
+            'action' => 'games'
         ));
 
         $router->add("/profile/transactions", array(
-            "module"     => "web",
-            'namespace'  => 'EuroMillions\web\controllers\profile',
+            "module" => "web",
+            'namespace' => 'EuroMillions\web\controllers\profile',
             'controller' => 'transactions',
-            'action'     => 'transaction'
+            'action' => 'transaction'
         ));
 
         $router->add("/withdraw", array(
-            "module"     => "web",
-            'namespace'  => 'EuroMillions\web\controllers\profile\payment',
+            "module" => "web",
+            'namespace' => 'EuroMillions\web\controllers\profile\payment',
             'controller' => 'withdraw',
-            'action'     => 'withdraw'
+            'action' => 'withdraw'
         ));
 
         $router->add("/addFunds", array(
-            "module"     => "web",
-            'namespace'  => 'EuroMillions\web\controllers\profile\payment',
+            "module" => "web",
+            'namespace' => 'EuroMillions\web\controllers\profile\payment',
             'controller' => 'funds',
-            'action'     => 'addFunds'
+            'action' => 'addFunds'
         ));
 
 
         $router->add("/account", array(
-            "module"     => "web",
+            "module" => "web",
             'controller' => 'account',
-            'action'     => 'index'
+            'action' => 'index'
         ));
 
         $router->add("/sign-in", array(
-            "module"     => "web",
+            "module" => "web",
             'controller' => 'user-access',
-            'action'     => 'signIn'
+            'action' => 'signIn'
         ));
 
         $router->add("/sign-up", array(
-            "module"     => "web",
+            "module" => "web",
             'controller' => 'user-access',
-            'action'     => 'signUp'
+            'action' => 'signUp'
+        ));
+
+        $router->add("/войти", array(
+            "module" => "web",
+            'controller' => 'user-access',
+            'action' => 'signIn'
+        ));
+
+        $router->add("/зарегистрироваться", array(
+            "module" => "web",
+            'controller' => 'user-access',
+            'action' => 'signUp'
         ));
 
         $router->add("/logout", array(
-            "module"     => "web",
+            "module" => "web",
             'controller' => 'user-access',
-            'action'     => 'logout'
+            'action' => 'logout'
         ));
         $router->add("/validate", array(
-            "module"     => "web",
+            "module" => "web",
             'controller' => 'user-access',
-            'action'     => 'validate'
+            'action' => 'validate'
         ));
 
         $router->add("/passwordReset/:params", array(
-            "module"     => "web",
+            "module" => "web",
             'controller' => 'user-access',
-            'action'     => 'passwordReset',
-            'params'     => 1
+            'action' => 'passwordReset',
+            'params' => 1
         ));
 
         $router->add("/forgotPassword", array(
-            "module"     => "web",
+            "module" => "web",
             'controller' => 'user-access',
-            'action'     => 'forgotPassword'
+            'action' => 'forgotPassword'
         ));
-
 
 
         $router->add("/{lottery:(euromillions)+}/cart/profile", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'cart',
-            'action'     => 'profile'
+            'action' => 'profile'
         ));
 
         $router->add("/{lottery:(euromillions)+}/order", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'order',
-            'action'     => 'order'
+            'action' => 'order'
         ));
 
         $router->add("/christmas/order", array(
-            "module"     => "web",
-            'lottery'    => "euromillions",
+            "module" => "web",
+            'lottery' => "euromillions",
             'controller' => 'christmas',
-            'action'     => 'order'
+            'action' => 'order'
         ));
 
         $router->add("/{lottery:(euromillions)+}/payment/payment(.*?)", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'payment',
-            'action'     => 'payment',
+            'action' => 'payment',
         ));
 
         $router->add("/{lottery:(euromillions)+}/payment", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'payment',
-            'action'     => 'payment',
+            'action' => 'payment',
         ));
 
 
         $router->add("/{lottery:(euromillions)+}/cart/login", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'cart',
-            'action'     => 'login',
+            'action' => 'login',
         ));
 
 
         $router->add("/{lottery:(euromillions)+}/empay/success", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'empay',
-            'action'     => 'payment',
+            'action' => 'payment',
         ));
 
         $router->add("/{lottery:(euromillions)+}/gcp", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'gcp',
-            'action'     => 'result',
+            'action' => 'result',
         ));
 
         $router->add("/{lottery:(euromillions)+}/gcp/deposit", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'gcp',
-            'action'     => 'deposit',
+            'action' => 'deposit',
         ));
 
 
         $router->add("/{lottery:(euromillions)+}/empay/deposit", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'empay',
-            'action'     => 'deposit',
+            'action' => 'deposit',
         ));
 
 
         $router->add("/{lottery:(euromillions)+}/result/success", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'result',
-            'action'     => 'success',
+            'action' => 'success',
         ));
 
         $router->add("/{lottery:(euromillions)+}/result/failure", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'result',
-            'action'     => 'failure',
+            'action' => 'failure',
         ));
 
         $router->add("/{lottery:(euromillions)+}/results/:action", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'numbers',
-            'action'     => 2
+            'action' => 2
         ));
 
         $router->add("/{lottery:(euromillions)+}/results/draw-history-page/:params", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'numbers',
-            'action'     => 'pastResult',
-            'params'      => 2
+            'action' => 'pastResult',
+            'params' => 2
+        ));
+
+        $router->add("/{lottery:(евромиллионы)+}/результаты/история-розыгрышей/:params", array(
+            "module" => "web",
+            'lottery' => 1,
+            'controller' => 'numbers',
+            'action' => 'pastResult',
+            'params' => 2
         ));
 
         $router->add("/{lottery:(euromillions)+}/article/discover_your_odds_of_winning_the_euromillions", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'article',
-            'action'     => 'discover'
+            'action' => 'discover'
         ));
         $router->add("/{lottery:(euromillions)+}/article/euromillions_rules", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'article',
-            'action'     => 'rules'
+            'action' => 'rules'
         ));
         $router->add("/{lottery:(euromillions)+}/article/euromillions_history", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'article',
-            'action'     => 'history'
+            'action' => 'history'
         ));
         $router->add("/{lottery:(euromillions)+}/article/euromillions_prize_structure", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'article',
-            'action'     => 'prize'
+            'action' => 'prize'
         ));
 
         $router->add("/{lottery:(euromillions)+}/news", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'news',
-            'action'     => 'index'
+            'action' => 'index'
         ));
 
+
+        $router->add("/юридическая-информация/о-нас", array(
+            "module" => "web",
+            'lottery' => 1,
+            'controller' => 'legal',
+            'action' => 'about'
+        ));
+
+        $router->add("/условия-использования", array(
+            "module" => "web",
+            'lottery' => 1,
+            'controller' => 'legal',
+            'action' => 'index'
+        ));
+
+        $router->add("/юридическая-информация/конфиденциальность", array(
+            "module" => "web",
+            'lottery' => 1,
+            'controller' => 'legal',
+            'action' => 'privacy'
+        ));
+
+        $router->add("/cookie-файлы", array(
+            "module" => "web",
+            'lottery' => 1,
+            'controller' => 'legal',
+            'action' => 'cookies'
+        ));
+
+
         $router->add("/{lottery:(euromillions)+}/es", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'news',
-            'action'     => 'es'
+            'action' => 'es'
         ));
 
         $router->add("/{lottery:(euromillions)+}/de", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'news',
-            'action'     => 'de'
+            'action' => 'de'
         ));
-
-
 
 
         $router->add("/{lottery:(euromillions)+}/results/draw-history-page", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'numbers',
-            'action'     => 'pastList'
+            'action' => 'pastList'
         ));
-        $router->add("/{lottery:(euromillions)+}/help", array(
-            "module"     => "web",
-            'lottery'    => 1,
+
+        $router->add("/евромиллионы/результаты/история-розыгрышей", array(
+            "module" => "web",
+            'lottery' => 1,
+            'controller' => 'numbers',
+            'action' => 'pastList'
+        ));
+
+        $router->add("/евромиллионы/помощь", array(
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'help',
-            'action'     => 'index'
+            'action' => 'index'
         ));
-        $router->add("/{lottery:(euromillions)+}/faq", array(
-            "module"     => "web",
-            'lottery'    => 1,
+
+        $router->add("/вопросы-и-ответы", array(
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'faq',
-            'action'     => 'index'
+            'action' => 'index'
+        ));
+
+        $router->add("/{lottery:(euromillions)+}/help", array(
+            "module" => "web",
+            'lottery' => 1,
+            'controller' => 'help',
+            'action' => 'index'
+        ));
+
+        $router->add("/{lottery:(euromillions)+}/faq", array(
+            "module" => "web",
+            'lottery' => 1,
+            'controller' => 'faq',
+            'action' => 'index'
         ));
 
         $router->add("/{lottery:(euromillions)+}/results", array(
-            "module"     => "web",
-            'lottery'    => 1,
+            "module" => "web",
+            'lottery' => 1,
             'controller' => 'numbers',
-            'action'     => 'index'
+            'action' => 'index'
+        ));
+
+        $router->add("/евромиллионы/результаты", array(
+            "module" => "web",
+            'lottery' => 1,
+            'controller' => 'numbers',
+            'action' => 'index'
         ));
 
         $router->add('/ajax/:controller/:action/:params', array(
-            "module"     => "web",
-            'namespace'  => 'EuroMillions\web\controllers\ajax',
+            "module" => "web",
+            'namespace' => 'EuroMillions\web\controllers\ajax',
             'controller' => 1,
-            'action'     => 2,
-            'params'     => 3,
+            'action' => 2,
+            'params' => 3,
         ));
 
-        $router->add("/currency", array (
-            "module"     => "web",
+        $router->add("/currency", array(
+            "module" => "web",
             'controller' => 'currency',
-            'action'     => 'index'
+            'action' => 'index'
+        ));
+
+        $router->add("/валюта", array(
+            "module" => "web",
+            'controller' => 'currency',
+            'action' => 'index'
         ));
 
         $router->add("/sitemap", array(
-            "module"     => "web",
+            "module" => "web",
             'controller' => 'sitemap',
-            'action'     => 'index'
+            'action' => 'index'
         ));
 
         $router->add("/contact", array(
-            "module"     => "web",
+            "module" => "web",
             'controller' => 'contact',
-            'action'     => 'index'
+            'action' => 'index'
+        ));
+
+        $router->add("/написать-нам", array(
+            "module" => "web",
+            'controller' => 'contact',
+            'action' => 'index'
         ));
 
 //        $router->setDefaults(array(
@@ -546,13 +641,13 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
     protected function configureModules(Phalcon\Mvc\Application $application)
     {
         $application->registerModules([
-            'web'   => [
+            'web' => [
                 'className' => 'EuroMillions\web\Module',
-                'path'      => '../apps/web/Module.php',
+                'path' => '../apps/web/Module.php',
             ],
             'admin' => [
                 'className' => 'EuroMillions\admin\Module',
-                'path'      => '../apps/admin/Module.php',
+                'path' => '../apps/admin/Module.php',
             ]
         ]);
         $di = $application->getDI();
@@ -565,7 +660,7 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 $object = $di->get($web_module['className']);
                 $di->set('language', $this->configLanguage($di), true);
                 $di->set('view', $this->configView($module_name), true);
-              //  $di->set('EPayIframe', function() { return new EPayIframeTag(); });
+                //  $di->set('EPayIframe', function() { return new EPayIframeTag(); });
                 $object->registerServices($di);
             }
             if ($module_name === 'admin') {
@@ -575,26 +670,27 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
                 $object->registerServices($di);
             }
         });
-        $application->setEventsManager($eventsManager);    }
+        $application->setEventsManager($eventsManager);
+    }
 
 
     protected function voltConfigByEnvironment($compiled_path)
     {
         $di = parent::dependencyInjector();
         $environment = $di->get('environmentDetector');
-        if( $environment->get() !== 'development' || $environment->get() !== 'vagrant') {
-            return  [
-                "compiledPath"      => $compiled_path,
+        if ($environment->get() !== 'development' || $environment->get() !== 'vagrant') {
+            return [
+                "compiledPath" => $compiled_path,
                 "compiledExtension" => ".compiled",
                 "stat" => true,
-                "compileAlways"     => true,
+                "compileAlways" => true,
             ];
         } else {
             return [
-                "compiledPath"      => $compiled_path,
+                "compiledPath" => $compiled_path,
                 "compiledExtension" => ".compiled",
                 "stat" => true,
-                "compileAlways"     => true,
+                "compileAlways" => true,
             ];
         }
 

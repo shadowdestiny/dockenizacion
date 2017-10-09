@@ -19,7 +19,7 @@
         <div id="countDownFinishBet" class="overlay-limit-bet">
             TIME LEFT
             <span id="m_timer"></span>
-            <a href="/{{ lottery }}/play" class="btn red small ui-link">PLAY NOW</a>
+            <a href="/{{ language.translate("link_euromillions_play") }}" class="btn red small ui-link">PLAY NOW</a>
             <script>
                 window.onload = function () {
                     $(function () {
