@@ -178,14 +178,6 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index',
         ));
 
-// ToDo: Routing
-//        $router->add("/ru/{lottery:(euromillions)+}/playruso", array(
-//            "module"     => "web",
-//            "lottery"    => 1,
-//            'controller' => 'play',
-//            'action'     => 'index',
-//        ));
-
         $router->add("/christmas-lottery/play", array(
             "module" => "web",
             "lottery" => 'euromillions',
@@ -380,6 +372,14 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
 
         $router->add("/{lottery:(euromillions)+}/results/draw-history-page/:params", array(
+            "module" => "web",
+            'lottery' => 1,
+            'controller' => 'numbers',
+            'action' => 'pastResult',
+            'params' => 2
+        ));
+
+        $router->add("/евромиллионы/результаты/история-розыгрышей/:params", array(
             "module" => "web",
             'lottery' => 1,
             'controller' => 'numbers',
