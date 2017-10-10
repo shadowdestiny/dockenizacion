@@ -4,6 +4,7 @@
 namespace EuroMillions\admin\controllers;
 
 
+use EuroMillions\admin\services\AuthUserService;
 use EuroMillions\admin\services\DomainAdminServiceFactory;
 use EuroMillions\admin\services\ReportsService;
 use EuroMillions\shared\helpers\PaginatedControllerTrait;
@@ -43,10 +44,13 @@ class AdminControllerBase extends Controller
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
-
         $auth_user_service = $this->domainAdminServiceFactory->getAuthUserService();
         if($dispatcher->getControllerName() !== 'login' && !$auth_user_service->check_session()->success()) {
             return $this->response->redirect('/admin/login/index');
+        } else {
+            $this->session->set(AuthUserService::CURRENT_ADMIN_USER_VAR, time());
+            $this->session->set('userAdminId', $this->session->get('userAdminId'));
+            $this->session->set('userAdminAccess', $this->session->get('userAdminAccess'));
         }
     }
 }

@@ -35,6 +35,7 @@ class AuthUserService
             ]);
             if (!empty($userAdmin)) {
                 //EMTD improve session storage
+                ini_set("session.gc_maxlifetime", 3600);
                 $this->session->set('userAdminId', $userAdmin->getId());
                 $this->session->set('userAdminAccess', $userAdmin->getUseraccess());
                 $this->session->set(self::CURRENT_ADMIN_USER_VAR, time());
