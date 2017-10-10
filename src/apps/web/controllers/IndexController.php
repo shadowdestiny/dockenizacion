@@ -26,6 +26,7 @@ class IndexController extends PublicSiteControllerBase
         $this->view->setVar('hours_till_next_draw', $time_till_next_draw->h);
         $this->view->setVar('minutes_till_next_draw', $time_till_next_draw->i);
         $this->view->setVar('date_to_draw', $date_next_draw->format('Y-m-d H:i:s'));
+        $this->view->setVar('date_draw', $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours')->format('Y-m-d H:i:s'));
         $this->view->setVar('last_draw_date', $last_draw_date->format('l, F j, Y'));
 
         $this->tag->prependTitle($translationAdapter->query('home_name'));

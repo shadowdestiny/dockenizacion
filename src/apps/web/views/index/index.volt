@@ -35,6 +35,29 @@ end PROD imports-->
         $(document.body).animate({
             'scrollTop': scrollTop
         }, 100);
+
+		var html_formatted_offset = [];
+		$('.countdown .dots').eq(2).hide();
+		$('.countdown .seconds').hide();
+		var element = $('.countdown');
+		var html_formatted = element.html();
+		$('.countdown .dots').eq(2).show();
+		$('.countdown .seconds').show();
+		$('.countdown .day').remove();
+		$('.countdown .dots').eq(0).remove();
+		html_formatted_offset[0] = $('.countdown').html();
+		$('.countdown .hour').remove();
+		$('.countdown .dots').eq(0).remove();
+		html_formatted_offset[1] = $('.countdown').html();
+		$('.countdown .minute').remove();
+		$('.countdown .dots').eq(0).remove();
+		html_formatted_offset[2] = $('.countdown').html();
+		var finish_action = function(){
+		$('.box-next-draw .btn.red').remove();
+		}
+		var date = '{{ date_draw }}'; {#  To test "2015/11/17 10:49:00"  #}
+		var finish_text = "<div class='closed'>{{ language.translate('The Draw is closed') }}</div>";
+		count_down(element,html_formatted,html_formatted_offset, date,finish_text, finish_action);
     });
 {% endblock %}
 
@@ -146,6 +169,29 @@ end PROD imports-->
 			<div class="btn-box">
 				<a href="/{{ language.translate("link_euromillions_play") }}" class="btn red huge">{{ language.translate("banner1_btn") }}</a>
 				<div class="for-only">{{ language.translate("banner1_subbtn")}} {{ bet_price }}</div>
+				<div class="for-only" style="font-size: 12px;">{{ language.translate("nextDraw_lbl")}}:
+					<span class="countdown">
+						<span class="day unit">
+							<span class="val">%-d</span>
+							<span class="txt">d</span>
+						</span>
+						<span class="dots">:</span>
+						<span class="hour unit">
+							<span class="val">%-H</span>
+							<span class="txt">h</span>
+						</span>
+						<span class="dots">:</span>
+						<span class="minute unit">
+							<span class="val">%-M</span>
+							<span class="txt">m</span>
+						</span>
+						<span class="dots">:</span>
+						<span class="seconds unit">
+							<span class="val">%-S</span>
+							<span class="txt">s</span>
+						</span>
+					</span>
+				</div>
 			</div>
 			<div class="txt">{{ language.translate("banner1_subline") }}</div>
 			<div class="best-price">
