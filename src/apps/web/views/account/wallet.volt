@@ -1,5 +1,6 @@
 {% extends "main.volt" %}
-{% block template_css %}<link rel="stylesheet" href="/w/css/account.css">{% endblock %}
+{% block template_css %}
+    <link rel="stylesheet" href="/w/css/account.css">{% endblock %}
 {% block bodyClass %}wallet{% endblock %}
 {% block template_scripts %}
     <script src="/w/js/mobileFix.js"></script>
@@ -57,14 +58,14 @@
     });
 
     $('.box-add-card').on('submit', function(){
-        var disabled = $('.box-wallet.overview > label.submit').hasClass('gray');
-        var cardNumber = $('#card-number');
-        if(disabled) {
-            return false;
-        }
-        $('.box-wallet.overview > label.submit').removeClass('green').addClass('gray');
-        $('.box-wallet.overview > label.submit').text('Please wait...');
-        cardNumber.val(cardNumber.val().replace(/ /g, ''));
+    var disabled = $('.box-wallet.overview > label.submit').hasClass('gray');
+    var cardNumber = $('#card-number');
+    if(disabled) {
+    return false;
+    }
+    $('.box-wallet.overview > label.submit').removeClass('green').addClass('gray');
+    $('.box-wallet.overview > label.submit').text('Please wait...');
+    cardNumber.val(cardNumber.val().replace(/ /g, ''));
     })
 
     $('#card-cvv,#card-number').on('keypress',function(e){
@@ -105,10 +106,11 @@
     var fee_limit = "<?php echo $site_config->feeLimit;?>";
     var value = $(this).val();
     if(value == '') value = 0.00;
-    if(parseFloat(value).toFixed(2) >= parseFloat(fee_limit.substring(1))) {
-        $('.box-wallet.overview > label.submit').removeClass('gray').addClass('green');
+    fee_limit = fee_limit.split(/[^\\0-9.]/).join("");
+    if(parseFloat(value).toFixed(2) >= parseFloat(fee_limit)) {
+    $('.box-wallet.overview > label.submit').removeClass('gray').addClass('green');
     } else {
-        $('.box-wallet.overview > label.submit').removeClass('green').addClass('gray');
+    $('.box-wallet.overview > label.submit').removeClass('green').addClass('gray');
     }
     if( '{{ symbol }}' !== '€'){
     $('.charge').show();
@@ -133,8 +135,8 @@
 
 
     $('.box-add-card').on('submit',function(){
-        $.cookie('csid', $('#csid').val());
-        $.cookie('url_gcp',window.location.protocol+'//'+window.location.host+'/euromillions/gcp/deposit');
+    $.cookie('csid', $('#csid').val());
+    $.cookie('url_gcp',window.location.protocol+'//'+window.location.host+'/euromillions/gcp/deposit');
     });
 
     $(function(){
@@ -146,7 +148,8 @@
     deleteLnk("#card-list .action a, #bank-list .action a");
     });
 {% endblock %}
-{% block template_scripts_after %}<script src="/w/js/react/tooltip.js"></script>{% endblock %}
+{% block template_scripts_after %}
+    <script src="/w/js/react/tooltip.js"></script>{% endblock %}
 {% block header %}
     {% set activeNav='{"myClass": "account"}'|json_decode %}
     {% include "_elements/header.volt" %}
@@ -162,14 +165,16 @@
             </div>
 
             <div class="box-basic content">
-                <div class="{%if show_box_basic == true %}hidden{% endif %} right back cl">
+                <div class="{% if show_box_basic == true %}hidden{% endif %} right back cl">
                     <a class="btn" href="javascript:void(0);">{{ language.translate("balance_back_btn") }}</a>
                 </div>
                 <h1 class="h1 title yellow">{{ language.translate("balance_head", ['balance' :   user_balance ]) }}</h1>
 
                 {% if wallet.current_winnings %}
                     <div class="box info">
-                        <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
+                        <svg class="ico v-info">
+                            <use xlink:href="/w/svg/icon.svg#v-info"></use>
+                        </svg>
                         <div class="txt">
                             <strong class="straight">{{ language.translate("Congratulations!!! You just won ") }}{{ wallet.current_winnings }}</strong><br>
                             {{ language.translate("We have sent you an email with further instructions to collect your prize.
@@ -177,7 +182,7 @@
                         </div>
                     </div>
                 {% endif %}
-                <div class="{%if show_box_basic == false %}hidden{% endif %} overview-wallet">
+                <div class="{% if show_box_basic == false %}hidden{% endif %} overview-wallet">
                     {#<div class="info box box-congrats">
                        <svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg>
                        <span class="txt"><span class="congrats">{{ language.app("Congratulations! You have won € 89.30") }}</span>
@@ -196,38 +201,51 @@
 
                     {% if msg %}
                         <div class="box success">
-                            <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"/></svg>
+                            <svg class="ico v-checkmark">
+                                <use xlink:href="/w/svg/icon.svg#v-checkmark"/>
+                            </svg>
                             <span class="txt">{{ msg }}</span>
                         </div>
                     {% endif %}
                     {% if errors %}
                         <div class="box error">
-                            <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"/></svg>
-                            <div class="txt"><ul class="no-li">{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul></div>
+                            <svg class="ico v-warning">
+                                <use xlink:href="/w/svg/icon.svg#v-warning"/>
+                            </svg>
+                            <div class="txt">
+                                <ul class="no-li">{% for error in errors %}
+                                        <li>{{ error }}</li>{% endfor %}</ul>
+                            </div>
                         </div>
                     {% endif %}
 
                     <div class="box-balance">
                         <div class="border cl">
-                            <div class="txt">{{ language.translate("balance_yourBalance") }} <span class="value">{{ user_balance }}</span></div>
+                            <div class="txt">{{ language.translate("balance_yourBalance") }} <span
+                                        class="value">{{ user_balance }}</span></div>
                             <div class="box-btn">
-                                <a href="javascript:void(0)" class="btn big blue add-funds">{{ language.translate("balance_deposit_btn") }}</a>
+                                <a href="javascript:void(0)"
+                                   class="btn big blue add-funds">{{ language.translate("balance_deposit_btn") }}</a>
                             </div>
                         </div>
-                        <br />
+                        <br/>
                         <div class="border cl">
-                            <div class="txt">{{ language.translate("balance_yourWithdrawable")}} <span class="value">{{ wallet.wallet_winning_amount }}</span></div>
+                            <div class="txt">{{ language.translate("balance_yourWithdrawable") }} <span
+                                        class="value">{{ wallet.wallet_winning_amount }}</span></div>
                             <div class="box-btn">
-                                <a href="javascript:void(0)" class="btn big green withdraw">{{ language.translate("balance_withdraw_btn") }}</a>
+                                <a href="javascript:void(0)"
+                                   class="btn big green withdraw">{{ language.translate("balance_withdraw_btn") }}</a>
                             </div>
                         </div>
-                        <br />
+                        <br/>
                         <div class="border cl">
-                            <div class="txt">{{ language.translate("balance_yourSubscription")}} <span class="value">{{ wallet.wallet_subscription_amount }}</span></div>
+                            <div class="txt">{{ language.translate("balance_yourSubscription") }} <span
+                                        class="value">{{ wallet.wallet_subscription_amount }}</span></div>
                         </div>
                     </div>
                 </div>
-                <form class="{%if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency" method="post" action="/addFunds">
+                <form class="{% if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency"
+                      method="post" action="/addFunds">
                     {% set component='{"where": "account"}'|json_decode %}
                     {% include "account/_add-card.volt" %}
                     <input type="hidden" id="csid" name="csid"/>
@@ -235,15 +253,22 @@
                 <div class="box-bank {% if which_form != 'withdraw' %}hidden{% endif %}">
                     {% if msg %}
                         <div class="box success">
-                            <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"/></svg>
+                            <svg class="ico v-checkmark">
+                                <use xlink:href="/w/svg/icon.svg#v-checkmark"/>
+                            </svg>
                             <span class="txt">{{ msg }}</span>
                         </div>
                     {% endif %}
 
                     {% if errors %}
                         <div class="box error">
-                            <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"/></svg>
-                            <div class="txt"><ul class="no-li">{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul></div>
+                            <svg class="ico v-warning">
+                                <use xlink:href="/w/svg/icon.svg#v-warning"/>
+                            </svg>
+                            <div class="txt">
+                                <ul class="no-li">{% for error in errors %}
+                                        <li>{{ error }}</li>{% endfor %}</ul>
+                            </div>
                         </div>
                     {% endif %}
 
@@ -280,12 +305,14 @@
                             <div class="cols">
                                 <div class="col6">
                                     <label class="label" for="add-bank-user">
-                                        {{ language.translate("withdraw_name") }} <span class="asterisk">*</span> <span class="subtxt">({{ language.translate("bank account holder name") }}</span>
+                                        {{ language.translate("withdraw_name") }} <span class="asterisk">*</span> <span
+                                                class="subtxt">({{ language.translate("bank account holder name") }}</span>
                                     </label>
                                     {{ bank_account_form.render('name', {'class':'input'~form_errors['name']}) }}
 
                                     <label class="label" for="add-bank-user-surname">
-                                        {{ language.translate("withdraw_surname") }} <span class="asterisk">*</span> <span class="subtxt">({{ language.translate("bank account holder") }})</span>
+                                        {{ language.translate("withdraw_surname") }} <span class="asterisk">*</span>
+                                        <span class="subtxt">({{ language.translate("bank account holder") }})</span>
                                     </label>
                                     {{ bank_account_form.render('surname', {'class':'input'~form_errors['surname']}) }}
                                     <label class="label" for="add-bank-name">
