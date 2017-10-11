@@ -33,7 +33,9 @@
         }
 
         function disableUserById(id) {
-
+            alert($("#disableUserCheck")[0].checked);
+            alert($("#disbleUserDate").val());
+            alert(id);
         }
     </script>
     <div class="wrapper">
@@ -57,8 +59,8 @@
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td colspan="2"><input type="hidden" name="idDisableUser" value="{{ user.getId() }}" />
-                                <b>Disable</b> <input type="checkbox" value="Y" name="disableUser" /> <input type="text" name="disbleUserDate" id="disbleUserDate" style="width: 100px;" /> <input type="button" value="Save" />
+                            <td colspan="2">
+                                <b>Disable</b> <input type="checkbox" value="Y" name="disableUserCheck" id="disableUserCheck" /> <input type="text" name="disbleUserDate" id="disbleUserDate" style="width: 100px;" /> <input type="button" value="Save" onclick="disableUserById('{{ user.getId() }}');" />
                             </td>
                         </tr>
                     </table>
