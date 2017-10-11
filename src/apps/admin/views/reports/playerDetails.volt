@@ -21,12 +21,19 @@
 
 {% block body %}
     <script language="javascript">
+        $(function () {
+            $("#disbleUserDate").datepicker();
+        });
         function downloadBets(id) {
             location='/admin/reports/downloadBets?id='+id;
         }
 
         function downloadDeposits(id) {
             location='/admin/reports/downloadDeposits?id='+id;
+        }
+
+        function disableUserById(id) {
+
         }
     </script>
     <div class="wrapper">
@@ -45,6 +52,14 @@
                         <tr>
                             <td><b>Balance</b>: {{ (user.getWallet().getUploaded().getAmount() + user.getWallet().getWinnings().getAmount()) / 100 }} €</td>
                             <td><b>Withdrawable</b>: {{ user.getWallet().getWinnings().getAmount() / 100 }} €</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input type="hidden" name="idDisableUser" value="{{ user.getId() }}" />
+                                <b>Disable</b> <input type="checkbox" value="Y" name="disableUser" /> <input type="text" name="disbleUserDate" id="disbleUserDate" style="width: 100px;" /> <input type="button" value="Save" />
+                            </td>
                         </tr>
                     </table>
 
