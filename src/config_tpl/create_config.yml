@@ -11,6 +11,7 @@
         - vagrant_vars
     - name: create template for environment
       template: src=config_tpl.j2 dest=../apps/shared/config/vagrant_config.ini owner=www-data mode=0644
+      ignore_errors: yes
 
     - name: include variables for environment
       include_vars: vars/{{ item }}.yml
@@ -19,6 +20,7 @@
         - development_vars
     - name: create template for environment
       template: src=config_tpl.j2 dest=../apps/shared/config/development_config.ini owner=www-data mode=0644
+      ignore_errors: yes
 
     - name: include variables for environment
       include_vars: vars/{{ item }}.yml
@@ -27,6 +29,7 @@
         - shippable_vars
     - name: create template for environment
       template: src=config_tpl.j2 dest=../apps/shared/config/shippable_config.ini owner=www-data mode=0644
+      ignore_errors: yes
 
     - name: include variables for environment
       include_vars: vars/{{ item }}.yml
@@ -35,6 +38,7 @@
         - scrutinizer_vars
     - name: create template for environment
       template: src=config_tpl.j2 dest=../apps/shared/config/scrutinizer_config.ini owner=www-data mode=0644
+      ignore_errors: yes
 
     - name: include variables for environment
       include_vars: vars/{{ item }}.yml
@@ -43,4 +47,5 @@
         - staging_vars
     - name: create template for environment
       template: src=config_tpl.j2 dest=../apps/shared/config/staging_config.ini owner=www-data mode=0644
+      ignore_errors: yes
 ### This should be taken out to a parametrized role
