@@ -1,21 +1,3 @@
-<li class="li-language">
-    <a class="link myLang" href="javascript:void(0);">{{ language.translate(user_language) }}
-        <svg class="ico v-triangle-down">
-            <use xlink:href="/w/svg/icon.svg#v-triangle-down"></use>
-        </svg>
-    </a>
-    <div class="div-language">
-        <ul class="no-li">
-            {% for active_language in active_languages %}
-                {% if active_language != user_language %}
-                    <li>
-                        <a href="javascript:globalFunctions.setLanguage('{{ active_language }}');">{{ language.translate(active_language) }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    </div>
-</li>
 <li class="li-currency">
     <a class="link myCur" href="javascript:void(0);">{{ user_currency['symbol'] }} &nbsp; {{ language.translate(user_currency_code ~ "_name") }}
         <svg class="ico v-triangle-down">
@@ -48,26 +30,10 @@
 <li class="balance {{ class_balance }}">
     <a class="link" href="/account/wallet/">{{ language.translate('balance') }}: {{ user_balance }}</a>
 </li>
+
 {# EMTD - CART link functionality incompleted and hidden for first release
 
 <li class="li-cart">
 	<a class="link" href="/cart"><svg class="ico v-cart"><use xlink:href="/w/svg/icon.svg#v-cart"></use></svg> {{ language.app('Cart') }}</a>
 </li>
 #}
-
-{% if user_logged is empty %}
-    <li class="li-sign">
-        <a class="btn-theme btn-secondary" href="/{{ language.translate("signUp") }}">{{ language.translate('signUp') }}</a>
-    </li>
-    <li class="li-sign">
-        <a class="btn-theme btn-primary" href="/{{ language.translate("link_signin") }}">{{ language.translate('signIn') }}</a>
-    </li>
-{% else %}
-    <li>
-        <a class="link" href="/logout">{{ language.translate('LogOut') }}</a>
-    </li>
-    <li class="li-sign">
-        <a class="link" href="/account/wallet">{{ language.translate('deposit') }}</a>
-    </li>
-
-{% endif %}

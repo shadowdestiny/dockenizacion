@@ -9,7 +9,8 @@
     {% block template_css %}{% endblock %}      {# Inject unique css #}
 
     {# FONTS  #}
-    <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700'>
+    {#<link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700'>#}
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,600,700,900" rel="stylesheet">
     {% block font %}{% endblock %}
 </head>
 

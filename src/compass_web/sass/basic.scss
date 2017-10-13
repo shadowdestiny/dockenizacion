@@ -677,18 +677,21 @@ label.submit {
 /* MENU HAMBURGER */
 .menu-ham {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  //top: 10px;
+  //right: 10px;
+  top: 33px;
+  left: 10px;
   border: 0;
-  border: 1px solid $grey-light;
-  border-radius: 3px;
+  //border: 1px solid $grey-light;
+  //border-radius: 3px;
+  border: 1px solid #fff;
   padding: 0;
   outline: none;
   width: 42px;
   height: 40px;
   transition: all .4s ease;
   background: #fff;
-  margin: 1px 5px 0 0;
+  //margin: 1px 5px 0 0;
   z-index: 10;
 }
 
@@ -700,13 +703,15 @@ label.submit {
   content: '';
   position: absolute;
   cursor: pointer;
-  border-radius: 1px;
+  //border-radius: 1px;
   height: 5px;
   width: 100%;
   display: block;
   transition: all 500ms ease-in-out;
-  background: $purple;
+  //background: $purple;
+  background: #000;
   width: 32px;
+
 }
 
 .menu-ham .bar:before {
@@ -724,7 +729,7 @@ label.submit {
 }
 
 .menu-ham.expanded:hover {
-  border: 1px solid $grey-light;
+  //border: 1px solid $grey-light;
 }
 
 .menu-ham.expanded span {
@@ -936,9 +941,13 @@ body, .submit {
 
 .top-nav {
   position: relative;
-  min-height: 28px;
-  background: #ae5279;
+  //min-height: 28px;
+  min-height: 110px;
+  //background: #ae5279;
+  background: #fff;
   z-index: 10;
+  padding-top: 31px;
+
   .link {
     font-size: 75%;
   }
@@ -966,12 +975,12 @@ body, .submit {
 }
 
 .ul-top-nav > li:before {
-  display: block;
-  content: "\00b7";
-  color: #fff;
-  float: right;
-  line-height: 28px;
-  margin-right: -2px;
+  //display: block;
+  //content: "\00b7";
+  //color: #fff;
+  //float: right;
+  //line-height: 28px;
+  //margin-right: -2px;
 }
 
 // &middot;
@@ -979,15 +988,15 @@ body, .submit {
   display: none;
 }
 
-.ul-top-nav > li > a {
+.ul-top-nav > li > a.link {
   display: block;
-  color: #fff;
+  //color: #fff;
   padding: 0 15px;
   line-height: 28px;
 }
 
-.ul-top-nav > li > a:hover, .ul-top-nav > li > a:focus, .ul-top-nav > li:hover .link, .ul-top-nav > li:focus .link {
-  background: #fff;
+.ul-top-nav > li > a.link:hover, .ul-top-nav > li > a.link:focus, .ul-top-nav > li:hover .link, .ul-top-nav > li:focus .link {
+  //background: #fff;
   color: #ae5279;
 }
 
@@ -1060,24 +1069,33 @@ body, .submit {
 .head {
   position: relative;
   z-index: 9;
-  border-bottom: 5px solid $yellow;
-  background: #fff;
+  //border-bottom: 5px solid $yellow;
+  //background: #fff;
+  height: 79px;
+
+  background-color: $v2-desktop-menu-bg;
 }
 
 .main-nav {
-  float: right;
-  margin-bottom: -2px;
-  border-left: 1px solid $yellow;
+  //float: right;
+  //margin-bottom: -2px;
+  //border-left: 1px solid $yellow;
+  text-align: center;
 }
 
 .main-nav li {
-  float: left;
-  border-right: 1px solid $yellow;
-  position: relative;
+  //float: left;
+  //border-right: 1px solid $yellow;
+  //position: relative;
+  display: inline-block;
+  margin: 0 40px;
 }
 
+.main-nav li:first-child {
+  margin-left: 0;
+}
 .main-nav li:last-child {
-  margin: 0;
+  margin-right: 0;
 }
 
 .main-nav .v-cart {
@@ -1088,9 +1106,13 @@ body, .submit {
 
 .main-nav a {
   display: block;
-  padding: 13px 20px;
-  transition: background .2s ease, color .15s ease;
-  min-height: 69px; /*min-height to fix tablet*/
+  //padding: 13px 20px;
+  //transition: background .2s ease, color .15s ease;
+  //min-height: 69px; /*min-height to fix tablet*/
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 79px;
 }
 
 .main-nav > span {
@@ -1121,9 +1143,13 @@ body, .submit {
   @include background-image(linear-gradient(#CC9816, $yellow));
 }
 
-.main-nav a:hover, .li-your-account:hover > a {
-  background-color: $purple; /* fallback */
-  @include background-image(linear-gradient(#8b355b, $purple));
+//.main-nav a:hover, .li-your-account:hover > a {
+.main-nav a:hover {
+  //background-color: $purple; /* fallback */
+  //@include background-image(linear-gradient(#8b355b, $purple));
+  //background-color: $v2-desktop-menu-hover-bg;
+
+  //color: $v2-desktop-menu-hover-color;
 }
 
 .main-nav .v-user {
@@ -1146,11 +1172,11 @@ body, .submit {
 }
 
 .main-nav li:hover {
-  border-right: 1px solid transparent;
+  //border-right: 1px solid transparent;
 }
 
 .main-nav .active:hover {
-  border-right: 0 solid transparent;
+  //border-right: 0 solid transparent;
 }
 
 /* erase yellow border */
@@ -1497,6 +1523,8 @@ body, .submit {
   .head {
     padding: 5px 15px;
     border: 0;
+    //v2
+    display: none;
   }
   .media {
     width: 3px
@@ -1557,8 +1585,10 @@ body, .submit {
     font-size: $h4;
   }
   .logo {
-    margin-top: 6px;
+    //margin-top: 6px;
     width: 200px;
+    margin-top: 15px;
+    margin-left: 60px;
   }
   #language a {
     text-decoration: none;
@@ -1567,28 +1597,36 @@ body, .submit {
     text-decoration: none;
   }
   .nav.mobile, #nav-account, #language, #changelanguage {
-    border-bottom: 1px solid $purple;
+    //border-bottom: 1px solid $purple;
     ul {
-      border-top: 1px solid $purple;
+      //border-top: 1px solid $purple;
     }
     a {
+      text-transform: uppercase;
+
       &:link, &:visited {
         display: block;
-        color: $purple;
+        //color: $purple;
+        color:  #333333;
         padding: 10px;
-        font-weight: 700;
-        @include background-image(linear-gradient(#fff, #eee));
-        border-bottom: 1px solid $grey-light;
+        //font-weight: 700;
+        //@include background-image(linear-gradient(#fff, #eee));
+        //border-bottom: 1px solid $grey-light;
+        border-bottom: 1px solid #fff;
+        background-color: $v2-yellow;
+        font-weight: 900;
       }
       &:hover, &:focus {
-        color: $purple-darker !important;
-        @include background-image(linear-gradient(#fff, #ccc));
-        border-color: $grey;
+        //color: $purple-darker !important;
+        //@include background-image(linear-gradient(#fff, #ccc));
+        //border-color: $grey;
+        background-color: $v2-yellow-hover;
       }
     }
     a:active {
-      box-shadow: 0 5px 10px #aaa inset;
-      background: #fff;
+      //box-shadow: 0 5px 10px #aaa inset;
+      //background: #fff;
+      background-color: $v2-yellow-hover;
     }
   }
   .nav.mobile li:last-child a {
@@ -1721,4 +1759,60 @@ body, .submit {
     width: 5px
   }
   /*.box-how .grey{display:none;}*/
+}
+
+
+// Site #V2
+
+.btn-theme {
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 1px;
+  margin-left: 8px;
+  margin-right: 8px;
+  color:  #9b9c9b;
+  font-size: 17px;
+  font-weight: 700;
+  box-sizing: border-box;
+  width: 109px;
+  text-align: center;
+  height: 49px;
+  line-height: 49px;
+  text-transform: uppercase;
+  padding: 0;
+  display: block;
+}
+
+.btn-theme.btn-primary {
+  border-color:  $v2-yellow;
+  background-color:  $v2-yellow;
+}
+.btn-theme.btn-primary:hover {
+  border-color:  $v2-yellow-hover;
+  background-color:  $v2-yellow-hover;
+}
+
+.btn-theme.btn-secondary {
+  border-color: $v2-green;
+  background-color: $v2-green;
+}
+.btn-theme.btn-secondary:hover {
+  border-color:  $v2-green;
+  background-color:  $v2-green;
+}
+
+.btn-theme--big {
+  border-radius: 3px;
+  background: -webkit-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+  background: -moz-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+  background: -o-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+  background: -ms-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+  background: linear-gradient(135deg, #4dec8c 0%, #21d167 100%);
+  height: 97px;
+
+  color:  #ffffff;
+  font-size: 42.01px;
+  font-weight: 700;
+  line-height: 97;
+  text-transform: uppercase;
 }

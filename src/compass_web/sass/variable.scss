@@ -45,7 +45,7 @@ $hover:#474ea0;
 $active:#c03;
 
 /* TYPOGRAPHY */
-$basic-font:"Open Sans", helvetica, arial, verdana, sans-serif;
+//$basic-font:"Open Sans", helvetica, arial, verdana, sans-serif;
 $mono:"Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
 
 $h0:3.375em;			/* 16x3.375 = 54px */
@@ -83,3 +83,23 @@ $small:.75em;
 /* COLUMNS */
 %cols{position:relative; margin-bottom:2em; display:table; width:100%;}
 %columns{display:table-cell; float:none; vertical-align:top; position:relative; box-sizing:content-box;}
+
+
+// Site version #2 start
+
+// Main colors
+
+$v2-color : #333333;
+$v2-yellow : #f8ce0d;		// dark
+$v2-yellow-hover : #fbd93a;	// light
+$v2-green : #4dec8c;
+$v2-grey : #elelel;			// light
+
+// Desktop menu
+$v2-desktop-menu-color : #f9d118;
+$v2-desktop-menu-bg : #fcdd4c;
+$v2-desktop-menu-hover-color : #f9d118;
+$v2-desktop-menu-hover-bg : #6c6c6c;
+
+// Fonts
+$basic-font:'Work Sans', sans-serif;
