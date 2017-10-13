@@ -993,6 +993,33 @@ body, .submit {
   //color: #fff;
   padding: 0 15px;
   line-height: 28px;
+
+  color: #9b9c9b;
+  font-size: 17px;
+  font-weight: 700;
+  text-align: left;
+
+}
+
+.ul-top-nav {
+  .li-currency {
+
+    .currency--symbol {
+      display: inline-block;
+      font-family: Roboto;
+      color: inherit;
+      font-size: 18px;
+      font-weight: 700;
+      background-color: #f5cc0d;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      vertical-align: text-top;
+      line-height: 20px;
+    }
+  }
+
 }
 
 .ul-top-nav > li > a.link:hover, .ul-top-nav > li > a.link:focus, .ul-top-nav > li:hover .link, .ul-top-nav > li:focus .link {
@@ -1094,6 +1121,7 @@ body, .submit {
 .main-nav li:first-child {
   margin-left: 0;
 }
+
 .main-nav li:last-child {
   margin-right: 0;
 }
@@ -1607,7 +1635,7 @@ body, .submit {
       &:link, &:visited {
         display: block;
         //color: $purple;
-        color:  #333333;
+        color: #333333;
         padding: 10px;
         //font-weight: 700;
         //@include background-image(linear-gradient(#fff, #eee));
@@ -1761,7 +1789,6 @@ body, .submit {
   /*.box-how .grey{display:none;}*/
 }
 
-
 // Site #V2
 
 .btn-theme {
@@ -1770,7 +1797,7 @@ body, .submit {
   border-width: 1px;
   margin-left: 8px;
   margin-right: 8px;
-  color:  #9b9c9b;
+  color: #9b9c9b;
   font-size: 17px;
   font-weight: 700;
   box-sizing: border-box;
@@ -1784,21 +1811,23 @@ body, .submit {
 }
 
 .btn-theme.btn-primary {
-  border-color:  $v2-yellow;
-  background-color:  $v2-yellow;
+  border-color: $v2-yellow;
+  background-color: $v2-yellow;
 }
+
 .btn-theme.btn-primary:hover {
-  border-color:  $v2-yellow-hover;
-  background-color:  $v2-yellow-hover;
+  border-color: $v2-yellow-hover;
+  background-color: $v2-yellow-hover;
 }
 
 .btn-theme.btn-secondary {
   border-color: $v2-green;
   background-color: $v2-green;
 }
+
 .btn-theme.btn-secondary:hover {
-  border-color:  $v2-green;
-  background-color:  $v2-green;
+  border-color: $v2-green;
+  background-color: $v2-green;
 }
 
 .btn-theme--big {
@@ -1810,7 +1839,7 @@ body, .submit {
   background: linear-gradient(135deg, #4dec8c 0%, #21d167 100%);
   height: 97px;
 
-  color:  #ffffff;
+  color: #ffffff;
   font-size: 42.01px;
   font-weight: 700;
   line-height: 97;

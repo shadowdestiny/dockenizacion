@@ -1,5 +1,5 @@
 <li class="li-currency">
-    <a class="link myCur" href="javascript:void(0);">{{ user_currency['symbol'] }} &nbsp; {{ language.translate(user_currency_code ~ "_name") }}
+    <a class="link myCur" href="javascript:void(0);"><span class="currency--symbol">{{ user_currency['symbol'] }}</span> &nbsp; {{ language.translate(user_currency_code ~ "_name") }}
         <svg class="ico v-triangle-down">
             <use xlink:href="/w/svg/icon.svg#v-triangle-down"></use>
         </svg>
