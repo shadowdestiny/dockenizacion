@@ -62,10 +62,12 @@
                         </tr>
                         <tr>
                             <td colspan="2"><b>Address</b>: {{ user.getStreet() }}</td>
+                            <td>&nbsp;</td>
                         </tr>
                         <tr>
                             <td><b>Balance</b>: {{ (user.getWallet().getUploaded().getAmount() + user.getWallet().getWinnings().getAmount()) / 100 }} €</td>
                             <td><b>Withdrawable</b>: {{ user.getWallet().getWinnings().getAmount() / 100 }} €</td>
+                            <td>&nbsp;</td>
                         </tr>
                     </table>
 
