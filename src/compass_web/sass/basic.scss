@@ -1847,6 +1847,8 @@ body, .submit {
 }
 
 .main-foot {
+  margin-bottom: 120px;
+  
   .copyright-text {
     background-color: #e1e1e1;
     padding: 30px 100px 30px 60px;
@@ -1877,18 +1879,43 @@ body, .submit {
   height: 98px;
   line-height: 98px;
   text-align: center;
+  margin-bottom: 60px;
 
   li {
+    margin: 0 30px;
+
     a {
+      position: relative;
+
+      &.visa-a {
+        width: 81px;
+        top: 7px;
+      }
+
+      &.master-a {
+        width: 71px;
+        top: 16px;
+      }
+
+      &.paysafe-a {
+        width: 202px;
+        top: 11px;
+      }
+
+      &.neteller-a {
+        width: 175px;
+        top: 11px;
+      }
+
+      &.skrill-a {
+        width: 96px;
+        top: 18px;
+      }
+
       img {
         max-width: 100%;
       }
 
-      &.visa-a {}
-      &.master-a {}
-      &.paysafe-a {}
-      &.neteller-a {}
-      &.skrill-a {}
     }
   }
 

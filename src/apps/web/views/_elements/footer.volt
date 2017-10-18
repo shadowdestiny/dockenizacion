@@ -147,31 +147,30 @@
 
                 <ul class="no-li inline">
                     <li>
-                        <a href="http://www.visaeurope.com/" class="visa-a">
+                        <a href="http://www.visaeurope.com/" class="visa-a" title="Visa Europe">
                             <img src="/w/img/footer/desktop/visa.png"/>
                         </a>
                     </li>
                     <li>
-                        <a href="http://www.mastercard.com/eur/" class="master-a">
+                        <a href="http://www.mastercard.com/eur/" class="master-a" title="Mastercard">
                             <img src="/w/img/footer/desktop/mastercard.png"/>
                         </a>
                     </li>
                     <li>
-                        <a href="https://www.paysafecard.com/" class="paysafe-a">
+                        <a href="https://www.paysafecard.com/" class="paysafe-a" title="Paysafecard">
                             <img src="/w/img/footer/desktop/paysafecard.png"/>
                         </a>
                     </li>
                     <li>
-                        <a href="www.neteller.com/‎" class="neteller-a">
+                        <a href="www.neteller.com/‎" class="neteller-a" title="Neteller">
                             <img src="/w/img/footer/desktop/neteller.png"/>
                         </a>
                     </li>
                     <li>
-                        <a href="https://www.skrill.com/en/" class="skrill-a">
+                        <a href="https://www.skrill.com/en/" class="skrill-a" title="Skrill">
                             <img src="/w/img/footer/desktop/skrill.png"/>
                         </a>
                     </li>
-
                 </ul>
             </div>
 
