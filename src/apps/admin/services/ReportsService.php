@@ -436,7 +436,7 @@ class ReportsService
                     if ($userDate) {
                         $user->setDisabledDate(new \DateTime($userDate));
                     } else {
-                        $user->setDisabledDate((new \DateTime())->modify('+1 year'));
+                        $user->setDisabledDate((new \DateTime())->modify('+100 year'));
                     }
                 } else {
                     $user->setDisabledDate(null);
