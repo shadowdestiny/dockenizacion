@@ -33,9 +33,18 @@
         }
 
         function disableUserById(id) {
-            alert($("#disableUserCheck")[0].checked);
-            alert($("#disbleUserDate").val());
-            alert(id);
+            $.ajax({
+                type: "POST",
+                url: '/admin/reports/saveDisabledUser',
+                data: {
+                    userId: id,
+                    isChecked: $("#disableUserCheck")[0].checked,
+                    userDate: $("#disbleUserDate").val()
+                },
+                success: function (response) {
+                    alert(response);
+                }
+            });
         }
     </script>
     <div class="wrapper">
@@ -47,6 +56,9 @@
                         <tr>
                             <td width="30%"><b>Email</b>: <a href="mailto:{{ user.getEmail() }}">{{ user.getEmail() }}</a></td>
                             <td><b>Phone</b>: {{ user.getPhoneNumber() }}</td>
+                            <td>
+                                <b>Disable</b> <input type="checkbox" value="Y" name="disableUserCheck" id="disableUserCheck" /> <input type="text" name="disbleUserDate" id="disbleUserDate" style="width: 100px;" /> <input type="button" value="Save" onclick="disableUserById('{{ user.getId() }}');" />
+                            </td>
                         </tr>
                         <tr>
                             <td colspan="2"><b>Address</b>: {{ user.getStreet() }}</td>
@@ -54,14 +66,6 @@
                         <tr>
                             <td><b>Balance</b>: {{ (user.getWallet().getUploaded().getAmount() + user.getWallet().getWinnings().getAmount()) / 100 }} €</td>
                             <td><b>Withdrawable</b>: {{ user.getWallet().getWinnings().getAmount() / 100 }} €</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <b>Disable</b> <input type="checkbox" value="Y" name="disableUserCheck" id="disableUserCheck" /> <input type="text" name="disbleUserDate" id="disbleUserDate" style="width: 100px;" /> <input type="button" value="Save" onclick="disableUserById('{{ user.getId() }}');" />
-                            </td>
                         </tr>
                     </table>
 

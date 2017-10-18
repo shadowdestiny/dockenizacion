@@ -4,10 +4,12 @@ namespace EuroMillions\admin\services;
 
 use Doctrine\ORM\EntityManager;
 use EuroMillions\web\entities\EuroMillionsDraw;
+use EuroMillions\web\entities\User;
 use EuroMillions\web\interfaces\IReports;
 use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\TransactionRepository;
 use EuroMillions\web\repositories\UserRepository;
+use Phalcon\Exception;
 
 class ReportsService
 {
@@ -414,6 +416,42 @@ class ReportsService
         }
         $lottery = $this->lotteryRepository->findOneBy(['name' => $lotteryName]);
         return $lottery->getNextDrawDate($now);
+    }
+
+    /**
+     * @param $userId
+     * @param $isChecked
+     * @param $userDate
+     *
+     * @throws Exception
+     */
+    public function saveDisabledUser($userId, $isChecked, $userDate)
+    {
+        try {
+            if ($userId) {
+                /** @var User $user */
+                $user = $this->userRepository->findOneBy(['id' => $userId]);
+
+                if ($isChecked == 'true') {
+                    if ($userDate) {
+                        $user->setDisabledDate(new \DateTime($userDate));
+                    } else {
+                        $user->setDisabledDate((new \DateTime())->modify('+1 year'));
+                    }
+                } else {
+                    $user->setDisabledDate(null);
+                }
+
+                $this->entityManager->persist($user);
+                $this->entityManager->flush();
+
+                echo 'User was saved correctly.';
+            } else {
+                echo '!The disabled option was not saved!';
+            }
+        } catch (Exception $e) {
+            throw new Exception('!The disabled option was not saved!');
+        }
     }
 
     /**
