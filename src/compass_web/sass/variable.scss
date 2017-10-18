@@ -1,4 +1,5 @@
 @import "compass/css3";
+@import url('https://fonts.googleapis.com/css?family=Chivo|Work+Sans:600,700,900');
 
 /*** VARIABLES ***
 NO ALLLOWED: Class, ID or Keyframes
@@ -103,3 +104,21 @@ $v2-desktop-menu-hover-bg : #6c6c6c;
 
 // Fonts
 $basic-font:'Work Sans', sans-serif;
+$ff1 : $basic-font;
+$ff2:'Chivo', sans-serif;
+
+// Grid v2
+
+//max-width: 1200px
+//max-width: 992px
+//max-width: 768px
+//min-width: 769px
+//max-width: 480px
+//max-width: 320px
+
+$screen-xxs 		: 320px;
+$screen-xs 			: 480px;
+$screen-small 		: 768px;
+$screen-small-plus 	: 769px;
+$screen-medium 		: 992px;
+$screen-large 		: 1200px;
