@@ -62,14 +62,19 @@ class UserAccessController extends ControllerBase
                     $form_errors[$field] = ' error';
                 }
             } else {
-                if (!$this->authService->check([
+                $userCheck = $this->authService->check([
                     'email' => $this->request->getPost('email'),
                     'password' => $this->request->getPost('password'),
                     'remember' => $this->request->getPost('remember'),
                     'ipaddress' => !empty($this->request->getClientAddress()) ? $this->request->getClientAddress() : self::IP_DEFAULT,
-                ], 'string')
-                ) {
-                    $errors[] = 'Incorrect email or password.';
+                ], 'string');
+
+                if (!$userCheck['bool']) {
+                    if ($userCheck['error'] == 'disabledUser') {
+                        $errors[] = 'Your account has been excluded.';
+                    } else {
+                        $errors[] = 'Incorrect email or password.';
+                    }
                 } else {
                     return $this->response->redirect($url_redirect);
                 }

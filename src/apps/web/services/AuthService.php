@@ -1,6 +1,7 @@
 <?php
 namespace EuroMillions\web\services;
 
+use DateTime;
 use Doctrine\ORM\EntityManager;
 use EuroMillions\shared\interfaces\IUrlManager;
 use EuroMillions\web\components\Md5EmailValidationToken;
@@ -100,19 +101,36 @@ class AuthService
         $user = $this->userRepository->getByEmail($credentials['email']);
         if (!$user) {
             $this->log('User not found ['.$credentials['email'].']', 'check');
-            return false;
+            return ['bool' => false, 'error' => 'userNotFound'];
         }
         $password_match = $this->passwordHasher->checkPassword($credentials['password'], $user->getPassword()->toNative());
         if ($password_match) {
-            $this->storageStrategy->setCurrentUserId($user->getId());
-            if ($credentials['remember']) {
-                $user->setRememberToken($agentIdentificationString);
-                $this->storageStrategy->storeRemember($user);
+            if (!$this->checkDisabledDate($user->getDisabledDate())) {
+                return ['bool' => false, 'error' => 'disabledUser'];
+            }else {
+                $this->storageStrategy->setCurrentUserId($user->getId());
+                if ($credentials['remember']) {
+                    $user->setRememberToken($agentIdentificationString);
+                    $this->storageStrategy->storeRemember($user);
+                }
+                $user->setIpAddress(new IPAddress($credentials['ipaddress']));
+                $this->entityManager->flush();
             }
-            $user->setIpAddress(new IPAddress($credentials['ipaddress']));
-            $this->entityManager->flush();
         }
-        return $password_match;
+        return ['bool' => $password_match, 'error' => ''];
+    }
+
+    private function checkDisabledDate($disabledDate) {
+        if (is_null($disabledDate)) {
+            return true;
+        }
+
+        /** @var DateTime $disabledDate */
+        if ($disabledDate > new DateTime()) {
+            return false;
+        }
+
+        return true;
     }
 
     public function loginWithRememberMe()
