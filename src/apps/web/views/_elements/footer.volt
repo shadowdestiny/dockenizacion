@@ -4,7 +4,9 @@
             <div class="col20per">
                 <strong>{{ language.translate('column1_head') }}</strong>
                 <ul>
-                    <li><a href="/{{ language.translate("link_euromillions_play") }}">{{ language.translate('column1_first') }}</a></li>
+                    <li>
+                        <a href="/{{ language.translate("link_euromillions_play") }}">{{ language.translate('column1_first') }}</a>
+                    </li>
                     {# Future links
                                         <li><a href="javascript:void(0);">EuroJackpot</a></li>
                                         <li><a href="javascript:void(0);">MegaMillions</a></li>
@@ -15,7 +17,9 @@
             <div class="col20per">
                 <strong>{{ language.translate('column2_head') }}</strong>
                 <ul>
-                    <li><a href="/{{ language.translate('link_euromillions_results') }}">{{ language.translate('column2_first') }}</a></li>
+                    <li>
+                        <a href="/{{ language.translate('link_euromillions_results') }}">{{ language.translate('column2_first') }}</a>
+                    </li>
                     <li>
                         <a href="/{{ language.translate('link_euromillions_draw_history') }}">{{ language.translate('column2_second') }}</a>
                     </li>
@@ -31,26 +35,44 @@
                         <li><a href="/account/wallet">{{ language.translate('column3Log_fourth') }}</a></li>
                         <li><a href="/logout">{{ language.translate("column3Log_fifth") }}</a></li>
                     {% else %}
-                        <li><a href="/{{ language.translate("link_signin") }}">{{ language.translate('column3NoLog_first') }}</a></li>
-                        <li><a href="/{{ language.translate("link_signup") }}">{{ language.translate('column3NoLog_second') }}</a></li>
+                        <li>
+                            <a href="/{{ language.translate("link_signin") }}">{{ language.translate('column3NoLog_first') }}</a>
+                        </li>
+                        <li>
+                            <a href="/{{ language.translate("link_signup") }}">{{ language.translate('column3NoLog_second') }}</a>
+                        </li>
                     {% endif %}
                 </ul>
             </div>
             <div class="col20per">
                 <strong>{{ language.translate('column4_head') }}</strong>
                 <ul>
-                    <li><a href="/{{ language.translate("link_euromillions_help") }}">{{ language.translate('column4_first') }}</a></li>
-                    <li><a href="/{{ language.translate("link_euromillions_faq") }}">{{ language.translate('column4_second') }}</a></li>
-                    <li><a href="/{{ language.translate("link_contact") }}/">{{ language.translate('column4_third') }}</a></li>
+                    <li>
+                        <a href="/{{ language.translate("link_euromillions_help") }}">{{ language.translate('column4_first') }}</a>
+                    </li>
+                    <li>
+                        <a href="/{{ language.translate("link_euromillions_faq") }}">{{ language.translate('column4_second') }}</a>
+                    </li>
+                    <li>
+                        <a href="/{{ language.translate("link_contact") }}/">{{ language.translate('column4_third') }}</a>
+                    </li>
                 </ul>
             </div>
             <div class="col20per">
                 <strong>{{ language.translate('column5_head') }}</strong>
                 <ul>
-                    <li><a href="/{{ language.translate("link_legal_about") }}">{{ language.translate('column5_first') }}</a></li>
-                    <li><a href="/{{ language.translate("link_legal_index") }}">{{ language.translate('column5_second') }}</a></li>
-                    <li><a href="/{{ language.translate("link_legal_privacy") }}">{{ language.translate('column5_third') }}</a></li>
-                    <li><a href="/{{ language.translate("link_legal_cookies") }}">{{ language.translate('column5_fourth') }}</a></li>
+                    <li>
+                        <a href="/{{ language.translate("link_legal_about") }}">{{ language.translate('column5_first') }}</a>
+                    </li>
+                    <li>
+                        <a href="/{{ language.translate("link_legal_index") }}">{{ language.translate('column5_second') }}</a>
+                    </li>
+                    <li>
+                        <a href="/{{ language.translate("link_legal_privacy") }}">{{ language.translate('column5_third') }}</a>
+                    </li>
+                    <li>
+                        <a href="/{{ language.translate("link_legal_cookies") }}">{{ language.translate('column5_fourth') }}</a>
+                    </li>
 
 
                     {# Future links
@@ -93,7 +115,7 @@
                     {{ language.translate('copyright') }}
                 </div>
                 <div class="col8 box-partner">
-                    <ul class="no-li inline">
+                    <ul class="no-li inline e555">
                         <li><a href="http://www.visaeurope.com/">
                                 <svg class="v-visa vector">
                                     <use xlink:href="/w/svg/icon.svg#visa"/>
@@ -113,5 +135,29 @@
                     </ul>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="copyright-text">
+        <div class="wrapper">
+            <p>
+                This service operates under the Gaming License #5536/JAZ authorised and regulated by the Government of
+                Curaçao. This site is operated by
+                Panamedia B.V., Emancipatie Boulevard 29, Willemstad, Curaçao and payment processing services are
+                provided by Panamedia International
+                Limited, 30/3 Sir Augustus Bartolo Street, XBX 1093, Ta Xbiex Malta (EU).
+            </p>
+            <p>
+                All transactions are charged in Euros. Prices displayed in other currencies are for informative purposes
+                only and are convertedaccording to
+                actual exchange rates.
+
+            </p>
+            <p>
+                Copyright © 2011-2016 by EuroMillions.com. <br>
+                All rights reserved.
+            </p>
+        </div>
+    </div>
 </footer>
 <div class="media"></div> {# Used to check the size of the document to determin what size it is with JS #}
