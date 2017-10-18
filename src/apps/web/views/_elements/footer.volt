@@ -115,7 +115,7 @@
                     {{ language.translate('copyright') }}
                 </div>
                 <div class="col8 box-partner">
-                    <ul class="no-li inline e555">
+                    <ul class="no-li inline">
                         <li><a href="http://www.visaeurope.com/">
                                 <svg class="v-visa vector">
                                     <use xlink:href="/w/svg/icon.svg#visa"/>
@@ -131,15 +131,56 @@
                                     <use xlink:href="/w/svg/icon.svg#gambleaware"/>
                                 </svg>
                             </a></li>
-                        <li><a href="https://ssl.comodo.com/"><img src="/w/svg/comodo.png"/> </a></li>
+                        <li>
+                            <a href="https://ssl.comodo.com/"><img src="/w/svg/comodo.png"/> </a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="copyright-text">
-        <div class="wrapper">
+
+    <div class="wrapper">
+        <div class="cards-block">
+            <div class="inner">
+
+                <ul class="no-li inline">
+                    <li>
+                        <a href="http://www.visaeurope.com/" class="visa-a">
+                            <img src="/w/img/footer/desktop/visa.png"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.mastercard.com/eur/" class="master-a">
+                            <img src="/w/img/footer/desktop/mastercard.png"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.paysafecard.com/" class="paysafe-a">
+                            <img src="/w/img/footer/desktop/paysafecard.png"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="www.neteller.com/‎" class="neteller-a">
+                            <img src="/w/img/footer/desktop/neteller.png"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.skrill.com/en/" class="skrill-a">
+                            <img src="/w/img/footer/desktop/skrill.png"/>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="wrapper">
+        <div class="copyright-text">
             <p>
                 This service operates under the Gaming License #5536/JAZ authorised and regulated by the Government of
                 Curaçao. This site is operated by

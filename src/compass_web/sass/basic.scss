@@ -1263,31 +1263,6 @@ body, .submit {
   text-align: right;
 }
 
-//v2
-.main-foot {
-  .copyright-text {
-    background-color: #e1e1e1;
-    padding: 30px 100px 30px 60px;
-
-    @media only screen and (max-width: 768px) {
-
-    }
-
-    p {
-      font-family: WorkSans;
-      color:  #9e9d96;
-      font-size: 16px;
-      font-weight: 400;
-      text-align: left;
-
-      @media only screen and (max-width: 768px) {
-
-      }
-    }
-  }
-}
-
-
 .box-links .col20per {
   padding-right: 15px;
 }
@@ -1869,4 +1844,52 @@ body, .submit {
   font-weight: 700;
   line-height: 97;
   text-transform: uppercase;
+}
+
+.main-foot {
+  .copyright-text {
+    background-color: #e1e1e1;
+    padding: 30px 100px 30px 60px;
+
+    @media only screen and (max-width: $screen-small) {
+
+    }
+
+    p {
+      font-family: $ff1;
+      color:  #9e9d96;
+      font-size: 16px;
+      font-weight: 400;
+      text-align: left;
+
+      @media only screen and (max-width: $screen-small) {
+
+      }
+    }
+  }
+}
+
+.cards-block {
+  border-width: 1px;
+  border-color:  #223652;
+  border-style: solid;
+  //width: 1275px;
+  height: 98px;
+  line-height: 98px;
+  text-align: center;
+
+  li {
+    a {
+      img {
+        max-width: 100%;
+      }
+
+      &.visa-a {}
+      &.master-a {}
+      &.paysafe-a {}
+      &.neteller-a {}
+      &.skrill-a {}
+    }
+  }
+
 }
