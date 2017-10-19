@@ -69,6 +69,7 @@
     <div data-role="content">
         {% block body %}{% endblock %}
     </div>
+    {% block latestnews %}{% endblock %}
     {% block footer %}{% endblock %}
 </div>
 

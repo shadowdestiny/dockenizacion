@@ -12,6 +12,7 @@ home
 {% include "_elements/header.volt" %}
 {% endblock %}
 {% block font %}<link href='https://fonts.googleapis.com/css?family=Signika:700' rel='stylesheet' type='text/css'>{% endblock %}
+{% block latestnews %}{% include "_elements/latest-news.volt" %}{% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}
 <script src="/w/js/mobileFix.js"></script>
