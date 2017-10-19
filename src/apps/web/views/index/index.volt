@@ -251,48 +251,51 @@
                 </div>
             </div>
 
-            <div class="box-extra">
-                <div class="cols">
-                    <div class="col6">
-                        <a href="/{{ language.translate('link_christmas_play') }}">
-                            <img src="/w/img/home/{{ language.translate('home_christmas_image_billions') }}" border=0/>
-                        </a>
-                        {#<div class="box-basic box-quick-play ball">
-                            <div class="content">
-                                <h1 class="h2">{{ language.translate("cta1_head") }}</h1>
-                                <p>{{ language.translate("cta1_text") }}</p>
-                                <a href="/{{ language.translate("link_euromillions_play") }}?random" class="btn blue big wide">{{ language.translate("cta1_btn") }}</a>
-                            </div>
-                        </div>#}
-                    </div>
-                    <div class="col6">
-                        <div class="box-basic box-result">
-                            <div class="cols">
-                                <div class="col8 content">
-                                    <h1 class="h2">{{ language.translate("results_head") }}</h1>
-                                    <p>{{ language.translate("results_text") }} {{ last_draw_date }} </p>
-                                    <ul class="no-li inline numbers small">
-                                        {% for regular_number in euromillions_results["regular_numbers"] %}
-                                            <li>{{ regular_number }}</li>
-                                        {% endfor %}
-                                        {% for lucky_number in euromillions_results["lucky_numbers"] %}
-                                            <li class="star">{{ lucky_number }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                    <a href="/{{ language.translate('link_euromillions_results') }}"
-                                       class="lnk animate infi"><span
-                                                class="txt">{{ language.translate("results_link") }}</span>
-                                        <svg class="ico v-arrow-right3">
-                                            <use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use>
-                                        </svg>
-                                    </a>
-                                </div>
-                                <div class="col4 woman">&nbsp;</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {#<div class="box-extra">#}
+                {#<div class="cols">#}
+                    {#<div class="col6">#}
+                        {#<a href="/{{ language.translate('link_christmas_play') }}">#}
+                            {#<img src="/w/img/home/{{ language.translate('home_christmas_image_billions') }}" border=0/>#}
+                        {#</a>#}
+                        {#<div class="box-basic box-quick-play ball">#}
+                            {#<div class="content">#}
+                                {#<h1 class="h2">{{ language.translate("cta1_head") }}</h1>#}
+                                {#<p>{{ language.translate("cta1_text") }}</p>#}
+                                {#<a href="/{{ language.translate("link_euromillions_play") }}?random" class="btn blue big wide">{{ language.translate("cta1_btn") }}</a>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
+                    {#<div class="col6">#}
+                        {#<div class="box-basic box-result">#}
+                            {#<div class="cols">#}
+                                {#<div class="col8 content">#}
+                                    {#<h1 class="h2">{{ language.translate("results_head") }}</h1>#}
+                                    {#<p>{{ language.translate("results_text") }} {{ last_draw_date }} </p>#}
+                                    {#<ul class="no-li inline numbers small">#}
+                                        {#{% for regular_number in euromillions_results["regular_numbers"] %}#}
+                                            {#<li>{{ regular_number }}</li>#}
+                                        {#{% endfor %}#}
+                                        {#{% for lucky_number in euromillions_results["lucky_numbers"] %}#}
+                                            {#<li class="star">{{ lucky_number }}</li>#}
+                                        {#{% endfor %}#}
+                                    {#</ul>#}
+                                    {#<a href="/{{ language.translate('link_euromillions_results') }}"#}
+                                       {#class="lnk animate infi"><span#}
+                                                {#class="txt">{{ language.translate("results_link") }}</span>#}
+                                        {#<svg class="ico v-arrow-right3">#}
+                                            {#<use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use>#}
+                                        {#</svg>#}
+                                    {#</a>#}
+                                {#</div>#}
+                                {#<div class="col4 woman">&nbsp;</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+
+
+
             <div class="informative">
 
                 {#TODO : remove this comments#}
