@@ -1,4 +1,7 @@
 <footer data-role="footer" class="main-foot">
+
+  
+
     <div class="wrapper">
         <div class="cols box-links">
             <div class="col20per">
