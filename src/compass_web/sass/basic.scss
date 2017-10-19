@@ -1847,6 +1847,10 @@ body, .submit {
 }
 
 .main-foot {
+  border-top: none;
+  background: #fff;
+  text-align: left;
+  padding-top: 0;
   margin-bottom: 120px;
 
   .copyright-text {
@@ -1859,7 +1863,7 @@ body, .submit {
 
     p {
       font-family: $ff1;
-      color:  #9e9d96;
+      color: #9e9d96;
       font-size: 16px;
       font-weight: 400;
       text-align: left;
@@ -1873,9 +1877,8 @@ body, .submit {
 
 .cards-block {
   border-width: 1px;
-  border-color:  #223652;
+  border-color: #223652;
   border-style: solid;
-  //width: 1275px;
   height: 98px;
   line-height: 98px;
   text-align: center;
@@ -1927,11 +1930,51 @@ body, .submit {
   strong,
   ul a {
     font-family: $ff1;
-    color:  #9b9b9b;
+    color: #9b9b9b;
     font-size: 16px;
     font-weight: 700;
     text-align: left;
   }
+}
+
+.footer-top {
+  background-color:  #e1e1e1;
+  height: 84px;
+  line-height: 84px;
+  margin-bottom: 60px;
+  text-align: center;
+
+  ul {
+    padding: 0;
+    margin: auto;
+    text-align: center;
+    display: block;
+    height: 84px;
+
+    li {
+      //margin: 0 30px;
+      width: 20%;
+
+      img {
+        position: relative;
+        max-width: 100%;
+
+        &.footer-top--eu {
+          top: 9px;
+        }
+        &.footer-top--gerald {
+          top: 11px;
+        }
+        &.footer-top--18plus {
+          top: 10px;
+        }
+        &.footer-top--wheel {
+          top: 8px;
+        }
+      }
+    }
+  }
+
 }
 
 .social {
