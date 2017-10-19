@@ -106,39 +106,41 @@
             {% include "_elements/logo.volt" %}
         </div>
     </aside>
-    <div class="info cl">
-        <div class="wrapper">
-            <div class="cols">
-                <div class="col5 txt">
-                    {{ language.translate('license') }}
-                    <br><br>
-                    {{ language.translate('copyright') }}
-                </div>
-                <div class="col8 box-partner">
-                    <ul class="no-li inline">
-                        <li><a href="http://www.visaeurope.com/">
-                                <svg class="v-visa vector">
-                                    <use xlink:href="/w/svg/icon.svg#visa"/>
-                                </svg>
-                            </a></li>
-                        <li><a href="http://www.mastercard.com/eur/">
-                                <svg class="v-mastercard vector">
-                                    <use xlink:href="/w/svg/icon.svg#mastercard"/>
-                                </svg>
-                            </a></li>
-                        <li><a href="http://www.gambleaware.co.uk/">
-                                <svg class="v-gambleaware vector">
-                                    <use xlink:href="/w/svg/icon.svg#gambleaware"/>
-                                </svg>
-                            </a></li>
-                        <li>
-                            <a href="https://ssl.comodo.com/"><img src="/w/svg/comodo.png"/> </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+
+    {#TODO : remove this comments#}
+    {#<div class="info cl">#}
+        {#<div class="wrapper">#}
+            {#<div class="cols">#}
+                {#<div class="col5 txt">#}
+                    {#{{ language.translate('license') }}#}
+                    {#<br><br>#}
+                    {#{{ language.translate('copyright') }}#}
+                {#</div>#}
+                {#<div class="col8 box-partner">#}
+                    {#<ul class="no-li inline">#}
+                        {#<li><a href="http://www.visaeurope.com/">#}
+                                {#<svg class="v-visa vector">#}
+                                    {#<use xlink:href="/w/svg/icon.svg#visa"/>#}
+                                {#</svg>#}
+                            {#</a></li>#}
+                        {#<li><a href="http://www.mastercard.com/eur/">#}
+                                {#<svg class="v-mastercard vector">#}
+                                    {#<use xlink:href="/w/svg/icon.svg#mastercard"/>#}
+                                {#</svg>#}
+                            {#</a></li>#}
+                        {#<li><a href="http://www.gambleaware.co.uk/">#}
+                                {#<svg class="v-gambleaware vector">#}
+                                    {#<use xlink:href="/w/svg/icon.svg#gambleaware"/>#}
+                                {#</svg>#}
+                            {#</a></li>#}
+                        {#<li>#}
+                            {#<a href="https://ssl.comodo.com/"><img src="/w/svg/comodo.png"/> </a>#}
+                        {#</li>#}
+                    {#</ul>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
 
 
     <div class="wrapper">
@@ -180,23 +182,33 @@
 
     <div class="wrapper">
         <div class="copyright-text">
-            <p>
-                This service operates under the Gaming License #5536/JAZ authorised and regulated by the Government of
-                Curaçao. This site is operated by
-                Panamedia B.V., Emancipatie Boulevard 29, Willemstad, Curaçao and payment processing services are
-                provided by Panamedia International
-                Limited, 30/3 Sir Augustus Bartolo Street, XBX 1093, Ta Xbiex Malta (EU).
-            </p>
-            <p>
-                All transactions are charged in Euros. Prices displayed in other currencies are for informative purposes
-                only and are convertedaccording to
-                actual exchange rates.
 
+            {#TODO : remove this comments#}
+            {#<p>#}
+                {#This service operates under the Gaming License #5536/JAZ authorised and regulated by the Government of#}
+                {#Curaçao. This site is operated by#}
+                {#Panamedia B.V., Emancipatie Boulevard 29, Willemstad, Curaçao and payment processing services are#}
+                {#provided by Panamedia International#}
+                {#Limited, 30/3 Sir Augustus Bartolo Street, XBX 1093, Ta Xbiex Malta (EU).#}
+            {#</p>#}
+            {#<p>#}
+                {#All transactions are charged in Euros. Prices displayed in other currencies are for informative purposes#}
+                {#only and are convertedaccording to#}
+                {#actual exchange rates.#}
+
+            {#</p>#}
+            {#<p>#}
+                {#Copyright © 2011-2016 by EuroMillions.com. <br>#}
+                {#All rights reserved.#}
+            {#</p>#}
+
+            <p>
+                {{ language.translate('license') }}
             </p>
             <p>
-                Copyright © 2011-2016 by EuroMillions.com. <br>
-                All rights reserved.
+                {{ language.translate('copyright') }}
             </p>
+
         </div>
     </div>
 </footer>
