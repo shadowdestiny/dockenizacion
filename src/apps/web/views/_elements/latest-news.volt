@@ -11,7 +11,7 @@
             </div>
             <div class="news-block--content">
                 <div class="news-block--title">
-                    meet our latest millionaire...
+                    meet our latest millionaire... <br>
                     mathias who won €20m
                 </div>
                 <div class="news-block--body">
@@ -34,7 +34,7 @@
             </div>
             <div class="news-block--content">
                 <div class="news-block--title">
-                    meet our latest millionaire...
+                    meet our latest millionaire... <br>
                     mathias who won €20m
                 </div>
                 <div class="news-block--body">
