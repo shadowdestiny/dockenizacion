@@ -295,7 +295,8 @@ end PROD imports-->
 				</div>
 			</div>
 
-			{% include "index/_top.volt" %}
+			{#TODO : remove this comments#}
+			{#{% include "index/_top.volt" %}#}
 
 			{#TODO : remove this comments#}
 			{#<div class="box-basic how-play">#}
@@ -319,7 +320,8 @@ end PROD imports-->
 				{#</div>#}
 			{#</div>#}
 
-			{% include "index/_top.volt" %}
+			{#TODO : remove this comments#}
+			{#{% include "index/_top.volt" %}#}
 
 		</div>
 
