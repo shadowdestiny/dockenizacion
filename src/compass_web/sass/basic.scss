@@ -2146,9 +2146,18 @@ body, .submit {
   background: none;
 }
 
-.view-more-a {
+.view-more-a,
+.view-more-a:visited {
   display: block;
   float: right;
+  //font-family: Chivo;
+  font-family: $ff2;
+  color:  #f0c11c;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: right;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
 .box-result {
@@ -2163,6 +2172,80 @@ body, .submit {
     box-sizing: border-box;
     background-color: #ffffff;
     width: 517px;
+    padding: 25px 35px;
+
+    .result--block--header {
+      position: relative;
+      overflow: hidden;
+
+      .h2 {
+        margin-bottom: 10px;
+      }
+
+      .view-more-a {
+        position: absolute;
+        bottom: 10px;
+        right: 0;
+      }
+    }
+    .result--block--content {
+      .result--line{
+        overflow: hidden;
+        border-top: 1px solid #333333;
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+        p {
+
+          //font-family: Chivo;
+          font-family: $ff2;
+          color:  #333333;
+          font-size: 24px;
+          font-weight: 700;
+          text-align: left;
+        }
+
+        .numbers,
+        .numbers.small {
+          li {
+            text-align: center;
+            width: 40px;
+            //height: 40px;
+            //line-height: 40px;
+
+            //width: 47px;
+            height: 44px;
+            line-height: 44px;
+
+            background-image: url('../img/home/result-block/desktop/ellipse.svg');
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            text-shadow: none;
+            letter-spacing: 0;
+
+            //font-family: Chivo;
+            font-family: $ff2;
+            color:  #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+            margin-right: 19px;
+          }
+          li.star {
+            background-image: url('../img/home/result-block/desktop/star.svg');
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            text-indent: 0;
+            color:  #333333;
+            width: 47px;
+            height: 44px;
+            margin-left: 20px;
+          }
+          li.star + li.star {
+            margin-left: 0px;
+          }
+        }
+      }
+    }
   }
 
   .number-generator--block {

@@ -299,7 +299,11 @@
 
                 <div class="result--block">
                     <div class="result--block--header">
-                        <h1 class="h2">{{ language.translate("results_head") }}</h1>
+
+                        {#TODO : paste real text here#}
+                        {#<h1 class="h2">{{ language.translate("results_head") }}</h1>#}
+                        <h1 class="h2">euro million
+                            Results</h1>
                         <a href="/{{ language.translate('link_euromillions_results') }}"
                            class="view-more-a">
                             View more
