@@ -1848,7 +1848,7 @@ body, .submit {
 
 .main-foot {
   margin-bottom: 120px;
-  
+
   .copyright-text {
     background-color: #e1e1e1;
     padding: 30px 100px 30px 60px;
@@ -1919,4 +1919,15 @@ body, .submit {
     }
   }
 
+}
+
+.social {
+
+  &.social--top {
+
+  }
+
+  &.social--news {
+
+  }
 }
