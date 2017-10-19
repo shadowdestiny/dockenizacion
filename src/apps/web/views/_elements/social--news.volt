@@ -15,6 +15,5 @@
                     <use xlink:href="/w/svg/icon.svg#v-google-plus"></use>
                 </svg>
                 <span class="txt">{{ language.translate('Google +') }}</span></a></li>
-
     </ul>
 </div>

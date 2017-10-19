@@ -2039,7 +2039,12 @@ body, .submit {
 
 .latest-news {
   padding-bottom: 60px;
-  
+
+  .h2 {
+    border-top: 1px solid #424242;
+    padding-top: 38px;
+  }
+
   .news-block:nth-child(even) {
     float: right;
     padding-right: 0;
@@ -2112,4 +2117,8 @@ body, .submit {
   font-weight: 700;
   text-align: left;
   text-transform: uppercase;
+}
+
+#content {
+  background: none;
 }
