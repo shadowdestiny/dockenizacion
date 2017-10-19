@@ -205,52 +205,9 @@
         </div>
 
         <div class="wrapper">
-            <div class="partners cl">
-                <div class="list">
-                    <svg class="laurel first">
-                        <filter id="mygray">
-                            <feColorMatrix values="0" type="saturate"/>
-                        </filter>
-                        <style>.greyed {
+           
 
-                            @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-                                filter:
-
-                            url(#mygray);
-                            }
-
-                            }{# ie10 require it #+ csshack 10+#}</style>
-                        <use class="greyed" xlink:href="/w/svg/icon.svg#laurel"/>
-                    </svg>
-                    <ul class="no-li cl">
-                        <li>
-                            <svg class="v-visa vector">
-                                <use class="greyed" xlink:href="/w/svg/icon.svg#visa"/>
-                            </svg>
-                        </li>
-                        <li>
-                            <svg class="v-mastercard vector">
-                                <use class="greyed" xlink:href="/w/svg/icon.svg#mastercard"/>
-                            </svg>
-                        </li>
-                        <li>
-                            <svg class="v-gambleaware vector">
-                                <use class="greyed" xlink:href="/w/svg/icon.svg#gambleaware"/>
-                            </svg>
-                        </li>
-                        <li><img src="/w/svg/comodobw.png"/></li>
-                        <li>
-                            <svg class="v-shield vector">
-                                <use class="greyed" xlink:href="/w/svg/icon.svg#shield"/>
-                            </svg>
-                            <span class="txt">{{ language.translate('Secure<br>Encryption') }}</span></li>
-                    </ul>
-                    <svg class="laurel last">
-                        <use class="greyed" xlink:href="/w/svg/icon.svg#laurel"/>
-                    </svg>
-                </div>
-            </div>
-
+            {#TODO : remove this comments#}
             {#<div class="box-extra">#}
             {#<div class="cols">#}
             {#<div class="col6">#}
