@@ -165,7 +165,7 @@
                                 <tr>
                                     <td class="date">
                                         <div class="myCol">
-                                            <?php echo $my_games_actives->result[$index][0]->startDrawDate ?>
+                                            {{ my_games_actives.result[index][0].startDrawDate }}
                                         </div>
                                     </td>
                                     <td>
