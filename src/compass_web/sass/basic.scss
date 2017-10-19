@@ -2051,3 +2051,13 @@ body, .submit {
     }
   }
 }
+
+.h2 {
+  //font-family: WorkSans;
+  font-family: $ff1;
+  color:  #444444;
+  font-size: 52px;
+  font-weight: 700;
+  text-align: left;
+  text-transform: uppercase;
+}
