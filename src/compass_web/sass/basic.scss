@@ -2122,3 +2122,19 @@ body, .submit {
 #content {
   background: none;
 }
+
+.box-result {
+  .result--block {
+    float: left;
+    border-style: solid;
+    border-width: 2px;
+    border-color:  #9b9b9b;
+    box-sizing: border-box;
+    background-color:  #ffffff;
+    width: 517px;
+  }
+
+  .number-generator--block {
+    margin-left: 545px;
+  }
+}
