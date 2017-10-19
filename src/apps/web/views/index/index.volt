@@ -12,7 +12,6 @@ home
 {% include "_elements/header.volt" %}
 {% endblock %}
 {% block font %}<link href='https://fonts.googleapis.com/css?family=Signika:700' rel='stylesheet' type='text/css'>{% endblock %}
-{% block latestnews %}{% include "_elements/latest-news.volt" %}{% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}
 <script src="/w/js/mobileFix.js"></script>
@@ -298,31 +297,36 @@ end PROD imports-->
 
 			{% include "index/_top.volt" %}
 
-			<div class="box-basic how-play">
-				<div class="cols playing-euro">
-					<div class="col6 box-txt l">
-						<h2 class="h1 yellow">{{ language.translate("cta3_head") }}</h2>
-						<h3 class="li-title">{{ language.translate("cta3_sub1") }}</h3>
-						<p>{{ language.translate("cta3_text1") }}</p>
-						<h3 class="li-title">{{ language.translate("cta3_sub2") }}</h3>
-						<p>{{ language.translate("cta3_text2") }}</p>
-						<h3 class="li-title">{{ language.translate("cta3_sub3") }}</h3>
-						<p>{{ language.translate("cta3_text3") }}</p>
-						<h3 class="li-title">{{ language.translate("cta3_sub4") }}</h3>
-						<p>{{ language.translate("cta3_text4") }}</p>
-					</div>
-					<div class="col6 bg-hope"></div>
-				</div>
-				<div class="box-action">
-				<span class="h2 phrase">{{ language.translate("cta3_tagline") }}</span>
-				<a href="{{ language.translate("link_euromillions_play") }}" class="btn big blue">{{ language.translate("cta3_btn") }}</a>
-				</div>
-			</div>
+			{#TODO : remove this comments#}
+			{#<div class="box-basic how-play">#}
+				{#<div class="cols playing-euro">#}
+					{#<div class="col6 box-txt l">#}
+						{#<h2 class="h1 yellow">{{ language.translate("cta3_head") }}</h2>#}
+						{#<h3 class="li-title">{{ language.translate("cta3_sub1") }}</h3>#}
+						{#<p>{{ language.translate("cta3_text1") }}</p>#}
+						{#<h3 class="li-title">{{ language.translate("cta3_sub2") }}</h3>#}
+						{#<p>{{ language.translate("cta3_text2") }}</p>#}
+						{#<h3 class="li-title">{{ language.translate("cta3_sub3") }}</h3>#}
+						{#<p>{{ language.translate("cta3_text3") }}</p>#}
+						{#<h3 class="li-title">{{ language.translate("cta3_sub4") }}</h3>#}
+						{#<p>{{ language.translate("cta3_text4") }}</p>#}
+					{#</div>#}
+					{#<div class="col6 bg-hope"></div>#}
+				{#</div>#}
+				{#<div class="box-action">#}
+				{#<span class="h2 phrase">{{ language.translate("cta3_tagline") }}</span>#}
+				{#<a href="{{ language.translate("link_euromillions_play") }}" class="btn big blue">{{ language.translate("cta3_btn") }}</a>#}
+				{#</div>#}
+			{#</div>#}
 
 			{% include "index/_top.volt" %}
 
 		</div>
 
 	</div>
+
+
+	{% include "_elements/latest-news.volt" %}
+
 </main>
 {% endblock %}
