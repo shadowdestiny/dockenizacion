@@ -68,12 +68,12 @@
     <main id="content">
 
 
-        {% include "_elements/banner-old.volt" %}
+        {#{% include "_elements/banner-old.volt" %}#}
 
         {#Banner section v.2 start#}
 
-        {#{% include "_elements/banner-old.volt" %}#}
-        
+        {% include "_elements/banner.volt" %}
+
         {#Banner section v.2 end#}
 
 
