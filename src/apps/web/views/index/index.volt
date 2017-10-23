@@ -251,7 +251,7 @@
                     </div>
 
                     <a href="{{ language.translate("link_euromillions_play") }}"
-                       class="number-generator--block--button">
+                       class="number-generator--block--button btn-theme--big">
                         {#{{ language.translate("cta2_btn") }}#}
                         play lucky dip
                     </a>

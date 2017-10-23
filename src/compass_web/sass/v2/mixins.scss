@@ -1,14 +1,15 @@
 
 //Responsive view start
 
-.desktop {
+@mixin desktop {
   display: none!important;
 
   @media only screen and (min-width: $screen-small-plus) {
     display: block!important;
   }
 }
-.mobile {
+
+@mixin mobile {
   display: block!important;
 
   @media only screen and (min-width: $screen-small-plus) {
@@ -16,14 +17,15 @@
   }
 }
 
-.desktop--dib {
+@mixin desktop--dib {
   display: none!important;
 
   @media only screen and (min-width: $screen-small-plus) {
     display: inline-block!important;
   }
 }
-.mobile--dib {
+
+@mixin mobile--dib {
   display: inline-block!important;
 
   @media only screen and (min-width: $screen-small-plus) {

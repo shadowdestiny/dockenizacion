@@ -1826,19 +1826,3 @@ body, .submit {
   text-decoration: none;
   text-transform: uppercase;
 }
-
-.desktop--only {
-  display: none;
-
-  @media only screen and (min-width: $screen-small-plus) {
-    display: block;
-  }
-}
-.mobile--only {
-  display: block;
-
-  @media only screen and (min-width: $screen-small-plus) {
-    display: none;
-  }
-}
-

@@ -28,23 +28,40 @@
                 Euro <br>
                 Millions
             </div>
-            <div class="top-banner--center">
 
-                <div class="btn-row mobile--only">
+            <div class="top-banner--center">
+                <div class="desktop-row--01">
+                    €48
+                </div>
+                <div class="desktop-row--02">
+                    millions
+                </div>
+            </div>
+
+            <div class="top-banner--center mobile--only">
+
+                <div class="mobile-row">
+
+                </div>
+
+                    {% include "_elements/for-only.volt" %}
+
+                <div class="btn-row">
                     <a href="/{{ language.translate("link_euromillions_play") }}"
-                       class="btn red huge">
+                       class="btn-theme--big">
                         {#{{ language.translate("banner1_btn") }}#}
                         bet now
                     </a>
                 </div>
-
-
             </div>
-            <div class="top-banner--right desktop--only">
+
+            <div class="top-banner--right">
+
+                {% include "_elements/for-only.volt" %}
 
                 <div class="btn-row">
                     <a href="/{{ language.translate("link_euromillions_play") }}"
-                       class="btn red huge">
+                       class="btn-theme--big">
                         {#{{ language.translate("banner1_btn") }}#}
                         play now
                     </a>
@@ -53,15 +70,7 @@
 
         </div>
 
-        
     </div>
 
-    <div class="best-price">
-        <picture class="pic">
-            <img width="60" height="59" src="/w/img/home/best-price.png"
-                 srcset="/w/img/home/best-price@2x.png 1.5x"
-                 alt="{{ language.translate('Best Price Guarantee') }}">
-        </picture>
-    </div>
 
 </div>

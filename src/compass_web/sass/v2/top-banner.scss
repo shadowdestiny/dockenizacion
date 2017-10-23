@@ -46,6 +46,12 @@
     background: -ms-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
     background: linear-gradient(90deg, #51a0e9 0%, #1678d3 100%);
     height: 271px;
+    color:  #ffffff;
+
+    font-size: 30px;
+    font-weight: 900;
+    //line-height: 36px;
+    text-align: center;
 
 
     .top-banner--for-only {
@@ -58,21 +64,97 @@
         font-family: $ff1;
         color:  #ffffff;
         font-size: 24px;
-        font-weight: 900;
+        //font-weight: 900;
         text-align: left;
         text-transform: uppercase;
       }
     }
 
+    .top-banner--center:before,
+    .top-banner--center:after{
+      background-image: url('../img/home/banner/desktop/top-banner-separator.png');
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
 
-    .top-banner--left{}
+      -webkit-background-size: 2px;
+      background-size: 2px;
+
+      width: 2px;
+      height: 238px;
+      display: none;
+
+      @media only screen and (min-width: $desktop) {
+        display: block;
+      }
+
+      position: absolute;
+      top: 0;
+    }
+
+    .top-banner--center:before{
+      left: 0;
+    }
+    .top-banner--center:after{
+      right: 0;
+    }
+
     .top-banner--center{
+      padding-top: 17px;
+      padding-bottom: 16px;
+      position: relative;
+      width: 100%;
+
+      @media only screen and (min-width: $desktop) {
+        width: 475px;
+        display: inline-block;
+      }
+
+
+
+      .desktop-row--01 {
+        font-size: 189.85px;
+        //font-weight: 900;
+        text-align: left;
+      }
+
+      .desktop-row--02 {
+        font-size: 78px;
+        //font-weight: 900;
+        text-align: left;
+      }
+
+      .mobile-row {
+        color:  #f2f2f2;
+        font-weight: 700;
+        //font-size: 142px;
+        //line-height: 75px;
+        text-align: center;
+      }
 
       .top-banner--for-only{
-
+        display: block;
+        text-align: center;
       }
     }
+
+    .top-banner--center.mobile--only{
+      @include mobile();
+    }
+    .top-banner--center.desktop--only{
+      @include desktop--dib();
+    }
+
+    .top-banner--left{
+      width: 320px;
+
+      @include desktop--dib();
+    }
+
     .top-banner--right{
+      width: 320px;
+
+      @include desktop--dib();
+
       .top-banner--for-only {
 
       }

@@ -1,4 +1,7 @@
-<div class="top-banner--for-only" style="font-size: 12px;">{{ language.translate("nextDraw_lbl") }}:
+<div class="top-banner--for-only">
+
+	{#{{ language.translate("nextDraw_lbl") }}:#}
+
 	<div class="countdown">
 		<div class="day unit">
 			<span class="val">%-d d</span>
