@@ -205,7 +205,7 @@
         </div>
 
         <div class="wrapper">
-           
+
 
             {#TODO : remove this comments#}
             {#<div class="box-extra">#}
@@ -251,7 +251,44 @@
             {#</div>#}
             {#</div>#}
 
+            <div class="hiw-block--section">
+                <h2 class="h2">
+                    How it works?
+                </h2>
 
+                <div class="hiw-block--inner">
+                    <div class="hiw-block hiw-block--01">
+                        <div class="hiw-block--corner">1</div>
+                        <div class="hiw-block--center"></div>
+                        <div class="hiw-block--description">
+                            Choose your lottery <br>
+                            & select your numbers
+                        </div>
+                    </div>
+                    <div class="hiw-block hiw-block--02">
+                        <div class="hiw-block--corner">2</div>
+                        <div class="hiw-block--center"></div>
+                        <div class="hiw-block--description">
+                            Buy your ticket
+                        </div>
+                    </div>
+                    <div class="hiw-block hiw-block--03">
+                        <div class="hiw-block--corner">3</div>
+                        <div class="hiw-block--center"></div>
+                        <div class="hiw-block--description">
+                            Check the results
+                        </div>
+                    </div>
+                    <div class="hiw-block hiw-block--04">
+                        <div class="hiw-block--corner">4</div>
+                        <div class="hiw-block--center"></div>
+                        <div class="hiw-block--description">
+                            Big Win
+                        </div>
+                    </div>
+                </div>
+
+            </div>
             <div class="box-basic box-result">
 
                 <div class="result--block">
