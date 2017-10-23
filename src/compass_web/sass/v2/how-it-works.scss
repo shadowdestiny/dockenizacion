@@ -1,0 +1,92 @@
+// How it works section
+.hiw-block--section {
+  padding-top: 78px;
+  padding-bottom: 78px;
+
+  h2 {
+    margin-bottom: 50px;
+  }
+
+
+  .hiw-block--inner {
+    overflow: hidden;
+    clear: both;
+
+    .hiw-block {
+      border-width: 1px;
+      border-color:  #959595;
+      border-style: solid;
+      background-color:  rgba(249, 249, 249, 0);
+      width: 298px;
+      height: 278px;
+      margin-right: 26px;
+      float: left;
+      padding-top: 36px;
+      padding-bottom: 18px;
+      padding-left: 10px;
+      padding-right: 10px;
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+
+      .hiw-block--corner {
+        //font-family: WorkSans;
+        color:  #9b9b9b;
+        font-size: 56px;
+        font-weight: 700;
+        text-align: left;
+        padding-left: 14px;
+        display: flex;
+        align-items: flex-start;
+        flex-grow: 1;
+      }
+      .hiw-block--center {
+
+      }
+      .hiw-block--description {
+        //font-family: WorkSans;
+        color:  #9b9b9b;
+        font-size: 21px;
+        font-weight: 700;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        min-height: 2em;
+      }
+
+      &.hiw-block--01 {
+        background-image: url('../img/home/how-it-works/desktop/1-img.png');
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        -webkit-background-size: 90px;
+        background-size: 90px;
+      }
+      &.hiw-block--02 {
+        background-image: url('../img/home/how-it-works/desktop/2-img.png');
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        -webkit-background-size: 143px;
+        background-size: 143px;
+      }
+      &.hiw-block--03 {
+        background-image: url('../img/home/how-it-works/desktop/3-img.png');
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        -webkit-background-size: 933px;
+        background-size: 93px;
+      }
+      &.hiw-block--04 {
+        background-image: url('../img/home/how-it-works/desktop/4-img.png');
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        -webkit-background-size: 148px;
+        background-size: 148px;
+      }
+    }
+  }
+}

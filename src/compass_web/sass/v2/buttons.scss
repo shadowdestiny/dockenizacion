@@ -1,0 +1,78 @@
+.btn-theme {
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 1px;
+  margin-left: 8px;
+  margin-right: 8px;
+  color: #9b9c9b;
+  font-size: 17px;
+  font-weight: 700;
+  box-sizing: border-box;
+  width: 109px;
+  text-align: center;
+  height: 49px;
+  line-height: 49px;
+  text-transform: uppercase;
+  padding: 0;
+  display: block;
+}
+
+.btn-theme.btn-primary {
+  border-color: $v2-yellow;
+  background-color: $v2-yellow;
+}
+
+.btn-theme.btn-primary:hover {
+  border-color: $v2-yellow-hover;
+  background-color: $v2-yellow-hover;
+}
+
+.btn-theme.btn-secondary {
+  border-color: $v2-green;
+  background-color: $v2-green;
+}
+
+.btn-theme.btn-secondary:hover {
+  border-color: $v2-green;
+  background-color: $v2-green;
+}
+
+.btn-theme--big {
+  border-radius: 3px;
+  background: -webkit-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+  background: -moz-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+  background: -o-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+  background: -ms-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+  background: linear-gradient(135deg, #4dec8c 0%, #21d167 100%);
+  height: 97px;
+
+  color: #ffffff;
+  font-size: 42.01px;
+  font-weight: 700;
+  line-height: 97px;
+  text-transform: uppercase;
+}
+
+.number-generator--block--button,
+.number-generator--block--button:hover,
+.number-generator--block--button:focus,
+.number-generator--block--button:visited,
+.number-generator--block--button:active {
+  color:  #ffffff;
+  font-size: 35.85px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+
+
+  border-radius: 3px;
+  background: -webkit-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+  background: -moz-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+  background: -o-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+  background: -ms-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+  background: linear-gradient(135deg, #4dec8c 0%, #21d167 100%);
+  min-width: 456px;
+  height: 101px;
+  line-height: 101px;
+}

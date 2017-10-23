@@ -1,0 +1,81 @@
+.top-banner--section {
+
+
+  .top-banner--banner {
+
+    height: 400px;
+    overflow: hidden;
+    padding-top: 72px;
+
+    background-image: url('../img/home/banner/desktop/banner.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    -webkit-background-size: cover;
+    background-size: cover;
+
+    .top-banner--head{
+      //font-family: WorkSans;
+      color:  #333333;
+      font-size: 44px;
+      font-weight: 900;
+      line-height: 46px;
+      text-align: left;
+      text-transform: uppercase;
+    }
+    .top-banner--subline {
+      //font-family: WorkSans;
+      color:  #333333;
+      font-size: 24px;
+      font-weight: 700;
+      text-align: left;
+    }
+    .top-banner--cost-per-lines{
+      //font-family: WorkSans;
+      color:  #333333;
+      font-size: 36px;
+      font-weight: 700;
+      text-align: left;
+      text-transform: uppercase;
+    }
+  }
+
+  .top-banner--bottom-row {
+    background: -webkit-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+    background: -moz-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+    background: -o-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+    background: -ms-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+    background: linear-gradient(90deg, #51a0e9 0%, #1678d3 100%);
+    height: 271px;
+
+
+    .top-banner--for-only {
+      div {
+        display: inline-block;
+      }
+
+      div, span {
+        //font-family: WorkSans;
+        font-family: $ff1;
+        color:  #ffffff;
+        font-size: 24px;
+        font-weight: 900;
+        text-align: left;
+        text-transform: uppercase;
+      }
+    }
+
+
+    .top-banner--left{}
+    .top-banner--center{
+
+      .top-banner--for-only{
+
+      }
+    }
+    .top-banner--right{
+      .top-banner--for-only {
+
+      }
+    }
+  }
+}
