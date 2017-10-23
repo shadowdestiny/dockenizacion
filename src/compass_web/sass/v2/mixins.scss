@@ -1,0 +1,37 @@
+
+//Responsive view start
+
+.desktop {
+  display: none!important;
+
+  @media only screen and (min-width: $screen-small-plus) {
+    display: block!important;
+  }
+}
+.mobile {
+  display: block!important;
+
+  @media only screen and (min-width: $screen-small-plus) {
+    display: none!important;
+  }
+}
+
+.desktop--dib {
+  display: none!important;
+
+  @media only screen and (min-width: $screen-small-plus) {
+    display: inline-block!important;
+  }
+}
+.mobile--dib {
+  display: inline-block!important;
+
+  @media only screen and (min-width: $screen-small-plus) {
+    display: none!important;
+  }
+}
+
+// Use it:
+// @include desktop();
+
+//Responsive view start
