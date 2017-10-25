@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$ff1".
-        on line 69 of /src/compass_web/sass/v2/top-banner.scss
+        on line 74 of /src/compass_web/sass/v2/top-banner.scss
 
-64:         display: inline-block;
-65:       }
-66: 
-67:       div, span {
-68:         //font-family: WorkSans;
-69:         font-family: $ff1;
-70:         color:  #ffffff;
-71:         font-size: 24px;
-72:         //font-weight: 900;
-73:         text-align: left;
-74:         text-transform: uppercase;
+69:         display: inline-block;
+70:       }
+71: 
+72:       div, span {
+73:         //font-family: WorkSans;
+74:         font-family: $ff1;
+75:         color:  #ffffff;
+76:         font-size: 24px;
+77:         //font-weight: 900;
+78:         text-align: left;
+79:         text-transform: uppercase;
 
 Backtrace:
-/src/compass_web/sass/v2/top-banner.scss:69
+/src/compass_web/sass/v2/top-banner.scss:74
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:394:in `visit_prop'
@@ -99,4 +99,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$ff1\".\A         on line 69 of /src/compass_web/sass/v2/top-banner.scss\A \A 64:         display: inline-block;\A 65:       }\A 66: \A 67:       div, span {\A 68:         //font-family: WorkSans;\A 69:         font-family: $ff1;\A 70:         color:  #ffffff;\A 71:         font-size: 24px;\A 72:         //font-weight: 900;\A 73:         text-align: left;\A 74:         text-transform: uppercase;"; }
+  content: "Error: Undefined variable: \"$ff1\".\A         on line 74 of /src/compass_web/sass/v2/top-banner.scss\A \A 69:         display: inline-block;\A 70:       }\A 71: \A 72:       div, span {\A 73:         //font-family: WorkSans;\A 74:         font-family: $ff1;\A 75:         color:  #ffffff;\A 76:         font-size: 24px;\A 77:         //font-weight: 900;\A 78:         text-align: left;\A 79:         text-transform: uppercase;"; }
