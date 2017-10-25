@@ -22,10 +22,6 @@
     }
   }
 
-  .txt {
-
-  }
-
   .fb, .gp, .tw {
     background-color: #f8cf05;
     border-radius: 0;
@@ -67,11 +63,50 @@
     }
   }
 
-  &.social--top {
+}
 
+.social.social--top {
+  margin-right: 2px;
+  padding-top: 10px;
+
+  ul {
+
+    li {
+      width: 28px;
+      height: 28px;
+      margin-left: 5px;
+
+      a {
+        width: 28px;
+        height: 28px;
+      }
+    }
   }
 
-  &.social--news {
+  .fb {
+    span,
+    .ico {
+      font-size: 25px;
+      top: 4px;
+      left: -1px;
+    }
+  }
 
+  .gp {
+    span,
+    .ico {
+      font-size: 24px;
+      top: 2px;
+      left: 0;
+    }
+  }
+
+  .tw {
+    span,
+    .ico {
+      font-size: 20px;
+      left: 0;
+      top: 5px;
+    }
   }
 }
