@@ -75,6 +75,12 @@ class FundsController extends AccountController
                             if($credit_card_charge->getIsChargeFee()) {
                                 $msg .= ', and charged you an additional '. $site_config_dto->fee .' because it is a transfer below ' . $site_config_dto->feeLimit;
                             }
+                            echo "
+                            <script src='/w/js/vendor/ganalytics.min.js'></script>
+                            <script>
+                                ga('send', 'event', 'Button', 'Deposit');
+                            </script>
+                            ";
                             $credit_card_form->clear();
                         } else {
                             $errors[] = 'An error occurred. The response with our payment provider was: ' . $result->returnValues()->errorMessage;
