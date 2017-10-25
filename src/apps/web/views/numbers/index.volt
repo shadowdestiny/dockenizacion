@@ -50,7 +50,7 @@
     <main id="content">
         <div class="wrapper">
             <div class="box-basic">
-                <h1 class="h1 title">{{ language.translate("resultsdate_title") }}</h1>
+                <h1 class="h1 title">{{ language.translate("results_tittle") }}</h1>
                 <div class="wrap">
                     <div class="cols">
                         <div class="col8">
