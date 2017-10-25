@@ -4,7 +4,8 @@
 
   .h2 {
     border-top: 1px solid #424242;
-    padding-top: 38px;
+    padding-top: 25px;
+    margin-bottom: 37px;
   }
 
   .news-block:nth-child(even) {
@@ -25,12 +26,13 @@
     margin: 0;
 
     .news-block--img {
-      padding-bottom: 32px;
+      padding-bottom: 22px;
 
       img {
 
       }
     }
+
     .news-block--content {
       .news-block--title {
         font-family: $ff3;
@@ -40,16 +42,19 @@
         line-height: 34px;
         text-align: left;
         text-transform: uppercase;
-        margin-bottom: 17px;
+        margin-bottom: 6px;
       }
+
       .news-block--body {
         font-family: $ff3;
         color: #333333;
         font-size: 17px;
         font-weight: 400;
         text-align: left;
-        padding-bottom: 28px;
+        padding-bottom: 25px;
+        padding-right: 100px;
       }
+
       .news-block--link {
         font-family: $ff3;
         color: #f5cc0d;
@@ -60,13 +65,24 @@
         text-decoration: none;
         float: left;
       }
+
       .news-block--social {
         overflow: hidden;
+        position: relative;
+        top: -10px;
+        padding-right: 39px;
 
         .social {
           float: right;
+
+          ul {
+            li {
+
+            }
+          }
         }
       }
+
     }
   }
 }

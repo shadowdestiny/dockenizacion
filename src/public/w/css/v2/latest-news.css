@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$ff3".
-        on line 36 of /src/compass_web/sass/v2/latest-news.scss
+        on line 38 of /src/compass_web/sass/v2/latest-news.scss
 
-31: 
-32:       }
-33:     }
-34:     .news-block--content {
-35:       .news-block--title {
-36:         font-family: $ff3;
-37:         color: #f0c11c;
-38:         font-size: 30px;
-39:         font-weight: 900;
-40:         line-height: 34px;
-41:         text-align: left;
+33:       }
+34:     }
+35: 
+36:     .news-block--content {
+37:       .news-block--title {
+38:         font-family: $ff3;
+39:         color: #f0c11c;
+40:         font-size: 30px;
+41:         font-weight: 900;
+42:         line-height: 34px;
+43:         text-align: left;
 
 Backtrace:
-/src/compass_web/sass/v2/latest-news.scss:36
+/src/compass_web/sass/v2/latest-news.scss:38
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:394:in `visit_prop'
@@ -99,4 +99,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$ff3\".\A         on line 36 of /src/compass_web/sass/v2/latest-news.scss\A \A 31: \A 32:       }\A 33:     }\A 34:     .news-block--content {\A 35:       .news-block--title {\A 36:         font-family: $ff3;\A 37:         color: #f0c11c;\A 38:         font-size: 30px;\A 39:         font-weight: 900;\A 40:         line-height: 34px;\A 41:         text-align: left;"; }
+  content: "Error: Undefined variable: \"$ff3\".\A         on line 38 of /src/compass_web/sass/v2/latest-news.scss\A \A 33:       }\A 34:     }\A 35: \A 36:     .news-block--content {\A 37:       .news-block--title {\A 38:         font-family: $ff3;\A 39:         color: #f0c11c;\A 40:         font-size: 30px;\A 41:         font-weight: 900;\A 42:         line-height: 34px;\A 43:         text-align: left;"; }
