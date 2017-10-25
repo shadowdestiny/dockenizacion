@@ -2,7 +2,7 @@
   border-width: 1px;
   border-color: #223652;
   border-style: solid;
-  height: 98px;
+  height: 100px;
   line-height: 98px;
   text-align: center;
   margin-bottom: 60px;
@@ -16,26 +16,31 @@
       &.visa-a {
         width: 81px;
         top: 7px;
+        left: -2px;
       }
 
       &.master-a {
         width: 71px;
-        top: 16px;
+        top: 14px;
+        left: -9px;
       }
 
       &.paysafe-a {
         width: 202px;
-        top: 11px;
+        top: 10px;
+        left: -15px;
       }
 
       &.neteller-a {
         width: 175px;
-        top: 11px;
+        top: 8px;
+        left: -20px;
       }
 
       &.skrill-a {
         width: 96px;
-        top: 18px;
+        top: 19px;
+        left: -25px;
       }
 
       img {
