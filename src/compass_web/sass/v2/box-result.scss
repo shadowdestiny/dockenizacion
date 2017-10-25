@@ -9,15 +9,17 @@
     border-color: #9b9b9b;
     box-sizing: border-box;
     background-color: #ffffff;
-    width: 517px;
-    padding: 25px 35px;
+    width: 515px;
+    padding: 14px 32px 12px 28px;
+    border-radius: 0;
 
     .result--block--header {
       position: relative;
       overflow: hidden;
 
       .h2 {
-        margin-bottom: 10px;
+        line-height: 1.1;
+        margin-bottom: 13px;
       }
 
       .view-more-a {
@@ -30,8 +32,10 @@
       .result--line{
         overflow: hidden;
         border-top: 1px solid #333333;
-        padding-top: 10px;
-        padding-bottom: 10px;
+        padding-top: 14px;
+        padding-left: 3px;
+        //padding-bottom: 10px;
+        padding-bottom: 0px;
 
         p {
 
@@ -41,6 +45,7 @@
           font-size: 24px;
           font-weight: 700;
           text-align: left;
+          margin-bottom: 18px;
         }
 
         .numbers,
@@ -48,12 +53,8 @@
           li {
             text-align: center;
             width: 40px;
-            //height: 40px;
-            //line-height: 40px;
-
-            //width: 47px;
             height: 44px;
-            line-height: 44px;
+            line-height: 40px;
 
             background-image: url('../img/home/result-block/desktop/ellipse.svg');
             background-repeat: no-repeat;
@@ -66,7 +67,7 @@
             color:  #ffffff;
             font-size: 18px;
             font-weight: 700;
-            margin-right: 19px;
+            margin-right: 15px;
           }
           li.star {
             background-image: url('../img/home/result-block/desktop/star.svg');
@@ -76,11 +77,22 @@
             color:  #333333;
             width: 47px;
             height: 44px;
-            margin-left: 20px;
+            margin-left: 19px;
+            margin-right: 6px;
+
+            //position: relative;
+            //top: -3px;
+            line-height: 47px;
           }
           li.star + li.star {
-            margin-left: 0px;
+            margin-left: 0;
+            margin-right: 0;
           }
+        }
+
+        .numbers {
+          font-weight: 700;
+          margin-bottom: 12px;
         }
       }
     }

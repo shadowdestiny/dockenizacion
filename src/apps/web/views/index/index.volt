@@ -179,58 +179,91 @@
                     <div class="result--block--content">
                         <div class="result--line">
                             <p>
+                                {#TODO : paste real text here#}
                                 {#{{ language.translate("results_text") }}#}
-                                {{ last_draw_date }}
+
+                                {#TODO : paste real text here#}
+                                {#{{ last_draw_date }}#}
+
+                                Tuesday, 23.01.2017
                             </p>
                             <ul class="no-li inline numbers small">
-                                {% for regular_number in euromillions_results["regular_numbers"] %}
-                                    <li>{{ regular_number }}</li>
-                                {% endfor %}
-                                {% for lucky_number in euromillions_results["lucky_numbers"] %}
-                                    <li class="star">{{ lucky_number }}</li>
-                                {% endfor %}
+
+                                {#TODO : paste real text here#}
+
+                                {#{% for regular_number in euromillions_results["regular_numbers"] %}#}
+                                    {#<li>{{ regular_number }}</li>#}
+                                {#{% endfor %}#}
+                                {#{% for lucky_number in euromillions_results["lucky_numbers"] %}#}
+                                    {#<li class="star">{{ lucky_number }}</li>#}
+                                {#{% endfor %}#}
+
+
+
+                                <li>9</li>
+                                <li>12</li>
+                                <li>29</li>
+                                <li>39</li>
+                                <li>45</li>
+                                <li class="star">5</li>
+                                <li class="star">12</li>
+
                             </ul>
                         </div>
                         <div class="result--line">
                             <p>
-                                {#{{ language.translate("results_text") }}#}
-                                {{ last_draw_date }}
+                                Friday, 20.01.2017
                             </p>
                             <ul class="no-li inline numbers small">
-                                {% for regular_number in euromillions_results["regular_numbers"] %}
-                                    <li>{{ regular_number }}</li>
-                                {% endfor %}
-                                {% for lucky_number in euromillions_results["lucky_numbers"] %}
-                                    <li class="star">{{ lucky_number }}</li>
-                                {% endfor %}
+                                <li>9</li>
+                                <li>12</li>
+                                <li>29</li>
+                                <li>39</li>
+                                <li>45</li>
+                                <li class="star">5</li>
+                                <li class="star">12</li>
                             </ul>
                         </div>
                         <div class="result--line">
                             <p>
-                                {#{{ language.translate("results_text") }}#}
-                                {{ last_draw_date }}
+                                Tuesday, 17.01.2017
                             </p>
                             <ul class="no-li inline numbers small">
-                                {% for regular_number in euromillions_results["regular_numbers"] %}
-                                    <li>{{ regular_number }}</li>
-                                {% endfor %}
-                                {% for lucky_number in euromillions_results["lucky_numbers"] %}
-                                    <li class="star">{{ lucky_number }}</li>
-                                {% endfor %}
+                                <li>9</li>
+                                <li>12</li>
+                                <li>29</li>
+                                <li>39</li>
+                                <li>45</li>
+                                <li class="star">5</li>
+                                <li class="star">12</li>
                             </ul>
                         </div>
                         <div class="result--line">
                             <p>
-                                {#{{ language.translate("results_text") }}#}
-                                {{ last_draw_date }}
+                                Friday, 14.01.2017
                             </p>
                             <ul class="no-li inline numbers small">
-                                {% for regular_number in euromillions_results["regular_numbers"] %}
-                                    <li>{{ regular_number }}</li>
-                                {% endfor %}
-                                {% for lucky_number in euromillions_results["lucky_numbers"] %}
-                                    <li class="star">{{ lucky_number }}</li>
-                                {% endfor %}
+                                <li>9</li>
+                                <li>12</li>
+                                <li>29</li>
+                                <li>39</li>
+                                <li>45</li>
+                                <li class="star">5</li>
+                                <li class="star">12</li>
+                            </ul>
+                        </div>
+                        <div class="result--line">
+                            <p>
+                                Tuesday, 11.01.2017
+                            </p>
+                            <ul class="no-li inline numbers small">
+                                <li>9</li>
+                                <li>12</li>
+                                <li>29</li>
+                                <li>39</li>
+                                <li>45</li>
+                                <li class="star">5</li>
+                                <li class="star">12</li>
                             </ul>
                         </div>
                     </div>
