@@ -1,0 +1,89 @@
+.head {
+  position: relative;
+  z-index: 9;
+  height: 79px;
+
+  //background-color: $v2-desktop-menu-bg;
+
+  background: -webkit-linear-gradient(0deg, #fddf53 0%, #fad52b 58%, #f8ce0d 100%);
+  background: -moz-linear-gradient(0deg, #fddf53 0%, #fad52b 58%, #f8ce0d 100%);
+  background: -o-linear-gradient(0deg, #fddf53 0%, #fad52b 58%, #f8ce0d 100%);
+  background: -ms-linear-gradient(0deg, #fddf53 0%, #fad52b 58%, #f8ce0d 100%);
+  background: linear-gradient(90deg, #fddf53 0%, #fad52b 58%, #f8ce0d 100%);
+}
+
+.main-nav {
+  text-align: center;
+
+  li {
+    display: inline-block;
+    margin: 0 38px;
+  }
+
+
+  li:first-child {
+    margin-left: -93px;
+  }
+
+  li:last-child {
+    margin-right: 0;
+  }
+
+  .v-cart {
+    display: inline-block;
+    color: $black;
+    margin-top: 4px;
+  }
+
+  a {
+    display: block;
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 81px;
+  }
+
+  & > span {
+    display: block;
+  }
+
+  .link {
+    font-size: 75%;
+    text-decoration: none !important;
+  }
+
+  .txt {
+    position: relative;
+    top: -2px;
+    //font-size: 85%;
+    font-weight: 700;
+    color: #000;
+  }
+
+  &.desktop .li-cart .txt {
+    margin-bottom: -1px;
+    display: inline-block;
+  }
+
+  .active {
+    border-right: 0 solid transparent;
+    background-color: $yellow; /* fallback */
+    @include background-image(linear-gradient(#CC9816, $yellow));
+  }
+
+  //.main-nav a:hover, .li-your-account:hover > a {
+  a:hover {
+    //background-color: $purple; /* fallback */
+    //@include background-image(linear-gradient(#8b355b, $purple));
+    //background-color: $v2-desktop-menu-hover-bg;
+
+    //color: $v2-desktop-menu-hover-color;
+  }
+
+  .v-user {
+    position: relative;
+    top: 1px;
+  }
+}
+
+
