@@ -1,0 +1,44 @@
+/*
+Error: Invalid US-ASCII character "\xEE"
+        on line 58 of /src/compass_web/sass/v2/fonts.scss
+
+53: 
+54:   /* Uncomment for 3D effect *\/
+55:   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); *\/
+56: }
+57: 
+58: .icon-facebook-4:before { content: '\e800'; } /* '' *\/
+59: .icon-facebook-5:before { content: '\e801'; } /* '' *\/
+60: .icon-twitter-2:before { content: '\e802'; } /* '' *\/
+61: .icon-twitter-3:before { content: '\e803'; } /* '' *\/
+62: .icon-twitter-5:before { content: '\e804'; } /* '' *\/
+63: .icon-gplus-2:before { content: '\e805'; } /* '' *\/
+
+Backtrace:
+/src/compass_web/sass/v2/fonts.scss:58
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/util.rb:1325:in `rescue in block in find_encoding_error'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/util.rb:1320:in `block in find_encoding_error'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/util.rb:1319:in `each'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/util.rb:1319:in `each_with_index'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/util.rb:1319:in `find_encoding_error'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/util.rb:896:in `check_sass_encoding'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/engine.rb:423:in `check_encoding!'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/engine.rb:379:in `_to_tree'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/engine.rb:268:in `render'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:492:in `update_stylesheet'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:209:in `each'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:470:in `on_file_changed'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:328:in `block in watch'
+/var/lib/gems/1.9.1/gems/listen-2.10.0/lib/listen/listener.rb:291:in `call'
+/var/lib/gems/1.9.1/gems/listen-2.10.0/lib/listen/listener.rb:291:in `_process_changes'
+/var/lib/gems/1.9.1/gems/listen-2.10.0/lib/listen/listener.rb:255:in `block in _wait_for_changes'
+/var/lib/gems/1.9.1/gems/listen-2.10.0/lib/listen/listener.rb:238:in `loop'
+/var/lib/gems/1.9.1/gems/listen-2.10.0/lib/listen/listener.rb:238:in `_wait_for_changes'
+/var/lib/gems/1.9.1/gems/listen-2.10.0/lib/listen/listener.rb:327:in `block in _start_wait_thread'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Invalid US-ASCII character \"\xEE\"\A         on line 58 of /src/compass_web/sass/v2/fonts.scss\A \A 53: \A 54:   /* Uncomment for 3D effect */\A 55:   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */\A 56: }\A 57: \A 58: .icon-facebook-4:before { content: '\e800'; } /* '' */\A 59: .icon-facebook-5:before { content: '\e801'; } /* '' */\A 60: .icon-twitter-2:before { content: '\e802'; } /* '' */\A 61: .icon-twitter-3:before { content: '\e803'; } /* '' */\A 62: .icon-twitter-5:before { content: '\e804'; } /* '' */\A 63: .icon-gplus-2:before { content: '\e805'; } /* '' */"; }
