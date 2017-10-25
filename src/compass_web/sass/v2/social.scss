@@ -12,7 +12,13 @@
       display: inline-block;
       width: 40px;
       height: 40px;
-      margin-left: 14px;
+      margin-left: 9px;
+      vertical-align: top;
+
+      a {
+        width: 40px;
+        height: 40px;
+      }
     }
   }
 
@@ -24,28 +30,40 @@
     background-color: #f8cf05;
     border-radius: 0;
 
+    span,
     .ico {
       color: #9c9c9c;
       position: relative;
       top: 1px;
+      font-size: 40px;
     }
+
   }
 
   .fb {
+    span,
     .ico {
-      font-size: 38px;
+      font-size: 35px;
+      top: 6px;
+      left: -1px;
     }
   }
 
   .gp {
+    span,
     .ico {
-      font-size: 40px;
+      font-size: 33px;
+      top: 4px;
+      left: -1px;
     }
   }
 
   .tw {
+    span,
     .ico {
-      font-size: 32px;
+      font-size: 29px;
+      left: 0px;
+      top: 7px;
     }
   }
 
