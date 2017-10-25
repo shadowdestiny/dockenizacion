@@ -3,16 +3,16 @@
     <div class="footer-top">
         <div class="wrapper">
             <ul class="no-li inline">
-                <li>
+                <li class="footer-top--eu--li">
                     <img src="/w/img/footer/top/desktop/eu.png" class="footer-top--eu"/>
                 </li>
-                <li>
+                <li class="footer-top--gerald--li">
                     <img src="/w/img/footer/top/desktop/gerald.png" class="footer-top--gerald"/>
                 </li>
-                <li>
+                <li class="footer-top--18plus--li">
                     <img src="/w/img/footer/top/desktop/18plus.png" class="footer-top--18plus"/>
                 </li>
-                <li>
+                <li class="footer-top--wheel--li">
                     <img src="/w/img/footer/top/desktop/wheel.png" class="footer-top--wheel"/>
                 </li>
             </ul>
@@ -170,27 +170,27 @@
             <div class="inner">
 
                 <ul class="no-li inline">
-                    <li>
+                    <li class="visa-li">
                         <a href="http://www.visaeurope.com/" class="visa-a" title="Visa Europe">
                             <img src="/w/img/footer/cards/desktop/visa.png"/>
                         </a>
                     </li>
-                    <li>
+                    <li class="master-li">
                         <a href="http://www.mastercard.com/eur/" class="master-a" title="Mastercard">
                             <img src="/w/img/footer/cards/desktop/mastercard.png"/>
                         </a>
                     </li>
-                    <li>
+                    <li class="paysafe-li">
                         <a href="https://www.paysafecard.com/" class="paysafe-a" title="Paysafecard">
                             <img src="/w/img/footer/cards/desktop/paysafecard.png"/>
                         </a>
                     </li>
-                    <li>
+                    <li class="neteller-li">
                         <a href="www.neteller.com/‎" class="neteller-a" title="Neteller">
                             <img src="/w/img/footer/cards/desktop/neteller.png"/>
                         </a>
                     </li>
-                    <li>
+                    <li class="skrill-li">
                         <a href="https://www.skrill.com/en/" class="skrill-a" title="Skrill">
                             <img src="/w/img/footer/cards/desktop/skrill.png"/>
                         </a>

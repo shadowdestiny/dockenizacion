@@ -57,22 +57,40 @@
     li {
       //margin: 0 30px;
       width: 20%;
+      vertical-align: top;
+
+      &.footer-top--eu--li {
+        //width: 20%;
+      }
+      &.footer-top--gerald--li {
+        //width: 20%;
+      }
+      &.footer-top--18plus--li {
+        //width: 20%;
+      }
+      &.footer-top--wheel--li {
+        //width: 20%;
+      }
 
       img {
         position: relative;
         max-width: 100%;
 
         &.footer-top--eu {
-          top: 9px;
+          top: 12px;
+          left: 6px;
         }
         &.footer-top--gerald {
-          top: 11px;
+          top: 9px;
+          left: -9px;
         }
         &.footer-top--18plus {
-          top: 10px;
+          top: 11px;
+          left: -26px;
         }
         &.footer-top--wheel {
-          top: 8px;
+          top: 14px;
+          left: -54px;
         }
       }
     }
