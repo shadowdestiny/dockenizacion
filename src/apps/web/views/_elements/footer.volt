@@ -205,31 +205,33 @@
     <div class="wrapper">
         <div class="copyright-text">
 
-            {#TODO : remove this comments#}
-            {#<p>#}
-                {#This service operates under the Gaming License #5536/JAZ authorised and regulated by the Government of#}
-                {#Curaçao. This site is operated by#}
-                {#Panamedia B.V., Emancipatie Boulevard 29, Willemstad, Curaçao and payment processing services are#}
-                {#provided by Panamedia International#}
-                {#Limited, 30/3 Sir Augustus Bartolo Street, XBX 1093, Ta Xbiex Malta (EU).#}
-            {#</p>#}
-            {#<p>#}
-                {#All transactions are charged in Euros. Prices displayed in other currencies are for informative purposes#}
-                {#only and are convertedaccording to#}
-                {#actual exchange rates.#}
+            {#TODO : remove this text#}
+            <p>
+                This service operates under the Gaming License #5536/JAZ authorised and regulated by the Government of
+                Curaçao. This site is operated by
+                Panamedia B.V., Emancipatie Boulevard 29, Willemstad, Curaçao and payment processing services are
+                provided by Panamedia International
+                Limited, 30/3 Sir Augustus Bartolo Street, XBX 1093, Ta Xbiex Malta (EU).
+            </p>
+            <p>
+                All transactions are charged in Euros. Prices displayed in other currencies are for informative purposes
+                only and are convertedaccording to
+                actual exchange rates.
 
-            {#</p>#}
+            </p>
             {#<p>#}
                 {#Copyright © 2011-2016 by EuroMillions.com. <br>#}
                 {#All rights reserved.#}
             {#</p>#}
 
-            <p>
-                {{ language.translate('license') }}
-            </p>
-            <p>
-                {{ language.translate('copyright') }}
-            </p>
+
+            {#TODO : Add real variables here#}
+            {#<p>#}
+                {#{{ language.translate('license') }}#}
+            {#</p>#}
+            {#<p>#}
+                {#{{ language.translate('copyright') }}#}
+            {#</p>#}
 
         </div>
     </div>
