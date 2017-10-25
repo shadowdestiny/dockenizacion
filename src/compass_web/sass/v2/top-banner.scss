@@ -5,7 +5,7 @@
 
     height: 400px;
     overflow: hidden;
-    padding-top: 72px;
+    padding-top: 64px;
 
     background-image: url('../img/home/banner/desktop/banner.png');
     background-repeat: no-repeat;
@@ -28,6 +28,9 @@
       font-size: 24px;
       font-weight: 700;
       text-align: left;
+      line-height: 1;
+      padding-top: 3px;
+      padding-bottom: 13px;
     }
     .top-banner--cost-per-lines{
       //font-family: WorkSans;
