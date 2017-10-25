@@ -171,10 +171,14 @@
                         {#<h1 class="h2">{{ language.translate("results_head") }}</h1>#}
                         <h1 class="h2">euro million
                             Results</h1>
-                        <a href="/{{ language.translate('link_euromillions_results') }}"
-                           class="view-more-a">
-                            View more
-                        </a>
+                        <div class="view-more-block">
+                            <div class="view-more-block--inner">
+                                <a href="/{{ language.translate('link_euromillions_results') }}"
+                                   class="view-more-a">
+                                    View more
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="result--block--content">
                         <div class="result--line">
@@ -192,12 +196,11 @@
                                 {#TODO : paste real text here#}
 
                                 {#{% for regular_number in euromillions_results["regular_numbers"] %}#}
-                                    {#<li>{{ regular_number }}</li>#}
+                                {#<li>{{ regular_number }}</li>#}
                                 {#{% endfor %}#}
                                 {#{% for lucky_number in euromillions_results["lucky_numbers"] %}#}
-                                    {#<li class="star">{{ lucky_number }}</li>#}
+                                {#<li class="star">{{ lucky_number }}</li>#}
                                 {#{% endfor %}#}
-
 
 
                                 <li>9</li>
@@ -280,7 +283,10 @@
                         Don’t know what to play ?
                     </h2>
                     <div class="number-generator--block--body">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepte
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
+                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepte
                     </div>
 
                     <a href="{{ language.translate("link_euromillions_play") }}"

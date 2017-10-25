@@ -1,22 +1,26 @@
 /*
-Error: Undefined variable: "$ff2".
-        on line 43 of /src/compass_web/sass/v2/box-result.scss
+Error: Undefined variable: "$v2-yellow".
+        on line 45 of /src/compass_web/sass/v2/box-result.scss
 
-38:         padding-bottom: 0px;
-39: 
-40:         p {
-41: 
-42:           //font-family: Chivo;
-43:           font-family: $ff2;
-44:           color:  #333333;
-45:           font-size: 24px;
-46:           font-weight: 700;
-47:           text-align: left;
-48:           margin-bottom: 18px;
+40:           position: absolute;
+41:           right: -10px;
+42:           bottom: -21px;
+43: 
+44:           border: 5px solid transparent;
+45:           border-right: 5px solid $v2-yellow;
+46:           border-bottom: 5px solid $v2-yellow;
+47: 
+48:         }
+49:       }
+50:     }
 
 Backtrace:
-/src/compass_web/sass/v2/box-result.scss:43
+/src/compass_web/sass/v2/box-result.scss:45
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/list_literal.rb:63:in `block in _perform'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/list_literal.rb:63:in `map'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/list_literal.rb:63:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:394:in `visit_prop'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
@@ -110,4 +114,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$ff2\".\A         on line 43 of /src/compass_web/sass/v2/box-result.scss\A \A 38:         padding-bottom: 0px;\A 39: \A 40:         p {\A 41: \A 42:           //font-family: Chivo;\A 43:           font-family: $ff2;\A 44:           color:  #333333;\A 45:           font-size: 24px;\A 46:           font-weight: 700;\A 47:           text-align: left;\A 48:           margin-bottom: 18px;"; }
+  content: "Error: Undefined variable: \"$v2-yellow\".\A         on line 45 of /src/compass_web/sass/v2/box-result.scss\A \A 40:           position: absolute;\A 41:           right: -10px;\A 42:           bottom: -21px;\A 43: \A 44:           border: 5px solid transparent;\A 45:           border-right: 5px solid $v2-yellow;\A 46:           border-bottom: 5px solid $v2-yellow;\A 47: \A 48:         }\A 49:       }\A 50:     }"; }
