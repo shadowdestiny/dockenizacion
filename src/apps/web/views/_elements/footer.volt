@@ -21,19 +21,19 @@
 
     <div class="wrapper">
         <div class="cols box-links">
-            <div class="col20per">
-                <strong>{{ language.translate('column1_head') }}</strong>
-                <ul>
-                    <li>
-                        <a href="/{{ language.translate("link_euromillions_play") }}">{{ language.translate('column1_first') }}</a>
-                    </li>
-                    {# Future links
-                                        <li><a href="javascript:void(0);">EuroJackpot</a></li>
-                                        <li><a href="javascript:void(0);">MegaMillions</a></li>
-                                        <li><a href="javascript:void(0);">PowerBall</a></li>
-                    #}
-                </ul>
-            </div>
+            {#<div class="col20per">#}
+                {#<strong>{{ language.translate('column1_head') }}</strong>#}
+                {#<ul>#}
+                    {#<li>#}
+                        {#<a href="/{{ language.translate("link_euromillions_play") }}">{{ language.translate('column1_first') }}</a>#}
+                    {#</li>#}
+                    {# Future links#}
+                                        {#<li><a href="javascript:void(0);">EuroJackpot</a></li>#}
+                                        {#<li><a href="javascript:void(0);">MegaMillions</a></li>#}
+                                        {#<li><a href="javascript:void(0);">PowerBall</a></li>#}
+                    {##}
+                {#</ul>#}
+            {#</div>#}
             <div class="col20per">
                 <strong>{{ language.translate('column2_head') }}</strong>
                 <ul>
