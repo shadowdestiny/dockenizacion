@@ -11,7 +11,23 @@
 {% endblock %}
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 {% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script>{% endblock %}
+{% block template_scripts_code %}
+    function euromillionsPlay(numbers)
+    {
+        var storageNumbers = '[', playConfigs = numbers.split("|");
 
+        playConfigs.forEach(function(element) {
+            playConfig = element.split(".");
+            storageNumbers += '{"numbers":['+playConfig[0]+'],"stars":['+playConfig[1]+']},';
+        });
+
+        storageNumbers = storageNumbers.slice(0, -1) + ']';
+
+        localStorage.setItem('bet_line', storageNumbers);
+
+        window.location.href = '/{{ language.translate('link_euromillions_play') }}';
+    }
+{% endblock %}
 {% block body %}
     <main id="content">
         <div class="wrapper">
@@ -300,7 +316,9 @@
                         <th class="date">
                             {{ language.translate("tickets_past_lotto") }}
                         </th>
+                        <th>
 
+                        </th>
                         {#<th class="when">#}
                         {#{{ language.app("Duration") }}#}
                         {#</th>#}
@@ -321,6 +339,35 @@
                             </td>
                             <td>
                                 <strong>{{ language.translate("Euromillions") }}</strong>
+                            </td>
+                            <td>
+                                {% set tickets_inactives = '' %}
+                                {% for bet in game %}
+                                    {% set numbers_inactives = '' %}
+                                    {% set stars_inactives = '' %}
+                                    {% for bet_number,value in bet.numbers %}
+                                        {% if loop.last %}
+                                            {% set numbers_inactives = numbers_inactives ~ bet_number ~ '.' %}
+                                        {% else %}
+                                            {% set numbers_inactives = numbers_inactives ~ bet_number ~ ',' %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% for bet_star,value in bet.stars %}
+                                        {% if loop.last %}
+                                            {% set stars_inactives = stars_inactives ~ bet_star %}
+                                        {% else %}
+                                            {% set stars_inactives = stars_inactives ~ bet_star ~ ',' %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if loop.last %}
+                                        {% set tickets_inactives = tickets_inactives ~ numbers_inactives ~ stars_inactives %}
+                                    {% else %}
+                                        {% set tickets_inactives = tickets_inactives ~ numbers_inactives ~ stars_inactives ~ '|' %}
+                                    {% endif %}
+                                {% endfor %}
+                                <a onClick="euromillionsPlay('{{ tickets_inactives }}');" href="#">
+                                    {{ language.translate("tickets_play_again") }}
+                                </a>
                             </td>
                             <td class="numbers">
                                 <table border="1">
