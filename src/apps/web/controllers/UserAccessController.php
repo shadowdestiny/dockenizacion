@@ -138,6 +138,12 @@ class UserAccessController extends ControllerBase
                 if (!$register_result->success()) {
                     $errors[] = $register_result->errorMessage();
                 } else {
+                    echo "
+                    <script src='/w/js/vendor/ganalytics.min.js'></script>
+                    <script>
+                        ga('send', 'event', 'Button', 'Register');
+                    </script>
+                    ";
                     return $this->response->redirect($url_redirect);
                 }
             }
