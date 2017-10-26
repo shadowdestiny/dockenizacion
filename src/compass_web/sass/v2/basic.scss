@@ -2,11 +2,11 @@
 
 .wrapper {
 
-  @media only screen and (min-width: $screen-xxs) {}
+  //@media only screen and (min-width: $screen-xxs) {}
 
-  @media only screen and (min-width: $screen-xs) {}
+  //@media only screen and (min-width: $screen-xs) {}
 
-  @media only screen and (min-width: $screen-small) {}
+  //@media only screen and (min-width: $screen-small) {}
 
   @media only screen and (min-width: $screen-small-plus) {}
 
@@ -18,9 +18,27 @@
     margin:auto;
   }
 
+  @media only screen and (max-width: $screen-medium) {}
+  @media only screen and (max-width: $screen-small) {}
+  @media only screen and (max-width: $screen-xs) {}
+  @media only screen and (max-width: $screen-xxs) {}
+
 }
 
 
 a:visited, .lnk:visited {
   color: inherit;
 }
+
+
+.ul-top-nav>li {
+  float: right;
+  position: relative;
+  top: 8px;
+}
+.ul-top-nav>li>a.link:hover, .ul-top-nav>li>a.link:focus, .ul-top-nav>li:hover .link, .ul-top-nav>li:focus .link {
+  //color: #ae5279;
+  color: inherit;
+}
+
+
