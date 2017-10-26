@@ -36,4 +36,28 @@
 // Use it:
 // @include desktop();
 
-//Responsive view start
+//Responsive view end
+
+
+//Triangle start
+
+@mixin css-triangle($color, $size){
+  content: "";
+  display: block;
+  position: absolute;
+  border: $size solid transparent;
+  border-right: $size solid $color;
+  border-bottom: $size solid $color;
+
+}
+
+// Use it:
+//.element {
+//  &::before {
+//    right: -10px;
+//    bottom: -21px;
+//    @include css-triangle(blue, down);
+//  }
+//}
+
+//Triangle end
