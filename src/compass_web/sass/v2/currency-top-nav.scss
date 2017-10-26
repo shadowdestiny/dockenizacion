@@ -1,0 +1,54 @@
+//Currency block in the Top navigation
+
+.ul-top-nav {
+
+  & > .li-currency {
+
+    & > a.link {
+      font-family: $ff1;
+      //color:  #9b9c9b;
+      font-size: 17px;
+      font-weight: 700;
+      text-align: left;
+
+      padding: 0;
+    }
+  }
+}
+
+
+#li-currency--desktop {
+  margin-right: 33px;
+  position: relative;
+  top: 8px;
+
+  .li-currency--main-link {
+    position: relative;
+    color:  #9b9c9b;
+  }
+
+  .li-currency--main-link:after {
+    @include css-triangle($v2-yellow, 5px);
+    right: -10px;
+    bottom: 2px;
+  }
+
+  .currency--symbol {
+    display: inline-block;
+    //font-family: Roboto;
+    font-family: $ff3;
+    color: inherit;
+    font-size: 18px;
+    font-weight: 700;
+    background-color: #f5cc0d;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: left;
+    vertical-align: text-top;
+    line-height: 20px;
+    position: relative;
+    right: -9px;
+    padding-left: 3px;
+  }
+}

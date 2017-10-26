@@ -1,50 +1,24 @@
 /*
-Error: Undefined mixin 'css-triangle'.
-        on line 47 of /src/compass_web/sass/v2/box-result.scss, in `css-triangle'
-        from line 47 of /src/compass_web/sass/v2/box-result.scss
+Error: Undefined variable: "$ff1".
+        on line 8 of /src/compass_web/sass/v2/currency-top-nav.scss
 
-42:           //
-43:           //border: 5px solid transparent;
-44:           //border-right: 5px solid $v2-yellow;
-45:           //border-bottom: 5px solid $v2-yellow;
-46: 
-47:           @include css-triangle($v2-yellow, 5px);
-48:           right: -10px;
-49:           bottom: -21px;
-50: 
-51:         }
-52:       }
+3: .ul-top-nav {
+4: 
+5:   & > .li-currency {
+6: 
+7:     & > a.link {
+8:       font-family: $ff1;
+9:       //color:  #9b9c9b;
+10:       font-size: 17px;
+11:       font-weight: 700;
+12:       text-align: left;
+13: 
 
 Backtrace:
-/src/compass_web/sass/v2/box-result.scss:47:in `css-triangle'
-/src/compass_web/sass/v2/box-result.scss:47
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:348:in `block in visit_mixin'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:98:in `block in with_mixin'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:98:in `with_mixin'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:346:in `visit_mixin'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block (2 levels) in visit_rule'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `map'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block in visit_rule'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:428:in `visit_rule'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block (2 levels) in visit_rule'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `map'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block in visit_rule'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:428:in `visit_rule'
+/src/compass_web/sass/v2/currency-top-nav.scss:8
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:394:in `visit_prop'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
@@ -114,4 +88,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined mixin 'css-triangle'.\A         on line 47 of /src/compass_web/sass/v2/box-result.scss, in `css-triangle'\A         from line 47 of /src/compass_web/sass/v2/box-result.scss\A \A 42:           //\A 43:           //border: 5px solid transparent;\A 44:           //border-right: 5px solid $v2-yellow;\A 45:           //border-bottom: 5px solid $v2-yellow;\A 46: \A 47:           @include css-triangle($v2-yellow, 5px);\A 48:           right: -10px;\A 49:           bottom: -21px;\A 50: \A 51:         }\A 52:       }"; }
+  content: "Error: Undefined variable: \"$ff1\".\A         on line 8 of /src/compass_web/sass/v2/currency-top-nav.scss\A \A 3: .ul-top-nav {\A 4: \A 5:   & > .li-currency {\A 6: \A 7:     & > a.link {\A 8:       font-family: $ff1;\A 9:       //color:  #9b9c9b;\A 10:       font-size: 17px;\A 11:       font-weight: 700;\A 12:       text-align: left;\A 13: "; }

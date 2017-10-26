@@ -1002,27 +1002,6 @@ body, .submit {
 
 }
 
-.ul-top-nav {
-  .li-currency {
-
-    .currency--symbol {
-      display: inline-block;
-      font-family: Roboto;
-      color: inherit;
-      font-size: 18px;
-      font-weight: 700;
-      background-color: #f5cc0d;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      text-align: center;
-      vertical-align: text-top;
-      line-height: 20px;
-    }
-  }
-
-}
-
 .ul-top-nav > li > a.link:hover, .ul-top-nav > li > a.link:focus, .ul-top-nav > li:hover .link, .ul-top-nav > li:focus .link {
   //background: #fff;
   color: #ae5279;
