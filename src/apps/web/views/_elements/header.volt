@@ -1,6 +1,9 @@
 <script>var myLogged = '<?php echo $user_logged; ?>'</script> {# This value is used in mobileFix.js #}
-<div class="mobile">
+<div class="cookies-block--mobile mobile">
 	{% include "_elements/cookies.volt" %}
+</div>
+<div class="cookies-block--desktop">
+	{% include "_elements/cookies--desktop.volt" %}
 </div>
 <header data-role="header" class="header">
 	<div class="top-bar--desktop">

@@ -1,20 +1,21 @@
 /*
-Error: Undefined variable: "$screen-xxs".
-        on line 5 of /src/compass_web/sass/v2/basic.scss
+Error: Undefined variable: "$screen-small-plus".
+        on line 11 of /src/compass_web/sass/v2/basic.scss
 
-1: /* PAGE LAYOUT *\/
-2: 
-3: .wrapper {
-4: 
-5:   @media only screen and (min-width: $screen-xxs) {}
 6: 
-7:   @media only screen and (min-width: $screen-xs) {}
+7:   //@media only screen and (min-width: $screen-xs) {}
 8: 
-9:   @media only screen and (min-width: $screen-small) {}
+9:   //@media only screen and (min-width: $screen-small) {}
 10: 
+11:   @media only screen and (min-width: $screen-small-plus) {}
+12: 
+13:   @media only screen and (min-width: $screen-medium) {}
+14: 
+15:   @media only screen and (min-width: $screen-full) {
+16:     width: $screen-full;
 
 Backtrace:
-/src/compass_web/sass/v2/basic.scss:5
+/src/compass_web/sass/v2/basic.scss:11
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
@@ -69,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-xxs\".\A         on line 5 of /src/compass_web/sass/v2/basic.scss\A \A 1: /* PAGE LAYOUT */\A 2: \A 3: .wrapper {\A 4: \A 5:   @media only screen and (min-width: $screen-xxs) {}\A 6: \A 7:   @media only screen and (min-width: $screen-xs) {}\A 8: \A 9:   @media only screen and (min-width: $screen-small) {}\A 10: "; }
+  content: "Error: Undefined variable: \"$screen-small-plus\".\A         on line 11 of /src/compass_web/sass/v2/basic.scss\A \A 6: \A 7:   //@media only screen and (min-width: $screen-xs) {}\A 8: \A 9:   //@media only screen and (min-width: $screen-small) {}\A 10: \A 11:   @media only screen and (min-width: $screen-small-plus) {}\A 12: \A 13:   @media only screen and (min-width: $screen-medium) {}\A 14: \A 15:   @media only screen and (min-width: $screen-full) {\A 16:     width: $screen-full;"; }
