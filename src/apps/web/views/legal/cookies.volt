@@ -10,13 +10,13 @@
 {% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script>{% endblock %}
 
 {% block body %}
-<main id="content">
+<main id="content" class="legal-page">
     <div class="wrapper">
-        <div class="nav box-basic">
+        <div class="nav">
            {% set activeSubnav='{"myClass":"cookies"}'|json_decode %}
            {% include "legal/_nav.volt" %}
         </div>
-        <div class="box-basic content">
+        <div class="content">
             <h1 class="h1 title yellow">{{ language.translate("cookies_head") }}</h1>
             <p>
                 <strong>{{ language.translate("cookies_paragraph1") }}</strong>

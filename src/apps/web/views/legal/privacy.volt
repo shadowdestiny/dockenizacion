@@ -10,13 +10,13 @@
 {% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script>{% endblock %}
 
 {% block body %}
-<main id="content">
+<main id="content" class="legal-page">
     <div class="wrapper">
-        <div class="nav box-basic">
+        <div class="nav">
            {% set activeSubnav='{"myClass":"privacy"}'|json_decode %}
            {% include "legal/_nav.volt" %}
         </div>
-        <div class="box-basic content">
+        <div class="content">
             <h1 class="h1 title">{{ language.translate("privacy_head") }}</h1>
             <h2 class="h3">{{ language.translate("p1_subhead") }}</h2>
             <p>{{ language.translate("p1_text") }}</p>
