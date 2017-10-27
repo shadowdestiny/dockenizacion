@@ -1,35 +1,34 @@
-
 //Responsive view start
 
 @mixin desktop {
-  display: none!important;
+  display: none !important;
 
   @media only screen and (min-width: $screen-desktop) {
-    display: block!important;
+    display: block !important;
   }
 }
 
 @mixin mobile {
-  display: block!important;
+  display: block !important;
 
   @media only screen and (min-width: $screen-desktop) {
-    display: none!important;
+    display: none !important;
   }
 }
 
 @mixin desktop--dib {
-  display: none!important;
+  display: none !important;
 
   @media only screen and (min-width: $screen-desktop) {
-    display: inline-block!important;
+    display: inline-block !important;
   }
 }
 
 @mixin mobile--dib {
-  display: inline-block!important;
+  display: inline-block !important;
 
   @media only screen and (min-width: $screen-desktop) {
-    display: none!important;
+    display: none !important;
   }
 }
 
@@ -38,10 +37,9 @@
 
 //Responsive view end
 
-
 //Triangle start
 
-@mixin css-triangle($color, $size){
+@mixin css-triangle($color, $size) {
   content: "";
   display: block;
   position: absolute;
@@ -63,43 +61,83 @@
 //Triangle end
 
 //Form start
-@mixin selectbox {
 
+@mixin input-placeholder {
+  &.placeholder {
+    @content;
+  }
+  &:-moz-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content;
+  }
+  &::-webkit-input-placeholder {
+    @content;
+  }
 }
 
+// Use it:
+//input,
+//textarea {
+//  @include input-placeholder {
+//    color: $grey;
+//  }
+//}
+
 @mixin selectbox {
-  border-radius: 4px;
-  border-width: 1px;
-  border-color:  #b7b7b7;
-  border-style: solid;
-  //width: 698px;
-  width: 100%;
-  height: 46px;
-  line-height: 46px;
-  color:  #999999;
-  font-size: 18px;
-  font-weight: 300;
-  text-align: left;
+
   position: relative;
 
-  padding-left: 30px;
-  padding-right: 30px;
+  select {
 
-  background-color: transparent;
-  outline: none;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  cursor:default;
+    border-radius: 4px;
+    border-width: 1px;
+    border-color: #b7b7b7;
+    border-style: solid;
+    //width: 698px;
+    width: 100%;
+    height: 46px;
+    line-height: 46px;
+    color: #999999;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: left;
+    position: relative;
+    z-index: 2;
 
-  &:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 1000px #F6F6F6 inset !important;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 30px;
+    padding-right: 30px;
+
+    margin-bottom: 30px;
+
+    background-color: transparent;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    cursor: default;
+    -webkit-appearance: none;
+    box-shadow: none !important;
+
+    @include input-placeholder {
+      color: $v2-placeholder-color;
+    }
+
+    &:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
+    }
   }
 
   &::after {
     display: block;
-    content : '';
+    content: '';
     position: absolute;
+    z-index: 1;
     top: 15px;
     right: 30px;
     width: 15px;
@@ -115,34 +153,83 @@
 // Use it:
 //    @include selectbox();
 
-
 @mixin input {
-  border-botom: 1px solid #b7b7b7;
+  border: 0;
+  border-bottom: 1px solid #b7b7b7;
+  border-radius: 0;
   //width: 698px;
   width: 100%;
   height: 46px;
   line-height: 46px;
-  color:  #999999;
+  color: #999999;
   font-size: 18px;
   font-weight: 300;
   text-align: left;
   position: relative;
 
+  padding-top: 0;
+  padding-bottom: 0;
   padding-left: 30px;
   padding-right: 30px;
+
+  margin-bottom: 30px;
 
   background-color: transparent;
   outline: none;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
-  box-shadow: none;
-  cursor:default;
+  box-shadow: none !important;
+  cursor: default;
+  -webkit-appearance: none;
+
+  @include input-placeholder {
+    color: $v2-placeholder-color;
+  }
 
   &:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 1000px #F6F6F6 inset !important;
+    -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
   }
 }
 
 // Use it:
 //    @include input();
+
+@mixin textarea {
+  border-bottom: 1px solid #b7b7b7;
+  //width: 698px;
+  width: 100%;
+  //height: 46px;
+  //line-height: 46px;
+  line-height: 1.2;
+
+  color: #999999;
+  font-size: 18px;
+  font-weight: 300;
+  text-align: left;
+  position: relative;
+
+  padding: 20px 30px;
+
+  margin-bottom: 30px;
+
+  background-color: transparent;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none !important;
+  cursor: default;
+  -webkit-appearance: none;
+
+  @include input-placeholder {
+    color: $v2-placeholder-color;
+  }
+
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
+  }
+}
+
+// Use it:
+//    @include textarea();
+
 // Form end
