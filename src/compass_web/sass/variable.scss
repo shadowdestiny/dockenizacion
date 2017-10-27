@@ -129,6 +129,8 @@ $screen-medium-wrapper 		: 952px;
 $screen-full 				: 1300px;
 $screen-full-wrapper 		: 1280px;
 
-$desktop 					: $screen-full;
-$desktop-wrapper 			: $screen-full-wrapper;
+//$screen-desktop 					: $screen-full;
+//$screen-desktop-wrapper 			: $screen-full-wrapper;
+$screen-desktop 					: $screen-medium;
+$screen-desktop-wrapper 			: $screen-medium-wrapper;
 

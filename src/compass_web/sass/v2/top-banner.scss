@@ -91,7 +91,8 @@
       height: 238px;
       display: none;
 
-      @media only screen and (min-width: $desktop) {
+      //TODO : check this resolution
+      @media only screen and (min-width: $screen-desktop) {
         display: block;
       }
 
@@ -114,7 +115,8 @@
       position: relative;
       width: 100%;
 
-      @media only screen and (min-width: $desktop) {
+      //TODO : check this resolution
+      @media only screen and (min-width: $screen-desktop) {
         width: 480px;
         display: inline-block;
         position: relative;
