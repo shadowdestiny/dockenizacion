@@ -54,3 +54,17 @@ a:visited, .lnk:visited {
 }
 
 
+//.select,
+.selectbox {
+  @include selectbox();
+}
+
+//.input,
+input {
+  @include input();
+}
+
+//.textarea,
+textarea {
+  @include textarea();
+}

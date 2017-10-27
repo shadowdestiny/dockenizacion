@@ -1,6 +1,6 @@
 @import "compass/css3";
 //@import url('https://fonts.googleapis.com/css?family=Chivo|Work+Sans:600,700,900');
-@import url('https://fonts.googleapis.com/css?family=Chivo:400,600,700|Roboto:400,700,900|Work+Sans:400,600,700,900');
+@import url('https://fonts.googleapis.com/css?family=Chivo:400,600,700|Roboto:400,700,900|Work+Sans:300,400,600,700,900');
 
 /*** VARIABLES ***
 NO ALLLOWED: Class, ID or Keyframes
@@ -96,6 +96,7 @@ $v2-yellow : #f8ce0d;		// dark
 $v2-yellow-hover : #fbd93a;	// light
 $v2-green : #4dec8c;
 $v2-grey : #elelel;			// light
+$v2-placeholder-color:  #999999;
 
 // Desktop menu
 $v2-desktop-menu-color : #f9d118;

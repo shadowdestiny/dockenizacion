@@ -207,21 +207,21 @@ img.right {
 
 /* FORM ELEMENTS */
 .input, .select, .textarea, .btn {
-  font-family: $basic-font;
-  padding: 8px;
-  background: $yellow-lighter;
-  border: 1px solid $grey;
+  //font-family: $basic-font;
+  //padding: 8px;
+  //background: $yellow-lighter;
+  //border: 1px solid $grey;
 }
 
 .input:hover, .textarea:hover, .select:hover {
-  border: 1px solid #000;
+  //border: 1px solid #000;
 }
 
 .input:focus, .textarea:focus {
-  transition: background-color .3s, color .3s, border .3s, box-shadow .2s;
-  box-shadow: 0 4px 4px #bbb inset !important;
-  border: 1px solid $black !important;
-  background: #fff;
+  //transition: background-color .3s, color .3s, border .3s, box-shadow .2s;
+  //box-shadow: 0 4px 4px #bbb inset !important;
+  //border: 1px solid $black !important;
+  //background: #fff;
 }
 
 .input.error, .select.error {
@@ -249,7 +249,7 @@ label.submit {
 }
 
 .select {
-  padding-top: 6px;
+  //padding-top: 6px;
 }
 
 .form-currency {
