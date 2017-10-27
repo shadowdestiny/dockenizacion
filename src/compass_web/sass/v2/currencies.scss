@@ -3,50 +3,45 @@
 .currencies-page {
   margin-top: 30px;
 
-  padding: 35px 32px;
+  padding: 32px 35px;
   background-color: #f6f4f4;
 
-  .list {
-    li {
-      a{
-        //text-decoration: none;
-        //display: block;
-        //padding: 5px 10px;
-        //border: 1px solid #EFC048;
-        //border-radius: 5px;
+  //background-image: -webkit-linear-gradient(top, #f6f4f4 0%, #ffffff 100%);
+  //background-image: linear-gradient(to bottom, #f6f4f4 0%, #ffffff 100%);
 
+  background-image: -webkit-linear-gradient(top, #f6f4f4 0%, #f8f6f6 50%,  #ffffff 100%);
+  background-image: linear-gradient(to bottom, #f6f4f4 0%, #f8f6f6 50%, #ffffff 100%);
+
+  .list {
+
+    li {
+      margin: 0 2% 2em 0;
+
+      a{
         border-radius: 2px;
         background-color:  #eae8e8;
         border: 0;
+        padding: 10px 20px 11px 19px;
 
         .curr {
-          //display: inline-block;
-          //width: 100%;
-          //font-size: 125%;
-          //font-weight: bold;
-
           font-family:$ff1;
           color:  #9b9b9b;
           font-size: 18px;
           font-weight: 700;
-          line-height: 36px;
+          line-height: 1;
           text-align: left;
           text-transform: uppercase;
+          margin-bottom: 5px;
         }
 
         .name {
-          //display: block;
-
           font-family:$ff1;
           color:  #333333;
-          font-size: 16px;
+          font-size: 17px;
           font-weight: 400;
-          line-height: 36px;
+          line-height: 1;
           text-align: left;
         }
-
-
-
       }
 
       a:hover,

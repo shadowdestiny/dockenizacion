@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$ff1".
-        on line 28 of /src/compass_web/sass/v2/currencies.scss
+        on line 27 of /src/compass_web/sass/v2/currencies.scss
 
-23:           //display: inline-block;
-24:           //width: 100%;
-25:           //font-size: 125%;
-26:           //font-weight: bold;
-27: 
-28:           font-family:$ff1;
-29:           color:  #9b9b9b;
-30:           font-size: 18px;
-31:           font-weight: 700;
-32:           line-height: 36px;
-33:           text-align: left;
+22:         background-color:  #eae8e8;
+23:         border: 0;
+24:         padding: 10px 20px 11px 19px;
+25: 
+26:         .curr {
+27:           font-family:$ff1;
+28:           color:  #9b9b9b;
+29:           font-size: 18px;
+30:           font-weight: 700;
+31:           line-height: 1;
+32:           text-align: left;
 
 Backtrace:
-/src/compass_web/sass/v2/currencies.scss:28
+/src/compass_web/sass/v2/currencies.scss:27
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:394:in `visit_prop'
@@ -110,4 +110,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$ff1\".\A         on line 28 of /src/compass_web/sass/v2/currencies.scss\A \A 23:           //display: inline-block;\A 24:           //width: 100%;\A 25:           //font-size: 125%;\A 26:           //font-weight: bold;\A 27: \A 28:           font-family:$ff1;\A 29:           color:  #9b9b9b;\A 30:           font-size: 18px;\A 31:           font-weight: 700;\A 32:           line-height: 36px;\A 33:           text-align: left;"; }
+  content: "Error: Undefined variable: \"$ff1\".\A         on line 27 of /src/compass_web/sass/v2/currencies.scss\A \A 22:         background-color:  #eae8e8;\A 23:         border: 0;\A 24:         padding: 10px 20px 11px 19px;\A 25: \A 26:         .curr {\A 27:           font-family:$ff1;\A 28:           color:  #9b9b9b;\A 29:           font-size: 18px;\A 30:           font-weight: 700;\A 31:           line-height: 1;\A 32:           text-align: left;"; }
