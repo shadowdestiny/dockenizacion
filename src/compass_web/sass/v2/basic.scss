@@ -35,6 +35,10 @@ a:visited, .lnk:visited {
   float: right;
   position: relative;
   top: 8px;
+
+  &.li-sign {
+    top: 0;
+  }
 }
 .ul-top-nav>li>a.link:hover, .ul-top-nav>li>a.link:focus, .ul-top-nav>li:hover .link, .ul-top-nav>li:focus .link {
   //color: #ae5279;
