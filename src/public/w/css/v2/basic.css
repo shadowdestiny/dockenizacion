@@ -1,5 +1,5 @@
 /*
-Error: Undefined variable: "$screen-small-plus".
+Error: Undefined variable: "$screen-small".
         on line 11 of /src/compass_web/sass/v2/basic.scss
 
 6: 
@@ -7,12 +7,12 @@ Error: Undefined variable: "$screen-small-plus".
 8: 
 9:   //@media only screen and (min-width: $screen-small) {}
 10: 
-11:   @media only screen and (min-width: $screen-small-plus) {}
-12: 
-13:   @media only screen and (min-width: $screen-medium) {}
-14: 
-15:   @media only screen and (min-width: $screen-full) {
-16:     width: $screen-full;
+11:   @media only screen and (min-width: $screen-small) {
+12:     width: $screen-small-wrapper;
+13:     max-width: $screen-small-wrapper;
+14:     margin:auto;
+15:   }
+16: 
 
 Backtrace:
 /src/compass_web/sass/v2/basic.scss:11
@@ -70,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-small-plus\".\A         on line 11 of /src/compass_web/sass/v2/basic.scss\A \A 6: \A 7:   //@media only screen and (min-width: $screen-xs) {}\A 8: \A 9:   //@media only screen and (min-width: $screen-small) {}\A 10: \A 11:   @media only screen and (min-width: $screen-small-plus) {}\A 12: \A 13:   @media only screen and (min-width: $screen-medium) {}\A 14: \A 15:   @media only screen and (min-width: $screen-full) {\A 16:     width: $screen-full;"; }
+  content: "Error: Undefined variable: \"$screen-small\".\A         on line 11 of /src/compass_web/sass/v2/basic.scss\A \A 6: \A 7:   //@media only screen and (min-width: $screen-xs) {}\A 8: \A 9:   //@media only screen and (min-width: $screen-small) {}\A 10: \A 11:   @media only screen and (min-width: $screen-small) {\A 12:     width: $screen-small-wrapper;\A 13:     max-width: $screen-small-wrapper;\A 14:     margin:auto;\A 15:   }\A 16: "; }

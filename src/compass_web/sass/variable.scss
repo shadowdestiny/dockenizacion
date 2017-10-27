@@ -111,17 +111,24 @@ $ff3:'Roboto', sans-serif;
 
 // Grid v2
 
-//max-width: 1200px
-//max-width: 992px
-//max-width: 768px
-//min-width: 769px
-//max-width: 480px
-//max-width: 320px
+$screen-xxs 				: 320px;
+$screen-xxs-wrapper 		: 320px;
 
-$screen-xxs 		: 320px;
-$screen-xs 			: 480px;
-$screen-small 		: 768px; // ipad vertical
-$screen-small-plus 	: 769px;
-$screen-medium 		: 992px;
-$screen-full 		: 1280px;
-$desktop 			: $screen-small-plus;
+$screen-xs 					: 480px;
+$screen-xs-wrapper 			: 480px;
+
+$screen-small 				: 768px; // ipad vertical
+$screen-small-wrapper 		: 768px; // ipad vertical
+
+//$screen-small-plus 			: 769px;
+//$screen-small-plus-wrapper 	: 769px;
+
+$screen-medium 				: 992px;
+$screen-medium-wrapper 		: 952px;
+
+$screen-full 				: 1300px;
+$screen-full-wrapper 		: 1280px;
+
+$desktop 					: $screen-full;
+$desktop-wrapper 			: $screen-full-wrapper;
+

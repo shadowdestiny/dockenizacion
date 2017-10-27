@@ -8,13 +8,21 @@
 
   //@media only screen and (min-width: $screen-small) {}
 
-  @media only screen and (min-width: $screen-small-plus) {}
+  @media only screen and (min-width: $screen-small) {
+    width: $screen-small-wrapper;
+    max-width: $screen-small-wrapper;
+    margin:auto;
+  }
 
-  @media only screen and (min-width: $screen-medium) {}
+  @media only screen and (min-width: $screen-medium) {
+    width: $screen-medium-wrapper;
+    max-width: $screen-medium-wrapper;
+    margin:auto;
+  }
 
   @media only screen and (min-width: $screen-full) {
-    width: $screen-full;
-    max-width: $screen-full;
+    width: $screen-full-wrapper;
+    max-width: $screen-full-wrapper;
     margin:auto;
   }
 
