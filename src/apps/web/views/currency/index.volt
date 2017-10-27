@@ -49,9 +49,12 @@
 {% block body %}
 <main id="content">
     <div class="wrapper">
-        <div class="box-basic">
-            <h1 class="h2">{{ language.translate("Choose your currency") }}</h1>
-            <div class="info-txt">Currencies are just informative, transactions are charged in Euros.</div>
+        <div class="currencies-page">
+
+            {#<h1 class="h2">{{ language.translate("Choose your currency") }}</h1>#}
+
+            {#<div class="info-txt">Currencies are just informative, transactions are charged in Euros.</div>#}
+
             <ul class="no-li list cl">
             {% for currency in currency_list %}
                 <li class="box{{ currency.code }}"><a data-enhance=false href="/ajax/user-settings/setCurrencyReload/{{currency.code}}" {% if currency.code == current_currency %}  class="active" {% endif %}>
