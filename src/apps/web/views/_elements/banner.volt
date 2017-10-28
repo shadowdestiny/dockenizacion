@@ -43,8 +43,9 @@
                 <div class="mobile-row">
 
                 </div>
-
+                <div class="top-banner--for-only">
                     {% include "_elements/for-only.volt" %}
+                </div>
 
                 <div class="btn-row">
                     <a href="/{{ language.translate("link_euromillions_play") }}"
@@ -57,7 +58,9 @@
 
             <div class="top-banner--right">
 
-                {% include "_elements/for-only.volt" %}
+                <div class="top-banner--for-only">
+                    {% include "_elements/for-only.volt" %}
+                </div>
 
                 <div class="btn-row">
                     <a href="/{{ language.translate("link_euromillions_play") }}"

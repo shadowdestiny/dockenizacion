@@ -23,14 +23,14 @@
 
 	<div class="countdown">
 		<div class="hour unit">
-			<span class="val">22hrs</span>
+			<span class="val">48hrs</span>
 		</div>
 		<div class="dots">:</div>
 		<div class="minute unit">
-			<span class="val">45mins</span>
+			<span class="val">45min</span>
 		</div>
 		<div class="dots">:</div>
 		<div class="seconds unit">
-			<span class="val">00secs</span>
+			<span class="val">58sec</span>
 		</div>
 	</div>
