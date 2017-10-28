@@ -19,12 +19,12 @@
 {% endblock %}
 {% block template_scripts_code %}
     {# EMTD we use this function as workaround from jquery mobile to anchor link via url #}
-    $(function(){
-    var hash = window.location.hash;
-    $(document.body).animate({
-    'scrollTop':   $('#'+hash.split('#')[1]).offset().top
-    }, 100);
-    });
+    {#$(function(){#}
+    {#var hash = window.location.hash;#}
+    {#$(document.body).animate({#}
+    {#'scrollTop':   $('#'+hash.split('#')[1]).offset().top#}
+    {#}, 100);#}
+    {#});#}
 {% endblock %}
 {% block body %}
 
@@ -98,9 +98,9 @@
 
                     <div class="faq-section">
 
-                        <a id="top"></a>
-                        <h1 class="h1 title">{{ language.translate("eurom_head") }}</h1>
-                        <div class="questions">
+                        {#<a id="top"></a>#}
+                        {#<h1 class="h1 title">{{ language.translate("eurom_head") }}</h1>#}
+                        <div class="questions"  style="display: none;">
                             <h2 class="h3">{{ language.translate("eurom_subhead_basics") }}</h2>
                             <ul class="no-li">
                                 <li><a href="#n01">{{ language.translate("eurom_no1_q") }}</a></li>
@@ -163,47 +163,47 @@
                             <a id="n01"></a>
                             <h3 class="h3">{{ language.translate("eurom_no1_q") }}</h3>
                             <p>{{ language.translate("eurom_no1_a") }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             <a id="n02"></a>
                             <h3 class="h3">{{ language.translate("eurom_no2_q") }}</h3>
                             <p>{{ language.translate("eurom_no2_a") }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             <a id="n03"></a>
                             <h3 class="h3">{{ language.translate("eurom_no3_q") }}</h3>
                             <p>{{ language.translate("eurom_no3_a") }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             <a id="n04"></a>
                             <h3 class="h3">{{ language.translate("eurom_no4_q") }}</h3>
                             <p>{{ language.translate("eurom_no4_a") }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             <a id="n05"></a>
                             <h3 class="h3">{{ language.translate("eurom_no5_q") }}</h3>
                             <p>{{ language.translate("eurom_no5_a") }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             <a id="n06"></a>
                             <h3 class="h3">{{ language.translate("eurom_no6_q") }}</h3>
                             <p>{{ language.translate("eurom_no6_a") }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             <a id="n07"></a>
                             <h3 class="h3">{{ language.translate("eurom_no7_q") }}</h3>
                             <p>{{ language.translate("eurom_no7_a") }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             <a id="n08"></a>
                             <h3 class="h3">{{ language.translate("eurom_no8_q") }}</h3>
                             <p>{{ language.translate("eurom_no8_a") }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             <a id="n09"></a>
                             <h3 class="h3">{{ language.translate("eurom_no9_q") }}</h3>
                             <p>{{ language.translate("eurom_no9_a") }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             {#                    <a id="n11"></a>
                                                 <h3 class="h3">{{ language.translate("eurom_no10_q") }}</h3>
@@ -240,61 +240,61 @@
                             <a id="n14"></a>
                             <h3 class="h3">{{ language.translate("eurom_no11_q") }}</h3>
                             <p>{{ language.translate("eurom_no11_a") }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             <a id="n15"></a>
                             <h3 class="h3">{{ language.translate("eurom_no12_q") }}</h3>
                             <p>{{ language.translate("eurom_no12_a") }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             <a id="n16"></a>
                             <h3 class="h3">{{ language.translate("eurom_no13_q") }}</h3>
                             <p>{{ language.translate("eurom_no13_a") }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             <a id="n17"></a>
                             <h3 class="h3">{{ language.translate("eurom_no14_q") }}</h3>
                             <p>{{ language.translate("eurom_no14_a") }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             <h2 class="h2 yellow">{{ language.translate("eurom_subhead_account") }}</h2>
 
                             <a id="n18"></a>
                             <h3 class="h3">{{ language.translate("eurom_no15_q") }}</h3>
                             <p>{{ language.translate("eurom_no15_a",['bet_price': bet_price,'bet_price_pound' : bet_price_pound]) }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             <a id="n19"></a>
                             <h3 class="h3">{{ language.translate("eurom_no16_q") }}</h3>
                             <p>{{ language.translate("eurom_no16_a") }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             <a id="n20"></a>
                             <h3 class="h3">{{ language.translate("eurom_no17_q") }}</h3>
                             <p>{{ language.translate("eurom_no17_a") }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             <a id="n21"></a>
                             <h3 class="h3">{{ language.translate("eurom_no18_q") }}</h3>
                             <p>{{ language.translate("eurom_no18_a") }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             <a id="n22"></a>
                             <h3 class="h3">{{ language.translate("eurom_no19_q") }}</h3>
                             <p>{{ language.translate("eurom_no19_a") }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             <h2 class="h2 yellow">{{ language.translate("eurom_subhead_trouble") }}</h2>
 
                             <a id="n23"></a>
                             <h3 class="h3">{{ language.translate("eurom_no20_q") }}</h3>
                             <p>{{ language.translate("eurom_no20_a",['email_support':email_support]) }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             <a id="n24"></a>
                             <h3 class="h3">{{ language.translate("eurom_no21_q") }}</h3>
                             <p>{{ language.translate("eurom_no21_a",['email_support':email_support]) }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             {#
                                             <a id="n25"></a>
@@ -306,19 +306,19 @@
                             <a id="n26"></a>
                             <h3 class="h3">{{ language.translate("eurom_no22_q") }}</h3>
                             <p>{{ language.translate("eurom_no22_a") }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             <h2 class="h2 yellow">{{ language.translate("eurom_subhead_legal") }}</h2>
 
                             <a id="n27"></a>
                             <h3 class="h3">{{ language.translate("eurom_no23_q") }}</h3>
                             <p>{{ language.translate("eurom_no23_a") }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
 
                             <a id="n28"></a>
                             <h3 class="h3">{{ language.translate("eurom_no24_q") }}</h3>
                             <p>{{ language.translate("eurom_no24_a") }}</p>
-                            {% include "faq/back-top.volt" %}
+                            {#{% include "faq/back-top.volt" %}#}
                         </div>
 
                     </div>
