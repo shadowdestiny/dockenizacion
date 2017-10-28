@@ -1,0 +1,17 @@
+
+    .countdown {
+      div {
+        display: inline-block;
+      }
+
+      div, span {
+        //font-family: WorkSans;
+        font-family: $ff1;
+        color:  #ffffff;
+        font-size: 24px;
+        //font-weight: 900;
+        text-align: left;
+        text-transform: uppercase;
+        margin-bottom: 7px;
+      }
+    }
