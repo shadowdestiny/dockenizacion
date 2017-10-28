@@ -157,97 +157,134 @@
 
                         <div class="answer">
 
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no1_q") }}</h3>
-                                <p>{{ language.translate("eurom_no1_a") }}</p>
+                            <div class="accordion-block-outer">
+
+                                <h2 class="h2 yellow">{{ language.translate("eurom_subhead_basics") }}</h2>
+
+                                <div class="accordion-block-outer--contet">
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no1_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no1_a") }}</p>
+                                    </div>
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no2_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no2_a") }}</p>
+                                    </div>
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no3_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no3_a") }}</p>
+                                    </div>
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no4_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no4_a") }}</p>
+                                    </div>
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no5_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no5_a") }}</p>
+                                    </div>
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no6_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no6_a") }}</p>
+                                    </div>
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no7_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no7_a") }}</p>
+                                    </div>
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no8_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no8_a") }}</p>
+                                    </div>
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no9_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no9_a") }}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no2_q") }}</h3>
-                                <p>{{ language.translate("eurom_no2_a") }}</p>
+
+
+                            <div class="accordion-block-outer">
+
+                                <h2 class="h2 yellow">{{ language.translate("eurom_subhead_winnings") }}</h2>
+
+                                <div class="accordion-block-outer--contet">
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no11_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no11_a") }}</p>
+                                    </div>
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no12_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no12_a") }}</p>
+                                    </div>
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no13_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no13_a") }}</p>
+                                    </div>
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no14_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no14_a") }}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no3_q") }}</h3>
-                                <p>{{ language.translate("eurom_no3_a") }}</p>
+
+                            <div class="accordion-block-outer">
+                                <h2 class="h2 yellow">{{ language.translate("eurom_subhead_account") }}</h2>
+
+                                <div class="accordion-block-outer--contet">
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no15_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no15_a",['bet_price': bet_price,'bet_price_pound' : bet_price_pound]) }}</p>
+                                    </div>
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no16_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no16_a") }}</p>
+                                    </div>
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no17_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no17_a") }}</p>
+                                    </div>
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no18_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no18_a") }}</p>
+                                    </div>
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no19_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no19_a") }}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no4_q") }}</h3>
-                                <p>{{ language.translate("eurom_no4_a") }}</p>
+
+                            <div class="accordion-block-outer">
+                                <h2 class="h2 yellow">{{ language.translate("eurom_subhead_trouble") }}</h2>
+
+                                <div class="accordion-block-outer--contet">
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no20_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no20_a",['email_support':email_support]) }}</p>
+                                    </div>
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no21_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no21_a",['email_support':email_support]) }}</p>
+                                    </div>
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no22_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no22_a") }}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no5_q") }}</h3>
-                                <p>{{ language.translate("eurom_no5_a") }}</p>
-                            </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no6_q") }}</h3>
-                                <p>{{ language.translate("eurom_no6_a") }}</p>
-                            </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no7_q") }}</h3>
-                                <p>{{ language.translate("eurom_no7_a") }}</p>
-                            </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no8_q") }}</h3>
-                                <p>{{ language.translate("eurom_no8_a") }}</p>
-                            </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no9_q") }}</h3>
-                                <p>{{ language.translate("eurom_no9_a") }}</p>
-                            </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no11_q") }}</h3>
-                                <p>{{ language.translate("eurom_no11_a") }}</p>
-                            </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no12_q") }}</h3>
-                                <p>{{ language.translate("eurom_no12_a") }}</p>
-                            </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no13_q") }}</h3>
-                                <p>{{ language.translate("eurom_no13_a") }}</p>
-                            </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no14_q") }}</h3>
-                                <p>{{ language.translate("eurom_no14_a") }}</p>
-                            </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no15_q") }}</h3>
-                                <p>{{ language.translate("eurom_no15_a",['bet_price': bet_price,'bet_price_pound' : bet_price_pound]) }}</p>
-                            </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no16_q") }}</h3>
-                                <p>{{ language.translate("eurom_no16_a") }}</p>
-                            </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no17_q") }}</h3>
-                                <p>{{ language.translate("eurom_no17_a") }}</p>
-                            </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no18_q") }}</h3>
-                                <p>{{ language.translate("eurom_no18_a") }}</p>
-                            </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no19_q") }}</h3>
-                                <p>{{ language.translate("eurom_no19_a") }}</p>
-                            </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no20_q") }}</h3>
-                                <p>{{ language.translate("eurom_no20_a",['email_support':email_support]) }}</p>
-                            </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no21_q") }}</h3>
-                                <p>{{ language.translate("eurom_no21_a",['email_support':email_support]) }}</p>
-                            </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no22_q") }}</h3>
-                                <p>{{ language.translate("eurom_no22_a") }}</p>
-                            </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no23_q") }}</h3>
-                                <p>{{ language.translate("eurom_no23_a") }}</p>
-                            </div>
-                            <div class="accordeon-block">
-                                <h3 class="h3">{{ language.translate("eurom_no24_q") }}</h3>
-                                <p>{{ language.translate("eurom_no24_a") }}</p>
+
+                            <div class="accordion-block-outer">
+                                <h2 class="h2 yellow">{{ language.translate("eurom_subhead_legal") }}</h2>
+
+                                <div class="accordion-block-outer--contet">
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no23_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no23_a") }}</p>
+                                    </div>
+                                    <div class="accordion-block">
+                                        <h3 class="h3">{{ language.translate("eurom_no24_q") }}</h3>
+                                        <p>{{ language.translate("eurom_no24_a") }}</p>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
