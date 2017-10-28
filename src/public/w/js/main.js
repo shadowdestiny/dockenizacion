@@ -265,18 +265,23 @@ $(document).ready(function () {
 
 
   // FAQ accordion function
-  
-  function accordeon(that) {
-    $accordeon = that;
-    $($accordeon).find('h3').click(function () {
+
+  if ($('.faq-section .answer').length) {
+    $('.faq-section .accordion-block-outer').find('h2').click(function () {
       $(this).parent().toggleClass('expanded');
-      $(this).parent().find('p').stop().slideToggle();
-    })
+      $(this).parent().find('.accordion-block-outer--contet').stop().slideToggle();
+    });
   }
 
   if ($('.faq-section .answer').length) {
-    accordeon($('.faq-section .answer'));
+    $('.faq-section .answer').find('h3').click(function () {
+      $(this).parent().toggleClass('expanded');
+      $(this).parent().find('p').stop().slideToggle();
+    });
   }
+
+
+
 
 });
 
