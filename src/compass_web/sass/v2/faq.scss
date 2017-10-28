@@ -1,0 +1,34 @@
+// FAQ Page
+
+
+.faq--page {
+
+  .banner {
+    height: 394px;
+
+    background-image: url('../img/faq/desktop/banner.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    -webkit-background-size: cover;
+    background-size: cover;
+  }
+
+  .title-block {
+
+    background: -webkit-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+    background: -moz-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+    background: -o-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+    background: -ms-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+    background: linear-gradient(90deg, #51a0e9 0%, #1678d3 100%);
+    height: 125px;
+
+    position: relative;
+    top: -125px;
+    z-index: 1;
+
+    h1 {
+      text-align: left;
+    }
+  }
+
+}
