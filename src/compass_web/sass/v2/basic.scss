@@ -68,3 +68,21 @@ input {
 textarea {
   @include textarea();
 }
+
+input[type="checkbox"] + .checkbox-after {
+
+    display: inline-block;
+    background-color: #fff;
+    border-radius: 2px;
+    border-width: 1px;
+    border-color:  #404040;
+    border-style: solid;
+    width: 8px;
+    height: 8px;
+
+
+}
+input[type="checkbox"]:checked + .checkbox-after {
+  //background-color: #404040;
+  background-color: #fbd93a;
+}
