@@ -263,6 +263,14 @@ class ReportsController extends AdminControllerBase
         ]);
     }
 
+    /**
+     * @return mixed
+     */
+    public function saveDisabledUserAction()
+    {
+        return $this->reportsService->saveDisabledUser($this->request->getPost('userId'), $this->request->getPost('isChecked'), $this->request->getPost('userDate'));
+    }
+
     private function getCountries()
     {
         $countries = $this->geoService->countryList();

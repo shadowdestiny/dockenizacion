@@ -49,14 +49,14 @@
     <main id="content">
         <div class="wrapper">
             <div class="box-basic">
-                <h1 class="h1 title">{{ language.translate("results_tittle") }}</h1>
+                <h1 class="h1 title">{{ language.translate("resultshist_title") }}</h1>
                 <div class="wrap">
                     <div class="cols">
                         <div class="col8">
 
                             <div class="box-basic">
                                 <div class="pad">
-                                    <h1 class="h2 purple">{{ language.translate("pastNumbers_title") }}</h1>
+                                    <h1 class="h2 purple">{{ language.translate("historyNumbers_title") }}</h1>
                                 </div>
                                 <table id="history-numbers" class="ui-responsive table2" data-role="table"
                                        data-mode="reflow">

@@ -55,8 +55,7 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
     protected $ip_address;
     protected $lastConnection;
     protected $defaultLanguage;
-
-
+    protected $disabledDate;
 
     public function __construct(){
         $this->playConfig = new ArrayCollection();
@@ -554,6 +553,21 @@ class User extends EntityBase implements IEntity, IUser, \JsonSerializable
         $this->defaultLanguage = $defaultLanguage;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDisabledDate()
+    {
+        return $this->disabledDate;
+    }
+
+    /**
+     * @param mixed $disabledDate
+     */
+    public function setDisabledDate($disabledDate)
+    {
+        $this->disabledDate = $disabledDate;
+    }
 
     /**
      * @param \DateTime $date
