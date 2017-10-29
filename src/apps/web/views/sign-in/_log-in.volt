@@ -11,6 +11,7 @@
     <div class="cl reduce">
         <label class="label left" for="remember">
             {{ signinform.render('remember', {'class':'checkbox', 'data-role':'none'}) }}
+            <span class="checkbox-after"></span>
             <span class="txt">{{ language.translate("signin_staysigned") }}</span>
         </label>
         <div class="right forgot-psw">
@@ -21,9 +22,9 @@
     <div class="cl">
         <input id="go" type="submit" class="hidden2" />
         {% if signIn.myClass == 'sign-in' %}
-            <label for="go" class="submit btn big blue">{{ language.translate("signin_LogIn_btn") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
+            <label for="go" class="submit  btn-theme--big">{{ language.translate("signin_LogIn_btn") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
         {% elseif signIn.myClass == 'cart' %}
-            <label for="go" class="submit btn big blue">{{ language.translate("Login &amp; Play") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
+            <label for="go" class="submit btn-theme--big">{{ language.translate("Login &amp; Play") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
         {% endif %}
     </div>
     
