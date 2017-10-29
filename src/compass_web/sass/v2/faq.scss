@@ -54,6 +54,7 @@
       .corner {
         position: relative;
       }
+
       .corner:after {
         content: "";
         display: block;
@@ -61,8 +62,8 @@
         border: 30px solid transparent;
         border-right: 30px solid #4698e5;
         border-top: 30px solid #4698e5;
-        right: -23px;
-        top: -31px;
+        right: -22px;
+        top: -29px;
       }
 
       .title {
@@ -86,6 +87,7 @@
         left: -8px;
         margin-bottom: 44px;
       }
+
       .measure {
         //font-family: WorkSans;
         color: #333333;

@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$black".
-        on line 34 of /src/compass_web/sass/v2/head.scss
+        on line 36 of /src/compass_web/sass/v2/head.scss
 
-29:     margin-right: 0;
-30:   }
-31: 
-32:   .v-cart {
-33:     display: inline-block;
-34:     color: $black;
-35:     margin-top: 4px;
-36:   }
-37: 
-38:   a {
-39:     display: block;
+31:     margin-right: 0;
+32:   }
+33: 
+34:   .v-cart {
+35:     display: inline-block;
+36:     color: $black;
+37:     margin-top: 4px;
+38:   }
+39: 
+40:   a {
+41:     display: block;
 
 Backtrace:
-/src/compass_web/sass/v2/head.scss:34
+/src/compass_web/sass/v2/head.scss:36
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:394:in `visit_prop'
@@ -77,4 +77,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$black\".\A         on line 34 of /src/compass_web/sass/v2/head.scss\A \A 29:     margin-right: 0;\A 30:   }\A 31: \A 32:   .v-cart {\A 33:     display: inline-block;\A 34:     color: $black;\A 35:     margin-top: 4px;\A 36:   }\A 37: \A 38:   a {\A 39:     display: block;"; }
+  content: "Error: Undefined variable: \"$black\".\A         on line 36 of /src/compass_web/sass/v2/head.scss\A \A 31:     margin-right: 0;\A 32:   }\A 33: \A 34:   .v-cart {\A 35:     display: inline-block;\A 36:     color: $black;\A 37:     margin-top: 4px;\A 38:   }\A 39: \A 40:   a {\A 41:     display: block;"; }
