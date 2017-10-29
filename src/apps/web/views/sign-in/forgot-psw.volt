@@ -6,11 +6,13 @@
 {% block body %}
 <main id="content">
     <div class="wrapper">
-        <div class="col-left">
+        {#<div class="col-left">#}
+        <div class="signin-form--logo">
             {% include "_elements/logo.volt" %}
         </div>
-        <div class="col-right">
-            <div class="box-basic small">
+        {#</div>#}
+        {#<div class="col-right">#}
+            <div class="signin-form">
                 <h1 class="h2 title">{{ language.translate("Password recovery") }}</h1>
                 <p>{{ language.translate("Enter the email address associated with your Euromillions.com account, then click the button.") }}</p>
                 <p>{{ language.translate("We'll email your a link to a page where you can easily create a new password.") }}</p>
@@ -29,10 +31,10 @@
                         </div>
                     {%  endif %}
 
-                    <label for="email" class="label">{{ language.translate("Email address") }}</label>
+                    {#<label for="email" class="label">{{ language.translate("Email address") }}</label>#}
                     {{ forgot_password_form.render('email', {'class':'input'}) }}
 
-                    <p><strong>{{ language.translate("Insert captcha") }}</strong></p>
+                    {#<p><strong>{{ language.translate("Insert captcha") }}</strong></p>#}
                     <div class="captcha">{{ captcha }}</div>
     {# *** Code to use in case no google captcha is utilised ***}
                     <br><a href="javascript:void(0);">{{ language.app("reload the image") }}</a>
@@ -42,11 +44,11 @@
     #}
                     <div class="cl">
                         <input id="go" type="submit" class="hidden2" />
-                        <label for="go" class="submit btn big blue">{{ language.translate("Retrieve Password") }}<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
+                        <label for="go" class="submit  btn-theme--big">{{ language.translate("Retrieve Password") }}<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
                     </div>
                 {{ endform() }}
             </div>
-        </div>
+        {#</div>#}
     </div>
 </main>
 
