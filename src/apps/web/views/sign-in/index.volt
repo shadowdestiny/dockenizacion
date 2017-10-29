@@ -26,7 +26,7 @@ $(function(){swap(".log-in .box-extra a, .sign-up .box-extra a");});
             {% include "_elements/logo.volt" %}
         </div>
         <div class="col-right">
-            <div class="box-basic log-in">
+            <div class="signin-form log-in">
                 <h1 class="h1 title">{{ language.translate("signin_head") }}</h1>
 
                 {# DO NOT DELETE - Facebook connect
@@ -44,7 +44,7 @@ $(function(){swap(".log-in .box-extra a, .sign-up .box-extra a");});
                 {% include "sign-in/_log-in.volt" %}
             </div>
 
-            <div class="box-basic sign-up hidden">
+            <div class="signin-form sign-up hidden">
                 <h1 class="h1 title">{{ language.translate("signup_head") }}</h1>
                 {% set url_signup = '/sign-up' %}
                 {% include "sign-in/_sign-up.volt" %}
