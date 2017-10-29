@@ -66,32 +66,32 @@ $(function(){
     <div class="wrapper">
         <div class="what-user">
             <div class="cols">
-                <div class="col4">
-                    <div class="box-basic log-in">
+                {#<div class="col4">#}
+                    <div class="signin-form log-in">
                         <div class="info">
-                            <div class="txt1">{{ language.translate("Returning user?") }}</div>
-                            <div class="txt2 yellow">
-                                <div class="line-sep"></div>
-                                <div class="line-txt">{{ language.translate("Log in") }}</div>
-                            </div>
+                            {#<div class="txt1">{{ language.translate("Returning user?") }}</div>#}
+                            {#<div class="txt2 yellow">#}
+                                {#<div class="line-sep"></div>#}
+                                {#<div class="line-txt">{{ language.translate("Log in") }}</div>#}
+                            {#</div>#}
                         </div>
                         {% set url_signin = '/euromillions/cart/login' %}
                         {% include "sign-in/_log-in.volt" %}
                     </div>
-                </div>
-                <div class="col8 active">
-                    <div class="box-basic sign-in">
+                {#</div>#}
+                {#<div class="col8 active">#}
+                    <div class="signin-form sign-in">
                         <div class="info">
-                            <div class="txt1">{{ language.translate("New to EuroMillions?") }}</div>
-                            <div class="txt2 yellow">
-                                <div class="line-sep"></div>
-                                <div class="line-txt">{{ language.translate("Sign Up") }}</div>
-                            </div>
+                            {#<div class="txt1">{{ language.translate("New to EuroMillions?") }}</div>#}
+                            {#<div class="txt2 yellow">#}
+                                {#<div class="line-sep"></div>#}
+                                {#<div class="line-txt">{{ language.translate("Sign Up") }}</div>#}
+                            {#</div>#}
                             {% set url_signup = '/euromillions/cart/profile' %}
                             {% include "sign-in/_sign-up.volt" %}
                         </div>
                     </div>
-                </div>
+                {#</div>#}
             </div>
 
             <div class="terms txt">
