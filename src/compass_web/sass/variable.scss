@@ -1,6 +1,6 @@
 @import "compass/css3";
 //@import url('https://fonts.googleapis.com/css?family=Chivo|Work+Sans:600,700,900');
-@import url('https://fonts.googleapis.com/css?family=Chivo:400,600,700|Roboto:400,700,900|Work+Sans:300,400,500,600,700,900');
+@import url('https://fonts.googleapis.com/css?family=Chivo:400,600,700|Roboto:400,700,900|Roboto+Condensed:700|Work+Sans:300,400,500,600,700,900');
 
 /*** VARIABLES ***
 NO ALLLOWED: Class, ID or Keyframes
@@ -109,6 +109,7 @@ $basic-font:'Work Sans', sans-serif;
 $ff1 : $basic-font;
 $ff2:'Chivo', sans-serif;
 $ff3:'Roboto', sans-serif;
+$ff4:'Roboto Condensed', sans-serif;
 
 // Grid v2
 
