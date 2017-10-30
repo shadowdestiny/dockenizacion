@@ -1,0 +1,98 @@
+// Results page
+
+.result-page--content {
+  .banner {
+    height: 311px;
+    background-image: url("../img/home/banner/desktop/banner.png");
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    -webkit-background-size: cover;
+    background-size: cover;
+  }
+
+  .title-block {
+
+    background: -webkit-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+    background: -moz-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+    background: -o-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+    background: -ms-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+    background: linear-gradient(90deg, #51a0e9 0%, #1678d3 100%);
+
+    height: 171px;
+
+    position: relative;
+    top: -171px;
+    z-index: 1;
+    margin-bottom: -132px;
+    overflow: hidden;
+
+
+    h2 {
+      //font-family: WorkSans;
+      color:  #ffffff;
+      font-size: 46px;
+      font-weight: 900;
+      text-align: left;
+    }
+
+    h3 {
+      //font-family: WorkSans;
+      color:  #ffffff;
+      font-size: 36px;
+      font-weight: 400;
+      text-align: left;
+    }
+
+    ul {
+      float: right;
+
+      li {
+        width: 100px;
+        background-image: url('../img/results/desktop/ellipce.png');
+        -webkit-background-size: 100px;
+        background-size: 100px;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        text-align: center;
+        height: 101px;
+        line-height: 101px;
+
+        font-family: RobotoCondensed;
+        color:  #333333;
+        font-size: 47px;
+        font-weight: 700;
+      }
+
+      li.star {
+        width: 98px;
+        background-image: url('../img/results/desktop/star.png');
+        -webkit-background-size: 100px;
+        background-size: 100px;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        text-align: center;
+        height: 101px;
+        line-height: 101px;
+      }
+    }
+  }
+
+  .content {
+    padding: 0;
+  }
+
+  .result-section {
+    padding-right: 380px;
+
+    .box-current-winners{
+      background: -webkit-linear-gradient(90deg, #f7f5f5 0%, #f6f4f4 68%, #f5f4f4 100%);
+      background: -moz-linear-gradient(90deg, #f7f5f5 0%, #f6f4f4 68%, #f5f4f4 100%);
+      background: -o-linear-gradient(90deg, #f7f5f5 0%, #f6f4f4 68%, #f5f4f4 100%);
+      background: -ms-linear-gradient(90deg, #f7f5f5 0%, #f6f4f4 68%, #f5f4f4 100%);
+      background: linear-gradient(0deg, #f7f5f5 0%, #f6f4f4 68%, #f5f4f4 100%);
+      //width: 896px;
+      //height: 855px;
+    }
+
+  }
+}
