@@ -15,11 +15,16 @@
 .main-nav {
   text-align: center;
 
+  ul{
+    height: 79px;
+  }
+
   li {
     display: inline-block;
     //margin: 0 18px;
     //margin: 0;
     margin: 0 -3px;
+    height: 79px;
   }
 
 
@@ -43,6 +48,7 @@
     font-size: 24px;
     font-weight: 900;
     line-height: 81px;
+    height: 79px;
     //padding: 0 20px;
     padding: 0 38px;
   }
