@@ -1,0 +1,106 @@
+// Powerball right section
+
+.right-section {
+  width: 360px;
+  float: right;
+  margin-left: -360px;
+
+  section {
+    padding: 31px 23px;
+    border-width: 1px;
+    border-color: #000000;
+    border-style: solid;
+    background-color: #ffffff;
+    width: 358px;
+    //height: 415px;
+    margin-bottom: 21px;
+
+    .corner {
+      position: relative;
+    }
+
+    .corner:after {
+      content: "";
+      display: block;
+      position: absolute;
+      border: 30px solid transparent;
+      border-right: 30px solid #4698e5;
+      border-top: 30px solid #4698e5;
+      right: -22px;
+      top: -30px;
+    }
+
+    .title {
+      //font-family: WorkSans;
+      color: #333333;
+      font-size: 36px;
+      font-weight: 700;
+      text-align: center;
+      text-transform: uppercase;
+      margin-bottom: 50px;
+    }
+
+    .price {
+      //font-family: WorkSans;
+      color: #333333;
+      font-size: 96.65px;
+      font-weight: 900;
+      text-transform: uppercase;
+      text-align: center;
+      position: relative;
+      left: -8px;
+      margin-bottom: 44px;
+    }
+
+    .measure {
+      //font-family: WorkSans;
+      color: #333333;
+      font-size: 37.58px;
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 37px;
+    }
+
+    .timer {
+      margin-bottom: 40px;
+
+      .countdown {
+        border-width: 1px;
+        border-color: #333333;
+        border-style: solid;
+        width: 310px;
+        height: 46px;
+        text-align: center;
+
+        div, span {
+          color: #333333;
+          font-size: 24px;
+          font-weight: 600;
+          text-align: center;
+          line-height: 44px;
+        }
+      }
+    }
+
+    .btn-row {
+      .btn-theme--big {
+        width: 100%;
+        height: 75px;
+        font-size: 34px;
+        line-height: 75px;
+      }
+    }
+
+    &.section-01 {
+    }
+
+    &.section-02 {
+      .corner:after {
+        border-right: 30px solid #ff0000;
+        border-top: 30px solid #ff0000;
+      }
+
+    }
+
+  }
+}
