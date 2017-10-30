@@ -1,100 +1,161 @@
 //Login and Sign In
 
-  .profile .signin-form,
-  .signin-form {
+.profile .signin-form,
+.signin-form {
 
-    position: relative;
+  &:last-of-type {
+    margin-bottom: 60px;
+  }
+
+  position: relative;
+  border-radius: 4px;
+  border: 1px solid #E9E9E9;
+  background-color: #fcfcfc;
+  max-width: 600px;
+  //height: 755px;
+  margin: auto;
+  margin-top: 30px;
+  padding: 70px 93px !important;
+
+  .signin--btn {
+    position: absolute;
+    font-family: Roboto;
+    color: #999999;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+
     border-radius: 4px;
-    border: 1px solid #E9E9E9;
-    background-color: #fcfcfc;
-    max-width: 600px;
-    //height: 755px;
-    margin: auto;
-    margin-top: 30px;
-    padding: 70px 93px !important;
+    border-width: 1px;
+    border-color: #b7b7b7;
+    border-style: solid;
+    height: 29px;
+    line-height: 26px;
+    padding: 0 12px;
+    top: 24px;
+    left: 30px;
+  }
 
-    .signin--btn {
-      position: absolute;
-      font-family: Roboto;
-      color:  #999999;
-      font-size: 16px;
-      font-weight: 500;
-      text-align: center;
-      cursor: pointer;
-      text-decoration: none;
+  .close--btn {
+    position: absolute;
+    cursor: pointer;
+    width: 29px;
+    height: 29px;
+    right: 29px;
+    top: 24px;
+    background-image: url('../img/sign/desktop/close.svg');
 
-      border-radius: 4px;
-      border-width: 1px;
-      border-color:  #b7b7b7;
-      border-style: solid;
-      height: 29px;
-      line-height: 26px;
-      padding: 0 12px;
-      top: 24px;
-      left: 30px;
-    }
-
-    .close--btn {
-      position: absolute;
-      cursor: pointer;
+    .close--btn--inner {
+      position: relative;
       width: 29px;
       height: 29px;
-      right: 29px;
-      top: 29px;
       background-image: url('../img/sign/desktop/close.svg');
+      transform: rotate(90deg);
+    }
+  }
 
-      .close--btn--inner {
-        position: relative;
-        width: 29px;
-        height: 29px;
-        background-image: url('../img/sign/desktop/close.svg');
-        transform: rotate(90deg);
-      }
+  h1,
+  .title {
+    //font-family: WorkSans;
+    color: #403f3f;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    //font-weight: 400;
+    font-weight: 600;
+    margin-bottom: 29px;
+  }
+
+  form {
+    .input,
+    input {
+      padding-left: 0;
+      width: 100%;
+
+      height: 30px;
+      line-height: 30px;
+      margin-bottom: 28px;
     }
 
-    h1,
-    .title {
-      //font-family: WorkSans;
+    .select,
+    select {
+      width: 100%;
+    }
+
+    input[type="checkbox"] {
+      display: none;
+    }
+
+    .btn-theme--big {
+      height: 56px;
+      line-height: 57px;
+      font-size: 24px;
+    }
+
+    .pass-alert {
       color: #403f3f;
       font-size: 16px;
       line-height: 20px;
       text-align: center;
-      //font-weight: 400;
       font-weight: 600;
-      margin-bottom: 29px;
+      clear: both;
+      padding-top: 12px;
+      margin-bottom: 38px;
     }
 
-    form {
-      .input,
-      input {
-        padding-left: 0;
-        width: 100%;
+    .selectbox {
+      margin-bottom: 28px;
+    }
 
-        height: 30px;
-        line-height: 30px;
-        margin-bottom: 28px;
+    .btn-row{
+      height: 70px;
+    }
+
+    .txt--already-have-account {
+
+      //font-family: WorkSans;
+      font-family: $ff1;
+      color: #999999;
+      font-size: 16px;
+      font-weight: 400;
+      text-align: center;
+      margin-bottom: 35px;
+
+      a {
+        //font-family: WorkSans;
+        font-family: inherit;
+        color: #56a1e8;
+        font-size: 16px;
+        font-weight: 400;
+        text-align: left;
+        text-decoration: none;
       }
 
-      .select,
-      select {
-        width: 100%;
-      }
-
-      input[type="checkbox"] {
-        display: none;
-      }
-
-      .btn-theme--big {
-        height: 56px;
-        line-height: 57px;
-        font-size: 24px;
+      a:hover {
+        text-decoration: underline;
       }
     }
 
+    .txt--accept {
+      //font-family: WorkSans;
+      font-family: $ff1;
+      color: #404040;
+      font-size: 16px;
+      font-weight: 300;
+      text-align: left;
+
+      span {
+        font-weight: 300;
+      }
+    }
   }
 
-  .signin-form--logo {
-    clear: both;
-    margin: auto;
-    overflow: hidden;
-  }
+}
+
+.signin-form--logo {
+  clear: both;
+  margin: auto;
+  overflow: hidden;
+}

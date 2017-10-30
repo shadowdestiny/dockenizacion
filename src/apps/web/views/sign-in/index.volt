@@ -50,9 +50,9 @@ $(function(){swap(".log-in .box-extra a, .sign-up .box-extra a");});
                 {% include "sign-in/_sign-up.volt" %}
             </div>
 
-            <div class="terms txt">
-                {{ language.translate("signup_signInTC") }}
-            </div>
+            {#<div class="terms txt">#}
+                {#{{ language.translate("signup_signInTC") }}#}
+            {#</div>#}
         </div>
     </div>
 </main>

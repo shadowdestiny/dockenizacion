@@ -58,7 +58,9 @@ $(function(){
 {% block bodyClass %}cart profile minimal sign-in{% endblock %}
 
 {% block header %}{% include "_elements/minimal-header.volt" %}{% endblock %}
-{% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}
+
+{#TODO: uncomment this block if it needed#}
+{#{% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}#}
 
 {% block body %}
 {% set signIn='{"myClass": "cart"}'|json_decode %}
@@ -94,10 +96,10 @@ $(function(){
                 {#</div>#}
             </div>
 
-            <div class="terms txt">
-                {{ language.translate("By signing in you agree to our") }} <a href="/{{ language.translate("link_legal_index") }}">{{ language.translate("Terms &amp; Conditions") }}</a>
-                <br>{{ language.translate("and that you are 18+ years old.") }}
-            </div>
+            {#<div class="terms txt">#}
+                {#{{ language.translate("By signing in you agree to our") }} <a href="/{{ language.translate("link_legal_index") }}">{{ language.translate("Terms &amp; Conditions") }}</a>#}
+                {#<br>{{ language.translate("and that you are 18+ years old.") }}#}
+            {#</div>#}
 
         </div>
     </div>

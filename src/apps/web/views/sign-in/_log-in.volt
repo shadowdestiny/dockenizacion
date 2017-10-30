@@ -22,9 +22,15 @@
     <div class="cl">
         <input id="go" type="submit" class="hidden2" />
         {% if signIn.myClass == 'sign-in' %}
-            <label for="go" class="submit  btn-theme--big">{{ language.translate("signin_LogIn_btn") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
+            <label for="go" class="submit  btn-theme--big">
+                {{ language.translate("signin_LogIn_btn") }}
+                {#<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use>#}
+                </svg></label>
         {% elseif signIn.myClass == 'cart' %}
-            <label for="go" class="submit btn-theme--big">{{ language.translate("Login &amp; Play") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
+            <label for="go" class="submit btn-theme--big">
+                {{ language.translate("Login &amp; Play") }}
+                {#<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg>#}
+            </label>
         {% endif %}
     </div>
     

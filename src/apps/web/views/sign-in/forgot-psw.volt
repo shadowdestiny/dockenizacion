@@ -6,11 +6,15 @@
 {% block body %}
 <main id="content">
     <div class="wrapper">
+
+
         {#<div class="col-left">#}
-        <div class="signin-form--logo">
-            {% include "_elements/logo.volt" %}
-        </div>
+        {#<div class="signin-form--logo">#}
+            {#{% include "_elements/logo.volt" %}#}
         {#</div>#}
+        {#</div>#}
+
+
         {#<div class="col-right">#}
             <div class="signin-form">
                 <h1 class="h2 title">{{ language.translate("Password recovery") }}</h1>
@@ -44,7 +48,10 @@
     #}
                     <div class="cl">
                         <input id="go" type="submit" class="hidden2" />
-                        <label for="go" class="submit  btn-theme--big">{{ language.translate("Retrieve Password") }}<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
+                        <label for="go" class="submit  btn-theme--big">
+                            {{ language.translate("Retrieve Password") }}
+                            {#<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg>#}
+                        </label>
                     </div>
                 {{ endform() }}
             </div>

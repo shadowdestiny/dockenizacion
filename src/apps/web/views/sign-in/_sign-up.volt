@@ -20,19 +20,43 @@
     {{ signupform.render('password', {'class':'input'~form_errors['password']}) }}
     {{ signupform.render('confirm_password', {'class':'input'~form_errors['confirm_password']}) }}
     {#<p class="small-txt"><svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg> {{ language.translate("signup_passwordLenght") }}</p>#}
-    <div class="title"><svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg> {{ language.translate("signup_passwordLenght") }}</div>
+    <div class="pass-alert"><svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg> {{ language.translate("signup_passwordLenght") }}</div>
 
     <div class="selectbox">
         {{ signupform.render('country', {'class':'select'~form_errors['country']}) }}
     </div>
 
-    <div class="cl">
+    <div class="cl btn-row">
         <input id="goSignUp" type="submit" class="hidden2" />
         {% if signIn.myClass == 'sign-in' %}
-            <label for="goSignUp" class="submit btn-theme--big">{{ language.translate("signup_createAccount_btn") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
+            <label for="goSignUp" class="submit btn-theme--big">
+                {{ language.translate("signup_createAccount_btn") }}
+                {#<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg>#}
+            </label>
         {% elseif signIn.myClass == 'cart' %}
-            <label for="goSignUp" class="submit btn-theme--big">{{ language.translate("Create account &amp; Play") }} <svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg></label>
+            <label for="goSignUp" class="submit btn-theme--big">
+                {#TODO : Add real variables here#}
+                sign up
+                {#{{ language.translate("Create account &amp; Play") }}#}
+                {#<svg class="ico v-arrow-right"><use xlink:href="/w/svg/icon.svg#v-arrow-right"></use></svg>#}
+            </label>
         {% endif %}
+    </div>
+
+    <div class="cl txt--already-have-account">
+        Already have an account? <a href="/{{ language.translate("link_signin") }}">Sign in Now!</a>
+    </div>
+
+    <div class="cl txt--accept">
+
+        {#TODO : Add real variables here#}
+        <label class="label left" for="accept">
+            <input type="checkbox" id="accept" name="accept" value="yes" class="checkbox" data-role="none">
+            <span class="checkbox-after"></span>
+            <span class="txt">
+                I accept the Terms & Conditions and Privacy Policy.
+            </span>
+        </label>
     </div>
 
     <div class="box-extra{% if signIn.myClass == 'cart' %} hidden{% endif %}"><span class="txt">{{ language.translate("signup_accountQuestion") }}</span> <a class="btn gwy" href="javascript:void(0)">{{ language.translate("signup_LogIn_btn") }}</a></div>

@@ -91,6 +91,7 @@
 @mixin selectbox {
 
   position: relative;
+  overflow: hidden;
 
   select {
 
