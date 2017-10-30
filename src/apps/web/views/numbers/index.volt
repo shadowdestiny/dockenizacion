@@ -214,7 +214,7 @@
                                                     <td class="td-prize">
                                                         {#{{ symbol }} {{ break_downs[name]['lottery_prize'] | number_format(2, '.', ',') }}#}
                                                         <span>
-                                                            {{ symbol }} 120,000,000
+                                                            {{ symbol }}120,000,000
                                                         </span>
                                                     </td>
                                                 {% endif %}

@@ -1,8 +1,10 @@
 // Results page
 
 .result-page--content {
+  padding-bottom: 60px;
+
   .banner {
-    height: 311px;
+    height: 398px;
     background-image: url("../img/home/banner/desktop/banner.png");
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -23,8 +25,10 @@
     position: relative;
     top: -171px;
     z-index: 1;
-    margin-bottom: -132px;
+    margin-bottom: -149px;
     overflow: hidden;
+
+    padding: 34px 42px 0 28px;
 
     h2 {
       //font-family: WorkSans;
@@ -32,6 +36,7 @@
       font-size: 46px;
       font-weight: 900;
       text-align: left;
+      margin-bottom: 10px;
     }
 
     h3 {
@@ -53,26 +58,37 @@
         background-repeat: no-repeat;
         background-position: 50% 50%;
         text-align: center;
-        height: 101px;
-        line-height: 101px;
+        height: 100px;
+        line-height: 100px;
 
         //font-family: RobotoCondensed;
-        font-family: $ff3;
+        font-family: $ff4;
         color: #333333;
         font-size: 47px;
         font-weight: 700;
+        margin-left: 5px;
       }
 
       li.star {
         width: 101px;
         background-image: url('../img/results/desktop/star.png');
-        -webkit-background-size: 100px;
-        background-size: 100px;
+        -webkit-background-size: 97px;
+        background-size: 97px;
         background-repeat: no-repeat;
         background-position: 50% 50%;
         text-align: center;
-        height: 101px;
+        //height: 106px;
         line-height: 101px;
+        margin-left: 37px;
+
+        &:last-of-type {
+          margin-left: 12px;
+        }
+
+        span {
+          position: relative;
+          top: 5px;
+        }
       }
     }
   }
@@ -92,15 +108,16 @@
       background: linear-gradient(0deg, #f7f5f5 0%, #f6f4f4 68%, #f5f4f4 100%);
       //width: 896px;
       //height: 855px;
-      padding: 30px;
+      padding: 25px 25px;
 
       h1 {
         //font-family: WorkSans;
         color: #454545;
         font-size: 23px;
         font-weight: 700;
-        text-align: center;
+        text-align: left;
         text-transform: none;
+        margin-bottom: 53px;
       }
 
       .table {
@@ -110,6 +127,7 @@
           background-color: transparent;
           border: 0;
           width: 33%;
+          padding: 3px 0 24px 3px;
         }
       }
 
@@ -127,7 +145,12 @@
         }
 
         .td-winners {
+          padding-left: 153px;
+        }
 
+        .td-prize{
+          //padding-left: 106px;
+          text-align: right;
         }
 
         span {
