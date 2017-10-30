@@ -26,10 +26,9 @@
     margin-bottom: -132px;
     overflow: hidden;
 
-
     h2 {
       //font-family: WorkSans;
-      color:  #ffffff;
+      color: #ffffff;
       font-size: 46px;
       font-weight: 900;
       text-align: left;
@@ -37,7 +36,7 @@
 
     h3 {
       //font-family: WorkSans;
-      color:  #ffffff;
+      color: #ffffff;
       font-size: 36px;
       font-weight: 400;
       text-align: left;
@@ -58,7 +57,7 @@
         line-height: 101px;
 
         font-family: RobotoCondensed;
-        color:  #333333;
+        color: #333333;
         font-size: 47px;
         font-weight: 700;
       }
@@ -84,7 +83,7 @@
   .result-section {
     padding-right: 380px;
 
-    .box-current-winners{
+    .box-current-winners--new {
       background: -webkit-linear-gradient(90deg, #f7f5f5 0%, #f6f4f4 68%, #f5f4f4 100%);
       background: -moz-linear-gradient(90deg, #f7f5f5 0%, #f6f4f4 68%, #f5f4f4 100%);
       background: -o-linear-gradient(90deg, #f7f5f5 0%, #f6f4f4 68%, #f5f4f4 100%);
@@ -92,6 +91,52 @@
       background: linear-gradient(0deg, #f7f5f5 0%, #f6f4f4 68%, #f5f4f4 100%);
       //width: 896px;
       //height: 855px;
+      padding: 30px;
+
+      h1 {
+        //font-family: WorkSans;
+        color: #454545;
+        font-size: 23px;
+        font-weight: 700;
+        text-align: center;
+        text-transform: none;
+      }
+
+      .table {
+        background-color: transparent;
+        
+        td {
+          background-color: transparent;
+          border: 0;
+          width: 33%;
+        }
+      }
+
+      thead {
+        display: none;
+      }
+
+      tbody {
+        .td-ball {
+
+        }
+
+        .td-star-ball {
+          display: none;
+        }
+
+        .td-winners {
+
+        }
+
+        span {
+          //font-family: WorkSans;
+          color: #333333;
+          font-size: 22px;
+          font-weight: 400;
+          text-align: left;
+        }
+      }
     }
 
   }

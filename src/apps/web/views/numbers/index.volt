@@ -160,8 +160,12 @@
 
                         <div class="">
                             <div class="">
-                                <div class="box-current-winners2">
-                                    <h1 class="h2 purple">{{ language.translate("prizePool_title") }}</h1>
+                                <div class="box-current-winners--new">
+                                    {#<h1 class="h2 purple">{{ language.translate("prizePool_title") }}</h1>#}
+                                    <h1 class="h2">
+                                        {#{{ language.translate("prizePool_title") }}#}
+                                        Euromillions Results & price breakdown for Tuesday 02 November 2016
+                                    </h1>
                                     <table id="current-winners" class="table ui-responsive" data-role="table"
                                            data-mode="reflow">
                                         <thead>
@@ -178,8 +182,12 @@
                                                 {% if break_downs[name] is defined %}
                                                     <td class="td-ball">
                                                         {% for corrected_numbers in 1..break_downs[name]['numbers_corrected'] %}
-                                                            <span class="ball"></span>
+                                                            {#<span class="ball"></span>#}
                                                         {% endfor %}
+
+                                                        <span>
+                                                                5 Numbers + 2 Starts
+                                                            </span>
                                                     </td>
                                                     <td class="td-star-ball">
                                                         {% if break_downs[name]['stars_corrected'] > 0 %}
@@ -188,8 +196,18 @@
                                                             {% endfor %}
                                                         {% endif %}
                                                     </td>
-                                                    <td class="td-winners">{{ break_downs[name]['winners'] }}</td>
-                                                    <td class="td-prize">{{ symbol }} {{ break_downs[name]['lottery_prize'] | number_format(2, '.', ',') }}</td>
+                                                    <td class="td-winners">
+                                                        {#{{ break_downs[name]['winners'] }}#}
+                                                        <span>
+                                                            15x
+                                                        </span>
+                                                    </td>
+                                                    <td class="td-prize">
+                                                        {#{{ symbol }} {{ break_downs[name]['lottery_prize'] | number_format(2, '.', ',') }}#}
+                                                        <span>
+                                                            {{ symbol }} 120,000,000
+                                                        </span>
+                                                    </td>
                                                 {% endif %}
                                             </tr>
                                         {% endfor %}
