@@ -65,19 +65,28 @@
                         {% for index,regular_number in last_result["regular_numbers"] %}
                             {% if index == '0' %}
                                 <li>
-                                    <div class="crown">
-                                        <svg class="vector">
-                                            <use xlink:href="/w/svg/number.svg#crown"></use>
-                                        </svg>
-                                    </div>
-                                    <span class="num">{{ regular_number }}</span></li>
+                                    {#<span class="num">{{ regular_number }}</span>#}
+                                    <span class="num">
+                                        29
+                                    </span>
+                                </li>
                             {% else %}
-                                <li><span class="num">{{ regular_number }}</span></li>
+                                <li>
+                                    {#<span class="num">{{ regular_number }}</span>#}
+                                    <span class="num">
+                                        5
+                                    </span>
+                                </li>
                             {% endif %}
                         {% endfor %}
                         {% for lucky_number in last_result["lucky_numbers"] %}
-                            <li class="star"><span class="num">{{ lucky_number }}</span><span
-                                        class="txt">{{ language.translate("starBall") }}</span></li>
+                            <li class="star">
+                                {#<span class="num">{{ lucky_number }}</span>#}
+                                <span class="num">
+                                    12
+                                </span>
+                                {#<span class="txt">{{ language.translate("starBall") }}</span>#}
+                            </li>
                         {% endfor %}
                     </ul>
 

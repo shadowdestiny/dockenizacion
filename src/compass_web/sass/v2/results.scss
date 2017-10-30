@@ -56,14 +56,15 @@
         height: 101px;
         line-height: 101px;
 
-        font-family: RobotoCondensed;
+        //font-family: RobotoCondensed;
+        font-family: $ff3;
         color: #333333;
         font-size: 47px;
         font-weight: 700;
       }
 
       li.star {
-        width: 98px;
+        width: 101px;
         background-image: url('../img/results/desktop/star.png');
         -webkit-background-size: 100px;
         background-size: 100px;
@@ -104,7 +105,7 @@
 
       .table {
         background-color: transparent;
-        
+
         td {
           background-color: transparent;
           border: 0;
