@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$ff1".
-        on line 119 of /src/compass_web/sass/v2/signin.scss
+        on line 122 of /src/compass_web/sass/v2/signin.scss
 
-114:     }
-115: 
-116:     .txt--already-have-account {
-117: 
-118:       //font-family: WorkSans;
-119:       font-family: $ff1;
-120:       color: #999999;
-121:       font-size: 16px;
-122:       font-weight: 400;
-123:       text-align: center;
-124:       margin-bottom: 35px;
+117:     }
+118: 
+119:     .txt--already-have-account {
+120: 
+121:       //font-family: WorkSans;
+122:       font-family: $ff1;
+123:       color: #999999;
+124:       font-size: 16px;
+125:       font-weight: 400;
+126:       text-align: center;
+127:       margin-bottom: 35px;
 
 Backtrace:
-/src/compass_web/sass/v2/signin.scss:119
+/src/compass_web/sass/v2/signin.scss:122
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:394:in `visit_prop'
@@ -88,4 +88,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$ff1\".\A         on line 119 of /src/compass_web/sass/v2/signin.scss\A \A 114:     }\A 115: \A 116:     .txt--already-have-account {\A 117: \A 118:       //font-family: WorkSans;\A 119:       font-family: $ff1;\A 120:       color: #999999;\A 121:       font-size: 16px;\A 122:       font-weight: 400;\A 123:       text-align: center;\A 124:       margin-bottom: 35px;"; }
+  content: "Error: Undefined variable: \"$ff1\".\A         on line 122 of /src/compass_web/sass/v2/signin.scss\A \A 117:     }\A 118: \A 119:     .txt--already-have-account {\A 120: \A 121:       //font-family: WorkSans;\A 122:       font-family: $ff1;\A 123:       color: #999999;\A 124:       font-size: 16px;\A 125:       font-weight: 400;\A 126:       text-align: center;\A 127:       margin-bottom: 35px;"; }

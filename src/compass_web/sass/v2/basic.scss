@@ -54,35 +54,82 @@ a:visited, .lnk:visited {
 }
 
 
-//.select,
-.selectbox {
-  @include selectbox();
-}
 
-//.input,
-input {
-  @include input();
-}
+form {
+  //.select,
+  .selectbox {
+    @include selectbox();
+  }
 
-//.textarea,
-textarea {
-  @include textarea();
-}
+  //.input,
+  input {
+    @include input();
+  }
 
-input[type="checkbox"] + .checkbox-after {
+  //.textarea,
+  textarea {
+    @include textarea();
+  }
+
+  input[type="checkbox"] + .checkbox-after {
 
     display: inline-block;
     background-color: #fff;
     border-radius: 2px;
     border-width: 1px;
-    border-color:  #404040;
+    border-color: #404040;
     border-style: solid;
     width: 10px;
     height: 10px;
 
+  }
+  input[type="checkbox"]:checked + .checkbox-after {
+    //background-color: #404040;
+    background-color: #fbd93a;
+  }
 
-}
-input[type="checkbox"]:checked + .checkbox-after {
-  //background-color: #404040;
-  background-color: #fbd93a;
+  .input--email {
+    position: relative;
+    padding-left: 67px;
+    overflow: hidden;
+
+    &::before {
+      display: block;
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: 0;
+      border:1px solid #b7b7b7;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      background-image: url('../img/sign/desktop/email.png');
+      background-repeat: no-repeat;
+      -webkit-background-size: 18px;
+      background-size: 18px;
+      background-position: 50% 50%;
+    }
+  }
+  .input--password {
+    position: relative;
+    padding-left: 67px;
+    overflow: hidden;
+
+    &::before {
+      display: block;
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 0;
+      border:1px solid #b7b7b7;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      background-image: url('../img/sign/desktop/password.png');
+      background-repeat: no-repeat;
+      -webkit-background-size: 14px;
+      background-size: 14px;
+      background-position: 50% 50%;
+    }
+  }
 }

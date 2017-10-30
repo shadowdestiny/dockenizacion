@@ -15,7 +15,8 @@
   //height: 755px;
   margin: auto;
   margin-top: 30px;
-  padding: 70px 93px !important;
+  //padding: 70px 93px !important;
+  padding: 74px 93px !important;
 
   .signin--btn {
     position: absolute;
@@ -65,7 +66,7 @@
     text-align: center;
     //font-weight: 400;
     font-weight: 600;
-    margin-bottom: 29px;
+    margin-bottom: 26px;
   }
 
   form {
@@ -77,11 +78,13 @@
       height: 30px;
       line-height: 30px;
       margin-bottom: 28px;
+      font-size: 18px;
     }
 
     .select,
     select {
       width: 100%;
+      font-size: 18px;
     }
 
     input[type="checkbox"] {
