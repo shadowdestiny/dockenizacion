@@ -29,7 +29,7 @@ class IndexController extends PublicSiteControllerBase
         $this->view->setVar('date_draw', $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours')->format('Y-m-d H:i:s'));
         $this->view->setVar('last_draw_date', $last_draw_date->format('l, F j, Y'));
 
-        $this->tag->prependTitle($translationAdapter->query('play_em_name') . ViewHelper::formatJackpotNoCents($jackpot));
+        $this->tag->prependTitle($translationAdapter->query('home_name') . ViewHelper::formatJackpotNoCents($jackpot));
         MetaDescriptionTag::setDescription($translationAdapter->query('home_desc'));
     }
 
