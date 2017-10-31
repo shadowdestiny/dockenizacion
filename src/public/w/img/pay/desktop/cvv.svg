@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="19px" height="19px" viewBox="0 0 19 19">
+<style type="text/css"><![CDATA[
+.style0 {
+  font-size: 17px;
+  font-family: "WorkSans-Regular";
+  fill: rgb(51,51,51);
+  text-transform: uppercase;
+}
+]]></style>
+<path fillRule="evenodd" d="M 9.5 18C 14.19 18 18 14.19 18 9.5 18 4.81 14.19 1 9.5 1 4.81 1 1 4.81 1 9.5 1 14.19 4.81 18 9.5 18M 9.5 19C 4.25 19 0 14.75 0 9.5 0 4.25 4.25 0 9.5 0 14.75 0 19 4.25 19 9.5 19 14.75 14.75 19 9.5 19 9.5 19 9.5 19 9.5 19Z" fill="rgb(51,51,51)"/><text transform="translate(4.50,16.00)" class="style0"><tspan x="0.00" fill="rgb(50,50,50)">?</tspan></text></svg>
