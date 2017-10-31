@@ -1,0 +1,61 @@
+// Navigation for the Pages: Account, Legal
+
+#content.account-page,
+#content.legal-page {
+  .nav {
+    position: static;
+    width: 100%;
+    padding-top: 17px;
+    padding-bottom: 17px;
+
+    ul {
+      overflow: hidden;
+      padding: 0 30px;
+
+      li {
+        float: left;
+        width: 25%;
+        border: 2px solid #fff;
+        text-align: center;
+        background-color: #f6f6f6;
+        height: 57px;
+
+        a.active,
+        a {
+          //display: block;
+          //text-decoration: none;
+          //padding: 10px 15px;
+          //border-bottom: 1px solid #efc048;
+
+          border: 0;
+          padding: 0;
+          text-align: center;
+          background-color: #f6f6f6;
+          height: 55px;
+          line-height: 55px;
+          text-transform: uppercase;
+
+          //font-family: WorkSans;
+          font-family: $ff1;
+          color: #a8a9a8;
+          font-size: 18px;
+          font-weight: 500;
+          text-shadow: 0;
+        }
+
+        a:hover,
+        a.active {
+          background: #6c6c6c;
+          color: #fad428;
+          cursor: default;
+          //text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        a:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
