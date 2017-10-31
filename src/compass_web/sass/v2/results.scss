@@ -108,7 +108,8 @@
       background: linear-gradient(0deg, #f7f5f5 0%, #f6f4f4 68%, #f5f4f4 100%);
       //width: 896px;
       //height: 855px;
-      padding: 25px 25px;
+      padding: 25px 25px 5px 25px;
+
 
       h1 {
         //font-family: WorkSans;
@@ -159,6 +160,50 @@
           font-size: 22px;
           font-weight: 400;
           text-align: left;
+        }
+      }
+    }
+
+    .previous-results {
+      overflow: hidden;
+      padding: 30px 3px 0 3px;
+
+      .previous-results--title {
+        //font-family: WorkSans;
+        color:  #333333;
+        font-size: 18px;
+        font-weight: 600;
+        text-align: left;
+        padding-bottom: 22px;
+      }
+
+      .previous-results--selectboxes {
+        text-align: left;
+
+        .selectbox {
+          display: inline-block;
+          margin-right: 6px;
+
+          &::after {
+            background-image: url('../img/results/desktop/arrow.png');
+            top: 13px;
+            right: 16px;
+          }
+
+          select {
+            height: 33px;
+            padding-left: 14px;
+            padding-right: 55px;
+            border-radius: 4px;
+            border-width: 1px;
+            border-color:  #000000;
+
+            //font-family: WorkSans;
+            color:  #333333;
+            font-size: 18px;
+            font-weight: 400;
+            text-align: left;
+          }
         }
       }
     }
