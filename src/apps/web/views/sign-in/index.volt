@@ -22,10 +22,10 @@ $(function(){swap(".log-in .box-extra a, .sign-up .box-extra a");});
 
 <main id="content" style="padding-top:40px;">
     <div class="wrapper cl">
-        <div class="col-left">
-            {% include "_elements/logo.volt" %}
-        </div>
-        <div class="col-right">
+        {#<div class="col-left">#}
+            {#{% include "_elements/logo.volt" %}#}
+        {#</div>#}
+        {#<div class="col-right">#}
             <div class="signin-form log-in">
                 <h1 class="h1 title">{{ language.translate("signin_head") }}</h1>
 
@@ -53,7 +53,7 @@ $(function(){swap(".log-in .box-extra a, .sign-up .box-extra a");});
             {#<div class="terms txt">#}
                 {#{{ language.translate("signup_signInTC") }}#}
             {#</div>#}
-        </div>
+        {#</div>#}
     </div>
 </main>
 {% endblock %}
