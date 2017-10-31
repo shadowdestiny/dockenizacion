@@ -157,14 +157,14 @@
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
-    <main id="content">
+    <main id="content" class="account-page">
         <div class="wrapper">
-            <div class="nav box-basic">
+            <div class="nav">
                 {% set activeSubnav='{"myClass": "wallet"}'|json_decode %}
                 {% include "account/_nav.volt" %}
             </div>
 
-            <div class="box-basic content">
+            <div class="content">
                 <div class="{% if show_box_basic == true %}hidden{% endif %} right back cl">
                     <a class="btn" href="javascript:void(0);">{{ language.translate("balance_back_btn") }}</a>
                 </div>

@@ -12,13 +12,13 @@
 {% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script>{% endblock %}
 
 {% block body %}
-<main id="content">
+<main id="content" class="account-page">
     <div class="wrapper">
-        <div class="nav box-basic">
+        <div class="nav">
            {% set activeSubnav='{"myClass": "messages"}'|json_decode %}
            {% include "account/_nav.volt" %}
         </div>
-        <div class="box-basic content">
+        <div class="content">
             <div class="hidden right back">
                 <a class="btn" href="javascript:void(0);">{{ language.translate("balance_back_btn") }}</a>
             </div>

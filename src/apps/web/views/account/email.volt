@@ -40,13 +40,13 @@
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
 
 {% block body %}
-<main id="content">
+<main id="content" class="account-page">
     <div class="wrapper">
-        <div class="nav box-basic">
+        <div class="nav">
            {% set activeSubnav='{"myClass": "email"}'|json_decode %}
            {% include "account/_nav.volt" %}
         </div>
-        <div class="box-basic content">
+        <div class="content">
             <h1 class="h1 title yellow">{{ language.translate("email_head") }}</h1>
 
             {% if message %}

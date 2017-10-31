@@ -29,13 +29,13 @@
     }
 {% endblock %}
 {% block body %}
-    <main id="content">
+    <main id="content" class="account-page">
         <div class="wrapper">
-            <div class="nav box-basic">
+            <div class="nav">
                 {% set activeSubnav='{"myClass": "games"}'|json_decode %}
                 {% include "account/_nav.volt" %}
             </div>
-            <div class="box-basic content">
+            <div class="content">
                 <h1 class="h1 title">{{ language.translate("tickets_head") }}</h1>
 
                 {% if my_games_actives is empty and my_subscription_actives is empty %}

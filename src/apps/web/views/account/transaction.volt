@@ -92,14 +92,14 @@
 {% endblock %}
 
 {% block body %}
-    <main id="content">
+    <main id="content" class="account-page">
         <div class="wrapper">
-            <div class="nav box-basic">
+            <div class="nav">
                 {% set activeSubnav='{"myClass": "transaction"}'|json_decode %}
                 {% include "account/_nav.volt" %}
             </div>
 
-            <div class="box-basic content">
+            <div class="content">
                 <h1 class="h1 title">{{ language.translate("transaction_head") }}</h1>
 
                 {#<div class="box success">#}

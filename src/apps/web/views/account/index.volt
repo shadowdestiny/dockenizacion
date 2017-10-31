@@ -12,13 +12,13 @@
 {% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script>{% endblock %}
 
 {% block body %}
-<main id="content">
+<main id="content" class="account-page">
     <div class="wrapper">
-        <div class="nav box-basic">
+        <div class="nav">
            {% set activeSubnav='{"myClass": "account"}'|json_decode %}
            {% include "account/_nav.volt" %}
         </div>
-        <div class="box-basic content">
+        <div class="content">
             <div class="my-account" {% if which_form == 'index' %} style="display: block" {%  else %} style="display: none" {% endif %}>
 
                 <h1 class="h1 title yellow">{{ language.translate("account_head") }}</h1>
