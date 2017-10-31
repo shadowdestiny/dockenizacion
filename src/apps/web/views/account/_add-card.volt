@@ -49,10 +49,13 @@
 
 <div class="wrap">
     {% if component.where == 'account' %}
-    <div class="cols fix-margin">
-        <div class="col6 first">
+    <div class="">
+        <div class="">
             {% endif %}
-            <h2 class="h2 yellow">{{ language.translate("card_subhead") }}</h2>
+            <h2 class="h2">
+                {{ language.translate("card_subhead") }}
+                enter your credit card details
+            </h2>
 
 
             {% if component.where == 'cart' %}
@@ -69,8 +72,8 @@
                 </div>
             {% endif %}
 
-            <div class="cols">
-                <div class="col6">
+            <div class="">
+                <div class="">
                     {% endif %}
 
 

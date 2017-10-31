@@ -313,8 +313,8 @@
                         <h2 class="h3 yellow">{{ language.translate("withdraw_bank") }}</h2>
 
                         <div class="wrap">
-                            <div class="cols">
-                                <div class="col6">
+                            <div class="">
+                                <div class="">
                                     <label class="label" for="add-bank-user">
                                         {{ language.translate("withdraw_name") }} <span class="asterisk">*</span> <span
                                                 class="subtxt">({{ language.translate("bank account holder name") }}</span>
@@ -339,11 +339,13 @@
                                     </label>
                                     {{ bank_account_form.render('bank-swift', {'class':'input'~form_errors['bank-swift']}) }}
                                 </div>
-                                <div class="col6">
+                                <div class="">
                                     <label class="label" for="add-bank-country">
                                         {{ language.translate("withdraw_county") }} <span class="asterisk">*</span>
                                     </label>
+                                    <div class="selectbox">
                                     {{ bank_account_form.render('country', {'disabled':'disabled','class':'select'~form_errors['country']}) }}
+                                    </div>
 
                                     <label class="label" for="add-bank-address">
                                         {{ language.translate("withdraw_address") }} <span class="asterisk">*</span>
@@ -365,7 +367,7 @@
                             </div>
                         </div>
                         <div class="cl">
-                            <label class="label submit btn gray" style="cursor:default" for="new-bank">
+                            <label class="label submit btn gray" style="cursor:default; float: left;" for="new-bank">
                                 {{ language.translate("withdraw_request_btn") }}
                                 <input id="new-bank" type="submit" class="hidden">
                             </label>
