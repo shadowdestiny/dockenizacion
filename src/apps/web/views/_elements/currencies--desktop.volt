@@ -9,15 +9,31 @@
         <ul class="no-li">
             {% for currency in currencies %}
                 {% if currency.code != user_currency_code %}
-                    <li><a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">{{ language.translate(currency.code ~ "_code") }}
-                            &nbsp; {{ language.translate(currency.code ~ "_name") }}</a></li>
+                    <li class="currency--li">
+                        <a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">{{ language.translate(currency.code ~ "_code") }}
+                            &nbsp; {{ language.translate(currency.code ~ "_name") }}
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="currency--li--current">
+                        <a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">{{ language.translate(currency.code ~ "_code") }}
+                            &nbsp; {{ language.translate(currency.code ~ "_name") }}
+                        </a>
+                    </li>
                 {% endif %}
             {% endfor %}
-            <li><a href="/{{ language.translate("link_currency") }}">{{ language.translate('currencies') }}
-                    <svg class="ico v-arrow-right3">
-                        <use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use>
-                    </svg>
-                </a></li>
+            <li class="currency--show-all">
+                <a href="/{{ language.translate("link_currency") }}">
+
+                    {#TODO : Add real variables here#}
+                    {#{{ language.translate('currencies') }}#}
+                    show All currencies
+
+                    {#<svg class="ico v-arrow-right3">#}
+                        {#<use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use>#}
+                    {#</svg>#}
+                </a>
+            </li>
         </ul>
     </div>
 </li>

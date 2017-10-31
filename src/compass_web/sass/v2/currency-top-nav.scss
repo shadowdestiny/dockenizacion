@@ -51,4 +51,19 @@
     right: -9px;
     padding-left: 3px;
   }
+
+  .div-currency {
+    display: block!important;
+
+    background-color:  #f6f6f6;
+    width: 475px;
+
+    ul {
+
+      li {
+        height: 87px;
+        line-height: 87px;
+      }
+    }
+  }
 }
