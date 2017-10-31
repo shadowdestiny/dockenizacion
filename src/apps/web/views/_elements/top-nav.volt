@@ -66,7 +66,7 @@
     <li>
         <a class="link" href="/logout">{{ language.translate('LogOut') }}</a>
     </li>
-    <li class="li-sign">
+    <li class="">
         <a class="link" href="/account/wallet">{{ language.translate('deposit') }}</a>
     </li>
 
