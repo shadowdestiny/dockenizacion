@@ -1,40 +1,54 @@
 <li class="li-currency" id="li-currency--desktop">
     <a class="link myCur li-currency--main-link" href="javascript:void(0);">
-        <span class="currency--symbol">{{ user_currency['symbol'] }}</span> &nbsp; {{ language.translate(user_currency_code ~ "_name") }}
+        <span class="currency--symbol">{{ user_currency['symbol'] }}</span>
+        &nbsp; {{ language.translate(user_currency_code ~ "_name") }}
         {#<svg class="ico v-triangle-down">#}
-            {#<use xlink:href="/w/svg/icon.svg#v-triangle-down"></use>#}
+        {#<use xlink:href="/w/svg/icon.svg#v-triangle-down"></use>#}
         {#</svg>#}
     </a>
     <div class="div-currency">
-        <ul class="no-li">
-            {% for currency in currencies %}
-                {% if currency.code != user_currency_code %}
-                    <li class="currency--li">
-                        <a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">{{ language.translate(currency.code ~ "_code") }}
-                            &nbsp; {{ language.translate(currency.code ~ "_name") }}
-                        </a>
-                    </li>
-                {% else %}
-                    <li class="currency--li--current">
-                        <a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">{{ language.translate(currency.code ~ "_code") }}
-                            &nbsp; {{ language.translate(currency.code ~ "_name") }}
-                        </a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-            <li class="currency--show-all">
-                <a href="/{{ language.translate("link_currency") }}">
+        <div class="div-currency--shade"></div>
+        <div class="div-currency--content">
+            <ul class="no-li">
+                {% for currency in currencies %}
+                    {% if currency.code != user_currency_code %}
+                        <li class="currency--li">
+                            <a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">
+                            <span class="currency--li--code">
+                                {{ language.translate(currency.code ~ "_code") }}
+                            </span>
+                            <span class="currency--li--name">
+                                {{ language.translate(currency.code ~ "_name") }}
+                            </span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="currency--li--current">
+                            <a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">
+                            <span class="currency--li--code">
+                                {{ language.translate(currency.code ~ "_code") }}
+                            </span>
+                            <span class="currency--li--name">
+                                {{ language.translate(currency.code ~ "_name") }}
+                            </span>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                <li class="currency--li--show-all">
+                    <a href="/{{ language.translate("link_currency") }}">
 
-                    {#TODO : Add real variables here#}
-                    {#{{ language.translate('currencies') }}#}
-                    show All currencies
+                        {#TODO : Add real variables here#}
+                        {#{{ language.translate('currencies') }}#}
+                        show All currencies
 
-                    {#<svg class="ico v-arrow-right3">#}
+                        {#<svg class="ico v-arrow-right3">#}
                         {#<use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use>#}
-                    {#</svg>#}
-                </a>
-            </li>
-        </ul>
+                        {#</svg>#}
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </li>
 
