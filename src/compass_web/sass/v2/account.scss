@@ -1,2 +1,86 @@
 // Pages: Account, Tickets, Balance, History
 
+#content.account-page {
+
+  .content {
+    margin: 0;
+    //padding: 0px 30px 60px 30px;
+    padding: 65px 30px 60px 30px;
+  }
+
+  .box-balance {
+
+    .box-balance--row {
+      border: 1px solid #333333;
+      height: $balanceRowHeightDesktop;
+      border-bottom: 0;
+      padding-left: 100px;
+      box-sizing: content-box;
+
+      &:last-of-type {
+        border-bottom: 1px solid #333333;
+      }
+
+
+      .txt {
+        //font-family: WorkSans;
+        color:  #333333;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 90px;
+        text-align: left;
+
+        span {
+          //padding-left: 68px;
+          padding-left: 53px;
+
+          //font-family: WorkSans;
+          color:  #333333;
+          font-size: 29px;
+          font-weight: 700;
+          text-align: left;
+          display: inline-block;
+          vertical-align: top;
+
+          background-image: url('../img/account/desktop/arrow-balance.png');
+          background-repeat: no-repeat;
+          background-position: 6px 35px;
+          -webkit-background-size: 10px;
+          background-size: 10px;
+        }
+      }
+
+      .btn {
+        height: $balanceRowHeightDesktop;
+        width: 306px;
+        border: 0;
+        border-radius: 0;
+        text-transform: uppercase;
+        float: right;
+
+        //font-family: WorkSans;
+        color:  #ffffff;
+        font-size: 18px;
+        font-weight: 700;
+        text-align: center;
+        cursor: pointer;
+        line-height: 92px;
+        background-image: none;
+        text-shadow: none;
+        padding: 0;
+
+        &.add-funds {
+          background-color:  #4dec8c;
+        }
+
+        &.withdraw {
+          background-color:  #e2dfdf;
+        }
+      }
+
+    }
+  }
+
+
+
+}

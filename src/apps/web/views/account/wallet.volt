@@ -168,7 +168,8 @@
                 <div class="{% if show_box_basic == true %}hidden{% endif %} right back cl">
                     <a class="btn" href="javascript:void(0);">{{ language.translate("balance_back_btn") }}</a>
                 </div>
-                <h1 class="h1 title yellow">{{ language.translate("balance_head", ['balance' :   user_balance ]) }}</h1>
+
+                {#<h1 class="h1 title yellow">{{ language.translate("balance_head", ['balance' :   user_balance ]) }}</h1>#}
 
                 {% if wallet.current_winnings %}
                     <div class="box info">
@@ -220,28 +221,38 @@
                     {% endif %}
 
                     <div class="box-balance">
-                        <div class="border cl">
+                        <div class="box-balance--row cl">
                             <div class="txt">{{ language.translate("balance_yourBalance") }} <span
                                         class="value">{{ user_balance }}</span></div>
                             <div class="box-btn">
                                 <a href="javascript:void(0)"
-                                   class="btn big blue add-funds">{{ language.translate("balance_deposit_btn") }}</a>
+                                   class="btn big blue add-funds">
+
+                                    {#TODO : Add real variables here#}
+                                    {#{{ language.translate("balance_deposit_btn") }}#}
+                                    Deposit
+                                </a>
                             </div>
                         </div>
-                        <br/>
-                        <div class="border cl">
+                        <div class="box-balance--row  cl">
+                            <div class="txt">{{ language.translate("balance_yourSubscription") }} <span
+                                        class="value">{{ wallet.wallet_subscription_amount }}</span></div>
+                        </div>
+                        <div class="box-balance--row  cl">
                             <div class="txt">{{ language.translate("balance_yourWithdrawable") }} <span
                                         class="value">{{ wallet.wallet_winning_amount }}</span></div>
                             <div class="box-btn">
                                 <a href="javascript:void(0)"
-                                   class="btn big green withdraw">{{ language.translate("balance_withdraw_btn") }}</a>
+                                   class="btn big green withdraw">
+
+                                    {#TODO : Add real variables here#}
+                                    {#{{ language.translate("balance_withdraw_btn") }}#}
+                                    Withdraw
+                                </a>
                             </div>
                         </div>
-                        <br/>
-                        <div class="border cl">
-                            <div class="txt">{{ language.translate("balance_yourSubscription") }} <span
-                                        class="value">{{ wallet.wallet_subscription_amount }}</span></div>
-                        </div>
+
+
                     </div>
                 </div>
                 <form class="{% if show_form_add_fund == false %}hidden{% endif %} box-add-card form-currency"
