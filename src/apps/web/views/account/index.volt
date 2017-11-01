@@ -8,32 +8,41 @@
     {% set activeNav='{"myClass": "account"}'|json_decode %}
     {% include "_elements/header.volt" %}
 {% endblock %}
+
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
-{% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script>{% endblock %}
+{% block template_scripts %}
+    <script src="/w/js/mobileFix.min.js"></script>{% endblock %}
+
+
+
 
 {% block body %}
-<main id="content" class="account-page">
-    <div class="wrapper">
-        <div class="nav">
-           {% set activeSubnav='{"myClass": "account"}'|json_decode %}
-           {% include "account/_nav.volt" %}
-        </div>
-        <div class="content">
-            <div class="my-account" {% if which_form == 'index' %} style="display: block" {%  else %} style="display: none" {% endif %}>
+    <main id="content" class="account-page">
+        <div class="wrapper">
+            <div class="nav">
+                {% set activeSubnav='{"myClass": "account"}'|json_decode %}
+                {% include "account/_nav.volt" %}
+            </div>
+            <div class="content">
+                <div class="my-account--section my-account" {% if which_form == 'index' %} style="display: block" {% else %} style="display: none" {% endif %}>
 
-                <h1 class="h1 title yellow">{{ language.translate("account_head") }}</h1>
-                <h2 class="h3 yellow">{{ language.translate("account_subhead") }}</h2>
+                    {#<h1 class="h1 title yellow">{{ language.translate("account_head") }}</h1>#}
+                    <h2 class="">{{ language.translate("account_subhead") }}</h2>
 
-                {{ form('/account/index') }}
+                    {{ form('/account/index') }}
                     {% if msg %}
                         <div class="box success">
-                            <svg class="ico v-checkmark"><use xlink:href="/w/svg/icon.svg#v-checkmark"></use></svg>
+                            <svg class="ico v-checkmark">
+                                <use xlink:href="/w/svg/icon.svg#v-checkmark"></use>
+                            </svg>
                             <span class="txt">{{ language.translate(msg) }}</span>
                         </div>
                     {% endif %}
                     {% if  errors %}
                         <div class="box error">
-                            <svg class="ico v-warning"><use xlink:href="/w/svg/icon.svg#v-warning"></use></svg>
+                            <svg class="ico v-warning">
+                                <use xlink:href="/w/svg/icon.svg#v-warning"></use>
+                            </svg>
                             <span class="txt">{% for error in errors %}{{ error }}<br>{% endfor %}</span>
                         </div>
                     {% endif %}
@@ -56,30 +65,43 @@
                                 {{ myaccount.render('phone_number', {'class':'input',"id":"phone"}) }}
                             </div>
                         </div>
-                        <div class="cols gap" style="margin-bottom:0;"> {# temporary inline style to remove the gap with #}
-                             <div class="col12">
-                                 <label class="btn big blue right submit" for="submit">
-                                     {{ language.translate("account_update_btn") }}
-                                     <input id="submit" type="submit" class="hidden2">
-                                 </label>
-                             </div>
-                         </div>
+                        <div class="cols gap"
+                             style="margin-bottom:0;"> {# temporary inline style to remove the gap with #}
+                            <div class="col12">
+                                <label class="btn big blue right submit" for="submit">
+                                    {{ language.translate("account_update_btn") }}
+                                    <input id="submit" type="submit" class="hidden2">
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                {{ endform() }}
+                    {{ endform() }}
 
-                {# DO NOT DELETE - Facebook revoke access
-                <hr class="yellow">
-                <div class="connect">
-                    <div class="cl">
-                        <h2 class="title h3">{{ language.app("Connect with Facebook") }}</h2>
-                        <a class="btn gwy revoke" href="javascript:void(0)">{{ language.app("Revoke Access") }}</a>
+                    {# DO NOT DELETE - Facebook revoke access
+                    <hr class="yellow">
+                    <div class="connect">
+                        <div class="cl">
+                            <h2 class="title h3">{{ language.app("Connect with Facebook") }}</h2>
+                            <a class="btn gwy revoke" href="javascript:void(0)">{{ language.app("Revoke Access") }}</a>
+                        </div>
+                        <p>{{ language.app("Permissions: Read only") }}</p>
                     </div>
-                    <p>{{ language.app("Permissions: Read only") }}</p>
+                    #}
                 </div>
-                #}
-            </div>
 
+                <div class="my-account--section my-password">
+                    <h2 class="">{{ language.translate("password_head") }}</h2>
+                    <div class="box-change-psw" {% if which_form == 'password' %}style="display:block"
+                            {% else %}
+                                {#TODO: check this condition#}
+                                {#style="display:none"#}
+                            {% endif %}>
+                        {% set myPsw='{"value": "change"}'|json_decode %}
+                        {% include "_elements/generate-psw.volt" %}
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </div>
-</main>
+    </main>
 {% endblock %}

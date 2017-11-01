@@ -377,4 +377,49 @@
     }
   }
 
+  .my-account--section {
+    border-width: 1px;
+    border-color:  #333333;
+    border-style: solid;
+    width: 100%;
+    padding: 0 33px 60px 60px;
+    margin-bottom: 50px;
+
+    h2 {
+      //font-family: WorkSans;
+      color:  #fad428;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 93px;
+      text-align: left;
+      text-transform: uppercase;
+
+      background-repeat: no-repeat;
+      background-position: 100% 50%;
+    }
+
+    &.my-account {
+      h2 {
+        background-image: url('../img/account/desktop/personal.png');
+        -webkit-background-size: 40px;
+        background-size: 40px;
+      }
+    }
+    &.my-email {
+      h2 {
+        background-image: url('../img/account/desktop/email.png');
+        -webkit-background-size: 59px;
+        background-size: 59px;
+      }
+    }
+    &.my-password {
+      h2 {
+        background-image: url('../img/account/desktop/password.png');
+        -webkit-background-size: 40px;
+        background-size: 40px;
+      }
+    }
+
+  }
+
 }
