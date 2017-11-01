@@ -29,10 +29,9 @@
         border-bottom: 1px solid #333333;
       }
 
-
       .txt {
         //font-family: WorkSans;
-        color:  #333333;
+        color: #333333;
         font-size: 24px;
         font-weight: 400;
         line-height: 90px;
@@ -43,7 +42,7 @@
           padding-left: 53px;
 
           //font-family: WorkSans;
-          color:  #333333;
+          color: #333333;
           font-size: 29px;
           font-weight: 700;
           text-align: left;
@@ -67,7 +66,7 @@
         float: right;
 
         //font-family: WorkSans;
-        color:  #ffffff;
+        color: #ffffff;
         font-size: 18px;
         font-weight: 700;
         text-align: center;
@@ -78,11 +77,11 @@
         padding: 0;
 
         &.add-funds {
-          background-color:  #4dec8c;
+          background-color: #4dec8c;
         }
 
         &.withdraw {
-          background-color:  #e2dfdf;
+          background-color: #e2dfdf;
         }
       }
 
@@ -94,7 +93,7 @@
 
     h2 {
       //font-family: WorkSans;
-      color:  #333333;
+      color: #333333;
       font-size: 24px;
       font-weight: 900;
       text-align: left;
@@ -103,7 +102,7 @@
 
     label {
       //font-family: WorkSans;
-      color:  #333333;
+      color: #333333;
       font-size: 24px;
       font-weight: 400;
       text-align: left;
@@ -118,7 +117,7 @@
     input {
       border-radius: 4px;
       border-width: 1px;
-      border-color:  #b7b7b7;
+      border-color: #b7b7b7;
       border-style: solid;
       max-width: 640px;
       //height: 46px;
@@ -141,12 +140,12 @@
 
     .cvv {
       clear: both;
-      width: 182px!important;
+      width: 182px !important;
 
       label {
         text-transform: uppercase;
 
-        &::after{
+        &::after {
           content: "";
           display: inline-block;
           width: 19px;
@@ -162,10 +161,9 @@
       }
 
       #card-cvv {
-        width: 182px!important;
+        width: 182px !important;
       }
     }
-
 
     .btn:active,
     .btn:focus,
@@ -175,7 +173,7 @@
       background: -moz-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
       background: -o-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
       background: -ms-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
-      background: linear-gradient(135deg, #4dec8c 0%, #21d167 100%)!important;
+      background: linear-gradient(135deg, #4dec8c 0%, #21d167 100%) !important;
       //width: 286px;
       height: 61px;
       line-height: 60px;
@@ -183,21 +181,21 @@
       display: inline-block;
 
       //font-family: WorkSans;
-      color:  #ffffff!important;
+      color: #ffffff !important;
       font-size: 24px;
       font-weight: 700;
       text-align: center;
       padding: 0 75px;
 
-      border:0;
-      text-shadow: none!important;
+      border: 0;
+      text-shadow: none !important;
 
     }
 
   }
 
   .bank-details-block,
-  .add-funds-block{
+  .add-funds-block {
     padding-top: 60px;
   }
 
@@ -233,7 +231,7 @@
       }
     }
 
-    .li-comodo{
+    .li-comodo {
       img {
         width: 82px;
         height: 47px;
@@ -244,10 +242,15 @@
 
   .table_transactions_v2 {
     margin-bottom: 60px;
-    
+
     thead {
       tr {
         border-bottom: 1px solid #333333;
+
+        @media only screen and (min-width: $screen-desktop) {
+          border-bottom: 0;
+        }
+
         th {
 
           color: #f8d014;
@@ -260,14 +263,28 @@
           width: 50%;
 
           @media only screen and (min-width: $screen-desktop) {
-            font-size: 30px;
+            font-size: 18px;
             font-weight: 700;
-            line-height: 36px;
+            line-height: 46px;
             padding: 0;
             width: auto;
+
+            p {
+              border-bottom: 1px solid #333333;
+              margin-bottom: 30px;
+              padding-bottom: 20px;
+            }
+
           }
 
-          &.date {}
+          &.date {
+            @media only screen and (min-width: $screen-desktop) {
+
+              p {
+                padding-left: 24px;
+              }
+            }
+          }
           &.lottery {
             display: none;
 
@@ -282,18 +299,28 @@
               display: table-cell;
             }
           }
-          &.amount {}
+          &.amount {
+          }
         }
       }
     }
 
     tbody {
       tr {
+
+        border: 1px solid #333;
+
         td {
 
           padding: 0;
 
-          &.date {}
+          &.date {
+            p {
+              @media only screen and (min-width: $screen-desktop) {
+                padding-left: 24px;
+              }
+            }
+          }
           &.lottery {
             display: none;
 
@@ -308,7 +335,8 @@
               display: table-cell;
             }
           }
-          &.amount {}
+          &.amount {
+          }
 
           p {
             font-size: 15px;
@@ -316,7 +344,7 @@
             padding: 24px 24px 10px 24px;
 
             @media only screen and (min-width: $screen-desktop) {
-
+              padding: 24px 24px 10px 0px;
             }
           }
           & + td {

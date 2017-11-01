@@ -115,16 +115,28 @@
                     <thead>
                     <tr class="row-common">
                         <th class="date">
-                            Date
+                            <p>
+                                Date
+                            </p>
+
                         </th>
                         <th class="lottery">
-                            lottery
+                            <p>
+                                lottery
+                            </p>
+
                         </th>
                         <th class="type">
-                            Type
+                            <p>
+                                Type
+                            </p>
+
                         </th>
                         <th class="amount">
-                            Amount
+                            <p>
+                                Amount
+                            </p>
+
                         </th>
                     </tr>
                     </thead>
