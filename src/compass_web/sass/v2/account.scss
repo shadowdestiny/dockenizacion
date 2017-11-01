@@ -359,7 +359,7 @@
 
   .my-account--section {
     border-width: 1px;
-    border-color:  #333333;
+    border-color: #333333;
     border-style: solid;
     width: 100%;
     padding: 0 33px 50px 60px;
@@ -367,7 +367,7 @@
 
     h2 {
       //font-family: WorkSans;
-      color:  #fad428;
+      color: #fad428;
       font-size: 18px;
       font-weight: 700;
       line-height: 93px;
@@ -403,17 +403,16 @@
       }
     }
 
-
     table {
       margin-bottom: 30px;
-      
+
       tr {
 
         td {
           //vertical-align: middle
         }
 
-        td.td-label{
+        td.td-label {
           width: 290px;
           vertical-align: middle;
           padding-bottom: 15px;
@@ -424,7 +423,7 @@
           }
 
           label {
-            color:  #333333;
+            color: #333333;
             font-size: 18px;
             font-weight: 700;
             line-height: 1.2;
@@ -436,14 +435,14 @@
           }
         }
 
-        td.td-input{
+        td.td-input {
 
           .selectbox select,
           input {
             width: 100%;
             border-radius: 2px;
             border-width: 1px;
-            border-color:  #333333;
+            border-color: #333333;
             border-style: solid;
             height: 53px;
             padding-bottom: 2px;
@@ -455,12 +454,43 @@
       }
     }
 
+    &.my-email {
+      table {
+        tr {
+          td.td-input {
+            p:before {
+              content: "";
+              display: block;
+              float: left;
+              width: 100px;
+              height: 51px;
+              border: 1px solid #333;
+              border-top-left-radius: 2px;
+              border-bottom-left-radius: 2px;
+              margin-right: -102px;
+              //border-right: 0;
+              background-image: url('../img/account/desktop/email-check.png');
+              -webkit-background-size: 21px;
+              background-size: 21px;
+              background-repeat: no-repeat;
+              background-position: 50% 50%;
+
+            }
+            input {
+              border-top-left-radius: 0;
+              border-bottom-left-radius: 0;
+              padding-left: 132px;
+            }
+          }
+        }
+      }
+    }
+
     .btn:active,
     .btn:focus,
     .btn {
       @include btn-account();
     }
-
 
   }
 

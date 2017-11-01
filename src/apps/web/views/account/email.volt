@@ -65,8 +65,63 @@
 
                 <form action="/account/editEmail" name="form_notifications" id="form-email-settings" method="post" class="form-currency">
                     <div class="cl">
-                        <div class="email-me">{{ language.translate("email_emailme") }}</div>
+                        {#<div class="email-me">{{ language.translate("email_emailme") }}</div>#}
                         <table class="options">
+
+                            {#TODO : Add real variables here#}
+                            {#Clear html start#}
+                            <tr>
+                                <td class="td-label">
+                                    <p>
+                                        <label for="old-password" class="label">
+                                            Email me when <br>
+                                            JACKPOT reach
+                                        </label>
+                                    </p>
+                                </td>
+                                <td class="td-input">
+                                    <p>
+                                        <input type="text" id="" name="" class="input" placeholder="€ Insert amount">
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="td-label">
+                                    <p>
+                                        <label for="old-password" class="label">
+                                            Email me results <br>
+                                            of the draw
+                                        </label>
+                                    </p>
+                                </td>
+                                <td class="td-input">
+                                    <p>
+                                        <input type="text" id="" name="" class="input" placeholder="When I played the ticket">
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="td-label">
+                                    <p>
+                                        <label for="old-password" class="label">
+                                            Email me
+                                        </label>
+                                    </p>
+                                </td>
+                                <td class="td-input">
+                                    <p>
+                                        <input type="text" id="" name="" class="input" placeholder="With the best offers and promotions">
+                                    </p>
+                                </td>
+                            </tr>
+
+
+                            {#Clear html end#}
+
+
+
                             {% if list_notifications is empty %}
                                 {# EMTD - We shouldn't do something about when notification is empty? Alessio #}
                             {% else %}
