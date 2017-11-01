@@ -1,35 +1,28 @@
 /*
-Error: Undefined variable: "$ff1".
+Error: Undefined variable: "$screen-desktop".
         on line 25 of /src/compass_web/sass/v2/legal.scss
 
 20:   .content {
 21:     margin: 0;
-22:     padding: 0 30px 60px 30px;
-23: 
-24:     .h1 {
-25:       font-family: $ff1;
-26:       text-transform: uppercase;
-27:       font-size: 17px;
-28:       font-weight: 900;
-29:       color: #a8a9a8;
-30: 
+22:     padding: 0 30px 60px 15px;
+23:     text-align: left;
+24: 
+25:     @media only screen and (min-width: $screen-desktop) {
+26:       padding: 0 30px 60px 30px;
+27:     }
+28: 
+29:     .h1 {
+30:       font-family: $ff1;
 
 Backtrace:
 /src/compass_web/sass/v2/legal.scss:25
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:394:in `visit_prop'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block (2 levels) in visit_rule'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `map'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block in visit_rule'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:428:in `visit_rule'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:534:in `map'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:534:in `run_interp_no_strip'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:541:in `run_interp'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:509:in `visit_media'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
@@ -88,4 +81,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$ff1\".\A         on line 25 of /src/compass_web/sass/v2/legal.scss\A \A 20:   .content {\A 21:     margin: 0;\A 22:     padding: 0 30px 60px 30px;\A 23: \A 24:     .h1 {\A 25:       font-family: $ff1;\A 26:       text-transform: uppercase;\A 27:       font-size: 17px;\A 28:       font-weight: 900;\A 29:       color: #a8a9a8;\A 30: "; }
+  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 25 of /src/compass_web/sass/v2/legal.scss\A \A 20:   .content {\A 21:     margin: 0;\A 22:     padding: 0 30px 60px 15px;\A 23:     text-align: left;\A 24: \A 25:     @media only screen and (min-width: $screen-desktop) {\A 26:       padding: 0 30px 60px 30px;\A 27:     }\A 28: \A 29:     .h1 {\A 30:       font-family: $ff1;"; }

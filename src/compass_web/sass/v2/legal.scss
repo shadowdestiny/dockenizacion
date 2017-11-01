@@ -19,7 +19,12 @@
 
   .content {
     margin: 0;
-    padding: 0 30px 60px 30px;
+    padding: 0 30px 60px 15px;
+    text-align: left;
+
+    @media only screen and (min-width: $screen-desktop) {
+      padding: 0 30px 60px 30px;
+    }
 
     .h1 {
       font-family: $ff1;
