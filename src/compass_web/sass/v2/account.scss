@@ -417,13 +417,21 @@
         }
 
         td.td-label {
-          width: 290px;
+          width: 30%;
           vertical-align: middle;
           padding-bottom: 15px;
 
+          @media only screen and (min-width: $screen-desktop) {
+            width: 290px;
+          }
+
           p {
-            padding-right: 110px;
+            padding-right: 30px;
             text-align: right;
+
+            @media only screen and (min-width: $screen-desktop) {
+              padding-right: 110px;
+            }
           }
 
           label {
