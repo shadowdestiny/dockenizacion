@@ -137,6 +137,20 @@
 
       label {
         text-transform: uppercase;
+
+        &::after{
+          content: "";
+          display: inline-block;
+          width: 19px;
+          height: 19px;
+          position: relative;
+          background-image: url('../img/account/desktop/cvv.png');
+          background-repeat: no-repeat;
+          background-position: 0 0;
+          -webkit-background-size: 19px;
+          background-size: 19px;
+          top: 1px;
+        }
       }
 
       #card-cvv {

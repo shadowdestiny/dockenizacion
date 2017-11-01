@@ -316,7 +316,7 @@
                             <div class="">
                                 <div class="bank-details-block">
                                     <h2 class="h3 yellow">{{ language.translate("withdraw_bank") }}</h2>
-                                    
+
                                     <label class="label" for="add-bank-user">
                                         {{ language.translate("withdraw_name") }} <span class="asterisk">*</span> <span
                                                 class="subtxt">({{ language.translate("bank account holder name") }}</span>
