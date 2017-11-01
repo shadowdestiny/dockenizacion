@@ -47,24 +47,128 @@
                         </div>
                     {% endif %}
                     <div class="wrap">
-                        <div class="cols">
-                            <div class="col6">
-                                {% include "account/_user-detail.volt" %}
-                            </div>
-                            <div class="col6">
-                                <label class="label" for="street">{{ language.translate("account_street") }}</label>
-                                {{ myaccount.render('street', {'class':'input',"id":"street"}) }}
+                        <table class="">
+                            {#<div class="">#}
+                            {#{% include "account/_user-detail.volt" %}#}
+                            {#</div>#}
 
-                                <label class="label" for="po">{{ language.translate("account_zip") }}</label>
-                                {{ myaccount.render('zip', {'class':'input',"id":"po"}) }}
+                            <tr>
+                                <td class="td-label">
+                                    <p>
+                                        <label class="label" for="name">{{ language.translate("account_name") }} <span
+                                                    class="asterisk">*</span></label>
+                                    </p>
+                                </td>
+                                <td class="td-input">
+                                    <p>
+                                        {{ myaccount.render('name', {'class':'input' }) }}
+                                    </p>
+                                </td>
+                            </tr>
 
-                                <label class="label" for="city">{{ language.translate("account_city") }}</label>
-                                {{ myaccount.render('city', {'class':'input',"id":"city"}) }}
+                            <tr>
+                                <td class="td-label">
+                                    <p>
+                                        <label class="label" for="surname">{{ language.translate("account_surname") }} <span
+                                                    class="asterisk">*</span></label>
+                                    </p>
+                                </td>
+                                <td class="td-input">
+                                    <p>
+                                        {{ myaccount.render('surname', {'class':'input' }) }}
+                                    </p>
+                                </td>
+                            </tr>
 
-                                <label class="label" for="phone">{{ language.translate("account_phone") }}</label>
-                                {{ myaccount.render('phone_number', {'class':'input',"id":"phone"}) }}
-                            </div>
-                        </div>
+
+                            <tr>
+                                <td class="td-label">
+                                    <p>
+                                        <label class="label" for="email">{{ language.translate("account_email") }}</label>
+                                    </p>
+                                </td>
+                                <td class="td-input">
+                                    <p>
+                                        {{ myaccount.render('email', {'class':'input','disabled':'disabled'}) }}
+                                    </p>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td class="td-label">
+                                    <p>
+                                        <label class="label" for="country">{{ language.translate("account_country") }}</label>
+                                    </p>
+                                </td>
+                                <td class="td-input">
+                                    <p>
+                                        {{ myaccount.render('country', {'class':'select','disabled':'disabled'}) }}
+                                    </p>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td class="td-label">
+                                    <p>
+                                        <label class="label" for="street">{{ language.translate("account_street") }}</label>
+                                    </p>
+                                </td>
+                                <td class="td-input">
+                                    <p>
+                                        {{ myaccount.render('street', {'class':'input',"id":"street"}) }}
+                                    </p>
+                                </td>
+                            </tr>
+
+
+
+                            <tr>
+                                <td class="td-label">
+                                    <p>
+                                        <label class="label" for="po">{{ language.translate("account_zip") }}</label>
+                                    </p>
+                                </td>
+                                <td class="td-input">
+                                    <p>
+                                        {{ myaccount.render('zip', {'class':'input',"id":"po"}) }}
+                                    </p>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td class="td-label">
+                                    <p>
+                                        <label class="label" for="city">{{ language.translate("account_city") }}</label>
+                                    </p>
+                                </td>
+                                <td class="td-input">
+                                    <p>
+                                        {{ myaccount.render('city', {'class':'input',"id":"city"}) }}
+                                    </p>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td class="td-label">
+                                    <p>
+                                        <label class="label" for="phone">{{ language.translate("account_phone") }}</label>
+                                    </p>
+                                </td>
+                                <td class="td-input">
+                                    <p>
+                                        {{ myaccount.render('phone_number', {'class':'input',"id":"phone"}) }}
+                                    </p>
+                                </td>
+                            </tr>
+
+
+
+                        </table>
+
                         <div class="cols gap"
                              style="margin-bottom:0;"> {# temporary inline style to remove the gap with #}
                             <div class="col12">
