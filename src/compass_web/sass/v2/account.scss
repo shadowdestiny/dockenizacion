@@ -234,5 +234,74 @@
     }
   }
 
+  .table_transactions_v2 {
+    thead {
+      tr {
+        border-bottom: 1px solid #333333;
+        th {
+
+          //font-family: WorkSans;
+          color:  #f8d014;
+          font-size: 30px;
+          font-weight: 700;
+          line-height: 36px;
+          text-align: left;
+
+          &.date {}
+          &.lottery {
+            display: none;
+
+            @media only screen and (min-width: $screen-desktop) {
+              display: table-cell;
+            }
+          }
+          &.type {
+            display: none;
+
+            @media only screen and (min-width: $screen-desktop) {
+              display: table-cell;
+            }
+          }
+          &.amount {}
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+
+          &.date {}
+          &.lottery {
+            display: none;
+
+            @media only screen and (min-width: $screen-desktop) {
+              display: table-cell;
+            }
+          }
+          &.type {
+            display: none;
+
+            @media only screen and (min-width: $screen-desktop) {
+              display: table-cell;
+            }
+          }
+          &.amount {}
+
+          p {
+
+          }
+        }
+
+        &.row-mobile {
+          border: 1px solid #333333;
+
+          @media only screen and (min-width: $screen-desktop) {
+            display: none;
+          }
+        }
+      }
+    }
+  }
 
 }
