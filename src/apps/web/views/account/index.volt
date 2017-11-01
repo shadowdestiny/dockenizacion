@@ -69,7 +69,8 @@
                             <tr>
                                 <td class="td-label">
                                     <p>
-                                        <label class="label" for="surname">{{ language.translate("account_surname") }} <span
+                                        <label class="label" for="surname">{{ language.translate("account_surname") }}
+                                            <span
                                                     class="asterisk">*</span></label>
                                     </p>
                                 </td>
@@ -84,7 +85,8 @@
                             <tr>
                                 <td class="td-label">
                                     <p>
-                                        <label class="label" for="email">{{ language.translate("account_email") }}</label>
+                                        <label class="label"
+                                               for="email">{{ language.translate("account_email") }}</label>
                                     </p>
                                 </td>
                                 <td class="td-input">
@@ -98,13 +100,17 @@
                             <tr>
                                 <td class="td-label">
                                     <p>
-                                        <label class="label" for="country">{{ language.translate("account_country") }}</label>
+                                        <label class="label"
+                                               for="country">{{ language.translate("account_country") }}
+                                        </label>
                                     </p>
                                 </td>
                                 <td class="td-input">
-                                    <p>
+
+                                    <p class="selectbox">
                                         {{ myaccount.render('country', {'class':'select','disabled':'disabled'}) }}
                                     </p>
+
                                 </td>
                             </tr>
 
@@ -112,7 +118,8 @@
                             <tr>
                                 <td class="td-label">
                                     <p>
-                                        <label class="label" for="street">{{ language.translate("account_street") }}</label>
+                                        <label class="label"
+                                               for="street">{{ language.translate("account_street") }}</label>
                                     </p>
                                 </td>
                                 <td class="td-input">
@@ -121,7 +128,6 @@
                                     </p>
                                 </td>
                             </tr>
-
 
 
                             <tr>
@@ -155,7 +161,8 @@
                             <tr>
                                 <td class="td-label">
                                     <p>
-                                        <label class="label" for="phone">{{ language.translate("account_phone") }}</label>
+                                        <label class="label"
+                                               for="phone">{{ language.translate("account_phone") }}</label>
                                     </p>
                                 </td>
                                 <td class="td-input">
@@ -164,7 +171,6 @@
                                     </p>
                                 </td>
                             </tr>
-
 
 
                         </table>
