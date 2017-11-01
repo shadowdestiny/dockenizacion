@@ -4,7 +4,7 @@ Error: Undefined variable: "$screen-desktop".
 
 20:   .content {
 21:     margin: 0;
-22:     padding: 0 30px 60px 15px;
+22:     padding: 0px 30px 60px 15px;
 23:     text-align: left;
 24: 
 25:     @media only screen and (min-width: $screen-desktop) {
@@ -81,4 +81,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 25 of /src/compass_web/sass/v2/legal.scss\A \A 20:   .content {\A 21:     margin: 0;\A 22:     padding: 0 30px 60px 15px;\A 23:     text-align: left;\A 24: \A 25:     @media only screen and (min-width: $screen-desktop) {\A 26:       padding: 0 30px 60px 30px;\A 27:     }\A 28: \A 29:     .h1 {\A 30:       font-family: $ff1;"; }
+  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 25 of /src/compass_web/sass/v2/legal.scss\A \A 20:   .content {\A 21:     margin: 0;\A 22:     padding: 0px 30px 60px 15px;\A 23:     text-align: left;\A 24: \A 25:     @media only screen and (min-width: $screen-desktop) {\A 26:       padding: 0 30px 60px 30px;\A 27:     }\A 28: \A 29:     .h1 {\A 30:       font-family: $ff1;"; }

@@ -250,7 +250,8 @@
   height: 61px;
   line-height: 60px;
   text-transform: uppercase;
-  display: inline-block;
+  display: block;
+  width: 100%;
 
   //font-family: WorkSans;
   color: #ffffff !important;
@@ -262,7 +263,12 @@
   border: 0!important;
   text-shadow: none !important;
   box-shadow: none!important;
-  float: left;
+
+
+  @media only screen and (min-width: $screen-desktop) {
+    float: left;
+    width:auto;
+  }
 }
 
 // Use it:
