@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$balanceRowHeightDesktop".
-        on line 15 of /src/compass_web/sass/v2/account.scss
+        on line 19 of /src/compass_web/sass/v2/account.scss
 
-10: 
-11:   .box-balance {
-12: 
-13:     .box-balance--row {
-14:       border: 1px solid #333333;
-15:       height: $balanceRowHeightDesktop;
-16:       border-bottom: 0;
-17:       padding-left: 100px;
-18:       box-sizing: content-box;
-19: 
-20:       &:last-of-type {
+14: 
+15:   .box-balance {
+16: 
+17:     .box-balance--row {
+18:       border: 1px solid #333333;
+19:       height: $balanceRowHeightDesktop;
+20:       border-bottom: 0;
+21:       padding-left: 100px;
+22:       box-sizing: content-box;
+23: 
+24:       &:last-of-type {
 
 Backtrace:
-/src/compass_web/sass/v2/account.scss:15
+/src/compass_web/sass/v2/account.scss:19
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:394:in `visit_prop'
@@ -88,4 +88,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$balanceRowHeightDesktop\".\A         on line 15 of /src/compass_web/sass/v2/account.scss\A \A 10: \A 11:   .box-balance {\A 12: \A 13:     .box-balance--row {\A 14:       border: 1px solid #333333;\A 15:       height: $balanceRowHeightDesktop;\A 16:       border-bottom: 0;\A 17:       padding-left: 100px;\A 18:       box-sizing: content-box;\A 19: \A 20:       &:last-of-type {"; }
+  content: "Error: Undefined variable: \"$balanceRowHeightDesktop\".\A         on line 19 of /src/compass_web/sass/v2/account.scss\A \A 14: \A 15:   .box-balance {\A 16: \A 17:     .box-balance--row {\A 18:       border: 1px solid #333333;\A 19:       height: $balanceRowHeightDesktop;\A 20:       border-bottom: 0;\A 21:       padding-left: 100px;\A 22:       box-sizing: content-box;\A 23: \A 24:       &:last-of-type {"; }

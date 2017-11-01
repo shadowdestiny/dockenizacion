@@ -1516,11 +1516,13 @@ body, .submit {
   #content {
     background-image: none;
   }
-  .desktop, .nav.mobile .br, .br {
+  //.desktop,
+  //.nav.mobile
+  .br, .br {
     display: none;
   }
   .mobile {
-    display: block;
+    //display: block;
   }
   #content {
     padding: 0;
@@ -1589,12 +1591,7 @@ body, .submit {
   .btn.big {
     font-size: $h4;
   }
-  .logo {
-    //margin-top: 6px;
-    width: 200px;
-    margin-top: 15px;
-    margin-left: 60px;
-  }
+
   #language a {
     text-decoration: none;
   }

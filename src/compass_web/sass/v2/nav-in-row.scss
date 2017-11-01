@@ -14,11 +14,21 @@
 
       li {
         float: left;
-        width: 25%;
         border: 2px solid #fff;
         text-align: center;
         background-color: #f6f6f6;
         height: 57px;
+        width: 50%;
+
+
+        @media only screen and (min-width: $screen-desktop) {
+          width: 25%;
+        }
+
+        @media only screen and (max-width: $screen-xs) {
+          width: 100%;
+        }
+
 
         a.active,
         a {

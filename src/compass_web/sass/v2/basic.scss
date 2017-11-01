@@ -55,13 +55,16 @@ a:visited, .lnk:visited {
 
 
 
+.mobile,
 .nav.mobile {
   display: block !important;
-  
+
   @media only screen and (min-width: $screen-desktop) {
     display: none !important;
   }
 }
+
+.desktop,
 .head,
 .main-nav.desktop {
   display: none !important;
@@ -71,6 +74,12 @@ a:visited, .lnk:visited {
   }
 }
 
+.logo {
+  //margin-top: 6px;
+  width: 200px;
+  margin-top: 15px;
+  margin-left: 60px;
+}
 
 form {
   //.select,
