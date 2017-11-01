@@ -53,7 +53,9 @@
         <div class="">
             {% endif %}
             <h2 class="h2">
-                {{ language.translate("card_subhead") }}
+
+                {#TODO : Add real variables here#}
+                {#{{ language.translate("card_subhead") }}#}
                 enter your credit card details
             </h2>
 
@@ -133,7 +135,7 @@
 
         {% if component.where == 'account' %}
     </div>
-    <div class="col6 second">
+    <div class="add-funds-block second">
         <h2 class="h3 yellow margin">{{ language.translate("deposit_subhead") }}</h2>
         <div class="div-balance"><strong class="purple">{{ language.translate("Current Account balance:") }}</strong> <span class="value">{{ user_balance }}</span></div>
         <span class="currency">{{ symbol }}</span>{{ credit_card_form.render('funds-value', {'class':'insert input'~form_errors['funds-value']}) }}
@@ -164,11 +166,26 @@
 
 
 <p>
-<div class="images-payment col4 box-partner">
-    <ul class="no-li inline"  style="float:right">
-        <li><a href="http://www.visaeurope.com/"><svg class="v-visa vector"><use xlink:href="/w/svg/icon.svg#visa"/></svg></a></li>
-        <li><a href="http://www.mastercard.com/eur/"><svg class="v-mastercard vector"><use xlink:href="/w/svg/icon.svg#mastercard"/></svg></a></li>
-        <li><a href="https://ssl.comodo.com/"><img src="/w/svg/comodo.png"/> </a></li>
+<div class="images-payment box-partner">
+    <ul class="no-li inline">
+        <li class="li-visa">
+            <a href="http://www.visaeurope.com/">
+                {#<svg class="v-visa vector"><use xlink:href="/w/svg/icon.svg#visa"/></svg>#}
+                <img src="/w/img/account/desktop/visa.png"/>
+            </a>
+        </li>
+        <li class="li-mastercard">
+            <a href="http://www.mastercard.com/eur/">
+                {#<svg class="v-mastercard vector"><use xlink:href="/w/svg/icon.svg#mastercard"/></svg>#}
+                <img src="/w/img/account/desktop/mastercard.png"/>
+            </a>
+        </li>
+        <li class="li-comodo">
+            <a href="https://ssl.comodo.com/">
+                {#<img src="/w/svg/comodo.png"/>#}
+                <img src="/w/img/account/desktop/comodo.png"/>
+            </a>
+        </li>
     </ul>
 </div>
 </p>

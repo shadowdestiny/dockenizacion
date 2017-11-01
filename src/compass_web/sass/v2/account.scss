@@ -90,6 +90,7 @@
       font-size: 24px;
       font-weight: 900;
       text-align: left;
+      margin-bottom: 52px;
     }
 
     label {
@@ -99,6 +100,7 @@
       font-weight: 400;
       text-align: left;
       display: block;
+      margin-bottom: 18px;
 
       .asterisk {
         color: inherit;
@@ -111,12 +113,15 @@
       border-color:  #b7b7b7;
       border-style: solid;
       max-width: 640px;
-      height: 46px;
+      //height: 46px;
+      height: 48px;
+      margin-bottom: 20px;
 
       &#expiry-date-month,
       &#expiry-date-year {
         width: 80px;
-        margin-right: 20px;
+        //margin-right: 20px;
+        margin-right: 15px;
       }
 
     }
@@ -128,6 +133,10 @@
     .cvv {
       clear: both;
       width: 182px!important;
+
+      label {
+        text-transform: uppercase;
+      }
 
       #card-cvv {
         width: 182px!important;
@@ -162,6 +171,51 @@
 
     }
 
+  }
+
+  .add-funds-block{
+    padding-top: 60px;
+  }
+
+  .images-payment {
+
+    ul {
+      float: left;
+      padding-top: 14px;
+      padding-bottom: 63px;
+    }
+
+    img {
+      position: relative;
+
+    }
+    .li-visa {
+      margin-right: 38px;
+
+      img {
+        width: 100px;
+        height: 32px;
+        top: 0px;
+      }
+    }
+
+    .li-mastercard {
+      margin-right: 44px;
+
+      img {
+        width: 64px;
+        height: 39px;
+        top: 3px;
+      }
+    }
+
+    .li-comodo{
+      img {
+        width: 82px;
+        height: 47px;
+        top: 8px;
+      }
+    }
   }
 
 
