@@ -55,6 +55,23 @@ a:visited, .lnk:visited {
 
 
 
+.nav.mobile {
+  display: block !important;
+  
+  @media only screen and (min-width: $screen-desktop) {
+    display: none !important;
+  }
+}
+.head,
+.main-nav.desktop {
+  display: none !important;
+
+  @media only screen and (min-width: $screen-desktop) {
+    display: block !important;
+  }
+}
+
+
 form {
   //.select,
   .selectbox {
