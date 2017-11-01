@@ -167,6 +167,78 @@
                         </td>
                     </tr>
 
+                    <tr class="row-common tr-transactions-" data-id="">
+                        <td class="date">
+                            <p>
+                                24/04/17 19:00
+                            </p>
+                        </td>
+
+                        <td class="lottery">
+                            <p>
+                                Euro millions
+                            </p>
+                        </td>
+
+                        <td class="type">
+                            <p>
+                                Deposit
+                            </p>
+                        </td>
+
+                        <td class="amount">
+                            <p>
+                                +€50.05
+                            </p>
+                        </td>
+                    </tr>
+                    <tr class="row-mobile">
+                        <td colspan="4">
+                            <p>
+                                Loterry: Euro Millions
+                            </p>
+                            <p>
+                                Type: Ticket Purchase
+                            </p>
+                        </td>
+                    </tr>
+
+                    <tr class="row-common tr-transactions-" data-id="">
+                        <td class="date">
+                            <p>
+                                24/04/17 19:00
+                            </p>
+                        </td>
+
+                        <td class="lottery">
+                            <p>
+                                Euro millions
+                            </p>
+                        </td>
+
+                        <td class="type">
+                            <p>
+                                Deposit
+                            </p>
+                        </td>
+
+                        <td class="amount">
+                            <p>
+                                +€50.05
+                            </p>
+                        </td>
+                    </tr>
+                    <tr class="row-mobile">
+                        <td colspan="4">
+                            <p>
+                                Loterry: Euro Millions
+                            </p>
+                            <p>
+                                Type: Ticket Purchase
+                            </p>
+                        </td>
+                    </tr>
+
                     </tbody>
                 </table>
                 {#Clear html end#}

@@ -9,7 +9,11 @@
   .content {
     margin: 0;
     //padding: 0px 30px 60px 30px;
-    padding: 65px 30px 60px 30px;
+    padding: 0px 30px 60px 30px;
+
+    @media only screen and (min-width: $screen-desktop) {
+      padding: 65px 30px 60px 30px;
+    }
   }
 
   .box-balance {
@@ -239,17 +243,29 @@
   }
 
   .table_transactions_v2 {
+    margin-bottom: 60px;
+    
     thead {
       tr {
         border-bottom: 1px solid #333333;
         th {
 
-          //font-family: WorkSans;
-          color:  #f8d014;
-          font-size: 30px;
-          font-weight: 700;
-          line-height: 36px;
+          color: #f8d014;
+          font-size: 15px;
+          font-weight: 600;
+          line-height: 32px;
           text-align: left;
+          padding: 0;
+          padding-bottom: 10px;
+          width: 50%;
+
+          @media only screen and (min-width: $screen-desktop) {
+            font-size: 30px;
+            font-weight: 700;
+            line-height: 36px;
+            padding: 0;
+            width: auto;
+          }
 
           &.date {}
           &.lottery {
@@ -275,6 +291,8 @@
       tr {
         td {
 
+          padding: 0;
+
           &.date {}
           &.lottery {
             display: none;
@@ -293,7 +311,18 @@
           &.amount {}
 
           p {
+            font-size: 15px;
+            font-weight: 700;
+            padding: 24px 24px 10px 24px;
 
+            @media only screen and (min-width: $screen-desktop) {
+
+            }
+          }
+          & + td {
+            p {
+              padding-left: 0;
+            }
           }
         }
 
@@ -303,6 +332,18 @@
           @media only screen and (min-width: $screen-desktop) {
             display: none;
           }
+
+          td {
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+            p {
+              padding: 0 23px;
+              margin-bottom: 0;
+              line-height: 1.2;
+            }
+          }
+
         }
       }
     }

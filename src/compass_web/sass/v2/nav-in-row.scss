@@ -6,7 +6,11 @@
     position: static;
     width: 100%;
     padding-top: 17px;
-    padding-bottom: 17px;
+    padding-bottom: 0;
+
+    @media only screen and (min-width: $screen-desktop) {
+      padding-bottom: 17px;
+    }
 
     ul {
       overflow: hidden;
@@ -17,12 +21,13 @@
         border: 2px solid #fff;
         text-align: center;
         background-color: #f6f6f6;
-        height: 57px;
+        height: 33px;
         width: 50%;
-
+        margin-bottom: 4px;
 
         @media only screen and (min-width: $screen-desktop) {
           width: 25%;
+          height: 57px;
         }
 
         @media only screen and (max-width: $screen-xs) {
@@ -41,16 +46,22 @@
           padding: 0;
           text-align: center;
           background-color: #f6f6f6;
-          height: 55px;
-          line-height: 55px;
+          height: 28px;
+          line-height: 29px;
           text-transform: uppercase;
 
           //font-family: WorkSans;
           font-family: $ff1;
           color: #a8a9a8;
-          font-size: 18px;
+          font-size: 15px;
           font-weight: 500;
           text-shadow: 0;
+
+          @media only screen and (min-width: $screen-desktop) {
+            height: 55px;
+            line-height: 55px;
+            font-size: 18px;
+          }
         }
 
         a:hover,
