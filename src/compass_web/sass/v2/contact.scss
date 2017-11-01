@@ -8,8 +8,12 @@
 
   .contact-page-form {
     display: inline-block;
-    padding-left: 149px;
+    padding-left: 0px;
     padding-top: 67px;
+
+    @media only screen and (min-width: $screen-desktop) {
+      padding-left: 149px;
+    }
 
     .h2 {
       color: #333333;

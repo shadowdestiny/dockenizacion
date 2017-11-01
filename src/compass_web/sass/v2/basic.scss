@@ -8,6 +8,8 @@
 
   //@media only screen and (min-width: $screen-small) {}
 
+  padding: 0 15px;
+
   @media only screen and (min-width: $screen-small) {
     width: $screen-small-wrapper;
     max-width: $screen-small-wrapper;
@@ -24,6 +26,7 @@
     width: $screen-full-wrapper;
     max-width: $screen-full-wrapper;
     margin:auto;
+    padding: 0;
   }
 
   @media only screen and (max-width: $screen-medium) {}

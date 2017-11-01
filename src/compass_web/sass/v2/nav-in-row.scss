@@ -14,7 +14,11 @@
 
     ul {
       overflow: hidden;
-      padding: 0 30px;
+      padding: 0;
+
+      @media only screen and (min-width: $screen-desktop) {
+        padding: 0 30px;
+      }
 
       li {
         float: left;

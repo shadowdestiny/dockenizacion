@@ -9,7 +9,7 @@
   .content {
     margin: 0;
     //padding: 0px 30px 60px 30px;
-    padding: 0px 30px 60px 30px;
+    padding: 0px 0px 60px 0px;
 
     @media only screen and (min-width: $screen-desktop) {
       padding: 65px 30px 60px 30px;
@@ -280,6 +280,7 @@
             }
           }
           &.amount {
+
           }
         }
       }
@@ -288,7 +289,9 @@
     tbody {
       tr {
 
-        border: 1px solid #333;
+        @media only screen and (min-width: $screen-desktop) {
+          border: 1px solid #333;
+        }
 
         td {
 
@@ -316,6 +319,7 @@
             }
           }
           &.amount {
+            //border-right: 1px solid #333333;
           }
 
           p {

@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$screen-small".
-        on line 11 of /src/compass_web/sass/v2/basic.scss
+        on line 13 of /src/compass_web/sass/v2/basic.scss
 
-6: 
-7:   //@media only screen and (min-width: $screen-xs) {}
 8: 
 9:   //@media only screen and (min-width: $screen-small) {}
 10: 
-11:   @media only screen and (min-width: $screen-small) {
-12:     width: $screen-small-wrapper;
-13:     max-width: $screen-small-wrapper;
-14:     margin:auto;
-15:   }
-16: 
+11:   padding: 0 15px;
+12: 
+13:   @media only screen and (min-width: $screen-small) {
+14:     width: $screen-small-wrapper;
+15:     max-width: $screen-small-wrapper;
+16:     margin:auto;
+17:   }
+18: 
 
 Backtrace:
-/src/compass_web/sass/v2/basic.scss:11
+/src/compass_web/sass/v2/basic.scss:13
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
@@ -70,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-small\".\A         on line 11 of /src/compass_web/sass/v2/basic.scss\A \A 6: \A 7:   //@media only screen and (min-width: $screen-xs) {}\A 8: \A 9:   //@media only screen and (min-width: $screen-small) {}\A 10: \A 11:   @media only screen and (min-width: $screen-small) {\A 12:     width: $screen-small-wrapper;\A 13:     max-width: $screen-small-wrapper;\A 14:     margin:auto;\A 15:   }\A 16: "; }
+  content: "Error: Undefined variable: \"$screen-small\".\A         on line 13 of /src/compass_web/sass/v2/basic.scss\A \A 8: \A 9:   //@media only screen and (min-width: $screen-small) {}\A 10: \A 11:   padding: 0 15px;\A 12: \A 13:   @media only screen and (min-width: $screen-small) {\A 14:     width: $screen-small-wrapper;\A 15:     max-width: $screen-small-wrapper;\A 16:     margin:auto;\A 17:   }\A 18: "; }
