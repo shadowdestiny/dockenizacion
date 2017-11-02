@@ -20,10 +20,15 @@
 
     .box-balance--row {
       border: 1px solid #333333;
-      height: $balanceRowHeightDesktop;
+      height: $balanceRowHeightMobile;
       border-bottom: 0;
-      padding-left: 100px;
+      padding-left: 30px;
       box-sizing: content-box;
+
+      @media only screen and (min-width: $screen-desktop) {
+        padding-left: 100px;
+        height: $balanceRowHeightDesktop;
+      }
 
       &:last-of-type {
         border-bottom: 1px solid #333333;
@@ -32,18 +37,26 @@
       .txt {
         //font-family: WorkSans;
         color: #333333;
-        font-size: 24px;
+        font-size: 18px;
         font-weight: 400;
-        line-height: 90px;
+        line-height: $balanceRowLineHeightMobile;
         text-align: left;
+        float: left;
+        clear: both;
+        margin: 0;
+
+        @media only screen and (min-width: $screen-desktop) {
+          line-height: $balanceRowLineHeightDesktop;
+          font-size: 24px;
+          float: left;
+        }
 
         span {
-          //padding-left: 68px;
-          padding-left: 53px;
 
           //font-family: WorkSans;
           color: #333333;
-          font-size: 29px;
+          font-size: 19px;
+          padding-left: 33px;
           font-weight: 700;
           text-align: left;
           display: inline-block;
@@ -51,19 +64,34 @@
 
           background-image: url('../img/account/desktop/arrow-balance.png');
           background-repeat: no-repeat;
-          background-position: 6px 35px;
-          -webkit-background-size: 10px;
-          background-size: 10px;
+          background-position: 6px 19px;
+          -webkit-background-size: 6px;
+          background-size: 6px;
+
+          @media only screen and (min-width: $screen-desktop) {
+            font-size: 29px;
+            padding-left: 53px;
+            background-position: 6px 35px;
+            -webkit-background-size: 10px;
+            background-size: 10px;
+          }
+
         }
       }
 
+      .box-btn {
+        float: right;
+      }
+
       .btn {
-        height: $balanceRowHeightDesktop;
-        width: 306px;
+        height: $balanceRowHeightMobile;
+        line-height: $balanceRowLineHeightMobileBtn;
+        width: 180px;
         border: 0;
         border-radius: 0;
         text-transform: uppercase;
         float: right;
+        margin: 0;
 
         //font-family: WorkSans;
         color: #ffffff;
@@ -71,10 +99,16 @@
         font-weight: 700;
         text-align: center;
         cursor: pointer;
-        line-height: 92px;
         background-image: none;
         text-shadow: none;
         padding: 0;
+
+        @media only screen and (min-width: $screen-desktop) {
+          height: $balanceRowHeightDesktop;
+          line-height: $balanceRowLineHeightDesktopBtn;
+          width: 306px;
+          font-size: 18px;
+        }
 
         &.add-funds {
           background-color: #4dec8c;
