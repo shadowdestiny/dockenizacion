@@ -30,9 +30,11 @@
     </div>
     {#<p class="small-txt"><svg class="ico v-info"><use xlink:href="/w/svg/icon.svg#v-info"></use></svg> {{ language.translate("signup_passwordLenght") }}</p>#}
     <div class="pass-alert">
+        <span>
         <svg class="ico v-info">
             <use xlink:href="/w/svg/icon.svg#v-info"></use>
-        </svg> {{ language.translate("signup_passwordLenght") }}</div>
+        </svg>
+        </span>{{ language.translate("signup_passwordLenght") }}</div>
 
     <div class="selectbox">
         {{ signupform.render('country', {'class':'select'~form_errors['country']}) }}

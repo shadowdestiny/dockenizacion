@@ -141,7 +141,7 @@
     content: '';
     position: absolute;
     z-index: 1;
-    top: 17px;
+
     right: 29px;
     width: 15px;
     height: 10px;
@@ -150,6 +150,13 @@
     background-size: 15px;
     background-repeat: no-repeat;
     background-position: 0px 0px;
+
+    top: 20px;
+
+    @media only screen and (min-width: $screen-desktop) {
+      //top: 17px;
+      top: 20px;
+    }
   }
 }
 
