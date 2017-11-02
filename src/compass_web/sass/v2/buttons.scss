@@ -5,16 +5,23 @@
   margin-left: 8px;
   margin-right: 8px;
   color: #9b9c9b;
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 700;
   box-sizing: border-box;
-  width: 109px;
   text-align: center;
-  height: 49px;
-  line-height: 46px;
+  width: 130px;
+  height: 50px;
+  line-height: 48px;
   text-transform: uppercase;
   padding: 0;
   display: block;
+
+  @media only screen and (min-width: $screen-desktop) {
+    font-size: 17px;
+    width: 109px;
+    height: 49px;
+    line-height: 46px;
+  }
 }
 
 .btn-theme.btn-primary {

@@ -1,24 +1,28 @@
 /*
-Error: Undefined variable: "$v2-yellow".
-        on line 21 of /src/compass_web/sass/v2/buttons.scss
+Error: Undefined variable: "$screen-desktop".
+        on line 19 of /src/compass_web/sass/v2/buttons.scss
 
+14:   line-height: 48px;
+15:   text-transform: uppercase;
 16:   padding: 0;
 17:   display: block;
-18: }
-19: 
-20: .btn-theme.btn-primary {
-21:   border-color: $v2-yellow;
-22:   background-color: $v2-yellow;
-23: }
-24: 
-25: .btn-theme.btn-primary:hover {
-26:   border-color: $v2-yellow-hover;
+18: 
+19:   @media only screen and (min-width: $screen-desktop) {
+20:     font-size: 17px;
+21:     width: 109px;
+22:     height: 49px;
+23:     line-height: 46px;
+24:   }
 
 Backtrace:
-/src/compass_web/sass/v2/buttons.scss:21
+/src/compass_web/sass/v2/buttons.scss:19
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:394:in `visit_prop'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:534:in `map'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:534:in `run_interp_no_strip'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:541:in `run_interp'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:509:in `visit_media'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
@@ -66,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$v2-yellow\".\A         on line 21 of /src/compass_web/sass/v2/buttons.scss\A \A 16:   padding: 0;\A 17:   display: block;\A 18: }\A 19: \A 20: .btn-theme.btn-primary {\A 21:   border-color: $v2-yellow;\A 22:   background-color: $v2-yellow;\A 23: }\A 24: \A 25: .btn-theme.btn-primary:hover {\A 26:   border-color: $v2-yellow-hover;"; }
+  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 19 of /src/compass_web/sass/v2/buttons.scss\A \A 14:   line-height: 48px;\A 15:   text-transform: uppercase;\A 16:   padding: 0;\A 17:   display: block;\A 18: \A 19:   @media only screen and (min-width: $screen-desktop) {\A 20:     font-size: 17px;\A 21:     width: 109px;\A 22:     height: 49px;\A 23:     line-height: 46px;\A 24:   }"; }
