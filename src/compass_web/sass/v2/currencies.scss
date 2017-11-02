@@ -2,26 +2,46 @@
 
 .currencies-page {
   margin-top: 30px;
+  padding: 0;
 
-  padding: 32px 35px;
-  background-color: #f6f4f4;
 
-  //background-image: -webkit-linear-gradient(top, #f6f4f4 0%, #ffffff 100%);
-  //background-image: linear-gradient(to bottom, #f6f4f4 0%, #ffffff 100%);
+  @media only screen and (min-width: $screen-desktop) {
+    padding: 32px 35px;
+    background-color: #f6f4f4;
+    background-image: -webkit-linear-gradient(top, #f6f4f4 0%, #f8f6f6 50%,  #ffffff 100%);
+    background-image: linear-gradient(to bottom, #f6f4f4 0%, #f8f6f6 50%, #ffffff 100%);
 
-  background-image: -webkit-linear-gradient(top, #f6f4f4 0%, #f8f6f6 50%,  #ffffff 100%);
-  background-image: linear-gradient(to bottom, #f6f4f4 0%, #f8f6f6 50%, #ffffff 100%);
+  }
 
   .list {
 
+    margin: 0;
+
     li {
-      margin: 0 2% 2em 0;
+      width: 29.8%;
+      margin: 0 3.5% 2em 0;
+
+      @media only screen and (min-width: $screen-desktop) {
+        float: left;
+        width: 31%;
+        //margin: 0 2% 2em 0;
+        margin: 0 2% 1em 0;
+      }
 
       a{
         border-radius: 2px;
         background-color:  #eae8e8;
         border: 0;
         padding: 10px 20px 11px 19px;
+
+        .symbol {
+
+          font-size: 18px;
+
+          @media only screen and (min-width: $screen-desktop) {
+            font-size: 18px;
+          }
+        }
 
         .curr {
           font-family:$ff1;
@@ -32,6 +52,28 @@
           text-align: left;
           text-transform: uppercase;
           margin-bottom: 5px;
+          position: relative;
+
+          @media only screen and (min-width: $screen-desktop) {
+
+          }
+
+          .symbol {
+
+            position: absolute;
+            font-size: 28px;
+            top: 5px;
+            right: -2px;
+            display: block;
+            font-weight: 400;
+
+            @media only screen and (min-width: $screen-desktop) {
+              position: static;
+              font-size: 18px;
+              font-weight: 700;
+            }
+          }
+
         }
 
         .name {
