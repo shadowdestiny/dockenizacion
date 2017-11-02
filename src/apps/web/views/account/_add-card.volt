@@ -47,7 +47,7 @@
 
     {% endif %}
 
-<div class="wrap">
+<div class="">
     {% if component.where == 'account' %}
     <div class="">
         <div class="">

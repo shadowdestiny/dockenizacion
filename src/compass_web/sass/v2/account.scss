@@ -119,16 +119,26 @@
       border-width: 1px;
       border-color: #b7b7b7;
       border-style: solid;
-      max-width: 640px;
+      //max-width: 640px;
+      max-width: none;
       //height: 46px;
       height: 48px;
       margin-bottom: 20px;
       padding-bottom: 2px;
 
+      @media only screen and (min-width: $screen-desktop) {
+        max-width: 640px;
+      }
+
+
+
       &#expiry-date-month,
       &#expiry-date-year {
-        width: 80px;
+        width: 80px!important;
         //margin-right: 20px;
+        padding-left: 0;
+        padding-right: 0;
+        text-align: center;
         margin-right: 15px;
       }
 
@@ -139,8 +149,13 @@
     }
 
     .cvv {
-      clear: both;
+      float: right;
       width: 182px !important;
+
+      @media only screen and (min-width: $screen-desktop) {
+        clear: both;
+        float: none;
+      }
 
       label {
         text-transform: uppercase;
@@ -182,9 +197,18 @@
   .images-payment {
 
     ul {
-      float: left;
+      //float: left;
       padding-top: 14px;
-      padding-bottom: 63px;
+      //padding-bottom: 63px;
+      //margin:auto;
+      text-align: center;
+      float: none;
+
+      @media only screen and (min-width: $screen-desktop) {
+        float: left;
+        padding-top: 14px;
+        padding-bottom: 63px;
+      }
     }
 
     img {
