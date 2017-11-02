@@ -312,7 +312,7 @@
                             </div>
                         </div>
 
-                        <div class="wrap">
+                        <div class="">
                             <div class="">
                                 <div class="bank-details-block">
                                     <h2 class="h3 yellow">{{ language.translate("withdraw_bank") }}</h2>

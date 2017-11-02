@@ -145,7 +145,11 @@
     }
 
     .selectbox {
-      max-width: 640px;
+      max-width: none;
+
+      @media only screen and (min-width: $screen-desktop) {
+        max-width: 640px;
+      }
     }
 
     .cvv {
