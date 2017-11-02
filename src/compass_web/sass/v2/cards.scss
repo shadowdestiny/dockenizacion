@@ -12,35 +12,67 @@
 
     a {
       position: relative;
+      display: block;
 
       &.visa-a {
-        width: 81px;
-        top: 7px;
+        width: 40px;
+        top: 1px;
         left: -2px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          width: 81px;
+          top: 7px;
+          left: -2px;
+        }
+
       }
 
       &.master-a {
-        width: 71px;
-        top: 14px;
+        width: 35px;
+        top: 5px;
         left: -9px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          width: 71px;
+          top: 14px;
+          left: -9px;
+        }
       }
 
       &.paysafe-a {
-        width: 202px;
-        top: 10px;
+        width: 100px;
+        top: 5px;
         left: -15px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          width: 202px;
+          top: 10px;
+          left: -15px;
+        }
       }
 
       &.neteller-a {
-        width: 175px;
-        top: 8px;
+        width: 86px;
+        top: 3px;
         left: -20px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          width: 175px;
+          top: 8px;
+          left: -20px;
+        }
       }
 
       &.skrill-a {
-        width: 96px;
-        top: 19px;
+        width: 48px;
+        top: 7px;
         left: -25px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          width: 96px;
+          top: 19px;
+          left: -25px;
+        }
       }
 
       img {

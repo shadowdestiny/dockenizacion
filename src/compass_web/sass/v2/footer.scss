@@ -27,8 +27,12 @@
   }
 
   .box-links {
-    padding-left: 85px;
+
     margin-bottom: 60px;
+
+    @media only screen and (min-width: $screen-desktop) {
+      padding-left: 85px;
+    }
 
     strong,
     ul a {
