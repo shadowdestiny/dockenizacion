@@ -1,32 +1,85 @@
 
 .latest-news {
-  padding-bottom: 47px;
+  margin-top: -19px;
+  padding-bottom: 0px;
+
+  @media only screen and (min-width: $screen-desktop) {
+    margin-top: 0;
+    padding-bottom: 47px;
+  }
 
   .h2 {
-    border-top: 1px solid #424242;
-    padding-top: 25px;
-    margin-bottom: 37px;
+    border-top: 0;
+    padding-top: 0;
+    margin-bottom: -16px;
+
+    padding-left: 16px;
+    font-size: 38px;
+
+    @media only screen and (min-width: $screen-desktop) {
+      border-top: 1px solid #424242;
+      padding-top: 25px;
+      margin-bottom: 37px;
+
+      padding-left: 0;
+      font-size: 52px;
+    }
   }
 
   .news-block:nth-child(even) {
-    float: right;
+    float: none;
+    //clear: both;
     padding-right: 0;
-    padding-left: 18px;
+    padding-left: 0;
+
+    @media only screen and (min-width: $screen-desktop) {
+      float: right;
+      padding-right: 0;
+      padding-left: 18px;
+    }
   }
   .news-block:nth-child(odd) {
     float: left;
-    clear: both;
+    //clear: both;
     padding-left: 0;
-    padding-right: 18px;
+    padding-right: 0;
+
+    @media only screen and (min-width: $screen-desktop) {
+      float: left;
+      clear: both;
+      padding-left: 0;
+      padding-right: 18px;
+
+    }
   }
 
   .news-block {
     overflow: hidden;
-    width: 50%;
+    width: 100%;
     margin: 0;
+    margin-bottom: 55px;
+
+    @media only screen and (min-width: $screen-desktop) {
+      overflow: hidden;
+      width: 50%;
+      margin: 0;
+      margin-bottom: 20px;
+    }
 
     .news-block--img {
-      padding-bottom: 22px;
+      width: 36%;
+      padding-bottom: 0;
+
+      margin-right: -36%;
+      float: left;
+
+      @media only screen and (min-width: $screen-desktop) {
+        width: 100%;
+        padding-bottom: 22px;
+
+        margin-right: 0;
+        float: none;
+      }
 
       img {
 
@@ -34,46 +87,98 @@
     }
 
     .news-block--content {
+      //margin-left: 50%;
+      margin-left: 49%;
+      overflow: hidden;
+
+      @media only screen and (min-width: $screen-desktop) {
+        margin-left: 0;
+      }
+
       .news-block--title {
         font-family: $ff3;
         color: #f0c11c;
-        font-size: 30px;
         font-weight: 900;
-        line-height: 34px;
         text-align: left;
         text-transform: uppercase;
-        margin-bottom: 6px;
+
+        font-size: 18px;
+        line-height: 20px;
+        margin-bottom: 5px;
+        margin-top: -3px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 30px;
+          line-height: 34px;
+          margin-bottom: 6px;
+          margin-top: 0;
+        }
       }
 
       .news-block--body {
         font-family: $ff3;
         color: #333333;
-        font-size: 17px;
         font-weight: 400;
         text-align: left;
-        padding-bottom: 25px;
-        padding-right: 100px;
+
+        font-size: 11px;
+        padding-bottom: 11px;
+        padding-right: 30px;
+        line-height: 1.2;
+
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 17px;
+          padding-bottom: 25px;
+          padding-right: 100px;
+        }
       }
 
       .news-block--link {
         font-family: $ff3;
         color: #f5cc0d;
-        font-size: 17px;
         font-weight: 700;
         text-align: left;
         display: block;
         text-decoration: none;
         float: left;
+        font-size: 10.5px;
+        padding-left: 2px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 17px;
+          padding-left: 0px;
+        }
       }
 
       .news-block--social {
         overflow: hidden;
         position: relative;
-        top: -10px;
-        padding-right: 39px;
+        top: 0px;
+        padding-right: 0px;
+        padding-left: 0px;
+
+        clear: both;
+        float: left;
+        text-align: left;
+
+        @media only screen and (min-width: $screen-desktop) {
+          position: relative;
+          top: -10px;
+          padding-right: 39px;
+          padding-left: 0;
+
+          clear: none;
+          float: none;
+          text-align: right;
+        }
 
         .social {
-          float: right;
+
+          padding-top: 22px;
+
+          @media only screen and (min-width: $screen-desktop) {
+            padding-top: 0;
+          }
 
           ul {
             li {
@@ -83,6 +188,14 @@
         }
       }
 
+    }
+
+    &:last-of-type {
+      margin-bottom: 0;
+
+      @media only screen and (min-width: $screen-desktop) {
+
+      }
     }
   }
 }
