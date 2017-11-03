@@ -29,7 +29,7 @@
                 Millions
             </div>
 
-            <div class="top-banner--center">
+            <div class="top-banner--center desktop--only">
                 <div class="desktop-row--01">
                     €48
                 </div>
@@ -40,8 +40,12 @@
 
             <div class="top-banner--center mobile--only">
 
-                <div class="mobile-row">
+                <div class="star--01"></div>
+                <div class="star--02"></div>
+                <div class="star--03"></div>
 
+                <div class="mobile-row">
+                    €48millions
                 </div>
                 <div class="top-banner--for-only">
                     {% include "_elements/for-only.volt" %}
@@ -56,7 +60,7 @@
                 </div>
             </div>
 
-            <div class="top-banner--right">
+            <div class="top-banner--right desktop--only">
 
                 <div class="top-banner--for-only">
                     {% include "_elements/for-only.volt" %}
