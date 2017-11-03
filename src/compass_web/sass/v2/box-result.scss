@@ -47,17 +47,26 @@
           position: relative;
         }
         .view-more-a {
+          font-size: 11px;
+          margin-right: -5px;
+          margin-bottom: -3px;
 
+          @media only screen and (min-width: $screen-desktop) {
+            font-size: 16px;
+            margin-right: 0;
+            margin-bottom: 0;
+          }
         }
 
         .view-more-a:after {
 
-          @include css-triangle($v2-yellow, 5px);
+          @include css-triangle($v2-yellow, 4px);
           right: -10px;
           bottom: -21px;
 
 
           @media only screen and (min-width: $screen-desktop) {
+            @include css-triangle($v2-yellow, 5px);
             right: -10px;
             bottom: -21px;
           }
