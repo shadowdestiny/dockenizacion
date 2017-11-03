@@ -1,13 +1,16 @@
 // Navigation
 
 .top-nav {
+  min-height: 94px;
+
   position: relative;
-  //min-height: 28px;
-  min-height: 110px;
-  //background: #ae5279;
   background: #fff;
   z-index: 10;
   padding-top: 31px;
+
+  @media only screen and (min-width: $screen-desktop) {
+    min-height: 110px;
+  }
 
   .link {
     font-size: 75%;
@@ -191,20 +194,23 @@
 }
 
 
-
+.nav.mobile {
+  ul {
+    margin-bottom: 18px;
+  }
+}
 
 .nav.mobile, #nav-account, #language, #changelanguage {
 
-  ul {
-
-  }
   a {
     text-transform: uppercase;
+    font-size: 30px;
 
     &:link, &:visited {
       display: block;
       color: #333333;
-      padding: 10px;
+      //padding: 10px;
+      padding: 21px 10px;
       border-bottom: 1px solid #fff;
       background-color: $v2-yellow;
       font-weight: 900;
@@ -214,6 +220,7 @@
     }
   }
   a:active {
+
     background-color: $v2-yellow-hover;
   }
 }
@@ -235,80 +242,6 @@
       display: none;
     }
   }
-}
-
-
-/* MENU HAMBURGER */
-.menu-ham {
-  position: absolute;
-  //top: 10px;
-  //right: 10px;
-  top: 33px;
-  left: 10px;
-  border: 0;
-  //border: 1px solid $grey-light;
-  //border-radius: 3px;
-  border: 1px solid #fff;
-  padding: 0;
-  outline: none;
-  width: 42px;
-  height: 40px;
-  transition: all .4s ease;
-  background: #fff;
-  //margin: 1px 5px 0 0;
-  z-index: 10;
-}
-
-.menu-ham {
-  .bar {
-    margin: -2px 0 0 4px;
-  }
-  .bar, .bar:before, .bar:after {
-    content: '';
-    position: absolute;
-    cursor: pointer;
-    height: 12px;
-    display: block;
-    transition: all 500ms ease-in-out;
-    background: #000;
-    width: 55px;
-  }
-
-  .bar:before {
-    //top: -10px;
-    top: -18px;
-  }
-
-  .bar:after {
-    //bottom: -10px;
-    bottom: -18px;
-  }
-
-  &.expanded {
-    transform: rotate(90deg);
-    border: 1px solid #fff;
-    background-color: transparent;
-    top: 26px;
-    left: 29px;
-
-    span {
-      background-color: transparent;
-    }
-
-    span:before {
-      top: 0;
-    }
-
-    span:before {
-      transform: rotate(45deg);
-    }
-
-    span:after {
-      transform: rotate(-45deg);
-      bottom: 0;
-    }
-  }
-
 }
 
 #nav-toggle.active span:after {
