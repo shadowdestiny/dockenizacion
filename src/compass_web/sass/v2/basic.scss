@@ -57,10 +57,7 @@ a:visited, .lnk:visited {
   color: inherit;
 }
 
-
-
-.mobile,
-.nav.mobile {
+.mobile {
   display: block !important;
 
   @media only screen and (min-width: $screen-desktop) {

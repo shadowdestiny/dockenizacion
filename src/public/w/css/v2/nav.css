@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$v2-yellow".
-        on line 20 of /src/compass_web/sass/v2/nav.scss
+        on line 16 of /src/compass_web/sass/v2/nav.scss
 
-15:       padding: 10px;
-16:       //font-weight: 700;
-17:       //@include background-image(linear-gradient(#fff, #eee));
-18:       //border-bottom: 1px solid $grey-light;
-19:       border-bottom: 1px solid #fff;
-20:       background-color: $v2-yellow;
-21:       font-weight: 900;
-22:     }
-23:     &:hover, &:focus {
-24:       //color: $purple-darker !important;
-25:       //@include background-image(linear-gradient(#fff, #ccc));
+11:     &:link, &:visited {
+12:       display: block;
+13:       color: #333333;
+14:       padding: 10px;
+15:       border-bottom: 1px solid #fff;
+16:       background-color: $v2-yellow;
+17:       font-weight: 900;
+18:     }
+19:     &:hover, &:focus {
+20:       background-color: $v2-yellow-hover;
+21:     }
 
 Backtrace:
-/src/compass_web/sass/v2/nav.scss:20
+/src/compass_web/sass/v2/nav.scss:16
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:394:in `visit_prop'
@@ -88,4 +88,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$v2-yellow\".\A         on line 20 of /src/compass_web/sass/v2/nav.scss\A \A 15:       padding: 10px;\A 16:       //font-weight: 700;\A 17:       //@include background-image(linear-gradient(#fff, #eee));\A 18:       //border-bottom: 1px solid $grey-light;\A 19:       border-bottom: 1px solid #fff;\A 20:       background-color: $v2-yellow;\A 21:       font-weight: 900;\A 22:     }\A 23:     &:hover, &:focus {\A 24:       //color: $purple-darker !important;\A 25:       //@include background-image(linear-gradient(#fff, #ccc));"; }
+  content: "Error: Undefined variable: \"$v2-yellow\".\A         on line 16 of /src/compass_web/sass/v2/nav.scss\A \A 11:     &:link, &:visited {\A 12:       display: block;\A 13:       color: #333333;\A 14:       padding: 10px;\A 15:       border-bottom: 1px solid #fff;\A 16:       background-color: $v2-yellow;\A 17:       font-weight: 900;\A 18:     }\A 19:     &:hover, &:focus {\A 20:       background-color: $v2-yellow-hover;\A 21:     }"; }

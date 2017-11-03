@@ -10,31 +10,26 @@
 
     &:link, &:visited {
       display: block;
-      //color: $purple;
       color: #333333;
       padding: 10px;
-      //font-weight: 700;
-      //@include background-image(linear-gradient(#fff, #eee));
-      //border-bottom: 1px solid $grey-light;
       border-bottom: 1px solid #fff;
       background-color: $v2-yellow;
       font-weight: 900;
     }
     &:hover, &:focus {
-      //color: $purple-darker !important;
-      //@include background-image(linear-gradient(#fff, #ccc));
-      //border-color: $grey;
       background-color: $v2-yellow-hover;
     }
   }
   a:active {
-    //box-shadow: 0 5px 10px #aaa inset;
-    //background: #fff;
     background-color: $v2-yellow-hover;
   }
 }
 
 .nav.mobile {
+
+  ul {
+    display: none;
+  }
 
   li:last-child {
     a {
