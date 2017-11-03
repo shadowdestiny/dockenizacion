@@ -1,46 +1,24 @@
 /*
-Error: Undefined variable: "$v2-yellow".
-        on line 16 of /src/compass_web/sass/v2/nav.scss
+Error: Undefined variable: "$basic-size".
+        on line 86 of /src/compass_web/sass/v2/nav.scss
 
-11:     &:link, &:visited {
-12:       display: block;
-13:       color: #333333;
-14:       padding: 10px;
-15:       border-bottom: 1px solid #fff;
-16:       background-color: $v2-yellow;
-17:       font-weight: 900;
-18:     }
-19:     &:hover, &:focus {
-20:       background-color: $v2-yellow-hover;
-21:     }
+81:   min-width: 180px;
+82:   display: none;
+83:   z-index: 1;
+84:   right: 0;
+85:   text-align: left;
+86:   font-size: $basic-size;
+87:   background: #fff;
+88:   border: 1px solid $yellow;
+89:   border-top: 0;
+90:   border-radius: 0 0 5px 5px; /*overflow-y:auto; height:260px; min-width:202px;*\/
+91:   li {
 
 Backtrace:
-/src/compass_web/sass/v2/nav.scss:16
+/src/compass_web/sass/v2/nav.scss:86
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:394:in `visit_prop'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block (2 levels) in visit_rule'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `map'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block in visit_rule'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:428:in `visit_rule'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block (2 levels) in visit_rule'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `map'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block in visit_rule'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:428:in `visit_rule'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
@@ -88,4 +66,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$v2-yellow\".\A         on line 16 of /src/compass_web/sass/v2/nav.scss\A \A 11:     &:link, &:visited {\A 12:       display: block;\A 13:       color: #333333;\A 14:       padding: 10px;\A 15:       border-bottom: 1px solid #fff;\A 16:       background-color: $v2-yellow;\A 17:       font-weight: 900;\A 18:     }\A 19:     &:hover, &:focus {\A 20:       background-color: $v2-yellow-hover;\A 21:     }"; }
+  content: "Error: Undefined variable: \"$basic-size\".\A         on line 86 of /src/compass_web/sass/v2/nav.scss\A \A 81:   min-width: 180px;\A 82:   display: none;\A 83:   z-index: 1;\A 84:   right: 0;\A 85:   text-align: left;\A 86:   font-size: $basic-size;\A 87:   background: #fff;\A 88:   border: 1px solid $yellow;\A 89:   border-top: 0;\A 90:   border-radius: 0 0 5px 5px; /*overflow-y:auto; height:260px; min-width:202px;*/\A 91:   li {"; }
