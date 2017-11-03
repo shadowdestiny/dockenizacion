@@ -15,7 +15,7 @@ class LegalController extends PublicSiteControllerBase
         $entityManager = $di->get('entityManager');
         $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
 
-        $this->tag->prependTitle($translationAdapter->query('Terms and Conditions'));
+        $this->tag->prependTitle($translationAdapter->query('terms_name'));
         MetaDescriptionTag::setDescription($translationAdapter->query('terms_desc'));
     }
 
@@ -37,6 +37,7 @@ class LegalController extends PublicSiteControllerBase
         $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
 
         $this->tag->prependTitle($translationAdapter->query('About Us'));
+        MetaDescriptionTag::setDescription($translationAdapter->query('aboutus_desc'));
 
     }
 

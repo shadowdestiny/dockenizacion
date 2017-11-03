@@ -5,6 +5,7 @@ namespace EuroMillions\web\controllers;
 use Captcha\Captcha;
 use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\components\ReCaptchaWrapper;
+use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\forms\ForgotPasswordForm;
 use EuroMillions\web\forms\ResetPasswordForm;
 use EuroMillions\web\forms\SignInForm;
@@ -50,6 +51,7 @@ class UserAccessController extends ControllerBase
 
         $url_redirect = $this->session->get('original_referer');
 
+
         if ($this->request->isPost()) {
             if ($sign_in_form->isValid($this->request->getPost()) === false) {
                 $messages = $sign_in_form->getMessages(true);
@@ -83,6 +85,7 @@ class UserAccessController extends ControllerBase
 
         $this->view->pick('sign-in/index');
         $this->tag->prependTitle($translationAdapter->query('signintag_name'));
+        MetaDescriptionTag::setDescription($translationAdapter->query('signintag_desc'));
 
         return $this->view->setVars([
             'which_form' => 'in',
@@ -111,6 +114,7 @@ class UserAccessController extends ControllerBase
         $form_errors = $this->getErrorsArray();
         $sign_up_form = $this->getSignUpForm();
         $url_redirect = $this->session->get('original_referer');
+
         if ($this->request->isPost()) {
             if ($sign_up_form->isValid($this->request->getPost()) === false) {
                 $messages = $sign_up_form->getMessages(true);
@@ -151,6 +155,7 @@ class UserAccessController extends ControllerBase
 
         $this->view->pick('sign-in/index');
         $this->tag->prependTitle($translationAdapter->query('signuptag_name'));
+        MetaDescriptionTag::setDescription($translationAdapter->query('signuptag_desc'));
         return $this->view->setVars([
             'which_form' => 'up',
             'signinform' => $sign_in_form,
