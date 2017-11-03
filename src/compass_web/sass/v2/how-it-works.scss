@@ -1,11 +1,25 @@
 // How it works section
 .hiw-block--section {
-  padding-top: 65px;
-  padding-bottom: 78px;
+
+  padding-top: 15px;
+  padding-bottom: 24px;
+
+  @media only screen and (min-width: $screen-desktop) {
+    padding-top: 65px;
+    padding-bottom: 78px;
+  }
+
 
   .h2 {
-    font-size: 51px;
-    margin-bottom: 41px;
+    font-size: 37px;
+    padding-left: 17px;
+    margin-bottom: 15px;
+
+    @media only screen and (min-width: $screen-desktop) {
+      font-size: 51px;
+      margin-bottom: 41px;
+      padding-left: 0;
+    }
   }
 
 
@@ -14,22 +28,33 @@
     clear: both;
 
     .hiw-block {
+
+      float: left;
       border-width: 1px;
       border-color:  #959595;
       border-style: solid;
       background-color:  rgba(249, 249, 249, 0);
-      width: 300px;
-      height: 281px;
-      margin-right: 26px;
-      float: left;
-      padding-top: 26px;
-      padding-bottom: 12px;
-      padding-left: 10px;
-      padding-right: 10px;
+      width: 161px;
+      height: 161px;
+      margin-right: 34px;
+      padding-top: 13px;
+      padding-bottom: 8px;
+      padding-left: 5px;
+      padding-right: 5px;
       position: relative;
 
       display: flex;
       flex-direction: column;
+
+      @media only screen and (min-width: $screen-desktop) {
+        width: 300px;
+        height: 281px;
+        margin-right: 26px;
+        padding-top: 26px;
+        padding-bottom: 12px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
 
       &:last-of-type {
         margin-right: 0;
@@ -38,13 +63,18 @@
       .hiw-block--corner {
         //font-family: WorkSans;
         color:  #9b9b9b;
-        font-size: 56px;
         font-weight: 700;
         text-align: left;
-        padding-left: 23px;
+        font-size: 34px;
+        padding-left: 8px;
         display: flex;
         align-items: flex-start;
         flex-grow: 1;
+
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 56px;
+          padding-left: 23px;
+        }
       }
       .hiw-block--center {
 
@@ -52,25 +82,39 @@
       .hiw-block--description {
         //font-family: WorkSans;
         color:  #9b9b9b;
-        font-size: 20px;
-        line-height: 1.2;
         font-weight: 700;
         text-align: center;
         display: flex;
         justify-content: center;
-        //min-height: 2em;
-        min-height: 50px;
         text-transform: uppercase;
-        padding-left: 14px;
+
+        font-size: 11px;
+        line-height: 1.2;
+        min-height: 26px;
+        padding-left: 0px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 20px;
+          line-height: 1.2;
+          min-height: 50px;
+          padding-left: 14px;
+        }
       }
 
       &.hiw-block--01 {
         background-image: url('../img/home/how-it-works/desktop/1-img.png');
         background-repeat: no-repeat;
-        //background-position: 50% 50%;
-        background-position: 93px 45px;
-        -webkit-background-size: 90px;
-        background-size: 90px;
+
+
+        background-position: 45px 19px;
+        -webkit-background-size: 56px;
+        background-size: 56px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          background-position: 93px 45px;
+          -webkit-background-size: 90px;
+          background-size: 90px;
+        }
 
         .hiw-block--corner {
           position: relative;
@@ -80,26 +124,44 @@
       &.hiw-block--02 {
         background-image: url('../img/home/how-it-works/desktop/2-img.png');
         background-repeat: no-repeat;
-        //background-position: 50% 50%;
-        background-position: 75px 69px;
-        -webkit-background-size: 143px;
-        background-size: 143px;
+
+        background-position: 36px 42px;
+        -webkit-background-size: 89px;
+        background-size: 89px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          background-position: 75px 69px;
+          -webkit-background-size: 143px;
+          background-size: 143px;
+        }
       }
       &.hiw-block--03 {
         background-image: url('../img/home/how-it-works/desktop/3-img.png');
         background-repeat: no-repeat;
-        //background-position: 50% 50%;
-        background-position: 105px 90px;
-        -webkit-background-size: 933px;
-        background-size: 93px;
+
+        background-position: 53px 56px;
+        -webkit-background-size: 57px;
+        background-size: 57px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          background-position: 105px 90px;
+          -webkit-background-size: 93px;
+          background-size: 93px;
+        }
       }
       &.hiw-block--04 {
         background-image: url('../img/home/how-it-works/desktop/4-img.png');
         background-repeat: no-repeat;
-        //background-position: 50% 50%;
-        background-position: 75px 84px;
-        -webkit-background-size: 148px;
-        background-size: 148px;
+
+        background-position: 35px 51px;
+        -webkit-background-size: 91px;
+        background-size: 91px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          background-position: 75px 84px;
+          -webkit-background-size: 148px;
+          background-size: 148px;
+        }
 
         .hiw-block--corner {
           position: relative;
