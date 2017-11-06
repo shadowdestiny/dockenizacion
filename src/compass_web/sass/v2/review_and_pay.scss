@@ -334,7 +334,7 @@
         font-size: 33.3px;
 
         @media only screen and (min-width: $screen-desktop) {
-
+          font-size: 60px;
         }
       }
 
@@ -353,8 +353,8 @@
           background-size: 77px;
           width: 77px;
           height: 68px;
-          left: 0;
-          top: 0;
+          left: -108px;
+          top: 27px;
         }
       }
 
@@ -364,7 +364,8 @@
         padding-left: 4px;
 
         @media only screen and (min-width: $screen-desktop) {
-
+          padding-top: 13px;
+          padding-left: 10px;
         }
 
         h2 {
@@ -422,6 +423,10 @@
             padding-right: 0;
             text-align: center;
             margin-right: 15px;
+
+            @media only screen and (min-width: $screen-desktop) {
+              width: 83px!important;
+            }
           }
 
         }
@@ -431,7 +436,7 @@
           padding-bottom: 3px;
 
           @media only screen and (min-width: $screen-desktop) {
-
+            padding-top: 0;
           }
         }
 
@@ -450,6 +455,8 @@
           @media only screen and (min-width: $screen-desktop) {
             clear: both;
             float: none;
+
+            width: 184px !important
           }
 
           label {
@@ -472,6 +479,10 @@
 
           #card-cvv {
             width: 312px !important;
+
+            @media only screen and (min-width: $screen-desktop) {
+              width: 184px !important
+            }
           }
         }
 
