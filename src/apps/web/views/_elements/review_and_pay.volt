@@ -131,7 +131,7 @@
 
             <form class="hidden box-add-card form-currency" method="post" action="/addFunds" style="display: block;">
                 <script type="text/javascript">
-                    window.onload = function() {
+                    window.onload = function () {
                         if (window.jQuery) {
                             $('#card-number').mask('9999 9999 9999 9999');
                         }
@@ -139,88 +139,66 @@
                 </script>
 
 
-
-
-
-
-                <div class="">
-                    <div class="">
-                        <div class="">
-                            <h2 class="h2">
-                                enter your credit card details
-                            </h2>
-
-
-
-
-                            <label class="label" for="card-number">
-                                card_number <span class="asterisk">*</span>
-                            </label>
-                            <input type="text" id="card-number" name="card-number" class="input" placeholder="" autocomplete="off" maxlength="19">
-                            <label class="label" for="card-holder">
-                                card_name <span class="asterisk">*</span>
-                            </label>
-                            <input type="text" id="card-holder" name="card-holder" value="test test" class="input" placeholder="" autocomplete="off">
-                            <div class="cl card-detail">
-                                <div class="left margin">
-                                    <label class="label block" for="expiry-date-month">
-                                        card_date <span class="asterisk">*</span>
-                                    </label>
-                                    <input type="text" id="expiry-date-month" name="expiry-date-month" class="input date" placeholder="mm" autocomplete="off" maxlength="2" style="width:14%">                            <input type="text" id="expiry-date-year" name="expiry-date-year" class="input date" placeholder="yy" autocomplete="off" maxlength="2" style="width:14%">                        </div>
-                                <div class="left cvv">
-                                    <label class="label" for="card-cvv">
-                                        card_cvv <span class="asterisk">*</span>
-                                        <span class="tooltip" data-type="span" data-place="top" data-event="click" data-message="The Card Code Verification is a 3 digit number (Mastercard and Visa) or 4 digit (American Express) that can be located on your card." data-class="v-question-mark ico" data-ico="v-question-mark"></span>
-                                    </label>
-                                    <input type="text" id="card-cvv" name="card-cvv" class="input" placeholder="" autocomplete="off">                        </div>
-                                <input type="hidden" id="csrf" name="csrf">
-                                <input type="hidden" name="thm_session_id" value="90952420171106113934917804">
-                                <p style="background:url(https://h.online-metrix.net/fp/clear.png?org_id=lygdph9h&amp;session_id=90952420171106113934917804&amp;session2=6e456d84097bbcfae9f6ecea1fbda86d&amp;m=1)"></p>
-                                <img src="https://h.online-metrix.net/fp/clear.png?org_id=lygdph9h&amp;session_id=90952420171106113934917804&amp;m=2">
-                                <script src="https://h.online-metrix.net/fp/check.js?org_id=lygdph9h&amp;session_id=90952420171106113934917804"></script>
-                                <object type="application/x-shockwave-flash" data="https://h.online-metrix.net/fp/fp.swf?org_id=lygdph9h&amp;session_id=90952420171106113934917804" width="1" height="1" id="thm_fp">&nbsp;
-                                    <param name="movie" value="https://h.online-metrix.net/fp/fp.swf?org_id=lygdph9h&amp;session_id=90952420171106113934917804">
-                                </object>
-                                <p></p>
-                            </div>
-
-
-                        </div>
-
+                <label class="label" for="card-number">
+                    card_number <span class="asterisk">*</span>
+                </label>
+                <input type="text" id="card-number" name="card-number" class="input" placeholder="" autocomplete="off"
+                       maxlength="19">
+                <label class="label" for="card-holder">
+                    card_name <span class="asterisk">*</span>
+                </label>
+                <input type="text" id="card-holder" name="card-holder" value="test test" class="input" placeholder=""
+                       autocomplete="off">
+                <div class="cl card-detail">
+                    <div class="left margin">
+                        <label class="label block" for="expiry-date-month">
+                            card_date <span class="asterisk">*</span>
+                        </label>
+                        <input type="text" id="expiry-date-month" name="expiry-date-month" class="input date"
+                               placeholder="mm" autocomplete="off" maxlength="2" style="width:14%">
+                        <input type="text"
+                               id="expiry-date-year"
+                               name="expiry-date-year"
+                               class="input date"
+                               placeholder="yy"
+                               autocomplete="off"
+                               maxlength="2"
+                               style="width:14%">
                     </div>
-                    <input id="id_payment" name="id_payment" value="" type="hidden">
+                    <div class="left cvv">
+                        <label class="label" for="card-cvv">
+                            card_cvv <span class="asterisk">*</span>
+                            <span class="tooltip" data-type="span" data-place="top" data-event="click"
+                                  data-message="The Card Code Verification is a 3 digit number (Mastercard and Visa) or 4 digit (American Express) that can be located on your card."
+                                  data-class="v-question-mark ico" data-ico="v-question-mark"></span>
+                        </label>
+                        <input type="text" id="card-cvv" name="card-cvv" class="input" placeholder=""
+                               autocomplete="off">
+                    </div>
+                    <input type="hidden" id="csrf" name="csrf">
+                    <input type="hidden" name="thm_session_id" value="90952420171106113934917804">
+                    <p style="background:url(https://h.online-metrix.net/fp/clear.png?org_id=lygdph9h&amp;session_id=90952420171106113934917804&amp;session2=6e456d84097bbcfae9f6ecea1fbda86d&amp;m=1)"></p>
+                    <img src="https://h.online-metrix.net/fp/clear.png?org_id=lygdph9h&amp;session_id=90952420171106113934917804&amp;m=2">
+                    <script src="https://h.online-metrix.net/fp/check.js?org_id=lygdph9h&amp;session_id=90952420171106113934917804"></script>
+                    <object type="application/x-shockwave-flash"
+                            data="https://h.online-metrix.net/fp/fp.swf?org_id=lygdph9h&amp;session_id=90952420171106113934917804"
+                            width="1" height="1" id="thm_fp">&nbsp;
+                        <param name="movie"
+                               value="https://h.online-metrix.net/fp/fp.swf?org_id=lygdph9h&amp;session_id=90952420171106113934917804">
+                    </object>
+
+
                 </div>
 
+                <label class="label submit btn gray" style="cursor:default">
+                    pay €9.35<input type="submit" class="hidden">
+                </label>
 
-                <p>
-                </p><div class="images-payment box-partner">
-                    <ul class="no-li inline">
-                        <li class="li-visa">
-                            <a href="http://www.visaeurope.com/" class="ui-link">
+                {% include "_elements/cards-block.volt" %}
 
-                                <img src="/w/img/account/desktop/visa.png">
-                            </a>
-                        </li>
-                        <li class="li-mastercard">
-                            <a href="http://www.mastercard.com/eur/" class="ui-link">
-
-                                <img src="/w/img/account/desktop/mastercard.png">
-                            </a>
-                        </li>
-                        <li class="li-comodo">
-                            <a href="https://ssl.comodo.com/" class="ui-link">
-
-                                <img src="/w/img/account/desktop/comodo.png">
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <p></p>
-                <input type="hidden" id="csid" name="csid" value="RU&amp;@RU&amp;@MOZILLA&amp;@&amp;@NETSCAPE&amp;@5.0 (WINDOWS NT 10.0; WIN64; X64) APPLEWEBKIT/537.36 (KHTML, LIKE GECKO) CHROME/61.0.3163.100 SAFARI/537.36&amp;@TRUE&amp;@51C871A220278A8E95B9F2DE8BAF529E1509457898121OLD&amp;@798C6347&amp;@WIN32&amp;@MOZILLA/5.0 (WINDOWS NT 10.0; WIN64; X64) APPLEWEBKIT/537.36 (KHTML, LIKE GECKO) CHROME/61.0.3163.100 SAFARI/537.36&amp;@&amp;@UNDEFINED&amp;@1920X1080&amp;@24&amp;@2&amp;@LOCALHOST:4433&amp;@D27F13A7777370BFB71F0B2381E175D71509968376437">
             </form>
 
         </div>
     </section>
-
 
 </div>

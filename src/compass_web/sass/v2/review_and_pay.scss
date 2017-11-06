@@ -85,12 +85,12 @@
         p {
 
           color: #333;
-          font-size: 10.5px;
+          font-size: 18px;
           font-weight: 400;
-          line-height: 12px;
+          line-height: 1.3;
           text-align: left;
-          text-transform: none;
-          padding-left: 17px;
+          margin-bottom: 0;
+          letter-spacing: 0.2px;
 
           @media only screen and (min-width: $screen-desktop) {
 
@@ -261,6 +261,7 @@
         padding-bottom: 20px;
       }
 
+
       h1:before {
         background-image: url('../img/review-and-pay/desktop/ico-number.png');
         background-repeat: no-repeat;
@@ -305,15 +306,24 @@
     }
 
     &.section--card--details {
+
+      h1 {
+        font-size: 33.3px;
+
+        @media only screen and (min-width: $screen-desktop) {
+
+        }
+      }
+
       h1:before {
         background-image: url('../img/review-and-pay/desktop/ico-card.png');
         background-repeat: no-repeat;
-        -webkit-background-size: 77px;
-        background-size: 77px;
+        -webkit-background-size: 47px;
+        background-size: 47px;
         width: 77px;
         height: 68px;
-        left: 0;
-        top: 0;
+        left: -62px;
+        top: 17px;
 
         @media only screen and (min-width: $screen-desktop) {
           -webkit-background-size: 77px;
@@ -326,6 +336,13 @@
       }
 
       .box-add-card {
+
+        padding-top: 19px;
+        padding-left: 4px;
+
+        @media only screen and (min-width: $screen-desktop) {
+
+        }
 
         h2 {
           //font-family: WorkSans;
@@ -343,7 +360,11 @@
           font-weight: 400;
           text-align: left;
           display: block;
-          margin-bottom: 18px;
+          margin-bottom: 11px;
+
+          @media only screen and (min-width: $screen-desktop) {
+            margin-bottom: 18px;
+          }
 
           .asterisk {
             color: inherit;
@@ -358,19 +379,21 @@
           //max-width: 640px;
           max-width: none;
           //height: 46px;
-          height: 48px;
+          height: 62px;
           margin-bottom: 20px;
           padding-bottom: 2px;
 
           @media only screen and (min-width: $screen-desktop) {
             max-width: 640px;
+
+            height: 48px;
+            margin-bottom: 20px;
+            padding-bottom: 2px;
           }
-
-
 
           &#expiry-date-month,
           &#expiry-date-year {
-            width: 80px!important;
+            width: 124px!important;
             //margin-right: 20px;
             padding-left: 0;
             padding-right: 0;
@@ -378,6 +401,15 @@
             margin-right: 15px;
           }
 
+        }
+
+        .card-detail {
+          padding-top: 15px;
+          padding-bottom: 3px;
+
+          @media only screen and (min-width: $screen-desktop) {
+
+          }
         }
 
         .selectbox {
@@ -390,7 +422,7 @@
 
         .cvv {
           float: right;
-          width: 182px !important;
+          width: 312px !important;
 
           @media only screen and (min-width: $screen-desktop) {
             clear: both;
@@ -416,7 +448,7 @@
           }
 
           #card-cvv {
-            width: 182px !important;
+            width: 312px !important;
           }
         }
 
@@ -425,61 +457,71 @@
         .btn {
           @include btn-account();
           float: none;
-        }
+          clear: both;
 
-      }
-
-      .images-payment {
-
-        overflow: hidden;
-
-        ul {
-          //float: left;
-          padding-top: 14px;
-          //padding-bottom: 63px;
-          //margin:auto;
-          text-align: center;
-          float: none;
+          font-size: 29px;
 
           @media only screen and (min-width: $screen-desktop) {
-            float: left;
-            padding-top: 14px;
-            padding-bottom: 63px;
+
           }
         }
 
-        img {
-          position: relative;
-
-        }
-        .li-visa {
-          margin-right: 38px;
-
-          img {
-            width: 100px;
-            height: 32px;
-            top: 0px;
-          }
-        }
-
-        .li-mastercard {
-          margin-right: 44px;
-
-          img {
-            width: 64px;
-            height: 39px;
-            top: 3px;
-          }
-        }
-
-        .li-comodo {
-          img {
-            width: 82px;
-            height: 47px;
-            top: 8px;
-          }
-        }
       }
+
+      .cards-block {
+
+        height: 55px;
+        line-height: 55px;
+        text-align: center;
+        margin-bottom: 37px;
+
+        @media only screen and (min-width: $screen-desktop) {
+
+        }
+
+        li a.visa-a {
+          width: 50px;
+          top: 3px;
+          left: 28px;
+
+          @media only screen and (min-width: $screen-desktop) {}
+        }
+
+        li a.master-a {
+          width: 43px;
+          top: 7px;
+          left: 0px;
+
+          @media only screen and (min-width: $screen-desktop) {}
+        }
+
+        li a.paysafe-a {
+          width: 125px;
+          top: 5px;
+          left: -31px;
+
+          @media only screen and (min-width: $screen-desktop) {}
+        }
+
+        li a.neteller-a {
+          width: 110px;
+          top: 3px;
+          left: -61px;
+
+          @media only screen and (min-width: $screen-desktop) {}
+        }
+
+        li a.skrill-a {
+          width: 58px;
+          top: 10px;
+          left: -90px;
+
+          @media only screen and (min-width: $screen-desktop) {}
+        }
+
+
+      }
+
     }
 
     .section--content {
