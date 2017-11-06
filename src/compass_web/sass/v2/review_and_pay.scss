@@ -275,9 +275,15 @@
       padding-bottom: 20px;
 
       @media only screen and (min-width: $screen-desktop) {
-        padding-bottom: 20px;
+        padding-bottom: 0px;
       }
 
+
+      .section--content {
+        @media only screen and (min-width: $screen-desktop) {
+          padding: 40px 0px 40px 70px;
+        }
+      }
 
       h1:before {
         background-image: url('../img/review-and-pay/desktop/ico-number.png');
@@ -294,8 +300,8 @@
           background-size: 58px;
           width: 58px;
           height: 58px;
-          left: 0;
-          top: 0;
+          left: -110px;
+          top: 31px;
         }
       }
 
@@ -313,10 +319,10 @@
           @media only screen and (min-width: $screen-desktop) {
             display: block;
             position: absolute;
-            font-size: 19px;
+            font-size: 32px;
             font-weight: 900;
-            left: 33px;
-            top: 30px;
+            left: 89px;
+            top: 54px;
           }
         }
       }
@@ -553,8 +559,9 @@
     .numbers--rows {
 
       @media only screen and (min-width: $screen-desktop) {
-        //padding-left: 76px;
-        padding-right: 150px;
+        padding-right: 77px;
+        padding-left: 0;
+        //padding-right: 150px;
       }
 
       .numbers--row {
@@ -617,7 +624,8 @@
           padding-top: 17px;
 
           @media only screen and (min-width: $screen-desktop) {
-
+            font-size: 24px;
+            padding-top: 12px;
           }
         }
 
@@ -738,7 +746,7 @@
         padding-top: 2px;
 
         @media only screen and (min-width: $screen-desktop) {
-
+          padding-top: 20px;
         }
       }
     }
