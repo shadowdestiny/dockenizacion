@@ -11,14 +11,14 @@
 
     h1 {
       color:  #333333;
-      font-size: 30px;
+      font-size: 37px;
       font-weight: 900;
-      line-height: 18px;
+      line-height: 63px;
       text-align: left;
 
       background-color:  #fad425;
-      height: 50px;
-      padding-left: 15px;
+      height: 62px;
+      padding-left: 19px;
       text-transform: uppercase;
 
       @media only screen and (min-width: $screen-desktop) {
@@ -29,22 +29,28 @@
 
     h2 {
       //font-family: WorkSans;
-      color:  #333333;
-      font-size: 16px;
+      color: #333;
+      font-size: 20px;
       font-weight: 900;
-      line-height: 18px;
+      line-height: 32px;
       text-align: left;
       text-transform: uppercase;
+      padding-left: 16px;
+      padding-top: 15px;
+      margin-bottom: 1px;
 
       @media only screen and (min-width: $screen-desktop) {
         font-size: 32px;
       }
     }
     p {
-      color:  #333333;
-      font-size: 15px;
+      color: #333;
+      font-size: 19px;
       font-weight: 500;
       text-align: left;
+      padding-left: 16px;
+      margin-bottom: 6px;
+
 
       @media only screen and (min-width: $screen-desktop) {
         font-size: 24px;
@@ -52,25 +58,27 @@
     }
     .count {
       color:  #333333;
-      font-size: 15px;
+      font-size: 19px;
       font-weight: 700;
       text-align: left;
+      padding-left: 16px;
 
       @media only screen and (min-width: $screen-desktop) {
         font-size: 24px;
       }
     }
     .btn-row{
+      padding-top: 23px;
 
       @media only screen and (min-width: $screen-desktop) {
 
       }
 
       .btn-theme--big {
-        height: 50px;
+        height: 62px;
         width: 100%;
-        font-size: 24px;
-        line-height: 50px;
+        font-size: 30px;
+        line-height: 62px;
 
         @media only screen and (min-width: $screen-desktop) {
           width: 346px;
@@ -84,11 +92,13 @@
 
   .thank-you-block--jackpot{
 
+    padding-left: 16px;
     background-image: url('../img/thank-you/desktop/stars.png');
     background-repeat: no-repeat;
-    background-position: 100% 50%;
-    -webkit-background-size:97px;
-    background-size:97px;
+    background-position: 97% 43%;
+    -webkit-background-size: 119px;
+    background-size: 119px;
+    padding-bottom: 46px;
     
 
     @media only screen and (min-width: $screen-desktop) {
@@ -101,11 +111,14 @@
 
     p {
 
-      color:  #fad425;
-      font-size: 12px;
+      color: #fad425;
+      font-size: 15px;
       font-weight: 900;
-      line-height: 18px;
+      line-height: 5px;
       text-align: left;
+      text-transform: uppercase;
+      padding-top: 26px;
+      padding-bottom: 6px;
 
       @media only screen and (min-width: $screen-desktop) {
         color:  #fad425;
@@ -119,7 +132,7 @@
 
     h2 {
       color:  #fad425;
-      font-size: 30px;
+      font-size: 37px;
       font-weight: 900;
       text-align: left;
       text-transform: uppercase;
@@ -144,11 +157,10 @@
         overflow: hidden;
         border-top: 1px solid #333333;
         padding-top: 9px;
-        padding-left: 3px;
-        padding-bottom: 0px;
+        padding-bottom: 1px;
 
-        margin-left: 21px;
-        margin-right: 22px;
+        padding-left: 21px;
+        padding-right: 22px;
 
         @media only screen and (min-width: $screen-desktop) {
           padding-top: 14px;
@@ -159,16 +171,32 @@
           margin-right: 0px;
         }
 
+      &:last-of-type {
+        border-bottom: 1px solid #333333;
+
+        @media only screen and (min-width: $screen-desktop) {
+          border-bottom: 0;
+        }
+      }
+
         p {
 
           font-family: $ff2;
           color:  #333333;
           text-align: left;
 
-          font-size: 18px;
-          font-weight: 700;
-          margin-bottom: 16px;
-          padding-left: 91px;
+          font-size: 15px;
+          font-weight: 400;
+          //margin-bottom: 16px;
+          margin-bottom: 5px;
+          //padding-left: 91px;
+          padding-left: 26px;
+          text-transform: uppercase;
+
+          b{
+            font-weight: 900;
+            padding-right: 2px;
+          }
 
           @media only screen and (min-width: $screen-desktop) {
             font-size: 24px;
@@ -180,28 +208,34 @@
 
         .numbers,
         .numbers.small {
+
+          float: left;
+          margin-left: 20px;
+
+          @media only screen and (min-width: $screen-desktop) {
+            float: left;
+            margin-left: 20px;
+          }
+
           li {
             text-align: center;
-            width: 45px;
-            height: 46px;
-            line-height: 44px;
-
+            width: 52px;
+            height: 53px;
+            line-height: 50px;
             background-image: url('../img/home/result-block/desktop/ellipse.svg');
             background-repeat: no-repeat;
             background-position: 0 0;
             text-shadow: none;
             letter-spacing: 0;
-            -webkit-background-size: 45px;
-            background-size: 45px;
-
-            font-family: $ff2;
-            color:  #ffffff;
-            font-size: 18px;
+            -webkit-background-size: 52px;
+            background-size: 52px;
+            font-family: "Chivo",sans-serif;
+            color: #fff;
+            font-size: 23px;
             font-weight: 700;
-            margin-right: 16px;
-
+            margin-right: 20px;
             position: relative;
-            top: -4px;
+            top: -1px;
 
             @media only screen and (min-width: $screen-desktop) {
               font-size: 18px;
@@ -226,18 +260,15 @@
             background-image: url('../img/home/result-block/desktop/star.svg');
             background-repeat: no-repeat;
             background-position: 0 0;
-            -webkit-background-size: 53px;
-            background-size: 53px;
-
+            -webkit-background-size: 60px;
+            background-size: 60px;
             text-indent: 0;
-            color:  #333333;
-
-            width: 53px;
-            height: 49px;
-            margin-left: 19px;
-            margin-right: 6px;
-            line-height: 47px;
-
+            color: #333;
+            width: 60px;
+            height: 56px;
+            margin-left: 20px;
+            margin-right: 10px;
+            line-height: 50px;
             position: relative;
             top: -2px;
             padding-top: 4px;
@@ -286,11 +317,11 @@
         }
       }
 
-
-
   }
 
   .thank-you-block--bottom{
+    //padding: 22px 19px 22px 19px;
+    padding: 22px 39px 22px 19px;
 
     @media only screen and (min-width: $screen-desktop) {
 
@@ -299,17 +330,19 @@
     p {
 
       color:  #333333;
-      font-size: 15px;
+      font-size: 18.5px;
       font-weight: 400;
-      line-height: 18px;
+      line-height: 1.2;
       text-align: left;
 
       @media only screen and (min-width: $screen-desktop) {
 
       }
 
-      b{
+      a{
         font-weight: 700;
+        color: inherit;
+        text-decoration: none;
 
         @media only screen and (min-width: $screen-desktop) {
 
@@ -318,12 +351,13 @@
     }
 
     h3 {
-      color:  #333333;
-      font-size: 15px;
+      color: #333;
+      font-size: 18.5px;
       font-weight: 700;
-      line-height: 18px;
+      line-height: 0.2;
       text-align: left;
-      text-decoration: underline;
+      text-transform: uppercase;
+      margin-bottom: 10px;
 
       @media only screen and (min-width: $screen-desktop) {
 
