@@ -97,7 +97,7 @@
           width: 346px;
           height: 85px;
           font-size: 36px;
-          line-height: 84;
+          line-height: 84px;
         }
       }
     }
@@ -118,9 +118,12 @@
     @media only screen and (min-width: $screen-desktop) {
       background-image: url('../img/thank-you/desktop/stars.png');
       background-repeat: no-repeat;
-      background-position: 100% 50%;
-      -webkit-background-size:194px;
-      background-size:194px;
+      background-position: 91% 29%;
+      -webkit-background-size: 194px;
+      background-size: 194px;
+
+      padding-left: 70px;
+      padding-bottom: 74px;
     }
 
     p {
@@ -138,7 +141,7 @@
         color:  #fad425;
         font-size: 24px;
         font-weight: 900;
-        line-height: 36px;
+        line-height: 28px;
         text-align: left;
 
       }
@@ -163,9 +166,9 @@
   .thank-you-block--rows{
 
     @media only screen and (min-width: $screen-desktop) {
-
+      padding-left: 76px;
+      padding-right: 150px;
     }
-
 
     .thank-you-block--row{
         overflow: hidden;
@@ -177,8 +180,8 @@
         padding-right: 22px;
 
         @media only screen and (min-width: $screen-desktop) {
-          padding-top: 14px;
-          padding-left: 3px;
+          padding-top: 20px;
+          padding-left: 0px;
           padding-bottom: 0px;
 
           margin-left: 0px;
@@ -201,22 +204,20 @@
 
           font-size: 15px;
           font-weight: 400;
-          //margin-bottom: 16px;
           margin-bottom: 5px;
-          //padding-left: 91px;
           padding-left: 26px;
           text-transform: uppercase;
 
-          b{
-            font-weight: 900;
-            padding-right: 2px;
-          }
-
           @media only screen and (min-width: $screen-desktop) {
             font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 18px;
+            font-weight: 400;
+            margin-bottom: 16px;
             padding-left: 0;
+          }
+
+          b {
+            font-weight: 900;
+            padding-right: 2px;
           }
         }
 
@@ -228,7 +229,8 @@
 
           @media only screen and (min-width: $screen-desktop) {
             float: left;
-            margin-left: 20px;
+            margin-left: 0px;
+            margin-bottom: 17px;
           }
 
           li {
@@ -334,11 +336,11 @@
   }
 
   .thank-you-block--bottom{
-    //padding: 22px 19px 22px 19px;
     padding: 22px 39px 26px 19px;
 
     @media only screen and (min-width: $screen-desktop) {
-
+      //padding: 33px 39px 65px 70px;
+      padding: 33px 330px 29px 70px;
     }
 
     p {
@@ -350,7 +352,11 @@
       text-align: left;
 
       @media only screen and (min-width: $screen-desktop) {
-
+        color: #333;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 1.5;
+        text-align: left;
       }
 
       a{
@@ -374,7 +380,9 @@
       margin-bottom: 10px;
 
       @media only screen and (min-width: $screen-desktop) {
-
+        font-size: 30px;
+        line-height: 0.4;
+        margin-bottom: 15px;
       }
 
     }
