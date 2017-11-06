@@ -65,6 +65,12 @@
 
     &.section--review-and-pay {
 
+      padding-bottom: 20px;
+
+      @media only screen and (min-width: $screen-desktop) {
+        padding-bottom: 20px;
+      }
+
       .top-row {
 
         h1{
@@ -215,10 +221,11 @@
 
       h4 {
         text-transform: none;
-        color:  #333333;
-        font-size: 24px;
+        color: #333;
+        font-size: 18.7px;
         font-weight: 700;
         text-align: left;
+        padding-top: 3px;
 
         @media only screen and (min-width: $screen-desktop) {
           font-size: 24px;
@@ -228,11 +235,12 @@
       }
 
       p {
-        color:  #333333;
-        font-size: 17px;
+        color: #333;
+        font-size: 18px;
         font-weight: 400;
-        line-height: 24px;
+        line-height: 1.3;
         text-align: left;
+        margin-bottom: 0;
 
         @media only screen and (min-width: $screen-desktop) {
           font-size: 17px;
@@ -246,15 +254,22 @@
     }
 
     &.section--numbers-played {
+
+      padding-bottom: 20px;
+
+      @media only screen and (min-width: $screen-desktop) {
+        padding-bottom: 20px;
+      }
+
       h1:before {
         background-image: url('../img/review-and-pay/desktop/ico-number.png');
         background-repeat: no-repeat;
-        -webkit-background-size: 58px;
-        background-size: 58px;
+        -webkit-background-size: 36px;
+        background-size: 36px;
         width: 58px;
         height: 58px;
-        left: 0;
-        top: 0;
+        left: -63px;
+        top: 19px;
 
         @media only screen and (min-width: $screen-desktop) {
           -webkit-background-size: 58px;
@@ -272,10 +287,18 @@
         span {
           display: block;
           position: absolute;
-          font-size: 15px;
+          font-size: 19px;
+          font-weight: 900;
+          left: 33px;
+          top: 30px;
 
           @media only screen and (min-width: $screen-desktop) {
-
+            display: block;
+            position: absolute;
+            font-size: 19px;
+            font-weight: 900;
+            left: 33px;
+            top: 30px;
           }
         }
       }
@@ -470,18 +493,19 @@
     .numbers--rows {
 
       @media only screen and (min-width: $screen-desktop) {
-        padding-left: 76px;
+        //padding-left: 76px;
         padding-right: 150px;
       }
 
       .numbers--row {
         overflow: hidden;
-        border-top: 1px solid #333333;
+        //border-top: 1px solid #333333;
         padding-top: 9px;
         padding-bottom: 1px;
+        padding-left: 5px;
 
-        padding-left: 21px;
-        padding-right: 22px;
+        //padding-left: 21px;
+        //padding-right: 22px;
 
         @media only screen and (min-width: $screen-desktop) {
           padding-top: 20px;
@@ -493,7 +517,7 @@
         }
 
         &:last-of-type {
-          border-bottom: 1px solid #333333;
+          //border-bottom: 1px solid #333333;
 
           @media only screen and (min-width: $screen-desktop) {
             border-bottom: 0;
@@ -503,13 +527,13 @@
         p {
 
           font-family: $ff2;
-          color: #333333;
+          color: #a8a8a8;
           text-align: left;
 
-          font-size: 15px;
+          font-size: 18px;
           font-weight: 400;
-          margin-bottom: 5px;
-          padding-left: 26px;
+          margin-bottom: 7px;
+          //padding-left: 26px;
           text-transform: uppercase;
 
           @media only screen and (min-width: $screen-desktop) {
@@ -528,13 +552,21 @@
         .cost-block {
           float: right;
           text-align: right;
+          font-weight: 900;
+          font-size: 22.5px;
+          padding-top: 17px;
+
+          @media only screen and (min-width: $screen-desktop) {
+
+          }
         }
 
         .numbers,
         .numbers.small {
 
           float: left;
-          margin-left: 20px;
+          //margin-left: 20px;
+          margin-bottom: 0;
 
           @media only screen and (min-width: $screen-desktop) {
             float: left;
@@ -558,9 +590,9 @@
             color: #fff;
             font-size: 23px;
             font-weight: 700;
-            margin-right: 20px;
+            margin-right: 18px;
             position: relative;
-            top: -1px;
+            top: -4px;
 
             @media only screen and (min-width: $screen-desktop) {
               font-size: 18px;
@@ -591,12 +623,12 @@
             color: #333;
             width: 60px;
             height: 56px;
-            margin-left: 20px;
+            margin-left: 27px;
             margin-right: 10px;
             line-height: 50px;
             position: relative;
             top: -2px;
-            padding-top: 4px;
+            padding-top: 7px;
 
             @media only screen and (min-width: $screen-desktop) {
               background-image: url('../img/home/result-block/desktop/star.svg');
@@ -642,6 +674,13 @@
         }
       }
 
+      .numbers--row + .numbers--row {
+        padding-top: 2px;
+
+        @media only screen and (min-width: $screen-desktop) {
+
+        }
+      }
     }
 
   }
