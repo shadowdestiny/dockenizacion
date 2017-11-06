@@ -8,6 +8,7 @@
 
     <section class="section--numbers-played">
         <div class="top-row">
+            <span>7</span>
             <h1>numbers played</h1>
         </div>
 

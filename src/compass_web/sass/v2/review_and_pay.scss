@@ -12,35 +12,121 @@
 
     .top-row {
 
+      color: #333333;
+      line-height: 63px;
+      text-align: left;
+
+      background-color: #fad425;
+      height: 62px;
+      padding-left: 19px;
+      text-transform: uppercase;
+
+      @media only screen and (min-width: $screen-desktop) {
+        height: 125px;
+        padding-left: 72px;
+      }
+
       h1 {
-        color: #333333;
         font-size: 37px;
         font-weight: 900;
-        line-height: 63px;
-        text-align: left;
-
-        background-color: #fad425;
-        height: 62px;
-        padding-left: 19px;
-        text-transform: uppercase;
 
         @media only screen and (min-width: $screen-desktop) {
-          height: 125px;
-          padding-left: 72px;
           font-size: 60px;
           line-height: 125px;
         }
       }
+
+      h1:before {
+        display: inline-block;
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+
+      p {
+
+      }
     }
 
     &.section--review-and-pay {
+      h1:before {
+        background-image: url('../img/review-and-pay/desktop/ico-review.png');
+        background-repeat: no-repeat;
+        -webkit-background-size:71px;
+        background-size:71px;
+        width: 71px;
+        height: 42px;
+        left: 0;
+        top: 0;
 
+        @media only screen and (min-width: $screen-desktop) {
+          -webkit-background-size:71px;
+          background-size:71px;
+          width: 71px;
+          height: 42px;
+          left: 0;
+          top: 0;
+        }
+      }
     }
+
     &.section--numbers-played {
+      h1:before {
+        background-image: url('../img/review-and-pay/desktop/ico-number.png');
+        background-repeat: no-repeat;
+        -webkit-background-size:58px;
+        background-size:58px;
+        width: 58px;
+        height: 58px;
+        left: 0;
+        top: 0;
 
+        @media only screen and (min-width: $screen-desktop) {
+          -webkit-background-size:58px;
+          background-size:58px;
+          width: 58px;
+          height: 58px;
+          left: 0;
+          top: 0;
+        }
+      }
+
+      .top-row {
+        position: relative;
+
+        span {
+          display: block;
+          position: absolute;
+          font-size: 15px;
+
+          @media only screen and (min-width: $screen-desktop) {
+
+          }
+        }
+      }
     }
-    &.section--card--details {
 
+    &.section--card--details {
+      h1:before {
+        background-image: url('../img/review-and-pay/desktop/ico-card.png');
+        background-repeat: no-repeat;
+        -webkit-background-size:77px;
+        background-size:77px;
+        width: 77px;
+        height: 68px;
+        left: 0;
+        top: 0;
+
+        @media only screen and (min-width: $screen-desktop) {
+          -webkit-background-size:77px;
+          background-size:77px;
+          width: 77px;
+          height: 68px;
+          left: 0;
+          top: 0;
+        }
+      }
     }
 
     .numbers--rows {
