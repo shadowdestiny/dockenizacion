@@ -1,0 +1,221 @@
+// Review and pay page
+
+.review_and_pay-section {
+
+  padding: 0;
+
+  @media only screen and (min-width: $screen-desktop) {
+    background-color: #f5f5f5;
+  }
+
+  section {
+
+    .top-row {
+
+      h1 {
+        color: #333333;
+        font-size: 37px;
+        font-weight: 900;
+        line-height: 63px;
+        text-align: left;
+
+        background-color: #fad425;
+        height: 62px;
+        padding-left: 19px;
+        text-transform: uppercase;
+
+        @media only screen and (min-width: $screen-desktop) {
+          height: 125px;
+          padding-left: 72px;
+          font-size: 60px;
+          line-height: 125px;
+        }
+      }
+    }
+
+    &.section--review-and-pay {
+
+    }
+    &.section--numbers-played {
+
+    }
+    &.section--card--details {
+
+    }
+
+    .numbers--rows {
+
+      @media only screen and (min-width: $screen-desktop) {
+        padding-left: 76px;
+        padding-right: 150px;
+      }
+
+      .numbers--row {
+        overflow: hidden;
+        border-top: 1px solid #333333;
+        padding-top: 9px;
+        padding-bottom: 1px;
+
+        padding-left: 21px;
+        padding-right: 22px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          padding-top: 20px;
+          padding-left: 0px;
+          padding-bottom: 0px;
+
+          margin-left: 0px;
+          margin-right: 0px;
+        }
+
+        &:last-of-type {
+          border-bottom: 1px solid #333333;
+
+          @media only screen and (min-width: $screen-desktop) {
+            border-bottom: 0;
+          }
+        }
+
+        p {
+
+          font-family: $ff2;
+          color: #333333;
+          text-align: left;
+
+          font-size: 15px;
+          font-weight: 400;
+          margin-bottom: 5px;
+          padding-left: 26px;
+          text-transform: uppercase;
+
+          @media only screen and (min-width: $screen-desktop) {
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 16px;
+            padding-left: 0;
+          }
+
+          b {
+            font-weight: 900;
+            padding-right: 2px;
+          }
+        }
+
+        .numbers,
+        .numbers.small {
+
+          float: left;
+          margin-left: 20px;
+
+          @media only screen and (min-width: $screen-desktop) {
+            float: left;
+            margin-left: 0px;
+            margin-bottom: 17px;
+          }
+
+          li {
+            text-align: center;
+            width: 52px;
+            height: 53px;
+            line-height: 50px;
+            background-image: url('../img/home/result-block/desktop/ellipse.svg');
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            text-shadow: none;
+            letter-spacing: 0;
+            -webkit-background-size: 52px;
+            background-size: 52px;
+            font-family: "Chivo", sans-serif;
+            color: #fff;
+            font-size: 23px;
+            font-weight: 700;
+            margin-right: 20px;
+            position: relative;
+            top: -1px;
+
+            @media only screen and (min-width: $screen-desktop) {
+              font-size: 18px;
+              font-weight: 700;
+              margin-right: 15px;
+              width: 40px;
+              height: 44px;
+              line-height: 40px;
+
+              position: static;
+
+              background-image: url('../img/home/result-block/desktop/ellipse.svg');
+              background-repeat: no-repeat;
+              background-position: 0 0;
+              text-shadow: none;
+              letter-spacing: 0;
+              -webkit-background-size: 40px;
+              background-size: 40px;
+            }
+          }
+          li.star {
+            background-image: url('../img/home/result-block/desktop/star.svg');
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            -webkit-background-size: 60px;
+            background-size: 60px;
+            text-indent: 0;
+            color: #333;
+            width: 60px;
+            height: 56px;
+            margin-left: 20px;
+            margin-right: 10px;
+            line-height: 50px;
+            position: relative;
+            top: -2px;
+            padding-top: 4px;
+
+            @media only screen and (min-width: $screen-desktop) {
+              background-image: url('../img/home/result-block/desktop/star.svg');
+              background-repeat: no-repeat;
+              background-position: 0 0;
+              -webkit-background-size: 47px;
+              background-size: 47px;
+
+              text-indent: 0;
+              color: #333333;
+
+              position: static;
+              padding-top: 0;
+
+              width: 47px;
+              height: 44px;
+              margin-left: 19px;
+              margin-right: 6px;
+              line-height: 47px;
+            }
+          }
+          li.star + li.star {
+            margin-left: 0;
+            margin-right: 22px;
+
+            @media only screen and (min-width: $screen-desktop) {
+              margin-left: 0;
+              margin-right: 0;
+            }
+
+          }
+        }
+
+        .numbers {
+          font-weight: 700;
+          margin-bottom: 8px;
+
+          @media only screen and (min-width: $screen-desktop) {
+            font-weight: 700;
+            margin-bottom: 12px;
+          }
+
+        }
+      }
+
+    }
+
+  }
+
+}
+
