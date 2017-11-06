@@ -1,7 +1,6 @@
+
+
 .cards-block {
-  border-width: 1px;
-  border-color: #223652;
-  border-style: solid;
   height: 100px;
   line-height: 98px;
   text-align: center;
@@ -80,6 +79,16 @@
       }
 
     }
+  }
+
+}
+
+footer {
+
+  .cards-block {
+    border-width: 1px;
+    border-color: #223652;
+    border-style: solid;
   }
 
 }

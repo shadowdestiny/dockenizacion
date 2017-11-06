@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$screen-desktop".
-        on line 22 of /src/compass_web/sass/v2/cards.scss
+        on line 21 of /src/compass_web/sass/v2/cards.scss
 
-17:       &.visa-a {
-18:         width: 40px;
-19:         top: 1px;
-20:         left: -2px;
-21: 
-22:         @media only screen and (min-width: $screen-desktop) {
-23:           width: 81px;
-24:           top: 7px;
-25:           left: -2px;
-26:         }
-27: 
+16:       &.visa-a {
+17:         width: 40px;
+18:         top: 1px;
+19:         left: -2px;
+20: 
+21:         @media only screen and (min-width: $screen-desktop) {
+22:           width: 81px;
+23:           top: 7px;
+24:           left: -2px;
+25:         }
+26: 
 
 Backtrace:
-/src/compass_web/sass/v2/cards.scss:22
+/src/compass_web/sass/v2/cards.scss:21
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
@@ -103,4 +103,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 22 of /src/compass_web/sass/v2/cards.scss\A \A 17:       &.visa-a {\A 18:         width: 40px;\A 19:         top: 1px;\A 20:         left: -2px;\A 21: \A 22:         @media only screen and (min-width: $screen-desktop) {\A 23:           width: 81px;\A 24:           top: 7px;\A 25:           left: -2px;\A 26:         }\A 27: "; }
+  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 21 of /src/compass_web/sass/v2/cards.scss\A \A 16:       &.visa-a {\A 17:         width: 40px;\A 18:         top: 1px;\A 19:         left: -2px;\A 20: \A 21:         @media only screen and (min-width: $screen-desktop) {\A 22:           width: 81px;\A 23:           top: 7px;\A 24:           left: -2px;\A 25:         }\A 26: "; }
