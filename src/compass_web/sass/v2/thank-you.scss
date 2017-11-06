@@ -24,6 +24,8 @@
       @media only screen and (min-width: $screen-desktop) {
         height: 125px;
         padding-left: 72px;
+        font-size: 60px;
+        line-height: 125px;
       }
     }
 
@@ -41,6 +43,12 @@
 
       @media only screen and (min-width: $screen-desktop) {
         font-size: 32px;
+
+        line-height: 57px;
+        text-align: left;
+        padding-left: 70px;
+        padding-top: 15px;
+        margin-bottom: 6px;
       }
     }
     p {
@@ -54,6 +62,8 @@
 
       @media only screen and (min-width: $screen-desktop) {
         font-size: 24px;
+        padding-left: 68px;
+        margin-bottom: 18px;
       }
     }
     .count {
@@ -65,13 +75,16 @@
 
       @media only screen and (min-width: $screen-desktop) {
         font-size: 24px;
+        padding-left: 68px;
       }
     }
     .btn-row{
       padding-top: 23px;
 
       @media only screen and (min-width: $screen-desktop) {
-
+        padding-top: 29px;
+        padding-left: 72px;
+        padding-bottom: 30px;
       }
 
       .btn-theme--big {
@@ -84,6 +97,7 @@
           width: 346px;
           height: 85px;
           font-size: 36px;
+          line-height: 84;
         }
       }
     }
