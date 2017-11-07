@@ -163,7 +163,7 @@
     @media only screen and (min-width: $screen-desktop) {
       background: none;
       background-color: #f9f9f9;
-      padding: 40px 30px;
+      padding: 19px 8px;
     }
   }
 
@@ -194,7 +194,7 @@
         @media only screen and (min-width: $screen-desktop) {
           width: 100%;
           max-width: 383px;
-          padding-bottom: 18px;
+          padding-bottom: 41px;
         }
       }
 
@@ -203,7 +203,7 @@
         margin-bottom: 10px;
 
         @media only screen and (min-width: $screen-desktop) {
-
+          margin-bottom: 15px;
         }
 
         span {
@@ -216,6 +216,7 @@
 
           @media only screen and (min-width: $screen-desktop) {
             font-size: 30px;
+            top: 16px;
           }
         }
 
@@ -248,6 +249,7 @@
 
             font-size: 17px;
             font-weight: 700;
+            padding-left: 15px;
           }
 
         }
@@ -267,8 +269,13 @@
             line-height: 38px;
             font-size: 36px;
             font-weight: 700;
+
+            padding-right: 18px;
+            top: 0px;
           }
 
+          input[type="button"]:active,
+          input[type="button"]:focus,
           input[type="button"] {
 
             color: #fff;
@@ -283,6 +290,9 @@
             height: 22px;
             display: inline-block;
             width: 14px;
+
+            outline: none;
+            cursor: pointer;
 
             @media only screen and (min-width: $screen-desktop) {
               color: #fff;
