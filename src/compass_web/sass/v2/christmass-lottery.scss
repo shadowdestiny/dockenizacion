@@ -156,4 +156,108 @@
     }
   }
 
+
+  .gameplay {
+    background: none;
+    background-color: transparent;
+    padding: 0;
+    border: 0;
+
+    @media only screen and (min-width: $screen-desktop) {
+      background: none;
+      background-color:  #f9f9f9;
+      padding: 40px 30px;
+    }
+  }
+
+  .tickets--table {
+    .td-space {
+
+    }
+    .td-ticket{
+      text-align: center;
+      vertical-align: top;
+      width: 33.33%;
+
+      .td-ticket--inner {
+        position: relative;
+        margin: auto;
+        max-width: 383px;
+      }
+
+
+      .christmasTicketImg {
+
+        img {
+          max-width: 100%;
+        }
+      }
+
+      .td-ticket-buttons--row {
+        overflow: hidden;
+        background-color: #333333;
+        height: 38px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          height: 38px;
+        }
+
+        .tickets-available {
+          float: left;
+          text-align: left;
+          line-height: 38px;
+
+          color:  #ffffff;
+          font-size: 17px;
+          font-weight: 700;
+
+          @media only screen and (min-width: $screen-desktop) {
+            line-height: 38px;
+
+            font-size: 17px;
+            font-weight: 700;
+          }
+
+        }
+
+        .td-ticket-buttons {
+          float: right;
+          text-align: right;
+          line-height: 38px;
+
+          color:  #ffffff;
+          font-size: 36px;
+          font-weight: 700;
+
+          @media only screen and (min-width: $screen-desktop) {
+            line-height: 38px;
+
+            font-size: 36px;
+            font-weight: 700;
+          }
+
+          input[type="button"] {
+
+            color:  #ffffff;
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 175px;
+            text-align: left;
+
+            @media only screen and (min-width: $screen-desktop) {
+              color:  #ffffff;
+              font-size: 36px;
+              font-weight: 700;
+              line-height: 175px;
+              text-align: left;
+            }
+          }
+        }
+
+      }
+
+
+    }
+  }
+
 }

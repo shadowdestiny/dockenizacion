@@ -68,304 +68,351 @@
                 </header>
 
 
-                <div class="gameplay border-top-yellow">
+                <div class="gameplay">
                     <form action="/christmas/order" method="post" id="christmasForm">
                         {% if christmasTickets is defined %}
-                            <table style="margin-top: 15px; margin-bottom: 15px;">
+                            <table class="tickets--table">
 
                                 <tr class="row">
-                                    <td class="td-space">&nbsp;</td>
                                     <td class="td-ticket">
-                                        <div class="christmasTicketImg">
-                                            <img src="/w/img/christmas/ticket.png" width="300px"/>
-                                        <span class="christmasTicketTxt">
-                                            {#{{ ticket['number'] }}#}
-                                            00453
-                                        </span>
-                                        </div>
-                                        <input type="button" id="remove_id" class="removeTicket" value="-"/>
-                                        {#{{ singleBetPrice }}#}
-                                        {#{{ currencySymbol }}#}
-                                        25 €
-                                        <input type="hidden" id="maxTickets_id"
-                                               value="ticket-n_fractions"/>
-                                        <input type="hidden" id="numTickets_ticketid"
-                                               name="numTickets_ticketid" value="0"/>
 
-                                        <input type="button" id="add_id" class="addTicket" value="+"/>
-                                        <br/>
-                                        <br/>
-                                        <div style="float:left; margin-left: 20px; margin-bottom: 10px;">
-                                            {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
-                                            Available tickets: 4
+                                        <div class="td-ticket--inner">
+                                        <div class="christmasTicketImg">
+                                            <img src="/w/img/christmas-lottery/desktop/christmas-lottery.png"/>
+                                            <span class="christmasTicketTxt">
+                                                {#{{ ticket['number'] }}#}
+                                                00453
+                                            </span>
                                         </div>
-                                        <div style="float:right; margin-right: 20px; margin-bottom: 10px;">
+
+                                        <div class="td-ticket-buttons--row">
+                                            <div class="td-ticket-buttons">
+                                                <input type="button" id="remove_id" class="removeTicket" value="-"/>
+                                                {#{{ singleBetPrice }}#}
+                                                {#{{ currencySymbol }}#}
+                                                25 €
+                                                <input type="hidden" id="maxTickets_id"
+                                                       value="ticket-n_fractions"/>
+                                                <input type="hidden" id="numTickets_ticketid"
+                                                       name="numTickets_ticketid" value="0"/>
+
+                                                <input type="button" id="add_id" class="addTicket" value="+"/>
+                                            </div>
+                                            <div class="tickets-available">
+                                                {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
+                                                7 Tickets Available
+                                            </div>
+                                            {#<div style="float:right; margin-right: 20px; margin-bottom: 10px;">#}
                                             {#{{ language.translate("playchris_tck_buy") }}#}
-                                            Your tickets:
-                                            <span id="showNumTickets_ticketid">0</span>
+                                            {#Your tickets:#}
+                                            {#<span id="showNumTickets_ticketid">0</span>#}
+                                            {#</div>#}
+
+                                        </div>
                                         </div>
                                     </td>
-                                    <td class="td-space">&nbsp;</td>
-                                    <td class="td-space">&nbsp;</td>
                                     <td class="td-ticket">
-                                        <div class="christmasTicketImg">
-                                            <img src="/w/img/christmas/ticket.png" width="300px"/>
-                                        <span class="christmasTicketTxt">
-                                            {#{{ ticket['number'] }}#}
-                                            00453
-                                        </span>
-                                        </div>
-                                        <input type="button" id="remove_id" class="removeTicket" value="-"/>
-                                        {#{{ singleBetPrice }}#}
-                                        {#{{ currencySymbol }}#}
-                                        25 €
-                                        <input type="hidden" id="maxTickets_id"
-                                               value="ticket-n_fractions"/>
-                                        <input type="hidden" id="numTickets_ticketid"
-                                               name="numTickets_ticketid" value="0"/>
 
-                                        <input type="button" id="add_id" class="addTicket" value="+"/>
-                                        <br/>
-                                        <br/>
-                                        <div style="float:left; margin-left: 20px; margin-bottom: 10px;">
-                                            {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
-                                            Available tickets: 4
-                                        </div>
-                                        <div style="float:right; margin-right: 20px; margin-bottom: 10px;">
-                                            {#{{ language.translate("playchris_tck_buy") }}#}
-                                            Your tickets:
-                                            <span id="showNumTickets_ticketid">0</span>
+                                        <div class="td-ticket--inner">
+                                            <div class="christmasTicketImg">
+                                                <img src="/w/img/christmas-lottery/desktop/christmas-lottery.png"/>
+                                            <span class="christmasTicketTxt">
+                                                {#{{ ticket['number'] }}#}
+                                                00453
+                                            </span>
+                                            </div>
+
+                                            <div class="td-ticket-buttons--row">
+                                                <div class="td-ticket-buttons">
+                                                    <input type="button" id="remove_id" class="removeTicket" value="-"/>
+                                                    {#{{ singleBetPrice }}#}
+                                                    {#{{ currencySymbol }}#}
+                                                    25 €
+                                                    <input type="hidden" id="maxTickets_id"
+                                                           value="ticket-n_fractions"/>
+                                                    <input type="hidden" id="numTickets_ticketid"
+                                                           name="numTickets_ticketid" value="0"/>
+
+                                                    <input type="button" id="add_id" class="addTicket" value="+"/>
+                                                </div>
+                                                <div class="tickets-available">
+                                                    {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
+                                                    7 Tickets Available
+                                                </div>
+                                                {#<div style="float:right; margin-right: 20px; margin-bottom: 10px;">#}
+                                                {#{{ language.translate("playchris_tck_buy") }}#}
+                                                {#Your tickets:#}
+                                                {#<span id="showNumTickets_ticketid">0</span>#}
+                                                {#</div>#}
+
+                                            </div>
                                         </div>
                                     </td>
-                                    <td class="td-space">&nbsp;</td>
-                                    <td class="td-space">&nbsp;</td>
                                     <td class="td-ticket">
-                                        <div class="christmasTicketImg">
-                                            <img src="/w/img/christmas/ticket.png" width="300px"/>
-                                        <span class="christmasTicketTxt">
-                                            {#{{ ticket['number'] }}#}
-                                            00453
-                                        </span>
-                                        </div>
-                                        <input type="button" id="remove_id" class="removeTicket" value="-"/>
-                                        {#{{ singleBetPrice }}#}
-                                        {#{{ currencySymbol }}#}
-                                        25 €
-                                        <input type="hidden" id="maxTickets_id"
-                                               value="ticket-n_fractions"/>
-                                        <input type="hidden" id="numTickets_ticketid"
-                                               name="numTickets_ticketid" value="0"/>
 
-                                        <input type="button" id="add_id" class="addTicket" value="+"/>
-                                        <br/>
-                                        <br/>
-                                        <div style="float:left; margin-left: 20px; margin-bottom: 10px;">
-                                            {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
-                                            Available tickets: 4
-                                        </div>
-                                        <div style="float:right; margin-right: 20px; margin-bottom: 10px;">
-                                            {#{{ language.translate("playchris_tck_buy") }}#}
-                                            Your tickets:
-                                            <span id="showNumTickets_ticketid">0</span>
+                                        <div class="td-ticket--inner">
+                                            <div class="christmasTicketImg">
+                                                <img src="/w/img/christmas-lottery/desktop/christmas-lottery.png"/>
+                                            <span class="christmasTicketTxt">
+                                                {#{{ ticket['number'] }}#}
+                                                00453
+                                            </span>
+                                            </div>
+
+                                            <div class="td-ticket-buttons--row">
+                                                <div class="td-ticket-buttons">
+                                                    <input type="button" id="remove_id" class="removeTicket" value="-"/>
+                                                    {#{{ singleBetPrice }}#}
+                                                    {#{{ currencySymbol }}#}
+                                                    25 €
+                                                    <input type="hidden" id="maxTickets_id"
+                                                           value="ticket-n_fractions"/>
+                                                    <input type="hidden" id="numTickets_ticketid"
+                                                           name="numTickets_ticketid" value="0"/>
+
+                                                    <input type="button" id="add_id" class="addTicket" value="+"/>
+                                                </div>
+                                                <div class="tickets-available">
+                                                    {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
+                                                    7 Tickets Available
+                                                </div>
+                                                {#<div style="float:right; margin-right: 20px; margin-bottom: 10px;">#}
+                                                {#{{ language.translate("playchris_tck_buy") }}#}
+                                                {#Your tickets:#}
+                                                {#<span id="showNumTickets_ticketid">0</span>#}
+                                                {#</div>#}
+
+                                            </div>
                                         </div>
                                     </td>
-                                    <td class="td-space">&nbsp;</td>
                                 </tr>
+
                                 <tr class="row">
-                                    <td class="td-space">&nbsp;</td>
                                     <td class="td-ticket">
-                                        <div class="christmasTicketImg">
-                                            <img src="/w/img/christmas/ticket.png" width="300px"/>
-                                        <span class="christmasTicketTxt">
-                                            {#{{ ticket['number'] }}#}
-                                            00453
-                                        </span>
-                                        </div>
-                                        <input type="button" id="remove_id" class="removeTicket" value="-"/>
-                                        {#{{ singleBetPrice }}#}
-                                        {#{{ currencySymbol }}#}
-                                        25 €
-                                        <input type="hidden" id="maxTickets_id"
-                                               value="ticket-n_fractions"/>
-                                        <input type="hidden" id="numTickets_ticketid"
-                                               name="numTickets_ticketid" value="0"/>
 
-                                        <input type="button" id="add_id" class="addTicket" value="+"/>
-                                        <br/>
-                                        <br/>
-                                        <div style="float:left; margin-left: 20px; margin-bottom: 10px;">
-                                            {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
-                                            Available tickets: 4
-                                        </div>
-                                        <div style="float:right; margin-right: 20px; margin-bottom: 10px;">
-                                            {#{{ language.translate("playchris_tck_buy") }}#}
-                                            Your tickets:
-                                            <span id="showNumTickets_ticketid">0</span>
+                                        <div class="td-ticket--inner">
+                                            <div class="christmasTicketImg">
+                                                <img src="/w/img/christmas-lottery/desktop/christmas-lottery.png"/>
+                                            <span class="christmasTicketTxt">
+                                                {#{{ ticket['number'] }}#}
+                                                00453
+                                            </span>
+                                            </div>
+
+                                            <div class="td-ticket-buttons--row">
+                                                <div class="td-ticket-buttons">
+                                                    <input type="button" id="remove_id" class="removeTicket" value="-"/>
+                                                    {#{{ singleBetPrice }}#}
+                                                    {#{{ currencySymbol }}#}
+                                                    25 €
+                                                    <input type="hidden" id="maxTickets_id"
+                                                           value="ticket-n_fractions"/>
+                                                    <input type="hidden" id="numTickets_ticketid"
+                                                           name="numTickets_ticketid" value="0"/>
+
+                                                    <input type="button" id="add_id" class="addTicket" value="+"/>
+                                                </div>
+                                                <div class="tickets-available">
+                                                    {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
+                                                    7 Tickets Available
+                                                </div>
+                                                {#<div style="float:right; margin-right: 20px; margin-bottom: 10px;">#}
+                                                {#{{ language.translate("playchris_tck_buy") }}#}
+                                                {#Your tickets:#}
+                                                {#<span id="showNumTickets_ticketid">0</span>#}
+                                                {#</div>#}
+
+                                            </div>
                                         </div>
                                     </td>
-                                    <td class="td-space">&nbsp;</td>
-                                    <td class="td-space">&nbsp;</td>
                                     <td class="td-ticket">
-                                        <div class="christmasTicketImg">
-                                            <img src="/w/img/christmas/ticket.png" width="300px"/>
-                                        <span class="christmasTicketTxt">
-                                            {#{{ ticket['number'] }}#}
-                                            00453
-                                        </span>
-                                        </div>
-                                        <input type="button" id="remove_id" class="removeTicket" value="-"/>
-                                        {#{{ singleBetPrice }}#}
-                                        {#{{ currencySymbol }}#}
-                                        25 €
-                                        <input type="hidden" id="maxTickets_id"
-                                               value="ticket-n_fractions"/>
-                                        <input type="hidden" id="numTickets_ticketid"
-                                               name="numTickets_ticketid" value="0"/>
 
-                                        <input type="button" id="add_id" class="addTicket" value="+"/>
-                                        <br/>
-                                        <br/>
-                                        <div style="float:left; margin-left: 20px; margin-bottom: 10px;">
-                                            {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
-                                            Available tickets: 4
-                                        </div>
-                                        <div style="float:right; margin-right: 20px; margin-bottom: 10px;">
-                                            {#{{ language.translate("playchris_tck_buy") }}#}
-                                            Your tickets:
-                                            <span id="showNumTickets_ticketid">0</span>
+                                        <div class="td-ticket--inner">
+                                            <div class="christmasTicketImg">
+                                                <img src="/w/img/christmas-lottery/desktop/christmas-lottery.png"/>
+                                            <span class="christmasTicketTxt">
+                                                {#{{ ticket['number'] }}#}
+                                                00453
+                                            </span>
+                                            </div>
+
+                                            <div class="td-ticket-buttons--row">
+                                                <div class="td-ticket-buttons">
+                                                    <input type="button" id="remove_id" class="removeTicket" value="-"/>
+                                                    {#{{ singleBetPrice }}#}
+                                                    {#{{ currencySymbol }}#}
+                                                    25 €
+                                                    <input type="hidden" id="maxTickets_id"
+                                                           value="ticket-n_fractions"/>
+                                                    <input type="hidden" id="numTickets_ticketid"
+                                                           name="numTickets_ticketid" value="0"/>
+
+                                                    <input type="button" id="add_id" class="addTicket" value="+"/>
+                                                </div>
+                                                <div class="tickets-available">
+                                                    {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
+                                                    7 Tickets Available
+                                                </div>
+                                                {#<div style="float:right; margin-right: 20px; margin-bottom: 10px;">#}
+                                                {#{{ language.translate("playchris_tck_buy") }}#}
+                                                {#Your tickets:#}
+                                                {#<span id="showNumTickets_ticketid">0</span>#}
+                                                {#</div>#}
+
+                                            </div>
                                         </div>
                                     </td>
-                                    <td class="td-space">&nbsp;</td>
-                                    <td class="td-space">&nbsp;</td>
                                     <td class="td-ticket">
-                                        <div class="christmasTicketImg">
-                                            <img src="/w/img/christmas/ticket.png" width="300px"/>
-                                        <span class="christmasTicketTxt">
-                                            {#{{ ticket['number'] }}#}
-                                            00453
-                                        </span>
-                                        </div>
-                                        <input type="button" id="remove_id" class="removeTicket" value="-"/>
-                                        {#{{ singleBetPrice }}#}
-                                        {#{{ currencySymbol }}#}
-                                        25 €
-                                        <input type="hidden" id="maxTickets_id"
-                                               value="ticket-n_fractions"/>
-                                        <input type="hidden" id="numTickets_ticketid"
-                                               name="numTickets_ticketid" value="0"/>
 
-                                        <input type="button" id="add_id" class="addTicket" value="+"/>
-                                        <br/>
-                                        <br/>
-                                        <div style="float:left; margin-left: 20px; margin-bottom: 10px;">
-                                            {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
-                                            Available tickets: 4
-                                        </div>
-                                        <div style="float:right; margin-right: 20px; margin-bottom: 10px;">
-                                            {#{{ language.translate("playchris_tck_buy") }}#}
-                                            Your tickets:
-                                            <span id="showNumTickets_ticketid">0</span>
+                                        <div class="td-ticket--inner">
+                                            <div class="christmasTicketImg">
+                                                <img src="/w/img/christmas-lottery/desktop/christmas-lottery.png"/>
+                                            <span class="christmasTicketTxt">
+                                                {#{{ ticket['number'] }}#}
+                                                00453
+                                            </span>
+                                            </div>
+
+                                            <div class="td-ticket-buttons--row">
+                                                <div class="td-ticket-buttons">
+                                                    <input type="button" id="remove_id" class="removeTicket" value="-"/>
+                                                    {#{{ singleBetPrice }}#}
+                                                    {#{{ currencySymbol }}#}
+                                                    25 €
+                                                    <input type="hidden" id="maxTickets_id"
+                                                           value="ticket-n_fractions"/>
+                                                    <input type="hidden" id="numTickets_ticketid"
+                                                           name="numTickets_ticketid" value="0"/>
+
+                                                    <input type="button" id="add_id" class="addTicket" value="+"/>
+                                                </div>
+                                                <div class="tickets-available">
+                                                    {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
+                                                    7 Tickets Available
+                                                </div>
+                                                {#<div style="float:right; margin-right: 20px; margin-bottom: 10px;">#}
+                                                {#{{ language.translate("playchris_tck_buy") }}#}
+                                                {#Your tickets:#}
+                                                {#<span id="showNumTickets_ticketid">0</span>#}
+                                                {#</div>#}
+
+                                            </div>
                                         </div>
                                     </td>
-                                    <td class="td-space">&nbsp;</td>
                                 </tr>
+
                                 <tr class="row">
-                                    <td class="td-space">&nbsp;</td>
                                     <td class="td-ticket">
-                                        <div class="christmasTicketImg">
-                                            <img src="/w/img/christmas/ticket.png" width="300px"/>
-                                        <span class="christmasTicketTxt">
-                                            {#{{ ticket['number'] }}#}
-                                            00453
-                                        </span>
-                                        </div>
-                                        <input type="button" id="remove_id" class="removeTicket" value="-"/>
-                                        {#{{ singleBetPrice }}#}
-                                        {#{{ currencySymbol }}#}
-                                        25 €
-                                        <input type="hidden" id="maxTickets_id"
-                                               value="ticket-n_fractions"/>
-                                        <input type="hidden" id="numTickets_ticketid"
-                                               name="numTickets_ticketid" value="0"/>
 
-                                        <input type="button" id="add_id" class="addTicket" value="+"/>
-                                        <br/>
-                                        <br/>
-                                        <div style="float:left; margin-left: 20px; margin-bottom: 10px;">
-                                            {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
-                                            Available tickets: 4
-                                        </div>
-                                        <div style="float:right; margin-right: 20px; margin-bottom: 10px;">
-                                            {#{{ language.translate("playchris_tck_buy") }}#}
-                                            Your tickets:
-                                            <span id="showNumTickets_ticketid">0</span>
+                                        <div class="td-ticket--inner">
+                                            <div class="christmasTicketImg">
+                                                <img src="/w/img/christmas-lottery/desktop/christmas-lottery.png"/>
+                                            <span class="christmasTicketTxt">
+                                                {#{{ ticket['number'] }}#}
+                                                00453
+                                            </span>
+                                            </div>
+
+                                            <div class="td-ticket-buttons--row">
+                                                <div class="td-ticket-buttons">
+                                                    <input type="button" id="remove_id" class="removeTicket" value="-"/>
+                                                    {#{{ singleBetPrice }}#}
+                                                    {#{{ currencySymbol }}#}
+                                                    25 €
+                                                    <input type="hidden" id="maxTickets_id"
+                                                           value="ticket-n_fractions"/>
+                                                    <input type="hidden" id="numTickets_ticketid"
+                                                           name="numTickets_ticketid" value="0"/>
+
+                                                    <input type="button" id="add_id" class="addTicket" value="+"/>
+                                                </div>
+                                                <div class="tickets-available">
+                                                    {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
+                                                    7 Tickets Available
+                                                </div>
+                                                {#<div style="float:right; margin-right: 20px; margin-bottom: 10px;">#}
+                                                {#{{ language.translate("playchris_tck_buy") }}#}
+                                                {#Your tickets:#}
+                                                {#<span id="showNumTickets_ticketid">0</span>#}
+                                                {#</div>#}
+
+                                            </div>
                                         </div>
                                     </td>
-                                    <td class="td-space">&nbsp;</td>
-                                    <td class="td-space">&nbsp;</td>
                                     <td class="td-ticket">
-                                        <div class="christmasTicketImg">
-                                            <img src="/w/img/christmas/ticket.png" width="300px"/>
-                                        <span class="christmasTicketTxt">
-                                            {#{{ ticket['number'] }}#}
-                                            00453
-                                        </span>
-                                        </div>
-                                        <input type="button" id="remove_id" class="removeTicket" value="-"/>
-                                        {#{{ singleBetPrice }}#}
-                                        {#{{ currencySymbol }}#}
-                                        25 €
-                                        <input type="hidden" id="maxTickets_id"
-                                               value="ticket-n_fractions"/>
-                                        <input type="hidden" id="numTickets_ticketid"
-                                               name="numTickets_ticketid" value="0"/>
 
-                                        <input type="button" id="add_id" class="addTicket" value="+"/>
-                                        <br/>
-                                        <br/>
-                                        <div style="float:left; margin-left: 20px; margin-bottom: 10px;">
-                                            {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
-                                            Available tickets: 4
-                                        </div>
-                                        <div style="float:right; margin-right: 20px; margin-bottom: 10px;">
-                                            {#{{ language.translate("playchris_tck_buy") }}#}
-                                            Your tickets:
-                                            <span id="showNumTickets_ticketid">0</span>
+                                        <div class="td-ticket--inner">
+                                            <div class="christmasTicketImg">
+                                                <img src="/w/img/christmas-lottery/desktop/christmas-lottery.png"/>
+                                            <span class="christmasTicketTxt">
+                                                {#{{ ticket['number'] }}#}
+                                                00453
+                                            </span>
+                                            </div>
+
+                                            <div class="td-ticket-buttons--row">
+                                                <div class="td-ticket-buttons">
+                                                    <input type="button" id="remove_id" class="removeTicket" value="-"/>
+                                                    {#{{ singleBetPrice }}#}
+                                                    {#{{ currencySymbol }}#}
+                                                    25 €
+                                                    <input type="hidden" id="maxTickets_id"
+                                                           value="ticket-n_fractions"/>
+                                                    <input type="hidden" id="numTickets_ticketid"
+                                                           name="numTickets_ticketid" value="0"/>
+
+                                                    <input type="button" id="add_id" class="addTicket" value="+"/>
+                                                </div>
+                                                <div class="tickets-available">
+                                                    {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
+                                                    7 Tickets Available
+                                                </div>
+                                                {#<div style="float:right; margin-right: 20px; margin-bottom: 10px;">#}
+                                                {#{{ language.translate("playchris_tck_buy") }}#}
+                                                {#Your tickets:#}
+                                                {#<span id="showNumTickets_ticketid">0</span>#}
+                                                {#</div>#}
+
+                                            </div>
                                         </div>
                                     </td>
-                                    <td class="td-space">&nbsp;</td>
-                                    <td class="td-space">&nbsp;</td>
                                     <td class="td-ticket">
-                                        <div class="christmasTicketImg">
-                                            <img src="/w/img/christmas/ticket.png" width="300px"/>
-                                        <span class="christmasTicketTxt">
-                                            {#{{ ticket['number'] }}#}
-                                            00453
-                                        </span>
-                                        </div>
-                                        <input type="button" id="remove_id" class="removeTicket" value="-"/>
-                                        {#{{ singleBetPrice }}#}
-                                        {#{{ currencySymbol }}#}
-                                        25 €
-                                        <input type="hidden" id="maxTickets_id"
-                                               value="ticket-n_fractions"/>
-                                        <input type="hidden" id="numTickets_ticketid"
-                                               name="numTickets_ticketid" value="0"/>
 
-                                        <input type="button" id="add_id" class="addTicket" value="+"/>
-                                        <br/>
-                                        <br/>
-                                        <div style="float:left; margin-left: 20px; margin-bottom: 10px;">
-                                            {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
-                                            Available tickets: 4
-                                        </div>
-                                        <div style="float:right; margin-right: 20px; margin-bottom: 10px;">
-                                            {#{{ language.translate("playchris_tck_buy") }}#}
-                                            Your tickets:
-                                            <span id="showNumTickets_ticketid">0</span>
+                                        <div class="td-ticket--inner">
+                                            <div class="christmasTicketImg">
+                                                <img src="/w/img/christmas-lottery/desktop/christmas-lottery.png"/>
+                                            <span class="christmasTicketTxt">
+                                                {#{{ ticket['number'] }}#}
+                                                00453
+                                            </span>
+                                            </div>
+
+                                            <div class="td-ticket-buttons--row">
+                                                <div class="td-ticket-buttons">
+                                                    <input type="button" id="remove_id" class="removeTicket" value="-"/>
+                                                    {#{{ singleBetPrice }}#}
+                                                    {#{{ currencySymbol }}#}
+                                                    25 €
+                                                    <input type="hidden" id="maxTickets_id"
+                                                           value="ticket-n_fractions"/>
+                                                    <input type="hidden" id="numTickets_ticketid"
+                                                           name="numTickets_ticketid" value="0"/>
+
+                                                    <input type="button" id="add_id" class="addTicket" value="+"/>
+                                                </div>
+                                                <div class="tickets-available">
+                                                    {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
+                                                    7 Tickets Available
+                                                </div>
+                                                {#<div style="float:right; margin-right: 20px; margin-bottom: 10px;">#}
+                                                {#{{ language.translate("playchris_tck_buy") }}#}
+                                                {#Your tickets:#}
+                                                {#<span id="showNumTickets_ticketid">0</span>#}
+                                                {#</div>#}
+
+                                            </div>
                                         </div>
                                     </td>
-                                    <td class="td-space">&nbsp;</td>
                                 </tr>
 
 
