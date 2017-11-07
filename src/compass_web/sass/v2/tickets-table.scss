@@ -1,0 +1,54 @@
+/* Table for the Tickets page*/
+
+.tickets-table {
+
+  table {
+    @media only screen and (min-width: $screen-desktop) {
+
+    }
+
+    tr {
+
+
+      td {
+
+        color:  #333333;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 36px;
+        text-align: left;
+
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 18px;
+          line-height: 36px;
+        }
+
+        &.lottery {
+          display: none;
+
+
+          @media only screen and (min-width: $screen-desktop) {
+            display: table-cell;
+          }
+        }
+        
+        &.date-from {
+
+        }
+        
+        &.date-to {
+
+        }
+        
+        &.numbers {
+          span {
+            color:  #333333;
+          }
+          span.star {
+            color:  #f9d11b;
+          }
+        }
+      }
+    }
+  }
+}

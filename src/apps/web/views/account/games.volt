@@ -54,18 +54,21 @@
                     </h3>
 
                     {% include "_elements/tickets-filter.volt" %}
+                    {% include "_elements/tickets-table.volt" %}
 
                     <h3>
                         My Tickets
                     </h3>
 
                     {% include "_elements/tickets-filter.volt" %}
+                    {% include "_elements/tickets-table.volt" %}
 
                     <h3>
                         Past Subscriptions
                     </h3>
 
                     {% include "_elements/tickets-filter.volt" %}
+                    {% include "_elements/tickets-table.volt" %}
 
                 </form>
                 {#Clear html end#}

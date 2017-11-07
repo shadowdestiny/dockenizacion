@@ -1,0 +1,70 @@
+/* Filters for the Tickets Page */
+
+
+// Filter block
+
+.mobile-filter-block {
+  display: block;
+
+  @media only screen and (min-width: $screen-desktop) {
+    display: none;
+  }
+}
+
+.tickets-filter--row {
+  display: none;
+  overflow: hidden;
+
+
+  @media only screen and (min-width: $screen-desktop) {
+    display: block;
+  }
+
+  .tickets-filter--row--left {
+    float: left;
+    overflow: hidden;
+  }
+
+  .tickets-filter--section{
+
+    float: left;
+
+  }
+
+  .label {
+    //font-family: WorkSans;
+    color:  #333333;
+    font-size: 18px;
+    font-weight: 700;
+    height: 36px;
+    line-height: 36px;
+    text-align: left;
+    display: block;
+  }
+
+  .tickets-filter--block{
+
+  }
+
+  .tickets-filter--row--right {
+
+    float: right;
+    overflow: hidden;
+
+    .tickets-filter--btn {
+      //font-family: WorkSans;
+      color:  #ffffff;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 36px;
+      text-align: center;
+
+      background-color:  #4dec8c;
+      min-width: 302px;
+      height: 56px;
+    }
+  }
+
+
+
+}
