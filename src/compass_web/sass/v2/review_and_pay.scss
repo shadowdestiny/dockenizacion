@@ -330,6 +330,14 @@
 
     &.section--card--details {
 
+
+      .review_and_pay-section section .section--content {
+
+        @media only screen and (min-width: $screen-desktop) {
+          padding-right: 36px;
+        }
+      }
+
       h1 {
         font-size: 33.3px;
 
@@ -496,7 +504,12 @@
           font-size: 29px;
 
           @media only screen and (min-width: $screen-desktop) {
-
+            float: right;
+            margin-top: -20px;
+            padding: 0 97px 0 71px;
+            font-size: 24px;
+            cursor: pointer;
+            margin-right: -34px;
           }
         }
 
@@ -510,7 +523,29 @@
         margin-bottom: 37px;
 
         @media only screen and (min-width: $screen-desktop) {
+          margin-top: -15px;
+          margin-left: -40px;
+          margin-bottom: 15px;
+        }
 
+        ul {
+          @media only screen and (min-width: $screen-desktop) {
+            overflow: hidden;
+          }
+        }
+
+        li {
+          @media only screen and (min-width: $screen-desktop) {
+            float: left;
+            padding: 0;
+            margin: 0;
+          }
+
+          &.visa-li {
+            @media only screen and (min-width: $screen-desktop) {
+
+            }
+          }
         }
 
         li a.visa-a {
@@ -518,7 +553,11 @@
           top: 3px;
           left: 28px;
 
-          @media only screen and (min-width: $screen-desktop) {}
+          @media only screen and (min-width: $screen-desktop) {
+            width: 80px;
+            top: 9px;
+            left: 25px;
+          }
         }
 
         li a.master-a {
@@ -526,7 +565,12 @@
           top: 7px;
           left: 0px;
 
-          @media only screen and (min-width: $screen-desktop) {}
+          @media only screen and (min-width: $screen-desktop) {
+            width: 73px;
+            top: 7px;
+            left: 0px;
+            margin-left: 83px;
+          }
         }
 
         li a.paysafe-a {
@@ -534,7 +578,12 @@
           top: 5px;
           left: -31px;
 
-          @media only screen and (min-width: $screen-desktop) {}
+          @media only screen and (min-width: $screen-desktop) {
+            width: 205px;
+            top: 11px;
+            left: 0;
+            margin-left: 51px;
+          }
         }
 
         li a.neteller-a {
@@ -542,7 +591,12 @@
           top: 3px;
           left: -61px;
 
-          @media only screen and (min-width: $screen-desktop) {}
+          @media only screen and (min-width: $screen-desktop) {
+            width: 178px;
+            top: 10px;
+            left: 0;
+            margin-left: 57px;
+          }
         }
 
         li a.skrill-a {
@@ -550,7 +604,12 @@
           top: 10px;
           left: -90px;
 
-          @media only screen and (min-width: $screen-desktop) {}
+          @media only screen and (min-width: $screen-desktop) {
+            width: 96px;
+            top: 4px;
+            left: 0;
+            margin-left: 58px;
+          }
         }
 
 
