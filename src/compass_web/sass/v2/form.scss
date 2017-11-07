@@ -5,7 +5,14 @@ form {
   }
 
   //.input,
-  input {
+  //input,
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="time"],
+    input[type="url"],
+    input[type="search"] {
     @include input();
   }
 
