@@ -29,13 +29,68 @@
     }
 {% endblock %}
 {% block body %}
-    <main id="content" class="account-page">
+    <main id="content" class="account-page tickets-page">
         <div class="wrapper">
             <div class="nav">
                 {% set activeSubnav='{"myClass": "games"}'|json_decode %}
                 {% include "account/_nav.volt" %}
             </div>
             <div class="content">
+
+
+
+
+
+
+                {#Clear html start#}
+                <form action="" class="tickets-form">
+
+                    <div class="mobile-filter-block">
+                        {% include "_elements/tickets-filter.volt" %}
+                    </div>
+
+                    <h3>
+                        My Subscriptions
+                    </h3>
+
+                    {% include "_elements/tickets-filter.volt" %}
+
+                    <h3>
+                        My Tickets
+                    </h3>
+
+                    {% include "_elements/tickets-filter.volt" %}
+
+                    <h3>
+                        Past Subscriptions
+                    </h3>
+
+                    {% include "_elements/tickets-filter.volt" %}
+
+                </form>
+                {#Clear html end#}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <h1 class="h1 title">{{ language.translate("tickets_head") }}</h1>
 
                 {% if my_games_actives is empty and my_subscription_actives is empty %}

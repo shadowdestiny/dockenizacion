@@ -1,0 +1,24 @@
+/* PAGE: Tickets */
+
+
+.tickets-page {
+
+  .tickets-form{
+
+    h3 {
+      //font-family: WorkSans;
+      color:  #f9d118;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 36px;
+      text-align: left;
+      margin-bottom: 10px;
+
+      @media only screen and (min-width: $screen-desktop) {
+        border-bottom: 1px solid #333;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+}
