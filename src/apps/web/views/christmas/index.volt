@@ -31,6 +31,43 @@
                 <form action="/christmas/order" method="post" id="christmasForm">
                     {% if christmasTickets is defined %}
                         <table style="margin-top: 15px; margin-bottom: 15px;">
+
+                            <tr>
+                                <td width="15">&nbsp;</td>
+                                <td align="center" style="background-color: white;">
+                                    <div class="christmasTicketImg">
+                                        <img src="/w/img/christmas/ticket.png" width="300px"/>
+                                        <span class="christmasTicketTxt">
+                                            {#{{ ticket['number'] }}#}
+                                            00453
+                                        </span>
+                                    </div>
+                                    <input type="button" id="remove_id" class="removeTicket" value="-"/>
+                                    {#{{ singleBetPrice }}#}
+                                    {#{{ currencySymbol }}#}
+                                    25 €
+                                    <input type="hidden" id="maxTickets_id"
+                                           value="ticket-n_fractions"/>
+                                    <input type="hidden" id="numTickets_ticketid"
+                                           name="numTickets_ticketid" value="0"/>
+
+                                    <input type="button" id="add_ticketid" class="addTicket" value="+"/>
+                                    <br/>
+                                    <br/>
+                                    <div style="float:left; margin-left: 20px; margin-bottom: 10px;">
+                                        {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
+                                        Available tickets: 4
+                                    </div>
+                                    <div style="float:right; margin-right: 20px; margin-bottom: 10px;">
+                                        {#{{ language.translate("playchris_tck_buy") }}#}
+                                        Your tickets: 
+                                        <span id="showNumTickets_ticketid">0</span>
+                                    </div>
+                                </td>
+                                <td width="15">&nbsp;</td>
+                            </tr>
+
+
                             <tr>
                                 {% set cont = 0 %}
                                 {% for ticket in christmasTickets %}
@@ -74,9 +111,17 @@
 
                     <div class="box-bottom">
                         <div class="right">
-                            <span class="total-price-description">{{ language.translate("playchris_total") }} </span>
+                            <span class="total-price-description">
+
+                                {#TODO : Add real variables here#}
+                                {#{{ language.translate("playchris_total") }}#}
+                                Total price
+                            </span>
                             <span class="description-before-price"><span
-                                        id="showTotalTickets">0</span> {{ language.translate("playchris_total_tck") }}
+                                        id="showTotalTickets">0</span>
+                                {#TODO : Add real variables here#}
+                                {#{{ language.translate("playchris_total_tck") }}#}
+                                tickets
                                 x {{ singleBetPrice | number_format (2,'.','') }} {{ currencySymbol }}</span>
 
                             <a href="javascript:void(0);" id="nextButton" class="btn add-cart">
