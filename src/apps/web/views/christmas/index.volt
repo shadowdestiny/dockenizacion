@@ -458,35 +458,68 @@
                             <h3>We don't have Christmas Tickets.</h3>
                         {% endif %}
 
-                        <div class="box-bottom">
+                        <div class="box-bottom under-table-row">
+                            <div class="left">
+                                Buy Spanish Christmass Lottery <br class="br-desktop">
+                                2.3 Billion in Price, 22 December
+                            </div>
                             <div class="right">
-                            <span class="total-price-description">
+                                <span class="total-price-description">
 
-                                {#TODO : Add real variables here#}
-                                {#{{ language.translate("playchris_total") }}#}
-                                Total price
-                            </span>
-                            <span class="description-before-price"><span
-                                        id="showTotalTickets">0</span>
-                                {#TODO : Add real variables here#}
-                                {#{{ language.translate("playchris_total_tck") }}#}
-                                tickets
-                                x {{ singleBetPrice | number_format (2,'.','') }} {{ currencySymbol }}</span>
+                                    {#TODO : Add real variables here#}
+                                    {#{{ language.translate("playchris_total") }}#}
+                                    Total price
+                                </span>
+                                <span class="description-before-price"><span
+                                            id="showTotalTickets">0</span>
+                                    {#TODO : Add real variables here#}
+                                    {#{{ language.translate("playchris_total_tck") }}#}
+                                    tickets
+                                    x {{ singleBetPrice | number_format (2,'.','') }} {{ currencySymbol }}
+                                </span>
 
                                 <a href="javascript:void(0);" id="nextButton" class="btn add-cart">
                                 <span class="value">
                                     {{ currencySymbol }}
                                     <span id="totalPriceValue">0.00</span>
                                 </span>
-                                    <span class="gap"><span class="separator"></span></span>
-                                    <span>Next</span>
+                                    {#<span class="gap"><span class="separator"></span></span>#}
+                                    <span class="next">Next</span>
                                 </a>
                             </div>
-                            <br/><br/>
+
                             <input type="hidden" id="totalTickets" value="0"/>
                             <input type="hidden" id="singleBetPrice"
                                    value="{{ singleBetPrice | number_format (2,'.','') }}"/>
                         </div>
+
+                        <div class="box-bottom christmas-bottom-block">
+                            <div class="christmas-bottom-block--img">
+                                <img src="/w/img/christmas-lottery/desktop/bottom-banner--full.png"/>
+                            </div>
+                            <div class="christmas-bottom-block--center">
+                                <h3>
+                                    Euro millions - Europes favourite lotto
+                                </h3>
+
+                                <p>
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                </p>
+                            </div>
+                            <div class="christmas-bottom-block--right">
+                                <h3>
+                                    pick your numbers and play- its that easy
+                                </h3>
+
+                                <p>
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                </p>
+                            </div>
+                        </div>
+
+
+
+
 
                         <div class="box-bottom">
                             <p align="justify">

@@ -130,7 +130,8 @@
       text-align: center;
       line-height: 60px;
       text-transform: uppercase;
-      display: inline-block;
+      //display: inline-block;
+      display: block;
 
       @media only screen and (min-width: $screen-desktop) {
         //font-family: Roboto;
@@ -179,6 +180,7 @@
       text-align: center;
       vertical-align: top;
       width: 33.33%;
+      padding-top: 5px;
 
       @media only screen and (min-width: $screen-desktop) {
 
@@ -186,10 +188,10 @@
 
       .td-ticket--inner {
         position: relative;
-        margin: auto;
-        width: 95%;
+        //margin: auto;
+        width: 100%;
         max-width: 235px;
-        padding-bottom: 18px;
+        padding-bottom: 12px;
 
         @media only screen and (min-width: $screen-desktop) {
           width: 100%;
@@ -314,6 +316,278 @@
       }
 
     }
+
+    td + td .td-ticket--inner{
+      float: none;
+      margin:auto;
+    }
+    td + td + td .td-ticket--inner{
+      float: right;
+    }
+  }
+
+  .box-bottom {
+    background-color: transparent;
+    border: 0;
+  }
+
+  .box-bottom.under-table-row {
+    border-top: 1px solid #303030;
+    overflow: hidden;
+    background-color: transparent;
+    padding: 0;
+    padding-top: 8px;
+    margin-top: 2px;
+
+    .total-price-description {
+      display: none;
+    }
+    .description-before-price {
+      display: none;
+    }
+
+    .left {
+
+      width: 100%;
+      padding-left: 17px;
+      text-align: left;
+      font-size: 18px;
+      margin-bottom: 16px;
+      float: none;
+
+      @media only screen and (min-width: $screen-desktop) {
+        width: 40%;
+        float: left;
+        height: 58px;
+        border-left: 13px solid #333333;
+        padding-left: 16px;
+      }
+
+      .br-desktop {
+        display: none;
+
+        @media only screen and (min-width: $screen-desktop) {
+          display: block;
+        }
+      }
+    }
+
+    .right {
+      width: 100%;
+      float: none;
+
+      @media only screen and (min-width: $screen-desktop) {
+        width: 40%;
+        text-align: right;
+        float: right;
+      }
+
+      .btn.add-cart:active,
+      .btn.add-cart:focus,
+      .btn.add-cart {
+        border-radius: 3px;
+        background: -webkit-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+        background: -moz-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+        background: -o-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+        background: -ms-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+        background: linear-gradient(135deg, #4dec8c 0%,#21d167 100%);
+        color: #fff;
+        height: 65px;
+        line-height: 63px;
+        font-size: 36px;
+        font-weight: 700;
+        text-transform: uppercase;
+        text-decoration: none;
+        text-align: center;
+        //padding: 0 40px;
+        padding: 0 0px;
+        display: inline-block;
+        border: 0;
+        position: relative;
+
+        width: 100%;
+        margin: 0;
+
+        @media only screen and (min-width: $screen-desktop) {
+          width:auto;
+          height: 97px;
+          line-height: 97px;
+          font-size: 42px;
+
+        }
+
+        span.value {
+          padding-left: 20px;
+          padding-right: 20px;
+          float: left;
+          width: 50%;
+          text-align: center;
+
+          @media only screen and (min-width: $screen-desktop) {
+            float: left;
+            padding-left: 40px;
+            padding-right: 20px;
+          }
+        }
+
+        span.next {
+          padding-left: 0px;
+          padding-right: 0px;
+          float: right;
+          text-align: center;
+          width: 50%;
+          cursor: pointer;
+
+          @media only screen and (min-width: $screen-desktop) {
+            padding-left: 20px;
+            padding-right: 40px;
+            width:auto;
+          }
+        }
+
+        
+        &::before {
+          content: "";
+          display: block;
+          position: absolute;
+          width: 2px;
+          height: 100%;
+          left:50%;
+          background-color: #23ce6a;
+
+          @media only screen and (min-width: $screen-desktop) {
+            left: 53%;
+          }
+        }
+      }
+    }
+
+
+  }
+
+  .christmas-bottom-block {
+    padding: 0;
+    border-bottom: 1px solid #303030;
+    overflow: hidden;
+    padding-bottom: 52px;
+
+    background-image: url('../img/christmas-lottery/desktop/bottom-lottery.png');
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+
+    //-webkit-background-size: 100px;
+    //background-size: 100px;
+
+    -webkit-background-size: 34.1%;
+    background-size: 34.1%;
+
+    @media only screen and (min-width: $screen-desktop) {
+      padding: 0;
+      border-bottom: 1px solid #303030;
+      padding-bottom: 52px;
+
+      background-image: url('../img/christmas-lottery/desktop/bottom-lottery.png');
+      background-repeat: no-repeat;
+      background-position: 100% 0;
+
+      //-webkit-background-size: 246px;
+      //background-size: 246px;
+
+      -webkit-background-size: 34.1%;
+      background-size: 34.1%;
+
+    }
+
+    .christmas-bottom-block--img {
+      padding-top: 18px;
+      padding-bottom: 29px;
+
+      @media only screen and (min-width: $screen-desktop) {}
+
+      img {
+
+        @media only screen and (min-width: $screen-desktop) {}
+      }
+    }
+    .christmas-bottom-block--center {
+
+      margin: auto;
+      max-width: 520px;
+      margin-bottom: 26px;
+
+      @media only screen and (min-width: $screen-desktop) {
+        margin: auto;
+        max-width: 520px;
+        margin-bottom: 26px;
+      }
+
+      h3 {
+        //font-family: WorkSans;
+
+        color: #333;
+        font-size: 18.5px;
+        font-weight: 600;
+        text-align: center;
+        text-transform: uppercase;
+        padding-bottom: 3px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 30px;
+        }
+      }
+
+      p {
+        text-align: center;
+        color:  #6a6969;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 25px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 24px;
+          line-height: 40px;
+        }
+      }
+    }
+
+    .christmas-bottom-block--right {
+      float: right;
+      max-width: 450px;
+
+      @media only screen and (min-width: $screen-desktop) {
+        float: right;
+        max-width: 450px;
+      }
+
+      h3 {
+        //font-family: WorkSans;
+        color: #333;
+        font-size: 18.5px;
+        font-weight: 600;
+        text-align: right;
+        text-transform: uppercase;
+        padding-bottom: 3px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 30px;
+        }
+      }
+
+      p {
+        text-align: right;
+        color:  #6a6969;
+        font-size: 14.7px;
+        font-weight: 400;
+        line-height: 25px;
+        padding-left: 40px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 24px;
+          line-height: 40px;
+        }
+      }
+    }
+
   }
 
 }

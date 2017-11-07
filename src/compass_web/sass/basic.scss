@@ -430,17 +430,17 @@ label.submit {
 }
 
 .btn:hover, .btn:focus {
-  text-shadow: 0 0 0 transparent;
-  background: #fff;
-  color: #777;
+  //text-shadow: 0 0 0 transparent;
+  //background: #fff;
+  //color: #777;
 }
 
 .btn:active {
-  color: $black !important;
-  box-shadow: 0 5px 5px #bbb inset !important;
-  border: 1px solid $black !important;
-  background: #fff !important;
-  text-shadow: 0 0 0 transparent;
+  //color: $black !important;
+  //box-shadow: 0 5px 5px #bbb inset !important;
+  //border: 1px solid $black !important;
+  //background: #fff !important;
+  //text-shadow: 0 0 0 transparent;
 }
 
 .btn.big {
@@ -449,7 +449,7 @@ label.submit {
 }
 
 .btn.big:active {
-  box-shadow: 0 0 0 1px #eee inset, 0 5px 20px #888 inset !important;
+  //box-shadow: 0 0 0 1px #eee inset, 0 5px 20px #888 inset !important;
 }
 
 .btn.grey, .tab, .tab:visited {
