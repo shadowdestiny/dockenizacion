@@ -1,0 +1,100 @@
+/* PAGE: Christmas lottery */
+
+.christmas--page {
+
+  .banner {
+    display: none;
+
+    @media only screen and (min-width: $screen-desktop) {
+
+      display: block;
+      height: 399px;
+
+      background-image: url('../img/home/banner/desktop/banner.png');
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      -webkit-background-size: cover;
+      background-size: cover;
+    }
+  }
+
+  .title-block {
+
+    //background-color: #f6d010;
+    //height: 125px;
+
+    //position: relative;
+    //top: -125px;
+    z-index: 1;
+    //margin-bottom: -100px;
+    //margin-bottom: -132px;
+
+    h1 {
+      text-align: left;
+      line-height: 116px;
+      //font-family: WorkSans;
+      font-family: $ff1;
+      color: #333333;
+      font-size: 60px;
+      font-weight: 900;
+      text-transform: uppercase;
+      padding-left: 29px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      display: none;
+    }
+  }
+
+  header {
+    display: none;
+
+    @media only screen and (min-width: $screen-desktop) {
+      display: block;
+    }
+
+    .left {
+      display: none;
+
+      @media only screen and (min-width: $screen-desktop) {
+        display: block;
+        float: right;
+
+        .top {
+
+        }
+
+        .bottom {
+
+        }
+      }
+    }
+    .right {
+      display: none;
+
+      @media only screen and (min-width: $screen-desktop) {
+        display: block;
+        float: right;
+
+        .top {
+
+        }
+
+        .bottom {
+
+        }
+      }
+    }
+
+    .jackpot {
+      .mobile {
+        display: inline-block;
+
+        @media only screen and (min-width: $screen-desktop) {
+          display: none;
+        }
+      }
+    }
+  }
+
+}
