@@ -77,38 +77,38 @@
                                     <td class="td-ticket">
 
                                         <div class="td-ticket--inner">
-                                        <div class="christmasTicketImg">
-                                            <img src="/w/img/christmas-lottery/desktop/christmas-lottery.png"/>
+                                            <div class="christmasTicketImg">
+                                                <img src="/w/img/christmas-lottery/desktop/christmas-lottery.png"/>
                                             <span class="christmasTicketTxt">
                                                 {#{{ ticket['number'] }}#}
                                                 00453
                                             </span>
-                                        </div>
-
-                                        <div class="td-ticket-buttons--row">
-                                            <div class="td-ticket-buttons">
-                                                <input type="button" id="remove_id" class="removeTicket" value="-"/>
-                                                {#{{ singleBetPrice }}#}
-                                                {#{{ currencySymbol }}#}
-                                                25 €
-                                                <input type="hidden" id="maxTickets_id"
-                                                       value="ticket-n_fractions"/>
-                                                <input type="hidden" id="numTickets_ticketid"
-                                                       name="numTickets_ticketid" value="0"/>
-
-                                                <input type="button" id="add_id" class="addTicket" value="+"/>
                                             </div>
-                                            <div class="tickets-available">
-                                                {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
-                                                7 Tickets Available
-                                            </div>
-                                            {#<div style="float:right; margin-right: 20px; margin-bottom: 10px;">#}
-                                            {#{{ language.translate("playchris_tck_buy") }}#}
-                                            {#Your tickets:#}
-                                            {#<span id="showNumTickets_ticketid">0</span>#}
-                                            {#</div>#}
 
-                                        </div>
+                                            <div class="td-ticket-buttons--row">
+                                                <div class="td-ticket-buttons">
+                                                    <input type="button" id="remove_id" class="removeTicket" value="-"/>
+                                                    {#{{ singleBetPrice }}#}
+                                                    {#{{ currencySymbol }}#}
+                                                    25 €
+                                                    <input type="hidden" id="maxTickets_id"
+                                                           value="ticket-n_fractions"/>
+                                                    <input type="hidden" id="numTickets_ticketid"
+                                                           name="numTickets_ticketid" value="0"/>
+
+                                                    <input type="button" id="add_id" class="addTicket" value="+"/>
+                                                </div>
+                                                <div class="tickets-available">
+                                                    {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
+                                                    7 Tickets Available
+                                                </div>
+                                                {#<div style="float:right; margin-right: 20px; margin-bottom: 10px;">#}
+                                                {#{{ language.translate("playchris_tck_buy") }}#}
+                                                {#Your tickets:#}
+                                                {#<span id="showNumTickets_ticketid">0</span>#}
+                                                {#</div>#}
+
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="td-ticket">
@@ -461,7 +461,9 @@
                         <div class="box-bottom under-table-row">
                             <div class="left">
                                 Buy Spanish Christmass Lottery <br class="br-desktop">
+                                <span>
                                 2.3 Billion in Price, 22 December
+                                    </span>
                             </div>
                             <div class="right">
                                 <span class="total-price-description">
@@ -503,7 +505,8 @@
                                 </h3>
 
                                 <p>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                    Ipsum has been the industry's standard dummy text ever since the 1500s.
                                 </p>
                             </div>
                             <div class="christmas-bottom-block--right">
@@ -512,13 +515,11 @@
                                 </h3>
 
                                 <p>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                    Ipsum has been the industry's standard dummy text ever since the 1500s.
                                 </p>
                             </div>
                         </div>
-
-
-
 
 
                         <div class="box-bottom">
