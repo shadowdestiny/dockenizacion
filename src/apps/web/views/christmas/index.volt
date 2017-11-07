@@ -53,12 +53,15 @@
                         </div>
                     </div>
                     <div class="jackpot">
+
+                        {#TODO : Add real variables here#}
                         {#{% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}#}
-                        {% set extraClass='{"boxvalueClass": "","currencyClass":"","valueClass":""}'|json_decode %}
-                        {% include "_elements/christmasJackpot-value" with ['extraClass': extraClass] %}
+                        {#{% include "_elements/christmasJackpot-value" with ['extraClass': extraClass] %}#}
+
+                        €2.3 billion
 
                         <span class="mobile">
-                            in price, 22nd Dec 2017
+                            in price, 22 Dec 2017
                         </span>
 
                     </div>
