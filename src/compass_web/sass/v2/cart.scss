@@ -1,0 +1,320 @@
+//Page : Cart
+
+#cart-section.cart-section {
+
+  .nav {
+    margin-bottom: 7px;
+
+    ul {
+
+      li {
+
+        height: 48px;
+
+        @media only screen and (min-width: $screen-desktop) {
+
+        }
+
+        a{
+
+          font-size: 22px;
+          font-weight: 700;
+          height: 44px;
+          line-height: 44px;
+
+          @media only screen and (min-width: $screen-desktop) {
+
+          }
+        }
+      }
+
+    }
+  }
+
+  .cart-top-row {
+
+    overflow: hidden;
+
+    @media only screen and (min-width: $screen-desktop) {
+
+    }
+
+    h1 {
+      padding-left: 78px;
+      background-image: url('../img/cart/mobile/cart.png');
+      background-repeat: no-repeat;
+      background-position: 0px 5px;
+      -webkit-background-size: 38px;
+      background-size: 56px;
+      font-size: 37px;
+      text-transform: uppercase;
+      font-weight: 900;
+      line-height: 60px;
+
+      color: #a8a9a8;
+      border-bottom: 1px solid #303030;
+      padding-bottom: 6px;
+      margin-bottom: 5px;
+
+      @media only screen and (min-width: $screen-desktop) {
+        background-image: url('../img/cart/desktop/cart.png');
+        -webkit-background-size: 38px;
+        background-size: 38px;
+
+        border-bottom: 0;
+      }
+    }
+
+  }
+
+  .cart-rows {
+    overflow: hidden;
+
+    @media only screen and (min-width: $screen-desktop) {
+    }
+
+    table {
+
+      tr {
+
+        border-bottom: 1px solid #303030;
+
+        @media only screen and (min-width: $screen-desktop) {
+          border-bottom: 0;
+        }
+
+        td {
+
+          vertical-align: top;
+          //padding-top: 20px;
+          padding-top: 13px;
+          padding-bottom: 15px;
+
+          &.td--logo {
+            width: 132px;
+            padding-top: 10px;
+
+            @media only screen and (min-width: $screen-desktop) {
+              width: 132px;
+            }
+
+            img {
+              width: 84px;
+
+              @media only screen and (min-width: $screen-desktop) {
+                width: 136px;
+              }
+            }
+          }
+          &.td--content {
+
+            @media only screen and (min-width: $screen-desktop) {
+              border-bottom: 1px solid #303030;
+            }
+
+            h3 {
+
+              //font-family: WorkSans;
+              color: #fbd93a;
+              font-weight: 900;
+              font-size: 18.5px;
+              line-height: 1;
+              text-align: left;
+              text-transform: uppercase;
+              padding-top: 9px;
+
+
+              @media only screen and (min-width: $screen-desktop) {
+                font-size: 24px;
+                line-height: 36px;
+              }
+            }
+
+            h4 {
+
+              //font-family: WorkSans;
+              color: #fbd93a;
+              font-size: 19px;
+              font-weight: 700;
+              text-align: left;
+              padding-top: 3px;
+              padding-bottom: 2px;
+
+              @media only screen and (min-width: $screen-desktop) {
+                font-size: 24px;
+              }
+            }
+
+            p {
+
+              //font-family: WorkSans;
+              color: #a8a9a8;
+              font-size: 18.5px;
+              font-weight: 400;
+              text-align: left;
+              margin-bottom: 3px;
+
+              @media only screen and (min-width: $screen-desktop) {
+                font-size: 18px;
+              }
+            }
+          }
+          &.td--price {
+
+            //font-family: WorkSans;
+            color: #a8a9a8;
+            font-weight: 900;
+            font-size: 18px;
+            line-height: 36px;
+            text-align: right;
+            padding-right: 14px;
+
+            @media only screen and (min-width: $screen-desktop) {
+              font-size: 24px;
+              line-height: 36px;
+              border-bottom: 1px solid #303030;
+            }
+          }
+
+          &.td--action {
+            //padding-top: 15px;
+            padding-top: 22px;
+
+            @media only screen and (min-width: $screen-desktop) {
+              border-bottom: 1px solid #303030;
+            }
+
+            a {
+              display: block;
+              width: 19px;
+              height: 25px;
+              margin-bottom: 7px;
+              position: relative;
+
+              @media only screen and (min-width: $screen-desktop) {
+                width: 100px;
+                height: 50px;
+                margin-bottom: 10px;
+              }
+            }
+
+            .action--remove {
+
+              background-image: url('../img/cart/mobile/basket.png');
+              background-repeat: no-repeat;
+              background-position: 0 0;
+              -webkit-background-size: 16px;
+              background-size: 16px;
+              left: 3px;
+
+              @media only screen and (min-width: $screen-desktop) {
+                background-image: url('../img/cart/desktop/basket.png');
+                -webkit-background-size: 23px;
+                background-size: 23px;
+              }
+            }
+            .action--edit {
+
+              background-image: url('../img/cart/mobile/pencil.png');
+              background-repeat: no-repeat;
+              background-position: 0 0;
+              -webkit-background-size: 19px;
+              background-size: 19px;
+              top: 1px;
+              left: 1px;
+
+              @media only screen and (min-width: $screen-desktop) {
+                background-image: url('../img/cart/desktop/pencil.png');
+                -webkit-background-size: 29px;
+                background-size: 29px;
+              }
+            }
+            .action--view {
+
+              background-image: url('../img/cart/mobile/search.png');
+              background-repeat: no-repeat;
+              background-position: 0 0;
+              -webkit-background-size: 17px;
+              background-size: 17px;
+              top: 4px;
+              left: 4px;
+
+              @media only screen and (min-width: $screen-desktop) {
+                background-image: url('../img/cart/desktop/search.png');
+                -webkit-background-size: 26px;
+                background-size: 26px;
+              }
+            }
+          }
+        }
+
+      }
+      tr:first-of-type {
+        td {
+          padding-top: 0;
+          padding-bottom: 37px;
+
+          @media only screen and (min-width: $screen-desktop) {
+
+          }
+
+          &.td--action {
+            padding-top: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  .total-row {
+
+    //font-family: WorkSans;
+    text-transform: uppercase;
+    color: #a8a9a8;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 70px;
+    text-align: right;
+    padding-right: 5px;
+
+    @media only screen and (min-width: $screen-desktop) {
+      font-size: 24px;
+      line-height: 36px;
+    }
+
+    span {
+      display: inline-block;
+      margin-left: 29px;
+
+      @media only screen and (min-width: $screen-desktop) {
+        margin-left: 20px;
+      }
+    }
+  }
+
+  .btn-row {
+    overflow: hidden;
+
+    .btn-theme--big {
+
+      width: 100%;
+      font-size: 30px;
+      height: 62px;
+      line-height: 60px;
+
+      @media only screen and (min-width: $screen-desktop) {
+        width: auto;
+        float: right;
+        font-size: 24px;
+        height: 62px;
+        line-height: 60px;
+      }
+    }
+  }
+
+  margin-bottom: 60px;
+
+  @media only screen and (min-width: $screen-desktop) {
+    margin-bottom: 60px;
+  }
+}

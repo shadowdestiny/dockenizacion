@@ -1,4 +1,4 @@
-<div class="cart-section">
+<div id="cart-section" class="cart-section">
 
 
     <div class="cart-top-row">
@@ -59,7 +59,7 @@
                 </td>
                 <td class="td--content">
                     <h3>
-                        Euro Millions
+                        Powerball
                     </h3>
                     <h4>
                         4 Lines
