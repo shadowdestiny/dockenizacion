@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$screen-desktop".
-        on line 6 of /src/compass_web/sass/v2/tickets-table.scss
+        on line 8 of /src/compass_web/sass/v2/tickets-table.scss
 
-1: /* Table for the Tickets page*\/
-2: 
 3: .tickets-table {
 4: 
 5:   table {
-6:     @media only screen and (min-width: $screen-desktop) {
+6:     margin-bottom: 22px;
 7: 
-8:     }
-9: 
-10:     tr {
+8:     @media only screen and (min-width: $screen-desktop) {
+9:       margin-bottom: 22px;
+10:     }
 11: 
+12:     tr {
+13:       border: 1px solid #333;
 
 Backtrace:
-/src/compass_web/sass/v2/tickets-table.scss:6
+/src/compass_web/sass/v2/tickets-table.scss:8
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
@@ -81,4 +81,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 6 of /src/compass_web/sass/v2/tickets-table.scss\A \A 1: /* Table for the Tickets page*/\A 2: \A 3: .tickets-table {\A 4: \A 5:   table {\A 6:     @media only screen and (min-width: $screen-desktop) {\A 7: \A 8:     }\A 9: \A 10:     tr {\A 11: "; }
+  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 8 of /src/compass_web/sass/v2/tickets-table.scss\A \A 3: .tickets-table {\A 4: \A 5:   table {\A 6:     margin-bottom: 22px;\A 7: \A 8:     @media only screen and (min-width: $screen-desktop) {\A 9:       margin-bottom: 22px;\A 10:     }\A 11: \A 12:     tr {\A 13:       border: 1px solid #333;"; }
