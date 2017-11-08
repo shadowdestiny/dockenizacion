@@ -18,6 +18,7 @@
 
   @media only screen and (min-width: $screen-desktop) {
     display: block;
+    margin-bottom: 19px;
   }
 
   .tickets-filter--row--left {
@@ -43,10 +44,11 @@
     padding-left: 10px;
 
     @media only screen and (min-width: $screen-desktop) {
+
       font-size: 18px;
-      height: 36px;
-      line-height: 36px;
-      padding-left: 10px;
+      height: 44px;
+      line-height: 39px;
+      padding-left: 16px;
     }
 
   }
@@ -56,14 +58,14 @@
     margin-right: 23px;
 
     @media only screen and (min-width: $screen-desktop) {
-
+      margin-right: 37px;
     }
 
     .selectbox {
       min-width: 124px;
 
       @media only screen and (min-width: $screen-desktop) {
-
+        min-width: 200px;
       }
 
       select {
@@ -77,8 +79,8 @@
 
         @media only screen and (min-width: $screen-desktop) {
           font-size: 18px;
-          padding-left: 10px;
-          height: 35px;
+          padding-left: 16px;
+          height: 56px;
         }
       }
     }
@@ -91,7 +93,7 @@
       right: 0px;
       width: 30px;
       height: 35px;
-      background-image: url(../img/tickets/desktop/arrow-select.png);
+      background-image: url('../img/tickets/desktop/arrow-select.png');
       -webkit-background-size: 17px;
       background-size: 17px;
       background-repeat: no-repeat;
@@ -100,13 +102,13 @@
       border-left: 1px solid #333;
 
       @media only screen and (min-width: $screen-desktop) {
-        width: 30px;
-        height: 35px;
+        width: 49px;
+        height: 56px;
         background-image: url('../img/tickets/desktop/arrow-select.png');
         -webkit-background-size: 26px;
         background-size: 26px;
         background-repeat: no-repeat;
-        background-position: 0px 0px;
+        background-position: 11px 22px;
 
       }
     }
@@ -136,7 +138,7 @@
       @media only screen and (min-width: $screen-desktop) {
 
         font-size: 30px;
-        line-height: 36px;
+        line-height: 56px;
 
         min-width: 302px;
         height: 56px;
