@@ -10,7 +10,7 @@ use EuroMillions\web\vo\CastilloTicketId;
 use EuroMillions\web\vo\EuroMillionsLine;
 use Phalcon\Http\Client\Provider\Curl;
 
-class LotteryValidationCastilloApi
+class LotteryValidationCastilloApi extends Request
 {
 
     const PRICE_BET  = '2.50';
@@ -50,6 +50,11 @@ class LotteryValidationCastilloApi
     public function setOptions($options)
     {
         return curl_setopt_array($this->curlWrapper, $options);
+    }
+
+    public function setOption($option, $value)
+    {
+        return curl_setopt($this->curlWrapper, $option, $value);
     }
 
     public function validateBet(Bet $bet,
