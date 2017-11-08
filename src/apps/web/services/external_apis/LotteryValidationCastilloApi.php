@@ -25,9 +25,31 @@ class LotteryValidationCastilloApi
 
     public function __construct(Curl $curlWrapper = null)
     {
-        $this->curlWrapper = $curlWrapper ? $curlWrapper : new Curl();
+        $this->curlWrapper = $curlWrapper ? $curlWrapper : curl_init();
+        $this->initOptions();
         $di = \Phalcon\Di::getDefault();
         $this->url = $di->get('environmentDetector')->get() != 'production' ? 'https://www.loteriacastillo.com/test-euromillions' : 'https://www.loteriacastillo.com/euromillions/';
+    }
+
+    private function initOptions()
+    {
+        $this->setOptions(array(
+            CURLOPT_RETURNTRANSFER  => true,
+            CURLOPT_AUTOREFERER     => true,
+            CURLOPT_FOLLOWLOCATION  => true,
+            CURLOPT_MAXREDIRS       => 20,
+            CURLOPT_HEADER          => true,
+            CURLOPT_PROTOCOLS       => CURLPROTO_HTTP | CURLPROTO_HTTPS,
+            CURLOPT_REDIR_PROTOCOLS => CURLPROTO_HTTP | CURLPROTO_HTTPS,
+            CURLOPT_USERAGENT       => 'Phalcon HTTP/' . self::VERSION . ' (Curl)',
+            CURLOPT_CONNECTTIMEOUT  => 30,
+            CURLOPT_TIMEOUT         => 30
+        ));
+    }
+
+    public function setOptions($options)
+    {
+        return curl_setopt_array($this->curlWrapper, $options);
     }
 
     public function validateBet(Bet $bet,
