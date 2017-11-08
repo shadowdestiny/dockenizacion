@@ -86,6 +86,18 @@ class PlayConfigRepository extends RepositoryBase
         return $result;
     }
 
+    public function getEuromillionsSubscriptionsActives()
+    {
+        $result = $this->getEntityManager()
+            ->createQuery(
+                'SELECT p'
+                . ' FROM ' . $this->getEntityName() . ' p'
+                . ' WHERE p.active = 1 AND p.lottery = 1 AND p.frequency > 1')
+            ->getResult();
+
+        return $result;
+    }
+
 
     /**
      * @param $userId

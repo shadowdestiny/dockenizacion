@@ -3,6 +3,7 @@
 
 namespace EuroMillions\web\tasks;
 
+use EuroMillions\web\entities\Lottery;
 use EuroMillions\web\services\factories\DomainServiceFactory;
 use EuroMillions\web\services\EmailService;
 use EuroMillions\web\services\LotteryService;
@@ -44,8 +45,11 @@ class BetTask extends TaskBase
             $date = new \DateTime($args[0]);
         }
         $lotteries = $this->lotteryService->getLotteriesOrderedByNextDrawDate();
+        /** @var Lottery $lottery */
         foreach ($lotteries as $lottery) {
-            $this->lotteryService->placeBetForNextDraw($lottery, $date);
+            if ($lottery->getName() == 'EuroMillions') {
+                $this->lotteryService->placeBetForNextDraw($lottery, $date);
+            }
         }
     }
 
