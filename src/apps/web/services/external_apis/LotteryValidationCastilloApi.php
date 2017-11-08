@@ -10,7 +10,7 @@ use EuroMillions\web\vo\CastilloTicketId;
 use EuroMillions\web\vo\EuroMillionsLine;
 use Phalcon\Http\Client\Provider\Curl;
 
-class LotteryValidationCastilloApi extends Request
+class LotteryValidationCastilloApi
 {
 
     const PRICE_BET  = '2.50';
