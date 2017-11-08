@@ -23,6 +23,7 @@ use EuroMillions\web\exceptions\DataMissingException;
 use EuroMillions\web\interfaces\IJackpot;
 use EuroMillions\web\repositories\LotteryDrawRepository;
 use EuroMillions\web\repositories\LotteryRepository;
+use EuroMillions\web\repositories\PlayConfigRepository;
 use EuroMillions\web\services\email_templates_strategies\JackpotDataEmailTemplateStrategy;
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationAutoPlayNoFunds;
 use EuroMillions\web\services\user_notifications_strategies\UserNotificationResultsStrategy;
@@ -40,6 +41,8 @@ class LotteryService
     private $entityManager;
     /** @var LotteryDrawRepository */
     private $lotteryDrawRepository;
+    /** @var PlayConfigRepository */
+    private $playConfigRepository;
     /** @var LotteryRepository */
     private $lotteryRepository;
     /** @var LotteriesDataService */
@@ -67,6 +70,7 @@ class LotteryService
         $this->entityManager = $entityManager;
         $this->lotteryDrawRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS . 'EuroMillionsDraw');
         $this->lotteryRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS . 'Lottery');
+        $this->playConfigRepository = $this->entityManager->getRepository(Namespaces::ENTITIES_NS . 'PlayConfig');
         $this->lotteriesDataService = $lotteriesDataService;
         $this->emailService = $emailService;
         $this->userService = $userService;
@@ -270,52 +274,95 @@ class LotteryService
 
     public function placeBetForNextDraw(Lottery $lottery, \DateTime $dateNextDraw = null)
     {
-        $users = $this->userService->getUsersWithPlayConfigsForNextDraw();
-        if (null != $users) {
-            /** @var User $user */
-            $nextDrawDate = $lottery->getNextDrawDate($dateNextDraw);
-            foreach ($users as $user) {
-                /** @var ArrayCollection $playconfigsFiltered */
-                $playconfigsFiltered = $user->getPlayConfigsFilteredForNextDraw($nextDrawDate);
-                if (count($playconfigsFiltered) > 0) {
-                    //EMTD get playconfigsFiltered as array
-                    $playconfigsFilteredToArray = $playconfigsFiltered->toArray();
-                    $price = $this->lotteriesDataService->getPriceForNextDraw($playconfigsFilteredToArray);
-                    if ($user->getWallet()->getSubscription()->getAmount() >= $price->getAmount()) {
-                        /** @var EuroMillionsDraw $euroMillionsDraw */
-                        $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($dateNextDraw));
+        $playConfigs = $this->playConfigRepository->getEuromillionsSubscriptionsActives();
 
-                        /** @var PlayConfig $playConfig */
-                        foreach ($playconfigsFilteredToArray as $playConfig) {
-                            if (empty($this->betService->obtainBetsWithAPlayConfigAndAEuromillionsDraw($playConfig, $euroMillionsDraw))) {
-                                $result = $this->betService->validation($playConfig, $euroMillionsDraw, $nextDrawDate);
-                                if ($result->success()) {
-                                    $walletBefore = $user->getWallet();
-                                    $this->walletService->payWithSubscription($user, $playConfig);
-                                    $dataTransaction = [
-                                        'lottery_id' => 1,
-                                        'numBets' => 1,
-                                        'walletBefore' => $walletBefore,
-                                        'amountWithCreditCard' => 0,
-                                        'playConfigs' => $playConfig->getId(),
-                                        'discount' => $playConfig->getDiscount(),
-                                    ];
-                                    $this->walletService->purchaseTransactionGrouped($user, TransactionType::AUTOMATIC_PURCHASE, $dataTransaction);
-                                    $this->sendEmailPurchase($user, $playConfig);
-                                }
-                            }
+        if (!is_null($playConfigs)) {
+            $nextDrawDate = $lottery->getNextDrawDate($dateNextDraw);
+            /** @var PlayConfig $playConfig */
+            foreach ($playConfigs as $playConfig) {
+                $price = $this->lotteriesDataService->getPriceForNextDraw([$playConfig]);
+                if ($playConfig->getUser()->getWallet()->getSubscription()->getAmount() >= $price->getAmount()) {
+                    /** @var EuroMillionsDraw $euroMillionsDraw */
+                    $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($dateNextDraw));
+
+                    if (empty($this->betService->obtainBetsWithAPlayConfigAndAEuromillionsDraw($playConfig, $euroMillionsDraw))) {
+                        $result = $this->betService->validation($playConfig, $euroMillionsDraw, $nextDrawDate);
+                        if ($result->success()) {
+                            $walletBefore = $playConfig->getUser()->getWallet();
+                            $this->walletService->payWithSubscription($playConfig->getUser(), $playConfig);
+                            $dataTransaction = [
+                                'lottery_id' => 1,
+                                'numBets' => 1,
+                                'walletBefore' => $walletBefore,
+                                'amountWithCreditCard' => 0,
+                                'playConfigs' => $playConfig->getId(),
+                                'discount' => $playConfig->getDiscount(),
+                            ];
+                            $this->walletService->purchaseTransactionGrouped($playConfig->getUser(), TransactionType::AUTOMATIC_PURCHASE, $dataTransaction);
+                            $this->sendEmailPurchase($playConfig->getUser(), $playConfig);
                         }
-                    } else {
-                        $userNotificationAutoPlayNoFunds = new UserNotificationAutoPlayNoFunds($this->userService);
-                        $hasNotification = $this->userNotificationsService->hasNotificationActive($userNotificationAutoPlayNoFunds, $user);
-                        if ($hasNotification) {
-                            $this->emailService->sendLowBalanceEmail($user);
-                        }
+                    }
+                } else {
+                    $userNotificationAutoPlayNoFunds = new UserNotificationAutoPlayNoFunds($this->userService);
+                    $hasNotification = $this->userNotificationsService->hasNotificationActive($userNotificationAutoPlayNoFunds, $playConfig->getUser());
+                    if ($hasNotification) {
+                        $this->emailService->sendLowBalanceEmail($playConfig->getUser());
                     }
                 }
             }
         }
     }
+
+/** Old PlaceBets */
+//    public function placeBetForNextDraw(Lottery $lottery, \DateTime $dateNextDraw = null)
+//    {
+//        $users = $this->userService->getUsersWithPlayConfigsForNextDraw();
+//
+//        if (null != $users) {
+//            /** @var User $user */
+//            $nextDrawDate = $lottery->getNextDrawDate($dateNextDraw);
+//            foreach ($users as $user) {
+//                /** @var ArrayCollection $playconfigsFiltered */
+//                $playconfigsFiltered = $user->getPlayConfigsFilteredForNextDraw($nextDrawDate);
+//                if (count($playconfigsFiltered) > 0) {
+//                    //EMTD get playconfigsFiltered as array
+//                    $playconfigsFilteredToArray = $playconfigsFiltered->toArray();
+//                    $price = $this->lotteriesDataService->getPriceForNextDraw($playconfigsFilteredToArray);
+//                    if ($user->getWallet()->getSubscription()->getAmount() >= $price->getAmount()) {
+//                        /** @var EuroMillionsDraw $euroMillionsDraw */
+//                        $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($dateNextDraw));
+//
+//                        /** @var PlayConfig $playConfig */
+//                        foreach ($playconfigsFilteredToArray as $playConfig) {
+//                            if (empty($this->betService->obtainBetsWithAPlayConfigAndAEuromillionsDraw($playConfig, $euroMillionsDraw))) {
+//                                $result = $this->betService->validation($playConfig, $euroMillionsDraw, $nextDrawDate);
+//                                if ($result->success()) {
+//                                    $walletBefore = $user->getWallet();
+//                                    $this->walletService->payWithSubscription($user, $playConfig);
+//                                    $dataTransaction = [
+//                                        'lottery_id' => 1,
+//                                        'numBets' => 1,
+//                                        'walletBefore' => $walletBefore,
+//                                        'amountWithCreditCard' => 0,
+//                                        'playConfigs' => $playConfig->getId(),
+//                                        'discount' => $playConfig->getDiscount(),
+//                                    ];
+//                                    $this->walletService->purchaseTransactionGrouped($user, TransactionType::AUTOMATIC_PURCHASE, $dataTransaction);
+//                                    $this->sendEmailPurchase($user, $playConfig);
+//                                }
+//                            }
+//                        }
+//                    } else {
+//                        $userNotificationAutoPlayNoFunds = new UserNotificationAutoPlayNoFunds($this->userService);
+//                        $hasNotification = $this->userNotificationsService->hasNotificationActive($userNotificationAutoPlayNoFunds, $user);
+//                        if ($hasNotification) {
+//                            $this->emailService->sendLowBalanceEmail($user);
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     public function getLotteriesOrderedByNextDrawDate(\DateTime $now = null)
     {
