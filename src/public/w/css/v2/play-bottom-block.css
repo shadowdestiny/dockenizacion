@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$screen-desktop".
-        on line 20 of /src/compass_web/sass/v2/play-bottom-block.scss
+        on line 21 of /src/compass_web/sass/v2/play-bottom-block.scss
 
-15:   background-position: 0 100%;
-16: 
-17:   -webkit-background-size: 34.1%;
-18:   background-size: 34.1%;
-19: 
-20:   @media only screen and (min-width: $screen-desktop) {
-21:     padding: 0;
-22:     border-bottom: 1px solid #303030;
-23:     padding-bottom: 85px;
-24: 
-25:     background-image: url('../img/christmas-lottery/desktop/bottom-lottery.png');
+16:   background-position: 0 100%;
+17: 
+18:   -webkit-background-size: 34.1%;
+19:   background-size: 34.1%;
+20: 
+21:   @media only screen and (min-width: $screen-desktop) {
+22:     padding: 0;
+23:     border-bottom: 1px solid #303030;
+24:     padding-bottom: 85px;
+25: 
+26:     background-image: url('../img/christmas-lottery/desktop/bottom-lottery.png');
 
 Backtrace:
-/src/compass_web/sass/v2/play-bottom-block.scss:20
+/src/compass_web/sass/v2/play-bottom-block.scss:21
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
@@ -70,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 20 of /src/compass_web/sass/v2/play-bottom-block.scss\A \A 15:   background-position: 0 100%;\A 16: \A 17:   -webkit-background-size: 34.1%;\A 18:   background-size: 34.1%;\A 19: \A 20:   @media only screen and (min-width: $screen-desktop) {\A 21:     padding: 0;\A 22:     border-bottom: 1px solid #303030;\A 23:     padding-bottom: 85px;\A 24: \A 25:     background-image: url('../img/christmas-lottery/desktop/bottom-lottery.png');"; }
+  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 21 of /src/compass_web/sass/v2/play-bottom-block.scss\A \A 16:   background-position: 0 100%;\A 17: \A 18:   -webkit-background-size: 34.1%;\A 19:   background-size: 34.1%;\A 20: \A 21:   @media only screen and (min-width: $screen-desktop) {\A 22:     padding: 0;\A 23:     border-bottom: 1px solid #303030;\A 24:     padding-bottom: 85px;\A 25: \A 26:     background-image: url('../img/christmas-lottery/desktop/bottom-lottery.png');"; }

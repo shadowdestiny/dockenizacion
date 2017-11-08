@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$screen-desktop".
-        on line 10 of /src/compass_web/sass/v2/play-page.scss
+        on line 8 of /src/compass_web/sass/v2/play-page.scss
 
-5: 
-6: 
-7:   .banner {
-8:     display: none;
+3: .play--page {
+4: 
+5:   .banner {
+6:     display: none;
+7: 
+8:     @media only screen and (min-width: $screen-desktop) {
 9: 
-10:     @media only screen and (min-width: $screen-desktop) {
-11: 
-12:       display: block;
-13:       height: 399px;
-14: 
-15:       background-image: url('../img/home/banner/desktop/banner.png');
+10:       display: block;
+11:       height: 399px;
+12: 
+13:       background-image: url('../img/home/banner/desktop/banner.png');
 
 Backtrace:
-/src/compass_web/sass/v2/play-page.scss:10
+/src/compass_web/sass/v2/play-page.scss:8
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
@@ -81,4 +81,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 10 of /src/compass_web/sass/v2/play-page.scss\A \A 5: \A 6: \A 7:   .banner {\A 8:     display: none;\A 9: \A 10:     @media only screen and (min-width: $screen-desktop) {\A 11: \A 12:       display: block;\A 13:       height: 399px;\A 14: \A 15:       background-image: url('../img/home/banner/desktop/banner.png');"; }
+  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 8 of /src/compass_web/sass/v2/play-page.scss\A \A 3: .play--page {\A 4: \A 5:   .banner {\A 6:     display: none;\A 7: \A 8:     @media only screen and (min-width: $screen-desktop) {\A 9: \A 10:       display: block;\A 11:       height: 399px;\A 12: \A 13:       background-image: url('../img/home/banner/desktop/banner.png');"; }

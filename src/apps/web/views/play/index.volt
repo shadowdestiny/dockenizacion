@@ -99,13 +99,56 @@
             <div class="banner"></div>
 
             <div class="wrapper">
-                <header class="bg-top cl">
-                    <h1 class="h3 draw">{{ language.translate("shortInstruction") }}</h1>
-                        <span class="h1 jackpot">
-                            Jackpot
-                            {% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}
-                            {% include "_elements/jackpot-value" with ['extraClass': extraClass] %}
-                        </span>
+                <header>
+
+                    {#TODO : Add real variables here#}
+
+                    <div class="left">
+                        <div class="top">
+                            TUESDAY’S
+                        </div>
+                        <div class="bottom">
+                            jackpot
+                        </div>
+                    </div>
+
+
+                    <div class="help-block">
+                        <div class="top">
+                            About the Euromillions Lottery
+                        </div>
+                        <div class="bottom">
+                            <a href="#" class="a-hiw">
+                                how it works
+                            </a>
+                            <a href="#" class="a-results">
+                                results
+                            </a>
+                            <a href="#" class="a-faq">
+                                FAQ
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <div class="right">
+                        <div class="top">
+                            €149 Million
+                        </div>
+                        <div class="bottom">
+                            Pick 5 numbers and 2 stars per line
+                        </div>
+                    </div>
+
+
+
+                    {#<h1 class="h3 draw">{{ language.translate("shortInstruction") }}</h1>#}
+                        {#<span class="h1 jackpot">#}
+                            {#Jackpot#}
+                            {#{% set extraClass='{"boxvalueClass": "","currencyClass":"yellow","valueClass":"yellow"}'|json_decode %}#}
+                            {#{% include "_elements/jackpot-value" with ['extraClass': extraClass] %}#}
+                        {#</span>#}
+
                 </header>
                 <div class="gameplay" id="gameplay"></div>
                 <div class="media"></div>

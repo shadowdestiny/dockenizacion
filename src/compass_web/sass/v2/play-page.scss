@@ -1,8 +1,6 @@
 // PAGES: Play
 
-
 .play--page {
-
 
   .banner {
     display: none;
@@ -33,6 +31,163 @@
       margin-bottom: 60px;
       border-top: 0;
     }
+  }
+
+  header {
+
+    background: -webkit-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+    background: -moz-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+    background: -o-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+    background: -ms-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
+    background: linear-gradient(90deg, #51a0e9 0%, #1678d3 100%);
+
+    overflow: hidden;
+    margin-top: 25px;
+
+    @media only screen and (min-width: $screen-desktop) {
+      margin-top: -283px;
+      height: 110px;
+    }
+
+    .left {
+      float: left;
+      padding-top: 5px;
+      padding-left: 19px;
+
+      @media only screen and (min-width: $screen-desktop) {
+        padding-top: 15px;
+        padding-left: 27px;
+      }
+
+      .top {
+        //font-family: WorkSans;
+        color: #ffffff;
+        font-weight: 700;
+        font-size: 26px;
+        line-height: 32px;
+        text-align: left;
+        text-transform: uppercase;
+
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 24px;
+          line-height: 32px;
+        }
+      }
+
+      .bottom {
+        //font-family: WorkSans;
+        color: #ffffff;
+        font-weight: 700;
+        font-size: 38px;
+        line-height: 32px;
+        text-align: left;
+        text-transform: uppercase;
+
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 34px;
+          line-height: 32px;
+        }
+      }
+
+    }
+    .right {
+
+      float: right;
+      padding-right: 42px;
+      padding-top: 20px;
+
+      @media only screen and (min-width: $screen-desktop) {
+
+      }
+
+      .top {
+        //font-family: WorkSans;
+        color: #ffffff;
+        font-weight: 900;
+        font-size: 61px;
+        //line-height: 17.5px;
+        text-align: center;
+        text-transform: uppercase;
+
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 69.5px;
+          line-height: 17.5px;
+        }
+
+      }
+
+      .bottom {
+        color: #fff;
+        font-weight: 400;
+        font-size: 14.5px;
+        text-align: center;
+        padding-top: 16px;
+        padding-bottom: 4px;
+
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 18px;
+          line-height: 17.5px;
+        }
+      }
+    }
+
+    .help-block {
+      display: none;
+
+      @media only screen and (min-width: $screen-desktop) {
+        display: block;
+        float: right;
+      }
+
+      .top {
+        color:  #ffffff;
+        font-size: 18px;
+        font-weight: 500;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .bottom {
+        text-align: center;
+
+        a {
+          text-transform: uppercase;
+          //display: block;
+          //float: left;
+          display: inline-block;
+          height: 49px;
+          line-height: 49px;
+          background-color: #469eef;
+          border-radius: 4px;
+          text-shadow: none;
+          text-decoration: none;
+          color: #fff;
+
+          //font-family: WorkSans;
+          font-size: 18px;
+          font-weight: 700;
+          text-align: center;
+          padding: 0 10px;
+
+          &.a-hiw {
+            
+          }
+          &.a-results {
+
+          }
+          &.a-faq {
+
+          }
+        }
+
+      }
+
+    }
+
+  }
+
+  .gameplay {
+    border: 0;
   }
 
 }
