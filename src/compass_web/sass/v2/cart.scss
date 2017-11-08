@@ -9,6 +9,7 @@
 
   .nav {
     margin-bottom: 7px;
+    display: block;
 
     @media only screen and (min-width: $screen-desktop) {
       float: right;
@@ -130,7 +131,8 @@
 
           &.td--logo {
             width: 132px;
-            padding-top: 10px;
+            padding-top: 20px;
+            text-align: left;
 
             @media only screen and (min-width: $screen-desktop) {
               width: 213px;
@@ -221,12 +223,14 @@
           }
 
           &.td--action {
-            //padding-top: 15px;
-            padding-top: 22px;
+            padding-top: 15px;
+            padding-bottom: 22px;
 
             @media only screen and (min-width: $screen-desktop) {
               border-bottom: 1px solid #303030;
               width: 53px;
+              padding-top: 22px;
+              padding-bottom: 2px;
             }
 
             a {
@@ -307,7 +311,11 @@
           }
 
           &.td--logo {
-            padding-top: 45px;
+            padding-top: 11px;
+
+            @media only screen and (min-width: $screen-desktop) {
+              padding-top: 45px;
+            }
           }
 
           &.td--action {
