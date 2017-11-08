@@ -33,7 +33,7 @@
                 </div>
 
 
-                <header class="">
+                <header>
                     <div class="left">
                         <div class="top">
                             spanish christmas

@@ -1,0 +1,38 @@
+// PAGES: Play
+
+
+.play--page {
+
+
+  .banner {
+    display: none;
+
+    @media only screen and (min-width: $screen-desktop) {
+
+      display: block;
+      height: 399px;
+
+      background-image: url('../img/home/banner/desktop/banner.png');
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      -webkit-background-size: cover;
+      background-size: cover;
+    }
+  }
+
+  .box-bottom.play-bottom-block {
+
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 60px;
+    border-top: 0;
+
+    @media only screen and (min-width: $screen-desktop) {
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 60px;
+      border-top: 0;
+    }
+  }
+
+}
