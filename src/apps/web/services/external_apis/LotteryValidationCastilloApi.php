@@ -63,6 +63,7 @@ class LotteryValidationCastilloApi extends Request
 
     public function post($uri, $params = array(), $useEncoding = true, $customHeader = array(), $fullResponse = false)
     {
+        var_dump($uri);
         $this->setOptions(array(
             CURLOPT_URL           => $this->resolveUri($uri),
             CURLOPT_POST          => true,
