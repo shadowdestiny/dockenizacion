@@ -8,9 +8,13 @@ use EuroMillions\shared\vo\results\ActionResult;
 use EuroMillions\web\vo\CastilloCypherKey;
 use EuroMillions\web\vo\CastilloTicketId;
 use EuroMillions\web\vo\EuroMillionsLine;
+use HttpException;
 use Phalcon\Http\Client\Provider\Curl;
+use Phalcon\Http\Client\Request;
+use Phalcon\Http\Client\Response;
+use Phalcon\Http\Request\Method;
 
-class LotteryValidationCastilloApi
+class LotteryValidationCastilloApi extends Request
 {
 
     const PRICE_BET  = '2.50';
@@ -57,6 +61,81 @@ class LotteryValidationCastilloApi
         return curl_setopt($this->curlWrapper, $option, $value);
     }
 
+    public function post($uri, $params = array(), $useEncoding = true, $customHeader = array(), $fullResponse = false)
+    {
+        $this->setOptions(array(
+            CURLOPT_URL           => $this->resolveUri($uri),
+            CURLOPT_POST          => true,
+            CURLOPT_CUSTOMREQUEST => Method::POST,
+        ));
+
+        $this->initPostFields($params, $useEncoding);
+
+        return $this->send($customHeader, $fullResponse);
+    }
+
+    /**
+     * Prepare data for a cURL post.
+     *
+     * @param mixed   $params      Data to send.
+     * @param boolean $useEncoding Whether to url-encode params. Defaults to true.
+     *
+     * @return void
+     */
+    private function initPostFields($params, $useEncoding = true)
+    {
+        if (is_array($params)) {
+            foreach ($params as $param) {
+                if (is_string($param) && preg_match('/^@/', $param)) {
+                    $useEncoding = false;
+                    break;
+                }
+            }
+
+            if ($useEncoding) {
+                $params = http_build_query($params);
+            }
+        }
+
+        if (!empty($params)) {
+            $this->setOption(CURLOPT_POSTFIELDS, $params);
+        }
+    }
+
+    private function send($customHeader = array(), $fullResponse = false)
+    {
+        if (!empty($customHeader)) {
+            $header = $customHeader;
+        } else {
+            $header = array();
+            if (count($this->header) > 0) {
+                $header = $this->header->build();
+            }
+            $header[] = 'Expect:';
+        }
+
+        $this->setOption(CURLOPT_HTTPHEADER, $header);
+
+        $content = curl_exec($this->curlWrapper);
+
+        if ($errno = curl_errno($this->curlWrapper)) {
+            throw new HttpException(curl_error($this->curlWrapper), $errno);
+        }
+
+        $headerSize = curl_getinfo($this->curlWrapper, CURLINFO_HEADER_SIZE);
+
+        $response = new Response();
+        $response->header->parse(substr($content, 0, $headerSize));
+
+        if ($fullResponse) {
+            $response->body = $content;
+        } else {
+            $response->body = substr($content, $headerSize);
+        }
+
+        return $response;
+    }
+
     public function validateBet(Bet $bet,
                                 ICypherStrategy $cypher,
                                 CastilloCypherKey $castilloKey = null,
@@ -88,11 +167,11 @@ class LotteryValidationCastilloApi
         $signature = $cypher->getSignature($content_cyphered);
         $xml = '<?xml version="1.0" encoding="UTF-8"?><message><operation id="' . $idsession . '" key="' . $key . '" type="1"><content>' . $content_cyphered . '</content></operation>';
         $xml .= '<signature>' . $signature . '</signature></message>';
-        $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYPEER, 0);
-        $this->curlWrapper->setOption(CURLOPT_POSTFIELDS, $xml);
-        $this->curlWrapper->setOption(CURLOPT_RETURNTRANSFER, 1);
-        $this->curlWrapper->setOption(CURLOPT_POST,1);
-        $result = $this->curlWrapper->post($this->url);
+        $this->setOption(CURLOPT_SSL_VERIFYPEER, 0);
+        $this->setOption(CURLOPT_POSTFIELDS, $xml);
+        $this->setOption(CURLOPT_RETURNTRANSFER, 1);
+        $this->setOption(CURLOPT_POST,1);
+        $result = $this->post($this->url);
         $xml_response = simplexml_load_string($result->body);
         $xml_uncyphered_string = $cypher->decrypt((string)$xml_response->operation->content, intval($xml_response->operation['key']));
         $xml_uncyphered = simplexml_load_string($xml_uncyphered_string);
