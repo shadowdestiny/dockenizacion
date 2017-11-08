@@ -1,10 +1,10 @@
 {# PAGES: Christmas lottery, Play #}
 
 <div class="box-bottom play-bottom-block">
-    <div class="christmas-bottom-block--img">
+    <div class="play-bottom-block--img">
         <img src="/w/img/christmas-lottery/desktop/bottom-banner--full.png"/>
     </div>
-    <div class="christmas-bottom-block--center">
+    <div class="play-bottom-block--center">
         <h3>
             Euro millions - Europes favourite lotto
         </h3>
@@ -14,7 +14,7 @@
             Ipsum has been the industry's standard dummy text ever since the 1500s.
         </p>
     </div>
-    <div class="christmas-bottom-block--right">
+    <div class="play-bottom-block--right">
         <h3>
             pick your numbers and play- its that easy
         </h3>
