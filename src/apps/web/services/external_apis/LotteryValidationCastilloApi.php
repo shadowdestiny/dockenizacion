@@ -41,7 +41,7 @@ class LotteryValidationCastilloApi
             CURLOPT_HEADER          => true,
             CURLOPT_PROTOCOLS       => CURLPROTO_HTTP | CURLPROTO_HTTPS,
             CURLOPT_REDIR_PROTOCOLS => CURLPROTO_HTTP | CURLPROTO_HTTPS,
-            CURLOPT_USERAGENT       => 'Phalcon HTTP/' . self::VERSION . ' (Curl)',
+            CURLOPT_USERAGENT       => 'Phalcon HTTP/' . '0.0.1' . ' (Curl)',
             CURLOPT_CONNECTTIMEOUT  => 30,
             CURLOPT_TIMEOUT         => 30
         ));
