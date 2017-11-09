@@ -15,4 +15,6 @@
         <a class="link" href="/account/wallet">{{ language.translate('deposit') }}</a>
     </li>
 
+    {% include "_elements/top-loggedin-menu.volt" %}
+
 {% endif %}
