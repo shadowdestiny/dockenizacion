@@ -1,4 +1,5 @@
 <?php
+
 namespace EuroMillions\web\services\external_apis;
 
 use EuroMillions\web\entities\Bet;
@@ -17,7 +18,7 @@ use Phalcon\Http\Request\Method;
 class LotteryValidationCastilloApi extends Request
 {
 
-    const PRICE_BET  = '2.50';
+    const PRICE_BET = '2.50';
 
     private $curlWrapper;
 
@@ -39,16 +40,16 @@ class LotteryValidationCastilloApi extends Request
     private function initOptions()
     {
         $this->setOptions(array(
-            CURLOPT_RETURNTRANSFER  => true,
-            CURLOPT_AUTOREFERER     => true,
-            CURLOPT_FOLLOWLOCATION  => true,
-            CURLOPT_MAXREDIRS       => 20,
-            CURLOPT_HEADER          => true,
-            CURLOPT_PROTOCOLS       => CURLPROTO_HTTP | CURLPROTO_HTTPS,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_AUTOREFERER => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_MAXREDIRS => 20,
+            CURLOPT_HEADER => true,
+            CURLOPT_PROTOCOLS => CURLPROTO_HTTP | CURLPROTO_HTTPS,
             CURLOPT_REDIR_PROTOCOLS => CURLPROTO_HTTP | CURLPROTO_HTTPS,
-            CURLOPT_USERAGENT       => 'Phalcon HTTP/' . '0.0.1' . ' (Curl)',
-            CURLOPT_CONNECTTIMEOUT  => 30,
-            CURLOPT_TIMEOUT         => 30
+            CURLOPT_USERAGENT => 'Phalcon HTTP/' . '0.0.1' . ' (Curl)',
+            CURLOPT_CONNECTTIMEOUT => 30,
+            CURLOPT_TIMEOUT => 30
         ));
     }
 
@@ -65,8 +66,8 @@ class LotteryValidationCastilloApi extends Request
     public function post($uri, $params = array(), $useEncoding = true, $customHeader = array(), $fullResponse = false)
     {
         $this->setOptions(array(
-            CURLOPT_URL           => $this->resolveUri($uri),
-            CURLOPT_POST          => true,
+            CURLOPT_URL => $this->resolveUri($uri),
+            CURLOPT_POST => true,
             CURLOPT_CUSTOMREQUEST => Method::POST,
         ));
 
@@ -78,7 +79,7 @@ class LotteryValidationCastilloApi extends Request
     /**
      * Prepare data for a cURL post.
      *
-     * @param mixed   $params      Data to send.
+     * @param mixed $params Data to send.
      * @param boolean $useEncoding Whether to url-encode params. Defaults to true.
      *
      * @return void
@@ -154,7 +155,7 @@ class LotteryValidationCastilloApi extends Request
         $this->castilloId = $castilloTicketId;
         $regular_numbers = $line->getRegularNumbersArray();
         $lucky_numbers = $line->getLuckyNumbersArray();
-        $content = "<?xml version='1.0' encoding='UTF-8'?><ticket type='6' date='" . $date_next_draw->format('ymd') . "' bets='1' price='".self::PRICE_BET."'><id>" . $castilloTicketId->id() . "</id><combination>";
+        $content = "<?xml version='1.0' encoding='UTF-8'?><ticket type='6' date='" . $date_next_draw->format('ymd') . "' bets='1' price='" . self::PRICE_BET . "'><id>" . $castilloTicketId->id() . "</id><combination>";
         foreach ($regular_numbers as $number) {
             $content .= "<number>{$number}</number>";
         }
@@ -171,14 +172,14 @@ class LotteryValidationCastilloApi extends Request
         $this->setOption(CURLOPT_SSL_VERIFYPEER, 0);
         $this->setOption(CURLOPT_POSTFIELDS, $xml);
         $this->setOption(CURLOPT_RETURNTRANSFER, 1);
-        $this->setOption(CURLOPT_POST,1);
+        $this->setOption(CURLOPT_POST, 1);
         $result = $this->post($this->url);
         $xml_response = simplexml_load_string($result->body);
         $xml_uncyphered_string = $cypher->decrypt((string)$xml_response->operation->content, intval($xml_response->operation['key']));
         $xml_uncyphered = simplexml_load_string($xml_uncyphered_string);
         //set xml_uncypherd to be visible from outside.
         $this->xml_response = $xml_uncyphered;
-        return new ActionResult(true,'');
+        return new ActionResult(true, '');
 //        if ($xml_uncyphered->status == 'OK') {
 //            return new ActionResult(true);
 //        } else {
@@ -192,7 +193,7 @@ class LotteryValidationCastilloApi extends Request
                                        array $playConfigsArray,
                                        CastilloCypherKey $castilloKey = null,
                                        CastilloTicketId $castilloTicketId = null
-                                       )
+    )
     {
         if (null === $castilloKey) {
             $castilloKey = CastilloCypherKey::create();
@@ -200,12 +201,12 @@ class LotteryValidationCastilloApi extends Request
         if (null === $castilloTicketId) {
             $castilloTicketId = CastilloTicketId::create();
         }
-        $numBets=count($playConfigsArray);
+        $numBets = count($playConfigsArray);
         $this->castilloId = $castilloTicketId;
-        $content = "<?xml version='1.0' encoding='UTF-8'?><ticket type='6' date='" . $date_next_draw->format('ymd') . "' bets='".$numBets."' price='".self::PRICE_BET."'><id>" . $castilloTicketId->id() . "</id>";
+        $content = "<?xml version='1.0' encoding='UTF-8'?><ticket type='6' date='" . $date_next_draw->format('ymd') . "' bets='" . $numBets . "' price='" . self::PRICE_BET . "'><id>" . $castilloTicketId->id() . "</id>";
 
         /** @var PlayConfig $playConfig */
-        foreach($playConfigsArray as $playConfig) {
+        foreach ($playConfigsArray as $playConfig) {
 
             $regular_numbers = $playConfig->getLine()->getRegularNumbersArray();
             $lucky_numbers = $playConfig->getLine()->getLuckyNumbersArray();
@@ -230,13 +231,13 @@ class LotteryValidationCastilloApi extends Request
         $this->curlWrapper->setOption(CURLOPT_SSL_VERIFYPEER, 0);
         $this->curlWrapper->setOption(CURLOPT_POSTFIELDS, $xml);
         $this->curlWrapper->setOption(CURLOPT_RETURNTRANSFER, 1);
-        $this->curlWrapper->setOption(CURLOPT_POST,1);
+        $this->curlWrapper->setOption(CURLOPT_POST, 1);
         $result = $this->curlWrapper->post($this->url);
         $xml_response = simplexml_load_string($result->body);
         $xml_uncyphered_string = $cypher->decrypt((string)$xml_response->operation->content, intval($xml_response->operation['key']));
         $xml_uncyphered = simplexml_load_string($xml_uncyphered_string);
         $this->xml_response = $xml_uncyphered;
-        return new ActionResult(true,'');
+        return new ActionResult(true, '');
     }
 
     /**
