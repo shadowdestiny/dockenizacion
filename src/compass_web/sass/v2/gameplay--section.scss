@@ -2,12 +2,12 @@
 .gameplay--section {
 
   background-color: #f9f9f9;
+  overflow: hidden;
 
   .box-lines {
     padding-top: 30px;
     padding-left: 30px;
     padding-right: 30px;
-
 
     .myCol {
       width: 182px;
@@ -19,7 +19,7 @@
     }
 
     .h4 {
-      color:  #2d2d2d;
+      color: #2d2d2d;
       font-size: 16px;
       font-weight: 900;
       line-height: 17.5px;
@@ -34,14 +34,13 @@
       border-radius: 5px;
       background: #fff;
 
-
       .gwy:hover,
       .gwy {
         border-radius: 5px;
         border-width: 1px;
-        border-color:  #519fe9;
+        border-color: #519fe9;
         border-style: solid;
-        background-color:  #ffffff;
+        background-color: #ffffff;
         width: 53px;
         height: 32px;
 
@@ -60,14 +59,14 @@
       .gwp {
         border-radius: 3px;
         border-width: 1px;
-        border-color:  #519fe9;
+        border-color: #519fe9;
         border-style: solid;
-        background-color:  #ffffff;
+        background-color: #ffffff;
         width: 27px;
         height: 25px;
 
         //font-family: WorkSans;
-        color:  #2d2d2d;
+        color: #2d2d2d;
         font-size: 18px;
         font-weight: 600;
         line-height: 17.5px;
@@ -75,9 +74,39 @@
 
       }
       .gwp:hover {
-        background-color:  #469eef;
+        background-color: #469eef;
       }
 
+      .gwr:hover,
+      .gwr {
+
+        //TODO : remove visibility
+        visibility: visible !important;
+
+        //font-family: WorkSans;
+
+        border-radius: 3px;
+        border-width: 1px;
+        border-color: #0099e6;
+        border-style: solid;
+        background-color: #ffffff;
+        width: 88px;
+        height: 30px;
+        padding: 2px 0px;
+
+        span {
+          color: #0099e6;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 26px;
+          text-align: center;
+        }
+
+        .ico {
+          fill: #0099e6;
+        }
+
+      }
 
       .stars {
 
@@ -92,7 +121,7 @@
 
           .txt {
             //font-family: WorkSans;
-            color:  #2d2d2d;
+            color: #2d2d2d;
             font-size: 18px;
             font-weight: 600;
             line-height: 17.5px;
@@ -105,9 +134,284 @@
         }
       }
 
-
     }
 
+  }
+
+  #box-action {
+
+    .box-action {
+      margin: 0 0 0 15px;
+      padding: 10px;
+      background: #fff;
+      float: right;
+
+      li {
+
+        a {
+          //font-family: WorkSans;
+          color: #454545;
+          font-size: 18px;
+          font-weight: 500;
+          line-height: 17.5px;
+          text-align: left;
+
+          background: transparent;
+        }
+
+        a.gwg:hover,
+        a.gwg {
+          border: 0;
+          border-radius: 0;
+          background: transparent;
+
+          background-image: url('../img/play/desktop/plus-black.png');
+          background-repeat: no-repeat;
+          -webkit-background-size: 17px;
+          background-size: 17px;
+          background-position: 0 50%;
+
+          padding-left: 25px;
+
+          .ico {
+            display: none;
+          }
+        }
+
+        a.gwg:hover {
+          background-color: #f9f9f9;
+        }
+
+        a.bwb:hover,
+        a.bwb {
+          border: 0;
+          border-radius: 0;
+          background: transparent;
+
+          background-image: url('../img/play/desktop/random-black.png');
+          background-repeat: no-repeat;
+          -webkit-background-size: 23px;
+          background-size: 23px;
+          background-position: 0 50%;
+
+          padding-left: 25px;
+
+          .ico {
+            display: none;
+          }
+        }
+        a.bwb:hover {
+          background-color: #f9f9f9;
+        }
+
+        a.cal:hover,
+        a.cal {
+          border: 0;
+          border-radius: 0;
+          background: transparent;
+
+          background-image: url('../img/play/desktop/clear-black.png');
+          background-repeat: no-repeat;
+          -webkit-background-size: 12px;
+          background-size: 12px;
+          background-position: 0 50%;
+
+          padding-left: 25px;
+
+          -webkit-border-radius: 0;
+          -moz-border-radius: 0;
+          border-radius: 0;
+          text-shadow: none;
+
+          .ico {
+            display: none;
+          }
+        }
+
+        a.cal:hover {
+          background-color: #f9f9f9;
+        }
+
+      }
+    }
+  }
+
+  .box-bottom {
+    overflow: hidden;
+    border-top: 0;
+    background: transparent;
+
+    .draws-section {
+      float: left;
+      width: 50%;
+      margin: 0;
+
+      h1 {
+        //font-family: WorkSans;
+        color: #2d2d2d;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 17.5px;
+        text-align: left;
+        text-transform: uppercase;
+      }
+
+      .button-draw-list {
+        overflow: hidden;
+        float: left;
+        clear: none;
+        margin-right: 1px;
+
+        background-color:  #eae8e8;
+        width: 103px;
+        height: 105px;
+
+
+        a {
+          display: block;
+          height: 100%;
+          width: 100%;
+          text-align: center;
+          text-decoration: none;
+
+          .top {
+            position: relative;
+
+            //font-family: RobotoCondensed;
+            font-family: $ff3;
+            color:  #2d2d2d;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 17.5px;
+            text-align: center;
+
+            display: block;
+          }
+          .bottom {
+            position: relative;
+
+            //font-family: WorkSans;
+            color:  #2d2d2d;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 17.5px;
+            text-align: center;
+
+            display: block;
+          }
+        }
+
+
+        &.green-text {
+          a {
+            .bottom {
+              color: #21d167;
+            }
+          }
+        }
+        //.box-button-draw-left {
+        //
+        //
+        //
+        //}
+        //
+        //.box-button-draw-right {
+        //
+        //}
+      }
+    }
+
+    .buttons-section {
+
+      clear: none;
+      float: right;
+      width: 50%;
+      margin: 0;
+
+      .total-price-description {
+        display: none;
+      }
+
+      .description-before-price {
+        display: none;
+      }
+
+      .info {
+        float: none;
+
+        * {
+          //font-family: WorkSans;
+          color: #2d2d2d;
+          font-size: 18px;
+          font-weight: 700;
+          line-height: 17.5px;
+          text-align: left;
+          text-transform: uppercase;
+        }
+
+      }
+
+      .add-cart,
+      .add-cart:hover,
+      .add-cart:focus {
+        float: none;
+
+        border: 0;
+        border-radius: 3px;
+
+        background: -webkit-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+        background: -moz-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+        background: -o-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+        background: -ms-linear-gradient(-45deg, #4dec8c 0%, #21d167 100%);
+        background: linear-gradient(135deg, #4dec8c 0%, #21d167 100%);
+        width: 417px;
+        height: 105px;
+        padding: 0;
+
+        cursor: pointer;
+
+        span {
+          float: left;
+          width: 50%;
+          margin: 0;
+
+          //font-family: WorkSans;
+          color: #ffffff;
+          font-size: 33px;
+          font-weight: 700;
+          line-height: 105px;
+          text-align: center;
+
+          &.gap {
+            display: none;
+          }
+        }
+
+        .value {
+          position: relative;
+
+          span {
+            width: auto;
+            float: none;
+          }
+        }
+
+        .value:after {
+          display: block;
+          content: "";
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: 2px;
+          height: 104px;
+          background-image: url('../img/play/desktop/button-separator.png');
+          background-repeat: no-repeat;
+          background-position: 0 0;
+          -webkit-background-size: 2px;
+          background-size: 2px;
+        }
+      }
+    }
 
   }
 
