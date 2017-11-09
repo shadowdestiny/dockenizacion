@@ -31,6 +31,7 @@ class LotteryValidationCastilloApi extends Request
     {
         $this->curlWrapper = $curlWrapper ? $curlWrapper : curl_init();
         $this->initOptions();
+        parent::__construct();
         $di = \Phalcon\Di::getDefault();
         $this->url = $di->get('environmentDetector')->get() != 'production' ? 'https://www.loteriacastillo.com/test-euromillions' : 'https://www.loteriacastillo.com/euromillions/';
     }
@@ -63,7 +64,6 @@ class LotteryValidationCastilloApi extends Request
 
     public function post($uri, $params = array(), $useEncoding = true, $customHeader = array(), $fullResponse = false)
     {
-        var_dump($uri);
         $this->setOptions(array(
             CURLOPT_URL           => $this->resolveUri($uri),
             CURLOPT_POST          => true,
