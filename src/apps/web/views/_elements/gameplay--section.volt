@@ -2278,16 +2278,16 @@
                 </li>
                 <noscript data-reactid=".0.0:$2.0.$3"></noscript>
             </ul>
-            <div class="info right" data-reactid=".0.0:$2.1">
-                <div id="BuyForDrawBox" data-reactid=".0.0:$2.1.0">
-                    <div style="display:inline-block;margin:2px;" data-reactid=".0.0:$2.1.0.0"><span
-                                data-reactid=".0.0:$2.1.0.0.0">Buy for Draw</span><span
-                                data-reactid=".0.0:$2.1.0.0.1">:</span></div>
-                    <div style="display:inline-block;margin:2px;" data-reactid=".0.0:$2.1.0.1"><label
-                                style="color:#333;" data-reactid=".0.0:$2.1.0.1.0">Friday 10 November 20:00</label>
-                    </div>
-                </div>
-            </div>
+            {#<div class="info right" data-reactid=".0.0:$2.1">#}
+                {#<div id="BuyForDrawBox" data-reactid=".0.0:$2.1.0">#}
+                    {#<div style="display:inline-block;margin:2px;" data-reactid=".0.0:$2.1.0.0"><span#}
+                                {#data-reactid=".0.0:$2.1.0.0.0">Buy for Draw</span><span#}
+                                {#data-reactid=".0.0:$2.1.0.0.1">:</span></div>#}
+                    {#<div style="display:inline-block;margin:2px;" data-reactid=".0.0:$2.1.0.1"><label#}
+                                {#style="color:#333;" data-reactid=".0.0:$2.1.0.1.0">Friday 10 November 20:00</label>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
         </div>
         <div class="box-bottom" data-reactid=".0.1">
             <div class="wrap" data-reactid=".0.1.0">
@@ -2344,6 +2344,24 @@
                                                                        data-reactid=".0.1.0.1.0.0">Total: </span><span
                                 class="description-before-price" data-reactid=".0.1.0.1.0.1">0 Line/s x 1 Draw/s </span>
                         <noscript data-reactid=".0.1.0.1.0.2:$1"></noscript>
+
+
+
+
+                        <div class="info right" data-reactid=".0.0:$2.1">
+                            <div id="BuyForDrawBox" data-reactid=".0.0:$2.1.0">
+                                <div style="display:inline-block;margin:2px;" data-reactid=".0.0:$2.1.0.0"><span
+                                            data-reactid=".0.0:$2.1.0.0.0">Buy for Draw</span><span
+                                            data-reactid=".0.0:$2.1.0.0.1">:</span></div>
+                                <div style="display:inline-block;margin:2px;" data-reactid=".0.0:$2.1.0.1"><label
+                                            style="color:#333;" data-reactid=".0.0:$2.1.0.1.0">Friday 10 November 20:00</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
                         <a href="javascript:void(0);" class="btn add-cart ui-link" data-reactid=".0.1.0.1.0.2:$2"><span
                                     class="value" data-reactid=".0.1.0.1.0.2:$2.0"><span
                                         data-reactid=".0.1.0.1.0.2:$2.0.0">€</span><span
