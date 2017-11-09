@@ -150,6 +150,12 @@
                         {#</span>#}
 
                 </header>
+
+                {# TODO : html version start #}
+                {% include "_elements/gameplay--section.volt" %}
+                {# TODO : html version end #}
+
+
                 <div class="gameplay" id="gameplay"></div>
                 <div class="media"></div>
 
