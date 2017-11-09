@@ -2270,7 +2270,7 @@
                     </a></li>
 
                 <li>
-                    <a href="#" class="btn bwb clear-all ui-link">
+                    <a href="#" class="btn cal clear-all ui-link">
                         <span>
                             Clear all lines
                         </span>
@@ -2293,51 +2293,104 @@
             <div class="wrap" data-reactid=".0.1.0">
                 <div class="draws-section" data-reactid=".0.1.0.0"><h1 class="purple" style="display:block;" data-reactid=".0.1.0.0.0">Choose
                         your bundle</h1>
-                    <div class="button-draw-list" data-reactid=".0.1.0.0.1:$0">
-                        <div class="box-button-draw-left" data-reactid=".0.1.0.0.1:$0.0"><a
-                                    class="btn pwp add-more ui-link pwp-active" href="javascript:void(0);"
-                                    data-reactid=".0.1.0.0.1:$0.0.0"><span
-                                        data-reactid=".0.1.0.0.1:$0.0.0.0">1 Draw</span></a></div>
-                        <div class="box-button-draw-right" data-reactid=".0.1.0.0.1:$0.1"><span
-                                    data-reactid=".0.1.0.0.1:$0.1.0">&nbsp; </span><span
-                                    data-reactid=".0.1.0.0.1:$0.1.1">€ 3.00 / Line</span></div>
+
+
+                    {#TODO: clear html start#}
+                    <div class="button-draw-list">
+                        <a href="#">
+                            <span class="top">1</span>
+                            <span class="bottom">
+                                €3,00 <br>
+                                per line
+                            </span>
+                        </a>
                     </div>
-                    <div class="button-draw-list" data-reactid=".0.1.0.0.1:$1">
-                        <div class="box-button-draw-left" data-reactid=".0.1.0.0.1:$1.0"><a
-                                    class="btn pwp add-more ui-link" href="javascript:void(0);"
-                                    data-reactid=".0.1.0.0.1:$1.0.0"><span
-                                        data-reactid=".0.1.0.0.1:$1.0.0.0">4 Draws</span></a></div>
-                        <div class="box-button-draw-right" data-reactid=".0.1.0.0.1:$1.1"><span
-                                    data-reactid=".0.1.0.0.1:$1.1.0">&nbsp; </span><span
-                                    data-reactid=".0.1.0.0.1:$1.1.1">€ 3.00 / Line</span></div>
+                    <div class="button-draw-list">
+                        <a href="#">
+                            <span class="top">4</span>
+                            <span class="bottom">
+                                €3,00 <br>
+                                per line
+                            </span>
+                        </a>
                     </div>
-                    <div class="button-draw-list" data-reactid=".0.1.0.0.1:$2">
-                        <div class="box-button-draw-left" data-reactid=".0.1.0.0.1:$2.0"><a
-                                    class="btn pwp add-more ui-link" href="javascript:void(0);"
-                                    data-reactid=".0.1.0.0.1:$2.0.0"><span
-                                        data-reactid=".0.1.0.0.1:$2.0.0.0">8 Draws</span></a></div>
-                        <div class="box-button-draw-right" data-reactid=".0.1.0.0.1:$2.1"><span
-                                    data-reactid=".0.1.0.0.1:$2.1.0">&nbsp; </span><span
-                                    data-reactid=".0.1.0.0.1:$2.1.1">€ 3.00 / Line</span></div>
+                    <div class="button-draw-list">
+                        <a href="#">
+                            <span class="top">8</span>
+                            <span class="bottom">
+                                €3,00 <br>
+                                per line
+                            </span>
+                        </a>
                     </div>
-                    <div class="button-draw-list" data-reactid=".0.1.0.0.1:$3">
-                        <div class="box-button-draw-left" data-reactid=".0.1.0.0.1:$3.0"><a
-                                    class="btn pwp add-more ui-link" href="javascript:void(0);"
-                                    data-reactid=".0.1.0.0.1:$3.0.0"><span
-                                        data-reactid=".0.1.0.0.1:$3.0.0.0">24 Draws</span></a></div>
-                        <div class="box-button-draw-right" data-reactid=".0.1.0.0.1:$3.1"><span
-                                    data-reactid=".0.1.0.0.1:$3.1.0">&nbsp; </span><span
-                                    data-reactid=".0.1.0.0.1:$3.1.1">€ 2.96 / Line</span></div>
+                    <div class="button-draw-list text-green">
+                        <a href="#">
+                            <span class="top">12<sup>+</sup></span>
+                            <span class="bottom">
+                                €3,00 <br>
+                                per line
+                            </span>
+                        </a>
                     </div>
-                    <div class="button-draw-list" data-reactid=".0.1.0.0.1:$4">
-                        <div class="box-button-draw-left" data-reactid=".0.1.0.0.1:$4.0"><a
-                                    class="btn pwp add-more ui-link" href="javascript:void(0);"
-                                    data-reactid=".0.1.0.0.1:$4.0.0"><span
-                                        data-reactid=".0.1.0.0.1:$4.0.0.0">48 Draws</span></a></div>
-                        <div class="box-button-draw-right" data-reactid=".0.1.0.0.1:$4.1"><span
-                                    data-reactid=".0.1.0.0.1:$4.1.0">&nbsp; </span><span
-                                    data-reactid=".0.1.0.0.1:$4.1.1">€ 2.87 / Line</span></div>
+                    <div class="button-draw-list text-green">
+                        <a href="#">
+                            <span class="top">48<sup>+</sup></span>
+                            <span class="bottom">
+                                €3,00 <br>
+                                per line
+                            </span>
+                        </a>
                     </div>
+                    {#TODO: clear html end#}
+
+
+                    {#<div class="button-draw-list" data-reactid=".0.1.0.0.1:$0">#}
+                        {#<div class="box-button-draw-left" data-reactid=".0.1.0.0.1:$0.0"><a#}
+                                    {#class="btn pwp add-more ui-link pwp-active" href="javascript:void(0);"#}
+                                    {#data-reactid=".0.1.0.0.1:$0.0.0"><span#}
+                                        {#data-reactid=".0.1.0.0.1:$0.0.0.0">1 draw</span>#}
+                            {#</a>#}
+                        {#</div>#}
+                        {#<div class="box-button-draw-right" data-reactid=".0.1.0.0.1:$0.1"><span#}
+                                    {#data-reactid=".0.1.0.0.1:$0.1.0">&nbsp; </span><span#}
+                                    {#data-reactid=".0.1.0.0.1:$0.1.1">€ 3.00 / Line</span></div>#}
+                    {#</div>#}
+                    {#<div class="button-draw-list" data-reactid=".0.1.0.0.1:$1">#}
+                        {#<div class="box-button-draw-left" data-reactid=".0.1.0.0.1:$1.0"><a#}
+                                    {#class="btn pwp add-more ui-link" href="javascript:void(0);"#}
+                                    {#data-reactid=".0.1.0.0.1:$1.0.0"><span#}
+                                        {#data-reactid=".0.1.0.0.1:$1.0.0.0">4 Draws</span></a></div>#}
+                        {#<div class="box-button-draw-right" data-reactid=".0.1.0.0.1:$1.1"><span#}
+                                    {#data-reactid=".0.1.0.0.1:$1.1.0">&nbsp; </span><span#}
+                                    {#data-reactid=".0.1.0.0.1:$1.1.1">€ 3.00 / Line</span></div>#}
+                    {#</div>#}
+                    {#<div class="button-draw-list" data-reactid=".0.1.0.0.1:$2">#}
+                        {#<div class="box-button-draw-left" data-reactid=".0.1.0.0.1:$2.0"><a#}
+                                    {#class="btn pwp add-more ui-link" href="javascript:void(0);"#}
+                                    {#data-reactid=".0.1.0.0.1:$2.0.0"><span#}
+                                        {#data-reactid=".0.1.0.0.1:$2.0.0.0">8 Draws</span></a></div>#}
+                        {#<div class="box-button-draw-right" data-reactid=".0.1.0.0.1:$2.1"><span#}
+                                    {#data-reactid=".0.1.0.0.1:$2.1.0">&nbsp; </span><span#}
+                                    {#data-reactid=".0.1.0.0.1:$2.1.1">€ 3.00 / Line</span></div>#}
+                    {#</div>#}
+                    {#<div class="button-draw-list" data-reactid=".0.1.0.0.1:$3">#}
+                        {#<div class="box-button-draw-left" data-reactid=".0.1.0.0.1:$3.0"><a#}
+                                    {#class="btn pwp add-more ui-link" href="javascript:void(0);"#}
+                                    {#data-reactid=".0.1.0.0.1:$3.0.0"><span#}
+                                        {#data-reactid=".0.1.0.0.1:$3.0.0.0">24 Draws</span></a></div>#}
+                        {#<div class="box-button-draw-right" data-reactid=".0.1.0.0.1:$3.1"><span#}
+                                    {#data-reactid=".0.1.0.0.1:$3.1.0">&nbsp; </span><span#}
+                                    {#data-reactid=".0.1.0.0.1:$3.1.1">€ 2.96 / Line</span></div>#}
+                    {#</div>#}
+                    {#<div class="button-draw-list" data-reactid=".0.1.0.0.1:$4">#}
+                        {#<div class="box-button-draw-left" data-reactid=".0.1.0.0.1:$4.0"><a#}
+                                    {#class="btn pwp add-more ui-link" href="javascript:void(0);"#}
+                                    {#data-reactid=".0.1.0.0.1:$4.0.0"><span#}
+                                        {#data-reactid=".0.1.0.0.1:$4.0.0.0">48 Draws</span></a></div>#}
+                        {#<div class="box-button-draw-right" data-reactid=".0.1.0.0.1:$4.1"><span#}
+                                    {#data-reactid=".0.1.0.0.1:$4.1.0">&nbsp; </span><span#}
+                                    {#data-reactid=".0.1.0.0.1:$4.1.1">€ 2.87 / Line</span></div>#}
+                    {#</div>#}
                 </div>
                 <div class="cl buttons-section" data-reactid=".0.1.0.1">
                     <div class="right" data-reactid=".0.1.0.1.0"><span class="total-price-description"
