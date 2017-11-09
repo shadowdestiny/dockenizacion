@@ -749,7 +749,8 @@
                             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/w/svg/icon.svg#v-cross"
                                  data-reactid=".0.0:$1.$1.1.3.1.0"></use>
                         </svg>
-                    </a></div>
+                    </a>
+                </div>
             </div>
             <div class="myCol num2" data-reactid=".0.0:$1.$2"><h1 class="h4 blue center" data-reactid=".0.0:$1.$2.0">
                     <span data-reactid=".0.0:$1.$2.0.0">line</span><span data-reactid=".0.0:$1.$2.0.1"> </span><span
@@ -2267,6 +2268,7 @@
                                  data-reactid=".0.0:$2.0.$2.0.2.0"></use>
                         </svg>
                     </a></li>
+         
                 <noscript data-reactid=".0.0:$2.0.$3"></noscript>
             </ul>
             <div class="info right" data-reactid=".0.0:$2.1">
@@ -2282,7 +2284,7 @@
         </div>
         <div class="box-bottom" data-reactid=".0.1">
             <div class="wrap" data-reactid=".0.1.0">
-                <div data-reactid=".0.1.0.0"><h1 class="purple" style="display:block;" data-reactid=".0.1.0.0.0">Choose
+                <div class="draws-section" data-reactid=".0.1.0.0"><h1 class="purple" style="display:block;" data-reactid=".0.1.0.0.0">Choose
                         your bundle</h1>
                     <div class="button-draw-list" data-reactid=".0.1.0.0.1:$0">
                         <div class="box-button-draw-left" data-reactid=".0.1.0.0.1:$0.0"><a
@@ -2330,7 +2332,7 @@
                                     data-reactid=".0.1.0.0.1:$4.1.1">€ 2.87 / Line</span></div>
                     </div>
                 </div>
-                <div class="cl" data-reactid=".0.1.0.1">
+                <div class="cl buttons-section" data-reactid=".0.1.0.1">
                     <div class="right" data-reactid=".0.1.0.1.0"><span class="total-price-description"
                                                                        data-reactid=".0.1.0.1.0.0">Total: </span><span
                                 class="description-before-price" data-reactid=".0.1.0.1.0.1">0 Line/s x 1 Draw/s </span>
