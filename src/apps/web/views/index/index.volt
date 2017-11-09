@@ -172,17 +172,17 @@ end PROD imports-->
 				<div class="for-only" style="font-size: 12px;">{{ language.translate("nextDraw_lbl")}}:
 					<span class="countdown">
 						<span class="day unit">
-							<span class="val">%-d d</span>
+							<span class="val">%-d day</span>
 						</span>
-						<span class="dots">-</span>
+						<span class="dots"></span>
 						<span class="hour unit">
-							<span class="val">%-H h</span>
+							<span class="val">%-H hrs</span>
 						</span>
-						<span class="dots">:</span>
+						<span class="dots"></span>
 						<span class="minute unit">
-							<span class="val">%-M m</span>
+							<span class="val">%-M min</span>
 						</span>
-						<span class="dots">:</span>
+						<span class="dots"></span>
 						<span class="seconds unit">
 							<span class="val">%-S s</span>
 						</span>
