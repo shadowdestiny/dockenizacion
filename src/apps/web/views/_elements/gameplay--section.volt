@@ -2268,7 +2268,14 @@
                                  data-reactid=".0.0:$2.0.$2.0.2.0"></use>
                         </svg>
                     </a></li>
-         
+
+                <li>
+                    <a href="#" class="btn bwb clear-all ui-link">
+                        <span>
+                            Clear all lines
+                        </span>
+                    </a>
+                </li>
                 <noscript data-reactid=".0.0:$2.0.$3"></noscript>
             </ul>
             <div class="info right" data-reactid=".0.0:$2.1">
