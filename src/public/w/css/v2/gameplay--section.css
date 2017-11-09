@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$ff3".
-        on line 281 of /src/compass_web/sass/v2/gameplay--section.scss
+        on line 331 of /src/compass_web/sass/v2/gameplay--section.scss
 
-276: 
-277:           .top {
-278:             position: relative;
-279: 
-280:             //font-family: RobotoCondensed;
-281:             font-family: $ff3;
-282:             color:  #2d2d2d;
-283:             font-size: 18px;
-284:             font-weight: 700;
-285:             line-height: 17.5px;
-286:             text-align: center;
+326: 
+327:           .top {
+328:             position: relative;
+329: 
+330:             //font-family: RobotoCondensed;
+331:             font-family: $ff3;
+332:             color:  #2d2d2d;
+333:             font-size: 18px;
+334:             font-weight: 700;
+335:             line-height: 17.5px;
+336:             text-align: center;
 
 Backtrace:
-/src/compass_web/sass/v2/gameplay--section.scss:281
+/src/compass_web/sass/v2/gameplay--section.scss:331
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:394:in `visit_prop'
@@ -121,4 +121,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$ff3\".\A         on line 281 of /src/compass_web/sass/v2/gameplay--section.scss\A \A 276: \A 277:           .top {\A 278:             position: relative;\A 279: \A 280:             //font-family: RobotoCondensed;\A 281:             font-family: $ff3;\A 282:             color:  #2d2d2d;\A 283:             font-size: 18px;\A 284:             font-weight: 700;\A 285:             line-height: 17.5px;\A 286:             text-align: center;"; }
+  content: "Error: Undefined variable: \"$ff3\".\A         on line 331 of /src/compass_web/sass/v2/gameplay--section.scss\A \A 326: \A 327:           .top {\A 328:             position: relative;\A 329: \A 330:             //font-family: RobotoCondensed;\A 331:             font-family: $ff3;\A 332:             color:  #2d2d2d;\A 333:             font-size: 18px;\A 334:             font-weight: 700;\A 335:             line-height: 17.5px;\A 336:             text-align: center;"; }
