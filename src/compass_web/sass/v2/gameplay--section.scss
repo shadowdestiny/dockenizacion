@@ -1,0 +1,114 @@
+
+.gameplay--section {
+
+  background-color: #f9f9f9;
+
+  .box-lines {
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+
+
+    .myCol {
+      width: 182px;
+      margin-right: 25px;
+    }
+
+    .myCol:last-of-type {
+      margin-right: 0;
+    }
+
+    .h4 {
+      color:  #2d2d2d;
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 17.5px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .line:hover,
+    .line {
+      position: relative;
+      border: 1px solid #0099e6;
+      border-radius: 5px;
+      background: #fff;
+
+
+      .gwy:hover,
+      .gwy {
+        border-radius: 5px;
+        border-width: 1px;
+        border-color:  #519fe9;
+        border-style: solid;
+        background-color:  #ffffff;
+        width: 53px;
+        height: 32px;
+
+        background-image: url('../img/play/desktop/random-yellow.png');
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        -webkit-background-size: 27px;
+        background-size: 27px;
+
+        svg {
+          display: none;
+        }
+      }
+
+      .gwp:visited,
+      .gwp {
+        border-radius: 3px;
+        border-width: 1px;
+        border-color:  #519fe9;
+        border-style: solid;
+        background-color:  #ffffff;
+        width: 27px;
+        height: 25px;
+
+        //font-family: WorkSans;
+        color:  #2d2d2d;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 17.5px;
+        text-align: center;
+
+      }
+      .gwp:hover {
+        background-color:  #469eef;
+      }
+
+
+      .stars {
+
+        .ico {
+          color: transparent;
+
+          background-image: url('../img/play/desktop/star.png');
+          background-repeat: no-repeat;
+          background-position: 50% 50%;
+          -webkit-background-size: 38px;
+          background-size: 38px;
+
+          .txt {
+            //font-family: WorkSans;
+            color:  #2d2d2d;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 17.5px;
+            text-align: center;
+          }
+        }
+
+        .ico:hover {
+          background-image: url('../img/play/desktop/star-hover.png');
+        }
+      }
+
+
+    }
+
+
+  }
+
+}
