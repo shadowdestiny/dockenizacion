@@ -33,18 +33,29 @@
         }
 
         function disableUserById(id) {
-            $.ajax({
-                type: "POST",
-                url: '/admin/reports/saveDisabledUser',
-                data: {
-                    userId: id,
-                    isChecked: $("#disableUserCheck")[0].checked,
-                    userDate: $("#disbleUserDate").val()
-                },
-                success: function (response) {
-                    alert(response);
-                }
-            });
+            if (!$("#disableUserCheck")[0].checked && $("#disbleUserDate").val() != '') {
+                alert ('You must check the disabled option for saving data');
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: '/admin/reports/saveDisabledUser',
+                    data: {
+                        userId: id,
+                        isChecked: $("#disableUserCheck")[0].checked,
+                        userDate: $("#disbleUserDate").val()
+                    },
+                    success: function (response) {
+                        alert(response);
+                    }
+                });
+            }
+        }
+
+        function eraseDisabledDate(isChecked)
+        {
+            if (!isChecked) {
+                $("#disbleUserDate").val('');
+            }
         }
     </script>
     <div class="wrapper">
@@ -57,7 +68,16 @@
                             <td width="30%"><b>Email</b>: <a href="mailto:{{ user.getEmail() }}">{{ user.getEmail() }}</a></td>
                             <td><b>Phone</b>: {{ user.getPhoneNumber() }}</td>
                             <td>
-                                <b>Disable</b> <input type="checkbox" value="Y" name="disableUserCheck" id="disableUserCheck" /> <input type="text" name="disbleUserDate" id="disbleUserDate" style="width: 100px;" /> <input type="button" value="Save" onclick="disableUserById('{{ user.getId() }}');" />
+                                <?php
+                                    if (!is_null($user->getDisabledDate())){
+                                        $checkDisabledDate = 'checked';
+                                        $valueDisabledDate = $user->getDisabledDate()->format('m/d/Y');
+                                    } else {
+                                        $checkDisabledDate = '';
+                                        $valueDisabledDate = '';
+                                    }
+                                ?>
+                                <b>Disable</b> <input type="checkbox" value="Y" name="disableUserCheck" id="disableUserCheck" {{ checkDisabledDate }} onclick="eraseDisabledDate(this.checked);" /> <input type="text" name="disbleUserDate" id="disbleUserDate" style="width: 100px;" value="{{ valueDisabledDate }}" /> <input type="button" value="Save" onclick="disableUserById('{{ user.getId() }}');" />
                             </td>
                         </tr>
                         <tr>

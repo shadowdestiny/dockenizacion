@@ -143,6 +143,12 @@
                         <div class="hiw-block--center"></div>
                         <div class="hiw-block--description">
                             Buy your ticket
+							<span class="val">%-d day</span>
+						<span class="dots"></span>
+							<span class="val">%-H hrs</span>
+						<span class="dots"></span>
+							<span class="val">%-M min</span>
+						<span class="dots"></span>
                         </div>
                     </div>
                     <div class="hiw-block hiw-block--03">

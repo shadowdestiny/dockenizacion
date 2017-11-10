@@ -124,7 +124,7 @@ class CartController extends PublicSiteControllerBase
                     $form_errors[$field] = ' error';
                 }
             } else {
-                $userCheck = !$this->authService->check([
+                $userCheck = $this->authService->check([
                     'email'    => $this->request->getPost('email'),
                     'password' => $this->request->getPost('password'),
                     false,
