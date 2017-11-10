@@ -1,5 +1,5 @@
 /*
-Error: Undefined variable: "$screen-desktop".
+Error: Undefined variable: "$screen-ipad-v".
         on line 7 of /src/compass_web/sass/v2/social.scss
 
 2: .social {
@@ -7,12 +7,12 @@ Error: Undefined variable: "$screen-desktop".
 4:   float: left;
 5:   text-align: left;
 6: 
-7:   @media only screen and (min-width: $screen-desktop) {
-8:     float: right;
-9:     text-align: right;
+7:   @media only screen and (min-width: $screen-ipad-v) {
+8:     float: left;
+9:     text-align: left;
 10:   }
 11: 
-12:   ul {
+12:   @media only screen and (min-width: $screen-ipad-h) {
 
 Backtrace:
 /src/compass_web/sass/v2/social.scss:7
@@ -70,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 7 of /src/compass_web/sass/v2/social.scss\A \A 2: .social {\A 3: \A 4:   float: left;\A 5:   text-align: left;\A 6: \A 7:   @media only screen and (min-width: $screen-desktop) {\A 8:     float: right;\A 9:     text-align: right;\A 10:   }\A 11: \A 12:   ul {"; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 7 of /src/compass_web/sass/v2/social.scss\A \A 2: .social {\A 3: \A 4:   float: left;\A 5:   text-align: left;\A 6: \A 7:   @media only screen and (min-width: $screen-ipad-v) {\A 8:     float: left;\A 9:     text-align: left;\A 10:   }\A 11: \A 12:   @media only screen and (min-width: $screen-ipad-h) {"; }
