@@ -1,5 +1,5 @@
 /*
-Error: Undefined variable: "$screen-desktop".
+Error: Undefined variable: "$screen-ipad-v".
         on line 19 of /src/compass_web/sass/v2/buttons.scss
 
 14:   line-height: 48px;
@@ -7,12 +7,12 @@ Error: Undefined variable: "$screen-desktop".
 16:   padding: 0;
 17:   display: block;
 18: 
-19:   @media only screen and (min-width: $screen-desktop) {
-20:     font-size: 17px;
-21:     width: 109px;
-22:     height: 49px;
-23:     line-height: 46px;
-24:   }
+19:   @media only screen and (min-width: $screen-ipad-v) {
+20:     border-radius: 3px;
+21:     border-style: solid;
+22:     border-width: 1px;
+23:     margin-left: 8px;
+24:     margin-right: 8px;
 
 Backtrace:
 /src/compass_web/sass/v2/buttons.scss:19
@@ -70,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 19 of /src/compass_web/sass/v2/buttons.scss\A \A 14:   line-height: 48px;\A 15:   text-transform: uppercase;\A 16:   padding: 0;\A 17:   display: block;\A 18: \A 19:   @media only screen and (min-width: $screen-desktop) {\A 20:     font-size: 17px;\A 21:     width: 109px;\A 22:     height: 49px;\A 23:     line-height: 46px;\A 24:   }"; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 19 of /src/compass_web/sass/v2/buttons.scss\A \A 14:   line-height: 48px;\A 15:   text-transform: uppercase;\A 16:   padding: 0;\A 17:   display: block;\A 18: \A 19:   @media only screen and (min-width: $screen-ipad-v) {\A 20:     border-radius: 3px;\A 21:     border-style: solid;\A 22:     border-width: 1px;\A 23:     margin-left: 8px;\A 24:     margin-right: 8px;"; }
