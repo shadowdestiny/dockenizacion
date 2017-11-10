@@ -12,20 +12,20 @@
   padding: 0 10px;
 
   @media only screen and (min-width: $screen-small) {
-    width: $screen-small-wrapper;
-    max-width: $screen-small-wrapper;
+    width: $screen-ipad-v;
+    max-width: $screen-ipad-v-wrapper;
     margin:auto;
   }
 
   @media only screen and (min-width: $screen-medium) {
-    width: $screen-medium-wrapper;
-    max-width: $screen-medium-wrapper;
+    width: $screen-ipad-h-wrapper;
+    max-width: $screen-ipad-h-wrapper;
     margin:auto;
   }
 
   @media only screen and (min-width: $screen-full) {
-    width: $screen-full-wrapper;
-    max-width: $screen-full-wrapper;
+    width: $screen-desktop-wrapper;
+    max-width: $screen-desktop-wrapper;
     margin:auto;
     padding: 0;
   }
