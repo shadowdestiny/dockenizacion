@@ -3,6 +3,104 @@
 
   display: none;
 
+  @media only screen and (min-width: $screen-ipad-v) {
+    display: none;
+  }
+
+  @media only screen and (min-width: $screen-ipad-h) {
+
+    display: block;
+
+    position: relative!important;
+    top: -5px!important;
+
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: #b7b7b7;
+    border-style: solid;
+    background-color: #ffffff;
+    width: 414px;
+    height: 59px;
+
+    .top-loggedin-menu--inner {
+      overflow: hidden;
+
+
+      .left {
+        float: left;
+        //width: 50%;
+        width: 221px;
+        margin: 0;
+        padding: 0;
+        text-align: left;
+
+        background-image: url('../img/account/desktop/balance.png');
+        background-repeat: no-repeat;
+        background-position: 20px 14px;
+        -webkit-background-size: 42px;
+        background-size: 42px;
+
+        padding-top: 7px;
+        padding-left: 75px;
+      }
+
+      .right {
+        float: right;
+        //width: 50%;
+        width: 191px;
+        margin: 0;
+        padding: 0;
+        text-align: left;
+        position: relative;
+
+        background-image: url('../img/account/desktop/user.png');
+        background-repeat: no-repeat;
+        background-position: 27px 14px;
+        -webkit-background-size: 29px;
+        background-size: 29px;
+
+        padding-top: 7px;
+        padding-left: 69px;
+
+        height: 59px;
+
+      }
+
+      .right:before {
+        display: block;
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 2px;
+        height: 53px;
+        width: 1px;
+        background-color: #b7b7b7;
+      }
+
+      .txt {
+        //font-family: WorkSans;
+        color:  #9b9c9b;
+        font-size: 17px;
+        font-weight: 400;
+        text-align: left;
+      }
+
+      a {
+        //font-family: WorkSans;
+        color:  #4dec8c;
+        font-size: 17px;
+        font-weight: 400;
+        text-align: left;
+
+
+
+      }
+    }
+
+
+
+  }
+
   @media only screen and (min-width: $screen-desktop) {
 
     display: block;
