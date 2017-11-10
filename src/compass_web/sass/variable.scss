@@ -131,10 +131,15 @@ $screen-medium-wrapper 		: 952px;
 $screen-full 				: 1300px;
 $screen-full-wrapper 		: 1280px;
 
-//$screen-desktop 					: $screen-full;
-//$screen-desktop-wrapper 			: $screen-full-wrapper;
-$screen-desktop 					: $screen-medium;
-$screen-desktop-wrapper 			: $screen-medium-wrapper;
+// Devices sart
+$screen-ipad-v 					: $screen-medium;
+$screen-ipad-h 					: $screen-medium;
+$screen-desktop 					: $screen-full;
+
+$screen-ipad-v-wrapper 			: $screen-medium-wrapper;
+$screen-ipad-h-wrapper 			: $screen-medium-wrapper;
+$screen-desktop-wrapper 			: $screen-full-wrapper;
+// Devices end
 
 $balanceRowHeightDesktop : 93px;
 $balanceRowLineHeightDesktop : 90px;
