@@ -1,5 +1,5 @@
 /*
-Error: Undefined variable: "$screen-desktop".
+Error: Undefined variable: "$screen-ipad-v".
         on line 9 of /src/compass_web/sass/v2/tickets-filter.scss
 
 4: // Filter block
@@ -7,12 +7,12 @@ Error: Undefined variable: "$screen-desktop".
 6: .mobile-filter-block {
 7:   display: block;
 8: 
-9:   @media only screen and (min-width: $screen-desktop) {
-10:     display: none;
+9:   @media only screen and (min-width: $screen-ipad-v) {
+10:     display: block;
 11:   }
-12: }
-13: 
-14: .tickets-filter--row {
+12: 
+13:   @media only screen and (min-width: $screen-ipad-h) {
+14:     display: none;
 
 Backtrace:
 /src/compass_web/sass/v2/tickets-filter.scss:9
@@ -70,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 9 of /src/compass_web/sass/v2/tickets-filter.scss\A \A 4: // Filter block\A 5: \A 6: .mobile-filter-block {\A 7:   display: block;\A 8: \A 9:   @media only screen and (min-width: $screen-desktop) {\A 10:     display: none;\A 11:   }\A 12: }\A 13: \A 14: .tickets-filter--row {"; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 9 of /src/compass_web/sass/v2/tickets-filter.scss\A \A 4: // Filter block\A 5: \A 6: .mobile-filter-block {\A 7:   display: block;\A 8: \A 9:   @media only screen and (min-width: $screen-ipad-v) {\A 10:     display: block;\A 11:   }\A 12: \A 13:   @media only screen and (min-width: $screen-ipad-h) {\A 14:     display: none;"; }

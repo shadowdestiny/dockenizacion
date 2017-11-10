@@ -1,5 +1,5 @@
 /*
-Error: Undefined variable: "$screen-desktop".
+Error: Undefined variable: "$screen-ipad-v".
         on line 9 of /src/compass_web/sass/v2/tickets-page.scss
 
 4: #content.tickets-page {
@@ -7,12 +7,12 @@ Error: Undefined variable: "$screen-desktop".
 6:   .content {
 7:     padding-top: 5px;
 8: 
-9:     @media only screen and (min-width: $screen-desktop) {
-10:       padding-top: 30px;
+9:     @media only screen and (min-width: $screen-ipad-v) {
+10:       padding-top: 5px;
 11:     }
-12:   }
-13: 
-14:   .tickets-form{
+12: 
+13:     @media only screen and (min-width: $screen-ipad-h) {
+14:       padding-top: 30px;
 
 Backtrace:
 /src/compass_web/sass/v2/tickets-page.scss:9
@@ -81,4 +81,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 9 of /src/compass_web/sass/v2/tickets-page.scss\A \A 4: #content.tickets-page {\A 5: \A 6:   .content {\A 7:     padding-top: 5px;\A 8: \A 9:     @media only screen and (min-width: $screen-desktop) {\A 10:       padding-top: 30px;\A 11:     }\A 12:   }\A 13: \A 14:   .tickets-form{"; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 9 of /src/compass_web/sass/v2/tickets-page.scss\A \A 4: #content.tickets-page {\A 5: \A 6:   .content {\A 7:     padding-top: 5px;\A 8: \A 9:     @media only screen and (min-width: $screen-ipad-v) {\A 10:       padding-top: 5px;\A 11:     }\A 12: \A 13:     @media only screen and (min-width: $screen-ipad-h) {\A 14:       padding-top: 30px;"; }

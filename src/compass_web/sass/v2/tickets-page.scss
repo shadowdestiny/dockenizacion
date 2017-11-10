@@ -6,6 +6,14 @@
   .content {
     padding-top: 5px;
 
+    @media only screen and (min-width: $screen-ipad-v) {
+      padding-top: 5px;
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      padding-top: 30px;
+    }
+
     @media only screen and (min-width: $screen-desktop) {
       padding-top: 30px;
     }
@@ -22,6 +30,24 @@
       text-align: left;
       margin-bottom: 22px;
       padding-left: 10px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        color:  #f9d118;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 24px;
+        text-align: left;
+        margin-bottom: 22px;
+        padding-left: 10px;
+      }
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        border-bottom: 1px solid #333;
+        margin-bottom: 10px;
+        font-size: 30px;
+        line-height: 47px;
+        padding-left: 10px;
+      }
 
       @media only screen and (min-width: $screen-desktop) {
         border-bottom: 1px solid #333;
