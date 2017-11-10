@@ -29,12 +29,6 @@
     margin:auto;
     padding: 0;
   }
-
-  @media only screen and (max-width: $screen-medium) {}
-  @media only screen and (max-width: $screen-small) {}
-  @media only screen and (max-width: $screen-xs) {}
-  @media only screen and (max-width: $screen-xxs) {}
-
 }
 
 
@@ -60,6 +54,15 @@ a:visited, .lnk:visited {
 .mobile {
   display: block !important;
 
+
+  @media only screen and (min-width: $screen-ipad-v) {
+    display: block !important;
+  }
+
+  @media only screen and (min-width: $screen-ipad-h) {
+    display: none !important;
+  }
+
   @media only screen and (min-width: $screen-desktop) {
     display: none !important;
   }
@@ -69,6 +72,14 @@ a:visited, .lnk:visited {
 .head,
 .main-nav.desktop {
   display: none !important;
+
+  @media only screen and (min-width: $screen-ipad-v) {
+    display: none !important;
+  }
+
+  @media only screen and (min-width: $screen-ipad-h) {
+    display: block !important;
+  }
 
   @media only screen and (min-width: $screen-desktop) {
     display: block !important;
