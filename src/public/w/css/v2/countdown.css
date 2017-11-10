@@ -1,24 +1,28 @@
 /*
-Error: Undefined variable: "$ff1".
-        on line 9 of /src/compass_web/sass/v2/countdown.scss
+Error: Undefined variable: "$screen-ipad-v".
+        on line 6 of /src/compass_web/sass/v2/countdown.scss
 
+1: 
+2:     .countdown {
+3:       div {
 4:         display: inline-block;
-5:       }
-6: 
-7:       div, span {
-8:         //font-family: WorkSans;
-9:         font-family: $ff1;
-10:         color:  #ffffff;
-11:         font-size: 24px;
-12:         //font-weight: 900;
-13:         text-align: left;
-14:         text-transform: uppercase;
+5: 
+6:         @media only screen and (min-width: $screen-ipad-v) {
+7:           display: inline-block;
+8:         }
+9:       }
+10: 
+11:       div, span {
 
 Backtrace:
-/src/compass_web/sass/v2/countdown.scss:9
+/src/compass_web/sass/v2/countdown.scss:6
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:394:in `visit_prop'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:534:in `map'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:534:in `run_interp_no_strip'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:541:in `run_interp'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:509:in `visit_media'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
@@ -77,4 +81,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$ff1\".\A         on line 9 of /src/compass_web/sass/v2/countdown.scss\A \A 4:         display: inline-block;\A 5:       }\A 6: \A 7:       div, span {\A 8:         //font-family: WorkSans;\A 9:         font-family: $ff1;\A 10:         color:  #ffffff;\A 11:         font-size: 24px;\A 12:         //font-weight: 900;\A 13:         text-align: left;\A 14:         text-transform: uppercase;"; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 6 of /src/compass_web/sass/v2/countdown.scss\A \A 1: \A 2:     .countdown {\A 3:       div {\A 4:         display: inline-block;\A 5: \A 6:         @media only screen and (min-width: $screen-ipad-v) {\A 7:           display: inline-block;\A 8:         }\A 9:       }\A 10: \A 11:       div, span {"; }

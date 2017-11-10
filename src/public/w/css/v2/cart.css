@@ -1,17 +1,17 @@
 /*
-Error: Undefined variable: "$screen-desktop".
+Error: Undefined variable: "$screen-ipad-v".
         on line 5 of /src/compass_web/sass/v2/cart.scss
 
 1: //Page : Cart
 2: 
 3: #cart-section.cart-section {
 4: 
-5:   @media only screen and (min-width: $screen-desktop) {
-6:     margin: auto;
-7:     max-width: 1130px;
-8:   }
-9: 
-10:   .nav {
+5:   @media only screen and (min-width: $screen-ipad-v) {
+6: 
+7:   }
+8:   @media only screen and (min-width: $screen-ipad-h) {
+9:     margin: auto;
+10:     max-width: 1130px;
 
 Backtrace:
 /src/compass_web/sass/v2/cart.scss:5
@@ -69,4 +69,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 5 of /src/compass_web/sass/v2/cart.scss\A \A 1: //Page : Cart\A 2: \A 3: #cart-section.cart-section {\A 4: \A 5:   @media only screen and (min-width: $screen-desktop) {\A 6:     margin: auto;\A 7:     max-width: 1130px;\A 8:   }\A 9: \A 10:   .nav {"; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 5 of /src/compass_web/sass/v2/cart.scss\A \A 1: //Page : Cart\A 2: \A 3: #cart-section.cart-section {\A 4: \A 5:   @media only screen and (min-width: $screen-ipad-v) {\A 6: \A 7:   }\A 8:   @media only screen and (min-width: $screen-ipad-h) {\A 9:     margin: auto;\A 10:     max-width: 1130px;"; }

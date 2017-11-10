@@ -4,6 +4,17 @@
   margin-top: 30px;
   padding: 0;
 
+  @media only screen and (min-width: $screen-ipad-v) {
+    margin-top: 30px;
+    padding: 0;
+  }
+
+  @media only screen and (min-width: $screen-ipad-h) {
+    padding: 32px 35px;
+    background-color: #f6f4f4;
+    background-image: -webkit-linear-gradient(top, #f6f4f4 0%, #f8f6f6 50%,  #ffffff 100%);
+    background-image: linear-gradient(to bottom, #f6f4f4 0%, #f8f6f6 50%, #ffffff 100%);
+  }
 
   @media only screen and (min-width: $screen-desktop) {
     padding: 32px 35px;
@@ -17,9 +28,25 @@
 
     margin: 0;
 
+    @media only screen and (min-width: $screen-ipad-v) {
+      margin: 0;
+    }
+
     li {
       width: 29.8%;
       margin: 0 3.5% 2em 0;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        width: 29.8%;
+        margin: 0 3.5% 2em 0;
+      }
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        float: left;
+        width: 31%;
+        //margin: 0 2% 2em 0;
+        margin: 0 2% 1em 0;
+      }
 
       @media only screen and (min-width: $screen-desktop) {
         float: left;
@@ -34,9 +61,24 @@
         border: 0;
         padding: 10px 20px 11px 19px;
 
+        @media only screen and (min-width: $screen-ipad-v) {
+          border-radius: 2px;
+          background-color:  #eae8e8;
+          border: 0;
+          padding: 10px 20px 11px 19px;
+        }
+
         .symbol {
 
           font-size: 18px;
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            font-size: 18px;
+          }
+
+          @media only screen and (min-width: $screen-ipad-h) {
+            font-size: 18px;
+          }
 
           @media only screen and (min-width: $screen-desktop) {
             font-size: 18px;
@@ -54,8 +96,16 @@
           margin-bottom: 5px;
           position: relative;
 
-          @media only screen and (min-width: $screen-desktop) {
-
+          @media only screen and (min-width: $screen-ipad-v) {
+            font-family:$ff1;
+            color:  #9b9b9b;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1;
+            text-align: left;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            position: relative;
           }
 
           .symbol {
@@ -66,6 +116,21 @@
             right: -2px;
             display: block;
             font-weight: 400;
+
+            @media only screen and (min-width: $screen-ipad-v) {
+              position: absolute;
+              font-size: 28px;
+              top: 5px;
+              right: -2px;
+              display: block;
+              font-weight: 400;
+            }
+
+            @media only screen and (min-width: $screen-ipad-h) {
+              position: static;
+              font-size: 18px;
+              font-weight: 700;
+            }
 
             @media only screen and (min-width: $screen-desktop) {
               position: static;
@@ -83,6 +148,15 @@
           font-weight: 400;
           line-height: 1;
           text-align: left;
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            font-family:$ff1;
+            color:  #333333;
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1;
+            text-align: left;
+          }
         }
       }
 
@@ -92,21 +166,32 @@
         color: #fbd93a;
         border: 0;
 
+        @media only screen and (min-width: $screen-ipad-v) {
+          background-color:  #333333;
+          color: #fbd93a;
+          border: 0;
+        }
+
         .curr{
           color: inherit;
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            color: inherit;
+          }
         }
 
         .name {
           color: inherit;
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            color: inherit;
+          }
         }
 
       }
-
 
     }
 
   }
 
-
-  
 }

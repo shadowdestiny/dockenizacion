@@ -6,10 +6,26 @@
   overflow: hidden;
   text-align: center;
 
+  @media only screen and (min-width: $screen-ipad-v) {
+    max-width: 848px;
+    overflow: hidden;
+    text-align: center;
+  }
+
   .contact-page-form {
     display: inline-block;
     padding-left: 0px;
     padding-top: 67px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      display: inline-block;
+      padding-left: 0px;
+      padding-top: 67px;
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      padding-left: 149px;
+    }
 
     @media only screen and (min-width: $screen-desktop) {
       padding-left: 149px;
@@ -22,6 +38,15 @@
       text-align: left;
       line-height: 1;
       text-transform: uppercase;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        color: #333333;
+        font-size: 24px;
+        font-weight: 900;
+        text-align: left;
+        line-height: 1;
+        text-transform: uppercase;
+      }
     }
 
     h3 {
@@ -32,16 +57,36 @@
       line-height: 1;
       text-transform: uppercase;
       margin-bottom: 26px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        color:  #b7b7b7;
+        font-size: 17px;
+        font-weight: 900;
+        text-align: left;
+        line-height: 1;
+        text-transform: uppercase;
+        margin-bottom: 26px;
+      }
     }
 
     .captcha-title {
       padding-left: 30px;
       margin-bottom: 30px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        padding-left: 30px;
+        margin-bottom: 30px;
+      }
     }
 
     .captcha {
       height: 115px;
       margin-bottom: 60px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        height: 115px;
+        margin-bottom: 60px;
+      }
     }
 
     .submit {
@@ -51,11 +96,25 @@
       height: 80px;
       line-height: 80px;
       margin-bottom: 60px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        font-size: 23.9px;
+        font-weight: 700;
+        width: 100%;
+        height: 80px;
+        line-height: 80px;
+        margin-bottom: 60px;
+      }
     }
 
     textarea {
       min-height: 500px;
       margin-bottom: 25px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        min-height: 500px;
+        margin-bottom: 25px;
+      }
     }
   }
 }

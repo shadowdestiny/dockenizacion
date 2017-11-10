@@ -14,6 +14,12 @@
   padding-top: 20px;
   padding-bottom: 2px;
 
+  @media only screen and (min-width: $screen-ipad-v) {
+    overflow: hidden;
+    padding-top: 20px;
+    padding-bottom: 2px;
+  }
+
   .box-cookies--links {
     display: block;
     width: 207px;
@@ -26,10 +32,29 @@
     margin-right: 3px;
     line-height: 1.2;
 
+    @media only screen and (min-width: $screen-ipad-v) {
+      display: block;
+      width: 207px;
+      margin-left: -207px;
+      list-style: none;
+      float: right;
+
+      position: relative;
+      top: -9px;
+      margin-right: 3px;
+      line-height: 1.2;
+    }
+
     li {
       text-align: left;
       position: relative;
       padding-left: 32px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        text-align: left;
+        position: relative;
+        padding-left: 32px;
+      }
 
       &::before {
         display: block;
@@ -45,12 +70,34 @@
         background-position: 0px 0px;
         -webkit-background-size: 19px;
         background-size: 19px;
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          display: block;
+          content: "";
+          position: absolute;
+          left: 3px;
+          top: 6px;
+          width: 20px;
+          height: 20px;
+
+          background-image: url('../img/home/cookies/desktop/box-cookies--links--continue.png');
+          background-repeat: no-repeat;
+          background-position: 0px 0px;
+          -webkit-background-size: 19px;
+          background-size: 19px;
+        }
       }
 
       &.box-cookies--links--continue::before {
         background-image: url('../img/home/cookies/desktop/box-cookies--links--continue.png');
         -webkit-background-size: 17px;
         background-size: 17px;
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          background-image: url('../img/home/cookies/desktop/box-cookies--links--continue.png');
+          -webkit-background-size: 17px;
+          background-size: 17px;
+        }
       }
 
       &.box-cookies--links--change-settings::before {
@@ -60,6 +107,15 @@
 
         left: 2px;
         top: 4px;
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          background-image: url('../img/home/cookies/desktop/box-cookies--links--change-settings.png');
+          -webkit-background-size: 19px;
+          background-size: 19px;
+
+          left: 2px;
+          top: 4px;
+        }
       }
 
       &.box-cookies--links--more::before {
@@ -69,6 +125,15 @@
 
         left: 3px;
         top: 6px;
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          background-image: url('../img/home/cookies/desktop/box-cookies--links--more.png');
+          -webkit-background-size: 18px;
+          background-size: 18px;
+
+          left: 3px;
+          top: 6px;
+        }
       }
 
       a {
@@ -76,6 +141,13 @@
         color:  #f8d013;
         font-size: 24px;
         font-weight: 400;
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          text-decoration: none;
+          color:  #f8d013;
+          font-size: 24px;
+          font-weight: 400;
+        }
       }
 
     }
@@ -83,7 +155,14 @@
 
   .box-cookies--content {
     padding-right: 220px;
-    //padding-left: 15px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      padding-right: 220px;
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      padding-left: 0;
+    }
 
     @media only screen and (min-width: $screen-desktop) {
       padding-left: 0;
@@ -98,6 +177,14 @@
     text-align: left;
     margin-bottom: 17px;
 
+    @media only screen and (min-width: $screen-ipad-v) {
+      color:  #9b9b9b;
+      font-size: 24px;
+      font-weight: 700;
+      text-align: left;
+      margin-bottom: 17px;
+    }
+
   }
 
   .box-cookies--description {
@@ -105,6 +192,13 @@
     font-size: 17px;
     font-weight: 400;
     text-align: left;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      color:  #9b9b9b;
+      font-size: 17px;
+      font-weight: 400;
+      text-align: left;
+    }
   }
 
 }

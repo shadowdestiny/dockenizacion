@@ -1,21 +1,21 @@
 /*
-Error: Undefined variable: "$screen-desktop".
-        on line 8 of /src/compass_web/sass/v2/currencies.scss
+Error: Undefined variable: "$screen-ipad-v".
+        on line 7 of /src/compass_web/sass/v2/currencies.scss
 
+2: 
 3: .currencies-page {
 4:   margin-top: 30px;
 5:   padding: 0;
 6: 
-7: 
-8:   @media only screen and (min-width: $screen-desktop) {
-9:     padding: 32px 35px;
-10:     background-color: #f6f4f4;
-11:     background-image: -webkit-linear-gradient(top, #f6f4f4 0%, #f8f6f6 50%,  #ffffff 100%);
-12:     background-image: linear-gradient(to bottom, #f6f4f4 0%, #f8f6f6 50%, #ffffff 100%);
-13: 
+7:   @media only screen and (min-width: $screen-ipad-v) {
+8:     margin-top: 30px;
+9:     padding: 0;
+10:   }
+11: 
+12:   @media only screen and (min-width: $screen-ipad-h) {
 
 Backtrace:
-/src/compass_web/sass/v2/currencies.scss:8
+/src/compass_web/sass/v2/currencies.scss:7
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
@@ -70,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 8 of /src/compass_web/sass/v2/currencies.scss\A \A 3: .currencies-page {\A 4:   margin-top: 30px;\A 5:   padding: 0;\A 6: \A 7: \A 8:   @media only screen and (min-width: $screen-desktop) {\A 9:     padding: 32px 35px;\A 10:     background-color: #f6f4f4;\A 11:     background-image: -webkit-linear-gradient(top, #f6f4f4 0%, #f8f6f6 50%,  #ffffff 100%);\A 12:     background-image: linear-gradient(to bottom, #f6f4f4 0%, #f8f6f6 50%, #ffffff 100%);\A 13: "; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 7 of /src/compass_web/sass/v2/currencies.scss\A \A 2: \A 3: .currencies-page {\A 4:   margin-top: 30px;\A 5:   padding: 0;\A 6: \A 7:   @media only screen and (min-width: $screen-ipad-v) {\A 8:     margin-top: 30px;\A 9:     padding: 0;\A 10:   }\A 11: \A 12:   @media only screen and (min-width: $screen-ipad-h) {"; }
