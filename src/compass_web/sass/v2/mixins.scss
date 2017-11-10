@@ -3,6 +3,14 @@
 @mixin desktop {
   display: none !important;
 
+  @media only screen and (min-width: $screen-ipad-v) {
+    display: none !important;
+  }
+
+  @media only screen and (min-width: $screen-ipad-h) {
+    display: block !important;
+  }
+
   @media only screen and (min-width: $screen-desktop) {
     display: block !important;
   }
@@ -10,6 +18,14 @@
 
 @mixin mobile {
   display: block !important;
+
+  @media only screen and (min-width: $screen-ipad-v) {
+    display: block !important;
+  }
+
+  @media only screen and (min-width: $screen-ipad-h) {
+    display: none !important;
+  }
 
   @media only screen and (min-width: $screen-desktop) {
     display: none !important;
@@ -19,6 +35,12 @@
 @mixin desktop--dib {
   display: none !important;
 
+  @media only screen and (min-width: $screen-ipad-v) {
+    display: none !important;
+  }
+  @media only screen and (min-width: $screen-ipad-h) {
+    display: inline-block !important;
+  }
   @media only screen and (min-width: $screen-desktop) {
     display: inline-block !important;
   }
@@ -27,6 +49,12 @@
 @mixin mobile--dib {
   display: inline-block !important;
 
+  @media only screen and (min-width: $screen-ipad-v) {
+    display: inline-block !important;
+  }
+  @media only screen and (min-width: $screen-ipad-h) {
+    display: none !important;
+  }
   @media only screen and (min-width: $screen-desktop) {
     display: none !important;
   }
@@ -153,8 +181,13 @@
 
     top: 20px;
 
+    @media only screen and (min-width: $screen-ipad-v) {
+      top: 20px;
+    }
+    @media only screen and (min-width: $screen-ipad-h) {
+      top: 20px;
+    }
     @media only screen and (min-width: $screen-desktop) {
-      //top: 17px;
       top: 20px;
     }
   }
@@ -258,7 +291,6 @@
   line-height: 60px;
   text-transform: uppercase;
   display: block;
-  width: 100%;
 
   //font-family: WorkSans;
   color: #ffffff !important;
@@ -271,7 +303,17 @@
   text-shadow: none !important;
   box-shadow: none!important;
 
+  width: 100%;
 
+
+  @media only screen and (min-width: $screen-ipad-v) {
+    //float: none;
+    width: 100%;
+  }
+  @media only screen and (min-width: $screen-ipad-h) {
+    float: left;
+    width:auto;
+  }
   @media only screen and (min-width: $screen-desktop) {
     float: left;
     width:auto;
