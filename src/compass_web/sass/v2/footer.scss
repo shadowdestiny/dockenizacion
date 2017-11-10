@@ -9,9 +9,6 @@
     background-color: #e1e1e1;
     padding: 26px 100px 14px 60px;
 
-    @media only screen and (max-width: $screen-small) {
-
-    }
 
     p {
       font-family: $ff1;
@@ -20,15 +17,21 @@
       font-weight: 400;
       text-align: left;
 
-      @media only screen and (max-width: $screen-small) {
 
-      }
     }
   }
 
   .box-links {
 
     margin-bottom: 60px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      margin-bottom: 60px;
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      padding-left: 85px;
+    }
 
     @media only screen and (min-width: $screen-desktop) {
       padding-left: 85px;
@@ -68,6 +71,20 @@
   margin-bottom: 20px;
   text-align: center;
 
+  @media only screen and (min-width: $screen-ipad-v) {
+    background-color: #e1e1e1;
+    height: 50px;
+    line-height: 50px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  @media only screen and (min-width: $screen-ipad-h) {
+    height: 84px;
+    line-height: 84px;
+    margin-bottom: 35px;
+  }
+
   @media only screen and (min-width: $screen-desktop) {
     height: 84px;
     line-height: 84px;
@@ -80,6 +97,18 @@
     text-align: center;
     display: block;
     height: 50px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      padding: 0;
+      margin: auto;
+      text-align: center;
+      display: block;
+      height: 50px;
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      height: 84px;
+    }
 
     @media only screen and (min-width: $screen-desktop) {
       height: 84px;
@@ -107,6 +136,15 @@
         position: relative;
         max-width: 35px;
 
+        @media only screen and (min-width: $screen-ipad-v) {
+          position: relative;
+          max-width: 35px;
+        }
+
+        @media only screen and (min-width: $screen-ipad-h) {
+          max-width: 100%;
+        }
+
         @media only screen and (min-width: $screen-desktop) {
           max-width: 100%;
         }
@@ -115,6 +153,16 @@
         &.footer-top--eu {
           top: 7px;
           left: 28px;
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            top: 7px;
+            left: 28px;
+          }
+
+          @media only screen and (min-width: $screen-ipad-h) {
+            top: 12px;
+            left: 6px;
+          }
 
           @media only screen and (min-width: $screen-desktop) {
             top: 12px;
@@ -126,6 +174,18 @@
           left: 1px;
           width: 25px;
 
+          @media only screen and (min-width: $screen-ipad-v) {
+            top: 4px;
+            left: 1px;
+            width: 25px;
+          }
+
+          @media only screen and (min-width: $screen-ipad-h) {
+            top: 9px;
+            left: -9px;
+            width:auto;
+          }
+
           @media only screen and (min-width: $screen-desktop) {
             top: 9px;
             left: -9px;
@@ -136,6 +196,16 @@
           top: 7px;
           left: -25px;
 
+          @media only screen and (min-width: $screen-ipad-v) {
+            top: 7px;
+            left: -25px;
+          }
+
+          @media only screen and (min-width: $screen-ipad-h) {
+            top: 11px;
+            left: -26px;
+          }
+
           @media only screen and (min-width: $screen-desktop) {
             top: 11px;
             left: -26px;
@@ -144,6 +214,16 @@
         &.footer-top--wheel {
           top: 7px;
           left: -52px;
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            top: 7px;
+            left: -52px;
+          }
+
+          @media only screen and (min-width: $screen-ipad-h) {
+            top: 14px;
+            left: -54px;
+          }
 
           @media only screen and (min-width: $screen-desktop) {
             top: 14px;

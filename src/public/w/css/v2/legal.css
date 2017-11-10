@@ -1,21 +1,21 @@
 /*
-Error: Undefined variable: "$screen-desktop".
-        on line 25 of /src/compass_web/sass/v2/legal.scss
+Error: Undefined variable: "$screen-ipad-v".
+        on line 10 of /src/compass_web/sass/v2/legal.scss
 
-20:   .content {
-21:     margin: 0;
-22:     padding: 0px 30px 60px 15px;
-23:     text-align: left;
-24: 
-25:     @media only screen and (min-width: $screen-desktop) {
-26:       padding: 0 30px 60px 30px;
-27:     }
-28: 
-29:     .h1 {
-30:       font-family: $ff1;
+5:   #content.legal-page {
+6:     .gap,
+7:     .gap .gap {
+8:       margin-left: 0;
+9: 
+10:       @media only screen and (min-width: $screen-ipad-v) {
+11:         margin-left: 0;
+12:       }
+13: 
+14:       .n {
+15:         font-style: normal;
 
 Backtrace:
-/src/compass_web/sass/v2/legal.scss:25
+/src/compass_web/sass/v2/legal.scss:10
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
@@ -23,6 +23,17 @@ Backtrace:
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:534:in `run_interp_no_strip'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:541:in `run_interp'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:509:in `visit_media'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block (2 levels) in visit_rule'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `map'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block in visit_rule'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:428:in `visit_rule'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
@@ -81,4 +92,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 25 of /src/compass_web/sass/v2/legal.scss\A \A 20:   .content {\A 21:     margin: 0;\A 22:     padding: 0px 30px 60px 15px;\A 23:     text-align: left;\A 24: \A 25:     @media only screen and (min-width: $screen-desktop) {\A 26:       padding: 0 30px 60px 30px;\A 27:     }\A 28: \A 29:     .h1 {\A 30:       font-family: $ff1;"; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 10 of /src/compass_web/sass/v2/legal.scss\A \A 5:   #content.legal-page {\A 6:     .gap,\A 7:     .gap .gap {\A 8:       margin-left: 0;\A 9: \A 10:       @media only screen and (min-width: $screen-ipad-v) {\A 11:         margin-left: 0;\A 12:       }\A 13: \A 14:       .n {\A 15:         font-style: normal;"; }

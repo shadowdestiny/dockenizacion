@@ -7,8 +7,17 @@
     .gap .gap {
       margin-left: 0;
 
+      @media only screen and (min-width: $screen-ipad-v) {
+        margin-left: 0;
+      }
+
       .n {
         font-style: normal;
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          font-style: normal;
+        }
+
       }
     }
   }
@@ -22,6 +31,16 @@
     padding: 0px 30px 60px 15px;
     text-align: left;
 
+    @media only screen and (min-width: $screen-ipad-v) {
+      margin: 0;
+      padding: 0px 30px 60px 15px;
+      text-align: left;
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      padding: 0 30px 60px 30px;
+    }
+
     @media only screen and (min-width: $screen-desktop) {
       padding: 0 30px 60px 30px;
     }
@@ -34,6 +53,16 @@
       color: #a8a9a8;
 
       margin-bottom: 20px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        font-family: $ff1;
+        text-transform: uppercase;
+        font-size: 17px;
+        font-weight: 900;
+        color: #a8a9a8;
+
+        margin-bottom: 20px;
+      }
     }
 
     .h2 {
@@ -43,6 +72,15 @@
       color: #a8a9a8;
 
       margin-bottom: 20px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        font-family: $ff1;
+        font-size: 17px;
+        font-weight: 900;
+        color: #a8a9a8;
+
+        margin-bottom: 20px;
+      }
     }
 
     .h3 {
@@ -51,6 +89,14 @@
       color: #a8a9a8;
 
       margin-bottom: 20px;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        font-family: $ff1;
+        font-size: 17px;
+        color: #a8a9a8;
+
+        margin-bottom: 20px;
+      }
     }
 
     p {
@@ -58,12 +104,12 @@
       color: #a8a9a8;
       font-size: 17px;
       margin-bottom: 25px;
-    }
 
-    ul {
-
-      li {
-
+      @media only screen and (min-width: $screen-ipad-v) {
+        font-family: $ff1;
+        color: #a8a9a8;
+        font-size: 17px;
+        margin-bottom: 25px;
       }
     }
 
@@ -73,11 +119,15 @@
         color: #a8a9a8;
         font-size: 17px;
         margin-bottom: 25px;
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          font-family: $ff1;
+          color: #a8a9a8;
+          font-size: 17px;
+          margin-bottom: 25px;
+        }
       }
     }
-
   }
-
-
 }
 

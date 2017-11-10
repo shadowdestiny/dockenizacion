@@ -4,6 +4,16 @@
   padding-top: 15px;
   padding-bottom: 24px;
 
+  @media only screen and (min-width: $screen-ipad-v) {
+    padding-top: 15px;
+    padding-bottom: 24px;
+  }
+
+  @media only screen and (min-width: $screen-ipad-h) {
+    padding-top: 65px;
+    padding-bottom: 78px;
+  }
+
   @media only screen and (min-width: $screen-desktop) {
     padding-top: 65px;
     padding-bottom: 78px;
@@ -14,6 +24,18 @@
     font-size: 37px;
     padding-left: 17px;
     margin-bottom: 15px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      font-size: 37px;
+      padding-left: 17px;
+      margin-bottom: 15px;
+    }
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      font-size: 51px;
+      margin-bottom: 41px;
+      padding-left: 0;
+    }
 
     @media only screen and (min-width: $screen-desktop) {
       font-size: 51px;
@@ -46,6 +68,35 @@
       display: flex;
       flex-direction: column;
 
+      @media only screen and (min-width: $screen-ipad-v) {
+        float: left;
+        border-width: 1px;
+        border-color:  #959595;
+        border-style: solid;
+        background-color:  rgba(249, 249, 249, 0);
+        width: 161px;
+        height: 161px;
+        margin-right: 34px;
+        padding-top: 13px;
+        padding-bottom: 8px;
+        padding-left: 5px;
+        padding-right: 5px;
+        position: relative;
+
+        display: flex;
+        flex-direction: column;
+      }
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        width: 300px;
+        height: 281px;
+        margin-right: 26px;
+        padding-top: 26px;
+        padding-bottom: 12px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
       @media only screen and (min-width: $screen-desktop) {
         width: 300px;
         height: 281px;
@@ -71,6 +122,23 @@
         align-items: flex-start;
         flex-grow: 1;
 
+        @media only screen and (min-width: $screen-ipad-v) {
+          //font-family: WorkSans;
+          color:  #9b9b9b;
+          font-weight: 700;
+          text-align: left;
+          font-size: 34px;
+          padding-left: 8px;
+          display: flex;
+          align-items: flex-start;
+          flex-grow: 1;
+        }
+
+        @media only screen and (min-width: $screen-ipad-h) {
+          font-size: 56px;
+          padding-left: 23px;
+        }
+
         @media only screen and (min-width: $screen-desktop) {
           font-size: 56px;
           padding-left: 23px;
@@ -93,6 +161,28 @@
         min-height: 26px;
         padding-left: 0px;
 
+        @media only screen and (min-width: $screen-ipad-v) {
+          //font-family: WorkSans;
+          color:  #9b9b9b;
+          font-weight: 700;
+          text-align: center;
+          display: flex;
+          justify-content: center;
+          text-transform: uppercase;
+
+          font-size: 11px;
+          line-height: 1.2;
+          min-height: 26px;
+          padding-left: 0px;
+        }
+
+        @media only screen and (min-width: $screen-ipad-h) {
+          font-size: 20px;
+          line-height: 1.2;
+          min-height: 50px;
+          padding-left: 14px;
+        }
+
         @media only screen and (min-width: $screen-desktop) {
           font-size: 20px;
           line-height: 1.2;
@@ -110,6 +200,22 @@
         -webkit-background-size: 56px;
         background-size: 56px;
 
+        @media only screen and (min-width: $screen-ipad-v) {
+          background-image: url('../img/home/how-it-works/desktop/1-img.png');
+          background-repeat: no-repeat;
+
+
+          background-position: 45px 19px;
+          -webkit-background-size: 56px;
+          background-size: 56px;
+        }
+
+        @media only screen and (min-width: $screen-ipad-h) {
+          background-position: 93px 45px;
+          -webkit-background-size: 90px;
+          background-size: 90px;
+        }
+
         @media only screen and (min-width: $screen-desktop) {
           background-position: 93px 45px;
           -webkit-background-size: 90px;
@@ -119,6 +225,11 @@
         .hiw-block--corner {
           position: relative;
           top: 7px;
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            position: relative;
+            top: 7px;
+          }
         }
       }
       &.hiw-block--02 {
@@ -128,6 +239,21 @@
         background-position: 36px 42px;
         -webkit-background-size: 89px;
         background-size: 89px;
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          background-image: url('../img/home/how-it-works/desktop/2-img.png');
+          background-repeat: no-repeat;
+
+          background-position: 36px 42px;
+          -webkit-background-size: 89px;
+          background-size: 89px;
+        }
+
+        @media only screen and (min-width: $screen-ipad-h) {
+          background-position: 75px 69px;
+          -webkit-background-size: 143px;
+          background-size: 143px;
+        }
 
         @media only screen and (min-width: $screen-desktop) {
           background-position: 75px 69px;
@@ -143,6 +269,21 @@
         -webkit-background-size: 57px;
         background-size: 57px;
 
+        @media only screen and (min-width: $screen-ipad-v) {
+          background-image: url('../img/home/how-it-works/desktop/3-img.png');
+          background-repeat: no-repeat;
+
+          background-position: 53px 56px;
+          -webkit-background-size: 57px;
+          background-size: 57px;
+        }
+
+        @media only screen and (min-width: $screen-ipad-h) {
+          background-position: 105px 90px;
+          -webkit-background-size: 93px;
+          background-size: 93px;
+        }
+
         @media only screen and (min-width: $screen-desktop) {
           background-position: 105px 90px;
           -webkit-background-size: 93px;
@@ -157,6 +298,21 @@
         -webkit-background-size: 91px;
         background-size: 91px;
 
+        @media only screen and (min-width: $screen-ipad-v) {
+          background-image: url('../img/home/how-it-works/desktop/4-img.png');
+          background-repeat: no-repeat;
+
+          background-position: 35px 51px;
+          -webkit-background-size: 91px;
+          background-size: 91px;
+        }
+
+        @media only screen and (min-width: $screen-ipad-h) {
+          background-position: 75px 84px;
+          -webkit-background-size: 148px;
+          background-size: 148px;
+        }
+
         @media only screen and (min-width: $screen-desktop) {
           background-position: 75px 84px;
           -webkit-background-size: 148px;
@@ -166,11 +322,22 @@
         .hiw-block--corner {
           position: relative;
           left: -5px;
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            position: relative;
+            left: -5px;
+          }
         }
 
         .hiw-block--description {
           padding-left: 0px;
           margin-left: -8px;
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            padding-left: 0px;
+            margin-left: -8px;
+          }
+
         }
       }
     }

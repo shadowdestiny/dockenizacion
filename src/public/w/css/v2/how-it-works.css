@@ -1,5 +1,5 @@
 /*
-Error: Undefined variable: "$screen-desktop".
+Error: Undefined variable: "$screen-ipad-v".
         on line 7 of /src/compass_web/sass/v2/how-it-works.scss
 
 2: .hiw-block--section {
@@ -7,12 +7,12 @@ Error: Undefined variable: "$screen-desktop".
 4:   padding-top: 15px;
 5:   padding-bottom: 24px;
 6: 
-7:   @media only screen and (min-width: $screen-desktop) {
-8:     padding-top: 65px;
-9:     padding-bottom: 78px;
+7:   @media only screen and (min-width: $screen-ipad-v) {
+8:     padding-top: 15px;
+9:     padding-bottom: 24px;
 10:   }
 11: 
-12: 
+12:   @media only screen and (min-width: $screen-ipad-h) {
 
 Backtrace:
 /src/compass_web/sass/v2/how-it-works.scss:7
@@ -70,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-desktop\".\A         on line 7 of /src/compass_web/sass/v2/how-it-works.scss\A \A 2: .hiw-block--section {\A 3: \A 4:   padding-top: 15px;\A 5:   padding-bottom: 24px;\A 6: \A 7:   @media only screen and (min-width: $screen-desktop) {\A 8:     padding-top: 65px;\A 9:     padding-bottom: 78px;\A 10:   }\A 11: \A 12: "; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 7 of /src/compass_web/sass/v2/how-it-works.scss\A \A 2: .hiw-block--section {\A 3: \A 4:   padding-top: 15px;\A 5:   padding-bottom: 24px;\A 6: \A 7:   @media only screen and (min-width: $screen-ipad-v) {\A 8:     padding-top: 15px;\A 9:     padding-bottom: 24px;\A 10:   }\A 11: \A 12:   @media only screen and (min-width: $screen-ipad-h) {"; }

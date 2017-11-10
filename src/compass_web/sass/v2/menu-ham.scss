@@ -2,13 +2,8 @@
 /* MENU HAMBURGER */
 .menu-ham {
   position: absolute;
-  //top: 10px;
-  //right: 10px;
   top: 33px;
   left: 10px;
-  border: 0;
-  //border: 1px solid $grey-light;
-  //border-radius: 3px;
   border: 1px solid #fff;
   padding: 0;
   outline: none;
@@ -16,15 +11,30 @@
   height: 40px;
   transition: all .4s ease;
   background: #fff;
-  //margin: 1px 5px 0 0;
   z-index: 10;
+
+  @media only screen and (min-width: $screen-ipad-v) {
+    position: absolute;
+    top: 33px;
+    left: 10px;
+    border: 1px solid #fff;
+    padding: 0;
+    outline: none;
+    width: 42px;
+    height: 40px;
+    transition: all .4s ease;
+    background: #fff;
+    z-index: 10;
+  }
 }
-
-
 
 .menu-ham {
   .bar {
     margin: -2px 0 0 4px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      margin: -2px 0 0 4px;
+    }
   }
   .bar, .bar:before, .bar:after {
     content: '';
@@ -35,16 +45,33 @@
     transition: all 500ms ease-in-out;
     background: #000;
     width: 55px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      content: '';
+      position: absolute;
+      cursor: pointer;
+      height: 12px;
+      display: block;
+      transition: all 500ms ease-in-out;
+      background: #000;
+      width: 55px;
+    }
   }
 
   .bar:before {
-    //top: -10px;
     top: -18px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      top: -18px;
+    }
   }
 
   .bar:after {
-    //bottom: -10px;
     bottom: -18px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      bottom: -18px;
+    }
   }
 
   &.expanded {
@@ -54,12 +81,24 @@
     top: 26px;
     left: 29px;
 
+    @media only screen and (min-width: $screen-ipad-v) {
+      transform: rotate(90deg);
+      border: 1px solid #fff;
+      background-color: transparent;
+      top: 26px;
+      left: 29px;
+    }
+
     span {
       background-color: transparent;
     }
 
     span:before {
       top: 0;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        top: 0;
+      }
     }
 
     span:before {

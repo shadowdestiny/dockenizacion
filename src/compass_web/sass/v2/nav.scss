@@ -8,6 +8,19 @@
   z-index: 10;
   padding-top: 31px;
 
+  @media only screen and (min-width: $screen-ipad-v) {
+    min-height: 94px;
+
+    position: relative;
+    background: #fff;
+    z-index: 10;
+    padding-top: 31px;
+  }
+
+  @media only screen and (min-width: $screen-ipad-h) {
+    min-height: 110px;
+  }
+
   @media only screen and (min-width: $screen-desktop) {
     min-height: 110px;
   }
@@ -90,7 +103,8 @@
   background: #fff;
   border: 1px solid $yellow;
   border-top: 0;
-  border-radius: 0 0 5px 5px; /*overflow-y:auto; height:260px; min-width:202px;*/
+  border-radius: 0 0 5px 5px;
+
   li {
     border-bottom: 1px solid $yellow;
   }
@@ -119,7 +133,7 @@
   background: #fff;
   border: 1px solid $yellow;
   border-top: 0;
-  border-radius: 0 0 5px 5px; /*overflow-y:auto; height:260px; min-width:202px;*/
+  border-radius: 0 0 5px 5px;
   li {
     border-bottom: 1px solid $yellow;
   }
@@ -237,6 +251,18 @@
     }
   }
 
+  @media only screen and (min-width: $screen-ipad-v) {
+    ul {
+      display: none;
+    }
+  }
+
+  @media only screen and (min-width: $screen-ipad-h) {
+    ul {
+      display: none;
+    }
+  }
+
   @media only screen and (min-width: $screen-desktop) {
     ul {
       display: none;
@@ -255,11 +281,23 @@
   margin: 8px 0px 0 85px;
   width: 296px;
 
+  @media only screen and (min-width: $screen-ipad-v) {
+    float: left;
+    margin: 8px 0px 0 85px;
+    width: 296px;
+  }
+
+  @media only screen and (min-width: $screen-ipad-h) {
+    float: left;
+    margin: 5px 0 0;
+    width: 200px;
+    margin-top: 15px;
+  }
+
   @media only screen and (min-width: $screen-desktop) {
     float: left;
     margin: 5px 0 0;
     width: 200px;
     margin-top: 15px;
-    //margin-left: 60px;
   }
 }
