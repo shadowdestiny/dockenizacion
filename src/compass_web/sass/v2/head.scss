@@ -1,7 +1,16 @@
 .head {
-  position: relative;
-  z-index: 9;
-  height: 79px;
+
+  @media only screen and (min-width: $screen-ipad-h) {
+    position: relative;
+    z-index: 9;
+    height: 79px;
+  }
+
+  @media only screen and (min-width: $screen-desktop) {
+    position: relative;
+    z-index: 9;
+    height: 79px;
+  }
 
   //background-color: $v2-desktop-menu-bg;
 
@@ -16,41 +25,84 @@
   text-align: center;
 
   ul{
-    height: 79px;
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      height: 79px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      height: 79px;
+    }
   }
 
   li {
-    display: inline-block;
-    //margin: 0 18px;
-    //margin: 0;
-    margin: 0 -3px;
-    height: 79px;
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      display: inline-block;
+      margin: 0 -3px;
+      height: 79px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      display: inline-block;
+      margin: 0 -3px;
+      height: 79px;
+    }
   }
 
 
   li:first-child {
-    margin-left: -93px;
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      //margin-left: -93px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      margin-left: -93px;
+    }
   }
 
   li:last-child {
+
     margin-right: 0;
+
+    @media only screen and (min-width: $screen-ipad-h) {}
+
+    @media only screen and (min-width: $screen-desktop) {}
   }
 
   .v-cart {
-    display: inline-block;
     color: $black;
-    margin-top: 4px;
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      display: inline-block;
+      margin-top: 4px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      display: inline-block;
+      margin-top: 4px;
+    }
   }
 
   a {
     display: block;
     text-transform: uppercase;
-    font-size: 24px;
     font-weight: 900;
-    line-height: 81px;
-    height: 79px;
-    //padding: 0 20px;
-    padding: 0 38px;
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      font-size: 22px;
+      line-height: 81px;
+      height: 79px;
+      padding: 0 30px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      font-size: 24px;
+      line-height: 81px;
+      height: 79px;
+      padding: 0 38px;
+    }
   }
 
   & > span {
@@ -58,22 +110,41 @@
   }
 
   .link {
-    font-size: 75%;
     text-decoration: none !important;
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      font-size: 75%;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      font-size: 75%;
+    }
   }
 
   .txt {
-    position: relative;
-    top: -2px;
-    //font-size: 85%;
-    //font-weight: 700;
     font-weight: 900;
     color: #000;
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      position: relative;
+      top: -2px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      position: relative;
+      top: -2px;
+    }
   }
 
   &.desktop .li-cart .txt {
-    margin-bottom: -1px;
     display: inline-block;
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      margin-bottom: -1px;
+    }
+    @media only screen and (min-width: $screen-desktop) {
+      margin-bottom: -1px;
+    }
   }
 
   .active {
@@ -85,24 +156,23 @@
   //.main-nav a:hover, .li-your-account:hover > a {
   li.active a,
   a:hover {
-    //background-color: $purple; /* fallback */
-    //@include background-image(linear-gradient(#8b355b, $purple));
-    //background-color: $v2-desktop-menu-hover-bg;
-
-    //color: $v2-desktop-menu-hover-color;
-
-    //background: #6c6c6c;
     background: #f8ce0d;
 
     .txt {
-      //color: #f9d118;
       color: #333333;
     }
   }
 
   .v-user {
     position: relative;
-    top: 1px;
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      top: 1px;
+    }
+
+    @media only screen and (min-width: $screen-desktop) {
+      top: 1px;
+    }
   }
 }
 
