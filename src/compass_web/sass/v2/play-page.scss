@@ -291,10 +291,19 @@
 
         @media only screen and (min-width: $screen-ipad-v) {
           color:  #ffffff;
-          font-size: 18px;
           font-weight: 500;
           text-align: center;
           text-transform: uppercase;
+          font-size: 18px;
+          padding-bottom: 10px;
+        }
+
+        @media only screen and (min-width: $screen-ipad-h) {
+          font-size: 18px;
+          padding-bottom: 10px;
+        }
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 18px;
           padding-bottom: 10px;
         }
       }
@@ -305,6 +314,13 @@
 
         @media only screen and (min-width: $screen-ipad-v) {
           text-align: center;
+          padding-right: 7px;
+        }
+
+        @media only screen and (min-width: $screen-ipad-h) {
+          padding-right: 7px;
+        }
+        @media only screen and (min-width: $screen-desktop) {
           padding-right: 7px;
         }
 
@@ -343,10 +359,52 @@
             padding: 0px;
           }
 
+          @media only screen and (min-width: $screen-ipad-h) {
+            text-transform: uppercase;
+            display: inline-block;
+            height: 48px;
+            line-height: 48px;
+            background-color: #469eef;
+            border-radius: 4px;
+            text-shadow: none;
+            text-decoration: none;
+            color: #fff;
+
+            //font-family: WorkSans;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            padding: 0px;
+          }
+          @media only screen and (min-width: $screen-desktop) {
+            text-transform: uppercase;
+            display: inline-block;
+            height: 48px;
+            line-height: 48px;
+            background-color: #469eef;
+            border-radius: 4px;
+            text-shadow: none;
+            text-decoration: none;
+            color: #fff;
+
+            //font-family: WorkSans;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            padding: 0px;
+          }
+
           &.a-hiw {
             width: 187px;
 
             @media only screen and (min-width: $screen-ipad-v) {
+              width: 187px;
+            }
+
+            @media only screen and (min-width: $screen-ipad-h) {
+              width: 187px;
+            }
+            @media only screen and (min-width: $screen-desktop) {
               width: 187px;
             }
           }
@@ -356,11 +414,25 @@
             @media only screen and (min-width: $screen-ipad-v) {
               width: 148px;
             }
+
+            @media only screen and (min-width: $screen-ipad-h) {
+              width: 148px;
+            }
+            @media only screen and (min-width: $screen-desktop) {
+              width: 148px;
+            }
           }
           &.a-faq {
             width: 137px;
 
             @media only screen and (min-width: $screen-ipad-v) {
+              width: 137px;
+            }
+
+            @media only screen and (min-width: $screen-ipad-h) {
+              width: 137px;
+            }
+            @media only screen and (min-width: $screen-desktop) {
               width: 137px;
             }
           }
@@ -383,6 +455,35 @@
         background-position: 0;
 
         @media only screen and (min-width: $screen-ipad-v) {
+          display: block;
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 2px;
+          height: 90px;
+          background-image: url('../img/play/desktop/help-separator.png');
+          -webkit-background-size: 2px;
+          background-size: 2px;
+          background-repeat: no-repeat;
+          background-position: 0;
+        }
+
+        @media only screen and (min-width: $screen-ipad-h) {
+          display: block;
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 2px;
+          height: 90px;
+          background-image: url('../img/play/desktop/help-separator.png');
+          -webkit-background-size: 2px;
+          background-size: 2px;
+          background-repeat: no-repeat;
+          background-position: 0;
+        }
+        @media only screen and (min-width: $screen-desktop) {
           display: block;
           content: "";
           position: absolute;
