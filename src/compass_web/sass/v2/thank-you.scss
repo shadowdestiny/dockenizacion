@@ -45,7 +45,7 @@
       @media only screen and (min-width: $screen-ipad-h) {
         height: 125px;
         padding-left: 72px;
-        font-size: 60px;
+        font-size: 40px;
         line-height: 125px;
       }
 
@@ -228,12 +228,12 @@
     @media only screen and (min-width: $screen-ipad-h) {
       background-image: url('../img/thank-you/desktop/stars.png');
       background-repeat: no-repeat;
-      background-position: 91% 29%;
-      -webkit-background-size: 194px;
-      background-size: 194px;
+      background-position: 81% 29%;
+      -webkit-background-size: 134px;
+      background-size: 134px;
 
       padding-left: 70px;
-      padding-bottom: 74px;
+      padding-bottom: 54px;
     }
 
     @media only screen and (min-width: $screen-desktop) {
@@ -271,7 +271,7 @@
 
       @media only screen and (min-width: $screen-ipad-h) {
         color:  #fad425;
-        font-size: 24px;
+        font-size: 18px;
         font-weight: 900;
         line-height: 28px;
         text-align: left;
@@ -304,7 +304,7 @@
 
       @media only screen and (min-width: $screen-ipad-h) {
         color:  #fad425;
-        font-size: 60px;
+        font-size: 40px;
         font-weight: 900;
         text-align: left;
       }
