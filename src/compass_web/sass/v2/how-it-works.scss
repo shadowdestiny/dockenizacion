@@ -88,9 +88,9 @@
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        width: 300px;
-        height: 281px;
-        margin-right: 26px;
+        width: 210px;
+        height: 210px;
+        margin-right: 30px;
         padding-top: 26px;
         padding-bottom: 12px;
         padding-left: 10px;
@@ -177,10 +177,10 @@
         }
 
         @media only screen and (min-width: $screen-ipad-h) {
-          font-size: 20px;
+          font-size: 14px;
           line-height: 1.2;
-          min-height: 50px;
-          padding-left: 14px;
+          min-height: 40px;
+          padding-left: 0px;
         }
 
         @media only screen and (min-width: $screen-desktop) {
@@ -211,9 +211,9 @@
         }
 
         @media only screen and (min-width: $screen-ipad-h) {
-          background-position: 93px 45px;
-          -webkit-background-size: 90px;
-          background-size: 90px;
+          background-position: 73px 45px;
+          -webkit-background-size: 60px;
+          background-size: 60px;
         }
 
         @media only screen and (min-width: $screen-desktop) {
@@ -250,9 +250,9 @@
         }
 
         @media only screen and (min-width: $screen-ipad-h) {
-          background-position: 75px 69px;
-          -webkit-background-size: 143px;
-          background-size: 143px;
+          background-position: 65px 59px;
+          -webkit-background-size: 93px;
+          background-size: 93px;
         }
 
         @media only screen and (min-width: $screen-desktop) {
@@ -279,9 +279,9 @@
         }
 
         @media only screen and (min-width: $screen-ipad-h) {
-          background-position: 105px 90px;
+          background-position: 85px 70px;
           -webkit-background-size: 93px;
-          background-size: 93px;
+          background-size: 63px;
         }
 
         @media only screen and (min-width: $screen-desktop) {
@@ -308,9 +308,9 @@
         }
 
         @media only screen and (min-width: $screen-ipad-h) {
-          background-position: 75px 84px;
-          -webkit-background-size: 148px;
-          background-size: 148px;
+          background-position: 65px 64px;
+          -webkit-background-size: 98px;
+          background-size: 98px;
         }
 
         @media only screen and (min-width: $screen-desktop) {
@@ -334,6 +334,14 @@
           margin-left: -8px;
 
           @media only screen and (min-width: $screen-ipad-v) {
+            padding-left: 0px;
+            margin-left: -8px;
+          }
+          @media only screen and (min-width: $screen-ipad-h) {
+            padding-left: 0px;
+            margin-left: 0px;
+          }
+          @media only screen and (min-width: $screen-desktop) {
             padding-left: 0px;
             margin-left: -8px;
           }
