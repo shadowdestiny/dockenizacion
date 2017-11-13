@@ -64,7 +64,7 @@
         }
 
         @media only screen and (min-width: $screen-ipad-h) {
-          font-size: 60px;
+          font-size: 40px;
           line-height: 125px;
         }
 
@@ -278,7 +278,8 @@
 
           @media only screen and (min-width: $screen-ipad-h) {
             color: #333333;
-            font-size: 24px;
+            //font-size: 24px;
+            font-size: 18.5px;
             font-weight: 900;
             line-height: 36px;
             text-align: left;
@@ -460,7 +461,7 @@
         }
 
         @media only screen and (min-width: $screen-ipad-h) {
-          font-size: 24px;
+          font-size: 20px;
           font-weight: 700;
           text-align: left;
           padding-top: 9px;
