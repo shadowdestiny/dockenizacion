@@ -186,6 +186,14 @@
 
 
     .top-banner--for-only {
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        text-align: center;
+      }
+      @media only screen and (min-width: $screen-desktop) {
+        text-align: left;
+      }
+      
       div {
         display: inline-block;
 
@@ -213,9 +221,17 @@
       div, span {
         font-family: $ff1;
         color:  #ffffff;
-        text-align: left;
         text-transform: uppercase;
         margin-bottom: 7px;
+
+        @media only screen and (min-width: $screen-ipad-h) {
+          font-size: 18px;
+          text-align: center;
+        }
+        @media only screen and (min-width: $screen-desktop) {
+          text-align: left;
+          font-size: 24px;
+        }
       }
 
       @media only screen and (min-width: $screen-ipad-v) {
@@ -228,10 +244,12 @@
 
       @media only screen and (min-width: $screen-ipad-h) {
         font-size: 24px;
+        text-align: center;
       }
 
       @media only screen and (min-width: $screen-desktop) {
         font-size: 24px;
+        text-align: left;
       }
     }
 
@@ -302,7 +320,7 @@
 
       //TODO : check this resolution
       @media only screen and (min-width: $screen-ipad-h) {
-        width: 480px;
+        width: 380px;
         display: inline-block;
         position: relative;
         left: -19px;
@@ -316,20 +334,41 @@
       }
 
       .desktop-row--01 {
-        font-size: 190px;
-        position: relative;
-        top: -15px;
-        text-align: center;
-        left: -4px;
+
+        @media only screen and (min-width: $screen-ipad-h) {
+          font-size: 140px;
+          position: relative;
+          top: 5px;
+          text-align: center;
+          left: 0px;
+        }
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 190px;
+          position: relative;
+          top: -15px;
+          text-align: center;
+          left: -4px;
+        }
       }
 
       .desktop-row--02 {
-        font-size: 78px;
-        text-align: center;
-        text-transform: uppercase;
-        position: relative;
-        top: -42px;
-        left: 10px;
+
+        @media only screen and (min-width: $screen-ipad-h) {
+          font-size: 58px;
+          text-align: center;
+          text-transform: uppercase;
+          position: relative;
+          top: 8px;
+          left: 10px;
+        }
+        @media only screen and (min-width: $screen-desktop) {
+          font-size: 78px;
+          text-align: center;
+          text-transform: uppercase;
+          position: relative;
+          top: -42px;
+          left: 2px;
+        }
       }
 
       .top-banner--for-only{
@@ -350,6 +389,7 @@
         text-align: center;
         text-transform: uppercase;
         letter-spacing: 2px;
+
       }
 
       .btn-theme--big {
@@ -397,6 +437,7 @@
         background-position: 0 0;
         -webkit-background-size: 68px;
         background-size: 68px;
+
       }
 
       .star--02{
@@ -410,6 +451,7 @@
         background-position: 0 0;
         -webkit-background-size: 61px;
         background-size: 61px;
+
       }
 
       .star--03{
@@ -423,6 +465,7 @@
         background-position: 0 0;
         -webkit-background-size: 39px;
         background-size: 39px;
+
       }
 
 
@@ -442,7 +485,7 @@
       @media only screen and (min-width: $screen-ipad-h) {
         display: block;
 
-        width: 400px;
+        width: 270px;
         vertical-align: top;
 
         text-align: center;
@@ -453,7 +496,7 @@
         line-height: 1.2;
 
         height: 200px;
-        padding-left: 190px;
+        padding-left: 60px;
         margin-right: 0;
         float: left;
 
@@ -461,6 +504,9 @@
         background-image: url('../img/home/banner/desktop/stars.png');
         background-repeat: no-repeat;
         background-position: 0 46px;
+
+        -webkit-background-size: 79px;
+        background-size: 79px;
       }
 
       @media only screen and (min-width: $screen-desktop) {
@@ -485,6 +531,8 @@
         background-image: url('../img/home/banner/desktop/stars.png');
         background-repeat: no-repeat;
         background-position: 0 46px;
+        -webkit-background-size: 179px;
+        background-size: 179px;
       }
 
     }
@@ -499,11 +547,11 @@
 
       @media only screen and (min-width: $screen-ipad-h) {
         display: inline-block;
-        width: 360px;
+        width: 270px;
         vertical-align: top;
         float: right;
         text-align: center;
-        padding-top: 44px;
+        padding-top: 54px;
       }
 
       @media only screen and (min-width: $screen-desktop) {
