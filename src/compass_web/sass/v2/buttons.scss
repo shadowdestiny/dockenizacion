@@ -126,18 +126,21 @@
 .number-generator--block--button:focus,
 .number-generator--block--button:visited,
 .number-generator--block--button:active {
-  min-width: 456px;
-  height: 101px;
-  line-height: 101px;
-  font-size: 35.85px;
+
 
   @media only screen and (min-width: $screen-ipad-v) {
 
   }
   @media only screen and (min-width: $screen-ipad-h) {
-
+    //min-width: 456px;
+    height: 101px;
+    line-height: 101px;
+    font-size: 35.85px;
   }
   @media only screen and (min-width: $screen-desktop) {
-
+    min-width: 456px;
+    height: 101px;
+    line-height: 101px;
+    font-size: 35.85px;
   }
 }

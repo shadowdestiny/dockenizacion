@@ -49,7 +49,7 @@
         @media only screen and (min-width: $screen-ipad-h) {
           line-height: 1.1;
           margin-bottom: 13px;
-          font-size: 52px;
+          font-size: 42px;
         }
 
         @media only screen and (min-width: $screen-desktop) {
@@ -437,8 +437,23 @@
     padding-left: 543px;
     width: 100%;
 
+    @media only screen and (min-width: $screen-ipad-h) {
+      padding-left: 543px;
+      width: 100%;
+    }
+    @media only screen and (min-width: $screen-desktop) {
+      padding-left: 543px;
+      width: 100%;
+    }
+
     .number-generator--block--img {
-      height: 387px;
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        height: 217px;
+      }
+      @media only screen and (min-width: $screen-desktop) {
+        height: 387px;
+      }
 
       img {
         max-width: 100%;
@@ -449,15 +464,29 @@
       text-align: left;
       line-height: 48px;
       margin-bottom: 14px;
+
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        font-size: 42px;
+      }
+      @media only screen and (min-width: $screen-desktop) {
+        font-size: 52px;
+      }
     }
 
     .number-generator--block--subtitle {
       color: #f8ce0d;
-      font-size: 30px;
       line-height: 30px;
       margin-bottom: 17px;
       font-weight: 700;
       text-align: left;
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        font-size: 24px;
+      }
+      @media only screen and (min-width: $screen-desktop) {
+        font-size: 30px;
+      }
     }
 
     .number-generator--block--body {
@@ -467,11 +496,17 @@
       line-height: 21px;
       text-align: left;
       padding-bottom: 35px;
+
+      @media only screen and (min-width: $screen-ipad-h) {}
+      @media only screen and (min-width: $screen-desktop) {}
     }
 
     .number-generator--block--button {
       display: inline-block;
       padding-left: 50px;
+
+      @media only screen and (min-width: $screen-ipad-h) {}
+      @media only screen and (min-width: $screen-desktop) {}
     }
 
   }
