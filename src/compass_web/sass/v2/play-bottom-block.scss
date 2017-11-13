@@ -45,8 +45,8 @@
     background-repeat: no-repeat;
     background-position: 42px 100%;
 
-    -webkit-background-size: 395px;
-    background-size: 395px;
+    -webkit-background-size: 31%;
+    background-size: 31%;
 
     margin-left: -27px;
     margin-right: -28px;
@@ -98,7 +98,7 @@
 
     @media only screen and (min-width: $screen-ipad-h) {
       margin: auto;
-      max-width: 820px;
+      max-width: 620px;
       margin-bottom: 48px;
       padding-top: 4px;
     }
@@ -130,7 +130,7 @@
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        font-size: 30px;
+        font-size: 20px;
         padding-bottom: 12px;
       }
 
@@ -156,8 +156,8 @@
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        font-size: 24px;
-        line-height: 40px;
+        font-size: 18px;
+        line-height: 28px;
       }
 
       @media only screen and (min-width: $screen-desktop) {
@@ -178,7 +178,7 @@
 
     @media only screen and (min-width: $screen-ipad-h) {
       float: right;
-      max-width: 790px;
+      max-width: 590px;
       padding-right: 57px;
     }
 
@@ -207,7 +207,7 @@
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        font-size: 30px;
+        font-size: 20px;
         padding-bottom: 13px;
       }
 
@@ -235,8 +235,8 @@
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        font-size: 24px;
-        line-height: 40px;
+        font-size: 18px;
+        line-height: 28px;
       }
 
       @media only screen and (min-width: $screen-desktop) {
