@@ -16,6 +16,16 @@
   li {
     margin: 0 30px;
 
+    @media only screen and (min-width: $screen-ipad-v) {
+      margin: 0 30px;
+    }
+    @media only screen and (min-width: $screen-ipad-h) {
+      margin: 0 20px;
+    }
+    @media only screen and (min-width: $screen-desktop) {
+      margin: 0 30px;
+    }
+
     a {
       position: relative;
       display: block;
