@@ -216,7 +216,7 @@
         }
 
         @media only screen and (min-width: $screen-ipad-h) {
-          font-size: 68.5px;
+          font-size: 58.5px;
         }
 
         @media only screen and (min-width: $screen-desktop) {
@@ -265,7 +265,7 @@
         display: block;
         float: right;
         position: relative;
-        width: 550px;
+        width: 270px;
         margin-top: 8px;
         height: 90px;
         padding-top: 5px;
@@ -299,12 +299,14 @@
         }
 
         @media only screen and (min-width: $screen-ipad-h) {
-          font-size: 18px;
+          font-size: 12px;
           padding-bottom: 10px;
+          padding-top: 6px;
         }
         @media only screen and (min-width: $screen-desktop) {
           font-size: 18px;
           padding-bottom: 10px;
+          padding-top: 0;
         }
       }
 
@@ -318,7 +320,7 @@
         }
 
         @media only screen and (min-width: $screen-ipad-h) {
-          padding-right: 7px;
+          padding-right: 0px;
         }
         @media only screen and (min-width: $screen-desktop) {
           padding-right: 7px;
@@ -362,8 +364,8 @@
           @media only screen and (min-width: $screen-ipad-h) {
             text-transform: uppercase;
             display: inline-block;
-            height: 48px;
-            line-height: 48px;
+            height: 28px;
+            line-height: 28px;
             background-color: #469eef;
             border-radius: 4px;
             text-shadow: none;
@@ -371,10 +373,10 @@
             color: #fff;
 
             //font-family: WorkSans;
-            font-size: 18px;
+            font-size: 12px;
             font-weight: 700;
             text-align: center;
-            padding: 0px;
+            padding: 0px 10px;
           }
           @media only screen and (min-width: $screen-desktop) {
             text-transform: uppercase;
@@ -402,7 +404,7 @@
             }
 
             @media only screen and (min-width: $screen-ipad-h) {
-              width: 187px;
+              width: auto;
             }
             @media only screen and (min-width: $screen-desktop) {
               width: 187px;
@@ -416,7 +418,7 @@
             }
 
             @media only screen and (min-width: $screen-ipad-h) {
-              width: 148px;
+              width: auto;
             }
             @media only screen and (min-width: $screen-desktop) {
               width: 148px;
@@ -430,7 +432,7 @@
             }
 
             @media only screen and (min-width: $screen-ipad-h) {
-              width: 137px;
+              width: auto;
             }
             @media only screen and (min-width: $screen-desktop) {
               width: 137px;
