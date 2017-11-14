@@ -7,8 +7,8 @@
   border: 1px solid #fff;
   padding: 0;
   outline: none;
-  width: 42px;
-  height: 40px;
+  width: 39px;
+  height: 38px;
   transition: all .4s ease;
   background: #fff;
   z-index: 10;
@@ -30,7 +30,7 @@
 
 .menu-ham {
   .bar {
-    margin: -2px 0 0 4px;
+    margin: -7px 0 0 0px;
 
     @media only screen and (min-width: $screen-ipad-v) {
       margin: -2px 0 0 4px;
@@ -40,11 +40,11 @@
     content: '';
     position: absolute;
     cursor: pointer;
-    height: 12px;
+    height: 8px;
     display: block;
     transition: all 500ms ease-in-out;
     background: #000;
-    width: 55px;
+    width: 37px;
 
     @media only screen and (min-width: $screen-ipad-v) {
       content: '';
@@ -59,7 +59,7 @@
   }
 
   .bar:before {
-    top: -18px;
+    top: -12px;
 
     @media only screen and (min-width: $screen-ipad-v) {
       top: -18px;
@@ -67,7 +67,7 @@
   }
 
   .bar:after {
-    bottom: -18px;
+    bottom: -12px;
 
     @media only screen and (min-width: $screen-ipad-v) {
       bottom: -18px;
@@ -78,8 +78,8 @@
     transform: rotate(90deg);
     border: 1px solid #fff;
     background-color: transparent;
-    top: 26px;
-    left: 29px;
+    top: 30px;
+    left: 7px;
 
     @media only screen and (min-width: $screen-ipad-v) {
       transform: rotate(90deg);

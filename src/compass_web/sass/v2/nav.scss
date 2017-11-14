@@ -278,13 +278,35 @@
 
 .logo {
   float: left;
-  margin: 8px 0px 0 85px;
-  width: 296px;
+  margin: 4px 0px 0 44px;
+  width: 70px;
+
+  @media only screen and (min-width: $screen-ipad-v) {
+    margin: 8px 0px 0 85px;
+    width: 296px;
+  }
+
+  .img--logo-mobile {
+    display: block;
+    width: 58px;
+  }
+
+  .img--logo-tablet {
+    display: none;
+  }
 
   @media only screen and (min-width: $screen-ipad-v) {
     float: left;
     margin: 8px 0px 0 85px;
     width: 296px;
+
+    .img--logo-mobile {
+      display: block;
+    }
+
+    .img--logo-tablet {
+      display: block;
+    }
   }
 
   @media only screen and (min-width: $screen-ipad-h) {
@@ -292,6 +314,14 @@
     margin: 5px 0 0;
     width: 200px;
     margin-top: 15px;
+
+    .img--logo-mobile {
+      display: none;
+    }
+
+    .img--logo-tablet {
+      display: block;
+    }
   }
 
   @media only screen and (min-width: $screen-desktop) {
@@ -299,5 +329,15 @@
     margin: 5px 0 0;
     width: 200px;
     margin-top: 15px;
+
+    .img--logo-mobile {
+      display: none;
+    }
+
+    .img--logo-tablet {
+      display: none;
+    }
   }
+
+
 }

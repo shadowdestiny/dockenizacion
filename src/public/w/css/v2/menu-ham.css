@@ -2,7 +2,7 @@
 Error: Undefined variable: "$screen-ipad-v".
         on line 16 of /src/compass_web/sass/v2/menu-ham.scss
 
-11:   height: 40px;
+11:   height: 38px;
 12:   transition: all .4s ease;
 13:   background: #fff;
 14:   z-index: 10;
@@ -70,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 16 of /src/compass_web/sass/v2/menu-ham.scss\A \A 11:   height: 40px;\A 12:   transition: all .4s ease;\A 13:   background: #fff;\A 14:   z-index: 10;\A 15: \A 16:   @media only screen and (min-width: $screen-ipad-v) {\A 17:     position: absolute;\A 18:     top: 33px;\A 19:     left: 10px;\A 20:     border: 1px solid #fff;\A 21:     padding: 0;"; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 16 of /src/compass_web/sass/v2/menu-ham.scss\A \A 11:   height: 38px;\A 12:   transition: all .4s ease;\A 13:   background: #fff;\A 14:   z-index: 10;\A 15: \A 16:   @media only screen and (min-width: $screen-ipad-v) {\A 17:     position: absolute;\A 18:     top: 33px;\A 19:     left: 10px;\A 20:     border: 1px solid #fff;\A 21:     padding: 0;"; }
