@@ -81,7 +81,7 @@
 
           @media only screen and (min-width: $screen-ipad-h) {
             display: table-cell;
-            width: 250px;
+            width: 240px;
           }
 
           @media only screen and (min-width: $screen-desktop) {
@@ -98,7 +98,7 @@
           }
 
           @media only screen and (min-width: $screen-ipad-h) {
-            width: 230px;
+            width: 180px;
           }
 
           @media only screen and (min-width: $screen-desktop) {
@@ -114,7 +114,7 @@
           }
 
           @media only screen and (min-width: $screen-ipad-h) {
-            width: 200px;
+            width: 180px;
           }
 
           @media only screen and (min-width: $screen-desktop) {
@@ -136,6 +136,7 @@
           @media only screen and (min-width: $screen-ipad-h) {
             padding-right: 29px;
             font-size: 19px;
+            padding-left: 0;
           }
 
           @media only screen and (min-width: $screen-desktop) {
