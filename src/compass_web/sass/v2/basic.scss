@@ -31,6 +31,10 @@
   }
 }
 
+#content, .main-foot, body {
+  background: transparent!important;
+}
+
 
 a:visited, .lnk:visited {
   color: inherit;
