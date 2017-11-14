@@ -1,1 +1,1 @@
-<a href="/" class="logo" title="Go to Homepage"><svg class="v-logo vector"><use xlink:href="/w/svg/icon.svg#logo"></use></svg></a>
+<a href="/{{ language.translate('link_home') }}" class="logo" title="Go to Homepage"><svg class="v-logo vector"><use xlink:href="/w/svg/icon.svg#logo"></use></svg></a>

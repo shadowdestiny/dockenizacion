@@ -58,6 +58,13 @@
                     #}
                 </ul>
             </div>
+            <div class="col20per">
+                <strong>{{ language.translate('langcolumn_head') }}</strong>
+                <ul>
+                    <li><a href="https://euromillions.com">{{ language.translate('langcolumn_en') }}</a></li>
+                    <li><a href="https://euromillions.com/ru">{{ language.translate('langcolumn_ru') }}</a></li>
+                </ul>
+            </div>
         </div>
     </div>
     <aside class="logo-social cl">
@@ -113,5 +120,7 @@
                     </ul>
                 </div>
             </div>
+        </div>
+    </div>
 </footer>
 <div class="media"></div> {# Used to check the size of the document to determin what size it is with JS #}
