@@ -12,7 +12,7 @@
   padding: 0 10px;
 
   @media only screen and (min-width: $screen-small) {
-    width: $screen-ipad-v;
+    width: $screen-ipad-v-wrapper;
     max-width: $screen-ipad-v-wrapper;
     margin:auto;
   }

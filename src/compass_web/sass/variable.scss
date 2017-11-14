@@ -120,7 +120,7 @@ $screen-xs 					: 480px;
 $screen-xs-wrapper 			: 480px;
 
 $screen-small 				: 768px; // ipad vertical
-$screen-small-wrapper 		: 768px; // ipad vertical
+$screen-small-wrapper 		: 748px; // ipad vertical
 
 //$screen-small-plus 			: 769px;
 //$screen-small-plus-wrapper 	: 769px;
@@ -132,11 +132,11 @@ $screen-full 				: 1300px;
 $screen-full-wrapper 		: 1280px;
 
 // Devices start
-$screen-ipad-v 					: $screen-medium;
+$screen-ipad-v 					: $screen-small;
 $screen-ipad-h 					: $screen-medium;
 $screen-desktop 	 			: $screen-full;
 
-$screen-ipad-v-wrapper 			: $screen-medium-wrapper;
+$screen-ipad-v-wrapper 			: $screen-small-wrapper;
 $screen-ipad-h-wrapper 			: $screen-medium-wrapper;
 $screen-desktop-wrapper 		: $screen-full-wrapper;
 // Devices end

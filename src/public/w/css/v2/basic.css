@@ -8,7 +8,7 @@ Error: Undefined variable: "$screen-small".
 12:   padding: 0 10px;
 13: 
 14:   @media only screen and (min-width: $screen-small) {
-15:     width: $screen-ipad-v;
+15:     width: $screen-ipad-v-wrapper;
 16:     max-width: $screen-ipad-v-wrapper;
 17:     margin:auto;
 18:   }
@@ -70,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-small\".\A         on line 14 of /src/compass_web/sass/v2/basic.scss\A \A 9:   //@media only screen and (min-width: $screen-small) {}\A 10: \A 11:   //padding: 0 15px;\A 12:   padding: 0 10px;\A 13: \A 14:   @media only screen and (min-width: $screen-small) {\A 15:     width: $screen-ipad-v;\A 16:     max-width: $screen-ipad-v-wrapper;\A 17:     margin:auto;\A 18:   }\A 19: "; }
+  content: "Error: Undefined variable: \"$screen-small\".\A         on line 14 of /src/compass_web/sass/v2/basic.scss\A \A 9:   //@media only screen and (min-width: $screen-small) {}\A 10: \A 11:   //padding: 0 15px;\A 12:   padding: 0 10px;\A 13: \A 14:   @media only screen and (min-width: $screen-small) {\A 15:     width: $screen-ipad-v-wrapper;\A 16:     max-width: $screen-ipad-v-wrapper;\A 17:     margin:auto;\A 18:   }\A 19: "; }

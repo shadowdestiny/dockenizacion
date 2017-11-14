@@ -5,7 +5,7 @@
   .banner {
     height: 399px;
 
-    background-image: url('../img/faq/desktop/banner.png');
+      background-image: url('../img/faq/desktop/banner.png');
     background-repeat: no-repeat;
     background-position: 50% 50%;
     -webkit-background-size: cover;
@@ -52,10 +52,13 @@
       font-weight: 900;
       text-transform: uppercase;
 
-      @media only screen and (min-width: $screen-ipad-v) {}
+      @media only screen and (min-width: $screen-ipad-v) {
+        font-size: 37px;
+        //line-height: 63px;
+      }
       @media only screen and (min-width: $screen-ipad-h) {
         line-height: 116px;
-        font-size: 60px;
+        font-size: 40px;
         padding-left: 29px;
       }
       @media only screen and (min-width: $screen-desktop) {
@@ -66,8 +69,22 @@
     }
   }
 
+  .right-section {
+    display: none;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      display: none;
+    }
+    @media only screen and (min-width: $screen-ipad-h) {
+      display: block;
+    }
+    @media only screen and (min-width: $screen-desktop) {
+      display: block;
+    }
+  }
+
   .faq-section {
-    padding-right: 380px;
+    //padding-right: 380px;
 
     @media only screen and (min-width: $screen-ipad-v) {}
     @media only screen and (min-width: $screen-ipad-h) {
@@ -220,5 +237,6 @@
 
     }
   }
+
 
 }
