@@ -283,7 +283,12 @@
 
       tbody {
         .td-ball {
-
+          @media only screen and (min-width: $screen-ipad-h) {
+            width: 40%;
+          }
+          @media only screen and (min-width: $screen-desktop) {
+            width: 33.33%;
+          }
         }
 
         .td-star-ball {
@@ -294,8 +299,14 @@
           padding-left: 153px;
 
           @media only screen and (min-width: $screen-ipad-v) {}
-          @media only screen and (min-width: $screen-ipad-h) {}
-          @media only screen and (min-width: $screen-desktop) {}
+          @media only screen and (min-width: $screen-ipad-h) {
+            padding-left: 50px;
+            width: 20%;
+          }
+          @media only screen and (min-width: $screen-desktop) {
+            padding-left: 153px;
+            width: 33.33%;
+          }
         }
 
         .td-prize{
@@ -310,9 +321,15 @@
           font-weight: 400;
           text-align: left;
 
-          @media only screen and (min-width: $screen-ipad-v) {}
-          @media only screen and (min-width: $screen-ipad-h) {}
-          @media only screen and (min-width: $screen-desktop) {}
+          @media only screen and (min-width: $screen-ipad-v) {
+            font-size: 22px;
+          }
+          @media only screen and (min-width: $screen-ipad-h) {
+            font-size: 18px;
+          }
+          @media only screen and (min-width: $screen-desktop) {
+            font-size: 22px;
+          }
         }
       }
     }
