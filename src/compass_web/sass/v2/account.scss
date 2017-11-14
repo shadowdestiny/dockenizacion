@@ -40,7 +40,7 @@
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
-        padding-left: 100px;
+        padding-left: 30px;
         height: $balanceRowHeightDesktop;
       }
 
@@ -123,8 +123,8 @@
           }
 
           @media only screen and (min-width: $screen-ipad-h) {
-            font-size: 29px;
-            padding-left: 53px;
+            font-size: 24px;
+            padding-left: 33px;
             background-position: 6px 35px;
             -webkit-background-size: 10px;
             background-size: 10px;
