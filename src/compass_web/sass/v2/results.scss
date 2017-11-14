@@ -39,9 +39,9 @@
     padding: 34px 42px 0 28px;
 
     @media only screen and (min-width: $screen-ipad-v) {
-      height: 171px;
-      top: -171px;
-      margin-bottom: -149px;
+      height: 130px;
+      top: -130px;
+      margin-bottom: -119px;
     }
     @media only screen and (min-width: $screen-ipad-h) {
       height: 157px;
@@ -63,8 +63,8 @@
       margin-bottom: 10px;
 
       @media only screen and (min-width: $screen-ipad-v) {
-        font-size: 42px;
-        margin-bottom: 10px;
+        font-size: 28px;
+        margin-bottom: 0px;
       }
       @media only screen and (min-width: $screen-ipad-h) {
         font-size: 42px;
@@ -84,7 +84,7 @@
       text-align: left;
 
       @media only screen and (min-width: $screen-ipad-v) {
-        font-size: 32px;
+        font-size: 22px;
       }
       @media only screen and (min-width: $screen-ipad-h) {
         font-size: 32px;
@@ -123,12 +123,12 @@
         margin-left: 5px;
 
         @media only screen and (min-width: $screen-ipad-v) {
-          -webkit-background-size: 100px;
-          background-size: 100px;
-          width: 100px;
-          height: 100px;
-          line-height: 100px;
-          font-size: 47px;
+          -webkit-background-size: 50px;
+          background-size: 50px;
+          width: 50px;
+          height: 50px;
+          line-height: 50px;
+          font-size: 24px;
           margin-left: 5px;
         }
         @media only screen and (min-width: $screen-ipad-h) {
@@ -165,11 +165,11 @@
         margin-left: 37px;
 
         @media only screen and (min-width: $screen-ipad-v) {
-          -webkit-background-size: 97px;
-          background-size: 97px;
-          width: 101px;
-          line-height: 101px;
-          margin-left: 37px;
+          -webkit-background-size: 47px;
+          background-size: 47px;
+          width: 50px;
+          line-height: 50px;
+          margin-left: 20px;
         }
         @media only screen and (min-width: $screen-ipad-h) {
           -webkit-background-size: 66px;
@@ -198,9 +198,15 @@
           position: relative;
           top: 5px;
 
-          @media only screen and (min-width: $screen-ipad-v) {}
-          @media only screen and (min-width: $screen-ipad-h) {}
-          @media only screen and (min-width: $screen-desktop) {}
+          @media only screen and (min-width: $screen-ipad-v) {
+            top: 2px;
+          }
+          @media only screen and (min-width: $screen-ipad-h) {
+            top: 5px;
+          }
+          @media only screen and (min-width: $screen-desktop) {
+            top: 5px;
+          }
         }
       }
     }
@@ -322,7 +328,7 @@
           text-align: left;
 
           @media only screen and (min-width: $screen-ipad-v) {
-            font-size: 22px;
+            font-size: 18px;
           }
           @media only screen and (min-width: $screen-ipad-h) {
             font-size: 18px;
