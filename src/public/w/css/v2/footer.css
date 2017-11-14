@@ -1,46 +1,28 @@
 /*
-Error: Undefined variable: "$ff1".
-        on line 14 of /src/compass_web/sass/v2/footer.scss
+Error: Undefined variable: "$screen-ipad-v".
+        on line 8 of /src/compass_web/sass/v2/footer.scss
 
-9:     background-color: #e1e1e1;
-10:     padding: 26px 100px 14px 60px;
+3:   background: #fff;
+4:   text-align: left;
+5:   padding-top: 0;
+6:   margin-bottom: 20px;
+7: 
+8:   @media only screen and (min-width: $screen-ipad-v) {
+9:     margin-bottom: 120px;
+10:   }
 11: 
-12: 
-13:     p {
-14:       font-family: $ff1;
-15:       color: #9e9d96;
-16:       font-size: 16px;
-17:       font-weight: 400;
-18:       text-align: left;
-19: 
+12:   .copyright-text {
+13:     background-color: #e1e1e1;
 
 Backtrace:
-/src/compass_web/sass/v2/footer.scss:14
+/src/compass_web/sass/v2/footer.scss:8
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:394:in `visit_prop'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block (2 levels) in visit_rule'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `map'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block in visit_rule'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:428:in `visit_rule'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block (2 levels) in visit_rule'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `map'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block in visit_rule'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:428:in `visit_rule'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:534:in `map'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:534:in `run_interp_no_strip'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:541:in `run_interp'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:509:in `visit_media'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
@@ -88,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$ff1\".\A         on line 14 of /src/compass_web/sass/v2/footer.scss\A \A 9:     background-color: #e1e1e1;\A 10:     padding: 26px 100px 14px 60px;\A 11: \A 12: \A 13:     p {\A 14:       font-family: $ff1;\A 15:       color: #9e9d96;\A 16:       font-size: 16px;\A 17:       font-weight: 400;\A 18:       text-align: left;\A 19: "; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 8 of /src/compass_web/sass/v2/footer.scss\A \A 3:   background: #fff;\A 4:   text-align: left;\A 5:   padding-top: 0;\A 6:   margin-bottom: 20px;\A 7: \A 8:   @media only screen and (min-width: $screen-ipad-v) {\A 9:     margin-bottom: 120px;\A 10:   }\A 11: \A 12:   .copyright-text {\A 13:     background-color: #e1e1e1;"; }

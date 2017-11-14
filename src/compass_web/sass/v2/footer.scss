@@ -3,20 +3,32 @@
   background: #fff;
   text-align: left;
   padding-top: 0;
-  margin-bottom: 120px;
+  margin-bottom: 20px;
+
+  @media only screen and (min-width: $screen-ipad-v) {
+    margin-bottom: 120px;
+  }
 
   .copyright-text {
     background-color: #e1e1e1;
-    padding: 26px 100px 14px 60px;
+    padding: 10px;
 
+    @media only screen and (min-width: $screen-ipad-v) {
+      padding: 26px 100px 14px 60px;
+    }
 
     p {
       font-family: $ff1;
       color: #9e9d96;
-      font-size: 16px;
+      font-size: 10px;
+      line-height: 1.2;
       font-weight: 400;
       text-align: left;
 
+      @media only screen and (min-width: $screen-ipad-v) {
+        font-size: 16px;
+        line-height: 1em;
+      }
 
     }
   }
