@@ -289,9 +289,11 @@
   .img--logo-mobile {
     display: block;
     width: 58px;
+    //display: none;
   }
 
   .img--logo-tablet {
+    //display: block;
     display: none;
   }
 
@@ -301,7 +303,7 @@
     width: 296px;
 
     .img--logo-mobile {
-      display: block;
+      display: none; 
     }
 
     .img--logo-tablet {
