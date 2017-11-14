@@ -3,6 +3,10 @@
 .result-page--content {
   padding-bottom: 60px;
 
+  @media only screen and (min-width: $screen-ipad-v) {}
+  @media only screen and (min-width: $screen-ipad-h) {}
+  @media only screen and (min-width: $screen-desktop) {}
+
   .banner {
     height: 398px;
     background-image: url("../img/home/banner/desktop/banner.png");
@@ -10,6 +14,10 @@
     background-position: 50% 50%;
     -webkit-background-size: cover;
     background-size: cover;
+
+    @media only screen and (min-width: $screen-ipad-v) {}
+    @media only screen and (min-width: $screen-ipad-h) {}
+    @media only screen and (min-width: $screen-desktop) {}
   }
 
   .title-block {
@@ -30,6 +38,10 @@
 
     padding: 34px 42px 0 28px;
 
+    @media only screen and (min-width: $screen-ipad-v) {}
+    @media only screen and (min-width: $screen-ipad-h) {}
+    @media only screen and (min-width: $screen-desktop) {}
+
     h2 {
       //font-family: WorkSans;
       color: #ffffff;
@@ -37,6 +49,10 @@
       font-weight: 900;
       text-align: left;
       margin-bottom: 10px;
+
+      @media only screen and (min-width: $screen-ipad-v) {}
+      @media only screen and (min-width: $screen-ipad-h) {}
+      @media only screen and (min-width: $screen-desktop) {}
     }
 
     h3 {
@@ -45,6 +61,10 @@
       font-size: 36px;
       font-weight: 400;
       text-align: left;
+
+      @media only screen and (min-width: $screen-ipad-v) {}
+      @media only screen and (min-width: $screen-ipad-h) {}
+      @media only screen and (min-width: $screen-desktop) {}
     }
 
     ul {
@@ -67,6 +87,10 @@
         font-size: 47px;
         font-weight: 700;
         margin-left: 5px;
+
+        @media only screen and (min-width: $screen-ipad-v) {}
+        @media only screen and (min-width: $screen-ipad-h) {}
+        @media only screen and (min-width: $screen-desktop) {}
       }
 
       li.star {
@@ -81,13 +105,25 @@
         line-height: 101px;
         margin-left: 37px;
 
+        @media only screen and (min-width: $screen-ipad-v) {}
+        @media only screen and (min-width: $screen-ipad-h) {}
+        @media only screen and (min-width: $screen-desktop) {}
+
         &:last-of-type {
           margin-left: 12px;
+
+          @media only screen and (min-width: $screen-ipad-v) {}
+          @media only screen and (min-width: $screen-ipad-h) {}
+          @media only screen and (min-width: $screen-desktop) {}
         }
 
         span {
           position: relative;
           top: 5px;
+
+          @media only screen and (min-width: $screen-ipad-v) {}
+          @media only screen and (min-width: $screen-ipad-h) {}
+          @media only screen and (min-width: $screen-desktop) {}
         }
       }
     }
@@ -97,8 +133,29 @@
     padding: 0;
   }
 
+  .right-section {
+    display: none;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      display: none;
+    }
+    @media only screen and (min-width: $screen-ipad-h) {
+      display: block;
+    }
+    @media only screen and (min-width: $screen-desktop) {
+      display: block;
+    }
+  }
+
   .result-section {
-    padding-right: 380px;
+
+    @media only screen and (min-width: $screen-ipad-v) {}
+    @media only screen and (min-width: $screen-ipad-h) {
+      padding-right: 380px;
+    }
+    @media only screen and (min-width: $screen-desktop) {
+      padding-right: 380px;
+    }
 
     .box-current-winners--new {
       background: -webkit-linear-gradient(90deg, #f7f5f5 0%, #f6f4f4 68%, #f5f4f4 100%);
@@ -110,6 +167,9 @@
       //height: 855px;
       padding: 25px 25px 5px 25px;
 
+      @media only screen and (min-width: $screen-ipad-v) {}
+      @media only screen and (min-width: $screen-ipad-h) {}
+      @media only screen and (min-width: $screen-desktop) {}
 
       h1 {
         //font-family: WorkSans;
@@ -119,6 +179,10 @@
         text-align: left;
         text-transform: none;
         margin-bottom: 53px;
+
+        @media only screen and (min-width: $screen-ipad-v) {}
+        @media only screen and (min-width: $screen-ipad-h) {}
+        @media only screen and (min-width: $screen-desktop) {}
       }
 
       .table {
@@ -129,6 +193,10 @@
           border: 0;
           width: 33%;
           padding: 3px 0 24px 3px;
+
+          @media only screen and (min-width: $screen-ipad-v) {}
+          @media only screen and (min-width: $screen-ipad-h) {}
+          @media only screen and (min-width: $screen-desktop) {}
         }
       }
 
@@ -147,6 +215,10 @@
 
         .td-winners {
           padding-left: 153px;
+
+          @media only screen and (min-width: $screen-ipad-v) {}
+          @media only screen and (min-width: $screen-ipad-h) {}
+          @media only screen and (min-width: $screen-desktop) {}
         }
 
         .td-prize{
@@ -160,6 +232,10 @@
           font-size: 22px;
           font-weight: 400;
           text-align: left;
+
+          @media only screen and (min-width: $screen-ipad-v) {}
+          @media only screen and (min-width: $screen-ipad-h) {}
+          @media only screen and (min-width: $screen-desktop) {}
         }
       }
     }
@@ -168,6 +244,10 @@
       overflow: hidden;
       padding: 30px 3px 0 3px;
 
+      @media only screen and (min-width: $screen-ipad-v) {}
+      @media only screen and (min-width: $screen-ipad-h) {}
+      @media only screen and (min-width: $screen-desktop) {}
+
       .previous-results--title {
         //font-family: WorkSans;
         color:  #333333;
@@ -175,6 +255,10 @@
         font-weight: 600;
         text-align: left;
         padding-bottom: 22px;
+
+        @media only screen and (min-width: $screen-ipad-v) {}
+        @media only screen and (min-width: $screen-ipad-h) {}
+        @media only screen and (min-width: $screen-desktop) {}
       }
 
       .previous-results--selectboxes {
@@ -188,6 +272,10 @@
             background-image: url('../img/results/desktop/arrow.png');
             top: 13px;
             right: 16px;
+
+            @media only screen and (min-width: $screen-ipad-v) {}
+            @media only screen and (min-width: $screen-ipad-h) {}
+            @media only screen and (min-width: $screen-desktop) {}
           }
 
           select {
@@ -203,6 +291,10 @@
             font-size: 18px;
             font-weight: 400;
             text-align: left;
+
+            @media only screen and (min-width: $screen-ipad-v) {}
+            @media only screen and (min-width: $screen-ipad-h) {}
+            @media only screen and (min-width: $screen-desktop) {}
           }
         }
       }
