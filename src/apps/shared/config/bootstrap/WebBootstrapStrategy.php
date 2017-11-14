@@ -164,6 +164,12 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
             'action' => 'index',
         ));
 
+        $router->add("/ru", array(
+            "module" => "web",
+            'controller' => 'index',
+            'action' => 'index',
+        ));
+
         $router->add("/{lottery:(euromillions)+}/play", array(
             "module" => "web",
             "lottery" => 1,
@@ -270,6 +276,12 @@ class WebBootstrapStrategy extends BootstrapStrategyBase implements IBootstrapSt
         ));
 
         $router->add("/forgotPassword", array(
+            "module" => "web",
+            'controller' => 'user-access',
+            'action' => 'forgotPassword'
+        ));
+
+        $router->add("/доступ-пользователей/Забыли-пароль", array(
             "module" => "web",
             'controller' => 'user-access',
             'action' => 'forgotPassword'
