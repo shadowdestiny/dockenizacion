@@ -95,7 +95,11 @@ a:visited, .lnk:visited {
   }
 }
 
-
+.rc-anchor-normal {
+  @media only screen and (max-width: $screen-xxs) {
+    width: 98%!important;
+  }
+}
 
 
 
