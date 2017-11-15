@@ -85,7 +85,8 @@
 
     .h3 {
       font-family: $ff1;
-      font-size: 17px;
+      //font-size: 17px;
+      font-size: 16px;
       color: #a8a9a8;
 
       margin-bottom: 20px;
@@ -102,14 +103,17 @@
     p {
       font-family: $ff1;
       color: #a8a9a8;
-      font-size: 17px;
-      margin-bottom: 25px;
+      //font-size: 17px;
+      font-size: 12px;
+      line-height: 1.2;
+      margin-bottom: 15px;
 
       @media only screen and (min-width: $screen-ipad-v) {
         font-family: $ff1;
         color: #a8a9a8;
         font-size: 17px;
         margin-bottom: 25px;
+        line-height: 1.25em;
       }
     }
 
@@ -117,14 +121,17 @@
       li {
         font-family: $ff1;
         color: #a8a9a8;
-        font-size: 17px;
-        margin-bottom: 25px;
+        //font-size: 17px;
+        font-size: 12px;
+        line-height: 1.2;
+        margin-bottom: 15px;
 
         @media only screen and (min-width: $screen-ipad-v) {
           font-family: $ff1;
           color: #a8a9a8;
           font-size: 17px;
           margin-bottom: 25px;
+          line-height: 1.25em;
         }
       }
     }
