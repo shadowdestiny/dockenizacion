@@ -295,10 +295,10 @@
 
   //font-family: WorkSans;
   color: #ffffff !important;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   text-align: center;
-  padding: 0 75px;
+  padding: 0 10px;
 
   border: 0!important;
   text-shadow: none !important;
@@ -309,7 +309,9 @@
 
   @media only screen and (min-width: $screen-ipad-v) {
     //float: none;
+    font-size: 24px;
     width: 100%;
+    padding: 0 75px;
   }
   @media only screen and (min-width: $screen-ipad-h) {
     float: left;

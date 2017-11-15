@@ -658,8 +658,13 @@
     border-color: #333333;
     border-style: solid;
     width: 100%;
-    padding: 0 33px 50px 60px;
+    padding: 0 10px 50px 10px;
     margin-bottom: 50px;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      padding: 0 33px 50px 60px;
+      margin-bottom: 50px;
+    }
 
     h2 {
       //font-family: WorkSans;
@@ -709,14 +714,16 @@
         }
 
         td.td-label {
-          width: 30%;
+          width: 100%;
           vertical-align: middle;
           padding-bottom: 15px;
+          display: block;
 
           @media only screen and (min-width: $screen-ipad-v) {
             width: 30%;
             vertical-align: middle;
             padding-bottom: 15px;
+            display: table-cell;
           }
           @media only screen and (min-width: $screen-ipad-h) {
             width: 290px;
@@ -728,11 +735,13 @@
 
           p {
             padding-right: 30px;
-            text-align: right;
+            text-align: left;
+            margin-bottom: 0;
 
             @media only screen and (min-width: $screen-ipad-v) {
               padding-right: 30px;
               text-align: right;
+              margin-bottom: 1em;
             }
             @media only screen and (min-width: $screen-ipad-h) {
               padding-right: 110px;
@@ -745,10 +754,15 @@
 
           label {
             color: #333333;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             line-height: 1.2;
-            text-align: right;
+            //text-align: right;
+
+            @media only screen and (min-width: $screen-ipad-v) {
+              font-size: 18px;
+              text-align: right;
+            }
 
             .asterisk {
               color: inherit;
@@ -757,6 +771,12 @@
         }
 
         td.td-input {
+          display: block;
+          width: 100%;
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            display: table-cell;
+          }
 
           .selectbox select,
           input {
