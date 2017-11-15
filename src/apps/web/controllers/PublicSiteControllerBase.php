@@ -91,7 +91,6 @@ class PublicSiteControllerBase extends ControllerBase
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
-        $this->redirectFinalSlashUrl();
         $this->checkAuth();
         $this->setActiveLanguages();
         $this->setActiveCurrencies();
@@ -173,17 +172,6 @@ class PublicSiteControllerBase extends ControllerBase
         $bet_value_pound = $this->currencyConversionService->toString($single_bet_price_currency_gbp, new Currency('GBP'));
         $this->view->setVar('bet_price', $bet_value);
         $this->view->setVar('bet_price_pound', $bet_value_pound);
-    }
-
-    private function redirectFinalSlashUrl()
-    {
-        if (substr($this->request->getURI(), -1) == '/' && substr($this->request->getHttpHost(), 0, 4) == 'www.') {
-            $this->response->redirect($this->request->getScheme() . "://" . substr($this->request->getHttpHost(), 4) . substr($this->request->getURI(), 0, -1), true, 301);
-        } elseif (substr($this->request->getURI(), -1) == '/' && substr($this->request->getHttpHost(), 0, 4) != 'www.') {
-            $this->response->redirect($this->request->getScheme() . "://" . $this->request->getHttpHost() . substr($this->request->getURI(), 0, -1), true, 301);
-        } elseif (substr($this->request->getURI(), -1) != '/' && substr($this->request->getHttpHost(), 0, 4) == 'www.') {
-            $this->response->redirect($this->request->getScheme() . "://" . substr($this->request->getHttpHost(), 4) . $this->request->getURI(), true, 301);
-        }
     }
 
     private function setNavValues()
