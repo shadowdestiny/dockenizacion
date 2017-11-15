@@ -22,14 +22,8 @@
 
   .box-cookies--links {
     display: block;
-    width: 207px;
-    margin-left: -207px;
     list-style: none;
-    float: right;
-
-    position: relative;
-    top: -9px;
-    margin-right: 3px;
+    margin-bottom: 20px;
     line-height: 1.2;
 
     @media only screen and (min-width: $screen-ipad-v) {
@@ -42,6 +36,7 @@
       position: relative;
       top: -9px;
       margin-right: 3px;
+      margin-bottom: 0;
       line-height: 1.2;
     }
 
@@ -154,7 +149,7 @@
   }
 
   .box-cookies--content {
-    padding-right: 220px;
+    //padding-right: 220px;
 
     @media only screen and (min-width: $screen-ipad-v) {
       padding-right: 220px;
@@ -172,10 +167,10 @@
   .box-cookies--title {
 
     color:  #9b9b9b;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 700;
     text-align: left;
-    margin-bottom: 17px;
+    margin-bottom: 7px;
 
     @media only screen and (min-width: $screen-ipad-v) {
       color:  #9b9b9b;
@@ -189,7 +184,7 @@
 
   .box-cookies--description {
     color:  #9b9b9b;
-    font-size: 17px;
+    font-size: 12px;
     font-weight: 400;
     text-align: left;
 
