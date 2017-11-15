@@ -339,14 +339,17 @@
     .td-ticket {
       text-align: center;
       vertical-align: top;
-      width: 33.33%;
+      //width: 33.33%;
       padding-top: 5px;
+      display: block;
+      width: 100%;
 
       @media only screen and (min-width: $screen-ipad-v) {
         text-align: center;
         vertical-align: top;
         width: 33.33%;
         padding-top: 5px;
+        display: table-cell;
       }
 
       @media only screen and (min-width: $screen-ipad-h) {
@@ -362,7 +365,7 @@
         position: relative;
         //margin: auto;
         width: 100%;
-        max-width: 235px;
+        //max-width: 235px;
         padding-bottom: 12px;
 
         @media only screen and (min-width: $screen-ipad-v) {
@@ -773,7 +776,7 @@
         color: #fff;
         height: 65px;
         line-height: 63px;
-        font-size: 36px;
+        font-size: 16px;
         font-weight: 700;
         text-transform: uppercase;
         text-decoration: none;
