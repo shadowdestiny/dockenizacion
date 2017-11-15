@@ -9,7 +9,7 @@
             {% for active_language in active_languages %}
                 {% if active_language != user_language %}
                     <li>
-                        <a href="javascript:globalFunctions.setLanguage('{{ active_language }}');">{{ language.translate(active_language) }}</a>
+                        <a href="javascript:globalFunctions.setLanguage('{{ active_language }}');" rel="nofollow">{{ language.translate(active_language) }}</a>
                     </li>
                 {% endif %}
             {% endfor %}
@@ -26,11 +26,11 @@
         <ul class="no-li">
             {% for currency in currencies %}
                 {% if currency.code != user_currency_code %}
-                    <li><a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');">{{ language.translate(currency.code ~ "_code") }}
+                    <li><a href="javascript:globalFunctions.setCurrency('{{ currency.code }}');" rel="nofollow">{{ language.translate(currency.code ~ "_code") }}
                             &nbsp; {{ language.translate(currency.code ~ "_name") }}</a></li>
                 {% endif %}
             {% endfor %}
-            <li><a href="/{{ language.translate("link_currency") }}">{{ language.translate('currencies') }}
+            <li><a href="/{{ language.translate("link_currency") }}" rel="nofollow">{{ language.translate('currencies') }}
                     <svg class="ico v-arrow-right3">
                         <use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use>
                     </svg>
@@ -57,7 +57,7 @@
 
 {% if user_logged is empty %}
     <li class="li-sign">
-        <a class="link" href="/{{ language.translate("link_signin") }}">{{ language.translate('signIn') }}</a>
+        <a class="link" href="/{{ language.translate("link_signin") }}" rel="nofollow">{{ language.translate('signIn') }}</a>
     </li>
 {% else %}
     <li>
