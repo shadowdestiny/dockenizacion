@@ -37,7 +37,7 @@
         {% set link="/sign-up" %}
     {% endif %}
 
-    <a class="your-account" href="{{ link }}">
+    <a class="your-account" href="{{ link }}" rel="nofollow">
         <span class="link desktop username">{% if user_name %}{{ language.translate("myAccount_sub") }}{{ user_name }}{% else %}{{ language.translate("signUp_sub") }}{% endif %}</span>
         <br class="br">
         <span class="txt"><svg class="ico v-user"><use
