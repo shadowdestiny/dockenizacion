@@ -1,28 +1,24 @@
 /*
-Error: Undefined variable: "$screen-small".
-        on line 14 of /src/compass_web/sass/v2/basic.scss
+Error: Undefined variable: "$screen-xxs-wrapper".
+        on line 8 of /src/compass_web/sass/v2/basic.scss
 
-9:   //@media only screen and (min-width: $screen-small) {}
-10: 
-11:   //padding: 0 15px;
-12:   padding: 0 10px;
-13: 
-14:   @media only screen and (min-width: $screen-small) {
-15:     width: $screen-ipad-v-wrapper;
-16:     max-width: $screen-ipad-v-wrapper;
-17:     margin:auto;
-18:   }
-19: 
+3: .wrapper {
+4: 
+5:   //padding: 0 15px;
+6:   padding: 0 10px;
+7: 
+8:   width: $screen-xxs-wrapper;
+9:   max-width: $screen-xxs-wrapper;
+10:   margin:auto;
+11: 
+12: 
+13:   @media only screen and (min-width: $screen-xs) {
 
 Backtrace:
-/src/compass_web/sass/v2/basic.scss:14
+/src/compass_web/sass/v2/basic.scss:8
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:534:in `map'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:534:in `run_interp_no_strip'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:541:in `run_interp'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:509:in `visit_media'
+/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:394:in `visit_prop'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
@@ -70,4 +66,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-small\".\A         on line 14 of /src/compass_web/sass/v2/basic.scss\A \A 9:   //@media only screen and (min-width: $screen-small) {}\A 10: \A 11:   //padding: 0 15px;\A 12:   padding: 0 10px;\A 13: \A 14:   @media only screen and (min-width: $screen-small) {\A 15:     width: $screen-ipad-v-wrapper;\A 16:     max-width: $screen-ipad-v-wrapper;\A 17:     margin:auto;\A 18:   }\A 19: "; }
+  content: "Error: Undefined variable: \"$screen-xxs-wrapper\".\A         on line 8 of /src/compass_web/sass/v2/basic.scss\A \A 3: .wrapper {\A 4: \A 5:   //padding: 0 15px;\A 6:   padding: 0 10px;\A 7: \A 8:   width: $screen-xxs-wrapper;\A 9:   max-width: $screen-xxs-wrapper;\A 10:   margin:auto;\A 11: \A 12: \A 13:   @media only screen and (min-width: $screen-xs) {"; }

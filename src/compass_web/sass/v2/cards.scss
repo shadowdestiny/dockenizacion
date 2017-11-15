@@ -1,10 +1,17 @@
 
 
 .cards-block {
-  height: 40px;
+  height: 80px;
   line-height: 38px;
   text-align: center;
   margin-bottom: 17px;
+
+  @media only screen and (min-width: $screen-xs) {
+    height: 40px;
+    line-height: 38px;
+    text-align: center;
+    margin-bottom: 17px;
+  }
 
   @media only screen and (min-width: $screen-ipad-v) {
     height: 100px;

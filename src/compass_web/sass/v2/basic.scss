@@ -2,14 +2,19 @@
 
 .wrapper {
 
-  //@media only screen and (min-width: $screen-xxs) {}
-
-  //@media only screen and (min-width: $screen-xs) {}
-
-  //@media only screen and (min-width: $screen-small) {}
-
   //padding: 0 15px;
   padding: 0 10px;
+
+  width: $screen-xxs-wrapper;
+  max-width: $screen-xxs-wrapper;
+  margin:auto;
+
+
+  @media only screen and (min-width: $screen-xs) {
+    width: $screen-xs-wrapper;
+    max-width: $screen-xs-wrapper;
+    margin:auto;
+  }
 
   @media only screen and (min-width: $screen-small) {
     width: $screen-ipad-v-wrapper;
