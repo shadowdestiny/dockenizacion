@@ -9,12 +9,16 @@
   font-weight: 700;
   box-sizing: border-box;
   text-align: center;
-  width: 85px;
+  width: 60px;
   height: 34px;
   line-height: 31px;
   text-transform: uppercase;
   padding: 0;
   display: block;
+
+  @media only screen and (min-width: $screen-xs) {
+    width: 85px;
+  }
 
   @media only screen and (min-width: $screen-ipad-v) {
     border-radius: 3px;

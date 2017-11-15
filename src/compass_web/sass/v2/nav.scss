@@ -220,7 +220,14 @@
 
   a {
     text-transform: uppercase;
-    font-size: 30px;
+    font-size: 20px;
+
+    @media only screen and (min-width: $screen-xs) {
+      font-size: 20px;
+    }
+    @media only screen and (min-width: $screen-ipad-v) {
+      font-size: 30px;
+    }
 
     &:link, &:visited {
       display: block;
@@ -230,6 +237,13 @@
       border-bottom: 1px solid #fff;
       background-color: $v2-yellow;
       font-weight: 900;
+
+      @media only screen and (min-width: $screen-xs) {
+        padding: 21px 10px;
+      }
+      @media only screen and (min-width: $screen-ipad-v) {
+        padding: 21px 10px;
+      }
     }
     &:hover, &:focus {
       background-color: $v2-yellow-hover;
