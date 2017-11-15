@@ -7,6 +7,7 @@
   background: #fff;
   z-index: 10;
   padding-top: 31px;
+  padding-bottom: 10px;
 
   @media only screen and (min-width: $screen-ipad-v) {
     min-height: 94px;
@@ -15,6 +16,7 @@
     background: #fff;
     z-index: 10;
     padding-top: 31px;
+    padding-bottom: 0;
   }
 
   @media only screen and (min-width: $screen-ipad-h) {
