@@ -5,13 +5,17 @@
   .banner {
     height: 399px;
 
-      background-image: url('../img/faq/desktop/banner.png');
+    background-image: url('../img/faq/desktop/banner.png');
     background-repeat: no-repeat;
     background-position: 50% 50%;
     -webkit-background-size: cover;
     background-size: cover;
 
-    @media only screen and (min-width: $screen-ipad-v) {}
+    display: none;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      display: block;
+    }
     @media only screen and (min-width: $screen-ipad-h) {
       height: 399px;
     }
@@ -25,11 +29,13 @@
     background-color: #f6d010;
     position: relative;
     z-index: 1;
-    height: 125px;
-    top: -125px;
-    margin-bottom: -132px;
+    height: 60px;
 
-    @media only screen and (min-width: $screen-ipad-v) {}
+    @media only screen and (min-width: $screen-ipad-v) {
+      height: 125px;
+      top: -125px;
+      margin-bottom: -132px;
+    }
     @media only screen and (min-width: $screen-ipad-h) {
       height: 125px;
       top: -125px;
@@ -46,13 +52,15 @@
       //font-family: WorkSans;
       font-family: $ff1;
       color: #333333;
-      line-height: 116px;
-      font-size: 60px;
+      line-height: 60px;
+      font-size: 22px;
       padding-left: 29px;
       font-weight: 900;
       text-transform: uppercase;
 
       @media only screen and (min-width: $screen-ipad-v) {
+        line-height: 116px;
+        padding-left: 29px;
         font-size: 37px;
         //line-height: 63px;
       }
@@ -86,7 +94,9 @@
   .faq-section {
     //padding-right: 380px;
 
-    @media only screen and (min-width: $screen-ipad-v) {}
+    @media only screen and (min-width: $screen-ipad-v) {
+      padding-right: 380px;
+    }
     @media only screen and (min-width: $screen-ipad-h) {
       padding-right: 380px;
     }
@@ -98,7 +108,9 @@
     .accordion-block-outer {
       margin-bottom: 25px;
 
-      @media only screen and (min-width: $screen-ipad-v) {}
+      @media only screen and (min-width: $screen-ipad-v) {
+        margin-bottom: 25px;
+      }
       @media only screen and (min-width: $screen-ipad-h) {
         margin-bottom: 25px;
       }
@@ -111,10 +123,10 @@
         cursor: pointer;
         background-color: #f5f5f5;
         width: 100%;
-        height: 61px;
-        line-height: 55px;
+        height: 50px;
+        line-height: 50px;
         padding-left: 31px;
-        font-size: 24px;
+        font-size: 14px;
         padding-right: 40px;
         margin-bottom: 0;
         color:  #333333;
@@ -122,7 +134,14 @@
         text-align: left;
         position: relative;
 
-        @media only screen and (min-width: $screen-ipad-v) {}
+        @media only screen and (min-width: $screen-ipad-v) {
+          height: 61px;
+          line-height: 55px;
+          padding-left: 31px;
+          font-size: 24px;
+          padding-right: 40px;
+          margin-bottom: 0;
+        }
         @media only screen and (min-width: $screen-ipad-h) {
           height: 61px;
           line-height: 55px;
@@ -143,7 +162,7 @@
 
       h2:before {
         position: absolute;
-        top: 25px;
+        top: 21px;
         right: 25px;
         content: '';
         display: block;
@@ -154,7 +173,14 @@
         -webkit-background-size: 15px;
         background-size: 15px;
 
-        @media only screen and (min-width: $screen-ipad-v) {}
+        @media only screen and (min-width: $screen-ipad-v) {
+          top: 25px;
+          right: 25px;
+          width: 15px;
+          height: 9px;
+          -webkit-background-size: 15px;
+          background-size: 15px;
+        }
         @media only screen and (min-width: $screen-ipad-h) {}
         @media only screen and (min-width: $screen-desktop) {}
       }
@@ -164,7 +190,10 @@
         padding-top: 4px;
         padding-bottom: 10px;
 
-        @media only screen and (min-width: $screen-ipad-v) {}
+        @media only screen and (min-width: $screen-ipad-v) {
+          padding-top: 4px;
+          padding-bottom: 10px;
+        }
         @media only screen and (min-width: $screen-ipad-h) {
           padding-top: 4px;
           padding-bottom: 10px;
@@ -179,9 +208,12 @@
     .accordion-block {
       width: 100%;
       padding-left: 30px;
-      padding-right: 65px;
+      padding-right: 30px;
 
-      @media only screen and (min-width: $screen-ipad-v) {}
+      @media only screen and (min-width: $screen-ipad-v) {
+        padding-left: 30px;
+        padding-right: 65px;
+      }
       @media only screen and (min-width: $screen-ipad-h) {
         padding-left: 30px;
         padding-right: 65px;
@@ -197,12 +229,17 @@
         cursor: pointer;
         color: #4e9de8;
         font-weight: 500;
-        font-size: 18px;
-        line-height: 24px;
+        font-size: 14px;
+        line-height: 16px;
         text-align: left;
         margin: 0;
+        margin-bottom: 10px;
 
-        @media only screen and (min-width: $screen-ipad-v) {}
+        @media only screen and (min-width: $screen-ipad-v) {
+          font-size: 18px;
+          line-height: 24px;
+          margin-bottom: 0;
+        }
         @media only screen and (min-width: $screen-ipad-h) {
           font-size: 18px;
           line-height: 24px;
@@ -217,12 +254,16 @@
         display: none;
         color: #333333;
         font-weight: 500;
-        line-height: 24px;
-        font-size: 18px;
-        padding-left: 18px;
+        line-height: 16px;
+        font-size: 12px;
+        padding-left: 8px;
         text-align: left;
 
-        @media only screen and (min-width: $screen-ipad-v) {}
+        @media only screen and (min-width: $screen-ipad-v) {
+          line-height: 24px;
+          font-size: 18px;
+          padding-left: 18px;
+        }
         @media only screen and (min-width: $screen-ipad-h) {
           line-height: 24px;
           font-size: 18px;

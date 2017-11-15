@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$screen-ipad-v".
-        on line 11 of /src/compass_web/sass/v2/nav.scss
+        on line 12 of /src/compass_web/sass/v2/nav.scss
 
-6:   position: relative;
 7:   background: #fff;
 8:   z-index: 10;
 9:   padding-top: 31px;
-10: 
-11:   @media only screen and (min-width: $screen-ipad-v) {
-12:     min-height: 94px;
-13: 
-14:     position: relative;
-15:     background: #fff;
-16:     z-index: 10;
+10:   padding-bottom: 10px;
+11: 
+12:   @media only screen and (min-width: $screen-ipad-v) {
+13:     min-height: 94px;
+14: 
+15:     position: relative;
+16:     background: #fff;
+17:     z-index: 10;
 
 Backtrace:
-/src/compass_web/sass/v2/nav.scss:11
+/src/compass_web/sass/v2/nav.scss:12
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
@@ -70,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 11 of /src/compass_web/sass/v2/nav.scss\A \A 6:   position: relative;\A 7:   background: #fff;\A 8:   z-index: 10;\A 9:   padding-top: 31px;\A 10: \A 11:   @media only screen and (min-width: $screen-ipad-v) {\A 12:     min-height: 94px;\A 13: \A 14:     position: relative;\A 15:     background: #fff;\A 16:     z-index: 10;"; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 12 of /src/compass_web/sass/v2/nav.scss\A \A 7:   background: #fff;\A 8:   z-index: 10;\A 9:   padding-top: 31px;\A 10:   padding-bottom: 10px;\A 11: \A 12:   @media only screen and (min-width: $screen-ipad-v) {\A 13:     min-height: 94px;\A 14: \A 15:     position: relative;\A 16:     background: #fff;\A 17:     z-index: 10;"; }
