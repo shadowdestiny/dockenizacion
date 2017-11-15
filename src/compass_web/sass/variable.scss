@@ -116,11 +116,14 @@ $ff4:'Roboto Condensed', sans-serif;
 $screen-xxs 				: 320px;
 $screen-xxs-wrapper 		: 320px;
 
-$screen-xs 					: 480px;
-$screen-xs-wrapper 			: 480px;
+//$screen-xs 					: 480px;
+//$screen-xs-wrapper 			: 480px;
 
-$screen-small 				: 768px; // ipad vertical
-$screen-small-wrapper 		: 748px; // ipad vertical
+$screen-xs 					: 414px;	//iPhone 6 PLus
+$screen-xs-wrapper 			: 414px;
+
+$screen-small 				: 768px; 	// ipad vertical
+$screen-small-wrapper 		: 748px; 	// ipad vertical
 
 //$screen-small-plus 			: 769px;
 //$screen-small-plus-wrapper 	: 769px;
