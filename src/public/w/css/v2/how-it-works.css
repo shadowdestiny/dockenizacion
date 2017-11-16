@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$screen-ipad-v".
-        on line 7 of /src/compass_web/sass/v2/how-it-works.scss
+        on line 10 of /src/compass_web/sass/v2/how-it-works.scss
 
-2: .hiw-block--section {
-3: 
-4:   padding-top: 15px;
-5:   padding-bottom: 24px;
+5:   //display: none;
 6: 
-7:   @media only screen and (min-width: $screen-ipad-v) {
-8:     padding-top: 15px;
-9:     padding-bottom: 24px;
-10:   }
-11: 
-12:   @media only screen and (min-width: $screen-ipad-h) {
+7:   padding-top: 15px;
+8:   padding-bottom: 24px;
+9: 
+10:   @media only screen and (min-width: $screen-ipad-v) {
+11:     padding-top: 15px;
+12:     padding-bottom: 24px;
+13:   }
+14: 
+15:   @media only screen and (min-width: $screen-ipad-h) {
 
 Backtrace:
-/src/compass_web/sass/v2/how-it-works.scss:7
+/src/compass_web/sass/v2/how-it-works.scss:10
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
@@ -70,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 7 of /src/compass_web/sass/v2/how-it-works.scss\A \A 2: .hiw-block--section {\A 3: \A 4:   padding-top: 15px;\A 5:   padding-bottom: 24px;\A 6: \A 7:   @media only screen and (min-width: $screen-ipad-v) {\A 8:     padding-top: 15px;\A 9:     padding-bottom: 24px;\A 10:   }\A 11: \A 12:   @media only screen and (min-width: $screen-ipad-h) {"; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 10 of /src/compass_web/sass/v2/how-it-works.scss\A \A 5:   //display: none;\A 6: \A 7:   padding-top: 15px;\A 8:   padding-bottom: 24px;\A 9: \A 10:   @media only screen and (min-width: $screen-ipad-v) {\A 11:     padding-top: 15px;\A 12:     padding-bottom: 24px;\A 13:   }\A 14: \A 15:   @media only screen and (min-width: $screen-ipad-h) {"; }
