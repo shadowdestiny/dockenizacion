@@ -40,7 +40,7 @@
 
       .h2 {
         margin-bottom: 11px;
-        font-size: 37px;
+        font-size: 22px;
 
         @media only screen and (min-width: $screen-ipad-v) {
           margin-bottom: 11px;
@@ -141,8 +141,9 @@
         padding-left: 3px;
         padding-bottom: 0px;
 
-        margin-left: 21px;
-        margin-right: 22px;
+        margin-left: 0px;
+        margin-right: 0px;
+
 
         @media only screen and (min-width: $screen-ipad-v) {
           overflow: hidden;
@@ -178,10 +179,10 @@
           color:  #333333;
           text-align: left;
 
-          font-size: 18px;
+          font-size: 15px;
           font-weight: 700;
           margin-bottom: 16px;
-          padding-left: 91px;
+          padding-left: 0px;
 
           @media only screen and (min-width: $screen-ipad-v) {
             font-family: $ff2;
@@ -212,26 +213,27 @@
         .numbers.small {
           li {
             text-align: center;
-            width: 45px;
-            height: 46px;
-            line-height: 44px;
+            width: 25px;
+            height: 26px;
+            line-height: 25px;
 
             background-image: url('../img/home/result-block/desktop/ellipse.svg');
             background-repeat: no-repeat;
             background-position: 0 0;
             text-shadow: none;
             letter-spacing: 0;
-            -webkit-background-size: 45px;
-            background-size: 45px;
+            -webkit-background-size: 25px;
+            background-size: 25px;
 
             font-family: $ff2;
             color:  #ffffff;
-            font-size: 18px;
+            font-size: 12px;
             font-weight: 700;
-            margin-right: 16px;
-
+            //margin-right: 10px;
+            margin-right: 0;
+            margin-left: 0;
             position: relative;
-            top: -4px;
+            top: -1px;
 
 
             @media only screen and (min-width: $screen-ipad-v) {
@@ -299,20 +301,20 @@
             background-image: url('../img/home/result-block/desktop/star.svg');
             background-repeat: no-repeat;
             background-position: 0 0;
-            -webkit-background-size: 53px;
-            background-size: 53px;
+            -webkit-background-size: 30px;
+            background-size: 30px;
 
             text-indent: 0;
             color:  #333333;
 
-            width: 53px;
-            height: 49px;
-            margin-left: 19px;
-            margin-right: 6px;
-            line-height: 47px;
+            width: 30px;
+            height: 30px;
+            margin-left: 0px;
+            margin-right: 2px;
+            line-height: 25px;
 
             position: relative;
-            top: -2px;
+            top: 0px;
             padding-top: 4px;
 
             @media only screen and (min-width: $screen-ipad-v) {
@@ -377,7 +379,7 @@
           }
           li.star + li.star {
             margin-left: 0;
-            margin-right: 22px;
+            margin-right: 0px;
 
             @media only screen and (min-width: $screen-ipad-v) {
               margin-left: 0;
@@ -399,6 +401,7 @@
         .numbers {
           font-weight: 700;
           margin-bottom: 8px;
+          width: 100%;
 
           @media only screen and (min-width: $screen-ipad-v) {
             font-weight: 700;
