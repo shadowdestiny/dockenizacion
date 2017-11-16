@@ -8,14 +8,18 @@
   @media only screen and (min-width: $screen-desktop) {}
 
   .banner {
-    height: 398px;
-    background-image: url("../img/home/banner/desktop/banner.png");
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    -webkit-background-size: cover;
-    background-size: cover;
+    display: none;
 
-    @media only screen and (min-width: $screen-ipad-v) {}
+    @media only screen and (min-width: $screen-ipad-v) {
+      display: block;
+
+      height: 398px;
+      background-image: url("../img/home/banner/desktop/banner.png");
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      -webkit-background-size: cover;
+      background-size: cover;
+    }
     @media only screen and (min-width: $screen-ipad-h) {}
     @media only screen and (min-width: $screen-desktop) {}
   }
@@ -30,18 +34,19 @@
 
 
     position: relative;
-    height: 171px;
-    top: -171px;
-    margin-bottom: -149px;
+    height: 100px;
+    //top: -171px;
+    margin-bottom: 0px;
     z-index: 1;
     overflow: hidden;
 
-    padding: 34px 42px 0 28px;
+    padding: 14px 12px 0 8px;
 
     @media only screen and (min-width: $screen-ipad-v) {
       height: 130px;
       top: -130px;
       margin-bottom: -119px;
+      padding: 34px 42px 0 28px;
     }
     @media only screen and (min-width: $screen-ipad-h) {
       height: 157px;
@@ -58,13 +63,14 @@
       //font-family: WorkSans;
       color: #ffffff;
       font-weight: 900;
-      text-align: left;
-      font-size: 46px;
-      margin-bottom: 10px;
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 0px;
 
       @media only screen and (min-width: $screen-ipad-v) {
         font-size: 28px;
         margin-bottom: 0px;
+        text-align: left;
       }
       @media only screen and (min-width: $screen-ipad-h) {
         font-size: 42px;
@@ -79,12 +85,13 @@
     h3 {
       //font-family: WorkSans;
       color: #ffffff;
-      font-size: 36px;
+      font-size: 16px;
       font-weight: 400;
-      text-align: left;
+      text-align: center;
 
       @media only screen and (min-width: $screen-ipad-v) {
         font-size: 22px;
+        text-align: left;
       }
       @media only screen and (min-width: $screen-ipad-h) {
         font-size: 32px;
@@ -95,10 +102,14 @@
     }
 
     ul {
-      float: right;
+      float: none;
 
+      @media only screen and (min-width: $screen-ipad-v) {
+        float: right;
+      }
       @media only screen and (min-width: $screen-ipad-h) {
         margin-top: 9px;
+
       }
       @media only screen and (min-width: $screen-desktop) {
         margin-top: 0;
@@ -109,18 +120,18 @@
         background-repeat: no-repeat;
         background-position: 50% 50%;
         text-align: center;
-        -webkit-background-size: 100px;
-        background-size: 100px;
-        width: 100px;
-        height: 100px;
-        line-height: 100px;
+        -webkit-background-size: 25px;
+        background-size: 25px;
+        width: 25px;
+        height: 25px;
+        line-height: 27px;
 
         //font-family: RobotoCondensed;
         font-family: $ff4;
         color: #333333;
         font-weight: 700;
-        font-size: 47px;
-        margin-left: 5px;
+        font-size: 12px;
+        margin-left: 2px;
 
         @media only screen and (min-width: $screen-ipad-v) {
           -webkit-background-size: 50px;
@@ -158,11 +169,14 @@
         background-position: 50% 50%;
         text-align: center;
         //height: 106px;
-        -webkit-background-size: 97px;
-        background-size: 97px;
-        width: 101px;
-        line-height: 101px;
-        margin-left: 37px;
+        -webkit-background-size: 25px;
+        background-size: 25px;
+        width: 25px;
+        line-height: 25px;
+        margin-left: 5px;
+
+        position: relative;
+        top: -1px;
 
         @media only screen and (min-width: $screen-ipad-v) {
           -webkit-background-size: 47px;
@@ -170,6 +184,7 @@
           width: 50px;
           line-height: 50px;
           margin-left: 20px;
+          top: 0px;
         }
         @media only screen and (min-width: $screen-ipad-h) {
           -webkit-background-size: 66px;
@@ -187,16 +202,18 @@
         }
 
         &:last-of-type {
-          margin-left: 12px;
+          //margin-left: 12px;
 
-          @media only screen and (min-width: $screen-ipad-v) {}
+          @media only screen and (min-width: $screen-ipad-v) {
+            margin-left: 12px;
+          }
           @media only screen and (min-width: $screen-ipad-h) {}
           @media only screen and (min-width: $screen-desktop) {}
         }
 
         span {
           position: relative;
-          top: 5px;
+          top: 2px;
 
           @media only screen and (min-width: $screen-ipad-v) {
             top: 2px;
@@ -232,6 +249,10 @@
 
   .result-section {
 
+    .ui-responsive .ui-table-cell-label {
+      display: none;
+    }
+
     @media only screen and (min-width: $screen-ipad-v) {}
     @media only screen and (min-width: $screen-ipad-h) {
       padding-right: 380px;
@@ -261,9 +282,11 @@
         font-weight: 700;
         text-align: left;
         text-transform: none;
-        margin-bottom: 53px;
+        margin-bottom: 23px;
 
-        @media only screen and (min-width: $screen-ipad-v) {}
+        @media only screen and (min-width: $screen-ipad-v) {
+          margin-bottom: 53px;
+        }
         @media only screen and (min-width: $screen-ipad-h) {}
         @media only screen and (min-width: $screen-desktop) {}
       }
@@ -274,10 +297,17 @@
         td {
           background-color: transparent;
           border: 0;
-          width: 33%;
-          padding: 3px 0 24px 3px;
+          width: 100%;
+          display: block;
+          padding: 3px 0 3px 3px;
 
-          @media only screen and (min-width: $screen-ipad-v) {}
+          @media only screen and (min-width: $screen-ipad-v) {
+            background-color: transparent;
+            border: 0;
+            width: 33%;
+            padding: 3px 0 24px 3px;
+            display: table-cell;
+          }
           @media only screen and (min-width: $screen-ipad-h) {}
           @media only screen and (min-width: $screen-desktop) {}
         }
@@ -288,7 +318,16 @@
       }
 
       tbody {
+
+
         .td-ball {
+
+          padding-top: 12px;
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            padding-top: 3px;
+            width: 40%;
+          }
           @media only screen and (min-width: $screen-ipad-h) {
             width: 40%;
           }
@@ -302,9 +341,11 @@
         }
 
         .td-winners {
-          padding-left: 153px;
+          //padding-left: 153px;
 
-          @media only screen and (min-width: $screen-ipad-v) {}
+          @media only screen and (min-width: $screen-ipad-v) {
+            padding-left: 153px;
+          }
           @media only screen and (min-width: $screen-ipad-h) {
             padding-left: 50px;
             width: 20%;
@@ -317,13 +358,20 @@
 
         .td-prize{
           //padding-left: 106px;
-          text-align: right;
+          text-align: left;
+
+          border-bottom: 1px solid #efc048;
+
+          @media only screen and (min-width: $screen-ipad-v) {
+            text-align: right;
+            border-bottom: 0;
+          }
         }
 
         span {
           //font-family: WorkSans;
           color: #333333;
-          font-size: 22px;
+          font-size: 16px;
           font-weight: 400;
           text-align: left;
 
