@@ -8,6 +8,7 @@
   padding-bottom: 24px;
 
   @media only screen and (min-width: $screen-ipad-v) {
+    display: block;
     padding-top: 15px;
     padding-bottom: 24px;
   }
@@ -79,7 +80,7 @@
         background-color:  rgba(249, 249, 249, 0);
         width: 161px;
         height: 161px;
-        margin-right: 34px;
+        margin-right: 26px;
         padding-top: 13px;
         padding-bottom: 8px;
         padding-left: 5px;
