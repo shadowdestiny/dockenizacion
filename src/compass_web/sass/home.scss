@@ -1,6 +1,9 @@
 @import "variable";
 
-.box-result{padding:0; overflow:hidden;}
+.box-result{
+  //padding:0;
+  overflow:hidden;
+}
 .box-result .cols{margin:0;}
 .box-result .woman{background:url(../img/home/bg-result.jpg) no-repeat center center;}
 .box-result .lnk{text-decoration:none; display:inline-block; font-size:$basic-size;}
