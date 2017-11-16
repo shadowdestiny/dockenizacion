@@ -51,7 +51,7 @@ class LanguageService
 
     public function setLanguage($language)
     {
-        //EMTD after MVP
+        $this->languageStrategy->set($language);
     }
 
     public function getLocale()
