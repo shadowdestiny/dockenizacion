@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$screen-ipad-v".
-        on line 16 of /src/compass_web/sass/v2/box-result.scss
+        on line 6 of /src/compass_web/sass/v2/box-result.scss
 
-11:     background-color: #ffffff;
-12:     width: 100%;
-13:     padding: 17px 19px 12px 15px;
-14:     border-radius: 0;
-15: 
-16:     @media only screen and (min-width: $screen-ipad-v) {
-17:       float: left;
-18:       border-style: solid;
-19:       border-width: 2px;
-20:       border-color: #9b9b9b;
-21:       box-sizing: border-box;
+1: .box-result {
+2:   border: 0;
+3:   margin-bottom: 80px;
+4:   padding-top: 10px;
+5: 
+6:   @media only screen and (min-width: $screen-ipad-v) {
+7:     padding-top: 0;
+8:   }
+9: 
+10:   .result--block {
+11:     float: left;
 
 Backtrace:
-/src/compass_web/sass/v2/box-result.scss:16
+/src/compass_web/sass/v2/box-result.scss:6
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
@@ -23,17 +23,6 @@ Backtrace:
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:534:in `run_interp_no_strip'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:541:in `run_interp'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:509:in `visit_media'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block (2 levels) in visit_rule'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `map'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `block in visit_rule'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
-/var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:428:in `visit_rule'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
@@ -81,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 16 of /src/compass_web/sass/v2/box-result.scss\A \A 11:     background-color: #ffffff;\A 12:     width: 100%;\A 13:     padding: 17px 19px 12px 15px;\A 14:     border-radius: 0;\A 15: \A 16:     @media only screen and (min-width: $screen-ipad-v) {\A 17:       float: left;\A 18:       border-style: solid;\A 19:       border-width: 2px;\A 20:       border-color: #9b9b9b;\A 21:       box-sizing: border-box;"; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 6 of /src/compass_web/sass/v2/box-result.scss\A \A 1: .box-result {\A 2:   border: 0;\A 3:   margin-bottom: 80px;\A 4:   padding-top: 10px;\A 5: \A 6:   @media only screen and (min-width: $screen-ipad-v) {\A 7:     padding-top: 0;\A 8:   }\A 9: \A 10:   .result--block {\A 11:     float: left;"; }

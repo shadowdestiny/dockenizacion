@@ -2,10 +2,10 @@
 
   .top-banner--banner {
 
-    height: 150px;
+    height: 63px;
     overflow: hidden;
-    padding-top: 64px;
-    margin-bottom: 23px;
+    padding-top: 0px;
+    margin-bottom: 10px;
 
     background-image: url('../img/home/banner/mobile/banner.png');
     background-repeat: no-repeat;
@@ -156,13 +156,13 @@
     background: -ms-linear-gradient(0deg, #51a0e9 0%, #1678d3 100%);
     background: linear-gradient(90deg, #51a0e9 0%, #1678d3 100%);
 
-    height: 248px;
+    height: 103px;
     color:  #ffffff;
     font-size: 30px;
     font-weight: 900;
     text-align: center;
     line-height: 1;
-    padding-top: 18px;
+    padding-top: 0px;
     overflow: hidden;
 
     @media only screen and (min-width: $screen-ipad-v) {
@@ -187,8 +187,13 @@
 
     .top-banner--for-only {
 
+      margin-top: -16px;
+      margin-bottom: -10px;
+
       @media only screen and (min-width: $screen-ipad-h) {
         text-align: center;
+        margin-top: 0;
+        margin-bottom: 0;
       }
       @media only screen and (min-width: $screen-desktop) {
         text-align: left;
@@ -197,8 +202,8 @@
       div {
         display: inline-block;
 
-        font-size: 30px;
-        padding-top: 4px;
+        font-size: 13px;
+        padding-top: 0px;
         padding-bottom: 1px;
 
         @media only screen and (min-width: $screen-ipad-v) {
@@ -384,19 +389,25 @@
 
       .mobile-row {
         color:  #f2f2f2;
-        font-size: 86px;
-        line-height: 72px;
+        font-size: 34px;
+        line-height: 42px;
         text-align: center;
         text-transform: uppercase;
         letter-spacing: 2px;
-
       }
 
       .btn-theme--big {
-        height: 86px;
-        line-height: 91px;
-        font-size: 42px;
-        width: 400px;
+
+        height: 36px;
+        line-height: 36px;
+        font-size: 17px;
+        width: 180px;
+        text-align: center;
+
+        //height: 86px;
+        //line-height: 91px;
+        //font-size: 42px;
+        //width: 400px;
 
         @media only screen and (min-width: $screen-ipad-v) {
           height: 86px;
@@ -428,47 +439,84 @@
       
       .star--01{
         position: absolute;
-        left: 32px;
-        bottom: 40px;
-        width: 68px;
-        height: 78px;
+        left: 8px;
+        bottom: 19px;
+        width: 30px;
+        height: 40px;
         background-image: url('../img/home/banner/mobile/stars1.png');
         background-repeat: no-repeat;
         background-position: 0 0;
-        -webkit-background-size: 68px;
-        background-size: 68px;
+        -webkit-background-size: 30px;
+        background-size: 30px;
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          position: absolute;
+          left: 32px;
+          bottom: 40px;
+          width: 68px;
+          height: 78px;
+          background-image: url('../img/home/banner/mobile/stars1.png');
+          background-repeat: no-repeat;
+          background-position: 0 0;
+          -webkit-background-size: 68px;
+          background-size: 68px;
+        }
 
       }
 
       .star--02{
         position: absolute;
-        right: 52px;
-        bottom: 64px;
-        width: 61px;
-        height: 69px;
+        right: 14px;
+        bottom: 28px;
+        width: 28px;
+        height: 39px;
         background-image: url('../img/home/banner/mobile/stars2.png');
         background-repeat: no-repeat;
         background-position: 0 0;
-        -webkit-background-size: 61px;
-        background-size: 61px;
+        -webkit-background-size: 28px;
+        background-size: 28px;
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          position: absolute;
+          right: 52px;
+          bottom: 64px;
+          width: 61px;
+          height: 69px;
+          background-image: url('../img/home/banner/mobile/stars2.png');
+          background-repeat: no-repeat;
+          background-position: 0 0;
+          -webkit-background-size: 61px;
+          background-size: 61px;
+        }
 
       }
 
       .star--03{
         position: absolute;
-        right: 26px;
-        bottom: 27px;
-        width: 39px;
-        height: 43px;
+        right: 2px;
+        bottom: 20px;
+        width: 19px;
+        height: 21px;
         background-image: url('../img/home/banner/mobile/stars3.png');
         background-repeat: no-repeat;
         background-position: 0 0;
-        -webkit-background-size: 39px;
-        background-size: 39px;
+        -webkit-background-size: 19px;
+        background-size: 19px;
+
+        @media only screen and (min-width: $screen-ipad-v) {
+          position: absolute;
+          right: 26px;
+          bottom: 27px;
+          width: 39px;
+          height: 43px;
+          background-image: url('../img/home/banner/mobile/stars3.png');
+          background-repeat: no-repeat;
+          background-position: 0 0;
+          -webkit-background-size: 39px;
+          background-size: 39px;
+        }
 
       }
-
-
     }
 
     .top-banner--center.desktop--only{
