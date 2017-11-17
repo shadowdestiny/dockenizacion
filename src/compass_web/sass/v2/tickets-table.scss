@@ -39,8 +39,8 @@
         font-size: 11px;
         /* line-height: 58px; */
         text-align: left;
-        padding-top: 22px;
-        padding-bottom: 16px;
+        padding-top: 5px;
+        padding-bottom: 5px;
         padding-left: 18px;
 
         @media only screen and (min-width: $screen-ipad-v) {
@@ -91,10 +91,13 @@
         }
         
         &.date-from {
-          width: 143px;
+          //width: 143px;
+          width: 100%;
+          display: block;
 
           @media only screen and (min-width: $screen-ipad-v) {
             width: 143px;
+            display: table-cell;
           }
 
           @media only screen and (min-width: $screen-ipad-h) {
@@ -107,10 +110,13 @@
         }
         
         &.date-to {
-          width: 140px;
+          //width: 140px;
+          width: 100%;
+          display: block;
 
           @media only screen and (min-width: $screen-ipad-v) {
             width: 140px;
+            display: table-cell;
           }
 
           @media only screen and (min-width: $screen-ipad-h) {
@@ -123,14 +129,18 @@
         }
         
         &.numbers {
-          width: auto;
-          text-align: right;
-          padding-right: 23px;
+          //width: auto;
+          //text-align: right;
+          //padding-right: 23px;
+
+          width: 100%;
+          display: block;
 
           @media only screen and (min-width: $screen-ipad-v) {
             width: auto;
             text-align: right;
             padding-right: 23px;
+            display: table-cell;
           }
 
           @media only screen and (min-width: $screen-ipad-h) {
@@ -166,6 +176,10 @@
           }
           span.star {
             color:  #f9d11b;
+          }
+          
+          span:first-of-type {
+            margin-left: 0;
           }
         }
       }
