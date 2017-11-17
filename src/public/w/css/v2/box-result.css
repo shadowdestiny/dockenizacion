@@ -9,10 +9,10 @@ Error: Undefined variable: "$screen-ipad-v".
 5: 
 6:   @media only screen and (min-width: $screen-ipad-v) {
 7:     padding-top: 0;
-8:   }
-9: 
-10:   .result--block {
-11:     float: left;
+8:     padding: 0;
+9:   }
+10:   @media only screen and (min-width: $screen-ipad-h) {
+11: 
 
 Backtrace:
 /src/compass_web/sass/v2/box-result.scss:6
@@ -70,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 6 of /src/compass_web/sass/v2/box-result.scss\A \A 1: .box-result {\A 2:   border: 0;\A 3:   margin-bottom: 80px;\A 4:   padding-top: 10px;\A 5: \A 6:   @media only screen and (min-width: $screen-ipad-v) {\A 7:     padding-top: 0;\A 8:   }\A 9: \A 10:   .result--block {\A 11:     float: left;"; }
+  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 6 of /src/compass_web/sass/v2/box-result.scss\A \A 1: .box-result {\A 2:   border: 0;\A 3:   margin-bottom: 80px;\A 4:   padding-top: 10px;\A 5: \A 6:   @media only screen and (min-width: $screen-ipad-v) {\A 7:     padding-top: 0;\A 8:     padding: 0;\A 9:   }\A 10:   @media only screen and (min-width: $screen-ipad-h) {\A 11: "; }
