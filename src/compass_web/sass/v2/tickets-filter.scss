@@ -45,7 +45,11 @@
 
   .tickets-filter--section{
 
-    float: left;
+    float: none;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      float: left;
+    }
 
   }
 
@@ -210,8 +214,12 @@
 
   .tickets-filter--row--right {
 
-    float: right;
+    float: none;
     overflow: hidden;
+
+    @media only screen and (min-width: $screen-ipad-v) {
+      float: right;
+    }
 
     .tickets-filter--block {
       margin-right: 0;
@@ -221,11 +229,11 @@
       //font-family: WorkSans;
       color: #fff;
       font-weight: 700;
-      font-size: 19px;
+      font-size: 14px;
       line-height: 36px;
       text-align: center;
       background-color: #4dec8c;
-      min-width: 190px;
+      //min-width: 190px;
       height: 35px;
       cursor: pointer;
 
