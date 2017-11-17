@@ -596,6 +596,37 @@
           }
           &.amount {
             //border-right: 1px solid #333333;
+
+            p {
+              position: relative;
+            }
+
+            p:after {
+              display: block;
+              position: absolute;
+              width: 22px;
+              height: 22px;
+              right: 10px;
+              top: 60%;
+              margin-top: -11px;
+              content: "+";
+              line-height: 20px;
+              text-align: center;
+              color:  #f8ce0d;
+              font-size: 15px;
+              font-weight: 700;
+              border-radius: 5px;
+              background-color:  #6c6c6c;
+              cursor: pointer;
+
+              @media only screen and (min-width: $screen-ipad-v) {
+                //display: none;
+                top: 50%;
+              }
+              @media only screen and (min-width: $screen-ipad-h) {
+                display: none;
+              }
+            }
           }
 
           p {
@@ -625,6 +656,7 @@
 
         &.row-mobile {
           border: 1px solid #333333;
+          display: none;
 
           @media only screen and (min-width: $screen-ipad-v) {
             border: 1px solid #333333;
@@ -648,6 +680,13 @@
             }
           }
 
+        }
+        &.row-mobile.expanded {
+          display: block;
+
+          @media only screen and (min-width: $screen-ipad-h) {
+            display: none;
+          }
         }
       }
     }
