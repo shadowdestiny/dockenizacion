@@ -280,6 +280,13 @@ $(document).ready(function () {
     });
   }
 
+  //Transactions page accordion
+  if ($('#content.account-page .table_transactions_v2 tbody tr td.amount p').length) {
+    $('#content.account-page .table_transactions_v2 tbody tr td.amount p').click(function () {
+      $(this).parent().parent().next().toggleClass('expanded');
+    });
+  }
+
 
 
 
