@@ -94,6 +94,7 @@
 {% block body %}
     <main id="content" class="account-page">
         <div class="wrapper">
+            {% include "account/_breadcrumbs.volt" %}
             <div class="nav">
                 {% set activeSubnav='{"myClass": "transaction"}'|json_decode %}
                 {% include "account/_nav.volt" %}
