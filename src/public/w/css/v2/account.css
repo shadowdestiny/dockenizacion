@@ -1,21 +1,21 @@
 /*
-Error: Undefined variable: "$screen-ipad-v".
-        on line 14 of /src/compass_web/sass/v2/account.scss
+Error: Undefined variable: "$screen-ipad-h".
+        on line 16 of /src/compass_web/sass/v2/account.scss
 
-9:   .content {
-10:     margin: 0;
-11:     //padding: 0px 30px 60px 30px;
-12:     padding: 30px 0px 60px 0px;
-13: 
-14:     @media only screen and (min-width: $screen-ipad-v) {
-15:       padding: 30px 0px 60px 0px;
-16:     }
-17:     @media only screen and (min-width: $screen-ipad-h) {
-18:       padding: 65px 30px 60px 30px;
-19:     }
+11:     padding: 0;
+12:     margin: 0;
+13:     text-align: left;
+14:     overflow: hidden;
+15: 
+16:     @media only screen and (min-width: $screen-ipad-h) {
+17:       padding-left: 70px;
+18:     }
+19: 
+20:     li {
+21:       list-style: none;
 
 Backtrace:
-/src/compass_web/sass/v2/account.scss:14
+/src/compass_web/sass/v2/account.scss:16
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/script/tree/node.rb:50:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
@@ -81,4 +81,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$screen-ipad-v\".\A         on line 14 of /src/compass_web/sass/v2/account.scss\A \A 9:   .content {\A 10:     margin: 0;\A 11:     //padding: 0px 30px 60px 30px;\A 12:     padding: 30px 0px 60px 0px;\A 13: \A 14:     @media only screen and (min-width: $screen-ipad-v) {\A 15:       padding: 30px 0px 60px 0px;\A 16:     }\A 17:     @media only screen and (min-width: $screen-ipad-h) {\A 18:       padding: 65px 30px 60px 30px;\A 19:     }"; }
+  content: "Error: Undefined variable: \"$screen-ipad-h\".\A         on line 16 of /src/compass_web/sass/v2/account.scss\A \A 11:     padding: 0;\A 12:     margin: 0;\A 13:     text-align: left;\A 14:     overflow: hidden;\A 15: \A 16:     @media only screen and (min-width: $screen-ipad-h) {\A 17:       padding-left: 70px;\A 18:     }\A 19: \A 20:     li {\A 21:       list-style: none;"; }

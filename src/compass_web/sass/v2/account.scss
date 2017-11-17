@@ -6,6 +6,61 @@
     display: block !important;
   }
 
+  .breadcrumbs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    overflow: hidden;
+
+    @media only screen and (min-width: $screen-ipad-h) {
+      padding-left: 70px;
+    }
+
+    li {
+      list-style: none;
+      display: block;
+      float: left;
+      color:  #a8a9a8;
+      padding-right: 18px;
+      margin-right: 7px;
+      font-size: 15px;
+      line-height: 60px;
+
+      background-image: url('../img/account/desktop/arrow-breadcrambs.png');
+      -webkit-background-size: 7px;
+      background-size: 7px;
+      background-position: 100% 50%;
+      background-repeat: no-repeat;
+
+      @media only screen and (min-width: $screen-ipad-v) {
+        line-height: 60px;
+      }
+
+      @media only screen and (min-width: $screen-ipad-h) {
+        //-webkit-background-size: 14px;
+        //background-size: 14px;
+        -webkit-background-size: 10px;
+        background-size: 10px;
+
+        padding-right: 25px;
+        margin-right: 10px;
+        font-size: 18px;
+        line-height: 100px;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+    }
+    li:last-of-type {
+      background-image: none;
+      margin-right: 0;
+      padding-right: 0;
+    }
+  }
+
   .content {
     margin: 0;
     //padding: 0px 30px 60px 30px;
