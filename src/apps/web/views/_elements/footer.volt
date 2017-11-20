@@ -82,16 +82,16 @@
                 <strong>{{ language.translate('column5_head') }}</strong>
                 <ul>
                     <li>
-                        <a href="/{{ language.translate("link_legal_about") }}">{{ language.translate('column5_first') }}</a>
+                        <a href="/{{ language.translate("link_legal_about") }}" rel="nofollow">{{ language.translate('column5_first') }}</a>
                     </li>
                     <li>
                         <a href="/{{ language.translate("link_legal_index") }}">{{ language.translate('column5_second') }}</a>
                     </li>
                     <li>
-                        <a href="/{{ language.translate("link_legal_privacy") }}">{{ language.translate('column5_third') }}</a>
+                        <a href="/{{ language.translate("link_legal_privacy") }}" rel="nofollow">{{ language.translate('column5_third') }}</a>
                     </li>
                     <li>
-                        <a href="/{{ language.translate("link_legal_cookies") }}">{{ language.translate('column5_fourth') }}</a>
+                        <a href="/{{ language.translate("link_legal_cookies") }}" rel="nofollow">{{ language.translate('column5_fourth') }}</a>
                     </li>
 
 
