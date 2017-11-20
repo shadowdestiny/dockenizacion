@@ -1,5 +1,6 @@
 {% extends "main.volt" %}
 {% block template_css %}
+    <link Rel=”Canonical” href=”{{ language.translate('canonical_currency') }}” />
 <style>
 .currency .box-basic{margin-bottom:2em;}
 .currency .list{margin-right:-2%;}

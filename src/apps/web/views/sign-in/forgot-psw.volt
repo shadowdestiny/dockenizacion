@@ -1,6 +1,9 @@
 {% extends "main.volt" %}
 {% block bodyClass %}forgot-psw no-nav{% endblock %}
-{% block template_css %}<link rel="stylesheet" href="/w/css/sign-in.css">{% endblock %}
+{% block template_css %}
+    <link rel="stylesheet" href="/w/css/sign-in.css">
+    <link Rel=”Canonical” href=”{{ language.translate('canonical_forgotpw') }}” />
+{% endblock %}
 {% block mobileNav %}{% endblock %} {# Remove mobile navigation #}
 
 {% block body %}
