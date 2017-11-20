@@ -4,7 +4,7 @@
 	{% endif %}
 	
 	<span class="maxChar value{% if extraClass.valueClass %} {{ extraClass.valueClass }}{% endif %}">
-			{{ jackpot_value }}
+		{% if jackpot_value != '1500000000' %}{{ jackpot_value }}{% endif %}
 	</span>
 	
 	{% if not currency_symbol_first %}

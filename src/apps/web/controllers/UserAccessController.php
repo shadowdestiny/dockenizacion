@@ -192,6 +192,10 @@ class UserAccessController extends ControllerBase
 
     public function forgotPasswordAction()
     {
+        $di = Di::getDefault();
+        $entityManager = $di->get('entityManager');
+        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
+
         $errors = [];
         $forgot_password_form = new ForgotPasswordForm();
         $message = '';
@@ -220,6 +224,10 @@ class UserAccessController extends ControllerBase
                 }
             }
         }
+
+        $this->tag->prependTitle($translationAdapter->query('forgotpw_name'));
+        MetaDescriptionTag::setDescription($translationAdapter->query('forgotpw_desc'));
+
         $this->view->pick('sign-in/forgot-psw');
         return $this->view->setVars([
             'forgot_password_form' => $forgot_password_form,

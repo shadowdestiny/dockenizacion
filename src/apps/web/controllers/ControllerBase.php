@@ -29,6 +29,7 @@ class ControllerBase extends Controller
     {
         $this->domainServiceFactory = $this->di->get('domainServiceFactory');
         $this->tag->setTitle(' | EuroMillions.com');
+        $this->redirectFinalSlashUrl();
     }
 
     protected function noRender()
@@ -99,6 +100,19 @@ class ControllerBase extends Controller
         $geoip = new MaxMindWrapper($config->geoip->database_files_path);
         if($geoip->isIpForbidden($this->request->getClientAddress())) {
             $this->view->pick('/landings/restricted');
+        }
+    }
+
+    private function redirectFinalSlashUrl()
+    {
+        if ($this->request->getURI() != '/') {
+            if (substr($this->request->getURI(), -1) == '/' && substr($this->request->getHttpHost(), 0, 4) == 'www.') {
+                $this->response->redirect($this->request->getScheme() . "://" . substr($this->request->getHttpHost(), 4) . substr($this->request->getURI(), 0, -1), true, 301);
+            } elseif (substr($this->request->getURI(), -1) == '/' && substr($this->request->getHttpHost(), 0, 4) != 'www.') {
+                $this->response->redirect($this->request->getScheme() . "://" . $this->request->getHttpHost() . substr($this->request->getURI(), 0, -1), true, 301);
+            } elseif (substr($this->request->getURI(), -1) != '/' && substr($this->request->getHttpHost(), 0, 4) == 'www.') {
+                $this->response->redirect($this->request->getScheme() . "://" . substr($this->request->getHttpHost(), 4) . $this->request->getURI(), true, 301);
+            }
         }
     }
 }

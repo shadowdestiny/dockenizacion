@@ -26,7 +26,7 @@ class TranslationDetailRepository extends EntityRepository
             ->useResultCache(true, 3600)
             ->getResult();
 
-        if ($result) {
+        if ($result && $result[0]['value'] != '') {
             return $result[0]['value'];
         } else {
             $result = $this->getEntityManager()

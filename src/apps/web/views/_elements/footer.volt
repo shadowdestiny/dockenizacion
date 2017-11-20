@@ -100,6 +100,13 @@
                     #}
                 </ul>
             </div>
+            <div class="col20per">
+                <strong>{{ language.translate('langcolumn_head') }}</strong>
+                <ul>
+                    <li><a href="https://euromillions.com">{{ language.translate('langcolumn_en') }}</a></li>
+                    <li><a href="https://euromillions.com/ru">{{ language.translate('langcolumn_ru') }}</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 
