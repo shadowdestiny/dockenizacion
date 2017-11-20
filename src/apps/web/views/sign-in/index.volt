@@ -2,7 +2,7 @@
 {% block bodyClass %}sign-in minimal{% endblock %}
 {% block template_css %}
     <link rel="stylesheet" href="/w/css/sign-in.css">
-    <link Rel=”Canonical” href=”{{ language.translate(canonical) }}” />
+    <link Rel="Canonical" href="{{ language.translate(canonical) }}" />
 {% endblock %}
 {% block footer %}{% include "_elements/minimal-footer.volt" %}{% endblock %}
 {% block template_scripts_code %}

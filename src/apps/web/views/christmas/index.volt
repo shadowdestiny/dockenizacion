@@ -1,7 +1,7 @@
 {% extends "main.volt" %}
 {% block template_css %}
     <link rel="stylesheet" href="/w/css/play.css">
-    <link Rel=”Canonical” href=”{{ language.translate('canonical_christmas_play') }}” />
+    <link Rel="Canonical" href="{{ language.translate('canonical_christmas_play') }}" />
 {% endblock %}
 {% block template_scripts %}
     <script src="/w/js/mobileFix.min.js"></script>

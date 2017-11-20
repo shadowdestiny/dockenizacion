@@ -1,7 +1,7 @@
 {% extends "main.volt" %}
 {% block template_css %}
     <link rel="stylesheet" href="/w/css/help.css">
-    <link Rel=”Canonical” href=”{{ language.translate('canonical_euromillions_help') }}” />
+    <link Rel="Canonical" href="{{ language.translate('canonical_euromillions_help') }}" />
 {% endblock %}
 {% block bodyClass %}help{% endblock %}
 

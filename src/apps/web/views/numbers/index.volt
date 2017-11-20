@@ -2,7 +2,7 @@
 {% block template_css %}
     <link rel="stylesheet" href="/w/css/numbers.css">
     <!--[if IE 9]><style>.laurel {display: none;}</style><![endif]-->
-    <link Rel=”Canonical” href=”{{ language.translate('canonical_euromillions_results') }}” />
+    <link Rel="Canonical" href="{{ language.translate('canonical_euromillions_results') }}" />
 {% endblock %}
 {% block bodyClass %}
     numbers
