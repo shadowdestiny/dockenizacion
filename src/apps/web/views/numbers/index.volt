@@ -41,7 +41,8 @@
     $('.box-next-draw .btn.red').remove();
     }
     var date = '{{ date_draw }}'; {# To test "2015/11/17 10:49:00"  #}
-    var finish_text = "<div class='closed'>{{ language.translate('The Draw is closed') }}</div>";
+    var finish_text = "
+    <div class='closed'>{{ language.translate('The Draw is closed') }}</div>";
     count_down(element,html_formatted,html_formatted_offset, date,finish_text, finish_action);
     });
 {% endblock %}
@@ -57,47 +58,39 @@
                 <div class="title-block">
 
 
-                    {#TODO : Add real variables here#}
-
                     <ul class="no-li inline numbers">
                         {% for index,regular_number in last_result["regular_numbers"] %}
                             {% if index == '0' %}
                                 <li>
-                                    {#<span class="num">{{ regular_number }}</span>#}
-                                    <span class="num">
-                                        29
-                                    </span>
+                                    <span class="num">{{ regular_number }}</span>
                                 </li>
                             {% else %}
                                 <li>
-                                    {#<span class="num">{{ regular_number }}</span>#}
-                                    <span class="num">
-                                        5
-                                    </span>
+                                    <span class="num">{{ regular_number }}</span>
                                 </li>
                             {% endif %}
                         {% endfor %}
                         {% for lucky_number in last_result["lucky_numbers"] %}
                             <li class="star">
-                                {#<span class="num">{{ lucky_number }}</span>#}
-                                <span class="num">
-                                    12
-                                </span>
+                                <span class="num">{{ lucky_number }}</span>
                                 {#<span class="txt">{{ language.translate("starBall") }}</span>#}
                             </li>
                         {% endfor %}
                     </ul>
 
                     <h2 class="h2">
+                        {#TODO : Add real variables here#}
+
                         {#<span class="purple">#}
                         {#{{ language.translate("lastDraw_title") }}#}
                         {#</span> #}
-                        {#{{ last_draw_date }}#}
-                        Tuesday 28
+                        {{ last_draw_date }}
+                        {#Tuesday 28#}
 
                     </h2>
 
                     <h3>
+                        {#TODO : Add real variables here#}
                         February 2017
                     </h3>
 
@@ -166,10 +159,10 @@
                     <div class="left-section result-section">
 
                         <div class="box-current-winners--new">
-                            {#<h1 class="h2 purple">{{ language.translate("prizePool_title") }}</h1>#}
                             <h1 class="h2">
-                                {#{{ language.translate("prizePool_title") }}#}
-                                Euromillions Results & price breakdown for Tuesday 02 November 2016
+                                {#TODO : Add real variables here#}
+                                {{ language.translate("prizePool_title") }}
+                                {#Euromillions Results & price breakdown for Tuesday 02 November 2016#}
                             </h1>
                             <table id="current-winners" class="table ui-responsive" data-role="table"
                                    data-mode="reflow">
@@ -186,12 +179,13 @@
                                     <tr>
                                         {% if break_downs[name] is defined %}
                                             <td class="td-ball">
-                                                {% for corrected_numbers in 1..break_downs[name]['numbers_corrected'] %}
-                                                    {#<span class="ball"></span>#}
-                                                {% endfor %}
-
                                                 <span>
-                                                                5 Numbers + 2 Starts
+                                                {#{% for corrected_numbers in 1..break_downs[name]['numbers_corrected'] %}#}
+                                                    {#<span class="ball"></span>#}
+                                                    {#{% endfor %}#}
+
+                                                    {#TODO : Add real variables here#}
+                                                    5 Numbers + 2 Starts
                                                             </span>
                                             </td>
                                             <td class="td-star-ball">
@@ -202,15 +196,17 @@
                                                 {% endif %}
                                             </td>
                                             <td class="td-winners">
-                                                {#{{ break_downs[name]['winners'] }}#}
                                                 <span>
-                                                            15x
+                                                {{ break_downs[name]['winners'] }}x
+
+                                                    {#15x#}
                                                         </span>
                                             </td>
                                             <td class="td-prize">
-                                                {#{{ symbol }} {{ break_downs[name]['lottery_prize'] | number_format(2, '.', ',') }}#}
                                                 <span>
-                                                            {{ symbol }}120,000,000
+                                                {{ symbol }} {{ break_downs[name]['lottery_prize'] | number_format(2, '.', ',') }}
+
+                                                    {#{{ symbol }}120,000,000#}
                                                         </span>
                                             </td>
                                         {% endif %}
@@ -225,6 +221,8 @@
                                 </div>
                                 <form action="" class="previous-results--selectboxes">
                                     <div class="selectbox">
+
+                                        {#TODO : Add real variables here#}
                                         <select name="day" id="day">
                                             <option value="Tuesday 28">Tuesday 28</option>
                                             <option value="Tuesday 28">Tuesday 28</option>
@@ -234,6 +232,7 @@
                                         </select>
                                     </div>
                                     <div class="selectbox">
+                                        {#TODO : Add real variables here#}
                                         <select name="year" id="year">
                                             <option value="2017">2017</option>
                                             <option value="2016">2016</option>
