@@ -58,6 +58,7 @@
     </div>
 
     <div class="cl txt--already-have-account">
+        {#TODO : Add real variables here#}
         Already have an account? <a href="/{{ language.translate("link_signin") }}">Sign in Now!</a>
     </div>
 
