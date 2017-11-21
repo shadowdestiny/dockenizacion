@@ -9,12 +9,6 @@
 
 {% block template_css %}
 
-    {#TODO : remove this style    #}
-    {#<style>#}
-    {#.box-basic p{margin-bottom:5px;}#}
-    {#.box-basic .input, .box-basic .textarea, .box-basic .select{width:100%; margin-bottom:1em;}#}
-    {#.box-basic .textarea{font-size:90%; height:180px;}#}
-    {#</style>#}
 {% endblock %}
 
 {% block footer %}{% include "_elements/footer.volt" %}{% endblock %}
@@ -25,11 +19,7 @@
             <div class="contact-page-page">
                 <div class="contact-page-form">
 
-                    {#TODO : Add real variables here#}
-                    {#<h1 class="h2">{{ language.translate("contact_head") }}</h1>#}
-                    <h1 class="h2">
-                        contact us
-                    </h1>
+                    <h1 class="h2">{{ language.translate("contact_head") }}</h1>
 
                     {% if message %}
                         <div class="box success">
@@ -52,11 +42,7 @@
                         </div>
                     {% endif %}
 
-                    {#TODO : Add real variables here#}
-                    {#<p>{{ language.translate("question") }}</p>#}
-                    <h3>
-                        What can we help you with ?
-                    </h3>
+                    <h3>{{ language.translate("question") }}</h3>
 
                     {{ form('/contact') }}
 
@@ -89,12 +75,7 @@
                     <div class="cl">
                         <label for="submitBtn"
                                class="btn-theme--big submit">
-
-                            {#TODO : Add real variables here#}
-                            {#{{ language.translate("contact_btn") }}#}
-
-                            sent your message
-
+                            {{ language.translate("contact_btn") }}
                         </label>
                         <input id="submitBtn" type="submit" class="hidden">
                     </div>
