@@ -80,6 +80,7 @@
                                             <div class="christmasTicketImg">
                                                 <img src="/w/img/christmas-lottery/desktop/christmas-lottery.png"/>
                                             <span class="christmasTicketTxt">
+                                                {#TODO : Add real variables here#}
                                                 {#{{ ticket['number'] }}#}
                                                 00453
                                             </span>
@@ -88,9 +89,11 @@
                                             <div class="td-ticket-buttons--row">
                                                 <div class="td-ticket-buttons">
                                                     <input type="button" id="remove_id" class="removeTicket" value="-"/>
-                                                    {#{{ singleBetPrice }}#}
-                                                    {#{{ currencySymbol }}#}
-                                                    25 €
+                                                    {#TODO : Add real variables here#}
+
+                                                    {{ singleBetPrice }}
+                                                    {{ currencySymbol }}
+                                                    {#25 €#}
                                                     <input type="hidden" id="maxTickets_id"
                                                            value="ticket-n_fractions"/>
                                                     <input type="hidden" id="numTickets_ticketid"
@@ -99,7 +102,8 @@
                                                     <input type="button" id="add_id" class="addTicket" value="+"/>
                                                 </div>
                                                 <div class="tickets-available">
-                                                    {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}  #}
+                                                    {#TODO : Add real variables here#}
+                                                    {#{{ language.translate("playchris_tck_av") }} {{ ticket['n_fractions'] }}#}
                                                     7 Tickets Available
                                                 </div>
                                                 {#<div style="float:right; margin-right: 20px; margin-bottom: 10px;">#}
@@ -495,6 +499,7 @@
                                    value="{{ singleBetPrice | number_format (2,'.','') }}"/>
                         </div>
 
+                        {#TODO : Add real variables here#}
                         {% include "_elements/play-bottom-block.volt" %}
 
 
