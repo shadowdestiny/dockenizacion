@@ -230,8 +230,8 @@
                                    class="btn big blue add-funds">
 
                                     {#TODO : Add real variables here#}
-                                    {#{{ language.translate("balance_deposit_btn") }}#}
-                                    Deposit
+                                    {{ language.translate("balance_deposit_btn") }}
+                                    {#Deposit#}
                                 </a>
                             </div>
                         </div>
@@ -247,8 +247,8 @@
                                    class="btn big green withdraw">
 
                                     {#TODO : Add real variables here#}
-                                    {#{{ language.translate("balance_withdraw_btn") }}#}
-                                    Withdraw
+                                    {{ language.translate("balance_withdraw_btn") }}
+                                    {#Withdraw#}
                                 </a>
                             </div>
                         </div>
@@ -307,7 +307,7 @@
                                 <br>
                                 <div class="form-currency cl">
                                     <br>
-                                    <span class="currency">&euro;</span>
+                                    {#<span class="currency">&euro;</span>#}
                                     {{ bank_account_form.render('amount', {'class':'withdraw_amount input insert'~form_errors['amount']}) }}
                                 </div>
                             </div>
