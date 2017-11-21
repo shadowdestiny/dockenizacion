@@ -38,9 +38,8 @@
                 <li class="currency--li--show-all">
                     <a href="/{{ language.translate("link_currency") }}">
 
-                        {#TODO : Add real variables here#}
-                        {#{{ language.translate('currencies') }}#}
-                        show All currencies
+                        {{ language.translate('currencies') }}
+                        {#show All currencies#}
 
                         {#<svg class="ico v-arrow-right3">#}
                         {#<use xlink:href="/w/svg/icon.svg#v-arrow-right3"></use>#}
