@@ -61,6 +61,8 @@ class PublicSiteControllerBase extends ControllerBase
 
     protected $languageUrl;
 
+    protected $currencyUrl;
+
     public function initialize(LotteryService $lotteryService = null,
                                LanguageService $languageService = null,
                                CurrencyService $currencyService = null,
@@ -86,12 +88,14 @@ class PublicSiteControllerBase extends ControllerBase
         $this->transactionService = $transactionService ?: new TransactionService($this->di->get('entityManager'), $this->currencyConversionService);
         $this->christmasService = $christmasService ?: new ChristmasService($this->di->get('entityManager'));
         $this->lottery = !isset($this->router->getParams()['lottery']) ? 'euromillions' : $this->router->getParams()['lottery'];
-        $this->languageUrl = !isset($this->router->getParams()['language']) ? 'en' : $this->router->getParams()['language'];
+        $this->languageUrl = !isset($this->router->getParams()['language']) ? '' : $this->router->getParams()['language'];
+        $this->currencyUrl = !isset($this->router->getParams()['currency']) ? '' : $this->router->getParams()['currency'];
     }
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
         $this->checkAuth();
+        $this->setCurrencyByUrl();
         $this->setActiveLanguages();
         $this->setActiveCurrencies();
         $this->setTopNavValues();
@@ -172,6 +176,13 @@ class PublicSiteControllerBase extends ControllerBase
         $bet_value_pound = $this->currencyConversionService->toString($single_bet_price_currency_gbp, new Currency('GBP'));
         $this->view->setVar('bet_price', $bet_value);
         $this->view->setVar('bet_price_pound', $bet_value_pound);
+    }
+
+    private function setCurrencyByUrl()
+    {
+        if (!$this->authService->isLogged() && $this->currencyUrl != '') {
+            $this->userPreferencesService->setCurrency(new Currency($this->currencyUrl));
+        }
     }
 
     private function setNavValues()

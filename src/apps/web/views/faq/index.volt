@@ -1,9 +1,8 @@
 {% extends "main.volt" %}
 {% block template_css %}
     <link rel="stylesheet" href="/w/css/faq.css">
-    <!--[if IE 9]>
-    <style>.laurel{display:none;}</style>
-    <![endif]-->
+    <!--[if IE 9]><style>.laurel{display:none;}</style><![endif]-->
+    <link Rel="Canonical" href="{{ language.translate('canonical_euromillions_faq') }}" />
 {% endblock %}
 {% block bodyClass %}faq{% endblock %}
 

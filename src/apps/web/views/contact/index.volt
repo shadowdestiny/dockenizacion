@@ -7,6 +7,7 @@
 {% block template_scripts %}<script src="/w/js/mobileFix.min.js"></script>{% endblock %}
 
 {% block template_css %}
+    <link Rel="Canonical" href="{{ language.translate('canonical_contact') }}" />
 <style>
 .box-basic p{margin-bottom:5px;}
 .box-basic .input, .box-basic .textarea, .box-basic .select{width:100%; margin-bottom:1em;}
