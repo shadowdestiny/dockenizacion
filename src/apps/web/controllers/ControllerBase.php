@@ -106,7 +106,7 @@ class ControllerBase extends Controller
 
     private function redirectFinalSlashUrl()
     {
-        if ($this->request->getURI() == '/') {
+        if ($this->request->getURI() != '/') {
             if (substr($this->request->getURI(), -1) == '/' && substr($this->request->getHttpHost(), 0, 4) == 'www.') {
                 $this->response->redirect($this->request->getScheme() . "://" . substr($this->request->getHttpHost(), 4) . substr($this->request->getURI(), 0, -1), true, 301);
             } elseif (substr($this->request->getURI(), -1) == '/' && substr($this->request->getHttpHost(), 0, 4) != 'www.') {
