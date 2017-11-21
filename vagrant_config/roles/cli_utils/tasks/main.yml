@@ -7,28 +7,28 @@
   file: src=/var/www/vendor/bin/doctrine dest=/usr/local/bin/doctrine state=link mode="u+x,g+x,o+x"
 - name: Update npm
   shell: npm update -g npm
-#- name: Npm prepare
-#  shell: rm -r node_modules & npm cache clean --force
-#  args:
-#    chdir: /var/www/react
-#- name: Npm install
-#  shell: npm --no-bin-links install
-#  args:
-#    chdir: /var/www/react
-#- name: Npm watch
-#  shell: npm run watch &
-#  args:
-#    chdir: /var/www/react
+- name: Npm prepare
+  shell: rm -r node_modules & npm cache clean --force
+  args:
+    chdir: /var/www/react
+- name: Npm install
+  shell: npm --no-bin-links install
+  args:
+    chdir: /var/www/react
+- name: Npm watch
+  shell: npm run watch &
+  args:
+    chdir: /var/www/react
 
-#- name: Translations angular2 dependencies install
-#  shell: npm install
-#  args:
-#    chdir: /var/www/public/a/js/angular-admin
+- name: Translations angular2 dependencies install
+  shell: npm install
+  args:
+    chdir: /var/www/public/a/js/angular-admin
 
-#- name: Translation angular2 start spa
-#  shell: npm start &
-#  args:
-#    chdir: /var/www/public/a/js/angular-admin
+- name: Translation angular2 start spa
+  shell: npm start &
+  args:
+    chdir: /var/www/public/a/js/angular-admin
 
 - name: Get GeoIP IPv4 database
   shell: wget -nc http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
