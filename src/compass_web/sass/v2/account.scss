@@ -820,11 +820,11 @@
             display: table-cell;
           }
           @media only screen and (min-width: $screen-ipad-h) {
-            width: 290px;
+            //width: 290px;
           }
 
           @media only screen and (min-width: $screen-desktop) {
-            width: 290px;
+            //width: 290px;
           }
 
           p {
@@ -838,7 +838,8 @@
               margin-bottom: 1em;
             }
             @media only screen and (min-width: $screen-ipad-h) {
-              padding-right: 110px;
+              //padding-right: 110px;
+              padding-right: 50px;
             }
 
             @media only screen and (min-width: $screen-desktop) {
