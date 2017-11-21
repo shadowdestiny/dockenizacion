@@ -4,8 +4,8 @@
     </li>
     <li class="li-sign">
         {#TODO : paste real text here#}
-        {#<a class="btn-theme btn-primary" href="/{{ language.translate("link_signin") }}">{{ language.translate('signIn') }}</a>#}
-        <a class="btn-theme btn-primary" href="/{{ language.translate("link_signin") }}">Login</a>
+        <a class="btn-theme btn-primary" href="/{{ language.translate("link_signin") }}">{{ language.translate('signIn') }}</a>
+        {#<a class="btn-theme btn-primary" href="/{{ language.translate("link_signin") }}">Login</a>#}
     </li>
 {% else %}
     <li>

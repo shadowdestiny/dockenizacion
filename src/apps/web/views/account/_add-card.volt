@@ -53,12 +53,8 @@
         <div class="">
             {% endif %}
             <h2 class="h2">
-
-                {#TODO : Add real variables here#}
-                {#{{ language.translate("card_subhead") }}#}
-                enter your credit card details
+                {{ language.translate("card_subhead") }}
             </h2>
-
 
             {% if component.where == 'cart' %}
             {% if msg %}

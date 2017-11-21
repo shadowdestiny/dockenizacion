@@ -1,7 +1,5 @@
 <ul class="no-li">
 
-    {#TODO : Add real variables here#}
-
     <li><a {% if activeSubnav.myClass == "wallet" %}class="active"{% endif %} href="/account/wallet">
             {#Dashboard#}
             {{ language.translate("myAccount_balance", ['balance' :   user_balance ]) }}
