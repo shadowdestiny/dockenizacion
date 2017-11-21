@@ -173,14 +173,13 @@
                 <div class="result--block">
                     <div class="result--block--header">
 
-                        {#TODO : paste real text here#}
-                        {#<h1 class="h2">{{ language.translate("results_head") }}</h1>#}
-                        <h1 class="h2">euro million
-                            Results</h1>
+                        <h1 class="h2">{{ language.translate("results_head") }}</h1>
+
                         <div class="view-more-block">
                             <div class="view-more-block--inner">
                                 <a href="/{{ language.translate('link_euromillions_results') }}"
                                    class="view-more-a">
+                                    {#TODO : paste real text here#}
                                     View more
                                 </a>
                             </div>
@@ -189,33 +188,17 @@
                     <div class="result--block--content">
                         <div class="result--line">
                             <p>
-                                {#TODO : paste real text here#}
                                 {#{{ language.translate("results_text") }}#}
+                                {{ last_draw_date }}
 
-                                {#TODO : paste real text here#}
-                                {#{{ last_draw_date }}#}
-
-                                Tuesday, 23.01.2017
                             </p>
                             <ul class="no-li inline numbers small">
-
-                                {#TODO : paste real text here#}
-
-                                {#{% for regular_number in euromillions_results["regular_numbers"] %}#}
-                                {#<li>{{ regular_number }}</li>#}
-                                {#{% endfor %}#}
-                                {#{% for lucky_number in euromillions_results["lucky_numbers"] %}#}
-                                {#<li class="star">{{ lucky_number }}</li>#}
-                                {#{% endfor %}#}
-
-
-                                <li>9</li>
-                                <li>12</li>
-                                <li>29</li>
-                                <li>39</li>
-                                <li>45</li>
-                                <li class="star">5</li>
-                                <li class="star">12</li>
+                                {% for regular_number in euromillions_results["regular_numbers"] %}
+                                <li>{{ regular_number }}</li>
+                                {% endfor %}
+                                {% for lucky_number in euromillions_results["lucky_numbers"] %}
+                                <li class="star">{{ lucky_number }}</li>
+                                {% endfor %}
 
                             </ul>
                         </div>
@@ -283,9 +266,11 @@
                         <img src="/w/img/home/result-block/desktop/number-generator.png" alt="Latest News">
                     </div>
                     <h2 class="number-generator--block--title h2">
+                        {#TODO : paste real text here#}
                         Number Generator
                     </h2>
                     <h2 class="number-generator--block--subtitle">
+                        {#TODO : paste real text here#}
                         Don’t know what to play ?
                     </h2>
                     <div class="number-generator--block--body">
@@ -297,83 +282,12 @@
 
                     <a href="{{ language.translate("link_euromillions_play") }}"
                        class="number-generator--block--button btn-theme--big">
-                        {#{{ language.translate("cta2_btn") }}#}
-                        play lucky dip
+                        {{ language.translate("cta2_btn") }}
+                        {#play lucky dip#}
                     </a>
                 </div>
 
             </div>
-
-
-            <div class="informative">
-
-                {#TODO : remove this comments#}
-                {#<div class="who-we-are">#}
-                {#<div class="start-playing">#}
-                {#<div class="cols top">#}
-                {#<div class="col6">#}
-                {#<div class="title-em cl">#}
-
-                {#</div>#}
-                {#</div>#}
-                {#<div class="col6">#}
-
-                {#</div>#}
-                {#</div>#}
-                {#</div>#}
-
-                {#<div class="bg-white">#}
-                {#<div class="cols fcs">#}
-                {#<div class="col6 bg-quality"></div>#}
-                {#<div class="col6 box-txt r">#}
-                {#<h3 class="li-title">{{ language.translate("cta2_sub1") }}</h3>#}
-                {#<p>{{ language.translate("cta2_text1") }}</p>#}
-
-                {#<h3 class="li-title">{{ language.translate("cta2_sub2") }}</h3>#}
-                {#<p>{{ language.translate("cta2_text2", ['bet_price': bet_price ,'bet_price_pound': bet_price_pound] ) }}</p>#}
-
-                {#<h3 class="li-title">{{ language.translate("cta2_sub3") }}</h3>#}
-                {#<p>{{ language.translate("cta2_text3") }}</p>#}
-                {#</div>#}
-                {#</div>#}
-                {#<div class="box-action">#}
-                {#<span class="h2 phrase">{{ language.translate("cta2_tagline") }}</span>#}
-                {#<a href="{{ language.translate("link_euromillions_play") }}"#}
-                {#class="btn big blue">{{ language.translate("cta2_btn") }}</a>#}
-                {#</div>#}
-                {#</div>#}
-                {#</div>#}
-
-                {#TODO : remove this comments#}
-                {#{% include "index/_top.volt" %}#}
-
-                {#TODO : remove this comments#}
-                {#<div class="box-basic how-play">#}
-                {#<div class="cols playing-euro">#}
-                {#<div class="col6 box-txt l">#}
-                {#<h2 class="h1 yellow">{{ language.translate("cta3_head") }}</h2>#}
-                {#<h3 class="li-title">{{ language.translate("cta3_sub1") }}</h3>#}
-                {#<p>{{ language.translate("cta3_text1") }}</p>#}
-                {#<h3 class="li-title">{{ language.translate("cta3_sub2") }}</h3>#}
-                {#<p>{{ language.translate("cta3_text2") }}</p>#}
-                {#<h3 class="li-title">{{ language.translate("cta3_sub3") }}</h3>#}
-                {#<p>{{ language.translate("cta3_text3") }}</p>#}
-                {#<h3 class="li-title">{{ language.translate("cta3_sub4") }}</h3>#}
-                {#<p>{{ language.translate("cta3_text4") }}</p>#}
-                {#</div>#}
-                {#<div class="col6 bg-hope"></div>#}
-                {#</div>#}
-                {#<div class="box-action">#}
-                {#<span class="h2 phrase">{{ language.translate("cta3_tagline") }}</span>#}
-                {#<a href="{{ language.translate("link_euromillions_play") }}" class="btn big blue">{{ language.translate("cta3_btn") }}</a>#}
-                {#</div>#}
-                {#</div>#}
-
-                {#TODO : remove this comments#}
-                {#{% include "index/_top.volt" %}#}
-
-            </div>
-
         </div>
 
 
