@@ -3,11 +3,9 @@
 namespace EuroMillions\web\controllers;
 
 use EuroMillions\shared\vo\results\ActionResult;
-use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\entities\User;
 use EuroMillions\web\forms\CreditCardForm;
-use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\vo\CardHolderName;
 use EuroMillions\web\vo\CardNumber;
 use EuroMillions\web\vo\CreditCard;
@@ -15,16 +13,11 @@ use EuroMillions\web\vo\CVV;
 use EuroMillions\web\vo\ExpiryDate;
 use Money\Currency;
 use Money\Money;
-use Phalcon\Di;
 
 class ChristmasController extends PublicSiteControllerBase
 {
     public function indexAction()
     {
-        $di = Di::getDefault();
-        $entityManager = $di->get('entityManager');
-        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
-
         $single_bet_price = $this->lotteryService->getSingleBetPriceByLottery('Christmas');
         $jackpot = $this->userPreferencesService->getJackpotInMyCurrency($this->lotteryService->getNextJackpot('Christmas'));
         $this->view->setVar('jackpot_value', $jackpot);
@@ -39,14 +32,15 @@ class ChristmasController extends PublicSiteControllerBase
         }
         $currency_symbol = $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'];
 
-        $this->tag->prependTitle($translationAdapter->query('play_ch_name'));
-        MetaDescriptionTag::setDescription($translationAdapter->query('play_ch_desc'));
+        $this->tag->prependTitle($this->languageService->translate('play_ch_name'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('play_ch_desc'));
 
         return $this->view->setVars([
             'currencySymbol' => $currency_symbol,
             'singleBetPrice' => $single_bet_price_currency->getAmount() / 100,
             'christmasTickets' => $this->christmasService->getAvailableTickets(),
             'device' => $this->detectDevice(),
+            'pageController' => 'christmasPlay',
         ]);
     }
 
