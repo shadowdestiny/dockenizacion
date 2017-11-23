@@ -11,8 +11,22 @@ class WelcomeEmailTemplate extends EmailTemplateDecorator
     public function loadVars()
     {
         $data = $this->emailTemplateDataStrategy->getData();
+
+        $language=$this->user->getDefaultLanguage();
+        
+        if ($language="en") {
+            // Welcome Email English Version Template ID= 623001
+            $template_id="3997341";
+        } elseif ($language="ru") {
+            // Welcome Email English Version Template ID= 3997341
+            $template_id="3997341";
+        } else {
+            $template_id="623001";
+        }
+
         $vars = [
-            'template' => '623001',
+            //'template' => '623001',
+            'template' => $template_id,
             'subject' => 'Welcome to Euromillions.com',
             'vars' => [
                 [
