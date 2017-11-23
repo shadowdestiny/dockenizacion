@@ -29,8 +29,8 @@ class ControllerBase extends Controller
     {
         $this->domainServiceFactory = $this->di->get('domainServiceFactory');
         $this->tag->setTitle(' | EuroMillions.com');
-        $this->redirectFinalSlashUrl();
-        $this->redirectSeoStrategy();
+//        $this->redirectFinalSlashUrl();
+//        $this->redirectSeoStrategy();
     }
 
     protected function noRender()
@@ -104,45 +104,52 @@ class ControllerBase extends Controller
         }
     }
 
-    private function redirectFinalSlashUrl()
-    {
-        if ($this->request->getURI() != '/') {
-            if (substr($this->request->getURI(), -1) == '/' && substr($this->request->getHttpHost(), 0, 4) == 'www.') {
-                $this->response->redirect($this->request->getScheme() . "://" . substr($this->request->getHttpHost(), 4) . substr($this->request->getURI(), 0, -1), true, 301);
-            } elseif (substr($this->request->getURI(), -1) == '/' && substr($this->request->getHttpHost(), 0, 4) != 'www.') {
-                $this->response->redirect($this->request->getScheme() . "://" . $this->request->getHttpHost() . substr($this->request->getURI(), 0, -1), true, 301);
-            } elseif (substr($this->request->getURI(), -1) != '/' && substr($this->request->getHttpHost(), 0, 4) == 'www.') {
-                $this->response->redirect($this->request->getScheme() . "://" . substr($this->request->getHttpHost(), 4) . $this->request->getURI(), true, 301);
-            }
-        }
-    }
-
-    private function redirectSeoStrategy()
-    {
-        if (substr($this->request->getHttpHost(), 0, 4) == 'play') {
-            $this->response->redirect($this->request->getScheme() . "://" . $this->request->getHttpHost(), true, 301);
-        }
-        if (substr($this->request->getURI(), -1) == '!' || $this->request->getURI() == '/euromillions' || $this->request->getURI() == 'about-euromillions' || $this->request->getURI() == '/images/france_distribution.jpg' || $this->request->getURI() == '/scam-examples' || $this->request->getURI() == '/euromillions-prize-saves-last-ocean-paddle-steamer' || $this->request->getURI() == '/fr/euromillions-plus' || $this->request->getURI() == '/category/lottery-information') {
-            $this->response->redirect($this->request->getScheme() . "://" . $this->request->getHttpHost(), true, 301);
-        }
-        if ($this->request->getURI() == '/euromillions-results' || $this->request->getURI() == '/euromillions/numbers' || $this->request->getURI() == '/euromillions-winners-public-appearance' || $this->request->getURI() == '/euromillions-jackpot-cap' || $this->request->getURI() == '/euromillions-tickets' || $this->request->getURI() == '/record-euromillions-jackpot-won-by-french-player') {
-            $this->response->redirect($this->request->getScheme() . "://" . $this->request->getHttpHost() . "/euromillions/results", true, 301);
-        }
-        if ($this->request->getURI() == '/christmas/play') {
-            $this->response->redirect($this->request->getScheme() . "://" . $this->request->getHttpHost() . "/christmas-lottery/play", true, 301);
-        }
-        if ($this->request->getURI() == '/euromillions-rules') {
-            $this->response->redirect($this->request->getScheme() . "://" . $this->request->getHttpHost() . "/legal/index", true, 301);
-        }
-        if ($this->request->getURI() == '/faq-euromillions') {
-            $this->response->redirect($this->request->getScheme() . "://" . $this->request->getHttpHost() . "/euromillions/faq", true, 301);
-        }
-        if (strpos($this->request->getURI(), '/lottery-news') !== false || strpos($this->request->getURI(), '/news-article') !== false || strpos($this->request->getURI(), '/newsarchive') !== false || strpos($this->request->getURI(), '/en/articles/') !== false) {
-            $this->response->redirect($this->request->getScheme() . "://" . $this->request->getHttpHost(), true, 301);
-        }
-        if (strpos($this->request->getURI(), '/en/euromillions-results/') !== false) {
-            $this->response->redirect($this->request->getScheme() . "://" . $this->request->getHttpHost() . "/euromillions/results/draw-history-page/", true, 301);
-        }
-    }
+//    private function redirectFinalSlashUrl()
+//    {
+//        if ($this->request->getURI() != '/') {
+//            if (substr($this->request->getURI(), -1) == '/' && substr($this->request->getHttpHost(), 0, 4) == 'www.') {
+//                $this->response->redirect($this->request->getScheme() . "://" . substr($this->request->getHttpHost(), 4) . substr($this->request->getURI(), 0, -1), true, 301);
+//            } elseif (substr($this->request->getURI(), -1) == '/' && substr($this->request->getHttpHost(), 0, 4) != 'www.') {
+//                $this->response->redirect($this->request->getScheme() . "://" . $this->request->getHttpHost() . substr($this->request->getURI(), 0, -1), true, 301);
+//            } elseif (substr($this->request->getURI(), -1) != '/' && substr($this->request->getHttpHost(), 0, 4) == 'www.') {
+//                $this->response->redirect($this->request->getScheme() . "://" . substr($this->request->getHttpHost(), 4) . $this->request->getURI(), true, 301);
+//            }
+//        }
+//    }
+//
+//    private function redirectSeoStrategy()
+//    {
+//        if (substr($this->request->getHttpHost(), 0, 4) == 'play') {
+//            $this->response->redirect($this->request->getScheme() . "://" . $this->request->getHttpHost(), true, 301);
+//        }
+//
+//        if (substr($this->request->getURI(), -1) == '!' || $this->request->getURI() == '/euromillions' || $this->request->getURI() == 'about-euromillions' || $this->request->getURI() == '/images/france_distribution.jpg' || $this->request->getURI() == '/scam-examples' || $this->request->getURI() == '/euromillions-prize-saves-last-ocean-paddle-steamer' || $this->request->getURI() == '/fr/euromillions-plus' || $this->request->getURI() == '/category/lottery-information') {
+//            $this->response->redirect($this->request->getScheme() . "://" . $this->request->getHttpHost(), true, 301);
+//        }
+//
+//        if ($this->request->getURI() == '/euromillions-results' || $this->request->getURI() == '/euromillions/numbers' || $this->request->getURI() == '/euromillions-winners-public-appearance' || $this->request->getURI() == '/euromillions-jackpot-cap' || $this->request->getURI() == '/euromillions-tickets' || $this->request->getURI() == '/record-euromillions-jackpot-won-by-french-player') {
+//            $this->response->redirect($this->request->getScheme() . "://" . $this->request->getHttpHost() . "/euromillions/results", true, 301);
+//        }
+//
+//        if ($this->request->getURI() == '/christmas/play') {
+//            $this->response->redirect($this->request->getScheme() . "://" . $this->request->getHttpHost() . "/christmas-lottery/play", true, 301);
+//        }
+//
+//        if ($this->request->getURI() == '/euromillions-rules') {
+//            $this->response->redirect($this->request->getScheme() . "://" . $this->request->getHttpHost() . "/legal/index", true, 301);
+//        }
+//
+//        if ($this->request->getURI() == '/faq-euromillions') {
+//            $this->response->redirect($this->request->getScheme() . "://" . $this->request->getHttpHost() . "/euromillions/faq", true, 301);
+//        }
+//
+//        if (strpos($this->request->getURI(), '/lottery-news') !== false || strpos($this->request->getURI(), '/news-article') !== false || strpos($this->request->getURI(), '/newsarchive') !== false || strpos($this->request->getURI(), '/en/articles/') !== false) {
+//            $this->response->redirect($this->request->getScheme() . "://" . $this->request->getHttpHost(), true, 301);
+//        }
+//
+//        if (strpos($this->request->getURI(), '/en/euromillions-results/') !== false) {
+//            $this->response->redirect($this->request->getScheme() . "://" . $this->request->getHttpHost() . "/euromillions/results/draw-history-page/", true, 301);
+//        }
+//    }
 }
 
