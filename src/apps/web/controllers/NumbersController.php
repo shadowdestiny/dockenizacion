@@ -1,28 +1,18 @@
 <?php
 
-
 namespace EuroMillions\web\controllers;
 
-use EuroMillions\web\components\EmTranslationAdapter;
 use EuroMillions\web\components\tags\MetaDescriptionTag;
 use EuroMillions\web\components\ViewHelper;
 use EuroMillions\web\entities\EuroMillionsDraw;
-use EuroMillions\web\services\preferences_strategies\WebLanguageStrategy;
 use EuroMillions\web\vo\dto\EuroMillionsDrawBreakDownDTO;
 use Money\Currency;
 use Money\Money;
-use Phalcon\Di;
-
 
 class NumbersController extends PublicSiteControllerBase
 {
-
     public function indexAction()
     {
-        $di = Di::getDefault();
-        $entityManager = $di->get('entityManager');
-        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
-
         $date = $this->request->get('date');
         $lotteryName = 'EuroMillions';
         $date = empty($date) ? $this->lotteryService->getLastDrawDate('EuroMillions') : new \DateTime($date);
@@ -38,8 +28,8 @@ class NumbersController extends PublicSiteControllerBase
         $breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
 
-        $this->tag->prependTitle($translationAdapter->query('results_em_name'));
-        MetaDescriptionTag::setDescription($translationAdapter->query('results_em_desc'));
+        $this->tag->prependTitle($this->languageService->translate('results_em_name'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('results_em_desc'));
         return $this->view->setVars([
             'break_downs' => !empty($break_down_list) ? $break_down_list : '',
             'id_draw' => $euroMillionsDraw->getId(),
@@ -49,15 +39,12 @@ class NumbersController extends PublicSiteControllerBase
             'last_draw_date' => $euroMillionsDraw->getDrawDate()->format('D, d M Y'),
             'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
             'list_draws' => $result->getValues(),
+            'pageController' => 'euroResult',
         ]);
     }
 
     public function pastListAction()
     {
-        $di = Di::getDefault();
-        $entityManager = $di->get('entityManager');
-        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
-
         $lotteryName = 'EuroMillions';
         $result = $this->lotteryService->getDrawsDTO($lotteryName, 1000);
         if (!$result->success()) {
@@ -66,8 +53,8 @@ class NumbersController extends PublicSiteControllerBase
             ]);
         }
 
-        $this->tag->prependTitle($translationAdapter->query('resultshist_em_name'));
-        MetaDescriptionTag::setDescription($translationAdapter->query('resultshist_em_desc'));
+        $this->tag->prependTitle($this->languageService->translate('resultshist_em_name'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('resultshist_em_desc'));
 
         $this->view->pick('/numbers/past');
         return $this->view->setVars([
@@ -75,15 +62,12 @@ class NumbersController extends PublicSiteControllerBase
             'date_draw' => $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours')->format('Y-m-d H:i:s'),
             'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
             'list_draws' => $result->getValues(),
+            'pageController' => 'euroPastResult',
         ]);
     }
 
     public function pastResultAction()
     {
-        $di = Di::getDefault();
-        $entityManager = $di->get('entityManager');
-        $translationAdapter = new EmTranslationAdapter((new WebLanguageStrategy($di->get('session'), $di->get('request')))->get(), $entityManager->getRepository('EuroMillions\web\entities\TranslationDetail'));
-
         $params = $this->router->getParams();
         if (!isset($params[0])) {
             $this->response->redirect($this->lottery . 'results');
@@ -97,8 +81,8 @@ class NumbersController extends PublicSiteControllerBase
         $breakDownDTO = new EuroMillionsDrawBreakDownDTO($euroMillionsDraw->getBreakDown());
         $break_down_list = $this->convertCurrency($breakDownDTO->toArray());
 
-        $this->tag->prependTitle($translationAdapter->query('resultsdate_em_name') . $date->format('l, d/m/Y'));
-        MetaDescriptionTag::setDescription($translationAdapter->query('resultsdate_em_desc'));
+        $this->tag->prependTitle($this->languageService->translate('resultsdate_em_name') . $date->format('l, d/m/Y'));
+        MetaDescriptionTag::setDescription($this->languageService->translate('resultsdate_em_desc'));
 
         $this->view->pick('/numbers/past-draw');
         return $this->view->setVars([
@@ -110,6 +94,7 @@ class NumbersController extends PublicSiteControllerBase
             'date_canonical' => $euroMillionsDraw->getDrawDate()->format('Y-m-d'),
             'date_draw' => $this->lotteryService->getNextDateDrawByLottery('EuroMillions')->modify('-1 hours')->format('Y-m-d H:i:s'),
             'symbol' => $this->userPreferencesService->getMyCurrencyNameAndSymbol()['symbol'],
+            'pageController' => 'euroPastResult',
         ]);
     }
 

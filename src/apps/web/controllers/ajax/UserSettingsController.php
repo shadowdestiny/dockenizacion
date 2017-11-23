@@ -18,10 +18,12 @@ class UserSettingsController extends AjaxControllerBase
         $this->response->redirect($this->session->get('original_referer'));
     }
 
-    public function setLanguageAction($language)
+    public function setLanguageAction($values)
     {
+        $language = explode(',', $values)[0];
+        $controller = explode(',', $values)[1];
         $this->loadLanguage($language);
-        echo json_encode(['result'=>'OK']);
+        echo json_encode(['result'=>'OK', 'url' => $this->redirectToCurrentLanguage($language, $controller)]);
     }
 
     /**
@@ -49,6 +51,70 @@ class UserSettingsController extends AjaxControllerBase
         if ($user instanceof User) {
             $this->domainServiceFactory->getUserService()->updateLanguage($user, $language);
         }
+    }
+
+    /**
+     * @param $controller
+     * @param $language
+     *
+     * @return mixed
+     */
+    private function redirectToCurrentLanguage($language, $controller)
+    {
+        if (empty($language) || empty($controller)) {
+            return 0;
+        } else {
+            if (empty($this->getAllUrls()[$language][$controller])) {
+                return 0;
+            } else {
+                return $this->getAllUrls()[$language][$controller];
+            }
+        }
+    }
+
+    /**
+     * @return array
+     */
+    private function getAllUrls()
+    {
+        return [
+            'en' => [
+                'index' => '/',
+                'christmasPlay' => '/christmas-lottery/play',
+                'signin' => '/sign-in',
+                'signup' => '/sign-up',
+                'forgotpsw' => '/user-access/forgotPassword',
+                'contact' => '/contact',
+                'currency' => '/currency',
+                'euroPlay' => '/euromillions/play',
+                'euroFaq' => '/euromillions/faq',
+                'euroHelp' => '/euromillions/help',
+                'euroPastResult' => '/euromillions/results/draw-history-page',
+                'euroResult' => '/euromillions/results',
+                'legalAbout' => '/legal/about',
+                'legalCookies' => '/legal/cookies',
+                'legalIndex' => '/legal/index',
+                'legalPrivacy' => '/legal/privacy',
+            ],
+            'ru' => [
+                'index' => '/ru',
+                'christmasPlay' => '/рождественская-лотерея/играть',
+                'signin' => '/войти',
+                'signup' => '/зарегистрироваться',
+                'forgotpsw' => '/доступ-пользователей/Забыли-пароль',
+                'contact' => '/написать-нам',
+                'currency' => '/валюта',
+                'euroPlay' => '/евромиллионы/играть',
+                'euroFaq' => '/вопросы-и-ответы',
+                'euroHelp' => '/евромиллионы/помощь',
+                'euroPastResult' => '/евромиллионы/результаты/история-розыгрышей',
+                'euroResult' => '/евромиллионы/результаты',
+                'legalAbout' => '/юридическая-информация/о-нас',
+                'legalCookies' => '/cookie-файлы',
+                'legalIndex' => '/условия-использования',
+                'legalPrivacy' => '/юридическая-информация/конфиденциальность',
+            ],
+        ];
     }
 
 }
