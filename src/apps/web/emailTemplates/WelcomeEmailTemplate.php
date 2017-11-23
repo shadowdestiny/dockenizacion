@@ -16,9 +16,9 @@ class WelcomeEmailTemplate extends EmailTemplateDecorator
         
         if ($language="en") {
             // Welcome Email English Version Template ID= 623001
-            $template_id="3997341";
+            $template_id="623001";
         } elseif ($language="ru") {
-            // Welcome Email English Version Template ID= 3997341
+            // Welcome Email Russian Version Template ID= 3997341
             $template_id="3997341";
         } else {
             $template_id="623001";
