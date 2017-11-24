@@ -27,21 +27,23 @@ class WinEmailTemplate extends EmailTemplateDecorator
         $strategy = $strategy ? $strategy : new JackpotDataEmailTemplateStrategy();
         $data = $strategy->getData();
 
-        $language=$this->user->getDefaultLanguage();
-        
-        if ($language="en") {
-            // Win Email English Version Template ID= 625142
-            $template_id="625142";
-        } elseif ($language="ru") {
-            // Win Email Russian Version Template ID= 4020263
-            $template_id="4020263";
-        } else {
-            $template_id="625142";
-        }
+//        $language=$this->user->getDefaultLanguage();
+//
+//        if ($language="en") {
+//            // Win Email English Version Template ID= 625142
+//            $template_id="625142";
+//        } elseif ($language="ru") {
+//            // Win Email Russian Version Template ID= 4020263
+//            $template_id="4020263";
+//        } else {
+//            $template_id="625142";
+//        }
 
         $vars = [
-            //'template' => '625142',
-            'template' => $template_id,
+//            'template' => $template_id,
+            'template' => '4020263',
+//            'template' => '625142', Old design
+
             'subject' => 'Congratulations',
             'vars' =>
                 [
