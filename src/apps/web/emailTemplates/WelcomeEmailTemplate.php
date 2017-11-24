@@ -15,17 +15,17 @@ class WelcomeEmailTemplate extends EmailTemplateDecorator
         $language=$this->user->getDefaultLanguage();
         
         if ($language="en") {
-            // Welcome Email English Version Template ID= 623001
-            $template_id="623001";
+            // Welcome Email English Version Template ID= 4021147
+            $template_id="4021147";
         } elseif ($language="ru") {
             // Welcome Email Russian Version Template ID= 3997341
             $template_id="3997341";
         } else {
-            $template_id="623001";
+            $template_id="4021147";
         }
 
         $vars = [
-            //'template' => '623001',
+            //'template' => '623001', // Old template email ID
             'template' => $template_id,
             'subject' => 'Welcome to Euromillions.com',
             'vars' => [
