@@ -19,6 +19,8 @@ class PurchaseConfirmationChristmasEmailTemplate extends EmailTemplateDecorator
     {
         $data = $this->emailTemplateDataStrategy->getData();
 
+        $language=$this->user->getDefaultLanguage();
+        
         if ($language="en") {
             // Purchase Confirmation Christmas Email English Version Template ID= 2896261
             $template_id="2896261";
