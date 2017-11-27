@@ -25,9 +25,22 @@ class WinEmailAboveTemplate extends EmailTemplateDecorator
     {
 
         $data = $this->emailTemplateDataStrategy->getData();
+        
+
+        $language=$this->user->getDefaultLanguage();
+        
+        if ($language="en") {
+            // Win Email English Version Template ID= 4021621
+            $template_id="4021621";
+        } elseif ($language="ru") {
+            // Win Email Russian Version Template ID= 4020263
+            $template_id="4020263";
+        } else {
+            $template_id="4021621";
+        }
 
         $vars = [
-            'template' => '625167',
+            'template' => '625167', // Old template email ID
             'subject' => 'Congratulations',
             'vars' =>
                 [

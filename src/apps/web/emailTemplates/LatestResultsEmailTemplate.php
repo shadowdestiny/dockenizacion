@@ -27,8 +27,8 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
         $language=$this->user->getDefaultLanguage();
         
         if ($language="en") {
-            // Results Email English Version Template ID= 624601
-            $template_id="624601";
+            // Results Email English Version Template ID= 4021404
+            $template_id="4021404";
         } elseif ($language="ru") {
             // Results Email Russian Version Template ID= 4000783
             $template_id="4000783";
@@ -37,7 +37,7 @@ class LatestResultsEmailTemplate extends EmailTemplateDecorator
         }
 
         $vars = [
-            //'template' => '624601',
+            //'template' => '624601', // Old template email ID
             'template' => $template_id,
             'subject' => 'Latest results',
             'vars' =>

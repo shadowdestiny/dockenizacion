@@ -19,7 +19,8 @@ class PurchaseConfirmationEmailTemplate extends EmailTemplateDecorator
     {
         $data = $this->emailTemplateDataStrategy->getData();
         $vars = [
-            'template' => '624539',
+            'template' => '4011802',
+//            'template' => '624539', Old Template
             'subject' => 'Congratulations',
             'vars' =>
                 [

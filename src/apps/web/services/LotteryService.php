@@ -276,16 +276,18 @@ class LotteryService
     {
         $playConfigs = $this->playConfigRepository->getEuromillionsSubscriptionsActives();
 
+        var_dump($playConfigs);
+
         if (!is_null($playConfigs)) {
             $nextDrawDate = $lottery->getNextDrawDate($dateNextDraw);
             /** @var PlayConfig $playConfig */
             foreach ($playConfigs as $playConfig) {
-                $price = $this->lotteriesDataService->getPriceForNextDraw([$playConfig]);
-                if ($playConfig->getUser()->getWallet()->getSubscription()->getAmount() >= $price->getAmount()) {
-                    /** @var EuroMillionsDraw $euroMillionsDraw */
-                    $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($dateNextDraw));
+                $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($dateNextDraw));
 
-                    if (empty($this->betService->obtainBetsWithAPlayConfigAndAEuromillionsDraw($playConfig, $euroMillionsDraw))) {
+                if (empty($this->betService->obtainBetsWithAPlayConfigAndAEuromillionsDraw($playConfig, $euroMillionsDraw))) {
+                    $price = $this->lotteriesDataService->getPriceForNextDraw([$playConfig]);
+                    if ($playConfig->getUser()->getWallet()->getSubscription()->getAmount() >= $price->getAmount()) {
+                        /** @var EuroMillionsDraw $euroMillionsDraw */
                         $result = $this->betService->validation($playConfig, $euroMillionsDraw, $nextDrawDate);
                         if ($result->success()) {
                             $walletBefore = $playConfig->getUser()->getWallet();
@@ -301,12 +303,12 @@ class LotteryService
                             $this->walletService->purchaseTransactionGrouped($playConfig->getUser(), TransactionType::AUTOMATIC_PURCHASE, $dataTransaction);
                             $this->sendEmailPurchase($playConfig->getUser(), $playConfig);
                         }
-                    }
-                } else {
-                    $userNotificationAutoPlayNoFunds = new UserNotificationAutoPlayNoFunds($this->userService);
-                    $hasNotification = $this->userNotificationsService->hasNotificationActive($userNotificationAutoPlayNoFunds, $playConfig->getUser());
-                    if ($hasNotification) {
-                        $this->emailService->sendLowBalanceEmail($playConfig->getUser());
+                    } else {
+                        $userNotificationAutoPlayNoFunds = new UserNotificationAutoPlayNoFunds($this->userService);
+                        $hasNotification = $this->userNotificationsService->hasNotificationActive($userNotificationAutoPlayNoFunds, $playConfig->getUser());
+                        if ($hasNotification) {
+                            $this->emailService->sendLowBalanceEmail($playConfig->getUser());
+                        }
                     }
                 }
             }
