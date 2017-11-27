@@ -276,12 +276,13 @@ class LotteryService
     {
         $playConfigs = $this->playConfigRepository->getEuromillionsSubscriptionsActives();
 
-        var_dump($playConfigs);
-
         if (!is_null($playConfigs)) {
             $nextDrawDate = $lottery->getNextDrawDate($dateNextDraw);
             /** @var PlayConfig $playConfig */
+            $cont = 0;
             foreach ($playConfigs as $playConfig) {
+                echo $playConfig->getUser()->getId() . ' - ' . $playConfig->getId() . ' \n' ;
+                $cont++;
                 $euroMillionsDraw = $this->lotteryDrawRepository->getNextDraw($lottery, $lottery->getNextDrawDate($dateNextDraw));
 
                 if (empty($this->betService->obtainBetsWithAPlayConfigAndAEuromillionsDraw($playConfig, $euroMillionsDraw))) {
@@ -312,6 +313,7 @@ class LotteryService
                     }
                 }
             }
+            echo $cont;
         }
     }
 
